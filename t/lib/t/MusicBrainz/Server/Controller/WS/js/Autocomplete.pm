@@ -18,7 +18,7 @@ test all => sub {
     ws_test 'artist autocomplete response',
         '/artist?q=David&direct=true' => encode_json (
             [ {
-                "comment" => undef,
+                "comment" => '',
                 "id" => 5,
                 "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                 "name" => "David Bowie",

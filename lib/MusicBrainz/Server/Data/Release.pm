@@ -375,7 +375,8 @@ sub find_for_cdtoc
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(name.name) AS name_collate
+                        musicbrainz_collate(name.name) AS name_collate,
+                        release_group.id AS rg_id
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
@@ -385,9 +386,11 @@ sub find_for_cdtoc
                         ON medium_format.id = medium.format
                      JOIN tracklist
                         ON medium.tracklist = tracklist.id
+                     JOIN release_group
+                        ON release.release_group = release_group.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
+                 ORDER BY release_group.id, musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -414,6 +417,7 @@ sub load_with_tracklist_for_recording
                 release.packaging AS r_packaging,
                 release.quality AS r_quality,
                 release.release_group AS r_release_group,
+                release.comment AS r_comment,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,

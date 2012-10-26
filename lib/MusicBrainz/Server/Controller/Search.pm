@@ -211,7 +211,7 @@ sub do_external_search {
             when (414) { $template .= 'uri-too-large.tt'; };
             when (500) { $template .= 'internal-error.tt'; }
             when (400) { $template .= 'invalid.tt'; }
-	    when (503) { $template .= 'rate-limit.tt'; }
+            when (503) { $template .= 'rate-limit.tt'; }
 
             default { $template .= 'general.tt'; }
         }
@@ -228,6 +228,7 @@ sub do_external_search {
         $c->stash->{pager}    = $ret->{pager};
         $c->stash->{offset}   = $ret->{offset};
         $c->stash->{results}  = $ret->{results};
+        $c->stash->{last_updated}  = $ret->{last_updated};
     }
 }
 

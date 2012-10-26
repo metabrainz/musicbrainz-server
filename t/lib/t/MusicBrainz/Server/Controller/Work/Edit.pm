@@ -44,7 +44,7 @@ is_deeply($edit->data, {
     },
     old => {
         type_id => 1,
-        comment => undef,
+        comment => '',
         name => 'Dancing Queen'
     }
 });

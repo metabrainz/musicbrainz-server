@@ -72,7 +72,7 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->recordings)
     {
-        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{recordings} = $self->make_list (@results);
 
         $self->linked_recordings ($c, $stash, $opts->{recordings}->{items});
@@ -108,7 +108,7 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->works)
     {
-        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{works} = $self->make_list (@results);
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});

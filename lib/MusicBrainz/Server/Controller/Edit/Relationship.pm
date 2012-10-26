@@ -3,17 +3,14 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELATIONSHIP_DELETE
-    $EDIT_RELATIONSHIP_EDIT
-    $EDIT_RELATIONSHIP_CREATE
-    );
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use MusicBrainz::Server::Translation qw( l ln );
 use JSON;
+
+with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
 sub build_type_info
 {
@@ -56,117 +53,6 @@ sub detach_existing {
     $c->detach;
 }
 
-=method try_and_edit
-
-Try and edit an existing relationship.
-
-First check if the relationship we will end up at already exists, and if so
-notify the user and do not continue. Otherwise, insert an edit to edit the
-relationship. Also takes care of some general book-keeping in regards to table
-locking and race conditions.
-
-=cut
-
-sub try_and_edit {
-    my ($self, $c, $form, $type0, $type1, $rel, %params) = @_;
-
-    $c->model('Relationship')->lock_and_do(
-        $type0, $type1,
-        sub {
-            my $attributes = [ uniq @{ $params{attributes} } ];
-            if ($c->model('Relationship')->exists($type0, $type1, {
-                link_type_id => $params{new_link_type_id},
-                begin_date   => $params{new_begin_date},
-                end_date     => $params{new_end_date},
-                ended        => $params{ended},
-                attributes   => $attributes,
-                entity0_id   => $params{entity0_id},
-                entity1_id   => $params{entity1_id},
-            })) {
-                return 0;
-            }
-
-            my $link_type = $c->model('LinkType')->get_by_id(
-                $params{new_link_type_id}
-            );
-
-            my $model0 = $c->model(type_to_model($type0));
-            my $model1 = $c->model(type_to_model($type1));
-
-            my $edit = $self->_insert_edit(
-                $c, $form,
-                edit_type         => $EDIT_RELATIONSHIP_EDIT,
-                type0             => $type0,
-                type1             => $type1,
-                entity0           => $model0->get_by_id($params{entity0_id}),
-                entity1           => $model1->get_by_id($params{entity1_id}),
-                relationship      => $rel,
-                link_type         => $link_type,
-                begin_date        => $params{new_begin_date},
-                end_date          => $params{new_end_date},
-                ended             => $params{ended},
-                attributes        => $attributes
-            );
-
-            return 1;
-        }
-    );
-}
-
-=method try_and_insert
-
-Try and insert a new relationship.
-
-First check if the relationship already exists, and if it does return false and
-do not continue. Otherwise, insert the new relationship and return a true value.
-
-Takes care of necessary bookkeeping such as exclusive locks on the relationship
-table.
-
-=cut
-
-sub try_and_insert {
-    my ($self, $c, $form, $type0, $type1, %params) = @_;
-
-    $c->model('Relationship')->lock_and_do(
-        $type0, $type1,
-        sub {
-            my $attributes = [ uniq @{ $params{attributes} } ];
-            if ($c->model('Relationship')->exists($type0, $type1, {
-                link_type_id => $params{link_type_id},
-                begin_date   => $params{begin_date},
-                end_date     => $params{end_date},
-                ended        => $params{ended},
-                attributes   => $attributes,
-                entity0_id   => $params{entity0}->id,
-                entity1_id   => $params{entity1}->id,
-            })) {
-                return 0;
-            }
-
-            my $link_type = $c->model('LinkType')->get_by_id(
-                $params{link_type_id}
-            );
-
-            $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_CREATE,
-                type0        => $type0,
-                type1        => $type1,
-                entity0      => $params{entity0},
-                entity1      => $params{entity1},
-                begin_date   => $params{begin_date},
-                end_date     => $params{end_date},
-                link_type    => $link_type,
-                attributes   => $attributes,
-                ended        => $params{ended}
-            );
-
-            return 1;
-        }
-    );
-}
-
 sub edit : Local RequireAuth Edit
 {
     my ($self, $c) = @_;
@@ -200,12 +86,15 @@ sub edit : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $values = {
         link_type_id => $rel->link->type_id,
-        begin_date => $rel->link->begin_date,
-        end_date => $rel->link->end_date,
-        ended => $rel->link->ended,
+        period => {
+            begin_date => $rel->link->begin_date,
+            end_date => $rel->link->end_date,
+            ended => $rel->link->ended,
+        },
         attrs => {},
     };
     my %attr_multi;
@@ -243,15 +132,7 @@ sub edit : Local RequireAuth Edit
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
 
         my @ids = $form->field('direction')->value
                 # User is changing the direction
@@ -280,9 +161,9 @@ sub edit : Local RequireAuth Edit
                 entity1_id       => $ids[1],
                 attributes       => \@attributes,
                 new_link_type_id => $form->field('link_type_id')->value,
-                new_begin_date   => $form->field('begin_date')->value,
-                new_end_date     => $form->field('end_date')->value,
-                ended            => $form->field('ended')->value
+                new_begin_date   => $form->field('period.begin_date')->value,
+                new_end_date     => $form->field('period.end_date')->value,
+                ended            => $form->field('period.ended')->value
             ) or
                 $self->detach_existing($c);
         });
@@ -346,6 +227,7 @@ sub create : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree();
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $form = $c->form(
         form => 'Relationship',
@@ -358,15 +240,7 @@ sub create : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
 
         my $entity0 = $source;
         my $entity1 = $dest;
@@ -380,13 +254,13 @@ sub create : Local RequireAuth Edit
             $self->try_and_insert(
                 $c, $form,
                 $type0, $type1,
-                begin_date   => $form->field('begin_date')->value,
-                end_date     => $form->field('end_date')->value,,
-                attributes   => [uniq @attributes],
+                begin_date   => $form->field('period.begin_date')->value,
+                end_date     => $form->field('period.end_date')->value,,
+                attributes   => \@attributes,
                 link_type_id => $form->field('link_type_id')->value,
                 entity0      => $entity0,
                 entity1      => $entity1,
-                ended        => $form->field('ended')->value
+                ended        => $form->field('period.ended')->value
             ) or
                 $self->detach_existing($c);
         });
@@ -395,137 +269,6 @@ sub create : Local RequireAuth Edit
         my $redirect = $c->req->params->{returnto} ||
             $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
         $c->response->redirect($redirect);
-        $c->detach;
-    }
-}
-
-sub create_batch : Path('/edit/relationship/create-recordings') RequireAuth Edit
-{
-    my ($self, $c) = @_;
-
-    my $qp = $c->req->query_params;
-
-    if (!$qp->{gid}) {
-        $c->stash( template => 'edit/relationship/no-start.tt' );
-        $c->detach;
-    }
-
-    my $release_gid = $qp->{release};
-    my $type = $qp->{type};
-    my $gid = $qp->{gid};
-
-    if (!$release_gid || !$type || !$gid) {
-        $c->stash( message => l('Invalid arguments') );
-        $c->detach('/error_500');
-    }
-
-    my $model = $c->model(type_to_model($type));
-    if (!$model) {
-        $c->stash( message => l('Invalid entities') );
-        $c->detach('/error_500');
-    }
-
-    my $release = $c->model('Release')->get_by_gid($release_gid);
-    if (!$release) {
-        $c->stash( message => l('Release not found') );
-        $c->detach('/error_500');
-    }
-
-    my @types = sort ('recording', $type);
-
-    $c->model('Medium')->load_for_releases($release);
-    $c->model('MediumFormat')->load($release->all_mediums);
-    $c->model('Track')->load_for_tracklists(map { $_->tracklist } $release->all_mediums);
-    $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
-    $c->model('Recording')->load(map { $_->tracklist->all_tracks } $release->all_mediums);
-
-    my $dest = $model->get_by_gid($gid);
-    if (!$dest) {
-        $c->stash( message => l('Target entity not found') );
-        $c->detach('/error_500');
-    }
-
-    my @ents;
-    my $rec_idx = $types[0] eq 'recording' ? 0 : 1;
-    $ents[1 - $rec_idx] = $dest;
-
-    my $tree = $c->model('LinkType')->get_tree(@types);
-    my %type_info = build_type_info($tree);
-
-    if (!%type_info) {
-        $c->stash(
-            template => 'edit/relationship/cannot_create.tt',
-            type0 => $types[0],
-            type1 => $types[1]
-        );
-        $c->detach;
-    }
-
-    $c->stash(
-        root      => $tree,
-        type_info => JSON->new->latin1->encode(\%type_info),
-    );
-
-    my $attr_tree = $c->model('LinkAttributeType')->get_tree();
-    $c->stash( attr_tree => $attr_tree );
-
-    my $form = $c->form(
-        form => 'Relationship::Recordings',
-        attr_tree => $attr_tree,
-        root => $tree
-    );
-    $c->stash(
-        release => $release,
-        dest    => $dest,
-        type    => $type
-    );
-
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes;
-        foreach my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            if (defined $value) {
-                if (scalar $attr->all_children) {
-                    push @attributes, @{ $value };
-                }
-                elsif ($value) {
-                    push @attributes, $attr->id;
-                }
-            }
-        }
-
-        my @recording_ids;
-        if(my $req_param = $c->req->params->{recording_id}) {
-            @recording_ids = ref($req_param) ? @$req_param : ($req_param);
-        }
-        else {
-            $c->stash( no_selection => 1 );
-            $c->detach;
-        }
-
-        $c->model('MB')->with_transaction(sub {
-            my %recordings = %{ $c->model('Recording')->get_by_ids(@recording_ids) };
-            for my $recording_id (@recording_ids) {
-                my $target = $recordings{$recording_id};
-                $ents[ $rec_idx ] = $target;
-
-                $self->try_and_insert(
-                    $c, $form,
-                    @types,
-                    begin_date   => $form->field('begin_date')->value,
-                    end_date     => $form->field('end_date')->value,
-                    link_type_id => $form->field('link_type_id')->value,
-                    entity0      => $ents[0],
-                    entity1      => $ents[1],
-                    attributes   => \@attributes,
-                    ended        => $form->field('ended')->value
-                ) or
-                    next;
-            }
-        });
-
-        delete $c->session->{relationship};
-        $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ]));
         $c->detach;
     }
 }
@@ -549,7 +292,7 @@ sub create_url : Local RequireAuth Edit
         $c->stash( message => l('Invalid type') );
         $c->detach('/error_500');
     }
-    
+
     my $entity = $model->get_by_gid($gid);
     unless (defined $entity) {
         $c->stash( message => l('Entity not found') );
@@ -575,6 +318,7 @@ sub create_url : Local RequireAuth Edit
 
     my $attr_tree = $c->model('LinkAttributeType')->get_tree;
     $c->stash( attr_tree => $attr_tree );
+    $self->attr_tree($attr_tree);
 
     my $form = $c->form(
         form => 'Relationship::URL',
@@ -589,16 +333,7 @@ sub create_url : Local RequireAuth Edit
     );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        my @attributes;
-        for my $attr ($attr_tree->all_children) {
-            my $value = $form->field('attrs')->field($attr->name)->value;
-            next unless defined($value);
-
-            push @attributes, scalar($attr->all_children)
-                ? @$value
-                : $value ? $attr->id : ();
-        }
-
+        my @attributes = $self->flatten_attributes($form->field('attrs'));
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 
         my $e0 = $types[0] eq 'url' ? $url : $entity;

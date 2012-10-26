@@ -19,7 +19,7 @@ test 'basic recording lookup' => sub {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             length => 296026,
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 
 };
@@ -34,7 +34,7 @@ test 'recording lookup with releases' => sub {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             length => 296026,
-            disambiguation => JSON::null,
+            disambiguation => "",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -46,7 +46,7 @@ test 'recording lookup with releases' => sub {
                     country => "JP",
                     barcode => "4942463511227",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 },
                 {
@@ -59,7 +59,7 @@ test 'recording lookup with releases' => sub {
                     country => "JP",
                     barcode => "4942463511227",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -76,7 +76,7 @@ test 'lookup recording with official singles' => sub {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             length => 296026,
-            disambiguation => JSON::null,
+            disambiguation => "",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -88,7 +88,7 @@ test 'lookup recording with official singles' => sub {
                     country => "JP",
                     barcode => "4942463511227",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -104,7 +104,7 @@ test 'lookup recording with official singles (+media)' => sub {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             length => 296026,
-            disambiguation => JSON::null,
+            disambiguation => "",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -118,7 +118,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     country => "JP",
                     barcode => JSON::null,
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     media => [
                         {
@@ -148,7 +148,7 @@ test 'recording lookup with artists' => sub {
         {
             id => "0cf3008f-e246-428f-abc1-35f87d584d60",
             title => "the Love Bug",
-            disambiguation => JSON::null,
+            disambiguation => "",
             length => 242226,
             "artist-credit" => [
                 {
@@ -157,7 +157,7 @@ test 'recording lookup with artists' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     },
                     joinphrase => "♥",
                 },
@@ -167,7 +167,7 @@ test 'recording lookup with artists' => sub {
                         id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                         name => "BoA",
                         "sort-name" => "BoA",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     },
                     joinphrase => "",
                 }
@@ -184,7 +184,7 @@ test 'recording lookup with puids and isrcs' => sub {
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
-            disambiguation => JSON::null,
+            disambiguation => "",
             length => 296026,
             puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
             isrcs => [ "JPA600102450" ],

@@ -6,7 +6,8 @@
     <td>[% descriptive_link(edit.display_data.release) %]</td>
   </tr>
 
-  [% display_diff(l('Types:'),
+  [%- plural = max(edit.display_data.types.old.size, edit.display_data.types.new.size) -%]
+  [% display_diff(ln('Type:', 'Types:', plural),
                   html_escape(edit.display_data.types.old),
                   html_escape(edit.display_data.types.new), ", ") %]
 

@@ -3,7 +3,7 @@
     name => rg.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="release-group-information">[% l('Release group information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -63,9 +63,10 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=rg -%]
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [%- INCLUDE "release_group/header.tt" -%]
-        [%- content -%]
-    </div>
+  <div id="content">
+    [%- INCLUDE "release_group/header.tt" -%]
+    [%- content -%]
+  </div>
 [%- END -%]

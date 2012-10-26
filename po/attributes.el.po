@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:45+0000\n"
+"PO-Revision-Date: 2012-10-05 10:58+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -55,6 +55,11 @@ msgctxt "release_group_secondary_type"
 msgid "Audiobook"
 msgstr "Βιβλίο ήχου"
 
+#: DB:cover_art_archive.art_type/name:2
+msgctxt "cover_art_type"
+msgid "Back"
+msgstr ""
+
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
@@ -69,6 +74,11 @@ msgstr "Betamax"
 msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
+
+#: DB:cover_art_archive.art_type/name:3
+msgctxt "cover_art_type"
+msgid "Booklet"
+msgstr ""
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -185,6 +195,11 @@ msgctxt "gender"
 msgid "Female"
 msgstr "Γυναίκα"
 
+#: DB:cover_art_archive.art_type/name:1
+msgctxt "cover_art_type"
+msgid "Front"
+msgstr ""
+
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
@@ -255,6 +270,11 @@ msgctxt "work_type"
 msgid "Mass"
 msgstr ""
 
+#: DB:cover_art_archive.art_type/name:4
+msgctxt "cover_art_type"
+msgid "Medium"
+msgstr ""
+
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
@@ -274,6 +294,11 @@ msgstr "Ύμνος"
 msgctxt "release_packaging"
 msgid "None"
 msgstr "Κανένα"
+
+#: DB:cover_art_archive.art_type/name:5
+msgctxt "cover_art_type"
+msgid "Obi"
+msgstr ""
 
 #: DB:release_status/name:1
 msgctxt "release_status"
@@ -299,6 +324,11 @@ msgstr "Πρωτότυπη παραγωγή"
 msgctxt "artist_type"
 msgid "Other"
 msgstr "Άλλο"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
+msgid "Other"
+msgstr ""
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -431,10 +461,20 @@ msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
+#: DB:cover_art_archive.art_type/name:6
+msgctxt "cover_art_type"
+msgid "Spine"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Προφορικός λόγος"
+
+#: DB:cover_art_archive.art_type/name:10
+msgctxt "cover_art_type"
+msgid "Sticker"
+msgstr ""
 
 #: DB:work_type/name:6
 msgctxt "work_type"
@@ -450,6 +490,16 @@ msgstr "Συμφωνικό ποιήμα"
 msgctxt "work_type"
 msgid "Symphony"
 msgstr "Συμφωνία"
+
+#: DB:cover_art_archive.art_type/name:7
+msgctxt "cover_art_type"
+msgid "Track"
+msgstr ""
+
+#: DB:cover_art_archive.art_type/name:9
+msgctxt "cover_art_type"
+msgid "Tray"
+msgstr ""
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

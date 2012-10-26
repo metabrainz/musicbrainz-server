@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::EditorLanguage;
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Translation qw( l );
 
 has 'editor_id' => (
     is => 'rw',
@@ -18,6 +19,10 @@ has 'fluency' => (
     is => 'rw',
 );
 
+sub l_fluency {
+    my $self = shift;
+    return l(ucfirst $self->fluency);
+}
 
 __PACKAGE__->meta->make_immutable;
 1;

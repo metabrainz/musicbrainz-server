@@ -16,7 +16,7 @@ BEGIN { use MusicBrainz::Server::Data::Editor; }
 
 with 't::Context';
 
-test get_ratings => sub {
+test 'Test summarize_ratings' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '
@@ -25,12 +25,11 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
 ');
 
     my $editor = $test->c->model('Editor')->get_by_id(1);
-    my $ratings = $test->c->model('Editor')->get_ratings($editor);
+    my $ratings = $test->c->model('Editor')->summarize_ratings($editor);
 
-    is($ratings->{artist}->[0]->{artist}->id => 1, 'has artist entity');
-    is($ratings->{artist}->[0]->{rating} => 80, 'has raw rating');
-    is($ratings->{artist}->[0]->{artist}->rating => 80, 'has rating on entity');
-    is($ratings->{artist}->[0]->{artist}->rating_count => 1, 'has rating on entity');
+    is($ratings->{artist}->[0]->id => 1, 'has artist entity');
+    is($ratings->{artist}->[0]->rating, 80, 'has raw rating');
+    is($ratings->{artist}->[0]->rating_count => 1, 'has rating on entity');
 };
 
 test all => sub {
@@ -240,6 +239,36 @@ test 'Deleting an editor cancels all open edits' => sub {
 
     is($c->model('Edit')->get_by_id($applied_edit->id)->status, $STATUS_APPLIED);
     is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
+};
+
+test 'Open edit and last-24-hour counts' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $applied_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'An additional comment',
+        ipi_codes => []
+    );
+
+    accept_edit($c, $applied_edit);
+
+    my $open_edit = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('Artist')->get_by_id(1),
+        comment => 'A Comment',
+        ipi_codes => []
+    );
+
+    is ($open_edit->status, $STATUS_OPEN);
+
+    is($c->model('Editor')->open_edit_count(1), 1, "Open edit count is 1");
+    is($c->model('Editor')->last_24h_edit_count(1), 2, "Last 24h count is 2");
 };
 
 test 'subscription_summary' => sub {

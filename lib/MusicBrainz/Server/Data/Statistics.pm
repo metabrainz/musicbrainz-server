@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _id_cache_prefix { 'stats' }
 
-sub _table { 'statistic' }
+sub _table { 'statistics.statistic' }
 
 sub all_events {
     my ($self) = @_;
@@ -28,7 +28,7 @@ sub all_events {
         query_to_list(
             $self->sql,
             sub { shift },
-            'SELECT * FROM statistic_event ORDER BY date ASC',
+            'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
         )
     ];
 }
@@ -51,8 +51,7 @@ sub fetch {
             return @stats{@names};
         }
         else {
-            my $value = $stats{ $names[0] }
-                or warn "No statistics for '$names[0]'";
+            my $value = $stats{ $names[0] };
             return $value;
         }
     }
@@ -501,6 +500,27 @@ my %stats = (
             +{
                 map {
                     "count.work.language.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.work.type" => {
+        DESC => "Distribution of works by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(work.id) AS count
+                 FROM work_type type
+                 FULL OUTER JOIN work ON work.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.work.type.".$_ => $dist{$_}
                 } keys %dist
             };
         },

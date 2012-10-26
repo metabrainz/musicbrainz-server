@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-19 17:03+0000\n"
+"PO-Revision-Date: 2012-10-05 19:47+0000\n"
 "Last-Translator: salorock <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,11 @@ msgctxt "release_group_secondary_type"
 msgid "Audiobook"
 msgstr "Audiolibro"
 
+#: DB:cover_art_archive.art_type/name:2
+msgctxt "cover_art_type"
+msgid "Back"
+msgstr "Retro"
+
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
@@ -70,6 +75,11 @@ msgstr "Betamax"
 msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
+
+#: DB:cover_art_archive.art_type/name:3
+msgctxt "cover_art_type"
+msgid "Booklet"
+msgstr "Libretto"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -186,6 +196,11 @@ msgctxt "gender"
 msgid "Female"
 msgstr "Donna"
 
+#: DB:cover_art_archive.art_type/name:1
+msgctxt "cover_art_type"
+msgid "Front"
+msgstr "Fronte"
+
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
@@ -256,6 +271,11 @@ msgctxt "work_type"
 msgid "Mass"
 msgstr "Messa"
 
+#: DB:cover_art_archive.art_type/name:4
+msgctxt "cover_art_type"
+msgid "Medium"
+msgstr "Supporto"
+
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
@@ -275,6 +295,11 @@ msgstr "Mottetto"
 msgctxt "release_packaging"
 msgid "None"
 msgstr "Nessuno"
+
+#: DB:cover_art_archive.art_type/name:5
+msgctxt "cover_art_type"
+msgid "Obi"
+msgstr "Obi"
 
 #: DB:release_status/name:1
 msgctxt "release_status"
@@ -298,6 +323,11 @@ msgstr "Produzione originale"
 
 #: DB:artist_type/name:3
 msgctxt "artist_type"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr "Altro"
 
@@ -432,10 +462,20 @@ msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Colonna sonora"
 
+#: DB:cover_art_archive.art_type/name:6
+msgctxt "cover_art_type"
+msgid "Spine"
+msgstr "Dorso"
+
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Spoken word (parlato)"
+
+#: DB:cover_art_archive.art_type/name:10
+msgctxt "cover_art_type"
+msgid "Sticker"
+msgstr "Adesivo"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
@@ -451,6 +491,16 @@ msgstr "Poema sinfonico"
 msgctxt "work_type"
 msgid "Symphony"
 msgstr "Sinfonia"
+
+#: DB:cover_art_archive.art_type/name:7
+msgctxt "cover_art_type"
+msgid "Track"
+msgstr "Traccia"
+
+#: DB:cover_art_archive.art_type/name:9
+msgctxt "cover_art_type"
+msgid "Tray"
+msgstr "Tray"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

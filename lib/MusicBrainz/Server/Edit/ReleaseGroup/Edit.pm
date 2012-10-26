@@ -10,11 +10,12 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
-    changed_relations
     changed_display_data
+    changed_relations
     load_artist_credit_definitions
-    verify_artist_credits
     merge_artist_credit
+    merge_value
+    verify_artist_credits
 );
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
@@ -168,9 +169,9 @@ around extract_property => sub {
         }
         when ('type_id') {
             return (
-                [ $ancestor->{type_id}, $ancestor->{type_id} ],
-                [ $current->primary_type_id, $current->primary_type_id ],
-                [ $new->{type_id}, $new->{type_id} ]
+                merge_value($ancestor->{type_id}),
+                merge_value($current->primary_type_id),
+                merge_value($new->{type_id})
             )
         }
         when ('secondary_type_ids') {
@@ -237,6 +238,9 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{type_id};
 
     return 0 if exists $self->data->{new}{artist_credit};
+
+    return 0 if $self->data->{old}{secondary_type_ids}
+        && @{ $self->data->{old}{secondary_type_ids} };
 
     return 1;
 }
