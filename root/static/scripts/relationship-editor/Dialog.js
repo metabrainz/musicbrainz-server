@@ -341,8 +341,7 @@ var Dialog = UI.Dialog = {
     },
 
     show: function(options) {
-        var dlg = Dialog, relationship = dlg.relationship.peek(),
-            notBatchWorks = dlg.mode.peek() != "batch.create.works";
+        var dlg = Dialog, notBatchWorks = dlg.mode.peek() != "batch.create.works";
 
         dlg.source = options.source;
         dlg.relationship(options.relationship);
@@ -353,7 +352,7 @@ var Dialog = UI.Dialog = {
         dlg.instance(this);
 
         dlg.showAutocomplete(notBatchWorks);
-        dlg.showCreateWorkLink(relationship.type == "recording-work" && notBatchWorks);
+        dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
 
         dlg.$overlay.show();
         // prevents the page from jumping. these will be adjusted in positionDialog.
