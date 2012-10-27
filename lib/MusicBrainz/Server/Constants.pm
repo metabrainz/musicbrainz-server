@@ -245,12 +245,13 @@ Readonly our $COVERART_BACK_TYPE   => 3;
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
-Readonly our $ACCESS_SCOPE_TAG            => 2;
-Readonly our $ACCESS_SCOPE_RATING         => 4;
-Readonly our $ACCESS_SCOPE_COLLECTION     => 8;
-Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 16;
-Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 32;
-Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 64;
+Readonly our $ACCESS_SCOPE_EMAIL          => 2;
+Readonly our $ACCESS_SCOPE_TAG            => 4;
+Readonly our $ACCESS_SCOPE_RATING         => 8;
+Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
+Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
+Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
+Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
 =head1 NAME
 

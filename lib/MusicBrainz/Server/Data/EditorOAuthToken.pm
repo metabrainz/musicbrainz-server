@@ -84,13 +84,14 @@ sub delete_editor
 
 sub create_authorization_code
 {
-    my ($self, $editor_id, $application_id) = @_;
+    my ($self, $editor_id, $application_id, $scope) = @_;
 
     my $row = {
         editor => $editor_id,
         application => $application_id,
         authorization_code => encode_base64url(Data::UUID->new->create_bin),
         expire_time => DateTime->now->add( hours => 1 ),
+        scope => $scope,
     };
 
     $row->{id} = $self->sql->insert_row($self->_table, $row, 'id');

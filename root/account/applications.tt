@@ -4,14 +4,8 @@
 
 [%- MACRO format_scopes(token) BLOCK;
     out = [];
-    IF token.scope_profile;
-        out.push(l('View basic information about your account'));
-    END;
-    IF token.scope_tags;
-        out.push(l('Submit tags on your behalf'));
-    END;
-    IF token.scope_ratings;
-        out.push(l('Submit ratings on your behalf'));
+    FOR perm IN token.permissions;
+        out.push(l(perm));
     END;
     out.join(', ');
 END -%]

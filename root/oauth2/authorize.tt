@@ -5,14 +5,8 @@
     <p>[% l('{app} is requesting permission to:', { app => application.name }) | html %]</p>
 
     <ul>
-    [% IF scopes.profile %]
-        <li>[% l('View basic information about your account') %]</li>
-    [% END %]
-    [% IF scopes.tags %]
-        <li>[% l('Submit tags on your behalf') %]</li>
-    [% END %]
-    [% IF scopes.ratings %]
-        <li>[% l('Submit ratings on your behalf') %]</li>
+    [% FOR perm IN perms %]
+        <li>[% l(perm) | html %]</li>
     [% END %]
     </ul>
 

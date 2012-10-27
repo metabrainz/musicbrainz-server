@@ -7,6 +7,18 @@ use DBDefs;
 use DateTime;
 use URI;
 use URI::QueryParam;
+use MusicBrainz::Server::Constants qw( :access_scope );
+
+our %ACCESS_SCOPE_BY_NAME = (
+    'profile'        => $ACCESS_SCOPE_PROFILE,
+    'email'          => $ACCESS_SCOPE_EMAIL,
+    'tag'            => $ACCESS_SCOPE_TAG,
+    'rating'         => $ACCESS_SCOPE_RATING,
+    'collection'     => $ACCESS_SCOPE_COLLECTION,
+    'submit_puid'    => $ACCESS_SCOPE_SUBMIT_PUID,
+    'submit_isrc'    => $ACCESS_SCOPE_SUBMIT_ISRC,
+    'submit_barcode' => $ACCESS_SCOPE_SUBMIT_BARCODE,
+);
 
 sub index : Private
 {
@@ -38,12 +50,11 @@ sub authorize : Local Args(0) RequireAuth
     $self->_send_redirect_error($c, $params{redirect_uri}, 'unsupported_response_type', 'Unsupported response type')
         unless $params{response_type} eq 'code';
 
-    my %scopes;
-    my %allowed_scopes = ( profile => 1, tags => 1, ratings => 1 );
-    for my $scope (split /\s+/, $params{scope}) {
-        $self->_send_redirect_error($c, $params{redirect_uri}, 'invalid_scope', 'Unsupported scope: ' . $scope)
-            unless exists $allowed_scopes{$scope};
-        $scopes{$scope} = 1;
+    my $scope = 0;
+    for my $name (split /\s+/, $params{scope}) {
+        $self->_send_redirect_error($c, $params{redirect_uri}, 'invalid_scope', 'Unsupported scope: ' . $name)
+            unless exists $ACCESS_SCOPE_BY_NAME{$name};
+        $scope |= $ACCESS_SCOPE_BY_NAME{$name};
     }
 
     my $form = $c->form( form => 'SubmitCancel' );
@@ -54,7 +65,7 @@ sub authorize : Local Args(0) RequireAuth
         else {
             my $token;
             $c->model('MB')->with_transaction(sub {
-                $token = $c->model('EditorOAuthToken')->create_authorization_code($c->user->id, $application->id);
+                $token = $c->model('EditorOAuthToken')->create_authorization_code($c->user->id, $application->id, $scope);
             });
             $self->_send_redirect_response($c, $params{redirect_uri}, {
                 code => $token->authorization_code,
@@ -62,7 +73,8 @@ sub authorize : Local Args(0) RequireAuth
         }
     }
 
-    $c->stash( application => $application, scopes => \%scopes );
+    my $perms = MusicBrainz::Server::Entity::EditorOAuthToken->permissions($scope);
+    $c->stash( application => $application, perms => $perms );
 }
 
 sub oob : Local Args(0)
