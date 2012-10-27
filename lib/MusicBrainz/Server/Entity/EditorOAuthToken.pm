@@ -53,8 +53,8 @@ has 'expire_time' => (
     coerce => 1
 );
 
-has [qw( scope_profile scope_tags scope_ratings )] => (
-    isa => 'Bool',
+has 'scope' => (
+    isa => 'Int',
     is => 'rw',
 );
 

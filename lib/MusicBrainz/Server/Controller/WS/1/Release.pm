@@ -30,6 +30,10 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Exceptions;
+use MusicBrainz::Server::Constants qw(
+    $ACCESS_SCOPE_RATING
+    $ACCESS_SCOPE_TAG
+);
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use Try::Tiny;
 
@@ -120,8 +124,10 @@ sub lookup : Chained('load') PathPart('')
 
     my $release = $c->stash->{entity};
 
-    $c->authenticate({}, 'musicbrainz.org')
-        if $c->stash->{inc}->user_ratings || $c->stash->{inc}->user_tags;
+    my $scope = 0;
+    $scope |= $ACCESS_SCOPE_RATING if $c->stash->{inc}->user_ratings;
+    $scope |= $ACCESS_SCOPE_TAG if $c->stash->{inc}->user_tags;
+    $self->authenticate($c, $scope) if $scope;
 
     # This is always displayed, regardless of inc parameters
     $c->model('ReleaseGroup')->load($release);

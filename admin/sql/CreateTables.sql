@@ -914,9 +914,7 @@ CREATE TABLE editor_oauth_token
     access_token        TEXT,
     secret              TEXT,
     expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
-    scope_profile       BOOLEAN NOT NULL DEFAULT FALSE,
-    scope_tags          BOOLEAN NOT NULL DEFAULT FALSE,
-    scope_ratings       BOOLEAN NOT NULL DEFAULT FALSE
+    scope               INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE editor_watch_preferences

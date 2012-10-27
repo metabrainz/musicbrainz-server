@@ -116,6 +116,14 @@ sub success : Private
     $c->res->body($c->stash->{serializer}->output_success);
 }
 
+sub forbidden : Private
+{
+    my ($self, $c) = @_;
+    $c->res->status(401);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->output_error("You are not authorized to access this resource."));
+}
+
 sub unauthorized : Private
 {
     my ($self, $c) = @_;
@@ -161,7 +169,16 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     };
 
     $self->apply_rate_limit($c);
-    $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
+    $self->authenticate($c, $c->stash->{authorization_scope})
+        if ($c->stash->{authorization_required});
+}
+
+sub authenticate
+{
+    my ($self, $c, $scope) = @_;
+
+    $c->authenticate({}, 'musicbrainz.org');
+    $self->forbidden($c) unless $c->user->is_authorized($scope);
 }
 
 sub _error

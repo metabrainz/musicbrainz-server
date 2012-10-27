@@ -47,6 +47,9 @@ subtype 'Edit'
 subtype 'Editor'
     => as class_type 'MusicBrainz::Server::Entity::Editor';
 
+subtype 'EditorOAuthToken'
+    => as class_type 'MusicBrainz::Server::Entity::EditorOAuthToken';
+
 subtype 'Entity'
     => as class_type 'MusicBrainz::Server::Entity';
 

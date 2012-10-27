@@ -1,4 +1,4 @@
-package Catalyst::Authentication::Credential::HTTP::MusicBrainz;
+package MusicBrainz::Server::Authentication::WS::Credential;
 use base qw/Catalyst::Authentication::Credential::HTTP/;
 
 sub authenticate
