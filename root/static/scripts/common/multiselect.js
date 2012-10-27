@@ -193,7 +193,7 @@ var multiselect = function(input, placeholder, cacheKey) {
     .on("keydown", function(event) {
         if (event.keyCode == 13) { // enter
             if (self.hoverOption) {
-                self.select(self.hoverOption);;
+                self.select(self.hoverOption);
                 killEvent(event);
             }
         } else if (event.keyCode == 38) { // up
