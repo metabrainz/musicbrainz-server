@@ -16,7 +16,7 @@
     [% END %]
     </ul>
 
-    <form action="[% c.req.uri %]" method="post">
+    <form action="[% c.req.uri | html %]" method="post" name="confirm">
         <span class="buttons">
             <button type="submit" name="confirm.cancel" value="1" class="negative">[% l('No thanks') %]</button>
             <button type="submit" name="confirm.submit" value="1">[% l('Allow access') %]</button>

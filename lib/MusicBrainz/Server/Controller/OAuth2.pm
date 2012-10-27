@@ -119,12 +119,14 @@ sub token : Local Args(0)
     if ($params{grant_type} eq 'authorization_code') {
         $token = $c->model('EditorOAuthToken')->get_by_authorization_code($params{code});
         $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
-            unless defined $token;
+            unless defined $token && $token->application_id == $application->id;
+        $self->_send_error($c, 'invalid_grant', 'Expired authorization code')
+            unless $token->expire_time > DateTime->now;
     }
     elsif ($params{grant_type} eq 'refresh_token') {
         $token = $c->model('EditorOAuthToken')->get_by_refresh_token($params{code});
         $self->_send_error($c, 'invalid_grant', 'Invalid refresh token')
-            unless (defined $token);
+            unless defined $token && $token->application_id == $application->id;
     }
     else {
         $self->_send_error($c, 'unsupported_grant_type', 'Unsupported grant_type, only authorization_code and refresh_token are supported');
@@ -203,7 +205,7 @@ sub _send_redirect_error
         $self->_send_html_error($c, $error, $error_description);
     }
     else {
-        $self->_send_redirect_response($c, {
+        $self->_send_redirect_response($c, $uri, {
             error => $error,
             error_description => $error_description,
         });

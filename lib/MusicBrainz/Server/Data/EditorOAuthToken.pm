@@ -61,7 +61,7 @@ sub get_by_access_token
 sub get_by_refresh_token
 {
     my ($self, $token) = @_;
-    my @result = values %{$self->_get_by_keys('access_token', $token)};
+    my @result = values %{$self->_get_by_keys('refresh_token', $token)};
     return $result[0];
 }
 
