@@ -483,7 +483,7 @@ function positionDialog($dialog, posx, posy) {
 Dialog.attrs = (function() {
 
     var Attribute = function(relationship, attr, info) {
-        this.value = relationship.attrs()[attr.name];
+        this.value = relationship.attrs.peek()[attr.name];
         this.data = attr;
         this.min = info[0];
         this.max = info[1];
