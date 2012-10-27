@@ -145,7 +145,8 @@ sub token : Local Args(0)
             refresh_token => $token->refresh_token
         };
         if ($needs_secret && $token->secret) {
-            $data->{secret} = $token->secret;
+            $data->{mac_key} = $token->secret;
+            $data->{mac_algorithm} = 'hmac-sha-1';
         }
     });
     $self->_send_response($c, $data);
