@@ -209,12 +209,6 @@ ko.bindingHandlers.autocomplete = (function() {
         $("#target-type").val(type).trigger("change");
     }
 
-    function closeOnEnter(event) {
-        if (event.keyCode == 13 && !Dialog.relationship.peek().hasErrors.peek() &&
-            !event.isDefaultPrevented())
-                Dialog.instance.peek().accept();
-    }
-
     function changeTarget(event, data) {
         // XXX release groups' numeric "type" conflicts with the entity type
         data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
@@ -251,6 +245,14 @@ ko.bindingHandlers.autocomplete = (function() {
         }
     }
 
+    // In Opera 10, when the keydown event on the autocomplete bubbles up to the
+    // dialog, isDefaultPrevented returns false even though here it returns true.
+    // Other browsers work fine.
+    function stopEnter(event) {
+        if (event.keyCode == 13 && event.isDefaultPrevented())
+            event.stopPropagation();
+    }
+
     return {
         init: function(element) {
             var $autocomplete = Dialog.$autocomplete = $(element);
@@ -265,8 +267,8 @@ ko.bindingHandlers.autocomplete = (function() {
             $autocomplete
                 .on("lookup-performed", changeTarget)
                 .find("input.name")
-                    .on("keyup focus click", showRecentEntities)
-                    .on("keydown", closeOnEnter);
+                    .on("keydown", stopEnter)
+                    .on("keyup focus click", showRecentEntities);
 
             setAutocompleteEntity(Dialog.target, Dialog.mode() != "edit");
 
@@ -274,6 +276,29 @@ ko.bindingHandlers.autocomplete = (function() {
                 $autocomplete.autocomplete("destroy");
             });
         }
+    };
+}());
+
+
+var BaseDialog = (function() {
+    var inputRegex = /^input|button|select$/;
+
+    function submit(event) {
+        if (event.keyCode == 13 && this.canSubmit() && !event.isDefaultPrevented() &&
+                inputRegex.test(event.target.nodeName.toLowerCase()))
+            this.accept();
+    }
+
+    function cancel(event) {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            this.hide();
+        }
+    }
+
+    return function(options) {
+        options.$dialog.on("keydown", _.bind(submit, options))
+            .find("button.negative").on("keydown", _.bind(cancel, options));
     };
 }());
 
@@ -303,7 +328,7 @@ var Dialog = UI.Dialog = {
     }()),
 
     init: function() {
-        var entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
+        var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
 
         // this is used as an "empty" state when the dialog is hidden, so that
         // none of the bindings error out.
@@ -334,7 +359,16 @@ var Dialog = UI.Dialog = {
         });
 
         this.$overlay = $("#overlay");
-        this.$dialog =  $("#dialog");
+        this.$dialog = $("#dialog");
+
+        BaseDialog({
+            $dialog: this.$dialog,
+            canSubmit: function() {
+                return !self.relationship.peek().hasErrors.peek();
+            },
+            accept: function() {self.instance.peek().accept()},
+            hide: function() {self.instance.peek().hide()}
+        });
 
         Dialog.instance = ko.observable(this);
         ko.applyBindings(this, this.$dialog[0]);
@@ -676,11 +710,16 @@ var WorkDialog = UI.WorkDialog = {
     editNote: ko.observable(""),
 
     init: function() {
-        var self = this, $dialog = $("#new-work-dialog")
-            .on("keydown", "#work-name", function(event) {
-                if (event.keyCode == 13 && self.name.peek() && !self.loading.peek())
-                    self.accept();
-            });
+        var self = this, $dialog = $("#new-work-dialog");
+
+        BaseDialog({
+            $dialog: $dialog,
+            canSubmit: function() {
+                return self.name.peek() && !self.loading.peek();
+            },
+            accept: this.accept,
+            hide: this.hide
+        });
 
         ko.applyBindings(this, $dialog[0]);
     },
