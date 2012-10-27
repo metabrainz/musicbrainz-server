@@ -94,7 +94,7 @@ ko.bindingHandlers.linkType = (function() {
         // remove {foo} {bar} junk, unless it's for a required attribute.
         var orig_phrase = phrase, re = /\{(.*?)(?::(.*?))?\}/g, m, repl;
         while (m = re.exec(orig_phrase)) {
-            var attr = Util.attrRoot(m[1]), info = root.attrs[attr.id];
+            var attr = Util.attrRoot(m[1]), info = attr ? root.attrs[attr.id] : [0];
             if (info[0] < 1) {
                 repl = (m[2] ? m[2].split("|")[1] : "") || "";
                 phrase = phrase.replace(m[0], repl);
