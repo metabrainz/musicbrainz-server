@@ -23,10 +23,6 @@ sub authorization_required_response
     # OAuth schemes are not likely to be understood by browsers, so use Digest first
     $self->SUPER::authorization_required_response($c, $realm, $auth_info);
 
-    # XXX Either WWW::Mechanize or Test::WWW::Mechanize::Catalyst fails on the OAuth
-    # headers, so just skip them for now. Needs to be fixed.
-    return if $c->req->headers->user_agent =~ /Test-WWW-Mechanize/;
-
     if ( my $bearer = $self->_build_bearer_auth_header($c, $auth_info) ) {
         Catalyst::Authentication::Credential::HTTP::_add_authentication_header($c, $bearer);
     }

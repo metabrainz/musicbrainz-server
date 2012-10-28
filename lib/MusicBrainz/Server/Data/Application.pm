@@ -83,7 +83,7 @@ before 'delete' => sub
     my ($self, $id) = @_;
 
     $self->c->model('EditorOAuthToken')->delete_application($id);
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

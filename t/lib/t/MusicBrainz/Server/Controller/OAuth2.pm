@@ -24,7 +24,7 @@ test 'Authorize web workflow' => sub {
     $test->mech->submit_form( with_fields => { username => 'editor1', password => 'pass' } );
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
-    $test->mech->content_like(qr{View basic information about your account});
+    $test->mech->content_like(qr{View your public account information});
 
     my $uri;
 
@@ -91,7 +91,7 @@ test 'Authorize desktop workflow' => sub {
     $test->mech->submit_form( with_fields => { username => 'editor2', password => 'pass' } );
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
-    $test->mech->content_like(qr{View basic information about your account});
+    $test->mech->content_like(qr{View your public account information});
 
     # Authorize the request
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
