@@ -129,29 +129,29 @@
         <!-- /ko -->
         <tr>
           <td class="section">[% l('Begin date:') %]</td>
-          <td data-bind="with: relationship().period">
-               <input data-bind="value: begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="YYYY" size="4"/>-[%-
-            -%]<input data-bind="value: begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="MM" size="2"/>-[%-
-            -%]<input data-bind="value: begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="DD" size="2"/>
-               <div class="error" data-bind="text: begin_date.error"></div>
+          <td class="partial-date">
+               <input data-bind="value: relationship().period.begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4"/>-[%-
+            -%]<input data-bind="value: relationship().period.begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2"/>-[%-
+            -%]<input data-bind="value: relationship().period.begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2"/>
+               <div class="error" data-bind="text: relationship().period.begin_date.error"></div>
           </td>
         </tr>
         <tr>
           <td class="section">[% l('End date:') %]</td>
-          <td data-bind="with: relationship().period">
-               <input data-bind="value: end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="YYYY" size="4"/>-[%-
-            -%]<input data-bind="value: end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="MM" size="2"/>-[%-
-            -%]<input data-bind="value: end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="DD" size="2"/>
-               <div class="error" data-bind="text: end_date.error"></div>
+          <td class="partial-date">
+               <input data-bind="value: relationship().period.end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4"/>-[%-
+            -%]<input data-bind="value: relationship().period.end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2"/>-[%-
+            -%]<input data-bind="value: relationship().period.end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2"/>
+               <div class="error" data-bind="text: relationship().period.end_date.error"></div>
           </td>
         </tr>
         <tr>
-          <td colspan="2" data-bind="with: relationship().period">
+          <td colspan="2">
             <label>
-              <input type="checkbox" data-bind="checked: ended"/>
+              <input type="checkbox" data-bind="checked: relationship().period.ended"/>
               [% l('This relationship has ended.') %]
             </label>
-            <div class="error" data-bind="text: ended.error"></div>
+            <div class="error" data-bind="text: relationship().period.ended.error"></div>
           </td>
         </tr>
         <!-- ko if: loading -->
