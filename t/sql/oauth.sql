@@ -8,6 +8,7 @@ INSERT INTO editor_oauth_token (editor, application, authorization_code, expire_
     VALUES (1, 1, 'liUxgzsg4hGvDxX9W8VIuQ', now() + interval '1 hour'),
            (2, 1, 'kEbi7Dwg4hGRFvz9W8VIuQ', now() - interval '1 hour');
 
-INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token, expire_time)
-    VALUES (1, 1, 'yi3qjrMf4hG9VVUxXMVIuQ', '7Fjfp0ZBr1KtDRbnfVdmIw', now() + interval '1 hour');
+INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token, expire_time, scope)
+    VALUES (1, 1, 'yi3qjrMf4hG9VVUxXMVIuQ', '7Fjfp0ZBr1KtDRbnfVdmIw', now() + interval '1 hour', 1),
+           (1, 1, 'uTuPnUfMRQPx8HBnHf22eg', 'Nlaa7v15QHm9g8rUOmT3dQ', now() + interval '1 hour', 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128);
 
