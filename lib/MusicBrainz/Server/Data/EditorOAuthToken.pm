@@ -2,16 +2,16 @@ package MusicBrainz::Server::Data::EditorOAuthToken;
 use Moose;
 use namespace::autoclean;
 
-use Data::UUID;
-use MIME::Base64 qw( encode_base64url );
 use DateTime;
 use DateTime::Duration;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
+    generate_token
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _table
 {
@@ -76,6 +76,12 @@ sub find_granted_by_editor
         $query, $editor_id, $offset || 0);
 }
 
+sub delete_application
+{
+    my ($self, $application_id) = @_;
+    $self->sql->do("DELETE FROM editor_oauth_token WHERE application = ?", $application_id);
+}
+
 sub delete_editor
 {
     my ($self, $editor_id) = @_;
@@ -89,7 +95,7 @@ sub create_authorization_code
     my $row = {
         editor => $editor_id,
         application => $application_id,
-        authorization_code => encode_base64url(Data::UUID->new->create_bin),
+        authorization_code => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
         scope => $scope,
     };
@@ -105,8 +111,8 @@ sub grant_access_token
 
     my $update = {
         authorization_code => undef,
-        access_token => encode_base64url(Data::UUID->new->create_bin),
-        refresh_token => encode_base64url(Data::UUID->new->create_bin),
+        access_token => generate_token(),
+        refresh_token => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
     };
 
@@ -116,18 +122,11 @@ sub grant_access_token
     $token->expire_time($update->{expire_time});
 
     if ($secret) {
-        $update->{secret} = encode_base64url(Data::UUID->new->create_bin);
+        $update->{secret} = generate_token();
         $token->secret($update->{secret});
     }
 
     $self->sql->update_row($self->_table, $update, { id => $token->id });
-}
-
-sub delete
-{
-    my ($self, $id) = @_;
-
-    $self->sql->delete_row($self->_table, { id => $id });
 }
 
 __PACKAGE__->meta->make_immutable;

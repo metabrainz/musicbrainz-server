@@ -37,4 +37,32 @@ END -%]
 
     <p>[% l('Do you want to develop an application that uses the {ws|MusicBrainz web service}? {register|Register an application} to generate OAuth tokens.', { ws => doc_link('Development/XML_Web_Service/Version_2'), register => c.uri_for_action('account/register_application') }) %]</p>
 
+    [% WRAPPER 'components/with-pager.tt' %]
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>[% l('Application') %]</th>
+                <th>[% l('OAuth Client ID') %]</th>
+                <th>[% l('OAuth Client Secret ') %]</th>
+                <th>[% l('Actions') %]</th>
+            </tr>
+        </thead>
+        <tbody>
+            [% FOR application IN applications %]
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                <td>[% application.name %]</td>
+                <td><code>[% application.oauth_id %]</code></td>
+                <td><code>[% application.oauth_secret %]</code></td>
+                <td>
+                    [
+                        <a href="[% c.uri_for_action('/account/edit_application', [ application.id ]) %]">[% l('Edit') %]</a> |
+                        <a href="[% c.uri_for_action('/account/remove_application', [ application.id ]) %]">[% l('Remove') %]</a>
+                    ]
+                </td>
+            </tr>
+            [% END %]
+        </tbody>
+    </table>
+    [% END %]
+
 [% END %]

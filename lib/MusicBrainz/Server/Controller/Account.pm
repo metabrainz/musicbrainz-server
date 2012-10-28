@@ -547,10 +547,12 @@ sub applications : Path('/account/applications') RequireAuth
     });
     $c->model('Application')->load(@$tokens);
 
-    use Data::Dumper;
-    warn Dumper($tokens);
+    my $applications = $self->_load_paged($c, sub {
+        my ($applications, $hits) = $c->model('Application')->find_by_owner($c->user->id, shift, shift);
+        return ($applications, $hits);
+    });
 
-    $c->stash( tokens => $tokens );
+    $c->stash( tokens => $tokens, applications => $applications );
 }
 
 sub revoke_application_access : Path('/account/applications/revoke-access') Args(1) RequireAuth
@@ -572,7 +574,57 @@ sub register_application : Path('/account/applications/register') RequireAuth
 {
     my ($self, $c) = @_;
 
+    my $form = $c->form( form => 'Application' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->insert({
+                owner_id => $c->user->id,
+                name => $form->field('name')->value,
+                oauth_redirect_uri => $form->field('oauth_redirect_uri')->value,
+            });
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
 
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
+{
+    my ($self, $c, $id) = @_;
+
+    my $application = $c->model('Application')->get_by_id($id);
+    $c->detach('/error_404')
+        unless defined $application && $application->owner_id == $c->user->id;
+
+    my $form = $c->form( form => 'Application', init_object => $application );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->update($application->id, {
+                name => $form->field('name')->value,
+                oauth_redirect_uri => $form->field('oauth_redirect_uri')->value,
+            });
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
+
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth
+{
+    my ($self, $c, $id) = @_;
+
+    my $application = $c->model('Application')->get_by_id($id);
+    $c->detach('/error_404')
+        unless defined $application && $application->owner_id == $c->user->id;
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->delete($application->id);
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

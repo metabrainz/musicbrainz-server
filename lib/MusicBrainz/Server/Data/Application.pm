@@ -3,10 +3,15 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Application;
-use MusicBrainz::Server::Data::Utils qw( load_subobjects );
+use MusicBrainz::Server::Data::Utils qw(
+    load_subobjects
+    query_to_list_limited
+    generate_token
+);
 
 
 extends 'MusicBrainz::Server::Data::Entity';
+with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _table
 {
@@ -47,6 +52,37 @@ sub get_by_oauth_id
     my ($self, $oauth_id) = @_;
     my @result = values %{$self->_get_by_keys('oauth_id', $oauth_id)};
     return $result[0];
+}
+
+sub find_by_owner
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE owner = ?
+                 ORDER BY id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
+}
+
+before 'insert' => sub
+{
+    my ($self, @objs) = @_;
+
+    for my $obj (@objs) {
+        $obj->{oauth_id} = generate_token();
+        $obj->{oauth_secret} = generate_token();
+        $obj->{oauth_confidential} ||= 0;
+    }
+};
+
+before 'delete' => sub
+{
+    my ($self, $id) = @_;
+
+    $self->c->model('EditorOAuthToken')->delete_application($id);
 }
 
 __PACKAGE__->meta->make_immutable;
