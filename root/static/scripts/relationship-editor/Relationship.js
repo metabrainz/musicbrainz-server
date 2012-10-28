@@ -261,9 +261,9 @@ Relationship.prototype.isDuplicate = function(other) {
 };
 
 
-Relationship.prototype.buildOpenEdits = function() {
-    var entity0 = this.original_fields.entity[0],
-        entity1 = this.original_fields.entity[1];
+Relationship.prototype.openEdits = function() {
+    var entity0 = RE.Entity(this.original_fields.entity[0]),
+        entity1 = RE.Entity(this.original_fields.entity[1]);
 
     return _.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
