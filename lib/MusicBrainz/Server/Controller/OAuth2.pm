@@ -88,7 +88,7 @@ sub oob : Local Args(0)
         unless defined $token;
 
     $self->_send_html_error($c, 'invalid_request', 'Expired authorization code')
-        unless $token->expire_time > DateTime->now;
+        if $token->is_expired;
 
     $c->model('Application')->load($token);
 
@@ -133,7 +133,7 @@ sub token : Local Args(0)
         $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
             unless defined $token && $token->application_id == $application->id;
         $self->_send_error($c, 'invalid_grant', 'Expired authorization code')
-            unless $token->expire_time > DateTime->now;
+            if $token->is_expired;
     }
     elsif ($params{grant_type} eq 'refresh_token') {
         $token = $c->model('EditorOAuthToken')->get_by_refresh_token($params{code});

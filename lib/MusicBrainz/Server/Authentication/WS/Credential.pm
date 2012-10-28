@@ -60,16 +60,14 @@ sub _authenticate_bearer
     for my $authorization (@authorization) {
         next unless $authorization =~ s/^\s*Bearer\s+(\S+)\s*$/\1/;
         $c->log->debug('Found bearer access token in Authorization header') if $c->debug;
-        my $user_obj = $realm->find_user( { oauth_access_token => $authorization }, $c);
-        # XXX check access_token expiration
-        return $user_obj if $user_obj;
+        my $user = $realm->find_user( { oauth_access_token => $authorization }, $c);
+        return $user if $user && $user->supports('oauth') && !$user->oauth_token->is_expired;
     }
 
     if (exists $c->req->params->{access_token}) {
         $c->log->debug('Found bearer access token in GET/POST params') if $c->debug;
-        my $user_obj = $realm->find_user( { oauth_access_token => $c->req->params->{access_token} }, $c);
-        # XXX check access_token expiration
-        return $user_obj if $user_obj;
+        my $user = $realm->find_user( { oauth_access_token => $c->req->params->{access_token} }, $c);
+        return $user if $user && $user->supports('oauth') && !$user->oauth_token->is_expired;
     }
 
     return;
@@ -90,11 +88,11 @@ sub _authenticate_mac
             $key_val[1] =~ s{"}{}g;    # remove the quotes
             @key_val;
         } split /,\s?/, $authorization;
-        my $user_obj = $realm->find_user( { oauth_access_token => $res{id} }, $c);
-        # XXX check access_token expiration
+        my $user = $realm->find_user( { oauth_access_token => $res{id} }, $c);
+        # XXX check ts
         # XXX check nonce
         # XXX check mac signature
-        return $user_obj if $user_obj;
+        return $user if $user && $user->supports('oauth') && !$user->oauth_token->is_expired;
     }
 
     return;

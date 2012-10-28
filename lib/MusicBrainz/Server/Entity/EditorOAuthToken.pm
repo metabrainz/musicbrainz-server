@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::EditorOAuthToken;
 use Moose;
 use namespace::autoclean;
 
+use DateTime;
 use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Types qw( DateTime );
 use MusicBrainz::Server::Translation qw( N_l );
@@ -85,6 +86,13 @@ sub permissions
     }
 
     return \@perms;
+}
+
+sub is_expired
+{
+    my ($self) = @_;
+
+    return $self->expire_time < DateTime->now;
 }
 
 __PACKAGE__->meta->make_immutable;

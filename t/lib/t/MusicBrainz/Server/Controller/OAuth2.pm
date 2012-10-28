@@ -196,6 +196,8 @@ test 'Exchange authorization code' => sub {
     # No problems, receives access token
     $test->mech->get_ok("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
     $response = from_json($test->mech->content);
+    is(undef, $response->{error});
+    is(undef, $response->{error_description});
     is('bearer', $response->{token_type});
     ok($response->{access_token});
     ok($response->{refresh_token});

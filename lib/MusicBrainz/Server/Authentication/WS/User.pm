@@ -17,7 +17,7 @@ has 'oauth_token' => (
 
 sub supported_features
 {
-    return { oauth_token => 1 };
+    return { oauth => 1 };
 }
 
 sub is_authorized
