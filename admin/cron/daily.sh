@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -u
 
 export PATH=/usr/local/bin:$PATH
 
@@ -6,10 +6,10 @@ mb_server=`dirname $0`/../..
 cd $mb_server
 
 eval `carton exec -- ./admin/ShowDBDefs`
-carton exec -- ./admin/config.sh
+source ./admin/config.sh
 
 # Only run one "daily.sh" at a time
-if [ "$1" != "gotlock" ]
+if [ "${1:-}" != "gotlock" ]
 then
     true ${LOCKFILE:=/tmp/daily.sh.lock}
     $MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \
@@ -49,7 +49,7 @@ if date +%w | grep -q [36]
 then
     FULL=1
 fi
-carton exec -- ./admin/RunExport $FULL
+carton exec -- ./admin/RunExport ${FULL:-}
 
 # Create the reports
 echo `date`" : Running reports"
@@ -66,7 +66,7 @@ if date +%w | grep -q [6]
 then
     WEEKLY="--weekly"
 fi
-carton exec -- ./admin/ProcessSubscriptions $WEEKLY
+carton exec -- ./admin/ProcessSubscriptions ${WEEKLY:-}
 
 # `date`" : Updating language frequencies"
 carton exec -- ./admin/SetLanguageFrequencies

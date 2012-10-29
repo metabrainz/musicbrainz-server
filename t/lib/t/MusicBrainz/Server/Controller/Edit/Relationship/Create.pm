@@ -41,7 +41,7 @@ EOSQL
         $mech->submit_form(
             with_fields => {
                 'ar.link_type_id' => '2',
-                'ar.begin_date.year' => 1999
+                'ar.period.begin_date.year' => 1999
             }
         );
     } $c;

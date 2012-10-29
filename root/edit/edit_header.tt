@@ -14,7 +14,7 @@
     [% END %]
 [% END %]
 
-<div class="edit-header[%- PROCESS edit_status -%]">
+<div class="edit-header[%- PROCESS edit_status -%] [%- edit.edit_name FILTER lower FILTER replace('[^A-Za-z-]+', '-') -%]">
     [% IF summary %]
         <div class="edit-description">
             <table>
@@ -23,13 +23,13 @@
                         [% IF voter && voter.id != c.user.id %]
                             <div class="my-vote">
                                 <strong>[%- l('Their vote: ') -%]</strong>
-                                [%- edit.latest_vote_for_editor(voter.id).vote_name -%]
+                                [%- l(edit.latest_vote_for_editor(voter.id).vote_name) -%]
                             </div>
                         [% ELSE %]
                           [% IF edit.latest_vote_for_editor(c.user.id) %]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
-                                  [%- edit.latest_vote_for_editor(c.user.id).vote_name -%]
+                                  [%- l(edit.latest_vote_for_editor(c.user.id).vote_name) -%]
                               </div>
                           [% ELSIF c.user.id == edit.editor_id %]
                               <div class="my-vote">

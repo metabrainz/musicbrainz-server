@@ -52,9 +52,3 @@ if (-t STDOUT && !$output_file)
     printf "%10d : %s\n", $all->{$_}, $_
         for sort keys %$all;
 }
-
-# Recompute the editor statistics
-$c->model('Statistics')->top_recently_active_editors;
-$c->model('Statistics')->top_editors;
-$c->model('Statistics')->top_recently_active_voters;
-$c->model('Statistics')->top_voters,

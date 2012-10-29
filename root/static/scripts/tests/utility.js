@@ -6,7 +6,7 @@ MB.tests.utility.All = function() {
 
         var input = "ＭｕｓｉｃＢｒａｉｎｚ！～２０１１";
         var expected = "MusicBrainz!~2011";
-        QUnit.equals (MB.utility.fullWidthConverter (input),
+        QUnit.equal (MB.utility.fullWidthConverter (input),
                       expected, "fullWidthConverter (" + input + ")");
 
         input1 = {
@@ -51,6 +51,7 @@ MB.tests.utility.All = function() {
         var hours = 60 * minutes;
 
         QUnit.equal (MB.utility.formatTrackLength (23), '23 ms', 'formatTrackLength');
+        QUnit.equal (MB.utility.formatTrackLength (260586), '4:21', 'formatTrackLength');
         QUnit.equal (MB.utility.formatTrackLength (23 * seconds), '0:23', 'formatTrackLength');
         QUnit.equal (MB.utility.formatTrackLength (59 * minutes), '59:00', 'formatTrackLength');
         QUnit.equal (MB.utility.formatTrackLength (60 * minutes), '1:00:00', 'formatTrackLength');

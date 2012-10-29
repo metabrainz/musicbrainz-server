@@ -23,7 +23,7 @@ test 'filter_barcode_changes' => sub {
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 0, NULL);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 0, '');
 
 INSERT INTO release_name (id, name) VALUES (1, 'R1');
 INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
@@ -200,7 +200,7 @@ INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 1, 0, NULL);
+    VALUES (1, 1, 1, 0, '');
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release');
  INSERT INTO release_group (id, gid, name, artist_credit)
@@ -289,24 +289,24 @@ is( $release->labels->[1]->catalog_number, "ABC-123-X", 'release also has catalo
 $release = $release_data->get_by_id(2);
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
-my ($releases, $hits) = $release_data->find_by_artist(1, 100);
+my ($releases, $hits) = $release_data->find_by_artist(1, 100, 0);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by artist');
 ok( (grep { $_->id == 2 } @$releases), 'found release by artist');
 
-($releases, $hits) = $release_data->find_by_track_artist(3, 100);
+($releases, $hits) = $release_data->find_by_track_artist(3, 100, 0);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 ok( (grep { $_->id == 11 } @$releases), 'found release 11' );
 ok( (grep { $_->id == 10 } @$releases) == 0, 'did not find release 10' );
 
-($releases, $hits) = $release_data->find_by_recording(1, 100);
+($releases, $hits) = $release_data->find_by_recording(1, 100, 0);
 is( $hits, 1 );
 is( scalar(@$releases), 1 );
 is( $releases->[0]->id, 3, 'found release by recording' );
 
-($releases, $hits) = $release_data->find_by_release_group(1, 100);
+($releases, $hits) = $release_data->find_by_release_group(1, 100, 0);
 is( $hits, 6 );
 is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by release group' );

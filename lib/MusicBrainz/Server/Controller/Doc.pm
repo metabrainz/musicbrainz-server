@@ -31,7 +31,7 @@ sub show : Path('')
         google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
     );
 
-    if ($id =~ /^(Special|User|MetaBrainz|Proposal):/i) {
+    if ($id =~ /^[^:]+:/i && $id !~ /^Category:/i) {
         $c->response->redirect(sprintf('http://%s/%s', DBDefs::WIKITRANS_SERVER, $id));
         $c->detach;
     }

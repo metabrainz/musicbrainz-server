@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
+use Test::Warn;
 
 use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
@@ -11,7 +12,9 @@ test 'Test trim_in_place' => sub {
     my $d = ' a  b  c ';
     my $e = undef;
 
-    trim_in_place($a, $b, $c, $d, $e);
+    warning_is {
+        trim_in_place($a, $b, $c, $d, $e)
+    } 'Uninitialized value passed to trim_in_place';
 
     is( $a, '' );
     is( $b, 'a' );
@@ -57,6 +60,7 @@ test 'Test is_valid_isrc' => sub {
 
 test 'Test is_tunecore' => sub {
     ok(!MusicBrainz::Server::Validation::is_tunecore('USPR37300012'), "Non-TuneCore ID doesn't pass 'is_tunecore'.");
+    ok(!MusicBrainz::Server::Validation::is_tunecore('FITCR1000075'), "Non-TuneCore ID including string 'TC' doesn't pass 'is_tunecore'. (MBS-5346)");
     ok(MusicBrainz::Server::Validation::is_tunecore('TCABF1283419'), "TuneCore ID passes 'is_tunecore'.");
 };
 
@@ -87,10 +91,18 @@ test 'Test format_iswc' => sub {
 
 test 'Test is_valid_ipi' => sub {
     ok(is_valid_ipi('00014107338'));
+    ok(!is_valid_ipi(''));
+    ok(!is_valid_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
+       'Regression test #MBS-5066');
 };
 
 test 'Test format_ipi' => sub {
     is(format_ipi('014107338'), '00014107338');
+    is(format_ipi('274.373.649'), '00274373649');
+    is(format_ipi('274 373 649'), '00274373649');
+    is(format_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
+       'MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)',
+       'Regression test #MBS-5066');
 };
 
 test 'Test is_freedb_id' => sub {

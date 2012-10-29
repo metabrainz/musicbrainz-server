@@ -63,6 +63,7 @@ sub show : Chained('load') PathPart('')
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('Artwork')->load_for_release_groups ($rg);
+    $c->model('Relationship')->load($c->stash->{rg});
 
     $c->stash(
         template => 'release_group/index.tt',

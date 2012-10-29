@@ -40,7 +40,7 @@ sub ratio {
     my ($self, $num_stat, $denom_stat) = @_;
     my $denominator = $self->summed_statistics($denom_stat);
 
-    return unless $denominator > 0;
+    return 0 unless $denominator > 0;
     return $self->summed_statistics($num_stat) * 100 / $denominator;
 }
 

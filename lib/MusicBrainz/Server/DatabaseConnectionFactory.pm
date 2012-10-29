@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use aliased 'MusicBrainz::Server::Database';
+use Carp qw( confess );
 
 my $connector_class = 'MusicBrainz::Server::Connector';
 our %databases;
@@ -42,9 +43,8 @@ sub get_connection
     }
     else {
         $connections{ $key } ||= do {
-
-
             my $database = $databases{ $key };
+            confess "There is no configuration in DBDefs for database $key but one is required" unless defined($database);
             $connector_class->new( database => $database );
         };
 

@@ -8,7 +8,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, join_phrase, name)
-    VALUES (1, 0, 5, NULL, 1);
+    VALUES (1, 0, 5, '', 1);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release');
 INSERT INTO track_name (id, name) VALUES (1, 'Track');

@@ -3,12 +3,12 @@
 <h1>[% l('Artists that may be persons') %]</h1>
 
 <ul>
-    <li>[% l('This report lists artists that have type <em>unknown</em> or <em>group</em>,
-              but may be person, based on all relationships except "collaboration". For
-              example, an artist will appear here if it is listed as a member of another.
-              If you find that an artist here is indeed a person, change its type. If it
-              is not, please make sure that all the relationships are correct and make
-              sense.') %]</li>
+    <li>[% l('This report lists artists that have type set to other than <em>person</em>,
+              but may be <em>persons</em>, based on their relationships. For example, an
+              artist will appear here if it is listed as a member of another. If you find
+              that an artist here is indeed a person, change its type. If it is not,
+              please make sure that all the relationships are correct and make sense.') -%]
+    </li>
     <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
     [%- INCLUDE 'report/filter_link.tt' -%]
