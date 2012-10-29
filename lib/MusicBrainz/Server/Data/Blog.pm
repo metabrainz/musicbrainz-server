@@ -8,7 +8,7 @@ use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
-Readonly my $BLOG_CACHE_TIMEOUT => 60 * 60 * 24; # 1 day
+Readonly my $BLOG_CACHE_TIMEOUT => 60 * 60 * 3; # 3 hours
 
 sub get_latest_entries {
     my ($self) = @_;
