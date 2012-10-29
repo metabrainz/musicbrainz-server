@@ -23,7 +23,11 @@ has cover_art_types => (
     isa => 'ArrayRef[MusicBrainz::Server::Entity::CoverArtType]',
 );
 
-sub types { return [ map { $_->name } @{ shift->cover_art_types } ]; }
+sub types {
+    my $self = shift;
+    return [] unless $self->cover_art_types;
+    return [ map { $_->name } @{ $self->cover_art_types } ];
+}
 
 has is_front => (
     is => 'rw',
