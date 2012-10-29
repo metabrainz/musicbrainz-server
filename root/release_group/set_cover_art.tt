@@ -1,8 +1,10 @@
 [%- BLOCK layout_head -%]
-  [% script_manifest('edit.js.manifest') %]
+  [%- script_manifest('edit.js.manifest') -%]
 [%- END -%]
 
-[% WRAPPER 'release_group/layout.tt' title=l('Set Release Group Cover Art') full_width=1 page='edit' %]
+[%- WRAPPER 'release_group/layout.tt' title=l('Set Release Group Cover Art') full_width=1 page='edit' -%]
+
+[%- IF entity.can_set_cover_art -%]
 
   <form id="set-cover-art" class="set-cover-art" action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
@@ -46,4 +48,11 @@
   </form>
 
    [%# INCLUDE 'release_group/edit_form.tt' %]
-[% END %]
+
+[%- ELSE -%]
+  <p>
+    [%- l('No releases have cover art, cannot set cover art.') -%]
+  </p>
+[%- END -%]
+
+[%- END -%]

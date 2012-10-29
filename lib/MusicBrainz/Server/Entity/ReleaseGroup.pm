@@ -86,6 +86,9 @@ has 'cover_art' => (
     predicate => 'has_cover_art',
 );
 
+# Cannot set cover art if none of the associated releases has cover art.
+sub can_set_cover_art { return shift->has_cover_art; }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

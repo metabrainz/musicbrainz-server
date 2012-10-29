@@ -43,6 +43,7 @@ after 'load' => sub
     }
     $c->model('ReleaseGroupType')->load($rg);
     $c->model('ArtistCredit')->load($rg);
+    $c->model('Artwork')->load_for_release_groups ($rg);
     $c->stash( can_delete => $c->model('ReleaseGroup')->can_delete($rg->id) );
 };
 
@@ -62,7 +63,6 @@ sub show : Chained('load') PathPart('')
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
-    $c->model('Artwork')->load_for_release_groups ($rg);
     $c->model('Relationship')->load($rg);
 
     $c->stash(
@@ -133,21 +133,23 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit Requi
     my ($self, $c, $id) = @_;
 
     my $entity = $c->stash->{entity};
+    return unless $entity->can_set_cover_art;
+
     my ($releases, $hits) = $c->model ('Release')->find_by_release_group (
         $entity->id);
 
     my $artwork = $c->model ('Artwork')->find_front_cover_by_release (@$releases);
     $c->model ('CoverArtType')->load_for (@$artwork);
-    $c->model('Artwork')->load_for_release_groups ($entity);
 
-    my $form = $c->form(form => 'ReleaseGroup::SetCoverArt',
-        init_object => { release => $entity->cover_art->release->gid });
+    my $cover_art_release = $entity->cover_art ? $entity->cover_art->release : undef;
+    my $form = $c->form(form => 'ReleaseGroup::SetCoverArt', init_object => {
+        release => $cover_art_release ? $cover_art_release->gid : undef });
 
     my $form_valid = $c->form_posted && $form->submitted_and_valid($c->req->params);
 
     my $release = $form_valid
         ? $c->model ('Release')->get_by_gid ($form->field('release')->value)
-        : $entity->cover_art->release;
+        : $cover_art_release;
 
     $c->stash({ form => $form, artwork => $artwork, release => $release });
 
