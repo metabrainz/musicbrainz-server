@@ -221,16 +221,23 @@ sub gravatar {
     return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
-sub amazon_https {
+sub _amazon_https {
     my $url = shift;
     $url =~ s,http://ecx\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
     return $url;
 }
 
-sub coverart_https {
+sub _generic_https {
     my $url = shift;
     # list only those sites that support https
     $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|www\.archive\.org)/,https://$1/,;
+    return $url;
+}
+
+sub coverart_https {
+    my $url = shift;
+    $url = _amazon_https($url);
+    $url = _generic_https($url);
     return $url;
 }
 

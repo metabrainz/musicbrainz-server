@@ -117,7 +117,7 @@ END; -%]
 
 [%- MACRO cover_art_url(url) BLOCK;
     IF c.req.secure;
-        url | amazon_https | coverart_https;
+        url | coverart_https;
     ELSE;
         url;
     END;
