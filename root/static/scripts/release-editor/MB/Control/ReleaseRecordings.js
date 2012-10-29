@@ -35,35 +35,36 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     self.$comment = self.$container.find ('tr.clientmatch span.comment');
 
     self.renderReleaseGroups = function ($target, gid, rgs) {
+        if (rgs) {
+            $target.empty ();
 
-        $target.empty ();
+            var first = true;
+            $.each (rgs.results, function (idx, item) {
+                var a;
 
-        var first = true;
-        $.each (rgs.results, function (idx, item) {
-            var a;
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    $target.append (", ");
+                }
 
-            if (first)
+                a = '<a target="_blank" href="/release-group/' + item.gid +
+                    '">' + MB.utility.escapeHTML (item.name) + '</a>';
+
+                $target.append ($(a));
+            });
+
+            if (rgs.hits > rgs.results.length)
             {
-                first = false;
-            }
-            else
-            {
-                $target.append (", ");
+                $target.append (
+                    $('<a target="_blank" href="/recording/' + gid + '/">...</a>'));
             }
 
-            a = '<a target="_blank" href="/release-group/' + item.gid +
-                '">' + MB.utility.escapeHTML (item.name) + '</a>';
-
-            $target.append ($(a));
-        });
-
-        if (rgs.hits > rgs.results.length)
-        {
-            $target.append (
-                $('<a target="_blank" href="/recording/' + gid + '/">...</a>'));
+            return rgs.results.length;
         }
-
-        return rgs.results.length;
     };
 
     self.selected = function (event) {
@@ -78,9 +79,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        if (data.appears_on) {
-            self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
-        }
+        self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -330,15 +329,13 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
             var rr_track = MB.Control.ReleaseRecordingsTrack (self, disc, idx, $track.eq(0));
             self.tracks.push (rr_track);
 
-            if (trk.recording.appears_on) {
-                var appears = rr_track.select.renderReleaseGroups (
-                    $bubble.find ('tr.servermatch span.appears'),
-                    trk.recording.gid, trk.recording.appears_on);
+            var appears = rr_track.select.renderReleaseGroups (
+                $bubble.find ('tr.servermatch span.appears'),
+                trk.recording.gid, trk.recording.appears_on);
 
-                if (appears)
-                {
-                    $bubble.find ('tr.servermatch.releaselist').show ();
-                }
+            if (appears)
+            {
+                $bubble.find ('tr.servermatch.releaselist').show ();
             }
 
             $bubble.find ('input.servermatch').attr ('checked', true).trigger ('change');
