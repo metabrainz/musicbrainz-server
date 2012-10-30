@@ -282,6 +282,12 @@ Relationship.prototype.openEdits = function() {
     );
 };
 
+
+Relationship.prototype.css = function() {
+    var action = this.action();
+    return _.trim((this.hasErrors() ? "error-field" : "") + " " + (action ? "rel-" + action : ""));
+};
+
 return RE;
 
 }(MB.RelationshipEditor || {}));
