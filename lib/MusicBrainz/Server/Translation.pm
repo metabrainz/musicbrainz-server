@@ -15,9 +15,9 @@ use List::UtilsBy qw( sort_by );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l )],
+    exports => [qw( l lp ln N_l N_ln N_lp )],
     groups => {
-        default => [qw( l lp ln N_l )]
+        default => [qw( l lp ln N_l N_ln N_lp )]
     }
 };
 
