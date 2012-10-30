@@ -2,10 +2,13 @@ package MusicBrainz::Server::Data::Blog;
 use Moose;
 use namespace::autoclean;
 
+use Readonly;
 use XML::RSS::Parser::Lite;
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Data::Role::Context';
+
+Readonly my $BLOG_CACHE_TIMEOUT => 60 * 60 * 3; # 3 hours
 
 sub get_latest_entries {
     my ($self) = @_;
@@ -24,7 +27,7 @@ sub get_latest_entries {
 
         $entry_parser = XML::RSS::Parser::Lite->new;
         $entry_parser->parse($xml->content);
-        $cache->set($key => $entry_parser);
+        $cache->set($key => $entry_parser, $BLOG_CACHE_TIMEOUT);
     }
 
     return $entry_parser;
