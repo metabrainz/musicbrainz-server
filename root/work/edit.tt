@@ -3,11 +3,12 @@
   [% script_manifest('edit.js.manifest') %]
 
   <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
+    $(function() {
 
       var bubbles = MB.Control.BubbleCollection ();
       MB.Control.initialize_guess_case (bubbles, 'work', 'id-edit-work');
 
+      bubbles.add($("input[name=edit-work\\.iswcs\\.0]"), $("div.iswcs.bubble"));
     });
   //]]></script>
 [%- END -%]
@@ -15,4 +16,3 @@
 [%- WRAPPER 'work/layout.tt' title=l('Edit Work') full_width=1 page='edit' -%]
    [%- INCLUDE 'work/edit_form.tt' -%]
 [%- END -%]
-

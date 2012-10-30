@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-07 03:30+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-17 19:39+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -680,7 +680,7 @@ msgstr "Aantal actieve redacteuren (bewerken of stemmen) gedurende de afgelopen 
 
 #: ../root/statistics/view_js.tt:71
 msgid "Count of all Abstain votes"
-msgstr ""
+msgstr "Totaal aantal stemmen onthouding"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Count of all Artist Credits"
@@ -1302,7 +1302,7 @@ msgstr "Gebeurtenissen op MusicBrainz:"
 
 #: ../root/statistics/no_statistics.tt:2
 msgid "No Statistics"
-msgstr ""
+msgstr "Geen statistieken"
 
 #: ../root/statistics/view_js.tt:70
 msgid "No Votes"
@@ -1338,7 +1338,7 @@ msgstr "Artiesten die geen groep zijn:"
 
 #: ../root/statistics/index.tt:506
 msgid "None"
-msgstr ""
+msgstr "Geen"
 
 #: ../root/statistics/view_js.tt:153
 msgid "Normal Data Quality"
@@ -1676,7 +1676,7 @@ msgid ""
 "administrator for this server, you should run "
 "<code>./admin/CollectStats.pl</code> or import <code>mbdump-"
 "stats.tar.bz2</code>."
-msgstr ""
+msgstr "Voor deze server zijn nooit statistieken verzameld. Als u de beheerder bent van deze server moet u <code>./admin/CollectStats.pl</code> uitvoeren of <code>mbdump-stats.tar.bz2</code> importeren."
 
 #: ../root/statistics/index.tt:65
 msgid "Tags (raw / aggregated):"
@@ -1688,7 +1688,7 @@ msgstr "Etiketten (totaal)"
 
 #: ../root/statistics/editors.tt:16
 msgid "There is no data to display here."
-msgstr ""
+msgstr "Er zijn geen gegevens om hier te tonen."
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
@@ -1729,7 +1729,7 @@ msgstr "Nummers"
 
 #: ../root/statistics/index.tt:44
 msgid "URLs:"
-msgstr ""
+msgstr "URL's:"
 
 #: ../root/statistics/countries.tt:17 ../root/statistics/view_js.tt:78
 #: ../root/statistics/view_js.tt:79 ../root/statistics/view_js.tt:80
@@ -1826,7 +1826,7 @@ msgstr "Etiketten van composities (totaal)"
 
 #: ../root/statistics/index.tt:488
 msgid "Work Types"
-msgstr ""
+msgstr "Compositietypes"
 
 #: ../root/statistics/languages_scripts.tt:42 ../root/statistics/view_js.tt:45
 msgid "Works"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2012-10-06 20:26-0700\n"
-"PO-Revision-Date: 2012-10-09 08:54+0000\n"
+"PO-Revision-Date: 2012-10-14 20:17+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1149,7 +1149,7 @@ msgstr ""
 
 #: ../root/artist/aliases.tt:8
 msgid "Artist credits"
-msgstr ""
+msgstr "Nimekujud"
 
 #: ../root/edit/details/edit_medium.tt:223
 msgid "Artist credits:"
@@ -1619,7 +1619,7 @@ msgstr "CD sisukord:"
 
 #: ../root/cdstub/header.tt:5
 msgid "CD stub by {artist}"
-msgstr "Pooleldi sisestatud CD — {artist}"
+msgstr "pooleldi sisestatud CD ~ {artist}"
 
 #: ../root/cdstub/edit_form.tt:4
 msgid "CD stub details"
@@ -2907,23 +2907,23 @@ msgstr "Aegunud"
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva</span> pärast"
-msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva</span> pärast"
+msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
+msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
 
 #: ../root/components/common-macros.tt:617
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni</span> pärast"
-msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni</span> pärast"
+msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
+msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
 
 #: ../root/components/common-macros.tt:623
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
 "minutes</span>"
-msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti</span> pärast"
-msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti</span> pärast"
+msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
+msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pärast</span>"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:38
 msgid "External links"
@@ -3730,7 +3730,7 @@ msgstr "piiratud kasutaja"
 
 #: ../root/recording/fingerprints.tt:73
 msgid "Link"
-msgstr ""
+msgstr "Seosta"
 
 #: ../root/edit/details/add_relationship_type.tt:13
 #: ../root/edit/details/edit_relationship_type.tt:12
@@ -4423,7 +4423,7 @@ msgstr "Sellesse kogusse pole väljalaskeid lisatud."
 
 #: ../root/recording/index.tt:48
 msgid "No releases found which feature this recording."
-msgstr ""
+msgstr "Ei leitud ühtki väljalaset, kus see salvestis peal oleks."
 
 #: ../root/release_group/index.tt:78
 msgid "No releases found."
@@ -5167,7 +5167,7 @@ msgstr ""
 
 #: ../root/recording/edits.tt:20 ../root/recording/header.tt:16
 msgid "Recording by {artist}"
-msgstr "Salvestis — {artist}"
+msgstr "salvestis ~ {artist}"
 
 #: ../root/recording/layout.tt:8
 msgid "Recording information"
@@ -5869,7 +5869,7 @@ msgstr "Teata autoriõiguse rikkumisest"
 #: ../root/layout/menu.tt:227 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
 msgid "Reports"
-msgstr "Võimalikud vead"
+msgstr "Võimalike vigade aruanded"
 
 #: ../root/main/500.tt:27
 msgid "Request data:"
@@ -7253,7 +7253,7 @@ msgstr "See on arendusserver; kõigi parool on „mb”."
 msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
-msgstr ""
+msgstr "See on nimekiri kõigist nimevariantidest, mille all {artist} andmebaasis esineb. Lisateabe saamiseks vaata {doc|artisti nimekujude dokumentatsiooni}."
 
 #: ../root/annotation/common.tt:25
 msgid ""
@@ -7371,7 +7371,7 @@ msgid ""
 "they're different, add {disambiguation_comment|disambiguation comments} to "
 "them (and once a group of similarly named artists have disambiguation "
 "comments, they will stop appearing here)."
-msgstr ""
+msgstr "Selle aruande eesmärk on tuvastada väga sarnaste nimedega artistid. Kui kaks artisti on tegelikult üks ja sama, siis palun mesti need (ära unusta {how_to_write_edit_notes|toimetusmärget} tõendusmaterjaliga). Kui nad on erinevad, siis {disambiguation_comment|lisa neile täpsustus} (kui kõik sarnaste nimedega artistid on omale täpsustusmärke saanud, neid siin enam ei näidata)."
 
 #: ../root/report/tracks_named_with_sequence.tt:6
 msgid ""
@@ -7379,7 +7379,7 @@ msgid ""
 "track number, e.g. \"1) Some Name\" (instead of just \"Some Name\"). Notice "
 "that sometimes this is justified and correct, don't automatically assume it "
 "is a mistake! If you confirm it is a mistake, please correct it."
-msgstr ""
+msgstr "Selle aruande eesmärk on tuvastada väljalasked, kus loonimed algavad järjekorranumbriga, nt „Mingi laulu” asemel „1) Mingi laul”. Pane tähele, et mõnikord võib (järjekorra)numbriga algav pealkiri põhjendatud ja õige olla, seega ei tohi neid kõiki masinlikult ära muuta. Kui oled aga kindel, et tegu on veaga, siis palun paranda see ära."
 
 #: ../root/report/releases_to_convert.tt:7
 msgid ""
@@ -7387,21 +7387,21 @@ msgid ""
 "artists (because the track artists are on the title field, for example). "
 "Currently it does this by looking for releases where every track contains "
 "\"/\" or \"-\"."
-msgstr ""
+msgstr "Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme esitaja alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
 
 #: ../root/report/mediums_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the mediums are not continuous (e.g. "
 "there is no \"medium 2\"), or with duplicated mediums (e.g. there are two "
 "\"medium 4\"s)."
-msgstr ""
+msgstr "See aruanne loetleb kõik väljalasked, kus helikandjad pole järjestikused (nt puudub helikandja nr 2, kuigi 1 ja 3 on olemas) või kus mõnda helikandjanumbrit on mitu (nt on kaks helikandjat, mille järjenumber on 4)."
 
 #: ../root/report/tracks_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr ""
+msgstr "See aruanne loetleb kõik väljalasked, kus loonumbrid pole järjestikused (nt puudub lugu nr 2, kuigi 1 ja 3 on olemas) või kus mõnda loonumbrit on mitu (nt on kaks lugu, mille järjenumber on 4)."
 
 #: ../root/report/artists_that_may_be_groups.tt:6
 msgid ""
@@ -7410,7 +7410,7 @@ msgid ""
 "members. If you find that an artist here is indeed a group, change its type."
 " If it is not, please make sure that the \"member of\" relationships are in "
 "the right direction and are correct."
-msgstr ""
+msgstr "See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui „grupp”, aga kes võivad olla grupid, kuna neil on liikmed. Kui leiad, et mõni siin loetletud artist on tõepoolest grupp, siis muuda tema tüüp vastavaks. Kui mõni kindlasti pole grupp, siis vaata, et liikmeseosed osutaks õiges suunas ja oleks muidu korrektsed."
 
 #: ../root/report/artists_that_may_be_persons.tt:6
 msgid ""
@@ -7419,13 +7419,13 @@ msgid ""
 "artist will appear here if it is listed as a member of another. If you find "
 "that an artist here is indeed a person, change its type. If it is not, "
 "please make sure that all the relationships are correct and make sense."
-msgstr ""
+msgstr "See aruanne loetleb artistid, kelle tüübiks on määratud midagi muud kui „isik”, aga kes seoste järgi otsustades võivad olla isikud, nt on nad märgitud mõne grupi liikmeks. Kui leiad, et mõni siin loetletud artist on tõepoolest isik, siis muuda tema tüüp vastavaks. Kui mõni kindlasti pole isik, siis vaata, et kõik seosed oleks korrektsed ja mõistuspärased."
 
 #: ../root/report/artists_containing_disambiguation_comments.tt:6
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr ""
+msgstr "See aruanne loetleb artistid, kellel võib täpsustusmärge olla nimes, mitte selleks ette nähtud täpsustusväljal."
 
 #: ../root/report/possible_collaborations.tt:6
 msgid ""
@@ -7435,7 +7435,7 @@ msgid ""
 "collaboration, it should be split if possible (see {how_to_split_artists|How"
 " to Split Artists}). If it is a collaboration with its own name and can't be"
 " split, collaboration relationships should be added to it."
-msgstr ""
+msgstr "See aruanne loetleb artistid, kelle nimes on „&”, aga kellel pole liikme- või koostööseoseid. Kui artisti peetakse valdavalt püsivaks grupiks, tuleks lisada liikmeseosed. Kui tegu on lühiajalise koostööga, tuleks see võimaluse korral vastavateks artistideks eraldada (vaata, {how_to_split_artists|kuidas see käib}). Kui tegu on koostööga, millel on omaenda nimi (mistõttu seda ei saa mitmeks artistiks eraldada), siis tuleks lisada koostööseosed."
 
 #: ../root/report/collaboration_relationships.tt:4
 msgid ""
@@ -7443,14 +7443,14 @@ msgid ""
 "relationships. If the collaboration has its own independent name, do "
 "nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
 "probably split it. See {how_to_split_artists|How to Split Artists}."
-msgstr ""
+msgstr "See aruanne loetleb artistid, kellel on koostööseosed, aga eiühtki seost URL-idega. Kui koostööl on omaenda nimi, ära tee midagi. Kui nimi on kujul „X koos Y-iga” või „X & Y”, tuleks see tõenäoliselt vastavateks artistideks eraldada (vaata, {how_to_split_artists|kuidas see käib})."
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
 "This report lists releases without any disc IDs that probably contain data "
 "tracks (like videos). A data track should be deleted if it is the last track"
 " of the CD and there is no disc ID."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel pole ühtki plaadi-ID-d ja mis tõenäoliselt sisaldavad andmeradu (nt videoid). Andmerada tuleks kustutada, kui see on CD-l viimane ja plaadil pole plaadi-ID-d."
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -7461,7 +7461,7 @@ msgid ""
 "recording, the ISRCs are probably correct and should be left alone. If the "
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
-msgstr ""
+msgstr "See aruanne loetleb {isrc|ISRC-d}, mis on omistatud rohkem kui ühele salvestisele. Kui need salvestised on tegelikult üks ja sama, tuleks nad mestida. Et aga ISRC-d võivad ka valesti omistatud olla, siis tuleb igal juhul hoolikalt kindlaks teha, kas tegu ikka on täpselt sama salvestisega. Kui antud salvestised on mõne pikema salvestise osad, siis on ISRC-d tõenäoliselt korrektsed ja tuleks rahule jätta. Kui sama ISRC on omistatud mitteseotud salvestistele samal väljalaskel, siis tõenäoliselt tekkis plaadi lugemisel viga."
 
 #: ../root/report/asins_with_multiple_releases.tt:6
 msgid ""
@@ -7472,20 +7472,20 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr ""
+msgstr "See aruanne loetleb Amazoni URL-id, mis on lingitud mitme väljalaskega. Üldjuhul peaks Amazoni ASIN-id üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks link saab õige olla. Kontrolli, milline MusicBrainzi väljalase sobib Amazoni oma vasteks (vaata formaati, loonimekirja jm). Kui väljalaskel on vöötkood, võid selle Amazoni otsingusse pista ja vaadata, mis ASIN selle peale leitakse. Võid leida ka ASIN-e, mis on lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
 
 #: ../root/report/discogs_links_with_multiple_artists.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple artists."
-msgstr ""
+msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme artistiga."
 
 #: ../root/report/discogs_links_with_multiple_labels.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple labels."
-msgstr ""
+msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme plaadifirmaga."
 
 #: ../root/report/discogs_links_with_multiple_release_groups.tt:6
 msgid ""
 "This report shows Discogs URLs which are linked to multiple release groups."
-msgstr ""
+msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskerühmaga."
 
 #: ../root/report/discogs_links_with_multiple_releases.tt:6
 msgid ""
@@ -7496,7 +7496,7 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr ""
+msgstr "See aruanne loetleb Discogsi URL-id, mis on lingitud mitme väljalaskega. Üldjuhul peaks Discogsi väljalasked üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks link saab õige olla. Kontrolli, milline MusicBrainzi väljalase sobib Discogsi oma vasteks (vaata formaati, loonimekirja, väljalaskeriiki jm). Võid leida ka Discogsi URL-e, mis on lingitud mitmeplaadilise väljalaske eri plaatidele — nood tuleks lihtsalt üheks väljalaskeks mestida (vaata, {how_to_merge_releases|kuidas see käib})."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
@@ -7505,7 +7505,7 @@ msgid ""
 " they're not, the relationship should be removed. Please, do not merge "
 "recordings blindly just because the lengths fit, and do not merge recordings"
 " with very different times!"
-msgstr ""
+msgstr "See aruanne loetleb salvestised, millel on ikka veel varaseima väljalaske seos. Kui tegu on tõesti ühe ja sama salvestisega, siis tuleks nad mestida, vastasel juhul aga nendevaheline seos eemaldada. Pimesi, ainult sobiva pikkuse alusel ära palun salvestisi mesti, samuti ära mesti väga erineva kestusega salvestisi."
 
 #: ../root/report/featuring_recordings.tt:6
 msgid ""
@@ -7514,7 +7514,7 @@ msgid ""
 "inherited from an older version of MusicBrainz and should be fixed (both at "
 "the recordings at the tracks!). Consult the {featured_artists|page about "
 "featured artists} to know more."
-msgstr ""
+msgstr "See aruanne loetleb salvestised, millel on pealkirjas „(feat. Artist)”. Klassikalise muusika puhul ära muuda midagi, kõige muu puhul pärineb see MusicBrainzi varasemast versioonist ja tuleks ära parandada (nii salvestiste pealkirjades kui väljalasete loonimekirjas!). Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/featuring_release_groups.tt:6
 msgid ""
@@ -7522,7 +7522,7 @@ msgid ""
 "classical releases, don't change anything. For non-classical releases, this "
 "is inherited from an older version of MusicBrainz and should be fixed. "
 "Consult the {featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "See aruanne loetleb väljalaskerühmad, millel on pealkirjas „(feat. Artist)”. Klassikalise muusika puhul ära muuda midagi, kõige muu puhul pärineb see MusicBrainzi varasemast versioonist ja tuleks ära parandada. Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/set_in_different_rg.tt:6
 msgid ""
@@ -7538,7 +7538,7 @@ msgstr ""
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mis on andmebaasi sisestatud ebatõenäolise keele ja kirjasüsteemi kombinatsiooniga, nt keeleks eesti, aga kirjasüsteemiks etioopia."
 
 #: ../root/report/multiple_asins.tt:6
 msgid ""
@@ -7547,7 +7547,7 @@ msgid ""
 " be correct. Just check which ones do not fit the release (because of "
 "format, different number of tracks, etc). If the release has a barcode, you "
 "can search Amazon for it and see which ASIN matches."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mis on lingitud mitme Amazoni ASIN-iga. Üldjuhul peaks ASIN-id üksüheselt MusicBrainzi väljalasetele vastama, nii et ainult üks ASIN saab õige olla. Lihtsalt kontrolli, millised neist väljalaskega ei sobi (vaata formaati, loonimekirja jm) ja eemalda need. Kui väljalaskel on vöötkood, võid selle Amazoni otsingusse pista ja vaadata, mis ASIN selle peale leitakse."
 
 #: ../root/report/multiple_discogs_links.tt:6
 msgid ""
@@ -7557,27 +7557,27 @@ msgid ""
 "release (because of format, different number of tracks, etc). Any \"master\""
 " Discogs page belongs at the {release_group|release group level}, not at the"
 " release level, and should be removed from releases too."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mis on lingitud mitme Discogsi URL-iga. Üldjuhul peaks MusicBrainzi väljalasetel Discogsis ainult üks vaste olema. Lihtsalt kontrolli, millised neist väljalaskega ei sobi (erineva formaadi, loonimekirja vm tõttu) ja eemalda need. Discogsi „master”-lehtede koht on {release_group|väljalaskerühma tasemel} ja väljalasetelt tuleks need eemaldada."
 
 #: ../root/report/releases_without_language.tt:6
 msgid ""
 "This report shows releases that have no language set. If you recognize the "
 "language, please set it! Do it only if you are pretty sure, don't just "
 "guess: not everything written in Cyrillic is Russian, for example."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on keel määramata. Kui keele ära tunned, siis lihtsalt määra see, kuid ainult juhul, kui oled tõesti kindel (näiteks pole vene keel kaugeltki ainuke, mida kirillitsas kirjutatakse)."
 
 #: ../root/report/releases_without_script.tt:6
 msgid ""
 "This report shows releases that have no script set. If you recognize the "
 "script, just add it! Remember that the script used for English (and most "
 "other European languages) is Latin."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. Kui kirjasüsteemi ära tunned, siis lihtsalt määra see. Pea meeles, et eesti keele (ja enamikku teiste Euroopa keelte) jaoks kasutatakse ladina kirja."
 
 #: ../root/report/releases_with_cc_links.tt:6
 msgid ""
 "This report shows releases that still have Creative Commons Download "
 "relationships."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on ikka veel Creative Commonsi allalaadimisseoseid."
 
 #: ../root/report/part_of_set_relationships.tt:6
 msgid ""
@@ -7595,18 +7595,18 @@ msgid ""
 "others are unset. In most cases, it should be easy to find out which the "
 "correct formats are (don't just assume that they're all CDs because one is "
 "though!)."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel mõne helikandja formaat on määratud, mõne oma mitte. Enamasti peaks olema lihtne välja uurida, mis formaati helikandjad on (siiski ära eelda, et kui üks on CD, siis on tingimata teised ka)."
 
 #: ../root/report/separate_discs.tt:6
 msgid ""
 "This report shows releases which have (disc n) or (bonus disc) in the title."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mille pealkirjas on ikka veel „(disc n)” või „(bonus disc)”."
 
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:7
 msgid ""
 "This report shows releases which have artwork in the Cover Art Archive, but "
 "still have a cover art relationship (pointing to a URL)."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mille kaanepilt on olemas Kaanepildiarhiivis, aga millel on ikka veel URL-ile osutav kaanepildiseos. "
 
 #: ../root/report/cat_no_looks_like_asin.tt:6
 msgid ""
@@ -7614,7 +7614,7 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mille katalooginumbrid näevad välja nagu ASIN-id. Need on peaaegu alati valed: ASIN-id on lihtsalt Amazoni kirjed väljalasete jaoks ning need tuleks vastava väljalaskega seostada Amazoni URL-i seose kaudu."
 
 #: ../root/report/released_too_early.tt:6
 msgid ""
@@ -7622,7 +7622,7 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel mõne helikandja formaat polnud märgitud väljalaskeajal veel leiutatud; millele on omistatud plaadi-ID, kuigi väljalase on selleks liiga vana; või millel on plaadi-ID omistatud helikandjale, mille formaadil ei saa plaadi-ID-d olla."
 
 #: ../root/report/featuring_releases.tt:6
 msgid ""
@@ -7630,7 +7630,7 @@ msgid ""
 "releases, don't change anything. For non-classical releases, this is "
 "inherited from an older version of MusicBrainz and should be fixed. Consult "
 "the {featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on pealkirjas „(feat. Artist)”. Klassikalise muusika puhul ära muuda midagi, kõige muu puhul pärineb see MusicBrainzi varasemast versioonist ja tuleks ära parandada. Lisateavet saad {featured_artists|lehelt kaasa tegevate artistide kohta}."
 
 #: ../root/report/bad_amazon_urls.tt:6
 msgid ""
@@ -7645,7 +7645,7 @@ msgid ""
 " the translation/transliteration relationship to an original version. This "
 "could be because the original version is missing, or just that the release "
 "status is set wrong."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, mille staatuseks on märgitud pseudoväljalase, kuid mis pole tõlke-/translitereeringuseose kaudu algse väljalaskega seostatud. Põhjuseks võib olla puuduv algne väljalase või valesti määratud väljalaske staatus."
 
 #: ../root/release/merge.tt:137
 msgid ""
@@ -7654,14 +7654,14 @@ msgstr "See eeldab, et vastavatel helikandjatel on sama palju lugusid."
 
 #: ../root/user/profile.tt:185
 msgid "This table shows a summary of votes cast by this editor."
-msgstr ""
+msgstr "See tabel näitab selle toimetaja antud häälte kokkuvõtet."
 
 #: ../root/scripts/text_strings.tt:118
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
-msgstr ""
+msgstr "Lugude nimekirjal on artistiväljal teavet, mis läheb loopealkirjade ja artistinimede vahetamisel kaotsi. Seda ei saa tagasi võtta. Kas soovid jätkata?"
 
 #: ../root/components/common-macros.tt:409
 msgid "This user is automated."
@@ -8084,7 +8084,7 @@ msgstr "Teadmata"
 
 #: ../root/recording/fingerprints.tt:73
 msgid "Unlink"
-msgstr "Lingi lahti"
+msgstr "Eemalda seos"
 
 #: ../root/report/unlinked_pseudo_releases.tt:1
 #: ../root/report/unlinked_pseudo_releases.tt:3
