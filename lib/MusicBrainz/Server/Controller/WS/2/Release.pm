@@ -59,6 +59,12 @@ sub release_toplevel
     $c->model('Release')->load_meta($release);
     $self->linked_releases ($c, $stash, [ $release ]);
 
+    if ($release->cover_art_presence eq 'present') {
+        $stash->store($release)->{'cover-art-archive'} = $c->model('CoverArtArchive')->get_stats_for_release($release->id);
+    } else {
+        $stash->store($release)->{'cover-art-archive'} = {total => 0, front => 0, back => 0};
+    }
+
     my @rels_entities = $release;
 
     if ($c->stash->{inc}->artists)
