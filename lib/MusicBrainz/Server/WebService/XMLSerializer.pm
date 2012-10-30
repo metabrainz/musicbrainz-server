@@ -349,7 +349,7 @@ sub _serialize_release
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
-    push @list, $gen->caa($release->cover_art_presence) if $release->cover_art_presence;
+    push @list, $gen->cover_art_archive($gen->artwork($release->cover_art_presence eq 'present' ? 'true' : 'false')) if $release->cover_art_presence;
 
     if ($toplevel)
     {
