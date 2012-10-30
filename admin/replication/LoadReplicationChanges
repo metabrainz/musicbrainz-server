@@ -46,8 +46,7 @@ my $limit = 0;
 my $count = 0;
 my $period = 'hourly';
 my $catchup;
-my $baseuri = "http://ftp.musicbrainz.org/pub/musicbrainz/data/replication";
-my $fallbackuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
+my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
 
@@ -55,7 +54,6 @@ GetOptions(
     "help"                      => \$fHelp,
     "lockfile=s"                => \$lockfile,
     "base-uri=s"                => \$baseuri,
-    "fallback-uri=s"            => \$fallbackuri,
     "process-arg=s"             => \@process_opts,
     "limit=i"                   => \$limit,
     "period=s"                  => \$period,
@@ -73,8 +71,6 @@ Usage: LoadReplicationChanges [options]
     --lockfile=FILE    use FILE as the lock file to prevent us running in
                        parallel (default: $deflockfile)
     --base-uri=URI     load the replication data from this location
-                       (default: from ftp.musicbrainz.org via HTTP)
-    --fallback-uri=URI fallback to this location if base-uri doesn't have a packet
                        (default: from data.musicbrainz.org via HTTP)
     --process-arg=ARG  Add ARG to each invocation of ProcessReplicationChanges.
                        If required, ARG can be an option (e.g.
@@ -192,13 +188,6 @@ elsif ($catchup) {
     $uriprefix = '';
     $url = "$baseuri/$uriprefix$file";
     $localfile = "$tmpdir/$file";
-    $resp = $ua->mirror($url, $localfile);
-}
-
-if ($resp->code == RC_NOT_FOUND)
-{
-    print localtime() . " : Replication packet #$iNextReplicationSequence not available from main location, trying fallback\n";
-    $url = "$fallbackuri/$uriprefix$file";
     $resp = $ua->mirror($url, $localfile);
 }
 
