@@ -27,7 +27,7 @@ MB.Control.SelectAll = function (table) {
 
     self.$table.find('th input[type="checkbox"]').change(function() {
         var $input = $(this);
-        self.$checkboxes.attr('checked', $input.attr('checked'));
+        self.$checkboxes.prop('checked', $input.prop('checked'));
     });
 
     self.$checkboxes.click(function(event) {

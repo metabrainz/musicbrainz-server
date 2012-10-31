@@ -18,7 +18,7 @@ test 'basic release group lookup' => sub {
         {
             id => "b84625af-6229-305f-9f1b-59c0185df016",
             title => "サマーれげぇ!レインボー",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "first-release-date" => "2001-07-04",
             "primary-type" => "Single",
             "secondary-types" => [],
@@ -68,9 +68,9 @@ test 'release group lookup with releases' => sub {
                     barcode => "600116822123",
                     packaging => JSON::null,
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 
@@ -97,7 +97,7 @@ test 'release group lookup with artists' => sub {
                     },
                     joinphrase => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 
@@ -120,7 +120,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     },
                     joinphrase => "",
                 }],
@@ -136,9 +136,9 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     barcode => "4988064451180",
                     asin => JSON::null,
                     packaging => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
             rating => { "votes-count" => 0, value => JSON::null },
             tags => [],
         });
@@ -163,12 +163,12 @@ test 'release group lookup with pseudo-releases' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     },
                     joinphrase => "",
                 }],
             releases => [],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 

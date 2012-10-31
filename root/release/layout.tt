@@ -4,7 +4,7 @@
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
 
-    [% INCLUDE 'release/sidebar.tt' editing=0 %]
+    [% INCLUDE 'release/sidebar.tt' editing=0 UNLESS full_width %]
 
     <div id="content">
         [%- INCLUDE "release/header.tt" -%]

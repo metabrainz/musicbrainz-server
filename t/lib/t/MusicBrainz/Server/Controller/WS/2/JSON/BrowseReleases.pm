@@ -45,7 +45,7 @@ test 'browse releases via artist (paging)' => sub {
                     country => "US",
                     asin => "B00001IVAI",
                     barcode => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -74,7 +74,7 @@ test 'browse releases via label' => sub {
                         { format => "CD", "track-count" => 9, title => JSON::null },
                         { format => "CD", "track-count" => 9, title => "Chestplate Singles" }],
                     asin => "B001IKWNCE",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 },
                 {
@@ -88,7 +88,7 @@ test 'browse releases via label' => sub {
                     barcode => "600116817020",
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ],
                     asin => "B000KJTG6K",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -114,7 +114,7 @@ test  'browse releases via release group' => sub {
                     country => "JP",
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 },
                 {
@@ -127,7 +127,7 @@ test  'browse releases via release group' => sub {
                     country => "JP",
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -161,10 +161,10 @@ test 'browse releases via recording' => sub {
                                 name => "avex trax",
                                 "sort-name" => "avex trax",
                                 "label-code" => JSON::null,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             }
                         }],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 },
                 {
@@ -185,10 +185,10 @@ test 'browse releases via recording' => sub {
                                 name => "avex trax",
                                 "sort-name" => "avex trax",
                                 "label-code" => JSON::null,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             }
                         }],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });
@@ -214,7 +214,7 @@ test 'browse releases via track artist' => sub {
                     country => "JP",
                     barcode => "4988064451180",
                     asin => "B0001FAD2O",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                 }]
         });

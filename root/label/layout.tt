@@ -1,5 +1,5 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? label.name _ " - ${title}" : label.name -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="label-information">[% l('Label information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -14,7 +14,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" %]
                             [% label.begin_date.format %]
                             [% IF label.has_age AND not label.end_date.format %]
-                                ([% display_age (label.age) %] ago)
+                                ([% display_age_ago(label.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
@@ -39,7 +39,8 @@
                content=html_escape(label.format_label_code) class="label-code"
                    IF label.label_code -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(label.country.l_name) class="country"
+               content=link_searchable_property('country', label.country.iso_code, 'label', label.country.l_name)
+               class="country"
                    IF label.country -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
@@ -101,10 +102,11 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=label -%]
     [% END %]
+  [% END -%]
 
-    <div id="content">
-        [%- INCLUDE "label/header.tt" -%]
-        [%- content -%]
-    </div>
+  <div id="content">
+    [%- INCLUDE "label/header.tt" -%]
+    [%- content -%]
+  </div>
 
 [%- END -%]

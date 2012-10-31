@@ -78,7 +78,7 @@ test 'basic artist lookup, inc=aliases' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             aliases => [
@@ -103,13 +103,13 @@ test 'artist lookup with releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Group",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Official",
                     quality => "normal",
@@ -122,7 +122,7 @@ test 'artist lookup with releases' => sub {
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
@@ -147,13 +147,13 @@ test 'artist lookup with pseudo-releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Group",
             releases => [
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
@@ -189,7 +189,7 @@ test 'artist lookup with releases and discids' => sub {
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
                     asin => JSON::null,
@@ -215,7 +215,7 @@ test 'artist lookup with releases and discids' => sub {
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2007-01-29",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
                     asin => JSON::null,
@@ -243,14 +243,14 @@ test 'artist lookup with recordings and artist credits' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "recordings" => [
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                     title => "the Love Bug",
                     length => 242226,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -258,7 +258,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => "♥",
                         },
@@ -268,7 +268,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => ""
                         }
@@ -278,7 +278,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
                     title => "the Love Bug (Big Bug NYC remix)",
                     length => 222000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -286,7 +286,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => "♥",
                         },
@@ -296,7 +296,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => ""
                         }
@@ -318,13 +318,13 @@ test 'artist lookup with release groups' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => undef,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "release-groups" => [
                 {
                     id => "153f0a09-fead-3370-9b17-379ebd09446b",
                     title => "the Love Bug",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "first-release-date" => "2004-03-17",
                     "primary-type" => "Single",
                     "secondary-types" => [],
@@ -345,7 +345,7 @@ test 'single artist release lookup' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => undef,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             releases => [
                 {
@@ -354,7 +354,7 @@ test 'single artist release lookup' => sub {
                     date => "2004-03-17",
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     country => "JP",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     quality => "normal",
                     status => "Official",
@@ -377,7 +377,7 @@ test 'various artists release lookup' => sub {
             "sort-name" => "BoA",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             releases => [
                 {
@@ -391,7 +391,7 @@ test 'various artists release lookup' => sub {
                     country => "JP",
                     barcode => "4988064451180",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }
             ]
         });
@@ -431,7 +431,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             works => [

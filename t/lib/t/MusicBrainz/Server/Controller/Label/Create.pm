@@ -25,12 +25,12 @@ my $response = $mech->submit_form(
         'edit-label.type_id' => 2,
         'edit-label.label_code' => 12345,
         'edit-label.country_id' => 1,
-        'edit-label.begin_date.year' => 1990,
-        'edit-label.begin_date.month' => 01,
-        'edit-label.begin_date.day' => 02,
-        'edit-label.end_date.year' => 2003,
-        'edit-label.end_date.month' => 4,
-        'edit-label.end_date.day' => 15,
+        'edit-label.period.begin_date.year' => 1990,
+        'edit-label.period.begin_date.month' => 01,
+        'edit-label.period.begin_date.day' => 02,
+        'edit-label.period.end_date.year' => 2003,
+        'edit-label.period.end_date.month' => 4,
+        'edit-label.period.end_date.day' => 15,
         'edit-label.comment' => 'label created in controller_label.t',
     }
 );

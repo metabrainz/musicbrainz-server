@@ -1,5 +1,5 @@
-[% WRAPPER 'statistics/layout.tt' title=l('Overview') full_width=1 page='index' %] 
 [%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Overview') full_width=1 page='index' %]
 
 [% USE format %]
 [% round1 = format('%.1f') %]
@@ -481,6 +481,31 @@
     <th>[% l('which identify 10+ recordings:') %]</th>
     <td>[% add_commas(stats.statistic('count.puid.10recordings')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.10recordings', 'count.puid.ids')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
+<h2>[% l('Work Types') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr>
+    <th colspan=2>[% l('Works:') %]</th>
+    <td>[% add_commas(stats.statistic('count.work')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH work_type IN work_types %]
+<tr>
+   <th></th>
+   <th>[% work_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.' _ work_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.' _ work_type.id, 'count.work')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
 </tr>
 </tbody>
 </table>

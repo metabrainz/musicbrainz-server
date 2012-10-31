@@ -65,7 +65,7 @@ around 'validate_field' => sub {
 
     if ($self->required && ! $artists)
     {
-        $self->add_error ("Artist credit field is required");
+        $self->add_error (l("Artist credit field is required"));
     }
 
     return !$self->has_errors;

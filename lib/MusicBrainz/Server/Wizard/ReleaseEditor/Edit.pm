@@ -36,9 +36,9 @@ augment 'create_edits' => sub
                      date as_auto_editor release_group_id artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
-    map {
-        $args{$_} = trim ($data->{$_})
-    } grep { exists $data->{$_} } qw( name comment barcode );
+    $args{name} = trim ($data->{name});
+    $args{comment} = trim ($data->{comment} // '');
+    $args{barcode} = trim ($data->{barcode});
 
     if ($data->{no_barcode})
     {

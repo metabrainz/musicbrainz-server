@@ -28,7 +28,7 @@ test 'basic release lookup' => sub {
             country => "JP",
             barcode => "4942463511227",
             asin => "B00005LA6G",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
         });
 };
@@ -83,7 +83,7 @@ test 'basic release with tags' => sub {
             country => "JP",
             barcode => "4942463511227",
             asin => "B00005LA6G",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             tags => [ { count => 1, name => "hello project" } ]
         });
@@ -116,7 +116,7 @@ test 'basic release with collections' => sub {
             country => "JP",
             barcode => "4942463511227",
             asin => "B00005LA6G",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             collections => [
                 {
@@ -139,7 +139,7 @@ test 'release lookup with artists + aliases' => sub {
             title => "the Love Bug",
             status => "Official",
             quality => "normal",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             "artist-credit" => [
@@ -150,7 +150,7 @@ test 'release lookup with artists + aliases' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                         aliases => [
                             { "sort-name" => "m-flow", name => "m-flow" },
                             { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew" },
@@ -179,7 +179,7 @@ test 'release lookup with labels and recordings' => sub {
             title => "the Love Bug",
             status => "Official",
             quality => "normal",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             date => "2004-03-17",
@@ -193,7 +193,7 @@ test 'release lookup with labels and recordings' => sub {
                         id => "72a46579-e9a0-405a-8ee1-e6e6b63b8212",
                         name => "rhythm zone",
                         "sort-name" => "rhythm zone",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                         "label-code" => JSON::null,
                     }
                 }],
@@ -212,7 +212,7 @@ test 'release lookup with labels and recordings' => sub {
                                 id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                                 title => "the Love Bug",
                                 length => 242226,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             }
                         },
                         {
@@ -223,7 +223,7 @@ test 'release lookup with labels and recordings' => sub {
                                 id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
                                 title => "the Love Bug (Big Bug NYC remix)",
                                 length => 222000,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             }
                         },
                         {
@@ -234,7 +234,7 @@ test 'release lookup with labels and recordings' => sub {
                                 id => "3f33fc37-43d0-44dc-bfd6-60efd38810c5",
                                 title => "the Love Bug (cover)",
                                 length => 333000,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             }
                         }]
                 }],
@@ -252,7 +252,7 @@ test 'release lookup with release-groups' => sub {
             title => "the Love Bug",
             status => "Official",
             quality => "normal",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
             date => "2004-03-17",
@@ -266,7 +266,7 @@ test 'release lookup with release-groups' => sub {
                       id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                       name => "m-flo",
                       "sort-name" => "m-flo",
-                      disambiguation => JSON::null,
+                      disambiguation => "",
                    },
                    joinphrase => '',
                 }
@@ -274,7 +274,7 @@ test 'release lookup with release-groups' => sub {
             "release-group" => {
                 id => "153f0a09-fead-3370-9b17-379ebd09446b",
                 title => "the Love Bug",
-                disambiguation => JSON::null,
+                disambiguation => "",
                 "first-release-date" => "2004-03-17",
                 "primary-type" => "Single",
                 "secondary-types" => [],
@@ -285,7 +285,7 @@ test 'release lookup with release-groups' => sub {
                           id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                           name => "m-flo",
                           "sort-name" => "m-flo",
-                          disambiguation => JSON::null,
+                          disambiguation => "",
                        },
                        joinphrase => "",
                     }
@@ -313,7 +313,7 @@ test 'release lookup with discids and puids' => sub {
             country => "JP",
             barcode => "4942463511227",
             asin => "B00005LA6G",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
             media => [
                 {
@@ -331,7 +331,7 @@ test 'release lookup with discids and puids' => sub {
                                 id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
                                 title => "サマーれげぇ!レインボー",
                                 length => 296026,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                                 puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
                             }
                         },
@@ -343,7 +343,7 @@ test 'release lookup with discids and puids' => sub {
                                 id => "487cac92-eed5-4efa-8563-c9a818079b9a",
                                 title => "HELLO! また会おうね (7人祭 version)",
                                 length => 213106,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                                 puids => [ "251bd265-84c7-ed8f-aecf-1d9918582399" ],
                             }
                         },
@@ -355,7 +355,7 @@ test 'release lookup with discids and puids' => sub {
                                 id => "eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e",
                                 title => "サマーれげぇ!レインボー (instrumental)",
                                 length => 292800,
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                                 puids => [ "7b8a868f-1e67-852b-5141-ad1edfb1e492" ],
                             }
                         }]
@@ -382,7 +382,7 @@ test 'release lookup, barcode is NULL' => sub {
             country => "US",
             barcode => JSON::null,
             asin => "B00001IVAI",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
         });
 };
@@ -406,7 +406,7 @@ test 'release lookup, barcode is  empty string' => sub {
             country => "GB",
             barcode => "",
             asin => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
         });
 };

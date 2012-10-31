@@ -73,7 +73,7 @@ sub process_edits
             my $err = $_;
             $errors += 1;
             $self->log->error("Error while processing edit #$edit_id: $err\n");
-            next;
+            return;
         };
     }
 

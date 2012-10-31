@@ -129,7 +129,7 @@ sub is_unchanged {
     is($release->country_id, undef,   'is_unchanged: country is undef');
     ok($release->date->is_empty,      'is_unchanged: date is empty');
     is($release->language_id, undef,  'is_unchanged: language is undef');
-    is($release->comment, undef,      'is_unchanged: disambiguation comment is undef');
+    is($release->comment, '',         'is_unchanged: disambiguation comment is blank');
     is($release->release_group_id, 1, 'is_unchanged: release_group id is 1');
     is($release->name, 'Release',     'is_unchanged: release name is Release');
     is($release->artist_credit_id, 1, 'is_unchanged: artist credit is 1');

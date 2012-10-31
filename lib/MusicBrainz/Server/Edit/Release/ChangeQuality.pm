@@ -11,7 +11,6 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
-with 'MusicBrainz::Server::Edit::PerEditConditions';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 

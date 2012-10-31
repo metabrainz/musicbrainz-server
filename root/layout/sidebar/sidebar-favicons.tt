@@ -8,9 +8,10 @@
     [%- favicons = entity.relationships_by_type('url').sort('phrase') -%]
     [%- homepage_relationships = entity.relationships_by_link_type_names('official homepage', 'official site') -%]
 
+    [%- to_display = [] -%]
     [%- FOREACH favicon IN homepage_relationships -%]
         [%- IF !favicon.link.ended -%]
-            [%- display_favicon(favicon.target, l('Official homepage'), 'home') -%]
+            [%- to_display.push(display_favicon(favicon.target, l('Official homepage'), 'home')) -%]
         [%- END -%]
     [%- END -%]
 
@@ -18,9 +19,13 @@
         [%- IF favicon.target.does('MusicBrainz::Server::Entity::URL::Sidebar') AND
                favicon.target.show_in_sidebar AND
                !favicon.link.ended -%]
-            [%- display_favicon(favicon.target) -%]
+            [%- to_display.push(display_favicon(favicon.target)) -%]
             [%- urls = 1 -%]
         [%- END -%]
+    [%- END -%]
+
+    [%- FOREACH display IN to_display.unique -%]
+        [% display %]
     [%- END -%]
 
     [%- IF empty && !entity.isa('MusicBrainz::Server::Entity::Recording') && !entity.isa('MusicBrainz::Server::Entity::Work') -%]

@@ -25,7 +25,7 @@ test 'browse labels via release' => sub {
                     name => "rhythm zone",
                     "sort-name" => "rhythm zone",
                     country => "JP",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "label-code" => JSON::null,
                 }]
         });
