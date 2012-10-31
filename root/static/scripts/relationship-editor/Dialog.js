@@ -309,24 +309,11 @@ var Dialog = UI.Dialog = {
     mode: ko.observable(""),
     loading: ko.observable(false),
     batchWorksError: ko.observable(false),
-    backward: ko.observable(false),
 
     showAutocomplete: ko.observable(false),
     showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
-
-    relationship: (function() {
-        var value = ko.observable(null);
-
-        return ko.computed({
-            read: value,
-            write: function(newValue) {
-                var oldValue = value();
-                if (oldValue !== newValue) value(newValue);
-            }
-        });
-    }()),
 
     init: function() {
         var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
@@ -334,12 +321,16 @@ var Dialog = UI.Dialog = {
         // this is used as an "empty" state when the dialog is hidden, so that
         // none of the bindings error out.
         this.emptyRelationship = RE.Relationship({entity: entity});
+        this.relationship = ko.observable(this.emptyRelationship);
 
-        this.backward(true);
-        this.relationship(this.emptyRelationship);
+        this.backward = ko.observable(true);
         this.sourceField = ko.observable(null);
         this.targetField = ko.observable(null);
         this.source = entity[1];
+
+        this.linkTypeDescription = ko.computed(function() {
+            return (Util.typeInfo(Dialog.relationship().link_type()) || {}).descr || "";
+        });
 
         ko.computed(function() {
             var relationship = Dialog.relationship(),
@@ -438,17 +429,6 @@ var Dialog = UI.Dialog = {
     toggleAttributesHelp: function() {
         this.showAttributesHelp(!this.showAttributesHelp());
     },
-
-    linkTypeDescription: ko.computed({
-        read: function() {
-            var info = Util.typeInfo(Dialog.relationship().link_type());
-            return info ? info.descr : "";
-        },
-        // at the time this is declared, Dialog.relationship() is not set,
-        // and can't be because relationships require the link type info from
-        // the server. so defer this.
-        deferEvaluation: true
-    }),
 
     changeDirection: function() {
         var relationship = this.relationship.peek(),

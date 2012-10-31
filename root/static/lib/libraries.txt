@@ -94,7 +94,7 @@ url:         http://tablesorter.com
 
 library:     Knockout
 license:     MIT
-version:     GIT, 2012-07-23
+version:     2.2.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 

@@ -276,12 +276,9 @@
   </tr>
 </script>
 
-<script type="text/html" id="template.link.phrase"><span class="link-phrase"
-        data-bind="text: linkPhrase($parents[1]), css: {
-             'error-field': hasErrors,
-             'rel-add':     action() == 'add',
-             'rel-edit':    action() == 'edit',
-             'rel-remove':  action() == 'remove'}"></span></script>
+<script type="text/html" id="template.link.phrase"><!--
+  --><span class="link-phrase" data-bind="text: linkPhrase($parents[1]), css: css()"></span><!--
+--></script>
 
 <script type="text/html" id="template.relationship">
   <div class="ar">
