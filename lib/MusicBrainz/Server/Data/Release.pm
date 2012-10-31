@@ -572,6 +572,10 @@ sub delete
     $self->sql->do('DELETE FROM release_label WHERE release IN (' . placeholders(@release_ids) . ')',
              @release_ids);
 
+    $self->sql->do('DELETE FROM cover_art_archive.release_group_cover_art ' .
+                   'WHERE release IN (' . placeholders(@release_ids) . ')',
+                   @release_ids);
+
     my @mediums = @{
         $self->sql->select_single_column_array(
             'SELECT id FROM medium WHERE release IN (' . placeholders(@release_ids) . ')',
