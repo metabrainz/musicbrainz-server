@@ -5,12 +5,11 @@ use 5.10.0;
 
 use List::MoreUtils qw( uniq );
 
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref clean_text trim partial_date_to_hash );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
-use Text::Trim qw( trim );
 
 use MusicBrainz::Server::Translation qw( N_l );
 
@@ -189,6 +188,10 @@ sub clean_submitted_artist_credits
 
             # Set to empty string if join_phrase is undef.
             $part->{join_phrase} = '' unless defined $part->{join_phrase};
+            $part->{join_phrase} = clean_text ($part->{join_phrase});
+
+            # Remove trailing whitespace from a trailing join phrase.
+            $part->{join_phrase} =~ s/\s+$// if $_ == $#names;
         }
         elsif (! $part)
         {
