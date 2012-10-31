@@ -61,7 +61,7 @@ sub set_language : Path('set-language') Args(1)
         $c->res->cookies->{lang} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
     } else {
         # set the cookie to expire in a year
-        $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
+        $c->set_language_cookie($lang);
     }
     $c->res->redirect($c->req->referer || $c->uri_for('/'));
     $c->detach;

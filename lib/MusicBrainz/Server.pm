@@ -260,8 +260,7 @@ around 'dispatch' => sub {
 
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
     # refresh the cookie
-    $c->res->cookies->{lang} = { 'value' => $c->request->cookies->{lang}->value, 'path' => '/', 'expires' => time()+31536000 }
-        if defined $c->request->cookies->{lang};
+    $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
     # because s///r is a perl 5.14 feature
     my $html_lang = $lang;
@@ -299,6 +298,11 @@ around 'dispatch' => sub {
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
+
+sub set_language_cookie {
+    my ($c, $lang) = @_;
+    $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
+}
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;
