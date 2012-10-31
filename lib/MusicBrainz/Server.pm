@@ -259,6 +259,9 @@ around 'dispatch' => sub {
 		MusicBrainz::Server::Translation::InstrumentDescriptions );
 
     my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    # refresh the cookie
+    $c->res->cookies->{lang} = { 'value' => $c->request->cookies->{lang}->value, 'path' => '/', 'expires' => time()+31536000 }
+        if defined $c->request->cookies->{lang};
     my $lang = Translation->instance->set_language($cookie_lang);
     # because s///r is a perl 5.14 feature
     my $html_lang = $lang;
