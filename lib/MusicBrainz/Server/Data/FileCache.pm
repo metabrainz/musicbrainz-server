@@ -43,28 +43,36 @@ sub manifest_signature {
 
 sub template_signature {
     my ($self, $template) = @_;
-    unless (exists $self->file_signatures->{'template' . $template}) {
-        $self->file_signatures->{'template' . $template} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/root/" . $template);
+    my $signature_key = 'template' . $template;
+    unless (exists $self->file_signatures->{$signature_key}) {
+        $self->file_signatures->{$signature_key} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/root/" . $template);
     }
 
-    return $self->file_signatures->{'template' . $template};
+    return $self->file_signatures->{$signature_key};
 }
 
 sub pofile_signature {
     my ($self, $domain, $language) = @_;
-    unless (exists $self->file_signatures->{'pofile' . $domain . $language}) {
+    my $signature_key = 'pofile' . $domain . $language;
+    unless (exists $self->file_signatures->{$signature_key}) {
         # First try the language as given, then fall back to the language without a country code.
         my $hash = try {
-            file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+            file_md5_hex(_pofile_path($domain, $language));
         } catch {
             $language =~ s/[-_][A-Za-z]+$//;
-            file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+            file_md5_hex(_pofile_path($domain, $language));
         };
 
-        $self->file_signatures->{'pofile' . $domain . $language} = $hash;
+        $self->file_signatures->{$signature_key} = $hash;
     }
 
-    return $self->file_signatures->{'pofile' . $domain . $language};
+    return $self->file_signatures->{$signature_key};
+}
+
+sub _pofile_path
+{
+    my ($domain, $language) = @_;
+    return DBDefs::MB_SERVER_ROOT . "/po/" . $domain . "." . $language . ".po";
 }
 
 sub _expand {
