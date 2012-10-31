@@ -98,14 +98,6 @@ version:     GIT, 2012-07-23
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
--- knockout/knockout.mapping-latest.debug.js --
-
-library:     Knockout mapping
-license:     MIT
-version:     v2.2.3
-author:      Steven Sanderson, Roy Jacobs
-url:         http://knockoutjs.com/documentation/plugins-mapping.html
-
 -- underscore/underscore.js --
 
 library:     Underscore
