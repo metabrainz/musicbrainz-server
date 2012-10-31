@@ -88,7 +88,7 @@ Relationship.prototype.toJS = function() {
         period: {
             begin_date: ko.toJS(this.period.begin_date),
             end_date:   ko.toJS(this.period.end_date),
-            ended:      this.period.ended.peek(),
+            ended:      this.period.ended.peek()
         },
         attrs:  ko.toJS(this.attrs),
         entity: [this.entity[0].peek().toJS(), this.entity[1].peek().toJS()]

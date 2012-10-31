@@ -303,7 +303,7 @@ $.extend(MB.text = MB.text || {}, {
         release:       "Release",
         release_group: "Release group",
         url:           "URL",
-        work:          "Work",
+        work:          "Work"
     },
     AttributeNotSupported: "This attribute is not supported for the selected relationship type.",
     AttributeTooMany: "This attribute can only be specified {max} times. You specified {n}.",
@@ -333,7 +333,7 @@ MB.tests.RelationshipEditor.Util = function() {
             },
             {date: "1999", expected: {
                 year: "1999", month: null, day: null}
-            },
+            }
         ];
 
         $.each(tests, function(i, test) {
@@ -354,7 +354,7 @@ MB.tests.RelationshipEditor.Util = function() {
             {root: Util.attrInfo(14), value: 1, expected: [1]},
             {root: Util.attrInfo(14), value: [3, 3, 2, 2, 1, 1], expected: [1, 2, 3]},
             {root: Util.attrInfo(14), value: ["3", "3", "2", "2", "1", "1"], expected: [1, 2, 3]},
-            {root: Util.attrInfo(14), value: ["1", 0, "9", 0, "5"], expected: [1, 5, 9]},
+            {root: Util.attrInfo(14), value: ["1", 0, "9", 0, "5"], expected: [1, 5, 9]}
         ];
 
         $.each(tests, function(i, test) {
@@ -393,7 +393,7 @@ MB.tests.RelationshipEditor.Fields = function() {
             {input: 0, expected: 0},
             {input: 12, expected: 12},
             {input: "0", expected: 0},
-            {input: "012", expected: 12},
+            {input: "012", expected: 12}
         ];
 
         $.each(tests, function(i, test) {
@@ -423,7 +423,7 @@ MB.tests.RelationshipEditor.Fields = function() {
             {
                 input: {cover: 1, instrumental: 0, live: 1},
                 expected: {partial: false, live: true, instrumental: false, cover: true}
-            },
+            }
         ];
 
         $.each(tests, function(i, test) {
