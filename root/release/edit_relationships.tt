@@ -327,9 +327,9 @@
 
       <p>[% l('To <span class="rel-edit">edit</span> a relationship, click on its name (e.g. "composer").') %]</p>
 
-      <h2>[% l('Track Relationships') %]</h2>
+      <p>[% l('To use the batch tools, select some recordings or works using the checkboxes.') %]</p>
 
-      <h3>[% l('Tools:') %]</h3>
+      <h2>[% l('Track Relationships') %]</h2>
 
       [%# These are here to make sure the strings get added to the message catalog.
           The strings are later obtained via /ws/js/plurals. %]
@@ -337,38 +337,40 @@
       <!-- [% ln('{n} recording selected', '{n} recordings selected', 0) %]
            [% ln('{n} work selected', '{n} works selected', 0) %] -->
 
-      <div>
-        <div style="float: left;" data-bind="with: checkboxes">
-          <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
-            <img src="/static/images/icons/add.png" class="bottom"/>
-            [% l('Batch-add a relationship to recordings') %]
-          </a>
-          <!-- ko text: recordingMessage --><!-- /ko --><br/>
-          <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}">
-            <img src="/static/images/icons/add.png" class="bottom"/>
-            [% l('Batch-add a relationship to works') %]
-          </a>
-          <!-- ko text: workMessage --><!-- /ko --><br/>
-          <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
-            <img src="/static/images/icons/add.png" class="bottom"/>
-            [% l('Batch-create new works') %]
-          </a>
-          <!-- ko text: recordingMessage --><!-- /ko -->
-        </div>
-        <div class="documentation">
-          <div class="bubble">
-            [% l('To use these tools, select some recordings or works using the checkboxes.') %]
-          </div>
-        </div>
-      </div>
+      <table id="batch-tools" data-bind="with: checkboxes">
+        <tr>
+          <td>
+            <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+              <img src="/static/images/icons/add.png" class="bottom"/>
+              [% l('Batch-add a relationship to recordings') %]
+            </a>
+          </td>
+          <td>
+            <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+              <img src="/static/images/icons/add.png" class="bottom"/>
+              [% l('Batch-create new works') %]
+            </a>
+          </td>
+          <td>
+            <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}">
+              <img src="/static/images/icons/add.png" class="bottom"/>
+              [% l('Batch-add a relationship to works') %]
+            </a>
+          </td>
+        </tr>
+      </table>
 
       <table class="tbl" id="tracklist">
-        <thead>
+        <thead data-bind="with: checkboxes">
           <tr>
             <th class="pos t">#</th>
-            <th class="recordings">[% l('Recording') %]</th>
-            <th style="border-left: none;">&#160;</th>
-            <th class="works">[% l('Related Works') %]</th>
+            <th class="recordings">
+              [% l('Recording') %] <!-- ko text: recordingMessage --><!-- /ko -->
+            </th>
+            <th style="border-left: none;"></th>
+            <th class="works">
+              [% l('Related Works') %] <!-- ko text: workMessage --><!-- /ko -->
+            </th>
           </tr>
         </thead>
         <tbody data-bind="foreach: media">
