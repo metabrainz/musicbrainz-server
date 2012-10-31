@@ -24,6 +24,24 @@ test 'basic recording lookup' => sub {
 
 };
 
+test 'basic recording lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic recording lookup, inc=annotation',
+    '/recording/6e89c516-b0b6-4735-a758-38e31855dcb6?inc=annotation' => encode_json (
+        {
+            id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
+            title => "Plock",
+            length => 237133,
+            annotation => "this is a recording annotation",
+            disambiguation => JSON::null,
+        });
+
+};
+
 test 'recording lookup with releases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');

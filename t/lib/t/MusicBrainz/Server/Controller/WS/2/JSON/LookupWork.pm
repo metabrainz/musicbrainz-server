@@ -10,8 +10,8 @@ use MusicBrainz::Server::Test ws_test_json => {
 with 't::Mechanize', 't::Context';
 
 test 'basic work lookup' => sub {
-    my $c = shift->c;
 
+    my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, "
         INSERT INTO iswc (work, iswc)
@@ -24,6 +24,22 @@ test 'basic work lookup' => sub {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
             iswcs => [ "T-000.000.002-0" ],
+        });
+};
+
+test 'basic work lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic work lookup, inc=annotation',
+    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json (
+        {
+            id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
+            title => "Plock",
+            annotation => "this is a work annotation",
+            iswcs => [ ],
         });
 };
 
