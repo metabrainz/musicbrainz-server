@@ -55,7 +55,7 @@ test 'basic release lookup, inc=annotation' => sub {
             barcode => "600116817020",
             asin => "B000KJTG6K",
             annotation => "this is a release annotation",
-            disambiguation => JSON::null,
+            disambiguation => "",
             packaging => JSON::null,
         });
 };

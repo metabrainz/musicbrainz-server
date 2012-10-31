@@ -16,7 +16,7 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
     $body{length} = $entity->length if $entity->length;
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if ($entity->artist_credit &&

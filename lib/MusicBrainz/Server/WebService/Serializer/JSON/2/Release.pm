@@ -36,7 +36,7 @@ sub serialize
     $body{asin} = $entity->amazon_asin;
     $body{barcode} = $entity->barcode->code;
     $body{date} = $entity->date->format;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
     $body{quality} = _quality ($entity->quality);
     $body{packaging} = $entity->packaging

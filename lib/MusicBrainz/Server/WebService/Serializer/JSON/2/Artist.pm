@@ -19,7 +19,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
 
     if ($toplevel)
     {

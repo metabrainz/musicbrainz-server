@@ -23,6 +23,7 @@ test 'basic work lookup' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
+            disambiguation => "",
             iswcs => [ "T-000.000.002-0" ],
         });
 };
@@ -38,6 +39,7 @@ test 'basic work lookup, inc=annotation' => sub {
         {
             id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
             title => "Plock",
+            disambiguation => "",
             annotation => "this is a work annotation",
             iswcs => [ ],
         });
@@ -62,6 +64,7 @@ test 'work lookup via iswc' => sub {
                 {
                     id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
                     title => "サマーれげぇ!レインボー",
+                    disambiguation => "",
                     iswcs => [ "T-000.000.002-0" ],
                 }]
         });
@@ -76,6 +79,7 @@ test 'work lookup with recording relationships' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
+            disambiguation => "",
             relations => [
                 {
                     type => "performance",

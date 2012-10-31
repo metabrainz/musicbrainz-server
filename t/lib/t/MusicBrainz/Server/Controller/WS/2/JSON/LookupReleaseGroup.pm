@@ -37,7 +37,7 @@ test 'basic release group lookup, inc=annotation' => sub {
             id => "22b54315-6e51-350b-bb34-e6e16f7688bd",
             title => "My Demons",
             annotation => "this is a release group annotation",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "first-release-date" => "2007-01-29",
             "primary-type" => "Album",
             "secondary-types" => [],

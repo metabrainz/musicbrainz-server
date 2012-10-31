@@ -45,7 +45,7 @@ test 'basic label lookup, inc=annotation' => sub {
             "sort-name" => "Warp Records",
             type => "Original Production",
             annotation => "this is a label annotation",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "label-code" => 2070,
             country => "GB",
             "life-span" => {

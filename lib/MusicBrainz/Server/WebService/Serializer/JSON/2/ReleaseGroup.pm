@@ -19,7 +19,7 @@ sub serialize
     $body{"secondary-types"} = [ map {
         $_->name } $entity->all_secondary_types ];
     $body{"first-release-date"} = $entity->first_release_date->format;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
 
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if $inc && ($inc->artist_credits || $inc->artists);

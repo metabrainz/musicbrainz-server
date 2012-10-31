@@ -17,6 +17,7 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
+    $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
 
     return \%body;

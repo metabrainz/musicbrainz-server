@@ -37,7 +37,7 @@ test 'basic recording lookup, inc=annotation' => sub {
             title => "Plock",
             length => 237133,
             annotation => "this is a recording annotation",
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 
 };
