@@ -41,7 +41,7 @@ sub _get_extract
         if ($wp_extract) {
             $c->stash->{wikipedia_extract} = $wp_extract;
         } else {
-            $c->stash->{wikipedia_extract_url} = $c->req->uri . '/wikipedia-extract';
+            $c->stash->{wikipedia_extract_url} = $c->uri_for_action($self->action_for('wikipedia_extract'), [ $entity->gid ]);
         }
     }
 }
