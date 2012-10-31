@@ -11,6 +11,7 @@ use List::MoreUtils qw( uniq );
 use Path::Class qw( dir file );
 use MooseX::Types::Moose qw( Str );
 use MooseX::Types::Structured qw( Map );
+use Try::Tiny;
 
 has manifest_signatures => (
     isa => Map[Str, Str],
@@ -52,7 +53,15 @@ sub template_signature {
 sub pofile_signature {
     my ($self, $domain, $language) = @_;
     unless (exists $self->file_signatures->{'pofile' . $domain . $language}) {
-        $self->file_signatures->{'pofile' . $domain . $language} = file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+        # First try the language as given, then fall back to the language without a country code.
+        my $hash = try {
+            file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+        } catch {
+            $language =~ s/[-_][A-Za-z]+$//;
+            file_md5_hex(DBDefs::MB_SERVER_ROOT . "/po/" . $domain . '.' . $language . '.po');
+        };
+
+        $self->file_signatures->{'pofile' . $domain . $language} = $hash;
     }
 
     return $self->file_signatures->{'pofile' . $domain . $language};
