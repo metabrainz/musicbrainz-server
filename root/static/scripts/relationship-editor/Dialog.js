@@ -210,6 +210,8 @@ ko.bindingHandlers.autocomplete = (function() {
     }
 
     function changeTarget(event, data) {
+        if (!data.gid) return;
+
         // XXX release groups' numeric "type" conflicts with the entity type
         data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
 
@@ -259,7 +261,6 @@ ko.bindingHandlers.autocomplete = (function() {
 
             Dialog.autocomplete = MB.Control.EntityAutocomplete({
                 inputs: $autocomplete,
-                position: {collision: "fit"},
                 entity: Dialog.target.type,
                 setEntity: setEntity
             });
