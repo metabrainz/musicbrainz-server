@@ -101,12 +101,12 @@ RE.releaseViewModel = {
             .success(function() {
                 window.location.replace("/release/" + self.GID);
             })
-            .error(function(jqXHR, statusText) {
+            .error(function(jqXHR) {
                 try {
                     self.handlerErrors(JSON.parse(jqXHR.responseText), changed);
                 } catch(e) {
                     self.submissionLoading(false);
-                    self.submissionError(statusText);
+                    self.submissionError(MB.text.SubmissionError);
                 }
                 if (beforeUnload) window.onbeforeunload = beforeUnload;
             });
