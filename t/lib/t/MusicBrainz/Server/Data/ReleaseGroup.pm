@@ -36,13 +36,13 @@ is( $rg->artist_credit_id, 1 );
 is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
-my ($rgs, $hits) = $rg_data->find_by_artist(1, 100);
+my ($rgs, $hits) = $rg_data->find_by_artist(1, 100, 0);
 is( $hits, 2 );
 is( scalar(@$rgs), 2 );
 is( $rgs->[0]->id, 1 );
 is( $rgs->[1]->id, 2 );
 
-($rgs, $hits) = $rg_data->find_by_track_artist(3, 100);
+($rgs, $hits) = $rg_data->find_by_track_artist(3, 100, 0);
 is( $hits, 1 );
 is( scalar(@$rgs), 1 );
 ok( (grep { $_->id == 5 } @$rgs), 'found release group 5' );
@@ -125,7 +125,7 @@ INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 1, 0, NULL);
+    VALUES (1, 1, 1, 0, '');
 INSERT INTO release_name (id, name) VALUES (1, 'Release Group');
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending)
     VALUES (1, '7b5d22d0-72d7-11de-8a39-0800200c9a66', 1, 1, 1, 'Comment', 2);

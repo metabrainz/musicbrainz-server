@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
+use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkAttributeType;
@@ -42,6 +43,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                 name => 'additional',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'additional',
+                    id => 1
                 ),
             ),
         ]
@@ -58,6 +60,7 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                 name => 'orchestra',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'instrument',
+                    id => $INSTRUMENT_ROOT_ID
                 ),
             ),
         ]
@@ -74,12 +77,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                 name => 'orchestra',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'instrument',
+                    id => $INSTRUMENT_ROOT_ID
                 ),
             ),
             MusicBrainz::Server::Entity::LinkAttributeType->new(
                 name => 'piano',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'instrument',
+                    id => $INSTRUMENT_ROOT_ID
                 ),
             ),
         ]
@@ -96,12 +101,14 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
                 name => 'orchestra',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'instrument',
+                    id => $INSTRUMENT_ROOT_ID
                 ),
             ),
             MusicBrainz::Server::Entity::LinkAttributeType->new(
                 name => 'additional',
                 root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'additional',
+                    id => $INSTRUMENT_ROOT_ID
                 ),
             ),
         ]

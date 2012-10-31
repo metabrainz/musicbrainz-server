@@ -44,7 +44,12 @@ $(document).ready (function () {
           </thead>
           <tbody>
             [% zebra = 0 %]
+            [% current_rg = '' %]
             [% FOR release=releases %]
+              [%- IF release.release_group.gid != current_rg -%]
+                  [% current_rg = release.release_group.gid %]
+                  <tr class="subh"><th colspan=[% IF c.session.tport; '8'; ELSE; '7'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+              [%- END -%]
               [% zebra = zebra + 1 %]
               [% INCLUDE 'cdtoc/attach_list.tt' %]
             [% END %]

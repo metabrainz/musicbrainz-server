@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Validation;
 use Test::Routine;
 use Test::More;
+use Test::Warn;
 
 use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
@@ -11,7 +12,9 @@ test 'Test trim_in_place' => sub {
     my $d = ' a  b  c ';
     my $e = undef;
 
-    trim_in_place($a, $b, $c, $d, $e);
+    warning_is {
+        trim_in_place($a, $b, $c, $d, $e)
+    } 'Uninitialized value passed to trim_in_place';
 
     is( $a, '' );
     is( $b, 'a' );
@@ -57,6 +60,7 @@ test 'Test is_valid_isrc' => sub {
 
 test 'Test is_tunecore' => sub {
     ok(!MusicBrainz::Server::Validation::is_tunecore('USPR37300012'), "Non-TuneCore ID doesn't pass 'is_tunecore'.");
+    ok(!MusicBrainz::Server::Validation::is_tunecore('FITCR1000075'), "Non-TuneCore ID including string 'TC' doesn't pass 'is_tunecore'. (MBS-5346)");
     ok(MusicBrainz::Server::Validation::is_tunecore('TCABF1283419'), "TuneCore ID passes 'is_tunecore'.");
 };
 

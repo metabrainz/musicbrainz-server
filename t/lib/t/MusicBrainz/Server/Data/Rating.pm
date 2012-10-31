@@ -40,7 +40,7 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
 ");
 
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
-    c => $test->c, type => 'artist');
+    c => $test->c, type => 'artist', parent => $test->c->model('Artist') );
 
 
 my @ratings = $rating_data->find_by_entity_id(1);
@@ -138,5 +138,51 @@ $rating_data->load_user_ratings(2, $artist);
 is($artist->user_rating, 70);
 
 };
+
+test 'Test find_editor_ratings' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, "
+    INSERT INTO artist_name (id, name) VALUES (1, 'Test');
+    INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 1'),
+        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 2');
+
+    UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
+    UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
+
+    INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'password'),
+                                                   (2, 'editor2', 'password');
+
+    INSERT INTO artist_rating_raw (artist, editor, rating)
+        VALUES (1, 1, 50), (2, 1, 60), (1, 2, 40);
+");
+
+    my @tests = (
+        { editor_id => 1, limit => 1, offset => 0, expected_hits => 2, expected_ids => [ 2 ] },
+        { editor_id => 1, limit => 1, offset => 1, expected_hits => 2, expected_ids => [ 1 ] },
+        { editor_id => 1, limit => 1, offset => 2, expected_hits => 2, expected_ids => [] },
+        { editor_id => 2, limit => 1, offset => 0, expected_hits => 1, expected_ids => [ 1 ] },
+        { editor_id => 3, limit => 1, offset => 0, expected_hits => 0, expected_ids => [ ] },
+    );
+
+    find_editor_ratings_ok($c, %$_) for @tests;
+};
+
+use Data::Dumper::Concise qw( Dumper );
+
+sub find_editor_ratings_ok {
+    my ($c, %args) = @_;
+
+    subtest 'find_editor_ratings for ' . Dumper(\%args) => sub {
+        my ($ratings, $hits) = $c->model('Artist')->rating->find_editor_ratings(
+            $args{editor_id}, 0, $args{limit}, $args{offset});
+
+        is($hits, $args{expected_hits});
+        ok(scalar(@$ratings) <= $args{limit});
+        is_deeply([ map { $_->id } @$ratings ], $args{expected_ids});
+    };
+}
 
 1;

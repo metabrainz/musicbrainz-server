@@ -63,6 +63,7 @@ sub load
 sub find_by_label
 {
     my ($self, $label_id, $limit, $offset) = @_;
+    $offset ||= 0;
     my $query = "SELECT " . $self->_columns . ",
                     " . MusicBrainz::Server::Data::Release->_columns . "
                  FROM " . $self->_table . "
@@ -77,7 +78,7 @@ sub find_by_label
             $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
             return $rl;
         },
-        $query, $label_id, $offset || 0);
+        $query, $label_id, $offset);
 }
 
 sub merge_labels

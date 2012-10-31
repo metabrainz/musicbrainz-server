@@ -1,5 +1,5 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
         <h2 class="artist-information">[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
@@ -15,11 +15,11 @@
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
                     [%- IF artist.begin_date.format %]
+                        [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                             [% rdfa_begin_date_artist(artist.begin_date.format) %]
                             [% IF artist.has_age AND not artist.end_date.format %]
-                                ([% rdfa_artist_age(display_age (artist.age)) %] ago)
+                                (<span style="display:none">[% rdfa_artist_age(display_age (artist.age)) %]</span>[% display_age_ago(artist.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
@@ -39,7 +39,8 @@
             [%- END -%]
             [%# TODO model country %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=html_escape(artist.country.l_name) class="country"
+               content=link_searchable_property('country', artist.country.iso_code, 'artist', artist.country.l_name)
+               class="country"
                    IF artist.country -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
@@ -130,10 +131,10 @@
         [%- INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=artist -%]
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=artist -%]
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [%- INCLUDE "artist/header.tt" -%]
-        [%- content -%]
-    </div>
-
+  <div id="content">
+    [%- INCLUDE "artist/header.tt" -%]
+    [%- content -%]
+  </div>
 [%- END -%]

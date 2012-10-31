@@ -81,7 +81,7 @@ is_deeply($edit->data, {
             ],
         },
         name => 'Dancing Queen',
-        comment => undef,
+        comment => '',
         length => 123456,
     }
 });

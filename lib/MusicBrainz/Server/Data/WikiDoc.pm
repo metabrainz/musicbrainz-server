@@ -12,6 +12,7 @@ use Encode qw( decode );
 with 'MusicBrainz::Server::Data::Role::Context';
 
 Readonly my $WIKI_CACHE_TIMEOUT => 60 * 60;
+Readonly my $WIKI_IMAGE_PREFIX => '/-/images';
 
 sub _fix_html_links
 {
@@ -31,7 +32,7 @@ sub _fix_html_links
     my $href = $node->attr('href') || "";
 
     # Remove broken links & links to images in the wiki
-    if ($href =~ m,^https?://$wiki_server/Image:, || $class =~ m/new/)
+    if ($href =~ m,^https?://$wiki_server/(File|Image):, || $class =~ m/new/)
     {
         $node->replace_with ($node->content_list);
     }
@@ -39,6 +40,10 @@ sub _fix_html_links
     elsif ($href =~ m,^https?://$wiki_server,)
     {
         $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
+        $node->attr('href', $href);
+    }
+    elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
+        $href =~ s,$WIKI_IMAGE_PREFIX?,//$wiki_server$WIKI_IMAGE_PREFIX,;
         $node->attr('href', $href);
     }
 }
@@ -65,7 +70,7 @@ sub _fix_html_markup
     for my $node ($tree->findnodes ('//img')->get_nodelist)
     {
         my $src = $node->attr('src') || "";
-        $node->attr('src', $src) if ($src =~ s,/-/images,//$wiki_server/-/images,);
+        $node->attr('src', $src) if ($src =~ s,$WIKI_IMAGE_PREFIX,//$wiki_server$WIKI_IMAGE_PREFIX,);
     }
 
     for my $node ($tree->findnodes ('//table')->get_nodelist)
@@ -115,7 +120,7 @@ sub _load_page
     return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => "MusicBrainz_Documentation" })
         if ($id eq "");
 
-    my $doc_url = sprintf "http://%s/%s?action=render", &DBDefs::WIKITRANS_SERVER, $id;
+    my $doc_url = sprintf "http://%s/%s?action=render&redirect=no", &DBDefs::WIKITRANS_SERVER, $id;
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }

@@ -1,5 +1,5 @@
 [% WRAPPER 'layout.tt' %]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
@@ -19,9 +19,10 @@
             [% END %]
         </ul>
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [% INCLUDE 'url/header.tt' %]
-        [% content %]
-    </div>
+  <div id="content">
+     [% INCLUDE 'url/header.tt' %]
+     [% content %]
+  </div>
 [% END %]
