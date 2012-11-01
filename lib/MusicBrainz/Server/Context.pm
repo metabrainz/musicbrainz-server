@@ -6,6 +6,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
+use LWP::UserAgent;
 
 has 'cache_manager' => (
     is => 'ro',

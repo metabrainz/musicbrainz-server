@@ -2,7 +2,8 @@
     <h2>[% l('Remove Recording') %]</h2>
     [%- IF can_delete -%]
         [%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Please review the {doc_remove|remove recording edit-type} documentation before entering this edit.', {doc_remove => doc_link('Remove_Recording_Edit')})) -%]
+            [%- create_guideline(l('Please make sure you\'re not removing a legitimate {doc_standalone|standalone recording}. If this recording duplicates another, please {doc_merge|merge rather than delete}.',
+                                 {doc_standalone => doc_link('Standalone_Recording'), doc_merge => doc_link('Merge_Rather_Than_Delete')})) -%]
         [%- END -%]
         <p>
             [%- l('Are you sure you wish to remove the recording {recording} from MusicBrainz?', { recording => link_entity(recording) }) -%]

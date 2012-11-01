@@ -1,4 +1,4 @@
-[% IF c.user.is_account_admin %]
+[% IF c.user.is_account_admin && c.user.id != user.id %]
     [% WRAPPER "user/profile/layout.tt" title=l('Delete User') page='delete' %]
     <h2>[% l('Delete Account') %]</h2>
     <p>[% l('Are you sure you want to delete all information about {e}? This cannot be undone!',

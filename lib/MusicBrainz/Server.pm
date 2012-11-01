@@ -57,7 +57,8 @@ __PACKAGE__->config(
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'gravatar' => \&MusicBrainz::Server::Filters::gravatar
+            'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
+            'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
@@ -155,7 +156,7 @@ if (DBDefs->_RUNNING_TESTS) {
     # as part of Test::WWW::Selenium::Catalyst, so we need Static::Simple when
     # running tests.
     push @args, "Static::Simple";
-    __PACKAGE__->config->{'static'} = {
+    __PACKAGE__->config->{'Plugin::Static::Simple'} = {
         mime_types => {
             json => 'application/json; charset=UTF-8',
         },
@@ -247,50 +248,33 @@ around 'dispatch' => sub {
 
     $c->model('MB')->context->connector->refresh;
 
-    $_->instance->build_languages_from_header($c->req->headers) 
-        for qw( MusicBrainz::Server::Translation 
-	        MusicBrainz::Server::Translation::Statistics 
-		MusicBrainz::Server::Translation::Countries 
-		MusicBrainz::Server::Translation::Scripts 
-		MusicBrainz::Server::Translation::Languages 
-		MusicBrainz::Server::Translation::Attributes 
-		MusicBrainz::Server::Translation::Relationships 
-		MusicBrainz::Server::Translation::Instruments 
-		MusicBrainz::Server::Translation::InstrumentDescriptions );
+    with_translations($c, sub {
+        my $c = shift;
+        my $orig = shift;
 
-    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
-    my $lang = Translation->instance->set_language($cookie_lang);
-    # because s///r is a perl 5.14 feature
-    my $html_lang = $lang;
-    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
-    $c->stash(
-        current_language => $lang,
-        current_language_html => $html_lang
-    );
+        if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
+            alarm($max_request_time);
+            POSIX::sigaction(
+                SIGALRM, POSIX::SigAction->new(sub {
+                    $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
+                                           $c->req->uri,
+                                           $max_request_time));
+                    $c->log->error(Devel::StackTrace->new->as_string);
+                    $c->log->_flush;
+                    if (my $sth = $c->model('MB')->context->sql->sth) {
+                        $sth->cancel;
+                    }
+                    exit(42)
+                }));
 
-    if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
-        alarm($max_request_time);
-        POSIX::sigaction(
-            SIGALRM, POSIX::SigAction->new(sub {
-                $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                       $c->req->uri,
-                                       $max_request_time));
-                $c->log->error(Devel::StackTrace->new->as_string);
-                $c->log->_flush;
-                if (my $sth = $c->model('MB')->context->sql->sth) {
-                    $sth->cancel;
-                }
-                exit(42)
-            }));
+            $c->$orig(@_);
 
-        $c->$orig(@_);
-
-        alarm(0);
-    }
-    else {
-        $c->$orig(@_);
-    }
-    Translation->instance->unset_language();
+            alarm(0);
+        }
+        else {
+            $c->$orig(@_);
+        }
+    }, $orig, @_);
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
@@ -323,24 +307,60 @@ sub execute {
     };
 }
 
-sub finalize_error {
+around 'finalize_error' => sub {
+    my $orig = shift;
     my $c = shift;
 
-    $c->next::method(@_);
+    with_translations($c, sub {
+        my $c = shift;
+        my $orig = shift;
 
-    $c->model('MB')->context->connector->disconnect;
+        $c->$orig(@_);
 
-    if (!$c->debug && scalar @{ $c->error }) {
-        $c->stash->{errors} = $c->error;
-        $c->stash->{template} = 'main/500.tt';
-        $c->stash->{stack_trace} = $c->_stacktrace;
-        $c->clear_errors;
-        $c->res->{body} = 'clear';
-        $c->view('Default')->process($c);
-        $c->res->{body} = encode('utf-8', $c->res->{body});
-    }
+        $c->model('MB')->context->connector->disconnect;
+
+        if (!$c->debug && scalar @{ $c->error }) {
+            $c->stash->{errors} = $c->error;
+            $c->stash->{template} = 'main/500.tt';
+            $c->stash->{stack_trace} = $c->_stacktrace;
+            $c->clear_errors;
+            $c->res->{body} = 'clear';
+            $c->view('Default')->process($c);
+            $c->res->{body} = encode('utf-8', $c->res->{body});
+        }
+    }, $orig, @_);
+};
+
+sub with_translations {
+    my $c = shift;
+    my $orig = shift;
+
+    $_->instance->build_languages_from_header($c->req->headers)
+        for qw( MusicBrainz::Server::Translation
+                MusicBrainz::Server::Translation::Statistics
+                MusicBrainz::Server::Translation::Countries
+                MusicBrainz::Server::Translation::Scripts
+                MusicBrainz::Server::Translation::Languages
+                MusicBrainz::Server::Translation::Attributes
+                MusicBrainz::Server::Translation::Relationships
+                MusicBrainz::Server::Translation::Instruments
+                MusicBrainz::Server::Translation::InstrumentDescriptions );
+
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    my $lang = Translation->instance->set_language($cookie_lang);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $html_lang,
+        use_languages => scalar @{ Translation->instance->all_languages() }
+    );
+
+    &$orig($c, @_);
+
+    Translation->instance->unset_language();
 }
-
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server

@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. frequency:0 iso_code_3:oun 
 #: DB:language/name:5267
@@ -9293,7 +9293,7 @@ msgstr ""
 msgid "English, Middle (1100-1500)"
 msgstr ""
 
-#. frequency:0 iso_code_3:ang 
+#. frequency:1 iso_code_3:ang 
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
 msgstr ""
@@ -28413,7 +28413,7 @@ msgstr ""
 msgid "Quechua"
 msgstr ""
 
-#. frequency:0 iso_code_3:qya 
+#. frequency:1 iso_code_3:qya 
 #: DB:language/name:5662
 msgid "Quenya"
 msgstr ""
@@ -31058,7 +31058,7 @@ msgstr ""
 msgid "Sinaugoro"
 msgstr ""
 
-#. frequency:0 iso_code_3:sjn 
+#. frequency:1 iso_code_3:sjn 
 #: DB:language/name:5989
 msgid "Sindarin"
 msgstr ""

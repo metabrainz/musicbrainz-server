@@ -15,13 +15,13 @@ my $ws_defs = Data::OptList::mkopt([
      label => {
                          method   => 'GET',
                          linked   => [ qw(release) ],
-                         inc      => [ qw(aliases
+                         inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
      label => {
                          method   => 'GET',
-                         inc      => [ qw(releases aliases
+                         inc      => [ qw(releases aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt) ],
      }
@@ -52,6 +52,9 @@ sub label_toplevel
     $c->model('Country')->load($label);
     $c->model('Label')->ipi->load_for($label);
 
+    $c->model('Label')->annotation->load_latest($label)
+        if $c->stash->{inc}->annotation;
+
     if ($c->stash->{inc}->aliases)
     {
         my $aliases = $c->model('Label')->alias->find_by_entity_id($label->id);
@@ -74,6 +77,8 @@ sub label : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $label = $c->stash->{entity};
+
+    return unless defined $label;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($label);

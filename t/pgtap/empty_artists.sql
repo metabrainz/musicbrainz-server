@@ -20,9 +20,9 @@ INSERT INTO release_name (id, name) VALUES (1, 'Test');
 INSERT INTO track_name (id, name) VALUES (1, 'Test');
 INSERT INTO work_name (id, name) VALUES (1, 'Test');
 
-INSERT INTO artist (id, gid, name, sort_name, last_updated, edits_pending)
-  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0),
-         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10);
+INSERT INTO artist (id, gid, name, sort_name, last_updated, edits_pending, comment)
+  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1, now(), 0, 'Artist 1'),
+         (2, 'fbbf7950-eebe-49e5-86d6-058ecc2bf4ac', 1, 1, now(), 10, 'Artist 2');
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 
 INSERT INTO label (id, gid, name, sort_name)
@@ -124,7 +124,7 @@ DELETE FROM l_artist_work;
 -- A artist with recordings is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE recording SET artist_credit = 2;
 SELECT set_eq(
@@ -135,7 +135,7 @@ DELETE FROM recording;
 -- A artist with releases is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE release SET artist_credit = 2;
 SELECT set_eq(
@@ -146,7 +146,7 @@ DELETE FROM release;
 -- A artist with release groups is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE release_group SET artist_credit = 2;
 SELECT set_eq(

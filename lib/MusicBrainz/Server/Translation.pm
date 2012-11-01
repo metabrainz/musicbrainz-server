@@ -15,9 +15,9 @@ use List::UtilsBy qw( sort_by );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l )],
+    exports => [qw( l lp ln N_l N_ln N_lp )],
     groups => {
-        default => [qw( l lp ln N_l )]
+        default => [qw( l lp ln N_l N_ln N_lp )]
     }
 };
 
@@ -37,10 +37,23 @@ has 'bound' => (
     default => 0
 );
 
-sub N_l { __PACKAGE__->instance->nop_gettext(@_) }
-sub l { __PACKAGE__->instance->gettext(@_) }
-sub lp { __PACKAGE__->instance->pgettext(@_) }
-sub ln { __PACKAGE__->instance->ngettext(@_) }
+# N_ functions are no-ops which return their arguments
+# They only exist so the strings get into the catalogs
+# There is one for each because the call signatures
+# and what should appear in the catalogs differ.
+#
+# Normal translation, singular string.
+# Takes one string argument and optionally a hashref of arguments to interpolate
+sub l    { __PACKAGE__->instance->gettext(@_) }
+sub N_l  { __PACKAGE__->instance->nop_gettext(@_) }
+# Singular translation with context
+# Takes one string to translate, a string of context, and an optional hashref
+sub lp   { __PACKAGE__->instance->pgettext(@_) }
+sub N_lp { __PACKAGE__->instance->nop_gettext(@_) }
+# Plural translation (context can be within the string)
+# Takes a singlular string, a plural string, and an optional hashref
+sub ln   { __PACKAGE__->instance->ngettext(@_) }
+sub N_ln { __PACKAGE__->instance->nop_ngettext(@_) }
 
 sub _bind_domain
 {
@@ -102,13 +115,15 @@ sub set_language
     my @avail_lang;
     if (defined $lang) {
         @avail_lang = ($lang);
-    } else {
+    } elsif (DBDefs::LANGUAGE_FALLBACK_TO_BROWSER) {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
             grep {
                 my $l = $_;
                 grep { $l eq $_ } DBDefs->MB_LANGUAGES
             } $self->all_system_languages;
+    } else {
+        @avail_lang = ('en');
     }
     my $set_lang = web_set_locale(\@avail_lang, [ 'utf-8' ], LC_MESSAGES);
     if (!defined $set_lang) {

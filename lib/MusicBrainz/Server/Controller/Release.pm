@@ -19,16 +19,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_RELEASE_CHANGE_QUALITY
-    $EDIT_RELEASE_DELETE
-    $EDIT_RELEASE_EDIT_COVER_ART
-    $EDIT_RELEASE_MERGE
-    $EDIT_RELEASE_MOVE
-    $EDIT_RELEASE_REMOVE_COVER_ART
-    $EDIT_RELEASE_REORDER_COVER_ART
-);
+use MusicBrainz::Server::Constants qw( :edit_type );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -733,6 +724,17 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     $c->stash(
         cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
     );
+}
+
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+    $c->model('Release')->load_meta($release);
+    $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
+
+    $c->forward('/relationship_editor/load', $c);
 }
 
 __PACKAGE__->meta->make_immutable;

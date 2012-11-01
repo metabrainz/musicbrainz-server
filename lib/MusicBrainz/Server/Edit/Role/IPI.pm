@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Role::IPI;
 use 5.10.0;
 use Moose::Role;
 
-use Algorithm::Merge qw( diff3 );
+use Set::Scalar;
 use Clone 'clone';
 
 before initialize => sub {
@@ -24,43 +24,28 @@ around new_data => sub {
 
 sub ipi_changes
 {
-   my ($self, $old, $current, $new) = @_;
+    my ($self, $old, $current, $new) = @_;
 
-   # FIXME: check if these lists need to be sorted.
-   my @changes = diff3([ sort @$old ], [ sort @$current ], [ sort @$new ]);
+    my $old_set     = Set::Scalar->new(@$old);
+    my $current_set = Set::Scalar->new(@$current);
+    my $new_set     = Set::Scalar->new(@$new);
 
-   my @add;
-   my @del;
+    # An IPI can be present in or absent from each set.
+    # There are these seven possible cases:
+    #   OCN: never changed
+    #   O-N: removed by previous edit, we shouldn't undo that (*)
+    #   O--: has already been deleted by previous edit
+    #   -CN: has already been added by previous edit
+    #   -C-: has been added by previous edit (*)
+    #   --N: add completely new IPI
+    #   OC-: delete IPIs that weren't touched by previous edit
+    # (*) marks the cases where the intended result diverges from N.
 
-   for my $change (@changes)
-   {
-       given ($change->[0])
-       {
-           when ('c') { # c - conflict (no two are the same)
-               MusicBrainz::Server::Edit::Exceptions::FailedDependency
-                   ->throw('IPI codes have changed since this edit was created, and now conflict ' .
-                           'with changes made in this edit.');
-           }
-           when ('l') { # l - left is different
-               # other edit made some changes we didn't make, ignore.
-           }
-           when ('o') { # o - original is different
-               # other edit made changes we also made, ignore.
-           }
-           when ('r') { # r - right is different
+    my $result_set = ($new_set
+        - ($old_set - $current_set))  # leave out those removed in the meantime
+        + ($current_set - $old_set);  # ... and include those added
 
-               # we made changes, apply.
-               push @del, $change->[1] if defined $change->[1];
-               push @add, $change->[3] if defined $change->[3];
-           }
-           when ('u') { # u - unchanged
-               # no changes at all.
-           }
-       }
-   }
-
-   my %delete_map = map { $_ => 1 } @del;
-   return [ @add, grep { !exists $delete_map{$_} } @$current ];
+    return [ $result_set->members ];
 }
 
 around merge_changes => sub {

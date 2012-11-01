@@ -55,6 +55,9 @@ sub STATIC_FILES_DIR { my $self = shift; $self->MB_SERVER_ROOT . '/root/static' 
 #               by applying the next replication packet in turn.  If the slave
 #               server is not going to be used for development work, change
 #               DB_STAGING_SERVER to 0.
+#
+#               A READONLY database connection must be configured if you
+#               choose RT_SLAVE, as well as the usual READWRITE.
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 use MusicBrainz::Server::Replication ':replication_type';
@@ -349,6 +352,10 @@ sub DEVELOPMENT_SERVER { 1 }
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages
 sub MB_LANGUAGES {qw()}
+
+# Should the site fall back to browser settings when trying to set a language
+# (note: will still only use languages in MB_LANGUAGES)
+sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
 # Private, please do not change
 sub _RUNNING_TESTS { 0 }

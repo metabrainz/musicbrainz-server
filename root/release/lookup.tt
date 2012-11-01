@@ -11,7 +11,7 @@
                 <th>[% l("Date") %]</th>
                 <th>[% l("Format") %]</th>
                 <th>[% l("Type") %]</th>
-                <th>[% l("Status") %]</th>
+                <th>[% lp("Status", 'release status') %]</th>
             </tr>
             </thead>
             <tbody>

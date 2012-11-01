@@ -213,7 +213,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found',
+            message => l('The user with ID \'{user_id}\' could not be found.',
                                    { user_id => $editor_id }),
             template => 'account/reset_password_error.tt',
         );
@@ -503,6 +503,7 @@ sub _send_confirmation_email
         $c->model('Email')->send_email_verification(
             email             => $email,
             verification_link => $verification_link,
+            ip                => $c->req->address
         );
     }
     catch {

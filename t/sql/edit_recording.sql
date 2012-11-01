@@ -14,7 +14,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, name, artist, position, join_phrase)
-    VALUES (1, 1, 1, 0, NULL);
+    VALUES (1, 1, 1, 0, '');
 
 INSERT INTO track_name (id, name) VALUES (1, 'Traits (remix)');
 INSERT INTO recording (id, gid, name, artist_credit) VALUES (1, '581556f0-755f-11de-8a39-0800200c9a66', 1, 1);

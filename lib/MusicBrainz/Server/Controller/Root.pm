@@ -210,7 +210,6 @@ sub begin : Private
 
     if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
     {
-        log_debug { "User attempted to edit but is not authorized: $_" } $c->user;
         $c->forward('/error_401');
     }
 

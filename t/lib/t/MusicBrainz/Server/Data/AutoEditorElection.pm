@@ -32,8 +32,8 @@ test 'Accept' => sub {
 
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    my $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{A new candidate has been put forward for autoeditor status});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
@@ -54,7 +54,7 @@ test 'Accept' => sub {
     $election = $test->c->model('AutoEditorElection')->second($election, $seconder1);
     ok( $election );
 
-    is(scalar @{ $email_transport->deliveries }, 0);
+    is($email_transport->delivery_count, 0);
 
     $election = $test->c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
@@ -68,8 +68,8 @@ test 'Accept' => sub {
     $election = $test->c->model('AutoEditorElection')->second($election, $seconder2);
     ok( $election );
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now open});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
@@ -136,8 +136,8 @@ test 'Accept' => sub {
     ok( $election );
     is( $election->status, $ELECTION_ACCEPTED );
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: noob1 has been\s+accepted as an auto-editor});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
@@ -185,8 +185,8 @@ test 'Rejected' => sub {
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    my $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{Voting in this election is now closed: the proposal to make\s+noob1 an auto-editor was declined});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
@@ -303,8 +303,8 @@ test 'Timeout' => sub {
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    my $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled, because two seconders could not be\s+found within the allowed time \(1 week\)});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});
@@ -339,8 +339,8 @@ test 'Cancel' => sub {
 
     $test->c->model('AutoEditorElection')->cancel($election, $proposer);
 
-    is(scalar @{ $email_transport->deliveries }, 1);
-    my $email = $email_transport->deliveries->[0]->{email};
+    is($email_transport->delivery_count, 1);
+    my $email = $email_transport->shift_deliveries->{email};
     is($email->get_header('Subject'), 'Autoeditor Election: noob1');
     like($email->get_body, qr{This election has been cancelled by the proposer \(autoeditor1\)});
     like($email->get_body, qr{http://[^/]+/election/${\ $election->id }});

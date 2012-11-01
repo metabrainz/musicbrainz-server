@@ -76,7 +76,8 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			TB_imageCount = "";
 			TB_FoundURL = false;
 			if(imageGroup){
-				TB_TempArray = $("a[@rel="+imageGroup+"]").get();
+				// Below changed according to: http://www.stuffbysarah.net/2009/02/16/thickbox-and-jquery-131/
+				TB_TempArray = $("a[rel="+imageGroup+"]").get();
 				for (TB_Counter = 0; ((TB_Counter < TB_TempArray.length) && (TB_NextHTML === "")); TB_Counter++) {
 					var urlTypeTemp = TB_TempArray[TB_Counter].href.toLowerCase().match(urlString);
 						if (!(TB_TempArray[TB_Counter].href == url)) {						
@@ -159,12 +160,12 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 				if(keycode == 27){ // close
 					tb_remove();
-				} else if(keycode == 190){ // display previous image
+				} else if(keycode == 190 || keycode == 39){ // display previous image
 					if(!(TB_NextHTML == "")){
 						document.onkeydown = "";
 						goNext();
 					}
-				} else if(keycode == 188){ // display next image
+				} else if(keycode == 188 || keycode == 37){ // display next image
 					if(!(TB_PrevHTML == "")){
 						document.onkeydown = "";
 						goPrev();

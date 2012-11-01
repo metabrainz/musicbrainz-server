@@ -439,11 +439,14 @@
         </table>
       </div>
 
-      <div style="float: left; padding: 10px;">
+      <div style="float: left; padding: 10px;" class="buttons">
          <input type="button" class="reset-track-numbers"
-            style="font-weight: normal; font-size: 12px;"
-            title="[%- l('reset track numbers') -%]"
-            value="[%- l('reset track numbers') -%]" />
+            title="[%- l('Reset track numbers') -%]"
+            value="[%- l('Reset track numbers') -%]" />
+
+         <input type="button" class="swap-artists-and-titles"
+           title="[%- l('Swap track titles with artist credits') -%]"
+           value="[%- l('Swap track titles with artist credits') -%]" />
       </div>
 
       <div class="icon add-track" style="float: right;">

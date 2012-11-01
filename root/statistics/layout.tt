@@ -13,30 +13,33 @@
     ['editors', link_statistics_tab('/statistics/editors', l('Editors')) ],
     ['timeline', link_statistics_tab('/statistics/timeline/main', l('Timeline')) ],
 ] -%]
+[%- html_title = l('Database Statistics - {title}', {title => title} ) -%]
+[%- PROCESS "statistics/macros-footer.tt" -%]
 
 
 [%- IF full_width -%]
-[%- WRAPPER "layout.tt" title="Database Statistics - ${title}" full_width=1 -%]
-<div class="statisticsheader">
-    <h1>[%- l('Database Statistics') -%]</h1>
-</div>
-        [% INCLUDE 'components/tabs.tt' list=info_links %]
-        [%- content -%]
-[%- PROCESS "statistics/macros-footer.tt" -%]
-[%- END -%]
-[%- ELSE -%]
-[%- WRAPPER "layout.tt" title="Database Statistics - ${title}" -%]
-[%- PROCESS "statistics/macros-header.tt" -%]
-    <div id="sidebar">
-        [%- sidebar -%]
-    </div>
-    <div id="content">
+    [%- WRAPPER "layout.tt" title=html_title full_width=1 -%]
+        [%- PROCESS "statistics/macros-header.tt" -%]
         <div class="statisticsheader">
             <h1>[%- l('Database Statistics') -%]</h1>
         </div>
         [% INCLUDE 'components/tabs.tt' list=info_links %]
         [%- content -%]
-    </div>
+        [%- PROCESS "statistics/macros-footer.tt" -%]
+    [%- END -%]
+[%- ELSE -%]
+    [%- WRAPPER "layout.tt" title=html_title -%]
+        [%- PROCESS "statistics/macros-header.tt" -%]
+        <div id="sidebar">
+            [%- sidebar -%]
+        </div>
+        <div id="content">
+            <div class="statisticsheader">
+                <h1>[%- l('Database Statistics') -%]</h1>
+            </div>
+            [% INCLUDE 'components/tabs.tt' list=info_links %]
+            [%- content -%]
+        </div>
+        [%- PROCESS "statistics/macros-footer.tt" -%]
+    [%- END -%]
 [%- END -%]
-[%- END -%]
-[%- PROCESS "statistics/macros-footer.tt" -%]

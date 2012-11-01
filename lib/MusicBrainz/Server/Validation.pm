@@ -132,7 +132,8 @@ sub is_valid_ipi
 sub format_ipi
 {
     my $ipi = shift;
-    $ipi =~ s/\D+//g;
+    return $ipi unless $ipi =~ /^[\d\s.]{9,}$/;
+    $ipi =~ s/[\s.]//g;
     return sprintf("%011.0f", $ipi)
 }
 
@@ -190,7 +191,7 @@ sub is_valid_isrc
 sub is_tunecore
 {
     my $supposed_isrc = $_[0];
-    return $supposed_isrc =~ /TC\.*/;
+    return $supposed_isrc =~ /^TC\.*/;
 }
 
 ################################################################################
