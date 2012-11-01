@@ -115,7 +115,7 @@ sub set_language
     my @avail_lang;
     if (defined $lang) {
         @avail_lang = ($lang);
-    } elsif (DBDefs::LANGUAGE_FALLBACK_TO_BROWSER) {
+    } elsif (DBDefs->LANGUAGE_FALLBACK_TO_BROWSER) {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
             grep {
