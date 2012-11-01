@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA qw(sha1_base64);
 use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
