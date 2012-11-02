@@ -709,6 +709,33 @@ MB.tests.RelationshipEditor.RelationshipEditor = function() {
         QUnit.equal(recording.name, "Love Me Do", "recording name");
         QUnit.equal(recording.id, 6393661, "recording id");
         QUnit.equal(recording.gid, "87ec065e-f139-41b9-b3b9-f746addf5b1e", "recording gid");
+
+        // test artist credit rendering
+        var ac = [
+            {
+                artist: {
+                    sortname: "Sheridan, Tony",
+                    name: "Tony Sheridan",
+                    id: 117906,
+                    gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
+                },
+                joinphrase: " & "
+            },
+            {
+                artist: {
+                    sortname: "Beatles, The",
+                    name: "The Beatles",
+                    id: 303,
+                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+                },
+                joinphrase: ""
+            }
+        ];
+
+        QUnit.equal(RE.UI.renderArtistCredit(ac),
+            '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" target="_blank" title="Sheridan, Tony">Tony Sheridan</a> & ' +
+            '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" target="_blank" title="Beatles, The">The Beatles</a>',
+            "artist credit rendering");
     });
 };
 
