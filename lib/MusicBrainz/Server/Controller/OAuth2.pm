@@ -100,12 +100,16 @@ sub token : Local Args(0)
     my ($self, $c) = @_;
 
     my %params;
-    my %optional = ( client_id => 1, client_secret => 1, token_type => 1 );
-    for my $name (qw/client_id client_secret grant_type code redirect_uri token_type/) {
+    for my $name (qw/client_id client_secret grant_type code refresh_token redirect_uri token_type/) {
         my $value = $c->request->params->{$name};
         $params{$name} = ref($value) eq 'ARRAY' ? $value->[0] : $value;
+        my $optional = 1;
+        $optional = 0 if $name eq 'code' && $params{grant_type} eq 'authorization_code';
+        $optional = 0 if $name eq 'redirect_uri' && $params{grant_type} eq 'authorization_code';
+        $optional = 0 if $name eq 'refresh_token'&& $params{grant_type} eq 'refresh_token';
+        $optional = 0 if $name eq 'grant_type';
         $self->_send_error($c, 'invalid_request', 'Required parameter is missing: ' . $name)
-            unless $params{$name} or exists $optional{$name};
+            unless $params{$name} or $optional;
     }
 
     my ($auth_client_id, $auth_client_secret) = $c->request->headers->authorization_basic;
@@ -124,11 +128,10 @@ sub token : Local Args(0)
     $self->_send_error($c, 'invalid_client', 'Client not authentified')
         unless $params{client_secret} eq $application->oauth_secret;
 
-    $self->_send_error($c, 'invalid_request', 'Mismatched redirect URI')
-        unless $params{redirect_uri} eq $application->oauth_redirect_uri;
-
     my $token;
     if ($params{grant_type} eq 'authorization_code') {
+        $self->_send_error($c, 'invalid_request', 'Mismatched redirect URI')
+            unless $params{redirect_uri} eq $application->oauth_redirect_uri;
         $token = $c->model('EditorOAuthToken')->get_by_authorization_code($params{code});
         $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
             unless defined $token && $token->application_id == $application->id;
@@ -136,7 +139,7 @@ sub token : Local Args(0)
             if $token->is_expired;
     }
     elsif ($params{grant_type} eq 'refresh_token') {
-        $token = $c->model('EditorOAuthToken')->get_by_refresh_token($params{code});
+        $token = $c->model('EditorOAuthToken')->get_by_refresh_token($params{refresh_token});
         $self->_send_error($c, 'invalid_grant', 'Invalid refresh token')
             unless defined $token && $token->application_id == $application->id;
     }

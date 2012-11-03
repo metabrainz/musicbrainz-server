@@ -213,20 +213,20 @@ test 'Exchange refresh code' => sub {
 
     # Unknown refresh token
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&refresh_token=$code");
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
     # Correct token, but incorrect application
     $code = "yi3qjrMf4hG9VVUxXMVIuQ";
-    $test->mech->get("/oauth2/token?client_id=id-web&client_secret=id-web-secret&grant_type=refresh_token&redirect_uri=http://www.example.com/callback&code=$code");
+    $test->mech->get("/oauth2/token?client_id=id-web&client_secret=id-web-secret&grant_type=refresh_token&refresh_token=$code");
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
     # No problems, receives access token
-    $test->mech->get_ok("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->get_ok("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&refresh_token=$code");
     $response = from_json($test->mech->content);
     is('bearer', $response->{token_type});
     ok($response->{access_token});
