@@ -222,7 +222,7 @@ parseTrack = function(track, release) {
     recording.artistCredit = "";
 
     if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
-        recording.artistCredit = renderArtistCredit(track.artist_credit);
+        recording.artistCredit = UI.renderArtistCredit(track.artist_credit);
 
     return RE.Entity(recording);
 };
@@ -396,12 +396,12 @@ function initButtons() {
 }
 
 
-function renderArtistCredit(obj) {
+UI.renderArtistCredit = function(obj) {
     var html = "", name;
     for (var i = 0; name = obj[i]; i++)
-        html += RE.Entity(name.artist, "artist").rendering() + name.joinphrase;
+        html += RE.Entity(name.artist, "artist").rendering + name.joinphrase;
     return html;
-}
+};
 
 
 $(function() {
