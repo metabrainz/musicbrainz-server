@@ -10,7 +10,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Context', 't::Mechanize';
 
-test 'Authorize web workflow' => sub {
+test 'Authorize web workflow online' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
@@ -25,6 +25,7 @@ test 'Authorize web workflow' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
 
     my $uri;
 
@@ -77,6 +78,44 @@ test 'Authorize web workflow' => sub {
     is(undef, $token->access_token);
 };
 
+test 'Authorize web workflow offline' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    # This requires login first
+    $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&access_type=offline&redirect_uri=http://www.example.com/callback');
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{You need to be logged in to view this page});
+
+    # Logged in and now it asks for permission
+    $test->mech->submit_form( with_fields => { username => 'editor1', password => 'pass' } );
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Test Web is requesting permission});
+    $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_like(qr{Perform these operations when I'm not using the application});
+
+    # Authorize the request
+    $test->mech->max_redirect(0);
+    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+    is(302, $test->mech->status);
+    my $uri = URI->new($test->mech->response->header('Location'));
+    is('http', $uri->scheme);
+    is('www.example.com', $uri->host);
+    is('/callback', $uri->path);
+    is('xxx', $uri->query_param('state'));
+    my $code = $uri->query_param('code');
+    ok($code);
+
+    my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
+    ok($token);
+    is(2, $token->application_id);
+    is(1, $token->editor_id);
+    is($code, $token->authorization_code);
+    isnt(undef, $token->refresh_token);
+    is(undef, $token->access_token);
+};
+
 test 'Authorize desktop workflow' => sub {
     my $test = shift;
 
@@ -92,6 +131,7 @@ test 'Authorize desktop workflow' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
 
     # Authorize the request
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
@@ -106,7 +146,7 @@ test 'Authorize desktop workflow' => sub {
     is(1, $token->application_id);
     is(2, $token->editor_id);
     is($code, $token->authorization_code);
-    is(undef, $token->refresh_token);
+    isnt(undef, $token->refresh_token);
     is(undef, $token->access_token);
 };
 

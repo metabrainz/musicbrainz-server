@@ -45,7 +45,7 @@ sub authorize : Local Args(0) RequireAuth
         unless defined $application;
 
     $self->_send_html_error($c, 'invalid_request', 'Mismatched redirect URI')
-        unless $params{redirect_uri} eq $application->oauth_redirect_uri;
+        unless $self->_check_redirect_uri($application, $params{redirect_uri});
 
     $self->_send_redirect_error($c, $params{redirect_uri}, 'unsupported_response_type', 'Unsupported response type')
         unless $params{response_type} eq 'code';
@@ -57,6 +57,12 @@ sub authorize : Local Args(0) RequireAuth
         $scope |= $ACCESS_SCOPE_BY_NAME{$name};
     }
 
+    my $offline = 1;
+    if ($application->is_server) {
+        my $access_type = $c->request->params->{access_type};
+        $offline = 0 if !$access_type || $access_type ne 'offline';
+    }
+
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         if ($form->field('cancel')->input) {
@@ -65,7 +71,7 @@ sub authorize : Local Args(0) RequireAuth
         else {
             my $token;
             $c->model('MB')->with_transaction(sub {
-                $token = $c->model('EditorOAuthToken')->create_authorization_code($c->user->id, $application->id, $scope);
+                $token = $c->model('EditorOAuthToken')->create_authorization_code($c->user->id, $application->id, $scope, $offline);
             });
             $self->_send_redirect_response($c, $params{redirect_uri}, {
                 code => $token->authorization_code,
@@ -74,7 +80,7 @@ sub authorize : Local Args(0) RequireAuth
     }
 
     my $perms = MusicBrainz::Server::Entity::EditorOAuthToken->permissions($scope);
-    $c->stash( application => $application, perms => $perms );
+    $c->stash( application => $application, perms => $perms, offline => $offline );
 }
 
 sub oob : Local Args(0)
@@ -131,7 +137,7 @@ sub token : Local Args(0)
     my $token;
     if ($params{grant_type} eq 'authorization_code') {
         $self->_send_error($c, 'invalid_request', 'Mismatched redirect URI')
-            unless $params{redirect_uri} eq $application->oauth_redirect_uri;
+            unless $self->_check_redirect_uri($application, $params{redirect_uri});
         $token = $c->model('EditorOAuthToken')->get_by_authorization_code($params{code});
         $self->_send_error($c, 'invalid_grant', 'Invalid authorization code')
             unless defined $token && $token->application_id == $application->id;
@@ -159,8 +165,10 @@ sub token : Local Args(0)
             access_token => $token->access_token,
             token_type => $token_type,
             expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
-            refresh_token => $token->refresh_token
         };
+        if ($token->refresh_token) {
+            $data->{refresh_token} = $token->refresh_token;
+        }
         if ($needs_secret && $token->secret) {
             $data->{mac_key} = $token->secret;
             $data->{mac_algorithm} = 'hmac-sha-1';
@@ -245,6 +253,20 @@ sub _send_redirect_response
 
     $c->response->redirect($parsed_uri->as_string);
     $c->detach;
+}
+
+sub _check_redirect_uri
+{
+    my ($self, $application, $redirect_uri) = @_;
+
+    if ($application->is_server) {
+        return 1 if $redirect_uri eq $application->oauth_redirect_uri;
+    }
+    else {
+        return 1 if $redirect_uri eq 'urn:ietf:wg:oauth:2.0:oob';
+        return 1 if $redirect_uri =~ /^http:\/\/localhost(:\d+)?(\/.*?)?$/;
+    }
+    return 0;
 }
 
 no Moose;
