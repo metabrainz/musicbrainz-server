@@ -11,10 +11,35 @@ has_field 'name' => (
     required => 1,
 );
 
-has_field 'oauth_redirect_uri' => (
-    type => '+MusicBrainz::Server::Form::Field::URL',
+has_field 'oauth_type' => (
+    type => 'Select',
     required => 1,
 );
+
+has_field 'oauth_redirect_uri' => (
+    type => '+MusicBrainz::Server::Form::Field::URL'
+);
+
+sub options_oauth_type
+{
+    my ($self) = @_;
+
+    return [
+        { value => 'web', label => 'Web Application' },
+        { value => 'installed', label => 'Installed Application' },
+    ];
+}
+
+sub validate
+{
+    my ($self) = @_;
+
+    if ($self->field('oauth_type')->value eq 'web') {
+        if (!$self->field('oauth_redirect_uri')->value) {
+            $self->field('oauth_redirect_uri')->add_error('Redirect URL must be entered for web applications.');
+        }
+    }
+}
 
 1;
 

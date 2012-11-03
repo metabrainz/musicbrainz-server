@@ -7,6 +7,9 @@
     FOR perm IN token.permissions;
         out.push(l(perm));
     END;
+    IF token.is_offline;
+        out.push(l('Offline'));
+    END;
     out.join(', ');
 END -%]
 
@@ -42,6 +45,7 @@ END -%]
         <thead>
             <tr>
                 <th>[% l('Application') %]</th>
+                <th>[% l('Type') %]</th>
                 <th>[% l('OAuth Client ID') %]</th>
                 <th>[% l('OAuth Client Secret ') %]</th>
                 <th>[% l('Actions') %]</th>
@@ -51,6 +55,13 @@ END -%]
             [% FOR application IN applications %]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>[% application.name %]</td>
+                <td>
+                    [% IF application.oauth_redirect_uri %]
+                        [% l('Web Application') %]
+                    [% ELSE %]
+                        [% l('Installed Application') %]
+                    [% END %]
+                </td>
                 <td><code>[% application.oauth_id %]</code></td>
                 <td><code>[% application.oauth_secret %]</code></td>
                 <td>

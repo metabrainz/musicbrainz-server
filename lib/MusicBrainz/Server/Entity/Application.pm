@@ -32,14 +32,23 @@ has 'oauth_secret' => (
 );
 
 has 'oauth_redirect_uri' => (
-    isa => 'Str',
+    isa => 'Maybe[Str]',
     is  => 'rw',
 );
 
-has 'oauth_confidential' => (
-    isa => 'Bool',
-    is  => 'rw',
-);
+sub is_server
+{
+    my ($self) = @_;
+
+    return defined $self->oauth_redirect_uri;
+}
+
+sub oauth_type
+{
+    my ($self) = @_;
+
+    return defined $self->oauth_redirect_uri ? 'web' : 'installed';
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

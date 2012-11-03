@@ -61,6 +61,12 @@ has 'scope' => (
     is => 'rw',
 );
 
+has 'granted' => (
+    isa => DateTime,
+    is => 'rw',
+    coerce => 1
+);
+
 our %ACCESS_SCOPE_PERMISSIONS = (
     $ACCESS_SCOPE_PROFILE        => N_l('View your public account information'),
     $ACCESS_SCOPE_EMAIL          => N_l('View your email address'),
@@ -93,6 +99,13 @@ sub is_expired
     my ($self) = @_;
 
     return $self->expire_time < DateTime->now;
+}
+
+sub is_offline
+{
+    my ($self) = @_;
+
+    return defined $self->refresh_token;
 }
 
 __PACKAGE__->meta->make_immutable;

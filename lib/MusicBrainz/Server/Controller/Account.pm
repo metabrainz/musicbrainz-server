@@ -596,8 +596,10 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
     $c->detach('/error_404')
         unless defined $application && $application->owner_id == $c->user->id;
 
+    $c->stash( application => $application );
+
     my $form = $c->form( form => 'Application', init_object => $application );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params) && $form->field('oauth_type')->value eq $application->oauth_type) {
         $c->model('MB')->with_transaction(sub {
             $c->model('Application')->update($application->id, {
                 name => $form->field('name')->value,

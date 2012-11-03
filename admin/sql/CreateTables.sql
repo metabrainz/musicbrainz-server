@@ -17,8 +17,7 @@ CREATE TABLE application
     name                TEXT NOT NULL,
     oauth_id            TEXT NOT NULL,
     oauth_secret        TEXT NOT NULL,
-    oauth_redirect_uri  TEXT NOT NULL,
-    oauth_confidential  BOOLEAN NOT NULL
+    oauth_redirect_uri  TEXT
 );
 
 CREATE TABLE artist (
@@ -914,7 +913,8 @@ CREATE TABLE editor_oauth_token
     access_token        TEXT,
     secret              TEXT,
     expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
-    scope               INTEGER NOT NULL DEFAULT 0
+    scope               INTEGER NOT NULL DEFAULT 0,
+    granted             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE editor_watch_preferences

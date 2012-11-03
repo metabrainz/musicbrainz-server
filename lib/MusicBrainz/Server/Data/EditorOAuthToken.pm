@@ -90,15 +90,20 @@ sub delete_editor
 
 sub create_authorization_code
 {
-    my ($self, $editor_id, $application_id, $scope) = @_;
+    my ($self, $editor_id, $application_id, $scope, $offline) = @_;
 
     my $row = {
         editor => $editor_id,
         application => $application_id,
         authorization_code => generate_token(),
+        granted => DateTime->now,
         expire_time => DateTime->now->add( hours => 1 ),
         scope => $scope,
     };
+
+    if ($offline) {
+        $row->{refresh_token} = generate_token();
+    }
 
     $row->{id} = $self->sql->insert_row($self->_table, $row, 'id');
 
@@ -112,13 +117,11 @@ sub grant_access_token
     my $update = {
         authorization_code => undef,
         access_token => generate_token(),
-        refresh_token => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
     };
 
     $token->authorization_code($update->{authorization_code});
     $token->access_token($update->{access_token});
-    $token->refresh_token($update->{refresh_token});
     $token->expire_time($update->{expire_time});
 
     if ($secret) {

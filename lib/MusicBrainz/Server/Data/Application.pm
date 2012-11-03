@@ -20,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, owner, name, oauth_id, oauth_secret, oauth_redirect_uri, oauth_confidential';
+    return 'id, owner, name, oauth_id, oauth_secret, oauth_redirect_uri';
 }
 
 sub _column_mapping
@@ -32,7 +32,6 @@ sub _column_mapping
         oauth_id => 'oauth_id',
         oauth_secret => 'oauth_secret',
         oauth_redirect_uri => 'oauth_redirect_uri',
-        oauth_confidential => 'oauth_confidential',
     };
 }
 
@@ -74,7 +73,6 @@ before 'insert' => sub
     for my $obj (@objs) {
         $obj->{oauth_id} = generate_token();
         $obj->{oauth_secret} = generate_token();
-        $obj->{oauth_confidential} ||= 0;
     }
 };
 

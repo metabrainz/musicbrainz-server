@@ -12,8 +12,7 @@ CREATE TABLE application
     name                TEXT NOT NULL,
     oauth_id            TEXT NOT NULL,
     oauth_secret        TEXT NOT NULL,
-    oauth_redirect_uri  TEXT NOT NULL,
-    oauth_confidential  BOOLEAN NOT NULL
+    oauth_redirect_uri  TEXT
 );
 
 CREATE TABLE editor_oauth_token
@@ -26,7 +25,8 @@ CREATE TABLE editor_oauth_token
     access_token        TEXT,
     secret              TEXT,
     expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
-    scope               INTEGER NOT NULL DEFAULT 0
+    scope               INTEGER NOT NULL DEFAULT 0,
+    granted             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 
@@ -55,7 +55,7 @@ ALTER TABLE editor_oauth_token
    REFERENCES application(id);
 
 
-INSERT INTO application (owner, name, oauth_id, oauth_secret, oauth_redirect_uri, oauth_confidential)
-   VALUES (1, 'MusicBrainz Picard', 's6BhdRkqt3', '7Fjfp0ZBr1KtDRbnfVdmIw', 'urn:ietf:wg:oauth:2.0:oob', false);
+INSERT INTO application (owner, name, oauth_id, oauth_secret)
+   VALUES (1, 'MusicBrainz Test Application', 'uTuPnUfMRQPx8HBnHf22eg', '7Fjfp0ZBr1KtDRbnfVdmIw');
 
 COMMIT;
