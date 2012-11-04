@@ -10,6 +10,65 @@ use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Context', 't::Mechanize';
 
+sub oauth_redirect_ok
+{
+    my ($mech, $host, $path, $state) = @_;
+
+    is(302, $mech->status);
+    my $uri = URI->new($mech->response->header('Location'));
+    is('http', $uri->scheme);
+    is($host, $uri->host);
+    is($path, $uri->path);
+    is($state, $uri->query_param('state'));
+    my $code = $uri->query_param('code');
+    ok($code);
+
+    return $code;
+}
+
+sub oauth_redirect_error
+{
+    my ($mech, $host, $path, $state, $error) = @_;
+
+    is(302, $mech->status);
+    my $uri = URI->new($mech->response->header('Location'));
+    is('http', $uri->scheme);
+    is($host, $uri->host);
+    is($path, $uri->path);
+    is($state, $uri->query_param('state'));
+    is($error, $uri->query_param('error'));
+    is(undef, $uri->query_param('code'));
+}
+
+sub oauth_authorization_code_ok
+{
+    my ($test, $code, $application_id, $editor_id, $offline) = @_;
+
+    my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
+    ok($token);
+    is($application_id, $token->application_id);
+    is($editor_id, $token->editor_id);
+    is($code, $token->authorization_code);
+    if ($offline) {
+        isnt(undef, $token->refresh_token);
+    }
+    else {
+        is(undef, $token->refresh_token);
+    }
+    is(undef, $token->access_token);
+
+    my $application = $test->c->model('Application')->get_by_id($application_id);
+    $test->mech->post_ok('/oauth2/token', {
+        client_id => $application->oauth_id,
+        client_secret => $application->oauth_secret,
+        redirect_uri => $application->oauth_redirect_uri || 'urn:ietf:wg:oauth:2.0:oob',
+        grant_type => 'authorization_code',
+        code => $code,
+    });
+
+    return $token;
+}
+
 test 'Authorize web workflow online' => sub {
     my $test = shift;
 
@@ -27,55 +86,24 @@ test 'Authorize web workflow online' => sub {
     $test->mech->content_like(qr{View your public account information});
     $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
 
-    my $uri;
-
     # Deny the request
     $test->mech->max_redirect(0);
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.cancel' );
-    is(302, $test->mech->status);
-    $uri = URI->new($test->mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is('www.example.com', $uri->host);
-    is('/callback', $uri->path);
-    is('access_denied', $uri->query_param('error'));
+    oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'access_denied');
 
     # Incorrect scope
     $test->mech->get('/oauth2/authorize?client_id=id-web&response_type=code&scope=does-not-exist&state=xxx&redirect_uri=http://www.example.com/callback');
-    is(302, $test->mech->status);
-    $uri = URI->new($test->mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is('www.example.com', $uri->host);
-    is('/callback', $uri->path);
-    is('invalid_scope', $uri->query_param('error'));
+    oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'invalid_scope');
 
     # Incorrect response type
     $test->mech->get('/oauth2/authorize?client_id=id-web&response_type=yyy&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
-    is(302, $test->mech->status);
-    $uri = URI->new($test->mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is('www.example.com', $uri->host);
-    is('/callback', $uri->path);
-    is('unsupported_response_type', $uri->query_param('error'));
+    oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'unsupported_response_type');
 
     # Authorize the request
     $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
-    is(302, $test->mech->status);
-    $uri = URI->new($test->mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is('www.example.com', $uri->host);
-    is('/callback', $uri->path);
-    is('xxx', $uri->query_param('state'));
-    my $code = $uri->query_param('code');
-    ok($code);
-
-    my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
-    ok($token);
-    is(2, $token->application_id);
-    is(1, $token->editor_id);
-    is($code, $token->authorization_code);
-    is(undef, $token->refresh_token);
-    is(undef, $token->access_token);
+    my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
+    oauth_authorization_code_ok($test, $code, 2, 1, 0);
 };
 
 test 'Authorize web workflow offline' => sub {
@@ -83,71 +111,113 @@ test 'Authorize web workflow offline' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
-    # This requires login first
-    $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&access_type=offline&redirect_uri=http://www.example.com/callback');
-    html_ok($test->mech->content);
-    $test->mech->content_like(qr{You need to be logged in to view this page});
+    my $client_id = 'id-web';
+    my $redirect_uri = 'http://www.example.com/callback';
 
-    # Logged in and now it asks for permission
+    # Login first and disable redirects
+    $test->mech->get_ok('/login');
     $test->mech->submit_form( with_fields => { username => 'editor1', password => 'pass' } );
+    $test->mech->max_redirect(0);
+
+    # Authorize first request
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&access_type=offline&redirect_uri=$redirect_uri");
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
     $test->mech->content_like(qr{Perform these operations when I'm not using the application});
-
-    # Authorize the request
-    $test->mech->max_redirect(0);
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
-    is(302, $test->mech->status);
-    my $uri = URI->new($test->mech->response->header('Location'));
-    is('http', $uri->scheme);
-    is('www.example.com', $uri->host);
-    is('/callback', $uri->path);
-    is('xxx', $uri->query_param('state'));
-    my $code = $uri->query_param('code');
-    ok($code);
+    my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
+    oauth_authorization_code_ok($test, $code, 2, 1, 1);
 
-    my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
-    ok($token);
-    is(2, $token->application_id);
-    is(1, $token->editor_id);
-    is($code, $token->authorization_code);
-    isnt(undef, $token->refresh_token);
-    is(undef, $token->access_token);
+    # Try to authorize one more time, this time we should be redirected automatically and only get the access_token
+    $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&access_type=offline&redirect_uri=$redirect_uri");
+    my $code2 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
+    isnt($code, $code2);
+    oauth_authorization_code_ok($test, $code2, 2, 1, 0);
+
+    # And one more time, this time force manual authorization
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&access_type=offline&redirect_uri=$redirect_uri&approval_prompt=force");
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Test Web is requesting permission});
+    $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_like(qr{Perform these operations when I'm not using the application});
+    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+    my $code3 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
+    isnt($code, $code3);
+    isnt($code2, $code3);
+    oauth_authorization_code_ok($test, $code3, 2, 1, 1);
 };
 
-test 'Authorize desktop workflow' => sub {
+test 'Authorize desktop workflow oob' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
-    # This requires login first
-    $test->mech->get_ok('/oauth2/authorize?client_id=id-desktop&response_type=code&scope=profile&state=xxx&redirect_uri=urn:ietf:wg:oauth:2.0:oob');
-    html_ok($test->mech->content);
-    $test->mech->content_like(qr{You need to be logged in to view this page});
+    my $client_id = 'id-desktop';
+    my $redirect_uri = 'urn:ietf:wg:oauth:2.0:oob';
 
-    # Logged in and now it asks for permission
+    # Login first and disable redirects
+    $test->mech->get_ok('/login');
     $test->mech->submit_form( with_fields => { username => 'editor2', password => 'pass' } );
+    $test->mech->max_redirect(0);
+
+    # Authorize first request
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
     $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
-
-    # Authorize the request
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
-    is('/oauth2/oob', $test->mech->uri->path);
-    is('xxx', $test->mech->uri->query_param('state'));
-    my $code = $test->mech->uri->query_param('code');
-    ok($code);
+    my $code = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'xxx');
     $test->mech->content_contains($code);
+    oauth_authorization_code_ok($test, $code, 1, 2, 1);
 
-    my $token = $test->c->model('EditorOAuthToken')->get_by_authorization_code($code);
-    ok($token);
-    is(1, $token->application_id);
-    is(2, $token->editor_id);
-    is($code, $token->authorization_code);
-    isnt(undef, $token->refresh_token);
-    is(undef, $token->access_token);
+    # Try to authorize one more time, this should ask for manual approval as well
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Test Desktop is requesting permission});
+    $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+    my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'yyy');
+    isnt($code, $code2);
+    oauth_authorization_code_ok($test, $code2, 1, 2, 1);
+};
+
+test 'Authorize desktop workflow localhost' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my $client_id = 'id-desktop';
+    my $redirect_uri = 'http://localhost:5678/cb';
+
+    # Login first and disable redirects
+    $test->mech->get_ok('/login');
+    $test->mech->submit_form( with_fields => { username => 'editor2', password => 'pass' } );
+    $test->mech->max_redirect(0);
+
+    # Authorize first request
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Test Desktop is requesting permission});
+    $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+    my $code = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'xxx');
+    $test->mech->content_contains($code);
+    oauth_authorization_code_ok($test, $code, 1, 2, 1);
+
+    # Try to authorize one more time, this should ask for manual approval as well
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
+    html_ok($test->mech->content);
+    $test->mech->content_like(qr{Test Desktop is requesting permission});
+    $test->mech->content_like(qr{View your public account information});
+    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+    my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'yyy');
+    isnt($code, $code2);
+    oauth_authorization_code_ok($test, $code2, 1, 2, 1);
 };
 
 test 'Exchange authorization code' => sub {

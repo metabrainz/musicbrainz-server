@@ -68,12 +68,27 @@ sub find_granted_by_editor
     my ($self, $editor_id, $limit, $offset) = @_;
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE editor = ? AND access_token IS NOT NULL
+                 WHERE
+                    editor = ? AND
+                    access_token IS NOT NULL
                  ORDER BY id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $editor_id, $offset || 0);
+}
+
+sub check_granted_token
+{
+    my ($self, $editor_id, $application_id, $scope, $offline) = @_;
+    my $query = "SELECT count(*)
+                 FROM " . $self->_table . "
+                 WHERE editor = ? AND application = ? AND scope = ? AND
+                       access_token IS NOT NULL";
+    if ($offline) {
+        $query .= " AND refresh_token IS NOT NULL"
+    }
+    return $self->c->sql->select_single_value($query, $editor_id, $application_id, $scope);
 }
 
 sub delete_application

@@ -33,8 +33,10 @@ sub authorize : Local Args(0) RequireAuth
     my ($self, $c) = @_;
 
     my %params;
-    for my $name (qw/client_id scope response_type redirect_uri/) {
+    my %defaults = ( access_type => 'online', approval_prompt => 'auto' );
+    for my $name (qw/ client_id scope response_type redirect_uri access_type approval_prompt /) {
         my $value = $c->request->params->{$name};
+        $value = $defaults{$name} unless defined $value;
         $params{$name} = ref($value) eq 'ARRAY' ? $value->[0] : $value;
         $self->_send_html_error($c, 'invalid_request', 'Required parameter is missing: ' . $name)
             unless $params{$name};
@@ -58,18 +60,22 @@ sub authorize : Local Args(0) RequireAuth
     }
 
     my $offline = 1;
+    my $pre_authorized = 0;
+
     if ($application->is_server) {
-        my $access_type = $c->request->params->{access_type};
-        $offline = 0 if !$access_type || $access_type ne 'offline';
+        my $has_granted_tokens = $c->model('EditorOAuthToken')->check_granted_token($c->user->id, $application->id, $scope, $offline);
+        $offline = 0 if $params{access_type} ne 'offline';
+        $pre_authorized = 1 if $params{approval_prompt} ne 'force' && $has_granted_tokens;
     }
 
     my $form = $c->form( form => 'SubmitCancel' );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($pre_authorized || ($c->form_posted && $form->submitted_and_valid($c->req->params))) {
         if ($form->field('cancel')->input) {
             $self->_send_redirect_error($c, $params{redirect_uri}, 'access_denied', 'User denied the authorization request');
         }
         else {
             my $token;
+            $offline = 0 if $pre_authorized && $offline;
             $c->model('MB')->with_transaction(sub {
                 $token = $c->model('EditorOAuthToken')->create_authorization_code($c->user->id, $application->id, $scope, $offline);
             });
