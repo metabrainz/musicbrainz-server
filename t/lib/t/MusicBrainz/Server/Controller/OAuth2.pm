@@ -229,14 +229,26 @@ test 'Exchange authorization code' => sub {
 
     # Unknown authorization code
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
     # Expired authorization code
     $code = "kEbi7Dwg4hGRFvz9W8VIuQ";
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
@@ -244,67 +256,134 @@ test 'Exchange authorization code' => sub {
     $code = "liUxgzsg4hGvDxX9W8VIuQ";
 
     # Missing client_id
-    $test->mech->get("/oauth2/token?client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(401, $test->mech->status);
     is('invalid_client', $response->{error});
 
     # Incorrect client_id
-    $test->mech->get("/oauth2/token?client_id=id-xxx&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-xxx',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(401, $test->mech->status);
     is('invalid_client', $response->{error});
 
     # Missing client_secret
-    $test->mech->get("/oauth2/token?client_id=id-desktop&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        grant_type => 'authorization_code', 
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(401, $test->mech->status);
     is('invalid_client', $response->{error});
 
     # Incorrect client_secret
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-xxx-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-xxx-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(401, $test->mech->status);
     is('invalid_client', $response->{error});
 
     # Missing grant_type
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_request', $response->{error});
 
     # Incorrect grant_type
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=xxx&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'xxx',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('unsupported_grant_type', $response->{error});
 
     # Missing redirect_uri
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_request', $response->{error});
 
     # Incorect redirect_uri
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=xxx&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'xxx',
+        code => $code
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_request', $response->{error});
 
     # Missing code
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_request', $response->{error});
 
     # Correct code, but incorrect application
-    $test->mech->get("/oauth2/token?client_id=id-web&client_secret=id-web-secret&grant_type=authorization_code&redirect_uri=http://www.example.com/callback&code=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'http://www.example.com/callback',
+        code => $code
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
+    # Correct parameters, but GET request
+    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $response = from_json($test->mech->content);
+    is(400, $test->mech->status);
+    is('invalid_request', $response->{error});
+
     # No problems, receives access token
-    $test->mech->get_ok("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=authorization_code&redirect_uri=urn:ietf:wg:oauth:2.0:oob&code=$code");
+    $test->mech->post_ok('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'authorization_code',
+        redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
+        code => $code,
+    });
     $response = from_json($test->mech->content);
     is(undef, $response->{error});
     is(undef, $response->{error_description});
@@ -323,20 +402,35 @@ test 'Exchange refresh code' => sub {
 
     # Unknown refresh token
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
-    $test->mech->get("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&refresh_token=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'refresh_token', 
+        refresh_token => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
     # Correct token, but incorrect application
     $code = "yi3qjrMf4hG9VVUxXMVIuQ";
-    $test->mech->get("/oauth2/token?client_id=id-web&client_secret=id-web-secret&grant_type=refresh_token&refresh_token=$code");
+    $test->mech->post('/oauth2/token', {
+        client_id => 'id-web',
+        client_secret => 'id-web-secret',
+        grant_type => 'refresh_token',
+        refresh_token => $code,
+    });
     $response = from_json($test->mech->content);
     is(400, $test->mech->status);
     is('invalid_grant', $response->{error});
 
     # No problems, receives access token
-    $test->mech->get_ok("/oauth2/token?client_id=id-desktop&client_secret=id-desktop-secret&grant_type=refresh_token&refresh_token=$code");
+    $test->mech->post_ok('/oauth2/token', {
+        client_id => 'id-desktop',
+        client_secret => 'id-desktop-secret',
+        grant_type => 'refresh_token',
+        refresh_token => $code,
+    });
     $response = from_json($test->mech->content);
     is('bearer', $response->{token_type});
     ok($response->{access_token});

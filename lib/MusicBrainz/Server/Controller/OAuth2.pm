@@ -111,6 +111,9 @@ sub token : Local Args(0)
 {
     my ($self, $c) = @_;
 
+    $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
+        if $c->request->method ne 'POST';
+
     my %params;
     for my $name (qw/client_id client_secret grant_type code refresh_token redirect_uri token_type/) {
         my $value = $c->request->params->{$name};
