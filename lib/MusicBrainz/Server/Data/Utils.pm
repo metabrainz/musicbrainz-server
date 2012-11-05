@@ -23,7 +23,7 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
     check_in_use
-    clean_text
+    collapse_whitespace
     copy_escape
     defined_hash
     generate_gid
@@ -310,7 +310,7 @@ sub add_partial_date_to_row
     }
 }
 
-sub clean_text {
+sub collapse_whitespace {
     my $t = shift;
 
     # Compress whitespace
@@ -326,7 +326,7 @@ sub trim {
     # Remove leading and trailing space
     my $t = Text::Trim::trim (shift);
 
-    return clean_text ($t);
+    return collapse_whitespace ($t);
 }
 
 sub type_to_model
