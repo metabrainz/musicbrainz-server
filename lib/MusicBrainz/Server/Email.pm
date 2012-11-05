@@ -138,6 +138,7 @@ sub _create_email_verification_email
     );
 
     my $verification_link = $opts{verification_link};
+    my $ip = $opts{ip};
 
     my $body = <<EOS;
 This is a verification email for your MusicBrainz account. Please click
@@ -147,6 +148,8 @@ $verification_link
 
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
+
+This email was triggered by a request from the IP address [$ip].
 
 Thanks for using MusicBrainz!
 

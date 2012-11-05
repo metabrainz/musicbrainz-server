@@ -27,7 +27,7 @@ sub options_mediums_format_id {
 
     return [
         map {
-            $self->_build_medium_format_options($_, 'name', '')
+            $self->_build_medium_format_options($_, 'l_name', '')
         } $root_format->all_children ];
 };
 

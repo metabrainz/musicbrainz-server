@@ -221,6 +221,28 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         return self.$number.val ();
     };
 
+    self.title = function (val) {
+        if (val !== undefined)
+        {
+            self.$title.val (val);
+        }
+
+        return self.$title.val ();
+    };
+
+    self.artistCreditText = function (val) {
+        if (val !== undefined)
+        {
+            self.artist_credit.render({
+                "names": [{
+                    "artist": { "name": val },
+                    "name": val
+                }]
+            });
+        }
+
+        return self.$artist.val();
+    };
 
     /**
      * move the track up/down.
@@ -789,6 +811,34 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         });
     };
 
+    self.hasComplexArtistCredits = function() {
+        var x = false;
+        $.each(self.sorted_tracks, function (idx, item) {
+            x = item.artist_credit.isComplex();
+            return !x;
+        });
+        return x;
+    };
+
+    /**
+     * Swap track titles with artist credits (and replace artist credits with track titles)
+     */
+    self.swapArtistsAndTitles = function (event) {
+        var requireConf = self.hasComplexArtistCredits();
+        if (!requireConf || (requireConf && confirm(MB.text.ConfirmSwap))) {
+            // Ensure that we can edit track artists
+            self.$artist_column_checkbox.attr('checked', 'checked');
+            self.updateArtistColumn();
+
+            $.each (self.sorted_tracks, function(idx, item) {
+                var oldTitle = item.title ();
+
+                item.title(item.artistCreditText());
+                item.artistCreditText(oldTitle);
+            });
+        }
+    };
+
     /**
      * Update remaining track numbers / positions after a track in the
      * tracklist has been deleted.
@@ -860,6 +910,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
     self.$add_track_count = self.$fieldset.find ('input.add-track-count');
     self.$fieldset.find ('.reset-track-numbers').bind ('click.mb', self.resetTrackNumbers);
+    self.$fieldset.find ('.swap-artists-and-titles').bind ('click.mb', self.swapArtistsAndTitles);
     self.$fieldset.find ('input.track-parser').bind ('click.mb', self.openTrackParser);
     self.$fieldset.find ('input.add-track').bind ('click.mb', self.addTrackEvent);
     self.$fieldset.find ('input.disc-down').bind ('click.mb', self.moveDown);

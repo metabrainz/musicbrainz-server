@@ -1,3 +1,4 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
 {label: MB.text.Timeline.Stat("[%- statistic -%]").Label, 
@@ -58,7 +59,6 @@
 [% END %]
 
 [%- sidebar = BLOCK -%]
-[%- PROCESS "statistics/macros-header.tt" -%]
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
         <h2>
@@ -79,11 +79,9 @@
         </table>
         <div id="overview"></div>
     </div>
-[%- PROCESS "statistics/macros-footer.tt" -%]
 [%- END -%]
 
 [%- WRAPPER "statistics/layout.tt" title=l("Timeline Graph") sidebar=sidebar page='timeline' -%]
-[%- PROCESS "statistics/macros-header.tt" -%]
 <h2>[% l('Exact Values (items vs. day)') %]</h2>
 <div id="graph-container"></div>
 <h2>[% l('Rate of Change (average items/day vs. day)') %]</h2>

@@ -1,7 +1,7 @@
 [%- WRAPPER 'release/layout.tt' page='index' -%]
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
-    <h2>[% l('Tracklist') %]</h2>
+    <h2 class="tracklist">[% l('Tracklist') %]</h2>
     <table class="tbl">
         <thead>
             <tr>
@@ -64,6 +64,6 @@
 
     </script>
 
-    <h2>[% l("Relationships") %]</h2>
+    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=release -%]
 [%- END -%]

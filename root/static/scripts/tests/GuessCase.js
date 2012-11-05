@@ -24,7 +24,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.artist.sortname (test.input, test.person);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
         tests = [
@@ -58,7 +58,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.label.sortname (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -96,7 +96,7 @@ MB.tests.GuessCase.Modes = function() {
 
             var prefix = test.bug ? test.bug + ', ' : '';
 
-            QUnit.equals(result, test.expected, prefix + test.input);
+            QUnit.equal(result, test.expected, prefix + test.input);
         });
 
     });
@@ -117,7 +117,7 @@ MB.tests.GuessCase.Modes = function() {
 
         $.each(tests, function(idx, test) {
             result = MB.GuessCase.label.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -172,7 +172,7 @@ MB.tests.GuessCase.Modes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -302,7 +302,7 @@ MB.tests.GuessCase.BugFixes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.bug + ', ' + test.input);
+            QUnit.equal(result, test.expected, test.bug + ', ' + test.input);
         });
 
     });

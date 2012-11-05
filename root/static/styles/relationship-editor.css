@@ -1,0 +1,98 @@
+#content.rel-editor #tracklist td {vertical-align: top;}
+#content.rel-editor #tracklist td.midcol {vertical-align: middle; font-size: 0.9em;}
+#content.rel-editor div.ars {padding: 0; margin: 0.5em 0; margin-left: 1.5em;}
+#content.rel-editor span.link-phrase {color: #000; cursor: pointer; text-decoration: none;}
+#content.rel-editor span.link-phrase:hover {background: #FD9;}
+#content.rel-editor #release-rels {margin-top: 1em;}
+
+#content.rel-editor .rel-edit {background: #FD9;}
+#content.rel-editor .rel-remove {background: #FF8F8F !important; cursor: default !important;}
+#content.rel-editor .rel-add {background: #B6FFA3;}
+
+#content.rel-editor .remove-button {cursor: pointer; color: #888; padding: 0 0.5em;}
+#content.rel-editor .remove-button:hover {color: #FF8F8F; text-decoration: none;}
+#content.rel-editor .remove-button:visited {color: #888;}
+
+#content.rel-editor .btn {
+    cursor: pointer;
+    vertical-align: top;
+    color: #002bba;
+    white-space: nowrap;
+    text-decoration: none;
+}
+#content.rel-editor .add-rel {
+    display: inline-block;
+    margin-left: 1.5em;
+    padding-bottom: 0.5em;
+}
+img.bottom {vertical-align: bottom;}
+#content.rel-editor .btn.disabled {cursor: default; color: #999;}
+
+#content.rel-editor .warning,
+div.rel-editor-dialog .warning {
+    border: 2px red dotted;
+    background: #FBE3E4;
+    padding: 0.5em;
+    font-weight: bold;
+}
+#content.rel-editor .error-field {border-bottom: 2px red dotted;}
+
+div.rel-editor-dialog {
+    /* css3 drop shadow */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border: 1px solid #999;
+    border-radius: 0.5em;
+    background: #fff !important;
+    position: absolute !important;
+    z-index: 5000 !important;
+    display: none;
+    padding: 0.8em;
+}
+div.rel-editor-dialog span.autocomplete {width: 100%;}
+div.rel-editor-dialog p.msg {margin: 0.5em; margin-bottom: 1em;}
+div.rel-editor-dialog span.error,
+div.rel-editor-dialog div.error {color: #f00;}
+div.rel-editor-dialog table {border-spacing: 0; width: 100%;}
+div.rel-editor-dialog table td {padding: 0.25em 0;}
+div.rel-editor-dialog table td.section {
+    font-weight: bold;
+    vertical-align: top;
+    text-align: right;
+    white-space: nowrap;
+    padding-right: 1em !important;
+}
+div.rel-editor-dialog input[type=text],
+div.rel-editor-dialog textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+div.rel-editor-dialog textarea {
+    margin-top: 0.5em;
+}
+
+#dialog.rel-editor-dialog div.ar-descr {
+    box-sizing: border-box;
+    margin: 6px 0;
+}
+#dialog.rel-editor-dialog input.selectFilter {width: 7em;}
+#dialog.rel-editor-dialog div.attr-select > * {margin: 2px !important;}
+#dialog.rel-editor-dialog #attrs button {
+    background-color: #F0F0F0;
+    border: 1px solid #D0D0D0;
+    border-top: 1px solid #EAEAEA;
+    border-left: 1px solid #EAEAEA;
+    font-weight: bold;
+    color: #565656;
+    cursor: pointer;
+}
+
+#overlay.rel-editor {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: fixed;
+    z-index: 4000;
+    top: 0;
+    left: 0;
+}

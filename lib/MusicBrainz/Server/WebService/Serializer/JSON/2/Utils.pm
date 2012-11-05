@@ -2,39 +2,37 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Utils;
 
 use base 'Exporter';
 use Readonly;
-
-use String::CamelCase qw(camelize);
+use List::UtilsBy 'sort_by';
 
 our @EXPORT_OK = qw(
+    boolean
+    list_of
+    number
     serializer
     serialize_entity
-    list_of
 );
 
 my %serializers;
 
 Readonly my %ENTITY_TO_SERIALIZER => (
-#     'MusicBrainz::Server::Entity::AggregatedTag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::AggregatedTag',
-#     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Artist',
-#     'MusicBrainz::Server::Entity::ArtistAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
-#     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ArtistCredit',
-#     'MusicBrainz::Server::Entity::CDStub' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDStub',
-#     'MusicBrainz::Server::Entity::Editor' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Editor',
-#     'MusicBrainz::Server::Entity::ISRC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ISRC',
+    'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
+    'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit',
+    'MusicBrainz::Server::Entity::Collection' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Collection',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Label',
-#     'MusicBrainz::Server::Entity::MediumCDTOC' => 'MusicBrainz::Server::WebService::Serializer::XML::1::CDTOC',
-#     'MusicBrainz::Server::Entity::LabelAlias' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Alias',
-#     'MusicBrainz::Server::Entity::PUID' => 'MusicBrainz::Server::WebService::Serializer::XML::1::PUID',
-#     'MusicBrainz::Server::Entity::RecordingPUID' => 'MusicBrainz::Server::WebService::Serializer::XML::1::RecordingPUID',
-#     'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Recording',
-#     'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Relation',
-#     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Release',
-#     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseGroup',
-#     'MusicBrainz::Server::Entity::SearchResult' => 'MusicBrainz::Server::WebService::Serializer::XML::1::SearchResult',
-#     'MusicBrainz::Server::Entity::Tag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::Tag',
-#     'MusicBrainz::Server::Entity::UserTag' => 'MusicBrainz::Server::WebService::Serializer::XML::1::UserTag',
-#     'MusicBrainz::Server::WebService::Entity::1::ReleaseEvent' => 'MusicBrainz::Server::WebService::Serializer::XML::1::ReleaseEvent'
+    'MusicBrainz::Server::Entity::Medium' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Medium',
+    'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Recording',
+    'MusicBrainz::Server::Entity::Relationship' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Relation',
+    'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
+    'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
+    'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
 );
+
+sub boolean { return (shift) ? JSON::true : JSON::false; }
+
+sub number {
+    my $value = shift;
+    return defined $value ? $value + 0 : JSON::null;
+}
 
 sub serializer
 {
@@ -54,11 +52,24 @@ sub serialize_entity
     return serializer($_[0])->serialize(@_);
 }
 
+sub list_of
+{
+    my ($entity, $inc, $stash, $type) = @_;
+
+    my $opts = $stash->store ($entity);
+    my $list = $opts->{$type};
+    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
+
+    return [
+        map { serialize_entity($_, $inc, $opts) }
+        sort_by { $_->gid } @$items ];
+}
+
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

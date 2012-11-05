@@ -2,11 +2,12 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID;
 use Moose::Role;
 
 around serialize => sub {
-    my ($orig, $self, $entity, $inc, $opts) = @_;
-    return (
-        id => $entity->gid,
-        $self->$orig($entity, $inc, $opts)
-    );
+    my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
+
+    $ret->{id} = $entity->gid;
+
+    return $ret;
 };
 
 no Moose::Role;
@@ -14,7 +15,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

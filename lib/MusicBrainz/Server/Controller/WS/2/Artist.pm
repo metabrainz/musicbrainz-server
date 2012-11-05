@@ -10,20 +10,21 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
                          inc      => [ qw(aliases
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
                                           aliases various-artists
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -44,6 +45,8 @@ sub artist : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $artist = $c->stash->{entity};
+
+    return unless defined $artist;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
@@ -69,7 +72,7 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->recordings)
     {
-        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{recordings} = $self->make_list (@results);
 
         $self->linked_recordings ($c, $stash, $opts->{recordings}->{items});
@@ -105,7 +108,7 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->works)
     {
-        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{works} = $self->make_list (@results);
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});

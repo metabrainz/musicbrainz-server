@@ -3,6 +3,8 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
+use HTTP::Status qw( :constants );
+
 with 't::Mechanize', 't::Context';
 
 test all => sub {
@@ -41,10 +43,11 @@ $mech->content_contains('Your profile has been updated');
 $mech->content_contains('We have sent you a verification email');
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->deliveries->[-1]->{email};
+my $email = $email_transport->shift_deliveries->{email};
 is($email->get_header('To'), 'new_email@example.com', "Verification email sent to correct address");
 is($email->get_header('Subject'), 'Please verify your email address', "Verification email has correct subject");
-like($email->get_body, qr{http://localhost/verify-email.*}, "Verification emial contains verification link");
+like($email->get_body, qr{http://localhost/verify-email.*}, "Verification email contains verification link");
+like($email->get_body, qr{\[127\.0\.0\.1\]}, "Verification email contains request IP");
 
 $email->get_body =~ qr{http://localhost(/verify-email.*)};
 my $verify_email_path = $1;
@@ -57,6 +60,42 @@ $mech->content_contains('hello world!');
 $mech->content_contains('new_email@example.com');
 
 
+};
+
+test 'After removing email address, editors cannot edit' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+    $c->sql->do(
+        'UPDATE editor SET email = ?, email_confirm_date = now()
+         WHERE name = ?',
+        'foo@bar.baz', 'new_editor'
+    );
+
+    $mech->get('/login');
+    $mech->submit_form( with_fields => {
+        username => 'new_editor',
+        password => 'password'
+    });
+
+    {
+        my $response = $mech->get('/artist/create');
+        is($response->code, HTTP_OK);
+    }
+
+    $mech->get_ok('/account/edit');
+    html_ok($mech->content);
+    $mech->submit_form( with_fields => {
+        'profile.email' => '',
+    });
+    $mech->content_contains('Your profile has been updated');
+
+    {
+        my $response = $mech->get('/artist/create');
+        is($response->code, HTTP_UNAUTHORIZED);
+    }
 };
 
 1;

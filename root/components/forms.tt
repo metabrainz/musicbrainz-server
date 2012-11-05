@@ -109,9 +109,11 @@
                        alt="[% l('Remove {item}', item => item_name) %]" />
               </button>
           </div>
-          <div style="text-align: right; width: 100%; ">
-            <button class="nobutton add" style="margin-right: 8px;">
-              <span class="add-row" style="padding: 0 1em;">[% l('Add {item}', item => item_name) %]</span>
+          <div class="form-row-add">
+            <button class="nobutton add">
+              <span class="add-row">
+                [% l('Add {item}', item => item_name) %]
+              </span>
               <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" />
             </button>
           </div>
@@ -226,6 +228,20 @@
   </div>
 [%- END -%]
 
+[%- MACRO iswc_bubble(work) BLOCK -%]
+  <div class="iswcs container" style="display: none">
+    <div class="iswcs bubble">
+      <p>[% l('You are about to add an ISWC to {work}. The ISWC must be entered in
+               standard <code>T-DDD.DDD.DDD-C</code> format:',
+              { work => work }) %]</p>
+      <ul>
+        <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
+        <li>[% l('"C" is a single check digit.') %]</li>
+      </ul>
+    </div>
+  </div>
+[%- END -%]
+
 [%- MACRO artist_credit_table(form) BLOCK -%]
   <div class="artist-credit-container" style="display: none">
     <div class="artist-credit bubble">
@@ -256,7 +272,7 @@
             </span>
 
             <input type="button" class="icon remove-artist-credit"
-              title="[% l('Remove Artist Credit') %]" 
+              title="[% l('Remove Artist Credit') %]"
               style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
 
           </div>
@@ -286,7 +302,7 @@
             </button>
         </span>
         <input type="button" class="icon add-artist-credit"
-          title="[% l('Add Artist Credit') %]" 
+          title="[% l('Add Artist Credit') %]"
           style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />
       </div>
 

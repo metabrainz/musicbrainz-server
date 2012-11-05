@@ -4,4 +4,3 @@
 	<input type="hidden" id="filter_ajax_form_url" disabled="disabled" value="[% ajax_form_url | html %]" />
     </form>
 </div>
-

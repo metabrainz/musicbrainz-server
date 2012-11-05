@@ -30,12 +30,12 @@ my $response = $mech->submit_form(
         'edit-artist.type_id' => '',
         'edit-artist.country_id' => 2,
         'edit-artist.gender_id' => 2,
-        'edit-artist.begin_date.year' => 1990,
-        'edit-artist.begin_date.month' => 01,
-        'edit-artist.begin_date.day' => 02,
-        'edit-artist.end_date.year' => '',
-        'edit-artist.end_date.month' => '',
-        'edit-artist.end_date.day' => '',
+        'edit-artist.period.begin_date.year' => 1990,
+        'edit-artist.period.begin_date.month' => 01,
+        'edit-artist.period.begin_date.day' => 02,
+        'edit-artist.period.end_date.year' => '',
+        'edit-artist.period.end_date.month' => '',
+        'edit-artist.period.end_date.day' => '',
         'edit-artist.comment' => 'artist created in controller_artist.t',
         'edit-artist.rename_artist_credit' => undef
     }
@@ -190,7 +190,7 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES (10, '9f0b3e1a-2431-400f-b6
 
 INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 2);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-  VALUES (1, 10, 2, 1, NULL);
+  VALUES (1, 10, 2, 1, '');
 EOSQL
 
     $mech->get_ok('/login');

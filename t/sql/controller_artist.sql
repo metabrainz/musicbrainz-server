@@ -34,7 +34,7 @@ INSERT INTO artist_alias
     VALUES (1, 4, 4, 3, 2, 2000, 1, 1, 2005, 5, 6);
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 3, 1, '');
 
 INSERT INTO release_name (id, name)
     VALUES (1, 'Test RG 1'),

@@ -116,7 +116,7 @@ sub display_cover_art_types
 
     # FIXME: sort these.
     # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join (", ", map { $loaded->{CoverArtType}->{$_}->name } @$types);
+    return join (", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
 }
 
 sub build_display_data {

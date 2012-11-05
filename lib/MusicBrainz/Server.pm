@@ -155,7 +155,7 @@ if (&DBDefs::_RUNNING_TESTS) {
     # as part of Test::WWW::Selenium::Catalyst, so we need Static::Simple when
     # running tests.
     push @args, "Static::Simple";
-    __PACKAGE__->config->{'static'} = {
+    __PACKAGE__->config->{'Plugin::Static::Simple'} = {
         mime_types => {
             json => 'application/json; charset=UTF-8',
         },
