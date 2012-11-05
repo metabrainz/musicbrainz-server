@@ -98,12 +98,12 @@
 
 [%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK -%]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      <label>[% label || r.form.field(field_name).label %]</label>
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value">
-              <button class="nobutton icon remove" href="#remove_row">
+              <input type="text" value="" name="" class="value" />
+              <button class="nobutton icon remove">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
                        alt="[% l('Remove {item}', item => item_name) %]" />
@@ -157,7 +157,7 @@
 
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]
     [% WRAPPER form_row %]
-      <label>[%- IF label -%][%- label -%][%- ELSE -%]&nbsp;[%- END -%]</label>
+      <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
       <p>[%- message -%]</p>
     [% END %]
 [%- END -%]
@@ -295,7 +295,7 @@
       [%- END -%]
 
       <div class="row">
-        <label> &nbsp; </label>
+        <label> &#xa0; </label>
         <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">
             <button type="button" class="nobutton add-artist-credit">
                 [%- l('Add Artist Credit') -%]

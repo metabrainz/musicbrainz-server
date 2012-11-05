@@ -10,7 +10,7 @@
                 <th>[% lp('Status', 'election status') %]</th>
                 <th>[% l('Start date') %]</th>
                 <th>[% l('End date') %]</th>
-                <th>&nbsp;</th>
+                <th>&#xa0;</th>
             </tr>
         </thead>
         <tbody>

@@ -20,7 +20,7 @@
             <tbody>
                 [% FOR rg IN release_groups %]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td class="c">[% rg.first_release_date.year or '&mdash;' %]</td>
+                    <td class="c">[% rg.first_release_date.year or '&#x2014;' %]</td>
                     <td>[% link_entity(rg) %]</td>
                     <td>[% rg.type_name %]</td>
                     <td class="c">[% rating_stars(rg) %]</td>
