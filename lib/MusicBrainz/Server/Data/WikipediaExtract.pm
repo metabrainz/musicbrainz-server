@@ -103,7 +103,7 @@ sub _get_cache_and_key
 {
     my ($self, $prefix, $title, $language) = @_;
     $title = uri_escape($title);
-    my $cache = $self->c->cache('wp');
+    my $cache = $self->c->cache;
     my $cache_key = "wp:$prefix:$title:$language";
 
     return ($cache, $cache_key)
