@@ -108,7 +108,7 @@ sub submit : Private
         $c->detach('bad_req');
     }
 
-    if (DBDefs::REPLICATION_TYPE == DBDefs::RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == DBDefs->RT_SLAVE) {
         $c->stash->{error} = 'Cannot submit PUIDs or ISRCs to a slave server.';
         $c->detach('bad_req');
     }

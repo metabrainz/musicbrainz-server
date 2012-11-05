@@ -18,7 +18,7 @@ use aliased 'MusicBrainz::Server::Translation';
 __PACKAGE__->config->{namespace} = '';
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs::PROFILE_SITE()
+    threshold => DBDefs->PROFILE_SITE()
 };
 
 =head1 NAME
@@ -156,7 +156,7 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
-    $c->stats->enable(1) if DBDefs::DEVELOPMENT_SERVER;
+    $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
     # if no javascript cookie is set we don't know if javascript is enabled or not.
     my $jscookie = $c->request->cookie('javascript');
@@ -166,13 +166,13 @@ sub begin : Private
     $c->stash(
         javascript => $js,
         no_javascript => $js eq "false",
-        wiki_server => &DBDefs::WIKITRANS_SERVER,
+        wiki_server => DBDefs->WIKITRANS_SERVER,
         server_languages => Translation->instance->all_languages(),
         server_details => {
-            staging_server => &DBDefs::DB_STAGING_SERVER,
-            testing_features => &DBDefs::DB_STAGING_TESTING_FEATURES,
-            is_slave_db    => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-            read_only      => &DBDefs::DB_READ_ONLY
+            staging_server => DBDefs->DB_STAGING_SERVER,
+            testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
+            is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
+            read_only      => DBDefs->DB_READ_ONLY
         },
     );
 
@@ -214,7 +214,7 @@ sub begin : Private
         $c->forward('/error_401');
     }
 
-    if (DBDefs::DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
+    if (DBDefs->DB_READ_ONLY && (exists $c->action->attributes->{Edit} ||
                                  exists $c->action->attributes->{DenyWhenReadonly})) {
         $c->stash( message => 'The server is currently in read only mode and is not accepting edits');
         $c->forward('/error_400');
@@ -279,22 +279,22 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     $c->stash->{server_details} = {
-        staging_server             => &DBDefs::DB_STAGING_SERVER,
-        staging_server_description => &DBDefs::DB_STAGING_SERVER_DESCRIPTION,
-        testing_features           => &DBDefs::DB_STAGING_TESTING_FEATURES,
-        is_slave_db                => &DBDefs::REPLICATION_TYPE == RT_SLAVE,
-        is_sanitized               => &DBDefs::DB_STAGING_SERVER_SANITIZED,
-        developement_server        => &DBDefs::DEVELOPMENT_SERVER
+        staging_server             => DBDefs->DB_STAGING_SERVER,
+        staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,
+        testing_features           => DBDefs->DB_STAGING_TESTING_FEATURES,
+        is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
+        is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
+        developement_server        => DBDefs->DEVELOPMENT_SERVER
     };
 
     # For displaying which git branch is active as well as last commit information
     # (only shown on staging servers)
-    my ($git_branch, $git_sha, $git_msg) = &DBDefs::GIT_BRANCH;
+    my ($git_branch, $git_sha, $git_msg) = DBDefs->GIT_BRANCH;
     $c->stash->{server_details}->{git}->{branch} = $git_branch;
     $c->stash->{server_details}->{git}->{sha}    = $git_sha;
     $c->stash->{server_details}->{git}->{msg}    = $git_msg;
 
-    $c->stash->{google_analytics_code} = &DBDefs::GOOGLE_ANALYTICS_CODE;
+    $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 
     # For displaying release attributes
     $c->stash->{release_attribute}        = \&MusicBrainz::Server::Release::attribute_name;
@@ -316,7 +316,7 @@ sub end : ActionClass('RenderView')
 
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
-    $c->stash->{wiki_server} = &DBDefs::WIKITRANS_SERVER;
+    $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 }
 
 sub chrome_frame : Local

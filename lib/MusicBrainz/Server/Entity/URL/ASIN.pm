@@ -28,7 +28,7 @@ sub affiliate_url {
     my $self = shift;
     my $url = $self->url;
     if ($url =~ m{^http://(?:.*?\.)(amazon\.([a-z\.]+))(?:\:[0-9]+)?/[^?]+$}i) {
-        my $ass_id = DBDefs::AWS_ASSOCIATE_ID($1);
+        my $ass_id = DBDefs->AWS_ASSOCIATE_ID($1);
         return $url unless $ass_id;
         return URI->new("$url?tag=$ass_id");
     } else {
