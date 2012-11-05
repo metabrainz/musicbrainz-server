@@ -66,11 +66,11 @@ END; -%]
 
 [%- MACRO display_age_ago(age) BLOCK;
         IF age.0;
-          ln('{num} year ago', '{num}&nbsp;years ago', age.0, { num => age.0 });
+          ln('{num} year ago', '{num}&#xa0;years ago', age.0, { num => age.0 });
         ELSIF age.1;
-          ln('{num} month ago', '{num}&nbsp;months ago', age.1, { num => age.1 });
+          ln('{num} month ago', '{num}&#xa0;months ago', age.1, { num => age.1 });
         ELSE;
-          ln('{num} day ago', '{num}&nbsp;days ago', age.2, { num => age.2 });
+          ln('{num} day ago', '{num}&#xa0;days ago', age.2, { num => age.2 });
         END;
     END -%]
 
