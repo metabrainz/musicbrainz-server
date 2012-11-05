@@ -489,7 +489,7 @@
 <table class="database-statistics">
 <tbody>
 <tr>
-    <th colspan=2>[% l('Works:') %]</th>
+    <th colspan="2">[% l('Works:') %]</th>
     <td>[% add_commas(stats.statistic('count.work')) %]</td>
     <td></td>
 </tr>
