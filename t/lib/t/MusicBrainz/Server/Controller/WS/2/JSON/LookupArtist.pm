@@ -92,6 +92,50 @@ test 'basic artist lookup, inc=aliases' => sub {
 
 };
 
+test 'basic artist lookup, inc=url-rels' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'basic artist lookup, inc=url-rels',
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json (
+        {
+            id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
+            name => "Paul Allgood",
+            "sort-name" => "Allgood, Paul",
+            country => JSON::null,
+            disambiguation => "",
+            type => "Person",
+            relations => [
+                {
+                    direction => "forward",
+                    url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
+                    type => "image"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://members.boardhost.com/wedlock/",
+                    type => "online community"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.discogs.com/artist/Paul+Allgood",
+                    type => "discogs"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.imdb.com/name/nm4057169/",
+                    type => "IMDb"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.paulallgood.com/",
+                    type => "blog"
+                    },
+                ],
+        });
+
+};
+
 test 'artist lookup with releases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -530,4 +574,3 @@ test 'artist lookup with works (using l_recording_work)' => sub {
 };
 
 1;
-
