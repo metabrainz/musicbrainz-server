@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"POT-Creation-Date: 2012-10-20 03:11-0700\n"
-"PO-Revision-Date: 2012-10-27 16:54+0000\n"
-"Last-Translator: nikki <email address hidden>\n"
+"POT-Creation-Date: 2012-10-31 12:53-0700\n"
+"PO-Revision-Date: 2012-10-31 19:59+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -273,7 +273,7 @@ msgid ""
 "granularity, you may want to {uri|search the database} instead."
 msgstr ""
 
-#: ../root/components/common-macros.tt:718
+#: ../root/components/common-macros.tt:726
 #: ../root/release/edit/tracklist.tt:144
 msgid "<strong>Error</strong>:"
 msgstr "<strong>Σφάλμα</strong>:"
@@ -295,7 +295,7 @@ msgid ""
 "updating a page!"
 msgstr "<strong>Σημείωση:</strong> Το MediaWiki δεν ελέγχει αν ο αριθμός έκδοσης ταιριάζει με τον αριθμό σελίδας, θα πάρει τον αριθμό έκδοσης και θα παρέχει όποια σελίδα σχετίζεται με αυτόν. Σιγουρευτείτε διπλά όταν ενημερώνετε μια σελίδα!"
 
-#: ../root/components/common-macros.tt:731
+#: ../root/components/common-macros.tt:739
 msgid "<strong>Note</strong>:"
 msgstr "<strong>Σημείωση</strong>:"
 
@@ -319,7 +319,7 @@ msgid ""
 "you wish to continue with the merge."
 msgstr "<strong>Προειδοποίηση:</strong> Κάποιες από τις ηχογραφήσεις που συγχωνεύετε έχουν διαφορετικά ISRCs. Παρακαλούμε σιγουρευτείτε ότι είναι όντως οι ίδιες ηχογραφήσεις και θέλετε να συνεχιστεί η συγχώνευση."
 
-#: ../root/components/common-macros.tt:725 ../root/recording/edit.tt:41
+#: ../root/components/common-macros.tt:733 ../root/recording/edit.tt:41
 #: ../root/release/edit/tracklist.tt:131
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Προειδοποίηση</strong>:"
@@ -385,7 +385,7 @@ msgstr "Αποδοχή"
 msgid "Accept edit"
 msgstr "Αποδοχή επεξεργασίας"
 
-#: ../root/components/common-macros.tt:584
+#: ../root/components/common-macros.tt:592
 msgid "Accept upon expiration"
 msgstr "Αποδοχή με τη λήξη"
 
@@ -553,7 +553,7 @@ msgstr "Προσθήκη μιας νέας κυκλοφορίας"
 msgid "Add an edit note"
 msgstr "Προσθήκη μιας σημείωσης επεξεργασίας"
 
-#: ../root/components/common-macros.tt:789
+#: ../root/components/common-macros.tt:797
 msgid "Add annotation"
 msgstr "Προσθήκη σχολίου"
 
@@ -603,6 +603,10 @@ msgstr "Προσθήκη νέας δισκογραφικής εταιρείας"
 msgid "Add new recording"
 msgstr "Προσθήκη νέας ηχογράφησης "
 
+#: ../root/edit/index.tt:84
+msgid "Add note"
+msgstr ""
+
 #: ../root/edit/index.tt:82
 msgid "Add note and vote"
 msgstr ""
@@ -611,11 +615,11 @@ msgstr ""
 msgid "Add recording"
 msgstr "Προσθήκη ηχογράφησης"
 
-#: ../root/release/edit_relationships.tt:267
+#: ../root/release/edit_relationships.tt:268
 msgid "Add related work"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:251
+#: ../root/release/edit_relationships.tt:252
 #: ../root/scripts/text_strings.tt:92
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:23
@@ -796,7 +800,7 @@ msgstr "Να είναι ορατές στους άλλους χρήστες οι
 msgid "Allow other users to see this collection"
 msgstr "Να είναι ορατή αυτή η συλλογή στους άλλους χρήστες"
 
-#: ../root/components/common-macros.tt:629
+#: ../root/components/common-macros.tt:637
 msgid "Already expired"
 msgstr "Έληξε ήδη"
 
@@ -850,8 +854,8 @@ msgstr "Προέκυψε ένα σφάλμα κατά το φόρτωμα αυτ
 msgid "An error occured: "
 msgstr "Προέκυψε ένα σφάλμα: "
 
-#: ../root/release/edit_relationships.tt:162
-#: ../root/release/edit_relationships.tt:234
+#: ../root/release/edit_relationships.tt:163
+#: ../root/release/edit_relationships.tt:235
 msgid "An error occurred while creating the work."
 msgstr ""
 
@@ -1036,7 +1040,7 @@ msgstr "Είστε σίγουροι ότι θέλετε να καταργήσε�
 msgid "Are you sure you wish to remove the label {label} from MusicBrainz?"
 msgstr "Είστε σίγουροι ότι θέλετε να καταργήσετε τη δισκογραφική εταιρεία {label} από το MusicBrainz;"
 
-#: ../root/recording/delete.tt:8
+#: ../root/recording/delete.tt:9
 msgid ""
 "Are you sure you wish to remove the recording {recording} from MusicBrainz?"
 msgstr "Είστε σίγουροι ότι θέλετε να καταργήσετε την ηχογράφηση {recording} από το MusicBrainz;"
@@ -1062,8 +1066,8 @@ msgstr "Είστε σίγουροι ότι θέλετε να καταργήσε�
 #: ../root/artist/relationships.tt:16 ../root/cdstub/browse.tt:9
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:48
 #: ../root/cdtoc/list.tt:7 ../root/cdtoc/lookup.tt:39
-#: ../root/collection/index.tt:11 ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:555
+#: ../root/collection/index.tt:11 ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:563
 #: ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:49
@@ -1170,7 +1174,7 @@ msgstr "Καλλιτέχνης {n}:"
 
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
-#: ../root/components/common-macros.tt:491 ../root/components/forms.tt:147
+#: ../root/components/common-macros.tt:499 ../root/components/forms.tt:147
 #: ../root/edit/details/add_artist_alias.tt:3
 #: ../root/edit/details/add_artist_annotation.tt:3
 #: ../root/edit/details/add_artist.tt:3
@@ -1297,7 +1301,7 @@ msgstr "Γνωρίσματα"
 #: ../root/edit/relationship/create_url.tt:56
 #: ../root/edit/relationship/edit.tt:100
 #: ../root/relationship/linktype/form.tt:30
-#: ../root/release/edit_relationships.tt:108
+#: ../root/release/edit_relationships.tt:109
 msgid "Attributes:"
 msgstr "Γνωρίσματα:"
 
@@ -1393,15 +1397,15 @@ msgid ""
 "release on an existing release, select it below."
 msgstr "Με βάση τις πληροφορίες που παρείχατε, βρήκαμε ότι η ακόλουθη παρόμοια κυκλοφορία υπάρχει ήδη στο MusicBrainz. Αν επιθυμείτε να βασίσετε την κυκλοφορίας σας σε μία υπάρχουσα κυκλοφορία, διαλέξτε το παρακάτω."
 
-#: ../root/release/edit_relationships.tt:343
+#: ../root/release/edit_relationships.tt:342
 msgid "Batch-add a relationship to recordings"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:348
+#: ../root/release/edit_relationships.tt:354
 msgid "Batch-add a relationship to works"
 msgstr ""
 
-#: ../root/release/edit_relationships.tt:353
+#: ../root/release/edit_relationships.tt:348
 msgid "Batch-create new works"
 msgstr ""
 
@@ -1446,7 +1450,7 @@ msgstr "Γίνε μέρος του MusicBrainz δημιουργώντας ένα
 msgid "Began:"
 msgstr "Ξεκίνησε:"
 
-#: ../root/search/lib/inline-results-artist.tt:10
+#: ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-label.tt:12
 msgid "Begin"
 msgstr "Αρχή"
@@ -1456,7 +1460,7 @@ msgid "Begin Date"
 msgstr "Ημερομηνία έναρξης"
 
 #: ../root/alias/edit_form.tt:25 ../root/artist/edit_form.tt:52
-#: ../root/components/common-macros.tt:802
+#: ../root/components/common-macros.tt:810
 #: ../root/edit/details/add_artist_alias.tt:36
 #: ../root/edit/details/add_label_alias.tt:36
 #: ../root/edit/details/add_label.tt:27
@@ -1470,7 +1474,7 @@ msgstr "Ημερομηνία έναρξης"
 #: ../root/edit/details/remove_work_alias.tt:29
 #: ../root/edit/relationship/create.tt:94
 #: ../root/edit/relationship/edit.tt:125 ../root/label/edit_form.tt:52
-#: ../root/release/edit_relationships.tt:130
+#: ../root/release/edit_relationships.tt:131
 msgid "Begin date:"
 msgstr "Ημερομηνία έναρξης:"
 
@@ -1502,7 +1506,7 @@ msgstr "Ημερομηνία γέννησης:"
 msgid "Blog"
 msgstr "Blog"
 
-#: ../root/components/common-macros.tt:802 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:810 ../root/scripts/text_strings.tt:73
 msgid "Born:"
 msgstr "Γεννήθηκε:"
 
@@ -1637,15 +1641,15 @@ msgstr ""
 msgid "Can be approved"
 msgstr "Μπορεί να εγκριθεί"
 
-#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:570
+#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:578
 #: ../root/components/filter-form.tt:23 ../root/elections/nominate.tt:10
 #: ../root/label/merge.tt:19 ../root/layout/merge-helper.tt:34
 #: ../root/recording/merge.tt:24 ../root/release/edit/duplicates.tt:45
 #: ../root/release/edit/editnote.tt:40 ../root/release/edit/information.tt:121
 #: ../root/release/edit/missing_entities.tt:148
 #: ../root/release/edit/recordings.tt:429
-#: ../root/release/edit_relationships.tt:170
-#: ../root/release/edit_relationships.tt:240
+#: ../root/release/edit_relationships.tt:171
+#: ../root/release/edit_relationships.tt:241
 #: ../root/release/edit/tracklist.tt:162 ../root/release/edit/tracklist.tt:294
 #: ../root/release/edit/tracklist.tt:494 ../root/release_group/merge.tt:44
 #: ../root/release/merge.tt:154 ../root/scripts/text_strings.tt:27
@@ -1657,7 +1661,7 @@ msgstr "Άκυρο"
 msgid "Cancel Edit"
 msgstr "Ακύρωση επεξεργασίας"
 
-#: ../root/components/common-macros.tt:513
+#: ../root/components/common-macros.tt:521
 msgid "Cancel creating relationship with {name}"
 msgstr "Ακύρωση δημιουργίας σχέσης με {name}"
 
@@ -1985,7 +1989,8 @@ msgstr "Αντιγραφή όλων τον αλλαγών στα κομμάτι�
 #: ../root/edit/details/historic/add_release.tt:76
 #: ../root/otherlookup/results-release.tt:10 ../root/recording/index.tt:15
 #: ../root/release_group/index.tt:16 ../root/release_group/releases-list.tt:23
-#: ../root/release/merge.tt:32 ../root/search/lib/inline-results-release.tt:12
+#: ../root/release/merge.tt:32 ../root/search/lib/inline-results-artist.tt:11
+#: ../root/search/lib/inline-results-release.tt:12
 #: ../root/tracklist/index.tt:32
 msgid "Country"
 msgstr "Χώρα"
@@ -2042,7 +2047,7 @@ msgstr "Δημιουργία νέου οργάνου"
 msgid "Create a new relationship attribute"
 msgstr "Δημιουργία νέου γνωρίσματος σχέσης"
 
-#: ../root/release/edit_relationships.tt:92
+#: ../root/release/edit_relationships.tt:93
 msgid "Create a new work"
 msgstr ""
 
@@ -2058,21 +2063,27 @@ msgstr "Δημιουργία λογαριασμού"
 msgid "Create collection"
 msgstr "Δημιουργία συλλογής"
 
-#: ../root/components/common-macros.tt:571
+#: ../root/components/common-macros.tt:579
 msgid "Create relationship"
 msgstr "Δημιουργία σχέσης"
 
-#: ../root/components/common-macros.tt:513
+#: ../root/components/common-macros.tt:521
 msgid "Create relationship with {other}"
 msgstr "Σχέση με {other}"
 
-#: ../root/release/edit_relationships.tt:242
+#: ../root/release/edit_relationships.tt:243
 msgid "Create work"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:284
 msgid "Created"
 msgstr "Δημιουργήθηκε"
+
+#: ../root/release/edit_relationships.tt:135
+#: ../root/release/edit_relationships.tt:144
+#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:249
+msgid "DD"
+msgstr ""
 
 #: ../root/layout/menu.tt:113
 msgid "Data Licenses"
@@ -2208,7 +2219,7 @@ msgstr "Προγραμματιστές"
 msgid "Development"
 msgstr "Ανάπτυξη"
 
-#: ../root/components/common-macros.tt:806
+#: ../root/components/common-macros.tt:814
 msgid "Died:"
 msgstr "Πέθανε:"
 
@@ -2234,7 +2245,7 @@ msgstr "Αποσαφήνιση"
 #: ../root/edit/details/edit_work.tt:15 ../root/label/edit_form.tt:36
 #: ../root/recording/edit_form.tt:9 ../root/release/edit/information.tt:117
 #: ../root/release/edit/missing_entities.tt:24
-#: ../root/release/edit_relationships.tt:193
+#: ../root/release/edit_relationships.tt:194
 #: ../root/release_group/edit_form.tt:9 ../root/work/edit_form.tt:8
 msgid "Disambiguation:"
 msgstr "Αποσαφήνιση:"
@@ -2335,7 +2346,7 @@ msgstr "Δίσκοι ως ξεχωριστές κυκλοφορίες"
 msgid "Discs entered as separate releases"
 msgstr "Δίσκοι καταχωρημένοι ως ξεχωριστές κυκλοφορίες"
 
-#: ../root/components/common-macros.tt:806 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:814 ../root/scripts/text_strings.tt:74
 msgid "Dissolved:"
 msgstr "Διαλύθηκε:"
 
@@ -2365,7 +2376,7 @@ msgstr "Δωρεά"
 msgid "Donation Check"
 msgstr "Έλεγχος δωρεάς"
 
-#: ../root/release/edit_relationships.tt:173
+#: ../root/release/edit_relationships.tt:174
 #: ../root/release/edit/tracklist.tt:160 ../root/scripts/text_strings.tt:29
 msgid "Done"
 msgstr "Εντάξει"
@@ -2492,7 +2503,7 @@ msgstr "Επεξεργασία τύπου σχέσης"
 msgid "Edit Relationship Types"
 msgstr "Επεξεργασία τύπων σχέσης"
 
-#: ../root/release/edit_relationships.tt:317
+#: ../root/release/edit_relationships.tt:315
 msgid "Edit Relationships: {release}"
 msgstr ""
 
@@ -2535,7 +2546,7 @@ msgstr "Επεξεργασία ψευδωνύμου έργου"
 msgid "Edit Work Annotation"
 msgstr "Επεξεργασία σχολίου έργου"
 
-#: ../root/components/common-macros.tt:789
+#: ../root/components/common-macros.tt:797
 msgid "Edit annotation"
 msgstr "Επεξεργασία σχολίου"
 
@@ -2562,7 +2573,7 @@ msgid "Edit label annotation"
 msgstr "Επεξεργασία σχολίου δισκογραφικής εταιρείας"
 
 #: ../root/edit/cancel.tt:19 ../root/forms/edit-note.tt:13
-#: ../root/release/edit_relationships.tt:226
+#: ../root/release/edit_relationships.tt:227
 msgid "Edit note:"
 msgstr "Σημείωση επεξεργασίας:"
 
@@ -2765,7 +2776,7 @@ msgstr "Ενεργοποίηση αριθμών κομματιών βινυλί�
 msgid "Enable {autoed|auto-editor} privileges for this edit."
 msgstr ""
 
-#: ../root/cdtoc/info.tt:34 ../root/search/lib/inline-results-artist.tt:11
+#: ../root/cdtoc/info.tt:34 ../root/search/lib/inline-results-artist.tt:13
 #: ../root/search/results-label.tt:13
 msgid "End"
 msgstr "Λήξη"
@@ -2779,7 +2790,7 @@ msgid "End date"
 msgstr "Ημερομηνία λήξης"
 
 #: ../root/alias/edit_form.tt:26 ../root/artist/edit_form.tt:53
-#: ../root/components/common-macros.tt:806
+#: ../root/components/common-macros.tt:814
 #: ../root/edit/details/add_artist_alias.tt:42
 #: ../root/edit/details/add_label_alias.tt:42
 #: ../root/edit/details/add_label.tt:34
@@ -2793,7 +2804,7 @@ msgstr "Ημερομηνία λήξης"
 #: ../root/edit/details/remove_work_alias.tt:33
 #: ../root/edit/relationship/create.tt:99
 #: ../root/edit/relationship/edit.tt:130 ../root/label/edit_form.tt:53
-#: ../root/release/edit_relationships.tt:139
+#: ../root/release/edit_relationships.tt:140
 msgid "End date:"
 msgstr "Ημερομηνία λήξης:"
 
@@ -2863,7 +2874,7 @@ msgid_plural "Errors:"
 msgstr[0] "Σφάλμα:"
 msgstr[1] "Σφάλματα:"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "Error: Unknown Type"
 msgstr "Σφάλμα: άγνωστος τύπος"
 
@@ -2895,21 +2906,21 @@ msgstr "Ενέργεια λήξης"
 msgid "Expired"
 msgstr "Έληξε"
 
-#: ../root/components/common-macros.tt:610
+#: ../root/components/common-macros.tt:618
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/components/common-macros.tt:616
+#: ../root/components/common-macros.tt:624
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/components/common-macros.tt:622
+#: ../root/components/common-macros.tt:630
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
@@ -3042,7 +3053,7 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "Βρέθηκε {n} αποτέλεσμα για \"{q}\""
 msgstr[1] "Βρέθηκαν {n} αποτελέσματα για \"{q}\""
 
-#: ../root/components/common-macros.tt:802 ../root/label/layout.tt:14
+#: ../root/components/common-macros.tt:810 ../root/label/layout.tt:14
 #: ../root/scripts/text_strings.tt:74
 msgid "Founded:"
 msgstr "Ιδρύθηκε:"
@@ -3079,6 +3090,10 @@ msgstr "Από:"
 #: ../root/cdstub/index.tt:30 ../root/cdtoc/info.tt:5
 msgid "Full TOC:"
 msgstr "Πλήρες TOC:"
+
+#: ../root/search/lib/inline-results-artist.tt:10
+msgid "Gender"
+msgstr ""
 
 #: ../root/account/edit.tt:19 ../root/artist/edit_form.tt:42
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:12
@@ -3164,7 +3179,7 @@ msgstr "Βοήθεια:"
 msgid "Hide Credits"
 msgstr ""
 
-#: ../root/components/common-macros.tt:577
+#: ../root/components/common-macros.tt:585
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:182
 msgid "High"
 msgstr "Υψηλή"
@@ -3309,7 +3324,7 @@ msgid ""
 "with the same name."
 msgstr "Αν μία ή παραπάνω δισκογραφικές εταιρείες με το ίδιο όνομα υπάρχουν ήδη στη βάση δεδομένων, θα σας ζητηθεί να {doc_comment|προσθέσετε ένα σχόλιο αποσαφήνισης σε αυτή την εταιρεία}, το οποίο θα επιτρέπει στους χρήστες να ξεχωρίζουν αυτήν την καταχώρηση από τις υπόλοιπες εταιρείες με το ίδιο όνομα."
 
-#: ../root/main/500.tt:55
+#: ../root/main/500.tt:60
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
@@ -3506,6 +3521,10 @@ msgstr ""
 msgid "Instrument Tree"
 msgstr "Δέντρο οργάνων"
 
+#: ../root/main/500.tt:47
+msgid "Interface language:"
+msgstr ""
+
 #: ../root/main/500.tt:1 ../root/main/500.tt:3
 msgid "Internal Server Error"
 msgstr "Εσωτερικό σφάλμα εξυπηρετητή"
@@ -3562,8 +3581,8 @@ msgstr "Διατήρηση κεφαλαίων στις λέξεις με κεφ�
 
 #: ../root/cdtoc/attach_artist_releases.tt:37
 #: ../root/cdtoc/attach_filter_release.tt:51 ../root/cdtoc/list.tt:10
-#: ../root/collection/index.tt:16 ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:556
+#: ../root/collection/index.tt:16 ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:564
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
 #: ../root/edit/search_macros.tt:284 ../root/label/edits.tt:19
@@ -3609,7 +3628,7 @@ msgstr "Πληροφορίες δισκογραφικής εταιρείας"
 msgid "Label ratings"
 msgstr "Βαθμολογίες δισκογραφικής εταιρείας"
 
-#: ../root/components/common-macros.tt:491
+#: ../root/components/common-macros.tt:499
 #: ../root/edit/details/add_label_alias.tt:3
 #: ../root/edit/details/add_label_annotation.tt:3
 #: ../root/edit/details/add_label.tt:3
@@ -3774,7 +3793,7 @@ msgstr "Σύνδεση"
 msgid "Log Out"
 msgstr "Αποσύνδεση"
 
-#: ../root/components/common-macros.tt:434
+#: ../root/components/common-macros.tt:442
 msgid "Log in"
 msgstr "Σύνδεση"
 
@@ -3820,13 +3839,13 @@ msgstr "Έχασα τον κωδικό πρόσβασης"
 msgid "Lost Username"
 msgstr "Έχασα το όνομα χρήστη"
 
-#: ../root/components/common-macros.tt:577
+#: ../root/components/common-macros.tt:585
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:182
 msgid "Low"
 msgstr "Χαμηλή"
 
-#: ../root/release/edit_relationships.tt:101
-#: ../root/release/edit_relationships.tt:211 ../root/work/edit_form.tt:10
+#: ../root/release/edit_relationships.tt:102
+#: ../root/release/edit_relationships.tt:212 ../root/work/edit_form.tt:10
 #: ../root/work/layout.tt:11
 msgid "Lyrics Language:"
 msgstr "Γλώσσα στίχων:"
@@ -3834,6 +3853,12 @@ msgstr "Γλώσσα στίχων:"
 #: ../root/otherlookup/form.tt:3
 msgid "MBID:"
 msgstr "MBID:"
+
+#: ../root/release/edit_relationships.tt:134
+#: ../root/release/edit_relationships.tt:143
+#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:248
+msgid "MM"
+msgstr ""
 
 #: ../root/layout/menu.tt:154 ../root/main/index.tt:10
 msgid "Magic MP3 Tagger"
@@ -3865,7 +3890,7 @@ msgstr "Ομοιότητα"
 msgid "Matching CDs"
 msgstr "CDs που ταιριάζουν"
 
-#: ../root/cdtoc/lookup.tt:38 ../root/components/common-macros.tt:764
+#: ../root/cdtoc/lookup.tt:38 ../root/components/common-macros.tt:772
 #: ../root/scripts/text_strings.tt:90
 #: ../root/search/lib/inline-results-recording.tt:16
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:7
@@ -4445,7 +4470,7 @@ msgstr "Δε βρέθηκαν αποτελέσματα."
 
 #: ../root/cdtoc/attach_filter_artist.tt:41
 #: ../root/cdtoc/attach_filter_release.tt:79
-#: ../root/search/lib/inline-results-artist.tt:37
+#: ../root/search/lib/inline-results-artist.tt:43
 #: ../root/search/lib/inline-results-recording.tt:73
 #: ../root/search/lib/inline-results-release.tt:45
 #: ../root/search/results-editor.tt:22 ../root/search/results-label.tt:40
@@ -4487,7 +4512,7 @@ msgstr ""
 msgid "None"
 msgstr "Κανένα"
 
-#: ../root/components/common-macros.tt:577
+#: ../root/components/common-macros.tt:585
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:182
 msgid "Normal"
 msgstr "Κανονικό"
@@ -4587,7 +4612,7 @@ msgid ""
 msgstr "Μόνο ο χρήστης που δημιούργησε μία επεξεργασία μπορεί να την ακυρώσει, είτε δεν δημιουργήσατε την επεξεργασία {edit} ή μπορεί να έχει ήδη κλείσει."
 
 #: ../root/release/edit_relationships.tt:44
-#: ../root/release/edit_relationships.tt:180
+#: ../root/release/edit_relationships.tt:181
 msgid ""
 "Only use this option after you've tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
@@ -4623,8 +4648,8 @@ msgstr "Ανοιχτές τροποποιήσεις"
 msgid "Open edits"
 msgstr "Ανοιχτές τροποποιήσεις"
 
-#: ../root/components/common-macros.tt:441
-#: ../root/components/common-macros.tt:446
+#: ../root/components/common-macros.tt:449
+#: ../root/components/common-macros.tt:454
 msgid "Open in tagger"
 msgstr ""
 
@@ -4765,7 +4790,7 @@ msgid ""
 "other editors know a bit more about you."
 msgstr ""
 
-#: ../root/main/500.tt:60
+#: ../root/main/500.tt:65
 msgid ""
 "Please be sure to include the stack trace and request data shown above!"
 msgstr ""
@@ -4830,6 +4855,13 @@ msgstr "Παρακαλούμε συνδεθείτε για να εισάγετε
 #: ../root/release/edit/missing_entities.tt:131
 msgid "Please make a selection"
 msgstr "Παρακαλούμε κάνε μια επιλογή"
+
+#: ../root/recording/delete.tt:5
+msgid ""
+"Please make sure you're not removing a legitimate {doc_standalone|standalone"
+" recording}. If this recording duplicates another, please {doc_merge|merge "
+"rather than delete}."
+msgstr ""
 
 #: ../root/layout/merge-helper.tt:24
 msgid ""
@@ -4906,12 +4938,6 @@ msgstr "Παρακαλούμε να διαβάσετε ξανά τον {coc|κώ
 msgid ""
 "Please review the {doc_remove|remove label edit-type} documentation before "
 "entering this edit."
-msgstr ""
-
-#: ../root/recording/delete.tt:5
-msgid ""
-"Please review the {doc_remove|remove recording edit-type} documentation "
-"before entering this edit."
 msgstr ""
 
 #: ../root/release/delete.tt:4
@@ -5143,9 +5169,9 @@ msgid ""
 "works."
 msgstr ""
 
-#: ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:557 ../root/edit/search_macros.tt:284
-#: ../root/release/edit_relationships.tt:368
+#: ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:565 ../root/edit/search_macros.tt:284
+#: ../root/release/edit_relationships.tt:365
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:6 ../root/scripts/text_strings.tt:104
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -5177,7 +5203,7 @@ msgstr "Βαθμολογίες ηχογράφησης"
 msgid "Recording “{name}” by {artist}"
 msgstr "Ηχογράφηση “{name}” από {artist}"
 
-#: ../root/components/common-macros.tt:491
+#: ../root/components/common-macros.tt:499
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_standalone_recording.tt:3
 #: ../root/edit/details/edit_recording.tt:8
@@ -5235,7 +5261,7 @@ msgstr "Απόρριψη"
 msgid "Reject edit"
 msgstr "Απόρριψη επεξεργασίας"
 
-#: ../root/components/common-macros.tt:584
+#: ../root/components/common-macros.tt:592
 msgid "Reject upon expiration"
 msgstr "Απόρριψη με η λήξη"
 
@@ -5243,7 +5269,7 @@ msgstr "Απόρριψη με η λήξη"
 msgid "Relate recording to work"
 msgstr ""
 
-#: ../root/components/common-macros.tt:534
+#: ../root/components/common-macros.tt:542
 msgid "Relate to ..."
 msgstr "Συσχέτιση με..."
 
@@ -5251,7 +5277,7 @@ msgstr "Συσχέτιση με..."
 msgid "Relate to <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 msgstr "Συσχέτιση με <abbr title=\"Uniform Resource Locator\">URL</abbr>"
 
-#: ../root/release/edit_relationships.tt:370
+#: ../root/release/edit_relationships.tt:369
 msgid "Related Works"
 msgstr ""
 
@@ -5331,7 +5357,7 @@ msgstr "Σχέση:"
 msgid "Relationships"
 msgstr "Σχέσεις"
 
-#: ../root/release/edit_relationships.tt:322
+#: ../root/release/edit_relationships.tt:320
 msgid ""
 "Relationships highlighted <span class=\"rel-edit\">yellow</span> will be "
 "edited, relationships highlighted <span class=\"rel-remove\">red</span> will"
@@ -5346,8 +5372,8 @@ msgstr "Σχέσεις:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:34
 #: ../root/cdtoc/attach_filter_release.tt:47 ../root/cdtoc/lookup.tt:37
-#: ../root/collection/index.tt:10 ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:559
+#: ../root/collection/index.tt:10 ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:567
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/search_macros.tt:284 ../root/release_group/index.tt:12
 #: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:9
@@ -5374,8 +5400,8 @@ msgstr "Ημερομηνία κυκλοφορίας"
 msgid "Release Events:"
 msgstr "Γεγονότα κυκλοφορίας:"
 
-#: ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:558 ../root/edit/search_macros.tt:284
+#: ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:566 ../root/edit/search_macros.tt:284
 #: ../root/report/release_group_list.tt:6
 #: ../root/search/results-release_group.tt:8
 #: ../root/search/results-release-group.tt:8
@@ -5469,7 +5495,7 @@ msgstr "Σχέσεις ομάδας κυκλοφοριών"
 msgid "Release group “{name}” by {artist}"
 msgstr "Ομάδα κυκλοφοριών “{name}” από {artist}"
 
-#: ../root/components/common-macros.tt:491
+#: ../root/components/common-macros.tt:499
 #: ../root/edit/details/add_release_group_annotation.tt:3
 #: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/change_release_group.tt:7
@@ -5511,7 +5537,7 @@ msgstr "Τίτλος κυκλοφορίας:"
 msgid "Release “{name}” by {artist}"
 msgstr "Κυκλοφορία “{name}” από {artist}"
 
-#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:491
+#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:499
 #: ../root/edit/details/add_cover_art.tt:5
 #: ../root/edit/details/add_medium.tt:4
 #: ../root/edit/details/add_release_annotation.tt:4
@@ -5949,7 +5975,7 @@ msgstr "Γραφή:"
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/lookup.tt:63
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:15
-#: ../root/components/common-macros.tt:781 ../root/components/search.tt:11
+#: ../root/components/common-macros.tt:789 ../root/components/search.tt:11
 #: ../root/edit/search_macros.tt:101 ../root/layout/menu.tt:180
 #: ../root/layout.tt:67 ../root/otherlookup/form.tt:18
 #: ../root/release/edit/tracklist.tt:223 ../root/scripts/text_strings.tt:30
@@ -6025,7 +6051,7 @@ msgstr "Μέθοδος αναζήτησης:"
 msgid "Search the database for this CD"
 msgstr "Αναζητήστε αυτό το CD στη βάση δεδομένων"
 
-#: ../root/components/common-macros.tt:780
+#: ../root/components/common-macros.tt:788
 msgid "Search the documentation..."
 msgstr "Αναζήτηση τεκμηρίωσης..."
 
@@ -6691,8 +6717,8 @@ msgstr "Ετικέτα “{tag}”"
 
 #: ../root/cdtoc/attach_artist_releases.tt:41
 #: ../root/cdtoc/attach_filter_release.tt:55 ../root/cdtoc/list.tt:14
-#: ../root/components/common-macros.tt:442
-#: ../root/components/common-macros.tt:447
+#: ../root/components/common-macros.tt:450
+#: ../root/components/common-macros.tt:455
 #: ../root/otherlookup/results-release.tt:13 ../root/release_group/index.tt:21
 #: ../root/release_group/releases-list.tt:30
 #: ../root/search/lib/inline-results-recording.tt:13
@@ -7134,39 +7160,39 @@ msgstr "Αυτό το γνώρισμα απαιτείται."
 msgid "This collection has no tags."
 msgstr "Αυτή η συλλογή δεν έχει ετικέτες."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr "Αυτή η επεξεργασία απέτυχε γιατί επηρέαζε δεδομένα υψηλής ποιότητας και δεν έλαβε καμία ψήφο."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr "Αυτή η επεξεργασία απέτυχε επειδή τα δεδομένα που άλλαζε είχαν τροποποιηθεί πριν τη δημιουργία αυτής της επεξεργασίας. Αυτό ίσως συνέβη επειδή η ίδια επεξεργασία καταχωρήθηκε δύο φορές. Η μία θα πετύχει αλλά η άλλη θα αποτύχει."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr "Αυτή η επεξεργασία απέτυχε επειδή δεν υπήρχαν αρκετές θετικές ψήφοι."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr "Αυτή η επεξεργασία απέτυχε λόγω ενός εσωτερικού σφάλματος και ίσως χρειαστεί να καταχωρηθεί ξανά."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
 msgstr "Αυτή η επεξεργασία απέτυχε επειδή ένα στοιχείο το οποίο τροποποιούσε δεν υπάρχει πια, ή επειδή το εν λόγω στοιχείο δεν μπορεί πλέον να τροποποιηθεί με αυτόν τον τρόπο."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid "This edit has been successfully applied."
 msgstr "Η επεξεργασία εφαρμόστηκε με επιτυχία."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid "This edit is open and awaiting votes before it can be applied."
 msgstr "Η επεξεργασία είναι ανοικτή και εν αναμονή ψήφων πριν εφαρμοστεί."
 
@@ -7180,20 +7206,20 @@ msgid ""
 " set the release artist to Various Artists."
 msgstr ""
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid "This edit was cancelled."
 msgstr "Η επεξεργασία ακυρώθηκε."
 
-#: ../root/components/common-macros.tt:590
+#: ../root/components/common-macros.tt:598
 msgid "This edit was recently cancelled."
 msgstr "Η επεξεργασία ακυρώθηκε πρόσφατα."
 
-#: ../root/components/common-macros.tt:224
+#: ../root/components/common-macros.tt:232
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:118
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "Αυτό το στοιχείο έχει καταργηθεί και δεν μπορεί να εμφανιστεί σωστά."
 
-#: ../root/components/common-macros.tt:224
+#: ../root/components/common-macros.tt:232
 msgid "This entity will be created when edits are entered."
 msgstr "Αυτό το στοιχείο θα δημιουργηθεί μόλις καταχωρηθούν οι τροποποιήσεις."
 
@@ -7314,7 +7340,7 @@ msgstr "Αυτή η σελίδα απαιτεί JavaScript."
 msgid "This person is deceased."
 msgstr "Αυτό το άτομο απεβίωσε."
 
-#: ../root/recording/delete.tt:17
+#: ../root/recording/delete.tt:18
 msgid ""
 "This recording cannot be removed because it is still on use in tracklists."
 msgstr "Αυτή η ηχογράφηση δεν μπορεί να αφαιρεθεί επειδή χρησιμοποιείται ακόμα σε λίστες κομματιών."
@@ -7333,7 +7359,7 @@ msgstr "Αυτή η ηχογράφηση δεν έχει ετικέτες."
 
 #: ../root/edit/relationship/create.tt:108
 #: ../root/edit/relationship/edit.tt:139
-#: ../root/release/edit_relationships.tt:151
+#: ../root/release/edit_relationships.tt:152
 msgid "This relationship has ended."
 msgstr "Αυτή η σχέση έληξε."
 
@@ -7655,11 +7681,11 @@ msgid ""
 " continue?"
 msgstr ""
 
-#: ../root/components/common-macros.tt:409
+#: ../root/components/common-macros.tt:417
 msgid "This user is automated."
 msgstr "Αυτός ο χρήστης έχει αυτοματοποιηθεί."
 
-#: ../root/components/common-macros.tt:408
+#: ../root/components/common-macros.tt:416
 msgid "This user is new to MusicBrainz."
 msgstr "Αυτός ο χρήστης είναι νέος στο MusicBrainz."
 
@@ -7728,7 +7754,7 @@ msgstr "Τίτλος"
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: ../root/release/edit_relationships.tt:327
+#: ../root/release/edit_relationships.tt:325
 msgid ""
 "To <span class=\"rel-edit\">edit</span> a relationship, click on its name "
 "(e.g. \"composer\")."
@@ -7762,9 +7788,10 @@ msgstr "Για να επεξεργαστείτε τους τύπους, παρα
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr "Για να μάθετε αν μπορείτε να ψηφίσετε για αυτόν τον υποψήφιο, παρακαλούμε {url|συνδεθείτε}."
 
-#: ../root/release/edit_relationships.tt:359
+#: ../root/release/edit_relationships.tt:327
 msgid ""
-"To use these tools, select some recordings or works using the checkboxes."
+"To use the batch tools, select some recordings or works using the "
+"checkboxes."
 msgstr ""
 
 #: ../root/watch/list.tt:36
@@ -7777,10 +7804,6 @@ msgstr ""
 #: ../root/edit/details/move_disc_id.tt:15
 msgid "To:"
 msgstr "Προς:"
-
-#: ../root/release/edit_relationships.tt:331
-msgid "Tools:"
-msgstr ""
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
 #: ../root/layout/menu.tt:194
@@ -7974,7 +7997,7 @@ msgstr "Twitter"
 
 #: ../root/artist/browse_various.tt:15 ../root/artist/works-list.tt:13
 #: ../root/components/aliases.tt:10 ../root/edit/search_macros.tt:284
-#: ../root/iswc/index.tt:19 ../root/release/edit_relationships.tt:61
+#: ../root/iswc/index.tt:19 ../root/release/edit_relationships.tt:62
 #: ../root/release_group/merge.tt:14 ../root/release/lookup.tt:13
 #: ../root/report/artist_list.tt:6 ../root/report/duplicate_artists.tt:27
 #: ../root/search/lib/inline-results-artist.tt:9
@@ -8012,7 +8035,7 @@ msgstr "Τύπος"
 #: ../root/label/layout.tt:9 ../root/release/cover_art_fields.tt:3
 #: ../root/release/cover_art.tt:13 ../root/release/edit/information.tt:43
 #: ../root/release/edit/information.tt:47
-#: ../root/release/edit_relationships.tt:200
+#: ../root/release/edit_relationships.tt:201
 #: ../root/release_group/layout.tt:12 ../root/release/sidebar.tt:38
 #: ../root/search/form.tt:5 ../root/work/edit_form.tt:9
 #: ../root/work/layout.tt:15
@@ -8027,7 +8050,7 @@ msgstr "Τύπος: {type}, κατάσταση: {status}"
 msgid "Types:"
 msgstr "Τύποι:"
 
-#: ../root/components/common-macros.tt:503 ../root/report/artist_url_list.tt:5
+#: ../root/components/common-macros.tt:511 ../root/report/artist_url_list.tt:5
 #: ../root/report/bad_amazon_urls.tt:21 ../root/report/label_url_list.tt:5
 #: ../root/report/release_group_url_list.tt:5
 #: ../root/report/release_url_list.tt:5 ../root/scripts/text_strings.tt:107
@@ -8051,9 +8074,9 @@ msgstr "Δε βρέθηκε το URL"
 msgid "URL Relationships"
 msgstr "Σχέσεις URL"
 
-#: ../root/components/common-macros.tt:491 ../root/edit/details/edit_url.tt:9
+#: ../root/components/common-macros.tt:499 ../root/edit/details/edit_url.tt:9
 #: ../root/edit/details/edit_url.tt:15
-#: ../root/edit/relationship/create_url.tt:52 ../root/main/500.tt:47
+#: ../root/edit/relationship/create_url.tt:52 ../root/main/500.tt:52
 #: ../root/url/edit.tt:18 ../root/url/index.tt:5
 msgid "URL:"
 msgstr "URL:"
@@ -8137,7 +8160,7 @@ msgstr "Url"
 msgid "Usage Count"
 msgstr "Μετρητής χρήσης"
 
-#: ../root/components/common-macros.tt:513
+#: ../root/components/common-macros.tt:521
 msgid "Use in a relationship"
 msgstr "Χρήση σε μία σχέση"
 
@@ -8226,7 +8249,7 @@ msgstr "Έκδοση:"
 msgid "View all relationships"
 msgstr "Προβολή όλων των σχέσεων"
 
-#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:795
+#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:803
 msgid "View annotation history"
 msgstr "Προβολή ιστορικού σχολίων"
 
@@ -8340,8 +8363,8 @@ msgstr "Προειδοποίηση:"
 #: ../root/release/edit_relationships.tt:18
 msgid ""
 "Warning: This relationship has pending edits. <a target=\"_blank\" data-"
-"bind=\"attr: {href: relationship().openEdits}\">Click here</a> to view these"
-" edits and make sure they do not conflict with your own."
+"bind=\"attr: {href: relationship().openEdits()}\">Click here</a> to view "
+"these edits and make sure they do not conflict with your own."
 msgstr ""
 
 #: ../root/watch/list.tt:1 ../root/watch/list.tt:2
@@ -8436,11 +8459,17 @@ msgid ""
 "page."
 msgstr "Θα χρησιμοποιήσουμε την ημερομηνία γέννησής σας για να εμφανίζουμε την ηλικία σας σε χρόνια στη σελίδα προφίλ σας."
 
-#: ../root/main/500.tt:52
+#: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
 "your request &mdash; the problem may go away."
 msgstr "Λυπούμαστε πραγματικά για αυτό το πρόβλημα. Παρακαλούμε περιμένετε μερικά λεπτά και επαναλάβετε το αίτημά σας &mdash; το πρόβλημα μπορεί να εξαφανιστεί."
+
+#: ../root/scripts/text_strings.tt:120
+msgid ""
+"We're very sorry, an error occurred during submission. The server may be "
+"under heavy load; please wait a moment and try again."
+msgstr ""
 
 #: ../root/account/lost_username_sent.tt:5
 msgid ""
@@ -8503,8 +8532,8 @@ msgstr "Έκδοση wiki"
 msgid "WikiDoc:"
 msgstr "WikiDoc:"
 
-#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:503
-#: ../root/components/common-macros.tt:560 ../root/edit/search_macros.tt:284
+#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:511
+#: ../root/components/common-macros.tt:568 ../root/edit/search_macros.tt:284
 #: ../root/scripts/text_strings.tt:108 ../root/work/edits.tt:19
 #: ../root/work/header.tt:13 ../root/work/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:7
@@ -8516,7 +8545,7 @@ msgstr "Έργο"
 msgid "Work Details"
 msgstr "Λεπτομέρειες έργου"
 
-#: ../root/release/edit_relationships.tt:186
+#: ../root/release/edit_relationships.tt:187
 msgid "Work Name:"
 msgstr ""
 
@@ -8524,7 +8553,7 @@ msgstr ""
 msgid "Work Not Found"
 msgstr "Το έργο δε βρέθηκε"
 
-#: ../root/release/edit_relationships.tt:97
+#: ../root/release/edit_relationships.tt:98
 msgid "Work Type:"
 msgstr ""
 
@@ -8540,7 +8569,7 @@ msgstr "Βαθμολογίες έργου"
 msgid "Work type:"
 msgstr "Τύπος έργου:"
 
-#: ../root/components/common-macros.tt:491
+#: ../root/components/common-macros.tt:499
 #: ../root/edit/details/add_work_alias.tt:3
 #: ../root/edit/details/add_work_annotation.tt:3
 #: ../root/edit/details/add_work.tt:3
@@ -8575,6 +8604,12 @@ msgstr "Διαδικτυακή υπηρεσία XML"
 #: ../root/release_group/details.tt:32 ../root/work/details.tt:32
 msgid "XML:"
 msgstr "XML:"
+
+#: ../root/release/edit_relationships.tt:133
+#: ../root/release/edit_relationships.tt:142
+#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:247
+msgid "YYYY"
+msgstr ""
 
 #: ../root/artist/browse_various.tt:13 ../root/artist/index.tt:60
 #: ../root/release_group/merge.tt:15 ../root/search/results-freedb.tt:18
@@ -8905,12 +8940,12 @@ msgstr "Το όνομα χρήστη σας θα είναι ορατό δημό�
 msgid "[ Unknown ]"
 msgstr "[ Άγνωστο ]"
 
-#: ../root/components/common-macros.tt:224
+#: ../root/components/common-macros.tt:232
 msgid "[removed]"
 msgstr "[αφαιρέθηκε]"
 
 #: ../root/artist/layout.tt:36 ../root/label/layout.tt:30
-#: ../root/search/lib/inline-results-artist.tt:25
+#: ../root/search/lib/inline-results-artist.tt:31
 #: ../root/search/results-label.tt:28
 msgid "[unknown]"
 msgstr "[άγνωστο]"
@@ -8941,7 +8976,7 @@ msgstr ""
 msgid "appears on:"
 msgstr "εμφανίζεται σε:"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "artists"
 msgstr "καλλιτέχνες"
 
@@ -8961,7 +8996,7 @@ msgstr "πριν από"
 msgid "between"
 msgstr "μεταξύ"
 
-#: ../root/components/common-macros.tt:409
+#: ../root/components/common-macros.tt:417
 msgid "bot"
 msgstr "bot"
 
@@ -8991,7 +9026,7 @@ msgstr "αποσαφήνιση:"
 msgid "do not match"
 msgstr ""
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "editors"
 msgstr ""
 
@@ -8999,24 +9034,24 @@ msgstr ""
 msgid "edits"
 msgstr ""
 
-#: ../root/components/common-macros.tt:660
+#: ../root/components/common-macros.tt:668
 msgid "ended"
 msgstr "έληξε"
 
-#: ../root/components/common-macros.tt:647 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:655 ../root/edit/details/macros.tt:28
 msgid "from {begin_date} until {end_date}"
 msgstr "από {begin_date} ως {end_date}"
 
-#: ../root/components/common-macros.tt:653 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:661 ../root/edit/details/macros.tt:28
 msgid "from {date} to ????"
 msgstr "από {date} ως ????"
 
-#: ../root/components/common-macros.tt:655 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:663 ../root/edit/details/macros.tt:28
 msgid "from {date} to present"
 msgstr "από {date} μέχρι τώρα"
 
-#: ../root/release/edit_relationships.tt:67
-#: ../root/release/edit_relationships.tt:109
+#: ../root/release/edit_relationships.tt:68
+#: ../root/release/edit_relationships.tt:110
 msgid "help"
 msgstr ""
 
@@ -9024,11 +9059,11 @@ msgstr ""
 msgid "import"
 msgstr "εισαγωγή"
 
-#: ../root/components/common-macros.tt:644 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:652 ../root/edit/details/macros.tt:28
 msgid "in {date}"
 msgstr "στις {date}"
 
-#: ../root/components/common-macros.tt:323
+#: ../root/components/common-macros.tt:331
 #: ../root/components/rdfa-macros.tt:718 ../root/components/rdfa-macros.tt:731
 msgid "info"
 msgstr "πληροφορίες"
@@ -9073,11 +9108,11 @@ msgstr "είναι περισσότερο από"
 msgid "is not"
 msgstr "δεν είναι"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "labels"
 msgstr "δισκογραφικές εταιρείες"
 
-#: ../root/components/common-macros.tt:408
+#: ../root/components/common-macros.tt:416
 msgid "limited user"
 msgstr "περιορισμένος χρήστης"
 
@@ -9122,7 +9157,7 @@ msgstr "το παλιότερο πρώτο"
 msgid "on"
 msgstr "στις"
 
-#: ../root/components/common-macros.tt:642 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:650 ../root/edit/details/macros.tt:28
 msgid "on {date}"
 msgstr "στις {date}"
 
@@ -9147,6 +9182,10 @@ msgid_plural "plus {n} other private collections"
 msgstr[0] "συν άλλη {n} ιδιωτική συλλογή"
 msgstr[1] "συν άλλες {n} ιδιωτικές συλλογές"
 
+#: ../root/artist/edit_form.tt:66
+msgid "preview:"
+msgstr ""
+
 #: ../root/edit/search_macros.tt:19
 msgid "randomly"
 msgstr "τυχαία"
@@ -9156,15 +9195,15 @@ msgstr "τυχαία"
 msgid "recording"
 msgstr "ηχογράφηση"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "recordings"
 msgstr "ηχογραφήσεις"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "release groups"
 msgstr "ομάδες κυκλοφοριών"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "releases"
 msgstr "κυκλοφορίες"
 
@@ -9217,7 +9256,7 @@ msgstr ""
 msgid "track"
 msgstr "κομμάτι"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "tracks"
 msgstr "κομμάτια"
 
@@ -9225,11 +9264,11 @@ msgstr "κομμάτια"
 msgid "unsubscribe"
 msgstr "μη παρακολούθηση"
 
-#: ../root/components/common-macros.tt:658 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:666 ../root/edit/details/macros.tt:28
 msgid "until {date}"
 msgstr "μέχρι {date}"
 
-#: ../root/components/common-macros.tt:149
+#: ../root/components/common-macros.tt:157
 msgid "works"
 msgstr "έργα"
 
@@ -9238,7 +9277,7 @@ msgid ""
 "{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
 msgstr "{about|Περισσότερες πληροφορίες} &mdash; {faq|Συχνές ερωτήσεις} &mdash; {contact|Επικοινωνήστε μαζί μας}"
 
-#: ../root/components/common-macros.tt:122
+#: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr ""
 
@@ -9252,7 +9291,7 @@ msgstr "{artist} ({roles})"
 msgid "{artist} - {name}"
 msgstr "{artist} - {name}"
 
-#: ../root/components/common-macros.tt:193
+#: ../root/components/common-macros.tt:201
 msgid "{artist} as {name}"
 msgstr "{artist} ως {name}"
 
@@ -9278,7 +9317,7 @@ msgstr "{begindate} &ndash; {enddate}"
 msgid "{collection} by {owner}"
 msgstr "{collection} από {owner}"
 
-#: ../root/components/common-macros.tt:133
+#: ../root/components/common-macros.tt:141
 msgid "{commas_only_list_item}, {rest}"
 msgstr ""
 
@@ -9324,7 +9363,7 @@ msgid ""
 "before you can approve it."
 msgstr "Η {edit} έχει τουλάχιστον μια αρνητική ψήφο, πρέπει να αφήσετε μία σημείωση επεξεργασίας πριν μπορέσετε να το εγκρίνετε."
 
-#: ../root/components/common-macros.tt:233
+#: ../root/components/common-macros.tt:241
 #: ../root/components/relationships.tt:18
 msgid "{entity} by {artist}"
 msgstr "{entity} από {artist}"
@@ -9337,7 +9376,7 @@ msgstr "{entity} δεν έχει ψευδώνυμα."
 msgid "{format} {position} {name} on {release} by {artist}"
 msgstr "{format} {position} {name} στο {release} από {artist}"
 
-#: ../root/components/common-macros.tt:131
+#: ../root/components/common-macros.tt:139
 msgid "{last_list_item}"
 msgstr ""
 
@@ -9349,7 +9388,7 @@ msgstr "{link} δεν έχει βαθμολογίες."
 msgid "{link} has no relationships."
 msgstr "{link} δεν έχει σχέσεις."
 
-#: ../root/components/common-macros.tt:124
+#: ../root/components/common-macros.tt:132
 msgid "{list_item}, {rest}"
 msgstr ""
 
@@ -9469,13 +9508,13 @@ msgid_plural "{num}&nbsp;years ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/release/edit_relationships.tt:336
+#: ../root/release/edit_relationships.tt:334
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/release/edit_relationships.tt:337
+#: ../root/release/edit_relationships.tt:335
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] ""
@@ -9516,7 +9555,7 @@ msgstr "{type0}-{type1} τύποι σχέσεων"
 msgid "{type} “{work}”"
 msgstr "{type} “{work}”"
 
-#: ../root/components/common-macros.tt:525
+#: ../root/components/common-macros.tt:533
 msgid "{uri|Relate to URL}"
 msgstr "{uri|Σύνδεση με URL}"
 
@@ -9720,11 +9759,11 @@ msgstr "Αυτο το ISRC υπάρχει ήδη για αυτή την ηχογ
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "Το '{types}' δεν είναι έγκυρο ζευγάρι τύπων σχέσεων."
 
-#: ../lib/MusicBrainz/Server/Controller/RelationshipEditor.pm:42
+#: ../lib/MusicBrainz/Server/Controller/RelationshipEditor.pm:44
 msgid "There were errors in your submission. Please fix them and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/RelationshipEditor.pm:49
+#: ../lib/MusicBrainz/Server/Controller/RelationshipEditor.pm:51
 msgid "Invalid submission."
 msgstr ""
 
@@ -10118,7 +10157,6 @@ msgid "No votes"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:254
-#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
@@ -10163,46 +10201,68 @@ msgid "This operator is not supported"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:89
-#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:98
+msgctxt "autoeditor election status"
 msgid "Awaiting 1st seconder"
-msgstr "Αναμονή 1ου  υποστηρικτή"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:90
-#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:99
+msgctxt "autoeditor election status"
 msgid "Awaiting 2nd seconder"
-msgstr "Αναμονή 2ου υποστηρικτή"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:91
 #, perl-brace-format
+msgctxt "autoeditor election status"
 msgid "Voting open since {date}"
-msgstr "Η ψηφοφορία είναι ανοικτή από τις {date}"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:92
 #, perl-brace-format
+msgctxt "autoeditor election status"
 msgid "Accepted at {date}"
-msgstr "Έγινε αποδοχή στις {date}"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:93
 #, perl-brace-format
+msgctxt "autoeditor election status"
 msgid "Declined at {date}"
-msgstr "Απορρίφθηκε στις {date}"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:94
 #, perl-brace-format
+msgctxt "autoeditor election status"
 msgid "Cancelled at {date}"
-msgstr "Ακυρώθηκε {date}"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:98
+msgctxt "autoeditor election status (short)"
+msgid "Awaiting 1st seconder"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:99
+msgctxt "autoeditor election status (short)"
+msgid "Awaiting 2nd seconder"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:100
+msgctxt "autoeditor election status (short)"
 msgid "Voting open"
-msgstr "Ανοικτή ψηφοφορία"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:101
+msgctxt "autoeditor election status (short)"
 msgid "Accepted"
-msgstr "Έγιναν αποδεκτές"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:102
+msgctxt "autoeditor election status (short)"
 msgid "Declined"
-msgstr "Απορρίφθηκε"
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
+msgctxt "autoeditor election status (short)"
+msgid "Cancelled"
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:25
 msgid "[none]"
@@ -10516,18 +10576,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:155
 msgctxt "script optgroup"
 msgid "Other"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:247
-msgid "YYYY"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:248
-msgid "MM"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:249
-msgid "DD"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Release.pm:57
