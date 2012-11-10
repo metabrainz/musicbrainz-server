@@ -37,8 +37,12 @@
 
         <dt>[% lp('Status:', 'election status') %]</dt>
         <dd>
-            [% IF election.is_open %]
-                [% l(election.status_name, { date => UserDate.format(election.open_time) }) | html %]
+            [% IF election.is_open || election.is_pending %]
+                [% IF election.is_open;
+                      l(election.status_name, { date => UserDate.format(election.open_time) }) | html;
+                   ELSIF election.is_pending;
+                      l(election.status_name) | html;
+                   END %] ([%- expiration_time(election.current_expiration_time) -%])
             [% ELSIF election.is_closed %]
                 [%- IF election.close_time -%]
                     [% l(election.status_name, { date => UserDate.format(election.close_time) }) | html %]
@@ -49,7 +53,6 @@
                 [% l(election.status_name) | html %]
             [% END %]
         </dd>
-
     </dl>
 
     <h2>[% l('Voting') %]</h2>
