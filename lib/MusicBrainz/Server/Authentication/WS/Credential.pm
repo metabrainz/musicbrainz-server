@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Authentication::WS::Credential;
 use base qw/Catalyst::Authentication::Credential::HTTP/;
 
+use DBDefs;
 use Digest::HMAC_SHA1 qw ( hmac_sha1 );
 use MIME::Base64 qw( encode_base64 );
 
@@ -55,6 +56,8 @@ sub _build_mac_auth_header
 sub _authenticate_bearer
 {
     my ($self, $c, $realm, $auth_info) = @_;
+
+    return if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     $c->log->debug('Checking http bearer authentication.') if $c->debug;
 

@@ -32,6 +32,9 @@ sub authorize : Local Args(0) RequireAuth
 {
     my ($self, $c) = @_;
 
+    $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+
     my %params;
     my %defaults = ( access_type => 'online', approval_prompt => 'auto' );
     for my $name (qw/ client_id scope response_type redirect_uri access_type approval_prompt /) {
@@ -93,6 +96,9 @@ sub oob : Local Args(0)
 {
     my ($self, $c) = @_;
 
+    $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+
     my $code = $c->request->params->{code};
     my $token = $c->model('EditorOAuthToken')->get_by_authorization_code($code);
 
@@ -110,6 +116,9 @@ sub oob : Local Args(0)
 sub token : Local Args(0)
 {
     my ($self, $c) = @_;
+
+    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
         if $c->request->method ne 'POST';
