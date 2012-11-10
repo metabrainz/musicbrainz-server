@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Authentication::WS::Credential;
 use base qw/Catalyst::Authentication::Credential::HTTP/;
 
+use Digest::HMAC_SHA1 qw ( hmac_sha1 );
+use MIME::Base64 qw( encode_base64 );
+
 sub authenticate
 {
     my ($self, $c, $realm, $auth_info) = @_;
@@ -14,7 +17,6 @@ sub authenticate
 
     return $self->SUPER::authenticate($c, $realm, $auth_info);
 }
-
 
 sub authorization_required_response
 {
@@ -81,7 +83,8 @@ sub _authenticate_mac
 
     my @authorization = $c->req->headers->header('Authorization');
     for my $authorization (@authorization) {
-        next unless $authorization =~ s/^\s*MAC\s+(\S+)\s*$/\1/;
+        next unless $authorization =~ s/^\s*MAC\s+(.+)\s*$/\1/;
+        $c->log->debug('Found mac access token in Authorization header') if $c->debug;
         my %res = map {
             my @key_val = split /=/, $_, 2;
             $key_val[0] = lc $key_val[0];
@@ -89,13 +92,37 @@ sub _authenticate_mac
             @key_val;
         } split /,\s?/, $authorization;
         my $user = $realm->find_user( { oauth_access_token => $res{id} }, $c);
-        # XXX check ts
-        # XXX check nonce
-        # XXX check mac signature
-        return $user if $user && !$user->oauth_token->is_expired;
+        return $user if $user && !$user->oauth_token->is_expired && $self->_check_mac($c, $user, $res{ts}, $res{nonce}, $res{mac}, $res{ext});
     }
 
     return;
+}
+
+sub _check_mac
+{
+    my ($self, $c, $user, $ts, $nonce, $mac, $ext) = @_;
+
+    return 0 unless $user->oauth_token->secret && $ts && $nonce && $mac;
+
+    my $request_string = join("\n", $ts, $nonce,
+        uc($c->request->method),
+        $c->request->uri->path_query,
+        $c->request->uri->host,
+        $c->request->uri->port,
+        $ext || "", "");
+
+    my $expected_mac = encode_base64(hmac_sha1($request_string, $user->oauth_token->secret), "");
+    return 0 if $mac ne $expected_mac;
+
+    my $expiry = 5 * 60; # 5 minutes
+    my $key = sprintf('oauth2mac:%s:%s:%s', $user->id, $ts, $nonce);
+
+    return 0 if $c->get($key);
+    $c->cache->set($key, 1, $expiry);
+
+    # XXX check ts
+
+    return 1;
 }
 
 1;

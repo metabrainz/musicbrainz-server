@@ -20,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope';
+    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope, secret';
 }
 
 sub _column_mapping
@@ -34,6 +34,7 @@ sub _column_mapping
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
         scope => 'scope',
+        secret => 'secret',
     };
 }
 
