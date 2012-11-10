@@ -66,13 +66,13 @@ sub _authenticate_bearer
         next unless $authorization =~ s/^\s*Bearer\s+(\S+)\s*$/\1/;
         $c->log->debug('Found bearer access token in Authorization header') if $c->debug;
         my $user = $realm->find_user( { oauth_access_token => $authorization }, $c);
-        return $user if $user && !$user->oauth_token->is_expired;
+        return $user if $user && !$user->oauth_token->is_expired && !$user->oauth_token->mac_key;
     }
 
     if (exists $c->req->params->{access_token}) {
         $c->log->debug('Found bearer access token in GET/POST params') if $c->debug;
         my $user = $realm->find_user( { oauth_access_token => $c->req->params->{access_token} }, $c);
-        return $user if $user && !$user->oauth_token->is_expired;
+        return $user if $user && !$user->oauth_token->is_expired && !$user->oauth_token->mac_key;
     }
 
     return;

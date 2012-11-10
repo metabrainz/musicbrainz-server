@@ -28,6 +28,12 @@ test 'Authenticate WS bearer' => sub {
     $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
     $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
 
+    # MAC tokens can't be used as bearer
+    $test->mech->get('/ws/1/user/?name=editor1&access_token=NeYRRMSFFEjRoowpZ1K59Q');
+    is(401, $test->mech->status);
+    $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'Bearer NeYRRMSFFEjRoowpZ1K59Q' });
+    is(401, $test->mech->status);
+
     # Drop the profile scope
     $test->c->sql->do("UPDATE editor_oauth_token SET scope = 0 WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'");
     $test->mech->get('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
