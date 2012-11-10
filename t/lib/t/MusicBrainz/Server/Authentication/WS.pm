@@ -80,6 +80,13 @@ test 'Authenticate WS mac' => sub {
     # Correctly authenticated
     $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc123", mac="mlMWUmfya9O/7zIuc+SLAhDe66E="' });
 
+    # Second authentication with the same ts but different nonce
+    $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc456", mac="W4DD2JLtzqWgdZlcIGWFYO4rCyw="' });
+
+    # Timestamp too far in the future (compared to the first one)
+    $test->mech->get('/ws/1/user/?name=editor1', Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543958", nonce="abc456", mac="QwjZd84a/+Jz8naRgVnLzX2quo4="');
+    is(401, $test->mech->status);
+
     # The same nonce used multiple times
     # XXX can't test this because the default test context doesn't have cache
     #$test->mech->get('/ws/1/user/?name=editor1', Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc123", mac="mlMWUmfya9O/7zIuc+SLAhDe66E="');

@@ -20,7 +20,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope, secret';
+    return 'id, editor, application, authorization_code, access_token, refresh_token, expire_time, scope, mac_key, mac_time_diff';
 }
 
 sub _column_mapping
@@ -34,7 +34,8 @@ sub _column_mapping
         refresh_token => 'refresh_token',
         expire_time => 'expire_time',
         scope => 'scope',
-        secret => 'secret',
+        mac_key => 'mac_key',
+        mac_time_diff => 'mac_time_diff',
     };
 }
 
@@ -128,22 +129,34 @@ sub create_authorization_code
 
 sub grant_access_token
 {
-    my ($self, $token, $secret) = @_;
+    my ($self, $token, $mac) = @_;
 
     my $update = {
         authorization_code => undef,
         access_token => generate_token(),
         expire_time => DateTime->now->add( hours => 1 ),
+        mac_time_diff => undef,
     };
 
     $token->authorization_code($update->{authorization_code});
     $token->access_token($update->{access_token});
     $token->expire_time($update->{expire_time});
+    $token->mac_time_diff($update->{mac_time_diff});
 
-    if ($secret) {
-        $update->{secret} = generate_token();
-        $token->secret($update->{secret});
+    if ($mac) {
+        $update->{mac_key} = generate_token();
+        $token->mac_key($update->{mac_key});
     }
+
+    $self->sql->update_row($self->_table, $update, { id => $token->id });
+}
+
+sub update_mac_time_diff
+{
+    my ($self, $token, $time_diff) = @_;
+
+    my $update = { mac_time_diff => $time_diff };
+    $token->mac_time_diff($update->{mac_time_diff});
 
     $self->sql->update_row($self->_table, $update, { id => $token->id });
 }

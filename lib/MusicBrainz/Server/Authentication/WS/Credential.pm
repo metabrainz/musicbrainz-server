@@ -102,7 +102,8 @@ sub _check_mac
 {
     my ($self, $c, $user, $ts, $nonce, $mac, $ext) = @_;
 
-    return 0 unless $user->oauth_token->secret && $ts && $nonce && $mac;
+    my $token = $user->oauth_token;
+    return 0 unless $token->mac_key && $ts && $nonce && $mac;
 
     my $request_string = join("\n", $ts, $nonce,
         uc($c->request->method),
@@ -111,16 +112,25 @@ sub _check_mac
         $c->request->uri->port,
         $ext || "", "");
 
-    my $expected_mac = encode_base64(hmac_sha1($request_string, $user->oauth_token->secret), "");
+    my $expected_mac = encode_base64(hmac_sha1($request_string, $token->mac_key), "");
     return 0 if $mac ne $expected_mac;
 
-    my $expiry = 5 * 60; # 5 minutes
+    my $max_delay = 5 * 60; # 5 minutes
     my $key = sprintf('oauth2mac:%s:%s:%s', $user->id, $ts, $nonce);
 
     return 0 if $c->get($key);
-    $c->cache->set($key, 1, $expiry);
+    $c->cache->set($key, 1, $max_delay);
 
-    # XXX check ts
+    my $time_diff = $token->mac_time_diff;
+    unless (defined $time_diff) {
+        $time_diff =  time() - $ts;
+        $c->model('MB')->with_transaction(sub {
+            $c->model('EditorOAuthToken')->update_mac_time_diff($token, $time_diff);
+        });
+    }
+
+    my $client_ts = time() - $time_diff;
+    return 0 if abs($client_ts - $ts) > $max_delay;
 
     return 1;
 }

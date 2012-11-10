@@ -45,8 +45,13 @@ has 'access_token' => (
     is => 'rw',
 );
 
-has 'secret' => (
+has 'mac_key' => (
     isa => 'Maybe[Str]',
+    is => 'rw',
+);
+
+has 'mac_time_diff' => (
+    isa => 'Maybe[Int]',
     is => 'rw',
 );
 

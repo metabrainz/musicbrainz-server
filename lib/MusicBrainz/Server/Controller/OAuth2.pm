@@ -165,11 +165,11 @@ sub token : Local Args(0)
     my $token_type = lc($c->request->params->{token_type} || 'bearer');
     $self->_send_error($c, 'invalid_request', 'Invalid requested token type, only bearer and mac are allowed')
         unless $token_type eq 'bearer' || $token_type eq 'mac';
-    my $needs_secret = $token_type eq 'mac';
+    my $is_mac = $token_type eq 'mac';
 
     my $data;
     $c->model('MB')->with_transaction(sub {
-        $c->model('EditorOAuthToken')->grant_access_token($token, $needs_secret);
+        $c->model('EditorOAuthToken')->grant_access_token($token, $is_mac);
         $data = {
             access_token => $token->access_token,
             token_type => $token_type,
@@ -178,8 +178,8 @@ sub token : Local Args(0)
         if ($token->refresh_token) {
             $data->{refresh_token} = $token->refresh_token;
         }
-        if ($needs_secret && $token->secret) {
-            $data->{mac_key} = $token->secret;
+        if ($is_mac && $token->mac_key) {
+            $data->{mac_key} = $token->mac_key;
             $data->{mac_algorithm} = 'hmac-sha-1';
         }
     });
