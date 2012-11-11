@@ -8,9 +8,11 @@ requires '_id_column';
 requires '_table';
 requires 'sql';
 
-sub insert
-{
-    my ($self, @objs) = @_;
+## XXX HACK - See MB::S::Data::Role::Merge
+
+sub insert {}
+around 'insert' => sub {
+    my ($orig, $self, @objs) = @_;
 
     my $class = $self->_entity_class;
     Class::MOP::load_class($class);
@@ -25,22 +27,22 @@ sub insert
     }
 
     return wantarray ? @ret : $ret[0];
-}
+};
 
-sub update
-{
-    my ($self, $id, $obj) = @_;
+sub update {}
+around 'update' => sub {
+    my ($orig, $self, $id, $obj) = @_;
 
     my %map = %{ $self->_column_mapping };
     my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
     $self->sql->update_row($self->_table, \%row, { $self->_id_column => $id });
-}
+};
 
-sub delete
-{
-    my ($self, $id) = @_;
+sub delete {}
+around 'delete' => sub {
+    my ($orig, $self, $id) = @_;
 
     $self->sql->delete_row($self->_table, { $self->_id_column => $id });
-}
+};
 
 1;
