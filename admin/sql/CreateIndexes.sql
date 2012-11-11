@@ -2,6 +2,7 @@
 BEGIN;
 
 CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
+CREATE UNIQUE INDEX application_idx_owner ON application (owner);
 
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
@@ -35,6 +36,7 @@ CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
 
+CREATE INDEX editor_oauth_token_idx_editor ON editor_oauth_token (editor);
 CREATE UNIQUE INDEX editor_oauth_token_idx_access_token ON editor_oauth_token (access_token);
 CREATE UNIQUE INDEX editor_oauth_token_idx_refresh_token ON editor_oauth_token (refresh_token);
 

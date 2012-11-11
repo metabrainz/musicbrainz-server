@@ -2,6 +2,7 @@
 \unset ON_ERROR_STOP
 
 DROP INDEX application_idx_oauth_id;
+DROP INDEX application_idx_owner;
 DROP INDEX artist_alias_idx_artist;
 DROP INDEX artist_alias_idx_primary;
 DROP INDEX artist_credit_name_idx_artist;
@@ -9,6 +10,7 @@ DROP INDEX artist_idx_gid;
 DROP INDEX artist_idx_name;
 DROP INDEX artist_idx_null_comment;
 DROP INDEX artist_idx_sort_name;
+DROP INDEX artist_idx_uniq_name_comment;
 DROP INDEX artist_name_idx_lower_name;
 DROP INDEX artist_name_idx_musicbrainz_collate;
 DROP INDEX artist_name_idx_name;
@@ -48,6 +50,7 @@ DROP INDEX editor_collection_idx_name;
 DROP INDEX editor_idx_name;
 DROP INDEX editor_language_idx_language;
 DROP INDEX editor_oauth_token_idx_access_token;
+DROP INDEX editor_oauth_token_idx_editor;
 DROP INDEX editor_oauth_token_idx_refresh_token;
 DROP INDEX editor_preference_idx_editor_name;
 DROP INDEX editor_subscribe_artist_idx_artist;
@@ -122,6 +125,7 @@ DROP INDEX label_idx_gid;
 DROP INDEX label_idx_name;
 DROP INDEX label_idx_null_comment;
 DROP INDEX label_idx_sort_name;
+DROP INDEX label_idx_uniq_name_comment;
 DROP INDEX label_name_idx_lower_name;
 DROP INDEX label_name_idx_musicbrainz_collate;
 DROP INDEX label_name_idx_name;
