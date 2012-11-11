@@ -31,8 +31,8 @@ ALTER TABLE application ADD CONSTRAINT application_pkey PRIMARY KEY (id);
 ALTER TABLE editor_oauth_token ADD CONSTRAINT editor_oauth_token_pkey PRIMARY KEY (id);
 
 
+CREATE INDEX application_idx_owner ON application (owner);
 CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
-CREATE UNIQUE INDEX application_idx_owner ON application (owner);
 
 CREATE INDEX editor_oauth_token_idx_editor ON editor_oauth_token (editor);
 CREATE UNIQUE INDEX editor_oauth_token_idx_access_token ON editor_oauth_token (access_token);

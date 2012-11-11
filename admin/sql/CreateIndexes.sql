@@ -1,8 +1,8 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE INDEX application_idx_owner ON application (owner);
 CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
-CREATE UNIQUE INDEX application_idx_owner ON application (owner);
 
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
