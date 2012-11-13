@@ -5,11 +5,8 @@ use warnings;
 
 use lib "cgi-bin";
 use MusicBrainz;
-use DBDefs;
 use UserStuff;
 use Sql;
-
-# sub DBDefs::DEBUG_MAIL_SPOOL { "/tmp/verify" }
 
 my $mb = new MusicBrainz;
 $mb->Login;

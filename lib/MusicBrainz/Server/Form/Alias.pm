@@ -84,7 +84,7 @@ sub options_locale {
     return [
         map {
             # Special-case el_POLYTON, because it has a stupid non-descriptive name
-            $_->id => ($_->id =~ /_/ ? "&nbsp;&nbsp;&nbsp;" : '') . _locale_name_special_cases($_)
+            $_->id => ($_->id =~ /_/ ? "&#xa0;&#xa0;&#xa0;" : '') . _locale_name_special_cases($_)
         }
             sort_by { $_->name }
             sort_by { $_->id }

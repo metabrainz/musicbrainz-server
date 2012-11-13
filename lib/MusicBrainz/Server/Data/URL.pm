@@ -20,6 +20,7 @@ my %URL_SPECIALIZATIONS = (
     'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'Canzone'         => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'CDBaby'          => qr{^https?://(?:www.)?cdbaby.com/}i,
+    'DHHU'            => qr{^https?://(?:www.)?dhhu.dk/}i,
     'Discogs'         => qr{^https?://(?:www.)?discogs.com/}i,
     'DiscosDoBrasil'  => qr{^https?://(?:www.)?discosdobrasil.com.br/}i,
     'Encyclopedisque' => qr{^https?://(?:www.)?encyclopedisque.fr/}i,

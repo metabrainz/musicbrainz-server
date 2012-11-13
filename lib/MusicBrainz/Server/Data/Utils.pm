@@ -23,6 +23,7 @@ our @EXPORT_OK = qw(
     artist_credit_to_ref
     check_data
     check_in_use
+    collapse_whitespace
     copy_escape
     defined_hash
     generate_gid
@@ -309,9 +310,8 @@ sub add_partial_date_to_row
     }
 }
 
-sub trim {
-    # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+sub collapse_whitespace {
+    my $t = shift;
 
     # Compress whitespace
     $t =~ s/\s+/ /g;
@@ -320,6 +320,13 @@ sub trim {
     $t =~ s/[^[:print:]]//g;
 
     return $t;
+}
+
+sub trim {
+    # Remove leading and trailing space
+    my $t = Text::Trim::trim (shift);
+
+    return collapse_whitespace ($t);
 }
 
 sub type_to_model

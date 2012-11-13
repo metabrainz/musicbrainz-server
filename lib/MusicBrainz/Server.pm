@@ -57,7 +57,8 @@ __PACKAGE__->config(
             'uri_decode' => \&MusicBrainz::Server::Filters::uri_decode,
             'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
-            'gravatar' => \&MusicBrainz::Server::Filters::gravatar
+            'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
+            'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
         },
         RECURSION => 1,
         TEMPLATE_EXTENSION => '.tt',
@@ -83,14 +84,14 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
     __PACKAGE__->config( using_frontend_proxy => 1 );
 }
 
-if (DBDefs::EMAIL_BUGS) {
+if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
         emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
     };
 
     __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
-        to => DBDefs::EMAIL_BUGS(),
-        from => 'bug-reporter@' . DBDefs::WEB_SERVER(),
+        to => DBDefs->EMAIL_BUGS(),
+        from => 'bug-reporter@' . DBDefs->WEB_SERVER(),
         use_tags => 1,
         subject => 'Unhandled error in %f (line %l)'
     };
@@ -98,7 +99,7 @@ if (DBDefs::EMAIL_BUGS) {
     push @args, "ErrorCatcher";
 }
 
-__PACKAGE__->config->{'Plugin::Cache'}{backend} = &DBDefs::PLUGIN_CACHE_OPTIONS;
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
 
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
@@ -148,7 +149,7 @@ __PACKAGE__->config->{form} = {
     form_name_space => 'MusicBrainz::Server::Forms',
 };
 
-if (&DBDefs::_RUNNING_TESTS) {
+if (DBDefs->_RUNNING_TESTS) {
     push @args, "Session::Store::Dummy";
 
     # /static is usually taken care of by Plack or nginx, but not when running
@@ -164,29 +165,29 @@ if (&DBDefs::_RUNNING_TESTS) {
     }
 }
 else {
-    push @args, &DBDefs::SESSION_STORE;
-    __PACKAGE__->config->{'Plugin::Session'} = &DBDefs::SESSION_STORE_ARGS;
+    push @args, DBDefs->SESSION_STORE;
+    __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
-if (&DBDefs::CATALYST_DEBUG) {
+if (DBDefs->CATALYST_DEBUG) {
     push @args, "-Debug";
 }
 
-if (&DBDefs::SESSION_COOKIE) {
-    __PACKAGE__->config->{session}{cookie_name} = &DBDefs::SESSION_COOKIE;
+if (DBDefs->SESSION_COOKIE) {
+    __PACKAGE__->config->{session}{cookie_name} = DBDefs->SESSION_COOKIE;
 }
 
-if (&DBDefs::SESSION_DOMAIN) {
-    __PACKAGE__->config->{session}{cookie_domain} = &DBDefs::SESSION_DOMAIN;
+if (DBDefs->SESSION_DOMAIN) {
+    __PACKAGE__->config->{session}{cookie_domain} = DBDefs->SESSION_DOMAIN;
 }
 
-__PACKAGE__->config->{session}{cookie_expires} = &DBDefs::WEB_SESSION_SECONDS_TO_LIVE;
+__PACKAGE__->config->{session}{cookie_expires} = DBDefs->WEB_SESSION_SECONDS_TO_LIVE;
 
-if (&DBDefs::USE_ETAGS) {
+if (DBDefs->USE_ETAGS) {
     push @args, "Cache::HTTP";
 }
 
-if (my $config = DBDefs::AUTO_RESTART) {
+if (my $config = DBDefs->AUTO_RESTART) {
     __PACKAGE__->config->{'Plugin::AutoRestart'} = $config;
     push @args, 'AutoRestart';
 }
@@ -247,55 +248,43 @@ around 'dispatch' => sub {
 
     $c->model('MB')->context->connector->refresh;
 
-    $_->instance->build_languages_from_header($c->req->headers) 
-        for qw( MusicBrainz::Server::Translation 
-	        MusicBrainz::Server::Translation::Statistics 
-		MusicBrainz::Server::Translation::Countries 
-		MusicBrainz::Server::Translation::Scripts 
-		MusicBrainz::Server::Translation::Languages 
-		MusicBrainz::Server::Translation::Attributes 
-		MusicBrainz::Server::Translation::Relationships 
-		MusicBrainz::Server::Translation::Instruments 
-		MusicBrainz::Server::Translation::InstrumentDescriptions );
+    with_translations($c, sub {
+        my $c = shift;
+        my $orig = shift;
 
-    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
-    my $lang = Translation->instance->set_language($cookie_lang);
-    # because s///r is a perl 5.14 feature
-    my $html_lang = $lang;
-    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
-    $c->stash(
-        current_language => $lang,
-        current_language_html => $html_lang
-    );
+        if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
+            alarm($max_request_time);
+            POSIX::sigaction(
+                SIGALRM, POSIX::SigAction->new(sub {
+                    $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
+                                           $c->req->uri,
+                                           $max_request_time));
+                    $c->log->error(Devel::StackTrace->new->as_string);
+                    $c->log->_flush;
+                    if (my $sth = $c->model('MB')->context->sql->sth) {
+                        $sth->cancel;
+                    }
+                    exit(42)
+                }));
 
-    if(my $max_request_time = DBDefs::MAX_REQUEST_TIME) {
-        alarm($max_request_time);
-        POSIX::sigaction(
-            SIGALRM, POSIX::SigAction->new(sub {
-                $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                       $c->req->uri,
-                                       $max_request_time));
-                $c->log->error(Devel::StackTrace->new->as_string);
-                $c->log->_flush;
-                if (my $sth = $c->model('MB')->context->sql->sth) {
-                    $sth->cancel;
-                }
-                exit(42)
-            }));
+            $c->$orig(@_);
 
-        $c->$orig(@_);
-
-        alarm(0);
-    }
-    else {
-        $c->$orig(@_);
-    }
-    Translation->instance->unset_language();
+            alarm(0);
+        }
+        else {
+            $c->$orig(@_);
+        }
+    }, $orig, @_);
 };
 
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
+
+sub set_language_cookie {
+    my ($c, $lang) = @_;
+    $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
+}
 
 sub _handle_param_unicode_decoding {
     my ( $self, $value ) = @_;
@@ -323,24 +312,61 @@ sub execute {
     };
 }
 
-sub finalize_error {
+around 'finalize_error' => sub {
+    my $orig = shift;
     my $c = shift;
 
-    $c->next::method(@_);
+    with_translations($c, sub {
+        my $c = shift;
+        my $orig = shift;
 
-    $c->model('MB')->context->connector->disconnect;
+        $c->$orig(@_);
 
-    if (!$c->debug && scalar @{ $c->error }) {
-        $c->stash->{errors} = $c->error;
-        $c->stash->{template} = 'main/500.tt';
-        $c->stash->{stack_trace} = $c->_stacktrace;
-        $c->clear_errors;
-        $c->res->{body} = 'clear';
-        $c->view('Default')->process($c);
-        $c->res->{body} = encode('utf-8', $c->res->{body});
-    }
+        $c->model('MB')->context->connector->disconnect;
+
+        if (!$c->debug && scalar @{ $c->error }) {
+            $c->stash->{errors} = $c->error;
+            $c->stash->{template} = 'main/500.tt';
+            $c->stash->{stack_trace} = $c->_stacktrace;
+            $c->clear_errors;
+            $c->res->{body} = 'clear';
+            $c->view('Default')->process($c);
+            $c->res->{body} = encode('utf-8', $c->res->{body});
+        }
+    }, $orig, @_);
+};
+
+sub with_translations {
+    my $c = shift;
+    my $orig = shift;
+
+    $_->instance->build_languages_from_header($c->req->headers)
+        for qw( MusicBrainz::Server::Translation
+                MusicBrainz::Server::Translation::Statistics
+                MusicBrainz::Server::Translation::Countries
+                MusicBrainz::Server::Translation::Scripts
+                MusicBrainz::Server::Translation::Languages
+                MusicBrainz::Server::Translation::Attributes
+                MusicBrainz::Server::Translation::Relationships
+                MusicBrainz::Server::Translation::Instruments
+                MusicBrainz::Server::Translation::InstrumentDescriptions );
+
+    my $cookie_lang = Translation->instance->language_from_cookie($c->request->cookies->{lang});
+    $c->set_language_cookie($c->request->cookies->{lang}->value) if defined $c->request->cookies->{lang};
+    my $lang = Translation->instance->set_language($cookie_lang);
+    # because s///r is a perl 5.14 feature
+    my $html_lang = $lang;
+    $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+    $c->stash(
+        current_language => $lang,
+        current_language_html => $html_lang,
+        use_languages => scalar @{ Translation->instance->all_languages() }
+    );
+
+    &$orig($c, @_);
+
+    Translation->instance->unset_language();
 }
-
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server

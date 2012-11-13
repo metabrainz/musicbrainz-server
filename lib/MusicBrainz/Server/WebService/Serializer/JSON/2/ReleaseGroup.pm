@@ -3,6 +3,7 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
@@ -18,7 +19,7 @@ sub serialize
     $body{"secondary-types"} = [ map {
         $_->name } $entity->all_secondary_types ];
     $body{"first-release-date"} = $entity->first_release_date->format;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
 
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if $inc && ($inc->artist_credits || $inc->artists);

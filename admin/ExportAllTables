@@ -542,8 +542,8 @@ my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
 };
 
 $iSchemaSequence or die "Don't know what schema sequence number we're using";
-$iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
-    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
+$iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE
+    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs->DB_SCHEMA_SEQUENCE (".DBDefs->DB_SCHEMA_SEQUENCE.")";
 
 # Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
 # integer.

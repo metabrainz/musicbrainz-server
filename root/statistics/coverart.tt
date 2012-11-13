@@ -11,6 +11,11 @@
 <p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
 
 <h2>[% l('Basics') %]</h2>
+[%- IF stats.statistic('count.release.has_caa') < 1 -%]
+<p>
+    [%- l('No coverart statistics available.') -%]
+</p>
+[%- ELSE -%]
 <table class="database-statistics">
 <tbody>
 <tr>
@@ -25,15 +30,23 @@
 </tr>
 </tbody>
 </table>
+[%- END -%]
 
 <h2>[% l('Releases') %]</h2>
+[%- IF release_type_stats.size == 0
+    && release_status_stats.size == 0
+    && release_format_stats.size == 0 -%]
+<p>
+    [%- l('No coverart statistics available.') -%]
+</p>
+[%- ELSE -%]
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('By Release Type') %]</th>
+    <th colspan="4">[% l('By Release Type') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Releases with cover art:') %]</th>
+    <th colspan="2">[% l('Releases with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.has_caa')) %]</td>
     <td></td>
 </tr>
@@ -46,10 +59,10 @@
 </tr>
 [%- END -%]
 <tr class="thead">
-    <th colspan=4>[% l('By Release Status') %]</th>
+    <th colspan="4">[% l('By Release Status') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Releases with cover art:') %]</th>
+    <th colspan="2">[% l('Releases with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.has_caa')) %]</td>
     <td></td>
 </tr>
@@ -62,10 +75,10 @@
 </tr>
 [%- END -%]
 <tr class="thead">
-    <th colspan=4>[% l('By Release Format') %]</th>
+    <th colspan="4">[% l('By Release Format') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Releases with cover art:') %]</th>
+    <th colspan="2">[% l('Releases with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.has_caa')) %]</td>
     <td></td>
 </tr>
@@ -79,15 +92,21 @@
 [%- END -%]
 </tbody>
 </table>
+[%- END -%]
 
 <h2>[% l('Pieces of cover art') %]</h2>
+[%- IF stats.statistic('count.release.has_caa') < 1 -%]
+<p>
+    [%- l('No coverart statistics available.') -%]
+</p>
+[%- ELSE -%]
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('By Cover Art Type') %]</th>
+    <th colspan="4">[% l('By Cover Art Type') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Pieces of cover art:') %]</th>
+    <th colspan="2">[% l('Pieces of cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.coverart')) %]</td>
     <td></td>
 </tr>
@@ -100,10 +119,10 @@
 </tr>
 [%- END -%]
 <tr class="thead">
-    <th colspan=4>[% l('Per release') %]</th>
+    <th colspan="4">[% l('Per release') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Releases with cover art:') %]</th>
+    <th colspan="2">[% l('Releases with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.has_caa')) %]</td>
     <td></td>
 </tr>
@@ -123,5 +142,6 @@
 </tr>
 </tbody>
 </table>
+[%- END -%]
 [%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

@@ -62,11 +62,11 @@
     <h2 id="graph-toggle-header">[% l('Legend') %]</h2>
         <div id="graph-lines">
         <h2>
-            <input type="checkbox" id="disable-events-checkbox" checked />
+            <input type="checkbox" id="disable-events-checkbox" checked="checked" />
             <label for="disable-events-checkbox">[% l('MusicBrainz Events') %]</label>
         </h2>
         <h2 class="collapse-top-margin">
-            <input type="checkbox" id="show-rate-graph" checked />
+            <input type="checkbox" id="show-rate-graph" checked="checked" />
             <label for="show-rate-graph">[% l('Rate of Change Graph') %]</label>
         </h2>
         </div>

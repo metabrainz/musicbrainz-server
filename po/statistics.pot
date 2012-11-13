@@ -8,425 +8,429 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: DB:statistic_event/description:2006-08-15
+#: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr ""
 
-#: DB:statistic_event/description:2003-01-21
+#: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
 "Added support for improved TRM collision handling in the classic tagger."
 msgstr ""
 
-#: DB:statistic_event/title:2005-04-10
+#: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
 msgstr ""
 
-#: DB:statistic_event/description:2005-04-10
+#: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
 
-#: DB:statistic_event/title:2005-05-22
+#: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
 msgstr ""
 
-#: DB:statistic_event/description:2005-05-22
+#: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
 
-#: DB:statistic_event/title:2004-02-24
+#: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon Coverart"
 msgstr ""
 
-#: DB:statistic_event/description:2008-09-01
+#: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
 "Amazon betas <a href=\"http://soundunwound.com\">SoundUnwound</a> with data "
 "from MusicBrainz."
 msgstr ""
 
-#: DB:statistic_event/title:2008-09-01
+#: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
 msgstr ""
 
-#: DB:statistic_event/description:2004-02-24
+#: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon coverart support released."
 msgstr ""
 
-#: DB:statistic_event/description:2006-07-12
+#: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr ""
 
-#: DB:statistic_event/description:2004-11-14
+#: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
 msgstr ""
 
-#: DB:statistic_event/title:2004-11-14
+#: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
 msgstr ""
 
-#: DB:statistic_event/title:2003-06-22
+#: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
 msgstr ""
 
-#: DB:statistic_event/description:2005-02-13
+#: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
 
-#: DB:statistic_event/description:2003-06-22
+#: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
 msgstr ""
 
-#: DB:statistic_event/title:2008-07-30
+#: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
 msgstr ""
 
-#: DB:statistic_event/description:2008-07-30
+#: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
 msgstr ""
 
-#: DB:statistic_event/title:2007-06-28
+#: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
 msgstr ""
 
-#: DB:statistic_event/description:2003-03-02
-#: DB:statistic_event/description:2003-06-30
-#: DB:statistic_event/description:2003-07-25
-#: DB:statistic_event/description:2003-09-04
+#: DB:statistics.statistic_event/description:2003-03-02
+#: DB:statistics.statistic_event/description:2003-06-30
+#: DB:statistics.statistic_event/description:2003-07-25
+#: DB:statistics.statistic_event/description:2003-09-04
 msgid "Bug fix/cleanup release."
 msgstr ""
 
-#: DB:statistic_event/title:2003-06-30 DB:statistic_event/title:2003-07-25
-#: DB:statistic_event/title:2003-09-04
+#: DB:statistics.statistic_event/title:2003-06-30
+#: DB:statistics.statistic_event/title:2003-07-25
+#: DB:statistics.statistic_event/title:2003-09-04
 msgid "Bug fixes"
 msgstr ""
 
-#: DB:statistic_event/description:2004-03-09
+#: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
 msgstr ""
 
-#: DB:statistic_event/title:2004-03-09
+#: DB:statistics.statistic_event/title:2004-03-09
 msgid "Caching/bug fixes"
 msgstr ""
 
-#: DB:statistic_event/title:2003-03-02 DB:statistic_event/title:2003-06-07
-#: DB:statistic_event/title:2003-06-15
+#: DB:statistics.statistic_event/title:2003-03-02
+#: DB:statistics.statistic_event/title:2003-06-07
+#: DB:statistics.statistic_event/title:2003-06-15
 msgid "Cleanup"
 msgstr ""
 
-#: DB:statistic_event/description:2003-06-07
-#: DB:statistic_event/description:2003-06-15
+#: DB:statistics.statistic_event/description:2003-06-07
+#: DB:statistics.statistic_event/description:2003-06-15
 msgid "Cleanup release."
 msgstr ""
 
-#: DB:statistic_event/title:2008-11-24
+#: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
 msgstr ""
 
-#: DB:statistic_event/description:2008-11-24
+#: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
 msgstr ""
 
-#: DB:statistic_event/title:2003-03-29
+#: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
 msgstr ""
 
-#: DB:statistic_event/description:2004-05-09
+#: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
 msgstr ""
 
-#: DB:statistic_event/title:2003-11-10
+#: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
 msgstr ""
 
-#: DB:statistic_event/description:2007-12-07
+#: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
 msgstr ""
 
-#: DB:statistic_event/description:2007-10-17
+#: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
 msgstr ""
 
-#: DB:statistic_event/description:2004-10-10
+#: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
 
-#: DB:statistic_event/title:2004-10-10
+#: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
 msgstr ""
 
-#: DB:statistic_event/title:2006-08-15
+#: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
 msgstr ""
 
-#: DB:statistic_event/title:2009-06-17
+#: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
 msgstr ""
 
-#: DB:statistic_event/description:2009-06-17
+#: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
 msgstr ""
 
-#: DB:statistic_event/title:2004-07-24
+#: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
 msgstr ""
 
-#: DB:statistic_event/title:2003-04-05
+#: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
 msgstr ""
 
-#: DB:statistic_event/description:2003-04-05
+#: DB:statistics.statistic_event/description:2003-04-05
 msgid "Improved search/cleanup."
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-12
+#: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-02
+#: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
 
-#: DB:statistic_event/title:2006-03-05
+#: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
 msgstr ""
 
-#: DB:statistic_event/description:2006-03-05
+#: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
 msgstr ""
 
-#: DB:statistic_event/title:2004-01-17
+#: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
 msgstr ""
 
-#: DB:statistic_event/description:2004-01-17
+#: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
 
-#: DB:statistic_event/title:2004-05-09
+#: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
 msgstr ""
 
-#: DB:statistic_event/description:2009-12-14
+#: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
 msgstr ""
 
-#: DB:statistic_event/title:2009-12-14
+#: DB:statistics.statistic_event/title:2009-12-14
 msgid "Kuno Woudt hired as full-time developer"
 msgstr ""
 
-#: DB:statistic_event/title:2007-04-01
+#: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
 msgstr ""
 
-#: DB:statistic_event/title:2007-11-07
+#: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
 msgstr ""
 
-#: DB:statistic_event/description:2007-11-07
+#: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
 msgstr ""
 
-#: DB:statistic_event/description:2003-11-10
-#: DB:statistic_event/description:2003-12-28
+#: DB:statistics.statistic_event/description:2003-11-10
+#: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
 
-#: DB:statistic_event/description:2007-01-20
+#: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
 msgstr ""
 
-#: DB:statistic_event/title:2003-12-28
+#: DB:statistics.statistic_event/title:2003-12-28
 msgid "Linking"
 msgstr ""
 
-#: DB:statistic_event/title:2005-10-23
+#: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
 msgstr ""
 
-#: DB:statistic_event/description:2008-04-21
+#: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
 msgstr ""
 
-#: DB:statistic_event/title:2008-09-23
+#: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
 msgstr ""
 
-#: DB:statistic_event/title:2005-04-19
+#: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
 msgstr ""
 
-#: DB:statistic_event/title:2007-01-20
+#: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
 msgstr ""
 
-#: DB:statistic_event/description:2008-04-01
+#: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb comes MusicBrainz data user."
 msgstr ""
 
-#: DB:statistic_event/title:2008-04-01
+#: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
 msgstr ""
 
-#: DB:statistic_event/title:2006-02-27
+#: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
 msgstr ""
 
-#: DB:statistic_event/description:2010-02-08
+#: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
 msgstr ""
 
-#: DB:statistic_event/description:2003-03-29
+#: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
 msgstr ""
 
-#: DB:statistic_event/description:2006-02-27
+#: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
 msgstr ""
 
-#: DB:statistic_event/description:2006-03-12
+#: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
 msgstr ""
 
-#: DB:statistic_event/title:2006-03-12
+#: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
 msgstr ""
 
-#: DB:statistic_event/title:2011-05-12
+#: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
 msgstr ""
 
-#: DB:statistic_event/title:2011-05-02
+#: DB:statistics.statistic_event/title:2011-05-02
 msgid "NGS Reduced Editing Phase"
 msgstr ""
 
-#: DB:statistic_event/title:2011-05-18
+#: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-18
+#: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
 msgstr ""
 
-#: DB:statistic_event/title:2003-10-13
+#: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
 msgstr ""
 
-#: DB:statistic_event/description:2003-10-13
+#: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
 msgstr ""
 
-#: DB:statistic_event/description:2008-09-23
+#: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
 msgstr ""
 
-#: DB:statistic_event/description:2010-06-18
+#: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
 msgstr ""
 
-#: DB:statistic_event/title:2010-06-18
+#: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
 msgstr ""
 
-#: DB:statistic_event/title:2009-05-24
+#: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
 msgstr ""
 
-#: DB:statistic_event/title:2003-10-19 DB:statistic_event/title:2006-07-12
+#: DB:statistics.statistic_event/title:2003-10-19
+#: DB:statistics.statistic_event/title:2006-07-12
 msgid "Release editor"
 msgstr ""
 
-#: DB:statistic_event/description:2003-10-19
+#: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
 msgstr ""
 
-#: DB:statistic_event/description:2009-05-24
+#: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
 
-#: DB:statistic_event/title:2006-01-08
+#: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
 msgstr ""
 
-#: DB:statistic_event/title:2006-12-17
+#: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
 msgstr ""
 
-#: DB:statistic_event/title:2008-04-21
+#: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
 msgstr ""
 
-#: DB:statistic_event/description:2006-01-08
+#: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
 msgstr ""
 
-#: DB:statistic_event/description:2007-04-01
+#: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
 msgstr ""
 
-#: DB:statistic_event/title:2003-01-21
+#: DB:statistics.statistic_event/title:2003-01-21
 msgid "TRM collisions"
 msgstr ""
 
-#: DB:statistic_event/title:2007-10-17 ../root/statistics/view_js.tt:170
+#: DB:statistics.statistic_event/title:2007-10-17
+#: ../root/statistics/view_js.tt:170
 msgid "Tags"
 msgstr ""
 
-#: DB:statistic_event/description:2007-06-28
+#: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
 msgstr ""
 
-#: DB:statistic_event/description:2005-04-19
+#: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
 msgstr ""
 
-#: DB:statistic_event/description:2006-12-17
+#: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
 msgstr ""
 
-#: DB:statistic_event/description:2005-10-23
+#: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
 "editing features\n"
 "\treleased."
 msgstr ""
 
-#: DB:statistic_event/title:2007-12-07
+#: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
 msgstr ""
 
-#: DB:statistic_event/title:2005-02-13
+#: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
 msgstr ""
 
-#: DB:statistic_event/description:2004-07-24
+#: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
 msgstr ""
 
-#: DB:statistic_event/title:2010-02-08
+#: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
 msgstr ""
 

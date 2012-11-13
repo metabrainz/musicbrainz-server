@@ -128,7 +128,7 @@ sub build_display_data {
         Release->new( name => $self->data->{entity}{name} );
 
     # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
     $data{artwork} = {
         image => $prefix.$self->data->{id}.'.jpg',
         large_thumbnail => $prefix.$self->data->{id}.'-500.jpg',
