@@ -52,6 +52,9 @@ Currently we ignore the following warnings:
      These are problems with how our HTML is structured, and these should
      be fixed.  See MBS-xxxx.
 
+ 10. about attribute
+     Not a valid attribute in HTML5, but used by RDFa.
+
 =cut
 
 sub ignore_warning
@@ -67,7 +70,8 @@ sub ignore_warning
         '^Bad value .* for attribute .rel. on element',
         '^An .img. element must have an .alt. attribute',
         '^Element .input. with attribute .type. whose value is .button.',
-        '^Element .* not allowed as child of element .* in this context.'
+        '^Element .* not allowed as child of element .* in this context.',
+        '^Attribute .about. not allowed on element',
     );
 
     for my $test (@ignored)
