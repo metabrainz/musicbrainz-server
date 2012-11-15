@@ -1,1 +1,0 @@
-[%- INCLUDE 'alias/edit_form.tt' search_hint_type_id = 3%]
