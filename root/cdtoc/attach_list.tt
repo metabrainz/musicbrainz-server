@@ -34,7 +34,7 @@
         </label>
         <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
       </td>
-      <td colspan="6"></td>
+      <td colspan="7"></td>
     </tr>
     <tr class="tracklist" style="display:none">
       <td></td>
