@@ -1,6 +1,10 @@
-[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
-    <div id="content">
-        <h1>[% l("Search Results") %]</h1>
+[% BLOCK extra_guidelines %]
+        [%- WRAPPER 'layout/guidelines.tt' -%]
+            [%- create_guideline(l('Some FreeDB results may not be immediately available since they are only able to be updated after FreeDB\'s monthly database export.')) %]
+        [%- END -%]
+[% END %]
+
+[% WRAPPER 'search/results-layout.tt' %]
         [%- IF results.size -%]
             [% WRAPPER 'components/with-pager.tt' search=1 %]
                 <table class="tbl">
@@ -33,9 +37,4 @@
         [%- ELSE -%]
             <p>[% l('No results found') %]</p>
         [%- END -%]
-        [%- INCLUDE "search/form.tt" -%]
-	[%- WRAPPER 'layout/guidelines.tt' -%]
-            [%- create_guideline(l('Some FreeDB results may not be immediately available since they are only able to be updated after FreeDB\'s monthly database export.')) %]
-        [%- END -%]
-    </div>
 [% END %]

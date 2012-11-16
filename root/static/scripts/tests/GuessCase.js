@@ -24,7 +24,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.artist.sortname (test.input, test.person);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
         tests = [
@@ -58,7 +58,7 @@ MB.tests.GuessCase.Sortname = function() {
 
         $.each(tests, function(idx, test) {
             var result = MB.GuessCase.label.sortname (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -96,7 +96,7 @@ MB.tests.GuessCase.Modes = function() {
 
             var prefix = test.bug ? test.bug + ', ' : '';
 
-            QUnit.equals(result, test.expected, prefix + test.input);
+            QUnit.equal(result, test.expected, prefix + test.input);
         });
 
     });
@@ -117,7 +117,7 @@ MB.tests.GuessCase.Modes = function() {
 
         $.each(tests, function(idx, test) {
             result = MB.GuessCase.label.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -151,11 +151,6 @@ MB.tests.GuessCase.Modes = function() {
                 mode: "French", roman: false, keepuppercase: false
             },
             {
-                input: "Concerto d-Moll nach Antonio Vivaldi op 3 nr 11 bwv596: V. allergro",
-                expected: "Concerto D-Moll nach antonio vivaldi, Op. 3, No. 11, BWV 596: V. Allegro",
-                mode: "Classical", roman: true, keepuppercase: false
-            },
-            {
                 input: "American Way ft. Kelis",
                 expected: "American Way (feat. Kelis)",
                 mode: "English", roman: true, keepuppercase: false
@@ -172,7 +167,7 @@ MB.tests.GuessCase.Modes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.input);
+            QUnit.equal(result, test.expected, test.input);
         });
 
     });
@@ -302,7 +297,7 @@ MB.tests.GuessCase.BugFixes = function() {
             MB.GuessCase.work.gc.setOptions (test);
 
             result = MB.GuessCase.work.guess (test.input);
-            QUnit.equals(result, test.expected, test.bug + ', ' + test.input);
+            QUnit.equal(result, test.expected, test.bug + ', ' + test.input);
         });
 
     });

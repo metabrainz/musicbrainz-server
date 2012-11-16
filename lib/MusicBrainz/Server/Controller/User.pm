@@ -5,10 +5,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
+use HTTP::Status qw( :constants );
+use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
+use Try::Tiny;
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
@@ -138,7 +141,6 @@ sub cookie_login : Private
         # IP address mask, sha1(previous fields + secret)
         elsif ($value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
         {
-            $c->log->info('Found version 2 format cookie');
             ($user_name, my $pass_sha1, my $expiry, my $ipmask, my $sha1)
                 = ($1, $2, $3, $4, $5);
 
@@ -149,9 +151,9 @@ sub cookie_login : Private
             die "Expired"
                 if time() > $expiry;
 
-            my $user = $c->model('Editor')->get_by_name($user_name) or last;
+            my $user = $c->model('Editor')->get_by_name($user_name) or return;
 
-            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
+            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
             die "Password sha1 do not match"
                 unless $pass_sha1 eq $correct_pass_sha1;
 
@@ -183,7 +185,7 @@ sub _cookie_sha {
     my ($user_name, $password_sha1, $expiry_time, $ip_mask) = @_;
     return sha1_base64(
         encode('utf-8', "2\t$user_name\t$password_sha1\t$expiry_time\t$ip_mask") .
-            DBDefs::SMTP_SECRET_CHECKSUM
+            DBDefs->SMTP_SECRET_CHECKSUM
     );
 }
 
@@ -191,7 +193,7 @@ sub _set_login_cookie
 {
     my ($self, $c) = @_;
     my $expiry_time = time + 86400 * 635;
-    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs::SMTP_SECRET_CHECKSUM);
+    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
     my $ip_mask = '';
     my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
                                              $expiry_time, $ip_mask);
@@ -315,10 +317,12 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash(
         user     => $user,
         template => 'user/profile.tt',
+        last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
+        open_count => $c->model('Editor')->open_edit_count($user->id)
     );
 }
 
-sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
+sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -331,13 +335,46 @@ sub ratings : Chained('load') PathPart('ratings') HiddenOnSlaves
             unless $user->preferences->public_ratings;
     }
 
-    my $ratings = $c->model('Editor')->get_ratings($user,
+    my $ratings = $c->model('Editor')->summarize_ratings($user,
                         $c->stash->{viewing_own_profile});
 
     $c->stash(
-        user => $user,
         ratings => $ratings,
-        template => 'user/ratings.tt',
+        template => 'user/ratings_summary.tt',
+    );
+}
+
+sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
+{
+    my ($self, $c, $type) = @_;
+
+    my $model = try { type_to_model($type) };
+
+    if (!$model || !$c->model($model)->can('rating')) {
+        $c->stash(
+            message  => l(
+                "'{type}' is not an entity type that can have ratings.",
+                { type => $type }
+            )
+        );
+        $c->detach('/error_400');
+    }
+
+    my $user = $c->stash->{user};
+    if (!defined $c->user || $c->user->id != $user->id) {
+        $c->model('Editor')->load_preferences($user);
+        $c->detach('/error_403')
+            unless $user->preferences->public_ratings;
+    }
+
+    my $ratings = $self->_load_paged($c, sub {
+        $c->model($model)->rating->find_editor_ratings(
+            $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
+    }, 100);
+
+    $c->stash(
+        ratings => $ratings,
+        type => $type
     );
 }
 
@@ -356,7 +393,6 @@ sub tags : Chained('load') PathPart('tags')
 
     my $tags = $c->model('Editor')->get_tags ($user);
 
-    use List::Util 'sum';
     $c->stash(
         user => $user,
         tags => $tags,

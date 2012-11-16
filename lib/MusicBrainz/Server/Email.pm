@@ -43,7 +43,7 @@ sub _user_address
 sub _message_id
 {
     my $format_string = shift;
-    return sprintf('<' . $format_string . '@%s>', @_, &DBDefs::WEB_SERVER_USED_IN_EMAIL);
+    return sprintf('<' . $format_string . '@%s>', @_, DBDefs->WEB_SERVER_USED_IN_EMAIL);
 }
 
 sub _create_email
@@ -95,7 +95,7 @@ sub _create_message_to_editor_email
 
     my $from_name = $from->name;
     my $contact_url = sprintf "http://%s/user/%s/contact",
-                        &DBDefs::WEB_SERVER_USED_IN_EMAIL,
+                        DBDefs->WEB_SERVER_USED_IN_EMAIL,
                         uri_escape_utf8($from->name);
 
     my $body = <<EOS;
@@ -138,6 +138,7 @@ sub _create_email_verification_email
     );
 
     my $verification_link = $opts{verification_link};
+    my $ip = $opts{ip};
 
     my $body = <<EOS;
 This is a verification email for your MusicBrainz account. Please click
@@ -147,6 +148,8 @@ $verification_link
 
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
+
+This email was triggered by a request from the IP address [$ip].
 
 Thanks for using MusicBrainz!
 
@@ -169,7 +172,7 @@ sub _create_lost_username_email
     );
 
     my $user_name = $opts{user}->name;
-    my $lost_password_url = sprintf "http://%s/lost-password", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
+    my $lost_password_url = sprintf "http://%s/lost-password", DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked to look up the username of the
@@ -208,8 +211,8 @@ sub _create_no_vote_email
         'Subject'     => "Someone has voted against your edit #$edit_id",
     );
 
-    my $url = sprintf 'http://%s/edit/%d', &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
-    my $prefs_url = sprintf 'http://%s/account/preferences', &DBDefs::WEB_SERVER_USED_IN_EMAIL;
+    my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
+    my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
@@ -246,7 +249,7 @@ sub _create_password_reset_request_email
     );
 
     my $reset_password_link = $opts{reset_password_link};
-    my $contact_url = sprintf "http://%s/doc/Contact_Us", &DBDefs::WEB_SERVER_USED_IN_EMAIL;
+    my $contact_url = sprintf "http://%s/doc/Contact_Us", DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
     my $body = <<EOS;
 Someone, probably you, asked that your MusicBrainz password be reset.
@@ -291,7 +294,7 @@ sub _create_edit_note_email
     );
 
     my $from = $from_editor->name;
-    my $respond = sprintf "http://%s/edit/%d", &DBDefs::WEB_SERVER_USED_IN_EMAIL, $edit_id;
+    my $respond = sprintf "http://%s/edit/%d", DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $body;
 
     if ($own_edit) {
@@ -477,12 +480,12 @@ sub _build_transport
 {
     my ($self) = @_;
 
-    if (&DBDefs::_RUNNING_TESTS) { # XXX shouldn't be here
+    if (DBDefs->_RUNNING_TESTS) { # XXX shouldn't be here
         return $self->get_test_transport;
     }
 
     return Email::Sender::Transport::SMTP->new({
-        host => &DBDefs::SMTP_SERVER,
+        host => DBDefs->SMTP_SERVER,
     });
 }
 

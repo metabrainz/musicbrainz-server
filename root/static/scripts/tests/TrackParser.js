@@ -46,8 +46,8 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.number, expected.number, expected.number);
-                QUnit.equals(r.title, expected.title, expected.title);
+                QUnit.equal(r.number, expected.number, expected.number);
+                QUnit.equal(r.title, expected.title, expected.title);
             });
         });
 
@@ -98,6 +98,12 @@ MB.tests.TrackParser.BugFixes = function() {
                 expected: [ { title: "Love On A .45", duration: null } ],
                 bug: 'MBS-2902',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Love On A .45  05:22:31\n",
+                expected: [ { title: "Love On A .45", duration: 19351000 } ],
+                bug: 'MBS-3353',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
@@ -110,9 +116,9 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.position, idx+1, test.bug + ', ' + expected.title);
-                QUnit.equals(r.title, expected.title, test.bug + ', ' + expected.title);
-                QUnit.equals(r.duration, expected.duration, test.bug + ', ' + expected.title);
+                QUnit.equal(r.position, idx+1, test.bug + ', ' + expected.title);
+                QUnit.equal(r.title, expected.title, test.bug + ', ' + expected.title);
+                QUnit.equal(r.duration, expected.duration, test.bug + ', ' + expected.title);
             });
         });
 

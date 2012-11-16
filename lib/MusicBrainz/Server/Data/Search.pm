@@ -32,9 +32,11 @@ use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::Tag;
+use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use DateTime::Format::ISO8601;
 use feature "switch";
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -126,7 +128,7 @@ sub search
             if ($type eq "recording");
 
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day,'
+            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
 
         $extra_columns .= 'entity.language AS language_id,'
@@ -298,7 +300,7 @@ sub schema_fixup
             if (exists $data->{'life-span'}->{end});
     }
     if($type eq 'artist' && exists $data->{gender}) {
-        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => $data->{gender} );
+        $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
     }
     if ($type eq 'label' && exists $data->{type})
     {
@@ -563,7 +565,7 @@ sub external_search
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
     my $search_url = sprintf("http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=json&dismax=%s",
-                                 DBDefs::LUCENE_SERVER,
+                                 DBDefs->LUCENE_SERVER,
                                  $type,
                                  $query,
                                  $offset,
@@ -571,7 +573,7 @@ sub external_search
                                  $adv ? 'false' : 'true',
                                  );
 
-    if (&DBDefs::_RUNNING_TESTS)
+    if (DBDefs->_RUNNING_TESTS)
     {
         $ua = MusicBrainz::Server::Test::mock_search_server($type);
     }
@@ -608,6 +610,10 @@ sub external_search
         my $xmltype = $type;
         $xmltype =~ s/freedb/freedb-disc/;
         my $pos = 0;
+        my $last_updated = $data->{created} ?
+            DateTime::Format::ISO8601->parse_datetime($data->{created}) :
+            undef;
+
         foreach my $t (@{$data->{"$xmltype-list"}->{$xmltype}})
         {
             $self->schema_fixup($t, $type);
@@ -626,9 +632,7 @@ sub external_search
         {
             foreach my $result (@results)
             {
-                $result->{type} = ref($result->{entity}->{parent});
-                $result->{type} =~ s/MusicBrainz::Server::Entity:://;
-                $result->{type} = lc($result->{type});
+                $result->{type} = ref_to_type($result->{entity}->{parent});
             }
         }
 
@@ -644,7 +648,7 @@ sub external_search
         $pager->entries_per_page($limit);
         $pager->total_entries($total_hits);
 
-        return { pager => $pager, offset => $offset, results => \@results };
+        return { pager => $pager, offset => $offset, results => \@results, last_updated => $last_updated };
     }
 }
 
@@ -838,7 +842,7 @@ sub xml_search
 
     $query = uri_escape_utf8($query);
     my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
-                                 DBDefs::LUCENE_SERVER,
+                                 DBDefs->LUCENE_SERVER,
                                  $version,
                                  $type,
                                  $query,

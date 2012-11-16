@@ -11,6 +11,7 @@ my $ws_defs = Data::OptList::mkopt([
                          method   => 'GET',
                          inc      => [ qw(artists aliases artist-credits
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw( fmt ) ],
      },
 ]);
 
@@ -43,7 +44,7 @@ sub iswc : Chained('root') PathPart('iswc') Args(1)
 
     my $work_list = $self->make_list (\@works);
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('iswc', $work_list, $c->stash->{inc}, $stash));
+    $c->res->body($c->stash->{serializer}->serialize('work-list', $work_list, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;

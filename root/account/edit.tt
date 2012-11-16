@@ -5,6 +5,7 @@
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
         [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
+        [%- create_guideline(l('If you would like to delete your account, please see the <abbr title="Frequently Asked Questions">FAQ</abbr> entry: {faq|How do I delete my account?}', {faq => doc_link('Account_FAQ')})) %]
     [% END %]
 
     [%- USE r = FormRenderer(form) -%]
@@ -44,14 +45,14 @@
             [% extra_field = form.field('languages').field(form.field('languages').add_extra(1) - 1) %]
             <span id="add-language-template" style="display: none">
               [% r.select(extra_field.field('language_id'), name => '', id => 'fluency-template', class => 'language_id',) %]
-              [% r.select(extra_field.field('fluency'), name => '', id => '', class => 'fluency') %]
+              [% r.select(extra_field.field('fluency'), name => '', class => 'fluency') %]
               <button class="remove">[% l('Remove') %]</button>
             </span>
           </li>
         </ul>
       [% END %]
 
-      <script>
+      <script>//<![CDATA[
       $(function() {
           var languageCount = $('li.language').size();
           $('button.remove').live('click', function(event) {
@@ -73,12 +74,11 @@
           });
           MB.utility.setDefaultAction('#edit-profile-form', '#edit-profile-submit button');
       });
-      </script>
+      //]]></script>
 
       <div class="row no-label" id="edit-profile-submit">
       [% form_submit(l('Save')) %]
       </div>
-      <p class="row no-label">[% l('If you would like to delete your account, you may {uri|do so here}.', { uri => c.uri_for_action("/admin/delete_user", user.name) })%]</p>
     </form>
 
 [% END %]

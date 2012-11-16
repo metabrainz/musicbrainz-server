@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REMOVE_COVER_ART );
-use MusicBrainz::Server::Constants qw( :expire_action :quality );
+use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
 
@@ -32,29 +32,10 @@ has '+data' => (
     ]
 );
 
-sub edit_conditions
-{
-    return {
-        $QUALITY_LOW => {
-            duration      => 4,
-            votes         => 1,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_NORMAL => {
-            duration      => 14,
-            votes         => 3,
-            expire_action => $EXPIRE_ACCEPT,
-            auto_edit     => 0,
-        },
-        $QUALITY_HIGH => {
-            duration      => 14,
-            votes         => 4,
-            expire_action => $EXPIRE_REJECT,
-            auto_edit     => 0,
-        },
-    };
-}
+around edit_conditions => sub {
+    my ($orig, $self, @args) = @_;
+    return conditions_without_autoedit($self->$orig(@args));
+};
 
 sub initialize {
     my ($self, %opts) = @_;
@@ -106,7 +87,7 @@ sub build_display_data {
         Release->new( name => $self->data->{entity}{name} );
 
     # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
     my $artwork = {
         image => $prefix.$self->data->{cover_art_id}.'.jpg',
         large_thumbnail => $prefix.$self->data->{cover_art_id}.'-500.jpg',

@@ -9,7 +9,7 @@ has mech => (
     required => 1,
     lazy => 1,
     default => sub {
-        MusicBrainz::WWW::Mechanize->new( catalyst_app => 'MusicBrainz::Server' );
+        MusicBrainz::WWW::Mechanize->new( catalyst_app => 'MusicBrainz::Server', quiet => 1 );
     },
     clearer => '_clear_mech'
 );

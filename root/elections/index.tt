@@ -7,17 +7,17 @@
         <thead>
             <tr>
                 <th>[% l('Candidate') %]</th>
-                <th>[% l('Status') %]</th>
+                <th>[% lp('Status', 'election status') %]</th>
                 <th>[% l('Start date') %]</th>
                 <th>[% l('End date') %]</th>
-                <th>&nbsp;</th>
+                <th>&#xa0;</th>
             </tr>
         </thead>
         <tbody>
         [%- FOR election IN elections -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>[% link_editor(election.candidate) %]</td>
-                <td>[% l(election.status_name_short) %]</td>
+                <td>[% lp(election.status_name_short, 'autoeditor election status (short)') %]</td>
                 <td>[% UserDate.format(election.propose_time) %]</td>
                 <td>[% IF election.close_time %][% UserDate.format(election.close_time) %][% ELSE %]-[% END %]</td>
                 <td><a href="[% c.uri_for_action("/elections/show", [ election.id ]) %]">[% l('View details') %]</a></td>

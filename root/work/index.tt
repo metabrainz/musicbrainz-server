@@ -7,7 +7,7 @@
       </p>
     [% END %]
     [%- INCLUDE 'work/annotation.tt' summary=1 -%]
-    <h2>[% l("Relationships") %]</h2>
+    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=work -%]
 [%- END -%]
 

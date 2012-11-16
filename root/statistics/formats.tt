@@ -1,10 +1,8 @@
+[%- PROCESS "statistics/macros-header.tt" -%]
 [%- MACRO entry(entity) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 1 %]>
     <td class="t">[% loop.count %]</td>
-    <td>[% IF entity.entity.id != '' %]<a href="/search?query=format%3A%22[% entity.entity.name | replace('"', '\"') | uri %]%22&amp;type=release&amp;advanced=on">[% END %]
-            [% entity.entity.l_name || l('Unknown Format') %]
-        [% IF entity.entity.id != '' %]</a>[% END %]
-    </td>
+    <td>[% IF entity.entity.id != ''; link_searchable_property('format', '"' _ entity.entity.name.replace('"', '\"') _ '"', 'release', entity.entity.l_name); ELSE; l('Unknown Format'); END %]</td>
     <td class="t">[% add_commas(entity.release_count) %]</td>
     <td class="t">[% l('{n}%', { n => round1(stats.ratio(entity.release_stat, 'count.release')) }) %]</td>
     <td class="t">[% add_commas(entity.medium_count) %]</td>
@@ -15,8 +13,7 @@
 [% USE format %]
 [% round1 = format('%.2f') %]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %] 
-[%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %]
 
 <p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
 

@@ -232,7 +232,7 @@ sub create_edit {
 sub is_unchanged {
     my $work = shift;
     is($work->name, 'Traits (remix)');
-    is($work->comment, undef);
+    is($work->comment, '');
     is($work->type_id, undef);
 }
 

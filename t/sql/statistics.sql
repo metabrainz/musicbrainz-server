@@ -26,11 +26,11 @@ INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (5, 3, 123, 1, '{ "key": "value" }', NOW());
 
 INSERT INTO artist_name (id, name) VALUES (1, 'artist');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (4, '445c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 2'),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 3'),
+           (4, '445c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 4');
 
 INSERT INTO label_name (id, name) VALUES (1, 'label');
 INSERT INTO label (id, gid, name, sort_name)
@@ -60,7 +60,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (155, 155, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (155, 0, 155, 155, NULL);
+    VALUES (155, 0, 155, 155, '');
 
 INSERT INTO release_name (id, name) VALUES (155, 'Release');
 INSERT INTO release_group (id, gid, name, artist_credit)

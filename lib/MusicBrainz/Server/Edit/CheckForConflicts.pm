@@ -5,7 +5,7 @@ use namespace::autoclean;
 
 use Algorithm::Merge qw( merge );
 use JSON::Any;
-use MusicBrainz::Server::Log qw( log_debug );
+use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use Try::Tiny;
 
 =head1 NAME
@@ -80,18 +80,12 @@ The return value should be a tuple in the following format:
 
 =cut
 
-sub _prop {
-    my $v = shift;
-    state $json = JSON::Any->new( utf8 => 1, allow_blessed => 1, canonical => 1 );
-    return [ ref($v) ? $json->objToJson($v) : defined($v) ? "'$v'" : 'undef', $v ];
-}
-
 sub extract_property {
     my ($self, $property, $ancestor, $current, $new) = @_;
     return (
-        _prop($ancestor->{$property}),
-        _prop($current->$property),
-        _prop($new->{$property})
+        merge_value($ancestor->{$property}),
+        merge_value($current->$property),
+        merge_value($new->{$property})
     );
 }
 
@@ -151,7 +145,6 @@ sub merge_changes {
     }
     catch {
         if (eval { $_->isa('Conflict') }) {
-            log_debug { "Conflict detected: $_" } $_;
             MusicBrainz::Server::Edit::Exceptions::FailedDependency
                   ->throw('Data has changed since this edit was created, and now conflicts ' .
                               'with changes made in this edit.');

@@ -35,35 +35,36 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     self.$comment = self.$container.find ('tr.clientmatch span.comment');
 
     self.renderReleaseGroups = function ($target, gid, rgs) {
+        if (rgs) {
+            $target.empty ();
 
-        $target.empty ();
+            var first = true;
+            $.each (rgs.results, function (idx, item) {
+                var a;
 
-        var first = true;
-        $.each (rgs.results, function (idx, item) {
-            var a;
+                if (first)
+                {
+                    first = false;
+                }
+                else
+                {
+                    $target.append (", ");
+                }
 
-            if (first)
+                a = '<a target="_blank" href="/release-group/' + item.gid +
+                    '">' + MB.utility.escapeHTML (item.name) + '</a>';
+
+                $target.append ($(a));
+            });
+
+            if (rgs.hits > rgs.results.length)
             {
-                first = false;
-            }
-            else
-            {
-                $target.append (", ");
+                $target.append (
+                    $('<a target="_blank" href="/recording/' + gid + '/">...</a>'));
             }
 
-            a = '<a target="_blank" href="/release-group/' + item.gid +
-                '">' + MB.utility.escapeHTML (item.name) + '</a>';
-
-            $target.append ($(a));
-        });
-
-        if (rgs.hits > rgs.results.length)
-        {
-            $target.append (
-                $('<a target="_blank" href="/recording/' + gid + '/">...</a>'));
+            return rgs.results.length;
         }
-
-        return rgs.results.length;
     };
 
     self.selected = function (event) {
@@ -89,6 +90,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         }
         else
         {
+            self.$comment.text ('');
             self.$comment.closest ('tr').hide ();
         }
 

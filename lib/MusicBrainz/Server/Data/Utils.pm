@@ -1,5 +1,8 @@
 package MusicBrainz::Server::Data::Utils;
 
+use strict;
+use warnings;
+
 use base 'Exporter';
 use Carp 'confess';
 use Class::MOP;
@@ -9,20 +12,18 @@ use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $DLABEL_ID );
-use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use Scalar::Util 'blessed';
 use Sql;
 use Storable;
-use Text::Trim;
+use Text::Trim qw ();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
     artist_credit_to_ref
-    barcode_from_row
     check_data
     check_in_use
+    collapse_whitespace
     copy_escape
     defined_hash
     generate_gid
@@ -39,13 +40,13 @@ our @EXPORT_OK = qw(
     model_to_type
     object_to_ids
     order_by
-    partial_date_from_row
     partial_date_to_hash
     placeholders
     query_to_list
     query_to_list_limited
     ref_to_type
     remove_equal
+    take_while
     trim
     type_to_model
 );
@@ -172,23 +173,6 @@ sub check_in_use
     return;
 }
 
-sub barcode_from_row
-{
-    my ($row, $prefix) = @_;
-
-    return MusicBrainz::Server::Entity::Barcode->new($row->{$prefix."barcode"});
-}
-
-sub partial_date_from_row
-{
-    my ($row, $prefix) = @_;
-    my %info;
-    $info{year} = $row->{$prefix . 'year'} if defined $row->{$prefix . 'year'};
-    $info{month} = $row->{$prefix . 'month'} if defined $row->{$prefix . 'month'};
-    $info{day} = $row->{$prefix . 'day'} if defined $row->{$prefix . 'day'};
-    return MusicBrainz::Server::Entity::PartialDate->new(%info);
-}
-
 sub partial_date_to_hash
 {
     my ($date) = @_;
@@ -276,7 +260,7 @@ sub insert_and_create
     my ($data, @objs) = @_;
     my $class = $data->_entity_class;
     Class::MOP::load_class($class);
-    my %map = $data->_attribute_mapping;
+    my %map = %{ $data->_attribute_mapping };
     my @ret;
     for my $obj (@objs)
     {
@@ -326,10 +310,8 @@ sub add_partial_date_to_row
     }
 }
 
-sub trim
-{
-    # Remove leading and trailing space
-    my $t = Text::Trim::trim (shift);
+sub collapse_whitespace {
+    my $t = shift;
 
     # Compress whitespace
     $t =~ s/\s+/ /g;
@@ -338,6 +320,13 @@ sub trim
     $t =~ s/[^[:print:]]//g;
 
     return $t;
+}
+
+sub trim {
+    # Remove leading and trailing space
+    my $t = Text::Trim::trim (shift);
+
+    return collapse_whitespace ($t);
 }
 
 sub type_to_model
@@ -425,7 +414,7 @@ sub check_data
 }
 
 sub merge_table_attributes {
-    my (my $sql, %named_params) = @_;
+    my ($sql, %named_params) = @_;
     my $table = $named_params{table} or confess 'Missing parameter $table';
     my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
     my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
@@ -491,6 +480,21 @@ sub is_special_artist {
 sub is_special_label {
     my $label_id = shift;
     return $label_id == $DLABEL_ID;
+}
+
+sub take_while (&@) {
+    my $f = shift;
+    my @r;
+    for my $x (@_) {
+        local $_ = $x;
+        if ($f->()) {
+            push @r, $x;
+        }
+        else {
+            last;
+        }
+    }
+    return @r;
 }
 
 1;

@@ -8,6 +8,7 @@ use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
@@ -74,7 +75,7 @@ sub format_wikitext
     return '' unless $text;
 
     # MBS-2437: Expand MBID entity links
-    my $ws = DBDefs::WEB_SERVER;
+    my $ws = DBDefs->WEB_SERVER;
     $text =~ s/
       \[
       (artist|label|recording|release|release-group|url|work):
@@ -130,7 +131,7 @@ sub format_editnote
     my ($html) = @_;
 
     my $is_url = 1;
-    my $server = &DBDefs::WEB_SERVER;
+    my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs
     $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;
@@ -217,7 +218,27 @@ sub locale
 
 sub gravatar {
     my $email = shift;
-    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex($email);
+    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
+}
+
+sub _amazon_https {
+    my $url = shift;
+    $url =~ s,http://ecx\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
+    return $url;
+}
+
+sub _generic_https {
+    my $url = shift;
+    # list only those sites that support https
+    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|www\.archive\.org)/,https://$1/,;
+    return $url;
+}
+
+sub coverart_https {
+    my $url = shift;
+    $url = _amazon_https($url);
+    $url = _generic_https($url);
+    return $url;
 }
 
 1;

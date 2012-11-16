@@ -1,10 +1,12 @@
+\set ON_ERROR_STOP 1
+
 --------------------------------------------------------------------------------
 -- These are needed to speed up deletion
-CREATE INDEX CONCURRENTLY tmp_artist_alias_name ON artist_alias (name);
-CREATE INDEX CONCURRENTLY tmp_artist_alias_sort_name ON artist_alias (sort_name);
-CREATE INDEX CONCURRENTLY tmp_artist_credit_name_name ON artist_credit_name (name);
-CREATE INDEX CONCURRENTLY tmp_artist_credit_name ON artist_credit (name);
-CREATE INDEX CONCURRENTLY tmp_track_name_corrected ON track_name (controlled_for_whitespace(name));
+CREATE INDEX tmp_artist_alias_name ON artist_alias (name);
+CREATE INDEX tmp_artist_alias_sort_name ON artist_alias (sort_name);
+CREATE INDEX tmp_artist_credit_name_name ON artist_credit_name (name);
+CREATE INDEX tmp_artist_credit_name ON artist_credit (name);
+CREATE INDEX tmp_track_name_corrected ON track_name (controlled_for_whitespace(name));
 
 BEGIN;
 
