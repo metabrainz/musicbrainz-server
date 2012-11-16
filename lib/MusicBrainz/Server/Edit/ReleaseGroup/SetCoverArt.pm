@@ -102,7 +102,7 @@ sub build_display_data {
 
     my %data;
 
-    my @releases = values $loaded->{Release};
+    my @releases = values %{ $loaded->{Release} };
     my $artwork = $self->c->model ('Artwork')->find_front_cover_by_release (
         @releases);
     $self->c->model ('CoverArtType')->load_for (@$artwork);
