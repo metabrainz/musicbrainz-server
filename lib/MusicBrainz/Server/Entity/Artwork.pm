@@ -53,7 +53,7 @@ sub _urlprefix
 {
     my $self = shift;
 
-    return DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX .
+    return DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX .
         "/release/" . $self->release->gid . "/" . $self->id;
 }
 
