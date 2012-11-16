@@ -24,7 +24,7 @@ sub manifest_signature {
     unless (exists $self->manifest_signatures->{$manifest}) {
         my $signature = md5_hex(join ',', map {
             join(':', file($_)->basename, file_md5_hex($_));
-        } map { DBDefs::STATIC_FILES_DIR . "/$_" }
+        } map { DBDefs->STATIC_FILES_DIR . "/$_" }
             $self->manifest_files($manifest, $type));
 
         $self->manifest_signatures->{$manifest} = $signature;
@@ -48,7 +48,7 @@ sub _expand {
 sub manifest_files {
     my ($self, $manifest, $type) = @_;
 
-    my $relative_to = DBDefs::STATIC_FILES_DIR;
+    my $relative_to = DBDefs->STATIC_FILES_DIR;
 
     return
         # Convert paths back to relative paths of the manifest directory
@@ -66,25 +66,25 @@ sub squash {
     my ($self, $minifier, $manifest, $type, $prefix) = @_;
     my $input = join("\n",
         map { io($_)->all }
-             map { DBDefs::STATIC_FILES_DIR . "/$_" }
+             map { DBDefs->STATIC_FILES_DIR . "/$_" }
                 $self->manifest_files($manifest, $type));
 
     my $hash = $self->manifest_signature($manifest, $type);
 
     printf STDERR "Compiling $manifest...";
     my $output = $minifier->(input => $input);
-    $output > io(DBDefs::STATIC_FILES_DIR . "/$prefix$hash.$type");
+    $output > io(DBDefs->STATIC_FILES_DIR . "/$prefix$hash.$type");
     printf STDERR "OK\n";
 }
 
 sub compile_javascript_manifest {
     my ($self, $manifest) = @_;
-    return $self->squash(DBDefs::MINIFY_SCRIPTS, $manifest, 'js', '');
+    return $self->squash(DBDefs->MINIFY_SCRIPTS, $manifest, 'js', '');
 }
 
 sub compile_css_manifest {
     my ($self, $manifest) = @_;
-    return $self->squash(DBDefs::MINIFY_STYLES, $manifest, 'css', 'styles/');
+    return $self->squash(DBDefs->MINIFY_STYLES, $manifest, 'css', 'styles/');
 }
 
 __PACKAGE__->meta->make_immutable;

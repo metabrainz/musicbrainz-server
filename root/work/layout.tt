@@ -18,10 +18,6 @@
             [%- FOR iswc IN work.iswcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
                 [% rdfa_work_iswc(work, iswc) %]
-                [% IF c.user_exists %]
-                [% l('({delete_uri|remove})', {
-                       delete_uri => c.uri_for_action('/iswc/delete', { iswc_id => iswc.id }) }) %]
-                [% END %]
                 [% END %]
             [%- END -%]
         [% END %]
@@ -35,8 +31,8 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-               <li>[% link_work(work, 'add_iswc', l('Add ISWC')) %]</li>
                [% annotation_links(work) %]
+
                <li>
                  <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
                    [% l('Merge work') %]

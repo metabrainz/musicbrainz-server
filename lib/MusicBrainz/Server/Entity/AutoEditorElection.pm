@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :election_status );
 use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -86,21 +86,21 @@ sub is_closed
 
 # XXX not translatable
 our %STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
-    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
-    $ELECTION_OPEN        => N_l('Voting open since {date}'),
-    $ELECTION_ACCEPTED    => N_l('Accepted at {date}'),
-    $ELECTION_REJECTED    => N_l('Declined at {date}'),
-    $ELECTION_CANCELLED   => N_l('Cancelled at {date}'),
+    $ELECTION_SECONDER_1  => N_lp('Awaiting 1st seconder', 'autoeditor election status'),
+    $ELECTION_SECONDER_2  => N_lp('Awaiting 2nd seconder', 'autoeditor election status'),
+    $ELECTION_OPEN        => N_lp('Voting open since {date}', 'autoeditor election status'),
+    $ELECTION_ACCEPTED    => N_lp('Accepted at {date}', 'autoeditor election status'),
+    $ELECTION_REJECTED    => N_lp('Declined at {date}', 'autoeditor election status'),
+    $ELECTION_CANCELLED   => N_lp('Cancelled at {date}', 'autoeditor election status'),
 );
 
 our %SHORT_STATUS_NAMES = (
-    $ELECTION_SECONDER_1  => N_l('Awaiting 1st seconder'),
-    $ELECTION_SECONDER_2  => N_l('Awaiting 2nd seconder'),
-    $ELECTION_OPEN        => N_l('Voting open'),
-    $ELECTION_ACCEPTED    => N_l('Accepted'),
-    $ELECTION_REJECTED    => N_l('Declined'),
-    $ELECTION_CANCELLED   => N_l('Cancelled'),
+    $ELECTION_SECONDER_1  => N_lp('Awaiting 1st seconder', 'autoeditor election status (short)'),
+    $ELECTION_SECONDER_2  => N_lp('Awaiting 2nd seconder', 'autoeditor election status (short)'),
+    $ELECTION_OPEN        => N_lp('Voting open', 'autoeditor election status (short)'),
+    $ELECTION_ACCEPTED    => N_lp('Accepted', 'autoeditor election status (short)'),
+    $ELECTION_REJECTED    => N_lp('Declined', 'autoeditor election status (short)'),
+    $ELECTION_CANCELLED   => N_lp('Cancelled', 'autoeditor election status (short)'),
 );
 
 sub status_name
@@ -175,6 +175,14 @@ sub can_see_vote_count
     if ($self->is_open) {
         return "later";
     }
+}
+
+sub current_expiration_time
+{
+    my ($self) = @_;
+    return $self->open_time ?
+           $self->open_time->clone->add( weeks => 1 ) :
+           $self->propose_time->clone->add( weeks => 1 );
 }
 
 no Moose;

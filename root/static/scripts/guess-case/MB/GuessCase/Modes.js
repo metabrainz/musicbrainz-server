@@ -64,7 +64,7 @@ MB.GuessCase.Modes = function (language) {
         self.dropdown = $('#gc-mode');
         self.dropdown.empty ();
 
-        $.each (['English', 'Sentence', 'French', 'Classical'], function (idx, mode) {
+        $.each (['English', 'Sentence', 'French'], function (idx, mode) {
             if (typeof MB.GuessCase.Mode[mode] !== "undefined")
             {
                 self.modes.push (MB.GuessCase.Mode[mode] (self));

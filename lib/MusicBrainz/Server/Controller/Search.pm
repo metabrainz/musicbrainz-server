@@ -68,7 +68,7 @@ sub doc : Private
     my ($self, $c) = @_;
 
     $c->stash(
-      google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
+      google_custom_search => DBDefs->GOOGLE_CUSTOM_SEARCH,
       template             => 'search/results-doc.tt'
     );
 }

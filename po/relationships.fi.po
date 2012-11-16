@@ -1,14 +1,15 @@
 # 
 # Translators:
 # ListMyCDs.com Martikainen <email address hidden>, 2012.
+#   <email address hidden>, 2012.
 # Timo Martikainen <>, 2012.
 # Timo Martikainen <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-01 02:30+0000\n"
-"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-27 20:05+0000\n"
+"Last-Translator: nikki <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1257,10 +1258,10 @@ msgstr ""
 
 #: DB:link_type/description:3
 msgid ""
-"This indicates that a release was released in support of another release.​"
-"This allows a release to be linked to its supporting singles, EPs, and remix"
-" releases. A 'supporting release' is one which is released to increase sales"
-" of an album or to create publicity for an album."
+"This indicates that a release was released in support of another "
+"release.​This allows a release to be linked to its supporting singles, EPs, "
+"and remix releases. A 'supporting release' is one which is released to "
+"increase sales of an album or to create publicity for an album."
 msgstr ""
 
 #: DB:link_type/description:281
@@ -2020,7 +2021,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:107
 msgid "does/did {vocal} vocal support for"
-msgstr "avusti {vokaali}vokaaleissa"
+msgstr "avusti {vocal}vokaaleissa"
 
 #: DB:link_type/link_phrase:75 DB:link_type/link_phrase:255
 msgid "download for free"
@@ -2371,7 +2372,7 @@ msgstr "on uudelleenmiksaus"
 
 #: DB:link_type/short_link_phrase:278
 msgid "is a {partial} {live} {instrumental} {cover} recording of"
-msgstr "on {partial:osittainen} {live:live-}{instrumenta:instrumentaali-}{cover-}äänite teoksesta"
+msgstr "on {partial:osittainen} {live:live-}{instrumental:instrumentaali-}{cover:cover-}äänite teoksesta"
 
 #: DB:link_type/short_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -3177,7 +3178,7 @@ msgstr "{additional:additionally} {assistant} {associate} {co:co-}äänitti"
 
 #: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded by"
-msgstr "{additional:lisä} {apulais} {kumppani} {co-co-}äänittäjä"
+msgstr "{additional:lisä} {assistant:apulais} {associate:kumppani} {co:co-}äänittäjä"
 
 #: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
 #: DB:link_type/short_link_phrase:29 DB:link_type/short_link_phrase:133
@@ -3402,7 +3403,7 @@ msgstr "{additional} {vocal}vokaalien sovittaja"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
-msgstr "{assistant} {emeritus}-{pää}{vieras}kapellimestari"
+msgstr "{assistant} {emeritus}-{principal:pää}{guest:vieras}kapellimestari"
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
@@ -3422,11 +3423,11 @@ msgstr "{orchestra}orkesteri {additional:lisäksi} esitti"
 
 #: DB:link_type/link_phrase:278
 msgid "{partial} {live} {instrumental} {cover} recording of"
-msgstr "{partial:osittainen} {live-}{instrumental:instrumentaali-}{cover-}äänite teoksesta"
+msgstr "{partial:osittainen} {live:live-}{instrumental:instrumentaali-}{cover:cover-}äänite teoksesta"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid "{partial} {live} {instrumental} {cover} recordings"
-msgstr "{partial:osittaiset} {live-}{instrumental:instrumentaali-}{cover:cover-}äänitteet"
+msgstr "{partial:osittaiset} {live:live-}{instrumental:instrumentaali-}{cover:cover-}äänitteet"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

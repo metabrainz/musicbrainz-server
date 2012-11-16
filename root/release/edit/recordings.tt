@@ -374,7 +374,7 @@
           <div style="display: none" class="recordings-loading">
             <p>
               <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-              &nbsp;
+              &#xa0;
               [% l('Now loading recording associations...') %]
             </p>
           </div>
