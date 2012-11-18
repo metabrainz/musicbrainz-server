@@ -42,9 +42,14 @@ test 'basic artist lookup' => sub {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
-            type => "Person",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
         });
 };
 
@@ -62,8 +67,13 @@ test 'basic artist lookup, inc=annotation' => sub {
             "sort-name" => "Distance",
             type => "Person",
             annotation => "this is an artist annotation",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
         });
 };
 
@@ -79,8 +89,12 @@ test 'basic artist lookup, inc=aliases' => sub {
             "sort-name" => "BoA",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false
+            },
             type => "Person",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             aliases => [
                 { name => "Beat of Angel", "sort-name" => "Beat of Angel" },
                 { name => "BoA Kwon", "sort-name" => "BoA Kwon" },
@@ -104,6 +118,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
             "sort-name" => "Allgood, Paul",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             relations => [
                 {
@@ -148,6 +167,11 @@ test 'artist lookup with releases' => sub {
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Group",
             releases => [
                 {
@@ -192,6 +216,11 @@ test 'artist lookup with pseudo-releases' => sub {
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Group",
             releases => [
                 {
@@ -224,6 +253,11 @@ test 'artist lookup with releases and discids' => sub {
             "sort-name" => "Distance",
             country => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             releases => [
                 {
@@ -288,7 +322,11 @@ test 'artist lookup with recordings and artist credits' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             "recordings" => [
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
@@ -363,7 +401,11 @@ test 'artist lookup with release groups' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             "release-groups" => [
                 {
                     id => "153f0a09-fead-3370-9b17-379ebd09446b",
@@ -390,7 +432,11 @@ test 'single artist release lookup' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             releases => [
                 {
                     id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
@@ -419,9 +465,13 @@ test 'various artists release lookup' => sub {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             releases => [
                 {
@@ -451,9 +501,14 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
-            type => "Person",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
             works => [
                 {
                     id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
@@ -477,8 +532,12 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             "sort-name" => "BoA",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             works => [
                 {
                     id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
