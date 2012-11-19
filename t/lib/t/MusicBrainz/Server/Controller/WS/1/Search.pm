@@ -24,7 +24,7 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c);
 
-LWP::UserAgent::Mockable->reset('playback', $Bin.'/ws-1-search.lwp-mock');
+LWP::UserAgent::Mockable->reset('playback', $Bin.'/lwp-sessions/ws-1-search.lwp-mock');
 
 ws_test 'search for artists by name',
     '/artist/?type=xml&name=Distance',

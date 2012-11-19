@@ -30,6 +30,14 @@ While to run all Data:: tests you can do the following:
 
  $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
 
+Cover art archive development
+-----------------------------
+
+The Cover Art features in musicbrainz are provided by
+coverartarchive.org.  To add cover art support to your development set
+up, see HACKING-CAA.md
+
+
 JavaScript and Selenium tests
 -----------------------------
 
@@ -54,6 +62,13 @@ instead, to do that run the following commands:
   $ script/setup_test_db_for_selenium.pl
   $ MUSICBRAINZ_USE_TEST_DATABASE=1 carton exec script/musicbrainz_server.pl -- -r
 
+We also use pgtap to test the PostgreSQL database itself to ensure triggers are
+firing corrcetly. If you want to run these tests you will need to install pgtap
+(http://pgtap.org) into the TEST database. You can then run tests with:
+
+ $ pg_prove -U <user> -d <test database> t/pgtap/*
+
+(Replacing <user> and <test database> as appropriate)
 
 To do headless testing with selenium, it may be useful to create a
 separate "selenium" user.  This way your personal browser settings /
@@ -137,6 +152,7 @@ Keys:
  * rs:INT -- release status by ID
  * rp:INT -- release packaging by ID
  * scr:INT -- script by ID
+ * stats:* -- various different statistics
  * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page

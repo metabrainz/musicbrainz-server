@@ -35,13 +35,15 @@ use integer;
 use Getopt::Long;
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
-&DBDefs::REPLICATION_TYPE == RT_SLAVE
+DBDefs->REPLICATION_TYPE == RT_SLAVE
     or die "This is not a slave server!\n";
 
 my $fHelp;
 my $fProgress = -t STDOUT;
 my $tmpdir = "/tmp";
 my $fKeepFiles = 0;
+my $limit = 0;
+my $count = 0;
 my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
@@ -51,6 +53,7 @@ GetOptions(
     "lockfile=s"                => \$lockfile,
     "base-uri=s"                => \$baseuri,
     "process-arg=s"             => \@process_opts,
+    "limit=i"                   => \$limit,
 ) or exit 2;
 
 $baseuri =~ s/\/$//;
@@ -93,7 +96,7 @@ my $lockfh;
 }
 
 use MusicBrainz::Server::Context;
-my $c = MusicBrainz::Server::Context->create_script_context;
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
 
 use Sql;
 my $sql = Sql->new($c->conn);
@@ -111,11 +114,11 @@ my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
     )};
 };
 
-unless ($iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE)
+unless ($iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE)
 {
     printf STDERR "%s : Schema sequence mismatch - codebase is %d, database is %d\n",
         scalar localtime,
-        &DBDefs::DB_SCHEMA_SEQUENCE,
+        DBDefs->DB_SCHEMA_SEQUENCE,
         $iSchemaSequence,
         ;
     exit 1;
@@ -291,6 +294,11 @@ $iNextReplicationSequence = $iReplicationSequence + 1
 ++$iReplicationSequence;
 $dtReplicationDate = $TIMESTAMP;
 
+$count += 1;
+if ($limit > 0 && $count >= $limit) {
+    print localtime() . " : Hit packet limit $limit.\n";
+    exit 0;
+}
 # Loop back round and start again
 goto NEXT_PACKET;
 

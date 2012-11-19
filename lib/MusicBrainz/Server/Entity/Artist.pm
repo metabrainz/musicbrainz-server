@@ -35,6 +35,12 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
+sub l_type_name
+{
+    my ($self) = @_;
+    return $self->type ? $self->type->l_name : undef;
+}
+
 has 'gender_id' => (
     is => 'rw',
     isa => 'Int'
@@ -49,6 +55,12 @@ sub gender_name
 {
     my ($self) = @_;
     return $self->gender ? $self->gender->name : undef;
+}
+
+sub l_gender_name
+{
+    my ($self) = @_;
+    return $self->gender ? $self->gender->l_name : undef;
 }
 
 has 'country_id' => (

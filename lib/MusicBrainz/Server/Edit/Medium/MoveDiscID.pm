@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_MOVE_DISCID );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -14,8 +14,9 @@ with 'MusicBrainz::Server::Edit::Medium';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::MediumCDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Medium';
 
-sub edit_name { l('Move disc ID') }
+sub edit_name { N_l('Move disc ID') }
 sub edit_type { $EDIT_MEDIUM_MOVE_DISCID }
 
 has '+data' => (
@@ -83,17 +84,27 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
+    my $old_release = $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
+            || Release->new( name => $self->data->{old_medium}{release}{name} );
+    my $old_medium = $loaded->{Medium}->{ $self->data->{old_medium}{id} }
+            || Medium->new( id => $self->data->{old_medium}{id} );
+    $old_medium->release($old_release);
+
+    my $new_release = $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
+            || Release->new( name => $self->data->{new_medium}{release}{name} );
+    my $new_medium = $loaded->{Medium}->{ $self->data->{new_medium}{id} }
+            || Medium->new( id => $self->data->{new_medium}{id} );
+    $new_medium->release($new_release);
+
     return {
         medium_cdtoc => $loaded->{MediumCDTOC}->{ $self->data->{medium_cdtoc}{id} }
             || MediumCDTOC->new(
                 cdtoc => CDTOC->new_from_toc($self->data->{medium_cdtoc}{toc})
             ),
-        old_release => $loaded->{Release}->{ $self->data->{old_medium}{release}{id} }
-            || Release->new( name => $self->data->{old_medium}{release}{name} ),
-        new_release => $loaded->{Release}->{ $self->data->{new_medium}{release}{id} }
-            || Release->new( name => $self->data->{new_medium}{release}{name} ),
-        new_medium  => $loaded->{Medium}{ $self->data->{new_medium}{id} },
-        old_medium  => $loaded->{Medium}{ $self->data->{old_medium}{id} },
+        old_release => $old_release,
+        new_release => $new_release,
+        new_medium  => $new_medium,
+        old_medium  => $old_medium
     }
 }
 

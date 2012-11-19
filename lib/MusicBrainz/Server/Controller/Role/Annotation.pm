@@ -81,11 +81,14 @@ after 'show' => sub
     my $model = $self->{model};
 
     my $annotation = $c->stash->{entity}->{latest_annotation};
-
     $c->model('Editor')->load($annotation);
+};
 
-    my $annotation_model = $c->model($model)->annotation;
-    my (undef, $no) = $annotation_model->get_history($entity->id, 50, 0);
+after 'load' => sub {
+    my ($self, $c) = @_;
+
+    my (undef, $no) = $c->model($self->{model})->annotation
+        ->get_history($c->stash->{entity}->id, 50, 0);
 
     $c->stash(
         number_of_revisions => $no,
@@ -117,13 +120,15 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
         }
         else
         {
-            $self->_insert_edit(
-                $c,
-                $form,
-                edit_type => $model_to_edit_type{$model},
-                (map { $_->name => $_->value } $form->edit_fields),
-                entity => $entity
-            );
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c,
+                    $form,
+                    edit_type => $model_to_edit_type{$model},
+                    (map { $_->name => $_->value } $form->edit_fields),
+                    entity => $entity
+                );
+            });
 
             my $show = $self->action_for('show');
             $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));

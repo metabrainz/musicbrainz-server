@@ -1,32 +1,46 @@
 package MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use Moose;
 
-extends 'MusicBrainz::Server::Report::ArtistReport';
+with 'MusicBrainz::Server::Report::ArtistReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ArtistID';
 
-sub gather_data
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query($writer, "
-        SELECT DISTINCT ON(name.name, artist.id) artist.gid AS artist_gid, name.name, artist.type
-        FROM
-            artist
-            JOIN l_artist_artist ON l_artist_artist.entity0=artist.id
-            JOIN link ON link.id=l_artist_artist.link
-            JOIN link_type ON link_type.id=link.link_type
-            JOIN artist_name AS name ON artist.name=name.id
-        WHERE
-            (artist.type = 2 OR artist.type IS NULL) AND
-            link_type.name NOT IN ('collaboration') AND
-            link_type.entity_type0 = 'artist' AND
-            link_type.entity_type1 = 'artist'
-        ORDER BY name.name, artist.id
-    ");
-}
-
-sub template
-{
-    return 'report/artists_that_may_be_persons.tt';
+sub query {
+    "
+WITH groups AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity1 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('member of band', 'collaboration', 'conductor position')),
+     persons_entity0 AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity0 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('member of band', 'collaboration', 'voice actor', 'conductor position', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+     persons_entity1 AS (
+         SELECT DISTINCT ON (artist.id) artist.id, artist.name FROM
+         artist
+         JOIN l_artist_artist laa ON laa.entity1 = artist.id
+         JOIN link on link.id = laa.link
+         JOIN link_type on link_type.id = link.link_type
+         WHERE artist.type IS DISTINCT FROM 1
+         AND link_type.name IN ('catalogued', 'is person', 'married', 'sibling', 'parent', 'involved with')),
+     artists AS (
+         SELECT DISTINCT ON (id) id, name FROM
+             (SELECT * FROM persons_entity0
+                  UNION
+              SELECT * from persons_entity1) AS persons
+          EXCEPT
+              SELECT * from groups)
+SELECT DISTINCT ON (artists.id) artists.id AS artist_id, row_number() OVER (ORDER BY musicbrainz_collate(name.name), artists.id)
+    FROM artists
+    JOIN artist_name AS name ON artists.name = name.id
+    ";
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -36,6 +50,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -9,12 +9,12 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Label';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_RELEASE );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date upgrade_id upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Translation qw ( N_l );
 
-sub edit_name     { l('Add release') }
+sub edit_name     { N_l('Add release') }
 sub historic_type { 16 }
 sub edit_type     { $EDIT_HISTORIC_ADD_RELEASE }
 sub edit_template { 'historic/add_release' }
@@ -99,7 +99,7 @@ sub build_display_data
             map { +{
                 country        => defined($_->{country_id}) &&
                                     $loaded->{Country}->{ $_->{country_id} },
-                date           => partial_date_from_row( $_->{date} ),
+                date           => MusicBrainz::Server::Entity::PartialDate->new_from_row( $_->{date} ),
                 label          => $_->{label_id}
                     ? ($loaded->{Label}->{ $_->{label_id} } || Label->new( id => $_->{label_id} ))
                     : undef,

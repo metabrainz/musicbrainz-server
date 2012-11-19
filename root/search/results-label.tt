@@ -1,6 +1,4 @@
-[% WRAPPER "layout.tt" title=l("Search Results") full_width=1 %]
-    <div id="content">
-        <h1>[% l("Search Results") %]</h1>
+[% WRAPPER 'search/results-layout.tt' %]
         [%- IF results.size -%]
             [% WRAPPER 'components/with-pager.tt' search=1 %]
                 <table class="tbl">
@@ -23,7 +21,7 @@
                                 [% link_entity(result.entity) %]
                             </td>
                             <td>[% result.entity.sort_name %]</td>
-                            <td>[% l(result.entity.type_name)  %]</td>
+                            <td>[% result.entity.l_type_name  %]</td>
                             <td>[% result.entity.format_label_code %]</td>
                             <td>[% result.entity.begin_date.format %]</td>
                             <td>
@@ -47,6 +45,4 @@
                            }) }) %]
             </p>
         [%- END -%]
-        [%- INCLUDE "search/form.tt" -%]
-    </div>
 [% END %]

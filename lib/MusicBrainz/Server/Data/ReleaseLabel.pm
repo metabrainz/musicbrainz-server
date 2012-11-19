@@ -63,6 +63,7 @@ sub load
 sub find_by_label
 {
     my ($self, $label_id, $limit, $offset) = @_;
+    $offset ||= 0;
     my $query = "SELECT " . $self->_columns . ",
                     " . MusicBrainz::Server::Data::Release->_columns . "
                  FROM " . $self->_table . "
@@ -77,7 +78,7 @@ sub find_by_label
             $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
             return $rl;
         },
-        $query, $label_id, $offset || 0);
+        $query, $label_id, $offset);
 }
 
 sub merge_labels
@@ -91,6 +92,7 @@ sub merge_releases
 {
     my ($self, $new_id, @old_ids) = @_;
     my @ids = ($new_id, @old_ids);
+
     $self->sql->do(
         'DELETE FROM release_label
           WHERE release IN (' . placeholders(@ids) . ")
@@ -103,6 +105,24 @@ sub merge_releases
 
     $self->sql->do('UPDATE release_label SET release = ?
               WHERE release IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+
+    # If we have >1 release_labels with the same label and at least 1 has a
+    # catalog number, remove any release_labels that have a NULL catalog number
+    $self->sql->do(
+        'DELETE FROM release_label
+           WHERE id IN (
+             SELECT this.id
+             FROM release_label this
+             JOIN release_label other ON (
+               other.id     != this.id AND
+               other.release = this.release AND
+               other.label   = this.label
+             )
+             WHERE this.release IN (' . placeholders(@ids) . ')
+             AND this.catalog_number IS NULL
+             AND this.label IS NOT NULL
+             AND other.catalog_number IS NOT NULL
+           )', @ids);
 }
 
 sub insert

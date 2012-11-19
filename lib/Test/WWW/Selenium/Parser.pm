@@ -27,7 +27,7 @@ our %dispatch = (
     clickAndWait => sub {
         my $sel = shift;
         $sel->click_ok(@_);
-        $sel->wait_for_page_to_load_ok(30000)
+        $sel->wait_for_page_to_load_ok(10000)
     },
     echo => sub {
         shift;

@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 use Test::Fatal;
+use Test::Deep qw( cmp_set );
 
 use MusicBrainz::Server::Data::Artist;
 
@@ -16,6 +17,46 @@ use Sql;
 
 with 't::Edit';
 with 't::Context';
+
+test 'Test find_by_work' => sub {
+    my $test = shift;
+    $test->c->sql->do(<<'EOSQL');
+INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
+INSERT INTO work (id, gid, name)
+    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1);
+
+INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
+           (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other test artist');
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
+    VALUES (1, 0, 1, 1, '');
+
+INSERT INTO track_name (id, name) VALUES (1, 'Recording');
+INSERT INTO recording (id, gid, name, artist_credit)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+
+INSERT INTO link_type
+    (id, gid, entity_type0, entity_type1, name, link_phrase,
+     reverse_link_phrase, short_link_phrase, description)
+  VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
+          '', '', '', '', ''),
+         (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
+          '', '', '', '', '');
+
+INSERT INTO link (id, link_type, attribute_count)
+  VALUES (1, 1, 0), (2, 2, 0);
+
+INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
+INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
+EOSQL
+
+    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1, 100, 0);
+    is($hits, 2);
+    cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
+};
 
 test all => sub {
 
@@ -66,7 +107,7 @@ is ( $artist->end_date->year, undef );
 is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
-is ( $artist->comment, undef );
+is ( $artist->comment, '' );
 
 # ---
 # Test annotations
@@ -156,7 +197,7 @@ $artist_data->update($artist->id, {
         sort_name => 'Artist, Updated',
         begin_date => { year => 1995, month => 4, day => 22 },
         end_date => { year => 1990, month => 6, day => 17 },
-        type_id => 2,
+        type_id => undef,
         gender_id => 2,
         country_id => 2,
         comment => 'Updated comment',
@@ -172,16 +213,17 @@ is($artist->begin_date->day, 22);
 is($artist->end_date->year, 1990);
 is($artist->end_date->month, 6);
 is($artist->end_date->day, 17);
-is($artist->type_id, 2);
+is($artist->type_id, undef);
 is($artist->gender_id, 2);
 is($artist->country_id, 2);
 is($artist->comment, 'Updated comment');
 
 $artist_data->update($artist->id, {
-        type_id => undef,
+        type_id => 2,
+        gender_id => undef
     });
 $artist = $artist_data->get_by_id($artist->id);
-is($artist->type_id, undef);
+is($artist->type_id, 2);
 
 $artist_data->delete($artist->id);
 $artist = $artist_data->get_by_id($artist->id);
@@ -325,17 +367,21 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
 
 test 'Merging attributes' => sub {
     my $c = shift->c;
-    $c->sql->do('INSERT INTO artist_name (id, name) VALUES (1, ?)', 'artist name');
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name) VALUES (?, ?, ?, ?)',
-                3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year, end_date_day)
-                 VALUES (?, ?, ?, ?, ?, ?, ?)',
-                4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12);
-    $c->sql->do('INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month)
-                 VALUES (?, ?, ?, ?, ?, ?)',
-                5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06);
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'artist name');
+INSERT INTO artist (id, gid, name, sort_name) VALUES
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
 
-    use Devel::Dwarn;
+INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
+    end_date_day, comment)
+  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12,
+          'Artist 4');
+
+INSERT INTO artist (id, gid, name, sort_name, begin_date_year,
+    begin_date_month, comment)
+  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06,
+          'Artist 5');
+EOSQL
 
     $c->model('Artist')->merge(3, [4, 5]);
     my $artist = $c->model('Artist')->get_by_id(3);

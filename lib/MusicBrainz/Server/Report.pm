@@ -1,52 +1,83 @@
 package MusicBrainz::Server::Report;
-use Moose;
+use Moose::Role;
 
-use Sql;
+with 'MusicBrainz::Server::Data::Role::Sql';
 
-has 'c' => ( is => 'ro' );
+use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
+use String::CamelCase qw( decamelize );
 
-sub gather_data
-{
-    die 'Not implemented.';
+requires 'run';
+
+sub qualified_table {
+    my $self = shift;
+    return join('.', 'report', $self->table);
 }
 
-sub gather_data_from_query
-{
-    my ($self, $writer, $query, $args, $filter) = @_;
-    $args ||= [];
+sub table {
+    my $self = shift;
+    my $name = $self->meta->name;
+    $name =~ s/MusicBrainz::Server::Report::(.*)$/$1/;
+    return decamelize($name);
+}
 
-    my $sql = $self->c->sql;
-    $sql->select($query, @$args);
-    while (my $row = $sql->next_row_hash_ref) {
-        next if $filter and not($row = &$filter($row));
-        $writer->Print($row);
+sub template {
+    my $self = shift;
+    return 'report/' . $self->table . '.tt';
+}
+
+sub load {
+    my ($self, $limit, $offset) = @_;
+    return $self->_load('', $offset, $limit);
+}
+
+sub ordering { "row_number" }
+
+sub inflate_rows {
+    my ($self, $rows) = @_;
+    return $rows;
+}
+
+sub _load {
+    my ($self, $join_sql, $offset, $limit, @params) = @_;
+
+    my $qualified_table = $self->qualified_table;
+    my $ordering = $self->ordering;
+    my ($rows, $total) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift },
+        "SELECT DISTINCT report.* FROM $qualified_table report $join_sql ORDER BY $ordering OFFSET ?",
+        @params, $offset
+    );
+
+    $rows = $self->inflate_rows($rows);
+    return ($rows, $total);
+}
+
+sub generated {
+    my ($self) = @_;
+    return $self->sql->select_single_value(
+        'SELECT TRUE FROM information_schema.tables WHERE table_schema = ? AND table_name = ?',
+        'report', $self->table
+    );
+}
+
+sub generated_at {
+    my ($self) = @_;
+    my $timestamp = $self->sql->select_single_value(
+        'SELECT generated_at FROM report.index WHERE report_name = ?',
+        $self->table
+    );
+    if ($timestamp) {
+        $timestamp = DateTime::Format::Pg->parse_datetime($timestamp);
     }
-    $sql->finish;
+    return $timestamp;
 }
 
-sub run
-{
-    my ($self, $writer) = @_;
-
-    $self->gather_data($writer);
-}
-
-sub post_load
-{
-}
-
-sub template
-{
-    die 'Not implemented.';
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

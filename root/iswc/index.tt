@@ -47,7 +47,7 @@
                   </ul>
                 </td>
                 <td>
-                  [% l(work.type.name) %]
+                  [% work.l_type_name %]
                 </td>
             </tr>
             [%- END -%]

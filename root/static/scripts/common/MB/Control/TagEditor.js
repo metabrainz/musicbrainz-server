@@ -25,7 +25,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
 
     self.$container = $(container);
     self.$tagList = self.$container.find('span.tags');
-    self.$apply = self.$container.find('input[type="submit"]');
+    self.$apply = self.$container.find('button[type="submit"]');
     self.$tagInput = self.$container.find('.tag-input');
 
     self.submitTags = function(tags) {

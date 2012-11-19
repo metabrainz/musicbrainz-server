@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Translation qw( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 use aliased 'MusicBrainz::Server::Entity::Release';
@@ -14,7 +15,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Medium';
 
-sub edit_name { 'Set track lengths' }
+sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 
 has '+data' => (

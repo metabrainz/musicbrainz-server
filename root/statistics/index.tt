@@ -1,4 +1,5 @@
-[% WRAPPER 'statistics/layout.tt' title=l('Overview') full_width=1 page='index' %] 
+[%- PROCESS "statistics/macros-header.tt" -%]
+[% WRAPPER 'statistics/layout.tt' title=l('Overview') full_width=1 page='index' %]
 
 [% USE format %]
 [% round1 = format('%.1f') %]
@@ -9,48 +10,52 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Core Entities') %]</th>
+    <th colspan="4">[% l('Core Entities') %]</th>
 </tr>
 <tr>
     <th>[% l('Artists:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.artist')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.artist')) %]</td>
 </tr>
 <tr>
-    <th>[% l('Release groups:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.releasegroup')) %]</td>
+    <th>[% l('Release Groups:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.releasegroup')) %]</td>
 </tr>
 <tr>
     <th>[% l('Releases:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.release')) %]</td>
 </tr>
 <tr>
     <th>[% l('Mediums:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.medium')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.medium')) %]</td>
 </tr>
 <tr>
     <th>[% l('Recordings:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.recording')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.recording')) %]</td>
 </tr>
 <tr>
     <th>[% l('Labels:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.label')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.label')) %]</td>
 </tr>
 <tr>
     <th>[% l('Works:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.work')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.work')) %]</td>
+</tr>
+<tr>
+    <th>[% l('URLs:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.url')) %]</td>
 </tr>
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Other Entities') %]</th>
+    <th colspan="4">[% l('Other Entities') %]</th>
 </tr>
 <tr>
     <th>[% l('Editors:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.editor')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.editor')) %]</td>
 </tr>
 <tr>
     <th>[% l('Relationships:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.ar.links')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.ar.links')) %]</td>
 </tr>
 <tr>
     <th>[% l('CD Stubs (all time / current):') %]</th>
@@ -75,7 +80,7 @@
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Identifiers') %]</th>
+    <th colspan="4">[% l('Identifiers') %]</th>
 </tr>
 <tr>
     <th>[% l('PUIDs (all / unique):') %]</th>
@@ -91,15 +96,15 @@
 </tr>
 <tr>
     <th>[% l('Disc IDs:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.discid')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.discid')) %]</td>
 </tr>
 <tr>
     <th>[% l('Barcodes:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.barcode')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.barcode')) %]</td>
 </tr>
 <tr>
     <th>[% l('IPIs:') %]</th>
-    <td colspan=3>[% add_commas(stats.statistic('count.ipi')) %]</td>
+    <td colspan="3">[% add_commas(stats.statistic('count.ipi')) %]</td>
 </tr>
 </tbody>
 </table>
@@ -108,10 +113,10 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Artists') %]</th>
+    <th colspan="4">[% l('Artists') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Artists:') %]</th>
+    <th colspan="2">[% l('Artists:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist')) %]</td>
     <td></td>
 </tr>
@@ -152,7 +157,7 @@
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.0credits', 'count.artist')) }) %]</td>
 </tr>
 <tr>
-    <th colspan=2>[% l('Non-group artists:') %]</th>
+    <th colspan="2">[% l('Non-group artists:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.type.null') + stats.statistic('count.artist.type.person') + stats.statistic('count.artist.type.other')) %]</td>
     <td></td>
 </tr>
@@ -187,44 +192,92 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=5>[% l('Releases') %]</th>
+    <th colspan="5">[% l('Releases') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Releases:') %]</th>
+    <th colspan="3">[% l('Releases:') %]</th>
     <td>[% add_commas(stats.statistic('count.release')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('by various artists:') %]</th>
+    <th colspan="2">[% l('by various artists:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.various')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.release.various', 'count.release')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('by a single artist:') %]</th>
+    <th colspan="2">[% l('by a single artist:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.nonvarious')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.release.nonvarious', 'count.release')) }) %]</td>
 </tr>
 </tbody>
 <tbody>
-<tr>
-    <th colspan=5>[% l('Data Quality') %]</th>
+<tr class="thead">
+   <th colspan="5">[% l('Release Status') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Releases:') %]</th>
+    <th colspan="3">[% l('Releases:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH status IN statuses %]
+<tr>
+   <th></th>
+   <th colspan="2">[% status.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.release.status.' _ status.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.status.' _ status.key, 'count.release')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th colspan="2">[% l('No status set') %]</th>
+   <td>[% add_commas(stats.statistic('count.release.status.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.status.null', 'count.release')) }) %]</td>
+</tr>
+</tbody>
+<tbody>
+<tr class="thead">
+   <th colspan="5">[% l('Release Packaging') %]</th>
+</tr>
+<tr>
+    <th colspan="3">[% l('Releases:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH packaging IN packagings %]
+<tr>
+   <th></th>
+   <th colspan="2">[% packaging.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.release.packaging.' _ packaging.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.packaging.' _ packaging.key, 'count.release')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th colspan="2">[% l('No packaging set') %]</th>
+   <td>[% add_commas(stats.statistic('count.release.packaging.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.release.packaging.null', 'count.release')) }) %]</td>
+</tr>
+</tbody>
+<tbody>
+<tr class="thead">
+    <th colspan="5">[% l('Data Quality') %]</th>
+</tr>
+<tr>
+    <th colspan="3">[% l('Releases:') %]</th>
     <td>[% add_commas(stats.statistic('count.release')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('High Data Quality:') %]</th>
+    <th colspan="2">[% l('High Data Quality:') %]</th>
     <td>[% add_commas(stats.statistic('count.quality.release.high')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.quality.release.high', 'count.release')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Default Data Quality:') %]</th>
+    <th colspan="2">[% l('Default Data Quality:') %]</th>
     <td>[% add_commas(stats.statistic('count.quality.release.default')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.quality.release.default', 'count.release')) }) %]</td>
 </tr>
@@ -244,34 +297,34 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Low Data Quality:') %]</th>
+    <th colspan="2">[% l('Low Data Quality:') %]</th>
     <td>[% add_commas(stats.statistic('count.quality.release.low')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.quality.release.low', 'count.release')) }) %]</td>
 </tr>
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=5>[% l('Disc IDs') %]</th>
+    <th colspan="5">[% l('Disc IDs') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Disc IDs:') %]</th>
+    <th colspan="3">[% l('Disc IDs:') %]</th>
     <td>[% add_commas(stats.statistic('count.discid')) %]</td>
     <td></td>
 </tr>
 <tr>
-    <th colspan=3>[% l('Releases:') %]</th>
+    <th colspan="3">[% l('Releases:') %]</th>
     <td>[% add_commas(stats.statistic('count.release')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Releases with no disc IDs:') %]</th>
+    <th colspan="2">[% l('Releases with no disc IDs:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.0discids')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.release.0discids', 'count.release')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Releases with at least one disc ID:') %]</th>
+    <th colspan="2">[% l('Releases with at least one disc ID:') %]</th>
     <td>[% add_commas(stats.statistic('count.release.has_discid')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.release.has_discid', 'count.release')) }) %]</td>
 </tr>
@@ -292,19 +345,19 @@
     <td>[% l('{n}%', { n => round1(stats.ratio('count.release.10discids', 'count.release.has_discid')) }) %]</td>
 </tr>
 <tr>
-    <th colspan=3>[% l('Mediums:') %]</th>
+    <th colspan="3">[% l('Mediums:') %]</th>
     <td>[% add_commas(stats.statistic('count.medium')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Mediums with no disc IDs:') %]</th>
+    <th colspan="2">[% l('Mediums with no disc IDs:') %]</th>
     <td>[% add_commas(stats.statistic('count.medium.0discids')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.medium.0discids', 'count.medium')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Mediums with at least one disc ID:') %]</th>
+    <th colspan="2">[% l('Mediums with at least one disc ID:') %]</th>
     <td>[% add_commas(stats.statistic('count.medium.has_discid')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.medium.has_discid', 'count.medium')) }) %]</td>
 </tr>
@@ -327,24 +380,62 @@
 </tbody>
 </table>
 
+<h2>[% l('Release Groups') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Primary Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Release Groups:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH primary_type IN primary_types %]
+<tr>
+   <th></th>
+   <th>[% primary_type.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.releasegroup.primary_type.' _ primary_type.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.releasegroup.primary_type.' _ primary_type.key, 'count.releasegroup')) }) %]</td>
+</tr>
+[% END %]
+<tr class="thead">
+    <th colspan="4">[% l('Secondary Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Release Groups:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH secondary_type IN secondary_types %]
+<tr>
+   <th></th>
+   <th>[% secondary_type.value.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.releasegroup.secondary_type.' _ secondary_type.key)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.releasegroup.secondary_type.' _ secondary_type.key, 'count.releasegroup')) }) %]</td>
+</tr>
+[% END %]
+</tbody>
+</table>
+
 <h2>[% l('Recordings and PUIDs') %]</h2>
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('Recordings') %]</th>
+    <th colspan="4">[% l('Recordings') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('Recordings:') %]</th>
+    <th colspan="2">[% l('Recordings:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording')) %]</td>
     <td></td>
 </tr>
 <tr>
-    <th colspan=2>[% l('Recordings with no PUIDs:') %]</th>
+    <th colspan="2">[% l('Recordings with no PUIDs:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording.0puids')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.0puids', 'count.recording')) }) %]</td>
 </tr>
 <tr>
-    <th colspan=2>[% l('Recordings with at least one PUID:') %]</th>
+    <th colspan="2">[% l('Recordings with at least one PUID:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording.has_puid')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.has_puid', 'count.recording')) }) %]</td>
 </tr>
@@ -365,15 +456,15 @@
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=4>[% l('PUIDs') %]</th>
+    <th colspan="4">[% l('PUIDs') %]</th>
 </tr>
 <tr>
-    <th colspan=2>[% l('PUIDs (on recordings):') %]</th>
+    <th colspan="2">[% l('PUIDs (on recordings):') %]</th>
     <td>[% add_commas(stats.statistic('count.puid')) %]</td>
     <td></td>
 </tr>
 <tr>
-    <th colspan=2>[% l('PUIDs (distinct IDs):') %]</th>
+    <th colspan="2">[% l('PUIDs (distinct IDs):') %]</th>
     <td>[% add_commas(stats.statistic('count.puid.ids')) %]</td>
     <td></td>
 </tr>
@@ -394,20 +485,45 @@
 </tbody>
 </table>
 
+<h2>[% l('Work Types') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr>
+    <th colspan="2">[% l('Works:') %]</th>
+    <td>[% add_commas(stats.statistic('count.work')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH work_type IN work_types %]
+<tr>
+   <th></th>
+   <th>[% work_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.' _ work_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.' _ work_type.id, 'count.work')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
 <h2>[% l('Editors, Edits, and Votes') %]</h2>
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan=5>[% l('Editors') %]</th>
+    <th colspan="5">[% l('Editors') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Editors:') %]</th>
+    <th colspan="3">[% l('Editors:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('active last week:') %]</th>
+    <th colspan="2">[% l('active last week:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor')) }) %]</td>
 </tr>
@@ -428,63 +544,63 @@
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=5>[% l('Edits') %]</th>
+    <th colspan="5">[% l('Edits') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Edits:') %]</th>
+    <th colspan="3">[% l('Edits:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Open:') %]</th>
+    <th colspan="2">[% l('Open:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.open')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.open', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Applied:') %]</th>
+    <th colspan="2">[% l('Applied:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.applied')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.applied', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Voted down:') %]</th>
+    <th colspan="2">[% l('Voted down:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.failedvote')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.failedvote', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Failed (dependency):') %]</th>
+    <th colspan="2">[% l('Failed (dependency):') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.faileddep')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.faileddep', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Failed (prerequisite):') %]</th>
+    <th colspan="2">[% l('Failed (prerequisite):') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.failedprereq')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.failedprereq', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Failed (internal error):') %]</th>
+    <th colspan="2">[% l('Failed (internal error):') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.error')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.error', 'count.edit')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Cancelled:') %]</th>
+    <th colspan="2">[% l('Cancelled:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.deleted')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.deleted', 'count.edit')) }) %]</td>
 </tr>
 <tr>
-    <th colspan=3>[% l('Edits:') %]</th>
+    <th colspan="3">[% l('Edits:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Last Week:') %]</th>
+    <th colspan="2">[% l('Last Week:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.perweek', 'count.edit')) }) %]</td>
 </tr>
@@ -498,45 +614,45 @@
 </tbody>
 <tbody>
 <tr class="thead">
-    <th colspan=5>[% l('Votes') %]</th>
+    <th colspan="5">[% l('Votes') %]</th>
 </tr>
 <tr>
-    <th colspan=3>[% l('Votes:') %]</th>
+    <th colspan="3">[% l('Votes:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Approve:') %]</th>
+    <th colspan="2">[% l('Approve:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.approve')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.approve', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Yes:') %]</th>
+    <th colspan="2">[% l('Yes:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.yes')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.yes', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('No:') %]</th>
+    <th colspan="2">[% l('No:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.no')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.no', 'count.vote')) }) %]</td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Abstain:') %]</th>
+    <th colspan="2">[% l('Abstain:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.abstain')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.abstain', 'count.vote')) }) %]</td>
 </tr>
 <tr>
-    <th colspan=3>[% l('Votes:') %]</th>
+    <th colspan="3">[% l('Votes:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
-    <th colspan=2>[% l('Last Week:') %]</th>
+    <th colspan="2">[% l('Last Week:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.perweek', 'count.vote')) }) %]</td>
 </tr>
@@ -549,186 +665,5 @@
 </tr>
 </tbody>
 </table>
-
-<h2>[% l('Relationships') %]</h2>
-<table class="database-statistics">
-<tbody>
-<tr class="thead">
-    <th colspan=4>[% l('Relationships') %]</th>
-</tr>
-<tr>
-    <th colspan=2>[% l('Relationships:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links')) %]</td>
-    <td></td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Artist:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_artist')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_artist', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Label:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_label')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_label', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Recording:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_recording')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_recording', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Release:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_release')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_release', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Release Group:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_release_group')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_release_group', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Artist-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_artist_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_artist_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-Label:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_label')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_label', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-Recording:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_recording')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_recording', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-Release:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_release')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_release', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-Release Group:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_release_group')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_release_group', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Label-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_label_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_label_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Recording-Recording:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_recording_recording')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_recording_recording', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Recording-Release:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_recording_release')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_recording_release', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Recording-Release Group:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_recording_release_group')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_recording_release_group', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Recording-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_recording_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_recording_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Recording-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_recording_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_recording_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release-Release:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_release')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_release', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release-Release Group:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_release_group')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_release_group', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release Group-Release Group:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_group_release_group')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_group_release_group', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release Group-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_group_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_group_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Release Group-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_release_group_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_release_group_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('URL-URL:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_url_url')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_url_url', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('URL-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_url_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_url_work', 'count.ar.links')) }) %]</td>
-</tr>
-<tr>
-    <th></th>
-    <th>[% l('Work-Work:') %]</th>
-    <td>[% add_commas(stats.statistic('count.ar.links.l_work_work')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.l_work_work', 'count.ar.links')) }) %]</td>
-</tr>
-</tbody>
-</table>
+[%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

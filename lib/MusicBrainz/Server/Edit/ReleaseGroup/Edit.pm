@@ -10,13 +10,14 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
-    changed_relations
     changed_display_data
+    changed_relations
     load_artist_credit_definitions
-    verify_artist_credits
     merge_artist_credit
+    merge_value
+    verify_artist_credits
 );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use MooseX::Types::Moose qw( ArrayRef Maybe Str Int );
@@ -31,7 +32,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
-sub edit_name { l("Edit release group") }
+sub edit_name { N_l("Edit release group") }
 sub _edit_model { 'ReleaseGroup' }
 sub release_group_id { shift->data->{entity}{id} }
 
@@ -168,9 +169,9 @@ around extract_property => sub {
         }
         when ('type_id') {
             return (
-                [ $ancestor->{type_id}, $ancestor->{type_id} ],
-                [ $current->primary_type_id, $current->primary_type_id ],
-                [ $new->{type_id}, $new->{type_id} ]
+                merge_value($ancestor->{type_id}),
+                merge_value($current->primary_type_id),
+                merge_value($new->{type_id})
             )
         }
         when ('secondary_type_ids') {
@@ -212,6 +213,14 @@ before accept => sub {
     my ($self) = @_;
 
     verify_artist_credits($self->c, $self->data->{new}{artist_credit});
+
+    if (my $type_id = $self->data->{new}{type_id}) {
+        if (!$self->c->model('ReleaseGroupType')->get_by_id($type_id)) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                "This edit changes the release group's primary type to a type that no longer exists."
+            );
+        }
+    }
 };
 
 sub allow_auto_edit
@@ -229,6 +238,9 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{type_id};
 
     return 0 if exists $self->data->{new}{artist_credit};
+
+    return 0 if $self->data->{old}{secondary_type_ids}
+        && @{ $self->data->{old}{secondary_type_ids} };
 
     return 1;
 }

@@ -1,0 +1,9 @@
+[% IF report.does('MusicBrainz::Server::Report::FilterForEditor') %]
+<li>
+  [% IF filtered %]
+    <a href="[% c.req.uri_with({ filter => 0 }) %]">[% l('Show all results.') %]</a>
+  [% ELSE %]
+    <a href="[% c.req.uri_with({ filter => 1 }) %]">[% l('Show only results that are in my subscribed entities.') %]</a>
+  [% END %]
+</li>
+[% END %]

@@ -6,12 +6,12 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ATTRIBUTE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
-sub edit_name { l('Edit relationship attribute') }
+sub edit_name { N_l('Edit relationship attribute') }
 sub edit_type { $EDIT_RELATIONSHIP_ATTRIBUTE }
 
 sub change_fields

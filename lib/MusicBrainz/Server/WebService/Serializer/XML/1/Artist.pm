@@ -38,7 +38,7 @@ sub serialize
         if ($inc && $inc->releases);
 
     push @body, ( list_of($opts->{release_groups}) )
-        if ($inc && $inc->release_groups);
+        if ($inc && $inc->release_groups && $inc->rg_type);
 
     return @body;
 };

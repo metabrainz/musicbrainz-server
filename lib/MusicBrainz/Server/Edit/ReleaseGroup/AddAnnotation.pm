@@ -2,14 +2,14 @@ package MusicBrainz::Server::Edit::ReleaseGroup::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASEGROUP_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
-sub edit_name { l('Add release group annotation') }
+sub edit_name { N_l('Add release group annotation') }
 sub edit_type { $EDIT_RELEASEGROUP_ADD_ANNOTATION }
 
 sub models { [qw( ReleaseGroup )] }

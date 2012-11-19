@@ -8,13 +8,14 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_type_and_status );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
-sub edit_name     { l('Edit release attributes') }
+sub edit_name     { N_l('Edit release attributes (historic)') }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }
+sub edit_template { 'historic/edit_release_attributes' }
 
 sub _changes     { return @{ shift->data->{changes} } }
 sub _release_ids

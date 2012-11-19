@@ -1,5 +1,5 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
-    <span [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
+    <div [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
 
     <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=artist
@@ -19,14 +19,14 @@
                 [% END %]
             </tr>
         </thead>
+        <tbody>
         [%- FOREACH relationship IN artist.appearances.pairs -%]
-            <thead>
+
                 <tr class="subh">
                     <th></th>
-                    <th colspan="4">[% l(relationship.key) %]</th>
+                    <th colspan="3">[% l(relationship.key) %]</th>
                 </tr>
-            </thead>
-            <tbody>
+
                 [% FOR rel IN relationship.value %]
                 <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
                     <td>
@@ -34,18 +34,18 @@
                          rel.link.begin_date.format;
                        ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty;
                          IF !rel.link.begin_date.is_empty && !rel.link.end_date.is_empty;
-                           l('{begindate} &ndash; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format });
+                           l('{begindate} &#x2013; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format });
                          ELSIF rel.link.begin_date.is_empty;
-                           l('&ndash; {enddate}', { enddate => rel.link.end_date.format });
+                           l('&#x2013; {enddate}', { enddate => rel.link.end_date.format });
                          ELSIF rel.link.end_date.is_empty;
                            IF rel.link.ended;
-                             l('{begindate} &ndash; ????', { begindate => rel.link.begin_date.format });
+                             l('{begindate} &#x2013; ????', { begindate => rel.link.begin_date.format });
                            ELSE;
-                             l('{begindate} &ndash;', { begindate => rel.link.begin_date.format });
+                             l('{begindate} &#x2013;', { begindate => rel.link.begin_date.format });
                            END;
                          END;
                        ELSIF rel.link.ended;
-                         l(' &ndash; ????');
+                         l(' &#x2013; ????');
                        END; -%]
                     </td>
                     <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
@@ -54,7 +54,7 @@
                     [% IF rel.link.attributes.size %]
                     <td>
                       [%- FOR attr=rel.link.attributes;
-                            l(attr.name) | html;
+                            attr.l_name | html;
                             l(', ') UNLESS loop.last;
                          END %]
                     </td>
@@ -83,8 +83,10 @@
                     [% END %]
                 </tr>
                 [% END %]
-            </tbody>
         [%- END -%]
+        </tbody>
     </table>
     [% END %]
+
+</div>
 [%- END -%]

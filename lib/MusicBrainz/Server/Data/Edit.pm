@@ -384,56 +384,58 @@ sub create
     # Save quality level
     $edit->quality($quality);
 
-    Sql::run_in_transaction(sub {
-        $edit->insert;
+    # Serialize transactions per-editor. Should only be necessary for autoedits,
+    # since only they update the editor table but for now we've enabled it for everything
+    $self->c->model('Editor')->lock_row($edit->editor_id);
 
-        my $now = DateTime->now;
-        my $duration = DateTime::Duration->new( days => $conditions->{duration} );
+    $edit->insert;
 
-        my $row = {
-            editor => $edit->editor_id,
-            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
-            status => $edit->status,
-            type => $edit->edit_type,
-            open_time => $now,
-            expire_time => $now + $duration,
-            autoedit => $edit->auto_edit,
-            quality => $edit->quality,
-            close_time => $edit->close_time
-        };
+    my $now = DateTime->now;
+    my $duration = DateTime::Duration->new( days => $conditions->{duration} );
 
-        my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
-        $edit->id($edit_id);
+    my $row = {
+        editor => $edit->editor_id,
+        data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+        status => $edit->status,
+        type => $edit->edit_type,
+        open_time => $now,
+        expire_time => $now + $duration,
+        autoedit => $edit->auto_edit,
+        quality => $edit->quality,
+        close_time => $edit->close_time
+    };
 
-        $edit->post_insert;
-        my $post_insert_update = {
-            data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
-            status => $edit->status,
-            type => $edit->edit_type,
-        };
+    my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');
+    $edit->id($edit_id);
 
-        $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
+    $edit->post_insert;
+    my $post_insert_update = {
+        data => JSON::Any->new( utf8 => 1 )->objToJson($edit->to_hash),
+        status => $edit->status,
+        type => $edit->edit_type,
+    };
 
-        my $ents = $edit->related_entities;
-        while (my ($type, $ids) = each %$ents) {
-            $ids = [ uniq grep { defined } @$ids ];
-            @$ids or next;
-            my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
-            $query .= join ", ", ("(?, ?)") x @$ids;
-            my @all_ids = ($edit_id) x @$ids;
-            $self->c->sql->do($query, zip @all_ids, @$ids);
-        }
+    $self->c->sql->update_row('edit', $post_insert_update, { id => $edit_id });
 
-        $edit->adjust_edit_pending(+1);
+    $edit->adjust_edit_pending(+1);
 
-        # Automatically accept auto-edits on insert
-        $edit = $self->get_by_id($edit->id);
-        if ($edit->auto_edit) {
-            $self->accept($edit, auto_edit => 1);
-        }
+    my $ents = $edit->related_entities;
+    while (my ($type, $ids) = each %$ents) {
+        $ids = [ uniq grep { defined } @$ids ];
+        @$ids or next;
+        my $query = "INSERT INTO edit_$type (edit, $type) VALUES ";
+        $query .= join ", ", ("(?, ?)") x @$ids;
+        my @all_ids = ($edit_id) x @$ids;
+        $self->c->sql->do($query, zip @all_ids, @$ids);
+    }
 
-        $edit = $self->get_by_id($edit->id);
-    }, $self->c->sql);
+    # Automatically accept auto-edits on insert
+    $edit = $self->get_by_id($edit->id);
+    if ($edit->auto_edit) {
+        $self->accept($edit, auto_edit => 1);
+    }
+
+    $edit = $self->get_by_id($edit->id);
 
     return $edit;
 }
@@ -593,14 +595,10 @@ sub reject
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
-# Runs it's own transaction
 sub cancel
 {
     my ($self, $edit) = @_;
-
-    Sql::run_in_transaction(sub {
-        $self->reject($edit, $STATUS_DELETED);
-   }, $self->c->sql);
+    $self->reject($edit, $STATUS_DELETED);
 }
 
 sub _close

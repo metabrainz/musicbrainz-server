@@ -1,4 +1,4 @@
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-work">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
@@ -8,6 +8,7 @@
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_select(r, 'language_id', l('Lyrics Language:')) -%]
+      [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -18,6 +19,11 @@
   <div class="documentation">
     [%- artist_credit_table(form, 1) -%]
     [%- guesscase_bubble() -%]
+    [%- iswc_bubble(link_entity(work)) -%]
   </div>
 
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-work', 'button.submit.positive');
+</script>

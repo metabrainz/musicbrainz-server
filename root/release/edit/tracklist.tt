@@ -105,7 +105,7 @@
 <div style="display: none;" class="tracklist-searching import-message">
   <p>
     <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-    &nbsp;
+    &#xa0;
     [% l('Searching...') %]
   </p>
 </div>
@@ -133,7 +133,7 @@
      </p>
      <ul> </ul>
      <p>
-       [% l('{valink|Various Artists} should not be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
+       [% l('{valink|Various Artists} should very rarely be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
      </p>
   </div>
 
@@ -282,7 +282,7 @@
       <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
         <p>
           <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &nbsp;
+          &#xa0;
           [% l('Now loading tracklist...') %]
         </p>
       </div>
@@ -413,7 +413,7 @@
       <div style="display: none" class="tracklist-loading">
         <p>
           <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &nbsp;
+          &#xa0;
           [% l('Now loading tracklist...') %]
         </p>
       </div>
@@ -439,11 +439,14 @@
         </table>
       </div>
 
-      <div style="float: left; padding: 10px;">
+      <div style="float: left; padding: 10px;" class="buttons">
          <input type="button" class="reset-track-numbers"
-            style="font-weight: normal; font-size: 12px;"
-            title="[%- l('reset track numbers') -%]"
-            value="[%- l('reset track numbers') -%]" />
+            title="[%- l('Reset track numbers') -%]"
+            value="[%- l('Reset track numbers') -%]" />
+
+         <input type="button" class="swap-artists-and-titles"
+           title="[%- l('Swap track titles with artist credits') -%]"
+           value="[%- l('Swap track titles with artist credits') -%]" />
       </div>
 
       <div class="icon add-track" style="float: right;">

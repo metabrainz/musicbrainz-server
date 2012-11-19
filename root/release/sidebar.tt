@@ -2,48 +2,60 @@
     <div class="cover-art">
         [%- SWITCH release.cover_art_presence -%]
         [%- CASE 'absent' -%]
-          [%- l("No cover art available.") -%]
+          [%- IF release.cover_art_url -%]
+            <img src="[% cover_art_url(release.cover_art_url) -%]" />
+          [%- ELSE -%]
+            <p style="text-align:left">[%- l("No cover art available.") -%]</p>
+          [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
                                         { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]
-          [%- display_artwork (release_artwork, release.cover_art_url, cover_art_message) -%]
+          [%- display_artwork (release_artwork, cover_art_url(release.cover_art_url), cover_art_message) -%]
         [%- CASE 'darkened' -%]
           [%- l("No cover art available.") -%]
         [%- END -%]
     </div>
 
-    <h2>[% l('Release information') %]</h2>
+    <h2 class="release-information">[% l('Release information') %]</h2>
 
     [% WRAPPER 'layout/sidebar/properties.tt';
-        INCLUDE 'layout/sidebar/property.tt' label=l('Date:')
+        INCLUDE 'layout/sidebar/property.tt' label=l('Date:') class="date"
            content=release.date.format IF release.date.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-           content=l(release.country.name) IF release.country.name;
+           content=link_searchable_property('country', release.country.iso_code, 'release', release.country.l_name)
+           class="country"
+               IF release.country.name;
 
-        INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
+        INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
            content=release.barcode.format property='mo:tgin' datatype='xsd:string' IF release.barcode.format;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Format:')
+        INCLUDE 'layout/sidebar/property.tt' label=l('Format:') class="format"
            content=release.combined_format_name IF release.combined_format_name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Length:') class="length"
+           content=format_length(release.length) IF release.length;
     END %]
 
-    <h2>[% l('Additional details') %]</h2>
+    <h2 class="additional-details">[% l('Additional details') %]</h2>
     [% WRAPPER 'layout/sidebar/properties.tt';
-        INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-           content=l(release.release_group.type_name) IF release.release_group.type_name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:')
-           content=l(release.packaging.name) IF release.packaging.name;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Status:')
-           content=l(release.status.name) IF release.status.name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Type:') class="type"
+           content=release.release_group.l_type_name IF release.release_group.type_name;
+        INCLUDE 'layout/sidebar/property.tt' label=l('Packaging:') class="packaging"
+           content=release.packaging.l_name IF release.packaging.name;
+        INCLUDE 'layout/sidebar/property.tt' label=lp('Status:', 'release status') class="status"
+           content=release.status.l_name IF release.status.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Language:')
-           content=l(release.language.name) IF release.language.name;
+           content=link_searchable_property('lang', release.language.iso_code_3, 'release', release.language.l_name)
+           class="language"
+               IF release.language.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Script:')
-           content=l(release.script.name) IF release.script.name;
+           content=link_searchable_property('script', release.script.iso_code, 'release', release.script.l_name)
+           class="script"
+               IF release.script.name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Data Quality:')
            content=quality_name(release.quality) IF release.quality != -1;
     END %]
 
     [% IF release.labels.size %]
-    <h2>[% l('Labels') %]</h2>
+    <h2 class="labels">[% l('Labels') %]</h2>
     <ul class="links">
     [% FOR label=release.labels %]
       <li>
@@ -62,14 +74,10 @@
         %]
     [% END %]
 
-    <h2>[% l('Editing') %]</h2>
+    <h2 class="editing">[% l('Editing') %]</h2>
     <ul class="links">
       [% IF c.user_exists %]
-        <li>
-          <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ release.gid ]) %]">
-            [% release.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-          </a>
-        </li>
+        [% annotation_links(release) %]
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
         <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>
@@ -81,23 +89,11 @@
 
         <hr/>
 
+        <li>[% link_release(release, 'edit_relationships', l('Edit relationships')) %]</li>
         [%# Adds <li> itself %]
         [% use_in_relationship(release) %]
-        <li>[% relate_to_ellipsis(release, ['release', 'recording']) %]</li>
+        <li>[% relate_to_ellipsis(release) %]</li>
         <li>[% relate_to_url(release) %]</li>
-        <li>
-          <a href="[%
-            c.uri_for_action('/edit/relationship/create_batch', {
-              type => c.session.relationship.type0,
-              gid => c.session.relationship.entity0,
-              release => release.gid
-            })
-          -%]">
-            [% l('Relate {what} to recordings',
-                 { what => html_escape(c.session.relationship.name) }) %]
-          </a>
-        </li>
-
         <hr/>
 
         [% IF release.edits_pending %]
@@ -111,7 +107,7 @@
     </ul>
 
     [% IF c.user_exists %]
-        <h2>[% l('Collections') %]</h2>
+        <h2 class="collections">[% l('Collections') %]</h2>
         <ul class="links">
         [%- IF collections.size -%]
             [% FOREACH collection IN collections %]
@@ -138,7 +134,7 @@
         [% ELSE %]
             <li>[% l("You have no collections!") %]</li>
         [% END %]
-            <li><a href="[% c.uri_for_action("/collection/create") %]">[% l('Create a new collection') %]</a></li>
+            <li><a href="[% c.uri_for_action("/collection/create", { release => release.id }) %]">[% l('Add to a new collection') %]</a></li>
             <li>[% link_release(release, 'collections', ln('Found in {num} user collection', 'Found in {num} user collections',
                                                             all_collections.size, { num => all_collections.size }) ) %]</li>
         </ul>

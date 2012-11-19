@@ -3,11 +3,13 @@
 <h1>[% l('Releases Where Track Names Start With Their Track Number') %]</h1>
 
 <ul>
-    <li>[% l('This report aims to identify releases where track names include their own
-              track number, e.g. "1) Some Name" (instead of just "Some
-              Name").') %]</li>
+    <li>[% l('This report aims to identify releases where track names include their own track
+              number, e.g. "1) Some Name" (instead of just "Some Name"). Notice that
+              sometimes this is justified and correct, don\'t automatically assume it is a
+              mistake! If you confirm it is a mistake, please correct it.') %]</li>
     <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_list.tt' -%]

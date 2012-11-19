@@ -1,9 +1,8 @@
 package MusicBrainz::Server::Controller::Report;
 use Moose;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use Data::Page;
 use DateTime;
 use MusicBrainz::Server::ReportFactory;
 
@@ -15,44 +14,39 @@ sub show : Path Args(1)
 {
     my ($self, $c, $name) = @_;
 
-    my $report = MusicBrainz::Server::ReportFactory->create_report($name, $c);
-    unless (defined $report) {
-        $c->detach('/error_404');
-    }
+    my $report = MusicBrainz::Server::ReportFactory->create_report(
+        $name, $c->model('MB')->context
+    ) or $c->detach('/error_404');
 
-    my $data;
-    eval {
-        $data = MusicBrainz::Server::ReportFactory->load_report_data($name);
-    };
-    if ($@) {
+    if (!$report->generated) {
         $c->stash( template => 'report/not_available.tt' );
         $c->detach;
     }
 
-    my $page = $c->request->query_params->{page} || 1;
-    $page = 1 if $page < 1;
-
-    my $limit = 50;
-
-    my $pager = Data::Page->new;
-    $pager->entries_per_page($limit);
-    $pager->total_entries($data->Records);
-    $pager->current_page($page);
-
-    $data->Seek(($page - 1) * $limit);
-    my @items;
-    while ($limit--) {
-        my $item = $data->Get or last;
-        push @items, $item;
-    }
-
-    $report->post_load(\@items);
-
+    my $filtered = $c->req->query_params->{filter};
     $c->stash(
-        items     => \@items,
-        pager     => $pager,
-        generated => DateTime->from_epoch( epoch => $data->Time ),
-        template  => $report->template,
+        items => $self->_load_paged($c, sub {
+            if ($filtered) {
+                if ($report->does('MusicBrainz::Server::Report::FilterForEditor')) {
+                    if ($c->user_exists) {
+                        return $report->load_filtered($c->user->id, shift, shift);
+                    }
+                    else {
+                        $c->forward('/user/login')
+                    }
+                }
+                else {
+                    die 'This report does not support filtering';
+                }
+            }
+            else {
+                $report->load(shift, shift);
+            }
+        }),
+        filtered => $filtered,
+        report => $report,
+        generated => $report->generated_at,
+        template => $report->template,
     );
 }
 
@@ -62,6 +56,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

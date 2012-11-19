@@ -23,10 +23,15 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
+use MusicBrainz::Server::Entity::Util::Release qw(
+    group_by_release_status_nested
+);
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Entity::Recording;
 use MusicBrainz::Server::Translation qw( l );
+use Set::Scalar;
 
 =head1 NAME
 
@@ -104,14 +109,20 @@ sub show : Chained('load') PathPart('')
     my $tracks = $self->_load_paged($c, sub {
         $c->model('Track')->find_by_recording($recording->id, shift, shift);
     });
+
     my @releases = map { $_->tracklist->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
     $c->model('Country')->load(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
+    $c->model('ReleaseStatus')->load(@releases);
+
     $self->relationships($c);
     $c->stash(
-        tracks   => $tracks,
+        tracks =>
+            group_by_release_status_nested(
+                sub { shift->tracklist->medium->release },
+                @$tracks),
         template => 'recording/index.tt',
     );
 }
@@ -181,7 +192,20 @@ around create => sub {
 
 before '_merge_confirm' => sub {
     my ($self, $c) = @_;
-    $c->model('ISRC')->load_for_recordings(@{ $c->stash->{to_merge} });
+    if ($c->stash->{to_merge}) {
+        my @recordings = @{ $c->stash->{to_merge} };
+        $c->model('ISRC')->load_for_recordings(@recordings);
+
+        my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
+        if (@recordings_with_isrcs > 1) {
+            my ($comparator, @tail) = @recordings_with_isrcs;
+            my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
+            my $expect = $get_isrc_set->($comparator);
+            $c->stash(
+                isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
+            );
+        }
+    }
 };
 
 around '_merge_search' => sub {
@@ -200,18 +224,20 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
     my $recording = $c->stash->{recording};
     my $form = $c->form(form => 'AddISRC');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RECORDING_ADD_ISRCS,
-            isrcs => [ {
-                isrc      => $form->field('isrc')->value,
-                recording => {
-                    id => $recording->id,
-                    name => $recording->name
-                },
-                source    => 0
-            } ]
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RECORDING_ADD_ISRCS,
+                isrcs => [ {
+                    isrc      => $form->field('isrc')->value,
+                    recording => {
+                        id => $recording->id,
+                        name => $recording->name
+                    },
+                    source    => 0
+                } ]
+            );
+        });
 
         if ($c->stash->{makes_no_changes}) {
             $form->field('isrc')->add_error(l('This ISRC already exists for this recording'));

@@ -1,17 +1,9 @@
 package MusicBrainz::Server::Form::Field::Comment;
-use HTML::FormHandler::Moose;
-extends 'HTML::FormHandler::Field::Text';
+use Moose;
 
-require Text::Trim;
+extends 'MusicBrainz::Server::Form::Field::Text';
 
-apply ([
-    {
-        transform => sub {
-            my $text = shift;
-            $text =~ s/^\((.+)\)$/$1/;
-            return Text::Trim::trim($text);
-        }
-    }
-]);
+has '+maxlength' => ( default => 255 );
+has '+not_nullable' => ( default => 1 );
 
 1;

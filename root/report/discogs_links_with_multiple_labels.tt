@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Discogs URLs Linked to Multiple Labels') full_width=1 -%]
+
+<h1>[% l('Discogs URLs Linked to Multiple Labels') %]</h1>
+
+<ul>
+    <li>[% l('This report shows Discogs URLs which are linked to multiple labels.') %]</li>
+    <li>[% l('Total labels found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/label_url_list.tt' -%]
+
+[%- END -%]

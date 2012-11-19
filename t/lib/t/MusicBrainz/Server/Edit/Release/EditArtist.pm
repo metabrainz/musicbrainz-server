@@ -14,10 +14,7 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database(
-    $c,
-    "INSERT INTO artist (id, gid, name, sort_name)
-          VALUES (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1)");
+extra_test_data($c);
 
 my $original_release = $c->model('Release')->get_by_id(1);
 
@@ -51,10 +48,7 @@ my $test = shift;
 my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
-MusicBrainz::Server::Test->prepare_test_database(
-    $c,
-    "INSERT INTO artist (id, gid, name, sort_name)
-          VALUES (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1)");
+extra_test_data($c);
 
 my $original_release = $c->model('Release')->get_by_id(1);
 
@@ -93,6 +87,15 @@ sub load_release {
     $c->model('ArtistCredit')->load(
         $release, map { $_->tracklist->all_tracks } $release->all_mediums);
     return $release;
+}
+
+sub extra_test_data {
+    my $c = shift;
+    MusicBrainz::Server::Test->prepare_test_database(
+        $c,
+        "INSERT INTO artist (id, gid, name, sort_name, comment)
+           VALUES (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other artist')");
+
 }
 
 1;

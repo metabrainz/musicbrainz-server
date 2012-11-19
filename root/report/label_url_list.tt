@@ -1,0 +1,26 @@
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('URL') %]</th>
+            <th>[% l('Label') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- lastgid = 0 -%]
+        [%- FOR item IN items -%]
+            [%- IF lastgid != item.url.gid -%]
+                <tr class="ev">
+                    <td colspan="2">[% link_entity(item.url, 'show', item.url.url) %]</td>
+                </tr>
+                [% lastgid = item.url.gid %]
+            [%- END -%]
+
+            <tr>
+                <td></td>
+                <td>[% link_entity(item.label) %]</td>
+            </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]

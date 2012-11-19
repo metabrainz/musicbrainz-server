@@ -43,7 +43,7 @@ sub run
 
     printf STDERR "You do not have both AWS_PUBLIC and AWS_PRIVATE defined in DBDefs.\n" .
         "You will not be able to find artwork from Amazon until these are set."
-            unless (DBDefs::AWS_PUBLIC && DBDefs::AWS_PRIVATE);
+            unless (DBDefs->AWS_PUBLIC && DBDefs->AWS_PRIVATE);
 
     $self->ensure_release_cover_art;
 

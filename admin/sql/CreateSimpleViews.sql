@@ -2,7 +2,7 @@
 
 BEGIN;
 
-CREATE VIEW s_artist AS
+CREATE OR REPLACE VIEW s_artist AS
     SELECT
         a.id, gid, n.name, sn.name AS sort_name,
         begin_date_year, begin_date_month, begin_date_day,
@@ -13,20 +13,20 @@ CREATE VIEW s_artist AS
     JOIN artist_name n ON a.name=n.id
     JOIN artist_name sn ON a.sort_name=sn.id;
 
-CREATE VIEW s_artist_credit AS
+CREATE OR REPLACE VIEW s_artist_credit AS
     SELECT
         a.id, n.name, artist_count, ref_count, created
     FROM artist_credit a
     JOIN artist_name n ON a.name=n.id;
 
-CREATE VIEW s_artist_credit_name AS
+CREATE OR REPLACE VIEW s_artist_credit_name AS
     SELECT
         a.artist_credit, a.position, a.artist, n.name,
         a.join_phrase
     FROM artist_credit_name a
     JOIN artist_name n ON a.name = n.id;
 
-CREATE VIEW s_label AS
+CREATE OR REPLACE VIEW s_label AS
     SELECT
         a.id, a.gid, n.name, sn.name AS sort_name,
         a.begin_date_year, a.begin_date_month, a.begin_date_day,
@@ -37,14 +37,14 @@ CREATE VIEW s_label AS
     JOIN label_name n ON a.name = n.id
     JOIN label_name sn ON a.sort_name = sn.id;
 
-CREATE VIEW s_recording AS
+CREATE OR REPLACE VIEW s_recording AS
     SELECT
         r.id, gid, n.name, artist_credit,
         length, comment, edits_pending, last_updated
     FROM recording r
     JOIN track_name n ON r.name=n.id;
 
-CREATE VIEW s_release AS
+CREATE OR REPLACE VIEW s_release AS
     SELECT
         r.id, gid, n.name, artist_credit, release_group, status, packaging,
         country, language, script, date_year, date_month, date_day,
@@ -52,21 +52,21 @@ CREATE VIEW s_release AS
     FROM release r
     JOIN release_name n ON r.name=n.id;
 
-CREATE VIEW s_release_group AS
+CREATE OR REPLACE VIEW s_release_group AS
     SELECT
         rg.id, gid, n.name, artist_credit,
         type, comment, edits_pending, last_updated
     FROM release_group rg
     JOIN release_name n ON rg.name=n.id;
 
-CREATE VIEW s_track AS
+CREATE OR REPLACE VIEW s_track AS
     SELECT
         t.id, recording, tracklist, position, n.name, artist_credit,
-        length, edits_pending, last_updated
+        length, edits_pending, last_updated, t.number
     FROM track t
     JOIN track_name n ON t.name=n.id;
 
-CREATE VIEW s_work AS
+CREATE OR REPLACE VIEW s_work AS
     SELECT
         w.id, gid, n.name, artist_credit,
         type, comment, edits_pending, last_updated

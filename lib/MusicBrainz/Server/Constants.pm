@@ -41,15 +41,18 @@ our %EXPORT_TAGS = (
     vote => [
         qw( $VOTE_NO $VOTE_ABSTAIN $VOTE_YES $VOTE_APPROVE )
     ],
+    email_addresses => [
+        qw( $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
+    ],
 );
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
         $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG 
-        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|VOTE|STATUS)_/) },
+        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG
+        $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID ),
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -204,6 +207,9 @@ Readonly our $ELECTION_ACCEPTED   => 4;
 Readonly our $ELECTION_REJECTED   => 5;
 Readonly our $ELECTION_CANCELLED  => 6;
 
+Readonly our $EMAIL_NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
+Readonly our $EMAIL_SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
+
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
 Readonly our $VOTE_YES     =>  1;
@@ -234,6 +240,8 @@ Readonly our $ELECTION_VOTE_YES     => 1;
 
 Readonly our $COVERART_FRONT_TYPE   => 2;
 Readonly our $COVERART_BACK_TYPE   => 3;
+
+Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 =head1 NAME
 

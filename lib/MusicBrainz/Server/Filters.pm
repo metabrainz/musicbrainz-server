@@ -8,12 +8,13 @@ use Encode;
 use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
+use Text::Trim qw( trim );
 use Text::WikiFormat;
 use Try::Tiny;
 use URI::Escape;
 
 use Sub::Exporter -setup => {
-    exports => [qw( format_editnote )]
+    exports => [qw( format_editnote format_wikitext )]
 };
 
 sub release_date
@@ -37,7 +38,7 @@ sub date_xsd_type
 {
     my $date = shift;
     if($date =~ /^[\d-]+$/){
-	
+
 	my ($y, $m, $d) = split /-/, $date;
 
 	return 'xsd:date' if ($y && 0 + $y && $m && 0 + $m && $d && 0 + $d);
@@ -72,6 +73,18 @@ sub format_wikitext
     my ($text) = @_;
 
     return '' unless $text;
+
+    # MBS-2437: Expand MBID entity links
+    my $ws = DBDefs->WEB_SERVER;
+    $text =~ s/
+      \[
+      (artist|label|recording|release|release-group|url|work):
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})
+    /[http:\/\/$ws\/$1\/$2\//ix;
 
     $text =~ s/</&lt;/g;
     $text =~ s/>/&gt;/g;
@@ -118,7 +131,7 @@ sub format_editnote
     my ($html) = @_;
 
     my $is_url = 1;
-    my $server = &DBDefs::WEB_SERVER;
+    my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs
     $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;
@@ -205,7 +218,27 @@ sub locale
 
 sub gravatar {
     my $email = shift;
-    return sprintf 'http://gravatar.com/avatar/%s?d=mm', md5_hex($email);
+    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
+}
+
+sub _amazon_https {
+    my $url = shift;
+    $url =~ s,http://ecx\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
+    return $url;
+}
+
+sub _generic_https {
+    my $url = shift;
+    # list only those sites that support https
+    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|www\.archive\.org)/,https://$1/,;
+    return $url;
+}
+
+sub coverart_https {
+    my $url = shift;
+    $url = _amazon_https($url);
+    $url = _generic_https($url);
+    return $url;
 }
 
 1;

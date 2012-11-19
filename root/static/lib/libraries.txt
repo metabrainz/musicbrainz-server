@@ -32,10 +32,17 @@ url:         http://www.json.org/json2.js
 
 library:     QUnit
 license:     MIT/GPLv2
-version:     (commit ba03becf377e01bd9a464857369fefd13e4b337b)
+version:     (commit e34ffb61488459f6823ded82e19865ba4b46e2ed)
 authors:     Jörn Zaefferer, John Resig
-url:         http://docs.jquery.com/QUnit, http://github.com/jquery/qunit
+url:         http://qunitjs.com, http://github.com/jquery/qunit
 
+-- qunit-tap/ --
+
+library:     QUnit-TAP
+license:     MIT/GPLv2
+version:     (commit 3faf29a93d1c060d8eaf5f4e104623d15cbb6f78)
+authors:     Takuto Wada
+url:         https://github.com/twada/qunit-tap
 
 -- sha1/sha1.js --
 
@@ -90,3 +97,27 @@ license:     MIT/GPL
 version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
+
+-- knockout/knockout-latest.debug.js --
+
+library:     Knockout
+license:     MIT
+version:     2.2.0
+author:      Steven Sanderson
+url:         http://knockoutjs.com
+
+-- underscore/underscore.js --
+
+library:     Underscore
+license:     MIT
+version:     1.4.0
+author:      Jeremy Ashkenas, DocumentCloud
+url:         http://underscorejs.org
+
+-- underscore/underscore.string.js --
+
+library:     Underscore.string
+license:     MIT
+version:     2.3.0
+author:      Esa-Matti Suuronen
+url:         http://epeli.github.com/underscore.string

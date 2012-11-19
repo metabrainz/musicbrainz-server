@@ -104,7 +104,7 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 104, 2);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 0, 4, 5, ' & ');
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, '');
 
 -- Test artist name triggers
 INSERT INTO artist_name (id, name) VALUES (100, 'Shared Name');
@@ -114,7 +114,7 @@ INSERT INTO artist_name (id, name) VALUES (103, 'Credit Name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (100, '24c94140-456b-11de-8a39-0800200c9a66', 100, 100);
 INSERT INTO artist (id, gid, name, sort_name) VALUES (101, '374d65d0-456b-11de-8a39-0800200c9a66', 101, 102);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (100, 100, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, '');
 
 INSERT INTO artist_name (id, name) VALUES (7, 'ABBA');
 
@@ -199,8 +199,8 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (2, 1, 2, 'ABC-123-X');
 
-INSERT INTO url (id, gid, url, description)
-    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/', 'MusicBrainz');
+INSERT INTO url (id, gid, url)
+    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
 INSERT INTO medium_format (id, name) VALUES (1, 'CD');
 INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');

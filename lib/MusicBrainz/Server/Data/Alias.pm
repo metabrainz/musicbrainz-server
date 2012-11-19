@@ -6,10 +6,10 @@ use Class::MOP;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
-    partial_date_from_row
     placeholders
     query_to_list
 );
+use MusicBrainz::Server::Entity::PartialDate;
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -56,8 +56,8 @@ sub _column_mapping
         edits_pending       => 'edits_pending',
         locale              => 'locale',
         type_id             => 'type_id',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         primary_for_locale  => 'primary_for_locale'
     };
 }
@@ -227,6 +227,7 @@ sub exists {
     my ($self, $alias) = @_;
     my $name_table = $self->parent->name_table;
     my $table = $self->table;
+    my $type = $self->type;
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
@@ -236,7 +237,8 @@ sub exists {
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
                AND alias.id IS DISTINCT FROM ?
-         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}
+               AND $type = ?
+         )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity}
     );
 }
 

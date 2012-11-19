@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
+use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model => 'ISRC',
@@ -32,7 +33,7 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $isrcs = $c->stash->{isrcs};
-    my @recordings = $c->model('Recording')->load(@$isrcs);
+    my @recordings = sort_by { $_->name } $c->model('Recording')->load(@$isrcs);
     $c->model('ArtistCredit')->load(@recordings);
     $c->stash(
         recordings => \@recordings,

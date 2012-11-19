@@ -4,16 +4,18 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Entity::Release;
+
+use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Label';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { l('Remove release label') }
+sub edit_name { N_l('Remove release label') }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub release_id { shift->data->{release}{id} }
@@ -68,14 +70,15 @@ sub build_display_data
 
     my $data = {
         release => $loaded->{Release}->{ $self->data->{release}{id} } ||
-            MusicBrainz::Server::Entity::Release->new( name => $self->data->{release}{name} ),
+            Release->new( name => $self->data->{release}{name} ),
         catalog_number => $self->data->{catalog_number},
     };
 
     if (my $lbl = $self->data->{label}) {
-        if ($lbl->{id})
+        if ($lbl->{id} && $lbl->{name})
         {
-            $data->{label} = $loaded->{Label}{ $lbl->{id} };
+            $data->{label} = $loaded->{Label}{ $lbl->{id} } ||
+                Label->new( name => $lbl->{name}, id => $lbl->{id} );;
         }
         elsif ($lbl->{name})
         {
