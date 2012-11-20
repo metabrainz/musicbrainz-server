@@ -207,7 +207,7 @@ sub xml_search
     my $response = $self->c->lwp->get($url);
     if ( $response->is_success )
     {
-        return { xml => decode('utf-8', $response->content) };
+        return { xml => $response->decoded_content };
     }
     else
     {
