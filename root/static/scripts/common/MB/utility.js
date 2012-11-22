@@ -259,7 +259,7 @@ MB.utility.renderArtistCredit = function (ac) {
 
 /* This takes a list of asynchronous functions (i.e. functions which
    return a jquery promise) and runs them in sequence.  It in turn
-   returs a promise which is only resolved when all promises in the
+   returns a promise which is only resolved when all promises in the
    queue have been resolved.  If one of the promises is rejected, the
    rest of the queue is still processed (but the returned promise will
    be rejected).
