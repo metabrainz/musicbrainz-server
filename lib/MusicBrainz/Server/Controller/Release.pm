@@ -438,7 +438,7 @@ sub added_cover_art : Chained('load') PathPart('added-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
-    $c->flash->{message} = l('Thank you, your edits has been entered.');
+    $c->flash->{message} = l('Thank you, your edits have been entered.');
     $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
     $c->detach;
 };
