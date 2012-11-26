@@ -15,19 +15,11 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::CoverArt';
 
 sub edit_name { N_l('Edit cover art') }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
-
-sub alter_edit_pending {
-    my $self = shift;
-
-    return {
-        Release => [ $self->release_ids ],
-        Artwork => [ $self->data->{id} ],
-    }
-}
 
 sub change_fields
 {
