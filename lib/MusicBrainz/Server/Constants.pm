@@ -94,9 +94,10 @@ Readonly our $EDIT_LABEL_DELETE_ALIAS => 17;
 Readonly our $EDIT_LABEL_EDIT_ALIAS => 18;
 
 Readonly our $EDIT_RELEASEGROUP_CREATE => 20;
+Readonly our $EDIT_RELEASEGROUP_EDIT => 21;
+Readonly our $EDIT_RELEASEGROUP_SET_COVER_ART => 22;
 Readonly our $EDIT_RELEASEGROUP_DELETE => 23;
 Readonly our $EDIT_RELEASEGROUP_MERGE => 24;
-Readonly our $EDIT_RELEASEGROUP_EDIT => 21;
 Readonly our $EDIT_RELEASEGROUP_ADD_ANNOTATION => 25;
 
 Readonly our $EDIT_RELEASE_CREATE => 31;
@@ -238,8 +239,8 @@ Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
 Readonly our $ELECTION_VOTE_YES     => 1;
 
-Readonly our $COVERART_FRONT_TYPE   => 2;
-Readonly our $COVERART_BACK_TYPE   => 3;
+Readonly our $COVERART_FRONT_TYPE   => 1;
+Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 

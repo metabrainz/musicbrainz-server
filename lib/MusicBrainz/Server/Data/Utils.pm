@@ -212,7 +212,8 @@ sub query_to_list_limited
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    my $hits = $sql->row_count + $offset;
+
+    my $hits = $sql->row_count + ($offset || 0);
     $sql->finish;
     return (\@result, $hits);
 }

@@ -21,5 +21,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 10, 316, '', 2, now());
 INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering) VALUES (12345, 1, 1, 1);
+INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (12345, 1);
 
 ALTER SEQUENCE edit_id_seq RESTART 2;
