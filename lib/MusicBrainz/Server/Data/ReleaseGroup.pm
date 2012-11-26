@@ -604,6 +604,16 @@ sub load_meta
     }, @_);
 }
 
+sub has_cover_art_set
+{
+    my ($self, $rg_id) = @_;
+
+    my $query = "SELECT release
+            FROM cover_art_archive.release_group_cover_art
+            WHERE release_group = ?";
+
+    return $self->sql->select_single_value ($query, $rg_id);
+}
 
 sub set_cover_art {
     my ($self, $rg_id, $release_id) = @_;

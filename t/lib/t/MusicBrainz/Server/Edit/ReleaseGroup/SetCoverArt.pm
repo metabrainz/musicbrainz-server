@@ -77,3 +77,4 @@ test 'Set cover art fails if release no longer exists' => sub {
         "... and is a failed dependancy");
 };
 
+1;

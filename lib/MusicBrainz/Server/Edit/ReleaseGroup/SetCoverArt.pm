@@ -55,9 +55,10 @@ sub initialize {
     my %old;
     my %new = ( release_id => $opts{release}->id );
 
-    if ($opts{entity}->cover_art && $opts{entity}->cover_art->release)
+    if ($rg->cover_art && $rg->cover_art->release
+        && $self->c->model('ReleaseGroup')->has_cover_art_set ($rg->id))
     {
-        $old{release_id} = $opts{entity}->cover_art->release->id;
+        $old{release_id} = $rg->cover_art->release->id;
     }
 
     $self->data({
