@@ -55,22 +55,22 @@ END; -%]
         l('aged {num}', { num => age.0 });
       ELSE;
         IF age.0;
-          ln('{num} year', '{num}&nbsp;years', age.0, { num => age.0 });
+          ln('{num} year', '{num}&#xa0;years', age.0, { num => age.0 });
         ELSIF age.1;
-          ln('{num} month', '{num}&nbsp;months', age.1, { num => age.1 });
+          ln('{num} month', '{num}&#xa0;months', age.1, { num => age.1 });
         ELSE;
-          ln('{num} day', '{num}&nbsp;days', age.2, { num => age.2 });
+          ln('{num} day', '{num}&#xa0;days', age.2, { num => age.2 });
         END;
       END;
     END -%]
 
 [%- MACRO display_age_ago(age) BLOCK;
         IF age.0;
-          ln('{num} year ago', '{num}&nbsp;years ago', age.0, { num => age.0 });
+          ln('{num} year ago', '{num}&#xa0;years ago', age.0, { num => age.0 });
         ELSIF age.1;
-          ln('{num} month ago', '{num}&nbsp;months ago', age.1, { num => age.1 });
+          ln('{num} month ago', '{num}&#xa0;months ago', age.1, { num => age.1 });
         ELSE;
-          ln('{num} day ago', '{num}&nbsp;days ago', age.2, { num => age.2 });
+          ln('{num} day ago', '{num}&#xa0;days ago', age.2, { num => age.2 });
         END;
     END -%]
 
@@ -114,6 +114,14 @@ END; -%]
 [% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]
 <a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
+
+[%- MACRO cover_art_url(url) BLOCK;
+    IF c.req.secure;
+        url | coverart_https;
+    ELSE;
+        url;
+    END;
+END -%]
 
 [%- MACRO comma_list(items) BLOCK -%]
     [% IF items.size == 1 %]
@@ -398,7 +406,7 @@ END -%]
     IF editor.preferences.show_gravatar;
       '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
     ELSE;
-      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar">';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar" />';
     END;
     text;
     '</a>';
@@ -484,7 +492,7 @@ END -%]
 [%- MACRO sortble_table_header(name, label) BLOCK -%]
     <th>
         <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
-        [%- IF order == name %]&nbsp;&#9652;[% ELSIF order == '-' _ name %]&nbsp;&#9662;[% END %]
+        [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
     </th>
 [%- END -%]
 
@@ -605,29 +613,29 @@ END -%]
 END -%]
 
 [%- MACRO expiration_time(datetime) BLOCK -%]
-    [% IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date %]
-        [% IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
+    [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
+        [%- IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
                   Countdown.total_days(datetime),
                 { num => Countdown.total_days(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% ELSIF Countdown.hours(datetime) > 0 # Show hours %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- ELSIF Countdown.hours(datetime) > 0 # Show hours -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
                   Countdown.hours(datetime),
                 { num => Countdown.hours(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% ELSE # Only show minutes %]
-            [% ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- ELSE # Only show minutes -%]
+            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
                   Countdown.minutes(datetime),
                 { num => Countdown.minutes(datetime),
-                  exactdate => UserDate.format(datetime) }) %]
-        [% END %]
-    [% ELSE %]
+                  exactdate => UserDate.format(datetime) }) -%]
+        [%- END -%]
+    [%- ELSE -%]
         [% l('Already expired') %]
-    [% END %]
+    [%- END -%]
 [%- END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
@@ -705,6 +713,7 @@ END -%]
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('trove.nla.gov.au'); 'trove';
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
+    ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
     ELSE; '';
 END -%]
 

@@ -1,8 +1,7 @@
 package t::MusicBrainz::Server::Controller::Collection::Show;
 use Test::Routine;
 use Test::More;
-use Test::XPath;
-use MusicBrainz::Server::Test qw( html_ok );
+use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 use HTTP::Status qw( :constants );
 
 around run_test => sub {
@@ -22,10 +21,11 @@ test 'Collection view has link back to all collections (signed in)' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor1/collections")]',
+    my $tx = test_xpath_html ($mech->content);
+
+    $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor1/collections")]',
             'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of your collections",
+    $tx->is('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a', "See all of your collections",
             'contains correct description');
 };
 
@@ -34,10 +34,11 @@ test 'Collection view has link back to all collections (not yours)' => sub {
     my $mech = $test->mech;
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->ok('//div[@id="content"]/div/p/span[@class="small"]/a[contains(@href,"/editor2/collections")]',
+    my $tx = test_xpath_html ($mech->content);
+
+    $tx->ok('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a[contains(@href,"/editor2/collections")]',
             'contains link');
-    $tx->is('//div[@id="content"]/div/p/span[@class="small"]/a', "See all of editor2's public collections",
+    $tx->is('//html:div[@id="content"]/html:div/html:p/html:span[@class="small"]/html:a', "See all of editor2's public collections",
             'contains correct description');
 };
 

@@ -129,7 +129,7 @@ sub nibble
     }
     print localtime() . " : Saving to $filename\n";
 
-    print $fh "-- schema sequence " . &DBDefs::DB_SCHEMA_SEQUENCE . "\n"
+    print $fh "-- schema sequence " . DBDefs->DB_SCHEMA_SEQUENCE . "\n"
         or die $!;
 
     my $done = 0;

@@ -23,7 +23,7 @@ is($sql->select_single_value('SELECT 1 FROM release_coverart WHERE id = 1 AND co
 
 SKIP: {
     skip 'Testing Amazon CoverArt requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set', 1
-        unless DBDefs::AWS_PUBLIC() && DBDefs::AWS_PRIVATE();
+        unless DBDefs->AWS_PUBLIC() && DBDefs->AWS_PRIVATE();
 
     is($sql->select_single_value('SELECT 1 FROM release_coverart WHERE id = 2 AND cover_art_url IS NOT NULL'), 1);
 };

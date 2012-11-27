@@ -42,6 +42,8 @@ use MusicBrainz::Server::FilterUtils qw(
 );
 use Sql;
 
+use List::AllUtils qw( any );
+
 my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
 =head1 NAME
@@ -517,6 +519,11 @@ around _validate_merge => sub {
     my $target = $form->field('target')->value;
     if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
+        return 0;
+    }
+
+    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+        $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }
 

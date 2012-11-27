@@ -42,6 +42,11 @@
             [% END %]
         </p>
         [% END %]
+        [% IF use_languages %]
+        <p>
+            <strong>[% l('Interface language:') %]</strong> [% current_language %]
+        </p>
+        [% END %]
 
         <p>
           <strong>[% l("URL:") %]</strong>
@@ -49,7 +54,7 @@
         </p>
 
         <p>
-            [%- l("We're terribly sorry for this problem. Please wait a few minutes and repeat your request &mdash; the problem may go away.") %]
+            [%- l("We're terribly sorry for this problem. Please wait a few minutes and repeat your request &#x2014; the problem may go away.") %]
         </p>
         <p>
             [%- l('If the problem persists, please {report|report a bug} and include any error message that is shown above.', 

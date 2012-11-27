@@ -8,7 +8,7 @@ use DBDefs;
 sub auto : Private
 {
     my ($self, $c) = @_;
-    unless (DBDefs::DB_STAGING_TESTING_FEATURES) {
+    unless (DBDefs->DB_STAGING_TESTING_FEATURES) {
         $c->forward('/error_404');
         return 0;
     }

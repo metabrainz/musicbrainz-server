@@ -4,6 +4,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity boolean );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
@@ -35,7 +36,7 @@ sub serialize
     $body{asin} = $entity->amazon_asin;
     $body{barcode} = $entity->barcode->code;
     $body{date} = $entity->date->format;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
     $body{quality} = _quality ($entity->quality);
     $body{packaging} = $entity->packaging

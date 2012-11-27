@@ -33,23 +33,19 @@ var validationHandlers = {
         }
     },
 
-    begin_date: function(field, value, relationship) {
-        validateDatePeriod(field, relationship.end_date, validateDate(field, value));
+    "period.begin_date": function(field, value, relationship) {
+        validateDatePeriod(field, relationship.period.end_date, validateDate(field, value));
     },
 
-    end_date: function(field, value, relationship) {
-        validateDatePeriod(relationship.begin_date, field, null, validateDate(field, value));
+    "period.end_date": function(field, value, relationship) {
+        validateDatePeriod(relationship.period.begin_date, field, null, validateDate(field, value));
     },
 
-    ended: function(field, value) {
+    "period.ended": function(field, value) {
         _.isBoolean(value) ? field.error("") : field.error(MB.text.InvalidValue);
     },
 
-    backward: function(field, value) {
-        field.error(_.isBoolean(value) ? "" : MB.text.InvalidValue);
-    },
-
-    attributes: function(field, value, relationship) {
+    attrs: function(field, value, relationship) {
         var linkType = relationship.link_type(), typeInfo = Util.typeInfo(linkType);
         if (!typeInfo) return;
 
@@ -79,12 +75,17 @@ var validationHandlers = {
         });
     },
 
-    target: function(field, value) {
+    "entity.0": function(field, value) {
         field.error(Util.isMBID(value.gid) ? "" : MB.text.RequiredField);
     }
 };
 
+validationHandlers["entity.1"] = validationHandlers["entity.0"];
+
+
 function validateDate(field, value) {
+    if (field.error === undefined) return false;
+
     var y = value.year(), m = value.month(), d = value.day(),
         valid = (y === null && m === null && d === null) || MB.utility.validDate(y, m, d);
 
@@ -109,50 +110,58 @@ function validateDatePeriod(begin, end, beginValid, endValid) {
 
 // used to track changes, handle validation, and update "action" accordingly
 
-ko.extenders.field = function(target, options) {
-    var relationship = options[0], name = options[1], fullName = options[2] || name;
+ko.extenders.field = function(observable, options) {
+    var self = {
+        observable: observable,
+        relationship: options[0],
+        name: options[1]
+    }, validateAndCompare = options[2];
 
-    target.error = ko.observable("");
-    target.hasError = false;
+    observable.error = ko.observable("");
+    observable.error.subscribe(errorChanged, self);
+    observable.hasError = false;
+    observable.changed = false;
 
-    target.errorSub = target.error.subscribe(function(error) {
-        var hasError = Boolean(error);
+    if (validateAndCompare !== false) {
+        fieldChanged.call(self, observable());
+        observable.subscribe(fieldChanged, self);
+    }
+    return observable;
+};
 
-        if (hasError != target.hasError) {
-            relationship.errorCount += (hasError ? 1 : -1);
-            relationship.hasErrors(relationship.errorCount > 0);
-        }
-        target.hasError = hasError;
-    });
+var errorChanged = function(error) {
+    var hasError = Boolean(error);
 
-    delete fullName;
-    var noValidationOrComparison = options[3];
+    if (hasError != this.observable.hasError)
+        this.relationship.hasErrors(
+            (this.relationship.errorCount += (hasError ? 1 : -1)) > 0);
 
-    if (!noValidationOrComparison)
-        target.validationSub = target.subscribe(function(value) {
-            validationHandlers[name](target, value, relationship);
-        });
+    this.observable.hasError = hasError;
+};
 
-    if (relationship.action.peek() == "add" || noValidationOrComparison) return target;
+var fieldChanged = function(newValue) {
+    newValue = ko.utils.unwrapObservable(newValue);
+    var observable = this.observable, relationship = this.relationship, name = this.name;
 
-    target.changed = false;
+    validationHandlers[name](observable, newValue, relationship);
 
-    target.subscribe(function(newValue) {
-        newValue = ko.utils.unwrapObservable(newValue);
-        // entities are unique, we compare them directly.
-        if (name != "target") newValue = ko.mapping.toJS(newValue);
+    if (relationship.action.peek() == "add") return;
 
-        var origValue = Util.originalFields(relationship, name),
-            changed = !_.isEqual(origValue, newValue);
+    var origValue = relationship.original_fields, fields = name.split("."), changed;
+    for (var i = 0; i < fields.length; i++) origValue = origValue[fields[i]];
 
-        if (changed != target.changed)
-            relationship.changeCount += (changed ? 1 : -1);
+    // entities are unique, we compare them directly.
+    /^entity/.test(name)
+        ? (origValue = RE.Entity(origValue))
+        : (newValue = ko.toJS(newValue));
 
-        target.changed = changed;
-        relationship.action(relationship.changeCount > 0 ? "edit" : "");
-    });
+    changed = !_.isEqual(origValue, newValue);
 
-    return target;
+    if (changed != observable.changed)
+        relationship.changeCount += (changed ? 1 : -1);
+
+    observable.changed = changed;
+    relationship.action(relationship.changeCount > 0 ? "edit" : "");
 };
 
 
@@ -194,7 +203,7 @@ Fields.PartialDate.prototype.write = function(obj) {
     date.year(obj.year);
     date.month(obj.month);
     date.day(obj.day);
-}
+};
 
 Fields.PartialDate.prototype.convert = function(obj) {
     obj = ko.utils.unwrapObservable(obj);
@@ -208,23 +217,35 @@ Fields.PartialDate.prototype.partChanged = function() {
 };
 
 
-var Attribute = function(name, value, attr, relationship) {
-    this.value = ko.observable(Util.convertAttr(attr, value));
+Fields.Attribute = function(attr, value, relationship) {
     this.attr = attr;
+    this.value = ko.observable(this.convert(value));
     this.relationship = relationship;
 
     return (ko.computed({read: this.value, write: this.write, owner: this})
-        .extend({field: [relationship, null, "attrs." + name, true]}));
+        .extend({field: [relationship, "attrs." + attr.name, false]}));
 };
 
-
-Attribute.prototype.write = function(newValue) {
-    newValue = Util.convertAttr(this.attr, ko.utils.unwrapObservable(newValue));
+Fields.Attribute.prototype.write = function(newValue) {
+    newValue = this.convert(ko.utils.unwrapObservable(newValue));
 
     if (!_.isEqual(this.value(), newValue)) {
         this.value(newValue);
-        var attrs = this.relationship.attributes;
-        attrs.notifySubscribers(attrs());
+        var attrs = this.relationship.attrs;
+        attrs.notifySubscribers(attrs.peek());
+    }
+};
+
+Fields.Attribute.prototype.convert = function(value) {
+    if (this.attr.children) {
+        if (!_.isArray(value)) value = [value];
+
+        return (_.chain(value)
+            .map(function(n) {return parseInt(n, 10)})
+            .compact().uniq().value()
+            .sort(function(a, b) {return a - b}));
+    } else {
+        return Boolean($.isNumeric(value) ? parseInt(value, 10) : value);
     }
 };
 
@@ -236,7 +257,7 @@ Attribute.prototype.write = function(newValue) {
 Fields.Attributes = function(relationship) {
     this.value = {};
     this.relationship = relationship;
-    return ko.computed({read: this.read, write: this.write, owner: this, deferEvaluation: true});
+    return ko.computed({read: this.read, write: this.update, owner: this, deferEvaluation: true});
 };
 
 Fields.Attributes.prototype.read = function() {
@@ -244,18 +265,15 @@ Fields.Attributes.prototype.read = function() {
     return this.value;
 };
 
-Fields.Attributes.prototype.write = function(newValue) {
-    this.update(newValue);
-};
-
 Fields.Attributes.prototype.update = function(value) {
-    var target = this.value, validAttrs = {}, self = this;
+    var target = this.value, validAttrs = {}, self = this,
+        typeInfo = Util.typeInfo(this.relationship.link_type()) || {};
 
-    Util.attrsForLinkType(this.relationship.link_type(), function(attr) {
-        var name = attr.name;
+    _.each(typeInfo.attrs || {}, function(info, id) {
+        var attr = Util.attrInfo(id), name = attr.name;
 
         if (target[name] === undefined) {
-            target[name] = new Attribute(name, value[name], attr, self.relationship);
+            target[name] = new Fields.Attribute(attr, value[name], self.relationship);
 
         } else if (value[name] !== undefined) {
             target[name](value[name]);
@@ -270,31 +288,26 @@ Fields.Attributes.prototype.update = function(value) {
 
         if (validAttrs[name] === undefined) {
             if (attr.hasError) attr.error("");
-
-            attr.errorSub.dispose();
             delete target[name];
         }
     }
 };
 
-
-Fields.Target = function(target, relationship) {
-    this.target = ko.observable(target);
+Fields.Entity = function(entity, relationship) {
+    this.entity = ko.observable(entity);
     this.relationship = relationship;
-
-    this.computed = ko.computed({read: this.target, write: this.write, owner: this})
-        .extend({field: [relationship, "target"]});
-
-    return this.computed
+    return ko.computed({read: this.entity, write: this.write, owner: this});
 };
 
-Fields.Target.prototype.write = function(newTarget) {
-    var relationship = this.relationship, oldTarget = this.target(),
-        newTarget = RE.Entity(ko.utils.unwrapObservable(newTarget));
+Fields.Entity.prototype.write = function(entity) {
+    var currentEntity = this.entity.peek();
+    entity = RE.Entity(entity);
 
-    if (oldTarget !== newTarget)
-        relationship.changeTarget(oldTarget, newTarget, this.target);
-}
+    if (currentEntity !== entity && currentEntity.type == entity.type) {
+        this.entity(entity);
+        this.relationship.entityChanged(currentEntity, entity);
+    }
+};
 
 return RE;
 

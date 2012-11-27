@@ -33,6 +33,33 @@ test 'basic release lookup' => sub {
         });
 };
 
+test 'basic release lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic release lookup, inc=annotation',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=annotation' => encode_json (
+        {
+            id => "adcf7b48-086e-48ee-b420-1001f88d672f",
+            title => "My Demons",
+            status => "Official",
+            quality => "normal",
+            "text-representation" => {
+                language => "eng",
+                script => "Latn",
+            },
+            date => "2007-01-29",
+            country => "GB",
+            barcode => "600116817020",
+            asin => "B000KJTG6K",
+            annotation => "this is a release annotation",
+            disambiguation => "",
+            packaging => JSON::null,
+        });
+};
+
 test 'basic release with tags' => sub {
 
     my $c = shift->c;

@@ -28,11 +28,11 @@ sub show : Path('')
     $c->stash(
         id => $id,
         page => $page,
-        google_custom_search => &DBDefs::GOOGLE_CUSTOM_SEARCH,
+        google_custom_search => DBDefs->GOOGLE_CUSTOM_SEARCH,
     );
 
     if ($id =~ /^[^:]+:/i && $id !~ /^Category:/i) {
-        $c->response->redirect(sprintf('http://%s/%s', DBDefs::WIKITRANS_SERVER, $id));
+        $c->response->redirect(sprintf('http://%s/%s', DBDefs->WIKITRANS_SERVER, $id));
         $c->detach;
     }
 
