@@ -7,16 +7,21 @@
 <p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
 
 <h2>[% l('Edits') %]</h2>
+[%- IF by_category.size == 0 -%]
+<p>
+    [%- l('No edit statistics available.') -%]
+</p>
+[%- ELSE -%]
 <table class="database-statistics">
 <tbody>
 <tr>
-    <th colspan=2>[% l('Edits:') %]</th>
+    <th colspan="2">[% l('Edits:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit')) %]</td>
     <td></td>
 </tr>
 [%- FOREACH category IN by_category -%]
 <tr class="thead">
-   <th colspan=4>[% category.key %]</th>
+   <th colspan="4">[% category.key %]</th>
 </tr>
 [% FOREACH type_class IN category.value %]
 [% USE type = Class(type_class) %]
@@ -27,6 +32,7 @@
 [%- END -%]
 </tbody>
 </table>
+[%- END -%]
 
 [%- PROCESS "statistics/macros-footer.tt" -%]
 [% END %]

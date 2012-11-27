@@ -43,7 +43,7 @@
                           edit.display_data.country.old.name,
                           edit.display_data.country.new.name) -%]
 
-  [%- display_full_change(l('Status:'),
+  [%- display_full_change(lp('Status:', 'release status'),
                           edit.display_data.status.old.name,
                           edit.display_data.status.new.name) -%]
 

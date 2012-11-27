@@ -36,9 +36,9 @@ augment 'create_edits' => sub
                      date as_auto_editor release_group_id artist_credit );
     my %args = map { $_ => $data->{$_} } grep { exists $data->{$_} } @fields;
 
-    map {
-        $args{$_} = trim ($data->{$_})
-    } grep { exists $data->{$_} } qw( name comment barcode );
+    $args{name} = trim ($data->{name});
+    $args{comment} = trim ($data->{comment} // '');
+    $args{barcode} = trim ($data->{barcode});
 
     if ($data->{no_barcode})
     {
@@ -142,6 +142,7 @@ sub _edits_from_tracklist
     my $tracklist = $self->c->model('Tracklist')->get_by_id($tracklist_id);
     $self->c->model('Track')->load_for_tracklists($tracklist);
     $self->c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $self->c->model('Artist')->load(map { @{ $_->artist_credit->names } } $tracklist->all_tracks);
 
     return [ map { $self->track_edit_from_track ($_) } $tracklist->all_tracks ];
 }

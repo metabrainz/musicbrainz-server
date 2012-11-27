@@ -36,7 +36,7 @@
 
   [% IF edit.display_data.status %]
   <tr>
-    <th>[% l('Status:') %]</th>
+    <th>[% lp('Status:', 'release status') %]</th>
     <td>[% edit.display_data.status.name | html %]</td>
   </tr>
   [% END %]

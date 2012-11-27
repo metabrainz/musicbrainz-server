@@ -55,7 +55,7 @@ is_deeply($edit->data, {
                 join_phrase => '',
             } ] },
         name => 'Arrival',
-        comment => undef,
+        comment => '',
         type_id => 1,
     },
     entity => {

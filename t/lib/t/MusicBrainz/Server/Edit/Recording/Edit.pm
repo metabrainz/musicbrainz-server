@@ -147,7 +147,7 @@ sub is_unchanged {
     subtest 'check recording hasnt changed' => sub {
         plan tests => 4;
         is($recording->name, 'Traits (remix)');
-        is($recording->comment, undef);
+        is($recording->comment, '');
         is($recording->artist_credit_id, 1);
         is($recording->length, undef);
     }

@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'CDStubTOC',
@@ -17,6 +18,8 @@ sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
 sub _load 
 {
     my ($self, $c, $id) = @_;
+
+    add_dash($c, $id);
 
     if (!is_valid_discid($id)) {
         $c->stash(

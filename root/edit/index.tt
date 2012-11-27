@@ -1,7 +1,10 @@
 [%- WRAPPER 'layout.tt' title=l('Edit #{id}', { id => edit.id }) -%]
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        [%- INCLUDE "edit/info.tt" -%]
+      [%- INCLUDE "edit/info.tt" -%]
     [% END %]
+  [%- END -%]
+
     <div id="content">
 
         [% INCLUDE 'edit/edit_header.tt' %]
@@ -41,7 +44,7 @@
                 <tr class="[% 'superseded' IF vote.superseded %][% 'first' IF edit.votes.size == 1 %]">
                     <th>[% link_entity(vote.editor) %]</th>
                     <td class="vote">
-                        [% vote.vote_name %]
+                        [% l(vote.vote_name) %]
                         <span class="date">[% UserDate.format(vote.vote_time) %]</span>
                     </td>
                 </tr>
@@ -75,8 +78,10 @@
 
             <h2>[% l('Edit notes') %]</h2>
             [% INCLUDE 'edit/notes.tt' %]
-            [%- IF edit.editor_may_add_note(c.user) || edit.editor_may_vote -%]
-                [%- form_submit(l('Add note and vote')) -%]
+            [%- IF edit.editor_may_vote(c.user) -%]
+                    [%- form_submit(l('Add note and vote')) -%]
+            [%- ELSIF edit.editor_may_add_note(c.user) -%]
+                    [%- form_submit(l('Add note')) -%]
             [%- END -%]
         </form>
     </div>

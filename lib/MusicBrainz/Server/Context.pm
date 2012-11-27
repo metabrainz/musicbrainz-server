@@ -23,7 +23,7 @@ has 'connector' => (
 has 'database' => (
     is => 'ro',
     isa => 'Str',
-    default => sub { &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
+    default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
 );
 
 sub _build_connector {
@@ -73,7 +73,7 @@ sub model
 sub create_script_context
 {
     my ($class, %args) = @_;
-    my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
+    my $cache_manager = MusicBrainz::Server::CacheManager->new(DBDefs->CACHE_MANAGER_OPTIONS);
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, %args);
 }
 

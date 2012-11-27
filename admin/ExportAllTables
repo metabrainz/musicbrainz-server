@@ -41,8 +41,6 @@ my @tables = qw(
     artist_rating_raw
     artist_tag_raw
     cdtoc_raw
-    statistic
-    statistic_event
     edit
     edit_artist
     edit_label
@@ -194,6 +192,10 @@ my @tables = qw(
     cover_art_archive.art_type
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
+    cover_art_archive.release_group_cover_art
+
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @replication_tables = qw(
@@ -319,8 +321,8 @@ my @group_derived = qw(
     );
 
 my @group_stats = qw(
-    statistic
-    statistic_event
+    statistics.statistic
+    statistics.statistic_event
 );
 
 my @group_editor = qw(
@@ -385,6 +387,7 @@ my @group_cover_art_archive = (
     'cover_art_archive.art_type',
     'cover_art_archive.cover_art',
     'cover_art_archive.cover_art_type',
+    'cover_art_archive.release_group_cover_art'
 );
 
 my @groups = (
@@ -410,6 +413,8 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
+my $encrypt_for = undef;
+my $sign_with = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -423,6 +428,8 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
+    "encrypt-for|e=s" => \$encrypt_for,
+    "sign-with|s=s" => \$sign_with
 );
 
 sub usage
@@ -439,6 +446,8 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
+    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
+    -s, --sign-with       A GPG key that is used to sign data dumps.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -447,6 +456,11 @@ Certain combinations of options are pointless:
 
 If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
+
+GPG encryption of private data requires you pass a recipient to encrypt data
+for. This parameter can take any value that gpg(1) can take for
+`--recipient`. The user running ExportAllTables must have a GPG keyring setup
+that is aware of this recipient.
 
 EOF
 }
@@ -528,8 +542,8 @@ my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
 };
 
 $iSchemaSequence or die "Don't know what schema sequence number we're using";
-$iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE
-    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs::DB_SCHEMA_SEQUENCE (".&DBDefs::DB_SCHEMA_SEQUENCE.")";
+$iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE
+    or die "Stored schema sequence ($iSchemaSequence) does not match DBDefs->DB_SCHEMA_SEQUENCE (".DBDefs->DB_SCHEMA_SEQUENCE.")";
 
 # Write the SCHEMA_SEQUENCE file.  Again, this is parseable - it's just an
 # integer.
@@ -734,6 +748,11 @@ if ($fCompress and $fDoFullExport)
            ' | grep -v mbdump-private > MD5SUMS';
 
     $? == 0 or die "md5sum returned $?";
+
+    if ($encrypt_for) {
+        system "/usr/bin/gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "rm $OutputDir/mbdump-private.tar.bz2";
+    }
 }
 
 if ($fCompress and $fDoReplication)
@@ -785,6 +804,9 @@ sub make_tar
         ;
     $? == 0 or die "Tar returned $?";
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
+
+    system "/usr/bin/gpg --default-key $sign_with --sign $OutputDir/$tarfile"
+        if $sign_with;
 }
 
 sub writefile

@@ -35,7 +35,7 @@ use integer;
 use Getopt::Long;
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
-&DBDefs::REPLICATION_TYPE == RT_SLAVE
+DBDefs->REPLICATION_TYPE == RT_SLAVE
     or die "This is not a slave server!\n";
 
 my $fHelp;
@@ -125,11 +125,11 @@ my ($iSchemaSequence, $iReplicationSequence, $dtReplicationDate) = do {
     )};
 };
 
-unless ($iSchemaSequence == &DBDefs::DB_SCHEMA_SEQUENCE)
+unless ($iSchemaSequence == DBDefs->DB_SCHEMA_SEQUENCE)
 {
     printf STDERR "%s : Schema sequence mismatch - codebase is %d, database is %d\n",
         scalar localtime,
-        &DBDefs::DB_SCHEMA_SEQUENCE,
+        DBDefs->DB_SCHEMA_SEQUENCE,
         $iSchemaSequence,
         ;
     exit 1;

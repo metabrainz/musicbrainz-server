@@ -25,9 +25,9 @@
            Category: {
                 "core-entities" : { Label: '[% l('Core Entities') | js %]' },
                 "edit-information": { Label: '[% l('Edit Information') | js %]', Hide: true },
-		"artist-countries": { Label: '[% l('Artist Countries') | js %]' },
-		"label-countries": { Label: '[% l('Label Countries') | js %]' },
-		"release-countries": { Label: '[% l('Release Countries') | js %]' },
+                "artist-countries": { Label: '[% l('Artist Countries') | js %]' },
+                "label-countries": { Label: '[% l('Label Countries') | js %]' },
+                "release-countries": { Label: '[% l('Release Countries') | js %]' },
                 "release-scripts": { Label: '[% l('Release Scripts') | js %]' },
                 "release-languages": { Label: '[% l('Release Languages') | js %]' },
                 "artist-other": { Label: '[% l('Artist Types and Genders') | js %]' },
@@ -68,7 +68,7 @@
 
             "count.vote.yes": { Label: '[% l('Yes Votes') | js %]', Color: '#00ffff', Description: '[% l('Count of all Yes votes') | js %]', Category: "edit-information" },
             "count.vote.no": { Label: '[% l('No Votes') | js %]', Color: '#00ffff', Description: '[% l('Count of all No votes') | js %]', Category: "edit-information" },
-            "count.vote.abstain": { Label: '[% l('Abstentions') | js %]', Color: '#00ffff', Description: '[% l('Count of all Am-nais votes') | js %]', Category: "edit-information" },
+            "count.vote.abstain": { Label: '[% l('Abstentions') | js %]', Color: '#00ffff', Description: '[% l('Count of all Abstain votes') | js %]', Category: "edit-information" },
 
             "count.editor": { Label: '[% l('Editors') | js %]', Color: '#ff0000', Description: '[% l('Count of all editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') | js %]', Category: "edit-information" },

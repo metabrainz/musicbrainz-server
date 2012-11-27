@@ -11,7 +11,7 @@ my @xvfb_run = Env::Path->PATH->Whence('xvfb-run');
 my $xvfb_run = $xvfb_run[0] if scalar @xvfb_run;
 
 $testroot = "$Bin/../root/static/scripts/tests";
-$testrunner = "$testroot/phantom-qunit.js";
+$testrunner = "$Bin/../root/static/lib/qunit-tap/sample/js/run_qunit.js";
 $testsuite = "$testroot/all.html";
 
 if (! -x $phantomjs)

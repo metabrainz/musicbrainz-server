@@ -37,6 +37,11 @@ around BUILDARGS => sub {
     }
 };
 
+sub new_from_row {
+    my ($class, $row, $prefix) = @_;
+    return $class->new($row->{$prefix."barcode"});
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

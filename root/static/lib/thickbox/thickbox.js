@@ -160,12 +160,12 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 				if(keycode == 27){ // close
 					tb_remove();
-				} else if(keycode == 190){ // display previous image
+				} else if(keycode == 190 || keycode == 39){ // display previous image
 					if(!(TB_NextHTML == "")){
 						document.onkeydown = "";
 						goNext();
 					}
-				} else if(keycode == 188){ // display next image
+				} else if(keycode == 188 || keycode == 37){ // display next image
 					if(!(TB_PrevHTML == "")){
 						document.onkeydown = "";
 						goPrev();

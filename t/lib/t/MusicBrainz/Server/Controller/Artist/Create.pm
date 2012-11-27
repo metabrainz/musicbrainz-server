@@ -29,12 +29,12 @@ subtest 'Create artists with all fields' => sub {
             'edit-artist.type_id' => 1,
             'edit-artist.country_id' => 2,
             'edit-artist.gender_id' => 2,
-            'edit-artist.begin_date.year' => 1990,
-            'edit-artist.begin_date.month' => 01,
-            'edit-artist.begin_date.day' => 02,
-            'edit-artist.end_date.year' => 2003,
-            'edit-artist.end_date.month' => 4,
-            'edit-artist.end_date.day' => 15,
+            'edit-artist.period.begin_date.year' => 1990,
+            'edit-artist.period.begin_date.month' => 01,
+            'edit-artist.period.begin_date.day' => 02,
+            'edit-artist.period.end_date.year' => 2003,
+            'edit-artist.period.end_date.month' => 4,
+            'edit-artist.period.end_date.day' => 15,
             'edit-artist.comment' => 'artist created in controller_artist.t',
         }
     );
@@ -94,12 +94,12 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
             'edit-artist.type_id' => '',
             'edit-artist.country_id' => '',
             'edit-artist.gender_id' => '',
-            'edit-artist.begin_date.year' => '',
-            'edit-artist.begin_date.month' => '',
-            'edit-artist.begin_date.day' => '',
-            'edit-artist.end_date.year' => '',
-            'edit-artist.end_date.month' => '',
-            'edit-artist.end_date.day' => '',
+            'edit-artist.period.begin_date.year' => '',
+            'edit-artist.period.begin_date.month' => '',
+            'edit-artist.period.begin_date.day' => '',
+            'edit-artist.period.end_date.year' => '',
+            'edit-artist.period.end_date.month' => '',
+            'edit-artist.period.end_date.day' => '',
             'edit-artist.comment' => '',
         }
     );
@@ -114,7 +114,7 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
     is($edit->data->{type_id}, undef);
     is($edit->data->{country_id}, undef);
     is($edit->data->{gender_id}, undef);
-    is($edit->data->{comment}, undef);
+    is($edit->data->{comment}, '');
 
     ok( PartialDate->new($edit->data->{begin_date})->is_empty );
     ok( PartialDate->new($edit->data->{end_date})->is_empty );

@@ -1,3 +1,5 @@
+SET search_path = musicbrainz, public;
+
 BEGIN;
 
 CREATE OR REPLACE FUNCTION extract_path_value(text, text)

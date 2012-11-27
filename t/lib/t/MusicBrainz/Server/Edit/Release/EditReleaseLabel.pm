@@ -83,6 +83,30 @@ test 'Editing the catalog number can fail as a conflict' => sub {
     ok  exception { $edit2->accept };
 };
 
+test 'Editing to remove the label works correctly' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    my $edit1 = _create_edit($c, $rl, label => undef);
+
+    ok !exception { $edit1->accept };
+};
+
+test 'Editing to remove the catalog number works correctly' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $rl = $c->model('ReleaseLabel')->get_by_id(1);
+    my $edit1 = _create_edit($c, $rl, catalog_number => undef);
+
+    ok !exception { $edit1->accept };
+};
+
 test 'Parallel edits that dont conflict merge' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -108,6 +132,22 @@ test 'Parallel edits that dont conflict merge' => sub {
     is($rl->label_id, 2);
     is($rl->catalog_number, 'Woof!');
 };
+
+test 'Editing a non-existant release label fails' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $model = $c->model('ReleaseLabel');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $rl = $model->get_by_id(1);
+    my $edit = _create_edit($c, $rl, label => $c->model('Label')->get_by_id(2));
+
+    $model->delete(1);
+
+    isa_ok exception { $edit->accept }, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
+};
+
 
 sub create_edit {
     my ($c, $rl) = @_;
