@@ -74,6 +74,9 @@ sub format_wikitext
 
     return '' unless $text;
 
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+
     # MBS-2437: Expand MBID entity links
     my $ws = DBDefs->WEB_SERVER;
     $text =~ s/
@@ -83,11 +86,19 @@ sub format_wikitext
        [0-9a-f]{4} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
-       [0-9a-f]{12})
-    /[http:\/\/$ws\/$1\/$2\//ix;
+       [0-9a-f]{12})\]
+    /<a href="\/\/$ws\/$1\/$2\/">$1:$2<\/a>/ix;
 
-    $text =~ s/</&lt;/g;
-    $text =~ s/>/&gt;/g;
+    $text =~ s/
+      \[
+      (artist|label|recording|release|release-group|url|work):
+      ([0-9a-f]{8} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{4} -
+       [0-9a-f]{12})\|([^\]]+)\]
+    /<a href="\/\/$ws\/$1\/$2\/">$3<\/a>/ix;
+
     return decode(
         'utf-8',
         Text::WikiFormat::format(
