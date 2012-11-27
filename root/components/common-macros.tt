@@ -815,6 +815,21 @@ http://[%- server -%]/[%- id -%]"
     [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
 [%- END -%]
 
+[%- MACRO show_wikipedia_extract BLOCK -%]
+    [%- IF wikipedia_extract -%]
+        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
+    [%- ELSIF wikipedia_extract_url -%]
+        <span style="display:none" id="wikipedia-insertion-point"></span>
+        <script type="text/javascript">//<![CDATA[
+            $.get('[% wikipedia_extract_url %]',
+                  function (data) {
+                      $('#wikipedia-insertion-point').replaceWith(data);
+                  },
+                  'html');
+        //]]></script>
+    [%- END -%]
+[%- END -%]
+
 [%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
   [% USE Diff %]
   [%- FOR i = loop_over %]
