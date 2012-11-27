@@ -22,8 +22,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
-msgstr " &ndash; ????"
+msgid " &#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -84,8 +84,8 @@ msgid "&lt; Back to all relationship types"
 msgstr "&lt; Πίσω σε όλους τους τύπους σχέσεων"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
-msgstr "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
+msgstr "&#x2013; {enddate}"
 
 #: ../root/annotation/edit.tt:40
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
@@ -335,8 +335,8 @@ msgstr "<strong>Προειδοποίηση</strong>: #{disc} έχει discid, δ
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:19
@@ -2839,7 +2839,7 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
+"&#x2014; thus making your edit get applied faster."
 msgstr "Συνιστάται να εισαγάγετε μία {note|σημείωση επεξεργασίας} η οποία θα περιγράφει πού βρήκατε τις πληροφορίες σας. Αυτό όχι μόνο ξεκαθαρίζει την πηγή των πληροφοριών σας αλλά μπορεί και να ενθαρρύνει άλλους χρήστες να ψηφίσουν τις επεξεργασίες σας και έτσι αυτές να εφαρμόζονται γρηγορότερα."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -3735,9 +3735,9 @@ msgstr "Διάρκεια:"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Όπως και η Wikipedia, το MusicBrainz συντηρείται από μια παγκόσμια κοινότητα χρηστών και θέλουμε όλοι, &mdash; μαζί με εσάς &mdash; , να {doc|συμμετάσχουν και να συνεισφέρουν}."
+msgstr "Όπως και η Wikipedia, το MusicBrainz συντηρείται από μια παγκόσμια κοινότητα χρηστών και θέλουμε όλοι, &#x2014; μαζί με εσάς &#x2014; , να {doc|συμμετάσχουν και να συνεισφέρουν}."
 
 #: ../root/user/profile.tt:49
 msgid "Limited User"
@@ -5160,8 +5160,8 @@ msgid "Ratings"
 msgstr "Βαθμολογίες"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
-msgstr "Διαβάστε περισσότερα &raquo;"
+msgid "Read more »"
+msgstr "Διαβάστε περισσότερα »"
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6213,9 +6213,9 @@ msgstr "Εμφανίζονται οι κυκλοφορίες από αυτόν �
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
-msgstr "Εμφανίζονται τα <strong>{start}</strong>&ndash;<strong>{end}</strong> αποτελέσματα από <strong>{matches}</strong>"
+msgstr "Εμφανίζονται τα <strong>{start}</strong>&#x2013;<strong>{end}</strong> αποτελέσματα από <strong>{matches}</strong>"
 
 #: ../root/release/edit/duplicates.tt:12
 msgid "Similar releases"
@@ -8462,8 +8462,8 @@ msgstr "Θα χρησιμοποιήσουμε την ημερομηνία γέν
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
-msgstr "Λυπούμαστε πραγματικά για αυτό το πρόβλημα. Παρακαλούμε περιμένετε μερικά λεπτά και επαναλάβετε το αίτημά σας &mdash; το πρόβλημα μπορεί να εξαφανιστεί."
+"your request &#x2014; the problem may go away."
+msgstr "Λυπούμαστε πραγματικά για αυτό το πρόβλημα. Παρακαλούμε περιμένετε μερικά λεπτά και επαναλάβετε το αίτημά σας &#x2014; το πρόβλημα μπορεί να εξαφανιστεί."
 
 #: ../root/scripts/text_strings.tt:120
 msgid ""
@@ -9274,8 +9274,8 @@ msgstr "έργα"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
-msgstr "{about|Περισσότερες πληροφορίες} &mdash; {faq|Συχνές ερωτήσεις} &mdash; {contact|Επικοινωνήστε μαζί μας}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+msgstr "{about|Περισσότερες πληροφορίες} &#x2014; {faq|Συχνές ερωτήσεις} &#x2014; {contact|Επικοινωνήστε μαζί μας}"
 
 #: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
@@ -9302,16 +9302,16 @@ msgstr[0] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορί
 msgstr[1] "Ο καλλιτέχνης {artist} δεν έχει κυκλοφορίες με {n} κομμάτια."
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
-msgstr "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
+msgstr "{begindate} &#x2013;"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
-msgstr "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
+msgstr "{begindate} &#x2013; ????"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
-msgstr "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
+msgstr "{begindate} &#x2013; {enddate}"
 
 #: ../root/release/collections.tt:10
 msgid "{collection} by {owner}"
@@ -9426,13 +9426,13 @@ msgstr[1] "Βρέθηκαν {num} συλλογές"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
+msgid_plural "{num}&#xa0;days"
 msgstr[0] "{num} ημέρα"
-msgstr[1] "{num}&nbsp;ημέρες"
+msgstr[1] "{num}&#xa0;ημέρες"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
+msgid_plural "{num}&#xa0;days ago"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9456,13 +9456,13 @@ msgstr[1] "Βρέθηκαν {num} δισκογραφικές εταιρείες"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
+msgid_plural "{num}&#xa0;months"
 msgstr[0] "{num} μήνας"
-msgstr[1] "{num}&nbsp;μήνες"
+msgstr[1] "{num}&#xa0;μήνες"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
+msgid_plural "{num}&#xa0;months ago"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9498,13 +9498,13 @@ msgstr[1] "Βρέθηκαν {num} έργα"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
+msgid_plural "{num}&#xa0;years"
 msgstr[0] "{num} χρόνος"
-msgstr[1] "{num}&nbsp;χρόνια"
+msgstr[1] "{num}&#xa0;χρόνια"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
+msgid_plural "{num}&#xa0;years ago"
 msgstr[0] ""
 msgstr[1] ""
 

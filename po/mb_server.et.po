@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
+msgid " &#x2013; ????"
 msgstr " – ?"
 
 #: ../root/account/lost_password.tt:7
@@ -82,7 +82,7 @@ msgid "&lt; Back to all relationship types"
 msgstr ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
 msgstr "– {enddate}"
 
 #: ../root/annotation/edit.tt:40
@@ -333,9 +333,9 @@ msgstr ""
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
-msgstr "=&nbsp;Pealkiri&nbsp;1&nbsp;=; ==&nbsp;Pealkiri&nbsp;2&nbsp;==; ===&nbsp;Pealkiri&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
+msgstr "=&#xa0;Pealkiri&#xa0;1&#xa0;=; ==&#xa0;Pealkiri&#xa0;2&#xa0;==; ===&#xa0;Pealkiri&#xa0;3&#xa0;==="
 
 #: ../root/cdtoc/lookup.tt:19
 msgid ""
@@ -2837,7 +2837,7 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
+"&#x2014; thus making your edit get applied faster."
 msgstr "Äärmiselt soovitatav on lisada {note|toimetusmärge} ja kirjutada, kust lisatav teave pärineb. Lisaks info algse allika selgekstegemisele julgustad niiviisi teisi kasutajaid sellele toimetusele oma poolthäält andma, kiirendades selle rakendumist."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -3733,7 +3733,7 @@ msgstr "Pikkus:"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
 msgstr "Nagu Wikipediat, hooldab ka MusicBrainzi üleilmne kasutajate kogukond ja me tahame, et kõik — ka sina — {doc|osaleks ja aitaks kaasa}."
 
@@ -5158,7 +5158,7 @@ msgid "Ratings"
 msgstr "Hinded"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
+msgid "Read more »"
 msgstr "Loe veel »"
 
 #: ../root/admin/wikidoc/index.tt:56
@@ -6211,7 +6211,7 @@ msgstr "Näidatakse selle artisti nimel väljalaskeid. {show_all|Näita erinevat
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
 msgstr "Näidatakse tulemusi <strong>{start}</strong>–<strong>{end}</strong> (kokku <strong>{matches}</strong>)"
 
@@ -8460,7 +8460,7 @@ msgstr "Seda kasutatakse kasutajalehel vanuse näitamiseks."
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
+"your request &#x2014; the problem may go away."
 msgstr "Meil on selle probleemi pärast kohutavalt kahju. Palun oota paar minutit ja proovi siis uuesti — probleem võib olla lahenenud."
 
 #: ../root/scripts/text_strings.tt:120
@@ -9272,7 +9272,7 @@ msgstr "teoste"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr "{about|Lisateave} — {faq|KKK} — {contact|Kontakt}"
 
 #: ../root/components/common-macros.tt:130
@@ -9300,15 +9300,15 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
 msgstr "{begindate} –"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
 msgstr "{begindate} – ?"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
 msgstr "{begindate} – {enddate}"
 
 #: ../root/release/collections.tt:10
@@ -9424,15 +9424,15 @@ msgstr[1] "Leiti {num} kogu"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
-msgstr[0] "{num}&nbsp;päev"
-msgstr[1] "{num}&nbsp;päeva"
+msgid_plural "{num}&#xa0;days"
+msgstr[0] "{num}&#xa0;päev"
+msgstr[1] "{num}&#xa0;päeva"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
-msgstr[0] "{num}&nbsp;päeva eest"
-msgstr[1] "{num}&nbsp;päeva eest"
+msgid_plural "{num}&#xa0;days ago"
+msgstr[0] "{num}&#xa0;päeva eest"
+msgstr[1] "{num}&#xa0;päeva eest"
 
 #: ../root/user/subscriptions/subscriptions.tt:22
 msgid "{num} editor"
@@ -9454,15 +9454,15 @@ msgstr[1] "Leiti {num} plaadifirmat"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
-msgstr[0] "{num}&nbsp;kuu"
-msgstr[1] "{num}&nbsp;kuud"
+msgid_plural "{num}&#xa0;months"
+msgstr[0] "{num}&#xa0;kuu"
+msgstr[1] "{num}&#xa0;kuud"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
-msgstr[0] "{num}&nbsp;kuu eest"
-msgstr[1] "{num}&nbsp;kuu eest"
+msgid_plural "{num}&#xa0;months ago"
+msgstr[0] "{num}&#xa0;kuu eest"
+msgstr[1] "{num}&#xa0;kuu eest"
 
 #: ../root/tag/recording.tt:1
 msgid "{num} recording found"
@@ -9496,15 +9496,15 @@ msgstr[1] "Leiti {num} teost"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
-msgstr[0] "{num}&nbsp;aasta"
-msgstr[1] "{num}&nbsp;aastat"
+msgid_plural "{num}&#xa0;years"
+msgstr[0] "{num}&#xa0;aasta"
+msgstr[1] "{num}&#xa0;aastat"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
-msgstr[0] "{num}&nbsp;aasta eest"
-msgstr[1] "{num}&nbsp;aasta eest"
+msgid_plural "{num}&#xa0;years ago"
+msgstr[0] "{num}&#xa0;aasta eest"
+msgstr[1] "{num}&#xa0;aasta eest"
 
 #: ../root/release/edit_relationships.tt:334
 msgid "{n} recording selected"

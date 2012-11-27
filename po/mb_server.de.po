@@ -28,8 +28,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
-msgstr " &ndash; ????"
+msgid " &#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -90,8 +90,8 @@ msgid "&lt; Back to all relationship types"
 msgstr "&lt; Zurück zu allen Beziehungstypen"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
-msgstr "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
+msgstr "&#x2013; {enddate}"
 
 #: ../root/annotation/edit.tt:40
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
@@ -230,7 +230,7 @@ msgstr[1] "{n} einhellige Stimmen"
 
 #: ../root/user/profile.tt:230 ../root/user/profile.tt:234
 msgid "100%"
-msgstr "100&nbsp;%"
+msgstr "100&#xa0;%"
 
 #: ../root/elections/show.tt:17
 msgid "1st seconder:"
@@ -341,9 +341,9 @@ msgstr "<strong>Achtung</strong>: #{disc} hat eine Disc-ID, Du kannst keine Tite
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
-msgstr "=&nbsp;Titel&nbsp;1&nbsp;=; ==&nbsp;Titel&nbsp;2&nbsp;==; ===&nbsp;Titel&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
+msgstr "=&#xa0;Titel&#xa0;1&#xa0;=; ==&#xa0;Titel&#xa0;2&#xa0;==; ===&#xa0;Titel&#xa0;3&#xa0;==="
 
 #: ../root/cdtoc/lookup.tt:19
 msgid ""
@@ -2845,7 +2845,7 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
+"&#x2014; thus making your edit get applied faster."
 msgstr "Das Eingeben eines {note|Bearbeitungsvermerks}, der beschreibt, wo Du Deine Informationen her hast, ist wärmstens empfohlen! Nicht nur, dass es deutlich macht, wie Du an die Informationen dran gekommen bist, sondern es bewegt andere Benutzer auch eher dazu, über Deine Bearbeitung abzustimmen - und sie damit schneller zur Anwendung zu bringen."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -3741,7 +3741,7 @@ msgstr "Länge:"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
 msgstr "Wie auch Wikipedia wird MusicBrainz von einer globalen Gemeinschaft von Benutzern betrieben und wir würden usn freuen, wenn alle - inklusive Dir - {doc|daran teilnehmen und beitragen}."
 
@@ -5166,8 +5166,8 @@ msgid "Ratings"
 msgstr "Bewertungen"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
-msgstr "Erfahre mehr &raquo;"
+msgid "Read more »"
+msgstr "Erfahre mehr »"
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6219,9 +6219,9 @@ msgstr "Zeige Veröffentlichungen dieses Künstlers. {show_all|Veröffentlichung
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
-msgstr "Zeige Ergebnisse <strong>{start}</strong>&ndash;<strong>{end}</strong> von <strong>{matches}</strong>"
+msgstr "Zeige Ergebnisse <strong>{start}</strong>&#x2013;<strong>{end}</strong> von <strong>{matches}</strong>"
 
 #: ../root/release/edit/duplicates.tt:12
 msgid "Similar releases"
@@ -6450,7 +6450,7 @@ msgid ""
 " to carry out a search. If you are attempting to find something that "
 "contains nothing but punctuation characters (e.g. !!!) then you need to use "
 "the {uri|browse page}, since this search ignores punctuation characters."
-msgstr "Tut uns Leid, aber Deine Anfrage (<code>{query}</code>) enthält nicht genügend Informationen, um eine Suche auszuführen. Falls Du versuchen solltest, etwas zu finden, das nur aus Satzzeichen besteht (z.&nbsp;B. !!!), dann musst Du das über die {uri|Stöbern-Seite} machen, da diese Suche Satzzeichen ignoriert."
+msgstr "Tut uns Leid, aber Deine Anfrage (<code>{query}</code>) enthält nicht genügend Informationen, um eine Suche auszuführen. Falls Du versuchen solltest, etwas zu finden, das nur aus Satzzeichen besteht (z.&#xa0;B. !!!), dann musst Du das über die {uri|Stöbern-Seite} machen, da diese Suche Satzzeichen ignoriert."
 
 #: ../root/search/error/uri-too-large.tt:3
 msgid "Sorry, your query was too large."
@@ -7090,7 +7090,7 @@ msgstr "Diese Bilder werden vom {caa|Cover-Art-Archiv} zur Verfügung gestellt."
 
 #: ../root/cdstub/edit_form.tt:9
 msgid "This CD has tracks from more than one artist (e.g. a compilation CD)"
-msgstr "Diese CD hat Titel von mehr als einem Künstler (z.&nbsp;B. eine Kompilation)"
+msgstr "Diese CD hat Titel von mehr als einem Künstler (z.&#xa0;B. eine Kompilation)"
 
 #: ../root/isrc/not_found.tt:4
 msgid ""
@@ -7403,7 +7403,7 @@ msgid ""
 "track number, e.g. \"1) Some Name\" (instead of just \"Some Name\"). Notice "
 "that sometimes this is justified and correct, don't automatically assume it "
 "is a mistake! If you confirm it is a mistake, please correct it."
-msgstr "Dieser Report hat das Ziel, Veröffentlichungen zu identifizieren, bei denen die Titelnamen ihre eigenen Titelnummern enthalten, z.&nbsp;B. „1) Irgendein Name“ (statt einfach nur „Irgendein Name“). Beachte, dass das manchmal gerechtfertigt und richtig ist; nimm nicht automatisch an, dass es ein Fehler ist! Wenn Du es als Fehler bestätigen kannst, korrigiere es bitte."
+msgstr "Dieser Report hat das Ziel, Veröffentlichungen zu identifizieren, bei denen die Titelnamen ihre eigenen Titelnummern enthalten, z.&#xa0;B. „1) Irgendein Name“ (statt einfach nur „Irgendein Name“). Beachte, dass das manchmal gerechtfertigt und richtig ist; nimm nicht automatisch an, dass es ein Fehler ist! Wenn Du es als Fehler bestätigen kannst, korrigiere es bitte."
 
 #: ../root/report/releases_to_convert.tt:7
 msgid ""
@@ -7418,14 +7418,14 @@ msgid ""
 "This report lists all releases where the mediums are not continuous (e.g. "
 "there is no \"medium 2\"), or with duplicated mediums (e.g. there are two "
 "\"medium 4\"s)."
-msgstr "Dieser Report listet alle Veröffentlichungen auf, bei denen die Medien nicht durchgehend nummieriert sind (z.&nbsp;B. wenn es kein „Medium 2“ gibt), oder die doppelte Mediennummern haben (z.&nbsp;B. wenn es zwei „Medium 4“ gibt)."
+msgstr "Dieser Report listet alle Veröffentlichungen auf, bei denen die Medien nicht durchgehend nummieriert sind (z.&#xa0;B. wenn es kein „Medium 2“ gibt), oder die doppelte Mediennummern haben (z.&#xa0;B. wenn es zwei „Medium 4“ gibt)."
 
 #: ../root/report/tracks_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the track numbers are not continuous "
 "(e.g. there is no \"track 2\"), or with duplicated track numbers (e.g. there"
 " are two \"track 4\"s)."
-msgstr "Dieser Report listet alle Veröffentlichungen auf, bei denen die Titel nicht durchgehend nummieriert sind (z.&nbsp;B. wenn es keinen „Titel 2“ gibt), oder die doppelte Titelnummern haben (z.&nbsp;B. wenn es zwei „Titel 4“ gibt)."
+msgstr "Dieser Report listet alle Veröffentlichungen auf, bei denen die Titel nicht durchgehend nummieriert sind (z.&#xa0;B. wenn es keinen „Titel 2“ gibt), oder die doppelte Titelnummern haben (z.&#xa0;B. wenn es zwei „Titel 4“ gibt)."
 
 #: ../root/report/artists_that_may_be_groups.tt:6
 msgid ""
@@ -7562,7 +7562,7 @@ msgstr "Dieser Report zeigt Veröffentlichungsgruppen mit Veröffentlichungen, d
 msgid ""
 "This report shows releases that have an unlikely combination of language and"
 " script properties, such as German and Ethiopic."
-msgstr "Dieser Report zeigt Veröffentlichungen, die eine unwahrscheinliche Kombination von Sprache und Schrift aufweisen, z.&nbsp;B. Deutsch und Äthiopische Schrift."
+msgstr "Dieser Report zeigt Veröffentlichungen, die eine unwahrscheinliche Kombination von Sprache und Schrift aufweisen, z.&#xa0;B. Deutsch und Äthiopische Schrift."
 
 #: ../root/report/multiple_asins.tt:6
 msgid ""
@@ -7588,7 +7588,7 @@ msgid ""
 "This report shows releases that have no language set. If you recognize the "
 "language, please set it! Do it only if you are pretty sure, don't just "
 "guess: not everything written in Cyrillic is Russian, for example."
-msgstr "Dieser Report zeigt Veröffentlichungen, bei denen keine Sprache gesetzt ist. Wenn Du die Sprache erkennst, so setze sie bitte! Du solltest Dir aber ziemlich sicher sein und nicht einfach raten, denn es ist z.&nbsp;B. nicht alles, was in Kyrillisch geschrieben ist, Russisch."
+msgstr "Dieser Report zeigt Veröffentlichungen, bei denen keine Sprache gesetzt ist. Wenn Du die Sprache erkennst, so setze sie bitte! Du solltest Dir aber ziemlich sicher sein und nicht einfach raten, denn es ist z.&#xa0;B. nicht alles, was in Kyrillisch geschrieben ist, Russisch."
 
 #: ../root/report/releases_without_script.tt:6
 msgid ""
@@ -7646,7 +7646,7 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
-msgstr "Dieser Report zeigt Veröffentlichungen mit Disc-IDs, die zu früh veröffentlicht wurden, um Disc-IDs zu haben, d.&nbsp;h. eins der Medienformate existierte zum Veröffentlichungszeitpunkt noch nicht oder eine Disc-ID wurde mit einem Medium verbunden, dessen Format keine Disc-IDs hat."
+msgstr "Dieser Report zeigt Veröffentlichungen mit Disc-IDs, die zu früh veröffentlicht wurden, um Disc-IDs zu haben, d.&#xa0;h. eins der Medienformate existierte zum Veröffentlichungszeitpunkt noch nicht oder eine Disc-ID wurde mit einem Medium verbunden, dessen Format keine Disc-IDs hat."
 
 #: ../root/report/featuring_releases.tt:6
 msgid ""
@@ -7764,7 +7764,7 @@ msgstr "Titel:"
 msgid ""
 "To <span class=\"rel-edit\">edit</span> a relationship, click on its name "
 "(e.g. \"composer\")."
-msgstr "Um eine Beziehung zu <span class=\"rel-edit\">bearbeiten</span>, klicke auf ihren Namen (z.&nbsp;B. „Komponist“)."
+msgstr "Um eine Beziehung zu <span class=\"rel-edit\">bearbeiten</span>, klicke auf ihren Namen (z.&#xa0;B. „Komponist“)."
 
 #: ../root/edit/index.tt:66
 msgid ""
@@ -8468,7 +8468,7 @@ msgstr "Wir verwenden Dein Geburtsdatum, um Dein Alter in Jahren auf Deinem Prof
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
+"your request &#x2014; the problem may go away."
 msgstr "Es tut uns fürchterlich Leid, dass dieses Problem aufgetreten ist! Bitte warte ein paar Minuten und wiederhole Deine Anfrage - das Problem löst sich dann vielleicht einfach von selbst."
 
 #: ../root/scripts/text_strings.tt:120
@@ -9280,8 +9280,8 @@ msgstr "Werke"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
-msgstr "{about|Mehr Informationen} &mdash; {faq|FAQs} &mdash; {contact|Kontaktiere uns}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+msgstr "{about|Mehr Informationen} &#x2014; {faq|FAQs} &#x2014; {contact|Kontaktiere uns}"
 
 #: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
@@ -9308,16 +9308,16 @@ msgstr[0] "{artist} hat keine Veröffentlichungen mit nur einem Titel."
 msgstr[1] "{artist} hat keine Veröffentlichungen mit {n} Titeln."
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
-msgstr "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
+msgstr "{begindate} &#x2013;"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
-msgstr "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
+msgstr "{begindate} &#x2013; ????"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
-msgstr "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
+msgstr "{begindate} &#x2013; {enddate}"
 
 #: ../root/release/collections.tt:10
 msgid "{collection} by {owner}"
@@ -9432,13 +9432,13 @@ msgstr[1] "{num} Sammlungen gefunden"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
+msgid_plural "{num}&#xa0;days"
 msgstr[0] "Ein Tag"
-msgstr[1] "{num}&nbsp;Tage"
+msgstr[1] "{num}&#xa0;Tage"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
+msgid_plural "{num}&#xa0;days ago"
 msgstr[0] "vor einem Tag"
 msgstr[1] "vor {num} Tagen"
 
@@ -9462,13 +9462,13 @@ msgstr[1] "{num} Labels gefunden"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
+msgid_plural "{num}&#xa0;months"
 msgstr[0] "Ein Monat"
-msgstr[1] "{num}&nbsp;Monate"
+msgstr[1] "{num}&#xa0;Monate"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
+msgid_plural "{num}&#xa0;months ago"
 msgstr[0] "vor einem Monat"
 msgstr[1] "vor {num} Monaten"
 
@@ -9504,13 +9504,13 @@ msgstr[1] "{num} Werke gefunden"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
+msgid_plural "{num}&#xa0;years"
 msgstr[0] "Ein Jahr"
-msgstr[1] "{num}&nbsp;Jahre"
+msgstr[1] "{num}&#xa0;Jahre"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
+msgid_plural "{num}&#xa0;years ago"
 msgstr[0] "vor einem Jahr"
 msgstr[1] "vor {num} Jahren"
 
@@ -9528,7 +9528,7 @@ msgstr[1] "{n} Werke ausgewählt"
 
 #: ../root/user/profile.tt:213 ../root/user/profile.tt:217
 msgid "{percentage}%"
-msgstr "{percentage}&nbsp;%"
+msgstr "{percentage}&#xa0;%"
 
 #: ../root/cdtoc/move_search.tt:31 ../root/cdtoc/set_durations.tt:24
 #: ../root/release/merge_search.tt:11 ../root/release/move_search.tt:9
@@ -10352,7 +10352,7 @@ msgstr "Keine gültige Zeit. Muss im Format MM:SS sein."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
 msgid "Enter a valid url e.g. \"http://google.com/\""
-msgstr "Gib eine gültige URL an, z.&nbsp;B. „http://google.com/“"
+msgstr "Gib eine gültige URL an, z.&#xa0;B. „http://google.com/“"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:24
 msgid "URL protocol must be HTTP, HTTPS or FTP"
@@ -10653,7 +10653,7 @@ msgstr "Jegliche vom Künstler und/oder dem Label offiziell abgesegnete Veröffe
 msgid ""
 "A giveaway release or a release intended to promote an upcoming official "
 "release. (e.g. prerelease albums or releases included with a magazine)"
-msgstr "Ein Werbegeschenk bzw. eine Veröffentlichung, die zu Promotionszwecken verteilt wird, um eine bevorstehende offizielle Veröffentlichung zu bewerben. (Z.&nbsp;B. Vorveröffentlichungsalben oder Magazinen beigelegte CDs)"
+msgstr "Ein Werbegeschenk bzw. eine Veröffentlichung, die zu Promotionszwecken verteilt wird, um eine bevorstehende offizielle Veröffentlichung zu bewerben. (Z.&#xa0;B. Vorveröffentlichungsalben oder Magazinen beigelegte CDs)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:72
 msgid ""

@@ -24,8 +24,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
-msgstr " &ndash; ????"
+msgid " &#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -86,7 +86,7 @@ msgid "&lt; Back to all relationship types"
 msgstr "&lt; Takaisin kaikkiin yhteystyyppeihin"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
 msgstr ""
 
 #: ../root/annotation/edit.tt:40
@@ -337,8 +337,8 @@ msgstr "<strong>Varoitus</strong>: #{disc} sisältää levyn tunnisteen, kappale
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:19
@@ -2841,8 +2841,8 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
-msgstr "{note|Muokkausmerkintä}, joka kertoo mistä tiedot on saatu on erittäin suositeltava. Sen lisäksi, että siitä tulee selville tietojen lähde, se helpottaa muita käyttäjiä äänestämään muokkaustasi &mdash; mikä taas nopeuttaa sen hyväksymistä."
+"&#x2014; thus making your edit get applied faster."
+msgstr "{note|Muokkausmerkintä}, joka kertoo mistä tiedot on saatu on erittäin suositeltava. Sen lisäksi, että siitä tulee selville tietojen lähde, se helpottaa muita käyttäjiä äänestämään muokkaustasi &#x2014; mikä taas nopeuttaa sen hyväksymistä."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
 msgid "Entity Not Found"
@@ -3737,7 +3737,7 @@ msgstr "Kesto:"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
 msgstr "Kuten Wikipedia, MusicBrainz on maailmanlaajuisen käyttäjäyhteisön ylläpitämä ja toivomme jokaisen, myös sinunkin, {doc|osallistuvan ja auttavan}."
 
@@ -5162,8 +5162,8 @@ msgid "Ratings"
 msgstr "Arvostelut"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
-msgstr "Lue lisää &raquo;"
+msgid "Read more »"
+msgstr "Lue lisää »"
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6215,7 +6215,7 @@ msgstr ""
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
 msgstr ""
 
@@ -8464,7 +8464,7 @@ msgstr "Käytämme syntymäaikaasi näyttääksemme ikäsi vuosina profiilisivul
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
+"your request &#x2014; the problem may go away."
 msgstr "Olemme pahoillamme tästä virhetilanteesta. Kokeile muutaman minuutin kuluttua uudelleen; ongelma saattaa korjaantua itsekseen."
 
 #: ../root/scripts/text_strings.tt:120
@@ -9276,8 +9276,8 @@ msgstr "teokset:"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
-msgstr "{about|Lisätietoja} &mdash; {faq|Usein Kysytyt Kysymykset} &mdash; {contact|Ota yhteyttä}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+msgstr "{about|Lisätietoja} &#x2014; {faq|Usein Kysytyt Kysymykset} &#x2014; {contact|Ota yhteyttä}"
 
 #: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
@@ -9304,15 +9304,15 @@ msgstr[0] "Artistilla {artist} ei ole julkaisuja, joilla on vain {n} kappale."
 msgstr[1] "Artistilla {artist} ei ole julkaisuja, joilla on vain {n} kappaletta."
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
 msgstr ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
 msgstr ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
 msgstr ""
 
 #: ../root/release/collections.tt:10
@@ -9428,13 +9428,13 @@ msgstr[1] "{num} kokoelmaa löytyi"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
+msgid_plural "{num}&#xa0;days"
 msgstr[0] "{num} päivässä"
 msgstr[1] "{num} päivässä"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
+msgid_plural "{num}&#xa0;days ago"
 msgstr[0] "{num} päivä sitten"
 msgstr[1] "{num} päivää sitten"
 
@@ -9458,13 +9458,13 @@ msgstr[1] "{num} levymerkkiä löytyi"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
+msgid_plural "{num}&#xa0;months"
 msgstr[0] "{num} kuukausi"
 msgstr[1] "{num} kuukautta"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
+msgid_plural "{num}&#xa0;months ago"
 msgstr[0] "{num} kuukausi sitten"
 msgstr[1] "{num} kuukautta sitten"
 
@@ -9500,13 +9500,13 @@ msgstr[1] "{num} teosta löytyi"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
+msgid_plural "{num}&#xa0;years"
 msgstr[0] "{num} vuosi"
 msgstr[1] "{num} vuotta"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
+msgid_plural "{num}&#xa0;years ago"
 msgstr[0] "{num} vuosi sitten"
 msgstr[1] "{num} vuotta sitten"
 

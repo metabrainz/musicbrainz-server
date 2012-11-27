@@ -25,8 +25,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
-msgstr " &ndash; ????"
+msgid " &#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -87,8 +87,8 @@ msgid "&lt; Back to all relationship types"
 msgstr "&lt; Retour à la liste des types de relation"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
-msgstr "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
+msgstr "&#x2013; {enddate}"
 
 #: ../root/annotation/edit.tt:40
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
@@ -338,8 +338,8 @@ msgstr "<strong>Attention</strong> : #{disc} a un ID de disque, vous ne pouvez p
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:19
@@ -2842,7 +2842,7 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
+"&#x2014; thus making your edit get applied faster."
 msgstr "Nous vous recommandons vivement d'entrer une {note|note de modification} décrivant où vous avez eu cette information. Non seulement cela clarifie la provenance de vos informations, mais cela encourage les autres à voter pour votre modification, et permet une validation plus rapide de celle-ci."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -3738,9 +3738,9 @@ msgstr "Longueur :"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Comme Wikipedia, MusicBrainz est maintenu par une communauté mondiales d'utilisateur, et nous souhaitons que tout le monde &mdash; vous y compris &mdash; {doc|participe et contribue}."
+msgstr "Comme Wikipedia, MusicBrainz est maintenu par une communauté mondiales d'utilisateur, et nous souhaitons que tout le monde &#x2014; vous y compris &#x2014; {doc|participe et contribue}."
 
 #: ../root/user/profile.tt:49
 msgid "Limited User"
@@ -5163,8 +5163,8 @@ msgid "Ratings"
 msgstr "Notes"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
-msgstr "Lire la suite &raquo;"
+msgid "Read more »"
+msgstr "Lire la suite »"
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6216,7 +6216,7 @@ msgstr "Affichage des sorties de cet artiste {show_all|Cliquez ici pour afficher
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
 msgstr "Affichage des résultats <strong>{start}</strong> à <strong>{end}</strong> sur <strong>{matches}</strong>"
 
@@ -8465,8 +8465,8 @@ msgstr ""
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
-msgstr "Nous sommes absolument désolés de ce problème. Merci d'attendre quelques minutes et de renouveler votre demande &mdash; le problème devrait disparaître."
+"your request &#x2014; the problem may go away."
+msgstr "Nous sommes absolument désolés de ce problème. Merci d'attendre quelques minutes et de renouveler votre demande &#x2014; le problème devrait disparaître."
 
 #: ../root/scripts/text_strings.tt:120
 msgid ""
@@ -9277,8 +9277,8 @@ msgstr "œuvres"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
-msgstr "{about|Plus d'Informations} &mdash; {faq|FAQs} &mdash; {contact|Nous contacter}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+msgstr "{about|Plus d'Informations} &#x2014; {faq|FAQs} &#x2014; {contact|Nous contacter}"
 
 #: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
@@ -9305,16 +9305,16 @@ msgstr[0] "{artist} n'a pas de sortie n'ayant que {n} piste."
 msgstr[1] "{artist} n'a pas de sortie n'ayant que {n} pistes."
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
 msgstr ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
 msgstr ""
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
-msgstr "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
+msgstr "{begindate} &#x2013; {enddate}"
 
 #: ../root/release/collections.tt:10
 msgid "{collection} by {owner}"
@@ -9429,13 +9429,13 @@ msgstr[1] "{num} collections trouvées"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
+msgid_plural "{num}&#xa0;days"
 msgstr[0] "{num} jour"
 msgstr[1] "{num} jours"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
+msgid_plural "{num}&#xa0;days ago"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9459,13 +9459,13 @@ msgstr[1] "{num} labels trouvés"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
+msgid_plural "{num}&#xa0;months"
 msgstr[0] "{num} mois"
 msgstr[1] "{num} mois"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
+msgid_plural "{num}&#xa0;months ago"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -9501,13 +9501,13 @@ msgstr[1] ""
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
+msgid_plural "{num}&#xa0;years"
 msgstr[0] "{num} an"
 msgstr[1] "{num} ans"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
+msgid_plural "{num}&#xa0;years ago"
 msgstr[0] ""
 msgstr[1] ""
 
