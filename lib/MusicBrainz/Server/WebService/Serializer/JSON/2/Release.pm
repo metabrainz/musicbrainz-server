@@ -47,8 +47,8 @@ sub serialize
         artwork => boolean($entity->cover_art_presence eq 'present'),
         darkened => boolean($entity->cover_art_presence eq 'darkened'),
         count => $coverart->{total},
-        front => boolean($coverart->{front} > 0),
-        back => boolean($coverart->{back} > 0)
+        front => boolean($coverart->{front}),
+        back => boolean($coverart->{back})
     };
 
     $body{"text-representation"} = {

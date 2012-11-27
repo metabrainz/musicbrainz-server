@@ -392,8 +392,8 @@ sub _serialize_cover_art_archive
     my @list;
     push @list, $gen->artwork($release->cover_art_presence eq 'present' ? 'true' : 'false');
     push @list, $gen->count($coverart->{total});
-    push @list, $gen->front($coverart->{front} > 0 ? 'true' : 'false');
-    push @list, $gen->back($coverart->{back} > 0 ? 'true' : 'false');
+    push @list, $gen->front($coverart->{front} ? 'true' : 'false');
+    push @list, $gen->back($coverart->{back} ? 'true' : 'false');
     push @list, $gen->darkened('true') if $release->cover_art_presence eq 'darkened';
 
     push @$data, $gen->cover_art_archive(@list);
