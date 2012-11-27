@@ -140,7 +140,7 @@ sub _get_and_process_json
     }
 
     # pull out the correct page, though there should only be one
-    my $ret = first { $_->{title} eq $title } values $content->{pages};
+    my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
     unless ($ret && $ret->{$property}) { return undef; }
 
     return {content => $ret->{$property}, title => $noncanonical, canonical => $title}
