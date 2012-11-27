@@ -6,7 +6,7 @@ use Readonly;
 use aliased 'MusicBrainz::Server::Entity::WikipediaExtract';
 use JSON;
 use Encode qw( encode );
-use URI::Escape qw( uri_escape );
+use URI::Escape qw( uri_escape_utf8 );
 use List::Util qw( first );
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -102,7 +102,7 @@ sub _extract_by_language_callback
 sub _get_cache_and_key
 {
     my ($self, $prefix, $title, $language) = @_;
-    $title = uri_escape($title);
+    $title = uri_escape_utf8($title);
     my $cache = $self->c->cache;
     my $cache_key = "wp:$prefix:$title:$language";
 
