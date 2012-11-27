@@ -138,4 +138,71 @@ EOSQL
     ok(!defined $test->c->model('ReleaseGroup')->get_by_id(1));
 };
 
+test 'Merge releases in seperate release groups where release groups have cover art set' => sub {
+
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
+
+    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
+                      "(release_group, release) VALUES (4, 4), (5, 5);");
+
+    ok( $test->c->model('Release')->merge (
+            new_id => 4, old_ids => [ 5 ],
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        ), "Merge releases with cover art");
+
+    my $results = $test->c->sql->select_list_of_hashes (
+        "SELECT release_group, release
+         FROM cover_art_archive.release_group_cover_art
+         ORDER BY release_group, release");
+
+    my $expected = [ { release_group => 4, release => 4 } ];
+
+    is_deeply ($results, $expected, "release group cover art unset for rg id 5");
+};
+
+test 'Merge releases in the same release group where the release group has cover art set' => sub {
+
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
+
+    $test->c->sql->do("UPDATE release SET release_group = 4 WHERE id = 5");
+    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
+                      "(release_group, release) VALUES (4, 5)");
+
+    ok( $test->c->model('Release')->merge (
+            new_id => 4, old_ids => [ 5 ],
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+        ), "Merge releases with cover art");
+
+    my $results = $test->c->sql->select_list_of_hashes (
+        "SELECT release_group, release
+         FROM cover_art_archive.release_group_cover_art
+         ORDER BY release_group, release");
+
+    my $expected = [ { release_group => 4, release => 4 } ];
+
+    is_deeply ($results, $expected, "release group cover art updated after merge");
+};
+
+test 'Delete release which is set as cover art for a release group' => sub {
+
+    my $test = shift;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+releasegroup');
+
+    $test->c->sql->do("INSERT INTO cover_art_archive.release_group_cover_art " .
+                      "(release_group, release) VALUES (4, 4), (5, 5);");
+
+    $test->c->model('Release')->delete (4);
+
+    my $results = $test->c->sql->select_list_of_hashes (
+        "SELECT release_group, release
+         FROM cover_art_archive.release_group_cover_art
+         ORDER BY release_group, release");
+
+    my $expected = [ { release_group => 5, release => 5 } ];
+
+    is_deeply ($results, $expected, "release group cover art unset after release has been deleted");
+};
+
 1;

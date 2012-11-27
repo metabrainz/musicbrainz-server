@@ -74,7 +74,7 @@ Now install PGQ in the database and run the ticker:
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
-    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/CreatePGQ.sql
+    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/caa/CreatePGQ.sql
     $ cd -
 
 Install the dependancies for the CAA-indexer and create a

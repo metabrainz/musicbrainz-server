@@ -53,7 +53,7 @@ GetOptions(
 @ARGV == 0 or die "Usage: $0 [-w SECONDS] [-c SECONDS]\n";
 
 use MusicBrainz::Server::Replication ':replication_type';
-if (&DBDefs::REPLICATION_TYPE != RT_SLAVE)
+if (DBDefs->REPLICATION_TYPE != RT_SLAVE)
 {
     print "This is not a slave database!\n";
     exit 2;
