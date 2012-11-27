@@ -92,7 +92,7 @@ sub format_wikitext
         'utf-8',
         Text::WikiFormat::format(
             encode('utf-8' => $text), {}, {
-                prefix => "http://wiki.musicbrainz.org/",
+                prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
                 absolute_links => 1,
                 implicit_links => 0
@@ -134,7 +134,7 @@ sub format_editnote
     my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs
-    $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;
+    $html =~ s{(https?://[^\s]+)}{normalise_url($1)}eg;
 
     # Encode < and >
     $html =~ s/</&lt;/g;
@@ -165,7 +165,7 @@ sub format_editnote
     }{_display_trimmed($1, $2, $3, $4)}egsxi;
 
     $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\h]+|edit id[#:\h]+|change[#:\h]+)(\d+)\b]
-         [<a href="http://$server/edit/$1">edit #$1</a>]gi;
+         [<a href="//$server/edit/$1">edit #$1</a>]gi;
 
     # links to wikidocs
     $html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
