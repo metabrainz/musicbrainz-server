@@ -23,8 +23,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:38
-msgid " &ndash; ????"
-msgstr " &ndash; ????"
+msgid " &#x2013; ????"
+msgstr " &#x2013; ????"
 
 #: ../root/account/lost_password.tt:7
 msgid ""
@@ -85,8 +85,8 @@ msgid "&lt; Back to all relationship types"
 msgstr "&lt; Torna a tutti i tipi di relazione"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:29
-msgid "&ndash; {enddate}"
-msgstr "&ndash; {enddate}"
+msgid "&#x2013; {enddate}"
+msgstr "&#x2013; {enddate}"
 
 #: ../root/annotation/edit.tt:40
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
@@ -336,9 +336,9 @@ msgstr "<strong>Attenzione</strong>: #{disc} possiede un ID disco, non è possib
 
 #: ../root/annotation/edit.tt:45
 msgid ""
-"=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; "
-"===&nbsp;Title&nbsp;3&nbsp;==="
-msgstr "=&nbsp;Titolo&nbsp;1&nbsp;=; ==&nbsp;Titolo&nbsp;2&nbsp;==; ===&nbsp;Titolo&nbsp;3&nbsp;==="
+"=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; "
+"===&#xa0;Title&#xa0;3&#xa0;==="
+msgstr "=&#xa0;Titolo&#xa0;1&#xa0;=; ==&#xa0;Titolo&#xa0;2&#xa0;==; ===&#xa0;Titolo&#xa0;3&#xa0;==="
 
 #: ../root/cdtoc/lookup.tt:19
 msgid ""
@@ -2840,7 +2840,7 @@ msgid ""
 "Entering an {note|edit note} that describes where you got your information "
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
-"&mdash; thus making your edit get applied faster."
+"&#x2014; thus making your edit get applied faster."
 msgstr "È caldamente raccomandato inserire una {note|nota di modifica} che indichi da dove vengono le vostre informazioni. Così facendo, non solo renderete più chiara la provenienza delle vostre informazioni, ma incoraggerete anche gli altri utenti a votare sulla vostra modifica, permettendole di essere applicata più velocemente."
 
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
@@ -3736,9 +3736,9 @@ msgstr "Durata:"
 #: ../root/main/index.tt:70
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
-" we want everyone &mdash; including you &mdash; to {doc|participate and "
+" we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Come Wikipedia, MusicBrainz è mantenuta da una comunità globale di utenti e vogliamo che tutti {doc|partecipino e contribuiscano} &mdash; te compreso!"
+msgstr "Come Wikipedia, MusicBrainz è mantenuta da una comunità globale di utenti e vogliamo che tutti {doc|partecipino e contribuiscano} &#x2014; te compreso!"
 
 #: ../root/user/profile.tt:49
 msgid "Limited User"
@@ -5161,8 +5161,8 @@ msgid "Ratings"
 msgstr "Valutazioni"
 
 #: ../root/main/index.tt:39
-msgid "Read more &raquo;"
-msgstr "Continua &raquo;"
+msgid "Read more »"
+msgstr "Continua »"
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6214,9 +6214,9 @@ msgstr "Stai visualizzando le pubblicazioni di questo artista. {show_all|Visuali
 
 #: ../root/scripts/text_strings.tt:39
 msgid ""
-"Showing results <strong>{start}</strong>&ndash;<strong>{end}</strong> of "
+"Showing results <strong>{start}</strong>&#x2013;<strong>{end}</strong> of "
 "<strong>{matches}</strong>"
-msgstr "Visualizzando risultati <strong>{start}</strong>&ndash;<strong>{end}</strong> di <strong>{matches}</strong>"
+msgstr "Visualizzando risultati <strong>{start}</strong>&#x2013;<strong>{end}</strong> di <strong>{matches}</strong>"
 
 #: ../root/release/edit/duplicates.tt:12
 msgid "Similar releases"
@@ -8463,7 +8463,7 @@ msgstr "La tua data di nascita sarà utilizzata per visualizzare la tua età (in
 #: ../root/main/500.tt:57
 msgid ""
 "We're terribly sorry for this problem. Please wait a few minutes and repeat "
-"your request &mdash; the problem may go away."
+"your request &#x2014; the problem may go away."
 msgstr "Siamo desolati per questo inconveniente. Aspetta qualche minuto e poi riprova: il problema potrebbe essere stato risolto."
 
 #: ../root/scripts/text_strings.tt:120
@@ -9275,8 +9275,8 @@ msgstr "opere"
 
 #: ../root/main/index.tt:75
 msgid ""
-"{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}"
-msgstr "{about|Informazioni aggiuntive} &mdash; {faq|Domande frequenti} &mdash; {contact|Contattaci}"
+"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+msgstr "{about|Informazioni aggiuntive} &#x2014; {faq|Domande frequenti} &#x2014; {contact|Contattaci}"
 
 #: ../root/components/common-macros.tt:130
 msgid "{almost_last_list_item} and {last_list_item}"
@@ -9303,16 +9303,16 @@ msgstr[0] "{artist} non ha nessuna pubblicazione con solo {n} traccia."
 msgstr[1] "{artist} non ha nessuna pubblicazione con {n} tracce."
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:34
-msgid "{begindate} &ndash;"
-msgstr "{begindate} &ndash;"
+msgid "{begindate} &#x2013;"
+msgstr "{begindate} &#x2013;"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:32
-msgid "{begindate} &ndash; ????"
-msgstr "{begindate} &ndash; ????"
+msgid "{begindate} &#x2013; ????"
+msgstr "{begindate} &#x2013; ????"
 
 #: ../root/artist/relationships.tt:33 ../root/components/relationships.tt:27
-msgid "{begindate} &ndash; {enddate}"
-msgstr "{begindate} &ndash; {enddate}"
+msgid "{begindate} &#x2013; {enddate}"
+msgstr "{begindate} &#x2013; {enddate}"
 
 #: ../root/release/collections.tt:10
 msgid "{collection} by {owner}"
@@ -9427,15 +9427,15 @@ msgstr[1] "{num} collezioni trovate"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
-msgid_plural "{num}&nbsp;days"
+msgid_plural "{num}&#xa0;days"
 msgstr[0] "{num} giorno"
-msgstr[1] "{num}&nbsp;giorni"
+msgstr[1] "{num}&#xa0;giorni"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
-msgid_plural "{num}&nbsp;days ago"
+msgid_plural "{num}&#xa0;days ago"
 msgstr[0] "{num} giorno fa"
-msgstr[1] "{num}&nbsp;giorni fa"
+msgstr[1] "{num}&#xa0;giorni fa"
 
 #: ../root/user/subscriptions/subscriptions.tt:22
 msgid "{num} editor"
@@ -9457,15 +9457,15 @@ msgstr[1] "{num} etichette trovate"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
-msgid_plural "{num}&nbsp;months"
+msgid_plural "{num}&#xa0;months"
 msgstr[0] "{num} mese"
-msgstr[1] "{num}&nbsp;mesi"
+msgstr[1] "{num}&#xa0;mesi"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
-msgid_plural "{num}&nbsp;months ago"
+msgid_plural "{num}&#xa0;months ago"
 msgstr[0] "{num} mese fa"
-msgstr[1] "{num}&nbsp;mesi fa"
+msgstr[1] "{num}&#xa0;mesi fa"
 
 #: ../root/tag/recording.tt:1
 msgid "{num} recording found"
@@ -9499,15 +9499,15 @@ msgstr[1] "{num} opere trovate"
 
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
-msgid_plural "{num}&nbsp;years"
+msgid_plural "{num}&#xa0;years"
 msgstr[0] "{num} anno"
-msgstr[1] "{num}&nbsp;anni"
+msgstr[1] "{num}&#xa0;anni"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
-msgid_plural "{num}&nbsp;years ago"
+msgid_plural "{num}&#xa0;years ago"
 msgstr[0] "{num} anno fa"
-msgstr[1] "{num}&nbsp;anni fa"
+msgstr[1] "{num}&#xa0;anni fa"
 
 #: ../root/release/edit_relationships.tt:334
 msgid "{n} recording selected"
