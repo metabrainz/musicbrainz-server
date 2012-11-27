@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::JS;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( generate_gid );
 use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
+use DBDefs;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -13,9 +14,11 @@ sub js_text_setup : Chained('/') PathPart('scripts') CaptureArgs(2) {
     # We rely on templates to correctly pass hash/language;
     # They're just here to ensure a different URL
 
-    # Far in the future - 1 year
-    my $expiration = Date_to_Time(Add_Delta_Days(Today(1), 365), 0, 0, 0);
-    $c->res->headers->expires($expiration);
+    unless (DBDefs->DEVELOPMENT_SERVER) {
+        # Far in the future - 1 year
+        my $expiration = Date_to_Time(Add_Delta_Days(Today(1), 365), 0, 0, 0);
+        $c->res->headers->expires($expiration);
+    }
 }
 
 sub js_text_strings : Chained('js_text_setup') PathPart('text.js') {
