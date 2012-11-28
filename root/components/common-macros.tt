@@ -402,11 +402,13 @@ END -%]
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
+    size = size == '' ? 'small' : size;
+    url_size = size == 'small' ? '&s=12' : '';
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
+      '<img src="' _ gravatar(editor.email, size) _ '" class="gravatar" />';
     ELSE;
-      '<img src="//gravatar.com/avatar/placeholder?d=mm&s=12" class="gravatar" />';
+      '<img src="//gravatar.com/avatar/placeholder?d=mm' _ url_size _ '" class="gravatar" />';
     END;
     text;
     '</a>';
