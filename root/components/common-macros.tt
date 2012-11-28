@@ -405,9 +405,9 @@ END -%]
     size = size.defined ? size : 12;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      image_url = gravatar(editor.email) _ '&s=' _ size;
+      image_url = gravatar(editor.email) _ '&amp;s=' _ size;
     ELSE;
-      image_url = '//gravatar.com/avatar/placeholder?d=mm&s=' _ size;
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size;
     END;
     '<img src="' _ image_url _ '" class="gravatar" />' ;
     text;
