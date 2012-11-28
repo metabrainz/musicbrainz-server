@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::WikipediaExtract;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use List::UtilsBy qw( sort_by );
 use namespace::autoclean;
 
 after show => sub {
@@ -28,11 +29,8 @@ sub _get_extract
 
     my ($wp_link) = map {
             $_->target;
-        } reverse sort {
-            if (defined $_) {
-                my $l = $_->target;
-                $l->language eq $wanted_lang;
-            }
+        } reverse sort_by {
+            $_->target->language eq $wanted_lang
         } @{ $entity->relationships_by_link_type_names('wikipedia') };
 
     if ($wp_link) {
