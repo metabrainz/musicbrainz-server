@@ -218,9 +218,7 @@ sub locale
 
 sub gravatar {
     my $email = shift;
-    my $size = shift;
-    my $url_size = $size == 'small' ? '&s=12' : '';
-    return sprintf '//gravatar.com/avatar/%s?d=mm%s', md5_hex(lc(trim($email))), $url_size;
+    return sprintf '//gravatar.com/avatar/%s?d=mm', md5_hex(lc(trim($email)));
 }
 
 sub _amazon_https {

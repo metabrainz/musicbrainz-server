@@ -398,18 +398,18 @@ END -%]
 
 [%- MACRO gravatar(email) FILTER gravatar; email; END -%]
 
-[%- MACRO link_editor(editor, action, text) BLOCK;
+[%- MACRO link_editor(editor, action, text, size) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
-    size = size == '' ? 'small' : size;
-    url_size = size == 'small' ? '&s=12' : '';
+    size = size.defined ? size : 12;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email, size) _ '" class="gravatar" />';
+      image_url = gravatar(editor.email) _ '&s=' _ size;
     ELSE;
-      '<img src="//gravatar.com/avatar/placeholder?d=mm' _ url_size _ '" class="gravatar" />';
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&s=' _ size;
     END;
+    '<img src="' _ image_url _ '" class="gravatar" />' ;
     text;
     '</a>';
 END -%]
