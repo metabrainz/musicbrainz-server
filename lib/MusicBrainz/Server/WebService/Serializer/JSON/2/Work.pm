@@ -20,6 +20,10 @@ sub serialize
     $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
 
+    $body{language} = $entity->language
+        ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
+        : JSON::null;
+
     return \%body;
 };
 

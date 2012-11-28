@@ -24,8 +24,9 @@ test 'basic label lookup' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
         });
 
@@ -49,8 +50,9 @@ test 'basic label lookup, inc=annotation' => sub {
             "label-code" => 2070,
             country => "GB",
             "life-span" => {
-                "begin" => "1989",
-                "ended" => JSON::false,
+                begin => "1989",
+                end => JSON::null,
+                ended => JSON::false,
             },
         });
 
@@ -71,8 +73,9 @@ test 'label lookup, inc=aliases' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
             aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ]
         });
@@ -94,8 +97,9 @@ test 'label lookup with releases, inc=media' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
             releases => [
                 {
