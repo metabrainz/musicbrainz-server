@@ -70,9 +70,8 @@ sub do_login : Private
     return 1 if $c->user_exists;
 
     my $form = $c->form(form => 'User::Login');
-    my $redirect = defined $c->req->query_params->{uri}
-        ? $c->req->query_params->{uri}
-        : $c->relative_uri;
+    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
+    my $secure = $c->req->query_params->{secure} // 0;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
@@ -88,6 +87,9 @@ sub do_login : Private
             if ($form->field('remember_me')->value) {
                 $self->_set_login_cookie($c);
             }
+
+            # Redirect back to non-ssl site unless the user started on https://.
+            $redirect = 'http://'.DBDefs->WEB_SERVER.$redirect unless $secure;
 
             # Logged in OK
             $c->response->redirect($redirect);
@@ -108,7 +110,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL
 {
     my ($self, $c) = @_;
 

@@ -69,7 +69,8 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub WEB_SERVER                { "localhost:5000" }
+sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
@@ -111,6 +112,13 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # this should only be enabled on staging servers. Also, this enables non-admin
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
+
+# This should be enabled on production.  It enables the "RequireSSL"
+# attribute on Catalyst actions.  Currently only the login screen uses
+# this.  When you enable this option the login screen will redirect to
+# the SSL version (and redirect back to http:// after login is
+# complete, though only if the user started there)
+sub REQUIRE_SSL_ENABLED { 0 }
 
 ################################################################################
 # Documentation Server Settings
