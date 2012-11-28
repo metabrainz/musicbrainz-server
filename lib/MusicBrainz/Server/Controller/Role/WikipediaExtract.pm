@@ -28,7 +28,7 @@ sub _get_extract
 
     my ($wp_link) = map {
             $_->target;
-        } sort {
+        } reverse sort {
             if (defined $_) {
                 my $l = $_->target;
                 $l->language eq $wanted_lang;
