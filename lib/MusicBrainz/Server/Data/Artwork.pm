@@ -153,9 +153,8 @@ sub load_for_release_groups
         ON release_group_cover_art.release = musicbrainz.release.id
         WHERE release.release_group IN (" . placeholders(@ids) . ")
         AND is_front = true
-        ORDER BY release.release_group,
-            release.date_year, release.date_month, release.date_day,
-            release_group_cover_art.release";
+        ORDER BY release.release_group, release_group_cover_art.release,
+                 release.date_year, release.date_month, release.date_day";
 
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {
