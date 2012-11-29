@@ -44,17 +44,11 @@
                     [% l('Merge release group') %]
                   </a>
                 </li>
-                [%- IF rg.can_set_cover_art -%]
                 <li>
                   <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
                     [% l('Set cover art') %]
                   </a>
                 </li>
-                [%- END -%]
-
-                [%- IF can_delete -%]
-                    <li>[% link_entity(rg, 'delete', l('Remove release group')) %]</li>
-                [%- END -%]
 
                 <hr/>
 
