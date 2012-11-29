@@ -36,14 +36,6 @@
                     [% l('Add release') %]
                   </a>
                 </li>
-                [%- IF rg.can_set_cover_art -%]
-                <li>
-                  <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
-                    [% l('Set cover art') %]
-                  </a>
-                </li>
-                [%- END -%]
-
                 <hr/>
 
                 [% annotation_links(rg) %]
@@ -52,9 +44,17 @@
                     [% l('Merge release group') %]
                   </a>
                 </li>
-                [% IF can_delete %]
+                [%- IF rg.can_set_cover_art -%]
+                <li>
+                  <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
+                    [% l('Set cover art') %]
+                  </a>
+                </li>
+                [%- END -%]
+
+                [%- IF can_delete -%]
                     <li>[% link_entity(rg, 'delete', l('Remove release group')) %]</li>
-                [% END %]
+                [%- END -%]
 
                 <hr/>
 
