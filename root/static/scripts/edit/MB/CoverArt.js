@@ -157,19 +157,18 @@ MB.CoverArt.create_edit = function ($filebox, gid, position) {
         }
         else
         {
-            MB.CoverArt.upload_error (
-                $filebox, xhr.status + " " + xhr.statusText);
+            MB.CoverArt.upload_error ($filebox, xhr.status + " " + xhr.statusText);
             deferred.reject();
         }
     });
 
     xhr.addEventListener("error", function (event) {
-        MB.CoverArt.upload_error ($filebox);
+        MB.CoverArt.upload_error ($filebox, "An unknown error occured while creating this edit");
         deferred.reject();
     });
 
     xhr.addEventListener("abort", function (event) {
-        MB.CoverArt.upload_error ($filebox);
+        MB.CoverArt.upload_error ($filebox, "Aborted create edit");
         deferred.reject();
     });
 
@@ -190,7 +189,7 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
     formdata.append("file", $filebox.data ('file'));
 
     var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid);
-    postfields.success (function (data, status, jqxhr) {
+    postfields.done (function (data, status, jqxhr) {
         $filebox.data('image-id', data.image_id);
         $.each (data.formdata, function (key, val) {
             formdata.append (key, val);
@@ -215,23 +214,31 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
             }
             else
             {
-                MB.CoverArt.upload_error ($filebox, xhr.responseText);
+                MB.CoverArt.upload_error (
+                    $filebox, xhr.status + " " + xhr.statusText);
+                deferred.reject();
             }
         });
 
         xhr.addEventListener("error", function (event) {
-            MB.CoverArt.upload_error ($filebox);
+            MB.CoverArt.upload_error ($filebox, "An unknown error occured while uploading the image");
             deferred.reject();
         });
 
         xhr.addEventListener("abort", function (event) {
-            MB.CoverArt.upload_error ($filebox);
+            MB.CoverArt.upload_error ($filebox, "Image upload aborted");
             deferred.reject();
         });
 
         xhr.open ("POST", data.action);
         xhr.send (formdata);
     });
+
+    postfields.fail (function (jqxhr, status, errorText) {
+        MB.CoverArt.upload_error ($filebox, status + " " + errorText);
+        deferred.reject();
+    });
+
 
     return deferred.promise ();
 };
