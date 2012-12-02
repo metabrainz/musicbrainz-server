@@ -40,6 +40,12 @@ ws_test 'basic release lookup',
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -58,6 +64,12 @@ ws_test 'release lookup, inc=annotation',
         <country>GB</country>
         <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -76,6 +88,12 @@ ws_test 'basic release with tags',
         <tag-list>
           <tag count="1"><name>hello project</name></tag>
         </tag-list>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -98,6 +116,12 @@ ws_test 'basic release with collections',
                 <release-list count="1"/>
             </collection>
         </collection-list>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -128,6 +152,12 @@ ws_test 'release lookup with artists + aliases',
         </artist-credit>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -188,6 +218,12 @@ ws_test 'release lookup with labels, recordings and tags',
                 </track-list>
             </medium>
         </medium-list>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -224,6 +260,12 @@ ws_test 'release lookup with release-groups',
         </release-group>
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -278,6 +320,12 @@ ws_test 'release lookup with discids and puids',
                 </track-list>
             </medium>
         </medium-list>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -293,6 +341,12 @@ ws_test 'release lookup, barcode is NULL',
         </text-representation>
         <date>1999-09-23</date><country>US</country>
         <asin>B00001IVAI</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
@@ -308,6 +362,12 @@ ws_test 'release lookup, barcode is empty string',
         </text-representation>
         <date>1999-09-13</date><country>GB</country>
         <barcode />
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 
