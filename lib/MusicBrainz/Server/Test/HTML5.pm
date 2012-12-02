@@ -182,7 +182,7 @@ sub html5_ok
         return;
     }
 
-    my $url = DBDefs::HTML_VALIDATOR;
+    my $url = DBDefs->HTML_VALIDATOR;
 
     unless ($url) {
         $Test->skip("No HTML_VALIDATOR configured, skip html validation");
