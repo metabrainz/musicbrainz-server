@@ -327,3 +327,16 @@ ul.favicons li img {
     vertical-align: middle;
 }
 
+/*
+** Misc
+*/
+
+#recaptcha_widget_div {
+    display: inline-block;
+}
+
+ul.ui-autocomplete.ui-menu {
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}

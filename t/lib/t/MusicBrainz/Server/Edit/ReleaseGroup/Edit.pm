@@ -131,7 +131,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('ArtistCredit')->load($rg);
     is ($rg->name, 'Renamed release group', 'release group renamed');
-    is ($rg->comment, undef);
+    is ($rg->comment, '');
     is ($rg->artist_credit->name, 'New ac name', 'date changed');
 };
 
@@ -152,6 +152,39 @@ test 'Reject edits that try to set the release group type to something that does
     isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency');
     is($exception->message,
        "This edit changes the release group's primary type to a type that no longer exists.");
+};
+
+test 'Changing the secondary types for a release group is not always an auto-edit' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
+EOSQL
+
+    {
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASEGROUP_EDIT,
+            editor_id => 1,
+            to_edit => $c->model('ReleaseGroup')->get_by_id(1),
+            secondary_type_ids => [ 1 ]
+        );
+
+        ok (!$edit->is_open, 'Adding a secondary type should be an auto-edit');
+    }
+
+    {
+        my $rg = $c->model('ReleaseGroup')->get_by_id(1);
+        $c->model('ReleaseGroupSecondaryType')->load_for_release_groups($rg);
+        my $edit = $c->model('Edit')->create(
+            edit_type => $EDIT_RELEASEGROUP_EDIT,
+            editor_id => 1,
+            to_edit => $rg,
+            secondary_type_ids => [ ]
+        );
+
+        ok ($edit->is_open, 'Further changes to secondary types should not be a auto-edits');
+    }
 };
 
 sub create_edit {
@@ -184,7 +217,7 @@ sub is_unchanged {
     my $rg = shift;
     is($rg->name, 'Release Name');
     is($rg->primary_type_id, undef);
-    is($rg->comment, undef);
+    is($rg->comment, '');
     is($rg->artist_credit_id, 1);
 }
 

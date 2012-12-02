@@ -19,10 +19,10 @@ Readonly my $CACHE_KEY => "wikidoc-index";
 
 has _index_file => (
     is => 'ro',
-    default => sub { &DBDefs::WIKITRANS_INDEX_FILE }
+    default => sub { DBDefs->WIKITRANS_INDEX_FILE }
 );
 
-sub _master_index_url { &DBDefs::WIKITRANS_INDEX_URL }
+sub _master_index_url { DBDefs->WIKITRANS_INDEX_URL }
 
 sub _parse_index
 {
@@ -73,7 +73,7 @@ sub _load_index
     return $index
         if defined $index;
 
-    if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
         $index = $self->_load_index_from_master;
     }
     else {
@@ -142,12 +142,12 @@ sub get_wiki_versions
         # The API can only process 50 pages at a time, lets be conservative.
         my $query = join ('|', splice(@keys, 0, 40));
 
-        if (!defined &DBDefs::WIKITRANS_SERVER_API) {
+        if (!defined DBDefs->WIKITRANS_SERVER_API) {
             warn 'WIKITRANS_SERVER_API must be defined within DBDefs.pm';
             return undef;
         }
 
-        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", &DBDefs::WIKITRANS_SERVER_API, $query;
+        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, $query;
 
         my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;

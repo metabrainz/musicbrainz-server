@@ -14,12 +14,10 @@ sub process
     my $self = shift;
     my $c = $_[0];
 
-    MusicBrainz::Server::Translation->instance->_set_language();
-    my $ret = $self->next::method(@_);
-    MusicBrainz::Server::Translation->instance->_unset_language();
-    $ret or return 0;
 
-    return 1 unless &DBDefs::USE_ETAGS;
+    $self->next::method(@_) or return 0;
+
+    return 1 unless DBDefs->USE_ETAGS;
 
     my $method = $c->request->method;
     return 1

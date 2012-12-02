@@ -45,7 +45,7 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 104, 2);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 0, 4, 5, ' & ');
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, '');
 
 -- Test artist name triggers
 INSERT INTO artist_name (id, name) VALUES (100, 'Shared Name');
@@ -55,7 +55,7 @@ INSERT INTO artist_name (id, name) VALUES (103, 'Credit Name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (100, '24c94140-456b-11de-8a39-0800200c9a66', 100, 100);
 INSERT INTO artist (id, gid, name, sort_name) VALUES (101, '374d65d0-456b-11de-8a39-0800200c9a66', 101, 102);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (100, 100, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, '');
 
 INSERT INTO artist_name (id, name) VALUES (7, 'ABBA');
 
@@ -137,8 +137,8 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (2, 1, 2, 'ABC-123-X');
 
-INSERT INTO url (id, gid, url, description)
-    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/', 'MusicBrainz');
+INSERT INTO url (id, gid, url)
+    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
 INSERT INTO medium_format (id, name) VALUES (1, 'CD');
 INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
@@ -302,11 +302,11 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
-            'performer');
+            'performer', 'description');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
@@ -323,8 +323,8 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES
     (8, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 8, 9);
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9);
+INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9, 'Second');
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);
@@ -361,8 +361,8 @@ INSERT INTO puid (id, puid, version) VALUES
 INSERT INTO recording_puid (id, recording, puid) VALUES
     (1, 1, 1), (2, 1, 2);
 
-INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
-INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used'), (3, 'hip-hop/rap');
+INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2), (3, 3, 2);
 INSERT INTO label_tag (tag, label, count) VALUES (1, 2, 2);
 INSERT INTO recording_tag (tag, recording, count) VALUES (1, 1, 2);
 INSERT INTO release_group_tag (tag, release_group, count) VALUES (1, 1, 2);
@@ -399,5 +399,7 @@ ALTER SEQUENCE track_id_seq RESTART 20;
 ALTER SEQUENCE medium_id_seq RESTART 7;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
+
+ALTER SEQUENCE link_id_seq RESTART 3;
 
 SET client_min_messages TO 'NOTICE';

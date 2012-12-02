@@ -9,6 +9,8 @@
 /lib/DBDefs.pm
 /Makefile
 /META.yml
+/MYMETA.json
+/MYMETA.yml
 /po/*.mo
 *.ttc
 *.pyc
@@ -30,3 +32,6 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 
 # Ignore Devel::Cover results
 /cover_db
+
+# Ignore installed translation files
+/lib/LocaleData/

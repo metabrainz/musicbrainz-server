@@ -1,5 +1,7 @@
 BEGIN;
 
+SET search_path = 'cover_art_archive';
+
 SELECT pgq.create_queue('CoverArtIndex');
 SELECT pgq.register_consumer('CoverArtIndex', 'CoverArtIndexer');
 
@@ -52,7 +54,7 @@ CREATE OR REPLACE FUNCTION reindex_release_via_catno() RETURNS trigger AS $$
         FROM musicbrainz.release
         JOIN musicbrainz.release_label ON release_label.release = release.id
         JOIN cover_art_archive.cover_art caa_r ON release.id = caa_r.release
-        WHERE release = NEW.release;
+        WHERE release.id = NEW.release;
 
         IF FOUND THEN
             PERFORM pgq.insert_event('CoverArtIndex', 'index', release_mbid::text);

@@ -139,7 +139,7 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
             url =  url.replace(/^https:\/\//, "http://");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
-            url =  url.replace(/\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
+            url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
             if ((m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/)) != null)
                 url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, "_").replace(/%24/g, "$").replace(/%2C/g, ",").replace(/%2F/g, "/").replace(/%3A/g, ":").replace(/%3B/g, ";").replace(/%40/g, "@") + m[3];
             return url;
@@ -182,7 +182,7 @@ MB.constants.CLEANUPS = {
         }
     },
     amazon: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es)|amzn\\.com)","i"),
         type: MB.constants.LINK_TYPES.amazon,
         clean: function(url) {
             // determine tld, asin from url, and build standard format [1],
@@ -192,15 +192,20 @@ MB.constants.CLEANUPS = {
             // [1] "http://www.amazon.<tld>/gp/product/<ASIN>"
             // [2] "http://www.amazon.<tld>/exec/obidos/ASIN/<ASIN>"
             var tld = "", asin = "";
-            if ((m = url.match(/amazon\.([a-z\.]+)\//)) != null) {
+            if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//)) != null) {
                 tld = m[1];
+                if (tld == "jp") tld = "co.jp";
+                if (tld == "at") tld = "de";
             }
-            if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) {
+
+            if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // artist pages
+                return "http://www.amazon." + tld + "/-/e/" + m[1];
+            } else if ((m = url.match(/\/(?:product|dp)\/(B00[0-9A-Z]{7}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/)) != null) { // strict regex to catch most ASINs
+                asin = m[1];
+            } else if ((m = url.match(/(?:\/|\ba=)([A-Z0-9]{10})(?:[/?&%#]|$)/)) != null) { // if all else fails, find anything that could be an ASIN
                 asin = m[1];
             }
             if (tld != "" && asin != "") {
-                if (tld == "jp") tld = "co.jp";
-                if (tld == "at") tld = "de";
                 return "http://www.amazon." + tld + "/gp/product/" + asin;
             }
 
@@ -221,6 +226,13 @@ MB.constants.CLEANUPS = {
                 url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
             url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
             return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
+        }
+    },
+    itunes: {
+        match: new RegExp("^https?://itunes.apple.com/", "i"),
+        type: MB.constants.LINK_TYPES.downloadpurchase,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
         }
     },
     jamendo: {
@@ -310,7 +322,7 @@ MB.constants.CLEANUPS = {
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
             }
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
+            url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
             return url;
@@ -361,7 +373,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|trove\\.nla\\.gov\\.au/)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|trove\\.nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -372,6 +384,10 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
             //Standardising Trove
             url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/([^\/]+)\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/$1/$2");
+            //Standardising RIC
+            url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.rockinchina\.com\/w\/(.*)+$/, "http://www.rockinchina.com/w/$2");
+            //Standardising DHHU
+            url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
             return url;
         }
     }
@@ -468,7 +484,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return dirtyURL;
     };
 
-    var typeChanged = function() {
+    var typeChanged = function(event) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
@@ -476,11 +492,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
+            if (event.type === 'submit') {
+                event.preventDefault();
+            }
             $('button[type="submit"]').attr('disabled', 'disabled');
         }
     };
 
-    var urlChanged = function() {
+    var urlChanged = function(event) {
         var url = self.urlControl.val(),
             clean = self.cleanUrl(self.sourceType, url) || url;
 
@@ -496,13 +515,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
                 .attr('selected', 'selected').trigger('change');
-            typeChanged();
+            typeChanged(event);
         }
     };
 
     self.urlControl
         .change(urlChanged)
-        .keyup(urlChanged);
+        .keyup(urlChanged)
+        .bind('input propertychange', urlChanged);
 
     self.urlControl.parents('form').submit(urlChanged);
 

@@ -4,8 +4,9 @@ use namespace::autoclean;
 
 use Carp;
 use List::MoreUtils qw( uniq );
-use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Artist;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
@@ -17,7 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     merge_table_attributes
     merge_partial_date
-    partial_date_from_row
     placeholders
     query_to_list_limited
 );
@@ -83,8 +83,8 @@ sub _column_mapping
         type_id => 'type',
         country_id => 'country',
         gender_id => 'gender',
-        begin_date => sub { partial_date_from_row(shift, shift() . 'begin_date_') },
-        end_date => sub { partial_date_from_row(shift, shift() . 'end_date_') },
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
         last_updated => 'last_updated',
@@ -360,12 +360,16 @@ sub load_for_artist_credits {
 sub is_empty {
     my ($self, $artist_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $artist_id);
+    return $self->sql->select_single_value(<<'EOSQL', $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
         AND edits_pending = 0
         AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_artist
+            WHERE status = ? AND artist = artist_row.id
+          ) OR
           EXISTS (
             SELECT TRUE FROM artist_credit_name
             WHERE artist = artist_row.id

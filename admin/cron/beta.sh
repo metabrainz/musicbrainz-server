@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash -u
 
 mb_server=`dirname $0`/../..
 cd $mb_server
 
 eval `carton exec -- ./admin/ShowDBDefs`
-carton exec -- ./admin/config.sh
+source ./admin/config.sh
 
 # Only run one "daily.sh" at a time
-if [ "$1" != "gotlock" ]
+if [ "${1:-}" != "gotlock" ]
 then
     true ${LOCKFILE:=/tmp/beta.sh.lock}
     $MB_SERVER_ROOT/bin/runexclusive -f "$LOCKFILE" --no-wait \

@@ -40,12 +40,16 @@ my ($fHelp, $fIgnoreErrors);
 my $tmpdir = "/tmp";
 my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
+my $skip_ensure_editor = 0;
+my $update_replication_control = 1;
 
 GetOptions(
     "help|h"                    => \$fHelp,
     "ignore-errors|i!"  => \$fIgnoreErrors,
     "tmp-dir|t=s"               => \$tmpdir,
     "fix-broken-utf8"   => \$fFixUTF8,
+    "skip-editor!" => \$skip_ensure_editor,
+    "update-replication-control!" => \$update_replication_control
 );
 
 sub usage
@@ -58,6 +62,11 @@ Usage: MBImport.pl [options] FILE ...
                           special U+FFFD codepoint (UTF-8: 0xEF 0xBF 0xBD)
     -i, --ignore-errors   if a table fails to import, continue anyway
     -t, --tmp-dir DIR     use DIR for temporary storage (default: /tmp)
+        --skip-editor     do not guarantee editor rows are present (useful when
+                          importing single tables).
+        --update-replication-control whether or not this import should
+                          alter the replication control table. This flag is
+                          internal and is only be set by MusicBrainz scripts
 
 FILE can be any of: a regular file in Postgres "copy" format (as produced
 by ExportAllTables --nocompress); a gzip'd or bzip2'd tar file of Postgres
@@ -138,7 +147,7 @@ $timestamp =~ s/^This snapshot was taken at //;
 print localtime() . " : Snapshot timestamp is $timestamp\n";
 
 # We should also have SCHEMA_SEQUENCE files, which match.  Plus they must
-# match DBDefs::DB_SCHEMA_SEQUENCE.
+# match DBDefs->DB_SCHEMA_SEQUENCE.
 my $SCHEMA_SEQUENCE = read_all_and_check("SCHEMA_SEQUENCE");
 if (not defined $SCHEMA_SEQUENCE)
 {
@@ -146,10 +155,10 @@ if (not defined $SCHEMA_SEQUENCE)
     print STDERR localtime() . " : Don't be surprised if this import fails\n";
     $| = 1, print(chr(7)), sleep 5
         if -t STDOUT;
-} elsif ($SCHEMA_SEQUENCE != &DBDefs::DB_SCHEMA_SEQUENCE) {
+} elsif ($SCHEMA_SEQUENCE != DBDefs->DB_SCHEMA_SEQUENCE) {
     printf STDERR "%s : Schema sequence mismatch - codebase is %d, snapshot files are %d\n",
         scalar localtime,
-        &DBDefs::DB_SCHEMA_SEQUENCE,
+        DBDefs->DB_SCHEMA_SEQUENCE,
         $SCHEMA_SEQUENCE,
         ;
     exit 1;
@@ -181,7 +190,7 @@ my %imported_tables;
 
 ImportAllTables();
 
-unless($imported_tables{editor}) {
+if(!$imported_tables{editor} && !$skip_ensure_editor) {
     print localtime() . " : ensuring editor information is present\n";
     EnsureEditorTable();
 }
@@ -199,14 +208,17 @@ printf "Loaded %d tables (%d rows) in %d seconds\n",
 # --without-replication, then replication_control.current_replication_sequence
 # would be invalid - we should trust the REPLICATION_SEQUENCE file instead.
 # The current_schema_sequence /is/ valid, however.
-$sql->auto_commit;
-$sql->do(
-    "UPDATE replication_control
-    SET current_replication_sequence = ?,
-    last_replication_date = ?",
-    ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
-    ($iReplicationSequence eq "" ? undef : $timestamp),
-);
+
+if ($update_replication_control) {
+    $sql->auto_commit;
+    $sql->do(
+        "UPDATE replication_control
+         SET current_replication_sequence = ?,
+         last_replication_date = ?",
+        ($iReplicationSequence eq "" ? undef : $iReplicationSequence),
+        ($iReplicationSequence eq "" ? undef : $timestamp),
+    );
+}
 
 exit($errors ? 1 : 0);
 
@@ -446,14 +458,12 @@ sub ImportAllTables
         replication_control
         script
         script_language
-        statistic
-        statistic_event
         tag
         tag_relation
         track
         track_name
         tracklist
-	tracklist_index
+        tracklist_index
         url
         url_gid_redirect
         work
@@ -465,12 +475,20 @@ sub ImportAllTables
         work_name
         work_tag
         work_type
+
+        cover_art_archive.art_type
+        cover_art_archive.cover_art
+        cover_art_archive.cover_art_type
+        cover_art_archive.release_group_cover_art
+
+        statistics.statistic
+        statistics.statistic_event
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
 
-        if (&DBDefs::REPLICATION_TYPE == RT_SLAVE)
+        if (DBDefs->REPLICATION_TYPE == RT_SLAVE)
         {
                 my $basetable = $table;
                 $basetable =~ s/_sanitised$//;
@@ -576,18 +594,18 @@ sub validate_tar
     );
 
     print localtime() . " : Pre-checking $tar\n";
-    system "$cat_cmd < $tar | head --bytes=102400 | tar -C $dir -xf- 2>/dev/null";
+    system "$cat_cmd < $tar | head -c 102400 | tar -C $dir -xf- 2>/dev/null";
 
     if (open(my $fh, "<", "$dir/SCHEMA_SEQUENCE"))
     {
         my $all = do { local $/; <$fh> };
         close $fh;
         chomp($all);
-        if ($all ne &DBDefs::DB_SCHEMA_SEQUENCE)
+        if ($all ne DBDefs->DB_SCHEMA_SEQUENCE)
         {
                 printf STDERR "%s : Schema sequence mismatch - codebase is %d, $tar is %d\n",
                         scalar localtime,
-                        &DBDefs::DB_SCHEMA_SEQUENCE,
+                        DBDefs->DB_SCHEMA_SEQUENCE,
                         $all,
                         ;
                 exit 1;

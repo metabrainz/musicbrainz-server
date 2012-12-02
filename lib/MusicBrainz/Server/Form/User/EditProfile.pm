@@ -4,7 +4,7 @@ use HTML::FormHandler::Moose;
 use List::MoreUtils qw( any all );
 use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( is_valid_url );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -18,7 +18,7 @@ has_field 'website' => (
     type      => 'Text',
     maxlength => 255,
     apply     => [ {
-        check => sub { MusicBrainz::Server::Validation->IsValidURL($_[0]) },
+        check => sub { is_valid_url($_[0]) },
         message => l('Invalid URL format'),
     } ],
 );
@@ -54,7 +54,7 @@ has_field 'languages.fluency' => (
 );
 
 sub options_gender_id { shift->_select_all('Gender') }
-sub options_country_id { shift->_select_all('Country') }
+sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
 sub options_languages_language_id { return language_options(shift->ctx) }
 sub options_languages_fluency {
     return [
@@ -67,11 +67,18 @@ sub options_languages_fluency {
 
 sub validate_birth_date {
     my ($self, $field) = @_;
-    my @date_components = values %{ $field->value };
+
+    my $year = $field->field('year')->value;
+    my $month = $field->field('month')->value;
+    my $day = $field->field('day')->value;
+
+    my @date_components = ($year, $month, $day);
     if ((any { defined } @date_components) &&
             !(all { defined } @date_components)) {
         return $field->add_error(l('You must supply a complete birth date for us to display your age.'));
     }
+
+    return $field->add_error("invalid date") unless Date::Calc::check_date ($year, $month, $day);
 }
 
 1;

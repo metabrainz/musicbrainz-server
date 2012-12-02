@@ -35,7 +35,7 @@ sub _build_parent_id_options
     my @options;
     if ($root->id) {
         push @options, $root->id, $indent . $root->name if $root->id;
-        $indent .= '&nbsp;&nbsp;&nbsp;';
+        $indent .= '&#xa0;&#xa0;&#xa0;';
     }
     foreach my $child ($root->all_children) {
         push @options, $self->_build_parent_id_options($child, $indent);

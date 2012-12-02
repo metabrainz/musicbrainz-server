@@ -6,7 +6,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: DB:link_attribute_type/description:528
 msgid "(bamboo) flute, also known as kena or qina"
@@ -56,6 +56,13 @@ msgid ""
 "often learnt by children."
 msgstr ""
 
+#: DB:link_attribute_type/description:626
+msgid ""
+"A fife is a small, high-pitched, transverse flute that is similar to the "
+"piccolo, but louder and shriller due to its narrower bore. (<a href=\"http://"
+"en.wikipedia.org/wiki/Fife (instrument)\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:547
 msgid ""
 "A hi-hat (or hihat) is a typical part of a drum kit, consisting of a pair of "
@@ -66,6 +73,21 @@ msgstr ""
 msgid ""
 "A hollow wooden body (about 7 cm in diameter) attached to a flexible spring "
 "with a wooden ball on the other end and played with the foot"
+msgstr ""
+
+#: DB:link_attribute_type/description:628
+msgid ""
+"A koto with 17 rather than 13 strings, sometimes described as a bass koto. "
+"(<a href=\"http://en.wikipedia.org/wiki/17-string_koto\">Wikipedia</a>)\n"
+"Other names: jūshichi-gen, 十七絃, 十七弦, jûshichigen"
+msgstr ""
+
+#: DB:link_attribute_type/description:627
+msgid ""
+"A laser harp is an electronic musical instrument consisting of several laser "
+"beams to be blocked, in analogy with the plucking of the strings of a harp, "
+"in order to produce sounds. (<a href=\"http://en.wikipedia.org/wiki/Laser "
+"harp\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:303
@@ -116,6 +138,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:534
 msgid "A type of fretless zither."
+msgstr ""
+
+#: DB:link_attribute_type/description:620
+msgid ""
+"A wooden, beaked double-flute traditionally played by goat herders in the "
+"Punjab region of India and Pakistan."
 msgstr ""
 
 #: DB:link_attribute_type/description:557
@@ -545,6 +573,13 @@ msgstr ""
 msgid "Pan flute (Pan pipes)"
 msgstr ""
 
+#: DB:link_attribute_type/description:624
+msgid ""
+"Percussion instrument made from two steel sheets that are attached together "
+"creating a recognizable 'UFO shape'. (<a href=\"http://en.wikipedia.org/wiki/"
+"Hang (instrument)\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:610
 msgid "Percussion performed by parts of the body."
 msgstr ""
@@ -679,6 +714,13 @@ msgid ""
 "\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:619
+msgid ""
+"The archlute is a European plucked string instrument developed around 1600 "
+"as a compromise between the very large theorbo and the Renaissance tenor "
+"lute (<a href=\"http://en.wikipedia.org/wiki/Archlute\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:598
 msgid ""
 "The bandora is a large long-necked plucked string instrument that has been "
@@ -711,6 +753,13 @@ msgstr ""
 
 #: DB:link_attribute_type/description:559
 msgid "The charango is a small South American lute."
+msgstr ""
+
+#: DB:link_attribute_type/description:622
+msgid ""
+"The cornamuse is a double reed instrument from the Renaissance, similar to "
+"the crumhorn but with a closed bell. (<a href=\"http://en.wikipedia.org/wiki/"
+"Cornamuse\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:601
@@ -900,6 +949,13 @@ msgid ""
 "Japan."
 msgstr ""
 
+#: DB:link_attribute_type/description:625
+msgid ""
+"The spilåpipa is a Swedish fipple flute with eight finger-holes on the top, "
+"but no thumb-holes. It has a modal tuning. (<a href=\"http://en.wikipedia."
+"org/wiki/Spilåpipa\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:381
 msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
@@ -923,6 +979,20 @@ msgstr ""
 msgid ""
 "The thavil (Tamil: தவிள்) or tavil is a barrel shaped drum from South India. "
 "(<a href=\"http://en.wikipedia.org/wiki/Thavil\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:623
+msgid ""
+"The tumbi or toombi is a high pitched, single string plucking instrument "
+"associated with folk music of Punjab (<a href=\"http://en.wikipedia.org/wiki/"
+"Tumbi\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:621
+msgid ""
+"The virginals is a smaller and simpler rectangular form of the harpsichord "
+"with only one string per note (<a href=\"http://en.wikipedia.org/wiki/"
+"Virginals\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:593

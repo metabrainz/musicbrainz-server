@@ -18,10 +18,14 @@ sub to { 'mb-automods Mailing List <musicbrainz-automods@lists.musicbrainz.org>'
 
 sub extra_headers {
     my $self = shift;
-    return () unless $self->election->candidate->email;
-    return (
-        BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate),
+    my @headers = (
+        'References'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
+        'In-Reply-To' => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
+        'Message-Id'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s-%d', $self->election->id, time())
     );
+    push @headers, (BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate)) 
+        if $self->election->candidate->email;
+    return @headers;
 }
 
 sub subject {

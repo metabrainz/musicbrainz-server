@@ -6,7 +6,7 @@ sub amazon : Local Args(2)
 {
     my ($self, $c, $store, $asin) = @_;
 
-    my $ass_id = &DBDefs::AWS_ASSOCIATE_ID($store)
+    my $ass_id = DBDefs->AWS_ASSOCIATE_ID($store)
     or die "Invalid store";
 
     $c->response->redirect(

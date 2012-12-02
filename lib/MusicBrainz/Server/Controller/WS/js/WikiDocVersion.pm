@@ -30,7 +30,7 @@ sub version : Chained('root') PathPart('wikidocversion') {
 
     my $output = $c->model('WikiDoc')->get_version ($title);
     
-    $output->{server} = &DBDefs::WIKITRANS_SERVER;
+    $output->{server} = DBDefs->WIKITRANS_SERVER;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $output));

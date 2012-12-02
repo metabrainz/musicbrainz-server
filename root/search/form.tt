@@ -1,6 +1,6 @@
 [%- USE search = FormRenderer(form) -%]
 <div class="searchform">
-    <form action="[% c.uri_for_action('/search/direct') %]" method="get">
+    <form action="[% c.uri_for('/search') %]" method="get">
         [% form_row_text_long(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
         [% WRAPPER form_row %]
@@ -27,7 +27,7 @@
                 <label class="inline">
                   [% search.radio('method', 1) %]
                   [% l('Indexed search with {doc|advanced query syntax}',
-                        { doc => doc_link('Text_Search_Syntax') }) %]
+                        { doc => doc_link('Indexed_Search_Syntax') }) %]
                 </label>
                 <br />
                 <label class="inline">
@@ -36,7 +36,7 @@
                 </label>
             </div>
         [% END %]
-        [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Text_Search_Syntax') })) %]
+        [% form_row_radio(search, 'method', l('Use {doc|advanced query syntax}', { doc => doc_link('Indexed_Search_Syntax') })) %]
         [% form_row_checkbox(search, 'direct', l('Direct database search')) %]
         <div class="row no-label">
         [% form_submit(l('Search')) %]

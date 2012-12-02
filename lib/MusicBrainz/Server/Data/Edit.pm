@@ -384,6 +384,10 @@ sub create
     # Save quality level
     $edit->quality($quality);
 
+    # Serialize transactions per-editor. Should only be necessary for autoedits,
+    # since only they update the editor table but for now we've enabled it for everything
+    $self->c->model('Editor')->lock_row($edit->editor_id);
+
     $edit->insert;
 
     my $now = DateTime->now;
@@ -591,14 +595,10 @@ sub reject
     $self->_close($edit, sub { $self->_do_reject(shift, $status) });
 }
 
-# Runs it's own transaction
 sub cancel
 {
     my ($self, $edit) = @_;
-
-    Sql::run_in_transaction(sub {
-        $self->reject($edit, $STATUS_DELETED);
-   }, $self->c->sql);
+    $self->reject($edit, $STATUS_DELETED);
 }
 
 sub _close

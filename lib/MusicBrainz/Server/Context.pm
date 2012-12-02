@@ -6,6 +6,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
+use LWP::UserAgent;
 
 has 'cache_manager' => (
     is => 'ro',
@@ -22,7 +23,7 @@ has 'connector' => (
 has 'database' => (
     is => 'ro',
     isa => 'Str',
-    default => sub { &DBDefs::REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
+    default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
 );
 
 sub _build_connector {
@@ -34,6 +35,16 @@ has 'models' => (
     isa     => 'HashRef',
     is      => 'ro',
     default => sub { {} }
+);
+
+has lwp => (
+    is => 'ro',
+    default => sub {
+        my $lwp = LWP::UserAgent->new;
+        $lwp->env_proxy;
+        $lwp->timeout(5);
+        return $lwp;
+    }
 );
 
 has data_prefix => (
@@ -62,7 +73,7 @@ sub model
 sub create_script_context
 {
     my ($class, %args) = @_;
-    my $cache_manager = MusicBrainz::Server::CacheManager->new(&DBDefs::CACHE_MANAGER_OPTIONS);
+    my $cache_manager = MusicBrainz::Server::CacheManager->new(DBDefs->CACHE_MANAGER_OPTIONS);
     return MusicBrainz::Server::Context->new(cache_manager => $cache_manager, %args);
 }
 

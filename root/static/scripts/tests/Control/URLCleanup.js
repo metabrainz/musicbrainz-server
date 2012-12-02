@@ -17,7 +17,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://en.wikipedia.org/wiki/Astralwerks',
                     MB.constants.LINK_TYPES.wikipedia.label
                 ],
-
                 [
                     'artist', 'http://www.discogs.com/artist/Source+Direct',
                     MB.constants.LINK_TYPES.discogs.artist
@@ -34,7 +33,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
                 ],
-
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
                     MB.constants.LINK_TYPES.otherdatabases.artist
@@ -43,7 +41,19 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/Discography/Superunknown/',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
-
+                [
+                    'artist', 'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'artist', 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release',
+                    'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -61,42 +71,34 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://www.myspace.com/hospitalrecords',
                     MB.constants.LINK_TYPES.myspace.label
                 ],
-
                 [
                     'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                     MB.constants.LINK_TYPES.purevolume.artist
                 ],
-
                 [
                     'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
                     MB.constants.LINK_TYPES.amazon.release
                 ],
-
                 [
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
-
                 [
                     'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
                     MB.constants.LINK_TYPES.downloadfree.recording
                 ],
-
                 [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
-
                 [
                     'release', 'http://www.jamendo.com/album/16090',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
-
                 [
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
-
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
@@ -109,27 +111,38 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
-
                 [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
-
                 [
                     'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
-
                 [
                     'artist', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.artist
                 ],
-
                 [
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
                 ],
-
+                [
+                    'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
+                    MB.constants.LINK_TYPES.downloadpurchase.artist
+                ],
+                [
+                    'release', 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
+                ],
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     MB.constants.LINK_TYPES.allmusic.artist
@@ -154,7 +167,7 @@ MB.tests.URLCleanup.GuessType = function() {
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.guessType(test[0], test[1]), test[2], test[1]);
+            QUnit.equal(control.guessType(test[0], test[1]), test[2], test[1]);
         });
     });
 
@@ -165,6 +178,39 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.amazon.co.uk/Out-Patients-Vol-3-Various-Artists/dp/B00009W0XE/ref=pd_sim_m_h__1',
                     'http://www.amazon.co.uk/gp/product/B00009W0XE',
                     'release'
+                ],
+                [
+                    'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
+                    'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
+                    'release'
+                ],
+                [
+                    'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
+                    'http://www.amazon.co.uk/gp/product/B000VLR0II',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.com/Shine-We-Are-BoA/dp/B00015007W%3FSubscriptionId%3D14P3HXS0ZAYFZPH45TR2%26tag%3Dws%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB00015007W',
+                    'http://www.amazon.com/gp/product/B00015007W',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.co.uk/IMPOSSIBLE/dp/B00008CQP2/ref=sr_1_1?ie=UTF8&qid=1344584322&sr=8-1',
+                    'http://www.amazon.co.uk/gp/product/B00008CQP2',
+                    'release'
+                ],
+                [
+                    'http://amzn.com/B000005SU4',
+                    'http://www.amazon.com/gp/product/B000005SU4',
+                    'release'
+                ],
+                [
+                    'http://www.amazon.co.uk/Kosheen/e/B000APRTKE',
+                    'http://www.amazon.co.uk/-/e/B000APRTKE'
+                ],
+                [
+                    'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
+                    'http://www.amazon.com/-/e/B0017PAU8Y'
                 ],
                 [
                     'http://fr.myspace.com/jujusasadada',
@@ -201,6 +247,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/en/album/56372',
                     'http://www.jamendo.com/album/56372',
                     'release'
+                ],
+                [
+                    'http://wiki.rockinchina.com/w/Beyond_Cure_(TW)',
+                    'http://www.rockinchina.com/w/Beyond_Cure_(TW)',
+                    'artist'
+                ],
+                [
+                    'http://dhhu.dk/w/Sort_Stue',
+                    'http://www.dhhu.dk/w/Sort_Stue',
+                    'artist'
                 ],
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
@@ -278,6 +334,31 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
                 ],
+                [
+                    'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
+                    'https://itunes.apple.com/artist/id444923726',
+                    'artist'
+                ],
+                [
+                    'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
+                    'https://itunes.apple.com/gb/album/id543575947',
+                    'release'
+                ],
+                [
+                    'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
+                    'https://itunes.apple.com/au/preorder/id499465357',
+                    'release'
+                ],
+                [
+                    'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
+                    'https://itunes.apple.com/music-video/id564322420',
+                    'recording'
+                ],
+                [
+                    'https://itunes.apple.com/us/album/skyfall-single/id566322358',
+                    'https://itunes.apple.com/us/album/id566322358',
+                    'release'
+                ],
 
                 // MBS-4810: exactly one terminating slash at the end
                 [
@@ -333,12 +414,19 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://en.wikipedia.org/wiki/$&+,/:;=@[]%20%23%24%25%2B%2C%2F%3A%3B%3F%40',
                     'http://en.wikipedia.org/wiki/$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
                     'label'
+                ],
+                [
+                    'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                    'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif'
+                ],
+                [
+                    'http://sv.m.wikipedia.org/wiki/Bullet',
+                    'http://sv.wikipedia.org/wiki/Bullet',
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
-            QUnit.equals(control.cleanUrl(test[2], test[0]), test[1], test[0]);
+            QUnit.equal(control.cleanUrl(test[2], test[0]), test[1], test[0]);
         });
     });
 };

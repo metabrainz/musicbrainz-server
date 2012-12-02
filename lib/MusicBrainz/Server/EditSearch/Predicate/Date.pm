@@ -17,6 +17,21 @@ sub transform_user_input {
     DateTime::Format::Pg->format_datetime($parser->parse_datetime($argument));
 }
 
+override combine_with_query => sub {
+    my ($self, $query) = @_;
+
+    if ($self->operator eq '=') {
+        $query->add_where([
+            "date_trunc('day', edit." . $self->field_name . " AT TIME ZONE 'UTC') = ".
+            "date_trunc('day', ? AT TIME ZONE 'UTC')",
+            $self->sql_arguments
+        ]);
+    }
+    else {
+        super();
+    }
+};
+
 sub valid {
     my $self = shift;
     my $parser = DateTime::Format::Natural->new;
