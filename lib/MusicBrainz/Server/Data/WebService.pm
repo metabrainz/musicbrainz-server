@@ -200,7 +200,7 @@ sub xml_search
         };
     }
 
-    my $url = 'http://' . DBDefs::LUCENE_SERVER . "/ws/2/$resource/?" .
+    my $url = 'http://' . DBDefs->LUCENE_SERVER . "/ws/2/$resource/?" .
               "max=$limit&type=$resource&fmt=xml&offset=$offset&query=". uri_escape_utf8($query);
     my $response = $self->c->lwp->get($url);
     if ( $response->is_success )

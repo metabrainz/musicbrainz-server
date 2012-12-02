@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Constants qw( :privileges );
+use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 extends 'MusicBrainz::Server::Entity';
@@ -144,9 +144,11 @@ sub is_limited
 {
     my $self = shift;
     return
-        !$self->email_confirmation_date ||
-        $self->is_newbie ||
-        $self->accepted_edits < 10;
+        !($self->id == $EDITOR_MODBOT) &&
+        ( !$self->email_confirmation_date ||
+          $self->is_newbie ||
+          $self->accepted_edits < 10
+        );
 }
 
 has birth_date => (

@@ -10,8 +10,8 @@ use MusicBrainz::Server::Test ws_test_json => {
 with 't::Mechanize', 't::Context';
 
 test 'basic work lookup' => sub {
-    my $c = shift->c;
 
+    my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     MusicBrainz::Server::Test->prepare_test_database($c, "
         INSERT INTO iswc (work, iswc)
@@ -23,7 +23,25 @@ test 'basic work lookup' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
+            disambiguation => "",
             iswcs => [ "T-000.000.002-0" ],
+        });
+};
+
+test 'basic work lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic work lookup, inc=annotation',
+    '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json (
+        {
+            id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
+            title => "Plock",
+            disambiguation => "",
+            annotation => "this is a work annotation",
+            iswcs => [ ],
         });
 };
 
@@ -46,6 +64,7 @@ test 'work lookup via iswc' => sub {
                 {
                     id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
                     title => "サマーれげぇ!レインボー",
+                    disambiguation => "",
                     iswcs => [ "T-000.000.002-0" ],
                 }]
         });
@@ -60,6 +79,7 @@ test 'work lookup with recording relationships' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
+            disambiguation => "",
             relations => [
                 {
                     type => "performance",
@@ -68,7 +88,7 @@ test 'work lookup with recording relationships' => sub {
                         id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
                         title => "サマーれげぇ!レインボー",
                         length => 296026,
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     }
                 },
                 {
@@ -78,7 +98,7 @@ test 'work lookup with recording relationships' => sub {
                         id => "eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e",
                         title => "サマーれげぇ!レインボー (instrumental)",
                         length => 292800,
-                        disambiguation => JSON::null,
+                        disambiguation => "",
                     }
                 }
                 ],

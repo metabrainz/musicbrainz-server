@@ -27,12 +27,12 @@ INSERT INTO work (id, gid, name)
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, NULL),
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
            (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other test artist');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL);
+    VALUES (1, 0, 1, 1, '');
 
 INSERT INTO track_name (id, name) VALUES (1, 'Recording');
 INSERT INTO recording (id, gid, name, artist_credit)
@@ -53,7 +53,7 @@ INSERT INTO l_artist_work (id, entity0, entity1, link) VALUES (1, 2, 1, 1);
 INSERT INTO l_recording_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 EOSQL
 
-    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1);
+    my ($artists, $hits) = $test->c->model('Artist')->find_by_work(1, 100, 0);
     is($hits, 2);
     cmp_set([ map { $_->id } @$artists ], [ 1, 2 ]);
 };
@@ -107,7 +107,7 @@ is ( $artist->end_date->year, undef );
 is ( $artist->end_date->month, undef );
 is ( $artist->end_date->day, undef );
 is ( $artist->edits_pending, 0 );
-is ( $artist->comment, undef );
+is ( $artist->comment, '' );
 
 # ---
 # Test annotations

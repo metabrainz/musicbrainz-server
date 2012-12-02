@@ -15,14 +15,14 @@ my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
-                         inc      => [ qw(aliases
+                         inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
-                                          aliases various-artists
+                                          aliases various-artists annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt) ],
      },
@@ -70,9 +70,12 @@ sub artist_toplevel
     $c->model('Country')->load($artist);
     $c->model('Artist')->ipi->load_for($artist);
 
+    $c->model('Artist')->annotation->load_latest($artist)
+        if $c->stash->{inc}->annotation;
+
     if ($c->stash->{inc}->recordings)
     {
-        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{recordings} = $self->make_list (@results);
 
         $self->linked_recordings ($c, $stash, $opts->{recordings}->{items});
@@ -108,7 +111,7 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->works)
     {
-        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{works} = $self->make_list (@results);
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});

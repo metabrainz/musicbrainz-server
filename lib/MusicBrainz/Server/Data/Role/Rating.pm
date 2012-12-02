@@ -24,7 +24,10 @@ role
     {
         my $self = shift;
         return MusicBrainz::Server::Data::Rating->new(
-            c => $self->c, type => $params->type);
+            c => $self->c,
+            type => $params->type,
+            parent => $self
+        );
     }
 };
 

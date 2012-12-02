@@ -1,6 +1,6 @@
 [% main_title = l("Collection “{collection}”", { collection => collection.name }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
@@ -9,10 +9,10 @@
 
         [% link_collection(collection, 'delete', l('Remove this collection')) %]
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [%- INCLUDE "collection/header.tt" -%]
-        [%- content -%]
-    </div>
-
+  <div id="content">
+    [%- INCLUDE "collection/header.tt" -%]
+    [%- content -%]
+  </div>
 [%- END -%]

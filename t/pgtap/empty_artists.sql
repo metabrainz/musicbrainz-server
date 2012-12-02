@@ -124,7 +124,7 @@ DELETE FROM l_artist_work;
 -- A artist with recordings is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE recording SET artist_credit = 2;
 SELECT set_eq(
@@ -135,7 +135,7 @@ DELETE FROM recording;
 -- A artist with releases is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE release SET artist_credit = 2;
 SELECT set_eq(
@@ -146,7 +146,7 @@ DELETE FROM release;
 -- A artist with release groups is excluded from empty_artists()
 INSERT INTO artist_credit (id, artist_count, name) VALUES (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, join_phrase, position)
-  VALUES (2, 1, 1, NULL, 1);
+  VALUES (2, 1, 1, '', 1);
 
 UPDATE release_group SET artist_credit = 2;
 SELECT set_eq(

@@ -1,5 +1,4 @@
 [% rdfa_set_header(usesRDFa) %]
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
@@ -159,6 +158,9 @@
                       caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>
+
+        [%- BLOCK invisible_content -%][%- END -%]
+        [% INCLUDE invisible_content %]
 
         [%- IF c.session.tport -%]
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>

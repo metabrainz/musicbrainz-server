@@ -151,11 +151,6 @@ MB.tests.GuessCase.Modes = function() {
                 mode: "French", roman: false, keepuppercase: false
             },
             {
-                input: "Concerto d-Moll nach Antonio Vivaldi op 3 nr 11 bwv596: V. allergro",
-                expected: "Concerto D-Moll nach antonio vivaldi, Op. 3, No. 11, BWV 596: V. Allegro",
-                mode: "Classical", roman: true, keepuppercase: false
-            },
-            {
                 input: "American Way ft. Kelis",
                 expected: "American Way (feat. Kelis)",
                 mode: "English", roman: true, keepuppercase: false

@@ -20,6 +20,7 @@ my %URL_SPECIALIZATIONS = (
     'BBCMusic'        => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
     'Canzone'         => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'CDBaby'          => qr{^https?://(?:www.)?cdbaby.com/}i,
+    'DHHU'            => qr{^https?://(?:www.)?dhhu.dk/}i,
     'Discogs'         => qr{^https?://(?:www.)?discogs.com/}i,
     'DiscosDoBrasil'  => qr{^https?://(?:www.)?discosdobrasil.com.br/}i,
     'Encyclopedisque' => qr{^https?://(?:www.)?encyclopedisque.fr/}i,
@@ -71,7 +72,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, url, description, edits_pending';
+    return 'id, gid, url, edits_pending';
 }
 
 sub _entity_class
@@ -154,7 +155,6 @@ sub _hash_to_row
     my ($self, $values) = @_;
     return hash_to_row($values, {
         url => 'url',
-        description => 'description'
     });
 }
 

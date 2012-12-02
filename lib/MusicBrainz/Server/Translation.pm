@@ -15,9 +15,9 @@ use List::UtilsBy qw( sort_by );
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
-    exports => [qw( l lp ln N_l )],
+    exports => [qw( l lp ln N_l N_ln N_lp )],
     groups => {
-        default => [qw( l lp ln N_l )]
+        default => [qw( l lp ln N_l N_ln N_lp )]
     }
 };
 
@@ -37,10 +37,23 @@ has 'bound' => (
     default => 0
 );
 
-sub N_l { __PACKAGE__->instance->nop_gettext(@_) }
-sub l { __PACKAGE__->instance->gettext(@_) }
-sub lp { __PACKAGE__->instance->pgettext(@_) }
-sub ln { __PACKAGE__->instance->ngettext(@_) }
+# N_ functions are no-ops which return their arguments
+# They only exist so the strings get into the catalogs
+# There is one for each because the call signatures
+# and what should appear in the catalogs differ.
+#
+# Normal translation, singular string.
+# Takes one string argument and optionally a hashref of arguments to interpolate
+sub l    { __PACKAGE__->instance->gettext(@_) }
+sub N_l  { __PACKAGE__->instance->nop_gettext(@_) }
+# Singular translation with context
+# Takes one string to translate, a string of context, and an optional hashref
+sub lp   { __PACKAGE__->instance->pgettext(@_) }
+sub N_lp { __PACKAGE__->instance->nop_gettext(@_) }
+# Plural translation (context can be within the string)
+# Takes a singlular string, a plural string, and an optional hashref
+sub ln   { __PACKAGE__->instance->ngettext(@_) }
+sub N_ln { __PACKAGE__->instance->nop_ngettext(@_) }
 
 sub _bind_domain
 {
@@ -102,12 +115,12 @@ sub set_language
     my @avail_lang;
     if (defined $lang) {
         @avail_lang = ($lang);
-    } elsif (DBDefs::LANGUAGE_FALLBACK_TO_BROWSER) {
+    } elsif (DBDefs->LANGUAGE_FALLBACK_TO_BROWSER) {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; } 
             grep {
                 my $l = $_;
-                grep { $l eq $_ } DBDefs::MB_LANGUAGES
+                grep { $l eq $_ } DBDefs->MB_LANGUAGES
             } $self->all_system_languages;
     } else {
         @avail_lang = ('en');
@@ -124,11 +137,11 @@ sub set_language
     my $set_lang_nocountry = $set_lang;
     $set_lang_nocountry =~ s/_[A-Z]{2}//;
     # Change en_AQ back to en-aq to compare with MB_LANGUAGES
-    if (grep { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs::MB_LANGUAGES) {
+    if (grep { $set_lang eq $_ || $set_lang_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $set_lang;
     } 
     # Check if the language without country code is in MB_LANGUAGES
-    elsif (grep { $set_lang_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
+    elsif (grep { $set_lang_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
         return $set_lang_nocountry;
     } 
     # Give up, return the full language even though it looks wrong
@@ -150,10 +163,10 @@ sub language_from_cookie
     my $cookie_nocountry = defined $cookie ? $cookie->value : '';
     $cookie_nocountry =~ s/_[A-Z]{2}//;
     if (defined $cookie && 
-        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs::MB_LANGUAGES) {
+        grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie->value;
     } elsif (defined $cookie && 
-             grep { $cookie_nocountry eq $_ } DBDefs::MB_LANGUAGES) {
+             grep { $cookie_nocountry eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie_nocountry;
     } else {
         return undef;
@@ -166,12 +179,12 @@ sub all_languages
                            map { [ $_ => DateTime::Locale->load($_) ] } 
                            grep { my $l = $_; 
                                   grep { $l eq $_ } DateTime::Locale->ids() } 
-                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES;
+                           map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs->MB_LANGUAGES;
     my @lang_without_locale = sort_by { $_->[1]->{id} } 
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] } 
                               grep { my $l = $_; 
                                      !(grep { $l eq $_ } DateTime::Locale->ids()) } 
-                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs::MB_LANGUAGES;
+                              map { s/-([a-z]{2})/_\U$1/; $_; } DBDefs->MB_LANGUAGES;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;
 }

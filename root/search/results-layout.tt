@@ -1,0 +1,11 @@
+[% BLOCK extra_guidelines %][% END %]
+
+[%- WRAPPER "layout.tt" title=l("Search Results") full_width=1 -%]
+    <div id="content">
+        <h1>[%- l("Search Results") -%]</h1>
+        [%- IF last_updated -%]<p>[%- l('Last updated: {date}', { date => UserDate.format(last_updated) }) -%]</p>[%- END -%]
+        [%- content -%]
+        [%- INCLUDE "search/form.tt" -%]
+        [%- INCLUDE extra_guidelines -%]
+    </div>
+[%- END -%]

@@ -187,9 +187,9 @@ augment 'create_edits' => sub
                      artist_credit date as_auto_editor );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
-    map {
-        $add_release_args{$_} = trim ($data->{$_})
-    } grep { exists $data->{$_} } qw( name comment barcode );
+    $add_release_args{name} = trim ($data->{name});
+    $add_release_args{comment} = trim ($data->{comment} // '');
+    $add_release_args{barcode} = trim ($data->{barcode});
 
     if ($data->{release_group_id}){
         $add_release_args{release_group_id} = $data->{release_group_id};

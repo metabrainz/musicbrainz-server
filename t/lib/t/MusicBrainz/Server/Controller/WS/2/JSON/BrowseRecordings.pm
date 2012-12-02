@@ -24,14 +24,14 @@ test 'browse recordings via artist (first page)' => sub {
                     title => "Busy Working",
                     length => 217440,
                     puids => [ "1d8cf2de-4e31-2043-cbb2-9d61d000e5da" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "6f9c8c32-3aae-4dad-b023-56389361cf6b",
                     title => "Bibi Plone",
                     length => 173960,
                     puids => [ "a1f6892c-8cf4-150f-3e42-2d32c7652460" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "7e379a1d-f2bc-47b8-964e-00723df34c8a",
@@ -40,7 +40,7 @@ test 'browse recordings via artist (first page)' => sub {
                     puids => [
                         "24dd0c12-3f22-955d-f35e-d3d8867eee8d",
                         "7038d263-9736-015b-e43d-4e6e7bb85138" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }]
         });
 };
@@ -62,7 +62,7 @@ test 'browse recordings via artist (second page)' => sub {
                     puids => [
                         "138f0487-85eb-5fe9-355d-9b94a60ff1dc",
                         "59963809-99c6-86c8-246a-85c1779bed07" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
@@ -71,7 +71,7 @@ test 'browse recordings via artist (second page)' => sub {
                     puids => [
                         "138f0487-85eb-5fe9-355d-9b94a60ff1dc",
                         "e21f9f94-85cd-5e40-d158-0cea7e4b5877" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "791d9b27-ae1a-4295-8943-ded4284f2122",
@@ -80,7 +80,7 @@ test 'browse recordings via artist (second page)' => sub {
                     puids => [
                         "45aa205f-1fdb-b441-a97b-17d95c786cc0",
                         "53760233-32b0-09f6-131d-5f796ffd4b52" ],
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }]
         });
 };
@@ -100,25 +100,25 @@ test 'browse recordings via release' => sub {
                     id => "7a356856-9483-42c2-bed9-dc07cb555952",
                     title => "Cella",
                     length => 334000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "9011e90d-b7e3-400b-b932-305f94608772",
                     title => "Delight",
                     length => 339000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "a4eb6323-519d-44e4-8ab7-df0a0f9df349",
                     title => "Cyclops",
                     length => 265000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "e5a5847b-451b-4051-a09b-8295329097e3",
                     title => "Confined",
                     length => 314000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }]
         });
 };

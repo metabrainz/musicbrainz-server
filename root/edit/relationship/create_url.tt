@@ -38,11 +38,11 @@
         <table class="form">
             <tr>
                 <th class="label">[% entity_label(type) %]</th>
-                <td colspan="2">[% link_entity(entity) %]</td>
+                <td>[% link_entity(entity) %]</td>
             </tr>
             <tr>
                 <th class="label">[% r.label('link_type_id', l('Type:')) %]</th>
-                <td colspan="2">
+                <td>
                     [% r.select('link_type_id', no_default => 1) %]
                     [% field_errors(form, 'link_type_id') %]
                     <div class="ar-descr" id="type_descr"></div>
@@ -50,7 +50,7 @@
             </tr>
             <tr>
                 <th class="label">[% r.label('url', l('URL:')) %]</th>
-                <td colspan="2">[% r.text('url', { size => 47 }) %]</td>
+                <td>[% r.text('url', { size => 47 }) %]</td>
             </tr>
             <tr class="attributes-container" style="display: hidden">
                 <th class="label">[% l('Attributes:') %]</th>

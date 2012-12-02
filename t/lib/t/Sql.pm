@@ -121,7 +121,7 @@ test 'All tests' => sub {
 
         $sql->auto_commit(1);
         ok !exception { $sql->update_row('artist_type', { name => 'magic' }, { id => 5 }) }, 'can update rows';
-        my $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'magic');
+        $rows = $sql->select_single_value('SELECT count(*) FROM artist_type WHERE name = ?', 'magic');
         is($rows, 1);
 
         # Test automatic transactions

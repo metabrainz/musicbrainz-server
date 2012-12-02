@@ -125,7 +125,6 @@ sub parse_file {
         next unless $contents and @{$contents};
         for my $content (@$contents) {
             my $po = Locale::PO->new();
-            $po->add_flag('perl-format');
             my $type = shift @{$content};
             my $cur = shift @{$content};
             $po->reference("$file:$line_number");

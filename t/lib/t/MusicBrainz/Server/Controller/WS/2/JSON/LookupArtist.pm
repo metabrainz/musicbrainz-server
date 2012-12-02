@@ -48,6 +48,25 @@ test 'basic artist lookup' => sub {
         });
 };
 
+test 'basic artist lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic artist lookup, inc=annotation',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' => encode_json (
+        {
+            id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
+            name => "Distance",
+            "sort-name" => "Distance",
+            type => "Person",
+            annotation => "this is an artist annotation",
+            disambiguation => "UK dubstep artist Greg Sanders",
+            country => JSON::null,
+        });
+};
+
 test 'basic artist lookup, inc=aliases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -59,7 +78,7 @@ test 'basic artist lookup, inc=aliases' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             aliases => [
@@ -68,6 +87,50 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "Kwon BoA", "sort-name" => "Kwon BoA" },
                 { name => "ボア", "sort-name" => "ボア" },
                 { name => "보아", "sort-name" => "보아" },
+                ],
+        });
+
+};
+
+test 'basic artist lookup, inc=url-rels' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'basic artist lookup, inc=url-rels',
+    '/artist/05d83760-08b5-42bb-a8d7-00d80b3bf47c?inc=url-rels' => encode_json (
+        {
+            id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
+            name => "Paul Allgood",
+            "sort-name" => "Allgood, Paul",
+            country => JSON::null,
+            disambiguation => "",
+            type => "Person",
+            relations => [
+                {
+                    direction => "forward",
+                    url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
+                    type => "image"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://members.boardhost.com/wedlock/",
+                    type => "online community"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.discogs.com/artist/Paul+Allgood",
+                    type => "discogs"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.imdb.com/name/nm4057169/",
+                    type => "IMDb"
+                    },
+                {
+                    direction => "forward",
+                    url => "http://www.paulallgood.com/",
+                    type => "blog"
+                    },
                 ],
         });
 
@@ -84,13 +147,13 @@ test 'artist lookup with releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Group",
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Official",
                     quality => "normal",
@@ -103,7 +166,7 @@ test 'artist lookup with releases' => sub {
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
@@ -128,13 +191,13 @@ test 'artist lookup with pseudo-releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Group",
             releases => [
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
                     title => "Summer Reggae! Rainbow",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     status => "Pseudo-Release",
                     quality => "normal",
@@ -170,7 +233,7 @@ test 'artist lookup with releases and discids' => sub {
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
                     asin => JSON::null,
@@ -196,7 +259,7 @@ test 'artist lookup with releases and discids' => sub {
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2007-01-29",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
                     asin => JSON::null,
@@ -224,14 +287,14 @@ test 'artist lookup with recordings and artist credits' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "recordings" => [
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
                     title => "the Love Bug",
                     length => 242226,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -239,7 +302,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => "♥",
                         },
@@ -249,7 +312,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => ""
                         }
@@ -259,7 +322,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
                     title => "the Love Bug (Big Bug NYC remix)",
                     length => 222000,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "artist-credit" => [
                         {
                             name => "m-flo",
@@ -267,7 +330,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => "♥",
                         },
@@ -277,7 +340,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
                                 name => "BoA",
                                 "sort-name" => "BoA",
-                                disambiguation => JSON::null,
+                                disambiguation => "",
                             },
                             joinphrase => ""
                         }
@@ -299,13 +362,13 @@ test 'artist lookup with release groups' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => undef,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             "release-groups" => [
                 {
                     id => "153f0a09-fead-3370-9b17-379ebd09446b",
                     title => "the Love Bug",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     "first-release-date" => "2004-03-17",
                     "primary-type" => "Single",
                     "secondary-types" => [],
@@ -326,7 +389,7 @@ test 'single artist release lookup' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
-            disambiguation => undef,
+            disambiguation => "",
             "life-span" => { "begin" => "1998", "ended" => JSON::false },
             releases => [
                 {
@@ -335,7 +398,7 @@ test 'single artist release lookup' => sub {
                     date => "2004-03-17",
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     country => "JP",
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                     packaging => JSON::null,
                     quality => "normal",
                     status => "Official",
@@ -358,7 +421,7 @@ test 'various artists release lookup' => sub {
             "sort-name" => "BoA",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             releases => [
                 {
@@ -372,7 +435,7 @@ test 'various artists release lookup' => sub {
                     country => "JP",
                     barcode => "4988064451180",
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }
             ]
         });
@@ -395,6 +458,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                 {
                     id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
                     title => "Asseswaving",
+                    disambiguation => "",
                     iswcs => [],
                 }
             ]
@@ -412,87 +476,101 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
-            disambiguation => JSON::null,
+            disambiguation => "",
             type => "Person",
             "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             works => [
                 {
                     id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
                     title => "Easy To Be Hard",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
                     title => "心の手紙",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
                     title => "DOUBLE",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
                     title => "the Love Bug",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
                     title => "SOME DAY ONE DAY )",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
                     title => "Milky Way 〜君の歌〜",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "511f5124-c0ae-3386-bb76-4b6521498a68",
                     title => "Milky Way-君の歌-",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
                     title => "Be the one",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
                     title => "Rock With You",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
                     title => "Midnight Parade",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "7981d409-8e76-33df-be27-ef625d81c501",
                     title => "Shine We Are!",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
                     title => "EXPECT",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
                     title => "Song With No Name～名前のない歌～",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
                     title => "OVER～across the time～",
+                    disambiguation => "",
                     iswcs => [],
                 },
                 {
                     id => "f23ae726-0300-3830-b1ca-634f4362f78c",
                     title => "LOVE & HONESTY",
+                    disambiguation => "",
                     iswcs => [],
                 }]
         });
 };
 
 1;
-
