@@ -40,10 +40,13 @@
           <fieldset>
             <legend>[% artist_row.field('name').value | html %]</legend>
             [% r.hidden(artist_row.field('name')) %]
-            [% IF possible.size %]
-            <p>[% l('We found the following artists with the same name already existing in
-                     MusicBrainz. If any of these are the artist you intended to use, please
-                     select the artist:') %]</p>
+            [% IF possible %]
+            <p>[% ln('We found the following artist named "{artist}" in MusicBrainz.
+                      If this was the artist you intended to use, please select them:',
+                     'We found the following artists named "{artist}" in MusicBrainz.
+                      If one of them was the artist you intended to use, please select them:',
+                      possible.size,
+                     { artist => html_escape(artist_row.field('name').value) }) %]</p>
 
             [% WRAPPER form_row %]
               <label>[% l('Artist:') %]</label>
@@ -95,10 +98,13 @@
           <fieldset>
             <legend>[% label_row.field('name').value | html %]</legend>
             [% r.hidden(label_row.field('name')) %]
-            [% IF possible.size %]
-            <p>[% l('We found the following labels with the same name already existing in
-                     MusicBrainz. If any of these are the label you intended to use, please
-                     select the label:') %]</p>
+            [% IF possible %]
+            <p>[% ln('We found the following label named "{label}" in MusicBrainz.
+                      If this was the label you intended to use, please select them:',
+                     'We found the following labels named "{label}" in MusicBrainz.
+                      If one of them was the label you intended to use, please select them:',
+                      possible.size,
+                     { label => html_escape(label_row.field('name').value) }) %]</p>
 
             [% WRAPPER form_row %]
               <label>[% l('Label:') %]</label>
