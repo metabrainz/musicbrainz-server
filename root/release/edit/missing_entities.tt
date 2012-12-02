@@ -81,10 +81,15 @@
               [% END %]
 
               <p>[% l('If none of these artists match the artist you intended, you can still
-                       create a new artist.') %]</p>
+                       create a new artist:') %]</p>
             [% ELSE %]
-              <p>[% l("We couldn't find an artist with the name you entered. If you wish to
-                       create a new artist, please fill in the fields below:") %]</p>
+              <p>[% l("We couldn't find an artist with the name you entered.
+                       Please fill in the fields below to create a new artist:") %]</p>
+
+              <input type="hidden" name="[% artist_row.field('entity_id').html_name %]"
+               id="id-[% artist_row.field('entity_id').html_name %]"
+               checked="checked"
+               value="0" />
             [% END %]
             [% new_entity_form(artist_row) %]
           </fieldset>
@@ -139,10 +144,15 @@
               [% END %]
 
               <p>[% l('If none of these labels match the label you intended, you can still
-                       create a new label.') %]</p>
+                       create a new label:') %]</p>
             [% ELSE %]
-              <p>[% l("We couldn't find a label with the name you entered. If you wish to
-                       create a new label, please fill in the fields below:") %]</p>
+              <p>[% l("We couldn't find a label with the name you entered.
+                       Please fill in the fields below to create a new label:") %]</p>
+
+              <input type="hidden" name="[% label_row.field('entity_id').html_name %]"
+               id="id-[% label_row.field('entity_id').html_name %]"
+               checked="checked"
+               value="0" />
             [% END %]
             [% new_entity_form(label_row) %]
           </fieldset>
