@@ -1,6 +1,5 @@
 [% IF !full_width %]
     <div id="sidebar" [% rdfa_about_attr(about) -%]>
         [% content %]
-        <p class="name-variation-ref">[% l('Name variation') %]</p>
     </div>
 [% END %]

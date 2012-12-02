@@ -90,17 +90,3 @@ p.subheader span { color: #999; }
 .annotation-diff {
     margin: 1em 0;
 }
-
-.name-variation:after {
-    content: "*";
-    color: #999;
-    position: relative;
-    top: -0.25em
-}
-
-.name-variation-ref:before {
-    content: "*";
-    color: #999;
-    position: relative;
-    top: -0.25em
-}
