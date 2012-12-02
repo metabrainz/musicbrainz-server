@@ -18,12 +18,12 @@
                     whatever page is associated with it. Make sure to double check your work
                     when updating a page!') %]
           </p>
+        [% END %]
 
-          [% IF wiki_unreachable %]
-            <p style="font-weight: bold; color: red;">
-              [% l('There was a problem accessing the wiki API.') %]
-            </p>
-          [% END %]
+        [% IF wiki_unreachable %]
+          <p style="font-weight: bold; color: red;">
+            [% l('There was a problem accessing the wiki API.') %]
+          </p>
         [% END %]
 
         <table class="tbl wiki-pages">
@@ -31,8 +31,8 @@
                 <tr>
                     <th>[% l('Page name') %]</th>
                     <th class="c">[% l('Transcluded version') %]</th>
-                    [% IF c.user.is_wiki_transcluder %]
                       <th class="c">[% l('Wiki version') %]</th>
+                    [% IF c.user.is_wiki_transcluder %]
                       <th class="c">[% l('Actions') %]</th>
                     [% END %]
                 </tr>
@@ -44,18 +44,18 @@
                         <td class="c transcluded-version"[% ' style="text-align:right"' IF updates_required && c.user.is_wiki_transcluder %]>
                             [% page.version %]
                         </td>
-                        [% IF c.user.is_wiki_transcluder %]
-                          <td>
-                            [% IF page.wiki_version != page.version %]
-                              <span style="color: red;" class="wiki-version">
-                                [%~ page.wiki_version || l('Error!') ~%]
-                              </span>
-                              [% IF page.wiki_version && (page.wiki_version != page.version) %]
-                                (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
-                              [% END %]
+                        <td>
+                          [% IF page.wiki_version != page.version %]
+                            <span style="color: red;" class="wiki-version">
+                              [%~ page.wiki_version || l('Error!') ~%]
+                            </span>
+                            [% IF page.wiki_version && (page.wiki_version != page.version) %]
+                              (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
                             [% END %]
-                          </td>
+                          [% END %]
+                        </td>
 
+                        [% IF c.user.is_wiki_transcluder %]
                           <td class="c nowrap">
                               [
                               <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
