@@ -15,8 +15,6 @@ sub find_available_artwork {
 
     my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
 
-    my $types = { map { $_->name => $_ } $self->c->model('CoverArtType')->get_all() };
-
     return [
         map {
             Net::CoverArtArchive::CoverArt->new(
@@ -25,11 +23,7 @@ sub find_available_artwork {
                 large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $_->{id}),
                 small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $_->{id}),
             );
-        } map {
-            $_->{types} = [ map { $types->{$_}->l_name } @{ $_->{types} } ];
-            $_;
-        }
-        @{ $self->sql->select_list_of_hashes(
+        } @{ $self->sql->select_list_of_hashes(
             'SELECT index_listing.*, release.gid
              FROM cover_art_archive.index_listing
              JOIN musicbrainz.release ON index_listing.release = release.id
