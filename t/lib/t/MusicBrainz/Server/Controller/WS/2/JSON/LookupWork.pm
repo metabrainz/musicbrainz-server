@@ -23,7 +23,7 @@ test 'basic work lookup' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
-            disambiguation => "xyz",
+            disambiguation => "",
             iswcs => [ "T-000.000.002-0" ],
             type => 'Song',
             language => 'jpn',
@@ -67,7 +67,7 @@ test 'work lookup via iswc' => sub {
                 {
                     id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
                     title => "サマーれげぇ!レインボー",
-                    disambiguation => "xyz",
+                    disambiguation => "",
                     iswcs => [ "T-000.000.002-0" ],
                     language => 'jpn',
                 }]
@@ -83,7 +83,7 @@ test 'work lookup with recording relationships' => sub {
         {
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
-            disambiguation => "xyz",
+            disambiguation => "",
             relations => [
                 {
                     type => "performance",

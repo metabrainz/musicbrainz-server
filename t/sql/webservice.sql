@@ -3572,7 +3572,7 @@ INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, lin
 INSERT INTO l_recording_release (link, last_updated, entity1, entity0, edits_pending, id) VALUES (6059, '2011-01-18 15:56:00.408782+00', 459740, 7905440, 0, 1);
 INSERT INTO work_type (name, id) VALUES ('Song', 17);
 INSERT INTO work_name (name, id) VALUES ('サマーれげぇ!レインボー', 28109);
-INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid, language) VALUES (NULL, 28109, 0, NULL, 'xyz', 4223059, 17, '3c37b9fa-a6c1-37d2-9e90-657a116d337c', 198);
+INSERT INTO work (last_updated, name, edits_pending, artist_credit, comment, id, type, gid, language) VALUES (NULL, 28109, 0, NULL, '', 4223059, 17, '3c37b9fa-a6c1-37d2-9e90-657a116d337c', 198);
 UPDATE work_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 INSERT INTO link_type (priority, last_updated, parent, name, description, short_link_phrase, link_phrase, entity_type1, entity_type0, id, reverse_link_phrase, child_order, gid) VALUES (0, '2011-01-18 15:31:00.495651+00', NULL, 'performance', '', 'performance', 'is a performance of', 'work', 'recording', 285, 'has performance', 0, 'fdc57134-e05c-30bc-aff6-425684475276');
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, link_type, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, NULL, '2011-01-18 15:31:00.495651+00', 285, NULL, NULL, NULL, 23865, NULL);
