@@ -96,9 +96,7 @@
         <li>[% relate_to_url(release) %]</li>
         <hr/>
 
-        [% IF release.edits_pending %]
-          <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
-        [% END %]
+      <li>[% link_entity(release, 'open_edits', l('Open edits')) %]</li>
       <li>[% link_entity(release, 'edits', l('Editing history')) %]</li>
 
       [% ELSE %]
