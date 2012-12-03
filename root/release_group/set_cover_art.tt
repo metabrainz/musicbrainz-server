@@ -4,16 +4,16 @@
 
 [%- WRAPPER 'release_group/layout.tt' title=l('Set Release Group Cover Art') full_width=1 page='edit' -%]
 
+<h2>[%- l('Set cover art') -%]</h2>
+
 [%- IF entity.can_set_cover_art -%]
 
   <form id="set-cover-art" class="set-cover-art" action="[% c.req.uri %]" method="post">
     [%- USE r = FormRenderer(form) -%]
-    [%- r.hidden('release') -%]<br />
+    [%- r.hidden('release') -%]
 
     <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">[% l('Set front cover art:') %]</label>
       [%- field_errors(form, 'release') -%]
-
       <div id="set-cover-art-images">
       [% FOR image = artwork %]
         <div class="editimage [% ' selected' IF image.release.gid == release.gid %]">
