@@ -6,7 +6,7 @@ use Readonly;
 use aliased 'MusicBrainz::Server::Entity::WikipediaExtract';
 use JSON;
 use Encode qw( encode );
-use URI::Escape qw( uri_escape );
+use URI::Escape qw( uri_escape_utf8 );
 use List::Util qw( first );
 
 with 'MusicBrainz::Server::Data::Role::Context';
@@ -102,7 +102,7 @@ sub _extract_by_language_callback
 sub _get_cache_and_key
 {
     my ($self, $prefix, $title, $language) = @_;
-    $title = uri_escape($title);
+    $title = uri_escape_utf8($title);
     my $cache = $self->c->cache;
     my $cache_key = "wp:$prefix:$title:$language";
 
@@ -140,7 +140,7 @@ sub _get_and_process_json
     }
 
     # pull out the correct page, though there should only be one
-    my $ret = first { $_->{title} eq $title } values $content->{pages};
+    my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
     unless ($ret && $ret->{$property}) { return undef; }
 
     return {content => $ret->{$property}, title => $noncanonical, canonical => $title}

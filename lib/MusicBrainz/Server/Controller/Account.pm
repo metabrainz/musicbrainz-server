@@ -454,7 +454,7 @@ sub register : Path('/register') ForbiddenOnSlaves
 
     my $captcha_html = "";
     $captcha_html = $captcha->get_html (
-        DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result) if $use_captcha;
+        DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result, $c->req->secure) if $use_captcha;
 
     $c->stash(
         use_captcha   => $use_captcha,
