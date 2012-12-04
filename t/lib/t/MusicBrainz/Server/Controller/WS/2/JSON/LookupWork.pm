@@ -25,8 +25,8 @@ test 'basic work lookup' => sub {
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             iswcs => [ "T-000.000.002-0" ],
-            type => 'Song',
             language => 'jpn',
+            type => 'Song',
         });
 };
 
@@ -45,6 +45,7 @@ test 'basic work lookup, inc=annotation' => sub {
             annotation => "this is a work annotation",
             iswcs => [ ],
             language => JSON::null,
+            type => JSON::null,
         });
 };
 
@@ -70,6 +71,7 @@ test 'work lookup via iswc' => sub {
                     disambiguation => "",
                     iswcs => [ "T-000.000.002-0" ],
                     language => 'jpn',
+                    type => "Song",
                 }]
         });
 };
@@ -108,6 +110,7 @@ test 'work lookup with recording relationships' => sub {
                 ],
             iswcs => [],
             language => 'jpn',
+            type => "Song",
         });
 
 };
