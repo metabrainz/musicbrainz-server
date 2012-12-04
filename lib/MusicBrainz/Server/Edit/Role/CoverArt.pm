@@ -6,8 +6,8 @@ sub alter_edit_pending {
 
     return {
         Release => [ $self->release_ids ],
-        Artwork => [ $self->data->{id} ],
-    }
+        Artwork => [ $self->data->{cover_art_id} // $self->data->{id} ],
+    };
 }
 
 no Moose::Role;
