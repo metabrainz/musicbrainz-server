@@ -2,21 +2,14 @@ package MusicBrainz::Server::Report::SetInDifferentRG;
 use Moose;
 use namespace::autoclean;
 
-extends 'MusicBrainz::Server::Report::ReleaseGroupReport';
+with 'MusicBrainz::Server::Report::ReleaseGroupReport',
+     'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
-sub gather_data {
-    my ($self, $writer) = @_;
-
-    $self->gather_data_from_query(
-        $writer,'
+sub query {
+    "
         SELECT DISTINCT
 			rg.id AS release_group_id,
-            rg_name.name AS release_group_name,
-            rg.edits_pending AS release_group_edits_pending,
-            rg.artist_credit AS artist_credit_id,
-            rg.gid AS release_group_gid,
-            musicbrainz_collate(rg_name.name) AS rg_name_collate,
-            rg.comment AS release_group_comment
+            row_number() OVER (ORDER BY musicbrainz_collate(rg_name.name))
 		FROM release_group rg
             JOIN release_name rg_name ON rg_name.id = rg.name
 		    JOIN release rel ON rel.release_group = rg.id
@@ -27,7 +20,7 @@ sub gather_data {
 				JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-			WHERE link_type.gid in (?, ?)
+			WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
 				AND r0.release_group <> r1.release_group
             UNION
 			SELECT r1.id
@@ -36,14 +29,30 @@ sub gather_data {
 				JOIN release r1 ON l.entity1 = r1.id
                 JOIN link ON l.link = link.id
                 JOIN link_type ON link.link_type = link_type.id
-			WHERE link_type.gid in (?, ?)
+			WHERE link_type.gid in ('6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644')
 				AND r0.release_group <> r1.release_group
 		)
-		ORDER BY musicbrainz_collate(rg_name.name)',
-        ['6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644',
-         '6d08ec1e-a292-4dac-90f3-c398a39defd5', 'fc399d47-23a7-4c28-bfcf-0607a562b644']);
+    ";
 }
 
-sub template { 'report/set_in_different_rg.tt' }
-
 1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2012 MetaBrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

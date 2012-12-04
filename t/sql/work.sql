@@ -1,13 +1,13 @@
 SET client_min_messages TO 'warning';
 
 INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1),
-           (2, '5f9913b0-7219-11de-8a39-0800200c9a67', 1, 1);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1, 'ABBA 1'),
+           (2, '5f9913b0-7219-11de-8a39-0800200c9a67', 1, 1, 'ABBA 2');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1), (2, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL), (2, 0, 2, 1, NULL);
+    VALUES (1, 0, 1, 1, ''), (2, 0, 2, 1, '');
 
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen'), (2, 'Test');

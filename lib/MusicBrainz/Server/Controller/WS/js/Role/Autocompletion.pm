@@ -4,9 +4,7 @@ use namespace::autoclean;
 
 use Encode;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Data::Search qw( escape_query );
 use Text::Trim;
-use Text::Unaccent qw( unac_string_utf16 );
 
 requires 'type';
 
@@ -38,7 +36,13 @@ sub dispatch_search {
     $c->res->body($c->stash->{serializer}->serialize($serialization_routine, $output, $pager));
 }
 
-sub _load_entities { }
+sub _load_entities {
+    my ($self, $c, @entities) = @_;
+
+    if ($c->stash->{inc}->{rels}) {
+        $c->model('Relationship')->load (@entities);
+    }
+}
 
 sub _do_direct_search {
     my ($self, $c, $query, $offset, $limit) = @_;
@@ -70,27 +74,14 @@ sub _format_output {
     return @entities;
 }
 
-sub _form_indexed_query {
-    my ($self, $query) = @_;
-    $query = decode ("utf-16", unac_string_utf16 (encode ("utf-16", $query)));
-    $query = escape_query ($query);
-
-    return $query;
-}
-
 sub _indexed_search {
     my ($self, $c, $query, $page, $limit) = @_;
-
-    $query = join(' OR ',
-                  map { "($_)" }
-                      $self->_form_indexed_query("$query", $c),
-                      escape_query ("$query") . "*");
 
     my $model = $self->model($c);
 
     my $no_redirect = 1;
     my $response = $c->model ('Search')->external_search (
-        $self->type, $query, $limit, $page, 1, undef);
+        $self->type, $query, $limit, $page, 0, undef);
 
     my (@output, $pager);
 

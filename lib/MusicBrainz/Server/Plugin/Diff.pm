@@ -12,7 +12,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode;
 use HTML::Tiny;
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation;
+use MusicBrainz::Server::Validation qw( trim_in_place );
 
 sub html_filter {
     my $text = shift;
@@ -261,7 +261,7 @@ sub parse_paragraphs
     my $text = shift;
 
     $text =~ s/(\015\012|\012\015|\012|\015)\1+/\n\n/g;
-    MusicBrainz::Server::Validation::TrimInPlace($text);
+    trim_in_place($text);
 
     my @paras = split /\n\n+/, $text;
 

@@ -70,6 +70,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
+    MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
@@ -167,7 +168,7 @@ sub grouped_by_name
     my $class = shift;
     my %grouped;
     foreach my $class ($class->get_all_classes) {
-        my $name = $class->edit_name;
+        my $name = $class->l_edit_name;
         $grouped{ $name } ||= [];
         push @{ $grouped{ $name } }, $class;
     }

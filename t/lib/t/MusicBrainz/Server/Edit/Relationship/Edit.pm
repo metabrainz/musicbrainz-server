@@ -106,6 +106,58 @@ test 'Editing a relationship fails if the relationship has been deleted' => sub 
         'MusicBrainz::Server::Edit::Exceptions::FailedDependency';
 };
 
+test 'Editing a relationship refreshes existing cover art' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
+INSERT INTO release_name (id, name) VALUES (1, 'Release');
+INSERT INTO artist (id, gid, name, sort_name)
+  VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 1, 1);
+INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 1);
+INSERT INTO release_group (id, name, artist_credit, gid)
+  VALUES (1, 1, 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
+INSERT INTO release (id, gid, artist_credit, name, release_group)
+  VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 1, 1),
+         (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 1, 1);
+UPDATE release_coverart
+SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
+INSERT INTO url (id, gid, url)
+  VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
+
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
+    reverse_link_phrase, short_link_phrase)
+  VALUES (1, '46687254-01e8-41a9-833f-183f1f25e487', 'release', 'url',
+    'cover art link', 'cover art link', 'cover art link', 'cover art link');
+INSERT INTO link (id, link_type) VALUES (1, 1);
+INSERT INTO l_release_url (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
+EOSQL
+
+    my $rel = $c->model('Relationship')->get_by_id('release', 'url', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        type0 => 'release',
+        type1 => 'url',
+        relationship => $rel,
+        entity0 => $c->model('Release')->get_by_id(2)
+    );
+
+    accept_edit($c, $edit);
+
+    my $r1 = $c->model('Release')->get_by_id(1);
+    $c->model('Release')->load_meta($r1);
+    is($r1->cover_art_url, undef);
+
+    my $r2 = $c->model('Release')->get_by_id(2);
+    $c->model('Release')->load_meta($r2);
+    is($r2->cover_art_url, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
+};
+
 sub _create_edit {
     my $c = shift;
 

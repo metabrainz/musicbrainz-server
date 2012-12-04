@@ -27,8 +27,7 @@ dl.ars dt {
 
 [%- FOR track=tracklist.tracks; recording = track.recording %]
 [%# model tracks as blank nodes %]
-<span rel="mo:track">
-<tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]" typeof="[% rdfa_concept_curi('track') %]">
+<tr rel="mo:track" class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]" typeof="[% rdfa_concept_curi('track') %]">
     <td class="pos t">
       <span style="display: none">[% rdfa_track_number(track.position) %]</span>
       [%- track.number -%]
@@ -80,5 +79,4 @@ dl.ars dt {
     [% END %]
     <td class="treleases">[% rdfa_recording_duration(track) %]</td>
 </tr>
-</span>
 [%- END -%]

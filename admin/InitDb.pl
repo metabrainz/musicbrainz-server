@@ -37,7 +37,7 @@ use MusicBrainz::Server::Replication ':replication_type';
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
-my $REPTYPE = &DBDefs::REPLICATION_TYPE;
+my $REPTYPE = DBDefs->REPLICATION_TYPE;
 
 my $psql = "psql";
 my $path_to_pending_so;
@@ -63,7 +63,7 @@ sub GetPostgreSQLVersion
     my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
-    $version =~ s/PostgreSQL ([0-9\.]*) .*/$1/;
+    $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
     return version->parse ("v".$version);
 }
@@ -222,6 +222,24 @@ sub Create
     system "createlang", @opts, "plpgsql";
     system "createlang", @opts, "plperlu" if HasPLPerlSupport();
     print "\nFailed to create language -- its likely to be already installed, continuing.\n" if ($? >> 8);
+
+    # Set the default search path for the READWRITE and READONLY users
+    my $search_path = $db->schema . ", public";
+
+    if (my $READONLY = Databases->get('READONLY')) {
+        _set_search_path($system_sql, $READONLY->username, $search_path);
+    }
+
+    _set_search_path($system_sql, $db->username, $search_path);
+}
+
+sub _set_search_path {
+    my ($sql, $username, $search_path) = @_;
+
+    $sql->auto_commit(1);
+    $sql->do(
+        "ALTER USER " . $username . " SET search_path TO " . $search_path
+    );
 }
 
 sub CreateRelations
@@ -232,7 +250,9 @@ sub CreateRelations
 
     my $opts = $DB->shell_args;
     $ENV{"PGPASSWORD"} = $DB->password;
-    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $DB->schema));
+
+    system(sprintf("echo \"CREATE SCHEMA %s\" | $psql $opts", $_))
+        for ($DB->schema, 'cover_art_archive', 'report', 'statistics');
     die "\nFailed to create schema\n" if ($? >> 8);
 
     if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
@@ -247,6 +267,9 @@ sub CreateRelations
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
 
     if ($import)
     {
@@ -261,21 +284,39 @@ sub CreateRelations
     }
 
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
+    RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating CAA primary keys ...");
+    RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
+    RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
 
     RunSQLScript($SYSMB, "CreatePLPerl.sql", "Creating system functions ...")
         if HasPLPerlSupport();
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
+    RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
+    RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
+
     RunSQLScript($DB, "CreateFKConstraints.sql", "Adding foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
+    RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "CreateConstraints.sql", "Adding table constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
     RunSQLScript($DB, "SetSequences.sql", "Setting raw initial sequence values ...");
+    RunSQLScript($DB, "statistics/SetSequences.sql", "Setting raw initial statistics sequence values ...");
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
+    RunSQLScript($DB, "caa/CreateViews.sql", "Creating CAA views ...");
+
     RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating CAA triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
@@ -284,9 +325,11 @@ sub CreateRelations
     {
         CreateReplicationFunction();
         RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
+        RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
+        RunSQLScript($DB, "caa/CreateReplicationTriggers.sql", "Creating CAA replication triggers ...");
     }
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_SLAVE)
-    {
+	{
         RunSQLScript($DB, "ReplicationSetup.sql", "Setting up replication ...");
     }
 
@@ -378,7 +421,7 @@ Options are:
   -q, --quiet            Don't show the output of any SQL scripts
   -h --help              This help
   --with-pending=PATH    For use only if this is a master replication server
-                         (DBDefs::REPLICATION_TYPE==RT_MASTER).  PATH specifies
+                         (DBDefs->REPLICATION_TYPE==RT_MASTER).  PATH specifies
                          the path to "pending.so" (on the database server).
      --fix-broken-utf8   replace invalid UTF-8 byte sequences with the special
                          Unicode "replacement character" U+FFFD.

@@ -195,9 +195,8 @@ sub process_functions
     @functions = sort(@functions);
 
     my @aggregates;
-    while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+)/gi) {
-        my $name = $1;
-        push @aggregates, $name;
+    while ($create_functions_sql =~ m/CREATE\s+AGGREGATE\s+(\w+).*basetype[\s=]+(\w+)/gi) {
+        push @aggregates, [$1, $2];
     }
     @aggregates = sort(@aggregates);
 
@@ -208,33 +207,47 @@ sub process_functions
         print OUT "DROP FUNCTION $func;\n";
     }
     foreach my $agg (@aggregates) {
-        print OUT "DROP AGGREGATE $agg;\n";
+        my ($name, $type) = @$agg;
+        print OUT "DROP AGGREGATE $name ($type);\n";
     }
     close OUT;
 }
 
 process_functions("CreateFunctions.sql", "DropFunctions.sql");
 
-open FILE, "<$dir/CreateTriggers.sql";
-my $create_triggers_sql = do { local $/; <FILE> };
-close FILE;
+sub process_triggers
+{
+    my ($infile, $outfile) = @_;
 
-my @triggers;
-while ($create_triggers_sql =~ m/CREATE (?:CONSTRAINT )?TRIGGER\s+([a-z0-9_]+)\s+.*?\s+ON\s+([a-z0-9_]+)/gi) {
-    push @triggers, [$1, $2];
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+    }
+
+    open FILE, "<$dir/$infile";
+    my $create_triggers_sql = do { local $/; <FILE> };
+    close FILE;
+
+    my @triggers;
+    while ($create_triggers_sql =~ m/CREATE (?:CONSTRAINT )?TRIGGER\s+"?([a-z0-9_]+)"?\s+.*?\s+ON\s+"?([a-z0-9_]+)"?.*?;/gsi) {
+        push @triggers, [$1, $2];
+    }
+
+    open OUT, ">$dir/$outfile";
+    print OUT "-- Automatically generated, do not edit.\n";
+    print OUT "\\unset ON_ERROR_STOP\n\n";
+    foreach my $trigger (@triggers) {
+        print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
+    }
+    close OUT;
 }
 
-open OUT, ">$dir/DropTriggers.sql";
-print OUT "-- Automatically generated, do not edit.\n";
-print OUT "\\unset ON_ERROR_STOP\n\n";
-foreach my $trigger (@triggers) {
-    print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
-}
-close OUT;
+process_triggers("CreateTriggers.sql", "DropTriggers.sql");
+process_triggers("CreateReplicationTriggers.sql", "DropReplicationTriggers.sql");
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 Aurélien Mino
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -5,12 +5,14 @@
 <ul>
     <li>[% l('This report shows release groups with releases that are linked to
               releases in different release groups by part-of-set or
-              transliteration relationships. For example, if one release is in a release
-              group A and it\'s part of a multi-disc release where the next disc
-              is in a release group B, both release groups will be listed in
-              this report.') %]</li>
+              transliteration relationships. If a pair of release groups are listed
+              here, you should probably merge them. If the releases are discs linked
+              with "part of set" relationships, you might want to merge them too into
+              one multi-disc release (see {how_to_merge_releases|How to Merge Releases}).',
+              { how_to_merge_releases => doc_link('How_to_Merge_Releases') }) %]</li>
     <li>[% l('Total release groups: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
 [%- INCLUDE 'report/release_group_list.tt' -%]

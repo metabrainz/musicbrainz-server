@@ -284,6 +284,12 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             {
                 self.$join.val (' ' + join + ' ');
             }
+            else if(join.match(/^,$/)) {
+                self.$join.val (', ');
+            }
+            else if(join.match(/^&$/)) {
+                self.$join.val (' & ');
+            }
         }
 
         /* this join phrase has been changed, it should no langer be automatic. */
@@ -727,6 +733,17 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         return { 'names': ret };
+    };
+
+    self.isComplex = function () {
+        var ret = self.box.length > 1,
+            box = self.box[0];
+
+        if (!ret && box !== undefined) {
+            ret = box.$id.val() || box.$gid.val();
+        }
+
+        return ret;
     };
 
     self.targetBlurred = function(event) {

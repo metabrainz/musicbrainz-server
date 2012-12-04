@@ -20,7 +20,7 @@ sub get_socket
 {
     my ($self) = @_;
 
-    my $server = DBDefs::RATELIMIT_SERVER or return;
+    my $server = DBDefs->RATELIMIT_SERVER or return;
 
     my $s = $self->_socket;
     return $s if $s;

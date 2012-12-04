@@ -1,38 +1,35 @@
 package MusicBrainz::Server::Report::ArtistReport;
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report::QueryReport';
 
-sub post_load
-{
-    my ($self, $items) = @_;
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
 
-    my @ids = grep { $_ } map { $_->{type} } @$items;
-    my $types = $self->c->model('ArtistType')->get_by_ids(@ids);
+    my $rows = $self->$orig(@_);
 
-    my @artistids = map { $_->{artist_gid} } @$items;
-    my $artists = $self->c->model('Artist')->get_by_gids(@artistids);
+    my $artists = $self->c->model('Artist')->get_by_ids(
+        map { $_->{artist_id} } @$rows
+    );
 
-    my @urlgids = map { $_->{url_gid} } @$items;
-    my $urls = $self->c->model('URL')->get_by_gids(@urlgids);
+    $self->c->model('ArtistType')->load(values %$artists);
 
-    foreach my $item (@$items) {
-        if (defined $item->{type}) {
-            $item->{type_id} = $item->{type};
-            $item->{type} = $types->{$item->{type_id}};
-        }
-        $item->{artist} = $artists->{$item->{artist_gid}};
-        $item->{urlentity} = $urls->{$item->{url_gid}} if $item->{url_gid};
-    }
-}
+    return [
+        map +{
+            %$_,
+            artist => $artists->{ $_->{artist_id} },
+        },
+            @$rows
+    ];
+};
 
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

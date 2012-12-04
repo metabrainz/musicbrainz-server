@@ -5,8 +5,7 @@ use Date::Calc ();
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'year' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer',
-    required => 1,
+    type => '+MusicBrainz::Server::Form::Field::Integer'
 );
 
 has_field 'month' => (

@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th>[% l('Collection') %]</th>
+            <th style="width: 10em">[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
             <th style="width: 10em">[% l('Privacy') %]</th>
             <th style="width: 10em">[% l('Actions') %]</th>
@@ -17,6 +18,7 @@
     [%- FOR collection=collections -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             <td>[% link_collection(collection) %]</td>
+            <td>[% collection.release_count %]</td>
             [% IF viewing_own_profile %]
             <td>[% collection.public ? l('Public') : l('Private') %]</td>
             <td>
@@ -29,7 +31,11 @@
     </tbody>
 </table>
 [%- ELSE -%]
-<p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
+    [% IF viewing_own_profile %]
+        <p>[% l('You have no collections.') -%]</p>
+    [%- ELSE -%]
+        <p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
+    [%- END -%]
 [%- END -%]
 
 [% IF viewing_own_profile %]

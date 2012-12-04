@@ -1,0 +1,49 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details set-cover-art">
+  <tr>
+    <th>[% l('Release group:') %]</th>
+    <td>
+      [%- descriptive_link(edit.display_data.release_group) -%]
+    </td>
+  </tr>
+
+  [%- IF edit.display_data.artwork.old -%]
+  <tr>
+    <th>[% l('Old cover art:') %]</th>
+    <td>
+        [%- image = edit.display_data.artwork.old -%]
+        <div class="editimage">
+          <div class="cover-image">[%- display_artwork(image) -%]</div>
+          <p>
+            [%- descriptive_link(image.release) -%]<br />
+            [%- image.release.date.format -%]
+          </p>
+          <p>
+            [%- comma_list(image.types) || '-' -%]<br />
+            [%- image.comment | html -%]
+          </p>
+        </div>
+    </td>
+  </tr>
+  [%- END -%]
+
+  <tr>
+    <th>[% l('New cover art:') %]</th>
+    <td>
+        [%- image = edit.display_data.artwork.new -%]
+        <div class="editimage">
+          <div class="cover-image">[%- display_artwork(image) -%]</div>
+          <p>
+            [%- descriptive_link(image.release) -%]<br />
+            [%- image.release.date.format -%]
+          </p>
+          <p>
+            [%- comma_list(image.types) || '-' -%]<br />
+            [%- image.comment | html -%]
+          </p>
+        </div>
+    </td>
+  </tr>
+
+</table>

@@ -1,16 +1,20 @@
-<form action="[% c.req.uri %]" method="post">
-    [% USE r = FormRenderer(form) %]
-    [% form_row_text_long(r, 'name', l('Alias name:')) %]
-    [% WRAPPER form_row %]
-      [% r.label('sort_name', l('Sort name:'), { class => 'required' }) %]
-      [% r.text('sort_name', { size => 47 })  %]
-      [% field_errors(form, 'sort_name') %]
-    [% END %]
-    [% form_row_select(r, 'locale', l('Locale:')) %]
-    <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
-      [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
-    </span>
-    [% form_row_select(r, 'type_id', l('Type:')) %]
+<form action="[% c.req.uri %]" method="post" class="edit-alias">
+  [% USE r = FormRenderer(form) %]
+  <div class="half-width">
+    <fieldset>
+      <legend>[% l('Alias Details') %]</legend>
+      [% form_row_text_long(r, 'name', l('Alias name:')) %]
+      [% WRAPPER form_row %]
+        [% r.label('sort_name', l('Sort name:'), { class => 'required' }) %]
+        [% r.text('sort_name', { size => 47 })  %]
+        [% field_errors(form, 'sort_name') %]
+      [% END %]
+      [% form_row_select(r, 'locale', l('Locale:')) %]
+      <span id="allow_primary_for_locale" style="display: [% form.field('primary_for_locale').value ? 'block' : 'none' %]">
+        [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
+      </span>
+      [% form_row_select(r, 'type_id', l('Type:')) %]
+    </fieldset>
 
     <fieldset>
       <legend>[% l('Date Period') %]</legend>
@@ -18,12 +22,18 @@
         [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM
                or just YYYY are OK, or you can omit the date entirely.') -%]
       </p>
-      [% form_row_date(r, 'begin_date', l('Begin date:')) %]
-      [% form_row_date(r, 'end_date', l('End date:')) %]
+      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'period.end_date', l('End date:')) %]
     </fieldset>
 
     [% INCLUDE 'forms/edit-note.tt' %]
     [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- sortname_bubble() -%]
+  </div>
 </form>
 
 <script>
@@ -59,4 +69,6 @@
         $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
         denyDataForSearchHints();
     });
+
+    MB.utility.setDefaultAction ('form.edit-alias', 'button.submit.positive');
 </script>

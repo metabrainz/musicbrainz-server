@@ -8,12 +8,14 @@ use Net::CoverArtArchive qw( find_available_artwork );
 use Net::CoverArtArchive::CoverArt;
 use Time::HiRes qw( time );
 
-my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => &DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
+my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
 
 sub find_available_artwork {
     my ($self, $mbid) = @_;
 
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
+
+    my $types = { map { $_->name => $_ } $self->c->model('CoverArtType')->get_all() };
 
     return [
         map {
@@ -23,6 +25,9 @@ sub find_available_artwork {
                 large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $_->{id}),
                 small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $_->{id}),
             );
+        } map {
+            $_->{types} = [ map { $types->{$_}->l_name } @{ $_->{types} } ];
+            $_;
         }
         @{ $self->sql->select_list_of_hashes(
             'SELECT index_listing.*, release.gid
@@ -48,8 +53,8 @@ sub post_fields
 {
     my ($self, $bucket, $mbid, $id, $redirect) = @_;
 
-    my $access_key = &DBDefs::COVER_ART_ARCHIVE_ACCESS_KEY;
-    my $secret_key = &DBDefs::COVER_ART_ARCHIVE_SECRET_KEY;
+    my $access_key = DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
+    my $secret_key = DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
 
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';

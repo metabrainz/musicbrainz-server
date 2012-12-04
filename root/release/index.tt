@@ -1,7 +1,7 @@
 [%- WRAPPER 'release/layout.tt' page='index' -%]
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
-    <h2>[% l('Tracklist') %]</h2>
+    <h2 class="tracklist">[% l('Tracklist') %]</h2>
     <table class="tbl">
         <thead>
             <tr>
@@ -24,13 +24,14 @@
         <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&nbsp;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
+                <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
                     [% rdfa_medium_in_release(medium) %]
                 </td>
             </tr>
-	    <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-            [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
-	    </div>
+            <!-- Invalid HTML, commenting out for now.  See MBS-5244.
+                <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
+            -->
+                [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
         [%- END -%]
         </tbody>
     </table>
@@ -63,6 +64,6 @@
 
     </script>
 
-    <h2>[% l("Relationships") %]</h2>
+    <h2 class="relationships">[% l("Relationships") %]</h2>
     [%- INCLUDE "components/relationships.tt" source=release -%]
 [%- END -%]

@@ -7,6 +7,7 @@ use Digest::SHA1 qw(sha1_base64);
 use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
+use Captcha::reCAPTCHA;
 
 sub index : Path('/account') RequireAuth
 {
@@ -77,7 +78,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
         $c->detach;
     }
 
-    if (($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT) < time()) {
+    if (($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT) < time()) {
         $c->stash(
             message => l('Sorry, this email verification link has expired.'),
             template => 'account/verify_email_error.tt',
@@ -109,7 +110,7 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves
 sub _reset_password_checksum
 {
     my ($self, $id, $time) = @_;
-    return sha1_base64("reset_password $id $time " . DBDefs::SMTP_SECRET_CHECKSUM);
+    return sha1_base64("reset_password $id $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
 sub _send_password_reset_email
@@ -193,7 +194,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
         $c->detach;
     }
 
-    if ($time + &DBDefs::EMAIL_VERIFICATION_TIMEOUT < time()) {
+    if ($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT < time()) {
         $c->stash(
             message => l('Sorry, this password reset link has expired.'),
             template => 'account/reset_password_error.tt',
@@ -212,7 +213,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found',
+            message => l('The user with ID \'{user_id}\' could not be found.',
                                    { user_id => $editor_id }),
             template => 'account/reset_password_error.tt',
         );
@@ -398,14 +399,32 @@ sub register : Path('/register') ForbiddenOnSlaves
 
     my $form = $c->form(register_form => 'User::Register');
 
+    my $captcha = Captcha::reCAPTCHA->new;
+    my $captcha_result;
+    my $use_captcha = ($c->req->address &&
+                       defined DBDefs->RECAPTCHA_PUBLIC_KEY &&
+                       defined DBDefs->RECAPTCHA_PRIVATE_KEY);
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
-        my $valid_nonce = ($c->req->params->{data} // "") eq ($c->session->{nonce} // "invalid");
+        my $valid = 0;
+        if ($use_captcha)
+        {
+            my $challenge = $c->req->params->{recaptcha_challenge_field};
+            my $response = $c->req->params->{recaptcha_response_field};
 
-        # overwrite the nonce, so it is no longer valid for this session.
-        $c->session (nonce => "invalid");
+            $captcha_result = $captcha->check_answer (
+                DBDefs->RECAPTCHA_PRIVATE_KEY,
+                $c->req->address, $challenge, $response);
 
-        if ($valid_nonce)
+            $valid = $captcha_result->{is_valid};
+        }
+        else
+        {
+            $valid = 1;
+        }
+
+        if ($valid)
         {
             my $editor = $c->model('Editor')->insert({
                 name => $form->field('username')->value,
@@ -429,14 +448,37 @@ sub register : Path('/register') ForbiddenOnSlaves
         }
         else
         {
-            $c->stash (invalid_nonce => 1);
+            $c->stash (invalid_captcha_response => 1);
         }
     }
 
+    my $captcha_html = "";
+    $captcha_html = $captcha->get_html (
+        DBDefs->RECAPTCHA_PUBLIC_KEY, $captcha_result) if $use_captcha;
+
     $c->stash(
+        use_captcha   => $use_captcha,
+        captcha       => $captcha_html,
         register_form => $form,
         template      => 'account/register.tt',
     );
+}
+
+=head2 resend_verification
+
+Send out an email allowing users to confirm their email address, from the web
+
+=cut
+
+sub resend_verification : Path('/account/resend-verification') ForbiddenOnSlaves RequireAuth
+{
+    my ($self, $c) = @_;
+    my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    if ($editor->has_email_address) {
+        $self->_send_confirmation_email($c, $editor, $editor->email);
+    }
+    $c->response->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
+    $c->detach;
 }
 
 =head2 _send_confirmation_email
@@ -461,6 +503,7 @@ sub _send_confirmation_email
         $c->model('Email')->send_email_verification(
             email             => $email,
             verification_link => $verification_link,
+            ip                => $c->req->address
         );
     }
     catch {
@@ -478,7 +521,7 @@ sub _send_confirmation_email
 sub _checksum
 {
     my ($self, $email, $uid, $time) = @_;
-    return sha1_base64("$email $uid $time " . DBDefs::SMTP_SECRET_CHECKSUM);
+    return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
 sub donation : Local RequireAuth HiddenOnSlaves

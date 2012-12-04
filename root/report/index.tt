@@ -23,6 +23,12 @@
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleArtists') %]">[% l('Discogs URLs linked to multiple artists') %]</a></li>
         </ul>
 
+        <h2>[% l('Labels') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleLabels') %]">[% l('Discogs URLs linked to multiple labels') %]</a></li>
+        </ul>
+
         <h2>[% l('Release groups') %]</h2>
 
         <ul>

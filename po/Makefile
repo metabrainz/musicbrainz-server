@@ -9,7 +9,17 @@ MOFILES=$(POFILES:.po=.mo)
 
 all: $(MOFILES) check
 
-install: $(MOFILES)	
+all_quiet: $(MOFILES) check_quiet
+
+deploy: $(MOFILES)
+	@for file in $(MOFILES); do \
+			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
+			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
+		install -d ../lib/LocaleData/$$lang/LC_MESSAGES/; \
+		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
+	done
+
+install: $(MOFILES)
 	@for file in $(MOFILES); do \
 			catalog=`echo $$file | sed 's/\.\([^.]*\)\.mo//'`; \
 			lang=`echo $$file | sed -e 's/^\([^.]*\)\.//' -e 's/\.mo//'`; \
@@ -18,14 +28,14 @@ install: $(MOFILES)
 		install -m 0644 $$file ../lib/LocaleData/$$lang/LC_MESSAGES/$$catalog.mo; \
 	done
 
-pot: mb_server.pot statistics.pot countries.pot languages.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
+pot: mb_server.pot statistics.pot countries.pot languages.pot languages_notrim.pot scripts.pot relationships.pot attributes.pot instruments.pot instrument_descriptions.pot
 
 mb_server.pot: $(POTFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file"; 
 	@echo "- Update templates .pot"; 
 	@find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
-	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=N_l --keyword=ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
+	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
 
 statistics.pot: $(STATTT) $(wildcard extract_pot_db) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the statistics.pot file";
@@ -46,6 +56,11 @@ languages.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the languages.pot file";
 	@echo "- Update database .pot";
 	@./extract_pot_db languages | msguniq -s > languages.pot
+
+languages_notrim.pot: $(wildcard extract_pot_db)
+	@echo "Rebuilding the languages.pot file (no trimming)";
+	@echo "- Update database .pot";
+	@./extract_pot_db languages_notrim | msguniq -s > languages_notrim.pot
 
 scripts.pot: $(wildcard extract_pot_db)
 	@echo "Rebuilding the scripts.pot file";
@@ -83,4 +98,9 @@ check:
 		lang=`echo $$file | sed 's/\.po//'`; \
 		printf "$$lang: "; \
 		msgfmt -o /dev/null -c -v --statistics $$lang.po;\
+	done
+
+check_quiet:
+	@for file in $(POFILES); do \
+		msgfmt -o /dev/null -c $$file;\
 	done

@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
-use Function::Parameters 'f';
 use List::Util qw( first );
 use Try::Tiny;
 use aliased 'MusicBrainz::Server::Buffer';
@@ -109,7 +108,7 @@ sub submit : Private
         $c->detach('bad_req');
     }
 
-    if (DBDefs::REPLICATION_TYPE == DBDefs::RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == DBDefs->RT_SLAVE) {
         $c->stash->{error} = 'Cannot submit PUIDs or ISRCs to a slave server.';
         $c->detach('bad_req');
     }
@@ -120,7 +119,7 @@ sub submit : Private
     for my $pair (@pairs) {
         my ($recording_id, $gid) = split(' ', $pair);
 
-        unless (MusicBrainz::Server::Validation::IsGUID($recording_id)) {
+        unless (is_guid($recording_id)) {
             $c->stash->{error} = 'Recording IDs be valid MBIDs';
             $c->detach('bad_req');
         }
@@ -161,7 +160,7 @@ sub submit_puid : Private
 
     for my $puids (values %$submit) {
         for my $puid (@$puids) {
-            unless (MusicBrainz::Server::Validation::IsGUID($puid)) {
+            unless (is_guid($puid)) {
                 $c->stash->{error} = 'PUIDs must be specified in MBID format';
                 $c->detach('bad_req');
             }
@@ -170,7 +169,8 @@ sub submit_puid : Private
 
     my $buffer = Buffer->new(
         limit   => 100,
-        on_full => f($contents) {
+        on_full => sub {
+            my $contents = shift;
             my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
             return unless @$new_rows;
 
@@ -216,7 +216,8 @@ sub submit_isrc : Private
 
     my $buffer = Buffer->new(
         limit   => 100,
-        on_full => f($contents) {
+        on_full => sub {
+            my $contents = shift;
             try {
                 $c->model('Edit')->create(
                     edit_type      => $EDIT_RECORDING_ADD_ISRCS,
