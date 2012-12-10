@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-07-15 20:28+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-12-01 07:06+0000\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -195,7 +195,7 @@ msgstr "appalakkien dulcimer"
 
 #: DB:link_attribute_type/description:480
 msgid "Armenian traditional woodwind instrument"
-msgstr ""
+msgstr "Perinteinen armenialainen puupuhallinen"
 
 #: DB:link_attribute_type/description:514
 msgid ""
@@ -934,7 +934,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:566
 msgid "The saz is a long-necked fretted lute"
-msgstr ""
+msgstr "Saz on pitkäkaulainen nauhaton luuttu"
 
 #: DB:link_attribute_type/description:112
 msgid ""
@@ -1013,7 +1013,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:426
 msgid "Theatre organ, usch as the Wurlitzer"
-msgstr ""
+msgstr "Teatteriurut, kuten Wurlitzer"
 
 #: DB:link_attribute_type/description:478
 msgid "Theorbo, Théorbe, Tiorba"
@@ -1126,7 +1126,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:492
 msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr ""
+msgstr "Turkkilainen kansanoboe http://en.wikipedia.org/wiki/Zurna"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
