@@ -1,21 +1,4 @@
 [%- WRAPPER 'label/layout.tt' title=l('Remove Label Alias') full_width=1 -%]
-    <h2>[% l('Remove Alias') %]</h2>
-    [% WRAPPER 'layout/guidelines.tt' %]
-       [% create_guideline(l("Please review the documentation about {aliases|label aliases},
-                              before entering this edit.",
-                             { aliases => doc_link('Label_Alias') })) %]
-       [% create_guideline(l("Are you sure you want to remove the alias {alias}, which
-                              points to the label {label}?",
-                             { alias => alias.name, label => link_entity(label) })) %]
-       [% create_guideline(l("If you added this alias by mistake, please follow the
-                              instructions about {cancel|how to cancel pending edits}, to
-                              cancel the pending add alias edit. Removing pending edits,
-                              rather than entering new edits helps reduce the amount of
-                              open edits in the system.",
-                             { cancel => doc_link('How_To_Cancel_Edits') })) %]
-       [% create_guideline(l("Cancelling a pending edit will take effect within an hour,
-                              while removing an artist alias has to be voted on according to
-                              the voting process.")) %]
-    [% END %]
+    <h2>[% l('Remove label alias') %]</h2>
     [% INCLUDE 'alias/delete.tt' %]
 [%- END -%]

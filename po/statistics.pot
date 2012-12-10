@@ -470,7 +470,7 @@ msgstr ""
 msgid "Active Voters"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:77
+#: ../root/statistics/timeline.tt:84
 msgid "Add/remove lines:"
 msgstr ""
 
@@ -615,19 +615,19 @@ msgstr ""
 msgid "Basics"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:87
+#: ../root/statistics/coverart.tt:106
 msgid "By Cover Art Type"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:65
+#: ../root/statistics/coverart.tt:78
 msgid "By Release Format"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:49
+#: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:33
+#: ../root/statistics/coverart.tt:46
 msgid "By Release Type"
 msgstr ""
 
@@ -655,15 +655,15 @@ msgstr ""
 msgid "Cancelled:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:77
+#: ../root/statistics/timeline.tt:84
 msgid "Check boxes above"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:83
 msgid "Click to deselect"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:73
+#: ../root/statistics/timeline.tt:80
 msgid "Controls"
 msgstr ""
 
@@ -1000,7 +1000,7 @@ msgstr ""
 msgid "Disc IDs:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:82
 msgid "Draw a rectangle on either graph"
 msgstr ""
 
@@ -1044,7 +1044,7 @@ msgstr ""
 msgid "Edits per week"
 msgstr ""
 
-#: ../root/statistics/edits.tt:13 ../root/statistics/index.tt:550
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:550
 #: ../root/statistics/index.tt:597
 msgid "Edits:"
 msgstr ""
@@ -1061,11 +1061,11 @@ msgstr ""
 msgid "Evalnochange edits"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:85
+#: ../root/statistics/timeline.tt:92
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
-#: ../root/statistics/relationships.tt:27
+#: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
 msgstr ""
 
@@ -1127,7 +1127,7 @@ msgstr ""
 msgid "High Data Quality:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:78
+#: ../root/statistics/timeline.tt:85
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1167,7 +1167,7 @@ msgstr ""
 msgid "Identifiers"
 msgstr ""
 
-#: ../root/statistics/relationships.tt:27
+#: ../root/statistics/relationships.tt:31
 msgid "Inclusive"
 msgstr ""
 
@@ -1227,11 +1227,11 @@ msgstr ""
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
 #: ../root/statistics/formats.tt:18 ../root/statistics/index.tt:7
 #: ../root/statistics/languages_scripts.tt:31
-#: ../root/statistics/relationships.tt:21
+#: ../root/statistics/relationships.tt:20
 msgid "Last updated: {date}"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:62
+#: ../root/statistics/timeline.tt:69
 msgid "Legend"
 msgstr ""
 
@@ -1289,11 +1289,11 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:66
+#: ../root/statistics/timeline.tt:73
 msgid "MusicBrainz Events"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:78
+#: ../root/statistics/timeline.tt:85
 msgid "MusicBrainz Events:"
 msgstr ""
 
@@ -1305,7 +1305,16 @@ msgstr ""
 msgid "No Votes"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:75
+#: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
+#: ../root/statistics/coverart.tt:100
+msgid "No coverart statistics available."
+msgstr ""
+
+#: ../root/statistics/edits.tt:12
+msgid "No edit statistics available."
+msgstr ""
+
+#: ../root/statistics/coverart.tt:88
 msgid "No format"
 msgstr ""
 
@@ -1313,7 +1322,11 @@ msgstr ""
 msgid "No packaging set"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:59
+#: ../root/statistics/relationships.tt:25
+msgid "No relationship statistics available."
+msgstr ""
+
+#: ../root/statistics/coverart.tt:72
 msgid "No status"
 msgstr ""
 
@@ -1321,7 +1334,7 @@ msgstr ""
 msgid "No status set"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:43 ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
 msgid "No type"
 msgstr ""
 
@@ -1407,7 +1420,7 @@ msgid_plural "PUIDs with {n} Recordings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:103
+#: ../root/statistics/coverart.tt:122
 msgid "Per release"
 msgstr ""
 
@@ -1419,11 +1432,11 @@ msgstr ""
 msgid "Pieces of Cover Art"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:83
+#: ../root/statistics/coverart.tt:97
 msgid "Pieces of cover art"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:90
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
 msgid "Pieces of cover art:"
 msgstr ""
 
@@ -1437,11 +1450,11 @@ msgstr ""
 msgid "Rank"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:87
+#: ../root/statistics/timeline.tt:94
 msgid "Rate of Change (average items/day vs. day)"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:70
+#: ../root/statistics/timeline.tt:77
 msgid "Rate of Change Graph"
 msgstr ""
 
@@ -1513,13 +1526,13 @@ msgstr ""
 msgid "Recordings:"
 msgstr ""
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:16
-#: ../root/statistics/relationships.tt:23 ../root/statistics/view_js.tt:34
+#: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
+#: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
 #: ../root/statistics/view_js.tt:179
 msgid "Relationships"
 msgstr ""
 
-#: ../root/statistics/index.tt:57 ../root/statistics/relationships.tt:30
+#: ../root/statistics/index.tt:57 ../root/statistics/relationships.tt:34
 msgid "Relationships:"
 msgstr ""
 
@@ -1582,7 +1595,7 @@ msgstr ""
 msgid "Release/Medium Formats"
 msgstr ""
 
-#: ../root/statistics/countries.tt:36 ../root/statistics/coverart.tt:29
+#: ../root/statistics/countries.tt:36 ../root/statistics/coverart.tt:35
 #: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:195
 #: ../root/statistics/languages_scripts.tt:41
 #: ../root/statistics/languages_scripts.tt:62 ../root/statistics/view_js.tt:47
@@ -1619,9 +1632,9 @@ msgstr ""
 msgid "Releases with at least one disc ID:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:17 ../root/statistics/coverart.tt:36
-#: ../root/statistics/coverart.tt:52 ../root/statistics/coverart.tt:68
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
+#: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
+#: ../root/statistics/coverart.tt:125
 msgid "Releases with cover art:"
 msgstr ""
 
@@ -1651,7 +1664,7 @@ msgstr ""
 msgid "Releases:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:83
 msgid "Reset:"
 msgstr ""
 
@@ -1690,7 +1703,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:84
+#: ../root/statistics/timeline.tt:91
 msgid "Timeline Graph"
 msgstr ""
 
@@ -1844,7 +1857,7 @@ msgstr ""
 msgid "Yesterday:"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:82
 msgid "Zoom:"
 msgstr ""
 
@@ -1902,7 +1915,7 @@ msgstr ""
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:120
+#: ../root/statistics/coverart.tt:139
 msgid "with 30 or more pieces of cover art:"
 msgstr ""
 
@@ -1934,7 +1947,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:113
+#: ../root/statistics/coverart.tt:132
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] ""
@@ -1964,10 +1977,10 @@ msgstr ""
 msgid "{name} releases"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:19 ../root/statistics/coverart.tt:45
-#: ../root/statistics/coverart.tt:61 ../root/statistics/coverart.tt:77
-#: ../root/statistics/coverart.tt:99 ../root/statistics/coverart.tt:115
-#: ../root/statistics/coverart.tt:122 ../root/statistics/edits.tt:24
+#: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
+#: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
+#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
+#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:127 ../root/statistics/index.tt:133
 #: ../root/statistics/index.tt:139 ../root/statistics/index.tt:145
@@ -1997,8 +2010,8 @@ msgstr ""
 #: ../root/statistics/index.tt:612 ../root/statistics/index.tt:628
 #: ../root/statistics/index.tt:634 ../root/statistics/index.tt:640
 #: ../root/statistics/index.tt:646 ../root/statistics/index.tt:657
-#: ../root/statistics/index.tt:664 ../root/statistics/relationships.tt:9
-#: ../root/statistics/relationships.tt:46
+#: ../root/statistics/index.tt:664 ../root/statistics/relationships.tt:8
+#: ../root/statistics/relationships.tt:50
 msgid "{n}%"
 msgstr ""
 
@@ -2006,10 +2019,10 @@ msgstr ""
 msgid "{script} releases"
 msgstr ""
 
-#: ../root/statistics/relationships.tt:41
+#: ../root/statistics/relationships.tt:45
 msgid "{type0}-{type1}"
 msgstr ""
 
-#: ../root/statistics/relationships.tt:44
+#: ../root/statistics/relationships.tt:48
 msgid "{type0}-{type1} relationships:"
 msgstr ""
