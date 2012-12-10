@@ -66,7 +66,7 @@ sub post_fields
     $policy->add ('$content-type starts-with image/jpeg');
 
     for my $field (keys %extra_fields) {
-        $policy->add("$field eq " $ $extra_fields{$field});
+        $policy->add("$field eq " . $extra_fields{$field});
     }
 
     return {
