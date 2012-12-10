@@ -49,9 +49,7 @@
 
           <hr/>
 
-          [% IF recording.edits_pending %]
-            <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
-          [% END %]
+          <li>[% link_entity(recording, 'open_edits', l('Open edits')) %]</li>
           <li>[% link_entity(recording, 'edits', l('Editing history')) %]</li>
           [% ELSE %]
           <li>[% request_login(l('Log in to edit')) %]</li>

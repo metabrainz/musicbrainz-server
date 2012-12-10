@@ -2,7 +2,7 @@
     <legend>[%- l('Edit Note') -%]</legend>
     [%- UNLESS hide_help -%]
         <p>
-            [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &mdash; thus making your edit get applied faster.',
+            [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.',
                 { note => doc_link('Edit_Note') }) %]
         </p>
 

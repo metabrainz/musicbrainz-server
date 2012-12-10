@@ -47,7 +47,7 @@ sub process_edits
 
     $self->log->info("Edit queue processing starting\n");
 
-    if (&DBDefs::DB_READ_ONLY) {
+    if (DBDefs->DB_READ_ONLY) {
         $self->log->error("Can't work on a read-only database (DB_READ_ONLY is set)\n");
         return 0;
     }

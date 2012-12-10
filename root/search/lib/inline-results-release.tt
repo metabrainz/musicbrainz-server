@@ -26,7 +26,7 @@
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
           <td>[% result.entity.combined_track_count %]</td>
           <td>
-            <abbr title="[% result.entity.country.l_name %]">[% result.entity.country.iso_code_for_display %]</abbr>
+            <abbr title="[% result.entity.country.l_name %]">[% result.entity.country.iso_code %]</abbr>
           </td>
           <td>
             <abbr title="[% result.entity.language.l_name %]">[% result.entity.language.iso_code_3 %]</abbr>

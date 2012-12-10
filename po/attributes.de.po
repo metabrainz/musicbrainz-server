@@ -1,5 +1,6 @@
 # 
 # Translators:
+#   <email address hidden>, 2012.
 # Daniel Schury <email address hidden>, 2011.
 # Mineo <email address hidden>, 2011.
 # Nikolai Prokoschenko <email address hidden>, 2011.
@@ -10,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-07 20:03+0000\n"
-"Last-Translator: Shepard <email address hidden>\n"
+"PO-Revision-Date: 2012-10-14 19:43+0000\n"
+"Last-Translator: nikki2 <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -177,7 +178,7 @@ msgstr "Digipak"
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "digitale Medien"
+msgstr "Digitales Medium"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -197,7 +198,7 @@ msgstr "EP"
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
-msgstr "weiblich"
+msgstr "Weiblich"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -237,7 +238,7 @@ msgstr "Jewelcase"
 #: DB:release_packaging/name:6
 msgctxt "release_packaging"
 msgid "Keep Case"
-msgstr "Keep Case"
+msgstr "Keep-Case"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -252,7 +253,7 @@ msgstr "LaserDisc"
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "bürgerlicher Name"
+msgstr "Bürgerlicher Name"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -267,7 +268,7 @@ msgstr "Madrigal"
 #: DB:gender/name:1
 msgctxt "gender"
 msgid "Male"
-msgstr "männlich"
+msgstr "Männlich"
 
 #: DB:work_type/name:8
 msgctxt "work_type"
@@ -297,7 +298,7 @@ msgstr "Motette"
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr "keine"
+msgstr "Keine"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
@@ -307,7 +308,7 @@ msgstr "Obi"
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
-msgstr "official"
+msgstr "Offiziell"
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -468,7 +469,7 @@ msgstr "Soundtrack"
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr "schmale Seite"
+msgstr "Schmale Seite"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
@@ -488,7 +489,7 @@ msgstr "Suite"
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr "sinfonische Dichtung"
+msgstr "Sinfonische Dichtung"
 
 #: DB:work_type/name:16
 msgctxt "work_type"

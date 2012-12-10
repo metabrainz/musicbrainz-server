@@ -211,7 +211,7 @@ sub commit
     $self->dec_transaction_depth;
     return unless $self->transaction_depth == 0;
 
-    croak "Cannot commit, in readonly mode!" if DBDefs::DB_READ_ONLY;
+    croak "Cannot commit, in readonly mode!" if DBDefs->DB_READ_ONLY;
 
     return try {
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;

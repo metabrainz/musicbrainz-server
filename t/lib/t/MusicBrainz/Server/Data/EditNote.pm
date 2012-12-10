@@ -129,7 +129,7 @@ $test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
 
 $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 
-my $server = DBDefs::WEB_SERVER_USED_IN_EMAIL;
+my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 is($email_transport->delivery_count, 2);
 

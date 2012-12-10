@@ -35,14 +35,14 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use Class::MOP;
 use DBDefs;
-use Package::Stash;
 use String::ShellQuote;
 
-my $export = Package::Stash->new('DBDefs')->get_all_symbols('CODE');
+my $export = { map { $_->name => $_ } Class::MOP::Class->initialize('DBDefs')->get_all_methods('CODE') };
 
 my %exclude = map { $_ => 1 }
-    qw ( COVER_ART_ARCHIVE_UPLOAD_PREFIXER );
+    qw ( COVER_ART_ARCHIVE_UPLOAD_PREFIXER DOES );
 
-printf "export %s=%s\n", $_, shell_quote($export->{$_}->() || '')
+printf "export %s=%s\n", $_, shell_quote($export->{$_}->body->('DBDefs') || '')
     for (grep { !exists $exclude{$_} } grep { /^[A-Z]+(_[A-Z]+)*$/ } keys %$export)
