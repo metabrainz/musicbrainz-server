@@ -1,8 +1,9 @@
 #!/bin/sh
 
 mb_server=`dirname $0`/../..
-eval `$mb_server/admin/ShowDBDefs`
-. "$MB_SERVER_ROOT"/admin/config.sh
-cd "$MB_SERVER_ROOT"
+cd $mb_server
+
+eval `carton exec -- ./admin/ShowDBDefs`
+source ./admin/config.sh
 
 # eof

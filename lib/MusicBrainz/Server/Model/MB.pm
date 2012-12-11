@@ -1,7 +1,9 @@
 package MusicBrainz::Server::Model::MB;
 use Moose;
+
 extends 'Catalyst::Model';
 
+use DBDefs;
 use Module::Pluggable::Object;
 use MusicBrainz::Server::Context;
 
@@ -12,26 +14,37 @@ has 'context' => (
     handles    => [qw( cache dbh )] # XXX Hack - Model::Feeds should be in Data
 );
 
+sub with_transaction {
+    my ($self, $code) = @_;
+    Sql::run_in_transaction($code, $self->context->sql);
+}
+
 sub _build_context {
     my $self = shift;
 
-
-    if (DBDefs::_RUNNING_TESTS()) {
+    if (DBDefs->_RUNNING_TESTS()) {
         require MusicBrainz::Server::Test;
         return MusicBrainz::Server::Test->create_test_context;
     }
     else {
-        my $cache_opts = &DBDefs::CACHE_MANAGER_OPTIONS;
-        return MusicBrainz::Server::Context->new(
+        my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
+        my $c = MusicBrainz::Server::Context->new(
             cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts)
         );
+
+        $c->dbh->do("SET statement_timeout = " .
+                        (DBDefs->MAX_REQUEST_TIME() * 1000))
+            if (defined(DBDefs->MAX_REQUEST_TIME)
+                    && DBDefs->MAX_REQUEST_TIME > 0);
+
+        return $c;
     }
 }
 
 sub models {
     my @models;
 
-    my @exclude = qw( Alias EntityAnnotation Rating Utils );
+    my @exclude = qw( Alias AliasType EntityAnnotation Rating Utils );
     my $searcher = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Data',
         except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ]

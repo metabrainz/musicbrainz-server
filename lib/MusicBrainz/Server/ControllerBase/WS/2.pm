@@ -4,18 +4,24 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Data::Utils qw( object_to_ids );
+use MusicBrainz::Server::WebService::Format;
+use MusicBrainz::Server::WebService::XMLSerializer;
+use MusicBrainz::Server::WebService::JSONSerializer;
+use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Try::Tiny;
 
-Readonly my %serializers => (
-    xml => 'MusicBrainz::Server::WebService::XMLSerializer',
-);
+with 'MusicBrainz::Server::WebService::Format' =>
+{
+    serializers => [
+        'MusicBrainz::Server::WebService::XMLSerializer',
+        'MusicBrainz::Server::WebService::JSONSerializer',
+    ]
+};
 
 with 'MusicBrainz::Server::Controller::Role::Profile' => {
-    threshold => DBDefs::PROFILE_WEB_SERVICE()
+    threshold => DBDefs->PROFILE_WEB_SERVICE()
 };
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
@@ -38,7 +44,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "Your requests are being throttled by MusicBrainz because the ".
@@ -57,7 +63,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "Your requests are exceeding the allowable rate limit (" . $r->msg . "). " .
@@ -73,7 +79,7 @@ sub apply_rate_limit
         $c->res->headers->header(
             'X-Rate-Limited' => sprintf('%.1f %.1f %d', $r->rate, $r->limit, $r->period)
         );
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
             $c->stash->{serializer}->output_error(
                 "The MusicBrainz web server is currently busy. " .
@@ -87,17 +93,18 @@ sub apply_rate_limit
 sub bad_req : Private
 {
     my ($self, $c) = @_;
+
     $c->res->status(400);
-    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error($c->stash->{error}));
 }
 
 sub deny_readonly : Private
 {
     my ($self, $c) = @_;
-    if (DBDefs::DB_READ_ONLY) {
+    if (DBDefs->DB_READ_ONLY) {
         $c->res->status(503);
-        $c->res->content_type("application/xml; charset=UTF-8");
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
     }
 }
@@ -105,7 +112,7 @@ sub deny_readonly : Private
 sub success : Private
 {
     my ($self, $c) = @_;
-    $c->res->content_type("application/xml; charset=UTF-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_success);
 }
 
@@ -113,7 +120,7 @@ sub unauthorized : Private
 {
     my ($self, $c) = @_;
     $c->res->status(401);
-    $c->res->content_type("application/xml; charset=utf-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("Your credentials ".
         "could not be verified.\nEither you supplied the wrong credentials ".
         "(e.g., bad password), or your client doesn't understand how to ".
@@ -124,7 +131,7 @@ sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->res->status(404);
-    $c->res->content_type("application/xml; charset=utf-8");
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->output_error("Not Found"));
 }
 
@@ -143,7 +150,7 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     my ($self, $c) = @_;
 
     try {
-        $self->validate($c, \%serializers) or $c->detach('bad_req');
+        $self->validate($c) or $c->detach('bad_req');
     }
     catch {
         my $err = $_;
@@ -169,7 +176,7 @@ sub _search
 {
     my ($self, $c, $entity) = @_;
 
-    my $result = xml_search($entity, $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search($entity, $c->stash->{args});
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     if (exists $result->{xml})
     {
@@ -289,6 +296,7 @@ sub linked_artists
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Artist')->alias->find_by_entity_id(map { $_->id } @$artists) };
+        $c->model('Artist')->alias_type->load(@aliases);
 
         my %alias_per_artist;
         foreach (@aliases)
@@ -318,6 +326,7 @@ sub linked_labels
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Label')->alias->find_by_entity_id(map { $_->id } @$labels) };
+        $c->model('Label')->alias_type->load(@aliases);
 
         my %alias_per_label;
         foreach (@aliases)
@@ -436,9 +445,12 @@ sub linked_works
 {
     my ($self, $c, $stash, $works) = @_;
 
+    $c->model('ISWC')->load_for_works(@$works);
+
     if ($c->stash->{inc}->aliases)
     {
         my @aliases = @{ $c->model('Work')->alias->find_by_entity_id(map { $_->id } @$works) };
+        $c->model('Work')->alias_type->load(@aliases);
 
         my %alias_per_work;
         foreach (@aliases)
@@ -484,7 +496,7 @@ sub _validate_entity
 
     my $model = type_to_model ($entity);
 
-    if (!$gid || !MusicBrainz::Server::Validation::IsGUID($gid))
+    if (!$gid || !is_guid($gid))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -500,6 +512,40 @@ sub _validate_entity
     $c->detach('not_found') unless ($entity);
 
     return ($entity, $model);
+}
+
+sub load_relationships {
+    my ($self, $c, $stash, @for) = @_;
+
+    if ($c->stash->{inc}->has_rels)
+    {
+        my $types = $c->stash->{inc}->get_rel_types();
+        my @rels = $c->model('Relationship')->load_subset($types, @for);
+
+        my @works =
+            map { $_->target }
+            grep { $_->target_type eq 'work' }
+            map { $_->all_relationships } @for;
+
+        if ($c->stash->{inc}->work_level_rels)
+        {
+            $c->model('Relationship')->load_subset($types, @works);
+        }
+        $self->linked_works($c, $stash, \@works);
+
+        my $collect_works = sub {
+            my $relationship = shift;
+            return (
+                ($relationship->target_type eq 'work' && $relationship->target) || (),
+                ($relationship->source_type eq 'work' && $relationship->source) || (),
+            );
+        };
+
+        my @load_language_for = (
+            map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
+        );
+        $c->model('Language')->load(@load_language_for);
+    }
 }
 
 no Moose;

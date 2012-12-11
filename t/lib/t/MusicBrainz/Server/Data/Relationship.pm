@@ -164,6 +164,7 @@ $rel_data->update('artist', 'recording', 100, {
     link_type_id => 1,
     begin_date => undef,
     end_date => undef,
+    ended => 0,
     attributes => [ 3 ],
     entity0_id => 1,
     entity1_id => 1

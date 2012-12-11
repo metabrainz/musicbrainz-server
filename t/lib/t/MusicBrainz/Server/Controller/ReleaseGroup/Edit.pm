@@ -22,7 +22,7 @@ html_ok($mech->content);
 
 my $request = POST $mech->uri, [
     'edit-release-group.comment' => 'A comment!',
-    'edit-release-group.type_id' => 2,
+    'edit-release-group.primary_type_id' => 2,
     'edit-release-group.name' => 'Another name',
     'edit-release-group.artist_credit.names.0.name' => 'Foo',
     'edit-release-group.artist_credit.names.0.artist.name' => 'Bar',
@@ -55,7 +55,7 @@ is_deeply($edit->data, {
                 join_phrase => '',
             } ] },
         name => 'Arrival',
-        comment => undef,
+        comment => '',
         type_id => 1,
     },
     entity => {

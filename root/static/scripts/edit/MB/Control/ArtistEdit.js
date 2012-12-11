@@ -22,8 +22,9 @@ MB.Control.ArtistEdit = function () {
     var self = MB.Object ();
 
     self.$name   = $('#id-edit-artist\\.name');
-    self.$begin  = $('#label-id-edit-artist\\.begin_date');
-    self.$end    = $('#label-id-edit-artist\\.end_date');
+    self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
+    self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
+    self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
@@ -31,11 +32,12 @@ MB.Control.ArtistEdit = function () {
     self.changeDateText = function (text) {
         self.$begin.text(text[0]);
         self.$end.text(text[1]);
+        self.$ended.text(text[2]);
     };
 
     /* Sets the label descriptions depending upon the artist type:
 
-           Unknown: 0 
+           Unknown: 0
            Person: 1
            Group: 2
     */
@@ -83,14 +85,18 @@ MB.Control.ArtistEdit = function () {
             $ac.find('input').change(function() {
                 var checked = this.checked;
                 var new_name = self.$name.val();
-                $ac.find('a').each(function() {
+                $ac.find('span.ac-preview')[checked ? 'show' : 'hide']();
+                $ac.find('span.ac-preview a').each(function() {
                     var $link = $(this);
                     if ($link.data('old_name')) {
                         $link.text(checked ? new_name : $link.data('old_name'));
                     }
                 });
             });
-            $ac.find('a').each(function() {
+            $ac.find('input').each(function () {
+                $ac.find('span.ac-preview')[this.checked ? 'show' : 'hide']();
+            });
+            $ac.find('span.ac-preview a').each(function() {
                 var $link = $(this);
                 if (artist_re.test($link.attr('href'))) {
                     $link.data('old_name', $link.text());
@@ -102,7 +108,7 @@ MB.Control.ArtistEdit = function () {
             $('span.rename-artist-credit').each(function() {
                 var $ac = $(this);
                 if ($ac.find('input:checked').length) {
-                    $ac.find('a').each(function() {
+                    $ac.find('span.ac-preview a').each(function() {
                         var $link = $(this);
                         if ($link.data('old_name')) {
                             $link.text(new_name);

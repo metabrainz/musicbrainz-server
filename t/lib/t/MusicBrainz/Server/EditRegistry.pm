@@ -15,7 +15,8 @@ test 'All edits have distinct names' => sub {
 
 test 'All edits have an edit category' => sub {
     my @classes = EditRegistry->get_all_classes;
-    for my $class (@classes) {
+    # Grep to ignore any stuff in t::
+    for my $class (grep /^MusicBrainz::/, @classes) {
         ok($class->edit_category,
            "$class has an edit category");
     }

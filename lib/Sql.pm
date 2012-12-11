@@ -39,12 +39,16 @@ has 'sth' => (
         next_row_ref => 'fetch',
         next_row_hash_ref => 'fetchrow_hashref',
     },
+    clearer => 'clear_sth'
 );
 
 sub finish
 {
     my ($self) = @_;
-    $self->sth->finish if exists $self->{sth};
+    if (my $sth = $self->sth) {
+        $sth->finish;
+        $self->clear_sth;
+    }
 }
 
 sub BUILDARGS
@@ -161,9 +165,22 @@ sub update_row
 
     my $query = "UPDATE $table SET " . join(', ', map { "$_ = ?" } @update_columns) .
                 ' WHERE ' . join(' AND ', map { "$_ = ?" } @condition_columns);
+
     $self->do($query,
         (map { $update->{$_} } @update_columns),
         (map { $conditions->{$_} } @condition_columns));
+}
+
+sub delete_row
+{
+    my ($self, $table, $conditions) = @_;
+    my @condition_columns = keys %$conditions;
+
+    croak 'delete_row called with no where clause' unless @condition_columns;
+
+    my $query = "DELETE FROM $table WHERE " . join(' AND ', map { "$_ = ?" } @condition_columns);
+
+    $self->do($query, (map { $conditions->{$_} } @condition_columns));
 }
 
 has 'transaction_depth' => (
@@ -194,7 +211,7 @@ sub commit
     $self->dec_transaction_depth;
     return unless $self->transaction_depth == 0;
 
-    croak "Cannot commit, in readonly mode!" if DBDefs::DB_READ_ONLY;
+    croak "Cannot commit, in readonly mode!" if DBDefs->DB_READ_ONLY;
 
     return try {
         my $tt = Sql::Timer->new('COMMIT', []) if $self->debug;
@@ -323,13 +340,14 @@ sub _select_single_row
     return try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        my $sth = $self->dbh->prepare_cached($query);
-        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+        $self->sth( $self->dbh->prepare_cached($query) );
+        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
 
-        my $first_row = $sth->$method;
-        my $next_row  = $sth->$method if $first_row;
+        my $first_row = $self->sth->$method;
+        my $next_row  = $self->sth->$method if $first_row;
 
-        $sth->finish;
+        $self->finish;
+
         croak 'Query returned more than one row (expected 1 row)' if $next_row;
 
         return $first_row;
@@ -392,15 +410,16 @@ sub _select_list
     try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        my $sth = $self->dbh->prepare_cached($query);
-        my $rv  = $sth->execute(@params) or croak 'Could not execute query';
+        $self->sth( $self->dbh->prepare_cached($query) );
+        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
-        while(my $row = $sth->$method) {
+        while(my $row = $self->sth->$method) {
             push @vals, $form_row->($row);
         }
 
-        $sth->finish;
+        $self->finish;
+
         return \@vals;
     }
     catch {
@@ -437,37 +456,6 @@ sub select_list_of_hashes
 {
     my ($self, $query, @params) = @_;
     $self->_select_list($query, \@params, 'hashref');
-}
-
-sub get_column_range
-{
-    my ($self, $tables, $column, $cmpfunc) = @_;
-    $tables = [ $tables ] if not ref $tables;
-    $column = "id" if not defined $column;
-    $cmpfunc ||= sub { $_[0] <=> $_[1] };
-
-    # Postgres is poor at optimising SELECT MIN(id) FROM table
-    # (or MAX).  It uses a table scan, instead of an index scan.
-    # However for the following queries it gets it right:
-
-    my ($min, $max);
-    for my $table (@$tables) {
-        my $thismin = $self->select_single_value(
-            "SELECT $column FROM $table ORDER BY 1 ASC LIMIT 1",
-        );
-        $min = $thismin
-            if defined($thismin)
-                and (not defined($min) or &$cmpfunc($thismin, $min)<0);
-
-        my $thismax = $self->select_single_value(
-            "SELECT $column FROM $table ORDER BY 1 DESC LIMIT 1",
-        );
-        $max = $thismax
-            if defined($thismax)
-                and (not defined($max) or &$cmpfunc($thismax, $max)>0);
-    }
-
-    return ($min, $max);
 }
 
 ################################################################################

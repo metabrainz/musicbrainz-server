@@ -29,9 +29,20 @@ sub type_name
     return $self->type ? $self->type->name : undef;
 }
 
-has 'iswc' => (
+sub l_type_name
+{
+    my ($self) = @_;
+    return $self->type ? $self->type->l_name : undef;
+}
+
+has 'language_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
+    );
+
+has 'language' => (
+    is => 'rw',
+    isa => 'Language'
 );
 
 has 'comment' => (
@@ -62,6 +73,17 @@ has 'writers' => (
     handles => {
         add_writer => 'push',
         all_writers => 'elements',
+    }
+);
+
+has 'iswcs' => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_iswcs => 'elements',
+        add_iswc => 'push'
     }
 );
 

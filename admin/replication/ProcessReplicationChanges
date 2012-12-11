@@ -82,7 +82,7 @@ $SIG{'INT'} = sub { die "SIGINT\n" };
 my ($ins, $del, $upd) = (0, 0, 0);
 my %bytable;
 
-my $c = MusicBrainz::Server::Context->new;;
+my $c = MusicBrainz::Server::Context->new(database => 'READWRITE');
 
 my $sql = Sql->new($c->conn);
 my $sql2 = Sql->new($c->conn);

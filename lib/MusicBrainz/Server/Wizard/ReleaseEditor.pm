@@ -236,6 +236,23 @@ sub recording_edits_from_tracklist
     return %recording_edits;
 }
 
+=method track_edits_from_tracklist
+
+Create no-op track edits for a particular tracklist.
+
+=cut
+
+sub track_edits_from_tracklist
+{
+    my ($self, $tracklist) = @_;
+
+    my @tracks;
+
+    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
+    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+
+    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+}
 
 =method _search_recordings
 
@@ -366,10 +383,18 @@ sub associate_recordings
             }
         }
 
+        # MBS-3957: Track length has been changed by >10 seconds.
+        # Always require confirmation
+        if ($trk && $trk_edit->{length} && $trk->length &&
+            abs($trk_edit->{length} - $trk->length) > 10000) {
+            push @load_recordings, $trk->recording_id;
+            push @ret, { 'id' => $trk->recording_id, 'confirmed' => 0 };
+        }
+
         # Track edit is already associated with a recording edit.
         # (but ignore that association if it concerns an automatically
         #  selected "add new recording").
-        if ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
+        elsif ($rec_edit && ($rec_edit->{confirmed} || $rec_edit->{gid} ne "new"))
         {
             push @load_recordings, $rec_edit->{id} if $rec_edit->{id};
             push @ret, $rec_edit;
@@ -872,6 +897,8 @@ sub create_edits
 
     $self->_expand_mediums($data);
 
+    $self->c->model('MB')->context->sql->begin unless $previewing;
+
     # Artists and labels:
     # ----------------------------------------
     my (%created) = $self->_edit_missing_entities(%args);
@@ -896,6 +923,8 @@ sub create_edits
 
     # Add any other extra edits (adding mediums, etc)
     $self->create_common_edits(%args);
+
+    $self->c->model('MB')->context->sql->commit unless $previewing;
 
     return $self->release;
 }
@@ -940,9 +969,10 @@ sub _edit_missing_entities
             $EDIT_ARTIST_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            name => $artist->{name},
-            sort_name => $artist->{sort_name} || '',
-            comment => $artist->{comment} || '');
+            name => trim ($artist->{name}),
+            sort_name => trim ($artist->{sort_name}) || '',
+            comment => trim ($artist->{comment}) || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -952,7 +982,10 @@ sub _edit_missing_entities
             $EDIT_LABEL_CREATE,
             $editnote,
             as_auto_editor => $data->{as_auto_editor},
-            map { $_ => $label->{$_} } qw( name sort_name comment ));
+            name => trim ($label->{name}),
+            sort_name => trim ($label->{sort_name}) || '',
+            comment => trim ($label->{comment}) || '',
+            ipi_codes => [ ]);
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;
@@ -1309,6 +1342,7 @@ sub _expand_track
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
+        number => trim ($trk->{number} // $trk->{position}),
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
@@ -1425,7 +1459,8 @@ sub track_edit_from_track
         deleted => 0,
         length => $track->length,
         name => $track->name,
-        position => $track->position
+        position => $track->position,
+        number => $track->number
     });
 }
 
@@ -1469,14 +1504,31 @@ sub _seed_parameters {
             sub { shift->model('ReleaseStatus')->find_by_name(shift) },
         ],
         [
-            'type_id', 'type',
-            sub { shift->model('ReleaseGroupType')->find_by_name(shift) },
-        ],
-        [
             'packaging_id', 'packaging',
             sub { shift->model('ReleasePackaging')->find_by_name(shift) },
         ],
     );
+
+    if (exists $params->{type})
+    {
+        my %primary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupType')->get_all ();
+        my %secondary_types = map { lc($_->name) => $_ } $self->c->model('ReleaseGroupSecondaryType')->get_all ();
+
+        for my $typename (ref($params->{type}) eq 'ARRAY' ? @{ $params->{type} } : ($params->{type}))
+        {
+            if (defined $primary_types{$typename})
+            {
+                $params->{primary_type_id} = $primary_types{$typename}->id;
+            }
+            elsif (defined $secondary_types{$typename})
+            {
+                $params->{secondary_type_ids} = [] unless defined $params->{secondary_type_ids};
+                push @{ $params->{secondary_type_ids} }, $secondary_types{$typename}->id;
+            }
+        }
+
+        delete $params->{type};
+    }
 
     for my $trans (@transformations) {
         my ($key, $alias, $transform) = @$trans;

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Work::AddAnnotation;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Edit::Work';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
-sub edit_name { l('Add work annotation') }
+sub edit_name { N_l('Add work annotation') }
 sub edit_type { $EDIT_WORK_ADD_ANNOTATION }
 sub models { [qw( Work )] }
 sub _annotation_model { shift->c->model('Work')->annotation }

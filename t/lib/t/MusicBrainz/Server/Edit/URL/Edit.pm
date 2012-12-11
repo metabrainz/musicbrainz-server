@@ -16,7 +16,7 @@ with 't::Context';
 
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_URL_EDIT );
-use MusicBrainz::Server::Constants qw( $STATUS_APPLIED );
+use MusicBrainz::Server::Constants qw( $STATUS_APPLIED $STATUS_OPEN );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
 has edit => (
@@ -30,7 +30,6 @@ test 'Entering makes no changes' => sub {
     my $test = shift;
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://microsoft.com');
-    is($url->description, 'EVIL');
     is($url->edits_pending, 1);
 };
 
@@ -41,7 +40,6 @@ test 'Can accept' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://apple.com');
-    is($url->description, 'Possibly even more evil');
     is($url->edits_pending, 0);
 };
 
@@ -51,7 +49,6 @@ test 'Can reject' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://microsoft.com');
-    is($url->description, 'EVIL');
     is($url->edits_pending, 0);
 };
 
@@ -67,7 +64,6 @@ test 'Entering the same edit twice is OK' => sub {
 
     my $url = $test->c->model('URL')->get_by_id(2);
     is($url->url, 'http://apple.com');
-    is($url->description, 'Possibly even more evil');
     is($url->edits_pending, 0);
 };
 
@@ -101,33 +97,10 @@ test 'Can edit 2 URLs into a common URL' => sub {
     my $edit_2 = $builder->(3);
 
     is $edit_1->status, $STATUS_APPLIED;
+    is $edit_2->status, $STATUS_OPEN, 'Merging URLs is not an auto edit';
+
+    accept_edit($test->c, $edit_2);
     is $edit_2->status, $STATUS_APPLIED;
-};
-
-test 'Check conflicts (non-conflicting edits)' => sub {
-    my $test = shift;
-    my $c = $test->c;
-
-    my $edit_1 = $c->model('Edit')->create(
-        edit_type => $EDIT_URL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('URL')->get_by_id(1),
-        description => 'The best music database!'
-    );
-
-    my $edit_2 = $c->model('Edit')->create(
-        edit_type => $EDIT_URL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('URL')->get_by_id(1),
-        url       => 'http://musicbrainz.org/rocks',
-    );
-
-    ok !exception { $edit_1->accept }, 'accepted edit 1';
-    ok !exception { $edit_2->accept }, 'accepted edit 2';
-
-    my $url = $c->model('URL')->get_by_id(1);
-    is ($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
-    is ($url->description, 'The best music database!', 'description changed');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -139,14 +112,13 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id   => 1,
         to_edit     => $c->model('URL')->get_by_id(1),
         url         => 'http://musicbrainz.org/rocks',
-        description => 'The best music database!'
     );
 
     my $edit_2 = $c->model('Edit')->create(
         edit_type   => $EDIT_URL_EDIT,
         editor_id   => 1,
         to_edit     => $c->model('URL')->get_by_id(1),
-        description => 'The best music database. Period.'
+        url         => 'http://musicbrainz.org/super',
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -154,7 +126,6 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $url = $c->model('URL')->get_by_id(1);
     is ($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
-    is ($url->description, 'The best music database!', 'description changed');
 };
 
 sub _build_edit {
@@ -164,7 +135,6 @@ sub _build_edit {
         editor_id => 1,
         to_edit => $test->c->model('URL')->get_by_id($url_to_edit || 2),
         url => $url || 'http://apple.com',
-        description => 'Possibly even more evil'
     );
 }
 

@@ -45,7 +45,7 @@ INSERT INTO artist (id, gid, name, sort_name) VALUES
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 104, 2);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 0, 4, 5, ' & ');
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (1, 1, 5, 6, '');
 
 -- Test artist name triggers
 INSERT INTO artist_name (id, name) VALUES (100, 'Shared Name');
@@ -55,7 +55,7 @@ INSERT INTO artist_name (id, name) VALUES (103, 'Credit Name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (100, '24c94140-456b-11de-8a39-0800200c9a66', 100, 100);
 INSERT INTO artist (id, gid, name, sort_name) VALUES (101, '374d65d0-456b-11de-8a39-0800200c9a66', 101, 102);
 INSERT INTO artist_credit (id, name, artist_count) VALUES (100, 100, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, NULL);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES (100, 0, 100, 103, '');
 
 INSERT INTO artist_name (id, name) VALUES (7, 'ABBA');
 
@@ -87,17 +87,18 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
-INSERT INTO work (id, gid, name, artist_credit, type, iswc) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, NULL, 1, 'T-000.000.001-0');
+INSERT INTO work (id, gid, name, artist_credit, type) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, NULL, 1);
+INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
 INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
 
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 INSERT INTO release_packaging (id, name) VALUES (2, 'Digipak');
 
-INSERT INTO language (id, iso_code_3t, iso_code_3b, iso_code_2, name, frequency)
-    VALUES (1, 'deu', 'ger', 'de', 'German', 2),
-           (2, 'lit', 'lit', 'lt', 'Lithuanian', 1);
+INSERT INTO language (id, iso_code_2t, iso_code_2b, iso_code_1, iso_code_3, name, frequency)
+    VALUES (1, 'deu', 'ger', 'de', 'deu', 'German', 2),
+           (2, 'lit', 'lit', 'lt', 'lit', 'Lithuanian', 1);
 
 INSERT INTO script (id, iso_code, iso_number, name, frequency)
     VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
@@ -136,8 +137,8 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (2, 1, 2, 'ABC-123-X');
 
-INSERT INTO url (id, gid, url, description)
-    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/', 'MusicBrainz');
+INSERT INTO url (id, gid, url)
+    VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/');
 
 INSERT INTO medium_format (id, name) VALUES (1, 'CD');
 INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
@@ -149,16 +150,16 @@ INSERT INTO tracklist (id) VALUES (2);
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'The First Disc');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1, 2, 2, 1, 'The Second Disc');
 
-INSERT INTO track (id, recording, tracklist, position, name, artist_credit, length)
-    VALUES (1, 1, 1, 1, 1, 2, 123456);
+INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit, length)
+    VALUES (1, 1, 1, 1, 1, 1, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (2, 'Track 2');
-INSERT INTO track (id, recording, tracklist, position, name, artist_credit, length)
-    VALUES (2, 1, 1, 2, 2, 2, 123456);
+INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit, length)
+    VALUES (2, 1, 1, 2, 2, 2, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (3, 'Track 3');
-INSERT INTO track (id, recording, tracklist, position, name, artist_credit)
-    VALUES (3, 1, 2, 1, 3, 2);
+INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit)
+    VALUES (3, 1, 2, 1, 1, 3, 2);
 
 -- A full editor
 INSERT INTO
@@ -171,15 +172,16 @@ INSERT INTO
 INSERT INTO editor_preference (editor, name, value) VALUES (1, 'public_ratings', '0');
 
 INSERT INTO artist_name (id, name) VALUES (8, 'Test Alias');
-INSERT INTO artist_alias (id, name, artist, edits_pending)
-    VALUES (1, 8, 4, 2);
+INSERT INTO artist_alias (id, name, sort_name, artist, edits_pending)
+    VALUES (1, 8, 8, 4, 2);
 
-INSERT INTO artist_alias (id, name, artist)
-    VALUES (2, 8, 5);
+INSERT INTO artist_alias (id, name, sort_name, artist)
+    VALUES (2, 8, 8, 5);
 
 INSERT INTO label_name (id, name) VALUES (3, 'Test Label Alias');
-INSERT INTO label_alias (id, name, label, edits_pending)
-    VALUES (1, 3, 2, 2);
+INSERT INTO label_alias_type (id, name) VALUES (1, 'Search hint');
+INSERT INTO label_alias (id, name, sort_name, label, edits_pending, type)
+    VALUES (1, 3, 3, 2, 2, 1);
 
 
 INSERT INTO artist_name (id, name) VALUES (9, 'Kate Bush');
@@ -265,23 +267,23 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (17, '1539ac10-5081-4469-b8f2-c5896132724e', 19, 3, 472880);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (4, 3, 1, 2, 4, 3, 293720);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (5, 3, 2, 3, 5, 3, 369680);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (6, 3, 3, 4, 6, 3, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (7, 3, 4, 5, 7, 3, 358960);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (8, 3, 5, 6, 8, 3, 332613);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (9, 3, 6, 7, 9, 3, 296160);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (10, 3, 7, 8, 10, 3, 372386);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (4, 3, 1, 1, 2, 4, 3, 293720);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (5, 3, 2, 2, 3, 5, 3, 369680);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (6, 3, 3, 3, 4, 6, 3, 258839);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (7, 3, 4, 4, 5, 7, 3, 358960);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (8, 3, 5, 5, 6, 8, 3, 332613);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (9, 3, 6, 6, 7, 9, 3, 296160);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (10, 3, 7, 7, 8, 10, 3, 372386);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (11, 4, 1, 9, 11, 3, 86186);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (12, 4, 2, 10, 12, 3, 342306);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (13, 4, 3, 11, 13, 3, 290053);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (14, 4, 4, 12, 14, 3, 95933);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (15, 4, 5, 13, 15, 3, 358573);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (16, 4, 6, 14, 16, 3, 61333);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (17, 4, 7, 15, 17, 3, 300626);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (18, 4, 8, 16, 18, 3, 514679);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (19, 4, 9, 17, 19, 4, 472880);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (11, 4, 1, 1, 9, 11, 3, 86186);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (12, 4, 2, 2, 10, 12, 3, 342306);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (13, 4, 3, 3, 11, 13, 3, 290053);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (14, 4, 4, 4, 12, 14, 3, 95933);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (15, 4, 5, 5, 13, 15, 3, 358573);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (16, 4, 6, 6, 14, 16, 3, 61333);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (17, 4, 7, 7, 15, 17, 3, 300626);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (18, 4, 8, 8, 16, 18, 3, 514679);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (19, 4, 9, 9, 17, 19, 4, 472880);
 
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (3, 2, 1, 3, 1, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2, 2, 4, 1, 'A Sky of Honey');
@@ -300,11 +302,11 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
-            'performer');
+            'performer', 'description');
 
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max)
     VALUES (1, 1, 0, 1);
@@ -321,8 +323,8 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (2, 3);
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES
     (8, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 8, 9);
-INSERT INTO artist (id, gid, name, sort_name) VALUES
-    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9);
+INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
+    (9, '2fed031c-0e89-406e-b9f0-3d192637907a', 8, 9, 'Second');
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 8, 2);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 9, 2, 1);
@@ -359,8 +361,8 @@ INSERT INTO puid (id, puid, version) VALUES
 INSERT INTO recording_puid (id, recording, puid) VALUES
     (1, 1, 1), (2, 1, 2);
 
-INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
-INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2);
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used'), (3, 'hip-hop/rap');
+INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2), (3, 3, 2);
 INSERT INTO label_tag (tag, label, count) VALUES (1, 2, 2);
 INSERT INTO recording_tag (tag, recording, count) VALUES (1, 1, 2);
 INSERT INTO release_group_tag (tag, release_group, count) VALUES (1, 1, 2);
@@ -397,5 +399,7 @@ ALTER SEQUENCE track_id_seq RESTART 20;
 ALTER SEQUENCE medium_id_seq RESTART 7;
 
 ALTER SEQUENCE tag_id_seq RESTART 100;
+
+ALTER SEQUENCE link_id_seq RESTART 3;
 
 SET client_min_messages TO 'NOTICE';

@@ -4,13 +4,14 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_TRACKNUM );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Edit track number') }
+sub edit_name     { N_l('Edit track number (historic)') }
 sub historic_type { 5 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNUM }
+sub edit_template { 'historic/edit_track_number' }
 
 sub _build_related_entities
 {

@@ -6,6 +6,8 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
+use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
+
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -42,6 +44,12 @@ sub status_name
     return $self->status ? $self->status->name : undef;
 }
 
+sub l_status_name
+{
+    my ($self) = @_;
+    return $self->status ? $self->status->l_name : undef;
+}
+
 has 'packaging_id' => (
     is => 'rw',
     isa => 'Int'
@@ -56,6 +64,12 @@ sub packaging_name
 {
     my ($self) = @_;
     return $self->packaging ? $self->packaging->name : undef;
+}
+
+sub l_packaging_name
+{
+    my ($self) = @_;
+    return $self->packaging ? $self->packaging->l_name : undef;
 }
 
 has 'artist_credit_id' => (
@@ -173,27 +187,7 @@ sub combined_format_name
     my ($self) = @_;
     my @mediums = @{$self->mediums};
     return "" if !@mediums;
-    my %formats_count;
-    my @formats_order;
-    foreach my $medium (@mediums) {
-        my $format_name = l($medium->format_name) || l('(unknown)');
-        if (exists $formats_count{$format_name}) {
-            $formats_count{$format_name} += 1;
-        }
-        else {
-            $formats_count{$format_name} = 1;
-            push @formats_order, $format_name;
-        }
-    }
-    my @formats;
-    foreach my $format (@formats_order) {
-        my $count = $formats_count{$format};
-        if ($count > 1 && $format) {
-            $format = $count . "\x{00D7}" . $format;
-        }
-        push @formats, $format;
-    }
-    return join " + ", @formats;
+    return combined_medium_format_name(map { $_->l_format_name() || l('(unknown)') } @mediums );
 }
 
 sub has_multiple_artists
@@ -265,6 +259,29 @@ sub filter_labels
     my @labels = $self->all_labels
         or return ();
     return grep { $_->label_id && $_->label_id == $label->id } @labels;
+}
+
+=head2 length
+
+Return the duration of the release in microseconds.
+(or undef if the duration of one or more media is not known).
+
+=cut
+
+sub length {
+    my $self = shift;
+
+    my $length = 0;
+
+    for my $disc ($self->all_mediums)
+    {
+        my $l = $disc->length;
+        return undef unless $l;
+
+        $length += $l;
+    }
+
+    return $length;
 }
 
 __PACKAGE__->meta->make_immutable;

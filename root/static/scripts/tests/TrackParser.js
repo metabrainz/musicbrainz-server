@@ -25,14 +25,14 @@ MB.tests.TrackParser.BugFixes = function() {
                     "７ Ｈｉｌｌｗｏｏｄ   ０２：３４"
                 ].join ("\n"),
                 expected: [
-                    "Kermis",
-                    "Glitch",
-                    "Afrik Slang",
-                    "Rot Beat",
-                    "Pruik",
-                    "In Je Graff",
-                    "Ｈｉｌｌｗｏｏｄ"
-                ],
+                    { number: "a1", title: "Kermis" },
+                    { number: "a2", title: "Glitch" },
+                    { number: "a3", title: "Afrik Slang" },
+                    { number: "4", title: "Rot Beat" },
+                    { number: "5", title: "Pruik" },
+                    { number: "6", title: "In Je Graff" },
+                    { number: "7", title: "Ｈｉｌｌｗｏｏｄ" },
+               ],
                 tracknumbers: true, vinylnumbers: true, tracktimes: true
             }
         ];
@@ -46,7 +46,8 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.title, expected, expected);
+                QUnit.equal(r.number, expected.number, expected.number);
+                QUnit.equal(r.title, expected.title, expected.title);
             });
         });
 
@@ -97,6 +98,12 @@ MB.tests.TrackParser.BugFixes = function() {
                 expected: [ { title: "Love On A .45", duration: null } ],
                 bug: 'MBS-2902',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Love On A .45  05:22:31\n",
+                expected: [ { title: "Love On A .45", duration: 19351000 } ],
+                bug: 'MBS-3353',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 
@@ -109,9 +116,9 @@ MB.tests.TrackParser.BugFixes = function() {
 
             $.each (test.expected, function (idx, expected) {
                 var r = result[idx];
-                QUnit.equals(r.position, idx+1, test.bug + ', ' + expected.title);
-                QUnit.equals(r.title, expected.title, test.bug + ', ' + expected.title);
-                QUnit.equals(r.duration, expected.duration, test.bug + ', ' + expected.title);
+                QUnit.equal(r.position, idx+1, test.bug + ', ' + expected.title);
+                QUnit.equal(r.title, expected.title, test.bug + ', ' + expected.title);
+                QUnit.equal(r.duration, expected.duration, test.bug + ', ' + expected.title);
             });
         });
 

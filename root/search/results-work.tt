@@ -1,6 +1,4 @@
-[%- WRAPPER "layout.tt" title=l("Search Results") full_width=1 -%]
-    <div id="content">
-        <h1>[%- l("Search Results") -%]</h1>
+[% WRAPPER 'search/results-layout.tt' %]
         [%- IF results.size -%]
             [%- WRAPPER 'components/with-pager.tt' search=1 -%]
                 <table class="tbl">
@@ -11,6 +9,7 @@
                             <th>[%- l('Writers') -%]</th>
                             <th>[%- l('Artists') -%]</th>
                             <th>[%- l('ISWC') -%]</th>
+                            <th>[%- l('Language') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +33,18 @@
                               [%- END -%]
                               </ul>
                             </td>
-                            <td>[% result.entity.iswc %]</td>
+                            <td>
+                              <ul>
+                                [% FOR iswc=result.entity.iswcs %]
+                                  <li>[%- link_iswc(iswc.iswc) -%]</li>
+                                [% END %]
+                              </ul>
+                            </td>
+                            <td>
+                              <abbr title="[% result.entity.language.l_name %]">
+                                [% result.entity.language.iso_code_3 %]
+                              </abbr>
+                            </td>
                         </tr>
                         [%- END -%]
                     </tbody>
@@ -49,6 +59,4 @@
                            }) }) %]
             </p>
         [%- END -%]
-        [%- INCLUDE "search/form.tt" -%]
-    </div>
 [%- END -%]

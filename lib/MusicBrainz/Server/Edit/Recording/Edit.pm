@@ -17,7 +17,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     merge_artist_credit
 );
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
@@ -29,7 +29,7 @@ with 'MusicBrainz::Server::Edit::CheckForConflicts';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_EDIT }
-sub edit_name { l('Edit recording') }
+sub edit_name { N_l('Edit recording') }
 sub _edit_model { 'Recording' }
 sub recording_id { return shift->entity_id }
 

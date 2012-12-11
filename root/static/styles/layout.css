@@ -56,7 +56,7 @@ fieldset legend {
     font-weight: bold;
 }
 
-#sidebar h2 {
+#sidebar h2, .sidebar h2 {
     font-size: 100%;
     margin-left: -5px;
 }
@@ -89,6 +89,7 @@ ul.inline {
     padding-left: 0;
     list-style-type: none;
     list-style-image: none;
+    margin: 0;
 }
 
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
@@ -109,6 +110,22 @@ pre code {
     width: 100%;
 }
 
+#header img.gravatar { display: none; }
+
+img.gravatar {
+    display: inline;
+    max-height: 1em;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    padding: 1px;
+    background: #fff;
+    margin-right: 0.35em;
+}
+
+h1 img.gravatar {
+    max-height: 3em;
+}
+
 #header-logo {
     background: #736DAB url('../images/layout/sprites.png') no-repeat top left;
     height: 58px;
@@ -126,6 +143,11 @@ pre code {
     position: absolute;
     top: 2px;
     right: 18px;
+    color: #DDD;
+}
+
+#header-logo #headerid-query {
+    width: 18em;
 }
 
 #header-logo #id-type {
@@ -330,7 +352,7 @@ div.warning {
     margin: 2em auto;
     border: 1px solid #a1a1a1;
     min-height: 54px;
-    width: 30em;
+    width: 60em;
     background: #ffffd0;
 }
 
@@ -360,9 +382,21 @@ div.warning img.warning {
     font-size: 95%;
 }
 
-#page.homepage #sidebar {
+#page.homepage .sidebar {
+    float: right;
+    font-size: 95%;
     margin-top: 34px;
-    width: 450px;
+    width: auto;
+}
+
+#page.homepage #sidebar {
+    margin-left: 2.5em;
+}
+
+#page.homepage .sidebar div:after {
+    visibility: hidden;
+    content: '&nbsp';
+    clear: both;
 }
 
 #sidebar p {
@@ -455,6 +489,78 @@ div.warning img.warning {
 
 #sidebar ul.external_links li.soundcloud {
     background-image: url("../images/favicons/soundcloud-16.png");
+}
+
+#sidebar ul.external_links li.ibdb {
+    background-image: url("../images/favicons/ibdb-16.png");
+}
+
+#sidebar ul.external_links li.imslp {
+    background-image: url("../images/favicons/imslp-16.png");
+}
+
+#sidebar ul.external_links li.ESTERTallinn {
+    background-image: url("../images/favicons/ESTERTallinn-16.png");
+}
+
+#sidebar ul.external_links li.ESTERTartu {
+    background-image: url("../images/favicons/ESTERTartu-16.png");
+}
+
+#sidebar ul.external_links li.worldcat {
+    background-image: url("../images/favicons/worldcat-16.png");
+}
+
+#sidebar ul.external_links li.fortyfivecat {
+    background-image: url("../images/favicons/45cat-16.png");
+}
+
+#sidebar ul.external_links li.rateyourmusic {
+    background-image: url("../images/favicons/rateyourmusic-16.png");
+}
+
+#sidebar ul.external_links li.rolldabeats {
+    background-image: url("../images/favicons/rolldabeats-16.png");
+}
+
+#sidebar ul.external_links li.psydb {
+    background-image: url("../images/favicons/psydb-16.png");
+}
+
+#sidebar ul.external_links li.metalarchives {
+    background-image: url("../images/favicons/metalarchives-16.png");
+}
+
+#sidebar ul.external_links li.spiritofmetal {
+    background-image: url("../images/favicons/spiritofmetal-16.png");
+}
+
+#sidebar ul.external_links li.theatricalia {
+    background-image: url("../images/favicons/theatricalia-16.png");
+}
+
+#sidebar ul.external_links li.ocremix {
+    background-image: url("../images/favicons/ocremix-16.png");
+}
+
+#sidebar ul.external_links li.musiksammler {
+    background-image: url("../images/favicons/sammler-16.png");
+}
+
+#sidebar ul.external_links li.encyclopedisque {
+    background-image: url("../images/favicons/encyclopedisque-16.png");
+}
+
+#sidebar ul.external_links li.trove {
+    background-image: url("../images/favicons/trove-16.png");
+}
+
+#sidebar ul.external_links li.ric {
+    background-image: url("../images/favicons/ric-16.png");
+}
+
+#sidebar ul.external_links li.dhhu {
+    background-image: url("../images/favicons/dhhu-16.png");
 }
 
 #sidebar .cover-art {
@@ -844,7 +950,8 @@ div.artwork-cont {
 }
 
 div.artwork { position: relative; width: 250px; }
-div.artwork img { max-width: 250px; max-height: 250px; }
+/* don't include 'div' since this should apply to 'p' as well */
+.artwork img { max-width: 250px; max-height: 250px; }
 div.delete { display: hidden !important; }
 
 .annotation-toggle {
@@ -879,4 +986,11 @@ div.delete { display: hidden !important; }
 
 .annotation-collapse {
     max-height: none;
+}
+
+span.release-group-type {
+    background: #589DFF;
+    color: #fff;
+    border-radius: 3px;
+    padding: 0 3px;
 }

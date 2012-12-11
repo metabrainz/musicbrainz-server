@@ -93,12 +93,20 @@ $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 0);
 
 # Test inserting new aliases
-$artist_data->alias->insert({ artist_id => 1, name => 'New alias', locale => 'en_AU' });
+$artist_data->alias->insert({
+    artist_id => 1,
+    name => 'New alias',
+    sort_name => 'New sort name',
+    locale => 'en_AU',
+    primary_for_locale => 0
+});
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
 is(scalar @$alias_set, 1);
 is($alias_set->[0]->name, 'New alias');
 is($alias_set->[0]->locale, 'en_AU');
+is($alias_set->[0]->sort_name, 'New sort name');
+is($alias_set->[0]->primary_for_locale, 0);
 
 $test->c->sql->commit;
 
@@ -117,10 +125,10 @@ test 'Merging should not add aliases identical to new name' => sub {
 
     $c->sql->do(<<EOSQL);
 INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name');
-INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 1, 1),
-           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2);
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 1, 1, 'Artist 2'),
+           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2, '');
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2, 3);
@@ -140,7 +148,7 @@ INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
            (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name) VALUES (1, 2);
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2);
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);
@@ -149,6 +157,35 @@ EOSQL
     is(@$aliases, 1);
     is($aliases->[0]->name, 'Old name', 'has old name alias',);
     ok(!(grep { $_->name eq 'Name' } @$aliases), 'does not have new name alias');
+};
+
+test 'Exists only checks a single entity' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
+INSERT INTO artist (id, gid, name, sort_name, comment)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2, 'Artist 2'),
+           (3, '1153890e-afdf-404c-85d1-aea98dfe576d', 2, 2, 'Artist 3');
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2), (2, 3, 3);
+EOSQL
+
+    my $check_alias = sub {
+        $c->model('Artist')->alias->exists({
+            name => shift, locale => undef, type_id => undef, not_id => undef, entity => shift
+        })
+    };
+
+    ok($check_alias->('Old name', 1));
+    ok(!$check_alias->('Foo name', 1));
+
+    ok(!$check_alias->('Old name', 2));
+    ok($check_alias->('Foo name', 2));
+
+    ok(!$check_alias->('Old name', 3));
+    ok(!$check_alias->('Foo name', 3));
 };
 
 1;

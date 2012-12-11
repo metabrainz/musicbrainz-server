@@ -36,5 +36,7 @@ MB.GuessCase.Mode.Artist = function () {
         return w === 'the' ? false : parentIsLowerCaseWord (w);
     };
 
+    self.isSentenceCaps = function() { return false; };
+
     return self;
 };

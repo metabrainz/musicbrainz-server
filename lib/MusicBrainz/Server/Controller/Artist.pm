@@ -11,11 +11,13 @@ with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
+with 'MusicBrainz::Server::Controller::Role::IPI';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -40,6 +42,8 @@ use MusicBrainz::Server::FilterUtils qw(
     create_artist_recordings_form
 );
 use Sql;
+
+use List::AllUtils qw( any );
 
 my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
@@ -253,7 +257,9 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
+    $c->model('ISWC')->load_for_works(@$works);
     $c->model('WorkType')->load(@$works);
+    $c->model('Language')->load(@$works);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, @$works);
     }
@@ -450,9 +456,10 @@ sub edit : Chained('load') RequireAuth Edit {
         type        => $EDIT_ARTIST_EDIT,
         item        => $artist,
         edit_args   => { to_edit => $artist },
-        on_creation => sub {
+        post_creation => sub {
             my ($edit, $form) = @_;
 
+            my $editid = $edit->id;
             my $name = $form->field('name')->value;
             if ($name ne $artist->name) {
                 my %rename = %{ $form->rename_artist_credit_set };
@@ -469,14 +476,14 @@ sub edit : Chained('load') RequireAuth Edit {
                     $c->model('EditNote')->add_note(
                         $ac_edit->id,
                         {
-                            text => l('The artist name has been changed in edit #{id}.',
-                                      { id => $edit->id }),
+                            text => "The artist name has been changed in edit #$editid.",
                             editor_id => $EDITOR_MODBOT
                         }
                     );
                 }
             }
-
+        },
+        on_creation => sub {
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]));
         }
@@ -513,6 +520,11 @@ around _validate_merge => sub {
     my $target = $form->field('target')->value;
     if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
+        return 0;
+    }
+
+    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+        $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }
 
@@ -609,38 +621,40 @@ sub split : Chained('load') Edit {
         form        => 'EditArtistCredit',
         type        => $EDIT_ARTIST_EDITCREDIT,
         item        => { artist_credit => $ac },
-        edit_args   => { to_edit => $ac }
-    );
+        edit_args   => { to_edit => $ac },
+        post_creation => sub {
+            my ($edit) = @_;
 
-    if ($edit) {
-        my %artists = map { $_ => 1 } $edit->new_artist_ids;
+            my $editid = $edit->id;
+            my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
-        for my $relationship (grep {
-            $_->link->type->gid == $COLLABORATION &&
-            exists $artists{$_->entity0_id} &&
-            $_->entity1_id == $artist->id
-        } $artist->all_relationships) {
-            my $rem = $c->model('Edit')->create(
-                edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                editor_id    => $EDITOR_MODBOT,
-                type0        => 'artist',
-                type1        => 'artist',
-                relationship => $relationship
-            );
+            for my $relationship (grep {
+                $_->link->type->gid == $COLLABORATION &&
+                    exists $artists{$_->entity0_id} &&
+                        $_->entity1_id == $artist->id
+                    } $artist->all_relationships) {
+                my $rem = $c->model('Edit')->create(
+                    edit_type    => $EDIT_RELATIONSHIP_DELETE,
+                    editor_id    => $EDITOR_MODBOT,
+                    type0        => 'artist',
+                    type1        => 'artist',
+                    relationship => $relationship
+                );
 
-            $c->model('EditNote')->add_note(
-                $rem->id,
-                {
-                    text => l('This collaboration has been split in edit #{id}.',
-                              { id => $edit->id }),
-                    editor_id => $EDITOR_MODBOT
-                }
-            );
+                $c->model('EditNote')->add_note(
+                    $rem->id,
+                    {
+                        text => "This collaboration has been split in edit #$editid.",
+                        editor_id => $EDITOR_MODBOT
+                    }
+                );
+            }
+        },
+        on_creation => sub {
+            $c->res->redirect(
+                $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
-
-        $c->res->redirect(
-            $c->uri_for_action('/artist/show', [ $artist->gid ]))
-    }
+    );
 }
 
 sub can_split {
@@ -689,7 +703,7 @@ sub process_filter
     unless (exists $c->req->params->{'filter.cancel'}) {
         my $cookie = $c->req->cookies->{filter};
         my $has_filter_params = grep(/^filter\./, keys %{ $c->req->params });
-        if ($has_filter_params || (defined($cookie) && $cookie->value eq '1')) {
+        if ($has_filter_params || ($cookie && defined($cookie->value) && $cookie->value eq '1')) {
             my $filter_form = $create_form->();
             if ($filter_form->submitted_and_valid($c->req->params)) {
                 for my $name ($filter_form->filter_field_names) {

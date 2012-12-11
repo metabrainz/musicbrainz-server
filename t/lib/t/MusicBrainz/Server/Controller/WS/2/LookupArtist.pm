@@ -20,8 +20,10 @@ my $c = $test->c;
 my $v2 = schema_validator;
 my $diff = XML::SemanticDiff->new;
 my $mech = $test->mech;
+$mech->default_header ("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 
 ws_test 'basic artist lookup',
     '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a' =>
@@ -43,8 +45,23 @@ ws_test 'artist lookup, inc=aliases',
             <begin>1986-11-05</begin>
         </life-span>
         <alias-list count="5">
-            <alias>Beat of Angel</alias><alias>BoA Kwon</alias><alias>Kwon BoA</alias><alias>ボア</alias><alias>보아</alias>
+            <alias sort-name="Beat of Angel">Beat of Angel</alias>
+            <alias sort-name="BoA Kwon">BoA Kwon</alias>
+            <alias sort-name="Kwon BoA">Kwon BoA</alias>
+            <alias sort-name="ボア">ボア</alias>
+            <alias sort-name="보아">보아</alias>
         </alias-list>
+    </artist>
+</metadata>';
+
+ws_test 'artist lookup, inc=annotation',
+    '/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?inc=annotation' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Person" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
+        <name>Distance</name><sort-name>Distance</sort-name>
+        <annotation><text>this is an artist annotation</text></annotation>
+        <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
     </artist>
 </metadata>';
 
@@ -194,6 +211,7 @@ ws_test 'artist lookup with release groups',
             <release-group type="Single" id="153f0a09-fead-3370-9b17-379ebd09446b">
                 <title>the Love Bug</title>
                 <first-release-date>2004-03-17</first-release-date>
+                <primary-type>Single</primary-type>
             </release-group>
         </release-group-list>
     </artist>

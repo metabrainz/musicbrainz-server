@@ -1,19 +1,25 @@
 [% main_title = l('{type} “{work}”', {
-    type => l(work.type_name) or l('Work'),
+    type => work.l_type_name or l('Work'),
     work => work.name
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        [% IF work.type || work.iswc %]
-        <h2>[% l('Work information') %]</h2>
+        [% IF work.type || work.iswcs.size || work.language %]
+        <h2 class="work-information">[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Lyrics Language:')
+               content=link_searchable_property('lang', work.language.iso_code_3, 'work', work.language.l_name)
+               class="lyrics-language"
+                   IF work.language -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-               content=html_escape(l(work.type.name))
+               content=html_escape(work.type.l_name) class="type"
                    IF work.type -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('ISWC:')
-               content=rdfa_work_iswc(work)
-                   IF work.iswc -%]
+            [%- FOR iswc IN work.iswcs -%]
+                [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
+                [% rdfa_work_iswc(work, iswc) %]
+                [% END %]
+            [%- END -%]
         [% END %]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]
@@ -22,14 +28,11 @@
             async = c.uri_for_action('/work/tag_async', [ work.gid ])
             -%]
 
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-              <li>
-                <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ work.gid ]) %]">
-                  [% work.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
-                </a>
-              </li>
+               [% annotation_links(work) %]
+
                <li>
                  <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
                    [% l('Merge work') %]
@@ -46,9 +49,7 @@
 
                <hr/>
 
-               [% IF work.edits_pending %]
-                 <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
-               [% END %]
+               <li>[% link_entity(work, 'open_edits', l('Open edits')) %]</li>
                <li>[% link_entity(work, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Log in to edit')) %]</li>
@@ -59,10 +60,11 @@
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=work -%]
     [% END %]
+  [%- END -%]
 
-<div id="content">
+  <div id="content">
     [%- INCLUDE 'work/header.tt' %]
     [%- content -%]
-</div>
+  </div>
 
 [%- END -%]

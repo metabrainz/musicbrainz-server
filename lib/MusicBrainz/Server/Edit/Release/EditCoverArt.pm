@@ -8,22 +8,18 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::CoverArt';
 
-sub edit_name { 'Edit cover art' }
+sub edit_name { N_l('Edit cover art') }
 sub edit_type { $EDIT_RELEASE_EDIT_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
-
-sub alter_edit_pending {
-    return {
-        Release => [ shift->release_ids ],
-    }
-}
 
 sub change_fields
 {
@@ -79,6 +75,11 @@ sub accept {
             'This release no longer exists'
         );
 
+    $self->c->model('CoverArtArchive')->exists($self->data->{id})
+        or MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This cover art no longer exists'
+        );
+
     $self->c->model('CoverArtArchive')->update_cover_art(
         $release->id,
         $self->data->{id},
@@ -100,7 +101,7 @@ sub foreign_keys {
         @{ $self->data->{new}->{types} },
         @{ $self->data->{old}->{types} }
     ] if defined $self->data->{new}->{types};
-        
+
     return \%fk;
 }
 
@@ -110,7 +111,7 @@ sub display_cover_art_types
 
     # FIXME: sort these.
     # hardcode (front, back, alphabetical) sorting in CoverArtType somehow?
-    return join (", ", map { $loaded->{CoverArtType}->{$_}->name } @$types);
+    return join (", ", map { $loaded->{CoverArtType}->{$_}->l_name } @$types);
 }
 
 sub build_display_data {
@@ -121,10 +122,11 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
     $data{artwork} = {
         image => $prefix.$self->data->{id}.'.jpg',
+        large_thumbnail => $prefix.$self->data->{id}.'-500.jpg',
         small_thumbnail => $prefix.$self->data->{id}.'-250.jpg',
     };
 

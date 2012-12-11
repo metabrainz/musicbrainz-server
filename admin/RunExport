@@ -86,6 +86,7 @@ then
 
     # Now remove the "private" file(s)
     rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2
+    rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2.gpg
 
     # and move the rest to the FTP directory
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/*
@@ -97,6 +98,12 @@ then
     > "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
     chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
     chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/latest-is-"$EXPORT_STAMP"
+
+    # Finally finally, create a LATEST file whose *contents* are this export's tag
+    rm -rf "$FTP_DATA_DIR"/fullexport/LATEST
+    echo "$EXPORT_STAMP" > "$FTP_DATA_DIR"/fullexport/LATEST
+    chmod "$FTP_FILE_MODE" "$FTP_DATA_DIR"/fullexport/LATEST
+    chown "$FTP_USER:$FTP_GROUP" "$FTP_DATA_DIR"/fullexport/LATEST
 
     $mb_server/bin/delete-old-fullexports -k -r "$BACKUP_DIR"/fullexport "$FTP_DATA_DIR"/fullexport
     $mb_server/bin/rsync-fullexport-files

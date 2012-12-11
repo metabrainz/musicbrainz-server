@@ -2,8 +2,7 @@ package MusicBrainz::Server::Edit::Release::AddAnnotation;
 
 use Moose;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_ANNOTATION );
-use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 
@@ -11,7 +10,7 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { l('Add release annotation') }
+sub edit_name { N_l('Add release annotation') }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }
 
 sub models { [qw( Release )] }

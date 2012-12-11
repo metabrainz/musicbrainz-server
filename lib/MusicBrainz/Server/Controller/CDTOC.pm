@@ -14,6 +14,9 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
+
+use List::UtilsBy qw( sort_by );
 
 use HTTP::Status qw( :constants );
 
@@ -28,6 +31,8 @@ sub _load
 {
     my ($self, $c, $discid) = @_;
 
+    add_dash($c, $discid);
+
     return $c->model('CDTOC')->get_by_discid($discid);
 }
 
@@ -39,10 +44,13 @@ sub _load_releases
     my @releases = $c->model('Release')->load(@mediums);
     $c->model('MediumFormat')->load(@mediums);
     $c->model('Medium')->load_for_releases(@releases);
+    my @rgs = $c->model('ReleaseGroup')->load(@releases);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
     $c->model('Country')->load(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
+    $c->model('CDTOC')->load(@medium_cdtocs);
     return \@medium_cdtocs;
 }
 
@@ -103,7 +111,12 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
         or die "Could not find mediums";
 
     $c->model('Release')->load(@$mediums);
-    $c->model('ArtistCredit')->load(map { $_->release } @$mediums);
+
+    $c->model('Track')->load_for_tracklists(
+        $c->model('Tracklist')->load($mediums->[0]));
+    $c->model('Recording')->load($mediums->[0]->tracklist->all_tracks);
+
+    $c->model('ArtistCredit')->load($mediums->[0]->tracklist->all_tracks, map { $_->release } @$mediums);
 
     $c->stash( mediums => $mediums );
 
@@ -201,6 +214,8 @@ sub attach : Local
         $c->model('Country')->load(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
+        my @rgs = $c->model('ReleaseGroup')->load(@$releases);
+        $c->model('ReleaseGroup')->load_meta(@rgs);
 
         $c->stash(
             artist => $artist,
@@ -234,17 +249,22 @@ sub attach : Local
             my @releases = map { $_->entity } @$releases;
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-            my @mediums = grep { !$_->format || $_->format->has_discids }
-                map { $_->all_mediums } @releases;
+            my @mediums = map { $_->all_mediums } @releases;
             $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
 
             my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
+
+            my @rgs = $c->model('ReleaseGroup')->load(@releases);
+            $c->model('ReleaseGroup')->load_meta(@rgs);
 
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
-                results => $releases
+                results => [sort_by { $_->entity->release_group ? $_->entity->release_group->gid : '' } @$releases]
             );
             $c->detach;
         }
@@ -275,6 +295,7 @@ sub attach : Local
 
         $c->stash(
             medium_cdtocs => $self->_load_releases($c, $cdtoc),
+            cdtoc => $cdtoc,
             template => 'cdtoc/lookup.tt',
         );
     }
@@ -316,9 +337,14 @@ sub move : Local RequireAuth Edit
         $c->model('Medium')->load($medium_cdtoc);
 
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
+        $c->model('Country')->load($medium->release);
+        $c->model('ReleaseLabel')->load($medium->release);
+        $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash( release => $medium->release );
+        $c->stash( 
+            medium => $medium
+        );
 
 
         $c->stash(template => 'cdtoc/attach_confirm.tt');
@@ -350,6 +376,9 @@ sub move : Local RequireAuth Edit
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
+            $c->model('Country')->load(@releases);
+            $c->model('ReleaseLabel')->load(@releases);
+            $c->model('Label')->load(map { $_->all_labels } @releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;

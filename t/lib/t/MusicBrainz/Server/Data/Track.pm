@@ -34,7 +34,7 @@ is ( $track->position, 3 );
 
 ok( !$track_data->load() );
 
-my ($tracks, $hits) = $track_data->find_by_recording(1, 10);
+my ($tracks, $hits) = $track_data->find_by_recording(1, 10, 0);
 is( $hits, 2 );
 is( scalar(@$tracks), 2 );
 is( $tracks->[0]->id, 1 );
@@ -69,6 +69,7 @@ $track = $track_data->insert({
     artist_credit => 1,
     length => 500,
     position => 8,
+    number => 8
 });
 
 ok(defined $track);

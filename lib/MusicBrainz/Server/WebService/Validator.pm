@@ -60,12 +60,18 @@ sub load_type_and_status
 {
     my ($c) = @_;
 
-    my @types = $c->model('ReleaseGroupType')->get_all();
-    %types = map { (
-        lc($_->name) => $_->id,
-        lc('sa-' . $_->name)=> $_->id,
-        lc('va-' . $_->name)=> $_->id,
-    ) } @types;
+    %types = map {
+        my ($name, $id) = @$_;
+        (
+            lc($name) => $id,
+            lc("sa-$name") => $id,
+            lc("va-$name") => $id
+        )
+    } (
+        (map +[ lc($_->name) => $_->id ], $c->model('ReleaseGroupType')->get_all()),
+        (map +[ lc($_->name) => 'st:' . $_->id ], $c->model('ReleaseGroupSecondaryType')->get_all())
+    );
+
     my @statuses = $c->model('ReleaseStatus')->get_all();
     %statuses = map {
         lc($_->name) => $_->id,
@@ -284,19 +290,11 @@ sub validate_inc
 role {
     my $r = shift;
 
-    method 'get_default_serialization_type' => sub
-    {
-        return $r->default_serialization_type;
-    };
-
     method 'validate' => sub
     {
-        my ($self, $c, $serializers) = @_;
+        my ($self, $c) = @_;
 
-        # Set up the serializers so we can report errors in the correct format
-        my $class = $serializers->{$r->default_serialization_type};
-        Class::MOP::load_class($class);
-        $c->stash->{serializer} = $class->new();
+        $c->stash->{serializer} = $self->get_serialization ($c);
 
         my $resource = $c->req->path;
         my $version = quotemeta ($r->version);
@@ -347,16 +345,6 @@ role {
                 $resource eq 'tag' || $resource eq 'rating' ||
                 ($resource eq 'release' && $c->req->method eq 'POST') ||
                 ($resource eq 'recording' && $c->req->method eq 'POST');
-
-            # Check the type and prepare a serializer. For now, since we only support XML
-            # we're going to default to XML. In the future if we want to add more serializations,
-            # we will add support for requesting the format via the Content-type headers.
-            my $type = $r->default_serialization_type;
-            unless (defined($type) && exists $serializers->{$type}) {
-                my @types = keys %{$serializers};
-                $c->stash->{error} = 'Invalid content type. Must be set to ' . join(' or ', @types) . '.';
-                $c->detach('bad_req');
-            }
 
             # All is well! Set up the stash!
             $c->stash->{inc} = $inc;

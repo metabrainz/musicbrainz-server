@@ -11,6 +11,11 @@ parameter 'edit_type' => (
     required => 1
 );
 
+parameter 'edit_arguments' => (
+    isa => 'CodeRef',
+    default => sub { sub { } }
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -34,6 +39,7 @@ role {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));
             },
+            $params->edit_arguments->($self, $c, $edit_entity)
         );
     };
 };

@@ -35,7 +35,6 @@ MB.GuessCase.Modes = function (language) {
         var mode = self.dropdown.find ('option:selected').data ('mb.guesscase.mode');
         return mode || MB.GuessCase.Mode.Dummy ();
     };
-    
 
     /**
      * Set mode.
@@ -65,7 +64,7 @@ MB.GuessCase.Modes = function (language) {
         self.dropdown = $('#gc-mode');
         self.dropdown.empty ();
 
-        $.each (['English', 'Sentence', 'French', 'Classical'], function (idx, mode) {
+        $.each (['English', 'Sentence', 'French'], function (idx, mode) {
             if (typeof MB.GuessCase.Mode[mode] !== "undefined")
             {
                 self.modes.push (MB.GuessCase.Mode[mode] (self));
@@ -89,7 +88,7 @@ MB.GuessCase.Modes = function (language) {
 
             self.dropdown.append (option);
         });
-        
+
         self.dropdown.bind ('change.mb', self.updateMode);
 
         $('#gc-help').html (self.getMode ().getDescription ());

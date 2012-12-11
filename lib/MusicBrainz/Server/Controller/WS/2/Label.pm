@@ -3,25 +3,27 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
      label => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      label => {
                          method   => 'GET',
                          linked   => [ qw(release) ],
-                         inc      => [ qw(aliases
+                         inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      label => {
                          method   => 'GET',
-                         inc      => [ qw(releases aliases
+                         inc      => [ qw(releases aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      }
 ]);
 
@@ -48,6 +50,10 @@ sub label_toplevel
 
     $c->model('LabelType')->load($label);
     $c->model('Country')->load($label);
+    $c->model('Label')->ipi->load_for($label);
+
+    $c->model('Label')->annotation->load_latest($label)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->aliases)
     {
@@ -64,17 +70,15 @@ sub label_toplevel
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $label);
-    }
+    $self->load_relationships($c, $stash, $label);
 }
 
 sub label : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $label = $c->stash->{entity};
+
+    return unless defined $label;
 
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($label);
@@ -92,7 +96,7 @@ sub label_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

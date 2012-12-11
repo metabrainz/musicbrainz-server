@@ -6,7 +6,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 
 has '+name' => ( default => 'edit-release-group' );
 
-has_field 'type_id' => (
+has_field 'primary_type_id' => (
     type => 'Select',
 );
 
@@ -16,8 +16,7 @@ has_field 'name' => (
 );
 
 has_field 'comment' => (
-    type      => '+MusicBrainz::Server::Form::Field::Text',
-    maxlength => 255
+    type => '+MusicBrainz::Server::Form::Field::Comment',
 );
 
 has_field 'artist_credit' => (
@@ -25,8 +24,24 @@ has_field 'artist_credit' => (
     required => 1
 );
 
-sub options_type_id { shift->_select_all('ReleaseGroupType') }
+has_field 'secondary_type_ids' => (
+    type => 'Select',
+    multiple => 1
+);
 
-sub edit_field_names { qw( type_id name comment artist_credit ) }
+sub options_primary_type_id { shift->_select_all('ReleaseGroupType') }
+sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
+
+sub edit_field_names { qw( primary_type_id name comment artist_credit secondary_type_ids ) }
+
+after BUILD => sub {
+    my $self = shift;
+
+    if (defined $self->init_object) {
+        $self->field('secondary_type_ids')->value(
+            [ map { $_->id } $self->init_object->all_secondary_types ]
+        );
+    }
+};
 
 1;

@@ -1,26 +1,32 @@
 package MusicBrainz::Server::Edit::Release::EditReleaseLabel;
 use Moose;
+use 5.10.0;
 
 use Moose::Util::TypeConstraints qw( find_type_constraint subtype as );
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Edit::Utils qw( merge_value );
+use MusicBrainz::Server::Translation qw ( N_l l );
+use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
+with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
-sub edit_name { l('Edit release label') }
+sub edit_name { N_l('Edit release label') }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::MediumFormat';
 
 subtype 'ReleaseLabelHash'
     => as Dict[
@@ -41,6 +47,7 @@ has '+data' => (
             country => Nullable[Str],
             barcode => Nullable[Str],
             combined_format => Nullable[Str],
+            medium_formats => Nullable[ArrayRef[Str]],
         ],
         new => find_type_constraint('ReleaseLabelHash'),
         old => find_type_constraint('ReleaseLabelHash')
@@ -54,26 +61,49 @@ sub foreign_keys
 {
     my $self = shift;
 
-    my $keys = { Release => { $self->release_id => [] } };
+    my $keys = { Release => { $self->release_id => [ 'ArtistCredit' ] } };
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
+    $keys->{Country}->{ $self->data->{release}{country} } = [] if looks_like_number($self->data->{release}{country});
 
     return $keys;
 };
+
+sub process_medium_formats
+{
+    my ($self, $format_names) = @_;
+
+    return combined_medium_format_name(map {
+        if ($_ eq '(unknown)') {
+            l('(unknown)');
+        }
+        else {
+            MediumFormat->new(name => $_)->l_name;
+        }
+        } @$format_names);
+}
 
 sub build_display_data
 {
     my ($self, $loaded) = @_;
 
     my $data = {
-        release => $loaded->{Release}->{ $self->release_id },
+        release => $loaded->{Release}->{ $self->release_id } // Release->new( name => $self->data->{release}{name} ),
         catalog_number => {
             new => $self->data->{new}{catalog_number},
             old => $self->data->{old}{catalog_number},
         },
         extra => $self->data->{release}
     };
+
+    if ($data->{extra}{medium_formats}) {
+        $data->{extra}{combined_format} = $self->process_medium_formats($data->{extra}{medium_formats});
+    }
+
+    if (looks_like_number($data->{extra}{country})) {
+        $data->{extra}{country} = $loaded->{Country}->{ $data->{extra}{country} }->l_name if $loaded->{Country}->{$data->{extra}{country}};
+    }
 
     for (qw( new old )) {
         if (my $lbl = $self->data->{$_}{label}) {
@@ -142,7 +172,7 @@ sub initialize
         release => {
             id => $release_label->release->id,
             name => $release_label->release->name,
-            combined_format => $release_label->release->combined_format_name,
+            medium_formats => [ map { defined $_->format ? $_->format->name : '(unknown)' } $release_label->release->all_mediums ]
         },
         $self->_change_data($release_label, %opts),
     };
@@ -150,7 +180,7 @@ sub initialize
     $data->{release}{date} = $release_label->release->date->format
         if $release_label->release->date;
 
-    $data->{release}{country} = $release_label->release->country->name
+    $data->{release}{country} = $release_label->release->country->id
         if $release_label->release->country;
 
     $data->{release}{barcode} = $release_label->release->barcode->format
@@ -169,14 +199,15 @@ sub accept
 {
     my $self = shift;
 
-    my %args;
-    if (exists $self->data->{new}{label})
-    {
-        $args{label_id} = $self->data->{new}{label} ? $self->data->{new}{label}{id} : undef;
+    if (!defined($self->release_label)) {
+        MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+            'This release label no longer exists.'
+        );
     }
 
-    $args{catalog_number} = $self->data->{new}{catalog_number}
-        if exists $self->data->{new}{catalog_number};
+    my %args = %{ $self->merge_changes };
+    $args{label_id} = delete $args{label}
+        if exists $args{label};
 
     if (my $label_id = $args{label_id}) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
@@ -186,6 +217,38 @@ sub accept
 
     $self->c->model('ReleaseLabel')->update($self->release_label_id, \%args);
 }
+
+has release_label => (
+    is => 'ro',
+    default => sub {
+        my $self = shift;
+        return $self->c->model('ReleaseLabel')->get_by_id($self->release_label_id);
+    },
+    lazy => 1
+);
+
+sub current_instance {
+    my $self = shift;
+    return $self->release_label;
+}
+
+around extract_property => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+    my ($property, $ancestor, $current, $new) = @_;
+    given ($property) {
+        when ('label') {
+            return (
+                merge_value($ancestor->{label} && $ancestor->{label}{id}),
+                merge_value($current->label_id),
+                merge_value($new->{label} && $new->{label}{id})
+            );
+        }
+
+        default {
+            return ($self->$orig(@_));
+        }
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Work::AddAlias;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_ADD_ALIAS );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -12,7 +12,7 @@ with 'MusicBrainz::Server::Edit::Work';
 
 sub _alias_model { shift->c->model('Work')->alias }
 
-sub edit_name { l('Add work alias') }
+sub edit_name { N_l('Add work alias') }
 sub edit_type { $EDIT_WORK_ADD_ALIAS }
 
 sub adjust_edit_pending

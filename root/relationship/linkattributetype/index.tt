@@ -10,7 +10,7 @@
 
         [% IF root.children.size %]
             [% FOR obj IN root.children %]
-                <h2 id="[% obj.name %]">[% obj.name FILTER ucfirst | html %]</h2>
+                <h2 id="[% obj.name %]">[% obj.l_name FILTER ucfirst | html %]</h2>
                 [% PROCESS attribute_details obj=obj toplevel=1 %]
 
                 [%- IF obj.children.size -%]

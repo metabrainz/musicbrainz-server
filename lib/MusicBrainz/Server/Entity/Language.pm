@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Language;
 
 use Moose;
+use MusicBrainz::Server::Translation::Languages qw( l );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -9,17 +10,27 @@ has 'name' => (
     isa => 'Str'
 );
 
-has 'iso_code_3t' => (
+sub l_name {
+    my $self = shift;
+    return l($self->name);
+}
+
+has 'iso_code_2t' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has 'iso_code_3b' => (
+has 'iso_code_2b' => (
     is => 'rw',
     isa => 'Str'
 );
 
-has 'iso_code_2' => (
+has 'iso_code_1' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+has 'iso_code_3' => (
     is => 'rw',
     isa => 'Str'
 );

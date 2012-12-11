@@ -1,16 +1,33 @@
+[% BLOCK layout_head %]
+<script>
+$(document).ready (function () {
+
+    $(".tracklist").hide();
+
+    $(".toggle").click(function() {
+
+        $(this).closest('tr').next('.tracklist').toggle();
+
+        if ( $(this).closest('tr').next('.tracklist').is(':hidden') ) {
+            $(this).text("show tracklist");
+        } else {
+            $(this).text("hide tracklist");
+        }
+
+    });
+});
+</script>
+[% END %]
+
 [% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
   <h1>[% l('Attach CD TOC') %]</h1>
-  <p>
-    [% ln('{num} release found matching your query.', '{num} release found matching your query.',
-            results.size, { num => results.size }) %]
-  </p>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
     [% WRAPPER form_row %]
       [% r.label('query', l('Release title:')) %]
       [% r.text('query') %]
-      [% form_submit(l('Search')) %]
+      [% form_submit(l('Search'), 'inline') %]
     [% END %]
   </form>
 
@@ -18,43 +35,50 @@
     <input type="hidden" name="toc" value="[% toc %]" />
     [% r.hidden('query') %]
     [%- IF results.size -%]
+      <p>
+        [% ln('{num} release found matching your query.', '{num} release found matching your query.',
+                results.size, { num => results.size }) %]
+      </p>
+
       [% WRAPPER 'components/with-pager.tt' %]
-      [%- FOREACH result=results -%]
-        [% release=result.entity %]
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th colspan="4">
-                [% descriptive_link(release) %]
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            [% FOR medium=release.mediums %]
-              [% NEXT UNLESS
-                    medium.tracklist.track_count == cdtoc.track_count AND
-                    medium.may_have_discids %]
-              <tr class="subh">
-                <th colspan="4">
-                  <input type="radio" name="medium" value="[% medium.id %]" />
-                  <a rel="mo:record"
-                     href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
-                    [%~ l(medium.format_name) or l("Medium") | html =%]
-                    [%= medium.position ~%]
-                    [%~ IF medium.name ~%]:
-                    [%= medium.name | html ~%]
-                    [%~ END ~%]
-                  </a>
-                </tr>
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th colspan="2">[% l('Release') %]</th>
+                <th>[% l('Artist') %]</th>
+                <th>[% l('Date') %]</th>
+                <th>[% l('Country') %]</th>
+                <th>[% l('Label') %]</th>
+                <th>[% l('Catalog#') %]</th>
+                <th>[% l('Barcode') %]</th>
+                [%- IF c.session.tport -%]
+                  <th>[% l('Tagger') %]</th>
+                [%- END -%]
               </tr>
-              [% INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist
-                    hide_rating = 1 show_artists = release.has_multiple_artists %]
-            [%- END -%]
-          </tbody>
-      </table>
-      [% END %]
+            </thead>
+            <tbody>
+              [% zebra = 0 %]
+              [% current_rg = '' %]
+              [% FOR result=results %]
+                [% release=result.entity %]
+                [%- IF release.release_group.gid != current_rg -%]
+                    [% current_rg = release.release_group.gid %]
+                    <tr class="subh"><th colspan=[% IF c.session.tport; '9'; ELSE; '8'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                [%- END -%]
+                [% zebra = zebra + 1 %]
+                [% INCLUDE 'cdtoc/attach_list.tt' show_artists=1 %]
+              [% END %]
+            </tbody>
+          </table>
+        [% END %]
       <p>[% form_submit(l('Attach CD TOC')) %]
-      [% END %]
+    [%- ELSE -%]
+      <div class="row">
+        <div class="label required">[% l('Results:') %]</div>
+        <div class="no-label">
+          <p>[%- l('No results found. Try refining your search query.') -%]</p>
+        </div>
+      </div>
     [%- END -%]
   </form>
 

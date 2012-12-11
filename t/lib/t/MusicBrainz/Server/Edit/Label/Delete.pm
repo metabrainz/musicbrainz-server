@@ -40,6 +40,9 @@ accept_edit($c, $edit);
 $label = $c->model('Label')->get_by_id(2);
 ok(!defined $label);
 
+my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(2);
+is(scalar @$ipi_codes, 0, "IPI codes for deleted label removed from database");
+
 };
 
 sub create_edit {

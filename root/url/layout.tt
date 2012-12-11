@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' %]
-
+  [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        <h2>[% l('Editing') %]</h2>
+        <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
                 [%# Adds <li> itself %]
@@ -10,18 +10,17 @@
 
                 <hr/>
 
-                [% IF url.edits_pending %]
-                  <li>[% link_entity(url, 'open_edits', l('Open edits')) %]</li>
-                [% END %]
+                <li>[% link_entity(url, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(url, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
                 <li>[% request_login(l('Log in to edit')) %]</li>
             [% END %]
         </ul>
     [% END %]
+  [%- END -%]
 
-    <div id="content">
-        [% INCLUDE 'url/header.tt' %]
-        [% content %]
-    </div>
+  <div id="content">
+     [% INCLUDE 'url/header.tt' %]
+     [% content %]
+  </div>
 [% END %]

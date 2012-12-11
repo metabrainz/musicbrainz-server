@@ -1,26 +1,4 @@
-
 SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 
@@ -29,7 +7,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL);
+    VALUES (1, 0, 1, 1, '');
 
 INSERT INTO tracklist (id) VALUES (1);
 INSERT INTO tracklist (id) VALUES (2);
@@ -70,23 +48,23 @@ INSERT INTO recording (id, gid, name, artist_credit, length)
            (15, 'd328d709-609c-4b88-90be-95815f041524', 15, 1, 514679),
            (16, '1539ac10-5081-4469-b8f2-c5896132724e', 16, 1, 472880);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, NULL);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (2, 1, 2, 2, 2, 1, 369680);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (3, 1, 3, 3, 3, 1, 258839);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (4, 1, 4, 4, 4, 1, 358960);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (5, 1, 5, 5, 5, 1, 332613);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (6, 1, 6, 6, 6, 1, 296160);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (7, 1, 7, 7, 7, 1, 372386);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (1, 1, 1, 1, 1, 1, 1, NULL);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (2, 1, 2, 2, 2, 2, 1, 369680);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (3, 1, 3, 3, 3, 3, 1, 258839);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (4, 1, 4, 4, 4, 4, 1, 358960);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (5, 1, 5, 5, 5, 5, 1, 332613);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (6, 1, 6, 6, 6, 6, 1, 296160);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (7, 1, 7, 7, 7, 7, 1, 372386);
 
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (8, 2, 1, 8, 8, 1, 86186);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (9, 2, 2, 9, 9, 1, 342306);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (10, 2, 3, 10, 10, 1, 290053);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (11, 2, 4, 11, 11, 1, 95933);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (12, 2, 5, 12, 12, 1, 358573);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (13, 2, 6, 13, 13, 1, 61333);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (14, 2, 7, 14, 14, 1, 300626);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (15, 2, 8, 15, 15, 1, 514679);
-INSERT INTO track (id, tracklist, position, recording, name, artist_credit, length) VALUES (16, 2, 9, 16, 16, 1, 472880);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (8, 2, 1, 1, 8, 8, 1, 86186);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (9, 2, 2, 2, 9, 9, 1, 342306);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (10, 2, 3, 3, 10, 10, 1, 290053);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (11, 2, 4, 4, 11, 11, 1, 95933);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (12, 2, 5, 5, 12, 12, 1, 358573);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (13, 2, 6, 6, 13, 13, 1, 61333);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (14, 2, 7, 7, 14, 14, 1, 300626);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (15, 2, 8, 8, 15, 15, 1, 514679);
+INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (16, 2, 9, 9, 16, 16, 1, 472880);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Aerial');
 

@@ -2,8 +2,9 @@ package MusicBrainz::Server::Entity::Editor;
 use Moose;
 use namespace::autoclean;
 
+use DateTime;
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Constants qw( :privileges );
+use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 extends 'MusicBrainz::Server::Entity';
@@ -143,10 +144,52 @@ sub is_limited
 {
     my $self = shift;
     return
-        !$self->email_confirmation_date ||
-        $self->is_newbie ||
-        $self->accepted_edits < 10;
+        !($self->id == $EDITOR_MODBOT) &&
+        ( !$self->email_confirmation_date ||
+          $self->is_newbie ||
+          $self->accepted_edits < 10
+        );
 }
+
+has birth_date => (
+   is => 'rw',
+   isa => DateTimeType,
+   coerce => 1
+);
+
+has gender_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has gender => (
+    is => 'rw',
+);
+
+has country_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has country => (
+    is => 'rw',
+);
+
+sub age {
+    my $self = shift;
+    return unless $self->birth_date;
+    return (DateTime->now - $self->birth_date)->in_units('years');
+}
+
+has languages => (
+    isa => 'ArrayRef',
+    is => 'rw',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        add_language => 'push',
+    }
+);
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

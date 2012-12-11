@@ -2,24 +2,25 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
-use MooseX::Types::Moose qw( ArrayRef Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
+use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Entity::PartialDate;
 
 use aliased 'MusicBrainz::Server::Entity::Link';
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 use aliased 'MusicBrainz::Server::Entity::Relationship';
 
 sub edit_type { $EDIT_RELATIONSHIP_CREATE }
-sub edit_name { l('Add relationship') }
+sub edit_name { N_l('Add relationship') }
 sub _create_model { 'Relationship' }
 
 has '+data' => (
@@ -43,7 +44,8 @@ has '+data' => (
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
-        type1        => Str
+        type1        => Str,
+        ended        => Optional[Bool]
     ]
 );
 
@@ -102,8 +104,9 @@ sub build_display_data
             link => Link->new(
                 type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
                     || LinkType->new($self->data->{link_type}),
-                begin_date => partial_date_from_row( $self->data->{begin_date} ),
-                end_date   => partial_date_from_row( $self->data->{end_date} ),
+                begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{begin_date} ),
+                end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row( $self->data->{end_date} ),
+                ended      => $self->data->{ended},
                 attributes => [
                     map {
                         my $attr    = $loaded->{LinkAttributeType}{ $_ };
@@ -167,6 +170,7 @@ sub insert
             link_type_id => $self->data->{link_type}{id},
             begin_date   => $self->data->{begin_date},
             end_date     => $self->data->{end_date},
+            ended        => $self->data->{ended},
         });
 
     $self->entity_id($relationship->id);

@@ -1,0 +1,2353 @@
+# 
+# Translators:
+# Maurits Meulenbelt <email address hidden>, 2012.
+# Nikolai Prokoschenko <email address hidden>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"PO-Revision-Date: 2012-08-16 10:54+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DB:link_attribute_type/description:528
+msgid "(bamboo) flute, also known as kena or qina"
+msgstr "Bamboefluit uit de Andes, ook bekend als kena of qina. (<a href=\"http://nl.wikipedia.org/wiki/Quena\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:529
+msgid "12 string guitar"
+msgstr "twaalfsnarige gitaar"
+
+#: DB:link_attribute_type/description:414
+msgid "3-stringed fretless lute"
+msgstr "driesnarige fretloze luit"
+
+#: DB:link_attribute_type/description:550
+msgid "A Batá drum is a double-headed drum originating from Nigeria."
+msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
+
+#: DB:link_attribute_type/description:600
+msgid ""
+"A barrel organ is a mechanical musical instrument typically operated by a "
+"person turning a crank which turns a barrel which has music encoded onto it."
+" (<a href=\"http://en.wikipedia.org/wiki/Barrel_organ\">Wikipedia</a>)"
+msgstr "Een draaiorgel is een mechanisch muziekinstrument dat meestal wordt bediend door iemand die aan een slinger draait waardoor er een cilinder wordt rondgedraaid waarop de muziek geprogrammeerd is (<a href=\"http://nl.wikipedia.org/wiki/Draaiorgel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:549
+msgid "A bass synthesizer is used to create sounds in the bass range."
+msgstr "Een bas synthesizer wordt gebruikt om geluiden in het basbereik te creëren."
+
+#: DB:link_attribute_type/description:588
+msgid ""
+"A bell tree is a percussion instrument, consisting of vertically nested "
+"inverted metal bowls. (<a "
+"href=\"http://en.wikipedia.org/wiki/Bell_tree\">Wikipedia</a>)"
+msgstr "Een bellenboom is een percussie-instrument, bestaande uit verticaal in elkaar passende omgekeerde metalen kommen. (<a href=\"http://en.wikipedia.org/wiki/Bell_tree\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:565
+msgid "A chamber organ is a small pipe organ."
+msgstr "Een kamerorgel is een klein pijporgel."
+
+#: DB:link_attribute_type/description:531
+msgid "A class of South-American guitars"
+msgstr "Een groep Zuid-Amerikaanse gitaren"
+
+#: DB:link_attribute_type/description:563
+msgid ""
+"A descant or soprano recorder is the most common size of recorder and is "
+"often learnt by children."
+msgstr "De sopraanblokfluit is de meest gangbare blokfluit en wordt vaak door kinderen geleerd. (<a href=\"http://nl.wikipedia.org/wiki/Sopraanblokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:626
+msgid ""
+"A fife is a small, high-pitched, transverse flute that is similar to the "
+"piccolo, but louder and shriller due to its narrower bore. (<a "
+"href=\"http://en.wikipedia.org/wiki/Fife (instrument)\">Wikipedia</a>)"
+msgstr "De pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een harder en scheller geluid dankzij een smallere boring. (<a href=\"http://en.wikipedia.org/wiki/Fife_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:547
+msgid ""
+"A hi-hat (or hihat) is a typical part of a drum kit, consisting of a pair of"
+" cymbals mounted on a stand."
+msgstr "Een hi-hat (of hihat) is een typerend onderdeel van een drumstel en bestaat uit twee bekkens die op een standaard zijn gemonteerd."
+
+#: DB:link_attribute_type/description:356
+msgid ""
+"A hollow wooden body (about 7 cm in diameter) attached to a flexible spring "
+"with a wooden ball on the other end and played with the foot"
+msgstr "Een holle houten kast (met een diameter van ongeveer 7 cm) die is vastgemaakt aan een flexibele veer met een houten bal aan het andere eind. Wordt met de voet bespeeld."
+
+#: DB:link_attribute_type/description:628
+msgid ""
+"A koto with 17 rather than 13 strings, sometimes described as a bass koto. (<a href=\"http://en.wikipedia.org/wiki/17-string_koto\">Wikipedia</a>)\n"
+"Other names: jūshichi-gen, 十七絃, 十七弦, jûshichigen"
+msgstr "De zeventiensnarige koto (Japans: 十七絃 of 十七弦) wordt soms beschreven als een baskoto. (<a href=\"http://en.wikipedia.org/wiki/17-string_koto\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:627
+msgid ""
+"A laser harp is an electronic musical instrument consisting of several laser"
+" beams to be blocked, in analogy with the plucking of the strings of a harp,"
+" in order to produce sounds. (<a href=\"http://en.wikipedia.org/wiki/Laser "
+"harp\">Wikipedia</a>)"
+msgstr "Een laserharp is een elektronisch muziekinstrument bestaande uit verschillende laserstralen die geblokkeerd kunnen worden om verschillende geluiden te produceren. (<a href=\"http://en.wikipedia.org/wiki/Laser harp\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:303
+msgid ""
+"A latter-day construction in the form of a four-stringed, square-bodied bass"
+" guitar"
+msgstr "Een latere constructie in de vorm van een viersnarige basgitaar met een vierkante kast."
+
+#: DB:link_attribute_type/description:320
+msgid ""
+"A long zither with sixteen strings and high, movable bridges. The strings "
+"are plucked with plectrums, while the left hand is used for ornamenting the "
+"notes by pressing the strings."
+msgstr "Een lange citer met zestien snaren en hoge beweegbare bruggen. De snaren worden getokkeld met plectra, terwijl met de linkerhand op de snaren wordt gedrukt om de noten te versieren."
+
+#: DB:link_attribute_type/description:614
+msgid ""
+"A piano whose strings are bowed, using nylon filament or other materials"
+msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon of andere materialen."
+
+#: DB:link_attribute_type/description:590
+msgid ""
+"A prepared piano is a piano that has had its sound altered by placing "
+"objects (preparations) between or on the strings or on the hammers or "
+"dampers. (<a "
+"href=\"http://en.wikipedia.org/wiki/Prepared_piano\">Wikipedia</a>)"
+msgstr "Een geprepareerde piano is een piano waarbij het geluid wordt veranderd door objecten tussen of op de snaren, hamers of dempers te plaatsen. (<a href=\"http://nl.wikipedia.org/wiki/Geprepareerde_piano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:192
+msgid ""
+"A suikinkutsu (Japanese: 水琴窟) is a type of Japanese garden ornament which "
+"uses dripping water to create music. Although it is also known as a Japanese"
+" water zither, it is named after the sound the koto (a Japanese zither) "
+"makes and is not actually a string instrument."
+msgstr "Een suikinkutsu (Japans: 水琴窟) is een soort Japans tuinmeubel dat met druppelend water muziek maakt. Hoewel het ook bekend staat als een Japanse waterciter, is het genoemd naar het geluid dat de koto (een Japanse citer) maakt en is het geen snaarinstrument."
+
+#: DB:link_attribute_type/description:546
+msgid ""
+"A talkbox (or talk box) is an effects device which enables a musician to "
+"modify the sound of an instrument."
+msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen worden opgewekt, door het geluid van een instrument via een slang in de mond van de speler te brengen. (<a href=\"http://nl.wikipedia.org/wiki/Talkbox\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:555
+msgid ""
+"A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
+"in a standard drum set."
+msgstr "Een cilindrische trommel zonder snaar. Standaard onderdeel van een drumstel. (<a href=\"http://nl.wikipedia.org/wiki/Tom-tom_(trommel)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:534
+msgid "A type of fretless zither."
+msgstr "Een soort fretloze citer."
+
+#: DB:link_attribute_type/description:620
+msgid ""
+"A wooden, beaked double-flute traditionally played by goat herders in the "
+"Punjab region of India and Pakistan."
+msgstr "De algoze of algoza (Punjabi: ਅਲਗੋਜ਼ੇ) is een gebekte dubbelfluit die gebruikt wordt door Sindhi muzikanten. (<a href=\"http://en.wikipedia.org/wiki/Algoze\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:557
+msgid "Also known as a music box"
+msgstr "Een speeldoos is een muziekinstrument dat behoort tot de lamellofonen dat na opwinden een melodietje ten gehore brengt. (<a href=\"http://nl.wikipedia.org/wiki/Speeldoos\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:28
+msgid ""
+"Also known as vertical flutes, rim-blown flutes or notched flutes, among "
+"other names."
+msgstr "Alle verticaal bespeelde fluiten die niet onder de familie van bekfluiten (waar o.a. de blokfluit onder valt) vallen."
+
+#: DB:link_attribute_type/description:311
+msgid "Alto moon guitar"
+msgstr "Alt maangitaar"
+
+#: DB:link_attribute_type/description:363
+msgid "Alto recorder / Treble recorder (Altblockflöte)"
+msgstr "Deze blokfluit heeft dezelfde vorm als de sopraanblokfluit, maar is iets groter en geeft daardoor een lager geluid. (<a href=\"http://nl.wikipedia.org/wiki/Altblokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:443
+msgid ""
+"Amadinda, southern Uganda giant xylophone, made on with resonating "
+"hardwoodwood bars"
+msgstr "Amadinda, enorme Zuid-Oegandese xylofoon van resonerende hardhouten staven."
+
+#: DB:link_attribute_type/description:435
+msgid ""
+"An Irish/Scottish harp, also known as cláirseach, celtic harp and gaelic "
+"harp"
+msgstr "Een Ierse/Schotse harp, ook bekend als de cláirseach of clàrsach, Keltische harp of Gaelische harp."
+
+#: DB:link_attribute_type/description:403
+msgid ""
+"Ancient frame drum "
+"(http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm)"
+msgstr "Antieke lijsttrommel (http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm)"
+
+#: DB:link_attribute_type/description:90
+msgid "Appalachian dulcimer"
+msgstr "Een snaarinstrument en komt uit de Appalachen. (<a href=\"http://nl.wikipedia.org/wiki/Dulcimer\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:480
+msgid "Armenian traditional woodwind instrument"
+msgstr "Traditioneel Armeens dubbelriet houtblaasinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Duduk\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:514
+msgid ""
+"Bagpipes played by pumping air into a bellow and then from the bellow into "
+"the chanter(s)."
+msgstr "Doedelzakken die bespeeld worden door lucht in een luchtzak en van de luchtzak naar de speelbuis te pompen."
+
+#: DB:link_attribute_type/description:444
+msgid "Balafon, Malian 'gourd xylophone'"
+msgstr "Balafoon, soort xylofoon van kalebasflessen uit Mali. http://nl.wikipedia.org/wiki/Balafoon"
+
+#: DB:link_attribute_type/description:506
+msgid "Baltic psalteries"
+msgstr "Baltische psalteria"
+
+#: DB:link_attribute_type/description:476
+msgid "Bandura, modern day Ukraininan zither"
+msgstr "Bandura, moderne Oekraïense citer"
+
+#: DB:link_attribute_type/description:475
+msgid "Bandura, ukrainian 14th century lute"
+msgstr "Bandura, Oekraïense luit uit de veertiende eeuw"
+
+#: DB:link_attribute_type/description:479
+msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
+msgstr "Banjitar, Guitjo of Ganjo (<a href=\"http://en.wikipedia.org/wiki/Guitjo\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:251
+msgid ""
+"Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
+"counterpart "
+msgstr "De Bansuri (of बांसुरी) is een altdwarsfluit, de Noord-Indiase tegenhanger van de Venu."
+
+#: DB:link_attribute_type/description:277
+msgid "Bass (modern, typically electrical, but not always)"
+msgstr "Een basgitaar is meestal elektrisch maar niet altijd. (<a href=\"http://nl.wikipedia.org/wiki/Basgitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:70
+msgid ""
+"Bass is a common but generic credit which refers to more than one instrument"
+" - the bass guitar and the double bass (a.k.a. contrabass, acoustic upright "
+"bass, wood bass). Please use the correct instrument if you know which one is"
+" intended."
+msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerdere instrumenten: de basgitaar en de contrabas. Gebruik het correcte instrument als u weet welke er bedoeld wordt."
+
+#: DB:link_attribute_type/description:365
+msgid "Bass recorder / F-bass recorder (Bassblockflöte)"
+msgstr "De basblokfluit is één van de grootste types blokfluit. Vanwege zijn lengte is de basblokfluit vaak voorzien van een kleppenmechanisme. (<a href=\"http://nl.wikipedia.org/wiki/Basblokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:420
+msgid "Bendir, frame drum from North Africa, doesn't have jingles"
+msgstr "Bendir, lijsttrommel zonder belletjes uit Noord-Afrika"
+
+#: DB:link_attribute_type/description:460
+msgid ""
+"Bin-sasara, made of many small slats of wood connected by a spine of string "
+"with handles at each end"
+msgstr "Bin-sasara (of Binzasara), Japans percussie-instrument gemaakt van plaatjes hout, gemonteerd aan een koord met handvatten aan de uiteindes. Wordt bespeeld door het koord een golfbeweging te laten maken."
+
+#: DB:link_attribute_type/description:94
+msgid "Biwa, Japanese lute"
+msgstr "Biwa, Japanse luit"
+
+#: DB:link_attribute_type/description:504
+msgid "Boatswain's pipe or Bosun's whistle"
+msgstr "Een bootsmansfluitje is een gereedschap van de bootsman om zonder stemverheffing te kunnen communiceren met de bemanning van een schip. (<a href=\"http://nl.wikipedia.org/wiki/Bootsmansfluitje\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:413
+msgid "Cajón, Peruvian box drum"
+msgstr "Een handtrommel met een slagvlak van hout uit Peru. (<a href=\"http://nl.wikipedia.org/wiki/Cajón\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:412
+msgid "Chacha, west Indian rattle"
+msgstr "Een West-Indische ratel."
+
+#: DB:link_attribute_type/description:330
+msgid "Chamberlin"
+msgstr "Een elektromechanisch toetsinstrument en voorloper van de Mellotron. (<a href=\"http://en.wikipedia.org/wiki/Chamberlin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:238
+msgid "Chapman stick"
+msgstr "Een elektrisch versterkt snaarinstrument dat lijkt op een gitaar maar wordt bespeeld door op de snaren te tikken. (<a href=\"http://nl.wikipedia.org/wiki/Chapman_Stick\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:290
+msgid "Chinese double bass"
+msgstr "Chinese contrabas"
+
+#: DB:link_attribute_type/description:287
+msgid "Chinese viola"
+msgstr "Chinese viola"
+
+#: DB:link_attribute_type/description:289
+msgid "Chinese western cello fusion"
+msgstr "Chinees: 革胡, pinyin: géhú. Fusie tussen de Chinese huqin en de Westerse cello. (<a href=\"http://en.wikipedia.org/wiki/Gehu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:499
+msgid ""
+"Concert flute (also called C flute, Boehm flute, silver flute or simply just"
+" \"flute\")"
+msgstr "Concertfluit (ook C-fluit, Böhmfluit of gewoon \"fluit\" genoemd). "
+
+#: DB:link_attribute_type/description:205
+msgid "Conch shell"
+msgstr "Schelp van een weekdier waarop geblazen wordt. (<a href=\"http://en.wikipedia.org/wiki/Conch_(musical_instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:471
+msgid ""
+"Continuum, strange thingy: "
+"http://en.wikipedia.org/wiki/Continuum_(instrument)"
+msgstr "Haken Continuum of Continuum Fingerboard is een soort MIDI-regelaar. (<a href=\"http://nl.wikipedia.org/wiki/Haken_Continuum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:273
+msgid "Cornett (not to be confused with Cornet)"
+msgstr "Ook wel cornetto genoemd, niet te verwarren met de kornet. (<a href=\"http://nl.wikipedia.org/wiki/Zink_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:427
+msgid "Crumhorn used in the 14th to 17th centuries in Europe"
+msgstr "De kromhoorn is een dubbelrietinstrument met een cilindrische boring en werd vooral tussen de veertiende en zeventiende eeuw gebruikt in Europa. (<a href=\"http://nl.wikipedia.org/wiki/Kromhoorn\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:326
+msgid "Cymbalum (Cimbalom)"
+msgstr "Een snaarinstrument dat behoort tot de plankciters. (<a href=\"http://nl.wikipedia.org/wiki/Cimbalom\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:419
+msgid ""
+"Darbuka, Derbuka, Darabuka or Tarabuka, darabouka, darbukah, demblik, "
+"doumbek, dümbelek, dumbek hourglass-shaped goblet drum from Greece, the "
+"Middle East and India"
+msgstr "Een darbuka (ook darabuka, derbouka (Fr.) of tarabuka) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in de rest van de Arabische wereld gebruikt wordt. (<a href=\"http://nl.wikipedia.org/wiki/Darbuka\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:496
+msgid "Davul, turkish drum"
+msgstr "Davul, Turkse trommel"
+
+#: DB:link_attribute_type/description:160
+msgid "Denis d'or"
+msgstr "De Denis d'or (\"gouden Dionysos\", ook wel Denisdor of Denydor) is een elektronisch muziekinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Denis_d'or\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:240
+msgid "Dobro, resonator guitar"
+msgstr "Resonatorgitaar van het merk Dobro."
+
+#: DB:link_attribute_type/description:483
+msgid "Dohol, traditional Iranian drum"
+msgstr "Duhol, traditionele Iraanse trommel"
+
+#: DB:link_attribute_type/description:71
+msgid "Double bass (Contrabass, Acoustic upright bass, wood bass)"
+msgstr "Ook wel doublebass, staande bas of kortweg bas genoemd, is het laagstklinkend muziekinstrument van de strijkinstrumenten. (<a href=\"http://nl.wikipedia.org/wiki/Contrabas\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:161
+msgid "Dubreq Stylophone"
+msgstr "Een analoge mini-synthesizer die met een pen bespeeld wordt. (<a href=\"http://en.wikipedia.org/wiki/Dubreq_Stylophone\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:264
+msgid "Duct flutes, sometimes known as fipple flutes"
+msgstr "Fluiten die recht via een mondstuk worden aangeblazen."
+
+#: DB:link_attribute_type/description:500
+msgid ""
+"Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
+"family"
+msgstr "Flûte d'amour (ook tenorfluit)"
+
+#: DB:link_attribute_type/description:313
+msgid ""
+"Four-stringed lute with a pear-shaped body. Like the \"moon lute\", it has "
+"greatly elevated frets at the neck."
+msgstr "Een Vietnamese luit met vier snaren en een peervormige klankkast. (<a href=\"http://en.wikipedia.org/wiki/Ðàn_tỳ_bà\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:464
+msgid "Gankogui, iron bell"
+msgstr "IJzeren bel(len) uit Afrika."
+
+#: DB:link_attribute_type/description:361
+msgid "Garklein recorder (Garkleinblockflöte)"
+msgstr "Ook wel kleine sopranino, gestemd in C en 16-17 cm groot. (<a href=\"http://nl.wikipedia.org/wiki/Kleine_sopranino\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:436
+msgid "German/Bohemian harp"
+msgstr "Duitse/Boheemse harp"
+
+#: DB:link_attribute_type/description:408
+msgid "Ghatam, a South Indian Carnatic music percussion instrument"
+msgstr "De ghaṭam is een Zuid-Indiaas slaginstrument. (<a href=\"http://en.wikipedia.org/wiki/Ghatam\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:366
+msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
+msgstr "De grootbasblokfluit is 120 cm. lang en is gestemd in C."
+
+#: DB:link_attribute_type/description:370
+msgid "Greek Panflute"
+msgstr "Griekse panfluit"
+
+#: DB:link_attribute_type/description:306
+msgid "Greek baglama"
+msgstr "Griekse baglamas (<a href=\"http://nl.wikipedia.org/wiki/Baglamas\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:508
+msgid "Gusli, an ancient Slavic musical instrument, Russian"
+msgstr "Russisch: гу́сли, een Russisch tokkelinstrument. (<a href=\"http://en.wikipedia.org/wiki/Gusli\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:177
+msgid "Hammond organ"
+msgstr "hammondorgel"
+
+#: DB:link_attribute_type/description:398
+msgid "Handclaps, also known as Palmas"
+msgstr "Klappen met de handen, ook bekend als palmas. (<a href=\"http://nl.wikipedia.org/wiki/Klappen\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:102
+msgid "Hardingfele (Hardanger)"
+msgstr "Een Hardangerviool of Hardangervedel (Noors: Hardingfele) is een Noorse viool. (<a href=\"http://nl.wikipedia.org/wiki/Hardangerviool\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:400
+msgid "Hawaiian guitar, \"slack string guitar\""
+msgstr "Hawaïaanse gitaar, \"slack-key gitaar\""
+
+#: DB:link_attribute_type/description:337
+msgid "Hollow wooden instrument with slits, played with drumsticks"
+msgstr "Hol houten percussie-instrument met spleten dat bespeeld wordt met stokken"
+
+#: DB:link_attribute_type/description:283
+msgid "Huqin Chinese family of string-instruments"
+msgstr "De huqin (胡琴; pinyin: húqín) is een familie van Chinese snaarinstrumenten. (<a href=\"http://en.wikipedia.org/wiki/Huqin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:502
+msgid "Indian bamboo flutes"
+msgstr "Indiase bamboefluiten"
+
+#: DB:link_attribute_type/description:491
+msgid "Irish bouzouki"
+msgstr "Ierse bouzouki"
+
+#: DB:link_attribute_type/description:224
+msgid "Japanese end-blown flute"
+msgstr "Japanse verticale fluit. (<a href=\"http://nl.wikipedia.org/wiki/Shakuhachi\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:293
+msgid "Japanese string instrument"
+msgstr "Japans snaarinstrument. (<a href=\"http://en.wikipedia.org/wiki/Kokyu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:458
+msgid "Japanese traditional drum beaten with sticks called bachi"
+msgstr "Traditionele Japanse trommel die wordt beslagen met bachi-stokken."
+
+#: DB:link_attribute_type/description:284
+msgid "Jing Hú / Jinghu"
+msgstr "De jinghu (京胡; pinyin: jīnghú) is een Chinees strijkinstrument. (<a href=\"http://en.wikipedia.org/wiki/Jinghu_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:507
+msgid "Kanklės, Lithuanian plucked string"
+msgstr "Kanklės, Litouws tokkelinstrument"
+
+#: DB:link_attribute_type/description:509
+msgid "Kantele, Finnish traditional plucked string"
+msgstr "Kantele, traditioneel Fins tokkelinstrument"
+
+#: DB:link_attribute_type/description:360
+msgid "Kanun, Arabic plucked strings"
+msgstr "De qanûn (Arabisch: قانون), ook wel kanun, is een op een hakkebord of cimbalom gelijkend snaarinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Qanûn\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:380
+msgid "Ken (wooden, copper hauboits) (Ken Dai or Ken Bau)"
+msgstr "Ken (ken dai of ken bau) is een dubbelriet blaasinstrument uit Vietnam. (<a href=\"http://en.wikipedia.org/wiki/Kèn_bầu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:395
+msgid ""
+"Kenh or khen meo is a multiphonic mouthorgan with six pipes. it has a free "
+"vibrating reed"
+msgstr "Kenh (ook wel khene, khaen, kaen of khen, Laotiaans: ແຄນ; Thais: แคน) is een multifoon mondorgel met zes pijpen. Het heeft een vrij riet. (<a href=\"http://en.wikipedia.org/wiki/Khene\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:388
+msgid "Khen blông tree leaf"
+msgstr "Khen blông boomblad"
+
+#: DB:link_attribute_type/description:334
+msgid ""
+"Kortholt, a woodwind instrument that was popular in the Renaissance period."
+msgstr "Kortholt, een houtblaasinstrument dat in de Renaissance populair was. (<a href=\"http://nl.wikipedia.org/wiki/Kortholt\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:513
+msgid ""
+"Like (and developed from) the Northumbrian smallpipes, but with Great "
+"Highland Bagpipe fingering."
+msgstr "Gelijkend op (en afgeleid van) de Northumbrian smallpipes maar met de vingerzetting van de Highland pipes. (<a href=\"http://en.wikipedia.org/wiki/Scottish_smallpipes\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:515
+msgid ""
+"Looks like a recorder, but with double reeds and bagpipe fingering system. "
+"Mostly used to learn how to play the pipes, but are occasionally played in "
+"their own right."
+msgstr "Ziet er uit als een blokfluit, maar met dubbel riet en het vingersysteem van een doedelzak. Wordt vooral gebruikt om te leren de doedelzak te bespelen, maar soms ook op zichzelf. (<a href=\"http://en.wikipedia.org/wiki/Practice_chanter\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:242
+msgid "Madal, hand drum originating from Nepal"
+msgstr "Madal, handtrommel afkomstig uit Nepal"
+
+#: DB:link_attribute_type/description:110
+msgid ""
+"Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano)"
+msgstr "Een duimpiano, ook wel mbira, sansa, kalimba, luvale, karimba, marimbula of matape is een kleine piano met metalen tongetjes die met de duim bespeeld wordt. (<a href=\"http://nl.wikipedia.org/wiki/Duimpiano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:175
+msgid "Mellotron"
+msgstr "Een elektrisch toetsinstrument waarbij het geluid geproduceerd wordt door middel van op magneetbanden opgenomen geluidsfragmenten. (<a href=\"http://nl.wikipedia.org/wiki/Mellotron\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:67
+msgid "Melodica, also known as pianica"
+msgstr "Een melodica is een toetsinstrument dat gerekend wordt tot de aërofonen. (<a href=\"http://nl.wikipedia.org/wiki/Melodica\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:143
+msgid "Mendoza (Monkey stick)"
+msgstr "Ook wel Rinkelbom, Teufelsgeige, Monkeystick, Ugly Stick of Rammelesjang genoemd, is een percussie-instrument. (<a href=\"http://nl.wikipedia.org/wiki/Kuttepiel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:452
+msgid "Metal Angklung \"Deagan organ chimes\""
+msgstr "Angkloeng van metaal"
+
+#: DB:link_attribute_type/description:117
+msgid "Mexican vihuela, used by mariachi bands"
+msgstr "Mexicaanse vihuela, wordt gebruikt door mariachibands"
+
+#: DB:link_attribute_type/description:349
+msgid "Minimoog"
+msgstr "Een analoge monofone synthesizer. (<a href=\"http://nl.wikipedia.org/wiki/Minimoog\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:348
+msgid "Moog"
+msgstr "Een analoge synthesizer uitgevonden door Robert Moog. (<a href=\"http://en.wikipedia.org/wiki/Moog_synthesizer\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:310
+msgid ""
+"Moon guitar, a \"moon-shaped lute\" (commonly known as \"Moon lute\") Yueh-"
+"ch'in or Yueqin"
+msgstr "Chinees:  月琴, pinyin: yuèqín, ook geschreven als yue qin of yüeh-ch'in en wordt ook wel een maangitaar of maanciter genoemd. Het is een Chinees snaarinstrument met een ronde klankkast. (<a href=\"http://en.wikipedia.org/wiki/Moon_lute\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:369
+msgid "Nai, Romanian Panflute"
+msgstr "Roemeense panfluit"
+
+#: DB:link_attribute_type/description:402
+msgid "North-African bass lute"
+msgstr "Arabisch: الكمبري ook wel sintir (Arabisch: سنتير) is een Noord-Afrikaanse basluit. (<a href=\"http://en.wikipedia.org/wiki/Guimbri\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:438
+msgid "Northumbrian (small)pipes"
+msgstr "Door de ellebogen aangeblazen variant op de doedelzak uit Northumberland. (<a href=\"http://nl.wikipedia.org/wiki/Northumbrian_smallpipes\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:22
+msgid "Oboe (soprano)"
+msgstr "Een dubbelrietinstrument met een conisch geboorde buis met een licht trechtervormig uiteinde. (<a href=\"http://nl.wikipedia.org/wiki/Hobo_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:581
+msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
+msgstr "Oboe d'amore (ook wel Liefdeshobo) is een dubbelrietinstrument, iets groter dan de hobo en met een rustigere klank. (<a href=\"http://nl.wikipedia.org/wiki/Oboe_d'amore\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:265
+msgid ""
+"Other flutes. If you can't find an instrument, please request it at "
+"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+msgstr "Overige fluiten. Als u een instrument niet kan vinden, kunt u er een verzoek voor indienen op http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+
+#: DB:link_attribute_type/description:185
+msgid ""
+"Other instruments. If you can't find an instrument, please request it at "
+"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+msgstr "Overige instrumenten. Als u een instrument niet kan vinden, kunt u er een verzoek voor indienen op http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+
+#: DB:link_attribute_type/description:221
+msgid ""
+"Other percussion. If you can't find an instrument, please request it at "
+"http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+msgstr "Overige percussie. Als u een instrument niet kan vinden, kunt u er een verzoek voor indienen op http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+
+#: DB:link_attribute_type/description:88
+msgid ""
+"Other string instruments. If you can't find an instrument, please request it"
+" at http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+msgstr "Overige snaarinstrumenten. Als u een instrument niet kan vinden, kunt u er een verzoek voor indienen op http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
+
+#: DB:link_attribute_type/description:30
+msgid "Pan flute (Pan pipes)"
+msgstr "Fluit die is opgebouwd uit een aantal aan de onderzijde gesloten buizen van verschillende lengte. (<a href=\"http://nl.wikipedia.org/wiki/Panfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:624
+msgid ""
+"Percussion instrument made from two steel sheets that are attached together "
+"creating a recognizable 'UFO shape'. (<a "
+"href=\"http://en.wikipedia.org/wiki/Hang (instrument)\">Wikipedia</a>)"
+msgstr "Een slaginstrument dat bestaat uit twee op elkaar geplaatste sferische schalen van staal. (<a href=\"http://nl.wikipedia.org/wiki/Hang\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:610
+msgid "Percussion performed by parts of the body."
+msgstr "Percussie die wordt uitgevoerd met lichaamsdelen. (<a href=\"http://en.wikipedia.org/wiki/Body_percussion\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:587
+msgid ""
+"Percussion performed with the feet, such as <a "
+"href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
+"href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
+msgstr "Met de voeten uitgevoerde percussie, zoals <a href=\"http://nl.wikipedia.org/wiki/Klompendans\">klompendansen</a>."
+
+#: DB:link_attribute_type/description:379
+msgid "Phách (The clappers)"
+msgstr "Kleine houten stokjes die op een kleine plaat van bamboe worden geslagen. (<a href=\"http://en.wikipedia.org/wiki/Phách\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:429
+msgid "Pipa, plucked Chinese string-instrument (Chinese lute)"
+msgstr "Pipa, Chinees tokkelinstrument (Chinese luit)."
+
+#: DB:link_attribute_type/description:416
+msgid "Pí thiu or Pí khui vertical flute"
+msgstr "Pí thiu or Pí khui verticale fluit"
+
+#: DB:link_attribute_type/description:32
+msgid "Recorder flute (Blockflöte)"
+msgstr "(Engels: recorder) een houtblazer met een kop met een cilindrische boring, waarin een blok zachter hout is geplaatst. (<a href=\"http://nl.wikipedia.org/wiki/Blokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:406
+msgid "Rek (Oriental tambourine)"
+msgstr "Een rek is een soort oosterse tamboerijn."
+
+#: DB:link_attribute_type/description:182
+msgid "Rhodes piano"
+msgstr "Een elektrisch toetsinstrument dat een soort stemvorken aanslaat in plaats van snaren. (<a href=\"http://nl.wikipedia.org/wiki/Rhodes_(piano)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:358
+msgid "Santoor, Indian dulcimer"
+msgstr "Santoor, Indiase dulcimer"
+
+#: DB:link_attribute_type/description:325
+msgid "Santur, Middle Eastern"
+msgstr "Midden-Oosterse santur"
+
+#: DB:link_attribute_type/description:493
+msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
+msgstr "Instrument uit de de Middeleeuwen en de Renaissance, voorloper van de hobo. (<a href=\"http://nl.wikipedia.org/wiki/Schalmei\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:462
+msgid "Shekere, calabash shaker embroidered with beads"
+msgstr "Een shaker bestaande uit een kalebas met daarover een net gespannen met kraaltjes. (<a href=\"http://en.wikipedia.org/wiki/Shekere\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:450
+msgid "Sistrum, anchient handheld rattle"
+msgstr "Een Oudegyptisch muziekinstrument en voorloper van de tamboerijn. (<a href=\"http://nl.wikipedia.org/wiki/Sistrum_(muziekinstrument)\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:268
+msgid "Slide whistle (infamous 'Clangers' sound)"
+msgstr "Een fluitje met een zuiger in de buis om de toonhoogte te veranderen. (<a href=\"http://en.wikipedia.org/wiki/Slide_whistle\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:522
+msgid ""
+"Slightly smaller, four-string version of the steel-string acoustic guitar or"
+" electric guitar"
+msgstr "Een iets kleinere variant op de standaard akoestische of elektrische gitaar met vier snaren. (<a href=\"http://en.wikipedia.org/wiki/Tenor_guitar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:446
+msgid "Slit drum, hollowed out tree with slits"
+msgstr "Een hol percussie-instrument, meestal uit bamboe of hout, waarvan de klank versterkt wordt door een of meer spleten. (<a href=\"http://nl.wikipedia.org/wiki/Spleettrommel\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:362
+msgid "Sopranino recorder (Sopraninoblockflöte)"
+msgstr "Gestemd in F en ongeveer 20 cm. lang. (<a href=\"http://nl.wikipedia.org/wiki/Sopraninoblokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:206
+msgid "Spanish acoustic guitar"
+msgstr "Spaanse akoestische gitaar"
+
+#: DB:link_attribute_type/description:332
+msgid "Spanish vihuela"
+msgstr "Spaanse vihuela"
+
+#: DB:link_attribute_type/description:459
+msgid ""
+"Surdo / Surdu, large bass drum used in Brazilian music, most notably samba"
+msgstr "Een grote bastrommel die wordt gebruikt in Braziliaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Surdo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:269
+msgid "Sáo trúc or Sao Tre vietnamese transverse bamboo flute"
+msgstr "Sáo trúc of Sao Tre is een Vietnamese bamboedwarsfluit. (<a href=\"http://nl.wikipedia.org/wiki/Sáo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:473
+msgid "Tambura, Tanbura or Tamboura"
+msgstr "De tanpura is een begeleidingsinstrument uit de Klassieke Indiase muziek, waarmee onveranderlijk een bourdon-akkoord gespeeld wordt als basisklank voor de andere musici. \n(<a href=\"http://nl.wikipedia.org/wiki/Tanpura\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:410
+msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
+msgstr "De tanbou ka of tambu ka is een kleine trommel met een hoog geluid."
+
+#: DB:link_attribute_type/description:288
+msgid "Tenor Chinese viola/in"
+msgstr "Chinese tenorviool"
+
+#: DB:link_attribute_type/description:364
+msgid "Tenor recorder (Tenorblockflöte)"
+msgstr "Deze blokfluit is een maat groter dan de altblokfluit en heeft daardoor een lager geluid. (<a href=\"http://nl.wikipedia.org/wiki/Tenorblokfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:591
+msgid ""
+"The Cretan lyra (Greek: κρητική λύρα) is a Greek pear-shaped, three-stringed"
+" bowed musical instrument, central to the traditional music of Crete and "
+"parts of Greece. (<a "
+"href=\"http://en.wikipedia.org/wiki/Cretan_lyra\">Wikipedia</a>)"
+msgstr "De Kretenzische lier (Grieks: κρητική λύρα) is een Grieks peervormig, driesnarig strijkinstrument dat centraal staat in de traditionele muziek van Kreta en delen van Griekenland. (<a href=\"http://en.wikipedia.org/wiki/Cretan_lyra\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:338
+msgid ""
+"The Goblet drum has many many names. See  "
+"http://en.wikipedia.org/wiki/Goblet_drum"
+msgstr "Een vaastrommel heeft vele namen. (<a href=\"http://nl.wikipedia.org/wiki/Vaastrommel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:585
+msgid ""
+"The Saraswati veena (also spelt Saraswati vina) is an Indian plucked "
+"stringed instrument used in Carnatic music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Saraswati_veena\">Wikipedia</a>)"
+msgstr "De Saraswati veena (ook wel Saraswati vina) is een Indiaas tokkelinstrument dat gebruikt wordt in Carnatische muziek. (<a href=\"http://en.wikipedia.org/wiki/Saraswati_veena\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:597
+msgid ""
+"The agogô is a single or multiple bell used in samba music with origins in "
+"traditional Yoruba music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Agogô\">Wikipedia</a>)"
+msgstr "De agogô is een enkele of meervoudige bel die wordt gebruikt in sambamuziek en zijn oorsprong vind in de Yorubamuziek. (<a href=\"http://nl.wikipedia.org/wiki/Agogô\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:619
+msgid ""
+"The archlute is a European plucked string instrument developed around 1600 "
+"as a compromise between the very large theorbo and the Renaissance tenor "
+"lute (<a href=\"http://en.wikipedia.org/wiki/Archlute\">Wikipedia</a>)"
+msgstr "Een aartsluit is een een tokkelinstrument uit de zestiende eeuw. (<a href=\"http://nl.wikipedia.org/wiki/Aartsluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:598
+msgid ""
+"The bandora is a large long-necked plucked string instrument that has been "
+"described as a kind of bass cittern. (<a "
+"href=\"http://en.wikipedia.org/wiki/Bandora_(instrument)\">Wikipedia</a>)"
+msgstr "De bandora is een groot tokkelinstrument met een lange hals en kan beschreven worden al een soort bascister. (<a href=\"http://en.wikipedia.org/wiki/Bandora_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:536
+msgid ""
+"The bass saxophone is the second largest existing member of the saxophone "
+"family (not counting the subcontrabass tubax). It is similar in design to a "
+"baritone saxophone, but it is larger, with a longer loop near the "
+"mouthpiece."
+msgstr "De bassaxofoon is het op twee na grootste bestaande lid uit de saxofoonfamilie. Het ontwerp lijkt op dat van de baritonsaxofoon, maar is groter met een langere buis bij het mondstuk. (<a href=\"http://nl.wikipedia.org/wiki/Bassaxofoon\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:592
+msgid ""
+"The bawu (simplified: 巴乌; traditional: 巴烏; pinyin: bāwū; also ba wu or ba-"
+"wu) is a Chinese wind instrument. Although shaped like a flute, it is "
+"actually a free reed instrument, with a single metal reed. It is played in a"
+" transverse (horizontal) manner. (<a "
+"href=\"http://en.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
+msgstr "De bawu (Traditioneel Chinees: 巴烏, Vereenvoudigd Chinees: 巴乌, pinyin: bāwū, ook wel ba wu of ba-wu genoemd) is een Chinees blaasinstrument. Hoewel het de vorm heeft van een fluit, is het een vrij rietinstrument, met een enkel metalen riet. Het wordt dwars gespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:599
+msgid ""
+"The caxixi is a shaker originating in Brazil which is made of a small wicker basket containing seeds or other small particles.\n"
+"(<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
+msgstr "De caxixi is een percussie-instrument bestaande uit een trommel gevuld met zaden of andere kleine deeltjes. (<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:559
+msgid "The charango is a small South American lute."
+msgstr "De charango is een kleine Zuid-Amerikaanse luit."
+
+#: DB:link_attribute_type/description:622
+msgid ""
+"The cornamuse is a double reed instrument from the Renaissance, similar to "
+"the crumhorn but with a closed bell. (<a "
+"href=\"http://en.wikipedia.org/wiki/Cornamuse\">Wikipedia</a>)"
+msgstr "Een dubbelrietinstrument uit de Renaissance. (<a href=\"http://en.wikipedia.org/wiki/Cornamuse\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:601
+msgid ""
+"The cuíca is a Brazilian friction drum often used in samba music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Cuíca\">Wikipedia</a>)"
+msgstr "Een Braziliaans soort rommelpot die vaak in sambamuziek wordt gebruikt. (<a href=\"http://nl.wikipedia.org/wiki/Cuíca\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:602
+msgid ""
+"The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute from"
+" Korea which is made of bamboo. (<a "
+"href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+msgstr "De daegeum (Koreaans: 대금, ook wel taegŭm) is een grote bamboedwarsfluit uit Korea. (<a href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:553
+msgid ""
+"The dizi (Chinese: 笛子) is a Chinese transverse flute typically made of "
+"bamboo. In Chinese, it is sometimes just called 笛 (di), but in Japanese 笛 "
+"(fue) is a more generic word referring to a whole class of flutes rather "
+"than this specific instrument."
+msgstr "De dizi (Chinees: 笛子) is een Chinese dwarsfluit die vaak gemaakt wordt van bamboe. In het Chinees wordt dit instrument soms 笛 (di) genoemd, maar in het Japans verwijst 笛 (fue) naar een hele familie fluiten in plaats van dit specifieke type. (<a href=\"http://en.wikipedia.org/wiki/Dizi_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:594
+msgid ""
+"The domra (Russian: домра) is a long-necked Russian string instrument of the"
+" lute family with a round body and three or four metal strings. (<a "
+"href=\"http://en.wikipedia.org/wiki/Domra\">Wikipedia</a>)"
+msgstr "De domra (Russisch: домра) is een Russisch snaarinstrument uit de luitfamilie met een lange hals, ronde kast en drie of vier metalen snaren. (<a href=\"http://nl.wikipedia.org/wiki/Domra\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:606
+msgid ""
+"The dulcian (also called curtal) is a double reed bass woodwind instrument "
+"which is a 16th century ancestor of the bassoon. (<a "
+"href=\"http://en.wikipedia.org/wiki/Dulcian\">Wikipedia</a>)"
+msgstr "De dulciaan (of curtal) is een dubbelriet-blaasinstrument en een zestiende-eeuwse voorloper van de fagot. (<a href=\"http://nl.wikipedia.org/wiki/Dulciaan\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:285
+msgid ""
+"The erhu (Chinese: 二胡) is a bowed Chinese instrument with two strings. Also "
+"known as a Chinese violin, erfu or nanhu."
+msgstr "De erhu (Chinees: 二胡) is een Chinees strijkinstrument met twee snaren. Ook bekend als de Chinese viool, erfu of nanhu. (<a href=\"http://nl.wikipedia.org/wiki/Erhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:100
+msgid ""
+"The geomungo or komungo (Korean: 거문고) is a traditional Korean zither, based "
+"on the Chinese guqin, which typically has 6 strings."
+msgstr "Ook wel komungo of kŏmun'go of hyeongeum (letterlijk \"zwarte citer\", ook gespeld als hyongum of hyŏn'gŭm) is een traditionele Koreaanse citer met zes snaren en 16 fretten. (<a href=\"http://en.wikipedia.org/wiki/Geomungo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:616
+msgid ""
+"The guqin (Chinese: 古琴), aka gǔqín, ku-ch'in, qin or ch'in is a plucked "
+"seven-string Chinese musical instrument of the zither family. (<a "
+"href=\"http://en.wikipedia.org/wiki/Guqin\">Wikipedia</a>)"
+msgstr "Chinees: 古琴, ook bekend als gǔqín, ku-ch'in, qin of ch'in is een Chinese citer met zeven snaren. (<a href=\"http://nl.wikipedia.org/wiki/Guqin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:595
+msgid ""
+"The haegeum (Korean: 해금, also spelt haegum) is a traditional Korean string "
+"instrument. (<a href=\"http://en.wikipedia.org/wiki/Haegeum\">Wikipedia</a>)"
+msgstr "De haegeum (Koreaans: 해금, ook wel haegum) is een traditioneel Koreaans snaarinstrument. (<a href=\"http://en.wikipedia.org/wiki/Haegeum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:605
+msgid ""
+"The janggu (Korean: 장구, also spelt changgu) or janggo (Korean: 장고, also "
+"spelt changgo) is a double-headed hourglass shaped drum which is the most "
+"widely used drum used in the traditional music of Korea. (<a "
+"href=\"http://en.wikipedia.org/wiki/Janggu\">Wikipedia</a>)"
+msgstr "De janggu (Koreaans: 장구, ook gespeld als changgu) of janggo (Koreaans: 장고, ook gespeld changgo) is een tweekoppige trommel in de vorm van een zandloper en wordt vaak gebruikt in traditionele Koreaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Janggu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:355
+msgid ""
+"The k'lông pút (also written klom put, klon put or klong put) is an "
+"instrument from the central highlands of Vietnam played by ethnic groups "
+"such as the Xơ Đăng and the Bahnar. It consists of a number of different "
+"sized bamboo tubes laid horizontally which are played by the musician "
+"clapping their slightly cupped hands in front of the tubes in order to push "
+"air into the tubes."
+msgstr "De k'lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
+
+#: DB:link_attribute_type/description:613
+msgid ""
+"The kamānche or kamāncha (Persian: کمانچه‎) is a Persian bowed string "
+"instrument  (<a "
+"href=\"http://en.wikipedia.org/wiki/Kamancheh\">Wikipedia</a>)"
+msgstr "De kamānche of kamāncha (Perzisch: کمانچه‎) is een Perzisch strijkinstrument. (<a href=\"http://en.wikipedia.org/wiki/Kamancheh\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:583
+msgid ""
+"The kanjira, khanjira or ganjira is a South Indian frame drum. (<a "
+"href=\"http://en.wikipedia.org/wiki/Kanjira\">Wikipedia</a>)"
+msgstr "De kanjira, khanjira of ganjira is een Zuid-Indiase lijsttrommel. (<a href=\"http://en.wikipedia.org/wiki/Kanjira\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:551
+msgid ""
+"The kaval is a chromatic end-blown flute from the Balkans and Anatolia. It "
+"is known by a number of names including caval and blul."
+msgstr "De kaval is een houtblaasinstrument dat op het platteland van de Balkan en Turkije veel wordt gebruikt. (<a href=\"http://nl.wikipedia.org/wiki/Kaval\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:359
+msgid ""
+"The khim (Thai: ขิม, Khmer: ឃឹម) is a hammered dulcimer from Thailand and "
+"Cambodia. (<a href=\"http://en.wikipedia.org/wiki/Khim\">Wikipedia</a>)"
+msgstr "De khim (Thais: ขิม, Khmer: ឃឹម) is een hakkebord uit Thailand en Cambodja. (<a href=\"http://en.wikipedia.org/wiki/Khim\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:608
+msgid ""
+"The kkwaenggwari (Korean: 꽹과리, also spelt ggwaenggwari) is a small flat "
+"brass gong, typically about 20cm in diameter, which is used primarily in the"
+" folk music of Korea. (<a "
+"href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
+msgstr "De kkwaenggwari (Koreaans: 꽹과리, ook gespeld als ggwaenggwari) is een kleine platte messing gong, normaal gesproken met een diameter van 20 cm, die vooral gebruikt wordt in de traditionele Koreaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:294
+msgid ""
+"The morin khuur (Mongolian: морин хуур, also written morin huur or morin "
+"xuur) is a Mongolian bowed string instrument which has two strings. The "
+"scroll is normally carved in the shape of a horse's head. It is also known "
+"as mǎtóuqín (traditional Chinese: 馬頭琴, simplified Chinese: 马头琴)."
+msgstr "De morin khuur (Mongools: морин хуур, ook geschreven als morin huur of morin xuur) is een Mongools strijkinstrument met twee snaren. De krul is normaalgesproken gesneden in de vorm van een paardenkop. Het instrument staan ook bekend als de mǎtóuqín (Traditioneel Chinees: 馬頭琴, Vereenvoudigd Chinees: 马头琴) (<a href=\"http://nl.wikipedia.org/wiki/Morin_khuur\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:584
+msgid ""
+"The mridangam (Sanskrit: म्र्दांगम, Tamil: மிருதங்கம், Malayalam: മൃദംഗം, "
+"Kannada: :ಮೃದಂಗ, Telugu: మృదంగం, alternative spellings include "
+"\"mrudangam\", \"mrdangam\", \"mrithangam\", \"miruthangam\" and "
+"\"mirudhangam\") is a double-sided drum from India. (<a "
+"href=\"http://en.wikipedia.org/wiki/Mridangam\">Wikipedia</a>)"
+msgstr "De mridangam (Sanskriet: म्र्दांगम, Tamil: மிருதங்கம், Malayalam: മൃദംഗം, Kannada: :ಮೃದಂಗ, Telugu: మృదంగం, spellingvarianten zijn o.a. \"mrudangam\", \"mrdangam\", \"mrithangam\", \"miruthangam\" en \"mirudhangam\") is een dubbelzijdige trommel uit India. (<a href=\"http://en.wikipedia.org/wiki/Mridangam\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:603
+msgid ""
+"The nohkan (Japanese: 能管, nōkan) is a high-pitched bamboo transverse flute "
+"from Japan. (<a href=\"http://en.wikipedia.org/wiki/Nohkan\">Wikipedia</a>)"
+msgstr "De nohkan (Japans: 能管, nōkan) is een hoog klinkende bamboedwarsfluit uit Japan. (<a href=\"http://en.wikipedia.org/wiki/Nohkan\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:612
+msgid ""
+"The pakhavaj/pakhawaj is an Indian barrel-shaped, two-headed drum used in "
+"Hindustani music (<a "
+"href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
+msgstr "De pakhavaj, pakhawaj, pakuaj, pakhvaj of pakavaj is een Indiase tonvormige tweekoppige trommel. (<a href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:609
+msgid ""
+"The piri (Korean: 피리, also spelt p'iri) is a Korean double reed instrument "
+"made of bamboo, used in both the folk and classical (court) music of Korea. "
+"Related to the Chinese guan and Japanese hichiriki. (<a "
+"href=\"http://en.wikipedia.org/wiki/Piri\">Wikipedia</a>)"
+msgstr "De piri (Koreaans: 피리, ook we pi'ri gespeld) is een Koreaans dubbelrietinstrument van bamboe, dat zowel in de volksmuziek als de klassieke muziek van Korea wordt gebruikt. Het is familie van de Chinese guan en de Japanse hichiriki. (<a href=\"http://nl.wikipedia.org/wiki/Piri\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:611
+msgid ""
+"The rudra veena (also spelled rudra vina/been/bin; Hindi: रुद्रवीणा) is a "
+"large plucked string instrument used in Hindustani classical music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Rudra_veena\">Wikipedia</a>)"
+msgstr "De rudra veena (ook gespeld als rudra vina/been/bin; Hindi: रुद्रवीणा) is een groot tokkelinstrument dat wordt gebruikt in Hindoestaanse klassieke muziek. (<a href=\"http://en.wikipedia.org/wiki/Rudra_veena\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:552
+msgid ""
+"The sarangi is a short-necked, bowed string instrument from India, Nepal and"
+" Pakistan."
+msgstr "De sarangi is een strijkinstrument met een korte nek uit India, Nepal en Pakistan."
+
+#: DB:link_attribute_type/description:566
+msgid "The saz is a long-necked fretted lute"
+msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De term saz wordt vaak foutief gebruikt voor een bağlama."
+
+#: DB:link_attribute_type/description:112
+msgid ""
+"The shamisen or samisen (Japanese: 三味線), also called sangen (Japanese: 三絃), "
+"is a three-stringed instrument from Japan played with a plectrum called a "
+"bachi. (<a href=\"http://en.wikipedia.org/wiki/Shamisen\">Wikipedia</a>)"
+msgstr "De shamisen of samisen (Japans: 三味線) ook wel sangen (Japans: 三絃) genoemd, is een drie-snarig instrument uit Japan dat met een plectrum (bachi) bespeeld wordt. (<a href=\"http://nl.wikipedia.org/wiki/Shamisen\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:604
+msgid ""
+"The shehnai, shahnai, shenai or mangal vadya, is a double reed conical oboe,"
+" common in North India, West India and Pakistan, made out of wood, with a "
+"metal flare bell at the end. "
+"(http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
+msgstr "De shehnai, shanai shenai of mangal vadya is een conische dubbelriet hobo die veel voorkomt in Noord-India, West-India en Pakistan en is gemaakt van hout, met een metalen belvormig stuk aan het einde. (<a href=\"http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:564
+msgid ""
+"The shinobue (Japanese: 篠笛) is a high-pitched transverse bamboo flute from "
+"Japan."
+msgstr "De shinobue (Japans: 篠笛, ook wel takebue (竹笛) genoemd), is een hoog klinkende bamboedwarsfluit uit Japan. (<a href=\"http://en.wikipedia.org/wiki/Shinobue\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:625
+msgid ""
+"The spilåpipa is a Swedish fipple flute with eight finger-holes on the top, "
+"but no thumb-holes. It has a modal tuning. (<a "
+"href=\"http://en.wikipedia.org/wiki/Spilåpipa\">Wikipedia</a>)"
+msgstr "De spilåpipa is een Zweedse fluit met acht vingergaten maar zonder duimgaten. (<a href=\"http://en.wikipedia.org/wiki/Spilåpipa\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:381
+msgid ""
+"The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
+"Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê."
+msgstr "De t'rưng (t'rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietman en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
+
+#: DB:link_attribute_type/description:560
+msgid ""
+"The tar is a long-necked, waisted lute found in Azerbaijan, Iran, Armenia, "
+"Georgia, and other areas near the Caucasus region. Not to be confused with "
+"the drum of the same name."
+msgstr "Een tokkelinstrument in de vorm van een gitaar met vijf tot acht snaren. Het wordt gebruikt van Iran tot in Georgië. (<a href=\"http://nl.wikipedia.org/wiki/Tär\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:532
+msgid ""
+"The taragot is a Turkish/Hungarian/Romanian reed instrument related to the "
+"saxophone and clarinet."
+msgstr "Een taragot of tárogató is een Turks/Hongaars/Roemeens enkel-riet blaasinstrument dat familie is van de saxofoon en de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Taragot\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:589
+msgid ""
+"The thavil (Tamil: தவிள்) or tavil is a barrel shaped drum from South India."
+" (<a href=\"http://en.wikipedia.org/wiki/Thavil\">Wikipedia</a>)"
+msgstr "De thavil (Tamil: தவிள்) of tavil is een tonvormige trommel uit Zuid-India. (<a href=\"http://en.wikipedia.org/wiki/Thavil\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:623
+msgid ""
+"The tumbi or toombi is a high pitched, single string plucking instrument "
+"associated with folk music of Punjab (<a "
+"href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
+msgstr "De tumbi of toombi (Punjabi: ਤੂੰਬੀ) is een tokkelinstrument met één snaar uit Punjab. (<a href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:621
+msgid ""
+"The virginals is a smaller and simpler rectangular form of the harpsichord "
+"with only one string per note (<a "
+"href=\"http://en.wikipedia.org/wiki/Virginals\">Wikipedia</a>)"
+msgstr "Een toetsinstrument met enkelkorige besnaring die steeds parallel met het toetsenbord ligt. (<a href=\"http://nl.wikipedia.org/wiki/Virginaal\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:593
+msgid ""
+"The xiao (simplified Chinese: 箫; traditional Chinese: 簫; pinyin: xiāo, also "
+"called dòngxiāo, simplified Chinese: 洞箫; traditional Chinese: 洞簫) is a "
+"Chinese end-blown flute. (<a "
+"href=\"http://en.wikipedia.org/wiki/Xiao_(flute)\">Wikipedia</a>)"
+msgstr "De Xiao (Traditioneel Chinees: 簫, Versimpeld Chinees: 箫, pinyin: xiāo, ook wel dòngxiā genoemd) is een Chinese verticaal bespeelde fluit. (<a href=\"http://en.wikipedia.org/wiki/Xiao_(flute)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:426
+msgid "Theatre organ, usch as the Wurlitzer"
+msgstr "(Ook wel bioscooporgel of cinemaorgel) is een pijporgel dat speciaal gebouwd werd voor de muzikale omlijsting van stomme films. (<a href=\"http://nl.wikipedia.org/wiki/Theaterorgel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:478
+msgid "Theorbo, Théorbe, Tiorba"
+msgstr "De theorbe of teorbe (soms ook theorbo) is een snaarinstrument uit de luitfamilie. (<a href=\"http://nl.wikipedia.org/wiki/Theorbe\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:14
+msgid ""
+"This attribute describes the possible instruments that can be captured as part of a performance.\n"
+"<br/>\n"
+"Can't find an instrument? <a href=\"http://wiki.musicbrainz.org/Advanced_Instrument_Tree\">Request it!</a>"
+msgstr "Deze eigenschap beschrijft de mogelijke instrumenten die gebruikt kunnen worden als deel van een opvoering.⏎ <br/>⏎ Kunt u een instrument niet vinden? <a href=\"http://wiki.musicbrainz.org/Advanced_Instrument_Tree\">Verzoek het!</a>"
+
+#: DB:link_attribute_type/description:350
+msgid "Tibetan water drum"
+msgstr "Tibetaanse watertrommel"
+
+#: DB:link_attribute_type/description:217
+msgid "Timpani (Kettle drum)"
+msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte. (<a href=\"http://nl.wikipedia.org/wiki/Pauk\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:382
+msgid "Trống Bông (bong drum)"
+msgstr ""
+
+#: DB:link_attribute_type/description:305
+msgid "Turkish baglama"
+msgstr "Turkse bağlama"
+
+#: DB:link_attribute_type/description:281
+msgid ""
+"Turkish three-stringed bowed instrument (<a "
+"href=\"http://en.wikipedia.org/wiki/Kemenche\">Wikipedia</a>)"
+msgstr "Turks strijkinstrument met drie snaren. (<a href=\"http://nl.wikipedia.org/wiki/Kementsje\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:407
+msgid "Udu Nigerian vessel drum"
+msgstr "Udu, Nigeriaanse vaastrommel"
+
+#: DB:link_attribute_type/description:248
+msgid "Uilleann/Union/Irish pipes"
+msgstr "Ierse doedelzak (<a href=\"http://nl.wikipedia.org/wiki/Uilleann_pipes\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:343
+msgid "Various types of cymbal. Also called chũm chọe"
+msgstr "Verschillende types bekken. Wordt ook chũm chọe genoemd."
+
+#: DB:link_attribute_type/description:503
+msgid ""
+"Venu, a bamboo transverse flute used in the Carnatic music of South India"
+msgstr "Een bamboedwarsfluit die gebruikt wordt in de Carnatische muziek uit Zuid-India. (<a href=\"http://en.wikipedia.org/wiki/Venu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:116
+msgid "Vielle / Vieille"
+msgstr "De vedel was een voorloper van de viool. (<a href=\"http://nl.wikipedia.org/wiki/Vedel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:399
+msgid "Vietnamese guitar"
+msgstr "Vietnamese gitaar"
+
+#: DB:link_attribute_type/description:321
+msgid "Vietnamese one-stringed zither"
+msgstr "Vietnamese éénsnarige citer"
+
+#: DB:link_attribute_type/description:505
+msgid "Violone, The largest/deepest member of the Viol family"
+msgstr "Voorloper van de cello. (<a href=\"http://en.wikipedia.org/wiki/Violone\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:354
+msgid "Vocoder, Voice box"
+msgstr "Een vocoder analyseert het spectrum in de aangeboden stem, en past deze spectrale eigenschappen toe op een tweede signaal, dat bijvoorbeeld door een synthesizer geleverd wordt. (<a href=\"http://nl.wikipedia.org/wiki/Vocoder\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:201
+msgid "Wagner tuba"
+msgstr "Wagnertuba"
+
+#: DB:link_attribute_type/description:323
+msgid "Warr guitar"
+msgstr "De Warr gitaar is een gitaarachtig instrument van de fabrikant Warr Guitars. Het heeft meer snaren dan een gewone gitaar en kan op een zelfde manier bespeeld worden als een Chapman Stick. (<a href=\"http://en.wikipedia.org/wiki/Warr_guitar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:266
+msgid "Willow flute (seljefløyte"
+msgstr "Noors: seljefløyte, Zweeds: sälgflöjt of sälgpipa, Fins: pitkähuilu of pajupilli is een simpele Scandinavische fluit zonder vingergaten. (<a href=\"http://en.wikipedia.org/wiki/Willow_flute\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:607
+msgid ""
+"Wind chimes are chimes constructed from suspended tubes, rods, bells or "
+"other objects, designed to be hung outside and played by the wind. (<a "
+"href=\"http://en.wikipedia.org/wiki/Wind_chime\">Wikipedia</a>)"
+msgstr "Windgongen (wind chimes) zijn gongen die zijn gemaakt van opgehangen buizen, staven, bellen of andere objecten die buiten worden opgehangen om door de wind bespeeld te worden. (<a href=\"http://en.wikipedia.org/wiki/Wind_chime\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:524
+msgid "Woodwind instrument of the late baroque and early classical era"
+msgstr "Houtblaasinstrument uit de late barok en vroeg-klassieke periode. (<a href=\"http://nl.wikipedia.org/wiki/Chalumeau\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:562
+msgid "Wurlitzer electric piano"
+msgstr "Een elektrische piano die werd gemaakt door de Amerikaanse Rudolph Wurlitzer Company. (<a href=\"http://nl.wikipedia.org/wiki/Wurlitzer_(piano)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:405
+msgid ""
+"Zarb (also known as tonbak, tombak, donbak & dombak) is a goblet drum from "
+"Persia."
+msgstr "De zarb (Perzisch: (ضَرب of ضرب), ook bekend als tonbak, tombak, donbak & dombak (Perzisch: تمبک of تُمبَک, تنبک, دمبک, دنبک) is een Perzische vaastrommel."
+
+#: DB:link_attribute_type/description:548
+msgid ""
+"Zills are tiny metallic finger cymbals used in belly dancing and other "
+"similar performances."
+msgstr "Ook wel  zils, kleine bekkens die worden gebruikt bij buikdansen en soortgelijke voorstellingen. (<a href=\"http://en.wikipedia.org/wiki/Zill\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:492
+msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
+msgstr "De zurna (Turkije, Armenië), zurla (Balkan) of zirne (Koerdistan) is een dubbelrietvolkshobo (of schalmei) met een conische boring. (<a href=\"http://nl.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:392
+msgid "a kind of a \"slide whistle\" form. Hmông flute"
+msgstr "Een soort schuiffluit. Lid van de hmông-fluiten."
+
+#: DB:link_attribute_type/description:327
+msgid ""
+"a relatively recent imported addition to Vietnamese instruments. A dulcimer "
+"with thirty-six trings, struck with two small rubber-clad dubs. It has many "
+"counter-parts in various countries, such as the \"santoor\" in India and "
+"also the \"cimbalon\" in Hungary."
+msgstr "een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de \"santoor\" in India en ook de \"cimbalon\" in Hongarije."
+
+#: DB:link_attribute_type/description:295
+msgid ""
+"a stringed instrument with a small, cylindrical body, covered at one end "
+"with snakeskin. The bow passes between the two strings and the instrument "
+"has no frets. This instrument is also of Chinese descent but has relatives "
+"all over Asia."
+msgstr "een snaarinstrument met een kleine cilindrische kast die aan één kant bedekt is met slangenleer. De strijkstok beweegt tussen de twee snaren en het instrument heeft geen fretten. Dit instrument is ook uit China afkomstig maar heeft overal in Azië verwanten."
+
+#: DB:link_attribute_type/description:385
+msgid ""
+"a variant of the \"Hmông flute\". \n"
+"flute blowers lips enclose the blowing hole with the vibrating \"free reed\" inside"
+msgstr "Een variant op de Hmông-fluit.\nDe lippen van de fluitist omvatten het blaasgat met het vibrerende vrije riet erin."
+
+#: DB:link_attribute_type/description:64
+msgid "accordion"
+msgstr "Een aerofoon dat wordt bespeeld als een toetsinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Accordeon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:73
+msgid "acoustic bass guitar"
+msgstr "Een akoestische basgitaar. (<a href=\"http://en.wikipedia.org/wiki/Acoustic_bass_guitar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:76
+msgid "acoustic guitar"
+msgstr "Een gitaar die zo gemaakt is dat haar klankkast als resonator optreedt waarbij deze een grotere hoeveelheid lucht in beweging brengt dan de snaren zelf kunnen. (<a href=\"http://nl.wikipedia.org/wiki/Akoestische_gitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:89
+msgid "aeolian harp"
+msgstr "windharp"
+
+#: DB:link_attribute_type/description:136
+msgid "afuche / cabasa"
+msgstr "De kabassa, die lijkt op de shekere, is een percussie-instrument dat is gebouwd met rollen van stalen kogeltjes die om een cilinder zijn gewikkeld. (<a href=\"http://nl.wikipedia.org/wiki/Kabassa\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:540
+msgid "aka Farfisa organ, Farfisa Compact, Farfisa Mini-Compact, Farfisa FAST"
+msgstr "Ook wel Farfisa, Farfisa Compact, Farfisa Mini-Compact of Farfisa FAST."
+
+#: DB:link_attribute_type/description:542
+msgid "aka Vocaloid"
+msgstr "Ook wel bekend als een Vocaloid, een spraaksynthesizer is een elektrisch apparaat dat de menselijke stem nabootst."
+
+#: DB:link_attribute_type/description:21
+msgid "aka cor anglais (alto)"
+msgstr "Is een grotere en lagere uitvoering van de hobo. (<a href=\"http://nl.wikipedia.org/wiki/Althobo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:533
+msgid "aka electronic wind instrument"
+msgstr "ook bekend als elektronisch blaasinstrument"
+
+#: DB:link_attribute_type/description:541
+msgid "aka finger clicks"
+msgstr "(<a href=\"http://en.wikipedia.org/wiki/Snap_(fingers)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:448
+msgid "aka frattoir or rubboard"
+msgstr "De frottoir is een wasbord speciaal ontwikkeld voor gebruik als muziekinstrument.  (<a href=\"http://en.wikipedia.org/wiki/Washboard#The_washboard_as_a_musical_instrument\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:544
+msgid ""
+"aka guzheng (古箏), gu-zheng, juzheng, ju-zheng.\n"
+"A traditional Chinese string instrument which typically has 21 strings."
+msgstr "ook bekend als guzheng (古箏), gu-zheng, juzheng, ju-zheng.\nEen traditioneel Chinees snaarinstrument met meestal 21 snaren."
+
+#: DB:link_attribute_type/description:344
+msgid "aka pans, steel drums"
+msgstr "De steeldrum (ook wel steelpan of pan genoemd) is een muziekinstrument dat van oorsprong uit Trinidad en Tobago afkomstig is. (<a href=\"http://nl.wikipedia.org/wiki/Steeldrum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:535
+msgid ""
+"aka sruti box. Similar to a harmonium and used to provide a drone "
+"accompaniment."
+msgstr "ook bekend als sruti-doos. Vergelijkbaar met een harmonium en wordt gebruikt om een gonzende begeleiding te creëren."
+
+#: DB:link_attribute_type/description:543
+msgid ""
+"aka violin-trumpet, trumpet-violin, horn-violin, violinophone.\n"
+"A violin with a metal resonator and horn rather than a wooden body."
+msgstr "Ook wel strohviool, trompetviool of schaatsviool. Een viool met een hoorn in plaats van een houten klankkast. (<a href=\"http://nl.wikipedia.org/wiki/Violofoon\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:324
+msgid "aka yangqin, yang ch'in, yang t'chin"
+msgstr "De yangqin, (Vereenvoudigd Chinees: 扬琴, Traditioneel Chinees: 揚琴, pinyin: yángqín) is een Chinese hakkebord. (<a href=\"http://en.wikipedia.org/wiki/Yangqin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:41
+msgid "alphorn"
+msgstr "alpenhoorn"
+
+#: DB:link_attribute_type/description:556
+msgid "also known as tzouras and tsoura"
+msgstr "De tzouras (Grieks:  τζουράς) is een Grieks snaarinstrument, gerelateerd aan de bouzouki. (<a href=\"http://en.wikipedia.org/wiki/Tzouras\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:24
+msgid "alto clarinet"
+msgstr "Een lagere variant van de klarinet, niet te verwarren met de bassethoorn. (<a href=\"http://nl.wikipedia.org/wiki/Altklarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:423
+msgid "alto flute"
+msgstr "altfluit"
+
+#: DB:link_attribute_type/description:35
+msgid "alto saxophone"
+msgstr "Een altsaxofoon of altsax of alto is de meest voorkomende uitvoering van de saxofoon. (<a href=\"http://nl.wikipedia.org/wiki/Altsaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:226
+msgid "alto violin"
+msgstr "De verticale viola of altviool is een strijkinstrument uit de familie van violen die staand wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Alto_violin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:615
+msgid ""
+"an empty jug (usually made of glass or stoneware) played with the mouth (<a "
+"href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipedia</a>)"
+msgstr "Een lege kruik (meestal gemaakt van glas of keramiek) die met de mond bespeeld wordt. (<a href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:453
+msgid "ankle rattlers"
+msgstr "Ratels die aan de enkels bevestigd worden."
+
+#: DB:link_attribute_type/description:296
+msgid "archaic and other bowed string-instruments"
+msgstr "archaïsche en andere strijkinstrumenten"
+
+#: DB:link_attribute_type/description:494
+msgid "autoharp"
+msgstr "autoharp"
+
+#: DB:link_attribute_type/description:512
+msgid "baglama"
+msgstr "De bağlama is een soort luit met een lange nek die met een plectrum bespeeld wordt.  (<a href=\"http://nl.wikipedia.org/wiki/Bağlama\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:18
+msgid "bagpipe"
+msgstr "Een zeer oud type blaasinstrument waarbij het riet indirect via een luchtkamer wordt bespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Doedelzak\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:91
+msgid "balalaika"
+msgstr "Een balalaika (Russisch: балалайка) is een typisch Russisch snaarinstrument met een driehoekige klankkast. (<a href=\"http://nl.wikipedia.org/wiki/Balalaika\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:451
+msgid "bamboo angklung"
+msgstr "Angkloeng van bamboe"
+
+#: DB:link_attribute_type/description:263
+msgid "bandoneón"
+msgstr "Een op de harmonica lijkend muziekinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Bandoneon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:291
+msgid "banhu / banghu"
+msgstr "De banhu (Chinees: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van huqin. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:92
+msgid "banjo"
+msgstr "Een banjo is een instrument uit een reeks snaarinstrumenten met doorgaans stalen snaren en fretten waarbij de kam op een strak gespannen vel (tegenwoordig meestal van kunststof) rust. (<a href=\"http://nl.wikipedia.org/wiki/Banjo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:377
+msgid "baritone guitar"
+msgstr "Een Baritongitaar is een elektrische gitaar die een kwart lager gestemd is dan een elektrische gitaar. (<a href=\"http://nl.wikipedia.org/wiki/Baritongitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:42
+msgid "baritone horn"
+msgstr "bariton"
+
+#: DB:link_attribute_type/description:37
+msgid "baritone saxophone"
+msgstr "Een wat minder gebruikelijke saxofoon dan de tenor- of altsax. Het instrument is doorgaans in Es gestemd. (<a href=\"http://nl.wikipedia.org/wiki/Baritonsaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:25
+msgid "bass clarinet"
+msgstr "De lage (bas) variant van de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Basklarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:518
+msgid "bass drum"
+msgstr "Een bass drum, base drum, basdrum, kick of grote trom is een belangrijke trommel in het drumstel. (<a href=\"http://nl.wikipedia.org/wiki/Bass_drum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:501
+msgid "bass flute"
+msgstr "basfluit"
+
+#: DB:link_attribute_type/description:558
+msgid "bass harmonica"
+msgstr "Een mondharmonica die speciaal geconstrueerd is om losse tonen in het basregister te spelen."
+
+#: DB:link_attribute_type/description:484
+msgid "bass pedals"
+msgstr "Baspedalen is een elektronisch muziekinstrument waarbij de pedalen met de voet bediend worden en hebben een bereik van een of meer octaven. (<a href=\"http://nl.wikipedia.org/wiki/Baspedalen\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:228
+msgid "bass trombone"
+msgstr "bastrombone"
+
+#: DB:link_attribute_type/description:489
+msgid "basset clarinet"
+msgstr "De tenor-uitvoering van een klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Bassetklarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:490
+msgid "basset horn"
+msgstr "Een lagere variant van de klarinet, vergelijkbaar met maar niet hetzelfde als de altklarinet. (<a href=\"http://nl.wikipedia.org/wiki/Bassethoorn\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:19
+msgid "bassoon"
+msgstr "De fagot is een houten blaasinstrument met dubbelriet in tenor- en basligging. (<a href=\"http://nl.wikipedia.org/wiki/Fagot\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:520
+msgid "bayan"
+msgstr "Russische knopaccordeon. (<a href=\"http://en.wikipedia.org/wiki/Bayan_(accordion)\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:151
+msgid "bells"
+msgstr "bellen"
+
+#: DB:link_attribute_type/description:93
+msgid "berimbau"
+msgstr "De berimbau is een Braziliaans muziekinstrument dat veel gebruikt wordt bij de vechtsport capoeira. (<a href=\"http://nl.wikipedia.org/wiki/Berimbau\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:249
+msgid "bodhrán"
+msgstr "De bodhrán (uitgesproken als bauwron ) is een Ierse lijsttrommel die bespeeld wordt met een soort drumstick met twee slageinden, 'tipper', ‘cipin’ of 'beater' genoemd. (<a href=\"http://nl.wikipedia.org/wiki/Bodhrán\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:437
+msgid "bones"
+msgstr "bones"
+
+#: DB:link_attribute_type/description:128
+msgid "bongos"
+msgstr "Bongo's zijn kleine handtrommels die meestal per twee aan elkaar hangen en samen bespeeld worden. (<a href=\"http://nl.wikipedia.org/wiki/Bongo_(trommel)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:95
+msgid "bouzouki"
+msgstr "De bouzouki (Grieks: το μπουζούκι) is een dubbelkorige langhalsluit uit Griekenland. (<a href=\"http://nl.wikipedia.org/wiki/Bouzouki\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:299
+msgid "bowed psaltery"
+msgstr "Een psalterium dat met een strijkstok wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bowed_psaltery\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:275
+msgid "bowed string instruments"
+msgstr "strijkinstrumenten"
+
+#: DB:link_attribute_type/description:38
+msgid "brass"
+msgstr "koperblazers"
+
+#: DB:link_attribute_type/description:397
+msgid "brushes"
+msgstr "brushes"
+
+#: DB:link_attribute_type/description:51
+msgid "bugle"
+msgstr "natuurbugel"
+
+#: DB:link_attribute_type/description:202
+msgid "bull-roarer"
+msgstr "Een snorrebot, hor, bromhout of snorhout (ook bekend onder de namen bullroarer, rhombus, turndun of Bora-Bora) is een aerofoon muziekinstrument dat sinds de oudheid al gebruikt wordt. (<a href=\"http://nl.wikipedia.org/wiki/Snorrebot\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:440
+msgid "button accordion"
+msgstr "Een accordeon dat met knoppen wordt bespeeld in plaats van (piano)toetsen. (<a href=\"http://nl.wikipedia.org/wiki/Knopaccordeon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:170
+msgid "calliope"
+msgstr "stoomorgel of stoompiano"
+
+#: DB:link_attribute_type/description:171
+msgid "carillon"
+msgstr "Een beiaard, carillon of klokkenspel is een met een klavier bespeelbaar muziekinstrument, bestaande uit één of meerdere series klokken. (<a href=\"http://nl.wikipedia.org/wiki/Beiaard\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:137
+msgid "castanets"
+msgstr "Castagnetten zijn een slagwerkinstrument dat vooral gebruikt wordt in Moorse muziek, zigeunermuziek, Spaanse muziek en Latijns-Amerikaanse muziek. (<a href=\"http://nl.wikipedia.org/wiki/Castagnetten\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:172
+msgid "celesta"
+msgstr "De celesta (ook: celeste) is een toetseninstrument dat behoort tot de idiofonen. (<a href=\"http://nl.wikipedia.org/wiki/Celesta\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:84
+msgid "cello"
+msgstr "cello"
+
+#: DB:link_attribute_type/description:415
+msgid "chimes"
+msgstr "klokkenspel"
+
+#: DB:link_attribute_type/description:521
+msgid "chromatic button accordion"
+msgstr "Knopaccordeon waarvan de knoppen aan de melodiekant chromatisch geordend zijn. (<a href=\"http://en.wikipedia.org/wiki/Chromatic_button_accordion\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:376
+msgid "chromatic harmonica"
+msgstr "Een mondharmonica waarop een chromatische toonladder te spelen is. (<a href=\"http://nl.wikipedia.org/wiki/Chromatische_mondharmonica\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:307
+msgid "cittern"
+msgstr "Een cister is een tokkelinstrument uit de Renaissance. (<a href=\"http://en.wikipedia.org/wiki/Cittern\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:23
+msgid "clarinet"
+msgstr "De klarinet is een enkelriets houtblazer bestaande uit een cilindrisch geboorde buis met gaten die met de vinger of een klep kunnen worden afgedekt. (<a href=\"http://nl.wikipedia.org/wiki/Klarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:77
+msgid "classical guitar"
+msgstr "De klassieke of Spaanse gitaar is de gitaar die aan de oorsprong stond van alle andere versies van de Spaanse gitaar zoals de flamencogitaar, de archtop gitaar en de steelstringgitaar. (<a href=\"http://nl.wikipedia.org/wiki/Klassieke_gitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:138
+msgid "claves"
+msgstr "Claves is een muziekinstrument, bestaande uit twee massieve hardhouten stokjes die tegen elkaar worden geslagen. (<a href=\"http://nl.wikipedia.org/wiki/Claves\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:173
+msgid "clavichord"
+msgstr "Een klavichord is een klein klavierinstrument uit Europa dat tot de snaarinstrumenten wordt gerekend. (<a href=\"http://nl.wikipedia.org/wiki/Klavichord\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:227
+msgid "clavinet"
+msgstr "Een clavinet is een toetsinstrument dat behoort tot de snaarinstrumenten en is een soort elektrisch klavichord. (<a href=\"http://nl.wikipedia.org/wiki/Clavinet\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:431
+msgid "concert harp"
+msgstr "concertharp"
+
+#: DB:link_attribute_type/description:65
+msgid "concertina"
+msgstr "Een op de trekzak lijkende voorloper van de bandoneon. (<a href=\"http://nl.wikipedia.org/wiki/Concertina\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:127
+msgid "congas"
+msgstr "Een conga is een circa 70-75 cm hoge eenvellige trommel, tonvormig en open aan de onderkant, die meestal met de handen wordt bespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Conga\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:519
+msgid "conical bore double-reed musical instrument from Brittany"
+msgstr "Conisch geboord dubbelrietinstrument uit Bretagne. (<a href=\"http://nl.wikipedia.org/wiki/Bombarde_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:26
+msgid "contrabass clarinet"
+msgstr "Een zeer lage en zelden voorkomende variant van de klarinet. (<a href=\"http://en.wikipedia.org/wiki/Contrabass_clarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:367
+msgid "contrabass recorder"
+msgstr "contrabasblokfluit"
+
+#: DB:link_attribute_type/description:538
+msgid "contrabass saxophone"
+msgstr "Een van de grootste en laagste saxofonen. (<a href=\"http://nl.wikipedia.org/wiki/Contrabassaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:20
+msgid "contrabassoon"
+msgstr "De contrafagot is groter en een octaaf lager dan de gewone fagot. (<a href=\"http://nl.wikipedia.org/wiki/Contrafagot\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:39
+msgid "cornet"
+msgstr "kornet"
+
+#: DB:link_attribute_type/description:384
+msgid "cow horns without fingerholes. with mouthpiece and free reed"
+msgstr "Koeienhoornen zonder vingergaten. Met een mondstuk en vrij riet."
+
+#: DB:link_attribute_type/description:208
+msgid "cowbell"
+msgstr "Een koebel is een muziekinstrument uit de groep van idiofonen, ook wel cowbell geheten. Het is een platte bel van brons of smeedijzer. (<a href=\"http://nl.wikipedia.org/wiki/Koebel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:214
+msgid "crotales"
+msgstr "Crotales of Cymbales Antiques is een slaginstrument uit de klassieke muziek, bestaande uit kleine bronzen schijfjes die aangeslagen of met een strijkstok gestreken tot klinken kunnen worden gebracht. (<a href=\"http://nl.wikipedia.org/wiki/Crotales\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:98
+msgid "crwth"
+msgstr "De crwth is een archaïsch snaarinstrument dat vooral wordt gebruikt in Welshe muziek. (<a href=\"http://en.wikipedia.org/wiki/Crwth\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:342
+msgid "cymbals"
+msgstr "Een bekken of cimbaal is een slagwerkinstrument zoals dat in een drumstel gebruikt wordt. (<a href=\"http://nl.wikipedia.org/wiki/Bekken_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:495
+msgid "cümbüş"
+msgstr "De Cümbüş is een Turks snaarinstrument dat in de twintigste eeuw werd ontwikkeld door Zeynel Abidin Cümbüş. (<a href=\"http://nl.wikipedia.org/wiki/Cümbüş\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:463
+msgid "dholak, classical North Indian hand drum"
+msgstr "De dholak (Punjabi: ਢੋਲਕ, Hindi: ढोलक) is een Zuid-Aziatische tweekoppige trommel. (<a href=\"http://en.wikipedia.org/wiki/Dholak\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:441
+msgid "diatonic accordion / melodeon"
+msgstr "Ook wel (trek)harmonica of diatonische accordeon, Engels: melodeon of diatonic button-accordion. (<a href=\"http://nl.wikipedia.org/wiki/Trekzak\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:204
+msgid "didgeridoo"
+msgstr "didgeridoo"
+
+#: DB:link_attribute_type/description:394
+msgid ""
+"dinh tăktàr or Ding Tac ta, bamboo free reed, has a smal gourd type thing"
+msgstr "Dinh tăktàr of Ding Tac ta, vrij rietinstrument van bamboe, met een klein kalebasachtig apparaat eraan."
+
+#: DB:link_attribute_type/description:335
+msgid "djembe"
+msgstr "De djembé (ook: djembeh, djembee, dzjembee of yembe) is een trommel die voornamelijk afkomstig is uit West-Afrika. (<a href=\"http://nl.wikipedia.org/wiki/Djembé\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:17
+msgid "double reed"
+msgstr "dubbelriet"
+
+#: DB:link_attribute_type/description:140
+msgid "doyra"
+msgstr "Een middelgrote lijsttrommel met belletjes die gebruikt wordt in zowel Centraal Azië als de Balkan. <a href=\"http://en.wikipedia.org/wiki/Doyra\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:162
+msgid "drum machine"
+msgstr "Een drumcomputer, ook wel drummachine, drumdoos, drumbak of Japanse drummer genoemd, is een synthesizer met als voornaamste taak het genereren van drumgeluiden door middel van synthese of sampling. (<a href=\"http://nl.wikipedia.org/wiki/Drumcomputer\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:125
+msgid "drums"
+msgstr "drums"
+
+#: DB:link_attribute_type/description:126
+msgid "drumset"
+msgstr "Een drumstel (ook: drums) is een verzameling slagwerkinstrumenten die door een enkele persoon, een drummer, bespeeld wordt. (<a href=\"http://nl.wikipedia.org/wiki/Drumstel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:404
+msgid "ebow"
+msgstr "Een E-bow is een klein apparaatje dat strijkgeluiden produceert als het boven gitaarsnaren wordt gehouden. (<a href=\"http://nl.wikipedia.org/wiki/E-bow\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:383
+msgid "edo village traditional flute, four finger holes, blowing reed"
+msgstr "traditionele fluit uit de Edoperiode met vier vingergaten en een riet."
+
+#: DB:link_attribute_type/description:74
+msgid "electric bass guitar"
+msgstr "Elektrische variant van de basgitaar."
+
+#: DB:link_attribute_type/description:278
+msgid "electric cello"
+msgstr "elektrische cello"
+
+#: DB:link_attribute_type/description:78
+msgid "electric guitar"
+msgstr "Een elektrische gitaar is een gitaar die doorgaans geen klankkast heeft maar haar geluid uiteindelijk produceert door een luidspreker. (<a href=\"http://nl.wikipedia.org/wiki/Elektrische_gitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:432
+msgid "electric harp"
+msgstr "elektrische harp"
+
+#: DB:link_attribute_type/description:470
+msgid "electric lap steel guitar"
+msgstr "electric lap steel guitar"
+
+#: DB:link_attribute_type/description:329
+msgid "electric piano"
+msgstr "Elektrische piano's maken mechanisch geluid dat elektrisch wordt versterkt. Niet te verwarren met de elektronische piano. (<a href=\"http://en.wikipedia.org/wiki/Electric_piano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:316
+msgid "electric sitar"
+msgstr "Elektrische variant van de sitar. Niet te verwarren met de zither of citer."
+
+#: DB:link_attribute_type/description:72
+msgid "electric upright bass"
+msgstr "elektrische contrabas"
+
+#: DB:link_attribute_type/description:282
+msgid "electric violin"
+msgstr "elektrische viool"
+
+#: DB:link_attribute_type/description:487
+msgid "electronic drum set"
+msgstr "Een elektronisch drumstel is een synthesizer die een drumstel nabootst. (<a href=\"http://en.wikipedia.org/wiki/Electronic_drum_set\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:159
+msgid "electronic instruments"
+msgstr "elektronische instrumenten"
+
+#: DB:link_attribute_type/description:539
+msgid "electronic organ"
+msgstr "elektronisch orgel"
+
+#: DB:link_attribute_type/description:199
+msgid "euphonium"
+msgstr "eufonium of tenortuba"
+
+#: DB:link_attribute_type/description:389
+msgid "family of Hmông flutes"
+msgstr "Familie van hmông-fluiten"
+
+#: DB:link_attribute_type/description:85
+msgid "fiddle"
+msgstr "Fiddle is een term die voornamelijk in de folkmuziek gebruikt wordt in plaats van viool. (<a href=\"http://nl.wikipedia.org/wiki/Fiddle\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:554
+msgid "finger cymbals"
+msgstr "Kleine bekkens die aan de vingers kunnen worden bevestigd."
+
+#: DB:link_attribute_type/description:43
+msgid "flugelhorn"
+msgstr "bugel of flügelhorn"
+
+#: DB:link_attribute_type/description:27
+msgid "flute"
+msgstr "fluit"
+
+#: DB:link_attribute_type/description:433
+msgid "folk harp"
+msgstr ""
+
+#: DB:link_attribute_type/description:465
+msgid "fortepiano"
+msgstr "Met fortepiano worden de achttiende en vroeg negentiende-eeuwse voorlopers van de piano aangeduid. (<a href=\"http://nl.wikipedia.org/wiki/Fortepiano_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:421
+msgid "frame drum"
+msgstr "Een lijsttrommel is een trommel waarbij het vel over een houten, meestal cilindrische, ring is gespannen. (<a href=\"http://nl.wikipedia.org/wiki/Lijsttrommel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:63
+msgid "free reed"
+msgstr "vrij riet"
+
+#: DB:link_attribute_type/description:44
+msgid "french horn"
+msgstr "hoorn"
+
+#: DB:link_attribute_type/description:301
+msgid "gadulka"
+msgstr "Een gdulka of gadoelka (Bulgaars: Гъдулка) is een Bulgaarse knieviool. <a href=\"http://nl.wikipedia.org/wiki/Gdulka\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:445
+msgid "gamelan"
+msgstr "Verzameling van instrumenten die worden gebruikt door een gamelanorkest. Een gamelan bestaat voornamelijk uit slagwerk, maar kan ook fluiten bevatten. (<a href=\"http://nl.wikipedia.org/wiki/Gamelan\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:286
+msgid "gaohu"
+msgstr "gaohu"
+
+#: DB:link_attribute_type/description:99
+msgid "gayageum"
+msgstr "Ook wel kayagum, een traditioneel Koreaans citerachtig instrument met twaalf snaren. (<a href=\"http://en.wikipedia.org/wiki/Gayageum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:357
+msgid "glass (h)armonica"
+msgstr "Een glasharmonica is een muziekinstrument dat in 1762 werd uitgevonden door Benjamin Franklin. (<a href=\"http://nl.wikipedia.org/wiki/Glasharmonica\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:215
+msgid "glockenspiel"
+msgstr "Een glockenspiel is een metallofoon bestaande uit twee rijen metalen staven (toetsen), doorgaans zonder resonator. (<a href=\"http://nl.wikipedia.org/wiki/Glockenspiel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:340
+msgid "gong"
+msgstr "Een gong is een ronde metallofoon van Oost-Aziatische herkomst die een specifieke toonhoogte kan hebben. (<a href=\"http://nl.wikipedia.org/wiki/Gong_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:339
+msgid "gongs"
+msgstr "gongs"
+
+#: DB:link_attribute_type/description:181
+msgid "grand piano"
+msgstr "Een vleugelpiano of concertpiano is een grote piano waarvan de snaren horizontaal zijn opgesteld. (<a href=\"http://nl.wikipedia.org/wiki/Piano_(instrument0\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:300
+msgid "gudok"
+msgstr "De gudok or hudok (Russisch: гудок, Oekraïens: гудок) is een Oostslavisch strijkinstrument. (<a href=\"http://en.wikipedia.org/wiki/Gudok\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:229
+msgid "guitar"
+msgstr "Een gitaar is een snaarinstrument dat wordt bespeeld met de vingers of met een plectrum. (<a href=\"http://nl.wikipedia.org/wiki/Gitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:75
+msgid "guitars"
+msgstr "guitars"
+
+#: DB:link_attribute_type/description:141
+msgid "güiro"
+msgstr "Een güiro is een slagwerkinstrument met een raspend geluid. (<a href=\"http://nl.wikipedia.org/wiki/Güiro\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:101
+msgid "hammered dulcimer"
+msgstr "Een Hakkebord is een citer die wordt bespeeld met mallets die kunnen bestaan uit allerlei materialen. (<a href=\"http://nl.wikipedia.org/wiki/Hakkebord\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:346
+msgid "handbells"
+msgstr "handbells"
+
+#: DB:link_attribute_type/description:187
+msgid "hardart"
+msgstr "Instrument vervaardigd door Peter Schickele en Philip Glass voor het gebruik in de parodie Concerto for Horn and Hardart van Schickele. (<a href=\"http://en.wikipedia.org/wiki/Concerto_for_Horn_and_Hardart\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:66
+msgid "harmonica"
+msgstr "Een met de mond bespeeld blaasinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Mondharmonica\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:178
+msgid "harmonium"
+msgstr "harmonium"
+
+#: DB:link_attribute_type/description:81
+msgid "harp"
+msgstr "harp"
+
+#: DB:link_attribute_type/description:174
+msgid "harpsichord"
+msgstr "klavecimbel"
+
+#: DB:link_attribute_type/description:261
+msgid "heckelphone"
+msgstr "Dubbelrietinstrument uit de hobo-familie. (<a href=\"http://nl.wikipedia.org/wiki/Heckelfoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:40
+msgid "horn"
+msgstr "hoorn"
+
+#: DB:link_attribute_type/description:103
+msgid "hurdy gurdy"
+msgstr "Een draailier (een vroegere versie ervan wordt ook wel organistrum genoemd) is een soort gemechaniseerde viool. (<a href=\"http://nl.wikipedia.org/wiki/Draailier\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:104
+msgid "jew's harp"
+msgstr "Een klein tokkelinstrument en lamellofoon waarbij de klank gevormd wordt door een dunne lamel aan te tokkelen waarbij het frame tussen de tanden of tegen de lippen wordt gehouden. (<a href=\"http://nl.wikipedia.org/wiki/Mondharp\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:188
+msgid "kazoo"
+msgstr "Een kazoo is een soort mirliton. Het instrument bestaat uit een metalen of plastic pijpje met een papieren membraan in de wand. (<a href=\"http://nl.wikipedia.org/wiki/Kazoo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:232
+msgid "keyboard"
+msgstr "keyboard"
+
+#: DB:link_attribute_type/description:442
+msgid "keyboard bass"
+msgstr "De term baskeyboard wordt gebruikt voor laaggestemde keyboards die worden gebruikt als vervanger voor een basgitaar of contrabas."
+
+#: DB:link_attribute_type/description:203
+msgid "keyed brass instruments"
+msgstr "koperblazers met knoppen"
+
+#: DB:link_attribute_type/description:317
+msgid "kinnor"
+msgstr "De kinnor (Hebreeuws: כִּנּוֹר, ook wel Davidsharp) is een antieke Israëlitische lier. (<a href=\"http://en.wikipedia.org/wiki/Kinnor\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:318
+msgid "kithara"
+msgstr "Grieks: κιθάρα, een antiek Grieks muziekinstrument uit de familie van de lieren. (<a href=\"http://en.wikipedia.org/wiki/Kithara\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:386
+msgid "koke, can-shaped, covereed with snakeskin. played with a horsehair-bow"
+msgstr "Een koke heeft de vorm van een blik, is bedekt met slangenhuid en wordt bespeeld met een strijkstok van paardenhaar."
+
+#: DB:link_attribute_type/description:106
+msgid "kora"
+msgstr "Een West-Afrikaans snaarinstrument dat tot de harpen wordt gerekend. (<a href=\"http://nl.wikipedia.org/wiki/Kora_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:107
+msgid "koto"
+msgstr "De koto (箏) is een Japanse citer. (<a href=\"http://nl.wikipedia.org/wiki/Kota_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:319
+msgid "langeleik"
+msgstr "Een langeleik of langleik is een Noors snaarinstrument. (<a href=\"http://en.wikipedia.org/wiki/Langeleik\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:466
+msgid "lap steel guitar"
+msgstr "lap steel guitar"
+
+#: DB:link_attribute_type/description:189
+msgid "lasso d'amore"
+msgstr "Een lasso d'amore is een experimenteel muziekinstrument gemaakt van plastic buizen. Het is ook bekend als bloogle en corrugaphone. (<a href=\"http://en.wikipedia.org/wiki/Lasso_d'amore\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:482
+msgid "low whistle"
+msgstr "low whistle"
+
+#: DB:link_attribute_type/description:108
+msgid "lute"
+msgstr "De luit is een snaarinstrument met een bol klanklichaam, in de vorm van een overlangs doorgesneden ei, en een korte brede hals die bevestigd is aan het smalle eind van het klanklichaam. (<a href=\"http://nl.wikipedia.org/wiki/Luit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:109
+msgid "lyre"
+msgstr "De lier of lyra is vooral bekend als een in de klassieke Oudheid en Middeleeuwen veel gebruikt muziekinstrument en de voorloper van de harp. (<a href=\"http://nl.wikipedia.org/wiki/Lier_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:308
+msgid "mandola"
+msgstr "Een mandola is een tokkelinstrument dat lijkt op een mandoline maar een octaaf lager is gestemd. (<a href=\"http://nl.wikipedia.org/wiki/Mandola\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:96
+msgid "mandolin"
+msgstr "Een mandoline is een tokkelinstrument met acht snaren en familie van de luit. (<a href=\"http://nl.wikipedia.org/wiki/Mandoline_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:142
+msgid "maracas"
+msgstr "De maracas (ook wel sambaballen genoemd) is een muziekinstrument uit de groep van idiofonen van Zuid- en Midden-Amerikaanse oorsprong. (<a href=\"http://nl.wikipedia.org/wiki/Maracas\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:216
+msgid "marimba"
+msgstr "marimba"
+
+#: DB:link_attribute_type/description:56
+msgid "mellophone"
+msgstr "mellofoon"
+
+#: DB:link_attribute_type/description:428
+msgid "metallophone"
+msgstr "Onder metallofoon wordt in het algemeen een idiofoon verstaan, waarbij het resoneren van een metalen lichaam de klank doet ontstaan. (<a href=\"http://nl.wikipedia.org/wiki/Metallofoon\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:97
+msgid "musical bow"
+msgstr "muziekboog"
+
+#: DB:link_attribute_type/description:190
+msgid "musical saw"
+msgstr "zingende zaag"
+
+#: DB:link_attribute_type/description:49
+msgid "natural brass instruments"
+msgstr "natuurkoperblazers"
+
+#: DB:link_attribute_type/description:270
+msgid "nose flute"
+msgstr "neusfluit"
+
+#: DB:link_attribute_type/description:298
+msgid "nyckelharpa"
+msgstr "De nyckelharpa (letterlijk: sleutelharp) is een snaarinstrument uit Zweden. (<a href=\"http://nl.wikipedia.org/wiki/Nyckelharpa\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:29
+msgid "ocarina"
+msgstr "ocarina"
+
+#: DB:link_attribute_type/description:456
+msgid "ocean drum"
+msgstr "Ook wel ocean drum, een trommel waarmee het geluid van een oceaan kan worden nagebootst. (<a href=\"http://en.wikipedia.org/wiki/Ocean_drum\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:352
+msgid "omnichord"
+msgstr "De omnichord is een elektronisch muziekinstrument van de fabrikant Suzuki Musical Instrument Corporation. (<a href=\"http://en.wikipedia.org/wiki/Omnichord\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:163
+msgid "ondes Martenot"
+msgstr "De ondes-Martenot (Frans: Martenot-golven), kortweg: ondes, is een van de vroegste elektronische muziekinstrumenten. (<a href=\"http://nl.wikipedia.org/wiki/Ondes-Martenot\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:57
+msgid "ophicleide"
+msgstr "ophicleïde"
+
+#: DB:link_attribute_type/description:176
+msgid "organ"
+msgstr "orgel"
+
+#: DB:link_attribute_type/description:304
+msgid "oud"
+msgstr "De oed of oud (Arabisch: عود, Assyrisch: ܥܘܕ, Grieks: ούτι, Perzisch: بربط‎) is een peervormig snaarinstrument dat veel gebruikt wordt in muziek uit het Midden-Oosten. (<a href=\"http://nl.wikipedia.org/wiki/Oed\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:469
+msgid "pedal steel guitar"
+msgstr "pedal steel guitar"
+
+#: DB:link_attribute_type/description:124
+msgid "percussion"
+msgstr "percussie"
+
+#: DB:link_attribute_type/description:180
+msgid "piano"
+msgstr "piano"
+
+#: DB:link_attribute_type/description:439
+msgid "piano accordion"
+msgstr "Een accordeon met aan de rechterkant een pianoklavier. (<a href=\"http://nl.wikipedia.org/wiki/Klavieraccordeon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:31
+msgid "piccolo"
+msgstr "piccolo"
+
+#: DB:link_attribute_type/description:486
+msgid "piccolo trumpet"
+msgstr "piccolotrompet"
+
+#: DB:link_attribute_type/description:179
+msgid "pipe organ"
+msgstr "pijporgel"
+
+#: DB:link_attribute_type/description:302
+msgid "plucked string instruments"
+msgstr "tokkelinstrumenten"
+
+#: DB:link_attribute_type/description:111
+msgid "psaltery"
+msgstr "Een psalterium (ook wel psalter) is een snaarinstrument uit de familie van de harp of de citer. (<a href=\"http://nl.wikipedia.org/wiki/Psalterium\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:455
+msgid "rainstick"
+msgstr "Een lange holle buis die is gevuld met kleine steentjes of bonen. (<a href=\"http://en.wikipedia.org/wiki/Rainstick\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:211
+msgid "ratchet"
+msgstr "Een ratel is een uit hout, of kunststof vervaardigd muziekinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Ratel_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:411
+msgid "rattle"
+msgstr "Rammelaars zijn instrumenten die geluid maken als ermee geschud wordt."
+
+#: DB:link_attribute_type/description:309
+msgid "rebab"
+msgstr "Een Arabisch strijkinstrument met een ronde klankkast. (<a href=\"http://en.wikipedia.org/wiki/Rebab\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:276
+msgid "rebec"
+msgstr "rebec"
+
+#: DB:link_attribute_type/description:274
+msgid "reed organ"
+msgstr "rietorgel"
+
+#: DB:link_attribute_type/description:233
+msgid "reeds"
+msgstr "rietblazers"
+
+#: DB:link_attribute_type/description:467
+msgid "resonator guitar"
+msgstr "Een door John Dopyera ontwikkelde akoestische gitaar waarbij het geluid versterkt wordt door een of meerdere metalen conussen, de zogenaamde resonatoren. (<a href=\"http://nl.wikipedia.org/wiki/Resonatorgitaar\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:449
+msgid "rhythm sticks"
+msgstr "Hardhouten cilindrische stokken die tegen elkaar worden geslagen. (<a href=\"http://en.wikipedia.org/wiki/Lummi_stick\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:198
+msgid "sackbut"
+msgstr "baroktrombone"
+
+#: DB:link_attribute_type/description:164
+msgid "sampler"
+msgstr "Een muziekinstrument dat geluiden opwekt door geluidsfragmenten digitaal af te spelen. (<a href=\"http://nl.wikipedia.org/wiki/Sampler\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:347
+msgid "sanh / Sanh Tiên (Coin-dappers)"
+msgstr ""
+
+#: DB:link_attribute_type/description:315
+msgid "sanshin"
+msgstr "Japans: 三線, letterlijk \"drie snaren\" is een snaarinstrument uit Okinawa en een voorloper van de Japanse shamisen. (<a href=\"http://en.wikipedia.org/wiki/Sanshin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:314
+msgid "sanxián"
+msgstr "(Chinese: 三弦, letterlijk: drie snaren) is een Chinees tokkelinstrument met drie snaren en zonder fretten. (<a href=\"http://en.wikipedia.org/wiki/Sanxian\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:418
+msgid "sapek clappers"
+msgstr "sapek clappers"
+
+#: DB:link_attribute_type/description:250
+msgid "sarod"
+msgstr "Een instrument uit de Hindoestaanse muziek. Het is een fretloos snaarinstrument met 4 melodie-snaren, 2 ritmische snaren (chikari) en enige akkoord-snaren. (<a href=\"http://nl.wikipedia.org/wiki/Sarod\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:33
+msgid "saxophone"
+msgstr "Een blaasinstrument met een conische meestal S-vormige buis die voorzien is van kleppen. Omdat het een rietinstrument is wordt de saxofoon gerekend tot de houtblazers. (<a href=\"http://nl.wikipedia.org/wiki/Saxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:387
+msgid "saó ôi (flute of the Muong)"
+msgstr "Fluit van de Muong uit Vietnam"
+
+#: DB:link_attribute_type/description:197
+msgid "serpent"
+msgstr "serpent"
+
+#: DB:link_attribute_type/description:417
+msgid "shakers"
+msgstr "Shakers zijn een familie van indirecte percussie-instrumenten die bespeeld worden door ze te schudden. (<a href=\"http://en.wikipedia.org/wiki/Shaker_(percussion)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:68
+msgid "sheng"
+msgstr "Chinees: 笙, Pinyin shēng is een mond aangeblazen vrij rietinstrument met meerdere verticale pijpen. (<a href=\"http://en.wikipedia.org/wiki/Sheng_(instrument)\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:262
+msgid "sho"
+msgstr "Japans: 笙 is een Japanse variant op de Chinese sheng. (<a href=\"http://en.wikipedia.org/wiki/Sho_(instrument)\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:60
+msgid "shofar"
+msgstr "sjofar"
+
+#: DB:link_attribute_type/description:191
+msgid "singing bowl"
+msgstr "Een muziekinstrument in de vorm van een schaal dat vervaardigd is uit een legering. (<a href=\"http://nl.wikipedia.org/wiki/Klankschaal\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:234
+msgid "singular reed"
+msgstr "enkelriet"
+
+#: DB:link_attribute_type/description:113
+msgid "sitar"
+msgstr "Indiaas snaarinstrument met vier melodiesnaren en twee ritmesnaren. Niet te verwarren met de zither of citer. (<a href=\"http://nl.wikipedia.org/wiki/Sitar\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:272
+msgid "slide brass instruments"
+msgstr "koperblazers met schuifventiel"
+
+#: DB:link_attribute_type/description:79
+msgid "slide guitar"
+msgstr "Een slide, ook wel bottleneck genoemd, is een buisje van glas of metaal dat wordt gebruikt om een gitaar te bespelen. (<a href=\"http://nl.wikipedia.org/wiki/Slide_(gitaar-accessoire)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:129
+msgid "snare drum"
+msgstr "Ook wel snare drum, is een trommel bestaande uit een metalen klankkast met een slagvel en een resonantievel. (<a href=\"http://nl.wikipedia.org/wiki/Kleine_trom\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:537
+msgid "sopranino saxophone"
+msgstr "Een kleinere saxofoon die gestemd is in es. (<a href=\"http://nl.wikipedia.org/wiki/Sopraninosaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:488
+msgid "soprano clarinet"
+msgstr "Het meest voorkomende type klarinet en het type dat meestal wordt bedoeld als de algemene term klarinet wordt gebruikt. (<a href=\"http://en.wikipedia.org/wiki/Soprano_clarinet\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:498
+msgid "soprano flute"
+msgstr "sopraanfluit"
+
+#: DB:link_attribute_type/description:34
+msgid "soprano saxophone"
+msgstr "Een kleinere saxofoonvariant. Meestal gestemd in bes. (<a href=\"http://nl.wikipedia.org/wiki/Sopraansaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:280
+msgid "soprano violin"
+msgstr "soprano violin"
+
+#: DB:link_attribute_type/description:200
+msgid "sousaphone"
+msgstr "sousafoon"
+
+#: DB:link_attribute_type/description:210
+msgid "spoons"
+msgstr "spoons"
+
+#: DB:link_attribute_type/description:80
+msgid "steel guitar"
+msgstr "steel guitar"
+
+#: DB:link_attribute_type/description:69
+msgid "strings"
+msgstr "Een snaarinstrument (chordofoon) is een muziekinstrument waarbij het geluid veroorzaakt wordt door het trillen van snaren. (<a href=\"http://nl.wikipedia.org/wiki/Snaarinstrument\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:322
+msgid "struck string instruments"
+msgstr "Bij aangeslagen snaarinstrumenten worden de snaren in beweging gebracht door er tegen aan te slaan. Een bekend voorbeeld is de piano."
+
+#: DB:link_attribute_type/description:368
+msgid "subcontrabass recorder"
+msgstr "subcontrabasblokfluit"
+
+#: DB:link_attribute_type/description:165
+msgid "synclavier"
+msgstr "De Synclavier is een geïntegreerde synthesizer, sampler en harddisk recorder, gemaakt door New England Digital. (<a href=\"http://nl.wikipedia.org/wiki/Synclavier\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:166
+msgid "synthesizer"
+msgstr "Een synthesizer is een elektronisch muziekinstrument dat klanken en geluiden kunstmatig (meestal elektronisch) opwekt. (<a href=\"http://nl.wikipedia.org/wiki/Synthesizer\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:393
+msgid "sáo meò"
+msgstr "sáo meò"
+
+#: DB:link_attribute_type/description:241
+msgid "tabla"
+msgstr "Een Hindoestaans percussie-instrument bestaande uit twee trommels. (<a href=\"http://nl.wikipedia.org/wiki/Tabla\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:468
+msgid "table steel guitar"
+msgstr "table steel guitar"
+
+#: DB:link_attribute_type/description:457
+msgid "talking drum"
+msgstr "Een tama, ook wel dondo, dundun (niet te verwarren met gelijknamige bastrommel) of talking drum genoemd, is een West-Afrikaanse trommel met een zandlopervormig lichaam.  (<a href=\"http://nl.wikipedia.org/wiki/Tama_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:333
+msgid "tambourine"
+msgstr "Een tamboerijn is een lijsttrommel, die bestaat uit een hoepel die met een vel bespannen is en waaraan enkele belletjes bevestigd zijn. (<a href=\"http://nl.wikipedia.org/wiki/Tamboerijn\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:474
+msgid "tamburitza"
+msgstr "De Tambura (Bulgaars: Тамбура) is een op de Griekse bouzouki gelijkend snaarinstrument, dat voorkomt in Bulgarije, Macedonië en Pirin. (<a href=\"http://nl.wikipedia.org/wiki/Tambura\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:586
+msgid "tanbur"
+msgstr "De naam tanbūr (Perzisch: تنبور) wordt gebruikt voor verschillende luiten met lange nek en fretten uit Centraal en Zuid-Azië. (<a href=\"http://en.wikipedia.org/wiki/Tanbur\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:510
+msgid "tangent piano"
+msgstr "Een tangentpiano is een zeer zeldzaam toetsinstrument dat lijkt op een klavecimbel. (<a href=\"http://en.wikipedia.org/wiki/Tangent_piano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:167
+msgid "teleharmonium"
+msgstr "Het telharmonium of teleharmonium (ook bekend als de dynamofoon) is een elektromechanisch instrument ontwikkeld door Thaddeus Cahill in 1897. (<a href=\"http://nl.wikipedia.org/wiki/Telharmonium\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:222
+msgid "temple blocks"
+msgstr "Een tempelblok is een slagwerkinstrument dat bestaat uit een hol houten of kunststof blok met een spleet. (<a href=\"http://nl.wikipedia.org/wiki/Tempelblok\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:45
+msgid "tenor horn / alto horn"
+msgstr "althoorn"
+
+#: DB:link_attribute_type/description:36
+msgid "tenor saxophone"
+msgstr "Een van de meest voorkomende soorten saxofoon. Meestal gestemd in bes. (<a href=\"http://nl.wikipedia.org/wiki/Tenorsaxofoon\">Wikipedia</a>"
+
+#: DB:link_attribute_type/description:168
+msgid "theremin"
+msgstr "Een theremin is een elektronisch muziekinstrument dat bespeeld wordt door de afstand tussen de handen en twee antennes te variëren. (<a href=\"http://nl.wikipedia.org/wiki/Theremin\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:409
+msgid ""
+"ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
+"and beaten with sticks"
+msgstr "Een percussie-instrument gemaakt van een horizontaal stuk bamboe waarop wordt geslagen met stokken."
+
+#: DB:link_attribute_type/description:401
+msgid "tieu flute"
+msgstr "tieufluit"
+
+#: DB:link_attribute_type/description:132
+msgid "timbales"
+msgstr "Timbales zijn muziekinstrumenten bestaande uit twee hoog en scherp klinkende trommels op statief. (<a href=\"http://nl.wikipedia.org/wiki/Timbales\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:267
+msgid "tin whistle"
+msgstr "tin whistle"
+
+#: DB:link_attribute_type/description:331
+msgid "tiple"
+msgstr "De tiple is een snaarinstrument verwant aan de gitaar, maar wat kleiner. (<a href=\"http://nl.wikipedia.org/wiki/Tiple\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:328
+msgid "toy piano"
+msgstr "Een speelgoedpiano is een hele kleine piano die is bedoeld voor kinderen, maar soms ook door volwassenen wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Toy_piano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:422
+msgid "transverse flute"
+msgstr "dwarsfluit"
+
+#: DB:link_attribute_type/description:497
+msgid "treble flute"
+msgstr "Een sopraninodwarsfluit gestemd in G. (<a href=\"http://en.wikipedia.org/wiki/Treble_flute\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:279
+msgid "treble violin"
+msgstr "treble violin"
+
+#: DB:link_attribute_type/description:115
+msgid "tres"
+msgstr "De Cubaanse tres is een Cubaans gitaarachtig muziekinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Cubaanse_tres\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:133
+msgid "triangle"
+msgstr "De triangel is een metalen slagwerkinstrument dat behoort tot de klasse van de idiofonen (zelfklinkers). (<a href=\"http://nl.wikipedia.org/wiki/Triangel_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:46
+msgid "trombone"
+msgstr "trombone"
+
+#: DB:link_attribute_type/description:47
+msgid "trumpet"
+msgstr "trompet"
+
+#: DB:link_attribute_type/description:391
+msgid "trắng jâu bass form of trắng lu"
+msgstr "Trắng jâu, basvariant op de trắng lu"
+
+#: DB:link_attribute_type/description:390
+msgid "trắng lu"
+msgstr "trắng lu"
+
+#: DB:link_attribute_type/description:48
+msgid "tuba"
+msgstr "tuba"
+
+#: DB:link_attribute_type/description:218
+msgid "tubular bells"
+msgstr "Buisklokken is een instrument uit de slagwerkfamilie, behorend tot de klasse van de idiofonen. (<a href=\"http://nl.wikipedia.org/wiki/Buisklokken\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:150
+msgid "tuned percussion"
+msgstr "gestemd slagwerk"
+
+#: DB:link_attribute_type/description:236
+msgid "turntable(s)"
+msgstr "Draaitafels (platenspelers) worden sinds het ontstaan van de hiphop ook als muziekinstrument gebruikt. (<a href=\"http://nl.wikipedia.org/wiki/Turntablism\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:114
+msgid "ukulele"
+msgstr "De ukelele is een snaarinstrument behorend tot de getokkelde luitachtigen, onderverdeeld in de gitaarfamilie. (<a href=\"http://nl.wikipedia.org/wiki/Ukulele\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:184
+msgid "upright piano"
+msgstr "De huiskamerpiano, buffetpiano of pianino is een type piano waarvan de snaren staand in plaats van horizontaal (zoals bij een vleugel) zijn opgesteld. Hierdoor wordt de benodigde ruimte voor het instrument beperkt. (<a href=\"http://nl.wikipedia.org/wiki/Piano_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:375
+msgid "vacuum cleaner"
+msgstr "stofzuiger"
+
+#: DB:link_attribute_type/description:237
+msgid "valve trombone"
+msgstr "ventieltrombone"
+
+#: DB:link_attribute_type/description:271
+msgid "valved brass instruments"
+msgstr "koperblazers met ventiel"
+
+#: DB:link_attribute_type/description:523
+msgid "variety of bass guitars without frets"
+msgstr "Verschillende basgitaren zonder fretten."
+
+#: DB:link_attribute_type/description:336
+msgid "variously sized drums"
+msgstr "Verschillende formaten trommels."
+
+#: DB:link_attribute_type/description:447
+msgid "vessel drum"
+msgstr "Vaastrommels zijn enkelvellige zandlopervormige trommels die veel gebruikt worden in Zuid- en Oost-Europa, Azië en Afrika. (<a href=\"http://nl.wikipedia.org/wiki/Vaastrommel\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:219
+msgid "vibraphone"
+msgstr "Een vibrafoon is een slaginstrument vergelijkbaar met de xylofoon of marimba, maar met metalen in plaats van houten toetsen. (<a href=\"http://nl.wikipedia.org/wiki/Vibrafoon\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:212
+msgid "vibraslap"
+msgstr "Een vibraslap is een percussieinstrument uit de groep van de idiofonen, dat vooral in Latijns-Amerikaanse muziek wordt gebruikt. (<a href=\"http://nl.wikipedia.org/wiki/Vibraslap\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:87
+msgid "viola"
+msgstr "altviool"
+
+#: DB:link_attribute_type/description:119
+msgid "viola d'amore"
+msgstr "viola d'amore"
+
+#: DB:link_attribute_type/description:118
+msgid "viola da gamba"
+msgstr "viola da gamba"
+
+#: DB:link_attribute_type/description:297
+msgid "viola organista"
+msgstr "De viola organista (ook wel 'vioolorgel' of 'Geigenwerk') is een experimenteel muziekinstrument dat voor het eerst uitgedacht is door Leonardo da Vinci. (<a href=\"http://nl.wikipedia.org/wiki/Viola_organista\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:86
+msgid "violin"
+msgstr "viool"
+
+#: DB:link_attribute_type/description:82
+msgid "violins"
+msgstr "violen"
+
+#: DB:link_attribute_type/description:120
+msgid "violotta"
+msgstr "De violotta is een tenor viool uitgevonden door Alfred Stelzner. (<a href=\"http://en.wikipedia.org/wiki/Violotta\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:209
+msgid "washboard"
+msgstr "In de muziek wordt het wasbord als ritmisch instrument gebruikt. (<a href=\"http://nl.wikipedia.org/wiki/Wasbord_(instrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:121
+msgid "washtub bass"
+msgstr "Een simpel snaarinstrument dat een wastrommel gebruikt als resonator. (<a href=\"http://en.wikipedia.org/wiki/Washtub_bass\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:351
+msgid "waterphone"
+msgstr "De waterphone is een atonaal muziekinstrument dat is uitgevonden door Richard Waters. (<a href=\"http://en.wikipedia.org/wiki/Waterphone\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:454
+msgid "wavedrum"
+msgstr "Een elektronisch percussie-instrument van de firma Korg."
+
+#: DB:link_attribute_type/description:134
+msgid "whip"
+msgstr "Een zweep is een slaginstrument uit de familie van idiofonen. (<a href=\"http://nl.wikipedia.org/wiki/Zweep_(muziekinstrument)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:345
+msgid "whistle"
+msgstr "Een fluitje of scheidsrechtersfluitje wordt vooral gebruikt bij sportinstrumenten maar soms ook in de muziek. (<a href=\"http://nl.wikipedia.org/wiki/Scheidsrechtersfluit\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:15
+msgid "wind instruments"
+msgstr "blaasinstrumenten"
+
+#: DB:link_attribute_type/description:434
+msgid "wire-strung harp"
+msgstr ""
+
+#: DB:link_attribute_type/description:213
+msgid "wood block"
+msgstr "wood block"
+
+#: DB:link_attribute_type/description:16
+msgid "woodwind"
+msgstr "houtblazers"
+
+#: DB:link_attribute_type/description:122
+msgid "xalam / khalam"
+msgstr "Een West-Afrikaans snaarinstrument. (<a href=\"http://en.wikipedia.org/wiki/Xalam\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:220
+msgid "xylophone"
+msgstr "De xylofoon is een muziekinstrument behorend tot het gestemde slagwerk dat bestaat uit een reeks houten staven die zijn opgehangen aan een op een frame gespannen touw. (<a href=\"http://nl.wikipedia.org/wiki/Xylofoon\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:292
+msgid "yehu"
+msgstr "De yehu (Chinees: 椰胡, pinyin: yēhú) is een Chinees strijkinstrument uit de familie van de huqin. (<a href=\"http://en.wikipedia.org/wiki/Yehu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:123
+msgid "zither"
+msgstr "10\" vinyl"
+
+#: DB:link_attribute_type/description:396
+msgid ""
+"Đing Nǎm free reed mouthorgan. is the \"ancestor\" of the harmonica and "
+"accordion"
+msgstr "Đing Nǎm is een vrij rietorgel. Het is de \"voorloper\" van de harmonica en de accordeon."
+
+#: DB:link_attribute_type/description:312
+msgid ""
+"Đàn nguyệt or đàn kìm, a two-stringed lute with a circular, flat body, "
+"related to the corresponding chinese instrument \"moon lute\""
+msgstr "De đàn nguyệt ook wel nguyệt cầm of đàn kìm is een Vietnamees tokkelinstrument met twee snaren.  (<a href=\"http://en.wikipedia.org/wiki/Đàn nguyệt\">Wikipedia</a>)"

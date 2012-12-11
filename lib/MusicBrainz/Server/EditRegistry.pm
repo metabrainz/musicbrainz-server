@@ -70,16 +70,19 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::ReleaseGroup::Delete
     MusicBrainz::Server::Edit::ReleaseGroup::Edit
     MusicBrainz::Server::Edit::ReleaseGroup::Merge
+    MusicBrainz::Server::Edit::ReleaseGroup::SetCoverArt
     MusicBrainz::Server::Edit::URL::Edit
     MusicBrainz::Server::Edit::WikiDoc::Change
     MusicBrainz::Server::Edit::Work::AddAlias
     MusicBrainz::Server::Edit::Work::AddAnnotation
+    MusicBrainz::Server::Edit::Work::AddISWCs
     MusicBrainz::Server::Edit::Work::Create
     MusicBrainz::Server::Edit::Work::Delete
     MusicBrainz::Server::Edit::Work::DeleteAlias
     MusicBrainz::Server::Edit::Work::Edit
     MusicBrainz::Server::Edit::Work::EditAlias
     MusicBrainz::Server::Edit::Work::Merge
+    MusicBrainz::Server::Edit::Work::RemoveISWC
 
     MusicBrainz::Server::Edit::Historic::AddDiscID
     MusicBrainz::Server::Edit::Historic::AddLink
@@ -110,8 +113,8 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink
     MusicBrainz::Server::Edit::Historic::RemoveRelease
-    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveReleaseEvents
+    MusicBrainz::Server::Edit::Historic::RemoveReleases
     MusicBrainz::Server::Edit::Historic::RemoveTrack
     MusicBrainz::Server::Edit::Historic::SACToMAC
     MusicBrainz::Server::Edit::Historic::SetTrackLengthsFromCDTOC
@@ -165,7 +168,7 @@ sub grouped_by_name
     my $class = shift;
     my %grouped;
     foreach my $class ($class->get_all_classes) {
-        my $name = $class->edit_name;
+        my $name = $class->l_edit_name;
         $grouped{ $name } ||= [];
         push @{ $grouped{ $name } }, $class;
     }

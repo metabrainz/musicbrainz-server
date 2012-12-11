@@ -6,7 +6,6 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js'; }
 use Data::OptList;
 use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
-use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
@@ -14,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     hash_structure
 );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
 
@@ -36,6 +36,10 @@ my $ws_defs = Data::OptList::mkopt([
     },
     "entity" => {
         method => 'GET',
+        inc => [ qw(rels) ]
+    },
+    "events" => {
+        method => 'GET'
     }
 ]);
 
@@ -43,7 +47,6 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 {
      defs => $ws_defs,
      version => 'js',
-     default_serialization_type => 'json',
 };
 
 sub entities {
@@ -54,6 +57,7 @@ sub entities {
         'ReleaseGroup' => 'release-group',
         'Release' => 'release',
         'Label' => 'label',
+        'URL' => 'url'
     };
 }
 
@@ -69,6 +73,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
         length => $_->length,
+        number => $_->number,
         name => $_->name,
         artist_credit => artist_credit_to_ref (
             $_->artist_credit, [ "comment", "gid", "sortname" ]),
@@ -263,11 +268,11 @@ sub associations : Chained('root') PathPart Args(1) {
 
     my $tracklist = $c->model('Tracklist')->get_by_id($id);
     $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    $c->model('Recording')->load ($tracklist->all_tracks);
+
+    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
         $tracklist->all_tracks);
-
-    $c->model('Recording')->load ($tracklist->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
         [ map { $_->recording } $tracklist->all_tracks ], 3);
@@ -293,7 +298,7 @@ sub associations : Chained('root') PathPart Args(1) {
             name => $_->recording->name,
             comment => $_->recording->comment,
             length => $_->recording->length,
-            artist_credit => { preview => $_->artist_credit->name },
+            artist_credit => { preview => $_->recording->artist_credit->name },
             appears_on => {
                 hits => $appears_on{$_->recording->id}{hits},
                 results => [ map { {
@@ -314,7 +319,7 @@ sub entity : Chained('root') PathPart('entity') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    unless (MusicBrainz::Server::Validation::IsGUID($gid)) {
+    unless (is_guid($gid)) {
         $c->stash->{error} = "$gid is not a valid MusicBrainz ID.";
         $c->detach('bad_req');
         return;
@@ -334,13 +339,18 @@ sub entity : Chained('root') PathPart('entity') Args(1)
         return;
     }
 
-    my $jsent = "MusicBrainz::Server::Controller::WS::js::$type"->new();
-    $jsent->_load_entities($c, $entity);
+    $c->model('Relationship')->load($entity) if $c->stash->{inc}->rels;
+    $c->model('ArtistCredit')->load($entity);
 
-    my $item = ($jsent->_format_output($c, $entity))[0];
-    my $serialization_routine = $jsent->serialization_routine;
-    my $data = $c->stash->{serializer}->$serialization_routine($item);
+    my $serialization_routine = '_' . $self->entities->{$type};
+    $serialization_routine =~ s/\-/_/g;
+    my $data = $c->stash->{serializer}->$serialization_routine($entity);
     $data->{'type'} = $self->entities->{$type};
+
+    my $relationships = $c->stash->{serializer}->serialize_relationships(
+        @{ $entity->relationships } );
+
+    $data->{relationships} = $relationships if keys %$relationships;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize_data($data));
@@ -350,9 +360,18 @@ sub default : Path
 {
     my ($self, $c, $resource) = @_;
 
-    $c->stash->{serializer} = $self->serializers->{$self->get_default_serialization_type}->new();
+    $c->stash->{serializer} = $self->get_serialization ($c);
     $c->stash->{error} = "Invalid resource: $resource";
     $c->detach('bad_req');
+}
+
+sub events : Chained('root') PathPart('events') {
+    my ($self, $c) = @_;
+
+    my $events = $c->model('Statistics')->all_events;
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize_data($events));
 }
 
 no Moose;

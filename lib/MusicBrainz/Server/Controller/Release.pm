@@ -19,16 +19,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_RELEASE_CHANGE_QUALITY
-    $EDIT_RELEASE_DELETE
-    $EDIT_RELEASE_EDIT_COVER_ART
-    $EDIT_RELEASE_MERGE
-    $EDIT_RELEASE_MOVE
-    $EDIT_RELEASE_REMOVE_COVER_ART
-    $EDIT_RELEASE_REORDER_COVER_ART
-);
+use MusicBrainz::Server::Constants qw( :edit_type );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -44,7 +35,7 @@ working with Release entities
 =head1 DESCRIPTION
 
 This controller handles user interaction, both read and write, with
-L<MusicBrainz::Server::Release> objects. This includes displaying
+L<MusicBrainz::Server::Entity::Release> objects. This includes displaying
 releases, editing releases and creating new releases.
 
 =head1 METHODS
@@ -72,10 +63,11 @@ after 'load' => sub
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
+        large_thumbnail => $prefix.'/front-500',
         small_thumbnail => $prefix.'/front-250'
     };
 
@@ -207,7 +199,7 @@ sub medium_sort
 {
     ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
         or
-    ($a->medium->release->release_group->type_id || 99) <=> ($b->medium->release->release_group->type_id || 99)
+    ($a->medium->release->release_group->primary_type_id || 99) <=> ($b->medium->release->release_group->primary_type_id || 99)
         or
     ($a->medium->release->status_id || 99) <=> ($b->medium->release->status_id || 99)
         or
@@ -404,7 +396,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
                                       [ $entity->gid ],
                                       { id => $id })->as_string ();
 
-    $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
+    $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
@@ -430,7 +422,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({
         id => $id,
-        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork
     });
 
@@ -442,19 +434,20 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         }
     );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_ADD_COVER_ART,
-            release => $entity,
-            cover_art_types => [
-                grep { defined $_ && looks_like_number($_) }
-                    @{ $form->field ("type_id")->value }
-            ],
-            cover_art_position => $form->field ("position")->value,
-            cover_art_id => $form->field('id')->value,
-            cover_art_comment => $form->field('comment')->value || ''
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_ADD_COVER_ART,
+                release => $entity,
+                cover_art_types => [
+                    grep { defined $_ && looks_like_number($_) }
+                        @{ $form->field ("type_id")->value }
+                    ],
+                cover_art_position => $form->field ("position")->value,
+                cover_art_id => $form->field('id')->value,
+                cover_art_comment => $form->field('comment')->value || ''
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
@@ -489,14 +482,15 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
         init_object => { artwork => \@positions }
     );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
-            release => $entity,
-            old => \@positions,
-            new => $form->field ("artwork")->value
-        );
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_REORDER_COVER_ART,
+                release => $entity,
+                old => \@positions,
+                new => $form->field ("artwork")->value
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
@@ -637,6 +631,16 @@ around _merge_submit => sub {
     }
 };
 
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
+    $c->model('Country')->load(@{ $c->stash->{to_merge} });
+    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
+    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
+};
+
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
@@ -656,7 +660,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     $c->stash({
         artwork => $artwork,
         images => \@artwork,
-        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
     });
 
     my @type_ids = map { $_->id } $c->model ('CoverArtType')->get_by_name (@{ $artwork->types });
@@ -669,18 +673,19 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
             comment => $artwork->comment,
         }
     );
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
-            release => $entity,
-            artwork_id => $artwork->id,
-            old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
-            old_comment => $artwork->comment,
-            new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
-            new_comment => $form->field('comment')->value || '',
-        );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASE_EDIT_COVER_ART,
+                release => $entity,
+                artwork_id => $artwork->id,
+                old_types => [ grep { defined $_ && looks_like_number($_) } @type_ids ],
+                old_comment => $artwork->comment,
+                new_types => [ grep { defined $_ && looks_like_number($_) } @{ $form->field ("type_id")->value } ],
+                new_comment => $form->field('comment')->value || '',
+            );
+        });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
@@ -716,9 +721,21 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    $c->stash(
-        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
-    );
+    my $artwork = $c->model ('Artwork')->find_by_release ($release);
+    $c->model ('CoverArtType')->load_for (@$artwork);
+
+    $c->stash(cover_art => $artwork);
+}
+
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+    $c->model('Release')->load_meta($release);
+    $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
+
+    $c->forward('/relationship_editor/load', $c);
 }
 
 __PACKAGE__->meta->make_immutable;

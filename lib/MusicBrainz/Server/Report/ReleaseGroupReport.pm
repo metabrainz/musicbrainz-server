@@ -1,38 +1,34 @@
 package MusicBrainz::Server::Report::ReleaseGroupReport;
-use Moose;
+use Moose::Role;
 
-extends 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report::QueryReport';
 
-use List::MoreUtils qw( uniq );
+around inflate_rows => sub {
+    my $orig = shift;
+    my $self = shift;
 
-sub post_load
-{
-    my ($self, $items) = @_;
+    my $items = $self->$orig(@_);
 
-    my @ids = map { $_->{artist_credit_id} } @$items;
-    my $acs = $self->c->model('ArtistCredit')->get_by_ids(@ids);
+    my $releasegroups = $self->c->model('ReleaseGroup')->get_by_ids(
+        map { $_->{release_group_id} } @$items
+    );
+    $self->c->model('ArtistCredit')->load(values %$releasegroups);
 
-    my @releasegroupgids = map { $_->{release_group_gid} } @$items;
-    my $releasegroups = $self->c->model('ReleaseGroup')->get_by_gids(@releasegroupgids);
+    return [
+        map +{
+            %$_,
+            release_group => $releasegroups->{ $_->{release_group_id} }
+        },
+            @$items
+    ];
+};
 
-    my @urlgids = map { $_->{url_gid} } @$items;
-    my $urls = $self->c->model('URL')->get_by_gids(@urlgids);
-
-    foreach my $item (@$items) {
-        $item->{artist_credit} = $acs->{$item->{artist_credit_id}};
-        $item->{release_group} = $releasegroups->{$item->{release_group_gid}};
-
-        $item->{urlentity} = $urls->{$item->{url_gid}} if $item->{url_gid};
-    }
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
 
 =head1 COPYRIGHT
 
 Copyright (C) 2009 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

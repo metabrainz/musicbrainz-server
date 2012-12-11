@@ -5,8 +5,8 @@ use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttributeType;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
-    partial_date_from_row
     add_partial_date_to_row
     load_subobjects
     placeholders
@@ -23,7 +23,7 @@ sub _table
 sub _columns
 {
     return 'id, link_type, begin_date_year, begin_date_month, begin_date_day,
-            end_date_year, end_date_month, end_date_day';
+            end_date_year, end_date_month, end_date_day, ended';
 }
 
 sub _column_mapping
@@ -31,8 +31,9 @@ sub _column_mapping
     return {
         id         => 'id',
         type_id    => 'link_type',
-        begin_date => sub { partial_date_from_row(shift, 'begin_date_') },
-        end_date   => sub { partial_date_from_row(shift, 'end_date_') },
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'begin_date_') },
+        end_date   => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, 'end_date_') },
+        ended      => 'ended'
     };
 }
 
@@ -110,6 +111,9 @@ sub find
     push @conditions, "link_type = ?";
     push @args, $values->{link_type_id};
 
+    push @conditions, "ended = ?";
+    push @args, $values->{ended};
+
     foreach my $date_key (qw( begin_date end_date )) {
         my $column_prefix = $date_key;
         foreach my $key (qw( year month day )) {
@@ -152,6 +156,7 @@ sub find_or_insert
     my $row = {
         link_type      => $values->{link_type_id},
         attribute_count => scalar(@attrs),
+        ended => $values->{ended}
     };
     add_partial_date_to_row($row, $values->{begin_date}, "begin_date");
     add_partial_date_to_row($row, $values->{end_date}, "end_date");

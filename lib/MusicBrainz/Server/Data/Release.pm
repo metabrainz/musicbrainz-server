@@ -4,18 +4,19 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Entity::Barcode;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
-    barcode_from_row
     generate_gid
     hash_to_row
     load_subobjects
     merge_table_attributes
     merge_partial_date
     order_by
-    partial_date_from_row
     placeholders
     query_to_list
     query_to_list_limited
@@ -42,7 +43,8 @@ sub _table
 sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
-            release_group, release.status, release.packaging, date_year, date_month, date_day,
+            release.release_group, release.status, release.packaging,
+            release.date_year, release.date_month, release.date_day,
             release.country, release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
 }
@@ -68,10 +70,10 @@ sub _column_mapping
         status_id => 'status',
         packaging_id => 'packaging',
         country_id => 'country',
-        date => sub { partial_date_from_row(shift, shift() . 'date_') },
+        date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'date_') },
         edits_pending => 'edits_pending',
         comment => 'comment',
-        barcode => sub { barcode_from_row (shift, shift) },
+        barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         script_id => 'script',
         language_id => 'language',
         quality => sub {
@@ -113,10 +115,20 @@ sub _where_filter
         }
         if (exists $filter->{type} && $filter->{type}) {
             my @types = ref($filter->{type}) ? @{ $filter->{type} } : ( $filter->{type} );
-            if (@types) {
-                push @query, 'release_group.type IN (' . placeholders(@types) . ')';
+            my %partitioned_types = partition_by {
+                "$_" =~ /^st:/ ? 'secondary' : 'primary'
+            } @types;
+
+            if (my $primary = $partitioned_types{primary}) {
+                push @query, 'release_group.type = any(?)';
                 push @joins, 'JOIN release_group ON release.release_group = release_group.id';
-                push @params, @types;
+                push @params, $primary;
+            }
+
+            if (my $secondary = $partitioned_types{secondary}) {
+                push @query, 'st.secondary_type = any(?)';
+                push @params, [ map { substr($_, 3) } @$secondary ];
+                push @joins, 'JOIN release_group_secondary_type_join st ON release.release_group = st.release_group';
             }
         }
     }
@@ -363,7 +375,8 @@ sub find_for_cdtoc
     my ($self, $artist_id, $track_count, $limit, $offset) = @_;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(name.name) AS name_collate
+                        musicbrainz_collate(name.name) AS name_collate,
+                        release_group.id AS rg_id
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
@@ -373,9 +386,11 @@ sub find_for_cdtoc
                         ON medium_format.id = medium.format
                      JOIN tracklist
                         ON medium.tracklist = tracklist.id
+                     JOIN release_group
+                        ON release.release_group = release_group.id
                  WHERE tracklist.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
-                 ORDER BY musicbrainz_collate(name.name), date_year, date_month, date_day
+                 ORDER BY release_group.id, musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -402,13 +417,15 @@ sub load_with_tracklist_for_recording
                 release.packaging AS r_packaging,
                 release.quality AS r_quality,
                 release.release_group AS r_release_group,
+                release.comment AS r_comment,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
                 tracklist.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
                 track.tracklist AS t_tracklist, track.position AS t_position,
-                track.length AS t_length, track.artist_credit AS t_artist_credit
+                track.length AS t_length, track.artist_credit AS t_artist_credit,
+                track.number AS t_number
         FROM
             track
             JOIN tracklist ON tracklist.id = track.tracklist
@@ -554,6 +571,10 @@ sub delete
 
     $self->sql->do('DELETE FROM release_label WHERE release IN (' . placeholders(@release_ids) . ')',
              @release_ids);
+
+    $self->sql->do('DELETE FROM cover_art_archive.release_group_cover_art ' .
+                   'WHERE release IN (' . placeholders(@release_ids) . ')',
+                   @release_ids);
 
     my @mediums = @{
         $self->sql->select_single_column_array(
@@ -707,6 +728,7 @@ sub merge
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Collection')->merge_releases($new_id, @old_ids);
     $self->c->model('ReleaseLabel')->merge_releases($new_id, @old_ids);
+    $self->c->model('ReleaseGroup')->merge_releases($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('release', $new_id, @old_ids);
     $self->c->model('CoverArtArchive')->merge_releases($new_id, @old_ids);

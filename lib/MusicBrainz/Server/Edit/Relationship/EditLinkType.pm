@@ -6,12 +6,12 @@ use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT_LINK_TYPE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
-sub edit_name { l('Edit relationship type') }
+sub edit_name { N_l('Edit relationship type') }
 sub edit_type { $EDIT_RELATIONSHIP_EDIT_LINK_TYPE }
 
 sub change_fields

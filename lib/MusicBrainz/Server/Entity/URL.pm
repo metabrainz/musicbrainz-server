@@ -16,16 +16,6 @@ has 'url' => (
     coerce => 1
 );
 
-has 'description' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-has 'reference_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
 =attribute utf8_decoded
 
 Returns the URL, with entities unescaped and the string decoded from utf-8 into

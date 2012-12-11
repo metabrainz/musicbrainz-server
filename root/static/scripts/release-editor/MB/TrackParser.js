@@ -220,6 +220,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     var self = MB.Object ();
 
     self.position = position;
+    self.number = position;
     self.line = MB.utility.trim (line);
     self.parent = parent;
     self.duration = null;
@@ -227,9 +228,9 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.artist = null;
 
     self.regex = {
-        vinyl: /^\s*[０-９0-9a-z]+(\.|\s|$)/i,
+        vinyl: /^\s*([０-９0-9a-z]+)((\/[０-９0-9a-z]+)?)(\.|\s|$|．)/i,
         // Leading "M." is for Japanese releases. MBS-3398
-        trkno: /^\s*(M[\.\-])?([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$)/
+        trkno: /^\s*(M[\.\-])?([-\.０-９0-9\.]+(-[０-９0-9]+)?)(\.|\s|$|．)/
     }
 
     self.ignoreTrack = function () {
@@ -250,6 +251,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     self.removeTrackNumbers = function () {
         if (MB.TrackParser.options.vinylNumbers ())
         {
+            self.number = MB.utility.fullWidthConverter(self.line.match(self.regex.vinyl)[1]);
             self.line = self.line.replace(self.regex.vinyl, "");
         }
         else if (MB.TrackParser.options.trackNumbers ())
@@ -259,15 +261,17 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.parseTimes = function () {
-        if (!self.parent.trackTimes ())
+        if (!MB.TrackParser.options.trackTimes())
         {
             return;
         }
 
         var tmp = self.line.replace (/\s?\(\?:\?\?\)\s?$/, '');
-        self.line = tmp.replace(/\s?\(?\s?([0-9０-９]+[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
+        self.line = tmp.replace(/\s?\(?\s?((?:[0-9０-９]+[：，．':,.])?[0-9０-９]+[：，．':,.][0-9０-９][0-9０-９])\s?\)?$/,
             function (str, p1) {
-                self.duration = MB.utility.unformatTrackLength (MB.utility.fullWidthConverter(p1));
+                if (self.parent.trackTimes()) {
+                    self.duration = MB.utility.unformatTrackLength (MB.utility.fullWidthConverter(p1));
+                }
                 return "";
             }
         );
@@ -468,6 +472,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
         $.each (self.tracks, function (idx, track) {
             var data = {
                 'position': track.position,
+                'number': track.number,
                 'length': track.duration,
                 'artist_credit': track.artist
             };
@@ -516,6 +521,9 @@ MB.TrackParser.Parser = function (disc, serialized) {
             {
                 copy.artist_credit = data.artist_credit;
             }
+
+            copy.number = data.number;
+
             self.disc.getTrack (data.row).render (copy);
         });
 
@@ -524,6 +532,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
             var copy = original (data.row);
             copy.deleted = 0;
             copy.position = data.position;
+            copy.number = data.number;
 
             /* only override the original track length if there is no cdtoc and
                "detect track durations" is enabled. */

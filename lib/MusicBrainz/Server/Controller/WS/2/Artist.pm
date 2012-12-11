@@ -4,25 +4,27 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use Readonly;
+use MusicBrainz::Server::Validation qw( is_guid );
 
 my $ws_defs = Data::OptList::mkopt([
      artist => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          linked   => [ qw(recording release release-group work) ],
-                         inc      => [ qw(aliases
+                         inc      => [ qw(aliases annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ]
+                         optional => [ qw(fmt limit offset) ],
      },
      artist => {
                          method   => 'GET',
                          inc      => [ qw(recordings releases release-groups works
-                                          aliases various-artists
+                                          aliases various-artists annotation
                                           _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw(fmt) ],
      },
 ]);
 
@@ -44,6 +46,8 @@ sub artist : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $artist = $c->stash->{entity};
 
+    return unless defined $artist;
+
     my $stash = WebServiceStash->new;
     my $opts = $stash->store ($artist);
 
@@ -64,10 +68,14 @@ sub artist_toplevel
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Country')->load($artist);
+    $c->model('Artist')->ipi->load_for($artist);
+
+    $c->model('Artist')->annotation->load_latest($artist)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->recordings)
     {
-        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Recording')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{recordings} = $self->make_list (@results);
 
         $self->linked_recordings ($c, $stash, $opts->{recordings}->{items});
@@ -103,17 +111,13 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->works)
     {
-        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS);
+        my @results = $c->model('Work')->find_by_artist($artist->id, $MAX_ITEMS, 0);
         $opts->{works} = $self->make_list (@results);
 
         $self->linked_works ($c, $stash, $opts->{works}->{items});
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $artist);
-    }
+    $self->load_relationships($c, $stash, $artist);
 }
 
 sub artist_browse : Private
@@ -123,7 +127,7 @@ sub artist_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');

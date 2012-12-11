@@ -4,14 +4,12 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::Buffer';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use Function::Parameters 'f';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
 );
 
-use MusicBrainz::Server::Validation qw( is_valid_isrc );
-use MusicBrainz::Server::WebService::XMLSearch qw( xml_search );
+use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
 use Try::Tiny;
@@ -20,20 +18,21 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits puids isrcs
+                         inc      => [ qw(artist-credits puids isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
-                                          release-groups work-level-rels) ]
+                                          release-groups work-level-rels annotation) ],
+                         optional => [ qw(fmt) ],
      },
      recording => {
                          method => 'POST'
@@ -60,6 +59,9 @@ sub recording_toplevel
     my $opts = $stash->store ($recording);
 
     $self->linked_recordings ($c, $stash, [ $recording ]);
+
+    $c->model('Recording')->annotation->load_latest($recording)
+        if $c->stash->{inc}->annotation;
 
     if ($c->stash->{inc}->releases)
     {
@@ -106,26 +108,15 @@ sub recording_toplevel
         $self->linked_artists ($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->has_rels)
-    {
-        my $types = $c->stash->{inc}->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, $recording);
-
-        if ($c->stash->{inc}->work_level_rels)
-        {
-            my @works =
-                map { $_->target }
-                grep { $_->target_type eq 'work' }
-                $recording->all_relationships;
-            $c->model('Relationship')->load_subset($types, @works);
-        }
-    }
+    $self->load_relationships($c, $stash, $recording);
 }
 
 sub recording: Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
     my $recording = $c->stash->{entity};
+
+    return unless defined $recording;
 
     my $stash = WebServiceStash->new;
 
@@ -142,7 +133,7 @@ sub recording_browse : Private
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset ($c);
 
-    if (!MusicBrainz::Server::Validation::IsGUID($id))
+    if (!is_guid($id))
     {
         $c->stash->{error} = "Invalid mbid.";
         $c->detach('bad_req');
@@ -185,7 +176,7 @@ sub recording_search : Chained('root') PathPart('recording') Args(0)
     $c->detach('recording_submit') if $c->req->method eq 'POST';
     $c->detach('recording_browse') if ($c->stash->{linked});
 
-    my $result = xml_search('recording', $c->stash->{args});
+    my $result = $c->model('WebService')->xml_search('recording', $c->stash->{args});
     $self->_search ($c, 'recording');
 }
 
@@ -207,13 +198,13 @@ sub recording_submit : Private
             $self->_error ($c, "All releases must have an MBID present");
 
         $self->_error($c, "$id is not a valid MBID")
-            unless MusicBrainz::Server::Validation::IsGUID($id);
+            unless is_guid($id);
 
         my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
         for my $puid_node (@puids) {
             my $puid = $xp->find('@mb:id', $puid_node)->string_value;
             $self->_error($c, "$puid is not a valid PUID")
-                unless MusicBrainz::Server::Validation::IsGUID($puid);
+                unless is_guid($puid);
 
             $submit_puid{ $id } ||= [];
             push @{ $submit_puid{$id} }, $puid;
@@ -239,65 +230,72 @@ sub recording_submit : Private
             unless exists $recordings_by_gid{$recording_gid};
     }
 
-    # Submit PUIDs
-    my $buffer = Buffer->new(
-        limit => 100,
-        on_full => f($contents) {
-            my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
-            return unless @$new_rows;
+    $c->model('MB')->with_transaction(sub {
 
-            $c->model('Edit')->create(
-                edit_type      => $EDIT_RECORDING_ADD_PUIDS,
-                editor_id      => $c->user->id,
-                client_version => $client,
-                puids          => $new_rows
-            );
-        }
-    );
+        # Submit PUIDs
+        my $buffer = Buffer->new(
+            limit => 100,
+            on_full => sub {
+                my $contents = shift;
+                my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
+                return unless @$new_rows;
 
-    $buffer->flush_on_complete(sub {
-        for my $recording_gid (keys %submit_puid) {
-            $buffer->add_items(map +{
-                recording => {
-                    id => $recordings_by_gid{$recording_gid}->id,
-                    name => $recordings_by_gid{$recording_gid}->name
-                },
-                puid      => $_
-            }, @{ $submit_puid{$recording_gid} });
-        }
-    });
-
-    # Submit ISRCs
-    $buffer = Buffer->new(
-        limit => 100,
-        on_full => f($contents) {
-            try {
                 $c->model('Edit')->create(
-                    edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                    edit_type      => $EDIT_RECORDING_ADD_PUIDS,
                     editor_id      => $c->user->id,
-                    isrcs          => $contents
+                    client_version => $client,
+                    puids          => $new_rows
                 );
             }
-            catch {
-                my $err = $_;
-                unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
-                    # Ignore the NoChanges exception
-                    die $err;
-                }
-            };
-        }
-    );
+        );
 
-    $buffer->flush_on_complete(sub {
-        for my $recording_gid (keys %submit_isrc) {
-            $buffer->add_items(map +{
-                recording => {
-                    id => $recordings_by_gid{$recording_gid}->id,
-                    name => $recordings_by_gid{$recording_gid}->name
-                },
-                isrc         => $_
-            }, @{ $submit_isrc{$recording_gid} });
-        }
+        $buffer->flush_on_complete(sub {
+            for my $recording_gid (keys %submit_puid) {
+                $buffer->add_items(map +{
+                    recording => {
+                        id => $recordings_by_gid{$recording_gid}->id,
+                        name => $recordings_by_gid{$recording_gid}->name
+                    },
+                    puid      => $_
+                }, @{ $submit_puid{$recording_gid} });
+            }
+        });
+
+
+        # Submit ISRCs
+        $buffer = Buffer->new(
+            limit => 100,
+            on_full => sub {
+                my $contents = shift;
+                try {
+                    $c->model('Edit')->create(
+                        edit_type      => $EDIT_RECORDING_ADD_ISRCS,
+                        editor_id      => $c->user->id,
+                        isrcs          => $contents,
+                        client_version => $client
+                    );
+                }
+                    catch {
+                        my $err = $_;
+                        unless (blessed($err) && $err->isa('MusicBrainz::Server::Edit::Exceptions::NoChanges')) {
+                            # Ignore the NoChanges exception
+                            die $err;
+                        }
+                    };
+            }
+        );
+
+        $buffer->flush_on_complete(sub {
+            for my $recording_gid (keys %submit_isrc) {
+                $buffer->add_items(map +{
+                    recording => {
+                        id => $recordings_by_gid{$recording_gid}->id,
+                        name => $recordings_by_gid{$recording_gid}->name
+                    },
+                    isrc         => $_
+                }, @{ $submit_isrc{$recording_gid} });
+            }
+        });
     });
 
     $c->detach('success');

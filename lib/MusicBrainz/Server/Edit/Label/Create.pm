@@ -1,14 +1,14 @@
 package MusicBrainz::Server::Edit::Label::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Moose::Util::TypeConstraints qw( subtype find_type_constraint );
 use MusicBrainz::Server::Constants qw( $EDIT_LABEL_CREATE );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Data::Utils qw( partial_date_from_row );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
@@ -16,24 +16,31 @@ with 'MusicBrainz::Server::Edit::Label';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
-sub edit_name { l('Add label') }
+sub edit_name { N_l('Add label') }
 sub edit_type { $EDIT_LABEL_CREATE }
 sub _create_model { 'Label' }
 sub label_id { shift->entity_id }
 
 has '+data' => (
     isa => Dict[
-        name => Str,
-        sort_name => Str,
-        type_id => Nullable[Int],
-        label_code => Nullable[Int],
-        begin_date => Nullable[PartialDateHash],
-        end_date => Nullable[PartialDateHash],
-        country_id => Nullable[Int],
-        comment => Nullable[Str],
-        ipi_code   => Nullable[Str]
+        name         => Str,
+        sort_name    => Str,
+        type_id      => Nullable[Int],
+        label_code   => Nullable[Int],
+        begin_date   => Nullable[PartialDateHash],
+        end_date     => Nullable[PartialDateHash],
+        country_id   => Nullable[Int],
+        comment      => Nullable[Str],
+        ipi_code     => Nullable[Str],
+        ipi_codes    => Optional[ArrayRef[Str]],
+        ended        => Optional[Bool]
     ]
 );
+
+before initialize => sub {
+    my ($self, %opts) = @_;
+    die "You must specify ipi_codes" unless defined $opts{ipi_codes};
+};
 
 sub foreign_keys
 {
@@ -61,9 +68,10 @@ sub build_display_data
         country    => defined($self->data->{country_id}) &&
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
-        ipi_code   => $self->data->{ipi_code},
-        begin_date => partial_date_from_row($self->data->{begin_date}),
-        end_date   => partial_date_from_row($self->data->{end_date}),
+        ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
+        begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
+        end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
+        ended      => $self->data->{ended}
     };
 }
 

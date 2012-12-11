@@ -2,19 +2,9 @@ package t::MusicBrainz::Server::Data::WikiDocIndex;
 use Test::Routine;
 use Test::More;
 
-use File::Temp;
 use MusicBrainz::Server::Test;
 
 use MusicBrainz::Server::Data::WikiDocIndex;
-
-has index_filename => (
-    is => 'ro',
-    default => sub { File::Temp::tmpnam() },
-);
-
-sub DEMOLISH {
-    unlink shift->index_filename;
-}
 
 with 't::Context';
 
@@ -22,14 +12,13 @@ test all => sub {
 
 my $test = shift;
 
-open my $fh, ">", $test->index_filename;
-print $fh "Test_Page=123\n";
-close $fh;
-
 my $wdi = MusicBrainz::Server::Data::WikiDocIndex->new(
     c => $test->c,
-    _index_file => $test->index_filename
 );
+
+open my $fh, ">", $wdi->_index_file;
+print $fh "Test_Page=123\n";
+close $fh;
 
 my $rev = $wdi->get_page_version('Test_Page');
 is($rev, 123);

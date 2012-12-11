@@ -275,12 +275,20 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
                (such as "feat.") it is likely that it should be surrounded
                by spaces.  Add those spaces automatically only this first
                time.
+               Also standardise "feat." according to our guidelines.
             */
 
             var join = self.$join.val ();
+            join = join.replace (/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
             if (join.match (/^[A-Za-z]*\.?$/))
             {
                 self.$join.val (' ' + join + ' ');
+            }
+            else if(join.match(/^,$/)) {
+                self.$join.val (', ');
+            }
+            else if(join.match(/^&$/)) {
+                self.$join.val (' & ');
             }
         }
 
@@ -725,6 +733,17 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         });
 
         return { 'names': ret };
+    };
+
+    self.isComplex = function () {
+        var ret = self.box.length > 1,
+            box = self.box[0];
+
+        if (!ret && box !== undefined) {
+            ret = box.$id.val() || box.$gid.val();
+        }
+
+        return ret;
     };
 
     self.targetBlurred = function(event) {

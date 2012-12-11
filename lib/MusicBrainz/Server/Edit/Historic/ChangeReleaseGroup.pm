@@ -3,11 +3,11 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_RELEASE_GROUP );
-use MusicBrainz::Server::Translation qw ( l ln );
+use MusicBrainz::Server::Translation qw ( N_l );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
-sub edit_name     { l('Change release group') }
+sub edit_name     { N_l('Change release group') }
 sub historic_type { 73 }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_RELEASE_GROUP }
 sub edit_template { 'historic/change_release_group' }
