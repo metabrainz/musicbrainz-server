@@ -177,7 +177,7 @@ END -%]
     END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
-    ' <span class="comment">' _ html_escape("(${entity.comment})") _ '</span>' IF entity.comment;
+    ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' IF entity.comment;
 END -%]
 
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
@@ -263,7 +263,7 @@ END -%]
     link = c.uri_for_action("/work/$action", [ work.gid ]);
     text = text == '' ? html_escape(work.name) : text;
     '<span class="mp">' IF work.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF work.edits_pending AND action == 'show';
 END -%]
 
@@ -272,7 +272,7 @@ END -%]
     link = c.uri_for_action("/label/$action", [ label.gid ]);
     text = text == '' ? html_escape(label.name) : text;
     '<span class="mp">' IF label.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF label.edits_pending AND action == 'show';
 END -%]
 
@@ -283,7 +283,7 @@ END -%]
     hover = html_escape(artist.sort_name);
     IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<a href="' _ link _ '" title="' _ hover _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF artist.edits_pending AND action == 'show';
 END -%]
 
@@ -291,7 +291,7 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/collection/$action", [ collection.gid ]);
     text = text == '' ? html_escape(collection.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_release(release, action, text) BLOCK;
@@ -299,7 +299,7 @@ END -%]
     link = c.uri_for_action("/release/$action", [ release.gid ]);
     text = text == '' ? html_escape(release.name) : text;
     '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF release.edits_pending AND action == 'show';
 END -%]
 
@@ -308,7 +308,7 @@ END -%]
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     text = text == '' ? html_escape(rg.name) : text;
     '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
@@ -317,7 +317,7 @@ END -%]
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     text = text == '' ? html_escape(recording.name) : text;
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF recording.edits_pending AND action == 'show';
 END -%]
 
@@ -325,7 +325,7 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
     text = text == '' ? html_escape(tracklist.medium.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_url(url, action, text) BLOCK;
@@ -337,7 +337,7 @@ END -%]
       '</span>' IF url.edits_pending AND action == 'show';
     ELSE;
       text = display_url(url);
-      '<a href="' _ url.affiliate_url _ '">' _ text _ '</a >';
+      '<a href="' _ url.affiliate_url _ '"><bdi>' _ text _ '</bdi></a>';
       '</span>' IF url.edits_pending AND action == 'show';
       ' [<a href="' _ link _ '">' _ l('info') _ '</a>]';
     END;
@@ -347,7 +347,7 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/tag/$action", [ tag.name ]);
     text = text == '' ? html_escape(tag.name) : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_puid(puid, action, text) BLOCK;
@@ -398,17 +398,19 @@ END -%]
 
 [%- MACRO gravatar(email) FILTER gravatar; email; END -%]
 
-[%- MACRO link_editor(editor, action, text) BLOCK;
+[%- MACRO link_editor(editor, action, text, size) BLOCK;
     action = action || 'profile';
     link = c.uri_for_action("/user/$action", [ editor.name ]);
     text = text == '' ? html_escape(editor.name) : text;
+    size = size.defined ? size : 12;
     '<a href="' _ link _ '">';
     IF editor.preferences.show_gravatar;
-      '<img src="' _ gravatar(editor.email) _ '" class="gravatar" />';
+      image_url = gravatar(editor.email) _ '&amp;s=' _ size;
     ELSE;
-      '<img src="//gravatar.com/avatar/placeholder?d=mm" class="gravatar" />';
+      image_url = '//gravatar.com/avatar/placeholder?d=mm&amp;s=' _ size;
     END;
-    text;
+    '<img src="' _ image_url _ '" class="gravatar" />' ;
+    '<bdi>' _ text _ '</bdi>';
     '</a>';
 END -%]
 
@@ -742,7 +744,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]"
+http://[%- server -%]/[%- id -%]
 [%- END -%]
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
@@ -779,7 +781,7 @@ http://[%- server -%]/[%- id -%]"
 [%- END -%]
 
 [%- MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">Filter</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
 [%- MACRO wikidoc_search_box BLOCK -%]
@@ -813,6 +815,21 @@ http://[%- server -%]/[%- id -%]"
 
 [%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
     [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
+[%- END -%]
+
+[%- MACRO show_wikipedia_extract BLOCK -%]
+    [%- IF wikipedia_extract -%]
+        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
+    [%- ELSIF wikipedia_extract_url -%]
+        <span style="display:none" id="wikipedia-insertion-point"></span>
+        <script type="text/javascript">//<![CDATA[
+            $.get('[% wikipedia_extract_url %]',
+                  function (data) {
+                      $('#wikipedia-insertion-point').replaceWith(data);
+                  },
+                  'html');
+        //]]></script>
+    [%- END -%]
 [%- END -%]
 
 [%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]

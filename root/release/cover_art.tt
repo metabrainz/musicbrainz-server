@@ -5,7 +5,7 @@
   [%- IF cover_art.size -%]
     [%- FOR artwork=cover_art -%]
 
-      <div class="artwork-cont[% ' mp' IF !artwork.approved %]">
+      <div class="artwork-cont[% ' mp' IF artwork.edits_pending %]">
         <div style="position: relative" class="artwork">
           [%- display_artwork (artwork, undef, undef, 'mb-caa') -%]
         </div>

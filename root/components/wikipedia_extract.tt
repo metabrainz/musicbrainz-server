@@ -1,0 +1,5 @@
+[%- IF wikipedia_extract -%]
+<h2 class="wikipedia">[% l('Wikipedia') %]</h2>
+    [%- wikipedia_extract.content -%]
+    <a href="[% wikipedia_extract.url %]">[% l('Read more...') %]</a>
+[%- END -%]

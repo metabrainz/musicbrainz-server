@@ -8,1037 +8,1294 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "PO-Revision-Date: 2012-05-30 09:02+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
-"Language-Team: Dutch (http://www.transifex.net/projects/p/musicbrainz/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. iso_code:AF
 #: DB:country/name:1
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
+#. iso_code:AL
 #: DB:country/name:2
 msgid "Albania"
 msgstr "Albanië"
 
+#. iso_code:DZ
 #: DB:country/name:3
 msgid "Algeria"
 msgstr "Algerije"
 
+#. iso_code:AS
 #: DB:country/name:4
 msgid "American Samoa"
 msgstr "Amerikaans-Samoa"
 
+#. iso_code:AD
 #: DB:country/name:5
 msgid "Andorra"
 msgstr "Andorra"
 
+#. iso_code:AO
 #: DB:country/name:6
 msgid "Angola"
 msgstr "Angola"
 
+#. iso_code:AI
 #: DB:country/name:7
 msgid "Anguilla"
 msgstr "Anguilla"
 
+#. iso_code:AQ
 #: DB:country/name:8
 msgid "Antarctica"
 msgstr "Antarctica"
 
+#. iso_code:AG
 #: DB:country/name:9
 msgid "Antigua and Barbuda"
 msgstr "Antigua en Barbuda"
 
+#. iso_code:AR
 #: DB:country/name:10
 msgid "Argentina"
 msgstr "Argentinië"
 
+#. iso_code:AM
 #: DB:country/name:11
 msgid "Armenia"
 msgstr "Armenië"
 
+#. iso_code:AW
 #: DB:country/name:12
 msgid "Aruba"
 msgstr "Aruba"
 
+#. iso_code:AU
 #: DB:country/name:13
 msgid "Australia"
 msgstr "Australië"
 
+#. iso_code:AT
 #: DB:country/name:14
 msgid "Austria"
 msgstr "Oostenrijk"
 
+#. iso_code:AZ
 #: DB:country/name:15
 msgid "Azerbaijan"
 msgstr "Azerbeidzjan"
 
+#. iso_code:BS
 #: DB:country/name:16
 msgid "Bahamas"
 msgstr "Bahama's"
 
+#. iso_code:BH
 #: DB:country/name:17
 msgid "Bahrain"
 msgstr "Bahrein"
 
+#. iso_code:BD
 #: DB:country/name:18
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
+#. iso_code:BB
 #: DB:country/name:19
 msgid "Barbados"
 msgstr "Barbados"
 
+#. iso_code:BY
 #: DB:country/name:20
 msgid "Belarus"
 msgstr "Wit-Rusland"
 
+#. iso_code:BE
 #: DB:country/name:21
 msgid "Belgium"
 msgstr "België"
 
+#. iso_code:BZ
 #: DB:country/name:22
 msgid "Belize"
 msgstr "Belize"
 
+#. iso_code:BJ
 #: DB:country/name:23
 msgid "Benin"
 msgstr "Benin"
 
+#. iso_code:BM
 #: DB:country/name:24
 msgid "Bermuda"
 msgstr "Bermuda"
 
+#. iso_code:BT
 #: DB:country/name:25
 msgid "Bhutan"
 msgstr "Bhutan"
 
+#. iso_code:BO
 #: DB:country/name:26
 msgid "Bolivia, Plurinational State of"
 msgstr "Bolivia, Multinationale Staat"
 
+#. iso_code:BQ
 #: DB:country/name:258
 msgid "Bonaire, Sint Eustatius and Saba"
 msgstr "Bonaire, Sint Eustatius en Saba"
 
+#. iso_code:BA
 #: DB:country/name:27
 msgid "Bosnia and Herzegovina"
 msgstr "Bosnië en Herzegovina"
 
+#. iso_code:BW
 #: DB:country/name:28
 msgid "Botswana"
 msgstr "Botswana"
 
+#. iso_code:BV
 #: DB:country/name:29
 msgid "Bouvet Island"
 msgstr "Bouvet Eiland"
 
+#. iso_code:BR
 #: DB:country/name:30
 msgid "Brazil"
 msgstr "Brazilië"
 
+#. iso_code:IO
 #: DB:country/name:31
 msgid "British Indian Ocean Territory"
 msgstr "Brits Territorium in de Indische Oceaan"
 
+#. iso_code:BN
 #: DB:country/name:32
 msgid "Brunei Darussalam"
 msgstr "Brunei Darussalam"
 
+#. iso_code:BG
 #: DB:country/name:33
 msgid "Bulgaria"
 msgstr "Bulgarije"
 
+#. iso_code:BF
 #: DB:country/name:34
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
+#. iso_code:BI
 #: DB:country/name:35
 msgid "Burundi"
 msgstr "Burundi"
 
+#. iso_code:KH
 #: DB:country/name:36
 msgid "Cambodia"
 msgstr "Cambodja"
 
+#. iso_code:CM
 #: DB:country/name:37
 msgid "Cameroon"
 msgstr "Kameroen"
 
+#. iso_code:CA
 #: DB:country/name:38
 msgid "Canada"
 msgstr "Canada"
 
+#. iso_code:CV
 #: DB:country/name:39
 msgid "Cape Verde"
 msgstr "Kaapverdië"
 
+#. iso_code:KY
 #: DB:country/name:40
 msgid "Cayman Islands"
 msgstr "Kaaimaneilanden"
 
+#. iso_code:CF
 #: DB:country/name:41
 msgid "Central African Republic"
 msgstr "Centraal-Afrikaanse Republiek"
 
+#. iso_code:TD
 #: DB:country/name:42
 msgid "Chad"
 msgstr "Tsjaad"
 
+#. iso_code:CL
 #: DB:country/name:43
 msgid "Chile"
 msgstr "Chili"
 
+#. iso_code:CN
 #: DB:country/name:44
 msgid "China"
 msgstr "China"
 
+#. iso_code:CX
 #: DB:country/name:45
 msgid "Christmas Island"
 msgstr "Kersteiland"
 
+#. iso_code:CC
 #: DB:country/name:46
 msgid "Cocos (Keeling) Islands"
 msgstr "Cocoseilanden"
 
+#. iso_code:CO
 #: DB:country/name:47
 msgid "Colombia"
 msgstr "Colombia"
 
+#. iso_code:KM
 #: DB:country/name:48
 msgid "Comoros"
 msgstr "Comoren"
 
+#. iso_code:CG
 #: DB:country/name:49
 msgid "Congo"
 msgstr "Congo"
 
+#. iso_code:CD
 #: DB:country/name:236
 msgid "Congo, The Democratic Republic of the"
 msgstr "Congo, Democratische Republiek"
 
+#. iso_code:CK
 #: DB:country/name:50
 msgid "Cook Islands"
 msgstr "Cookeilanden"
 
+#. iso_code:CR
 #: DB:country/name:51
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
+#. iso_code:HR
 #: DB:country/name:53
 msgid "Croatia"
 msgstr "Kroatië"
 
+#. iso_code:CU
 #: DB:country/name:54
 msgid "Cuba"
 msgstr "Cuba"
 
+#. iso_code:CW
 #: DB:country/name:259
 msgid "Curaçao"
 msgstr "Curaçao"
 
+#. iso_code:CY
 #: DB:country/name:55
 msgid "Cyprus"
 msgstr "Cyprus"
 
+#. iso_code:CZ
 #: DB:country/name:56
 msgid "Czech Republic"
 msgstr "Tsjechië"
 
+#. iso_code:XC
 #: DB:country/name:245
 msgid "Czechoslovakia (historical, 1918-1992)"
 msgstr "Tsjecho-Slowakije (historisch, 1918 - 1992)"
 
+#. iso_code:CI
 #: DB:country/name:52
 msgid "Côte d'Ivoire"
 msgstr "Ivoorkust"
 
+#. iso_code:DK
 #: DB:country/name:57
 msgid "Denmark"
 msgstr "Denemarken"
 
+#. iso_code:DJ
 #: DB:country/name:58
 msgid "Djibouti"
 msgstr "Djibouti"
 
+#. iso_code:DM
 #: DB:country/name:59
 msgid "Dominica"
 msgstr "Dominica"
 
+#. iso_code:DO
 #: DB:country/name:60
 msgid "Dominican Republic"
 msgstr "Dominicaanse Republiek"
 
+#. iso_code:XG
 #: DB:country/name:244
 msgid "East Germany (historical, 1949-1990)"
 msgstr "Oost-Duitsland (historisch, 1949 - 1990)"
 
+#. iso_code:EC
 #: DB:country/name:62
 msgid "Ecuador"
 msgstr "Ecuador"
 
+#. iso_code:EG
 #: DB:country/name:63
 msgid "Egypt"
 msgstr "Egypte"
 
+#. iso_code:SV
 #: DB:country/name:64
 msgid "El Salvador"
 msgstr "El Salvador"
 
+#. iso_code:GQ
 #: DB:country/name:65
 msgid "Equatorial Guinea"
 msgstr "Equatoriaal-Guinea"
 
+#. iso_code:ER
 #: DB:country/name:66
 msgid "Eritrea"
 msgstr "Eritrea"
 
+#. iso_code:EE
 #: DB:country/name:67
 msgid "Estonia"
 msgstr "Estland"
 
+#. iso_code:ET
 #: DB:country/name:68
 msgid "Ethiopia"
 msgstr "Ethiopië"
 
+#. iso_code:XE
 #: DB:country/name:241
 msgid "Europe"
 msgstr "Europa"
 
+#. iso_code:FK
 #: DB:country/name:69
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falklandeilanden"
 
+#. iso_code:FO
 #: DB:country/name:70
 msgid "Faroe Islands"
 msgstr "Faeröer"
 
+#. iso_code:FJ
 #: DB:country/name:71
 msgid "Fiji"
 msgstr "Fiji"
 
+#. iso_code:FI
 #: DB:country/name:72
 msgid "Finland"
 msgstr "Finland"
 
+#. iso_code:FR
 #: DB:country/name:73
 msgid "France"
 msgstr "Frankrijk"
 
+#. iso_code:GF
 #: DB:country/name:75
 msgid "French Guiana"
 msgstr "Frans-Guyana"
 
+#. iso_code:PF
 #: DB:country/name:76
 msgid "French Polynesia"
 msgstr "Frans-Polynesië"
 
+#. iso_code:TF
 #: DB:country/name:77
 msgid "French Southern Territories"
 msgstr "Franse Zuidelijke Gebieden"
 
+#. iso_code:GA
 #: DB:country/name:78
 msgid "Gabon"
 msgstr "Gabon"
 
+#. iso_code:GM
 #: DB:country/name:79
 msgid "Gambia"
 msgstr "Gambia"
 
+#. iso_code:GE
 #: DB:country/name:80
 msgid "Georgia"
 msgstr "Georgië"
 
+#. iso_code:DE
 #: DB:country/name:81
 msgid "Germany"
 msgstr "Duitsland"
 
+#. iso_code:GH
 #: DB:country/name:82
 msgid "Ghana"
 msgstr "Ghana"
 
+#. iso_code:GI
 #: DB:country/name:83
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
+#. iso_code:GR
 #: DB:country/name:84
 msgid "Greece"
 msgstr "Griekenland"
 
+#. iso_code:GL
 #: DB:country/name:85
 msgid "Greenland"
 msgstr "Groenland"
 
+#. iso_code:GD
 #: DB:country/name:86
 msgid "Grenada"
 msgstr "Grenada"
 
+#. iso_code:GP
 #: DB:country/name:87
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
+#. iso_code:GU
 #: DB:country/name:88
 msgid "Guam"
 msgstr "Guam"
 
+#. iso_code:GT
 #: DB:country/name:89
 msgid "Guatemala"
 msgstr "Guatemala"
 
+#. iso_code:GG
 #: DB:country/name:251
 msgid "Guernsey"
 msgstr "Guernsey"
 
+#. iso_code:GN
 #: DB:country/name:90
 msgid "Guinea"
 msgstr "Guinee"
 
+#. iso_code:GW
 #: DB:country/name:91
 msgid "Guinea-Bissau"
 msgstr "Guinee-Bissau"
 
+#. iso_code:GY
 #: DB:country/name:92
 msgid "Guyana"
 msgstr "Guyana"
 
+#. iso_code:HT
 #: DB:country/name:93
 msgid "Haiti"
 msgstr "Haïti"
 
+#. iso_code:HM
 #: DB:country/name:94
 msgid "Heard Island and McDonald Islands"
 msgstr "Heardeiland en McDonaldeilanden"
 
+#. iso_code:HN
 #: DB:country/name:95
 msgid "Honduras"
 msgstr "Honduras"
 
+#. iso_code:HK
 #: DB:country/name:96
 msgid "Hong Kong"
 msgstr "Hongkong"
 
+#. iso_code:HU
 #: DB:country/name:97
 msgid "Hungary"
 msgstr "Hongarije"
 
+#. iso_code:IS
 #: DB:country/name:98
 msgid "Iceland"
 msgstr "IJsland"
 
+#. iso_code:IN
 #: DB:country/name:99
 msgid "India"
 msgstr "India"
 
+#. iso_code:ID
 #: DB:country/name:100
 msgid "Indonesia"
 msgstr "Indonesië"
 
+#. iso_code:IR
 #: DB:country/name:101
 msgid "Iran, Islamic Republic of"
 msgstr "Iran"
 
+#. iso_code:IQ
 #: DB:country/name:102
 msgid "Iraq"
 msgstr "Irak"
 
+#. iso_code:IE
 #: DB:country/name:103
 msgid "Ireland"
 msgstr "Ierland"
 
+#. iso_code:IM
 #: DB:country/name:252
 msgid "Isle of Man"
 msgstr "Man"
 
+#. iso_code:IL
 #: DB:country/name:104
 msgid "Israel"
 msgstr "Israël"
 
+#. iso_code:IT
 #: DB:country/name:105
 msgid "Italy"
 msgstr "Italië"
 
+#. iso_code:JM
 #: DB:country/name:106
 msgid "Jamaica"
 msgstr "Jamaica"
 
+#. iso_code:JP
 #: DB:country/name:107
 msgid "Japan"
 msgstr "Japan"
 
+#. iso_code:JE
 #: DB:country/name:253
 msgid "Jersey"
 msgstr "Jersey"
 
+#. iso_code:JO
 #: DB:country/name:108
 msgid "Jordan"
 msgstr "Jordanië"
 
+#. iso_code:KZ
 #: DB:country/name:109
 msgid "Kazakhstan"
 msgstr "Kazachstan"
 
+#. iso_code:KE
 #: DB:country/name:110
 msgid "Kenya"
 msgstr "Kenia"
 
+#. iso_code:KI
 #: DB:country/name:111
 msgid "Kiribati"
 msgstr "Kiribati"
 
+#. iso_code:KP
 #: DB:country/name:112
 msgid "Korea (North), Democratic People's Republic of"
 msgstr "Korea (Noord), Democratische Volksrepubliek"
 
+#. iso_code:KR
 #: DB:country/name:113
 msgid "Korea (South), Republic of"
 msgstr "Korea (Zuid), Republiek"
 
+#. iso_code:KW
 #: DB:country/name:114
 msgid "Kuwait"
 msgstr "Koeweit"
 
+#. iso_code:KG
 #: DB:country/name:115
 msgid "Kyrgyzstan"
 msgstr "Kirgizië"
 
+#. iso_code:LA
 #: DB:country/name:116
 msgid "Lao People's Democratic Republic"
 msgstr "Laos, Democratische Volksrepubliek"
 
+#. iso_code:LV
 #: DB:country/name:117
 msgid "Latvia"
 msgstr "Letland"
 
+#. iso_code:LB
 #: DB:country/name:118
 msgid "Lebanon"
 msgstr "Libanon"
 
+#. iso_code:LS
 #: DB:country/name:119
 msgid "Lesotho"
 msgstr "Lesotho"
 
+#. iso_code:LR
 #: DB:country/name:120
 msgid "Liberia"
 msgstr "Liberia"
 
+#. iso_code:LY
 #: DB:country/name:121
 msgid "Libya"
 msgstr "Libië"
 
+#. iso_code:LI
 #: DB:country/name:122
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
+#. iso_code:LT
 #: DB:country/name:123
 msgid "Lithuania"
 msgstr "Litouwen"
 
+#. iso_code:LU
 #: DB:country/name:124
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
+#. iso_code:MO
 #: DB:country/name:125
 msgid "Macao"
 msgstr "Macau"
 
+#. iso_code:MK
 #: DB:country/name:126
 msgid "Macedonia, The Former Yugoslav Republic of"
 msgstr "Macedonië, Republiek"
 
+#. iso_code:MG
 #: DB:country/name:127
 msgid "Madagascar"
 msgstr "Madagaskar"
 
+#. iso_code:MW
 #: DB:country/name:128
 msgid "Malawi"
 msgstr "Malawi"
 
+#. iso_code:MY
 #: DB:country/name:129
 msgid "Malaysia"
 msgstr "Maleisië"
 
+#. iso_code:MV
 #: DB:country/name:130
 msgid "Maldives"
 msgstr "Maldiven"
 
+#. iso_code:ML
 #: DB:country/name:131
 msgid "Mali"
 msgstr "Mali"
 
+#. iso_code:MT
 #: DB:country/name:132
 msgid "Malta"
 msgstr "Malta"
 
+#. iso_code:MH
 #: DB:country/name:133
 msgid "Marshall Islands"
 msgstr "Marshalleilanden"
 
+#. iso_code:MQ
 #: DB:country/name:134
 msgid "Martinique"
 msgstr "Martinique"
 
+#. iso_code:MR
 #: DB:country/name:135
 msgid "Mauritania"
 msgstr "Mauritanië"
 
+#. iso_code:MU
 #: DB:country/name:136
 msgid "Mauritius"
 msgstr "Mauritius"
 
+#. iso_code:YT
 #: DB:country/name:137
 msgid "Mayotte"
 msgstr "Mayotte"
 
+#. iso_code:MX
 #: DB:country/name:138
 msgid "Mexico"
 msgstr "Mexico"
 
+#. iso_code:FM
 #: DB:country/name:139
 msgid "Micronesia, Federated States of"
 msgstr "Micronesia, Federale Staten van"
 
+#. iso_code:MD
 #: DB:country/name:140
 msgid "Moldova, Republic of"
 msgstr "Moldavië, Republiek"
 
+#. iso_code:MC
 #: DB:country/name:141
 msgid "Monaco"
 msgstr "Monaco"
 
+#. iso_code:MN
 #: DB:country/name:142
 msgid "Mongolia"
 msgstr "Mongolië"
 
+#. iso_code:ME
 #: DB:country/name:247
 msgid "Montenegro"
 msgstr "Montenegro"
 
+#. iso_code:MS
 #: DB:country/name:143
 msgid "Montserrat"
 msgstr "Montserrat"
 
+#. iso_code:MA
 #: DB:country/name:144
 msgid "Morocco"
 msgstr "Marokko"
 
+#. iso_code:MZ
 #: DB:country/name:145
 msgid "Mozambique"
 msgstr "Mozambique"
 
+#. iso_code:MM
 #: DB:country/name:146
 msgid "Myanmar"
 msgstr "Birma"
 
+#. iso_code:NA
 #: DB:country/name:147
 msgid "Namibia"
 msgstr "Namibië"
 
+#. iso_code:NR
 #: DB:country/name:148
 msgid "Nauru"
 msgstr "Nauru"
 
+#. iso_code:NP
 #: DB:country/name:149
 msgid "Nepal"
 msgstr "Nepal"
 
+#. iso_code:NL
 #: DB:country/name:150
 msgid "Netherlands"
 msgstr "Nederland"
 
+#. iso_code:AN
 #: DB:country/name:151
 msgid "Netherlands Antilles (historical, 1954-2010)"
 msgstr "Nederlandse Antillen (historisch, 1954 - 2010)"
 
+#. iso_code:NC
 #: DB:country/name:152
 msgid "New Caledonia"
 msgstr "Nieuw-Caledonië"
 
+#. iso_code:NZ
 #: DB:country/name:153
 msgid "New Zealand"
 msgstr "Nieuw-Zeeland"
 
+#. iso_code:NI
 #: DB:country/name:154
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
+#. iso_code:NE
 #: DB:country/name:155
 msgid "Niger"
 msgstr "Niger"
 
+#. iso_code:NG
 #: DB:country/name:156
 msgid "Nigeria"
 msgstr "Nigeria"
 
+#. iso_code:NU
 #: DB:country/name:157
 msgid "Niue"
 msgstr "Niue"
 
+#. iso_code:NF
 #: DB:country/name:158
 msgid "Norfolk Island"
 msgstr "Norfolkeiland"
 
+#. iso_code:MP
 #: DB:country/name:159
 msgid "Northern Mariana Islands"
 msgstr "Noordelijke Marianen"
 
+#. iso_code:NO
 #: DB:country/name:160
 msgid "Norway"
 msgstr "Noorwegen"
 
+#. iso_code:OM
 #: DB:country/name:161
 msgid "Oman"
 msgstr "Oman"
 
+#. iso_code:PK
 #: DB:country/name:162
 msgid "Pakistan"
 msgstr "Pakistan"
 
+#. iso_code:PW
 #: DB:country/name:163
 msgid "Palau"
 msgstr "Palau"
 
+#. iso_code:PS
 #: DB:country/name:249
 msgid "Palestinian Territory"
 msgstr "Palestijnse Gebieden"
 
+#. iso_code:PA
 #: DB:country/name:164
 msgid "Panama"
 msgstr "Panama"
 
+#. iso_code:PG
 #: DB:country/name:165
 msgid "Papua New Guinea"
 msgstr "Papoea-Nieuw-Guinea"
 
+#. iso_code:PY
 #: DB:country/name:166
 msgid "Paraguay"
 msgstr "Paraguay"
 
+#. iso_code:PE
 #: DB:country/name:167
 msgid "Peru"
 msgstr "Peru"
 
+#. iso_code:PH
 #: DB:country/name:168
 msgid "Philippines"
 msgstr "Filipijnen"
 
+#. iso_code:PN
 #: DB:country/name:169
 msgid "Pitcairn"
 msgstr "Pitcairneilanden"
 
+#. iso_code:PL
 #: DB:country/name:170
 msgid "Poland"
 msgstr "Polen"
 
+#. iso_code:PT
 #: DB:country/name:171
 msgid "Portugal"
 msgstr "Portugal"
 
+#. iso_code:PR
 #: DB:country/name:172
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
+#. iso_code:QA
 #: DB:country/name:173
 msgid "Qatar"
 msgstr "Qatar"
 
+#. iso_code:RO
 #: DB:country/name:175
 msgid "Romania"
 msgstr "Roemenië"
 
+#. iso_code:RU
 #: DB:country/name:176
 msgid "Russian Federation"
 msgstr "Rusland"
 
+#. iso_code:RW
 #: DB:country/name:177
 msgid "Rwanda"
 msgstr "Rwanda"
 
+#. iso_code:RE
 #: DB:country/name:174
 msgid "Réunion"
 msgstr "Réunion"
 
+#. iso_code:BL
 #: DB:country/name:255
 msgid "Saint Barthélemy"
 msgstr "Saint Barthélemy"
 
+#. iso_code:SH
 #: DB:country/name:196
 msgid "Saint Helena, Ascension and Tristan da Cunha"
 msgstr "Sint-Helena, Ascension en Tristan da Cunha"
 
+#. iso_code:KN
 #: DB:country/name:178
 msgid "Saint Kitts and Nevis"
 msgstr "Saint Kitts en Nevis"
 
+#. iso_code:LC
 #: DB:country/name:179
 msgid "Saint Lucia"
 msgstr "Saint Lucia"
 
+#. iso_code:MF
 #: DB:country/name:256
 msgid "Saint Martin (French part)"
 msgstr "Sint-Maarten (Franse deel)"
 
+#. iso_code:PM
 #: DB:country/name:197
 msgid "Saint Pierre and Miquelon"
 msgstr "Saint-Pierre en Miquelon"
 
+#. iso_code:VC
 #: DB:country/name:180
 msgid "Saint Vincent and The Grenadines"
 msgstr "Saint Vincent en de Grenadines"
 
+#. iso_code:WS
 #: DB:country/name:181
 msgid "Samoa"
 msgstr "Samoa"
 
+#. iso_code:SM
 #: DB:country/name:182
 msgid "San Marino"
 msgstr "San Marino"
 
+#. iso_code:ST
 #: DB:country/name:183
 msgid "Sao Tome and Principe"
 msgstr "Sao Tomé en Principe"
 
+#. iso_code:SA
 #: DB:country/name:184
 msgid "Saudi Arabia"
 msgstr "Saoedi-Arabië"
 
+#. iso_code:SN
 #: DB:country/name:185
 msgid "Senegal"
 msgstr "Senegal"
 
+#. iso_code:RS
 #: DB:country/name:254
 msgid "Serbia"
 msgstr "Servië"
 
+#. iso_code:CS
 #: DB:country/name:242
 msgid "Serbia and Montenegro (historical, 2003-2006)"
 msgstr "Servië en Montenegro (historisch, 2003 - 2006)"
 
+#. iso_code:SC
 #: DB:country/name:186
 msgid "Seychelles"
 msgstr "Seychellen"
 
+#. iso_code:SL
 #: DB:country/name:187
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
+#. iso_code:SG
 #: DB:country/name:188
 msgid "Singapore"
 msgstr "Singapore"
 
+#. iso_code:SX
 #: DB:country/name:260
 msgid "Sint Maarten (Dutch part)"
 msgstr "Sint Maarten (Nederlandse deel)"
 
+#. iso_code:SK
 #: DB:country/name:189
 msgid "Slovakia"
 msgstr "Slowakije"
 
+#. iso_code:SI
 #: DB:country/name:190
 msgid "Slovenia"
 msgstr "Slovenië"
 
+#. iso_code:SB
 #: DB:country/name:191
 msgid "Solomon Islands"
 msgstr "Salomonseilanden"
 
+#. iso_code:SO
 #: DB:country/name:192
 msgid "Somalia"
 msgstr "Somalië"
 
+#. iso_code:ZA
 #: DB:country/name:193
 msgid "South Africa"
 msgstr "Zuid-Afrika"
 
+#. iso_code:GS
 #: DB:country/name:248
 msgid "South Georgia and the South Sandwich Islands"
 msgstr "Zuid-Georgia en de Zuidelijke Sandwicheilanden"
 
+#. iso_code:SS
 #: DB:country/name:257
 msgid "South Sudan"
 msgstr "Zuid-Soedan"
 
+#. iso_code:SU
 #: DB:country/name:243
 msgid "Soviet Union (historical, 1922-1991)"
 msgstr "Sovjet-Unie (historisch, 1922 - 1991)"
 
+#. iso_code:ES
 #: DB:country/name:194
 msgid "Spain"
 msgstr "Spanje"
 
+#. iso_code:LK
 #: DB:country/name:195
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
+#. iso_code:SD
 #: DB:country/name:198
 msgid "Sudan"
 msgstr "Soedan"
 
+#. iso_code:SR
 #: DB:country/name:199
 msgid "Suriname"
 msgstr "Suriname"
 
+#. iso_code:SJ
 #: DB:country/name:200
 msgid "Svalbard and Jan Mayen"
 msgstr "Spitsbergen en Jan Mayen"
 
+#. iso_code:SZ
 #: DB:country/name:201
 msgid "Swaziland"
 msgstr "Swaziland"
 
+#. iso_code:SE
 #: DB:country/name:202
 msgid "Sweden"
 msgstr "Zweden"
 
+#. iso_code:CH
 #: DB:country/name:203
 msgid "Switzerland"
 msgstr "Zwitserland"
 
+#. iso_code:SY
 #: DB:country/name:204
 msgid "Syrian Arab Republic"
 msgstr "Syrië, Arabische Republiek"
 
+#. iso_code:TW
 #: DB:country/name:205
 msgid "Taiwan"
 msgstr "Taiwan"
 
+#. iso_code:TJ
 #: DB:country/name:206
 msgid "Tajikistan"
 msgstr "Tadzjikistan"
 
+#. iso_code:TZ
 #: DB:country/name:207
 msgid "Tanzania, United Republic of"
 msgstr "Tanzania, Verenigde Republiek"
 
+#. iso_code:TH
 #: DB:country/name:208
 msgid "Thailand"
 msgstr "Thailand"
 
+#. iso_code:TL
 #: DB:country/name:61
 msgid "Timor-Leste"
 msgstr "Oost-Timor"
 
+#. iso_code:TG
 #: DB:country/name:209
 msgid "Togo"
 msgstr "Togo"
 
+#. iso_code:TK
 #: DB:country/name:210
 msgid "Tokelau"
 msgstr "Tokelaus"
 
+#. iso_code:TO
 #: DB:country/name:211
 msgid "Tonga"
 msgstr "Tonga"
 
+#. iso_code:TT
 #: DB:country/name:212
 msgid "Trinidad and Tobago"
 msgstr "Trinidad en Tobago"
 
+#. iso_code:TN
 #: DB:country/name:213
 msgid "Tunisia"
 msgstr "Tunesië"
 
+#. iso_code:TR
 #: DB:country/name:214
 msgid "Turkey"
 msgstr "Turkije"
 
+#. iso_code:TM
 #: DB:country/name:215
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
+#. iso_code:TC
 #: DB:country/name:216
 msgid "Turks and Caicos Islands"
 msgstr "Turks- en Caicoseilanden"
 
+#. iso_code:TV
 #: DB:country/name:217
 msgid "Tuvalu"
 msgstr "Tuvaluaans"
 
+#. iso_code:UG
 #: DB:country/name:218
 msgid "Uganda"
 msgstr "Oeganda"
 
+#. iso_code:UA
 #: DB:country/name:219
 msgid "Ukraine"
 msgstr "Oekraïne"
 
+#. iso_code:AE
 #: DB:country/name:220
 msgid "United Arab Emirates"
 msgstr "Verenigde Arabische Emiraten"
 
+#. iso_code:GB
 #: DB:country/name:221
 msgid "United Kingdom"
 msgstr "Verenigd Koninkrijk"
 
+#. iso_code:US
 #: DB:country/name:222
 msgid "United States"
 msgstr "Verenigde Staten"
 
+#. iso_code:UM
 #: DB:country/name:223
 msgid "United States Minor Outlying Islands"
 msgstr "Kleine afgelegen eilanden van de Verenigde Staten"
 
+#. iso_code:UY
 #: DB:country/name:224
 msgid "Uruguay"
 msgstr "Uruguay"
 
+#. iso_code:UZ
 #: DB:country/name:225
 msgid "Uzbekistan"
 msgstr "Oezbekistan"
 
+#. iso_code:VU
 #: DB:country/name:226
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
+#. iso_code:VA
 #: DB:country/name:227
 msgid "Vatican City State (Holy See)"
 msgstr "Vaticaanstad"
 
+#. iso_code:VE
 #: DB:country/name:228
 msgid "Venezuela, Bolivarian Republic of"
 msgstr "Venezuela, Bolivariaanse Republiek"
 
+#. iso_code:VN
 #: DB:country/name:229
 msgid "Viet Nam"
 msgstr "Vietnam"
 
+#. iso_code:VG
 #: DB:country/name:230
 msgid "Virgin Islands, British"
 msgstr "Maagdeneilanden, Britse"
 
+#. iso_code:VI
 #: DB:country/name:231
 msgid "Virgin Islands, U.S."
 msgstr "Maagdeneilanden, Amerikaanse"
 
+#. iso_code:WF
 #: DB:country/name:232
 msgid "Wallis and Futuna"
 msgstr "Wallis en Futuna"
 
+#. iso_code:EH
 #: DB:country/name:233
 msgid "Western Sahara"
 msgstr "Westelijke Sahara"
 
+#. iso_code:YE
 #: DB:country/name:234
 msgid "Yemen"
 msgstr "Jemen"
 
+#. iso_code:YU
 #: DB:country/name:235
 msgid "Yugoslavia (historical, 1918-2003)"
 msgstr "Joegoslavië (historisch, 1918 - 2003)"
 
+#. iso_code:ZM
 #: DB:country/name:237
 msgid "Zambia"
 msgstr "Zambia"
 
+#. iso_code:ZW
 #: DB:country/name:238
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
+#. iso_code:XW
 #: DB:country/name:240
 msgid "[Worldwide]"
 msgstr "[Wereldwijd]"
 
+#. iso_code:AX
 #: DB:country/name:250
 msgid "Åland Islands"
 msgstr "Åland-eilanden"

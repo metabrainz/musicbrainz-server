@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-07 03:30+0000\n"
+"PO-Revision-Date: 2012-11-27 21:53+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -15,424 +15,428 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: DB:statistic_event/description:2006-08-15
+#: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr "Μία μικρή ρωγμή στην κοινότητα του MusicBrainz οδηγεί σε Μεγάλο Σχίσμα."
 
-#: DB:statistic_event/description:2003-01-21
+#: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
 "Added support for improved TRM collision handling in the classic tagger."
 msgstr ""
 
-#: DB:statistic_event/title:2005-04-10
+#: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
 msgstr "Προχωρημένες σχέσεις"
 
-#: DB:statistic_event/description:2005-04-10
+#: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
 
-#: DB:statistic_event/title:2005-05-22
+#: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
 msgstr "Γλώσσες άλμπουμ"
 
-#: DB:statistic_event/description:2005-05-22
+#: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
 
-#: DB:statistic_event/title:2004-02-24
+#: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon Coverart"
 msgstr "Εξώφυλλο Amazon"
 
-#: DB:statistic_event/description:2008-09-01
+#: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
 "Amazon betas <a href=\"http://soundunwound.com\">SoundUnwound</a> with data "
 "from MusicBrainz."
 msgstr ""
 
-#: DB:statistic_event/title:2008-09-01
+#: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
 msgstr "Amazon betas SoundUnwound"
 
-#: DB:statistic_event/description:2004-02-24
+#: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon coverart support released."
 msgstr "Κυκλοφόρησε η υποστήριξη για εξώφυλλο Amazon."
 
-#: DB:statistic_event/description:2006-07-12
+#: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr "Κυκλοφόρησε ένας βελτιωμένος επεξεργαστής κυκλοφοριών και έγινε νέος σχεδιασμός της ιστοσελίδας."
 
-#: DB:statistic_event/description:2004-11-14
+#: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
 msgstr "Κυκλοφόρησε η υποστήριξη σχολίων."
 
-#: DB:statistic_event/title:2004-11-14
+#: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
 msgstr "Σχόλια"
 
-#: DB:statistic_event/title:2003-06-22
+#: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
 msgstr "Παρακακολουθήσεις καλλιτεχνών"
 
-#: DB:statistic_event/description:2005-02-13
+#: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
 
-#: DB:statistic_event/description:2003-06-22
+#: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
 msgstr "Παρακακολουθήσεις καλλιτεχνών."
 
-#: DB:statistic_event/title:2008-07-30
+#: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
 msgstr "Δυναμικές σελίδες καλλιτεχνών BBC."
 
-#: DB:statistic_event/description:2008-07-30
+#: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
 msgstr "Το BBC ξεκινά τη λειτουργία των δυναμικών σελίδων καλλιτεχνών βασισμένες στα δεδομένα του MusicBrainz."
 
-#: DB:statistic_event/title:2007-06-28
+#: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
 msgstr "Συνεργασία MetaBrainz με BBC"
 
-#: DB:statistic_event/description:2003-03-02
-#: DB:statistic_event/description:2003-06-30
-#: DB:statistic_event/description:2003-07-25
-#: DB:statistic_event/description:2003-09-04
+#: DB:statistics.statistic_event/description:2003-03-02
+#: DB:statistics.statistic_event/description:2003-06-30
+#: DB:statistics.statistic_event/description:2003-07-25
+#: DB:statistics.statistic_event/description:2003-09-04
 msgid "Bug fix/cleanup release."
 msgstr ""
 
-#: DB:statistic_event/title:2003-06-30 DB:statistic_event/title:2003-07-25
-#: DB:statistic_event/title:2003-09-04
+#: DB:statistics.statistic_event/title:2003-06-30
+#: DB:statistics.statistic_event/title:2003-07-25
+#: DB:statistics.statistic_event/title:2003-09-04
 msgid "Bug fixes"
 msgstr "Διορθώσεις σφαλμάτων"
 
-#: DB:statistic_event/description:2004-03-09
+#: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
 msgstr ""
 
-#: DB:statistic_event/title:2004-03-09
+#: DB:statistics.statistic_event/title:2004-03-09
 msgid "Caching/bug fixes"
 msgstr "Διορθώσεις σφαλμάτων/προσωρινής μνήμης"
 
-#: DB:statistic_event/title:2003-03-02 DB:statistic_event/title:2003-06-07
-#: DB:statistic_event/title:2003-06-15
+#: DB:statistics.statistic_event/title:2003-03-02
+#: DB:statistics.statistic_event/title:2003-06-07
+#: DB:statistics.statistic_event/title:2003-06-15
 msgid "Cleanup"
 msgstr ""
 
-#: DB:statistic_event/description:2003-06-07
-#: DB:statistic_event/description:2003-06-15
+#: DB:statistics.statistic_event/description:2003-06-07
+#: DB:statistics.statistic_event/description:2003-06-15
 msgid "Cleanup release."
 msgstr ""
 
-#: DB:statistic_event/title:2008-11-24
+#: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
 msgstr ""
 
-#: DB:statistic_event/description:2008-11-24
+#: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
 msgstr ""
 
-#: DB:statistic_event/title:2003-03-29
+#: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
 msgstr "Αποκλειστικός εξυπηρετητής βάσης δεδομένων"
 
-#: DB:statistic_event/description:2004-05-09
+#: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
 msgstr ""
 
-#: DB:statistic_event/title:2003-11-10
+#: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
 msgstr "Αναζήτηση επεξεργασιών"
 
-#: DB:statistic_event/description:2007-12-07
+#: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
 msgstr ""
 
-#: DB:statistic_event/description:2007-10-17
+#: DB:statistics.statistic_event/description:2007-10-17
 msgid "Folksonomy tagging, editor subscriptions are released."
 msgstr ""
 
-#: DB:statistic_event/description:2004-10-10
+#: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
 
-#: DB:statistic_event/title:2004-10-10
+#: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
 msgstr ""
 
-#: DB:statistic_event/title:2006-08-15
+#: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
 msgstr "Μέγα Σχίσμα"
 
-#: DB:statistic_event/title:2009-06-17
+#: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
 msgstr ""
 
-#: DB:statistic_event/description:2009-06-17
+#: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
 msgstr ""
 
-#: DB:statistic_event/title:2004-07-24
+#: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
 msgstr "Βελτίωση ψηφοφοριών"
 
-#: DB:statistic_event/title:2003-04-05
+#: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
 msgstr "Βελτίωση αναζήτησης"
 
-#: DB:statistic_event/description:2003-04-05
+#: DB:statistics.statistic_event/description:2003-04-05
 msgid "Improved search/cleanup."
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-12
+#: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-02
+#: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
 
-#: DB:statistic_event/title:2006-03-05
+#: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
 msgstr ""
 
-#: DB:statistic_event/description:2006-03-05
+#: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
 msgstr ""
 
-#: DB:statistic_event/title:2004-01-17
+#: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
 msgstr ""
 
-#: DB:statistic_event/description:2004-01-17
+#: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
 
-#: DB:statistic_event/title:2004-05-09
+#: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
 msgstr "Σενάρια εγκατάστασης"
 
-#: DB:statistic_event/description:2009-12-14
+#: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
 msgstr "Ο Kuno Woudt ξεκινά να δουλεύει για το MusicBrainz κανονικά απασχολούμενος."
 
-#: DB:statistic_event/title:2009-12-14
+#: DB:statistics.statistic_event/title:2009-12-14
 msgid "Kuno Woudt hired as full-time developer"
 msgstr "Ο Kuno Woudt προσλαμβάνεται ως μόνιμος προγραμματιστής"
 
-#: DB:statistic_event/title:2007-04-01
+#: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
 msgstr "Δισκογραφικές εταιρείες/ποιότητα δεδομένων"
 
-#: DB:statistic_event/title:2007-11-07
+#: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
 msgstr "Last.fm"
 
-#: DB:statistic_event/description:2007-11-07
+#: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
 msgstr "Το Last.fm εγγράφεται στο MetaBrainz και χρησιμοποιεί τα δεδομένα του MusicBrainz."
 
-#: DB:statistic_event/description:2003-11-10
-#: DB:statistic_event/description:2003-12-28
+#: DB:statistics.statistic_event/description:2003-11-10
+#: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
 
-#: DB:statistic_event/description:2007-01-20
+#: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
 msgstr "Το Linkara Musica γίνεται ο πρώτος εμπορικός πελάτης του MetaBrainz."
 
-#: DB:statistic_event/title:2003-12-28
+#: DB:statistics.statistic_event/title:2003-12-28
 msgid "Linking"
 msgstr ""
 
-#: DB:statistic_event/title:2005-10-23
+#: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
 msgstr ""
 
-#: DB:statistic_event/description:2008-04-21
+#: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
 msgstr "Το MetaBrainz δέχεται τρεις μαθητές για το Google Summer of Code."
 
-#: DB:statistic_event/title:2008-09-23
+#: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
 msgstr "Το MetaBrainz προσλαμβάνει τον Oliver Charles"
 
-#: DB:statistic_event/title:2005-04-19
+#: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
 msgstr "MetaBrainz ξεκινά τη λειτουργία του"
 
-#: DB:statistic_event/title:2007-01-20
+#: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
 msgstr "MetaBrainz υπογράφει με τον πρώτο πελάτη"
 
-#: DB:statistic_event/description:2008-04-01
+#: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb comes MusicBrainz data user."
 msgstr "Το MetaWeb γίνεται χρήστης δεδομένων του MusicBrainz."
 
-#: DB:statistic_event/title:2008-04-01
+#: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
 msgstr "MetaWeb εγγράφηκε"
 
-#: DB:statistic_event/title:2006-02-27
+#: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
 msgstr "Μετακίνηση MusicBrainz"
 
-#: DB:statistic_event/description:2010-02-08
+#: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
 msgstr "Ο πηγαίος κώδικας του εξυπηρετητή MusicBrainz μετακινείται από το Git στο Subversion."
 
-#: DB:statistic_event/description:2003-03-29
+#: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
 msgstr "Το MusicBrainz αποκτά τον πρώτο αποκλειστικό εξυπηρετητή δεδομένων."
 
-#: DB:statistic_event/description:2006-02-27
+#: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
 msgstr "Το MusicBrainz μετακομίζει στην Digital West Networks στο San Luis Obispo."
 
-#: DB:statistic_event/description:2006-03-12
+#: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
 msgstr ""
 
-#: DB:statistic_event/title:2006-03-12
+#: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
 msgstr "MusicIP PUID"
 
-#: DB:statistic_event/title:2011-05-12
+#: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
 msgstr ""
 
-#: DB:statistic_event/title:2011-05-02
+#: DB:statistics.statistic_event/title:2011-05-02
 msgid "NGS Reduced Editing Phase"
 msgstr ""
 
-#: DB:statistic_event/title:2011-05-18
+#: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
 msgstr ""
 
-#: DB:statistic_event/description:2011-05-18
+#: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
 msgstr ""
 
-#: DB:statistic_event/title:2003-10-13
+#: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
 msgstr "Κομμάτια εκτός άλμπουμ"
 
-#: DB:statistic_event/description:2003-10-13
+#: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
 msgstr "Κυκλοφορούν τα κομμάτια εκτός άλμπουμ."
 
-#: DB:statistic_event/description:2008-09-23
+#: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
 msgstr "Ο Oliver Charles γίνεται ο εργαζόμενος υπ' αριθμό #1 του Ιδρύματος MetaBrainz."
 
-#: DB:statistic_event/description:2010-06-18
+#: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
 msgstr "Ο Oliver Charles ξεκινάει να δουλεύει μόνιμα για το MusicBrainz."
 
-#: DB:statistic_event/title:2010-06-18
+#: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
 msgstr "Ο Oliver Charles συμμετέχει στο MusicBrainz σε μόνιμη βάση"
 
-#: DB:statistic_event/title:2009-05-24
+#: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
 msgstr ""
 
-#: DB:statistic_event/title:2003-10-19 DB:statistic_event/title:2006-07-12
+#: DB:statistics.statistic_event/title:2003-10-19
+#: DB:statistics.statistic_event/title:2006-07-12
 msgid "Release editor"
 msgstr "Επεξεργαστής κυκλοφοριών"
 
-#: DB:statistic_event/description:2003-10-19
+#: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
 msgstr ""
 
-#: DB:statistic_event/description:2009-05-24
+#: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
 
-#: DB:statistic_event/title:2006-01-08
+#: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
 msgstr ""
 
-#: DB:statistic_event/title:2006-12-17
+#: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
 msgstr "Βελτιώσεις αναζήτησης"
 
-#: DB:statistic_event/title:2008-04-21
+#: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
 msgstr "SoC 2008"
 
-#: DB:statistic_event/description:2006-01-08
+#: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
 msgstr ""
 
-#: DB:statistic_event/description:2007-04-01
+#: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
 msgstr "Κυκλοφορεί η υποστήριξη για δισκογραφικές εταιρείες και ποιότητα δεδομένων."
 
-#: DB:statistic_event/title:2003-01-21
+#: DB:statistics.statistic_event/title:2003-01-21
 msgid "TRM collisions"
 msgstr ""
 
-#: DB:statistic_event/title:2007-10-17 ../root/statistics/view_js.tt:170
+#: DB:statistics.statistic_event/title:2007-10-17
+#: ../root/statistics/view_js.tt:170
 msgid "Tags"
 msgstr "Ετικέτες"
 
-#: DB:statistic_event/description:2007-06-28
+#: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
 msgstr "Το BBC γίνεται πελάτης του MetaBrainz και ξεκινά να χρησιμοποιεί τα δεδομένα του MusicBrainz."
 
-#: DB:statistic_event/description:2005-04-19
+#: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
 msgstr "Ανακοινώνεται δημόσια το ίδρυμα MetaBrainz, η νομική στέγη του MusicBrainz."
 
-#: DB:statistic_event/description:2006-12-17
+#: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
 msgstr ""
 
-#: DB:statistic_event/description:2005-10-23
+#: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time editing features\n"
 "\treleased."
 msgstr ""
 
-#: DB:statistic_event/title:2007-12-07
+#: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
 msgstr ""
 
-#: DB:statistic_event/title:2005-02-13
+#: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
 msgstr "Βελτιώσεις χρηστών"
 
-#: DB:statistic_event/description:2004-07-24
+#: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
 msgstr ""
 
-#: DB:statistic_event/title:2010-02-08
+#: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
 msgstr "mb_server φιλοξενείται πλέον στο Git"
 
@@ -472,7 +476,7 @@ msgstr "Ενεργοί Χρήστες"
 msgid "Active Voters"
 msgstr "Ενεργοί Ψηφοφόροι"
 
-#: ../root/statistics/timeline.tt:77
+#: ../root/statistics/timeline.tt:84
 msgid "Add/remove lines:"
 msgstr "Προσθήκη/αφαίρεση γραμμών"
 
@@ -617,19 +621,19 @@ msgstr "Βασικά μεταδεδομένα"
 msgid "Basics"
 msgstr "Βασικά"
 
-#: ../root/statistics/coverart.tt:87
+#: ../root/statistics/coverart.tt:106
 msgid "By Cover Art Type"
 msgstr "Ανά τύπο εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:65
+#: ../root/statistics/coverart.tt:78
 msgid "By Release Format"
 msgstr "Ανά μορφή κυκλοφορίας"
 
-#: ../root/statistics/coverart.tt:49
+#: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr "Ανά κατάσταση κυκλοφορίας"
 
-#: ../root/statistics/coverart.tt:33
+#: ../root/statistics/coverart.tt:46
 msgid "By Release Type"
 msgstr "Ανά τύπο κυκλοφορίας"
 
@@ -657,15 +661,15 @@ msgstr "Ακυρωμένες επεξεργασίες"
 msgid "Cancelled:"
 msgstr "Ακυρώθηκε:"
 
-#: ../root/statistics/timeline.tt:77
+#: ../root/statistics/timeline.tt:84
 msgid "Check boxes above"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:83
 msgid "Click to deselect"
 msgstr "Κάντε κλικ για αποεπιλογή"
 
-#: ../root/statistics/timeline.tt:73
+#: ../root/statistics/timeline.tt:80
 msgid "Controls"
 msgstr "Στοιχεία ελέγχου"
 
@@ -1002,7 +1006,7 @@ msgstr "Disc IDs"
 msgid "Disc IDs:"
 msgstr "Disc IDs:"
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:82
 msgid "Draw a rectangle on either graph"
 msgstr "Σχεδιασμός παραλληλογράμμου σε οποιοδήποτε γράφημα"
 
@@ -1046,7 +1050,7 @@ msgstr "Επεξεργασίες ανά ημέρα"
 msgid "Edits per week"
 msgstr "Επεξεργασίες ανά εβδομάδα"
 
-#: ../root/statistics/edits.tt:13 ../root/statistics/index.tt:550
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:550
 #: ../root/statistics/index.tt:597
 msgid "Edits:"
 msgstr "Επεξεργασίες:"
@@ -1063,11 +1067,11 @@ msgstr ""
 msgid "Evalnochange edits"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:85
+#: ../root/statistics/timeline.tt:92
 msgid "Exact Values (items vs. day)"
 msgstr "Ακριβείες τιμές (αντικείμενα έναντι ημέρας)"
 
-#: ../root/statistics/relationships.tt:27
+#: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
 msgstr "Αποκλειστικό"
 
@@ -1129,7 +1133,7 @@ msgstr "Υψηλή ποιότητα δεδομένων"
 msgid "High Data Quality:"
 msgstr "Υψηλή ποιότητα δεδομένων:"
 
-#: ../root/statistics/timeline.tt:78
+#: ../root/statistics/timeline.tt:85
 msgid "Hover and click on vertical lines"
 msgstr ""
 
@@ -1169,7 +1173,7 @@ msgstr "ISWC (όλα)"
 msgid "Identifiers"
 msgstr "Αναγνωριστικά"
 
-#: ../root/statistics/relationships.tt:27
+#: ../root/statistics/relationships.tt:31
 msgid "Inclusive"
 msgstr ""
 
@@ -1229,11 +1233,11 @@ msgstr "Περασμένη εβδομάδα:"
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
 #: ../root/statistics/formats.tt:18 ../root/statistics/index.tt:7
 #: ../root/statistics/languages_scripts.tt:31
-#: ../root/statistics/relationships.tt:21
+#: ../root/statistics/relationships.tt:20
 msgid "Last updated: {date}"
 msgstr "Τελευταία ενημέρωση: {date}"
 
-#: ../root/statistics/timeline.tt:62
+#: ../root/statistics/timeline.tt:69
 msgid "Legend"
 msgstr "Υπόμνημα"
 
@@ -1291,11 +1295,11 @@ msgstr ""
 msgid "Most active voters in the past week"
 msgstr "Περισσότερο ενεργοί ψηφοφόροι την τελευταία εβδομάδα"
 
-#: ../root/statistics/timeline.tt:66
+#: ../root/statistics/timeline.tt:73
 msgid "MusicBrainz Events"
 msgstr "Γεγονότα MusicBrainz"
 
-#: ../root/statistics/timeline.tt:78
+#: ../root/statistics/timeline.tt:85
 msgid "MusicBrainz Events:"
 msgstr "Γεγονότα MusicBrainz:"
 
@@ -1307,7 +1311,16 @@ msgstr ""
 msgid "No Votes"
 msgstr "Αρνητικές ψήφοι"
 
-#: ../root/statistics/coverart.tt:75
+#: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
+#: ../root/statistics/coverart.tt:100
+msgid "No coverart statistics available."
+msgstr ""
+
+#: ../root/statistics/edits.tt:12
+msgid "No edit statistics available."
+msgstr ""
+
+#: ../root/statistics/coverart.tt:88
 msgid "No format"
 msgstr "Χωρίς μορφή"
 
@@ -1315,7 +1328,11 @@ msgstr "Χωρίς μορφή"
 msgid "No packaging set"
 msgstr "Δεν ορίστηκε η συσκευασία"
 
-#: ../root/statistics/coverart.tt:59
+#: ../root/statistics/relationships.tt:25
+msgid "No relationship statistics available."
+msgstr ""
+
+#: ../root/statistics/coverart.tt:72
 msgid "No status"
 msgstr "Χωρίς κατάσταση"
 
@@ -1323,7 +1340,7 @@ msgstr "Χωρίς κατάσταση"
 msgid "No status set"
 msgstr "Δεν ορίστηκε η κατάσταση"
 
-#: ../root/statistics/coverart.tt:43 ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
 msgid "No type"
 msgstr "Χωρίς τύπο"
 
@@ -1409,7 +1426,7 @@ msgid_plural "PUIDs with {n} Recordings"
 msgstr[0] "PUIDs με 1 ηχογράφηση"
 msgstr[1] "PUIDs με {n} ηχογραφήσεις"
 
-#: ../root/statistics/coverart.tt:103
+#: ../root/statistics/coverart.tt:122
 msgid "Per release"
 msgstr "Ανά κυκλοφορία"
 
@@ -1421,11 +1438,11 @@ msgstr "Άτομα"
 msgid "Pieces of Cover Art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:83
+#: ../root/statistics/coverart.tt:97
 msgid "Pieces of cover art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:90
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
 msgid "Pieces of cover art:"
 msgstr "Κομμάτια εξωφύλλου:"
 
@@ -1439,11 +1456,11 @@ msgstr "Πρωτεύοντες τύποι"
 msgid "Rank"
 msgstr "Κατάταξη"
 
-#: ../root/statistics/timeline.tt:87
+#: ../root/statistics/timeline.tt:94
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Κατάταξη αλλαγών (μέσος όρος αντικειμένων/ημέρα έναντι ημέρας)"
 
-#: ../root/statistics/timeline.tt:70
+#: ../root/statistics/timeline.tt:77
 msgid "Rate of Change Graph"
 msgstr "Γράφημα ρυθμού αλλαγών"
 
@@ -1515,13 +1532,13 @@ msgstr "Ηχογραφήσεις χωρίς PUID:"
 msgid "Recordings:"
 msgstr "Ηχογραφήσεις:"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:16
-#: ../root/statistics/relationships.tt:23 ../root/statistics/view_js.tt:34
+#: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
+#: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
 #: ../root/statistics/view_js.tt:179
 msgid "Relationships"
 msgstr "Σχέσεις"
 
-#: ../root/statistics/index.tt:57 ../root/statistics/relationships.tt:30
+#: ../root/statistics/index.tt:57 ../root/statistics/relationships.tt:34
 msgid "Relationships:"
 msgstr "Σχέσεις:"
 
@@ -1584,7 +1601,7 @@ msgstr ""
 msgid "Release/Medium Formats"
 msgstr "Μορφές κυκλοφορίας/μέσου"
 
-#: ../root/statistics/countries.tt:36 ../root/statistics/coverart.tt:29
+#: ../root/statistics/countries.tt:36 ../root/statistics/coverart.tt:35
 #: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:195
 #: ../root/statistics/languages_scripts.tt:41
 #: ../root/statistics/languages_scripts.tt:62 ../root/statistics/view_js.tt:47
@@ -1621,9 +1638,9 @@ msgstr "Κυκλοφορίες με μέσο χωρίς μορφή"
 msgid "Releases with at least one disc ID:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:17 ../root/statistics/coverart.tt:36
-#: ../root/statistics/coverart.tt:52 ../root/statistics/coverart.tt:68
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
+#: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
+#: ../root/statistics/coverart.tt:125
 msgid "Releases with cover art:"
 msgstr "Κυκλοφορίες με εξώφυλλο:"
 
@@ -1653,7 +1670,7 @@ msgstr ""
 msgid "Releases:"
 msgstr "Κυκλοφορίες:"
 
-#: ../root/statistics/timeline.tt:76
+#: ../root/statistics/timeline.tt:83
 msgid "Reset:"
 msgstr "Επαναφορά:"
 
@@ -1693,7 +1710,7 @@ msgstr ""
 msgid "Timeline"
 msgstr ""
 
-#: ../root/statistics/timeline.tt:84
+#: ../root/statistics/timeline.tt:91
 msgid "Timeline Graph"
 msgstr "Χρονογράφημα"
 
@@ -1847,7 +1864,7 @@ msgstr "Ναι:"
 msgid "Yesterday:"
 msgstr "Χθες:"
 
-#: ../root/statistics/timeline.tt:75
+#: ../root/statistics/timeline.tt:82
 msgid "Zoom:"
 msgstr "Εστίαση:"
 
@@ -1905,7 +1922,7 @@ msgstr "με 10 ή περισσότερα PUID:"
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:120
+#: ../root/statistics/coverart.tt:139
 msgid "with 30 or more pieces of cover art:"
 msgstr "με 30 ή περισσότερα κομμάτια εξωφύλλου:"
 
@@ -1937,7 +1954,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:113
+#: ../root/statistics/coverart.tt:132
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "με {num} κομμάτι εξωφύλλου:"
@@ -1967,10 +1984,10 @@ msgstr "Μέσα {name}"
 msgid "{name} releases"
 msgstr "Κυκλοφορίες {name}"
 
-#: ../root/statistics/coverart.tt:19 ../root/statistics/coverart.tt:45
-#: ../root/statistics/coverart.tt:61 ../root/statistics/coverart.tt:77
-#: ../root/statistics/coverart.tt:99 ../root/statistics/coverart.tt:115
-#: ../root/statistics/coverart.tt:122 ../root/statistics/edits.tt:24
+#: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
+#: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
+#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
+#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:127 ../root/statistics/index.tt:133
 #: ../root/statistics/index.tt:139 ../root/statistics/index.tt:145
@@ -2000,8 +2017,8 @@ msgstr "Κυκλοφορίες {name}"
 #: ../root/statistics/index.tt:612 ../root/statistics/index.tt:628
 #: ../root/statistics/index.tt:634 ../root/statistics/index.tt:640
 #: ../root/statistics/index.tt:646 ../root/statistics/index.tt:657
-#: ../root/statistics/index.tt:664 ../root/statistics/relationships.tt:9
-#: ../root/statistics/relationships.tt:46
+#: ../root/statistics/index.tt:664 ../root/statistics/relationships.tt:8
+#: ../root/statistics/relationships.tt:50
 msgid "{n}%"
 msgstr "{n}%"
 
@@ -2009,10 +2026,10 @@ msgstr "{n}%"
 msgid "{script} releases"
 msgstr "Κυκλοφορίες με {script} "
 
-#: ../root/statistics/relationships.tt:41
+#: ../root/statistics/relationships.tt:45
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
 
-#: ../root/statistics/relationships.tt:44
+#: ../root/statistics/relationships.tt:48
 msgid "{type0}-{type1} relationships:"
 msgstr "Σχέσεις {type0}-{type1}:"
