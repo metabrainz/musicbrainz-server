@@ -301,8 +301,8 @@ sub RECAPTCHA_PUBLIC_KEY { return undef }
 sub RECAPTCHA_PRIVATE_KEY { return undef }
 
 # internet archive private/public keys (for coverartarchive.org).
-sub COVER_ART_ARCHIVE_ID { };
-sub COVER_ART_ARCHIVE_KEY { };
+sub COVER_ART_ARCHIVE_ACCESS_KEY { };
+sub COVER_ART_ARCHIVE_SECRET_KEY { };
 sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
 
