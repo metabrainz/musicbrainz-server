@@ -1,14 +1,19 @@
 package MusicBrainz::Server::Edit::Role::CoverArt;
-use Moose::Role;
+use MooseX::Role::Parameterized;
 
-sub alter_edit_pending {
-    my $self = shift;
+role
+{
+    requires qw( cover_art_id release_ids);
 
-    return {
-        Release => [ $self->release_ids ],
-        Artwork => [ $self->data->{cover_art_id} // $self->data->{id} ],
+    method 'alter_edit_pending' => sub {
+        my $self = shift;
+
+        return {
+            Release => [ $self->release_ids ],
+            Artwork => [ $self->cover_art_id ],
+        };
     };
-}
+};
 
 no Moose::Role;
 1;
