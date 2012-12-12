@@ -43,7 +43,7 @@ sub serialize
             $track_entity->recording, $inc, $stash)
             if $inc->recordings;
 
-        $track_output{artist_credit} = serialize_entity (
+        $track_output{"artist-credit"} = serialize_entity (
             $track_entity->artist_credit, $inc, $stash)
             if $inc->artist_credits;
 
