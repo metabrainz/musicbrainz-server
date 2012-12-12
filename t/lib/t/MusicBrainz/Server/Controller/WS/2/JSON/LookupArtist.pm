@@ -50,6 +50,7 @@ test 'basic artist lookup' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            ipis => [],
         });
 };
 
@@ -74,6 +75,7 @@ test 'basic artist lookup, inc=annotation' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            ipis => [],
         });
 };
 
@@ -102,6 +104,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "ボア", "sort-name" => "ボア" },
                 { name => "보아", "sort-name" => "보아" },
                 ],
+            ipis => [],
         });
 
 };
@@ -151,6 +154,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     type => "blog"
                     },
                 ],
+            ipis => [],
         });
 
 };
@@ -201,6 +205,7 @@ test 'artist lookup with releases' => sub {
                     asin => JSON::null,
                 }
                 ],
+            ipis => [],
         });
 };
 
@@ -237,6 +242,7 @@ test 'artist lookup with pseudo-releases' => sub {
                     asin => JSON::null,
                 }
                 ],
+            ipis => [],
         });
 };
 
@@ -305,7 +311,8 @@ test 'artist lookup with releases and discids' => sub {
                             discids => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
                         }]
-                }]
+                }],
+            ipis => [],
         });
 };
 
@@ -341,6 +348,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -351,6 +359,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => ""
                         }
@@ -369,6 +378,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -379,12 +389,14 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => ""
                         }
                     ]
                 },
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -415,7 +427,8 @@ test 'artist lookup with release groups' => sub {
                     "primary-type" => "Single",
                     "secondary-types" => [],
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -451,7 +464,8 @@ test 'single artist release lookup' => sub {
                     barcode => "4988064451180",
                     asin => JSON::null,
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -487,7 +501,8 @@ test 'various artists release lookup' => sub {
                     asin => JSON::null,
                     disambiguation => "",
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -517,7 +532,8 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                     iswcs => [],
                     language => JSON::null,
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -644,7 +660,8 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
-                }]
+                }],
+            ipis => [],
         });
 };
 
