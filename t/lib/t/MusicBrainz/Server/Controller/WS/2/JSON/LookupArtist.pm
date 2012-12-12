@@ -128,29 +128,43 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 {
                     direction => "forward",
                     url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
-                    type => "image"
-                    },
+                    type => "image",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://members.boardhost.com/wedlock/",
-                    type => "online community"
-                    },
+                    type => "online community",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.discogs.com/artist/Paul+Allgood",
-                    type => "discogs"
-                    },
+                    type => "discogs",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.imdb.com/name/nm4057169/",
-                    type => "IMDb"
-                    },
+                    type => "IMDb",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.paulallgood.com/",
-                    type => "blog"
-                    },
-                ],
+                    type => "blog",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                }],
         });
 
 };

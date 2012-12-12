@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Relation;
 
 use Moose;
 use String::CamelCase qw(camelize);
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(boolean serialize_entity);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -16,9 +16,14 @@ sub serialize
     $body{type} = $entity->link->type->name;
     $body{direction} = $entity->direction == 2 ? "backward" : "forward";
 
+    my $link = $entity->link;
+    $body{begin} = $link->begin_date->is_empty ? JSON::null : $link->begin_date->format;
+    $body{end} = $link->end_date->is_empty ? JSON::null : $link->end_date->format;
+    $body{ended} = boolean ($link->ended);
+
     if ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
-           # $entity->target_type eq 'release' ||
+           $entity->target_type eq 'release' ||
            $entity->target_type eq 'recording')
     {
         $body{$entity->target_type} = serialize_entity ($entity->target);

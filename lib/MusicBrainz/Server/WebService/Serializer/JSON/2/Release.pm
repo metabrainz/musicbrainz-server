@@ -61,7 +61,7 @@ sub serialize
     else
     {
         $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
+            if $inc && $inc->artist_credits;
     }
 
     $body{"label-info"} = [
@@ -72,7 +72,7 @@ sub serialize
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;
 
-    if ($inc->media || $inc->discids || $inc->recordings)
+    if ($inc && ($inc->media || $inc->discids || $inc->recordings))
     {
         $body{media} = [
             map { serialize_entity($_, $inc, $stash) }
