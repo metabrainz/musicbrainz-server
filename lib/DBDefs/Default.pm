@@ -273,13 +273,14 @@ sub ANNOTATION_LOCK_TIME { 60*15 }
 
 # Amazon associate and developer ids
 my %amazon_store_associate_ids = (
-    'amazon.ca'         => 'musicbrainz01-20',
-    'amazon.co.jp'    => 'musicbrainz-22',
-    'amazon.co.uk'    => 'musicbrainz0c-21',
+    'amazon.ca'         => 'music0b72-20',
+    'amazon.co.jp'    => 'musicbrainzjp-22',
+    'amazon.co.uk'    => 'music080d-21',
     'amazon.com'    => 'musicbrainz0d-20',
-    'amazon.de'         => 'musicbrainz00-21',
-    'amazon.fr'         => 'musicbrainz0e-21',
-    'amazon.it'         => '', #TODO: Someone should probably sign up for an associate ID.
+    'amazon.de'         => 'music059-21',
+    'amazon.fr'         => 'music083d-21',
+    'amazon.it'         => 'music084d-21',
+    'amazon.es'         => 'music02e-21',
 );
 
 sub AWS_ASSOCIATE_ID
