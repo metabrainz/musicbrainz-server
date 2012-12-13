@@ -1,7 +1,6 @@
 package t::MusicBrainz::Server::Controller::Relationship::LinkType::Edit;
 use Test::Routine;
 use Test::More;
-use Test::XPath;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
 
 around run_test => sub {

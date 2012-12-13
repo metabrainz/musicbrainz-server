@@ -11,13 +11,5 @@
 
 [%- WRAPPER 'artist/layout.tt' title=l('Add Artist Alias') full_width=1 -%]
     <h2>[% l('Add artist alias') %]</h2>
-    [% WRAPPER 'layout/guidelines.tt' %]
-        [% create_guideline(l('MusicBrainz uses artist aliases mainly as variant names
-                               or search hints.')) %]
-        [% create_guideline(l('If you see a misspelled alias here, it most likely is
-                               listed on purpose, and should not be renamed or removed.
-                               Please see {aa|artist aliases} for more details.',
-                               { aa => doc_link('Artist_Alias') })) %]
-    [% END %]
-    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id = 3%]
+    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=3 -%]
 [%- END -%]

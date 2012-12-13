@@ -10,7 +10,7 @@ use Log::Dispatch;
 my $logger;
 BEGIN {
     $logger = Log::Dispatch->new(
-        DBDefs::LOGGER_ARGUMENTS,
+        DBDefs->LOGGER_ARGUMENTS,
         callbacks => \&_prefix_message
     );
 }

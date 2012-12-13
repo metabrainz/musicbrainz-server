@@ -10,7 +10,8 @@ my $ws_defs = Data::OptList::mkopt([
      isrc => {
                          method   => 'GET',
                          inc      => [ qw(artists releases puids isrcs artist-credits aliases
-                                          _relations tags user-tags ratings user-ratings) ]
+                                          _relations tags user-tags ratings user-ratings) ],
+                         optional => [ qw( fmt ) ],
      },
 ]);
 

@@ -109,6 +109,22 @@ var typeInfo = {
             "phrase": "medley of",
             "descr": 1
         }
+    ],
+    "recording-recording": [
+        {
+            "children": [
+                {
+                    "attrs": {"1": [0, 1]},
+                    "descr": 1,
+                    "id": 231,
+                    "phrase": "{additional} samples",
+                    "reverse_phrase": "{additional:additionally} sampled by"
+                }
+            ],
+            "id": 234,
+            "phrase": "remixes",
+            "reverse_phrase": "remixes"
+        }
     ]
 };
 
@@ -281,13 +297,13 @@ var testRelease = {
 
 $.extend(MB.text = MB.text || {}, {
     Entity: {
-        artist:          "Artist",
-        label:           "Label",
-        recording:       "Recording",
-        release:         "Release",
-        "release-group": "Release group",
-        url:             "URL",
-        work:            "Work",
+        artist:        "Artist",
+        label:         "Label",
+        recording:     "Recording",
+        release:       "Release",
+        release_group: "Release group",
+        url:           "URL",
+        work:          "Work"
     },
     AttributeNotSupported: "This attribute is not supported for the selected relationship type.",
     AttributeTooMany: "This attribute can only be specified {max} times. You specified {n}.",
@@ -295,10 +311,9 @@ $.extend(MB.text = MB.text || {}, {
     InvalidDate: "The date you've entered is not valid.",
     InvalidEndDate: "The end date cannot preceed the begin date.",
     InvalidValue: "The value you've entered is not valid.",
-    RequiredField: "Required field.",
+    RequiredField: "Required field."
 });
 
-MB.text.Date = {from: "from", until: "until", on: "on"};
 
 MB.tests.RelationshipEditor.Util = function() {
     QUnit.module("Relationship editor");
@@ -307,67 +322,6 @@ MB.tests.RelationshipEditor.Util = function() {
         var RE = MB.RelationshipEditor, Util = RE.Util;
 
         var tests = [
-            // artist-recording
-            {
-                source: Util.tempEntity("recording"),
-                target: Util.tempEntity("artist"),
-                expected: function() {
-                    return [this.target, this.source];
-                }
-            },
-            // recording-release
-            {
-                source: Util.tempEntity("recording"),
-                target: Util.tempEntity("release"),
-                expected: function() {
-                    return [this.source, this.target];
-                }
-            },
-            {
-                source: Util.tempEntity("recording"),
-                target: Util.tempEntity("release"),
-                backward: true,
-                expected: function() {
-                    return [this.target, this.source];
-                }
-            },
-            // recording-work
-            {
-                source: Util.tempEntity("recording"),
-                target: Util.tempEntity("work"),
-                expected: function() {
-                    return [this.source, this.target];
-                }
-            },
-            {
-                source: Util.tempEntity("recording"),
-                target: Util.tempEntity("work"),
-                backward: true,
-                expected: function() {
-                    return [this.target, this.source];
-                }
-            },
-            // work-work
-            {
-                source: Util.tempEntity("work"),
-                target: Util.tempEntity("work"),
-                backward: true,
-                expected: function() {
-                    return [this.target, this.source];
-                }
-            }
-        ];
-
-        $.each(tests, function(i, test) {
-            var obj = {source: test.source, target: test.target}, relationship;
-            if (test.backward) obj.backward = true;
-            relationship = RE.Relationship(obj);
-
-            QUnit.deepEqual(relationship.entity(), test.expected(),
-                relationship.type() + ", " + relationship.backward());
-        });
-
-        tests = [
             {date: "", expected: {
                 year: null, month: null, day: null}
             },
@@ -379,7 +333,7 @@ MB.tests.RelationshipEditor.Util = function() {
             },
             {date: "1999", expected: {
                 year: "1999", month: null, day: null}
-            },
+            }
         ];
 
         $.each(tests, function(i, test) {
@@ -400,11 +354,11 @@ MB.tests.RelationshipEditor.Util = function() {
             {root: Util.attrInfo(14), value: 1, expected: [1]},
             {root: Util.attrInfo(14), value: [3, 3, 2, 2, 1, 1], expected: [1, 2, 3]},
             {root: Util.attrInfo(14), value: ["3", "3", "2", "2", "1", "1"], expected: [1, 2, 3]},
-            {root: Util.attrInfo(14), value: ["1", 0, "9", 0, "5"], expected: [1, 5, 9]},
+            {root: Util.attrInfo(14), value: ["1", 0, "9", 0, "5"], expected: [1, 5, 9]}
         ];
 
         $.each(tests, function(i, test) {
-            var result = RE.Util.convertAttr(test.root, test.value);
+            var result = new RE.Fields.Attribute(test.root, test.value)();
             QUnit.deepEqual(result, test.expected, String(test.value));
         });
 
@@ -439,7 +393,7 @@ MB.tests.RelationshipEditor.Fields = function() {
             {input: 0, expected: 0},
             {input: 12, expected: 12},
             {input: "0", expected: 0},
-            {input: "012", expected: 12},
+            {input: "012", expected: 12}
         ];
 
         $.each(tests, function(i, test) {
@@ -448,13 +402,14 @@ MB.tests.RelationshipEditor.Fields = function() {
         });
 
         var relationship = RE.Relationship({
-            source: RE.Util.tempEntity("recording"),
-            target: RE.Util.tempEntity("work"),
+            entity: [RE.Entity({type: "recording"}), RE.Entity({type: "work"})],
             action: "add",
             link_type: 278
-        }, false);
+        });
 
-        field = new Fields.Attributes(relationship);
+        relationship.show();
+
+        field = relationship.attrs;
 
         tests = [
             {
@@ -468,7 +423,7 @@ MB.tests.RelationshipEditor.Fields = function() {
             {
                 input: {cover: 1, instrumental: 0, live: 1},
                 expected: {partial: false, live: true, instrumental: false, cover: true}
-            },
+            }
         ];
 
         $.each(tests, function(i, test) {
@@ -477,23 +432,19 @@ MB.tests.RelationshipEditor.Fields = function() {
             QUnit.deepEqual(result, test.expected, JSON.stringify(test.input));
         });
 
-        // test Fields.Target
+        // test Fields.Entity
 
-        field = relationship.target;
+        field = relationship.entity[1];
         oldTarget = field.peek();
-        newTarget = RE.Util.tempEntity("work");
+        newTarget = RE.Entity({type: "work"});
 
-        QUnit.equal(oldTarget.refcount, 1, oldTarget.id + " refcount");
-        QUnit.equal(oldTarget.performanceRefcount, 1, oldTarget.id + " performanceRefcount");
-        QUnit.equal(newTarget.refcount, 0, newTarget.id + " refcount");
-        QUnit.equal(newTarget.performanceRefcount, 0, newTarget.id + " performanceRefcount");
+        QUnit.equal(oldTarget.performanceCount, 1, oldTarget.id + " performanceCount");
+        QUnit.equal(newTarget.performanceCount, 0, newTarget.id + " performanceCount");
 
         field(newTarget);
 
-        QUnit.equal(oldTarget.refcount, 0, oldTarget.id + " refcount");
-        QUnit.equal(oldTarget.performanceRefcount, 0, oldTarget.id + " performanceRefcount");
-        QUnit.equal(newTarget.refcount, 1, newTarget.id + " refcount");
-        QUnit.equal(newTarget.performanceRefcount, 1, newTarget.id + " performanceRefcount");
+        QUnit.equal(oldTarget.performanceCount, 0, oldTarget.id + " performanceCount");
+        QUnit.equal(newTarget.performanceCount, 1, newTarget.id + " performanceCount");
 
         // test Fields.PartialDate
 
@@ -518,15 +469,15 @@ MB.tests.RelationshipEditor.Relationship = function() {
     QUnit.test('Relationship', function() {
 
         var RE = MB.RelationshipEditor,
-            source = RE.Util.tempEntity("recording"),
-            target = RE.Util.tempEntity("artist");
+            source = RE.Entity({type: "recording"}), target = RE.Entity({type: "artist"});
 
         var relationship = RE.Relationship({
-            source: source,
-            target: target,
+            entity: [target, source],
             action: "add",
             link_type: 148
-        }, false);
+        });
+
+        relationship.show();
 
         // link phrase construction
 
@@ -554,9 +505,10 @@ MB.tests.RelationshipEditor.Relationship = function() {
 
         $.each(tests, function(i, test) {
             relationship.link_type(test.linkType);
-            relationship.backward(test.backward);
-            relationship.attributes(test.attrs);
-            var result = relationship.buildLinkPhrase();
+            relationship.attrs(test.attrs);
+
+            var result = relationship.linkPhrase(test.backward
+                ? relationship.entity[1]() : relationship.entity[0]());
 
             QUnit.equal(result, test.expected, [test.linkType, JSON.stringify(test.attrs)].join(", "));
         });
@@ -597,7 +549,8 @@ MB.tests.RelationshipEditor.Relationship = function() {
         ];
 
         $.each(tests, function(i, test) {
-            var a = relationship.begin_date(), b = relationship.end_date();
+            var a = relationship.period.begin_date(),
+                b = relationship.period.end_date();
 
             a.year(test.begin_date.year);
             a.month(test.begin_date.month);
@@ -607,7 +560,7 @@ MB.tests.RelationshipEditor.Relationship = function() {
             b.month(test.end_date.month);
             b.day(test.end_date.day);
 
-            relationship.ended(test.ended);
+            relationship.period.ended(test.ended);
             var result = relationship.renderDate();
 
             QUnit.equal(result, test.expected, [
@@ -619,39 +572,36 @@ MB.tests.RelationshipEditor.Relationship = function() {
 
         // test errors
 
-        // the target has an invalid gid to start with, so errorCount = 1
-        QUnit.equal(relationship.errorCount, 1, "relationship.errorCount");
-
-        // backward must be either true or false
-        relationship.backward("foo");
+        // the source/target have invalid gids to start with, so errorCount = 2
         QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
 
         // ended must be boolean
-        relationship.ended(null);
+        relationship.period.ended(null);
         QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
         // date must exist
-        relationship.begin_date("2001-01-32");
+        relationship.period.begin_date("2001-01-32");
         QUnit.equal(relationship.errorCount, 4, "relationship.errorCount");
 
-        relationship.begin_date("2001-01-31");
+        relationship.period.begin_date("2001-01-31");
         QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
         // end date must be after begin date
-        relationship.end_date("2000-01-31");
+        relationship.period.end_date("2000-01-31");
         QUnit.equal(relationship.errorCount, 4, "relationship.errorCount");
 
-        relationship.end_date("2002-01-31");
+        relationship.period.end_date("2002-01-31");
         QUnit.equal(relationship.errorCount, 3, "relationship.errorCount");
 
-        relationship.target().gid = "00000000-0000-0000-0000-000000000000";
-        relationship.target.notifySubscribers(relationship.target());
+        relationship.entity[0]().gid = "00000000-0000-0000-0000-000000000001";
+        relationship.entity[0].notifySubscribers(relationship.entity[0]());
         QUnit.equal(relationship.errorCount, 2, "relationship.errorCount");
 
-        relationship.backward(true);
+        relationship.entity[1]().gid = "00000000-0000-0000-0000-000000000002";
+        relationship.entity[1].notifySubscribers(relationship.entity[1]());
         QUnit.equal(relationship.errorCount, 1, "relationship.errorCount");
 
-        relationship.ended(true);
+        relationship.period.ended(true);
         QUnit.equal(relationship.errorCount, 0, "relationship.errorCount");
     });
 };
@@ -663,84 +613,79 @@ MB.tests.RelationshipEditor.Entity = function() {
     QUnit.test('Entity', function() {
 
         var RE = MB.RelationshipEditor,
-            entity = RE.Util.tempEntity("artist");
+            source = RE.Entity({type: "recording", name: "a recording"}),
+            target = RE.Entity({type: "artist", name: "foo", sortname: "bar"});
 
         QUnit.equal(
-            entity.rendering(),
-            _.sprintf('<a href="/artist/%s" target="_blank" />', entity.gid),
+            source.rendering,
+            _.sprintf('<a href="/recording/%s" target="_blank">a recording</a>', source.gid),
+            "recording link"
+        );
+
+        QUnit.equal(
+            target.rendering,
+            _.sprintf('<a href="/artist/%s" target="_blank" title="bar">foo</a>', target.gid),
             "artist link"
         );
 
-        entity.sortname("foo");
-
-        QUnit.equal(
-            entity.rendering(),
-            _.sprintf('<a href="/artist/%s" target="_blank" title="foo" />', entity.gid),
-            "artist link w/ sortname"
-        );
-
-        QUnit.equal(RE.Entity.isInstance(entity), true, "entity isInstance");
+        QUnit.equal(RE.Entity.isInstance(source), true, "entity isInstance");
         QUnit.equal(RE.Entity.isInstance({}), false, "object isInstance");
 
         var relationship = RE.Relationship({
-            source: RE.Util.tempEntity("recording"),
-            target: entity,
+            entity: [target, source],
             action: "add",
             link_type: 148,
-            attributes: {instrument: [123, 277], guest: true},
-            begin_date: "2001",
-            end_date: ""
-        }, false);
+            attrs: {instrument: [123, 277], guest: true},
+            period: {begin_date: "2001", end_date: ""}
+        });
 
         var duplicateRelationship = RE.Relationship({
-            source: relationship.source,
-            target: entity,
+            entity: [target, source],
             action: "add",
             link_type: 148,
-            attributes: {instrument: [229], solo: true},
-            begin_date: "",
-            end_date: "2002"
-        }, false);
+            attrs: {instrument: [229], solo: true},
+            period: {begin_date: "", end_date: "2002"}
+        });
 
         relationship.show();
         duplicateRelationship.show();
 
-        relationship.source.mergeRelationship(duplicateRelationship);
+        source.mergeRelationship(duplicateRelationship);
 
         QUnit.deepEqual(
-            ko.toJS(relationship.attributes),
+            ko.toJS(relationship.attrs),
             {instrument: [229], additional: false, guest: true, solo: true},
             "attributes"
         );
 
         QUnit.deepEqual(
-            ko.toJS(relationship.begin_date),
+            ko.toJS(relationship.period.begin_date),
             {year: 2001, month: null, day: null},
             "begin date"
         );
 
         QUnit.deepEqual(
-            ko.toJS(relationship.end_date),
+            ko.toJS(relationship.period.end_date),
             {year: 2002, month: null, day: null},
             "end date"
         );
 
-        QUnit.equal(relationship.source.relationships.indexOf(duplicateRelationship), -1,
+        QUnit.equal(source.relationships.indexOf(duplicateRelationship), -1,
             "removed from source's relationships");
 
         QUnit.equal(duplicateRelationship.removed, true,
             "relationship.removed");
 
         var notDuplicateRelationship = RE.Relationship({
-            source: relationship.source,
-            target: entity,
+            entity: [target, source],
             action: "add",
             link_type: 148,
-            begin_date: "2003",
-            end_date: "2004"
-        }, false);
+            period: {begin_date: "2003", end_date: "2004"}
+        });
 
-        QUnit.equal(relationship.source.mergeRelationship(notDuplicateRelationship),
+        notDuplicateRelationship.show();
+
+        QUnit.equal(source.mergeRelationship(notDuplicateRelationship),
             false, "different dates -> not merged")
     });
 };
@@ -761,9 +706,36 @@ MB.tests.RelationshipEditor.RelationshipEditor = function() {
         var recording = recordings[0];
         QUnit.equal(recording.number, "A", "recording number");
         QUnit.equal(recording.position, 1, "recording position");
-        QUnit.equal(recording.name(), "Love Me Do", "recording name");
+        QUnit.equal(recording.name, "Love Me Do", "recording name");
         QUnit.equal(recording.id, 6393661, "recording id");
         QUnit.equal(recording.gid, "87ec065e-f139-41b9-b3b9-f746addf5b1e", "recording gid");
+
+        // test artist credit rendering
+        var ac = [
+            {
+                artist: {
+                    sortname: "Sheridan, Tony",
+                    name: "Tony Sheridan",
+                    id: 117906,
+                    gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
+                },
+                joinphrase: " & "
+            },
+            {
+                artist: {
+                    sortname: "Beatles, The",
+                    name: "The Beatles",
+                    id: 303,
+                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+                },
+                joinphrase: ""
+            }
+        ];
+
+        QUnit.equal(RE.UI.renderArtistCredit(ac),
+            '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" target="_blank" title="Sheridan, Tony">Tony Sheridan</a> & ' +
+            '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" target="_blank" title="Beatles, The">The Beatles</a>',
+            "artist credit rendering");
     });
 };
 
@@ -773,27 +745,91 @@ MB.tests.RelationshipEditor.Dialog = function() {
 
     QUnit.test('Dialog', function() {
 
-        var RE = MB.RelationshipEditor, UI = RE.UI, vm = RE.releaseViewModel,
-            recordings = vm.media()[0].recordings(), source = recordings[0],
-            target = RE.Util.tempEntity("artist");
+        var RE = MB.RelationshipEditor, UI = RE.UI, Util = RE.Util,
+            vm = RE.releaseViewModel,
+            recordings = vm.media()[0].recordings(),
+            source = recordings[0],
+            target = RE.Entity({type: "artist", gid: "00000000-0000-0000-0000-000000000003"});
+
+        UI.Dialog.resize = function() {};
+
+        var tests = [
+            {
+                entity: [RE.Entity({type: "recording"}), RE.Entity({type: "release"})],
+                backward: true,
+                source: function() {return this.entity[1];},
+                target: function() {return this.entity[0];}
+            },
+            {
+                entity: [RE.Entity({type: "recording"}), RE.Entity({type: "release"})],
+                backward: false,
+                source: function() {return this.entity[0];},
+                target: function() {return this.entity[1];}
+            }
+        ];
+
+        $.each(tests, function(i, test) {
+            UI.AddDialog.show({entity: test.entity, source: test.source()});
+
+            QUnit.equal(UI.Dialog.backward(), test.backward,
+                "entities should be backward: " + test.backward);
+
+            QUnit.equal(UI.Dialog.source, test.source(),
+                "source should be entity[" + (test.backward ? "1" : "0") + "]");
+
+            QUnit.equal(UI.Dialog.target, test.target(),
+                "target should be entity[" + (test.backward ? "0" : "1") + "]");
+
+            UI.AddDialog.hide();
+        });
 
         // AddDialog
 
-        target.gid = "00000000-0000-0000-0000-000000000000";
-        target.name("foo");
-
-        UI.AddDialog.show({source: source, target: target});
+        UI.AddDialog.show({entity: [target, source], source: source});
         var relationship = UI.Dialog.relationship();
         relationship.link_type(148);
-        relationship.attributes({instrument: [229]});
+        relationship.attrs({instrument: [229]});
         UI.AddDialog.accept();
 
         QUnit.equal(source.relationships()[0], relationship, "AddDialog");
 
+        // AddDialog - relationship between recordings on same release (MBS-5389)
+
+        UI.AddDialog.show({entity: [recordings[0], recordings[1]], source: recordings[1]});
+        relationship = UI.Dialog.relationship();
+        relationship.link_type(231);
+
+        QUnit.equal(UI.Dialog.sourceField(), relationship.entity[1], "AddDialog sourceField");
+        QUnit.equal(UI.Dialog.targetField(), relationship.entity[0], "AddDialog targetField");
+        QUnit.equal(UI.Dialog.source, recordings[1], "AddDialog source");
+        QUnit.equal(UI.Dialog.target, recordings[0], "AddDialog target");
+        QUnit.equal(UI.Dialog.backward(), true, "AddDialog: relationship is backward");
+
+        UI.Dialog.changeDirection();
+
+        QUnit.equal(UI.Dialog.sourceField(), relationship.entity[0], "AddDialog sourceField");
+        QUnit.equal(UI.Dialog.targetField(), relationship.entity[1], "AddDialog targetField");
+        // source and target should stay the same
+        QUnit.equal(UI.Dialog.source, recordings[1], "AddDialog source");
+        QUnit.equal(UI.Dialog.target, recordings[0], "AddDialog target");
+        QUnit.equal(UI.Dialog.backward(), false, "AddDialog: relationship is not backward");
+
+        UI.AddDialog.accept();
+
+        QUnit.equal(recordings[0].relationships()[1], relationship, "relationship added to recording 0");
+        QUnit.equal(recordings[1].relationships()[0], relationship, "relationship added to recording 1");
+
+        relationship.remove();
+
+        QUnit.equal(recordings[0].relationships()[1], undefined, "relationship removed from recording 0");
+        QUnit.equal(recordings[1].relationships()[0], undefined, "relationship removed from recording 1");
+
         // EditDialog
 
-        UI.EditDialog.show(relationship);
-        var dialogAttrs = UI.Dialog.attributes();
+        relationship = source.relationships()[0];
+
+        UI.EditDialog.show({relationship: relationship, source: source});
+        var dialogAttrs = UI.Dialog.attrs();
 
         var solo = _.find(dialogAttrs, function(attr) {
             return attr.data.name == "solo";
@@ -803,12 +839,12 @@ MB.tests.RelationshipEditor.Dialog = function() {
         UI.EditDialog.accept();
 
         QUnit.deepEqual(
-            ko.toJS(relationship.attributes),
+            ko.toJS(relationship.attrs),
             {instrument: [229], additional: false, guest: false, solo: true},
             "EditDialog"
         );
 
-        UI.EditDialog.show(relationship);
+        UI.EditDialog.show({relationship: relationship, source: source});
 
         var instrument = _.find(dialogAttrs, function(attr) {
             return attr.data.name == "instrument";
@@ -816,72 +852,55 @@ MB.tests.RelationshipEditor.Dialog = function() {
 
         instrument.value([229, 277]);
 
-        var newTarget = RE.Util.tempEntity("artist");
-        relationship.target(newTarget);
-        QUnit.equal(newTarget.refcount, 1, "newTarget refcount");
+        var newTarget = RE.Entity({type: "artist"});
+        UI.Dialog.targetField()(newTarget);
 
         // cancel should revert the change
         UI.EditDialog.hide();
 
-        QUnit.deepEqual(relationship.attributes().instrument(), [229], "attributes changed back");
-        QUnit.equal(relationship.target(), target, "target changed back");
-        QUnit.equal(newTarget.refcount, 0, "newTarget refcount");
+        QUnit.deepEqual(relationship.attrs().instrument(), [229], "attributes changed back");
+        QUnit.equal(relationship.entity[0](), target, "target changed back");
 
         // BatchRecordingRelationshipDialog
 
-        // XXX rewrite checkedRecordings so that batch tests work
-        UI.checkedRecordings = function() {return recordings};
+        UI.BatchRelationshipDialog.show(recordings);
 
-        UI.BatchRecordingRelationshipDialog.show();
-
-        newTarget = RE.Util.tempEntity("work");
-        newTarget.gid = "00000000-0000-0000-0000-000000000001";
-        newTarget.name("workfoo");
+        newTarget = RE.Entity({type: "artist", gid: "00000000-0000-0000-0000-000000000004"});
 
         relationship = UI.Dialog.relationship();
 
-        relationship.target(newTarget);
-        relationship.link_type(278);
-        relationship.attributes().live(true);
+        UI.Dialog.targetField()(newTarget);
+        relationship.link_type(154);
+        relationship.attrs().additional(true);
 
-        UI.BatchRecordingRelationshipDialog.accept();
+        UI.BatchRelationshipDialog.accept();
 
-        for (var i = 0; i <= 1; i++) {
-            var relationships = recordings[i].performanceRelationships();
-            QUnit.equal(relationships[0].target(), newTarget, "recording " + i + " target");
-            QUnit.deepEqual(
-                ko.toJS(relationships[0].attributes),
-                {live: true, partial: false, instrumental: false, cover: false},
-                "recording " + i + " attributes"
-            );
-        }
+        var attrs = {additional: true, instrument: []},
+            relationships = recordings[0].relationships();
+
+        QUnit.equal(relationships[1].entity[0](), newTarget, "recording 0 target");
+        QUnit.deepEqual(ko.toJS(relationships[1].attrs), attrs, "recording 0 attributes");
+
+        relationships = recordings[1].relationships();
+        QUnit.equal(relationships[0].entity[0](), newTarget, "recording 0 target");
+        QUnit.deepEqual(ko.toJS(relationships[0].attrs), attrs, "recording 0 attributes");
 
         // BatchWorkRelationshipDialog
 
-        var works = [newTarget];
-        UI.checkedWorks = function() {return works};
-
-        UI.BatchWorkRelationshipDialog.show();
-
-        newTarget = RE.Util.tempEntity("artist");
-        newTarget.gid = "00000000-0000-0000-0000-000000000002";
-        newTarget.name("writer");
+        var works = [RE.Entity({type: "work", gid: "00000000-0000-0000-0000-000000000005"})];
+        UI.BatchRelationshipDialog.show(works);
 
         relationship = UI.Dialog.relationship();
 
-        relationship.target(newTarget);
+        relationship.entity[0](newTarget);
         relationship.link_type(167);
-        relationship.attributes().additional(true);
+        relationship.attrs().additional(true);
 
-        UI.BatchWorkRelationshipDialog.accept();
+        UI.BatchRelationshipDialog.accept();
 
-        var relationships = works[0].relationships();
-        QUnit.equal(relationships[0].target(), newTarget, "work target");
-        QUnit.deepEqual(
-            ko.toJS(relationships[0].attributes),
-            {additional: true},
-            "work attributes"
-        );
+        relationships = works[0].relationships();
+        QUnit.equal(relationships[0].entity[0](), newTarget, "work target");
+        QUnit.deepEqual(ko.toJS(relationships[0].attrs), {additional: true}, "work attributes");
     });
 };
 

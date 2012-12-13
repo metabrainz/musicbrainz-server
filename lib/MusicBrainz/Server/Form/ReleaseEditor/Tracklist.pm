@@ -37,7 +37,7 @@ sub _build_medium_format_options
 
     my @options;
     push @options, $root->id, $indent . trim($root->$attr) if $root->id;
-    $indent .= '&nbsp;&nbsp;&nbsp;';
+    $indent .= '&#xa0;&#xa0;&#xa0;';
 
     foreach my $child ($root->all_children) {
         push @options, $self->_build_medium_format_options($child, $attr, $indent);

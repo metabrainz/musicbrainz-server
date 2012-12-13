@@ -40,7 +40,7 @@ has_field 'no_barcode'       => ( type => 'Checkbox'  ); # release doesn't have 
 
 # Additional information
 has_field 'annotation'       => ( type => 'TextArea'  );
-has_field 'comment'          => ( type => 'Text', maxlength => 255 );
+has_field 'comment'          => ( type => '+MusicBrainz::Server::Form::Field::Comment', maxlength => 255 );
 
 sub options_primary_type_id   { shift->_select_all('ReleaseGroupType') }
 sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }

@@ -25,6 +25,11 @@ test 'browse labels via release' => sub {
                     name => "rhythm zone",
                     "sort-name" => "rhythm zone",
                     country => "JP",
+                    "life-span" => {
+                        begin => JSON::null,
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
                     disambiguation => "",
                     "label-code" => JSON::null,
                 }]

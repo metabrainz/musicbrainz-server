@@ -5,6 +5,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
@@ -18,7 +19,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
-    $body{disambiguation} = $entity->comment;
+    $body{disambiguation} = $entity->comment // "";
 
     if ($toplevel)
     {

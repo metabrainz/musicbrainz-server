@@ -19,7 +19,7 @@
 
 MB.RelationshipEditor = (function(RE) {
 
-var Util = RE.Util = RE.Util || {}, originalFields = {};
+var Util = RE.Util = RE.Util || {};
 
 
 Util.init = function(typeInfo, attrInfo) {
@@ -35,11 +35,6 @@ Util.init = function(typeInfo, attrInfo) {
             if (info = findItem(typeInfo[key], linkType)) return info;
     });
 
-    Util.types = _.memoize(function(linkType) {
-        for (var key in typeInfo)
-            if (findItem(typeInfo[key], linkType)) return key;
-    });
-
     Util.typeInfoByEntities = function(types) {return typeInfo[types]};
 
     Util.attrRoot = function(name) {return attrInfo[name]};
@@ -50,59 +45,30 @@ Util.init = function(typeInfo, attrInfo) {
 
 
 Util.parseRelationships = function(source) {
-    var result = [];
-
-    if (source.relationships) $.each(source.relationships, function(target_type, rel_types) {
+    if (source.relationships) _.each(source.relationships, function(rel_types, target_type) {
         if (source.type == "work" && target_type == "recording") return;
         if (target_type == "url") return; // no url support yet
 
-        $.each(rel_types, function(rel_type, rels) {
-
+        _.each(rel_types, function(rels, rel_type) {
             for (var i = 0, obj; obj = rels[i]; i++) {
-                var target = obj.target;
-                result.push(parseRelationship(obj, source, target_type));
-                result.push.apply(result, Util.parseRelationships(target));
+
+                var target = obj.target, relationship, type, orig;
+                obj.attrs = obj.attributes;
+                delete obj.attributes;
+                delete obj.target;
+
+                obj.entity = [RE.Entity(source), RE.Entity(target, target_type)];
+                if (obj.direction == "backward") obj.entity.reverse();
+                obj.period = {begin_date: obj.begin_date, end_date: obj.end_date, ended: obj.ended};
+
+                relationship = RE.Relationship(obj);
+                if (!relationship.visible) relationship.show();
+
+                Util.parseRelationships(target);
             }
         });
     });
-    return result;
 };
-
-
-var parseRelationship = _.memoize(function(obj, source, target_type) {
-    var target, type = RE.Util.types(obj.link_type),
-        orig = originalFields[type] = originalFields[type] || {};
-
-    Util.attrsForLinkType(obj.link_type, function(attr) {
-        var name = attr.name;
-        obj.attributes[name] = Util.convertAttr(attr, obj.attributes[name]);
-    });
-
-    obj.begin_date = Util.parseDate(obj.begin_date || "");
-    obj.end_date = Util.parseDate(obj.end_date || "");
-    obj.ended = Boolean(obj.ended);
-    obj.backward = (obj.direction == "backward");
-
-    orig = orig[obj.id] = $.extend(true, {}, obj);
-    orig.target.type = target_type;
-    orig.target = RE.Entity(orig.target);
-    orig.attributes = ko.toJS(obj.attributes);
-
-    target = obj.target;
-    target.type = target_type;
-
-    if (target_type == "url") {
-        target.name = target.url;
-        delete target.url;
-    }
-    obj.source = RE.Entity(source);
-    obj.target = RE.Entity(target);
-
-    return RE.Relationship(obj, false, true);
-
-}, function(obj, source, target_type) {
-    return [source.type, target_type, obj.id].join("-");
-});
 
 
 var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
@@ -136,46 +102,6 @@ var MBIDRegex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
 
 Util.isMBID = function(str) {
     return MBIDRegex.test(str);
-};
-
-
-Util.tempEntity = function(type) {
-    var id = _.uniqueId("new-");
-    return RE.Entity({type: type, id: id, gid: id});
-};
-
-
-Util.convertAttr = function(root, value) {
-    if (root.children) {
-        if (!_.isArray(value)) value = [value];
-
-        return (_.chain(value)
-            .map(function(n) {return parseInt(n, 10)})
-            .compact().uniq().value()
-            .sort(function(a, b) {return a - b}));
-    } else {
-        return Boolean(_.isNumber(value) ? parseInt(value, 10) : value);
-    }
-};
-
-
-Util.attrsForLinkType = function(linkType, callback) {
-    var typeInfo = Util.typeInfo(linkType);
-    if (!typeInfo || !typeInfo.attrs) return {};
-
-    $.each(typeInfo.attrs, function(id, info) {
-        callback(Util.attrInfo(id));
-    });
-};
-
-
-Util.originalFields = function(relationship, field) {
-    var type = relationship.type.peek(), fields;
-
-    if (!(fields = originalFields[type])) return null;
-    if (!(fields = fields[relationship.id])) return null;
-
-    return field ? fields[field] : fields;
 };
 
 // Attempts to merge two dates, otherwise returns false if they conflict.

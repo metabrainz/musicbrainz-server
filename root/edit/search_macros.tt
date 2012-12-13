@@ -131,7 +131,7 @@
   </span>
 
   <span style="display:none" class="arg">
-    &ndash;
+    &#x2013;
     <input name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
 [% END %]
@@ -148,7 +148,7 @@
   </span>
 
   <span style="display:none" class="arg">
-    &ndash;
+    &#x2013;
     <input name="args.1" size="6" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
 [% END %]
@@ -165,7 +165,7 @@
   </span>
 
   <span style="display:none" class="arg">
-    &ndash;
+    &#x2013;
     <input name="args.1" size="8" value="[% html_escape(field_contents.argument(1)) %]" />
   </span>
 [% END %]
@@ -199,7 +199,7 @@
     <option value="[% child.id %]"
             [% 'selected="selected"' IF field_contents.find_argument(child.id) %]>
       [%- pad _ child.name -%]</option>
-    [% relationship_node(child, pad _ '&nbsp;&nbsp;', field_contents) %]
+    [% relationship_node(child, pad _ '&#xa0;&#xa0;', field_contents) %]
   [% END %]
 [% END %]
 

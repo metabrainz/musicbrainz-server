@@ -1,13 +1,15 @@
 # 
 # Translators:
+#   <email address hidden>, 2012.
 # Maurits Meulenbelt <email address hidden>, 2012.
 # Nikolai Prokoschenko <email address hidden>, 2011.
+#   <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:36+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-10-27 20:05+0000\n"
+"Last-Translator: nikki <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1256,10 +1258,10 @@ msgstr "Dit geeft het feit aan dat een platenmaatschappij (een deel van) de cata
 
 #: DB:link_type/description:3
 msgid ""
-"This indicates that a release was released in support of another release.​"
-"This allows a release to be linked to its supporting singles, EPs, and remix"
-" releases. A 'supporting release' is one which is released to increase sales"
-" of an album or to create publicity for an album."
+"This indicates that a release was released in support of another "
+"release.​This allows a release to be linked to its supporting singles, EPs, "
+"and remix releases. A 'supporting release' is one which is released to "
+"increase sales of an album or to create publicity for an album."
 msgstr "Dit geeft aan dat een uitgave is uitgebracht ter ondersteuning van een andere uitgave. Dit laat een uitgave gekoppeld worden aan ondersteunende singles, EP's en remix-uitgaves. Een „ondersteunende uitgave“ wordt uitgegeven om de verkoop van een album te ondersteunen of om publiciteit te genereren voor een album."
 
 #: DB:link_type/description:281
@@ -2715,7 +2717,7 @@ msgstr "sprak de stem in van"
 
 #: DB:link_type/short_link_phrase:53 DB:link_type/short_link_phrase:152
 msgid "performed {additional} chorus master on"
-msgstr "treed op als {additional:aanvullend} koordirigent op"
+msgstr "treedt op als {additional:aanvullend} koordirigent op"
 
 #: DB:link_type/short_link_phrase:44 DB:link_type/short_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument} on"
@@ -3099,7 +3101,7 @@ msgstr "arrangeerde {additional:aanvullende} {instrument} op"
 #: DB:link_type/short_link_phrase:294 DB:link_type/short_link_phrase:296
 #: DB:link_type/short_link_phrase:298
 msgid "{additional:additionally} arranged {vocal} vocal on"
-msgstr "arrangeerde {additional:aanvullende} {vocaal} op"
+msgstr "arrangeerde {additional:aanvullende} {vocal} op"
 
 #: DB:link_type/reverse_link_phrase:101
 msgid "{additional:additionally} catalogued"
@@ -3147,7 +3149,7 @@ msgstr "schreef {additional:aanvullend}"
 msgid ""
 "{additional:additionally} {assistant} {associate} programmed {instrument:% "
 "on}"
-msgstr "programmeerde {additional:aanvullend|additionally:aanvullend} {assitant:assisterend} {associate:geassocieerd} {instrument:% op}"
+msgstr "programmeerde {additional:aanvullend|additionally:aanvullend} {assistant:assisterend} {associate:geassocieerd} {instrument:% op}"
 
 #: DB:link_type/link_phrase:140 DB:link_type/link_phrase:31
 #: DB:link_type/short_link_phrase:140 DB:link_type/short_link_phrase:31
@@ -3162,21 +3164,21 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:42 DB:link_type/short_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
-msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associated:geassocieerd} {co:co} masterde"
+msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co} masterde"
 
 #: DB:link_type/link_phrase:143 DB:link_type/link_phrase:26
 #: DB:link_type/short_link_phrase:143 DB:link_type/short_link_phrase:26
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
-msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associated:geassocieerd} {co:co} mixte"
+msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co} mixte"
 
 #: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
 #: DB:link_type/short_link_phrase:36 DB:link_type/short_link_phrase:128
 msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded"
-msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associated:geassocieerd} {co:co} nam op"
+msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co} nam op"
 
 #: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
 msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded by"
-msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associated:geassocieerd} {co:co} opgenomen door"
+msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co} opgenomen door"
 
 #: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
 #: DB:link_type/short_link_phrase:29 DB:link_type/short_link_phrase:133
@@ -3196,7 +3198,7 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} "
 "{co:co-}{executive:executive }produced"
-msgstr "produceerde {additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associated:geassocieerd} {co:co-}{executive:bestuurlijk}"
+msgstr "produceerde {additional:aanvullend|additionally:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co-}{executive:bestuurlijk}"
 
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/short_link_phrase:51 DB:link_type/short_link_phrase:156
@@ -3210,26 +3212,26 @@ msgstr "arrangeerde {additional:aanvullend|additionally:aanvullend} {instrument:
 
 #: DB:link_type/reverse_link_phrase:69
 msgid "{additional:additionally} {instrument} sampled by"
-msgstr "{additional:aanvullend|additionally:aanvullend} {instrument:instrument} gesampled door"
+msgstr "{additional:aanvullend} {instrument:instrument} gesampled door"
 
 #: DB:link_type/short_link_phrase:57 DB:link_type/short_link_phrase:169
 msgid ""
 "{additional:additionally} {translated:translated|wrote} the libretto for"
-msgstr "{translated:vertaalde|schreef} {additional:aanvullend|additionally:aanvullend} het libretto van"
+msgstr "{translated:vertaalde|schreef} {additional:aanvullend} het libretto van"
 
 #: DB:link_type/short_link_phrase:56 DB:link_type/short_link_phrase:165
 msgid "{additional:additionally} {translated:translated|wrote} the lyrics for"
-msgstr "{translated:vertaalde|schreef} {additional:aanvullend|additionally:aanvullend} de tekst van"
+msgstr "{translated:vertaalde|schreef} {additional:aanvullend} de tekst van"
 
 #: DB:link_type/link_phrase:294 DB:link_type/link_phrase:296
 #: DB:link_type/link_phrase:298
 msgid "{additional:additionally} {vocal} vocal arranged"
-msgstr "arrangeerde {additional:aanvullende|additionally:aanvullende} {vocal:vokaal} vocalen voor"
+msgstr "arrangeerde {additional:aanvullende} {vocal:vokaal} vocalen voor"
 
 #: DB:link_type/reverse_link_phrase:293 DB:link_type/reverse_link_phrase:295
 #: DB:link_type/reverse_link_phrase:297
 msgid "{additional} arranger"
-msgstr "{aanvullend} arrangeur"
+msgstr "{additional:aanvullend} arrangeur"
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
@@ -3239,15 +3241,15 @@ msgstr "{additional:aanvullende} artistieke leiding op"
 #: DB:link_type/link_phrase:53 DB:link_type/link_phrase:152
 #: DB:link_type/reverse_link_phrase:53 DB:link_type/reverse_link_phrase:152
 msgid "{additional} chorus master"
-msgstr "{aanvullend} koordirigent"
+msgstr "{additional:aanvullend} koordirigent"
 
 #: DB:link_type/reverse_link_phrase:55 DB:link_type/reverse_link_phrase:168
 msgid "{additional} composer"
-msgstr "{aanvullende} componist"
+msgstr "{additional:aanvullende} componist"
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} conductor"
-msgstr "{aanvullende} dirigent"
+msgstr "{additional:aanvullende} dirigent"
 
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
 #: DB:link_type/reverse_link_phrase:63 DB:link_type/reverse_link_phrase:146
@@ -3257,43 +3259,43 @@ msgstr "{additional:aanvullende} creatieve leiding op"
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
-msgstr "{aanvullend} ontwerp/illustratie"
+msgstr "{additional:aanvullend} ontwerp/illustratie"
 
 #: DB:link_type/link_phrase:27 DB:link_type/link_phrase:125
 #: DB:link_type/reverse_link_phrase:27 DB:link_type/reverse_link_phrase:125
 msgid "{additional} graphic design"
-msgstr "{aanvullend} grafisch ontwerp"
+msgstr "{additional:aanvullend} grafisch ontwerp"
 
 #: DB:link_type/link_phrase:24 DB:link_type/link_phrase:131
 #: DB:link_type/reverse_link_phrase:24 DB:link_type/reverse_link_phrase:131
 msgid "{additional} liner notes"
-msgstr "{aanvullende} boektekst"
+msgstr "{additional:aanvullende} boektekst"
 
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
 msgid "{additional} orchestrator"
-msgstr "{aanvullend} orkestrator"
+msgstr "{additional:aanvullend} orkestrator"
 
 #: DB:link_type/link_phrase:123 DB:link_type/link_phrase:250
 #: DB:link_type/link_phrase:20 DB:link_type/reverse_link_phrase:123
 #: DB:link_type/reverse_link_phrase:250 DB:link_type/reverse_link_phrase:20
 msgid "{additional} photography"
-msgstr "{aanvullende} fotografie"
+msgstr "{additional:anvullende} fotografie"
 
 #: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
 msgid "{additional} remixer"
-msgstr "{aanvullende} remixer"
+msgstr "{additional:aanvullende} remixer"
 
 #: DB:link_type/link_phrase:231
 msgid "{additional} samples"
-msgstr "{aanvullende} samples"
+msgstr "{additional:aanvullende} samples"
 
 #: DB:link_type/reverse_link_phrase:54 DB:link_type/reverse_link_phrase:167
 msgid "{additional} writer"
-msgstr "{aanvullend} schrijver"
+msgstr "{additional:aanvullend} schrijver"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
-msgstr "{aanvullend} {assistent} {geassocieerd} {co:co-}geluidstechnicus"
+msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co-}geluidstechnicus"
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"
@@ -3302,11 +3304,11 @@ msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {
 #: DB:link_type/link_phrase:42 DB:link_type/link_phrase:136
 #: DB:link_type/reverse_link_phrase:42 DB:link_type/reverse_link_phrase:136
 msgid "{additional} {assistant} {associate} {co:co-}mastering"
-msgstr "{aanvullend} {assistent} {geassocieerd} {co:co-}mastering"
+msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co-}mastering"
 
 #: DB:link_type/reverse_link_phrase:143 DB:link_type/reverse_link_phrase:26
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
-msgstr "{aanvullend} {assistent} {geassocieerd} {co:co-}mixer"
+msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co-}mixer"
 
 #: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
@@ -3320,7 +3322,7 @@ msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {
 #: DB:link_type/reverse_link_phrase:30 DB:link_type/reverse_link_phrase:141
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
-msgstr "{aanvullend} {assistent} {geassocieerd} {co:co-}{executive:uitvoerend} producent"
+msgstr "{additional:aanvullend} {assistant:assistent} {associate:geassocieerd} {co:co-}{executive:uitvoerend} producent"
 
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
 #: DB:link_type/reverse_link_phrase:37 DB:link_type/reverse_link_phrase:132
@@ -3329,11 +3331,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:103
 msgid "{additional} {founder:founding} member of"
-msgstr "{aanvullend} {founder:oprichtend} lid van"
+msgstr "{additional:aanvullend} {founder:oprichtend} lid van"
 
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {founder:founding} members"
-msgstr "{aanvullende} {founder:oprichtende} leden"
+msgstr "{additional:aanvullende} {founder:oprichtende} leden"
 
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
@@ -3347,12 +3349,12 @@ msgstr "{additional:aanvullend} {guest:gast} {solo:solo} {instrument:instrument}
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal} vocals"
-msgstr "{aanvullende} {gast} {solo} {vocal} vocalen"
+msgstr "{additional:aanvullende} {guest:gast} {solo} {vocal} vocalen"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
 msgid "{additional} {instrument} arranger"
-msgstr "{aanvullend} {instrument} arrangeur"
+msgstr "{additional:aanvullend} {instrument} arrangeur"
 
 #: DB:link_type/link_phrase:39 DB:link_type/link_phrase:166
 #: DB:link_type/link_phrase:299 DB:link_type/reverse_link_phrase:39
@@ -3375,24 +3377,24 @@ msgstr "{additional:aanvullende} {minor:secundaire} samenwerkers"
 #: DB:link_type/link_phrase:45 DB:link_type/link_phrase:150
 #: DB:link_type/reverse_link_phrase:45 DB:link_type/reverse_link_phrase:150
 msgid "{additional} {orchestra} orchestra"
-msgstr "{aanvullend} {orchestra}orkest"
+msgstr "{additional:aanvullend} {orchestra}orkest"
 
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} {translated:libretto translation|librettist}"
-msgstr "{aanvullende} {translated:librettovertaling|librettist}"
+msgstr "{additional:aanvullende} {translated:librettovertaling|librettist}"
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} {translated:translator|lyricist}"
-msgstr "{aanvullende} {translated:vertaler|tekstschrijver}"
+msgstr "{additional:aanvullende} {translated:vertaler|tekstschrijver}"
 
 #: DB:link_type/link_phrase:169
 msgid "{additional} {translated} libretto"
-msgstr "{aanvullend} {vertaalde} libretto"
+msgstr "{additional:aanvullend} {translated:vertaalde} libretto"
 
 #: DB:link_type/link_phrase:56 DB:link_type/link_phrase:165
 msgid "{additional} {translated} lyrics"
-msgstr "{aanvullend} {vertaalde} liedtekst"
+msgstr "{additional:aanvullend} {translated:vertaalde} liedtekst"
 
 #: DB:link_type/reverse_link_phrase:294 DB:link_type/reverse_link_phrase:296
 #: DB:link_type/reverse_link_phrase:298
@@ -3421,23 +3423,23 @@ msgstr "{orchestra:orkesest} voerde {additional:aanvullend} uit"
 
 #: DB:link_type/link_phrase:278
 msgid "{partial} {live} {instrumental} {cover} recording of"
-msgstr "{gedeeltelijke} {live} {instrumentale} {cover} opname van"
+msgstr "{partial:gedeeltelijke} {live} {instrumental:instrumentale} {cover} opname van"
 
 #: DB:link_type/reverse_link_phrase:278
 msgid "{partial} {live} {instrumental} {cover} recordings"
-msgstr "{gedeeltelijke} {live} {instrumentale} {cover} opname"
+msgstr "{partial:gedeeltelijke} {live} {instrumental:instrumentale} {cover} opname"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
-msgstr "{vertaalde} {parodie:parody|cover} "
+msgstr "{translated:vertaalde} {parody:parodie|cover} "
 
 #: DB:link_type/link_phrase:15
 msgid "{translated} {parody:parody|cover} of"
-msgstr "{vertaalde} {parodie:parody|cover} van"
+msgstr "{translated:vertaalde} {parody:parodie|cover} van"
 
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
-msgstr "{vertaalde} {parodie}-versie van"
+msgstr "{translated:vertaalde} {parody:parodie}-versie van"
 
 #: DB:link_type/short_link_phrase:85 DB:link_type/short_link_phrase:268
 msgid "{video} can be streamed for free at"

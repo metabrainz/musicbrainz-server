@@ -16,7 +16,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     my ($self, $c, $user_name) = @_;
     
     $c->detach('/error_403')
-        unless $c->user->is_admin or DBDefs::DB_STAGING_TESTING_FEATURES;
+        unless $c->user->is_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
 
     my $user = $c->model('Editor')->get_by_name($user_name);
     my $form = $c->form(
