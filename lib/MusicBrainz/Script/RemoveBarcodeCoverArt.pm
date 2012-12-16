@@ -25,20 +25,20 @@ sub find_releases
 
     my @url_types = $self->handled_types;
 
+    # Find all releases that have a cover art url and barcode, but no
+    # URL relationship that would explain the cover art url.
     my $query = '
         SELECT DISTINCT ON (release.id)
             release.id AS r_id
         FROM release
-        LEFT JOIN release_coverart ON release.id = release_coverart.id
+        JOIN release_coverart ON release.id = release_coverart.id
         LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
         LEFT JOIN link ON ( link.id = l.link )
         LEFT JOIN link_type ON (
           link_type.id = link.link_type AND
           link_type.name IN (' . placeholders(@url_types) . ')
         )
-        LEFT JOIN url ON ( url.id = l.entity1 )
         WHERE link_type.name IS NULL AND release.barcode IS NOT NULL
-        AND release_coverart.cover_art_url IS NOT NULL
         ORDER BY release.id';
 
     return query_to_list($self->c->sql, sub {
