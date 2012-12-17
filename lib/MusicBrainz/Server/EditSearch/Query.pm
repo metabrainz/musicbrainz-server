@@ -15,6 +15,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
 use MusicBrainz::Server::EditSearch::Predicate::ArtistCountry;
 use MusicBrainz::Server::EditSearch::Predicate::LabelCountry;
+use MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry;
 use MusicBrainz::Server::EditSearch::Predicate::RelationshipType;
 use MusicBrainz::Server::Log 'log_warning';
 use String::CamelCase qw( camelize );
@@ -35,6 +36,7 @@ my %field_map = (
     release_quality => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality',
     artist_country => 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry',
     label_country => 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry',
+    release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
 
     map {
