@@ -158,7 +158,8 @@ test 'release lookup with artists + aliases' => sub {
                             { "sort-name" => "mflo", name => "mflo" },
                             { "sort-name" => "えむふろう", name => "えむふろう" },
                             { "sort-name" => "エムフロウ", name => "エムフロウ" },
-                            ]
+                            ],
+                        ipis => [],
                     }
                 }],
             date => "2004-03-17",
@@ -195,6 +196,7 @@ test 'release lookup with labels and recordings' => sub {
                         "sort-name" => "rhythm zone",
                         disambiguation => "",
                         "label-code" => JSON::null,
+                        ipis => [],
                     }
                 }],
             media => [
@@ -267,6 +269,7 @@ test 'release lookup with release-groups' => sub {
                       name => "m-flo",
                       "sort-name" => "m-flo",
                       disambiguation => "",
+                      ipis => [],
                    },
                    joinphrase => '',
                 }
@@ -286,6 +289,7 @@ test 'release lookup with release-groups' => sub {
                           name => "m-flo",
                           "sort-name" => "m-flo",
                           disambiguation => "",
+                          ipis => [],
                        },
                        joinphrase => "",
                     }
