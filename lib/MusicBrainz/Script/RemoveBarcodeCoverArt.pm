@@ -25,8 +25,8 @@ sub find_releases
 
     my @url_types = $self->handled_types;
 
-    # Find all releases that have a cover art url and barcode, but no
-    # URL relationship that would explain the cover art url.
+    # Find all releases that have a cover art URL but no URL relationship
+    # that would explain it.
     my $query = '
         SELECT DISTINCT ON (release.id)
             release.id AS r_id
@@ -38,7 +38,7 @@ sub find_releases
           link_type.id = link.link_type AND
           link_type.name IN (' . placeholders(@url_types) . ')
         )
-        WHERE link_type.name IS NULL AND release.barcode IS NOT NULL
+        WHERE link_type.name IS NULL
         ORDER BY release.id';
 
     return query_to_list($self->c->sql, sub {
