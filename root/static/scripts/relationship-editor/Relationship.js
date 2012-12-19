@@ -191,12 +191,13 @@ Relationship.prototype.linkPhrase = function(source) {
     _.each(this.attrs(), function(observable, name) {
         var value = observable();
 
-        if (_.isArray(value) && value.length) {
-            value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
+        if (_.isArray(value)) {
+            if (value.length) {
+                value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
 
-            var list = value.slice(0, -1).join(", ");
-            attrs[name] = (list && list + " & ") + (value.pop() || "");
-
+                var list = value.slice(0, -1).join(", ");
+                attrs[name] = (list && list + " & ") + (value.pop() || "");
+            }
         } else if (value) attrs[name] = Util.attrRoot(name).l_name;
     });
 
