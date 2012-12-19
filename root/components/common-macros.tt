@@ -432,7 +432,7 @@ END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
     SET args = { uri => c.req.query_params.uri || redirect || c.relative_uri };
-    IF secure;
+    IF c.req.secure;
        args.secure = 1;
     END;
     c.uri_for_action('/user/login', args);

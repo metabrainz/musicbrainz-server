@@ -156,10 +156,8 @@ sub begin : Private
 
     return if exists $c->action->attributes->{Minimal};
 
-    my $secure = "https" eq $c->request->env->{HTTP_X_FORWARDED_PROTO} // "";
-
     if (DBDefs->REQUIRE_SSL_ENABLED &&
-        exists $c->action->attributes->{RequireSSL} && !$secure)
+        exists $c->action->attributes->{RequireSSL} && !$c->req->secure)
     {
         $c->response->redirect(
             "https://".DBDefs->WEB_SERVER_SSL.$c->request->env->{REQUEST_URI});
@@ -174,7 +172,6 @@ sub begin : Private
     $c->response->cookies->{javascript} = { value => ($js eq "unknown" ? "false" : $js) };
 
     $c->stash(
-        secure => $secure,
         javascript => $js,
         no_javascript => $js eq "false",
         wiki_server => DBDefs->WIKITRANS_SERVER,
