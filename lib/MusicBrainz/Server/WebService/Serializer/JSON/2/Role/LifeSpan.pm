@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan;
 use Moose::Role;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean partialdate );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean dateperiod );
 
 sub has_lifespan
 {
@@ -18,7 +18,7 @@ around serialize => sub {
 
     return $ret unless $toplevel;
 
-    $ret->{"life-span"} = partialdate ($entity);
+    $ret->{"life-span"} = dateperiod ($entity);
 
     return $ret;
 };

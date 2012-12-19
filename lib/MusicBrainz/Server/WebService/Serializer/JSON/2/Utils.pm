@@ -8,7 +8,7 @@ our @EXPORT_OK = qw(
     boolean
     list_of
     number
-    partialdate
+    dateperiod
     serializer
     serialize_entity
 );
@@ -35,7 +35,7 @@ sub number {
     return defined $value ? $value + 0 : JSON::null;
 }
 
-sub partialdate {
+sub dateperiod {
     my $entity = shift;
 
     my %lifespan = (
