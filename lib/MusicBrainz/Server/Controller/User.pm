@@ -71,7 +71,6 @@ sub do_login : Private
 
     my $form = $c->form(form => 'User::Login');
     my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
-    my $secure = $c->req->query_params->{secure} // 0;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
