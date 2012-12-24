@@ -1,21 +1,18 @@
-package MusicBrainz::Server::Edit::Role::CoverArt;
-use MooseX::Role::Parameterized;
+package MusicBrainz::Server::Entity::URL::Lieder;
 
-role
-{
-    requires qw( cover_art_id release_ids);
+use Moose;
 
-    method 'alter_edit_pending' => sub {
-        my $self = shift;
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-        return {
-            Release => [ $self->release_ids ],
-            Artwork => [ $self->cover_art_id ],
-        };
-    };
-};
+sub sidebar_name {
+    my $self = shift;
 
-no Moose::Role;
+    return "Lyrics at lieder.net";
+}
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
@@ -37,4 +34,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

@@ -25,18 +25,15 @@ sub index : Path Args(0)
         if (defined $wiki_pages[$i] && $pages[$i]->{id} eq $wiki_pages[$i]->{id}) {
             $pages[$i]->{wiki_version} = $wiki_pages[$i]->{wiki_version};
 
-            # We want to know if updates are required so
-            # that we can update the template accordingly.
+            # We want to know if updates are required so that we can update the template accordingly.
             $updates_required = 1 if $pages[$i]->{version} != $pages[$i]->{wiki_version};
         } else {
-            # Should not reach here.
             if ($wiki_pages[$i]->{id}) {
-                # If we reached here there was a sorting problem.
+                # API returned data, but in a different order than expected
                 $c->log->error("'$pages[$i]->{id}' from the transclusion table doesn't match '$wiki_pages[$i]->{id}' from the wiki");
             } else {
-                # If we reached here there was a problem accessing the api data.
-                # Enable updates_required to let the user know there was a problem.
-                $updates_required = 1;
+                # Problem accessing the api data
+                $c->stash->{wiki_unreachable} = 1;
             }
         }
     }

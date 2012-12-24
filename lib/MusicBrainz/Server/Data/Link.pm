@@ -111,6 +111,12 @@ sub find
     push @conditions, "link_type = ?";
     push @args, $values->{link_type_id};
 
+    # end_date_implies_ended
+    $values->{ended} = 1 if defined $values->{end_date} &&
+        ($values->{end_date}->{year} ||
+         $values->{end_date}->{month} ||
+         $values->{end_date}->{day});
+
     push @conditions, "ended = ?";
     push @args, $values->{ended};
 

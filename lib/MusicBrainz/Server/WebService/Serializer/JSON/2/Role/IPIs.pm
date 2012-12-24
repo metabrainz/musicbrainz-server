@@ -1,18 +1,15 @@
-package MusicBrainz::Server::Edit::Role::CoverArt;
-use MooseX::Role::Parameterized;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs;
+use Moose::Role;
+use List::UtilsBy qw( sort_by );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean list_of );
 
-role
-{
-    requires qw( cover_art_id release_ids);
+around serialize => sub {
+    my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
+    my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    method 'alter_edit_pending' => sub {
-        my $self = shift;
+    $ret->{ipis} = [ map { $_->ipi } $entity->all_ipi_codes ];
 
-        return {
-            Release => [ $self->release_ids ],
-            Artwork => [ $self->cover_art_id ],
-        };
-    };
+    return $ret;
 };
 
 no Moose::Role;
