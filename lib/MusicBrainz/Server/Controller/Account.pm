@@ -393,7 +393,7 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves
+sub register : Path('/register') ForbiddenOnSlaves RequireSSL
 {
     my ($self, $c) = @_;
 

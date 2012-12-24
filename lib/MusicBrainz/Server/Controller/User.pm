@@ -88,9 +88,6 @@ sub do_login : Private
                 $self->_set_login_cookie($c);
             }
 
-            # Redirect back to non-ssl site unless the user started on https://.
-            $redirect = 'http://'.DBDefs->WEB_SERVER.$redirect unless $secure;
-
             # Logged in OK
             $c->response->redirect($redirect);
             $c->detach;

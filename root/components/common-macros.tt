@@ -435,7 +435,7 @@ END -%]
     IF c.req.secure;
        args.secure = 1;
     END;
-    c.uri_for_action('/user/login', args);
+    html_escape (c.uri_for_action('/user/login', args));
 END-%]
 
 [%- MACRO simple_link(url, text) BLOCK %]
