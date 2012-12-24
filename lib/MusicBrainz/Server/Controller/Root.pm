@@ -172,6 +172,7 @@ sub _ssl_redirect
         $c->response->cookies->{return_to_http} = { value => 1, expires => '-1m' };
         $c->response->redirect(
             "http://".DBDefs->WEB_SERVER.$c->request->env->{REQUEST_URI});
+        return 1;
     }
 
     return 0;
