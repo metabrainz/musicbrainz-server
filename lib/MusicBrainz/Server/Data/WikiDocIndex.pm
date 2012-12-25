@@ -165,8 +165,17 @@ sub get_wiki_versions
             KeyAttr => { page => 'title', r => 'from', n => 'to'},
             GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' }
         );
+
         my $pages = $xml->{query}->{pages};
         my $normalized = $xml->{query}->{normalized};
+
+        if (defined $pages->{title})
+        {
+            my $newpages = { };
+            $newpages->{ $pages->{title} } = $pages;
+
+            $pages = $newpages;
+        }
 
         foreach my $title (keys %$pages) {
             my $info->{wiki_version} = $pages->{$title}->{lastrevid};
