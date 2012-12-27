@@ -31,6 +31,7 @@ test 'browse artists via release group' => sub {
                         ended => JSON::false,
                     },
                     type => "Person",
+                    ipis => [],
                 }]
         });
 };
@@ -64,7 +65,8 @@ test 'browse artists via recording' => sub {
                         { "sort-name" => "mflo", name => "mflo" },
                         { "sort-name" => "えむふろう", name => "えむふろう" },
                         { "sort-name" => "エムフロウ", name => "エムフロウ" },
-                        ]
+                        ],
+                    ipis => [],
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -85,6 +87,7 @@ test 'browse artists via recording' => sub {
                         { name => "ボア", "sort-name" => "ボア" },
                         { name => "보아", "sort-name" => "보아" },
                         ],
+                    ipis => [],
                 }]
         });
 };
@@ -113,6 +116,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     type => "Group",
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
+                    ipis => [],
                 },
                 {
                     id => "97fa3f6e-557c-4227-bc0e-95a7f9f3285d",
@@ -128,6 +132,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     type => JSON::null,
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
+                    ipis => [],
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -150,7 +155,8 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'k-pop' },
                         { count => 1, name => 'kpop' },
                         { count => 1, name => 'pop' },
-                        ]
+                        ],
+                    ipis => [],
                 }]
         });
 };

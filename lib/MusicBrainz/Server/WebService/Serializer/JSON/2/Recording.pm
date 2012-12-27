@@ -18,12 +18,13 @@ sub serialize
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{length} = $entity->length // JSON::null;
+
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if ($entity->artist_credit &&
             ($toplevel || ($inc && $inc->artist_credits)));
 
     $body{releases} = list_of ($entity, $inc, $stash, "releases")
-        if ($inc && $inc->releases);
+        if ($toplevel && $inc && $inc->releases);
 
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
 
