@@ -18,6 +18,7 @@ with 'MusicBrainz::Server::Edit::Role::CoverArt';
 sub edit_name { N_l('Remove cover art') }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
+sub cover_art_id { shift->data->{cover_art_id} }
 
 has '+data' => (
     isa => Dict[

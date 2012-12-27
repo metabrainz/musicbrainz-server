@@ -30,7 +30,7 @@ ws_test 'basic work lookup',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
+  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>
@@ -53,7 +53,7 @@ ws_test 'work lookup via iswc',
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <work-list count="1">
-    <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
+    <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
       <title>サマーれげぇ!レインボー</title>
       <language>jpn</language>
       <iswc>T-000.000.002-0</iswc>
@@ -66,7 +66,7 @@ ws_test 'work lookup with recording relationships',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c">
+  <work id="3c37b9fa-a6c1-37d2-9e90-657a116d337c" type="Song">
     <title>サマーれげぇ!レインボー</title>
     <language>jpn</language>
     <iswc>T-000.000.002-0</iswc>

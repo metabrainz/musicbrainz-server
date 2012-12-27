@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-11-27 21:53+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-11-30 20:16+0000\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,11 +89,11 @@ msgstr "Artisti-tilaukset."
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
-msgstr ""
+msgstr "BBC:n dynaamiset artistisivut"
 
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr ""
+msgstr "BBC julkaisee MusicBrainzin dataan pohjautuvat dynaamiset artistisivut"
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
@@ -110,7 +110,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2003-07-25
 #: DB:statistics.statistic_event/title:2003-09-04
 msgid "Bug fixes"
-msgstr ""
+msgstr "Virhekorjauksia"
 
 #: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
@@ -272,19 +272,19 @@ msgstr "MetaBrainz hyväksyy kolme opiskelijaa Googlen Summer of Code-ohjelmaan.
 
 #: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
+msgstr "MetaBrainz palkkaa Oliver Charlesin"
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
-msgstr ""
+msgstr "MetaBrainz perustettiin"
 
 #: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
-msgstr ""
+msgstr "MetaBrainzin ensimmäinen asiakas"
 
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb comes MusicBrainz data user."
-msgstr ""
+msgstr "MetaWebistä tulee MusicBrainzin data-käyttäjä"
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
@@ -360,7 +360,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2003-10-19
 #: DB:statistics.statistic_event/title:2006-07-12
 msgid "Release editor"
-msgstr ""
+msgstr "Julkaisueditori"
 
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
@@ -529,7 +529,7 @@ msgstr "Artistien IPI-koodit"
 
 #: ../root/statistics/view_js.tt:158
 msgid "Artist Ratings"
-msgstr ""
+msgstr "Artistien arvostelut"
 
 #: ../root/statistics/view_js.tt:164
 msgid "Artist Ratings (raw)"
@@ -906,23 +906,23 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:51
 msgid "Count of all edits"
-msgstr ""
+msgstr "Kaikkien muokkausten määrä"
 
 #: ../root/statistics/view_js.tt:49
 msgid "Count of all labels"
-msgstr ""
+msgstr "Kaikkien levymerkkien määrä"
 
 #: ../root/statistics/view_js.tt:46
 msgid "Count of all mediums"
-msgstr ""
+msgstr "Kaikkien tallennemedioiden määrä"
 
 #: ../root/statistics/view_js.tt:44
 msgid "Count of all recordings"
-msgstr ""
+msgstr "Kaikkien äänitteiden määrä"
 
 #: ../root/statistics/view_js.tt:48
 msgid "Count of all release groups"
-msgstr ""
+msgstr "Kaikkien julkaisuryhmien määrä"
 
 #: ../root/statistics/view_js.tt:47
 msgid "Count of all releases"
@@ -1465,7 +1465,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:157
 msgid "Ratings"
-msgstr ""
+msgstr "Arvostelut"
 
 #: ../root/statistics/index.tt:73
 msgid "Ratings (raw / aggregated):"
@@ -1551,7 +1551,7 @@ msgstr "Julkaisun data laatu"
 
 #: ../root/statistics/view_js.tt:161
 msgid "Release Group Ratings"
-msgstr ""
+msgstr "Julkaisuryhmän arvostelut"
 
 #: ../root/statistics/view_js.tt:167
 msgid "Release Group Ratings (raw)"
@@ -1568,13 +1568,13 @@ msgstr "Julkaisuryhmät"
 #: ../root/statistics/view_js.tt:147
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Julkaisuryhmät joissa {n} julkaisu"
+msgstr[1] "Julkaisuryhmät joissa {n} julkaisua"
 
 #: ../root/statistics/index.tt:20 ../root/statistics/index.tt:390
 #: ../root/statistics/index.tt:406
 msgid "Release Groups:"
-msgstr ""
+msgstr "Julkaisuryhmät:"
 
 #: ../root/statistics/view_js.tt:32
 msgid "Release Languages"
@@ -1590,7 +1590,7 @@ msgstr "Julkaisumerkistöt"
 
 #: ../root/statistics/index.tt:217
 msgid "Release Status"
-msgstr ""
+msgstr "Julkaisun status"
 
 #: ../root/statistics/view_js.tt:175
 msgid "Release Tags (raw)"
@@ -1627,7 +1627,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:136
 msgid "Releases with Disc IDs"
-msgstr ""
+msgstr "Julkaisuja, joilla Disc ID"
 
 #: ../root/statistics/view_js.tt:97
 msgid "Releases with a no-format medium"
@@ -1641,11 +1641,11 @@ msgstr ""
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
 #: ../root/statistics/coverart.tt:125
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "Julkaisut, joilla kansitaidetta"
 
 #: ../root/statistics/view_js.tt:80
 msgid "Releases with no country set"
-msgstr ""
+msgstr "Julkaisut, joissa maata ei valittu"
 
 #: ../root/statistics/index.tt:321
 msgid "Releases with no disc IDs:"
@@ -1761,15 +1761,15 @@ msgstr "Tuntematon datan laatu:"
 
 #: ../root/statistics/formats.tt:5
 msgid "Unknown Format"
-msgstr ""
+msgstr "Tuntematon formaatti"
 
 #: ../root/statistics/view_js.tt:98
 msgid "Unknown Format (medium)"
-msgstr ""
+msgstr "Tuntematon formaatti (media)"
 
 #: ../root/statistics/view_js.tt:97
 msgid "Unknown Format (release)"
-msgstr ""
+msgstr "Tuntematon formaatti (julkaisu)"
 
 #: ../root/statistics/view_js.tt:92
 msgid "Unknown Language"
@@ -1801,11 +1801,11 @@ msgstr "Kumoon äänestetyt:"
 
 #: ../root/statistics/editors.tt:42 ../root/statistics/editors.tt:43
 msgid "Voter"
-msgstr ""
+msgstr "Äänestäjä"
 
 #: ../root/statistics/editors.tt:41
 msgid "Voters"
-msgstr ""
+msgstr "Äänestäjät"
 
 #: ../root/statistics/index.tt:617 ../root/statistics/view_js.tt:65
 msgid "Votes"
@@ -1813,7 +1813,7 @@ msgstr "Annetut äänet"
 
 #: ../root/statistics/editors.tt:42
 msgid "Votes in past week"
-msgstr ""
+msgstr "Ääntä viime viikolla"
 
 #: ../root/statistics/view_js.tt:66
 msgid "Votes per day"
@@ -1829,7 +1829,7 @@ msgstr "Äänet:"
 
 #: ../root/statistics/view_js.tt:162
 msgid "Work Ratings"
-msgstr ""
+msgstr "Teosten arvosanat"
 
 #: ../root/statistics/view_js.tt:168
 msgid "Work Ratings (raw)"
@@ -1869,7 +1869,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:526
 msgid "active last week:"
-msgstr ""
+msgstr "aktiivisia viime viikolla:"
 
 #: ../root/statistics/index.tt:210
 msgid "by a single artist:"

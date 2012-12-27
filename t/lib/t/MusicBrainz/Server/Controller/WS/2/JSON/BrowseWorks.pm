@@ -25,6 +25,7 @@ test 'browse works via artist (first page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "2734cd31-4bab-3bf6-a758-c5d94ad957bb",
@@ -32,6 +33,7 @@ test 'browse works via artist (first page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "294f16fe-e123-3634-a0f4-03953e111321",
@@ -39,6 +41,7 @@ test 'browse works via artist (first page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "37814c05-f7ff-308d-a339-21570bc56003",
@@ -46,6 +49,7 @@ test 'browse works via artist (first page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "3a62a9f7-1365-32aa-9da8-3e0ef1f2b0ca",
@@ -53,6 +57,7 @@ test 'browse works via artist (first page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 }]
         });
 };
@@ -74,6 +79,7 @@ test 'browse works via artist (second page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
@@ -81,6 +87,7 @@ test 'browse works via artist (second page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "93836f17-7646-374e-a679-455429162c20",
@@ -88,6 +95,7 @@ test 'browse works via artist (second page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "e67f54be-a68b-351d-9fbf-57468e61fd95",
@@ -95,6 +103,7 @@ test 'browse works via artist (second page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "f4f581d8-50e0-3886-bcd3-610187821bcd",
@@ -102,6 +111,7 @@ test 'browse works via artist (second page)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 }]
         });
 };
