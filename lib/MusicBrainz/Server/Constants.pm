@@ -48,6 +48,7 @@ our %EXPORT_TAGS = (
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
+        $BATCH_CAA_TEST_GID
         $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG
@@ -60,6 +61,8 @@ Readonly our $DARTIST_ID => 2;
 
 Readonly our $VARTIST_GID => '89ad4ac3-39f7-470e-963a-56509c546377';
 Readonly our $VARTIST_ID  => 1;
+
+Readonly our $BATCH_CAA_TEST_GID => 'c473cbc0-58f0-4895-a98a-295e13c6b838';
 
 Readonly our $EXPIRE_ACCEPT => 1;
 Readonly our $EXPIRE_REJECT => 2;

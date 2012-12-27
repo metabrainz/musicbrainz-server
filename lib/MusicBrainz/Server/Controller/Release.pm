@@ -19,7 +19,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::Constants qw( :edit_type $BATCH_CAA_TEST_GID );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -423,6 +423,13 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
+
+    if ($entity->gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
     my $id = $c->req->query_params->{id} or die "Need destination ID";
 
     my $bucket = 'mbid-' . $entity->gid;
@@ -447,6 +454,12 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
+
+    if ($entity->gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
 
     $c->model('Release')->load_meta($entity);
 
@@ -503,6 +516,12 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
+
+    if ($entity->gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
 
     $c->model('Release')->load_meta($entity);
 
@@ -696,6 +715,12 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
 
     my $entity = $c->stash->{entity};
 
+    if ($entity->gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
     my @artwork = @{
         $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
     } or $c->detach('/error_404');
@@ -741,6 +766,13 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
     my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
+
+    if ($release->gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
+
     my $artwork = first { $_->id == $id }
         @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
             or $c->detach('/error_404');

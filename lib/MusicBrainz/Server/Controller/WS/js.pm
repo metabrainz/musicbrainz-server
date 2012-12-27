@@ -8,6 +8,7 @@ use Encode qw( decode encode );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
+use MusicBrainz::Server::Constants qw( $BATCH_CAA_TEST_GID );
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
@@ -321,6 +322,12 @@ sub associations : Chained('root') PathPart Args(1) {
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
+
+    if ($gid ne $BATCH_CAA_TEST_GID)
+    {
+        $c->detach('/error_403');
+        return;
+    }
 
     my $id = $c->model('CoverArtArchive')->fresh_id;
     my $bucket = 'mbid-' . $gid;
