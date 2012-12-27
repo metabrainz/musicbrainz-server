@@ -42,9 +42,14 @@ test 'basic artist lookup' => sub {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
-            type => "Person",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
         });
 };
 
@@ -62,8 +67,13 @@ test 'basic artist lookup, inc=annotation' => sub {
             "sort-name" => "Distance",
             type => "Person",
             annotation => "this is an artist annotation",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
         });
 };
 
@@ -79,8 +89,12 @@ test 'basic artist lookup, inc=aliases' => sub {
             "sort-name" => "BoA",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false
+            },
             type => "Person",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             aliases => [
                 { name => "Beat of Angel", "sort-name" => "Beat of Angel" },
                 { name => "BoA Kwon", "sort-name" => "BoA Kwon" },
@@ -104,6 +118,11 @@ test 'basic artist lookup, inc=url-rels' => sub {
             "sort-name" => "Allgood, Paul",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             relations => [
                 {
@@ -148,6 +167,11 @@ test 'artist lookup with releases' => sub {
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Group",
             releases => [
                 {
@@ -192,6 +216,11 @@ test 'artist lookup with pseudo-releases' => sub {
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Group",
             releases => [
                 {
@@ -224,6 +253,11 @@ test 'artist lookup with releases and discids' => sub {
             "sort-name" => "Distance",
             country => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             releases => [
                 {
@@ -288,7 +322,11 @@ test 'artist lookup with recordings and artist credits' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             "recordings" => [
                 {
                     id => "0cf3008f-e246-428f-abc1-35f87d584d60",
@@ -363,7 +401,11 @@ test 'artist lookup with release groups' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             "release-groups" => [
                 {
                     id => "153f0a09-fead-3370-9b17-379ebd09446b",
@@ -390,7 +432,11 @@ test 'single artist release lookup' => sub {
             type => "Group",
             country => JSON::null,
             disambiguation => "",
-            "life-span" => { "begin" => "1998", "ended" => JSON::false },
+            "life-span" => {
+                begin => "1998",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             releases => [
                 {
                     id => "aff4a693-5970-4e2e-bd46-e2ee49c22de7",
@@ -419,9 +465,13 @@ test 'various artists release lookup' => sub {
             id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
             name => "BoA",
             "sort-name" => "BoA",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
             releases => [
                 {
@@ -451,15 +501,21 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             id => "472bc127-8861-45e8-bc9e-31e8dd32de7a",
             name => "Distance",
             "sort-name" => "Distance",
-            type => "Person",
-            disambiguation => "UK dubstep artist Greg Sanders",
             country => JSON::null,
+            disambiguation => "UK dubstep artist Greg Sanders",
+            "life-span" => {
+                begin => JSON::null,
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
             works => [
                 {
                     id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
                     title => "Asseswaving",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 }
             ]
         });
@@ -477,98 +533,117 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             "sort-name" => "BoA",
             country => JSON::null,
             disambiguation => "",
+            "life-span" => {
+                begin => "1986-11-05",
+                end => JSON::null,
+                ended => JSON::false,
+            },
             type => "Person",
-            "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
             works => [
                 {
                     id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
                     title => "Easy To Be Hard",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
                     title => "心の手紙",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
                     title => "DOUBLE",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
                     title => "the Love Bug",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
                     title => "SOME DAY ONE DAY )",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
                     title => "Milky Way 〜君の歌〜",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "511f5124-c0ae-3386-bb76-4b6521498a68",
                     title => "Milky Way-君の歌-",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
                     title => "Be the one",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
                     title => "Rock With You",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
                     title => "Midnight Parade",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "7981d409-8e76-33df-be27-ef625d81c501",
                     title => "Shine We Are!",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
                     title => "EXPECT",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
                     title => "Song With No Name～名前のない歌～",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
                     title => "OVER～across the time～",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 },
                 {
                     id => "f23ae726-0300-3830-b1ca-634f4362f78c",
                     title => "LOVE & HONESTY",
                     disambiguation => "",
                     iswcs => [],
+                    language => JSON::null,
                 }]
         });
 };

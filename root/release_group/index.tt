@@ -1,5 +1,8 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
+
+    [%- show_wikipedia_extract() -%]
+
     [%- IF releases.size -%]
       <h2>[% rg.l_type_name %]</h2>
       <form action="[% c.uri_for_action('/release/merge_queue') %]"

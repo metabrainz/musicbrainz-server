@@ -63,7 +63,7 @@ after 'load' => sub
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
     my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
@@ -766,9 +766,10 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    $c->stash(
-        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
-    );
+    my $artwork = $c->model ('Artwork')->find_by_release ($release);
+    $c->model ('CoverArtType')->load_for (@$artwork);
+
+    $c->stash(cover_art => $artwork);
 }
 
 sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {

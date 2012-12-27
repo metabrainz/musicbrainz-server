@@ -36,7 +36,7 @@ use Cwd qw( abs_path );
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 sub MB_SERVER_ROOT {
-    my @splitfilename = splitdir(abs_path('./' . __FILE__));
+    my @splitfilename = splitdir(abs_path(__FILE__));
     my @parentdir = @splitfilename[0..(scalar @splitfilename - 4)];
     return catdir(@parentdir);
 }

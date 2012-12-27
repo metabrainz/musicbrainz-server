@@ -10,7 +10,7 @@ my $ws_defs = Data::OptList::mkopt([
      cdstub => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      cdstub => {
          method => 'POST'

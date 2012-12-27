@@ -17,7 +17,7 @@ sub serialize
 
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
-    $body{length} = $entity->length if $entity->length;
+    $body{length} = $entity->length // JSON::null;
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if ($entity->artist_credit &&
             ($toplevel || ($inc && $inc->artist_credits)));
