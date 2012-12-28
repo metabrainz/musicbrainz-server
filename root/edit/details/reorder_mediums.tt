@@ -19,7 +19,11 @@
       [%- END -%]
     </th>
     <td>
-      Disc <span class="new">[% medium_edit.new %]</span>: [% medium_edit.title %]
+      [%- IF medium_edit.title -%]
+        [%- l('Disc <span class="new">{new}</span>: {title}'), new = medium_edit.new, title = medium_edit.title -%]
+      [%- ELSE -%]
+        [%- l('Disc <span class="new">{new}</span>'), new = medium_edit.new -%]
+      [%- END -%]
       [%- IF medium_edit.old == "new" -%]
         [%- l('(new disc)') -%]
       [%- ELSE -%]
