@@ -61,7 +61,7 @@ sub post_fields
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
-    $policy->add ({'success_action_redirect' => $redirect});
+    $policy->add ({'success_action_redirect' => $redirect}) if $redirect;
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with image/jpeg');
 
