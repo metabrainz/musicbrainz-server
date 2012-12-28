@@ -326,7 +326,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
     my $bucket = 'mbid-' . $gid;
 
     my $data = {
-        action => DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
         image_id => "$id",
         formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id)
     };
