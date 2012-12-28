@@ -93,7 +93,7 @@
 
     [%- IF images.size > 0 -%]
       <div class="row" id="cover-art-position-row">
-        <label id="cover-art-position-label" class="required">Position:</label>
+        <label id="cover-art-position-label" class="required">[%- l('Position:') -%]</label>
 
           <div class="image-position">
           [%- FOR image = images -%]
@@ -117,6 +117,11 @@
         </script>
       </div>
     [%- END -%]
+
+    <div class="row" id="cover-art-upload-status" style="display: none">
+        <label id="cover-art-position-label">[%- l('Status:') -%]</label>
+        <span id="cover-art-upload-log"></span>
+    </div>
 
     <div style="clear: left;"> </div>
 
