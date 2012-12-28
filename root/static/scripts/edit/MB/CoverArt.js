@@ -303,6 +303,11 @@ MB.CoverArt.add_cover_art = function (gid)
     $('#add-cover-art-submit').removeAttr('disabled');
     $('form.add-cover-art').show ();
 
+    $(document).on ('click', 'button.cancel-file', function (event) {
+        event.preventDefault ();
+        $(this).closest ('.file-box').remove ();
+    });
+
     if (typeof (FormData) === "function")
     {
         /* FormData is supported, so we can present the multifile ajax
