@@ -25,9 +25,9 @@
         [%- l('Disc <span class="new">{new}</span>'), new = medium_edit.new -%]
       [%- END -%]
       [%- IF medium_edit.old == "new" -%]
-        [%- l('(new disc)') -%]
+        [%- ' ' _ l('(new disc)') -%]
       [%- ELSE -%]
-        [%- l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) -%]
+        [%- ' ' _ l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) -%]
       [%- END -%]
     </td>
   </tr>
