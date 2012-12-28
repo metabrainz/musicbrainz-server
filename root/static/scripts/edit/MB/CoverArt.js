@@ -284,6 +284,9 @@ MB.CoverArt.add_cover_art_submit = function (gid) {
 
     var position = parseInt ($('#id-add-cover-art\\.position').val (), 10);
 
+    if (! $('.file-box').not('.template').length)
+        return; /* no files selected. */
+
     $('.file-box').not('.template').each (function (idx, elem) {
         queue.push (function () {
             return MB.CoverArt.upload_image ($(elem), gid, position++);
