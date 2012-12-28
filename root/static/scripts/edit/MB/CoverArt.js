@@ -23,6 +23,11 @@ MB.CoverArt = {};
 
 MB.CoverArt.lastCheck;
 
+MB.CoverArt.update_status = function (image, msg) {
+    console.log (image, "status:", msg);
+    $('#cover-art-upload-log').text (msg + " (" + image + ")");
+};
+
 MB.CoverArt.validate_cover_art_file = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
     var invalid = (filename == ""
@@ -188,6 +193,8 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
     var formdata = new FormData();
     formdata.append("file", $filebox.data ('file'));
 
+    MB.CoverArt.update_status ($filebox.data ('file').name, "Requesting image identifier");
+
     var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid);
     postfields.done (function (data, status, jqxhr) {
         $filebox.data('image-id', data.image_id);
@@ -207,6 +214,8 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
             if (xhr.status >= 200 && xhr.status < 210)
             {
                 set_progress ($filebox, 100);
+
+                MB.CoverArt.update_status ($filebox.data ('file').name, "Create edit");
 
                 var edit_promise = MB.CoverArt.create_edit ($filebox, gid, position);
                 edit_promise.done (deferred.resolve);
@@ -231,6 +240,8 @@ MB.CoverArt.upload_image = function ($filebox, gid, position) {
         });
 
         xhr.open ("POST", data.action);
+
+        MB.CoverArt.update_status ($filebox.data ('file').name, "Uploading image");
         xhr.send (formdata);
     });
 
@@ -286,6 +297,14 @@ MB.CoverArt.add_cover_art_submit = function (gid) {
 
     if (! $('.file-box').not('.template').length)
         return; /* no files selected. */
+
+    $('#cover-art-position-row').hide ();
+    $('div.cover-art-types.row').hide ();
+    $('div.cover-art-types-help.row').hide ();
+    $('div.comment.row').hide ();
+    $('div.file-info.row input.icon').hide ();
+    $('#cover-art-upload-status').show ();
+    $('html').animate({ scrollTop: 0 }, 500);
 
     $('.file-box').not('.template').each (function (idx, elem) {
         queue.push (function () {
