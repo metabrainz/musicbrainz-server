@@ -179,6 +179,10 @@
       [%- notice(l('Some tracks were changed, please select a recording for each of these tracks.')) -%]
     [%- END -%]
 
+    [%- IF tracklist_vanished -%]
+      [%- warning(l('A tracklist on this release has been recently changed by someone else, cannot load recordings.')) -%]
+    [%- END -%]
+
     [%- USE w = Wizard() -%]
     [%- information = w.page('information') -%]
     [%- multidisc = tracklist_edits.size > 1 -%]
