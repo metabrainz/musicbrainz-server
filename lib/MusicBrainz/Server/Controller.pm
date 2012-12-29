@@ -140,7 +140,7 @@ sub edit_action
                 %extra
             );
 
-            $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+            $opts{post_creation}->($edit, $form) if $edit && exists $opts{post_creation};
         });
 
         $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
