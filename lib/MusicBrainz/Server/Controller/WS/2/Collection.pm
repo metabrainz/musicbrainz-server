@@ -12,7 +12,7 @@ my $ws_defs = Data::OptList::mkopt([
      collection => {
                          method   => 'GET',
                          inc      => [ qw(releases tags) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      collection => {
          method => 'PUT',

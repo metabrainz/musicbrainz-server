@@ -103,9 +103,7 @@
 
                   <hr/>
 
-                  [% IF artist.edits_pending %]
-                    <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
-                  [% END %]
+                  <li>[% link_entity(artist, 'open_edits', l('Open edits')) %]</li>
                   <li>[% link_entity(artist, 'edits', l('Editing history')) %]</li>
                 [% END %]
             [% ELSE %]
