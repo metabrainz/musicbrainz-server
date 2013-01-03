@@ -2,13 +2,14 @@
 # Translators:
 # Gioele  <email address hidden>, 2012.
 #   <email address hidden>, 2012.
+# Luca Salini <email address hidden>, 2012.
 #   <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-11 20:36+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-12-11 19:40+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +45,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:245
 msgid "Chamber orchestra"
-msgstr ""
+msgstr "Orchestra da camera"
 
 #: DB:link_attribute_type/name:254
 msgid "Creative Commons"
@@ -1026,11 +1027,11 @@ msgstr "Pagina MusicMoz per"
 
 #: DB:link_type/link_phrase:189 DB:link_type/link_phrase:215
 msgid "Myspace"
-msgstr ""
+msgstr "Myspace"
 
 #: DB:link_type/reverse_link_phrase:189 DB:link_type/reverse_link_phrase:215
 msgid "Myspace page for"
-msgstr ""
+msgstr "Pagina Myspace per"
 
 #: DB:link_attribute_type/description:246
 msgid "Other orchestra"
@@ -1132,7 +1133,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:244
 msgid "Symphony orchestra"
-msgstr ""
+msgstr "Orchestra sinfonica"
 
 #: DB:link_type/description:38 DB:link_type/description:144
 msgid ""
@@ -1719,11 +1720,11 @@ msgstr "Pagina Wikipedia per"
 
 #: DB:link_type/reverse_link_phrase:225 DB:link_type/reverse_link_phrase:193
 msgid "YouTube channel for"
-msgstr ""
+msgstr "Canale YouTube per"
 
 #: DB:link_type/link_phrase:225 DB:link_type/link_phrase:193
 msgid "YouTube channels"
-msgstr ""
+msgstr "Canali YouTube"
 
 #: DB:link_attribute_type/description:253
 msgid "a license used to release music under"
@@ -2540,43 +2541,43 @@ msgstr ""
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
-msgstr ""
+msgstr "supporto"
 
 #: DB:link_attribute_type/name:570
 msgid "medium 1"
-msgstr ""
+msgstr "supporto 1"
 
 #: DB:link_attribute_type/name:569
 msgid "medium 2"
-msgstr ""
+msgstr "supporto 2"
 
 #: DB:link_attribute_type/name:571
 msgid "medium 3"
-msgstr ""
+msgstr "supporto 3"
 
 #: DB:link_attribute_type/name:577
 msgid "medium 4"
-msgstr ""
+msgstr "supporto 4"
 
 #: DB:link_attribute_type/name:576
 msgid "medium 5"
-msgstr ""
+msgstr "supporto 5"
 
 #: DB:link_attribute_type/name:575
 msgid "medium 6"
-msgstr ""
+msgstr "supporto 6"
 
 #: DB:link_attribute_type/name:574
 msgid "medium 7"
-msgstr ""
+msgstr "supporto 7"
 
 #: DB:link_attribute_type/name:573
 msgid "medium 8"
-msgstr ""
+msgstr "supporto 8"
 
 #: DB:link_attribute_type/name:572
 msgid "medium 9"
-msgstr ""
+msgstr "supporto 9"
 
 #: DB:link_type/link_phrase:239 DB:link_type/link_phrase:244
 msgid "medley of"
@@ -2588,11 +2589,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:198 DB:link_type/reverse_link_phrase:223
 msgid "microblog for"
-msgstr ""
+msgstr "microblog per"
 
 #: DB:link_type/link_phrase:198 DB:link_type/link_phrase:223
 msgid "microblogs"
-msgstr ""
+msgstr "microblog"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
@@ -2673,7 +2674,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:273
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
 msgid "other databases"
-msgstr ""
+msgstr "altri database"
 
 #: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
 #: DB:link_type/short_link_phrase:233
