@@ -41,6 +41,7 @@ use Plack::Response;
 use Log::Dispatch;
 
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
+my $imgext = 'jpg|png';
 
 sub catfile { return File::Spec->catfile (@_); }
 
@@ -49,7 +50,7 @@ sub thumb
     my ($filename, $max) = @_;
 
     my $newfile = $filename;
-    $newfile =~ s/.jpg$/_thumb$max.jpg/;
+    $newfile =~ s/.($imgext)$/_thumb$max.$1/;
 
     $log->info ("Generating ${max}x${max} thumbnail, $newfile\n");
 
@@ -103,7 +104,7 @@ sub handle_post
 
     move ($request->uploads->{file}->path, $dest);
 
-    if ($key =~ /.jpg$/)
+    if ($key =~ /.($imgext)$/)
     {
         thumb (catfile ($bucketdir, $key), 250);
         thumb (catfile ($bucketdir, $key), 500);

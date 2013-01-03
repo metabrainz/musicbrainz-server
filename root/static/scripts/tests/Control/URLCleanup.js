@@ -112,6 +112,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
                 [
+                    'work', 'http://www.recmusic.org/lieder/get_text.html?TextId=6448',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],

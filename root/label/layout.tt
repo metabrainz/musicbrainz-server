@@ -77,9 +77,7 @@
 
                 <hr/>
 
-                [% IF label.edits_pending %]
-                  <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
-                [% END %]
+                <li>[% link_entity(label, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(label, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
                 <li>[% request_login(l('Log in to edit')) %]</li>
