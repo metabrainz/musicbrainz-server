@@ -60,7 +60,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (155, 155, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (155, 0, 155, 155, NULL);
+    VALUES (155, 0, 155, 155, '');
 
 INSERT INTO release_name (id, name) VALUES (155, 'Release');
 INSERT INTO release_group (id, gid, name, artist_credit)

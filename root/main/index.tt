@@ -8,6 +8,8 @@
                 <li><a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a></li>
                 <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
                 <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
+                <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
+                <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
             </ul>
         </div>
 
@@ -36,7 +38,7 @@
           [% END %]
         </ul>
         <p style="margin: 1em 0; text-align: right;">
-          <strong><a href="http://blog.musicbrainz.org">[% l('Read more &raquo;') %]</a></strong>
+          <strong><a href="http://blog.musicbrainz.org">[% l('Read more »') %]</a></strong>
         </p>
         [% ELSE %]
         <p style="margin: 0; text-align: center">[% l('The blog is currently unavailable.') %]</p>
@@ -67,12 +69,12 @@
         </ol>
 
         <p>
-            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &mdash; including you &mdash; to {doc|participate and contribute}.',
+            [% l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.',
                 { doc => doc_link('How_To_Contribute') }) %]
         </p>
 
         <div class="linkbar">
-            [% l('{about|More Information} &mdash; {faq|FAQs} &mdash; {contact|Contact Us}',
+            [% l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}',
                 { about => doc_link('About'),
                   contact => doc_link('Contact_Us'),
                   faq => doc_link('Frequently_Asked_Questions') }) %]

@@ -1,54 +1,3 @@
-[%- BLOCK layout_head -%]
-<script type="text/javascript">//<![CDATA[
-  $('document').ready(function() {
-
-    var update_wiki_version = function ($row) {
-
-        var oldid = $.trim ($row.find ('.transcluded-version').text ());
-        var title = $.trim ($row.find ('.title').text ());
-        var $version = $row.find ('.wiki-version');
-
-        if (MB.utility.isNullOrEmpty (title) || MB.utility.isNullOrEmpty (oldid))
-        {
-            return;
-        }
-
-        $.getJSON ('/ws/js/wikidocversion?title=' + title, function (data) {
-            $version.empty ().removeClass ('error');
-
-            if (data.version === null)
-            {
-                $version.text ("Does not exist!").addClass ('error');
-            }
-            else if (parseInt (data.version) !== parseInt(oldid) ||
-                data.canonical !== title)
-            {
-                var linkname = data.canonical === title ? 'diff' : data.canonical;
-
-                var $a = $('<a>' + linkname + '</a>')
-                    .attr ('target', '_blank')
-                    .attr ('href', 'http://' + data.server + '/' + data.canonical +
-                           '?diff=' + data.version + '&oldid=' + oldid);
-
-                $version.text (data.version + ' (').append ($a).append (')');
-            }
-        });
-
-    };
-
-
-    $('#show-wiki-versions').bind ('click.mb', function () {
-
-        $('table.wiki-pages').find ('tr').each (function (idx, row) {
-            update_wiki_version ($(row));
-        });
-
-    });
-
-  });
-//]]></script>
-[%- END -%]
-
 [% WRAPPER "layout.tt" title=l('Transclusion Table') full_width=1 %]
     <div id="content">
         <h1>[% l('Transclusion Table') %]</h1>
@@ -57,59 +6,63 @@
                   { doc => doc_link('WikiDocs') }) %]
         </p>
 
-	[% IF c.user.is_wiki_transcluder %]
-		<ul>
-		    <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
-		    <li><a href="[% c.uri_for_action('/admin/wikidoc/history') %]">[% l('View transclusion history') %]</a></li>
-		</ul>
-	[% END %]
+        [% IF c.user.is_wiki_transcluder %]
+          <ul>
+              <li><a href="[% c.uri_for_action('/admin/wikidoc/create') %]">[% l('Add a new entry') %]</a></li>
+              <li><a href="[% c.uri_for_action('/admin/wikidoc/history') %]">[% l('View transclusion history') %]</a></li>
+          </ul>
 
-        <p>
-            [% l('<strong>Note:</strong> MediaWiki does not check to see if the version
-                  number matches the page name, it will take the version number and provide
-                  whatever page is associated with it. Make sure to double check your work
-                  when updating a page!') %]
-        </p>
+          <p>
+              [% l('<strong>Note:</strong> MediaWiki does not check to see if the version
+                    number matches the page name, it will take the version number and provide
+                    whatever page is associated with it. Make sure to double check your work
+                    when updating a page!') %]
+          </p>
+        [% END %]
 
-        <p>
-            <span class="buttons" style="float: right;">
-               <button id="show-wiki-versions">[% l('Get wiki versions') %]</button>
-            </span>
-            [% l('Use this button to fetch page versions from the wiki.') %]
-        </p>
+        [% IF wiki_unreachable %]
+          <p style="font-weight: bold; color: red;">
+            [% l('There was a problem accessing the wiki API.') %]
+          </p>
+        [% END %]
 
         <table class="tbl wiki-pages">
             <thead>
                 <tr>
                     <th>[% l('Page name') %]</th>
                     <th class="c">[% l('Transcluded version') %]</th>
-                    [% IF updates_required %]
-                        <th class="c">[% l('Wiki version') %]</th>
-                    [% END %]
+                      <th class="c">[% l('Wiki version') %]</th>
                     [% IF c.user.is_wiki_transcluder %]
-			<th class="c">[% l('Actions') %]</th>
-		    [% END %]
+                      <th class="c">[% l('Actions') %]</th>
+                    [% END %]
                 </tr>
             </thead>
             <tbody>
                 [% FOR page IN pages %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                        <td class="title"><a href="[% c.uri_for_action('/doc/show', page.id) %]">[% page.id | html %]</a></td>
-                        <td class="c transcluded-version"[% ' style="text-align:right"' IF updates_required %]>
+                        <td class="title"><a href="[% doc_link(page.id) %]">[% page.id | html %]</a></td>
+                        <td class="c transcluded-version"[% ' style="text-align:right"' IF updates_required && c.user.is_wiki_transcluder %]>
                             [% page.version %]
                         </td>
-                        [% IF updates_required %]
-                            <td><span class="wiki-version">?</span></td>
-                        [% END %]
+                        <td>
+                          [% IF page.wiki_version != page.version %]
+                            <span style="color: red;" class="wiki-version">
+                              [%~ page.wiki_version || l('Error!') ~%]
+                            </span>
+                            [% IF page.wiki_version && (page.wiki_version != page.version) %]
+                              (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
+                            [% END %]
+                          [% END %]
+                        </td>
 
                         [% IF c.user.is_wiki_transcluder %]
-                        <td class="c nowrap">
-                            [
-                            <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
-                            <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
-                            <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
-                            ]
-                        </td>
+                          <td class="c nowrap">
+                              [
+                              <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                              <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
+                              <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
+                              ]
+                          </td>
                         [% END %]
                     </tr>
                 [% END %]

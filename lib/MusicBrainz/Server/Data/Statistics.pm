@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 sub _id_cache_prefix { 'stats' }
 
-sub _table { 'statistic' }
+sub _table { 'statistics.statistic' }
 
 sub all_events {
     my ($self) = @_;
@@ -28,7 +28,7 @@ sub all_events {
         query_to_list(
             $self->sql,
             sub { shift },
-            'SELECT * FROM statistic_event ORDER BY date ASC',
+            'SELECT * FROM statistics.statistic_event ORDER BY date ASC',
         )
     ];
 }
@@ -1631,8 +1631,8 @@ sub recalculate {
         or warn("Unknown statistic '$statistic'"), return;
 
     return if $definition->{PREREQ_ONLY};
-    return if $definition->{NONREPLICATED} && &DBDefs::REPLICATION_TYPE == RT_SLAVE;
-    return if $definition->{PRIVATE} && &DBDefs::REPLICATION_TYPE != RT_MASTER;
+    return if $definition->{NONREPLICATED} && DBDefs->REPLICATION_TYPE == RT_SLAVE;
+    return if $definition->{PRIVATE} && DBDefs->REPLICATION_TYPE != RT_MASTER;
 
     my $db = $definition->{DB} || 'READWRITE';
     my $sql = $db eq 'READWRITE' ? $self->sql

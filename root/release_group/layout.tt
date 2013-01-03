@@ -5,7 +5,15 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
+
+    [%- IF rg.cover_art -%]
+      <div class="cover-art">
+        [%- display_artwork (rg.cover_art) -%]
+      </div>
+    [%- END -%]
+
         <h2 class="release-group-information">[% l('Release group information') %]</h2>
+
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(rg.artist_credit) class="artist" %]
@@ -28,7 +36,6 @@
                     [% l('Add release') %]
                   </a>
                 </li>
-
                 <hr/>
 
                 [% annotation_links(rg) %]
@@ -37,9 +44,11 @@
                     [% l('Merge release group') %]
                   </a>
                 </li>
-                [% IF can_delete %]
-                    <li>[% link_entity(rg, 'delete', l('Remove release group')) %]</li>
-                [% END %]
+                <li>
+                  <a href="[% c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]) %]">
+                    [% l('Set cover art') %]
+                  </a>
+                </li>
 
                 <hr/>
 
@@ -50,9 +59,7 @@
 
                 <hr/>
 
-                [% IF rg.edits_pending %]
-                    <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
-                [% END %]
+                <li>[% link_entity(rg, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(rg, 'edits', l('Editing history')) %]</li>
             [% ELSE %]
                <li>[% request_login(l('Log in to edit')) %]</li>

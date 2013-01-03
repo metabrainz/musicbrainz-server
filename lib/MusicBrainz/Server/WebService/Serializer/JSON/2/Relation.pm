@@ -19,9 +19,14 @@ sub serialize
     if ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
            # $entity->target_type eq 'release' ||
+           $entity->target_type eq 'release_group' ||
            $entity->target_type eq 'recording')
     {
         $body{$entity->target_type} = serialize_entity ($entity->target);
+    }
+    elsif ($entity->target_type eq 'url')
+    {
+        $body{$entity->target_type} = $entity->target->name
     }
 
     return \%body;
@@ -50,4 +55,3 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut
-

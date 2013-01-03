@@ -33,6 +33,7 @@ test 'browse release group via release' => sub {
                                 name => "Distance",
                                 "sort-name" => "Distance",
                                 disambiguation => "UK dubstep artist Greg Sanders",
+                                ipis => [],
                             },
                             joinphrase => "",
                         }],
@@ -41,7 +42,7 @@ test 'browse release group via release' => sub {
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }]
         });
 };
@@ -70,6 +71,7 @@ test 'browse release group via artist' => sub {
                                 name => "Distance",
                                 "sort-name" => "Distance",
                                 disambiguation => "UK dubstep artist Greg Sanders",
+                                ipis => [],
                             },
                             joinphrase => "",
                         }],
@@ -78,7 +80,7 @@ test 'browse release group via artist' => sub {
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 },
                 {
                     id => "56683a0b-45b8-3664-a231-5b68efe2e7e2",
@@ -94,12 +96,13 @@ test 'browse release group via artist' => sub {
                                 name => "Distance",
                                 "sort-name" => "Distance",
                                 disambiguation => "UK dubstep artist Greg Sanders",
+                                ipis => [],
                             },
                             joinphrase => "",
                         }],
                     tags => [ ],
                     "rating" => { "votes-count" => 0, "value" => JSON::null },
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }]
         });
 };

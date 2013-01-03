@@ -50,7 +50,7 @@ test all => sub {
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
     like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
-    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
+    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
                  "------------------------------------------------------------------------\n".
@@ -83,7 +83,7 @@ test all => sub {
     is($e->get_header('BCC'), undef, 'BCC is undefined');
     is($e->get_header('Subject'), 'Hey', 'Subject is Hey');
     like($e->get_header('Message-Id'), qr{<correspondence-4444-8888-\d+@.*>}, "Message-Id has right format");
-    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, &DBDefs::WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
+    is($e->get_header('References'), sprintf('<correspondence-%s-%s@%s>', $user1->id, $user2->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References correct correspondence');
     compare_body($e->get_body,
                  "MusicBrainz user 'Editor 1' has sent you the following message:\n".
                  "------------------------------------------------------------------------\n".
@@ -229,7 +229,7 @@ test all => sub {
     is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
-    is($e->get_header('References'), sprintf('<edit-1234@%s>', &DBDefs::WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+    is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
     like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
     compare_body($e->get_body,
@@ -269,7 +269,7 @@ test all => sub {
     is($e->get_header('From'), '"Editor 2" <"Editor 2"@users.musicbrainz.org>', 'From is Editor 2, @users.musicbrainz.org');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
-    is($e->get_header('References'), sprintf('<edit-1234@%s>', &DBDefs::WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+    is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
     like($e->get_header('Message-Id'), qr{<edit-1234-8888-edit-note-\d+@.*>} , 'Message ID has right format');
     is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
     compare_body($e->get_body,

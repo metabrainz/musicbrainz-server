@@ -141,18 +141,9 @@ SELECT lives_ok(
    VALUES (1, 1, 1, 1, ''1'', 1, 1)');
 
 --------------------------------------------------------------------------------
-SELECT throws_ok(
-  'INSERT INTO url (id, url, description, gid)
-   VALUES (1, ''http://musicbrainz.org'', ''A  comment'', ''9386b511-829b-47ca-80f6-0cdc3c31d8b9'')');
-SELECT throws_ok(
-  'INSERT INTO url (id, url, description, gid)
-   VALUES (1, ''http://musicbrainz.org'', ''A comment '', ''9386b511-829b-47ca-80f6-0cdc3c31d8b9'')');
-SELECT throws_ok(
-  'INSERT INTO url (id, url, description, gid)
-   VALUES (1, ''http://musicbrainz.org'', '' A comment'', ''9386b511-829b-47ca-80f6-0cdc3c31d8b9'')');
 SELECT lives_ok(
-  'INSERT INTO url (id, url, description, gid)
-   VALUES (1, ''http://musicbrainz.org'', ''A comment'', ''9386b511-829b-47ca-80f6-0cdc3c31d8b9'')');
+  'INSERT INTO url (id, url, gid)
+   VALUES (1, ''http://musicbrainz.org'', ''9386b511-829b-47ca-80f6-0cdc3c31d8b9'')');
 
 --------------------------------------------------------------------------------
 SELECT throws_ok('INSERT INTO work_name (id, name) VALUES (1, ''Limit To Your  Love'')');

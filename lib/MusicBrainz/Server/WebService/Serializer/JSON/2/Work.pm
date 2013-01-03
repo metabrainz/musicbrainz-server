@@ -2,6 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Work;
 use Moose;
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
@@ -16,7 +17,13 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
+    $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
+    $body{type} = $entity->type ? $entity->type->name : JSON::null;
+
+    $body{language} = $entity->language
+        ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
+        : JSON::null;
 
     return \%body;
 };

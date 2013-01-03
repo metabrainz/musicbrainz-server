@@ -14,13 +14,15 @@ my $ws_defs = Data::OptList::mkopt([
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(aliases annotation _relations
+                                          tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
                          linked   => [ qw( artist ) ]
      },
      work => {
                          method   => 'GET',
-                         inc      => [ qw(aliases _relations tags user-tags ratings user-ratings) ],
+                         inc      => [ qw(aliases annotation _relations
+                                          tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt) ],
      },
 ]);
@@ -41,6 +43,9 @@ sub work_toplevel
     my $opts = $stash->store ($work);
 
     $self->linked_works ($c, $stash, [ $work ]);
+
+    $c->model('Work')->annotation->load_latest($work)
+        if $c->stash->{inc}->annotation;
 
     $self->load_relationships($c, $stash, $work);
 

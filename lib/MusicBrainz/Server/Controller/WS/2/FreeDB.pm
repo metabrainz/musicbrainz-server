@@ -8,7 +8,7 @@ my $ws_defs = Data::OptList::mkopt([
      freedb => {
                          method   => 'GET',
                          required => [ qw(query) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
 ]);
 

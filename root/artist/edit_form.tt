@@ -63,7 +63,7 @@
         <p>
             [%- selected_acs = form.rename_artist_credit_set() -%]
             [% FOR ac IN artist_credits %]
-            <span class="rename-artist-credit"><input type="checkbox" name="edit-artist.rename_artist_credit" value="[% ac.id %]" [% IF selected_acs.item(ac.id) %]checked="checked"[% END %] />[% artist_credit(ac) %]</span><br />
+            <span class="rename-artist-credit"><input type="checkbox" name="edit-artist.rename_artist_credit" value="[% ac.id %]" [% IF selected_acs.item(ac.id) %]checked="checked"[% END %] />[% artist_credit(ac) %]<span class="ac-preview" style="display:none"><br />([% l('preview:') %] [% artist_credit(ac) %])</span></span><br />
             [% END %]
         </p>
       </fieldset>
