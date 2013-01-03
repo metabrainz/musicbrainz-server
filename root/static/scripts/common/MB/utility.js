@@ -266,8 +266,8 @@ MB.utility.beget = function(o) {
 
 MB.utility.validDate = (function() {
     var daysInMonth = {
-        "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        "false": [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
     return function(y, m, d) {
