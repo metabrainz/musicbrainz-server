@@ -55,7 +55,7 @@ my $automods = $c->sql->select_list_of_lists("SELECT name, email FROM editor
     WHERE (privs & ?) > 0", $AUTO_EDITOR_FLAG);
 
 {
-    my $rsync_script = &DBDefs::MB_SERVER_ROOT . "/bin/rsync-automods-list";
+    my $rsync_script = DBDefs->MB_SERVER_ROOT . "/bin/rsync-automods-list";
     last unless -f $rsync_script and -x _;
     require POSIX;
     pipe(my $r, my $w) or die $!;

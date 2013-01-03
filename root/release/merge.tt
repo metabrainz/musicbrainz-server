@@ -134,7 +134,7 @@
         <div id="merge-strategy-2" class="merge-strategy">
           <p>[% l('This merge strategy will merge all mediums together into a single set of mediums. Recordings
                    between mediums will also be merged, into the recordings used on the target mediums.') %]</p>
-          <p>[% l('This requires that mediums over each release have corresponding track counts.') %]</p>
+          <p>[% l('This requires that corresponding mediums have the same number of tracks.') %]</p>
 
           [% IF bad_recording_merges.size %]
             [% warning(l('The recording artists do not match! Perhaps you meant to use the "append mediums" merge strategy?')) %]

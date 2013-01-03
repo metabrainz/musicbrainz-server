@@ -15,5 +15,5 @@ my $fc = MusicBrainz::Server::Data::FileCache->new;
 find(sub {
     $fc->compile_javascript_manifest($_) if ($_ =~ /.js.manifest$/);
     $fc->compile_css_manifest($_)        if ($_ =~ /.css.manifest$/);
-}, DBDefs::STATIC_FILES_DIR);
+}, DBDefs->STATIC_FILES_DIR);
 

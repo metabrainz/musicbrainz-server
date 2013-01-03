@@ -17,7 +17,7 @@ sub process
 
     $self->next::method(@_) or return 0;
 
-    return 1 unless &DBDefs::USE_ETAGS;
+    return 1 unless DBDefs->USE_ETAGS;
 
     my $method = $c->request->method;
     return 1

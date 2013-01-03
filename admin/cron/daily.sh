@@ -49,7 +49,7 @@ if date +%w | grep -q [36]
 then
     FULL=1
 fi
-carton exec -- ./admin/RunExport $FULL
+carton exec -- ./admin/RunExport ${FULL:-}
 
 # Create the reports
 echo `date`" : Running reports"
@@ -66,7 +66,7 @@ if date +%w | grep -q [6]
 then
     WEEKLY="--weekly"
 fi
-carton exec -- ./admin/ProcessSubscriptions $WEEKLY
+carton exec -- ./admin/ProcessSubscriptions ${WEEKLY:-}
 
 # `date`" : Updating language frequencies"
 carton exec -- ./admin/SetLanguageFrequencies

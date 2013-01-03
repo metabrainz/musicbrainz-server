@@ -42,7 +42,7 @@
 	<tr>
 	  <th>[% l('Headings:') %]</th>
 	  <td>
-		[%- l("=&nbsp;Title&nbsp;1&nbsp;=; ==&nbsp;Title&nbsp;2&nbsp;==; ===&nbsp;Title&nbsp;3&nbsp;===") %]</td>
+		[%- l("=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; ===&#xa0;Title&#xa0;3&#xa0;===") %]</td>
 	</tr>
 	<tr>
 	  <th>[% l('Lists:') %]</th>

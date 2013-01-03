@@ -16,12 +16,16 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $opts, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $opts, $toplevel);
 
-    return $ret unless $toplevel && $self->has_lifespan ($entity);
+    return $ret unless $toplevel;
 
-    my %lifespan;
+    my %lifespan = (
+        begin => JSON::null,
+        end => JSON::null,
+        ended => boolean ($entity->ended),
+        );
+
     $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
     $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
-    $lifespan{ended} = boolean ($entity->ended);
 
     $ret->{"life-span"} = \%lifespan;
 

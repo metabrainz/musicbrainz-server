@@ -1,3 +1,9 @@
+<p>
+  [%- l('An alias is an alternate name for an entity. They typically contain contain
+        common mispellings or variations of the name and are also used to improve search results.
+        View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') }) -%]
+</p>
+
 <form action="[% c.req.uri %]" method="post" class="edit-alias">
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
@@ -22,8 +28,8 @@
         [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM
                or just YYYY are OK, or you can omit the date entirely.') -%]
       </p>
-      [% form_row_date(r, 'begin_date', l('Begin date:')) %]
-      [% form_row_date(r, 'end_date', l('End date:')) %]
+      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'period.end_date', l('End date:')) %]
     </fieldset>
 
     [% INCLUDE 'forms/edit-note.tt' %]

@@ -59,7 +59,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, NULL);
+    VALUES (1, 0, 1, 1, '');
 
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, '99caac80-72e4-11de-8a39-0800200c9a66', 1, 1),

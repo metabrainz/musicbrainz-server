@@ -3,6 +3,8 @@ package MusicBrainz::Server::Data::WikiDocIndex;
 use Moose;
 use namespace::autoclean;
 use Readonly;
+use List::UtilsBy qw( sort_by );
+use List::MoreUtils qw ( natatime);
 use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
@@ -19,10 +21,10 @@ Readonly my $CACHE_KEY => "wikidoc-index";
 
 has _index_file => (
     is => 'ro',
-    default => sub { &DBDefs::WIKITRANS_INDEX_FILE }
+    default => sub { DBDefs->WIKITRANS_INDEX_FILE }
 );
 
-sub _master_index_url { &DBDefs::WIKITRANS_INDEX_URL }
+sub _master_index_url { DBDefs->WIKITRANS_INDEX_URL }
 
 sub _parse_index
 {
@@ -73,7 +75,7 @@ sub _load_index
     return $index
         if defined $index;
 
-    if (&DBDefs::REPLICATION_TYPE == RT_SLAVE) {
+    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
         $index = $self->_load_index_from_master;
     }
     else {
@@ -135,19 +137,19 @@ sub get_wiki_versions
 {
     my ($self, $index) = @_;
 
-    my @keys = keys %$index;
+    my @keys = sort_by { lc($_) } keys %$index;
     my @wiki_pages;
 
-    while (@keys) {
-        # The API can only process 50 pages at a time, lets be conservative.
-        my $query = join ('|', splice(@keys, 0, 40));
+    # Query the API with 50 pages at a time
+    my $it = natatime 50, @keys;
 
-        if (!defined &DBDefs::WIKITRANS_SERVER_API) {
+    while (my @queries = $it->()) {
+        if (!defined DBDefs->WIKITRANS_SERVER_API) {
             warn 'WIKITRANS_SERVER_API must be defined within DBDefs.pm';
             return undef;
         }
 
-        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", &DBDefs::WIKITRANS_SERVER_API, $query;
+        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
 
         my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;

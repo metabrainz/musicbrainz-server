@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Rating;
 use Moose;
 use namespace::autoclean;
 use Sql;
-use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
+use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use MusicBrainz::Server::Entity::Rating;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -13,6 +13,52 @@ has 'type' => (
     is       => 'ro',
     required => 1
 );
+
+has 'parent' => (
+    does => 'MusicBrainz::Server::Data::Role::Name',
+    is => 'rw',
+    required => 1,
+    weak_ref => 1
+);
+
+sub find_editor_ratings {
+    my ($self, $editor_id, $own_ratings, $limit, $offset) = @_;
+
+    my $name_table = $self->parent->name_table;
+    my $table = $self->type . '_rating_raw';
+    my $type = $self->type;
+    my $query = "
+      SELECT $type AS entity, rating
+      FROM $table rating
+      JOIN $type entity ON entity.id = rating.${type}
+      JOIN $name_table n ON entity.name = n.id
+      WHERE editor = ?
+      ORDER BY rating DESC, musicbrainz_collate(n.name) ASC
+      OFFSET ?";
+
+    my ($rows, $hits) = query_to_list_limited(
+        $self->sql, $offset, $limit, sub { shift }, $query,
+        $editor_id, $offset
+    );
+
+    my $entities = $self->parent->get_by_ids(map { $_->{entity} } @$rows);
+    my $results = [
+        map {
+            my $entity = $entities->{ $_->{entity} };
+            if ($own_ratings) {
+                $entity->user_rating($_->{rating});
+            }
+            else {
+                $entity->rating($_->{rating});
+                $entity->rating_count(1);
+            }
+
+            $entity;
+        } @$rows
+    ];
+
+    return ($results, $hits);
+}
 
 sub find_by_entity_id
 {

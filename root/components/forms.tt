@@ -98,16 +98,16 @@
 
 [%- MACRO form_row_text_list(r, field_name, label, item_name) BLOCK -%]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
+      <label>[% label || r.form.field(field_name).label %]</label>
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value">
+              <input type="text" value="" name="" class="value" />
               <button class="nobutton icon remove" href="#remove_row">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
-          <div style="text-align: right; width: 100%; ">
+          <div class="form-row-add">
             <button class="nobutton add" style="margin-right: 8px;">
               <span class="add-row" style="padding: 0 1em;">[% l('Add {item}', item => item_name) %]</span>
               <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
@@ -153,7 +153,7 @@
 
 [%- MACRO form_row_paragraph(message, label) BLOCK -%]
     [% WRAPPER form_row %]
-      <label>[%- IF label -%][%- label -%][%- ELSE -%]&nbsp;[%- END -%]</label>
+      <label>[%- IF label -%][%- label -%][%- ELSE -%]&#xa0;[%- END -%]</label>
       <p>[%- message -%]</p>
     [% END %]
 [%- END -%]
@@ -224,6 +224,20 @@
   </div>
 [%- END -%]
 
+[%- MACRO iswc_bubble(work) BLOCK -%]
+  <div class="iswcs container" style="display: none">
+    <div class="iswcs bubble">
+      <p>[% l('You are about to add an ISWC to {work}. The ISWC must be entered in
+               standard <code>T-DDD.DDD.DDD-C</code> format:',
+              { work => work }) %]</p>
+      <ul>
+        <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
+        <li>[% l('"C" is a single check digit.') %]</li>
+      </ul>
+    </div>
+  </div>
+[%- END -%]
+
 [%- MACRO artist_credit_table(form) BLOCK -%]
   <div class="artist-credit-container" style="display: none">
     <div class="artist-credit bubble">
@@ -276,7 +290,7 @@
       [%- END -%]
 
       <div class="row">
-        <label> &nbsp; </label>
+        <label> &#xa0; </label>
         <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">
             <button type="button" class="nobutton add-artist-credit">
                 [%- l('Add Artist Credit') -%]

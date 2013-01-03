@@ -34,7 +34,7 @@ INSERT INTO release_name (id, name)
 INSERT INTO artist_credit (name, artist_count, id) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name
     (artist, artist_credit, join_phrase, position, name)
-        VALUES (1, 1, NULL, 1, 1);
+        VALUES (1, 1, '', 1, 1);
 
 INSERT INTO release_group (id, gid, name, artist_credit, type)
     VALUES (1, 'd98cfbe2-eb48-48e1-9f7b-e204c15b41c0', 1, 1, 2);

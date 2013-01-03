@@ -5,7 +5,7 @@
         : l("Editor “{user}”", { user => html_escape(user.name) })
     -%]
 
-    <h1>[% l("{user}", { user => link_entity(user) }) %]</h1>
+    <h1>[% l("{user}", { user => link_editor(user, undef, '', 54) }) %]</h1>
 
 [% MACRO generic_link(url, text) BLOCK %]<a href="[% url %]">[% text %]</a>[% END %]
 

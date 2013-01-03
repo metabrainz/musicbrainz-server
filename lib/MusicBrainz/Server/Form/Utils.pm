@@ -3,9 +3,9 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use MusicBrainz::Server::Translation qw( l );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( lp );
+use List::UtilsBy qw( sort_by );
 
 use Sub::Exporter -setup => {
     exports => [qw(
@@ -124,12 +124,12 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my @sorted = sort { $a->{label} cmp $b->{label} } map {
+    my @sorted = sort_by { $_->{label} } map {
         {
             'value' => $_->id,
             'label' => $_->l_name,
             'class' => 'language',
-            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
+            'optgroup' => $_->{frequency} eq $frequent ? lp('Frequently used', 'language optgroup') : lp('Other', 'language optgroup'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
     } grep { $_->{frequency} ne $skip } $c->model('Language')->get_all;
@@ -147,15 +147,16 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    return [ map {
+    my @sorted = sort_by { $_->{label} } map {
         {
             'value' => $_->id,
             'label' => $_->l_name,
             'class' => 'script',
-            'optgroup' => $_->{frequency} eq $frequent ? l('Frequently used') : l('Other'),
+            'optgroup' => $_->{frequency} eq $frequent ? lp('Frequently used', 'script optgroup') : lp('Other', 'script optgroup'),
             'optgroup_order' => $_->{frequency} eq $frequent ? 1 : 2,
         }
-    } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all ];
+    } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
+    return \@sorted;
 }
 
 1;

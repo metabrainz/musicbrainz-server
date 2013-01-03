@@ -19,16 +19,7 @@ use List::Util qw( first );
 use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
-use MusicBrainz::Server::Constants qw(
-    $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_RELEASE_CHANGE_QUALITY
-    $EDIT_RELEASE_DELETE
-    $EDIT_RELEASE_EDIT_COVER_ART
-    $EDIT_RELEASE_MERGE
-    $EDIT_RELEASE_MOVE
-    $EDIT_RELEASE_REMOVE_COVER_ART
-    $EDIT_RELEASE_REORDER_COVER_ART
-);
+use MusicBrainz::Server::Constants qw( :edit_type );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -72,8 +63,8 @@ after 'load' => sub
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper Net::CoverArtArchive::CoverArt::Front object.
-    my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
+    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
+    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
     $c->stash->{release_artwork} = {
         image => $prefix.'/front',
         large_thumbnail => $prefix.'/front-500',
@@ -405,7 +396,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
                                       [ $entity->gid ],
                                       { id => $id })->as_string ();
 
-    $c->stash->{form_action} = DBDefs::COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
+    $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
@@ -431,7 +422,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     my $id = $c->model('CoverArtArchive')->fresh_id;
     $c->stash({
         id => $id,
-        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
         images => \@artwork
     });
 
@@ -669,7 +660,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     $c->stash({
         artwork => $artwork,
         images => \@artwork,
-        index_url => DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
+        index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/"
     });
 
     my @type_ids = map { $_->id } $c->model ('CoverArtType')->get_by_name (@{ $artwork->types });
@@ -730,9 +721,21 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     my $release = $c->stash->{entity};
     $c->model('Release')->load_meta($release);
 
-    $c->stash(
-        cover_art => $c->model('CoverArtArchive')->find_available_artwork($release->gid)
-    );
+    my $artwork = $c->model ('Artwork')->find_by_release ($release);
+    $c->model ('CoverArtType')->load_for (@$artwork);
+
+    $c->stash(cover_art => $artwork);
+}
+
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+    my ($self, $c) = @_;
+
+    my $release = $c->stash->{release};
+    $c->model('Release')->load_meta($release);
+    $c->model('ArtistCredit')->load($release);
+    $c->model('ReleaseGroup')->load($release);
+
+    $c->forward('/relationship_editor/load', $c);
 }
 
 __PACKAGE__->meta->make_immutable;

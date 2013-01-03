@@ -5,51 +5,60 @@ use Locale::Messages qw( dgettext dpgettext dngettext );
 parameter domain => ( required => 1, isa => 'Str' );
 
 role {
-	my $params = shift;
+    my $params = shift;
 
-	method 'nop_gettext' => sub
-	{
-		# just return the first argument to the caller
-		shift;
-		return shift;
-	};
+    method 'nop_gettext' => sub
+    {
+        # Just return the first argument to the caller
+        # Used for N_l and N_lp
+        shift;
+        return shift;
+    };
 
-	method 'gettext' => sub
-	{
-	    my ($self, $msgid, $vars) = @_;
+    method 'nop_ngettext' => sub
+    {
+        # Just return the arguments to the caller
+        # Used for N_ln
+        shift;
+        return @_;
+    };
 
-	    my %vars = %$vars if (ref $vars eq "HASH");
+    method 'gettext' => sub
+    {
+        my ($self, $msgid, $vars) = @_;
 
-	    $self->_bind_domain($params->domain) unless $self->bound;
+        my %vars = %$vars if (ref $vars eq "HASH");
 
-	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
+        $self->_bind_domain($params->domain) unless $self->bound;
 
-	    return $self->_expand(dgettext($params->domain => $msgid), %vars) if $msgid;
-	};
+        $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-	method 'pgettext' => sub 
-	{
-	    my ($self, $msgid, $msgctxt, $vars) = @_;
+        return $self->_expand(dgettext($params->domain => $msgid), %vars) if $msgid;
+    };
 
-	    my %vars = %$vars if (ref $vars eq "HASH");
+    method 'pgettext' => sub 
+    {
+        my ($self, $msgid, $msgctxt, $vars) = @_;
 
-	    $self->_bind_domain($params->domain) unless $self->bound;
+        my %vars = %$vars if (ref $vars eq "HASH");
 
-	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
+        $self->_bind_domain($params->domain) unless $self->bound;
 
-	    return $self->_expand(dpgettext($params->domain => $msgctxt, $msgid), %vars) if $msgid;
-	};
+        $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
 
-	method 'ngettext' => sub 
-	{
-	    my ($self, $msgid, $msgid_plural, $n, $vars) = @_;
+        return $self->_expand(dpgettext($params->domain => $msgctxt, $msgid), %vars) if $msgid;
+    };
 
-	    my %vars = %$vars if (ref $vars eq "HASH");
+    method 'ngettext' => sub 
+    {
+        my ($self, $msgid, $msgid_plural, $n, $vars) = @_;
 
-	    $self->_bind_domain($params->domain) unless $self->bound;
+        my %vars = %$vars if (ref $vars eq "HASH");
 
-	    $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
+        $self->_bind_domain($params->domain) unless $self->bound;
 
-	    return $self->_expand(dngettext($params->domain => $msgid, $msgid_plural, $n), %vars);
-	};
+        $msgid =~ s/\r*\n\s*/ /xmsg if defined($msgid);
+
+        return $self->_expand(dngettext($params->domain => $msgid, $msgid_plural, $n), %vars);
+    };
 };

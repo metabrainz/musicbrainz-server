@@ -18,9 +18,28 @@ test 'basic release group lookup' => sub {
         {
             id => "b84625af-6229-305f-9f1b-59c0185df016",
             title => "サマーれげぇ!レインボー",
-            disambiguation => JSON::null,
+            disambiguation => "",
             "first-release-date" => "2001-07-04",
             "primary-type" => "Single",
+            "secondary-types" => [],
+        });
+};
+
+test 'basic release group lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic release group lookup, inc=annotation',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' => encode_json (
+        {
+            id => "22b54315-6e51-350b-bb34-e6e16f7688bd",
+            title => "My Demons",
+            annotation => "this is a release group annotation",
+            disambiguation => "",
+            "first-release-date" => "2007-01-29",
+            "primary-type" => "Album",
             "secondary-types" => [],
         });
 };
@@ -49,9 +68,9 @@ test 'release group lookup with releases' => sub {
                     barcode => "600116822123",
                     packaging => JSON::null,
                     asin => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 
@@ -75,10 +94,11 @@ test 'release group lookup with artists' => sub {
                         name => "Distance",
                         "sort-name" => "Distance",
                         disambiguation => "UK dubstep artist Greg Sanders",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 
@@ -101,7 +121,8 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],
@@ -117,9 +138,9 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     barcode => "4988064451180",
                     asin => JSON::null,
                     packaging => JSON::null,
-                    disambiguation => JSON::null,
+                    disambiguation => "",
                 }],
-            disambiguation => JSON::null,
+            disambiguation => "",
             rating => { "votes-count" => 0, value => JSON::null },
             tags => [],
         });
@@ -144,12 +165,13 @@ test 'release group lookup with pseudo-releases' => sub {
                         id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                         name => "m-flo",
                         "sort-name" => "m-flo",
-                        disambiguation => JSON::null,
+                        disambiguation => "",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],
             releases => [],
-            disambiguation => JSON::null,
+            disambiguation => "",
         });
 };
 

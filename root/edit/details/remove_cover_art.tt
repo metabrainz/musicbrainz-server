@@ -7,11 +7,11 @@
   </tr>
 
   <tr>
-    <th>[% l('Types:') %]</th>
+    <th>[% ln('Type:', 'Types:', edit.display_data.types.size) %]</th>
     <td>
       [% IF edit.display_data.types.size %]
         [% USE Map %]
-        [% comma_only_list(edit.display_data.types.map('name')) | html %]
+        [% comma_only_list(edit.display_data.types.map('l_name')) | html %]
       [% ELSE %]
         [% l('(none)') %]
       [% END %]

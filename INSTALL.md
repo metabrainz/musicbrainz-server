@@ -76,7 +76,7 @@ Server configuration
 
 2.  Modify the server configuration file.
 
-        cp lib/DBDefs.pm.default lib/DBDefs.pm
+        cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
     Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
 
@@ -249,6 +249,12 @@ Creating the database
         that the data is correct by running:
 
             pushd /tmp/dumps/ && md5sum -c MD5SUMS && popd
+
+        You can also verify that the data dumps were indeed created by
+        MusicBrainz verifying them against our GPG signing key:
+
+            gpg --recv-keys C777580F
+            gpg --verify-files /tmp/dump/*.gpg
 
         If this is OK and you wish to continue, you can import them with:
 

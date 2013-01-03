@@ -75,6 +75,22 @@ sub get_attribute
     return \@values;
 }
 
+sub get_attribute_hash
+{
+    my ($self) = @_;
+
+    my %hash;
+    foreach ($self->all_attributes) {
+        if ($_->id != $_->root->id) {
+            my $attrs = $hash{ $_->root->name } //= [];
+            push @$attrs, $_->id;
+        } else {
+            $hash{ $_->root->name } = 1;
+        }
+    }
+    return \%hash;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

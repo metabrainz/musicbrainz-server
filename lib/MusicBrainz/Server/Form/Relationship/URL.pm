@@ -2,9 +2,7 @@ package MusicBrainz::Server::Form::Relationship::URL;
 
 use HTML::FormHandler::Moose;
 
-extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
-with 'MusicBrainz::Server::Form::Relationship::LinkType';
+extends 'MusicBrainz::Server::Form::Relationship::LinkType';
 
 has '+name' => ( default => 'ar' );
 
@@ -12,8 +10,6 @@ has_field 'url' => (
     type => '+MusicBrainz::Server::Form::Field::URL',
     required => 1,
 );
-
-sub edit_field_names { qw() }
 
 1;
 

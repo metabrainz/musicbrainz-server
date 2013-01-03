@@ -18,11 +18,9 @@ sub pretty_name
     my $self = shift;
     return $self->url->as_string unless defined($self->utf8_decoded);
 
-    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
-    $name =~ s{^/wiki/}{};
-    $name =~ s{_}{ }g;
+    my $name = $self->page_name;
 
-    if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
+    if (my $language = $self->language) {
         $name = "$language: $name";
     }
 
@@ -30,6 +28,30 @@ sub pretty_name
 }
 
 sub sidebar_name { shift->pretty_name }
+
+sub page_name
+{
+    my $self = shift;
+    return undef unless defined($self->utf8_decoded);
+
+    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ }g;
+
+    return $name;
+}
+
+sub language
+{
+    my $self = shift;
+    return undef unless defined($self->utf8_decoded);
+
+    if (my ($language) = $self->url->host =~ /(.*)\.wikipedia/) {
+        return $language
+    } else {
+        return undef;
+    }
+}
 
 =method show_in_sidebar
 
@@ -45,7 +67,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2012 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

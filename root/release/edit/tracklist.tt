@@ -103,7 +103,7 @@
 <div style="display: none;" class="tracklist-searching import-message">
   <p>
     <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-    &nbsp;
+    &#xa0;
     [% l('Searching...') %]
   </p>
 </div>
@@ -280,7 +280,7 @@
       <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
         <p>
           <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &nbsp;
+          &#xa0;
           [% l('Now loading tracklist...') %]
         </p>
       </div>
@@ -402,7 +402,7 @@
       <div style="display: none" class="tracklist-loading">
         <p>
           <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &nbsp;
+          &#xa0;
           [% l('Now loading tracklist...') %]
         </p>
       </div>

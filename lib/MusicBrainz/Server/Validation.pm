@@ -191,7 +191,7 @@ sub is_valid_isrc
 sub is_tunecore
 {
     my $supposed_isrc = $_[0];
-    return $supposed_isrc =~ /TC\.*/;
+    return $supposed_isrc =~ /^TC\.*/;
 }
 
 ################################################################################

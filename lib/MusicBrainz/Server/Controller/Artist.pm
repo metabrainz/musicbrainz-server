@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -41,6 +42,8 @@ use MusicBrainz::Server::FilterUtils qw(
     create_artist_recordings_form
 );
 use Sql;
+
+use List::AllUtils qw( any );
 
 my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
@@ -456,6 +459,7 @@ sub edit : Chained('load') RequireAuth Edit {
         post_creation => sub {
             my ($edit, $form) = @_;
 
+            my $editid = $edit->id;
             my $name = $form->field('name')->value;
             if ($name ne $artist->name) {
                 my %rename = %{ $form->rename_artist_credit_set };
@@ -472,8 +476,7 @@ sub edit : Chained('load') RequireAuth Edit {
                     $c->model('EditNote')->add_note(
                         $ac_edit->id,
                         {
-                            text => l('The artist name has been changed in edit #{id}.',
-                                      { id => $edit->id }),
+                            text => "The artist name has been changed in edit #$editid.",
                             editor_id => $EDITOR_MODBOT
                         }
                     );
@@ -517,6 +520,11 @@ around _validate_merge => sub {
     my $target = $form->field('target')->value;
     if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
+        return 0;
+    }
+
+    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+        $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }
 
@@ -617,6 +625,7 @@ sub split : Chained('load') Edit {
         post_creation => sub {
             my ($edit) = @_;
 
+            my $editid = $edit->id;
             my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
             for my $relationship (grep {
@@ -635,8 +644,7 @@ sub split : Chained('load') Edit {
                 $c->model('EditNote')->add_note(
                     $rem->id,
                     {
-                        text => l('This collaboration has been split in edit #{id}.',
-                                  { id => $edit->id }),
+                        text => "This collaboration has been split in edit #$editid.",
                         editor_id => $EDITOR_MODBOT
                     }
                 );
@@ -695,7 +703,7 @@ sub process_filter
     unless (exists $c->req->params->{'filter.cancel'}) {
         my $cookie = $c->req->cookies->{filter};
         my $has_filter_params = grep(/^filter\./, keys %{ $c->req->params });
-        if ($has_filter_params || (defined($cookie) && $cookie->value eq '1')) {
+        if ($has_filter_params || ($cookie && defined($cookie->value) && $cookie->value eq '1')) {
             my $filter_form = $create_form->();
             if ($filter_form->submitted_and_valid($c->req->params)) {
                 for my $name ($filter_form->filter_field_names) {
