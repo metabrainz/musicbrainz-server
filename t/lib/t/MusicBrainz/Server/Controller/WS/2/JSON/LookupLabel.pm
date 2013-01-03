@@ -28,6 +28,7 @@ test 'basic label lookup' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            ipis => [],
         });
 
 };
@@ -54,6 +55,7 @@ test 'basic label lookup, inc=annotation' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            ipis => [],
         });
 
 };
@@ -77,7 +79,8 @@ test 'label lookup, inc=aliases' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
-            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ]
+            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ],
+            ipis => [],
         });
 
 };
@@ -133,7 +136,8 @@ test 'label lookup with releases, inc=media' => sub {
                     packaging => JSON::null,
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 

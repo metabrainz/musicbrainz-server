@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-27 20:05+0000\n"
-"Last-Translator: nikki <email address hidden>\n"
+"PO-Revision-Date: 2012-12-01 06:08+0000\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1837,7 +1837,7 @@ msgstr "ostettavissa ladattavaksi osoitteessa"
 
 #: DB:link_type/short_link_phrase:79
 msgid "can be purchased for mail-order at"
-msgstr ""
+msgstr "ostettavissa postimyynnitse osoitteessa"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
@@ -2137,7 +2137,7 @@ msgstr "on Discogs-sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:91 DB:link_type/short_link_phrase:181
 msgid "has a MusicMoz page at"
-msgstr ""
+msgstr "on MusicMoz-sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:189 DB:link_type/short_link_phrase:215
 msgid "has a Myspace page at"
@@ -2154,12 +2154,12 @@ msgstr "on SoundCloud-sivu osoitteessa"
 #: DB:link_type/short_link_phrase:86 DB:link_type/short_link_phrase:191
 #: DB:link_type/short_link_phrase:210
 msgid "has a VGMdb page at"
-msgstr ""
+msgstr "on VGMdb-sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:89 DB:link_type/short_link_phrase:179
 #: DB:link_type/short_link_phrase:216
 msgid "has a Wikipedia page at"
-msgstr ""
+msgstr "on Wikipedia-sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:182
 msgid "has a biography page at"
@@ -2179,7 +2179,7 @@ msgstr "on diskografia osoitteessa"
 
 #: DB:link_type/short_link_phrase:184
 msgid "has a discography page at"
-msgstr ""
+msgstr "on diskografia sivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:172 DB:link_type/short_link_phrase:214
 msgid "has a fan page at"
@@ -2187,11 +2187,11 @@ msgstr "on fanisivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:226
 msgid "has a karaoke version"
-msgstr ""
+msgstr "on karaokeversio"
 
 #: DB:link_type/short_link_phrase:213
 msgid "has a logo at"
-msgstr ""
+msgstr "on logo osoitteessa"
 
 #: DB:link_type/short_link_phrase:198 DB:link_type/short_link_phrase:223
 msgid "has a microblog at"
@@ -2210,11 +2210,11 @@ msgstr "on sivu tietokannassa"
 
 #: DB:link_type/short_link_phrase:173
 msgid "has a picture at"
-msgstr ""
+msgstr "on kuva osoitteessa"
 
 #: DB:link_type/short_link_phrase:94
 msgid "has a review page at"
-msgstr ""
+msgstr "on arvostelusivu osoitteessa"
 
 #: DB:link_type/short_link_phrase:192 DB:link_type/short_link_phrase:218
 msgid "has a social networking page at"
@@ -2256,7 +2256,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:78
 msgid "has cover art at"
-msgstr ""
+msgstr "on kansitaidetta osoitteessa"
 
 #: DB:link_type/short_link_phrase:264
 msgid "has creative direction by"
@@ -2332,7 +2332,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:289
 msgid "is a Songfacts page for"
-msgstr ""
+msgstr "on Songfacts-sivu"
 
 #: DB:link_type/short_link_phrase:279
 msgid "is a Wikipedia page for"
@@ -2340,7 +2340,7 @@ msgstr "on Wikipedia-sivu"
 
 #: DB:link_type/short_link_phrase:228
 msgid "is a compilation of"
-msgstr ""
+msgstr "on kokoelma"
 
 #: DB:link_type/short_link_phrase:17
 msgid "is a live performance of"
@@ -2352,7 +2352,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:239 DB:link_type/short_link_phrase:244
 msgid "is a medley of"
-msgstr ""
+msgstr "on sävelmäketju"
 
 #: DB:link_type/short_link_phrase:270
 msgid "is a miscellaneous website for"
@@ -2380,12 +2380,12 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:286
 msgid "is an Allmusic page for"
-msgstr ""
+msgstr "on Allmusic-sivu"
 
 #: DB:link_type/short_link_phrase:84
 msgid ""
 "is available for download under the Creative Commons {license} license at"
-msgstr ""
+msgstr "on ladattavissa Creative Commons {licence} lisenssin alaisena osoitteesta"
 
 #: DB:link_type/short_link_phrase:302 DB:link_type/short_link_phrase:301
 msgid "is licensed under"
@@ -2393,11 +2393,11 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:238
 msgid "is the earliest release of"
-msgstr ""
+msgstr "on aiempi julkaisu"
 
 #: DB:link_type/short_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
-msgstr ""
+msgstr "on aiempi {translated} {parody}versio"
 
 #: DB:link_type/short_link_phrase:2
 msgid "is the original for the transl{transliterated:iter}ated track listing"
@@ -2447,11 +2447,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
-msgstr ""
+msgstr "karaoke-versio"
 
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
-msgstr ""
+msgstr "karaoke-versiot"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -2521,7 +2521,7 @@ msgstr "sanoitussivu"
 #: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
 #: DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
-msgstr ""
+msgstr "lyriikkasivu"
 
 #: DB:link_type/reverse_link_phrase:79 DB:link_type/reverse_link_phrase:175
 msgid "mail-order purchase page for"
@@ -2581,7 +2581,7 @@ msgstr "tallenne 9"
 
 #: DB:link_type/link_phrase:239 DB:link_type/link_phrase:244
 msgid "medley of"
-msgstr ""
+msgstr "sävelmäketju"
 
 #: DB:link_attribute_type/description:9 DB:link_attribute_type/name:9
 msgid "mezzo-soprano"
@@ -2687,7 +2687,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:109
 msgid "parents"
-msgstr ""
+msgstr "vanhemmat"
 
 #: DB:link_attribute_type/name:511
 msgid "parody"
@@ -2870,7 +2870,7 @@ msgstr "äänitysstudio"
 
 #: DB:link_type/reverse_link_phrase:239 DB:link_type/reverse_link_phrase:244
 msgid "referred to in medleys"
-msgstr ""
+msgstr "viitataan sävelmäketjuissa"
 
 #: DB:link_type/link_phrase:201
 msgid "reissuing the catalog of"
@@ -2968,7 +2968,7 @@ msgstr "sopraano"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken"
-msgstr ""
+msgstr "puhe"
 
 #: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 #: DB:link_type/link_phrase:194
@@ -3069,7 +3069,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:98 DB:link_type/short_link_phrase:260
 msgid "was recorded by studio at"
-msgstr ""
+msgstr "on nauhoitettu studiossa"
 
 #: DB:link_type/short_link_phrase:202
 msgid "was renamed into"
@@ -3443,7 +3443,7 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:85 DB:link_type/short_link_phrase:268
 msgid "{video} can be streamed for free at"
-msgstr ""
+msgstr "{video} striimattavissa ilmaiseksi osoitteessa"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal} vocal support by"

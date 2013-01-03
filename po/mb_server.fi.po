@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2012-11-27 14:38-0700\n"
-"PO-Revision-Date: 2012-11-27 22:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2012-12-02 21:06+0000\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -745,7 +745,7 @@ msgstr "Alias"
 
 #: ../root/alias/edit_form.tt:5
 msgid "Alias Details"
-msgstr ""
+msgstr "Aliaksen tiedot"
 
 #: ../root/alias/edit_form.tt:6
 msgid "Alias name:"
@@ -3788,7 +3788,7 @@ msgstr "Lokaali"
 #: ../root/edit/details/remove_label_alias.tt:17
 #: ../root/edit/details/remove_work_alias.tt:17
 msgid "Locale:"
-msgstr ""
+msgstr "Lokaali:"
 
 #: ../root/layout/menu.tt:97 ../root/user/login.tt:1 ../root/user/login.tt:3
 #: ../root/user/login.tt:34
@@ -4184,7 +4184,7 @@ msgstr "Avoimet muokkaukseni"
 
 #: ../root/layout/menu.tt:57
 msgid "My Ratings"
-msgstr "Arvosanani"
+msgstr "Arvosteluni"
 
 #: ../root/layout/menu.tt:60
 msgid "My Tags"
@@ -4462,7 +4462,7 @@ msgstr "Julkaisuja ei löytynyt."
 
 #: ../root/release_group/set_cover_art.tt:54
 msgid "No releases have cover art, cannot set cover art."
-msgstr ""
+msgstr "Valinta ei mahdollinen, sillä julkaisuilla ei ole kansitaidetta. "
 
 #: ../root/tag/release.tt:1
 msgid "No releases with this tag were found."
@@ -4634,7 +4634,7 @@ msgstr "Muokkauksen voi peruuttaa ainoastaan sen luonut käyttäjä. Joko et luo
 msgid ""
 "Only use this option after you've tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
-msgstr ""
+msgstr "Käytä tätä vaihtoehtoa vain jos olet jo etsinyt vastaavaa teosta ja olet varma ettei sitä vielä löydy MusicBrainzista."
 
 #: ../root/edit/cannot_approve.tt:10
 msgid "Only {doc|auto-editors} can approve an edit."
@@ -5096,7 +5096,7 @@ msgstr "Ensisijainen tyyppi:"
 #: ../root/edit/details/remove_label_alias.tt:21
 #: ../root/edit/details/remove_work_alias.tt:21
 msgid "Primary for locale:"
-msgstr ""
+msgstr "Ensisijainen alias:"
 
 #: ../root/relationship/linktype/form.tt:24
 msgid "Priority:"
@@ -5183,7 +5183,7 @@ msgstr "Lue lisää »"
 
 #: ../root/components/wikipedia_extract.tt:4
 msgid "Read more..."
-msgstr ""
+msgstr "Lue lisää..."
 
 #: ../root/admin/wikidoc/index.tt:56
 msgid ""
@@ -6173,7 +6173,7 @@ msgstr ""
 
 #: ../root/release_group/set_cover_art.tt:14
 msgid "Set front cover art:"
-msgstr ""
+msgstr "Valitse kuva etukannelle: "
 
 #: ../root/cdtoc/list.tt:53
 msgid "Set track durations"
@@ -8436,7 +8436,7 @@ msgstr ""
 
 #: ../root/release/cover_art.tt:41
 msgid "We do not currently have any cover art for {release}."
-msgstr ""
+msgstr "Kansitaidetta ei julkaisulle {release}. "
 
 #: ../root/cdtoc/lookup.tt:79
 msgid ""
@@ -9094,7 +9094,7 @@ msgstr ""
 #: ../root/release/edit_relationships.tt:68
 #: ../root/release/edit_relationships.tt:110
 msgid "help"
-msgstr ""
+msgstr "apua"
 
 #: ../root/search/results-freedb.tt:31
 msgid "import"
@@ -9258,7 +9258,7 @@ msgstr "etsi"
 
 #: ../root/layout/sidebar/sidebar-rating.tt:5
 msgid "see all ratings"
-msgstr "näytä kaikki arvostelut"
+msgstr "katso kaikki arvostelut"
 
 #: ../root/release/header.tt:10
 msgid "see all versions of this release, {count} available"
@@ -9356,7 +9356,7 @@ msgstr ""
 
 #: ../root/release/collections.tt:10
 msgid "{collection} by {owner}"
-msgstr ""
+msgstr "{owner}: {collection} "
 
 #: ../root/components/common-macros.tt:141
 msgid "{commas_only_list_item}, {rest}"
@@ -10332,7 +10332,7 @@ msgstr "Suodata äänitteet"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:104
 msgid "This alias can only be a primary alias if a locale is selected"
-msgstr ""
+msgstr "Tämä voi olla ensisijainen alias vain jos lokaali on valittuna"
 
 #: ../lib/MusicBrainz/Server/Form/CDStub.pm:59
 msgid "Must be a valid barcode"
