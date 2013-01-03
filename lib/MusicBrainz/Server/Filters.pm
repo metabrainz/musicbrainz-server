@@ -86,7 +86,7 @@ sub format_wikitext
        [0-9a-f]{4} -
        [0-9a-f]{4} -
        [0-9a-f]{12})(?:\|([^\]]+))?\]
-    /_make_link($1,$2,$3)/eix;
+    /_make_link($1,$2,$3)/eixg;
 
     return decode(
         'utf-8',
@@ -105,7 +105,7 @@ sub _make_link
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
     my $ws = DBDefs->WEB_SERVER;
-    return "<a href=\"//$ws/$type/$mbid/\">$content</a>"
+    return "<a href=\"/$type/$mbid/\">$content</a>"
 }
 
 sub _display_trimmed {
