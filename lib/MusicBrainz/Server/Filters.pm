@@ -78,7 +78,6 @@ sub format_wikitext
     $text =~ s/>/&gt;/g;
 
     # MBS-2437: Expand MBID entity links
-    my $ws = DBDefs->WEB_SERVER;
     $text =~ s/
       \[
       (artist|label|recording|release|release-group|url|work):
@@ -86,18 +85,8 @@ sub format_wikitext
        [0-9a-f]{4} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
-       [0-9a-f]{12})\]
-    /<a href="\/\/$ws\/$1\/$2\/">$1:$2<\/a>/ix;
-
-    $text =~ s/
-      \[
-      (artist|label|recording|release|release-group|url|work):
-      ([0-9a-f]{8} -
-       [0-9a-f]{4} -
-       [0-9a-f]{4} -
-       [0-9a-f]{4} -
-       [0-9a-f]{12})\|([^\]]+)\]
-    /<a href="\/\/$ws\/$1\/$2\/">$3<\/a>/ix;
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link($1,$2,$3)/eix;
 
     return decode(
         'utf-8',
@@ -109,6 +98,14 @@ sub format_wikitext
                 implicit_links => 0
             })
       );
+}
+
+sub _make_link
+{
+    my ($type, $mbid, $content) = @_;
+    $content //= "$type:$mbid";
+    my $ws = DBDefs->WEB_SERVER;
+    return "<a href=\"//$ws/$type/$mbid/\">$content</a>"
 }
 
 sub _display_trimmed {
