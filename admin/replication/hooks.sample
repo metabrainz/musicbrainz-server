@@ -1,0 +1,13 @@
+#!/bin/bash
+# This is a sample hook file. In its current form it won't do much, but if
+# copied to 'hooks' it will echo 'one packet processed!' after each packet.
+# Alternatively, you could add calls to scripts you'd like to be run after
+# each packet, perhaps to update some derived information.
+
+case "$1" in
+	post-process)
+		echo 'one packet processed!';
+		;;
+	*)
+		echo "unknown hook $1";
+esac
