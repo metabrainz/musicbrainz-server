@@ -5963,8 +5963,8 @@ msgid "Reverse link phrase:"
 msgstr "Frase de enlace inversa:"
 
 #: ../root/release/edit/information.tt:153
-msgid "Review the {doc|list of packaging types} for help."
-msgstr "Consulta la {doc|lista de tipos de empaquetado} para saber más."
+msgid "Review the <a href="{url}" target="_blank">list of packaging types</a> for help."
+msgstr "Consulta la <a href="{url}" target="_blank">lista de tipos de empaquetado</a> para saber más."
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
