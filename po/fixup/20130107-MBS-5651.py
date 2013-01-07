@@ -4,18 +4,22 @@
 
 Namely, change:
     Review the {doc|list of packaging types} for help.
+    - and -
+    Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.
 Into:
     Review the <a href="{url}" target="_blank">list of packaging types</a> for help.
+    - and -
+    Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.
 """
 
 import os
 
-def fix_string(old_string):
-    """Replaces the old text with the new text."""
+def fix_string_1(old_string):
+    """Replaces "{doc|..." with "<a href=..."."""
     try:
         new_string = old_string.split('{doc|')
         new_string = [new_string[0]] + new_string[1].split('}')
-        new_string = new_string[0] + '<a href="{url}" target="_blank">' +\
+        new_string = new_string[0] + '<a href="{url}" target="_blank">' + \
                      new_string[1] + '</a>' + new_string[2]
         print "... Replacing {old_string} with {new_string}.".format(**{
             'old_string': repr(old_string),
@@ -28,15 +32,43 @@ def fix_string(old_string):
         })
     return new_string
 
+def fix_string_2(old_string):
+    """Adds target="_blank" after href="{url}"."""
+    new_string = old_string.replace(r'href=\"{url}\"',
+                                    r'href=\"{url}\" target=\"_blank\"')
+    print "... Replacing {old_string} with {new_string}.".format(**{
+        'old_string': repr(old_string),
+        'new_string': repr(new_string),
+    })
+    return new_string
+
 def handle_file(pofile):
     """PO-file in, altered PO-file out."""
+
     lines = []
+    check_string_1 = r'{doc|list of packaging types}'
+    check_string_2a = r'Please enter the barcode of the release you are entering, see <a '
+    check_string_2b = r'href=\"{url}\">Barcode</a> for more information.'
+
     with open(pofile, 'r') as f:
         for line in f:
-            if line[:5] == 'msgid' and '{doc|list of packaging types}' in line:
-                msgid = fix_string(line)
-                msgstr = fix_string(f.next())
+            if line[:5] == 'msgid' and check_string_1 in line:
+                msgid = fix_string_1(line)
+                msgstr = fix_string_1(f.next())
                 lines = lines + [msgid] + [msgstr]
+            # Check whether the msgid is split over several lines.
+            elif r'msgid ""' in line:
+                lines = lines + [line]
+                line = f.next()
+                if check_string_2a in line:
+                    lines = lines + [line]
+                    line = f.next()
+                    if check_string_2b in line:
+                        msgid = fix_string_2(line)
+                        msgstr = fix_string_2(f.next())
+                        lines = lines + [msgid] + [msgstr]
+                else:
+                    lines = lines + [line]
             else:
                 lines = lines + [line]
     with open(pofile, 'w') as f:
