@@ -25,7 +25,13 @@ test 'browse artists via release group' => sub {
                     "sort-name" => "Distance",
                     country => JSON::null,
                     disambiguation => "UK dubstep artist Greg Sanders",
+                    "life-span" => {
+                        begin => JSON::null,
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
                     type => "Person",
+                    ipis => [],
                 }]
         });
 };
@@ -44,10 +50,14 @@ test 'browse artists via recording' => sub {
                     id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                     name => "m-flo",
                     "sort-name" => "m-flo",
-                    "life-span" => { begin => "1998", ended => JSON::false },
                     country => JSON::null,
-                    type => "Group",
                     disambiguation => "",
+                    "life-span" => {
+                        begin => "1998",
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
+                    type => "Group",
                     aliases => [
                         { "sort-name" => "m-flow", name => "m-flow" },
                         { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew" },
@@ -55,7 +65,8 @@ test 'browse artists via recording' => sub {
                         { "sort-name" => "mflo", name => "mflo" },
                         { "sort-name" => "えむふろう", name => "えむふろう" },
                         { "sort-name" => "エムフロウ", name => "エムフロウ" },
-                        ]
+                        ],
+                    ipis => [],
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -63,8 +74,12 @@ test 'browse artists via recording' => sub {
                     "sort-name" => "BoA",
                     country => JSON::null,
                     disambiguation => "",
+                    "life-span" => {
+                        begin => "1986-11-05",
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
                     type => "Person",
-                    "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
                     aliases => [
                         { name => "Beat of Angel", "sort-name" => "Beat of Angel" },
                         { name => "BoA Kwon", "sort-name" => "BoA Kwon" },
@@ -72,6 +87,7 @@ test 'browse artists via recording' => sub {
                         { name => "ボア", "sort-name" => "ボア" },
                         { name => "보아", "sort-name" => "보아" },
                         ],
+                    ipis => [],
                 }]
         });
 };
@@ -90,12 +106,17 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     id => "22dd2db3-88ea-4428-a7a8-5cd3acf23175",
                     name => "m-flo",
                     "sort-name" => "m-flo",
-                    "life-span" => { begin => "1998", ended => JSON::false },
                     country => JSON::null,
-                    type => "Group",
                     disambiguation => "",
+                    "life-span" => {
+                        begin => "1998",
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
+                    type => "Group",
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
+                    ipis => [],
                 },
                 {
                     id => "97fa3f6e-557c-4227-bc0e-95a7f9f3285d",
@@ -103,9 +124,15 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     "sort-name" => "BAGDAD CAFE THE trench town",
                     country => JSON::null,
                     disambiguation => "",
+                    "life-span" => {
+                        begin => JSON::null,
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
                     type => JSON::null,
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
+                    ipis => [],
                 },
                 {
                     id => "a16d1433-ba89-4f72-a47b-a370add0bb55",
@@ -114,7 +141,11 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     country => JSON::null,
                     disambiguation => "",
                     type => "Person",
-                    "life-span" => { "begin" => "1986-11-05", "ended" => JSON::false },
+                    "life-span" => {
+                        begin => "1986-11-05",
+                        end => JSON::null,
+                        ended => JSON::false,
+                    },
                     rating => { "votes-count" => 3, "value" => 4.35 },
                     tags => [
                         { count => 1, name => 'c-pop' },
@@ -124,7 +155,8 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'k-pop' },
                         { count => 1, name => 'kpop' },
                         { count => 1, name => 'pop' },
-                        ]
+                        ],
+                    ipis => [],
                 }]
         });
 };

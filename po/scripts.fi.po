@@ -7,805 +7,805 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "PO-Revision-Date: 2012-06-10 15:10+0000\n"
-"Last-Translator: Timo Martikainen <email address hidden>\n"
-"Language-Team: Finnish (http://www.transifex.net/projects/p/musicbrainz/language/fi/)\n"
+"Last-Translator: ListMyCDs.com Martikainen <email address hidden>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. frequency:1
+#. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
 msgstr "Afaka"
 
-#. frequency:4
+#. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
 msgstr "arabialainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
 msgstr "armenialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
 msgstr "avestan"
 
-#. frequency:2
+#. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
 msgstr "balilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Bamu
 #: DB:script/name:155
 msgid "Bamum"
 msgstr "bamum-kieli"
 
-#. frequency:1
+#. frequency:1 iso_code:Bass
 #: DB:script/name:145
 msgid "Bassa Vah"
 msgstr "bassa-vah"
 
-#. frequency:1
+#. frequency:1 iso_code:Batk
 #: DB:script/name:74
 msgid "Batak"
 msgstr "batakilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Beng
 #: DB:script/name:53
 msgid "Bengali"
 msgstr "bengalilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Blis
 #: DB:script/name:95
 msgid "Blissymbols"
 msgstr "Bliss-symbolit"
 
-#. frequency:1
+#. frequency:1 iso_code:Phlv
 #: DB:script/name:123
 msgid "Book Pahlavi"
 msgstr "kirjapahlavi"
 
-#. frequency:3
+#. frequency:3 iso_code:Bopo
 #: DB:script/name:42
 msgid "Bopomofo"
 msgstr "bopomofo"
 
-#. frequency:1
+#. frequency:1 iso_code:Brah
 #: DB:script/name:47
 msgid "Brahmi"
 msgstr "brahmi"
 
-#. frequency:1
+#. frequency:1 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
 msgstr "Braille-pistekirjoitus"
 
-#. frequency:2
+#. frequency:2 iso_code:Bugi
 #: DB:script/name:75
 msgid "Buginese"
 msgstr "bugilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Buhd
 #: DB:script/name:78
 msgid "Buhid"
 msgstr "buhidilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Cans
 #: DB:script/name:87
 msgid "Canadian Syllabics"
 msgstr "kanadalaisten tavukirjoitus"
 
-#. frequency:2
+#. frequency:2 iso_code:Cari
 #: DB:script/name:108
 msgid "Carian"
 msgstr "kaarialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Cakm
 #: DB:script/name:115
 msgid "Chakma"
 msgstr "chakma"
 
-#. frequency:2
+#. frequency:2 iso_code:Cham
 #: DB:script/name:71
 msgid "Cham"
 msgstr "tšamilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Cher
 #: DB:script/name:88
 msgid "Cherokee"
 msgstr "cherokeelainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Cirt
 #: DB:script/name:45
 msgid "Cirth"
 msgstr "cirth"
 
-#. frequency:1
+#. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
 msgstr "koodi perityille aakkostoille"
 
-#. frequency:1
+#. frequency:1 iso_code:Zzzz
 #: DB:script/name:130
 msgid "Code for uncoded script"
 msgstr "koodi koodittomalle aakkostolle"
 
-#. frequency:1
+#. frequency:1 iso_code:Zyyy
 #: DB:script/name:129
 msgid "Code for undetermined script"
 msgstr "koodi epäselville aakkostoille"
 
-#. frequency:1
+#. frequency:1 iso_code:Zxxx
 #: DB:script/name:128
 msgid "Code for unwritten documents"
 msgstr "koodi kirjoittamattomille asiakirjoille"
 
-#. frequency:2
+#. frequency:2 iso_code:Copt
 #: DB:script/name:23
 msgid "Coptic"
 msgstr "koptilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Xsux
 #: DB:script/name:1
 msgid "Cuneiform, Sumero-Akkadian"
 msgstr "sumerilais-akkadilainen nuolenpääkirjoitus"
 
-#. frequency:2
+#. frequency:2 iso_code:Cprt
 #: DB:script/name:82
 msgid "Cypriot"
 msgstr "muinaiskyproslainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Cyrl
 #: DB:script/name:31
 msgid "Cyrillic"
 msgstr "kyrillinen"
 
-#. frequency:1
+#. frequency:1 iso_code:Cyrs
 #: DB:script/name:32
 msgid "Cyrillic (Old Church Slavonic variant)"
 msgstr "kyrillinen (muinaiskirkkoslaavimuunnelma)"
 
-#. frequency:2
+#. frequency:2 iso_code:Dsrt
 #: DB:script/name:37
 msgid "Deseret"
 msgstr "deseret"
 
-#. frequency:3
+#. frequency:3 iso_code:Deva
 #: DB:script/name:50
 msgid "Devanagari"
 msgstr "devanagari"
 
-#. frequency:1
+#. frequency:1 iso_code:Dupl
 #: DB:script/name:142
 msgid "Duployan shorthand"
 msgstr "Duployén pikakirjoitus"
 
-#. frequency:1
+#. frequency:1 iso_code:Egyd
 #: DB:script/name:6
 msgid "Egyptian demotic"
 msgstr "egyptiläinen demoottinen"
 
-#. frequency:1
+#. frequency:1 iso_code:Egyh
 #: DB:script/name:5
 msgid "Egyptian hieratic"
 msgstr "egyptiläinen hieraattinen"
 
-#. frequency:1
+#. frequency:1 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
 msgstr "egyptiläiset hieroglyfit"
 
-#. frequency:1
+#. frequency:1 iso_code:Elba
 #: DB:script/name:143
 msgid "Elbasan"
 msgstr "elbasanilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Ethi
 #: DB:script/name:86
 msgid "Ethiopic"
 msgstr "etiopialainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Geor
 #: DB:script/name:36
 msgid "Georgian"
 msgstr "georgialainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Glag
 #: DB:script/name:33
 msgid "Glagolitic"
 msgstr "glagoliittinen"
 
-#. frequency:2
+#. frequency:2 iso_code:Goth
 #: DB:script/name:24
 msgid "Gothic"
 msgstr "goottilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Gran
 #: DB:script/name:152
 msgid "Grantha"
 msgstr "granthakirjoitus"
 
-#. frequency:4
+#. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
 msgstr "kreikkalainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Gujr
 #: DB:script/name:52
 msgid "Gujarati"
 msgstr "gudžaratilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Guru
 #: DB:script/name:49
 msgid "Gurmukhi"
 msgstr "gurmukhi"
 
-#. frequency:4
+#. frequency:4 iso_code:Hani
 #: DB:script/name:92
 msgid "Han (Hanzi, Kanji, Hanja)"
 msgstr "kiinalainen han"
 
-#. frequency:4
+#. frequency:4 iso_code:Hans
 #: DB:script/name:93
 msgid "Han (Simplified variant)"
 msgstr "han (yksinkertaistettu muunnelma)"
 
-#. frequency:4
+#. frequency:4 iso_code:Hant
 #: DB:script/name:94
 msgid "Han (Traditional variant)"
 msgstr "han (perinteinen muunnelma)"
 
-#. frequency:3
+#. frequency:3 iso_code:Hang
 #: DB:script/name:101
 msgid "Hangul"
 msgstr "hangul"
 
-#. frequency:2
+#. frequency:2 iso_code:Hano
 #: DB:script/name:77
 msgid "Hanunoo"
 msgstr "hanunoolainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Hebr
 #: DB:script/name:11
 msgid "Hebrew"
 msgstr "heprealainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Hira
 #: DB:script/name:83
 msgid "Hiragana"
 msgstr "hiragana"
 
-#. frequency:1
+#. frequency:1 iso_code:Armi
 #: DB:script/name:113
 msgid "Imperial Aramaic"
 msgstr "imperiaalinen aramea"
 
-#. frequency:1
+#. frequency:1 iso_code:Inds
 #: DB:script/name:97
 msgid "Indus"
 msgstr "induslainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Phli
 #: DB:script/name:121
 msgid "Inscriptional Pahlavi"
 msgstr "kaiverrettu pahlavi"
 
-#. frequency:1
+#. frequency:1 iso_code:Prti
 #: DB:script/name:124
 msgid "Inscriptional Parthian"
 msgstr "kaiverrettu parthialainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Jpan
 #: DB:script/name:85
 msgid "Japanese"
 msgstr "japanilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Hrkt
 #: DB:script/name:100
 msgid "Japanese syllabaries"
 msgstr "hiragana tai katakana"
 
-#. frequency:1
+#. frequency:1 iso_code:Java
 #: DB:script/name:73
 msgid "Javanese"
 msgstr "jaavalainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Jurc
 #: DB:script/name:134
 msgid "Jurchen"
 msgstr "Džurtšen"
 
-#. frequency:1
+#. frequency:1 iso_code:Kthi
 #: DB:script/name:116
 msgid "Kaithi"
 msgstr "kaithi"
 
-#. frequency:3
+#. frequency:3 iso_code:Knda
 #: DB:script/name:60
 msgid "Kannada"
 msgstr "kannadalainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Kana
 #: DB:script/name:84
 msgid "Katakana"
 msgstr "katakana"
 
-#. frequency:2
+#. frequency:2 iso_code:Kali
 #: DB:script/name:70
 msgid "Kayah Li"
 msgstr "kayah li"
 
-#. frequency:2
+#. frequency:2 iso_code:Khar
 #: DB:script/name:48
 msgid "Kharoshthi"
 msgstr "kharosthi"
 
-#. frequency:3
+#. frequency:3 iso_code:Khmr
 #: DB:script/name:68
 msgid "Khmer"
 msgstr "khmeriläinen"
 
-#. frequency:1
+#. frequency:1 iso_code:Khoj
 #: DB:script/name:131
 msgid "Khojki"
 msgstr "Khojki"
 
-#. frequency:1
+#. frequency:1 iso_code:Sind
 #: DB:script/name:144
 msgid "Khudawadi"
 msgstr "khudabadi"
 
-#. frequency:2
+#. frequency:2 iso_code:Geok
 #: DB:script/name:102
 msgid "Khutsuri"
 msgstr "muinaisgeorgialainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Kore
 #: DB:script/name:43
 msgid "Korean"
 msgstr "korealainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Kpel
 #: DB:script/name:146
 msgid "Kpelle"
 msgstr "kpelle"
 
-#. frequency:3
+#. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
 msgstr "laolainen"
 
-#. frequency:4
+#. frequency:4 iso_code:Latn
 #: DB:script/name:28
 msgid "Latin"
 msgstr "latinalainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Latf
 #: DB:script/name:30
 msgid "Latin (Fraktur variant)"
 msgstr "latinalainen (fraktuuramuunnelma)"
 
-#. frequency:1
+#. frequency:1 iso_code:Latg
 #: DB:script/name:29
 msgid "Latin (Gaelic variant)"
 msgstr "latinalainen (gaelilainen muunnelma)"
 
-#. frequency:2
+#. frequency:2 iso_code:Lepc
 #: DB:script/name:57
 msgid "Lepcha"
 msgstr "lepchalainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Limb
 #: DB:script/name:58
 msgid "Limbu"
 msgstr "limbulainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Lina
 #: DB:script/name:80
 msgid "Linear A"
 msgstr "lineaari-A"
 
-#. frequency:2
+#. frequency:2 iso_code:Linb
 #: DB:script/name:81
 msgid "Linear B"
 msgstr "lineaari-B"
 
-#. frequency:1
+#. frequency:1 iso_code:Lisu
 #: DB:script/name:157
 msgid "Lisu (Fraser)"
 msgstr "lisu"
 
-#. frequency:1
+#. frequency:1 iso_code:Loma
 #: DB:script/name:147
 msgid "Loma"
 msgstr "loma-kieli"
 
-#. frequency:2
+#. frequency:2 iso_code:Lyci
 #: DB:script/name:109
 msgid "Lycian"
 msgstr "lyykialainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Lydi
 #: DB:script/name:110
 msgid "Lydian"
 msgstr "lyydialainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Mlym
 #: DB:script/name:62
 msgid "Malayalam"
 msgstr "malajalamilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Mand
 #: DB:script/name:16
 msgid "Mandaic"
 msgstr "manikealainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Mani
 #: DB:script/name:118
 msgid "Manichaean"
 msgstr "manikealainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Zmth
 #: DB:script/name:111
 msgid "Mathematical notation"
 msgstr "matemaattinen notaatio"
 
-#. frequency:1
+#. frequency:1 iso_code:Maya
 #: DB:script/name:7
 msgid "Mayan hieroglyphs"
 msgstr "maya-hieroglyfit"
 
-#. frequency:1
+#. frequency:1 iso_code:Mtei
 #: DB:script/name:120
 msgid "Meitei Mayek"
 msgstr "meitei"
 
-#. frequency:1
+#. frequency:1 iso_code:Mend
 #: DB:script/name:148
 msgid "Mende"
 msgstr "mende-kieli"
 
-#. frequency:1
+#. frequency:1 iso_code:Merc
 #: DB:script/name:153
 msgid "Meroitic Cursive"
 msgstr "meroiittinen kursiivi"
 
-#. frequency:1
+#. frequency:1 iso_code:Mero
 #: DB:script/name:8
 msgid "Meroitic Hieroglyphs"
 msgstr "meroiittiset hieroglyfit"
 
-#. frequency:1
+#. frequency:1 iso_code:Plrd
 #: DB:script/name:41
 msgid "Miao"
 msgstr "Pollardin foneettinen"
 
-#. frequency:3
+#. frequency:3 iso_code:Mong
 #: DB:script/name:17
 msgid "Mongolian"
 msgstr "mongolilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Moon
 #: DB:script/name:119
 msgid "Moon"
 msgstr "moon-kohokirjoitus"
 
-#. frequency:1
+#. frequency:1 iso_code:Mroo
 #: DB:script/name:135
 msgid "Mro, Mru"
 msgstr "Mro, Mru"
 
-#. frequency:3
+#. frequency:3 iso_code:Mymr
 #: DB:script/name:64
 msgid "Myanmar"
 msgstr "burmalainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Nkoo
 #: DB:script/name:103
 msgid "N'ko"
 msgstr "n'ko"
 
-#. frequency:1
+#. frequency:1 iso_code:Nbat
 #: DB:script/name:149
 msgid "Nabataean"
 msgstr "nabatea"
 
-#. frequency:1
+#. frequency:1 iso_code:Nkgb
 #: DB:script/name:158
 msgid "Nakhi Geba"
 msgstr "naxi geba"
 
-#. frequency:2
+#. frequency:2 iso_code:Talu
 #: DB:script/name:67
 msgid "New Tai Lue"
 msgstr "uusi tailuelainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Nshu
 #: DB:script/name:136
 msgid "Nüshu"
 msgstr "Nüshu"
 
-#. frequency:2
+#. frequency:2 iso_code:Ogam
 #: DB:script/name:27
 msgid "Ogham"
 msgstr "ogam"
 
-#. frequency:2
+#. frequency:2 iso_code:Olck
 #: DB:script/name:104
 msgid "Ol Chiki"
 msgstr "ol chiki"
 
-#. frequency:1
+#. frequency:1 iso_code:Hung
 #: DB:script/name:21
 msgid "Old Hungarian"
 msgstr "muinaisunkarilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Ital
 #: DB:script/name:25
 msgid "Old Italic"
 msgstr "muinaisitalialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Narb
 #: DB:script/name:150
 msgid "Old North Arabian"
 msgstr "pohjoismuinaisarabialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Perm
 #: DB:script/name:34
 msgid "Old Permic"
 msgstr "muinaispermiläinen"
 
-#. frequency:2
+#. frequency:2 iso_code:Xpeo
 #: DB:script/name:2
 msgid "Old Persian"
 msgstr "muinaispersialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Sarb
 #: DB:script/name:156
 msgid "Old South Arabian"
 msgstr "vanha etelä-arabia"
 
-#. frequency:1
+#. frequency:1 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkish"
 msgstr "muinaisturkkilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Orya
 #: DB:script/name:54
 msgid "Oriya"
 msgstr "orijalainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Osma
 #: DB:script/name:38
 msgid "Osmanya"
 msgstr "osmanjalainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Hmng
 #: DB:script/name:89
 msgid "Pahawh Hmong"
 msgstr "pahawh hmong"
 
-#. frequency:1
+#. frequency:1 iso_code:Palm
 #: DB:script/name:151
 msgid "Palmyrene"
 msgstr "palmyra"
 
-#. frequency:2
+#. frequency:2 iso_code:Phag
 #: DB:script/name:56
 msgid "Phags-pa"
 msgstr "phags-pa"
 
-#. frequency:2
+#. frequency:2 iso_code:Phnx
 #: DB:script/name:9
 msgid "Phoenician"
 msgstr "foinikialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Phlp
 #: DB:script/name:122
 msgid "Psalter Pahlavi"
 msgstr "psalmipahlavi"
 
-#. frequency:2
+#. frequency:2 iso_code:Rjng
 #: DB:script/name:105
 msgid "Rejang"
 msgstr "rejang"
 
-#. frequency:1
+#. frequency:1 iso_code:Roro
 #: DB:script/name:98
 msgid "Rongorongo"
 msgstr "rongorongo"
 
-#. frequency:2
+#. frequency:2 iso_code:Runr
 #: DB:script/name:26
 msgid "Runic"
 msgstr "riimukirjoitus"
 
-#. frequency:1
+#. frequency:1 iso_code:Samr
 #: DB:script/name:125
 msgid "Samaritan"
 msgstr "samarialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Sara
 #: DB:script/name:46
 msgid "Sarati"
 msgstr "sarati"
 
-#. frequency:2
+#. frequency:2 iso_code:Saur
 #: DB:script/name:106
 msgid "Saurashtra"
 msgstr "saurashtra"
 
-#. frequency:1
+#. frequency:1 iso_code:Shrd
 #: DB:script/name:138
 msgid "Sharada"
 msgstr "śāradā"
 
-#. frequency:2
+#. frequency:2 iso_code:Shaw
 #: DB:script/name:40
 msgid "Shavian"
 msgstr "shaw’lainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Sgnw
 #: DB:script/name:126
 msgid "SignWriting"
 msgstr "merkkikirjoitus"
 
-#. frequency:3
+#. frequency:3 iso_code:Sinh
 #: DB:script/name:63
 msgid "Sinhala"
 msgstr "sinhalilainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Sora
 #: DB:script/name:137
 msgid "Sora Sompeng"
 msgstr "Sora Sompeng"
 
-#. frequency:2
+#. frequency:2 iso_code:Sund
 #: DB:script/name:107
 msgid "Sundanese"
 msgstr "sundalainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Sylo
 #: DB:script/name:51
 msgid "Syloti Nagri"
 msgstr "syloti nagri"
 
-#. frequency:3
+#. frequency:3 iso_code:Zsym
 #: DB:script/name:112
 msgid "Symbols"
 msgstr "symbolit"
 
-#. frequency:2
+#. frequency:2 iso_code:Syrc
 #: DB:script/name:12
 msgid "Syriac"
 msgstr "syyrialainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Syrn
 #: DB:script/name:13
 msgid "Syriac (Eastern variant)"
 msgstr "syyrialainen (itäinen muunnelma)"
 
-#. frequency:1
+#. frequency:1 iso_code:Syre
 #: DB:script/name:15
 msgid "Syriac (Estrangelo variant)"
 msgstr "syyrialainen (estrangelo-muunnelma)"
 
-#. frequency:1
+#. frequency:1 iso_code:Syrj
 #: DB:script/name:14
 msgid "Syriac (Western variant)"
 msgstr "syyrialainen (läntinen muunnelma)"
 
-#. frequency:2
+#. frequency:2 iso_code:Tglg
 #: DB:script/name:76
 msgid "Tagalog"
 msgstr "tagalogilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Tagb
 #: DB:script/name:79
 msgid "Tagbanwa"
 msgstr "tagbanwalainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Tale
 #: DB:script/name:66
 msgid "Tai Le"
 msgstr "tailelainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Lana
 #: DB:script/name:117
 msgid "Tai Tham"
 msgstr "lanna"
 
-#. frequency:1
+#. frequency:1 iso_code:Tavt
 #: DB:script/name:127
 msgid "Tai Viet"
 msgstr "tai viet"
 
-#. frequency:1
+#. frequency:1 iso_code:Takr
 #: DB:script/name:139
 msgid "Takri"
 msgstr "takri"
 
-#. frequency:3
+#. frequency:3 iso_code:Taml
 #: DB:script/name:61
 msgid "Tamil"
 msgstr "tamililainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Tang
 #: DB:script/name:140
 msgid "Tangut"
 msgstr "tanguutilainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Telu
 #: DB:script/name:59
 msgid "Telugu"
 msgstr "telugulainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Teng
 #: DB:script/name:44
 msgid "Tengwar"
 msgstr "tengwar"
 
-#. frequency:2
+#. frequency:2 iso_code:Thaa
 #: DB:script/name:19
 msgid "Thaana"
 msgstr "thaana"
 
-#. frequency:4
+#. frequency:4 iso_code:Thai
 #: DB:script/name:65
 msgid "Thai"
 msgstr "thailainen"
 
-#. frequency:3
+#. frequency:3 iso_code:Tibt
 #: DB:script/name:55
 msgid "Tibetan"
 msgstr "tiibetiläinen"
 
-#. frequency:3
+#. frequency:3 iso_code:Tfng
 #: DB:script/name:10
 msgid "Tifinagh"
 msgstr "tifinagh"
 
-#. frequency:1
+#. frequency:1 iso_code:Tirh
 #: DB:script/name:132
 msgid "Tiruta"
 msgstr "tirhuta"
 
-#. frequency:2
+#. frequency:2 iso_code:Ugar
 #: DB:script/name:3
 msgid "Ugaritic"
 msgstr "ugaritilainen"
 
-#. frequency:2
+#. frequency:2 iso_code:Vaii
 #: DB:script/name:91
 msgid "Vai"
 msgstr "vailainen"
 
-#. frequency:1
+#. frequency:1 iso_code:Visp
 #: DB:script/name:39
 msgid "Visible Speech"
 msgstr "näkyvä puhe"
 
-#. frequency:1
+#. frequency:1 iso_code:Wara
 #: DB:script/name:154
 msgid "Warang Citi"
 msgstr "varang kshiti"
 
-#. frequency:1
+#. frequency:1 iso_code:Wole
 #: DB:script/name:141
 msgid "Woleai"
 msgstr "Woleai"
 
-#. frequency:2
+#. frequency:2 iso_code:Yiii
 #: DB:script/name:90
 msgid "Yi"
 msgstr "yiläinen"
 
-#. frequency:2
+#. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
 msgstr "[useita merkistöjä]"

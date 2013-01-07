@@ -15,8 +15,6 @@ sub find_available_artwork {
 
     my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
 
-    my $types = { map { $_->name => $_ } $self->c->model('CoverArtType')->get_all() };
-
     return [
         map {
             Net::CoverArtArchive::CoverArt->new(
@@ -25,11 +23,7 @@ sub find_available_artwork {
                 large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $_->{id}),
                 small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $_->{id}),
             );
-        } map {
-            $_->{types} = [ map { $types->{$_}->l_name } @{ $_->{types} } ];
-            $_;
-        }
-        @{ $self->sql->select_list_of_hashes(
+        } @{ $self->sql->select_list_of_hashes(
             'SELECT index_listing.*, release.gid
              FROM cover_art_archive.index_listing
              JOIN musicbrainz.release ON index_listing.release = release.id
@@ -53,32 +47,37 @@ sub post_fields
 {
     my ($self, $bucket, $mbid, $id, $redirect) = @_;
 
-    my $aws_id = DBDefs->COVER_ART_ARCHIVE_ID;
-    my $aws_key = DBDefs->COVER_ART_ARCHIVE_KEY;
+    my $access_key = DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
+    my $secret_key = DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
 
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
     my $filename = "mbid-$mbid-" . $id . '.jpg';
+
+    my %extra_fields = (
+        "x-archive-auto-make-bucket" => 1,
+        "x-archive-meta-collection" => 'coverartarchive',
+        "x-archive-meta-mediatype" => 'image',
+    );
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
     $policy->add ({'success_action_redirect' => $redirect});
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with image/jpeg');
-    $policy->add ('x-archive-auto-make-bucket eq 1');
-    $policy->add ('x-archive-meta-collection eq coverartarchive');
-    $policy->add ('x-archive-meta-mediatype eq images');
+
+    for my $field (keys %extra_fields) {
+        $policy->add("$field eq " . $extra_fields{$field});
+    }
 
     return {
-        AWSAccessKeyId => $aws_id,
+        AWSAccessKeyId => $access_key,
         policy => $policy->base64(),
-        signature => $policy->signature_base64($aws_key),
+        signature => $policy->signature_base64($secret_key),
         key => $filename,
         acl => 'public-read',
         "content-type" => 'image/jpeg',
         success_action_redirect => $redirect,
-        "x-archive-auto-make-bucket" => 1,
-        "x-archive-meta-collection" => 'coverartarchive',
-        "x-archive-meta-mediatype" => 'images',
+        %extra_fields
     };
 }
 

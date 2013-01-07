@@ -15,7 +15,8 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{"primary-type"} = $entity->primary_type->name;
+    $body{"primary-type"} = $entity->primary_type
+        ? $entity->primary_type->name : JSON::null;
     $body{"secondary-types"} = [ map {
         $_->name } $entity->all_secondary_types ];
     $body{"first-release-date"} = $entity->first_release_date->format;

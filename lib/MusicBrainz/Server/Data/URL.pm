@@ -35,6 +35,7 @@ my %URL_SPECIALIZATIONS = (
     'ISRCTW'          => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,
     'Jamendo'         => qr{^https?://(?:www.)?jamendo.com/}i,
     'LastFM'          => qr{^https?://(?:www.)?last.fm/}i,
+    'Lieder'          => qr{^https?://(?:www.)?recmusic.org/lieder/}i,
     'LyricWiki'       => qr{^https?://lyrics.wikia.com/}i,
     'MetalArchives'   => qr{^https?://(?:www.)?metal-archives.com/}i,
     'MusicMoz'        => qr{^https?://(?:www.)?musicmoz.org/}i,
