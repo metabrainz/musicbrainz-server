@@ -35,7 +35,7 @@ def handle_file(pofile):
         for line in f:
             if line[:5] == 'msgid' and '{doc|list of packaging types}' in line:
                 msgid = fix_string(line)
-                msgstr = fix_string(f.next()) 
+                msgstr = fix_string(f.next())
                 lines = lines + [msgid] + [msgstr]
             else:
                 lines = lines + [line]
