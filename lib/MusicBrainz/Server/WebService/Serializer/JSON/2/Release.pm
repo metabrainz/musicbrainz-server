@@ -43,13 +43,15 @@ sub serialize
         ? $entity->packaging->name : JSON::null;
 
     my $coverart = $stash->store($entity)->{'cover-art-archive'};
-    $body{'cover-art-archive'} = {
-        artwork => boolean($entity->cover_art_presence eq 'present'),
-        darkened => boolean($entity->cover_art_presence eq 'darkened'),
-        count => $coverart->{total},
-        front => boolean($coverart->{front}),
-        back => boolean($coverart->{back})
-    };
+    if ($coverart) {
+        $body{'cover-art-archive'} = {
+            artwork => boolean($entity->cover_art_presence eq 'present'),
+            darkened => boolean($entity->cover_art_presence eq 'darkened'),
+            count => $coverart->{total},
+            front => boolean($coverart->{front}),
+            back => boolean($coverart->{back})
+        };
+    }
 
     $body{"text-representation"} = {
         script => $entity->script ? $entity->script->iso_code : JSON::null,
