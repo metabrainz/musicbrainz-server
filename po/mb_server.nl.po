@@ -5959,8 +5959,8 @@ msgid "Reverse link phrase:"
 msgstr "Omgekeerde koppelzin:"
 
 #: ../root/release/edit/information.tt:153
-msgid "Review the <a href="{url}" target="_blank">list of packaging types</a> for help."
-msgstr "Bekijk de <a href="{url}" target="_blank">lijst van verpakkingstypes</a> voor hulp."
+msgid "Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> for help."
+msgstr "Bekijk de <a href=\"{url}\" target=\"_blank\">lijst van verpakkingstypes</a> voor hulp."
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"

@@ -5958,7 +5958,7 @@ msgid "Reverse link phrase:"
 msgstr ""
 
 #: ../root/release/edit/information.tt:153
-msgid "Review the <a href="{url}" target="_blank">list of packaging types</a> for help."
+msgid "Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> for help."
 msgstr ""
 
 #: ../root/layout.tt:79
