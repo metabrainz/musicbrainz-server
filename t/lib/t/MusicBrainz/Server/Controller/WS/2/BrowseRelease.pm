@@ -36,6 +36,12 @@ ws_test 'browse releases via artist (paging)',
             </text-representation>
             <date>1999-09-23</date><country>US</country>
             <asin>B00001IVAI</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
         </release>
     </release-list>
 </metadata>';
@@ -53,6 +59,12 @@ ws_test 'browse releases via label',
             </text-representation>
             <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
             <asin>B001IKWNCE</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
             <medium-list count="2">
                 <medium>
                     <position>1</position><format>CD</format><track-list count="9" />
@@ -70,6 +82,12 @@ ws_test 'browse releases via label',
             </text-representation>
             <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
             <asin>B000KJTG6K</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
             <medium-list count="1">
                 <medium>
                     <position>1</position><format>CD</format><track-list count="12" />
@@ -92,6 +110,12 @@ ws_test 'browse releases via release group',
             </text-representation>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
         </release>
         <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
@@ -101,6 +125,12 @@ ws_test 'browse releases via release group',
             </text-representation>
             <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
         </release>
     </release-list>
 </metadata>';
@@ -121,6 +151,12 @@ ws_test 'browse releases via recording',
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173891</barcode>
             <asin>B0000YGBSG</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17389</catalog-number>
@@ -138,6 +174,12 @@ ws_test 'browse releases via recording',
             </text-representation>
             <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
             <asin>B0000YG9NS</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17390</catalog-number>
@@ -164,6 +206,12 @@ ws_test 'browse releases via track artist',
       <country>JP</country>
       <barcode>4988064451180</barcode>
       <asin>B0001FAD2O</asin>
+      <cover-art-archive>
+          <artwork>false</artwork>
+          <count>0</count>
+          <front>false</front>
+          <back>false</back>
+      </cover-art-archive>
     </release>
   </release-list>
 </metadata>';
