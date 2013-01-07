@@ -4848,8 +4848,8 @@ msgstr "Entrez les marqueurs dans la zone de texte ci-dessous. Les marqueurs son
 #: ../root/release/edit/information.tt:177
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\">Barcode</a> for more information."
-msgstr "Merci d'entrer le code-barre de la sortie que vous êtes en train de saisir. voir <a href=\"{url}\">la page code-barres</a> pour plus d'information."
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr "Merci d'entrer le code-barre de la sortie que vous êtes en train de saisir. voir <a href=\"{url}\" target=\"_blank\">la page code-barres</a> pour plus d'information."
 
 #: ../root/release/merge_search.tt:6
 msgid ""

@@ -4839,8 +4839,8 @@ msgstr "Palun sisesta sildid allolevasse tekstialasse. Sildid tuleb eraldada kom
 #: ../root/release/edit/information.tt:177
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\">Barcode</a> for more information."
-msgstr "Palun sisesta lisatava väljalaske vöötkood. Lisateabe saamiseks loe dokumentatsioonilehekülge <a href=\"{url}\">Vöötkood</a>."
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr "Palun sisesta lisatava väljalaske vöötkood. Lisateabe saamiseks loe dokumentatsioonilehekülge <a href=\"{url}\" target=\"_blank\">Vöötkood</a>."
 
 #: ../root/release/merge_search.tt:6
 msgid ""

@@ -4854,8 +4854,8 @@ msgstr "Bitte gebe Deine Tags in das Textfeld unten ein. Tags sind komma-separie
 #: ../root/release/edit/information.tt:177
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\">Barcode</a> for more information."
-msgstr "Bitte gib den Strichcode der Veröffentlichung an, die Du eingibst. Siehe auch <a href=\"{url}\">Strichcode</a> zu weiteren Informationen."
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr "Bitte gib den Strichcode der Veröffentlichung an, die Du eingibst. Siehe auch <a href=\"{url}\" target=\"_blank\">Strichcode</a> zu weiteren Informationen."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
