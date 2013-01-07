@@ -19,7 +19,7 @@ def fix_string_1(old_string):
     try:
         new_string = old_string.split('{doc|')
         new_string = [new_string[0]] + new_string[1].split('}')
-        new_string = new_string[0] + '<a href="{url}" target="_blank">' + \
+        new_string = new_string[0] + r'<a href=\"{url}\" target=\"_blank\">' + \
                      new_string[1] + '</a>' + new_string[2]
         print "... Replacing {old_string} with {new_string}.".format(**{
             'old_string': repr(old_string),
