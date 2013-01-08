@@ -391,12 +391,11 @@ sub AUTO_RESTART {
 #    }
 }
 
-# The maximum amount of time a process can be serving a single request
-# If undef, the process is never killed
-# If set to a positive integer, the process can server a single request
-# for MAX_REQUEST_TIME seconds, and if it is still not done the process
-# will be killed (and log a message about the request it was serving).
-sub MAX_REQUEST_TIME { undef }
+# The maximum amount of time a process can be serving a single request. This
+# function takes a Catalyst::Request as input, and should return the amount of time
+# in seconds that it should take to respond to this request.
+# If undef, the process is never killed.
+sub DETERMINE_MAX_REQUEST_TIME { undef }
 
 sub LOGGER_ARGUMENTS {
     return (

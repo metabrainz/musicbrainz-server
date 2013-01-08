@@ -320,9 +320,18 @@ after dispatch => sub {
 
 # Timeout long running requests
 
-if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
-    around dispatch => sub {
-        my ($orig, $c, @args) = @_;
+around dispatch => sub {
+    my ($orig, $c, @args) = @_;
+
+    my $max_request_time = DBDefs->DETERMINE_MAX_REQUEST_TIME($c->req);
+
+    if (defined($max_request_time) && $max_request_time > 0) {
+        my $context = $c->model('MB')->context;
+
+        if ($context->connector->conn->connected) {
+            $context->sql->do("SET statement_timeout = " .
+                                  ($max_request_time * 1000));
+        }
 
         alarm($max_request_time);
         POSIX::sigaction(
@@ -333,19 +342,19 @@ if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
                 $c->log->error(Devel::StackTrace->new->as_string);
                 $c->log->_flush;
 
-                if (my $sth = $c->model('MB')->context->sql->sth) {
+                if (my $sth = $context->sql->sth) {
                     $sth->cancel;
                 }
 
-                $c->model('MB')->context->connector->disconnect;
+                $context->connector->disconnect;
 
                 exit(42)
             }));
+    }
 
-        $c->$orig(@args);
+    $c->$orig(@args);
 
-        alarm(0);
-    };
+    alarm(0);
 };
 
 around 'finalize_error' => sub {
