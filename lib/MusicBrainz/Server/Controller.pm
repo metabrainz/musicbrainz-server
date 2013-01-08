@@ -139,11 +139,12 @@ sub edit_action
                 @options,
                 %extra
             );
-
-            $opts{post_creation}->($edit, $form) if $edit && exists $opts{post_creation};
         });
 
+        # the on_creation hook is only called when an edit was entered.
+        # the post_creation hook is always called.
         $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+        $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
 
         return $edit;
     }
