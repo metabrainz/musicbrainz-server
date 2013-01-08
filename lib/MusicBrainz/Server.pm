@@ -7,6 +7,7 @@ use Class::MOP;
 use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
+use POSIX qw(SIGALRM);
 
 use aliased 'MusicBrainz::Server::Translation';
 
@@ -240,43 +241,6 @@ sub relative_uri
     return $uri;
 }
 
-use POSIX qw(SIGALRM);
-
-around 'dispatch' => sub {
-    my $orig = shift;
-    my $c = shift;
-
-    $c->model('MB')->context->connector->refresh;
-
-    with_translations($c, sub {
-        my $c = shift;
-        my $orig = shift;
-
-        if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
-            alarm($max_request_time);
-            POSIX::sigaction(
-                SIGALRM, POSIX::SigAction->new(sub {
-                    $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
-                                           $c->req->uri,
-                                           $max_request_time));
-                    $c->log->error(Devel::StackTrace->new->as_string);
-                    $c->log->_flush;
-                    if (my $sth = $c->model('MB')->context->sql->sth) {
-                        $sth->cancel;
-                    }
-                    exit(42)
-                }));
-
-            $c->$orig(@_);
-
-            alarm(0);
-        }
-        else {
-            $c->$orig(@_);
-        }
-    }, $orig, @_);
-};
-
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
@@ -300,45 +264,9 @@ sub _handle_param_unicode_decoding {
     };
 }
 
-sub execute {
-    my $c = shift;
-    return do {
-        local $SIG{__WARN__} = sub {
-            my $warning = shift;
-            chomp $warning;
-            $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
-        };
-        $c->next::method(@_);
-    };
-}
-
-around 'finalize_error' => sub {
-    my $orig = shift;
-    my $c = shift;
-
-    with_translations($c, sub {
-        my $c = shift;
-        my $orig = shift;
-
-        $c->$orig(@_);
-
-        $c->model('MB')->context->connector->disconnect;
-
-        if (!$c->debug && scalar @{ $c->error }) {
-            $c->stash->{errors} = $c->error;
-            $c->stash->{template} = 'main/500.tt';
-            $c->stash->{stack_trace} = $c->_stacktrace;
-            $c->clear_errors;
-            $c->res->{body} = 'clear';
-            $c->view('Default')->process($c);
-            $c->res->{body} = encode('utf-8', $c->res->{body});
-        }
-    }, $orig, @_);
-};
-
-sub with_translations {
-    my $c = shift;
-    my $orig = shift;
+# Set and unset translation language
+around dispatch => sub {
+    my ($orig, $c, @args) = @_;
 
     $_->instance->build_languages_from_header($c->req->headers)
         for qw( MusicBrainz::Server::Translation
@@ -363,10 +291,83 @@ sub with_translations {
         use_languages => scalar @{ Translation->instance->all_languages() }
     );
 
-    &$orig($c, @_);
+    $c->$orig(@args);
 
     Translation->instance->unset_language();
-}
+};
+
+# All warnings should be logged
+around dispatch => sub {
+    my ($orig, $c, @args) = @_;
+
+    local $SIG{__WARN__} = sub {
+        my $warning = shift;
+        chomp $warning;
+        $c->log->warn($c->req->method . " " . $c->req->uri . " caused a warning: " . $warning);
+    };
+
+    $c->$orig(@args);
+};
+
+# Use a fresh database connection for every request, and remember to disconnect at the end
+before dispatch => sub {
+    shift->model('MB')->context->connector->refresh;
+};
+
+after dispatch => sub {
+    shift->model('MB')->context->connector->disconnect;
+};
+
+# Timeout long running requests
+
+if(my $max_request_time = DBDefs->MAX_REQUEST_TIME) {
+    around dispatch => sub {
+        my ($orig, $c, @args) = @_;
+
+        alarm($max_request_time);
+        POSIX::sigaction(
+            SIGALRM, POSIX::SigAction->new(sub {
+                $c->log->error(sprintf("Request for %s took over %d seconds. Killing process",
+                                       $c->req->uri,
+                                       $max_request_time));
+                $c->log->error(Devel::StackTrace->new->as_string);
+                $c->log->_flush;
+
+                if (my $sth = $c->model('MB')->context->sql->sth) {
+                    $sth->cancel;
+                }
+
+                $c->model('MB')->context->connector->disconnect;
+
+                exit(42)
+            }));
+
+        $c->$orig(@args);
+
+        alarm(0);
+    };
+};
+
+around 'finalize_error' => sub {
+    my $orig = shift;
+    my $c = shift;
+    my @args = @_;
+
+    $c->with_translations(sub {
+        $c->$orig(@args);
+
+        if (!$c->debug && scalar @{ $c->error }) {
+            $c->stash->{errors} = $c->error;
+            $c->stash->{template} = 'main/500.tt';
+            $c->stash->{stack_trace} = $c->_stacktrace;
+            $c->clear_errors;
+            $c->res->{body} = 'clear';
+            $c->view('Default')->process($c);
+            $c->res->{body} = encode('utf-8', $c->res->{body});
+        }
+    });
+};
+
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server
@@ -377,6 +378,7 @@ MusicBrainz::Server - Catalyst-based MusicBrainz server
 
 =head1 LICENSE
 
+Copyright (C) 2012 MetaBrainz Foundation
 Copyright (C) 2008 Oliver Charles
 Copyright (C) 2009 Lukas Lalinsky
 
