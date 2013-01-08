@@ -49,7 +49,7 @@ sub load
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE release IN (" . placeholders(@ids) . ")
-                 ORDER BY release, rl_catalog_number";
+                 ORDER BY release, rl_catalog_number, rl_label";
     my @labels = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
     foreach my $label (@labels) {
