@@ -153,9 +153,9 @@ ws_test 'release lookup with artists + aliases',
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
-            <artwork>false</artwork>
-            <count>0</count>
-            <front>false</front>
+            <artwork>true</artwork>
+            <count>1</count>
+            <front>true</front>
             <back>false</back>
         </cover-art-archive>
     </release>
@@ -219,9 +219,9 @@ ws_test 'release lookup with labels, recordings and tags',
             </medium>
         </medium-list>
         <cover-art-archive>
-            <artwork>false</artwork>
-            <count>0</count>
-            <front>false</front>
+            <artwork>true</artwork>
+            <count>1</count>
+            <front>true</front>
             <back>false</back>
         </cover-art-archive>
     </release>
@@ -261,9 +261,9 @@ ws_test 'release lookup with release-groups',
         <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
-            <artwork>false</artwork>
-            <count>0</count>
-            <front>false</front>
+            <artwork>true</artwork>
+            <count>1</count>
+            <front>true</front>
             <back>false</back>
         </cover-art-archive>
     </release>

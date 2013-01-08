@@ -207,9 +207,9 @@ ws_test 'browse releases via track artist',
       <barcode>4988064451180</barcode>
       <asin>B0001FAD2O</asin>
       <cover-art-archive>
-          <artwork>false</artwork>
-          <count>0</count>
-          <front>false</front>
+          <artwork>true</artwork>
+          <count>1</count>
+          <front>true</front>
           <back>false</back>
       </cover-art-archive>
     </release>

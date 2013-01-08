@@ -262,9 +262,9 @@ test 'browse releases via track artist' => sub {
                     quality => "normal",
                     "text-representation" => { language => "eng", script => "Latn" },
                     "cover-art-archive" => {
-                        artwork => JSON::false,
-                        count => 0,
-                        front => JSON::false,
+                        artwork => JSON::true,
+                        count => 1,
+                        front => JSON::true,
                         back => JSON::false,
                         darkened => JSON::false,
                     },

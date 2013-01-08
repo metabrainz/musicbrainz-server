@@ -47,7 +47,8 @@ sub serialize
         $body{'cover-art-archive'} = {
             artwork => boolean($entity->cover_art_presence eq 'present'),
             darkened => boolean($entity->cover_art_presence eq 'darkened'),
-            count => $coverart->{total},
+            # force to number
+            count => $coverart->{total} * 1,
             front => boolean($coverart->{front}),
             back => boolean($coverart->{back})
         };
