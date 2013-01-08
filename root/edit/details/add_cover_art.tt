@@ -15,8 +15,7 @@
 
   [% IF edit.display_data.types.size %]
   <tr>
-        [%# Since the number isn't actually included in the string, we use multiple l() here rather than ln() %]
-    <th>[% IF edit.display_data.types.size == 1; l('Type:'); ELSE; l('Types:'); END %]</th>
+    <th>[% l('Types:') %]</th>
     <td>
         [% USE Map %]
         [% comma_only_list(edit.display_data.types.map('l_name')) | html %]

@@ -7,8 +7,7 @@
   </tr>
 
   <tr>
-        [%# Since the number isn't actually included in the string, we use multiple l() here rather than ln() %]
-    <th>[% IF edit.display_data.types.size == 1; l('Type:'); ELSE; l('Types:'); END %]</th>
+    <th>[% l('Types:') %]</th>
     <td>
       [% IF edit.display_data.types.size %]
         [% USE Map %]
