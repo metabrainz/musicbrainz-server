@@ -327,9 +327,9 @@ APPLY_CHANGES:
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts;
 exit $? if $?;
 
-if (-x "$FindBin::Bin/hooks") {
+if (-x "$FindBin::Bin/hooks/post-process") {
     print localtime() . " : Running post-process hook\n";
-    system "$FindBin::Bin/hooks post-process";
+    system "$FindBin::Bin/hooks/post-process";
     exit $? if $?;
 }
 
