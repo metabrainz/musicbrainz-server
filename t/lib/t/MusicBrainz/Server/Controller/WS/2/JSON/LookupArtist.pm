@@ -662,4 +662,41 @@ test 'artist lookup with works (using l_recording_work)' => sub {
         });
 };
 
+
+test 'artist lookup with artist relations' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with artist relations',
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json (
+        {
+            id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
+            name => "後藤真希",
+            "sort-name" => "Goto, Maki",
+            country => "JP",
+            disambiguation => "",
+            "life-span" => {
+                begin => "1985-09-23",
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
+            relations => [
+                {
+                    type => 'member of band',
+                    direction => 'forward',
+                    artist => {
+                        id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+                        name => "7人祭",
+                        "sort-name" => "7nin Matsuri",
+                        disambiguation => "",
+                    },
+                    begin => '2001',
+                    end => JSON::null,
+                    ended => JSON::false,
+                }
+            ]
+        });
+};
+
 1;
