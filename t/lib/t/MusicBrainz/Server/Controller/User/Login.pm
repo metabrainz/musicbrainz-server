@@ -1,16 +1,13 @@
 package t::MusicBrainz::Server::Controller::User::Login;
 use Test::Routine;
 use Test::More;
+use Hook::LexWrap;
 use MusicBrainz::Server::Test qw( html_ok );
 use DBDefs;
 
-BEGIN {
-    no warnings 'redefine';
-    use DBDefs;
-    *DBDefs::REQUIRE_SSL_ENABLED = sub { 1 };
-}
-
 with 't::Mechanize', 't::Context';
+
+wrap test, pre => sub { *DBDefs::SSL_REDIRECTS_ENABLED = sub { 1 }; };
 
 test all => sub {
 

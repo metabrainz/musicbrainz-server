@@ -154,7 +154,7 @@ sub _ssl_redirect
 {
     my ($self, $c) = @_;
 
-    return unless DBDefs->REQUIRE_SSL_ENABLED;
+    return unless DBDefs->SSL_REDIRECTS_ENABLED;
 
     if (exists $c->action->attributes->{RequireSSL} && !$c->request->secure)
     {

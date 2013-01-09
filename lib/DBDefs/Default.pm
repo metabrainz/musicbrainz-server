@@ -113,12 +113,13 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
-# This should be enabled on production.  It enables the "RequireSSL"
-# attribute on Catalyst actions.  Currently only the login screen uses
-# this.  When you enable this option the login screen will redirect to
-# the SSL version (and redirect back to http:// after login is
-# complete, though only if the user started there)
-sub REQUIRE_SSL_ENABLED { 0 }
+# SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
+# the "RequireSSL" attribute on Catalyst actions, which will redirect
+# users to the SSL version of a Catalyst action (and redirect back to
+# http:// after the action is complete, though only if the user
+# started there).  If set to 0 no SSL redirects will be done, which is
+# suitable for local or development deployments.
+sub SSL_REDIRECTS_ENABLED { 0 }
 
 ################################################################################
 # Documentation Server Settings

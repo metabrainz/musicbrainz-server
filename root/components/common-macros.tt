@@ -431,11 +431,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO login_url(redirect) BLOCK;
-    SET args = { uri => c.req.query_params.uri || redirect || c.relative_uri };
-    IF c.req.secure;
-       args.secure = 1;
-    END;
-    html_escape (c.uri_for_action('/user/login', args));
+    c.uri_for_action('/user/login', { uri => c.req.query_params.uri || redirect || c.relative_uri });
 END-%]
 
 [%- MACRO simple_link(url, text) BLOCK %]
