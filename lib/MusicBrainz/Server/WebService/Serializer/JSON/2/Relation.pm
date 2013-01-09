@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Relation;
 use Moose;
 use Hash::Merge qw(merge);
 use String::CamelCase qw(camelize);
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(boolean dateperiod serialize_entity);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -16,7 +16,7 @@ sub serialize
     $body->{type} = $entity->link->type->name;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
-    $body = merge ($body, dateperiod ($entity->link));
+    $body = merge ($body, date_period ($entity->link));
 
     if ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
