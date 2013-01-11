@@ -47,7 +47,9 @@ sub load
     my @ids = keys %id_to_release;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . " JOIN label ON rl.label = label.id JOIN label_name sort_name ON label.sort_name = sort_name.id
+                 FROM " . $self->_table . "
+                 JOIN label ON rl.label = label.id
+                 JOIN label_name sort_name ON label.sort_name = sort_name.id
                  WHERE release IN (" . placeholders(@ids) . ")
                  ORDER BY release, rl_catalog_number, musicbrainz_collate(sort_name.name)";
     my @labels = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
