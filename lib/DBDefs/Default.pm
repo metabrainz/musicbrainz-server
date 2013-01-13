@@ -131,6 +131,9 @@ sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
 # the musicbrainz.org server, you can use '006539527923176875863:xsv3chs2ovc'.
 sub GOOGLE_CUSTOM_SEARCH { '' }
 
+# Disallow OAuth2 requests over plain HTTP
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
+
 ################################################################################
 # Cache Settings
 ################################################################################

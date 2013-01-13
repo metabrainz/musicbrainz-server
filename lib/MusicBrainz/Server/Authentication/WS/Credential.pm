@@ -57,7 +57,7 @@ sub _authenticate_bearer
 {
     my ($self, $c, $realm, $auth_info) = @_;
 
-    return if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    return if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     $c->log->debug('Checking http bearer authentication.') if $c->debug;
 

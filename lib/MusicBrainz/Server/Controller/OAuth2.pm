@@ -24,7 +24,7 @@ sub index : Private
 {
     my ($self, $c) = @_;
 
-    $c->response->redirect(sprintf('http://%s/doc/OAuth2', DBDefs::WEB_SERVER));
+    $c->response->redirect(sprintf('http://%s/doc/OAuth2', DBDefs->WEB_SERVER));
     $c->detach;
 }
 
@@ -33,7 +33,7 @@ sub authorize : Local Args(0) RequireAuth
     my ($self, $c) = @_;
 
     $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     my %params;
     my %defaults = ( access_type => 'online', approval_prompt => 'auto' );
@@ -97,7 +97,7 @@ sub oob : Local Args(0)
     my ($self, $c) = @_;
 
     $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     my $code = $c->request->params->{code};
     my $token = $c->model('EditorOAuthToken')->get_by_authorization_code($code);
@@ -118,7 +118,7 @@ sub token : Local Args(0)
     my ($self, $c) = @_;
 
     $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs::OAUTH2_ENFORCE_TLS && !$c->request->secure;
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
         if $c->request->method ne 'POST';
