@@ -9,7 +9,7 @@
         <li>[% l(perm) | html %]</li>
     [% END %]
     [% IF application.is_server && offline %]
-        <li>[% l("Perform these operations when I'm not using the application") %]</li>
+        <li>[% l("Perform the above operations when I'm not using the application") %]</li>
     [% END %]
     </ul>
 

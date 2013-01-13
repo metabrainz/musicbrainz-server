@@ -8,7 +8,7 @@
         out.push(l(perm));
     END;
     IF token.is_offline;
-        out.push(l('Offline'));
+        out.push(l('Offline Access'));
     END;
     out.join(', ');
 END -%]
@@ -29,7 +29,7 @@ END -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>[% token.application.name %]</td>
                 <td>[% format_scopes(token) %]</td>
-                <td>[ <a href="[% c.uri_for_action('/account/revoke_application_access', [ token.id ]) %]">[% l('Revoke') %]</a> ]</td>
+                <td>[ <a href="[% c.uri_for_action('/account/revoke_application_access', [ token.id ]) %]">[% l('Revoke Access') %]</a> ]</td>
             </tr>
             [% END %]
         </tbody>
