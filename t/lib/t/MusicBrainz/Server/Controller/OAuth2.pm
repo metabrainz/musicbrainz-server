@@ -84,7 +84,7 @@ test 'Authorize web workflow online' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
 
     # Deny the request
     $test->mech->max_redirect(0);
@@ -124,7 +124,7 @@ test 'Authorize web workflow offline' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_like(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_like(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
     oauth_authorization_code_ok($test, $code, 2, 1, 1);
@@ -140,7 +140,7 @@ test 'Authorize web workflow offline' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_like(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_like(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code3 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code3);
@@ -166,7 +166,7 @@ test 'Authorize desktop workflow oob' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'xxx');
     $test->mech->content_contains($code);
@@ -177,7 +177,7 @@ test 'Authorize desktop workflow oob' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'yyy');
     isnt($code, $code2);
@@ -202,7 +202,7 @@ test 'Authorize desktop workflow localhost' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'xxx');
     $test->mech->content_contains($code);
@@ -213,7 +213,7 @@ test 'Authorize desktop workflow localhost' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Desktop is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform these operations when I'm not using the application});
+    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'yyy');
     isnt($code, $code2);
