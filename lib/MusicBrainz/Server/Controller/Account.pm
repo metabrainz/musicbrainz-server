@@ -544,13 +544,13 @@ sub applications : Path('/account/applications') RequireAuth
     my $tokens = $self->_load_paged($c, sub {
         my ($tokens, $hits) = $c->model('EditorOAuthToken')->find_granted_by_editor($c->user->id, shift, shift);
         return ($tokens, $hits);
-    });
+    }, prefix => 'tokens_');
     $c->model('Application')->load(@$tokens);
 
     my $applications = $self->_load_paged($c, sub {
         my ($applications, $hits) = $c->model('Application')->find_by_owner($c->user->id, shift, shift);
         return ($applications, $hits);
-    });
+    }, prefix => 'apps_');
 
     $c->stash( tokens => $tokens, applications => $applications );
 }
