@@ -98,6 +98,12 @@ MB.tests.TrackParser.BugFixes = function() {
                 expected: [ { title: "Love On A .45", duration: null } ],
                 bug: 'MBS-2902',
                 tracknumbers: true, vinylnumbers: false, tracktimes: true
+            },
+            {
+                input: "1. Love On A .45  05:22:31\n",
+                expected: [ { title: "Love On A .45", duration: 19351000 } ],
+                bug: 'MBS-3353',
+                tracknumbers: true, vinylnumbers: false, tracktimes: true
             }
         ];
 

@@ -49,7 +49,7 @@ test 'Doesnt parse invalid cover art relationships' => sub {
 
 test 'Handles Amazon ASINs' => sub {
     plan skip_all => 'Testing Amazon ASINs requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set'
-        unless DBDefs::AWS_PUBLIC() && DBDefs::AWS_PRIVATE();
+        unless DBDefs->AWS_PUBLIC() && DBDefs->AWS_PRIVATE();
 
     my $test = shift;
 
@@ -63,7 +63,7 @@ test 'Handles Amazon ASINs' => sub {
 
 test 'Handles Amazon ASINs for downloads' => sub {
     plan skip_all => 'Testing Amazon ASINs requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set'
-        unless DBDefs::AWS_PUBLIC() && DBDefs::AWS_PRIVATE();
+        unless DBDefs->AWS_PUBLIC() && DBDefs->AWS_PRIVATE();
 
     my $test = shift;
 
@@ -77,7 +77,7 @@ test 'Handles Amazon ASINs for downloads' => sub {
 
 test 'Searching Amazon by barcode' => sub {
     plan skip_all => 'Testing Amazon barcode searches requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set'
-        unless DBDefs::AWS_PUBLIC() && DBDefs::AWS_PRIVATE();
+        unless DBDefs->AWS_PUBLIC() && DBDefs->AWS_PRIVATE();
 
     my $test = shift;
 

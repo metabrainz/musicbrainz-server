@@ -25,6 +25,25 @@ test 'basic release group lookup' => sub {
         });
 };
 
+test 'basic release group lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic release group lookup, inc=annotation',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=annotation' => encode_json (
+        {
+            id => "22b54315-6e51-350b-bb34-e6e16f7688bd",
+            title => "My Demons",
+            annotation => "this is a release group annotation",
+            disambiguation => "",
+            "first-release-date" => "2007-01-29",
+            "primary-type" => "Album",
+            "secondary-types" => [],
+        });
+};
+
 test 'release group lookup with releases' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -75,6 +94,7 @@ test 'release group lookup with artists' => sub {
                         name => "Distance",
                         "sort-name" => "Distance",
                         disambiguation => "UK dubstep artist Greg Sanders",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],
@@ -102,6 +122,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                         name => "m-flo",
                         "sort-name" => "m-flo",
                         disambiguation => "",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],
@@ -145,6 +166,7 @@ test 'release group lookup with pseudo-releases' => sub {
                         name => "m-flo",
                         "sort-name" => "m-flo",
                         disambiguation => "",
+                        ipis => [],
                     },
                     joinphrase => "",
                 }],

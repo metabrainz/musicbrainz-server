@@ -34,7 +34,9 @@ sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
             }
         }
         if ($form->submitted_and_valid($c->req->body_parameters)) {
-            $self->submit_edits($c, $form);
+            $c->model('MB')->with_transaction(sub {
+                $self->submit_edits($c, $form);
+            });
             $c->res->body(encode_json({message => 'OK'}));
         } else {
             $c->res->status(400);
@@ -199,13 +201,11 @@ sub remove_relationship {
     my $id = $field->field('id')->value;
     my $relationship = $c->stash->{loaded_relationships}->{$types}->{$id};
 
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RELATIONSHIP_DELETE,
-            relationship => $relationship,
-        );
-    });
+    $self->_insert_edit(
+        $c, $form,
+        edit_type => $EDIT_RELATIONSHIP_DELETE,
+        relationship => $relationship,
+    );
 }
 
 sub add_relationship {

@@ -1,8 +1,7 @@
 package t::MusicBrainz::Server::Controller::Search;
 use Test::Routine;
 use Test::More;
-use MusicBrainz::Server::Test qw( html_ok );
-use Test::XPath;
+use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 use HTML::Selector::XPath 'selector_to_xpath';
 
 with 't::Mechanize', 't::Context';
@@ -15,10 +14,12 @@ test "/search portal" => sub {
     $mech->get_ok('/search');
     html_ok($mech->content);
 
-    my $tx = Test::XPath->new( xml => $mech->content, is_html => 1 );
-    $tx->ok(selector_to_xpath('.searchform form'), sub {
-        $_->not_ok(selector_to_xpath('.error'), 'should not have any field errors')
-    }, 'should have search form');
+    my $tx = test_xpath_html ($mech->content);
+    $tx->ok(selector_to_xpath('.searchform form', prefix => "html"),
+            sub {
+                $_->not_ok(selector_to_xpath('.error', prefix => "html"),
+                           'should not have any field errors')
+            }, 'should have search form');
 };
 
 1;

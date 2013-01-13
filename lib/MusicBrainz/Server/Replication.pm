@@ -29,7 +29,7 @@ use strict;
 
 package MusicBrainz::Server::Replication;
 
-# The possible values for DBDefs::REPLICATION_TYPE
+# The possible values for DBDefs->REPLICATION_TYPE
 use constant RT_MASTER => 1;
 use constant RT_SLAVE => 2;
 use constant RT_STANDALONE => 3;

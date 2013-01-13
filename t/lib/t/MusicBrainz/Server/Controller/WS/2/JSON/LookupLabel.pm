@@ -24,9 +24,38 @@ test 'basic label lookup' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
+            ipis => [],
+        });
+
+};
+
+test 'basic label lookup, inc=annotation' => sub {
+
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
+
+    ws_test_json 'basic label lookup, inc=annotation',
+    '/label/46f0f4cd-8aab-4b33-b698-f459faf64190?inc=annotation' => encode_json (
+        {
+            id => "46f0f4cd-8aab-4b33-b698-f459faf64190",
+            name => "Warp Records",
+            "sort-name" => "Warp Records",
+            type => "Original Production",
+            annotation => "this is a label annotation",
+            disambiguation => "",
+            "label-code" => 2070,
+            country => "GB",
+            "life-span" => {
+                begin => "1989",
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            ipis => [],
         });
 
 };
@@ -46,10 +75,12 @@ test 'label lookup, inc=aliases' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
-            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ]
+            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ],
+            ipis => [],
         });
 
 };
@@ -69,8 +100,9 @@ test 'label lookup with releases, inc=media' => sub {
             "label-code" => JSON::null,
             country => "GB",
             "life-span" => {
-                "begin" => "1995",
-                "ended" => JSON::false,
+                begin => "1995",
+                end => JSON::null,
+                ended => JSON::false,
             },
             releases => [
                 {
@@ -104,7 +136,8 @@ test 'label lookup with releases, inc=media' => sub {
                     packaging => JSON::null,
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 

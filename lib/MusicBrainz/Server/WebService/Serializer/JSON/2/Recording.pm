@@ -4,6 +4,7 @@ use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_en
 use List::UtilsBy 'sort_by';
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
+with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
@@ -15,14 +16,15 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{disambiguation} = $entity->comment;
-    $body{length} = $entity->length if $entity->length;
+    $body{disambiguation} = $entity->comment // "";
+    $body{length} = $entity->length // JSON::null;
+
     $body{"artist-credit"} = serialize_entity ($entity->artist_credit)
         if ($entity->artist_credit &&
             ($toplevel || ($inc && $inc->artist_credits)));
 
     $body{releases} = list_of ($entity, $inc, $stash, "releases")
-        if ($inc && $inc->releases);
+        if ($toplevel && $inc && $inc->releases);
 
     return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
 

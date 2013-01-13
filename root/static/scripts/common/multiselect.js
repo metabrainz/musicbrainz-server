@@ -192,18 +192,17 @@ var multiselect = function(input, placeholder, cacheKey) {
     })
     .on("keydown", function(event) {
         if (event.keyCode == 13) { // enter
-            if (self.hoverOption)
+            if (self.hoverOption) {
                 self.select(self.hoverOption);
-
+                killEvent(event);
+            }
         } else if (event.keyCode == 38) { // up
-            if (self.activeOption()) return;
-
             // opera skips these when tabbing, so focus them explicitly.
-            if (self.items.lastChild) {
+            if (!self.activeOption() && self.items.lastChild) {
                 self.hide();
                 self.items.lastChild.focus();
-            } else return;
-
+                killEvent(event);
+            }
         } else if (event.keyCode == 40) { // down
             self.show();
 
@@ -214,9 +213,9 @@ var multiselect = function(input, placeholder, cacheKey) {
                 var option = self.activeOption() || self.firstOption();
                 option ? self.activateOption(option) : self.hide();
             }, 1);
-        } else return;
 
-        killEvent(event);
+            killEvent(event);
+        }
     })
     .on("input", function(event) {
         self.lookup(this.value);
@@ -293,7 +292,6 @@ multiselect.prototype.activateOption = function(option, focus) {
     if (option === this.hoverOption) return;
 
     this.hoverOption && (this.hoverOption.className = "");
-    this.hoverOption = null;
     this.hoverOption = option;
     option.className = "hover";
 };
@@ -358,7 +356,7 @@ multiselect.prototype.matchesTerm = function(option) {
 }
 
 multiselect.prototype.lookup = function(term) {
-    var self = this, first = true;
+    var self = this, first = Boolean(term);
     this.term = term.toLowerCase();
     if (!this.term) this.hide();
 

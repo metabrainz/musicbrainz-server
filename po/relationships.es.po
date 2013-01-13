@@ -1262,10 +1262,10 @@ msgstr ""
 
 #: DB:link_type/description:3
 msgid ""
-"This indicates that a release was released in support of another release.​"
-"This allows a release to be linked to its supporting singles, EPs, and remix"
-" releases. A 'supporting release' is one which is released to increase sales"
-" of an album or to create publicity for an album."
+"This indicates that a release was released in support of another "
+"release.​This allows a release to be linked to its supporting singles, EPs, "
+"and remix releases. A 'supporting release' is one which is released to "
+"increase sales of an album or to create publicity for an album."
 msgstr ""
 
 #: DB:link_type/description:281

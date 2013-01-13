@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use HTTP::Request::Common;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( nsort_by );
 
 with 't::Mechanize', 't::Context';
 
@@ -33,7 +33,7 @@ my @edits = capture_edits {
     my $response = $mech->request($request);
 } $c;
 
-@edits = sort_by { $_->id } @edits;
+@edits = nsort_by { $_->id } @edits;
 
 ok($mech->success);
 

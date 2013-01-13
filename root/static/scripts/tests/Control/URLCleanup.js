@@ -46,6 +46,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.otherdatabases.artist
                 ],
                 [
+                    'artist', 'http://www.dhhu.dk/w/%C3%98stkyst_Hustlers',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release',
+                    'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
                 ],
@@ -101,6 +110,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
+                ],
+                [
+                    'work', 'http://www.recmusic.org/lieder/get_text.html?TextId=6448',
+                    MB.constants.LINK_TYPES.lyrics.work
                 ],
                 [
                     'recording', 'http://vimeo.com/1109226',
@@ -245,6 +258,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'artist'
                 ],
                 [
+                    'http://dhhu.dk/w/Sort_Stue',
+                    'http://www.dhhu.dk/w/Sort_Stue',
+                    'artist'
+                ],
+                [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
                     'http://creativecommons.org/publicdomain/zero/1.0/',
                     'release'
@@ -322,23 +340,28 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 [
                     'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
-                    'http://itunes.apple.com/artist/id444923726',
+                    'https://itunes.apple.com/artist/id444923726',
                     'artist'
                 ],
                 [
                     'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
-                    'http://itunes.apple.com/gb/album/id543575947',
+                    'https://itunes.apple.com/gb/album/id543575947',
                     'release'
                 ],
                 [
                     'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
-                    'http://itunes.apple.com/au/preorder/id499465357',
+                    'https://itunes.apple.com/au/preorder/id499465357',
                     'release'
                 ],
                 [
                     'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
-                    'http://itunes.apple.com/music-video/id564322420',
+                    'https://itunes.apple.com/music-video/id564322420',
                     'recording'
+                ],
+                [
+                    'https://itunes.apple.com/us/album/skyfall-single/id566322358',
+                    'https://itunes.apple.com/us/album/id566322358',
+                    'release'
                 ],
 
                 // MBS-4810: exactly one terminating slash at the end
