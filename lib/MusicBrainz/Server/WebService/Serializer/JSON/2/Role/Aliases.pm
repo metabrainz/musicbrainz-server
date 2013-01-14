@@ -16,16 +16,13 @@ around serialize => sub {
     {
         my $item = { name => $alias->name, "sort-name" => $alias->sort_name };
 
-        if ($alias->locale)
-        {
-            $item->{locale} = $alias->locale;
-            $item->{primary} = boolean ($alias->primary_for_locale);
-        }
+        $item->{locale} = $alias->locale // JSON::null;
+        $item->{primary} = $alias->locale ? boolean ($alias->primary_for_locale) : JSON::null
 
         push @aliases, $item;
     }
 
-    $ret->{aliases} = \@aliases if scalar @aliases;
+    $ret->{aliases} = \@aliases;
 
     return $ret;
 };

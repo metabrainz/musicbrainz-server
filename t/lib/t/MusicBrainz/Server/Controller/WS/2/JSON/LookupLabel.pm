@@ -79,7 +79,9 @@ test 'label lookup, inc=aliases' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
-            aliases => [ { name => "Planet µ", "sort-name" => "Planet µ" } ],
+            aliases => [
+                { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null }
+            ],
             ipis => [],
         });
 

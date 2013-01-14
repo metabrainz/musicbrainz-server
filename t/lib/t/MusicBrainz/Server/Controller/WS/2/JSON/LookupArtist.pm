@@ -98,11 +98,11 @@ test 'basic artist lookup, inc=aliases' => sub {
             },
             type => "Person",
             aliases => [
-                { name => "Beat of Angel", "sort-name" => "Beat of Angel" },
-                { name => "BoA Kwon", "sort-name" => "BoA Kwon" },
-                { name => "Kwon BoA", "sort-name" => "Kwon BoA" },
-                { name => "ボア", "sort-name" => "ボア" },
-                { name => "보아", "sort-name" => "보아" },
+                { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null },
+                { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null },
+                { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null },
+                { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null },
+                { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null },
                 ],
             ipis => [],
         });
