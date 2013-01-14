@@ -128,9 +128,9 @@ to the time when this code expires.
 
 After the authorization code has been exchanged for an access token,
 the authorization_code attribute will be cleared and attributes
-access_token and refresh_token set. Attribute expire_time now refers
-to the expiration time of the access token. The access token can be
-of two types:
+access_token and (optionally) refresh_token set. Attribute expire_time
+now refers to the expiration time of the access token. The access token
+can be of two types:
 
 * Bearer - In this case the secret attribute is undefined and the token
   can be used only over secure connections. The access token should be
@@ -139,6 +139,11 @@ of two types:
 * MAC - The secret attribute is defined as well, and the access token
   can be transmitted plain text, because all requests have to be signed
   with the shared secret.
+
+The refresh_token is only set when the application asked for offline access.
+When it's set, the application can ask to update the access_token and 
+reset its expiration time. When refresh_token is not set, the access token is
+can't be reused after it's expired.
 
 =head1 COPYRIGHT
 
