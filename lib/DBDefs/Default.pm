@@ -120,7 +120,7 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # The path to MediaWiki's api.php file. This is required to automatically
 # determine which documentation pages need to be updated in the
 # transclusion table.
-sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/-/api.php" }
+sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
 sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
 sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }

@@ -164,9 +164,11 @@ sub get_wiki_versions
         # Parse the XML and make it easier to use.
         my $xml = XMLin(
             $content,
+            ForceArray => [ 'page' ],
             KeyAttr => { page => 'title', r => 'from', n => 'to'},
             GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' }
         );
+
         my $pages = $xml->{query}->{pages};
         my $normalized = $xml->{query}->{normalized};
 

@@ -104,7 +104,7 @@
         <a href="[% doc_link('About') %]">[% l('About') %]</a>
         <ul>
             <li>
-                <a href="[% doc_link('About/Sponsors') %]">[% l('Sponsors') %]</a>
+                <a href="http://metabrainz.org/doc/Sponsors">[% l('Sponsors') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('About/Team') %]">[% l('Team') %]</a>
