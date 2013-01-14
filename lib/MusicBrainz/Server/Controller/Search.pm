@@ -85,7 +85,7 @@ sub direct : Private
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    }, $form->field('limit')->value);
+    }, limit => $form->field('limit')->value);
 
     my @entities = map { $_->entity } @$results;
 

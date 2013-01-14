@@ -8,6 +8,8 @@ use Carp 'confess';
 use Class::MOP;
 use Data::Compare;
 use Data::UUID::MT;
+use Math::Random::Secure qw( irand );
+use MIME::Base64 qw( encode_base64url );
 use Digest::SHA1 qw( sha1_base64 );
 use Encode qw( decode encode );
 use List::MoreUtils qw( natatime zip );
@@ -27,9 +29,9 @@ our @EXPORT_OK = qw(
     copy_escape
     defined_hash
     generate_gid
+    generate_token
     hash_structure
     hash_to_row
-    insert_and_create
     is_special_artist
     is_special_label
     load_meta
@@ -256,26 +258,14 @@ sub hash_structure
     return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
-sub insert_and_create
-{
-    my ($data, @objs) = @_;
-    my $class = $data->_entity_class;
-    Class::MOP::load_class($class);
-    my %map = %{ $data->_attribute_mapping };
-    my @ret;
-    for my $obj (@objs)
-    {
-        my %row = map { ($map{$_} || $_) => $obj->{$_} } keys %$obj;
-        my $id = $data->sql->insert_row($data->_table, \%row, 'id');
-        push @ret, $class->new( id => $id, %$obj);
-    }
-
-    return wantarray ? @ret : $ret[0];
-}
-
 sub generate_gid
 {
     lc(Data::UUID::MT->new( version => 4 )->create_string());
+}
+
+sub generate_token
+{
+    encode_base64url(pack('LLLL', irand(), irand(), irand(), irand()));
 }
 
 sub defined_hash

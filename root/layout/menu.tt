@@ -40,6 +40,9 @@
                     <a href="[% c.uri_for_action('/account/preferences') %]">[% l('Preferences') %]</a>
                 </li>
                 <li>
+                    <a href="[% c.uri_for_action('/account/applications') %]">[% l('Applications') %]</a>
+                </li>
+                <li>
                     <a href="[% c.uri_for_action('/user/subscriptions/artist', [ c.user.name ]) %]">[% l('Subscriptions') %]</a>
                 </li>
                 <li>

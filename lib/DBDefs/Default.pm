@@ -310,6 +310,9 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
+# Disallow OAuth2 requests over plain HTTP
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################
