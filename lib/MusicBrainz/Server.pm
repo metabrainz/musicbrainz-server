@@ -265,8 +265,8 @@ sub _handle_param_unicode_decoding {
 }
 
 # Set and unset translation language
-around dispatch => sub {
-    my ($orig, $c, @args) = @_;
+sub with_translations {
+    my ($c, $code) = @_;
 
     $_->instance->build_languages_from_header($c->req->headers)
         for qw( MusicBrainz::Server::Translation
@@ -285,15 +285,23 @@ around dispatch => sub {
     # because s///r is a perl 5.14 feature
     my $html_lang = $lang;
     $html_lang =~ s/_([A-Z]{2})/-\L$1/;
+
     $c->stash(
         current_language => $lang,
         current_language_html => $html_lang,
         use_languages => scalar @{ Translation->instance->all_languages() }
     );
 
-    $c->$orig(@args);
+    $code->()
 
     Translation->instance->unset_language();
+};
+
+around dispatch => sub {
+    my ($orig, $c, @args) = @_;
+    $c->with_translations(sub {
+        $c->$orig(@args)
+    });
 };
 
 # All warnings should be logged
@@ -319,7 +327,6 @@ after dispatch => sub {
 };
 
 # Timeout long running requests
-
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
 
