@@ -162,7 +162,6 @@ test 'browse releases via recording' => sub {
                                 "sort-name" => "avex trax",
                                 "label-code" => JSON::null,
                                 disambiguation => "",
-                                ipis => [],
                             }
                         }],
                     disambiguation => "",
@@ -187,7 +186,6 @@ test 'browse releases via recording' => sub {
                                 "sort-name" => "avex trax",
                                 "label-code" => JSON::null,
                                 disambiguation => "",
-                                ipis => [],
                             }
                         }],
                     disambiguation => "",

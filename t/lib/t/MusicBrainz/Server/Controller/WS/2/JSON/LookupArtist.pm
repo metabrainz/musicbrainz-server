@@ -348,7 +348,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -359,7 +358,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => ""
                         }
@@ -378,7 +376,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -389,7 +386,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => ""
                         }
