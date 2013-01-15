@@ -77,6 +77,12 @@ ws_test 'release lookup with release relationships',
         </text-representation>
         <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
         <relation-list target-type="release">
             <relation type="transl-tracklisting">
                 <target>b3b7e934-445b-4c68-a097-730c6a6d47e6</target>
@@ -195,6 +201,12 @@ ws_test 'release lookup with recording-level relationships',
         <country>US</country>
         <barcode>844395014422</barcode>
         <asin>B0015XAAY2</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
         <medium-list count="1">
             <medium>
                 <position>1</position>

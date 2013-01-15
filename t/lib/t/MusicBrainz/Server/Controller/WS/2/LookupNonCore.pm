@@ -44,6 +44,12 @@ ws_test 'discid lookup with artist-credits',
                 </artist-credit>
                 <date>2004-01-15</date><country>JP</country>
                 <asin>B0000YGBSG</asin>
+                <cover-art-archive>
+                    <artwork>false</artwork>
+                    <count>0</count>
+                    <front>false</front>
+                    <back>false</back>
+                </cover-art-archive>
                 <medium-list count="1">
                   <medium>
                     <position>1</position>

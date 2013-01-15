@@ -364,6 +364,7 @@ sub _serialize_release
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
+    $self->_serialize_cover_art_archive(\@list, $gen, $release, $inc, $stash) if $release->cover_art_presence;
 
     if ($toplevel)
     {
@@ -381,6 +382,21 @@ sub _serialize_release
         if ($opts->{collections} && @{ $opts->{collections} });
 
     push @$data, $gen->release({ id => $release->gid }, @list);
+}
+
+sub _serialize_cover_art_archive
+{
+    my ($self, $data, $gen, $release, $inc, $stash) = @_;
+    my $coverart = $stash->store($release)->{'cover-art-archive'};
+
+    my @list;
+    push @list, $gen->artwork($release->cover_art_presence eq 'present' ? 'true' : 'false');
+    push @list, $gen->count($coverart->{total});
+    push @list, $gen->front($coverart->{front} ? 'true' : 'false');
+    push @list, $gen->back($coverart->{back} ? 'true' : 'false');
+    push @list, $gen->darkened('true') if $release->cover_art_presence eq 'darkened';
+
+    push @$data, $gen->cover_art_archive(@list);
 }
 
 sub _serialize_work_list
