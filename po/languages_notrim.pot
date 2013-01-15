@@ -17783,7 +17783,7 @@ msgstr ""
 msgid "Lakondê"
 msgstr ""
 
-#. frequency:0 iso_code_3:lkt 
+#. frequency:1 iso_code_3:lkt 
 #: DB:language/name:3880
 msgid "Lakota"
 msgstr ""
