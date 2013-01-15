@@ -31,7 +31,7 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
           [% IF c.user_exists %]
-          <li>[% link_entity(recording, 'add_isrc', l('Add ISRC')) %]</li>
+          <li>[% link_entity(recording, 'add_isrc', lp('Add ISRC', 'button/menu')) %]</li>
           [% annotation_links(recording) %]
           <li>
             <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">
