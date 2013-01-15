@@ -18,6 +18,7 @@ around serialize => sub {
 
         $item->{locale} = $alias->locale // JSON::null;
         $item->{primary} = $alias->locale ? boolean ($alias->primary_for_locale) : JSON::null;
+        $item->{type} = $alias->type ? $alias->type_name : JSON::null;
 
         push @aliases, $item;
     }
