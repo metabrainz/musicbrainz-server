@@ -1160,7 +1160,7 @@ MB.Control.ReleaseTracklist = function () {
             $va.each (function (idx, elem) {
                 var $trkrow = $(elem).parents ('tr.track-artist-credit').prevAll('*:eq(0)');
 
-                var disc = MB.utility.trim ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
+                var disc = _.clean ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
 
                 if (!affected.hasOwnProperty (disc))
                 {
