@@ -327,6 +327,12 @@ APPLY_CHANGES:
 system "$FindBin::Bin/ProcessReplicationChanges", @process_opts;
 exit $? if $?;
 
+if (-x "$FindBin::Bin/hooks/post-process") {
+    print localtime() . " : Running post-process hook\n";
+    system "$FindBin::Bin/hooks/post-process";
+    exit $? if $?;
+}
+
 # Check that current_replication_sequence has gone up by one
 # Also last_replication_date should match TIMESTAMP
 $LAST_REPLICATION_SEQUENCE = $iReplicationSequence + 1

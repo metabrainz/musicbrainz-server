@@ -3,7 +3,7 @@
 [% ELSIF information.field('name').value %]
   [% page_title = l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]
 [% ELSE %]
-  [% page_title = l('Add Release') %]
+  [% page_title = lp('Add Release', 'header') %]
 [% END %]
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
@@ -12,7 +12,7 @@
   [% ELSIF information.field('name').value %]
     <h1>[% l('Add Release: {title}', { title => html_escape(information.field('name').value) }) %]</h1>
   [% ELSE %]
-    <h1>[% l('Add Release') %]</h1>
+    <h1>[% lp('Add Release', 'header') %]</h1>
   [% END %]
 
   <form action="[% c.req.uri %]" method="post" class="release-editor">

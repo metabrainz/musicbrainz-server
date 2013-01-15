@@ -4796,8 +4796,8 @@ msgstr "Introduce las etiquetas en el área de debajo. Las etiquetas se separan 
 #: ../root/release/edit/information.tt:177
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\">Barcode</a> for more information."
-msgstr "Introduce el código de barras de la publicación que estás añadiendo. Consulta <a href=\"{url}\">Código de barras</a> si quieres más información."
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr "Introduce el código de barras de la publicación que estás añadiendo. Consulta <a href=\"{url}\" target=\"_blank\">Código de barras</a> si quieres más información."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -5906,8 +5906,8 @@ msgid "Reverse link phrase:"
 msgstr "Frase de enlace inversa:"
 
 #: ../root/release/edit/information.tt:153
-msgid "Review the {doc|list of packaging types} for help."
-msgstr "Consulta la {doc|lista de tipos de empaquetado} para saber más."
+msgid "Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> for help."
+msgstr "Consulta la <a href=\"{url}\" target=\"_blank\">lista de tipos de empaquetado</a> para saber más."
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"

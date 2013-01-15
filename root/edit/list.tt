@@ -47,9 +47,9 @@
               500, 525, 525, ...; we'll then always show 'at least', which is
               not perfectly optimal but isn't inaccurate at least.
               -%]
-          [% IF guess_search && pager.last_page > 1 && 
+          [% IF guess_search && pager.last_page > 1 &&
                 pager.total_entries % pager.entries_per_page == 0 %]
-            [%- ln('Found {n} edit', 'Found at least {n} edits' ,
+            [%- ln('Found at least {n} edit', 'Found at least {n} edits' ,
                     pager.total_entries,
                     { n => add_commas(pager.total_entries) }) -%]
           [% ELSE %]

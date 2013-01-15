@@ -22,7 +22,7 @@
                          [ user.name ], type.1
                      )
                   %]
-                  <a href="[% view_more  %]">View all ratings</a>
+                  <a href="[% view_more  %]">[% l('View all ratings') %]</a>
                 </li>
             </ul>
         [% END %]

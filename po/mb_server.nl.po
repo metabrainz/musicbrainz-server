@@ -4792,8 +4792,8 @@ msgstr "Voer etiketten alstublieft in het veld hieronder in. Etiketten worden ge
 #: ../root/release/edit/information.tt:177
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\">Barcode</a> for more information."
-msgstr "Voert u alstublieft de streepjescode van de uitgave die u aan het toevoegen bent in. Zie <a href=\"{url}\">Streepjescode</a> voor meer informatie."
+"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+msgstr "Voert u alstublieft de streepjescode van de uitgave die u aan het toevoegen bent in. Zie <a href=\"{url}\" target=\"_blank\">Streepjescode</a> voor meer informatie."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -5902,8 +5902,8 @@ msgid "Reverse link phrase:"
 msgstr "Omgekeerde koppelzin:"
 
 #: ../root/release/edit/information.tt:153
-msgid "Review the {doc|list of packaging types} for help."
-msgstr "Bekijk de {doc|lijst van verpakkingstypes} voor hulp."
+msgid "Review the <a href=\"{url}\" target=\"_blank\">list of packaging types</a> for help."
+msgstr "Bekijk de <a href=\"{url}\" target=\"_blank\">lijst van verpakkingstypes</a> voor hulp."
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"

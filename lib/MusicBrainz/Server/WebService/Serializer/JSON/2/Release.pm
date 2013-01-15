@@ -1,7 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Release;
 use Moose;
 use MusicBrainz::Server::Constants qw( :quality );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity boolean );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
@@ -41,6 +41,18 @@ sub serialize
     $body{quality} = _quality ($entity->quality);
     $body{packaging} = $entity->packaging
         ? $entity->packaging->name : JSON::null;
+
+    my $coverart = $stash->store($entity)->{'cover-art-archive'};
+    if ($coverart) {
+        $body{'cover-art-archive'} = {
+            artwork => boolean($entity->cover_art_presence eq 'present'),
+            darkened => boolean($entity->cover_art_presence eq 'darkened'),
+            # force to number
+            count => $coverart->{total} * 1,
+            front => boolean($coverart->{front}),
+            back => boolean($coverart->{back})
+        };
+    }
 
     $body{"text-representation"} = {
         script => $entity->script ? $entity->script->iso_code : JSON::null,
