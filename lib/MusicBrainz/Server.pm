@@ -292,7 +292,7 @@ sub with_translations {
         use_languages => scalar @{ Translation->instance->all_languages() }
     );
 
-    $code->()
+    $code->();
 
     Translation->instance->unset_language();
 };
