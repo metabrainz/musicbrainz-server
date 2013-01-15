@@ -503,8 +503,8 @@ INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_cred
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', '', 346153, 0, 2, 135345, 403214, '153f0a09-fead-3370-9b17-379ebd09446b');
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (17, 1, 403214, 0, NULL, 59662, -1, 107, '2009-08-17 08:23:42.424855+00', 28, 120, 346153, 135345, '4988064451180', '', 2004, 3, 'aff4a693-5970-4e2e-bd46-e2ee49c22de7');
 INSERT INTO editor (id, name, password) VALUES (95821, 'the-anti-kuno', 'notreally');
-INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (10, 95821, 314, 2, '{}', now() + INTERVAL '2 weeks');
-INSERT INTO cover_art_archive.cover_art (id, release, comment, edit, ordering, date_uploaded, edits_pending) VALUES (1031598329, 59662, '', 10, 1, '2012-05-24 07:35:13.984115+00', 0);
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 95821, 314, 2, '{}', now() + INTERVAL '2 weeks');
+INSERT INTO cover_art_archive.cover_art (id, release, comment, edit, ordering, date_uploaded, edits_pending) VALUES (1031598329, 59662, '', 1, 1, '2012-05-24 07:35:13.984115+00', 0);
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (1031598329, 1);
 INSERT INTO tracklist (last_updated, track_count, id) VALUES ('2011-01-18 15:21:33.71184+00', 0, 403214);
