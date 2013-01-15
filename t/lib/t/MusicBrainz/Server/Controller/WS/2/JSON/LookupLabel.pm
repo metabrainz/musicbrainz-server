@@ -80,7 +80,7 @@ test 'label lookup, inc=aliases' => sub {
                 ended => JSON::false,
             },
             aliases => [
-                { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null }
+                { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
             ],
             ipis => [],
         });

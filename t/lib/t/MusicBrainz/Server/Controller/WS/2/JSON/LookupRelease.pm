@@ -152,12 +152,12 @@ test 'release lookup with artists + aliases' => sub {
                         "sort-name" => "m-flo",
                         disambiguation => "",
                         aliases => [
-                            { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null },
-                            { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null },
-                            { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null },
-                            { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null },
-                            { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null },
-                            { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null },
+                            { "sort-name" => "m-flow", name => "m-flow", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                            { "sort-name" => "mediarite-flow crew", name => "mediarite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null  },
+                            { "sort-name" => "meteorite-flow crew", name => "meteorite-flow crew", locale => JSON::null, primary => JSON::null, type => JSON::null  },
+                            { "sort-name" => "mflo", name => "mflo", locale => JSON::null, primary => JSON::null, type => JSON::null  },
+                            { "sort-name" => "えむふろう", name => "えむふろう", locale => JSON::null, primary => JSON::null, type => JSON::null  },
+                            { "sort-name" => "エムフロウ", name => "エムフロウ", locale => JSON::null, primary => JSON::null, type => JSON::null  },
                             ],
                         ipis => [],
                     }
