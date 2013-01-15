@@ -11,19 +11,19 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, member_since
         'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0);
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (1, 1, 123, 1, '{ "key": "value" }', NOW());
+    VALUES (2, 1, 123, 1, '{ "key": "value" }', NOW());
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (2, 2, 123, 1, '{ "key": "value" }', NOW());
+    VALUES (3, 2, 123, 1, '{ "key": "value" }', NOW());
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (3, 1, 123, 1, '{ "key": "value" }', NOW());
+    VALUES (4, 1, 123, 1, '{ "key": "value" }', NOW());
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (4, 2, 123, 2, '{ "key": "value" }', NOW());
+    VALUES (5, 2, 123, 2, '{ "key": "value" }', NOW());
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
-    VALUES (5, 3, 123, 1, '{ "key": "value" }', NOW());
+    VALUES (6, 3, 123, 1, '{ "key": "value" }', NOW());
 
 INSERT INTO artist_name (id, name) VALUES (1, 'artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
