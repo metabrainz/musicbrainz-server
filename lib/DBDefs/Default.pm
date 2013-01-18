@@ -73,6 +73,8 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
+sub DATA_ACCESS_SERVICE       { "http://localhost:8000" }
+
 ################################################################################
 # Mail Settings
 ################################################################################

@@ -4,27 +4,31 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use MusicBrainz::Server::Constants qw(
-    $EDIT_WORK_CREATE
-    $EDIT_WORK_EDIT
     $EDIT_WORK_MERGE
-    $EDIT_WORK_ADD_ISWCS
-    $EDIT_WORK_REMOVE_ISWC
 );
+use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::Tree::Work;
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::NES::Controller::Utils qw( create_edit create_update );
+
+__PACKAGE__->config(
+    tree_entity => 'MusicBrainz::Server::Entity::Tree::Work',
+);
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'Work',
+    model       => 'NES::Work',
     entity_name => 'work',
 };
-with 'MusicBrainz::Server::Controller::Role::Annotation';
-with 'MusicBrainz::Server::Controller::Role::Alias';
+
 with 'MusicBrainz::Server::Controller::Role::Details';
-with 'MusicBrainz::Server::Controller::Role::Relationship';
-with 'MusicBrainz::Server::Controller::Role::Rating';
-with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-with 'MusicBrainz::Server::Controller::Role::Cleanup';
-with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+# with 'MusicBrainz::Server::Controller::Role::Rating';
+# with 'MusicBrainz::Server::Controller::Role::Tag';
+# with 'MusicBrainz::Server::Controller::Role::Alias';
+# with 'MusicBrainz::Server::Controller::Role::Annotation';
+# with 'MusicBrainz::Server::Controller::Role::Relationship';
+# with 'MusicBrainz::Server::Controller::Role::Cleanup';
+# with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -35,8 +39,8 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $work = $c->stash->{work};
-    $c->model('Work')->load_meta($work);
-    $c->model('ISWC')->load_for_works($work);
+    # $c->model('Work')->load_meta($work);
+    # $c->model('ISWC')->load_for_works($work);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
     }
@@ -50,13 +54,15 @@ sub show : PathPart('') Chained('load')
     $c->model('WorkType')->load($work);
     $c->model('Language')->load($work);
 
-    # need to call relationships for overview page
-    $self->relationships($c);
+    # Need to call relationships for overview page
+    # $self->relationships($c); NES
 
     $c->stash->{template} = 'work/index.tt';
 }
 
-for my $action (qw( relationships aliases tags details )) {
+# NES - originally:
+# for my $action (qw( relationships aliases tags details )) {
+for my $action (qw( details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
@@ -65,36 +71,24 @@ for my $action (qw( relationships aliases tags details )) {
     };
 }
 
-with 'MusicBrainz::Server::Controller::Role::Edit' => {
-    form           => 'Work',
-    edit_type      => $EDIT_WORK_EDIT,
-    edit_arguments => sub {
-        my ($self, $c, $work) = @_;
+sub edit : Chained('load') {
+    my ($self, $c) = @_;
 
-        return (
-            post_creation => sub {
-                my ($edit, $form) = @_;
+    create_update(
+        $self, $c,
+        form => 'Work::Edit',
+        subject => $c->stash->{work},
+        build_tree => \&work_tree
+    );
+}
 
-                my @current_iswcs = $c->model('ISWC')->find_by_works($work->id);
-                my %current_iswcs = map { $_->iswc => 1 } @current_iswcs;
-                my @submitted = @{ $form->field('iswcs')->value };
-                my %submitted = map { $_ => 1 } @submitted;
-
-                my @added = grep { !exists($current_iswcs{$_}) } @submitted;
-                my @removed = grep { !exists($submitted{$_->iswc}) } @current_iswcs;
-
-                $self->_add_iswcs($c, $form, $work, @added) if @added;
-                $self->_remove_iswcs($c, $form, $work, @removed) if @removed;
-
-                if ((@added || @removed) && $c->stash->{makes_no_changes}) {
-                    $c->stash( makes_no_changes => 0 );
-                    $c->response->redirect(
-                        $c->uri_for_action($self->action_for('show'), [ $work->gid ]));
-                }
-            }
-        );
-    }
-};
+sub work_tree {
+    my $values = shift;
+    return MusicBrainz::Server::Entity::Tree::Work->new(
+        work => MusicBrainz::Server::Entity::Work->new($values),
+        iswcs => $values->{iswcs} // []
+    );
+}
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
@@ -123,52 +117,21 @@ after 'merge' => sub
     $c->model('ISWC')->load_for_works(@{ $c->stash->{to_merge} });
 };
 
-with 'MusicBrainz::Server::Controller::Role::Create' => {
-    form      => 'Work',
-    edit_type => $EDIT_WORK_CREATE,
-    edit_arguments => sub {
-        my ($self, $c) = @_;
+sub create : Local Edit {
+    my ($self, $c) = @_;
 
-        return (
-            post_creation => sub {
-                my ($edit, $form) = @_;
-                my $work = $c->model('Work')->get_by_id($edit->entity_id);
-                my @iswcs = @{ $form->field('iswcs')->value };
-                $self->_add_iswcs($c, $form, $work, @iswcs) if scalar @iswcs;
-            }
-        );
-    }
-};
+    create_edit(
+        $self, $c,
+        form => 'Work',
+        on_post => sub {
+            my ($values, $edit) = @_;
 
-sub _add_iswcs {
-    my ($self, $c, $form, $work, @iswcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_WORK_ADD_ISWCS,
-            iswcs => [ map {
-                iswc => $_,
-                work => {
-                    id => $work->id,
-                    name => $work->name
-                }
-            }, @iswcs ]
-        );
-    });
-}
-
-sub _remove_iswcs {
-    my ($self, $c, $form, $work, @iswcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_WORK_REMOVE_ISWC,
-            iswc => $_,
-            work => $work
-        );
-    }) for @iswcs;
+            return $c->model('NES::Work')->create(
+                $edit, $c->user,
+                work_tree($values)
+            );
+        }
+    );
 }
 
 1;

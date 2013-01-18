@@ -9,6 +9,8 @@
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_select(r, 'language_id', l('Lyrics Language:')) -%]
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
+
+      [% r.hidden(form.field('revision_id')) IF work.revision_id %]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]

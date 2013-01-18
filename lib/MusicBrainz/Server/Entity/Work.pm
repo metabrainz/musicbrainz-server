@@ -15,8 +15,8 @@ use MooseX::Types::Moose qw( ArrayRef Object Str );
 
 has 'type_id' => (
     is => 'rw',
-    isa => 'Int'
-    );
+    isa => 'Maybe[Int]'
+);
 
 has 'type' => (
     is => 'rw',
@@ -37,8 +37,8 @@ sub l_type_name
 
 has 'language_id' => (
     is => 'rw',
-    isa => 'Int'
-    );
+    isa => 'Maybe[Int]'
+);
 
 has 'language' => (
     is => 'rw',
