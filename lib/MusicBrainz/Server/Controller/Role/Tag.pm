@@ -14,9 +14,9 @@ after 'load' => sub
 
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
-    my @tags = $tags_model->find_top_tags($entity->id, $TOP_TAGS_COUNT);
-    my $count = $tags_model->find_tag_count($entity->id);
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id)
+    my @tags = $tags_model->find_top_tags($entity->gid, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->gid);
+    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->gid)
         if $c->user_exists;
 
     $c->stash(
@@ -71,11 +71,11 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 
     my $entity = $c->stash->{$self->{entity_name}};
     my $tags_model = $c->model($self->{model})->tags;
-    $tags_model->update($c->user->id, $entity->id, $c->req->params->{tags});
+    $tags_model->update($c->user->id, $entity->gid, $c->req->params->{tags});
 
-    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
-    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->id, $TOP_TAGS_COUNT);
-    my $count = $tags_model->find_tag_count($entity->id);
+    my @user_tags = $tags_model->find_user_tags($c->user->id, $entity->gid);
+    my @tags = $c->model($self->{model})->tags->find_top_tags($entity->gid, $TOP_TAGS_COUNT);
+    my $count = $tags_model->find_tag_count($entity->gid);
 
     my $response = {
         tags => [
