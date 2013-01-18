@@ -12,6 +12,8 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::Entity';
 
+with 'MusicBrainz::Server::Data::Role::NES';
+
 sub _table
 {
     return 'edit_note';
@@ -60,14 +62,13 @@ sub load_for_edits
 sub insert
 {
     my ($self, $edit_id, $note_hash) = @_;
-    my $mapping = $self->_column_mapping;
-    my %r = map {
-        my $key = $mapping->{$_} || $_;
-        $key => $note_hash->{$_};
-    } keys %$note_hash;
-    $r{edit} = $edit_id;
-    $self->sql->auto_commit;
-    $self->sql->insert_row('edit_note', \%r);
+    $self->request(
+        '/edit/add-note', {
+            edit => $edit_id,
+            editor => $note_hash->{editor_id},
+            text => $note_hash->{text}
+        }
+    );
 }
 
 sub add_note
@@ -75,33 +76,34 @@ sub add_note
     my ($self, $edit_id, $note_hash) = @_;
     $self->insert($edit_id, $note_hash);
 
-    my $email_data = MusicBrainz::Server::Email->new( c => $self->c );
-    my $edit = $self->c->model('Edit')->get_by_id($edit_id) or die "Edit $edit_id does not exist!";
-    $self->c->model('EditNote')->load_for_edits($edit);
-    $self->c->model('Vote')->load_for_edits($edit);
-    my $editors = $self->c->model('Editor')->get_by_ids($edit->editor_id,
-        $note_hash->{editor_id},
-        (map { $_->editor_id } @{ $edit->votes }),
-        (map { $_->editor_id } @{ $edit->edit_notes }));
-    $self->c->model('Editor')->load_preferences(values %$editors);
+    # NES
+    # my $email_data = MusicBrainz::Server::Email->new( c => $self->c );
+    # my $edit = $self->c->model('Edit')->get_by_id($edit_id) or die "Edit $edit_id does not exist!";
+    # $self->c->model('EditNote')->load_for_edits($edit);
+    # $self->c->model('Vote')->load_for_edits($edit);
+    # my $editors = $self->c->model('Editor')->get_by_ids($edit->editor_id,
+    #     $note_hash->{editor_id},
+    #     (map { $_->editor_id } @{ $edit->votes }),
+    #     (map { $_->editor_id } @{ $edit->edit_notes }));
+    # $self->c->model('Editor')->load_preferences(values %$editors);
 
-    my @to_email = grep { $_ != $note_hash->{editor_id} }
-        map { $_->id } grep { $_->preferences->email_on_notes }
-        map { $editors->{$_->editor_id} }
-            @{ $edit->edit_notes },
-            @{ $edit->votes },
-            $edit;
+    # my @to_email = grep { $_ != $note_hash->{editor_id} }
+    #     map { $_->id } grep { $_->preferences->email_on_notes }
+    #     map { $editors->{$_->editor_id} }
+    #         @{ $edit->edit_notes },
+    #         @{ $edit->votes },
+    #         $edit;
 
-    my $from = $editors->{ $note_hash->{editor_id} };
-    for my $editor_id (uniq @to_email) {
-        my $editor = $editors->{ $editor_id };
-        $email_data->send_edit_note(
-            from_editor => $from,
-            editor => $editor,
-            note_text => $note_hash->{text},
-            edit_id => $edit_id,
-            own_edit => $edit->editor_id == $editor->id);
-    }
+    # my $from = $editors->{ $note_hash->{editor_id} };
+    # for my $editor_id (uniq @to_email) {
+    #     my $editor = $editors->{ $editor_id };
+    #     $email_data->send_edit_note(
+    #         from_editor => $from,
+    #         editor => $editor,
+    #         note_text => $note_hash->{text},
+    #         edit_id => $edit_id,
+    #         own_edit => $edit->editor_id == $editor->id);
+    # }
 }
 
 no Moose;

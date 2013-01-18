@@ -33,6 +33,17 @@ sub create_edit {
 
         my $work = $opts{on_post}->($values, $edit);
 
+        if ($values->{edit_note}) {
+            $c->model('EditNote')->add_note(
+                $edit->id,
+                {
+                    editor_id => $c->user->id,
+                    text => $values->{edit_note}
+                }
+            );
+        }
+
+
         # NES:
         # my $privs = $c->user->privileges;
         # if ($c->user->is_auto_editor &&
