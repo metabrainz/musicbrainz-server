@@ -55,6 +55,21 @@ sub initialize {
     });
 }
 
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
+
 sub accept {
     my $self = shift;
 
