@@ -82,7 +82,7 @@ sub load_user_ratings
 {
     my ($self, $user_id, @objs) = @_;
 
-    my %id_to_obj = map { $_->id => $_ } @objs;
+    my %id_to_obj = map { $_->gid => $_ } @objs;
     my @ids = keys %id_to_obj;
     return unless @ids;
 

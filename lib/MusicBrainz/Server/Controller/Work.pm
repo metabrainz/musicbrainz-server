@@ -22,7 +22,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
-# with 'MusicBrainz::Server::Controller::Role::Rating';
+with 'MusicBrainz::Server::Controller::Role::Rating';
 # with 'MusicBrainz::Server::Controller::Role::Tag';
 # with 'MusicBrainz::Server::Controller::Role::Alias';
 # with 'MusicBrainz::Server::Controller::Role::Annotation';
