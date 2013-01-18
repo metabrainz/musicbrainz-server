@@ -11,4 +11,9 @@ has iswcs => (
     predicate => 'iswcs_set',
 );
 
+has annotation => (
+    is => 'rw',
+    predicate => 'annotation_set'
+);
+
 1;

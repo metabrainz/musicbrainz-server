@@ -14,6 +14,7 @@
     [% WRAPPER form_row %]
       [% r.label('text', l('Annotation:')) %]
       [% r.textarea('text', { cols => 80, rows => 10 }) %]
+      [% r.hidden(form.field('revision_id')) %]
       [% field_errors(r.form, 'text') %]
     [% END %]
 

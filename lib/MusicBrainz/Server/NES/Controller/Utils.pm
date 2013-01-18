@@ -2,54 +2,77 @@ package MusicBrainz::Server::NES::Controller::Utils;
 use strict;
 use warnings;
 
+use Scalar::Util qw( blessed );
 use Sub::Exporter -setup => {
-    exports => [qw( create_edit create_update )]
+    exports => [qw( create_edit create_update run_edit_form run_update_form )]
 };
 
-sub create_edit {
+sub run_edit_form {
+    my ($c, $form, %opts) = @_;
+
+    my $values = $form->values;
+    my $edit = $c->model('NES::Edit')->open;
+
+    my $work = $opts{on_post}->($values, $edit);
+
+    if ($values->{edit_note}) {
+        $c->model('EditNote')->add_note(
+            $edit->id,
+            {
+                editor_id => $c->user->id,
+                text => $values->{edit_note}
+            }
+        );
+    }
+
+    # NES:
+    # my $privs = $c->user->privileges;
+    # if ($c->user->is_auto_editor &&
+    #     $form->field('as_auto_editor') &&
+    #     !$form->field('as_auto_editor')->value) {
+    # }
+
+    return $work;
+}
+
+sub run_update_form {
+    my ($controller, $c, $form, %opts) = @_;
+
+    run_edit_form(
+        $c, $form,
+        on_post => sub {
+            my ($values, $edit) = @_;
+
+            my $revision = $c->model( $controller->{model} )->get_revision(
+                $values->{revision_id});
+
+            $c->model( $controller->{model} )->update(
+                $edit, $c->user, $revision,
+                $opts{build_tree}->($values, $revision)
+            );
+
+            return $revision
+        }
+    );
+}
+
+sub _run_form {
     my ($controller, $c, %opts) = @_;
 
-    my $form = do {
-        if (my $build_form = $opts{build_form}) {
-            $build_form->()
-        }
-        else {
-            my $form = do {
-                my %args = (
-                    ctx => $c,
-                );
+    my $form = $opts{form};
+    $form = do {
+        my %args = (
+            ctx => $c,
+        );
 
-                $args{init_object} = $opts{subject}
-                    if defined $opts{subject};
+        $args{init_object} = $opts{subject}
+            if defined $opts{subject};
 
-                $c->form(form => $opts{form}, %args);
-            }
-        }
-    };
+        $c->form(form => $form, %args);
+    } unless blessed($form);
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
-        my $values = $form->values;
-        my $edit = $c->model('NES::Edit')->open;
-
-        my $work = $opts{on_post}->($values, $edit);
-
-        if ($values->{edit_note}) {
-            $c->model('EditNote')->add_note(
-                $edit->id,
-                {
-                    editor_id => $c->user->id,
-                    text => $values->{edit_note}
-                }
-            );
-        }
-
-
-        # NES:
-        # my $privs = $c->user->privileges;
-        # if ($c->user->is_auto_editor &&
-        #     $form->field('as_auto_editor') &&
-        #     !$form->field('as_auto_editor')->value) {
-        # }
+        my $work = $opts{callback}->($form);
 
         $c->response->redirect(
             $c->uri_for_action($controller->action_for('show'), [ $work->gid ]));
@@ -60,22 +83,26 @@ sub create_edit {
     }
 }
 
-sub create_update {
+sub create_edit {
     my ($controller, $c, %opts) = @_;
-    create_edit(
+    _run_form(
         $controller, $c,
         %opts,
-        on_post => sub {
-            my ($values, $edit) = @_;
-            my $revision = $c->model( $controller->{model} )->get_revision(
-                $values->{revision_id});
+        callback => sub {
+            my $form = shift;
+            run_edit_form($c, $form, %opts);
+        }
+    );
+}
 
-            $c->model( $controller->{model} )->update(
-                $edit, $c->user, $revision,
-                $opts{build_tree}->($values, $revision)
-            );
-
-            return $revision;
+sub create_update {
+    my ($controller, $c, %opts) = @_;
+    _run_form(
+        $controller, $c,
+        %opts,
+        callback => sub {
+            my $form = shift;
+            run_update_form($controller, $c, $form, %opts);
         }
     );
 }

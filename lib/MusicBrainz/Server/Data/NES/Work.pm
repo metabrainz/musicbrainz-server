@@ -10,6 +10,8 @@ with 'MusicBrainz::Server::Data::Role::NES';
 sub create {
     my ($self, $edit, $editor, $tree) = @_;
 
+    $tree->annotation('') unless $tree->annotation_set;
+
     my $response = $self->request('/work/create', {
         edit => $edit->id,
         editor => $editor->id,
@@ -37,6 +39,9 @@ sub update {
             $original_tree->iswcs($tree->iswcs)
                 if ($tree->iswcs_set);
 
+            $original_tree->annotation($tree->annotation)
+                if ($tree->annotation_set);
+
             $original_tree;
         }
     };
@@ -57,6 +62,7 @@ sub view_tree {
     return MusicBrainz::Server::Entity::Tree::Work->new(
         work => $revision,
         iswcs => $self->get_iswcs($revision),
+        annotation => $self->get_annotation($revision)
     );
 }
 
@@ -75,7 +81,8 @@ sub _work_tree {
         },
         iswcs => [
             map +{ iswc => $_ }, @{ $tree->iswcs }
-        ]
+        ],
+        annotation => $tree->annotation
     );
 }
 
@@ -116,6 +123,21 @@ sub get_iswcs {
     my ($self, $revision) = @_;
     warn "Unimplemented";
     return [];
+}
+
+sub get_annotation {
+    my ($self, $revision) = @_;
+    return $self->request(
+        '/work/view-annotation',
+        { revision => $revision->revision_id }
+    )->{annotation};
+}
+
+sub load_annotation {
+    my ($self, $work) = @_;
+    $work->latest_annotation(
+        MusicBrainz::Server::Entity::Annotation->new(
+            text => $self->get_annotation($work)));
 }
 
 __PACKAGE__->meta->make_immutable;

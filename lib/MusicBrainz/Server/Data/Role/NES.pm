@@ -23,9 +23,15 @@ sub request {
     my $response = $self->c->lwp->post($uri, Content => encode('utf8', $content));
     my $t = tv_interval($t0);
 
+    printf STDERR "Response in ${t}s\n";
+    printf STDERR $response->content;
+
+    if (!$response->is_success) {
+        printf STDERR "FAILURE!\n";
+        die 'Failed request: ' . $response->content;;
+    }
+
     return try {
-        printf STDERR "Response in ${t}s\n";
-        printf STDERR $response->content;
         printf STDERR "\n\n";
 
         return decode_json($response->content);

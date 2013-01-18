@@ -6,6 +6,8 @@ use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 
+use MusicBrainz::Server::NES::Controller::Utils qw( run_update_form );
+
 requires 'load', 'show';
 
 my %model_to_edit_type = (
@@ -23,7 +25,7 @@ after 'load' => sub
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
 
-    $c->model($model)->annotation->load_latest($entity);
+    $c->model($model)->load_annotation($entity);
 };
 
 sub latest_annotation : Chained('load') PathPart('annotation')
@@ -87,31 +89,31 @@ after 'show' => sub
 after 'load' => sub {
     my ($self, $c) = @_;
 
-    my (undef, $no) = $c->model($self->{model})->annotation
-        ->get_history($c->stash->{entity}->id, 50, 0);
+    # my (undef, $no) = $c->model($self->{model})->annotation
+    #     ->get_history($c->stash->{entity}->id, 50, 0);
 
-    $c->stash(
-        number_of_revisions => $no,
-    );
+    # $c->stash(
+    #     number_of_revisions => $no,
+    # );
 };
 
 sub edit_annotation : Chained('load') PathPart RequireAuth Edit
 {
     my ($self, $c) = @_;
+
     my $model = $self->{model};
     my $entity = $c->stash->{entity};
-    my $annotation_model = $c->model($model)->annotation;
-    $annotation_model->load_latest($entity);
+    $c->model($model)->load_annotation($entity);
 
     my $form = $c->form(
-        form             => 'Annotation',
-        init_object      => $entity->latest_annotation,
-        annotation_model => $annotation_model,
-        entity_id        => $entity->id
+        form        => 'Annotation',
+        init_object => {
+            text        => $entity->latest_annotation->text,
+            revision_id => $entity->revision_id
+        },
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params))
-    {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         if ($form->field('preview')->input) {
             $c->stash(
                 show_preview => 1,
@@ -120,18 +122,18 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
         }
         else
         {
-            $c->model('MB')->with_transaction(sub {
-                $self->_insert_edit(
-                    $c,
-                    $form,
-                    edit_type => $model_to_edit_type{$model},
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    entity => $entity
-                );
-            });
+            run_update_form(
+                $self, $c, $form,
+                build_tree => sub {
+                    my $values = shift;
 
-            my $show = $self->action_for('show');
-            $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));
+                    return $self->{tree_entity}->new(
+                        annotation => $values->{text}
+                    );
+                }
+            );
+
+            $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $entity->gid ]));
             $c->detach;
         }
     }
