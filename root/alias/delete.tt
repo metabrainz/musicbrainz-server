@@ -12,5 +12,7 @@
 
 <form action="[% c.req.uri %]" method="post">
   [% INCLUDE 'forms/edit-note.tt' %]
+  [% USE r = FormRenderer(form) %]
+  [% r.hidden(form.field('revision_id')) %]
   [% enter_edit() %]
 </form>

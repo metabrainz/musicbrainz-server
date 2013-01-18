@@ -20,6 +20,7 @@
         [% form_row_checkbox(r, 'primary_for_locale', l('This is the primary alias for this locale')) %]
       </span>
       [% form_row_select(r, 'type_id', l('Type:')) %]
+      [% r.hidden(form.field('revision_id')) %]
     </fieldset>
 
     <fieldset>

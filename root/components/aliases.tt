@@ -45,10 +45,11 @@
                     </td>
                     [% IF c.user_exists %]
                         <td>
-                            <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
+                            [% key = { name => alias.name } %]
+                            <a href="[% c.uri_for_action(edit_path, [ entity.gid ], key) %]">
                               [%- l('Edit') -%]
                             </a> |
-                            <a href="[% c.uri_for_action(delete_path, [ entity.gid, alias.id ]) %]">
+                            <a href="[% c.uri_for_action(delete_path, [ entity.gid ], key) %]">
                               [%- l('Remove') -%]
                             </a>
                         </td>

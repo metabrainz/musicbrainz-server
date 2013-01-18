@@ -18,12 +18,12 @@ has 'sort_name' => (
 
 has 'locale' => (
     is  => 'rw',
-    isa => 'Str',
+    isa => 'Maybe[Str]',
 );
 
 has 'type_id' => (
     is => 'rw',
-    isa => 'Int',
+    isa => 'Maybe[Int]',
 );
 
 has 'type' => (

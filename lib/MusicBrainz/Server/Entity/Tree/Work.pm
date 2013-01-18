@@ -6,6 +6,11 @@ has work => (
     predicate => 'work_set',
 );
 
+has aliases => (
+    is => 'rw',
+    predicate => 'aliases_set',
+);
+
 has iswcs => (
     is => 'rw',
     predicate => 'iswcs_set',

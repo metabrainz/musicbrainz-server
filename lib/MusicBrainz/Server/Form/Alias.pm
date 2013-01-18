@@ -43,14 +43,8 @@ has 'id' => (
     is  => 'rw',
 );
 
-has 'parent_id' => (
-    isa => 'Int',
-    is  => 'ro',
-    required => 1,
-);
-
-has 'alias_model' => (
-    isa => 'MusicBrainz::Server::Data::Alias',
+has 'type_model' => (
+    isa => 'MusicBrainz::Server::Data::AliasType',
     is  => 'ro',
     required => 1
 );
@@ -59,6 +53,10 @@ has search_hint_type_id => (
     isa => 'Int',
     is => 'ro',
     required => 1
+);
+
+has_field revision_id => (
+    type => 'Integer',
 );
 
 sub edit_field_names {
@@ -94,7 +92,7 @@ sub options_locale {
 
 sub options_type_id {
     my $self = shift;
-    $self->_select_all($self->alias_model->parent->alias_type);
+    $self->_select_all($self->type_model);
 }
 
 sub validate_primary_for_locale {
@@ -115,13 +113,13 @@ after validate => sub {
         $sort_name_field->validate_field;
     }
 
-    if ($self->alias_model->exists({ name => $self->field('name')->value,
-                                     locale => $self->field('locale')->value,
-                                     type_id => $self->field('type_id')->value,
-                                     not_id => $self->init_object ? $self->init_object->{id} : undef,
-                                 })) {
-        $self->field('name')->add_error('This alias already exists');
-    }
+    # if ($self->alias_model->exists({ name => $self->field('name')->value,
+    #                                  locale => $self->field('locale')->value,
+    #                                  type_id => $self->field('type_id')->value,
+    #                                  not_id => $self->init_object ? $self->init_object->{id} : undef,
+    #                              })) {
+    #     $self->field('name')->add_error('This alias already exists');
+    # }
 };
 
 1;

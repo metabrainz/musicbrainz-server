@@ -21,13 +21,13 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'work',
 };
 
+with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-# with 'MusicBrainz::Server::Controller::Role::Alias';
 # with 'MusicBrainz::Server::Controller::Role::Relationship';
 # with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
@@ -63,7 +63,7 @@ sub show : PathPart('') Chained('load')
 
 # NES - originally:
 # for my $action (qw( relationships aliases tags details )) {
-for my $action (qw( tags details )) {
+for my $action (qw( aliases tags details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};
