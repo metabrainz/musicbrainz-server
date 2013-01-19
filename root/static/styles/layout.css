@@ -9,6 +9,8 @@ body {
     margin: auto;
 }
 
+bdi { display: inline-block; } /* Work around for chrome, see MBS-5625. */
+
 /*input, select {
     font-size: 12px;
 }*/
