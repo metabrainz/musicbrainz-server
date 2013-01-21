@@ -97,6 +97,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.downloadfree.recording
                 ],
                 [
+                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
