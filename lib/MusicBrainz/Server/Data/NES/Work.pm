@@ -140,5 +140,13 @@ sub load_annotation {
             text => $self->get_annotation($work)));
 }
 
+sub is_empty {
+    my ($self, $work) = @_;
+    return $self->request(
+        '/work/eligible-for-cleanup',
+        { revision => $work->revision_id }
+    )->{eligible};
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
