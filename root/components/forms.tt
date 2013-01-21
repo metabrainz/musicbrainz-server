@@ -103,7 +103,7 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value" />
-              <button class="nobutton icon remove" href="#remove_row">
+              <button class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
