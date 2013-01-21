@@ -7,6 +7,8 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
+    return $ret unless $toplevel;
+
     $ret->{ipis} = [ map { $_->ipi } $entity->all_ipi_codes ];
 
     return $ret;

@@ -176,7 +176,6 @@ test 'recording lookup with artists' => sub {
                         name => "m-flo",
                         "sort-name" => "m-flo",
                         disambiguation => "",
-                        ipis => [],
                     },
                     joinphrase => "♥",
                 },
@@ -187,7 +186,6 @@ test 'recording lookup with artists' => sub {
                         name => "BoA",
                         "sort-name" => "BoA",
                         disambiguation => "",
-                        ipis => [],
                     },
                     joinphrase => "",
                 }
