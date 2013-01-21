@@ -719,7 +719,6 @@ test 'artist lookup with artist relations' => sub {
                         name => "7人祭",
                         "sort-name" => "7nin Matsuri",
                         disambiguation => "",
-                        ipis => [],
                     },
                     begin => '2001',
                     end => JSON::null,
