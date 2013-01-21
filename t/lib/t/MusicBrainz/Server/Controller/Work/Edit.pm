@@ -32,8 +32,8 @@ my @edits = capture_edits {
 
 @edits = sort_by { $_->id } @edits;
 
-ok($mech->success);
-ok($mech->uri =~ qr{/work/745c079d-374e-4436-9448-da92dedef3ce$});
+ok($mech->success, 'POST request success');
+ok($mech->uri =~ qr{/work/745c079d-374e-4436-9448-da92dedef3ce$}, 'redirected to correct work page');
 html_ok($mech->content);
 
 my $edit = $edits[0];
