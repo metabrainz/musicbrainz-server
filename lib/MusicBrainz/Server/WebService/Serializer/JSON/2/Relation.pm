@@ -21,6 +21,7 @@ sub serialize
     if ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
            $entity->target_type eq 'release' ||
+           $entity->target_type eq 'release_group' ||
            $entity->target_type eq 'recording')
     {
         $body->{$entity->target_type} = serialize_entity ($entity->target);

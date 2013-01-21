@@ -301,6 +301,7 @@
                    [ 'release_quality', l('Release Quality') ],
                    [ 'artist_country', l('Artist Country') ],
                    [ 'label_country', l('Label Country') ]
+                   [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
                    ] %]
     <option
@@ -332,6 +333,7 @@
     [% predicate_release_language('release_language') %]
     [% predicate_country('artist_country') %]
     [% predicate_country('label_country') %]
+    [% predicate_country('release_country') %]
     [% predicate_link_type('link_type') %]
   </div>
 [% END %]

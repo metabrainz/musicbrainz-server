@@ -679,9 +679,13 @@ sub prepare_recordings
         $medium->{edits} = $self->edited_tracklist ($json->decode ($medium->{edits}))
             if $medium->{edits};
 
-        if ($medium->{edits} && defined $medium->{tracklist_id})
+        my $tracklist = defined $medium->{tracklist_id} ?
+            $tracklists_by_id->{$medium->{tracklist_id}} : undef;
+
+        if ($medium->{edits} && $tracklist)
         {
             my $tracklist = $tracklists_by_id->{$medium->{tracklist_id}};
+
             $self->c->model ('Recording')->load ($tracklist->all_tracks);
             $self->c->model ('ArtistCredit')->load (map { $_->recording } $tracklist->all_tracks);
 
@@ -712,6 +716,17 @@ sub prepare_recordings
         }
         elsif ($medium->{edits})
         {
+            if (defined $medium->{tracklist_id})
+            {
+                # We have a tracklist id, but failed to load it.  That
+                # probably means the release is being edited by
+                # multiple people at the same time -- one of them
+                # changed the tracklist (which assigns a new id) so we
+                # cannot find it anymore.
+
+                $self->c->stash( tracklist_vanished => 1 );
+            }
+
             # A new tracklist has been entered, create new recordings
             # for all these tracks by default (no recording
             # assocations are suggested).

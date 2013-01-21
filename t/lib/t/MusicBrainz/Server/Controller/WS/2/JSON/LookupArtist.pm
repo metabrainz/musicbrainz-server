@@ -50,6 +50,7 @@ test 'basic artist lookup' => sub {
                 ended => JSON::false,
             },
             type => "Person",
+            ipis => [],
         });
 };
 
@@ -74,6 +75,7 @@ test 'basic artist lookup, inc=annotation' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            ipis => [],
         });
 };
 
@@ -102,6 +104,7 @@ test 'basic artist lookup, inc=aliases' => sub {
                 { name => "ボア", "sort-name" => "ボア" },
                 { name => "보아", "sort-name" => "보아" },
                 ],
+            ipis => [],
         });
 
 };
@@ -165,6 +168,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     end => JSON::null,
                     ended => JSON::false,
                 }],
+            ipis => [],
         });
 
 };
@@ -215,6 +219,7 @@ test 'artist lookup with releases' => sub {
                     asin => JSON::null,
                 }
                 ],
+            ipis => [],
         });
 };
 
@@ -251,6 +256,7 @@ test 'artist lookup with pseudo-releases' => sub {
                     asin => JSON::null,
                 }
                 ],
+            ipis => [],
         });
 };
 
@@ -319,7 +325,8 @@ test 'artist lookup with releases and discids' => sub {
                             discids => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
                         }]
-                }]
+                }],
+            ipis => [],
         });
 };
 
@@ -355,6 +362,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -365,6 +373,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => ""
                         }
@@ -383,6 +392,7 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -393,12 +403,14 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
+                                ipis => [],
                             },
                             joinphrase => ""
                         }
                     ]
                 },
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -429,7 +441,8 @@ test 'artist lookup with release groups' => sub {
                     "primary-type" => "Single",
                     "secondary-types" => [],
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -465,7 +478,8 @@ test 'single artist release lookup' => sub {
                     barcode => "4988064451180",
                     asin => JSON::null,
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -501,7 +515,8 @@ test 'various artists release lookup' => sub {
                     asin => JSON::null,
                     disambiguation => "",
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -530,8 +545,10 @@ test 'artist lookup with works (using l_artist_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 
@@ -560,6 +577,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
@@ -567,6 +585,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
@@ -574,6 +593,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
@@ -581,6 +601,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
@@ -588,6 +609,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
@@ -595,6 +617,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "511f5124-c0ae-3386-bb76-4b6521498a68",
@@ -602,6 +625,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
@@ -609,6 +633,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
@@ -616,6 +641,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
@@ -623,6 +649,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "7981d409-8e76-33df-be27-ef625d81c501",
@@ -630,6 +657,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
@@ -637,6 +665,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
@@ -644,6 +673,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
@@ -651,6 +681,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
+                    type => JSON::null,
                 },
                 {
                     id => "f23ae726-0300-3830-b1ca-634f4362f78c",
@@ -658,7 +689,9 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     disambiguation => "",
                     iswcs => [],
                     language => JSON::null,
-                }]
+                    type => JSON::null,
+                }],
+            ipis => [],
         });
 };
 
@@ -690,12 +723,14 @@ test 'artist lookup with artist relations' => sub {
                         name => "7人祭",
                         "sort-name" => "7nin Matsuri",
                         disambiguation => "",
+                        ipis => [],
                     },
                     begin => '2001',
                     end => JSON::null,
                     ended => JSON::false,
                 }
-            ]
+            ],
+            ipis => [],
         });
 };
 

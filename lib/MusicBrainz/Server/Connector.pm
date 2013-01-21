@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Connector;
 use Moose;
 
-use DBDefs;
 use DBIx::Connector;
 use Sql;
 
@@ -69,7 +68,7 @@ sub _build_conn
 sub _disconnect {
     my ($self) = @_;
     if (my $conn = $self->conn) {
-        $conn->dbh->disconnect;
+        $conn->disconnect;
     }
 
     $self->_clear_conn;

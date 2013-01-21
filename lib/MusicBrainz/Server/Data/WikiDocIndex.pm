@@ -3,6 +3,8 @@ package MusicBrainz::Server::Data::WikiDocIndex;
 use Moose;
 use namespace::autoclean;
 use Readonly;
+use List::UtilsBy qw( sort_by );
+use List::MoreUtils qw ( natatime);
 use LWP::Simple qw();
 use LWP::UserAgent;
 use XML::Simple;
@@ -135,19 +137,19 @@ sub get_wiki_versions
 {
     my ($self, $index) = @_;
 
-    my @keys = keys %$index;
+    my @keys = sort_by { lc($_) } keys %$index;
     my @wiki_pages;
 
-    while (@keys) {
-        # The API can only process 50 pages at a time, lets be conservative.
-        my $query = join ('|', splice(@keys, 0, 40));
+    # Query the API with 50 pages at a time
+    my $it = natatime 50, @keys;
 
+    while (my @queries = $it->()) {
         if (!defined DBDefs->WIKITRANS_SERVER_API) {
             warn 'WIKITRANS_SERVER_API must be defined within DBDefs.pm';
             return undef;
         }
 
-        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, $query;
+        my $doc_url = sprintf "http://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
 
         my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
         $ua->env_proxy;
@@ -162,9 +164,11 @@ sub get_wiki_versions
         # Parse the XML and make it easier to use.
         my $xml = XMLin(
             $content,
+            ForceArray => [ 'page' ],
             KeyAttr => { page => 'title', r => 'from', n => 'to'},
             GroupTags => { pages => 'page', redirects => 'r', normalized => 'n' }
         );
+
         my $pages = $xml->{query}->{pages};
         my $normalized = $xml->{query}->{normalized};
 

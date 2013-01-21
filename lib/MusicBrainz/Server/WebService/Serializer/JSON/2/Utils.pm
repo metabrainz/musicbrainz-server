@@ -77,7 +77,7 @@ sub list_of
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return [
-        map { serialize_entity($_, $inc, $opts) }
+        map { serialize_entity($_, $inc, $stash) }
         sort_by { $_->gid } @$items ];
 }
 

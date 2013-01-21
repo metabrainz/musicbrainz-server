@@ -64,6 +64,8 @@ MB.tests.utility.All = function() {
         QUnit.equal (MB.utility.unformatTrackLength ('59:00'), 59 * minutes, 'unformatTrackLength');
         QUnit.equal (MB.utility.unformatTrackLength ('01:00:00'), 60 * minutes, 'unformatTrackLength');
         QUnit.equal (MB.utility.unformatTrackLength ('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
+
+        QUnit.equal (MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
     });
 
 };

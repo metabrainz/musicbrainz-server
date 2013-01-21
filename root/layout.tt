@@ -161,7 +161,7 @@
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',
-                      more => doc_link('About/Sponsors'),
+                      more => 'http://metabrainz.org/doc/Sponsors',
                       caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>

@@ -36,6 +36,12 @@ $r2 = $c->model('Recording')->get_by_id(2);
 is($r1->edits_pending, 0);
 is($r2->edits_pending, 0);
 
+$c->model('Relationship')->load($r1);
+$c->model('Relationship')->load($r2);
+
+is ($r1->all_relationships, 1, "Recording 1 has one relationship");
+is ($r2->all_relationships, 1, "Recording 2 has one relationship");
+
 $edit = create_edit($c);
 accept_edit($c, $edit);
 
@@ -45,6 +51,9 @@ ok(!defined $r1);
 ok(defined $r2);
 
 is($r2->edits_pending, 0);
+
+$c->model('Relationship')->load($r2);
+is($r2->all_relationships, 1, "Relationships of recordings merged");
 
 };
 

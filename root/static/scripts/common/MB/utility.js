@@ -243,11 +243,6 @@ MB.utility.unformatTrackLength = function (duration)
     return (hours + minutes + seconds) * 1000;
 };
 
-MB.utility.trim = function (str)
-{
-    return str.replace (/\s+/g, " ").replace (/^ /, "").replace (/ $/, "");
-}
-
 MB.utility.renderArtistCredit = function (ac) {
     var html = '';
     $.each(ac.names, function(name) {
@@ -266,8 +261,8 @@ MB.utility.beget = function(o) {
 
 MB.utility.validDate = (function() {
     var daysInMonth = {
-        "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        "false": [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
     return function(y, m, d) {

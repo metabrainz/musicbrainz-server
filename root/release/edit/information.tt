@@ -90,7 +90,7 @@
           <span class="remove-label">
             [%- r.hidden(field.field('deleted')) -%]
             <a class="icon remove-label" href="#remove_label">
-              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]" title="[% l('Remove Label') %]" alt="[% l('Remove Label') %]" />
+              <div class="icon img" title="[% l('Remove Label') %]"></div>
             </a>
           </span>
 
@@ -99,9 +99,9 @@
 
         [% WRAPPER form_row %]
           <div class="add-label" style="text-align: right; width: 100%; ">
-            <span class="add-label" style="padding: 0 1em;">[% l('Add Label') %]</span>
+            <span class="add-label" style="padding: 0 1em;">[% lp('Add Label', 'header') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" title="[% l('Add Label') %]" alt="[% l('Add Label') %]" />
+              <div class="icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
             </a>
           </div>
         [% END %]
@@ -150,7 +150,8 @@
     <div class="packaging-container" style="display: none">
       <div class="packaging bubble">
         <p>
-          [% l('Review the {doc|list of packaging types} for help.', { doc => doc_link('Release/Packaging') }) %]
+          [% l('Review the <a href="{url}" target="_blank">list of packaging types</a> for help.',
+               { url => doc_link('Release/Packaging') }) %]
         </p>
      </div>
     </div>
@@ -174,7 +175,8 @@
     <div class="barcode-container" style="display: none">
       <div class="barcode bubble">
        <p>
-          [% l('Please enter the barcode of the release you are entering, see <a href="{url}">Barcode</a> for more information.', { url => c.uri_for('/doc/Barcode') }) %]
+          [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
+               { url => doc_link('Barcode') }) %]
        </p>
        <p class="barcode-message"></p>
        <p class="barcode-confirm">
@@ -216,4 +218,3 @@
   </div>
 
 [%- END -%]
-

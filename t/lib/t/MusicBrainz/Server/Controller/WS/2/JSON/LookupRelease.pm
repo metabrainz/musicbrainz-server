@@ -24,6 +24,13 @@ test 'basic release lookup' => sub {
                 language => "jpn",
                 script => "Latn",
             },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             date => "2001-07-04",
             country => "JP",
             barcode => "4942463511227",
@@ -49,6 +56,13 @@ test 'basic release lookup, inc=annotation' => sub {
             "text-representation" => {
                 language => "eng",
                 script => "Latn",
+            },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
             },
             date => "2007-01-29",
             country => "GB",
@@ -78,6 +92,13 @@ test 'basic release with tags' => sub {
             "text-representation" => {
                 language => "jpn",
                 script => "Latn",
+            },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
             },
             date => "2001-07-04",
             country => "JP",
@@ -112,6 +133,13 @@ test 'basic release with collections' => sub {
                 language => "jpn",
                 script => "Latn",
             },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             date => "2001-07-04",
             country => "JP",
             barcode => "4942463511227",
@@ -142,6 +170,13 @@ test 'release lookup with artists + aliases' => sub {
             disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
+            "cover-art-archive" => {
+                artwork => JSON::true,
+                count => 1,
+                front => JSON::true,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             "artist-credit" => [
                 {
                     name => "m-flo",
@@ -158,7 +193,8 @@ test 'release lookup with artists + aliases' => sub {
                             { "sort-name" => "mflo", name => "mflo" },
                             { "sort-name" => "えむふろう", name => "えむふろう" },
                             { "sort-name" => "エムフロウ", name => "エムフロウ" },
-                            ]
+                            ],
+                        ipis => [],
                     }
                 }],
             date => "2004-03-17",
@@ -182,6 +218,13 @@ test 'release lookup with labels and recordings' => sub {
             disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
+            "cover-art-archive" => {
+                artwork => JSON::true,
+                count => 1,
+                front => JSON::true,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             date => "2004-03-17",
             country => "JP",
             barcode => "4988064451180",
@@ -195,6 +238,7 @@ test 'release lookup with labels and recordings' => sub {
                         "sort-name" => "rhythm zone",
                         disambiguation => "",
                         "label-code" => JSON::null,
+                        ipis => [],
                     }
                 }],
             media => [
@@ -255,6 +299,13 @@ test 'release lookup with release-groups' => sub {
             disambiguation => "",
             packaging => JSON::null,
             "text-representation" => { language => "eng", script => "Latn" },
+            "cover-art-archive" => {
+                artwork => JSON::true,
+                count => 1,
+                front => JSON::true,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             date => "2004-03-17",
             country => "JP",
             barcode => "4988064451180",
@@ -267,6 +318,7 @@ test 'release lookup with release-groups' => sub {
                       name => "m-flo",
                       "sort-name" => "m-flo",
                       disambiguation => "",
+                      ipis => [],
                    },
                    joinphrase => '',
                 }
@@ -286,6 +338,7 @@ test 'release lookup with release-groups' => sub {
                           name => "m-flo",
                           "sort-name" => "m-flo",
                           disambiguation => "",
+                          ipis => [],
                        },
                        joinphrase => "",
                     }
@@ -308,6 +361,13 @@ test 'release lookup with discids and puids' => sub {
             "text-representation" => {
                 language => "jpn",
                 script => "Latn",
+            },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
             },
             date => "2001-07-04",
             country => "JP",
@@ -378,6 +438,13 @@ test 'release lookup, barcode is NULL' => sub {
                 language => "eng",
                 script => "Latn",
             },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
             date => "1999-09-23",
             country => "US",
             barcode => JSON::null,
@@ -401,6 +468,13 @@ test 'release lookup, barcode is  empty string' => sub {
             "text-representation" => {
                 language => "eng",
                 script => "Latn",
+            },
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
             },
             date => "1999-09-13",
             country => "GB",

@@ -19,11 +19,18 @@
       [%- END -%]
     </th>
     <td>
-      Disc <span class="new">[% medium_edit.new %]</span>: [% medium_edit.title %]
-      [%- IF medium_edit.old == "new" -%]
-        [%- l('(new disc)') -%]
+      [%- IF medium_edit.title && medium_edit.old == 'new' -%]
+        [%- l('Disc <span class="new">{new}</span>: {title} (new disc)',
+              new => medium_edit.new, title => medium_edit.title) -%]
+      [%- ELSIF medium_edit.title -%]
+        [%- l('Disc <span class="new">{new}</span>: {title} (moved from position <span class="old">{old}</span>)',
+              new => medium_edit.new, title => medium_edit.title, , old => medium_edit.old) -%]
+      [%- ELSIF medium_edit.old == 'new' -%]
+        [%- l('Disc <span class="new">{new}</span> (new disc)',
+              new => medium_edit.new) -%]
       [%- ELSE -%]
-        [%- l('(moved from position <span class="old">{old}</span>)', old => medium_edit.old) -%]
+        [%- l('Disc <span class="new">{new}</span> (moved from position <span class="old">{old}</span>)',
+              new => medium_edit.new, old => medium_edit.old) -%]
       [%- END -%]
     </td>
   </tr>
