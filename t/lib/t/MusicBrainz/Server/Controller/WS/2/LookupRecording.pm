@@ -151,6 +151,28 @@ ws_test 'recording lookup with puids and isrcs',
     </recording>
 </metadata>';
 
+ws_test 'recording lookup with release relationships',
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
+        <title>Dear Diary</title>
+        <length>86666</length>
+        <relation-list target-type="release">
+            <relation type="samples material">
+                <target>4ccb3e54-caab-4ad4-94a6-a598e0e52eec</target>
+                <begin>2008</begin>
+                <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
+                    <title>An Inextricable Tale Audiobook</title>
+                    <quality>normal</quality>
+                    <date>2007-11-08</date>
+                    <barcode>634479663338</barcode>
+                </release>
+            </relation>
+        </relation-list>
+    </recording>
+</metadata>';
+
 };
 
 1;

@@ -8,6 +8,7 @@ our @EXPORT_OK = qw(
     boolean
     list_of
     number
+    date_period
     serializer
     serialize_entity
 );
@@ -32,6 +33,21 @@ sub boolean { return (shift) ? JSON::true : JSON::false; }
 sub number {
     my $value = shift;
     return defined $value ? $value + 0 : JSON::null;
+}
+
+sub date_period {
+    my $entity = shift;
+
+    my %lifespan = (
+        begin => JSON::null,
+        end => JSON::null,
+        ended => boolean ($entity->ended),
+        );
+
+    $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
+    $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
+
+    return \%lifespan;
 }
 
 sub serializer

@@ -131,29 +131,43 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 {
                     direction => "forward",
                     url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
-                    type => "image"
-                    },
+                    type => "image",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://members.boardhost.com/wedlock/",
-                    type => "online community"
-                    },
+                    type => "online community",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.discogs.com/artist/Paul+Allgood",
-                    type => "discogs"
-                    },
+                    type => "discogs",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.imdb.com/name/nm4057169/",
-                    type => "IMDb"
-                    },
+                    type => "IMDb",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
                     url => "http://www.paulallgood.com/",
-                    type => "blog"
-                    },
-                ],
+                    type => "blog",
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                }],
             ipis => [],
         });
 
@@ -673,6 +687,45 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     language => JSON::null,
                     type => JSON::null,
                 }],
+            ipis => [],
+        });
+};
+
+
+test 'artist lookup with artist relations' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with artist relations',
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json (
+        {
+            id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
+            name => "後藤真希",
+            "sort-name" => "Goto, Maki",
+            country => "JP",
+            disambiguation => "",
+            "life-span" => {
+                begin => "1985-09-23",
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
+            relations => [
+                {
+                    type => 'member of band',
+                    direction => 'forward',
+                    artist => {
+                        id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+                        name => "7人祭",
+                        "sort-name" => "7nin Matsuri",
+                        disambiguation => "",
+                        ipis => [],
+                    },
+                    begin => '2001',
+                    end => JSON::null,
+                    ended => JSON::false,
+                }
+            ],
             ipis => [],
         });
 };

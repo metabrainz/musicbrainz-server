@@ -4215,3 +4215,10 @@ INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, lin
 INSERT INTO l_artist_work (link, entity1, entity0, id) VALUES
     (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'),
      (SELECT id FROM artist WHERE gid='472bc127-8861-45e8-bc9e-31e8dd32de7a'), 1117124);
+
+INSERT INTO gender (name, id) VALUES ('Female', 2);
+INSERT INTO artist_name (name, id) VALUES ('Goto, Maki', 438952);
+INSERT INTO artist_name (name, id) VALUES ('後藤真希', 235500);
+INSERT INTO artist (edits_pending, ended, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, '0', 82524, 438952, 2, 107, 23, '2012-08-27 03:34:50.942403+02', 235500, 1985, NULL, '', 9, NULL, 1, NULL, '678ba12a-e485-44c7-8eaf-25e61a78a61b');
+INSERT INTO link (begin_date_day, attribute_count, begin_date_year, link_type, created, ended, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, 2001, 111, '2011-05-16 17:03:23.368437+02', '0', NULL, NULL, NULL, 6490, NULL);
+INSERT INTO l_artist_artist (link, last_updated, entity1, entity0, id, edits_pending) VALUES (6490, '2011-05-16 17:03:23.368437+02', 265420, 82524, 127517, 0);
