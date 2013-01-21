@@ -42,7 +42,7 @@ sub serialize
     $body{packaging} = $entity->packaging
         ? $entity->packaging->name : JSON::null;
 
-    my $coverart = $stash->store($entity)->{'cover-art-archive'};
+    my $coverart = $stash ? $stash->store($entity)->{'cover-art-archive'} : undef;
     if ($coverart) {
         $body{'cover-art-archive'} = {
             artwork => boolean($entity->cover_art_presence eq 'present'),
