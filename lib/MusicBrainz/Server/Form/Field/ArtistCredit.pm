@@ -4,6 +4,7 @@ use Scalar::Util qw( looks_like_number );
 use Text::Trim qw( );
 extends 'HTML::FormHandler::Field::Compound';
 
+use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -11,9 +12,14 @@ use MusicBrainz::Server::Translation qw( l ln );
 has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
-has_field 'names.name'        => ( type => 'Text');
+has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');
 has_field 'names.artist'      => ( type => '+MusicBrainz::Server::Form::Field::Artist' );
-has_field 'names.join_phrase' => ( type => 'Text', trim => { transform => sub { shift } });
+has_field 'names.join_phrase' => (
+    # Can't use MusicBrainz::Server::Form::Field::Text as we need whitespace on the left
+    # and right.
+    type => 'Text',
+    trim => { transform => sub { shift } }
+);
 
 around 'validate_field' => sub {
     my $orig = shift;
@@ -89,22 +95,7 @@ around 'value' => sub {
 
     return $ret unless $ret && $ret->{names};
 
-    my @names = @{ $ret->{names} };
-    for my $i (0 .. $#names)
-    {
-        $ret->{names}->[$i]->{name} = $ret->{names}->[$i]->{artist}->{name}
-            if !$ret->{names}->[$i]->{name};
-
-        if ($self->result->input)
-        {
-            # HTML::FormHandler incorrectly trims the join phrase if
-            # it is a single space, work around this by taking the
-            # join phrase directly from the input here.
-            $ret->{names}->[$i]->{join_phrase} = $self->result->input->{names}->[$i]->{join_phrase};
-        }
-    }
-
-    return $ret;
+    return clean_submitted_artist_credits($ret);
 };
 
 =head1 LICENSE
