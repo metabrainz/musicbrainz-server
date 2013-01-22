@@ -247,12 +247,17 @@ ko.bindingHandlers.autocomplete = (function() {
         }
     }
 
-    // In Opera 10, when the keydown event on the autocomplete bubbles up to the
-    // dialog, isDefaultPrevented returns false even though here it returns true.
-    // Other browsers work fine.
-    function stopEnter(event) {
-        if (event.keyCode == 13 && event.isDefaultPrevented())
+    function fixAutocompleteKeys(event) {
+        // In Opera 10, when the keydown event on the autocomplete bubbles up to the
+        // dialog, isDefaultPrevented returns false even though here it returns true.
+        // Other browsers work fine.
+        if ((event.keyCode == 13 && event.isDefaultPrevented()) || event.keyCode == 27)
             event.stopPropagation();
+
+        // Opera doesn't return focus to the autocomplete after pressing esc.
+        // without preventDefault.
+        if (event.keyCode == 27)
+            event.preventDefault();
     }
 
     return {
@@ -268,7 +273,7 @@ ko.bindingHandlers.autocomplete = (function() {
             $autocomplete
                 .on("lookup-performed", changeTarget)
                 .find("input.name")
-                    .on("keydown", stopEnter)
+                    .on("keydown keypress", fixAutocompleteKeys)
                     .on("keyup focus click", showRecentEntities);
 
             setAutocompleteEntity(Dialog.target, Dialog.mode() != "edit");
@@ -284,10 +289,14 @@ ko.bindingHandlers.autocomplete = (function() {
 var BaseDialog = (function() {
     var inputRegex = /^input|button|select$/;
 
-    function submit(event) {
-        if (event.keyCode == 13 && this.canSubmit() && !event.isDefaultPrevented() &&
-                inputRegex.test(event.target.nodeName.toLowerCase()))
-            this.accept();
+    function dialogKeydown(event) {
+        if (!event.isDefaultPrevented()) {
+            if (event.keyCode == 13 && this.canSubmit() &&
+                    inputRegex.test(event.target.nodeName.toLowerCase()))
+                this.accept();
+            else if (event.keyCode == 27)
+                this.hide();
+        }
     }
 
     function cancel(event) {
@@ -298,7 +307,7 @@ var BaseDialog = (function() {
     }
 
     return function(options) {
-        options.$dialog.on("keydown", _.bind(submit, options))
+        options.$dialog.on("keydown", _.bind(dialogKeydown, options))
             .find("button.negative").on("keydown", _.bind(cancel, options));
     };
 }());
@@ -379,6 +388,13 @@ var Dialog = UI.Dialog = {
 
         dlg.showAutocomplete(notBatchWorks);
         dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
+
+        // prevent pressing enter on the create-work button from accepting the dialog.
+        if (dlg.showCreateWorkLink.peek())
+            $("#create-work-btn").on("keydown", function(event) {
+                if (event.keyCode == 13)
+                    event.stopPropagation();
+            });
 
         dlg.$overlay.show();
         // prevents the page from jumping. these will be adjusted in positionDialog.
@@ -745,7 +761,10 @@ var WorkDialog = UI.WorkDialog = {
         $("#new-work-dialog").hide();
         WorkDialog.type("");
         WorkDialog.language("");
-        $("#link-type").focus();
+
+        _.defer(function() {
+            $("#create-work-btn").focus();
+        });
     },
 
     successCallback: function(data) {
