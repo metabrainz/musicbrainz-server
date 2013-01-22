@@ -25,9 +25,11 @@
             <tr class="noborder">
                 <th>[% l('Vote tally:') %]</th>
                 <td class="vote">
-                    [%- l('{yes} yes : {no} no',
-                         { yes => '<strong>' _ edit.yes_votes _ '</strong>',
-                           no => '<strong>' _ edit.no_votes _ '</strong>' }) -%]
+                    [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
+                       ELSE; l('{yes} yes : {no} no',
+                        { yes => '<strong>' _ edit.yes_votes _ '</strong>',
+                          no => '<strong>' _ edit.no_votes _ '</strong>' });
+                    END -%]
                 </td>
             </tr>
             [% IF edit.editor_may_vote(c.user) %]
