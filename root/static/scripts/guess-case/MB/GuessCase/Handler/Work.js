@@ -100,5 +100,12 @@ MB.GuessCase.Handler.Work = function () {
 	return null;
     };
 
+    /**
+     * Guesses the sortname for works
+     **/
+    self.guessSortName = function(is) {
+	return gc.u.trim(is);
+    };
+
     return self;
 };
