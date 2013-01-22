@@ -94,7 +94,8 @@ sub approve : Chained('load') RequireAuth(auto_editor)
         $c->detach;
     }
 
-    if($edit->no_votes > 0) {
+    $c->model('Vote')->load_for_edits($edit);
+    if($edit->approval_requires_comment($c->user)) {
         $c->model('EditNote')->load_for_edits($edit);
         my $left_note;
         for my $note (@{ $edit->edit_notes }) {
