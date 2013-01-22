@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Label;
 
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
@@ -289,6 +290,62 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
+}
+
+sub is_empty {
+    my ($self, $label_id) = @_;
+
+    return $self->sql->select_single_value(<<'EOSQL', $label_id, $STATUS_OPEN);
+        SELECT TRUE
+        FROM label label_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_label
+            WHERE status = ? AND label = label_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM release_label
+            WHERE label = label_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_recording
+            WHERE entity0 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_work
+            WHERE entity0 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_url
+            WHERE entity0 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_label
+            WHERE entity0 = label_row.id OR entity1 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_artist_label
+            WHERE entity1 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_release
+            WHERE entity0 = label_row.id
+            LIMIT 1
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM l_label_release_group
+            WHERE entity0 = label_row.id
+            LIMIT 1
+          )
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;
