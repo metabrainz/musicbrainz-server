@@ -369,3 +369,16 @@ div.editimage button.set-cover-art {
 
 div.editimage p.currently-selected { display: none; }
 div.editimage.selected p.currently-selected { display: block; }
+
+.image-placeholder {
+    width: 125px;
+    height: 125px;
+    border: 2px solid gray;
+}
+
+.image-placeholder p {
+    margin: 22% auto 0 auto;
+    display: block;
+    font-size: larger;
+    text-align: center;
+}
