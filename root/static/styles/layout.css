@@ -998,3 +998,7 @@ span.release-group-type {
     border-radius: 3px;
     padding: 0 3px;
 }
+
+.actions-header {
+    min-width: 10em;
+}
