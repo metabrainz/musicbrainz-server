@@ -52,8 +52,8 @@
          </thead>
          <tbody>
          [% FOR change=edit.display_data.tracklist_changes %]
-           [% NEXT UNLESS change.0 == 'c' OR change.0 == '-' %]
-           [% IF change.0 == 'c' %]
+           [% NEXT UNLESS change.0 == 'c' OR change.0 == '-' OR change.0 == 'u' %]
+           [% IF change.0 == 'c' OR change.0 == 'u' %]
            [% old_track = change.1;
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,
@@ -126,8 +126,8 @@
          </thead>
          <tbody>
          [% FOR change=edit.display_data.tracklist_changes %]
-           [% NEXT UNLESS change.0 == 'c' OR change.0 == '+' %]
-           [% IF change.0 == 'c' %]
+           [% NEXT UNLESS change.0 == 'c' OR change.0 == '+' OR change.0 == 'u' %]
+           [% IF change.0 == 'c' OR change.0 == 'u' %]
            [% old_track = change.1;
               new_track = change.2;
               artist_credit_differences = Diff.diff_artist_credits(old_track.artist_credit,

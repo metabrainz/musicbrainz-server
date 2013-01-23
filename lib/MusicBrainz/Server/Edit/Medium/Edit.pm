@@ -244,7 +244,7 @@ sub build_display_data
         $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
         $data->{tracklist_changes} = [
-            grep { $_->[0] ne 'u' }
+		#grep { $_->[0] ne 'u' }
             @{ sdiff(
                 [ $data->{old}{tracklist}->all_tracks ],
                 [ $data->{new}{tracklist}->all_tracks ],
@@ -252,7 +252,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
-                        $track->number // $track->position,
+			# $track->number // $track->position,
                         $track->name,
                         format_track_length($track->length),
                         join(
