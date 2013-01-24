@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw(
-    object_to_ids
     placeholders
     query_to_list
 );
@@ -36,56 +35,6 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::ISWC';
-}
-
-=method find_by_work
-
-    find_by_work(@work_ids : Array[Integer])
-
-Find L<MusicBrainz::Server::Entity::ISWC> objects that are linked to specific
-works. The works are searched as a disjunction, so you will get all ISWCS linked
-to any of the inputs.
-
-Returns an array of ISWC objects.
-
-=cut
-
-sub find_by_works
-{
-    my ($self, @work_ids) = @_;
-
-    my $query = "SELECT ".$self->_columns."
-                   FROM ".$self->_table."
-                  WHERE work = any(?)
-                  ORDER BY iswc";
-
-    return query_to_list($self->c->sql, sub { $self->_new_from_row($_[0]) },
-                         $query, \@work_ids);
-}
-
-=method load_for_works
-
-    load_for_works(@works : Array[Work])
-
-Load ISWCs for an array of works, and nest the ISWC objects inside each
-respective work.
-
-=cut
-
-sub load_for_works
-{
-    my ($self, @works) = @_;
-    my %id_to_works = object_to_ids (uniq grep defined, @works);
-    my @ids = keys %id_to_works;
-    return unless @ids; # nothing to do
-    my @iswcs = $self->find_by_works(@ids);
-
-    foreach my $iswc (@iswcs) {
-        foreach my $work (@{ $id_to_works{$iswc->work_id} }) {
-            $work->add_iswc($iswc);
-            $iswc->work($work);
-        }
-    }
 }
 
 =method find_by_iswc

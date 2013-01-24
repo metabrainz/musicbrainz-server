@@ -39,6 +39,7 @@ our @EXPORT_OK = qw(
     merge_partial_date
     model_to_type
     object_to_ids
+    object_to_revision_ids
     order_by
     partial_date_to_hash
     placeholders
@@ -341,17 +342,28 @@ sub model_to_type
     return $map{$_[0]} || undef;
 }
 
-sub object_to_ids
+sub _object_to
 {
-    my @objects = @_;
+    my ($getter, @objects) = @_;
     my %ret;
     foreach my $object (@objects)
     {
-        $ret{$object->id} = [] unless $ret{$object->id};
-        push @{ $ret{$object->id} }, $object;
+        my $key = $getter->($object);
+        $ret{$key} = [] unless $ret{$key};
+        push @{ $ret{$key} }, $object;
     }
 
     return %ret;
+}
+
+sub object_to_ids
+{
+    _object_to(sub { shift->id }, @_);
+}
+
+sub object_to_revision_ids
+{
+    _object_to(sub { shift->revision_id }, @_);
 }
 
 sub order_by

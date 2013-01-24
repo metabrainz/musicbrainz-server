@@ -77,7 +77,7 @@ has 'writers' => (
 );
 
 has 'iswcs' => (
-    is => 'ro',
+    is => 'rw',
     isa => 'ArrayRef',
     traits => [ 'Array' ],
     default => sub { [] },

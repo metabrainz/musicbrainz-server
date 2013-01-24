@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_MERGE
 );
+use MusicBrainz::Server::Entity::ISWC;
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Entity::Tree::Work;
 use MusicBrainz::Server::Translation qw( l );
@@ -40,7 +41,7 @@ after 'load' => sub
 
     my $work = $c->stash->{work};
     # $c->model('Work')->load_meta($work);
-    # $c->model('ISWC')->load_for_works($work);
+    $c->model('NES::ISWC')->load_for_works($work);
     if ($c->user_exists) {
         $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
     }
@@ -86,7 +87,10 @@ sub work_tree {
     my $values = shift;
     return MusicBrainz::Server::Entity::Tree::Work->new(
         work => MusicBrainz::Server::Entity::Work->new($values),
-        iswcs => $values->{iswcs} // []
+        iswcs => [
+            map { MusicBrainz::Server::Entity::ISWC->new(iswc => $_) }
+                @{ $values->{iswcs} // [] }
+        ]
     );
 }
 

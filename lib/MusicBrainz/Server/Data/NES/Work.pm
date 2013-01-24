@@ -80,7 +80,7 @@ sub _work_tree {
             }
         },
         iswcs => [
-            map +{ iswc => $_ }, @{ $tree->iswcs }
+            map +{ iswc => $_->iswc }, @{ $tree->iswcs }
         ],
         annotation => $tree->annotation
     );
