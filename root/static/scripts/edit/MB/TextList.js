@@ -34,6 +34,18 @@ MB.Form.TextList = function (input) {
         return false;
     };
 
+    self.init = function(max_index) {
+        last_item = input;
+
+        counter = max_index + 1;
+        $template.parent()
+            .find('div.text-list-row input.value')
+            .siblings('button.remove')
+            .bind('click.mb', self.removeEvent);
+
+        return self;
+    };
+
     self.add = function (init_value) {
         last_item = input;
 

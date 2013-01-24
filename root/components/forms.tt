@@ -109,6 +109,18 @@
                        alt="[% l('Remove {item}', item => item_name) %]" />
               </button>
           </div>
+          [% SET counter=0 %]
+          [% FOR value=r.form.field(field_name).value -%]
+          <div class="text-list-row">
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value" />
+              <button class="nobutton icon remove">
+                <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
+                     title="[% l('Remove {item}', item => item_name) %]"
+                       alt="[% l('Remove {item}', item => item_name) %]" />
+              </button>
+          </div>
+          [% SET counter = loop.index() %]
+          [% END -%]
           <div class="form-row-add">
             <button class="nobutton add">
               <span class="add-row">
@@ -119,14 +131,7 @@
           </div>
       </div>
       <script>
-         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]")
-         [%- FOR value=r.form.field(field_name).value -%]
-           .add ("[%- value -%]")
-         [%- END -%]
-         [%- IF !r.form.field(field_name).value.size -%]
-           .add ('')
-         [%- END -%]
-         ;
+         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% counter %]);
       </script>
 
       [% field_errors(r.form, field_name) %]
