@@ -291,14 +291,7 @@ sub build_display_data
         ];
 
         $data->{recording_changes} = [
-            grep { $_->[0] eq 'c' }
-            @{ sdiff(
-                [ $data->{old}{tracklist}->all_tracks ],
-                [ $data->{new}{tracklist}->all_tracks ],
-                sub {
-                    my $track = shift;
-                    return $track->recording->id || 'new';
-                }) }
+            grep { $_->[1] && $_->[2] && $_->[1]->recording->id != $_->[2]->recording->id } @$tracklist_changes
         ];
     }
 
