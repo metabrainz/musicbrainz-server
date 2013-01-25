@@ -109,7 +109,6 @@
                        alt="[% l('Remove {item}', item => item_name) %]" />
               </button>
           </div>
-          [% SET counter=0 %]
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value" />
@@ -119,7 +118,6 @@
                        alt="[% l('Remove {item}', item => item_name) %]" />
               </button>
           </div>
-          [% SET counter = loop.index() %]
           [% END -%]
           <div class="form-row-add">
             <button class="nobutton add">
@@ -131,7 +129,7 @@
           </div>
       </div>
       <script>
-         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% counter %]);
+         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size - 1 %]);
       </script>
 
       [% field_errors(r.form, field_name) %]
