@@ -494,21 +494,16 @@ sub approve
 {
     my ($self, $edit, $editor_id) = @_;
 
-    Sql::run_in_transaction(sub {
-        # Load the edit again, but this time lock it for updates
-        $edit = $self->get_by_id_and_lock($edit->id);
+    $self->c->model('Vote')->enter_votes(
+        $editor_id,
+        {
+            vote    => $VOTE_APPROVE,
+            edit_id => $edit->id
+        }
+    );
 
-        $self->c->model('Vote')->enter_votes(
-            $editor_id,
-            {
-                vote    => $VOTE_APPROVE,
-                edit_id => $edit->id
-            }
-        );
-
-        # Apply the changes and close the edit
-        $self->accept($edit);
-    }, $self->c->sql);
+    # Apply the changes and close the edit
+    $self->accept($edit);
 }
 
 sub _do_accept
