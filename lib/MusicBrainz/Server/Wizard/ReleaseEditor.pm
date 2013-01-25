@@ -1007,6 +1007,16 @@ sub _edit_missing_entities
     )
 }
 
+sub _release_label_empty {
+    my ($release_label) = @_;
+    # An 'empty' release label is either deleted in the UI, or has no catalog
+    # number nor label.
+    return $release_label->{'deleted'} || (
+        ($release_label->{catalog_number} eq '' || !defined($release_label->{catalog_number}))
+            && !$release_label->{label_id}
+    );
+}
+
 sub _edit_release_labels
 {
     my ($self, %args) = @_;
@@ -1031,7 +1041,7 @@ sub _edit_release_labels
 
         if ($old_label)
         {
-            if ($new_label->{'deleted'})
+            if (_release_label_empty($new_label))
             {
                 # Delete ReleaseLabel
                 $create_edit->(
@@ -1053,9 +1063,10 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
-        elsif ($new_label->{'deleted'})
+        elsif (_release_label_empty($new_label))
         {
-            # Ignore new labels which have already been deleted.
+            # Ignore new labels which have already been deleted, or contain no
+            # useful information.
         }
         elsif (
             $previewing ?
