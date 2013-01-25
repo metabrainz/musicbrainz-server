@@ -273,6 +273,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.facebook.com/sininemusic',
+                    'https://www.facebook.com/sininemusic',
+                    'artist'
+                ],
+                [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
