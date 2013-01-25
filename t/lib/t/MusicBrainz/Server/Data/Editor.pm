@@ -241,6 +241,21 @@ test 'Deleting an editor cancels all open edits' => sub {
     is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
 };
 
+test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password)
+  VALUES (1, 'Subject', ''), (2, 'Subscriber', '');
+INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
+  VALUES (2, 1, 1);
+EOSQL
+
+    $c->model('Editor')->delete(1);
+    is(scalar($c->model('Editor')->subscription->get_subscriptions(2)), 0);
+};
+
 test 'Open edit and last-24-hour counts' => sub {
     my $test = shift;
     my $c = $test->c;

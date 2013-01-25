@@ -478,6 +478,7 @@ sub delete {
     $self->c->model('EditorLanguage')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
+    $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
     $self->c->model('WatchArtist')->delete_editor($editor_id);
 
@@ -551,6 +552,13 @@ sub last_24h_edit_count
        ";
 
     return $self->sql->select_single_value($query, $editor_id);
+}
+
+sub unsubscribe_to {
+    my ($self, $editor_id) = @_;
+    $self->sql->do(
+        'DELETE FROM editor_subscribe_editor WHERE subscribed_editor = ?',
+        $editor_id);
 }
 
 no Moose;
