@@ -7,6 +7,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $DARTIST_ID $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::ArtistCredit;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::Utils qw(
@@ -19,6 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_partial_date
     placeholders
+    query_to_list
     query_to_list_limited
 );
 
@@ -222,6 +224,46 @@ sub update
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
+
+    # Check if this could violate uniqueness constraints
+    if (exists $update->{comment} || exists $update->{name}) {
+        my ($new_name, $new_comment, @params);
+
+        if (exists $update->{name}) {
+            $new_name = '?::text';
+            push @params, $update->{name};
+        }
+        else {
+            $new_name = '(SELECT name.name FROM artist
+                          JOIN artist_name name ON artist.name = name.id
+                          WHERE artist.id = ?)';
+            push @params, $artist_id;
+        }
+
+        if (exists $update->{comment}) {
+            $new_comment = '?::text';
+            push @params, $update->{comment};
+        }
+        else {
+            $new_comment = '(SELECT comment FROM artist WHERE id = ?)';
+            push @params, $artist_id;
+        }
+
+        my $query =
+            "SELECT " . $self->_columns . ' FROM ' . $self->_table .
+            " WHERE (name.name, comment) IN (SELECT $new_name, $new_comment)";
+
+        my ($conflict) = query_to_list(
+            $self->sql, sub { $self->_new_from_row(shift) }, $query, @params
+        );
+
+        if ($conflict) {
+            MusicBrainz::Server::Exceptions::DuplicateViolation->throw({
+                conflict => $conflict
+            })
+        }
+    }
+
     $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 
