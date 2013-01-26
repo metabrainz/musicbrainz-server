@@ -86,6 +86,7 @@ requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';
 requires 'String::TT'                                 => '0.03';
+requires 'Sys::Hostname';
 requires 'Template::Plugin::Math';
 requires 'Template::Plugin::Class';
 requires 'Template::Plugin::JavaScript';
