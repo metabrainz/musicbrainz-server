@@ -44,7 +44,7 @@ role {
 
             when ('!=') {
                 $query->add_where([
-                    "NOT EXISTS (SELECT TRUE from $table edit_entity WHERE edit_entity.$column = ?)",
+                    "NOT EXISTS (SELECT TRUE from $table edit_entity WHERE edit_entity.edit = edit.id AND edit_entity.$column = ?)",
                     $self->sql_arguments
                 ]);
             }
