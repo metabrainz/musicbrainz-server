@@ -23,6 +23,12 @@ sub types {
     return [ map { $_->name } @{ $self->cover_art_types } ];
 }
 
+sub l_types {
+    my $self = shift;
+    return [] unless $self->cover_art_types;
+    return [ map { $_->l_name } @{ $self->cover_art_types } ];
+}
+
 has is_front => (
     is => 'rw',
     isa => 'Bool',
