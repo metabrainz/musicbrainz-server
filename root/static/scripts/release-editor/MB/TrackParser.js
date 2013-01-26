@@ -33,11 +33,11 @@ MB.TrackParser.Artist = function (track, artist) {
     self.addNew = function (name) {
         self.names.push ({
             'artist': {
-                'name': MB.utility.trim (name),
+                'name': _.clean (name),
                 'id': '',
                 'gid': ''
             },
-            'name': MB.utility.trim (name),
+            'name': _.clean (name),
             'join_phrase': null
         });
     };
@@ -221,7 +221,7 @@ MB.TrackParser.Track = function (position, line, parent) {
 
     self.position = position;
     self.number = position;
-    self.line = MB.utility.trim (line);
+    self.line = _.clean (line);
     self.parent = parent;
     self.duration = null;
     self.name = '';
@@ -397,7 +397,7 @@ MB.TrackParser.Track = function (position, line, parent) {
     };
 
     self.clean = function () {
-        self.title = MB.utility.trim (self.title)
+        self.title = _.clean (self.title)
             .replace (/(.*),\sThe$/i, "The $1")
             .replace (/\s*,/g, ",");
     };
@@ -426,7 +426,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
          * track position. */
         var lineno = 1;
         $.each (lines, function (idx, item) {
-            item = MB.utility.trim (item);
+            item = _.clean (item);
             if (item === '')
                 return;
 
@@ -444,7 +444,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
         var map = {};
 
         $.each (self.originals, function (idx, track) {
-            var trackname = MB.utility.trim (track.name);
+            var trackname = _.clean (track.name);
 
             if (map[trackname] === undefined) {
                 map[trackname] = [];

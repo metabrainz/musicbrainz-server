@@ -6,8 +6,9 @@
 
         [% IF c.user && !c.user.email_confirmation_date %]
             <p>
-                [%- l('You must first verify your email address before being able to edit
-                       or add anything to the database.') -%]
+                [%- l('You must first {url|add and verify your email address} before being
+                       able to edit or add anything to the database.',
+                       { url => c.uri_for('/account/edit') }) -%]
             </p>
         [% END %]
 

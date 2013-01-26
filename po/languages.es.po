@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-12 09:27+0000\n"
-"Last-Translator: Ismael Olea <email address hidden>\n"
+"PO-Revision-Date: 2013-01-15 22:24+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1245,6 +1245,11 @@ msgstr "Ladino (Judeo-español)"
 #: DB:language/name:235
 msgid "Lahnda"
 msgstr "Lahnda"
+
+#. frequency:1 iso_code_3:lkt
+#: DB:language/name:3880
+msgid "Lakota"
+msgstr ""
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236

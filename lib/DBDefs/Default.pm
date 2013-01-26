@@ -69,7 +69,8 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub WEB_SERVER                { "localhost:5000" }
+sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
@@ -111,6 +112,14 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # this should only be enabled on staging servers. Also, this enables non-admin
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
+
+# SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
+# the "RequireSSL" attribute on Catalyst actions, which will redirect
+# users to the SSL version of a Catalyst action (and redirect back to
+# http:// after the action is complete, though only if the user
+# started there).  If set to 0 no SSL redirects will be done, which is
+# suitable for local or development deployments.
+sub SSL_REDIRECTS_ENABLED { 0 }
 
 ################################################################################
 # Documentation Server Settings
@@ -391,12 +400,11 @@ sub AUTO_RESTART {
 #    }
 }
 
-# The maximum amount of time a process can be serving a single request
-# If undef, the process is never killed
-# If set to a positive integer, the process can server a single request
-# for MAX_REQUEST_TIME seconds, and if it is still not done the process
-# will be killed (and log a message about the request it was serving).
-sub MAX_REQUEST_TIME { undef }
+# The maximum amount of time a process can be serving a single request. This
+# function takes a Catalyst::Request as input, and should return the amount of time
+# in seconds that it should take to respond to this request.
+# If undef, the process is never killed.
+sub DETERMINE_MAX_REQUEST_TIME { undef }
 
 sub LOGGER_ARGUMENTS {
     return (

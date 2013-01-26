@@ -54,6 +54,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
+                // The Session
+                [
+                    'release_group', 'http://thesession.org/recordings/1488',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://thesession.org/tunes/2305',
+                    MB.constants.LINK_TYPES.otherdatabases.work
+                ],
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -261,6 +270,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://dhhu.dk/w/Sort_Stue',
                     'http://www.dhhu.dk/w/Sort_Stue',
                     'artist'
+                ],
+                // The Session
+                [
+                    'http://www.thesession.org/tunes/display/2305',
+                    'http://thesession.org/tunes/2305',
+                    'work'
+                ],
+                [
+                    'https://www.thesession.org/recordings/display/1488',
+                    'http://thesession.org/recordings/1488',
+                    'release_group'
+                ],
+                [
+                    'thesession.org/recordings/1488#comment283364',
+                    'http://thesession.org/recordings/1488',
+                    'release_group'
                 ],
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',

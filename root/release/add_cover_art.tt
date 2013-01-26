@@ -2,8 +2,8 @@
   [%- script_manifest('edit.js.manifest') -%]
 [%- END -%]
 
-[%- WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' -%]
-  <h2>[%- l('Add Cover Art') -%]</h2>
+[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
+  <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
   <noscript>
     <p>[% l('This page requires JavaScript.') %]</p>
