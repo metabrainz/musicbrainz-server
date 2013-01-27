@@ -54,10 +54,10 @@ sub process_edits
 
     my $sql = $self->c->sql;
 
-    $self->log->debug("Selecting open and to-be-deleted edit IDs\n");
+    $self->log->debug("Selecting eligible edit IDs\n");
     my $edit_ids = $sql->select_single_column_array("
-        SELECT id FROM edit WHERE status IN (?, ?) ORDER BY id",
-        $STATUS_OPEN, $STATUS_TOBEDELETED);
+        SELECT id FROM edit WHERE status = ? AND (expire_time < now() OR yes_votes > 0 OR no_votes > 0) ORDER BY id",
+        $STATUS_OPEN);
 
     my %stats;
     my $errors = 0;
