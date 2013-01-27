@@ -55,9 +55,13 @@ sub process_edits
     my $sql = $self->c->sql;
 
     $self->log->debug("Selecting eligible edit IDs\n");
+    my $max_required_votes = 3;
     my $edit_ids = $sql->select_single_column_array("
-        SELECT id FROM edit WHERE status = ? AND (expire_time < now() OR yes_votes > 0 OR no_votes > 0) ORDER BY id",
-        $STATUS_OPEN);
+        SELECT id FROM edit
+          WHERE status = ?
+            AND (expire_time < now() OR yes_votes > ? OR no_votes > ?)
+          ORDER BY id",
+        $STATUS_OPEN, $max_required_votes, $max_required_votes);
 
     my %stats;
     my $errors = 0;

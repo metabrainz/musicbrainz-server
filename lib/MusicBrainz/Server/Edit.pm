@@ -170,7 +170,7 @@ sub edit_conditions
     return {
         map { $_ =>
                { duration      => 14,
-                 votes         => 3,
+                 votes         => 3, # if you change this, be sure to change it in EditQueue's SQL query
                  expire_action => $EXPIRE_ACCEPT,
                  auto_edit     => 1 }
             } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
