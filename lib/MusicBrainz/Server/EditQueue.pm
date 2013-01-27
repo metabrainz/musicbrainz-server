@@ -59,7 +59,7 @@ sub process_edits
     my $edit_ids = $sql->select_single_column_array("
         SELECT id FROM edit
           WHERE status = ?
-            AND (expire_time < now() OR yes_votes > ? OR no_votes > ?)
+            AND (expire_time < now() OR (yes_votes > ? AND no_votes = 0) OR (no_votes > ? AND yes_votes = 0))
           ORDER BY id",
         $STATUS_OPEN, $max_required_votes, $max_required_votes);
 
