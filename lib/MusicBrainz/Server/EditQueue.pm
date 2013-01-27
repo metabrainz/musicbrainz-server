@@ -81,7 +81,7 @@ sub process_edits
         $self->log->info("Summary:\n");
         my @actions = sort { $a cmp $b } keys %stats;
         foreach my $action (@actions) {
-            $self->log->info(sprintf "  %-20.20s %d\n", $action_name{$action}, $stats{$action});
+            $self->log->info(sprintf "  %-20.20s %d\n", $action_name{$action} // '(no action)', $stats{$action});
         }
     }
 
