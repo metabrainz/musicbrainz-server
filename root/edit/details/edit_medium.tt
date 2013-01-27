@@ -267,18 +267,6 @@
         </thead>
         <tbody>
           [% display_condensed_track_acs(edit.display_data.artist_credit_changes) %]
-          [%# [% FOR assoc=edit.display_data.artist_credit_changes;
-               old_track = assoc.1;
-               new_track = assoc.2 %
-               <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %">
-                 <td class="pos t">
-                   <span style="display: none">[% rdfa_track_number(track.position) %</span>
-                   [% new_track.number %
-                 </td>
-                 <td>[% expanded_artist_credit(old_track.artist_credit) %</td>
-                 <td>[% expanded_artist_credit(new_track.artist_credit) %</td>
-               </tr>
-          [% END %]
         </tbody>
       </table>
     </td>
