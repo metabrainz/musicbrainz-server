@@ -313,8 +313,8 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|plus.google.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
-            if (url.match (/^http:\/\/www\.facebook\.com.*$/))
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+            if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
                   url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
