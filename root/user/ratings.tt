@@ -2,7 +2,7 @@
   titles = { 'artist' => l('Artist ratings'),
              'label' => l('Label ratings'),
              'recording' => l('Recording ratings'),
-             'release_group' => l('Release group ratings')
+             'release_group' => l('Release group ratings'),
              'work' => l('Work ratings')
            };
   title = titles.${ type };
