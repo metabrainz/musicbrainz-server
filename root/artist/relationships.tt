@@ -24,7 +24,7 @@
 
                 <tr class="subh">
                     <th></th>
-                    <th colspan="3">[% l(relationship.key) %]</th>
+                    <th colspan="[% c.user_exists ? 4 : 3 %]">[% l(relationship.key) %]</th>
                 </tr>
 
                 [% FOR rel IN relationship.value %]
