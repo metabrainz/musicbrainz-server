@@ -231,6 +231,16 @@ sub was_approved
     return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
 }
 
+sub approval_requires_comment {
+    my ($self, $editor) = @_;
+
+    return $self->_grep_votes(sub {
+        $_->vote == $VOTE_NO &&
+            !$_->superseded &&
+                $_->editor_id != $editor->id
+    }) > 0;
+}
+
 =head2 related_entities
 
 A list of all entities that this edit relates to. For each entity, a row in the edit_*
