@@ -559,6 +559,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/ric-16.png");
 }
 
+#sidebar ul.external_links li.googleplus {
+    background-image: url("../images/favicons/googleplus-16.png");
+}
+
 #sidebar ul.external_links li.dhhu {
     background-image: url("../images/favicons/dhhu-16.png");
 }
