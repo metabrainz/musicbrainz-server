@@ -90,11 +90,13 @@ sub approve : Chained('load') RequireAuth(auto_editor)
 
     $c->model('MB')->with_transaction(sub {
         my $edit = $c->model('Edit')->get_by_id_and_lock($c->stash->{edit}->id);
+        $c->model('Vote')->load_for_edits($edit);
+
         if (!$edit->can_approve($c->user)) {
             $c->stash( template => 'edit/cannot_approve.tt' );
             return;
         }
-        elsif($edit->no_votes > 0) {
+        elsif($edit->approval_requires_comment($c->user)) {
             $c->model('EditNote')->load_for_edits($edit);
             my $left_note;
             for my $note (@{ $edit->edit_notes }) {
