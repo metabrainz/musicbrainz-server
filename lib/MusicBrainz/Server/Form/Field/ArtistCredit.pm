@@ -95,6 +95,16 @@ around 'value' => sub {
 
     return $ret unless $ret && $ret->{names};
 
+    my @names = @{ $ret->{names} };
+    for my $i (0 .. $#names) {
+        if ($self->result->input) {
+            # HTML::FormHandler incorrectly trims the join phrase if
+            # it is a single space, work around this by taking the
+            # join phrase directly from the input here.
+            $ret->{names}->[$i]->{join_phrase} = $self->result->input->{names}->[$i]->{join_phrase};
+        }
+    }
+
     return clean_submitted_artist_credits($ret);
 };
 
