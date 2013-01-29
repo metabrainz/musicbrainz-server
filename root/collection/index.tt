@@ -44,8 +44,8 @@
           </tbody>
         </table>
 
-        <p>[% form_submit(l('Remove selected releases from collection'))
-             IF my_collection %]</p>
+        <div class="row">[% form_submit(l('Remove selected releases from collection'))
+             IF my_collection %]</div>
         [%- END -%]
       </form>
     [%- ELSE -%]
