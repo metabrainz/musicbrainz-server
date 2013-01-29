@@ -75,7 +75,7 @@ END; -%]
     END -%]
 
 [%- MACRO artwork_hover(artwork) BLOCK -%]
-    [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+    [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
 
 [%- USE JavaScript -%]

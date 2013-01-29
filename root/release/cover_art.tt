@@ -11,7 +11,7 @@
         </div>
         <p>
           [%- l('Types:') -%]
-          [% comma_only_list(artwork.types) || '-' %]
+          [% comma_only_list(artwork.l_types) || '-' %]
         </p>
         [%- IF artwork.comment -%]
         <p>
