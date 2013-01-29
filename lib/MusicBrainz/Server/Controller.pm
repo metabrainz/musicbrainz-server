@@ -146,6 +146,15 @@ sub edit_action
             $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
         });
 
+        # `post_creation` and `on_creation` often perform a redirection.
+        # If they have called $c->res->redirect, $c->res->location will be a
+        # true value, and we can detach early. `post_creation` and `on_creation`
+        # can't do this, as $c->detach is implemented by throwing an exception,
+        # which causes the above transaction to rollback.
+        if ($c->res->location) {
+            $c->detach;
+        }
+
         return $edit;
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {

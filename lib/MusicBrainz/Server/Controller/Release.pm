@@ -710,7 +710,6 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-            $c->detach;
         }
     )
 }
