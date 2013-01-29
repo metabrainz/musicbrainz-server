@@ -30,7 +30,7 @@ sub FormatTrackLength
     my ($hours, $minutes, $seconds);
     ($hours, $ms) = (floor($ms / $one_hour), $ms % $one_hour);
     ($minutes, $ms) = (floor($ms / $one_minute), $ms % $one_minute);
-    $seconds = floor($ms / $one_second);
+    $seconds = round($ms / $one_second);
 
     return $hours > 0 ?
         sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
