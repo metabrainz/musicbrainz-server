@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Label;
 
 use Moose;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Data::ReleaseLabel;
 use MusicBrainz::Server::Entity::Label;
@@ -18,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
@@ -289,6 +291,29 @@ sub load_meta
         $obj->rating($row->{rating}) if defined $row->{rating};
         $obj->rating_count($row->{rating_count}) if defined $row->{rating_count};
     }, @_);
+}
+
+sub is_empty {
+    my ($self, $label_id) = @_;
+
+    my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
+    return $self->sql->select_single_value(<<EOSQL, $label_id, $STATUS_OPEN);
+        SELECT TRUE
+        FROM label label_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_label
+            WHERE status = ? AND label = label_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM release_label
+            WHERE label = label_row.id
+          ) OR
+          $used_in_relationship
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;
