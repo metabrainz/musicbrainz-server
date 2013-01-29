@@ -26,7 +26,7 @@ MB.Form.TextList = function (input) {
     var $template = $('.' + template.replace (/\./g, '\\.'));
     var counter = 0;
 
-    var last_item = null;
+    var last_item = input;
 
     self.removeEvent = function (event) {
         $(this).closest ('div.text-list-row').remove();
@@ -35,9 +35,7 @@ MB.Form.TextList = function (input) {
     };
 
     self.init = function(max_index) {
-        last_item = input;
-
-        counter = max_index + 1;
+        counter = max_index;
         $template.parent()
             .find('div.text-list-row input.value')
             .siblings('button.remove')
@@ -47,8 +45,6 @@ MB.Form.TextList = function (input) {
     };
 
     self.add = function (init_value) {
-        last_item = input;
-
         $template.clone ()
             .removeClass (template)
             .insertAfter ($template.parent ().find ('div.text-list-row').last ())
