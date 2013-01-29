@@ -169,7 +169,7 @@ sub edit_conditions
 {
     return {
         map { $_ =>
-               { duration      => 14,
+               { duration      => 7,
                  votes         => $REQUIRED_VOTES,
                  expire_action => $EXPIRE_ACCEPT,
                  auto_edit     => 1 }
