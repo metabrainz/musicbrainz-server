@@ -64,7 +64,6 @@ sub delete : Local RequireAuth
         type        => $EDIT_RECORDING_REMOVE_ISRC,
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/isrc/show', [ $isrc->isrc ]));
-            $c->detach;
         }
     );
 }
