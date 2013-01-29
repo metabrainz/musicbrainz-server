@@ -377,8 +377,8 @@ div.editimage.selected p.currently-selected { display: block; }
 }
 
 .image-placeholder p {
-    margin: 22% auto 0 auto;
+    margin: 15% auto 0 auto;
     display: block;
-    font-size: larger;
+    font-size: 200%;
     text-align: center;
 }
