@@ -25,7 +25,9 @@ after 'load' => sub
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
 
-    $c->model($model)->load_annotation($entity);
+    $c->model('MB')->with_nes_transaction(sub {
+        $c->model($model)->load_annotation($entity);
+    });
 };
 
 sub latest_annotation : Chained('load') PathPart('annotation')

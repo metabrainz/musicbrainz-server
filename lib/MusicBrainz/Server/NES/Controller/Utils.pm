@@ -10,29 +10,31 @@ use Sub::Exporter -setup => {
 sub run_edit_form {
     my ($c, $form, %opts) = @_;
 
-    my $values = $form->values;
-    my $edit = $c->model('NES::Edit')->open;
+    return $c->model('MB')->with_nes_transaction(sub {
+        my $values = $form->values;
+        my $edit = $c->model('NES::Edit')->open;
 
-    my $work = $opts{on_post}->($values, $edit);
+        my $work = $opts{on_post}->($values, $edit);
 
-    if ($values->{edit_note}) {
-        $c->model('EditNote')->add_note(
-            $edit->id,
-            {
-                editor_id => $c->user->id,
-                text => $values->{edit_note}
-            }
-        );
-    }
+        if ($values->{edit_note}) {
+            $c->model('EditNote')->add_note(
+                $edit->id,
+                {
+                    editor_id => $c->user->id,
+                    text => $values->{edit_note}
+                }
+            );
+        }
 
-    # NES:
-    # my $privs = $c->user->privileges;
-    # if ($c->user->is_auto_editor &&
-    #     $form->field('as_auto_editor') &&
-    #     !$form->field('as_auto_editor')->value) {
-    # }
+        # NES:
+        # my $privs = $c->user->privileges;
+        # if ($c->user->is_auto_editor &&
+        #     $form->field('as_auto_editor') &&
+        #     !$form->field('as_auto_editor')->value) {
+        # }
 
-    return $work;
+        return $work;
+    });
 }
 
 sub run_update_form {

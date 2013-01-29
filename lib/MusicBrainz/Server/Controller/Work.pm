@@ -40,11 +40,13 @@ after 'load' => sub
     my ($self, $c) = @_;
 
     my $work = $c->stash->{work};
-    # $c->model('Work')->load_meta($work);
-    $c->model('NES::ISWC')->load_for_works($work);
-    if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
-    }
+    $c->model('MB')->with_nes_transaction(sub {
+        # $c->model('Work')->load_meta($work);
+        $c->model('NES::ISWC')->load_for_works($work);
+        if ($c->user_exists) {
+            $c->model('Work')->rating->load_user_ratings($c->user->id, $work);
+        }
+    });
 };
 
 sub show : PathPart('') Chained('load')

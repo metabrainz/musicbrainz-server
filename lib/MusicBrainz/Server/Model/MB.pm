@@ -19,6 +19,11 @@ sub with_transaction {
     Sql::run_in_transaction($code, $self->context->sql);
 }
 
+sub with_nes_transaction {
+    my ($self, $code) = @_;
+    $self->context->nes->with_transaction($code);
+}
+
 sub _build_context {
     my $self = shift;
 

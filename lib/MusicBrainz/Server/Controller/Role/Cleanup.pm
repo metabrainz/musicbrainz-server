@@ -6,7 +6,9 @@ after show => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
     $c->stash(
-        eligible_for_cleanup => $c->model( $self->config->{model} )->is_empty($entity)
+        eligible_for_cleanup => $c->model('MB')->with_nes_transaction(sub {
+            $c->model( $self->config->{model} )->is_empty($entity)
+        })
     )
 };
 

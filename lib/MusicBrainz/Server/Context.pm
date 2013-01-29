@@ -4,6 +4,7 @@ use Moose;
 use DBDefs;
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
+use MusicBrainz::Server::NES;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
 use Class::MOP;
 use LWP::UserAgent;
@@ -44,6 +45,14 @@ has lwp => (
         $lwp->env_proxy;
         $lwp->timeout(5);
         return $lwp;
+    }
+);
+
+has nes => (
+    is => 'ro',
+    lazy => 1,
+    default => sub {
+        return MusicBrainz::Server::NES->new( lwp => shift->lwp )
     }
 );
 

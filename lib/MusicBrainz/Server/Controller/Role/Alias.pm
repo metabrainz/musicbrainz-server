@@ -27,12 +27,14 @@ sub aliases : Chained('load') PathPart('aliases')
     my $entity = $c->stash->{entity};
     my $m = $self->{model};
 
-    my $aliases = $c->model($m)->get_aliases($entity);
-    alias_type_model($c, $m)->load(@$aliases);
+    $c->model('MB')->with_nes_transaction(sub {
+        my $aliases = $c->model($m)->get_aliases($entity);
+        alias_type_model($c, $m)->load(@$aliases);
 
-    $c->stash(
-        aliases => $aliases,
-    );
+        $c->stash(
+            aliases => $aliases,
+        );
+    });
 }
 
 sub alias : Chained('load') PathPart('alias') CaptureArgs(0)
@@ -41,15 +43,17 @@ sub alias : Chained('load') PathPart('alias') CaptureArgs(0)
 
     my $qp = $c->req->query_params;
 
-    my $all_aliases = $c->model( $self->{model} )->get_aliases($c->stash->{entity});
-    my ($alias) = grep {
-        $_->name eq $qp->{name}
-    } @$all_aliases or $c->detach('/error_404');
+    $c->model('MB')->with_nes_transaction(sub {
+        my $all_aliases = $c->model( $self->{model} )->get_aliases($c->stash->{entity});
+        my ($alias) = grep {
+            $_->name eq $qp->{name}
+        } @$all_aliases or $c->detach('/error_404');
 
-    $c->stash(
-        alias => $alias,
-        all_aliases => $all_aliases
-    );
+        $c->stash(
+            alias => $alias,
+            all_aliases => $all_aliases
+        )
+    });
 }
 
 sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit

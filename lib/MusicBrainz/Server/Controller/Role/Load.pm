@@ -58,7 +58,9 @@ role
         my ($self, $c, $id) = @_;
 
         if (is_guid($id)) {
-            return $c->model($model)->get_by_gid($id);
+            return $c->model('MB')->with_nes_transaction(sub {
+                $c->model($model)->get_by_gid($id)
+            });
         }
         else {
             # This will detach for us
