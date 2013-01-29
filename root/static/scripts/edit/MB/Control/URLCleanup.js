@@ -272,7 +272,10 @@ MB.constants.CLEANUPS = {
     },
     lyrics: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|j-lyric\\.net)", "i"),
-        type: MB.constants.LINK_TYPES.lyrics
+        type: MB.constants.LINK_TYPES.lyrics,
+        clean: function(url) {
+            return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+        }
     },
     bbcmusic: {
         match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),

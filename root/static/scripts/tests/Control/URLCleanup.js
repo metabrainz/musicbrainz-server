@@ -397,6 +397,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://itunes.apple.com/us/album/id566322358',
                     'release'
                 ],
+                [
+                    'https://pt.wikisource.org/wiki/A_Portuguesa',
+                    'http://pt.wikisource.org/wiki/A_Portuguesa',
+                    'work'
+                ],
 
                 // MBS-4810: exactly one terminating slash at the end
                 [
