@@ -1014,3 +1014,7 @@ a.tagger-icon {
     width: 41px;
     height: 16px;
 }
+
+.actions-header {
+    min-width: 10em;
+}

@@ -15,7 +15,7 @@
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
                 [% IF c.user_exists %]
-                <th style="width: 10em">[% l('Edit') %]</th>
+                <th class="actions-header">[% l('Edit') %]</th>
                 [% END %]
             </tr>
         </thead>
