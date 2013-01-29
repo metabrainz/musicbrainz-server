@@ -83,6 +83,19 @@ sub combine_with_query {
                     ]
                 ]);
             }
+            elsif (@votes && !$no_vote_option) {
+                $query->add_where([
+                    join(' OR ',
+                         sprintf($sql, "vote.vote != all(?)"),
+                         sprintf("NOT $sql", "TRUE")
+                    ),
+                    [
+                        $self->voter_id,
+                        \@votes,
+                        $self->voter_id,
+                    ]
+                ]);
+            }
             else {
                 $query->add_where([
                     sprintf($sql, "vote.vote != all(?)"),
