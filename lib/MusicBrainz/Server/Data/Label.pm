@@ -19,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
@@ -295,7 +296,8 @@ sub load_meta
 sub is_empty {
     my ($self, $label_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $label_id, $STATUS_OPEN);
+    my $used_in_relationship = used_in_relationship($self->c, label => 'label_row.id');
+    return $self->sql->select_single_value(<<EOSQL, $label_id, $STATUS_OPEN);
         SELECT TRUE
         FROM label label_row
         WHERE id = ?
@@ -309,41 +311,7 @@ sub is_empty {
             SELECT TRUE FROM release_label
             WHERE label = label_row.id
           ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_recording
-            WHERE entity0 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_work
-            WHERE entity0 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_url
-            WHERE entity0 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_label
-            WHERE entity0 = label_row.id OR entity1 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_label
-            WHERE entity1 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_release
-            WHERE entity0 = label_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_release_group
-            WHERE entity0 = label_row.id
-            LIMIT 1
-          )
+          $used_in_relationship
         )
 EOSQL
 }

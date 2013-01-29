@@ -21,6 +21,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
@@ -360,7 +361,8 @@ sub load_for_artist_credits {
 sub is_empty {
     my ($self, $artist_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $artist_id, $STATUS_OPEN);
+    my $used_in_relationship = used_in_relationship($self->c, artist => 'artist_row.id');
+    return $self->sql->select_single_value(<<EOSQL, $artist_id, $STATUS_OPEN);
         SELECT TRUE
         FROM artist artist_row
         WHERE id = ?
@@ -375,40 +377,7 @@ sub is_empty {
             WHERE artist = artist_row.id
             LIMIT 1
           ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_recording
-            WHERE entity0 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_work
-            WHERE entity0 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_url
-            WHERE entity0 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_artist
-            WHERE entity0 = artist_row.id OR entity1 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_label
-            WHERE entity0 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_release
-            WHERE entity0 = artist_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
-            LIMIT 1
-          )
+          $used_in_relationship
         )
 EOSQL
 }
