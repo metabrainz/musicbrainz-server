@@ -76,7 +76,7 @@ override 'accept' => sub
                 sprintf(
                     'The changes in this edit cause it to conflict with another artist. ' .
                     'You may need to merge this artist with "' . $conflict->name . '" ' .
-                    '(http://%s/artist/%s/).',
+                    '(//%s/artist/%s/).',
                     DBDefs->WEB_SERVER, $conflict->gid
                 )
             );

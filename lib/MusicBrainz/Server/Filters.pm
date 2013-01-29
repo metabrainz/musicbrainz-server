@@ -110,7 +110,7 @@ sub _display_trimmed {
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
-        unless $encoded_url =~ m{^https?://};
+        unless $encoded_url =~ m{^(?:https?:)?//};
 
     return qq{<a href="$encoded_url">$display_url</a>};
 }
@@ -142,10 +142,10 @@ sub format_editnote
 
     # The following taken from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
     $html =~ s{
-    \b
-    (                       # Capture 1: entire matched URL
+    (?:^|[^\w:])                             # Start with a non-word character (that is not :), or the beginning of the edit note.
+    (                                    # Capture 1: entire matched URL
       (?:
-        https?://               # http or https protocol
+        (?:https?:)?//               # http or https protocol
         |                       #   or
         www\d{0,3}[.]           # "www.", "www1.", "www2." … "www999."
         |                           #   or
