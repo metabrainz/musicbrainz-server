@@ -46,13 +46,7 @@
                     </td>
                     <td class="vote-count">
                         [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
-                            <div>
-                                [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
-                                    ELSE; l('{yes} yes : {no} no',
-                                     { yes => '<strong>' _ edit.yes_votes _ '</strong>',
-                                       no => '<strong>' _ edit.no_votes _ '</strong>' });
-                                END -%]
-                            </div>
+                            <div>[%- vote_tally(edit) -%]</div>
                         [% END %]
                     </td>
                 </tr>
