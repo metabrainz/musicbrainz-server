@@ -12,6 +12,7 @@ use POSIX qw(SIGALRM);
 use aliased 'MusicBrainz::Server::Translation';
 
 use Try::Tiny;
+use Sys::Hostname;
 
 # Set flags and add plugins for the application
 #
@@ -376,6 +377,7 @@ around 'finalize_error' => sub {
             $c->stash->{errors} = $c->error;
             $c->stash->{template} = 'main/500.tt';
             $c->stash->{stack_trace} = $c->_stacktrace;
+            try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
             $c->res->{body} = 'clear';
             $c->view('Default')->process($c);
