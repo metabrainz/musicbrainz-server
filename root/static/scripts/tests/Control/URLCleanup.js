@@ -179,8 +179,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     MB.constants.LINK_TYPES.allmusic.recording
+                ],
+                [
+                    'artist', 'http://www.secondhandsongs.com/artist/103',
+                    MB.constants.LINK_TYPES.secondhandsongs.artist
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
