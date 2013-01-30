@@ -132,6 +132,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
                     type => "image",
+                    "type-id" => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -140,6 +141,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => "http://members.boardhost.com/wedlock/",
                     type => "online community",
+                    'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -148,6 +150,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => "http://www.discogs.com/artist/Paul+Allgood",
                     type => "discogs",
+                    'type-id' => '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -156,6 +159,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => "http://www.imdb.com/name/nm4057169/",
                     type => "IMDb",
+                    'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -164,6 +168,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => "http://www.paulallgood.com/",
                     type => "blog",
+                    'type-id' => 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -713,6 +718,7 @@ test 'artist lookup with artist relations' => sub {
             relations => [
                 {
                     type => 'member of band',
+                    'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
                     direction => 'forward',
                     artist => {
                         id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
