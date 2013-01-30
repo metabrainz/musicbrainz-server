@@ -128,6 +128,11 @@ MB.constants.LINK_TYPES = {
         release: 82,
         work: 273,
         recording: 306
+    },
+    viaf: {
+        artist: 310,
+        label: 311,
+        work: 312 
     }
 };
 
@@ -392,6 +397,10 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
             return url;
         }
+    },
+    viaf: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org","i"),
+        type: MB.constants.LINK_TYPES.viaf
     }
 };
 
