@@ -3,7 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
-# Nicolás Tamargo <email address hidden>, 2011, 2012.
+# Nicolás Tamargo <email address hidden>, 2011-2013.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
 #   <email address hidden>, 2012.
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-01-15 22:24+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-27 21:40+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1790,7 +1790,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:632
 msgid "tape"
-msgstr ""
+msgstr "cinta"
 
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
@@ -1946,7 +1946,7 @@ msgstr "platos / tocadiscos"
 
 #: DB:link_attribute_type/name:638
 msgid "typewriter"
-msgstr ""
+msgstr "máquina de escribir"
 
 #: DB:link_attribute_type/name:556
 msgid "tzoura"
@@ -1974,7 +1974,7 @@ msgstr "aspiradora"
 
 #: DB:link_attribute_type/name:629
 msgid "valiha"
-msgstr ""
+msgstr "valiha"
 
 #: DB:link_attribute_type/name:237
 msgid "valve trombone"
@@ -2082,7 +2082,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:15
 msgid "wind instruments"
-msgstr ""
+msgstr "instrumentos de viento"
 
 #: DB:link_attribute_type/name:434
 msgid "wire-strung harp"
@@ -2142,7 +2142,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:123
 msgid "zither"
-msgstr ""
+msgstr "cítara"
 
 #: DB:link_attribute_type/name:492
 msgid "zurna"
