@@ -16,10 +16,10 @@ sub serialize
 
     if (defined $inc && $inc->discids)
     {
-        $body{discids} = [ ];
+        $body{discs} = [ ];
         for my $disc (sort_by { $_->cdtoc->discid } $entity->all_cdtocs)
         {
-            push $body{discids}, serialize_entity ($disc->cdtoc, $inc, $stash);
+            push $body{discs}, serialize_entity ($disc->cdtoc, $inc, $stash);
         }
     }
 
