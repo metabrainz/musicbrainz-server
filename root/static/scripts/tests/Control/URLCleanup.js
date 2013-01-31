@@ -180,9 +180,18 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     MB.constants.LINK_TYPES.allmusic.recording
                 ],
+                // VIAF
                 [
                     'artist', 'http://viaf.org/viaf/109231256',
                     MB.constants.LINK_TYPES.viaf.artist
+                ],
+                [
+                    'label', 'http://viaf.org/viaf/152662182',
+                    MB.constants.LINK_TYPES.viaf.label
+                ],
+                [
+                    'work', 'http://viaf.org/viaf/185694157',
+                    MB.constants.LINK_TYPES.viaf.work
                 ]
             ];
 
