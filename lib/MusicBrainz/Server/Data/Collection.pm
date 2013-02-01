@@ -241,8 +241,17 @@ sub update
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
-    $self->sql->auto_commit;
+    $self->sql->begin;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
+
+    $self->sql->do('DELETE FROM editor_subscribe_collection s
+                    USING editor_collection ec
+                    WHERE s.collection = ec.id AND collection = ?
+                    AND s.editor != ec.editor',
+                    $collection_id)
+        if !$row->{public};
+
+    $self->sql->commit;
 }
 
 sub delete
@@ -250,12 +259,21 @@ sub delete
     my ($self, @collection_ids) = @_;
     return unless @collection_ids;
 
+    # Remove all releases associated with the collection(s)
     $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection_release
                     WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
+    # Remove subscription to collection(s)
+    $self->sql->auto_commit;
+    $self->sql->do('DELETE FROM editor_subscribe_collection
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
+    # Remove collection(s)
     $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
     return;
 }
 
