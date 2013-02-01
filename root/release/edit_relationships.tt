@@ -90,7 +90,11 @@
         <!-- ko if: showCreateWorkLink -->
         <tr>
           <td></td>
-          <td><a href="#" data-bind="click: createWork">[% l('Create a new work') %]</a></td>
+          <td>
+            <button id="create-work-btn" data-bind="click: createWork, clickBubble: false">
+              [% l('Create a new work') %]
+            </button>
+          </td>
         </tr>
         <!-- /ko -->
         <!-- ko template: {"if": mode() == "batch.create.works", afterRender: batchWorksMode} -->
