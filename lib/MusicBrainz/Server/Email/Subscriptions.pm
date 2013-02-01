@@ -65,6 +65,12 @@ sub text {
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
+        'Changes for your subscribed collections',
+        [ sort_by { $_->{subscription}->collection->name } @{ $self->edits->{collection} } ],
+        'collection'
+    ) if exists $self->edits->{collection};
+
+    push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
         [ sort_by { $_->{subscription}->label->sort_name } @{ $self->edits->{label} } ],
         'label'
@@ -81,8 +87,8 @@ sub header {
     my $self = shift;
     my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
-This is a notification that edits have been added for artists, labels and
-editors to whom you subscribed on the MusicBrainz web site.
+This is a notification that edits have been added for artists, labels,
+collections and editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
 [% self.server %]/user/[% escape(self.editor.name) %]/subscriptions
 
