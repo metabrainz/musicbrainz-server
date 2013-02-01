@@ -66,7 +66,9 @@ after 'load' => sub {
     my ($self, $c) = @_;
     my $entity = $c->stash->{entity};
     if ($c->action->name ne 'relationships') {
-        $c->model('Relationship')->load_subset([ 'url' ], $entity);
+        $c->model('MB')->with_nes_transaction(sub {
+            $c->model($self->{model})->load_relationships($entity)
+        });
     }
 };
 

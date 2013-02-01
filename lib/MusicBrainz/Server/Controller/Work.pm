@@ -27,11 +27,9 @@ with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Rating';
+with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
-# with 'MusicBrainz::Server::Controller::Role::Relationship';
 # with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
-
-use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
 sub base : Chained('/') PathPart('work') CaptureArgs(0) { }
 
@@ -58,14 +56,12 @@ sub show : PathPart('') Chained('load')
     $c->model('Language')->load($work);
 
     # Need to call relationships for overview page
-    # $self->relationships($c); NES
+    $self->relationships($c);
 
     $c->stash->{template} = 'work/index.tt';
 }
 
-# NES - originally:
-# for my $action (qw( relationships aliases tags details )) {
-for my $action (qw( aliases tags details )) {
+for my $action (qw( relationships aliases tags details )) {
     after $action => sub {
         my ($self, $c) = @_;
         my $work = $c->stash->{work};

@@ -51,7 +51,7 @@ role {
     method get_by_gid => sub {
         my ($self, $gid) = @_;
         return $self->_new_from_core_entity(
-            $self->request('/work/find-latest', { mbid => $gid }))
+            $self->request($params->root . '/find-latest', { mbid => $gid }))
     };
 
     method _new_from_core_entity => sub {

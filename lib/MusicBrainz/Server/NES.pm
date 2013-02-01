@@ -63,6 +63,7 @@ sub with_transaction {
     return try {
         my $ret = $code->();
         $self->request('/close-session', {});
+        $self->clear_session_token;
 
         return $ret;
     }

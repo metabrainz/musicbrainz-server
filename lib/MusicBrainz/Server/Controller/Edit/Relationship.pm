@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::NES::Relationship;
 use MusicBrainz::Server::Entity::Tree::Work;
 use MusicBrainz::Server::Edit::Relationship::Delete;
@@ -346,8 +347,11 @@ sub create_url : Local RequireAuth Edit
                 MusicBrainz::Server::Entity::Tree::Work->new(
                     relationships => [
                         MusicBrainz::Server::Entity::NES::Relationship->new(
-                            link_type_id => $form->field('link_type_id')->value,
-                            target => $url
+                            link => MusicBrainz::Server::Entity::Link->new(
+                                type_id => $form->field('link_type_id')->value
+                            ),
+                            target => $url,
+                            target_type => 'url'
                         )
                     ]
                 )

@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Data::NES::Work;
+use feature 'switch';
 use Moose;
 
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Entity::NES::Relationship;
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean );
 
@@ -61,14 +64,12 @@ sub tree_to_json {
             }, @{ $tree->aliases }
         ],
         relationships => {
-            url => [
+            partition_by { $_->{target_type} }
                 map +{
                     target => $_->target->gid,
-                    type => $_->link_type_id
-                }, grep {
-                    $_->target->isa('MusicBrainz::Server::Entity::URL')
-                } @{ $tree->relationships }
-            ]
+                    type => $_->link_type_id,
+                    target_type => $_->target_type
+                }, @{ $tree->relationships }
         }
     );
 }
@@ -127,6 +128,39 @@ sub get_annotation {
     )->{annotation};
 }
 
+sub get_relationships {
+    my ($self, $revision) = @_;
+    my @rels =
+        map {
+            my $rel = $_;
+            my $target;
+            given ($rel->{'target-type'}) {
+                when (/url/) {
+                    $target = $self->c->model('NES::URL')->get_by_gid($rel->{target});
+                }
+            }
+
+            MusicBrainz::Server::Entity::NES::Relationship->new(
+                target => $target,
+                target_gid => $rel->{target},
+                link => MusicBrainz::Server::Entity::Link->new(
+                    type_id => $rel->{type},
+                    direction => $MusicBrainz::Server::Entity::NES::Relationship::DIRECTION_BACKWARD
+                ),
+                target_type => $rel->{'target-type'},
+            );
+        } @{
+            $self->request(
+                '/work/view-relationships',
+                { revision => $revision->revision_id }
+            )
+        };
+
+    $self->c->model('LinkType')->load(map { $_->link } @rels);
+
+    return \@rels;
+}
+
 sub load_annotation {
     my ($self, $work) = @_;
     $work->latest_annotation(
@@ -140,6 +174,13 @@ sub is_empty {
         '/work/eligible-for-cleanup',
         { revision => $work->revision_id }
     )->{eligible};
+}
+
+sub load_relationships {
+    my ($self, @works) = @_;
+    for my $work (@works) {
+        $work->relationships($self->get_relationships($work));
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
