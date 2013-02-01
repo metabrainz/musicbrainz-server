@@ -38,17 +38,17 @@ sub run_edit_form {
 }
 
 sub run_update_form {
-    my ($controller, $c, $form, %opts) = @_;
+    my ($model, $c, $form, %opts) = @_;
 
     run_edit_form(
         $c, $form,
         on_post => sub {
             my ($values, $edit) = @_;
 
-            my $revision = $c->model( $controller->{model} )->get_revision(
+            my $revision = $c->model( $model )->get_revision(
                 $values->{revision_id});
 
-            $c->model( $controller->{model} )->update(
+            $c->model( $model )->update(
                 $edit, $c->user, $revision,
                 $opts{build_tree}->($values, $revision)
             );
@@ -104,7 +104,7 @@ sub create_update {
         %opts,
         callback => sub {
             my $form = shift;
-            run_update_form($controller, $c, $form, %opts);
+            run_update_form($controller->{model}, $c, $form, %opts);
         }
     );
 }

@@ -6,59 +6,19 @@ use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean );
 
 with 'MusicBrainz::Server::Data::Role::NES';
+with 'MusicBrainz::Server::Data::NES::CoreEntity' => {
+    root => '/work'
+};
 
-sub create {
-    my ($self, $edit, $editor, $tree) = @_;
+around create => sub {
+    my ($orig, $self, $edit, $editor, $tree) = @_;
 
     $tree->annotation('') unless $tree->annotation_set;
     $tree->aliases([]) unless $tree->aliases_set;
+    $tree->relationships([]) unless $tree->relationships_set;
 
-    my $response = $self->request('/work/create', {
-        edit => $edit->id,
-        editor => $editor->id,
-        _work_tree($tree)
-    });
-
-    return $self->get_revision($response->{ref});
-}
-
-sub update {
-    my ($self, $edit, $editor, $base_revision, $tree) = @_;
-
-    die 'Need a base revision' unless $base_revision;
-
-    my $final_tree = do {
-        if( $tree->work_set && $tree->aliases_set && $tree->iswcs_set ) {
-            $tree
-        }
-        else {
-            my $original_tree = $self->view_tree($base_revision);
-
-            $original_tree->work($tree->work)
-                if ($tree->work_set);
-
-            $original_tree->aliases($tree->aliases)
-                if ($tree->aliases_set);
-
-            $original_tree->iswcs($tree->iswcs)
-                if ($tree->iswcs_set);
-
-            $original_tree->annotation($tree->annotation)
-                if ($tree->annotation_set);
-
-            $original_tree;
-        }
-    };
-
-    my $response = $self->request('/work/update', {
-        edit => $edit->id,
-        editor => $editor->id,
-        revision => $base_revision->revision_id,
-        _work_tree($final_tree)
-    });
-
-    return undef;
-}
+    $self->$orig($edit, $editor, $tree);
+};
 
 sub view_tree {
     my ($self, $revision) = @_;
@@ -71,8 +31,8 @@ sub view_tree {
     );
 }
 
-sub _work_tree {
-    my $tree = shift;
+sub tree_to_json {
+    my ($self, $tree) = @_;
 
     return (
         work => do {
@@ -99,26 +59,22 @@ sub _work_tree {
                 type => $_->type_id,
                 locale => $_->locale
             }, @{ $tree->aliases }
-        ]
+        ],
+        relationships => {
+            url => [
+                map +{
+                    target => $_->target->gid,
+                    type => $_->link_type_id
+                }, grep {
+                    $_->target->isa('MusicBrainz::Server::Entity::URL')
+                } @{ $tree->relationships }
+            ]
+        }
     );
 }
 
-sub get_revision {
-    my ($self, $revision_id) = @_;
-    return _new_from_response(
-        $self->request('/work/view-revision', { revision => $revision_id }));
-}
-
-sub get_by_gid {
-    my ($self, $gid) = @_;
-    return _new_from_response(
-        $self->request('/work/find-latest', { mbid => $gid }))
-}
-
-sub _new_from_response {
-    my ($response) = @_;
-    return undef if keys %$response == 0;
-
+sub map_core_entity {
+    my ($self, $response) = @_;
     my %data = %{ $response->{data} };
     return MusicBrainz::Server::Entity::Work->new(
         name => $data{name},

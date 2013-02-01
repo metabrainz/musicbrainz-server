@@ -61,11 +61,16 @@ sub with_transaction {
     $self->session_token($self->request('/open-session', {})->{token});
 
     return try {
-        return $code->();
+        my $ret = $code->();
+        $self->request('/close-session', {});
+
+        return $ret;
     }
-    finally {
+    catch {
         try { $self->request('/close-session', {}) };
         $self->clear_session_token;
+
+        die $_;
     };
 }
 

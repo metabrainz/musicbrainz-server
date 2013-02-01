@@ -170,6 +170,8 @@ END -%]
             l('release groups');
         CASE 'editor';
             l('editors');
+        CASE 'url';
+            l('urls');
         CASE 'work';
             l('works');
         CASE DEFAULT;

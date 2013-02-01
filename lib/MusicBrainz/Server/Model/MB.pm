@@ -6,6 +6,7 @@ extends 'Catalyst::Model';
 use DBDefs;
 use Module::Pluggable::Object;
 use MusicBrainz::Server::Context;
+use Moose::Util qw( find_meta );
 
 has 'context' => (
     isa        => 'MusicBrainz::Server::Context',
@@ -56,7 +57,9 @@ sub models {
     );
 
     for my $model (sort $searcher->plugins) {
-        next if $model =~ /Data::Role/;
+        Class::MOP::load_class($model);
+        my $meta = find_meta($model);
+        next if $model =~ /Data::Role/ || !defined($meta) || $meta->isa('Moose::Meta::Role');
         my ($model_name) = ($model =~ m/.*::Data::(.*)/);
         $model =~ s/^MusicBrainz::Server::Data:://;
 

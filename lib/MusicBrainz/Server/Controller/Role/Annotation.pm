@@ -125,7 +125,7 @@ sub edit_annotation : Chained('load') PathPart RequireAuth Edit
         else
         {
             run_update_form(
-                $self, $c, $form,
+                $self->{model}, $c, $form,
                 build_tree => sub {
                     my $values = shift;
 

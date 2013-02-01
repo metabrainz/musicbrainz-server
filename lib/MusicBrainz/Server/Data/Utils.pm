@@ -63,7 +63,7 @@ Readonly my %TYPE_TO_MODEL => (
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
     'url'           => 'URL',
-    'work'          => 'Work',
+    'work'          => 'NES::Work',
 );
 
 sub copy_escape {
