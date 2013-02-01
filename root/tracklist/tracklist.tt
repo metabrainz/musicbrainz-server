@@ -7,7 +7,7 @@ dl.ars, dl.ars dd, dl.ars dt {
     font-size: 11px;
 }
 
-dl.ars { margin-left: 2em; }
+dl.ars { margin-left: 2em; line-height: 2.2ex; }
 dl.ars dd { margin: 0.2em 0; }
 
 dl.ars dt {

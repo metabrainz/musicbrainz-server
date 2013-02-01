@@ -868,3 +868,34 @@ http://[%- server -%]/[%- id -%]
      </table>
   [%- END -%]
 [%- END -%]
+
+[%- MACRO relationship_target_links(rel) BLOCK -%]
+  <span[% IF rel.edits_pending %] class="mp"[% END %]>
+  [% IF rel.target.artist_credit AND
+        rel.target.artist_credit.name != hide_ac %]
+      [% l('{entity} by {artist}', { entity => link_entity(rel.target),
+                                     artist => artist_credit(rel.target.artist_credit) }) %]
+  [% ELSE %]
+      [% link_entity(rel.target) %]
+  [% END %]
+  [% '(' _ rel.formatted_date _ ')' IF rel.formatted_date %]
+  </span>
+[%- END -%]
+
+[%- MACRO relationship_edit_links(rel) BLOCK -%]
+  [
+      <a href="[% c.uri_for_action('/edit/relationship/delete', {
+          type0 => rel.link.type.entity0_type,
+          type1 => rel.link.type.entity1_type,
+          id => rel.id,
+          returnto => c.req.uri
+      }) %]">[% l('Remove') %]</a>
+      |
+      <a href="[% c.uri_for_action('/edit/relationship/edit', {
+          type0 => rel.link.type.entity0_type,
+          type1 => rel.link.type.entity1_type,
+          id => rel.id,
+          returnto => c.req.uri
+      }) %]">[% l('Edit') %]</a>
+  ]
+[%- END -%]

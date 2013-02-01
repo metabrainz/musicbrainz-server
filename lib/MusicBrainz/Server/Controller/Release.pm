@@ -181,9 +181,114 @@ sub show : Chained('load') PathPart('')
         grep { $_->isa(Work) } map { $_->target }
             map { $_->all_relationships } @recordings);
 
+    my $grouped_rels = {};
+    my $dup_track_numbers = {};
+
+    my $find_dup_rel = sub {
+        my ($rel, $items) = @_;
+
+        for my $item (@$items) {
+            if ($rel->target == $item->{rel}->target
+                    && $rel->formatted_date eq $item->{rel}->formatted_date) {
+                return $item;
+            }
+        }
+        # No match found
+        my $item = { rel => $rel, tracks => [] };
+        push @$items, $item;
+        return $item;
+    };
+
+    # Group identical relationships, storing what tracks they appear on (or
+    # whether they appear as a release relationship).
+    my $group_rels = sub {
+        my ($track, $orig_rels) = @_;
+
+        while (my ($target_type, $rels_by_phrase) = each %$orig_rels) {
+            $grouped_rels->{ $target_type } //= {};
+            $grouped_rels->{ $target_type }->{rel_phrases} //= [];
+
+            while (my ($rel_phrase, $rels) = each %$rels_by_phrase) {
+                my $tmp = $grouped_rels->{ $target_type }->{ $rel_phrase } //= [];
+                push @{ $grouped_rels->{ $target_type }->{rel_phrases} }, $rel_phrase;
+
+                for my $rel (@$rels) {
+                    my $item = $find_dup_rel->($rel, $tmp);
+
+                    if (defined $track) {
+                        push @{ $item->{tracks} }, $track;
+                    } else {
+                        $item->{release} = 1;
+                    }
+                }
+                @$tmp = sort { $a->{rel} <=> $b->{rel} } @$tmp;
+            }
+            # Sort phrases case-insensitively.
+            @{ $grouped_rels->{ $target_type }->{rel_phrases} } =
+                sort { lc $a cmp lc $b }
+                    uniq @{ $grouped_rels->{ $target_type }->{rel_phrases} };
+        }
+    };
+
+    # Given a track, return its number. If the track number appears twice on
+    # the release, prepend the medium position to disambiguate it.
+    my $track_number = sub {
+        my ($track) = @_;
+
+        return ($dup_track_numbers->{ $track->number } ?
+            $track->tracklist->medium->position . '.' : '') . $track->number;
+    };
+
+    # Convert a list of tracks to a string representation of the track numbers,
+    # e.g. 1-3, 5-7.
+    my $tracks_to_string = sub {
+        my ($input) = @_;
+
+        my @tracks = @$input;
+        my $a = $tracks[0];
+        my $result = $track_number->($a);
+
+        for (my $i = 1; $i <= $#tracks; $i++) {
+            my $b = $tracks[$i];
+            my $seq = $b->position - $a->position == 1;
+
+            if (!$seq || $i == $#tracks) {
+                my ($anum, $bnum) = ($track_number->($a), $track_number->($b));
+
+                $result .= ($seq ? '&#x2013;' . $bnum : ($i > 1 && $a->position -
+                    $tracks[$i - 2]->position == 1 ? '&#x2013;' . $anum : '') . ', ' . $bnum);
+            }
+            $a = $b;
+        }
+        return $result;
+    };
+
+    for my $medium (@mediums) {
+        for my $track ($medium->tracklist->all_tracks) {
+            # XXX tracklist->medium is a hack, but needed by track_number.
+            $track->tracklist($medium->tracklist);
+            $medium->tracklist->medium($medium);
+
+            $dup_track_numbers->{ $track->number } =
+                exists $dup_track_numbers->{ $track->number } ? 1 : 0;
+
+            $group_rels->($track, $track->recording->grouped_relationships);
+
+            my @works = grep { $_->isa(Work) } map { $_->target }
+                $track->recording->all_relationships;
+
+            $group_rels->($track, $_->grouped_relationships('artist'))
+                for @works;
+        }
+    }
+
+    $group_rels->(undef, $release->grouped_relationships);
+
     $c->stash(
-        template     => 'release/index.tt',
-        show_artists => $release->has_multiple_artists,
+        template         => 'release/index.tt',
+        show_artists     => $release->has_multiple_artists,
+        grouped_rels     => $grouped_rels,
+        tracks_to_string => $tracks_to_string,
     );
 }
 
