@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-05 13:41+0000\n"
+"PO-Revision-Date: 2013-01-17 20:56+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -82,12 +82,12 @@ msgstr "voldik"
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr ""
+msgstr "mitteametlik"
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr ""
+msgstr "piraattoodang"
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
@@ -117,7 +117,7 @@ msgstr "papp- või paberümbris"
 #: DB:medium_format/name:9
 msgctxt "medium_format"
 msgid "Cartridge"
-msgstr "Cartridge"
+msgstr "cartridge"
 
 #: DB:medium_format/name:8
 msgctxt "medium_format"
@@ -282,7 +282,7 @@ msgstr "MiniDisc"
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr ""
+msgstr "miksilint/tänavaalbum"
 
 #: DB:work_type/name:9
 msgctxt "work_type"
@@ -463,7 +463,7 @@ msgstr "saatemuusika"
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr ""
+msgstr "selg"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
@@ -498,7 +498,7 @@ msgstr "lugu"
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr ""
+msgstr "plaadialus"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"

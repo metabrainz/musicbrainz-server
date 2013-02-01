@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-01-15 15:16-0700\n"
-"PO-Revision-Date: 2013-01-15 22:33+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-16 19:06+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -435,7 +435,7 @@ msgstr ""
 #: ../root/release/cover_art.tt:53
 msgctxt "button/menu"
 msgid "Add Cover Art"
-msgstr "Kaanepildi lisamine"
+msgstr "Lisa kaanepilt"
 
 #: ../root/release/add_cover_art.tt:5 ../root/release/add_cover_art.tt:6
 msgctxt "header"
@@ -455,7 +455,7 @@ msgstr "Lisa ISRC"
 #: ../root/recording/add_isrc.tt:1 ../root/recording/add_isrc.tt:2
 msgctxt "header"
 msgid "Add ISRC"
-msgstr "Lisa ISRC"
+msgstr "ISRC lisamine"
 
 #: ../root/layout/menu.tt:212 ../root/release/edit/information.tt:104
 msgctxt "button/menu"
@@ -465,7 +465,7 @@ msgstr "Lisa plaadifirma"
 #: ../root/release/edit/information.tt:102
 msgctxt "header"
 msgid "Add Label"
-msgstr "Lisa plaadifirma"
+msgstr "Plaadifirma lisamine"
 
 #: ../root/label/add_alias.tt:12
 msgid "Add Label Alias"
@@ -495,7 +495,7 @@ msgstr "Lisa väljalase"
 #: ../root/release/edit/layout.tt:6 ../root/release/edit/layout.tt:15
 msgctxt "header"
 msgid "Add Release"
-msgstr "Lisa väljalase"
+msgstr "Väljalaske lisamine"
 
 #: ../root/layout/menu.tt:215
 msgctxt "button/menu"
@@ -514,7 +514,7 @@ msgstr "Lisa eraldiseisev salvestis"
 #: ../root/recording/create.tt:16 ../root/recording/create.tt:18
 msgctxt "header"
 msgid "Add Standalone Recording"
-msgstr "Lisa eraldiseisev salvestis"
+msgstr "Eraldiseisva salvestise lisamine"
 
 #: ../root/edit/relationship/create_url.tt:15
 #: ../root/edit/relationship/create_url.tt:17
@@ -533,11 +533,11 @@ msgstr "Lisa teos"
 #: ../root/work/create.tt:15 ../root/work/create.tt:16
 msgctxt "header"
 msgid "Add Work"
-msgstr "Lisa teos"
+msgstr "Teose lisamine"
 
 #: ../root/work/add_alias.tt:12
 msgid "Add Work Alias"
-msgstr "Lisa teose alias"
+msgstr "Teose aliase lisamine"
 
 #: ../root/artist/create.tt:16 ../root/artist/create.tt:18
 msgid "Add a New Artist"
@@ -1189,7 +1189,7 @@ msgstr "Artisti nimi:"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:1
 msgid "Artist ratings"
-msgstr "Artisti hinded"
+msgstr "Hinded artistidele"
 
 #: ../root/cdstub/edit_form.tt:18
 msgid "Artist {n}:"
@@ -1299,7 +1299,7 @@ msgstr[1] ""
 #: ../root/cdtoc/attach_filter_release.tt:74
 msgctxt "button/menu"
 msgid "Attach CD TOC"
-msgstr "CD sisukorra omistamine"
+msgstr "Omista CD sisukord"
 
 #: ../root/cdtoc/attach_artist_releases.tt:22
 #: ../root/cdtoc/attach_artist_releases.tt:23
@@ -1934,7 +1934,7 @@ msgstr "Kogud"
 
 #: ../root/cdstub/index.tt:3
 msgid "Comment"
-msgstr ""
+msgstr "Kommentaar"
 
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:11
 #: ../root/edit/details/edit_cover_art.tt:17
@@ -3076,8 +3076,8 @@ msgstr "Leidsid saidiga probleemi? Palun {report|teata veast} ja lisa sinna ka �
 #: ../root/edit/list.tt:52
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Leiti vähemalt {n} toimetus"
+msgstr[1] "Leiti vähemalt {n} toimetust"
 
 #: ../root/release/sidebar.tt:136
 msgid "Found in {num} user collection"
@@ -3093,7 +3093,7 @@ msgstr ""
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Leiti {n} toimetus"
-msgstr[1] "Leiti vähemalt {n} toimetust"
+msgstr[1] "Leiti {n} toimetust"
 
 #: ../root/components/with-pager.tt:5
 msgid "Found {n} result"
@@ -3212,7 +3212,7 @@ msgstr "Oleta suurtähestus"
 #: ../root/components/forms.tt:167 ../root/release/edit/tracklist.tt:468
 msgctxt "header"
 msgid "Guess case"
-msgstr "Oleta suurtähestus"
+msgstr "Suurtähestuse oletamine"
 
 #: ../root/release/edit/tracklist.tt:385
 msgid "Guess case disc title"
@@ -3355,13 +3355,13 @@ msgstr "ISWC-d:"
 msgid ""
 "If none of these artists match the artist you intended, you can still create"
 " a new artist:"
-msgstr ""
+msgstr "Kui ükski neist artistidest pole see õige, võid andmebaasi lisada uue artisti:"
 
 #: ../root/release/edit/missing_entities.tt:146
 msgid ""
 "If none of these labels match the label you intended, you can still create a"
 " new label:"
-msgstr ""
+msgstr "Kui ükski neist plaadifirmadest pole see õige, võid andmebaasi lisada uue plaadifirma:"
 
 #: ../root/artist/edit_form.tt:5
 msgid ""
@@ -3657,7 +3657,7 @@ msgstr "Plaadifirma teave"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:1
 msgid "Label ratings"
-msgstr ""
+msgstr "Hinded plaadifirmadele"
 
 #: ../root/components/common-macros.tt:506
 #: ../root/edit/details/add_label_alias.tt:3
@@ -4858,7 +4858,7 @@ msgstr "Palun sisesta sildid allolevasse tekstialasse. Sildid tuleb eraldada kom
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr ""
+msgstr "Palun sisesta lisatava väljalaske vöötkood. Lisateabe saamiseks loe dokumentatsioonilehekülge <a href=\"{url}\" target=\"_blank\">Vöötkood</a>."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -5212,7 +5212,7 @@ msgstr "Salvestise teave"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:1
 msgid "Recording ratings"
-msgstr ""
+msgstr "Hinded salvestistele"
 
 #: ../root/recording/layout.tt:1
 msgid "Recording “{name}” by {artist}"
@@ -5504,7 +5504,7 @@ msgstr "Väljalaskerühma teave"
 
 #: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:1
 msgid "Release group ratings"
-msgstr "Väljalaskerühma hinded"
+msgstr "Hinded väljalaskerühmadele"
 
 #: ../root/release/relationships.tt:4
 msgid "Release group relationships"
@@ -5547,7 +5547,7 @@ msgstr "Väljalasketeave"
 
 #: ../root/user/ratings.tt:1
 msgid "Release ratings"
-msgstr "Väljalaske hinded"
+msgstr "Hinded väljalasetele"
 
 #: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/move_search.tt:13
 msgid "Release title:"
@@ -5900,7 +5900,7 @@ msgstr ""
 #: ../root/release/cover_art.tt:55
 msgctxt "button/menu"
 msgid "Reorder Cover Art"
-msgstr "Kaanepiltide järjestuse muutmine"
+msgstr "Muuda kaanepiltide järjestust"
 
 #: ../root/release/reorder_cover_art.tt:5
 #: ../root/release/reorder_cover_art.tt:6
@@ -8296,7 +8296,7 @@ msgstr "Versioon:"
 
 #: ../root/user/ratings_summary.tt:25
 msgid "View all ratings"
-msgstr ""
+msgstr "Vaata kõiki hindeid"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:32
 msgid "View all relationships"
@@ -8442,13 +8442,13 @@ msgstr ""
 msgid ""
 "We couldn't find a label with the name you entered. Please fill in the "
 "fields below to create a new label:"
-msgstr ""
+msgstr "Sisestatud nimega plaadifirmat ei leitud. Andmebaasi uue plaadifirma lisamiseks täida palun järgmised väljad:"
 
 #: ../root/release/edit/missing_entities.tt:86
 msgid ""
 "We couldn't find an artist with the name you entered. Please fill in the "
 "fields below to create a new artist:"
-msgstr ""
+msgstr "Sisestatud nimega artisti ei leitud. Andmebaasi uue artisti lisamiseks täida palun järgmised väljad:"
 
 #: ../root/release/cover_art.tt:42
 msgid "We do not currently have any cover art for {release}."
@@ -8475,8 +8475,8 @@ msgid ""
 msgid_plural ""
 "We found the following artists named \"{artist}\" in MusicBrainz. If one of "
 "them was the artist you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "MusicBrainzist leiti üks artist, kelle nimi on {artist}. Kui see artist on seesama, keda silmas pidasid, siis palun vali see:"
+msgstr[1] "MusicBrainzist leiti mitu artisti, kelle nimi on {artist}. Kui mõni neist on seesama, keda silmas pidasid, siis palun vali see artist:"
 
 #: ../root/release/edit/missing_entities.tt:107
 msgid ""
@@ -8485,8 +8485,8 @@ msgid ""
 msgid_plural ""
 "We found the following labels named \"{label}\" in MusicBrainz. If one of "
 "them was the label you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "MusicBrainzist leiti üks plaadifirma, mille nimi on {label}. Kui see plaadifirma on seesama, mida silmas pidasid, siis palun vali see:"
+msgstr[1] "MusicBrainzist leiti mitu plaadifirmat, mille nimi on {artist}. Kui mõni neist on seesama, mida silmas pidasid, siis palun vali see plaadifirma:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -8626,7 +8626,7 @@ msgstr "Teose teave"
 
 #: ../root/user/ratings_summary.tt:3
 msgid "Work ratings"
-msgstr "Teose hinded"
+msgstr "Hinded teostele"
 
 #: ../root/edit/details/edit_work.tt:23
 msgid "Work type:"
@@ -8933,7 +8933,7 @@ msgstr ""
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr ""
+msgstr "Enne, kui saad midagi muuta või lisada, pead {url|sisestama ja kinnitama oma e-posti aadressi}."
 
 #: ../root/account/register.tt:33
 msgid ""
