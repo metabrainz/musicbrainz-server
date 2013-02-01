@@ -29,7 +29,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, editor, name, public';
+    return 'editor_collection.id, gid, editor_collection.editor, name, public';
 }
 
 sub _id_column
@@ -51,6 +51,20 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Collection';
+}
+
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
+                 WHERE s.editor = ?
+                 ORDER BY musicbrainz_collate(name), editor_collection.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub add_releases_to_collection

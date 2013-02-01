@@ -16,6 +16,11 @@ after 'load' => sub
     my ($self, $c) = @_;
     my $collection = $c->stash->{collection};
 
+    if ($c->user_exists) {
+        $c->stash->{subscribed} = $c->model('Collection')->subscription->check_subscription(
+            $c->user->id, $collection->id);
+    }
+
     # Load editor
     $c->model('Editor')->load($collection);
 

@@ -1,29 +1,25 @@
-package MusicBrainz::Server::Controller::User::Subscriptions;
+package MusicBrainz::Server::Controller::Account::Subscriptions::Collection;
 use Moose;
 
-BEGIN { extends 'MusicBrainz::Server::Controller' };
+BEGIN { extends 'MusicBrainz::Server::Controller' }
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
-    type => 'artist',
-};
+with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
-    type => 'collection',
-};
+__PACKAGE__->config( model => 'Collection' );
 
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
-    type => 'editor',
-};
-
-with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
-    type => 'label',
-};
-
-sub subscriptions : Chained('/user/load') {
+sub add : Local RequireAuth HiddenOnSlaves
+{
     my ($self, $c) = @_;
-    my $user = $c->stash->{user};
-    $c->response->redirect($c->uri_for_action('/user/subscriptions/artist', [ $user->name ]));
+
+    my $entity_id = $c->request->params->{id};
+    my $entity = $c->model($self->{model})->get_by_id($entity_id);
+
+    $c->detach('/error_403') if !$entity->public && $c->user->id != $entity->editor_id;
+
+    $self->_subscribe_and_redirect($c);
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
