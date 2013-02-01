@@ -8,6 +8,7 @@ use Sql;
 use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
+    load_subobjects
     placeholders
     query_to_list
     query_to_list_limited
@@ -15,6 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
 use List::MoreUtils qw( zip );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::Role::Subscription' => {
+    table => 'editor_subscribe_collection',
+    column => 'collection',
+    class => 'MusicBrainz::Server::Entity::CollectionSubscription'
+};
 
 sub _table
 {
@@ -170,6 +176,12 @@ sub find_all_by_release
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
         $query, $id);
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'collection', @objs);
 }
 
 sub insert

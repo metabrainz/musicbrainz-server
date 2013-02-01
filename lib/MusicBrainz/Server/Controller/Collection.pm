@@ -8,6 +8,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'collection',
     model       => 'Collection',
 };
+with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 after 'load' => sub

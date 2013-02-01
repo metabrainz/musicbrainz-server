@@ -15,6 +15,7 @@ use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG 
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
+use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -153,6 +154,23 @@ sub find_for_subscription
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id,
+            $STATUS_OPEN, $STATUS_APPLIED
+        );
+    }
+    elsif($subscription->isa(CollectionSubscription)) {
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' WHERE id IN (
+                          SELECT edit FROM edit_release 
+                          RIGHT JOIN editor_collection_release cr
+                          ON edit_release.release = cr.release
+                          WHERE cr.collection = ?
+                      )
+                      AND id > ? AND status IN (?, ?)';
+
+        return query_to_list(
+            $self->c->sql,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->target_id, $subscription->last_edit_sent,
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
