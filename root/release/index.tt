@@ -39,8 +39,11 @@
     $(function() {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
+        var $bottom_tables = $("table.details"),
+            $inline_ars = $("table.tbl div.ars");
+
         function switchToInlineCredits() {
-            $("table.details").each(function(i, table) {
+            $bottom_tables.each(function(i, table) {
                 var $table = $(table), $trs = $table.find("tr");
 
                 $trs.each(function(j, tr) {
@@ -53,12 +56,12 @@
                 if ($trs.filter(":visible").length == 0)
                     $table.hide();
             });
-            $("table.tbl div.ars").show();
+            $inline_ars.show();
         }
 
         function switchToBottomCredits() {
-            $("table.details").show().find("tr, div.track-rel").show();
-            $("table.tbl div.ars").hide();
+            $bottom_tables.show().find("tr, div.track-rel").show();
+            $inline_ars.hide();
         }
 
         $("a.bottom-credits, a.inline-credits").bind("click.mb", function(event) {
@@ -73,6 +76,8 @@
             $("a.bottom-credits").toggle(!this.checked);
             $("a.inline-credits").toggle(this.checked);
             this.checked ? switchToBottomCredits() : switchToInlineCredits();
+            $("#no-relationships")
+                .toggle($bottom_tables.filter(":visible").length == 0);
         }).trigger("change");
     });
     </script>
@@ -113,5 +118,9 @@
         [%- END -%]
         </table>
     [% END %]
+
+    <p id="no-relationships" style="display: none;">
+        [% l('{link} has no relationships.', { link => link_entity(release) }) -%]
+    </p>
 
 [%- END -%]
