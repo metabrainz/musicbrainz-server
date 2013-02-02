@@ -306,6 +306,11 @@ ALTER TABLE editor_subscribe_artist
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE editor_subscribe_collection
+   ADD CONSTRAINT editor_subscribe_collection_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE editor_subscribe_editor
    ADD CONSTRAINT editor_subscribe_editor_fk_editor
    FOREIGN KEY (editor)
