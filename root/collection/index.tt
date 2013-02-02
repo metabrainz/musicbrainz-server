@@ -15,6 +15,7 @@
                   [% sortble_table_header('country', l('Country')) %]
                   [% sortble_table_header('label', l('Label')) %]
                   [% sortble_table_header('catno', l('Catalog#')) %]
+                  <th>[% l('Rating') %]</th>
               </tr>
           </thead>
           <tbody>
@@ -39,6 +40,7 @@
                   </td>
                   <td>[% release_label_list(release.labels) %]</td>
                   <td>[% release_catno_list(release.labels) %]</td>
+                  <td>[% rating_stars(release.release_group) %]</td>
               </tr>
               [%- END -%]
           </tbody>
