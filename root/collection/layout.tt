@@ -8,6 +8,16 @@
                content=link_entity(collection.editor) %]
         [%- END -%]
 
+        <h2 class="editing">[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                <li>[% link_entity(collection, 'open_edits', l('Open edits')) %]</li>
+                <li>[% link_entity(collection, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
         [% IF c.user_exists %]
         <h2 class="subscriptions">[% l("Subscriptions") %]</h2>
         <ul class="links">

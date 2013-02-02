@@ -10,6 +10,9 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Constants qw( :edit_status );
+
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 after 'load' => sub
 {
@@ -101,6 +104,42 @@ sub show : Chained('load') PathPart('')
         order => $order,
         releases => $releases,
         template => 'collection/index.tt'
+    );
+}
+
+sub edits : Chained('load') PathPart RequireAuth
+{
+    my ($self, $c) = @_;
+
+    $self->_list($c);
+}
+
+sub open_edits : Chained('load') PathPart RequireAuth
+{
+    my ($self, $c) = @_;
+
+    $self->_list($c, $STATUS_OPEN);
+
+    $c->stash(
+        template => model_to_type( $self->{model} ) . '/edits.tt'
+    );
+}
+
+sub _list {
+    my ($self, $c, $status) = @_;
+
+    my $edits  = $self->_load_paged($c, sub {
+        my ($limit, $offset) = @_;
+        $c->model('Edit')->find_by_collection($c->stash->{collection}->id, $limit, $offset, $status);
+    });
+
+    $c->model('Edit')->load_all(@$edits);
+    $c->model('Vote')->load_for_edits(@$edits);
+    $c->model('EditNote')->load_for_edits(@$edits);
+    $c->model('Editor')->load(map { ($_, @{ $_->votes, $_->edit_notes }) } @$edits);
+
+    $c->stash(
+        edits => $edits,
     );
 }
 
