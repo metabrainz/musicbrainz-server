@@ -355,7 +355,8 @@ MB.constants.CLEANUPS = {
             // http://viaf.org/viaf/61494550/
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
             "http://viaf.org/viaf/$1");
-            return url
+            return url;
+        }
     },
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
