@@ -19,11 +19,6 @@ has_field 'public' => (
     type => 'Boolean',
 );
 
-has_field 'preview' => (
-    type => 'Submit',
-    value => ''
-);
-
 sub edit_field_names
 {
     return qw( name description public );
