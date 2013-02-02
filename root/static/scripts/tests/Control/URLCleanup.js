@@ -496,7 +496,7 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
-                ],
+                ]
             ];
 
         $.each(tests, function(i, test) {

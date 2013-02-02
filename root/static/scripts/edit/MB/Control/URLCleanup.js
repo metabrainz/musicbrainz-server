@@ -406,7 +406,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
             return url;
         }
-    },
+    }
 };
 
 
