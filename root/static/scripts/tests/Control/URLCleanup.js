@@ -467,7 +467,36 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
-                ]
+                ],
+                // VIAF
+                [
+                    'http://viaf.org/viaf/16766997',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/?test=true',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'www.viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
+                ],
             ];
 
         $.each(tests, function(i, test) {
