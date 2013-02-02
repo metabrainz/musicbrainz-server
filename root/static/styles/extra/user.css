@@ -19,10 +19,6 @@ dl.profileinfo dd {
     margin-left: 130px;
 }
 
-dl.profileinfo dd.biography {
-    padding: 5px;
-}
-
 dd.biography p { margin-top: 0px }
 
 table.statistics {
