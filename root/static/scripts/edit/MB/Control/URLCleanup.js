@@ -349,7 +349,7 @@ MB.constants.CLEANUPS = {
         }
     },
     viaf: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org","i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
         type: MB.constants.LINK_TYPES.viaf
     }
     vimeo: {
