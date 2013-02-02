@@ -348,6 +348,10 @@ MB.constants.CLEANUPS = {
             return url;
         }
     },
+    viaf: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org","i"),
+        type: MB.constants.LINK_TYPES.viaf
+    }
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
@@ -398,10 +402,6 @@ MB.constants.CLEANUPS = {
             return url;
         }
     },
-    viaf: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org","i"),
-        type: MB.constants.LINK_TYPES.viaf
-    }
 };
 
 
