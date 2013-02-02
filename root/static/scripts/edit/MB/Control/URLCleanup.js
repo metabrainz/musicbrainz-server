@@ -350,7 +350,12 @@ MB.constants.CLEANUPS = {
     },
     viaf: {
         match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
-        type: MB.constants.LINK_TYPES.viaf
+        type: MB.constants.LINK_TYPES.viaf,
+        clean: function(url) {
+            // http://viaf.org/viaf/61494550/
+            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
+            "http://viaf.org/viaf/$1");
+            return url
     },
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
