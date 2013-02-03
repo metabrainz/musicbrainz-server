@@ -55,27 +55,27 @@ END; -%]
         l('aged {num}', { num => age.0 });
       ELSE;
         IF age.0;
-          ln('{num} year', '{num}&#xa0;years', age.0, { num => age.0 });
+          ln('{num} year', '{num} years', age.0, { num => age.0 });
         ELSIF age.1;
-          ln('{num} month', '{num}&#xa0;months', age.1, { num => age.1 });
+          ln('{num} month', '{num} months', age.1, { num => age.1 });
         ELSE;
-          ln('{num} day', '{num}&#xa0;days', age.2, { num => age.2 });
+          ln('{num} day', '{num} days', age.2, { num => age.2 });
         END;
       END;
     END -%]
 
 [%- MACRO display_age_ago(age) BLOCK;
         IF age.0;
-          ln('{num} year ago', '{num}&#xa0;years ago', age.0, { num => age.0 });
+          ln('{num} year ago', '{num} years ago', age.0, { num => age.0 });
         ELSIF age.1;
-          ln('{num} month ago', '{num}&#xa0;months ago', age.1, { num => age.1 });
+          ln('{num} month ago', '{num} months ago', age.1, { num => age.1 });
         ELSE;
-          ln('{num} day ago', '{num}&#xa0;days ago', age.2, { num => age.2 });
+          ln('{num} day ago', '{num} days ago', age.2, { num => age.2 });
         END;
     END -%]
 
 [%- MACRO artwork_hover(artwork) BLOCK -%]
-    [%- IF artwork.types; comma_only_list(artwork.types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
+    [%- IF artwork.l_types; comma_only_list(artwork.l_types) | html; END %][% IF artwork.comment %] ([% artwork.comment | html%])[% END -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
@@ -643,6 +643,14 @@ END -%]
     [%- END -%]
 [%- END -%]
 
+[%- MACRO vote_tally(edit) BLOCK -%]
+    [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
+       ELSE; l('{yes} yes : {no} no',
+        { yes => '<strong>' _ edit.yes_votes _ '</strong>',
+          no => '<strong>' _ edit.no_votes _ '</strong>' });
+    END -%]
+[%- END -%]
+
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
             [% phrase_field = phrase_field || 'phrase' %]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
@@ -720,6 +728,7 @@ END -%]
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
     ELSIF url.url.host.search('thesession.org'); 'thesession';
+    ELSIF url.url.host.search('plus.google.com'); 'googleplus';
     ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
     ELSE; '';
 END -%]

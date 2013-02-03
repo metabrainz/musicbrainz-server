@@ -45,11 +45,11 @@
   </tr>
   [% END %]
 
-  [% IF edit.data.old.parent %]
+  [% IF edit.data.old.parent_id != edit.data.new.parent_id %]
   <tr>
     <th>[% l('Parent') %]</th>
-    <td class="old">[% edit.data.old.parent %]</td>
-    <td class="new">[% edit.data.new.parent %]</td>
+    <td class="old">[% edit.display_data.parent.old.name %]</td>
+    <td class="new">[% edit.display_data.parent.new.name %]</td>
   </tr>
   [% END %]
 </table>

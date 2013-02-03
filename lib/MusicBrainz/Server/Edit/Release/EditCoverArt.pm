@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
@@ -123,13 +124,10 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
-    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $data{release}->gid . "/";
-    $data{artwork} = {
-        image => $prefix.$self->data->{id}.'.jpg',
-        large_thumbnail => $prefix.$self->data->{id}.'-500.jpg',
-        small_thumbnail => $prefix.$self->data->{id}.'-250.jpg',
-    };
+    $data{artwork} = Artwork->new(release => $data{release},
+                               id => $self->data->{id},
+                               comment => $self->data->{new}{comment} // '',
+                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{new}{types} }]);
 
     if ($self->data->{old}->{types})
     {

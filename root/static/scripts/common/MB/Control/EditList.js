@@ -45,7 +45,7 @@ MB.Control.EditList = function(container) {
         $voteOptions.find('.vote').attr('class', 'vote');
 
         $voteOptions.prepend(
-            $('<div>Vote on all edits:</div>')
+            $('<div>').text(MB.text.VoteOnAllEdits)
         );
 
         // :nth-child would make more sense, but I couldn't get it working

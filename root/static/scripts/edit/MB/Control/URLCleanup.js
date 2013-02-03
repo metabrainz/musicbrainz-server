@@ -1,4 +1,5 @@
 /*
+
    This file is part of MusicBrainz, the open internet music database.
    Copyright (C) 2010 MetaBrainz Foundation
 
@@ -271,8 +272,11 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com)", "i"),
-        type: MB.constants.LINK_TYPES.lyrics
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net)", "i"),
+        type: MB.constants.LINK_TYPES.lyrics,
+        clean: function(url) {
+            return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+        }
     },
     bbcmusic: {
         match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
@@ -313,8 +317,8 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|plus.google.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
-            if (url.match (/^http:\/\/www\.facebook\.com.*$/))
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+            if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
                   url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");

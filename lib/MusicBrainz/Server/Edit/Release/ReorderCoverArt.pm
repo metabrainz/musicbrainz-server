@@ -101,7 +101,8 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    my $artwork = $self->c->model('CoverArtArchive')->find_available_artwork ($data{release}->gid);
+    my $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+    $self->c->model ('CoverArtType')->load_for(@$artwork);
 
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
 
