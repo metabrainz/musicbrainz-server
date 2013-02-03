@@ -31,6 +31,8 @@ sub _get_extract
             $_->target;
         } reverse sort_by {
             $_->target->language eq $wanted_lang
+        } grep {
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia')
         } @{ $entity->relationships_by_link_type_names('wikipedia') };
 
     if ($wp_link) {
