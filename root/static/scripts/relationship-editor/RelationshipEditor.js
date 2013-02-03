@@ -216,15 +216,17 @@ parseTrack = function(track, release) {
     var recording = track.recording;
     recording.type = "recording";
     recording.name = track.name;
-    recording.position = track.position;
-    recording.number = track.number;
     delete recording.artist_credit;
-    recording.artistCredit = "";
+
+    var entity = RE.Entity(recording);
+    entity.position = track.position;
+    entity.number = track.number;
+    entity.artistCredit = "";
 
     if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
-        recording.artistCredit = UI.renderArtistCredit(track.artist_credit);
+        entity.artistCredit = UI.renderArtistCredit(track.artist_credit);
 
-    return RE.Entity(recording);
+    return entity;
 };
 
 
