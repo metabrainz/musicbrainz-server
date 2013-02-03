@@ -43,6 +43,7 @@ my %URL_SPECIALIZATIONS = (
     'MusikSammler'    => qr{^https?://(?:www.)?musik-sammler.de/}i,
     'MySpace'         => qr{^https?://(?:www.)?myspace.com/}i,
     'OCReMix'         => qr{^https?://(?:www.)?ocremix.org/}i,
+    'OpenLibrary'     => qr{^https?://(?:www.)?openlibrary.org/}i,
     'Ozon'            => qr{^https?://(?:www.)?ozon.ru/}i,
     'PsyDB'           => qr{^https?://(?:www.)?psydb.net/}i,
     'PureVolume'      => qr{^https?://(?:www.)?purevolume.com/}i,
