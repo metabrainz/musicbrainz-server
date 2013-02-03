@@ -33,7 +33,8 @@ MB.constants.LINK_TYPES = {
     },
     imdb: {
         release_group: 97,
-        artist: 178
+        artist: 178,
+        label: 313
     },
     myspace: {
         artist: 189,
