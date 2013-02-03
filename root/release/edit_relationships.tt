@@ -350,7 +350,7 @@
             </a>
           </td>
           <td>
-            <a id="batch-add-work" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+            <a id="batch-link-work" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
               <img src="/static/images/icons/add.png" class="bottom"/>
               [% l('Batch-link existing work') %]
             </a>

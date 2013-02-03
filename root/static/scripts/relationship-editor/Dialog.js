@@ -617,6 +617,63 @@ UI.BatchRelationshipDialog.accept = function(callback) {
     UI.AddDialog.hide();
 };
 
+UI.BatchLinkWorkDialog = MB.utility.beget(UI.BatchRelationshipDialog);
+
+UI.BatchLinkWorkDialog.show = function() {
+    Dialog.targets = _.filter(UI.checkedRecordings(), function(obj) {
+        return obj.performanceRelationships.peek().length == 0;
+    });
+
+    if (Dialog.targets.length > 0) {
+        var source = Dialog.targets[0], target = RE.Entity({type: "work"});
+
+        // the user can't edit the target in this dialog, but the gid of the
+        // temporary target entity has to be set to something valid, so that
+        // validation passes and the dialog can be okay'd. we don't want to pass
+        // the gid to RE.Entity either, or else the entity will be cached.
+        target.gid = "00000000-0000-0000-0000-000000000000";
+
+        UI.AddDialog.show.call(this, {
+            entity: [source, target],
+            source: source,
+            mode: "batch.link.work"
+        });
+    }
+};
+
+UI.BatchLinkWorkDialog.accept = function() {
+    Dialog.loading(true);
+
+    var type_id = $("#batch-work-type > select").val(),
+        language_id = $("#batch-work-lang > select").val(), works;
+
+    works = _.map(Dialog.targets, function(obj) {
+        return {name: obj.name, comment: "", type: type_id, language: language_id};
+    });
+
+    function success(data) {
+        UI.BatchRelationshipDialog.accept.call(this, function(obj) {
+            obj.entity[1] = RE.Entity(data.works.shift(), "work");
+            if (data.works.length == 0) Dialog.loading(false);
+            return true;
+        });
+    }
+
+    function error() {
+        Dialog.loading(false);
+        Dialog.batchWorksError(true);
+    }
+
+    RE.createWorks(works, "", success, error);
+};
+
+UI.BatchLinkWorkDialog.hide = function() {
+    Dialog.hide(function() {
+        this.batchWorksError(false);
+        this.relationship.peek().remove();
+    });
+};
+
 
 UI.BatchCreateWorksDialog = MB.utility.beget(UI.BatchRelationshipDialog);
 
