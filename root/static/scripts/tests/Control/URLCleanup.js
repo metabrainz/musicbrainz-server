@@ -63,6 +63,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://thesession.org/tunes/2305',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -71,7 +72,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.imdb.com/title/tt0421082/',
                     MB.constants.LINK_TYPES.imdb.release_group
                 ],
-
+                [
+                    'label', 'http://www.imdb.com/company/co0109498/',
+                    MB.constants.LINK_TYPES.imdb.label
+                ],
+                // MySpace
                 [
                     'artist', 'http://www.myspace.com/instramentaluk',
                     MB.constants.LINK_TYPES.myspace.artist
