@@ -129,6 +129,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
                 [
+                    'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
