@@ -1,4 +1,5 @@
 /*
+
    This file is part of MusicBrainz, the open internet music database.
    Copyright (C) 2010 MetaBrainz Foundation
 
@@ -274,7 +275,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|j-lyric\\.net)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function(url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
