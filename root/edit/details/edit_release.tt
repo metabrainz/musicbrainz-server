@@ -28,24 +28,24 @@
                      '-') -%]
 
   [%- display_full_change(l('Packaging:'),
-                          edit.display_data.packaging.old.name,
-                          edit.display_data.packaging.new.name) -%]
+                          edit.display_data.packaging.old.l_name,
+                          edit.display_data.packaging.new.l_name) -%]
 
   [%- display_full_change(l('Script:'),
-                          edit.display_data.script.old.name,
-                          edit.display_data.script.new.name) -%]
+                          edit.display_data.script.old.l_name,
+                          edit.display_data.script.new.l_name) -%]
 
   [%- display_full_change(l('Language:'),
-                          edit.display_data.language.old.name,
-                          edit.display_data.language.new.name) -%]
+                          edit.display_data.language.old.l_name,
+                          edit.display_data.language.new.l_name) -%]
 
   [%- display_full_change(l('Country:'),
-                          edit.display_data.country.old.name,
-                          edit.display_data.country.new.name) -%]
+                          edit.display_data.country.old.l_name,
+                          edit.display_data.country.new.l_name) -%]
 
   [%- display_full_change(lp('Status:', 'release status'),
-                          edit.display_data.status.old.name,
-                          edit.display_data.status.new.name) -%]
+                          edit.display_data.status.old.l_name,
+                          edit.display_data.status.new.l_name) -%]
 
   [%- display_full_change(l('Release Group:'),
                           descriptive_link(edit.display_data.group.old),
