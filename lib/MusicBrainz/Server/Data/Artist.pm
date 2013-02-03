@@ -21,6 +21,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
@@ -222,6 +223,9 @@ sub update
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
+
+    assert_uniqueness_conserved($self, artist => $artist_id, $update);
+
     $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 

@@ -18,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
@@ -179,6 +180,9 @@ sub update
 
     my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
     my $row = $self->_hash_to_row($update, \%names);
+
+    assert_uniqueness_conserved($self, label => $label_id, $update);
+
     $self->sql->update_row('label', $row, { id => $label_id }) if %$row;
 
     return 1;
