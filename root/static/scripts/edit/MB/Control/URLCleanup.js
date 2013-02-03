@@ -96,7 +96,9 @@ MB.constants.LINK_TYPES = {
         work: 274
     },
     secondhandsongs: {
-        work: 280
+        work: 280,
+        artist: 307,
+        release: 308
     },
     songfacts: {
         work: 289

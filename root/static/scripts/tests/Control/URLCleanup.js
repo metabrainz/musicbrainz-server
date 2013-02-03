@@ -197,8 +197,20 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // Second Hand Songs
+                [
+                    'artist', 'http://www.secondhandsongs.com/artist/103',
+                    MB.constants.LINK_TYPES.secondhandsongs.artist
+                ],
+                [
+                    'release', 'http://www.secondhandsongs.com/release/888',
+                    MB.constants.LINK_TYPES.secondhandsongs.release
+                ],
+                [
+                    'work', 'http://www.secondhandsongs.com/work/1409',
+                    MB.constants.LINK_TYPES.secondhandsongs.work
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
