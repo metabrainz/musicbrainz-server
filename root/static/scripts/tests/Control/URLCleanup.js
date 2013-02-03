@@ -179,6 +179,19 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     MB.constants.LINK_TYPES.allmusic.recording
+                ],
+                // Open Library
+                [
+                    'artist', 'http://openlibrary.org/authors/OL23919A/',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release', 'http://openlibrary.org/books/OL8993487M/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
+                    'work', 'http://openlibrary.org/works/OL82592W/',
+                    MB.constants.LINK_TYPES.otherdatabases.work
                 ]
 
             ];
@@ -455,7 +468,13 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
+                ],
+                // Open Library
+                [
+                    'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
+                    'http://openlibrary.org/books/OL8993487M/',
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
