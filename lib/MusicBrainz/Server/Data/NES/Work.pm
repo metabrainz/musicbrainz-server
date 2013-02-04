@@ -68,7 +68,8 @@ sub tree_to_json {
                 map +{
                     target => $_->target->gid,
                     type => $_->link->type_id,
-                    target_type => $_->target_type
+                    target_type => $_->target_type,
+                    attributes => [ map { $_->id } $_->link->all_attributes ]
                 }, @{ $tree->relationships }
         }
     );
@@ -155,7 +156,10 @@ sub get_relationships {
                 target_gid => $rel->{target},
                 link => MusicBrainz::Server::Entity::Link->new(
                     type_id => $rel->{type},
-                    direction => $MusicBrainz::Server::Entity::NES::Relationship::DIRECTION_BACKWARD
+                    direction => $MusicBrainz::Server::Entity::NES::Relationship::DIRECTION_BACKWARD,
+                    attributes => [
+                        values %{ $self->c->model('LinkAttributeType')->get_by_ids(@{ $rel->{attributes} }) }
+                    ]
                 ),
                 target_type => $rel->{'target-type'},
             );
@@ -165,6 +169,10 @@ sub get_relationships {
                 { revision => $revision->revision_id }
             )
         };
+
+    for my $attribute (map { $_->link->all_attributes } @rels) {
+        $attribute->root($self->c->model('LinkAttributeType')->get_by_id($attribute->root_id));
+    }
 
     $self->c->model('LinkType')->load(map { $_->link } @rels);
 

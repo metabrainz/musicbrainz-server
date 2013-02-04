@@ -206,7 +206,7 @@ sub create : Local RequireAuth Edit
     $c->model('MB')->with_nes_transaction(sub {
         my ($source, $dest) = ($source_model->get_by_gid($source_gid), $dest_model->get_by_gid($dest_gid));
 
-        if ($type0 eq $type1 && $source->gid == $dest->gid) {
+        if ($type0 eq $type1 && $source->gid eq $dest->gid) {
             $c->stash( message => l('A relationship requires 2 different entities') );
             $c->detach('/error_500');
         }
@@ -258,14 +258,12 @@ sub create : Local RequireAuth Edit
                 my $rels = shift;
                 return [
                     @$rels,
-                    MusicBrainz::Server::Entity::NES::Relationship->new(
-                        link => MusicBrainz::Server::Entity::Link->new(
-                            type_id => $form->field('link_type_id')->value
-                        ),
-                        target => $entity1,
-                        target_type => 'work'
+                    form_relationship(
+                        $form->field('link_type_id')->value,
+                        \@attributes,
+                        $type1 => $entity1
                     )
-                  ];
+                ];
             });
 
             delete $c->session->{relationship};
@@ -347,12 +345,10 @@ sub create_url : Local RequireAuth Edit
                 my $rels = shift;
                 return [
                     @$rels,
-                    MusicBrainz::Server::Entity::NES::Relationship->new(
-                        link => MusicBrainz::Server::Entity::Link->new(
-                            type_id => $form->field('link_type_id')->value
-                        ),
-                        target => $url,
-                        target_type => 'url'
+                    form_relationship(
+                        $form->field('link_type_id')->value,
+                        \@attributes,
+                        url => $url
                     )
                 ]
             });
@@ -362,6 +358,24 @@ sub create_url : Local RequireAuth Edit
             $c->detach;
         }
     });
+}
+
+sub form_relationship {
+    my ($link_type_id, $attributes, $target_type, $target) = @_;
+    return MusicBrainz::Server::Entity::NES::Relationship->new(
+        link => MusicBrainz::Server::Entity::Link->new(
+            type_id => $link_type_id,
+            attributes => [
+                map {
+                    MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        id => $_
+                    )
+                  } @$attributes
+              ]
+        ),
+        target => $target,
+        target_type => $target_type
+    );
 }
 
 sub run_update {
