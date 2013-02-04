@@ -203,10 +203,11 @@ sub create : Local RequireAuth Edit
         $c->detach('/error_500');
     }
 
-    my $source = $source_model->get_by_gid($source_gid);
-    my $dest   = $dest_model->get_by_gid($dest_gid);
+    my ($source, $dest) = $c->model('MB')->with_nes_transaction(sub {
+        return ($source_model->get_by_gid($source_gid), $dest_model->get_by_gid($dest_gid));
+    });
 
-    if ($type0 eq $type1 && $source->id == $dest->id) {
+    if ($type0 eq $type1 && $source->gid == $dest->gid) {
         $c->stash( message => l('A relationship requires 2 different entities') );
         $c->detach('/error_500');
     }
@@ -253,19 +254,23 @@ sub create : Local RequireAuth Edit
             ($entity0, $entity1) = ($entity1, $entity0);
         }
 
-        $c->model('MB')->with_transaction(sub {
-            $self->try_and_insert(
-                $c, $form,
-                $type0, $type1,
-                begin_date   => $form->field('period.begin_date')->value,
-                end_date     => $form->field('period.end_date')->value,,
-                attributes   => \@attributes,
-                link_type_id => $form->field('link_type_id')->value,
-                entity0      => $entity0,
-                entity1      => $entity1,
-                ended        => $form->field('period.ended')->value
-            ) or
-                $self->detach_existing($c);
+        $c->model('MB')->with_nes_transaction(sub {
+            my $edit = $c->model('NES::Edit')->open;
+
+            $c->model('NES::Work')->update(
+                $edit, $c->user, $entity0,
+                MusicBrainz::Server::Entity::Tree::Work->new(
+                    relationships => [
+                        MusicBrainz::Server::Entity::NES::Relationship->new(
+                            link => MusicBrainz::Server::Entity::Link->new(
+                                type_id => $form->field('link_type_id')->value
+                            ),
+                            target => $entity1,
+                            target_type => 'work'
+                        )
+                    ]
+                )
+            );
         });
 
         delete $c->session->{relationship};

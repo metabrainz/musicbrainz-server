@@ -15,10 +15,9 @@ sub relationships : Chained('load') PathPart('relationships')
 sub relate : Chained('load')
 {
     my ($self, $c) = @_;
+    my $entity = $c->stash->{entity};
 
-    my $type   = model_to_type( $self->{model} );
-    my $entity = $c->stash->{ $self->{entity_name} };
-
+    my $type = model_to_type( $self->{model} );
     if ($c->session->{relationship}) {
         $c->response->redirect($c->uri_for('/edit/relationship/create', {
             type0 => $c->session->{relationship}->{type0},
@@ -33,7 +32,7 @@ sub relate : Chained('load')
             type0   => $type,
             entity0 => $entity->gid,
             name    => $entity->name,
-            id      => $entity->id
+            gid     => $entity->gid
         };
 
         $c->response->redirect(

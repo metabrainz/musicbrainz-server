@@ -67,7 +67,7 @@ sub tree_to_json {
             partition_by { $_->{target_type} }
                 map +{
                     target => $_->target->gid,
-                    type => $_->link_type_id,
+                    type => $_->link->type_id,
                     target_type => $_->target_type
                 }, @{ $tree->relationships }
         }
@@ -128,6 +128,10 @@ sub get_annotation {
     )->{annotation};
 }
 
+my %rel_type_to_model = (
+    work => 'NES::Work'
+);
+
 sub get_relationships {
     my ($self, $revision) = @_;
     my @rels =
@@ -137,6 +141,12 @@ sub get_relationships {
             given ($rel->{'target-type'}) {
                 when (/url/) {
                     $target = $self->c->model('NES::URL')->get_by_gid($rel->{target});
+                }
+
+                default {
+                    $target = $self->c->model(
+                        $rel_type_to_model{$_} // die 'Unknown relationship type'
+                    )->get_by_gid($rel->{target});
                 }
             }
 

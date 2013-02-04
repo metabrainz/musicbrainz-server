@@ -528,12 +528,12 @@ END -%]
 [%- END -%]
 
 [%- MACRO use_in_relationship(entity) BLOCK;
-    UNLESS c.session.relationship.id == entity.id;
+    UNLESS c.session.relationship.gid == entity.gid;
       text = c.session.relationship ? l('Create relationship with {other}', { other => c.session.relationship.name })
                                     : l('Use in a relationship');
       '<li>' _ link_entity(entity, 'relate', text) _ '</li>';
     END;
-    IF c.session.relationship.id;
+    IF c.session.relationship.gid;
       text = l('Cancel creating relationship with {name}', { name => c.session.relationship.name });
       '<li>' _ link_entity(entity, 'cancel_relate', text) _ '</li>';
     END;
