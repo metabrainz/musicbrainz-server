@@ -34,13 +34,6 @@
               the attributes will be merged into the existing one.') %]
       </p>
       <!-- /ko -->
-      <!-- ko if: mode() == 'batch.work' -->
-      <p class="msg">
-        [% l('This will add a relationship to all checked works.
-              If the relationship already exists on one of the works,
-              the attributes will be merged into the existing one.') %]
-      </p>
-      <!-- /ko -->
       <!-- ko if: mode() == "batch.create.works" -->
       <p class="msg">
         [% l('This will create a new work for each checked recording that has no
@@ -352,7 +345,7 @@
           <td>
             <a id="batch-link-work" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
               <img src="/static/images/icons/add.png" class="bottom"/>
-              [% l('Batch-link existing work') %]
+              [% l('Batch-link to a work') %]
             </a>
           </td>
           <td>
