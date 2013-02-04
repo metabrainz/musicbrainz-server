@@ -636,25 +636,6 @@ UI.BatchLinkWorkDialog.show = function() {
     }
 };
 
-UI.BatchLinkWorkDialog.accept = function() {
-    var relationship = Dialog.relationship.peek(),
-        model = relationship.toJS(), hasCallback = $.isFunction(callback)
-
-    Util.callbackQueue(Dialog.targets, function(source) {
-        model.entity[0] = source;
-        delete model.id;
-
-        if (!hasCallback || callback(model)) {
-            var newRelationship = RE.Relationship(model);
-
-            if (!source.mergeRelationship(newRelationship))
-                newRelationship.show();
-        }
-    });
-
-    UI.AddDialog.hide();
-};
-
 UI.BatchCreateWorksDialog = MB.utility.beget(UI.BatchRelationshipDialog);
 
 UI.BatchCreateWorksDialog.show = function() {
