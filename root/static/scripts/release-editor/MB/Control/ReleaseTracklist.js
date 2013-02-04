@@ -951,6 +951,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 MB.Control.ReleaseTracklist = function () {
     var self = MB.Object ();
 
+    $('#release-editor table.tbl th input[type="checkbox"]').show();
+
     self.bubble_collection = MB.Control.BubbleCollection ();
     self.bubble_collection.setType (MB.Control.BubbleRow);
 
