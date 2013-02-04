@@ -287,14 +287,16 @@ ko.bindingHandlers.autocomplete = (function() {
 
 
 var BaseDialog = (function() {
-    var inputRegex = /^input|button|select$/, selectChanged = {};
+    var inputRegex = /^input|button|select$/;
+    var selectChanged = {};
 
     function dialogKeydown(event) {
         if (event.isDefaultPrevented())
             return;
 
-        var self = this, target = event.target,
-            nodeName = target.nodeName.toLowerCase();
+        var self = this;
+        var target = event.target;
+        var nodeName = target.nodeName.toLowerCase();
 
         if (nodeName == "select" && target.id)
             selectChanged[target.id] = false;
