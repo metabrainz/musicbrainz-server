@@ -182,7 +182,8 @@ sub show : Chained('load') PathPart('')
             map { $_->all_relationships } @recordings);
 
     my $grouped_rels = {};
-    my $dup_track_numbers = {};
+    my %track_numbers;
+    my $show_medium_prefix = 0;
 
     my $find_dup_rel = sub {
         my ($rel, $items) = @_;
@@ -230,12 +231,13 @@ sub show : Chained('load') PathPart('')
         }
     };
 
-    # Given a track, return its number. If the track number appears twice on
-    # the release, prepend the medium position to disambiguate it.
+    # Given a track, return its number. If there are *any* duplicate track
+    # numbers on the release, prepend all track numbers with the medium
+    # position to disambiguate them.
     my $track_number = sub {
         my ($track) = @_;
 
-        return ($dup_track_numbers->{ $track->number } ?
+        return ($show_medium_prefix ?
             $track->tracklist->medium->position . '.' : '') . $track->number;
     };
 
@@ -263,14 +265,20 @@ sub show : Chained('load') PathPart('')
         return $result;
     };
 
+    my $medium_count = scalar @mediums;
+
     for my $medium (@mediums) {
         for my $track ($medium->tracklist->all_tracks) {
             # XXX tracklist->medium is a hack, but needed by track_number.
             $track->tracklist($medium->tracklist);
             $medium->tracklist->medium($medium);
 
-            $dup_track_numbers->{ $track->number } =
-                exists $dup_track_numbers->{ $track->number } ? 1 : 0;
+            if (!$show_medium_prefix && $medium_count > 1 &&
+                    exists $track_numbers{ $track->number }) {
+                $show_medium_prefix = 1;
+            } else {
+                $track_numbers{ $track->number } = 1;
+            }
 
             $group_rels->($track, $track->recording->grouped_relationships);
 
