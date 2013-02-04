@@ -22,7 +22,7 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 var allowedRelations = {
-    recording:     ["artist", "label", "recording", "release"],
+    recording:     ["artist", "label", "recording", "release", "work"],
     work:          ["artist", "label", "work"],
     release:       ["artist", "label", "recording", "release"],
     release_group: ["artist", "release_group"]
