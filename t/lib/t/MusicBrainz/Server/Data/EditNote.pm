@@ -121,17 +121,20 @@ lives_ok {
     $en_data->insert($edit->id, {
             editor_id => 3,
             text => 'Note' })
-};
+} "Edit notes don't die while in a transaction already";
 $test->c->sql->commit;
 
 # Test adding edit notes with email sending
 $test->c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => 1 });
 
+# Add an abstain -- this should *not* send email
+$test->c->model('Vote')->enter_votes(4, { edit_id => $edit->id, vote => -1 });
+
 $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 
 my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is($email_transport->delivery_count, 2);
+is($email_transport->delivery_count, 2, 'Exactly two emails sent (none for an abstain)');
 
 my $email2 = $email_transport->shift_deliveries->{email};
 my $email = $email_transport->shift_deliveries->{email};
