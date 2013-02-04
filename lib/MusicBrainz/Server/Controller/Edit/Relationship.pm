@@ -4,7 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( type_to_controller type_to_model );
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::NES::Relationship;
 use MusicBrainz::Server::Entity::Tree::Work;
@@ -275,7 +275,7 @@ sub create : Local RequireAuth Edit
 
         delete $c->session->{relationship};
         my $redirect = $c->req->params->{returnto} ||
-            $c->uri_for_action($c->controller(type_to_model($type0))->action_for('show'), [ $source_gid ]);
+            $c->uri_for_action($c->controller(type_to_controller($type0))->action_for('show'), [ $source_gid ]);
         $c->response->redirect($redirect);
         $c->detach;
     }
@@ -362,26 +362,9 @@ sub create_url : Local RequireAuth Edit
                 )
             );
 
-            # my $e0 = $types[0] eq 'url' ? $url : $entity;
-            # my $e1 = $types[1] eq 'url' ? $url : $entity;
-
-            # $c->stash( url => $form->field('url')->value );
-            # $c->model('MB')->with_transaction(sub {
-            #     $self->try_and_insert(
-            #         $c, $form,
-            #         @types,
-            #         entity0 => $e0,
-            #         entity1 => $e1,
-            #         link_type_id => $form->field('link_type_id')->value,
-            #         attributes => \@attributes,
-            #         ended => 0
-            #     ) or $self->detach_existing($c);
-            # });
-
-            # my $redirect = $c->controller(type_to_model($type))->action_for('show');
-            # $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
-            # $c->detach;
-
+            my $redirect = $c->controller(type_to_controller($type))->action_for('show');
+            $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
+            $c->detach;
         }
     });
 }

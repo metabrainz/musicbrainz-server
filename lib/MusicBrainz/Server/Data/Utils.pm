@@ -49,6 +49,7 @@ our @EXPORT_OK = qw(
     remove_equal
     take_while
     trim
+    type_to_controller
     type_to_model
 );
 
@@ -64,6 +65,20 @@ Readonly my %TYPE_TO_MODEL => (
     'release_group' => 'ReleaseGroup',
     'url'           => 'URL',
     'work'          => 'NES::Work',
+);
+
+Readonly my %TYPE_TO_CONTROLLER => (
+    'annotation'    => 'Annotation',
+    'artist'        => 'Artist',
+    'cdstub'        => 'CDStub',
+    'editor'        => 'Editor',
+    'freedb'        => 'FreeDB',
+    'label'         => 'Label',
+    'recording'     => 'Recording',
+    'release'       => 'Release',
+    'release_group' => 'ReleaseGroup',
+    'url'           => 'URL',
+    'work'          => 'Work',
 );
 
 sub copy_escape {
@@ -334,6 +349,11 @@ sub trim {
 sub type_to_model
 {
     return $TYPE_TO_MODEL{$_[0]} || die "$_[0] is not a type that has a model";
+}
+
+sub type_to_controller
+{
+    return $TYPE_TO_CONTROLLER{$_[0]} || die "$_[0] is not a type that has a controller";
 }
 
 sub model_to_type
