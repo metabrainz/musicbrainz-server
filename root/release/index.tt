@@ -39,12 +39,13 @@
     $(function() {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
-        var $bottom_tables = $("table.details"),
-            $inline_ars = $("table.tbl div.ars");
+        var $bottom_tables = $("table.details");
+        var $inline_ars = $("table.tbl div.ars");
 
         function switchToInlineCredits() {
             $bottom_tables.each(function(i, table) {
-                var $table = $(table), $trs = $table.find("tr");
+                var $table = $(table);
+                var $trs = $table.find("tr");
 
                 $trs.each(function(j, tr) {
                     var $tr = $(tr);
