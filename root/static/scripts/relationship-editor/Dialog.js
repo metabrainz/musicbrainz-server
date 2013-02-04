@@ -633,6 +633,24 @@ UI.BatchRelationshipDialog.accept = function(callback) {
     UI.AddDialog.hide();
 };
 
+UI.BatchLinkWorkDialog = MB.utility.beget(UI.BatchRelationshipDialog);
+
+UI.BatchLinkWorkDialog.show = function() {
+    Dialog.targets = _.filter(UI.checkedRecordings(), function(obj) {
+        return obj.performanceRelationships.peek().length == 0;
+    });
+
+    if (Dialog.targets.length > 0) {
+        var source = Dialog.targets[0];
+
+
+        UI.AddDialog.show.call(this, {
+            entity: [source, RE.Entity({type: "work"})],
+            source: source,
+            mode: "batch.link.work"
+        });
+    }
+};
 
 UI.BatchCreateWorksDialog = MB.utility.beget(UI.BatchRelationshipDialog);
 

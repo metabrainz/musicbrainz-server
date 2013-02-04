@@ -346,6 +346,10 @@ function initButtons() {
         if (!$(this).hasClass("disabled"))
             UI.BatchRelationshipDialog.show(UI.checkedWorks());
     });
+    
+    $("#batch-link-work").click(function() {
+        if (!$(this).hasClass("disabled")) UI.BatchLinkWorkDialog.show();
+    });
 
     $("#batch-create-works").click(function() {
         if (!$(this).hasClass("disabled")) UI.BatchCreateWorksDialog.show();

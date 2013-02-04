@@ -347,6 +347,12 @@
             </a>
           </td>
           <td>
+            <a id="batch-link-work" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
+              <img src="/static/images/icons/add.png" class="bottom"/>
+              [% l('Batch-link to a work') %]
+            </a>
+          </td>
+          <td>
             <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}">
               <img src="/static/images/icons/add.png" class="bottom"/>
               [% l('Batch-create new works') %]
