@@ -741,6 +741,7 @@ sub _serialize_relation
 
     my @list;
     my $type = $rel->link->type->name;
+    my $type_id = $rel->link->type->gid;
 
     push @list, $gen->target($rel->target_key);
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
@@ -759,7 +760,7 @@ sub _serialize_relation
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
-    push @$data, $gen->relation({ type => $type }, @list);
+    push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 
 sub _serialize_puid_list
