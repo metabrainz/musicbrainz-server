@@ -625,16 +625,11 @@ UI.BatchLinkWorkDialog.show = function() {
     });
 
     if (Dialog.targets.length > 0) {
-        var source = Dialog.targets[0], target = RE.Entity({type: "work"});
+        var source = Dialog.targets[0];
 
-        // the user can't edit the target in this dialog, but the gid of the
-        // temporary target entity has to be set to something valid, so that
-        // validation passes and the dialog can be okay'd. we don't want to pass
-        // the gid to RE.Entity either, or else the entity will be cached.
-        target.gid = "00000000-0000-0000-0000-000000000000";
 
         UI.AddDialog.show.call(this, {
-            entity: [source, target],
+            entity: [source, RE.Entity({type: "work"})],
             source: source,
             mode: "batch.link.work"
         });
@@ -642,38 +637,23 @@ UI.BatchLinkWorkDialog.show = function() {
 };
 
 UI.BatchLinkWorkDialog.accept = function() {
-    Dialog.loading(true);
+    var relationship = Dialog.relationship.peek(),
+        model = relationship.toJS(), hasCallback = $.isFunction(callback)
 
-    var type_id = $("#batch-work-type > select").val(),
-        language_id = $("#batch-work-lang > select").val(), works;
+    Util.callbackQueue(Dialog.targets, function(source) {
+        model.entity[0] = source;
+        delete model.id;
 
-    works = _.map(Dialog.targets, function(obj) {
-        return {name: obj.name, comment: "", type: type_id, language: language_id};
+        if (!hasCallback || callback(model)) {
+            var newRelationship = RE.Relationship(model);
+
+            if (!source.mergeRelationship(newRelationship))
+                newRelationship.show();
+        }
     });
 
-    function success(data) {
-        UI.BatchRelationshipDialog.accept.call(this, function(obj) {
-            obj.entity[1] = RE.Entity(data.works.shift(), "work");
-            if (data.works.length == 0) Dialog.loading(false);
-            return true;
-        });
-    }
-
-    function error() {
-        Dialog.loading(false);
-        Dialog.batchWorksError(true);
-    }
-
-    RE.createWorks(works, "", success, error);
+    UI.AddDialog.hide();
 };
-
-UI.BatchLinkWorkDialog.hide = function() {
-    Dialog.hide(function() {
-        this.batchWorksError(false);
-        this.relationship.peek().remove();
-    });
-};
-
 
 UI.BatchCreateWorksDialog = MB.utility.beget(UI.BatchRelationshipDialog);
 
