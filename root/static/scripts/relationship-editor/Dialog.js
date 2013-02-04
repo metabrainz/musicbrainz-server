@@ -314,6 +314,7 @@ var Dialog = UI.Dialog = {
     showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
+    disableTypeSelection : ko.observable(false)
 
     init: function() {
         var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
@@ -531,6 +532,7 @@ UI.AddDialog = MB.utility.beget(Dialog);
 UI.AddDialog.show = function(options) {
     options.relationship = RE.Relationship({entity: options.entity, action: "add"});
     this.mode(options.mode || "add");
+    this.disableTypeSelection(options.disableTypeSelection || false);
     Dialog.show.call(this, options);
 };
 

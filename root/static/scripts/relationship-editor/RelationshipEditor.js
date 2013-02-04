@@ -361,7 +361,7 @@ function initButtons() {
 
     $("#content").on("click", "span.relate-work", function() {
         var source = ko.dataFor(this), target = RE.Entity({type: "work", name: source.name});
-        UI.AddDialog.show({entity: [source, target], source: source});
+        UI.AddDialog.show({entity: [source, target], source: source, disableTypeSelection: true});
     });
 
     $("#content").on("click", "span.remove-button", function() {
