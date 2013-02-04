@@ -60,12 +60,16 @@ sub with_transaction {
     $self->clear_session_token;
     $self->session_token($self->request('/open-session', {})->{token});
 
+    my $w = wantarray;
     return try {
-        my $ret = $code->();
+        my @r = $code->() if $w;
+        my $r = $code->() if defined $w and not $w;
+        $code->() if not defined $w;
+
         $self->request('/close-session', {});
         $self->clear_session_token;
 
-        return $ret;
+        return $w ? @r : $r;
     }
     catch {
         try { $self->request('/close-session', {}) };

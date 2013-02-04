@@ -11,7 +11,7 @@ sub edit_field_names { qw() }
 has '+name' => ( default => 'merge' );
 
 has_field 'target' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer',
+    type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
     required_message => l('Please pick the entity you want the others merged into.')
 );
@@ -22,7 +22,7 @@ has_field 'merging' => (
 );
 
 has_field 'merging.contains' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer'
+    type => '+MusicBrainz::Server::Form::Field::Text'
 );
 
 1;

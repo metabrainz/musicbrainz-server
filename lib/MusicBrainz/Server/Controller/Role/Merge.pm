@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
 
+use List::MoreUtils qw( part );
+use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_assertion );
+use MusicBrainz::Server::MergeQueue;
 use MusicBrainz::Server::Translation qw ( l ln );
 
 parameter 'edit_type' => (
@@ -25,10 +28,6 @@ role {
         }
     );
 
-    use List::MoreUtils qw( part );
-    use MusicBrainz::Server::Data::Utils qw( model_to_type );
-    use MusicBrainz::Server::MergeQueue;
-
     method 'merge_queue' => sub {
         my ($self, $c) = @_;
         my $model = $c->model( $self->{model} );
@@ -37,7 +36,9 @@ role {
         my @add = ref($add) ? @$add : ($add);
 
         if (@add) {
-            my @loaded = values %{ $model->get_by_ids(@add) };
+            my @loaded = $c->model('MB')->with_nes_transaction(sub {
+                values %{ $model->get_by_gids(@add) };
+            });
 
             if (!$c->session->{merger} ||
                  $c->session->{merger}->type ne $self->{model}) {
@@ -47,7 +48,7 @@ role {
             }
 
             my $merger = $c->session->{merger};
-            $merger->add_entities(map { $_->id } @loaded);
+            $merger->add_entities(map { $_->gid } @loaded);
 
             if ($merger->ready_to_merge) {
                 $c->response->redirect(
@@ -116,20 +117,22 @@ role {
         my $merger = $c->session->{merger}
             or $c->res->redirect('/'), $c->detach;
 
-        my @entities = values %{
-            $c->model($merger->type)->get_by_ids($merger->all_entities)
-        };
-
         $c->detach
             unless $merger->ready_to_merge;
 
-        my $form = $c->form(
-            form => $params->merge_form,
-            $self->_merge_form_arguments($c, @entities)
-        );
-        if ($self->_validate_merge($c, $form, $merger)) {
-            $self->_merge_submit($c, $form, \@entities);
-        }
+        $c->model('MB')->with_nes_transaction(sub {
+            my @entities = values %{
+                $c->model($merger->type)->get_by_gids($merger->all_entities)
+            };
+
+            my $form = $c->form(
+                form => $params->merge_form,
+                $self->_merge_form_arguments($c, @entities)
+            );
+            if ($self->_validate_merge($c, $form, $merger)) {
+                $self->_merge_submit($c, $form, \@entities);
+            }
+        });
     };
 
     method _validate_merge => sub {
@@ -140,41 +143,25 @@ role {
     method _merge_submit => sub {
         my ($self, $c, $form, $entities) = @_;
 
-        my %entity_id = map { $_->id => $_ } @$entities;
+        my %entity_gid = map { $_->gid => $_ } @$entities;
 
-        my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
-        my $new = $entity_id{$new_id};
-        my @old_ids = grep { $_ != $new_id } @{ $form->field('merging')->value };
+        my $new_gid = $form->field('target')->value or die 'Couldnt figure out new_gid';
+        my $new = $entity_gid{$new_gid};
+        my @old_gids = grep { $_ ne $new_gid } @{ $form->field('merging')->value };
 
-        log_assertion { @old_ids >= 1 } 'Got at least 1 entity to merge';
+        log_assertion { @old_gids >= 1 } 'Got at least 1 entity to merge';
 
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $params->edit_type,
-                new_entity => {
-                    id => $new->id,
-                    name => $new->name,
-                },
-                old_entities => [ map +{
-                    id => $entity_id{$_}->id,
-                    name => $entity_id{$_}->name
-                }, @old_ids ],
-                (map { $_->name => $_->value } $form->edit_fields),
-                $self->_merge_parameters($c, $form, $entities)
-            );
-        });
+        my $edit = $c->model('NES::Edit')->open;
+        $c->model($self->{model})->merge(
+            $edit, $c->user,
+            source => [ map { $entity_gid{$_} } @old_gids ],
+            target => $new
+        );
 
         $c->session->{merger} = undef;
-
         $c->response->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $new->gid ])
-        );
+            $c->uri_for_action($self->action_for('show'), [ $new->gid ]));
     };
-
-    method _merge_parameters => sub {
-        return ()
-    }
 };
 
 sub _merge_search {
@@ -184,5 +171,6 @@ sub _merge_search {
                                     $query, shift, shift)
     });
 }
+
 1;
-      
+

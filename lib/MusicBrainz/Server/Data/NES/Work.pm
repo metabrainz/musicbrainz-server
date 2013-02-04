@@ -183,5 +183,30 @@ sub load_relationships {
     }
 }
 
+sub load_iswcs {
+    my ($self, @revisions) = @_;
+    for my $revision (@revisions) {
+        $revision->iswcs($self->get_iswcs($revision));
+    }
+}
+
+sub merge {
+    my ($self, $edit, $editor, %opts) = @_;
+    my @source = @{ $opts{source} };
+    my $target = $opts{target};
+
+    die 'NES: I cannot merge more than one entity at a time!' if @source > 1;
+
+    $self->request(
+        '/work/merge',
+        {
+            edit => $edit->id,
+            editor => $editor->id,
+            source => $source[0]->revision_id,
+            target => $target->gid
+        }
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 1;

@@ -54,6 +54,16 @@ role {
             $self->request($params->root . '/find-latest', { mbid => $gid }))
     };
 
+    method get_by_gids => sub {
+        my ($self, @gids) = @_;
+        return {
+            map {
+                my $e = $self->get_by_gid($_);
+                $e->gid => $e
+            } @gids
+        };
+    };
+
     method _new_from_core_entity => sub {
         my ($self, $response) = @_;
         return keys %$response == 0

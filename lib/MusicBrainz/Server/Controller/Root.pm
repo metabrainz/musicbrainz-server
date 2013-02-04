@@ -236,9 +236,9 @@ sub begin : Private
     # Merging
     if (my $merger = $c->session->{merger}) {
         my $model = $c->model($merger->type);
-        my @merge = values %{
-            $model->get_by_ids($merger->all_entities)
-        };
+        my @merge = $c->model('MB')->with_nes_transaction(sub {
+            values %{ $model->get_by_gids($merger->all_entities) };
+        });
         $c->model('ArtistCredit')->load(@merge);
 
         $c->stash(

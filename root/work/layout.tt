@@ -34,7 +34,7 @@
                [% annotation_links(work) %]
 
                <li>
-                 <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.id }) %]">
+                 <a href="[% c.uri_for_action('/work/merge_queue', { 'add-to-merge' => work.gid }) %]">
                    [% l('Merge work') %]
                  </a>
                </li>
