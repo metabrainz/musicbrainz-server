@@ -223,6 +223,7 @@ test 'recording lookup with release relationships' => sub {
             relations => [
                 {
                     type => 'samples material',
+                    'type-id' => '967746f9-9d79-456c-9d1e-50116f0b27fc',
                     direction => 'forward',
                     release => {
                         asin => JSON::null,
