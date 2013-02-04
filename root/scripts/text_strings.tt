@@ -70,7 +70,7 @@
         },
         ArtistDate: {
             Unknown: [ '[% l('Began:') | js %]', '[% l('Ended:') | js %]', '[% l('This artist has ended.') | js %]'  ],
-            Person: [ '[% l('Born:') | js %]', '[% l('Dead:') | js %]', '[% l('This person is deceased.') | js %]' ],
+            Person: [ '[% l('Born:') | js %]', '[% l('Died:') | js %]', '[% l('This person is deceased.') | js %]' ],
             Founded: [ '[% l('Founded:') | js %]', '[% l('Dissolved:') | js %]', '[% l('This group has dissolved.') | js %]' ]
         },
         Pager: '[% l('page #{page} of #{total}') | js %]',
