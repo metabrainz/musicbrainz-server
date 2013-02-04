@@ -64,6 +64,8 @@ ko.bindingHandlers.selectAttribute = (function() {
             if (multi) {
                 element.multiple = true;
                 $element.hide();
+            } else {
+                $element.append('<option value=""></option>');
             }
 
             $element.append(getOptions(attr).cloneNode(true)).val(attr.value())
