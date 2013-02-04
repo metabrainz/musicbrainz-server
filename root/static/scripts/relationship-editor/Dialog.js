@@ -287,27 +287,60 @@ ko.bindingHandlers.autocomplete = (function() {
 
 
 var BaseDialog = (function() {
-    var inputRegex = /^input|button|select$/;
+    var inputRegex = /^input|button|select$/, selectChanged = {};
 
     function dialogKeydown(event) {
-        if (!event.isDefaultPrevented()) {
-            if (event.keyCode == 13 && this.canSubmit() &&
-                    inputRegex.test(event.target.nodeName.toLowerCase()))
-                this.accept();
-            else if (event.keyCode == 27)
-                this.hide();
-        }
+        if (event.isDefaultPrevented())
+            return;
+
+        var self = this, target = event.target,
+            nodeName = target.nodeName.toLowerCase();
+
+        if (nodeName == "select" && target.id)
+            selectChanged[target.id] = false;
+
+        /* While both Firefox and Opera 10 trigger the change event after
+         * keydown, Opera does not update the select's value attribute until
+         * after the change event has occured. Delay this event so that it
+         * always runs after that attribute has changed.
+         */
+        _.defer(function() {
+            if (nodeName == "select" && selectChanged[target.id])
+                return;
+
+            if (event.keyCode == 13 && self.canSubmit() && inputRegex.test(nodeName)) {
+                self.accept();
+            } else if (event.keyCode == 27 && nodeName != "select") {
+                self.hide();
+            }
+        });
+    }
+
+    /* Firefox's select menus are weird - after opening the menu, you have to
+     * press enter *twice* to trigger the change event, unlike in Chrome.
+     * We don't want the user to accidentally submit the dialog when they only
+     * intended to submit the select menu. Since there's no good way to
+     * determine whether the select menu was open when they pressed enter, we
+     * can at least detect whether a change event has occured.
+     */
+    function selectChange(event) {
+        var select = event.target;
+        if (_.has(selectChanged, select.id))
+            selectChanged[select.id] = true;
     }
 
     function cancel(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
+            event.stopPropagation();
             this.hide();
         }
     }
 
     return function(options) {
-        options.$dialog.on("keydown", _.bind(dialogKeydown, options))
+        options.$dialog
+            .on("keydown", _.bind(dialogKeydown, options))
+            .on("change", "select", selectChange)
             .find("button.negative").on("keydown", _.bind(cancel, options));
     };
 }());
