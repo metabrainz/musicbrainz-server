@@ -314,7 +314,7 @@ var Dialog = UI.Dialog = {
     showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
-    disableTypeSelection : ko.observable(false)
+    disableTypeSelection : ko.observable(false),
 
     init: function() {
         var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
