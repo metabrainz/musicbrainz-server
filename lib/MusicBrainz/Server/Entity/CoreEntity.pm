@@ -9,6 +9,10 @@ has 'revision_id' => (
     is => 'ro',
 );
 
+has revision => (
+    is => 'rw',
+);
+
 has 'gid' => (
     is => 'rw',
     isa => 'Str'

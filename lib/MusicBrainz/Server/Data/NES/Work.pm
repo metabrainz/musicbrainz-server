@@ -2,9 +2,11 @@ package MusicBrainz::Server::Data::NES::Work;
 use feature 'switch';
 use Moose;
 
+use DateTime::Format::ISO8601;
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
 use MusicBrainz::Server::Entity::NES::Relationship;
+use MusicBrainz::Server::Entity::NES::Revision;
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( boolean );
 
@@ -223,6 +225,20 @@ sub merge {
             source => $source[0]->revision_id,
             target => $target->gid
         }
+    );
+}
+
+sub load_revision {
+    my ($self, $revision) = @_;
+    my $res = $self->request(
+        '/work/get-revision',
+        { revision => $revision->revision_id }
+    )->{data};
+
+    $revision->revision(
+        MusicBrainz::Server::Entity::NES::Revision->new(
+            created_at => DateTime::Format::ISO8601->parse_datetime($res->{'created-at'})
+        )
     );
 }
 
