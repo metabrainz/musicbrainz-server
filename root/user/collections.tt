@@ -7,10 +7,10 @@
     <thead>
         <tr>
             <th>[% l('Collection') %]</th>
-            <th style="width: 10em">[% l('Releases') %]</th>
+            <th>[% l('Releases') %]</th>
             [% IF viewing_own_profile %]
-            <th style="width: 10em">[% l('Privacy') %]</th>
-            <th style="width: 10em">[% l('Actions') %]</th>
+            <th>[% l('Privacy') %]</th>
+            <th class="actions-header">[% l('Actions') %]</th>
             [% END %]
         </tr>
     </thead>

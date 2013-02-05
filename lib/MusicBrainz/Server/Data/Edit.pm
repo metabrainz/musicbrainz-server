@@ -7,6 +7,7 @@ use Data::OptList;
 use DateTime;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -459,8 +460,16 @@ sub load_all
             $ids = Data::OptList::mkopt_hash($ids);
             while (my ($object_id, $extra_models) = each %$ids) {
                 push @{ $objects_to_load->{$model} }, $object_id;
-                $post_load_models->{$model}->{$object_id} = $extra_models
-                    if $extra_models && @$extra_models;
+                if ($extra_models && @$extra_models) {
+                    if (!exists $post_load_models->{$model}->{$object_id}) {
+                        $post_load_models->{$model}->{$object_id} = $extra_models;
+                    } else {
+                        for my $extra_model (@$extra_models) {
+                            push @{ $post_load_models->{$model}->{$object_id} }, $extra_model
+                              unless (any { $_ eq $extra_model } @{ $post_load_models->{$model}->{$object_id} });
+                        }
+                    }
+                }
             }
         }
     }
@@ -494,21 +503,16 @@ sub approve
 {
     my ($self, $edit, $editor_id) = @_;
 
-    Sql::run_in_transaction(sub {
-        # Load the edit again, but this time lock it for updates
-        $edit = $self->get_by_id_and_lock($edit->id);
+    $self->c->model('Vote')->enter_votes(
+        $editor_id,
+        {
+            vote    => $VOTE_APPROVE,
+            edit_id => $edit->id
+        }
+    );
 
-        $self->c->model('Vote')->enter_votes(
-            $editor_id,
-            {
-                vote    => $VOTE_APPROVE,
-                edit_id => $edit->id
-            }
-        );
-
-        # Apply the changes and close the edit
-        $self->accept($edit);
-    }, $self->c->sql);
+    # Apply the changes and close the edit
+    $self->accept($edit);
 }
 
 sub _do_accept

@@ -11,14 +11,15 @@
 # Luca Salini <email address hidden>, 2012.
 # Luca Salini <email address hidden>, 2012-2013.
 #   <email address hidden>, 2012.
+#  <email address hidden>, 2013.
 #   <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-01-15 15:16-0700\n"
-"PO-Revision-Date: 2013-01-15 22:35+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-20 20:03+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -369,7 +370,7 @@ msgstr "Una relazione tra {entity} e {url} è già esistente."
 msgid ""
 "A tracklist on this release has been recently changed by someone else, "
 "cannot load recordings."
-msgstr ""
+msgstr "Un elenco di tracce di questa pubblicazione è stato modificato di recente da altri, impossibile caricare le registrazioni."
 
 #: ../root/layout/menu.tt:104
 msgid "About"
@@ -1939,7 +1940,7 @@ msgstr "Collezioni"
 
 #: ../root/cdstub/index.tt:3
 msgid "Comment"
-msgstr ""
+msgstr "Commento"
 
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:11
 #: ../root/edit/details/edit_cover_art.tt:17
@@ -1997,7 +1998,7 @@ msgstr "Contattaci"
 
 #: ../root/components/wikipedia_extract.tt:4
 msgid "Continue reading at Wikipedia..."
-msgstr ""
+msgstr "Continua a leggere su Wikipedia..."
 
 #: ../root/components/forms.tt:225
 msgid "Copy"
@@ -3081,8 +3082,8 @@ msgstr "Hai trovato un problema sul nostro sito? {report|Segnala un bug} include
 #: ../root/edit/list.tt:52
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Trovata almeno {n} modifica"
+msgstr[1] "Trovate almeno {n} modifiche"
 
 #: ../root/release/sidebar.tt:136
 msgid "Found in {num} user collection"
@@ -3360,13 +3361,13 @@ msgstr "ISWC:"
 msgid ""
 "If none of these artists match the artist you intended, you can still create"
 " a new artist:"
-msgstr ""
+msgstr "Se nessuno di questi artisti corrisponde a quello che cercavi, puoi sempre crearne uno nuovo:"
 
 #: ../root/release/edit/missing_entities.tt:146
 msgid ""
 "If none of these labels match the label you intended, you can still create a"
 " new label:"
-msgstr ""
+msgstr "Se nessuna di queste etichette corrisponde a quella che cercavi, puoi sempre crearne una nuova:"
 
 #: ../root/artist/edit_form.tt:5
 msgid ""
@@ -4863,7 +4864,7 @@ msgstr "Inserisci i tag nell'area di testo qui sotto. I tag sono separati da una
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr ""
+msgstr "Inserisci il codice a barre della pubblicazione che stai aggiungendo. Consulta <a href=\"{url}\" target=\"_blank\">Codice a barre</a> per avere più informazioni."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -8301,7 +8302,7 @@ msgstr "Versione:"
 
 #: ../root/user/ratings_summary.tt:25
 msgid "View all ratings"
-msgstr ""
+msgstr "Visualizza tutte le valutazioni"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:32
 msgid "View all relationships"
@@ -8447,13 +8448,13 @@ msgstr "Non è possibile visualizzare la cronologia di questa copertina. Per l'e
 msgid ""
 "We couldn't find a label with the name you entered. Please fill in the "
 "fields below to create a new label:"
-msgstr ""
+msgstr "Non è stato possibile trovare un'etichetta con il nome che hai inserito. Riempi i seguenti campi per creare una nuova etichetta:"
 
 #: ../root/release/edit/missing_entities.tt:86
 msgid ""
 "We couldn't find an artist with the name you entered. Please fill in the "
 "fields below to create a new artist:"
-msgstr ""
+msgstr "Non è stato possibile trovare un artista con il nome che hai inserito. Riempi i seguenti campi per creare un nuovo artista:"
 
 #: ../root/release/cover_art.tt:42
 msgid "We do not currently have any cover art for {release}."
@@ -8480,8 +8481,8 @@ msgid ""
 msgid_plural ""
 "We found the following artists named \"{artist}\" in MusicBrainz. If one of "
 "them was the artist you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "È stato trovato il seguente artista con il nome \"{artist}\" su MusicBrainz. Se questo è l'artista che cercavi, selezionalo:"
+msgstr[1] "Sono stati trovati i seguenti artisti con il nome \"{artist}\" su MusicBrainz.. Se uno di questi è l'artista che cercavi, selezionalo:"
 
 #: ../root/release/edit/missing_entities.tt:107
 msgid ""
@@ -8490,8 +8491,8 @@ msgid ""
 msgid_plural ""
 "We found the following labels named \"{label}\" in MusicBrainz. If one of "
 "them was the label you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "È stato trovata la seguente etichetta con il nome \"{label}\" su MusicBrainz. Se questa è l'etichetta che cercavi, selezionala:"
+msgstr[1] "Sono state trovate le seguenti etichette con il nome \"{label}\" su MusicBrainz. Se una di queste è l'etichetta che cercavi, selezionala:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -8938,7 +8939,7 @@ msgstr "Devi effettuare l'accesso per votare sulle modifiche."
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr ""
+msgstr "Devi {url|aggiungere e verificare il tuo indirizzo email} prima di poter modificare o aggiungere dati al database."
 
 #: ../root/account/register.tt:33
 msgid ""

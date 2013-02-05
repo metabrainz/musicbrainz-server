@@ -444,6 +444,22 @@ sub _serialize_work
     push @$data, $gen->work(\%attrs, @list);
 }
 
+sub _serialize_url
+{
+    my ($self, $data, $gen, $url, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($url);
+
+    my %attrs;
+    $attrs{id} = $url->gid;
+
+    my @list;
+    push @list, $gen->resource($url->url);
+    $self->_serialize_relation_lists($url, \@list, $gen, $url->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->url(\%attrs, @list);
+}
+
 sub _serialize_recording_list
 {
     my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
@@ -741,6 +757,7 @@ sub _serialize_relation
 
     my @list;
     my $type = $rel->link->type->name;
+    my $type_id = $rel->link->type->gid;
 
     push @list, $gen->target($rel->target_key);
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
@@ -759,7 +776,7 @@ sub _serialize_relation
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
-    push @$data, $gen->relation({ type => $type }, @list);
+    push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 
 sub _serialize_puid_list
@@ -1010,6 +1027,16 @@ sub work_resource
     return $data->[0];
 }
 
+sub url_resource
+{
+    my ($self, $gen, $url, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_url($data, $gen, $url, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
 sub isrc_resource
 {
     my ($self, $gen, $isrc, $inc, $stash) = @_;
@@ -1138,7 +1165,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010-2013 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2004, 2010 Robert Kaye
 

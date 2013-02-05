@@ -25,7 +25,11 @@ MB.Control.SelectAll = function (table) {
     self.$checkboxes = self.$table.find('td input[type="checkbox"]');
     self.lastChecked = null;
 
-    self.$table.find('th input[type="checkbox"]').change(function() {
+    self.$selector = self.$table.find('th input[type="checkbox"]');
+
+    self.$selector.toggle(self.$checkboxes.length > 0);
+
+    self.$selector.change(function() {
         var $input = $(this);
         self.$checkboxes.prop('checked', $input.prop('checked'));
     });
