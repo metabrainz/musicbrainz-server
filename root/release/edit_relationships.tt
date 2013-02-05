@@ -167,7 +167,7 @@
         <!-- ko if: relationship().entityMatchError() -->
           <tr>
             <td colspan="2">
-              <div class="error">[% l('Entities in a link cannot be the same.') %]</div>
+              <div class="error">[% l('Entities in a relationship cannot be the same.') %]</div>
             </td>
           </tr>
         <!-- /ko -->

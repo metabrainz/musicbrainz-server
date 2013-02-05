@@ -40,12 +40,11 @@ var Relationship = function(obj) {
     this.visible = false;
     this.id = obj.id;
     this.changeCount = 0;
-    this.loadingWork = ko.observable(false);
-    this.edits_pending = Boolean(obj.edits_pending);
-    
     this.errorCount = 0;
     this.hasErrors = ko.observable(false);
     this.entityMatchError = ko.observable(false);
+    this.loadingWork = ko.observable(false);
+    this.edits_pending = Boolean(obj.edits_pending);
 
     this.action = ko.observable(obj.action || "");
     this.link_type = new Fields.Integer(obj.link_type);
