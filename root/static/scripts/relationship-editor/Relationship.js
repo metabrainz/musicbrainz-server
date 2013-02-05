@@ -59,6 +59,9 @@ var Relationship = function(obj) {
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
     this.original_fields = this.toJS();
+    
+    this.errorCount = (entity0 === entity1) ? 1 : 0;
+    this.hasErrors = ko.observable(this.errorCount || false);
 
     this.entity[0].extend({field: [this, "entity.0"]});
     this.entity[1].extend({field: [this, "entity.1"]});
@@ -67,9 +70,6 @@ var Relationship = function(obj) {
     this.period.begin_date.extend({field: [this, "period.begin_date"]});
     this.period.end_date.extend({field: [this, "period.end_date"]});
     this.period.ended.extend({field: [this, "period.ended"]});
-    
-    this.errorCount = (entity0 === entity1) ? 1 : 0;
-    this.hasErrors = ko.observable(this.errorCount || false);
 };
 
 
