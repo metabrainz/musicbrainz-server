@@ -40,8 +40,6 @@ var Relationship = function(obj) {
     this.visible = false;
     this.id = obj.id;
     this.changeCount = 0;
-    this.errorCount = 0;
-    this.hasErrors = ko.observable(false);
     this.loadingWork = ko.observable(false);
     this.edits_pending = Boolean(obj.edits_pending);
 
@@ -57,6 +55,9 @@ var Relationship = function(obj) {
     var entity0 = RE.Entity(obj.entity[0]), entity1 = RE.Entity(obj.entity[1]);
     this.entity = [new Fields.Entity(entity0, this), new Fields.Entity(entity1, this)];
     this.type = entity0.type + "-" + entity1.type;
+    
+    this.errorCount = (entity0 === entity1) ? 1 : 0;
+    this.hasErrors = ko.observable(errorCount | false);
 
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
