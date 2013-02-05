@@ -48,7 +48,7 @@ ws_test 'basic url lookup (with inc=artist-rels)',
     <url id="e0a79771-e9f0-4127-b58a-f5e6869c8e96">
       <resource>http://www.discogs.com/artist/Paul+Allgood</resource>
       <relation-list target-type="artist">
-        <relation type="discogs">
+        <relation type-id="04a5b104-a4c2-4bac-99a1-7b837c37d9e4" type="discogs">
           <target>05d83760-08b5-42bb-a8d7-00d80b3bf47c</target>
           <direction>backward</direction>
           <artist id="05d83760-08b5-42bb-a8d7-00d80b3bf47c">

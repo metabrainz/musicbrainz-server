@@ -40,6 +40,7 @@ test 'basic url lookup' => sub {
           ended => JSON::false,
           begin => JSON::null,
           type => 'discogs',
+          'type-id' => '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
           end => JSON::null
   }]
       });
