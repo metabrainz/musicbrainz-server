@@ -42,6 +42,9 @@ var Relationship = function(obj) {
     this.changeCount = 0;
     this.loadingWork = ko.observable(false);
     this.edits_pending = Boolean(obj.edits_pending);
+    
+    this.errorCount = 0;
+    this.hasErrors = ko.observable(false);
 
     this.action = ko.observable(obj.action || "");
     this.link_type = new Fields.Integer(obj.link_type);
@@ -59,9 +62,6 @@ var Relationship = function(obj) {
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
     this.original_fields = this.toJS();
-    
-    this.errorCount = (entity0 === entity1) ? 1 : 0;
-    this.hasErrors = ko.observable(this.errorCount || false);
 
     this.entity[0].extend({field: [this, "entity.0"]});
     this.entity[1].extend({field: [this, "entity.1"]});
@@ -119,7 +119,7 @@ Relationship.prototype.entityChanged = function(oldEntity, newEntity) {
 
     if (oldEntity !== entity0 && oldEntity !== entity1)
         oldEntity.relationships.remove(this);
-
+        
     if (entity0.type == "recording" && entity1.type == "work" && newEntity === entity1) {
         oldEntity.performanceCount -= 1;
         newEntity.performanceCount += 1;
