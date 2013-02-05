@@ -58,7 +58,7 @@ var Relationship = function(obj) {
     var entity0 = RE.Entity(obj.entity[0]), entity1 = RE.Entity(obj.entity[1]);
     this.entity = [new Fields.Entity(entity0, this), new Fields.Entity(entity1, this)];
     this.type = entity0.type + "-" + entity1.type;
-    
+
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
     this.original_fields = this.toJS();
@@ -119,14 +119,14 @@ Relationship.prototype.entityChanged = function(oldEntity, newEntity) {
 
     if (oldEntity !== entity0 && oldEntity !== entity1)
         oldEntity.relationships.remove(this);
-    
+
     var matchError = !this.entityMatchError();
     if ((entity0 === entity1) === matchError) {
         this.entityMatchError(matchError);
         this.hasErrors(
             (this.errorCount += (matchError ? 1 : -1)) > 0);
-    }      
-        
+    }
+
     if (entity0.type == "recording" && entity1.type == "work" && newEntity === entity1) {
         oldEntity.performanceCount -= 1;
         newEntity.performanceCount += 1;
