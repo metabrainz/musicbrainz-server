@@ -537,7 +537,7 @@ UI.AddDialog.show = function(options) {
 UI.AddDialog.accept = function() {
     var relationship = this.relationship();
 
-    if (!relationship.hasErrors() && !(relationship.entity[0]() === relationship.entity[1]())) {
+    if (!relationship.hasErrors()) {
         if (!Dialog.source.mergeRelationship(relationship))
             relationship.show();
         Dialog.hide();

@@ -45,6 +45,7 @@ var Relationship = function(obj) {
     
     this.errorCount = 0;
     this.hasErrors = ko.observable(false);
+    this.entityMatchError = ko.observable(false);
 
     this.action = ko.observable(obj.action || "");
     this.link_type = new Fields.Integer(obj.link_type);
@@ -119,6 +120,13 @@ Relationship.prototype.entityChanged = function(oldEntity, newEntity) {
 
     if (oldEntity !== entity0 && oldEntity !== entity1)
         oldEntity.relationships.remove(this);
+    
+    var matchError = !this.entityMatchError();
+    if ((entity0 === entity1) === matchError) {
+        this.entityMatchError(matchError);
+        this.hasErrors(
+            (this.errorCount += (matchError ? 1 : -1)) > 0);
+    }      
         
     if (entity0.type == "recording" && entity1.type == "work" && newEntity === entity1) {
         oldEntity.performanceCount -= 1;
