@@ -57,7 +57,7 @@ var Relationship = function(obj) {
     this.type = entity0.type + "-" + entity1.type;
     
     this.errorCount = (entity0 === entity1) ? 1 : 0;
-    this.hasErrors = ko.observable(errorCount | false);
+    this.hasErrors = ko.observable(this.errorCount | false);
 
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
