@@ -90,7 +90,9 @@ sub add_note
         map { $_->id } grep { $_->preferences->email_on_notes }
         map { $editors->{$_->editor_id} }
             @{ $edit->edit_notes },
-            (grep { $_->vote != $VOTE_ABSTAIN } @{ $edit->votes }),
+            (grep { my $editor = $_->editor_id;
+                    !(grep { $editor == $_ } (53705, 326637, 295208)) || $_->vote != $VOTE_ABSTAIN
+                  } @{ $edit->votes }),
             $edit;
 
     my $from = $editors->{ $note_hash->{editor_id} };
