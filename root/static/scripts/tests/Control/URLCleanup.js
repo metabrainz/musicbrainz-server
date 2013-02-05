@@ -63,6 +63,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://thesession.org/tunes/2305',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -71,7 +72,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.imdb.com/title/tt0421082/',
                     MB.constants.LINK_TYPES.imdb.release_group
                 ],
-
+                [
+                    'label', 'http://www.imdb.com/company/co0109498/',
+                    MB.constants.LINK_TYPES.imdb.label
+                ],
+                // MySpace
                 [
                     'artist', 'http://www.myspace.com/instramentaluk',
                     MB.constants.LINK_TYPES.myspace.artist
@@ -129,6 +134,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
                 [
+                    'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
@@ -179,8 +188,33 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     MB.constants.LINK_TYPES.allmusic.recording
+                ],
+                // Open Library
+                [
+                    'artist', 'http://openlibrary.org/authors/OL23919A/',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release', 'http://openlibrary.org/books/OL8993487M/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
+                    'work', 'http://openlibrary.org/works/OL82592W/',
+                    MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // Second Hand Songs
+                [
+                    'artist', 'http://www.secondhandsongs.com/artist/103',
+                    MB.constants.LINK_TYPES.secondhandsongs.artist
+                ],
+                [
+                    'release', 'http://www.secondhandsongs.com/release/888',
+                    MB.constants.LINK_TYPES.secondhandsongs.release
+                ],
+                [
+                    'work', 'http://www.secondhandsongs.com/work/1409',
+                    MB.constants.LINK_TYPES.secondhandsongs.work
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
@@ -302,6 +336,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.facebook.com/sininemusic',
+                    'https://www.facebook.com/sininemusic',
+                    'artist'
+                ],
+                [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
@@ -392,6 +431,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://itunes.apple.com/us/album/id566322358',
                     'release'
                 ],
+                [
+                    'https://pt.wikisource.org/wiki/A_Portuguesa',
+                    'http://pt.wikisource.org/wiki/A_Portuguesa',
+                    'work'
+                ],
 
                 // MBS-4810: exactly one terminating slash at the end
                 [
@@ -455,7 +499,13 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
+                ],
+                // Open Library
+                [
+                    'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
+                    'http://openlibrary.org/books/OL8993487M/',
                 ]
+
             ];
 
         $.each(tests, function(i, test) {

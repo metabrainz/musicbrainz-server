@@ -14,6 +14,7 @@ sub serialize
     my $body;
 
     $body->{type} = $entity->link->type->name;
+    $body->{"type-id"} = $entity->link->type->gid;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
     $body = merge ($body, date_period ($entity->link));

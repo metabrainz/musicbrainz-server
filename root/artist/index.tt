@@ -84,7 +84,7 @@
                       [% rdfa_made_rg_link(rg) %]
                       [% disambiguation(rg) %]
                       [% FOR t=rg.secondary_types %]
-                        <span class="release-group-type">[% t.name %]</span>
+                        <span class="release-group-type">[% t.l_name %]</span>
                       [% END %]
                     </td>
                     [% IF show_artists %]

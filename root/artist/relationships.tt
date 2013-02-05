@@ -15,7 +15,7 @@
                 <th>[% l('Attributes') %]</th>
                 <th>[% l('Artist') %]</th>
                 [% IF c.user_exists %]
-                <th style="width: 10em">[% l('Edit') %]</th>
+                <th class="actions-header">[% l('Edit') %]</th>
                 [% END %]
             </tr>
         </thead>
@@ -24,7 +24,7 @@
 
                 <tr class="subh">
                     <th></th>
-                    <th colspan="3">[% l(relationship.key) %]</th>
+                    <th colspan="[% c.user_exists ? 4 : 3 %]">[% l(relationship.key) %]</th>
                 </tr>
 
                 [% FOR rel IN relationship.value %]

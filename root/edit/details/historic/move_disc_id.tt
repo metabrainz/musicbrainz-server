@@ -7,22 +7,31 @@
   <tr>
     <th>[% l('From:') %]</th>
     <td>
-      <ul>
-        [% FOR release=edit.display_data.old_releases %]
-          <li>[% descriptive_link(release) %]</li>
-        [% END %]
-      </ul>
+      [% IF edit.display_data.old_releases.size %]
+        <ul>
+          [% FOR release=edit.display_data.old_releases %]
+            <li>[% release %]</li>
+            <li>[% descriptive_link(release) %]</li>
+          [% END %]
+        </ul>
+      [% ELSE %]
+        [% link_deleted(undef, undef) %]
+      [% END %]
     </td>
   </tr>
 
   <tr>
     <th>[% l('To:') %]</th>
     <td>
-      <ul>
-        [% FOR release=edit.display_data.new_releases %]
-          <li>[% descriptive_link(release) %]</li>
-        [% END %]
-      </ul>
+      [% IF edit.display_data.new_releases.size %]
+        <ul>
+          [% FOR release=edit.display_data.new_releases %]
+            <li>[% descriptive_link(release) %]</li>
+          [% END %]
+        </ul>
+      [% ELSE %]
+        [% link_deleted(undef, undef) %]
+      [% END %]
     </td>
   </tr>
 </table>

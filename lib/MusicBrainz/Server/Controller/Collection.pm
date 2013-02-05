@@ -89,7 +89,11 @@ sub show : Chained('load') PathPart('')
     $c->model('Country')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
-
+    $c->model('ReleaseGroup')->load(@$releases);
+    $c->model('ReleaseGroup')->load_meta(map { $_->release_group } @$releases);
+    if ($c->user_exists) {
+        $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, map { $_->release_group } @$releases);
+    }
     $c->stash(
         collection => $collection,
         order => $order,

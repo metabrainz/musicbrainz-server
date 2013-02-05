@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-01-15 15:16-0700\n"
-"PO-Revision-Date: 2013-01-15 22:31+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-25 14:08+0000\n"
+"Last-Translator: Shepard <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -379,7 +379,7 @@ msgstr "Zwischen {entity} und {url} besteht bereits eine Beziehung."
 msgid ""
 "A tracklist on this release has been recently changed by someone else, "
 "cannot load recordings."
-msgstr ""
+msgstr "Eine Titelliste auf dieser Veröffentlichung wurde vor Kurzem von jemand Anderem geändert, kann Aufnahmen nicht laden."
 
 #: ../root/layout/menu.tt:104
 msgid "About"
@@ -1949,7 +1949,7 @@ msgstr "Sammlungen"
 
 #: ../root/cdstub/index.tt:3
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:11
 #: ../root/edit/details/edit_cover_art.tt:17
@@ -2007,7 +2007,7 @@ msgstr "Kontakt"
 
 #: ../root/components/wikipedia_extract.tt:4
 msgid "Continue reading at Wikipedia..."
-msgstr ""
+msgstr "Auf Wikipedia weiterlesen ..."
 
 #: ../root/components/forms.tt:225
 msgid "Copy"
@@ -2289,21 +2289,21 @@ msgstr "Unterscheidung:"
 msgid ""
 "Disc <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr ""
+msgstr "Medium <span class=\"new\">{new}</span> (verschoben von Position <span class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/reorder_mediums.tt:29
 msgid "Disc <span class=\"new\">{new}</span> (new disc)"
-msgstr ""
+msgstr "Medium <span class=\"new\">{new}</span> (neues Medium)"
 
 #: ../root/edit/details/reorder_mediums.tt:26
 msgid ""
 "Disc <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
-msgstr ""
+msgstr "Medium <span class=\"new\">{new}</span>: {title} (verschoben von Position <span class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/reorder_mediums.tt:23
 msgid "Disc <span class=\"new\">{new}</span>: {title} (new disc)"
-msgstr ""
+msgstr "Medium <span class=\"new\">{new}</span>: {title} (neues Medium)"
 
 #: ../root/release/discids.tt:8
 msgid "Disc ID"
@@ -3091,8 +3091,8 @@ msgstr "Hast Du ein Problem auf unserer Seite gefunden? Bitte {report|melde eine
 #: ../root/edit/list.tt:52
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mindestens eine Bearbeitung gefunden"
+msgstr[1] "Mindestens {n} Bearbeitungen gefunden"
 
 #: ../root/release/sidebar.tt:136
 msgid "Found in {num} user collection"
@@ -3370,13 +3370,13 @@ msgstr "ISWCs:"
 msgid ""
 "If none of these artists match the artist you intended, you can still create"
 " a new artist:"
-msgstr ""
+msgstr "Wenn keiner dieser Künstler dem von Dir gewünschten Künstler entsprechen, kannst Du stattdessen auch einen neuen Künstler erstellen:"
 
 #: ../root/release/edit/missing_entities.tt:146
 msgid ""
 "If none of these labels match the label you intended, you can still create a"
 " new label:"
-msgstr ""
+msgstr "Wenn keines dieser Labels dem von Dir gewünschten Label entsprechen, kannst Du stattdessen auch ein neues Label erstellen:"
 
 #: ../root/artist/edit_form.tt:5
 msgid ""
@@ -4873,7 +4873,7 @@ msgstr "Bitte gebe Deine Tags in das Textfeld unten ein. Tags sind komma-separie
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr ""
+msgstr "Bitte gib den Strichcode der Veröffentlichung an, die Du eingibst. Siehe auch <a href=\"{url}\" target=\"_blank\">Strichcode</a> zu weiteren Informationen."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -8311,7 +8311,7 @@ msgstr "Version:"
 
 #: ../root/user/ratings_summary.tt:25
 msgid "View all ratings"
-msgstr ""
+msgstr "Alle Bewertungen ansehen"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:32
 msgid "View all relationships"
@@ -8457,13 +8457,13 @@ msgstr "Für dieses Cover-Art können wir leider keine Historie anzeigen. Eine a
 msgid ""
 "We couldn't find a label with the name you entered. Please fill in the "
 "fields below to create a new label:"
-msgstr ""
+msgstr "Wir konnten kein Label mit dem dem von Dir eingegebenen Namen finden. Fülle bitte die folgenden Felder aus, um ein neues Label zu erstellen:"
 
 #: ../root/release/edit/missing_entities.tt:86
 msgid ""
 "We couldn't find an artist with the name you entered. Please fill in the "
 "fields below to create a new artist:"
-msgstr ""
+msgstr "Wir konnten keinen Künstler mit dem von Dir eingegebenen Namen finden. Fülle bitte die folgenden Felder aus, um einen neuen Künstler zu erstellen:"
 
 #: ../root/release/cover_art.tt:42
 msgid "We do not currently have any cover art for {release}."
@@ -8490,8 +8490,8 @@ msgid ""
 msgid_plural ""
 "We found the following artists named \"{artist}\" in MusicBrainz. If one of "
 "them was the artist you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wir haben den folgenden Künstler namens „{artist}“ in MusicBrainz gefunden. Falls dies der Künstler ist, den Du benutzen wolltest, wähle ihn bitte aus:"
+msgstr[1] "Wir haben die folgenden Künstler namens „{artist}“ in MusicBrainz gefunden. Falls irgendeiner davon der Künstler ist, den Du benutzen wolltest, wähle ihn bitte aus:"
 
 #: ../root/release/edit/missing_entities.tt:107
 msgid ""
@@ -8500,8 +8500,8 @@ msgid ""
 msgid_plural ""
 "We found the following labels named \"{label}\" in MusicBrainz. If one of "
 "them was the label you intended to use, please select them:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Wir haben das folgende Label namens „{label}“ in MusicBrainz gefunden. Falls dies das Label ist, das Du benutzen wolltest, wähle es bitte aus:"
+msgstr[1] "Wir haben die folgenden Labels namens „{label}“ in MusicBrainz gefunden. Falls irgendeins davon das Label ist, das Du benutzen wolltest, wähle es bitte aus:"
 
 #: ../root/search/editor.tt:5
 msgid ""
@@ -8948,7 +8948,7 @@ msgstr "Zum Abstimmen auf Bearbeitungen musst Du eingeloggt sein."
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr ""
+msgstr "Bevor Du bearbeiten oder irgendwas zur Datenbank hinzufügen kannst, musst Du zuerst {url|Deine E-Mail-Adresse hinzufügen und bestätigen}."
 
 #: ../root/account/register.tt:33
 msgid ""

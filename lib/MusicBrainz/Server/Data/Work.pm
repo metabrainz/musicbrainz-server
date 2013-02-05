@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -388,7 +389,8 @@ sub _find_recording_artists
 sub is_empty {
     my ($self, $work_id) = @_;
 
-    return $self->sql->select_single_value(<<'EOSQL', $work_id, $STATUS_OPEN);
+    my $used_in_relationship = used_in_relationship($self->c, work => 'work_row.id');
+    return $self->sql->select_single_value(<<EOSQL, $work_id, $STATUS_OPEN);
         SELECT TRUE
         FROM work work_row
         WHERE id = ?
@@ -399,41 +401,7 @@ sub is_empty {
             FROM edit_work JOIN edit ON edit_work.edit = edit.id
             WHERE status = ? AND work = work_row.id
           ) OR
-          EXISTS (
-            SELECT TRUE FROM l_artist_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_label_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_recording_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_release_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_release_group_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_url_work
-            WHERE entity1 = work_row.id
-            LIMIT 1
-          ) OR
-          EXISTS (
-            SELECT TRUE FROM l_work_work
-            WHERE entity0 = work_row.id OR entity1 = work_row.id
-            LIMIT 1
-          )
+          $used_in_relationship
         )
 EOSQL
 }

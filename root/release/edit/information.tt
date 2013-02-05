@@ -40,8 +40,8 @@
 
       [%# FIXME: should only be editable on Add Release. %]
       [% IF !release_group %]
-        [% form_row_select (r, 'primary_type_id', l('Type:')) %]
-        [% form_row_select (r, 'secondary_type_ids', l('Extra Types:')) %]
+        [% form_row_select (r, 'primary_type_id', l('Primary Type:')) %]
+        [% form_row_select (r, 'secondary_type_ids', l('Secondary Types:')) %]
       [% ELSE %]
         <div class="row">
           <div class="label">[% l('Type:') %]</div>
