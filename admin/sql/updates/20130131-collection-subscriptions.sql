@@ -15,7 +15,7 @@ ALTER TABLE editor_subscribe_collection
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
-CREATE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
+CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
 CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 
 COMMIT;
