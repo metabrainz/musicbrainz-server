@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::URL::VIAF;
 
 use Moose;
+use MusicBrainz::Server::Filters;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
@@ -12,7 +13,6 @@ sub pretty_name
 
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/viaf/}{};
-    $name =~ s{$}{ }g;
 
     $name = "VIAF: $name";
 
