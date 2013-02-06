@@ -4,6 +4,7 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use DBDefs;
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
 use MusicBrainz::Server::Entity::Barcode;
@@ -988,7 +989,7 @@ sub newest_releases_with_artwork {
             my $row = shift;
             my $release = $self->_new_from_row($row);
             my $mbid = $release->gid;
-            my $prefix = DBDefs::COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
+            my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
             my $caa_id = $row->{cover_art_id};
             return {
                 release => $self->_new_from_row($row),
