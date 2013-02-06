@@ -80,7 +80,6 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
     [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
