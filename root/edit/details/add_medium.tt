@@ -1,3 +1,4 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
  <table class="details add-medium">
    [% UNLESS edit.preview %]
    <tr>
