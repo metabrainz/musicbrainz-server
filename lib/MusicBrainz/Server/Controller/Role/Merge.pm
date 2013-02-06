@@ -7,11 +7,6 @@ use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::MergeQueue;
 use MusicBrainz::Server::Translation qw ( l ln );
 
-parameter 'edit_type' => (
-    isa => 'Int',
-    required => 1
-);
-
 parameter 'merge_form' => (
     isa => 'Str',
     default => 'Merge'

@@ -3,14 +3,11 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw(
-    $EDIT_WORK_MERGE
-);
 use MusicBrainz::Server::Entity::ISWC;
-use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Entity::Tree::Work;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::NES::Controller::Utils qw( create_edit create_update );
+use MusicBrainz::Server::Translation qw( l );
 
 __PACKAGE__->config(
     tree_entity => 'MusicBrainz::Server::Entity::Tree::Work',
@@ -94,7 +91,6 @@ sub work_tree {
 }
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
-    edit_type => $EDIT_WORK_MERGE,
     confirmation_template => 'work/merge_confirm.tt',
     search_template       => 'work/merge_search.tt',
 };
