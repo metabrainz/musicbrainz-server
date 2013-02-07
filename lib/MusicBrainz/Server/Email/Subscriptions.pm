@@ -145,20 +145,20 @@ sub deleted_subscriptions {
 Deleted and merged artists or labels
 --------------------------------------------------------------------------------
 
-Some of your subscribed artists or labels have been merged or deleted:
+Some of your subscribed artists, labels or collections have been merged,
+deleted or made private:
 
 [% FOR sub IN self.deletes;
 edit = sub.deleted_by_edit || sub.merged_by_edit;
-[% IF sub.collection_id && sub.editor != sub.collection.editor_id %]
-Collection “[% sub.last_seen_name %]” - deleted or made private
-[% ELSE %]
-type = sub.artist_id ? 'artist' : 'label';
+type = sub.artist_id ? 'artist' : sub.label_id ? 'label' : 'collection';
 entity_id = sub.artist_id || sub.label_id -%]
+[%- IF type == 'collection' -%]
+[%- type | ucfirst %] "[% sub.last_seen_name %]" - deleted or made private
+[% ELSE -%]
 [%- type | ucfirst %] #[% entity_id %] - [% sub.deleted_by_edit ? 'deleted' : 'merged' %] by edit #[% edit %]
 [% self.server %]/edit/[% edit %]
-[% END %]
-
-[% END %]
+[% END -%]
+[%- END %]
 }
 }
 
