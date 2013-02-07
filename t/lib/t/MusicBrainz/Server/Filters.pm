@@ -19,6 +19,14 @@ test 'Edit note syntax' => sub {
     is(format_editnote("https://musicbrainz.org"),
        '<a href="https://musicbrainz.org">https://musicbrainz.org</a>', 'https links are created');
 
+    is(format_editnote("I <3 https://musicbrainz.org"),
+       'I &lt;3 <a href="https://musicbrainz.org">https://musicbrainz.org</a>',
+       'Links are created, whitespace is preserved, angular brackets are escaped');
+
+    is(format_editnote("I <3 //musicbrainz.org"),
+       'I &lt;3 <a href="//musicbrainz.org">//musicbrainz.org</a>',
+       'Schema independent links are created, whitespace is preserved, angular brackets are escaped');
+
     is(format_editnote("//musicbrainz.org"),
        '<a href="//musicbrainz.org">//musicbrainz.org</a>');
 
