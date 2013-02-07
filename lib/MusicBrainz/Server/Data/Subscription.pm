@@ -42,6 +42,8 @@ sub _column_mapping {
         'deleted_by_edit' => 'deleted_by_edit',
         'merged_by_edit' => 'merged_by_edit',
         'editor_id' => 'editor',
+        'unavailable' => 'unavailable',
+        'last_seen_name' => 'last_seen_name',
     };
 }
 

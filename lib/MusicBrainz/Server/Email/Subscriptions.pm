@@ -149,10 +149,14 @@ Some of your subscribed artists or labels have been merged or deleted:
 
 [% FOR sub IN self.deletes;
 edit = sub.deleted_by_edit || sub.merged_by_edit;
+[% IF sub.collection_id && sub.editor != sub.collection.editor_id %]
+Collection “[% sub.last_seen_name %]” - deleted or made private
+[% ELSE %]
 type = sub.artist_id ? 'artist' : 'label';
 entity_id = sub.artist_id || sub.label_id -%]
 [%- type | ucfirst %] #[% entity_id %] - [% sub.deleted_by_edit ? 'deleted' : 'merged' %] by edit #[% edit %]
 [% self.server %]/edit/[% edit %]
+[% END %]
 
 [% END %]
 }

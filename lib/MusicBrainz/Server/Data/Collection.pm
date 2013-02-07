@@ -238,17 +238,19 @@ sub load_release_count {
 
 sub update
 {
-    my ($self, $collection_id, $update) = @_;
+    my ($self, $collection_id, $collection_name, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
     $self->sql->begin;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 
-    $self->sql->do('DELETE FROM editor_subscribe_collection s
-                    USING editor_collection ec
-                    WHERE s.collection = ec.id AND collection = ?
-                    AND s.editor != ec.editor',
-                    $collection_id)
+    # Notify other users and eventually delete their subscription if it has been made private
+    $self->sql->do('UPDATE editor_subscribe_collection sub
+                    FROM editor_collection coll 
+                    SET unavailable = TRUE, last_seen_name = ?
+                    WHERE sub.collection = ? AND sub.collection = coll.id
+                    AND sub.editor != coll.editor',
+                    $collection_name, $collection_id)
         if !$row->{public};
 
     $self->sql->commit;
@@ -264,10 +266,13 @@ sub delete
     $self->sql->do('DELETE FROM editor_collection_release
                     WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
 
-    # Remove subscription to collection(s)
+    # Update subscription table to allow notification of subscribed users and eventual deletion of subscription
     $self->sql->auto_commit;
-    $self->sql->do('DELETE FROM editor_subscribe_collection
-                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+    $self->sql->do('UPDATE editor_subscribe_collection sub
+                    FROM editor_collection coll
+                    SET unavailable = TRUE, last_seen_name = coll.name
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')
+                    AND sub.collection = coll.id', @collection_ids);
 
     # Remove collection(s)
     $self->sql->auto_commit;

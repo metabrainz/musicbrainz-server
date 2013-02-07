@@ -33,6 +33,12 @@ sub update_subscriptions
         editor_subscribe_label
     );
 
+    # Remove subscriptions to deleted or private collections
+    $self->sql->do(
+        "DELETE FROM editor_subscribe_collection
+          WHERE editor = ? AND unavailable = TRUE",
+        $editor_id);
+
     $self->sql->do(
         "UPDATE $_ SET last_edit_sent = ? WHERE editor = ?",
         $max_id, $editor_id

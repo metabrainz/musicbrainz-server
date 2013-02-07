@@ -14,6 +14,16 @@ has 'collection' => (
     is => 'rw',
 );
 
+has 'unavailable' => (
+    isa => 'Bool',
+    is => 'ro'
+);
+
+has 'last_seen_name' => (
+    isa => 'Str',
+    is => 'ro'
+);
+
 sub target_id { shift->collection_id }
 sub type { 'collection' }
 

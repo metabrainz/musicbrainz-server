@@ -341,9 +341,11 @@ CREATE TABLE editor_subscribe_artist
 CREATE TABLE editor_subscribe_collection
 (
     id                  SERIAL,
-    editor              INTEGER NOT NULL, -- references editor.id
-    collection          INTEGER NOT NULL, -- weakly references collection
-    last_edit_sent      INTEGER NOT NULL, -- weakly references edit
+    editor              INTEGER NOT NULL,              -- references editor.id
+    collection          INTEGER NOT NULL,              -- weakly references collection
+    last_edit_sent      INTEGER NOT NULL,              -- weakly references edit
+    unavailable         BOOLEAN NOT NULL DEFAULT FALSE,
+    last_seen_name      VARCHAR(255)
 );
 
 CREATE TABLE editor_subscribe_label
