@@ -11,6 +11,7 @@
         [% END %]
         <strong>[% l('Forward link phrase:') %]</strong> [% obj.l_link_phrase || l("(none)") | html %]<br />
         <strong>[% l('Reverse link phrase:') %]</strong> [% obj.l_reverse_link_phrase || l("(none)") | html %]<br />
+        <strong>[% l('Long link phrase:') %]</strong> [% obj.l_short_link_phrase || l("(none)") | html %]<br />
         <strong>[% l('Description:') %]</strong> [% obj.l_description || l("(none)") %]<br />
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]
@@ -23,7 +24,7 @@
 
         [% IF obj.children %]
             <ul>
-                [% FOR child IN obj.children %]
+                [% FOR child IN obj.children.sort('child_order', 'name') %]
                 [% PROCESS link_type obj=child %]
                 [% END %]
             </ul>
@@ -50,7 +51,7 @@
         </p>
 
         <ul>
-            [% FOR child IN root.children %]
+            [% FOR child IN root.children.sort('child_order', 'name') %]
                 [% PROCESS link_type obj=child %]
             [% END %]
         </ul>
