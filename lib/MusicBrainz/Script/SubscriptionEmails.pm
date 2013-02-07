@@ -171,7 +171,7 @@ sub deleted
     my $sub = shift;
     return (does_role($sub, DeleteRole) && $sub->deleted_by_edit) ||
            (does_role($sub, MergeRole) && $sub->merged_by_edit) ||
-           ($sub->isa(CollectionSubscription) && $sub->unavailable);
+           ($sub->isa(CollectionSubscription) && !$sub->available);
 }
 
 sub _edits_for_subscription {

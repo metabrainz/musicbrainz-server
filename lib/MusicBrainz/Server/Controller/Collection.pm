@@ -111,21 +111,21 @@ sub edits : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
 
-    $self->_list($c);
+    $self->_list_edits($c);
 }
 
 sub open_edits : Chained('load') PathPart RequireAuth
 {
     my ($self, $c) = @_;
 
-    $self->_list($c, $STATUS_OPEN);
+    $self->_list_edits($c, $STATUS_OPEN);
 
     $c->stash(
         template => model_to_type( $self->{model} ) . '/edits.tt'
     );
 }
 
-sub _list {
+sub _list_edits {
     my ($self, $c, $status) = @_;
 
     my $edits  = $self->_load_paged($c, sub {

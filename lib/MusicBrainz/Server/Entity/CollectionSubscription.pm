@@ -14,7 +14,7 @@ has 'collection' => (
     is => 'rw',
 );
 
-has 'unavailable' => (
+has 'available' => (
     isa => 'Bool',
     is => 'ro'
 );

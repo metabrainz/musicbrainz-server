@@ -344,7 +344,7 @@ CREATE TABLE editor_subscribe_collection
     editor              INTEGER NOT NULL,              -- references editor.id
     collection          INTEGER NOT NULL,              -- weakly references collection
     last_edit_sent      INTEGER NOT NULL,              -- weakly references edit
-    unavailable         BOOLEAN NOT NULL DEFAULT FALSE,
+    available           BOOLEAN NOT NULL DEFAULT TRUE,
     last_seen_name      VARCHAR(255)
 );
 
