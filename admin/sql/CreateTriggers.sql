@@ -16,6 +16,12 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER del_collection_sub_on_delete BEFORE DELETE ON editor_collection
+    FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_delete();
+
+CREATE TRIGGER del_collection_sub_on_private BEFORE UPDATE ON editor_collection
+    FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_private();
+
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE unique_primary_artist_alias();
 

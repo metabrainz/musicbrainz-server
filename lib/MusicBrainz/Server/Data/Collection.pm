@@ -238,22 +238,12 @@ sub load_release_count {
 
 sub update
 {
-    my ($self, $collection_id, $collection_name, $update) = @_;
+    my ($self, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
-    $self->sql->begin;
+
+    $self->sql->auto_commit;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
-
-    # Notify other users and eventually delete their subscription if it has been made private
-    $self->sql->do('UPDATE editor_subscribe_collection sub
-                    SET available = FALSE, last_seen_name = ?
-                    FROM editor_collection coll
-                    WHERE sub.collection = ? AND sub.collection = coll.id
-                    AND sub.editor != coll.editor',
-                    $collection_name, $collection_id)
-        if !$row->{public};
-
-    $self->sql->commit;
 }
 
 sub delete
@@ -261,23 +251,17 @@ sub delete
     my ($self, @collection_ids) = @_;
     return unless @collection_ids;
 
+    $self->sql->begin;
+
     # Remove all releases associated with the collection(s)
-    $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection_release
                     WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
 
-    # Update subscription table to allow notification of subscribed users and eventual deletion of subscription
-    $self->sql->auto_commit;
-    $self->sql->do('UPDATE editor_subscribe_collection sub
-                    SET available = FALSE, last_seen_name = coll.name
-                    FROM editor_collection coll
-                    WHERE collection IN (' . placeholders(@collection_ids) . ')
-                    AND sub.collection = coll.id', @collection_ids);
-
     # Remove collection(s)
-    $self->sql->auto_commit;
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
+    $self->sql->commit;
 
     return;
 }
