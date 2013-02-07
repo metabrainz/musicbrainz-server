@@ -246,8 +246,8 @@ sub update
 
     # Notify other users and eventually delete their subscription if it has been made private
     $self->sql->do('UPDATE editor_subscribe_collection sub
-                    FROM editor_collection coll 
                     SET unavailable = TRUE, last_seen_name = ?
+                    FROM editor_collection coll
                     WHERE sub.collection = ? AND sub.collection = coll.id
                     AND sub.editor != coll.editor',
                     $collection_name, $collection_id)
@@ -269,8 +269,8 @@ sub delete
     # Update subscription table to allow notification of subscribed users and eventual deletion of subscription
     $self->sql->auto_commit;
     $self->sql->do('UPDATE editor_subscribe_collection sub
-                    FROM editor_collection coll
                     SET unavailable = TRUE, last_seen_name = coll.name
+                    FROM editor_collection coll
                     WHERE collection IN (' . placeholders(@collection_ids) . ')
                     AND sub.collection = coll.id', @collection_ids);
 
