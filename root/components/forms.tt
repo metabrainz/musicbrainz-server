@@ -125,7 +125,11 @@
           </div>
       </div>
       <script>
-         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
+         [%- IF r.form.field(field_name).value.size -%]
+           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
+         [%- ELSE -%]
+           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").add('');
+         [%- END -%]
       </script>
 
       [% field_errors(r.form, field_name) %]
