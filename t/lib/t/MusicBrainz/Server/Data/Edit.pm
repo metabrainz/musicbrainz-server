@@ -74,8 +74,7 @@ test 'Test locks on edits' => sub {
     $sql2->begin;
     $sql2->select_single_row_array('SELECT * FROM edit WHERE id = 12345 FOR UPDATE');
 
-    my $edit = $edit_data->get_by_id(12345);
-    like exception { $edit_data->approve($edit, 1) }, qr/could not obtain lock/;
+    like exception { $edit_data->get_by_id_and_lock(12345) }, qr/could not obtain lock/;
 
     # Release the lock
     $sql2->rollback;
@@ -172,7 +171,7 @@ $editor = $test->c->model('Editor')->get_by_id($edit->editor_id);
 is($editor->rejected_edits, 3, "Edit rejected");
 
 # Test approving edits, successfully this time
-$edit = $edit_data->get_by_id(5);
+$edit = $edit_data->get_by_id_and_lock(5);
 $edit_data->approve($edit, 1);
 
 $edit = $edit_data->get_by_id(5);
