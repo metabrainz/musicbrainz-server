@@ -1,0 +1,36 @@
+[% WRAPPER 'collection/layout.tt' title=l('Subscribers') %]
+    <h2>[% l('Subscribers') %]</h2>
+    [% IF public_editors.size || private_editors > 0 %]
+        <p>[% ln('There is currently {num} user subscribed to {collection}:',
+                 'There are currently {num} users subscribed to {collection}:',
+                 public_editors.size + private_editors,
+                 { collection => html_escape(collection.name), num => public_editors.size + private_editors }) %]</p>
+        <ul>
+            [% FOR editor=public_editors %]
+                <li>[% link_editor(editor) %]</li>
+            [% END %]
+
+            [% IF public_editors.size && private_editors %]
+                <li>[% ln('plus {n} other anonymous user', 'Plus {n} other anonymous users',
+                           private_editors, { n => private_editors }) %]</li>
+            [% ELSIF private_editors %]
+                <li>[% ln('An anonymous user', '{n} anonymous users',
+                           private_editors, { n => private_editors }) %]</li>
+            [% END %]
+        </ul>
+    [% ELSE %]
+        <p>[% l('There are currently no users subscribed to {collection}.',
+                { collection => html_escape(collection.name) }) %]</p>
+    [% END %]
+
+    [% IF subscribed %]
+        <p>[% l('You are currently subscribed. {unsub|Unsubscribe}?',
+               { unsub => c.uri_for_action('/account/subscriptions/collection/remove', { id => collection.id }) }) %]</p>
+    [% ELSIF public_editors.size + private_editors == 0 %]
+        <p>[% l("Be the first! {sub|Subscribe}?",
+               { sub => c.uri_for_action('/account/subscriptions/collection/add', { id => collection.id }) }) %]</p>
+    [% ELSE %]
+        <p>[% l('You are not currently subscribed. {sub|Subscribe}?',
+               { sub => c.uri_for_action('/account/subscriptions/collection/add', { id => collection.id }) }) %]</p>
+    [% END %]
+[% END %]

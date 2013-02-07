@@ -211,6 +211,7 @@ END -%]
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);

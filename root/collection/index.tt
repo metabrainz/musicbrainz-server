@@ -1,4 +1,4 @@
-[% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
+[% WRAPPER "collection/layout.tt" page='index' %]
 
     [%- IF releases.size -%]
       <form action="[% c.req.uri %]" method="post">

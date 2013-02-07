@@ -16,6 +16,7 @@ use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG 
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
+use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -142,6 +143,27 @@ sub find
         }, $query, @args, $offset);
 }
 
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset, $status) = @_;
+
+    my $status_cond = '';
+
+    $status_cond = ' AND status = ' . $status if defined($status);
+
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
+                ' WHERE id IN (SELECT edit FROM edit_release
+                               WHERE release IN (SELECT release FROM
+                                   editor_collection_release WHERE
+                                   collection = ?) GROUP BY edit)'
+                          . $status_cond . ' ORDER BY id DESC
+                          OFFSET ? LIMIT 500';
+
+    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query, $collection_id, $offset);
+}
+
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
@@ -154,6 +176,23 @@ sub find_for_subscription
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id,
+            $STATUS_OPEN, $STATUS_APPLIED
+        );
+    }
+    elsif($subscription->isa(CollectionSubscription)) {
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' WHERE id IN (
+                          SELECT edit FROM edit_release 
+                          RIGHT JOIN editor_collection_release cr
+                          ON edit_release.release = cr.release
+                          WHERE cr.collection = ?
+                      )
+                      AND id > ? AND status IN (?, ?)';
+
+        return query_to_list(
+            $self->c->sql,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->target_id, $subscription->last_edit_sent,
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -227,6 +266,12 @@ SELECT * FROM edit, (
     SELECT edit FROM edit_label el
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
+    UNION
+    SELECT edit FROM edit_release er
+    RIGHT JOIN editor_collection_release ec ON er.release = ec.release
+    JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
+    JOIN edit ON er.edit = edit.id
+    WHERE edit.status = ? AND esc.editor = ?
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -244,7 +289,7 @@ OFFSET ?";
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub subscribed_editor_edits {

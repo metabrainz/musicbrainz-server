@@ -433,6 +433,7 @@ sub editors_with_subscriptions
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
     );

@@ -37,6 +37,8 @@ CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (edit
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
+CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
+CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
