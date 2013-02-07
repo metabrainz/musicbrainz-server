@@ -177,6 +177,8 @@ sub find_for_subscription
         );
     }
     elsif($subscription->isa(CollectionSubscription)) {
+        return () if (!$subscription->available);
+
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
                     ' JOIN edit_release er ON edit.id = er.edit
                       JOIN editor_collection_release ecr ON er.release = ecr.release
