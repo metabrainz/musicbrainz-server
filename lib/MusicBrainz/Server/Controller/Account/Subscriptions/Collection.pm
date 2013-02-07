@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Controller::Account::SubscriptionsRole';
 
 __PACKAGE__->config( model => 'Collection' );
 
-sub add : Local RequireAuth HiddenOnSlaves
+before add => sub
 {
     my ($self, $c) = @_;
 
@@ -15,9 +15,7 @@ sub add : Local RequireAuth HiddenOnSlaves
     my $entity = $c->model($self->{model})->get_by_id($entity_id);
 
     $c->detach('/error_403') if !$entity->public && $c->user->id != $entity->editor_id;
-
-    $self->_subscribe_and_redirect($c);
-}
+};
 
 __PACKAGE__->meta->make_immutable;
 

@@ -5,7 +5,12 @@ sub add : Local RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
-    $self->_subscribe_and_redirect($c);
+    my $entity_id = $c->request->params->{id};
+    $c->model($self->{model})->subscription->subscribe($c->user->id, $entity_id);
+
+    my $url = $c->request->referer || $c->uri_for("/");
+    $c->response->redirect($url);
+    $c->detach;
 }
 
 sub remove : Local RequireAuth HiddenOnSlaves
@@ -15,18 +20,6 @@ sub remove : Local RequireAuth HiddenOnSlaves
     my $entity_id = $c->request->params->{id};
     my @entities = ref($entity_id) ? @$entity_id : ($entity_id);
     $c->model($self->{model})->subscription->unsubscribe($c->user->id, @entities);
-
-    my $url = $c->request->referer || $c->uri_for("/");
-    $c->response->redirect($url);
-    $c->detach;
-}
-
-sub _subscribe_and_redirect
-{
-    my ($self, $c) = @_;
-
-    my $entity_id = $c->request->params->{id};
-    $c->model($self->{model})->subscription->subscribe($c->user->id, $entity_id);
 
     my $url = $c->request->referer || $c->uri_for("/");
     $c->response->redirect($url);
