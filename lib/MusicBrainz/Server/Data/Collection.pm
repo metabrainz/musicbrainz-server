@@ -59,7 +59,7 @@ sub find_by_subscribed_editor
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
-                 WHERE s.editor = ?
+                 WHERE s.editor = ? AND s.available = TRUE
                  ORDER BY musicbrainz_collate(name), editor_collection.id
                  OFFSET ?";
     return query_to_list_limited(

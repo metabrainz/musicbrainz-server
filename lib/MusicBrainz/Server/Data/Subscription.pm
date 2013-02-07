@@ -107,11 +107,17 @@ sub find_subscribed_editors
     require MusicBrainz::Server::Data::Editor;
     my $table = $self->table;
     my $column = $self->column;
+
+    my $extra_cond = "";
+
+    $extra_cond = " AND s.available = TRUE"
+        if ($column == "collection");
+
     my $query = "
         SELECT " . MusicBrainz::Server::Data::Editor->_columns . "
         FROM " . MusicBrainz::Server::Data::Editor->_table . "
             JOIN $table s ON editor.id = s.editor
-        WHERE s.$column = ?
+        WHERE s.$column = ?" . $extra_cond . "
         ORDER BY editor.name, editor.id";
 
     return query_to_list(
