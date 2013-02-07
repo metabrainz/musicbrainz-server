@@ -151,12 +151,10 @@ sub find_by_collection
     $status_cond = ' AND status = ' . $status if defined($status);
 
     my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' WHERE id IN (SELECT edit FROM edit_release
-                               WHERE release IN (SELECT release FROM
-                                   editor_collection_release WHERE
-                                   collection = ?) GROUP BY edit)'
-                          . $status_cond . ' ORDER BY id DESC
-                          OFFSET ? LIMIT 500';
+                ' JOIN edit_release er ON edit.id = edit_release.edit
+                  JOIN editor_collection_release ecr ON er.release = ecr.release
+                  WHERE collection = ? ' . $status_cond . '
+                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
 
     return query_to_list_limited($self->c->sql, $offset, $limit, sub {
             return $self->_new_from_row(shift);
@@ -180,13 +178,9 @@ sub find_for_subscription
     }
     elsif($subscription->isa(CollectionSubscription)) {
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
-                    ' WHERE id IN (
-                          SELECT edit FROM edit_release 
-                          RIGHT JOIN editor_collection_release cr
-                          ON edit_release.release = cr.release
-                          WHERE cr.collection = ?
-                      )
-                      AND id > ? AND status IN (?, ?)';
+                    ' JOIN edit_release er ON edit.id = er.edit
+                      JOIN editor_collection_release ecr ON er.release = ecr.release
+                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
 
         return query_to_list(
             $self->c->sql,
