@@ -21,6 +21,24 @@ CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_col
 CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 
 -- Create functions for UPDATE/DELETE triggers
+CREATE OR REPLACE FUNCTION replace_old_sub_on_add()
+RETURNS trigger AS $$
+  BEGIN
+    IF EXISTS (SELECT id FROM editor_subscribe_collection
+                WHERE editor = NEW.editor
+                AND collection = NEW.collection) THEN
+      UPDATE editor_subscribe_collection
+       SET available = TRUE, last_seen_name = NULL,
+        last_edit_sent = NEW.last_edit_sent
+       WHERE editor = NEW.editor AND collection = NEW.collection;
+
+      RETURN NULL;
+    ELSE
+      RETURN NEW;
+    END IF;
+  END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION del_collection_sub_on_delete()
 RETURNS trigger AS $$
   BEGIN
@@ -49,6 +67,9 @@ RETURNS trigger AS $$
 $$ LANGUAGE 'plpgsql';
 
 -- Create triggers
+CREATE TRIGGER replace_old_sub_on_add BEFORE INSERT ON editor_subscribe_collection
+    FOR EACH ROW EXECUTE PROCEDURE replace_old_sub_on_add();
+
 CREATE TRIGGER del_collection_sub_on_delete BEFORE DELETE ON editor_collection
     FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_delete();
 

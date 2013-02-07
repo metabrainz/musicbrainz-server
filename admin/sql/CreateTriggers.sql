@@ -16,6 +16,9 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER replace_old_sub_on_add BEFORE INSERT ON editor_subscribe_collection
+    FOR EACH ROW EXECUTE PROCEDURE replace_old_sub_on_add();
+
 CREATE TRIGGER del_collection_sub_on_delete BEFORE DELETE ON editor_collection
     FOR EACH ROW EXECUTE PROCEDURE del_collection_sub_on_delete();
 
