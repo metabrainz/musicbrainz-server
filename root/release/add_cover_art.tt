@@ -19,7 +19,7 @@
     [%- INCLUDE 'release/cover_art_fields.tt' -%]
 
     <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">Position:</label>
+      <label id="cover-art-position-label" class="required">[% l('Position:') %]</label>
 
       [%- IF images.size == 0 -%]
         <div class="image-position-only">
