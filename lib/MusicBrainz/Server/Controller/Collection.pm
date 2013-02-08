@@ -183,7 +183,7 @@ sub edit : Chained('own_collection') RequireAuth
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my %update = $self->_form_to_hash($form);
 
-        $c->model('Collection')->update(\%update);
+        $c->model('Collection')->update($collection->id, \%update);
 
         $c->response->redirect(
             $c->uri_for_action($self->action_for('show'), [ $collection->gid ]));

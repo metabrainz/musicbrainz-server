@@ -238,7 +238,7 @@ sub load_release_count {
 
 sub update
 {
-    my ($self, $update) = @_;
+    my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
 
