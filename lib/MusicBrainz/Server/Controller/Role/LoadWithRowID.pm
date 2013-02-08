@@ -20,6 +20,9 @@ around _load => sub
 
 sub _row_id_to_gid {
     my ($self, $c, $row_id) = @_;
+    # Max size for an int in postgresql:
+    # http://www.postgresql.org/docs/current/static/datatype-numeric.html
+    return if $row_id > 2147483647;
 
     my $entity = $c->model($self->{model})->get_by_id($row_id) or return;
     return $entity->gid;
