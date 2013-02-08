@@ -36,7 +36,7 @@ sub update_subscriptions
     # Remove subscriptions to deleted or private collections
     $self->sql->do(
         "DELETE FROM editor_subscribe_collection
-          WHERE editor = ? AND available = FALSE",
+          WHERE editor = ? AND NOT available",
         $editor_id);
 
     $self->sql->do(
