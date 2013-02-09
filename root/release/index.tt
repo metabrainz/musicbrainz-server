@@ -85,27 +85,28 @@
 
     <h2 class="relationships">[% l("Relationships") %]</h2>
 
-    [% FOR group=grouped_rels.pairs %]
+    [% FOR group=combined_rels.pairs %]
         <table class="details" style="width: 100%; margin-bottom: 1em;">
-        [%- FOREACH key IN group.value.rel_phrases -%]
+        [%- FOREACH key IN group.value -%]
             <tr>
-                <th>[% key %]:</th>
+                <th>[% key.phrase %]:</th>
                 <td>
                     [% release_rels = 0 %]
-                    [% FOREACH item IN group.value.$key %]
+                    [% FOREACH item IN key.items %]
                         [% release_rels = 1 IF item.release %]
                         [% IF item.tracks.size %]
                           <div class="track-rel">
                           [% relationship_target_links(item.rel) %]
                             <span class="comment">
                               ([% ln('track {tracks}', 'tracks {tracks}',
-                                   item.tracks.size, { tracks => tracks_to_string(item.tracks) }) %])
+                                    item.track_count, { tracks => item.tracks })
+                                %])
                             </span>
                           </div>
                         [% END %]
                     [% END %]
                     [% IF release_rels %]
-                      [% FOREACH rel IN group.value.$key %]
+                      [% FOREACH item IN key.items %]
                           [% IF item.release %]
                           <div class="release-rel">
                             [% relationship_target_links(item.rel) %]

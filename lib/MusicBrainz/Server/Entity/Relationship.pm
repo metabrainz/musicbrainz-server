@@ -63,12 +63,6 @@ has 'verbose_phrase' => (
     lazy => 1
 );
 
-has 'formatted_date' => (
-    is => 'ro',
-    builder => '_build_formatted_date',
-    lazy => 1
-);
-
 sub source
 {
     my ($self) = @_;
@@ -178,33 +172,6 @@ sub _interpolate
     trim_in_place($phrase);
 
     return $phrase;
-}
-
-sub _build_formatted_date {
-    my ($self) = @_;
-
-    my $begin_date = $self->link->begin_date;
-    my $end_date = $self->link->end_date;
-    my $ended = $self->link->ended;
-
-    if ($begin_date->is_empty && $end_date->is_empty) {
-        return $ended ? l(' &#x2013; ????') : '';
-    }
-    if ($begin_date->format eq $end_date->format) {
-        return $begin_date->format;
-    }
-    if (!$begin_date->is_empty && !$end_date->is_empty) {
-        return l('{begindate} &#x2013; {enddate}',
-            { begindate => $begin_date->format, enddate => $end_date->format });
-    }
-    if ($begin_date->is_empty) {
-        return l('&#x2013; {enddate}', { enddate => $end_date->format });
-    }
-    if ($end_date->is_empty) {
-        return l('{begindate} &#x2013;' . ($ended ? ' ????' : ''),
-            { begindate => $begin_date->format });
-    }
-    return '';
 }
 
 sub _cmp {

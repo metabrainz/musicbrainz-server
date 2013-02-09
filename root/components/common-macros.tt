@@ -878,7 +878,7 @@ http://[%- server -%]/[%- id -%]
   [% ELSE %]
       [% link_entity(rel.target) %]
   [% END %]
-  [% '(' _ rel.formatted_date _ ')' IF rel.formatted_date %]
+  [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
   </span>
 [%- END -%]
 
