@@ -28,17 +28,22 @@ sub find_releases
     # Find all releases that have a cover art URL but no URL relationship
     # that would explain it.
     my $query = '
-        SELECT DISTINCT ON (release.id)
-            release.id AS r_id
+        SELECT release.id AS r_id
         FROM release
         JOIN release_coverart ON release.id = release_coverart.id
-        LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
-        LEFT JOIN link ON ( link.id = l.link )
-        LEFT JOIN link_type ON (
-          link_type.id = link.link_type AND
-          link_type.name IN (' . placeholders(@url_types) . ')
+        WHERE release_coverart.cover_art_url IS NOT NULL AND
+        release.id NOT IN (
+            SELECT DISTINCT release.id
+            FROM release
+            JOIN release_coverart ON release.id = release_coverart.id
+            LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
+            LEFT JOIN link ON ( link.id = l.link )
+            LEFT JOIN link_type ON (
+              link_type.id = link.link_type AND
+              link_type.name IN (' . placeholders(@url_types) . ')
+            )
+            WHERE link_type.name IS NOT NULL
         )
-        WHERE link_type.name IS NULL
         ORDER BY release.id';
 
     return query_to_list($self->c->sql, sub {
