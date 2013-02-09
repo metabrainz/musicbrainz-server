@@ -67,6 +67,31 @@ sub set_language : Path('set-language') Args(1)
     $c->detach;
 }
 
+=head2 set_beta_preference
+
+Sets the preference for using the beta site, used from the footer.
+
+=cut
+
+sub set_beta_preference : Path('set-beta-preference') Args(0)
+{
+    my ($self, $c) = @_;
+    if (DBDefs->BETA_REDIRECT) {
+        my $new_url = $c->req->referer || $c->uri_for('/');
+        if (DBDefs->IS_BETA) {
+            # force the cookie to expire
+            $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+            $new_url = $c->req->uri_for('/') . '?unset_beta=1';
+        } elsif (!DBDefs->IS_BETA) {
+            $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
+        }
+        my $ws = DBDefs->WEB_SERVER;
+        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
+        $c->res->redirect($new_url);
+        $c->detach;
+    }
+}
+
 =head2 default
 
 Handle any pages not matched by a specific controller path. In our case,
@@ -314,7 +339,9 @@ sub end : ActionClass('RenderView')
         testing_features           => DBDefs->DB_STAGING_TESTING_FEATURES,
         is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
-        developement_server        => DBDefs->DEVELOPMENT_SERVER
+        developement_server        => DBDefs->DEVELOPMENT_SERVER,
+        beta_redirect              => DBDefs->BETA_REDIRECT,
+        is_beta                    => DBDefs->IS_BETA
     };
 
     # For displaying which git branch is active as well as last commit information

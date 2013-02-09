@@ -300,9 +300,25 @@ sub with_translations {
 
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
-    $c->with_translations(sub {
-        $c->$orig(@args)
-    });
+    if (DBDefs->BETA_REDIRECT &&
+        defined $c->req->query_params->{unset_beta} &&
+        $c->req->query_params->{unset_beta} eq '1') {
+        $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+    }
+
+    if (DBDefs->BETA_REDIRECT && defined $c->request->cookies->{beta} &&
+        (!DBDefs->IS_BETA && $c->request->cookies->{beta}->value eq 'on') &&
+        (!defined $c->req->query_params->{unset_beta} ||
+         $c->req->query_params->{unset_beta} ne '1')) {
+        my $new_url = $c->req->uri;
+        my $ws = DBDefs->WEB_SERVER;
+        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
+        $c->res->redirect($new_url);
+    } else {
+        $c->with_translations(sub {
+            $c->$orig(@args)
+        });
+    }
 };
 
 # All warnings should be logged
