@@ -22,7 +22,7 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 var allowedRelations = {
-    recording:     ["artist", "label", "recording", "release"],
+    recording:     ["artist", "label", "recording", "release", "work"],
     work:          ["artist", "label", "work"],
     release:       ["artist", "label", "recording", "release"],
     release_group: ["artist", "release_group"]
@@ -323,6 +323,7 @@ var Dialog = UI.Dialog = {
     showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
+    disableTypeSelection : ko.observable(false),
 
     init: function() {
         var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
@@ -547,6 +548,7 @@ UI.AddDialog = MB.utility.beget(Dialog);
 UI.AddDialog.show = function(options) {
     options.relationship = RE.Relationship({entity: options.entity, action: "add"});
     this.mode(options.mode || "add");
+    this.disableTypeSelection(options.disableTypeSelection || false);
     Dialog.show.call(this, options);
 };
 
