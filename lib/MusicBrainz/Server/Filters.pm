@@ -150,7 +150,10 @@ sub format_editnote
 
     # The following taken from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
     $html =~ s{
-    (?:^|[^\w:])                             # Start with a non-word character (that is not :), or the beginning of the edit note.
+    # Match the start of the edit note entirely, or ensure that the proceeding
+    # character is not a : (as we don't want to match foo://bar.com as
+    # foo:<a..>).
+    (?:^|(?<!:))
     (                                    # Capture 1: entire matched URL
       (?:
         (?:https?:)?//               # http or https protocol
