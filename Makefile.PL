@@ -80,6 +80,7 @@ requires 'MRO::Compat'                                => '0.10';
 requires 'Net::Amazon::AWSSign';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
 requires 'Net::CoverArtArchive';
+requires 'Unicode::ICU::Collator';
 requires 'Package::Stash'                             => '0.29';
 requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
