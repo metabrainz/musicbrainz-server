@@ -22,16 +22,12 @@
       <!-- /ko -->
       <!-- ko if: mode() == 'batch.recording' -->
       <p class="msg">
-        [% l('This will add a relationship to all checked recordings.
-              If the relationship already exists on one of the recordings,
-              the attributes will be merged into the existing one.') %]
+        [% l('This will add a relationship to all checked recordings.') %]
       </p>
       <!-- /ko -->
       <!-- ko if: mode() == 'batch.work' -->
       <p class="msg">
-        [% l('This will add a relationship to all checked works.
-              If the relationship already exists on one of the works,
-              the attributes will be merged into the existing one.') %]
+        [% l('This will add a relationship to all checked works.') %]
       </p>
       <!-- /ko -->
       <!-- ko if: mode() == "batch.create.works" -->
