@@ -22,6 +22,8 @@ test 'Format Track Length' => sub {
     is (format_track_length ('9000'), '0:09', 'Short track');
     is (format_track_length ('1820000'), '30:20', 'Medium track');
     is (format_track_length ('181100000'), '50:18:20', 'Long track');
+
+    is (format_track_length (59 * $seconds + 501), '1:00', 'Correctly rounds up to a minute');
 };
 
 test 'Unformat Track Length' => sub {

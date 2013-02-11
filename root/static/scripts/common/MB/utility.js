@@ -197,17 +197,16 @@ MB.utility.formatTrackLength = function (duration)
         return duration + ' ms';
     }
 
-    var one_second = 1000.0;
-    var one_minute = 60 * one_second;
+    var seconds = Math.round(duration / 1000.0);
+
+    var one_minute = 60;
     var one_hour = 60 * one_minute;
 
-    var hours = Math.floor(duration / one_hour);
-    duration = duration % one_hour;
+    var hours = Math.floor(seconds / one_hour);
+    seconds = seconds % one_hour;
 
-    var minutes = Math.floor(duration / one_minute);
-    duration = duration % one_minute;
-
-    var seconds = Math.round(duration / one_second);
+    var minutes = Math.floor(seconds / one_minute);
+    seconds = seconds % one_minute;
 
     var ret = '';
     ret = ('00' + seconds).slice(-2);

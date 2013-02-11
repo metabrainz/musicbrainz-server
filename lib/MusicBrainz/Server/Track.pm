@@ -23,14 +23,16 @@ sub FormatTrackLength
     return $ms unless looks_like_number($ms);
     return "$ms ms" if $ms < 1000;
 
-    my $one_second = 1000.0;
-    my $one_minute = $one_second * 60;
+    # Round time in ms to nearest second
+    my $seconds = int(($ms / 1000.0) + 0.5);
+
+    # Partition seconds in minutes and hours
+    my $one_minute = 60;
     my $one_hour = $one_minute * 60;
 
-    my ($hours, $minutes, $seconds);
-    ($hours, $ms) = (floor($ms / $one_hour), $ms % $one_hour);
-    ($minutes, $ms) = (floor($ms / $one_minute), $ms % $one_minute);
-    $seconds = int(($ms / $one_second) + 0.5);
+    my ($hours, $minutes);
+    ($hours, $seconds) = (floor($seconds / $one_hour), $seconds % $one_hour);
+    ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
 
     return $hours > 0 ?
         sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
