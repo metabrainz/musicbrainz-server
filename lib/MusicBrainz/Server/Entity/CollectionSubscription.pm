@@ -2,6 +2,8 @@ package MusicBrainz::Server::Entity::CollectionSubscription;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Entity::Types;
+
 extends 'MusicBrainz::Server::Entity::Subscription';
 
 has 'collection_id' => (
