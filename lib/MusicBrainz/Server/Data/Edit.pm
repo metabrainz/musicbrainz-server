@@ -266,7 +266,7 @@ SELECT * FROM edit, (
     RIGHT JOIN editor_collection_release ec ON er.release = ec.release
     JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
     JOIN edit ON er.edit = edit.id
-    WHERE edit.status = ? AND esc.editor = ?
+    WHERE edit.status = ? AND esc.editor = ? AND esc.available
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
