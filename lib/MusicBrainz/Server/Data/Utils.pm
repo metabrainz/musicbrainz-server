@@ -327,6 +327,12 @@ sub trim {
     # Remove leading and trailing space
     my $t = Text::Trim::trim (shift);
 
+    # trim XML-invalid characters
+    $t =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//go;
+    # trim other undesirable characters
+    $t =~ s/[\x{200b}\x{00AD}]//go;
+    #        zwsp    shy
+
     return collapse_whitespace ($t);
 }
 
