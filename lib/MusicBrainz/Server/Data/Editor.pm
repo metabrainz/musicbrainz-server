@@ -523,8 +523,8 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist label editor )),
-        ($editor_id) x 3
+            } qw( artist collection label editor )),
+        ($editor_id) x 4
     );
 }
 
