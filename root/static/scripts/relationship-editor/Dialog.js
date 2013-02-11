@@ -450,12 +450,12 @@ var Dialog = UI.Dialog = {
     },
 
     changeDirection: function() {
-        var relationship = this.relationship.peek(),
-            entity0 = relationship.entity[0].peek(),
-            entity1 = relationship.entity[1].peek();
+        var entities = this.relationship.peek().entity;
 
-        relationship.entity[0](entity1);
-        relationship.entity[1](entity0);
+        entities.reverse();
+        entities[0].notifySubscribers(entities[0].peek());
+        entities[1].notifySubscribers(entities[1].peek());
+
         this.resize();
     },
 

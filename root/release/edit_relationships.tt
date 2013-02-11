@@ -63,7 +63,7 @@
           <td>
             <select id="link-type" data-bind="linkType: relationship, value: relationship().link_type"></select>
             <!-- ko template: {"if": sourceField()().type == targetField()().type, afterRender: resize} -->
-            <button data-bind="click: changeDirection, text: MB.text.ChangeDirection"></button>
+            <button data-bind="click: changeDirection, text: MB.text.ChangeDirection, disable: relationship().hasErrors"></button>
             <!-- /ko -->
             (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
             <div class="error" data-bind="text: relationship().link_type.error"></div>
