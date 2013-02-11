@@ -151,7 +151,7 @@ sub find_by_collection
     $status_cond = ' AND status = ' . $status if defined($status);
 
     my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
-                ' JOIN edit_release er ON edit.id = edit_release.edit
+                ' JOIN edit_release er ON edit.id = er.edit
                   JOIN editor_collection_release ecr ON er.release = ecr.release
                   WHERE collection = ? ' . $status_cond . '
                   ORDER BY edit.id DESC OFFSET ? LIMIT 500';
