@@ -123,8 +123,8 @@
             <a title="
               [%- l('{entity} by {artist}',
                     { entity => release.release.name,
-                      artist => release.release.artist_credit.name }) -%]
-              " href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
+                      artist => release.release.artist_credit.name }) -%]"
+              href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
               [%- display_artwork_image(release.artwork, release.cover_art_url) -%]
             </a>
           </div>
