@@ -1,7 +1,7 @@
 SET search_path = 'musicbrainz', 'public';
 
 BEGIN;
---SELECT no_plan();
+SELECT no_plan();
 
 --------------------------------------------------------------------------------
 -- Setup
@@ -24,7 +24,7 @@ DELETE FROM editor_collection WHERE id = 1;
 
 SELECT bag_eq(
     'SELECT available, last_seen_name FROM editor_subscribe_collection',
-    'VALUES (FALSE, \'collection1\'), (TRUE, NULL), (FALSE, \'collection1\'), (TRUE, NULL)',
+    'VALUES (FALSE, ''collection1''), (TRUE, NULL), (FALSE, ''collection1''), (TRUE, NULL)',
     'Subscription availability correctly updated on collection delete'
 );
 
@@ -35,7 +35,7 @@ UPDATE editor_collection SET public = FALSE WHERE id = 2;
 
 SELECT bag_eq(
     'SELECT available, last_seen_name FROM editor_subscribe_collection',
-    'VALUES (FALSE, \'collection1\'), (TRUE, NULL), (FALSE, \'collection1\'), (FALSE, \'collection2\')',
+    'VALUES (FALSE, ''collection1''), (TRUE, NULL), (FALSE, ''collection1''), (FALSE, ''collection2'')',
     'Subscription availability correctly updated on collection hide'
 );
 
@@ -46,8 +46,8 @@ UPDATE editor_collection SET public = TRUE WHERE id = 2;
 INSERT INTO editor_subscribe_collection(editor, collection, last_edit_sent) VALUES (2, 2, 2);
 
 SELECT bag_eq(
-    'SELECT available, last_seen_name, last_edit_seen FROM editor_subscribe_collection',
-    'VALUES (FALSE, \'collection1\', 0), (TRUE, NULL, 0), (FALSE, \'collection1\', 0), (TRUE, NULL, 2)',
+    'SELECT available, last_seen_name, last_edit_sent FROM editor_subscribe_collection',
+    'VALUES (FALSE, ''collection1'', 0), (TRUE, NULL, 0), (FALSE, ''collection1'', 0), (TRUE, NULL, 2)',
     'Update of unculled subscription correctly fires'
 );
 
