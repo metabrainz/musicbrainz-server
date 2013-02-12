@@ -964,6 +964,7 @@ div.artwork { position: relative; width: 250px; }
     width: 125px;
     height: 125px;
     position: relative;
+    vertical-align: middle;
 }
 .homepage div.artwork {
     width: 125px;
