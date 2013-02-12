@@ -116,17 +116,17 @@
 
     <div style="clear: both; padding-top: 1%;" class="feature-column">
       <h2>[% l('Latest Additions') %]</h2>
-      <p>[% l("MusicBrainz editors add an average of 250 releases <em>every
-               day</em>. Here's some of the latest releases that have been
-               added:") %]</p>
-      <div style="text-align: center">
+      <div style="height: 160px; overflow: hidden;">
         [% FOR release=releases %]
         <div class="artwork-cont" style="text-align: center">
           <div class="artwork">
-            <a href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
-              [%- display_artwork_image(release.artwork, release.cover_art_url, cover_art_message) -%]
+            <a title="
+              [%- l('{entity} by {artist}',
+                    { entity => release.release.name,
+                      artist => release.release.artist_credit.name }) -%]
+              " href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
+              [%- display_artwork_image(release.artwork, release.cover_art_url) -%]
             </a>
-            [% descriptive_link(release.release) %]
           </div>
         </div>
         [% END %]

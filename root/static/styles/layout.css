@@ -959,6 +959,23 @@ div.artwork-cont {
 div.artwork { position: relative; width: 250px; }
 /* don't include 'div' since this should apply to 'p' as well */
 .artwork img { max-width: 250px; max-height: 250px; }
+
+.homepage div.artwork-cont {
+    width: 125px;
+    height: 125px;
+    position: relative;
+}
+.homepage div.artwork {
+    width: 125px;
+    height: 125px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.homepage div.artwork img {
+    max-width: 125px;
+    max-height: 125px;
+}
+
 div.delete { display: hidden !important; }
 
 .annotation-toggle {

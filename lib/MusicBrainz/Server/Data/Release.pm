@@ -981,7 +981,7 @@ sub newest_releases_with_artwork {
         AND edit.status = ?
         AND edit.type = ?
       ORDER BY edit.id DESC
-      LIMIT 4';
+      LIMIT 10';
 
     my $FRONT = 1;
     return query_to_list(
