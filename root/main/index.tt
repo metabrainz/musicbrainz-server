@@ -115,7 +115,7 @@
     </div>
 
     <div style="clear: both; padding-top: 1%;" class="feature-column">
-      <h2>[% l('Latest Additions') %]</h2>
+      <h2>[% l('Recent Additions') %]</h2>
       <div style="height: 160px; overflow: hidden;">
         [% FOR release=releases %]
         <div class="artwork-cont" style="text-align: center">
