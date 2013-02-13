@@ -314,20 +314,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.track_count = null;
 
     /**
-     * fullTitle returns the disc title prefixed with 'Disc #: '.  Or just
-     * 'Disc #' if the disc doesn't have a title.
-     */
-    self.fullTitle = function () {
-        var title = '';
-        if (!self.$title.hasClass ('jquery_placeholder'))
-        {
-            title = self.$title.val ();
-        }
-
-        return 'Disc ' + self.position () + (title ? ': '+title : '');
-    };
-
-    /**
      * addTrack renders new tr.track and tr.track-artist-credit rows in the
      * tracklist table.  It copies the release artistcredit.
      */
