@@ -38,6 +38,7 @@ use MusicBrainz::Server::PagedReport;
     SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
+    TracksWithoutTimes
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
 );
@@ -76,6 +77,7 @@ use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
+use MusicBrainz::Server::Report::TracksWithoutTimes;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
 
