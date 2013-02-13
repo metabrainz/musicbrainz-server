@@ -41,7 +41,7 @@
   [% IF edit.display_data.tracklist_changes.size %]
   <tr>
      <th>[% l('Tracklist:') %]</th>
-     <td>
+     <td colspan="2">
        <table class="tbl">
          <thead>
            <tr>
