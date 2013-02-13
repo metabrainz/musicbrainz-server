@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Medium::Edit;
 use Carp;
 use Clone 'clone';
+use List::AllUtils qw( any );
 use Algorithm::Diff qw( diff sdiff );
 use Algorithm::Merge qw( merge );
 use Data::Compare;
@@ -243,8 +244,7 @@ sub build_display_data
         $data->{new}{tracklist} = display_tracklist($loaded, $self->data->{new}{tracklist});
         $data->{old}{tracklist} = display_tracklist($loaded, $self->data->{old}{tracklist});
 
-        $data->{tracklist_changes} = [
-            grep { $_->[0] ne 'u' }
+        my $tracklist_changes = [
             @{ sdiff(
                 [ $data->{old}{tracklist}->all_tracks ],
                 [ $data->{new}{tracklist}->all_tracks ],
@@ -252,7 +252,6 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
-                        $track->number // $track->position,
                         $track->name,
                         format_track_length($track->length),
                         join(
@@ -265,6 +264,10 @@ sub build_display_data
                 }
             ) }
         ];
+
+        if (any {$_->[0] ne 'u'} @$tracklist_changes) {
+            $data->{tracklist_changes} = $tracklist_changes;
+        }
 
         $data->{artist_credit_changes} = [
             grep { $_->[0] eq 'c' || $_->[0] eq '+' }
