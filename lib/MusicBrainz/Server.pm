@@ -71,9 +71,6 @@ __PACKAGE__->config(
         ],
         ENCODING => 'UTF-8',
     },
-    'Plugin::Session' => {
-        expires => 36000 # 10 hours
-    },
     stacktrace => {
         enable => 1
     },

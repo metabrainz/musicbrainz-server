@@ -83,6 +83,7 @@ requires 'Net::CoverArtArchive';
 requires 'Package::Stash'                             => '0.29';
 requires 'REST::Utils'                                => '0.4';
 requires 'Readonly'                                   => '1.03';
+requires 'Redis'                                      => '1.961';
 requires 'Statistics::Basic'                          => '1.6602';
 requires 'String::CamelCase';
 requires 'String::ShellQuote'                         => '1.030';

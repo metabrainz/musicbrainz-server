@@ -238,6 +238,35 @@ sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 # sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
+# Sessions (advanced)
+################################################################################
+
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
+sub SESSION_STORE_ARGS { return {} }
+
+# Redis by default has 16 numbered databases available, of which DB 0
+# is the default.  Here you can configure which of these databases are
+# used by musicbrainz-server.
+#
+# test_database will be completely erased on each test run, so make
+# sure it doesn't point at any production data you may have in your
+# redis server.
+
+sub DATASTORE_REDIS_ARGS {
+    my $self = shift;
+    return {
+        prefix => $self->MEMCACHED_NAMESPACE(),
+        database => 0,
+        test_database => 1,
+        redis_new_args => {
+            server => '127.0.0.1:6379',
+            reconnect => 60,
+            encoding => undef,
+        }
+    };
+};
+
+################################################################################
 # Other Settings
 ################################################################################
 
@@ -318,36 +347,6 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
-
-################################################################################
-# Sessions (advanced)
-################################################################################
-
-# Unless you are installing an MusicBrainz server that needs to be fully r
-# redundant/load balanced, you do not need to change anything in this section.
-
-# If you're using multiple front-end webservers make sure they all connect to
-# the same memcached server.  Also make sure enough memory is configured for
-# memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::MusicBrainz" }
-sub SESSION_STORE_ARGS
-{
-    my $self = shift;
-    return {
-        memcached_new_args => {
-            data => $self->MEMCACHED_SERVERS(),
-            namespace => $self->MEMCACHED_NAMESPACE()
-        }
-    }
-}
-
-# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
-# seperately from the regular session store.
-sub WIZARD_MEMCACHED
-{
-    my $self = shift;
-    return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
-}
 
 sub USE_ETAGS { 1 }
 
