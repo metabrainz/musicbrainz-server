@@ -349,12 +349,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
 }
 
-sub chrome_frame : Local
-{
-    my ($self, $c) = @_;
-    $c->stash( template => 'main/frame.tt' );
-}
-
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
