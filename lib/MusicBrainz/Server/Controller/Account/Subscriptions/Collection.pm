@@ -14,7 +14,7 @@ before add => sub
     my $entity_id = $c->request->params->{id};
     my $entity = $c->model($self->{model})->get_by_id($entity_id);
 
-    $c->detach('/error_403') if !$entity->public && $c->user->id != $entity->editor_id;
+    $c->detach('/error_404') if (!$entity || (!$entity->public && $c->user->id != $entity->editor_id));
 };
 
 __PACKAGE__->meta->make_immutable;
