@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
