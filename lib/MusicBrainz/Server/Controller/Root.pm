@@ -76,15 +76,16 @@ Sets the preference for using the beta site, used from the footer.
 sub set_beta_preference : Path('set-beta-preference') Args(0)
 {
     my ($self, $c) = @_;
-    if (DBDefs->BETA_REDIRECT) {
-        my $new_url = $c->req->referer || $c->uri_for('/');
+    if (DBDefs->BETA_REDIRECT_HOSTNAME) {
+        my $new_url;
+        # Set URL to go to
         if (DBDefs->IS_BETA) {
-            # force the cookie to expire
-            $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
-            $new_url = $c->req->uri_for('/') . '?unset_beta=1';
+            $new_url = $c->uri_for('/') . '?unset_beta=1';
         } elsif (!DBDefs->IS_BETA) {
+            $new_url = $c->req->referer || $c->uri_for('/');
             $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
         }
+        # Munge URL to redirect server
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
         $c->res->redirect($new_url);
@@ -340,7 +341,7 @@ sub end : ActionClass('RenderView')
         is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         developement_server        => DBDefs->DEVELOPMENT_SERVER,
-        beta_redirect              => DBDefs->BETA_REDIRECT,
+        beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
         is_beta                    => DBDefs->IS_BETA
     };
 

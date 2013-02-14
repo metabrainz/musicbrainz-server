@@ -153,7 +153,8 @@
                 <a href="http://tickets.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
                 <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
                 [%- IF server_details.beta_redirect %] |
-                <a href="[% c.uri_for('set-beta-preference') %]" class="internal">[% IF server_details.is_beta; l('Stop using beta site'); ELSE; l('Use beta site'); END %]</a>[% END %]
+                <a href="[% c.uri_for('set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
+                [%- END -%]
             </p>
 
             <p class="right">

@@ -300,16 +300,18 @@ sub with_translations {
 
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
-    if (DBDefs->BETA_REDIRECT &&
-        defined $c->req->query_params->{unset_beta} &&
-        $c->req->query_params->{unset_beta} eq '1') {
+    my $unset_beta = (defined $c->req->query_params->{unset_beta} &&
+                      $c->req->query_params->{unset_beta} eq '1' &&
+                      !DBDefs->IS_BETA);
+    my $beta_redirect = (defined $c->req->cookies->{beta} &&
+                      $c->req->cookies->{beta}->value eq 'on' &&
+                      !DBDefs->IS_BETA);
+    if ( $unset_beta ) {
         $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
     }
 
-    if (DBDefs->BETA_REDIRECT && defined $c->request->cookies->{beta} &&
-        (!DBDefs->IS_BETA && $c->request->cookies->{beta}->value eq 'on') &&
-        (!defined $c->req->query_params->{unset_beta} ||
-         $c->req->query_params->{unset_beta} ne '1')) {
+    if (DBDefs->BETA_REDIRECT_HOSTNAME &&
+        $beta_redirect && !$unset_beta) {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
