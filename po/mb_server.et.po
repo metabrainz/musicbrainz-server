@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-02-03 21:20-0700\n"
-"PO-Revision-Date: 2013-02-04 04:23+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-02-10 15:44+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3021,7 +3021,7 @@ msgstr "Lisateave:"
 #: ../root/main/403.tt:1 ../root/main/403.tt:3 ../root/main/mirror.tt:1
 #: ../root/main/mirror.tt:3
 msgid "Forbidden Request"
-msgstr ""
+msgstr "Keelatud päring"
 
 #: ../root/user/login.tt:39
 msgid "Forgot your {link1|username} or {link2|password}?"
@@ -3246,7 +3246,7 @@ msgstr "Koduleht:"
 
 #: ../root/main/500.tt:47
 msgid "Host:"
-msgstr ""
+msgstr "Host:"
 
 #: ../root/edit/list_header.tt:31
 msgid "How editing works"
@@ -3914,7 +3914,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into  medium 2 of a release, it "
 "will need to be set as medium 2 of the release being merged."
-msgstr ""
+msgstr "Vaata, et mestitavate väljalasete kõik helikandjad oleks õiges kohas. Helikandja mestimiseks nt sihtväljalaske 2. helikandjaga peab ta mestitaval väljalaskel olema helikandja nr 2."
 
 #: ../root/release/edit/tracklist.tt:170
 msgid "Manual entry"
@@ -4287,7 +4287,7 @@ msgstr "Uus artisti nimekuju"
 
 #: ../root/release/add_cover_art.tt:39
 msgid "New Image Goes Here"
-msgstr ""
+msgstr "Uus pilt tuleb siia"
 
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
@@ -5016,7 +5016,7 @@ msgstr "Sortimiseks kasutatava nime oletamiseks kasuta nuppu „Oleta sortimisni
 
 #: ../root/main/503.tt:8
 msgid "Please wait a few minutes and repeat your request."
-msgstr ""
+msgstr "Palun oota paar minutit ja korda siis oma päringut."
 
 #: ../root/components/aliases.tt:72
 msgid "Please {log_in|log in} to add or edit aliases"
@@ -7171,7 +7171,7 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "Sel artstil pole seoseid, salvestisi, väljalaskeid ega väljalaskerühmi, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Selle takistamiseks lisa palun artistile andmeid."
+msgstr "Sel artstil pole seoseid, salvestisi, väljalaskeid ega väljalaskerühmi, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun artistile andmeid."
 
 #: ../root/artist/tags.tt:2
 msgid "This artist has no tags."
@@ -7358,7 +7358,7 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr ""
+msgstr "Sel plaadifirmal pole seoseid ega väljalaskeid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun plaadifirmale andmeid."
 
 #: ../root/label/tags.tt:2
 msgid "This label has no tags."
@@ -7780,7 +7780,7 @@ msgstr ""
 msgid ""
 "This work has no relationships and will be removed automatically in the next"
 " few days. If this is not intended, please add relationships to this work."
-msgstr "Sel teosel pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Selle takistamiseks lisa palun teosele seoseid."
+msgstr "Sel teosel pole seoseid, niisiis eemaldatakse see järgmise paari päeva jooksul automaatselt andmebaasist. Eemaldamise takistamiseks lisa palun teosele seoseid."
 
 #: ../root/work/tags.tt:2
 msgid "This work has no tags."
@@ -8154,7 +8154,7 @@ msgstr "UUID:"
 
 #: ../root/main/401.tt:1 ../root/main/401.tt:3
 msgid "Unauthorized Request"
-msgstr ""
+msgstr "Autoriseerimata päring"
 
 #: ../root/report/artist_list.tt:13
 msgid "Unknown"
@@ -8354,7 +8354,7 @@ msgstr "Hääleta toimetusi"
 
 #: ../root/scripts/text_strings.tt:121
 msgid "Vote on all edits:"
-msgstr ""
+msgstr "Hääl kõigil avatud toimetustel:"
 
 #: ../root/edit/index.tt:26
 msgid "Vote tally:"
@@ -9512,14 +9512,14 @@ msgstr[1] "Leiti {num} kogu"
 #: ../root/components/common-macros.tt:53
 msgid "{num} day"
 msgid_plural "{num} days"
-msgstr[0] "{num}&nbsp;päev"
-msgstr[1] "{num}&nbsp;päeva"
+msgstr[0] "{num} päev"
+msgstr[1] "{num} päeva"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} day ago"
 msgid_plural "{num} days ago"
-msgstr[0] "{num}&nbsp;päeva eest"
-msgstr[1] "{num}&nbsp;päeva eest"
+msgstr[0] "{num} päeva eest"
+msgstr[1] "{num} päeva eest"
 
 #: ../root/user/subscriptions/subscriptions.tt:22
 msgid "{num} editor"
@@ -9542,14 +9542,14 @@ msgstr[1] "Leiti {num} plaadifirmat"
 #: ../root/components/common-macros.tt:53
 msgid "{num} month"
 msgid_plural "{num} months"
-msgstr[0] "{num}&nbsp;kuu"
-msgstr[1] "{num}&nbsp;kuud"
+msgstr[0] "{num} kuu"
+msgstr[1] "{num} kuud"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} month ago"
 msgid_plural "{num} months ago"
-msgstr[0] "{num}&nbsp;kuu eest"
-msgstr[1] "{num}&nbsp;kuu eest"
+msgstr[0] "{num} kuu eest"
+msgstr[1] "{num} kuu eest"
 
 #: ../root/tag/recording.tt:1
 msgid "{num} recording found"
@@ -9584,14 +9584,14 @@ msgstr[1] "Leiti {num} teost"
 #: ../root/components/common-macros.tt:53
 msgid "{num} year"
 msgid_plural "{num} years"
-msgstr[0] "{num}&nbsp;aasta"
-msgstr[1] "{num}&nbsp;aastat"
+msgstr[0] "{num} aasta"
+msgstr[1] "{num} aastat"
 
 #: ../root/components/common-macros.tt:67
 msgid "{num} year ago"
 msgid_plural "{num} years ago"
-msgstr[0] "{num}&nbsp;aasta eest"
-msgstr[1] "{num}&nbsp;aasta eest"
+msgstr[0] "{num} aasta eest"
+msgstr[1] "{num} aasta eest"
 
 #: ../root/release/edit_relationships.tt:338
 msgid "{n} recording selected"
@@ -9668,13 +9668,13 @@ msgstr "{user} pole midagi sildistanud."
 msgid ""
 "{valink|Various Artists} should very rarely be used on recordings, make sure"
 " that the artist has been entered correctly."
-msgstr "„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks, palun vaata, et artist on õigesti sisestatud."
+msgstr "„{valink|Erinevad esitajad}” sobib väga harva salvestise artistiks, palun vaata, et artist oleks õigesti sisestatud."
 
 #: ../root/release/edit/tracklist.tt:134
 msgid ""
 "{valink|Various Artists} should very rarely be used on tracks, make sure "
 "that the artists on these tracks have been entered correctly."
-msgstr "„{valink|Erinevad esitajad}” sobib väga harva loo artistiks, palun vaata, et nende lugude artistid on õigesti sisestatud."
+msgstr "„{valink|Erinevad esitajad}” sobib väga harva loo artistiks, palun vaata, et nende lugude artistid oleks õigesti sisestatud."
 
 #: ../root/components/common-macros.tt:647
 msgid "{yes} yes : {no} no"

@@ -104,3 +104,66 @@
     </td>
   </tr>
 [%- END -%]
+
+[%- MACRO ac_row(row_counter, startnum, endnum, thisac) BLOCK -%]
+  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+    <td class="pos t">
+      [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
+    </td>
+    <td>[% thisac %]</td>
+  </tr>
+[%- END -%]
+
+[%- MACRO display_condensed_track_acs(tracks) BLOCK;
+    thisac = 0;
+    row_counter = 1;
+    startnum = tracks.0.number;
+    FOR track=tracks;
+        IF thisac AND thisac != expanded_artist_credit(track.artist_credit);
+            ac_row(row_counter, startnum, endnum, thisac);
+            row_counter = row_counter + 1;
+            startnum = track.number;
+            endnum = startnum;
+        ELSE;
+            endnum = track.number;
+        END;
+        thisac = expanded_artist_credit(track.artist_credit);
+        IF loop.last();
+            ac_row(row_counter, startnum, endnum, thisac);
+        END;
+    END;
+END -%]
+
+[%- MACRO ac_diff_row(row_counter, startnum, endnum, oldac, newac) BLOCK -%]
+  <tr class="[% row_counter % 2 == 0 ? 'ev' : '' %]">
+    <td class="pos t">
+      [% startnum %][% IF endnum AND endnum != startnum %]-[% endnum %][% END %]
+    </td>
+    <td>[% oldac %]</td>
+    <td>[% newac %]</td>
+  </tr>
+[%- END -%]
+
+[%- MACRO display_condensed_track_acs_diff(changes) BLOCK;
+    oldac = 0;
+    newac = 0;
+    row_counter = 1;
+    startnum = changes.0.2.number;
+    FOR change=changes;
+        old_track = change.1;
+        new_track = change.2;
+        IF (oldac AND oldac != expanded_artist_credit(old_track.artist_credit)) OR (newac AND newac != expanded_artist_credit(new_track.artist_credit));
+            ac_diff_row(row_counter, startnum, endnum, oldac, newac);
+            row_counter = row_counter + 1;
+            startnum = new_track.number;
+            endnum = startnum;
+        ELSE;
+            endnum = new_track.number;
+        END;
+        oldac = expanded_artist_credit(old_track.artist_credit);
+        newac = expanded_artist_credit(new_track.artist_credit);
+        IF loop.last();
+            ac_diff_row(row_counter, startnum, endnum, oldac, newac);
+        END;
+   END;
+END -%]

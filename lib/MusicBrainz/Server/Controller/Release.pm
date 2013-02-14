@@ -182,8 +182,9 @@ sub show : Chained('load') PathPart('')
             map { $_->all_relationships } @recordings);
 
     $c->stash(
-        template     => 'release/index.tt',
-        show_artists => $release->has_multiple_artists,
+        template      => 'release/index.tt',
+        show_artists  => $release->has_multiple_artists,
+        combined_rels => $release->combined_track_relationships,
     );
 }
 

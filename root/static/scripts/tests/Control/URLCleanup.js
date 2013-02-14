@@ -214,6 +214,19 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.secondhandsongs.com/work/1409',
                     MB.constants.LINK_TYPES.secondhandsongs.work
+                ],
+                // VIAF
+                [
+                    'artist', 'http://viaf.org/viaf/109231256',
+                    MB.constants.LINK_TYPES.viaf.artist
+                ],
+                [
+                    'label', 'http://viaf.org/viaf/152662182',
+                    MB.constants.LINK_TYPES.viaf.label
+                ],
+                [
+                    'work', 'http://viaf.org/viaf/185694157',
+                    MB.constants.LINK_TYPES.viaf.work
                 ]
             ];
 
@@ -504,6 +517,35 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
                     'http://openlibrary.org/books/OL8993487M/',
+                ],
+                // VIAF
+                [
+                    'http://viaf.org/viaf/16766997',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/?test=true',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'www.viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
                 ]
 
             ];

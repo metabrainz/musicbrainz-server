@@ -42,6 +42,8 @@ $mech->content_like(qr{/release-group/ecc33260-454c-11de-8a39-0800200c9a66}, 're
 $mech->content_like(qr/Test RG 2/, 'release group 2');
 $mech->content_like(qr{/release-group/7348f3a0-454e-11de-8a39-0800200c9a66}, 'release group 2');
 
+$mech->get('/artist/2775611341');
+is($mech->status(), 404, 'too-large integer 404s');
 
 };
 

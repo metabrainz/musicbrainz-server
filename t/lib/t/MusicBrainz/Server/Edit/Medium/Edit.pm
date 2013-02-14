@@ -282,8 +282,8 @@ test 'Accept/failure conditions regarding links' => sub {
         $edit->accept;
 
         $c->model('Edit')->load_all($edit);
-        is(@{ $edit->display_data->{tracklist_changes} }, 1, '1 tracklist change');
-        is($edit->display_data->{tracklist_changes}->[0][0], '+', 'tracklist change is an addition');
+        is((grep { $_->[0] ne 'u' } @{ $edit->display_data->{tracklist_changes} }), 1, '1 tracklist change');
+        is($edit->display_data->{tracklist_changes}->[1][0], '+', 'tracklist change is an addition');
 
         is(@{ $edit->display_data->{artist_credit_changes} }, 1, '1 artist credit change');
         is($edit->display_data->{artist_credit_changes}->[0][0], '+', 'artist credit change is an addition');

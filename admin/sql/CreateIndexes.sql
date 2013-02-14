@@ -49,6 +49,9 @@ CREATE INDEX edit_idx_vote_time ON vote (vote_time);
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
 
+-- Partial index for open time on open edits (speeds up ordering on /edit/open and edit searches dramatically)
+CREATE INDEX edit_idx_open_edits_open_time ON edit (open_time) WHERE status = 1;
+
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);
 CREATE INDEX edit_label_idx_status ON edit_label (status);
