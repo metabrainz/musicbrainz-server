@@ -208,6 +208,11 @@ ko.bindingHandlers.autocomplete = (function() {
     var recentEntities = {};
 
     function setEntity(type) {
+        if (!_.contains(allowedRelations[Dialog.source.type], type) ||
+                (Dialog.disableTypeSelection() && type != Dialog.target.type)) {
+            Dialog.autocomplete.clear();
+            return false;
+        }
         $("#target-type").val(type).trigger("change");
     }
 
@@ -216,12 +221,6 @@ ko.bindingHandlers.autocomplete = (function() {
 
         // XXX release groups' numeric "type" conflicts with the entity type
         data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
-
-        if (allowedRelations[Dialog.source.type].indexOf(data.type) == -1 &&
-            !(Dialog.source.type == "recording" && data.type == "work")) {
-            Dialog.autocomplete.clear();
-            return;
-        }
 
         // Add/move to the top of the recent entities menu.
         var recent = recentEntities[data.type] = recentEntities[data.type] || [],
