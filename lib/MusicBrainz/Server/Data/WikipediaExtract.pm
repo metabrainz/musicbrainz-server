@@ -77,7 +77,7 @@ sub _fetch_cache_or_url
     my $value = $cache->get($cache_key);
 
     unless (defined $value || $cache_only) {
-        my $wp_url = sprintf $url_pattern, $language, $title;
+        my $wp_url = sprintf $url_pattern, $language, uri_escape_utf8($title);
 
         my $ret = $self->_get_and_process_json($wp_url, $title, $json_property);
         unless ($ret) { return undef }
