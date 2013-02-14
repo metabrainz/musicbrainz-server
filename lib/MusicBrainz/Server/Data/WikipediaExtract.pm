@@ -128,13 +128,13 @@ sub _get_and_process_json
     my $noncanonical = $title;
 
     # capitalization normalizations
-    my $normalized = first { $_->{from} eq $title } $content->{normalized} if $content->{normalized};
+    my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
     if ($normalized) {
         $title = $normalized->{to};
     }
 
     # wiki redirects
-    my $redirects = first { $_->{from} eq $title } $content->{redirects} if $content->{redirects};
+    my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
     if ($redirects) {
         $title = $redirects->{to};
     }
