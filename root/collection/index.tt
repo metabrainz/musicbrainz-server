@@ -1,5 +1,12 @@
 [% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
 
+    <div class="description">
+       [%- IF collection.description -%]
+          <h2>[% l('Description') %]</h2>
+          [% collection.description | format_wikitext  %]
+       [%- END -%]
+    </div>
+
     [%- IF releases.size -%]
       <form action="[% c.req.uri %]" method="post">
         [%- WRAPPER 'components/with-pager.tt' -%]
@@ -19,6 +26,7 @@
               </tr>
           </thead>
           <tbody>
+              <h2>[% l('Releases') %]</h2>
               [%- FOR release=releases -%]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                   [% IF my_collection %]
