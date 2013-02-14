@@ -23,7 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 use MusicBrainz::Server::Log qw( log_debug );
-use Net::CoverArtArchive::CoverArt;
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
@@ -989,15 +989,12 @@ sub newest_releases_with_artwork {
             my $row = shift;
             my $release = $self->_new_from_row($row);
             my $mbid = $release->gid;
-            my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
             my $caa_id = $row->{cover_art_id};
             return {
-                release => $self->_new_from_row($row),
-                artwork => Net::CoverArtArchive::CoverArt->new(
+                release => $release,
+                artwork => Artwork->new(
                     id => $caa_id,
-                    image => sprintf('%s/%s.jpg', $prefix, $caa_id),
-                    large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $caa_id),
-                    small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $caa_id),
+                    release => $release
                 )
             }
         },
