@@ -71,6 +71,9 @@ __PACKAGE__->config(
         ],
         ENCODING => 'UTF-8',
     },
+    'Plugin::Session' => {
+        expires => DBDefs->SESSION_EXPIRE
+    },
     stacktrace => {
         enable => 1
     },

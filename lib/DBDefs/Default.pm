@@ -243,6 +243,7 @@ sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 
 sub SESSION_STORE { "Session::Store::MusicBrainz" }
 sub SESSION_STORE_ARGS { return {} }
+sub SESSION_EXPIRE { return 36000; } # 10 hours
 
 # Redis by default has 16 numbered databases available, of which DB 0
 # is the default.  Here you can configure which of these databases are
@@ -265,6 +266,18 @@ sub DATASTORE_REDIS_ARGS {
         }
     };
 };
+
+################################################################################
+# Session cookies
+################################################################################
+
+# How long (in seconds) a web/rdf session can go "idle" before being timed out
+sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
+
+# The cookie name to use
+sub SESSION_COOKIE { "AF_SID" }
+# The domain into which the session cookie is written
+sub SESSION_DOMAIN { undef }
 
 ################################################################################
 # Other Settings
@@ -297,14 +310,6 @@ sub GIT_BRANCH
     return $branch, $sha, $msg;
   }
 }
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { "AF_SID" }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 # How long an annotation is considered as being locked.
 sub ANNOTATION_LOCK_TIME { 60*15 }

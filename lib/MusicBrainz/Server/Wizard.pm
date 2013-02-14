@@ -472,6 +472,7 @@ sub _store
     if (defined $value)
     {
         $self->_datastore->set ($key, $value);
+        $self->_datastore->expire ($key, time () + DBDefs->SESSION_EXPIRE);
     }
     else
     {
