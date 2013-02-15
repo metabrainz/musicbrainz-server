@@ -147,10 +147,9 @@ ko.bindingHandlers.targetType = (function() {
 
         var ac = Dialog.autocomplete, relationship = Dialog.relationship.peek(),
             newTarget = RE.Entity({type: this.value, name: Dialog.target.name}),
-            obj = relationship.toJS(),
-            tgt = (Dialog.target.gid == obj.entity[0].gid) ? 0 : 1;
+            obj = relationship.toJS();
 
-        obj.entity[tgt] = newTarget;
+        obj.entity[Dialog.target.gid == obj.entity[0].gid ? 0 : 1] = newTarget;
 
         // detect when the entity order needs to be reversed.
         // e.g. switching from artist-recording to recording-release.
@@ -158,8 +157,7 @@ ko.bindingHandlers.targetType = (function() {
         var types = [obj.entity[0].type, obj.entity[1].type],
             type = types.join("-"), reverseType = types.reverse().join("-");
 
-        if ((!Util.typeInfoByEntities(type) && Util.typeInfoByEntities(reverseType)) ||
-                (types[0] === types[1] && tgt === 0))
+        if (!Util.typeInfoByEntities(type) && Util.typeInfoByEntities(reverseType))
             obj.entity.reverse();
 
         Dialog.relationship(RE.Relationship(obj));
@@ -404,8 +402,6 @@ var Dialog = UI.Dialog = {
 
         if ($.isFunction(callback)) callback.call(dlg);
 
-        dlg.relationship().validateEntities = true;
-
         dlg.showAutocomplete(false);
         dlg.source = dlg.emptyRelationship.entity[1].peek();
         dlg.relationship(dlg.emptyRelationship);
@@ -597,8 +593,7 @@ UI.BatchRelationshipDialog.show = function(targets) {
     Dialog.targets = targets;
 
     if (targets.length > 0) {
-        var source = RE.Entity({type: targets[0].type});
-        source.gid = "00000000-0000-0000-0000-000000000000"; // XXX
+        var source = targets[0];
 
         UI.AddDialog.show.call(this, {
             entity: [RE.Entity({type: "artist"}), source],
@@ -616,10 +611,6 @@ UI.BatchRelationshipDialog.accept = function(callback) {
     Util.callbackQueue(Dialog.targets, function(source) {
         model.entity[src] = source;
         delete model.id;
-
-        if (model.entity[0].gid === model.entity[1].gid) {
-            return;
-        }
 
         if (!hasCallback || callback(model)) {
             var newRelationship = RE.Relationship(model);
