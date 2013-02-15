@@ -26,6 +26,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
     'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
+    'MusicBrainz::Server::Entity::URL' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::URL',
 );
 
 sub boolean { return (shift) ? JSON::true : JSON::false; }
@@ -54,12 +55,19 @@ sub serializer
 {
     my $entity = shift;
 
-    my $class = $ENTITY_TO_SERIALIZER{$entity->meta->name};
+    my $serializer;
 
-    Class::MOP::load_class($class);
+    for my $class (keys %ENTITY_TO_SERIALIZER) {
+        if ($entity->isa($class)) {
+            $serializer = $ENTITY_TO_SERIALIZER{$class};
+            last;
+        }
+    }
 
-    $serializers{$class} ||= $class->new;
-    return $serializers{$class};
+    Class::MOP::load_class($serializer);
+
+    $serializers{$serializer} ||= $serializer->new;
+    return $serializers{$serializer};
 }
 
 sub serialize_entity
@@ -85,7 +93,7 @@ sub list_of
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012-2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
