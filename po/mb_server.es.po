@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-02-03 21:20-0700\n"
-"PO-Revision-Date: 2013-02-04 16:06+0000\n"
+"PO-Revision-Date: 2013-02-09 18:35+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1180,7 +1180,7 @@ msgstr "Crédito de artista:"
 
 #: ../root/artist/aliases.tt:8
 msgid "Artist credits"
-msgstr ""
+msgstr "Créditos de artista"
 
 #: ../root/edit/details/edit_medium.tt:223
 msgid "Artist credits:"
@@ -1461,7 +1461,7 @@ msgid ""
 "hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
 "have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the"
 " way you intended it to show."
-msgstr ""
+msgstr "Los corchetes [] se usan para crear enlaces, así que debes usar sus equivalentes en html (<code>&amp;#91;</code> para [) and (<code>&amp;#93;</code> para ]) si quieres que no se conviertan en enlaces. Para escribir [unknown] en una anotación, por ejemplo, debes escribir <code>&amp;#91;unknown&amp;#93;</code>."
 
 #: ../root/account/registered.tt:13
 msgid ""
@@ -1492,7 +1492,7 @@ msgstr "Inicio:"
 #: ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-label.tt:12
 msgid "Begin"
-msgstr "Comienza"
+msgstr "Inicio"
 
 #: ../root/components/aliases.tt:13
 msgid "Begin Date"
@@ -1515,7 +1515,7 @@ msgstr "Fecha de inicio"
 #: ../root/edit/relationship/edit.tt:125 ../root/label/edit_form.tt:52
 #: ../root/release/edit_relationships.tt:135
 msgid "Begin date:"
-msgstr "Fecha de comienzo:"
+msgstr "Fecha de inicio:"
 
 #: ../root/layout/menu.tt:242
 msgid "Beginners Guide"
@@ -1945,7 +1945,7 @@ msgstr "Colecciones"
 
 #: ../root/cdstub/index.tt:3
 msgid "Comment"
-msgstr ""
+msgstr "Comentario"
 
 #: ../root/cdstub/edit_form.tt:8 ../root/edit/details/add_cover_art.tt:11
 #: ../root/edit/details/edit_cover_art.tt:17
@@ -3366,13 +3366,13 @@ msgstr "ISWCs:"
 msgid ""
 "If none of these artists match the artist you intended, you can still create"
 " a new artist:"
-msgstr ""
+msgstr "Si ninguno de estos artistas es el que buscabas, puedes crear uno nuevo."
 
 #: ../root/release/edit/missing_entities.tt:146
 msgid ""
 "If none of these labels match the label you intended, you can still create a"
 " new label:"
-msgstr ""
+msgstr "Si ninguna de estas discográficas es la que buscabas, puedes crear una nueva."
 
 #: ../root/artist/edit_form.tt:5
 msgid ""
@@ -3412,7 +3412,7 @@ msgstr "Si aún no tenemos una grabación para esta pista en la base de datos, s
 msgid ""
 "If you added this alias by mistake, please follow the instructions on "
 "{cancel|how to cancel pending edits} instead of removing this alias."
-msgstr ""
+msgstr "Si has añadido este alias por error, sigue las instrucciones para {cancel|cancelar ediciones pendientes} en vez de añadir una edición más para eliminarlo."
 
 #: ../root/cdtoc/attach_artist_releases.tt:68
 msgid "If you can't find what you're looking for, you can add a new release:"
@@ -3925,7 +3925,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into  medium 2 of a release, it "
 "will need to be set as medium 2 of the release being merged."
-msgstr ""
+msgstr "Asegúrate de que todos los medios de las publicaciones que vas a fusionar están en la posición adecuada. Por ejemplo, para fusionar un medio con el medio 2 de una publicación, es necesario que sea el medio 2 de la publicación a fusionar."
 
 #: ../root/release/edit/tracklist.tt:170
 msgid "Manual entry"
@@ -4667,7 +4667,7 @@ msgstr "Solo el usuario que haya creado una edición puede cancelarla; o bien no
 msgid ""
 "Only use this option after you've tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
-msgstr ""
+msgstr "No uses esta opción sin buscar la obra u obras que quieres crear y asegurarte de que aún no están en MusicBrainz."
 
 #: ../root/edit/cannot_approve.tt:10
 msgid "Only {doc|auto-editors} can approve an edit."
@@ -4880,7 +4880,7 @@ msgstr "Introduce las etiquetas en el área de debajo. Las etiquetas se separan 
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr ""
+msgstr "Introduce el código de barras de la publicación. Consulta <a href=\"{url}\">Código de barras</a> si quieres más información."
 
 #: ../root/release/merge_search.tt:6
 msgid ""
@@ -4981,7 +4981,7 @@ msgstr "Lee la documentación sobre el tipo de modificación {doc_remove|\"elimi
 
 #: ../root/alias/delete.tt:4
 msgid "Please review the {doc|alias documentation} before entering this edit."
-msgstr ""
+msgstr "Consulta la {doc|documentación sobre alias} antes de introducir esta edición."
 
 #: ../root/cdstub/import.tt:3
 msgid "Please search for the artist you wish to create a new release for:"
@@ -5057,7 +5057,7 @@ msgstr "Posición:"
 
 #: ../root/artist/edit_form.tt:16
 msgid "Possible Duplicate Artists"
-msgstr "Artistas que quizá estén duplicados"
+msgstr "Artistas que quizá sean el mismo"
 
 #: ../root/label/edit_form.tt:12
 msgid "Possible Duplicate Labels"
@@ -5401,7 +5401,7 @@ msgid ""
 "edited, relationships highlighted <span class=\"rel-remove\">red</span> will"
 " be removed, and relationships highlighted <span class=\"rel-"
 "add\">green</span> will be added."
-msgstr ""
+msgstr "Las relaciones marcadas en <span class=\"rel-edit\">amarillo</span> serán modificadas, las marcadas en <span class=\"rel-remove\">rojo</span> eliminadas y las marcadas en <span class=\"rel-add\">verde</span> añadidas."
 
 #: ../root/edit/details/historic/add_relationship.tt:3
 #: ../root/edit/details/remove_relationship_(historic).tt:3
@@ -5432,7 +5432,7 @@ msgstr "Artista de la publicación"
 
 #: ../root/edit/search_macros.tt:284
 msgid "Release Country"
-msgstr ""
+msgstr "País de publicación"
 
 #: ../root/recording/index.tt:14
 msgid "Release Date"
@@ -5965,7 +5965,7 @@ msgstr "Restablecer contraseña"
 
 #: ../root/release/edit/tracklist.tt:433 ../root/release/edit/tracklist.tt:434
 msgid "Reset track numbers"
-msgstr ""
+msgstr "Restablecer núm. de pista"
 
 #: ../root/search/form.tt:7
 msgid "Results per page:"
@@ -6932,7 +6932,7 @@ msgstr "La edición ha sido cancelada."
 
 #: ../root/scripts/text_strings.tt:95
 msgid "The end date cannot preceed the begin date."
-msgstr "La fecha final no puede ser anterior a la inicial."
+msgstr "La fecha de fin no puede ser anterior a la de inicio."
 
 #: ../root/user/privileged.tt:41
 msgid "The following {count} user accounts are bots:"
@@ -7130,7 +7130,7 @@ msgstr "No hay ningún usuario con este nombre."
 
 #: ../root/admin/wikidoc/index.tt:25
 msgid "There was a problem accessing the wiki API."
-msgstr ""
+msgstr "Hubo un problema al acceder a la API de la wiki."
 
 #: ../root/edit/cannot_approve.tt:3
 msgid "There was a problem approving {edit}."
@@ -7157,7 +7157,7 @@ msgstr "Este CD tiene pistas de más de un artista (p. ej., un recopilatorio)"
 msgid ""
 "This ISRC is not associated with any recordings. If you wish to associate it"
 " with a recording, please {search_url|search for the recording} and add it."
-msgstr "Este ISRC no está asociado a ninguna grabación. Si deseas asociarlo a una, {search_url|busca la grabación} y hazlo."
+msgstr "Este ISRC no está asociado a ninguna grabación. Si quieres asociarlo a una, {search_url|busca la grabación} y hazlo."
 
 #: ../root/iswc/not_found.tt:4
 msgid ""
@@ -7182,7 +7182,7 @@ msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
-msgstr "Este artista no tiene relaciones, grabaciones, publicaciones ni grupos de publicación y será eliminado automáticamente en unos días. Si deaseas evitarlo, añade más información."
+msgstr "Este artista no tiene relaciones, grabaciones, publicaciones ni grupos de publicación y será eliminado automáticamente en unos días. Si deseas evitarlo, añade más información."
 
 #: ../root/artist/tags.tt:2
 msgid "This artist has no tags."
@@ -7338,7 +7338,7 @@ msgstr "Este es un servidor de desarrollo; todas las contraseñas han sido cambi
 msgid ""
 "This is a list of all the different ways {artist} is credited in the "
 "database. View the {doc|artist credit documentation} for more details."
-msgstr ""
+msgstr "Esta es una lista de todas las formas diferentes de acreditar a {artist} que hay en la base de datos. Consulta la {doc|documentación sobre créditos de artista} para saber más."
 
 #: ../root/annotation/common.tt:25
 msgid ""
@@ -7369,7 +7369,7 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr ""
+msgstr "Esta discográfica no tiene relaciones ni publicaciones y será eliminada automáticamente en unos días. Si deseas evitarlo, añade más información."
 
 #: ../root/label/tags.tt:2
 msgid "This label has no tags."
@@ -7502,7 +7502,7 @@ msgid ""
 "members. If you find that an artist here is indeed a group, change its type."
 " If it is not, please make sure that the \"member of\" relationships are in "
 "the right direction and are correct."
-msgstr ""
+msgstr "Este informe muestra artistas cuyo tipo actual no es <em>grupo</em>, pero parecen ser <em>grupos</em> ya que tienen otros artistas asociados como miembros. Si uno de ellos es, efectivamente, un grupo, cambia el tipo. Si no lo es, asegúrate de que las relaciones con sus miembros son correctas y están en el orden adecuado."
 
 #: ../root/report/artists_that_may_be_persons.tt:6
 msgid ""
@@ -7511,7 +7511,7 @@ msgid ""
 "artist will appear here if it is listed as a member of another. If you find "
 "that an artist here is indeed a person, change its type. If it is not, "
 "please make sure that all the relationships are correct and make sense."
-msgstr ""
+msgstr "Este informe muestra artistas cuyo tipo actual no es <em>persona</em>, pero según sus relaciones, parecen ser <em>personas</em> (por ejemplo, porque están asociados como miembros de un grupo). Si uno de ellos es, efectivamente, una persona, cambia el tipo. Si no lo es, asegúrate de que todas las relaciones son correctas y están en el orden adecuado."
 
 #: ../root/report/artists_containing_disambiguation_comments.tt:6
 msgid ""
@@ -7527,7 +7527,7 @@ msgid ""
 "collaboration, it should be split if possible (see {how_to_split_artists|How"
 " to Split Artists}). If it is a collaboration with its own name and can't be"
 " split, collaboration relationships should be added to it."
-msgstr ""
+msgstr "Este informe muestra artistas que tienen \"&\" en su nombre, pero no están asociados a miembros ni colaboradores. Si el artista suele considerarse un grupo propiamente dicho, añade relaciones con sus miembros. Si es una colaboración breve, sepárala si es posible: consulta {how_to_split_artists|cómo separar artistas (en inglés)}. Si es una colaboración que tiene un nombre específico y no es posible separarla, añade relaciones con sus colaboradores."
 
 #: ../root/report/collaboration_relationships.tt:4
 msgid ""
@@ -7535,7 +7535,7 @@ msgid ""
 "relationships. If the collaboration has its own independent name, do "
 "nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
 "probably split it. See {how_to_split_artists|How to Split Artists}."
-msgstr ""
+msgstr "Este informe muestra artistas que tienen relaciones de colaboración, pero ninguna URL. Si una colaboración tiene un nombre específico, no hagas nada, pero si su nombre es del estilo \"X con Y\" o \"X & Y\", es probable que necesite ser separado en varios artistas. Consulta {how_to_split_artists|cómo separar artistas (en inglés)}."
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
@@ -7564,7 +7564,7 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr ""
+msgstr "Este informe muestra URLs de Amazon asociadas a más de una publicación. En la mayoría de los casos una ASIN de Amazon equivale a una y solo una publicación de MusicBrainz, así que solo uno de los enlaces será correcto. Comprueba cuál de las publicaciones en MusicBrainz coincide con la de Amazon (en formato, pistas, país, etc.).  Si la publicación tiene un código de barras, puedes buscarlo en Amazon y ver cuál de las ASINs corresponde a dicho código. Es posible que encuentres algunas ASINs asociada a varios discos de una publicación con múltiples discos; en ese caso, fusiónalos. Consulta {how_to_merge_releases|cómo fusionar publicaciones (en inglés)}."
 
 #: ../root/report/discogs_links_with_multiple_artists.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple artists."
@@ -7588,7 +7588,7 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr "Este informe muestra URLs de Discogs asociadas a más de una publicación. En la mayoría de los casos una publicación de Discogs equivale a una y solo una publicación de MusicBrainz, así que solo uno de los enlaces será correcto. Comprueba cuál de las publicaciones en MusicBrainz coincide con la de Discogs (en formato, pistas, país, etc.) y elimina la relación con las demás. Es posible que encuentres una URL de Discogs asociada a varios discos de una publicación con múltiples discos; en ese caso, fusiónalos (comprueba {how_to_merge_releases|Cómo fusionar publicaciones})"
+msgstr "Este informe muestra URLs de Discogs asociadas a más de una publicación. En la mayoría de los casos una publicación de Discogs equivale a una y solo una publicación de MusicBrainz, así que solo uno de los enlaces será correcto. Comprueba cuál de las publicaciones en MusicBrainz coincide con la de Discogs (en formato, pistas, país, etc.) y elimina la relación con las demás. Es posible que encuentres una URL de Discogs asociada a varios discos de una publicación con múltiples discos; en ese caso, fusiónalos. Consulta {how_to_merge_releases|cómo fusionar publicaciones (en inglés)}."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:6
 msgid ""
@@ -7698,7 +7698,7 @@ msgstr "Este informe muestra publicaciones cuyo título contiene \"(disc n)\" o 
 msgid ""
 "This report shows releases which have artwork in the Cover Art Archive, but "
 "still have a cover art relationship (pointing to a URL)."
-msgstr ""
+msgstr "Este informe muestra publicaciones que tienen imágenes en el archivo de imágenes, pero aún tienen una o más relaciones con una URL del tipo \"tiene una imagen en\"."
 
 #: ../root/report/cat_no_looks_like_asin.tt:6
 msgid ""
@@ -7742,7 +7742,7 @@ msgstr "Este informe muestra lanzamientos con el estado pseudo-lanzamiento que n
 #: ../root/release/merge.tt:137
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
-msgstr ""
+msgstr "Esto requiere que los medios correspondientes tengan el mismo número de pistas."
 
 #: ../root/user/profile.tt:184
 msgid "This table shows a summary of votes cast by this editor."
@@ -7753,7 +7753,7 @@ msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
-msgstr ""
+msgstr "Esta lista de pistas tiene créditos de artista que contienen información que se perderá si intercambias los nombres de pista y los artistas. Este cambio no puede deshacerse. ¿Seguro que quieres continuar?"
 
 #: ../root/components/common-macros.tt:424
 msgid "This user is automated."
@@ -7791,7 +7791,7 @@ msgstr "Este asistente te permite fusionar {release} con otro lanzamiento."
 msgid ""
 "This work has no relationships and will be removed automatically in the next"
 " few days. If this is not intended, please add relationships to this work."
-msgstr "Esta obra no tiene relaciones, y será eliminada automáticamente en los próximos días. Si no quieres que sea eliminada, añade algunas relaciones."
+msgstr "Esta obra no tiene relaciones, y será eliminada automáticamente en unos días. Si deseas evitarlo, añade algunas relaciones."
 
 #: ../root/work/tags.tt:2
 msgid "This work has no tags."
@@ -8317,7 +8317,7 @@ msgstr "Versión:"
 
 #: ../root/user/ratings_summary.tt:25
 msgid "View all ratings"
-msgstr ""
+msgstr "Ver todas las valoraciones"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:32
 msgid "View all relationships"
@@ -8365,7 +8365,7 @@ msgstr "Votar ediciones"
 
 #: ../root/scripts/text_strings.tt:121
 msgid "Vote on all edits:"
-msgstr ""
+msgstr "Votar en todas las ediciones."
 
 #: ../root/edit/index.tt:26
 msgid "Vote tally:"
@@ -8443,7 +8443,7 @@ msgid ""
 "Warning: This relationship has pending edits. <a target=\"_blank\" data-"
 "bind=\"attr: {href: relationship().openEdits()}\">Click here</a> to view "
 "these edits and make sure they do not conflict with your own."
-msgstr ""
+msgstr "Ten cuidado, esta relación tiene ediciones pendientes. <a target=\"_blank\" data-bind=\"attr: {href: relationship().openEdits()}\">Haz clic aquí</a> para verlas y asegurarte de que no entran en conflicto con las tuyas."
 
 #: ../root/watch/list.tt:1 ../root/watch/list.tt:2
 msgid "Watched Artists"
@@ -8467,13 +8467,13 @@ msgstr "No podemos mostrar la historia de esta imagen. Para ver las imágenes qu
 msgid ""
 "We couldn't find a label with the name you entered. Please fill in the "
 "fields below to create a new label:"
-msgstr ""
+msgstr "No hemos encontrado una discográfica con este nombre. Para añadir una nueva, completa los siguientes campos:"
 
 #: ../root/release/edit/missing_entities.tt:86
 msgid ""
 "We couldn't find an artist with the name you entered. Please fill in the "
 "fields below to create a new artist:"
-msgstr ""
+msgstr "No hemos encontrado un artista con este nombre. Para añadir uno nuevo, rellena los siguientes campos:"
 
 #: ../root/release/cover_art.tt:42
 msgid "We do not currently have any cover art for {release}."
@@ -8756,7 +8756,7 @@ msgstr "Sí, seguro"
 msgid ""
 "You are about to add an ISRC to {recording} by {ac}. The ISRC must be "
 "entered in standard <code>CCXXXYYNNNNNN</code> format:"
-msgstr "Vas a asociar un ISRC a {recording} de {ac}. El ISRC debe introducirse con el formato estándar <code>CCXXXYYNNNNNN</code>: "
+msgstr "Vas a asociar un ISRC a {recording} de {ac}. Debes introducirlo con el formato estándar <code>CCXXXYYNNNNNN</code>: "
 
 #: ../root/components/forms.tt:233
 msgid ""
@@ -8958,7 +8958,7 @@ msgstr "Debes estar conectado para votar."
 msgid ""
 "You must first {url|add and verify your email address} before being able to "
 "edit or add anything to the database."
-msgstr ""
+msgstr "Debes {url|añadir y/o verificar tu dirección de correo} para poder editar la base de datos."
 
 #: ../root/account/register.tt:33
 msgid ""
@@ -9111,7 +9111,7 @@ msgstr "créditos"
 
 #: ../root/admin/wikidoc/index.tt:53
 msgid "diff"
-msgstr ""
+msgstr "diff"
 
 #: ../root/release/edit/recordings.tt:64
 #: ../root/release/edit/recordings.tt:140
@@ -9345,7 +9345,7 @@ msgstr "símbolo"
 msgid ""
 "tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces "
 "alone indent"
-msgstr ""
+msgstr "tabulación o 4 espacios y: * (lista de puntos); 1., a., A., i., I. (lista numerada); solo espacios (sangría)"
 
 #: ../root/release/edit/recordings.tt:195
 #: ../root/release/edit/recordings.tt:266
@@ -9782,7 +9782,7 @@ msgstr "No puedes fusionar un artista de propósito especial con otro artista"
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:526
 msgid "You cannot merge into Deleted Artist"
-msgstr ""
+msgstr "No puedes fusionar otro artista con la entidad para artistas eliminados (Deleted Artist)."
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:70
 #, perl-brace-format
@@ -10237,15 +10237,15 @@ msgstr "Aplicado"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:252
 msgid "Failed vote"
-msgstr ""
+msgstr "Rechazada"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:253
 msgid "Failed dependency"
-msgstr ""
+msgstr "Error de dependencia"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:255
 msgid "Failed prerequisite"
-msgstr ""
+msgstr "Error de prerrequisito"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:256
 msgid "No votes"
@@ -10398,7 +10398,7 @@ msgstr "\"{artist}\" no ha sido seleccionado, debes escoger un artista.\n       
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:68
 msgid "Artist credit field is required"
-msgstr ""
+msgstr "Es necesario rellenar el campo \"créditos de artista\""
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:46
 msgid "The end date must occur on or after the begin date"
@@ -10420,7 +10420,7 @@ msgstr "Esta MBID no es válida"
 msgid ""
 "This is not a valid ISRC. If this code starts with \"TC\", it is a TuneCore "
 "ID, which should be put into the annotation instead."
-msgstr "Éste no es un ISRC válido. Si el código comienza con \"TC\", se trata de un ID de TuneCore ID que debe añadirse a la anotación."
+msgstr "Éste no es un ISRC válido. Si el código comienza con \"TC\", se trata de un ID de TuneCore, y deberías añadirlo a la anotación."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:12
 #: ../lib/MusicBrainz/Server/Form/Field/ISWC.pm:16
@@ -10465,11 +10465,11 @@ msgstr "Es necesario indicar el tipo de relación"
 
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:130
 msgid "The relationship is missing one or both entities."
-msgstr ""
+msgstr "En esta relación faltan una o ambas entidades."
 
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:142
 msgid "This entity has an invalid ID or MBID."
-msgstr ""
+msgstr "Esta entidad tiene una ID o MBID no válida."
 
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:151
 msgid "This entity does not exist."

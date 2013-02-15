@@ -77,7 +77,7 @@ sub _fetch_cache_or_url
     my $value = $cache->get($cache_key);
 
     unless (defined $value || $cache_only) {
-        my $wp_url = sprintf $url_pattern, $language, $title;
+        my $wp_url = sprintf $url_pattern, $language, uri_escape_utf8($title);
 
         my $ret = $self->_get_and_process_json($wp_url, $title, $json_property);
         unless ($ret) { return undef }
@@ -128,13 +128,13 @@ sub _get_and_process_json
     my $noncanonical = $title;
 
     # capitalization normalizations
-    my $normalized = first { $_->{from} eq $title } $content->{normalized} if $content->{normalized};
+    my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
     if ($normalized) {
         $title = $normalized->{to};
     }
 
     # wiki redirects
-    my $redirects = first { $_->{from} eq $title } $content->{redirects} if $content->{redirects};
+    my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
     if ($redirects) {
         $title = $redirects->{to};
     }

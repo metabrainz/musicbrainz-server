@@ -14,6 +14,7 @@
 # Mineo <email address hidden>, 2011.
 # Nikolai Prokoschenko <email address hidden>, 2011.
 # Nikolai Prokoschenko <email address hidden>, 2011.
+#  <email address hidden>, 2013.
 #   <email address hidden>, 2012-2013.
 #   <email address hidden>, 2012.
 # Shepard <email address hidden>, 2011.
@@ -27,8 +28,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-02-03 21:20-0700\n"
-"PO-Revision-Date: 2013-02-04 04:23+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-02-10 16:57+0000\n"
+"Last-Translator: Shepard <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3261,7 +3262,7 @@ msgstr "Startseite:"
 
 #: ../root/main/500.tt:47
 msgid "Host:"
-msgstr ""
+msgstr "Host:"
 
 #: ../root/edit/list_header.tt:31
 msgid "How editing works"
@@ -3783,7 +3784,7 @@ msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Wie auch Wikipedia wird MusicBrainz von einer globalen Gemeinschaft von Benutzern betrieben und wir würden usn freuen, wenn alle - inklusive Dir - {doc|daran teilnehmen und beitragen}."
+msgstr "Wie auch Wikipedia wird MusicBrainz von einer globalen Gemeinschaft von Benutzern betrieben und wir würden uns freuen, wenn alle - inklusive Dir - {doc|daran teilnehmen und beitragen}."
 
 #: ../root/user/profile.tt:48
 msgid "Limited User"
@@ -3929,7 +3930,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into  medium 2 of a release, it "
 "will need to be set as medium 2 of the release being merged."
-msgstr ""
+msgstr "Überprüfe bitte, dass alle Medien in der Veröffentlichung in der richtigen Position vereinigt werden. Wenn zum Beispiel ein Medium mit Medium 2 einer Veröffentlichung vereinigt werden soll, muss es bei der zur vereinigenden Veröffentlichung als 2. Medium gesetzt sein."
 
 #: ../root/release/edit/tracklist.tt:170
 msgid "Manual entry"
@@ -4302,7 +4303,7 @@ msgstr "Neue Künstlernennung"
 
 #: ../root/release/add_cover_art.tt:39
 msgid "New Image Goes Here"
-msgstr ""
+msgstr "Neues Bild kommt hierhin"
 
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
@@ -7373,7 +7374,7 @@ msgid ""
 "This label has no relationships or releases and will be removed "
 "automatically in the next few days. If this is not intended, please add more"
 " data to this label."
-msgstr ""
+msgstr "Dieses Label hat keine Beziehungen oder Veröffentlichungen und wird innerhalb der nächsten Tage entfernt werden. Wenn das nicht beabsichtigt ist, füge bitte mehr Daten zu diesem Label hinzu."
 
 #: ../root/label/tags.tt:2
 msgid "This label has no tags."
@@ -8369,7 +8370,7 @@ msgstr "Auf Bearbeitungen abstimmen"
 
 #: ../root/scripts/text_strings.tt:121
 msgid "Vote on all edits:"
-msgstr ""
+msgstr "Auf alle Bearbeitungen abstimmen:"
 
 #: ../root/edit/index.tt:26
 msgid "Vote tally:"
