@@ -55,17 +55,19 @@ sub serializer
 {
     my $entity = shift;
 
-    my $lookup_name = $entity->meta->name;
-    if ($lookup_name =~ /^MusicBrainz::Server::Entity::URL/) {
-        $lookup_name = 'MusicBrainz::Server::Entity::URL';
+    my $serializer;
+
+    for my $class (keys %ENTITY_TO_SERIALIZER) {
+        if ($entity->isa($class)) {
+            $serializer = $ENTITY_TO_SERIALIZER{$class};
+            last;
+        }
     }
 
-    my $class = $ENTITY_TO_SERIALIZER{$lookup_name};
+    Class::MOP::load_class($serializer);
 
-    Class::MOP::load_class($class);
-
-    $serializers{$class} ||= $class->new;
-    return $serializers{$class};
+    $serializers{$serializer} ||= $serializer->new;
+    return $serializers{$serializer};
 }
 
 sub serialize_entity
