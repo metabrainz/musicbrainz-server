@@ -75,7 +75,7 @@ var validationHandlers = {
         });
     },
 
-    "entity.0": function(field, value) {
+    "entity.0": function(field, value, relationship) {
         var entity0 = relationship.entity[0](), entity1 = relationship.entity[1]();
 
         if (!Util.isMBID(value.gid)) {
