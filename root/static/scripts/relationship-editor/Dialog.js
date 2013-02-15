@@ -380,6 +380,8 @@ var Dialog = UI.Dialog = {
         dlg.showAutocomplete(notBatchWorks);
         dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
 
+        dlg.validateEntities = true;
+
         dlg.$overlay.show();
         // prevents the page from jumping. these will be adjusted in positionDialog.
         dlg.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).show();
@@ -395,6 +397,8 @@ var Dialog = UI.Dialog = {
         dlg.$dialog.hide();
         dlg.$overlay.hide();
         delete dlg.targets;
+
+        dlg.validateEntities = false;
 
         if ($.isFunction(callback)) callback.call(dlg);
 
@@ -435,7 +439,9 @@ var Dialog = UI.Dialog = {
             entity0 = relationship.entity[0].peek(),
             entity1 = relationship.entity[1].peek();
 
+        dlg.validateEntities = false;
         relationship.entity[0](entity1);
+        dlg.validateEntities = true;
         relationship.entity[1](entity0);
         this.resize();
     },

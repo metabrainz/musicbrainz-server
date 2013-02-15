@@ -80,7 +80,7 @@ var validationHandlers = {
 
         if (!Util.isMBID(value.gid)) {
             field.error(MB.text.RequiredField);
-        } else if (entity0 === entity1) {
+        } else if ((relationship.validateEntities) && (entity0 === entity1)) {
             field.error(MB.text.DistinctEntities);
         } else {
             field.error("");
