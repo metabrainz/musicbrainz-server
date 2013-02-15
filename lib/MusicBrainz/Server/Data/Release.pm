@@ -240,9 +240,16 @@ sub find_by_release_group
                  FROM " . $self->_table . "
                  " . join(' ', @$extra_joins) . "
                  LEFT JOIN country ON release.country = country.id
+                 LEFT JOIN (
+                   SELECT
+                     array_agg(catalog_number ORDER BY catalog_number) AS catalog_numbers,
+                     release
+                     FROM release_label GROUP BY release
+                   ) rl
+                   ON release.id = rl.release
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
+                          rl.catalog_numbers, country.name, barcode
                  OFFSET ?";
 
     return query_to_list_limited(
