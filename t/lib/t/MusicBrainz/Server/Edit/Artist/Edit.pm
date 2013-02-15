@@ -255,9 +255,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
 
     my $exception = exception { $edit_1->accept };
     isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
-    like $exception->message, qr/da34a170-7f7f-11de-8a39-0800200c9a66/,
-        'Error message contains the MBID of the conflict';
-    diag $exception->message;
+    like $exception->message, qr{//localhost/artist/da34a170-7f7f-11de-8a39-0800200c9a66},
+        'Error message contains the URL of the conflict';
 };
 
 sub _create_full_edit {
