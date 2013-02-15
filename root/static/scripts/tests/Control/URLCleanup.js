@@ -214,6 +214,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.secondhandsongs.com/work/1409',
                     MB.constants.LINK_TYPES.secondhandsongs.work
+                ],
+                // Lyricsnmusic
+                [
+                    'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
+                    MB.constants.LINK_TYPES.lyrics.work
                 ]
             ];
 
