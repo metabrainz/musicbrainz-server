@@ -147,9 +147,10 @@ ko.bindingHandlers.targetType = (function() {
 
         var ac = Dialog.autocomplete, relationship = Dialog.relationship.peek(),
             newTarget = RE.Entity({type: this.value, name: Dialog.target.name}),
-            obj = relationship.toJS();
+            obj = relationship.toJS(),
+            tgt = (Dialog.target.gid == obj.entity[0].gid) ? 0 : 1;
 
-        obj.entity[Dialog.target.gid == obj.entity[0].gid ? 0 : 1] = newTarget;
+        obj.entity[tgt] = newTarget;
 
         // detect when the entity order needs to be reversed.
         // e.g. switching from artist-recording to recording-release.
@@ -157,7 +158,8 @@ ko.bindingHandlers.targetType = (function() {
         var types = [obj.entity[0].type, obj.entity[1].type],
             type = types.join("-"), reverseType = types.reverse().join("-");
 
-        if (!Util.typeInfoByEntities(type) && Util.typeInfoByEntities(reverseType))
+        if ((!Util.typeInfoByEntities(type) && Util.typeInfoByEntities(reverseType)) ||
+                (types[0] === types[1] && tgt === 0))
             obj.entity.reverse();
 
         Dialog.relationship(RE.Relationship(obj));
