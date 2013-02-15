@@ -76,7 +76,15 @@ var validationHandlers = {
     },
 
     "entity.0": function(field, value) {
-        field.error(Util.isMBID(value.gid) ? "" : MB.text.RequiredField);
+        var entity0 = relationship.entity[0](), entity1 = relationship.entity[1]();
+
+        if (!Util.isMBID(value.gid)) {
+            field.error(MB.text.RequiredField);
+        } else if(entity0 === entity1) {
+            field.error(MB.text.DistinctEntities);
+        } else {
+            field.error("");
+        }
     }
 };
 
