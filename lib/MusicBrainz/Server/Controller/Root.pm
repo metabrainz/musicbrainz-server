@@ -83,6 +83,7 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
             $new_url = $c->uri_for('/') . '?unset_beta=1';
         } elsif (!DBDefs->IS_BETA) {
             $new_url = $c->req->referer || $c->uri_for('/');
+            # 1 year
             $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
         }
         # Munge URL to redirect server
