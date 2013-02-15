@@ -74,6 +74,9 @@ sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
+sub IS_BETA                   { 0 }
+sub BETA_REDIRECT_HOSTNAME    { '' }
+
 ################################################################################
 # Mail Settings
 ################################################################################
