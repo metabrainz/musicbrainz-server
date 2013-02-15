@@ -19,24 +19,20 @@ sub relate : Chained('load')
     my $type   = model_to_type( $self->{model} );
     my $entity = $c->stash->{ $self->{entity_name} };
 
-    if (!$c->session->{relationship} ||
-        ($c->session->{relationship} &&
-         $c->session->{relationship}->{type0} eq $type &&
-         $c->session->{relationship}->{id} eq $entity->id)) {
+    $c->session->{relationship} ||= {
+        type0   => $type,
+        entity0 => $entity->gid,
+        name    => $entity->name,
+        id      => $entity->id
+    };
 
-        if (!$c->session->{relationship}) {
-            $c->session->{relationship} = {
-                type0   => $type,
-                entity0 => $entity->gid,
-                name    => $entity->name,
-                id      => $entity->id
-            };
-        }
+    if ($c->session->{relationship}->{type0} eq $type &&
+        $c->session->{relationship}->{id} eq $entity->id) {
 
         $c->response->redirect(
             $c->req->referer || $c->uri_for_action("$type/show", [ $entity->gid ]));
     }
-    elsif ($c->session->{relationship}) {
+    else {
         $c->response->redirect($c->uri_for('/edit/relationship/create', {
             type0 => $c->session->{relationship}->{type0},
             type1 => $type,
