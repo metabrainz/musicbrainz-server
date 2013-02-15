@@ -439,9 +439,9 @@ var Dialog = UI.Dialog = {
             entity0 = relationship.entity[0].peek(),
             entity1 = relationship.entity[1].peek();
 
-        dlg.validateEntities = false;
+        relationship.validateEntities = false;
         relationship.entity[0](entity1);
-        dlg.validateEntities = true;
+        relationship.validateEntities = true;
         relationship.entity[1](entity0);
         this.resize();
     },
