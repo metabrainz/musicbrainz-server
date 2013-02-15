@@ -55,6 +55,7 @@ Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
     'cdstub'        => 'CDStub',
+    'collection'    => 'Collection',
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
     'label'         => 'Label',

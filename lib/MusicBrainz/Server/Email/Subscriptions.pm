@@ -65,6 +65,12 @@ sub text {
     ) if exists $self->edits->{artist};
 
     push @sections, $self->edits_for_type(
+        'Changes for your subscribed collections',
+        [ sort_by { $_->{subscription}->collection->name } @{ $self->edits->{collection} } ],
+        'collection'
+    ) if exists $self->edits->{collection};
+
+    push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
         [ sort_by { $_->{subscription}->label->sort_name } @{ $self->edits->{label} } ],
         'label'
@@ -81,8 +87,8 @@ sub header {
     my $self = shift;
     my $escape = sub { uri_escape_utf8(shift) };
     return strip tt q{
-This is a notification that edits have been added for artists, labels and
-editors to whom you subscribed on the MusicBrainz web site.
+This is a notification that edits have been added for artists, labels,
+collections and editors to whom you subscribed on the MusicBrainz web site.
 To view or edit your subscription list, please use the following link:
 [% self.server %]/user/[% escape(self.editor.name) %]/subscriptions
 
@@ -139,16 +145,20 @@ sub deleted_subscriptions {
 Deleted and merged artists or labels
 --------------------------------------------------------------------------------
 
-Some of your subscribed artists or labels have been merged or deleted:
+Some of your subscribed artists, labels or collections have been merged,
+deleted or made private:
 
 [% FOR sub IN self.deletes;
 edit = sub.deleted_by_edit || sub.merged_by_edit;
-type = sub.artist_id ? 'artist' : 'label';
+type = sub.artist_id ? 'artist' : sub.label_id ? 'label' : 'collection';
 entity_id = sub.artist_id || sub.label_id -%]
+[%- IF type == 'collection' -%]
+[%- type | ucfirst %] "[% sub.last_seen_name %]" - deleted or made private
+[% ELSE -%]
 [%- type | ucfirst %] #[% entity_id %] - [% sub.deleted_by_edit ? 'deleted' : 'merged' %] by edit #[% edit %]
 [% self.server %]/edit/[% edit %]
-
-[% END %]
+[% END -%]
+[%- END %]
 }
 }
 
