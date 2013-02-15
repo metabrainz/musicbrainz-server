@@ -265,7 +265,7 @@ sub build_display_data
             ) }
         ];
 
-        if (any {$_->[0] ne 'u'} @$tracklist_changes) {
+        if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             $data->{tracklist_changes} = $tracklist_changes;
         }
 
