@@ -234,12 +234,17 @@ sub create : Local RequireAuth Edit
         attr_tree => $attr_tree,
         root => $tree
     );
+    if (!$c->form_posted && %{ $c->req->query_params }) {
+        $form->process( params => $c->req->query_params );
+        $form->clear_errors;
+    }
+
     $c->stash(
         source => $source, source_type => $type0,
         dest   => $dest,   dest_type   => $type1
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
         my @attributes = $self->flatten_attributes($form->field('attrs'));
 
         my $entity0 = $source;
@@ -326,13 +331,17 @@ sub create_url : Local RequireAuth Edit
         root => $tree,
         attr_tree => $attr_tree
     );
+    if (!$c->form_posted && %{ $c->req->query_params }) {
+        $form->process( params => $c->req->query_params );
+        $form->clear_errors;
+    }
 
     $c->stash(
         entity => $entity,
         type => $type,
     );
 
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+    if ($c->form_posted && $form->submitted_and_valid($c->req->body_params)) {
         my @attributes = $self->flatten_attributes($form->field('attrs'));
         my $url = $c->model('URL')->find_or_insert($form->field('url')->value);
 

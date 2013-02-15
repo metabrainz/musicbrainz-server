@@ -433,6 +433,7 @@ sub editors_with_subscriptions
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
     );
@@ -523,8 +524,8 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist label editor )),
-        ($editor_id) x 3
+            } qw( artist collection label editor )),
+        ($editor_id) x 4
     );
 }
 

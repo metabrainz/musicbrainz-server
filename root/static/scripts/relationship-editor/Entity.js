@@ -51,16 +51,9 @@ Entity.prototype.mergeRelationship = function(rel) {
         var other = relationships[i];
 
         if (rel !== other && rel.isDuplicate(other)) {
-
-            var obj = rel.toJS(), attrs = $.extend({}, obj.attrs);
-            obj.attrs = {};
+            var obj = rel.toJS();
             delete obj.id;
             delete obj.action;
-
-            _.each(attrs, function(value, name) {
-                obj.attrs[name] = !value || ($.isArray(value) && !value.length)
-                    ? other.attrs.peek()[name].peek() : value;
-            });
 
             obj.period.begin_date = RE.Util.mergeDates(rel.period.begin_date, other.period.begin_date);
             obj.period.end_date = RE.Util.mergeDates(rel.period.end_date, other.period.end_date);

@@ -8,7 +8,7 @@
 [% USE format %]
 [% round1 = format('%.1f') %]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <h2>[% l('Basics') %]</h2>
 [%- IF stats.statistic('count.release.has_caa') < 1 -%]

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-09 16:59+0000\n"
+"PO-Revision-Date: 2013-02-14 17:51+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -3451,7 +3451,7 @@ msgstr "{cover:versión|grabación} {partial:parcial} {instrumental} {live:en vi
 
 #: DB:link_type/reverse_link_phrase:278
 msgid "{partial} {live} {instrumental} {cover} recordings"
-msgstr "{cover:versiones|grabaciones} {partial:parciales} {instrumental:instrumentales} {live:en vivo} de"
+msgstr "{cover:versiones|grabaciones} {partial:parciales} {instrumental:instrumentales} {live:en vivo}"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

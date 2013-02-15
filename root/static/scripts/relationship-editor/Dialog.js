@@ -484,12 +484,12 @@ var Dialog = UI.Dialog = {
     },
 
     changeDirection: function() {
-        var entities = this.relationship.peek().entity;
+        var relationship = this.relationship.peek(),
+            entity0 = relationship.entity[0].peek(),
+            entity1 = relationship.entity[1].peek();
 
-        entities.reverse();
-        entities[0].notifySubscribers(entities[0].peek());
-        entities[1].notifySubscribers(entities[1].peek());
-
+        relationship.entity[0](entity1);
+        relationship.entity[1](entity0);
         this.resize();
     },
 
