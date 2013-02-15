@@ -402,6 +402,8 @@ var Dialog = UI.Dialog = {
 
         if ($.isFunction(callback)) callback.call(dlg);
 
+        dlg.relationship().validateEntities = true;
+
         dlg.showAutocomplete(false);
         dlg.source = dlg.emptyRelationship.entity[1].peek();
         dlg.relationship(dlg.emptyRelationship);
