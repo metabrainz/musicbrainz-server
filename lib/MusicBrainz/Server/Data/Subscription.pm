@@ -111,7 +111,7 @@ sub find_subscribed_editors
     my $extra_cond = "";
 
     $extra_cond = " AND s.available"
-        if ($column == "collection");
+        if ($column eq "collection");
 
     my $query = "
         SELECT " . MusicBrainz::Server::Data::Editor->_columns . "
