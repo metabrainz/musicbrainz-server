@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
 # Directories
@@ -105,7 +106,9 @@ sub DB_STAGING_SERVER { 1 }
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
 # Default: "This is a MusicBrainz development server."
-sub DB_STAGING_SERVER_DESCRIPTION { "" }
+sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
+sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
+sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
