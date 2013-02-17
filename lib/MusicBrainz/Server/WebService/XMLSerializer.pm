@@ -759,7 +759,12 @@ sub _serialize_relation
     my $type = $rel->link->type->name;
     my $type_id = $rel->link->type->gid;
 
-    push @list, $gen->target($rel->target_key);
+    if ($rel->target_type eq 'url') {
+        push @list, $gen->target({ 'id' => $rel->target->gid }, $rel->target_key);
+    } else {
+        push @list, $gen->target($rel->target_key);
+    }
+
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
