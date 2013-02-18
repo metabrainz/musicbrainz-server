@@ -227,6 +227,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://viaf.org/viaf/185694157',
                     MB.constants.LINK_TYPES.viaf.work
+                ],
+                // Lyricsnmusic
+                [
+                    'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
+                    MB.constants.LINK_TYPES.lyrics.work
                 ]
             ];
 
