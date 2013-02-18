@@ -29,7 +29,7 @@ after 'validate' => sub {
         $self->field('begin_date'), $self->field('end_date');
 
     return if !Date::Calc::check_date($begin->{year}, $begin->{month} || 1, $begin->{day} || 1);
-    return if !Date::Calc::check_date($end->{year}, $end->{month} || 1, $end->{day} || 1);
+    return if !Date::Calc::check_date($end->{year}, $end->{month} || 12, $end->{day} || 31);
 
     if ($end->{year} || $end->{month} || $end->{day}) {
         $self->field('ended')->value(1);
@@ -39,7 +39,7 @@ after 'validate' => sub {
 
     my ($days) = Date::Calc::Delta_Days(
         $begin->{year}, $begin->{month} || 1, $begin->{day} || 1,
-        $end->{year},   $end->{month} || 1,   $end->{day} || 1
+        $end->{year},   $end->{month} || 12,   $end->{day} || 31
     );
 
     if ($days < 0) {
