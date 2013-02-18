@@ -253,7 +253,7 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
 
-    my $exception = exception { $edit_1->accept };
+    my $exception = exception { $edit_2->accept };
     isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
     like $exception->message, qr{//localhost/artist/da34a170-7f7f-11de-8a39-0800200c9a66},
         'Error message contains the URL of the conflict';
