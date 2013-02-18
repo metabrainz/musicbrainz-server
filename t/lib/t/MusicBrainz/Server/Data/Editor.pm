@@ -317,17 +317,13 @@ EOSQL
               { artist => 1,
                 collection => 1,
                 label => 1,
-                editor => 1,
-                collection => 0
-              });
+                editor => 1 });
 
     is_deeply($test->c->model('Editor')->subscription_summary(2),
               { artist => 0,
                 collection => 0,
                 label => 1,
-                editor => 0,
-                collection => 0
-              });
+                editor => 0 });
 };
 
 1;
