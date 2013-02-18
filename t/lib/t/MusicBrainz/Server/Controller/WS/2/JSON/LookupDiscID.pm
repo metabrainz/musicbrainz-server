@@ -47,6 +47,13 @@ test 'direct disc id lookup' => sub {
                             ]
                         },
                     ],
+                    'cover-art-archive' => {
+                        artwork => JSON::false,
+                        darkened => JSON::false,
+                        front => JSON::false,
+                        back => JSON::false,
+                        count => 0,
+                    },
                     asin => JSON::null,
                     barcode => JSON::null,
                     country => JSON::null,
@@ -92,6 +99,13 @@ test 'lookup via toc' => sub {
                             discs => [],
                         },
                     ],
+                    'cover-art-archive' => {
+                        artwork => JSON::false,
+                        darkened => JSON::false,
+                        front => JSON::false,
+                        back => JSON::false,
+                        count => 0,
+                    },
                     asin => JSON::null,
                     barcode => JSON::null,
                     country => JSON::null,
@@ -124,6 +138,13 @@ test 'lookup via toc' => sub {
                             ]
                         },
                     ],
+                    'cover-art-archive' => {
+                        artwork => JSON::false,
+                        darkened => JSON::false,
+                        front => JSON::false,
+                        back => JSON::false,
+                        count => 0,
+                    },
                     asin => JSON::null,
                     barcode => JSON::null,
                     country => JSON::null,
