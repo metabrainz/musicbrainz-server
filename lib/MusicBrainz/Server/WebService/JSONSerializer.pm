@@ -30,8 +30,12 @@ sub entity_list
     my ($self, $list, $inc, $opts, $type, $type_plural) = @_;
 
     my %ret;
-    $ret{$type."-offset"} = number ($list->{offset});
-    $ret{$type."-count"} = number ($list->{total});
+
+    if (defined $list->{offset} || defined $list->{total})
+    {
+        $ret{$type."-offset"} = number ($list->{offset});
+        $ret{$type."-count"} = number ($list->{total});
+    }
     $ret{$type_plural} = [
         map { serialize_entity($_, $inc, $opts, 1) }
         sort_by { $_->gid } @{ $list->{items} }];
