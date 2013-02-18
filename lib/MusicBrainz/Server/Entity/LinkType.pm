@@ -112,7 +112,7 @@ has 'attributes' => (
     }
 );
 
-sub sorted_attributes {
+sub sorted_children {
     my $self = shift;
     return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
 }
