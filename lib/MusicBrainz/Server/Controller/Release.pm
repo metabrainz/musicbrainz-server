@@ -182,8 +182,9 @@ sub show : Chained('load') PathPart('')
             map { $_->all_relationships } @recordings);
 
     $c->stash(
-        template     => 'release/index.tt',
-        show_artists => $release->has_multiple_artists,
+        template      => 'release/index.tt',
+        show_artists  => $release->has_multiple_artists,
+        combined_rels => $release->combined_track_relationships,
     );
 }
 
@@ -466,16 +467,15 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAut
         $c->detach;
     }
 
-    my @artwork = @{
-        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
-    } or $c->detach('/error_404');
+    my $artwork = $c->model ('Artwork')->find_by_release ($entity);
+    $c->model ('CoverArtType')->load_for (@$artwork);
 
-    $c->stash( images => \@artwork );
+    $c->stash( images => $artwork );
 
     my $count = 1;
     my @positions = map {
         { id => $_->id, position => $count++ }
-    } @artwork;
+    } @$artwork;
 
     my $form = $c->form(
         form => 'Release::ReorderCoverArt',

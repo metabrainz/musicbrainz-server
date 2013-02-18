@@ -22,16 +22,12 @@
       <!-- /ko -->
       <!-- ko if: mode() == 'batch.recording' -->
       <p class="msg">
-        [% l('This will add a relationship to all checked recordings.
-              If the relationship already exists on one of the recordings,
-              the attributes will be merged into the existing one.') %]
+        [% l('This will add a relationship to all checked recordings.') %]
       </p>
       <!-- /ko -->
       <!-- ko if: mode() == 'batch.work' -->
       <p class="msg">
-        [% l('This will add a relationship to all checked works.
-              If the relationship already exists on one of the works,
-              the attributes will be merged into the existing one.') %]
+        [% l('This will add a relationship to all checked works.') %]
       </p>
       <!-- /ko -->
       <!-- ko if: mode() == "batch.create.works" -->
@@ -74,7 +70,7 @@
         <tr>
           <td class="section">
             <select id="target-type" data-bind="targetType: $data,
-              disable: mode() == 'edit' || relationship().type == 'recording-work'"></select>
+              disable: mode() == 'edit' || disableTypeSelection()"></select>
           </td>
           <td>
             <span id="autocomplete" class="autocomplete" data-bind="autocomplete: relationship">
@@ -90,7 +86,11 @@
         <!-- ko if: showCreateWorkLink -->
         <tr>
           <td></td>
-          <td><a href="#" data-bind="click: createWork">[% l('Create a new work') %]</a></td>
+          <td>
+            <button id="create-work-btn" data-bind="click: createWork, clickBubble: false">
+              [% l('Create a new work') %]
+            </button>
+          </td>
         </tr>
         <!-- /ko -->
         <!-- ko template: {"if": mode() == "batch.create.works", afterRender: batchWorksMode} -->
@@ -203,7 +203,7 @@
             <select id="work-type" data-bind="value: type, disable: loading">
               <option selected="selected"></option>
               [%- FOR type=work_types %]
-                <option value="[% type.id %]">[% type.name | html %]</option>
+                <option value="[% type.id %]">[% type.l_name | html %]</option>
               [%- END %]
             </select>
           </td>
@@ -375,7 +375,9 @@
             <td></td>
             <td colspan="2">
               <input type="checkbox" class="medium-recordings">
-              <!-- ko text: format --><!-- /ko -->
+              <!-- ko text: format --><!-- /ko --><!-- ko if: name -->:
+                <!-- ko text: name --><!-- /ko -->
+              <!-- /ko -->
             </td>
             <td><input type="checkbox" class="medium-works"></td>
           </tr>

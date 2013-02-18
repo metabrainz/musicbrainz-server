@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -55,6 +55,21 @@ sub initialize {
     });
 }
 
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
+}
+
 sub accept {
     my $self = shift;
 
@@ -101,7 +116,8 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    my $artwork = $self->c->model('CoverArtArchive')->find_available_artwork ($data{release}->gid);
+    my $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+    $self->c->model ('CoverArtType')->load_for(@$artwork);
 
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
 

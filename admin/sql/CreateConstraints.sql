@@ -27,4 +27,7 @@ ADD CHECK (
   OR type IS DISTINCT FROM 2
 );
 
+ALTER TABLE release_label
+ADD CHECK (catalog_number IS NOT NULL OR label IS NOT NULL);
+
 COMMIT;

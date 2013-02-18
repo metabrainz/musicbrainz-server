@@ -39719,6 +39719,61 @@
          "target" : "TryCatch",
          "version" : "1.003000"
       },
+      "Unicode::ICU::Collator" : {
+         "dist" : "Unicode-ICU-Collator-0.002",
+         "mymeta" : {
+            "abstract" : "Wrapper around ICU collation services",
+            "author" : [
+               "Tony Cook <tonyc@cpan.org>"
+            ],
+            "dynamic_config" : 0,
+            "generated_by" : "ExtUtils::MakeMaker version 6.55_02, CPAN::Meta::Converter version 2.120921",
+            "license" : [
+               "perl_5"
+            ],
+            "meta-spec" : {
+               "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+               "version" : "2"
+            },
+            "name" : "Unicode-ICU-Collator",
+            "no_index" : {
+               "directory" : [
+                  "t",
+                  "inc"
+               ]
+            },
+            "prereqs" : {
+               "build" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "configure" : {
+                  "requires" : {
+                     "ExtUtils::MakeMaker" : "0"
+                  }
+               },
+               "runtime" : {
+                  "requires" : {
+                     "Test::More" : "0.47",
+                     "XSLoader" : "0"
+                  }
+               }
+            },
+            "release_status" : "stable",
+            "version" : "0.002"
+         },
+         "name" : "Unicode::ICU::Collator",
+         "pathname" : "T/TO/TONYC/Unicode-ICU-Collator-0.002.tar.gz",
+         "provides" : {
+            "Unicode::ICU::Collator" : {
+               "file" : "Unicode/ICU/Collator.pm",
+               "version" : "0.002"
+            }
+         },
+         "target" : "Unicode::ICU::Collator",
+         "version" : "0.002"
+      },
       "UNIVERSAL::can" : {
          "dist" : "UNIVERSAL-can-1.20120726",
          "mymeta" : {

@@ -3,7 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
-# Nicolás Tamargo <email address hidden>, 2011, 2012.
+# Nicolás Tamargo <email address hidden>, 2011-2013.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
 #   <email address hidden>, 2012.
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-01-15 22:24+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-27 21:42+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,7 +175,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:638
 msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr ""
+msgstr "Una máquina de escribir, usada como instrumento de percusión (ya se usen las teclas o el timbre)"
 
 #: DB:link_attribute_type/description:633
 msgid ""
@@ -261,11 +261,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:476
 msgid "Bandura, modern day Ukraininan zither"
-msgstr ""
+msgstr "Bandura, cítara ucraniana actual."
 
 #: DB:link_attribute_type/description:475
 msgid "Bandura, ukrainian 14th century lute"
-msgstr ""
+msgstr "Bandura, laúd ucraniano del siglo XIV"
 
 #: DB:link_attribute_type/description:479
 msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
-msgstr ""
+msgstr "palmas"
 
 #: DB:link_attribute_type/description:102
 msgid "Hardingfele (Hardanger)"
@@ -655,7 +655,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:610
 msgid "Percussion performed by parts of the body."
-msgstr ""
+msgstr "Percusión tocada usando partes del cuerpo."
 
 #: DB:link_attribute_type/description:587
 msgid ""
@@ -1133,7 +1133,7 @@ msgstr ""
 msgid ""
 "The valiha is a bamboo tube zither from Madagascar (<a "
 "href=\"http://en.wikipedia.org/wiki/Valiha\">Wikipedia</a>)"
-msgstr ""
+msgstr "La valiha es una cítara de tubo de bambú de Madagascar.  (<a href=\"http://en.wikipedia.org/wiki/Valiha\">Wikipedia en inglés</a>)"
 
 #: DB:link_attribute_type/description:621
 msgid ""
@@ -1246,7 +1246,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:321
 msgid "Vietnamese one-stringed zither"
-msgstr ""
+msgstr "Cítara vietnamita de una cuerda"
 
 #: DB:link_attribute_type/description:505
 msgid "Violone, The largest/deepest member of the Viol family"
@@ -2292,7 +2292,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:632
 msgid "tape"
-msgstr ""
+msgstr "cinta"
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"
@@ -2402,7 +2402,7 @@ msgstr "piano vertical"
 
 #: DB:link_attribute_type/description:375
 msgid "vacuum cleaner"
-msgstr ""
+msgstr "aspiradora"
 
 #: DB:link_attribute_type/description:237
 msgid "valve trombone"
@@ -2486,7 +2486,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:15
 msgid "wind instruments"
-msgstr ""
+msgstr "instrumentos de viento"
 
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
@@ -2514,7 +2514,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:123
 msgid "zither"
-msgstr ""
+msgstr "cítara"
 
 #: DB:link_attribute_type/description:396
 msgid ""

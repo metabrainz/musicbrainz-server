@@ -12,52 +12,13 @@
                 <th>[% relationship.key %]:</th>
                 <td>
                     [% FOR rel IN relationship.value %]
-                        <span[% IF rel.edits_pending %] class="mp"[% END %]>
-                        [% IF rel.target.artist_credit AND
-                              rel.target.artist_credit.name != hide_ac %]
-                            [% l('{entity} by {artist}', { entity => link_entity(rel.target),
-                                                           artist => artist_credit(rel.target.artist_credit) }) %]
-                        [% ELSE %]
-                            [% link_entity(rel.target) %]
-                        [% END %]
-                        [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format %]
-                          ([% rel.link.begin_date.format %])
-                        [% ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty %]
-                          [% IF !rel.link.begin_date.is_empty && !rel.link.end_date.is_empty %]
-                            ([% l('{begindate} &#x2013; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format }) %])
-                          [% ELSIF rel.link.begin_date.is_empty %]
-                            ([% l('&#x2013; {enddate}', { enddate => rel.link.end_date.format }) %])
-                          [% ELSIF rel.link.end_date.is_empty %]
-                            [% IF rel.link.ended %]
-                              ([% l('{begindate} &#x2013; ????', { begindate => rel.link.begin_date.format }) %])
-                            [% ELSE %]
-                              ([% l('{begindate} &#x2013;', { begindate => rel.link.begin_date.format }) %])
-                            [% END %]
-                          [% END %]
-                        [% ELSIF rel.link.ended %]
-                          ([% l(' &#x2013; ????') %])
-                        [% END %]
+                        [% relationship_target_links(rel) %]
 
                         [%- IF c.user_exists -%]
                             <span style="float: right">
-                            [
-                                <a href="[% c.uri_for_action('/edit/relationship/delete', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Remove') %]</a>
-                                |
-                                <a href="[% c.uri_for_action('/edit/relationship/edit', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Edit') %]</a>
-                            ]
+                                [%- relationship_edit_links(rel) -%]
                             </span>
                         [%- END -%]
-                        </span>
                         <br />
                     [% END %]
                 </td>

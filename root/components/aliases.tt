@@ -15,7 +15,7 @@
                     <th>[% l('Type') %]</th>
                     <th>[% l('Locale') %]</th>
                     [% IF c.user_exists %]
-                        <th style="width: 10em">
+                        <th class="actions-header">
                             [% l('Actions') %]
                         </th>
                     [% END %]
