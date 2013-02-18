@@ -143,8 +143,6 @@ sub build_display_data {
     $data{old} = [ map { $artwork_by_id{$_->{id}} } @old ];
     $data{new} = [ map { $artwork_by_id{$_->{id}} } @new ];
 
-    use Data::Dumper qw( Dumper );
-    warn Dumper(\%data);
     return \%data;
 }
 
