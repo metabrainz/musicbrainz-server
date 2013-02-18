@@ -16,11 +16,9 @@ sub serialize
 
     if (defined $inc && $inc->discids)
     {
-        $body{discs} = [ ];
-        for my $disc (sort_by { $_->cdtoc->discid } $entity->all_cdtocs)
-        {
-            push $body{discs}, serialize_entity ($disc->cdtoc, $inc, $stash);
-        }
+        $body{discs} = [ map {
+            serialize_entity ($_->cdtoc, $inc, $stash)
+        } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
     $body{"track-count"} = $entity->tracklist->track_count;
