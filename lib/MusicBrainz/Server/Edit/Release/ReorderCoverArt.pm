@@ -13,6 +13,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use List::UtilsBy 'nsort_by';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
@@ -113,13 +114,28 @@ sub build_display_data {
 
     my %data;
 
-    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} );
+    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} };
+    if (!$data{release} && ($data{release} ||= $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid}))) {
+        $self->c->model('ArtistCredit')->load($data{release});
+    }
 
-    my $artwork = $self->c->model('Artwork')->find_by_release($data{release});
-    $self->c->model ('CoverArtType')->load_for(@$artwork);
-
+    my $artwork;
+    if ($data{release}) {
+        $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+        $self->c->model ('CoverArtType')->load_for(@$artwork);
+    } else {
+        $data{release} = Release->new( name => $self->data->{entity}{name},
+                                       id => $self->data->{entity}{id},
+                                       gid => $self->data->{entity}{mbid} );
+        $artwork = [];
+    }
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
+
+    for my $undef_artwork (grep { !defined $artwork_by_id{$_->{id}} } @{ $self->data->{old} }) {
+        my $fake_artwork = Artwork->new( release => $data{release}, id => $undef_artwork->{id});
+        push @$artwork, $fake_artwork;
+        $artwork_by_id{$undef_artwork->{id}} = $fake_artwork;
+    }
 
     my @old = nsort_by { $_->{position} } @{ $self->data->{old} };
     my @new = nsort_by { $_->{position} } @{ $self->data->{new} };
@@ -127,6 +143,8 @@ sub build_display_data {
     $data{old} = [ map { $artwork_by_id{$_->{id}} } @old ];
     $data{new} = [ map { $artwork_by_id{$_->{id}} } @new ];
 
+    use Data::Dumper qw( Dumper );
+    warn Dumper(\%data);
     return \%data;
 }
 
