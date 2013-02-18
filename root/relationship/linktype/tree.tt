@@ -24,7 +24,7 @@
 
         [% IF obj.children %]
             <ul>
-                [% FOR child IN obj.children.sort('child_order', 'name') %]
+                [% FOR child IN obj.sorted_attributes %]
                 [% PROCESS link_type obj=child %]
                 [% END %]
             </ul>
@@ -51,7 +51,7 @@
         </p>
 
         <ul>
-            [% FOR child IN root.children.sort('child_order', 'name') %]
+            [% FOR child IN root.sorted_attributes %]
                 [% PROCESS link_type obj=child %]
             [% END %]
         </ul>
