@@ -283,8 +283,6 @@ my %stats = (
     "count.coverart" => {
         DESC => 'Count of all cover art images',
         SQL => 'SELECT count(*) FROM cover_art_archive.cover_art',
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.coverart.type" => {
         DESC => "Distribution of cover art by type",
@@ -306,8 +304,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.coverart.amazon" => {
         DESC => "Releases whose cover art comes from Amazon",
@@ -332,14 +328,12 @@ my %stats = (
             };
         },
         NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.coverart.relationship" => {
         DESC => "Releases whose cover art comes from relationships",
         PREREQ => [qw[ count.release.coverart.amazon ]],
         PREREQ_ONLY => 1,
         NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.coverart.caa" => {
         DESC => "Releases whose cover art comes from the CAA",
@@ -358,7 +352,6 @@ my %stats = (
                     $self->fetch('count.release.coverart.relationship'));
         },
         NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.status.statname.has_coverart" => {
         DESC => "Count of releases with cover art, by status",
@@ -384,8 +377,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.type.typename.has_coverart" => {
         DESC => "Count of releases with cover art, by release group type",
@@ -413,8 +404,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.release.format.fname.has_coverart" => {
         DESC => "Count of releases with cover art, by medium format",
@@ -441,8 +430,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
     "count.coverart.per_release.Nimages" => {
         DESC => "Distribution of cover art images per release",
@@ -478,8 +465,6 @@ my %stats = (
                 } keys %dist
             };
         },
-        NONREPLICATED => 1,
-        PRIVATE => 1,
     },
 
     "count.label" => {
@@ -900,7 +885,6 @@ my %stats = (
     "count.release.has_caa" => {
         DESC => 'Count of releases that have cover art at the Cover Art Archive',
         SQL => 'SELECT count(DISTINCT release) FROM cover_art_archive.cover_art',
-        NONREPLICATED => 1,
         PRIVATE => 1,
     },
 
