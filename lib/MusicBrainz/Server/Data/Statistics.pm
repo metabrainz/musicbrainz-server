@@ -309,6 +309,57 @@ my %stats = (
         NONREPLICATED => 1,
         PRIVATE => 1,
     },
+    "count.release.coverart.amazon" => {
+        DESC => "Releases whose cover art comes from Amazon",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+               'SELECT (cover_art_url ~ \'^http://.*.images-amazon.com\')::int AS is_amazon, COUNT(*) FROM release_coverart
+                  WHERE cover_art_url IS NOT NULL
+                    AND NOT EXISTS (
+                      SELECT TRUE FROM cover_art_archive.cover_art ca
+                        JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
+                      WHERE ca.release = release_coverart.id AND cat.type_id = 1)
+                GROUP BY is_amazon'
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                "count.release.coverart.amazon" => $dist{1},
+                "count.release.coverart.relationship" => $dist{0}
+            };
+        },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
+    },
+    "count.release.coverart.relationship" => {
+        DESC => "Releases whose cover art comes from relationships",
+        PREREQ => [qw[ count.release.coverart.amazon ]],
+        PREREQ_ONLY => 1,
+        NONREPLICATED => 1,
+        PRIVATE => 1,
+    },
+    "count.release.coverart.caa" => {
+        DESC => "Releases whose cover art comes from the CAA",
+        SQL => 'SELECT COUNT(distinct release) FROM cover_art_archive.cover_art ca
+                  JOIN cover_art_archive.cover_art_type cat ON ca.id = cat.id
+                WHERE cat.type_id = 1',
+    },
+    "count.release.coverart.none" => {
+        PREREQ => [qw[ count.release count.release.coverart.amazon count.release.coverart.caa count.release.coverart.relationship ]],
+        DESC => "Releases with no cover art",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch('count.release') -
+                   ($self->fetch('count.release.coverart.amazon') +
+                    $self->fetch('count.release.coverart.caa') +
+                    $self->fetch('count.release.coverart.relationship'));
+        },
+        NONREPLICATED => 1,
+        PRIVATE => 1,
+    },
     "count.release.status.statname.has_coverart" => {
         DESC => "Count of releases with cover art, by status",
         CALC => sub {
