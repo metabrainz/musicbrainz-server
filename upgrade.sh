@@ -40,6 +40,8 @@ fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
+echo `date` : 'Creating wikidocs transclusion table'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 
 ################################################################################
