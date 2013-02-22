@@ -40,7 +40,8 @@ fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
-
+echo `date` : 'Dropping work.artist_credit'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-drop-work.artist_credit.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
