@@ -10,7 +10,7 @@ OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 ################################################################################
 # Assert pre-conditions
 
-if [ "$DB_SCHEMA_SEQUENCE" != "$OLD_SCHEMA_SEQUENCE") ]
+if [ "$DB_SCHEMA_SEQUENCE" != "$OLD_SCHEMA_SEQUENCE" ]
 then
     echo `date` : Error: Schema sequence must be $OLD_SCHEMA_SEQUENCE when you run this script
     exit -1
