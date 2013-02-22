@@ -452,11 +452,30 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
         return $('#id-ar\\.url').val().match(/\/performance\/mq/) != null;
     }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
     };
+
+    // only allow domains on the score whitelist
+    var validateScore = function() {
+        return MB.constants.CLEANUPS.score.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
+    validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
+
+    // only allow domains on the other databases whitelist
+    var validateOtherDatabases = function() {
+        return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 
     var validateFacebook = function() {
         var url = $('#id-ar\\.url').val();
