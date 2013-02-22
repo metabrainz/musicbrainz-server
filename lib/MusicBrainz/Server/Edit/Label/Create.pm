@@ -71,7 +71,7 @@ sub build_display_data
                         $loaded->{Country}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
-        isni_codes   => $self->data->{isni_codes},
+        isni_codes => $self->data->{isni_codes},
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{begin_date}),
         end_date   => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{end_date}),
         ended      => $self->data->{ended}

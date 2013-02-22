@@ -198,6 +198,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '33333333333', '44444444444' ],
     );
@@ -212,6 +213,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '33333333333',
                        '55555555555', '66666666666' ],
     );
@@ -222,6 +224,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(1),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '55555555555', '77777777777' ],
     );
@@ -251,7 +254,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(3),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -260,7 +264,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(4),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';

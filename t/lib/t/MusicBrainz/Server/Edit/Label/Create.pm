@@ -76,7 +76,7 @@ sub create_edit
         label_code => 7306,
         begin_date => { year => 1995, month => 1, day => 12 },
         end_date => { year => 2005, month => 5, day => 30 },
-        ipi_codes => [ '00284373936', '00262168177' ]
+        ipi_codes => [ '00284373936', '00262168177' ],
         isni_codes => [ '0000000106750994', '0000000106750995' ]
     );
 }

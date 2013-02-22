@@ -61,7 +61,7 @@ is($ipi_codes->[0]->ipi, '00262168177');
 
 my $isni_codes = $c->model('Label')->isni->find_by_entity_id($label->id);
 is(scalar @$isni_codes, 1, "Label has one isni code after accepting edit");
-isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::LabelIPI");
+isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::LabelISNI");
 is($isni_codes->[0]->isni, '0000000106750994');
 
 };
@@ -156,26 +156,6 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($label->name, 'Renamed label', 'label name from edit 1');
     is ($label->sort_name, 'Sort FOO', 'sort name from edit 1');
     is ($label->comment, '', 'no comment');
-
-    # check IPI code conflict
-    my $edit_3 = $c->model('Edit')->create(
-        edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('Label')->get_by_id(2),
-        ipi_codes => [ '00333333333' ],
-        isni_codes => [ ],
-    );
-
-    my $edit_4 = $c->model('Edit')->create(
-        edit_type => $EDIT_LABEL_EDIT,
-        editor_id => 1,
-        to_edit   => $c->model('Label')->get_by_id(2),
-        ipi_codes => [ '00444444444' ],
-        isni_codes => [ ],
-    );
-
-    ok !exception { $edit_3->accept }, 'accepted edit 3 (change ipi code)';
-    ok  exception { $edit_4->accept }, 'could not accept edit 4 (ipi code was changed)';
 };
 
 sub create_full_edit {
@@ -193,8 +173,8 @@ sub create_full_edit {
         label_code => 12345,
         begin_date => { year => 1995, month => 1, day => 12 },
         end_date => { year => 2005, month => 5, day => 30 },
-        ipi_codes => [ '00262168177' ]
-        isni_codes => [ '0000000106750994' ],
+        ipi_codes => [ '00262168177' ],
+        isni_codes => [ '0000000106750994' ]
     );
 }
 

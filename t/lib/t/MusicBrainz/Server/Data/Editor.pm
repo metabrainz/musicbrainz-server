@@ -220,7 +220,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -230,7 +231,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
@@ -267,7 +269,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -277,7 +280,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
