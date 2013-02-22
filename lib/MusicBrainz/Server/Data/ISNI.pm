@@ -88,15 +88,18 @@ sub merge
     my $table = $self->table;
     my $type = $self->type;
 
-    for my $old_id (@old_ids)
-    {
-        # move over isnis to the new artist, leaving duplicates.
-        $self->sql->do("UPDATE $table SET $type = ? WHERE $type = ? ".
-                       "AND NOT isni IN (SELECT isni FROM $table WHERE $type = ?)",
-                       $new_id, $old_id, $new_id);
-        # if any remain, they're duplicates, remove them.
-        $self->sql->do("DELETE FROM $table WHERE $type = ?", $old_id);
-    }
+    my @all_ids = ($new_id, @old_ids);
+
+    $self->sql->do("DELETE FROM $table
+                    WHERE $type = any(?)
+                    AND (isni, $type) NOT IN (
+                      SELECT DISTINCT ON (isni) isni, $type
+                      FROM $table
+                      WHERE $type = any(?))",
+                   \@all_ids, \@all_ids);
+
+    # if any remain, they're duplicates, remove them.
+    $self->sql->do("UPDATE $table SET $type = ? WHERE $type = any(?)", $new_id, \@all_ids);
 }
 
 sub set_isnis {
