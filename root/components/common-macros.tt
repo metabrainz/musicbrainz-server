@@ -79,12 +79,11 @@ END; -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+[%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
     [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
-        <img title="[% artwork_hover(artwork) %]" />
+        <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
         <script>
           $('img').last ().bind ('error', function (event) {
               if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
@@ -106,6 +105,11 @@ END; -%]
           }).attr ("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
+[% END %]
+
+[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+      [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
 
@@ -211,6 +215,7 @@ END -%]
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
@@ -726,6 +731,7 @@ END -%]
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('nla.gov.au'); 'trove';
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
+    ELSIF url.url.host.search('viaf.org'); 'viaf';
     ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
     ELSIF url.url.host.search('thesession.org'); 'thesession';
     ELSIF url.url.host.search('plus.google.com'); 'googleplus';
@@ -868,4 +874,35 @@ http://[%- server -%]/[%- id -%]
          </tr>
      </table>
   [%- END -%]
+[%- END -%]
+
+[%- MACRO relationship_target_links(rel) BLOCK -%]
+  <span[% IF rel.edits_pending %] class="mp"[% END %]>
+  [% IF rel.target.artist_credit AND
+        rel.target.artist_credit.name != hide_ac %]
+      [% l('{entity} by {artist}', { entity => link_entity(rel.target),
+                                     artist => artist_credit(rel.target.artist_credit) }) %]
+  [% ELSE %]
+      [% link_entity(rel.target) %]
+  [% END %]
+  [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
+  </span>
+[%- END -%]
+
+[%- MACRO relationship_edit_links(rel) BLOCK -%]
+  [
+      <a href="[% c.uri_for_action('/edit/relationship/delete', {
+          type0 => rel.link.type.entity0_type,
+          type1 => rel.link.type.entity1_type,
+          id => rel.id,
+          returnto => c.req.uri
+      }) %]">[% l('Remove') %]</a>
+      |
+      <a href="[% c.uri_for_action('/edit/relationship/edit', {
+          type0 => rel.link.type.entity0_type,
+          type1 => rel.link.type.entity1_type,
+          id => rel.id,
+          returnto => c.req.uri
+      }) %]">[% l('Edit') %]</a>
+  ]
 [%- END -%]

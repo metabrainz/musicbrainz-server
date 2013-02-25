@@ -15,7 +15,7 @@
 
 [% WRAPPER 'statistics/layout.tt' title=l('Release/Medium Formats') full_width=1 page='formats' %]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <h2>[%- l('Release/Medium Formats') -%]</h2>
 <table class="tbl">

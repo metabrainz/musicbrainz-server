@@ -9,7 +9,7 @@
         [%- END -%]
 
         [% IF root.children.size %]
-            [% FOR obj IN root.children %]
+            [% FOR obj IN root.sorted_children %]
                 <h2 id="[% obj.name %]">[% obj.l_name FILTER ucfirst | html %]</h2>
                 [% PROCESS attribute_details obj=obj toplevel=1 %]
 
@@ -20,7 +20,7 @@
                 [%- IF obj.name == 'instrument' -%]
                     <li>[% l('See the {uri|full instrument tree}.', { uri => c.uri_for_action('/relationship/linkattributetype/instruments') }) %]</li>
                 [%- ELSE -%]
-                    [% FOR child IN obj.children %]
+                    [% FOR child IN obj.sorted_children %]
                     [% PROCESS attribute_tree obj=child %]
                     [% END %]
                 [%- END -%]

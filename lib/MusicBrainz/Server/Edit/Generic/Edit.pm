@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-requires 'change_fields', '_edit_model';
+requires 'change_fields', '_edit_model', '_conflicting_entity_path';
 
 sub entity_id { shift->data->{entity}{id} }
 
@@ -74,15 +74,19 @@ override 'accept' => sub
             my $conflict = $_->conflict;
             MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
                 sprintf(
-                    'The changes in this edit cause it to conflict with another artist. ' .
-                    'You may need to merge this artist with "' . $conflict->name . '" ' .
-                    '(//%s/artist/%s/).',
-                    DBDefs->WEB_SERVER, $conflict->gid
+                    'The changes in this edit cause it to conflict with another entity. ' .
+                    'You may need to merge this entity with "%s" ' .
+                    '(//%s%s)',
+                    $conflict->name,
+                    DBDefs->WEB_SERVER,
+                    $self->_conflicting_entity_path($conflict->gid)
                 )
             );
         }
     };
 };
+
+sub _conflicting_entity_path { die 'Undefined' };
 
 sub _edit_hash
 {

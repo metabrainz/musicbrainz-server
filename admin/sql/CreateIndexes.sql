@@ -37,6 +37,8 @@ CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (edit
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
+CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
+CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
@@ -48,6 +50,9 @@ CREATE INDEX edit_idx_vote_time ON vote (vote_time);
 
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
+
+-- Partial index for open time on open edits (speeds up ordering on /edit/open and edit searches dramatically)
+CREATE INDEX edit_idx_open_edits_open_time ON edit (open_time) WHERE status = 1;
 
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);

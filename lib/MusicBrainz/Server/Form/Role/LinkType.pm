@@ -115,6 +115,7 @@ sub validate_link_type
                       }));
             }
         }
+        return $link_type;
     }
 }
 
