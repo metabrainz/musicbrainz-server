@@ -26,6 +26,7 @@ our %EXPORT_TAGS = (
     editor          => _get(qr/^EDITOR_/),
     vote            => _get(qr/^VOTE_/),
     edit_status     => _get(qr/^STATUS_/),
+    access_scope    => _get(qr/^ACCESS_SCOPE_/),
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
@@ -52,8 +53,8 @@ our @EXPORT_OK = (
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $REQUIRED_VOTES ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS)_/) },
+        $REQUIRED_VOTES )
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -246,6 +247,15 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 Readonly our $REQUIRED_VOTES => 3;
+
+Readonly our $ACCESS_SCOPE_PROFILE        => 1;
+Readonly our $ACCESS_SCOPE_EMAIL          => 2;
+Readonly our $ACCESS_SCOPE_TAG            => 4;
+Readonly our $ACCESS_SCOPE_RATING         => 8;
+Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
+Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
+Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
+Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
 =head1 NAME
 
