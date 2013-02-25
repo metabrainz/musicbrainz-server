@@ -76,6 +76,9 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
+    $self->_error($c, 'You do not have permission to modify this collection')
+        unless ($c->user->id == $collection->editor_id);
+
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');
     $self->bad_req($c, 'Invalid argument "client"') if ref($client);
