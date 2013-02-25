@@ -40,7 +40,8 @@ fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
-
+echo `date` : 20130225-rename-link_type.short_link_phrase.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.short_link_phrase.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication

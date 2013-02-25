@@ -2,12 +2,12 @@
 
 [%- MACRO print_type(type, indent, base, parent) BLOCK -%]
 <tr>
-    <th style="padding-left: [%- indent - 1 -%]em">[%- type.l_short_link_phrase -%]</th>
+    <th style="padding-left: [%- indent - 1 -%]em">[%- type.l_long_link_phrase -%]</th>
     <td>[% add_commas(stats.statistic(base _ '.' _ type.name)) %]</td>
     <td>[% add_commas(stats.statistic(base _ '.' _ type.name _ '.inclusive')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio(base _ '.' _ type.name _ '.inclusive', parent)) }) %]</td>
 </tr>
-[% FOREACH child IN type.children.sort('l_short_link_phrase') -%]
+[% FOREACH child IN type.children.sort('l_long_link_phrase') -%]
 [%- print_type(child, indent + 1, base, base _ '.' _ type.name _ '.inclusive' ) -%]
 [%- END -%]
 [%- END -%]
@@ -50,7 +50,7 @@
     <td>[% l('{n}%', { n => round1(stats.ratio('count.ar.links.' _ type.key, 'count.ar.links')) }) %]</td>
 </tr>
 [%- FOREACH child1 IN type.value.tree -%]
-    [%- FOREACH child2 IN child1.children.sort('l_short_link_phrase') -%]
+    [%- FOREACH child2 IN child1.children.sort('l_long_link_phrase') -%]
         [%- print_type(child2, 2, 'count.ar.links.' _ type.key, 'count.ar.links.' _ type.key) -%]
     [%- END -%]
 [%- END -%]

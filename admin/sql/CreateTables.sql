@@ -864,7 +864,7 @@ CREATE TABLE link_type
     description         TEXT,
     link_phrase         VARCHAR(255) NOT NULL,
     reverse_link_phrase VARCHAR(255) NOT NULL,
-    short_link_phrase   VARCHAR(255) NOT NULL,
+    long_link_phrase    VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );

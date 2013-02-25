@@ -56,14 +56,14 @@ sub l_reverse_link_phrase {
     return l($self->reverse_link_phrase);
 }
 
-has 'short_link_phrase' => (
+has 'long_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
 
-sub l_short_link_phrase {
+sub l_long_link_phrase {
     my $self = shift;
-    return l($self->short_link_phrase);
+    return l($self->long_link_phrase);
 }
 
 has 'description' => (

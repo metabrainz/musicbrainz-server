@@ -22,7 +22,7 @@ my $sql = $test->c->sql;
 my $link_type = $lt_data->get_by_id(1);
 is($link_type->id, 1);
 is($link_type->name, 'instrument');
-is($link_type->short_link_phrase, 'performer');
+is($link_type->long_link_phrase, 'performer');
 
 
 $sql->begin;
@@ -32,7 +32,7 @@ $sql->commit;
 $link_type = $lt_data->get_by_id(1);
 is($link_type->id, 1);
 is($link_type->name, 'instrument test');
-is($link_type->short_link_phrase, 'performer');
+is($link_type->long_link_phrase, 'performer');
 
 $sql->begin;
 $link_type = $lt_data->insert({
@@ -42,7 +42,7 @@ $link_type = $lt_data->insert({
     entity0_type => 'artist',
     entity1_type => 'recording',
     reverse_link_phrase => 'reverse_link_phrase',
-    short_link_phrase => 'short_link_phrase',
+    long_link_phrase => 'long_link_phrase',
     attributes => [
         { type => 1, min => 0, max => 1 }
     ],

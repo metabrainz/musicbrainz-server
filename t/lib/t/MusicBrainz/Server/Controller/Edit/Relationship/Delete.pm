@@ -19,7 +19,7 @@ INSERT INTO url (id, gid, url)
     VALUES (1, '1900d437-6cc7-4b4c-bdd3-e83634c128df', 'http://www.myspace.com/lizardopenmind');
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
-                       reverse_link_phrase, short_link_phrase, description)
+                       reverse_link_phrase, long_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'label', 'url',
             'myspace', 'myspace', 'myspace', 'myspace', 'myspace');
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
