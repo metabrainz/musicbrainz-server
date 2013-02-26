@@ -7,7 +7,6 @@ use feature 'switch';
 
 use Carp qw( croak );
 use DBI;
-use Data::Dumper;
 use DBDefs;
 use MusicBrainz::Server::Test::Connector;
 
@@ -28,10 +27,6 @@ my %core_entities = (
     'release' => {},
     'release-group' => {},
     'work' => {},
-);
-my %link_used = (
-    'link_type' => {},
-    'attribute_type' => {},
 );
 
 sub quote_column
@@ -229,9 +224,8 @@ sub link_attribute_type
 {
     my ($dbh, $key) = @_;
 
-    my $data = get_rows ($dbh, 'link_attribute_type', 'id', $key);
 
-    $link_used{attribute_type}{$key} = 1;
+    my $data = get_rows ($dbh, 'link_attribute_type', 'id', $key);
 
     if ($data->[0]->{parent})
     {
@@ -253,9 +247,23 @@ sub link_attribute
     my $data = get_rows ($dbh, 'link_attribute', 'link', $key);
     for (@$data)
     {
-        link_attribute_type ($dbh, $data->[0]->{attribute_type});
+        link_attribute_type ($dbh, $_->{attribute_type});
     }
     backup ($dbh, 'link_attribute', $data);
+}
+
+
+sub link_type_attribute_type
+{
+    my ($dbh, $key) = @_;
+
+    my $data = get_rows ($dbh, 'link_type_attribute_type', 'link_type', $key);
+
+    for (@$data)
+    {
+        link_attribute_type ($dbh, $_->{attribute_type});
+    }
+    backup ($dbh, 'link_type_attribute_type', $data);
 }
 
 sub link_type
@@ -264,14 +272,13 @@ sub link_type
 
     my $data = get_rows ($dbh, 'link_type', 'id', $key);
 
-    $link_used{link_type}{$key} = 1;
-
     if ($data->[0]->{parent})
     {
         link_type ($dbh, $data->[0]->{parent});
     }
 
     backup ($dbh, 'link_type', $data);
+    link_type_attribute_type ($dbh, $key);
 }
 
 sub l_entity_url
@@ -293,7 +300,6 @@ sub l_entity_url
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
-
         link_attribute ($dbh, $row->{link});
     }
 
@@ -320,7 +326,6 @@ sub l_entity_work
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
-
         link_attribute ($dbh, $row->{link});
     }
 
@@ -346,7 +351,6 @@ sub l_
 
         link_type ($dbh, $link->[0]->{link_type});
         backup ($dbh, 'link', $link);
-
         link_attribute ($dbh, $row->{link});
     }
 
@@ -462,7 +466,8 @@ sub tracks
 {
     my ($dbh, $id) = @_;
 
-    my $data = get_rows ($dbh, 'track', 'tracklist', $id);
+    my $data = get_rows ($dbh, 'track', 'medium', $id);
+
     for (@$data)
     {
         generic ($dbh, 'track_name', 'id', $_->{name});
@@ -470,21 +475,6 @@ sub tracks
         artist_credit ($dbh, $_->{artist_credit});
     }
     backup ($dbh, 'track', $data);
-}
-
-sub tracklists
-{
-    my ($dbh, $id) = @_;
-
-    my $data = get_rows ($dbh, 'tracklist', 'id', $id);
-
-    for (@$data)
-    {
-        $_->{track_count} = 0;
-    }
-    backup ($dbh, 'tracklist', $data);
-
-    tracks ($dbh, $id);
 }
 
 sub medium_cdtocs
@@ -508,7 +498,6 @@ sub media
     for (@$data)
     {
         generic ($dbh, 'medium_format', 'id', $_->{format});
-        tracklists ($dbh, $_->{tracklist});
     }
 
     backup ($dbh, 'medium', $data);
@@ -516,6 +505,7 @@ sub media
     for (@$data)
     {
         medium_cdtocs ($dbh, $_->{id});
+        tracks ($dbh, $_->{id});
     }
 }
 
@@ -690,18 +680,6 @@ sub relationships
 
         rel_entity_url ($dbh, $type0);
         rel_entity_work ($dbh, $type0);
-    }
-
-
-    for my $link (keys %{ $link_used{link_type} })
-    {
-        my @attr_types = keys %{ $link_used{attribute_type} };
-
-        my $data = get_rows_two_keys (
-            $dbh, 'link_type_attribute_type',
-            'link_type', $link, 'attribute_type', \@attr_types);
-
-        backup ($dbh, 'link_type_attribute_type', $data);
     }
 }
 
