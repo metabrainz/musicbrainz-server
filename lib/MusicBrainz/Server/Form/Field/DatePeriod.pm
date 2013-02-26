@@ -26,9 +26,7 @@ after 'validate' => sub {
     my $begin = $self->field('begin_date')->value;
     my $end   = $self->field('end_date')->value;
 
-    return if any { $_->has_errors }
-        $self->field('begin_date'), $self->field('end_date');
-    return if any { $_->has_errors } map { $_->fields }
+    return if any { $_->has_errors } map { $_, $_->fields }
         $self->field('begin_date'), $self->field('end_date');
 
     if ($end->{year} || $end->{month} || $end->{day}) {
