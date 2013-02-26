@@ -13,8 +13,6 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 sub reduplicate_tracklist {
     my ($tracklist_id, $medium_ids) = @_;
 
-    return unless $#$medium_ids > 0;
-
     $log->info ("Reduplicate tracklist $tracklist_id ".
                 "(making ".$#$medium_ids." copies)\n");
 
@@ -35,6 +33,8 @@ sub reduplicate_tracklist {
 
     $c->sql->do ("UPDATE track SET medium = ? WHERE tracklist = ?",
                  $first_medium, $tracklist_id);
+
+    return unless $#$medium_ids >= 0;
 
     $c->sql->do (
         "INSERT INTO track (recording,tracklist,position,name," .
