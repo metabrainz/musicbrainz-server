@@ -96,7 +96,7 @@
                 <p>
                     [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
                     [%= l('The main server is located at {uri}.',
-                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) ~%]
+                        { uri => '<a href="http://musicbrainz.org' _ (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' )_'" class="external">http://musicbrainz.org</a>' }) ~%]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
