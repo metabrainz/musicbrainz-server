@@ -4,13 +4,15 @@
   [% l('The users make MusicBrainz happen and we appreciate your help!') %]
   </p>
   <p>
-  [% l('However, we still have to pay the bills and hosting this site costs well over
-        $1000/month. We need our users to help us make ends meet and hopefully have
-        money left over to sponsor more development. The {metabrainz_foundation},
-        a California based 501(c)3 tax-exempt non-profit, operates the MusicBrainz
-        project which makes all donations <b>tax deductible</b> for US taxpayers.
-        And its simply good karma everywhere else!', { metabrainz_foundation =>
-        '<a href="http://metabrainz.org">MetaBrainz Foundation</a>' }) %]
+  [% l("However, we still have to pay the bills and hosting this site costs
+        {finances|more than \$1000 per month}. We need our users to help us
+        make ends meet and hopefully have money left over to sponsor more
+        development. The {metabrainz_foundation|MetaBrainz Foundation}, a
+        California based 501(c)3 tax-exempt non-profit, operates the MusicBrainz
+        project which makes all donations <strong>tax deductible</strong> for US
+        taxpayers. And it's simply good karma everywhere else!",
+        { metabrainz_foundation => 'http://metabrainz.org',
+          finances => 'http://metabrainz.org/doc/Finances' }) %]
   </p>
   <p>
   [% l('If you donate <b>$4</b> you will not get this nag text for a <b>month</b>.

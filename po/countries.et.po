@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008, 2009, 2011, 2012.
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-05-29 23:59+0000\n"
+"PO-Revision-Date: 2013-02-15 18:32+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr "Anguilla"
 #. iso_code:AQ
 #: DB:country/name:8
 msgid "Antarctica"
-msgstr "Antarktika"
+msgstr "Antarktis"
 
 #. iso_code:AG
 #: DB:country/name:9
@@ -142,7 +142,7 @@ msgstr "Bhutan"
 #. iso_code:BO
 #: DB:country/name:26
 msgid "Bolivia, Plurinational State of"
-msgstr "Boliivia Paljurahvuseline Riik"
+msgstr "Boliivia"
 
 #. iso_code:BQ
 #: DB:country/name:258
@@ -162,7 +162,7 @@ msgstr "Botswana"
 #. iso_code:BV
 #: DB:country/name:29
 msgid "Bouvet Island"
-msgstr "Bouvet' saar"
+msgstr "Bouvet’ saar"
 
 #. iso_code:BR
 #: DB:country/name:30
@@ -262,7 +262,7 @@ msgstr "Komoorid"
 #. iso_code:CG
 #: DB:country/name:49
 msgid "Congo"
-msgstr "Kongo"
+msgstr "Kongo Vabariik"
 
 #. iso_code:CD
 #: DB:country/name:236
@@ -312,7 +312,7 @@ msgstr "Tšehhoslovakkia (ajalooline, 1918–1992)"
 #. iso_code:CI
 #: DB:country/name:52
 msgid "Côte d'Ivoire"
-msgstr "Côte d'Ivoire"
+msgstr "Côte d’Ivoire"
 
 #. iso_code:DK
 #: DB:country/name:57
@@ -382,7 +382,7 @@ msgstr "Euroopa"
 #. iso_code:FK
 #: DB:country/name:69
 msgid "Falkland Islands (Malvinas)"
-msgstr "Falklandi saared (Malviinid)"
+msgstr "Falklandi (Malviini) saared"
 
 #. iso_code:FO
 #: DB:country/name:70
@@ -417,7 +417,7 @@ msgstr "Prantsuse Polüneesia"
 #. iso_code:TF
 #: DB:country/name:77
 msgid "French Southern Territories"
-msgstr "Prantsuse lõunaalad"
+msgstr "Prantsuse Lõunaalad"
 
 #. iso_code:GA
 #: DB:country/name:78
@@ -607,12 +607,12 @@ msgstr "Kiribati"
 #. iso_code:KP
 #: DB:country/name:112
 msgid "Korea (North), Democratic People's Republic of"
-msgstr "Põhja-Korea (Korea Rahvademokraatlik Vabariik)"
+msgstr "Põhja-Korea"
 
 #. iso_code:KR
 #: DB:country/name:113
 msgid "Korea (South), Republic of"
-msgstr "Lõuna-Korea (Korea Vabariik)"
+msgstr "Lõuna-Korea"
 
 #. iso_code:KW
 #: DB:country/name:114
@@ -667,12 +667,12 @@ msgstr "Leedu"
 #. iso_code:LU
 #: DB:country/name:124
 msgid "Luxembourg"
-msgstr "Luxembourg"
+msgstr "Luksemburg"
 
 #. iso_code:MO
 #: DB:country/name:125
 msgid "Macao"
-msgstr "Aomeni erihalduspiirkond"
+msgstr "Macau"
 
 #. iso_code:MK
 #: DB:country/name:126
@@ -742,12 +742,12 @@ msgstr "Mehhiko"
 #. iso_code:FM
 #: DB:country/name:139
 msgid "Micronesia, Federated States of"
-msgstr "Mikroneesia Liiduriigid"
+msgstr "Mikroneesia"
 
 #. iso_code:MD
 #: DB:country/name:140
 msgid "Moldova, Republic of"
-msgstr "Moldova Vabariik"
+msgstr "Moldova"
 
 #. iso_code:MC
 #: DB:country/name:141
@@ -872,7 +872,7 @@ msgstr "Palau"
 #. iso_code:PS
 #: DB:country/name:249
 msgid "Palestinian Territory"
-msgstr "Palestiina ala"
+msgstr "Palestiina"
 
 #. iso_code:PA
 #: DB:country/name:164
@@ -1032,7 +1032,7 @@ msgstr "Singapur"
 #. iso_code:SX
 #: DB:country/name:260
 msgid "Sint Maarten (Dutch part)"
-msgstr "Sint-Maarten (Hollandi osa)"
+msgstr "Sint Maarten (Hollandi osa)"
 
 #. iso_code:SK
 #: DB:country/name:189
@@ -1242,7 +1242,7 @@ msgstr "Vatikan (Püha Tool)"
 #. iso_code:VE
 #: DB:country/name:228
 msgid "Venezuela, Bolivarian Republic of"
-msgstr "Venezuela Bolívari Vabariik"
+msgstr "Venezuela"
 
 #. iso_code:VN
 #: DB:country/name:229
@@ -1252,12 +1252,12 @@ msgstr "Vietnam"
 #. iso_code:VG
 #: DB:country/name:230
 msgid "Virgin Islands, British"
-msgstr "Neitsisaared, Briti"
+msgstr "Neitsisaared (Briti)"
 
 #. iso_code:VI
 #: DB:country/name:231
 msgid "Virgin Islands, U.S."
-msgstr "Neitsisaared, USA"
+msgstr "Neitsisaared (USA)"
 
 #. iso_code:WF
 #: DB:country/name:232

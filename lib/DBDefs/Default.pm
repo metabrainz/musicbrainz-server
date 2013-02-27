@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
 # Directories
@@ -74,6 +75,9 @@ sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
 
+sub IS_BETA                   { 0 }
+sub BETA_REDIRECT_HOSTNAME    { '' }
+
 ################################################################################
 # Mail Settings
 ################################################################################
@@ -102,7 +106,9 @@ sub DB_STAGING_SERVER { 1 }
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
 # Default: "This is a MusicBrainz development server."
-sub DB_STAGING_SERVER_DESCRIPTION { "" }
+sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
+sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
+sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
@@ -314,7 +320,7 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 sub COVER_ART_ARCHIVE_ACCESS_KEY { };
 sub COVER_ART_ARCHIVE_SECRET_KEY { };
 sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }

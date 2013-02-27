@@ -22,7 +22,7 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 var allowedRelations = {
-    recording:     ["artist", "label", "recording", "release"],
+    recording:     ["artist", "label", "recording", "release", "work"],
     work:          ["artist", "label", "work"],
     release:       ["artist", "label", "recording", "release"],
     release_group: ["artist", "release_group"]
@@ -64,6 +64,8 @@ ko.bindingHandlers.selectAttribute = (function() {
             if (multi) {
                 element.multiple = true;
                 $element.hide();
+            } else {
+                $element.append('<option value=""></option>');
             }
 
             $element.append(getOptions(attr).cloneNode(true)).val(attr.value())
@@ -206,6 +208,11 @@ ko.bindingHandlers.autocomplete = (function() {
     var recentEntities = {};
 
     function setEntity(type) {
+        if (!_.contains(allowedRelations[Dialog.source.type], type) ||
+                (Dialog.disableTypeSelection() && type != Dialog.target.type)) {
+            Dialog.autocomplete.clear();
+            return false;
+        }
         $("#target-type").val(type).trigger("change");
     }
 
@@ -214,12 +221,6 @@ ko.bindingHandlers.autocomplete = (function() {
 
         // XXX release groups' numeric "type" conflicts with the entity type
         data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
-
-        if (allowedRelations[Dialog.source.type].indexOf(data.type) == -1 &&
-            !(Dialog.source.type == "recording" && data.type == "work")) {
-            Dialog.autocomplete.clear();
-            return;
-        }
 
         // Add/move to the top of the recent entities menu.
         var recent = recentEntities[data.type] = recentEntities[data.type] || [],
@@ -288,26 +289,61 @@ ko.bindingHandlers.autocomplete = (function() {
 
 var BaseDialog = (function() {
     var inputRegex = /^input|button|select$/;
+    var selectChanged = {};
 
     function dialogKeydown(event) {
-        if (!event.isDefaultPrevented()) {
-            if (event.keyCode == 13 && this.canSubmit() &&
-                    inputRegex.test(event.target.nodeName.toLowerCase()))
-                this.accept();
-            else if (event.keyCode == 27)
-                this.hide();
-        }
+        if (event.isDefaultPrevented())
+            return;
+
+        var self = this;
+        var target = event.target;
+        var nodeName = target.nodeName.toLowerCase();
+
+        if (nodeName == "select" && target.id)
+            selectChanged[target.id] = false;
+
+        /* While both Firefox and Opera 10 trigger the change event after
+         * keydown, Opera does not update the select's value attribute until
+         * after the change event has occured. Delay this event so that it
+         * always runs after that attribute has changed.
+         */
+        _.defer(function() {
+            if (nodeName == "select" && selectChanged[target.id])
+                return;
+
+            if (event.keyCode == 13 && self.canSubmit() && inputRegex.test(nodeName)) {
+                self.accept();
+            } else if (event.keyCode == 27 && nodeName != "select") {
+                self.hide();
+            }
+        });
+    }
+
+    /* Firefox's select menus are weird - after opening the menu, you have to
+     * press enter *twice* to trigger the change event, unlike in Chrome.
+     * We don't want the user to accidentally submit the dialog when they only
+     * intended to submit the select menu. Since there's no good way to
+     * determine whether the select menu was open when they pressed enter, we
+     * can at least detect whether a change event has occured.
+     */
+    function selectChange(event) {
+        var select = event.target;
+        if (_.has(selectChanged, select.id))
+            selectChanged[select.id] = true;
     }
 
     function cancel(event) {
         if (event.keyCode == 13) {
             event.preventDefault();
+            event.stopPropagation();
             this.hide();
         }
     }
 
     return function(options) {
-        options.$dialog.on("keydown", _.bind(dialogKeydown, options))
+        options.$dialog
+            .on("keydown", _.bind(dialogKeydown, options))
+            .on("change", "select", selectChange)
             .find("button.negative").on("keydown", _.bind(cancel, options));
     };
 }());
@@ -323,6 +359,7 @@ var Dialog = UI.Dialog = {
     showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
+    disableTypeSelection : ko.observable(false),
 
     init: function() {
         var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
@@ -389,6 +426,8 @@ var Dialog = UI.Dialog = {
         dlg.showAutocomplete(notBatchWorks);
         dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
 
+        dlg.relationship().validateEntities = true;
+
         // prevent pressing enter on the create-work button from accepting the dialog.
         if (dlg.showCreateWorkLink.peek())
             $("#create-work-btn").on("keydown", function(event) {
@@ -412,7 +451,11 @@ var Dialog = UI.Dialog = {
         dlg.$overlay.hide();
         delete dlg.targets;
 
+        dlg.relationship().validateEntities = false;
+
         if ($.isFunction(callback)) callback.call(dlg);
+
+        dlg.relationship().validateEntities = true;
 
         dlg.showAutocomplete(false);
         dlg.source = dlg.emptyRelationship.entity[1].peek();
@@ -451,7 +494,9 @@ var Dialog = UI.Dialog = {
             entity0 = relationship.entity[0].peek(),
             entity1 = relationship.entity[1].peek();
 
+        relationship.validateEntities = false;
         relationship.entity[0](entity1);
+        relationship.validateEntities = true;
         relationship.entity[1](entity0);
         this.resize();
     },
@@ -547,6 +592,7 @@ UI.AddDialog = MB.utility.beget(Dialog);
 UI.AddDialog.show = function(options) {
     options.relationship = RE.Relationship({entity: options.entity, action: "add"});
     this.mode(options.mode || "add");
+    this.disableTypeSelection(options.disableTypeSelection || false);
     Dialog.show.call(this, options);
 };
 

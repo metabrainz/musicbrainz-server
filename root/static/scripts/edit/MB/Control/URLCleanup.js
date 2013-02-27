@@ -132,6 +132,11 @@ MB.constants.LINK_TYPES = {
         release: 82,
         work: 273,
         recording: 306
+    },
+    viaf: {
+        artist: 310,
+        label: 311,
+        work: 312 
     }
 };
 
@@ -275,7 +280,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function(url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
@@ -347,6 +352,15 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function(url) {
             url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
+            return url;
+        }
+    },
+    viaf: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
+        type: MB.constants.LINK_TYPES.viaf,
+        clean: function(url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
+            "http://viaf.org/viaf/$1");
             return url;
         }
     },

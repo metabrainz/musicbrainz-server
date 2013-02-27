@@ -6,9 +6,9 @@ cd $mb_server
 eval $(perl -Mlocal::lib)
 export PERL_CARTON_PATH=$mb_server/local
 
-echo `date` : "Checking dependencies (if this fails on libintl-perl, don't worry)"
-[ -f .carton.lock.md5 ] && (grep $(md5sum carton.lock) .carton.lock.md5 >/dev/null || (rm -r local/ && carton install --deployment && git reset --hard -- carton.lock))
-md5sum carton.lock > .carton.lock.md5
+#echo `date` : "Checking dependencies (if this fails on libintl-perl, don't worry)"
+#[ -f .carton.lock.md5 ] && (grep $(md5sum carton.lock) .carton.lock.md5 >/dev/null || (rm -r local/ && carton install --deployment && git reset --hard -- carton.lock))
+#md5sum carton.lock > .carton.lock.md5
 
 echo `date` : "Rebuilding resources"
 carton exec -- script/compile_resources.pl

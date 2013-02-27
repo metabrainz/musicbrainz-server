@@ -8,6 +8,10 @@ with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
 };
 
 with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
+    type => 'collection',
+};
+
+with 'MusicBrainz::Server::Controller::User::SubscriptionsRole' => {
     type => 'editor',
 };
 

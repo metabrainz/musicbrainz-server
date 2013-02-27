@@ -23,13 +23,10 @@ sub serialize
            $entity->target_type eq 'label' ||
            $entity->target_type eq 'release' ||
            $entity->target_type eq 'release_group' ||
-           $entity->target_type eq 'recording')
+           $entity->target_type eq 'recording' ||
+           $entity->target_type eq 'url')
     {
         $body->{$entity->target_type} = serialize_entity ($entity->target);
-    }
-    elsif ($entity->target_type eq 'url')
-    {
-        $body->{$entity->target_type} = $entity->target->name
     }
 
     return $body;
