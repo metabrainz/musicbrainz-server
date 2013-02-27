@@ -324,7 +324,7 @@ MB.constants.CLEANUPS = {
             if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
-                  url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
+                  url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
                   // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");

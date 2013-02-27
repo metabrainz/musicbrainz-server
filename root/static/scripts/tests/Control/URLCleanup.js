@@ -335,11 +335,18 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
                     'release'
                 ],
+                    // Facebook
                 [
                     'http://www.facebook.com/sininemusic',
                     'https://www.facebook.com/sininemusic',
                     'artist'
                 ],
+                [
+                    'https://www.facebook.com/RomanzMusic?fref=ts',
+                    'https://www.facebook.com/RomanzMusic',
+                    'artist'
+                ],
+                    // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
