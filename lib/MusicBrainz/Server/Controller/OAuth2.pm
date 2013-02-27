@@ -66,8 +66,8 @@ sub authorize : Local Args(0) RequireAuth
     my $pre_authorized = 0;
 
     if ($application->is_server) {
-        my $has_granted_tokens = $c->model('EditorOAuthToken')->check_granted_token($c->user->id, $application->id, $scope, $offline);
         $offline = 0 if $params{access_type} ne 'offline';
+        my $has_granted_tokens = $c->model('EditorOAuthToken')->check_granted_token($c->user->id, $application->id, $scope, $offline);
         $pre_authorized = 1 if $params{approval_prompt} ne 'force' && $has_granted_tokens;
     }
 
