@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::LabelReport;
+package MusicBrainz::Server::Report::WorkReport;
 use Moose::Role;
 
 with 'MusicBrainz::Server::Report::QueryReport';
@@ -7,19 +7,18 @@ around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $items = $self->$orig(@_);
+    my $rows = $self->$orig(@_);
 
-    my $labels = $self->c->model('Label')->get_by_ids(
-        map { $_->{label_id} } @$items
+    my $works = $self->c->model('Work')->get_by_ids(
+        map { $_->{work_id} } @$rows
     );
-    $self->c->model('LabelType')->load(values %$labels);
 
     return [
         map +{
             %$_,
-            label => $labels->{ $_->{label_id} }
+            work => $works->{ $_->{work_id} },
         },
-            @$items
+            @$rows
     ];
 };
 
@@ -27,9 +26,7 @@ around inflate_rows => sub {
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
-Copyright (C) 2012 Johannes Weißl
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

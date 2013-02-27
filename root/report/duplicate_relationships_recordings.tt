@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Recordings with possible duplicate relationships') full_width=1 -%]
+
+<h1>[% l('Recordings with possible duplicate relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report lists recordings which have multiple relationships to the same entity using the same relationship type.') %]</li>
+    <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/recording_list.tt' -%]
+
+[%- END -%]
