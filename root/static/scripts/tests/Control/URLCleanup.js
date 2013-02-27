@@ -214,6 +214,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.secondhandsongs.com/work/1409',
                     MB.constants.LINK_TYPES.secondhandsongs.work
+                ],
+                // BBC Music
+                [
+                    'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                    MB.constants.LINK_TYPES.bbcmusic.artist
                 ]
             ];
 
