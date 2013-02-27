@@ -92,6 +92,8 @@ sub direct : Private
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
+            $c->model('Country')->load(@entities);
+            $c->model('Gender')->load(@entities);
         }
         when ('editor') {
             $c->model('Editor')->load_preferences(@entities);
