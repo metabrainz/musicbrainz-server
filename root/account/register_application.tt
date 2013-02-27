@@ -5,9 +5,11 @@
       function toggleRedirectUri(type) {
           if (type.val() == 'web') {
             $('#id-application\\.oauth_redirect_uri').parent('.row').show();
+            $('#id-application\\.oauth_redirect_uri').prop('disabled', false);
           }
           else {
             $('#id-application\\.oauth_redirect_uri').parent('.row').hide();
+            $('#id-application\\.oauth_redirect_uri').prop('disabled', true);
           }
       }
 
