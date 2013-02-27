@@ -5,7 +5,7 @@
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
         [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
-        [%- create_guideline(l('If you would like to delete your account, go to your profile and click the "Delete Account" tab.')) %]
+        [%- create_guideline(l('If you would like to delete your account, go to {uri|the "Delete Account" tab in your profile}.',  {uri => c.uri_for_action("/admin/delete_user", user.name) }))%] 
     [% END %]
 
     [%- USE r = FormRenderer(form) -%]
