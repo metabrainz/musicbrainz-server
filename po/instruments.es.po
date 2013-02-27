@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-01-27 21:40+0000\n"
+"PO-Revision-Date: 2013-02-23 13:11+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1038,7 +1038,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:40
 msgid "horn"
-msgstr "trompa"
+msgstr "trompa (genérico)"
 
 #: DB:link_attribute_type/name:283
 msgid "huqin"
