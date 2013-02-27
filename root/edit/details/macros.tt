@@ -116,10 +116,11 @@
 
 [%- MACRO display_condensed_track_acs(tracks) BLOCK;
     thisac = 0;
+    thispos = 0;
     row_counter = 1;
     startnum = tracks.0.number;
     FOR track=tracks;
-        IF thisac AND thisac != expanded_artist_credit(track.artist_credit);
+        IF thisac AND (thisac != expanded_artist_credit(track.artist_credit) OR thispos + 1 != track.position);
             ac_row(row_counter, startnum, endnum, thisac);
             row_counter = row_counter + 1;
             startnum = track.number;
@@ -128,6 +129,7 @@
             endnum = track.number;
         END;
         thisac = expanded_artist_credit(track.artist_credit);
+        thispos = track.position;
         IF loop.last();
             ac_row(row_counter, startnum, endnum, thisac);
         END;
@@ -147,12 +149,13 @@ END -%]
 [%- MACRO display_condensed_track_acs_diff(changes) BLOCK;
     oldac = 0;
     newac = 0;
+    thispos = 0;
     row_counter = 1;
     startnum = changes.0.2.number;
     FOR change=changes;
         old_track = change.1;
         new_track = change.2;
-        IF (oldac AND oldac != expanded_artist_credit(old_track.artist_credit)) OR (newac AND newac != expanded_artist_credit(new_track.artist_credit));
+        IF (oldac AND oldac != expanded_artist_credit(old_track.artist_credit)) OR (newac AND newac != expanded_artist_credit(new_track.artist_credit)) OR ((newac OR oldac) AND thispos + 1 != new_track.position);
             ac_diff_row(row_counter, startnum, endnum, oldac, newac);
             row_counter = row_counter + 1;
             startnum = new_track.number;
@@ -162,6 +165,7 @@ END -%]
         END;
         oldac = expanded_artist_credit(old_track.artist_credit);
         newac = expanded_artist_credit(new_track.artist_credit);
+        thispos = new_track.position;
         IF loop.last();
             ac_diff_row(row_counter, startnum, endnum, oldac, newac);
         END;
