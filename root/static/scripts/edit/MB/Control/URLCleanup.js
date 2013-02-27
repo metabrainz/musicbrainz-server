@@ -237,7 +237,7 @@ MB.constants.CLEANUPS = {
             return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
         }
     },
-    purchasefordownload: {
+    downloadpurchase: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
