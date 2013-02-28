@@ -560,14 +560,17 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     my ($self, $c, $id) = @_;
 
     my $token = $c->model('EditorOAuthToken')->get_by_id($id);
-    if (defined $token && $token->editor_id == $c->user->id) {
+    $c->detach('/error_404')
+        unless defined $token && $token->editor_id == $c->user->id;
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
             $c->model('EditorOAuthToken')->delete($id);
         });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
     }
-
-    $c->response->redirect($c->uri_for_action('/account/applications'));
-    $c->detach;
 }
 
 sub register_application : Path('/account/applications/register') RequireAuth
