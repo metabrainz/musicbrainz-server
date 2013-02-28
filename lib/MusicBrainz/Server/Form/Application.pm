@@ -17,7 +17,7 @@ has_field 'oauth_type' => (
 );
 
 has_field 'oauth_redirect_uri' => (
-    type => '+MusicBrainz::Server::Form::Field::URL'
+    type => '+MusicBrainz::Server::Form::Field::OAuthRedirectURI'
 );
 
 sub options_oauth_type

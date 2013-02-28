@@ -74,6 +74,9 @@ test 'Authorize web workflow online' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
+    my $client_id = 'id-web';
+    my $redirect_uri = 'http://www.example.com/callback';
+
     # This requires login first
     $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
     html_ok($test->mech->content);
@@ -92,18 +95,24 @@ test 'Authorize web workflow online' => sub {
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'access_denied');
 
     # Incorrect scope
-    $test->mech->get('/oauth2/authorize?client_id=id-web&response_type=code&scope=does-not-exist&state=xxx&redirect_uri=http://www.example.com/callback');
+    $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=does-not-exist&state=xxx&redirect_uri=$redirect_uri");
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'invalid_scope');
 
     # Incorrect response type
-    $test->mech->get('/oauth2/authorize?client_id=id-web&response_type=yyy&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
+    $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=yyy&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     oauth_redirect_error($test->mech, 'www.example.com', '/callback', 'xxx', 'unsupported_response_type');
 
     # Authorize the request
-    $test->mech->get_ok('/oauth2/authorize?client_id=id-web&response_type=code&scope=profile&state=xxx&redirect_uri=http://www.example.com/callback');
+    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
     oauth_authorization_code_ok($test, $code, 2, 1, 0);
+
+    # Try to authorize one more time, this time we should be redirected automatically and only get the access_token
+    $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
+    my $code2 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
+    isnt($code, $code2);
+    oauth_authorization_code_ok($test, $code2, 2, 1, 0);
 };
 
 test 'Authorize web workflow offline' => sub {
