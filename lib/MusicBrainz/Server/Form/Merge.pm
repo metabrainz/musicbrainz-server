@@ -13,7 +13,7 @@ has '+name' => ( default => 'merge' );
 has_field 'target' => (
     type => '+MusicBrainz::Server::Form::Field::Integer',
     required => 1,
-    required_message => N_l('Please pick the entity you want the others merged into.')
+    required_message => N_l('Please pick the entity you want the others merged into.'),
     localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
