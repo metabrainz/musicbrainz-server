@@ -4,7 +4,7 @@ use DBDefs;
 use Redis;
 use JSON;
 
-extends 'MusicBrainz::DataStore';
+with 'MusicBrainz::DataStore';
 
 has 'prefix' => (
     is => 'ro',
@@ -39,50 +39,50 @@ sub BUILD {
     $self->_connection->select( $self->database );
 };
 
-override get => sub {
+sub get {
     my ($self, $key) = @_;
 
     my $value = $self->_connection->get ($self->prefix.$key);
 
     return defined $value ? $self->_json->decode ($value) : undef;
-};
+}
 
-override set => sub {
+sub set {
     my ($self, $key, $value) = @_;
 
     return $self->_connection->set (
         $self->prefix.$key, $self->_json->encode ($value));
-};
+}
 
-override exists => sub {
+sub exists {
     my ($self, $key) = @_;
 
     return $self->_connection->exists ($self->prefix.$key);
-};
+}
 
-override del => sub {
+sub del {
     my ($self, $key) = @_;
 
     return $self->_connection->del ($self->prefix.$key);
-};
+}
 
-=method add
+=method expire
 
 Expire the specified key at (unix) $timestamp.
 
 =cut
 
-override expire => sub {
+sub expire {
     my ($self, $key, $timestamp) = @_;
 
     return $self->_connection->expireat ($self->prefix.$key, $timestamp);
-};
+}
 
-override incr => sub {
+sub incr {
     my ($self, $key, $increment) = @_;
 
     return $self->_connection->incrby ($self->prefix.$key, $increment // 1);
-};
+}
 
 =method add
 
@@ -91,12 +91,11 @@ doesn't exists on the server.
 
 =cut
 
-override add => sub {
+sub add {
     my ($self, $key, $value) = @_;
 
     return $self->_connection->setnx ($self->prefix.$key, $self->_json->encode ($value));
-};
-
+}
 
 sub _flushdb {
     my ($self) = @_;

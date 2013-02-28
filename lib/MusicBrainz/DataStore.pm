@@ -1,11 +1,18 @@
 package MusicBrainz::DataStore;
-use Moose;
+use Moose::Role;
 
-sub get    { die("Not implemented"); }
-sub set    { die("Not implemented"); }
-sub exists { die("Not implemented"); }
-sub del    { die("Not implemented"); }
-sub expire { die("Not implemented"); }
+requires 'get';
+requires 'set';
+requires 'exists';
+requires 'del';
+
+=method expire
+
+Expire the specified key at (unix) $timestamp.
+
+=cut
+
+requires 'expire';
 
 =method incr
 
@@ -13,14 +20,7 @@ Increment the value for the $key.
 
 =cut
 
-sub incr {
-    my ($self, $key, $increment) = @_;
-
-    my $newvalue = $self->get ($key) + ($increment // 1);
-    $self->set ($key, $newvalue);
-
-    return $newvalue;
-}
+requires 'incr';
 
 =method add
 
@@ -29,14 +29,7 @@ doesn't exists on the server.
 
 =cut
 
-sub add {
-    my ($self, $key, $value) = @_;
-
-    return if $self->exists ($key);
-
-    return $self->set ($key, $value);
-}
-
+requires 'add';
 
 =head1 LICENSE
 
@@ -59,4 +52,3 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 =cut
 
 1;
-
