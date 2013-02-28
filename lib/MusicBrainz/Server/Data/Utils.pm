@@ -48,6 +48,7 @@ our @EXPORT_OK = qw(
     query_to_list_limited
     ref_to_type
     remove_equal
+    remove_invalid_characters
     take_while
     trim
     type_to_model
@@ -318,7 +319,19 @@ sub trim {
     # Remove leading and trailing space
     my $t = Text::Trim::trim (shift);
 
+    $t = remove_invalid_characters($t);
+
     return collapse_whitespace ($t);
+}
+
+sub remove_invalid_characters {
+    my $t = shift;
+    # trim XML-invalid characters
+    $t =~ s/[^\x09\x0A\x0D\x20-\x{D7FF}\x{E000}-\x{FFFD}\x{10000}-\x{10FFFF}]//go;
+    # trim other undesirable characters
+    $t =~ s/[\x{200B}\x{00AD}]//go;
+    #        zwsp    shy
+    return $t
 }
 
 sub type_to_model
