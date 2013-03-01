@@ -99,6 +99,11 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Artist';
 }
 
+after '_delete_from_cache' => sub {
+    my ($self, @ids) = @_;
+    $self->c->model('ArtistCredit')->clear_for_artist_ids(@ids);
+};
+
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;

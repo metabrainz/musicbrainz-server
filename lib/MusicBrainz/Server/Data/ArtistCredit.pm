@@ -84,6 +84,14 @@ sub find_by_artist_id
     return $self->find_by_ids($ids);
 }
 
+sub clear_for_artist_ids
+{
+    my ($self, @artist_ids) = @_;
+    my $query = 'SELECT artist_credit FROM artist_credit_name WHERE artist IN (?)';
+    my $artist_credit_ids = $self->sql->select_single_column_array($query, @artist_ids);
+    $self->_delete_from_cache(@$artist_credit_ids) if $artist_credit_ids;
+}
+
 sub _find
 {
     my ($self, $artist_credit) = @_;
