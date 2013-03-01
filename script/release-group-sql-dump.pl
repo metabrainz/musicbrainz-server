@@ -602,7 +602,6 @@ sub release_group
     _tag ($dbh, 'release_group_tag', 'release_group', $data->{id});
 }
 
-
 sub work
 {
     my ($dbh, $id) = @_;
@@ -610,6 +609,8 @@ sub work
     $core_entities{work}{$id} = 1;
 
     my $data = get_rows ($dbh, 'work', 'id', $id);
+
+    generic ($dbh, 'work_type', 'id', $data->[0]->{type});
     generic_verbose ($dbh, 'work_name', 'id', $data->[0]->{name});
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'work', $data);
