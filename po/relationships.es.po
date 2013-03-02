@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-27 12:33+0000\n"
+"PO-Revision-Date: 2013-02-28 17:37+0000\n"
 "Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -2753,7 +2753,7 @@ msgstr "voz {additional} {guest:invitada} ({vocal} {solo}) en"
 
 #: DB:link_type/short_link_phrase:149
 msgid "performed {additional} {solo} {guest} {vocal} vocal on"
-msgstr "voz {additional} {guest:invitada} ({vocal} {solo}) en"
+msgstr "voz {additional} {guest:invitada} ({vocal}) ({solo}) en"
 
 #: DB:link_type/link_phrase:108 DB:link_type/short_link_phrase:108
 msgid "performs as"
@@ -3373,7 +3373,7 @@ msgstr ""
 #: DB:link_type/link_phrase:60 DB:link_type/link_phrase:149
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal} vocals"
-msgstr "voz {additional} {guest:invitada} ({vocal} {solo:solo})"
+msgstr "voz {additional} {guest:invitada} ({vocal}) ({solo})"
 
 #: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
 #: DB:link_type/reverse_link_phrase:41
