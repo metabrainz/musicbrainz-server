@@ -6,7 +6,7 @@
 
   <tr>
     <th>[% l('Description:') %]</th>
-    <td>[% edit.data.description || l('(none)') %]</td>
+    <td>[% edit.data.description || lp('(none)', 'description') %]</td>
   </tr>
 
   <tr>
