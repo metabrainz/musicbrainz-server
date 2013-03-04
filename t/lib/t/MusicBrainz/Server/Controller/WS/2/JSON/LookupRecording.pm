@@ -247,5 +247,38 @@ test 'recording lookup with release relationships' => sub {
         });
 };
 
+test 'recording lookup with work relationships' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with artists',
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' => encode_json (
+        {
+            id => "0cf3008f-e246-428f-abc1-35f87d584d60",
+            title => "the Love Bug",
+            disambiguation => "",
+            length => 242226,
+            relations => [
+                {
+                    attributes => [],
+                    direction => 'forward',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                    type => 'performance',
+                    'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
+                    work => {
+                        disambiguation => '',
+                        id => '46724ef1-241e-3d7f-9f3b-e51ba34e2aa1',
+                        iswcs => [],
+                        language => JSON::null,
+                        title => 'the Love Bug',
+                        type => JSON::null,
+                    }
+                }
+            ],
+        });
+};
+
 1;
 
