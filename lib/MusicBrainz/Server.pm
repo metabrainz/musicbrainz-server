@@ -73,7 +73,7 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
     },
     'Plugin::Session' => {
-        expires => 36000 # 10 hours
+        expires => DBDefs->SESSION_EXPIRE
     },
     stacktrace => {
         enable => 1
