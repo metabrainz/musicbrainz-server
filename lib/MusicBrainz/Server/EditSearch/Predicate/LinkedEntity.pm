@@ -33,10 +33,10 @@ role {
         my $table = join('_', 'edit', $params->type);
         my $column = $params->type;
         my $alias = $table . $join_idx;
-        $query->add_join("JOIN $table $alias ON $alias.edit = edit.id");
 
         given($self->operator) {
             when('=') {
+                $query->add_join("JOIN $table $alias ON $alias.edit = edit.id");
                 $query->add_where([
                     "$alias.$column = ?", $self->sql_arguments
                 ]);
@@ -44,7 +44,8 @@ role {
 
             when ('!=') {
                 $query->add_where([
-                    "$alias.$column != ?", $self->sql_arguments
+                    "NOT EXISTS (SELECT TRUE from $table edit_entity WHERE edit_entity.edit = edit.id AND edit_entity.$column = ?)",
+                    $self->sql_arguments
                 ]);
             }
         };

@@ -6,6 +6,8 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
 
+use overload '<=>' => \&_cmp, fallback => 1;
+
 Readonly our $DIRECTION_FORWARD  => 1;
 Readonly our $DIRECTION_BACKWARD => 2;
 
@@ -170,6 +172,21 @@ sub _interpolate
     trim_in_place($phrase);
 
     return $phrase;
+}
+
+sub _cmp {
+    my ($a, $b) = @_;
+
+    my $a_sortname = $a->target->can('sort_name')
+        ? $a->target->sort_name
+        : $a->target->name;
+    my $b_sortname = $b->target->can('sort_name')
+        ? $b->target->sort_name
+        : $b->target->name;
+    $a->link->begin_date        <=> $b->link->begin_date ||
+    $a->link->end_date          <=> $b->link->end_date   ||
+    $a->link->type->child_order <=> $b->link->type->child_order ||
+    $a_sortname cmp $b_sortname;
 }
 
 __PACKAGE__->meta->make_immutable;

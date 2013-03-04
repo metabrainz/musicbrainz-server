@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-01-15 22:24+0000\n"
+"PO-Revision-Date: 2013-02-28 20:15+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -614,7 +614,7 @@ msgstr "eelami"
 msgid "English"
 msgstr "inglise"
 
-#. frequency:0 iso_code_3:enm
+#. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
 msgstr "keskinglise (1100–1500)"
@@ -699,7 +699,7 @@ msgstr "prantsuse"
 msgid "French, Middle (ca.1400-1600)"
 msgstr "keskprantsuse (u 1400–1600)"
 
-#. frequency:0 iso_code_3:fro
+#. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
 msgstr "vanaprantsuse (842 – u 1400)"
@@ -1024,6 +1024,11 @@ msgstr "irokeesi keelkond"
 msgid "Italian"
 msgstr "itaalia"
 
+#. frequency:1 iso_code_3:jam
+#: DB:language/name:2980
+msgid "Jamaican Creole English"
+msgstr ""
+
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
@@ -1242,7 +1247,7 @@ msgstr "lahnda (lehnda, läänepandžabi)"
 #. frequency:1 iso_code_3:lkt
 #: DB:language/name:3880
 msgid "Lakota"
-msgstr ""
+msgstr "lakota"
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
@@ -2427,7 +2432,7 @@ msgstr "koosa"
 #. frequency:1 iso_code_3:rys
 #: DB:language/name:5808
 msgid "Yaeyama"
-msgstr "yaeyama"
+msgstr "jaejama"
 
 #. frequency:1 iso_code_3:sah
 #: DB:language/name:356

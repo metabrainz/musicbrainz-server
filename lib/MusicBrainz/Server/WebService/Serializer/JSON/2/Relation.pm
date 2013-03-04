@@ -14,6 +14,7 @@ sub serialize
     my $body;
 
     $body->{type} = $entity->link->type->name;
+    $body->{"type-id"} = $entity->link->type->gid;
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
     $body = merge ($body, date_period ($entity->link));
@@ -22,13 +23,10 @@ sub serialize
            $entity->target_type eq 'label' ||
            $entity->target_type eq 'release' ||
            $entity->target_type eq 'release_group' ||
-           $entity->target_type eq 'recording')
+           $entity->target_type eq 'recording' ||
+           $entity->target_type eq 'url')
     {
         $body->{$entity->target_type} = serialize_entity ($entity->target);
-    }
-    elsif ($entity->target_type eq 'url')
-    {
-        $body->{$entity->target_type} = $entity->target->name
     }
 
     return $body;

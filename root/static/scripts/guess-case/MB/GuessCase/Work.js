@@ -27,6 +27,7 @@ MB.GuessCase._Work = function () {
     self.gc = MB.GuessCase.Main ();
 
     self.guess = self.gc.guessWork;
+    self.sortname = self.gc.guessWorkSortname;
 
     return self;
 };

@@ -169,6 +169,11 @@ Below outlines how to setup MusicBrainz server with Carton.
     directory to remove all packages previously installed by carton, and then run
     the above step again.
 
+    If carton complains about a missing "cpanfile", you can create it with:
+
+        cat Makefile.PL | grep ^requires > cpanfile
+
+
     If you still see errors, you can install individual packages manually by running:
 
         carton install {module name}

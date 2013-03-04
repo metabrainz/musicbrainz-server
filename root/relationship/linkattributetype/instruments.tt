@@ -12,7 +12,7 @@
             <p><span style="font-weight: bold">[% l('Jump to:') %]</span><p>
 
             <ol>
-            [% FOR obj IN root.children %]
+            [% FOR obj IN root.sorted_children %]
                 <li><a href="#[% obj.name | replace('\s+', '_') %]">[% obj.l_name FILTER ucfirst | html %]</a></li>
             [% END %]
             </ol>
@@ -22,7 +22,7 @@
                 [% PROCESS attribute_details obj=obj toplevel=1 %]
 
                 <ul>
-                    [% FOR child IN obj.children %]
+                    [% FOR child IN obj.sorted_children %]
                     [% PROCESS attribute_tree obj=child %]
                     [% END %]
                 </ul>

@@ -8,6 +8,9 @@ subtype 'AggregatedTag'
 subtype 'Annotation'
     => as class_type 'MusicBrainz::Server::Entity::Annotation';
 
+subtype 'Application'
+    => as class_type 'MusicBrainz::Server::Entity::Application';
+
 subtype 'Artist'
     => as class_type 'MusicBrainz::Server::Entity::Artist';
 
@@ -38,11 +41,17 @@ subtype 'CDTOC'
 subtype 'CDStub'
     => as class_type 'MusicBrainz::Server::Entity::CDStub';
 
+subtype 'Collection'
+    => as class_type 'MusicBrainz::Server::Entity::Collection';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 
 subtype 'Editor'
     => as class_type 'MusicBrainz::Server::Entity::Editor';
+
+subtype 'EditorOAuthToken'
+    => as class_type 'MusicBrainz::Server::Entity::EditorOAuthToken';
 
 subtype 'Entity'
     => as class_type 'MusicBrainz::Server::Entity';

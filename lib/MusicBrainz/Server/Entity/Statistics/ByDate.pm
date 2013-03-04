@@ -19,8 +19,7 @@ has data => (
 
 has date_collected => (
    is => 'rw',
-   isa => DateTime,
-   coerce => 1
+   isa => Str
 );
 
 sub summed_statistics {

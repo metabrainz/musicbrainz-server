@@ -66,7 +66,11 @@ sub foreign_keys {
             map { $_->{type} }
                 @{ $self->data->{old}{attributes} },
                 @{ $self->data->{new}{attributes} }
-            ]
+            ],
+        LinkType => [
+            map { $self->data->{$_}{parent_id} }
+                qw( old new )
+            ],
     }
 }
 
@@ -92,12 +96,18 @@ sub build_display_data {
         $self->data->{old}{attributes},
         $self->data->{new}{attributes}
     );
-    return if Compare($old, $new);
+    return if Compare($old, $new) &&
+        $self->data->{old}{parent_id} == $self->data->{new}{parent_id};
 
     return {
         attributes => {
             old => $self->_build_attributes($old, $loaded),
             new => $self->_build_attributes($new, $loaded),
+        },
+        parent => {
+            map {
+                $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
+            } qw( old new )
         }
     }
 }

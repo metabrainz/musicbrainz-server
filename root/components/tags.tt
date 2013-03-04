@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <th>[% lp('Tag', 'noun') %]</th>
-          <th style="width: 10em">[% l('Usage Count') %]</th>
+          <th class="actions-header">[% l('Usage Count') %]</th>
         </tr>
       </thead>
       <tbody>

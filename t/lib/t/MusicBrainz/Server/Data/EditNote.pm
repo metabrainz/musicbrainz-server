@@ -121,7 +121,7 @@ lives_ok {
     $en_data->insert($edit->id, {
             editor_id => 3,
             text => 'Note' })
-};
+} "Edit notes don't die while in a transaction already";
 $test->c->sql->commit;
 
 # Test adding edit notes with email sending
@@ -131,7 +131,7 @@ $en_data->add_note($edit->id, { text => "This is my note!", editor_id => 3 });
 
 my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-is($email_transport->delivery_count, 2);
+is($email_transport->delivery_count, 2, 'Exactly two emails sent');
 
 my $email2 = $email_transport->shift_deliveries->{email};
 my $email = $email_transport->shift_deliveries->{email};

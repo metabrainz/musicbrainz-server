@@ -1,0 +1,23 @@
+[% WRAPPER "layout.tt" title=l("OAuth Authorization") full_width=1 %]
+
+    <h1>[% l('Authorization') %]</h1>
+
+    <p>[% l('{app} is requesting permission to:', { app => application.name }) | html %]</p>
+
+    <ul>
+    [% FOR perm IN perms %]
+        <li>[% l(perm) | html %]</li>
+    [% END %]
+    [% IF application.is_server && offline %]
+        <li>[% l("Perform the above operations when I'm not using the application") %]</li>
+    [% END %]
+    </ul>
+
+    <form action="[% c.req.uri | html %]" method="post" name="confirm">
+        <span class="buttons">
+            <button type="submit" name="confirm.cancel" value="1" class="negative">[% l('No thanks') %]</button>
+            <button type="submit" name="confirm.submit" value="1">[% l('Allow access') %]</button>
+        </span>
+    </form>
+
+[% END %]

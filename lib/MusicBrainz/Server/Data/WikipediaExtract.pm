@@ -63,7 +63,7 @@ sub get_available_languages
     return $self->_fetch_cache_or_url($url_pattern, 'langlinks',
                                       $LANG_CACHE_TIMEOUT,
                                       $title, $language,
-                                      sub { my (%opts) = @_; return $opts{fetched}{content}; },
+                                      sub { my (%opts) = @_; return $opts{fetched}{content} // []; },
                                       %opts);
 }
 
@@ -77,10 +77,10 @@ sub _fetch_cache_or_url
     my $value = $cache->get($cache_key);
 
     unless (defined $value || $cache_only) {
-        my $wp_url = sprintf $url_pattern, $language, $title;
+        my $wp_url = sprintf $url_pattern, $language, uri_escape_utf8($title);
 
         my $ret = $self->_get_and_process_json($wp_url, $title, $json_property);
-        unless ($ret) { return undef }
+        unless (defined $ret) { return undef }
 
         $value = &$callback(fetched => $ret, language => $language);
 
@@ -128,20 +128,20 @@ sub _get_and_process_json
     my $noncanonical = $title;
 
     # capitalization normalizations
-    my $normalized = first { $_->{from} eq $title } $content->{normalized} if $content->{normalized};
+    my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
     if ($normalized) {
         $title = $normalized->{to};
     }
 
     # wiki redirects
-    my $redirects = first { $_->{from} eq $title } $content->{redirects} if $content->{redirects};
+    my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
     if ($redirects) {
         $title = $redirects->{to};
     }
 
     # pull out the correct page, though there should only be one
     my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
-    unless ($ret && $ret->{$property}) { return undef; }
+    unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
     return {content => $ret->{$property}, title => $noncanonical, canonical => $title}
 }

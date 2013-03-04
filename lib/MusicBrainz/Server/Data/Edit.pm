@@ -7,6 +7,7 @@ use Data::OptList;
 use DateTime;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
@@ -15,6 +16,7 @@ use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG 
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
+use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -141,6 +143,25 @@ sub find
         }, $query, @args, $offset);
 }
 
+sub find_by_collection
+{
+    my ($self, $collection_id, $limit, $offset, $status) = @_;
+
+    my $status_cond = '';
+
+    $status_cond = ' AND status = ' . $status if defined($status);
+
+    my $query = 'SELECT DISTINCT ' . $self->_columns . ' FROM ' . $self->_table .
+                ' JOIN edit_release er ON edit.id = er.edit
+                  JOIN editor_collection_release ecr ON er.release = ecr.release
+                  WHERE collection = ? ' . $status_cond . '
+                  ORDER BY edit.id DESC OFFSET ? LIMIT 500';
+
+    return query_to_list_limited($self->c->sql, $offset, $limit, sub {
+            return $self->_new_from_row(shift);
+        }, $query, $collection_id, $offset);
+}
+
 sub find_for_subscription
 {
     my ($self, $subscription) = @_;
@@ -153,6 +174,21 @@ sub find_for_subscription
             sub { $self->_new_from_row(shift) },
             $query, $subscription->last_edit_sent,
             $subscription->subscribed_editor_id,
+            $STATUS_OPEN, $STATUS_APPLIED
+        );
+    }
+    elsif($subscription->isa(CollectionSubscription)) {
+        return () if (!$subscription->available);
+
+        my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
+                    ' JOIN edit_release er ON edit.id = er.edit
+                      JOIN editor_collection_release ecr ON er.release = ecr.release
+                      WHERE collection = ? AND edit.id > ? AND status IN (?, ?)';
+
+        return query_to_list(
+            $self->c->sql,
+            sub { $self->_new_from_row(shift) },
+            $query, $subscription->target_id, $subscription->last_edit_sent,
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
@@ -226,6 +262,12 @@ SELECT * FROM edit, (
     SELECT edit FROM edit_label el
     JOIN editor_subscribe_label esl ON esl.label = el.label
     WHERE el.status = ? AND esl.editor = ?
+    UNION
+    SELECT edit FROM edit_release er
+    RIGHT JOIN editor_collection_release ec ON er.release = ec.release
+    JOIN editor_subscribe_collection esc ON esc.collection = ec.collection
+    JOIN edit ON er.edit = edit.id
+    WHERE edit.status = ? AND esc.editor = ? AND esc.available
 ) edits
 WHERE edit.id = edits.edit
 AND edit.status = ?
@@ -243,7 +285,7 @@ OFFSET ?";
         sub {
             return $self->_new_from_row(shift);
         },
-        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
+        $query, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $STATUS_OPEN, $editor_id, $editor_id, $offset);
 }
 
 sub subscribed_editor_edits {
@@ -459,8 +501,16 @@ sub load_all
             $ids = Data::OptList::mkopt_hash($ids);
             while (my ($object_id, $extra_models) = each %$ids) {
                 push @{ $objects_to_load->{$model} }, $object_id;
-                $post_load_models->{$model}->{$object_id} = $extra_models
-                    if $extra_models && @$extra_models;
+                if ($extra_models && @$extra_models) {
+                    if (!exists $post_load_models->{$model}->{$object_id}) {
+                        $post_load_models->{$model}->{$object_id} = $extra_models;
+                    } else {
+                        for my $extra_model (@$extra_models) {
+                            push @{ $post_load_models->{$model}->{$object_id} }, $extra_model
+                              unless (any { $_ eq $extra_model } @{ $post_load_models->{$model}->{$object_id} });
+                        }
+                    }
+                }
             }
         }
     }
@@ -494,21 +544,16 @@ sub approve
 {
     my ($self, $edit, $editor_id) = @_;
 
-    Sql::run_in_transaction(sub {
-        # Load the edit again, but this time lock it for updates
-        $edit = $self->get_by_id_and_lock($edit->id);
+    $self->c->model('Vote')->enter_votes(
+        $editor_id,
+        {
+            vote    => $VOTE_APPROVE,
+            edit_id => $edit->id
+        }
+    );
 
-        $self->c->model('Vote')->enter_votes(
-            $editor_id,
-            {
-                vote    => $VOTE_APPROVE,
-                edit_id => $edit->id
-            }
-        );
-
-        # Apply the changes and close the edit
-        $self->accept($edit);
-    }, $self->c->sql);
+    # Apply the changes and close the edit
+    $self->accept($edit);
 }
 
 sub _do_accept

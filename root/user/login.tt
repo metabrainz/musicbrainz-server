@@ -14,7 +14,7 @@
     </p>
 
     [%- USE r = FormRenderer(login_form) -%]
-    <form action="[% c.req.uri_with({ uri => redirect }) %]" method="post">
+    <form action="[% c.req.uri_with({ uri => redirect }) | html %]" method="post">
         [% IF login_form.has_errors || bad_login -%]
             <div class="row no-label">
                 <span class="error"><strong>[% l('Incorrect username or password') %]</strong></span>

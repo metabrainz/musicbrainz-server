@@ -5,6 +5,7 @@ use warnings;
 
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Translation qw( lp );
+use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
 use Sub::Exporter -setup => {
@@ -114,6 +115,14 @@ sub collapse_param
     }
 }
 
+sub get_collator {
+    my $c = shift;
+    my $coll = Unicode::ICU::Collator->new($c->stash->{current_language} // 'en');
+    # make sure to update the postgresql collate extension as well
+    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
+    return $coll;
+}
+
 sub language_options {
     my $c = shift;
 
@@ -124,7 +133,8 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my @sorted = sort_by { $_->{label} } map {
+    my $coll = get_collator($c);
+    my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
             'label' => $_->l_name,
@@ -147,7 +157,8 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my @sorted = sort_by { $_->{label} } map {
+    my $coll = get_collator($c);
+    my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
             'label' => $_->l_name,

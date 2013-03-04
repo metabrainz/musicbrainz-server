@@ -241,6 +241,21 @@ test 'Deleting an editor cancels all open edits' => sub {
     is($c->model('Edit')->get_by_id($open_edit->id)->status, $STATUS_DELETED);
 };
 
+test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<'EOSQL');
+INSERT INTO editor (id, name, password)
+  VALUES (1, 'Subject', ''), (2, 'Subscriber', '');
+INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
+  VALUES (2, 1, 1);
+EOSQL
+
+    $c->model('Editor')->delete(1);
+    is(scalar($c->model('Editor')->subscription->get_subscriptions(2)), 0);
+};
+
 test 'Open edit and last-24-hour counts' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -284,8 +299,14 @@ INSERT INTO label (id, gid, name, sort_name)
 
 INSERT INTO editor (id, name, password)
   VALUES (1, 'Alice', 'al1c3'), (2, 'Bob', 'b0b');
+
+INSERT INTO editor_collection (id, gid, editor, name)
+  VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff');
+
 INSERT INTO editor_subscribe_artist (id, editor, artist, last_edit_sent) VALUES
   (1, 1, 1, 1);
+INSERT INTO editor_subscribe_collection (id, editor, collection, last_edit_sent)
+  VALUES (1, 1, 1, 0);
 INSERT INTO editor_subscribe_label (id, editor, label, last_edit_sent) VALUES
   (1, 1, 1, 1), (2, 2, 1, 1);
 INSERT INTO editor_subscribe_editor
@@ -294,11 +315,13 @@ EOSQL
 
     is_deeply($test->c->model('Editor')->subscription_summary(1),
               { artist => 1,
+                collection => 1,
                 label => 1,
                 editor => 1 });
 
     is_deeply($test->c->model('Editor')->subscription_summary(2),
               { artist => 0,
+                collection => 0,
                 label => 1,
                 editor => 0 });
 };

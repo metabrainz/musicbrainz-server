@@ -10,6 +10,16 @@ CREATE TABLE annotation
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE application
+(
+    id                  SERIAL,
+    owner               INTEGER NOT NULL, -- references editor.id
+    name                TEXT NOT NULL,
+    oauth_id            TEXT NOT NULL,
+    oauth_secret        TEXT NOT NULL,
+    oauth_redirect_uri  TEXT
+);
+
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -336,6 +346,16 @@ CREATE TABLE editor_subscribe_artist
     last_edit_sent      INTEGER NOT NULL, -- weakly references edit
     deleted_by_edit     INTEGER NOT NULL DEFAULT 0, -- weakly references edit
     merged_by_edit      INTEGER NOT NULL DEFAULT 0 -- weakly references edit
+);
+
+CREATE TABLE editor_subscribe_collection
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL,              -- references editor.id
+    collection          INTEGER NOT NULL,              -- weakly references collection
+    last_edit_sent      INTEGER NOT NULL,              -- weakly references edit
+    available           BOOLEAN NOT NULL DEFAULT TRUE,
+    last_seen_name      VARCHAR(255)
 );
 
 CREATE TABLE editor_subscribe_label
@@ -891,6 +911,21 @@ CREATE TABLE editor_collection_release
 (
     collection          INTEGER NOT NULL, -- PK, references editor_collection.id
     release             INTEGER NOT NULL -- PK, references release.id
+);
+
+CREATE TABLE editor_oauth_token
+(
+    id                  SERIAL,
+    editor              INTEGER NOT NULL, -- references editor.id
+    application         INTEGER NOT NULL, -- references application.id
+    authorization_code  TEXT,
+    refresh_token       TEXT,
+    access_token        TEXT,
+    mac_key             TEXT,
+    mac_time_diff       INTEGER,
+    expire_time         TIMESTAMP WITH TIME ZONE NOT NULL,
+    scope               INTEGER NOT NULL DEFAULT 0,
+    granted             TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE editor_watch_preferences

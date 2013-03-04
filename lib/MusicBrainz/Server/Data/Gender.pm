@@ -4,7 +4,6 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Data::Utils qw(
-    insert_and_create
     load_subobjects
     placeholders
 );
@@ -12,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'g' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::InsertUpdateDelete';
 
 sub _table
 {
@@ -32,12 +32,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'gender', @objs);
-}
-
-sub insert
-{
-    my ($self, @objs) = @_;
-    insert_and_create($self, @objs);
 }
 
 __PACKAGE__->meta->make_immutable;

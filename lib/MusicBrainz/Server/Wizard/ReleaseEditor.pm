@@ -29,6 +29,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_MEDIUM_DELETE
     $EDIT_MEDIUM_EDIT
+    $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_ADDRELEASELABEL
     $EDIT_RELEASE_ADD_ANNOTATION
     $EDIT_RELEASE_DELETERELEASELABEL
@@ -966,8 +967,41 @@ sub create_common_edits
 
     $self->_edit_release_annotation(%args);
 
+    # recording edits
+    # ----------------------------------------
+
+    $self->_edit_recording_edits(%args);
+
     if ($previewing) {
         $self->c->model ('Edit')->load_all (@{ $self->c->stash->{edits} });
+    }
+}
+
+sub _edit_recording_edits {
+    my ($self, %args) = @_;
+
+    my ($data, $create_edit, $editnote, $previewing)
+        = @args{qw( data create_edit edit_note previewing )};
+
+    my $medium_index = -1;
+    for my $medium (@{ $data->{rec_mediums} }) {
+        $medium_index++;
+        my $track_index = -1;
+        for my $track_association (@{ $medium->{associations} }) {
+            $track_index++;
+            next if $track_association->{gid} eq 'new';
+            if ($track_association->{update_recording}) {
+                my $track = $data->{mediums}[ $medium_index ]{tracks}[ $track_index ];
+                $create_edit->(
+                    $EDIT_RECORDING_EDIT, $editnote,
+                    to_edit => $self->c->model('Recording')->get_by_gid( $track_association->{gid} ),
+                    name => $track->name,
+                    artist_credit => artist_credit_to_ref($track->artist_credit, [ "gid" ]),
+                    length => $track->length,
+                    as_auto_editor => $data->{as_auto_editor},
+                );
+            }
+        }
     }
 }
 
@@ -1022,6 +1056,16 @@ sub _edit_missing_entities
     )
 }
 
+sub _release_label_empty {
+    my ($release_label) = @_;
+    # An 'empty' release label is either deleted in the UI, or has no catalog
+    # number nor label.
+    return $release_label->{'deleted'} || (
+        ($release_label->{catalog_number} eq '' || !defined($release_label->{catalog_number}))
+            && !$release_label->{label_id}
+    );
+}
+
 sub _edit_release_labels
 {
     my ($self, %args) = @_;
@@ -1046,7 +1090,7 @@ sub _edit_release_labels
 
         if ($old_label)
         {
-            if ($new_label->{'deleted'})
+            if (_release_label_empty($new_label))
             {
                 # Delete ReleaseLabel
                 $create_edit->(
@@ -1068,9 +1112,10 @@ sub _edit_release_labels
                 $create_edit->($EDIT_RELEASE_EDITRELEASELABEL, $editnote, %args);
             }
         }
-        elsif ($new_label->{'deleted'})
+        elsif (_release_label_empty($new_label))
         {
-            # Ignore new labels which have already been deleted.
+            # Ignore new labels which have already been deleted, or contain no
+            # useful information.
         }
         elsif (
             $previewing ?

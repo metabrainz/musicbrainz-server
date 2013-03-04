@@ -46,6 +46,7 @@ BEGIN {
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
     *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
     *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
+    *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
 }
 
 use MusicBrainz::Server::DatabaseConnectionFactory;

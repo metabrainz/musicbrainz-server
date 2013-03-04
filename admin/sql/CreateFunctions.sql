@@ -371,6 +371,53 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 ------------------------
+-- Collection deletion and hiding triggers
+------------------------
+
+CREATE OR REPLACE FUNCTION replace_old_sub_on_add()
+RETURNS trigger AS $$
+  BEGIN
+    UPDATE editor_subscribe_collection
+     SET available = TRUE, last_seen_name = NULL,
+      last_edit_sent = NEW.last_edit_sent
+     WHERE editor = NEW.editor AND collection = NEW.collection;
+
+    IF FOUND THEN
+      RETURN NULL;
+    ELSE
+      RETURN NEW;
+    END IF;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION del_collection_sub_on_delete()
+RETURNS trigger AS $$
+  BEGIN
+    UPDATE editor_subscribe_collection sub
+     SET available = FALSE, last_seen_name = OLD.name
+     FROM editor_collection coll
+     WHERE sub.collection = OLD.id AND sub.collection = coll.id;
+
+    RETURN OLD;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION del_collection_sub_on_private()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.public = FALSE AND OLD.public = TRUE THEN
+      UPDATE editor_subscribe_collection sub
+       SET available = FALSE, last_seen_name = OLD.name
+       FROM editor_collection coll
+       WHERE sub.collection = OLD.id AND sub.collection = coll.id
+       AND sub.editor != coll.editor;
+    END IF;
+
+    RETURN NEW;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+------------------------
 -- CD Lookup
 ------------------------
 

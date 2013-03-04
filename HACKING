@@ -37,69 +37,11 @@ The Cover Art features in musicbrainz are provided by
 coverartarchive.org.  To add cover art support to your development set
 up, see HACKING-CAA.md
 
-
-JavaScript and Selenium tests
------------------------------
-
-The tests in t/ also include interface tests, these will be skipped
-unless you have SeleniumRC running.  Similarly we have a set of
-javascript unittests (using QUnit), which we run using phantomjs,
-these will be skipped if phantomjs isn't found.
-
-Selenium tests
----------------
-
-We're using Selenium to run interface tests, to run these tests you
-can use a regular development server and the Selenium IDE.  Log in
-with a user account with permission to make edits before you start a
-test.
-
-Ofcourse a normal development server will have a different data set
-compared to the test environment.  When debugging selenium tests it
-may be useful to run the musicbrainz server in the test environment
-instead, to do that run the following commands:
-
-  $ script/setup_test_db_for_selenium.pl
-  $ MUSICBRAINZ_USE_TEST_DATABASE=1 carton exec script/musicbrainz_server.pl -- -r
-
-We also use pgtap to test the PostgreSQL database itself to ensure triggers are
-firing corrcetly. If you want to run these tests you will need to install pgtap
-(http://pgtap.org) into the TEST database. You can then run tests with:
-
- $ pg_prove -U <user> -d <test database> t/pgtap/*
-
-(Replacing <user> and <test database> as appropriate)
-
-To do headless testing with selenium, it may be useful to create a
-separate "selenium" user.  This way your personal browser settings /
-plugins will not affect the tests, and the tests will run in a clean
-environment.  This user needs to have a browser configured to connect
-through a proxy (localhost:4444).  In theory the proxy configuration
-is taken care of by selenium, but that doesn't seem to work on linux.
-
-To install selenium:
-
-  $ mkdir --parents ~/opt/selenium
-  $ cd ~/opt/selenium
-  ~/opt/selenium$ wget http://selenium.googlecode.com/files/selenium-server-standalone-2.0b2.jar
-
-To run it, first configure some proxy servers, then run the server:
-
-  ~/opt/selenium$ export http_proxy=localhost:4444
-  ~/opt/selenium$ xvfb-run java -jar selenium-server-standalone-2.0b2.jar -forcedBrowserModeRestOfLine '*custom /usr/bin/chromium-browser'
-
-This will use chromium as the browser (and chromium will use the proxy
-set in the environment).
-
-If some test is working in Selenium IDE but failing on Selenium RC, I
-recommend starting the server as follows, this way you can see what's
-happening in the browser:
-
-  ~/opt/selenium$ java -jar selenium-server-standalone-2.0b2.jar -singleWindow -browserSessionReuse -forcedBrowserModeRestOfLine '*custom /usr/bin/chromium-browser'
-
-
 Javascript
 ----------
+
+We have a set of javascript unittests (using QUnit), which we run
+using phantomjs, these will be skipped if phantomjs isn't found.
 
 Currently we have a single QUnit test file to run javascript tests.
 It can be tested inside the browser by visiting

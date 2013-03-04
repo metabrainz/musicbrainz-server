@@ -69,6 +69,21 @@ test 'Test DatePeriod role' => sub {
                         'period.end_date.month' => '',
                         'period.end_date.day' => '',
                     }), 'Handles stuff with only 1 partial date');
+    ok($form->process({ 'period.begin_date.year' => 1991,
+                        'period.begin_date.month' => 2,
+                        'period.begin_date.day' => 1,
+                        'period.end_date.year' => 1991,
+                        'period.end_date.month' => '',
+                        'period.end_date.day' => '',
+                    }), 'Handles stuff with a fuzzy end date in the same year as a more-specific start date');
+    ok($form->process({ 'period.begin_date.year' => 1991,
+                        'period.begin_date.month' => 2,
+                        'period.begin_date.day' => 1,
+                        'period.end_date.year' => 1991,
+                        'period.end_date.month' => 2,
+                        'period.end_date.day' => '',
+                    }), 'Handles stuff with a fuzzy end date in the same month as a more-specific start date');
+
 
     # Bad
     ok(!$form->process({ 'period.begin_date.year' => 2005, 'period.end_date.year' => 1981 }), 'Earlier year');
