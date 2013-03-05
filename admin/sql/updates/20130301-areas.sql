@@ -158,6 +158,8 @@ INTO area_code FROM country;
 -- new relationship types
 
 -- location editors
+UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208);
+                                                -- nikki, reotab, ianmcorvidae
 
 --------------------
 -- CREATE INDEXES --
