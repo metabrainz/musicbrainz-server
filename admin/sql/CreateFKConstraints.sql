@@ -267,9 +267,9 @@ ALTER TABLE editor
    REFERENCES gender(id);
 
 ALTER TABLE editor
-   ADD CONSTRAINT editor_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
+   ADD CONSTRAINT editor_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
@@ -1074,9 +1074,9 @@ ALTER TABLE release
    REFERENCES release_packaging(id);
 
 ALTER TABLE release
-   ADD CONSTRAINT release_fk_country
+   ADD CONSTRAINT release_fk_area
    FOREIGN KEY (country)
-   REFERENCES country(id);
+   REFERENCES area(id);
 
 ALTER TABLE release
    ADD CONSTRAINT release_fk_language
