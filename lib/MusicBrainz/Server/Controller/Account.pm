@@ -555,18 +555,14 @@ sub applications : Path('/account/applications') RequireAuth
     $c->stash( tokens => $tokens, applications => $applications );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(1) RequireAuth
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth
 {
-    my ($self, $c, $id) = @_;
-
-    my $token = $c->model('EditorOAuthToken')->get_by_id($id);
-    $c->detach('/error_404')
-        unless defined $token && $token->editor_id == $c->user->id;
+    my ($self, $c, $application_id, $scope) = @_;
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
-            $c->model('EditorOAuthToken')->delete($id);
+            $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
