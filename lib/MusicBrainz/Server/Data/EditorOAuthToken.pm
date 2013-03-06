@@ -151,6 +151,14 @@ sub grant_access_token
     }
 
     $self->sql->update_row($self->_table, $update, { id => $token->id });
+
+    # delete expired tokens that can't be refreshed in the future
+    $self->sql->do("DELETE FROM editor_oauth_token
+                    WHERE editor = ? AND application = ? AND scope = ? AND
+                          expire_time < ? AND refresh_token IS NULL AND
+                          access_token IS NOT NULL",
+                   $token->editor_id, $token->application_id, $token->scope,
+                   DateTime->now);
 }
 
 sub revoke_access
@@ -158,7 +166,8 @@ sub revoke_access
     my ($self, $editor_id, $application_id, $scope) = @_;
 
     $self->sql->do("DELETE FROM editor_oauth_token
-                    WHERE editor = ? AND application = ? AND scope = ?",
+                    WHERE editor = ? AND application = ? AND scope = ? AND
+                    access_token IS NOT NULL",
                     $editor_id, $application_id, $scope);
 }
 
