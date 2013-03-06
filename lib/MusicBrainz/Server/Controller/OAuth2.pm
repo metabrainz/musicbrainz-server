@@ -7,6 +7,7 @@ use DBDefs;
 use DateTime;
 use URI;
 use URI::QueryParam;
+use JSON;
 use MusicBrainz::Server::Constants qw( :access_scope );
 
 our %ACCESS_SCOPE_BY_NAME = (
@@ -285,6 +286,72 @@ sub _check_redirect_uri
         return 1 if $redirect_uri =~ /^http:\/\/localhost(:\d+)?(\/.*?)?$/;
     }
     return 0;
+}
+
+sub tokeninfo : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+
+    my $access_token = $c->request->params->{access_token};
+    my $token = $c->model('EditorOAuthToken')->get_by_access_token($access_token);
+
+    $self->_send_error($c, 'invalid_token', 'Invalid value')
+        if !defined($token) || $token->is_expired;
+
+    my $application = $c->model('Application')->get_by_id($token->application_id);
+
+    my @scope;
+    for my $name (keys %ACCESS_SCOPE_BY_NAME) {
+        my $i = $ACCESS_SCOPE_BY_NAME{$name};
+        if (($token->scope & $i) == $i) {
+            push @scope, $name;
+        }
+    }
+
+    $self->_send_response($c, {
+        audience => $application->oauth_id,
+        issued_to => $application->oauth_id,
+        expires_in => $token->expire_time->subtract_datetime_absolute(DateTime->now)->seconds,
+        access_type => $token->refresh_token ? "offline" : "online",
+        token_type => $token->mac_key ? "MAC" : "Bearer",
+        scope => join(" ", @scope),
+    });
+}
+
+sub userinfo : Local
+{
+    my ($self, $c) = @_;
+
+    # http://openid.net/specs/openid-connect-basic-1_0.html#userinfo
+
+    $c->authenticate({}, 'musicbrainz.org');
+    $self->_send_error($c, 'invalid_token', 'Invalid value')
+        unless $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
+
+    $c->model('Gender')->load($c->user);
+
+    my $data = {
+        sub => $c->user->name,
+        profile => $c->uri_for_action('/user/profile', [ $c->user->name ])->as_string,
+    };
+
+    if ($c->user->website) {
+        $data->{website} = $c->user->website;
+    }
+
+    if ($c->user->gender_id) {
+        $data->{gender} = lc($c->user->gender->name);
+    }
+
+    if ($c->user->is_authorized($ACCESS_SCOPE_EMAIL) && $c->user->has_email_address) {
+        $data->{email} = $c->user->email;
+        $data->{email_verified} = $c->user->has_confirmed_email_address ? JSON::true : JSON::false;
+    }
+
+    $self->_send_response($c, $data);
 }
 
 no Moose;
