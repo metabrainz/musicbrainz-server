@@ -2,6 +2,8 @@ package Catalyst::Plugin::Session::Store::MusicBrainz;
 use Moose;
 use MusicBrainz::DataStore::Redis;
 use Try::Tiny;
+use MIME::Base64 qw(encode_base64 decode_base64);
+use Storable qw/nfreeze thaw/;
 
 extends 'Catalyst::Plugin::Session::Store';
 
@@ -14,14 +16,29 @@ has '_datastore' => (
 sub get_session_data {
     my ($self, $key) = @_;
 
-    return $self->_datastore->get ($key);
+    if(my ($sid) = $key =~ /^expires:(.*)/)
+    {
+        return $self->_datastore->get ($key);
+    }
+    else
+    {
+        my $data = $self->_datastore->get ($key);
+        return thaw (decode_base64 ($data)) if defined $data;
+    }
 }
 
 sub store_session_data {
     my ($self, $key, $data) = @_;
 
-    $self->_datastore->set ($key, $data);
-    $self->_datastore->expire($key, $self->session_expires);
+    if(my ($sid) = $key =~ /^expires:(.*)/)
+    {
+        $self->_datastore->set ($key, $data);
+    }
+    else
+    {
+        $self->_datastore->set ($key, encode_base64 (nfreeze($data)));
+        $self->_datastore->expire($key, $self->session_expires);
+    }
 }
 
 sub delete_session_data {
