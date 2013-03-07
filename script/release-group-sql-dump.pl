@@ -15,7 +15,6 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my $readwrite = Databases->get('READWRITE');
 my $schema = 'musicbrainz';
-my $test_schema = 'musicbrainz';
 
 my %insert_dupe_check;
 my %artist_dupe_check;
@@ -692,8 +691,6 @@ sub main
     my $dbh = DBI->connect("dbi:Pg:dbname=$database",
                            $readwrite->{username}, $readwrite->{password});
 
-    $dbh->do ("SET search_path TO $schema");
-
     foreach (@ARGV) {
         release_group ($dbh, $_);
     }
@@ -704,12 +701,17 @@ sub main
     open (DUMP, ">$outputfile");
 
     print DUMP "SET client_min_messages TO 'warning';\n";
-    print DUMP "SET search_path TO $test_schema;\n\n";
 
     foreach (@backup)
     {
         print DUMP "$_\n";
     }
+
+    # Patch track_count, as track triggers may have been enabled and messed it up.
+    print DUMP "\nUPDATE medium\n" .
+        "SET track_count = tc.count\n" .
+        "FROM (SELECT count(id),medium FROM track GROUP BY medium) tc\n" .
+        "WHERE tc.medium = medium.id;\n\n";
 
     close (DUMP);
 
