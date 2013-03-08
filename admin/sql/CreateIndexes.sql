@@ -1,6 +1,19 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE UNIQUE INDEX location_name_idx_name ON location_name (name);
+
+CREATE UNIQUE INDEX area_idx_gid ON area (gid);
+CREATE INDEX area_idx_name ON area (name);
+CREATE INDEX area_idx_sort_name ON area (sort_name);
+
+CREATE INDEX area_code_idx_code ON area_code (code);
+CREATE INDEX area_code_idx_area ON area_code (area);
+CREATE UNIQUE INDEX area_code_idx_code_type ON area_code (code, code_type);
+
+CREATE INDEX area_alias_idx_area ON area_alias (area);
+CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
@@ -27,8 +40,6 @@ CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE INDEX cdtoc_raw_track_offset ON cdtoc_raw (track_offset);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
-
-CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
@@ -82,6 +93,15 @@ CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 
 CREATE INDEX iswc_idx_work ON iswc (work);
 CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
+
+CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_label_idx_uniq ON l_area_label (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_recording_idx_uniq ON l_area_recording (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);

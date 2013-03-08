@@ -2,6 +2,13 @@
 \unset ON_ERROR_STOP
 
 ALTER TABLE annotation DROP CONSTRAINT annotation_pkey;
+ALTER TABLE area DROP CONSTRAINT area_pkey;
+ALTER TABLE area_alias DROP CONSTRAINT area_alias_pkey;
+ALTER TABLE area_alias_type DROP CONSTRAINT area_alias_type_pkey;
+ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_pkey;
+ALTER TABLE area_code DROP CONSTRAINT area_code_pkey;
+ALTER TABLE area_code_type DROP CONSTRAINT area_code_type_pkey;
+ALTER TABLE area_type DROP CONSTRAINT area_type_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_pkey;
 ALTER TABLE artist_alias_type DROP CONSTRAINT artist_alias_type_pkey;
@@ -21,7 +28,6 @@ ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_pk
 ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
-ALTER TABLE country DROP CONSTRAINT country_pkey;
 ALTER TABLE edit DROP CONSTRAINT edit_pkey;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_pkey;
 ALTER TABLE edit_label DROP CONSTRAINT edit_label_pkey;
@@ -37,6 +43,7 @@ ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_
 ALTER TABLE editor_language DROP CONSTRAINT editor_language_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
+ALTER TABLE editor_subscribe_collection DROP CONSTRAINT editor_subscribe_collection_pkey;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_pkey;
 ALTER TABLE editor_subscribe_label DROP CONSTRAINT editor_subscribe_label_pkey;
 ALTER TABLE editor_watch_artist DROP CONSTRAINT editor_watch_artist_pkey;
@@ -46,6 +53,14 @@ ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_sta
 ALTER TABLE gender DROP CONSTRAINT gender_pkey;
 ALTER TABLE isrc DROP CONSTRAINT isrc_pkey;
 ALTER TABLE iswc DROP CONSTRAINT iswc_pkey;
+ALTER TABLE l_area_area DROP CONSTRAINT l_area_area_pkey;
+ALTER TABLE l_area_artist DROP CONSTRAINT l_area_artist_pkey;
+ALTER TABLE l_area_label DROP CONSTRAINT l_area_label_pkey;
+ALTER TABLE l_area_recording DROP CONSTRAINT l_area_recording_pkey;
+ALTER TABLE l_area_release DROP CONSTRAINT l_area_release_pkey;
+ALTER TABLE l_area_release_group DROP CONSTRAINT l_area_release_group_pkey;
+ALTER TABLE l_area_url DROP CONSTRAINT l_area_url_pkey;
+ALTER TABLE l_area_work DROP CONSTRAINT l_area_work_pkey;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_pkey;
 ALTER TABLE l_artist_label DROP CONSTRAINT l_artist_label_pkey;
 ALTER TABLE l_artist_recording DROP CONSTRAINT l_artist_recording_pkey;
@@ -92,6 +107,7 @@ ALTER TABLE link_attribute DROP CONSTRAINT link_attribute_pkey;
 ALTER TABLE link_attribute_type DROP CONSTRAINT link_attribute_type_pkey;
 ALTER TABLE link_type DROP CONSTRAINT link_type_pkey;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_pkey;
+ALTER TABLE location_name DROP CONSTRAINT location_name_pkey;
 ALTER TABLE medium DROP CONSTRAINT medium_pkey;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_pkey;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_pkey;

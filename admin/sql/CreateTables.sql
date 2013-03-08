@@ -10,6 +10,72 @@ CREATE TABLE annotation
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE location_name (
+    id                  SERIAL, -- PK
+    name                VARCHAR NOT NULL
+);
+
+CREATE TABLE area_type (
+    id                  SERIAL, -- PK
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE area (
+    id                  SERIAL, -- PK
+    gid                 uuid NOT NULL,
+    name                INTEGER NOT NULL, -- references location_name.id
+    sort_name           INTEGER NOT NULL, -- references location_name.id
+    type                INTEGER, -- references area_type.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT
+);
+
+CREATE TABLE area_code_type (
+    id                  SERIAL, -- PK
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE area_code (
+    area       INTEGER NOT NULL, -- PK, references area.id
+    code       VARCHAR(30) NOT NULL, -- PK
+    code_type  INTEGER NOT NULL --PK, references area_code_type.id
+);
+
+CREATE TABLE area_alias_type (
+    id SERIAL, -- PK,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE area_alias (
+    id                  SERIAL, --PK
+    area                INTEGER NOT NULL, -- references area.id
+    name                INTEGER NOT NULL, -- references location_name.id
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    type                INTEGER, -- references area_alias_type.id
+    sort_name           INTEGER NOT NULL, -- references location_name.id
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+             CONSTRAINT primary_check
+                 CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
+
+CREATE TABLE area_annotation (
+    area        INTEGER NOT NULL, -- PK, references area.id
+    annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -22,7 +88,9 @@ CREATE TABLE artist (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     type                INTEGER, -- references artist_type.id
-    country             INTEGER, -- references country.id
+    country             INTEGER, -- references area.id
+    begin_area          INTEGER, -- references area.id
+    end_area            INTEGER, -- references area.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -214,12 +282,6 @@ CREATE TABLE clientversion
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE country (
-    id                  SERIAL,
-    iso_code            VARCHAR(2) NOT NULL,
-    name                VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE edit
 (
     id                  SERIAL,
@@ -309,7 +371,7 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
-    country             INTEGER -- references country.id
+    area                INTEGER -- references area.id
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
@@ -388,6 +450,86 @@ CREATE TABLE iswc (
     source SMALLINT,
     edits_pending INTEGER NOT NULL DEFAULT 0,
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE l_area_area
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references area.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_artist
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references artist.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_label
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references label.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_recording
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_artist
@@ -683,7 +825,6 @@ CREATE TABLE label (
     end_date_day        SMALLINT,
     label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
     type                INTEGER, -- references label_type.id
-    country             INTEGER, -- references country.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -1045,7 +1186,7 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
-    country             INTEGER, -- references country.id
+    country             INTEGER, -- references area.id
     language            INTEGER, -- references language.id
     script              INTEGER, -- references script.id
     date_year           SMALLINT,

@@ -205,7 +205,7 @@ CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link)
 
 -- releases
 ALTER TABLE release DROP CONSTRAINT release_fk_country,
-                    ADD CONSTRAINT release_fk_area FOREIGN KEY (country) REFERENCES area(id);
+                    ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFERENCES area(id);
 
 -- editors
 ALTER TABLE editor RENAME COLUMN country TO area;
@@ -226,7 +226,7 @@ ALTER TABLE label DROP COLUMN country;
 
 -- artists
 ALTER TABLE artist DROP CONSTRAINT artist_fk_country,
-                   ADD CONSTRAINT artist_fk_area FOREIGN KEY (country) REFERENCES area(id);
+                   ADD CONSTRAINT artist_fk_country FOREIGN KEY (country) REFERENCES area(id);
 ALTER TABLE artist ADD COLUMN begin_area integer REFERENCES area(id);
 ALTER TABLE artist ADD COLUMN end_area integer REFERENCES area(id);
 

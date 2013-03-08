@@ -1,5 +1,5 @@
 -- Automatically generated, do not edit.
-\set ON_ERROR_STOP 1
+\unset ON_ERROR_STOP
 
 DROP TRIGGER reptg_annotation ON annotation;
 DROP TRIGGER reptg_artist ON artist;

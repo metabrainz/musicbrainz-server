@@ -2,6 +2,13 @@
 \set ON_ERROR_STOP 1
 
 ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
+ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);
+ALTER TABLE area_alias ADD CONSTRAINT area_alias_pkey PRIMARY KEY (id);
+ALTER TABLE area_alias_type ADD CONSTRAINT area_alias_type_pkey PRIMARY KEY (id);
+ALTER TABLE area_annotation ADD CONSTRAINT area_annotation_pkey PRIMARY KEY (area, annotation);
+ALTER TABLE area_code ADD CONSTRAINT area_code_pkey PRIMARY KEY (area, code, code_type);
+ALTER TABLE area_code_type ADD CONSTRAINT area_code_type_pkey PRIMARY KEY (id);
+ALTER TABLE area_type ADD CONSTRAINT area_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_pkey PRIMARY KEY (id);
 ALTER TABLE artist_alias_type ADD CONSTRAINT artist_alias_type_pkey PRIMARY KEY (id);
@@ -21,7 +28,6 @@ ALTER TABLE autoeditor_election_vote ADD CONSTRAINT autoeditor_election_vote_pke
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc_raw ADD CONSTRAINT cdtoc_raw_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
-ALTER TABLE country ADD CONSTRAINT country_pkey PRIMARY KEY (id);
 ALTER TABLE edit ADD CONSTRAINT edit_pkey PRIMARY KEY (id);
 ALTER TABLE edit_artist ADD CONSTRAINT edit_artist_pkey PRIMARY KEY (edit, artist);
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_pkey PRIMARY KEY (edit, label);
@@ -47,6 +53,14 @@ ALTER TABLE editor_watch_release_status ADD CONSTRAINT editor_watch_release_stat
 ALTER TABLE gender ADD CONSTRAINT gender_pkey PRIMARY KEY (id);
 ALTER TABLE isrc ADD CONSTRAINT isrc_pkey PRIMARY KEY (id);
 ALTER TABLE iswc ADD CONSTRAINT iswc_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_area ADD CONSTRAINT l_area_area_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_artist ADD CONSTRAINT l_area_artist_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_label ADD CONSTRAINT l_area_label_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_recording ADD CONSTRAINT l_area_recording_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_release ADD CONSTRAINT l_area_release_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_release_group ADD CONSTRAINT l_area_release_group_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_url ADD CONSTRAINT l_area_url_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_work ADD CONSTRAINT l_area_work_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_artist ADD CONSTRAINT l_artist_artist_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_label ADD CONSTRAINT l_artist_label_pkey PRIMARY KEY (id);
 ALTER TABLE l_artist_recording ADD CONSTRAINT l_artist_recording_pkey PRIMARY KEY (id);
@@ -93,6 +107,7 @@ ALTER TABLE link_attribute ADD CONSTRAINT link_attribute_pkey PRIMARY KEY (link,
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type ADD CONSTRAINT link_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pkey PRIMARY KEY (link_type, attribute_type);
+ALTER TABLE location_name ADD CONSTRAINT location_name_pkey PRIMARY KEY (id);
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
