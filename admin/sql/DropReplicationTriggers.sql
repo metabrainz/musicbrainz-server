@@ -2,6 +2,14 @@
 \unset ON_ERROR_STOP
 
 DROP TRIGGER reptg_annotation ON annotation;
+DROP TRIGGER reptg_area ON area;
+DROP TRIGGER reptg_area_alias ON area_alias;
+DROP TRIGGER reptg_area_alias_type ON area_alias_type;
+DROP TRIGGER reptg_area_annotation ON area_annotation;
+DROP TRIGGER reptg_location_name ON location_name;
+DROP TRIGGER reptg_area_type ON area_type;
+DROP TRIGGER reptg_area_code ON area_code;
+DROP TRIGGER reptg_area_code_type ON area_code_type;
 DROP TRIGGER reptg_artist ON artist;
 DROP TRIGGER reptg_artist_ipi ON artist_ipi;
 DROP TRIGGER reptg_artist_alias ON artist_alias;
@@ -20,6 +28,14 @@ DROP TRIGGER reptg_country ON country;
 DROP TRIGGER reptg_gender ON gender;
 DROP TRIGGER reptg_isrc ON isrc;
 DROP TRIGGER reptg_iswc ON iswc;
+DROP TRIGGER reptg_l_area_area ON l_area_area;
+DROP TRIGGER reptg_l_area_artist ON l_area_artist;
+DROP TRIGGER reptg_l_area_label ON l_area_label;
+DROP TRIGGER reptg_l_area_recording ON l_area_recording;
+DROP TRIGGER reptg_l_area_release ON l_area_release;
+DROP TRIGGER reptg_l_area_release_group ON l_area_release_group;
+DROP TRIGGER reptg_l_area_url ON l_area_url;
+DROP TRIGGER reptg_l_area_work ON l_area_work;
 DROP TRIGGER reptg_l_artist_artist ON l_artist_artist;
 DROP TRIGGER reptg_l_artist_label ON l_artist_label;
 DROP TRIGGER reptg_l_artist_recording ON l_artist_recording;
