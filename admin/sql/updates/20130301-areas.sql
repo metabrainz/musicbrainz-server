@@ -201,15 +201,18 @@ ALTER TABLE editor DROP CONSTRAINT editor_fk_country,
                    ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
 -- labels
--- make into ARs?
--- or:
---ALTER TABLE label DROP CONSTRAINT label_fk_country,
---                  ADD CONSTRAINT label_fk_area FOREIGN KEY (country) REFERENCES area(id);
+----- make into ARs, then:
+-- SELECT (some stuff) INTO l_area_label FROM label;
+ALTER TABLE label DROP CONSTRAINT label_fk_country;
+ALTER TABLE label DROP COLUMN country;
 
 -- artists
--- need to ask ML
+ALTER TABLE artist DROP CONSTRAINT artist_fk_country,
+                   ADD CONSTRAINT artist_fk_area FOREIGN KEY (country) REFERENCES area(id);
+ALTER TABLE artist ADD COLUMN begin_area integer REFERENCES area(id);
+ALTER TABLE artist ADD COLUMN end_area integer REFERENCES area(id);
 
 -- remove country table
--- DROP TABLE country;
+DROP TABLE country;
 
 ROLLBACK;
