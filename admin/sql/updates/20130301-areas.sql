@@ -136,8 +136,8 @@ CREATE TABLE l_area_release
 -------------------------
 
 -- basic types
-INSERT INTO area_code_type (id, name) VALUES (1, 'ISO 3166-1'), (2, 'ISO 3166-2'), (3, 'ISO 3166-3');
-INSERT INTO area_type (id, name) VALUES (1, 'Country');
+INSERT INTO area_code_type (id, name) VALUES (1, 'ISO 3166-1'), (2, 'ISO 3166-2'), (3, 'ISO 3166-3') RETURNING *;
+INSERT INTO area_type (id, name) VALUES (1, 'Country') RETURNING *;
 
 -- migrate country table
 INSERT INTO location_name (id, name) SELECT id, name FROM country;
@@ -162,10 +162,11 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/url/wikipedia'), 'area', 'url', 'wikipedia', 'Points to the Wikipedia page for this area. (<a href="http://musicbrainz.org/doc/Wikipedia_Relationship_Type">Details</a>)', 'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'),
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/area/part_of'), 'area', 'area', 'part of', '', 'parts', 'part of', 'has part'),
 
-  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/label/based_in'), 'area', 'label', 'based in', '', 'labels', 'Location', 'is location for');
+  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/label/based_in'), 'area', 'label', 'based in', '', 'labels', 'Location', 'is location for')
+  RETURNING id, gid, entity_type0, entity_type1, name, short_link_phrase;
 
 -- location editors
-UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208);
+UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208) RETURNING name, CASE privs & 256 WHEN 256 THEN 'is now a location editor' ELSE 'not given permissions' END;
                                                 -- nikki, reotab, ianmcorvidae
 
 --------------------
