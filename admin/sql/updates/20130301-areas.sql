@@ -205,7 +205,7 @@ ALTER TABLE editor DROP CONSTRAINT editor_fk_country,
 -- labels
 -- TODO make sure the name in the next few rows is correct after adding types
 INSERT INTO link (link_type) SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label';
-INSERT INTO l_area_label (link, entity0, entity)
+INSERT INTO l_area_label (link, entity0, entity1)
    SELECT
      (SELECT id FROM link WHERE link_type IN (SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label')) AS link,
      country AS entity0,
