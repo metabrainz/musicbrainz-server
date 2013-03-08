@@ -140,20 +140,22 @@ INSERT INTO area_code_type (id, name) VALUES (1, 'ISO 3166-1'), (2, 'ISO 3166-2'
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
 
 -- migrate country table
-SELECT id, name INTO location_name FROM country;
+INSERT INTO location_name (id, name) SELECT id, name FROM country;
 
-SELECT id,
-       generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/country/' || id) AS gid,
-       -- ^ totally fabricated URI just for this migration. *shrug*
-       id AS name,
-       id AS sort_name,
-       1::integer AS type
-INTO area FROM country;
+INSERT INTO area (id, gid, name, sort_name, type)
+  SELECT id,
+         generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/country/' || id) AS gid,
+         -- ^ totally fabricated URI just for this migration. *shrug*
+         id AS name,
+         id AS sort_name,
+         1::integer AS type
+    FROM country;
 
-SELECT iso_code AS code,
-       id AS area,
-       1::integer AS code_type
-INTO area_code FROM country;
+INSERT INTO area_code (code, area, code_type)
+  SELECT iso_code AS code,
+         id AS area,
+         1::integer AS code_type
+    FROM country;
 
 -- new relationship types
 
@@ -201,8 +203,14 @@ ALTER TABLE editor DROP CONSTRAINT editor_fk_country,
                    ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
 -- labels
------ make into ARs, then:
--- SELECT (some stuff) INTO l_area_label FROM label;
+-- TODO make sure the name in the next few rows is correct after adding types
+INSERT INTO link (link_type) SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label';
+INSERT INTO l_area_label (link, entity0, entity)
+   SELECT
+     (SELECT id FROM link WHERE link_type IN (SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label')) AS link,
+     country AS entity0,
+     id AS entity1 FROM label;
+
 ALTER TABLE label DROP CONSTRAINT label_fk_country;
 ALTER TABLE label DROP COLUMN country;
 
