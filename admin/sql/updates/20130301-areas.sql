@@ -158,6 +158,11 @@ INSERT INTO area_code (code, area, code_type)
     FROM country;
 
 -- new relationship types
+INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, short_link_phrase) VALUES
+  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/url/wikipedia'), 'area', 'url', 'wikipedia', 'Points to the Wikipedia page for this area. (<a href="http://musicbrainz.org/doc/Wikipedia_Relationship_Type">Details</a>)', 'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'),
+  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/area/part_of'), 'area', 'area', 'part of', '', 'parts', 'part of', 'has part'),
+
+  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/label/based_in'), 'area', 'label', 'based in', '', 'labels', 'Location', 'is location for');
 
 -- location editors
 UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208);
@@ -209,7 +214,8 @@ INSERT INTO l_area_label (link, entity0, entity1)
    SELECT
      (SELECT id FROM link WHERE link_type IN (SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label')) AS link,
      country AS entity0,
-     id AS entity1 FROM label;
+     id AS entity1
+   FROM label WHERE country IS NOT NULL;
 
 ALTER TABLE label DROP CONSTRAINT label_fk_country;
 ALTER TABLE label DROP COLUMN country;
