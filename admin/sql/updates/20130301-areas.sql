@@ -10,9 +10,9 @@ CREATE TABLE area_type (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL);
 
 CREATE TABLE area (id                SERIAL PRIMARY KEY,
                    gid               uuid NOT NULL,
-                   name              INTEGER NOT NULL REFERENCES location_name(id),
-                   sort_name         INTEGER NOT NULL references location_name(id),
-                   type              INTEGER REFERENCES area_type(id),
+                   name              INTEGER NOT NULL,
+                   sort_name         INTEGER NOT NULL,
+                   type              INTEGER,
                    edits_pending     INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
                    last_updated      TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
                    begin_date_year   SMALLINT,
@@ -25,22 +25,22 @@ CREATE TABLE area (id                SERIAL PRIMARY KEY,
 CREATE TABLE area_code_type (id    SERIAL PRIMARY KEY,
                              name  VARCHAR(255) NOT NULL);
                              -- e.g. ISO-3166-1
-CREATE TABLE area_code (area       INTEGER NOT NULL REFERENCES area(id),
+CREATE TABLE area_code (area       INTEGER NOT NULL,
                         code       VARCHAR(30) NOT NULL,
-                        code_type  INTEGER NOT NULL REFERENCES area_code_type(id),
+                        code_type  INTEGER NOT NULL,
              CONSTRAINT area_code_pkey
                  PRIMARY KEY (area, code, code_type));
 
 -- aliases
 CREATE TABLE area_alias_type (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
 CREATE TABLE area_alias (id                  SERIAL PRIMARY KEY,
-                         area                INTEGER NOT NULL REFERENCES area(id),
-                         name                INTEGER NOT NULL REFERENCES location_name(id),
+                         area                INTEGER NOT NULL,
+                         name                INTEGER NOT NULL,
                          locale              TEXT,
                          edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
                          last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-                         type                INTEGER REFERENCES area_alias_type(id),
-                         sort_name           INTEGER NOT NULL references location_name(id),
+                         type                INTEGER,
+                         sort_name           INTEGER NOT NULL,
                          begin_date_year     SMALLINT,
                          begin_date_month    SMALLINT,
                          begin_date_day      SMALLINT,
@@ -52,8 +52,8 @@ CREATE TABLE area_alias (id                  SERIAL PRIMARY KEY,
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
 
 -- annotation
-CREATE TABLE area_annotation (area        INTEGER NOT NULL REFERENCES area(id),
-                              annotation  INTEGER NOT NULL REFERENCES annotation(id),
+CREATE TABLE area_annotation (area        INTEGER NOT NULL,
+                              annotation  INTEGER NOT NULL,
              CONSTRAINT area_annotation_pkey
                  PRIMARY KEY (area, annotation));
 
@@ -61,72 +61,72 @@ CREATE TABLE area_annotation (area        INTEGER NOT NULL REFERENCES area(id),
 CREATE TABLE l_area_area
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES area(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_artist
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES artist(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_label
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES label(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_work
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES work(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_url
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES url(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_recording
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES recording(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_release_group
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES release_group(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 CREATE TABLE l_area_release
 (
     id                  SERIAL,
-    link                INTEGER NOT NULL REFERENCES link(id),
-    entity0             INTEGER NOT NULL REFERENCES area(id),
-    entity1             INTEGER NOT NULL REFERENCES release(id),
+    link                INTEGER NOT NULL,
+    entity0             INTEGER NOT NULL,
+    entity1             INTEGER NOT NULL,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -204,13 +204,11 @@ CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link)
 -----------------------------
 
 -- releases
-ALTER TABLE release DROP CONSTRAINT release_fk_country,
-                    ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFERENCES area(id);
+ALTER TABLE release DROP CONSTRAINT IF EXISTS release_fk_country;
 
 -- editors
 ALTER TABLE editor RENAME COLUMN country TO area;
-ALTER TABLE editor DROP CONSTRAINT editor_fk_country,
-                   ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES area(id);
+ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_fk_country;
 
 -- labels
 INSERT INTO link (link_type) SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label';
@@ -221,14 +219,12 @@ INSERT INTO l_area_label (link, entity0, entity1)
      id AS entity1
    FROM label WHERE country IS NOT NULL;
 
-ALTER TABLE label DROP CONSTRAINT label_fk_country;
 ALTER TABLE label DROP COLUMN country;
 
 -- artists
-ALTER TABLE artist DROP CONSTRAINT artist_fk_country,
-                   ADD CONSTRAINT artist_fk_country FOREIGN KEY (country) REFERENCES area(id);
-ALTER TABLE artist ADD COLUMN begin_area integer REFERENCES area(id);
-ALTER TABLE artist ADD COLUMN end_area integer REFERENCES area(id);
+ALTER TABLE artist DROP CONSTRAINT IF EXISTS artist_fk_country;
+ALTER TABLE artist ADD COLUMN begin_area integer;
+ALTER TABLE artist ADD COLUMN end_area integer;
 
 -- remove country table
 DROP TABLE country;

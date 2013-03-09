@@ -68,6 +68,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130309-areas-fks.sql 2>&1` || ( echo "$OUTPUT"; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
