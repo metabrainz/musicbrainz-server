@@ -280,9 +280,9 @@ sub build_display_data
 
         $data->{recording_changes} = [
             grep {
-                ($_->[1] // 0 && $_->[1]->recording->id)
+                (($_->[1] // 0) && $_->[1]->recording->id)
                     !=
-                ($_->[2] // 0 && $_->[2]->recording->id)
+                (($_->[2] // 0) && $_->[2]->recording->id)
             }
             grep { $_->[0] ne '+' && $_->[0] ne '-' }
             @$tracklist_changes ];
