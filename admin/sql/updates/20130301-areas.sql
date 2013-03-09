@@ -166,7 +166,7 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_
 
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/label/based_in'), 'area', 'label', 'based in', 'Designates that a label''s base of operations or headquarters is within a specified area', 'labels', 'Location', 'is location for'),
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/artist/lived_in'), 'area', 'artist', 'lived in', 'Designates that a artist lived within a specified area during a certain time frame', 'resident artists', 'Location', 'is location for'),
-  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/wock/anthem'), 'area', 'work', 'anthem', 'Designates that a work is or was the anthem for an area', 'anthem of', 'anthem', 'is the anthem of')
+  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/work/anthem'), 'area', 'work', 'anthem', 'Designates that a work is or was the anthem for an area', 'anthem of', 'anthem', 'is the anthem of')
   RETURNING id, gid, entity_type0, entity_type1, name, short_link_phrase;
 
 -- location editors
