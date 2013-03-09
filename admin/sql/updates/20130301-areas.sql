@@ -233,4 +233,4 @@ ALTER TABLE artist ADD COLUMN end_area integer REFERENCES area(id);
 -- remove country table
 DROP TABLE country;
 
-ROLLBACK;
+COMMIT;
