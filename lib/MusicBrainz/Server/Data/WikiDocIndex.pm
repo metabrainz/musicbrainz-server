@@ -16,33 +16,6 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 Readonly my $CACHE_PREFIX => "wikidoc";
 Readonly my $CACHE_KEY => "wikidoc-index";
 
-#sub _parse_index
-#{
-#    my ($self, $data) = @_;
-#
-#    my %index;
-#    foreach my $line (split(/\n/, $data)) {
-#        my ($page, $version) = split(/=/, $line);
-#        $index{$page} = $version;
-#    }
-#    return \%index;
-#}
-#
-#sub _load_index_from_disk
-#{
-#    my ($self) = @_;
-#
-#    my $index_file = $self->_index_file;
-#    if (!open(FILE, "<" . $index_file)) {
-#        warn "Could not open wikitrans index file '$index_file': $!.";
-#        return {};
-#    }
-#    my $data = do { local $/; <FILE> };
-#    close(FILE);
-#
-#    return $self->_parse_index($data);
-#}
-
 sub _load_index_from_db
 {
     my ($self) = @_;
