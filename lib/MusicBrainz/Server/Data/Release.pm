@@ -328,7 +328,7 @@ sub find_by_recording
                  FROM " . $self->_table . "
                      " . join(' ', @$extra_joins) . "
                      JOIN medium ON medium.release = release.id
-                     JOIN track ON track.tracklist = medium.tracklist
+                     JOIN track ON track.medium = medium.id
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY release.id, date_year, date_month, date_day, musicbrainz_collate(name.name)
                  OFFSET ?";
@@ -355,7 +355,7 @@ sub find_by_recordings
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN track ON track.medium = medium.id
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
@@ -422,16 +422,14 @@ sub load_with_tracklist_for_recording
                 release.comment AS r_comment,
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
-                tracklist.track_count AS m_track_count,
+                medium.track_count AS m_track_count,
             track.id AS t_id, track_name.name AS t_name,
-                track.tracklist AS t_tracklist, track.position AS t_position,
+                track.medium AS t_medium, track.position AS t_position,
                 track.length AS t_length, track.artist_credit AS t_artist_credit,
                 track.number AS t_number
         FROM
             track
-            JOIN tracklist ON tracklist.id = track.tracklist
-            JOIN medium ON medium.tracklist = tracklist.id
+            JOIN medium ON medium.id = track.medium
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
@@ -444,11 +442,11 @@ sub load_with_tracklist_for_recording
             my $row = shift;
             my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
             my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
-            my $tracklist = $medium->tracklist;
+
             my $release = $self->_new_from_row($row, 'r_');
 
             push @{ $release->mediums }, $medium;
-            push @{ $tracklist->tracks }, $track;
+            push @{ $medium->tracks }, $track;
 
             return $release;
         },
@@ -463,7 +461,7 @@ sub find_by_puid
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
-                      JOIN track ON track.tracklist = medium.tracklist
+                      JOIN track ON track.medium = medium.id
                       JOIN recording ON recording.id = track.recording
                       JOIN recording_puid ON recording_puid.recording = recording.id
                       JOIN puid ON puid.id = recording_puid.puid

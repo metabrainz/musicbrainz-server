@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
-use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     object_to_ids
@@ -20,12 +19,12 @@ use Scalar::Util qw( weaken );
 
 sub _table
 {
-    return 'medium JOIN tracklist ON medium.tracklist=tracklist.id';
+    return 'medium';
 }
 
 sub _columns
 {
-    return 'medium.id, tracklist, release, position, format, medium.name,
+    return 'medium.id, release, position, format, medium.name,
             medium.edits_pending, track_count';
 }
 
@@ -38,17 +37,7 @@ sub _column_mapping
 {
     return {
         id            => 'id',
-        tracklist_id  => 'tracklist',
-        tracklist     => sub {
-            my ($row, $prefix) = @_;
-            my $id = $row->{$prefix . 'tracklist'};
-            my $track_count = $row->{$prefix . 'track_count'};
-            return unless defined($id) && defined($track_count);
-            return MusicBrainz::Server::Entity::Tracklist->new(
-                id          => $id,
-                track_count => $track_count,
-            );
-        },
+        track_count   => 'track_count',
         release_id    => 'release',
         position      => 'position',
         name          => 'name',
@@ -92,40 +81,6 @@ sub load_for_releases
     }
 }
 
-sub find_by_tracklist
-{
-    my ($self, $tracklist_id, $limit, $offset) = @_;
-    my $query = "
-        SELECT
-            medium.id AS m_id, medium.format AS m_format,
-                medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
-                release.artist_credit AS r_artist_credit_id,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
-                release.packaging AS r_packaging,
-                release.release_group AS r_release_group
-        FROM
-            medium
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-        WHERE medium.tracklist = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
-        OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $row = shift;
-            my $medium = $self->_new_from_row($row, 'm_');
-            my $release = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
-            $medium->release($release);
-            return $medium;
-        },
-        $query, $tracklist_id, $offset || 0);
-}
-
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
@@ -162,7 +117,6 @@ sub delete
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
-    $self->c->model('Tracklist')->garbage_collect;
 }
 
 sub _create_row
@@ -170,7 +124,7 @@ sub _create_row
     my ($self, $medium_hash) = @_;
     my %row;
     my $mapping = $self->_column_mapping;
-    for my $col (qw( name format_id position tracklist_id release_id ))
+    for my $col (qw( name format_id position release_id ))
     {
         next unless exists $medium_hash->{$col};
         my $mapped = $mapping->{$col} || $col;
@@ -184,7 +138,7 @@ sub find_for_cdstub {
     my $query =
         'SELECT ' . join(', ', $self->c->model('Release')->_columns,
                          map { "medium.$_ AS m_$_" } qw(
-                             id name tracklist release position format edits_pending
+                             id name track_count release position format edits_pending
                          )) . "
            FROM (
                     SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
@@ -197,7 +151,6 @@ sub find_for_cdstub {
            JOIN release ON name.id = release.name
            JOIN medium ON medium.release = release.id
       LEFT JOIN medium_format ON medium.format = medium_format.id
-           JOIN tracklist ON medium.tracklist = tracklist.id
           WHERE track_count = ? AND (medium_format.id IS NULL OR medium_format.has_discids)
        ORDER BY name.rank DESC, musicbrainz_collate(name.name),
                 release.artist_credit";

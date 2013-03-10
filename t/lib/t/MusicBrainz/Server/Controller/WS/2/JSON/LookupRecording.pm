@@ -83,7 +83,6 @@ test 'recording lookup with releases' => sub {
         });
 };
 
-
 test 'lookup recording with official singles' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
@@ -247,4 +246,3 @@ test 'recording lookup with release relationships' => sub {
 };
 
 1;
-

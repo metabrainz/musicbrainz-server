@@ -432,7 +432,7 @@ sub find_by_recording
                  FROM " . $self->_table . "
                     JOIN release ON release.release_group = rg.id
                     JOIN medium ON medium.release = release.id
-                    JOIN track ON track.tracklist = medium.tracklist
+                    JOIN track ON track.medium = medium.id
                     JOIN recording ON recording.id = track.recording
                  WHERE recording.id = ?
                  ORDER BY
