@@ -13,8 +13,7 @@ DROP INDEX track_idx_tracklist;
 DROP INDEX medium_idx_tracklist;
 CREATE INDEX track_idx_medium ON track (medium, position);
 ALTER TABLE track DROP COLUMN tracklist;
-CREATE INDEX medium_idx_track_count ON medium (track_count);
-ALTER TABLE medium DROP COLUMN tracklist
+ALTER TABLE medium DROP COLUMN tracklist;
 ALTER TABLE medium ADD COLUMN track_count INTEGER NOT NULL DEFAULT 0;
 CREATE INDEX medium_idx_track_count ON medium (track_count);
 DROP TABLE tracklist;
