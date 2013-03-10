@@ -933,11 +933,6 @@ ALTER TABLE link_type_attribute_type
    REFERENCES link_attribute_type(id);
 
 ALTER TABLE medium
-   ADD CONSTRAINT medium_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
-
-ALTER TABLE medium
    ADD CONSTRAINT medium_fk_release
    FOREIGN KEY (release)
    REFERENCES release(id);
@@ -1252,9 +1247,9 @@ ALTER TABLE track
    REFERENCES recording(id);
 
 ALTER TABLE track
-   ADD CONSTRAINT track_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
+   ADD CONSTRAINT track_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
 
 ALTER TABLE track
    ADD CONSTRAINT track_fk_name
