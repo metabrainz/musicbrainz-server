@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Releases with Cover Art relationships') full_width=1 -%]
+
+<h1>[% l('Releases with Cover Art relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report shows releases that still have Cover Art relationships.') %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]
