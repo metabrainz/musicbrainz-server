@@ -14,11 +14,10 @@ my $test = shift;
 
 my $wdi = MusicBrainz::Server::Data::WikiDocIndex->new(
     c => $test->c,
+    sql => $test->c->sql
 );
 
-open my $fh, ">", $wdi->_index_file;
-print $fh "Test_Page=123\n";
-close $fh;
+$wdi->set_page_version('Test_Page', 123);
 
 my $rev = $wdi->get_page_version('Test_Page');
 is($rev, 123);
