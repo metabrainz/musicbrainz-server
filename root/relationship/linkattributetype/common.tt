@@ -5,7 +5,7 @@
 
         [%- IF obj.children.size -%]
         <ul>
-            [% FOR child IN obj.children %]
+            [% FOR child IN obj.sorted_children %]
             [% PROCESS attribute_tree obj=child %]
             [% END %]
         </ul>

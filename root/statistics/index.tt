@@ -4,7 +4,7 @@
 [% USE format %]
 [% round1 = format('%.1f') %]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <h2>[% l('Basic metadata') %]</h2>
 <table class="database-statistics">
@@ -258,6 +258,40 @@
    <th colspan="2">[% l('No packaging set') %]</th>
    <td>[% add_commas(stats.statistic('count.release.packaging.null')) %]</td>
    <td>[% l('{n}%', { n => round1(stats.ratio('count.release.packaging.null', 'count.release')) }) %]</td>
+</tr>
+</tbody>
+<tbody>
+<tr class="thead">
+    <th colspan="5">[% l('Cover Art Sources') %]</th>
+</tr>
+<tr>
+    <th colspan="3">[% l('Releases:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release')) %]</td>
+    <td></td>
+</tr>
+<tr>
+    <th></th>
+    <th colspan="2">[% l('CAA:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release.coverart.caa')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.release.coverart.caa', 'count.release')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th colspan="2">[% l('Amazon:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release.coverart.amazon')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.release.coverart.amazon', 'count.release')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th colspan="2">[% l('URL Relationships:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release.coverart.relationship')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.release.coverart.relationship', 'count.release')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
+    <th colspan="2">[% l('No front cover art:') %]</th>
+    <td>[% add_commas(stats.statistic('count.release.coverart.none')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.release.coverart.none', 'count.release')) }) %]</td>
 </tr>
 </tbody>
 <tbody>

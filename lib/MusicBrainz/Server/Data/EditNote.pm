@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     query_to_list
 );
+use MusicBrainz::Server::Constants qw( :vote );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -89,7 +90,9 @@ sub add_note
         map { $_->id } grep { $_->preferences->email_on_notes }
         map { $editors->{$_->editor_id} }
             @{ $edit->edit_notes },
-            @{ $edit->votes },
+            (grep { my $editor = $_->editor_id;
+                    !(grep { $editor == $_ } (53705, 326637, 295208)) || $_->vote != $VOTE_ABSTAIN
+                  } @{ $edit->votes }),
             $edit;
 
     my $from = $editors->{ $note_hash->{editor_id} };

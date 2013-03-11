@@ -31,12 +31,6 @@ sub _build_context {
         my $c = MusicBrainz::Server::Context->new(
             cache_manager => MusicBrainz::Server::CacheManager->new($cache_opts)
         );
-
-        $c->dbh->do("SET statement_timeout = " .
-                        (DBDefs->MAX_REQUEST_TIME() * 1000))
-            if (defined(DBDefs->MAX_REQUEST_TIME)
-                    && DBDefs->MAX_REQUEST_TIME > 0);
-
         return $c;
     }
 }

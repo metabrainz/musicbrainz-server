@@ -3,7 +3,7 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status );
+use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES );
 
 has 'c' => (
     is => 'ro',
@@ -54,10 +54,13 @@ sub process_edits
 
     my $sql = $self->c->sql;
 
-    $self->log->debug("Selecting open and to-be-deleted edit IDs\n");
+    $self->log->debug("Selecting eligible edit IDs\n");
     my $edit_ids = $sql->select_single_column_array("
-        SELECT id FROM edit WHERE status IN (?, ?) ORDER BY id",
-        $STATUS_OPEN, $STATUS_TOBEDELETED);
+        SELECT id FROM edit
+          WHERE status = ?
+            AND (expire_time < now() OR (yes_votes >= ? AND no_votes = 0) OR (no_votes >= ? AND yes_votes = 0))
+          ORDER BY id",
+        $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES);
 
     my %stats;
     my $errors = 0;
@@ -81,7 +84,7 @@ sub process_edits
         $self->log->info("Summary:\n");
         my @actions = sort { $a cmp $b } keys %stats;
         foreach my $action (@actions) {
-            $self->log->info(sprintf "  %-20.20s %d\n", $action_name{$action}, $stats{$action});
+            $self->log->info(sprintf "  %-20.20s %d\n", $action_name{$action} // '(no action)', $stats{$action});
         }
     }
 

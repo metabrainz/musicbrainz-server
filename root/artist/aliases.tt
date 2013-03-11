@@ -19,7 +19,7 @@
                         [% l('Name') %]
                     </th>
                     [% IF c.user_exists %]
-                    <th style="width: 5em">
+                    <th class="actions-header">
                         [% l('Actions') %]
                     </th>
                     [% END %]

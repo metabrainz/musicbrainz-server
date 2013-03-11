@@ -1,0 +1,42 @@
+[% BLOCK layout_head %]
+  <script type="text/javascript">//<![CDATA[
+    $(document).ready(function() {
+
+      function toggleRedirectUri(type) {
+          if (type.val() == 'web') {
+            $('#id-application\\.oauth_redirect_uri').parent('.row').show();
+            $('#id-application\\.oauth_redirect_uri').prop('disabled', false);
+          }
+          else {
+            $('#id-application\\.oauth_redirect_uri').parent('.row').hide();
+            $('#id-application\\.oauth_redirect_uri').prop('disabled', true);
+          }
+      }
+
+      $('#id-application\\.oauth_type').click(function() {
+          toggleRedirectUri($(this));
+      });
+
+      toggleRedirectUri($('#id-application\\.oauth_type'));
+
+    });
+    //]]></script>
+[% END %]
+
+[% WRAPPER "layout.tt" title=l("Register Application") full_width=1 %]
+
+    <h1>[% l("Register Application") %]</h1>
+
+    [%- USE r = FormRenderer(form) -%]
+
+    <form action="[% c.req.uri | html %]" method="post">
+        [% form_row_text(r, 'name', l('Name:')) %]
+        [% form_row_select(r, 'oauth_type', l('Type:')) %]
+        [% form_row_text_long(r, 'oauth_redirect_uri', l('Callback URL:')) %]
+
+        <div class="row no-label">
+        [% form_submit(l('Register')) %]
+        </div>
+    </form>
+
+[% END %]

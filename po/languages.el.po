@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-12 08:55+0000\n"
-"Last-Translator: Panos Bouklis <email address hidden>\n"
+"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -615,7 +615,7 @@ msgstr "Ελαμικά"
 msgid "English"
 msgstr "Αγγλικά"
 
-#. frequency:0 iso_code_3:enm
+#. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
 msgstr "Αγγλικά, Μεσαιωνικά (1100-1500)"
@@ -700,7 +700,7 @@ msgstr "Γαλλικά"
 msgid "French, Middle (ca.1400-1600)"
 msgstr "Γαλλικά, Μεσαιωνικά (περίπου 1400-1600)"
 
-#. frequency:0 iso_code_3:fro
+#. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
 msgstr "Γαλλικά, Αρχαία (842-περίπου 1400)"
@@ -1025,6 +1025,11 @@ msgstr "Ιρακινές γλώσσες"
 msgid "Italian"
 msgstr "Ιταλικά"
 
+#. frequency:1 iso_code_3:jam
+#: DB:language/name:2980
+msgid "Jamaican Creole English"
+msgstr ""
+
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
@@ -1238,6 +1243,11 @@ msgstr "Λαδινικά"
 #. frequency:1 iso_code_3:lah
 #: DB:language/name:235
 msgid "Lahnda"
+msgstr ""
+
+#. frequency:1 iso_code_3:lkt
+#: DB:language/name:3880
+msgid "Lakota"
 msgstr ""
 
 #. frequency:1 iso_code_3:lam

@@ -1,11 +1,14 @@
 package MusicBrainz::Server::Controller::Tracklist;
 use Moose;
+use Scalar::Util qw( looks_like_number );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 sub tracklist : Chained('/') PathPart('tracklist') CaptureArgs(1)
 {
     my ($self, $c, $id) = @_;
+
+    $c->detach('/error_404') unless looks_like_number($id);
 
     my $tracklist = $c->model('Tracklist')->get_by_id($id)
         or $c->detach('/error_404');

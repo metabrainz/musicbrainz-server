@@ -8,6 +8,7 @@ use Sql;
 use MusicBrainz::Server::Entity::Collection;
 use MusicBrainz::Server::Data::Utils qw(
     generate_gid
+    load_subobjects
     placeholders
     query_to_list
     query_to_list_limited
@@ -15,6 +16,11 @@ use MusicBrainz::Server::Data::Utils qw(
 use List::MoreUtils qw( zip );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::Role::Subscription' => {
+    table => 'editor_subscribe_collection',
+    column => 'collection',
+    class => 'MusicBrainz::Server::Entity::CollectionSubscription'
+};
 
 sub _table
 {
@@ -23,7 +29,7 @@ sub _table
 
 sub _columns
 {
-    return 'id, gid, editor, name, public, description';
+    return 'editor_collection.id, gid, editor_collection.editor, name, public, description';
 }
 
 sub _id_column
@@ -46,6 +52,20 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Collection';
+}
+
+sub find_by_subscribed_editor
+{
+    my ($self, $editor_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                    JOIN editor_subscribe_collection s ON editor_collection.id = s.collection
+                 WHERE s.editor = ? AND s.available
+                 ORDER BY musicbrainz_collate(name), editor_collection.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $editor_id, $offset || 0);
 }
 
 sub add_releases_to_collection
@@ -173,6 +193,12 @@ sub find_all_by_release
         $query, $id);
 }
 
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'collection', @objs);
+}
+
 sub insert
 {
     my ($self, $editor_id, @collections) = @_;
@@ -216,6 +242,7 @@ sub update
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
     my $row = $self->_hash_to_row($update);
+
     $self->sql->auto_commit;
     $self->sql->update_row('editor_collection', $row, { id => $collection_id });
 }
@@ -225,12 +252,18 @@ sub delete
     my ($self, @collection_ids) = @_;
     return unless @collection_ids;
 
-    $self->sql->auto_commit;
+    $self->sql->begin;
+
+    # Remove all releases associated with the collection(s)
     $self->sql->do('DELETE FROM editor_collection_release
                     WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
-    $self->sql->auto_commit;
+
+    # Remove collection(s)
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
+    $self->sql->commit;
+
     return;
 }
 

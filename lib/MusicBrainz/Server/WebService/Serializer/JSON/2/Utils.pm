@@ -8,6 +8,7 @@ our @EXPORT_OK = qw(
     boolean
     list_of
     number
+    date_period
     serializer
     serialize_entity
 );
@@ -18,6 +19,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Artist' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Artist',
     'MusicBrainz::Server::Entity::ArtistCredit' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ArtistCredit',
     'MusicBrainz::Server::Entity::Collection' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Collection',
+    'MusicBrainz::Server::Entity::CDTOC' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::CDTOC',
     'MusicBrainz::Server::Entity::Label' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Label',
     'MusicBrainz::Server::Entity::Medium' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Medium',
     'MusicBrainz::Server::Entity::Recording' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Recording',
@@ -25,6 +27,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
     'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
+    'MusicBrainz::Server::Entity::URL' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::URL',
 );
 
 sub boolean { return (shift) ? JSON::true : JSON::false; }
@@ -34,16 +37,38 @@ sub number {
     return defined $value ? $value + 0 : JSON::null;
 }
 
+sub date_period {
+    my $entity = shift;
+
+    my %lifespan = (
+        begin => JSON::null,
+        end => JSON::null,
+        ended => boolean ($entity->ended),
+        );
+
+    $lifespan{begin} = $entity->begin_date->format if !$entity->begin_date->is_empty;
+    $lifespan{end} = $entity->end_date->format if !$entity->end_date->is_empty;
+
+    return \%lifespan;
+}
+
 sub serializer
 {
     my $entity = shift;
 
-    my $class = $ENTITY_TO_SERIALIZER{$entity->meta->name};
+    my $serializer;
 
-    Class::MOP::load_class($class);
+    for my $class (keys %ENTITY_TO_SERIALIZER) {
+        if ($entity->isa($class)) {
+            $serializer = $ENTITY_TO_SERIALIZER{$class};
+            last;
+        }
+    }
 
-    $serializers{$class} ||= $class->new;
-    return $serializers{$class};
+    Class::MOP::load_class($serializer);
+
+    $serializers{$serializer} ||= $serializer->new;
+    return $serializers{$serializer};
 }
 
 sub serialize_entity
@@ -69,7 +94,7 @@ sub list_of
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012-2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Release;
 use Moose;
 use MusicBrainz::Server::Constants qw( :quality );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity boolean );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
@@ -42,6 +42,18 @@ sub serialize
     $body{packaging} = $entity->packaging
         ? $entity->packaging->name : JSON::null;
 
+    my $coverart = $stash ? $stash->store($entity)->{'cover-art-archive'} : undef;
+    if ($coverart) {
+        $body{'cover-art-archive'} = {
+            artwork => boolean($entity->cover_art_presence eq 'present'),
+            darkened => boolean($entity->cover_art_presence eq 'darkened'),
+            # force to number
+            count => $coverart->{total} * 1,
+            front => boolean($coverart->{front}),
+            back => boolean($coverart->{back})
+        };
+    }
+
     $body{"text-representation"} = {
         script => $entity->script ? $entity->script->iso_code : JSON::null,
         language => $entity->language ? $entity->language->iso_code_3 : JSON::null
@@ -61,7 +73,7 @@ sub serialize
     else
     {
         $body{"artist-credit"} = serialize_entity ($entity->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
+            if $inc && $inc->artist_credits;
     }
 
     $body{"label-info"} = [
@@ -72,7 +84,7 @@ sub serialize
             }
         } @{ $entity->labels } ] if $toplevel && $inc->labels;
 
-    if ($inc->media || $inc->discids || $inc->recordings)
+    if ($inc && ($inc->media || $inc->discids || $inc->recordings))
     {
         $body{media} = [
             map { serialize_entity($_, $inc, $stash) }

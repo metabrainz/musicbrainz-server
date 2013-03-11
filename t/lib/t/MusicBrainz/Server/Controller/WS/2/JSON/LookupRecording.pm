@@ -176,7 +176,6 @@ test 'recording lookup with artists' => sub {
                         name => "m-flo",
                         "sort-name" => "m-flo",
                         disambiguation => "",
-                        ipis => [],
                     },
                     joinphrase => "♥",
                 },
@@ -187,7 +186,6 @@ test 'recording lookup with artists' => sub {
                         name => "BoA",
                         "sort-name" => "BoA",
                         disambiguation => "",
-                        ipis => [],
                     },
                     joinphrase => "",
                 }
@@ -208,6 +206,43 @@ test 'recording lookup with puids and isrcs' => sub {
             length => 296026,
             puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
             isrcs => [ "JPA600102450" ],
+        });
+};
+
+test 'recording lookup with release relationships' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with release relationships',
+    '/recording/37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9?inc=release-rels' => encode_json (
+        {
+            id => "37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9",
+            title => "Dear Diary",
+            disambiguation => "",
+            length => 86666,
+            relations => [
+                {
+                    type => 'samples material',
+                    'type-id' => '967746f9-9d79-456c-9d1e-50116f0b27fc',
+                    direction => 'forward',
+                    release => {
+                        asin => JSON::null,
+                        barcode => '634479663338',
+                        country => JSON::null,
+                        date => '2007-11-08',
+                        disambiguation => '',
+                        id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
+                        packaging => JSON::null,
+                        quality => 'normal',
+                        status => JSON::null,
+                        'text-representation' => { language => JSON::null, script => JSON::null },
+                        title => 'An Inextricable Tale Audiobook',
+                    },
+                    begin => '2008',
+                    end => JSON::null,
+                    ended => JSON::false,
+                }
+            ]
         });
 };
 

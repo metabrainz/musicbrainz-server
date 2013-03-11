@@ -11,8 +11,9 @@ has_field 'name' => (
 );
 
 has_field 'description' => (
-    type => '+MusicBrainz::Server::Form::Field::Text',
+    type => 'TextArea',
     required => 0,
+    not_nullable => 1,    
 );
 
 has_field 'public' => (

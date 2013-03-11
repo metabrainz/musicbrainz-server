@@ -1,12 +1,13 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008, 2009, 2011, 2012.
+#   <email address hidden>, 2012.
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-07-15 20:28+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-01-17 20:19+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,11 +25,21 @@ msgstr "12-keelne kitarr"
 
 #: DB:link_attribute_type/description:414
 msgid "3-stringed fretless lute"
-msgstr ""
+msgstr "3-keelne lauto ilma astmetraatide ehk krihvideta"
 
 #: DB:link_attribute_type/description:550
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr ""
+
+#: DB:link_attribute_type/description:643
+msgid ""
+"A Turkish version of tambourine / daf, made from animal skin and played with"
+" the fingers."
+msgstr ""
+
+#: DB:link_attribute_type/description:635
+msgid "A banjo! With five strings!"
+msgstr "Bandžo! Viie keelega!"
 
 #: DB:link_attribute_type/description:600
 msgid ""
@@ -50,7 +61,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:565
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "väike vileorel"
 
 #: DB:link_attribute_type/description:531
 msgid "A class of South-American guitars"
@@ -87,6 +98,12 @@ msgid ""
 "Other names: jūshichi-gen, 十七絃, 十七弦, jûshichigen"
 msgstr ""
 
+#: DB:link_attribute_type/description:644
+msgid ""
+"A larger version of tef, used to indicate the rhythmic structures (usul) in "
+"makam music."
+msgstr ""
+
 #: DB:link_attribute_type/description:627
 msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
@@ -111,6 +128,12 @@ msgstr ""
 #: DB:link_attribute_type/description:614
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
+msgstr ""
+
+#: DB:link_attribute_type/description:631
+msgid ""
+"A plucked instrument from the Renaissance. (<a "
+"href=\"http://en.wikipedia.org/wiki/Orpharion\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:590
@@ -145,11 +168,26 @@ msgstr ""
 msgid "A type of fretless zither."
 msgstr ""
 
+#: DB:link_attribute_type/description:638
+msgid "A typewriter, used for percussion (either keys or bells)"
+msgstr ""
+
+#: DB:link_attribute_type/description:633
+msgid ""
+"A valveless trumpet, in the model of the ones from the 16th to 18th "
+"centuries (<a "
+"href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:620
 msgid ""
 "A wooden, beaked double-flute traditionally played by goat herders in the "
 "Punjab region of India and Pakistan."
 msgstr ""
+
+#: DB:link_attribute_type/description:651
+msgid "Acoustic guitar without frets."
+msgstr "akustiline kitarr ilma astmetraatide ehk krihvideta"
 
 #: DB:link_attribute_type/description:557
 msgid "Also known as a music box"
@@ -175,6 +213,13 @@ msgid ""
 "hardwoodwood bars"
 msgstr ""
 
+#: DB:link_attribute_type/description:645
+msgid ""
+"An Indian version of the jew's harp, played as a percussion instrument in "
+"Carnatic music and Rajastani folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Morsing\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:435
 msgid ""
 "An Irish/Scottish harp, also known as cláirseach, celtic harp and gaelic "
@@ -189,11 +234,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:90
 msgid "Appalachian dulcimer"
-msgstr ""
+msgstr "apalatši dultsimer"
 
 #: DB:link_attribute_type/description:480
 msgid "Armenian traditional woodwind instrument"
-msgstr ""
+msgstr "armeenia traditsiooniline puupuhkpill"
 
 #: DB:link_attribute_type/description:514
 msgid ""
@@ -207,15 +252,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:506
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "Läänemere-äärsed psalteeriumid"
 
 #: DB:link_attribute_type/description:476
 msgid "Bandura, modern day Ukraininan zither"
-msgstr ""
+msgstr "kaasaegne ukraina tsitter"
 
 #: DB:link_attribute_type/description:475
 msgid "Bandura, ukrainian 14th century lute"
-msgstr ""
+msgstr "14. sajandi ukraina lauto"
 
 #: DB:link_attribute_type/description:479
 msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
@@ -229,7 +274,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:277
 msgid "Bass (modern, typically electrical, but not always)"
-msgstr ""
+msgstr "kaasaegne, tüüpiliselt elektriline, aga mitte alati"
 
 #: DB:link_attribute_type/description:70
 msgid ""
@@ -237,7 +282,7 @@ msgid ""
 " - the bass guitar and the double bass (a.k.a. contrabass, acoustic upright "
 "bass, wood bass). Please use the correct instrument if you know which one is"
 " intended."
-msgstr ""
+msgstr "„Bass” on sage, aga ebamäärane nimetus, millega tähistatakse mitut eri pilli: basskitarri ja kontrabassi. Kui tead, millist mõeldi, siis kasuta vastavat pilli."
 
 #: DB:link_attribute_type/description:365
 msgid "Bass recorder / F-bass recorder (Bassblockflöte)"
@@ -255,7 +300,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:94
 msgid "Biwa, Japanese lute"
-msgstr ""
+msgstr "jaapani lauto"
 
 #: DB:link_attribute_type/description:504
 msgid "Boatswain's pipe or Bosun's whistle"
@@ -271,19 +316,19 @@ msgstr ""
 
 #: DB:link_attribute_type/description:330
 msgid "Chamberlin"
-msgstr ""
+msgstr "Chamberlin"
 
 #: DB:link_attribute_type/description:238
 msgid "Chapman stick"
-msgstr ""
+msgstr "Chapman Stick"
 
 #: DB:link_attribute_type/description:290
 msgid "Chinese double bass"
-msgstr ""
+msgstr "hiina kontrabass"
 
 #: DB:link_attribute_type/description:287
 msgid "Chinese viola"
-msgstr ""
+msgstr "hiina vioola"
 
 #: DB:link_attribute_type/description:289
 msgid "Chinese western cello fusion"
@@ -293,7 +338,7 @@ msgstr ""
 msgid ""
 "Concert flute (also called C flute, Boehm flute, silver flute or simply just"
 " \"flute\")"
-msgstr ""
+msgstr "tuntud ka kui C-flööt, Boehmi flööt, hõbeflööt või lihtsalt „flööt”"
 
 #: DB:link_attribute_type/description:205
 msgid "Conch shell"
@@ -307,11 +352,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:273
 msgid "Cornett (not to be confused with Cornet)"
-msgstr ""
+msgstr "mitte segi ajada ühe <em>t</em>-ga kornetiga"
 
 #: DB:link_attribute_type/description:427
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
-msgstr ""
+msgstr "kasutati 14.–17. sajandil Euroopas"
 
 #: DB:link_attribute_type/description:326
 msgid "Cymbalum (Cimbalom)"
@@ -326,7 +371,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:496
 msgid "Davul, turkish drum"
-msgstr ""
+msgstr "türgi trumm"
 
 #: DB:link_attribute_type/description:160
 msgid "Denis d'or"
@@ -338,19 +383,29 @@ msgstr ""
 
 #: DB:link_attribute_type/description:483
 msgid "Dohol, traditional Iranian drum"
-msgstr ""
+msgstr "traditsiooniline iraani trumm"
 
 #: DB:link_attribute_type/description:71
 msgid "Double bass (Contrabass, Acoustic upright bass, wood bass)"
 msgstr ""
 
+#: DB:link_attribute_type/description:647
+msgid ""
+"Double headed drum from India.  (<a "
+"href=\"http://en.wikipedia.org/wiki/Dhol\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:161
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "Dubreq Stylophone"
 
 #: DB:link_attribute_type/description:264
 msgid "Duct flutes, sometimes known as fipple flutes"
 msgstr ""
+
+#: DB:link_attribute_type/description:650
+msgid "Electric guitar without frets."
+msgstr "elektrikitarr ilma astmetraatide ehk krihvideta"
 
 #: DB:link_attribute_type/description:500
 msgid ""
@@ -374,7 +429,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:436
 msgid "German/Bohemian harp"
-msgstr ""
+msgstr "ehk saksa harf"
 
 #: DB:link_attribute_type/description:408
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
@@ -386,11 +441,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:370
 msgid "Greek Panflute"
-msgstr ""
+msgstr "kreeka paaniflööt"
 
 #: DB:link_attribute_type/description:306
 msgid "Greek baglama"
-msgstr ""
+msgstr "kreeka bağlama"
 
 #: DB:link_attribute_type/description:508
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
@@ -398,7 +453,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:177
 msgid "Hammond organ"
-msgstr ""
+msgstr "Hammondi orel"
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
@@ -422,11 +477,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:502
 msgid "Indian bamboo flutes"
-msgstr ""
+msgstr "india bambusflöödid"
 
 #: DB:link_attribute_type/description:491
 msgid "Irish bouzouki"
-msgstr ""
+msgstr "iiri buzuki"
 
 #: DB:link_attribute_type/description:224
 msgid "Japanese end-blown flute"
@@ -434,7 +489,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:293
 msgid "Japanese string instrument"
-msgstr ""
+msgstr "jaapani keelpill"
 
 #: DB:link_attribute_type/description:458
 msgid "Japanese traditional drum beaten with sticks called bachi"
@@ -450,11 +505,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:509
 msgid "Kantele, Finnish traditional plucked string"
-msgstr ""
+msgstr "eesti kannel või soome <em>kantele</em>, traditsiooniline näppekeelpill"
 
 #: DB:link_attribute_type/description:360
 msgid "Kanun, Arabic plucked strings"
-msgstr ""
+msgstr "araabia näppekeelpill"
 
 #: DB:link_attribute_type/description:380
 msgid "Ken (wooden, copper hauboits) (Ken Dai or Ken Bau)"
@@ -490,6 +545,13 @@ msgstr ""
 
 #: DB:link_attribute_type/description:242
 msgid "Madal, hand drum originating from Nepal"
+msgstr "Nepalist pärit käsitrumm"
+
+#: DB:link_attribute_type/description:649
+msgid ""
+"Maddale is a double-headed drum from Karnataka, India. It is the primary "
+"rhythmic accompaniment in Yakshagana. (<a "
+"href=\"http://en.wikipedia.org/wiki/Maddale\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:110
@@ -499,7 +561,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:175
 msgid "Mellotron"
-msgstr ""
+msgstr "Mellotron"
 
 #: DB:link_attribute_type/description:67
 msgid "Melodica, also known as pianica"
@@ -519,11 +581,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:349
 msgid "Minimoog"
-msgstr ""
+msgstr "Minimoog"
 
 #: DB:link_attribute_type/description:348
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: DB:link_attribute_type/description:310
 msgid ""
@@ -541,7 +603,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:438
 msgid "Northumbrian (small)pipes"
-msgstr ""
+msgstr "Northumbria (väike) torupill"
 
 #: DB:link_attribute_type/description:22
 msgid "Oboe (soprano)"
@@ -555,29 +617,29 @@ msgstr ""
 msgid ""
 "Other flutes. If you can't find an instrument, please request it at "
 "http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
+msgstr "kui sa ei leia soovitud flööti, siis küsi seda lehel http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 
 #: DB:link_attribute_type/description:185
 msgid ""
 "Other instruments. If you can't find an instrument, please request it at "
 "http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
+msgstr "Kui sa ei leia soovitud pilli, siis küsi seda lehel http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 
 #: DB:link_attribute_type/description:221
 msgid ""
 "Other percussion. If you can't find an instrument, please request it at "
 "http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
+msgstr "kui sa ei leia soovitud löökpilli, siis küsi seda lehel http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 
 #: DB:link_attribute_type/description:88
 msgid ""
 "Other string instruments. If you can't find an instrument, please request it"
 " at http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
-msgstr ""
+msgstr "kui sa ei leia soovitud keelpilli, siis küsi seda lehel http://wiki.musicbrainz.org/Talk:Advanced_Instrument_Tree"
 
 #: DB:link_attribute_type/description:30
 msgid "Pan flute (Pan pipes)"
-msgstr ""
+msgstr "ehk paanivile"
 
 #: DB:link_attribute_type/description:624
 msgid ""
@@ -597,13 +659,19 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
 msgstr ""
 
+#: DB:link_attribute_type/description:652
+msgid ""
+"Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
+" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Dulcian\">Ney</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:379
 msgid "Phách (The clappers)"
 msgstr ""
 
 #: DB:link_attribute_type/description:429
 msgid "Pipa, plucked Chinese string-instrument (Chinese lute)"
-msgstr ""
+msgstr "hiina näppekeelpill, nn hiina lauto"
 
 #: DB:link_attribute_type/description:416
 msgid "Pí thiu or Pí khui vertical flute"
@@ -619,19 +687,19 @@ msgstr ""
 
 #: DB:link_attribute_type/description:182
 msgid "Rhodes piano"
-msgstr ""
+msgstr "Rhodes-klaver"
 
 #: DB:link_attribute_type/description:358
 msgid "Santoor, Indian dulcimer"
-msgstr ""
+msgstr "india dultsimer"
 
 #: DB:link_attribute_type/description:325
 msgid "Santur, Middle Eastern"
-msgstr ""
+msgstr "Lähis-Idast"
 
 #: DB:link_attribute_type/description:493
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
-msgstr ""
+msgstr "keskajal ja renessansis kasutatud pill, oboe eelkäija"
 
 #: DB:link_attribute_type/description:462
 msgid "Shekere, calabash shaker embroidered with beads"
@@ -639,7 +707,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:450
 msgid "Sistrum, anchient handheld rattle"
-msgstr ""
+msgstr "iidne kõristi"
 
 #: DB:link_attribute_type/description:268
 msgid "Slide whistle (infamous 'Clangers' sound)"
@@ -661,11 +729,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:206
 msgid "Spanish acoustic guitar"
-msgstr ""
+msgstr "hispaania akustiline kitarr"
 
 #: DB:link_attribute_type/description:332
 msgid "Spanish vihuela"
-msgstr ""
+msgstr "(hispaania) vihuela"
 
 #: DB:link_attribute_type/description:459
 msgid ""
@@ -686,7 +754,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:288
 msgid "Tenor Chinese viola/in"
-msgstr ""
+msgstr "hiina tenorvioola või -viiul"
 
 #: DB:link_attribute_type/description:364
 msgid "Tenor recorder (Tenorblockflöte)"
@@ -751,15 +819,35 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:640
+msgid ""
+"The bulbul tarang (बुलबुल तरंग, Indian banjo) is a string instrument from "
+"India and Pakistan (<a href=\"http://en.wikipedia.org/wiki/Bulbul "
+"tarang\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:636
+msgid ""
+"The cavaquinho is a small plucked string instrument of Portuguese origin "
+"with four wire or gut strings (<a "
+"href=\"http://en.wikipedia.org/wiki/Cavaquinho\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:599
 msgid ""
 "The caxixi is a shaker originating in Brazil which is made of a small wicker basket containing seeds or other small particles.\n"
 "(<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:648
+msgid ""
+"The chande is a drum used in the traditional and classical music of South "
+"India. (<a href=\"http://en.wikipedia.org/wiki/Chande\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:559
 msgid "The charango is a small South American lute."
-msgstr ""
+msgstr "väike Lõuna-Ameerika lauto"
 
 #: DB:link_attribute_type/description:622
 msgid ""
@@ -779,6 +867,13 @@ msgid ""
 "The daegeum (Korean: 대금, also spelt taegŭm) is a large transverse flute from"
 " Korea which is made of bamboo. (<a "
 "href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:642
+msgid ""
+"The dilruba is a bowed string instrument from Northern India, mostly used in"
+" religious music and light classical songs (<a "
+"href=\"http://en.wikipedia.org/wiki/Dilruba\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:553
@@ -807,6 +902,13 @@ msgstr ""
 msgid ""
 "The erhu (Chinese: 二胡) is a bowed Chinese instrument with two strings. Also "
 "known as a Chinese violin, erfu or nanhu."
+msgstr ""
+
+#: DB:link_attribute_type/description:641
+msgid ""
+"The esraj is a bowed string instrument from Eastern and Central India, "
+"mostly used as an accompanying instrument (<a "
+"href=\"http://en.wikipedia.org/wiki/Esraj\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:100
@@ -859,6 +961,13 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Kanjira\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:646
+msgid ""
+"The kartal is an Indian percussion instrument with jingles, played with the "
+"hands, mainly used in Kirtans, Bhajans and in Rajastani folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Khartal\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:551
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia. It "
@@ -877,6 +986,20 @@ msgid ""
 "brass gong, typically about 20cm in diameter, which is used primarily in the"
 " folk music of Korea. (<a "
 "href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:655
+msgid ""
+"The komuz or qomuz is a fretless string instrument used in Central Asian "
+"music, seen as the Kyrgyz national instrument. (<a "
+"href=\"http://en.wikipedia.org/wiki/Komuz\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:630
+msgid ""
+"The launeddas is a typical Sardinian woodwind instrument, consisting of "
+"three pipes.  (<a "
+"href=\"http://en.wikipedia.org/wiki/Launeddas\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:294
@@ -932,7 +1055,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:566
 msgid "The saz is a long-necked fretted lute"
-msgstr ""
+msgstr "pika kaela ja astmetraatidega lauto"
 
 #: DB:link_attribute_type/description:112
 msgid ""
@@ -945,8 +1068,8 @@ msgstr ""
 msgid ""
 "The shehnai, shahnai, shenai or mangal vadya, is a double reed conical oboe,"
 " common in North India, West India and Pakistan, made out of wood, with a "
-"metal flare bell at the end. "
-"(http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
+"metal flare bell at the end. (<a "
+"href=\"http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:564
@@ -966,6 +1089,13 @@ msgstr ""
 msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
 "Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê."
+msgstr ""
+
+#: DB:link_attribute_type/description:656
+msgid ""
+"The talharpa is a four-stringed bowed lyre from northern Europe, mostly "
+"played in Estonia. (<a "
+"href=\"http://en.wikipedia.org/wiki/Talharpa\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:560
@@ -994,6 +1124,12 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:629
+msgid ""
+"The valiha is a bamboo tube zither from Madagascar (<a "
+"href=\"http://en.wikipedia.org/wiki/Valiha\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:621
 msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
@@ -1007,6 +1143,13 @@ msgid ""
 "called dòngxiāo, simplified Chinese: 洞箫; traditional Chinese: 洞簫) is a "
 "Chinese end-blown flute. (<a "
 "href=\"http://en.wikipedia.org/wiki/Xiao_(flute)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:639
+msgid ""
+"The yaylı tanbur is a bowed lute from Turkey derived from the older plucked "
+"tanbur. (<a "
+"href=\"http://en.wikipedia.org/wiki/Yaylı_tanbur\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:426
@@ -1026,7 +1169,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:350
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "tiibeti vesitrumm"
 
 #: DB:link_attribute_type/description:217
 msgid "Timpani (Kettle drum)"
@@ -1038,6 +1181,25 @@ msgstr ""
 
 #: DB:link_attribute_type/description:305
 msgid "Turkish baglama"
+msgstr "türgi bağlama"
+
+#: DB:link_attribute_type/description:654
+msgid ""
+"Turkish bowl-shaped kemenche, mainly used in classical Ottoman music (<a "
+"href=\"http://en.wikipedia.org/wiki/Classical kemençe\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:653
+msgid ""
+"Turkish box-shaped kemenche, mainly used for folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Kemençe of the Black "
+"Sea\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:637
+msgid ""
+"Turkish pair of small, hemispherical drums (<a "
+"href=\"http://en.wikipedia.org/wiki/Kudüm\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:281
@@ -1052,6 +1214,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:248
 msgid "Uilleann/Union/Irish pipes"
+msgstr ""
+
+#: DB:link_attribute_type/description:634
+msgid ""
+"Valveless ancestor of the modern (French) horn. (<a "
+"href=\"http://en.wikipedia.org/wiki/Natural_horn\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:343
@@ -1069,11 +1237,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:399
 msgid "Vietnamese guitar"
-msgstr ""
+msgstr "vietnami kitarr"
 
 #: DB:link_attribute_type/description:321
 msgid "Vietnamese one-stringed zither"
-msgstr ""
+msgstr "vietnami ühekeelne tsitter"
 
 #: DB:link_attribute_type/description:505
 msgid "Violone, The largest/deepest member of the Viol family"
@@ -1085,15 +1253,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:201
 msgid "Wagner tuba"
-msgstr ""
+msgstr "Wagneri tuuba"
 
 #: DB:link_attribute_type/description:323
 msgid "Warr guitar"
-msgstr ""
+msgstr "Warri kitarr"
 
 #: DB:link_attribute_type/description:266
 msgid "Willow flute (seljefløyte"
-msgstr ""
+msgstr "<em>seljefløyte</em>"
 
 #: DB:link_attribute_type/description:607
 msgid ""
@@ -1104,11 +1272,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:524
 msgid "Woodwind instrument of the late baroque and early classical era"
-msgstr ""
+msgstr "hilisbaroki ja varaklassitsismi puupuhkpill"
 
 #: DB:link_attribute_type/description:562
 msgid "Wurlitzer electric piano"
-msgstr ""
+msgstr "Wurlitzeri elektriklaver"
 
 #: DB:link_attribute_type/description:405
 msgid ""
@@ -1124,7 +1292,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:492
 msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr ""
+msgstr "vt <a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -1166,7 +1334,7 @@ msgstr "akustiline kitarr"
 
 #: DB:link_attribute_type/description:89
 msgid "aeolian harp"
-msgstr ""
+msgstr "tuulekannel"
 
 #: DB:link_attribute_type/description:136
 msgid "afuche / cabasa"
@@ -1178,7 +1346,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:542
 msgid "aka Vocaloid"
-msgstr ""
+msgstr "ka Vocaloid"
 
 #: DB:link_attribute_type/description:21
 msgid "aka cor anglais (alto)"
@@ -1186,7 +1354,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:533
 msgid "aka electronic wind instrument"
-msgstr ""
+msgstr "ehk elektrooniline õhkpill"
 
 #: DB:link_attribute_type/description:541
 msgid "aka finger clicks"
@@ -1224,7 +1392,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:41
 msgid "alphorn"
-msgstr ""
+msgstr "alpisarv"
 
 #: DB:link_attribute_type/description:556
 msgid "also known as tzouras and tsoura"
@@ -1232,25 +1400,25 @@ msgstr ""
 
 #: DB:link_attribute_type/description:24
 msgid "alto clarinet"
-msgstr ""
+msgstr "altklarnet (bassett)"
 
 #: DB:link_attribute_type/description:423
 msgid "alto flute"
-msgstr ""
+msgstr "altflööt"
 
 #: DB:link_attribute_type/description:35
 msgid "alto saxophone"
-msgstr ""
+msgstr "altsaksofon"
 
 #: DB:link_attribute_type/description:226
 msgid "alto violin"
-msgstr ""
+msgstr "vioola helistikus pill, mida mängitakse nagu tšellot"
 
 #: DB:link_attribute_type/description:615
 msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth (<a "
 "href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "tühi kann (valmistatud tavaliselt klaasist või savist), mida mängitakse suuga; vt <a href=\"http://en.wikipedia.org/wiki/Jug_(instrument)\">Wikipedia</a>"
 
 #: DB:link_attribute_type/description:453
 msgid "ankle rattlers"
@@ -1258,11 +1426,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
-msgstr ""
+msgstr "arhailised ja muud poogenkeelpillid"
 
 #: DB:link_attribute_type/description:494
 msgid "autoharp"
-msgstr ""
+msgstr "autoharf"
 
 #: DB:link_attribute_type/description:512
 msgid "baglama"
@@ -1282,11 +1450,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:263
 msgid "bandoneón"
-msgstr ""
+msgstr "bandoonium"
 
 #: DB:link_attribute_type/description:291
 msgid "banhu / banghu"
-msgstr ""
+msgstr " / banghu"
 
 #: DB:link_attribute_type/description:92
 msgid "banjo"
@@ -1294,19 +1462,19 @@ msgstr "bandžo"
 
 #: DB:link_attribute_type/description:377
 msgid "baritone guitar"
-msgstr ""
+msgstr "baritonkitarr"
 
 #: DB:link_attribute_type/description:42
 msgid "baritone horn"
-msgstr ""
+msgstr "baritonsarv"
 
 #: DB:link_attribute_type/description:37
 msgid "baritone saxophone"
-msgstr ""
+msgstr "baritonsaksofon"
 
 #: DB:link_attribute_type/description:25
 msgid "bass clarinet"
-msgstr ""
+msgstr "bassklarnet"
 
 #: DB:link_attribute_type/description:518
 msgid "bass drum"
@@ -1314,39 +1482,39 @@ msgstr "basstrumm"
 
 #: DB:link_attribute_type/description:501
 msgid "bass flute"
-msgstr ""
+msgstr "bassflööt"
 
 #: DB:link_attribute_type/description:558
 msgid "bass harmonica"
-msgstr ""
+msgstr "bass-suupill"
 
 #: DB:link_attribute_type/description:484
 msgid "bass pedals"
-msgstr ""
+msgstr "bassipedaalid"
 
 #: DB:link_attribute_type/description:228
 msgid "bass trombone"
-msgstr ""
+msgstr "basstromboon"
 
 #: DB:link_attribute_type/description:489
 msgid "basset clarinet"
-msgstr ""
+msgstr "bassettklarnet"
 
 #: DB:link_attribute_type/description:490
 msgid "basset horn"
-msgstr ""
+msgstr "bassettsarv"
 
 #: DB:link_attribute_type/description:19
 msgid "bassoon"
-msgstr ""
+msgstr "fagott"
 
 #: DB:link_attribute_type/description:520
 msgid "bayan"
-msgstr ""
+msgstr "bajaan"
 
 #: DB:link_attribute_type/description:151
 msgid "bells"
-msgstr ""
+msgstr "kellad"
 
 #: DB:link_attribute_type/description:93
 msgid "berimbau"
@@ -1362,27 +1530,27 @@ msgstr ""
 
 #: DB:link_attribute_type/description:128
 msgid "bongos"
-msgstr ""
+msgstr "bongod"
 
 #: DB:link_attribute_type/description:95
 msgid "bouzouki"
-msgstr ""
+msgstr "buzuki"
 
 #: DB:link_attribute_type/description:299
 msgid "bowed psaltery"
-msgstr ""
+msgstr "poogenpsalteerium"
 
 #: DB:link_attribute_type/description:275
 msgid "bowed string instruments"
-msgstr ""
+msgstr "poogenkeelpillid"
 
 #: DB:link_attribute_type/description:38
 msgid "brass"
-msgstr ""
+msgstr "vaskpuhkpillid"
 
 #: DB:link_attribute_type/description:397
 msgid "brushes"
-msgstr ""
+msgstr "trummiharjad"
 
 #: DB:link_attribute_type/description:51
 msgid "bugle"
@@ -1394,7 +1562,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:440
 msgid "button accordion"
-msgstr ""
+msgstr "nuppakordion"
 
 #: DB:link_attribute_type/description:170
 msgid "calliope"
@@ -1402,15 +1570,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:171
 msgid "carillon"
-msgstr ""
+msgstr "kellakoda"
 
 #: DB:link_attribute_type/description:137
 msgid "castanets"
-msgstr "kastanetid"
+msgstr "kastanjetid"
 
 #: DB:link_attribute_type/description:172
 msgid "celesta"
-msgstr ""
+msgstr "tšelesta"
 
 #: DB:link_attribute_type/description:84
 msgid "cello"
@@ -1422,11 +1590,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:521
 msgid "chromatic button accordion"
-msgstr ""
+msgstr "kromaatiline nuppakordion"
 
 #: DB:link_attribute_type/description:376
 msgid "chromatic harmonica"
-msgstr ""
+msgstr "kromaatiline suupill"
 
 #: DB:link_attribute_type/description:307
 msgid "cittern"
@@ -1442,27 +1610,27 @@ msgstr "klassikaline kitarr"
 
 #: DB:link_attribute_type/description:138
 msgid "claves"
-msgstr ""
+msgstr "kõlapulgad"
 
 #: DB:link_attribute_type/description:173
 msgid "clavichord"
-msgstr ""
+msgstr "klavikord"
 
 #: DB:link_attribute_type/description:227
 msgid "clavinet"
-msgstr ""
+msgstr "Clavinet"
 
 #: DB:link_attribute_type/description:431
 msgid "concert harp"
-msgstr ""
+msgstr "kontsertharf"
 
 #: DB:link_attribute_type/description:65
 msgid "concertina"
-msgstr ""
+msgstr "kontsertiina"
 
 #: DB:link_attribute_type/description:127
 msgid "congas"
-msgstr ""
+msgstr "kongad (tumbad)"
 
 #: DB:link_attribute_type/description:519
 msgid "conical bore double-reed musical instrument from Brittany"
@@ -1470,23 +1638,23 @@ msgstr ""
 
 #: DB:link_attribute_type/description:26
 msgid "contrabass clarinet"
-msgstr ""
+msgstr "kontrabassklarnet (pedaalklarnet)"
 
 #: DB:link_attribute_type/description:367
 msgid "contrabass recorder"
-msgstr ""
+msgstr "kontrabassplokkflööt"
 
 #: DB:link_attribute_type/description:538
 msgid "contrabass saxophone"
-msgstr ""
+msgstr "kontrabass-saksofon"
 
 #: DB:link_attribute_type/description:20
 msgid "contrabassoon"
-msgstr ""
+msgstr "kontrafagott"
 
 #: DB:link_attribute_type/description:39
 msgid "cornet"
-msgstr ""
+msgstr "kornet"
 
 #: DB:link_attribute_type/description:384
 msgid "cow horns without fingerholes. with mouthpiece and free reed"
@@ -1494,7 +1662,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:208
 msgid "cowbell"
-msgstr ""
+msgstr "lehmakell"
 
 #: DB:link_attribute_type/description:214
 msgid "crotales"
@@ -1506,7 +1674,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:342
 msgid "cymbals"
-msgstr ""
+msgstr "taldrikud"
 
 #: DB:link_attribute_type/description:495
 msgid "cümbüş"
@@ -1518,11 +1686,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:441
 msgid "diatonic accordion / melodeon"
-msgstr ""
+msgstr "diatooniline nuppakordion (melodeon)"
 
 #: DB:link_attribute_type/description:204
 msgid "didgeridoo"
-msgstr ""
+msgstr "didžeriduu"
 
 #: DB:link_attribute_type/description:394
 msgid ""
@@ -1531,11 +1699,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:335
 msgid "djembe"
-msgstr ""
+msgstr "džembe (djembe, jembe)"
 
 #: DB:link_attribute_type/description:17
 msgid "double reed"
-msgstr ""
+msgstr "topeltlesthuulikuga"
 
 #: DB:link_attribute_type/description:140
 msgid "doyra"
@@ -1543,7 +1711,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:162
 msgid "drum machine"
-msgstr ""
+msgstr "trummimasin"
 
 #: DB:link_attribute_type/description:125
 msgid "drums"
@@ -1563,11 +1731,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:74
 msgid "electric bass guitar"
-msgstr ""
+msgstr "elektribasskitarr"
 
 #: DB:link_attribute_type/description:278
 msgid "electric cello"
-msgstr ""
+msgstr "elektritšello"
 
 #: DB:link_attribute_type/description:78
 msgid "electric guitar"
@@ -1579,19 +1747,19 @@ msgstr "elektriharf"
 
 #: DB:link_attribute_type/description:470
 msgid "electric lap steel guitar"
-msgstr ""
+msgstr "süles mängitav elektriline steel-kitarr"
 
 #: DB:link_attribute_type/description:329
 msgid "electric piano"
-msgstr ""
+msgstr "elektriklaver"
 
 #: DB:link_attribute_type/description:316
 msgid "electric sitar"
-msgstr ""
+msgstr "elektrisitar"
 
 #: DB:link_attribute_type/description:72
 msgid "electric upright bass"
-msgstr ""
+msgstr "elektrikontrabass"
 
 #: DB:link_attribute_type/description:282
 msgid "electric violin"
@@ -1599,11 +1767,11 @@ msgstr "elektriviiul"
 
 #: DB:link_attribute_type/description:487
 msgid "electronic drum set"
-msgstr ""
+msgstr "elektrooniline trummikomplekt"
 
 #: DB:link_attribute_type/description:159
 msgid "electronic instruments"
-msgstr ""
+msgstr "elektroonilised pillid"
 
 #: DB:link_attribute_type/description:539
 msgid "electronic organ"
@@ -1611,7 +1779,7 @@ msgstr "elektriorel"
 
 #: DB:link_attribute_type/description:199
 msgid "euphonium"
-msgstr ""
+msgstr "eufoonium"
 
 #: DB:link_attribute_type/description:389
 msgid "family of Hmông flutes"
@@ -1619,15 +1787,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:85
 msgid "fiddle"
-msgstr ""
+msgstr "rahvaviiul"
 
 #: DB:link_attribute_type/description:554
 msgid "finger cymbals"
-msgstr ""
+msgstr "sõrmetaldrikud"
 
 #: DB:link_attribute_type/description:43
 msgid "flugelhorn"
-msgstr ""
+msgstr "flüügelhorn"
 
 #: DB:link_attribute_type/description:27
 msgid "flute"
@@ -1639,19 +1807,19 @@ msgstr ""
 
 #: DB:link_attribute_type/description:465
 msgid "fortepiano"
-msgstr ""
+msgstr "pianoforte"
 
 #: DB:link_attribute_type/description:421
 msgid "frame drum"
-msgstr ""
+msgstr "raamtrumm"
 
 #: DB:link_attribute_type/description:63
 msgid "free reed"
-msgstr ""
+msgstr "vaba keelega"
 
 #: DB:link_attribute_type/description:44
 msgid "french horn"
-msgstr ""
+msgstr "metsasarv"
 
 #: DB:link_attribute_type/description:301
 msgid "gadulka"
@@ -1671,7 +1839,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:357
 msgid "glass (h)armonica"
-msgstr ""
+msgstr "klaasharmoonika"
 
 #: DB:link_attribute_type/description:215
 msgid "glockenspiel"
@@ -1679,15 +1847,15 @@ msgstr "kellamäng"
 
 #: DB:link_attribute_type/description:340
 msgid "gong"
-msgstr ""
+msgstr "gong"
 
 #: DB:link_attribute_type/description:339
 msgid "gongs"
-msgstr ""
+msgstr "gongid"
 
 #: DB:link_attribute_type/description:181
 msgid "grand piano"
-msgstr ""
+msgstr "tiibklaver"
 
 #: DB:link_attribute_type/description:300
 msgid "gudok"
@@ -1703,15 +1871,15 @@ msgstr "kitarrid"
 
 #: DB:link_attribute_type/description:141
 msgid "güiro"
-msgstr ""
+msgstr "guiro"
 
 #: DB:link_attribute_type/description:101
 msgid "hammered dulcimer"
-msgstr ""
+msgstr "haamerdultsimer"
 
 #: DB:link_attribute_type/description:346
 msgid "handbells"
-msgstr ""
+msgstr "käsikellad"
 
 #: DB:link_attribute_type/description:187
 msgid "hardart"
@@ -1719,11 +1887,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:66
 msgid "harmonica"
-msgstr ""
+msgstr "suupill (harmoonika)"
 
 #: DB:link_attribute_type/description:178
 msgid "harmonium"
-msgstr ""
+msgstr "harmoonium"
 
 #: DB:link_attribute_type/description:81
 msgid "harp"
@@ -1731,23 +1899,23 @@ msgstr "harf"
 
 #: DB:link_attribute_type/description:174
 msgid "harpsichord"
-msgstr ""
+msgstr "klavessiin"
 
 #: DB:link_attribute_type/description:261
 msgid "heckelphone"
-msgstr ""
+msgstr "hekelfon (baritonoboe)"
 
 #: DB:link_attribute_type/description:40
 msgid "horn"
-msgstr ""
+msgstr "sarv"
 
 #: DB:link_attribute_type/description:103
 msgid "hurdy gurdy"
-msgstr ""
+msgstr "rataslüüra (organistrum, hurdy gurdy)"
 
 #: DB:link_attribute_type/description:104
 msgid "jew's harp"
-msgstr ""
+msgstr "parmupill"
 
 #: DB:link_attribute_type/description:188
 msgid "kazoo"
@@ -1755,7 +1923,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:232
 msgid "keyboard"
-msgstr ""
+msgstr "klahvpill"
 
 #: DB:link_attribute_type/description:442
 msgid "keyboard bass"
@@ -1771,7 +1939,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:318
 msgid "kithara"
-msgstr ""
+msgstr "kitara"
 
 #: DB:link_attribute_type/description:386
 msgid "koke, can-shaped, covereed with snakeskin. played with a horsehair-bow"
@@ -1791,7 +1959,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:466
 msgid "lap steel guitar"
-msgstr ""
+msgstr "süles mängitav steel-kitarr"
 
 #: DB:link_attribute_type/description:189
 msgid "lasso d'amore"
@@ -1799,11 +1967,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:482
 msgid "low whistle"
-msgstr ""
+msgstr "madal vile"
 
 #: DB:link_attribute_type/description:108
 msgid "lute"
-msgstr ""
+msgstr "lauto"
 
 #: DB:link_attribute_type/description:109
 msgid "lyre"
@@ -1811,7 +1979,7 @@ msgstr "lüüra"
 
 #: DB:link_attribute_type/description:308
 msgid "mandola"
-msgstr ""
+msgstr "mandoola"
 
 #: DB:link_attribute_type/description:96
 msgid "mandolin"
@@ -1819,19 +1987,19 @@ msgstr "mandoliin"
 
 #: DB:link_attribute_type/description:142
 msgid "maracas"
-msgstr ""
+msgstr "marakas"
 
 #: DB:link_attribute_type/description:216
 msgid "marimba"
-msgstr ""
+msgstr "marimba (marimbafon)"
 
 #: DB:link_attribute_type/description:56
 msgid "mellophone"
-msgstr ""
+msgstr "mellofon"
 
 #: DB:link_attribute_type/description:428
 msgid "metallophone"
-msgstr ""
+msgstr "metallofon"
 
 #: DB:link_attribute_type/description:97
 msgid "musical bow"
@@ -1839,7 +2007,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:190
 msgid "musical saw"
-msgstr ""
+msgstr "(muusikaline) saag"
 
 #: DB:link_attribute_type/description:49
 msgid "natural brass instruments"
@@ -1847,7 +2015,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:270
 msgid "nose flute"
-msgstr ""
+msgstr "ninaflööt"
 
 #: DB:link_attribute_type/description:298
 msgid "nyckelharpa"
@@ -1859,15 +2027,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:456
 msgid "ocean drum"
-msgstr ""
+msgstr "ookeanitrumm"
 
 #: DB:link_attribute_type/description:352
 msgid "omnichord"
-msgstr ""
+msgstr "Omnichord"
 
 #: DB:link_attribute_type/description:163
 msgid "ondes Martenot"
-msgstr ""
+msgstr "ondes Martenot"
 
 #: DB:link_attribute_type/description:57
 msgid "ophicleide"
@@ -1879,15 +2047,15 @@ msgstr "orel"
 
 #: DB:link_attribute_type/description:304
 msgid "oud"
-msgstr ""
+msgstr "ud"
 
 #: DB:link_attribute_type/description:469
 msgid "pedal steel guitar"
-msgstr ""
+msgstr "pedaalidega steel-kitarr"
 
 #: DB:link_attribute_type/description:124
 msgid "percussion"
-msgstr ""
+msgstr "löökpillid"
 
 #: DB:link_attribute_type/description:180
 msgid "piano"
@@ -1895,27 +2063,27 @@ msgstr "klaver"
 
 #: DB:link_attribute_type/description:439
 msgid "piano accordion"
-msgstr ""
+msgstr "klahvakordion"
 
 #: DB:link_attribute_type/description:31
 msgid "piccolo"
-msgstr ""
+msgstr "pikoloflööt"
 
 #: DB:link_attribute_type/description:486
 msgid "piccolo trumpet"
-msgstr ""
+msgstr "pikolotrompet"
 
 #: DB:link_attribute_type/description:179
 msgid "pipe organ"
-msgstr ""
+msgstr "vileorel"
 
 #: DB:link_attribute_type/description:302
 msgid "plucked string instruments"
-msgstr ""
+msgstr "näppekeelpillid"
 
 #: DB:link_attribute_type/description:111
 msgid "psaltery"
-msgstr ""
+msgstr "psalteerium"
 
 #: DB:link_attribute_type/description:455
 msgid "rainstick"
@@ -1923,7 +2091,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:211
 msgid "ratchet"
-msgstr ""
+msgstr "käristi"
 
 #: DB:link_attribute_type/description:411
 msgid "rattle"
@@ -1935,7 +2103,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:276
 msgid "rebec"
-msgstr ""
+msgstr "rebekk"
 
 #: DB:link_attribute_type/description:274
 msgid "reed organ"
@@ -1943,15 +2111,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:233
 msgid "reeds"
-msgstr ""
+msgstr "lesthuulikuga"
 
 #: DB:link_attribute_type/description:467
 msgid "resonator guitar"
-msgstr ""
+msgstr "resonaatorkitarr"
 
 #: DB:link_attribute_type/description:449
 msgid "rhythm sticks"
-msgstr ""
+msgstr "rütmipulgad"
 
 #: DB:link_attribute_type/description:198
 msgid "sackbut"
@@ -1959,7 +2127,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:164
 msgid "sampler"
-msgstr ""
+msgstr "sämpler"
 
 #: DB:link_attribute_type/description:347
 msgid "sanh / Sanh Tiên (Coin-dappers)"
@@ -1991,7 +2159,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:197
 msgid "serpent"
-msgstr ""
+msgstr "serpent"
 
 #: DB:link_attribute_type/description:417
 msgid "shakers"
@@ -2015,67 +2183,67 @@ msgstr ""
 
 #: DB:link_attribute_type/description:234
 msgid "singular reed"
-msgstr ""
+msgstr "ühekordse lesthuulikuga"
 
 #: DB:link_attribute_type/description:113
 msgid "sitar"
-msgstr ""
+msgstr "sitar"
 
 #: DB:link_attribute_type/description:272
 msgid "slide brass instruments"
-msgstr ""
+msgstr "kulissiga vaskpuhkpillid"
 
 #: DB:link_attribute_type/description:79
 msgid "slide guitar"
-msgstr ""
+msgstr "slaidkitarr"
 
 #: DB:link_attribute_type/description:129
 msgid "snare drum"
-msgstr ""
+msgstr "väike trumm"
 
 #: DB:link_attribute_type/description:537
 msgid "sopranino saxophone"
-msgstr ""
+msgstr "sopraniinosaksofon"
 
 #: DB:link_attribute_type/description:488
 msgid "soprano clarinet"
-msgstr ""
+msgstr "sopranklarnet"
 
 #: DB:link_attribute_type/description:498
 msgid "soprano flute"
-msgstr ""
+msgstr "sopranflööt"
 
 #: DB:link_attribute_type/description:34
 msgid "soprano saxophone"
-msgstr ""
+msgstr "sopransaksofon"
 
 #: DB:link_attribute_type/description:280
 msgid "soprano violin"
-msgstr ""
+msgstr "sopranviiul"
 
 #: DB:link_attribute_type/description:200
 msgid "sousaphone"
-msgstr ""
+msgstr "susafon"
 
 #: DB:link_attribute_type/description:210
 msgid "spoons"
-msgstr ""
+msgstr "lusikad"
 
 #: DB:link_attribute_type/description:80
 msgid "steel guitar"
-msgstr ""
+msgstr "steel-kitarr"
 
 #: DB:link_attribute_type/description:69
 msgid "strings"
-msgstr ""
+msgstr "keelpillid"
 
 #: DB:link_attribute_type/description:322
 msgid "struck string instruments"
-msgstr ""
+msgstr "klahv- ja löökkeelpillid"
 
 #: DB:link_attribute_type/description:368
 msgid "subcontrabass recorder"
-msgstr ""
+msgstr "subkontrabassplokkflööt"
 
 #: DB:link_attribute_type/description:165
 msgid "synclavier"
@@ -2091,15 +2259,15 @@ msgstr "sáo meò"
 
 #: DB:link_attribute_type/description:241
 msgid "tabla"
-msgstr ""
+msgstr "tabla"
 
 #: DB:link_attribute_type/description:468
 msgid "table steel guitar"
-msgstr ""
+msgstr "laual mängitav steel-kitarr"
 
 #: DB:link_attribute_type/description:457
 msgid "talking drum"
-msgstr ""
+msgstr "kõnelev trumm"
 
 #: DB:link_attribute_type/description:333
 msgid "tambourine"
@@ -2115,11 +2283,15 @@ msgstr ""
 
 #: DB:link_attribute_type/description:510
 msgid "tangent piano"
+msgstr "tangentklaver"
+
+#: DB:link_attribute_type/description:632
+msgid "tape"
 msgstr ""
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"
-msgstr ""
+msgstr "telharmoonium (dünamofon)"
 
 #: DB:link_attribute_type/description:222
 msgid "temple blocks"
@@ -2127,21 +2299,21 @@ msgstr ""
 
 #: DB:link_attribute_type/description:45
 msgid "tenor horn / alto horn"
-msgstr ""
+msgstr "tenorsarv (altsarv)"
 
 #: DB:link_attribute_type/description:36
 msgid "tenor saxophone"
-msgstr ""
+msgstr "tenorsaksofon"
 
 #: DB:link_attribute_type/description:168
 msgid "theremin"
-msgstr ""
+msgstr "teremin"
 
 #: DB:link_attribute_type/description:409
 msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
-msgstr "ti bwa, lapiti laotatud bambusest valmistatud ja pulkadega taotav löökriist"
+msgstr "lapiti laotatud bambusest valmistatud ja pulkadega taotav löökriist"
 
 #: DB:link_attribute_type/description:401
 msgid "tieu flute"
@@ -2149,7 +2321,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:132
 msgid "timbales"
-msgstr ""
+msgstr "timbaled"
 
 #: DB:link_attribute_type/description:267
 msgid "tin whistle"
@@ -2161,11 +2333,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:328
 msgid "toy piano"
-msgstr ""
+msgstr "mänguklaver"
 
 #: DB:link_attribute_type/description:422
 msgid "transverse flute"
-msgstr ""
+msgstr "põikflööt"
 
 #: DB:link_attribute_type/description:497
 msgid "treble flute"
@@ -2205,11 +2377,11 @@ msgstr "tuuba"
 
 #: DB:link_attribute_type/description:218
 msgid "tubular bells"
-msgstr ""
+msgstr "torukellad (orkestrikellad)"
 
 #: DB:link_attribute_type/description:150
 msgid "tuned percussion"
-msgstr ""
+msgstr "kindla helikõrgusega löökpillid"
 
 #: DB:link_attribute_type/description:236
 msgid "turntable(s)"
@@ -2221,7 +2393,7 @@ msgstr "ukulele"
 
 #: DB:link_attribute_type/description:184
 msgid "upright piano"
-msgstr ""
+msgstr "püstklaver (pianiino)"
 
 #: DB:link_attribute_type/description:375
 msgid "vacuum cleaner"
@@ -2233,7 +2405,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:271
 msgid "valved brass instruments"
-msgstr ""
+msgstr "ventiilidega vaskpuhkpillid"
 
 #: DB:link_attribute_type/description:523
 msgid "variety of bass guitars without frets"
@@ -2257,19 +2429,19 @@ msgstr ""
 
 #: DB:link_attribute_type/description:87
 msgid "viola"
-msgstr "vioola"
+msgstr "vioola (altviiul)"
 
 #: DB:link_attribute_type/description:119
 msgid "viola d'amore"
-msgstr ""
+msgstr "viola d’amore"
 
 #: DB:link_attribute_type/description:118
 msgid "viola da gamba"
-msgstr ""
+msgstr "(viola da) gamba"
 
 #: DB:link_attribute_type/description:297
 msgid "viola organista"
-msgstr ""
+msgstr "viola organista"
 
 #: DB:link_attribute_type/description:86
 msgid "violin"
@@ -2277,15 +2449,15 @@ msgstr "viiul"
 
 #: DB:link_attribute_type/description:82
 msgid "violins"
-msgstr ""
+msgstr "viiulid"
 
 #: DB:link_attribute_type/description:120
 msgid "violotta"
-msgstr ""
+msgstr "violotta"
 
 #: DB:link_attribute_type/description:209
 msgid "washboard"
-msgstr ""
+msgstr "pesulaud"
 
 #: DB:link_attribute_type/description:121
 msgid "washtub bass"
@@ -2309,7 +2481,7 @@ msgstr "vile"
 
 #: DB:link_attribute_type/description:15
 msgid "wind instruments"
-msgstr ""
+msgstr "õhkpillid"
 
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
@@ -2317,11 +2489,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:213
 msgid "wood block"
-msgstr ""
+msgstr "puuplokk"
 
 #: DB:link_attribute_type/description:16
 msgid "woodwind"
-msgstr ""
+msgstr "puupuhkpillid"
 
 #: DB:link_attribute_type/description:122
 msgid "xalam / khalam"
@@ -2337,7 +2509,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:123
 msgid "zither"
-msgstr ""
+msgstr "tsitter"
 
 #: DB:link_attribute_type/description:396
 msgid ""

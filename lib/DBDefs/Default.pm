@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
 # Directories
@@ -69,9 +70,13 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
-sub WEB_SERVER                { "www.musicbrainz.example.com" }
+sub WEB_SERVER                { "localhost:5000" }
+sub WEB_SERVER_SSL            { "localhost" }
 sub LUCENE_SERVER             { "search.musicbrainz.org" }
 sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
+
+sub IS_BETA                   { 0 }
+sub BETA_REDIRECT_HOSTNAME    { '' }
 
 ################################################################################
 # Mail Settings
@@ -101,7 +106,9 @@ sub DB_STAGING_SERVER { 1 }
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
 # Default: "This is a MusicBrainz development server."
-sub DB_STAGING_SERVER_DESCRIPTION { "" }
+sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
+sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
+sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
@@ -111,6 +118,14 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # this should only be enabled on staging servers. Also, this enables non-admin
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
+
+# SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
+# the "RequireSSL" attribute on Catalyst actions, which will redirect
+# users to the SSL version of a Catalyst action (and redirect back to
+# http:// after the action is complete, though only if the user
+# started there).  If set to 0 no SSL redirects will be done, which is
+# suitable for local or development deployments.
+sub SSL_REDIRECTS_ENABLED { 0 }
 
 ################################################################################
 # Documentation Server Settings
@@ -229,6 +244,48 @@ sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 # sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
+# Sessions (advanced)
+################################################################################
+
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
+sub SESSION_STORE_ARGS { return {} }
+sub SESSION_EXPIRE { return 36000; } # 10 hours
+
+# Redis by default has 16 numbered databases available, of which DB 0
+# is the default.  Here you can configure which of these databases are
+# used by musicbrainz-server.
+#
+# test_database will be completely erased on each test run, so make
+# sure it doesn't point at any production data you may have in your
+# redis server.
+
+sub DATASTORE_REDIS_ARGS {
+    my $self = shift;
+    return {
+        prefix => $self->MEMCACHED_NAMESPACE(),
+        database => 0,
+        test_database => 1,
+        redis_new_args => {
+            server => '127.0.0.1:6379',
+            reconnect => 60,
+            encoding => undef,
+        }
+    };
+};
+
+################################################################################
+# Session cookies
+################################################################################
+
+# How long (in seconds) a web/rdf session can go "idle" before being timed out
+sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
+
+# The cookie name to use
+sub SESSION_COOKIE { "AF_SID" }
+# The domain into which the session cookie is written
+sub SESSION_DOMAIN { undef }
+
+################################################################################
 # Other Settings
 ################################################################################
 
@@ -259,14 +316,6 @@ sub GIT_BRANCH
     return $branch, $sha, $msg;
   }
 }
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { "AF_SID" }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 # How long an annotation is considered as being locked.
 sub ANNOTATION_LOCK_TIME { 60*15 }
@@ -305,40 +354,13 @@ sub RECAPTCHA_PRIVATE_KEY { return undef }
 sub COVER_ART_ARCHIVE_ACCESS_KEY { };
 sub COVER_ART_ARCHIVE_SECRET_KEY { };
 sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("http://%s.s3.us.archive.org/", shift) };
-sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://coverartarchive.org" };
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
-################################################################################
-# Sessions (advanced)
-################################################################################
-
-# Unless you are installing an MusicBrainz server that needs to be fully r
-# redundant/load balanced, you do not need to change anything in this section.
-
-# If you're using multiple front-end webservers make sure they all connect to
-# the same memcached server.  Also make sure enough memory is configured for
-# memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::MusicBrainz" }
-sub SESSION_STORE_ARGS
-{
-    my $self = shift;
-    return {
-        memcached_new_args => {
-            data => $self->MEMCACHED_SERVERS(),
-            namespace => $self->MEMCACHED_NAMESPACE()
-        }
-    }
-}
-
-# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
-# seperately from the regular session store.
-sub WIZARD_MEMCACHED
-{
-    my $self = shift;
-    return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
-}
+# Disallow OAuth2 requests over plain HTTP
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
 
 sub USE_ETAGS { 1 }
 
@@ -391,12 +413,11 @@ sub AUTO_RESTART {
 #    }
 }
 
-# The maximum amount of time a process can be serving a single request
-# If undef, the process is never killed
-# If set to a positive integer, the process can server a single request
-# for MAX_REQUEST_TIME seconds, and if it is still not done the process
-# will be killed (and log a message about the request it was serving).
-sub MAX_REQUEST_TIME { undef }
+# The maximum amount of time a process can be serving a single request. This
+# function takes a Catalyst::Request as input, and should return the amount of time
+# in seconds that it should take to respond to this request.
+# If undef, the process is never killed.
+sub DETERMINE_MAX_REQUEST_TIME { undef }
 
 sub LOGGER_ARGUMENTS {
     return (

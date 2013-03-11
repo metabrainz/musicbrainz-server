@@ -4,7 +4,7 @@
 [% USE format %]
 [% round2 = format('%.2f') %]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <h2>[% l('Edits') %]</h2>
 [%- IF by_category.size == 0 -%]

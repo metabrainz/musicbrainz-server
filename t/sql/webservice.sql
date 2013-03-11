@@ -502,6 +502,11 @@ UPDATE artist_meta SET rating_count = 3, rating = 60 WHERE id = 135345;
 INSERT INTO artist_credit_name (join_phrase, artist, name, position, artist_credit) VALUES ('', 135345, 75219, 0, 135345);
 INSERT INTO release_group (last_updated, comment, name, edits_pending, type, artist_credit, id, gid) VALUES ('2009-05-24 20:47:00.490177+00', '', 346153, 0, 2, 135345, 403214, '153f0a09-fead-3370-9b17-379ebd09446b');
 INSERT INTO release (date_day, status, release_group, edits_pending, packaging, id, quality, country, last_updated, script, language, name, artist_credit, barcode, comment, date_year, date_month, gid) VALUES (17, 1, 403214, 0, NULL, 59662, -1, 107, '2009-08-17 08:23:42.424855+00', 28, 120, 346153, 135345, '4988064451180', '', 2004, 3, 'aff4a693-5970-4e2e-bd46-e2ee49c22de7');
+INSERT INTO editor (id, name, password) VALUES (95821, 'the-anti-kuno', 'notreally');
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 95821, 314, 2, '{}', now() + INTERVAL '2 weeks');
+INSERT INTO cover_art_archive.cover_art (id, release, comment, edit, ordering, date_uploaded, edits_pending) VALUES (1031598329, 59662, '', 1, 1, '2012-05-24 07:35:13.984115+00', 0);
+INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
+INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (1031598329, 1);
 INSERT INTO tracklist (last_updated, track_count, id) VALUES ('2011-01-18 15:21:33.71184+00', 0, 403214);
 INSERT INTO track_name (name, id) VALUES ('the Love Bug', 2580451);
 INSERT INTO artist_name (name, id) VALUES ('m-flo♥BoA', 877283);
@@ -4210,3 +4215,12 @@ INSERT INTO link (begin_date_day, attribute_count, begin_date_year, created, lin
 INSERT INTO l_artist_work (link, entity1, entity0, id) VALUES
     (1123780, (SELECT id FROM work WHERE gid='f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8'),
      (SELECT id FROM artist WHERE gid='472bc127-8861-45e8-bc9e-31e8dd32de7a'), 1117124);
+
+INSERT INTO gender (name, id) VALUES ('Female', 2);
+INSERT INTO artist_name (name, id) VALUES ('Goto, Maki', 438952);
+INSERT INTO artist_name (name, id) VALUES ('後藤真希', 235500);
+INSERT INTO artist (edits_pending, ended, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, '0', 82524, 438952, 2, 107, 23, '2012-08-27 03:34:50.942403+02', 235500, 1985, NULL, '', 9, NULL, 1, NULL, '678ba12a-e485-44c7-8eaf-25e61a78a61b');
+INSERT INTO link (begin_date_day, attribute_count, begin_date_year, link_type, created, ended, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, 2001, 111, '2011-05-16 17:03:23.368437+02', '0', NULL, NULL, NULL, 6490, NULL);
+INSERT INTO l_artist_artist (link, last_updated, entity1, entity0, id, edits_pending) VALUES (6490, '2011-05-16 17:03:23.368437+02', 265420, 82524, 127517, 0);
+
+SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));

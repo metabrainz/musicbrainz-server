@@ -2,8 +2,8 @@
   [%- script_manifest('edit.js.manifest') -%]
 [%- END -%]
 
-[%- WRAPPER "release/layout.tt" title=l('Add Cover Art') page='add_cover_art' -%]
-  <h2>[%- l('Add Cover Art') -%]</h2>
+[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
+  <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
   <noscript>
     <p>[% l('This page requires JavaScript.') %]</p>
@@ -19,7 +19,7 @@
     [%- INCLUDE 'release/cover_art_fields.tt' -%]
 
     <div class="row" id="cover-art-position-row">
-      <label id="cover-art-position-label" class="required">Position:</label>
+      <label id="cover-art-position-label" class="required">[% l('Position:') %]</label>
 
       [%- IF images.size == 0 -%]
         <div class="image-position-only">
@@ -35,7 +35,9 @@
 
         [%- IF !artwork.id -%]
           <div class="editimage thumb-position">
-            <img class="editimage" src="[% c.uri_for('/static/images/newimagegoeshere-125.png') %]" />
+            <div class="image-placeholder">
+              <p>[% l('New Image Goes Here') %]</p>
+            </div>
             <div>
               <button class="left">&larr;</button>
               <button class="right" style="float: right;">&rarr;</button>

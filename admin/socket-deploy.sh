@@ -1,5 +1,8 @@
 #!/bin/bash
 
+MUSICBRAINZ_USE_PROXY=1
+export MUSICBRAINZ_USE_PROXY
+
 mb_server=`dirname $0`/..
 cd $mb_server
 

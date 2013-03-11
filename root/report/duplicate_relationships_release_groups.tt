@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Release groups with possible duplicate relationships') full_width=1 -%]
+
+<h1>[% l('Release groups with possible duplicate relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report lists release groups which have multiple relationships to the same entity using the same relationship type.') -%]
+    </li>
+    <li>[% l('Total release groups found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_group_list.tt' -%]
+
+[%- END -%]

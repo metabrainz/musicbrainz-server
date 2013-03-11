@@ -1,4 +1,5 @@
 [% IF pager && pager.last_page > 1 %]
+[% DEFAULT page_var = 'page' %]
 <p class="pageselector">
     [% IF pager.previous_page %]
         [% rdfa_paginator_previous_page(pager) %]
@@ -11,9 +12,9 @@
         FOREACH page IN [ start .. pager.last_page ] %]
         [% LAST IF loop.count > 9 %]
         [% IF pager.current_page == page %]
-        <a href="[% c.req.uri_with( page => page ) | html %]" class="sel"><strong>[% page %]</strong></a>
+        <a href="[% c.req.uri_with( $page_var => page ) | html %]" class="sel"><strong>[% page %]</strong></a>
         [% ELSE %]
-        <a href="[% c.req.uri_with( page => page ) | html %]">[% page %]</a>
+        <a href="[% c.req.uri_with( $page_var => page ) | html %]">[% page %]</a>
         [% END %]
     [% END %]
 

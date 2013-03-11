@@ -76,6 +76,7 @@ sub search
 
         my $extra_columns = '';
         $extra_columns .= 'entity.label_code,' if $type eq 'label';
+        $extra_columns .= 'entity.gender, entity.country,' if $type eq 'artist';
 
         $query = "
             SELECT

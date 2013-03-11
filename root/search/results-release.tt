@@ -1,3 +1,7 @@
 [% WRAPPER 'search/results-layout.tt' %]
         [% INCLUDE 'search/lib/inline-results-release.tt' %]
+        <p>
+          [% l('Alternatively, you may {uri|add a new release}.', {
+                uri => '/release/add'}) %]
+        </p>
 [% END %]

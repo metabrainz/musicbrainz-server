@@ -1,6 +1,6 @@
 [%- WRAPPER 'cdstub/layout.tt' page='index' -%]
     [% IF cdstubtoc.cdstub.comment %]
-        <h2>[% l('Disambiguation') %]</h2>
+        <h2>[% l('Comment') %]</h2>
         <p>[% cdstubtoc.cdstub.comment %]</p>
     [% END %]
 

@@ -291,6 +291,26 @@ ws_test 'artist lookup with works (using l_recording_work)',
   </artist>
 </metadata>';
 
+ws_test 'artist lookup with artist relations',
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Person" id="678ba12a-e485-44c7-8eaf-25e61a78a61b">
+        <name>後藤真希</name><sort-name>Goto, Maki</sort-name><gender>Female</gender><country>JP</country>
+        <life-span>
+            <begin>1985-09-23</begin>
+        </life-span>
+        <relation-list target-type="artist">
+            <relation type-id="5be4c609-9afa-4ea0-910b-12ffb71e3821" type="member of band">
+                <target>802673f0-9b88-4e8a-bb5c-dd01d68b086f</target><begin>2001</begin>
+                <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+                    <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+                </artist>
+            </relation>
+        </relation-list>
+    </artist>
+</metadata>';
+
 };
 
 1;

@@ -1,5 +1,5 @@
-[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
-  <h1>[% l('Attach CD TOC') %]</h1>
+[% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
+  <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <h2>[% l('Search for an artist') %]</h2>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_artist) %]
