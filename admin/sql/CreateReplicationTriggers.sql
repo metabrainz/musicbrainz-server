@@ -102,10 +102,6 @@ CREATE TRIGGER "reptg_clientversion"
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_country"
-AFTER INSERT OR DELETE OR UPDATE ON "country"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 -- not replicated:
 -- currentstat
 

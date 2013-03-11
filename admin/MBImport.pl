@@ -370,7 +370,6 @@ sub ImportAllTables
         artist_type
         cdtoc
         clientversion
-        country
         editor
         editor_language
         editor_preference
