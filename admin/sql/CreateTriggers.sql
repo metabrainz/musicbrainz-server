@@ -224,9 +224,6 @@ CREATE CONSTRAINT TRIGGER remove_orphaned_tracks
     AFTER DELETE OR UPDATE ON track DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE delete_orphaned_recordings();
 
-CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
-
 CREATE TRIGGER b_upd_url BEFORE UPDATE ON url 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
