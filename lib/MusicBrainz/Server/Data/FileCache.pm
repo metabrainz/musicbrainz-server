@@ -106,17 +106,30 @@ sub manifest_files {
 
 sub squash {
     my ($self, $minifier, $manifest, $type, $prefix) = @_;
-    my $input = join("\n",
-        map { io($_)->all }
-             map { DBDefs->STATIC_FILES_DIR . "/$_" }
-                $self->manifest_files($manifest, $type));
-
     my $hash = $self->manifest_signature($manifest, $type);
+    my $filename = DBDefs->STATIC_FILES_DIR . "/$prefix$hash.$type";
 
-    printf STDERR "Compiling $manifest...";
-    my $output = $minifier->(input => $input);
-    $output > io(DBDefs->STATIC_FILES_DIR . "/$prefix$hash.$type");
-    printf STDERR "OK\n";
+    if (!-f $filename) {
+        my $input = join("\n",
+            map { io($_)->all }
+                 map { DBDefs->STATIC_FILES_DIR . "/$_" }
+                    $self->manifest_files($manifest, $type));
+
+        printf STDERR "Compiling $manifest...";
+        try {
+            my $output = $minifier->(input => $input);
+            $output > io($filename);
+            printf STDERR "OK\n";
+        } catch {
+            my $err = $_;
+            printf STDERR "FAIL\n";
+            printf STDERR "Error: $err\n";
+            printf STDERR "Deleting $prefix$hash.$type.\n";
+            system("rm -f $filename");
+        }
+    } else {
+        printf STDERR "$manifest already compiled.\n";
+    }
 }
 
 sub compile_javascript_manifest {
