@@ -13,7 +13,6 @@ Disallow: /partners/
 Disallow: /puid/
 Disallow: /rating/
 Disallow: /recording/
-Disallow: /release/
 Disallow: /report/
 Disallow: /reports
 Disallow: /search
@@ -25,5 +24,4 @@ Disallow: /tracklist/
 Disallow: /unit_tests/
 Disallow: /url/
 Disallow: /user/
-Disallow: /work/
 Disallow: /ws

@@ -29,6 +29,8 @@ DROP INDEX edit_artist_idx_status;
 DROP INDEX edit_close_time_date;
 DROP INDEX edit_expire_time_date;
 DROP INDEX edit_idx_editor;
+DROP INDEX edit_idx_editor_id_desc;
+DROP INDEX edit_idx_open_edits_open_time;
 DROP INDEX edit_idx_open_time;
 DROP INDEX edit_idx_status;
 DROP INDEX edit_idx_type;

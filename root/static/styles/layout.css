@@ -385,7 +385,6 @@ div.warning img.warning {
 #page.homepage .sidebar {
     float: right;
     font-size: 95%;
-    margin-top: 34px;
     width: auto;
 }
 
@@ -436,7 +435,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li.all-relationships {
-	background-image: none;
+    background-image: none;
 }
 
 #sidebar ul.external_links li.home {
@@ -444,7 +443,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li.allmusic {
-    background-image: url("/static/images/favicons/allmusic-16.png");
+    background-image: url("../images/favicons/allmusic-16.png");
 }
 
 #sidebar ul.external_links li.amazon {
@@ -460,7 +459,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li.lastfm {
-    background-image: url("/static/images/favicons/lastfm-16.png");
+    background-image: url("../images/favicons/lastfm-16.png");
 }
 
 #sidebar ul.external_links li.myspace {
@@ -559,8 +558,28 @@ div.warning img.warning {
     background-image: url("../images/favicons/ric-16.png");
 }
 
+#sidebar ul.external_links li.googleplus {
+    background-image: url("../images/favicons/googleplus-16.png");
+}
+
 #sidebar ul.external_links li.dhhu {
     background-image: url("../images/favicons/dhhu-16.png");
+}
+
+#sidebar ul.external_links li.thesession {
+    background-image: url("../images/favicons/thesession-16.png");
+}
+
+#sidebar ul.external_links li.lieder {
+    background-image: url("../images/favicons/lieder-16.png");
+}
+
+#sidebar ul.external_links li.openlibrary {
+    background-image: url("../images/favicons/openlibrary-16.png");
+}
+
+#sidebar ul.external_links li.viaf {
+    background-image: url("../images/favicons/viaf-16.png");
 }
 
 #sidebar .cover-art {
@@ -952,6 +971,24 @@ div.artwork-cont {
 div.artwork { position: relative; width: 250px; }
 /* don't include 'div' since this should apply to 'p' as well */
 .artwork img { max-width: 250px; max-height: 250px; }
+
+.homepage div.artwork-cont {
+    width: 125px;
+    height: 125px;
+    position: relative;
+    vertical-align: middle;
+}
+.homepage div.artwork {
+    width: 125px;
+    height: 125px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.homepage div.artwork img {
+    max-width: 125px;
+    max-height: 125px;
+}
+
 div.delete { display: hidden !important; }
 
 .annotation-toggle {
@@ -993,4 +1030,14 @@ span.release-group-type {
     color: #fff;
     border-radius: 3px;
     padding: 0 3px;
+}
+
+a.tagger-icon {
+    background: url('../images/icons/mblookup-tagger.png') no-repeat;
+    width: 41px;
+    height: 16px;
+}
+
+.actions-header {
+    min-width: 10em;
 }

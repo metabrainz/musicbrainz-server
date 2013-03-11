@@ -70,9 +70,7 @@ sub do_login : Private
     return 1 if $c->user_exists;
 
     my $form = $c->form(form => 'User::Login');
-    my $redirect = defined $c->req->query_params->{uri}
-        ? $c->req->query_params->{uri}
-        : $c->relative_uri;
+    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
@@ -108,7 +106,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL
 {
     my ($self, $c) = @_;
 

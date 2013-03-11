@@ -1,3 +1,4 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
  <table class="details add-medium">
    [% UNLESS edit.preview %]
    <tr>
@@ -50,15 +51,7 @@
            </tr>
          </thead>
          <tbody>
-           [% FOR track=edit.display_data.tracklist.tracks %]
-           <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
-             <td class="pos t">
-               <span style="display: none">[% rdfa_track_number(track.position) %]</span>
-               [% track.number %]
-             </td>
-             <td>[% expanded_artist_credit(track.artist_credit) %]</td>
-           </tr>
-           [% END %]
+           [% display_condensed_track_acs(edit.display_data.tracklist.tracks) %]
          </tbody>
        </table>
      </td>

@@ -1,6 +1,16 @@
 [%- WRAPPER "label/layout.tt" page='index' -%]
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
 
+    [% IF eligble_for_cleanup %]
+      <p class="cleanup">
+          [% l('This label has no relationships or releases and will be removed
+                automatically in the next few days. If this is not intended,
+                please add more data to this label.') %]
+      </p>
+    [% END %]
+
+    [%- show_wikipedia_extract() -%]
+
     <h2 class="releases">[% l('Releases') %]</h2>
     [%- IF releases.size -%]
       <form action="[% c.uri_for_action('/release/merge_queue') %]"

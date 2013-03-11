@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use Try::Tiny;
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
-requires 'change_fields', '_edit_model';
+requires 'change_fields', '_edit_model', '_conflicting_entity_path';
 
 sub entity_id { shift->data->{entity}{id} }
 
@@ -66,8 +66,27 @@ override 'accept' => sub
     }
 
     my $data = $self->_edit_hash(clone($self->data->{new}));
-    $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+    try {
+        $self->c->model( $self->_edit_model )->update($self->entity_id, $data);
+    }
+    catch {
+        if (blessed($_) && $_->isa('MusicBrainz::Server::Exceptions::DuplicateViolation')) {
+            my $conflict = $_->conflict;
+            MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
+                sprintf(
+                    'The changes in this edit cause it to conflict with another entity. ' .
+                    'You may need to merge this entity with "%s" ' .
+                    '(//%s%s)',
+                    $conflict->name,
+                    DBDefs->WEB_SERVER,
+                    $self->_conflicting_entity_path($conflict->gid)
+                )
+            );
+        }
+    };
 };
+
+sub _conflicting_entity_path { die 'Undefined' };
 
 sub _edit_hash
 {

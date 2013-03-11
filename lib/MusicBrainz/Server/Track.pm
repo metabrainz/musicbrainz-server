@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Track;
 use strict;
 use Carp 'confess';
-use aliased 'DateTime::Format::Duration';
+use POSIX qw( floor );
 use Scalar::Util qw( looks_like_number );
 
 use Sub::Exporter -setup => {
@@ -23,12 +23,20 @@ sub FormatTrackLength
     return $ms unless looks_like_number($ms);
     return "$ms ms" if $ms < 1000;
 
-    my $seconds = $ms / 1000.0 + 0.5;
+    # Round time in ms to nearest second
+    my $seconds = int(($ms / 1000.0) + 0.5);
 
-    my %data = Duration->new->normalise (seconds => $seconds);
-    return $data{hours} > 0 ?
-        sprintf ("%d:%02d:%02d", $data{hours}, $data{minutes}, $data{seconds}) :
-        sprintf ("%d:%02d", $data{minutes}, $data{seconds});
+    # Partition seconds in minutes and hours
+    my $one_minute = 60;
+    my $one_hour = $one_minute * 60;
+
+    my ($hours, $minutes);
+    ($hours, $seconds) = (floor($seconds / $one_hour), $seconds % $one_hour);
+    ($minutes, $seconds) = (floor($seconds / $one_minute), $seconds % $one_minute);
+
+    return $hours > 0 ?
+        sprintf ("%d:%02d:%02d", $hours, $minutes, $seconds) :
+        sprintf ("%d:%02d", $minutes, $seconds);
 }
 
 sub FormatXSDTrackLength

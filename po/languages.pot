@@ -1233,6 +1233,11 @@ msgstr ""
 msgid "Lahnda"
 msgstr ""
 
+#. frequency:1 iso_code_3:lkt 
+#: DB:language/name:3880
+msgid "Lakota"
+msgstr ""
+
 #. frequency:1 iso_code_3:lam 
 #: DB:language/name:236
 msgid "Lamba"

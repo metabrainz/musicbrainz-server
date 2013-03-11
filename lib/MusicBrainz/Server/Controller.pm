@@ -140,10 +140,20 @@ sub edit_action
                 %extra
             );
 
+            # the on_creation hook is only called when an edit was entered.
+            # the post_creation hook is always called.
             $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+            $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
         });
 
-        $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+        # `post_creation` and `on_creation` often perform a redirection.
+        # If they have called $c->res->redirect, $c->res->location will be a
+        # true value, and we can detach early. `post_creation` and `on_creation`
+        # can't do this, as $c->detach is implemented by throwing an exception,
+        # which causes the above transaction to rollback.
+        if ($c->res->location) {
+            $c->detach;
+        }
 
         return $edit;
     }

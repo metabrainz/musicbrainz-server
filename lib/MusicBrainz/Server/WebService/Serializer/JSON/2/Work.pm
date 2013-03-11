@@ -19,6 +19,11 @@ sub serialize
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
+    $body{type} = $entity->type ? $entity->type->name : JSON::null;
+
+    $body{language} = $entity->language
+        ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
+        : JSON::null;
 
     return \%body;
 };

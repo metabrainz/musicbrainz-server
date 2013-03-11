@@ -1,8 +1,8 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Relation;
-
 use Moose;
+use Hash::Merge qw(merge);
 use String::CamelCase qw(camelize);
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( date_period serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -11,24 +11,25 @@ sub element { 'relation'; }
 sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
-    my %body;
+    my $body;
 
-    $body{type} = $entity->link->type->name;
-    $body{direction} = $entity->direction == 2 ? "backward" : "forward";
+    $body->{type} = $entity->link->type->name;
+    $body->{"type-id"} = $entity->link->type->gid;
+    $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
+
+    $body = merge ($body, date_period ($entity->link));
 
     if ($entity->target_type eq 'artist' ||
            $entity->target_type eq 'label' ||
-           # $entity->target_type eq 'release' ||
-           $entity->target_type eq 'recording')
+           $entity->target_type eq 'release' ||
+           $entity->target_type eq 'release_group' ||
+           $entity->target_type eq 'recording' ||
+           $entity->target_type eq 'url')
     {
-        $body{$entity->target_type} = serialize_entity ($entity->target);
-    }
-    elsif ($entity->target_type eq 'url')
-    {
-        $body{$entity->target_type} = $entity->target->name
+        $body->{$entity->target_type} = serialize_entity ($entity->target);
     }
 
-    return \%body;
+    return $body;
 };
 
 __PACKAGE__->meta->make_immutable;

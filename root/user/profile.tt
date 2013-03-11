@@ -1,4 +1,3 @@
-[% extra_css = "user.css" %]
 [% WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
         <dt class="[% class %]">
@@ -110,9 +109,8 @@
             [% END %]
 
         [% IF user.biography %]
-            [% bio_class = 'biography' IF user.biography %]
-            [% WRAPPER property name=l("Bio:") class=bio_class %]
-                [% html_escape(user.biography).split("\n").join("<br />") %]
+            [% WRAPPER property name=l("Bio:") class='biography' %]
+                [% user.biography | format_wikitext %]
             [% END %]
         [% END %]
 

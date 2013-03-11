@@ -12,7 +12,6 @@ use aliased 'MusicBrainz::Server::CoverArt::Amazon' => 'CoverArt';
 use MusicBrainz::Server::Log qw( log_error );
 
 extends 'MusicBrainz::Server::CoverArt::Provider';
-with 'MusicBrainz::Server::CoverArt::BarcodeSearch';
 
 has '+link_type_name' => (
     default => 'amazon asin',
@@ -88,23 +87,6 @@ sub lookup_cover_art
     $cover_art->information_uri($uri);
 
     return $cover_art;
-}
-
-sub search_by_barcode
-{
-    my ($self, $release) = @_;
-
-    return unless $release->barcode and $release->barcode != 0;
-
-    my $url = "http://ecs.amazonaws.com/onca/xml?" .
-                  "Service=AWSECommerceService&" .
-                  "Operation=ItemLookup&" .
-                  "ResponseGroup=Images&" .
-                  "IdType=" . $release->barcode->type . "&" .
-                  "SearchIndex=Music&" .
-                  "ItemId=" . $release->barcode;
-
-    return $self->_lookup_coverart($url);
 }
 
 sub _lookup_coverart {

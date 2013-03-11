@@ -1,4 +1,5 @@
 /*
+
    This file is part of MusicBrainz, the open internet music database.
    Copyright (C) 2010 MetaBrainz Foundation
 
@@ -33,7 +34,8 @@ MB.constants.LINK_TYPES = {
     },
     imdb: {
         release_group: 97,
-        artist: 178
+        artist: 178,
+        label: 313
     },
     myspace: {
         artist: 189,
@@ -95,7 +97,9 @@ MB.constants.LINK_TYPES = {
         work: 274
     },
     secondhandsongs: {
-        work: 280
+        work: 280,
+        artist: 307,
+        release: 308
     },
     songfacts: {
         work: 289
@@ -128,6 +132,11 @@ MB.constants.LINK_TYPES = {
         release: 82,
         work: 273,
         recording: 306
+    },
+    viaf: {
+        artist: 310,
+        label: 311,
+        work: 312 
     }
 };
 
@@ -271,8 +280,11 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org)", "i"),
-        type: MB.constants.LINK_TYPES.lyrics
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
+        type: MB.constants.LINK_TYPES.lyrics,
+        clean: function(url) {
+            return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
+        }
     },
     bbcmusic: {
         match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
@@ -313,8 +325,8 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|plus.google.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "http://www.facebook.com");
-            if (url.match (/^http:\/\/www\.facebook\.com.*$/))
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+            if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
                   url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
@@ -340,6 +352,15 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.streamingmusic,
         clean: function(url) {
             url = url.replace(/^https?:\/\/embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, "http://open.spotify.com/$1/$2");
+            return url;
+        }
+    },
+    viaf: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?viaf\\.org", "i"),
+        type: MB.constants.LINK_TYPES.viaf,
+        clean: function(url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?viaf\.org\/viaf\/([0-9]+).*$/,
+            "http://viaf.org/viaf/$1");
             return url;
         }
     },
@@ -373,7 +394,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|trove\\.nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -383,11 +404,15 @@ MB.constants.CLEANUPS = {
             //Standardising ESTER to their default parameters
             url = url.replace(/^(?:https?:\/\/)?(tallinn|tartu)\.ester\.ee\/record=([^~]+)(?:.*)?$/, "http://$1.ester.ee/record=$2~S1*est");
             //Standardising Trove
-            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/([^\/]+)\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/$1/$2");
+            url = url.replace(/^(?:https?:\/\/)?trove.nla.gov.au\/work\/([^\/?]+)(?:\?.*)?$/, "http://trove.nla.gov.au/work/$1");
             //Standardising RIC
             url = url.replace(/^(?:https?:\/\/)?(wiki|www)\.rockinchina\.com\/w\/(.*)+$/, "http://www.rockinchina.com/w/$2");
             //Standardising DHHU
             url = url.replace(/^(?:https?:\/\/)?(www\.)?dhhu\.dk\/w\/(.*)+$/, "http://www.dhhu.dk/w/$2");
+            //Standardising The Session
+            url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
+            //Standardising Open Library
+            url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
             return url;
         }
     }

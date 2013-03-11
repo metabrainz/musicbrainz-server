@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
+with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -455,7 +456,7 @@ sub edit : Chained('load') RequireAuth Edit {
         type        => $EDIT_ARTIST_EDIT,
         item        => $artist,
         edit_args   => { to_edit => $artist },
-        post_creation => sub {
+        on_creation => sub {
             my ($edit, $form) = @_;
 
             my $editid = $edit->id;
@@ -481,8 +482,7 @@ sub edit : Chained('load') RequireAuth Edit {
                     );
                 }
             }
-        },
-        on_creation => sub {
+
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]));
         }
@@ -621,7 +621,7 @@ sub split : Chained('load') Edit {
         type        => $EDIT_ARTIST_EDITCREDIT,
         item        => { artist_credit => $ac },
         edit_args   => { to_edit => $ac },
-        post_creation => sub {
+        on_creation => sub {
             my ($edit) = @_;
 
             my $editid = $edit->id;

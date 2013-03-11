@@ -6,14 +6,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-07-15 20:28+0000\n"
+"PO-Revision-Date: 2013-01-15 22:24+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: DB:link_attribute_type/name:529
 msgid "12 string guitar"
@@ -133,7 +133,7 @@ msgstr "tiibetiläinen vesirumpu"
 
 #: DB:link_attribute_type/name:305
 msgid "Turkish baglama"
-msgstr ""
+msgstr "turkin bağlama"
 
 #: DB:link_attribute_type/name:399
 msgid "Vietnamese guitar"
@@ -158,6 +158,10 @@ msgstr "harmonikka"
 #: DB:link_attribute_type/name:73
 msgid "acoustic bass guitar"
 msgstr "akustinen bassokitara"
+
+#: DB:link_attribute_type/name:651
+msgid "acoustic fretless guitar"
+msgstr ""
 
 #: DB:link_attribute_type/name:76
 msgid "acoustic guitar"
@@ -279,6 +283,10 @@ msgstr "baritonitorvi"
 msgid "baritone saxophone"
 msgstr "baritonisaksofoni"
 
+#: DB:link_attribute_type/name:633
+msgid "baroque trumpet"
+msgstr ""
+
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
 msgstr "posetiivi"
@@ -381,7 +389,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:249
 msgid "bodhrán"
-msgstr ""
+msgstr "bodhrán"
 
 #: DB:link_attribute_type/name:610
 msgid "body percussion"
@@ -427,6 +435,10 @@ msgstr "harjat"
 msgid "bugle"
 msgstr "signaalitorvi"
 
+#: DB:link_attribute_type/name:640
+msgid "bulbul"
+msgstr ""
+
 #: DB:link_attribute_type/name:202
 msgid "bull-roarer"
 msgstr ""
@@ -451,6 +463,10 @@ msgstr "kellopeli"
 msgid "castanets"
 msgstr "kastanjetit"
 
+#: DB:link_attribute_type/name:636
+msgid "cavaquinho"
+msgstr ""
+
 #: DB:link_attribute_type/name:599
 msgid "caxixi"
 msgstr "caxixi"
@@ -473,6 +489,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:565
 msgid "chamber organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:648
+msgid "chande"
 msgstr ""
 
 #: DB:link_attribute_type/name:559
@@ -506,6 +526,10 @@ msgstr "klarinetti"
 #: DB:link_attribute_type/name:77
 msgid "classical guitar"
 msgstr "klassinen kitara"
+
+#: DB:link_attribute_type/name:654
+msgid "classical kemençe"
+msgstr ""
 
 #: DB:link_attribute_type/name:138
 msgid "claves"
@@ -615,6 +639,10 @@ msgstr ""
 msgid "daf"
 msgstr ""
 
+#: DB:link_attribute_type/name:644
+msgid "daire"
+msgstr ""
+
 #: DB:link_attribute_type/name:419
 msgid "darbuka"
 msgstr "darbuka"
@@ -627,6 +655,10 @@ msgstr "davul-rumpu"
 msgid "descant recorder / soprano recorder"
 msgstr "sopranonokkahuilu"
 
+#: DB:link_attribute_type/name:647
+msgid "dhol"
+msgstr ""
+
 #: DB:link_attribute_type/name:463
 msgid "dholak"
 msgstr "dholak-rumpu"
@@ -638,6 +670,10 @@ msgstr "diatoninen harmonikka / melodeon"
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
 msgstr "didgeridoo"
+
+#: DB:link_attribute_type/name:642
+msgid "dilruba"
+msgstr ""
 
 #: DB:link_attribute_type/name:394
 msgid "dinh tăktàr"
@@ -715,6 +751,10 @@ msgstr ""
 msgid "electric cello"
 msgstr "sähkösello"
 
+#: DB:link_attribute_type/name:650
+msgid "electric fretless guitar"
+msgstr ""
+
 #: DB:link_attribute_type/name:78
 msgid "electric guitar"
 msgstr "sähkökitara"
@@ -763,6 +803,10 @@ msgstr "päästäpuhallettava huilu"
 msgid "english horn"
 msgstr "englannintorvi"
 
+#: DB:link_attribute_type/name:641
+msgid "esraj"
+msgstr ""
+
 #: DB:link_attribute_type/name:199
 msgid "euphonium"
 msgstr "eufonium"
@@ -786,6 +830,10 @@ msgstr ""
 #: DB:link_attribute_type/name:541
 msgid "finger snaps"
 msgstr "sormien napsuttelu"
+
+#: DB:link_attribute_type/name:635
+msgid "five-string banjo"
+msgstr ""
 
 #: DB:link_attribute_type/name:43
 msgid "flugelhorn"
@@ -1039,16 +1087,24 @@ msgstr "kantele"
 msgid "kanun"
 msgstr ""
 
+#: DB:link_attribute_type/name:646
+msgid "kartal"
+msgstr ""
+
 #: DB:link_attribute_type/name:551
 msgid "kaval"
 msgstr ""
 
 #: DB:link_attribute_type/name:188
 msgid "kazoo"
-msgstr ""
+msgstr "kazoo"
 
 #: DB:link_attribute_type/name:281
 msgid "kemenche"
+msgstr ""
+
+#: DB:link_attribute_type/name:653
+msgid "kemençe of the Black Sea"
 msgstr ""
 
 #: DB:link_attribute_type/name:232
@@ -1099,6 +1155,10 @@ msgstr ""
 msgid "kokyu"
 msgstr ""
 
+#: DB:link_attribute_type/name:655
+msgid "komuz"
+msgstr ""
+
 #: DB:link_attribute_type/name:106
 msgid "kora"
 msgstr ""
@@ -1110,6 +1170,10 @@ msgstr "kortholt"
 #: DB:link_attribute_type/name:107
 msgid "koto"
 msgstr "koto"
+
+#: DB:link_attribute_type/name:637
+msgid "kudüm"
+msgstr ""
 
 #: DB:link_attribute_type/name:380
 msgid "kèn bầu"
@@ -1131,6 +1195,10 @@ msgstr ""
 msgid "lasso d'amore"
 msgstr ""
 
+#: DB:link_attribute_type/name:630
+msgid "launeddas"
+msgstr ""
+
 #: DB:link_attribute_type/name:482
 msgid "low whistle"
 msgstr ""
@@ -1146,6 +1214,10 @@ msgstr "lyyra"
 #: DB:link_attribute_type/name:242
 msgid "madal"
 msgstr "madal-rumpu"
+
+#: DB:link_attribute_type/name:649
+msgid "maddale"
+msgstr ""
 
 #: DB:link_attribute_type/name:308
 msgid "mandola"
@@ -1199,6 +1271,10 @@ msgstr "kuuluuttu"
 msgid "morin khuur / matouqin"
 msgstr ""
 
+#: DB:link_attribute_type/name:645
+msgid "morsing"
+msgstr ""
+
 #: DB:link_attribute_type/name:584
 msgid "mridangam"
 msgstr ""
@@ -1226,6 +1302,14 @@ msgstr ""
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
 msgstr "luonnontorvet"
+
+#: DB:link_attribute_type/name:634
+msgid "natural horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:652
+msgid "ney"
+msgstr ""
 
 #: DB:link_attribute_type/name:603
 msgid "nohkan"
@@ -1274,6 +1358,10 @@ msgstr "ofikleidi"
 #: DB:link_attribute_type/name:176
 msgid "organ"
 msgstr "urut"
+
+#: DB:link_attribute_type/name:631
+msgid "orpharion"
+msgstr ""
 
 #: DB:link_attribute_type/name:265
 msgid "other flutes"
@@ -1465,7 +1553,7 @@ msgstr "saksofoni"
 
 #: DB:link_attribute_type/name:566
 msgid "saz"
-msgstr ""
+msgstr "saz"
 
 #: DB:link_attribute_type/name:387
 msgid "saó ôi flute"
@@ -1649,7 +1737,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:241
 msgid "tabla"
-msgstr ""
+msgstr "tablah / tabla"
 
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
@@ -1658,6 +1746,10 @@ msgstr ""
 #: DB:link_attribute_type/name:458
 msgid "taiko"
 msgstr "taiko"
+
+#: DB:link_attribute_type/name:656
+msgid "talharpa / hiiu kannel"
+msgstr ""
 
 #: DB:link_attribute_type/name:546
 msgid "talkbox"
@@ -1691,12 +1783,20 @@ msgstr ""
 msgid "tangent piano"
 msgstr ""
 
+#: DB:link_attribute_type/name:632
+msgid "tape"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""
 
 #: DB:link_attribute_type/name:532
 msgid "taragot"
+msgstr ""
+
+#: DB:link_attribute_type/name:643
+msgid "tef"
 msgstr ""
 
 #: DB:link_attribute_type/name:167
@@ -1713,7 +1813,7 @@ msgstr "tenorikitara"
 
 #: DB:link_attribute_type/name:45
 msgid "tenor horn / alto horn"
-msgstr ""
+msgstr "alttotorvi"
 
 #: DB:link_attribute_type/name:364
 msgid "tenor recorder"
@@ -1837,6 +1937,10 @@ msgstr "viritetyt lyömäsoittimet"
 
 #: DB:link_attribute_type/name:236
 msgid "turntable(s)"
+msgstr "levysoittimet"
+
+#: DB:link_attribute_type/name:638
+msgid "typewriter"
 msgstr ""
 
 #: DB:link_attribute_type/name:556
@@ -1862,6 +1966,10 @@ msgstr ""
 #: DB:link_attribute_type/name:375
 msgid "vacuum cleaner"
 msgstr "pölynimuri"
+
+#: DB:link_attribute_type/name:629
+msgid "valiha"
+msgstr ""
 
 #: DB:link_attribute_type/name:237
 msgid "valve trombone"
@@ -1953,7 +2061,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:134
 msgid "whip"
-msgstr ""
+msgstr "ruoska"
 
 #: DB:link_attribute_type/name:345
 msgid "whistle"
@@ -1995,6 +2103,10 @@ msgstr ""
 msgid "xylophone"
 msgstr "ksylofoni"
 
+#: DB:link_attribute_type/name:639
+msgid "yaylı tanbur"
+msgstr ""
+
 #: DB:link_attribute_type/name:292
 msgid "yehu"
 msgstr ""
@@ -2029,7 +2141,7 @@ msgstr "sitra"
 
 #: DB:link_attribute_type/name:492
 msgid "zurna"
-msgstr ""
+msgstr "zurna"
 
 #: DB:link_attribute_type/name:285
 msgid "èrhú"

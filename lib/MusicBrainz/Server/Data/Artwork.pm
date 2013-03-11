@@ -106,10 +106,15 @@ sub find_front_cover_by_release
         FROM cover_art_archive.index_listing
         JOIN cover_art_archive.cover_art
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
+        JOIN musicbrainz.release
+        ON cover_art_archive.index_listing.release = musicbrainz.release.id
+        LEFT JOIN country ON release.country = country.id
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
         AND is_front = true
-        ORDER BY cover_art_archive.index_listing.ordering";
+        ORDER BY
+            release.date_year, release.date_month, release.date_day,
+            country.name, release.barcode";
 
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);

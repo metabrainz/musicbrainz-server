@@ -40,7 +40,7 @@ is_deeply($edit->data, {
             names => [ {
                 artist => { id => 3, name => 'Bar' },
                 name => 'Foo',
-                join_phrase => undef,
+                join_phrase => '',
             } ]
         },
         name => 'Another name',

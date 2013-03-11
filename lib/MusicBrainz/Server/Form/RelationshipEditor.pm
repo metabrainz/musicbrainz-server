@@ -121,7 +121,8 @@ after validate => sub {
         my $link_type_field = $field->field('link_type');
         next if !$link_type_field->value || $link_type_field->has_errors;
 
-        $self->validate_link_type($c, $field->field('link_type'), $field->field('attrs'));
+        my $link_type = $self->validate_link_type(
+                $c, $field->field('link_type'), $field->field('attrs'));
 
         my $entity0 = $field->field('entity')->field('0');
         my $entity1 = $field->field('entity')->field('1');
@@ -131,6 +132,17 @@ after validate => sub {
             next;
         }
         next if ($entity0->field('type')->has_errors || $entity1->field('type')->has_errors);
+
+        # Check that these types are valid for the link type
+        my $type0 = $entity0->field('type')->value;
+        my $type1 = $entity1->field('type')->value;
+
+        if ($type0 ne $link_type->entity0_type || $type1 ne $link_type->entity1_type) {
+            $link_type_field->add_error(
+                l('This relationship type is not valid between the given types of entities.'));
+        }
+
+        next if $link_type_field->has_errors;
 
         my $i = 0;
         my $loaded_entities = $c->stash->{loaded_entities};
@@ -163,8 +175,6 @@ after validate => sub {
                 $id_field->add_error(l('Required field.'));
                 next;
             }
-            my $type0 = $entity0->field('type')->value;
-            my $type1 = $entity1->field('type')->value;
             my $types = $type0 . '-' . $type1;
             my $rel = $c->model('Relationship')->get_by_id($type0, $type1, $id);
 

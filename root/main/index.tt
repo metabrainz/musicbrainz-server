@@ -1,17 +1,19 @@
 [% WRAPPER "layout.tt" nosuffix=1 title=l("MusicBrainz - The Open Music Encyclopedia") homepage=1 %]
     <div class="sidebar" id="sidebar">
-      <div class="information">
-        <div id="taggers" class="triple-column">
+      <div style="float: right;">
+        <div id="taggers" class="triple-column feature-column">
             <h2 class="taggers">[% l('Tag Your Music') %]</h2>
             <img src="[% c.uri_for('/static/images/logos/musicbrainz-picard.png') %]" alt="MusicBrainz Picard logo" />
             <ul>
                 <li><a href="[% doc_link('MusicBrainz_Picard') %]">[% l('MusicBrainz Picard') %]</a></li>
                 <li><a href="[% doc_link('Jaikoz') %]">[% l('Jaikoz Tagger') %]</a></li>
                 <li><a href="[% doc_link('Magic_MP3_Tagger') %]">[% l('Magic MP3 Tagger') %]</a></li>
+                <li><a href="[% doc_link('Yate_Music_Tagger') %]">[% l('Yate Music Tagger') %]</a></li>
+                <li><a href="[% doc_link('SongKong_Tagger') %]">[% l('SongKong Tagger') %]</a></li>
             </ul>
         </div>
 
-        <div id="quick-start" class="triple-column">
+        <div id="quick-start" class="triple-column feature-column">
             <h2>[% l('Quick Start') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/quick-start.png') %]" alt="quick start icon" />
             <ul>
@@ -25,7 +27,7 @@
     </div>
 
     <div class="sidebar" id="sidebar2">
-      <div id="blog-feed" class="triple-column">
+      <div id="blog-feed" class="triple-column feature-column">
         <h2>[% l('MusicBrainz Blog') %]</h2>
         [% IF blog.defined %]
         <p style="margin: 1em 0 0;"><strong>[% l('Latest posts:') %]</strong></p>
@@ -87,7 +89,7 @@
     </div>
 
     <div id="triple">
-        <div id="community" class="triple-column first-column">
+        <div id="community" class="triple-column first-column feature-column">
             <h2 class="community">[% l('Community') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/community.png') %]" alt="community icon" />
             <p>
@@ -95,7 +97,7 @@
             </p>
         </div>
 
-        <div id="products" class="triple-column">
+        <div id="products" class="triple-column feature-column">
             <h2 class="products">[% l('MusicBrainz Database') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/download.png') %]" alt="download icon" />
             <p>
@@ -103,12 +105,31 @@
             </p>
         </div>
 
-        <div id="developers" class="triple-column last-column">
+        <div id="developers" class="triple-column last-column feature-column">
             <h2 class="developers">[% l('Developers') %]</h2>
             <img src="[% c.uri_for('/static/images/layout/developer.png') %]" alt="developers icon" />
             <p>
                 <a href="[% doc_link('Developer_Resources')  %]">[% l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.') %]</a>
             </p>
         </div>
+    </div>
+
+    <div style="clear: both; padding-top: 1%;" class="feature-column">
+      <h2>[% l('Recent Additions') %]</h2>
+      <div style="height: 160px; overflow: hidden;">
+        [% FOR release=releases %]
+        <div class="artwork-cont" style="text-align: center">
+          <div class="artwork">
+            <a title="
+              [%- l('{entity} by {artist}',
+                    { entity => release.release.name,
+                      artist => release.release.artist_credit.name }) -%]"
+              href="[% c.uri_for_action('/release/show', [ release.release.gid ]) %]">
+              [%- display_artwork_image(release.artwork, release.cover_art_url) -%]
+            </a>
+          </div>
+        </div>
+        [% END %]
+      </div>
     </div>
 [% END %]

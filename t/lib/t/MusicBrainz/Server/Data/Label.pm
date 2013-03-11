@@ -139,4 +139,33 @@ test 'Deny delete "Deleted Label" trigger' => sub {
     }, qr/ERROR:\s*Attempted to delete a special purpose row/;
 };
 
+test 'Cannot edit an label into something that would violate uniqueness' => sub {
+    my $c = shift->c;
+    $c->sql->do(<<'EOSQL');
+INSERT INTO label_name (id, name) VALUES (1, 'A'), (2, 'B');
+INSERT INTO label (id, gid, name, sort_name, comment) VALUES
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, ''),
+  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 2, 1, 'Comment');
+EOSQL
+
+    my $conflicts_exception_ok = sub {
+        my ($e, $target) = @_;
+
+        isa_ok $e, 'MusicBrainz::Server::Exceptions::DuplicateViolation';
+        is $e->conflict->id, $target;
+    };
+
+    ok !exception { $c->model('Label')->update(4, { comment => '' }) };
+    $conflicts_exception_ok->(
+        exception { $c->model('Label')->update(3, { name => 'B' }) },
+        4
+    );
+
+    ok !exception { $c->model('Label')->update(3, { name => 'B', comment => 'Unique' }) };
+    $conflicts_exception_ok->(
+        exception { $c->model('Label')->update(3, { comment => '' }) },
+        4
+    );
+};
+
 1;

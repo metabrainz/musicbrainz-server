@@ -25,7 +25,14 @@
             </style>
         [%- ELSE -%]
             [%- script_manifest('common.js.manifest') -%]
-            <script type="text/javascript" src="[% c.uri_for('/text.js') %]"></script>
+            <script type="text/javascript" src="
+                [%- lang_hash = current_language;
+                    IF current_language != 'en';
+                        lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
+                    END;
+                    c.uri_for('/scripts', lang_hash
+                        c.model('FileCache').template_signature('scripts/text_strings.tt'),
+                        'text.js') -%]"></script>
         [%- END -%]
         <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {
@@ -71,7 +78,7 @@
                   <div class="git-branch">
                     [%- l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
                          { branch => server_details.git.branch,
-                           msg => server_details.git.msg,
+                           msg => html_escape(server_details.git.msg),
                            sha	  => server_details.git.sha}) -%]
                   </div>
                 [%- END -%]
@@ -144,8 +151,10 @@
                 <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> |
                 <a href="http://tickets.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
-                <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a> |
-                <a href="http://www.cafepress.com/musicbrainz" class="internal">[% l('Schwag') %]</a>
+                <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
+                [%- IF server_details.beta_redirect %] |
+                <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
+                [%- END -%]
             </p>
 
             <p class="right">
@@ -154,7 +163,7 @@
                     { host => 'http://digitalwest.net/',
                       url1 => 'http://www.google.com/',
                       url2 => 'http://osuosl.org/',
-                      more => doc_link('About/Sponsors'),
+                      more => 'http://metabrainz.org/doc/Sponsors',
                       caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>

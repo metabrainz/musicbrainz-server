@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-04 13:02+0000\n"
+"PO-Revision-Date: 2013-01-16 19:13+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -1239,6 +1239,11 @@ msgstr "ladiino"
 msgid "Lahnda"
 msgstr "lahnda (lehnda, läänepandžabi)"
 
+#. frequency:1 iso_code_3:lkt
+#: DB:language/name:3880
+msgid "Lakota"
+msgstr "lakota"
+
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
 msgid "Lamba"
@@ -2422,7 +2427,7 @@ msgstr "koosa"
 #. frequency:1 iso_code_3:rys
 #: DB:language/name:5808
 msgid "Yaeyama"
-msgstr "yaeyama"
+msgstr "jaejama"
 
 #. frequency:1 iso_code_3:sah
 #: DB:language/name:356

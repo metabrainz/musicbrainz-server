@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
@@ -18,6 +19,7 @@ with 'MusicBrainz::Server::Edit::Role::CoverArt';
 sub edit_name { N_l('Remove cover art') }
 sub edit_type { $EDIT_RELEASE_REMOVE_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
+sub cover_art_id { shift->data->{cover_art_id} }
 
 has '+data' => (
     isa => Dict[
@@ -86,21 +88,13 @@ sub build_display_data {
     my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
-    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid . "/";
-    my $artwork = {
-        image => $prefix.$self->data->{cover_art_id}.'.jpg',
-        large_thumbnail => $prefix.$self->data->{cover_art_id}.'-500.jpg',
-        small_thumbnail => $prefix.$self->data->{cover_art_id}.'-250.jpg',
-    };
-
+    my $artwork = Artwork->new(release => $release,
+                               id => $self->data->{cover_art_id},
+                               comment => $self->data->{cover_art_comment},
+                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{cover_art_types} }]);
     return {
         release => $release,
-        types => [
-            map { $loaded->{CoverArtType}{ $_ } } @{ $self->data->{cover_art_types} }
-        ],
         artwork => $artwork,
-        comment => $self->data->{cover_art_comment}
     };
 }
 

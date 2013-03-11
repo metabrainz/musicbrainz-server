@@ -54,6 +54,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.dhhu.dk/w/Jonny_Hefty_%26_Gratismixtape.dk_pr%C3%A6senterer_Actionspeax_-_Louder_Than_Words_Mixtape,_MP3/',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
+                // The Session
+                [
+                    'release_group', 'http://thesession.org/recordings/1488',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://thesession.org/tunes/2305',
+                    MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
                     MB.constants.LINK_TYPES.imdb.artist
@@ -62,7 +72,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.imdb.com/title/tt0421082/',
                     MB.constants.LINK_TYPES.imdb.release_group
                 ],
-
+                [
+                    'label', 'http://www.imdb.com/company/co0109498/',
+                    MB.constants.LINK_TYPES.imdb.label
+                ],
+                // MySpace
                 [
                     'artist', 'http://www.myspace.com/instramentaluk',
                     MB.constants.LINK_TYPES.myspace.artist
@@ -88,6 +102,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.downloadfree.recording
                 ],
                 [
+                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
@@ -110,6 +128,14 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
+                ],
+                [
+                    'work', 'http://www.recmusic.org/lieder/get_text.html?TextId=6448',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
+                    'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
                 ],
                 [
                     'recording', 'http://vimeo.com/1109226',
@@ -162,8 +188,51 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'recording', 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     MB.constants.LINK_TYPES.allmusic.recording
+                ],
+                // Open Library
+                [
+                    'artist', 'http://openlibrary.org/authors/OL23919A/',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release', 'http://openlibrary.org/books/OL8993487M/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                [
+                    'work', 'http://openlibrary.org/works/OL82592W/',
+                    MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // Second Hand Songs
+                [
+                    'artist', 'http://www.secondhandsongs.com/artist/103',
+                    MB.constants.LINK_TYPES.secondhandsongs.artist
+                ],
+                [
+                    'release', 'http://www.secondhandsongs.com/release/888',
+                    MB.constants.LINK_TYPES.secondhandsongs.release
+                ],
+                [
+                    'work', 'http://www.secondhandsongs.com/work/1409',
+                    MB.constants.LINK_TYPES.secondhandsongs.work
+                ],
+                // VIAF
+                [
+                    'artist', 'http://viaf.org/viaf/109231256',
+                    MB.constants.LINK_TYPES.viaf.artist
+                ],
+                [
+                    'label', 'http://viaf.org/viaf/152662182',
+                    MB.constants.LINK_TYPES.viaf.label
+                ],
+                [
+                    'work', 'http://viaf.org/viaf/185694157',
+                    MB.constants.LINK_TYPES.viaf.work
+                ],
+                // Lyricsnmusic
+                [
+                    'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
+                    MB.constants.LINK_TYPES.lyrics.work
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
@@ -258,6 +327,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.dhhu.dk/w/Sort_Stue',
                     'artist'
                 ],
+                // The Session
+                [
+                    'http://www.thesession.org/tunes/display/2305',
+                    'http://thesession.org/tunes/2305',
+                    'work'
+                ],
+                [
+                    'https://www.thesession.org/recordings/display/1488',
+                    'http://thesession.org/recordings/1488',
+                    'release_group'
+                ],
+                [
+                    'thesession.org/recordings/1488#comment283364',
+                    'http://thesession.org/recordings/1488',
+                    'release_group'
+                ],
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
                     'http://creativecommons.org/publicdomain/zero/1.0/',
@@ -267,6 +352,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
                     'release'
+                ],
+                [
+                    'http://www.facebook.com/sininemusic',
+                    'https://www.facebook.com/sininemusic',
+                    'artist'
                 ],
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
@@ -359,6 +449,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://itunes.apple.com/us/album/id566322358',
                     'release'
                 ],
+                [
+                    'https://pt.wikisource.org/wiki/A_Portuguesa',
+                    'http://pt.wikisource.org/wiki/A_Portuguesa',
+                    'work'
+                ],
 
                 // MBS-4810: exactly one terminating slash at the end
                 [
@@ -422,7 +517,42 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
+                ],
+                // Open Library
+                [
+                    'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
+                    'http://openlibrary.org/books/OL8993487M/',
+                ],
+                // VIAF
+                [
+                    'http://viaf.org/viaf/16766997',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'http://viaf.org/viaf/16766997/?test=true',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'www.viaf.org/viaf/16766997/',
+                    'http://viaf.org/viaf/16766997',
+                ],
+                [
+                    'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
+                    'http://viaf.org/viaf/16766997',
                 ]
+
             ];
 
         $.each(tests, function(i, test) {

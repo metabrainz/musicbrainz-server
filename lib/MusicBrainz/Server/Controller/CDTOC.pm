@@ -95,7 +95,6 @@ sub remove : Local RequireAuth
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action('/release/discids', [ $release->gid ]));
-            $c->detach;
         }
     )
 }
@@ -129,7 +128,6 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
         },
         on_creation => sub {
             $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
-            $c->detach;
         }
     );
 }
@@ -192,7 +190,6 @@ sub attach : Local
                 $c->response->redirect(
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
-                $c->detach;
             }
         )
     }
@@ -359,7 +356,6 @@ sub move : Local RequireAuth Edit
                 $c->response->redirect(
                     $c->uri_for_action(
                         '/release/discids' => [ $medium->release->gid ]));
-                $c->detach;
             }
         )
     }

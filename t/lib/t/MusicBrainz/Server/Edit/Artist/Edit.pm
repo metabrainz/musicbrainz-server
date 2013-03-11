@@ -227,6 +227,38 @@ test 'Check IPI changes' => sub {
         [ '11111111111', '55555555555', '66666666666', '77777777777' ]);
 };
 
+test 'Editing two artists into a conflict fails gracefully' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(3),
+        name => 'Conflicting name',
+        comment => 'Conflicting comment',
+        ipi_codes => []
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(4),
+        name => 'Conflicting name',
+        comment => 'Conflicting comment',
+        ipi_codes => []
+    );
+
+    ok !exception { $edit_1->accept }, 'First edit can be applied';
+
+    my $exception = exception { $edit_1->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    like $exception->message, qr{//localhost/artist/da34a170-7f7f-11de-8a39-0800200c9a66},
+        'Error message contains the URL of the conflict';
+};
+
 sub _create_full_edit {
     my ($c, $artist) = @_;
     return $c->model('Edit')->create(

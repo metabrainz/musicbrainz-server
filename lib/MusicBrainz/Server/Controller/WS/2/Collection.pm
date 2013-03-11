@@ -12,7 +12,7 @@ my $ws_defs = Data::OptList::mkopt([
      collection => {
                          method   => 'GET',
                          inc      => [ qw(releases tags) ],
-                         optional => [ qw(limit offset) ],
+                         optional => [ qw(fmt limit offset) ],
      },
      collection => {
          method => 'PUT',
@@ -74,6 +74,9 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     my $collection = $c->stash->{entity};
 
     $c->authenticate({}, 'musicbrainz.org');
+
+    $self->_error($c, 'You do not have permission to modify this collection')
+        unless ($c->user->id == $collection->editor_id);
 
     my $client = $c->req->query_params->{client}
         or $self->_error($c, 'You must provide information about your client, by the client query parameter');

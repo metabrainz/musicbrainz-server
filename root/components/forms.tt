@@ -104,29 +104,32 @@
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value" />
               <button class="nobutton icon remove">
+                <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
+              </button>
+          </div>
+          [% FOR value=r.form.field(field_name).value -%]
+          <div class="text-list-row">
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value" />
+              <button class="nobutton icon remove">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
                        alt="[% l('Remove {item}', item => item_name) %]" />
               </button>
           </div>
+          [% END -%]
           <div class="form-row-add">
-            <button class="nobutton add">
-              <span class="add-row">
-                [% l('Add {item}', item => item_name) %]
-              </span>
-              <img src="[% c.uri_for('/static/images/icons/add_row.png') %]" />
+            <button class="nobutton add" style="margin-right: 8px;">
+              <span class="add-row" style="padding: 0 1em;">[% l('Add {item}', item => item_name) %]</span>
+              <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
             </button>
           </div>
       </div>
       <script>
-         MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]")
-         [%- FOR value=r.form.field(field_name).value -%]
-           .add ("[%- value -%]")
+         [%- IF r.form.field(field_name).value.size -%]
+           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").init([% r.form.field(field_name).value.size %]);
+         [%- ELSE -%]
+           MB.Form.TextList ("[%- r.form.field(field_name).html_name -%]").add('');
          [%- END -%]
-         [%- IF !r.form.field(field_name).value.size -%]
-           .add ('')
-         [%- END -%]
-         ;
       </script>
 
       [% field_errors(r.form, field_name) %]
@@ -164,9 +167,9 @@
 
 [%- MACRO guesscase BLOCK -%]
   <fieldset class="guesscase">
-    <legend>[% l('Guess case') %]</legend>
+    <legend>[% lp('Guess case', 'header') %]</legend>
     <div style="float: right; margin: 10px;" class="buttons">
-      <a href="#guesscase">[% l('Guess case') %]</a>
+      <a href="#guesscase">[% lp('Guess case', 'button/menu') %]</a>
     </div>
     <p class="guesscase-options">
         <select name="gc-mode" id="gc-mode"> </select>
@@ -187,7 +190,7 @@
         [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
       </p>
       <div class="buttons">
-        <a href="#guesscase">[% l('Guess case') %]</a>
+        <a href="#guesscase">[% lp('Guess case', 'button/menu') %]</a>
       </div>
       <div class="guesscase-options">
         <table>
@@ -272,8 +275,7 @@
             </span>
 
             <input type="button" class="icon remove-artist-credit"
-              title="[% l('Remove Artist Credit') %]"
-              style="background-image: url([% c.uri_for("/static/images/icons/delete_row.png") %]); width: 16px; height: 16px; border: 0;" />
+              title="[% l('Remove Artist Credit') %]" />
 
           </div>
 
@@ -302,8 +304,7 @@
             </button>
         </span>
         <input type="button" class="icon add-artist-credit"
-          title="[% l('Add Artist Credit') %]"
-          style="background-image: url([% c.uri_for("/static/images/icons/add_row.png") %]); width: 16px; height: 16px; border: 0;" />
+          title="[% l('Add Artist Credit') %]" />
       </div>
 
     </div>

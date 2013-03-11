@@ -11,9 +11,13 @@ use Data::Dumper;
 use DBDefs;
 use MusicBrainz::Server::Test::Connector;
 
-my $readwrite = MusicBrainz::Server::DatabaseConnectionFactory->get ('READWRITE');
-my $schema = $readwrite->{schema};
-my $test_schema = MusicBrainz::Server::Test::Connector->_schema;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+
+
+my $readwrite = Databases->get('READWRITE');
+my $schema = 'musicbrainz';
+my $test_schema = 'musicbrainz';
+
 my %insert_dupe_check;
 my %artist_dupe_check;
 my @backup;
@@ -596,7 +600,7 @@ sub release_group
 
     $core_entities{'release-group'}{$data->{id}} = 1;
 
-    generic ($dbh, 'release_group_type', 'id', $data->{type});
+    generic ($dbh, 'release_group_primary_type', 'id', $data->{type});
     generic_verbose ($dbh, 'release_name', 'id', $data->{name});
     artist_credit ($dbh, $data->{artist_credit});
 

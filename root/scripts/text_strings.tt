@@ -70,7 +70,7 @@
         },
         ArtistDate: {
             Unknown: [ '[% l('Began:') | js %]', '[% l('Ended:') | js %]', '[% l('This artist has ended.') | js %]'  ],
-            Person: [ '[% l('Born:') | js %]', '[% l('Deceased:') | js %]', '[% l('This person is deceased.') | js %]' ],
+            Person: [ '[% l('Born:') | js %]', '[% l('Died:') | js %]', '[% l('This person is deceased.') | js %]' ],
             Founded: [ '[% l('Founded:') | js %]', '[% l('Dissolved:') | js %]', '[% l('This group has dissolved.') | js %]' ]
         },
         Pager: '[% l('page #{page} of #{total}') | js %]',
@@ -89,6 +89,7 @@
         ShowLess: '[% l('Show less...') | js %]',
         Medium: '[% l('Medium') | js %]',
         RequiredField: '[% l('Required field.') | js %]',
+        DistinctEntities: '[% l('Entities in a relationship cannot be the same.') | js %]',
         AddRelationship: '[% l('Add relationship') | js %]',
         RelateRecordingWork: '[% l('Relate recording to work') | js %]',
         InvalidDate: '[% l('The date you\'ve entered is not valid.') | js %]',
@@ -117,6 +118,7 @@
         DeleteNote: '[% l('Delete Note') | js %]',
         ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]',
         ConfirmNavigation: '[% l('All of your changes will be lost if you leave this page.') | js %]',
-        SubmissionError: '[% l('We\'re very sorry, an error occurred during submission. The server may be under heavy load; please wait a moment and try again.') | js %]'
+        SubmissionError: '[% l('We\'re very sorry, an error occurred during submission. The server may be under heavy load; please wait a moment and try again.') | js %]',
+        VoteOnAllEdits: '[% l('Vote on all edits:') | js %]'
     });
 })(MB);

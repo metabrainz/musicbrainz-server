@@ -197,29 +197,28 @@ MB.utility.formatTrackLength = function (duration)
         return duration + ' ms';
     }
 
-    var seconds = 1000;
-    var minutes = 60 * seconds;
-    var hours = 60 * minutes;
+    var seconds = Math.round(duration / 1000.0);
 
-    var hours_str = '';
-    duration = duration + 500;
+    var one_minute = 60;
+    var one_hour = 60 * one_minute;
 
-    if (duration > 1 * hours)
-    {
-        hours_str = Math.floor (duration / hours) + ':';
-        duration = Math.floor (duration % hours);
+    var hours = Math.floor(seconds / one_hour);
+    seconds = seconds % one_hour;
+
+    var minutes = Math.floor(seconds / one_minute);
+    seconds = seconds % one_minute;
+
+    var ret = '';
+    ret = ('00' + seconds).slice(-2);
+
+    if (hours > 0) {
+        ret = hours + ':' + ('00' + minutes).slice(-2) + ':' + ret;
+    }
+    else {
+        ret = minutes + ':' + ret;
     }
 
-    /* pad minutes with zeroes of the hours string is non-empty. */
-    var minutes_str = hours_str === '' ?
-        Math.floor (duration / minutes) + ':' :
-        ('00' + Math.floor (duration / minutes)).slice (-2) + ':';
-
-    duration = Math.floor (duration % minutes);
-
-    var seconds_str = ('00' + Math.floor (duration / seconds)).slice (-2);
-
-    return hours_str + minutes_str + seconds_str;
+    return ret;
 };
 
 
@@ -243,11 +242,6 @@ MB.utility.unformatTrackLength = function (duration)
     return (hours + minutes + seconds) * 1000;
 };
 
-MB.utility.trim = function (str)
-{
-    return str.replace (/\s+/g, " ").replace (/^ /, "").replace (/ $/, "");
-}
-
 MB.utility.renderArtistCredit = function (ac) {
     var html = '';
     $.each(ac.names, function(name) {
@@ -266,8 +260,8 @@ MB.utility.beget = function(o) {
 
 MB.utility.validDate = (function() {
     var daysInMonth = {
-        "true":  [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        "false": [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
     return function(y, m, d) {

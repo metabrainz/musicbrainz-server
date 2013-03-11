@@ -147,6 +147,38 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($label->comment, '', 'no comment');
 };
 
+test 'Editing two labels into a conflict fails gracefully' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_label_merge');
+
+    my $edit_1 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(2),
+        name => 'Conflicting name',
+        comment => 'Conflicting comment',
+        ipi_codes => []
+    );
+
+    my $edit_2 = $c->model('Edit')->create(
+        edit_type => $EDIT_LABEL_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Label')->get_by_id(3),
+        name => 'Conflicting name',
+        comment => 'Conflicting comment',
+        ipi_codes => []
+    );
+
+    ok !exception { $edit_1->accept }, 'First edit can be applied';
+
+    my $exception = exception { $edit_1->accept };
+    isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
+    like $exception->message, qr{//localhost/label/da34a170-7f7f-11de-8a39-0800200c9a66},
+        'Error message contains the URL of the conflict';
+};
+
 sub create_full_edit {
     my ($c, $label) = @_;
     return $c->model('Edit')->create(

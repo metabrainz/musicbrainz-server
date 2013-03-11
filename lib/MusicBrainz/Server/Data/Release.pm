@@ -4,8 +4,9 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use DBDefs;
 use List::UtilsBy qw( partition_by );
-use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
@@ -22,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 use MusicBrainz::Server::Log qw( log_debug );
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
@@ -348,7 +350,7 @@ sub find_by_recordings
     return () unless @ids;
 
     my $query =
-        "SELECT DISTINCT ON (release.id) " . $self->_columns . ",
+        "SELECT DISTINCT ON (release.id, track.recording) " . $self->_columns . ",
                 track.recording, track.position
            FROM release
            JOIN release_name name ON name.id = release.name
@@ -506,10 +508,42 @@ sub find_by_collection
     my $order_by = order_by($order, "date", {
         "date"   => "date_year, date_month, date_day, musicbrainz_collate(name.name)",
         "title"  => "musicbrainz_collate(name.name), date_year, date_month, date_day",
+        "country"  => "country, date_year, date_month, date_day",
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
                            JOIN artist_name ac_name ON ac_name.id=ac.name";
             return "musicbrainz_collate(ac_name.name), date_year, date_month, date_day, musicbrainz_collate(name.name)";
+        },
+        "label" => sub {
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(musicbrainz_collate(label_name.name)) AS labels FROM release_label
+                    JOIN label ON release_label.label = label.id
+                    JOIN label_name ON label.sort_name = label_name.id
+                    GROUP BY release) rl
+                ON rl.release = release.id";
+            return "rl.labels, date_year, date_month, date_day, musicbrainz_collate(name.name)";
+        },
+        "catno" => sub {
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(catalog_number) AS catnos FROM release_label GROUP BY release) rl
+                ON rl.release = release.id";
+            return "rl.catnos, date_year, date_month, date_day, musicbrainz_collate(name.name)";
+        },
+        "format" => sub {
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(medium_format.name) AS formats FROM medium
+                    JOIN medium_format ON medium.format = medium_format.id
+                    GROUP BY release) medium
+                ON medium.release = release.id";
+            return "medium.formats, date_year, date_month, date_day, musicbrainz_collate(name.name)";
+        },
+        "tracks" => sub {
+            $extra_join = "JOIN
+                (SELECT medium.release, sum(tracklist.track_count) AS total_track_count
+                    FROM medium JOIN tracklist on medium.tracklist = tracklist.id
+                    GROUP BY medium.release) medium
+                ON medium.release = release.id";
+            return "medium.total_track_count, date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
     });
 
@@ -929,6 +963,43 @@ sub filter_barcode_changes {
             map { $_->{release}, $_->{barcode} } @barcodes
         )
     };
+}
+
+sub newest_releases_with_artwork {
+    my $self = shift;
+    my $query = '
+      SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
+        cover_art.id AS cover_art_id
+      FROM ' . $self->_table . '
+      JOIN cover_art_archive.cover_art ON (cover_art.release = release.id)
+      JOIN cover_art_archive.cover_art_type
+        ON (cover_art.id = cover_art_type.id)
+      JOIN edit_release ON edit_release.release = release.id
+      JOIN edit ON edit.id = edit_release.edit
+      WHERE cover_art_type.type_id = ?
+        AND cover_art.ordering = 1
+        AND edit.status = ?
+        AND edit.type = ?
+      ORDER BY edit.id DESC
+      LIMIT 10';
+
+    my $FRONT = 1;
+    return query_to_list(
+        $self->c->sql, sub {
+            my $row = shift;
+            my $release = $self->_new_from_row($row);
+            my $mbid = $release->gid;
+            my $caa_id = $row->{cover_art_id};
+            return {
+                release => $release,
+                artwork => Artwork->new(
+                    id => $caa_id,
+                    release => $release
+                )
+            }
+        },
+        $query, $FRONT, $STATUS_APPLIED, $EDIT_RELEASE_CREATE
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

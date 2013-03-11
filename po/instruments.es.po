@@ -3,7 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012.
 # gr0uch0mars <email address hidden>, 2011.
 # Héctor Arroyo <email address hidden>, 2012.
-# Nicolás Tamargo <email address hidden>, 2011, 2012.
+# Nicolás Tamargo <email address hidden>, 2011-2013.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
 #   <email address hidden>, 2012.
@@ -11,14 +11,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-08-14 19:39+0000\n"
-"Last-Translator: Héctor Arroyo <email address hidden>\n"
+"PO-Revision-Date: 2013-01-27 21:40+0000\n"
+"Last-Translator: Nicolás Tamargo <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: DB:link_attribute_type/name:529
 msgid "12 string guitar"
@@ -164,6 +164,10 @@ msgstr "acordeón"
 msgid "acoustic bass guitar"
 msgstr "bajo acústico"
 
+#: DB:link_attribute_type/name:651
+msgid "acoustic fretless guitar"
+msgstr ""
+
 #: DB:link_attribute_type/name:76
 msgid "acoustic guitar"
 msgstr "guitarra acústica"
@@ -283,6 +287,10 @@ msgstr "bombardino barítono"
 #: DB:link_attribute_type/name:37
 msgid "baritone saxophone"
 msgstr "saxofón barítono"
+
+#: DB:link_attribute_type/name:633
+msgid "baroque trumpet"
+msgstr ""
 
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
@@ -432,6 +440,10 @@ msgstr ""
 msgid "bugle"
 msgstr "corneta"
 
+#: DB:link_attribute_type/name:640
+msgid "bulbul"
+msgstr ""
+
 #: DB:link_attribute_type/name:202
 msgid "bull-roarer"
 msgstr "bramadera"
@@ -456,6 +468,10 @@ msgstr "carillón"
 msgid "castanets"
 msgstr "castañuelas"
 
+#: DB:link_attribute_type/name:636
+msgid "cavaquinho"
+msgstr ""
+
 #: DB:link_attribute_type/name:599
 msgid "caxixi"
 msgstr "caxixi"
@@ -479,6 +495,10 @@ msgstr "salmoé"
 #: DB:link_attribute_type/name:565
 msgid "chamber organ"
 msgstr "órgano de cámara"
+
+#: DB:link_attribute_type/name:648
+msgid "chande"
+msgstr ""
 
 #: DB:link_attribute_type/name:559
 msgid "charango"
@@ -511,6 +531,10 @@ msgstr "clarinete"
 #: DB:link_attribute_type/name:77
 msgid "classical guitar"
 msgstr "guitarra clásica"
+
+#: DB:link_attribute_type/name:654
+msgid "classical kemençe"
+msgstr ""
 
 #: DB:link_attribute_type/name:138
 msgid "claves"
@@ -620,6 +644,10 @@ msgstr "daegeum"
 msgid "daf"
 msgstr ""
 
+#: DB:link_attribute_type/name:644
+msgid "daire"
+msgstr ""
+
 #: DB:link_attribute_type/name:419
 msgid "darbuka"
 msgstr "doumbek"
@@ -632,6 +660,10 @@ msgstr "davul"
 msgid "descant recorder / soprano recorder"
 msgstr "flauta dulce soprano"
 
+#: DB:link_attribute_type/name:647
+msgid "dhol"
+msgstr ""
+
 #: DB:link_attribute_type/name:463
 msgid "dholak"
 msgstr "dholak"
@@ -643,6 +675,10 @@ msgstr "acordeón diatónico / melodeón"
 #: DB:link_attribute_type/name:204
 msgid "didgeridoo"
 msgstr "didgeridoo"
+
+#: DB:link_attribute_type/name:642
+msgid "dilruba"
+msgstr ""
 
 #: DB:link_attribute_type/name:394
 msgid "dinh tăktàr"
@@ -720,6 +756,10 @@ msgstr "bajo eléctrico"
 msgid "electric cello"
 msgstr "violonchelo eléctrico"
 
+#: DB:link_attribute_type/name:650
+msgid "electric fretless guitar"
+msgstr ""
+
 #: DB:link_attribute_type/name:78
 msgid "electric guitar"
 msgstr "guitarra eléctrica"
@@ -768,6 +808,10 @@ msgstr ""
 msgid "english horn"
 msgstr "corno inglés"
 
+#: DB:link_attribute_type/name:641
+msgid "esraj"
+msgstr ""
+
 #: DB:link_attribute_type/name:199
 msgid "euphonium"
 msgstr ""
@@ -790,6 +834,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:541
 msgid "finger snaps"
+msgstr ""
+
+#: DB:link_attribute_type/name:635
+msgid "five-string banjo"
 msgstr ""
 
 #: DB:link_attribute_type/name:43
@@ -1044,6 +1092,10 @@ msgstr "kantele"
 msgid "kanun"
 msgstr ""
 
+#: DB:link_attribute_type/name:646
+msgid "kartal"
+msgstr ""
+
 #: DB:link_attribute_type/name:551
 msgid "kaval"
 msgstr ""
@@ -1054,6 +1106,10 @@ msgstr "mirlitón"
 
 #: DB:link_attribute_type/name:281
 msgid "kemenche"
+msgstr ""
+
+#: DB:link_attribute_type/name:653
+msgid "kemençe of the Black Sea"
 msgstr ""
 
 #: DB:link_attribute_type/name:232
@@ -1104,6 +1160,10 @@ msgstr ""
 msgid "kokyu"
 msgstr ""
 
+#: DB:link_attribute_type/name:655
+msgid "komuz"
+msgstr ""
+
 #: DB:link_attribute_type/name:106
 msgid "kora"
 msgstr ""
@@ -1114,6 +1174,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:107
 msgid "koto"
+msgstr ""
+
+#: DB:link_attribute_type/name:637
+msgid "kudüm"
 msgstr ""
 
 #: DB:link_attribute_type/name:380
@@ -1136,6 +1200,10 @@ msgstr ""
 msgid "lasso d'amore"
 msgstr ""
 
+#: DB:link_attribute_type/name:630
+msgid "launeddas"
+msgstr ""
+
 #: DB:link_attribute_type/name:482
 msgid "low whistle"
 msgstr ""
@@ -1150,6 +1218,10 @@ msgstr "lira"
 
 #: DB:link_attribute_type/name:242
 msgid "madal"
+msgstr ""
+
+#: DB:link_attribute_type/name:649
+msgid "maddale"
 msgstr ""
 
 #: DB:link_attribute_type/name:308
@@ -1204,6 +1276,10 @@ msgstr ""
 msgid "morin khuur / matouqin"
 msgstr ""
 
+#: DB:link_attribute_type/name:645
+msgid "morsing"
+msgstr ""
+
 #: DB:link_attribute_type/name:584
 msgid "mridangam"
 msgstr ""
@@ -1231,6 +1307,14 @@ msgstr ""
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
 msgstr "instrumentos de viento-metal naturales"
+
+#: DB:link_attribute_type/name:634
+msgid "natural horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:652
+msgid "ney"
+msgstr ""
 
 #: DB:link_attribute_type/name:603
 msgid "nohkan"
@@ -1279,6 +1363,10 @@ msgstr ""
 #: DB:link_attribute_type/name:176
 msgid "organ"
 msgstr "órgano"
+
+#: DB:link_attribute_type/name:631
+msgid "orpharion"
+msgstr ""
 
 #: DB:link_attribute_type/name:265
 msgid "other flutes"
@@ -1664,6 +1752,10 @@ msgstr ""
 msgid "taiko"
 msgstr ""
 
+#: DB:link_attribute_type/name:656
+msgid "talharpa / hiiu kannel"
+msgstr ""
+
 #: DB:link_attribute_type/name:546
 msgid "talkbox"
 msgstr "talkbox"
@@ -1696,6 +1788,10 @@ msgstr ""
 msgid "tangent piano"
 msgstr ""
 
+#: DB:link_attribute_type/name:632
+msgid "tape"
+msgstr "cinta"
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""
@@ -1703,6 +1799,10 @@ msgstr ""
 #: DB:link_attribute_type/name:532
 msgid "taragot"
 msgstr "tarogato"
+
+#: DB:link_attribute_type/name:643
+msgid "tef"
+msgstr ""
 
 #: DB:link_attribute_type/name:167
 msgid "teleharmonium"
@@ -1844,6 +1944,10 @@ msgstr ""
 msgid "turntable(s)"
 msgstr "platos / tocadiscos"
 
+#: DB:link_attribute_type/name:638
+msgid "typewriter"
+msgstr "máquina de escribir"
+
 #: DB:link_attribute_type/name:556
 msgid "tzoura"
 msgstr ""
@@ -1867,6 +1971,10 @@ msgstr "piano vertical"
 #: DB:link_attribute_type/name:375
 msgid "vacuum cleaner"
 msgstr "aspiradora"
+
+#: DB:link_attribute_type/name:629
+msgid "valiha"
+msgstr "valiha"
 
 #: DB:link_attribute_type/name:237
 msgid "valve trombone"
@@ -1974,7 +2082,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:15
 msgid "wind instruments"
-msgstr ""
+msgstr "instrumentos de viento"
 
 #: DB:link_attribute_type/name:434
 msgid "wire-strung harp"
@@ -1998,6 +2106,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:220
 msgid "xylophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:639
+msgid "yaylı tanbur"
 msgstr ""
 
 #: DB:link_attribute_type/name:292
@@ -2030,7 +2142,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:123
 msgid "zither"
-msgstr ""
+msgstr "cítara"
 
 #: DB:link_attribute_type/name:492
 msgid "zurna"

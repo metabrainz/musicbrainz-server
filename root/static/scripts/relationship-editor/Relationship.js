@@ -44,6 +44,7 @@ var Relationship = function(obj) {
     this.hasErrors = ko.observable(false);
     this.loadingWork = ko.observable(false);
     this.edits_pending = Boolean(obj.edits_pending);
+    this.validateEntities = true;
 
     this.action = ko.observable(obj.action || "");
     this.link_type = new Fields.Integer(obj.link_type);
@@ -191,12 +192,13 @@ Relationship.prototype.linkPhrase = function(source) {
     _.each(this.attrs(), function(observable, name) {
         var value = observable();
 
-        if (_.isArray(value) && value.length) {
-            value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
+        if (_.isArray(value)) {
+            if (value.length) {
+                value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
 
-            var list = value.slice(0, -1).join(", ");
-            attrs[name] = (list && list + " & ") + (value.pop() || "");
-
+                var list = value.slice(0, -1).join(", ");
+                attrs[name] = (list && list + " & ") + (value.pop() || "");
+            }
         } else if (value) attrs[name] = Util.attrRoot(name).l_name;
     });
 
@@ -250,14 +252,14 @@ Relationship.prototype.buildFields = function(num, result) {
 };
 
 // returns true if this relationship is a "duplicate" of the other.
-// doesn't compare attributes, but does compare dates.
 
 Relationship.prototype.isDuplicate = function(other) {
     return (this.link_type.peek() == other.link_type.peek() &&
             this.entity[0].peek() === other.entity[0].peek() &&
             this.entity[1].peek() === other.entity[1].peek() &&
             Util.mergeDates(this.period.begin_date, other.period.begin_date) &&
-            Util.mergeDates(this.period.end_date, other.period.end_date));
+            Util.mergeDates(this.period.end_date, other.period.end_date) &&
+            _.isEqual(ko.toJS(this.attrs), ko.toJS(other.attrs)));
 };
 
 

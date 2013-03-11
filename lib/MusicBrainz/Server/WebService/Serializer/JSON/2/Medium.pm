@@ -14,11 +14,12 @@ sub serialize
     $body{title} = $entity->name;
     $body{format} = $entity->format ? $entity->format->name : JSON::null;
 
-    $body{discids} = [ map +{
-        id => $_->cdtoc->discid,
-        sectors => number ($_->cdtoc->leadout_offset)
-    }, sort_by { $_->cdtoc->discid } $entity->all_cdtocs ]
-        if defined $inc && $inc->discids;
+    if (defined $inc && $inc->discids)
+    {
+        $body{discs} = [ map {
+            serialize_entity ($_->cdtoc, $inc, $stash)
+        } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
+    }
 
     $body{"track-count"} = $entity->tracklist->track_count;
 
@@ -43,7 +44,7 @@ sub serialize
             $track_entity->recording, $inc, $stash)
             if $inc->recordings;
 
-        $track_output{artist_credit} = serialize_entity (
+        $track_output{"artist-credit"} = serialize_entity (
             $track_entity->artist_credit, $inc, $stash)
             if $inc->artist_credits;
 

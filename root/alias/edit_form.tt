@@ -1,3 +1,9 @@
+<p>
+  [%- l('An alias is an alternate name for an entity. They typically contain contain
+        common mispellings or variations of the name and are also used to improve search results.
+        View the {doc|alias documentation} for more details.', { doc => doc_link('Aliases') }) -%]
+</p>
+
 <form action="[% c.req.uri %]" method="post" class="edit-alias">
   [% USE r = FormRenderer(form) %]
   <div class="half-width">
@@ -31,7 +37,7 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble(1) -%]
+    [%- guesscase_bubble(show_guesscase_modes ? 0 : 1) -%]
     [%- sortname_bubble() -%]
   </div>
 </form>

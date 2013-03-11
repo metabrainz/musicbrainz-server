@@ -1,5 +1,5 @@
-[% WRAPPER 'recording/layout.tt' title=l('Add ISRC') %]
-   <h2>[% l('Add ISRC') %]</h2>
+[% WRAPPER 'recording/layout.tt' title=lp('Add ISRC', 'header') %]
+   <h2>[% lp('Add ISRC', 'header') %]</h2>
    <p>[% l('You are about to add an ISRC to {recording} by {ac}. The ISRC must be entered in
             standard <code>CCXXXYYNNNNNN</code> format:',
            { recording => link_entity(recording),

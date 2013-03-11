@@ -50,7 +50,7 @@ sub inflate_iswcs {
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit ) }
 
-sub options_type_id           { shift->_select_all('WorkType') }
+sub options_type_id           { shift->_select_all('WorkType', sort_by_accessor => 1) }
 sub options_language_id       { return language_options (shift->ctx); }
 
 1;

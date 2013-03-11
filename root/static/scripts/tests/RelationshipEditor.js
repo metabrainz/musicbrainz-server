@@ -636,15 +636,15 @@ MB.tests.RelationshipEditor.Entity = function() {
             action: "add",
             link_type: 148,
             attrs: {instrument: [123, 277], guest: true},
-            period: {begin_date: "2001", end_date: ""}
+            period: {begin_date: "2001", end_date: "", ended: false}
         });
 
         var duplicateRelationship = RE.Relationship({
             entity: [target, source],
             action: "add",
             link_type: 148,
-            attrs: {instrument: [229], solo: true},
-            period: {begin_date: "", end_date: "2002"}
+            attrs: {instrument: [123, 277], guest: true},
+            period: {begin_date: "", end_date: "2002", ended: true}
         });
 
         relationship.show();
@@ -654,7 +654,7 @@ MB.tests.RelationshipEditor.Entity = function() {
 
         QUnit.deepEqual(
             ko.toJS(relationship.attrs),
-            {instrument: [229], additional: false, guest: true, solo: true},
+            {instrument: [123, 277], additional: false, guest: true, solo: false},
             "attributes"
         );
 
@@ -669,6 +669,8 @@ MB.tests.RelationshipEditor.Entity = function() {
             {year: 2002, month: null, day: null},
             "end date"
         );
+
+        QUnit.equal(relationship.period.ended(), true, "ended");
 
         QUnit.equal(source.relationships.indexOf(duplicateRelationship), -1,
             "removed from source's relationships");

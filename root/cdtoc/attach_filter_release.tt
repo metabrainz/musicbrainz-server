@@ -19,8 +19,8 @@ $(document).ready (function () {
 </script>
 [% END %]
 
-[% WRAPPER 'layout.tt' title=l('Attach CD TOC') full_width=1 %]
-  <h1>[% l('Attach CD TOC') %]</h1>
+[% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
+  <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">
     [% USE r = FormRenderer(query_release) %]
     <input type="hidden" name="toc" value="[% toc %]" />
@@ -63,7 +63,7 @@ $(document).ready (function () {
                 [% release=result.entity %]
                 [%- IF release.release_group.gid != current_rg -%]
                     [% current_rg = release.release_group.gid %]
-                    <tr class="subh"><th colspan=[% IF c.session.tport; '8'; ELSE; '7'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                    <tr class="subh"><th colspan=[% IF c.session.tport; '9'; ELSE; '8'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
                 [%- END -%]
                 [% zebra = zebra + 1 %]
                 [% INCLUDE 'cdtoc/attach_list.tt' show_artists=1 %]
@@ -71,7 +71,7 @@ $(document).ready (function () {
             </tbody>
           </table>
         [% END %]
-      <p>[% form_submit(l('Attach CD TOC')) %]
+      <p>[% form_submit(lp('Attach CD TOC', 'button/menu')) %]
     [%- ELSE -%]
       <div class="row">
         <div class="label required">[% l('Results:') %]</div>

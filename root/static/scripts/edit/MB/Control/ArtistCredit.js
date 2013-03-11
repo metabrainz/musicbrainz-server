@@ -718,16 +718,16 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             if(item.isEmpty ())
                 return;
 
-            var artistcredit = item.$credit.val () ?
-                item.$credit.val () : item.$credit.attr ('placeholder');
+            var artistname = _.clean(item.$name.val()),
+                artistcredit = _.clean(item.$credit.val()) || artistname;
 
             ret.push({
                 'artist': {
-                    'name': MB.utility.trim (item.$name.val ()),
+                    'name': artistname,
                     'id': item.$id.val (),
                     'gid': item.$gid.val ()
                 },
-                'name': MB.utility.trim (artistcredit),
+                'name': artistcredit,
                 'join_phrase': item.$join.val () || ''
             });
         });
