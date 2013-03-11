@@ -73,7 +73,7 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
     },
     'Plugin::Session' => {
-        expires => 36000 # 10 hours
+        expires => DBDefs->SESSION_EXPIRE
     },
     stacktrace => {
         enable => 1
@@ -119,15 +119,15 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             }
         },
         'musicbrainz.org' => {
-            use_session => 1,
+            use_session => 0,
             credential => {
-                class => 'HTTP',
+                class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
                 password_field => 'password',
                 password_type => 'clear'
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::Store'
+                class => '+MusicBrainz::Server::Authentication::WS::Store'
             }
         }
     }

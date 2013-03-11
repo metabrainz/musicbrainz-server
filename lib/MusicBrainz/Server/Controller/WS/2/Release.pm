@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
+    $ACCESS_SCOPE_SUBMIT_BARCODE
 );
 use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
@@ -287,6 +288,9 @@ sub release_submit : Private
     @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_BARCODE);
+
         try {
             $c->model('MB')->with_transaction(sub {
                 $c->model('Edit')->create(
