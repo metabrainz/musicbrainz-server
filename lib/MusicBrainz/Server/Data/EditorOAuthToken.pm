@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use DateTime;
 use DateTime::Duration;
+use MusicBrainz::Server::Entity::OAuthAuthorization;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
@@ -68,12 +69,13 @@ sub get_by_refresh_token
 sub find_granted_by_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT application, scope, max(refresh_token) AS refresh_token
                  FROM " . $self->_table . "
                  WHERE
                     editor = ? AND
                     access_token IS NOT NULL
-                 ORDER BY id
+                 GROUP BY application, scope
+                 ORDER BY application, scope
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -149,6 +151,24 @@ sub grant_access_token
     }
 
     $self->sql->update_row($self->_table, $update, { id => $token->id });
+
+    # delete expired tokens that can't be refreshed in the future
+    $self->sql->do("DELETE FROM editor_oauth_token
+                    WHERE editor = ? AND application = ? AND scope = ? AND
+                          expire_time < ? AND refresh_token IS NULL AND
+                          access_token IS NOT NULL",
+                   $token->editor_id, $token->application_id, $token->scope,
+                   DateTime->now);
+}
+
+sub revoke_access
+{
+    my ($self, $editor_id, $application_id, $scope) = @_;
+
+    $self->sql->do("DELETE FROM editor_oauth_token
+                    WHERE editor = ? AND application = ? AND scope = ? AND
+                    access_token IS NOT NULL",
+                    $editor_id, $application_id, $scope);
 }
 
 sub update_mac_time_diff
