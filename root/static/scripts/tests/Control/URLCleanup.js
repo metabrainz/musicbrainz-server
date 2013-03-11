@@ -157,6 +157,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                     MB.constants.LINK_TYPES.downloadpurchase.artist
                 ],
+                // iTunes
                 [
                     'release', 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
                     MB.constants.LINK_TYPES.downloadpurchase.release
@@ -169,6 +170,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                     MB.constants.LINK_TYPES.downloadpurchase.recording
                 ],
+                // Other download stores
+                [
+                    'release', 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                // Allmusic
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     MB.constants.LINK_TYPES.allmusic.artist
@@ -353,11 +364,18 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
                     'release'
                 ],
+                    // Facebook
                 [
                     'http://www.facebook.com/sininemusic',
                     'https://www.facebook.com/sininemusic',
                     'artist'
                 ],
+                [
+                    'https://www.facebook.com/RomanzMusic?fref=ts',
+                    'https://www.facebook.com/RomanzMusic',
+                    'artist'
+                ],
+                    // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',

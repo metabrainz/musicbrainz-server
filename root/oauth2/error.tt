@@ -1,0 +1,10 @@
+[% WRAPPER "layout.tt" title=l("OAuth Authorization Error") full_width=1 %]
+
+    <h1>[% l("Error: {error}", { error => error_message }) %]</h1>
+
+    <p>[% error_description | html  %]</p>
+
+    <p>[% l('{doc|Learn more}', { doc => doc_link('OAuth2') }) %]</p>
+
+[% END %]
+

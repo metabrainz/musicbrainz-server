@@ -7,6 +7,8 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
+    $ACCESS_SCOPE_SUBMIT_PUID
+    $ACCESS_SCOPE_SUBMIT_ISRC
 );
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
@@ -228,6 +230,16 @@ sub recording_submit : Private
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
         $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};
+    }
+
+    if (%submit_puid) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_PUID);
+    }
+
+    if (%submit_isrc) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_ISRC);
     }
 
     $c->model('MB')->with_transaction(sub {

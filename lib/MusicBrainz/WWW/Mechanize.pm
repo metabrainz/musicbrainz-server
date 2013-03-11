@@ -17,21 +17,24 @@ around '_make_request' => sub
     # So let's do it ourselves here, every request which results in a '401'
     # response is attempted again with the credentials set using ->credentials.
 
-    if ($response->headers->{status} eq '401' && defined($response->headers->{'www-authenticate'}))
-    {
-        my $challenge = $response->headers->{'www-authenticate'};
-        $challenge =~ tr/,/;/;
-        ($challenge) = HTTP::Headers::Util::split_header_words($challenge);
-        my $scheme = shift(@$challenge);
-        shift(@$challenge); # no value
-        $challenge = { @$challenge };  # make rest into a hash
+    if ($response->headers->{status} eq '401' && defined($response->headers->{'www-authenticate'})) {
+        my @challenge = $response->headers->header('WWW-Authenticate');
+        for my $challenge (@challenge) {
+            $challenge =~ tr/,/;/;
+            ($challenge) = HTTP::Headers::Util::split_header_words($challenge);
+            my $scheme = shift(@$challenge);
+            next unless $scheme eq 'digest';
+            shift(@$challenge); # no value
+            $challenge = { @$challenge };  # make rest into a hash
 
-        my ($username, $password) = $self->credentials (
-            $request->uri->host.":".$request->uri->port, $challenge->{realm});
+            my ($username, $password) = $self->credentials (
+                $request->uri->host.":".$request->uri->port, $challenge->{realm});
 
-        my $size = length ($request->content);
-        $response = LWP::Authen::Digest->authenticate (
-            $self, undef, $challenge, $response, $request, undef, $size);
+            my $size = length ($request->content);
+            $response = LWP::Authen::Digest->authenticate (
+                $self, undef, $challenge, $response, $request, undef, $size);
+            last;
+        }
     }
 
     return $response;

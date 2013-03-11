@@ -11,6 +11,7 @@ use MusicBrainz::Server::Test qw( commandline_override );
 my @classes = (
     't::TemplateMacros',
     't::Sql',
+    't::MusicBrainz::DataStore::Redis',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (

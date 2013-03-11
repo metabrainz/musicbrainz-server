@@ -48,6 +48,10 @@ msgstr ""
 msgid "Dubreq Stylophone"
 msgstr ""
 
+#: DB:link_attribute_type/name:686
+msgid "E-flat clarinet"
+msgstr ""
+
 #: DB:link_attribute_type/name:533
 msgid "EWI"
 msgstr ""
@@ -76,6 +80,10 @@ msgstr ""
 msgid "Irish harp / clàrsach"
 msgstr ""
 
+#: DB:link_attribute_type/name:673
+msgid "Lyricon"
+msgstr ""
+
 #: DB:link_attribute_type/name:175
 msgid "Mellotron"
 msgstr ""
@@ -94,6 +102,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:438
 msgid "Northumbrian pipes"
+msgstr ""
+
+#: DB:link_attribute_type/name:688
+msgid "Reactable"
 msgstr ""
 
 #: DB:link_attribute_type/name:182
@@ -128,6 +140,10 @@ msgstr ""
 msgid "Turkish baglama"
 msgstr ""
 
+#: DB:link_attribute_type/name:674
+msgid "Vienna horn"
+msgstr ""
+
 #: DB:link_attribute_type/name:399
 msgid "Vietnamese guitar"
 msgstr ""
@@ -142,6 +158,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:562
 msgid "Wurlitzer electric piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:675
+msgid "Xaphoon"
 msgstr ""
 
 #: DB:link_attribute_type/name:64
@@ -212,6 +232,10 @@ msgstr ""
 msgid "archlute"
 msgstr ""
 
+#: DB:link_attribute_type/name:677
+msgid "atarigane"
+msgstr ""
+
 #: DB:link_attribute_type/name:494
 msgid "autoharp"
 msgstr ""
@@ -248,6 +272,10 @@ msgstr ""
 msgid "bandura"
 msgstr ""
 
+#: DB:link_attribute_type/name:693
+msgid "bangu"
+msgstr ""
+
 #: DB:link_attribute_type/name:291
 msgid "banhu / banghu"
 msgstr ""
@@ -278,6 +306,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:633
 msgid "baroque trumpet"
+msgstr ""
+
+#: DB:link_attribute_type/name:699
+msgid "barrel drum"
 msgstr ""
 
 #: DB:link_attribute_type/name:600
@@ -428,6 +460,10 @@ msgstr ""
 msgid "bugle"
 msgstr ""
 
+#: DB:link_attribute_type/name:689
+msgid "buk"
+msgstr ""
+
 #: DB:link_attribute_type/name:640
 msgid "bulbul"
 msgstr ""
@@ -490,6 +526,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:559
 msgid "charango"
+msgstr ""
+
+#: DB:link_attribute_type/name:690
+msgid "chikuzen biwa"
 msgstr ""
 
 #: DB:link_attribute_type/name:415
@@ -636,8 +676,16 @@ msgstr ""
 msgid "daire"
 msgstr ""
 
+#: DB:link_attribute_type/name:663
+msgid "daluo"
+msgstr ""
+
 #: DB:link_attribute_type/name:419
 msgid "darbuka"
+msgstr ""
+
+#: DB:link_attribute_type/name:658
+msgid "daruan"
 msgstr ""
 
 #: DB:link_attribute_type/name:496
@@ -788,6 +836,10 @@ msgstr ""
 msgid "electronic organ"
 msgstr ""
 
+#: DB:link_attribute_type/name:672
+msgid "electronic wind instrument"
+msgstr ""
+
 #: DB:link_attribute_type/name:28
 msgid "end-blown flute"
 msgstr ""
@@ -852,6 +904,10 @@ msgstr ""
 msgid "fortepiano"
 msgstr ""
 
+#: DB:link_attribute_type/name:682
+msgid "fourth flute"
+msgstr ""
+
 #: DB:link_attribute_type/name:421
 msgid "frame drum"
 msgstr ""
@@ -868,8 +924,16 @@ msgstr ""
 msgid "fretless bass"
 msgstr ""
 
+#: DB:link_attribute_type/name:698
+msgid "friction drum"
+msgstr ""
+
 #: DB:link_attribute_type/name:448
 msgid "frottoir"
+msgstr ""
+
+#: DB:link_attribute_type/name:683
+msgid "fujara"
 msgstr ""
 
 #: DB:link_attribute_type/name:301
@@ -932,6 +996,10 @@ msgstr ""
 msgid "gongs"
 msgstr ""
 
+#: DB:link_attribute_type/name:694
+msgid "gralla"
+msgstr ""
+
 #: DB:link_attribute_type/name:181
 msgid "grand piano"
 msgstr ""
@@ -962,6 +1030,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:508
 msgid "gusli"
+msgstr ""
+
+#: DB:link_attribute_type/name:679
+msgid "gut guitar"
 msgstr ""
 
 #: DB:link_attribute_type/name:141
@@ -1016,6 +1088,10 @@ msgstr ""
 msgid "heckelphone"
 msgstr ""
 
+#: DB:link_attribute_type/name:691
+msgid "heike biwa"
+msgstr ""
+
 #: DB:link_attribute_type/name:547
 msgid "hi-hat"
 msgstr ""
@@ -1026,6 +1102,14 @@ msgstr ""
 
 #: DB:link_attribute_type/name:40
 msgid "horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:697
+msgid "hourglass drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:659
+msgid "hulusi"
 msgstr ""
 
 #: DB:link_attribute_type/name:283
@@ -1046,6 +1130,14 @@ msgstr ""
 
 #: DB:link_attribute_type/name:104
 msgid "jew's harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:664
+msgid "jing"
+msgstr ""
+
+#: DB:link_attribute_type/name:661
+msgid "jing'erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:284
@@ -1164,12 +1256,20 @@ msgstr ""
 msgid "koto"
 msgstr ""
 
+#: DB:link_attribute_type/name:669
+msgid "kotsuzumi"
+msgstr ""
+
 #: DB:link_attribute_type/name:637
 msgid "kudüm"
 msgstr ""
 
 #: DB:link_attribute_type/name:380
 msgid "kèn bầu"
+msgstr ""
+
+#: DB:link_attribute_type/name:668
+msgid "kōauau"
 msgstr ""
 
 #: DB:link_attribute_type/name:319
@@ -1190,6 +1290,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:630
 msgid "launeddas"
+msgstr ""
+
+#: DB:link_attribute_type/name:685
+msgid "limbe"
 msgstr ""
 
 #: DB:link_attribute_type/name:482
@@ -1256,6 +1360,10 @@ msgstr ""
 msgid "metallophone"
 msgstr ""
 
+#: DB:link_attribute_type/name:703
+msgid "mirliton"
+msgstr ""
+
 #: DB:link_attribute_type/name:310
 msgid "moon lute"
 msgstr ""
@@ -1288,6 +1396,10 @@ msgstr ""
 msgid "mõ"
 msgstr ""
 
+#: DB:link_attribute_type/name:665
+msgid "nagadou-daiko"
+msgstr ""
+
 #: DB:link_attribute_type/name:369
 msgid "nai"
 msgstr ""
@@ -1316,6 +1428,10 @@ msgstr ""
 msgid "nyckelharpa"
 msgstr ""
 
+#: DB:link_attribute_type/name:678
+msgid "nylon guitar"
+msgstr ""
+
 #: DB:link_attribute_type/name:343
 msgid "não bạt / chập chõa"
 msgstr ""
@@ -1326,6 +1442,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:581
 msgid "oboe d'amore"
+msgstr ""
+
+#: DB:link_attribute_type/name:684
+msgid "oboe da caccia"
 msgstr ""
 
 #: DB:link_attribute_type/name:29
@@ -1354,6 +1474,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:631
 msgid "orpharion"
+msgstr ""
+
+#: DB:link_attribute_type/name:700
+msgid "other drums"
 msgstr ""
 
 #: DB:link_attribute_type/name:265
@@ -1496,12 +1620,24 @@ msgstr ""
 msgid "rhythm sticks"
 msgstr ""
 
+#: DB:link_attribute_type/name:680
+msgid "rondador"
+msgstr ""
+
+#: DB:link_attribute_type/name:657
+msgid "ruan"
+msgstr ""
+
 #: DB:link_attribute_type/name:611
 msgid "rudra veena"
 msgstr ""
 
 #: DB:link_attribute_type/name:198
 msgid "sackbut"
+msgstr ""
+
+#: DB:link_attribute_type/name:695
+msgid "samba whistle"
 msgstr ""
 
 #: DB:link_attribute_type/name:164
@@ -1538,6 +1674,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:250
 msgid "sarod"
+msgstr ""
+
+#: DB:link_attribute_type/name:692
+msgid "satsuma biwa"
 msgstr ""
 
 #: DB:link_attribute_type/name:33
@@ -1584,6 +1724,10 @@ msgstr ""
 msgid "sheng"
 msgstr ""
 
+#: DB:link_attribute_type/name:666
+msgid "shime-daiko"
+msgstr ""
+
 #: DB:link_attribute_type/name:564
 msgid "shinobue"
 msgstr ""
@@ -1598,6 +1742,14 @@ msgstr ""
 
 #: DB:link_attribute_type/name:535
 msgid "shruti box"
+msgstr ""
+
+#: DB:link_attribute_type/name:705
+msgid "shudraga"
+msgstr ""
+
+#: DB:link_attribute_type/name:681
+msgid "siku"
 msgstr ""
 
 #: DB:link_attribute_type/name:191
@@ -1700,6 +1852,10 @@ msgstr ""
 msgid "suikinkutsu"
 msgstr ""
 
+#: DB:link_attribute_type/name:660
+msgid "suona"
+msgstr ""
+
 #: DB:link_attribute_type/name:459
 msgid "surdo"
 msgstr ""
@@ -1740,6 +1896,10 @@ msgstr ""
 msgid "taiko"
 msgstr ""
 
+#: DB:link_attribute_type/name:667
+msgid "taishogoto"
+msgstr ""
+
 #: DB:link_attribute_type/name:656
 msgid "talharpa / hiiu kannel"
 msgstr ""
@@ -1774,6 +1934,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:510
 msgid "tangent piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:671
+msgid "tap dancing"
 msgstr ""
 
 #: DB:link_attribute_type/name:632
@@ -1832,6 +1996,10 @@ msgstr ""
 msgid "theremin"
 msgstr ""
 
+#: DB:link_attribute_type/name:696
+msgid "thon"
+msgstr ""
+
 #: DB:link_attribute_type/name:409
 msgid "ti bwa"
 msgstr ""
@@ -1858,6 +2026,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:555
 msgid "tom-tom"
+msgstr ""
+
+#: DB:link_attribute_type/name:687
+msgid "tonkori"
 msgstr ""
 
 #: DB:link_attribute_type/name:328
@@ -2092,8 +2264,16 @@ msgstr ""
 msgid "xiao"
 msgstr ""
 
+#: DB:link_attribute_type/name:662
+msgid "xiaoluo"
+msgstr ""
+
 #: DB:link_attribute_type/name:220
 msgid "xylophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:676
+msgid "yatga"
 msgstr ""
 
 #: DB:link_attribute_type/name:639
@@ -2182,4 +2362,20 @@ msgstr ""
 
 #: DB:link_attribute_type/name:336
 msgid "đại cô/tiểu cô"
+msgstr ""
+
+#: DB:link_attribute_type/name:670
+msgid "ōtsuzumi"
+msgstr ""
+
+#: DB:link_attribute_type/name:701
+msgid "żafżafa / rabbaba"
+msgstr ""
+
+#: DB:link_attribute_type/name:702
+msgid "żaqq"
+msgstr ""
+
+#: DB:link_attribute_type/name:704
+msgid "żummara"
 msgstr ""
