@@ -243,6 +243,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
                     MB.constants.LINK_TYPES.lyrics.work
+                ],
+                // BBC Music
+                [
+                    'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                    MB.constants.LINK_TYPES.bbcmusic.artist
                 ]
             ];
 
