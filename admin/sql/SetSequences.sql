@@ -86,7 +86,6 @@ SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
 SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
 SELECT setval('track_raw_id_seq', (SELECT MAX(id) FROM track_raw));
 SELECT setval('track_name_id_seq', (SELECT MAX(id) FROM track_name));
-SELECT setval('tracklist_id_seq', (SELECT MAX(id) FROM tracklist));
 SELECT setval('url_id_seq', (SELECT MAX(id) FROM url));
 SELECT setval('vote_id_seq', (SELECT MAX(id) FROM vote));
 SELECT setval('work_id_seq', (SELECT MAX(id) FROM work));
