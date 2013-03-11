@@ -1243,6 +1243,7 @@ CREATE TABLE tag_relation
 CREATE TABLE track
 (
     id                  SERIAL,
+    gid                 UUID NOT NULL,
     recording           INTEGER NOT NULL, -- references recording.id
     medium              INTEGER NOT NULL, -- references medium.id
     position            INTEGER NOT NULL,
@@ -1252,6 +1253,13 @@ CREATE TABLE track
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     number              TEXT NOT NULL
+);
+
+CREATE TABLE track_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references track.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_raw
