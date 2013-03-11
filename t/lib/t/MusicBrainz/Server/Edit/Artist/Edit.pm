@@ -253,10 +253,36 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
 
-    my $exception = exception { $edit_1->accept };
+    my $exception = exception { $edit_2->accept };
     isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
     like $exception->message, qr{//localhost/artist/da34a170-7f7f-11de-8a39-0800200c9a66},
         'Error message contains the URL of the conflict';
+};
+
+test 'Edits are idempotent' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my %edit = (
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        name      => 'Renamed artist',
+        sort_name => 'Sort FOO',
+        ipi_codes => [],
+    );
+
+    my $edit_1 = $c->model('Edit')->create(%edit);
+    my $edit_2 = $c->model('Edit')->create(%edit);
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    is ($artist->name, 'Renamed artist', 'artist renamed');
+    is ($artist->sort_name, 'Sort FOO', 'comment changed');
+    is ($artist->comment, '');
 };
 
 sub _create_full_edit {

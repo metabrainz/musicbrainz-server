@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use List::MoreUtils qw( uniq all );
+use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
@@ -43,7 +44,7 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
     my $collection = $c->stash->{entity};
 
     if (!$collection->public) {
-        $c->authenticate({}, 'musicbrainz.org');
+        $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
         if ($c->user_exists) {
             $self->_error($c, 'You do not have permission to view this collection')
                 unless $c->user->id == $collection->editor_id;
@@ -73,7 +74,7 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;
     my $collection = $c->stash->{entity};
 
-    $c->authenticate({}, 'musicbrainz.org');
+    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     $self->_error($c, 'You do not have permission to modify this collection')
         unless ($c->user->id == $collection->editor_id);
@@ -120,7 +121,8 @@ sub releases : Chained('load') PathPart('releases') Args(1) {
 sub list_list : Chained('base') PathPart('')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'musicbrainz.org');
+
+    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     my $stash = WebServiceStash->new;
 

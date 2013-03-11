@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::Rating;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_RATING );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Readonly;
 
@@ -29,7 +30,8 @@ use MusicBrainz::Server::Validation qw( is_guid );
 sub rating : Path('/ws/1/rating')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'musicbrainz.org');
+
+    $self->authenticate($c, $ACCESS_SCOPE_RATING);
 
     if ($c->req->method eq 'POST') {
         $self->deny_readonly($c);
