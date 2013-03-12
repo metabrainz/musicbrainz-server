@@ -20,6 +20,8 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use Scalar::Util 'weaken';
+use Set::Scalar;
+use List::AllUtils qw( any max );
 
 extends 'MusicBrainz::Server::Data::Entity';
 
@@ -317,6 +319,79 @@ sub merge_entities
             UPDATE $table SET $entity0 = ?
             WHERE $entity0 IN (" . placeholders($target_id, @source_ids) . ")
         ", $target_id, $target_id, @source_ids);
+
+        # Merge relationships sans dates into those with, when otherwise same
+        # First, get everything where the endpoints, link type, and attribute count match,
+        # where there's at least one link with no dates at all.
+        # Then, get the set of attributes for each link so we can assure they're the same
+        my $candidate_attrs = $self->sql->select_list_of_hashes(
+            "WITH candidate_sets AS
+             (SELECT l_table.entity0, l_table.entity1, out_link.link_type, out_link.attribute_count, array_agg(l_table.id) AS candidates
+              FROM $table l_table JOIN link out_link ON l_table.link = out_link.id
+              WHERE EXISTS (SELECT TRUE
+                            FROM $table l_inner
+                            JOIN link in_link ON l_inner.link = in_link.id
+                            WHERE l_inner.entity0 = l_table.entity0 AND l_inner.entity1 = l_table.entity1 AND in_link.link_type = out_link.link_type
+                              AND in_link.begin_date_year IS NULL AND in_link.begin_date_month IS NULL AND in_link.begin_date_day IS NULL
+                              AND in_link.end_date_year IS NULL   AND in_link.end_date_month IS NULL   AND in_link.end_date_day IS NULL)
+                AND (l_table.$entity0 = ?)
+              GROUP BY l_table.entity0, l_table.entity1, out_link.link_type, out_link.attribute_count)
+
+             SELECT candidate_sets.link_type,
+                    $table.id AS link,
+                    (link.begin_date_year IS NULL AND link.begin_date_month IS NULL AND link.begin_date_day IS NULL
+                     AND link.end_date_year IS NULL AND link.end_date_month IS NULL AND link.end_date_day IS NULL) AS is_undated,
+                    array_agg(link_attribute.attribute_type) AS attrs
+               FROM $table
+               JOIN link on $table.link = link.id
+               LEFT JOIN link_attribute on link_attribute.link = link.id
+               JOIN candidate_sets ON (ARRAY[$table.id] <@ candidate_sets.candidates)
+               GROUP BY candidate_sets.link_type, $table.id, link.begin_date_year, link.begin_date_month, link.begin_date_day, link.end_date_year, link.end_date_month, link.end_date_day",
+        $target_id);
+
+        # Then, check each candidate set for rels that should be deleted:
+        # undated rels, where their link type + set of attrs is the same
+        # as another rel, with dates.
+        my %groups;
+        # ^ map of identifier => array of [ dated or undated, ID ] pairs
+        my %group_identifiers;
+        # ^ map of identifier => [ link type, set of attributes ]
+        # the %group_identifiers hash is needed since arrays can't be hash keys
+
+        my @to_delete;
+
+        for my $link (@$candidate_attrs) {
+            my $attr_set = Set::Scalar->new(@{$link->{attrs}});
+            my $is_new = 1;
+            # see if this link matches a (link type, attrs) pair already found
+            for my $group (keys %groups) {
+                if ($link->{link_type} eq $group_identifiers{$group}->[0]
+                          && $attr_set == $group_identifiers{$group}->[1]) {
+                    $is_new = 0;
+                    push @{$groups{$group}}, [ $link->{is_undated}, $link->{link} ];
+                    last;
+                }
+            }
+            # otherwise, make a new entry in the relevant hashes
+            if ($is_new) {
+                my $new_id = (max(keys %group_identifiers) // 0) + 1;
+                $group_identifiers{$new_id} = [$link->{link_type}, $attr_set];
+                $groups{$new_id} = [ [$link->{is_undated}, $link->{link}] ];
+            }
+
+            # All groups with at least one undated rel
+            my @to_merge = grep { scalar @$_ > 1 && (any { $_->[0] } @{$_}) } values %groups;
+            for my $to_merge (@to_merge) {
+                # take all undated rels, and delete them
+                my @undated = map { $_->[1] } grep { $_->[0] } @$to_merge;
+                push @to_delete, @undated;
+            }
+        }
+
+        # Delete undated relationships that we found
+        if (scalar @to_delete) {
+            $self->sql->do("DELETE FROM $table WHERE id IN (" . placeholders(@to_delete) . ")", @to_delete);
+        }
     }
 }
 
