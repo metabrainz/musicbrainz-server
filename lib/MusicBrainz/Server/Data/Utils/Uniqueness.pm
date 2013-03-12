@@ -38,11 +38,13 @@ sub assert_uniqueness_conserved {
         }
 
         my $query =
-            "SELECT " . $model->_columns . ' FROM ' . $model->_table .
-            " WHERE (name.name, comment) IN (SELECT $new_name, $new_comment)";
+            "SELECT " . $model->_columns .
+            ' FROM ' . $model->_table .
+            " WHERE (name.name, comment) IN (SELECT $new_name, $new_comment)".
+            " AND " . $model->_id_column . " != ?";
 
         my ($conflict) = query_to_list(
-            $model->sql, sub { $model->_new_from_row(shift) }, $query, @params
+            $model->sql, sub { $model->_new_from_row(shift) }, $query, @params, $id
         );
 
         if ($conflict) {

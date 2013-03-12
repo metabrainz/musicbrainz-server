@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Works with possible duplicate relationships') full_width=1 -%]
+
+<h1>[% l('Works with possible duplicate relationships') %]</h1>
+
+<ul>
+    <li>[% l('This report lists works which have multiple relationships to the same entity using the same relationship type.
+              This excludes recording-work relationships. See the recording version of this report for those.') -%]</li>
+    <li>[% l('Total works found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/work_list.tt' -%]
+
+[%- END -%]

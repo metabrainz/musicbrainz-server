@@ -20,7 +20,7 @@ sub _table
     die("Not implemented");
 }
 
-sub _attribute_mapping
+sub _column_mapping
 {
     return {};
 }

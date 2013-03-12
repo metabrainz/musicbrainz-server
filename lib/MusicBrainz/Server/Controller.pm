@@ -191,12 +191,13 @@ sub _search_final_page
 
 sub _load_paged
 {
-    my ($self, $c, $loader, $limit) = @_;
+    my ($self, $c, $loader, %opts) = @_;
 
-    my $page = $c->request->query_params->{page} || 1;
+    my $prefix = $opts{prefix} || '';
+    my $page = $c->request->query_params->{$prefix . "page"} || 1;
     $page = 1 if $page < 1;
 
-    my $LIMIT = $limit || $self->{paging_limit};
+    my $LIMIT = $opts{limit} || $self->{paging_limit};
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;
@@ -207,7 +208,7 @@ sub _load_paged
         my $uri = $c->request->uri;
         my %params = $uri->query_form;
 
-        $params{page} = $page;
+        $params{$prefix . "page"} = $page;
         $uri->query_form (\%params);
 
         $c->response->redirect ($uri);
@@ -218,7 +219,7 @@ sub _load_paged
     $pager->total_entries($total || 0);
     $pager->current_page($page);
 
-    $c->stash( pager => $pager );
+    $c->stash( $prefix . "pager" => $pager );
     return $data;
 }
 

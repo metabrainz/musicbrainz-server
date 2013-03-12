@@ -1,0 +1,14 @@
+[% WRAPPER 'layout.tt' title=l('Revoke Application Access') full_width=1%]
+
+    <h1>[% l('Revoke Application Access') %]</h1>
+
+    <p>[% l("Are you sure you want to revoke this application's access?") %]</p>
+
+    <form action="[% c.req.uri | html %]" method="post">
+        <span class="buttons">
+            <button type="submit" name="confirm.cancel" value="1" class="negative">[% l('Cancel') %]</button>
+            <button type="submit" name="confirm.submit" value="1">[% l('Yes, I am sure') %]</button>
+        </span>
+    </form>
+
+[% END %]

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Report::LabelReport;
 use Moose::Role;
 
-with 'MusicBrainz::Server::Report';
+with 'MusicBrainz::Server::Report::QueryReport';
 
 around inflate_rows => sub {
     my $orig = shift;
