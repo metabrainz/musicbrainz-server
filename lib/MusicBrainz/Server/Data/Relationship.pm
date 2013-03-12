@@ -326,27 +326,37 @@ sub merge_entities
         # Then, get the set of attributes for each link so we can assure they're the same
         my $candidate_attrs = $self->sql->select_list_of_hashes(
             "WITH candidate_sets AS
-             (SELECT l_table.entity0, l_table.entity1, out_link.link_type, out_link.attribute_count, array_agg(l_table.id) AS candidates
+             (SELECT l_table.entity0, l_table.entity1, out_link.link_type,
+                     out_link.attribute_count, array_agg(l_table.id) AS candidates
               FROM $table l_table JOIN link out_link ON l_table.link = out_link.id
               WHERE EXISTS (SELECT TRUE
                             FROM $table l_inner
                             JOIN link in_link ON l_inner.link = in_link.id
-                            WHERE l_inner.entity0 = l_table.entity0 AND l_inner.entity1 = l_table.entity1 AND in_link.link_type = out_link.link_type
-                              AND in_link.begin_date_year IS NULL AND in_link.begin_date_month IS NULL AND in_link.begin_date_day IS NULL
-                              AND in_link.end_date_year IS NULL   AND in_link.end_date_month IS NULL   AND in_link.end_date_day IS NULL)
+                            WHERE l_inner.entity0 = l_table.entity0
+                              AND l_inner.entity1 = l_table.entity1
+                              AND in_link.link_type = out_link.link_type
+                              AND in_link.begin_date_year IS NULL
+                              AND in_link.begin_date_month IS NULL
+                              AND in_link.begin_date_day IS NULL
+                              AND in_link.end_date_year IS NULL
+                              AND in_link.end_date_month IS NULL
+                              AND in_link.end_date_day IS NULL)
                 AND (l_table.$entity0 = ?)
               GROUP BY l_table.entity0, l_table.entity1, out_link.link_type, out_link.attribute_count)
 
              SELECT candidate_sets.link_type,
                     $table.id AS link,
                     (link.begin_date_year IS NULL AND link.begin_date_month IS NULL AND link.begin_date_day IS NULL
-                     AND link.end_date_year IS NULL AND link.end_date_month IS NULL AND link.end_date_day IS NULL) AS is_undated,
+                     AND link.end_date_year IS NULL AND link.end_date_month IS NULL AND link.end_date_day IS NULL)
+                      AS is_undated,
                     array_agg(link_attribute.attribute_type) AS attrs
                FROM $table
                JOIN link on $table.link = link.id
                LEFT JOIN link_attribute on link_attribute.link = link.id
                JOIN candidate_sets ON (ARRAY[$table.id] <@ candidate_sets.candidates)
-               GROUP BY candidate_sets.link_type, $table.id, link.begin_date_year, link.begin_date_month, link.begin_date_day, link.end_date_year, link.end_date_month, link.end_date_day",
+               GROUP BY candidate_sets.link_type, $table.id,
+                        link.begin_date_year, link.begin_date_month, link.begin_date_day,
+                        link.end_date_year, link.end_date_month, link.end_date_day",
         $target_id);
 
         # Then, check each candidate set for rels that should be deleted:
