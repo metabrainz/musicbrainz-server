@@ -212,6 +212,12 @@ END -%]
   [% END %]
 [%- END -%]
 
+[%- MACRO entity_exists(entity) BLOCK;
+    IF entity.gid; '1';
+    ELSE; '0';
+    END;
+END -%]
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
