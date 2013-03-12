@@ -43,8 +43,7 @@ sub reduplicate_tracklist {
         "    SELECT recording,tracklist,position,name,artist_credit, " .
         "           length,edits_pending,last_updated,number, " .
         "           new_medium " .
-        "    FROM track " .
-        "    JOIN UNNEST(?::integer[]) new_medium ON 1 = 1 " .
+        "    FROM track, UNNEST(?::integer[]) new_medium " .
         "    WHERE tracklist=?; ",
         $medium_ids, $tracklist_id);
 }
@@ -56,7 +55,6 @@ sub main {
         $c->sql->do("ALTER TABLE track ".
                 "ADD CONSTRAINT track_fk_medium ".
                 "FOREIGN KEY (medium) REFERENCES medium(id);");
-        $c->sql->do("SELECT setval('track_id_seq', (SELECT max(id) FROM track));");
     }, $c->sql);
 
     Sql::run_in_transaction(sub {
