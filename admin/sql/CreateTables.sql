@@ -862,6 +862,16 @@ CREATE TABLE link_attribute_type
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE link_creditable_attribute_type (
+  attribute_type INT NOT NULL -- PK, references link_attribute_type.id CASCADE
+);
+
+CREATE TABLE link_attribute_credit (
+  link INT NOT NULL, -- PK, references link.id
+  attribute_type INT NOT NULL, -- PK, references link_creditable_attribute_type.attribute_type
+  credited_as TEXT NOT NULL
+);
+
 CREATE TABLE link_type
 (
     id                  SERIAL,

@@ -61,6 +61,8 @@ DROP TRIGGER reptg_label_type ON label_type;
 DROP TRIGGER reptg_language ON language;
 DROP TRIGGER reptg_link ON link;
 DROP TRIGGER reptg_link_attribute ON link_attribute;
+DROP TRIGGER reptg_link_attribute_credit ON link_attribute_credit;
+DROP TRIGGER reptg_link_creditable_attribute_type ON link_creditable_attribute_type;
 DROP TRIGGER reptg_link_attribute_type ON link_attribute_type;
 DROP TRIGGER reptg_link_type ON link_type;
 DROP TRIGGER reptg_link_type_attribute_type ON link_type_attribute_type;
