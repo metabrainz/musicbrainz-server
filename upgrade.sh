@@ -43,6 +43,9 @@ fi
 echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Creating wikidocs transclusion table'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
