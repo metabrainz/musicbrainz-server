@@ -340,14 +340,16 @@ sub merge_entities
                               AND in_link.begin_date_day IS NULL
                               AND in_link.end_date_year IS NULL
                               AND in_link.end_date_month IS NULL
-                              AND in_link.end_date_day IS NULL)
+                              AND in_link.end_date_day IS NULL
+                              AND NOT in_link.ended)
                 AND (l_table.$entity0 = ?)
               GROUP BY l_table.entity0, l_table.entity1, out_link.link_type, out_link.attribute_count)
 
              SELECT candidate_sets.link_type,
                     $table.id AS link,
                     (link.begin_date_year IS NULL AND link.begin_date_month IS NULL AND link.begin_date_day IS NULL
-                     AND link.end_date_year IS NULL AND link.end_date_month IS NULL AND link.end_date_day IS NULL)
+                     AND link.end_date_year IS NULL AND link.end_date_month IS NULL AND link.end_date_day IS NULL
+                     AND NOT link.ended)
                       AS is_undated,
                     array_agg(link_attribute.attribute_type) AS attrs
                FROM $table
@@ -356,7 +358,7 @@ sub merge_entities
                JOIN candidate_sets ON (ARRAY[$table.id] <@ candidate_sets.candidates)
                GROUP BY candidate_sets.link_type, $table.id,
                         link.begin_date_year, link.begin_date_month, link.begin_date_day,
-                        link.end_date_year, link.end_date_month, link.end_date_day",
+                        link.end_date_year, link.end_date_month, link.end_date_day, link.ended",
         $target_id);
 
         # Then, check each candidate set for rels that should be deleted:
