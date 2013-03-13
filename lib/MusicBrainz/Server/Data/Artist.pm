@@ -277,23 +277,25 @@ sub merge
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    merge_table_attributes(
-        $self->sql => (
-            table => 'artist',
-            columns => [ qw( gender country type ) ],
-            old_ids => $old_ids,
-            new_id => $new_id
-        )
-    );
+    unless (is_special_artist($new_id)) {
+        merge_table_attributes(
+            $self->sql => (
+                table => 'artist',
+                columns => [ qw( gender country type ) ],
+                old_ids => $old_ids,
+                new_id => $new_id
+            )
+        );
 
-    merge_partial_date(
-        $self->sql => (
-            table => 'artist',
-            field => $_,
-            old_ids => $old_ids,
-            new_id => $new_id
-        )
-    ) for qw( begin_date end_date );
+        merge_partial_date(
+            $self->sql => (
+                table => 'artist',
+                field => $_,
+                old_ids => $old_ids,
+                new_id => $new_id
+            )
+        ) for qw( begin_date end_date );
+    }
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;
