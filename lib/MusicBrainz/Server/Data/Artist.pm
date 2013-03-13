@@ -101,7 +101,7 @@ sub _entity_class
 
 after '_delete_from_cache' => sub {
     my ($self, @ids) = @_;
-    $self->c->model('ArtistCredit')->clear_for_artist_ids(@ids);
+    $self->c->model('ArtistCredit')->uncache_for_artist_ids(@ids);
 };
 
 sub find_by_subscribed_editor
