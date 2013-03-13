@@ -368,7 +368,7 @@ sub CATALYST_DEBUG { 1 }
 
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
-# developing and debuging easier
+# developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
 # Please activate the officially approved languages here. Not every .po
