@@ -268,7 +268,7 @@ sub merge
     }
 
     $self->alias->merge($new_id, @$old_ids);
-    $self->ipi->merge($new_id, @$old_ids);
+    $self->ipi->merge($new_id, @$old_ids) unless is_special_artist($new_id);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
     $self->subscription->merge_entities($new_id, @$old_ids);
