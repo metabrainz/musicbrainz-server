@@ -43,6 +43,8 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Create documentation tables'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -51,6 +53,9 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (documentation)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/documentation/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'Create replication triggers (cover_art_archive)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/caa/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
