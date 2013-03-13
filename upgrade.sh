@@ -40,7 +40,8 @@ fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
-
+echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
