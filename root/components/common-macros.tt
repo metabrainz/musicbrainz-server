@@ -212,11 +212,7 @@ END -%]
   [% END %]
 [%- END -%]
 
-[%- MACRO entity_exists(entity) BLOCK;
-    IF entity.gid; '1';
-    ELSE; '0';
-    END;
-END -%]
+[%- MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
