@@ -252,6 +252,7 @@ ALTER TABLE track DROP CONSTRAINT track_fk_recording;
 ALTER TABLE track DROP CONSTRAINT track_fk_medium;
 ALTER TABLE track DROP CONSTRAINT track_fk_name;
 ALTER TABLE track DROP CONSTRAINT track_fk_artist_credit;
+ALTER TABLE track_gid_redirect DROP CONSTRAINT track_gid_redirect_fk_new_id;
 ALTER TABLE track_raw DROP CONSTRAINT track_raw_fk_release;
 ALTER TABLE url_gid_redirect DROP CONSTRAINT url_gid_redirect_fk_new_id;
 ALTER TABLE vote DROP CONSTRAINT vote_fk_editor;

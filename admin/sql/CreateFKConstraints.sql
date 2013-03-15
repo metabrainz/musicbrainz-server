@@ -1281,15 +1281,15 @@ ALTER TABLE track
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
 
-ALTER TABLE track_raw
-   ADD CONSTRAINT track_raw_fk_release
-   FOREIGN KEY (release)
-   REFERENCES release_raw(id);
-
 ALTER TABLE track_gid_redirect
    ADD CONSTRAINT track_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES track(id);
+
+ALTER TABLE track_raw
+   ADD CONSTRAINT track_raw_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release_raw(id);
 
 ALTER TABLE url_gid_redirect
    ADD CONSTRAINT url_gid_redirect_fk_new_id
