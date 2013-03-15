@@ -166,8 +166,7 @@ INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_
   RETURNING id, gid, entity_type0, entity_type1, name, short_link_phrase;
 
 -- location editors
-UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208) RETURNING name, CASE privs & 256 WHEN 256 THEN 'is now a location editor' ELSE 'not given permissions' END;
-                                                -- nikki, reotab, ianmcorvidae
+UPDATE editor SET privs = privs | 256 WHERE name IN ('nikki', 'reosarevok', 'ianmcorvidae') RETURNING name, CASE privs & 256 WHEN 256 THEN 'is now a location editor' ELSE 'not given permissions' END;
 
 --------------------
 -- CREATE INDEXES --
