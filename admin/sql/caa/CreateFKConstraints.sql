@@ -32,5 +32,4 @@ ALTER TABLE cover_art_archive.release_group_cover_art
    ADD FOREIGN KEY (release) REFERENCES musicbrainz.release(id);
 
 ALTER TABLE cover_art
-   ADD FOREIGN KEY (image_type) REFERENCES image_type(id);
-
+   ADD FOREIGN KEY (image_type) REFERENCES image_type(mime_type);

@@ -8,14 +8,13 @@ CREATE TABLE art_type (
 );
 
 CREATE TABLE image_type (
-    id SERIAL NOT NULL, -- PK
-    mime_type TEXT NOT NULL,
+    mime_type TEXT NOT NULL, -- PK
     suffix TEXT NOT NULL
 );
 
 CREATE TABLE cover_art (
     id BIGINT NOT NULL, -- PK
-    image_type INTEGER NOT NULL,  -- references image_type.id
+    image_type TEXT NOT NULL DEFAULT 'image/jpeg',  -- references image_type.mime_type
     release INTEGER NOT NULL, -- references musicbrainz.release.id CASCADE
     comment TEXT NOT NULL DEFAULT '',
     edit INTEGER NOT NULL, -- references musicbrainz.edit.id
