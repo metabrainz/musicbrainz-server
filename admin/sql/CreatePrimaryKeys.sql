@@ -2,6 +2,7 @@
 \set ON_ERROR_STOP 1
 
 ALTER TABLE annotation ADD CONSTRAINT annotation_pkey PRIMARY KEY (id);
+ALTER TABLE application ADD CONSTRAINT application_pkey PRIMARY KEY (id);
 ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias ADD CONSTRAINT area_alias_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias_type ADD CONSTRAINT area_alias_type_pkey PRIMARY KEY (id);
@@ -41,6 +42,7 @@ ALTER TABLE editor ADD CONSTRAINT editor_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection ADD CONSTRAINT editor_collection_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection_release ADD CONSTRAINT editor_collection_release_pkey PRIMARY KEY (collection, release);
 ALTER TABLE editor_language ADD CONSTRAINT editor_language_pkey PRIMARY KEY (editor, language);
+ALTER TABLE editor_oauth_token ADD CONSTRAINT editor_oauth_token_pkey PRIMARY KEY (id);
 ALTER TABLE editor_preference ADD CONSTRAINT editor_preference_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_artist ADD CONSTRAINT editor_subscribe_artist_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_collection ADD CONSTRAINT editor_subscribe_collection_pkey PRIMARY KEY (id);
@@ -107,7 +109,6 @@ ALTER TABLE link_attribute ADD CONSTRAINT link_attribute_pkey PRIMARY KEY (link,
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type ADD CONSTRAINT link_type_pkey PRIMARY KEY (id);
 ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pkey PRIMARY KEY (link_type, attribute_type);
-ALTER TABLE location_name ADD CONSTRAINT location_name_pkey PRIMARY KEY (id);
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);

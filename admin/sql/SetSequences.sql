@@ -2,7 +2,7 @@
 \unset ON_ERROR_STOP
 
 SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
-SELECT setval('location_name_id_seq', (SELECT MAX(id) FROM location_name));
+SELECT setval('application_id_seq', (SELECT MAX(id) FROM application));
 SELECT setval('area_type_id_seq', (SELECT MAX(id) FROM area_type));
 SELECT setval('area_id_seq', (SELECT MAX(id) FROM area));
 SELECT setval('area_code_type_id_seq', (SELECT MAX(id) FROM area_code_type));
@@ -76,6 +76,7 @@ SELECT setval('link_id_seq', (SELECT MAX(id) FROM link));
 SELECT setval('link_attribute_type_id_seq', (SELECT MAX(id) FROM link_attribute_type));
 SELECT setval('link_type_id_seq', (SELECT MAX(id) FROM link_type));
 SELECT setval('editor_collection_id_seq', (SELECT MAX(id) FROM editor_collection));
+SELECT setval('editor_oauth_token_id_seq', (SELECT MAX(id) FROM editor_oauth_token));
 SELECT setval('medium_id_seq', (SELECT MAX(id) FROM medium));
 SELECT setval('medium_cdtoc_id_seq', (SELECT MAX(id) FROM medium_cdtoc));
 SELECT setval('medium_format_id_seq', (SELECT MAX(id) FROM medium_format));

@@ -368,7 +368,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
     my $ratings = $self->_load_paged($c, sub {
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
-    }, 100);
+    }, limit => 100);
 
     $c->stash(
         ratings => $ratings,

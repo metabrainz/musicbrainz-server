@@ -237,10 +237,11 @@ MB.constants.CLEANUPS = {
             return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
         }
     },
-    itunes: {
-        match: new RegExp("^https?://itunes.apple.com/", "i"),
+    downloadpurchase: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
+            // iTunes cleanup
             return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
         }
     },
@@ -329,7 +330,7 @@ MB.constants.CLEANUPS = {
             if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
-                  url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
+                  url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
                   // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
@@ -466,11 +467,30 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
         return $('#id-ar\\.url').val().match(/\/performance\/mq/) != null;
     }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
     };
+
+    // only allow domains on the score whitelist
+    var validateScore = function() {
+        return MB.constants.CLEANUPS.score.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
+    validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
+
+    // only allow domains on the other databases whitelist
+    var validateOtherDatabases = function() {
+        return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 
     var validateFacebook = function() {
         var url = $('#id-ar\\.url').val();

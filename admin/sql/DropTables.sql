@@ -2,6 +2,7 @@
 \unset ON_ERROR_STOP
 
 DROP TABLE annotation;
+DROP TABLE application;
 DROP TABLE area;
 DROP TABLE area_alias;
 DROP TABLE area_alias_type;
@@ -41,6 +42,7 @@ DROP TABLE editor;
 DROP TABLE editor_collection;
 DROP TABLE editor_collection_release;
 DROP TABLE editor_language;
+DROP TABLE editor_oauth_token;
 DROP TABLE editor_preference;
 DROP TABLE editor_subscribe_artist;
 DROP TABLE editor_subscribe_collection;
@@ -107,7 +109,6 @@ DROP TABLE link_attribute;
 DROP TABLE link_attribute_type;
 DROP TABLE link_type;
 DROP TABLE link_type_attribute_type;
-DROP TABLE location_name;
 DROP TABLE medium;
 DROP TABLE medium_cdtoc;
 DROP TABLE medium_format;

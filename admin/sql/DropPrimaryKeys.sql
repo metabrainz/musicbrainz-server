@@ -2,6 +2,7 @@
 \unset ON_ERROR_STOP
 
 ALTER TABLE annotation DROP CONSTRAINT annotation_pkey;
+ALTER TABLE application DROP CONSTRAINT application_pkey;
 ALTER TABLE area DROP CONSTRAINT area_pkey;
 ALTER TABLE area_alias DROP CONSTRAINT area_alias_pkey;
 ALTER TABLE area_alias_type DROP CONSTRAINT area_alias_type_pkey;
@@ -41,6 +42,7 @@ ALTER TABLE editor DROP CONSTRAINT editor_pkey;
 ALTER TABLE editor_collection DROP CONSTRAINT editor_collection_pkey;
 ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_pkey;
 ALTER TABLE editor_language DROP CONSTRAINT editor_language_pkey;
+ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
 ALTER TABLE editor_subscribe_collection DROP CONSTRAINT editor_subscribe_collection_pkey;
@@ -107,7 +109,6 @@ ALTER TABLE link_attribute DROP CONSTRAINT link_attribute_pkey;
 ALTER TABLE link_attribute_type DROP CONSTRAINT link_attribute_type_pkey;
 ALTER TABLE link_type DROP CONSTRAINT link_type_pkey;
 ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_pkey;
-ALTER TABLE location_name DROP CONSTRAINT location_name_pkey;
 ALTER TABLE medium DROP CONSTRAINT medium_pkey;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_pkey;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_pkey;

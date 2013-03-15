@@ -1,6 +1,9 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE INDEX application_idx_owner ON application (owner);
+CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
+
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
@@ -41,6 +44,10 @@ CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, tra
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
+
+CREATE INDEX editor_oauth_token_idx_editor ON editor_oauth_token (editor);
+CREATE UNIQUE INDEX editor_oauth_token_idx_access_token ON editor_oauth_token (access_token);
+CREATE UNIQUE INDEX editor_oauth_token_idx_refresh_token ON editor_oauth_token (refresh_token);
 
 CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
 

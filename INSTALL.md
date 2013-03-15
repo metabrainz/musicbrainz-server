@@ -53,11 +53,24 @@ Prerequisites
     same server with default settings. To install Memcached, run the following:
 
         sudo apt-get install memcached
-    
-    You can change the memcached server name and port, or configure other datastores 
+
+    You can change the memcached server name and port, or configure other datastores
     in lib/DBDefs.pm.
 
-6.  Standard Development Tools
+6.  Redis
+
+    Sessions are stored in Redis, so a running Redis server is
+    required.  Redis can be installed with the
+    following command and will not need any further configuration:
+
+        sudo apt-get install redis-server
+
+    The databases and key prefix used by musicbrainz can be configured
+    in lib/DBDefs.pm.  The defaults should be fine if you don't use
+    your redis install for anything else.
+
+
+7.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -155,6 +168,11 @@ Below outlines how to setup MusicBrainz server with Carton.
     having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
     directory to remove all packages previously installed by carton, and then run
     the above step again.
+
+    If carton complains about a missing "cpanfile", you can create it with:
+
+        cat Makefile.PL | grep ^requires > cpanfile
+
 
     If you still see errors, you can install individual packages manually by running:
 

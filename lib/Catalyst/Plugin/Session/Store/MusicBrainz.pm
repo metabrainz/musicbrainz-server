@@ -1,27 +1,57 @@
 package Catalyst::Plugin::Session::Store::MusicBrainz;
+use Moose;
+use MusicBrainz::DataStore::Redis;
+use Try::Tiny;
+use MIME::Base64 qw(encode_base64 decode_base64);
+use Storable qw/nfreeze thaw/;
 
-use Catalyst::Plugin::Session::Store::Memcached;
-our @ISA = 'Catalyst::Plugin::Session::Store::Memcached';
+extends 'Catalyst::Plugin::Session::Store';
 
-sub store_session_data
-{
-    my $self = shift;
-    my $ret;
+has '_datastore' => (
+    is => 'rw',
+    isa => 'MusicBrainz::DataStore',
+    default => sub { return MusicBrainz::DataStore::Redis->new; }
+);
 
-    eval {
-        $ret = $self->SUPER::store_session_data(@_);
-    };
-    if ($@)
+sub get_session_data {
+    my ($self, $key) = @_;
+
+    if(my ($sid) = $key =~ /^expires:(.*)/)
     {
-        $self->log->error ("Cannot save session to memcached, kick some servers!");
+        return $self->_datastore->get ($key);
     }
-
-    return $ret;
+    else
+    {
+        my $data = $self->_datastore->get ($key);
+        return thaw (decode_base64 ($data)) if defined $data;
+    }
 }
+
+sub store_session_data {
+    my ($self, $key, $data) = @_;
+
+    if(my ($sid) = $key =~ /^expires:(.*)/)
+    {
+        $self->_datastore->set ($key, $data);
+    }
+    else
+    {
+        $self->_datastore->set ($key, encode_base64 (nfreeze($data)));
+        $self->_datastore->expire($key, $self->session_expires);
+    }
+}
+
+sub delete_session_data {
+    my ($self, $key) = @_;
+
+    $self->_datastore->del ($key);
+}
+
+sub delete_expired_sessions { }
 
 =head1 LICENSE
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,5 +70,3 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 =cut
 
 1;
-
-

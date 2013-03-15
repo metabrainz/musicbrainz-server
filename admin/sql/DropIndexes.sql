@@ -1,6 +1,8 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP INDEX application_idx_oauth_id;
+DROP INDEX application_idx_owner;
 DROP INDEX area_alias_idx_area;
 DROP INDEX area_alias_idx_primary;
 DROP INDEX area_code_idx_area;
@@ -56,6 +58,9 @@ DROP INDEX editor_collection_idx_gid;
 DROP INDEX editor_collection_idx_name;
 DROP INDEX editor_idx_name;
 DROP INDEX editor_language_idx_language;
+DROP INDEX editor_oauth_token_idx_access_token;
+DROP INDEX editor_oauth_token_idx_editor;
+DROP INDEX editor_oauth_token_idx_refresh_token;
 DROP INDEX editor_preference_idx_editor_name;
 DROP INDEX editor_subscribe_artist_idx_artist;
 DROP INDEX editor_subscribe_artist_idx_uniq;
@@ -156,7 +161,6 @@ DROP INDEX language_idx_iso_code_3;
 DROP INDEX link_attribute_type_idx_gid;
 DROP INDEX link_idx_type_attr;
 DROP INDEX link_type_idx_gid;
-DROP INDEX location_name_idx_name;
 DROP INDEX medium_cdtoc_idx_cdtoc;
 DROP INDEX medium_cdtoc_idx_medium;
 DROP INDEX medium_cdtoc_idx_uniq;
