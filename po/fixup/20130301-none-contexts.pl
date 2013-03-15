@@ -20,6 +20,7 @@ for my $file (map { './' . $_ } grep { /^mb_server\..*\.po$/ } read_dir('.')) {
             my $email_clone = clone($po);
             my $description_clone = clone($po);
             my $lt_clone = clone($po);
+            my $lp_clone = clone($po);
             my $changes_clone = clone($po);
             $po->msgctxt('comment');
 
@@ -28,9 +29,10 @@ for my $file (map { './' . $_ } grep { /^mb_server\..*\.po$/ } read_dir('.')) {
             $email_clone->msgctxt('email');
             $description_clone->msgctxt('description');
             $lt_clone->msgctxt('link type');
+            $lp_clone->msgctxt('link phrase');
             $changes_clone->msgctxt('annotation changes');
             push @new, ($tag_clone, $type_clone, $email_clone,
-                        $description_clone, $lt_clone, $changes_clone);
+                        $description_clone, $lt_clone, $lp_clone, $changes_clone);
         }
     }
 
