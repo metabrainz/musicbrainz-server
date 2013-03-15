@@ -12,18 +12,22 @@
 # Héctor Arroyo <email address hidden>, 2012.
 # Héctor Arroyo <email address hidden>, 2012.
 # Nicolás Tamargo <email address hidden>, 2011-2013.
+# <email address hidden>, 2012.
 #   <email address hidden>, 2012.
+# <email address hidden>, 2012.
 #   <email address hidden>, 2012.
 #   Tobias Quathamer <email address hidden>, 2007.
 # Tobias Quathamer <email address hidden>, 2007.
 #   Tobias Quathamer <email address hidden>, 2007.
+# Tobias Quathamer <email address hidden>, 2007.
+# <email address hidden>, 2012.
 #   <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"POT-Creation-Date: 2013-02-27 18:58-0700\n"
-"PO-Revision-Date: 2013-02-28 02:01+0000\n"
+"POT-Creation-Date: 2013-03-15 16:32-0700\n"
+"PO-Revision-Date: 2013-03-15 23:50+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -157,16 +161,42 @@ msgstr "(sin registro de cambios)"
 msgid "(no other cover art)"
 msgstr "(no hay más imágenes)"
 
-#: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/edit/details/historic/add_release_annotation.tt:21
-#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "annotation changes"
+msgid "(none)"
+msgstr "(ninguno)"
+
 #: ../root/edit/details/remove_cover_art.tt:27
-#: ../root/layout/sidebar/sidebar-tags.tt:26
+msgctxt "comment"
+msgid "(none)"
+msgstr "(ninguno)"
+
+#: ../root/edit/details/add_relationship_type.tt:9
+#: ../root/relationship/linktype/tree.tt:15
+msgctxt "description"
+msgid "(none)"
+msgstr "(ninguno)"
+
+#: ../root/user/profile.tt:38
+msgctxt "email"
+msgid "(none)"
+msgstr "(ninguno)"
+
 #: ../root/relationship/linktype/tree.tt:12
 #: ../root/relationship/linktype/tree.tt:13
 #: ../root/relationship/linktype/tree.tt:14
-#: ../root/relationship/linktype/tree.tt:15 ../root/scripts/text_strings.tt:23
-#: ../root/user/profile.tt:38
+msgctxt "link phrase"
+msgid "(none)"
+msgstr "(ninguno)"
+
+#: ../root/layout/sidebar/sidebar-tags.tt:26
+#: ../root/scripts/text_strings.tt:23
+msgctxt "tag"
+msgid "(none)"
+msgstr "(ninguno)"
+
+#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "type"
 msgid "(none)"
 msgstr "(ninguno)"
 
@@ -1066,6 +1096,10 @@ msgstr "¿Seguro que quieres eliminar la ID de disco <code>{discid}</code> de la
 msgid "Are you sure you want to remove this application?"
 msgstr "¿Seguro que quieres eliminar esta aplicación?"
 
+#: ../root/account/revoke_application_access.tt:5
+msgid "Are you sure you want to revoke this application's access?"
+msgstr ""
+
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
 msgstr "¿Seguro que quieres cancelar la edición #{n}? ¡No podrás recuperarla más tarde!"
@@ -1729,7 +1763,8 @@ msgstr ""
 msgid "Can be approved"
 msgstr "Puede ser aprobada"
 
-#: ../root/account/remove_application.tt:9 ../root/artist/merge.tt:22
+#: ../root/account/remove_application.tt:9
+#: ../root/account/revoke_application_access.tt:9 ../root/artist/merge.tt:22
 #: ../root/components/common-macros.tt:590
 #: ../root/components/filter-form.tt:23 ../root/elections/nominate.tt:10
 #: ../root/label/merge.tt:19 ../root/layout/merge-helper.tt:34
@@ -3268,6 +3303,7 @@ msgstr "Información general:"
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_cc_links.tt:8
+#: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_without_language.tt:11
 #: ../root/report/releases_without_script.tt:10
 #: ../root/report/releases_with_unlikely_language_script.tt:10
@@ -3387,12 +3423,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/artist/recordings-list.tt:26 ../root/report/index.tt:87
+#: ../root/artist/recordings-list.tt:26 ../root/report/index.tt:89
 #: ../root/search/lib/inline-results-recording.tt:10
 msgid "ISRCs"
 msgstr "ISRCs"
 
-#: ../root/report/index.tt:90 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:92 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRCs con múltiples grabaciones"
@@ -5388,7 +5424,7 @@ msgid "Recording:"
 msgstr "Grabación:"
 
 #: ../root/artist/header.tt:1 ../root/artist/recordings.tt:1
-#: ../root/artist/recordings.tt:4 ../root/report/index.tt:72
+#: ../root/artist/recordings.tt:4 ../root/report/index.tt:74
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #: ../lib/MusicBrainz/Server/Wizard/ReleaseEditor.pm:66
 msgid "Recordings"
@@ -5403,18 +5439,18 @@ msgstr "Grabaciones que empiezan por \"{index}\""
 msgid "Recordings with Earliest Release Relationships"
 msgstr "Grabaciones con la relación \"primera publicación\""
 
-#: ../root/report/index.tt:75
+#: ../root/report/index.tt:77
 msgid "Recordings with earliest release relationships"
 msgstr "Grabaciones con la relación \"primera publicación\""
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:78
+#: ../root/report/index.tt:80
 msgid "Recordings with possible duplicate relationships"
 msgstr ""
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:77
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:79
 msgid "Recordings with titles containing featuring artists"
 msgstr "Grabaciones que contienen \"feat.\" en el título"
 
@@ -5793,6 +5829,10 @@ msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Publicaciones en el archivo de imágenes que aún tienen relaciones de \"imagen de portada\"."
 
+#: ../root/report/index.tt:67
+msgid "Releases of any sort that still have cover art relationships"
+msgstr ""
+
 #: ../root/report/index.tt:60 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
@@ -5827,6 +5867,11 @@ msgstr "Publicaciones con URLs de Amazon inesperadas"
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Publicaciones que quizá deban estar atribuidas a múltiples artistas"
 
+#: ../root/report/releases_with_coverart_links.tt:1
+#: ../root/report/releases_with_coverart_links.tt:3
+msgid "Releases with Cover Art relationships"
+msgstr ""
+
 #: ../root/report/index.tt:46 ../root/report/releases_with_cc_links.tt:1
 #: ../root/report/releases_with_cc_links.tt:3
 msgid "Releases with Creative Commons Download relationships"
@@ -5841,7 +5886,7 @@ msgstr "Publicaciones con números de catálogo que parecen ASINs"
 msgid "Releases with medium number issues"
 msgstr "Publicaciones con problemas en la posición de los medios"
 
-#: ../root/report/index.tt:66
+#: ../root/report/index.tt:68
 msgid "Releases with non-sequential mediums"
 msgstr "Publicaciones con números de medio discontinuos"
 
@@ -5851,7 +5896,7 @@ msgstr "Publicaciones con números de pista discontinuos"
 
 #: ../root/report/duplicate_relationships_releases.tt:1
 #: ../root/report/duplicate_relationships_releases.tt:3
-#: ../root/report/index.tt:69
+#: ../root/report/index.tt:71
 msgid "Releases with possible duplicate relationships"
 msgstr ""
 
@@ -5869,12 +5914,12 @@ msgstr "Publicaciones que contienen \"feat.\" en el título "
 msgid "Releases with track number issues"
 msgstr "Publicaciones con problemas en la posición de las pistas"
 
-#: ../root/report/index.tt:68 ../root/report/tracks_without_times.tt:1
+#: ../root/report/index.tt:70 ../root/report/tracks_without_times.tt:1
 #: ../root/report/tracks_without_times.tt:3
 msgid "Releases with unknown track times"
 msgstr ""
 
-#: ../root/report/index.tt:67
+#: ../root/report/index.tt:69
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
@@ -6163,6 +6208,11 @@ msgstr "Consulta la <a href=\"{url}\" target=\"_blank\">lista de tipos de empaqu
 #: ../root/account/applications.tt:35
 msgid "Revoke Access"
 msgstr "Cancelar acceso"
+
+#: ../root/account/revoke_application_access.tt:1
+#: ../root/account/revoke_application_access.tt:3
+msgid "Revoke Application Access"
+msgstr ""
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -7916,6 +7966,10 @@ msgid ""
 "other European languages) is Latin."
 msgstr "Este informe muestra publicaciones cuyo alfabeto no ha sido indicado. Si reconoces el alfabeto, ¡indícalo! Recuerda que el alfabeto usado para el inglés, el español y la mayoría de los idiomas europeos es el latino."
 
+#: ../root/report/releases_with_coverart_links.tt:6
+msgid "This report shows releases that still have Cover Art relationships."
+msgstr ""
+
 #: ../root/report/releases_with_cc_links.tt:6
 msgid ""
 "This report shows releases that still have Creative Commons Download "
@@ -8184,6 +8238,7 @@ msgstr "Total de grupos de publicaciones: {count}"
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_cc_links.tt:7
+#: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_without_language.tt:10
 #: ../root/report/releases_without_script.tt:9
 #: ../root/report/releases_with_unlikely_language_script.tt:8
@@ -8282,7 +8337,7 @@ msgstr "Lista de pistas:"
 msgid "Tracks"
 msgstr "Pistas"
 
-#: ../root/report/index.tt:76
+#: ../root/report/index.tt:78
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Pistas cuyos títulos incluyen su número de pista"
 
@@ -8936,7 +8991,7 @@ msgid "Work:"
 msgstr "Obra:"
 
 #: ../root/artist/header.tt:1 ../root/artist/works.tt:2
-#: ../root/report/index.tt:81 ../root/tag/header.tt:1 ../root/tag/index.tt:3
+#: ../root/report/index.tt:83 ../root/tag/header.tt:1 ../root/tag/index.tt:3
 #: ../root/user/tag.tt:4
 msgid "Works"
 msgstr "Obras"
@@ -8947,7 +9002,7 @@ msgstr "Obras que empiezan por \"{index}\""
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:84
+#: ../root/report/index.tt:86
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -9008,7 +9063,9 @@ msgstr "Sí"
 msgid "Yes vote count"
 msgstr "Nº votos Sí"
 
-#: ../root/account/remove_application.tt:10 ../root/elections/nominate.tt:11
+#: ../root/account/remove_application.tt:10
+#: ../root/account/revoke_application_access.tt:10
+#: ../root/elections/nominate.tt:11
 msgid "Yes, I am sure"
 msgstr "Sí, seguro."
 
