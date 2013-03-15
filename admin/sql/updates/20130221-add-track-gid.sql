@@ -24,11 +24,5 @@ ALTER TABLE track_gid_redirect
     ADD CONSTRAINT track_gid_redirect_pkey
     PRIMARY KEY (gid);
 
-ALTER TABLE track_gid_redirect
-   ADD CONSTRAINT track_gid_redirect_fk_new_id
-   FOREIGN KEY (new_id)
-   REFERENCES track(id);
-
 COMMIT;
 
--- vi: set ts=4 sw=4 et :

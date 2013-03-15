@@ -13,8 +13,10 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 sub reduplicate_tracklist {
     my ($tracklist_id, $medium_ids) = @_;
 
+    my ($first_medium, @more_mediums) = @$medium_ids;
+
     $log->info ("Reduplicate tracklist $tracklist_id ".
-                "(making ".$#$medium_ids." copies)\n");
+                "(making ".(scalar @more_mediums)." copies)\n");
 
     # If a tracklist is attached to e.g. 8 media, we need to go
     # through these steps:
@@ -29,12 +31,10 @@ sub reduplicate_tracklist {
     # to the medium, and the tracklist column and table can be
     # deleted.
 
-    my $first_medium = shift @$medium_ids;
-
     $c->sql->do ("UPDATE track SET medium = ? WHERE tracklist = ?",
                  $first_medium, $tracklist_id);
 
-    return unless $#$medium_ids >= 0;
+    return unless @more_mediums;
 
     $c->sql->do (
         "INSERT INTO track (recording,tracklist,position,name," .
@@ -45,7 +45,7 @@ sub reduplicate_tracklist {
         "           new_medium " .
         "    FROM track, UNNEST(?::integer[]) new_medium " .
         "    WHERE tracklist=?; ",
-        $medium_ids, $tracklist_id);
+        [ @more_mediums ], $tracklist_id);
 }
 
 sub main {
