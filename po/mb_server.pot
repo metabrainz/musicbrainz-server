@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-15 16:28-0700\n"
+"POT-Creation-Date: 2013-03-15 16:32-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,16 +144,42 @@ msgstr ""
 msgid "(no other cover art)"
 msgstr ""
 
-#: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/edit/details/historic/add_release_annotation.tt:21
-#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "annotation changes"
+msgid "(none)"
+msgstr ""
+
 #: ../root/edit/details/remove_cover_art.tt:27
-#: ../root/layout/sidebar/sidebar-tags.tt:26
+msgctxt "comment"
+msgid "(none)"
+msgstr ""
+
+#: ../root/edit/details/add_relationship_type.tt:9
+#: ../root/relationship/linktype/tree.tt:15
+msgctxt "description"
+msgid "(none)"
+msgstr ""
+
+#: ../root/user/profile.tt:38
+msgctxt "email"
+msgid "(none)"
+msgstr ""
+
 #: ../root/relationship/linktype/tree.tt:12
 #: ../root/relationship/linktype/tree.tt:13
 #: ../root/relationship/linktype/tree.tt:14
-#: ../root/relationship/linktype/tree.tt:15 ../root/scripts/text_strings.tt:23
-#: ../root/user/profile.tt:38
+msgctxt "link phrase"
+msgid "(none)"
+msgstr ""
+
+#: ../root/layout/sidebar/sidebar-tags.tt:26
+#: ../root/scripts/text_strings.tt:23
+msgctxt "tag"
+msgid "(none)"
+msgstr ""
+
+#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "type"
 msgid "(none)"
 msgstr ""
 
