@@ -6,6 +6,7 @@
 #triple {
     clear: both;
     margin-top: 20px;
+    overflow: auto;
 }
 
 #triple .triple-column {
@@ -37,7 +38,7 @@
     margin-left: 60px;
 }
 
-.triple-column h2 {
+.feature-column h2 {
     color: #FFFFFF;
     background-color: #736DAB;
     padding: 5px 0 5px 7px;

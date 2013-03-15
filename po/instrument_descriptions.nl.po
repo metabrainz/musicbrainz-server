@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-08-16 10:54+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2013-01-15 22:23+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,16 @@ msgstr "driesnarige fretloze luit"
 #: DB:link_attribute_type/description:550
 msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
+
+#: DB:link_attribute_type/description:643
+msgid ""
+"A Turkish version of tambourine / daf, made from animal skin and played with"
+" the fingers."
+msgstr ""
+
+#: DB:link_attribute_type/description:635
+msgid "A banjo! With five strings!"
+msgstr ""
 
 #: DB:link_attribute_type/description:600
 msgid ""
@@ -88,6 +98,12 @@ msgid ""
 "Other names: jūshichi-gen, 十七絃, 十七弦, jûshichigen"
 msgstr "De zeventiensnarige koto (Japans: 十七絃 of 十七弦) wordt soms beschreven als een baskoto. (<a href=\"http://en.wikipedia.org/wiki/17-string_koto\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:644
+msgid ""
+"A larger version of tef, used to indicate the rhythmic structures (usul) in "
+"makam music."
+msgstr ""
+
 #: DB:link_attribute_type/description:627
 msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
@@ -113,6 +129,12 @@ msgstr "Een lange citer met zestien snaren en hoge beweegbare bruggen. De snaren
 msgid ""
 "A piano whose strings are bowed, using nylon filament or other materials"
 msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon of andere materialen."
+
+#: DB:link_attribute_type/description:631
+msgid ""
+"A plucked instrument from the Renaissance. (<a "
+"href=\"http://en.wikipedia.org/wiki/Orpharion\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:590
 msgid ""
@@ -146,11 +168,26 @@ msgstr "Een cilindrische trommel zonder snaar. Standaard onderdeel van een drums
 msgid "A type of fretless zither."
 msgstr "Een soort fretloze citer."
 
+#: DB:link_attribute_type/description:638
+msgid "A typewriter, used for percussion (either keys or bells)"
+msgstr ""
+
+#: DB:link_attribute_type/description:633
+msgid ""
+"A valveless trumpet, in the model of the ones from the 16th to 18th "
+"centuries (<a "
+"href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:620
 msgid ""
 "A wooden, beaked double-flute traditionally played by goat herders in the "
 "Punjab region of India and Pakistan."
 msgstr "De algoze of algoza (Punjabi: ਅਲਗੋਜ਼ੇ) is een gebekte dubbelfluit die gebruikt wordt door Sindhi muzikanten. (<a href=\"http://en.wikipedia.org/wiki/Algoze\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:651
+msgid "Acoustic guitar without frets."
+msgstr ""
 
 #: DB:link_attribute_type/description:557
 msgid "Also known as a music box"
@@ -175,6 +212,13 @@ msgid ""
 "Amadinda, southern Uganda giant xylophone, made on with resonating "
 "hardwoodwood bars"
 msgstr "Amadinda, enorme Zuid-Oegandese xylofoon van resonerende hardhouten staven."
+
+#: DB:link_attribute_type/description:645
+msgid ""
+"An Indian version of the jew's harp, played as a percussion instrument in "
+"Carnatic music and Rajastani folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Morsing\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:435
 msgid ""
@@ -345,6 +389,12 @@ msgstr "Duhol, traditionele Iraanse trommel"
 msgid "Double bass (Contrabass, Acoustic upright bass, wood bass)"
 msgstr "Ook wel doublebass, staande bas of kortweg bas genoemd, is het laagstklinkend muziekinstrument van de strijkinstrumenten. (<a href=\"http://nl.wikipedia.org/wiki/Contrabas\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:647
+msgid ""
+"Double headed drum from India.  (<a "
+"href=\"http://en.wikipedia.org/wiki/Dhol\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:161
 msgid "Dubreq Stylophone"
 msgstr "Een analoge mini-synthesizer die met een pen bespeeld wordt. (<a href=\"http://en.wikipedia.org/wiki/Dubreq_Stylophone\">Wikipedia</a>)"
@@ -352,6 +402,10 @@ msgstr "Een analoge mini-synthesizer die met een pen bespeeld wordt. (<a href=\"
 #: DB:link_attribute_type/description:264
 msgid "Duct flutes, sometimes known as fipple flutes"
 msgstr "Fluiten die recht via een mondstuk worden aangeblazen."
+
+#: DB:link_attribute_type/description:650
+msgid "Electric guitar without frets."
+msgstr ""
 
 #: DB:link_attribute_type/description:500
 msgid ""
@@ -493,6 +547,13 @@ msgstr "Ziet er uit als een blokfluit, maar met dubbel riet en het vingersysteem
 msgid "Madal, hand drum originating from Nepal"
 msgstr "Madal, handtrommel afkomstig uit Nepal"
 
+#: DB:link_attribute_type/description:649
+msgid ""
+"Maddale is a double-headed drum from Karnataka, India. It is the primary "
+"rhythmic accompaniment in Yakshagana. (<a "
+"href=\"http://en.wikipedia.org/wiki/Maddale\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:110
 msgid ""
 "Mbira, (sansa, kalimba, luvale, karimba, marimbula, matape, thumb piano)"
@@ -597,6 +658,12 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
 msgstr "Met de voeten uitgevoerde percussie, zoals <a href=\"http://nl.wikipedia.org/wiki/Klompendans\">klompendansen</a>."
+
+#: DB:link_attribute_type/description:652
+msgid ""
+"Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
+" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Dulcian\">Ney</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:379
 msgid "Phách (The clappers)"
@@ -752,11 +819,31 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
 msgstr "De bawu (Traditioneel Chinees: 巴烏, Vereenvoudigd Chinees: 巴乌, pinyin: bāwū, ook wel ba wu of ba-wu genoemd) is een Chinees blaasinstrument. Hoewel het de vorm heeft van een fluit, is het een vrij rietinstrument, met een enkel metalen riet. Het wordt dwars gespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Bawu\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:640
+msgid ""
+"The bulbul tarang (बुलबुल तरंग, Indian banjo) is a string instrument from "
+"India and Pakistan (<a href=\"http://en.wikipedia.org/wiki/Bulbul "
+"tarang\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:636
+msgid ""
+"The cavaquinho is a small plucked string instrument of Portuguese origin "
+"with four wire or gut strings (<a "
+"href=\"http://en.wikipedia.org/wiki/Cavaquinho\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:599
 msgid ""
 "The caxixi is a shaker originating in Brazil which is made of a small wicker basket containing seeds or other small particles.\n"
 "(<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
 msgstr "De caxixi is een percussie-instrument bestaande uit een trommel gevuld met zaden of andere kleine deeltjes. (<a href=\"http://en.wikipedia.org/wiki/Caxixi\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:648
+msgid ""
+"The chande is a drum used in the traditional and classical music of South "
+"India. (<a href=\"http://en.wikipedia.org/wiki/Chande\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:559
 msgid "The charango is a small South American lute."
@@ -781,6 +868,13 @@ msgid ""
 " Korea which is made of bamboo. (<a "
 "href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
 msgstr "De daegeum (Koreaans: 대금, ook wel taegŭm) is een grote bamboedwarsfluit uit Korea. (<a href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:642
+msgid ""
+"The dilruba is a bowed string instrument from Northern India, mostly used in"
+" religious music and light classical songs (<a "
+"href=\"http://en.wikipedia.org/wiki/Dilruba\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:553
 msgid ""
@@ -809,6 +903,13 @@ msgid ""
 "The erhu (Chinese: 二胡) is a bowed Chinese instrument with two strings. Also "
 "known as a Chinese violin, erfu or nanhu."
 msgstr "De erhu (Chinees: 二胡) is een Chinees strijkinstrument met twee snaren. Ook bekend als de Chinese viool, erfu of nanhu. (<a href=\"http://nl.wikipedia.org/wiki/Erhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:641
+msgid ""
+"The esraj is a bowed string instrument from Eastern and Central India, "
+"mostly used as an accompanying instrument (<a "
+"href=\"http://en.wikipedia.org/wiki/Esraj\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:100
 msgid ""
@@ -860,6 +961,13 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Kanjira\">Wikipedia</a>)"
 msgstr "De kanjira, khanjira of ganjira is een Zuid-Indiase lijsttrommel. (<a href=\"http://en.wikipedia.org/wiki/Kanjira\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:646
+msgid ""
+"The kartal is an Indian percussion instrument with jingles, played with the "
+"hands, mainly used in Kirtans, Bhajans and in Rajastani folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Khartal\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:551
 msgid ""
 "The kaval is a chromatic end-blown flute from the Balkans and Anatolia. It "
@@ -879,6 +987,20 @@ msgid ""
 " folk music of Korea. (<a "
 "href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
 msgstr "De kkwaenggwari (Koreaans: 꽹과리, ook gespeld als ggwaenggwari) is een kleine platte messing gong, normaal gesproken met een diameter van 20 cm, die vooral gebruikt wordt in de traditionele Koreaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:655
+msgid ""
+"The komuz or qomuz is a fretless string instrument used in Central Asian "
+"music, seen as the Kyrgyz national instrument. (<a "
+"href=\"http://en.wikipedia.org/wiki/Komuz\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:630
+msgid ""
+"The launeddas is a typical Sardinian woodwind instrument, consisting of "
+"three pipes.  (<a "
+"href=\"http://en.wikipedia.org/wiki/Launeddas\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:294
 msgid ""
@@ -946,9 +1068,9 @@ msgstr "De shamisen of samisen (Japans: 三味線) ook wel sangen (Japans: 三�
 msgid ""
 "The shehnai, shahnai, shenai or mangal vadya, is a double reed conical oboe,"
 " common in North India, West India and Pakistan, made out of wood, with a "
-"metal flare bell at the end. "
-"(http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
-msgstr "De shehnai, shanai shenai of mangal vadya is een conische dubbelriet hobo die veel voorkomt in Noord-India, West-India en Pakistan en is gemaakt van hout, met een metalen belvormig stuk aan het einde. (<a href=\"http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
+"metal flare bell at the end. (<a "
+"href=\"http://en.wikipedia.org/wiki/Shehnai\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:564
 msgid ""
@@ -968,6 +1090,13 @@ msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
 "Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê."
 msgstr "De t'rưng (t'rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietman en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
+
+#: DB:link_attribute_type/description:656
+msgid ""
+"The talharpa is a four-stringed bowed lyre from northern Europe, mostly "
+"played in Estonia. (<a "
+"href=\"http://en.wikipedia.org/wiki/Talharpa\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:560
 msgid ""
@@ -995,6 +1124,12 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
 msgstr "De tumbi of toombi (Punjabi: ਤੂੰਬੀ) is een tokkelinstrument met één snaar uit Punjab. (<a href=\"http://en.wikipedia.org/wiki/Tumbi\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:629
+msgid ""
+"The valiha is a bamboo tube zither from Madagascar (<a "
+"href=\"http://en.wikipedia.org/wiki/Valiha\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:621
 msgid ""
 "The virginals is a smaller and simpler rectangular form of the harpsichord "
@@ -1009,6 +1144,13 @@ msgid ""
 "Chinese end-blown flute. (<a "
 "href=\"http://en.wikipedia.org/wiki/Xiao_(flute)\">Wikipedia</a>)"
 msgstr "De Xiao (Traditioneel Chinees: 簫, Versimpeld Chinees: 箫, pinyin: xiāo, ook wel dòngxiā genoemd) is een Chinese verticaal bespeelde fluit. (<a href=\"http://en.wikipedia.org/wiki/Xiao_(flute)\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:639
+msgid ""
+"The yaylı tanbur is a bowed lute from Turkey derived from the older plucked "
+"tanbur. (<a "
+"href=\"http://en.wikipedia.org/wiki/Yaylı_tanbur\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:426
 msgid "Theatre organ, usch as the Wurlitzer"
@@ -1041,6 +1183,25 @@ msgstr ""
 msgid "Turkish baglama"
 msgstr "Turkse bağlama"
 
+#: DB:link_attribute_type/description:654
+msgid ""
+"Turkish bowl-shaped kemenche, mainly used in classical Ottoman music (<a "
+"href=\"http://en.wikipedia.org/wiki/Classical kemençe\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:653
+msgid ""
+"Turkish box-shaped kemenche, mainly used for folk music. (<a "
+"href=\"http://en.wikipedia.org/wiki/Kemençe of the Black "
+"Sea\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:637
+msgid ""
+"Turkish pair of small, hemispherical drums (<a "
+"href=\"http://en.wikipedia.org/wiki/Kudüm\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:281
 msgid ""
 "Turkish three-stringed bowed instrument (<a "
@@ -1054,6 +1215,12 @@ msgstr "Udu, Nigeriaanse vaastrommel"
 #: DB:link_attribute_type/description:248
 msgid "Uilleann/Union/Irish pipes"
 msgstr "Ierse doedelzak (<a href=\"http://nl.wikipedia.org/wiki/Uilleann_pipes\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:634
+msgid ""
+"Valveless ancestor of the modern (French) horn. (<a "
+"href=\"http://en.wikipedia.org/wiki/Natural_horn\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:343
 msgid "Various types of cymbal. Also called chũm chọe"
@@ -2117,6 +2284,10 @@ msgstr "De naam tanbūr (Perzisch: تنبور) wordt gebruikt voor verschillende
 #: DB:link_attribute_type/description:510
 msgid "tangent piano"
 msgstr "Een tangentpiano is een zeer zeldzaam toetsinstrument dat lijkt op een klavecimbel. (<a href=\"http://en.wikipedia.org/wiki/Tangent_piano\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:632
+msgid "tape"
+msgstr ""
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"

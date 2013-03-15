@@ -140,10 +140,20 @@ sub edit_action
                 %extra
             );
 
+            # the on_creation hook is only called when an edit was entered.
+            # the post_creation hook is always called.
             $opts{post_creation}->($edit, $form) if exists $opts{post_creation};
+            $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
         });
 
-        $opts{on_creation}->($edit, $form) if $edit && exists $opts{on_creation};
+        # `post_creation` and `on_creation` often perform a redirection.
+        # If they have called $c->res->redirect, $c->res->location will be a
+        # true value, and we can detach early. `post_creation` and `on_creation`
+        # can't do this, as $c->detach is implemented by throwing an exception,
+        # which causes the above transaction to rollback.
+        if ($c->res->location) {
+            $c->detach;
+        }
 
         return $edit;
     }
@@ -181,12 +191,13 @@ sub _search_final_page
 
 sub _load_paged
 {
-    my ($self, $c, $loader, $limit) = @_;
+    my ($self, $c, $loader, %opts) = @_;
 
-    my $page = $c->request->query_params->{page} || 1;
+    my $prefix = $opts{prefix} || '';
+    my $page = $c->request->query_params->{$prefix . "page"} || 1;
     $page = 1 if $page < 1;
 
-    my $LIMIT = $limit || $self->{paging_limit};
+    my $LIMIT = $opts{limit} || $self->{paging_limit};
 
     my ($data, $total) = $loader->($LIMIT, ($page - 1) * $LIMIT);
     my $pager = Data::Page->new;
@@ -197,7 +208,7 @@ sub _load_paged
         my $uri = $c->request->uri;
         my %params = $uri->query_form;
 
-        $params{page} = $page;
+        $params{$prefix . "page"} = $page;
         $uri->query_form (\%params);
 
         $c->response->redirect ($uri);
@@ -208,7 +219,7 @@ sub _load_paged
     $pager->total_entries($total || 0);
     $pager->current_page($page);
 
-    $c->stash( pager => $pager );
+    $c->stash( $prefix . "pager" => $pager );
     return $data;
 }
 

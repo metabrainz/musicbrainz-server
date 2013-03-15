@@ -364,6 +364,7 @@ sub _serialize_release
     push @list, $gen->country($release->country->iso_code) if $release->country;
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
+    $self->_serialize_cover_art_archive(\@list, $gen, $release, $inc, $stash) if $release->cover_art_presence;
 
     if ($toplevel)
     {
@@ -381,6 +382,21 @@ sub _serialize_release
         if ($opts->{collections} && @{ $opts->{collections} });
 
     push @$data, $gen->release({ id => $release->gid }, @list);
+}
+
+sub _serialize_cover_art_archive
+{
+    my ($self, $data, $gen, $release, $inc, $stash) = @_;
+    my $coverart = $stash->store($release)->{'cover-art-archive'};
+
+    my @list;
+    push @list, $gen->artwork($release->cover_art_presence eq 'present' ? 'true' : 'false');
+    push @list, $gen->count($coverart->{total});
+    push @list, $gen->front($coverart->{front} ? 'true' : 'false');
+    push @list, $gen->back($coverart->{back} ? 'true' : 'false');
+    push @list, $gen->darkened('true') if $release->cover_art_presence eq 'darkened';
+
+    push @$data, $gen->cover_art_archive(@list);
 }
 
 sub _serialize_work_list
@@ -426,6 +442,22 @@ sub _serialize_work
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
     push @$data, $gen->work(\%attrs, @list);
+}
+
+sub _serialize_url
+{
+    my ($self, $data, $gen, $url, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($url);
+
+    my %attrs;
+    $attrs{id} = $url->gid;
+
+    my @list;
+    push @list, $gen->resource($url->url);
+    $self->_serialize_relation_lists($url, \@list, $gen, $url->relationships, $inc, $stash) if ($inc->has_rels);
+
+    push @$data, $gen->url(\%attrs, @list);
 }
 
 sub _serialize_recording_list
@@ -725,8 +757,14 @@ sub _serialize_relation
 
     my @list;
     my $type = $rel->link->type->name;
+    my $type_id = $rel->link->type->gid;
 
-    push @list, $gen->target($rel->target_key);
+    if ($rel->target_type eq 'url') {
+        push @list, $gen->target({ 'id' => $rel->target->gid }, $rel->target_key);
+    } else {
+        push @list, $gen->target($rel->target_key);
+    }
+
     push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
     push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
     push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
@@ -743,7 +781,7 @@ sub _serialize_relation
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
-    push @$data, $gen->relation({ type => $type }, @list);
+    push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 
 sub _serialize_puid_list
@@ -994,6 +1032,16 @@ sub work_resource
     return $data->[0];
 }
 
+sub url_resource
+{
+    my ($self, $gen, $url, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_url($data, $gen, $url, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
 sub isrc_resource
 {
     my ($self, $gen, $isrc, $inc, $stash) = @_;
@@ -1122,7 +1170,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2010-2013 MetaBrainz Foundation
 Copyright (C) 2009 Lukas Lalinsky
 Copyright (C) 2004, 2010 Robert Kaye
 

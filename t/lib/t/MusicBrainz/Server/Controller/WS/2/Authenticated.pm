@@ -128,5 +128,33 @@ sub _compare_tags
     is_deeply (\@tags, $expected, $desc);
 }
 
+test 'OAuth bearer' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $token = '';
+
+    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    is($mech->status, 401, 'Rejected without authentication');
+
+    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=7Fjfp0ZBr1KtDRbnfVdmIw");
+    is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
+
+    $mech->get_ok("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist&access_token=Nlaa7v15QHm9g8rUOmT3dQ");
+
+    $mech->delete_header('Authorization');
+    $mech->add_header('Authorization', 'Bearer 7Fjfp0ZBr1KtDRbnfVdmIw');
+    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    is($mech->status, 401, 'Rejected with insufficent scope of the authentication');
+
+    $mech->delete_header('Authorization');
+    $mech->add_header('Authorization', 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
+    $mech->get_ok("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+};
+
 1;
 

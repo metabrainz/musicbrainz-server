@@ -200,6 +200,11 @@ around extract_property => sub {
     }
 };
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/label/$mbid";
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

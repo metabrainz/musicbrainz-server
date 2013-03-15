@@ -89,23 +89,31 @@ test 'work lookup with recording relationships' => sub {
             relations => [
                 {
                     type => "performance",
+                    'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",
                     recording => {
                         id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
                         title => "サマーれげぇ!レインボー",
                         length => 296026,
                         disambiguation => "",
-                    }
+                    },
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
                 },
                 {
                     type => "performance",
+                    'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",
                     recording => {
                         id => "eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e",
                         title => "サマーれげぇ!レインボー (instrumental)",
                         length => 292800,
                         disambiguation => "",
-                    }
+                    },
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
                 }
                 ],
             iswcs => [],

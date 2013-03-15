@@ -33,6 +33,18 @@ sub find_available_artwork {
     ];
 };
 
+sub get_stats_for_release {
+    my ($self, $release_id) = @_;
+    my $stats = $self->sql->select_list_of_hashes(
+    'SELECT COUNT(*) total,
+            bool_or(is_front) front,
+            bool_or(is_back) back
+     FROM cover_art_archive.index_listing
+     WHERE release = ?',
+     $release_id);
+    return $stats->[0];
+}
+
 sub fresh_id {
     return int((time() - 1327528905) * 100);
 }

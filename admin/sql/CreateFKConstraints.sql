@@ -6,6 +6,11 @@ ALTER TABLE annotation
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE application
+   ADD CONSTRAINT application_fk_owner
+   FOREIGN KEY (owner)
+   REFERENCES editor(id);
+
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)
@@ -296,6 +301,16 @@ ALTER TABLE editor_language
    FOREIGN KEY (language)
    REFERENCES language(id);
 
+ALTER TABLE editor_oauth_token
+   ADD CONSTRAINT editor_oauth_token_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE editor_oauth_token
+   ADD CONSTRAINT editor_oauth_token_fk_application
+   FOREIGN KEY (application)
+   REFERENCES application(id);
+
 ALTER TABLE editor_preference
    ADD CONSTRAINT editor_preference_fk_editor
    FOREIGN KEY (editor)
@@ -303,6 +318,11 @@ ALTER TABLE editor_preference
 
 ALTER TABLE editor_subscribe_artist
    ADD CONSTRAINT editor_subscribe_artist_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE editor_subscribe_collection
+   ADD CONSTRAINT editor_subscribe_collection_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 

@@ -16,4 +16,10 @@ package MusicBrainz::Server::Exceptions::InvalidSearchParameters;
 use Moose;
 extends 'Throwable::Error';
 
+package MusicBrainz::Server::Exceptions::DuplicateViolation;
+use Moose;
+with 'Throwable';
+
+has 'conflict' => ( is => 'ro', required => 1 );
+
 1;

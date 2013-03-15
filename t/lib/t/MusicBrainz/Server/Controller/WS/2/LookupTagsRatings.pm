@@ -122,6 +122,12 @@ ws_test 'release lookup with release-groups, tags and ratings',
         </release-group>
         <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
     </release>
 </metadata>';
 

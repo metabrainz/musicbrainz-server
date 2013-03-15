@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-27 16:25+0000\n"
-"Last-Translator: nikki <email address hidden>\n"
+"PO-Revision-Date: 2013-01-15 22:24+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/musicbrainz/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1099,11 +1099,13 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/IMDb_Relationship_Type\">Details</a>)"
 msgstr ""
 
+#: DB:link_type/link_phrase:307 DB:link_type/link_phrase:308
 #: DB:link_type/reverse_link_phrase:280
 msgid "SecondHandSongs"
 msgstr ""
 
-#: DB:link_type/link_phrase:280
+#: DB:link_type/link_phrase:280 DB:link_type/reverse_link_phrase:307
+#: DB:link_type/reverse_link_phrase:308
 msgid "SecondHandSongs page for"
 msgstr ""
 
@@ -1340,13 +1342,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Social_Networking_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:78
-msgid ""
-"This link is used to deep-link to cover art on other sites.<br/><br/> See <a"
-" href=\"http://musicbrainz.org/doc/Cover_Art_Sites\">Cover Art Sites</a> for"
-" a list of acceptable web sites for this relationship type."
-msgstr ""
-
 #: DB:link_type/description:190
 msgid ""
 "This link is used to link to specific artists on the /music pages at the BBC"
@@ -1448,14 +1443,14 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:96 DB:link_type/description:82
-#: DB:link_type/description:306 DB:link_type/description:273
-#: DB:link_type/description:222 DB:link_type/description:188
+#: DB:link_type/description:306 DB:link_type/description:222
+#: DB:link_type/description:273 DB:link_type/description:188
 msgid ""
 "This links an entity to the equivalent entry at another database. Please "
 "respect the <a "
 "href=\"http://musicbrainz.org/doc/Other_Databases_Relationship_Type/Whitelist\">whitelist</a>"
 " (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
+"href=\"http://musicbrainz.org/doc/Other_Databases_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:91 DB:link_type/description:181
@@ -1516,6 +1511,13 @@ msgstr ""
 msgid "This relationship links a label to its corresponding page on VGMdb."
 msgstr ""
 
+#: DB:link_type/description:308
+msgid ""
+"This relationship links a release to its corresponding page in "
+"SecondHandSongs database. (<a "
+"href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
+msgstr ""
+
 #: DB:link_type/description:86
 msgid "This relationship links a release to its corresponding page on VGMdb."
 msgstr ""
@@ -1531,6 +1533,13 @@ msgstr ""
 msgid ""
 "This relationship links a work to its corresponding page in SecondHandSongs "
 "database. (<a "
+"href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:307
+msgid ""
+"This relationship links an artist to its corresponding page in "
+"SecondHandSongs database. (<a "
 "href=\"http://musicbrainz.org/doc/Secondhandsongs_Relationship_Type\">Details</a>)"
 msgstr ""
 
@@ -1645,6 +1654,13 @@ msgid ""
 "This relationship type is <strong>deprecated</strong>! Please enter separate"
 " relationships using the license relationship type and either the free "
 "download or paid download relationship type."
+msgstr ""
+
+#: DB:link_type/description:78
+msgid ""
+"This relationship type is <strong>deprecated</strong>! Please upload covers on the cover art tab for the release and/or add an ASIN relationship.\n"
+"\n"
+"Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr ""
 
 #: DB:link_attribute_type/description:596
@@ -1936,10 +1952,6 @@ msgstr ""
 msgid "contains {additional} {instrument} samples by"
 msgstr ""
 
-#: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
-msgid "contra-tenor"
-msgstr ""
-
 #: DB:link_type/link_phrase:119 DB:link_type/reverse_link_phrase:119
 #: DB:link_type/short_link_phrase:119
 msgid "contract"
@@ -1947,6 +1959,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto"
+msgstr ""
+
+#: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
+msgid "countertenor"
 msgstr ""
 
 #: DB:link_attribute_type/name:567
@@ -2079,7 +2095,7 @@ msgstr ""
 msgid "founders"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:75
+#: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
 #: DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
 msgstr ""
@@ -2148,6 +2164,10 @@ msgstr ""
 
 #: DB:link_type/short_link_phrase:174
 msgid "has a PureVolume page at"
+msgstr ""
+
+#: DB:link_type/short_link_phrase:307 DB:link_type/short_link_phrase:308
+msgid "has a SecondHandSongs page at"
 msgstr ""
 
 #: DB:link_type/short_link_phrase:290 DB:link_type/short_link_phrase:291
@@ -2369,7 +2389,7 @@ msgstr ""
 msgid "is a remaster of"
 msgstr ""
 
-#: DB:link_type/short_link_phrase:230 DB:link_type/short_link_phrase:9
+#: DB:link_type/short_link_phrase:9 DB:link_type/short_link_phrase:230
 msgid "is a remix of"
 msgstr ""
 
@@ -2671,11 +2691,11 @@ msgid "other"
 msgstr ""
 
 #: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
-#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:273
-#: DB:link_type/link_phrase:222 DB:link_type/link_phrase:188
+#: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
+#: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:82
-#: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:273
-#: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:188
+#: DB:link_type/reverse_link_phrase:306 DB:link_type/reverse_link_phrase:222
+#: DB:link_type/reverse_link_phrase:273 DB:link_type/reverse_link_phrase:188
 msgid "other databases"
 msgstr ""
 
@@ -2833,19 +2853,19 @@ msgid "public domain"
 msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:32 DB:link_type/link_phrase:206
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:269
 #: DB:link_type/link_phrase:161 DB:link_type/reverse_link_phrase:252
 #: DB:link_type/short_link_phrase:66 DB:link_type/short_link_phrase:127
-#: DB:link_type/short_link_phrase:206 DB:link_type/short_link_phrase:32
+#: DB:link_type/short_link_phrase:32 DB:link_type/short_link_phrase:206
 #: DB:link_type/short_link_phrase:208 DB:link_type/short_link_phrase:269
 #: DB:link_type/short_link_phrase:161
 msgid "published"
 msgstr ""
 
 #: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:66
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:208
 #: DB:link_type/reverse_link_phrase:269 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr ""
@@ -2891,15 +2911,15 @@ msgstr ""
 msgid "remasters"
 msgstr ""
 
-#: DB:link_type/link_phrase:230 DB:link_type/link_phrase:9
+#: DB:link_type/link_phrase:9 DB:link_type/link_phrase:230
 msgid "remix of"
 msgstr ""
 
 #: DB:link_type/link_phrase:13 DB:link_type/link_phrase:50
 #: DB:link_type/link_phrase:157 DB:link_type/link_phrase:234
 #: DB:link_type/reverse_link_phrase:13 DB:link_type/reverse_link_phrase:50
-#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:230
-#: DB:link_type/reverse_link_phrase:234 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:157 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:234
 #: DB:link_type/short_link_phrase:13 DB:link_type/short_link_phrase:50
 #: DB:link_type/short_link_phrase:157 DB:link_type/short_link_phrase:234
 msgid "remixes"

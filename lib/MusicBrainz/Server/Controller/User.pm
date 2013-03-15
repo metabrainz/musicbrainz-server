@@ -70,9 +70,7 @@ sub do_login : Private
     return 1 if $c->user_exists;
 
     my $form = $c->form(form => 'User::Login');
-    my $redirect = defined $c->req->query_params->{uri}
-        ? $c->req->query_params->{uri}
-        : $c->relative_uri;
+    my $redirect = $c->req->query_params->{uri} // $c->relative_uri;
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
@@ -108,7 +106,7 @@ sub do_login : Private
     $c->detach;
 }
 
-sub login : Path('/login') ForbiddenOnSlaves
+sub login : Path('/login') ForbiddenOnSlaves RequireSSL
 {
     my ($self, $c) = @_;
 
@@ -370,7 +368,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
     my $ratings = $self->_load_paged($c, sub {
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
-    }, 100);
+    }, limit => 100);
 
     $c->stash(
         ratings => $ratings,

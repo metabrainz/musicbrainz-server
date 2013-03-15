@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Relationship::LinkType;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation 'l';
+use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -19,7 +19,8 @@ has root => (
 has_field 'link_type_id' => (
     type => 'Select',
     required => 1,
-    required_message => l('Link type is required')
+    required_message => N_l('Link type is required'),
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 has_field 'attrs' => (

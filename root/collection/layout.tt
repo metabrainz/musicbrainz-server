@@ -2,12 +2,33 @@
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
+        <h2 class="collection-information">[% l('Collection information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Owner:')
                content=link_entity(collection.editor) %]
         [%- END -%]
 
-        [% link_collection(collection, 'delete', l('Remove this collection')) %]
+        <h2 class="editing">[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                <li>[% link_entity(collection, 'open_edits', l('Open edits')) %]</li>
+                <li>[% link_entity(collection, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
+        [% IF c.user_exists %]
+        <h2 class="subscriptions">[% l("Subscriptions") %]</h2>
+        <ul class="links">
+                [% IF subscribed %]
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/collection/remove', { id => collection.id }) %]">[% l('Unsubscribe') %]</a></li>
+                [% ELSE %]
+                    <li><a href="[% c.uri_for_action('/account/subscriptions/collection/add', { id => collection.id }) %]">[% l('Subscribe') %]</a></li>
+                [% END %]
+                <li>[% link_entity(collection, 'subscribers', l('Subscribers')) %]</li>
+        </ul>
+        [% END %]
     [% END %]
   [%- END -%]
 

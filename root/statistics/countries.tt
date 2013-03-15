@@ -25,7 +25,7 @@ $(document).ready(function() {
 
 [% WRAPPER 'statistics/layout.tt' title=l('Countries') full_width=1 page='countries' %]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <table class="tbl">
 <thead>

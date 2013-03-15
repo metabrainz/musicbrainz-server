@@ -152,13 +152,16 @@ sub merge
     };
 
     if (keys %entity_to_annotation > 1) {
-        $self->c->model('Edit')->create(
-            edit_type => $ANNOTATION_TYPE_MAP{$type},
-            editor_id => $EDITOR_MODBOT,
-            entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
-            text => join("\n\n-------\n\n", values %entity_to_annotation),
-            changelog => "Result of $type merge"
-        );
+        my $new_text = join("\n\n-------\n\n", grep { $_ ne "" } values %entity_to_annotation);
+        if ($new_text ne '') {
+            $self->c->model('Edit')->create(
+                edit_type => $ANNOTATION_TYPE_MAP{$type},
+                editor_id => $EDITOR_MODBOT,
+                entity => $self->c->model(type_to_model($type))->get_by_id($new_id),
+                text => $new_text,
+                changelog => "Result of $type merge"
+            );
+        }
     }
 
     $self->sql->do("UPDATE $table SET $type = ?

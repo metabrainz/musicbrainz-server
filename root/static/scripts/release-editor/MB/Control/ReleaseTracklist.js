@@ -314,20 +314,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.track_count = null;
 
     /**
-     * fullTitle returns the disc title prefixed with 'Disc #: '.  Or just
-     * 'Disc #' if the disc doesn't have a title.
-     */
-    self.fullTitle = function () {
-        var title = '';
-        if (!self.$title.hasClass ('jquery_placeholder'))
-        {
-            title = self.$title.val ();
-        }
-
-        return 'Disc ' + self.position () + (title ? ': '+title : '');
-    };
-
-    /**
      * addTrack renders new tr.track and tr.track-artist-credit rows in the
      * tracklist table.  It copies the release artistcredit.
      */
@@ -951,6 +937,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 MB.Control.ReleaseTracklist = function () {
     var self = MB.Object ();
 
+    $('#release-editor table.tbl th input[type="checkbox"]').show();
+
     self.bubble_collection = MB.Control.BubbleCollection ();
     self.bubble_collection.setType (MB.Control.BubbleRow);
 
@@ -1160,7 +1148,7 @@ MB.Control.ReleaseTracklist = function () {
             $va.each (function (idx, elem) {
                 var $trkrow = $(elem).parents ('tr.track-artist-credit').prevAll('*:eq(0)');
 
-                var disc = MB.utility.trim ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
+                var disc = _.clean ($trkrow.parents ('fieldset.advanced-disc').find ('legend').text ());
 
                 if (!affected.hasOwnProperty (disc))
                 {

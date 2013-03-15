@@ -74,8 +74,10 @@ sub format_wikitext
 
     return '' unless $text;
 
+    $text =~ s/</&lt;/g;
+    $text =~ s/>/&gt;/g;
+
     # MBS-2437: Expand MBID entity links
-    my $ws = DBDefs->WEB_SERVER;
     $text =~ s/
       \[
       (artist|label|recording|release|release-group|url|work):
@@ -83,21 +85,27 @@ sub format_wikitext
        [0-9a-f]{4} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
-       [0-9a-f]{12})
-    /[http:\/\/$ws\/$1\/$2\//ix;
+       [0-9a-f]{12})(?:\|([^\]]+))?\]
+    /_make_link($1,$2,$3)/eixg;
 
-    $text =~ s/</&lt;/g;
-    $text =~ s/>/&gt;/g;
     return decode(
         'utf-8',
         Text::WikiFormat::format(
             encode('utf-8' => $text), {}, {
-                prefix => "http://wiki.musicbrainz.org/",
+                prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
                 absolute_links => 1,
                 implicit_links => 0
             })
       );
+}
+
+sub _make_link
+{
+    my ($type, $mbid, $content) = @_;
+    $content //= "$type:$mbid";
+    my $ws = DBDefs->WEB_SERVER;
+    return "<a href=\"/$type/$mbid/\">$content</a>"
 }
 
 sub _display_trimmed {
@@ -110,7 +118,7 @@ sub _display_trimmed {
         : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
-        unless $encoded_url =~ m{^https?://};
+        unless $encoded_url =~ m{^(?:https?:)?//};
 
     return qq{<a href="$encoded_url">$display_url</a>};
 }
@@ -134,7 +142,7 @@ sub format_editnote
     my $server = DBDefs->WEB_SERVER;
 
     # Pre-pass the edit note to attempt to normalise any URLs
-    $html =~ s{(http://[^\s]+)}{normalise_url($1)}eg;
+    $html =~ s{(https?://[^\s]+)}{normalise_url($1)}eg;
 
     # Encode < and >
     $html =~ s/</&lt;/g;
@@ -142,10 +150,13 @@ sub format_editnote
 
     # The following taken from http://daringfireball.net/2010/07/improved_regex_for_matching_urls
     $html =~ s{
-    \b
-    (                       # Capture 1: entire matched URL
+    # Match the start of the edit note entirely, or ensure that the proceeding
+    # character is not a : (as we don't want to match foo://bar.com as
+    # foo:<a..>).
+    (?:^|(?<!:))
+    (                                    # Capture 1: entire matched URL
       (?:
-        https?://               # http or https protocol
+        (?:https?:)?//               # http or https protocol
         |                       #   or
         www\d{0,3}[.]           # "www.", "www1.", "www2." … "www999."
         |                           #   or
@@ -165,7 +176,7 @@ sub format_editnote
     }{_display_trimmed($1, $2, $3, $4)}egsxi;
 
     $html =~ s[\b(?:mod(?:eration)? #?|edit[#:\h]+|edit id[#:\h]+|change[#:\h]+)(\d+)\b]
-         [<a href="http://$server/edit/$1">edit #$1</a>]gi;
+         [<a href="//$server/edit/$1">edit #$1</a>]gi;
 
     # links to wikidocs
     $html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;

@@ -1,0 +1,8 @@
+[% WRAPPER "layout.tt" title=l('Tag Lookup Error') full_width=1 %]
+<h1>[% l('Tag Lookup Error') %]</h1>
+
+<p>[% l("That search can't be performed, because you must provide at least one of 'recording', 'track number', 'duration', 'release', or 'artist'.") %]</p>
+
+<p>[% l('Please {search|try again}, providing at least one of these parameters',
+         { search => c.uri_for('/taglookup') }) %]</p>
+[% END %]

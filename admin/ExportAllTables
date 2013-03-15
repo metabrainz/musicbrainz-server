@@ -63,6 +63,7 @@ my @tables = qw(
     work_rating_raw
     work_tag_raw
     annotation
+    application
     artist
     artist_alias
     artist_alias_type
@@ -81,6 +82,7 @@ my @tables = qw(
     clientversion
     country
     editor
+    editor_oauth_token
     editor_preference
     editor_language
     editor_sanitised
@@ -196,6 +198,8 @@ my @tables = qw(
 
     statistics.statistic
     statistics.statistic_event
+
+    wikidocs.wikidocs_index
 );
 
 my @replication_tables = qw(
@@ -349,6 +353,7 @@ my @group_closedmoderation = qw(
     );
 
 my @group_private = qw(
+    application
     artist_rating_raw
     artist_tag_raw
     autoeditor_election
@@ -357,6 +362,7 @@ my @group_private = qw(
     editor_collection
     editor_collection_release
     editor_language
+    editor_oauth_token
     editor_preference
     editor_subscribe_artist
     editor_subscribe_editor
@@ -390,6 +396,10 @@ my @group_cover_art_archive = (
     'cover_art_archive.release_group_cover_art'
 );
 
+my @group_wikidocs = (
+    'wikidocs.wikidocs_index'
+);
+
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -399,6 +409,7 @@ my @groups = (
     \@group_closedmoderation,
     \@group_private,
     \@group_cdstubs,
+    \@group_wikidocs,
 );
 
 ################################################################################
@@ -743,6 +754,7 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
+    make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
 
     system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
            ' | grep -v mbdump-private > MD5SUMS';

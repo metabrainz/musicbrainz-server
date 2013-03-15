@@ -7,7 +7,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
-use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG );
+use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG $REQUIRED_VOTES );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types
     DateTime => { -as => 'DateTimeType' }, 'EditStatus', 'Quality';
@@ -169,8 +169,8 @@ sub edit_conditions
 {
     return {
         map { $_ =>
-               { duration      => 14,
-                 votes         => 3,
+               { duration      => 7,
+                 votes         => $REQUIRED_VOTES,
                  expire_action => $EXPIRE_ACCEPT,
                  auto_edit     => 1 }
             } ($QUALITY_LOW, $QUALITY_NORMAL, $QUALITY_HIGH)
@@ -229,6 +229,16 @@ sub was_approved
     return 0 if $self->is_open;
     
     return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
+}
+
+sub approval_requires_comment {
+    my ($self, $editor) = @_;
+
+    return $self->_grep_votes(sub {
+        $_->vote == $VOTE_NO &&
+            !$_->superseded &&
+                $_->editor_id != $editor->id
+    }) > 0;
 }
 
 =head2 related_entities

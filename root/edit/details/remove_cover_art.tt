@@ -7,11 +7,10 @@
   </tr>
 
   <tr>
-    <th>[% ln('Type:', 'Types:', edit.display_data.types.size) %]</th>
+    <th>[% l('Types:') %]</th>
     <td>
-      [% IF edit.display_data.types.size %]
-        [% USE Map %]
-        [% comma_only_list(edit.display_data.types.map('l_name')) | html %]
+      [% IF edit.display_data.artwork.types.size %]
+        [% comma_only_list(edit.display_data.artwork.l_types) | html %]
       [% ELSE %]
         [% l('(none)') %]
       [% END %]
@@ -25,7 +24,7 @@
 
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% html_escape(edit.display_data.comment) || l('(none)') %]</td>
+    <td>[% html_escape(edit.display_data.artwork.comment) || l('(none)') %]</td>
   </tr>
 
   [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]

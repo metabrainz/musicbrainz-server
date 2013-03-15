@@ -37,21 +37,21 @@
   [% IF edit.display_data.status %]
   <tr>
     <th>[% lp('Status:', 'release status') %]</th>
-    <td>[% edit.display_data.status.name | html %]</td>
+    <td>[% edit.display_data.status.l_name | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.language %]
   <tr>
     <th>[% l('Language:') %]</th>
-    <td>[% edit.display_data.language.name | html %]</td>
+    <td>[% edit.display_data.language.l_name | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.script %]
   <tr>
     <th>[% l('Script:') %]</th>
-    <td>[% edit.display_data.script.name | html %]</td>
+    <td>[% edit.display_data.script.l_name | html %]</td>
   </tr>
   [% END %]
 
@@ -65,14 +65,14 @@
   [% IF edit.display_data.country %]
   <tr>
     <th>[% l('Country:') %]</th>
-    <td>[% edit.display_data.country.name | html %]</td>
+    <td>[% edit.display_data.country.l_name | html %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.packaging %]
   <tr>
     <th>[% l('Packaging:') %]</th>
-    <td>[% edit.display_data.packaging.name | html %]</td>
+    <td>[% edit.display_data.packaging.l_name | html %]</td>
   </tr>
   [% END %]
 

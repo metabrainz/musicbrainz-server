@@ -98,11 +98,11 @@ test 'basic artist lookup, inc=aliases' => sub {
             },
             type => "Person",
             aliases => [
-                { name => "Beat of Angel", "sort-name" => "Beat of Angel" },
-                { name => "BoA Kwon", "sort-name" => "BoA Kwon" },
-                { name => "Kwon BoA", "sort-name" => "Kwon BoA" },
-                { name => "ボア", "sort-name" => "ボア" },
-                { name => "보아", "sort-name" => "보아" },
+                { name => "Beat of Angel", "sort-name" => "Beat of Angel", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                { name => "BoA Kwon", "sort-name" => "BoA Kwon", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                { name => "Kwon BoA", "sort-name" => "Kwon BoA", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                { name => "ボア", "sort-name" => "ボア", locale => JSON::null, primary => JSON::null, type => JSON::null },
+                { name => "보아", "sort-name" => "보아", locale => JSON::null, primary => JSON::null, type => JSON::null },
                 ],
             ipis => [],
         });
@@ -130,30 +130,64 @@ test 'basic artist lookup, inc=url-rels' => sub {
             relations => [
                 {
                     direction => "forward",
-                    url => "http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg",
-                    type => "image"
+                    url => {
+                        id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
+                        resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
                     },
+                    type => "image",
+                    "type-id" => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
-                    url => "http://members.boardhost.com/wedlock/",
-                    type => "online community"
+                    url => {
+                        id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
+                        resource => 'http://members.boardhost.com/wedlock/'
                     },
+                    type => "online community",
+                    'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
-                    url => "http://www.discogs.com/artist/Paul+Allgood",
-                    type => "discogs"
+                    url => {
+                        id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
+                        resource => 'http://www.discogs.com/artist/Paul+Allgood'
                     },
+                    type => "discogs",
+                    'type-id' => '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
-                    url => "http://www.imdb.com/name/nm4057169/",
-                    type => "IMDb"
+                    url => {
+                        id => '37ad368b-d37d-46d4-be3a-349f78355253',
+                        resource => 'http://www.imdb.com/name/nm4057169/'
                     },
+                    type => "IMDb",
+                    'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                },
                 {
                     direction => "forward",
-                    url => "http://www.paulallgood.com/",
-                    type => "blog"
+                    url => {
+                        id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
+                        resource => 'http://www.paulallgood.com/'
                     },
-                ],
+                    type => "blog",
+                    'type-id' => 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                }],
             ipis => [],
         });
 
@@ -282,13 +316,13 @@ test 'artist lookup with releases and discids' => sub {
                         {
                             title => JSON::null,
                             format => "CD",
-                            discids => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
+                            discs => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
                             "track-count" => 9,
                         },
                         {
                             title => "Chestplate Singles",
                             format => "CD",
-                            discids => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
+                            discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
                             "track-count" => 9,
                         }]
                 },
@@ -308,7 +342,7 @@ test 'artist lookup with releases and discids' => sub {
                         {
                             title => JSON::null,
                             format => "CD",
-                            discids => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
+                            discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
                         }]
                 }],
@@ -348,7 +382,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -359,7 +392,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => ""
                         }
@@ -378,7 +410,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "m-flo",
                                 "sort-name" => "m-flo",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => "♥",
                         },
@@ -389,7 +420,6 @@ test 'artist lookup with recordings and artist credits' => sub {
                                 name => "BoA",
                                 "sort-name" => "BoA",
                                 disambiguation => "",
-                                ipis => [],
                             },
                             joinphrase => ""
                         }
@@ -677,6 +707,45 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     language => JSON::null,
                     type => JSON::null,
                 }],
+            ipis => [],
+        });
+};
+
+
+test 'artist lookup with artist relations' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'artist lookup with artist relations',
+    '/artist/678ba12a-e485-44c7-8eaf-25e61a78a61b?inc=artist-rels' => encode_json (
+        {
+            id => "678ba12a-e485-44c7-8eaf-25e61a78a61b",
+            name => "後藤真希",
+            "sort-name" => "Goto, Maki",
+            country => "JP",
+            disambiguation => "",
+            "life-span" => {
+                begin => "1985-09-23",
+                end => JSON::null,
+                ended => JSON::false,
+            },
+            type => "Person",
+            relations => [
+                {
+                    type => 'member of band',
+                    'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
+                    direction => 'forward',
+                    artist => {
+                        id => "802673f0-9b88-4e8a-bb5c-dd01d68b086f",
+                        name => "7人祭",
+                        "sort-name" => "7nin Matsuri",
+                        disambiguation => "",
+                    },
+                    begin => '2001',
+                    end => JSON::null,
+                    ended => JSON::false,
+                }
+            ],
             ipis => [],
         });
 };

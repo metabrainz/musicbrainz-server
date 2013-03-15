@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 
 my @subscribable_models = qw(
     Artist
+    Collection
     Editor
     Label
 );
@@ -32,6 +33,12 @@ sub update_subscriptions
         editor_subscribe_label
     );
 
+    # Remove subscriptions to deleted or private collections
+    $self->sql->do(
+        "DELETE FROM editor_subscribe_collection
+          WHERE editor = ? AND NOT available",
+        $editor_id);
+
     $self->sql->do(
         "UPDATE $_ SET last_edit_sent = ? WHERE editor = ?",
         $max_id, $editor_id
@@ -39,6 +46,7 @@ sub update_subscriptions
         editor_subscribe_label
         editor_subscribe_artist
         editor_subscribe_editor
+        editor_subscribe_collection
     );
     $self->sql->commit;
 }
@@ -46,6 +54,7 @@ sub update_subscriptions
 sub delete_editor {
     my ($self, $editor_id) = @_;
     for my $table (qw( editor_subscribe_artist
+                       editor_subscribe_collection
                        editor_subscribe_editor
                        editor_subscribe_label )) {
         $self->sql->do("DELETE FROM $table WHERE editor = ?", $editor_id);

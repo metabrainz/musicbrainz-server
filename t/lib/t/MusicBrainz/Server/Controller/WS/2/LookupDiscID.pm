@@ -30,6 +30,12 @@ ws_test 'direct disc id lookup',
         <title>Aerial</title>
         <quality>normal</quality>
         <date>2007</date>
+        <cover-art-archive>
+            <artwork>false</artwork>
+            <count>0</count>
+            <front>false</front>
+            <back>false</back>
+        </cover-art-archive>
         <medium-list count="2">
           <medium>
             <title>A Sea of Honey</title>
@@ -64,6 +70,12 @@ ws_test 'lookup via toc',
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2008</date>
+      <cover-art-archive>
+          <artwork>false</artwork>
+          <count>0</count>
+          <front>false</front>
+          <back>false</back>
+      </cover-art-archive>
       <medium-list count="2">
         <medium>
           <title>A Sea of Honey</title>
@@ -85,6 +97,12 @@ ws_test 'lookup via toc',
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2007</date>
+      <cover-art-archive>
+          <artwork>false</artwork>
+          <count>0</count>
+          <front>false</front>
+          <back>false</back>
+      </cover-art-archive>
       <medium-list count="2">
         <medium>
           <title>A Sea of Honey</title>

@@ -1,0 +1,8 @@
+#!/bin/bash
+# This is a sample post-process hook file.
+# Obviously for now this does nothing real, but if moved to 'post-process'
+# it will run after every packet and cheerfully announce it's applied one.
+# It might be more useful to add calls to scripts you'd like run, perhaps
+# to update derived information of some sort.
+
+echo 'one packet processed!';

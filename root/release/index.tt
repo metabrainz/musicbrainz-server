@@ -8,9 +8,9 @@
                 <th class="pos t">#</th>
                 <th>
                   <span style="float: right; font-weight: normal; padding-right: 1em;">
-                    <a style="display: none;" class="show-credits" href="">[% l('Show Credits') %]</a>
-                    <a style="display: none;" class="hide-credits" href="">[% l('Hide Credits') %]</a>
-                    <input style="display: none;" type="checkbox" id="hide-credits" />
+                    <a style="display: none;" class="bottom-credits" href="">[% l('Display Credits at Bottom') %]</a>
+                    <a style="display: none;" class="inline-credits" href="">[% l('Display Credits Inline') %]</a>
+                    <input style="display: none;" type="checkbox" id="bottom-credits" />
                   </span>
                   [% l('Title') %]
                 </th>
@@ -36,34 +36,93 @@
         </tbody>
     </table>
     <script type="text/javascript">
-      MB.utility.rememberCheckbox ("#hide-credits", "hide-credits");
+    $(function() {
+        MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
 
-      var $checkbox = $('#hide-credits');
+        var $bottom_tables = $("table.details");
+        var $inline_ars = $("table.tbl div.ars");
 
-      if ($('div.ars').length)
-      {
-          if ($checkbox.is (':checked'))
-          {
-              $('a.show-credits').show ();
-          }
-          else
-          {
-              $('div.ars').show ();
-              $('a.hide-credits').show ();
-          }
-      }
+        function switchToInlineCredits() {
+            $bottom_tables.each(function(i, table) {
+                var $table = $(table);
+                var $trs = $table.find("tr");
 
-      $('a.hide-credits').add ('a.show-credits').bind ('click.mb', function (event) {
-          $('a.hide-credits').toggle ();
-          $('a.show-credits').toggle ();
-          $('div.ars').slideToggle ("fast");
-          $checkbox.attr ('checked', !$checkbox.is(':checked')).trigger ("change");
-          event.preventDefault ();
-          return false;
-      });
+                $trs.each(function(j, tr) {
+                    var $tr = $(tr);
 
+                    $tr.find("div.release-rel").length == 0
+                        ? $tr.hide() : $tr.find("div.track-rel").hide();
+                });
+
+                if ($trs.filter(":visible").length == 0)
+                    $table.hide();
+            });
+            $inline_ars.show();
+        }
+
+        function switchToBottomCredits() {
+            $bottom_tables.show().find("tr, div.track-rel").show();
+            $inline_ars.hide();
+        }
+
+        $("a.bottom-credits, a.inline-credits").bind("click.mb", function(event) {
+            $("#bottom-credits")
+                .prop("checked", !$("#bottom-credits").is(":checked"))
+                .trigger("change");
+            event.preventDefault();
+            return false;
+        });
+
+        $("#bottom-credits").change(function() {
+            $("a.bottom-credits").toggle(!this.checked);
+            $("a.inline-credits").toggle(this.checked);
+            this.checked ? switchToBottomCredits() : switchToInlineCredits();
+            $("#no-relationships")
+                .toggle($bottom_tables.filter(":visible").length == 0);
+        }).trigger("change");
+    });
     </script>
 
     <h2 class="relationships">[% l("Relationships") %]</h2>
-    [%- INCLUDE "components/relationships.tt" source=release -%]
+
+    [% FOR group=combined_rels.pairs %]
+        <table class="details" style="width: 100%; margin-bottom: 1em;">
+        [%- FOREACH key IN group.value -%]
+            <tr>
+                <th>[% key.phrase %]:</th>
+                <td>
+                    [% release_rels = 0 %]
+                    [% FOREACH item IN key.items %]
+                        [% release_rels = 1 IF item.release %]
+                        [% IF item.tracks.size %]
+                          <div class="track-rel">
+                          [% relationship_target_links(item.rel) %]
+                            <span class="comment">
+                              ([% ln('track {tracks}', 'tracks {tracks}',
+                                    item.track_count, { tracks => item.tracks })
+                                %])
+                            </span>
+                          </div>
+                        [% END %]
+                    [% END %]
+                    [% IF release_rels %]
+                      [% FOREACH item IN key.items %]
+                          [% IF item.release %]
+                          <div class="release-rel">
+                            [% relationship_target_links(item.rel) %]
+                            [% relationship_edit_links(item.rel) -%]
+                          </div>
+                          [% END %]
+                      [% END %]
+                    [% END %]
+                </td>
+            </tr>
+        [%- END -%]
+        </table>
+    [% END %]
+
+    <p id="no-relationships" style="display: none;">
+        [% l('{link} has no relationships.', { link => link_entity(release) }) -%]
+    </p>
+
 [%- END -%]
