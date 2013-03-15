@@ -1,5 +1,5 @@
 -- Automatically generated, do not edit.
-\set ON_ERROR_STOP 1
+\unset ON_ERROR_STOP
 
 DROP TRIGGER reptg_annotation ON annotation;
 DROP TRIGGER reptg_artist ON artist;
@@ -96,6 +96,8 @@ DROP TRIGGER reptg_script_language ON script_language;
 DROP TRIGGER reptg_tag ON tag;
 DROP TRIGGER reptg_track ON track;
 DROP TRIGGER reptg_track_name ON track_name;
+DROP TRIGGER reptg_track_gid_redirect ON track_gid_redirect;
+DROP TRIGGER reptg_medium_index ON medium_index;
 DROP TRIGGER reptg_url ON url;
 DROP TRIGGER reptg_url_gid_redirect ON url_gid_redirect;
 DROP TRIGGER reptg_work ON work;

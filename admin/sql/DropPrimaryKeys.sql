@@ -95,6 +95,7 @@ ALTER TABLE link_type_attribute_type DROP CONSTRAINT link_type_attribute_type_pk
 ALTER TABLE medium DROP CONSTRAINT medium_pkey;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_pkey;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_pkey;
+ALTER TABLE medium_index DROP CONSTRAINT medium_index_pkey;
 ALTER TABLE puid DROP CONSTRAINT puid_pkey;
 ALTER TABLE recording DROP CONSTRAINT recording_pkey;
 ALTER TABLE recording_annotation DROP CONSTRAINT recording_annotation_pkey;
@@ -132,6 +133,7 @@ ALTER TABLE script_language DROP CONSTRAINT script_language_pkey;
 ALTER TABLE tag DROP CONSTRAINT tag_pkey;
 ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_pkey;
 ALTER TABLE track DROP CONSTRAINT track_pkey;
+ALTER TABLE track_gid_redirect DROP CONSTRAINT track_gid_redirect_pkey;
 ALTER TABLE track_name DROP CONSTRAINT track_name_pkey;
 ALTER TABLE track_raw DROP CONSTRAINT track_raw_pkey;
 ALTER TABLE url DROP CONSTRAINT url_pkey;
