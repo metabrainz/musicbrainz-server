@@ -12,7 +12,7 @@
       [% IF edit.display_data.artwork.types.size %]
         [% comma_only_list(edit.display_data.artwork.l_types) | html %]
       [% ELSE %]
-        [% l('(none)') %]
+        [% lp('(none)', 'type') %]
       [% END %]
     </td>
   </tr>
@@ -24,7 +24,7 @@
 
   <tr>
     <th>[% l('Comment:') %]</th>
-    <td>[% html_escape(edit.display_data.artwork.comment) || l('(none)') %]</td>
+    <td>[% html_escape(edit.display_data.artwork.comment) || lp('(none)', 'comment') %]</td>
   </tr>
 
   [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]
