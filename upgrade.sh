@@ -27,9 +27,11 @@ then
     echo `date` : Drop replication triggers
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
+    echo `date` : 'Drop replication triggers (cover_art_archive)'
+    ./admin/psql READWRITE < ./admin/sql/caa/DropReplicationTriggers.sql
+
     echo `date` : 'Drop replication triggers (statistics)'
-    echo 'DROP TRIGGER "reptg_statistic" ON "statistic";
-          DROP TRIGGER "reptg_statistic_event" ON "statistic_event";' | ./admin/psql READWRITE
+    ./admin/psql READWRITE < ./admin/sql/statistics/DropReplicationTriggers.sql
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
@@ -57,6 +59,9 @@ then
 
     echo `date` : 'Create replication triggers (statistics)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/statistics/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (wikidocs)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/wikidocs/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
