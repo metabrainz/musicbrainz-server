@@ -9,8 +9,6 @@ ALTER TABLE tracklist_index ALTER COLUMN medium SET NOT NULL;
 ALTER TABLE tracklist_index DROP COLUMN tracklist;
 ALTER TABLE tracklist_index RENAME TO medium_index;
 
-DROP INDEX track_idx_tracklist;
-DROP INDEX medium_idx_tracklist;
 CREATE INDEX track_idx_medium ON track (medium, position);
 ALTER TABLE track DROP COLUMN tracklist;
 ALTER TABLE medium DROP COLUMN tracklist;
