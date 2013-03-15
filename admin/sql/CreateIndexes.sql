@@ -1,8 +1,6 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-CREATE UNIQUE INDEX location_name_idx_name ON location_name (name);
-
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);

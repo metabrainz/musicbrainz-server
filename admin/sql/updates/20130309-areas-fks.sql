@@ -1,16 +1,6 @@
 BEGIN;
 
 ALTER TABLE area
-   ADD CONSTRAINT area_fk_name
-   FOREIGN KEY (name)
-   REFERENCES location_name(id);
-
-ALTER TABLE area
-   ADD CONSTRAINT area_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES location_name(id);
-
-ALTER TABLE area
    ADD CONSTRAINT area_fk_type
    FOREIGN KEY (type)
    REFERENCES area_type(id);
@@ -21,19 +11,9 @@ ALTER TABLE area_alias
    REFERENCES area(id);
 
 ALTER TABLE area_alias
-   ADD CONSTRAINT area_alias_fk_name
-   FOREIGN KEY (name)
-   REFERENCES location_name(id);
-
-ALTER TABLE area_alias
    ADD CONSTRAINT area_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES area_alias_type(id);
-
-ALTER TABLE area_alias
-   ADD CONSTRAINT area_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES location_name(id);
 
 ALTER TABLE area_annotation
    ADD CONSTRAINT area_annotation_fk_area

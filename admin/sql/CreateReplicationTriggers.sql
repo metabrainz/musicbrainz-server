@@ -25,10 +25,6 @@ CREATE TRIGGER "reptg_area_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "area_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_location_name"
-AFTER INSERT OR DELETE OR UPDATE ON "location_name"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 CREATE TRIGGER "reptg_area_type"
 AFTER INSERT OR DELETE OR UPDATE ON "area_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();

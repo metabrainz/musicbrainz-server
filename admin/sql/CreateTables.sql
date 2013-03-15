@@ -10,11 +10,6 @@ CREATE TABLE annotation
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE location_name (
-    id                  SERIAL, -- PK
-    name                VARCHAR NOT NULL
-);
-
 CREATE TABLE area_type (
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL
@@ -23,8 +18,8 @@ CREATE TABLE area_type (
 CREATE TABLE area (
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
-    name                INTEGER NOT NULL, -- references location_name.id
-    sort_name           INTEGER NOT NULL, -- references location_name.id
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references area_type.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -55,12 +50,12 @@ CREATE TABLE area_alias_type (
 CREATE TABLE area_alias (
     id                  SERIAL, --PK
     area                INTEGER NOT NULL, -- references area.id
-    name                INTEGER NOT NULL, -- references location_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references area_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references location_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,

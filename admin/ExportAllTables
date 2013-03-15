@@ -63,7 +63,6 @@ my @tables = qw(
     work_rating_raw
     work_tag_raw
     annotation
-    location_name
     area
     area_alias
     area_alias_type

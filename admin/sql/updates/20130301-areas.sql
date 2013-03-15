@@ -3,15 +3,13 @@ BEGIN;
 -----------------------
 -- CREATE NEW TABLES --
 -----------------------
-CREATE TABLE location_name (id SERIAL PRIMARY KEY, name VARCHAR NOT NULL);
-
 CREATE TABLE area_type (id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL);
                                                -- e.g. 'country', 'province'
 
 CREATE TABLE area (id                SERIAL PRIMARY KEY,
                    gid               uuid NOT NULL,
-                   name              INTEGER NOT NULL,
-                   sort_name         INTEGER NOT NULL,
+                   name              VARCHAR NOT NULL,
+                   sort_name         VARCHAR NOT NULL,
                    type              INTEGER,
                    edits_pending     INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
                    last_updated      TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -35,12 +33,12 @@ CREATE TABLE area_code (area       INTEGER NOT NULL,
 CREATE TABLE area_alias_type (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
 CREATE TABLE area_alias (id                  SERIAL PRIMARY KEY,
                          area                INTEGER NOT NULL,
-                         name                INTEGER NOT NULL,
+                         name                VARCHAR NOT NULL,
                          locale              TEXT,
                          edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
                          last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
                          type                INTEGER,
-                         sort_name           INTEGER NOT NULL,
+                         sort_name           VARCHAR NOT NULL,
                          begin_date_year     SMALLINT,
                          begin_date_month    SMALLINT,
                          begin_date_day      SMALLINT,
@@ -140,14 +138,12 @@ INSERT INTO area_code_type (id, name) VALUES (1, 'ISO 3166-1'), (2, 'ISO 3166-2'
 INSERT INTO area_type (id, name) VALUES (1, 'Country') RETURNING *;
 
 -- migrate country table
-INSERT INTO location_name (id, name) SELECT id, name FROM country;
-
 INSERT INTO area (id, gid, name, sort_name, type)
   SELECT id,
          generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/country/' || id) AS gid,
          -- ^ totally fabricated URI just for this migration. *shrug*
-         id AS name,
-         id AS sort_name,
+         name AS name,
+         name AS sort_name,
          1::integer AS type
     FROM country;
 
@@ -176,8 +172,6 @@ UPDATE editor SET privs = privs | 256 WHERE id IN (53705, 326637, 295208) RETURN
 --------------------
 -- CREATE INDEXES --
 --------------------
-
-CREATE UNIQUE INDEX location_name_idx_name ON location_name (name);
 
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
