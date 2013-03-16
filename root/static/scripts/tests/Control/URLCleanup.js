@@ -257,6 +257,19 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
                     MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // Generasia
+                [
+                    'artist', 'http://www.generasia.com/wiki/Wink',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    MB.constants.LINK_TYPES.otherdatabases.work
                 ]
             ];
 
@@ -592,6 +605,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
                     'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                ],
+                // Generasia
+                [
+                    'http://generasia.com/wiki/Wink',
+                    'http://www.generasia.com/wiki/Wink',
+                ],
+                [
+                    'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ]
 
             ];
