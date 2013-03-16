@@ -433,6 +433,7 @@ sub editors_with_subscriptions
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
     );
@@ -476,6 +477,7 @@ sub delete {
 
     $self->sql->do("DELETE FROM editor_preference WHERE editor = ?", $editor_id);
     $self->c->model('EditorLanguage')->delete_editor($editor_id);
+    $self->c->model('EditorOAuthToken')->delete_editor($editor_id);
 
     $self->c->model('EditorSubscriptions')->delete_editor($editor_id);
     $self->c->model('Editor')->unsubscribe_to($editor_id);
@@ -523,8 +525,8 @@ sub subscription_summary {
                 "COALESCE(
                    (SELECT count(*) FROM editor_subscribe_$_ WHERE editor = ?),
                    0) AS $_"
-            } qw( artist label editor )),
-        ($editor_id) x 3
+            } qw( artist collection label editor )),
+        ($editor_id) x 4
     );
 }
 

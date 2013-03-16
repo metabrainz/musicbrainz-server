@@ -29,16 +29,16 @@ ws_test 'artist lookup with url relationships',
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <relation-list target-type="url">
             <relation type-id="eb535226-f8ca-499d-9b18-6a144df4ae6f" type="blog">
-                <target>http://dj-distance.blogspot.com/</target>
+                <target id="5eb2c075-3c3b-4cf7-ab77-2dacaee19366">http://dj-distance.blogspot.com/</target>
             </relation>
             <relation type-id="29651736-fa6d-48e4-aadc-a557c6add1cb" type="wikipedia">
-                <target>http://en.wikipedia.org/wiki/Distance_(musician)</target>
+                <target id="651248e8-6a8f-4365-948a-aa43559caf58">http://en.wikipedia.org/wiki/Distance_(musician)</target>
             </relation>
             <relation type-id="04a5b104-a4c2-4bac-99a1-7b837c37d9e4" type="discogs">
-                <target>http://www.discogs.com/artist/DJ+Distance</target>
+                <target id="03e3d0be-d336-447e-b7da-06d0adcd15cd">http://www.discogs.com/artist/DJ+Distance</target>
             </relation>
             <relation type-id="bac47923-ecde-4b59-822e-d08f0cd10156" type="myspace">
-                <target>http://www.myspace.com/djdistancedub</target>
+                <target id="63854ab2-4804-481f-8b07-e2cbe8192c0f">http://www.myspace.com/djdistancedub</target>
             </relation>
         </relation-list>
     </artist>
@@ -151,16 +151,16 @@ ws_test 'label lookup with label and url relationships',
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
         <relation-list target-type="url">
             <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
-                <target>http://en.wikipedia.org/wiki/Rhythm_Zone</target>
+                <target id="4e5f8e53-a6fc-46e2-8fe4-2b3192be57e1">http://en.wikipedia.org/wiki/Rhythm_Zone</target>
             </relation>
             <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
-                <target>http://ja.wikipedia.org/wiki/Rhythm_zone</target>
+                <target id="e697226c-7752-47d5-9192-5722babd9c32">http://ja.wikipedia.org/wiki/Rhythm_zone</target>
             </relation>
             <relation type-id="fe108f43-acb9-4ad1-8be3-57e6ec5b17b6" type="official site">
-                <target>http://rzn.jp/</target>
+                <target id="2a545d02-5447-4f16-a9c5-6239d98ea3f0">http://rzn.jp/</target>
             </relation>
             <relation type-id="5b987f87-25bc-4a2d-b3f1-3618795b8207" type="discogs">
-                <target>http://www.discogs.com/label/Rhythm+Zone</target>
+                <target id="baaf9d35-392a-407a-b1bb-564015b146c6">http://www.discogs.com/label/Rhythm+Zone</target>
             </relation>
         </relation-list>
     </label>
@@ -176,10 +176,10 @@ ws_test 'release group lookup with url relationships',
         <primary-type>Single</primary-type>
         <relation-list target-type="url">
             <relation type-id="6578f0e9-1ace-4095-9de8-6e517ddb1ceb" type="wikipedia">
-                <target>http://en.wikipedia.org/wiki/The_Love_Bug_(song)</target>
+                <target id="5e766c4e-16dd-47f2-b032-d96ef23c0cf1">http://en.wikipedia.org/wiki/The_Love_Bug_(song)</target>
             </relation>
             <relation type-id="6578f0e9-1ace-4095-9de8-6e517ddb1ceb" type="wikipedia">
-                <target>http://ja.wikipedia.org/wiki/The_Love_Bug</target>
+                <target id="dff9a8ca-2029-4818-92d4-d45b91484b0a">http://ja.wikipedia.org/wiki/The_Love_Bug</target>
             </relation>
         </relation-list>
     </release-group>

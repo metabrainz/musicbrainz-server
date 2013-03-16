@@ -15,7 +15,18 @@ sub new
 sub find_user
 {
     my ($self, $authinfo, $c) = @_;
-    my $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+    my $editor;
+
+    if (exists $authinfo->{oauth_access_token}) {
+        my $token = $c->model('EditorOAuthToken')->get_by_access_token($authinfo->{oauth_access_token});
+        if (defined $token) {
+            $editor = $c->model('Editor')->get_by_id($token->editor_id);
+        }
+    }
+    else {
+        $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+    }
+
     if (defined $editor && $editor->password) {
         $c->model('Editor')->load_preferences($editor);
         return _rebless_editor($editor);

@@ -1,6 +1,9 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE INDEX application_idx_owner ON application (owner);
+CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
+
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
@@ -33,10 +36,16 @@ CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
 
+CREATE INDEX editor_oauth_token_idx_editor ON editor_oauth_token (editor);
+CREATE UNIQUE INDEX editor_oauth_token_idx_access_token ON editor_oauth_token (access_token);
+CREATE UNIQUE INDEX editor_oauth_token_idx_refresh_token ON editor_oauth_token (refresh_token);
+
 CREATE UNIQUE INDEX editor_preference_idx_editor_name ON editor_preference (editor, name);
 
 CREATE INDEX editor_subscribe_artist_idx_uniq ON editor_subscribe_artist (editor, artist);
 CREATE INDEX editor_subscribe_artist_idx_artist ON editor_subscribe_artist (artist);
+CREATE UNIQUE INDEX editor_subscribe_collection_idx_uniq ON editor_subscribe_collection (editor, collection);
+CREATE INDEX editor_subscribe_collection_idx_collection ON editor_subscribe_collection (collection);
 CREATE INDEX editor_subscribe_label_idx_uniq ON editor_subscribe_label (editor, label);
 CREATE INDEX editor_subscribe_label_idx_label ON editor_subscribe_label (label);
 CREATE INDEX editor_subscribe_editor_idx_uniq ON editor_subscribe_editor (editor, subscribed_editor);
@@ -48,6 +57,9 @@ CREATE INDEX edit_idx_vote_time ON vote (vote_time);
 
 -- Partial index for status (excludes applied edits)
 CREATE INDEX edit_idx_status ON edit (status) WHERE status != 2;
+
+-- Partial index for open time on open edits (speeds up ordering on /edit/open and edit searches dramatically)
+CREATE INDEX edit_idx_open_edits_open_time ON edit (open_time) WHERE status = 1;
 
 -- Indexes for materialized edit status
 CREATE INDEX edit_artist_idx_status ON edit_artist (status);

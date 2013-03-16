@@ -1,4 +1,4 @@
-[% WRAPPER "collection/layout.tt" full_width=1 page='index' %]
+[% WRAPPER "collection/layout.tt" page='index' %]
 
     [%- IF releases.size -%]
       <form action="[% c.req.uri %]" method="post">
@@ -46,8 +46,8 @@
           </tbody>
         </table>
 
-        [% form_submit(l('Remove selected releases from collection'))
-             IF my_collection %]
+        <div class="row">[% form_submit(l('Remove selected releases from collection'))
+             IF my_collection %]</div>
         [%- END -%]
       </form>
     [%- ELSE -%]

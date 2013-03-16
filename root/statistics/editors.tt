@@ -26,7 +26,7 @@
   </table>
 [%- END -%]
 
-<p>[%- l('Last updated: {date}', { date => UserDate.format(stats.date_collected) }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
 
 <p>[% l('For the vote statistics, only yes or no votes are counted, abstain
     votes are not counted.') %]</p>

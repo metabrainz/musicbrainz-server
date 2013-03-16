@@ -73,7 +73,7 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
     },
     'Plugin::Session' => {
-        expires => 36000 # 10 hours
+        expires => DBDefs->SESSION_EXPIRE
     },
     stacktrace => {
         enable => 1
@@ -119,15 +119,15 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             }
         },
         'musicbrainz.org' => {
-            use_session => 1,
+            use_session => 0,
             credential => {
-                class => 'HTTP',
+                class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
                 password_field => 'password',
                 password_type => 'clear'
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::Store'
+                class => '+MusicBrainz::Server::Authentication::WS::Store'
             }
         }
     }
@@ -300,9 +300,27 @@ sub with_translations {
 
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
-    $c->with_translations(sub {
-        $c->$orig(@args)
-    });
+    my $unset_beta = (defined $c->req->query_params->{unset_beta} &&
+                      $c->req->query_params->{unset_beta} eq '1' &&
+                      !DBDefs->IS_BETA);
+    my $beta_redirect = (defined $c->req->cookies->{beta} &&
+                      $c->req->cookies->{beta}->value eq 'on' &&
+                      !DBDefs->IS_BETA);
+    if ( $unset_beta ) {
+        $c->res->cookies->{beta} = { 'value' => '', 'path' => '/', 'expires' => time()-86400 };
+    }
+
+    if (DBDefs->BETA_REDIRECT_HOSTNAME &&
+        $beta_redirect && !$unset_beta) {
+        my $new_url = $c->req->uri;
+        my $ws = DBDefs->WEB_SERVER;
+        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
+        $c->res->redirect($new_url);
+    } else {
+        $c->with_translations(sub {
+            $c->$orig(@args)
+        });
+    }
 };
 
 # All warnings should be logged

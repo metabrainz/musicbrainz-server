@@ -86,8 +86,8 @@ def production():
         # Carton has a tendency to change this file when it does update
         # It's important that we discard these
         sudo("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git", user="musicbrainz")
-        sudo("git reset HEAD -- carton.lock", user="musicbrainz")
         sudo("git checkout -- carton.lock", user="musicbrainz")
+        sudo("git reset HEAD -- carton.lock", user="musicbrainz")
 
         # If there's anything uncommited this must be fixed
         sudo("git diff --exit-code", user="musicbrainz")

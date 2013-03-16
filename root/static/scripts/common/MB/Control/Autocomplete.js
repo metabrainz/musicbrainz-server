@@ -439,10 +439,9 @@ MB.Control.Autocomplete = function (options) {
                 success: function (data) {
                     var type = data["type"];
                     if (type != self.entity) {
-                        // Only RelateTo boxes support changing the entity type
-                        if (options.setEntity) {
-                            options.setEntity(type);
-                        } else {
+                        // Only RelateTo boxes and relationship-editor dialogs
+                        // support changing the entity type.
+                        if (!options.setEntity || options.setEntity(type) === false) {
                             self.clear();
                             return;
                         }

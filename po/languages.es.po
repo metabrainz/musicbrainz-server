@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-01-26 19:14+0000\n"
-"Last-Translator: Nicolás Tamargo <email address hidden>\n"
+"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -621,7 +621,7 @@ msgstr "Elamita"
 msgid "English"
 msgstr "Inglés"
 
-#. frequency:0 iso_code_3:enm
+#. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
 msgstr "Ingles medieval (1100-1500)"
@@ -706,7 +706,7 @@ msgstr "Francés"
 msgid "French, Middle (ca.1400-1600)"
 msgstr "Francés medio (ca.1400-1600)"
 
-#. frequency:0 iso_code_3:fro
+#. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
 msgstr "Francés antiguo (842-ca. 1400)"
@@ -1030,6 +1030,11 @@ msgstr "Iroquíes, lenguas"
 #: DB:language/name:195
 msgid "Italian"
 msgstr "Italiano"
+
+#. frequency:1 iso_code_3:jam
+#: DB:language/name:2980
+msgid "Jamaican Creole English"
+msgstr ""
 
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198

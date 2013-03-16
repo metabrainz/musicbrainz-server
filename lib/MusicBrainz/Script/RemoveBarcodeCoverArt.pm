@@ -11,14 +11,6 @@ with 'MooseX::Runnable';
 with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
 
-has 'max_run_time' => (
-    isa      => 'DateTime::Duration',
-    is       => 'ro',
-    required => 1,
-    traits   => [ 'NoGetopt' ],
-    default  => sub { DateTime::Duration->new( minutes => 10 ) }
-);
-
 sub find_releases
 {
     my ($self) = @_;
@@ -27,19 +19,22 @@ sub find_releases
 
     # Find all releases that have a cover art URL but no URL relationship
     # that would explain it.
-    my $query = '
-        SELECT DISTINCT ON (release.id)
-            release.id AS r_id
+    my $query = "
+      SELECT r_id
+      FROM (
+        SELECT
+          release.id AS r_id,
+          array_agg(link_type.name) url_link_types
         FROM release
-        JOIN release_coverart ON release.id = release_coverart.id
-        LEFT JOIN l_release_url l ON ( l.entity0 = release.id )
-        LEFT JOIN link ON ( link.id = l.link )
-        LEFT JOIN link_type ON (
-          link_type.id = link.link_type AND
-          link_type.name IN (' . placeholders(@url_types) . ')
-        )
-        WHERE link_type.name IS NULL
-        ORDER BY release.id';
+        JOIN release_coverart USING (id)
+        LEFT JOIN l_release_url ON (release.id = l_release_url.entity0)
+        LEFT JOIN link ON (l_release_url.link = link.id)
+        LEFT JOIN link_type ON (link.link_type = link_type.id)
+        WHERE cover_art_url IS NOT NULL AND cover_art_url != ''
+        GROUP BY release.id
+      ) s
+      WHERE NOT (url_link_types && ?);
+    ";
 
     return query_to_list($self->c->sql, sub {
         my $row = shift;
@@ -50,7 +45,7 @@ sub find_releases
             );
             return $release;
         }
-    }, $query, @url_types);
+    }, $query, \@url_types);
 }
 
 sub run
@@ -65,10 +60,10 @@ sub run
 
     my %seen;
 
-    my ($seen, $removed);
+    my $seen = 0;
+    my $removed = 0;
 
-    while (DateTime::Duration->compare(DateTime->now() - $started_at, $self->max_run_time) == -1 &&
-               (my $release = shift @releases))
+    while (my $release = shift @releases)
     {
         $release = $release->();
         next if $seen{$release->id};
@@ -92,7 +87,7 @@ sub run
     log_notice {
         sprintf "Examined %d (%.2f%%) releases, removed %d cover art urls.",
                 $seen,
-                ($seen / $total) * 100,
+                $total != 0 ? ($seen / $total) * 100 : 100,
                 $removed
         };
 

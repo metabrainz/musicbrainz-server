@@ -8,7 +8,7 @@
    <h2>[% title %]</h2>
    [% INCLUDE "user/subscriptions/menu.tt" %]
 
-   [% IF summary.artist > 0 || summary.editor > 0 || summary.label > 0 %]
+   [% IF summary.artist > 0 || summary.collection > 0 || summary.editor > 0 || summary.label > 0 %]
    <p>[% l('{editor} is subscribed to:', { editor => link_editor(user) }) %]</p>
    <ul>
      [%# Each macro call first defines the string (for translation).
@@ -18,6 +18,9 @@
 
      [% discard = N_ln('{num} artist', '{num} artists');
         subscription_summary('{num} artist', '{num} artists', summary.artist) %]
+
+     [% discard = N_ln('{num} collection', '{num} collections');
+        subscription_summary('{num} collection', '{num} collections', summary.collection) %]
 
      [% discard = N_ln('{num} editor', '{num} editors');
         subscription_summary('{num} editor', '{num} editors', summary.editor) %]

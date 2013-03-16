@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Releases with unknown track times') full_width=1 -%]
+
+<h1>[% l('Releases with unknown track times') %]</h1>
+
+<ul>
+    <li>[% l('This report lists all releases where some or all tracks have unknown track lengths.') %]</li>
+    <li>[% l('Total releases: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]

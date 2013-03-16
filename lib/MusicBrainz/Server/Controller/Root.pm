@@ -41,9 +41,14 @@ other than the blog feed.
 sub index : Path Args(0)
 {
     my ($self, $c) = @_;
+
+    my @newest_releases = $c->model('Release')->newest_releases_with_artwork;
+    $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
+
     $c->stash(
         blog => $c->model('Blog')->get_latest_entries,
-        template => 'main/index.tt'
+        template => 'main/index.tt',
+        releases => \@newest_releases
     );
 }
 
@@ -65,6 +70,33 @@ sub set_language : Path('set-language') Args(1)
     }
     $c->res->redirect($c->req->referer || $c->uri_for('/'));
     $c->detach;
+}
+
+=head2 set_beta_preference
+
+Sets the preference for using the beta site, used from the footer.
+
+=cut
+
+sub set_beta_preference : Path('set-beta-preference') Args(0)
+{
+    my ($self, $c) = @_;
+    if (DBDefs->BETA_REDIRECT_HOSTNAME) {
+        my $new_url;
+        # Set URL to go to
+        if (DBDefs->IS_BETA) {
+            $new_url = $c->uri_for('/') . '?unset_beta=1';
+        } elsif (!DBDefs->IS_BETA) {
+            $new_url = $c->req->referer || $c->uri_for('/');
+            # 1 year
+            $c->res->cookies->{beta} = { 'value' => 'on', 'path' => '/', 'expires' => time()+31536000 };
+        }
+        # Munge URL to redirect server
+        my $ws = DBDefs->WEB_SERVER;
+        $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
+        $c->res->redirect($new_url);
+        $c->detach;
+    }
 }
 
 =head2 default
@@ -314,7 +346,9 @@ sub end : ActionClass('RenderView')
         testing_features           => DBDefs->DB_STAGING_TESTING_FEATURES,
         is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
-        developement_server        => DBDefs->DEVELOPMENT_SERVER
+        developement_server        => DBDefs->DEVELOPMENT_SERVER,
+        beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
+        is_beta                    => DBDefs->IS_BETA
     };
 
     # For displaying which git branch is active as well as last commit information
@@ -347,12 +381,6 @@ sub end : ActionClass('RenderView')
     $c->stash->{various_artist_mbid} = ModDefs::VARTIST_MBID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
-}
-
-sub chrome_frame : Local
-{
-    my ($self, $c) = @_;
-    $c->stash( template => 'main/frame.tt' );
 }
 
 =head1 LICENSE

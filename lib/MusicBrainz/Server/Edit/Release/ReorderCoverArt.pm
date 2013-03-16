@@ -5,7 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
+use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART $EXPIRE_ACCEPT :quality );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -13,6 +13,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use List::UtilsBy 'nsort_by';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
@@ -53,6 +54,21 @@ sub initialize {
         old => $opts{old},
         new => $opts{new},
     });
+}
+
+sub edit_conditions
+{
+    my $conditions = {
+        duration      => 0,
+        votes         => 0,
+        expire_action => $EXPIRE_ACCEPT,
+        auto_edit     => 1,
+    };
+    return {
+        $QUALITY_LOW    => $conditions,
+        $QUALITY_NORMAL => $conditions,
+        $QUALITY_HIGH   => $conditions,
+    };
 }
 
 sub accept {
@@ -98,13 +114,28 @@ sub build_display_data {
 
     my %data;
 
-    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
-        Release->new( name => $self->data->{entity}{name} );
+    $data{release} = $loaded->{Release}{ $self->data->{entity}{id} };
+    if (!$data{release} && ($data{release} ||= $self->c->model('Release')->get_by_gid($self->data->{entity}{mbid}))) {
+        $self->c->model('ArtistCredit')->load($data{release});
+    }
 
-    my $artwork = $self->c->model('Artwork')->find_by_release($data{release});
-    $self->c->model ('CoverArtType')->load_for(@$artwork);
-
+    my $artwork;
+    if ($data{release}) {
+        $artwork = $self->c->model('Artwork')->find_by_release($data{release});
+        $self->c->model ('CoverArtType')->load_for(@$artwork);
+    } else {
+        $data{release} = Release->new( name => $self->data->{entity}{name},
+                                       id => $self->data->{entity}{id},
+                                       gid => $self->data->{entity}{mbid} );
+        $artwork = [];
+    }
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
+
+    for my $undef_artwork (grep { !defined $artwork_by_id{$_->{id}} } @{ $self->data->{old} }) {
+        my $fake_artwork = Artwork->new( release => $data{release}, id => $undef_artwork->{id});
+        push @$artwork, $fake_artwork;
+        $artwork_by_id{$undef_artwork->{id}} = $fake_artwork;
+    }
 
     my @old = nsort_by { $_->{position} } @{ $self->data->{old} };
     my @new = nsort_by { $_->{position} } @{ $self->data->{new} };

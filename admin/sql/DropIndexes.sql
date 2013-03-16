@@ -1,6 +1,8 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP INDEX application_idx_oauth_id;
+DROP INDEX application_idx_owner;
 DROP INDEX artist_alias_idx_artist;
 DROP INDEX artist_alias_idx_primary;
 DROP INDEX artist_credit_name_idx_artist;
@@ -30,6 +32,7 @@ DROP INDEX edit_close_time_date;
 DROP INDEX edit_expire_time_date;
 DROP INDEX edit_idx_editor;
 DROP INDEX edit_idx_editor_id_desc;
+DROP INDEX edit_idx_open_edits_open_time;
 DROP INDEX edit_idx_open_time;
 DROP INDEX edit_idx_status;
 DROP INDEX edit_idx_type;
@@ -48,6 +51,9 @@ DROP INDEX editor_collection_idx_gid;
 DROP INDEX editor_collection_idx_name;
 DROP INDEX editor_idx_name;
 DROP INDEX editor_language_idx_language;
+DROP INDEX editor_oauth_token_idx_access_token;
+DROP INDEX editor_oauth_token_idx_editor;
+DROP INDEX editor_oauth_token_idx_refresh_token;
 DROP INDEX editor_preference_idx_editor_name;
 DROP INDEX editor_subscribe_artist_idx_artist;
 DROP INDEX editor_subscribe_artist_idx_uniq;

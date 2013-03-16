@@ -196,6 +196,12 @@ sub external : Private
                                                  advanced => 1);
 }
 
+sub not_found : Private
+{
+    my ($self, $c) = @_;
+    $c->stash( template => 'taglookup/not_found.tt' );
+    $c->detach;
+}
 
 sub index : Path('')
 {

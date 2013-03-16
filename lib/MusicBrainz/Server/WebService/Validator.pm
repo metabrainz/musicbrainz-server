@@ -2,6 +2,10 @@ package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
+use MusicBrainz::Server::Constants qw(
+    $ACCESS_SCOPE_TAG
+    $ACCESS_SCOPE_RATING
+);
 use Class::MOP;
 use Readonly;
 
@@ -345,6 +349,12 @@ role {
                 $resource eq 'tag' || $resource eq 'rating' ||
                 ($resource eq 'release' && $c->req->method eq 'POST') ||
                 ($resource eq 'recording' && $c->req->method eq 'POST');
+
+            # Check authorization scope.
+            my $scope = 0;
+            $scope |= $ACCESS_SCOPE_TAG if $inc->{user_tags} || $resource eq 'tag';
+            $scope |= $ACCESS_SCOPE_RATING if $inc->{user_ratings} || $resource eq 'rating';
+            $c->stash->{authorization_scope} = $scope;
 
             # All is well! Set up the stash!
             $c->stash->{inc} = $inc;

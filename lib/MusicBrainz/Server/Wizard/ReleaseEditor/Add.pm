@@ -287,39 +287,41 @@ augment 'load' => sub
         ]
     );
 
-    if ($rg_gid)
+    if ($rg_gid && is_guid($rg_gid))
     {
-        $self->c->detach () unless is_guid($rg_gid);
         my $rg = $self->c->model('ReleaseGroup')->get_by_gid($rg_gid);
-        $self->c->detach () unless $rg;
 
-        $release->release_group_id ($rg->id);
-        $release->release_group ($rg);
-        $release->name ($rg->name);
+        if ($rg) {
+            $release->release_group_id ($rg->id);
+            $release->release_group ($rg);
+            $release->name ($rg->name);
 
-        $self->c->model('ArtistCredit')->load ($rg);
+            $self->c->model('ArtistCredit')->load ($rg);
 
-        $release->artist_credit ($rg->artist_credit);
+            $release->artist_credit ($rg->artist_credit);
+        }
     }
-    elsif ($label_gid)
+    elsif ($artist_gid && is_guid($artist_gid))
     {
-        $self->c->detach () unless is_guid($label_gid);
+        my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
+
+        if ($artist) {
+            $release->artist_credit (
+                MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        }
+    }
+
+    if ($label_gid && is_guid($label_gid))
+    {
         my $label = $self->c->model('Label')->get_by_gid($label_gid);
 
-        $release->add_label(
-            MusicBrainz::Server::Entity::ReleaseLabel->new(
-                label => $label,
-                label_id => $label->id
-           ));
-    }
-    elsif ($artist_gid)
-    {
-        $self->c->detach () unless is_guid($artist_gid);
-        my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
-        $self->c->detach () unless $artist;
-
-        $release->artist_credit (
-            MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        if ($label) {
+            $release->add_label(
+                MusicBrainz::Server::Entity::ReleaseLabel->new(
+                    label => $label,
+                    label_id => $label->id
+               ));
+        }
     }
 
     unless(defined $release->artist_credit) {

@@ -1,0 +1,10 @@
+[% WRAPPER "layout.tt" title=l("OAuth Authorization") full_width=1 %]
+
+    <h1>[% l("Success!") %]</h1>
+
+    <p>[% l('You have granted access to {app}. Next, return to {app} and copy this token to complete the authorization process:', { app => application.name }) | html %]</p>
+
+    <p><code>[% code | html %]</code></p>
+
+[% END %]
+
