@@ -450,6 +450,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/amazon-16.png");
 }
 
+#sidebar ul.external_links li.animenewsnetwork {
+    background-image: url("../images/favicons/animenewsnetwork-16.png");
+}
+
 #sidebar ul.external_links li.wikipedia {
     background-image: url("../images/favicons/wikipedia-16.png");
 }
