@@ -136,7 +136,7 @@ MB.constants.LINK_TYPES = {
     viaf: {
         artist: 310,
         label: 311,
-        work: 312 
+        work: 312
     }
 };
 
@@ -223,7 +223,7 @@ MB.constants.CLEANUPS = {
     archive: {
         match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/.*\\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) { 
+        clean: function(url) {
             url = url.replace(/\?cnt=\d+$/, "");
             return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
@@ -372,7 +372,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
             // Remove query string, just the video id should be enough.
             url = url.replace(/\?.*/, "");
-	    return url;
+            return url;
         }
     },
     youtube: {
@@ -387,7 +387,7 @@ MB.constants.CLEANUPS = {
             // YouTube embeds
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
-	    return url;
+            return url;
         }
     },
     vgmdb: {
