@@ -2,14 +2,10 @@
 BEGIN;
 
 ALTER TABLE track ADD COLUMN gid UUID;
-UPDATE track SET gid = generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
-       'http://musicbrainz.org/track/' || id);
-        -- ^ fake URI, like ian's /country/ URI for MBS-5919.
-
-
-COMMIT; -- execute triggers.
-
-BEGIN;
+ALTER TABLE track ALTER COLUMN gid SET DATA TYPE UUID
+      USING generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
+      'http://musicbrainz.org/track/' || id);
+       -- ^ fake URI, like ian's /country/ URI for MBS-5919.
 
 ALTER TABLE track ALTER COLUMN gid SET not null;
 
@@ -25,4 +21,3 @@ ALTER TABLE track_gid_redirect
     PRIMARY KEY (gid);
 
 COMMIT;
-

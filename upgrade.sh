@@ -109,6 +109,18 @@ then
     OUTPUT=`./admin/psql < admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 fi
 
+echo `date` : 'MBS-1839, Reduplicate tracklists, part 1'
+./admin/sql/updates/20130220-reduplicate-tracklists-part1.pl
+
+echo `date` : 'MBS-1839, Reduplicate tracklists, part 2'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130220-reduplicate-tracklists-part2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'MBS-1839, Add track MBIDs'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130221-add-track-gid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'MBS-1839, Recalculate medium.track_count'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130305-update-medium-track-count.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -143,6 +155,11 @@ then
     echo `date` : Applying admin/sql/updates/20120921-release-group-cover-art-master.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120921-release-group-cover-art-master.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+    echo `date` : 'MBS-1839, Update track triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130220-update-track-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-1839, Add track MBID foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130221-add-track-gid-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
