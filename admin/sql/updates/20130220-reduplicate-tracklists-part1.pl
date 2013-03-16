@@ -13,8 +13,10 @@ my $c = MusicBrainz::Server::Context->create_script_context;
 sub reduplicate_tracklist {
     my ($tracklist_id, $medium_ids) = @_;
 
+    my ($first_medium, @more_mediums) = @$medium_ids;
+
     $log->info ("Reduplicate tracklist $tracklist_id ".
-                "(making ".$#$medium_ids." copies)\n");
+                "(making ".(scalar @more_mediums)." copies)\n");
 
     # If a tracklist is attached to e.g. 8 media, we need to go
     # through these steps:
@@ -29,12 +31,10 @@ sub reduplicate_tracklist {
     # to the medium, and the tracklist column and table can be
     # deleted.
 
-    my $first_medium = shift @$medium_ids;
-
     $c->sql->do ("UPDATE track SET medium = ? WHERE tracklist = ?",
                  $first_medium, $tracklist_id);
 
-    return unless $#$medium_ids >= 0;
+    return unless @more_mediums;
 
     $c->sql->do (
         "INSERT INTO track (recording,tracklist,position,name," .
@@ -43,10 +43,9 @@ sub reduplicate_tracklist {
         "    SELECT recording,tracklist,position,name,artist_credit, " .
         "           length,edits_pending,last_updated,number, " .
         "           new_medium " .
-        "    FROM track " .
-        "    JOIN UNNEST(?::integer[]) new_medium ON 1 = 1 " .
+        "    FROM track, UNNEST(?::integer[]) new_medium " .
         "    WHERE tracklist=?; ",
-        $medium_ids, $tracklist_id);
+        [ @more_mediums ], $tracklist_id);
 }
 
 sub main {
@@ -56,7 +55,6 @@ sub main {
         $c->sql->do("ALTER TABLE track ".
                 "ADD CONSTRAINT track_fk_medium ".
                 "FOREIGN KEY (medium) REFERENCES medium(id);");
-        $c->sql->do("SELECT setval('track_id_seq', (SELECT max(id) FROM track));");
     }, $c->sql);
 
     Sql::run_in_transaction(sub {
@@ -68,14 +66,6 @@ sub main {
         {
             reduplicate_tracklist ($row->{tracklist}, $row->{media});
         }
-    }, $c->sql);
-
-    Sql::run_in_transaction(sub {
-        $c->sql->do("ALTER TABLE track DROP COLUMN tracklist");
-        $c->sql->do("ALTER TABLE medium DROP COLUMN tracklist");
-        $c->sql->do("ALTER TABLE medium ADD COLUMN track_count INTEGER NOT NULL DEFAULT 0");
-        $c->sql->do("CREATE INDEX medium_idx_track_count ON medium (track_count);");
-        $c->sql->do("DROP TABLE tracklist");
     }, $c->sql);
 
     return 1;

@@ -3,10 +3,16 @@
 set -o errexit
 cd `dirname $0`/..
 
+if [ -z "$1" ]; then
+    DATABASE=TEST
+else
+    DATABASE="$1"
+fi
+
 source ./admin/functions.sh
 
-if ! script/database_exists TEST; then
-    ./admin/InitDb.pl --createdb --database TEST --clean
+if ! script/database_exists $DATABASE; then
+    ./admin/InitDb.pl --createdb --database $DATABASE --clean
 fi
 
 echo `date` : Clearing old test database
@@ -18,7 +24,7 @@ echo "
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
-  CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public TEST 2>&1
+  CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
 if [ `compare_postgres_version 9.1` == "older" ]; then
@@ -28,31 +34,31 @@ if [ `compare_postgres_version 9.1` == "older" ]; then
 fi
 
 echo `date` : Creating MusicBrainz Schema
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --system TEST <./admin/sql/CreateSearchConfiguration.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --system TEST <./admin/sql/CreatePLPerl.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST <./admin/sql/CreateSearchIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql TEST < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/CreateSearchConfiguration.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/CreatePLPerl.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateSearchIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE < ./t/sql/initial.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Statistics Schema
-OUTPUT=`./admin/psql --schema='statistics' TEST <./admin/sql/statistics/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='statistics' TEST <./admin/sql/statistics/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='statistics' TEST <./admin/sql/statistics/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='statistics' $DATABASE <./admin/sql/statistics/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Cover Art Archive Schema
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 

@@ -2,7 +2,10 @@
 BEGIN;
 
 ALTER TABLE track ADD COLUMN gid UUID;
-UPDATE track SET gid = generate_uuid_v4();
+UPDATE track SET gid = generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
+       'http://musicbrainz.org/track/' || id);
+        -- ^ fake URI, like ian's /country/ URI for MBS-5919.
+
 
 COMMIT; -- execute triggers.
 
@@ -21,15 +24,5 @@ ALTER TABLE track_gid_redirect
     ADD CONSTRAINT track_gid_redirect_pkey
     PRIMARY KEY (gid);
 
-ALTER TABLE track_gid_redirect
-   ADD CONSTRAINT track_gid_redirect_fk_new_id
-   FOREIGN KEY (new_id)
-   REFERENCES track(id);
-
---CREATE TRIGGER "reptg_track_gid_redirect"
---   AFTER INSERT OR DELETE OR UPDATE ON "track_gid_redirect"
---   FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
-
 COMMIT;
 
--- vi: set ts=4 sw=4 et :
