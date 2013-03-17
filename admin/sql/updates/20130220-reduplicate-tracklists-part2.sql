@@ -1,4 +1,12 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
+
+DELETE FROM tracklist_index WHERE tracklist IN (
+       SELECT tracklist_index.tracklist
+       FROM tracklist_index
+       LEFT JOIN tracklist ON tracklist_index.tracklist = tracklist.id
+       WHERE tracklist.id IS NULL);
 
 ALTER TABLE tracklist_index ADD COLUMN medium INTEGER;
 UPDATE tracklist_index
