@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 SET search_path = 'cover_art_archive';
 
 BEGIN;
@@ -14,6 +16,8 @@ INSERT INTO image_type (mime_type, suffix)
            ('image/png', 'png'),
            ('image/gif', 'gif');
 
-ALTER TABLE cover_art ADD COLUMN image_type TEXT NOT NULL DEFAULT 'image/jpeg' REFERENCES image_type(mime_type);
+ALTER TABLE cover_art
+    ADD COLUMN mime_type TEXT NOT NULL DEFAULT 'image/jpeg'
+    REFERENCES image_type(mime_type);
 
 COMMIT;

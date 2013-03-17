@@ -14,7 +14,7 @@ CREATE TABLE image_type (
 
 CREATE TABLE cover_art (
     id BIGINT NOT NULL, -- PK
-    image_type TEXT NOT NULL DEFAULT 'image/jpeg',  -- references image_type.mime_type
+    mime_type TEXT NOT NULL DEFAULT 'image/jpeg',  -- references image_type.mime_type
     release INTEGER NOT NULL, -- references musicbrainz.release.id CASCADE
     comment TEXT NOT NULL DEFAULT '',
     edit INTEGER NOT NULL, -- references musicbrainz.edit.id

@@ -43,6 +43,8 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'MBS-4115, Add cover art image types'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
