@@ -192,6 +192,7 @@ ALTER TABLE medium DROP CONSTRAINT medium_fk_format;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_medium;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_cdtoc;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_fk_parent;
+ALTER TABLE medium_index DROP CONSTRAINT medium_index_fk_medium;
 ALTER TABLE puid DROP CONSTRAINT puid_fk_version;
 ALTER TABLE recording DROP CONSTRAINT recording_fk_name;
 ALTER TABLE recording DROP CONSTRAINT recording_fk_artist_credit;

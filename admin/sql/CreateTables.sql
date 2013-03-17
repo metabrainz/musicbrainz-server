@@ -1313,7 +1313,7 @@ CREATE TABLE track_name (
 
 CREATE TABLE medium_index
 (
-    medium              INTEGER, -- PK
+    medium              INTEGER, -- PK, references medium.id CASCADE
     toc                 CUBE
 );
 
