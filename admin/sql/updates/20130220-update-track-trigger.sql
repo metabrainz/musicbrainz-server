@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP 1
 
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN

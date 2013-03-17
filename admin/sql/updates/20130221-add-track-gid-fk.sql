@@ -6,4 +6,9 @@ ALTER TABLE track_gid_redirect
    FOREIGN KEY (new_id)
    REFERENCES track(id);
 
+ALTER TABLE medium_index
+   ADD CONSTRAINT medium_index_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
+
 COMMIT;
