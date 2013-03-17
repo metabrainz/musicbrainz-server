@@ -9,6 +9,7 @@ ALTER TABLE track_gid_redirect
 ALTER TABLE medium_index
    ADD CONSTRAINT medium_index_fk_medium
    FOREIGN KEY (medium)
-   REFERENCES medium(id);
+   REFERENCES medium(id)
+   ON DELETE CASCADE;
 
 COMMIT;

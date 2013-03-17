@@ -977,6 +977,12 @@ ALTER TABLE medium_format
    FOREIGN KEY (parent)
    REFERENCES medium_format(id);
 
+ALTER TABLE medium_index
+   ADD CONSTRAINT medium_index_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
    FOREIGN KEY (version)
