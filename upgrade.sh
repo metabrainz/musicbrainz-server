@@ -90,7 +90,7 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130220-update-track-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'MBS-1839, Add track MBID foreign keys'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130221-add-track-gid-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130221-track-identifier-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
