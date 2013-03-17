@@ -24,8 +24,11 @@ then
     echo `date` : Export pending db changes
     ./admin/RunExport
 
-    echo `date` : Drop replication triggers
+    echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
+
+    echo `date` : 'Drop replication triggers (cover_art_archive)'
+    ./admin/psql READWRITE < ./admin/sql/caa/DropReplicationTriggers.sql
 
     echo `date` : 'Drop replication triggers (statistics)'
     echo 'DROP TRIGGER "reptg_statistic" ON "statistic";
