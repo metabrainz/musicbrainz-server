@@ -12,6 +12,8 @@ CREATE TABLE link_attribute_credit (
   credited_as TEXT NOT NULL
 );
 
-INSERT INTO link_creditable_attribute_type (attribute_type) VALUES (3), (14); -- vocal, instrument
+INSERT INTO link_creditable_attribute_type (attribute_type)
+SELECT id FROM link_attribute_type
+WHERE root IN (3, 14);
 
 COMMIT;
