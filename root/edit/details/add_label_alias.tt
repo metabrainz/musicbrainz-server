@@ -1,46 +1,50 @@
 <table class="details add-label-alias">
   <tr>
-    <th>[% l('Label:') %]</th>
-    <td>[% link_entity(edit.display_data.label) %]</td>
+    <th>[%- l('Label:') -%]</th>
+    <td>[%- link_entity(edit.display_data.label) -%]</td>
   </tr>
   <tr>
-    <th>[% l('Alias:') %]</th>
-    <td>[% edit.display_data.alias | html %]</td>
+    <th>[%- l('Alias:') -%]</th>
+    <td>[%- edit.display_data.alias | html -%]
+        [%- IF entity_exists(edit.display_data.label) -%]
+          ([%- link_entity(edit.display_data.label, 'aliases', l('view all aliases')) -%])
+        [%- END -%]
+    </td>
   </tr>
-  [% IF edit.display_data.sort_name %]
+  [%- IF edit.display_data.sort_name -%]
   <tr>
-    <th>[% l('Sort name:') %]</th>
-    <td>[% (edit.display_data.sort_name) | html %]</td>
+    <th>[%- l('Sort name:') -%]</th>
+    <td>[%- (edit.display_data.sort_name) | html -%]</td>
   </tr>
-  [% END %]
-  [% IF edit.display_data.locale %]
+  [%- END -%]
+  [%- IF edit.display_data.locale -%]
   <tr>
-    <th>[% l('Locale:') %]</th>
-    <td>[% edit.display_data.locale | locale %]</td>
+    <th>[%- l('Locale:') -%]</th>
+    <td>[%- edit.display_data.locale | locale -%]</td>
   </tr>
-  [% END %]
-  [% IF edit.display_data.exists('primary_for_locale') %]
+  [%- END -%]
+  [%- IF edit.display_data.exists('primary_for_locale') -%]
   <tr>
-    <th>[% l('Primary for locale:') %]</th>
-    <td>[% edit.display_data.primary_for_locale ? l('Yes') : l('No') %]</td>
+    <th>[%- l('Primary for locale:') -%]</th>
+    <td>[%- edit.display_data.primary_for_locale ? l('Yes') : l('No') -%]</td>
   </tr>
-  [% END %]
-  [% IF edit.display_data.type %]
+  [%- END -%]
+  [%- IF edit.display_data.type -%]
   <tr>
-    <th>[% l('Type:') %]</th>
-    <td>[% edit.display_data.type.name | html %]</td>
+    <th>[%- l('Type:') -%]</th>
+    <td>[%- edit.display_data.type.name | html -%]</td>
   </tr>
-  [% END %]
-  [% IF !edit.display_data.begin_date.is_empty %]
+  [%- END -%]
+  [%- IF !edit.display_data.begin_date.is_empty -%]
   <tr>
-    <th>[% l('Begin date:') %]</th>
-    <td>[% edit.display_data.begin_date.format | html %]</td>
+    <th>[%- l('Begin date:') -%]</th>
+    <td>[%- edit.display_data.begin_date.format | html -%]</td>
   </tr>
-  [% END %]
-  [% IF !edit.display_data.end_date.is_empty %]
+  [%- END -%]
+  [%- IF !edit.display_data.end_date.is_empty -%]
   <tr>
-    <th>[% l('End date:') %]</th>
-    <td>[% edit.display_data.end_date.format | html %]</td>
+    <th>[%- l('End date:') -%]</th>
+    <td>[%- edit.display_data.end_date.format | html -%]</td>
   </tr>
-  [% END %]
+  [%- END -%]
 </table>

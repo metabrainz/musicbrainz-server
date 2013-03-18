@@ -212,6 +212,8 @@ END -%]
   [% END %]
 [%- END -%]
 
+[%- MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
