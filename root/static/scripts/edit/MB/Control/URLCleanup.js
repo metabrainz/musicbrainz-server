@@ -136,7 +136,7 @@ MB.constants.LINK_TYPES = {
     viaf: {
         artist: 310,
         label: 311,
-        work: 312 
+        work: 312
     }
 };
 
@@ -223,7 +223,7 @@ MB.constants.CLEANUPS = {
     archive: {
         match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/.*\\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) { 
+        clean: function(url) {
             url = url.replace(/\?cnt=\d+$/, "");
             return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
@@ -372,7 +372,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
             // Remove query string, just the video id should be enough.
             url = url.replace(/\?.*/, "");
-	    return url;
+            return url;
         }
     },
     youtube: {
@@ -387,7 +387,7 @@ MB.constants.CLEANUPS = {
             // YouTube embeds
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
-	    return url;
+            return url;
         }
     },
     vgmdb: {
@@ -395,7 +395,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -414,6 +414,10 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
             //Standardising Open Library
             url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
+            //Standardising Anime News Network
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
+            //Standardising Generasia
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
             return url;
         }
     }

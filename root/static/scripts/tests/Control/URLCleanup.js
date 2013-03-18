@@ -248,6 +248,28 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
                     MB.constants.LINK_TYPES.bbcmusic.artist
+                ],
+                // Anime News Network
+                [
+                    'artist', 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                    MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // Generasia
+                [
+                    'artist', 'http://www.generasia.com/wiki/Wink',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    MB.constants.LINK_TYPES.otherdatabases.work
                 ]
             ];
 
@@ -574,6 +596,24 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
+                ],
+                // Anime News Network
+                [
+                    'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                ],
+                [
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                ],
+                // Generasia
+                [
+                    'http://generasia.com/wiki/Wink',
+                    'http://www.generasia.com/wiki/Wink',
+                ],
+                [
+                    'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ]
 
             ];
