@@ -16,12 +16,7 @@ INSERT INTO cdtoc_raw (id, release, discid, track_count, leadout_offset, track_o
 INSERT INTO track_raw (id, release, title, artist, sequence)
     VALUES (1, 1, 'CD stub track', NULL, 1);
 
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
 EOSQL
 
     $mech->get_ok('/login');
@@ -67,12 +62,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, '2bcffca6-e8f5-11e0-866d-00508db50876', 1, 1, 1);
 INSERT INTO medium (id, release, tracklist, position) VALUES (1, 1, 1, 1);
 
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
 EOSQL
 
     $mech->get_ok('/login');

@@ -26,12 +26,7 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
 INSERT INTO link (id, link_type, attribute_count) VALUES (1, 1, 0);
 INSERT INTO l_label_url (id, entity0, entity1, link) VALUES (1, 1 , 1, 1), (2, 2, 1, 1);
 
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
 EOSQL
 
     $mech->get_ok('/login');

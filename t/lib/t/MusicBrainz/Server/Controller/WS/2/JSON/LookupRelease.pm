@@ -118,7 +118,7 @@ test 'basic release with collections' => sub {
     MusicBrainz::Server::Test->prepare_test_database(
         $c,
         "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114); " .
-        "INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb'); " .
+        "INSERT INTO editor (id, name, password, ha1) VALUES (15412, 'editor', '{CLEARTEXT}mb', 'be88da857f697a78656b1307f89f90ab'); " .
         "INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE); " .
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
