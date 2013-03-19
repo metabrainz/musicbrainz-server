@@ -38,4 +38,15 @@ CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_recording ON track (recording);
 CREATE INDEX track_idx_medium ON track (medium, position);
 
+CREATE TABLE track_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references track.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE track_gid_redirect
+    ADD CONSTRAINT track_gid_redirect_pkey
+    PRIMARY KEY (gid);
+
 COMMIT;
