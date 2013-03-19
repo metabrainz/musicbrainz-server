@@ -11,7 +11,7 @@ CREATE INDEX medium_idx_track_count ON medium (track_count);
 CREATE SEQUENCE track2013_id_seq START 1;
 CREATE TABLE track2013 AS
     SELECT nextval('track2013_id_seq') AS id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
-                        'http://musicbrainz.org/track/' || track.id) AS gid,
+                        'http://musicbrainz.org/track/' || currval('track2013_id_seq') ) AS gid,
            track.recording, medium.id AS medium,
            track.position, track.number,
            track.name, track.artist_credit, track.length,
@@ -47,6 +47,7 @@ CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_recording ON track (recording);
 CREATE INDEX track_idx_medium ON track (medium, position);
+CREATE UNIQUE INDEX track_idx_gid ON track (gid);
 
 CREATE TABLE track_gid_redirect
 (
