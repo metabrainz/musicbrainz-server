@@ -78,6 +78,15 @@ then
 fi
 
 ################################################################################
+# Migrate the wiki transclusion table (AFTER replication, so it is replicated)
+
+if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
+then
+    echo `date` : 'Migrate wiki transclusion table'
+    OUTPUT=`./admin/sql/updates/20130309-migrate-transclusion-table.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+fi
+
+################################################################################
 # Bump schema sequence
 
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
