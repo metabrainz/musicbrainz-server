@@ -25,11 +25,6 @@ ALTER TABLE area_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
-ALTER TABLE area_code
-   ADD CONSTRAINT area_code_fk_area
-   FOREIGN KEY (area)
-   REFERENCES area(id);
-
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_begin_area
    FOREIGN KEY (begin_area)
