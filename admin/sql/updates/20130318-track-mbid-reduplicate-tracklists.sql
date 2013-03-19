@@ -17,7 +17,8 @@ CREATE TABLE track2013 AS
            track.name, track.artist_credit, track.length,
            track.edits_pending, track.last_updated
     FROM track
-    JOIN medium ON medium.tracklist = track.tracklist;
+    JOIN medium ON medium.tracklist = track.tracklist
+    ORDER BY track.id, medium.id;
 
 DROP TABLE track;
 ALTER TABLE medium DROP COLUMN tracklist;
