@@ -6,8 +6,6 @@ DROP INDEX application_idx_owner;
 DROP INDEX area_alias_idx_area;
 DROP INDEX area_alias_idx_primary;
 DROP INDEX area_code_idx_area;
-DROP INDEX area_code_idx_code;
-DROP INDEX area_code_idx_code_type;
 DROP INDEX area_idx_gid;
 DROP INDEX area_idx_name;
 DROP INDEX area_idx_sort_name;

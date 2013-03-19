@@ -129,6 +129,12 @@ CREATE TABLE l_area_release
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+-- release migration
+CREATE TABLE country_area
+(
+    area                INTEGER PRIMARY KEY
+);
+
 -------------------------
 -- INSERT INITIAL DATA --
 -------------------------
@@ -146,6 +152,8 @@ INSERT INTO area (id, gid, name, sort_name, type)
          name AS sort_name,
          1::integer AS type
     FROM country;
+
+INSERT INTO country_area (area) SELECT id FROM country;
 
 INSERT INTO area_code (code, area, code_type)
   SELECT iso_code AS code,

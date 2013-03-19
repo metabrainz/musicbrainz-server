@@ -29,6 +29,7 @@ DROP TABLE autoeditor_election_vote;
 DROP TABLE cdtoc;
 DROP TABLE cdtoc_raw;
 DROP TABLE clientversion;
+DROP TABLE country_area;
 DROP TABLE edit;
 DROP TABLE edit_artist;
 DROP TABLE edit_label;

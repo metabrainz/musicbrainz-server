@@ -219,6 +219,11 @@ ALTER TABLE cdtoc_raw
    FOREIGN KEY (release)
    REFERENCES release_raw(id);
 
+ALTER TABLE country_area
+   ADD CONSTRAINT country_area_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 ALTER TABLE edit
    ADD CONSTRAINT edit_fk_editor
    FOREIGN KEY (editor)
@@ -1251,7 +1256,7 @@ ALTER TABLE release
 ALTER TABLE release
    ADD CONSTRAINT release_fk_country
    FOREIGN KEY (country)
-   REFERENCES area(id);
+   REFERENCES country_area(area);
 
 ALTER TABLE release
    ADD CONSTRAINT release_fk_language

@@ -29,6 +29,7 @@ ALTER TABLE autoeditor_election_vote ADD CONSTRAINT autoeditor_election_vote_pke
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc_raw ADD CONSTRAINT cdtoc_raw_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
+ALTER TABLE country_area ADD CONSTRAINT country_area_pkey PRIMARY KEY (area);
 ALTER TABLE edit ADD CONSTRAINT edit_pkey PRIMARY KEY (id);
 ALTER TABLE edit_artist ADD CONSTRAINT edit_artist_pkey PRIMARY KEY (edit, artist);
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_pkey PRIMARY KEY (edit, label);

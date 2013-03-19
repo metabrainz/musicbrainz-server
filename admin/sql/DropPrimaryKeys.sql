@@ -29,6 +29,7 @@ ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_pk
 ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
+ALTER TABLE country_area DROP CONSTRAINT country_area_pkey;
 ALTER TABLE edit DROP CONSTRAINT edit_pkey;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_pkey;
 ALTER TABLE edit_label DROP CONSTRAINT edit_label_pkey;

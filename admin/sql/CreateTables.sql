@@ -287,6 +287,11 @@ CREATE TABLE clientversion
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE country_area
+(
+    area                INTEGER -- PK, references area.id
+);
+
 CREATE TABLE edit
 (
     id                  SERIAL,
@@ -1206,7 +1211,7 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
-    country             INTEGER, -- references area.id
+    country             INTEGER, -- references country_area.area
     language            INTEGER, -- references language.id
     script              INTEGER, -- references script.id
     date_year           SMALLINT,

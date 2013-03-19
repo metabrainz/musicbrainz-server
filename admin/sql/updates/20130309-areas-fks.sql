@@ -92,7 +92,7 @@ ALTER TABLE l_area_recording
 
 -- MIGRATIONS --
 -- releases
-ALTER TABLE release ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFERENCES area(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFERENCES country_area(area);
 
 -- editors
 ALTER TABLE editor ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES area(id);

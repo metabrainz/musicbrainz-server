@@ -13,7 +13,7 @@ ALTER TABLE area_code DROP CONSTRAINT area_code_fk_code_type;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_sort_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_type;
-ALTER TABLE artist DROP CONSTRAINT artist_fk_country;
+ALTER TABLE artist DROP CONSTRAINT artist_fk_area;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_begin_area;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_end_area;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_gender;
@@ -44,6 +44,7 @@ ALTER TABLE autoeditor_election DROP CONSTRAINT autoeditor_election_fk_seconder_
 ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_fk_autoeditor_election;
 ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_fk_voter;
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_fk_release;
+ALTER TABLE country_area DROP CONSTRAINT country_area_fk_area;
 ALTER TABLE edit DROP CONSTRAINT edit_fk_editor;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_fk_edit;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_fk_artist;
