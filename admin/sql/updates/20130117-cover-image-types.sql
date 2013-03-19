@@ -17,7 +17,6 @@ INSERT INTO image_type (mime_type, suffix)
            ('image/gif', 'gif');
 
 ALTER TABLE cover_art
-    ADD COLUMN mime_type TEXT NOT NULL DEFAULT 'image/jpeg'
-    REFERENCES image_type(mime_type);
+    ADD COLUMN mime_type TEXT NOT NULL DEFAULT 'image/jpeg';
 
 COMMIT;
