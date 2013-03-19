@@ -52,6 +52,12 @@
      END;
    END; -%]
 
+[%- MACRO relationship_extra_attributes(relationship) BLOCK -%]
+[%- IF relationship.extra_verbose_phrase_attributes -%]
+([% relationship.extra_verbose_phrase_attributes %])
+[%- END -%]
+[%- END -%]
+
 [%- MACRO display_relationship_differences(label, old_rel, new_rel) BLOCK -%]
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
@@ -65,6 +71,7 @@
         [% descriptive_link(old_rel.target); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '-') %]
+      [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '-') %]
     </td>
   </tr>
   <tr>
@@ -77,6 +84,7 @@
         [% descriptive_link(new_rel.target); %]
       </span>
       [% Diff.diff_side(relationship_date_text(old_rel), relationship_date_text(new_rel), '+') %]
+      [% Diff.diff_side(relationship_extra_attributes(old_rel), relationship_extra_attributes(new_rel), '+') %]
     </td>
   </tr>
 [%- END -%]
