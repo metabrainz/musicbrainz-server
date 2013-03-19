@@ -389,7 +389,7 @@ sub EMAIL_BUGS { undef }
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
 # http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.nu?out=json' }
+sub HTML_VALIDATOR { 'http://html5.validator.nu?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################
