@@ -18,7 +18,7 @@ CREATE TABLE area (id                SERIAL PRIMARY KEY,
                    begin_date_day    SMALLINT,
                    end_date_year     SMALLINT,
                    end_date_month    SMALLINT,
-                   end_date_day      SMALLINT
+                   end_date_day      SMALLINT,
                    ended             BOOLEAN NOT NULL DEFAULT FALSE
                    CHECK (
                      (
@@ -36,13 +36,13 @@ CREATE TABLE area (id                SERIAL PRIMARY KEY,
                    ));
 
 CREATE TABLE iso_3166_1 (area      INTEGER NOT NULL,
-                         code      CHAR(2) PRIMARY KEY)
+                         code      CHAR(2) PRIMARY KEY);
 
 CREATE TABLE iso_3166_2 (area      INTEGER NOT NULL,
-                         code      VARCHAR(10) PRIMARY KEY)
+                         code      VARCHAR(10) PRIMARY KEY);
 
 CREATE TABLE iso_3166_3 (area      INTEGER NOT NULL,
-                         code      CHAR(4) PRIMARY KEY)
+                         code      CHAR(4) PRIMARY KEY);
 
 -- aliases
 CREATE TABLE area_alias_type (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
@@ -171,7 +171,7 @@ INSERT INTO country_area (area) SELECT id FROM country;
 
 INSERT INTO iso_3166_1 (code, area)
   SELECT iso_code AS code,
-         id AS area,
+         id AS area
     FROM country;
 
 -- new relationship types
