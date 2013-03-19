@@ -93,7 +93,7 @@ CREATE TABLE artist (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     type                INTEGER, -- references artist_type.id
-    country             INTEGER, -- references area.id
+    area                INTEGER, -- references area.id
     begin_area          INTEGER, -- references area.id
     end_area            INTEGER, -- references area.id
     gender              INTEGER, -- references gender.id

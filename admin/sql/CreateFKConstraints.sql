@@ -62,8 +62,8 @@ ALTER TABLE artist
    REFERENCES artist_type(id);
 
 ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_country
-   FOREIGN KEY (country)
+   ADD CONSTRAINT artist_fk_area
+   FOREIGN KEY (area)
    REFERENCES area(id);
 
 ALTER TABLE artist

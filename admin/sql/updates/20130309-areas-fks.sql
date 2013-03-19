@@ -98,6 +98,6 @@ ALTER TABLE release ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFE
 ALTER TABLE editor ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
 -- artists
-ALTER TABLE artist ADD CONSTRAINT artist_fk_country FOREIGN KEY (country) REFERENCES area(id);
+ALTER TABLE artist ADD CONSTRAINT artist_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
 COMMIT;

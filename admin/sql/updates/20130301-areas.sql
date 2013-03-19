@@ -214,6 +214,7 @@ ALTER TABLE label DROP COLUMN country;
 
 -- artists
 ALTER TABLE artist DROP CONSTRAINT IF EXISTS artist_fk_country;
+ALTER TABLE artist RENAME COLUMN country TO area;
 ALTER TABLE artist ADD COLUMN begin_area integer;
 ALTER TABLE artist ADD COLUMN end_area integer;
 
