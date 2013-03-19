@@ -104,6 +104,9 @@ if (DBDefs->EMAIL_BUGS) {
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
 
+require MusicBrainz::Server::Authentication::WS::Credential;
+require MusicBrainz::Server::Authentication::WS::Store;
+require MusicBrainz::Server::Authentication::Store;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
