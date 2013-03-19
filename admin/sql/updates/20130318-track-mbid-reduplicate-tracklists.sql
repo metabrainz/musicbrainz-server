@@ -1,6 +1,13 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+ALTER TABLE medium ADD COLUMN track_count INTEGER NOT NULL DEFAULT 0;
+
+UPDATE medium SET track_count = tracklist.track_count
+    FROM tracklist WHERE medium.tracklist = tracklist.id;
+
+CREATE INDEX medium_idx_track_count ON medium (track_count);
+
 CREATE SEQUENCE track2013_id_seq START 1;
 CREATE TABLE track2013 AS
     SELECT nextval('track2013_id_seq') AS id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
@@ -13,6 +20,9 @@ CREATE TABLE track2013 AS
     JOIN medium ON medium.tracklist = track.tracklist;
 
 DROP TABLE track;
+ALTER TABLE medium DROP COLUMN tracklist;
+DROP TABLE tracklist;
+
 ALTER TABLE track2013 RENAME TO track;
 ALTER SEQUENCE track2013_id_seq RENAME TO track_id_seq;
 

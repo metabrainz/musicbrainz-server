@@ -115,9 +115,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-medium-
 echo `date` : 'MBS-1839, Reduplicate tracklists'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'MBS-1839, Recalculate medium.track_count'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-medium-track-count.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 ################################################################################
 # Re-enable replication
 
