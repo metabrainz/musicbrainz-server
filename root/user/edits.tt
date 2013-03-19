@@ -14,7 +14,7 @@
 
 [%- IF c.action.name == "votes";
    page_title = l('Votes');
-   page_heading = l('Edits with votes by {name}', { name => html_escape(user.name) });
+   page_heading = l('Votes by {name}', { name => html_escape(user.name) });
 ELSE;
    page_title = l('Edits');
    page_heading = l('Edits by {name}', { name => html_escape(user.name) });
