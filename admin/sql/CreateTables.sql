@@ -904,7 +904,8 @@ CREATE TABLE editor_collection
     gid                 UUID NOT NULL,
     editor              INTEGER NOT NULL, -- references editor.id
     name                VARCHAR NOT NULL,
-    public              BOOLEAN NOT NULL DEFAULT FALSE
+    public              BOOLEAN NOT NULL DEFAULT FALSE,
+    description         TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release

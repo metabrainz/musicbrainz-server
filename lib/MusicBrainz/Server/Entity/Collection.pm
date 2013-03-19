@@ -20,6 +20,11 @@ has 'public' => (
     isa => 'Bool'
 );
 
+has 'description' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
 has release_count => (
     is => 'rw',
     isa => 'Int',

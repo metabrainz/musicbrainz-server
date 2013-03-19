@@ -3,6 +3,13 @@
     <fieldset>
         <legend>[% l('Collection details') %]</legend>
         [% form_row_text_long(r, 'name', l('Name:')) %]
+
+        [% WRAPPER form_row %]
+                [% r.label('description', l('Description:')) %]
+                [% r.textarea('description', { cols => 80, rows => 5 }) %]
+                [% field_errors(form, 'description') %]
+        [% END %]
+
         [% form_row_checkbox(r, 'public', l('Allow other users to see this collection')) %]
     </fieldset>
 
