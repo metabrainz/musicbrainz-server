@@ -356,6 +356,12 @@ sub ImportAllTables
         work_rating_raw
         work_tag_raw
         annotation
+        area
+        area_alias
+        area_alias_type
+        area_annotation
+        area_code
+        area_code_type
         artist
         artist_alias
         artist_alias_type
@@ -380,6 +386,14 @@ sub ImportAllTables
         gender
         isrc
         iswc
+        l_area_area
+        l_area_artist
+        l_area_label
+        l_area_recording
+        l_area_release
+        l_area_release_group
+        l_area_url
+        l_area_work
         l_artist_artist
         l_artist_label
         l_artist_recording
