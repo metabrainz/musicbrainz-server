@@ -11,12 +11,19 @@ use MusicBrainz::Server::PagedReport;
     BadAmazonURLs
     CatNoLooksLikeASIN
     CollaborationRelationships
+    CoverArtRelationships
     CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
     DiscogsLinksWithMultipleReleases
     DuplicateArtists
+    DuplicateRelationshipsArtists
+    DuplicateRelationshipsReleaseGroups
+    DuplicateRelationshipsReleases
+    DuplicateRelationshipsRecordings
+    DuplicateRelationshipsWorks
+    DuplicateRelationshipsLabels
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
@@ -38,6 +45,7 @@ use MusicBrainz::Server::PagedReport;
     SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
+    TracksWithoutTimes
     TracksWithSequenceIssues
     UnlinkedPseudoReleases
 );
@@ -49,12 +57,19 @@ use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
+use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleases;
 use MusicBrainz::Server::Report::DuplicateArtists;
+use MusicBrainz::Server::Report::DuplicateRelationshipsArtists;
+use MusicBrainz::Server::Report::DuplicateRelationshipsReleaseGroups;
+use MusicBrainz::Server::Report::DuplicateRelationshipsReleases;
+use MusicBrainz::Server::Report::DuplicateRelationshipsRecordings;
+use MusicBrainz::Server::Report::DuplicateRelationshipsWorks;
+use MusicBrainz::Server::Report::DuplicateRelationshipsLabels;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
@@ -76,6 +91,7 @@ use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
+use MusicBrainz::Server::Report::TracksWithoutTimes;
 use MusicBrainz::Server::Report::TracksWithSequenceIssues;
 use MusicBrainz::Server::Report::UnlinkedPseudoReleases;
 

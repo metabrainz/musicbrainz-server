@@ -426,6 +426,8 @@ var Dialog = UI.Dialog = {
         dlg.showAutocomplete(notBatchWorks);
         dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
 
+        dlg.relationship().validateEntities = true;
+
         // prevent pressing enter on the create-work button from accepting the dialog.
         if (dlg.showCreateWorkLink.peek())
             $("#create-work-btn").on("keydown", function(event) {
@@ -449,7 +451,11 @@ var Dialog = UI.Dialog = {
         dlg.$overlay.hide();
         delete dlg.targets;
 
+        dlg.relationship().validateEntities = false;
+
         if ($.isFunction(callback)) callback.call(dlg);
+
+        dlg.relationship().validateEntities = true;
 
         dlg.showAutocomplete(false);
         dlg.source = dlg.emptyRelationship.entity[1].peek();
@@ -488,7 +494,9 @@ var Dialog = UI.Dialog = {
             entity0 = relationship.entity[0].peek(),
             entity1 = relationship.entity[1].peek();
 
+        relationship.validateEntities = false;
         relationship.entity[0](entity1);
+        relationship.validateEntities = true;
         relationship.entity[1](entity0);
         this.resize();
     },

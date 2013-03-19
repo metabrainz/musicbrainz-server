@@ -79,12 +79,11 @@ END; -%]
 [%- END -%]
 
 [%- USE JavaScript -%]
-[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+[%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
     [%- IF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
-        <img title="[% artwork_hover(artwork) %]" />
+        <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
         <script>
           $('img').last ().bind ('error', function (event) {
               if ($(this).attr ("src") === "[% artwork.small_thumbnail %]")
@@ -106,6 +105,11 @@ END; -%]
           }).attr ("src", "[% artwork.small_thumbnail %]");
         </script>
     [%- END -%]
+[% END %]
+
+[%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+      [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
 
@@ -207,6 +211,8 @@ END -%]
   </ul>
   [% END %]
 [%- END -%]
+
+[%- MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
@@ -455,10 +461,12 @@ END-%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
             target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
         </a>
     [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
         <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
             target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
         </a>
     [%- END -%]
 [%- END -%]
@@ -700,8 +708,10 @@ END -%]
 [%- MACRO favicon_class(url)
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('allmusic.com'); 'allmusic';
+    ELSIF url.url.host.search('animenewsnetwork.com'); 'animenewsnetwork';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
+    ELSIF url.url.host.search('generasia.com'); 'generasia';
     ELSIF url.url.host.search('last.fm'); 'lastfm';
     ELSIF url.url.host.search('myspace.com'); 'myspace';
     ELSIF url.url.host.search('twitter.com'); 'twitter';

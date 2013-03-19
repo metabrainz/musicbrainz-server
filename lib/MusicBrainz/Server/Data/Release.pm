@@ -4,8 +4,9 @@ use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
+use DBDefs;
 use List::UtilsBy qw( partition_by );
-use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Release;
@@ -22,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 use MusicBrainz::Server::Log qw( log_debug );
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
@@ -961,6 +963,43 @@ sub filter_barcode_changes {
             map { $_->{release}, $_->{barcode} } @barcodes
         )
     };
+}
+
+sub newest_releases_with_artwork {
+    my $self = shift;
+    my $query = '
+      SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
+        cover_art.id AS cover_art_id
+      FROM ' . $self->_table . '
+      JOIN cover_art_archive.cover_art ON (cover_art.release = release.id)
+      JOIN cover_art_archive.cover_art_type
+        ON (cover_art.id = cover_art_type.id)
+      JOIN edit_release ON edit_release.release = release.id
+      JOIN edit ON edit.id = edit_release.edit
+      WHERE cover_art_type.type_id = ?
+        AND cover_art.ordering = 1
+        AND edit.status = ?
+        AND edit.type = ?
+      ORDER BY edit.id DESC
+      LIMIT 10';
+
+    my $FRONT = 1;
+    return query_to_list(
+        $self->c->sql, sub {
+            my $row = shift;
+            my $release = $self->_new_from_row($row);
+            my $mbid = $release->gid;
+            my $caa_id = $row->{cover_art_id};
+            return {
+                release => $release,
+                artwork => Artwork->new(
+                    id => $caa_id,
+                    release => $release
+                )
+            }
+        },
+        $query, $FRONT, $STATUS_APPLIED, $EDIT_RELEASE_CREATE
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

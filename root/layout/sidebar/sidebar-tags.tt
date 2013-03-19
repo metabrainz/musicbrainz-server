@@ -23,7 +23,7 @@ END -%]
     <span class="tags">
       [% tag_list(tags, more, entity) %]
       [% UNLESS tags.size %]
-      [%- l('(none)') -%]
+      [%- lp('(none)', 'tag') -%]
       [% END %]
     </span>
     </p>

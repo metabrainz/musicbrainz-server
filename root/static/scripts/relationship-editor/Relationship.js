@@ -44,6 +44,7 @@ var Relationship = function(obj) {
     this.hasErrors = ko.observable(false);
     this.loadingWork = ko.observable(false);
     this.edits_pending = Boolean(obj.edits_pending);
+    this.validateEntities = true;
 
     this.action = ko.observable(obj.action || "");
     this.link_type = new Fields.Integer(obj.link_type);

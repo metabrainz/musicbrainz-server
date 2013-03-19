@@ -537,6 +537,97 @@ sub donation : Local RequireAuth HiddenOnSlaves
     );
 }
 
+sub applications : Path('/account/applications') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $tokens = $self->_load_paged($c, sub {
+        my ($tokens, $hits) = $c->model('EditorOAuthToken')->find_granted_by_editor($c->user->id, shift, shift);
+        return ($tokens, $hits);
+    }, prefix => 'tokens_');
+    $c->model('Application')->load(@$tokens);
+
+    my $applications = $self->_load_paged($c, sub {
+        my ($applications, $hits) = $c->model('Application')->find_by_owner($c->user->id, shift, shift);
+        return ($applications, $hits);
+    }, prefix => 'apps_');
+
+    $c->stash( tokens => $tokens, applications => $applications );
+}
+
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth
+{
+    my ($self, $c, $application_id, $scope) = @_;
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
+
+sub register_application : Path('/account/applications/register') RequireAuth
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form( form => 'Application' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->insert({
+                owner_id => $c->user->id,
+                name => $form->field('name')->value,
+                oauth_redirect_uri => $form->field('oauth_redirect_uri')->value,
+            });
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
+
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
+{
+    my ($self, $c, $id) = @_;
+
+    my $application = $c->model('Application')->get_by_id($id);
+    $c->detach('/error_404')
+        unless defined $application && $application->owner_id == $c->user->id;
+
+    $c->stash( application => $application );
+
+    my $form = $c->form( form => 'Application', init_object => $application );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params) && $form->field('oauth_type')->value eq $application->oauth_type) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->update($application->id, {
+                name => $form->field('name')->value,
+                oauth_redirect_uri => $form->field('oauth_redirect_uri')->value,
+            });
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
+
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth
+{
+    my ($self, $c, $id) = @_;
+
+    my $application = $c->model('Application')->get_by_id($id);
+    $c->detach('/error_404')
+        unless defined $application && $application->owner_id == $c->user->id;
+
+    my $form = $c->form( form => 'SubmitCancel' );
+    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
+        $c->model('MB')->with_transaction(sub {
+            $c->model('Application')->delete($application->id);
+        });
+        $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 1;
 

@@ -73,7 +73,7 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
     },
     'Plugin::Session' => {
-        expires => 36000 # 10 hours
+        expires => DBDefs->SESSION_EXPIRE
     },
     stacktrace => {
         enable => 1
@@ -88,6 +88,7 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
 
 if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
+        enable => 1,
         emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
     };
 
@@ -119,15 +120,15 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             }
         },
         'musicbrainz.org' => {
-            use_session => 1,
+            use_session => 0,
             credential => {
-                class => 'HTTP',
+                class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
                 password_field => 'password',
                 password_type => 'clear'
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::Store'
+                class => '+MusicBrainz::Server::Authentication::WS::Store'
             }
         }
     }
@@ -311,7 +312,8 @@ around dispatch => sub {
     }
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
-        $beta_redirect && !$unset_beta) {
+            $beta_redirect && !$unset_beta &&
+            $c->req->method == 'GET') {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;

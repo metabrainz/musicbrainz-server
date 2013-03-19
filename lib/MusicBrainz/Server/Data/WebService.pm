@@ -200,7 +200,7 @@ sub xml_search
         };
     }
 
-    my $format = $args->{fmt} eq "json" ? "jsonnew" : "xml";
+    my $format = ($args->{fmt} // "") eq "json" ? "jsonnew" : "xml";
 
     my $url = 'http://' . DBDefs->LUCENE_SERVER . "/ws/2/$resource/?" .
               "max=$limit&type=$resource&fmt=$format&offset=$offset&query=". uri_escape_utf8($query);

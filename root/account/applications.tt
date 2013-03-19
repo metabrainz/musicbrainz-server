@@ -1,0 +1,87 @@
+[% WRAPPER "layout.tt" title=l("Applications") full_width=1 %]
+
+<h1>[% l('Applications') %]</h1>
+
+[%- MACRO format_scopes(token) BLOCK;
+    out = [];
+    FOR perm IN token.permissions;
+        out.push(l(perm));
+    END;
+    IF token.is_offline;
+        out.push(l('Offline Access'));
+    END;
+    out.join(', ');
+END -%]
+
+    <h2>[% l("Authorized Applications") %]</h2>
+
+    <p>[% l('Some applications and websites support accessing private data from or submitting data to MusicBrainz but require your permission to access your account. These are the applications that you have authorized to access your MusicBrainz account. If you no longer use some of the applications, you can revoke their access.') %]</p>
+
+    [% IF tokens.size > 0 %]
+        [% WRAPPER 'components/with-pager.tt' pager=tokens_pager page_var='tokens_page' %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Application') %]</th>
+                    <th>[% l('Access') %]</th>
+                    <th>[% l('Actions') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR token IN tokens %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>[% token.application.name %]</td>
+                    <td>[% format_scopes(token) %]</td>
+                    <td><a href="[% c.uri_for_action('/account/revoke_application_access', [ token.application_id, token.scope ]) %]">[% l('Revoke Access') %]</a></td>
+                </tr>
+                [% END %]
+            </tbody>
+        </table>
+        [% END %]
+    [% ELSE %]
+        <p>[% l('You have not authorized any applications.') %]</p>
+    [% END %]
+
+    <h2>[% l("Developer Applications") %]</h2>
+
+    <p>[% l('Do you want to develop an application that uses the {ws|MusicBrainz web service}? {register|Register an application} to generate OAuth tokens. See our {oauth2|OAuth documentation} for more details.', { oauth2 => doc_link('Development/OAuth2') ws => doc_link('Development/XML_Web_Service/Version_2'), register => c.uri_for_action('account/register_application') }) %]</p>
+
+    [% IF applications.size > 0 %]
+        [% WRAPPER 'components/with-pager.tt' pager=apps_pager page_var='apps_page' %]
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th>[% l('Application') %]</th>
+                    <th>[% l('Type') %]</th>
+                    <th>[% l('OAuth Client ID') %]</th>
+                    <th>[% l('OAuth Client Secret ') %]</th>
+                    <th>[% l('Actions') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+                [% FOR application IN applications %]
+                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                    <td>[% application.name %]</td>
+                    <td>
+                        [% IF application.oauth_redirect_uri %]
+                            [% l('Web Application') %]
+                        [% ELSE %]
+                            [% l('Installed Application') %]
+                        [% END %]
+                    </td>
+                    <td><code>[% application.oauth_id %]</code></td>
+                    <td><code>[% application.oauth_secret %]</code></td>
+                    <td>
+                        <a href="[% c.uri_for_action('/account/edit_application', [ application.id ]) %]">[% l('Edit') %]</a> |
+                        <a href="[% c.uri_for_action('/account/remove_application', [ application.id ]) %]">[% l('Remove') %]</a>
+                    </td>
+                </tr>
+                [% END %]
+            </tbody>
+        </table>
+        [% END %]
+    [% ELSE %]
+        <p>[% l('You do not have any registered applications.') %]</p>
+    [% END %]
+
+[% END %]

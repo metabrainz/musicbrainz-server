@@ -29,6 +29,7 @@ package DBDefs::Default;
 
 use File::Spec::Functions qw( splitdir catdir );
 use Cwd qw( abs_path );
+use MusicBrainz::Server::Translation 'l';
 
 ################################################################################
 # Directories
@@ -105,7 +106,9 @@ sub DB_STAGING_SERVER { 1 }
 # This description is shown in the banner when DB_STAGING_SERVER is enabled.
 # If left undefined the default value will be shown.
 # Default: "This is a MusicBrainz development server."
-sub DB_STAGING_SERVER_DESCRIPTION { "" }
+sub DB_STAGING_SERVER_DESCRIPTION_DEFAULT { l('This is a MusicBrainz development server.') }
+sub DB_STAGING_SERVER_DESCRIPTION_BETA { l('This beta test server allows testing of new features with the live database.') }
+sub DB_STAGING_SERVER_DESCRIPTION { shift->DB_STAGING_SERVER_DESCRIPTION_DEFAULT }
 
 # Only change this if running a non-sanitized database on a dev server,
 # e.g. http://test.musicbrainz.org.
@@ -241,6 +244,48 @@ sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 # sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
+# Sessions (advanced)
+################################################################################
+
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
+sub SESSION_STORE_ARGS { return {} }
+sub SESSION_EXPIRE { return 36000; } # 10 hours
+
+# Redis by default has 16 numbered databases available, of which DB 0
+# is the default.  Here you can configure which of these databases are
+# used by musicbrainz-server.
+#
+# test_database will be completely erased on each test run, so make
+# sure it doesn't point at any production data you may have in your
+# redis server.
+
+sub DATASTORE_REDIS_ARGS {
+    my $self = shift;
+    return {
+        prefix => $self->MEMCACHED_NAMESPACE(),
+        database => 0,
+        test_database => 1,
+        redis_new_args => {
+            server => '127.0.0.1:6379',
+            reconnect => 60,
+            encoding => undef,
+        }
+    };
+};
+
+################################################################################
+# Session cookies
+################################################################################
+
+# How long (in seconds) a web/rdf session can go "idle" before being timed out
+sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
+
+# The cookie name to use
+sub SESSION_COOKIE { "AF_SID" }
+# The domain into which the session cookie is written
+sub SESSION_DOMAIN { undef }
+
+################################################################################
 # Other Settings
 ################################################################################
 
@@ -271,14 +316,6 @@ sub GIT_BRANCH
     return $branch, $sha, $msg;
   }
 }
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { "AF_SID" }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 # How long an annotation is considered as being locked.
 sub ANNOTATION_LOCK_TIME { 60*15 }
@@ -322,35 +359,8 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
-################################################################################
-# Sessions (advanced)
-################################################################################
-
-# Unless you are installing an MusicBrainz server that needs to be fully r
-# redundant/load balanced, you do not need to change anything in this section.
-
-# If you're using multiple front-end webservers make sure they all connect to
-# the same memcached server.  Also make sure enough memory is configured for
-# memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::MusicBrainz" }
-sub SESSION_STORE_ARGS
-{
-    my $self = shift;
-    return {
-        memcached_new_args => {
-            data => $self->MEMCACHED_SERVERS(),
-            namespace => $self->MEMCACHED_NAMESPACE()
-        }
-    }
-}
-
-# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
-# seperately from the regular session store.
-sub WIZARD_MEMCACHED
-{
-    my $self = shift;
-    return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
-}
+# Disallow OAuth2 requests over plain HTTP
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
 
 sub USE_ETAGS { 1 }
 
@@ -358,7 +368,7 @@ sub CATALYST_DEBUG { 1 }
 
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
-# developing and debuging easier
+# developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
 # Please activate the officially approved languages here. Not every .po

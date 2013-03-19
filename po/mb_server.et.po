@@ -6,13 +6,14 @@
 # <email address hidden>, 2012.
 #   <email address hidden>, 2012.
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013.
+# <email address hidden>, 2012.
 #   <email address hidden>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"POT-Creation-Date: 2013-02-15 09:33-0700\n"
-"PO-Revision-Date: 2013-02-15 16:36+0000\n"
+"POT-Creation-Date: 2013-03-15 16:32-0700\n"
+"PO-Revision-Date: 2013-03-15 23:48+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +87,7 @@ msgstr "&#10005;"
 msgid "&#x2013; {enddate}"
 msgstr "– {enddate}"
 
-#: ../root/relationship/linktype/tree.tt:38
+#: ../root/relationship/linktype/tree.tt:39
 msgid "&lt; Back to all relationship types"
 msgstr ""
 
@@ -146,15 +147,42 @@ msgstr "(muutuste logi pole)"
 msgid "(no other cover art)"
 msgstr "(muid kaanepilte pole)"
 
-#: ../root/edit/details/add_relationship_type.tt:9
 #: ../root/edit/details/historic/add_release_annotation.tt:21
-#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "annotation changes"
+msgid "(none)"
+msgstr "(pole)"
+
 #: ../root/edit/details/remove_cover_art.tt:27
-#: ../root/layout/sidebar/sidebar-tags.tt:26
+msgctxt "comment"
+msgid "(none)"
+msgstr "(pole)"
+
+#: ../root/edit/details/add_relationship_type.tt:9
+#: ../root/relationship/linktype/tree.tt:15
+msgctxt "description"
+msgid "(none)"
+msgstr "(pole)"
+
+#: ../root/user/profile.tt:38
+msgctxt "email"
+msgid "(none)"
+msgstr "(pole)"
+
 #: ../root/relationship/linktype/tree.tt:12
 #: ../root/relationship/linktype/tree.tt:13
-#: ../root/relationship/linktype/tree.tt:14 ../root/scripts/text_strings.tt:23
-#: ../root/user/profile.tt:38
+#: ../root/relationship/linktype/tree.tt:14
+msgctxt "link phrase"
+msgid "(none)"
+msgstr "(pole)"
+
+#: ../root/layout/sidebar/sidebar-tags.tt:26
+#: ../root/scripts/text_strings.tt:23
+msgctxt "tag"
+msgid "(none)"
+msgstr "(pole)"
+
+#: ../root/edit/details/remove_cover_art.tt:15
+msgctxt "type"
 msgid "(none)"
 msgstr "(pole)"
 
@@ -225,7 +253,7 @@ msgstr "100%"
 msgid "1st seconder:"
 msgstr "1. sekundant:"
 
-#: ../root/components/common-macros.tt:113
+#: ../root/components/common-macros.tt:117
 msgid "250px"
 msgstr "250 px"
 
@@ -233,7 +261,7 @@ msgstr "250 px"
 msgid "2nd seconder:"
 msgstr "2. sekundant:"
 
-#: ../root/components/common-macros.tt:114
+#: ../root/components/common-macros.tt:118
 msgid "500px"
 msgstr "500 px"
 
@@ -266,9 +294,9 @@ msgid ""
 "<strong>Error:</strong> You are trying to browse the database using a query "
 "that is longer than 6 characters. We do not index data at this level of "
 "granularity, you may want to {uri|search the database} instead."
-msgstr ""
+msgstr "<strong>Viga:</strong> soovisid andmebaasi sirvida päringuga, mis on pikem kui 6 tähte, aga nii detailselt me andmeid ei indekseeri. Proovi selle asemel parem {uri|otsingut}."
 
-#: ../root/components/common-macros.tt:746
+#: ../root/components/common-macros.tt:752
 #: ../root/release/edit/tracklist.tt:142
 msgid "<strong>Error</strong>:"
 msgstr "<strong>Viga</strong>:"
@@ -290,7 +318,7 @@ msgid ""
 "updating a page!"
 msgstr ""
 
-#: ../root/components/common-macros.tt:759
+#: ../root/components/common-macros.tt:765
 msgid "<strong>Note</strong>:"
 msgstr "<strong>Pane tähele</strong>:"
 
@@ -314,7 +342,7 @@ msgid ""
 "you wish to continue with the merge."
 msgstr "<strong>Hoiatus:</strong> mõnel mestitavatest salvestistest on erinev ISRC. Palun tee kindlaks, kas ikka on tegu samade salvestistega, ja alles siis jätka mestimisega."
 
-#: ../root/components/common-macros.tt:753 ../root/recording/edit.tt:41
+#: ../root/components/common-macros.tt:759 ../root/recording/edit.tt:41
 #: ../root/release/edit/tracklist.tt:129
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>Hoiatus</strong>:"
@@ -344,8 +372,8 @@ msgstr "Leiti antud plaadi-ID-le vastav pooleldi sisestatud CD. Kui alltoodud lu
 #: ../root/release/collections.tt:18
 msgid "A private collection"
 msgid_plural "{n} private collections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 privaatkogus"
+msgstr[1] "{n} privaatkogus"
 
 #: ../root/edit/relationship/create.tt:26
 msgid ""
@@ -369,7 +397,7 @@ msgid ""
 "cannot load recordings."
 msgstr ""
 
-#: ../root/layout/menu.tt:104
+#: ../root/layout/menu.tt:107
 msgid "About"
 msgstr "Meist"
 
@@ -386,7 +414,7 @@ msgstr "Rakendatakse"
 msgid "Accept edit"
 msgstr "Rakenda toimetus"
 
-#: ../root/components/common-macros.tt:598
+#: ../root/components/common-macros.tt:604
 msgid "Accept upon expiration"
 msgstr "aegumisel rakendatakse"
 
@@ -394,6 +422,10 @@ msgstr "aegumisel rakendatakse"
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Rakendatud"
+
+#: ../root/account/applications.tt:26
+msgid "Access"
+msgstr "Juurdepääs"
 
 #: ../root/account/registered.tt:1 ../root/account/registered.tt:2
 msgid "Account Created"
@@ -407,6 +439,7 @@ msgstr "Kontoadministraator"
 msgid "Action"
 msgstr "Toiming"
 
+#: ../root/account/applications.tt:27 ../root/account/applications.tt:58
 #: ../root/admin/wikidoc/index.tt:36 ../root/artist/aliases.tt:23
 #: ../root/components/aliases.tt:19 ../root/recording/fingerprints.tt:14
 #: ../root/recording/fingerprints.tt:49 ../root/user/collections.tt:13
@@ -417,7 +450,7 @@ msgstr "Toimingud"
 msgid "Add <abbr title=\"Creative Commons\">CC</abbr> License"
 msgstr "Lisa <abbr title=\"Creative Commons\">CC</abbr>-litsents"
 
-#: ../root/layout/menu.tt:209
+#: ../root/layout/menu.tt:212
 msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Lisa artist"
@@ -460,7 +493,7 @@ msgctxt "header"
 msgid "Add ISRC"
 msgstr "ISRC lisamine"
 
-#: ../root/layout/menu.tt:212 ../root/release/edit/information.tt:104
+#: ../root/layout/menu.tt:215 ../root/release/edit/information.tt:104
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "Lisa plaadifirma"
@@ -478,7 +511,7 @@ msgstr "Plaadifirma aliase lisamine"
 msgid "Add New Release Group"
 msgstr "Uue väljalaskerühma lisamine"
 
-#: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:116
+#: ../root/edit/info.tt:13 ../root/scripts/text_strings.tt:117
 msgid "Add Note"
 msgstr "Lisa märge"
 
@@ -490,7 +523,7 @@ msgstr "Lisa leht"
 msgid "Add Relationship"
 msgstr "Lisa seos"
 
-#: ../root/layout/menu.tt:218
+#: ../root/layout/menu.tt:221
 msgctxt "button/menu"
 msgid "Add Release"
 msgstr "Lisa väljalase"
@@ -500,7 +533,7 @@ msgctxt "header"
 msgid "Add Release"
 msgstr "Väljalaske lisamine"
 
-#: ../root/layout/menu.tt:215
+#: ../root/layout/menu.tt:218
 msgctxt "button/menu"
 msgid "Add Release Group"
 msgstr "Lisa väljalaskerühm"
@@ -509,7 +542,7 @@ msgstr "Lisa väljalaskerühm"
 msgid "Add Release: {title}"
 msgstr "Väljalaske lisamine: „{title}”"
 
-#: ../root/layout/menu.tt:224
+#: ../root/layout/menu.tt:227
 msgctxt "button/menu"
 msgid "Add Standalone Recording"
 msgstr "Lisa eraldiseisev salvestis"
@@ -524,11 +557,11 @@ msgstr "Eraldiseisva salvestise lisamine"
 msgid "Add URL Relationship"
 msgstr "URL-iga seostamine"
 
-#: ../root/layout/menu.tt:221
+#: ../root/layout/menu.tt:224
 msgid "Add Various Artists Release"
 msgstr "Lisa eri esitajate väljalase"
 
-#: ../root/layout/menu.tt:227
+#: ../root/layout/menu.tt:230
 msgctxt "button/menu"
 msgid "Add Work"
 msgstr "Lisa teos"
@@ -586,7 +619,7 @@ msgstr "Lisa uus väljalase"
 msgid "Add an edit note"
 msgstr "Lisa toimetsmärge"
 
-#: ../root/components/common-macros.tt:817
+#: ../root/components/common-macros.tt:823
 msgid "Add annotation"
 msgstr "Lisa annotatsioon"
 
@@ -617,7 +650,7 @@ msgstr "Lisa plaadi-ID olemasolevale väljalaskele"
 
 #: ../root/edit/add_note.tt:4
 msgid "Add edit note"
-msgstr ""
+msgstr "Lisa toimetusmärge"
 
 #: ../root/label/add_alias.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:14
@@ -653,7 +686,7 @@ msgid "Add related work"
 msgstr "Lisa seotud teos"
 
 #: ../root/release/edit_relationships.tt:252
-#: ../root/scripts/text_strings.tt:92
+#: ../root/scripts/text_strings.tt:93
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:23
 msgid "Add relationship"
@@ -750,7 +783,7 @@ msgstr "Lisandused:"
 msgid "Adjust User Account Flags"
 msgstr "Kasutajakonto muutmine"
 
-#: ../root/layout/menu.tt:78
+#: ../root/layout/menu.tt:81
 msgid "Admin"
 msgstr "Haldus"
 
@@ -805,17 +838,21 @@ msgstr "Aliased"
 msgid "All Edits"
 msgstr "Kõik toimetused"
 
-#: ../root/layout/menu.tt:66
+#: ../root/layout/menu.tt:69
 msgid "All My Edits"
 msgstr "Kõik minu toimetused"
 
-#: ../root/scripts/text_strings.tt:119
+#: ../root/scripts/text_strings.tt:120
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Sellelt lehelt lahkudes lähevad kõik tehtud muudatused kaotsi."
 
 #: ../root/release/cover_art.tt:22
 msgid "All sizes:"
 msgstr "Kõik suurused:"
+
+#: ../root/oauth2/authorize.tt:19
+msgid "Allow access"
+msgstr "Luba juurdepääs"
 
 #: ../root/account/preferences.tt:32
 msgid "Allow other users to see my ratings"
@@ -833,7 +870,7 @@ msgstr "Teised kasutajad tohivad näha mu silte"
 msgid "Allow other users to see this collection"
 msgstr "Teised kasutajad tohivad seda kogu näha"
 
-#: ../root/components/common-macros.tt:643
+#: ../root/components/common-macros.tt:649
 msgid "Already expired"
 msgstr "Juba aegunud"
 
@@ -860,7 +897,7 @@ msgstr "Võid ka {uri|lisada uue väljalaskerühma}."
 
 #: ../root/search/results-release.tt:4
 msgid "Alternatively, you may {uri|add a new release}."
-msgstr ""
+msgstr "Võid ka {uri|lisada uue väljalaske}."
 
 #: ../root/search/results-work.tt:57
 msgid "Alternatively, you may {uri|add a new work}."
@@ -871,7 +908,7 @@ msgstr "Võid ka {uri|lisada uue teose}."
 msgid "Amazon URLs Linked to Multiple Releases"
 msgstr "Mitme väljalaskega lingitud Amazoni URL-id"
 
-#: ../root/report/index.tt:50
+#: ../root/report/index.tt:53
 msgid "Amazon URLs linked to multiple releases"
 msgstr "Mitme väljalaskega lingitud Amazoni URL-id"
 
@@ -969,6 +1006,15 @@ msgstr "Väljalasetel"
 msgid "Append mediums to target release"
 msgstr "Helikandjad lisatakse sihtväljalaskele"
 
+#: ../root/account/applications.tt:25 ../root/account/applications.tt:54
+msgid "Application"
+msgstr "Rakendus"
+
+#: ../root/account/applications.tt:1 ../root/account/applications.tt:3
+#: ../root/layout/menu.tt:43
+msgid "Applications"
+msgstr "Rakendused"
+
 #: ../root/edit/search_macros.tt:239
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:189
 msgid "Approve"
@@ -1031,6 +1077,14 @@ msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
 msgstr "Kas oled kindel, et soovid eemaldada plaadi-ID „<code>{discid}</code>” artisti {artist} väljalaskelt „{release}”?"
+
+#: ../root/account/remove_application.tt:5
+msgid "Are you sure you want to remove this application?"
+msgstr "Kas oled kindel, et soovid selle rakenduse eemaldada?"
+
+#: ../root/account/revoke_application_access.tt:5
+msgid "Are you sure you want to revoke this application's access?"
+msgstr ""
 
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
@@ -1096,8 +1150,8 @@ msgstr "Kas oled kindel, et soovid väljalaske „{release}” MusicBrainzist ee
 #: ../root/artist/relationships.tt:16 ../root/cdstub/browse.tt:9
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:48
 #: ../root/cdtoc/list.tt:7 ../root/cdtoc/lookup.tt:39
-#: ../root/collection/index.tt:11 ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:569
+#: ../root/collection/index.tt:11 ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:575
 #: ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:50
 #: ../root/edit/details/edit_medium.tt:54
@@ -1118,7 +1172,7 @@ msgstr "Kas oled kindel, et soovid väljalaske „{release}” MusicBrainzist ee
 #: ../root/report/recording_list.tt:5 ../root/report/release_group_list.tt:5
 #: ../root/report/release_group_url_list.tt:7 ../root/report/release_list.tt:6
 #: ../root/report/release_url_list.tt:7 ../root/scripts/text_strings.tt:24
-#: ../root/scripts/text_strings.tt:102
+#: ../root/scripts/text_strings.tt:103
 #: ../root/search/lib/inline-results-recording.tt:9
 #: ../root/search/lib/inline-results-release.tt:10
 #: ../root/search/results-cdstub.tt:9 ../root/search/results-freedb.tt:15
@@ -1204,7 +1258,7 @@ msgstr "Artist {n}:"
 
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
-#: ../root/components/common-macros.tt:505 ../root/components/forms.tt:150
+#: ../root/components/common-macros.tt:511 ../root/components/forms.tt:150
 #: ../root/edit/details/add_artist_alias.tt:3
 #: ../root/edit/details/add_artist_annotation.tt:3
 #: ../root/edit/details/add_artist.tt:3
@@ -1278,6 +1332,12 @@ msgstr "Artistid, kes näevad välja nagu koostööd"
 msgid "Artists with Collaboration Relationships"
 msgstr "Artistid koostöö-seostega"
 
+#: ../root/report/duplicate_relationships_artists.tt:1
+#: ../root/report/duplicate_relationships_artists.tt:3
+#: ../root/report/index.tt:24
+msgid "Artists with possible duplicate relationships"
+msgstr "Artistid võimalike topeltseostega"
+
 #: ../root/recording/fingerprints.tt:3
 msgid "Associated AcoustIDs"
 msgstr "Seostatud AcoustID-d"
@@ -1293,14 +1353,14 @@ msgstr "Seostatud salvestised"
 #: ../root/isrc/index.tt:5
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Seostatud {num} salvestisega"
+msgstr[1] "Seostatud {num} salvestisega"
 
 #: ../root/iswc/index.tt:5
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Seostatud {num} teosega"
+msgstr[1] "Seostatud {num} teosega"
 
 #: ../root/cdtoc/attach_artist_releases.tt:60
 #: ../root/cdtoc/attach_filter_release.tt:74
@@ -1340,11 +1400,19 @@ msgstr "Atribuudid"
 msgid "Attributes:"
 msgstr "Atribuudid:"
 
+#: ../root/oauth2/authorize.tt:3
+msgid "Authorization"
+msgstr "Volitus"
+
+#: ../root/account/applications.tt:16
+msgid "Authorized Applications"
+msgstr "Volitatud rakendused"
+
 #: ../root/admin/edit_user.tt:7
 msgid "Auto-editor"
 msgstr "Vanemtoimetaja"
 
-#: ../root/layout/menu.tt:125
+#: ../root/layout/menu.tt:128
 msgid "Auto-editor Elections"
 msgstr "Vanemtoimetajate valimised"
 
@@ -1495,7 +1563,7 @@ msgid "Begin Date"
 msgstr "Alguskuupäev"
 
 #: ../root/alias/edit_form.tt:31 ../root/artist/edit_form.tt:52
-#: ../root/components/common-macros.tt:830
+#: ../root/components/common-macros.tt:836
 #: ../root/edit/details/add_artist_alias.tt:36
 #: ../root/edit/details/add_label_alias.tt:36
 #: ../root/edit/details/add_label.tt:27
@@ -1513,7 +1581,7 @@ msgstr "Alguskuupäev"
 msgid "Begin date:"
 msgstr "Alguskuupäev:"
 
-#: ../root/layout/menu.tt:242
+#: ../root/layout/menu.tt:245
 msgid "Beginners Guide"
 msgstr "Alustusjuhend"
 
@@ -1526,7 +1594,7 @@ msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
 " so at {bugs|our bug tracker}. The below information will help, so please be"
 " sure to include it!"
-msgstr ""
+msgstr "Allpool on teave vea kohta. Kui soovid veast teada anda, siis tee seda meie {bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa see kindlasti kirjeldusse!"
 
 #: ../root/account/edit.tt:28 ../root/admin/edit_user.tt:35
 #: ../root/user/profile.tt:112
@@ -1537,11 +1605,11 @@ msgstr "Enesetutvustus:"
 msgid "Birth date:"
 msgstr "Sünnikuupäev:"
 
-#: ../root/layout/menu.tt:140
+#: ../root/layout/menu.tt:143
 msgid "Blog"
 msgstr "Blogi"
 
-#: ../root/components/common-macros.tt:830 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:836 ../root/scripts/text_strings.tt:73
 msgid "Born:"
 msgstr "Sündinud:"
 
@@ -1554,7 +1622,7 @@ msgid "Bots"
 msgstr "Botid"
 
 #: ../root/browse/index.tt:1 ../root/browse/index.tt:3
-#: ../root/layout/menu.tt:194
+#: ../root/layout/menu.tt:197
 msgid "Browse"
 msgstr "Sirvi"
 
@@ -1670,13 +1738,20 @@ msgid ""
 "CD stubs are a feature to allow anonymous users to submit data to "
 "MusicBrainz. For more information, see {cdstub|the documentation on CD "
 "stubs}."
+msgstr "„Pooleldi sisestatud CD-d” on funktsioon, mis lubab registreerumata kasutajatel MusicBrainzi andmeid edastada. Lisateabe saamiseks vaata {cdstub|pooleldi sisestatud CD-de dokumentatsiooni}."
+
+#: ../root/account/edit_application.tt:10
+#: ../root/account/register_application.tt:35
+msgid "Callback URL:"
 msgstr ""
 
 #: ../root/doc/edit_type.tt:75
 msgid "Can be approved"
 msgstr "Heakskiidetav"
 
-#: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:584
+#: ../root/account/remove_application.tt:9
+#: ../root/account/revoke_application_access.tt:9 ../root/artist/merge.tt:22
+#: ../root/components/common-macros.tt:590
 #: ../root/components/filter-form.tt:23 ../root/elections/nominate.tt:10
 #: ../root/label/merge.tt:19 ../root/layout/merge-helper.tt:34
 #: ../root/recording/merge.tt:24 ../root/release/edit/duplicates.tt:45
@@ -1696,7 +1771,7 @@ msgstr "Loobu"
 msgid "Cancel Edit"
 msgstr "Toimetuse tühistamine"
 
-#: ../root/components/common-macros.tt:527
+#: ../root/components/common-macros.tt:533
 msgid "Cancel creating relationship with {name}"
 msgstr "Loobu seose loomisest: {name}"
 
@@ -1720,7 +1795,7 @@ msgstr "Kandidaat:"
 #: ../root/release/caa_darkened.tt:1 ../root/release/caa_darkened.tt:2
 #: ../root/release/cover_art.tt:59
 msgid "Cannot Add Cover Art"
-msgstr ""
+msgstr "Kaanepilte pole võimalik lisada"
 
 #: ../root/edit/relationship/cannot_create.tt:1
 #: ../root/edit/relationship/cannot_create.tt:2
@@ -1729,11 +1804,11 @@ msgstr "Seose loomine pole võimalik"
 
 #: ../root/recording/cannot_add.tt:1
 msgid "Cannot add recordings"
-msgstr ""
+msgstr "Salvestisi pole võimalik lisada"
 
 #: ../root/artist/special_purpose.tt:1
 msgid "Cannot edit"
-msgstr ""
+msgstr "Toimetamine pole võimalik"
 
 #: ../root/account/register.tt:5
 msgid "Captcha incorrect. Try again."
@@ -1786,13 +1861,13 @@ msgstr "Parooli muutmine"
 
 #: ../root/edit/relationship/create.tt:50
 #: ../root/edit/relationship/create.tt:54 ../root/edit/relationship/edit.tt:76
-#: ../root/edit/relationship/edit.tt:80 ../root/scripts/text_strings.tt:100
+#: ../root/edit/relationship/edit.tt:80 ../root/scripts/text_strings.tt:101
 msgid "Change direction"
 msgstr "Muuda suunda"
 
 #: ../root/release/change_quality.tt:1 ../root/release/change_quality.tt:2
 msgid "Change release data quality"
-msgstr "Muuda väljalaske andmekvaliteeti"
+msgstr "Väljalaske andmekvaliteedi muutmine"
 
 #: ../root/release/sidebar.tt:82
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:10
@@ -1869,11 +1944,11 @@ msgstr "Puhasta teoseväli"
 msgid "Click Edit to edit the recording associations for this disc."
 msgstr "Selle plaadi radadega seotud salvestiste muutmiseks klõpsa „Toimeta”."
 
-#: ../root/scripts/text_strings.tt:114
+#: ../root/scripts/text_strings.tt:115
 msgid "Click here to choose a vocal"
 msgstr "Klõpsa vokaali valimiseks"
 
-#: ../root/scripts/text_strings.tt:113
+#: ../root/scripts/text_strings.tt:114
 msgid "Click here to choose an instrument"
 msgstr "Klõpsa instrumendi valimiseks"
 
@@ -1898,7 +1973,7 @@ msgstr "Suletud:"
 msgid "Code"
 msgstr "Kood"
 
-#: ../root/layout/menu.tt:119
+#: ../root/layout/menu.tt:122
 msgid "Code of Conduct"
 msgstr "Käitumiskoodeks"
 
@@ -1914,7 +1989,7 @@ msgstr "Koostööline"
 msgid "Collapse Disc"
 msgstr "Peida plaadi sisu"
 
-#: ../root/relationship/linktype/tree.tt:49
+#: ../root/relationship/linktype/tree.tt:50
 msgid "Collapse all descriptions"
 msgstr ""
 
@@ -1924,12 +1999,12 @@ msgstr "Kogu"
 
 #: ../root/collection/not_found.tt:1 ../root/collection/not_found.tt:2
 msgid "Collection Not Found"
-msgstr ""
+msgstr "Kogu ei leitud"
 
 #: ../root/user/subscriptions/collection.tt:1
 #: ../root/user/subscriptions/menu.tt:4
 msgid "Collection Subscriptions"
-msgstr ""
+msgstr "Jälgitavad kogud"
 
 #: ../root/collection/edit_form.tt:4
 msgid "Collection details"
@@ -1937,7 +2012,7 @@ msgstr "Kogu üksikasjad"
 
 #: ../root/collection/layout.tt:5
 msgid "Collection information"
-msgstr ""
+msgstr "Teave kogu kohta"
 
 #: ../root/collection/layout.tt:1
 msgid "Collection “{collection}”"
@@ -2003,13 +2078,13 @@ msgid ""
 "into MusicBrainz!"
 msgstr "Palju õnne! Sinu konto on loodud ja oled nüüd MusicBrainzi sisse logitud."
 
-#: ../root/layout/menu.tt:265
+#: ../root/layout/menu.tt:268
 msgid "Contact Us"
 msgstr "Kontakt"
 
 #: ../root/components/wikipedia_extract.tt:4
 msgid "Continue reading at Wikipedia..."
-msgstr ""
+msgstr "Loe Wikipedias edasi..."
 
 #: ../root/components/forms.tt:228
 msgid "Copy"
@@ -2053,7 +2128,7 @@ msgstr "Maa:"
 msgid "Cover Art"
 msgstr "Kaanepilt"
 
-#: ../root/layout.tt:158
+#: ../root/layout.tt:161
 msgid ""
 "Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital "
 "West}. Sponsored by: {url1|Google}, {url2|OSUOSL} and {more|others...}. "
@@ -2067,7 +2142,7 @@ msgstr "Kaanepilt:"
 msgid "Create"
 msgstr "Loo"
 
-#: ../root/account/register.tt:43 ../root/layout/menu.tt:98
+#: ../root/account/register.tt:43 ../root/layout/menu.tt:101
 msgid "Create Account"
 msgstr "Loo konto"
 
@@ -2092,7 +2167,7 @@ msgstr ""
 msgid "Create a new work"
 msgstr "Loo uus teos"
 
-#: ../root/relationship/linktype/tree.tt:43
+#: ../root/relationship/linktype/tree.tt:44
 msgid "Create a new {type0}-{type1} relationship"
 msgstr ""
 
@@ -2104,11 +2179,11 @@ msgstr "Konto loomine"
 msgid "Create collection"
 msgstr "Loo kogu"
 
-#: ../root/components/common-macros.tt:585
+#: ../root/components/common-macros.tt:591
 msgid "Create relationship"
 msgstr "Loo seos"
 
-#: ../root/components/common-macros.tt:527
+#: ../root/components/common-macros.tt:533
 msgid "Create relationship with {other}"
 msgstr "Loo seos: {other}"
 
@@ -2126,7 +2201,7 @@ msgstr "Loodud"
 msgid "DD"
 msgstr "PP"
 
-#: ../root/layout/menu.tt:113
+#: ../root/layout/menu.tt:116
 msgid "Data Licenses"
 msgstr "Andmelitsentsid"
 
@@ -2142,7 +2217,7 @@ msgstr "Andmekvaliteet"
 msgid "Data Quality:"
 msgstr "Andmekvaliteet:"
 
-#: ../root/layout/menu.tt:284
+#: ../root/layout/menu.tt:287
 msgid "Data Removal Policy"
 msgstr "Andmete eemaldamise põhimõtted"
 
@@ -2183,7 +2258,7 @@ msgstr "Kuupäevade vorming on AAAA-KK-PP. Sobivad ka osalised kuupäevad nagu A
 
 #: ../root/label/layout.tt:22 ../root/label/layout.tt:29
 msgid "Defunct:"
-msgstr ""
+msgstr "Tegevuse lõpetanud:"
 
 #: ../root/edit/search_macros.tt:108
 msgid "Delete"
@@ -2194,7 +2269,7 @@ msgstr "Kustuta"
 msgid "Delete Account"
 msgstr "Konto kustutamine"
 
-#: ../root/scripts/text_strings.tt:117
+#: ../root/scripts/text_strings.tt:118
 msgid "Delete Note"
 msgstr "Kustuta märge"
 
@@ -2223,7 +2298,7 @@ msgstr "Kirjeldus"
 #: ../root/edit/details/remove_relationship_type.tt:15
 #: ../root/relationship/linkattributetype/form.tt:15
 #: ../root/relationship/linktype/form.tt:18
-#: ../root/relationship/linktype/tree.tt:14
+#: ../root/relationship/linktype/tree.tt:15
 msgid "Description:"
 msgstr "Kirjeldus:"
 
@@ -2244,7 +2319,11 @@ msgstr "Üksikasjad"
 msgid "Detect track durations"
 msgstr "Lugude kestuse tuvastamine"
 
-#: ../root/layout/menu.tt:172
+#: ../root/account/applications.tt:45
+msgid "Developer Applications"
+msgstr "Rakendused arendajatele"
+
+#: ../root/layout/menu.tt:175
 msgid "Developer Resources"
 msgstr "Arendusvahendid"
 
@@ -2252,11 +2331,11 @@ msgstr "Arendusvahendid"
 msgid "Developers"
 msgstr "Arendajatele"
 
-#: ../root/layout/menu.tt:260
+#: ../root/layout/menu.tt:263
 msgid "Development"
 msgstr "Arendus"
 
-#: ../root/components/common-macros.tt:834 ../root/scripts/text_strings.tt:73
+#: ../root/components/common-macros.tt:840 ../root/scripts/text_strings.tt:73
 msgid "Died:"
 msgstr "Surnud:"
 
@@ -2282,26 +2361,6 @@ msgstr "Otsing otse andmebaasist"
 #: ../root/release_group/edit_form.tt:9 ../root/work/edit_form.tt:8
 msgid "Disambiguation:"
 msgstr "Täpsustus:"
-
-#: ../root/edit/details/reorder_mediums.tt:32
-msgid ""
-"Disc <span class=\"new\">{new}</span> (moved from position <span "
-"class=\"old\">{old}</span>)"
-msgstr "Plaat <span class=\"new\">{new}</span> (teisaldati asukohalt <span class=\"old\">{old}</span>)"
-
-#: ../root/edit/details/reorder_mediums.tt:29
-msgid "Disc <span class=\"new\">{new}</span> (new disc)"
-msgstr "Plaat <span class=\"new\">{new}</span> (uus plaat)"
-
-#: ../root/edit/details/reorder_mediums.tt:26
-msgid ""
-"Disc <span class=\"new\">{new}</span>: {title} (moved from position <span "
-"class=\"old\">{old}</span>)"
-msgstr "Plaat <span class=\"new\">{new}</span>: „{title}” (teisaldati asukohalt <span class=\"old\">{old}</span>)"
-
-#: ../root/edit/details/reorder_mediums.tt:23
-msgid "Disc <span class=\"new\">{new}</span>: {title} (new disc)"
-msgstr "Plaat <span class=\"new\">{new}</span>: „{title}” (uus plaat)"
 
 #: ../root/release/discids.tt:8
 msgid "Disc ID"
@@ -2379,15 +2438,15 @@ msgstr "Mitme väljalaskega lingitud Discogsi URL-id"
 msgid "Discogs URLs linked to multiple artists"
 msgstr "Mitme artistiga lingitud Discogsi URL-id"
 
-#: ../root/report/index.tt:29
+#: ../root/report/index.tt:30
 msgid "Discogs URLs linked to multiple labels"
 msgstr "Mitme plaadifirmaga lingitud Discogsi URL-id"
 
-#: ../root/report/index.tt:37
+#: ../root/report/index.tt:39
 msgid "Discogs URLs linked to multiple release groups"
 msgstr "Mitme väljalaskerühmaga lingitud Discogsi URL-id"
 
-#: ../root/report/index.tt:51
+#: ../root/report/index.tt:54
 msgid "Discogs URLs linked to multiple releases"
 msgstr "Mitme väljalaskega lingitud Discogsi URL-id"
 
@@ -2395,7 +2454,7 @@ msgstr "Mitme väljalaskega lingitud Discogsi URL-id"
 msgid "Discs as Separate Releases"
 msgstr "Plaadid eraldi väljalasetena"
 
-#: ../root/report/index.tt:53
+#: ../root/report/index.tt:56
 msgid "Discs entered as separate releases"
 msgstr "Eraldi väljalasetena sisestatud plaadid"
 
@@ -2407,7 +2466,7 @@ msgstr ""
 msgid "Display Credits at Bottom"
 msgstr ""
 
-#: ../root/components/common-macros.tt:834 ../root/scripts/text_strings.tt:74
+#: ../root/components/common-macros.tt:840 ../root/scripts/text_strings.tt:74
 msgid "Dissolved:"
 msgstr "Laiali läinud:"
 
@@ -2415,14 +2474,21 @@ msgstr "Laiali läinud:"
 msgid "Do not use any of the above releases as a starting point"
 msgstr "Lähtekohana ei kasutata ühtki ülalolevat väljalaset"
 
-#: ../root/layout/menu.tt:239
+#: ../root/account/applications.tt:47
+msgid ""
+"Do you want to develop an application that uses the {ws|MusicBrainz web "
+"service}? {register|Register an application} to generate OAuth tokens. See "
+"our {oauth2|OAuth documentation} for more details."
+msgstr ""
+
+#: ../root/layout/menu.tt:242
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
 msgid "Documentation"
 msgstr "Dokumentatsioon"
 
 #: ../root/search/results-doc.tt:1 ../root/search/results-doc.tt:3
 msgid "Documentation Search"
-msgstr ""
+msgstr "Dokumentatsiooni otsing"
 
 #: ../root/user/login.tt:12
 msgid "Don't have an account? {uri|Create one now}!"
@@ -2456,14 +2522,15 @@ msgid ""
 "choose the appropriate recording or look for it in the database."
 msgstr "Iga lugu MusicBrainzi andmebaasis peab olema lingitud salvestisega. Vali sobiv salvestis või otsi seda andmebaasist."
 
-#: ../root/artist/aliases.tt:37 ../root/artist/header.tt:13
-#: ../root/artist/relationships.tt:18 ../root/artist/relationships.tt:80
-#: ../root/cdstub/header.tt:9 ../root/cdtoc/list.tt:17
-#: ../root/collection/header.tt:6 ../root/components/aliases.tt:49
-#: ../root/components/common-macros.tt:902 ../root/label/header.tt:1
-#: ../root/puid/index.tt:13 ../root/recording/header.tt:1
+#: ../root/account/applications.tt:75 ../root/artist/aliases.tt:37
+#: ../root/artist/header.tt:13 ../root/artist/relationships.tt:18
+#: ../root/artist/relationships.tt:80 ../root/cdstub/header.tt:9
+#: ../root/cdtoc/list.tt:17 ../root/collection/header.tt:6
+#: ../root/components/aliases.tt:49 ../root/components/common-macros.tt:908
+#: ../root/label/header.tt:1 ../root/puid/index.tt:13
+#: ../root/recording/header.tt:1
 #: ../root/relationship/linkattributetype/common.tt:25
-#: ../root/relationship/linktype/tree.tt:18 ../root/release/cover_art.tt:27
+#: ../root/relationship/linktype/tree.tt:19 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:373
 #: ../root/release_group/header.tt:1 ../root/release/tabs.tt:1
 #: ../root/url/header.tt:1 ../root/user/collections.tt:25
@@ -2486,6 +2553,10 @@ msgstr ""
 #: ../root/label/edit_annotation.tt:1
 msgid "Edit Annotation"
 msgstr "Muuda annotatsiooni"
+
+#: ../root/account/edit_application.tt:1 ../root/account/edit_application.tt:3
+msgid "Edit Application"
+msgstr "Rakenduse muutmine"
 
 #: ../root/artist/edit.tt:17
 msgid "Edit Artist"
@@ -2511,7 +2582,7 @@ msgstr "Kogu muutmine"
 msgid "Edit Cover Art"
 msgstr "Kaanepildi muutmine"
 
-#: ../root/layout/menu.tt:85
+#: ../root/layout/menu.tt:88
 msgid "Edit Instrument Tree"
 msgstr "Instrumendipuu muutmine"
 
@@ -2560,7 +2631,7 @@ msgstr "Seoseatribuutide muutmine"
 msgid "Edit Relationship Type"
 msgstr "Seosetüübi muutmine"
 
-#: ../root/admin/index.tt:6 ../root/layout/menu.tt:82
+#: ../root/admin/index.tt:6 ../root/layout/menu.tt:85
 msgid "Edit Relationship Types"
 msgstr "Seosetüüpide muutmine"
 
@@ -2582,7 +2653,7 @@ msgstr "Väljalaskerühma annotatsiooni muutmine"
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:35 ../root/edit/info.tt:59
-#: ../root/layout/menu.tt:251
+#: ../root/layout/menu.tt:254
 msgid "Edit Types"
 msgstr "Toimetusetüübid"
 
@@ -2607,7 +2678,7 @@ msgstr "Teose aliase muutmine"
 msgid "Edit Work Annotation"
 msgstr "Teose annotatsiooni muutmine"
 
-#: ../root/components/common-macros.tt:817
+#: ../root/components/common-macros.tt:823
 msgid "Edit annotation"
 msgstr "Muuda annotatsiooni"
 
@@ -2655,7 +2726,7 @@ msgstr "Salvestise toimetamine"
 msgid "Edit recording annotation"
 msgstr "Salvestise annotatsiooni muutmine"
 
-#: ../root/scripts/text_strings.tt:97
+#: ../root/scripts/text_strings.tt:98
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:28
 msgid "Edit relationship"
 msgstr "Seose toimetamine"
@@ -2695,7 +2766,7 @@ msgstr ""
 
 #: ../root/account/preferences.tt:49 ../root/artist/layout.tt:57
 #: ../root/collection/layout.tt:11 ../root/label/layout.tt:52
-#: ../root/layout/menu.tt:206 ../root/recording/layout.tt:31
+#: ../root/layout/menu.tt:209 ../root/recording/layout.tt:31
 #: ../root/release_group/layout.tt:31 ../root/release/sidebar.tt:77
 #: ../root/url/layout.tt:4 ../root/work/layout.tt:31
 msgid "Editing"
@@ -2751,13 +2822,13 @@ msgstr "Toimetused ({view_url|vaata})"
 
 #: ../root/edit/subscribed-editors.tt:15 ../root/edit/subscribed-editors.tt:17
 msgid "Edits By Your Subscribed Editors"
-msgstr "Sinu jälgitavate kasutajate toimetused"
+msgstr "Jälgitavate kasutajate toimetused"
 
 #: ../root/edit/subscribed.tt:15 ../root/edit/subscribed.tt:17
 msgid "Edits For Your Subscribed Entities"
-msgstr "Toimetused sinu jälgitavatel olemitel"
+msgstr "Toimetused jälgitaval sisul"
 
-#: ../root/layout/menu.tt:72
+#: ../root/layout/menu.tt:75
 msgid "Edits by Subscribed Editors"
 msgstr "Jälgitavate kasutajate toimetused"
 
@@ -2765,9 +2836,9 @@ msgstr "Jälgitavate kasutajate toimetused"
 msgid "Edits by {name}"
 msgstr "{name}: toimetused"
 
-#: ../root/layout/menu.tt:69
+#: ../root/layout/menu.tt:72
 msgid "Edits for Subscribed Entities"
-msgstr "Toimetused jälgitavatel olemitel"
+msgstr "Toimetused jälgitaval sisul"
 
 #: ../root/label/edits.tt:17
 msgid "Edits for {label}"
@@ -2796,7 +2867,7 @@ msgstr ""
 
 #: ../root/elections/not_found.tt:1 ../root/elections/not_found.tt:2
 msgid "Election Not Found"
-msgstr ""
+msgstr "Valimist ei leitud"
 
 #: ../root/account/preferences.tt:37
 msgid "Email"
@@ -2852,7 +2923,7 @@ msgid "End date"
 msgstr "Lõppkuupäev"
 
 #: ../root/alias/edit_form.tt:32 ../root/artist/edit_form.tt:53
-#: ../root/components/common-macros.tt:834
+#: ../root/components/common-macros.tt:840
 #: ../root/edit/details/add_artist_alias.tt:42
 #: ../root/edit/details/add_label_alias.tt:42
 #: ../root/edit/details/add_label.tt:34
@@ -2904,9 +2975,13 @@ msgid ""
 "&#x2014; thus making your edit get applied faster."
 msgstr "Äärmiselt soovitatav on lisada {note|toimetusmärge} ja kirjutada, kust lisatav teave pärineb. Lisaks info algse allika selgekstegemisele julgustad niiviisi teisi kasutajaid sellele toimetusele oma poolthäält andma, kiirendades selle rakendumist."
 
+#: ../root/scripts/text_strings.tt:92
+msgid "Entities in a relationship cannot be the same."
+msgstr "Iseendaga ei saa midagi seostada."
+
 #: ../root/otherlookup/not_found.tt:1 ../root/otherlookup/not_found.tt:2
 msgid "Entity Not Found"
-msgstr ""
+msgstr "Olemit ei leitud"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:254
@@ -2922,7 +2997,7 @@ msgstr "Viga toimetuse heakskiitmisel"
 msgid "Error Cancelling Edit"
 msgstr "Viga toimetuse tühistamisel"
 
-#: ../root/scripts/text_strings.tt:99
+#: ../root/scripts/text_strings.tt:100
 msgid "Error loading relationships."
 msgstr "Viga seoste laadimisel."
 
@@ -2940,9 +3015,13 @@ msgid_plural "Errors:"
 msgstr[0] "Viga:"
 msgstr[1] "Vead:"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "Error: Unknown Type"
 msgstr "Viga: tundmatu tüüp"
+
+#: ../root/oauth2/error.tt:3
+msgid "Error: {error}"
+msgstr "Viga: {error}"
 
 #: ../root/forms/edit-note.tt:9
 msgid "Even just providing a URL or two is helpful!"
@@ -2960,7 +3039,7 @@ msgstr "Laienda"
 msgid "Expand Disc"
 msgstr "Näita plaadi sisu"
 
-#: ../root/relationship/linktype/tree.tt:48
+#: ../root/relationship/linktype/tree.tt:49
 msgid "Expand all descriptions"
 msgstr ""
 
@@ -2972,21 +3051,21 @@ msgstr "Aegumisel"
 msgid "Expired"
 msgstr "Aegunud"
 
-#: ../root/components/common-macros.tt:624
+#: ../root/components/common-macros.tt:630
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
 msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
 msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} päeva pärast</span>"
 
-#: ../root/components/common-macros.tt:630
+#: ../root/components/common-macros.tt:636
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
 msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} tunni pärast</span>"
 
-#: ../root/components/common-macros.tt:636
+#: ../root/components/common-macros.tt:642
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
@@ -2998,7 +3077,7 @@ msgstr[1] "Aegub <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti pär
 msgid "External links"
 msgstr "Välislingid"
 
-#: ../root/layout/menu.tt:248 ../root/main/index.tt:23
+#: ../root/layout/menu.tt:251 ../root/main/index.tt:23
 msgid "FAQs"
 msgstr "KKK"
 
@@ -3010,7 +3089,7 @@ msgstr "Nurjunud"
 msgid "Filename:"
 msgstr "Failinimi:"
 
-#: ../root/components/common-macros.tt:801
+#: ../root/components/common-macros.tt:807
 msgid "Filter"
 msgstr "Filter"
 
@@ -3064,7 +3143,7 @@ msgstr "Formaat"
 msgid "Format:"
 msgstr "Formaat:"
 
-#: ../root/layout/menu.tt:272 ../root/layout.tt:152
+#: ../root/layout/menu.tt:275 ../root/layout.tt:152
 msgid "Forums"
 msgstr "Foorumid"
 
@@ -3125,16 +3204,16 @@ msgid_plural "Found {n} results for \"{q}\""
 msgstr[0] "Päringule „{q}” leiti {n} vaste."
 msgstr[1] "Päringule „{q}” leiti {n} vastet."
 
-#: ../root/components/common-macros.tt:830 ../root/label/layout.tt:14
+#: ../root/components/common-macros.tt:836 ../root/label/layout.tt:14
 #: ../root/scripts/text_strings.tt:74
 msgid "Founded:"
 msgstr "Loodud:"
 
 #: ../root/freedb/not_found.tt:1 ../root/freedb/not_found.tt:2
 msgid "FreeDB Entry Not Found"
-msgstr ""
+msgstr "FreeDB kirjet ei leitud"
 
-#: ../root/layout/menu.tt:181
+#: ../root/layout/menu.tt:184
 msgid "FreeDB Gateway"
 msgstr "FreeDB lüüs"
 
@@ -3190,6 +3269,12 @@ msgstr "Üldinfo"
 #: ../root/report/discogs_links_with_multiple_release_groups.tt:8
 #: ../root/report/discogs_links_with_multiple_releases.tt:15
 #: ../root/report/duplicate_artists.tt:15
+#: ../root/report/duplicate_relationships_artists.tt:10
+#: ../root/report/duplicate_relationships_labels.tt:9
+#: ../root/report/duplicate_relationships_recordings.tt:8
+#: ../root/report/duplicate_relationships_release_groups.tt:9
+#: ../root/report/duplicate_relationships_releases.tt:9
+#: ../root/report/duplicate_relationships_works.tt:9
 #: ../root/report/featuring_recordings.tt:13
 #: ../root/report/featuring_release_groups.tt:12
 #: ../root/report/featuring_releases.tt:12
@@ -3204,6 +3289,7 @@ msgstr "Üldinfo"
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_cc_links.tt:8
+#: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_without_language.tt:11
 #: ../root/report/releases_without_script.tt:10
 #: ../root/report/releases_with_unlikely_language_script.tt:10
@@ -3212,6 +3298,7 @@ msgstr "Üldinfo"
 #: ../root/report/some_formats_unset.tt:10
 #: ../root/report/superfluous_data_tracks.tt:10
 #: ../root/report/tracks_named_with_sequence.tt:11
+#: ../root/report/tracks_without_times.tt:8
 #: ../root/report/tracks_with_sequence_issues.tt:10
 #: ../root/report/unlinked_pseudo_releases.tt:8
 msgid "Generated on {date}"
@@ -3248,8 +3335,8 @@ msgstr "Pealkirjad:"
 msgid "Help:"
 msgstr "Abi:"
 
-#: ../root/components/common-macros.tt:591
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:187
+#: ../root/components/common-macros.tt:597
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "High"
 msgstr "kõrge"
 
@@ -3303,7 +3390,7 @@ msgstr "ISRC"
 
 #: ../root/isrc/not_found.tt:1 ../root/isrc/not_found.tt:2
 msgid "ISRC Not Currently Used"
-msgstr ""
+msgstr "ISRC pole hetkel kasutuses"
 
 #: ../root/edit/details/add_isrcs.tt:15
 msgid "ISRC {isrc} to {recording}"
@@ -3322,12 +3409,12 @@ msgstr "ISRC „{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/artist/recordings-list.tt:26 ../root/report/index.tt:75
+#: ../root/artist/recordings-list.tt:26 ../root/report/index.tt:89
 #: ../root/search/lib/inline-results-recording.tt:10
 msgid "ISRCs"
 msgstr "ISRC-d"
 
-#: ../root/report/index.tt:78 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:92 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "Mitme salvestisega ISRC-d"
@@ -3339,7 +3426,7 @@ msgstr "ISWC"
 
 #: ../root/iswc/not_found.tt:1 ../root/iswc/not_found.tt:2
 msgid "ISWC Not Currently Used"
-msgstr ""
+msgstr "ISWC pole hetkel kasutuses"
 
 #: ../root/edit/details/add_iswcs.tt:8
 msgid "ISWC {iswc} to {work}"
@@ -3472,10 +3559,9 @@ msgstr ""
 
 #: ../root/account/edit.tt:8
 msgid ""
-"If you would like to delete your account, please see the <abbr "
-"title=\"Frequently Asked Questions\">FAQ</abbr> entry: {faq|How do I delete "
-"my account?}"
-msgstr "Kui soovid oma konto kustutada, vaata palun <abbr title=\"Korduma kippuvad küsimused\">KKK</abbr> kirjet „{faq|Kuidas ma oma konto ära kustutada saan?}”."
+"If you would like to delete your account, go to {uri|the \"Delete Account\" "
+"tab in your profile}."
+msgstr "Kui soovid oma konto kustutada, mine {uri|oma profiililehe kaardile „Konto kustutamine”}."
 
 #: ../root/account/donation.tt:10
 msgid ""
@@ -3498,7 +3584,7 @@ msgid ""
 "communicating with other users, {ml|please subscribe to our mailing lists}."
 msgstr "Kui soovid MusicBrainzi meeskonnalt infokirju saada või teiste kasutajatega suhelda, {ml|võid liituda meie postiloendiga}."
 
-#: ../root/components/common-macros.tt:103
+#: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Pilt pole veel saadaval, palun proovi mõne minuti pärast uuesti."
 
@@ -3554,7 +3640,11 @@ msgstr "Indekseeritud otsing {doc|laiendatud päringusüntaksiga}"
 msgid "Infer track durations from associated recordings"
 msgstr "Lugude pikkused päritakse seotud salvestistelt"
 
-#: ../root/admin/index.tt:8 ../root/layout/menu.tt:257
+#: ../root/account/applications.tt:69
+msgid "Installed Application"
+msgstr ""
+
+#: ../root/admin/index.tt:8 ../root/layout/menu.tt:260
 #: ../root/relationship/header.tt:2
 #: ../root/relationship/linkattributetype/instruments.tt:3
 msgid "Instrument Tree"
@@ -3581,9 +3671,9 @@ msgstr "Järgnevasse:"
 
 #: ../root/cdstub/error.tt:5
 msgid "Invalid Disc ID"
-msgstr ""
+msgstr "Sobimatu plaadi-ID"
 
-#: ../root/layout/menu.tt:151 ../root/main/index.tt:9
+#: ../root/layout/menu.tt:154 ../root/main/index.tt:9
 msgid "Jaikoz Tagger"
 msgstr "Jaikoz Tagger"
 
@@ -3620,16 +3710,16 @@ msgstr "Suurtähelisi sõnu ei muudeta"
 
 #: ../root/cdtoc/attach_artist_releases.tt:37
 #: ../root/cdtoc/attach_filter_release.tt:51 ../root/cdtoc/list.tt:10
-#: ../root/collection/index.tt:16 ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:570
+#: ../root/collection/index.tt:16 ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:576
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
 #: ../root/edit/search_macros.tt:284 ../root/label/edits.tt:19
 #: ../root/label/header.tt:13 ../root/recording/index.tt:16
 #: ../root/release_group/index.tt:20 ../root/release_group/releases-list.tt:25
-#: ../root/release/merge.tt:33 ../root/report/label_url_list.tt:6
-#: ../root/scripts/text_strings.tt:103 ../root/tracklist/index.tt:33
-#: ../lib/MusicBrainz/Server/Edit/Label.pm:7
+#: ../root/release/merge.tt:33 ../root/report/label_list.tt:5
+#: ../root/report/label_url_list.tt:6 ../root/scripts/text_strings.tt:104
+#: ../root/tracklist/index.tt:33 ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 msgid "Label"
 msgstr "Plaadifirma"
@@ -3667,7 +3757,7 @@ msgstr "Plaadifirma teave"
 msgid "Label ratings"
 msgstr "Hinded plaadifirmadele"
 
-#: ../root/components/common-macros.tt:505
+#: ../root/components/common-macros.tt:511
 #: ../root/edit/details/add_label_alias.tt:3
 #: ../root/edit/details/add_label_annotation.tt:3
 #: ../root/edit/details/add_label.tt:3
@@ -3684,7 +3774,7 @@ msgid "Label:"
 msgstr "Plaadifirma:"
 
 #: ../root/release/edit/missing_entities.tt:100 ../root/release/sidebar.tt:58
-#: ../root/report/index.tt:26 ../root/tag/header.tt:1 ../root/tag/index.tt:3
+#: ../root/report/index.tt:27 ../root/tag/header.tt:1 ../root/tag/index.tt:3
 #: ../root/user/tag.tt:4
 msgid "Labels"
 msgstr "Plaadifirmad"
@@ -3692,6 +3782,12 @@ msgstr "Plaadifirmad"
 #: ../root/browse/label.tt:8
 msgid "Labels starting with “{index}”"
 msgstr "Plaadifirmad, mille nime alguses on „{index}”"
+
+#: ../root/report/duplicate_relationships_labels.tt:1
+#: ../root/report/duplicate_relationships_labels.tt:3
+#: ../root/report/index.tt:31
+msgid "Labels with possible duplicate relationships"
+msgstr "Väljalasked võimalike topeltseostega"
 
 #: ../root/artist/works-list.tt:14 ../root/otherlookup/results-release.tt:11
 #: ../root/search/lib/inline-results-release.tt:13
@@ -3721,11 +3817,11 @@ msgstr "Keeled:"
 
 #: ../root/user/profile.tt:166
 msgid "Last 24 hours"
-msgstr "Viimased 24 tundi"
+msgstr "Viimase 24 tunni jooksul"
 
 #: ../root/user/profile.tt:196
 msgid "Last 28 days"
-msgstr "Viimased 28 päeva"
+msgstr "Viimase 28 päeva jooksul"
 
 #: ../root/cdstub/layout.tt:10
 msgid "Last modified:"
@@ -3799,11 +3895,11 @@ msgstr "Lingid:"
 msgid "Lists:"
 msgstr "Loendid:"
 
-#: ../root/layout/menu.tt:178
+#: ../root/layout/menu.tt:181
 msgid "Live Data Feed"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:98
+#: ../root/scripts/text_strings.tt:99
 msgid "Loading..."
 msgstr "Laadimine..."
 
@@ -3823,16 +3919,16 @@ msgstr "Lokaat"
 msgid "Locale:"
 msgstr "Lokaat:"
 
-#: ../root/layout/menu.tt:97 ../root/user/login.tt:1 ../root/user/login.tt:3
+#: ../root/layout/menu.tt:100 ../root/user/login.tt:1 ../root/user/login.tt:3
 #: ../root/user/login.tt:34
 msgid "Log In"
-msgstr "Sisselogimine"
+msgstr "Logi sisse"
 
-#: ../root/layout/menu.tt:46
+#: ../root/layout/menu.tt:49
 msgid "Log Out"
 msgstr "Logi välja"
 
-#: ../root/components/common-macros.tt:450
+#: ../root/components/common-macros.tt:454
 msgid "Log in"
 msgstr "Logi sisse"
 
@@ -3846,6 +3942,10 @@ msgstr "Toimetamiseks logi sisse"
 #: ../root/release/cover_art.tt:64
 msgid "Log in to upload cover art"
 msgstr "Kaanepildi üleslaadimiseks logi sisse"
+
+#: ../root/relationship/linktype/tree.tt:14
+msgid "Long link phrase:"
+msgstr "Pikk liitefraas:"
 
 #: ../root/doc/bare_error.tt:11 ../root/doc/error.tt:17 ../root/main/400.tt:18
 #: ../root/main/404.tt:18
@@ -3878,8 +3978,8 @@ msgstr "Unustatud parool"
 msgid "Lost Username"
 msgstr "Unustatud kasutajanimi"
 
-#: ../root/components/common-macros.tt:591
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:187
+#: ../root/components/common-macros.tt:597
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "Low"
 msgstr "madal"
 
@@ -3899,7 +3999,7 @@ msgstr "MBID:"
 msgid "MM"
 msgstr "KK"
 
-#: ../root/layout/menu.tt:154 ../root/main/index.tt:10
+#: ../root/layout/menu.tt:157 ../root/main/index.tt:10
 msgid "Magic MP3 Tagger"
 msgstr "Magic MP3 Tagger"
 
@@ -3909,7 +4009,7 @@ msgid ""
 "sent for the first \"no\" vote, not each one)"
 msgstr "Saadetakse kiri, kui keegi mõne mu toimetuse vastu hääletab (NB: kiri saadetakse ainult iga toimetuse esimese vastuhääle peale)"
 
-#: ../root/layout/menu.tt:268
+#: ../root/layout/menu.tt:271
 msgid "Mailing Lists"
 msgstr "Postiloendid"
 
@@ -3936,7 +4036,7 @@ msgstr ""
 msgid "Matching CDs"
 msgstr "Vastavad CD-d"
 
-#: ../root/cdtoc/lookup.tt:38 ../root/components/common-macros.tt:792
+#: ../root/cdtoc/lookup.tt:38 ../root/components/common-macros.tt:798
 #: ../root/scripts/text_strings.tt:90
 #: ../root/search/lib/inline-results-recording.tt:16
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:7
@@ -3946,6 +4046,26 @@ msgstr "Helikandja"
 #: ../root/tracklist/index.tt:28
 msgid "Medium #"
 msgstr "Helikandja #"
+
+#: ../root/edit/details/reorder_mediums.tt:32
+msgid ""
+"Medium <span class=\"new\">{new}</span> (moved from position <span "
+"class=\"old\">{old}</span>)"
+msgstr "Helikandja <span class=\"new\">{new}</span> (teisaldati asukohalt <span class=\"old\">{old}</span>)"
+
+#: ../root/edit/details/reorder_mediums.tt:29
+msgid "Medium <span class=\"new\">{new}</span> (new medium)"
+msgstr "Helikandja <span class=\"new\">{new}</span> (uus helikandja)"
+
+#: ../root/edit/details/reorder_mediums.tt:26
+msgid ""
+"Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
+"class=\"old\">{old}</span>)"
+msgstr "Helikandja <span class=\"new\">{new}</span>: „{title}” (teisaldati asukohalt <span class=\"old\">{old}</span>)"
+
+#: ../root/edit/details/reorder_mediums.tt:23
+msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
+msgstr "Helikandja <span class=\"new\">{new}</span>: „{title}” (uus helikandja)"
 
 #: ../root/edit/details/merge_releases.tt:36
 msgid "Medium {position} is now medium {new_position}"
@@ -4130,15 +4250,15 @@ msgstr "MusicBrainz, vaba muusikaentsüklopeedia"
 msgid "MusicBrainz Blog"
 msgstr "MusicBrainzi blogi"
 
-#: ../root/layout/menu.tt:169 ../root/main/index.tt:101
+#: ../root/layout/menu.tt:172 ../root/main/index.tt:101
 msgid "MusicBrainz Database"
 msgstr "MusicBrainzi andmebaas"
 
-#: ../root/layout/menu.tt:148 ../root/main/index.tt:8
+#: ../root/layout/menu.tt:151 ../root/main/index.tt:8
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/menu.tt:166
+#: ../root/layout/menu.tt:169
 msgid "MusicBrainz Server"
 msgstr "MusicBrainzi server"
 
@@ -4157,7 +4277,7 @@ msgstr "MusicBrainz usub tugevalt oma kasutajate privaatsusse. Ükskõik millist
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainzis pole CD-sid, mille sisukord on"
 
-#: ../root/layout/menu.tt:163
+#: ../root/layout/menu.tt:166
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz Androidile"
 
@@ -4182,37 +4302,37 @@ msgstr "MusicBrainzi juhib {uri|MetaBrainz Foundation}, Californias asuv maksuva
 
 #: ../root/layout.tt:15
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "MusicBrainz: artist"
 
 #: ../root/layout.tt:16
 msgid "MusicBrainz: Label"
-msgstr ""
+msgstr "MusicBrainz: plaadifirma"
 
 #: ../root/layout.tt:17
 msgid "MusicBrainz: Release"
-msgstr ""
+msgstr "MusicBrainz: väljalase"
 
 #: ../root/layout.tt:18
 msgid "MusicBrainz: Track"
-msgstr ""
+msgstr "MusicBrainz: lugu"
 
-#: ../root/layout/menu.tt:54
+#: ../root/layout/menu.tt:57
 msgid "My Collections"
 msgstr "Minu kogud"
 
-#: ../root/layout/menu.tt:51
+#: ../root/layout/menu.tt:54
 msgid "My Data"
 msgstr "Minu andmed"
 
-#: ../root/layout/menu.tt:63
+#: ../root/layout/menu.tt:66
 msgid "My Open Edits"
 msgstr "Minu lahtised toimetused"
 
-#: ../root/layout/menu.tt:57
+#: ../root/layout/menu.tt:60
 msgid "My Ratings"
 msgstr "Minu antud hinded"
 
-#: ../root/layout/menu.tt:60
+#: ../root/layout/menu.tt:63
 msgid "My Tags"
 msgstr "Minu sildid"
 
@@ -4249,10 +4369,11 @@ msgstr "pole"
 msgid "Name"
 msgstr "Nimi"
 
-#: ../root/artist/details.tt:7 ../root/artist/edit_form.tt:38
-#: ../root/collection/edit_form.tt:5 ../root/components/filter-form.tt:16
-#: ../root/edit/details/add_artist.tt:10 ../root/edit/details/add_label.tt:10
-#: ../root/edit/details/add_medium.tt:19
+#: ../root/account/edit_application.tt:8
+#: ../root/account/register_application.tt:33 ../root/artist/details.tt:7
+#: ../root/artist/edit_form.tt:38 ../root/collection/edit_form.tt:5
+#: ../root/components/filter-form.tt:16 ../root/edit/details/add_artist.tt:10
+#: ../root/edit/details/add_label.tt:10 ../root/edit/details/add_medium.tt:19
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
 #: ../root/edit/details/add_release_group.tt:10
@@ -4317,7 +4438,7 @@ msgstr "Uus staatus:"
 
 #: ../root/edit/details/edit_medium.tt:49
 msgid "New Tracklist"
-msgstr ""
+msgstr "Uus lugude nimekiri"
 
 #: ../root/edit/details/historic/edit_release_attributes.tt:22
 msgid "New Type:"
@@ -4347,7 +4468,7 @@ msgstr "Uus parool:"
 msgid "New position:"
 msgstr "Uus asukoht:"
 
-#: ../root/edit/details/reorder_cover_art.tt:22
+#: ../root/edit/details/reorder_cover_art.tt:26
 msgid "New positions:"
 msgstr "Uued asukohad:"
 
@@ -4424,7 +4545,7 @@ msgstr "Toimetusmärkeid pole lisatud."
 
 #: ../root/edit/list.tt:103
 msgid "No edits were found matching your query. Please {search|try again}."
-msgstr ""
+msgstr "Päringule vastavaid toimetusi ei leitud. {search|Proovi uuesti}."
 
 #: ../root/elections/index.tt:29
 msgid "No elections found."
@@ -4432,11 +4553,11 @@ msgstr "Valimisi ei leitud."
 
 #: ../root/release/sidebar.tt:11
 msgid "No front cover image available.<br/>{all|View all artwork}."
-msgstr ""
+msgstr "Esikaanepilti pole saadaval.<br/>{all|Näita kõiki kaanepilte}"
 
 #: ../root/relationship/linkattributetype/instruments.tt:31
 msgid "No instruments found."
-msgstr ""
+msgstr "Ühtki instrumenti ei leitud."
 
 #: ../root/tag/label.tt:1
 msgid "No labels with this tag were found."
@@ -4444,7 +4565,7 @@ msgstr "Selle sildiga plaadifirmasid ei leitud."
 
 #: ../root/release/lookup.tt:33
 msgid "No matching CDs were found for TOC {toc}."
-msgstr ""
+msgstr "Sisukorrale „{toc}” vastavaid CD-sid ei leitud."
 
 #: ../root/admin/edit_user.tt:14
 msgid "No nag"
@@ -4456,7 +4577,7 @@ msgstr "Hindeid pole."
 
 #: ../root/artist/recordings.tt:16
 msgid "No recordings found."
-msgstr ""
+msgstr "Salvestisi ei leitud."
 
 #: ../root/tag/recording.tt:1
 msgid "No recordings with this tag were found."
@@ -4464,7 +4585,7 @@ msgstr "Selle sildiga salvestisi ei leitud."
 
 #: ../root/relationship/linkattributetype/index.tt:32
 msgid "No relationship attributes found."
-msgstr ""
+msgstr "Ühtki seoseatribuuti ei leitud."
 
 #: ../root/artist/index.tt:110
 msgid "No release groups found"
@@ -4488,7 +4609,7 @@ msgstr "Ei leitud ühtki väljalaset, kus see salvestis peal oleks."
 
 #: ../root/release_group/index.tt:81
 msgid "No releases found."
-msgstr ""
+msgstr "Väljalaskeid ei leitud."
 
 #: ../root/release_group/set_cover_art.tt:54
 msgid "No releases have cover art, cannot set cover art."
@@ -4528,6 +4649,10 @@ msgstr "Tulemusi ei leitud. Proovi otsingupäringut täpsustada."
 msgid "No subscriptions."
 msgstr "Kedagi ega midagi ei jälgita."
 
+#: ../root/oauth2/authorize.tt:18
+msgid "No thanks"
+msgstr "Ei, aitäh"
+
 #: ../root/user/privileged.tt:9
 msgid "No users found"
 msgstr "Kasutajaid ei leitud."
@@ -4544,7 +4669,7 @@ msgstr "Vastuhäälte arv"
 msgid "No works with this tag were found."
 msgstr "Selle sildiga teoseid ei leitud."
 
-#: ../root/relationship/linktype/tree.tt:58
+#: ../root/relationship/linktype/tree.tt:59
 msgid "No {type0}-{type1} relationship types found."
 msgstr ""
 
@@ -4556,8 +4681,8 @@ msgstr ""
 msgid "None"
 msgstr "Puudub"
 
-#: ../root/components/common-macros.tt:591
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:187
+#: ../root/components/common-macros.tt:597
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "Normal"
 msgstr "tavaline"
 
@@ -4598,9 +4723,29 @@ msgstr "Seotud salvestiste laadimine..."
 msgid "Now loading tracklist..."
 msgstr "Lugude nimekirja laadimine..."
 
+#: ../root/oauth2/authorize.tt:1 ../root/oauth2/oob.tt:1
+msgid "OAuth Authorization"
+msgstr ""
+
+#: ../root/oauth2/error.tt:1
+msgid "OAuth Authorization Error"
+msgstr ""
+
+#: ../root/account/applications.tt:56
+msgid "OAuth Client ID"
+msgstr ""
+
+#: ../root/account/applications.tt:57
+msgid "OAuth Client Secret "
+msgstr ""
+
 #: ../root/layout/sidebar/sidebar-favicons.tt:14
 msgid "Official homepage"
 msgstr "Ametlik koduleht"
+
+#: ../root/account/applications.tt:5
+msgid "Offline Access"
+msgstr ""
 
 #: ../root/annotation/history.tt:6
 msgid "Old"
@@ -4612,7 +4757,7 @@ msgstr "Vana artist"
 
 #: ../root/edit/details/edit_medium.tt:48
 msgid "Old Tracklist"
-msgstr ""
+msgstr "Vana lugude nimekiri"
 
 #: ../root/edit/details/set_cover_art.tt:13
 msgid "Old cover art:"
@@ -4622,7 +4767,7 @@ msgstr "Vana kaanepilt:"
 msgid "Old password:"
 msgstr "Vana parool:"
 
-#: ../root/edit/details/reorder_cover_art.tt:10
+#: ../root/edit/details/reorder_cover_art.tt:14
 msgid "Old positions:"
 msgstr "Vanad asukohad:"
 
@@ -4697,8 +4842,8 @@ msgstr "Lahtised toimetused"
 msgid "Open edits"
 msgstr "Lahtised toimetused"
 
-#: ../root/components/common-macros.tt:457
 #: ../root/components/common-macros.tt:461
+#: ../root/components/common-macros.tt:466
 msgid "Open in tagger"
 msgstr "Ava sildistajas"
 
@@ -4729,7 +4874,7 @@ msgstr "Muud päringud"
 
 #: ../root/artist/index.tt:57
 msgid "Other release groups"
-msgstr ""
+msgstr "muud väljalaskerühmad"
 
 #: ../root/user/profile.tt:199
 msgid "Overall"
@@ -4776,17 +4921,17 @@ msgstr "Lehekülge ei leitud"
 
 #: ../root/admin/wikidoc/index.tt:32
 msgid "Page name"
-msgstr ""
+msgstr "Lehekülje nimi"
 
 #: ../root/edit/details/change_wikidoc.tt:29
 msgid "Page removed"
-msgstr ""
+msgstr "Lehekülg eemaldatud"
 
-#: ../root/components/paginator.tt:28
+#: ../root/components/paginator.tt:29
 msgid "Page {cur} of at least {total}"
 msgstr "Lehekülg {cur} vähemalt {total}-st"
 
-#: ../root/components/paginator.tt:30
+#: ../root/components/paginator.tt:31
 msgid "Page {cur} of {total}"
 msgstr "Lehekülg {cur} / {total}"
 
@@ -4823,6 +4968,10 @@ msgstr "„Osa komplektist” seosed"
 msgid "Password:"
 msgstr "Parool:"
 
+#: ../root/oauth2/authorize.tt:12
+msgid "Perform the above operations when I'm not using the application"
+msgstr ""
+
 #: ../root/artist/details.tt:22 ../root/label/details.tt:22
 #: ../root/recording/details.tt:22 ../root/release/details.tt:22
 #: ../root/release_group/details.tt:22 ../root/work/details.tt:22
@@ -4831,7 +4980,7 @@ msgstr "Püsilink:"
 
 #: ../root/edit/details/remove_relationship_type.tt:11
 msgid "Phrase:"
-msgstr ""
+msgstr "Fraas:"
 
 #: ../root/account/registered.tt:7
 msgid ""
@@ -5029,19 +5178,23 @@ msgstr "Palun oota paar minutit ja korda siis oma päringut."
 
 #: ../root/components/aliases.tt:72
 msgid "Please {log_in|log in} to add or edit aliases"
-msgstr "Aliase lisamiseks või muutmiseks {log_in|logi sisse}."
+msgstr "Aliase lisamiseks või muutmiseks {log_in|logi palun sisse}."
 
 #: ../root/recording/fingerprints.tt:39
 msgid "Please {login_url|log in} to edit these PUIDs."
-msgstr "Nende PUID-de muutmiseks {login_url|logi sisse}."
+msgstr "PUID-de muutmiseks {login_url|logi palun sisse}."
 
 #: ../root/release/discids.tt:57
 msgid "Please {login|log in} to edit the disc IDs for this release."
+msgstr "Väljalaske plaadi-ID-de muutmiseks {login|logi palun sisse}."
+
+#: ../root/taglookup/not_found.tt:6
+msgid "Please {search|try again}, providing at least one of these parameters"
 msgstr ""
 
 #: ../root/release/edit-links.tt:15
 msgid "Please {uri|log in} to edit this release"
-msgstr "Selle väljalaske muutmiseks {uri|logi sisse}."
+msgstr "Väljalaske muutmiseks {uri|logi palun sisse}."
 
 #: ../root/cdtoc/list.tt:4
 msgid "Position"
@@ -5095,7 +5248,7 @@ msgstr "Eelvaade: "
 
 #: ../root/scripts/text_strings.tt:37
 msgid "Previous"
-msgstr ""
+msgstr "Eelmine"
 
 #: ../root/edit/details/add_release_group.tt:28
 #: ../root/edit/details/edit_release_group.tt:19
@@ -5124,7 +5277,7 @@ msgstr ""
 msgid "Privacy"
 msgstr "Privaatsus"
 
-#: ../root/layout/menu.tt:122
+#: ../root/layout/menu.tt:125
 msgid "Privacy Policy"
 msgstr "Privaatsuspõhimõtted"
 
@@ -5136,12 +5289,12 @@ msgstr "Privaatne"
 msgid "Private collection"
 msgstr "Privaatkogu"
 
-#: ../root/layout/menu.tt:128 ../root/user/privileged.tt:14
+#: ../root/layout/menu.tt:131 ../root/user/privileged.tt:14
 #: ../root/user/privileged.tt:16
 msgid "Privileged User Accounts"
 msgstr "Eriõigustega kasutajad"
 
-#: ../root/layout/menu.tt:145
+#: ../root/layout/menu.tt:148
 msgid "Products"
 msgstr "Tooted"
 
@@ -5205,11 +5358,15 @@ msgid ""
 "works."
 msgstr ""
 
-#: ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:571 ../root/edit/search_macros.tt:284
+#: ../root/main/index.tt:118
+msgid "Recent Additions"
+msgstr "Hiljutised lisandused"
+
+#: ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:577 ../root/edit/search_macros.tt:284
 #: ../root/release/edit_relationships.tt:365
 #: ../root/report/isrc_with_many_recordings.tt:25
-#: ../root/report/recording_list.tt:6 ../root/scripts/text_strings.tt:104
+#: ../root/report/recording_list.tt:6 ../root/scripts/text_strings.tt:105
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
 msgid "Recording"
@@ -5221,7 +5378,7 @@ msgstr "Salvestise üksikasjad"
 
 #: ../root/recording/not_found.tt:1 ../root/recording/not_found.tt:2
 msgid "Recording Not Found"
-msgstr ""
+msgstr "Salvestist ei leitud"
 
 #: ../root/recording/edits.tt:20 ../root/recording/header.tt:16
 msgid "Recording by {artist}"
@@ -5239,7 +5396,7 @@ msgstr "Hinded salvestistele"
 msgid "Recording “{name}” by {artist}"
 msgstr "Salvestis „{name}” - {artist}"
 
-#: ../root/components/common-macros.tt:505
+#: ../root/components/common-macros.tt:511
 #: ../root/edit/details/add_recording_annotation.tt:3
 #: ../root/edit/details/add_standalone_recording.tt:3
 #: ../root/edit/details/edit_recording.tt:8
@@ -5253,7 +5410,7 @@ msgid "Recording:"
 msgstr "Salvestis:"
 
 #: ../root/artist/header.tt:1 ../root/artist/recordings.tt:1
-#: ../root/artist/recordings.tt:4 ../root/report/index.tt:67
+#: ../root/artist/recordings.tt:4 ../root/report/index.tt:74
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
 #: ../lib/MusicBrainz/Server/Wizard/ReleaseEditor.pm:66
 msgid "Recordings"
@@ -5268,18 +5425,24 @@ msgstr "Salvestised, mille pealkirja alguses on „{index}”"
 msgid "Recordings with Earliest Release Relationships"
 msgstr "Salvestised, millel on „varaseima väljalaske” seoseid"
 
-#: ../root/report/index.tt:70
+#: ../root/report/index.tt:77
 msgid "Recordings with earliest release relationships"
 msgstr "Salvestised, millel on „varaseima väljalaske” seoseid"
 
+#: ../root/report/duplicate_relationships_recordings.tt:1
+#: ../root/report/duplicate_relationships_recordings.tt:3
+#: ../root/report/index.tt:80
+msgid "Recordings with possible duplicate relationships"
+msgstr "Salvestised võimalike topeltseostega"
+
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:72
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:79
 msgid "Recordings with titles containing featuring artists"
 msgstr "Salvestised, millel on pealkirjas kaasa tegevad artistid"
 
 #: ../root/edit/details/edit_medium.tt:173
 msgid "Recordings:"
-msgstr ""
+msgstr "Salvestised:"
 
 #: ../root/edit/list_header.tt:12
 msgid "Refine this search"
@@ -5289,6 +5452,15 @@ msgstr "Selle otsingu täpsustamine"
 msgid "Regional settings"
 msgstr "Piirkondlikud seaded"
 
+#: ../root/account/register_application.tt:38
+msgid "Register"
+msgstr "Registreeri"
+
+#: ../root/account/register_application.tt:26
+#: ../root/account/register_application.tt:28
+msgid "Register Application"
+msgstr "Rakenduse registreerimine"
+
 #: ../root/doc/edit_type.tt:15
 msgid "Reject"
 msgstr "Hüljatakse"
@@ -5297,15 +5469,15 @@ msgstr "Hüljatakse"
 msgid "Reject edit"
 msgstr "Hülga toimetus"
 
-#: ../root/components/common-macros.tt:598
+#: ../root/components/common-macros.tt:604
 msgid "Reject upon expiration"
 msgstr "aegumisel hüljatakse"
 
-#: ../root/scripts/text_strings.tt:93
+#: ../root/scripts/text_strings.tt:94
 msgid "Relate recording to work"
 msgstr "Seosta salvestis teosega"
 
-#: ../root/components/common-macros.tt:548
+#: ../root/components/common-macros.tt:554
 msgid "Relate to ..."
 msgstr "Seosta..."
 
@@ -5340,9 +5512,9 @@ msgstr "Seose tüüp"
 #: ../root/relationship/linktype/in_use.tt:1
 #: ../root/relationship/linktype/in_use.tt:3
 msgid "Relationship Type In Use"
-msgstr ""
+msgstr "Seosetüüp on kasutuses"
 
-#: ../root/layout/menu.tt:254 ../root/relationship/header.tt:2
+#: ../root/layout/menu.tt:257 ../root/relationship/header.tt:2
 #: ../root/relationship/linktype/index.tt:1
 msgid "Relationship Types"
 msgstr "Seosetüübid"
@@ -5408,8 +5580,8 @@ msgstr "Seosed:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:34
 #: ../root/cdtoc/attach_filter_release.tt:47 ../root/cdtoc/lookup.tt:37
-#: ../root/collection/index.tt:10 ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:573
+#: ../root/collection/index.tt:10 ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:579
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/search_macros.tt:284 ../root/release_group/index.tt:15
 #: ../root/release_group/releases-list.tt:16 ../root/release/lookup.tt:9
@@ -5417,7 +5589,7 @@ msgstr "Seosed:"
 #: ../root/report/bad_amazon_urls.tt:20
 #: ../root/report/cat_no_looks_like_asin.tt:19
 #: ../root/report/release_list.tt:5 ../root/report/release_url_list.tt:6
-#: ../root/scripts/text_strings.tt:105
+#: ../root/scripts/text_strings.tt:106
 #: ../root/search/lib/inline-results-recording.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
@@ -5440,8 +5612,8 @@ msgstr "Väljalaskekuupäev"
 msgid "Release Events:"
 msgstr "Väljalaskesündmused:"
 
-#: ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:572 ../root/edit/search_macros.tt:284
+#: ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:578 ../root/edit/search_macros.tt:284
 #: ../root/report/release_group_list.tt:6
 #: ../root/search/results-release_group.tt:8
 #: ../root/search/results-release-group.tt:8
@@ -5506,7 +5678,7 @@ msgid "Release event"
 msgstr "Väljalaskesündmus"
 
 #: ../root/report/release_group_url_list.tt:6
-#: ../root/scripts/text_strings.tt:106
+#: ../root/scripts/text_strings.tt:107
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
 msgid "Release group"
 msgstr "Väljalaskerühm"
@@ -5535,7 +5707,7 @@ msgstr "Väljalaskerühma seosed"
 msgid "Release group “{name}” by {artist}"
 msgstr "Väljalaskerühm „{name}” - {artist}"
 
-#: ../root/components/common-macros.tt:505
+#: ../root/components/common-macros.tt:511
 #: ../root/edit/details/add_release_group_annotation.tt:3
 #: ../root/edit/details/add_release.tt:20
 #: ../root/edit/details/change_release_group.tt:7
@@ -5545,7 +5717,7 @@ msgstr "Väljalaskerühm „{name}” - {artist}"
 msgid "Release group:"
 msgstr "Väljalaskerühm:"
 
-#: ../root/report/index.tt:32
+#: ../root/report/index.tt:34
 msgid "Release groups"
 msgstr "Väljalaskerühmad"
 
@@ -5553,12 +5725,18 @@ msgstr "Väljalaskerühmad"
 msgid "Release groups starting with “{index}”"
 msgstr "Väljalaskerühmad, mille pealkirja alguses on „{index}”"
 
-#: ../root/report/index.tt:35
+#: ../root/report/index.tt:37
 msgid "Release groups that might need to be merged"
 msgstr "Väljalaskerühmad, mis võivad vajada mestimist"
 
+#: ../root/report/duplicate_relationships_release_groups.tt:1
+#: ../root/report/duplicate_relationships_release_groups.tt:3
+#: ../root/report/index.tt:40
+msgid "Release groups with possible duplicate relationships"
+msgstr "Väljalaskerühmad võimalike topeltseostega"
+
 #: ../root/report/featuring_release_groups.tt:1
-#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:36
+#: ../root/report/featuring_release_groups.tt:3 ../root/report/index.tt:38
 msgid "Release groups with titles containing featuring artists"
 msgstr "Väljalaskerühmad, millel on pealkirjas kaasa tegevad artistid"
 
@@ -5574,7 +5752,7 @@ msgstr "Väljalaske pealkiri:"
 msgid "Release “{name}” by {artist}"
 msgstr "Väljalase „{name}” - {artist}"
 
-#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:505
+#: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:511
 #: ../root/edit/details/add_cover_art.tt:5
 #: ../root/edit/details/add_medium.tt:5
 #: ../root/edit/details/add_release_annotation.tt:4
@@ -5590,7 +5768,7 @@ msgstr "Väljalase „{name}” - {artist}"
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
 #: ../root/edit/details/remove_release.tt:3
-#: ../root/edit/details/reorder_cover_art.tt:5
+#: ../root/edit/details/reorder_cover_art.tt:9
 #: ../root/edit/details/reorder_mediums.tt:4
 #: ../root/release/edit/tracklist.tt:208 ../root/taglookup/form.tt:5
 msgid "Release:"
@@ -5601,7 +5779,7 @@ msgstr "Väljalase:"
 #: ../root/artist/index.tt:68 ../root/artist/releases.tt:1
 #: ../root/artist/releases.tt:4 ../root/label/header.tt:1
 #: ../root/label/index.tt:14 ../root/recording/header.tt:1
-#: ../root/release_group/merge.tt:17 ../root/report/index.tt:40
+#: ../root/release_group/merge.tt:17 ../root/report/index.tt:43
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:3
 #: ../root/user/collections.tt:10 ../root/user/tag.tt:4
 msgid "Releases"
@@ -5631,13 +5809,17 @@ msgstr "Väljalasked mitme Discogsi-lingiga"
 msgid "Releases With Some Formats Unset"
 msgstr "Väljalasked osaliselt määramata formaatidega"
 
-#: ../root/report/index.tt:62
+#: ../root/report/index.tt:65
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Kaanepildiarhiivis leiduvad väljalasked, millel on ikka veel kaanepildiseos"
 
-#: ../root/report/index.tt:57 ../root/report/released_too_early.tt:1
+#: ../root/report/index.tt:67
+msgid "Releases of any sort that still have cover art relationships"
+msgstr ""
+
+#: ../root/report/index.tt:60 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
 msgid "Releases released too early"
 msgstr "Liiga vara avaldatud väljalasked"
@@ -5646,37 +5828,42 @@ msgstr "Liiga vara avaldatud väljalasked"
 msgid "Releases starting with “{index}”"
 msgstr "Väljalasked, mille pealkirja alguses on „{index}”"
 
-#: ../root/report/index.tt:58
+#: ../root/report/index.tt:61
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr "Väljalasked, kus ainult osade helikandjate formaat on määratud"
 
-#: ../root/report/index.tt:48
+#: ../root/report/index.tt:51
 msgid "Releases which have multiple ASINs"
 msgstr "Väljalasked, millel on mitu ASIN-i"
 
-#: ../root/report/index.tt:49
+#: ../root/report/index.tt:52
 msgid "Releases which have multiple Discogs links"
 msgstr "Väljalasked, millel on mitu Discogsi-linki"
 
-#: ../root/report/index.tt:52
+#: ../root/report/index.tt:55
 msgid "Releases which have part of set relationships"
 msgstr "Väljalasked, millel on „osa komplektist” seoseid"
 
-#: ../root/report/index.tt:47
+#: ../root/report/index.tt:50
 msgid "Releases which have unexpected Amazon URLs"
 msgstr "Väljalasked, millel on ootamatuid Amazoni URL-e"
 
-#: ../root/report/index.tt:44 ../root/report/releases_to_convert.tt:1
+#: ../root/report/index.tt:47 ../root/report/releases_to_convert.tt:1
 #: ../root/report/releases_to_convert.tt:3
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr "Väljalasked, mis võivad vajada teisendamist mitme artisti alla"
 
-#: ../root/report/index.tt:43 ../root/report/releases_with_cc_links.tt:1
+#: ../root/report/releases_with_coverart_links.tt:1
+#: ../root/report/releases_with_coverart_links.tt:3
+msgid "Releases with Cover Art relationships"
+msgstr ""
+
+#: ../root/report/index.tt:46 ../root/report/releases_with_cc_links.tt:1
 #: ../root/report/releases_with_cc_links.tt:3
 msgid "Releases with Creative Commons Download relationships"
 msgstr "Väljalasked, millel on Creative Commonsi allalaadimisseos"
 
-#: ../root/report/index.tt:59
+#: ../root/report/index.tt:62
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr "Väljalasked, mille katalooginumbrid näevad välja nagu ASIN-id"
 
@@ -5685,20 +5872,26 @@ msgstr "Väljalasked, mille katalooginumbrid näevad välja nagu ASIN-id"
 msgid "Releases with medium number issues"
 msgstr "Väljalasked, millel on probleeme helikandjanumbritega"
 
-#: ../root/report/index.tt:63
+#: ../root/report/index.tt:68
 msgid "Releases with non-sequential mediums"
 msgstr "Mittejärjestikuste helikandjatega väljalasked"
 
-#: ../root/report/index.tt:54
+#: ../root/report/index.tt:57
 msgid "Releases with non-sequential track numbers"
 msgstr "Mittejärjestikuste loonumbritega väljalasked"
 
-#: ../root/report/index.tt:55 ../root/report/superfluous_data_tracks.tt:3
+#: ../root/report/duplicate_relationships_releases.tt:1
+#: ../root/report/duplicate_relationships_releases.tt:3
+#: ../root/report/index.tt:71
+msgid "Releases with possible duplicate relationships"
+msgstr "Väljalasked võimalike topeltseostega"
+
+#: ../root/report/index.tt:58 ../root/report/superfluous_data_tracks.tt:3
 msgid "Releases with superfluous data tracks"
 msgstr "Liigsete andmeradadega väljalasked"
 
 #: ../root/report/featuring_releases.tt:1
-#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:56
+#: ../root/report/featuring_releases.tt:3 ../root/report/index.tt:59
 msgid "Releases with titles containing featuring artists"
 msgstr "Väljalasked, millel on pealkirjas kaasa tegevad artistid"
 
@@ -5707,18 +5900,23 @@ msgstr "Väljalasked, millel on pealkirjas kaasa tegevad artistid"
 msgid "Releases with track number issues"
 msgstr "Väljalasked, millel on probleeme loonumbritega"
 
-#: ../root/report/index.tt:64
+#: ../root/report/index.tt:70 ../root/report/tracks_without_times.tt:1
+#: ../root/report/tracks_without_times.tt:3
+msgid "Releases with unknown track times"
+msgstr "Sisestamata loopikkustega väljalasked"
+
+#: ../root/report/index.tt:69
 #: ../root/report/releases_with_unlikely_language_script.tt:1
 #: ../root/report/releases_with_unlikely_language_script.tt:3
 msgid "Releases with unlikely language/script pairs"
 msgstr "Ebatõenäolise keele ja kirja kombinatsiooniga väljalasked"
 
-#: ../root/report/index.tt:45 ../root/report/releases_without_language.tt:1
+#: ../root/report/index.tt:48 ../root/report/releases_without_language.tt:1
 #: ../root/report/releases_without_language.tt:3
 msgid "Releases without language"
 msgstr "Määramata keelega väljalasked"
 
-#: ../root/report/index.tt:46 ../root/report/releases_without_script.tt:1
+#: ../root/report/index.tt:49 ../root/report/releases_without_script.tt:1
 #: ../root/report/releases_without_script.tt:3
 msgid "Releases without script"
 msgstr "Määramata kirjasüsteemiga väljalasked"
@@ -5745,26 +5943,31 @@ msgstr "Määramata kirjasüsteemiga väljalasked"
 msgid "Releases:"
 msgstr "Väljalasked:"
 
-#: ../root/account/edit.tt:40 ../root/account/edit.tt:49
-#: ../root/admin/wikidoc/index.tt:62 ../root/artist/relationships.tt:73
-#: ../root/cdtoc/list.tt:58 ../root/collection/delete.tt:1
-#: ../root/collection/header.tt:7 ../root/components/aliases.tt:52
-#: ../root/components/common-macros.tt:895 ../root/label/delete.tt:1
-#: ../root/puid/index.tt:31 ../root/recording/delete.tt:1
-#: ../root/recording/fingerprints.tt:30
+#: ../root/account/applications.tt:76 ../root/account/edit.tt:40
+#: ../root/account/edit.tt:49 ../root/admin/wikidoc/index.tt:62
+#: ../root/artist/relationships.tt:73 ../root/cdtoc/list.tt:58
+#: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
+#: ../root/components/aliases.tt:52 ../root/components/common-macros.tt:901
+#: ../root/label/delete.tt:1 ../root/puid/index.tt:31
+#: ../root/recording/delete.tt:1 ../root/recording/fingerprints.tt:30
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
 #: ../root/relationship/linktype/delete.tt:11
-#: ../root/relationship/linktype/tree.tt:19 ../root/release/cover_art.tt:30
+#: ../root/relationship/linktype/tree.tt:20 ../root/release/cover_art.tt:30
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:39
 #: ../root/release/edit-links.tt:3 ../root/scripts/text_strings.tt:44
 #: ../root/user/collections.tt:26
 msgid "Remove"
 msgstr "Eemalda"
 
+#: ../root/account/remove_application.tt:1
+#: ../root/account/remove_application.tt:3
+msgid "Remove Application"
+msgstr "Rakenduse eemaldamine"
+
 #: ../root/artist/delete_alias.tt:1
 msgid "Remove Artist Alias"
-msgstr ""
+msgstr "Artisti aliase eemaldamine"
 
 #: ../root/components/forms.tt:278 ../root/release/edit/tracklist.tt:73
 msgid "Remove Artist Credit"
@@ -5922,15 +6125,15 @@ msgctxt "header"
 msgid "Reorder Cover Art"
 msgstr "Kaanepiltide järjestuse muutmine"
 
-#: ../root/layout/menu.tt:277
+#: ../root/layout/menu.tt:280
 msgid "Report a Bug"
 msgstr "Saada vearaport"
 
-#: ../root/layout/menu.tt:281
+#: ../root/layout/menu.tt:284
 msgid "Report a Copyright Violation"
 msgstr "Teata autoriõiguse rikkumisest"
 
-#: ../root/layout/menu.tt:233 ../root/report/index.tt:1
+#: ../root/layout/menu.tt:236 ../root/report/index.tt:1
 #: ../root/report/index.tt:3
 msgid "Reports"
 msgstr "Võimalike vigade aruanded"
@@ -5942,7 +6145,7 @@ msgstr "Päringuandmed:"
 #: ../root/scripts/text_strings.tt:91
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:175
 msgid "Required field."
-msgstr ""
+msgstr "Kohustuslik väli"
 
 #: ../root/edit/info.tt:48
 msgid "Requires:"
@@ -5988,6 +6191,15 @@ msgid ""
 "for help."
 msgstr "Abi saamiseks vaata <a href=\"{url}\" target=\"_blank\">ümbrisetüüpide loendit</a>."
 
+#: ../root/account/applications.tt:35
+msgid "Revoke Access"
+msgstr ""
+
+#: ../root/account/revoke_application_access.tt:1
+#: ../root/account/revoke_application_access.tt:3
+msgid "Revoke Application Access"
+msgstr ""
+
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Haru: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -6019,8 +6231,8 @@ msgstr "Kirjasüsteem:"
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/lookup.tt:63
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:15
-#: ../root/components/common-macros.tt:809 ../root/components/search.tt:11
-#: ../root/edit/search_macros.tt:101 ../root/layout/menu.tt:186
+#: ../root/components/common-macros.tt:815 ../root/components/search.tt:11
+#: ../root/edit/search_macros.tt:101 ../root/layout/menu.tt:189
 #: ../root/layout.tt:74 ../root/otherlookup/form.tt:18
 #: ../root/release/edit/tracklist.tt:221 ../root/scripts/text_strings.tt:30
 #: ../root/search/form.tt:42 ../root/search/index.tt:1
@@ -6028,7 +6240,7 @@ msgstr "Kirjasüsteem:"
 msgid "Search"
 msgstr "Otsi"
 
-#: ../root/layout/menu.tt:190
+#: ../root/layout/menu.tt:193
 msgid "Search Edits"
 msgstr "Otsi toimetusi"
 
@@ -6095,7 +6307,7 @@ msgstr "Otsingumeetod:"
 msgid "Search the database for this CD"
 msgstr "Otsi seda CD-d andmebaasist"
 
-#: ../root/components/common-macros.tt:808
+#: ../root/components/common-macros.tt:814
 msgid "Search the documentation..."
 msgstr ""
 
@@ -6280,7 +6492,7 @@ msgstr "Võta hoogu maha!"
 msgid "Slow? Switch back to indexed search."
 msgstr "Aeglane? Lülita tagasi indekseeritud otsingule."
 
-#: ../root/layout/menu.tt:116
+#: ../root/layout/menu.tt:119
 msgid "Social Contract"
 msgstr "Ühiskondlik lepe"
 
@@ -6288,6 +6500,15 @@ msgstr "Ühiskondlik lepe"
 msgid ""
 "Some FreeDB results may not be immediately available since they are only "
 "able to be updated after FreeDB's monthly database export."
+msgstr ""
+
+#: ../root/account/applications.tt:18
+msgid ""
+"Some applications and websites support accessing private data from or "
+"submitting data to MusicBrainz but require your permission to access your "
+"account. These are the applications that you have authorized to access your "
+"MusicBrainz account. If you no longer use some of the applications, you can "
+"revoke their access."
 msgstr ""
 
 #: ../root/scripts/text_strings.tt:32
@@ -6300,7 +6521,7 @@ msgid ""
 "tracks."
 msgstr "mõnda lugu muudeti, palun vali neile lugudele salvestis."
 
-#: ../root/layout/menu.tt:160 ../root/main/index.tt:12
+#: ../root/layout/menu.tt:163 ../root/main/index.tt:12
 msgid "SongKong Tagger"
 msgstr "SongKong Tagger"
 
@@ -6390,80 +6611,80 @@ msgstr "Vabandust, ei leitud ühtegi teost, mille pealkirja alguses oleks „{in
 
 #: ../root/main/400.tt:5
 msgid "Sorry, there was a problem with your request."
-msgstr "Kahju küll, aga su päringuga oli midagi valesti."
+msgstr "Vabandust, aga su päringuga oli midagi valesti."
 
 #: ../root/freedb/not_found.tt:4
 msgid ""
 "Sorry, we could not find a FreeDB entry with that ID. You may wish to try "
 "and {search_url|search for it} instead."
-msgstr "Vabandust, selle ID-ga FreeDB kirjet ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle ID-ga FreeDB kirjet ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/otherlookup/not_found.tt:4
 msgid ""
 "Sorry, we could not find a MusicBrainz entity with that MusicBrainz ID. You "
 "may wish to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga MusicBrainzi olemit ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga MusicBrainzi olemit ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/url/not_found.tt:4
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
-msgstr "Vabandust, selle MusicBrainzi ID-ga URL-i ei leitud."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga URL-i ei leitud."
 
 #: ../root/label/not_found.tt:4
 msgid ""
 "Sorry, we could not find a label with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga plaadifirmat ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga plaadifirmat ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/recording/not_found.tt:4
 msgid ""
 "Sorry, we could not find a recording with that MusicBrainz ID. You may wish "
 "to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga salvestist ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga salvestist ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/relationship/linkattributetype/not_found.tt:3
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
-msgstr "Vabandust, selle MusicBrainzi ID-ga seoseatribuuti ei leitud."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga seoseatribuuti ei leitud."
 
 #: ../root/release_group/not_found.tt:4
 msgid ""
 "Sorry, we could not find a release group with that MusicBrainz ID. You may "
 "wish to try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga väljalaskerühma ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga väljalaskerühma ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/release/not_found.tt:4
 msgid ""
 "Sorry, we could not find a release with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga väljalaset ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga väljalaset ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/work/not_found.tt:4
 msgid ""
 "Sorry, we could not find a work with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga teost ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga teost ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/artist/not_found.tt:4
 msgid ""
 "Sorry, we could not find an artist with that MusicBrainz ID. You may wish to"
 " try and {search_url|search for it} instead."
-msgstr "Vabandust, selle MusicBrainzi ID-ga artisti ei leitud. Võid proovida {search_url|seda otsida}."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga artisti ei leitud. Võid proovida {search_url|seda otsida}."
 
 #: ../root/collection/not_found.tt:4
 msgid "Sorry, we could not find an collection with that MusicBrainz ID."
-msgstr "Vabandust, selle MusicBrainzi ID-ga kogu ei leitud."
+msgstr "Vabandust, aga selle MusicBrainzi ID-ga kogu ei leitud."
 
 #: ../root/edit/not_found.tt:4
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "Vabandust, selle ID-ga toimetust ei leitud. Võibolla tahad proovida {search_url|toimetusi otsida}?"
+msgstr "Vabandust, aga selle ID-ga toimetust ei leitud. Võibolla tahad proovida {search_url|toimetusi otsida}?"
 
 #: ../root/user/not_found.tt:4
 msgid ""
 "Sorry, we could not find an editor with that name. You may wish to try and "
 "{search_url|search for them} instead."
-msgstr "Vabandust, selle nimega toimetajat ei leitud. Võid proovida {search_url|teda otsida}."
+msgstr "Vabandust, aga selle nimega toimetajat ei leitud. Võid proovida {search_url|teda otsida}."
 
 #: ../root/search/editor.tt:18
 msgid ""
@@ -6473,15 +6694,15 @@ msgstr ""
 
 #: ../root/cdtoc/not_found.tt:4
 msgid "Sorry, we could not find the CD TOC you specified."
-msgstr ""
+msgstr "Vabandust, aga määratud CD-sisukorda ei leitud."
 
 #: ../root/elections/not_found.tt:4
 msgid "Sorry, we could not find this election."
-msgstr ""
+msgstr "Vabandust, aga määratud valimisi ei leitud."
 
 #: ../root/main/401.tt:5
 msgid "Sorry, you are not authorized to view this page."
-msgstr ""
+msgstr "Vabandust, aga sul pole lubatud sellele lehele pääseda."
 
 #: ../root/main/mirror.tt:5
 msgid "Sorry, you are unable to perform that action on a mirror server."
@@ -6491,7 +6712,7 @@ msgstr ""
 msgid ""
 "Sorry, you must have been a member for at least 2 weeks and have 10 accepted"
 " non-auto-edits before you may add standalone recordings"
-msgstr ""
+msgstr "Vabandust, aga enne kui tohid lisada eraldiseisvaid salvestisi, peab su liitumisest olema möödas vähemalt kaks nädalat ja sul peab olema vähemalt 10 hääletuse edukalt läbinud toimetust."
 
 #: ../root/search/error/no-info.tt:3
 msgid ""
@@ -6503,11 +6724,11 @@ msgstr ""
 
 #: ../root/search/error/uri-too-large.tt:3
 msgid "Sorry, your query was too large."
-msgstr ""
+msgstr "Vabandust, aga sinu päring oli liiga pikk."
 
 #: ../root/doc/bare_error.tt:5 ../root/doc/error.tt:11
 msgid "Sorry, “{id}” is not a valid documentation page."
-msgstr ""
+msgstr "Vabandust, aga „{id}” pole kehtiv dokumentatsioonileht."
 
 #: ../root/components/forms.tt:227
 #: ../root/search/lib/inline-results-artist.tt:8
@@ -6553,7 +6774,7 @@ msgstr "Mitmeks artistiks eraldamine"
 msgid "Split into separate artists"
 msgstr "Eralda mitmeks artistiks"
 
-#: ../root/layout/menu.tt:107
+#: ../root/layout/menu.tt:110
 msgid "Sponsors"
 msgstr "Sponsorid"
 
@@ -6573,7 +6794,7 @@ msgstr "Alguskuupäev"
 msgid "Start over"
 msgstr "Alusta uuesti"
 
-#: ../root/layout/menu.tt:131 ../root/user/profile.tt:137
+#: ../root/layout/menu.tt:134 ../root/user/profile.tt:137
 msgid "Statistics"
 msgstr "Statistika"
 
@@ -6610,11 +6831,15 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "Staatus:"
 
+#: ../root/layout.tt:156
+msgid "Stop using beta site"
+msgstr "Lõpeta beetasaidi kasutamine"
+
 #: ../root/watch/list.tt:28
 msgid "Stop watching selected artists"
 msgstr ""
 
-#: ../root/layout/menu.tt:245
+#: ../root/layout/menu.tt:248
 msgid "Style Guidelines"
 msgstr "Stiilijuhised"
 
@@ -6661,7 +6886,7 @@ msgstr "Jälgitavad toimetajad"
 
 #: ../root/edit/list_header.tt:17
 msgid "Subscribed entities"
-msgstr "Jälgitavad olemid"
+msgstr "Jälgitav sisu"
 
 #: ../root/artist/layout.tt:123 ../root/artist/subscribers.tt:1
 #: ../root/artist/subscribers.tt:2 ../root/collection/layout.tt:29
@@ -6677,10 +6902,14 @@ msgid "Subscribers:"
 msgstr "Jälgijaid:"
 
 #: ../root/artist/layout.tt:115 ../root/collection/layout.tt:22
-#: ../root/label/layout.tt:87 ../root/layout/menu.tt:43
+#: ../root/label/layout.tt:87 ../root/layout/menu.tt:46
 #: ../root/user/profile/layout.tt:12
 msgid "Subscriptions"
 msgstr "Jälgimisloend"
+
+#: ../root/oauth2/oob.tt:3
+msgid "Success!"
+msgstr ""
 
 #: ../root/release/edit/recordings.tt:77
 msgid "Suggested recording:"
@@ -6717,13 +6946,17 @@ msgstr "Sildista"
 msgid "Tag Lookup"
 msgstr "Sildipäring"
 
+#: ../root/taglookup/not_found.tt:1 ../root/taglookup/not_found.tt:2
+msgid "Tag Lookup Error"
+msgstr "Sildipäringuviga"
+
 #: ../root/taglookup/results.tt:1 ../root/taglookup/results.tt:3
 msgid "Tag Lookup Results"
 msgstr "Sildipäringu tulemused"
 
 #: ../root/tag/not_found.tt:1 ../root/tag/not_found.tt:2
 msgid "Tag Not Used"
-msgstr ""
+msgstr "Silti pole kasutatud"
 
 #: ../root/main/index.tt:5
 msgid "Tag Your Music"
@@ -6785,7 +7018,7 @@ msgstr "Sildistaja"
 #: ../root/artist/header.tt:1 ../root/artist/tags.tt:1
 #: ../root/collection/tags.tt:1 ../root/components/tags.tt:5
 #: ../root/label/header.tt:1 ../root/label/tags.tt:1
-#: ../root/layout/menu.tt:197 ../root/layout/sidebar/sidebar-tags.tt:21
+#: ../root/layout/menu.tt:200 ../root/layout/sidebar/sidebar-tags.tt:21
 #: ../root/recording/header.tt:1 ../root/recording/tags.tt:1
 #: ../root/release_group/header.tt:1 ../root/release_group/tags.tt:1
 #: ../root/release/tabs.tt:1 ../root/release/tags.tt:1 ../root/tag/cloud.tt:1
@@ -6794,7 +7027,7 @@ msgstr "Sildistaja"
 msgid "Tags"
 msgstr "Sildid"
 
-#: ../root/layout/menu.tt:110
+#: ../root/layout/menu.tt:113
 msgid "Team"
 msgstr "Meeskond"
 
@@ -6819,6 +7052,12 @@ msgid ""
 "Thank you, your email address has now been verified! If you still can't "
 "edit, please try to log out and log in again."
 msgstr "Sinu e-postiaadress on nüüd kinnitatud. Kui sa ikka veel toimetada ei saa, proovi välja ja uuesti sisse logida."
+
+#: ../root/taglookup/not_found.tt:4
+msgid ""
+"That search can't be performed, because you must provide at least one of "
+"'recording', 'track number', 'duration', 'release', or 'artist'."
+msgstr ""
 
 #: ../root/release/caa_darkened.tt:3 ../root/release/cover_art.tt:60
 msgid ""
@@ -6875,7 +7114,7 @@ msgstr "Sisestatud vöötkood näeb välja nagu puuduva kontrollnumbriga UPC-koo
 
 #: ../root/main/index.tt:44
 msgid "The blog is currently unavailable."
-msgstr ""
+msgstr "Blogi pole hetkel saadaval."
 
 #: ../root/release/edit/information.tt:166
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -6907,7 +7146,7 @@ msgstr "Sisestatud andmed ei erine millegi poolest juba olemasolevatest andmetes
 msgid "The database has no tags."
 msgstr "Andmebaasis pole ühtki silti."
 
-#: ../root/scripts/text_strings.tt:94
+#: ../root/scripts/text_strings.tt:95
 msgid "The date you've entered is not valid."
 msgstr "Sisestatud kuupäev ei ole korrektne."
 
@@ -6923,9 +7162,9 @@ msgstr "See toimetus on juba suletud."
 msgid "The edit has been cancelled."
 msgstr "See toimetus on tühistatud."
 
-#: ../root/scripts/text_strings.tt:95
+#: ../root/scripts/text_strings.tt:96
 msgid "The end date cannot preceed the begin date."
-msgstr ""
+msgstr "Lõppkuupäev ei saa olla enne alguskuupäeva."
 
 #: ../root/user/privileged.tt:41
 msgid "The following {count} user accounts are bots:"
@@ -6974,25 +7213,25 @@ msgstr "Selle põhjus pole teada."
 msgid ""
 "The recording artists do not match! Perhaps you meant to use the \"append "
 "mediums\" merge strategy?"
-msgstr ""
+msgstr "Salvestiste artistid ei klapi! Vahest mõtlesid kasutada hoopis sihtväljalaskele helikandja(te) lisamise mestimisstrateegiat?"
 
 #: ../root/release/merge.tt:143
 msgid ""
 "The recordings that will be merged if you continue with the current merge "
 "strategy include the following, whose artists differ:"
-msgstr ""
+msgstr "Kui jätkad praeguse mestimisstrateegiaga, siis mestitakse järgmised eri artistidele omistatud salvestised:"
 
 #: ../root/relationship/linktype/in_use.tt:4
 msgid ""
 "The relationship type \"{type}\" can not be deleted because it is is still "
 "in use."
-msgstr ""
+msgstr "Seosetüüpi „{type}” ei saa kustutada, kuna see on veel kasutuses."
 
 #: ../root/search/error/internal-error.tt:3
 msgid ""
 "The search server could not fulfill your request due to an internal error. "
 "This is usually only temporary, so please retry your search again later."
-msgstr ""
+msgstr "Otsinguserveril ei õnnestunud sisemise vea tõttu päringut täita. Tavaliselt on viga ajutine, nii et proovi hiljem uuesti."
 
 #: ../root/layout.tt:117
 msgid "The server is temporary in read-only mode for database maintainance."
@@ -7000,7 +7239,7 @@ msgstr "Server on hooldustööde tarvis ajutiselt kirjutuskaitstud režiimis."
 
 #: ../root/main/503.tt:5
 msgid "The system is overloaded or you are making requests too fast."
-msgstr ""
+msgstr "Süsteem on ülekoormatud või siis teed päringuid liiga kiiresti."
 
 #: ../root/elections/show.tt:26
 msgid ""
@@ -7010,8 +7249,8 @@ msgstr "häältearvestust näidatakse pärast valimise lõppu"
 #: ../root/freedb/show.tt:55
 msgid ""
 "The tracklist found looks like it may have different artists on some tracks."
-" If the below display looks correct, you should import this releases as a "
-"multiple release"
+" If the below display looks correct, you should import this release as a "
+"release with multiple artists."
 msgstr ""
 
 #: ../root/cdtoc/set_durations.tt:20
@@ -7024,7 +7263,7 @@ msgstr "Muudetav lugude nimekiri on hetkel kasutuses järgmistel väljalasetel:"
 msgid "The users make MusicBrainz happen and we appreciate your help!"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:96
+#: ../root/scripts/text_strings.tt:97
 msgid "The value you've entered is not valid."
 msgstr "Sisestatud väärtus ei ole korrektne."
 
@@ -7057,7 +7296,7 @@ msgstr "{artist} pole hetkel ühegi kasutaja jälgimisloendis."
 
 #: ../root/collection/subscribers.tt:22
 msgid "There are currently no users subscribed to {collection}."
-msgstr ""
+msgstr "{collection} pole hetkel ühegi kasutaja jälgimisloendis."
 
 #: ../root/label/subscribers.tt:22
 msgid "There are currently no users subscribed to {label}."
@@ -7118,8 +7357,8 @@ msgstr[1] "{artist} on hetkel {num} kasutaja jälgimisloendis:"
 #: ../root/collection/subscribers.tt:4
 msgid "There is currently {num} user subscribed to {collection}:"
 msgid_plural "There are currently {num} users subscribed to {collection}:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{collection} on hetkel {num} kasutaja jälgimisloendis:"
+msgstr[1] "{collection} on hetkel {num} kasutaja jälgimisloendis:"
 
 #: ../root/label/subscribers.tt:4
 msgid "There is currently {num} user subscribed to {label}:"
@@ -7210,59 +7449,59 @@ msgstr "Sel artistil on väljalaskerühmi ainult erinevate esitajate hulgas."
 msgid "This artist only has releases by various artists."
 msgstr "Sel artistil on väljalaskeid ainult erinevate esitajate hulgas."
 
-#: ../root/scripts/text_strings.tt:111
+#: ../root/scripts/text_strings.tt:112
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:111
 #, perl-brace-format
 msgid "This attribute can only be specified {max} times. You specified {n}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:110
+#: ../root/scripts/text_strings.tt:111
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:95
 msgid "This attribute is not supported for the selected relationship type."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:112
+#: ../root/scripts/text_strings.tt:113
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:106
 msgid "This attribute is required."
 msgstr "See on kohustuslik atribuut."
 
 #: ../root/collection/tags.tt:2
 msgid "This collection has no tags."
-msgstr ""
+msgstr "Seda kogu pole sildistatud."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid ""
 "This edit failed because it affected high quality data and did not receive "
 "any votes."
 msgstr "See toimetus nurjus, kuna puudutas kõrge kvaliteediga andmeid ja ei saanud ühtki häält."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid ""
 "This edit failed because the data it was changing was modified after this "
 "edit was created. This may happen when the same edit is entered in twice; "
 "one will pass but the other will fail."
 msgstr "See toimetus nurjus, kuna andmeid, mida see puudutas, muudeti pärast selle toimetuse loomist. Nii võib juhtuda siis, kui sama toimetus kaks korda sisestatakse — üks rakendatakse, aga teine nurjub."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid "This edit failed because there were insufficient \"yes\" votes."
 msgstr "See toimetus nurjus, kuna ei saanud piisavalt poolthääli."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
 msgstr "See toimetus nurjus sisemise vea tõttu ja tuleks võibolla uuesti sisestada."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "See toimetus nurjus, kuna olemit, mida see puudutas, pole enam olemas või ei saa seda enam sel viisil muuta."
+msgstr "See toimetus nurjus, kuna sisu, mida see puudutas, pole enam olemas või ei saa seda enam sel viisil muuta."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid "This edit has been successfully applied."
 msgstr "See toimetus on edukalt rakendatud."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid "This edit is open and awaiting votes before it can be applied."
 msgstr "See toimetus on lahtine ja ootab hääli, enne kui selle rakendada saab."
 
@@ -7276,20 +7515,20 @@ msgid ""
 " set the release artist to Various Artists."
 msgstr ""
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid "This edit was cancelled."
 msgstr "See toimetus on tühistatud."
 
-#: ../root/components/common-macros.tt:604
+#: ../root/components/common-macros.tt:610
 msgid "This edit was recently cancelled."
 msgstr "See toimetus on hiljuti tühistatud."
 
-#: ../root/components/common-macros.tt:233
+#: ../root/components/common-macros.tt:237
 #: ../lib/MusicBrainz/Server/Plugin/Diff.pm:118
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "See olem on eemaldatud ja seda ei saa korralikult näidata."
 
-#: ../root/components/common-macros.tt:233
+#: ../root/components/common-macros.tt:237
 msgid "This entity will be created when edits are entered."
 msgstr "See olem luuakse, kui toimetused süsteemi sisestatakse."
 
@@ -7317,7 +7556,7 @@ msgstr "Siin on võimalik {artist} mitmeks eri artistiks eraldada. Sisestatav to
 msgid "This group has dissolved."
 msgstr "See grupp on laiali läinud (aga lõppkuupäeva ei tea)"
 
-#: ../root/layout.tt:97
+#: ../root/layout.tt:97 ../lib/DBDefs/Default.pm:109
 msgid "This is a MusicBrainz development server."
 msgstr "See on MusicBrainzi arendusserver."
 
@@ -7484,6 +7723,12 @@ msgid ""
 "\"/\" or \"-\"."
 msgstr "Selle aruande eesmärk on tuvastada väljalasked, mis tuleks teisendada mitme esitaja alla (nt kuna lugude esitajad on pealkirjaväljal). Hetkel näidatakse siin kõiki väljalaskeid, millel on iga loo pealkirjas „/” või „-”."
 
+#: ../root/report/tracks_without_times.tt:6
+msgid ""
+"This report lists all releases where some or all tracks have unknown track "
+"lengths."
+msgstr "See aruanne loetleb kõik väljalasked, kus vähemalt ühel lool on pikkus sisestamata."
+
 #: ../root/report/mediums_with_sequence_issues.tt:6
 msgid ""
 "This report lists all releases where the mediums are not continuous (e.g. "
@@ -7540,12 +7785,51 @@ msgid ""
 "probably split it. See {how_to_split_artists|How to Split Artists}."
 msgstr "See aruanne loetleb artistid, kellel on koostööseosed, aga eiühtki seost URL-idega. Kui koostööl on omaenda nimi, ära tee midagi. Kui nimi on kujul „X koos Y-iga” või „X & Y”, tuleks see tõenäoliselt vastavateks artistideks eraldada (vaata, {how_to_split_artists|kuidas see käib})."
 
+#: ../root/report/duplicate_relationships_artists.tt:6
+msgid ""
+"This report lists artists which have multiple relatonships to the same "
+"artist, label or URL using the same relationship type. For multiple "
+"relationships to release groups, recordings or works, see the reports for "
+"those entities."
+msgstr "See aruanne loetleb artistid, millel on mitu sama tüüpi seost ühe ja sama artisti, plaadifirma või URL-iga. Välja on jäetud topeltseosed väljalaskerühmade, salvestiste ja teostega — need on loetletud nende vastavates aruannetes."
+
+#: ../root/report/duplicate_relationships_labels.tt:6
+msgid ""
+"This report lists labels which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "See aruanne loetleb plaadifirmad, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+
+#: ../root/report/duplicate_relationships_recordings.tt:6
+msgid ""
+"This report lists recordings which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "See aruanne loetleb salvestised, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+
+#: ../root/report/duplicate_relationships_release_groups.tt:6
+msgid ""
+"This report lists release groups which have multiple relationships to the "
+"same entity using the same relationship type."
+msgstr "See aruanne loetleb väljalaskerühmad, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+
+#: ../root/report/duplicate_relationships_releases.tt:6
+msgid ""
+"This report lists releases which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "See aruanne loetleb väljalasked, millel on mitu sama tüüpi seost ühe ja sama olemiga."
+
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
 "This report lists releases without any disc IDs that probably contain data "
 "tracks (like videos). A data track should be deleted if it is the last track"
 " of the CD and there is no disc ID."
 msgstr "See aruanne loetleb väljalasked, millel pole ühtki plaadi-ID-d ja mis tõenäoliselt sisaldavad andmeradu (nt videoid). Andmerada tuleks kustutada, kui see on CD-l viimane ja plaadil pole plaadi-ID-d."
+
+#: ../root/report/duplicate_relationships_works.tt:6
+msgid ""
+"This report lists works which have multiple relationships to the same entity"
+" using the same relationship type. This excludes recording-work "
+"relationships. See the recording version of this report for those."
+msgstr "See aruanne loetleb teosed, millel on mitu sama tüüpi seost ühe ja sama olemiga. Välja on jäetud seosed salvestiste ja teoste vahel — need on loetletud selle aruande salvestiste-versioonis."
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -7668,6 +7952,10 @@ msgid ""
 "other European languages) is Latin."
 msgstr "See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. Kui kirjasüsteemi ära tunned, siis lihtsalt määra see. Pea meeles, et eesti keele (ja enamikku teiste Euroopa keelte) jaoks kasutatakse ladina kirja."
 
+#: ../root/report/releases_with_coverart_links.tt:6
+msgid "This report shows releases that still have Cover Art relationships."
+msgstr ""
+
 #: ../root/report/releases_with_cc_links.tt:6
 msgid ""
 "This report shows releases that still have Creative Commons Download "
@@ -7751,34 +8039,34 @@ msgstr "See eeldab, et vastavatel helikandjatel on sama palju lugusid."
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "See tabel näitab selle toimetaja antud häälte kokkuvõtet."
 
-#: ../root/scripts/text_strings.tt:118
+#: ../root/scripts/text_strings.tt:119
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
 msgstr "Lugude nimekirjal on artistiväljal teavet, mis läheb loopealkirjade ja artistinimede vahetamisel kaotsi. Seda ei saa tagasi võtta. Kas soovid jätkata?"
 
-#: ../root/components/common-macros.tt:425
+#: ../root/components/common-macros.tt:429
 msgid "This user is automated."
 msgstr "See kasutaja on automaat."
 
-#: ../root/components/common-macros.tt:424
+#: ../root/components/common-macros.tt:428
 msgid "This user is new to MusicBrainz."
 msgstr "See kasutaja on MusicBrainzis uus."
 
 #: ../root/release/edit_relationships.tt:25
 msgid "This will add a relationship to all checked recordings."
-msgstr ""
+msgstr "Lisatakse samasugune seos kõigile valitud salvestistele."
 
 #: ../root/release/edit_relationships.tt:30
 msgid "This will add a relationship to all checked works."
-msgstr ""
+msgstr "Lisatakse samasugune seos kõigile valitud teostele."
 
 #: ../root/release/edit_relationships.tt:35
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
-msgstr "See loob uue teose iga märgitud salvestise jaoks, millel seostatud teost pole. Loodavate teoste pealkirjadena kasutatakse vastavate salvestiste pealkirju."
+msgstr "Luuakse uus teos iga märgitud salvestise jaoks, mis pole veel ühegi teosega seostatud. Loodavate teoste pealkirjadena kasutatakse vastavate salvestiste pealkirju."
 
 #: ../root/release/merge_search.tt:4
 msgid "This wizard allows you to merge {release} into another release."
@@ -7792,13 +8080,13 @@ msgstr "Sel teosel pole seoseid, niisiis eemaldatakse see järgmise paari päeva
 
 #: ../root/work/tags.tt:2
 msgid "This work has no tags."
-msgstr "Sel teosel pole silte."
+msgstr "Seda teost pole sildistatud."
 
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
 msgid "Time"
 msgstr "Aeg"
 
-#: ../root/layout/menu.tt:134
+#: ../root/layout/menu.tt:137
 msgid "Timeline Graph"
 msgstr "Ajatelg"
 
@@ -7877,7 +8165,7 @@ msgid "To:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/menu.tt:200
+#: ../root/layout/menu.tt:203
 msgid "Top CD Stubs"
 msgstr "Pooleldi sisestatud CD-d"
 
@@ -7890,6 +8178,7 @@ msgstr "Leitud ISRC-sid: {count}"
 #: ../root/report/artists_that_may_be_persons.tt:12
 #: ../root/report/collaboration_relationships.tt:10
 #: ../root/report/discogs_links_with_multiple_artists.tt:7
+#: ../root/report/duplicate_relationships_artists.tt:9
 #: ../root/report/possible_collaborations.tt:13
 msgid "Total artists found: {count}"
 msgstr "Leitud artiste: {count}"
@@ -7899,6 +8188,7 @@ msgid "Total duplicate groups: {count}"
 msgstr "Leitud duplikaate: {count}"
 
 #: ../root/report/discogs_links_with_multiple_labels.tt:7
+#: ../root/report/duplicate_relationships_labels.tt:8
 msgid "Total labels found: {count}"
 msgstr "Leitud plaadifirmasid: {count}"
 
@@ -7906,12 +8196,14 @@ msgstr "Leitud plaadifirmasid: {count}"
 msgid "Total length:"
 msgstr "Kogupikkus:"
 
+#: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:12
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 msgid "Total recordings found: {count}"
 msgstr "Leitud salvestisi: {count}"
 
 #: ../root/report/discogs_links_with_multiple_release_groups.tt:7
+#: ../root/report/duplicate_relationships_release_groups.tt:8
 #: ../root/report/featuring_release_groups.tt:11
 msgid "Total release groups found: {count}"
 msgstr "Leitud väljalaskerühmi: {count}"
@@ -7924,6 +8216,7 @@ msgstr "Leitud väljalaskerühmi: {count}"
 #: ../root/report/bad_amazon_urls.tt:10
 #: ../root/report/cat_no_looks_like_asin.tt:9
 #: ../root/report/discogs_links_with_multiple_releases.tt:14
+#: ../root/report/duplicate_relationships_releases.tt:8
 #: ../root/report/featuring_releases.tt:11 ../root/report/multiple_asins.tt:11
 #: ../root/report/multiple_discogs_links.tt:14
 #: ../root/report/part_of_set_relationships.tt:13
@@ -7931,6 +8224,7 @@ msgstr "Leitud väljalaskerühmi: {count}"
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_cc_links.tt:7
+#: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_without_language.tt:10
 #: ../root/report/releases_without_script.tt:9
 #: ../root/report/releases_with_unlikely_language_script.tt:8
@@ -7942,6 +8236,7 @@ msgstr "Leitud väljalaskeid: {count}"
 #: ../root/report/mediums_with_sequence_issues.tt:9
 #: ../root/report/superfluous_data_tracks.tt:9
 #: ../root/report/tracks_named_with_sequence.tt:10
+#: ../root/report/tracks_without_times.tt:7
 #: ../root/report/tracks_with_sequence_issues.tt:9
 msgid "Total releases: {count}"
 msgstr "Leitud väljalaskeid: {count}"
@@ -7949,6 +8244,10 @@ msgstr "Leitud väljalaskeid: {count}"
 #: ../root/cdstub/index.tt:17 ../root/cdtoc/info.tt:19
 msgid "Total tracks:"
 msgstr "Radade arv:"
+
+#: ../root/report/duplicate_relationships_works.tt:8
+msgid "Total works found: {count}"
+msgstr "Leitud teoseid: {count}"
 
 #: ../root/cdtoc/info.tt:31 ../root/freedb/show.tt:11
 #: ../root/freedb/show.tt:63 ../root/search/lib/inline-results-recording.tt:15
@@ -8024,7 +8323,7 @@ msgstr "Lugude nimekiri:"
 msgid "Tracks"
 msgstr "Lood"
 
-#: ../root/report/index.tt:71
+#: ../root/report/index.tt:78
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Lood, mille nimed sisaldavad nende järjekorranumbrit"
 
@@ -8032,13 +8331,13 @@ msgstr "Lood, mille nimed sisaldavad nende järjekorranumbrit"
 msgid "Tracks:"
 msgstr "Lood:"
 
-#: ../root/admin/index.tt:11 ../root/layout/menu.tt:90
+#: ../root/admin/index.tt:11 ../root/layout/menu.tt:93
 msgid "Transclude WikiDocs"
 msgstr ""
 
 #: ../root/admin/wikidoc/index.tt:33
 msgid "Transcluded version"
-msgstr ""
+msgstr "Transkludeeritud versioon"
 
 #: ../root/admin/wikidoc/index.tt:1 ../root/admin/wikidoc/index.tt:3
 msgid "Transclusion Table"
@@ -8058,7 +8357,7 @@ msgid ""
 "{uri|WikiDocs} transclusion table."
 msgstr "Transklusioonitoimetajad on kasutajad, kes lisavad ja hooldavad kirjeid {uri|WikiDocs}i transklusioonitabelis."
 
-#: ../root/report/index.tt:60
+#: ../root/report/index.tt:63
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr "Tõlgitud/translitereeritud pseudoväljalasked, mis pole originaaliga lingitud"
@@ -8067,11 +8366,12 @@ msgstr "Tõlgitud/translitereeritud pseudoväljalasked, mis pole originaaliga li
 msgid "Twitter"
 msgstr "Twitter"
 
-#: ../root/artist/browse_various.tt:15 ../root/artist/works-list.tt:13
-#: ../root/components/aliases.tt:15 ../root/edit/search_macros.tt:284
-#: ../root/iswc/index.tt:19 ../root/release/edit_relationships.tt:58
-#: ../root/release_group/merge.tt:14 ../root/release/lookup.tt:13
-#: ../root/report/artist_list.tt:6 ../root/report/duplicate_artists.tt:27
+#: ../root/account/applications.tt:55 ../root/artist/browse_various.tt:15
+#: ../root/artist/works-list.tt:13 ../root/components/aliases.tt:15
+#: ../root/edit/search_macros.tt:284 ../root/iswc/index.tt:19
+#: ../root/release/edit_relationships.tt:58 ../root/release_group/merge.tt:14
+#: ../root/release/lookup.tt:13 ../root/report/artist_list.tt:6
+#: ../root/report/duplicate_artists.tt:27
 #: ../root/search/lib/inline-results-artist.tt:9
 #: ../root/search/lib/inline-results-recording.tt:17
 #: ../root/search/results-annotation.tt:8 ../root/search/results-label.tt:10
@@ -8080,9 +8380,9 @@ msgstr "Twitter"
 msgid "Type"
 msgstr "Tüüp"
 
-#: ../root/alias/edit_form.tt:22 ../root/artist/edit_form.tt:41
-#: ../root/artist/index.tt:4 ../root/artist/layout.tt:9
-#: ../root/components/filter-form.tt:5
+#: ../root/account/register_application.tt:34 ../root/alias/edit_form.tt:22
+#: ../root/artist/edit_form.tt:41 ../root/artist/index.tt:4
+#: ../root/artist/layout.tt:9 ../root/components/filter-form.tt:5
 #: ../root/edit/details/add_artist_alias.tt:30
 #: ../root/edit/details/add_artist.tt:25
 #: ../root/edit/details/add_label_alias.tt:30
@@ -8122,10 +8422,10 @@ msgstr "Tüüp: {type}, seisund: {status}"
 msgid "Types:"
 msgstr "Tüübid:"
 
-#: ../root/components/common-macros.tt:517 ../root/report/artist_url_list.tt:5
+#: ../root/components/common-macros.tt:523 ../root/report/artist_url_list.tt:5
 #: ../root/report/bad_amazon_urls.tt:21 ../root/report/label_url_list.tt:5
 #: ../root/report/release_group_url_list.tt:5
-#: ../root/report/release_url_list.tt:5 ../root/scripts/text_strings.tt:107
+#: ../root/report/release_url_list.tt:5 ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/URL.pm:7
 msgid "URL"
 msgstr "URL"
@@ -8146,7 +8446,7 @@ msgstr "URL-i ei leitud"
 msgid "URL Relationships"
 msgstr "URL-i seosed"
 
-#: ../root/components/common-macros.tt:505 ../root/edit/details/edit_url.tt:9
+#: ../root/components/common-macros.tt:511 ../root/edit/details/edit_url.tt:9
 #: ../root/edit/details/edit_url.tt:15
 #: ../root/edit/relationship/create_url.tt:52 ../root/main/500.tt:57
 #: ../root/url/edit.tt:18 ../root/url/index.tt:5
@@ -8157,7 +8457,7 @@ msgstr "URL:"
 msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|nähtav tekst]"
 
-#: ../root/relationship/linktype/tree.tt:15
+#: ../root/relationship/linktype/tree.tt:16
 msgid "UUID:"
 msgstr "UUID:"
 
@@ -8199,13 +8499,14 @@ msgstr "Mitteusaldatav"
 msgid "Up to {n}"
 msgstr "Kuni {n}"
 
-#: ../root/admin/wikidoc/edit.tt:16 ../root/admin/wikidoc/index.tt:61
+#: ../root/account/edit_application.tt:15 ../root/admin/wikidoc/edit.tt:16
+#: ../root/admin/wikidoc/index.tt:61
 msgid "Update"
-msgstr ""
+msgstr "Uuenda"
 
 #: ../root/admin/wikidoc/edit.tt:1 ../root/admin/wikidoc/edit.tt:3
 msgid "Update Page"
-msgstr ""
+msgstr "Lehekülje uuendamine"
 
 #: ../root/components/tag.tt:3
 msgid "Update Tags"
@@ -8232,7 +8533,11 @@ msgstr "URL"
 msgid "Usage Count"
 msgstr "Kasutusarv"
 
-#: ../root/components/common-macros.tt:527
+#: ../root/layout.tt:156
+msgid "Use beta site"
+msgstr "Kasuta beetasaiti"
+
+#: ../root/components/common-macros.tt:533
 msgid "Use in a relationship"
 msgstr "Kasuta seoses"
 
@@ -8321,7 +8626,7 @@ msgstr "Vaata kõiki hindeid"
 msgid "View all relationships"
 msgstr "Vaata kõiki seoseid"
 
-#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:823
+#: ../root/annotation/common.tt:21 ../root/components/common-macros.tt:829
 msgid "View annotation history"
 msgstr "Vaata annotatsiooni ajalugu"
 
@@ -8335,7 +8640,7 @@ msgstr "Vaata täpsemalt"
 
 #: ../root/admin/wikidoc/index.tt:63
 msgid "View on wiki"
-msgstr ""
+msgstr "Vaata wikis"
 
 #: ../root/annotation/history.tt:29
 msgid "View this version"
@@ -8343,7 +8648,7 @@ msgstr "Vaata seda versiooni"
 
 #: ../root/admin/wikidoc/index.tt:12
 msgid "View transclusion history"
-msgstr ""
+msgstr "Vaata transklusiooniajalugu"
 
 #: ../root/elections/show.tt:112
 msgid "Vote"
@@ -8357,11 +8662,11 @@ msgstr "Hääleta vastu"
 msgid "Vote YES"
 msgstr "Hääleta poolt"
 
-#: ../root/layout/menu.tt:230
+#: ../root/layout/menu.tt:233
 msgid "Vote on Edits"
 msgstr "Hääleta toimetusi"
 
-#: ../root/scripts/text_strings.tt:121
+#: ../root/scripts/text_strings.tt:122
 msgid "Vote on all edits:"
 msgstr "Hääl kõigil avatud toimetustel:"
 
@@ -8419,7 +8724,7 @@ msgid ""
 " second their nomination. If you do not support this candidate, please note "
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
-msgstr ""
+msgstr "Hääletamine pole veel avatud. Kui soovid seda kandidaati toetada, võid hakata sekundandiks. Kui sa seda kandidaati ei toeta, siis pane tähele, et vastuhäält anda (või erapooletuks jääda) saab alles pärast kahe sekundandi leidmist."
 
 #: ../root/doc/edit_type.tt:59
 msgid "Voting period (days)"
@@ -8441,7 +8746,7 @@ msgid ""
 "Warning: This relationship has pending edits. <a target=\"_blank\" data-"
 "bind=\"attr: {href: relationship().openEdits()}\">Click here</a> to view "
 "these edits and make sure they do not conflict with your own."
-msgstr ""
+msgstr "Hoiatus: sel seosel on ootel toimetusi. Nende nägemiseks <a target=\"_blank\" data-bind=\"attr: {href: relationship().openEdits()}\">klõpsa siin</a> ja siis vaata, et nad poleks sinu tehtavaga vastuolus."
 
 #: ../root/watch/list.tt:1 ../root/watch/list.tt:2
 msgid "Watched Artists"
@@ -8453,13 +8758,14 @@ msgstr "Vabandust, kuid selle aruande andmed pole hetkel saadaval."
 
 #: ../root/edit/details/macros.tt:88
 msgid "We are unable to display history for this cover art."
-msgstr ""
+msgstr "Selle kaanepildi ajalugu pole võimalik näidata."
 
 #: ../root/edit/details/macros.tt:88
+#: ../root/edit/details/reorder_cover_art.tt:2
 msgid ""
 "We are unable to display history for this cover art. For a current listing "
 "of cover art, please see the {coverart|release's cover art page}."
-msgstr ""
+msgstr "Selle kaanepildi ajalugu pole võimalik näidata. Hetkeseisu nägemiseks vaata {coverart|väljalaske kaanepildilehekülge}."
 
 #: ../root/release/edit/missing_entities.tt:149
 msgid ""
@@ -8547,7 +8853,7 @@ msgid ""
 "your request &#x2014; the problem may go away."
 msgstr "Meil on selle probleemi pärast kohutavalt kahju. Palun oota paar minutit ja proovi siis uuesti — probleem võib olla lahenenud."
 
-#: ../root/scripts/text_strings.tt:120
+#: ../root/scripts/text_strings.tt:121
 msgid ""
 "We're very sorry, an error occurred during submission. The server may be "
 "under heavy load; please wait a moment and try again."
@@ -8566,6 +8872,10 @@ msgid ""
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
 msgstr "Saatsime sulle juhised oma parooli lähtestamiseks. Kui kiri kohale ei jõua või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
+
+#: ../root/account/applications.tt:67
+msgid "Web Application"
+msgstr ""
 
 #: ../root/account/edit.tt:18 ../root/admin/edit_user.tt:33
 msgid "Website:"
@@ -8618,10 +8928,10 @@ msgstr ""
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
-#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:517
-#: ../root/components/common-macros.tt:574 ../root/edit/search_macros.tt:284
-#: ../root/scripts/text_strings.tt:108 ../root/work/edits.tt:19
-#: ../root/work/header.tt:13 ../root/work/merge.tt:11
+#: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:523
+#: ../root/components/common-macros.tt:580 ../root/edit/search_macros.tt:284
+#: ../root/report/work_list.tt:5 ../root/scripts/text_strings.tt:109
+#: ../root/work/edits.tt:19 ../root/work/header.tt:13 ../root/work/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
 msgid "Work"
@@ -8655,7 +8965,7 @@ msgstr "Hinded teostele"
 msgid "Work type:"
 msgstr "Teose liik:"
 
-#: ../root/components/common-macros.tt:505
+#: ../root/components/common-macros.tt:511
 #: ../root/edit/details/add_work_alias.tt:3
 #: ../root/edit/details/add_work_annotation.tt:3
 #: ../root/edit/details/add_work.tt:3
@@ -8667,7 +8977,8 @@ msgid "Work:"
 msgstr "Teos:"
 
 #: ../root/artist/header.tt:1 ../root/artist/works.tt:2
-#: ../root/tag/header.tt:1 ../root/tag/index.tt:3 ../root/user/tag.tt:4
+#: ../root/report/index.tt:83 ../root/tag/header.tt:1 ../root/tag/index.tt:3
+#: ../root/user/tag.tt:4
 msgid "Works"
 msgstr "Teosed"
 
@@ -8675,13 +8986,19 @@ msgstr "Teosed"
 msgid "Works starting with “{index}”"
 msgstr "Teosed, mille pealkirja alguses on „{index}”"
 
+#: ../root/report/duplicate_relationships_works.tt:1
+#: ../root/report/duplicate_relationships_works.tt:3
+#: ../root/report/index.tt:86
+msgid "Works with possible duplicate relationships"
+msgstr "Teosed võimalike topeltseostega"
+
 #: ../root/artist/works-list.tt:10 ../root/iswc/index.tt:17
 #: ../root/otherlookup/results-work.tt:8 ../root/search/results-work.tt:9
 #: ../root/work/merge.tt:12
 msgid "Writers"
 msgstr "Autorid"
 
-#: ../root/layout/menu.tt:175
+#: ../root/layout/menu.tt:178
 msgid "XML Web Service"
 msgstr "XML-veebiteenus"
 
@@ -8697,7 +9014,7 @@ msgstr "XML:"
 msgid "YYYY"
 msgstr "AAAA"
 
-#: ../root/layout/menu.tt:157 ../root/main/index.tt:11
+#: ../root/layout/menu.tt:160 ../root/main/index.tt:11
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
@@ -8732,6 +9049,8 @@ msgstr "Jah"
 msgid "Yes vote count"
 msgstr "Poolthäälte arv"
 
+#: ../root/account/remove_application.tt:10
+#: ../root/account/revoke_application_access.tt:10
 #: ../root/elections/nominate.tt:11
 msgid "Yes, I am sure"
 msgstr "Jah, olen kindel"
@@ -8910,6 +9229,16 @@ msgstr ""
 msgid "You currently have the following entities selected for merging:"
 msgstr "Hetkel on mestimiseks valitud järgnev:"
 
+#: ../root/account/applications.tt:84
+msgid "You do not have any registered applications."
+msgstr ""
+
+#: ../root/oauth2/oob.tt:5
+msgid ""
+"You have granted access to {app}. Next, return to {app} and copy this token "
+"to complete the authorization process:"
+msgstr ""
+
 #: ../root/release/sidebar.tt:133
 msgid "You have no collections!"
 msgstr "Sul pole kogusid."
@@ -8917,6 +9246,10 @@ msgstr "Sul pole kogusid."
 #: ../root/user/collections.tt:35
 msgid "You have no collections."
 msgstr "Sul pole kogusid."
+
+#: ../root/account/applications.tt:42
+msgid "You have not authorized any applications."
+msgstr "Sul pole ühtki volitatud rakendust."
 
 #: ../root/recording/edit.tt:42
 msgid ""
@@ -8928,9 +9261,9 @@ msgstr "Oled sellel salvestisel kasutanud eriotstarbelist artisti „{valink|Eri
 msgid "You have used the {valink|Various Artists} special purpose artist on:"
 msgstr "oled järgneval kasutanud eriotstarbelist artisti „{valink|Erinevad esitajad}”:"
 
-#: ../root/scripts/text_strings.tt:115
+#: ../root/scripts/text_strings.tt:116
 msgid "You haven't made any changes!"
-msgstr ""
+msgstr "Midagi pole muudetud."
 
 #: ../root/edit/cancel.tt:14
 msgid ""
@@ -8940,17 +9273,17 @@ msgstr "Ühtlasi võid sisestada ka toimetusmärke. See võib olla kasulik kasut
 
 #: ../root/artist/special_purpose.tt:2
 msgid "You may not edit special purpose artists"
-msgstr ""
+msgstr "Eriotstarbelisi artiste pole lubatud toimetada."
 
 #: ../root/account/registered.tt:21
 msgid ""
 "You may proceed to <a href=\"{uri}\">your user profile</a>, or maybe you "
 "want to {edit|start editing}!"
-msgstr ""
+msgstr "Võid minna edasi oma <a href=\"{uri}\">oma kasutajaprofiilile</a> või siis kohe {edit|toimetama hakata}!"
 
 #: ../root/edit/index.tt:70
 msgid "You must be logged in to vote on edits"
-msgstr ""
+msgstr "Toimetuste hääletamiseks logi palun sisse."
 
 #: ../root/main/401.tt:9
 msgid ""
@@ -9030,7 +9363,7 @@ msgstr "Sinu kasutajanimi saab avalikult nähtavaks."
 msgid "[ Unknown ]"
 msgstr "[teadmata]"
 
-#: ../root/components/common-macros.tt:233
+#: ../root/components/common-macros.tt:237
 msgid "[removed]"
 msgstr "[eemaldatud]"
 
@@ -9066,7 +9399,7 @@ msgstr "mõnele"
 msgid "appears on:"
 msgstr "Väljalasetel:"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "artists"
 msgstr "artistide"
 
@@ -9074,7 +9407,7 @@ msgstr "artistide"
 msgid "auto-edits"
 msgstr "kohetoimetusi"
 
-#: ../root/components/common-macros.tt:648
+#: ../root/components/common-macros.tt:654
 msgid "automatically applied"
 msgstr "Automaatselt rakendatud"
 
@@ -9086,7 +9419,7 @@ msgstr "enne"
 msgid "between"
 msgstr "vahemikus"
 
-#: ../root/components/common-macros.tt:425
+#: ../root/components/common-macros.tt:429
 msgid "bot"
 msgstr "bot"
 
@@ -9120,7 +9453,7 @@ msgstr "täpsustus:"
 msgid "do not match"
 msgstr "ei vasta"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "editors"
 msgstr "toimetajate"
 
@@ -9128,21 +9461,21 @@ msgstr "toimetajate"
 msgid "edits"
 msgstr "toimetusi"
 
-#: ../root/components/common-macros.tt:682
+#: ../root/components/common-macros.tt:688
 msgid "ended"
 msgstr ""
 
-#: ../root/components/common-macros.tt:669 ../root/edit/details/macros.tt:28
-msgid "from {begin_date} until {end_date}"
-msgstr ""
-
 #: ../root/components/common-macros.tt:675 ../root/edit/details/macros.tt:28
-msgid "from {date} to ????"
-msgstr ""
+msgid "from {begin_date} until {end_date}"
+msgstr "alates {begin_date} kuni {end_date}"
 
-#: ../root/components/common-macros.tt:677 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:681 ../root/edit/details/macros.tt:28
+msgid "from {date} to ????"
+msgstr "alates {date} kuni ?"
+
+#: ../root/components/common-macros.tt:683 ../root/edit/details/macros.tt:28
 msgid "from {date} to present"
-msgstr ""
+msgstr "alates {date} kuni praeguseni"
 
 #: ../root/release/edit_relationships.tt:64
 #: ../root/release/edit_relationships.tt:110
@@ -9153,11 +9486,11 @@ msgstr "abi"
 msgid "import"
 msgstr ""
 
-#: ../root/components/common-macros.tt:666 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:672 ../root/edit/details/macros.tt:28
 msgid "in {date}"
-msgstr ""
+msgstr "{date}"
 
-#: ../root/components/common-macros.tt:337
+#: ../root/components/common-macros.tt:341
 #: ../root/components/rdfa-macros.tt:723 ../root/components/rdfa-macros.tt:736
 msgid "info"
 msgstr "teave"
@@ -9202,11 +9535,11 @@ msgstr "on rohkem kui"
 msgid "is not"
 msgstr "ei ole"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "labels"
 msgstr "plaadifirmade"
 
-#: ../root/components/common-macros.tt:424
+#: ../root/components/common-macros.tt:428
 msgid "limited user"
 msgstr "piiratud kasutaja"
 
@@ -9251,11 +9584,11 @@ msgstr "kõigepealt vanemaid"
 msgid "on"
 msgstr ""
 
-#: ../root/components/common-macros.tt:664 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:670 ../root/edit/details/macros.tt:28
 msgid "on {date}"
 msgstr "{date}"
 
-#: ../root/components/common-macros.tt:115
+#: ../root/components/common-macros.tt:119
 msgid "original"
 msgstr "algne"
 
@@ -9289,15 +9622,15 @@ msgstr "juhuslikus järjekorras"
 msgid "recording"
 msgstr "salvestis"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "recordings"
 msgstr "salvestiste"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "release groups"
 msgstr "väljalaskerühmade"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "releases"
 msgstr "väljalasete"
 
@@ -9353,10 +9686,10 @@ msgstr "lugu"
 #: ../root/release/index.tt:101
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "lugu {tracks}"
+msgstr[1] "lood {tracks}"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "tracks"
 msgstr "lugude"
 
@@ -9364,11 +9697,11 @@ msgstr "lugude"
 msgid "unsubscribe"
 msgstr "lõpeta jälgimine"
 
-#: ../root/components/common-macros.tt:680 ../root/edit/details/macros.tt:28
+#: ../root/components/common-macros.tt:686 ../root/edit/details/macros.tt:28
 msgid "until {date}"
 msgstr "kuni {date}"
 
-#: ../root/components/common-macros.tt:157
+#: ../root/components/common-macros.tt:161
 msgid "works"
 msgstr "teoste"
 
@@ -9377,9 +9710,13 @@ msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr "{about|Lisateave} — {faq|KKK} — {contact|Kontakt}"
 
-#: ../root/components/common-macros.tt:130
+#: ../root/components/common-macros.tt:134
 msgid "{almost_last_list_item} and {last_list_item}"
 msgstr "{almost_last_list_item} ja {last_list_item}"
+
+#: ../root/oauth2/authorize.tt:5
+msgid "{app} is requesting permission to:"
+msgstr ""
 
 #: ../root/artist/works-list.tt:36 ../root/iswc/index.tt:36
 #: ../root/otherlookup/results-work.tt:20 ../root/search/results-work.tt:24
@@ -9391,7 +9728,7 @@ msgstr "{artist} ({roles})"
 msgid "{artist} - {name}"
 msgstr "{artist} — {name}"
 
-#: ../root/components/common-macros.tt:201
+#: ../root/components/common-macros.tt:205
 msgid "{artist} as {name}"
 msgstr "{artist} kui {name}"
 
@@ -9421,7 +9758,7 @@ msgstr "{begindate} – {enddate}"
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:141
+#: ../root/components/common-macros.tt:145
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
@@ -9438,8 +9775,8 @@ msgstr "{count} ({view_url|vaata})"
 #: ../root/components/ratings.tt:16
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{count} privaatset hinnet ei näidata."
+msgstr[1] "{count} privaatset hinnet ei näidata."
 
 #: ../root/user/profile.tt:44
 msgid "{doc|Auto-Editor}"
@@ -9448,6 +9785,10 @@ msgstr "{doc|vanemtoimetaja}"
 #: ../root/cdstub/index.tt:13
 msgid "{doc|Disc ID}:"
 msgstr "{doc|Plaadi-ID}:"
+
+#: ../root/oauth2/error.tt:7
+msgid "{doc|Learn more}"
+msgstr ""
 
 #: ../root/user/profile.tt:46
 msgid "{doc|Relationship Editor}"
@@ -9467,8 +9808,8 @@ msgid ""
 "before you can approve it."
 msgstr "{edit} on saanud mõne vastuhääle; selle heakskiitmiseks pead jätma toimetusmärke."
 
-#: ../root/components/common-macros.tt:242
-#: ../root/components/common-macros.tt:879
+#: ../root/components/common-macros.tt:246
+#: ../root/components/common-macros.tt:885 ../root/main/index.tt:124
 msgid "{entity} by {artist}"
 msgstr "„{entity}”, esitaja: {artist}"
 
@@ -9480,7 +9821,7 @@ msgstr "{entity} on ilma aliasteta."
 msgid "{format} {position} {name} on {release} by {artist}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:139
+#: ../root/components/common-macros.tt:143
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
@@ -9492,7 +9833,7 @@ msgstr "{link} on ilma hinneteta."
 msgid "{link} has no relationships."
 msgstr "{link} on ilma seosteta."
 
-#: ../root/components/common-macros.tt:132
+#: ../root/components/common-macros.tt:136
 msgid "{list_item}, {rest}"
 msgstr "{list_item}, {rest}"
 
@@ -9525,8 +9866,8 @@ msgstr[1] "Leiti {num} artisti"
 #: ../root/user/subscriptions/subscriptions.tt:22
 msgid "{num} collection"
 msgid_plural "{num} collections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} kogu"
+msgstr[1] "{num} kogu"
 
 #: ../root/tag/collection.tt:1
 msgid "{num} collection found"
@@ -9653,11 +9994,11 @@ msgstr ""
 msgid "{type0}-{type1}"
 msgstr ""
 
-#: ../root/relationship/linktype/tree.tt:34
+#: ../root/relationship/linktype/tree.tt:35
 msgid "{type0}-{type1} Relationship Types"
 msgstr ""
 
-#: ../root/relationship/linktype/tree.tt:40
+#: ../root/relationship/linktype/tree.tt:41
 msgid "{type0}-{type1} relationship types"
 msgstr ""
 
@@ -9665,7 +10006,7 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr "{type} „{work}”"
 
-#: ../root/components/common-macros.tt:539
+#: ../root/components/common-macros.tt:545
 msgid "{uri|Relate to URL}"
 msgstr "{uri|Seosta URL-iga}"
 
@@ -9701,7 +10042,7 @@ msgid ""
 "that the artists on these tracks have been entered correctly."
 msgstr "„{valink|Erinevad esitajad}” sobib väga harva loo artistiks, palun vaata, et nende lugude artistid oleks õigesti sisestatud."
 
-#: ../root/components/common-macros.tt:648
+#: ../root/components/common-macros.tt:654
 msgid "{yes} yes : {no} no"
 msgstr "{yes} poolt : {no} vastu"
 
@@ -9711,6 +10052,11 @@ msgstr "{yes} poolt : {no} vastu"
 #: ../root/release/edit/tracklist.tt:484
 msgid "« Previous"
 msgstr "« Tagasi"
+
+#: ../lib/DBDefs/Default.pm:110
+msgid ""
+"This beta test server allows testing of new features with the live database."
+msgstr "Selles beetatestimisserveris saab katsetada uusi funktsioone pärisandmebaasiga."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:29
 #, perl-brace-format
@@ -9728,34 +10074,34 @@ msgstr "Aitäh, toimetus on vastuvõetud ja rakendatud."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."
-msgstr ""
+msgstr "Kasutaja-ID on kas puudu või sobimatul kujul."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:52
 msgid "The email address is missing."
-msgstr ""
+msgstr "E-posti aadress on puudu."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:59
 msgid "The time is missing or is in an invalid format."
-msgstr ""
+msgstr "Aeg on kas puudu või sobimatul kujul."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:67
 msgid "The verification key is missing."
-msgstr ""
+msgstr "Kinnitusvõti on puudu."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:75
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:207
 msgid "The checksum is invalid, please double check your email."
-msgstr ""
+msgstr "Kontrollsumma on vale. Palun vaata e-kiri uuesti üle."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:83
 msgid "Sorry, this email verification link has expired."
-msgstr ""
+msgstr "Vabandust, aga see e-posti kinnitamise link on aegunud."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:92
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:216
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
-msgstr ""
+msgstr "Kasutajat ID-ga „{user_id}” ei leitud."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:135
 msgid ""
@@ -9773,11 +10119,11 @@ msgstr "Selle nime ja e-postiga kasutajat pole."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:191
 msgid "Missing one or more required parameters."
-msgstr ""
+msgstr "Mõni kohustuslik parameeter on puudu."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:199
 msgid "Sorry, this password reset link has expired."
-msgstr ""
+msgstr "Vabandust, aga see parooli lähtestamise link on aegunud."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:257
 msgid "There is no user with this email"
@@ -9792,81 +10138,81 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:521
 msgid "You cannot merge a special purpose artist into another artist"
-msgstr ""
+msgstr "Eriotstarbelist artisti ei saa teise artistiga mestida"
 
 #: ../lib/MusicBrainz/Server/Controller/Artist.pm:526
 msgid "You cannot merge into Deleted Artist"
-msgstr ""
+msgstr "Kustutatud artistiga ei saa mestida"
 
 #: ../lib/MusicBrainz/Server/Controller/AutoEditorElections.pm:70
 #, perl-brace-format
 msgid "'{id}' is not a valid election ID"
-msgstr ""
+msgstr "„{id}” ei ole kehtiv valimiste ID"
 
 #: ../lib/MusicBrainz/Server/Controller/CDStub.pm:62
 msgid "The required TOC parameter was invalid or not present"
-msgstr ""
+msgstr "Kohustuslik sisukorra parameeter oli kas sobimatul kujul või puudu"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:144
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:309
 msgid "The provided CD TOC is not valid"
-msgstr ""
+msgstr "Antud CD-sisukord pole korrektne"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:157
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:323
 msgid "The provided medium id is not valid"
-msgstr ""
+msgstr "Antud helikandja-ID pole korrektne"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:163
 msgid "This CDTOC is already attached to this medium"
-msgstr ""
+msgstr "See CD-sisukord on sellele helikandjale juba omistatud"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:172
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:331
 msgid "The selected medium cannot have disc IDs"
-msgstr ""
+msgstr "Valitud helikandjal ei saa plaadi-ID-d olla"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:199
 msgid "The provided artist id is not valid"
-msgstr ""
+msgstr "Antud artisti-ID pole korrektne"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:187
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:188
 msgid "Default"
 msgstr "Vaikimisi"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:185
 msgid "Invalid arguments"
-msgstr ""
+msgstr "Sobimatud argumendid"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:199
 msgid "Invalid entities"
-msgstr ""
+msgstr "Kehtetud olemid"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:207
 msgid "A relationship requires 2 different entities"
-msgstr ""
+msgstr "Seos eeldab kahte erinevat olemit"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:289
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:297
 msgid "Invalid type"
-msgstr ""
+msgstr "Sobimatu tüüp"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:303
 msgid "Entity not found"
-msgstr ""
+msgstr "Olemit ei leitud"
 
 #: ../lib/MusicBrainz/Server/Controller/FreeDB.pm:37
 #, perl-brace-format
 msgid "'{id}' is not a valid FreeDB ID"
-msgstr ""
+msgstr "„{id}” pole kehtiv FreeDB ID"
 
 #: ../lib/MusicBrainz/Server/Controller/ISRC.pm:58
 msgid "This ISRC does not exist"
-msgstr ""
+msgstr "Seda ISRC-d pole olemas"
 
 #: ../lib/MusicBrainz/Server/Controller/Recording.pm:243
 msgid "This ISRC already exists for this recording"
-msgstr ""
+msgstr "See ISRC on sellel salvestisel juba olemas"
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:48
 #, perl-brace-format
@@ -9879,11 +10225,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/RelationshipEditor.pm:51
 msgid "Invalid submission."
-msgstr ""
+msgstr "Sobimatu sisestus."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:312
 msgid "This release is already in the selected release group"
-msgstr ""
+msgstr "See väljalase on juba valitud väljalaskerühmas"
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:629
 msgid ""
@@ -9901,7 +10247,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid "Your message could not be sent"
-msgstr ""
+msgstr "Sõnumit polnud võimalik saata"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #, perl-brace-format
@@ -9910,23 +10256,23 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:88
 msgid "Invalid TOC"
-msgstr ""
+msgstr "Sobimatu sisukord"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:104
 msgid "No title provided"
-msgstr ""
+msgstr "Pealkiri on puudu"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
 msgid "No artist names provided"
-msgstr ""
+msgstr "Artistinimed on piidi"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:112
 msgid "Not all tracks specify an artist"
-msgstr ""
+msgstr "Mõnel lool on artist puudu"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:116
 msgid "Not all tracks have a title"
-msgstr ""
+msgstr "Mõnel lool on pealkiri puudu"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:120
 msgid "Cannot add a CD stub with no tracks"
@@ -9934,31 +10280,31 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:124
 msgid "Incomplete TOC data"
-msgstr ""
+msgstr "Poolikud sisukorraandmed"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:128
 msgid "Missing disc ID"
-msgstr ""
+msgstr "Puuduv plaadi-ID"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:132
 msgid "Disc ID does match parsed TOC"
-msgstr ""
+msgstr "Plaadi-ID ei vasta parsitud sisukorrale"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:136
 msgid "Number of submitted tracks does not match track count in TOC"
-msgstr ""
+msgstr "Sisestatud lugude arv ei vasta radade arvule sisukorras"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:140
 msgid "Invalid barcode"
-msgstr ""
+msgstr "Ebakorrektne vöötkood"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:150
 msgid "There are already MusicBrainz releases with this disc ID"
-msgstr ""
+msgstr "MusicBrainzis on juba selle plaadi-ID-ga väljalaskeid"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:157
 msgid "There is already a CD stub with this disc ID"
-msgstr ""
+msgstr "MusicBrainzis on juba selle plaadi-ID-ga pooleldi sisestatud CD"
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:149
 #, perl-brace-format
@@ -10221,7 +10567,7 @@ msgstr "Väljalaske plaadifirma muutmine"
 msgid "Remove cover art"
 msgstr "Kaanepildi eemaldamine"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:21
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:22
 msgid "Reorder cover art"
 msgstr "Kaanepiltide järjestuse muutmine"
 
@@ -10373,6 +10719,38 @@ msgstr "Tühistatud"
 msgid "[none]"
 msgstr "[puudub]"
 
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:76
+msgid "View your public account information"
+msgstr "Näha sinu avalikku teavet"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:77
+msgid "View your email address"
+msgstr "Näha sinu meiliaadressi"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:78
+msgid "View and modify your private tags"
+msgstr "Näha ja muuta sinu privaatseid silte"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:79
+msgid "View and modify your private ratings"
+msgstr "Näha ja muuta sinu privaatseid hinnanguid"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:80
+msgid "View and modify your private collections"
+msgstr "Näha ja muuta sinu privaatseid kogusid"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:81
+msgid "Submit new PUIDs to the database"
+msgstr "Edastada andmebaasi uusi PUID-sid"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:82
+msgid "Submit new ISRCs to the database"
+msgstr "Edastada andmebaasi uusi ISRC-sid"
+
+#: ../lib/MusicBrainz/Server/Entity/EditorOAuthToken.pm:83
+msgid "Submit new barcodes to the database"
+msgstr "Edastada andmebaasi uusi vöötkoode"
+
 #: ../lib/MusicBrainz/Server/Entity/Relationship.pm:118
 #, perl-brace-format
 msgid "{b} and {a}"
@@ -10414,7 +10792,7 @@ msgstr ""
 msgid "Artist credit field is required"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:46
+#: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:39
 msgid "The end date must occur on or after the begin date"
 msgstr "Lõppkuupäev ei saa olla enne alguskuupäeva."
 
@@ -10449,9 +10827,17 @@ msgstr "Plaadifirma koodi pikkus peab olema 1 kuni 5 numbrit."
 msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "See pole korrektne pikkus. Õige vorming on „min:sek”."
 
+#: ../lib/MusicBrainz/Server/Form/Field/OAuthRedirectURI.pm:20
+msgid "URL protocol must be HTTP or HTTPS"
+msgstr "URL-i protokoll peab olema HTTP, HTTPS"
+
+#: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:66
+msgid "invalid date"
+msgstr "sobimatu kuupäev"
+
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
 msgid "Enter a valid url e.g. \"http://google.com/\""
-msgstr ""
+msgstr "Sisesta korrektne URL, nagu nt „http://google.com/”"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:24
 msgid "URL protocol must be HTTP, HTTPS or FTP"
@@ -10459,11 +10845,11 @@ msgstr "URL-i protokoll peab olema HTTP, HTTPS või FTP"
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:16
 msgid "Please pick the entity you want the others merged into."
-msgstr ""
+msgstr "Palun vali olem, millesse ülejäänud mestida."
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:61
 msgid "Another medium is already in this position"
-msgstr ""
+msgstr "Sellel kohal on juba helikandja"
 
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:64
 msgid "Positions must be greater than 0"
@@ -10484,11 +10870,11 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:142
 msgid ""
 "This relationship type is not valid between the given types of entities."
-msgstr ""
+msgstr "See seosetüüp pole antud tüüpi olemite vahel lubatud."
 
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:154
 msgid "This entity has an invalid ID or MBID."
-msgstr ""
+msgstr "Sel olemil on kehtetu ID või MBID."
 
 #: ../lib/MusicBrainz/Server/Form/RelationshipEditor.pm:163
 msgid "This entity does not exist."
@@ -10508,7 +10894,7 @@ msgstr "Väljalaske lisamisel tuleb jätta toimetusmärge. Isegi lihtsalt intern
 msgid ""
 "This barcode is invalid, please check that you've correctly entered the "
 "barcode."
-msgstr ""
+msgstr "See vöötkood on ebakorrektne. Palun vaata, kas see on ikka õigesti sisestatud."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:73
 msgid ""
@@ -10518,17 +10904,17 @@ msgstr "Pead valima olemasoleva väljalaskerühma. Kui soovid selle väljalaske 
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:60
 msgid "New tracklisting contains an empty track"
-msgstr ""
+msgstr "Uus lugude nimekiri sisaldab tühja lugu"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:65
 #, perl-brace-format
 msgid "A track name is required on track {pos}"
-msgstr "{pos}. loole on vaja pealkirja."
+msgstr "{pos}. loole on vaja pealkirja"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:70
 #, perl-brace-format
 msgid "A position is required for \"{name}\""
-msgstr ""
+msgstr "„{name}” peab saama järjekorranumbri"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:75
 #, perl-brace-format
@@ -10538,14 +10924,14 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:88
 #, perl-brace-format
 msgid "An artist is required on track {pos}"
-msgstr "{pos}. loole on vaja artisti."
+msgstr "{pos}. loole on vaja artisti"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:115
 #, perl-brace-format
 msgid ""
 "The length of track {pos} cannot be changed since this release has a Disc ID"
 " attached to it."
-msgstr ""
+msgstr "{pos}. loo pikkust ei saa muuta, kuna väljalaskele on omistatud plaadi-ID."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:156
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:198
@@ -10562,7 +10948,7 @@ msgstr[1] "Sel andmekandjal on plaadi-ID, mille järgi sel peab olema {n} lugu."
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:173
 #, perl-brace-format
 msgid "Track {pos} is missing."
-msgstr "{pos}. lugu on puudu."
+msgstr "{pos}. lugu on puudu"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:213
 msgid ""
@@ -10668,22 +11054,22 @@ msgstr "2 nädalat"
 msgid "A month"
 msgstr "Kuu"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:132
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:142
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr "Sageli kasutatavad"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:132
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:142
 msgctxt "language optgroup"
 msgid "Other"
 msgstr "Harvem kasutatavad"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:155
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:166
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr "Sageli kasutatavad"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:155
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:166
 msgctxt "script optgroup"
 msgid "Other"
 msgstr "Harvem kasutatavad"

@@ -63,7 +63,7 @@ sub get_available_languages
     return $self->_fetch_cache_or_url($url_pattern, 'langlinks',
                                       $LANG_CACHE_TIMEOUT,
                                       $title, $language,
-                                      sub { my (%opts) = @_; return $opts{fetched}{content}; },
+                                      sub { my (%opts) = @_; return $opts{fetched}{content} // []; },
                                       %opts);
 }
 
@@ -80,7 +80,7 @@ sub _fetch_cache_or_url
         my $wp_url = sprintf $url_pattern, $language, uri_escape_utf8($title);
 
         my $ret = $self->_get_and_process_json($wp_url, $title, $json_property);
-        unless ($ret) { return undef }
+        unless (defined $ret) { return undef }
 
         $value = &$callback(fetched => $ret, language => $language);
 
@@ -93,10 +93,12 @@ sub _fetch_cache_or_url
 sub _extract_by_language_callback
 {
     my (%opts) = @_;
-    return WikipediaExtract->new( title => $opts{fetched}{title},
-                                  content => $opts{fetched}{content},
-                                  canonical => $opts{fetched}{canonical},
-                                  language => $opts{language} );
+    if ($opts{fetched}{content}) {
+        return WikipediaExtract->new( title => $opts{fetched}{title},
+                                      content => $opts{fetched}{content},
+                                      canonical => $opts{fetched}{canonical},
+                                      language => $opts{language} );
+    }
 }
 
 sub _get_cache_and_key
@@ -141,7 +143,7 @@ sub _get_and_process_json
 
     # pull out the correct page, though there should only be one
     my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
-    unless ($ret && $ret->{$property}) { return undef; }
+    unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
     return {content => $ret->{$property}, title => $noncanonical, canonical => $title}
 }

@@ -20,7 +20,7 @@
 
 (function(MB) {
     $.extend(MB.text, {
-        None: '[% l('(none)') | js %]',
+        TagNone: '[% lp('(none)', 'tag') | js %]',
         Artist: '[% l('Artist') | js %]',
         Name: '[% l('Name') | js %]',
         JoinPhrase: '[% l('Join phrase') | js %]',
@@ -89,6 +89,7 @@
         ShowLess: '[% l('Show less...') | js %]',
         Medium: '[% l('Medium') | js %]',
         RequiredField: '[% l('Required field.') | js %]',
+        DistinctEntities: '[% l('Entities in a relationship cannot be the same.') | js %]',
         AddRelationship: '[% l('Add relationship') | js %]',
         RelateRecordingWork: '[% l('Relate recording to work') | js %]',
         InvalidDate: '[% l('The date you\'ve entered is not valid.') | js %]',

@@ -4222,3 +4222,5 @@ INSERT INTO artist_name (name, id) VALUES ('後藤真希', 235500);
 INSERT INTO artist (edits_pending, ended, id, sort_name, gender, country, begin_date_day, last_updated, name, begin_date_year, end_date_day, comment, begin_date_month, end_date_month, type, end_date_year, gid) VALUES (0, '0', 82524, 438952, 2, 107, 23, '2012-08-27 03:34:50.942403+02', 235500, 1985, NULL, '', 9, NULL, 1, NULL, '678ba12a-e485-44c7-8eaf-25e61a78a61b');
 INSERT INTO link (begin_date_day, attribute_count, begin_date_year, link_type, created, ended, end_date_day, begin_date_month, end_date_month, id, end_date_year) VALUES (NULL, 0, 2001, 111, '2011-05-16 17:03:23.368437+02', '0', NULL, NULL, NULL, 6490, NULL);
 INSERT INTO l_artist_artist (link, last_updated, entity1, entity0, id, edits_pending) VALUES (6490, '2011-05-16 17:03:23.368437+02', 265420, 82524, 127517, 0);
+
+SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
