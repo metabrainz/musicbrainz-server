@@ -8,7 +8,9 @@ CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 
-CREATE INDEX area_code_idx_area ON area_code (area);
+CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
+CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
+CREATE INDEX iso_3166_3_idx_area ON iso_3166_3 (area);
 
 CREATE INDEX area_alias_idx_area ON area_alias (area);
 CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;

@@ -90,6 +90,21 @@ ALTER TABLE l_area_recording
    FOREIGN KEY (link)
    REFERENCES link(id);
 
+ALTER TABLE iso_3166_1
+   ADD CONSTRAINT iso_3166_1_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_2
+   ADD CONSTRAINT iso_3166_2_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_3
+   ADD CONSTRAINT iso_3166_3_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 -- MIGRATIONS --
 -- releases
 ALTER TABLE release ADD CONSTRAINT release_fk_country FOREIGN KEY (country) REFERENCES country_area(area);

@@ -8,8 +8,6 @@ ALTER TABLE area_alias DROP CONSTRAINT area_alias_fk_area;
 ALTER TABLE area_alias DROP CONSTRAINT area_alias_fk_type;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_fk_area;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_fk_annotation;
-ALTER TABLE area_code DROP CONSTRAINT area_code_fk_area;
-ALTER TABLE area_code DROP CONSTRAINT area_code_fk_code_type;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_sort_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_type;
@@ -84,6 +82,9 @@ ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release
 ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release_group_type_fk_release_group_type;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_fk_editor;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_fk_release_status;
+ALTER TABLE iso_3166_1 DROP CONSTRAINT iso_3166_1_fk_area;
+ALTER TABLE iso_3166_2 DROP CONSTRAINT iso_3166_2_fk_area;
+ALTER TABLE iso_3166_3 DROP CONSTRAINT iso_3166_3_fk_area;
 ALTER TABLE isrc DROP CONSTRAINT isrc_fk_recording;
 ALTER TABLE iswc DROP CONSTRAINT iswc_fk_work;
 ALTER TABLE l_area_area DROP CONSTRAINT l_area_area_fk_link;

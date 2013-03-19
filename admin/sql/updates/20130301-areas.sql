@@ -35,14 +35,14 @@ CREATE TABLE area (id                SERIAL PRIMARY KEY,
                      )
                    ));
 
-CREATE TABLE area_code_type (id    SERIAL PRIMARY KEY,
-                             name  VARCHAR(255) NOT NULL);
-                             -- e.g. ISO-3166-1
-CREATE TABLE area_code (area       INTEGER NOT NULL,
-                        code       VARCHAR(30) NOT NULL,
-                        code_type  INTEGER NOT NULL,
-             CONSTRAINT area_code_pkey
-                 PRIMARY KEY (code, code_type));
+CREATE TABLE iso_3166_1 (area      INTEGER NOT NULL,
+                         code      CHAR(2) PRIMARY KEY)
+
+CREATE TABLE iso_3166_2 (area      INTEGER NOT NULL,
+                         code      VARCHAR(10) PRIMARY KEY)
+
+CREATE TABLE iso_3166_3 (area      INTEGER NOT NULL,
+                         code      CHAR(4) PRIMARY KEY)
 
 -- aliases
 CREATE TABLE area_alias_type (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
@@ -155,7 +155,6 @@ CREATE TABLE country_area
 -------------------------
 
 -- basic types
-INSERT INTO area_code_type (id, name) VALUES (1, 'ISO 3166-1'), (2, 'ISO 3166-2'), (3, 'ISO 3166-3') RETURNING *;
 INSERT INTO area_type (id, name) VALUES (1, 'Country') RETURNING *;
 
 -- migrate country table
@@ -170,10 +169,9 @@ INSERT INTO area (id, gid, name, sort_name, type)
 
 INSERT INTO country_area (area) SELECT id FROM country;
 
-INSERT INTO area_code (code, area, code_type)
+INSERT INTO iso_3166_1 (code, area)
   SELECT iso_code AS code,
          id AS area,
-         1::integer AS code_type
     FROM country;
 
 -- new relationship types
@@ -199,7 +197,9 @@ CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 
-CREATE INDEX area_code_idx_area ON area_code (area);
+CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
+CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
+CREATE INDEX iso_3166_3_idx_area ON iso_3166_3 (area);
 
 CREATE INDEX area_alias_idx_area ON area_alias (area);
 CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;

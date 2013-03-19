@@ -56,17 +56,6 @@ CREATE TABLE area (
       )
 );
 
-CREATE TABLE area_code_type (
-    id                  SERIAL, -- PK
-    name                VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE area_code (
-    area       INTEGER NOT NULL, -- references area.id
-    code       VARCHAR(30) NOT NULL, -- PK
-    code_type  INTEGER NOT NULL --PK, references area_code_type.id
-);
-
 CREATE TABLE area_alias_type (
     id SERIAL, -- PK,
     name TEXT NOT NULL
@@ -456,6 +445,19 @@ CREATE TABLE editor_subscribe_editor
 CREATE TABLE gender (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE iso_3166_1 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      CHAR(2) -- PK
+);
+CREATE TABLE iso_3166_2 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      VARCHAR(10) -- PK
+);
+CREATE TABLE iso_3166_3 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      CHAR(4) -- PK
 );
 
 CREATE TABLE isrc

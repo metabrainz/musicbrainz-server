@@ -36,16 +36,6 @@ ALTER TABLE area_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
-ALTER TABLE area_code
-   ADD CONSTRAINT area_code_fk_area
-   FOREIGN KEY (area)
-   REFERENCES area(id);
-
-ALTER TABLE area_code
-   ADD CONSTRAINT area_code_fk_code_type
-   FOREIGN KEY (code_type)
-   REFERENCES area_code_type(id);
-
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)
@@ -430,6 +420,21 @@ ALTER TABLE editor_watch_release_status
    ADD CONSTRAINT editor_watch_release_status_fk_release_status
    FOREIGN KEY (release_status)
    REFERENCES release_status(id);
+
+ALTER TABLE iso_3166_1
+   ADD CONSTRAINT iso_3166_1_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_2
+   ADD CONSTRAINT iso_3166_2_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_3
+   ADD CONSTRAINT iso_3166_3_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE isrc
    ADD CONSTRAINT isrc_fk_recording

@@ -357,11 +357,10 @@ sub ImportAllTables
         work_tag_raw
         annotation
         area
+        area_type
         area_alias
         area_alias_type
         area_annotation
-        area_code
-        area_code_type
         artist
         artist_alias
         artist_alias_type
@@ -384,6 +383,9 @@ sub ImportAllTables
         editor_subscribe_editor
         editor_subscribe_label
         gender
+        iso_3166_1
+        iso_3166_2
+        iso_3166_3
         isrc
         iswc
         l_area_area

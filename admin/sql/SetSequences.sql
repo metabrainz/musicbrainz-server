@@ -5,7 +5,6 @@ SELECT setval('annotation_id_seq', (SELECT MAX(id) FROM annotation));
 SELECT setval('application_id_seq', (SELECT MAX(id) FROM application));
 SELECT setval('area_type_id_seq', (SELECT MAX(id) FROM area_type));
 SELECT setval('area_id_seq', (SELECT MAX(id) FROM area));
-SELECT setval('area_code_type_id_seq', (SELECT MAX(id) FROM area_code_type));
 SELECT setval('area_alias_type_id_seq', (SELECT MAX(id) FROM area_alias_type));
 SELECT setval('area_alias_id_seq', (SELECT MAX(id) FROM area_alias));
 SELECT setval('artist_id_seq', (SELECT MAX(id) FROM artist));

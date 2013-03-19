@@ -7,8 +7,6 @@ ALTER TABLE area DROP CONSTRAINT area_pkey;
 ALTER TABLE area_alias DROP CONSTRAINT area_alias_pkey;
 ALTER TABLE area_alias_type DROP CONSTRAINT area_alias_type_pkey;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_pkey;
-ALTER TABLE area_code DROP CONSTRAINT area_code_pkey;
-ALTER TABLE area_code_type DROP CONSTRAINT area_code_type_pkey;
 ALTER TABLE area_type DROP CONSTRAINT area_type_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_pkey;
@@ -54,6 +52,9 @@ ALTER TABLE editor_watch_preferences DROP CONSTRAINT editor_watch_preferences_pk
 ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release_group_type_pkey;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_pkey;
 ALTER TABLE gender DROP CONSTRAINT gender_pkey;
+ALTER TABLE iso_3166_1 DROP CONSTRAINT iso_3166_1_pkey;
+ALTER TABLE iso_3166_2 DROP CONSTRAINT iso_3166_2_pkey;
+ALTER TABLE iso_3166_3 DROP CONSTRAINT iso_3166_3_pkey;
 ALTER TABLE isrc DROP CONSTRAINT isrc_pkey;
 ALTER TABLE iswc DROP CONSTRAINT iswc_pkey;
 ALTER TABLE l_area_area DROP CONSTRAINT l_area_area_pkey;

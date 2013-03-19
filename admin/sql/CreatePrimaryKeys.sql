@@ -7,8 +7,6 @@ ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias ADD CONSTRAINT area_alias_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias_type ADD CONSTRAINT area_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_annotation ADD CONSTRAINT area_annotation_pkey PRIMARY KEY (area, annotation);
-ALTER TABLE area_code ADD CONSTRAINT area_code_pkey PRIMARY KEY (code, code_type);
-ALTER TABLE area_code_type ADD CONSTRAINT area_code_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_type ADD CONSTRAINT area_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);
 ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_pkey PRIMARY KEY (id);
@@ -54,6 +52,9 @@ ALTER TABLE editor_watch_preferences ADD CONSTRAINT editor_watch_preferences_pke
 ALTER TABLE editor_watch_release_group_type ADD CONSTRAINT editor_watch_release_group_type_pkey PRIMARY KEY (editor, release_group_type);
 ALTER TABLE editor_watch_release_status ADD CONSTRAINT editor_watch_release_status_pkey PRIMARY KEY (editor, release_status);
 ALTER TABLE gender ADD CONSTRAINT gender_pkey PRIMARY KEY (id);
+ALTER TABLE iso_3166_1 ADD CONSTRAINT iso_3166_1_pkey PRIMARY KEY (code);
+ALTER TABLE iso_3166_2 ADD CONSTRAINT iso_3166_2_pkey PRIMARY KEY (code);
+ALTER TABLE iso_3166_3 ADD CONSTRAINT iso_3166_3_pkey PRIMARY KEY (code);
 ALTER TABLE isrc ADD CONSTRAINT isrc_pkey PRIMARY KEY (id);
 ALTER TABLE iswc ADD CONSTRAINT iswc_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_area ADD CONSTRAINT l_area_area_pkey PRIMARY KEY (id);
