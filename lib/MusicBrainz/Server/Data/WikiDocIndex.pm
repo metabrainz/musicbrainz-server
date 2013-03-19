@@ -16,19 +16,13 @@ with 'MusicBrainz::Server::Data::Role::Sql';
 Readonly my $CACHE_PREFIX => "wikidoc";
 Readonly my $CACHE_KEY => "wikidoc-index";
 
-sub _load_index_from_db
-{
-    my ($self) = @_;
-    my $query = "SELECT page_name, revision FROM wikidocs.wikidocs_index";
-    my $data = $self->sql->select_list_of_hashes($query);
-    my %index;
-
-    for my $entry (@$data) {
-        my ($page, $revision) = ($entry->{page_name}, $entry->{revision});
-        $index{$page} = $revision;
-    }
-
-    return \%index;
+sub _load_index_from_db {
+    my $self = shift;
+    return {
+        map { @$_ } @{
+            $self->sql->select_list_of_lists('SELECT page_name, revision FROM wikidocs.wikidocs_index')
+        }
+    };
 }
 
 sub _load_index
