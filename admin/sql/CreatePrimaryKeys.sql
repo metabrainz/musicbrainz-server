@@ -7,7 +7,7 @@ ALTER TABLE area ADD CONSTRAINT area_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias ADD CONSTRAINT area_alias_pkey PRIMARY KEY (id);
 ALTER TABLE area_alias_type ADD CONSTRAINT area_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_annotation ADD CONSTRAINT area_annotation_pkey PRIMARY KEY (area, annotation);
-ALTER TABLE area_code ADD CONSTRAINT area_code_pkey PRIMARY KEY (area, code, code_type);
+ALTER TABLE area_code ADD CONSTRAINT area_code_pkey PRIMARY KEY (code, code_type);
 ALTER TABLE area_code_type ADD CONSTRAINT area_code_type_pkey PRIMARY KEY (id);
 ALTER TABLE area_type ADD CONSTRAINT area_type_pkey PRIMARY KEY (id);
 ALTER TABLE artist ADD CONSTRAINT artist_pkey PRIMARY KEY (id);

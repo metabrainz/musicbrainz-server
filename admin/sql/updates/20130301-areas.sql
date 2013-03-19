@@ -27,7 +27,7 @@ CREATE TABLE area_code (area       INTEGER NOT NULL,
                         code       VARCHAR(30) NOT NULL,
                         code_type  INTEGER NOT NULL,
              CONSTRAINT area_code_pkey
-                 PRIMARY KEY (area, code, code_type));
+                 PRIMARY KEY (code, code_type));
 
 -- aliases
 CREATE TABLE area_alias_type (id SERIAL PRIMARY KEY, name TEXT NOT NULL);
@@ -176,9 +176,7 @@ CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 
-CREATE INDEX area_code_idx_code ON area_code (code);
 CREATE INDEX area_code_idx_area ON area_code (area);
-CREATE UNIQUE INDEX area_code_idx_code_type ON area_code (code, code_type);
 
 CREATE INDEX area_alias_idx_area ON area_alias (area);
 CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;

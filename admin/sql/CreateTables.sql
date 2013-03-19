@@ -47,7 +47,7 @@ CREATE TABLE area_code_type (
 );
 
 CREATE TABLE area_code (
-    area       INTEGER NOT NULL, -- PK, references area.id
+    area       INTEGER NOT NULL, -- references area.id
     code       VARCHAR(30) NOT NULL, -- PK
     code_type  INTEGER NOT NULL --PK, references area_code_type.id
 );
