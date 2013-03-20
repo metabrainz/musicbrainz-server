@@ -266,6 +266,17 @@ ALTER TABLE edit_work
    REFERENCES work(id)
    ON DELETE CASCADE;
 
+ALTER TABLE edit_work_attribute
+   ADD CONSTRAINT edit_work_attribute_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_work_attribute
+   ADD CONSTRAINT edit_work_attribute_fk_work_attribute
+   FOREIGN KEY (work_attribute)
+   REFERENCES work_attribute(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE editor
    ADD CONSTRAINT editor_fk_gender
    FOREIGN KEY (gender)
@@ -1350,6 +1361,26 @@ ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_name
+   FOREIGN KEY (work_attribute_name)
+   REFERENCES work_attribute_name(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_name_value
+   FOREIGN KEY (work_attribute_name_value)
+   REFERENCES work_attribute_name_value(id);
+
+ALTER TABLE work_attribute_name_value
+   ADD CONSTRAINT work_attribute_name_value_fk_work_attribute_name
+   FOREIGN KEY (work_attribute_name)
+   REFERENCES work_attribute_name(id);
 
 ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id
