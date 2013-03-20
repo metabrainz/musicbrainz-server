@@ -51,6 +51,15 @@ then
 fi
 carton exec -- ./admin/RunExport ${FULL:-}
 
+# Do any necessary packet bundling
+echo `date`" : Bundling replication packets, daily"
+carton exec -- ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily
+if date +%w | grep -q [6]
+then
+    echo `date`" : + weekly"
+    carton exec -- ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly
+fi
+
 # Create the reports
 echo `date`" : Running reports"
 OUTPUT=`
