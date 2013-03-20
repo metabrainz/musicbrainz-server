@@ -31,8 +31,7 @@ then
     ./admin/psql READWRITE < ./admin/sql/caa/DropReplicationTriggers.sql
 
     echo `date` : 'Drop replication triggers (statistics)'
-    echo 'DROP TRIGGER "reptg_statistic" ON "statistic";
-          DROP TRIGGER "reptg_statistic_event" ON "statistic_event";' | ./admin/psql READWRITE
+    ./admin/psql READWRITE < ./admin/sql/statistics/DropReplicationTriggers.sql
 fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
@@ -49,6 +48,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table
 echo `date` : 'MBS-4115, Add cover art image types'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -62,6 +64,9 @@ then
 
     echo `date` : 'Create replication triggers (statistics)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/statistics/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (wikidocs)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/wikidocs/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -76,6 +81,15 @@ then
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+fi
+
+################################################################################
+# Migrate the wiki transclusion table (AFTER replication, so it is replicated)
+
+if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
+then
+    echo `date` : 'Migrate wiki transclusion table'
+    OUTPUT=`./admin/sql/updates/20130309-migrate-transclusion-table.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################

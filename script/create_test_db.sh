@@ -15,10 +15,12 @@ echo "
   DROP SCHEMA IF EXISTS musicbrainz CASCADE;
   DROP SCHEMA IF EXISTS statistics CASCADE;
   DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
+  DROP SCHEMA IF EXISTS wikidocs CASCADE;
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
-  CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public TEST 2>&1
+  CREATE SCHEMA cover_art_archive;
+  CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public TEST 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
 if [ `compare_postgres_version 9.1` == "older" ]; then
@@ -53,6 +55,10 @@ OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreatePr
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating Wikidocs Schema
+OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 
