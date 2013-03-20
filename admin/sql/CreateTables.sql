@@ -294,12 +294,6 @@ CREATE TABLE edit_work
     work                INTEGER NOT NULL  -- PK, references work.id CASCADE
 );
 
-CREATE TABLE edit_work_attribute
-(
-    edit                INTEGER NOT NULL, -- PK, references edit.id
-    work_attribute      INTEGER NOT NULL  -- PK, references work_attribute.id CASCADE
-);
-
 CREATE TABLE edit_url
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
@@ -1446,23 +1440,25 @@ CREATE TABLE work_type (
     name                VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE work_attribute_name (
+CREATE TABLE work_attribute_type (
     id                  SERIAL,
     name                VARCHAR(255) NOT NULL,
-    comment             VARCHAR(255) NOT NULL DEFAULT ''
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL
 );
 
-CREATE TABLE work_attribute_name_value (
+CREATE TABLE work_attribute_type_value (
     id                  SERIAL,
-    work_attribute_name INTEGER NOT NULL, -- references work_attribute_name.id
-    value               VARCHAR(255) NOT NULL
+    work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
+    value               TEXT
 );
 
 CREATE TABLE work_attribute (
     id                          SERIAL,
     work                        INTEGER NOT NULL, -- references work.id
-    work_attribute_name         INTEGER NOT NULL, -- references work_attribute_name.id
-    work_attribute_name_value   INTEGER NOT NULL -- references work_attribute_name_value.id
+    work_attribute_type         INTEGER NOT NULL, -- references work_attribute_type.id
+    work_attribute_type_value   INTEGER NOT NULL, -- references work_attribute_type_value.id
+    work_attribute_text         TEXT
 );
 
 COMMIT;

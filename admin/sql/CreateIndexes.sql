@@ -90,8 +90,7 @@ CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 CREATE INDEX iswc_idx_work ON iswc (work);
 CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
 
-CREATE INDEX edit_work_attribute_idx ON edit_work_attribute (work_attribute);
-CREATE INDEX work_attribute_name_value_idx_name ON work_attribute_name_value (work_attribute_name);
+CREATE INDEX work_attribute_type_value_idx_name ON work_attribute_type_value (work_attribute_type);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);

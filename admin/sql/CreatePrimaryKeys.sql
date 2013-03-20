@@ -32,7 +32,6 @@ ALTER TABLE edit_release ADD CONSTRAINT edit_release_pkey PRIMARY KEY (edit, rel
 ALTER TABLE edit_release_group ADD CONSTRAINT edit_release_group_pkey PRIMARY KEY (edit, release_group);
 ALTER TABLE edit_url ADD CONSTRAINT edit_url_pkey PRIMARY KEY (edit, url);
 ALTER TABLE edit_work ADD CONSTRAINT edit_work_pkey PRIMARY KEY (edit, work);
-ALTER TABLE edit_work_attribute ADD CONSTRAINT edit_work_attribute_pkey PRIMARY KEY (edit, work_attribute);
 ALTER TABLE editor ADD CONSTRAINT editor_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection ADD CONSTRAINT editor_collection_pkey PRIMARY KEY (id);
 ALTER TABLE editor_collection_release ADD CONSTRAINT editor_collection_release_pkey PRIMARY KEY (collection, release);
@@ -148,8 +147,8 @@ ALTER TABLE work_alias ADD CONSTRAINT work_alias_pkey PRIMARY KEY (id);
 ALTER TABLE work_alias_type ADD CONSTRAINT work_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_pkey PRIMARY KEY (work, annotation);
 ALTER TABLE work_attribute ADD CONSTRAINT work_attribute_pkey PRIMARY KEY (id);
-ALTER TABLE work_attribute_name ADD CONSTRAINT work_attribute_name_pkey PRIMARY KEY (id);
-ALTER TABLE work_attribute_name_value ADD CONSTRAINT work_attribute_name_value_pkey PRIMARY KEY (id);
+ALTER TABLE work_attribute_type ADD CONSTRAINT work_attribute_type_pkey PRIMARY KEY (id);
+ALTER TABLE work_attribute_type_value ADD CONSTRAINT work_attribute_type_value_pkey PRIMARY KEY (id);
 ALTER TABLE work_gid_redirect ADD CONSTRAINT work_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE work_meta ADD CONSTRAINT work_meta_pkey PRIMARY KEY (id);
 ALTER TABLE work_name ADD CONSTRAINT work_name_pkey PRIMARY KEY (id);
