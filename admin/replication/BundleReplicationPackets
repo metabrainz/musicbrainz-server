@@ -41,9 +41,11 @@ my $period = my $defperiod = 'daily';
 my $outputdir;
 my $start;
 my $limit;
+my $require_previous_packet = 0;
 
 GetOptions(
     "help"                              => \$fHelp,
+    "require-previous"                  => \$require_previous_packet,
     "period=s"                          => \$period,
     "start=s"                           => \$start,
     "limit=s"                           => \$limit,
@@ -117,6 +119,9 @@ if (!$start) {
         print localtime() . " : Previous '$period' packet ended $last_val, starting $start\n";
     } else {
         # Otherwise, assume they want all the packets
+        if ($require_previous_packet) {
+            die("Previous packet required due to --require-previous, but none exists for '$period'");
+        }
         $start = $sequences[scalar @sequences - 1];
         print localtime() . " : No previous '$period' packet, using all packets (starting $start)\n";
     }
