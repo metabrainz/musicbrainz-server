@@ -292,6 +292,29 @@ sub in_use {
     return 0;
 }
 
+sub related_entities {
+    my ($self, $ac) = @_;
+
+    my $related = {};
+    my $ac_id = $self->find($ac) or return $related;
+
+    for my $t (qw( recording release release_group )) {
+        my $uses = $self->c->sql->select_single_column_array(
+            "SELECT DISTINCT id FROM $t WHERE artist_credit = ?", $ac_id
+        );
+        push @{ $related->{$t} }, @$uses;
+    }
+
+    my $tracks = $self->c->sql->select_single_column_array(
+        "SELECT DISTINCT medium.release FROM track JOIN medium ON track.tracklist = medium.tracklist WHERE track.artist_credit = ?",
+        $ac_id
+    );
+
+    push @{ $related->{release} }, @{ $tracks };
+
+    return $related;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
