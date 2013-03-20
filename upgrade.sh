@@ -54,9 +54,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-    echo `date` : 'MBS-4115, Add cover art image types (foreign keys)'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-type-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -73,6 +70,9 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
+
+    echo `date` : 'MBS-4115, Add cover art image types (foreign keys)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-type-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
