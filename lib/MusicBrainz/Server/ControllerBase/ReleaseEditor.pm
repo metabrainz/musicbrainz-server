@@ -1,5 +1,6 @@
 package MusicBrainz::Server::ControllerBase::ReleaseEditor;
 use Moose;
+use URI;
 use warnings FATAL => 'all';
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -7,6 +8,19 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 __PACKAGE__->config(
     namespace => 'release_editor'
 );
+
+sub redirect_uri {
+    my ($self, $c, $gid) = @_;
+    my $redirect_uri = URI->new($c->req->params->{'redirect_uri'});
+    my $new_query = 'release_mbid=' . $gid;
+
+    if (!defined $redirect_uri->query || $redirect_uri->query eq '') {
+        $redirect_uri->query($new_query);
+    } else {
+        $redirect_uri->query($redirect_uri->query . '&' . $new_query);
+    }
+    return $redirect_uri->as_string;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

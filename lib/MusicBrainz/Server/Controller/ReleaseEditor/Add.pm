@@ -7,13 +7,12 @@ use aliased 'MusicBrainz::Server::Wizard::ReleaseEditor::Add' => 'Wizard';
 sub add : Path('/release/add') Edit RequireAuth
 {
     my ($self, $c) = @_;
-    my $redirect_uri = $c->req->query_params->{'returnto'};
     my $wizard = Wizard->new(
         c => $c,
         on_submit => sub {
             my $wizard = shift;
-            if ($redirect_uri) {
-               $c->response->redirect(sprintf($redirect_uri, $wizard->release->gid));
+            if ($c->req->params->{'redirect_uri'}) {
+               $c->response->redirect($self->redirect_uri($c, $wizard->release->gid));
             } else {
                 $c->response->redirect(
                     $c->uri_for_action('/release/show', [ $wizard->release->gid ])

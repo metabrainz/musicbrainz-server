@@ -28,9 +28,8 @@ sub cancelled
 
 sub submitted {
     my ($self, $c, $release) = @_;
-    my $redirect_uri = $c->req->query_params->{'returnto'};
-    if ($redirect_uri) {
-       $c->response->redirect(sprintf($redirect_uri, $release->gid));
+    if ($c->req->params->{'redirect_uri'}) {
+       $c->response->redirect($self->redirect_uri($c, $release->gid));
     } else {
         $c->response->redirect(
             $c->uri_for_action('/release/show', [ $release->gid ])
