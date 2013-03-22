@@ -67,15 +67,18 @@ Usage: BundleReplicationPackets root-directory [options]
 
     root-directory is the base directory where packets reside
 
-    --help            show this help
-    --period          name for the period,
-                      default '$defperiod'
-    --start           where to start (default: inspect
-                      previous packet)
-    --limit           how many packets to include (default:
-                      include all packets until present
-    --output          output directory for finished packet
-                      (default: root-directory/period)
+    --help              show this help
+    --period            name for the period,
+                        default '$defperiod'
+    --start             where to start (default: inspect
+                        previous packet)
+    --require-previous  when using no specific start, require
+                        a previous packet, rather than starting
+                        at the earliest available
+    --limit             how many packets to include (default:
+                        include all packets until present
+    --output            output directory for finished packet
+                        (default: root-directory/period)
 EOF
 }
 
