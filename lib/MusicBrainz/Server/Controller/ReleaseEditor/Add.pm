@@ -11,14 +11,7 @@ sub add : Path('/release/add') Edit RequireAuth
         c => $c,
         on_submit => sub {
             my $wizard = shift;
-            if ($c->req->params->{'redirect_uri'}) {
-               $c->response->redirect($self->redirect_uri($c, $wizard->release->gid));
-            } else {
-                $c->response->redirect(
-                    $c->uri_for_action('/release/show', [ $wizard->release->gid ])
-               );
-            }
-            $c->detach
+            $self->do_redirect($c, $wizard->release);
         },
         on_cancel => sub {
             $self->cancelled($c)

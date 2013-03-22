@@ -9,6 +9,18 @@ __PACKAGE__->config(
     namespace => 'release_editor'
 );
 
+sub do_redirect {
+    my ($self, $c, $release) = @_;
+    if ($c->req->params->{'redirect_uri'}) {
+       $c->response->redirect($self->redirect_uri($c, $release->gid));
+    } else {
+        $c->response->redirect(
+            $c->uri_for_action('/release/show', [ $release->gid ])
+       );
+    }
+    $c->detach
+}
+
 sub redirect_uri {
     my ($self, $c, $gid) = @_;
     my $redirect_uri = URI->new($c->req->params->{'redirect_uri'});
