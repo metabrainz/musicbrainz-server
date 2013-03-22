@@ -997,6 +997,11 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
+   ADD CONSTRAINT label_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);

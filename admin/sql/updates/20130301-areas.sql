@@ -225,15 +225,8 @@ ALTER TABLE editor RENAME COLUMN country TO area;
 ALTER TABLE editor DROP CONSTRAINT IF EXISTS editor_fk_country;
 
 -- labels
-INSERT INTO link (link_type) SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label';
-INSERT INTO l_area_label (link, entity0, entity1)
-   SELECT
-     (SELECT id FROM link WHERE link_type IN (SELECT id FROM link_type WHERE name = 'based in' and entity_type0 = 'area' and entity_type1 = 'label')) AS link,
-     country AS entity0,
-     id AS entity1
-   FROM label WHERE country IS NOT NULL;
-
-ALTER TABLE label DROP COLUMN country;
+ALTER TABLE label RENAME COLUMN country TO area;
+ALTER TABLE label DROP CONSTRAINT IF EXISTS label_fk_country;
 
 -- artists
 ALTER TABLE artist DROP CONSTRAINT IF EXISTS artist_fk_country;

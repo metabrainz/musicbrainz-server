@@ -110,4 +110,7 @@ ALTER TABLE editor ADD CONSTRAINT editor_fk_area FOREIGN KEY (area) REFERENCES a
 -- artists
 ALTER TABLE artist ADD CONSTRAINT artist_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
+-- labels
+ALTER TABLE label ADD CONSTRAINT label_fk_area FOREIGN KEY (area) REFERENCES area(id);
+
 COMMIT;
