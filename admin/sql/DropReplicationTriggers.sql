@@ -75,6 +75,8 @@ DROP TRIGGER reptg_recording_gid_redirect ON recording_gid_redirect;
 DROP TRIGGER reptg_recording_puid ON recording_puid;
 DROP TRIGGER reptg_recording_tag ON recording_tag;
 DROP TRIGGER reptg_release ON release;
+DROP TRIGGER reptg_release_country ON release_country;
+DROP TRIGGER reptg_release_unknown_country ON release_unknown_country;
 DROP TRIGGER reptg_release_annotation ON release_annotation;
 DROP TRIGGER reptg_release_gid_redirect ON release_gid_redirect;
 DROP TRIGGER reptg_release_meta ON release_meta;

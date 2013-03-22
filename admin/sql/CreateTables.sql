@@ -1045,17 +1045,28 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
-    country             INTEGER, -- references country.id
     language            INTEGER, -- references language.id
     script              INTEGER, -- references script.id
-    date_year           SMALLINT,
-    date_month          SMALLINT,
-    date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     quality             SMALLINT NOT NULL DEFAULT -1,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE release_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  country INTEGER NOT NULL,  -- PK, references country.id
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
+);
+
+CREATE TABLE release_unknown_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
 );
 
 CREATE TABLE release_raw

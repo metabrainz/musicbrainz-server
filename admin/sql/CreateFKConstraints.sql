@@ -1074,11 +1074,6 @@ ALTER TABLE release
    REFERENCES release_packaging(id);
 
 ALTER TABLE release
-   ADD CONSTRAINT release_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
-
-ALTER TABLE release
    ADD CONSTRAINT release_fk_language
    FOREIGN KEY (language)
    REFERENCES language(id);
@@ -1097,6 +1092,16 @@ ALTER TABLE release_annotation
    ADD CONSTRAINT release_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
+
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
 
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id
@@ -1230,6 +1235,11 @@ ALTER TABLE release_tag_raw
    ADD CONSTRAINT release_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE release_unknown_country
+   ADD CONSTRAINT release_unknown_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
 
 ALTER TABLE script_language
    ADD CONSTRAINT script_language_fk_script

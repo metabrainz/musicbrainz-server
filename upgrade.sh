@@ -43,6 +43,9 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Applying 20130322-multiple-country-dates.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 
 ################################################################################
 # Re-enable replication
@@ -65,6 +68,9 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
+
+    echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
