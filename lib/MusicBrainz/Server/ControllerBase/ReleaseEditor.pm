@@ -12,13 +12,11 @@ __PACKAGE__->config(
 sub redirect_uri {
     my ($self, $c, $gid) = @_;
     my $redirect_uri = URI->new($c->req->params->{'redirect_uri'});
-    my $new_query = 'release_mbid=' . $gid;
 
-    if (!defined $redirect_uri->query || $redirect_uri->query eq '') {
-        $redirect_uri->query($new_query);
-    } else {
-        $redirect_uri->query($redirect_uri->query . '&' . $new_query);
-    }
+    my %query = $redirect_uri->query_form;
+    $query{release_mbid} = $gid;
+
+    $redirect_uri->query_form(\%query);
     return $redirect_uri->as_string;
 }
 
