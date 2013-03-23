@@ -5,11 +5,6 @@ use namespace::autoclean;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( DateTime );
 
-has 'id' => (
-    isa => 'Int',
-    is => 'rw',
-);
-
 has 'editor_id' => (
     isa => 'Int',
     is => 'rw',

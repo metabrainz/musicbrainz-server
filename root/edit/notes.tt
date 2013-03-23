@@ -14,7 +14,7 @@
 <div class="edit-notes">
     [% IF edit.edit_notes.size %]
         [% FOR note=edit.edit_notes %]
-            <div class="edit-note" id="note-[% note.id %]">
+            <div class="edit-note" id="note-[% edit.id %]-[% loop.count() %]">
                 <h3 class="[%- PROCESS votename -%]">
                     [%- link_entity(note.editor) -%]
                     [%- FOR vote=edit.votes; 
@@ -23,7 +23,7 @@
                            (vote.vote_name == 'No' || vote.vote_name == 'Yes'); 
                         '<div class="voting-icon"></div>'; LAST; 
                     END; END; -%]
-                    <a href="#note-[% note.id %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
+                    <a href="#note-[% edit.id %]-[% loop.count() %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
                     [%- editor_type_info(note.editor) -%]
                 </h3>
                 <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
