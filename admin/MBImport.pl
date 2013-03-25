@@ -470,6 +470,9 @@ sub ImportAllTables
         work_alias
         work_alias_type
         work_annotation
+        work_attribute
+        work_attribute_type
+        work_attribute_type_value
         work_gid_redirect
         work_meta
         work_name

@@ -45,6 +45,9 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'MBS-5861, work attributes'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130325-work-attributes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 
 ################################################################################
 # Re-enable replication
@@ -73,6 +76,9 @@ then
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'MBS-5861, work attribute foreign keyss'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130325-work-attributes-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
