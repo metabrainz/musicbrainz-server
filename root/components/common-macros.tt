@@ -440,7 +440,7 @@ END -%]
 
 [%- MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
   [%- text = text == '' ? search_value : text -%]
-  <a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
+  [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
       [%- text -%]</a>
 [%- END -%]
 
@@ -488,7 +488,7 @@ END-%]
         seen.${ label.label_id } = 1;
       END;
     END;
-    out.join(', ');
+    comma_only_list(out);
 END -%]
 
 [%- MACRO release_catno_list(labels) BLOCK;
@@ -500,7 +500,7 @@ END -%]
         seen.${ label.catalog_number } = 1;
       END;
     END;
-    out.join(', ');
+    comma_only_list(out);
 END -%]
 
 [%- MACRO sortble_table_header(name, label) BLOCK -%]
