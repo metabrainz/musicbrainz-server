@@ -88,7 +88,7 @@ sub uncache_for_artist_ids
 {
     my ($self, @artist_ids) = @_;
     my $query = 'SELECT DISTINCT artist_credit FROM artist_credit_name WHERE artist = any(?)';
-    my $artist_credit_ids = $self->sql->select_single_column_array($query, @artist_ids);
+    my $artist_credit_ids = $self->sql->select_single_column_array($query, \@artist_ids);
     $self->_delete_from_cache(@$artist_credit_ids) if scalar @$artist_credit_ids;
 }
 
