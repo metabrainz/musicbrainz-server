@@ -1,14 +1,25 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-ALTER TABLE medium ADD COLUMN track_count INTEGER NOT NULL DEFAULT 0;
+-- Rebuild tracklist_index as medium_index
+CREATE TABLE medium_index AS
+  SELECT medium.id AS medium, toc
+  FROM tracklist_index
+  JOIN tracklist ON tracklist.id = tracklist_index.tracklist
+  JOIN medium ON tracklist.id = medium.tracklist;
 
-UPDATE medium SET track_count = tracklist.track_count
-    FROM tracklist WHERE medium.tracklist = tracklist.id;
+DROP TABLE tracklist_index;
 
-CREATE INDEX medium_idx_track_count ON medium (track_count);
+ALTER TABLE medium_index
+  ALTER COLUMN medium SET NOT NULL,
+  ADD PRIMARY KEY (medium);
 
+CREATE INDEX medium_index_idx ON medium_index USING GIST (toc);
+
+
+-- Rebuild track to point to medium, not tracklist
 CREATE SEQUENCE track2013_id_seq START 1;
+
 CREATE TABLE track2013 AS
     SELECT nextval('track2013_id_seq') AS id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
                         'http://musicbrainz.org/track/' || currval('track2013_id_seq') ) AS gid,
@@ -21,28 +32,59 @@ CREATE TABLE track2013 AS
     ORDER BY track.id, medium.id;
 
 DROP TABLE track;
-ALTER TABLE medium DROP COLUMN tracklist;
+
+ALTER SEQUENCE track2013_id_seq OWNED BY track2013.id;
+ALTER SEQUENCE track2013_id_seq RENAME TO track_id_seq;
+
+ALTER TABLE track2013
+  ADD CHECK (controlled_for_whitespace(number)),
+  ADD CHECK (edits_pending >= 0),
+  ADD CHECK (length IS NULL OR length > 0),
+  ADD PRIMARY KEY (id),
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN id SET DEFAULT nextval('track_id_seq'),
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN medium SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN number SET NOT NULL,
+  ALTER COLUMN position SET NOT NULL,
+  ALTER COLUMN recording SET NOT NULL;
+
+
+-- Rebuild medium to have track_count but no track_list
+CREATE TABLE medium2013 AS
+  SELECT medium.id, medium.release, medium.position, medium.format, medium.name,
+    medium.edits_pending, medium.last_updated, tracklist.track_count
+  FROM medium
+  JOIN tracklist ON tracklist.id = medium.tracklist;
+
+ALTER TABLE medium2013
+  ADD CONSTRAINT medium_edits_pending CHECK (edits_pending >= 0),
+  ADD PRIMARY KEY (id),
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN id SET DEFAULT nextval('medium_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT now(),
+  ALTER COLUMN position SET NOT NULL,
+  ALTER COLUMN release SET NOT NULL;
+
+ALTER SEQUENCE medium_id_seq OWNED BY medium2013.id;
+
+ALTER TABLE medium_cdtoc
+  DROP CONSTRAINT medium_cdtoc_fk_medium,
+  ADD CONSTRAINT medium_cdtoc_fk_medium FOREIGN KEY (medium) REFERENCES medium2013 (id);
+
+DROP TABLE medium;
 DROP TABLE tracklist;
 
 ALTER TABLE track2013 RENAME TO track;
-ALTER SEQUENCE track2013_id_seq RENAME TO track_id_seq;
+ALTER TABLE medium2013 RENAME TO medium;
 
-ALTER TABLE track ADD PRIMARY KEY (id);
-ALTER TABLE track ALTER COLUMN id SET DEFAULT nextval('track_id_seq');
-
-ALTER TABLE track ALTER COLUMN gid SET NOT NULL;
-ALTER TABLE track ALTER COLUMN recording SET NOT NULL;
-ALTER TABLE track ALTER COLUMN medium SET NOT NULL;
-ALTER TABLE track ALTER COLUMN position SET NOT NULL;
-ALTER TABLE track ALTER COLUMN number SET NOT NULL;
-ALTER TABLE track ADD CHECK (controlled_for_whitespace(number));
-ALTER TABLE track ALTER COLUMN name SET NOT NULL;
-ALTER TABLE track ALTER COLUMN artist_credit SET NOT NULL;
-ALTER TABLE track ADD CHECK (length IS NULL OR length > 0);
-ALTER TABLE track ALTER COLUMN edits_pending SET NOT NULL;
-ALTER TABLE track ALTER COLUMN edits_pending SET DEFAULT 0;
-ALTER TABLE track ADD CHECK (edits_pending >= 0);
-ALTER TABLE track ALTER COLUMN last_updated SET DEFAULT NOW();
+CREATE INDEX medium_idx_track_count ON medium (track_count);
 
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 CREATE INDEX track_idx_name ON track (name);

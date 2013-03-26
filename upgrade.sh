@@ -109,9 +109,6 @@ then
     OUTPUT=`./admin/psql < admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 fi
 
-echo `date` : 'MBS-1839, Move rename tracklist_index -> medium_index'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-medium-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 echo `date` : 'MBS-1839, Reduplicate tracklists'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
