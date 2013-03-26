@@ -54,6 +54,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-docum
 echo `date` : 'Creditable link attributes'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-instrument-credits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Dropping work.artist_credit'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-drop-work.artist_credit.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
