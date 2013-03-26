@@ -481,6 +481,36 @@ sub ImportAllTables
         cover_art_archive.cover_art_type
         cover_art_archive.release_group_cover_art
 
+        documentation.l_artist_artist_example
+        documentation.l_artist_label_example
+        documentation.l_artist_recording_example
+        documentation.l_artist_release_example
+        documentation.l_artist_release_group_example
+        documentation.l_artist_url_example
+        documentation.l_artist_work_example
+        documentation.l_label_label_example
+        documentation.l_label_recording_example
+        documentation.l_label_release_example
+        documentation.l_label_release_group_example
+        documentation.l_label_url_example
+        documentation.l_label_work_example
+        documentation.l_recording_recording_example
+        documentation.l_recording_release_example
+        documentation.l_recording_release_group_example
+        documentation.l_recording_url_example
+        documentation.l_recording_work_example
+        documentation.l_release_group_release_group_example
+        documentation.l_release_group_url_example
+        documentation.l_release_group_work_example
+        documentation.l_release_release_example
+        documentation.l_release_release_group_example
+        documentation.l_release_url_example
+        documentation.l_release_work_example
+        documentation.l_url_url_example
+        documentation.l_url_work_example
+        documentation.l_work_work_example
+        documentation.link_type_documentation
+
         statistics.statistic
         statistics.statistic_event
     )) {
