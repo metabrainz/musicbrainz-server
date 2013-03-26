@@ -927,6 +927,16 @@ ALTER TABLE link_attribute
    FOREIGN KEY (attribute_type)
    REFERENCES link_attribute_type(id);
 
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_creditable_attribute_type(attribute_type);
+
 ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_parent
    FOREIGN KEY (parent)
@@ -936,6 +946,12 @@ ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_root
    FOREIGN KEY (root)
    REFERENCES link_attribute_type(id);
+
+ALTER TABLE link_creditable_attribute_type
+   ADD CONSTRAINT link_creditable_attribute_type_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_attribute_type(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE link_type
    ADD CONSTRAINT link_type_fk_parent

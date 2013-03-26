@@ -422,7 +422,9 @@ sub ImportAllTables
         language
         link
         link_attribute
+        link_attribute_credit
         link_attribute_type
+        link_creditable_attribute_type
         link_type
         link_type_attribute_type
         editor_collection

@@ -256,6 +256,14 @@ CREATE TRIGGER "reptg_link_attribute"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_link_attribute_credit"
+AFTER INSERT OR DELETE OR UPDATE ON "link_attribute_credit"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_link_creditable_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "link_creditable_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_link_attribute_type"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
