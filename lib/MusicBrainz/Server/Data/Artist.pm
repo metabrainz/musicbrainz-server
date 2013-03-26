@@ -23,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
@@ -101,7 +102,7 @@ sub _entity_class
 
 after '_delete_from_cache' => sub {
     my ($self, @ids) = @_;
-    $self->c->model('ArtistCredit')->uncache_for_artist_ids(@ids);
+    $self->c->model('ArtistCredit')->uncache_for_artist_ids(grep { looks_like_number($_) } @ids);
 };
 
 sub find_by_subscribed_editor
