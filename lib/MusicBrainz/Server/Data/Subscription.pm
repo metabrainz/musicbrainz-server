@@ -39,8 +39,6 @@ sub _column_mapping {
         id => 'id',
         $self->column . '_id' => $self->column,
         'last_edit_sent' => 'last_edit_sent',
-        'deleted_by_edit' => 'deleted_by_edit',
-        'merged_by_edit' => 'merged_by_edit',
         'editor_id' => 'editor',
         'available' => 'available',
         'last_seen_name' => 'last_seen_name',
@@ -63,7 +61,7 @@ sub subscribe
             SELECT id FROM $table WHERE editor = ? AND $column = ?",
             $user_id, $id);
 
-        my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
+        my $max_edit_id = $self->c->model('Edit')->get_max_id();
         $self->sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
@@ -182,13 +180,39 @@ sub merge_entities
 
 sub delete
 {
-    my ($self, $edit_id, @ids) = @_;
+    my ($self, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
 
-    $self->sql->do("UPDATE $table SET deleted_by_edit = ?
-               WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
+    return $self->sql->select_list_of_hashes(
+        "DELETE FROM $table WHERE $column = any(?)
+         RETURNING editor, $column",
+        \@ids
+    );
+}
+
+sub log_deletions {
+    my ($self, $edit_id, $gid, @editors) = @_;
+    $self->sql->insert_many(
+        $self->table . '_deleted',
+        map +{
+            gid => $gid,
+            deleted_by => $edit_id,
+            editor => $_
+        }, @editors
+    );
+}
+
+sub log_merges {
+    my ($self, $edit_id, @merges) = @_;
+    $self->sql->insert_many(
+        $self->table . '_deleted',
+        map +{
+            %$_,
+            deleted_by => $edit_id,
+        }, @merges
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

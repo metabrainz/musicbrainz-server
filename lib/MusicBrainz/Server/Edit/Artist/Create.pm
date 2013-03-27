@@ -83,7 +83,7 @@ sub _insert_hash
     return $data;
 };
 
-after insert => sub {
+after post_insert => sub {
     my ($self) = @_;
     my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
     $self->c->model('Editor')->load_preferences($editor);

@@ -24,14 +24,12 @@ sub update_subscriptions
     my ($self, $max_id, $editor_id) = @_;
 
     $self->sql->begin;
-    $self->sql->do(
-        "DELETE FROM $_
-          WHERE editor = ? AND (deleted_by_edit != 0 OR merged_by_edit != 0)",
-        $editor_id
-    ) for qw(
-        editor_subscribe_artist
-        editor_subscribe_label
-    );
+
+    $self->sql->do("DELETE FROM $_ WHERE editor = ?", $editor_id)
+        for qw(
+          editor_subscribe_artist_deleted
+          editor_subscribe_label_deleted
+        );
 
     # Remove subscriptions to deleted or private collections
     $self->sql->do(

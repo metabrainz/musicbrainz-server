@@ -75,16 +75,15 @@ sub build_display_data
     };
 }
 
-after insert => sub {
-    my ($self) = @_;
-    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
+after post_insert => sub {
+    my $self = shift;
 
+    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
     $self->c->model('Editor')->load_preferences($editor);
     if ($editor->preferences->subscribe_to_created_labels) {
         $self->c->model('Label')->subscription->subscribe($editor->id, $self->entity_id);
     }
 };
-
 
 sub allow_auto_edit { 1 }
 

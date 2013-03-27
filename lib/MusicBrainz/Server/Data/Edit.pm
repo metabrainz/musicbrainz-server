@@ -95,8 +95,7 @@ sub get_max_id
 {
     my ($self) = @_;
 
-    return $self->sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
-                                    LIMIT 1");
+    return $self->sql->select_single_value("SELECT max(id) FROM edit");
 }
 
 sub find

@@ -300,6 +300,8 @@ INSERT INTO label (id, gid, name, sort_name)
 INSERT INTO editor (id, name, password)
   VALUES (1, 'Alice', 'al1c3'), (2, 'Bob', 'b0b');
 
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 1, 1, 1, '', now());
+
 INSERT INTO editor_collection (id, gid, editor, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff');
 

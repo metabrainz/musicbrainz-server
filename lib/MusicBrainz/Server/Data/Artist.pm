@@ -254,8 +254,14 @@ sub delete
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
-    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    $self->sql->do($query, @artist_ids);
+
+    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')
+                 RETURNING gid, name AS last_known_name, comment AS last_known_comment';
+    $self->sql->insert_many(
+        'artist_deletion',
+        @{ $self->sql->select_list_of_hashes($query, @artist_ids) }
+    );
+
     return 1;
 }
 
