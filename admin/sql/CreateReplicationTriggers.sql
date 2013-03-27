@@ -320,6 +320,14 @@ CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_release_country"
+AFTER INSERT OR DELETE OR UPDATE ON "release_country"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_unknown_country"
+AFTER INSERT OR DELETE OR UPDATE ON "release_unknown_country"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_release_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "release_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

@@ -441,6 +441,7 @@ sub ImportAllTables
         recording_tag
         release
         release_annotation
+        release_country
         release_gid_redirect
         release_group
         release_group_annotation
@@ -457,6 +458,7 @@ sub ImportAllTables
         release_packaging
         release_status
         release_tag
+        release_unknown_country
         replication_control
         script
         script_language
