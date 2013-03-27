@@ -329,6 +329,7 @@ sub merge_entities
             WHERE redundant
               AND NOT EXISTS (SELECT TRUE FROM $table same_entity_dated JOIN link ON same_entity_dated.link = link.id
                                          WHERE (begin_date_year IS NOT NULL OR begin_date_month IS NOT NULL OR begin_date_day IS NOT NULL OR
+                                                end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL OR
                                                 ended)
                                            AND same_entity_dated.$entity0 = b.$entity0
                                            AND same_entity_dated.id <> b.id)
