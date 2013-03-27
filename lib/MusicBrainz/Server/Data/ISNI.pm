@@ -90,6 +90,8 @@ sub merge
 
     my @all_ids = ($new_id, @old_ids);
 
+    # De-duplicate ISNIs for entities, retaining a single ISNI over the set of
+    # all entities to be merged.
     $self->sql->do("DELETE FROM $table
                     WHERE $type = any(?)
                     AND (isni, $type) NOT IN (
@@ -98,7 +100,7 @@ sub merge
                       WHERE $type = any(?))",
                    \@all_ids, \@all_ids);
 
-    # if any remain, they're duplicates, remove them.
+    # Move all ISNIs to belong to the entity under $new_id
     $self->sql->do("UPDATE $table SET $type = ? WHERE $type = any(?)", $new_id, \@all_ids);
 }
 
