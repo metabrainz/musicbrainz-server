@@ -7,9 +7,11 @@ use Test::Routine;
 use Test::Routine::Util;
 use MusicBrainz::Server::Test;
 
-use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::DeletedArtist' => 'DeletedArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::DeletedLabel' => 'DeletedLabelSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
-use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
 use aliased 'MusicBrainz::Server::Edit';
 use aliased 'MusicBrainz::Server::Entity::Editor';
 use aliased 'MusicBrainz::Script::SubscriptionEmails' => 'Script';
@@ -154,7 +156,7 @@ test 'Handling deletes and merges' => sub {
     );
 
     $test->script->run;
-    
+
     subtest 'Sent emails about merges and deletes' => sub {
         my %args = inspect($test->emailer)->send_subscriptions_digest(anything)
             ->arguments;
