@@ -19,7 +19,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_collection',
     column => 'collection',
-    class => 'MusicBrainz::Server::Entity::CollectionSubscription'
+    active_class => 'MusicBrainz::Server::Entity::CollectionSubscription'
 };
 
 sub _table

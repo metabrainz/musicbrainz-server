@@ -128,10 +128,23 @@ test 'No edits means no email' => sub {
 
 test 'Handling deletes and merges' => sub {
     my $test = shift;
-    my $label  = LabelSubscription->new( deleted_by_edit => 1, label_id => 1,  editor_id => $acid2->id,
-                                         last_edit_sent => 0 );
-    my $artist = ArtistSubscription->new( merged_by_edit => 1, artist_id => 1, editor_id => $acid2->id,
-                                          last_edit_sent => 0 );
+
+    my $label  = DeletedLabelSubscription->new(
+        edit_id => 1,
+        last_known_name => 'Revolution Records',
+        last_known_comment => 'drum & bass',
+        editor_id => $acid2->id,
+        reason => 'merged'
+    );
+
+    my $artist = DeletedArtistSubscription->new(
+        edit_id => 2,
+        artist_id => 1,
+        editor_id => $acid2->id,
+        last_known_name => 'Nosaj Thing',
+        last_known_comment => '',
+        reason => 'deleted'
+    );
 
     mock_subscriptions(
         editors => [ $acid2 ],

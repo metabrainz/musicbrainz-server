@@ -12,11 +12,11 @@ around do_merge => sub {
 
     $self->$orig(@args);
 
-    $self->subscription_model->log_merges(
+    $self->subscription_model->log_deletions(
         $self->id,
         map +{
-            %$_,
-            artist => $artists->{ $_->{artist} }->gid
+            editor => $_->{editor},
+            gid => $artists->{ $_->{artist} }->gid
         }, @$editors
     );
 };

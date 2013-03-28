@@ -156,10 +156,7 @@ sub _delete_and_redirect_gids
     $self->update_gid_redirects($new_id, @old_ids);
 
     # Delete the recording and select current GIDs
-    my $old_gids = $self->sql->select_single_column_array('
-        DELETE FROM '.$table.'
-        WHERE id IN ('.placeholders(@old_ids).')
-        RETURNING gid', @old_ids);
+    my $old_gids = $self->delete_returning_gids($table, @old_ids);
 
     # Add redirects from GIDs of the deleted recordings to $new_id
     $self->add_gid_redirects(map { $_ => $new_id } @$old_gids);
@@ -170,6 +167,14 @@ sub _delete_and_redirect_gids
             @$old_gids
         );
     }
+}
+
+sub delete_returning_gids {
+    my ($self, $table, @ids) = @_;
+    return $self->sql->select_single_column_array('
+        DELETE FROM '.$table.'
+        WHERE id IN ('.placeholders(@ids).')
+        RETURNING gid', @ids);
 }
 
 __PACKAGE__->meta->make_immutable;

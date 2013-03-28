@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Entity::Subscription;
-use Moose;
+use Moose::Role;
 use namespace::autoclean;
 
 has 'id' => (
@@ -8,11 +8,6 @@ has 'id' => (
 );
 
 has 'editor_id' => (
-    isa => 'Int',
-    is => 'ro'
-);
-
-has 'last_edit_sent' => (
     isa => 'Int',
     is => 'ro'
 );

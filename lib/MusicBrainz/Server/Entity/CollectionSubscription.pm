@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity::Subscription';
+with 'MusicBrainz::Server::Entity::Subscription::Active';
 
 has 'collection_id' => (
     isa => 'Int',

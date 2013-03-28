@@ -14,7 +14,7 @@ around accept => sub {
 
     $self->$orig(@args);
 
-    $self->subscription_model->log_deletions($self->id, $artist->gid, @editors);
+    $self->subscription_model->log_deletion_for_editors($self->id, $artist->gid, @editors);
 };
 
 1;
