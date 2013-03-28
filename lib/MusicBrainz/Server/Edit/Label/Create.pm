@@ -13,6 +13,9 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Label';
+with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+    editor_subscription_preference => sub { shift->subscribe_to_created_labels }
+};
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
@@ -74,16 +77,6 @@ sub build_display_data
         ended      => $self->data->{ended}
     };
 }
-
-after post_insert => sub {
-    my $self = shift;
-
-    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
-    $self->c->model('Editor')->load_preferences($editor);
-    if ($editor->preferences->subscribe_to_created_labels) {
-        $self->c->model('Label')->subscription->subscribe($editor->id, $self->entity_id);
-    }
-};
 
 sub allow_auto_edit { 1 }
 
