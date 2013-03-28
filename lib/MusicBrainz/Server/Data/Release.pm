@@ -262,7 +262,7 @@ sub find_by_track_artist
         release.id IN (
             SELECT release FROM medium
                 JOIN track tr
-                ON tr.tracklist = medium.tracklist
+                ON tr.medium = medium.id
                 JOIN artist_credit_name acn
                 ON acn.artist_credit = tr.artist_credit
             WHERE acn.artist = ?)
@@ -295,7 +295,7 @@ sub find_for_various_artists
         AND release.id IN (
             SELECT release FROM medium
                 JOIN track tr
-                ON tr.tracklist = medium.tracklist
+                ON tr.medium = medium.id
                 JOIN artist_credit_name acn
                 ON acn.artist_credit = tr.artist_credit
             WHERE acn.artist = ?)";

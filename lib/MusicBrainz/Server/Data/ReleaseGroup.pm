@@ -250,7 +250,7 @@ sub find_by_track_artist
                          JOIN medium
                          ON medium.release = release.id
                          JOIN track tr
-                         ON tr.tracklist = medium.tracklist
+                         ON tr.medium = medium.id
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
@@ -334,7 +334,7 @@ sub filter_by_track_artist
                          JOIN medium
                          ON medium.release = release.id
                          JOIN track tr
-                         ON tr.tracklist = medium.tracklist
+                         ON tr.medium = medium.id
                          JOIN artist_credit_name acn
                          ON acn.artist_credit = tr.artist_credit
                      WHERE acn.artist = ?
