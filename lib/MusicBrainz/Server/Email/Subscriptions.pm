@@ -149,13 +149,15 @@ Some of your subscribed artists, labels or collections have been merged,
 deleted or made private:
 
 [% FOR sub IN self.deletes;
-edit = sub.deleted_by_edit || sub.merged_by_edit;
-type = sub.artist_id ? 'artist' : sub.label_id ? 'label' : 'collection';
-entity_id = sub.artist_id || sub.label_id -%]
+edit = sub.edit_id;
+type = sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedArtist') ? 'artist'
+     : sub.isa('MusicBrainz::Server::Entity::Subscription::DeletedLabel') ? 'label'
+     : sub.isa('MusicBrainz::Server::Entity::CollectionSubscription') ? 'collection'
+     : 'unknown';  -%]
 [%- IF type == 'collection' -%]
 [%- type | ucfirst %] "[% sub.last_seen_name %]" - deleted or made private
 [% ELSE -%]
-[%- type | ucfirst %] #[% entity_id %] - [% sub.deleted_by_edit ? 'deleted' : 'merged' %] by edit #[% edit %]
+[%- type | ucfirst %] "[% sub.last_known_name %]"[% '(' _ sub.last_known_comment _ ') ' IF sub.last_known_comment %] - [% sub.reason %] by edit #[% edit %]
 [% self.server %]/edit/[% edit %]
 [% END -%]
 [%- END %]
