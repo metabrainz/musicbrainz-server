@@ -341,6 +341,8 @@ sub change_password : Path('/account/change-password')
         $c->detach;
     }
 
+    $c->stash( mandatory => $c->req->query_params->{mandatory} );
+
     my $form = $c->form(
         form => 'User::ChangePassword',
         init_object => {

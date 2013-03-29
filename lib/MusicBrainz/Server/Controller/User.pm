@@ -79,7 +79,10 @@ sub _perform_login {
     }
     else {
         if ($c->user->last_login_date < $LATEST_SECURITY_VULNERABILITY) {
-            $c->response->redirect($c->uri_for_action('/account/change_password', { username => $c->user->name } ));
+            $c->response->redirect($c->uri_for_action('/account/change_password', {
+                username => $c->user->name,
+                mandatory => 1
+            } ));
             $c->logout;
             $c->detach;
         }
