@@ -67,6 +67,30 @@ sub index : Private
     $c->detach('/user/profile', [ $c->user->name ]);
 }
 
+sub _perform_login {
+    my ($self, $c, $user_name, $password) = @_;
+
+    if( !$c->authenticate({ username => $user_name, password => $password }) )
+    {
+        # Bad username / password combo
+        $c->log->info('Invalid username/password');
+        $c->stash( bad_login => 1 );
+        return 0;
+    }
+    else {
+        if ($c->user->last_login_date < $LATEST_SECURITY_VULNERABILITY) {
+            $c->response->redirect($c->uri_for_action('/account/change_password', { username => $c->user->name } ));
+            $c->logout;
+            $c->detach;
+        }
+        else {
+            $c->model('Editor')->update_last_login_date($c->user->id);
+
+            return 1;
+        }
+    }
+}
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
@@ -77,31 +101,14 @@ sub do_login : Private
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
-        if( !$c->authenticate({ username => $form->field("username")->value,
-                                password => $form->field("password")->value }) )
-        {
-            # Bad username / password combo
-            $c->log->info('Invalid username/password');
-            $c->stash( bad_login => 1 );
-        }
-        else
-        {
-            if ($c->user->last_login_date < $LATEST_SECURITY_VULNERABILITY) {
-                $c->response->redirect($c->uri_for_action('/account/change_password', { username => $c->user->name } ));
-                $c->logout;
-                $c->detach;
+        if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
+            if ($form->field('remember_me')->value) {
+                $self->_set_login_cookie($c);
             }
-            else {
-                if ($form->field('remember_me')->value) {
-                    $self->_set_login_cookie($c);
-                }
 
-                $c->model('Editor')->update_last_login_date($c->user->id);
-
-                # Logged in OK
-                $c->response->redirect($redirect);
-                $c->detach;
-            }
+            # Logged in OK
+            $c->response->redirect($redirect);
+            $c->detach;
         }
     }
 
@@ -174,7 +181,7 @@ sub cookie_login : Private
             die "Didn't recognise permanent cookie format";
         }
 
-        $c->authenticate({ username => $user_name, password => $password });
+        $self->_perform_login($c, $user_name, $password);
     }
     catch {
         $c->log->error($_);
