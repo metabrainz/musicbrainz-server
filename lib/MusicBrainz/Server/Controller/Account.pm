@@ -332,7 +332,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireAuth
+sub change_password : Path('/account/change-password')
 {
     my ($self, $c) = @_;
 
@@ -341,12 +341,19 @@ sub change_password : Path('/account/change-password') RequireAuth
         $c->detach;
     }
 
-    my $form = $c->form( form => 'User::ChangePassword' );
+    my $form = $c->form(
+        form => 'User::ChangePassword',
+        init_object => {
+            username => $c->user_exists
+                ? $c->user->name
+                : ($c->req->query_parameters->{username} // '')
+        }
+    );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($c->user, $password);
+        $c->model('Editor')->update_password(
+            $form->field('username')->value, $password);
 
         $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
         $c->detach;

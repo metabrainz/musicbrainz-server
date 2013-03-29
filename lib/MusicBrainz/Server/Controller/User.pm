@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use DateTime;
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
@@ -12,6 +13,8 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
 use Try::Tiny;
+
+my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
 
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
@@ -83,13 +86,22 @@ sub do_login : Private
         }
         else
         {
-            if ($form->field('remember_me')->value) {
-                $self->_set_login_cookie($c);
+            if ($c->user->last_login_date < $LATEST_SECURITY_VULNERABILITY) {
+                $c->response->redirect($c->uri_for_action('/account/change_password', { username => $c->user->name } ));
+                $c->logout;
+                $c->detach;
             }
+            else {
+                if ($form->field('remember_me')->value) {
+                    $self->_set_login_cookie($c);
+                }
 
-            # Logged in OK
-            $c->response->redirect($redirect);
-            $c->detach;
+                $c->model('Editor')->update_last_login_date($c->user->id);
+
+                # Logged in OK
+                $c->response->redirect($redirect);
+                $c->detach;
+            }
         }
     }
 
