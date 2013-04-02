@@ -228,7 +228,6 @@ CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
 CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
-CREATE INDEX release_idx_date ON release (date_year, date_month, date_day);
 
 CREATE INDEX release_tag_idx_tag ON release_tag (tag);
 
