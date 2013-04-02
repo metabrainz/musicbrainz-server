@@ -305,12 +305,12 @@ sub related_entities {
         push @{ $related->{$t} }, @$uses;
     }
 
-    my $tracks = $self->c->sql->select_single_column_array(
+    my $track_ac_releases = $self->c->sql->select_single_column_array(
         "SELECT DISTINCT medium.release FROM track JOIN medium ON track.tracklist = medium.tracklist WHERE track.artist_credit = ?",
         $ac_id
     );
 
-    push @{ $related->{release} }, @{ $tracks };
+    push @{ $related->{release} }, @{ $track_ac_releases };
 
     return $related;
 }
