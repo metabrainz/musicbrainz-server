@@ -60,6 +60,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-drop-work.artist_c
 echo `date` : Applying 20130322-multiple-country-dates.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 20130225-rename-link_type.short_link_phrase.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.short_link_phrase.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
