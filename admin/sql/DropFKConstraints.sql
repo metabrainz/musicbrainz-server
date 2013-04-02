@@ -253,7 +253,6 @@ ALTER TABLE release DROP CONSTRAINT release_fk_artist_credit;
 ALTER TABLE release DROP CONSTRAINT release_fk_release_group;
 ALTER TABLE release DROP CONSTRAINT release_fk_status;
 ALTER TABLE release DROP CONSTRAINT release_fk_packaging;
-ALTER TABLE release DROP CONSTRAINT release_fk_country;
 ALTER TABLE release DROP CONSTRAINT release_fk_language;
 ALTER TABLE release DROP CONSTRAINT release_fk_script;
 ALTER TABLE release_annotation DROP CONSTRAINT release_annotation_fk_release;

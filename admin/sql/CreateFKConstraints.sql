@@ -1280,11 +1280,6 @@ ALTER TABLE release
    REFERENCES release_packaging(id);
 
 ALTER TABLE release
-   ADD CONSTRAINT release_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country_area(area);
-
-ALTER TABLE release
    ADD CONSTRAINT release_fk_language
    FOREIGN KEY (language)
    REFERENCES language(id);
@@ -1312,7 +1307,7 @@ ALTER TABLE release_country
 ALTER TABLE release_country
    ADD CONSTRAINT release_country_fk_country
    FOREIGN KEY (country)
-   REFERENCES country(id);
+   REFERENCES country_area(area);
 
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id

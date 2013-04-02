@@ -218,7 +218,7 @@ CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link)
 -----------------------------
 
 -- releases
-ALTER TABLE release DROP CONSTRAINT IF EXISTS release_fk_country;
+ALTER TABLE release_country DROP CONSTRAINT IF EXISTS release_country_fk_country;
 
 -- editors
 ALTER TABLE editor RENAME COLUMN country TO area;

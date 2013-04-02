@@ -1251,7 +1251,7 @@ CREATE TABLE release (
 
 CREATE TABLE release_country (
   release INTEGER NOT NULL,  -- PK, references release.id
-  country INTEGER NOT NULL,  -- PK, references country.id
+  country INTEGER NOT NULL,  -- PK, references country_area.area
   date_year SMALLINT,
   date_month SMALLINT,
   date_day SMALLINT
