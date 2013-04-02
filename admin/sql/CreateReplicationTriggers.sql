@@ -13,6 +13,10 @@ CREATE TRIGGER "reptg_area"
 AFTER INSERT OR DELETE OR UPDATE ON "area"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_country_area"
+AFTER INSERT OR DELETE OR UPDATE ON "country_area"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_area_alias"
 AFTER INSERT OR DELETE OR UPDATE ON "area_alias"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
