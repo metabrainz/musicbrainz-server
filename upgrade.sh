@@ -111,7 +111,7 @@ fi
 # Bump schema sequence
 
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
-#echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
 ################################################################################
 # Prompt for final manual intervention
