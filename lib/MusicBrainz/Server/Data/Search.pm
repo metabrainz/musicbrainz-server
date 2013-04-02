@@ -75,7 +75,7 @@ sub search
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.label_code,' if $type eq 'label';
+        $extra_columns .= 'entity.label_code, entity.country,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.country,' if $type eq 'artist';
 
         $query = "

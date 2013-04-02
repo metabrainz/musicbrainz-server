@@ -109,6 +109,7 @@ sub direct : Private
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
+            $c->model('Country')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
