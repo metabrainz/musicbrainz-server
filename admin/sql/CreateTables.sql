@@ -1031,6 +1031,16 @@ CREATE TABLE link_attribute_type
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE link_creditable_attribute_type (
+  attribute_type INT NOT NULL -- PK, references link_attribute_type.id CASCADE
+);
+
+CREATE TABLE link_attribute_credit (
+  link INT NOT NULL, -- PK, references link.id
+  attribute_type INT NOT NULL, -- PK, references link_creditable_attribute_type.attribute_type
+  credited_as TEXT NOT NULL
+);
+
 CREATE TABLE link_type
 (
     id                  SERIAL,
@@ -1043,7 +1053,7 @@ CREATE TABLE link_type
     description         TEXT,
     link_phrase         VARCHAR(255) NOT NULL,
     reverse_link_phrase VARCHAR(255) NOT NULL,
-    short_link_phrase   VARCHAR(255) NOT NULL,
+    long_link_phrase    VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -1063,7 +1073,8 @@ CREATE TABLE editor_collection
     gid                 UUID NOT NULL,
     editor              INTEGER NOT NULL, -- references editor.id
     name                VARCHAR NOT NULL,
-    public              BOOLEAN NOT NULL DEFAULT FALSE
+    public              BOOLEAN NOT NULL DEFAULT FALSE,
+    description         TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release
@@ -1229,17 +1240,28 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
-    country             INTEGER, -- references country_area.area
     language            INTEGER, -- references language.id
     script              INTEGER, -- references script.id
-    date_year           SMALLINT,
-    date_month          SMALLINT,
-    date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     quality             SMALLINT NOT NULL DEFAULT -1,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE release_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  country INTEGER NOT NULL,  -- PK, references country.id
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
+);
+
+CREATE TABLE release_unknown_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
 );
 
 CREATE TABLE release_raw
@@ -1505,7 +1527,6 @@ CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references work_name.id
-    artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),

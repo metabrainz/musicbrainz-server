@@ -1102,6 +1102,16 @@ ALTER TABLE link_attribute
    FOREIGN KEY (attribute_type)
    REFERENCES link_attribute_type(id);
 
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_creditable_attribute_type(attribute_type);
+
 ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_parent
    FOREIGN KEY (parent)
@@ -1111,6 +1121,12 @@ ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_root
    FOREIGN KEY (root)
    REFERENCES link_attribute_type(id);
+
+ALTER TABLE link_creditable_attribute_type
+   ADD CONSTRAINT link_creditable_attribute_type_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_attribute_type(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE link_type
    ADD CONSTRAINT link_type_fk_parent
@@ -1288,6 +1304,16 @@ ALTER TABLE release_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country(id);
+
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id
    FOREIGN KEY (id)
@@ -1420,6 +1446,11 @@ ALTER TABLE release_tag_raw
    ADD CONSTRAINT release_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE release_unknown_country
+   ADD CONSTRAINT release_unknown_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
 
 ALTER TABLE script_language
    ADD CONSTRAINT script_language_fk_script

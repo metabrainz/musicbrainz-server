@@ -218,7 +218,6 @@ DROP INDEX vote_idx_edit;
 DROP INDEX vote_idx_editor;
 DROP INDEX work_alias_idx_primary;
 DROP INDEX work_alias_idx_work;
-DROP INDEX work_idx_artist_credit;
 DROP INDEX work_idx_gid;
 DROP INDEX work_idx_name;
 DROP INDEX work_name_idx_musicbrainz_collate;

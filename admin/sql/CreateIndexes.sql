@@ -303,7 +303,6 @@ CREATE INDEX vote_idx_editor ON vote (editor);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
-CREATE INDEX work_idx_artist_credit ON work (artist_credit);
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
