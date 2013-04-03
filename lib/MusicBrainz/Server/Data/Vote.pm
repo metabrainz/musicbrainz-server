@@ -105,7 +105,7 @@ sub enter_votes
         my %already_emailed = map { $_ => 1 } @$emailed;
 
         # Select all edits where there are not, currently, any no votes (but some may have been superseded)
-        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote = ? AND NOT superseded';
+        $query = 'SELECT id FROM edit WHERE id IN (' . placeholders(@edit_ids) . ') AND no_votes = 0';
         my $no_voted = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
         my %already_no_voted = map { $_ => 1 } @$no_voted;
 
