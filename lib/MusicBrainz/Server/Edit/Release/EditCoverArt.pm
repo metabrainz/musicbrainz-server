@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT_COVER_ART );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Validation qw( normalise_strings );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -94,6 +95,9 @@ sub allow_auto_edit {
     my $self = shift;
     return 0 if $self->data->{old}{types}
         && @{ $self->data->{old}{types} };
+    my ($old_comment, $new_comment) = normalise_strings(
+        $self->data->{old}{comment}, $self->data->{new}{comment});
+    return 0 if $old_comment ne $new_comment;
     return 1;
 }
 
