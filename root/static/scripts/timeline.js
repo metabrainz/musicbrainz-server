@@ -54,7 +54,7 @@ $(document).ready(function () {
             dataset = MB.Timeline.datasets[datasetId];
         }
         rateHash.data = dataset.rateOfChange.data;
-        rateHash.rateBounds = dataset.rateOfChange.bounds;
+        rateHash.thresholds = dataset.rateOfChange.thresholds;
         return rateHash
     }
 
@@ -100,10 +100,18 @@ $(document).ready(function () {
         var standardDeviation = Math.sqrt(deviationSum / count);
         var thresholds = {min: mean - 3 * standardDeviation,
                           max: mean + 3 * standardDeviation};
+
+        return {data: weekData, thresholds: thresholds};
+    }
+
+    function calculateRateBounds(data, thresholds, dateThresholds) {
         var rateBounds = {min: thresholds.max, max: thresholds.min};
-        $.each(weekData, function(index, value) {
+        $.each(data, function(index, value) {
                 if (value[1] > thresholds.min &&
-                      value[1] < thresholds.max) {
+                      value[1] < thresholds.max &&
+                      (!dateThresholds ||
+                           (value[0] > dateThresholds.min &&
+                            value[0] < dateThresholds.max))) {
                     if (value[1] > rateBounds.max) {
                         rateBounds.max = value[1];
                     }
@@ -115,8 +123,7 @@ $(document).ready(function () {
         if (rateBounds.min >= rateBounds.max) {
             rateBounds = {min: null, max: null};
         }
-
-        return {data: weekData, bounds: rateBounds};
+        return rateBounds;
     }
 
     function jq(myid) {
@@ -337,11 +344,13 @@ $(document).ready(function () {
                 if ($('#show-rate-graph').attr('checked')) {
                     var rateZoomOptions = {yaxis: {min: null, max: null}};
                     $.each(data[1], function(index, value) {
-                       if (rateZoomOptions.yaxis.min == null || value.rateBounds.min < rateZoomOptions.yaxis.min) {
-                           rateZoomOptions.yaxis.min = value.rateBounds.min;
+                       var thresholds = value.thresholds;
+                       var rateBounds = calculateRateBounds(value.data, thresholds, graphZoomOptions.xaxis);
+                       if (rateZoomOptions.yaxis.min == null || rateBounds.min < rateZoomOptions.yaxis.min) {
+                           rateZoomOptions.yaxis.min = rateBounds.min;
                        }
-                       if (rateZoomOptions.yaxis.max == null || value.rateBounds.max > rateZoomOptions.yaxis.max) {
-                           rateZoomOptions.yaxis.max = value.rateBounds.max;
+                       if (rateZoomOptions.yaxis.max == null || rateBounds.max > rateZoomOptions.yaxis.max) {
+                           rateZoomOptions.yaxis.max = rateBounds.max;
                        }
                     });
                     if (rateZoomOptions.yaxis.min) {
