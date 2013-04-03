@@ -374,4 +374,3 @@ ws_test 'release lookup, barcode is empty string',
 };
 
 1;
-

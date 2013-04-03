@@ -5,6 +5,7 @@ SET client_min_messages TO 'warning';
 TRUNCATE release_group_primary_type CASCADE;
 TRUNCATE release_status CASCADE;
 
+INSERT INTO release_group_secondary_type (id, name) VALUES (1, 'Remix');
 INSERT INTO release_group_primary_type (id, name) VALUES (2, 'Single');
 INSERT INTO release_name (id, name) VALUES (437020, 'サマーれげぇ!レインボー');
 INSERT INTO artist_name (id, name) VALUES (108545, '7人祭');
@@ -375,6 +376,7 @@ INSERT INTO release_group_tag (count, last_updated, release_group, tag) VALUES (
 INSERT INTO release_group_tag (count, last_updated, release_group, tag) VALUES (2, '2011-01-18 15:46:28.148085+00', 597897, 30);
 INSERT INTO release_name (id, name) VALUES (256671, 'Repercussions');
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES (427385, '', 0, '56683a0b-45b8-3664-a231-5b68efe2e7e2', 761939, '2009-05-24 20:47:00.490177+00', 256671, 1);
+INSERT INTO release_group_secondary_type_join (created, release_group, secondary_type) VALUES ('2013-04-02 17:42:38.063723+00', 761939, 1);
 INSERT INTO release (artist_credit, barcode, comment, country, date_day, date_month, date_year, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES (427385, '600116822123', '', 221, 17, 11, 2008, 0, '3b3d130a-87a8-4a47-b9fb-920f2530d134', 446581, 120, '2010-06-02 13:25:54.789939+00', 256671, NULL, -1, 761939, 28, 1);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 446581, '2011-01-18 15:21:33.71184+00', NULL, 1, 446581, 9);
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 467794, '2011-01-18 15:21:33.71184+00', 'Chestplate Singles', 2, 446581, 9);
