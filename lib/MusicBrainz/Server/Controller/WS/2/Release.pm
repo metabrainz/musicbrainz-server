@@ -116,12 +116,11 @@ sub release_toplevel
             $c->model('CDTOC')->load (@medium_cdtocs);
         }
 
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+        $c->model('Track')->load_for_media(@mediums);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if ($c->stash->{inc}->artist_credits);
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @mediums);
         $c->model('Recording')->load_meta(@recordings);
 
         if ($c->stash->{inc}->recording_level_rels)

@@ -3,11 +3,11 @@ package MusicBrainz::Server::Data::Track;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Track;
-use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
+    object_to_ids
     query_to_list
     query_to_list_limited
     placeholders
@@ -25,7 +25,7 @@ sub _table
 
 sub _columns
 {
-    return 'track.id, name.name, recording, tracklist, number, position, length,
+    return 'track.id, name.name, medium, recording, number, position, length,
             artist_credit, edits_pending';
 }
 
@@ -35,7 +35,7 @@ sub _column_mapping
         id               => 'id',
         name             => 'name',
         recording_id     => 'recording',
-        tracklist_id     => 'tracklist',
+        medium_id        => 'medium',
         number           => 'number',
         position         => 'position',
         length           => 'length',
@@ -60,25 +60,23 @@ sub load
     load_subobjects($self, 'track', @objs);
 }
 
-sub load_for_tracklists
+sub load_for_media
 {
-    my ($self, @tracklists) = @_;
-    my %id_to_tracklist;
-    for my $tracklist (@tracklists) {
-        $id_to_tracklist{$tracklist->id} ||= [];
-        push @{ $id_to_tracklist{$tracklist->id} }, $tracklist;
-    }
-    my @ids = keys %id_to_tracklist;
+    my ($self, @media) = @_;
+
+    my %id_to_medium = object_to_ids (@media);
+    my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                 WHERE tracklist IN (" . placeholders(@ids) . ")
-                 ORDER BY tracklist, position";
+                 WHERE medium IN (" . placeholders(@ids) . ")
+                 ORDER BY medium, position";
     my @tracks = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                $query, @ids);
+
     foreach my $track (@tracks) {
-        my @tracklists = @{ $id_to_tracklist{$track->tracklist_id} };
-        $_->add_track($track) for @tracklists;
+        my @media = @{ $id_to_medium{$track->medium_id} };
+        $_->add_track($track) for @media;
     }
 }
 
