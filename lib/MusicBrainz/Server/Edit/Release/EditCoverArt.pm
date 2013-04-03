@@ -90,6 +90,13 @@ sub accept {
     );
 }
 
+sub allow_auto_edit {
+    my $self = shift;
+    return 0 if $self->data->{old}{types}
+        && @{ $self->data->{old}{types} };
+    return 1;
+}
+
 sub foreign_keys {
     my ($self) = @_;
 
