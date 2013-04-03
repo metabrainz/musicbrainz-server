@@ -1,0 +1,14 @@
+[%- WRAPPER 'layout.tt' title=l('Artists with no subscribers') full_width=1 -%]
+
+<h1>[% l('Artists with no subscribers') %]</h1>
+
+<ul>
+    <li>[% l('This report lists artists that have no editors subscribed to them, and whose changes may therefore be under-reviewed. Artists with more release groups and more open edits are listed first.') %]</li>
+    <li>[% l('Total artists found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/artist_list.tt' -%]
+
+[%- END -%]
