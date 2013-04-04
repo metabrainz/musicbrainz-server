@@ -271,9 +271,9 @@ sub build_display_data
 
         $data->{artist_credit_changes} = [
             grep {
-                ($_->[1] && hash_artist_credit($_->[1]->artist_credit))
+                ($_->[1] && hash_artist_credit($_->[1]->artist_credit, 1))
                     ne
-                ($_->[2] && hash_artist_credit($_->[2]->artist_credit))
+                ($_->[2] && hash_artist_credit($_->[2]->artist_credit, 1))
             }
             grep { $_->[0] ne '-' }
             @$tracklist_changes ];

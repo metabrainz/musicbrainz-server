@@ -271,13 +271,13 @@ sub status_names
 
 
 sub hash_artist_credit {
-    my ($artist_credit) = @_;
+    my ($artist_credit, $visible_only) = @_;
     return join(', ', map {
         '[' .
             join(',',
                  $_->{name},
-                 $_->{artist}{id} // -1,
-                 $_->{join_phrase} || '')
+                 $_->{artist}{id} // -1)
+            . (!$visible_only ? ',' . $_->{join_phrase} || '' : '')
             .
         ']'
     } @{ $artist_credit->{names} });
