@@ -11,6 +11,31 @@ ALTER TABLE application
    FOREIGN KEY (owner)
    REFERENCES editor(id);
 
+ALTER TABLE area
+   ADD CONSTRAINT area_fk_type
+   FOREIGN KEY (type)
+   REFERENCES area_type(id);
+
+ALTER TABLE area_alias
+   ADD CONSTRAINT area_alias_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_alias
+   ADD CONSTRAINT area_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES area_alias_type(id);
+
+ALTER TABLE area_annotation
+   ADD CONSTRAINT area_annotation_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_annotation
+   ADD CONSTRAINT area_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)
@@ -27,9 +52,19 @@ ALTER TABLE artist
    REFERENCES artist_type(id);
 
 ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
+   ADD CONSTRAINT artist_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_begin_area
+   FOREIGN KEY (begin_area)
+   REFERENCES area(id);
+
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_end_area
+   FOREIGN KEY (end_area)
+   REFERENCES area(id);
 
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_gender
@@ -174,6 +209,11 @@ ALTER TABLE cdtoc_raw
    FOREIGN KEY (release)
    REFERENCES release_raw(id);
 
+ALTER TABLE country_area
+   ADD CONSTRAINT country_area_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 ALTER TABLE edit
    ADD CONSTRAINT edit_fk_editor
    FOREIGN KEY (editor)
@@ -272,9 +312,9 @@ ALTER TABLE editor
    REFERENCES gender(id);
 
 ALTER TABLE editor
-   ADD CONSTRAINT editor_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
+   ADD CONSTRAINT editor_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
@@ -381,6 +421,21 @@ ALTER TABLE editor_watch_release_status
    FOREIGN KEY (release_status)
    REFERENCES release_status(id);
 
+ALTER TABLE iso_3166_1
+   ADD CONSTRAINT iso_3166_1_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_2
+   ADD CONSTRAINT iso_3166_2_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_3
+   ADD CONSTRAINT iso_3166_3_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 ALTER TABLE isrc
    ADD CONSTRAINT isrc_fk_recording
    FOREIGN KEY (recording)
@@ -389,6 +444,126 @@ ALTER TABLE isrc
 ALTER TABLE iswc
    ADD CONSTRAINT iswc_fk_work
    FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES artist(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES label(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity1
+   FOREIGN KEY (entity1)
    REFERENCES work(id);
 
 ALTER TABLE l_artist_artist
@@ -822,14 +997,14 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
+   ADD CONSTRAINT label_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);
-
-ALTER TABLE label
-   ADD CONSTRAINT label_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
 
 ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_label
@@ -1132,7 +1307,7 @@ ALTER TABLE release_country
 ALTER TABLE release_country
    ADD CONSTRAINT release_country_fk_country
    FOREIGN KEY (country)
-   REFERENCES country(id);
+   REFERENCES country_area(area);
 
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id

@@ -3,6 +3,11 @@
 
 ALTER TABLE annotation DROP CONSTRAINT annotation_pkey;
 ALTER TABLE application DROP CONSTRAINT application_pkey;
+ALTER TABLE area DROP CONSTRAINT area_pkey;
+ALTER TABLE area_alias DROP CONSTRAINT area_alias_pkey;
+ALTER TABLE area_alias_type DROP CONSTRAINT area_alias_type_pkey;
+ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_pkey;
+ALTER TABLE area_type DROP CONSTRAINT area_type_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_pkey;
 ALTER TABLE artist_alias_type DROP CONSTRAINT artist_alias_type_pkey;
@@ -22,7 +27,7 @@ ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_pk
 ALTER TABLE cdtoc DROP CONSTRAINT cdtoc_pkey;
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_pkey;
 ALTER TABLE clientversion DROP CONSTRAINT clientversion_pkey;
-ALTER TABLE country DROP CONSTRAINT country_pkey;
+ALTER TABLE country_area DROP CONSTRAINT country_area_pkey;
 ALTER TABLE edit DROP CONSTRAINT edit_pkey;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_pkey;
 ALTER TABLE edit_label DROP CONSTRAINT edit_label_pkey;
@@ -39,6 +44,7 @@ ALTER TABLE editor_language DROP CONSTRAINT editor_language_pkey;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
+ALTER TABLE editor_subscribe_collection DROP CONSTRAINT editor_subscribe_collection_pkey;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_pkey;
 ALTER TABLE editor_subscribe_label DROP CONSTRAINT editor_subscribe_label_pkey;
 ALTER TABLE editor_watch_artist DROP CONSTRAINT editor_watch_artist_pkey;
@@ -46,8 +52,19 @@ ALTER TABLE editor_watch_preferences DROP CONSTRAINT editor_watch_preferences_pk
 ALTER TABLE editor_watch_release_group_type DROP CONSTRAINT editor_watch_release_group_type_pkey;
 ALTER TABLE editor_watch_release_status DROP CONSTRAINT editor_watch_release_status_pkey;
 ALTER TABLE gender DROP CONSTRAINT gender_pkey;
+ALTER TABLE iso_3166_1 DROP CONSTRAINT iso_3166_1_pkey;
+ALTER TABLE iso_3166_2 DROP CONSTRAINT iso_3166_2_pkey;
+ALTER TABLE iso_3166_3 DROP CONSTRAINT iso_3166_3_pkey;
 ALTER TABLE isrc DROP CONSTRAINT isrc_pkey;
 ALTER TABLE iswc DROP CONSTRAINT iswc_pkey;
+ALTER TABLE l_area_area DROP CONSTRAINT l_area_area_pkey;
+ALTER TABLE l_area_artist DROP CONSTRAINT l_area_artist_pkey;
+ALTER TABLE l_area_label DROP CONSTRAINT l_area_label_pkey;
+ALTER TABLE l_area_recording DROP CONSTRAINT l_area_recording_pkey;
+ALTER TABLE l_area_release DROP CONSTRAINT l_area_release_pkey;
+ALTER TABLE l_area_release_group DROP CONSTRAINT l_area_release_group_pkey;
+ALTER TABLE l_area_url DROP CONSTRAINT l_area_url_pkey;
+ALTER TABLE l_area_work DROP CONSTRAINT l_area_work_pkey;
 ALTER TABLE l_artist_artist DROP CONSTRAINT l_artist_artist_pkey;
 ALTER TABLE l_artist_label DROP CONSTRAINT l_artist_label_pkey;
 ALTER TABLE l_artist_recording DROP CONSTRAINT l_artist_recording_pkey;

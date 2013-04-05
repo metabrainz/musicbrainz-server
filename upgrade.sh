@@ -63,6 +63,12 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-d
 echo `date` : 20130225-rename-link_type.short_link_phrase.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.short_link_phrase.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Creating the Area entity'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Updating musicbrainz schema sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -90,6 +96,7 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130309-areas-fks.sql 2>&1` || ( echo "$OUTPUT"; exit 1 )
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )

@@ -64,6 +64,14 @@ my @tables = qw(
     work_tag_raw
     annotation
     application
+    area
+    area_type
+    area_alias
+    area_alias_type
+    area_annotation
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -80,7 +88,6 @@ my @tables = qw(
     autoeditor_election_vote
     cdtoc
     clientversion
-    country
     editor
     editor_oauth_token
     editor_preference
@@ -96,6 +103,14 @@ my @tables = qw(
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -243,6 +258,14 @@ my @replication_tables = qw(
 
 
 my @group_core = qw(
+    area
+    area_type
+    area_alias
+    area_alias_type
+    area_annotation
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -258,6 +281,14 @@ my @group_core = qw(
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording

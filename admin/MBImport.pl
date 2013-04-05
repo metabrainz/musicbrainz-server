@@ -356,6 +356,11 @@ sub ImportAllTables
         work_rating_raw
         work_tag_raw
         annotation
+        area
+        area_type
+        area_alias
+        area_alias_type
+        area_annotation
         artist
         artist_alias
         artist_alias_type
@@ -370,7 +375,6 @@ sub ImportAllTables
         artist_type
         cdtoc
         clientversion
-        country
         editor
         editor_language
         editor_preference
@@ -379,8 +383,19 @@ sub ImportAllTables
         editor_subscribe_editor
         editor_subscribe_label
         gender
+        iso_3166_1
+        iso_3166_2
+        iso_3166_3
         isrc
         iswc
+        l_area_area
+        l_area_artist
+        l_area_label
+        l_area_recording
+        l_area_release
+        l_area_release_group
+        l_area_url
+        l_area_work
         l_artist_artist
         l_artist_label
         l_artist_recording
