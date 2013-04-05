@@ -337,7 +337,9 @@ sub change_password : Path('/account/change-password')
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/change_password_ok.tt');
+        $c->flash->{message} = l('Your password has been changed.');
+        $c->response->redirect($c->uri_for_action('/user/login'));
+
         $c->detach;
     }
 

@@ -14,8 +14,6 @@ use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
 use Try::Tiny;
 
-my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
-
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::Constants qw(
@@ -78,7 +76,7 @@ sub _perform_login {
         return 0;
     }
     else {
-        if ($c->user->last_login_date < $LATEST_SECURITY_VULNERABILITY) {
+        if ($c->user->requires_password_reset) {
             $c->response->redirect($c->uri_for_action('/account/change_password', {
                 username => $c->user->name,
                 mandatory => 1
