@@ -564,7 +564,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 '' AS email,
                 NULL AS website,
                 NULL AS bio,
-                member_since
+                member_since,
                 email_confirm_date,
                 last_login_date,
                 edits_accepted,
