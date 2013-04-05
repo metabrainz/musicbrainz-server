@@ -311,7 +311,7 @@ CREATE TABLE editor
     bio                 TEXT DEFAULT NULL,
     member_since        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     email_confirm_date  TIMESTAMP WITH TIME ZONE,
-    last_login_date     TIMESTAMP WITH TIME ZONE,
+    last_login_date     TIMESTAMP WITH TIME ZONE DEFAULT now(),
     edits_accepted      INTEGER DEFAULT 0,
     edits_rejected      INTEGER DEFAULT 0,
     auto_edits_accepted INTEGER DEFAULT 0,
