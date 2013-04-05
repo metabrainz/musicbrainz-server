@@ -256,11 +256,11 @@ sub update_email
 
 sub update_password
 {
-    my ($self, $editor, $password) = @_;
+    my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
         $self->sql->do('UPDATE editor SET password = ?, last_login_date = now() WHERE name=?',
-                 $password, $editor);
+                 $password, $editor_name);
     }, $self->sql);
 }
 

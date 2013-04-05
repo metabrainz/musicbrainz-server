@@ -225,7 +225,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor, $password);
+        $c->model('Editor')->update_password($editor->name, $password);
 
         $c->model('Editor')->load_preferences($editor);
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
