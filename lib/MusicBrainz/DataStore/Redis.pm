@@ -24,7 +24,8 @@ has 'redis_new_args' => (
 
 has '_connection' => (
     is => 'rw',
-    isa => 'Redis',
+    isa => 'Maybe[Redis]',
+    default => undef
 );
 
 has '_json' => (
@@ -32,17 +33,22 @@ has '_json' => (
     default => sub { return JSON->new->allow_nonref->ascii; }
 );
 
-sub BUILD {
+sub _connect
+{
     my $self = shift;
+
+    return $self->_connection if defined $self->_connection;
 
     $self->_connection( Redis->new(%{ $self->redis_new_args }) );
     $self->_connection->select( $self->database );
-};
+
+    return $self->_connection;
+}
 
 sub get {
     my ($self, $key) = @_;
 
-    my $value = $self->_connection->get ($self->prefix.$key);
+    my $value = $self->_connect->get ($self->prefix.$key);
 
     return defined $value ? $self->_json->decode ($value) : undef;
 }
@@ -50,20 +56,20 @@ sub get {
 sub set {
     my ($self, $key, $value) = @_;
 
-    return $self->_connection->set (
+    return $self->_connect->set (
         $self->prefix.$key, $self->_json->encode ($value));
 }
 
 sub exists {
     my ($self, $key) = @_;
 
-    return $self->_connection->exists ($self->prefix.$key);
+    return $self->_connect->exists ($self->prefix.$key);
 }
 
 sub del {
     my ($self, $key) = @_;
 
-    return $self->_connection->del ($self->prefix.$key);
+    return $self->_connect->del ($self->prefix.$key);
 }
 
 =method expire
@@ -75,13 +81,13 @@ Expire the specified key at (unix) $timestamp.
 sub expire {
     my ($self, $key, $timestamp) = @_;
 
-    return $self->_connection->expireat ($self->prefix.$key, $timestamp);
+    return $self->_connect->expireat ($self->prefix.$key, $timestamp);
 }
 
 sub incr {
     my ($self, $key, $increment) = @_;
 
-    return $self->_connection->incrby ($self->prefix.$key, $increment // 1);
+    return $self->_connect->incrby ($self->prefix.$key, $increment // 1);
 }
 
 =method add
@@ -94,13 +100,13 @@ doesn't exists on the server.
 sub add {
     my ($self, $key, $value) = @_;
 
-    return $self->_connection->setnx ($self->prefix.$key, $self->_json->encode ($value));
+    return $self->_connect->setnx ($self->prefix.$key, $self->_json->encode ($value));
 }
 
 sub _flushdb {
     my ($self) = @_;
 
-    return $self->_connection->flushdb ();
+    return $self->_connect->flushdb ();
 }
 
 =head1 LICENSE
