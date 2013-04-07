@@ -4,7 +4,6 @@ extends 'HTML::FormHandler';
 
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -20,9 +19,7 @@ sub _select_all
     my ($self, $model, %opts) = @_;
     my $sort_by_accessor = $opts{sort_by_accessor} // 0;
     my $accessor = $opts{accessor} // 'l_name';
-    my $coll = Unicode::ICU::Collator->new($self->ctx->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
+    my $coll = $self->ctx->get_collator();
 
     my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {

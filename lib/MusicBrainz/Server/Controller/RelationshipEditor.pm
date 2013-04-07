@@ -85,10 +85,12 @@ sub load : Private {
     my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
 
+    my $coll = $c->get_collator();
+
     $c->stash(
         attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
-        work_types => [ $c->model('WorkType')->get_all ],
+        work_types => [ sort_by { $coll->getSortKey($_->l_name) } $c->model('WorkType')->get_all ],
         work_languages => $self->build_work_languages($c, $form->language_options),
     );
 }
