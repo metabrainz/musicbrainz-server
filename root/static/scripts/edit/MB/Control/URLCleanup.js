@@ -238,7 +238,7 @@ MB.constants.CLEANUPS = {
         }
     },
     downloadpurchase: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|itunes\\.apple\\.com/)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|audiojelly\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
             // iTunes cleanup
