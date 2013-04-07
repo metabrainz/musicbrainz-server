@@ -159,6 +159,11 @@ sub delete {
 sub merge_releases {
     my ($self, $new_release, @old_releases) = @_;
 
+    $self->sql->do(
+        "UPDATE release_meta SET cover_art_presence = 'present'
+           WHERE id = ? AND
+           EXISTS (SELECT TRUE FROM release_meta WHERE cover_art_presence = 'present' AND id = any(?))", $new_release, \@old_releases);
+
     for my $old_release (@old_releases) {
         $self->sql->do(
             'UPDATE cover_art_archive.cover_art
