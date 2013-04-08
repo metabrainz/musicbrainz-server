@@ -9,7 +9,7 @@ sub query {
      FROM artist
      LEFT JOIN editor_subscribe_artist ON artist.id=editor_subscribe_artist.artist
      JOIN artist_credit_name ON artist.id = artist_credit_name.artist
-     JOIN release_group ON release_group.artist_credit = artist_credit_name.artist_credit
+     LEFT JOIN release_group ON release_group.artist_credit = artist_credit_name.artist_credit
      WHERE editor_subscribe_artist.editor IS NULL GROUP BY artist_id";
 }
 
