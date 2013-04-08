@@ -106,7 +106,7 @@ sub enter_votes
 
         # Select all edits where there are not, currently, any no votes (but some may have been superseded)
         $query = 'SELECT id FROM edit WHERE id IN (' . placeholders(@edit_ids) . ') AND no_votes = 0';
-        my $no_voted = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
+        my $no_voted = $self->sql->select_single_column_array($query, @edit_ids);
         my %already_no_voted = map { $_ => 1 } @$no_voted;
 
         # Insert our new votes
