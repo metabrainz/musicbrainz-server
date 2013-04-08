@@ -128,7 +128,7 @@ sub find_by_release
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN track ON track.recording = recording.id
-                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
                  ORDER BY musicbrainz_collate(name.name)
