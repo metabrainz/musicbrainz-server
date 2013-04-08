@@ -75,6 +75,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry';
                predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
+               predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
            END %]
