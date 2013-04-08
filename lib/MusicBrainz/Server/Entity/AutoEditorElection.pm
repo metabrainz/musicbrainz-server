@@ -161,7 +161,8 @@ sub can_cancel
 sub can_see_vote_count
 {
     my ($self, $editor) = @_;
- 
+
+# This looks weird, but for some reason $editor *is* an empty string when logged out
     my $editor_is_involved =
         $editor ne '' && (
             $self->proposer_id == $editor->id ||
