@@ -75,6 +75,7 @@ test 'lookup via toc' => sub {
     MusicBrainz::Server::Test->prepare_test_database(
         $test->c, "INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);");
     $test->c->model('DurationLookup')->update(2);
+    $test->c->model('DurationLookup')->update(4);
 
     ws_test_json 'lookup via toc',
     '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' => encode_json (
