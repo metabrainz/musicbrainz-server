@@ -17,19 +17,8 @@ test 'Relationships between merged entities' => sub {
     my $test = shift;
     my $c = $test->c;
 
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO label_name (id, name) VALUES (1, 'A'), (2, 'B'), (3, 'C');
-INSERT INTO label (id, name, sort_name, gid)
-    VALUES (1, 1, 1, '9b335b20-5f88-11e0-80e3-0800200c9a66'),
-           (2, 2, 2, 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
-           (3, 3, 3, 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
-
-INSERT INTO link_type (id, entity_type0, entity_type1, name, gid, link_phrase,
-                       short_link_phrase, reverse_link_phrase)
-    VALUES (1, 'label', 'label', 'label AR', 'ff68bcc0-5f88-11e0-80e3-0800200c9a66',
-            'phrase', 'short', 'reverse');
-INSERT INTO link (id, link_type) VALUES (1, 1);
-
 INSERT INTO l_label_label (id, link, entity0, entity1)
     VALUES (1, 1, 2, 3), (2, 1, 1, 3);
 EOSQL
@@ -38,7 +27,58 @@ EOSQL
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
-    is (scalar($label->all_relationships) => 0);
+    is (scalar($label->all_relationships) => 0, 'no relationships remain');
+};
+
+test 'Merge matching dated/undated rels on entity merge' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 2, 3), (2, 2, 1, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is (scalar($label->all_relationships) => 1, 'two relationships became one');
+};
+
+test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 1, 1, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is (scalar($label->all_relationships) => 2, 'three relationships, two on the same entity dated vs. undated, became two');
+};
+
+test 'Don\'t merge matching rels, other than attributes' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO l_artist_artist (id, link, entity0, entity1)
+    VALUES (1, 3, 2, 3), (2, 4, 1, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('artist', 1, 2);
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    $c->model('Relationship')->load($artist);
+    is (scalar($artist->all_relationships) => 2, 'two relationships that are the same other than attributes are not merged');
 };
 
 test all => sub {
