@@ -58,12 +58,12 @@
                   html_escape(edit.display_data.ipi_code.new)) %]
 
   [% display_diff(l('IPI codes:'),
-                  edit.display_data.ipi_codes.old.join (", "),
-                  edit.display_data.ipi_codes.new.join (", "),
+                  comma_only_list(edit.display_data.ipi_codes.old),
+                  comma_only_list(edit.display_data.ipi_codes.new),
                   ', ') %]
 
   [% display_diff(l('ISNI codes:'),
-                  edit.display_data.isni_codes.old.join (", "),
-                  edit.display_data.isni_codes.new.join (", "),
+                  comma_only_list(edit.display_data.isni_codes.old),
+                  comma_only_list(edit.display_data.isni_codes.new),
                   ', ') %]
 </table>
