@@ -35,7 +35,7 @@
                     (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]
             [% ELSE %]
-                [% l('(none)') %]
+                [% lp('(none)', 'email') %]
             [% END %]
         [% END %]
 

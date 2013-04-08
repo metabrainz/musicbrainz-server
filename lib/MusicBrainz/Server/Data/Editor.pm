@@ -256,11 +256,11 @@ sub update_email
 
 sub update_password
 {
-    my ($self, $editor, $password) = @_;
+    my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET password=? WHERE id=?',
-                 $password, $editor->id);
+        $self->sql->do('UPDATE editor SET password = ?, last_login_date = now() WHERE name=?',
+                 $password, $editor_name);
     }, $self->sql);
 }
 
@@ -561,6 +561,12 @@ sub unsubscribe_to {
     $self->sql->do(
         'DELETE FROM editor_subscribe_editor WHERE subscribed_editor = ?',
         $editor_id);
+}
+
+sub update_last_login_date {
+    my ($self, $editor_id) = @_;
+    $self->sql->auto_commit(1);
+    $self->sql->do('UPDATE editor SET last_login_date = now() WHERE id = ?', $editor_id);
 }
 
 no Moose;

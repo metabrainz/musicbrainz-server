@@ -11,6 +11,7 @@ use MusicBrainz::Server::PagedReport;
     BadAmazonURLs
     CatNoLooksLikeASIN
     CollaborationRelationships
+    CoverArtRelationships
     CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
@@ -56,6 +57,7 @@ use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
+use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
