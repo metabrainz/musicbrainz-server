@@ -132,7 +132,7 @@ sub search
             entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
 
-        $extra_columns .= 'entity.language AS language_id,'
+        $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
             if ($type eq 'work');
 
         my ($join_sql, $where_sql)
