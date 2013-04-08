@@ -67,6 +67,9 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
 
+    echo `date` : Adding ISNI constraints
+    OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20120914-isni-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
 fi

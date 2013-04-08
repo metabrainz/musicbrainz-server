@@ -12,11 +12,6 @@ CREATE TABLE artist_isni
 
 ALTER TABLE artist_isni ADD CONSTRAINT artist_isni_pkey PRIMARY KEY (artist, isni);
 
-ALTER TABLE artist_isni
-   ADD CONSTRAINT artist_isni_fk_artist
-   FOREIGN KEY (artist)
-   REFERENCES artist(id);
-
 CREATE TABLE label_isni
 (
     label              INTEGER NOT NULL, -- PK, references label.id
@@ -26,10 +21,5 @@ CREATE TABLE label_isni
 );
 
 ALTER TABLE label_isni ADD CONSTRAINT label_isni_pkey PRIMARY KEY (label, isni);
-
-ALTER TABLE label_isni
-   ADD CONSTRAINT label_isni_fk_label
-   FOREIGN KEY (label)
-   REFERENCES label(id);
 
 COMMIT;
