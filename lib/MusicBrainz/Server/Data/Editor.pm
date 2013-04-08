@@ -268,9 +268,9 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET password = ?, ha1 = ?, last_login_date = now() WHERE name = ?',
+        $self->sql->do('UPDATE editor SET password = ?, ha1 = md5(name || \':musicbrainz.org:\' || ?), last_login_date = now() WHERE name = ?',
                        hash_password($password),
-                       ha1_password($editor->name, $password),
+                       $password,
                        $editor_name);
     }, $self->sql);
 }
