@@ -5,6 +5,18 @@ from fabric.colors import red
 env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
 
+def prepare_release():
+    """
+    Prepare for a new release.
+    """
+    no_local_changes()
+    local("git checkout beta")
+    local("git pull --ff-only origin beta")
+    local("git checkout master")
+    local("git pull --ff-only origin master")
+    local("git merge beta")
+    local("git push origin master")
+
 def socket_deploy():
     """
     Do a Unix FastCGI socket deployment of musicbrainz-server. This works by
