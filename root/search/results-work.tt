@@ -42,9 +42,7 @@
                               </ul>
                             </td>
                             <td>
-                              <ul>
                                 [% result.entity.type.l_name %]
-                              </ul>
                             </td>
                             <td>
                               <abbr title="[% result.entity.language.l_name %]">
