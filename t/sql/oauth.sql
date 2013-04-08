@@ -1,4 +1,4 @@
-INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'pass'), (2, 'editor2', 'pass'), (3, 'editor3', 'pass');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee'), (2, 'editor2', '{CLEARTEXT}pass', 'ba025a52cc5ff57d5d10f31874a83de6'), (3, 'editor3', '{CLEARTEXT}pass', 'c096994132d53f3e1cde757943b10e7d');
 
 INSERT INTO application (id, owner, name, oauth_id, oauth_secret, oauth_redirect_uri)
    VALUES (1, 1, 'Test Desktop', 'id-desktop', 'id-desktop-secret', NULL),
