@@ -213,6 +213,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // SoundtrackCollector
+                [
+                    'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
                 // Second Hand Songs
                 [
                     'artist', 'http://www.secondhandsongs.com/artist/103',
