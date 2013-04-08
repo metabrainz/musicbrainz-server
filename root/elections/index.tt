@@ -28,8 +28,8 @@
                 <td>[% link_editor(election.proposer) %]</td>
                 <td>[% link_editor(election.seconder_1) %]</td>
                 <td>[% link_editor(election.seconder_2) %]</td>
-                <td>[% IF (c.user_exists && election.can_see_vote_count(c.user) == "yes") || election.close_time %][% election.yes_votes %][% ELSE %]-[% END %]</td>
-                <td>[% IF (c.user_exists && election.can_see_vote_count(c.user) == "yes") || election.close_time %][% election.no_votes %][% ELSE %]-[% END %]</td>
+                <td>[% IF c.user_exists && election.can_see_vote_count(c.user) == "yes" %][% election.yes_votes %][% ELSE %]-[% END %]</td>
+                <td>[% IF c.user_exists && election.can_see_vote_count(c.user) == "yes" %][% election.no_votes %][% ELSE %]-[% END %]</td>
                 <td><a href="[% c.uri_for_action("/elections/show", [ election.id ]) %]">[% l('View details') %]</a></td>
             </tr>
         [%- END -%]
