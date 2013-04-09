@@ -289,7 +289,7 @@ sub begin : Private
     }
 
     # Merging
-    if (defined $c->sessionid && (my $merger = $c->session->{merger})) {
+    if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model($merger->type);
         my @merge = values %{
             $model->get_by_ids($merger->all_entities)
