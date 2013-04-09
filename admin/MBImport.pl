@@ -480,9 +480,9 @@ sub ImportAllTables
         tag
         tag_relation
         track
+        track_gid_redirect
         track_name
-        tracklist
-        tracklist_index
+        medium_index
         url
         url_gid_redirect
         work

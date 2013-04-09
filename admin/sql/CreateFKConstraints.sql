@@ -1144,11 +1144,6 @@ ALTER TABLE link_type_attribute_type
    REFERENCES link_attribute_type(id);
 
 ALTER TABLE medium
-   ADD CONSTRAINT medium_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
-
-ALTER TABLE medium
    ADD CONSTRAINT medium_fk_release
    FOREIGN KEY (release)
    REFERENCES release(id);
@@ -1172,6 +1167,12 @@ ALTER TABLE medium_format
    ADD CONSTRAINT medium_format_fk_parent
    FOREIGN KEY (parent)
    REFERENCES medium_format(id);
+
+ALTER TABLE medium_index
+   ADD CONSTRAINT medium_index_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
@@ -1473,9 +1474,9 @@ ALTER TABLE track
    REFERENCES recording(id);
 
 ALTER TABLE track
-   ADD CONSTRAINT track_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
+   ADD CONSTRAINT track_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
 
 ALTER TABLE track
    ADD CONSTRAINT track_fk_name
@@ -1486,6 +1487,11 @@ ALTER TABLE track
    ADD CONSTRAINT track_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
+
+ALTER TABLE track_gid_redirect
+   ADD CONSTRAINT track_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES track(id);
 
 ALTER TABLE track_raw
    ADD CONSTRAINT track_raw_fk_release

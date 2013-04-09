@@ -195,9 +195,9 @@ my @tables = qw(
     tag
     tag_relation
     track
+    track_gid_redirect
     track_name
-    tracklist
-    tracklist_index
+    medium_index
     url
     url_gid_redirect
     work
@@ -354,6 +354,7 @@ my @group_core = qw(
     script
     script_language
     track
+    track_gid_redirect
     track_name
     tracklist
     url
@@ -385,7 +386,7 @@ my @group_derived = qw(
     release_tag
     tag
     tag_relation
-    tracklist_index
+    medium_index
     work_annotation
     work_meta
     work_tag

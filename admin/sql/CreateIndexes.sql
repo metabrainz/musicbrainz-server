@@ -218,7 +218,6 @@ CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
 CREATE INDEX medium_idx_release ON medium (release);
-CREATE INDEX medium_idx_tracklist ON medium (tracklist);
 
 CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
@@ -282,7 +281,7 @@ CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
 CREATE INDEX track_idx_recording ON track (recording);
-CREATE INDEX track_idx_tracklist ON track (tracklist, position);
+CREATE INDEX track_idx_medium ON track (medium, position);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
 
@@ -290,9 +289,8 @@ CREATE UNIQUE INDEX track_name_idx_name ON track_name (name);
 
 CREATE INDEX track_raw_idx_release ON track_raw (release);
 
-CREATE INDEX tracklist_idx_track_count ON tracklist (track_count);
-
-CREATE INDEX tracklist_index_idx ON tracklist_index USING gist (toc);
+CREATE INDEX medium_idx_track_count ON medium (track_count);
+CREATE INDEX medium_index_idx ON medium_index USING gist (toc);
 
 CREATE UNIQUE INDEX url_idx_gid ON url (gid);
 CREATE UNIQUE INDEX url_idx_url ON url (url);

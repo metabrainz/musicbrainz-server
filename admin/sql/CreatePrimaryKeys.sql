@@ -116,6 +116,7 @@ ALTER TABLE link_type_attribute_type ADD CONSTRAINT link_type_attribute_type_pke
 ALTER TABLE medium ADD CONSTRAINT medium_pkey PRIMARY KEY (id);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
+ALTER TABLE medium_index ADD CONSTRAINT medium_index_pkey PRIMARY KEY (medium);
 ALTER TABLE puid ADD CONSTRAINT puid_pkey PRIMARY KEY (id);
 ALTER TABLE recording ADD CONSTRAINT recording_pkey PRIMARY KEY (id);
 ALTER TABLE recording_annotation ADD CONSTRAINT recording_annotation_pkey PRIMARY KEY (recording, annotation);
@@ -155,10 +156,9 @@ ALTER TABLE script_language ADD CONSTRAINT script_language_pkey PRIMARY KEY (id)
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
+ALTER TABLE track_gid_redirect ADD CONSTRAINT track_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE track_name ADD CONSTRAINT track_name_pkey PRIMARY KEY (id);
 ALTER TABLE track_raw ADD CONSTRAINT track_raw_pkey PRIMARY KEY (id);
-ALTER TABLE tracklist ADD CONSTRAINT tracklist_pkey PRIMARY KEY (id);
-ALTER TABLE tracklist_index ADD CONSTRAINT tracklist_index_pkey PRIMARY KEY (tracklist);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE url_gid_redirect ADD CONSTRAINT url_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE vote ADD CONSTRAINT vote_pkey PRIMARY KEY (id);

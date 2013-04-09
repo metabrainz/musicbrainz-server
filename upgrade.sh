@@ -69,6 +69,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` ||
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'MBS-1839, Reduplicate tracklists'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -104,6 +107,12 @@ then
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'MBS-1839, Add track MBID foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-1839, Update track triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-track-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################

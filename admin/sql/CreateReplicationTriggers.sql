@@ -476,12 +476,12 @@ CREATE TRIGGER "reptg_track_name"
 AFTER INSERT OR DELETE OR UPDATE ON "track_name"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_tracklist"
-AFTER INSERT OR DELETE OR UPDATE ON "tracklist"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+CREATE TRIGGER "reptg_track_gid_redirect"
+   AFTER INSERT OR DELETE OR UPDATE ON "track_gid_redirect"
+   FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_tracklist_index"
-AFTER INSERT OR DELETE OR UPDATE ON "tracklist_index"
+CREATE TRIGGER "reptg_medium_index"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_url"
