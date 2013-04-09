@@ -205,4 +205,46 @@ test 'Delete release which is set as cover art for a release group' => sub {
     is_deeply ($results, $expected, "release group cover art unset after release has been deleted");
 };
 
+test 'Merging release groups with cover art set preserves target cover art' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releasegroup');
+
+    $c->sql->do(<<'EOSQL');
+    INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+      VALUES (4, 4), (5, 5)
+EOSQL
+
+    $c->model('CoverArtArchive')->merge_release_groups(4, 5);
+
+    is(
+        $c->sql->select_single_value(
+            'SELECT release FROM cover_art_archive.release_group_cover_art
+             WHERE release_group = ?', 4
+        ), 4
+    );
+};
+
+test 'Merging release groups with cover art otherwise uses a random choice' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+releasegroup');
+
+    $c->sql->do(<<'EOSQL');
+    INSERT INTO cover_art_archive.release_group_cover_art (release_group, release)
+      VALUES (4, 4), (5, 5)
+EOSQL
+
+    $c->model('CoverArtArchive')->merge_release_groups(3, 4, 5);
+
+    ok(
+        $c->sql->select_single_value(
+            'SELECT release FROM cover_art_archive.release_group_cover_art
+             WHERE release_group = ?', 3
+        )
+    );
+};
+
 1;
