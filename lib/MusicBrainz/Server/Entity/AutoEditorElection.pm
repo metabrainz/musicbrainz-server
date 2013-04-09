@@ -162,9 +162,8 @@ sub can_see_vote_count
 {
     my ($self, $editor) = @_;
 
-# This looks weird, but for some reason $editor *is* an empty string when logged out
     my $editor_is_involved =
-        $editor ne '' && (
+        $editor && (
             $self->proposer_id == $editor->id ||
             $self->candidate_id == $editor->id ||
             (defined $self->seconder_1_id && $self->seconder_1_id == $editor->id) ||
