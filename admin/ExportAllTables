@@ -559,7 +559,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT id,
                 name,
-                'mb' AS password,
+                '{CLEARTEXT}mb' AS password,
                 0 AS privs,
                 '' AS email,
                 NULL AS website,
