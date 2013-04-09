@@ -48,33 +48,28 @@ $BUCKET is the bucket name.
 CAA-indexer
 ===========
 
-Download the CAA-indexer and get skytools:
+Download the CAA-indexer and install RabbitMQ.
 
     $ git clone git://github.com/metabrainz/CAA-indexer.git
-    $ sudo apt-get install skytools
+    $ sudo apt-get install rabbitmq
+    $ sudo /etc/init.d/rabbitmq start
 
-Set up a configuration file for pgqadm:
+You will also need to install the `pg_amqp` extension for PostgreSQL. For
+details on this, see https://github.com/omniti-labs/pg_amqp, but it can
+generally be described as:
 
-    $ cp musicbrainz.ini.example musicbrainz.ini
-    $ vim musicbrainz.ini
+    $ git clone https://github.com/omniti-labs/pg_amqp.git
+    $ cd pg_amqp
+    $ sudo make install
 
-Make sure to configure a database user with sufficient permission
-(otherwise you will probably get a "permission denied for language c"
-error from pgqadmin).
+And then editing `postgresql.conf` to have:
 
-The .ini file by default stores log and pid files in /var/log, you
-probably do not want this for a development setup.  I would suggest
-keeping those in a "log" directory inside the CAA-indexer directory.
-
-Now install PGQ in the database and run the ticker:
-
-    $ pgqadm musicbrainz.ini install
-    $ pgqadm musicbrainz.ini ticker -d
+    shared_preload_libraries = 'pg_amqp.so'
 
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
-    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/caa/CreatePGQ.sql
+    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/caa/CreateMQTriggers.sql
     $ cd -
 
 Install the dependancies for the CAA-indexer and create a
