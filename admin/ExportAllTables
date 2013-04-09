@@ -559,7 +559,6 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT id,
                 name,
-                '{CLEARTEXT}mb' AS password,
                 0 AS privs,
                 '' AS email,
                 NULL AS website,
@@ -575,6 +574,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 NULL AS birth_date,
                 NULL AS gender,
                 NULL as country,
+                '{CLEARTEXT}mb' AS password,
                 md5(name || ':musicbrainz.org:mb') AS ha1
               INTO TEMPORARY editor_sanitised
               FROM editor");

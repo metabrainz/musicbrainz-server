@@ -304,7 +304,6 @@ CREATE TABLE editor
 (
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
-    password            VARCHAR(128) NOT NULL,
     privs               INTEGER DEFAULT 0,
     email               VARCHAR(64) DEFAULT NULL,
     website             VARCHAR(255) DEFAULT NULL,
@@ -320,6 +319,7 @@ CREATE TABLE editor
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
     country             INTEGER, -- references country.id
+    password            VARCHAR(128) NOT NULL,
     ha1                 CHAR(32) NOT NULL
 );
 
