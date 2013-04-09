@@ -85,13 +85,12 @@ sub find_by_recording
     my ($self, $recording_id, $limit, $offset) = @_;
     my $query = "
         SELECT
-            track.id, track_name.name, track.tracklist, track.position,
+            track.id, track_name.name, track.medium, track.position,
                 track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
-                medium.tracklist AS m_tracklist,
                 medium.release AS m_release,
-                tracklist.track_count AS m_track_count,
+                medium.track_count AS m_track_count,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
@@ -104,8 +103,7 @@ sub find_by_recording
                 release.comment AS r_comment
         FROM
             track
-            JOIN tracklist ON tracklist.id = track.tracklist
-            JOIN medium ON medium.tracklist = tracklist.id
+            JOIN medium ON medium.id = track.medium
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
             JOIN track_name ON track.name = track_name.id
@@ -117,14 +115,9 @@ sub find_by_recording
             my $row       = shift;
             my $track     = $self->_new_from_row($row);
             my $medium    = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
-            my $tracklist = $medium->tracklist;
             my $release   = MusicBrainz::Server::Data::Release->_new_from_row($row, 'r_');
             $medium->release($release);
-            $tracklist->medium($medium);
-            $track->tracklist($tracklist);
-
-            # XXX HACK!!
-            weaken($medium->{tracklist});
+            $track->medium($medium);
 
             return $track;
         },
