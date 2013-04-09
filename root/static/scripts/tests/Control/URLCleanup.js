@@ -117,6 +117,39 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // Japanese blogs
+                [
+                    'artist', 'http://ameblo.jp/murataayumi/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://ameblo.jp/murataayumi/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://blog.livedoor.jp/mintmania/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://blog.livedoor.jp/mintmania/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://milk-pu-rin.jugem.jp/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://milk-pu-rin.jugem.jp/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://psgarden.exblog.jp/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://psgarden.exblog.jp/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
@@ -137,10 +170,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://www.utamap.com/showkasi.php?surl=34985',
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
+                // Vimeo
                 [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
+                // YouTube
                 [
                     'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
                     MB.constants.LINK_TYPES.streamingmusic.recording
@@ -153,11 +188,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
                 ],
+                // iTunes
                 [
                     'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                     MB.constants.LINK_TYPES.downloadpurchase.artist
                 ],
-                // iTunes
                 [
                     'release', 'http://itunes.apple.com/gb/album/now-thats-what-i-call-music!-82/id543575947?v0=WWW-EUUK-STAPG-MUSIC-PROMO',
                     MB.constants.LINK_TYPES.downloadpurchase.release
@@ -381,6 +416,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://thesession.org/recordings/1488',
                     'release_group'
                 ],
+                // ameblo.jp
+                [
+                    'http://ameblo.jp/murataayumi',
+                    'http://ameblo.jp/murataayumi/',
+                    'artist'
+                ],
+                // Creative Commons
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
                     'http://creativecommons.org/publicdomain/zero/1.0/',
