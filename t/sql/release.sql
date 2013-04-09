@@ -119,7 +119,7 @@ INSERT INTO medium (id, release, tracklist, position)
     VALUES (6, 10, 6, 1), (7, 11, 6, 1);
 
 -- release_meta
-UPDATE release_meta SET cover_art_presence = 'present' WHERE id = 7;
+UPDATE release_meta SET cover_art_presence = 'present' WHERE id in (7, 8);
 UPDATE release_meta SET cover_art_presence = 'darkened' WHERE id = 9;
 
 ALTER SEQUENCE release_name_id_seq RESTART 10;
