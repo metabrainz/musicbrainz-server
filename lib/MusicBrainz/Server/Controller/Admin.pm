@@ -3,6 +3,8 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use MusicBrainz::Server::Translation qw (l ln );
+
 sub index : Path Args(0) RequireAuth
 {
     my ($self, $c) = @_;
@@ -70,6 +72,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 			}
 		}
 
+        $c->flash->{message} = l('User successfully edited.');
         $c->response->redirect($c->uri_for_action('/user/profile', [$user->name]));
         $c->detach;
     }
