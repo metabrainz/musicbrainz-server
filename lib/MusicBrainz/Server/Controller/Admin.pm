@@ -70,7 +70,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 			}
 		}
 
-        $c->response->redirect($c->uri_for_action('/admin/edit_user', $user->name));
+        $c->response->redirect($c->uri_for_action('/user/profile', [$user->name]));
         $c->detach;
     }
 
