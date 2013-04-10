@@ -10,17 +10,15 @@ around inflate_rows => sub {
 
     my $rows = $self->$orig(@_);
 
-    my $works = $self->c->model('Work')->load_writers(map { $_->{work} } @$rows);
+    $self->c->model('Work')->load_writers(map { $_->{work} } @$rows);
 
-    my $works = $self->c->model('Work')->load_recording_artists(map { $_->{work} } @$rows);
+    $self->c->model('Work')->load_recording_artists(map { $_->{work} } @$rows);
 
-    my $works = $self->c->model('WorkType')->load(map { $_->{work} } @$rows);
+    $self->c->model('WorkType')->load(map { $_->{work} } @$rows);
 
-    my $works = $self->c->model('Language')->load(map { $_->{work} } @$rows);
+    $self->c->model('Language')->load(map { $_->{work} } @$rows);
 
-    return [
-            @$rows
-    ];
+    return $rows;
 };
 
 sub table { 'iswc_with_many_works' }
