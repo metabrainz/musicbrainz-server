@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "POT-Creation-Date: 2013-03-15 16:32-0700\n"
-"PO-Revision-Date: 2013-03-15 23:48+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-03-17 14:36+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,7 +89,7 @@ msgstr "– {enddate}"
 
 #: ../root/relationship/linktype/tree.tt:39
 msgid "&lt; Back to all relationship types"
-msgstr ""
+msgstr "&lt; Tagasi kõigi seosetüüpide juurde"
 
 #: ../root/annotation/edit.tt:40
 msgid "''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule"
@@ -1084,7 +1084,7 @@ msgstr "Kas oled kindel, et soovid selle rakenduse eemaldada?"
 
 #: ../root/account/revoke_application_access.tt:5
 msgid "Are you sure you want to revoke this application's access?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid selle rakenduse juurdepääsuõiguse tühistada?"
 
 #: ../root/edit/cancel.tt:3
 msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
@@ -3363,7 +3363,7 @@ msgstr "Kinnitan, et vöötkood on sisestatud täpselt nii, nagu väljalaskel"
 
 #: ../root/taglookup/nag.tt:25
 msgid "I just donated! Why am I seeing this?"
-msgstr ""
+msgstr "Ma just äsja annetasin, miks mulle seda näidatakse?"
 
 #: ../root/edit/search_macros.tt:284
 msgid "ID"
@@ -5817,7 +5817,7 @@ msgstr "Kaanepildiarhiivis leiduvad väljalasked, millel on ikka veel kaanepildi
 
 #: ../root/report/index.tt:67
 msgid "Releases of any sort that still have cover art relationships"
-msgstr ""
+msgstr "Igasugused väljalasked, millel on ikka veel kaanepildiseoseid"
 
 #: ../root/report/index.tt:60 ../root/report/released_too_early.tt:1
 #: ../root/report/released_too_early.tt:3
@@ -5856,7 +5856,7 @@ msgstr "Väljalasked, mis võivad vajada teisendamist mitme artisti alla"
 #: ../root/report/releases_with_coverart_links.tt:1
 #: ../root/report/releases_with_coverart_links.tt:3
 msgid "Releases with Cover Art relationships"
-msgstr ""
+msgstr "Väljalasked, millel on kaanepildiseoseid"
 
 #: ../root/report/index.tt:46 ../root/report/releases_with_cc_links.tt:1
 #: ../root/report/releases_with_cc_links.tt:3
@@ -6198,7 +6198,7 @@ msgstr ""
 #: ../root/account/revoke_application_access.tt:1
 #: ../root/account/revoke_application_access.tt:3
 msgid "Revoke Application Access"
-msgstr ""
+msgstr "Rakenduse juurdepääsuõiguse tühistamine"
 
 #: ../root/layout.tt:79
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
@@ -7954,7 +7954,7 @@ msgstr "See aruanne loetleb väljalasked, millel on kirjasüsteem määramata. K
 
 #: ../root/report/releases_with_coverart_links.tt:6
 msgid "This report shows releases that still have Cover Art relationships."
-msgstr ""
+msgstr "See aruanne loetleb väljalasked, millel on ikka veel kaanepildiseoseid."
 
 #: ../root/report/releases_with_cc_links.tt:6
 msgid ""
@@ -10234,7 +10234,7 @@ msgstr "See väljalase on juba valitud väljalaskerühmas"
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:629
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
-msgstr ""
+msgstr "Seda mestimisstrateegiat ei saa valitud väljalasetel kasutada."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:173
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -10243,7 +10243,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:244
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
-msgstr ""
+msgstr "Toimetaja {name} pole oma kontoga e-posti aadressi sidunud."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid "Your message could not be sent"
@@ -10964,7 +10964,7 @@ msgstr "Väljalaskes peab olema vähemalt üks helikandja."
 msgid ""
 "This relationship type is used to group other relationships. Please select a"
 " subtype of the currently selected relationship type."
-msgstr ""
+msgstr "Seda seosetüüpi kasutatakse ainult teiste seoste rühmitamiseks. Palun vali sobiv alltüüp."
 
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:75
 msgid "This relationship type is deprecated."
