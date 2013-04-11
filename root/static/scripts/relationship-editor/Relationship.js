@@ -185,30 +185,50 @@ Relationship.prototype.remove = function() {
 
 // Constructs the link phrase to display for this relationship
 
-Relationship.prototype.linkPhrase = function(source) {
-    var typeInfo = Util.typeInfo(this.link_type()), attrs = {}, m,
-        phrase = source === this.entity[0]() ? typeInfo.phrase : typeInfo.reverse_phrase;
+Relationship.prototype.linkPhrase = function (source) {
+    var typeInfo = Util.typeInfo(this.link_type());
+    var phrase = (source === this.entity[0]()) ?
+        typeInfo.phrase : typeInfo.reverse_phrase;
+    var attrs = {};
 
     _.each(this.attrs(), function(observable, name) {
         var value = observable();
 
-        if (_.isArray(value)) {
-            if (value.length) {
-                value = _.map(value, function(v) {return Util.attrInfo(v).l_name});
-
-                var list = value.slice(0, -1).join(", ");
-                attrs[name] = (list && list + " & ") + (value.pop() || "");
-            }
-        } else if (value) attrs[name] = Util.attrRoot(name).l_name;
+        if (_.isArray(value) && value.length) {
+            attrs[name] = _.map(value, function(v) {
+                return Util.attrInfo(v).l_name;
+            });
+        } else if (value) {
+            attrs[name] = [Util.attrRoot(name).l_name];
+        }
     });
 
-    while (m = phrase.match(/\{(.*?)(?::(.*?))?\}/)) {
-        phrase = phrase.replace(m[0], (attrs[m[1]] !== undefined)
-            ? (m[2] && m[2].split("|")[0]) || attrs[m[1]]
-            : (m[2] && m[2].split("|")[1]) || "");
-    }
-    return _.clean(phrase);
+    return _.clean(phrase.replace(/\{(.*?)(?::(.*?))?\}/g,
+            function (match, name, alts) {
+        var values = attrs[name];
+        if (alts) {
+            alts = alts.split("|");
+            if (values === undefined) {
+                return alts[1] || "";
+            } else {
+                return alts[0].replace(/%/g, joinAttrs(values));
+            }
+        } else {
+            return values === undefined ? "" : joinAttrs(values);
+        }
+    }));
 };
+
+
+function joinAttrs(attrs) {
+    if (attrs.length > 1) {
+        var a = attrs.pop(), b = attrs.join(MB.text.Comma);
+        return MB.text.BAndA.replace("{b}", b).replace("{a}", a);
+    } else if (attrs.length === 1) {
+        return attrs[0];
+    }
+    return "";
+}
 
 
 function renderDate(date) {
