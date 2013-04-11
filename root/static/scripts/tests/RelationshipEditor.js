@@ -311,7 +311,9 @@ $.extend(MB.text = MB.text || {}, {
     InvalidDate: "The date you've entered is not valid.",
     InvalidEndDate: "The end date cannot preceed the begin date.",
     InvalidValue: "The value you've entered is not valid.",
-    RequiredField: "Required field."
+    RequiredField: "Required field.",
+    Comma: ", ",
+    BAndA: "{b} and {a}"
 });
 
 
@@ -487,7 +489,7 @@ MB.tests.RelationshipEditor.Relationship = function() {
                 linkType: 148,
                 backward: false,
                 attrs: {instrument: [123, 229, 277], solo: true},
-                expected: "solo zither, guitar & bass guitar"
+                expected: "solo zither, guitar and bass guitar"
             },
             {
                 linkType: 141,
@@ -499,7 +501,7 @@ MB.tests.RelationshipEditor.Relationship = function() {
                 linkType: 154,
                 backward: true,
                 attrs: {instrument: [69, 75, 109, 302], additional: true},
-                expected: "contains additional strings, guitars, lyre & plucked string instruments samples by"
+                expected: "contains additional strings, guitars, lyre and plucked string instruments samples by"
             }
         ];
 
