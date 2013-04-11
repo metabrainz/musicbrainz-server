@@ -332,15 +332,15 @@ sub schema_fixup
         $data->{title} = $data->{name};
         delete $data->{name};
     }
-    if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
+    if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-count"}))
     {
         if (exists $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
 
-        $data->{track_count} = $data->{"track-list"}->{count};
-        delete $data->{"track-list"}->{count};
+        $data->{track_count} = $data->{"track-count"};
+        delete $data->{"track-count"};
     }
     if ($type eq 'release')
     {
@@ -372,15 +372,10 @@ sub schema_fixup
             $data->{mediums} = [];
             for my $medium_data (@{$data->{"medium-list"}->{medium}})
             {
-                if (exists $medium_data->{"track-list"})
-                {
-                    my $medium = MusicBrainz::Server::Entity::Medium->new(
-                        tracklist => MusicBrainz::Server::Entity::Tracklist->new(
-                            track_count => $medium_data->{"track-list"}->{count}
-                        )
-                    );
-                    push @{$data->{mediums}}, $medium;
-                }
+                my $medium = MusicBrainz::Server::Entity::Medium->new(
+                    track_count => $medium_data->{"track-count"});
+
+                push @{$data->{mediums}}, $medium;
             }
             delete $data->{"medium-list"};
         }
@@ -395,10 +390,11 @@ sub schema_fixup
 
         foreach my $release (@{$data->{"release-list"}->{release}})
         {
-            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(
-                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
+            my $medium = MusicBrainz::Server::Entity::Medium->new(
+                position  => $release->{"medium-list"}->{medium}->[0]->{"position"},
+                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-count"},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} + 1,
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-offset"} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
                         gid => $data->{gid}
                     )
@@ -412,12 +408,7 @@ sub schema_fixup
             push @releases, MusicBrainz::Server::Entity::Release->new(
                 gid     => $release->{id},
                 name    => $release->{title},
-                mediums => [
-                    MusicBrainz::Server::Entity::Medium->new(
-                         tracklist => $tracklist,
-                         position  => $release->{"medium-list"}->{medium}->[0]->{"position"}
-                    )
-                ],
+                mediums => [ $medium ],
                 release_group => $release_group
             );
         }
