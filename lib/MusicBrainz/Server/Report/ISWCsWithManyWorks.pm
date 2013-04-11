@@ -9,13 +9,9 @@ around inflate_rows => sub {
     my $self = shift;
 
     my $rows = $self->$orig(@_);
-
     $self->c->model('Work')->load_writers(map { $_->{work} } @$rows);
-
     $self->c->model('Work')->load_recording_artists(map { $_->{work} } @$rows);
-
     $self->c->model('WorkType')->load(map { $_->{work} } @$rows);
-
     $self->c->model('Language')->load(map { $_->{work} } @$rows);
 
     return $rows;
