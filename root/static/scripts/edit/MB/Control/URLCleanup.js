@@ -488,8 +488,8 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
-        var avoidwikipedia = new RegExp('^(https?://)?([^.]+.)?wikipedia\\.org/'); 
-        return !avoidwikipedia.test($('#id-ar\\.url').val())
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/'); 
+        return !is_wikipedia.test($('#id-ar\\.url').val())
     };
 
     // only allow domains on the score whitelist
