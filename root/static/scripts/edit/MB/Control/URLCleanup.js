@@ -71,6 +71,9 @@ MB.constants.LINK_TYPES = {
     discography: {
         artist: 184
     },
+    discographyentry: {
+        release: 288
+    },
     mailorder: {
         artist: 175,
         release: 79
@@ -481,6 +484,12 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
+    };
+
+    // avoid wikipedia being added as release-level discography entry
+    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
+        var avoidwikipedia = new RegExp('^(https?://)?([^.]+.)?wikipedia\\.org/'); 
+        return !avoidwikipedia.test($('#id-ar\\.url').val())
     };
 
     // only allow domains on the score whitelist
