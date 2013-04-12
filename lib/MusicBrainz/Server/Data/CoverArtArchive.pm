@@ -162,8 +162,9 @@ sub merge_releases {
     # cover_art_presence enum has 'darkened' as max, and 'absent' as min,
     # so we always want the highest value to be preserved
     $self->sql->do(
-        "UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence) FROM release_meta WHERE id = ? or id = any(?))
-           WHERE id = ?", $new_release, \@old_releases, $new_release);
+        "UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence)
+           FROM release_meta WHERE id = any(?))
+           WHERE id = ?", [ $new_release, @old_releases ], $new_release);
 
     for my $old_release (@old_releases) {
         $self->sql->do(
