@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:37+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-03-14 09:54+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,7 +89,7 @@ msgstr "keldi harf / clàrsach"
 
 #: DB:link_attribute_type/name:673
 msgid "Lyricon"
-msgstr ""
+msgstr "Lyricon"
 
 #: DB:link_attribute_type/name:175
 msgid "Mellotron"
@@ -113,7 +113,7 @@ msgstr "Northumbria torupill"
 
 #: DB:link_attribute_type/name:688
 msgid "Reactable"
-msgstr ""
+msgstr "Reactable"
 
 #: DB:link_attribute_type/name:182
 msgid "Rhodes piano"
@@ -149,7 +149,7 @@ msgstr "türgi bağlama"
 
 #: DB:link_attribute_type/name:674
 msgid "Vienna horn"
-msgstr ""
+msgstr "Viini sarv"
 
 #: DB:link_attribute_type/name:399
 msgid "Vietnamese guitar"
@@ -845,7 +845,7 @@ msgstr "elektriorel"
 
 #: DB:link_attribute_type/name:672
 msgid "electronic wind instrument"
-msgstr ""
+msgstr "elektrooniline õhkpill"
 
 #: DB:link_attribute_type/name:28
 msgid "end-blown flute"
@@ -1041,7 +1041,7 @@ msgstr "gusli"
 
 #: DB:link_attribute_type/name:679
 msgid "gut guitar"
-msgstr ""
+msgstr "sooltest keeltega kitarr"
 
 #: DB:link_attribute_type/name:141
 msgid "güiro"
@@ -1113,7 +1113,7 @@ msgstr "sarv"
 
 #: DB:link_attribute_type/name:697
 msgid "hourglass drum"
-msgstr ""
+msgstr "liivakellakujuline trumm"
 
 #: DB:link_attribute_type/name:659
 msgid "hulusi"
@@ -1437,7 +1437,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:678
 msgid "nylon guitar"
-msgstr ""
+msgstr "nailonkeeltega kitarr"
 
 #: DB:link_attribute_type/name:343
 msgid "não bạt / chập chõa"
@@ -1453,7 +1453,7 @@ msgstr "oboe d’amore"
 
 #: DB:link_attribute_type/name:684
 msgid "oboe da caccia"
-msgstr ""
+msgstr "oboe da caccia"
 
 #: DB:link_attribute_type/name:29
 msgid "ocarina"
@@ -1485,7 +1485,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:700
 msgid "other drums"
-msgstr ""
+msgstr "muud trummid"
 
 #: DB:link_attribute_type/name:265
 msgid "other flutes"
@@ -1733,7 +1733,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:666
 msgid "shime-daiko"
-msgstr ""
+msgstr "shime-daiko"
 
 #: DB:link_attribute_type/name:564
 msgid "shinobue"
@@ -1757,7 +1757,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:681
 msgid "siku"
-msgstr ""
+msgstr "siku"
 
 #: DB:link_attribute_type/name:191
 msgid "singing bowl"
@@ -1945,7 +1945,7 @@ msgstr "tangentklaver"
 
 #: DB:link_attribute_type/name:671
 msgid "tap dancing"
-msgstr ""
+msgstr "stepptants"
 
 #: DB:link_attribute_type/name:632
 msgid "tape"

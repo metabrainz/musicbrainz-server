@@ -35,6 +35,17 @@ has '+data' => (
     ]
 );
 
+sub foreign_keys {
+    my $self = shift;
+    return {
+        LinkAttributeType => [
+            grep { defined }
+            map { $_->{type} }
+                @{ $self->data->{attributes} }
+            ]
+    }
+}
+
 sub edit_conditions
 {
     my $conditions = {
@@ -55,6 +66,30 @@ sub allow_auto_edit { 1 }
 sub accept {
     my $self = shift;
     $self->c->model('LinkType')->insert($self->data);
+}
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+
+    return {
+        attributes => $self->_build_attributes($self->data->{attributes}, $loaded),
+    }
+}
+
+sub _build_attributes {
+    my ($self, $list, $loaded) = @_;
+    return [
+        map {
+            MusicBrainz::Server::Entity::LinkTypeAttribute->new(
+                min => $_->{min},
+                max => $_->{max},
+                type => $loaded->{LinkAttributeType}{ $_->{type} } ||
+                    MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => $_->{name}
+                    )
+                  )
+          } @$list
+    ]
 }
 
 no Moose;

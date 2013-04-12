@@ -368,7 +368,7 @@ sub CATALYST_DEBUG { 1 }
 
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
-# developing and debuging easier
+# developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
 # Please activate the officially approved languages here. Not every .po
@@ -389,7 +389,7 @@ sub EMAIL_BUGS { undef }
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
 # http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.nu?out=json' }
+sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################

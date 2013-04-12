@@ -450,12 +450,20 @@ div.warning img.warning {
     background-image: url("../images/favicons/amazon-16.png");
 }
 
+#sidebar ul.external_links li.animenewsnetwork {
+    background-image: url("../images/favicons/animenewsnetwork-16.png");
+}
+
 #sidebar ul.external_links li.wikipedia {
     background-image: url("../images/favicons/wikipedia-16.png");
 }
 
 #sidebar ul.external_links li.facebook {
     background-image: url("../images/favicons/facebook-16.png");
+}
+
+#sidebar ul.external_links li.generasia {
+    background-image: url("../images/favicons/generasia-16.png");
 }
 
 #sidebar ul.external_links li.lastfm {
@@ -966,6 +974,10 @@ div.artwork-cont {
     padding: 10px;
     margin: 5px;
     text-align: center;
+}
+
+div.artwork-cont p {
+    width: 250px;
 }
 
 div.artwork { position: relative; width: 250px; }

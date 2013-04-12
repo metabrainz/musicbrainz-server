@@ -52,7 +52,7 @@ is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');
 is($editor->accepted_auto_edits, 59, 'auto edits');
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2009, month => 01, day => 01),
+is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 04, day => 05),
     'last login date');
 
 is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
@@ -116,7 +116,7 @@ is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
 ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
 is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
 
-$editor_data->update_password($new_editor_2, 'password2');
+$editor_data->update_password($new_editor_2->name, 'password2');
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->password, 'password2');
@@ -163,7 +163,7 @@ INSERT INTO editor (id, name, password, email, website, bio, member_since,
     email_confirm_date, last_login_date, edits_accepted, edits_rejected,
     auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
   VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
-    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+    now(), now(), 100, 101, 102, 103, 1, now(), 1, 1);
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
 
