@@ -27,9 +27,9 @@ var typeInfo = {
                         },
                         {
                             "attrs": {"1": [0, 1], "3": [0, null], "194": [0, 1], "596": [0, 1]},
-                            "reverse_phrase": "{additional} {guest} {solo} {vocal} vocals",
+                            "reverse_phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
                             "id": 149,
-                            "phrase": "{additional} {guest} {solo} {vocal} vocals",
+                            "phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
                             "descr": 1
                         }
                     ],
@@ -206,6 +206,18 @@ var attrInfo = {
             }
         ],
         "id": 14
+    },
+    "vocal": {
+        "l_name": "vocal",
+        "name": "vocal",
+        "id": 3,
+        "children": [
+            {
+                "l_name": "lead vocals",
+                "name": "lead vocals",
+                "id": 4
+            }
+        ]
     },
     "associate": {
         "name": "associate",
@@ -502,6 +514,19 @@ MB.tests.RelationshipEditor.Relationship = function() {
                 backward: true,
                 attrs: {instrument: [69, 75, 109, 302], additional: true},
                 expected: "contains additional strings, guitars, lyre and plucked string instruments samples by"
+            },
+            // MBS-6129
+            {
+                linkType: 149,
+                backward: true,
+                attrs: {additional: false, vocal: [4]},
+                expected: "lead vocals"
+            },
+            {
+                linkType: 149,
+                backward: true,
+                attrs: {additional: false, vocal: []},
+                expected: "vocal"
             }
         ];
 
