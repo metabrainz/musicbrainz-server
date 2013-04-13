@@ -78,7 +78,7 @@ sub foreign_keys {
                 @{ $self->data->{old}{attributes} },
                 @{ $self->data->{new}{attributes} }
             ],
-        LinkType => [
+        LinkType => [ $self->data->{link_id},
             map { $self->data->{$_}{parent_id} }
                 qw( old new )
             ],
@@ -119,7 +119,8 @@ sub build_display_data {
             map {
                 $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
             } qw( old new )
-        }
+        },
+        link_type => $loaded->{LinkType}{ $self->data->{link_id} }
     }
 }
 

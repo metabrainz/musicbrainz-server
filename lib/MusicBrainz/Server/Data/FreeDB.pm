@@ -5,6 +5,7 @@ use namespace::autoclean;
 use constant FREEDB_PROTOCOL => 6; # speaks UTF-8
 
 use aliased 'MusicBrainz::Server::Entity::FreeDB';
+use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Translation qw( l ln );
 
 use Carp 'confess';
@@ -49,9 +50,14 @@ sub _do_read {
     my ($self, $response) = @_;
 
     # Extract all key-value pairs in the FreeDB data
-    my %data = map { split /=/, $_, 2 }
+    my %data = partition_by { $_->[0] }
+        map { [ split /=/, $_, 2 ] }
         grep { /^[A-Z0-9]+=/ }
         split /\r\n/, $response->decoded_content;
+
+    for my $field (keys %data) {
+        $data{$field} = [ map { $_->[1] } @{ $data{$field} } ];
+    }
 
     # Extract all track offsets
     my @offsets = map { /^#\s+(\d+)$/; $1; }
@@ -69,11 +75,13 @@ sub _do_read {
     my $split = qr{ [\/-] };
     my ($release_artist, $title);
     my $va;
-    if ($data{DTITLE} =~ $split) {
-        ($release_artist, $title) = split $split, $data{DTITLE}, 2;
+
+    my $dtitle = join('', @{ $data{DTITLE} });
+    if ($dtitle =~ $split) {
+        ($release_artist, $title) = split $split, $dtitle, 2;
     }
     else {
-        ($release_artist, $title) = ('', $data{DTITLE});
+        ($release_artist, $title) = ('', $dtitle);
         $va = 1;
     }
 
@@ -81,7 +89,7 @@ sub _do_read {
     my @tracks;
     for my $i (0..99) {
         exists $data{"TTITLE$i"} or next;
-        my $track = $data{"TTITLE$i"};
+        my $track = join('', @{ $data{"TTITLE$i"} });
         $track =~ s/^\d+\.\s*//; # Trim leading track numbers
 
         my ($artist, $title);
@@ -101,13 +109,19 @@ sub _do_read {
         };
     }
 
+    my $discid = $data{DISCID} && exists $data{DISCID}->[0]
+        ? $data{DISCID}->[0] : undef;
+
+    my $dyear = $data{DYEAR} && exists $data{DYEAR}->[0]
+        ? $data{DYEAR}->[0] : undef;
+
     # Structure data and return a FreeDB entity
     return FreeDB->new(
         tracks => \@tracks,
-        discid => $data{DISCID},
+        discid => $discid,
         track_count => scalar(@tracks),
         artist => 2,
-        year => $data{DYEAR},
+        year => $dyear,
         title => $title,
         artist => $release_artist,
         looks_like_va => $va

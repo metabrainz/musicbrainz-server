@@ -361,6 +361,7 @@ sub ImportAllTables
         area_alias
         area_alias_type
         area_annotation
+        country_area
         artist
         artist_alias
         artist_alias_type

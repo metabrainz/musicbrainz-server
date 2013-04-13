@@ -544,7 +544,7 @@ sub escape_query
 
     return "" unless $str;
 
-    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
+    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\\/])/\\$1/g;
     return $str;
 }
 
