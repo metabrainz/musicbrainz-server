@@ -116,6 +116,43 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
 );
 is( $rel->phrase, 'has orchestra additionally arranged by' );
 
+my $member_link_type = MusicBrainz::Server::Entity::LinkType->new(
+    link_phrase => 'is a {founding} member of',
+    reverse_link_phrase => 'has {founding} members',
+);
+
+$rel = MusicBrainz::Server::Entity::Relationship->new(
+    direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
+    link => MusicBrainz::Server::Entity::Link->new(
+        type => $member_link_type,
+        attributes => [
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'founding',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'founding',
+                    id => $INSTRUMENT_ROOT_ID
+                ),
+            ),
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'vocal',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'vocal',
+                    id => $INSTRUMENT_ROOT_ID
+                ),
+            ),
+            MusicBrainz::Server::Entity::LinkAttributeType->new(
+                name => 'guitar',
+                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'instrument',
+                    id => $INSTRUMENT_ROOT_ID
+                ),
+            ),
+        ]
+    ),
+);
+is( $rel->phrase, 'is a founding member of' );
+is( $rel->extra_phrase_attributes, 'vocal and guitar' );
+
 };
 
 1;

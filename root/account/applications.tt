@@ -32,7 +32,7 @@ END -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     <td>[% token.application.name %]</td>
                     <td>[% format_scopes(token) %]</td>
-                    <td><a href="[% c.uri_for_action('/account/revoke_application_access', [ token.id ]) %]">[% l('Revoke Access') %]</a></td>
+                    <td><a href="[% c.uri_for_action('/account/revoke_application_access', [ token.application_id, token.scope ]) %]">[% l('Revoke Access') %]</a></td>
                 </tr>
                 [% END %]
             </tbody>

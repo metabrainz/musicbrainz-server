@@ -225,7 +225,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor, $password);
+        $c->model('Editor')->update_password($editor->name, $password);
 
         $c->model('Editor')->load_preferences($editor);
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
@@ -332,21 +332,32 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireAuth
+sub change_password : Path('/account/change-password')
 {
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/change_password_ok.tt');
+        $c->flash->{message} = l('Your password has been changed.');
+        $c->response->redirect($c->uri_for_action('/user/login'));
+
         $c->detach;
     }
 
-    my $form = $c->form( form => 'User::ChangePassword' );
+    $c->stash( mandatory => $c->req->query_params->{mandatory} );
+
+    my $form = $c->form(
+        form => 'User::ChangePassword',
+        init_object => {
+            username => $c->user_exists
+                ? $c->user->name
+                : ($c->req->query_parameters->{username} // '')
+        }
+    );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($c->user, $password);
+        $c->model('Editor')->update_password(
+            $form->field('username')->value, $password);
 
         $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
         $c->detach;
@@ -555,18 +566,14 @@ sub applications : Path('/account/applications') RequireAuth
     $c->stash( tokens => $tokens, applications => $applications );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(1) RequireAuth
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth
 {
-    my ($self, $c, $id) = @_;
-
-    my $token = $c->model('EditorOAuthToken')->get_by_id($id);
-    $c->detach('/error_404')
-        unless defined $token && $token->editor_id == $c->user->id;
+    my ($self, $c, $application_id, $scope) = @_;
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
-            $c->model('EditorOAuthToken')->delete($id);
+            $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;

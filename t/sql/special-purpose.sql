@@ -1,6 +1,9 @@
 SET client_min_messages TO 'WARNING';
 
+INSERT INTO artist_type (id, name) VALUES (1, 'Person');
+INSERT INTO artist_type (id, name) VALUES (2, 'Group');
 INSERT INTO artist_type (id, name) VALUES (3, 'Special MusicBrainz Artist');
+
 INSERT INTO artist_name (id, name) VALUES (1, 'Various Artists');
 INSERT INTO artist_name (id, name) VALUES (2, 'Deleted Artist');
 

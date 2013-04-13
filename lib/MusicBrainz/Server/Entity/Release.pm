@@ -337,6 +337,8 @@ sub combined_track_relationships {
 
     my $medium_count = scalar $self->all_mediums;
 
+    $merge_rels->($self->grouped_relationships);
+
     for my $medium ($self->all_mediums) {
         for my $track ($medium->tracklist->all_tracks) {
             # XXX tracklist->medium is a hack, but needed by the track_number
@@ -358,8 +360,6 @@ sub combined_track_relationships {
                     $track->recording->all_relationships
         }
     }
-
-    $merge_rels->($self->grouped_relationships);
 
     # Given a track, return its number. If there are *any* duplicate track
     # numbers on the release, prepend all track numbers with the medium

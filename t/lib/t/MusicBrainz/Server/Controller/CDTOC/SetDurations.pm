@@ -19,7 +19,7 @@ INSERT INTO
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
              auto_edits_accepted, edits_failed)
     VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
 EOSQL
 
 $mech->get_ok('/login');

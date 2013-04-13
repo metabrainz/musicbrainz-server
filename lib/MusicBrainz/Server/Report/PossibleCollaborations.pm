@@ -14,8 +14,8 @@ sub query {
             LEFT JOIN link_type ON link_type.id=link.link_type
             LEFT JOIN artist_name AS name ON artist.name=name.id
         WHERE
-            name.name ~ '&' AND
-            (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
+            (name.name ~ '&' OR name.name ~ 'vs.' OR name.name ~ 'feat.')
+            AND (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
         GROUP BY artist.id, name.name
     "
 }
