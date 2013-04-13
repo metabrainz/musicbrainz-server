@@ -1,23 +1,18 @@
-package MusicBrainz::Server::Entity::Country;
+package MusicBrainz::Server::Entity::AreaAlias;
 
 use Moose;
-use MusicBrainz::Server::Translation::Countries qw ( l );
+use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity';
+extends 'MusicBrainz::Server::Entity::Alias';
 
-has 'name' => (
+has 'area_id' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Int'
 );
 
-sub l_name {
-    my $self = shift;
-    return l($self->name);
-}
-
-has 'iso_code' => (
+has 'area' => (
     is => 'rw',
-    isa => 'Str'
+    isa => 'Area'
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -26,7 +21,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
