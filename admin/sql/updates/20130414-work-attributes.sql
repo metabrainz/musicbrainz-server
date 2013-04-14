@@ -29,6 +29,14 @@ CREATE TABLE work_attribute (
     CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )
 );
 
+----------------------
+-- ADD PRIMARY KEYS --
+----------------------
+
+ALTER TABLE work_attribute ADD CONSTRAINT work_attribute_pkey PRIMARY KEY (id);
+ALTER TABLE work_attribute_type ADD CONSTRAINT work_attribute_type_pkey PRIMARY KEY (id);
+ALTER TABLE work_attribute_type_allowed_value ADD CONSTRAINT work_attribute_type_allowed_value_pkey PRIMARY KEY (id);
+
 --------------------
 -- CREATE INDEXES --
 --------------------
