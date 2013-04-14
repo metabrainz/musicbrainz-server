@@ -492,7 +492,7 @@ sub ImportAllTables
         work_annotation
         work_attribute
         work_attribute_type
-        work_attribute_type_value
+        work_attribute_type_allowed_value
         work_gid_redirect
         work_meta
         work_name
