@@ -428,6 +428,18 @@ CREATE TRIGGER "reptg_work_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "work_annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_work_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_attribute_name"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_name"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_attribute_name_value"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_name_value"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_work_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "work_gid_redirect"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

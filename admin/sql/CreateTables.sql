@@ -1440,6 +1440,27 @@ CREATE TABLE work_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE work_attribute_type (
+    id                  SERIAL,
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL
+);
+
+CREATE TABLE work_attribute_type_value (
+    id                  SERIAL,
+    work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
+    value               TEXT
+);
+
+CREATE TABLE work_attribute (
+    id                          SERIAL,
+    work                        INTEGER NOT NULL, -- references work.id
+    work_attribute_type         INTEGER NOT NULL, -- references work_attribute_type.id
+    work_attribute_type_value   INTEGER NOT NULL, -- references work_attribute_type_value.id
+    work_attribute_text         TEXT
+);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :
