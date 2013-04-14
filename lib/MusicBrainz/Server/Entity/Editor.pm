@@ -3,9 +3,12 @@ use Moose;
 use namespace::autoclean;
 
 use DateTime;
+use Encode qw( encode );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
+
+my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -190,6 +193,16 @@ has languages => (
         add_language => 'push',
     }
 );
+
+sub requires_password_reset {
+    my $self = shift;
+    return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY
+};
+
+sub password_bytes {
+    my $self = shift;
+    return encode('utf-8', $self->password);
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

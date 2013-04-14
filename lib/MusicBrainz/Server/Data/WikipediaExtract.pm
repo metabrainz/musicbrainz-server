@@ -93,10 +93,12 @@ sub _fetch_cache_or_url
 sub _extract_by_language_callback
 {
     my (%opts) = @_;
-    return WikipediaExtract->new( title => $opts{fetched}{title},
-                                  content => $opts{fetched}{content},
-                                  canonical => $opts{fetched}{canonical},
-                                  language => $opts{language} );
+    if ($opts{fetched}{content}) {
+        return WikipediaExtract->new( title => $opts{fetched}{title},
+                                      content => $opts{fetched}{content},
+                                      canonical => $opts{fetched}{canonical},
+                                      language => $opts{language} );
+    }
 }
 
 sub _get_cache_and_key

@@ -20,7 +20,7 @@
 
 (function(MB) {
     $.extend(MB.text, {
-        None: '[% l('(none)') | js %]',
+        TagNone: '[% lp('(none)', 'tag') | js %]',
         Artist: '[% l('Artist') | js %]',
         Name: '[% l('Name') | js %]',
         JoinPhrase: '[% l('Join phrase') | js %]',

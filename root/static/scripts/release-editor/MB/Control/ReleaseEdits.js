@@ -95,6 +95,7 @@ MB.Control.ReleaseEdits = function ($edits) {
 
         var changes = false;
         var edited_tracklist = [];
+        var track_position = 1;
 
         $.each (tracks, function (idx, trk) {
             var from = tracklist ? tracklist[idx] : null;
@@ -106,9 +107,13 @@ MB.Control.ReleaseEdits = function ($edits) {
             };
 
             to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));
-            to['position'] = trk.position ();
             to['deleted'] = trk.$deleted.val ();
             to['number'] = trk.$number.val ();
+
+            /* Force to['position'] to the order tracks are being
+             * displayed, but try to keep deleted tracks at their
+             * original position. */
+            to['position'] = trk.isDeleted () ? trk.position () : track_position++;
 
             edited_tracklist.push (to);
 

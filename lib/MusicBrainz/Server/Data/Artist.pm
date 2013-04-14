@@ -23,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
@@ -98,6 +99,11 @@ sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Artist';
 }
+
+after '_delete_from_cache' => sub {
+    my ($self, @ids) = @_;
+    $self->c->model('ArtistCredit')->uncache_for_artist_ids(grep { looks_like_number($_) } @ids);
+};
 
 sub find_by_subscribed_editor
 {
@@ -268,7 +274,7 @@ sub merge
     }
 
     $self->alias->merge($new_id, @$old_ids);
-    $self->ipi->merge($new_id, @$old_ids);
+    $self->ipi->merge($new_id, @$old_ids) unless is_special_artist($new_id);
     $self->tags->merge($new_id, @$old_ids);
     $self->rating->merge($new_id, @$old_ids);
     $self->subscription->merge_entities($new_id, @$old_ids);
@@ -277,23 +283,25 @@ sub merge
     $self->c->model('Edit')->merge_entities('artist', $new_id, @$old_ids);
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
-    merge_table_attributes(
-        $self->sql => (
-            table => 'artist',
-            columns => [ qw( gender country type ) ],
-            old_ids => $old_ids,
-            new_id => $new_id
-        )
-    );
+    unless (is_special_artist($new_id)) {
+        merge_table_attributes(
+            $self->sql => (
+                table => 'artist',
+                columns => [ qw( gender country type ) ],
+                old_ids => $old_ids,
+                new_id => $new_id
+            )
+        );
 
-    merge_partial_date(
-        $self->sql => (
-            table => 'artist',
-            field => $_,
-            old_ids => $old_ids,
-            new_id => $new_id
-        )
-    ) for qw( begin_date end_date );
+        merge_partial_date(
+            $self->sql => (
+                table => 'artist',
+                field => $_,
+                old_ids => $old_ids,
+                new_id => $new_id
+            )
+        ) for qw( begin_date end_date );
+    }
 
     $self->_delete_and_redirect_gids('artist', $new_id, @$old_ids);
     return 1;

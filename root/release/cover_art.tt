@@ -35,8 +35,8 @@
     [%- END -%]
 
     <p>
-      [% l('These images provided by the {caa|Cover Art Archive}.',
-           { caa => 'http://coverartarchive.org' }) %]
+      [% l('These images provided by the {caa|Cover Art Archive}. You can also see them at {ia|the Internet Archive}.',
+           { caa => 'http://coverartarchive.org', ia => ('http://archive.org/details/mbid-' _ entity.gid)}) %]
     </p>
   [%- ELSE -%]
     <p>[% l('We do not currently have any cover art for {release}.',

@@ -12,14 +12,7 @@
         <legend>[% l('Regional settings') %]</legend>
         [% WRAPPER form_row %]
           [% r.label('datetime_format', l('Date/time format:')) %]
-          <select id="[% r._id(form.field('datetime_format')) %]"
-                  name="[% form.field('datetime_format').html_name %]">
-            [% FOR option=form.field('datetime_format').options %]
-            <option value="[% option.value %]"[%- IF form.field('datetime_format').value == option.value -%] selected="selected"[%- END -%]>
-              [% dt.now( 'time_zone', c.user.preferences.timezone ).strftime(option.value) %]
-            </option>
-            [% END %]
-          </select>
+          [% r.select('datetime_format') %]
           [% field_errors(r.form, 'datetime_format') %]
         [% END %]
         [% form_row_select(r, 'timezone', l('Timezone:')) %]

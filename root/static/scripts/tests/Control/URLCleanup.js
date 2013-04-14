@@ -179,6 +179,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
                     MB.constants.LINK_TYPES.downloadpurchase.release
                 ],
+                [
+                    'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
                 // Allmusic
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
@@ -213,6 +217,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // SoundtrackCollector
+                [
+                    'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
                 // Second Hand Songs
                 [
                     'artist', 'http://www.secondhandsongs.com/artist/103',
@@ -243,6 +256,33 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
                     MB.constants.LINK_TYPES.lyrics.work
+                ],
+                // BBC Music
+                [
+                    'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                    MB.constants.LINK_TYPES.bbcmusic.artist
+                ],
+                // Anime News Network
+                [
+                    'artist', 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                    MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // Generasia
+                [
+                    'artist', 'http://www.generasia.com/wiki/Wink',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    MB.constants.LINK_TYPES.otherdatabases.work
                 ]
             ];
 
@@ -569,6 +609,24 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
+                ],
+                // Anime News Network
+                [
+                    'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                ],
+                [
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                ],
+                // Generasia
+                [
+                    'http://generasia.com/wiki/Wink',
+                    'http://www.generasia.com/wiki/Wink',
+                ],
+                [
+                    'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ]
 
             ];
