@@ -216,6 +216,7 @@ DROP INDEX vote_idx_edit;
 DROP INDEX vote_idx_editor;
 DROP INDEX work_alias_idx_primary;
 DROP INDEX work_alias_idx_work;
+DROP INDEX work_attribute_idx_work;
 DROP INDEX work_attribute_type_allowed_value_idx_name;
 DROP INDEX work_idx_gid;
 DROP INDEX work_idx_name;

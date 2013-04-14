@@ -100,6 +100,7 @@ CREATE INDEX iswc_idx_work ON iswc (work);
 CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
 
 CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_allowed_value (work_attribute_type);
+CREATE INDEX work_attribute_idx_work ON work_attribute (work);
 
 CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link);

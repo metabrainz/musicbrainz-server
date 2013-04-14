@@ -42,5 +42,6 @@ ALTER TABLE work_attribute_type_allowed_value ADD CONSTRAINT work_attribute_type
 --------------------
 
 CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_allowed_value (work_attribute_type);
+CREATE INDEX work_attribute_idx_work ON work_attribute (work);
 
 COMMIT;
