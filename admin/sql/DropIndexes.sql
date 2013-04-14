@@ -187,7 +187,6 @@ DROP INDEX release_group_tag_idx_tag;
 DROP INDEX release_group_tag_raw_idx_editor;
 DROP INDEX release_group_tag_raw_idx_tag;
 DROP INDEX release_idx_artist_credit;
-DROP INDEX release_idx_date;
 DROP INDEX release_idx_gid;
 DROP INDEX release_idx_name;
 DROP INDEX release_idx_release_group;

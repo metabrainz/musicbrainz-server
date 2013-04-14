@@ -512,12 +512,12 @@ CREATE TRIGGER "reptg_work_attribute"
 AFTER INSERT OR DELETE OR UPDATE ON "work_attribute"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_work_attribute_name"
-AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_name"
+CREATE TRIGGER "reptg_work_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_work_attribute_name_value"
-AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_name_value"
+CREATE TRIGGER "reptg_work_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_gid_redirect"
