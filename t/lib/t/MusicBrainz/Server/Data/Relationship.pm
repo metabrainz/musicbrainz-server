@@ -47,6 +47,44 @@ EOSQL
     is (scalar($label->all_relationships) => 1, 'two relationships became one');
 };
 
+test 'Merge matching dated/undated rels on entity merge (3 entities)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO label (id, name, sort_name, gid, comment)
+    VALUES (4, 3, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 2, 3), (2, 2, 1, 3), (3, 2, 4, 3);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is (scalar($label->all_relationships) => 1, 'three relationships became one');
+};
+
+test 'Merge matching dated/undated rels on entity merge (3 entities, some flipped direction)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO label (id, name, sort_name, gid, comment)
+    VALUES (4, 3, 3, 'e2a083a9-0042-4f8e-b4d2-8396350b95f7', 'label 4');
+INSERT INTO l_label_label (id, link, entity0, entity1)
+    VALUES (1, 1, 2, 3), (2, 2, 3, 1), (3, 2, 3, 4);
+EOSQL
+
+    $c->model('Relationship')->merge_entities('label', 1, 2);
+
+    my $label = $c->model('Label')->get_by_id(1);
+    $c->model('Relationship')->load($label);
+    is (scalar($label->all_relationships) => 2, 'three relationships became two (alternate directions should be preserved)');
+};
+
 test 'Don\'t merge matching dated/undated rels on entity merge if they originate from the same entity' => sub {
     my $test = shift;
     my $c = $test->c;
