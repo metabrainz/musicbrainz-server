@@ -22,7 +22,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
     my $test = shift;
     my $mech = $test->mech;
 
-    my ($child_order, $name, $forward_lp, $reverse_lp, $short_lp, $priority) =
+    my ($child_order, $name, $forward_lp, $reverse_lp, $long_lp, $priority) =
         (1, 'Link type', 'Forward', 'Reverse', 'Short', 1);
 
     $mech->get_ok('/relationships/artist-artist/create');
@@ -33,7 +33,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
                 'linktype.name' => $child_order,
                 'linktype.link_phrase' => $forward_lp,
                 'linktype.reverse_link_phrase' => $reverse_lp,
-                'linktype.short_link_phrase' => $short_lp,
+                'linktype.long_link_phrase' => $long_lp,
                 'linktype.priority' => $priority
             }
         );
@@ -48,7 +48,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
         for ( [ entity0_type => 'artist' ],
               [ entity1_type => 'artist' ],
               [ link_phrase => $forward_lp ],
-              [ short_link_phrase => $short_lp ],
+              [ short_link_phrase => $long_lp ],
               [ reverse_link_phrase => $reverse_lp ],
               [ child_order => $child_order ],
               [ priority => $priority ] );

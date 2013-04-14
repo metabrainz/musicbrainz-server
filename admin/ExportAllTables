@@ -64,6 +64,15 @@ my @tables = qw(
     work_tag_raw
     annotation
     application
+    area
+    area_type
+    area_alias
+    area_alias_type
+    area_annotation
+    country_area
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -80,7 +89,6 @@ my @tables = qw(
     autoeditor_election_vote
     cdtoc
     clientversion
-    country
     editor
     editor_oauth_token
     editor_preference
@@ -96,6 +104,14 @@ my @tables = qw(
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -137,7 +153,9 @@ my @tables = qw(
     language
     link
     link_attribute
+    link_attribute_credit
     link_attribute_type
+    link_creditable_attribute_type
     link_type
     link_type_attribute_type
     editor_collection
@@ -154,6 +172,7 @@ my @tables = qw(
     recording_tag
     release
     release_annotation
+    release_country
     release_gid_redirect
     release_group
     release_group_annotation
@@ -170,15 +189,16 @@ my @tables = qw(
     release_packaging
     release_status
     release_tag
+    release_unknown_country
     replication_control
     script
     script_language
     tag
     tag_relation
     track
+    track_gid_redirect
     track_name
-    tracklist
-    tracklist_index
+    medium_index
     url
     url_gid_redirect
     work
@@ -199,6 +219,36 @@ my @tables = qw(
     cover_art_archive.cover_art_type
     cover_art_archive.release_group_cover_art
 
+    documentation.l_artist_artist_example
+    documentation.l_artist_label_example
+    documentation.l_artist_recording_example
+    documentation.l_artist_release_example
+    documentation.l_artist_release_group_example
+    documentation.l_artist_url_example
+    documentation.l_artist_work_example
+    documentation.l_label_label_example
+    documentation.l_label_recording_example
+    documentation.l_label_release_example
+    documentation.l_label_release_group_example
+    documentation.l_label_url_example
+    documentation.l_label_work_example
+    documentation.l_recording_recording_example
+    documentation.l_recording_release_example
+    documentation.l_recording_release_group_example
+    documentation.l_recording_url_example
+    documentation.l_recording_work_example
+    documentation.l_release_group_release_group_example
+    documentation.l_release_group_url_example
+    documentation.l_release_group_work_example
+    documentation.l_release_release_example
+    documentation.l_release_release_group_example
+    documentation.l_release_url_example
+    documentation.l_release_work_example
+    documentation.l_url_url_example
+    documentation.l_url_work_example
+    documentation.l_work_work_example
+    documentation.link_type_documentation
+
     statistics.statistic
     statistics.statistic_event
 
@@ -212,6 +262,15 @@ my @replication_tables = qw(
 
 
 my @group_core = qw(
+    area
+    area_type
+    area_alias
+    country_area
+    area_alias_type
+    area_annotation
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -223,10 +282,17 @@ my @group_core = qw(
     artist_type
     cdtoc
     clientversion
-    country
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -276,6 +342,7 @@ my @group_core = qw(
     recording_gid_redirect
     recording_puid
     release
+    release_country
     release_gid_redirect
     release_group
     release_group_gid_redirect
@@ -286,10 +353,12 @@ my @group_core = qw(
     release_name
     release_packaging
     release_status
+    release_unknown_country
     replication_control
     script
     script_language
     track
+    track_gid_redirect
     track_name
     tracklist
     url
@@ -321,7 +390,7 @@ my @group_derived = qw(
     release_tag
     tag
     tag_relation
-    tracklist_index
+    medium_index
     work_annotation
     work_meta
     work_tag
@@ -403,6 +472,38 @@ my @group_wikidocs = (
     'wikidocs.wikidocs_index'
 );
 
+my @group_documentation = qw(
+    documentation.l_artist_artist_example
+    documentation.l_artist_label_example
+    documentation.l_artist_recording_example
+    documentation.l_artist_release_example
+    documentation.l_artist_release_group_example
+    documentation.l_artist_url_example
+    documentation.l_artist_work_example
+    documentation.l_label_label_example
+    documentation.l_label_recording_example
+    documentation.l_label_release_example
+    documentation.l_label_release_group_example
+    documentation.l_label_url_example
+    documentation.l_label_work_example
+    documentation.l_recording_recording_example
+    documentation.l_recording_release_example
+    documentation.l_recording_release_group_example
+    documentation.l_recording_url_example
+    documentation.l_recording_work_example
+    documentation.l_release_group_release_group_example
+    documentation.l_release_group_url_example
+    documentation.l_release_group_work_example
+    documentation.l_release_release_example
+    documentation.l_release_release_group_example
+    documentation.l_release_url_example
+    documentation.l_release_work_example
+    documentation.l_url_url_example
+    documentation.l_url_work_example
+    documentation.l_work_work_example
+    documentation.link_type_documentation
+);
+
 my @groups = (
     \@group_core,
     \@group_derived,
@@ -413,6 +514,7 @@ my @groups = (
     \@group_private,
     \@group_cdstubs,
     \@group_wikidocs,
+    \@group_documentation
 );
 
 ################################################################################
@@ -584,7 +686,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 last_updated,
                 NULL AS birth_date,
                 NULL AS gender,
-                NULL as country
+                NULL as area
               INTO TEMPORARY editor_sanitised
               FROM editor");
 }
@@ -774,6 +876,7 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
     make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
+    make_tar("mbdump-documentation.tar.bz2", @group_documentation);
 
     system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
            ' | grep -v mbdump-private > MD5SUMS';

@@ -20,6 +20,71 @@ CREATE TABLE application
     oauth_redirect_uri  TEXT
 );
 
+CREATE TABLE area_type (
+    id                  SERIAL, -- PK
+    name                VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE area (
+    id                  SERIAL, -- PK
+    gid                 uuid NOT NULL,
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
+    type                INTEGER, -- references area_type.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      )
+);
+
+CREATE TABLE area_alias_type (
+    id SERIAL, -- PK,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE area_alias (
+    id                  SERIAL, --PK
+    area                INTEGER NOT NULL, -- references area.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    type                INTEGER, -- references area_alias_type.id
+    sort_name           VARCHAR NOT NULL,
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+             CONSTRAINT primary_check
+                 CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
+
+CREATE TABLE area_annotation (
+    area        INTEGER NOT NULL, -- PK, references area.id
+    annotation  INTEGER NOT NULL -- PK, references annotation.id
+);
+
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
@@ -32,7 +97,9 @@ CREATE TABLE artist (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     type                INTEGER, -- references artist_type.id
-    country             INTEGER, -- references country.id
+    area                INTEGER, -- references area.id
+    begin_area          INTEGER, -- references area.id
+    end_area            INTEGER, -- references area.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -224,10 +291,9 @@ CREATE TABLE clientversion
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE country (
-    id                  SERIAL,
-    iso_code            VARCHAR(2) NOT NULL,
-    name                VARCHAR(255) NOT NULL
+CREATE TABLE country_area
+(
+    area                INTEGER -- PK, references area.id
 );
 
 CREATE TABLE edit
@@ -319,7 +385,7 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
-    country             INTEGER -- references country.id
+    area                INTEGER -- references area.id
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
@@ -381,6 +447,19 @@ CREATE TABLE gender (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE iso_3166_1 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      CHAR(2) -- PK
+);
+CREATE TABLE iso_3166_2 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      VARCHAR(10) -- PK
+);
+CREATE TABLE iso_3166_3 (
+    area      INTEGER NOT NULL, -- references area.id
+    code      CHAR(4) -- PK
+);
+
 CREATE TABLE isrc
 (
     id                  SERIAL,
@@ -398,6 +477,86 @@ CREATE TABLE iswc (
     source SMALLINT,
     edits_pending INTEGER NOT NULL DEFAULT 0,
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+CREATE TABLE l_area_area
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references area.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_artist
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references artist.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_label
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references label.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_recording
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE l_artist_artist
@@ -692,8 +851,8 @@ CREATE TABLE label (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     label_code          INTEGER CHECK (label_code > 0 AND label_code < 100000),
+    area                INTEGER, -- references area.id
     type                INTEGER, -- references label_type.id
-    country             INTEGER, -- references country.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
@@ -872,6 +1031,16 @@ CREATE TABLE link_attribute_type
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE link_creditable_attribute_type (
+  attribute_type INT NOT NULL -- PK, references link_attribute_type.id CASCADE
+);
+
+CREATE TABLE link_attribute_credit (
+  link INT NOT NULL, -- PK, references link.id
+  attribute_type INT NOT NULL, -- PK, references link_creditable_attribute_type.attribute_type
+  credited_as TEXT NOT NULL
+);
+
 CREATE TABLE link_type
 (
     id                  SERIAL,
@@ -884,7 +1053,7 @@ CREATE TABLE link_type
     description         TEXT,
     link_phrase         VARCHAR(255) NOT NULL,
     reverse_link_phrase VARCHAR(255) NOT NULL,
-    short_link_phrase   VARCHAR(255) NOT NULL,
+    long_link_phrase    VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -904,7 +1073,8 @@ CREATE TABLE editor_collection
     gid                 UUID NOT NULL,
     editor              INTEGER NOT NULL, -- references editor.id
     name                VARCHAR NOT NULL,
-    public              BOOLEAN NOT NULL DEFAULT FALSE
+    public              BOOLEAN NOT NULL DEFAULT FALSE,
+    description         TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release
@@ -957,7 +1127,7 @@ CREATE TABLE editor_watch_release_status
 CREATE TABLE medium
 (
     id                  SERIAL,
-    tracklist           INTEGER NOT NULL, -- references tracklist.id
+    track_count         INTEGER NOT NULL DEFAULT 0,
     release             INTEGER NOT NULL, -- references release.id
     position            INTEGER NOT NULL,
     format              INTEGER, -- references medium_format.id
@@ -1070,17 +1240,28 @@ CREATE TABLE release (
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
     packaging           INTEGER, -- references release_packaging.id
-    country             INTEGER, -- references country.id
     language            INTEGER, -- references language.id
     script              INTEGER, -- references script.id
-    date_year           SMALLINT,
-    date_month          SMALLINT,
-    date_day            SMALLINT,
     barcode             VARCHAR(255),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     quality             SMALLINT NOT NULL DEFAULT -1,
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE release_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  country INTEGER NOT NULL,  -- PK, references country_area.area
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
+);
+
+CREATE TABLE release_unknown_country (
+  release INTEGER NOT NULL,  -- PK, references release.id
+  date_year SMALLINT,
+  date_month SMALLINT,
+  date_day SMALLINT
 );
 
 CREATE TABLE release_raw
@@ -1278,8 +1459,9 @@ CREATE TABLE tag_relation
 CREATE TABLE track
 (
     id                  SERIAL,
+    gid                 UUID NOT NULL,
     recording           INTEGER NOT NULL, -- references recording.id
-    tracklist           INTEGER NOT NULL, -- references tracklist.id
+    medium              INTEGER NOT NULL, -- references medium.id
     position            INTEGER NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
@@ -1287,6 +1469,13 @@ CREATE TABLE track
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     number              TEXT NOT NULL
+);
+
+CREATE TABLE track_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references track.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_raw
@@ -1303,16 +1492,9 @@ CREATE TABLE track_name (
     name                VARCHAR NOT NULL
 );
 
-CREATE TABLE tracklist
+CREATE TABLE medium_index
 (
-    id                  SERIAL,
-    track_count         INTEGER NOT NULL DEFAULT 0,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE tracklist_index
-(
-    tracklist           INTEGER, -- PK
+    medium              INTEGER, -- PK, references medium.id CASCADE
     toc                 CUBE
 );
 
@@ -1346,7 +1528,6 @@ CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                INTEGER NOT NULL, -- references work_name.id
-    artist_credit       INTEGER, -- no longer in use
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
