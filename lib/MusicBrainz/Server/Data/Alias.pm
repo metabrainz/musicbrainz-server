@@ -159,38 +159,49 @@ sub merge
     my $table = $self->table;
     my $type = $self->type;
 
-    # Keep locales in the target merge, as there can only be one alias per locale
+    # Fix primary_for_locale:
+    # turn off primary_for_locale on all but one per locale, preferring the target entity
+    # therefore, partition by locale only
     $self->sql->do(
-        "DELETE FROM $table WHERE $type = any(?) AND locale IS NOT NULL
-         AND (locale) IN (
-             SELECT locale FROM $table WHERE $type = ? AND locale IS NOT NULL
-         )",
-        \@old_ids, $new_id
+        "UPDATE $table SET primary_for_locale = FALSE
+          WHERE id IN (
+             SELECT a.id FROM (
+                 SELECT id, rank() OVER (PARTITION BY locale
+                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
+                   FROM $table WHERE $type = any(?)
+             ) a WHERE redundant
+         )", $new_id, [ $new_id, @old_ids ]
     );
 
+    # Merge based on all properties of each alias, other than primary_for_locale,
+    # preferring primary_for_locale and the target entity
+    # therefore, partition by everything except primary_by_locale
     $self->sql->do(
-        "DELETE FROM $table
-         WHERE $type = any(?) AND
-           (name, locale, $type) NOT IN (
-             SELECT DISTINCT ON (name, locale) name, locale, $type
-             FROM $table WHERE $type = any(?)
-           )",
-        [ $new_id, @old_ids ],
-        [ $new_id, @old_ids ]);
+        "DELETE FROM $table WHERE id in (
+             SELECT a.id FROM (
+                 SELECT id, rank() OVER (PARTITION BY $type, name, locale, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day
+                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
+                   FROM $table WHERE $type = any(?)
+             ) a WHERE redundant
+        )", $new_id, [ $new_id, @old_ids ]
+    );
 
+    # Update all aliases to the new entity
     $self->sql->do("UPDATE $table SET $type = ?
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
+    # Insert any aliases from old entity names
+    my $sortnamecol = $type eq 'work' ? 'name' : 'sort_name';
     $self->sql->do(
         "INSERT INTO $table (name, $type, sort_name)
-            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.name -- TODO: Use old_entity.sort_name, but works don't have this...
+            SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol
               FROM $type old_entity
          LEFT JOIN $table alias ON alias.name = old_entity.name
               JOIN $type new_entity ON (new_entity.id = ?)
-             WHERE old_entity.id IN (" . placeholders(@old_ids) . ")
+             WHERE old_entity.id = any(?)
                AND alias.id IS NULL
                AND old_entity.name != new_entity.name",
-        $new_id, @old_ids
+        $new_id, [ @old_ids ]
     );
 }
 
