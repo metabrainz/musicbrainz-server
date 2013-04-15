@@ -179,6 +179,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
                     MB.constants.LINK_TYPES.downloadpurchase.release
                 ],
+                [
+                    'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
                 // Allmusic
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
