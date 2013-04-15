@@ -103,10 +103,18 @@ INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (1,
 EOSQL
 
     my $link_types = $c->model('LinkType')->get_by_ids(1, 2);
-    $c->model('LinkType')->load_documentation(values %$link_types);
+    my @all_link_types = values %$link_types;
+    $c->model('LinkType')->load_documentation(@all_link_types);
 
     is($link_types->{1}->documentation, $expected_documentation, 'loaded documentation sucessfully');
     is($link_types->{2}->documentation, '', 'default documentation string is empty');
+
+    my $new_documentation = 'newer documentation';
+    my $subject = $link_types->{1};
+    $c->model('LinkType')->set_documentation($subject->id, $new_documentation);
+    $c->model('LinkType')->load_documentation(@all_link_types);
+
+    is($subject->documentation, $new_documentation, 'can update documentation');
 };
 
 1;

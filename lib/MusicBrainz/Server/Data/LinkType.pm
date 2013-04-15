@@ -281,6 +281,12 @@ sub load_documentation {
     }
 }
 
+sub set_documentation {
+    my ($self, $link_type_id, $documentation) = @_;
+    $self->sql->do('UPDATE documentation.link_type_documentation SET documentation = ? WHERE id = ?',
+                   $documentation, $link_type_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
