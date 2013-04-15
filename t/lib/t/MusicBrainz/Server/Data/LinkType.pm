@@ -90,4 +90,24 @@ is($link_type, undef);
 
 };
 
+test 'Can load relationship documentation' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $expected_documentation = 'Documentation goes here';
+    $test->c->sql->do(<<EOSQL, $expected_documentation);
+INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, short_link_phrase) VALUES
+    (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b', 'performer', 'performer', 'performer'),
+    (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26', 'composer', 'composer', 'composer');
+INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (1, ?);
+EOSQL
+
+    my $link_types = $c->model('LinkType')->get_by_ids(1, 2);
+    $c->model('LinkType')->load_documentation(values %$link_types);
+
+    is($link_types->{1}->documentation, $expected_documentation, 'loaded documentation sucessfully');
+    is($link_types->{2}->documentation, '', 'default documentation string is empty');
+};
+
 1;
+

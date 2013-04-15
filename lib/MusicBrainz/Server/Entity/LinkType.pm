@@ -117,6 +117,10 @@ sub sorted_children {
     return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
 }
 
+has 'documentation' => (
+    is => 'rw'
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

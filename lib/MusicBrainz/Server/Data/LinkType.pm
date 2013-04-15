@@ -265,6 +265,22 @@ sub in_use {
     );
 }
 
+sub load_documentation {
+    my ($self, @link_types) = @_;
+
+    my %documentation_strings = map { @$_ } @{
+        $self->sql->select_list_of_lists(
+            'SELECT id, documentation
+             FROM documentation.link_type_documentation
+             WHERE id = any(?)', [ map { $_->id } @link_types ]
+         );
+    };
+
+    for my $link_type (@link_types) {
+        $link_type->documentation($documentation_strings{$link_type->id} // '');
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

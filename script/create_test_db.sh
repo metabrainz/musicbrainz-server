@@ -15,9 +15,11 @@ echo "
   DROP SCHEMA IF EXISTS musicbrainz CASCADE;
   DROP SCHEMA IF EXISTS statistics CASCADE;
   DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
+  DROP SCHEMA IF EXISTS documentation CASCADE;
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
+  CREATE SCHEMA documentation;
   CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public TEST 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
@@ -53,6 +55,11 @@ OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreatePr
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' TEST <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating documentation Schema
+OUTPUT=`./admin/psql --schema='documentation' TEST <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='documentation' TEST <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='documentation' TEST <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 
