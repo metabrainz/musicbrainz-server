@@ -92,9 +92,6 @@ subtype 'LinkType'
 subtype 'LinkTypeAttribute'
     => as class_type 'MusicBrainz::Server::Entity::LinkTypeAttribute';
 
-subtype 'Country'
-    => as class_type 'MusicBrainz::Server::Entity::Country';
-
 subtype 'Gender'
     => as class_type 'MusicBrainz::Server::Entity::Gender';
 

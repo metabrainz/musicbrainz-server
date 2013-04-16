@@ -110,7 +110,7 @@ has 'country_id' => (
 
 has 'country' => (
     is => 'rw',
-    isa => 'Country'
+    isa => 'Area'
 );
 
 has 'date' => (

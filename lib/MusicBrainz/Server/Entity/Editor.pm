@@ -169,12 +169,12 @@ has gender => (
     is => 'rw',
 );
 
-has country_id => (
+has area_id => (
     is => 'rw',
     isa => 'Int',
 );
 
-has country => (
+has area => (
     is => 'rw',
 );
 
