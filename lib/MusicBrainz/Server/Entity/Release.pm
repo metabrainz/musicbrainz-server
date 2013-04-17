@@ -180,7 +180,7 @@ sub combined_track_count
     return "" if !@mediums;
     my @counts;
     foreach my $medium (@mediums) {
-        push @counts, $medium->tracklist ? $medium->tracklist->track_count : 0;
+        push @counts, $medium->track_count;
     }
     return join " + ", @counts;
 }
