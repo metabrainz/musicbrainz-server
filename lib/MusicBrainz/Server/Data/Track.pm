@@ -140,7 +140,13 @@ sub insert
     return @created > 1 ? @created : $created[0];
 }
 
-
+sub update
+{
+    my ($self, $track_id, $update) = @_;
+    my %names = $self->find_or_insert_names($update->{name});
+    my $row = $self->_create_row($update, \%names);
+    $self->sql->update_row('track', $row, { id => $track_id });
+}
 
 sub delete
 {
