@@ -354,6 +354,7 @@ RETURNS trigger AS $$
 	) 
     THEN
         RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE RETURN NEW;
     END IF;
   END;
 $$ LANGUAGE 'plpgsql';
