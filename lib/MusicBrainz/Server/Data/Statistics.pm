@@ -247,7 +247,7 @@ my %stats = (
             );
 
             my %dist = map { @$_ } @$data;
-            
+
             +{
                 "count.artist.gender.male" => $dist{1} || 0,
                 "count.artist.gender.female"  => $dist{2} || 0,
@@ -1536,7 +1536,7 @@ my %stats = (
 
             $dist{0} = $self->fetch("count.recording")
                 - $self->fetch("count.recording.has_puid");
-            
+
             +{
                 map {
                     "count.recording.".$_."puids" => $dist{$_}
@@ -1556,11 +1556,10 @@ my %stats = (
                 "SELECT c, COUNT(*) AS freq
                 FROM (
                     SELECT r.id, count(distinct release.id) as c
-                        FROM recording r 
-                        LEFT JOIN track t ON t.recording = r.id 
-                        LEFT JOIN tracklist tl ON tl.id = t.tracklist 
-                        LEFT JOIN medium m ON tl.id = m.tracklist 
-                        LEFT JOIN release on m.release = release.id 
+                        FROM recording r
+                        LEFT JOIN track t ON t.recording = r.id
+                        LEFT JOIN medium m ON t.medium = m.id
+                        LEFT JOIN release on m.release = release.id
                     GROUP BY r.id
                 ) AS t
                 GROUP BY c
