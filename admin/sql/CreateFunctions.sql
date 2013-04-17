@@ -342,6 +342,22 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_watype_allows_text()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.work_attribute_text IS NOT NULL 
+        AND NOT EXISTS (
+           SELECT TRUE FROM work_attribute_type 
+		WHERE work_attribute_type.id = NEW.work_attribute_type 
+		AND free_text
+	) 
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    END IF;
+  END;
+$$ LANGUAGE 'plpgsql';
+
 -----------------------------------------------------------------------
 -- lastupdate triggers
 -----------------------------------------------------------------------
