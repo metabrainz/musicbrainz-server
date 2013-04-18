@@ -211,24 +211,13 @@ Relationship.prototype.linkPhrase = function (source) {
             if (values === undefined) {
                 return alts[1] || "";
             } else {
-                return alts[0].replace(/%/g, joinAttrs(values));
+                return alts[0].replace(/%/g, MB.utility.joinList(values));
             }
         } else {
-            return values === undefined ? "" : joinAttrs(values);
+            return values === undefined ? "" : MB.utility.joinList(values);
         }
     }));
 };
-
-
-function joinAttrs(attrs) {
-    if (attrs.length > 1) {
-        var a = attrs.pop(), b = attrs.join(MB.text.Comma);
-        return MB.text.BAndA.replace("{b}", b).replace("{a}", a);
-    } else if (attrs.length === 1) {
-        return attrs[0];
-    }
-    return "";
-}
 
 
 function renderDate(date) {
