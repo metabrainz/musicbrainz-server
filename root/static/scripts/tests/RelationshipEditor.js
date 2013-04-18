@@ -324,8 +324,8 @@ $.extend(MB.text = MB.text || {}, {
     InvalidEndDate: "The end date cannot preceed the begin date.",
     InvalidValue: "The value you've entered is not valid.",
     RequiredField: "Required field.",
-    Comma: ", ",
-    BAndA: "{b} and {a}"
+    EnumerationComma: ", ",
+    EnumerationAnd: "{b} and {a}"
 });
 
 
