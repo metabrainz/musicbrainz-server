@@ -49,6 +49,7 @@ my $catchup;
 my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
+my $fVerifySig = 0;
 
 GetOptions(
     "help"                      => \$fHelp,
@@ -58,6 +59,7 @@ GetOptions(
     "limit=i"                   => \$limit,
     "period=s"                  => \$period,
     "catchup"                   => \$catchup,
+    "verify-sig"                => \$fVerifySig,
 ) or exit 2;
 
 $baseuri =~ s/\/$//;
@@ -82,7 +84,9 @@ Usage: LoadReplicationChanges [options]
                        these replication options.
     --catchup          For periods other than 'hourly', apply hourly packets
                        until in sync with available packets for the provided
-                       period 
+                       period
+    --verify-sig       If this option is present the replication packets will
+                       be verified against their signature.
 
 EOF
 }
@@ -165,46 +169,13 @@ if ($period ne 'hourly') {
 my $url = "$baseuri/$uriprefix$file";
 my $localfile = "$tmpdir/$file";
 
-use LWP::UserAgent;
-my $ua = LWP::UserAgent->new(
-    agent => '$Id$',
-);
-$ua->env_proxy;
+# Get the replication packet
+retrieve_remote_file($file, $url, $localfile);
 
-print localtime() . " : Downloading $url to $localfile\n";
-my $resp = $ua->mirror($url, $localfile);
-
-# We only understand a limited set of responses:
-# OK, not found, and the rest.
-use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
-
-if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
-    print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
-    exit 0;
-}
-elsif ($catchup) {
-    print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
-    $file = "replication-$iNextReplicationSequence.tar.bz2";
-    $uriprefix = '';
-    $url = "$baseuri/$uriprefix$file";
-    $localfile = "$tmpdir/$file";
-    $resp = $ua->mirror($url, $localfile);
-}
-
-if ($resp->code == RC_NOT_FOUND)
-{
-    # TODO check for newer replication packets, in case the server has lost one?
-    # die if so
-
-    # Otherwise exit ok
-    print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
-    exit 0;
-}
-
-unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
-{
-    print $resp->as_string;
-    die;
+# Get the signature file
+if ($fVerifySig) {
+    retrieve_remote_file($file . ".asc", $url . ".asc", $localfile . ".asc");
+    validate_file_signature($localfile);
 }
 
 # We successfully retrieved the replication packet.
@@ -355,6 +326,75 @@ if ($limit > 0 && $count >= $limit) {
 }
 # Loop back round and start again
 goto NEXT_PACKET;
+
+sub retrieve_remote_file {
+    my ($file, $url, $localfile) = @_;
+
+
+    use LWP::UserAgent;
+    my $ua = LWP::UserAgent->new(
+        agent => '$Id$',
+    );
+    $ua->env_proxy;
+
+    print localtime() . " : Downloading $url to $localfile\n";
+    my $resp = $ua->mirror($url, $localfile);
+
+    # We only understand a limited set of responses:
+    # OK, not found, and the rest.
+    use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+
+    if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
+        print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
+        exit 0;
+    }
+    elsif ($catchup) {
+        print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
+        $file = "replication-$iNextReplicationSequence.tar.bz2";
+        $uriprefix = '';
+        $url = "$baseuri/$uriprefix$file";
+        $localfile = "$tmpdir/$file";
+        $resp = $ua->mirror($url, $localfile);
+    }
+
+    if ($resp->code == RC_NOT_FOUND)
+    {
+        # TODO check for newer replication packets, in case the server has lost one?
+        # die if so
+
+        # Otherwise exit ok
+        print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
+        exit 0;
+    }
+
+    unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
+    {
+        print $resp->as_string;
+        die;
+    }
+}
+
+sub validate_file_signature {
+    my $file = shift;
+
+    -e $file or die "Can't find file $file: $!";
+
+    use DBDefs;
+    use GnuPG qw( :algo );
+
+    my $gpg = GnuPG->new;
+    my $signature = $file . ".asc";
+
+    $gpg->import_keys( keys => [ &DBDefs::GPG_PUB_KEY ] );
+
+    my $sig;
+    eval {
+        $sig = $gpg->verify( signature => $signature, file => $file );
+    };
+    if ($@) {
+        die "Signature for file $file is not valid..."
+    }
+}
 
 sub read_file
 {
