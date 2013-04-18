@@ -109,10 +109,12 @@ MB.constants.LINK_TYPES = {
         label: 218
     },
     soundcloud: {
-        artist:291,
+        artist: 291,
         label: 290
     },
     streamingmusic: {
+	artist: 194,
+	release: 85, 
         recording: 268
     },
     vgmdb: {
