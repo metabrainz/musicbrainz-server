@@ -35,6 +35,7 @@ my %URL_SPECIALIZATIONS = (
     'IMSLP'            => qr{^https?://(?:www.)?imslp.org/wiki/}i,
     'IOBDb'            => qr{^https?://(?:www.)?lortel.org/}i,
     'InternetArchive'  => qr{^https?://(?:www.)?archive.org/details/}i,
+    'iTunes'           => qr{^https?://itunes.apple.com/}i,
     'ISRCTW'           => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,
     'Jamendo'          => qr{^https?://(?:www.)?jamendo.com/}i,
     'LastFM'           => qr{^https?://(?:www.)?last.fm/}i,
