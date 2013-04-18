@@ -174,6 +174,31 @@ sub merge_releases {
     }
 }
 
+sub merge_release_groups {
+    my ($self, $new_release_group_id, @old_release_groups) = @_;
+
+    my $all_ids = [ $new_release_group_id, @old_release_groups ];
+    $self->sql->do('
+      DELETE FROM cover_art_archive.release_group_cover_art
+      WHERE release_group = any(?) AND release_group NOT IN (
+        SELECT release_group
+        FROM cover_art_archive.release_group_cover_art
+        WHERE release_group = any(?)
+        ORDER BY (release_group = ?) DESC
+        LIMIT 1
+      )',
+        $all_ids,
+        $all_ids,
+        $new_release_group_id
+    );
+
+    $self->sql->do('
+        UPDATE cover_art_archive.release_group_cover_art SET release_group = ?
+        WHERE release_group = any(?)',
+        $new_release_group_id, $all_ids
+    );
+}
+
 sub exists {
     my ($self, $id) = @_;
     my $row = $self->c->sql->select_single_value(
