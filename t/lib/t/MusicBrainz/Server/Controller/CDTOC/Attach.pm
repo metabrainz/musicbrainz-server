@@ -56,16 +56,17 @@ INSERT INTO artist_credit_name (artist_credit, name, artist, position) VALUES (1
 INSERT INTO track_name (id, name) VALUES (1, 'track');
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, '3bcffca6-e8f5-11e0-866d-00508db50876', 1, 1);
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO track (id, tracklist, name, recording, position, number, artist_credit)
-    VALUES (1, 1, 1, 1, 1, 1, 1);
 
 INSERT INTO release_name (id, name) VALUES (1, 'Release stub name');
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '1bcffca6-e8f5-11e0-866d-00508db50876', 1, 1);
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, '2bcffca6-e8f5-11e0-866d-00508db50876', 1, 1, 1);
-INSERT INTO medium (id, release, tracklist, position) VALUES (1, 1, 1, 1);
+INSERT INTO medium (id, release, track_count, position) VALUES (1, 1, 0, 1);
+
+INSERT INTO track (id, gid, medium, name, recording, position, number, artist_credit)
+    VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 1, 1, 1, 1, 1);
+
 
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
