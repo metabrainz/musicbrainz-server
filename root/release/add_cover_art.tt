@@ -68,7 +68,7 @@
         <div class="comment row">
           <label>[%- l('Comment:') -%]</label>
           <input class="comment" type="text" size="47" />
-          <button type="button" class="cancel-file" style="float: right;">[%- l('Remove') -%]</button>
+          <span class="buttons" style="float: right;"><button type="button" class="cancel-file negative">[%- l('Remove') -%]</button></span>
         </div>
         <div class="upload-error row" style="display: none;">
           <label>[%- warning_icon() -%]</label>
