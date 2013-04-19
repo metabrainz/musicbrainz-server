@@ -386,11 +386,9 @@ sub find_for_cdtoc
                         ON medium.release = release.id
                      LEFT JOIN medium_format
                         ON medium_format.id = medium.format
-                     JOIN tracklist
-                        ON medium.tracklist = tracklist.id
                      JOIN release_group
                         ON release.release_group = release_group.id
-                 WHERE tracklist.track_count = ? AND acn.artist = ?
+                 WHERE medium.track_count = ? AND acn.artist = ?
                    AND (medium_format.id IS NULL OR medium_format.has_discids)
                  ORDER BY release_group.id, musicbrainz_collate(name.name), date_year, date_month, date_day
                  OFFSET ?";
@@ -641,15 +639,13 @@ sub can_merge {
         my $mediums_differ = $self->sql->select_single_value(
             'SELECT TRUE
              FROM (
-                 SELECT medium.id, medium.position, tracklist.track_count
+                 SELECT medium.id, medium.position, medium.track_count
                  FROM medium
-                 JOIN tracklist ON tracklist.id = medium.tracklist
                  WHERE release IN (' . placeholders(@old_ids) . ')
              ) s
              LEFT JOIN medium new_medium ON
                  (new_medium.position = s.position AND new_medium.release = ?)
-             LEFT JOIN tracklist ON tracklist.id = new_medium.tracklist
-             WHERE tracklist.track_count <> s.track_count
+             WHERE new_medium.track_count <> s.track_count
                 OR new_medium.id IS NULL
              LIMIT 1',
             @old_ids, $new_id);
@@ -823,9 +819,7 @@ sub merge
         my @merges = @{
             $self->sql->select_list_of_hashes(
                 'SELECT newmed.id AS new_id,
-                        oldmed.id AS old_id,
-                        newmed.tracklist AS new_tracklist,
-                        oldmed.tracklist AS old_tracklist
+                        oldmed.id AS old_id
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
                     AND oldmed.release IN (' . placeholders(@old_ids) . ')
@@ -834,21 +828,18 @@ sub merge
             )
         };
         for my $merge (@merges) {
-            $self->c->model('Tracklist')->merge(
-                $merge->{new_tracklist},
-                $merge->{old_tracklist}
-            ) if $merge->{new_tracklist} != $merge->{old_tracklist};
-
+            $self->c->model('Medium')->merge($merge->{new_id}, $merge->{old_id});
             $self->c->model('MediumCDTOC')->merge_mediums(
                 $merge->{new_id},
                 $merge->{old_id}
             );
         }
 
-        $self->sql->do(
-            'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
-            @old_ids
-        );
+        my $delete_these_media = $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release IN ('.placeholders(@old_ids).')',
+            @old_ids);
+
+        $self->c->model('Medium')->delete($_) for @$delete_these_media;
     }
 
     $self->sql->do(

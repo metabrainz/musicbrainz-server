@@ -116,6 +116,7 @@ sub delete
     };
 
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
+    $self->sql->do('DELETE FROM track WHERE medium IN (' . placeholders(@ids) . ')', @ids);
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 
@@ -190,6 +191,34 @@ sub set_lengths_to_cdtoc
 
     $self->c->model('DurationLookup')->update($medium_id);
 }
+
+sub merge
+{
+    my ($self, $new_medium_id, $old_medium_id) = @_;
+    my @recording_merges = @{
+        $self->sql->select_list_of_lists(
+            'SELECT DISTINCT newt.recording AS new, oldt.recording AS old
+               FROM track oldt
+               JOIN track newt ON newt.position = oldt.position
+              WHERE newt.medium = ? AND oldt.medium = ?
+                AND newt.recording != oldt.recording',
+            $new_medium_id, $old_medium_id
+        )
+    };
+
+    # We need to make sure that for each old recording, there is only 1 new recording
+    # to merge into. If there is > 1, then it's not clear what we should merge into.
+    my %target_count;
+    $target_count{ $_->[1] }++ for @recording_merges;
+
+    for my $recording_merge (@recording_merges) {
+        my ($new, $old) = @$recording_merge;
+        next if $target_count{$old} > 1;
+
+        $self->c->model('Recording')->merge(@$recording_merge);
+    }
+}
+
 
 =method reorder
 
