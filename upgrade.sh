@@ -24,6 +24,9 @@ then
     echo `date` : Export pending db changes
     ./admin/RunExport
 
+    echo `date` : Initialize bundled replication packets
+    ./admin/sql/updates/20130322-init-bundled-replication.pl
+
     echo `date` : Drop replication triggers
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
