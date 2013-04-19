@@ -301,7 +301,7 @@ sub appears_on
            JOIN release_name name ON rg.name=name.id
            JOIN release ON release.release_group = rg.id
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN track ON track.medium = medium.id
            JOIN recording ON recording.id = track.recording
          WHERE recording.id IN (" . placeholders (@ids) . ")";
 
