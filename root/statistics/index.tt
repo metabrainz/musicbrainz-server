@@ -50,8 +50,10 @@
     <th colspan="4">[% l('Other Entities') %]</th>
 </tr>
 <tr>
-    <th>[% l('Editors:') %]</th>
-    <td colspan="3">[% add_commas(stats.statistic('count.editor')) %]</td>
+    <th>[% l('Editors (undeleted / deleted):') %]</th>
+    <td>[% add_commas(stats.statistic('count.editor.undeleted')) %]</td>
+    <td>/</td>
+    <td>[% add_commas(stats.statistic('count.editor.deleted')) %]</td>
 </tr>
 <tr>
     <th>[% l('Relationships:') %]</th>

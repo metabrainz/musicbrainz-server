@@ -485,6 +485,16 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM editor",
         NONREPLICATED => 1,
     },
+    "count.editor.deleted" => {
+        DESC => "Count of all editors that have been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
+        SQL => "SELECT COUNT(*) FROM editor WHERE name = 'Deleted Editor #' || id",
+        NONREPLICATED => 1,
+    },
+    "count.editor.undeleted" => {
+        DESC => "Count of all editors that have not been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
+        SQL => "SELECT COUNT(*) FROM editor WHERE name <> ('Deleted Editor #' || id)",
+        NONREPLICATED => 1,
+    },
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
