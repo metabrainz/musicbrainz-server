@@ -31,8 +31,14 @@ has '+data' => (
             min  => Nullable[Int],
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
-        ]]
+        ]],
+        documentation => Optional[Str]
     ]
+);
+
+has entity_id => (
+    isa => 'Int',
+    is => 'rw'
 );
 
 sub edit_conditions
@@ -54,7 +60,7 @@ sub allow_auto_edit { 1 }
 
 sub accept {
     my $self = shift;
-    $self->c->model('LinkType')->insert($self->data);
+    $self->entity_id($self->c->model('LinkType')->insert($self->data)->id);
 }
 
 no Moose;
