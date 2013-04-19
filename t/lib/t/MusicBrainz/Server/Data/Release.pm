@@ -252,6 +252,36 @@ EOSQL
     );
 };
 
+test 'preserve cover_art_presence on merge' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+
+    $c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
+        new_id => 6,
+        old_ids => [ 7 ],
+        medium_positions => {
+            2 => 1,
+            3 => 2
+        }
+    );
+
+    my $present_result = $c->model('Release')->get_by_id(6);
+    $c->model('Release')->load_meta($present_result);
+    is($present_result->cover_art_presence, 'present');
+
+    $c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 8,
+        old_ids => [ 9 ]
+    );
+
+    my $darkened_result = $c->model('Release')->get_by_id(8);
+    $c->model('Release')->load_meta($darkened_result);
+    is($darkened_result->cover_art_presence, 'darkened');
+};
+
 test all => sub {
 
 my $test = shift;
