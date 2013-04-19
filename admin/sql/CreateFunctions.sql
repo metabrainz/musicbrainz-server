@@ -343,7 +343,7 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -- Ensure attribute type allows free text if free text is added
-CREATE OR REPLACE FUNCTION ensure_watype_allows_text()
+CREATE OR REPLACE FUNCTION ensure_work_attribute_type_allows_text()
 RETURNS trigger AS $$
   BEGIN
     IF NEW.work_attribute_text IS NOT NULL 
