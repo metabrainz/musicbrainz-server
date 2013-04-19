@@ -161,20 +161,10 @@ sub accept {
 
         for my $medium ($release->all_mediums) {
             for my $track ($medium->all_tracks) {
+
                 $self->c->model('Track')->update(
-                    $track->id,
-                    {
-                        # FIXME: There should be generic Entity -> Hash
-                        # conversion functions, but afaik we don't have any yet.
-                        position => $track->position,
-                        name => $track->name,
-                        number => $track->number,
-                        recording_id => $track->recording_id,
-                        length => $track->length,
-                        artist_credit => $track->artist_credit_id == $old_ac_id
-                            ? $new_ac_id
-                            : $track->artist_credit_id
-                    });
+                    $track->id, { artist_credit => $new_ac_id })
+                    if ($track->artist_credit_id == $old_ac_id);
             }
         }
     }

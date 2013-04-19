@@ -25,7 +25,7 @@ EOSQL
 $mech->get_ok('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-/set-durations?tracklist=1');
+$mech->get_ok('/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-/set-durations?medium=1');
 html_ok($mech->content);
 
 $mech->submit_form(
@@ -38,7 +38,7 @@ my $cdtoc = $c->model('CDTOC')->get_by_discid('tLGBAiCflG8ZI6lFcOt87vXjEcI-');
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
-is($edit->data->{tracklist_id}, 1);
+is($edit->data->{medium_id}, 1);
 is($edit->data->{cdtoc}{id}, $cdtoc->id);
 
 like($mech->uri, qr{/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-$});

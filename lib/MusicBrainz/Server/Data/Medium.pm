@@ -167,6 +167,30 @@ sub find_for_cdstub {
     );
 }
 
+sub set_lengths_to_cdtoc
+{
+    my ($self, $medium_id, $cdtoc_id) = @_;
+    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
+        or die "Could not load CDTOC";
+
+    my $medium = $self->get_by_id($medium_id)
+        or die "Could not load tracklist";
+
+    $self->c->model('Track')->load_for_media($medium);
+    $self->c->model('ArtistCredit')->load($medium->all_tracks);
+
+    my @info = @{ $cdtoc->track_details };
+    for my $i (0..$#info) {
+        $self->c->model('Track')->update(
+            $medium->tracks->[$i]->id,
+            { length => $info[$i]->{length_time} });
+
+        $i++;
+    }
+
+    $self->c->model('DurationLookup')->update($medium_id);
+}
+
 =method reorder
 
     reorder
