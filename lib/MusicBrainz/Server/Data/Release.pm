@@ -525,7 +525,7 @@ sub find_by_collection
         },
         "catno" => sub {
             $extra_join = "LEFT OUTER JOIN
-                (SELECT release, array_agg(catalog_number) AS catnos FROM release_label GROUP BY release) rl
+                (SELECT release, array_agg(catalog_number) AS catnos FROM release_label WHERE catalog_number IS NOT NULL GROUP BY release) rl
                 ON rl.release = release.id";
             return "rl.catnos, date_year, date_month, date_day, musicbrainz_collate(name.name)";
         },
