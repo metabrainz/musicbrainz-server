@@ -2,11 +2,11 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, member_since
         email_confirm_date, last_login_date, edits_accepted, edits_rejected,
         auto_edits_accepted, edits_failed)
     VALUES (1, 'new_editor', 'password', 1+8+32, 'test@email.com', 'http://test.website',
-        'biography', '1989-07-23', '2005-10-20', '2009-01-01', 12, 2, 59, 9),
+        'biography', '1989-07-23', '2005-10-20', '2013-04-05', 12, 2, 59, 9),
          (2, 'Alice', 'secret1', 0, 'alice@example.com', 'http://example.com',
-        'second biography', '2007-07-23', '2007-10-20', '2009-12-05', 11, 3, 41, 8),
+        'second biography', '2007-07-23', '2007-10-20', now(), 11, 3, 41, 8),
          (3, 'kuno', 'byld', 0, 'kuno@example.com', 'http://frob.nl',
-        'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0),
+        'donation check test user', '2010-03-25', '2010-03-25', now(), 0, 0, 0, 0),
          (4, 'ModBot', 'mb', 0, '', 'http://musicbrainz.org/doc/ModBot',
          'See the above link for more information.', NULL, NULL, NULL, 2, 1, 99951, 3560);
 
