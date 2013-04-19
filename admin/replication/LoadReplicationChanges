@@ -33,6 +33,7 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
+use Try::Tiny;
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE
@@ -385,15 +386,16 @@ sub validate_file_signature {
     my $gpg = GnuPG->new;
     my $signature = $file . ".asc";
 
-    $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
-
-    my $sig;
-    eval {
-        $sig = $gpg->verify( signature => $signature, file => $file );
-    };
-    if ($@) {
-        die "Signature for file $file is not valid..."
+    try {;
+        $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
+        $gpg->verify( signature => $signature, file => $file );
     }
+
+    catch {
+        printf STDERR "Failed to verify signature for $file \n"
+            . "GPG returned $_";
+        die;
+    };
 }
 
 sub read_file
