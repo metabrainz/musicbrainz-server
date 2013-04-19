@@ -29,7 +29,7 @@
           <span class="filename"></span>
           <span class="filesize"></span>
         </div>
-        [%- form_row_paragraph (l('ERROR: Not a JPEG image file.')) -%]
+        [%- form_row_paragraph (l('This is not a JPEG file and cannot be uploaded. Currently the Cover Art Archive only supports JPEG files.')) -%]
       </div>
 
       <div class="file-box template" style="display: none; margin: 1em 0; padding: 1em 0; border-top: 1px solid #AAAAAA;">
@@ -68,7 +68,7 @@
         <div class="comment row">
           <label>[%- l('Comment:') -%]</label>
           <input class="comment" type="text" size="47" />
-          <button type="button" class="cancel-file" style="float: right;">[%- l('Cancel') -%]</button>
+          <span class="buttons" style="float: right;"><button type="button" class="cancel-file negative">[%- l('Remove') -%]</button></span>
         </div>
         <div class="upload-error row" style="display: none;">
           <label>[%- warning_icon() -%]</label>
