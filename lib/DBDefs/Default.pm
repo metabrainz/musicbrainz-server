@@ -68,10 +68,7 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # GPG Signature
 ################################################################################
 
-# Either an array ref of command line options, or undef to skip gpg-signing.
-sub GPG_SIGNING_OPTIONS { undef }
-
-# Absolute or relative path to the public key location
+# Absolute path to the public key location
 sub GPG_PUB_KEY { "" }
 
 ################################################################################

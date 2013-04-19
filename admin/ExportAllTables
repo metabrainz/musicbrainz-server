@@ -772,7 +772,7 @@ if ($fCompress and $fDoFullExport)
     gpg_sign("$OutputDir/MD5SUMS");
 
     if ($encrypt_for) {
-        system "/usr/bin/gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
     }
 }
@@ -787,7 +787,6 @@ if ($fCompress and $fDoReplication)
         # Go for the "most restrictive" license
         copy("$FindBin::Bin/COPYING-CCShareAlike", "$dir/COPYING") or die $!;
         make_tar($tarfile, @replication_tables);
-        gpg_sign("$OutputDir/$tarfile");
     }
 }
 
@@ -828,8 +827,7 @@ sub make_tar
     $? == 0 or die "Tar returned $?";
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 
-    system "/usr/bin/gpg --default-key $sign_with --sign $OutputDir/$tarfile"
-        if $sign_with;
+    gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
 }
 
 sub writefile
@@ -909,19 +907,22 @@ sub gpg_sign
 {
     my ($file_to_be_signed) = @_;
 
-    # Skip GPG signing if GPG_SIGNING_OPTIONS is undefined
-    return unless DBDefs->GPG_SIGNING_OPTIONS;
+    # Skip GPG signing of a file if no "sign with" key is given
+    return unless $sign_with;
 
     # Sign requested file
-    # NOTE: Use this for any other options you need passing to gpg,
-    #       eg: -u, --passphrase-*, etc.
     system "gpg",
-        @{ DBDefs->GPG_SIGNING_OPTIONS },
+        "--default-key $sign_with",
         "--detach-sign",
         "--armor",
         $file_to_be_signed;
 
-    $? == 0 or die "gpg returned $?";
+    # Inform user about a failed signature process
+    if ( $? != 0 ) {
+        printf STDERR "Failed to sign $file \n"
+            . "GPG returned $?";
+        die;
+    }
 }
 
 # eof ExportAllTables
