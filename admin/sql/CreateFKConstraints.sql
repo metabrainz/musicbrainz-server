@@ -1558,6 +1558,26 @@ ALTER TABLE work_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_type
+   FOREIGN KEY (work_attribute_type)
+   REFERENCES work_attribute_type(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_type_allowed_value
+   FOREIGN KEY (work_attribute_type_allowed_value)
+   REFERENCES work_attribute_type_allowed_value(id);
+
+ALTER TABLE work_attribute_type_allowed_value
+   ADD CONSTRAINT work_attribute_type_allowed_value_fk_work_attribute_type
+   FOREIGN KEY (work_attribute_type)
+   REFERENCES work_attribute_type(id);
+
 ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)

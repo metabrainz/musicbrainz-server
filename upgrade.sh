@@ -45,6 +45,9 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'MBS-5861, work attributes'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -107,6 +110,9 @@ then
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'MBS-5861, work attribute foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'MBS-1839, Add track MBID foreign keys'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )

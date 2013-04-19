@@ -105,3 +105,6 @@ SELECT setval('work_alias_type_id_seq', (SELECT MAX(id) FROM work_alias_type));
 SELECT setval('work_alias_id_seq', (SELECT MAX(id) FROM work_alias));
 SELECT setval('work_name_id_seq', (SELECT MAX(id) FROM work_name));
 SELECT setval('work_type_id_seq', (SELECT MAX(id) FROM work_type));
+SELECT setval('work_attribute_type_id_seq', (SELECT MAX(id) FROM work_attribute_type));
+SELECT setval('work_attribute_type_allowed_value_id_seq', (SELECT MAX(id) FROM work_attribute_type_allowed_value));
+SELECT setval('work_attribute_id_seq', (SELECT MAX(id) FROM work_attribute));
