@@ -134,6 +134,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     my ($self, $c, $gid) = @_;
 
     my $link_type = $c->stash->{link_type};
+    $c->model('LinkType')->load_documentation($link_type);
 
     my $attribs = $c->model('LinkType')->get_attribute_type_list($link_type->id);
     my %attrib_names = map { $_->{type} => $_->{name} } @$attribs;
@@ -145,7 +146,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             attributes => $attribs,
             map { $_ => $link_type->$_ }
                 qw( parent_id child_order name link_phrase reverse_link_phrase
-                    short_link_phrase description priority )
+                    short_link_phrase description priority documentation )
         },
         root => $c->model('LinkType')->get_tree($link_type->entity0_type,
                                                 $link_type->entity1_type)

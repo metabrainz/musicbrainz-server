@@ -39,6 +39,11 @@
         [% END %]
     [% END %]
 
+    [% WRAPPER form_row %]
+      [% r.label('documentation', l('Documentation:')) %]
+      [% r.textarea('documentation', { cols => 80, rows => 10 }) %]
+    [% END %]
+
     <div class="row no-label">
         [% form_submit(l('Save')) %]
     </div>
