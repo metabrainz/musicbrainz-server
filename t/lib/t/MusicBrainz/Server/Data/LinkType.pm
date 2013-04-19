@@ -111,7 +111,7 @@ EOSQL
 
     my $new_documentation = 'newer documentation';
     my $subject = $link_types->{1};
-    $c->model('LinkType')->set_documentation($subject->id, $new_documentation);
+    $c->model('LinkType')->update($subject->id, { documentation => $new_documentation });
     $c->model('LinkType')->load_documentation(@all_link_types);
 
     is($subject->documentation, $new_documentation, 'can update documentation');
