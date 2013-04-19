@@ -65,6 +65,16 @@ use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
+# GPG Signature
+################################################################################
+
+# Either an array ref of command line options, or undef to skip gpg-signing.
+sub GPG_SIGNING_OPTIONS { undef }
+
+# Absolute or relative path to the public key location
+sub GPG_PUB_KEY { "" }
+
+################################################################################
 # HTTP Server Names
 ################################################################################
 
@@ -150,7 +160,7 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 

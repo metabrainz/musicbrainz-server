@@ -910,13 +910,13 @@ sub gpg_sign
     my ($file_to_be_signed) = @_;
 
     # Skip GPG signing if GPG_SIGNING_OPTIONS is undefined
-    return unless &DBDefs::GPG_SIGNING_OPTIONS;
+    return unless DBDefs->GPG_SIGNING_OPTIONS;
 
     # Sign requested file
     # NOTE: Use this for any other options you need passing to gpg,
     #       eg: -u, --passphrase-*, etc.
     system "gpg",
-        @{ &DBDefs::GPG_SIGNING_OPTIONS },
+        @{ DBDefs->GPG_SIGNING_OPTIONS },
         "--detach-sign",
         "--armor",
         $file_to_be_signed;

@@ -114,10 +114,10 @@ sub DB_SCHEMA_SEQUENCE { 16 }
 ################################################################################
 
 # Either an array ref of command line options, or undef to skip gpg-signing.
-sub GPG_SIGNING_OPTIONS { undef }
+# sub GPG_SIGNING_OPTIONS { undef }
 
 # Absolute or relative path to the public key location
-sub GPG_PUB_KEY { "" }
+# sub GPG_PUB_KEY { "" }
 
 ################################################################################
 # HTTP Server Names

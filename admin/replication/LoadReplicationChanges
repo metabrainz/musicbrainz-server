@@ -385,7 +385,7 @@ sub validate_file_signature {
     my $gpg = GnuPG->new;
     my $signature = $file . ".asc";
 
-    $gpg->import_keys( keys => [ &DBDefs::GPG_PUB_KEY ] );
+    $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
 
     my $sig;
     eval {
