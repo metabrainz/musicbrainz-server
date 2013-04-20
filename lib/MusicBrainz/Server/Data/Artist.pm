@@ -60,7 +60,7 @@ sub _table_join_name {
 sub _columns
 {
     return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
-           'artist.type, artist.country, gender, artist.edits_pending, ' .
+           'artist.type, artist.area, gender, artist.edits_pending, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated,' .
            'ended';
@@ -84,7 +84,7 @@ sub _column_mapping
         name => 'name',
         sort_name => 'sort_name',
         type_id => 'type',
-        country_id => 'country',
+        area_id => 'area',
         gender_id => 'gender',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
@@ -287,7 +287,7 @@ sub merge
         merge_table_attributes(
             $self->sql => (
                 table => 'artist',
-                columns => [ qw( gender country type ) ],
+                columns => [ qw( gender area type ) ],
                 old_ids => $old_ids,
                 new_id => $new_id
             )
@@ -312,7 +312,7 @@ sub _hash_to_row
     my ($self, $values, $names) = @_;
 
     my $row = hash_to_row($values, {
-        country => 'country_id',
+        area => 'area_id',
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',
