@@ -58,7 +58,7 @@ sub _table_join_name {
 sub _columns
 {
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
-           'label.type, label.country, label.edits_pending, label.label_code, ' .
+           'label.type, label.area, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
 }
@@ -81,7 +81,7 @@ sub _column_mapping
         name => 'name',
         sort_name => 'sort_name',
         type_id => 'type',
-        country_id => 'country',
+        area_id => 'area',
         label_code => 'label_code',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
@@ -246,7 +246,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'label',
-            columns => [ qw( type country label_code ) ],
+            columns => [ qw( type area label_code ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -269,7 +269,7 @@ sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
     my $row = hash_to_row($label, {
-        country => 'country_id',
+        area => 'area_id',
         type => 'type_id',
         ended => 'ended',
         map { $_ => $_ } qw( label_code comment )
