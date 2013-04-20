@@ -1621,6 +1621,29 @@ CREATE TABLE work_type (
     name                VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE work_attribute_type (
+    id                  SERIAL,  -- PK
+    name                VARCHAR(255) NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    free_text           BOOLEAN NOT NULL
+);
+
+CREATE TABLE work_attribute_type_allowed_value (
+    id                  SERIAL,  -- PK
+    work_attribute_type INTEGER NOT NULL, -- references work_attribute_type.id
+    value               TEXT
+);
+
+CREATE TABLE work_attribute (
+    id                                  SERIAL,  -- PK
+    work                                INTEGER NOT NULL, -- references work.id
+    work_attribute_type                 INTEGER NOT NULL, -- references work_attribute_type.id
+    work_attribute_type_allowed_value   INTEGER, -- references work_attribute_type_allowed_value.id
+    work_attribute_text                 TEXT
+    -- Either it has a value from the allowed list, or is free text
+    CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )                                       
+);
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

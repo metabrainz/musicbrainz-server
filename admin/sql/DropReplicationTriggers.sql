@@ -3,6 +3,7 @@
 
 DROP TRIGGER reptg_annotation ON annotation;
 DROP TRIGGER reptg_area ON area;
+DROP TRIGGER reptg_country_area ON country_area;
 DROP TRIGGER reptg_area_alias ON area_alias;
 DROP TRIGGER reptg_area_alias_type ON area_alias_type;
 DROP TRIGGER reptg_area_annotation ON area_annotation;
@@ -123,6 +124,9 @@ DROP TRIGGER reptg_work ON work;
 DROP TRIGGER reptg_work_alias ON work_alias;
 DROP TRIGGER reptg_work_alias_type ON work_alias_type;
 DROP TRIGGER reptg_work_annotation ON work_annotation;
+DROP TRIGGER reptg_work_attribute ON work_attribute;
+DROP TRIGGER reptg_work_attribute_type ON work_attribute_type;
+DROP TRIGGER reptg_work_attribute_type_allowed_value ON work_attribute_type_allowed_value;
 DROP TRIGGER reptg_work_gid_redirect ON work_gid_redirect;
 DROP TRIGGER reptg_work_meta ON work_meta;
 DROP TRIGGER reptg_work_name ON work_name;
