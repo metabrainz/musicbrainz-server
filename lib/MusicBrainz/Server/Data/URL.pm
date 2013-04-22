@@ -56,6 +56,7 @@ my %URL_SPECIALIZATIONS = (
     'Songfacts'        => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'       => qr{^https?://(?:www.)?soundcloud.com/}i,
     'STcollector'      => qr{^https?://(?:www.)?soundtrackcollector.com/}i,
+    'Spotify'          => qr{^https?://([^/]+.)?spotify.com/}i,
     'SpiritOfMetal'    => qr{^https?://(?:www.)?spirit-of-metal.com/}i,
     'Theatricalia'     => qr{^https?://(?:www.)?theatricalia.com/}i,
     'TheSession'       => qr{^https?://(?:www.)?thesession.org/}i,
