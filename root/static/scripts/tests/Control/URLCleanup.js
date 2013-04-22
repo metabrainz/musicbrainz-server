@@ -283,6 +283,40 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // Japanese discography pages
+                [
+                    'release', 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.jvcmusic.co.jp/-/Discography/A015120/VICC-60560.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.kingrecords.co.jp/cs/g/gKICM-1091/',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                // Classical discography pages
+                [
+                    'release', 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://bis.se/index.php?op=album&aID=BIS-1961',
+                    MB.constants.LINK_TYPES.discographyentry.release
                 ]
             ];
 

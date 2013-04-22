@@ -71,6 +71,9 @@ MB.constants.LINK_TYPES = {
     discography: {
         artist: 184
     },
+    discographyentry: {
+        release: 288
+    },
     mailorder: {
         artist: 175,
         release: 79
@@ -294,6 +297,10 @@ MB.constants.CLEANUPS = {
     discography: {
         match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
         type: MB.constants.LINK_TYPES.discography
+    },
+    discographyentry: {
+        match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
+        type: MB.constants.LINK_TYPES.discographyentry
     },
     microblog: {
         match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
