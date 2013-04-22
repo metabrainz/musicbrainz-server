@@ -69,9 +69,9 @@
              END;
            END; %]
 
-        [% IF user.country;
+        [% IF user.area;
              WRAPPER property name=l('Country:');
-              user.country.l_name;
+              user.area.l_name;
              END;
            END; %]
 
