@@ -334,7 +334,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
     $c->model('Gender')->load($user);
-    $c->model('Country')->load($user);
+    $c->model('Area')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
     $c->stash(

@@ -35,7 +35,7 @@ sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed, gender, country,
+            edits_rejected, auto_edits_accepted, edits_failed, gender, area,
             birth_date';
 }
 
@@ -57,7 +57,7 @@ sub _column_mapping
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
         gender_id               => 'gender',
-        country_id              => 'country',
+        area_id              => 'area',
         birth_date              => 'birth_date'
     };
 }
@@ -272,7 +272,7 @@ sub update_profile
         $update,
         {
             bio => 'biography',
-            country => 'country_id',
+            area => 'area_id',
             gender => 'gender_id',
             website => 'website',
             birth_date => 'birth_date',
@@ -468,7 +468,7 @@ sub delete {
                            email_confirm_date = NULL,
                            website = NULL,
                            bio = NULL,
-                           country = NULL,
+                           area = NULL,
                            birth_date = NULL,
                            gender = NULL
          WHERE id = ?",

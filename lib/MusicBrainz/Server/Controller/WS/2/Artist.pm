@@ -67,7 +67,7 @@ sub artist_toplevel
 
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
-    $c->model('Country')->load($artist);
+    $c->model('Area')->load($artist);
     $c->model('Artist')->ipi->load_for($artist);
 
     $c->model('Artist')->annotation->load_latest($artist)

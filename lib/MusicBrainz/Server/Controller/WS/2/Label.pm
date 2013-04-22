@@ -49,7 +49,7 @@ sub label_toplevel
     $self->linked_labels ($c, $stash, [ $label ]);
 
     $c->model('LabelType')->load($label);
-    $c->model('Country')->load($label);
+    $c->model('Area')->load($label);
     $c->model('Label')->ipi->load_for($label);
 
     $c->model('Label')->annotation->load_latest($label)
