@@ -115,6 +115,10 @@ MB.constants.LINK_TYPES = {
         artist:291,
         label: 290
     },
+    blog: {
+        artist: 199,
+        label: 224
+    },
     streamingmusic: {
         recording: 268
     },
@@ -353,6 +357,14 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function(url) {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
+        }
+    },
+    blog: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp)", "i"),
+        type: MB.constants.LINK_TYPES.blog,
+        clean: function(url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
+            return url;
         }
     },
     spotify: {
