@@ -490,6 +490,12 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return sites.test($('#id-ar\\.url').val())
     };
 
+    // avoid wikipedia being added as release-level discography entry
+    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/'); 
+        return !is_wikipedia.test($('#id-ar\\.url').val())
+    };
+
     // only allow domains on the score whitelist
     var validateScore = function() {
         return MB.constants.CLEANUPS.score.match.test($('#id-ar\\.url').val())
