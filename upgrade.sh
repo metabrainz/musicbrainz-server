@@ -27,7 +27,7 @@ then
     echo `date` : Initialize bundled replication packets
     ./admin/sql/updates/20130322-init-bundled-replication.pl
 
-    echo `date` : Drop replication triggers
+    echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
     echo `date` : 'Drop replication triggers (cover_art_archive)'
@@ -50,6 +50,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table
 
 echo `date` : 'MBS-5861, work attributes'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'MBS-4115, Add cover art image types'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -110,6 +113,9 @@ then
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-4115, Add cover art image types (foreign keys)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-type-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

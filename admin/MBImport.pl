@@ -500,6 +500,7 @@ sub ImportAllTables
         work_type
 
         cover_art_archive.art_type
+        cover_art_archive.image_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
         cover_art_archive.release_group_cover_art
