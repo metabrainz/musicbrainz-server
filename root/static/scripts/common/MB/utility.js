@@ -281,3 +281,15 @@ MB.utility.validDate = (function() {
         return true;
     };
 }());
+
+MB.utility.joinList = function (items) {
+    if (items.length > 1) {
+        var a = items.pop();
+        var b = items.join(MB.text.EnumerationComma);
+        return MB.text.EnumerationAnd.replace("{b}", b).replace("{a}", a);
+    } else if (items.length === 1) {
+        return items[0];
+    }
+    return "";
+};
+
