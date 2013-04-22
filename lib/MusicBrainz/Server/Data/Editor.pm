@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     hash_to_row
     load_subobjects
     placeholders
@@ -594,6 +595,29 @@ sub hash_password {
 sub ha1_password {
     my ($username, $password) = @_;
     return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+}
+
+sub consume_remember_me_token {
+    my ($self, $user_name, $token) = @_;
+    return $self->sql->select_single_value(
+        'DELETE FROM editor_remember_me
+         USING editor
+         WHERE editor.name = ?
+           AND editor_remember_me.editor = editor.id
+           AND token = ?
+         RETURNING TRUE',
+        $user_name, $token
+    );
+}
+
+sub allocate_remember_me_token {
+    my ($self, $user_name) = @_;
+    return $self->sql->select_single_value(
+        'INSERT INTO editor_remember_me (editor, token)
+         SELECT id, ? FROM editor WHERE name = ?
+         RETURNING token',
+        generate_gid(), $user_name
+    );
 }
 
 no Moose;

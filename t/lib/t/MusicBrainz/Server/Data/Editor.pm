@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Data::Editor;
+use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -31,6 +32,29 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
     is($ratings->{artist}->[0]->id => 1, 'has artist entity');
     is($ratings->{artist}->[0]->rating, 80, 'has raw rating');
     is($ratings->{artist}->[0]->rating_count => 1, 'has rating on entity');
+};
+
+test 'Remember me tokens' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $model = $test->c->model('Editor');
+
+    my $user_name = 'Alice';
+    my $token = $model->allocate_remember_me_token($user_name);
+
+    ok($model->consume_remember_me_token($user_name, $token),
+       'Can consume "remember me" tokens');
+
+    ok(!$model->consume_remember_me_token($user_name, $token),
+       'Cannot consume "remember me" tokens more than once');
+
+    ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
+       'It is not an exception to attempt to consume tokens for non-existant users');
+
+    is($model->allocate_remember_me_token('Unknown User'), undef,
+       'Allocating tokens for unknown users returns undefined');
 };
 
 test all => sub {
