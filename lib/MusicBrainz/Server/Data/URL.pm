@@ -19,6 +19,7 @@ my %URL_SPECIALIZATIONS = (
     'AnimeNewsNetwork' => qr{^https?://(?:www.)?animenewsnetwork.com/}i,
     'ASIN'             => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'         => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
+    'Bandcamp'         => qr{^https?://([^/]+.)?bandcamp.com/}i,
     'Canzone'          => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'CDBaby'           => qr{^https?://(?:www.)?cdbaby.com/}i,
     'DHHU'             => qr{^https?://(?:www.)?dhhu.dk/}i,
