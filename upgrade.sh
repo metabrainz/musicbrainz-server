@@ -75,6 +75,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$
 echo `date` : 'MBS-1839, Reduplicate tracklists'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Applying admin/sql/updates/20120914-isni.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120914-isni.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -107,6 +110,9 @@ then
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Adding ISNI constraints
+    OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20120914-isni-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl

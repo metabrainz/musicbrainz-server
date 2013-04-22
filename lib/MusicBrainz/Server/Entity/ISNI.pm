@@ -1,21 +1,20 @@
-package MusicBrainz::Server::Edit::Role::IPI;
-use 5.10.0;
-use Moose::Role;
+package MusicBrainz::Server::Entity::ISNI;
 
-with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'ipi_codes',
-    get_current => sub {
-        my $self = shift;
-        $self->c->model($self->_edit_model)
-            ->ipi->find_by_entity_id($self->entity_id);
-    },
-    extract_value => sub { shift->ipi }
-};
+use Moose;
 
+extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
+
+has 'isni' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
+__PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
-=head1 LICENSE
+=head1 COPYRIGHT
 
 Copyright (C) 2012 MetaBrainz Foundation
 
@@ -31,6 +30,6 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 =cut

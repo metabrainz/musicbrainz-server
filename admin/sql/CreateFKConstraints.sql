@@ -133,6 +133,11 @@ ALTER TABLE artist_ipi
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
+ALTER TABLE artist_isni
+   ADD CONSTRAINT artist_isni_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
 ALTER TABLE artist_meta
    ADD CONSTRAINT artist_meta_fk_id
    FOREIGN KEY (id)
@@ -1043,6 +1048,11 @@ ALTER TABLE label_gid_redirect
 
 ALTER TABLE label_ipi
    ADD CONSTRAINT label_ipi_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_isni
+   ADD CONSTRAINT label_isni_fk_label
    FOREIGN KEY (label)
    REFERENCES label(id);
 

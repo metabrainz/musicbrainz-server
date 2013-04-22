@@ -1,15 +1,15 @@
-package MusicBrainz::Server::Edit::Role::IPI;
+package MusicBrainz::Server::Edit::Role::ISNI;
 use 5.10.0;
 use Moose::Role;
 
 with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
-    prop_name => 'ipi_codes',
+    prop_name => 'isni_codes',
     get_current => sub {
         my $self = shift;
         $self->c->model($self->_edit_model)
-            ->ipi->find_by_entity_id($self->entity_id);
+            ->isni->find_by_entity_id($self->entity_id);
     },
-    extract_value => sub { shift->ipi }
+    extract_value => sub { shift->isni }
 };
 
 no Moose;
