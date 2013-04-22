@@ -1322,6 +1322,9 @@ sub _submit_edit
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
+    # Set as autoedits edits that cannot fail
+    $privs |= $AUTO_EDITOR_FLAG if $self->should_approve($type);
+
     my $edit = $self->_create_edit(
         sub { $self->c->model('Edit')->create(@_) },
         $type, $self->c->user->id,
@@ -1339,6 +1342,16 @@ sub _submit_edit
 
     $self->c->stash->{changes} = 1;
     return $edit;
+}
+
+=method should_approve
+
+Takes a type, and should return 1 if the edit should be an autoedit
+
+=cut
+
+sub should_approve {
+    return 0;
 }
 
 sub _create_edit {

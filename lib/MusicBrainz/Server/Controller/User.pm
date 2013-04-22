@@ -171,7 +171,7 @@ sub cookie_login : Private
 
             my $user = $c->model('Editor')->get_by_name($user_name) or return;
 
-            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+            my $correct_pass_sha1 = cookie_password_hash($user);
             die "Password sha1 do not match"
                 unless $pass_sha1 eq $correct_pass_sha1;
 
@@ -188,6 +188,11 @@ sub cookie_login : Private
         $c->log->error($_);
         $self->_clear_login_cookie($c);
     };
+}
+
+sub cookie_password_hash {
+    my $user = shift;
+    return sha1_base64(encode('utf-8', $user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM));
 }
 
 sub _clear_login_cookie
@@ -211,7 +216,7 @@ sub _set_login_cookie
 {
     my ($self, $c) = @_;
     my $expiry_time = time + 86400 * 635;
-    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+    my $password_sha1 = cookie_password_hash($c->user);
     my $ip_mask = '';
     my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
                                              $expiry_time, $ip_mask);

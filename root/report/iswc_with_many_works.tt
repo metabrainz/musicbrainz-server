@@ -1,0 +1,82 @@
+[%- BLOCK layout_head -%]
+  <style>
+    table.tbl td {padding: 10px;}
+  </style>
+[% END %]
+
+[%- WRAPPER 'layout.tt' title=l('ISWCs with multiple works') full_width=1 -%]
+
+<h1>[% l('ISWCs with multiple works') %]</h1>
+
+<ul>
+    <li>[% l('This report lists {iswc|ISWCs} that are attached to more than one work. If
+              the works are the same, this usually means they should be merged.',
+              { iswc => doc_link('ISWC') }) %]</li>
+    <li>[% l('Total ISWCs found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('ISWC') %]</th>
+            <th>[% l('Work') %]</th>
+            <th>[% l('Writers') %]</th>
+            <th>[% l('Artists') %]</th>
+            <th>[% l('Type') %]</th>
+            <th>[% l('Language') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- lastiswc = 0 -%]
+        [%- FOR item IN items -%]
+        [% IF lastiswc != item.iswc %]
+            <tr class="ev">
+                <td><a href="[% c.uri_for_action('/iswc/show', [ item.iswc ]) %]">[% item.iswc %]</a> ([% item.workcount %])</td>
+                <td colspan="5"></td>
+            </tr>
+            [% lastiswc = item.iswc %]
+        [%- END -%]
+        <tr>
+            <td></td>
+            <td>[% link_entity(item.work) %]</td>
+            <td>
+              [% IF item.work.writers.list.size == 0 %]
+                [% l('-') %]
+              [% ELSE %]
+                <ul>
+                  [% FOR rel_artist=item.work.writers %]
+                    <li>
+                      [% l('{artist} ({roles})', { artist => link_artist(rel_artist.entity),
+                           roles  => rel_artist.roles.join(', ') }) %]
+                    </li>
+                  [% END %]
+                </ul>
+              [% END %]
+            </td>
+            <td>
+              [% IF item.work.artists.list.size == 0 %]
+                [% l('-') %]
+              [% ELSE %]
+                <ul>
+                  [% FOR rel_artist=item.work.artists %]
+                    <li>[% artist_credit(rel_artist) %]</li>
+                  [% END %]
+                </ul>
+              [% END %]
+            </td>
+            <td>
+              [% item.work.l_type_name %]
+            </td>
+            <td>
+              <abbr title="[% item.work.language.l_name %]">[% item.work.language.iso_code_3 %]</abbr>
+            </td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]
+
+[%- END -%]

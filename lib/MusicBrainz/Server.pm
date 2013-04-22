@@ -105,6 +105,9 @@ if (DBDefs->EMAIL_BUGS) {
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = DBDefs->PLUGIN_CACHE_OPTIONS;
 
+require MusicBrainz::Server::Authentication::WS::Credential;
+require MusicBrainz::Server::Authentication::WS::Store;
+require MusicBrainz::Server::Authentication::Store;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => 'moderators',
     use_session => 0,
@@ -125,8 +128,8 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             credential => {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
-                password_field => 'password',
-                password_type => 'clear'
+                password_field => 'password_bytes',
+                password_type => 'clear',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::WS::Store'
