@@ -34,6 +34,10 @@ use integer;
 
 use Getopt::Long;
 use Try::Tiny;
+use LWP::UserAgent;
+use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+use GnuPG qw( :algo );
+
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE
@@ -170,13 +174,39 @@ if ($period ne 'hourly') {
 my $url = "$baseuri/$uriprefix$file";
 my $localfile = "$tmpdir/$file";
 
-# Get the replication packet
-retrieve_remote_file($file, $url, $localfile);
+my $resp = retrieve_remote_file($url, $localfile);
+validate_file_signature($localfile);
 
-# Get the signature file
-if ($fVerifySig) {
-    retrieve_remote_file($file . ".asc", $url . ".asc", $localfile . ".asc");
+# We only understand a limited set of responses:
+# OK, not found, and the rest.
+if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
+    print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
+    exit 0;
+}
+elsif ($catchup) {
+    print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
+    $file = "replication-$iNextReplicationSequence.tar.bz2";
+    $uriprefix = '';
+    $url = "$baseuri/$uriprefix$file";
+    $localfile = "$tmpdir/$file";
+    $resp = retrieve_remote_file($url, $localfile);
     validate_file_signature($localfile);
+}
+
+if ($resp->code == RC_NOT_FOUND)
+{
+    # TODO check for newer replication packets, in case the server has lost one?
+    # die if so
+
+    # Otherwise exit ok
+    print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
+    exit 0;
+}
+
+unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
+{
+    print $resp->as_string;
+    die;
 }
 
 # We successfully retrieved the replication packet.
@@ -329,68 +359,61 @@ if ($limit > 0 && $count >= $limit) {
 goto NEXT_PACKET;
 
 sub retrieve_remote_file {
-    my ($file, $url, $localfile) = @_;
+    my ($url, $file) = @_;
 
-
-    use LWP::UserAgent;
+    # Initialise User Agent
     my $ua = LWP::UserAgent->new(
         agent => '$Id$',
     );
     $ua->env_proxy;
 
-    print localtime() . " : Downloading $url to $localfile\n";
-    my $resp = $ua->mirror($url, $localfile);
+    # Fetch the file and inform the user about what is being done
+    print localtime() . " : Downloading $url to $file\n";
+    my $f_resp = $ua->mirror($url, $file);
 
-    # We only understand a limited set of responses:
-    # OK, not found, and the rest.
-    use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+    return $f_resp unless $fVerifySig;
 
-    if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
-        print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
-        exit 0;
-    }
-    elsif ($catchup) {
-        print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
-        $file = "replication-$iNextReplicationSequence.tar.bz2";
-        $uriprefix = '';
-        $url = "$baseuri/$uriprefix$file";
-        $localfile = "$tmpdir/$file";
-        $resp = $ua->mirror($url, $localfile);
-    }
+    # Identify signature URL and Local filename
+    $url .= '.asc';
+    my $signature = $file . '.asc';
 
-    if ($resp->code == RC_NOT_FOUND)
-    {
-        # TODO check for newer replication packets, in case the server has lost one?
-        # die if so
+    # Fetch file signature and inform the user about what is being done
+    print localtime() . " : Downloading $url to $signature\n";
+    my $s_resp = $ua->mirror($url, $signature);
 
-        # Otherwise exit ok
-        print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
-        exit 0;
-    }
-
-    unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
-    {
-        print $resp->as_string;
-        die;
-    }
+    return $f_resp;
 }
 
 sub validate_file_signature {
-    my $file = shift;
+    my ($file, $signature) = @_;
 
-    -e $file or die "Can't find file $file: $!";
+    # Only proceed if signature verification was requested
+    return unless $fVerifySig;
 
-    use DBDefs;
-    use GnuPG qw( :algo );
+    # Make sure that the file to be tested exists
+    die "Can't find file $file: $!" unless (-e $file);
 
+    # Fall back to the default signature if one is not supplied
+    $signature = $file . ".asc" unless $signature;
+
+    # Make sure that the signature exists
+    unless (-e $signature) {
+        # React based on the configured mode for missing signature
+        (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
+            ? die "Can't find signature file $file: $!"
+            : return;
+    }
+
+    # Initialise GnuPG module in local scope
     my $gpg = GnuPG->new;
-    my $signature = $file . ".asc";
 
-    try {;
+    # Attempt to verify file signature
+    try {
         $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
         $gpg->verify( signature => $signature, file => $file );
     }
 
+    # Exist with and error if verification failed
     catch {
         printf STDERR "Failed to verify signature for $file \n"
             . "GPG returned $_";
