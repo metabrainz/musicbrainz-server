@@ -179,17 +179,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     }
 };
 
-around create => sub {
-    my ($orig, $self, $c, @args) = @_;
-    if ($c->user_exists && $c->user->is_limited) {
-        $c->stash( template => 'recording/cannot_add.tt' );
-        $c->detach;
-    }
-    else {
-        $self->$orig($c, @args);
-    }
-};
-
 before '_merge_confirm' => sub {
     my ($self, $c) = @_;
     if ($c->stash->{to_merge}) {

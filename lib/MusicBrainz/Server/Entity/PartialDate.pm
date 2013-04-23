@@ -101,7 +101,7 @@ sub _cmp
 
     # We have years for both dates, we can now assume real sorting
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
-    my @end =   ($b->year, $b->month || 1, $b->day || 1);
+    my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
 
     my ($days) = Date::Calc::Delta_Days(@begin, @end);
 

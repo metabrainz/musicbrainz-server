@@ -3,6 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use DateTime;
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
@@ -64,6 +65,33 @@ sub index : Private
     $c->detach('/user/profile', [ $c->user->name ]);
 }
 
+sub _perform_login {
+    my ($self, $c, $user_name, $password) = @_;
+
+    if( !$c->authenticate({ username => $user_name, password => $password }) )
+    {
+        # Bad username / password combo
+        $c->log->info('Invalid username/password');
+        $c->stash( bad_login => 1 );
+        return 0;
+    }
+    else {
+        if ($c->user->requires_password_reset) {
+            $c->response->redirect($c->uri_for_action('/account/change_password', {
+                username => $c->user->name,
+                mandatory => 1
+            } ));
+            $c->logout;
+            $c->detach;
+        }
+        else {
+            $c->model('Editor')->update_last_login_date($c->user->id);
+
+            return 1;
+        }
+    }
+}
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
@@ -74,15 +102,7 @@ sub do_login : Private
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
-        if( !$c->authenticate({ username => $form->field("username")->value,
-                                password => $form->field("password")->value }) )
-        {
-            # Bad username / password combo
-            $c->log->info('Invalid username/password');
-            $c->stash( bad_login => 1 );
-        }
-        else
-        {
+        if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
             if ($form->field('remember_me')->value) {
                 $self->_set_login_cookie($c);
             }
@@ -151,7 +171,7 @@ sub cookie_login : Private
 
             my $user = $c->model('Editor')->get_by_name($user_name) or return;
 
-            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+            my $correct_pass_sha1 = cookie_password_hash($user);
             die "Password sha1 do not match"
                 unless $pass_sha1 eq $correct_pass_sha1;
 
@@ -162,12 +182,17 @@ sub cookie_login : Private
             die "Didn't recognise permanent cookie format";
         }
 
-        $c->authenticate({ username => $user_name, password => $password });
+        $self->_perform_login($c, $user_name, $password);
     }
     catch {
         $c->log->error($_);
         $self->_clear_login_cookie($c);
     };
+}
+
+sub cookie_password_hash {
+    my $user = shift;
+    return sha1_base64(encode('utf-8', $user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM));
 }
 
 sub _clear_login_cookie
@@ -191,7 +216,7 @@ sub _set_login_cookie
 {
     my ($self, $c) = @_;
     my $expiry_time = time + 86400 * 635;
-    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+    my $password_sha1 = cookie_password_hash($c->user);
     my $ip_mask = '';
     my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
                                              $expiry_time, $ip_mask);
@@ -368,7 +393,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
     my $ratings = $self->_load_paged($c, sub {
         $c->model($model)->rating->find_editor_ratings(
             $user->id, $c->user_exists && $user->id == $c->user->id, shift, shift)
-    }, 100);
+    }, limit => 100);
 
     $c->stash(
         ratings => $ratings,

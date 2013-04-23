@@ -450,12 +450,20 @@ div.warning img.warning {
     background-image: url("../images/favicons/amazon-16.png");
 }
 
+#sidebar ul.external_links li.animenewsnetwork {
+    background-image: url("../images/favicons/animenewsnetwork-16.png");
+}
+
 #sidebar ul.external_links li.wikipedia {
     background-image: url("../images/favicons/wikipedia-16.png");
 }
 
 #sidebar ul.external_links li.facebook {
     background-image: url("../images/favicons/facebook-16.png");
+}
+
+#sidebar ul.external_links li.generasia {
+    background-image: url("../images/favicons/generasia-16.png");
 }
 
 #sidebar ul.external_links li.lastfm {
@@ -968,6 +976,10 @@ div.artwork-cont {
     text-align: center;
 }
 
+div.artwork-cont p {
+    width: 250px;
+}
+
 div.artwork { position: relative; width: 250px; }
 /* don't include 'div' since this should apply to 'p' as well */
 .artwork img { max-width: 250px; max-height: 250px; }
@@ -1033,9 +1045,9 @@ span.release-group-type {
 }
 
 a.tagger-icon {
-    background: url('../images/icons/mblookup-tagger.png') no-repeat;
     width: 41px;
     height: 16px;
+    display: block;
 }
 
 .actions-header {

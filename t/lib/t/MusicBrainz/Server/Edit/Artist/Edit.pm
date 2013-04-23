@@ -19,7 +19,7 @@ my $c = $test->c;
 MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
 
 # Test creating the edit
-my $artist = $c->model('Artist')->get_by_id(1);
+my $artist = $c->model('Artist')->get_by_id(2);
 my $edit = _create_full_edit($c, $artist);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Edit');
 
@@ -27,24 +27,24 @@ my ($edits, $hits) = $c->model('Edit')->find({ artist => $artist->id }, 10, 0);
 is($hits, 1);
 is($edits->[0]->id, $edit->id);
 
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(2);
 is_unchanged($artist);
 is($artist->edits_pending, 1);
 
 # Test rejecting the edit
 reject_edit($c, $edit);
 
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(2);
 is_unchanged($artist);
 is($artist->edits_pending, 0);
 
 # Test accepting the edit
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(2);
 $edit = _create_full_edit($c, $artist);
 
 accept_edit($c, $edit);
 
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(2);
 is($artist->name, 'New Name');
 is($artist->sort_name, 'New Sort');
 is($artist->comment, 'New comment');
@@ -101,7 +101,7 @@ $edit = $c->model('Edit')->create(
 );
 
 accept_edit($c, $edit);
-$artist = $c->model('Artist')->get_by_id(1);
+$artist = $c->model('Artist')->get_by_id(2);
 is($artist->country_id, undef);
 is($artist->gender_id, undef);
 is($artist->type_id, undef);
@@ -123,7 +123,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     my $edit_1 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         name => 'Renamed artist',
         ipi_codes => [],
     );
@@ -131,7 +131,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         comment   => 'Comment change',
         ipi_codes => [],
     );
@@ -139,7 +139,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     ok !exception { $edit_1->accept }, 'accepted edit 1';
     ok !exception { $edit_2->accept }, 'accepted edit 2';
 
-    my $artist = $c->model('Artist')->get_by_id(1);
+    my $artist = $c->model('Artist')->get_by_id(2);
     is ($artist->name, 'Renamed artist', 'artist renamed');
     is ($artist->comment, 'Comment change', 'comment changed');
 };
@@ -152,7 +152,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $edit_1 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         name      => 'Renamed artist',
         sort_name => 'Sort FOO',
         ipi_codes => [],
@@ -161,7 +161,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         comment   => 'Comment change',
         sort_name => 'Sort BAR',
         ipi_codes => [],
@@ -170,7 +170,7 @@ test 'Check conflicts (conflicting edits)' => sub {
     ok !exception { $edit_1->accept }, 'accepted edit 1';
     ok  exception { $edit_2->accept }, 'could not accept edit 2';
 
-    my $artist = $c->model('Artist')->get_by_id(1);
+    my $artist = $c->model('Artist')->get_by_id(2);
     is ($artist->name, 'Renamed artist', 'artist renamed');
     is ($artist->sort_name, 'Sort FOO', 'comment changed');
     is ($artist->comment, '');
@@ -185,13 +185,13 @@ test 'Check IPI changes' => sub {
     my $edit_1 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         ipi_codes => [ '11111111111', '22222222222',
                        '33333333333', '44444444444' ],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
-    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(2);
     cmp_set( [ map { $_->ipi } @$ipi_codes ],
         [ '11111111111', '22222222222', '33333333333', '44444444444' ]);
 
@@ -199,7 +199,7 @@ test 'Check IPI changes' => sub {
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         ipi_codes => [ '11111111111', '33333333333',
                        '55555555555', '66666666666' ],
     );
@@ -209,7 +209,7 @@ test 'Check IPI changes' => sub {
     my $edit_3 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         ipi_codes => [ '11111111111', '22222222222',
                        '55555555555', '77777777777' ],
     );
@@ -217,12 +217,12 @@ test 'Check IPI changes' => sub {
     # 111, 2-2, 33-, 4--, -55, -6-, --7
 
     ok !exception { $edit_2->accept }, 'accepted edit 2';
-    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(2);
     cmp_set( [ map { $_->ipi } @$ipi_codes ],
         [ '11111111111', '33333333333', '55555555555', '66666666666' ]);
 
     ok !exception { $edit_3->accept }, 'accepted edit 3';
-    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(1);
+    $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id(2);
     cmp_set( [ map { $_->ipi } @$ipi_codes ],
         [ '11111111111', '55555555555', '66666666666', '77777777777' ]);
 };
@@ -253,10 +253,36 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
 
-    my $exception = exception { $edit_1->accept };
+    my $exception = exception { $edit_2->accept };
     isa_ok $exception, 'MusicBrainz::Server::Edit::Exceptions::GeneralError';
     like $exception->message, qr{//localhost/artist/da34a170-7f7f-11de-8a39-0800200c9a66},
         'Error message contains the URL of the conflict';
+};
+
+test 'Edits are idempotent' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_edit');
+
+    my %edit = (
+        edit_type => $EDIT_ARTIST_EDIT,
+        editor_id => 1,
+        to_edit   => $c->model('Artist')->get_by_id(2),
+        name      => 'Renamed artist',
+        sort_name => 'Sort FOO',
+        ipi_codes => [],
+    );
+
+    my $edit_1 = $c->model('Edit')->create(%edit);
+    my $edit_2 = $c->model('Edit')->create(%edit);
+
+    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    ok !exception { $edit_2->accept }, 'accepted edit 2';
+
+    my $artist = $c->model('Artist')->get_by_id(2);
+    is ($artist->name, 'Renamed artist', 'artist renamed');
+    is ($artist->sort_name, 'Sort FOO', 'comment changed');
+    is ($artist->comment, '');
 };
 
 sub _create_full_edit {

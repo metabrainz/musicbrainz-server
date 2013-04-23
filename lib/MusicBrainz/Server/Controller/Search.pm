@@ -85,13 +85,15 @@ sub direct : Private
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    }, $form->field('limit')->value);
+    }, limit => $form->field('limit')->value);
 
     my @entities = map { $_->entity } @$results;
 
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
+            $c->model('Country')->load(@entities);
+            $c->model('Gender')->load(@entities);
         }
         when ('editor') {
             $c->model('Editor')->load_preferences(@entities);
@@ -107,6 +109,7 @@ sub direct : Private
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
+            $c->model('Country')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
@@ -134,6 +137,7 @@ sub direct : Private
             $c->model('Work')->load_recording_artists(@entities);
             $c->model('ISWC')->load_for_works(@entities);
             $c->model('Language')->load(@entities);
+            $c->model('WorkType')->load(@entities);
         }
     }
 

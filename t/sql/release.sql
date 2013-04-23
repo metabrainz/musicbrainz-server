@@ -37,7 +37,7 @@ INSERT INTO
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
              auto_edits_accepted, edits_failed)
     VALUES ( 1, 'editor', 'pass', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'change');
 INSERT INTO release_annotation (release, annotation) VALUES (1, 1);
 
@@ -117,6 +117,10 @@ INSERT INTO track (id, name, artist_credit, tracklist, position, number, recordi
     VALUES (6, 1, 3, 6, 1, 1, 2);
 INSERT INTO medium (id, release, tracklist, position)
     VALUES (6, 10, 6, 1), (7, 11, 6, 1);
+
+-- release_meta
+UPDATE release_meta SET cover_art_presence = 'present' WHERE id in (7, 8);
+UPDATE release_meta SET cover_art_presence = 'darkened' WHERE id = 9;
 
 ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;

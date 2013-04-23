@@ -2,6 +2,7 @@
 \unset ON_ERROR_STOP
 
 ALTER TABLE annotation DROP CONSTRAINT annotation_fk_editor;
+ALTER TABLE application DROP CONSTRAINT application_fk_owner;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_sort_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_type;
@@ -58,6 +59,8 @@ ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_
 ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_fk_release;
 ALTER TABLE editor_language DROP CONSTRAINT editor_language_fk_editor;
 ALTER TABLE editor_language DROP CONSTRAINT editor_language_fk_language;
+ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_fk_editor;
+ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_fk_application;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_fk_editor;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_fk_editor;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_fk_editor;

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::Collection;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_COLLECTION );
 use MusicBrainz::Server::Validation qw( is_guid trim_in_place );
 
 with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
@@ -27,7 +28,7 @@ sub collection : Path('/ws/1/collection')
 {
     my ($self, $c) = @_;
 
-    $c->authenticate({}, 'musicbrainz.org');
+    $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 
     if ($c->req->method eq 'POST') {
         $c->detach('add_remove');

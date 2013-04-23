@@ -75,7 +75,8 @@ sub search
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.label_code,' if $type eq 'label';
+        $extra_columns .= 'entity.label_code, entity.country,' if $type eq 'label';
+        $extra_columns .= 'entity.gender, entity.country,' if $type eq 'artist';
 
         $query = "
             SELECT
@@ -131,7 +132,7 @@ sub search
             entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
 
-        $extra_columns .= 'entity.language AS language_id,'
+        $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
             if ($type eq 'work');
 
         my ($join_sql, $where_sql)
@@ -537,7 +538,7 @@ sub escape_query
 
     return "" unless $str;
 
-    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/g;
+    $str =~  s/([+\-&|!(){}\[\]\^"~*?:\\\/])/\\$1/g;
     return $str;
 }
 
