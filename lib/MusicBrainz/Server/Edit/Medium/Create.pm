@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Edit::Medium::Create;
 use Carp;
+use Clone qw( clone );
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
@@ -131,7 +132,7 @@ sub _insert_hash {
     my ($self, $data) = @_;
 
     # Create related data (artist credits and recordings)
-    my $tracklist = delete $data->{tracklist};
+    my $tracklist = $data->{tracklist};
 
     verify_artist_credits($self->c, map {
         $_->{artist_credit}
@@ -142,11 +143,10 @@ sub _insert_hash {
             %$track,
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
         })->id;
+        delete $track->{medium_id};
     }
 
-    $self->tracklist($tracklist);
-
-    $data->{tracklist_id} = $self->c->model('Tracklist')->find_or_insert($tracklist)->id;
+    $self->tracklist(clone($tracklist));
 
     my $release = delete $data->{release};
     $data->{release_id} = $release->{id};
@@ -164,6 +164,7 @@ override 'to_hash' => sub
 
     return $hash;
 };
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

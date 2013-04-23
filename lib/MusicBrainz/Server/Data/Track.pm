@@ -6,11 +6,12 @@ use MusicBrainz::Server::Entity::Track;
 use MusicBrainz::Server::Data::Medium;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     load_subobjects
     object_to_ids
+    placeholders
     query_to_list
     query_to_list_limited
-    placeholders
 );
 use Scalar::Util 'weaken';
 
@@ -25,8 +26,9 @@ sub _table
 
 sub _columns
 {
-    return 'track.id, name.name, medium, recording, number, position, length,
-            artist_credit, edits_pending';
+    return 'track.id, track.gid, name.name, track.medium, track.recording,
+            track.number, track.position, track.length, track.artist_credit,
+            track.edits_pending';
 }
 
 sub _column_mapping
@@ -132,7 +134,11 @@ sub insert
     my @created;
     for my $track_hash (@track_hashes) {
         delete $track_hash->{id};
+
+        $track_hash->{number} ||= "".$track_hash->{position};
+
         my $row = $self->_create_row($track_hash, \%names);
+        $row->{gid} = $track_hash->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('track', $row, 'id')
         );

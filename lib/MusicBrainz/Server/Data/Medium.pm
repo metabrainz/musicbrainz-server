@@ -95,12 +95,24 @@ sub insert
     my $class = $self->_entity_class;
     my @created;
     for my $medium_hash (@medium_hashes) {
+        my $tracklist = delete $medium_hash->{tracklist};
         my $row = $self->_create_row($medium_hash);
 
-        push @created, $class->new(
+        my $medium_created = $class->new(
             id => $self->sql->insert_row('medium', $row, 'id'),
             %{ $medium_hash }
         );
+
+        for my $track (@$tracklist) {
+            $track->{medium_id} = $medium_created->id;
+            $track->{artist_credit_id} =
+                $self->c->model('ArtistCredit')->find_or_insert(
+                    delete $track->{artist_credit});
+        };
+
+        $self->c->model('Track')->insert(@$tracklist);
+
+        push @created, $medium_created;
     }
     return @medium_hashes > 1 ? @created : $created[0];
 }
