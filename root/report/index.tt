@@ -91,5 +91,11 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
         </ul>
+
+        <h2>[% l('ISWCs') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'ISWCsWithManyWorks') %]">[% l('ISWCs with multiple works') %]</a></li>
+        </ul>
     </div>
 [%- END -%]
