@@ -79,6 +79,30 @@ sub load
     load_subobjects($self, 'country', @objs);
 }
 
+sub load_codes
+{
+    my ($self, @objs) = @_;
+
+    my @types = qw( iso_3166_1 iso_3166_2 iso_3166_3 );
+
+    for my $table (@types) {
+        my $all = $table . '_codes';
+
+        my $applicable_areas = [ grep { scalar $_->$all == 0 } @objs ];
+        my %areas = map { $_->id => $_ } @$applicable_areas;
+
+        my $codes = $self->sql->select_list_of_hashes(
+            "SELECT area, code FROM $table WHERE area = any(?)",
+            [ map { $_->id } @$applicable_areas ]
+        );
+
+        my $add = 'add_' . $table;
+        for my $code (@$codes) {
+            $areas{$code->{area}}->$add($code->{code});
+        }
+    }
+}
+
 sub insert
 {
     my ($self, @artists) = @_;

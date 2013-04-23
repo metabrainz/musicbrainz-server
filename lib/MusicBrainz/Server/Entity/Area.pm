@@ -43,6 +43,39 @@ sub l_type_name
     return $self->type ? $self->type->l_name : undef;
 }
 
+has 'iso_3166_1' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    handles => {
+        add_iso_3166_1 => 'push',
+        iso_3166_1_codes => 'elements',
+    }
+);
+
+has 'iso_3166_2' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    handles => {
+        add_iso_3166_2 => 'push',
+        iso_3166_2_codes => 'elements',
+    }
+);
+
+has 'iso_3166_3' => (
+    traits => [ 'Array' ],
+    is => 'ro',
+    isa => 'ArrayRef[Str]',
+    default => sub { [] },
+    handles => {
+        add_iso_3166_3 => 'push',
+        iso_3166_3_codes => 'elements',
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
