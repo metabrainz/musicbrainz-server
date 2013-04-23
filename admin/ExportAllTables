@@ -775,16 +775,16 @@ sub dumptable
     $rows;
 }
 
-# Is there any replication data to dump?
-my $fAnyReplicationData = 0;
-for my $table (@replication_tables)
-{
-    $fAnyReplicationData = 1
-        if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
-}
-
 if ($fDoReplication)
 {
+    # Is there any replication data to dump?
+    my $fAnyReplicationData = 0;
+    for my $table (@replication_tables)
+    {
+        $fAnyReplicationData = 1
+            if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
+    }
+
     if ($fAnyReplicationData or not $iReplicationSequence)
     {
         # Are we starting replication for the first time?
@@ -831,9 +831,6 @@ if ($fDoReplication)
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
         writefile("REPLICATION_SEQUENCE", "");
     }
-} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
-    print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-    writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 } else {
     writefile("REPLICATION_SEQUENCE", "");
 }
