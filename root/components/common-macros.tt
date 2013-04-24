@@ -303,7 +303,7 @@ END -%]
 [%- MACRO link_area(area, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
-    text = text == '' ? html_escape(area.name) : text;
+    text = text == '' ? html_escape(area.l_name) : text;
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';

@@ -57,6 +57,7 @@ our @EXPORT_OK = qw(
 Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
+    'area'          => 'Area',
     'cdstub'        => 'CDStub',
     'collection'    => 'Collection',
     'editor'        => 'Editor',

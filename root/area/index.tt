@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' %]
+  [% area.name %]<br />
+  [% area.l_name %]
+[% END %]

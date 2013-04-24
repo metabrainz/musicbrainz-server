@@ -70,8 +70,8 @@
            END; %]
 
         [% IF user.area;
-             WRAPPER property name=l('Country:');
-              user.area.l_name;
+             WRAPPER property name=l('Area:');
+              link_area(user.area);
              END;
            END; %]
 
