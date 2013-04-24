@@ -66,6 +66,8 @@ sub load_for_media
 {
     my ($self, @media) = @_;
 
+    $_->clear_tracks for @media;
+
     my %id_to_medium = object_to_ids (@media);
     my @ids = keys %id_to_medium;
     return unless @ids; # nothing to do

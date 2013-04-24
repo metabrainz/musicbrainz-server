@@ -84,6 +84,8 @@ sub load_for_releases
 sub update
 {
     my ($self, $medium_id, $medium_hash) = @_;
+    die "update cannot update tracklist" if exists $medium_hash->{tracklist};
+
     my $row = $self->_create_row($medium_hash);
     return unless %$row;
     $self->sql->update_row('medium', $row, { id => $medium_id });
