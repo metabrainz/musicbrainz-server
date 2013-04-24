@@ -98,8 +98,6 @@ CREATE TABLE artist (
     end_date_day        SMALLINT,
     type                INTEGER, -- references artist_type.id
     area                INTEGER, -- references area.id
-    begin_area          INTEGER, -- references area.id
-    end_area            INTEGER, -- references area.id
     gender              INTEGER, -- references gender.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -118,7 +116,9 @@ CREATE TABLE artist (
            end_date_month IS NULL AND
            end_date_day IS NULL)
         )
-      )
+      ),
+    begin_area          INTEGER, -- references area.id
+    end_area            INTEGER -- references area.id
 );
 
 CREATE TABLE artist_alias_type (
@@ -1143,13 +1143,13 @@ CREATE TABLE editor_watch_release_status
 CREATE TABLE medium
 (
     id                  SERIAL,
-    track_count         INTEGER NOT NULL DEFAULT 0,
     release             INTEGER NOT NULL, -- references release.id
     position            INTEGER NOT NULL,
     format              INTEGER, -- references medium_format.id
     name                VARCHAR(255),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    track_count         INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE medium_cdtoc
@@ -1479,12 +1479,12 @@ CREATE TABLE track
     recording           INTEGER NOT NULL, -- references recording.id
     medium              INTEGER NOT NULL, -- references medium.id
     position            INTEGER NOT NULL,
+    number              TEXT NOT NULL,
     name                INTEGER NOT NULL, -- references track_name.id
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    number              TEXT NOT NULL
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_gid_redirect
@@ -1657,7 +1657,7 @@ CREATE TABLE work_attribute (
     work_attribute_type_allowed_value   INTEGER, -- references work_attribute_type_allowed_value.id
     work_attribute_text                 TEXT
     -- Either it has a value from the allowed list, or is free text
-    CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )                                       
+    CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )
 );
 
 COMMIT;
