@@ -63,7 +63,7 @@ after 'load' => sub
     my $area = $c->stash->{area};
 
     $c->model('Area')->load_codes($area);
-    #$c->model('AreaType')->load($area);
+    $c->model('AreaType')->load($area);
 };
 
 =head2 show
