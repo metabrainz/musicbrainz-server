@@ -7,6 +7,7 @@ ALTER TABLE area DROP CONSTRAINT area_pkey;
 ALTER TABLE area_alias DROP CONSTRAINT area_alias_pkey;
 ALTER TABLE area_alias_type DROP CONSTRAINT area_alias_type_pkey;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_pkey;
+ALTER TABLE area_gid_redirect DROP CONSTRAINT area_gid_redirect_pkey;
 ALTER TABLE area_type DROP CONSTRAINT area_type_pkey;
 ALTER TABLE artist DROP CONSTRAINT artist_pkey;
 ALTER TABLE artist_alias DROP CONSTRAINT artist_alias_pkey;

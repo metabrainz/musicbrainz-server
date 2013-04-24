@@ -8,6 +8,7 @@ ALTER TABLE area_alias DROP CONSTRAINT area_alias_fk_area;
 ALTER TABLE area_alias DROP CONSTRAINT area_alias_fk_type;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_fk_area;
 ALTER TABLE area_annotation DROP CONSTRAINT area_annotation_fk_annotation;
+ALTER TABLE area_gid_redirect DROP CONSTRAINT area_gid_redirect_fk_new_id;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_sort_name;
 ALTER TABLE artist DROP CONSTRAINT artist_fk_type;

@@ -7,6 +7,7 @@ DROP TABLE area;
 DROP TABLE area_alias;
 DROP TABLE area_alias_type;
 DROP TABLE area_annotation;
+DROP TABLE area_gid_redirect;
 DROP TABLE area_type;
 DROP TABLE artist;
 DROP TABLE artist_alias;
