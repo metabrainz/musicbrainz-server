@@ -28,8 +28,7 @@
                     <th>[% l('Medium #') %]</th>
                     <th>[% l('Title') %]</th>
                     <th>[% l('Artist') %]</th>
-                    <th>[% l('Date') %]</th>
-                    <th>[% l('Country') %]</th>
+                    <th>[% l('Release Events') %]</th>
                     <th>[% l('Label') %]</th>
                     <th>[% l('Catalog#') %]</th>
                 </tr>
@@ -42,14 +41,7 @@
                     <td>[% medium.position %]/[% release.medium_count %]</td>
                     <td>[% link_entity(release) %]</td>
                     <td>[% artist_credit(release.artist_credit) %]</td>
-                    <td>[% release.date.format %]</td>
-                    <td>
-                        [%- IF release.country -%]
-                        <abbr title="[% release.country.name | html %]">
-                            [% release.country.iso_code | html %]
-                        </abbr>
-                        [%- END -%]
-                    </td>
+                    <td>[% release_events(release.events) %]</td>
                     <td>[% release_label_list(release.labels) %]</td>
                     <td>[% release_catno_list(release.labels) %]</td>
                 </tr>

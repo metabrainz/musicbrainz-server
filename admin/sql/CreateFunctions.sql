@@ -229,7 +229,6 @@ BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     -- increment release_count of the parent release group
     UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
-    PERFORM set_release_group_first_release_date(NEW.release_group);
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
     INSERT INTO release_coverart (id) VALUES (NEW.id);
@@ -247,9 +246,7 @@ BEGIN
         -- release group is changed, decrement release_count in the original RG, increment in the new one
         UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
         UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
-        PERFORM set_release_group_first_release_date(OLD.release_group);
     END IF;
-    PERFORM set_release_group_first_release_date(NEW.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -260,7 +257,6 @@ BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     -- decrement release_count of the parent release group
     UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
-    PERFORM set_release_group_first_release_date(OLD.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -526,11 +522,52 @@ BEGIN
                                   first_release_date_month = first.date_month,
                                   first_release_date_day = first.date_day
       FROM (
-        SELECT date_year, date_month, date_day FROM release
-         WHERE release_group = release_group_id
-      ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
-         LIMIT 1
-           ) AS first WHERE id = release_group_id;
+        SELECT date_year, date_month, date_day
+        FROM (
+          SELECT date_year, date_month, date_day
+          FROM release
+          JOIN release_country ON (release_country.release = release.id)
+          WHERE release.release_group = release_group_id
+          UNION
+          SELECT date_year, date_month, date_day
+          FROM release
+          JOIN release_unknown_country ON (release_unknown_country.release = release.id)
+          WHERE release.release_group = release_group_id
+        ) b
+        ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
+        LIMIT 1
+      ) AS first
+    WHERE id = release_group_id;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id = NEW.release;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id IN (NEW.release, OLD.release);
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id = OLD.release;
+  RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
 

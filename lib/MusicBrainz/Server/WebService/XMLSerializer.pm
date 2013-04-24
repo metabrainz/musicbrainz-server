@@ -360,8 +360,15 @@ sub _serialize_release
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
 
-    push @list, $gen->date($release->date->format) if $release->date && !$release->date->is_empty;
-    push @list, $gen->country($release->country->iso_code) if $release->country;
+    if (my ($earliest_release_event) = $release->all_events) {
+        push @list, $gen->date($earliest_release_event->date->format)
+            if $earliest_release_event->date &&
+                !$earliest_release_event->date->is_empty;
+
+        push @list, $gen->country($earliest_release_event->country->iso_code)
+            if $earliest_release_event->country;
+    }
+
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
     $self->_serialize_cover_art_archive(\@list, $gen, $release, $inc, $stash) if $release->cover_art_presence;

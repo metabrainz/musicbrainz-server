@@ -45,9 +45,9 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, 'ecc33260-454c-11de-8a39-0800200c9a66', 1, 1, 1),
     (2, '7348f3a0-454e-11de-8a39-0800200c9a66', 2, 1, 1);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
-                     date_month, date_day) VALUES
-    (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1, 2009, 5, 8);
+INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1);
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2009, 5, 8);
+;
 
 -- A full editor
 INSERT INTO

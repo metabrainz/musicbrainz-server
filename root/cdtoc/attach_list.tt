@@ -6,10 +6,10 @@
   [% IF show_artists %]
     <td>[% artist_credit(release.artist_credit) %]</td>
   [% END %]
-  <td>[% rdfa_release_event_date(release) %]</td>
+  <td>[% release_events(release.events) %]</td>
   <td>
     [%- IF release.country -%]
-[% rdfa_release_country_abbr(release) %]
+[% rdfa_release_country_abbr(release.country) %]
     [%- END -%]
   </td>
   <td>[% rdfa_release_label_list(release.labels) %]</td>
@@ -34,11 +34,11 @@
         </label>
         <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
       </td>
-      <td colspan="6"></td>
+      <td colspan="5"></td>
     </tr>
     <tr class="tracklist" style="display:none">
       <td></td>
-      <td colspan="7">
+      <td colspan="6">
         <table style="border-collapse: collapse;">
         [% INCLUDE 'tracklist/tracklist.tt'
             tracklist=medium.tracklist hide_rating = 1%]

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
 );
 use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
@@ -58,6 +59,7 @@ sub release_toplevel
     my ($self, $c, $stash, $release) = @_;
 
     $c->model('Release')->load_meta($release);
+    load_release_events($c, $release);
     $self->linked_releases ($c, $stash, [ $release ]);
 
     if ($release->cover_art_presence eq 'present') {
