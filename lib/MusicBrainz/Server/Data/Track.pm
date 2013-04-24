@@ -35,6 +35,7 @@ sub _column_mapping
 {
     return {
         id               => 'id',
+        gid              => 'gid',
         name             => 'name',
         recording_id     => 'recording',
         medium_id        => 'medium',

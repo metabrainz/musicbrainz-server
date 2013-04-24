@@ -12,6 +12,7 @@ use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
+use MusicBrainz::Server::Validation qw( is_guid );
 
 BEGIN { use MusicBrainz::Server::Edit::Medium::Edit }
 
@@ -100,6 +101,13 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
 
     my $concrete_jungle_id = $medium->tracks->[0]->id;
     my $thunder_tornado_id = $medium->tracks->[1]->id;
+    my $concrete_jungle_mbid = $medium->tracks->[0]->gid;
+    my $thunder_tornado_mbid = $medium->tracks->[1]->gid;
+
+    ok (is_guid ($concrete_jungle_mbid), 'First track has a valid MBID');
+    ok (is_guid ($thunder_tornado_mbid), 'Second track has a valid MBID');
+    isnt ($concrete_jungle_mbid, $thunder_tornado_mbid, 'First and second tracks have different MBIDs');
+
     is ($medium->tracks->[0]->name, 'CONCRETE JUNGLE', 'First track is CONCRETE JUNGLE');
     is ($medium->tracks->[1]->name, 'THUNDER TORNADO', 'Second track is THUNDER TORNADO');
     is (scalar $medium->all_tracks, 2, "Medium has two tracks");
@@ -128,11 +136,18 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
 
     is   ($medium->tracks->[0]->id, $concrete_jungle_id, 'First track row id unchanged');
     isnt ($medium->tracks->[1]->id, $thunder_tornado_id, 'Second track row id changed');
+
+    is   ($medium->tracks->[0]->gid, $concrete_jungle_mbid, 'First track mbid unchanged');
+    isnt ($medium->tracks->[1]->gid, $thunder_tornado_mbid, 'Second track mbid changed');
+
     my $plug_electric_id = $medium->tracks->[1]->id;
 
     isa_ok ($c->model('Track')->get_by_id ($concrete_jungle_id), 'MusicBrainz::Server::Entity::Track', 'CONCRETE JUNGLE');
     isa_ok ($c->model('Track')->get_by_id ($plug_electric_id), 'MusicBrainz::Server::Entity::Track', 'PLUG ELECTRIC');
     is ($c->model('Track')->get_by_id ($thunder_tornado_id), undef, 'THUNDER TORNADO no longer exists');
+
+    isa_ok ($c->model('Track')->get_by_gid ($concrete_jungle_mbid), 'MusicBrainz::Server::Entity::Track', 'CONCRETE JUNGLE (mbid)');
+    is ($c->model('Track')->get_by_gid ($thunder_tornado_mbid), undef, 'THUNDER TORNADO (mbid) no longer exists');
 };
 
 test 'Edits are rejected if they conflict' => sub {
