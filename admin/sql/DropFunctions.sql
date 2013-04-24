@@ -38,6 +38,7 @@ DROP FUNCTION empty_labels();
 DROP FUNCTION empty_release_groups();
 DROP FUNCTION empty_works();
 DROP FUNCTION end_date_implies_ended();
+DROP FUNCTION ensure_work_attribute_type_allows_text();
 DROP FUNCTION from_hex(t text);
 DROP FUNCTION generate_uuid_v3(namespace varchar, name varchar);
 DROP FUNCTION generate_uuid_v4();

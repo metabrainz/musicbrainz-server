@@ -36,6 +36,11 @@ ALTER TABLE area_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE area_gid_redirect
+   ADD CONSTRAINT area_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES area(id);
+
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)
@@ -130,6 +135,11 @@ ALTER TABLE artist_gid_redirect
 
 ALTER TABLE artist_ipi
    ADD CONSTRAINT artist_ipi_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_isni
+   ADD CONSTRAINT artist_isni_fk_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
@@ -1043,6 +1053,11 @@ ALTER TABLE label_gid_redirect
 
 ALTER TABLE label_ipi
    ADD CONSTRAINT label_ipi_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_isni
+   ADD CONSTRAINT label_isni_fk_label
    FOREIGN KEY (label)
    REFERENCES label(id);
 

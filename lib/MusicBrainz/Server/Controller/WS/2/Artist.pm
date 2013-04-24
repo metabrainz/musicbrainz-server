@@ -69,6 +69,7 @@ sub artist_toplevel
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Artist')->ipi->load_for($artist);
+    $c->model('Artist')->isni->load_for($artist);
 
     $c->model('Artist')->annotation->load_latest($artist)
         if $c->stash->{inc}->annotation;

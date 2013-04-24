@@ -33,6 +33,10 @@ CREATE TRIGGER "reptg_area_type"
 AFTER INSERT OR DELETE OR UPDATE ON "area_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_area_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "area_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_iso_3166_1"
 AFTER INSERT OR DELETE OR UPDATE ON "iso_3166_1"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -51,6 +55,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_ipi"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_isni"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_isni"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_alias"
@@ -286,6 +294,10 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_ipi"
 AFTER INSERT OR DELETE OR UPDATE ON "label_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_label_isni"
+AFTER INSERT OR DELETE OR UPDATE ON "label_isni"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_label_meta"
