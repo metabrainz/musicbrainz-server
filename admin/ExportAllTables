@@ -69,6 +69,7 @@ my @tables = qw(
     area_alias
     area_alias_type
     area_annotation
+    area_gid_redirect
     country_area
     iso_3166_1
     iso_3166_2
@@ -269,6 +270,7 @@ my @group_core = qw(
     country_area
     area_alias_type
     area_annotation
+    area_gid_redirect
     iso_3166_1
     iso_3166_2
     iso_3166_3
