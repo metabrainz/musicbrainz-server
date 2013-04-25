@@ -163,20 +163,20 @@ sub can_see_vote_count
     my ($self, $editor) = @_;
 
     my $editor_is_involved =
-        $self->proposer_id == $editor->id ||
-        $self->candidate_id == $editor->id ||
-        (defined $self->seconder_1_id && $self->seconder_1_id == $editor->id) ||
-        (defined $self->seconder_2_id && $self->seconder_2_id == $editor->id);
-
+        $editor && (
+            $self->proposer_id == $editor->id ||
+            $self->candidate_id == $editor->id ||
+            (defined $self->seconder_1_id && $self->seconder_1_id == $editor->id) ||
+            (defined $self->seconder_2_id && $self->seconder_2_id == $editor->id));
+ 
     if ($self->is_closed || ($self->is_open && $editor_is_involved)) {
         return "yes";
     }
-
+ 
     if ($self->is_open) {
         return "later";
     }
 }
-
 sub current_expiration_time
 {
     my ($self) = @_;

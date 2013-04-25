@@ -179,6 +179,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
                     MB.constants.LINK_TYPES.downloadpurchase.release
                 ],
+                [
+                    'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
                 // Allmusic
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
@@ -212,6 +216,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // SoundtrackCollector
+                [
+                    'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
                 ],
                 // Second Hand Songs
                 [
