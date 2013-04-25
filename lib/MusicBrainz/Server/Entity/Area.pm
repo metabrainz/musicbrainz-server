@@ -4,6 +4,7 @@ use Moose;
 use MusicBrainz::Server::Translation::Countries qw ( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
+use List::Util qw( first );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
@@ -75,6 +76,24 @@ has 'iso_3166_3' => (
         iso_3166_3_codes => 'elements',
     }
 );
+
+sub primary_code
+{
+    my ($self) = @_;
+    if (scalar $self->iso_3166_1_codes == 1) {
+        return first { defined($_) } $self->iso_3166_1_codes;
+    }
+    elsif (scalar $self->iso_3166_2_codes == 1) {
+        return first { defined($_) } $self->iso_3166_2_codes;
+    }
+    elsif (scalar $self->iso_3166_3_codes == 1) {
+        return first { defined($_) } $self->iso_3166_3_codes;
+    }
+    else {
+        warn "Couldn't determine primary code for area " . $self->gid . ". Perhaps codes aren't loaded?";
+        return undef;
+    }
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
