@@ -18,7 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-# with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'area_name' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
@@ -27,11 +27,6 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     return 'area';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON area.name = $join_on OR area.sort_name = $join_on");
 }
 
 sub _columns
@@ -50,6 +45,8 @@ sub _gid_redirect_table
 {
     return 'area_gid_redirect';
 }
+
+sub _table_join_name {}
 
 sub _column_mapping
 {
@@ -192,36 +189,6 @@ sub _hash_to_row
     add_partial_date_to_row($row, $area->{end_date}, 'end_date');
 
     return $row;
-}
-
-sub search_by_names {
-    my ($self, @names) = @_;
-    return {} unless scalar @names;
-
-    my $id = $self->_id_column;
-    my $query =
-        "WITH search (term) AS (" .
-            "VALUES " . join (",", ("(?)") x scalar @names) .
-        ")" .
-            # Search over name/sort-name
-            "(".
-                "SELECT search.term AS search_term, " . $self->_columns .
-                " FROM " . $self->_table . " search_name" .
-                " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
-                " JOIN " . $self->_table_join_name("search_name.id").
-            ")";
-
-    $self->c->sql->select($query, @names);
-    my %ret;
-    while (my $row = $self->c->sql->next_row_hash_ref) {
-        my $search_term = delete $row->{search_term};
-
-        $ret{$search_term} ||= [];
-        push @{ $ret{$search_term} }, $self->_new_from_row ($row);
-    }
-    $self->c->sql->finish;
-
-    return \%ret;
 }
 
 __PACKAGE__->meta->make_immutable;

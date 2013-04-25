@@ -31,18 +31,32 @@ has [qw( table type entity )] => (
 sub _table
 {
     my $self = shift;
-    return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
-        $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
+    if ($self->type eq 'area') {
+        return $self->table;
+    } else {
+        return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
+            $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
+    }
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, name.name, sort_name.name AS sort_name, %s, locale,
+    return sprintf '%s.id, %s, %s AS sort_name, %s, locale,
                     edits_pending, begin_date_year, begin_date_month,
                     begin_date_day, end_date_year, end_date_month,
                     end_date_day, type AS type_id, primary_for_locale',
-        $self->table, $self->type;
+        $self->table, $self->_name, $self->_sort_name, $self->type;
+}
+
+sub _name {
+    my $self = shift;
+    return $self->type eq 'area' ? $self->table . '.name' : 'name.name';
+}
+
+sub _sort_name {
+    my $self = shift;
+    return $self->type eq 'area' ? $self->table . '.sort_name' : 'sort_name.name';
 }
 
 sub _column_mapping
@@ -82,7 +96,7 @@ sub find_by_entity_id
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name.name), musicbrainz_collate(name.name)";
+                 ORDER BY locale NULLS LAST, musicbrainz_collate(" . $self->_sort_name . "), musicbrainz_collate(" . $self->_name . ")";
 
     return [ query_to_list($self->c->sql, sub {
         $self->_new_from_row(@_)
