@@ -76,7 +76,21 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'area/index.tt');
 }
 
-sub artists : Chained('load') {}
+sub artists : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $area = $c->stash->{area};
+    my $artists = $self->_load_paged($c, sub {
+        $c->model('Artist')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+        $c->model('ArtistType')->load(@$artists);
+        $c->model('Country')->load(@$artists);
+        $c->model('Gender')->load(@$artists);
+    if ($c->user_exists) {
+        $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
+    }
+    $c->stash( artists => $artists );
+}
 
 sub labels : Chained('load') {}
 
