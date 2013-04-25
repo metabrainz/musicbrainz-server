@@ -36,6 +36,11 @@ ALTER TABLE area_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE area_gid_redirect
+   ADD CONSTRAINT area_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES area(id);
+
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)

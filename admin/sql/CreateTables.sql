@@ -56,6 +56,13 @@ CREATE TABLE area (
       )
 );
 
+CREATE TABLE area_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references area.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE area_alias_type (
     id SERIAL, -- PK,
     name TEXT NOT NULL

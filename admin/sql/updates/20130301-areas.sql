@@ -36,6 +36,13 @@ CREATE TABLE area (id                SERIAL PRIMARY KEY,
                      )
                    ));
 
+CREATE TABLE area_gid_redirect (
+    gid UUID NOT NULL PRIMARY KEY,
+    new_id INTEGER NOT NULL,
+    created TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+
 CREATE TABLE iso_3166_1 (area      INTEGER NOT NULL,
                          code      CHAR(2) PRIMARY KEY);
 

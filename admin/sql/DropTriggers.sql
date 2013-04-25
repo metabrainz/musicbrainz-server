@@ -88,6 +88,7 @@ DROP TRIGGER b_upd_work_tag ON work_tag;
 DROP TRIGGER a_upd_edit ON edit;
 DROP TRIGGER a_ins_edit_artist ON edit_artist;
 DROP TRIGGER a_ins_edit_artist ON edit_label;
+DROP TRIGGER ensure_work_attribute_type_allows_text ON work_attribute;
 DROP TRIGGER remove_unused_links ON l_artist_artist;
 DROP TRIGGER remove_unused_links ON l_artist_label;
 DROP TRIGGER remove_unused_links ON l_artist_recording;
