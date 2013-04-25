@@ -87,8 +87,8 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
-INSERT INTO work (id, gid, name, artist_credit, type) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, NULL, 1);
+INSERT INTO work (id, gid, name, type) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
 INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
@@ -302,7 +302,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase, description)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',

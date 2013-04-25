@@ -363,7 +363,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',

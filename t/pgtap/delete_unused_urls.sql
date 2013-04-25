@@ -29,7 +29,7 @@ INSERT INTO work_name (id, name) VALUES (1, 'Work');
 INSERT INTO work (id, gid, name)
   VALUES (1, '6ed229cd-64b2-4029-a426-fe94f09a0875', 1);
 
-INSERT INTO link_type (id, name, link_phrase, short_link_phrase,
+INSERT INTO link_type (id, name, link_phrase, long_link_phrase,
     reverse_link_phrase, gid, entity_type0, entity_type1)
   VALUES (1, '', '', '', '', '1684aa44-f019-4454-9011-eb9106bc0d60', 'artist', 'url'),
          (2, '', '', '', '', '2684aa44-f019-4454-9011-eb9106bc0d60', 'label', 'url'),

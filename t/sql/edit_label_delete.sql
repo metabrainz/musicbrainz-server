@@ -14,5 +14,7 @@ INSERT INTO country (id, iso_code, name) VALUES (1, 'GB', 'United Kingdom');
 
 INSERT INTO label_ipi (label, ipi) VALUES (2, '00284373936');
 
+INSERT INTO label_isni (label, isni) VALUES (2, '1422458635730476');
+
 ALTER SEQUENCE label_name_id_seq RESTART 100;
 

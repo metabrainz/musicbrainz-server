@@ -21,7 +21,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO link_type
     (id, parent, child_order, gid, entity_type0, entity_type1,
-     name, description, link_phrase, reverse_link_phrase, short_link_phrase)
+     name, description, link_phrase, reverse_link_phrase, long_link_phrase)
 VALUES (251, NULL, 1, '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5', 'recording', 'url',
         'download for free', 'Indicates a webpage where you can download',
         'download for free', 'free download page for', 'download for free');
