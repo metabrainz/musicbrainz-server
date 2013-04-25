@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE $EDIT_AREA_EDIT $EDIT_AREA_DELETE $EDIT_AREA_MERGE );
 use Sql;
 
 =head1 NAME
@@ -74,6 +75,31 @@ sub show : PathPart('') Chained('load')
 
     $c->stash(template => 'area/index.tt');
 }
+
+=head2 WRITE METHODS
+
+=cut
+
+with 'MusicBrainz::Server::Controller::Role::Create' => {
+    form      => 'Area',
+    edit_type => $EDIT_AREA_CREATE,
+};
+
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form           => 'Area',
+    edit_type      => $EDIT_AREA_EDIT,
+};
+
+with 'MusicBrainz::Server::Controller::Role::Merge' => {
+    edit_type => $EDIT_AREA_MERGE,
+    confirmation_template => 'area/merge_confirm.tt',
+    search_template       => 'area/merge_search.tt',
+};
+
+with 'MusicBrainz::Server::Controller::Role::Delete' => {
+    edit_type      => $EDIT_AREA_DELETE,
+};
+
 
 =head1 LICENSE
 
