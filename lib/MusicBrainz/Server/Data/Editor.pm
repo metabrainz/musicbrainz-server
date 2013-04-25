@@ -301,6 +301,7 @@ sub update_privileges
                 + $values->{bot}              * $BOT_FLAG
                 + $values->{untrusted}        * $UNTRUSTED_FLAG
                 + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
+                + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
                 + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
@@ -400,7 +401,8 @@ sub donation_check
 
     my $nag = 1;
     $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
-                 $obj->is_relationship_editor || $obj->is_wiki_transcluder);
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
+                 $obj->is_location_editor);
 
     my $days = 0.0;
     if ($nag)
