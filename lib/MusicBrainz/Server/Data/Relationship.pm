@@ -7,6 +7,7 @@ use Sql;
 use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
@@ -24,6 +25,7 @@ use Scalar::Util 'weaken';
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my @TYPES => qw(
+    area
     artist
     label
     recording
@@ -144,6 +146,12 @@ sub _load
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, url";
+        } elsif ($target eq 'area') {
+            $query = "
+            SELECT $select
+              JOIN $target ON $target_id = ${target}.id
+            WHERE " . join(" OR ", @cond) . "
+            ORDER BY $order, musicbrainz_collate(name)";
         } else {
             my $name_table =
                 $target eq 'recording'     ? 'track_name'   :

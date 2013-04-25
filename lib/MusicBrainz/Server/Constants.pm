@@ -148,6 +148,15 @@ Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
 Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
+Readonly our $EDIT_AREA_CREATE => 81;
+Readonly our $EDIT_AREA_EDIT => 82;
+Readonly our $EDIT_AREA_DELETE => 83;
+Readonly our $EDIT_AREA_MERGE => 84;
+Readonly our $EDIT_AREA_ADD_ANNOTATION => 85;
+Readonly our $EDIT_AREA_ADD_ALIAS => 86;
+Readonly our $EDIT_AREA_DELETE_ALIAS => 87;
+Readonly our $EDIT_AREA_EDIT_ALIAS => 88;
+
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
 Readonly our $EDIT_RELATIONSHIP_DELETE => 92;
