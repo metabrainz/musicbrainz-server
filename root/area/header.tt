@@ -1,8 +1,8 @@
 [%- info_links = [
     ['index', link_area(area, 'show', l('Overview'))],
-    ['relationships', rdfa_seeAlso_link(area, 'relationships', l('Relationships'))],
-    ['aliases', rdfa_seeAlso_link(area, 'aliases', l('Aliases'))],
-    ['details', rdfa_seeAlso_link(area, 'details', l('Details'))],
+    ['relationships', rdfa_seeAlso_link_area(area, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
+    ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
 ] -%]
 
 [% IF c.user_is_location_editor %]
