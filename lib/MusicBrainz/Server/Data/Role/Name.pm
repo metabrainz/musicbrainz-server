@@ -5,7 +5,7 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 parameter 'name_table' => (
-    isa => 'Str',
+    isa => 'Maybe[Str]',
     required => 1,
 );
 
@@ -17,7 +17,7 @@ role
     requires 'c';
 
     has 'name_table' => (
-        isa => 'Str',
+        isa => 'Maybe[Str]',
         is => 'ro',
         default => $table
     );
@@ -25,6 +25,10 @@ role
     method 'find_or_insert_names' => sub
     {
         my ($self, @names) = @_;
+        if (!defined $self->name_table) {
+            warn "Called find_or_insert_names for an entity type not using a name table";
+            return undef;
+        }
         @names = uniq grep { defined } @names or return;
         my $query = "SELECT id, name FROM $table" .
                     ' WHERE name IN (' . placeholders(@names) . ')';
@@ -45,7 +49,6 @@ role
         return {} unless scalar @names;
 
         my $type = $params->type;
-        my $id = $self->_id_column;
         my $query =
             "WITH search (term) AS (" .
                 "VALUES " . join (",", ("(?)") x scalar @names) .
@@ -53,9 +56,11 @@ role
                 # Search over name/sort-name
                 "(".
                     "SELECT search.term AS search_term, " . $self->_columns .
-                    " FROM " . $self->name_table . " search_name" .
-                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
-                    " JOIN " . $self->_table_join_name("search_name.id").
+                    " FROM " . ( $self->name_table // $self->_table ) . " search_name" .
+                    " JOIN search ON (musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
+                    (defined $self->name_table ?
+                     ") JOIN " . $self->_table_join_name("search_name.id") :
+                     " OR musicbrainz_unaccent(lower(search_name.sort_name)) = musicbrainz_unaccent(lower(search.term)))").
                 ")";
 
         $self->c->sql->select($query, @names);
