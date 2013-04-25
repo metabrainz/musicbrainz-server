@@ -73,6 +73,9 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
+    # need to call relationships for overview page
+    $self->relationships($c);
+
     $c->stash(template => 'area/index.tt');
 }
 
