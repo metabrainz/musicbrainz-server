@@ -163,10 +163,10 @@ CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type
 CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium 
+CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_medium_cdtoc BEFORE UPDATE ON medium_cdtoc 
+CREATE TRIGGER b_upd_medium_cdtoc BEFORE UPDATE ON medium_cdtoc
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_recording AFTER INSERT ON recording
@@ -233,9 +233,6 @@ CREATE CONSTRAINT TRIGGER remove_orphaned_tracks
     AFTER DELETE OR UPDATE ON track DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE delete_orphaned_recordings();
 
-CREATE TRIGGER b_upd_tracklist BEFORE UPDATE ON tracklist 
-    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
-
 CREATE TRIGGER b_upd_url BEFORE UPDATE ON url 
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -265,6 +262,9 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
 
 CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
     FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
+
+CREATE TRIGGER ensure_work_attribute_type_allows_text BEFORE INSERT OR UPDATE ON work_attribute
+    FOR EACH ROW EXECUTE PROCEDURE ensure_work_attribute_type_allows_text();
 
 --------------------------------------------------------------------------------
 CREATE CONSTRAINT TRIGGER remove_unused_links

@@ -301,8 +301,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    -- increment track_count in the parent tracklist
-    UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
+    -- increment track_count in the parent medium
+    UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -313,10 +313,10 @@ BEGIN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
-    IF NEW.tracklist != OLD.tracklist THEN
-        -- tracklist is changed, decrement track_count in the original tracklist, increment in the new one
-        UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
-        UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
+    IF NEW.medium != OLD.medium THEN
+        -- medium is changed, decrement track_count in the original medium, increment in the new one
+        UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
+        UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     END IF;
     RETURN NULL;
 END;
@@ -325,8 +325,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_track() RETURNS trigger AS $$
 BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
-    -- decrement track_count in the parent tracklist
-    UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
+    -- decrement track_count in the parent medium
+    UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -340,6 +340,23 @@ BEGIN
     INSERT INTO work_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;
+$$ LANGUAGE 'plpgsql';
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_work_attribute_type_allows_text()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.work_attribute_text IS NOT NULL 
+        AND NOT EXISTS (
+           SELECT TRUE FROM work_attribute_type 
+		WHERE work_attribute_type.id = NEW.work_attribute_type 
+		AND free_text
+	) 
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE RETURN NEW;
+    END IF;
+  END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------

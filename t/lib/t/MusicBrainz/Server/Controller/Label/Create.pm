@@ -58,6 +58,7 @@ is_deeply($edit->data, {
         },
         ended => 1,
         ipi_codes => [],
+        isni_codes => [],
     });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

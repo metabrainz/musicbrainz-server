@@ -76,6 +76,12 @@ sub is_account_admin
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_location_editor
+{
+    my $mask = $LOCATION_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -169,12 +175,12 @@ has gender => (
     is => 'rw',
 );
 
-has country_id => (
+has area_id => (
     is => 'rw',
     isa => 'Int',
 );
 
-has country => (
+has area => (
     is => 'rw',
 );
 

@@ -11,6 +11,36 @@ ALTER TABLE application
    FOREIGN KEY (owner)
    REFERENCES editor(id);
 
+ALTER TABLE area
+   ADD CONSTRAINT area_fk_type
+   FOREIGN KEY (type)
+   REFERENCES area_type(id);
+
+ALTER TABLE area_alias
+   ADD CONSTRAINT area_alias_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_alias
+   ADD CONSTRAINT area_alias_fk_type
+   FOREIGN KEY (type)
+   REFERENCES area_alias_type(id);
+
+ALTER TABLE area_annotation
+   ADD CONSTRAINT area_annotation_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE area_annotation
+   ADD CONSTRAINT area_annotation_fk_annotation
+   FOREIGN KEY (annotation)
+   REFERENCES annotation(id);
+
+ALTER TABLE area_gid_redirect
+   ADD CONSTRAINT area_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES area(id);
+
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_name
    FOREIGN KEY (name)
@@ -27,9 +57,19 @@ ALTER TABLE artist
    REFERENCES artist_type(id);
 
 ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
+   ADD CONSTRAINT artist_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_begin_area
+   FOREIGN KEY (begin_area)
+   REFERENCES area(id);
+
+ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_end_area
+   FOREIGN KEY (end_area)
+   REFERENCES area(id);
 
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_gender
@@ -95,6 +135,11 @@ ALTER TABLE artist_gid_redirect
 
 ALTER TABLE artist_ipi
    ADD CONSTRAINT artist_ipi_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE artist_isni
+   ADD CONSTRAINT artist_isni_fk_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
@@ -173,6 +218,11 @@ ALTER TABLE cdtoc_raw
    ADD CONSTRAINT cdtoc_raw_fk_release
    FOREIGN KEY (release)
    REFERENCES release_raw(id);
+
+ALTER TABLE country_area
+   ADD CONSTRAINT country_area_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE edit
    ADD CONSTRAINT edit_fk_editor
@@ -272,9 +322,9 @@ ALTER TABLE editor
    REFERENCES gender(id);
 
 ALTER TABLE editor
-   ADD CONSTRAINT editor_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
+   ADD CONSTRAINT editor_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE editor_collection
    ADD CONSTRAINT editor_collection_fk_editor
@@ -381,6 +431,21 @@ ALTER TABLE editor_watch_release_status
    FOREIGN KEY (release_status)
    REFERENCES release_status(id);
 
+ALTER TABLE iso_3166_1
+   ADD CONSTRAINT iso_3166_1_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_2
+   ADD CONSTRAINT iso_3166_2_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE iso_3166_3
+   ADD CONSTRAINT iso_3166_3_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 ALTER TABLE isrc
    ADD CONSTRAINT isrc_fk_recording
    FOREIGN KEY (recording)
@@ -389,6 +454,126 @@ ALTER TABLE isrc
 ALTER TABLE iswc
    ADD CONSTRAINT iswc_fk_work
    FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_area
+   ADD CONSTRAINT l_area_area_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_artist
+   ADD CONSTRAINT l_area_artist_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES artist(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_label
+   ADD CONSTRAINT l_area_label_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES label(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity1
+   FOREIGN KEY (entity1)
    REFERENCES work(id);
 
 ALTER TABLE l_artist_artist
@@ -822,14 +1007,14 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
+   ADD CONSTRAINT label_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
+ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);
-
-ALTER TABLE label
-   ADD CONSTRAINT label_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
 
 ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_label
@@ -868,6 +1053,11 @@ ALTER TABLE label_gid_redirect
 
 ALTER TABLE label_ipi
    ADD CONSTRAINT label_ipi_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE label_isni
+   ADD CONSTRAINT label_isni_fk_label
    FOREIGN KEY (label)
    REFERENCES label(id);
 
@@ -927,6 +1117,16 @@ ALTER TABLE link_attribute
    FOREIGN KEY (attribute_type)
    REFERENCES link_attribute_type(id);
 
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE link_attribute_credit
+   ADD CONSTRAINT link_attribute_credit_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_creditable_attribute_type(attribute_type);
+
 ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_parent
    FOREIGN KEY (parent)
@@ -936,6 +1136,12 @@ ALTER TABLE link_attribute_type
    ADD CONSTRAINT link_attribute_type_fk_root
    FOREIGN KEY (root)
    REFERENCES link_attribute_type(id);
+
+ALTER TABLE link_creditable_attribute_type
+   ADD CONSTRAINT link_creditable_attribute_type_fk_attribute_type
+   FOREIGN KEY (attribute_type)
+   REFERENCES link_attribute_type(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE link_type
    ADD CONSTRAINT link_type_fk_parent
@@ -951,11 +1157,6 @@ ALTER TABLE link_type_attribute_type
    ADD CONSTRAINT link_type_attribute_type_fk_attribute_type
    FOREIGN KEY (attribute_type)
    REFERENCES link_attribute_type(id);
-
-ALTER TABLE medium
-   ADD CONSTRAINT medium_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
 
 ALTER TABLE medium
    ADD CONSTRAINT medium_fk_release
@@ -981,6 +1182,12 @@ ALTER TABLE medium_format
    ADD CONSTRAINT medium_format_fk_parent
    FOREIGN KEY (parent)
    REFERENCES medium_format(id);
+
+ALTER TABLE medium_index
+   ADD CONSTRAINT medium_index_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id)
+   ON DELETE CASCADE;
 
 ALTER TABLE puid
    ADD CONSTRAINT puid_fk_version
@@ -1089,11 +1296,6 @@ ALTER TABLE release
    REFERENCES release_packaging(id);
 
 ALTER TABLE release
-   ADD CONSTRAINT release_fk_country
-   FOREIGN KEY (country)
-   REFERENCES country(id);
-
-ALTER TABLE release
    ADD CONSTRAINT release_fk_language
    FOREIGN KEY (language)
    REFERENCES language(id);
@@ -1112,6 +1314,16 @@ ALTER TABLE release_annotation
    ADD CONSTRAINT release_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
+
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
+ALTER TABLE release_country
+   ADD CONSTRAINT release_country_fk_country
+   FOREIGN KEY (country)
+   REFERENCES country_area(area);
 
 ALTER TABLE release_coverart
    ADD CONSTRAINT release_coverart_fk_id
@@ -1246,6 +1458,11 @@ ALTER TABLE release_tag_raw
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+ALTER TABLE release_unknown_country
+   ADD CONSTRAINT release_unknown_country_fk_release
+   FOREIGN KEY (release)
+   REFERENCES release(id);
+
 ALTER TABLE script_language
    ADD CONSTRAINT script_language_fk_script
    FOREIGN KEY (script)
@@ -1272,9 +1489,9 @@ ALTER TABLE track
    REFERENCES recording(id);
 
 ALTER TABLE track
-   ADD CONSTRAINT track_fk_tracklist
-   FOREIGN KEY (tracklist)
-   REFERENCES tracklist(id);
+   ADD CONSTRAINT track_fk_medium
+   FOREIGN KEY (medium)
+   REFERENCES medium(id);
 
 ALTER TABLE track
    ADD CONSTRAINT track_fk_name
@@ -1285,6 +1502,11 @@ ALTER TABLE track
    ADD CONSTRAINT track_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
+
+ALTER TABLE track_gid_redirect
+   ADD CONSTRAINT track_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES track(id);
 
 ALTER TABLE track_raw
    ADD CONSTRAINT track_raw_fk_release
@@ -1350,6 +1572,26 @@ ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work
+   FOREIGN KEY (work)
+   REFERENCES work(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_type
+   FOREIGN KEY (work_attribute_type)
+   REFERENCES work_attribute_type(id);
+
+ALTER TABLE work_attribute
+   ADD CONSTRAINT work_attribute_fk_work_attribute_type_allowed_value
+   FOREIGN KEY (work_attribute_type_allowed_value)
+   REFERENCES work_attribute_type_allowed_value(id);
+
+ALTER TABLE work_attribute_type_allowed_value
+   ADD CONSTRAINT work_attribute_type_allowed_value_fk_work_attribute_type
+   FOREIGN KEY (work_attribute_type)
+   REFERENCES work_attribute_type(id);
 
 ALTER TABLE work_gid_redirect
    ADD CONSTRAINT work_gid_redirect_fk_new_id

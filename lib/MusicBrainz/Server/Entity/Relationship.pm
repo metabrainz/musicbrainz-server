@@ -158,7 +158,7 @@ sub _build_phrase {
 
 sub _build_verbose_phrase {
     my ($self) = @_;
-    $self->_interpolate($self->link->type->short_link_phrase);
+    $self->_interpolate($self->link->type->long_link_phrase);
 }
 
 sub _interpolate

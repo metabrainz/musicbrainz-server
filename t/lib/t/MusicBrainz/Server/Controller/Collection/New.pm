@@ -25,6 +25,7 @@ test 'Create collection from release page adds the new release' => sub {
 
     $mech->form_number(2);
     $mech->field("edit-list.name", "Super collection");
+    $mech->field('edit-list.description', '');
     $mech->click();
 
     my $tx = test_xpath_html ($mech->content);
@@ -43,6 +44,7 @@ test 'Create collection with no release set does not add release' => sub {
     # Second form is the new collection one
     $mech->form_number(2);
     $mech->field("edit-list.name", "mycollection");
+    $mech->field('edit-list.description', '');
     $mech->click();
 
     $mech->content_contains("No releases found in collection.");

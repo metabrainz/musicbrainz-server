@@ -128,6 +128,10 @@ sub _serialize_artist
         map { $gen->ipi($_->ipi) } $artist->all_ipi_codes
     ) if ($artist->all_ipi_codes);
 
+    push @list, $gen->isni_list(
+        map { $gen->isni($_->isni) } $artist->all_isni_codes
+    ) if ($artist->all_isni_codes);
+
     if ($toplevel)
     {
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
@@ -707,6 +711,10 @@ sub _serialize_label
     push @list, $gen->ipi_list(
         map { $gen->ipi($_->ipi) } $label->all_ipi_codes
     ) if ($label->all_ipi_codes);
+
+    push @list, $gen->isni_list(
+        map { $gen->isni($_->isni) } $label->all_isni_codes
+    ) if ($label->all_isni_codes);
 
     if ($toplevel)
     {

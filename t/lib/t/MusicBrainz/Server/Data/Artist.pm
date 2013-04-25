@@ -40,7 +40,7 @@ INSERT INTO recording (id, gid, name, artist_credit)
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase,
-     reverse_link_phrase, short_link_phrase, description)
+     reverse_link_phrase, long_link_phrase, description)
   VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
           '', '', '', '', ''),
          (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',

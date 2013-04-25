@@ -164,6 +164,8 @@ END -%]
             l('releases');
         CASE 'artist';
             l('artists');
+        CASE 'area';
+            l('areas');
         CASE 'label';
             l('labels');
         CASE 'track';
@@ -217,6 +219,7 @@ END -%]
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
@@ -256,6 +259,7 @@ END -%]
 [%- MACRO entity_type(entity) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); "artist";
+    ELSIF type.search('Entity::Area='); "area";
     ELSIF type.search('Entity::Work='); "work";
     ELSIF type.search('Entity::Label='); "label";
     ELSIF type.search('Entity::Release='); "release";
@@ -294,6 +298,15 @@ END -%]
     '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
+END -%]
+
+[%- MACRO link_area(area, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/area/$action", [ area.gid ]);
+    text = text == '' ? html_escape(area.l_name) : text;
+    '<span class="mp">' IF area.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF area.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_collection(collection, action, text) BLOCK;
@@ -512,6 +525,7 @@ END -%]
 
 [%- MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
+    ELSIF type == 'area'; l('Area:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
@@ -523,6 +537,7 @@ END -%]
 
 [%- MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
+        ELSIF type_name == 'area'; l('Area');
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');

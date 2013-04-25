@@ -167,16 +167,16 @@ sub find_by_artist
     push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        country.name AS country_name,
+                        area.name AS country_name,
                         musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
                      " . join(' ', @$extra_joins) . "
-                     LEFT JOIN country ON release.country = country.id
+                     LEFT JOIN area ON release.country = area.id
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode, musicbrainz_collate(name.name)
+                          country_name, barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -195,12 +195,12 @@ sub find_by_label
     my $query =
         "SELECT * FROM (
            SELECT DISTINCT ON (release.id) " . $self->_columns . " 
-             , country.name AS country_name, catalog_number
+             , area.name AS country_name, catalog_number
            FROM " . $self->_table . "
            JOIN release_label
              ON release_label.release = release.id
            " . join(' ', @$extra_joins) . "
-           LEFT JOIN country ON release.country = country.id
+           LEFT JOIN area ON release.country = area.id
            WHERE " . join(" AND ", @$conditions) . "
          ) s
          ORDER BY date_year, date_month, date_day, catalog_number,
@@ -241,10 +241,10 @@ sub find_by_release_group
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  " . join(' ', @$extra_joins) . "
-                 LEFT JOIN country ON release.country = country.id
+                 LEFT JOIN area ON release.country = area.id
                  WHERE " . join(" AND ", @$conditions) . "
                  ORDER BY date_year, date_month, date_day,
-                          country.name, barcode
+                          area.name, barcode
                  OFFSET ?";
 
     return query_to_list_limited(

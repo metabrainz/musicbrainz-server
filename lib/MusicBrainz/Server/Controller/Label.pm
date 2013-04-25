@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::IPI';
+with 'MusicBrainz::Server::Controller::Role::ISNI';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
@@ -66,7 +67,7 @@ after 'load' => sub
     }
 
     $c->model('LabelType')->load($label);
-    $c->model('Country')->load($c->stash->{label});
+    $c->model('Area')->load($c->stash->{label});
 };
 
 =head2 relations
@@ -97,7 +98,7 @@ sub show : PathPart('') Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    $c->model('Country')->load(@$releases);
+    $c->model('Area')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);

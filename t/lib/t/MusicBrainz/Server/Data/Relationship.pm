@@ -25,7 +25,7 @@ INSERT INTO label (id, name, sort_name, gid)
            (3, 3, 3, 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
 
 INSERT INTO link_type (id, entity_type0, entity_type1, name, gid, link_phrase,
-                       short_link_phrase, reverse_link_phrase)
+                       long_link_phrase, reverse_link_phrase)
     VALUES (1, 'label', 'label', 'label AR', 'ff68bcc0-5f88-11e0-80e3-0800200c9a66',
             'phrase', 'short', 'reverse');
 INSERT INTO link (id, link_type) VALUES (1, 1);
