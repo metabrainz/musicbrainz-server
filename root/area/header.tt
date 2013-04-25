@@ -3,10 +3,13 @@
     ['relationships', rdfa_seeAlso_link(area, 'relationships', l('Relationships'))],
     ['aliases', rdfa_seeAlso_link(area, 'aliases', l('Aliases'))],
     ['details', rdfa_seeAlso_link(area, 'details', l('Details'))],
-    [% IF c.user_is_location_editor %]
-        ['edit', link_area(area, 'edit', l('Edit'))],
-    [% END %]
 ] -%]
+
+[% IF c.user_is_location_editor %]
+    [%- info_links.push(
+        ['edit', link_area(area, 'edit', l('Edit'))],
+    ) -%]
+[% END %]
 
 <div class="areaheader">
     <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) -%]</h1>
