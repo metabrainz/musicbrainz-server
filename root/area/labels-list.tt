@@ -16,10 +16,10 @@
         [% descriptive_link(label) %]
       </td>
       <td>
-        [% artist.l_type_name %]
+        [% label.l_type_name %]
       </td>
       <td>
-        [% artist.format_label_code %]
+        [% label.format_label_code %]
       </td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(label) %]</td>
