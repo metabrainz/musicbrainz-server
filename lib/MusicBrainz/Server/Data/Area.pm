@@ -132,6 +132,25 @@ sub update
     return 1;
 }
 
+sub can_delete
+{
+    my ($self, $area_id) = @_;
+
+    # Check no releases use the area
+    my $refcount = $self->sql->select_single_column_array('select 1 from release_country WHERE country = ?', $area_id);
+    return 0 if @$refcount != 0;
+
+    # Check no artists use the area
+    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id);
+    return 0 if @$refcount != 0;
+
+    # Check no labels use the area
+    my $refcount = $self->sql->select_single_column_array('select 1 from label WHERE area = ?', $area_id);
+    return 0 if @$refcount != 0;
+
+    return 1;
+}
+
 sub delete
 {
     my ($self, @area_ids) = @_;

@@ -1,0 +1,22 @@
+[%- info_links = [
+    ['index', link_area(area, 'show', l('Overview'))],
+    ['relationships', rdfa_seeAlso_link_area(area, 'relationships', l('Relationships'))],
+    ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
+    ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
+] -%]
+
+[% IF c.user.is_location_editor %]
+    [%- info_links.push(
+        ['edit', link_area(area, 'edit', l('Edit'))],
+    ) -%]
+[% END %]
+
+<div class="areaheader">
+    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) -%]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> 
+             [% html_escape(area.l_type_name) or l('Area') %]
+    </p>
+</div>
+
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]
