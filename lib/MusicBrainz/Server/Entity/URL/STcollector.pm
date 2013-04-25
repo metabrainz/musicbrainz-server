@@ -1,31 +1,18 @@
-package MusicBrainz::Server::Controller::ReleaseEditor::Edit;
+package MusicBrainz::Server::Entity::URL::STcollector;
+
 use Moose;
-BEGIN { extends 'MusicBrainz::Server::ControllerBase::ReleaseEditor' }
 
-use aliased 'MusicBrainz::Server::Wizard::ReleaseEditor::Edit' => 'Wizard';
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub edit : Chained('/release/load') Edit RequireAuth
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-    my $wizard = Wizard->new(
-        release => $release,
-        c => $c,
-        on_cancel => sub { $self->cancelled($c) },
-        on_submit => sub { $self->do_redirect($c, $release) }
-    );
-    $wizard->run;
+sub sidebar_name {
+    my $self = shift;
+
+    return "SoundtrackCollector";
 }
 
-sub cancelled
-{
-    my ($self, $c) = @_;
-
-    my $release = $c->stash->{release};
-
-    $c->response->redirect($c->uri_for_action('/release/show', [ $release->gid ]))
-}
-
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT
