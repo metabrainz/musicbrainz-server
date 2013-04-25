@@ -76,6 +76,12 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'area/index.tt');
 }
 
+sub artists : Chained('load') {}
+
+sub labels : Chained('load') {}
+
+sub releases : Chained('load') {}
+
 =head2 WRITE METHODS
 
 =cut
