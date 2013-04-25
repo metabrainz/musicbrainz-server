@@ -72,9 +72,7 @@ sub serialize
     my $tracklist = 'track-list';
     if ($inc && $inc->tracklist) {
         push @body, ( $self->gen->$tracklist({
-            offset => (sum map {
-                $_->tracklist->track_count
-            } $entity->all_mediums) - 1
+            offset => (sum map { $_->track_count } $entity->all_mediums) - 1
         }));
     }
     elsif ($opts && $opts->{track_map}) {
@@ -103,7 +101,7 @@ sub serialize
                              (artist_credit => $_->artist_credit) : ())
                     );
                 }
-                    map { $_->tracklist->all_tracks } $entity->all_mediums
+                map { $_->all_tracks } $entity->all_mediums
             ], $inc));
     }
 
@@ -159,7 +157,7 @@ sub serialize
             ($opts && $opts->{track_map}) )
         {
             push @body, ( $self->gen->$tracklist({
-                count => sum map { $_->tracklist->track_count } $entity->all_mediums
+                count => sum map { $_->track_count } $entity->all_mediums
             }) )
         }
     }

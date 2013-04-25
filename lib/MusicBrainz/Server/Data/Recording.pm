@@ -364,21 +364,20 @@ sub find_tracklist_offsets {
       r (id) AS ( SELECT ?::int ),
       bef AS (
         SELECT container.id AS container,
-               sum(tracklist.track_count)
+               sum(container.track_count)
         FROM medium container
-        JOIN track ON track.tracklist = container.tracklist
+        JOIN track ON track.medium = container.id
         JOIN medium bef ON (
           container.release = bef.release AND
           container.position > bef.position
         )
-        JOIN tracklist ON bef.tracklist = tracklist.id
         JOIN r ON r.id = track.recording
         GROUP BY container.id, track.id
       )
       SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
       FROM track
       JOIN r ON r.id = track.recording
-      JOIN medium ON track.tracklist = medium.tracklist
+      JOIN medium ON track.medium = medium.id
       LEFT JOIN bef ON bef.container = medium.id;
 EOSQL
 

@@ -397,7 +397,7 @@ sub find_for_cdtoc
         $query, $track_count, $artist_id, $offset || 0);
 }
 
-sub load_with_tracklist_for_recording
+sub load_with_medium_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
 
