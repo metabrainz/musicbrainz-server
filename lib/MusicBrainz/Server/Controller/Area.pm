@@ -19,8 +19,6 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use Sql;
 
-my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::Area - Catalyst Controller for working
@@ -50,9 +48,7 @@ sub base : Chained('/') PathPart('area') CaptureArgs(0) { }
 
 =head2 area
 
-Extends loading by disallowing the access of the special area
-C<DELETED_ARTIST>, and fetching any extra data required in
-the area header.
+Extends loading by fetching any extra data required in the area header.
 
 =cut
 
@@ -69,9 +65,6 @@ after 'load' => sub
 =head2 show
 
 Shows an area's main landing page.
-
-This page shows the main releases (by default) of an area, along with a
-summary of advanced relations this area is involved in.
 
 =cut
 

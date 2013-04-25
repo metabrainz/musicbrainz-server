@@ -21,6 +21,7 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $WIKI_TRANSCLUSION_FLAG
     $RELATIONSHIP_EDITOR_FLAG
+    $LOCATION_EDITOR_FLAG
 );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -461,17 +462,20 @@ sub privileged : Path('/privileged')
     my @auto_editors = $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG);
     my @transclusion_editors = $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG);
     my @relationship_editors = $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG);
+    my @location_editors = $c->model ('Editor')->find_by_privileges ($LOCATION_EDITOR_FLAG);
 
     $c->model ('Editor')->load_preferences (@bots);
     $c->model ('Editor')->load_preferences (@auto_editors);
     $c->model ('Editor')->load_preferences (@transclusion_editors);
     $c->model ('Editor')->load_preferences (@relationship_editors);
+    $c->model ('Editor')->load_preferences (@location_editors);
 
     $c->stash(
         bots => [ @bots ],
         auto_editors => [ @auto_editors ],
         transclusion_editors => [ @transclusion_editors ],
         relationship_editors => [ @relationship_editors ],
+        location_editors => [ @location_editors ],
         template => 'user/privileged.tt',
     );
 }
