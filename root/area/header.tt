@@ -5,7 +5,7 @@
     ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
 ] -%]
 
-[% IF c.user_is_location_editor %]
+[% IF c.user.is_location_editor %]
     [%- info_links.push(
         ['edit', link_area(area, 'edit', l('Edit'))],
     ) -%]
