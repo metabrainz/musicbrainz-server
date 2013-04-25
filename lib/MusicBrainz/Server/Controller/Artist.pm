@@ -104,7 +104,8 @@ after 'load' => sub
 
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
-    $c->model('Country')->load($artist);
+    $c->model('Area')->load($artist);
+    $c->model('Area')->load_codes($artist->area);
 
     $c->stash(
         watching_artist =>
@@ -393,7 +394,7 @@ sub releases : Chained('load')
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Country')->load(@$releases);
+    $c->model('Area')->load(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->stash(

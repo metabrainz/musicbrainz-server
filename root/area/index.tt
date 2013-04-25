@@ -1,0 +1,7 @@
+[% WRAPPER 'layout.tt' %]
+  [% area.name %]<br />
+  [% area.l_name %]<br />
+
+  Type: [% area.l_type_name %]<br />
+  Code (primary): [% area.primary_code %]
+[% END %]

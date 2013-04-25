@@ -37,11 +37,10 @@
                         [% END %]
                     [% END %]
             [%- END -%]
-            [%# TODO model country %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=link_searchable_property('country', artist.country.iso_code, 'artist', artist.country.l_name)
-               class="country"
-                   IF artist.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+               content=link_area(artist.area)
+               class="area"
+                   IF artist.area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_artist_ipi(ipi_code) class="ipi-code" %]
