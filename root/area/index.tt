@@ -1,7 +1,6 @@
-[% WRAPPER 'layout.tt' %]
-  [% area.name %]<br />
-  [% area.l_name %]<br />
+[%- WRAPPER "area/layout.tt" page='index' -%]
+    [%- INCLUDE 'area/annotation.tt' summary=1 -%]
 
-  Type: [% area.l_type_name %]<br />
-  Code (primary): [% area.primary_code %]
+    [%- show_wikipedia_extract() -%]
+
 [% END %]
