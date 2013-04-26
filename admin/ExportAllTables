@@ -912,7 +912,7 @@ sub gpg_sign
 
     # Sign requested file
     system "gpg",
-        "--default-key $sign_with",
+        "--default-key", "$sign_with",
         "--detach-sign",
         "--armor",
         $file_to_be_signed;
