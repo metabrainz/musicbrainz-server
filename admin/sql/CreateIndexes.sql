@@ -82,6 +82,7 @@ CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME 
 CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
 
 -- Entity indexes
+CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_label_idx ON edit_label (label);
 CREATE INDEX edit_release_idx ON edit_release (release);
