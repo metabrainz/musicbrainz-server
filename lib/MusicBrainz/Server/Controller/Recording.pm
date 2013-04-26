@@ -110,7 +110,7 @@ sub show : Chained('load') PathPart('')
         $c->model('Track')->find_by_recording($recording->id, shift, shift);
     });
 
-    my @releases = map { $_->tracklist->medium->release } @$tracks;
+    my @releases = map { $_->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
     $c->model('Country')->load(@releases);
     $c->model('ReleaseLabel')->load(@releases);
@@ -121,7 +121,7 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         tracks =>
             group_by_release_status_nested(
-                sub { shift->tracklist->medium->release },
+                sub { shift->medium->release },
                 @$tracks),
         template => 'recording/index.tt',
     );
