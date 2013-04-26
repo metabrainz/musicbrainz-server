@@ -197,6 +197,37 @@ my %stats = (
         DESC => "Count of all release groups",
         SQL => "SELECT COUNT(*) FROM release_group",
     },
+    "count.area" => {
+        DESC => "Count of all areas",
+        SQL => "SELECT COUNT(*) FROM area",
+    },
+    "count.country_area" => {
+        DESC => "Count of all areas eligible for release country use",
+        SQL => "SELECT COUNT(*) FROM country_area",
+    },
+    "count.area.type.country" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
+                FROM area
+                GROUP BY type
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                "count.artist.type.country" => $dist{1} || 0,
+                "count.artist.type.null"  => $dist{null} || 0
+            };
+        },
+    },
+    "count.area.type.null" => {
+        PREREQ => [qw[ count.area.type.country ]],
+        PREREQ_ONLY => 1,
+    },
     "count.artist" => {
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
