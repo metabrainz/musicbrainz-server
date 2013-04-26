@@ -102,23 +102,23 @@ sub load_codes
 
 sub insert
 {
-    my ($self, @artists) = @_;
+    my ($self, @areas) = @_;
     my $class = $self->_entity_class;
     my @created;
-    for my $artist (@artists)
+    for my $area (@areas)
     {
-        my $row = $self->_hash_to_row($artist);
-        $row->{gid} = $artist->{gid} || generate_gid();
+        my $row = $self->_hash_to_row($area);
+        $row->{gid} = $area->{gid} || generate_gid();
 
         my $created = $class->new(
-            name => $artist->{name},
-            id => $self->sql->insert_row('artist', $row, 'id'),
+            name => $area->{name},
+            id => $self->sql->insert_row('area', $row, 'id'),
             gid => $row->{gid}
         );
 
         push @created, $created;
     }
-    return @artists > 1 ? @created : $created[0];
+    return @areas > 1 ? @created : $created[0];
 }
 
 sub update
