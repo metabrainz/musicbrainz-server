@@ -92,8 +92,8 @@ INSERT INTO recording (id, gid, name, artist_credit)
            (4, '64cac850-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (5, '691ee030-f0cc-11df-98cf-0800200c9a66', 1, 1);
 INSERT INTO medium (id, release, track_count, position)
-    VALUES (2, 6, 1, 1), (3, 7, 1, 1),
-           (4, 8, 1, 1), (5, 9, 1, 1);
+    VALUES (2, 6, 0, 1), (3, 7, 0, 1),
+           (4, 8, 0, 1), (5, 9, 0, 1);
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
     VALUES (2, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 1, 1, 2, 1, 1, 2),
            (3, '929e5fb9-cfe7-4764-b3f6-80e056f0c1da', 1, 1, 3, 1, 1, 3),

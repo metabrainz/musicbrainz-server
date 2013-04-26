@@ -669,7 +669,7 @@ sub merge_releases {
             # - if the release group cover art is set to one of the old ids,
             #   move it to the new id.
             $self->set_cover_art ($new_rg, $new_id)
-                if $has_cover_art{$new_rg} == $old_id;
+                if ($has_cover_art{$new_rg} // 0) == $old_id;
         }
         else
         {
@@ -677,7 +677,7 @@ sub merge_releases {
             # - if the old release group cover art is set to the id being moved,
             #   unset the old cover art
             $self->unset_cover_art ($old_rg)
-                if $has_cover_art{$old_rg} == $old_id;
+                if ($has_cover_art{$old_rg} // 0) == $old_id;
 
             # Do not change the new release group cover art, regardless of
             # whether it is set or not.
