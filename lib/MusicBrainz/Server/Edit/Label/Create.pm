@@ -30,6 +30,7 @@ has '+data' => (
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
         country_id   => Nullable[Int],
+        area_id      => Nullable[Int],
         comment      => Nullable[Str],
         ipi_code     => Nullable[Str],
         ipi_codes    => Optional[ArrayRef[Str]],
@@ -51,7 +52,7 @@ sub foreign_keys
     return {
         Label     => [ $self->entity_id ],
         LabelType => [ $self->data->{type_id} ],
-        Country   => [ $self->data->{country_id} ],
+        Area      => [ $self->data->{country_id}, $self->data->{area_id} ],
     };
 }
 
@@ -67,8 +68,9 @@ sub build_display_data
         type       => defined($self->data->{type_id}) &&
                         $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
-        country    => defined($self->data->{country_id}) &&
-                        $loaded->{Country}->{ $self->data->{country_id} },
+        area       => defined($self->data->{area_id}) ?
+                        $loaded->{Area}->{ $self->data->{area_id} } :
+                        defined($self->data->{country_id}) && $loaded->{Area}->{ $self->data->{country_id} },
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         isni_codes => $self->data->{isni_codes},

@@ -46,8 +46,7 @@ sub _columns
 {
     return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
             release.release_group, release.status, release.packaging,
-            release.date_year, release.date_month, release.date_day,
-            release.country, release.comment, release.edits_pending, release.barcode,
+            release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
 }
 
@@ -167,17 +166,17 @@ sub find_by_artist
     push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        area.name AS country_name,
                         musicbrainz_collate(name.name) AS name_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = release.artist_credit
                      " . join(' ', @$extra_joins) . "
-                     LEFT JOIN area ON release.country = area.id
                  WHERE " . join(" AND ", @$conditions) . "
-                 ORDER BY date_year, date_month, date_day,
-                          country_name, barcode, musicbrainz_collate(name.name)
+                 ORDER BY barcode, musicbrainz_collate(name.name)
                  OFFSET ?";
+                 # area.name AS country_name,
+                 # LEFT JOIN area ON release.country = area.id
+                 # ORDER BY date_year, date_month, date_day, country_name, 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @$params, $offset || 0);
@@ -195,18 +194,20 @@ sub find_by_label
     my $query =
         "SELECT * FROM (
            SELECT DISTINCT ON (release.id) " . $self->_columns . " 
-             , area.name AS country_name, catalog_number
+             , catalog_number
            FROM " . $self->_table . "
            JOIN release_label
              ON release_label.release = release.id
            " . join(' ', @$extra_joins) . "
-           LEFT JOIN area ON release.country = area.id
            WHERE " . join(" AND ", @$conditions) . "
          ) s
-         ORDER BY date_year, date_month, date_day, catalog_number,
-                  musicbrainz_collate(name), country_name,
+         ORDER BY catalog_number,
+                  musicbrainz_collate(name),
                   barcode
          OFFSET ?";
+         # area.name AS country_name,
+         # LEFT JOIN area ON release.country = area.id
+         # ORDER BY date_year, date_month, date_day, country_name (after collate)
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, @$params, $offset || 0);
@@ -241,11 +242,12 @@ sub find_by_release_group
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  " . join(' ', @$extra_joins) . "
-                 LEFT JOIN area ON release.country = area.id
                  WHERE " . join(" AND ", @$conditions) . "
-                 ORDER BY date_year, date_month, date_day,
-                          area.name, barcode
+                 ORDER BY barcode
                  OFFSET ?";
+                 # LEFT JOIN area ON release.country = area.id
+                 # ORDER BY date_year, date_month, date_day,
+                 #         area.name, barcode
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },

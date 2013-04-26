@@ -93,7 +93,6 @@ sub artists : Chained('load')
         $c->model('Artist')->find_by_area($c->stash->{area}->id, shift, shift);
     });
         $c->model('ArtistType')->load(@$artists);
-        $c->model('Country')->load(@$artists);
         $c->model('Gender')->load(@$artists);
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
@@ -114,7 +113,7 @@ sub labels : Chained('load')
     my $labels = $self->_load_paged($c, sub {
         $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
     });
-        $c->model('LabelType')->load(@$labels);
+    $c->model('LabelType')->load(@$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
     }
