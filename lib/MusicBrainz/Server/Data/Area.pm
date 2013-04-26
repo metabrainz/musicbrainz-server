@@ -24,6 +24,7 @@ with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
 
 Readonly my @CODE_TYPES = qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
