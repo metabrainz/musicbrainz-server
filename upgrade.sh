@@ -74,6 +74,7 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.s
 
 echo `date` : 'Creating the Area entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -113,6 +114,9 @@ then
     echo `date` : Adding master constraints
     echo `date` : Applying 20130309-areas-fks.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130309-areas-fks.sql 2>&1` || ( echo "$OUTPUT"; exit 1 )
+
+    echo `date` : Applying 20130425-edit-area-fk.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )

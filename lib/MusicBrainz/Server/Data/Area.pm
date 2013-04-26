@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
+use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     generate_gid
@@ -19,10 +20,14 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
+
+Readonly my @CODE_TYPES = qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
 sub _table
 {
@@ -35,6 +40,8 @@ sub _columns
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
 }
+
+sub browse_column { 'name' }
 
 sub _id_column
 {
@@ -80,9 +87,7 @@ sub load_codes
 {
     my ($self, @objs) = @_;
 
-    my @types = qw( iso_3166_1 iso_3166_2 iso_3166_3 );
-
-    for my $table (@types) {
+    for my $table (@CODE_TYPES) {
         my $all = $table . '_codes';
 
         my $applicable_areas = [ grep { scalar $_->$all == 0 } @objs ];
@@ -100,25 +105,46 @@ sub load_codes
     }
 }
 
+sub _set_codes
+{
+    my ($self, $area, $type, $codes) = @_;
+    $self->sql->do("DELETE FROM $type WHERE area = ?", $area);
+    $self->sql->do(
+        "INSERT INTO $type (area, code) VALUES " .
+            join(', ', ("(?, ?)") x @$codes),
+        map { $area, $_ } @$codes
+   ) if @$codes;
+}
+
+sub set_all_codes
+{
+    my ($self, $area, $codes) = @_;
+    for my $type (@CODE_TYPES) {
+        $self->_set_codes($area, $type, $codes->{$type}) if exists $codes->{$type};
+    }
+}
+
 sub insert
 {
-    my ($self, @artists) = @_;
+    my ($self, @areas) = @_;
     my $class = $self->_entity_class;
     my @created;
-    for my $artist (@artists)
+    for my $area (@areas)
     {
-        my $row = $self->_hash_to_row($artist);
-        $row->{gid} = $artist->{gid} || generate_gid();
+        my $row = $self->_hash_to_row($area);
+        $row->{gid} = $area->{gid} || generate_gid();
 
         my $created = $class->new(
-            name => $artist->{name},
-            id => $self->sql->insert_row('artist', $row, 'id'),
+            name => $area->{name},
+            id => $self->sql->insert_row('area', $row, 'id'),
             gid => $row->{gid}
         );
 
+        $self->set_all_codes($created->id, $area);
+
         push @created, $created;
     }
-    return @artists > 1 ? @created : $created[0];
+    return @areas > 1 ? @created : $created[0];
 }
 
 sub update
@@ -128,6 +154,8 @@ sub update
     my $row = $self->_hash_to_row($update);
 
     $self->sql->update_row('area', $row, { id => $area_id }) if %$row;
+
+    $self->set_all_codes($area_id, $update);
 
     return 1;
 }
@@ -141,11 +169,11 @@ sub can_delete
     return 0 if @$refcount != 0;
 
     # Check no artists use the area
-    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
+    $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
     return 0 if @$refcount != 0;
 
     # Check no labels use the area
-    my $refcount = $self->sql->select_single_column_array('select 1 from label WHERE area = ?', $area_id);
+    $refcount = $self->sql->select_single_column_array('select 1 from label WHERE area = ?', $area_id);
     return 0 if @$refcount != 0;
 
     return 1;
@@ -159,6 +187,9 @@ sub delete
     $self->annotation->delete(@area_ids);
     $self->alias->delete_entities(@area_ids);
     $self->remove_gid_redirects(@area_ids);
+    for my $code_table (@CODE_TYPES) {
+        $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
+    }
     $self->sql->do('DELETE FROM area WHERE id IN (' . placeholders(@area_ids) . ')', @area_ids);
     return 1;
 }

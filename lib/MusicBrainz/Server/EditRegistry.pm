@@ -15,6 +15,9 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Artist::EditAlias
     MusicBrainz::Server::Edit::Artist::Merge
     MusicBrainz::Server::Edit::Artist::EditArtistCredit
+    MusicBrainz::Server::Edit::Area::Create
+    MusicBrainz::Server::Edit::Area::Edit
+    MusicBrainz::Server::Edit::Area::Delete
     MusicBrainz::Server::Edit::Area::AddAnnotation
     MusicBrainz::Server::Edit::Label::AddAlias
     MusicBrainz::Server::Edit::Label::DeleteAlias

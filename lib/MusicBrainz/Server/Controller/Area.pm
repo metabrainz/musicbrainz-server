@@ -147,6 +147,14 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_AREA_DELETE,
 };
 
+for my $method (qw( create edit merge merge_queue delete )) {
+    before $method => sub {
+        my ($self, $c) = @_;
+        if (!$c->user->is_location_editor) {
+            $c->detach('/error_403');
+        }
+    };
+};
 
 =head1 LICENSE
 

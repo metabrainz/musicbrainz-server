@@ -7,6 +7,7 @@ CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
+CREATE INDEX area_idx_page ON area (page_index(name));
 
 CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
 CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
@@ -82,6 +83,7 @@ CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME 
 CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
 
 -- Entity indexes
+CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_label_idx ON edit_label (label);
 CREATE INDEX edit_release_idx ON edit_release (release);
