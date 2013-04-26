@@ -27,7 +27,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'area' };
 
-Readonly my @CODE_TYPES = qw( iso_3166_1 iso_3166_2 iso_3166_3 );
+Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
 sub _table
 {
