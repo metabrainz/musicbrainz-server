@@ -20,6 +20,30 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
+has_field 'iso_3166_1' => (
+    type => 'Repeatable',
+);
+
+has_field 'iso_3166_1.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::ISO_3166_1',
+);
+
+has_field 'iso_3166_2' => (
+    type => 'Repeatable',
+);
+
+has_field 'iso_3166_2.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::ISO_3166_2',
+);
+
+has_field 'iso_3166_3' => (
+    type => 'Repeatable',
+);
+
+has_field 'iso_3166_3.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::ISO_3166_3',
+);
+
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
     not_nullable => 1

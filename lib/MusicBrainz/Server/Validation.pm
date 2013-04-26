@@ -49,6 +49,9 @@ require Exporter;
         is_valid_ean
         is_valid_isrc
         is_tunecore
+        is_valid_iso_3166_1
+        is_valid_iso_3166_2
+        is_valid_iso_3166_3
         encode_entities
         normalise_strings
     )
@@ -208,6 +211,24 @@ sub is_tunecore
 {
     my $supposed_isrc = $_[0];
     return $supposed_isrc =~ /^TC\.*/;
+}
+
+sub is_valid_iso_3166_1
+{
+    my $iso_3166_1 = shift;
+    return $iso_3166_1 =~ /^[A-Z]{2}$/;
+}
+
+sub is_valid_iso_3166_2
+{
+    my $iso_3166_2 = shift;
+    return $iso_3166_2 =~ /^[A-Z]{2}-[A-Z0-9]+$/;
+}
+
+sub is_valid_iso_3166_3
+{
+    my $iso_3166_3 = shift;
+    return $iso_3166_3 =~ /^[A-Z]{4}$/;
 }
 
 ################################################################################
