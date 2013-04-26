@@ -141,7 +141,7 @@ sub can_delete
     return 0 if @$refcount != 0;
 
     # Check no artists use the area
-    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id);
+    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
     return 0 if @$refcount != 0;
 
     # Check no labels use the area

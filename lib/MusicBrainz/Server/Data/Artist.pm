@@ -195,6 +195,19 @@ sub find_by_work
         $query, $work_id, $work_id, $offset || 0);
 }
 
+sub find_by_area
+{
+    my ($self, $area_id, $limit, $offset) = @_;
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 WHERE begin_area = ? OR end_area = ? OR area = ?
+                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $area_id, $area_id, $area_id, $offset || 0);
+}
+
 sub load
 {
     my ($self, @objs) = @_;

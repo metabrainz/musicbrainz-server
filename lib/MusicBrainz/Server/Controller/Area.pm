@@ -73,8 +73,55 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
+    # need to call relationships for overview page
+    $self->relationships($c);
+
     $c->stash(template => 'area/index.tt');
 }
+
+=head2 show
+
+Shows artists for an area.
+
+=cut
+
+sub artists : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $area = $c->stash->{area};
+    my $artists = $self->_load_paged($c, sub {
+        $c->model('Artist')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+        $c->model('ArtistType')->load(@$artists);
+        $c->model('Country')->load(@$artists);
+        $c->model('Gender')->load(@$artists);
+    if ($c->user_exists) {
+        $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
+    }
+    $c->stash( artists => $artists );
+}
+
+=head2 show
+
+Shows labels for an area.
+
+=cut
+
+sub labels : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $area = $c->stash->{area};
+    my $labels = $self->_load_paged($c, sub {
+        $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+        $c->model('LabelType')->load(@$labels);
+    if ($c->user_exists) {
+        $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
+    }
+    $c->stash( labels => $labels );
+}
+
+sub releases : Chained('load') {}
 
 =head2 WRITE METHODS
 

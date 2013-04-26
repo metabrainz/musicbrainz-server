@@ -32,9 +32,15 @@
                         [% END %]
                     [% END %]
             [%- END -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO code:')
-               content=html_escape(area.primary_code) class="ISO-code"
-                   IF area.primary_code -%]
+            [% FOR code=area.iso_3166_1_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-1:') content=html_escape(code) class="iso-3166-1" %]
+            [% END %]
+            [% FOR code=area.iso_3166_2_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-2:') content=html_escape(code) class="iso-3166-2" %]
+            [% END %]
+            [% FOR code=area.iso_3166_3_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-3:') content=html_escape(code) class="iso-3166-3" %]
+            [% END %]
         [% END %]
 
         <h2 class="editing">[% l('Editing') %]</h2>
