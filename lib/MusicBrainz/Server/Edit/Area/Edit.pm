@@ -40,7 +40,10 @@ sub change_fields
         type_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool]
+        ended      => Optional[Bool],
+        iso_3166_1  => Optional[ArrayRef[Str]],
+        iso_3166_2  => Optional[ArrayRef[Str]],
+        iso_3166_3  => Optional[ArrayRef[Str]],
     ];
 }
 
@@ -97,11 +100,11 @@ sub build_display_data
         };
     }
 
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
+    for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
+        if (exists $self->data->{new}{$prop}) {
+            $data->{$prop}->{old} = $self->data->{old}{$prop};
+            $data->{$prop}->{new} = $self->data->{new}{$prop};
+        }
     }
 
     return $data;
@@ -114,6 +117,15 @@ sub _mapping
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        iso_3166_1 => sub {
+            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_1 WHERE area = ?", shift->id);
+        },
+        iso_3166_2 => sub {
+            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_2 WHERE area = ?", shift->id);
+        },
+        iso_3166_3 => sub {
+            return $self->c->sql->select_single_column_array("SELECT code FROM iso_3166_3 WHERE area = ?", shift->id);
+        },
     );
 }
 
@@ -124,7 +136,9 @@ sub allow_auto_edit
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Area')->get_by_id($self->entity_id),
+    my $area = $self->c->model('Area')->get_by_id($self->entity_id);
+    $self->c->model('Area')->load_codes($area);
+    return $area;
 }
 
 sub _edit_hash {
