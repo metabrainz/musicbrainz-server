@@ -9,7 +9,6 @@ use MusicBrainz::Server::Entity::ReleasePackaging;
 use MusicBrainz::Server::Entity::ReleaseStatus;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::MediumFormat;
-use MusicBrainz::Server::Entity::Tracklist;
 use MusicBrainz::Server::Entity::Track;
 
 test all => sub {
@@ -41,34 +40,30 @@ ok( @{$release->mediums} == 0 );
 is( $release->combined_format_name, '' );
 is( $release->combined_track_count, '' );
 
-my $medium1 = MusicBrainz::Server::Entity::Medium->new();
+my $medium1 = MusicBrainz::Server::Entity::Medium->new(track_count => 10);
 $medium1->format(MusicBrainz::Server::Entity::MediumFormat->new(id => 1, name => 'CD'));
-$medium1->tracklist(MusicBrainz::Server::Entity::Tracklist->new(track_count => 10));
 $release->add_medium($medium1);
 is( $release->combined_format_name, 'CD', 'Release format is CD' );
-is( $release->combined_track_count, '10' );
+is( $release->combined_track_count, '10', 'Release has 10 tracks' );
 
-my $medium2 = MusicBrainz::Server::Entity::Medium->new();
+my $medium2 = MusicBrainz::Server::Entity::Medium->new(track_count => 22);
 $medium2->format(MusicBrainz::Server::Entity::MediumFormat->new(id => 2, name => 'DVD'));
-$medium2->tracklist(MusicBrainz::Server::Entity::Tracklist->new(track_count => 22));
 $release->add_medium($medium2);
 is( $release->combined_format_name, 'CD + DVD', 'Release format is CD + DVD' );
-is( $release->combined_track_count, '10 + 22' );
+is( $release->combined_track_count, '10 + 22', 'Release has 10 + 22 tracks' );
 
 $release->add_medium($medium1);
 is( $release->combined_format_name, '2×CD + DVD', 'Release format is 2xCD + DVD' );
-is( $release->combined_track_count, '10 + 22 + 10' );
+is( $release->combined_track_count, '10 + 22 + 10', 'Release has 10 + 22 + 10 tracks' );
 
 $release = MusicBrainz::Server::Entity::Release->new(artist_credit_id => 1);
 my $medium = MusicBrainz::Server::Entity::Medium->new();
 $release->add_medium($medium);
-my $tracklist = MusicBrainz::Server::Entity::Tracklist->new();
-$medium->tracklist($tracklist);
 my $track = MusicBrainz::Server::Entity::Track->new(artist_credit_id => 1);
-$tracklist->add_track($track);
+$medium->add_track($track);
 is( $release->has_multiple_artists, 0, 'Release does not have multiple artists' );
 $track = MusicBrainz::Server::Entity::Track->new(artist_credit_id => 2);
-$tracklist->add_track($track);
+$medium->add_track($track);
 is( $release->has_multiple_artists, 1, 'Release has multiple artists' );
 
 };
