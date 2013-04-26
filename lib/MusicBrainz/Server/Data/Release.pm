@@ -717,12 +717,12 @@ sub determine_recording_merges
         my @mediums = @{ $medium_by_position{$m_pos} };
         next if @mediums <= 1;
         # all mediums must have the same number of tracks
-        my $track_count = $mediums[0]->tracklist->track_count;
-        next if grep { $_->tracklist->track_count != $track_count } @mediums;
+        my $track_count = $mediums[0]->track_count;
+        next if grep { $_->track_count != $track_count } @mediums;
         # group recordings by track position 
         $recording_by_position{$m_pos} = {};
         for my $medium (@mediums) {
-            for my $tr ($medium->tracklist->all_tracks) {
+            for my $tr ($medium->all_tracks) {
                 my $tr_pos = $tr->position;
                 if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
                     push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
