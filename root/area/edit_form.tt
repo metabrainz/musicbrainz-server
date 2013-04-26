@@ -28,7 +28,6 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form, 1) -%]
     [%- guesscase_bubble() -%]
   </div>
 
