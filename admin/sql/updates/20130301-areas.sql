@@ -202,6 +202,7 @@ UPDATE editor SET privs = privs | 256 WHERE name IN ('nikki', 'reosarevok', 'ian
 --------------------
 
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
+CREATE INDEX area_idx_page ON area (page_index(name));
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 

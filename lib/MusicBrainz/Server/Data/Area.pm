@@ -20,6 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'area' };
@@ -39,6 +40,8 @@ sub _columns
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
 }
+
+sub browse_column { 'name' }
 
 sub _id_column
 {
