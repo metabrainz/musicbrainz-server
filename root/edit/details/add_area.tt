@@ -26,21 +26,40 @@
   [% IF edit.display_data.iso_3166_1 %]
   <tr>
     <th>[% l('ISO 3166-1:') %]</th>
-    <td>[% comma_list(edit.display_data.iso_3166_1) %]</td>
+    <td>[% comma_only_list(edit.display_data.iso_3166_1) %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.iso_3166_2 %]
   <tr>
     <th>[% l('ISO 3166-2:') %]</th>
-    <td>[% comma_list(edit.display_data.iso_3166_2) %]</td>
+    <td>[% comma_only_list(edit.display_data.iso_3166_2) %]</td>
   </tr>
   [% END %]
 
   [% IF edit.display_data.iso_3166_3 %]
   <tr>
     <th>[% l('ISO 3166-3:') %]</th>
-    <td>[% comma_list(edit.display_data.iso_3166_3) %]</td>
+    <td>[% comma_only_list(edit.display_data.iso_3166_3) %]</td>
   </tr>
   [% END %]
+
+  [% IF !edit.display_data.begin_date.is_empty %]
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td>[% edit.display_data.begin_date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF !edit.display_data.end_date.is_empty %]
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td>[% edit.display_data.end_date.format %]</td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Ended:') %]</th>
+    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+  </tr>
 </table>
