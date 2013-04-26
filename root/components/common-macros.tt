@@ -754,6 +754,22 @@ END -%]
     ELSE; '';
 END -%]
 
+[%- MACRO license_class(url)
+       IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/publicdomain/'); 'CCPD';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-sa/'); 'CCBYNCSA';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-nd/'); 'CCBYNCND';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-sa/'); 'CCBYSA';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc/'); 'CCBYNC';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nd/'); 'CCBYND';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by/'); 'CCBY';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/nc-sampling\\+/'); 'CCNCSamplingPlus';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling\\+/'); 'CCSamplingPlus';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling/'); 'CCSampling';
+    ELSIF url.url.as_string.search('artlibre.org/licence/lal'); 'ArtLibre';
+    ELSE; '';
+END -%]
+
 [%- MACRO warning_icon BLOCK -%]
    <img class="warning" src="[% c.uri_for('/static/images/icons/warning.png') %]" />
 [%- END -%]

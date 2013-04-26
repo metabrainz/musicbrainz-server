@@ -14,6 +14,8 @@ with
     'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
+
+    # External links section
     '45cat'            => qr{^https?://(?:www.)?45cat.com/}i,
     'Allmusic'         => qr{^https?://(?:www.)?allmusic.com/}i,
     'AnimeNewsNetwork' => qr{^https?://(?:www.)?animenewsnetwork.com/}i,
@@ -69,6 +71,21 @@ my %URL_SPECIALIZATIONS = (
     'Wikipedia'        => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
     'Worldcat'         => qr{^https?://(?:www.)?worldcat.org/}i,
     'YouTube'          => qr{^https?://(?:www.)?youtube.com/}i,
+
+    # License links
+    'CCBY'              => qr{^http://creativecommons.org/licenses/by/}i,
+    'CCBYND'            => qr{^http://creativecommons.org/licenses/by-nd/}i,
+    'CCBYNC'            => qr{^http://creativecommons.org/licenses/by-nc/}i,
+    'CCBYNCND'          => qr{^http://creativecommons.org/licenses/by-nc-nd/}i,
+    'CCBYNCSA'          => qr{^http://creativecommons.org/licenses/by-nc-sa/}i,
+    'CCBYSA'            => qr{^http://creativecommons.org/licenses/by-sa/}i,
+    'CC0'               => qr{^http://creativecommons.org/publicdomain/zero/}i,
+    'CCPD'              => qr{^http://creativecommons.org/licenses/publicdomain/}i,
+    'CCSampling'        => qr{^http://creativecommons.org/licenses/sampling/}i,
+    'CCNCSamplingPlus'  => qr{^http://creativecommons.org/licenses/nc-sampling\+/}i,
+    'CCSamplingPlus'    => qr{^http://creativecommons.org/licenses/sampling\+/}i,
+    'ArtLibre'          => qr{^http://artlibre.org/licence/lal}i,
+
 );
 
 sub _gid_redirect_table
