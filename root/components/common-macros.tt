@@ -567,7 +567,8 @@ END -%]
           # pages
           IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
              entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work');
+             entity.isa('MusicBrainz::Server::Entity::Work') ||
+             entity.isa('MusicBrainz::Server::Entity::ReleaseGroup');
              action = 'show';
           END;
           c.uri_for_action(c.controller.action_for(action),
