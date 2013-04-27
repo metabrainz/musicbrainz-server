@@ -116,6 +116,10 @@ sub build_display_data
         $data->{isni_codes}{new} = $self->data->{new}{isni_codes};
     }
 
+    if (exists $data->{country} && !exists $data->{area}) {
+        $data->{area} = delete $data->{country};
+    }
+
     return $data;
 }
 
