@@ -29,6 +29,7 @@
 
   <div class="documentation">
     [%- guesscase_bubble() -%]
+    [%- sortname_bubble() -%]
   </div>
 
 </form>
