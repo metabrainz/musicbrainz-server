@@ -86,18 +86,13 @@ sub build_display_data
     $data->{area} = $loaded->{Area}{ $self->data->{entity}{id} }
         || Area->new( name => $self->data->{entity}{name} );
 
-    if (exists $self->data->{new}{begin_date}) {
-        $data->{begin_date} = {
-            new => PartialDate->new($self->data->{new}{begin_date}),
-            old => PartialDate->new($self->data->{old}{begin_date}),
-        };
-    }
-
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
+    for my $date_prop (qw( begin_date end_date )) {
+        if (exists $self->data->{new}{$date_prop}) {
+            $data->{$date_prop} = {
+                new => PartialDate->new($self->data->{new}{$date_prop}),
+                old => PartialDate->new($self->data->{old}{$date_prop}),
+            };
+        }
     }
 
     for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
