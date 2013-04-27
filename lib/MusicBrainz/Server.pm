@@ -316,7 +316,7 @@ around dispatch => sub {
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
             $beta_redirect && !$unset_beta &&
-            $c->req->method == 'GET') {
+            $c->req->method eq 'GET') {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
