@@ -62,7 +62,7 @@ END -%]
     ELSIF type.search('Entity::ReleaseGroup='); rdfa_release_group_curi(entity);
     ELSIF type.search('Entity::Recording='); rdfa_recording_curi(entity);
     ELSIF type.search('Entity::URL='); link_url(entity, action, text);
-    ELSIF type.search('Entity::Area='); link_area(entity, action, text);
+    ELSIF type.search('Entity::Area='); rdfa_area_curi(entity);
     END;
 END -%]
 
@@ -146,7 +146,7 @@ END -%]
     '[mbz:tracklist/' _ tl.id _ '#' _ hash_suffix _ ']';
 END -%]
 
-[%- MACRO rdfa_work_curi(area) BLOCK;
+[%- MACRO rdfa_area_curi(area) BLOCK;
  '[mbz:area/' _ area.gid _ '#' _ hash_suffix _']';
 END -%]
 
@@ -372,6 +372,8 @@ END -%]
     ELSIF type.search('Entity::Work=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     ELSIF type.search('Entity::Label=');
+    '<span property="skos:altLabel">' _ alias _ '</span>';
+    ELSIF type.search('Entity::Area=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     END;
   ELSE;

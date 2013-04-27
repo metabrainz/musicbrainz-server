@@ -27,6 +27,7 @@ use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
@@ -43,6 +44,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
+    area          => 'MusicBrainz::Server::Data::Area',
     label         => 'MusicBrainz::Server::Data::Label',
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
@@ -75,8 +77,8 @@ sub search
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.label_code, entity.country,' if $type eq 'label';
-        $extra_columns .= 'entity.gender, entity.country,' if $type eq 'artist';
+        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
+        $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
         $query = "
             SELECT
@@ -186,6 +188,42 @@ sub search
                 ?
         ";
         $hard_search_limit = int($offset * 1.2);
+    }
+    # Could be merged with artist/label once name tables are killed
+    elsif ($type eq "area") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                entity.name,
+                entity.sort_name,
+                entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day,
+                entity.ended,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM ${type}, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                LEFT JOIN ${type}_alias AS alias ON alias.name = r.name
+                JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
+            GROUP BY
+                entity.id, entity.gid, entity.name, entity.sort_name, entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
+            ORDER BY
+                rank DESC, sort_name, name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
     }
     elsif ($type eq "tag") {
         $query = "

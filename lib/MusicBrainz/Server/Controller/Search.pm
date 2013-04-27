@@ -92,7 +92,7 @@ sub direct : Private
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
-            $c->model('Country')->load(@entities);
+            $c->model('Area')->load(@entities);
             $c->model('Gender')->load(@entities);
         }
         when ('editor') {
@@ -109,7 +109,7 @@ sub direct : Private
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
-            $c->model('Country')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
@@ -138,6 +138,10 @@ sub direct : Private
             $c->model('ISWC')->load_for_works(@entities);
             $c->model('Language')->load(@entities);
             $c->model('WorkType')->load(@entities);
+        }
+        when ('area') {
+            $c->model('Area')->load_codes(@entities);
+            $c->model('AreaType')->load(@entities);
         }
     }
 

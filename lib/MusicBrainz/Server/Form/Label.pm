@@ -28,7 +28,7 @@ has_field 'label_code' => (
     size => 5,
 );
 
-has_field 'country_id' => (
+has_field 'area_id' => (
     type => 'Select',
 );
 
@@ -43,12 +43,12 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name comment type_id country_id period.begin_date
+    return qw( name sort_name comment type_id area_id period.begin_date
                period.end_date period.ended label_code ipi_codes isni_codes );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }
-sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
+sub options_area_id { shift->_select_all('Area', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Label') }
 
