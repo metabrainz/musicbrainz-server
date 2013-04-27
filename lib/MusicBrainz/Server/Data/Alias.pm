@@ -146,15 +146,19 @@ sub insert
 {
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    my %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
+    # Only use name tables if it's not an area
+    my %names;
+    if ($type ne 'area') {
+        %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
+    }
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},
-            name => $names{ $hash->{name} },
+            name => $type ne 'area' ? $names{ $hash->{name} } : $hash->{name},
             locale => $hash->{locale},
-            sort_name => $names{ $hash->{sort_name} },
+            sort_name => $type ne 'area' ? $names{ $hash->{sort_name} } : $hash->{sort_name},
             primary_for_locale => $hash->{primary_for_locale},
             type => $hash->{type_id},
         };
@@ -217,14 +221,17 @@ sub update
     my %row = %$alias_hash;
     delete @row{qw( name begin_date end_date )};
 
-    if (exists $alias_hash->{name}) {
-        my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-        $row{name} = $names{ $alias_hash->{name} };
-    }
+    # Only change to name tables if it's not an area
+    if ($type ne 'area') {
+        if (exists $alias_hash->{name}) {
+            my %names = $self->parent->find_or_insert_names($alias_hash->{name});
+            $row{name} = $names{ $alias_hash->{name} };
+        }
 
-    if (exists $alias_hash->{sort_name}) {
-        my %names = $self->parent->find_or_insert_names($alias_hash->{sort_name});
-        $row{sort_name} = $names{ $alias_hash->{sort_name} };
+        if (exists $alias_hash->{sort_name}) {
+            my %names = $self->parent->find_or_insert_names($alias_hash->{sort_name});
+            $row{sort_name} = $names{ $alias_hash->{sort_name} };
+        }
     }
 
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
@@ -245,12 +252,12 @@ sub exists {
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
-             FROM $table alias
-             JOIN $name_table n ON alias.name = n.id
-             WHERE n.name IS NOT DISTINCT FROM ?
+             FROM $table " .
+             ($type ne 'area' ? "JOIN $name_table name ON $table.name = name.id " : "") .
+             "WHERE " . $self->_name . " IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
-               AND alias.id IS DISTINCT FROM ?
+               AND $table.id IS DISTINCT FROM ?
                AND $type = ?
          )", $alias->{name}, $alias->{locale}, $alias->{type_id}, $alias->{not_id}, $alias->{entity}
     );
