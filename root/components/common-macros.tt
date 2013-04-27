@@ -606,6 +606,7 @@ END -%]
           <option value="release-group">[% l('Release Group') %]</option>
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
+          <option value="area">[% l('Area') %]</option>
         </select>
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
