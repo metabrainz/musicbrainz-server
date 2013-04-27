@@ -477,6 +477,103 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/\/music\/artists\//) != null;
     }
 
+    // allow only Wikipedia pages with the Wikipedia rel
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.work ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.label ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+
+    // allow only Myspace pages with the Myspace rel
+    validationRules[ MB.constants.LINK_TYPES.myspace.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.myspace.label ] = function() {
+        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    }
+
+    // allow only PureVolume pages with the PureVolume rel
+    validationRules[ MB.constants.LINK_TYPES.purevolume.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/purevolume\.com\//) != null;
+    }
+
+    // allow only SecondHandSongs pages with the SecondHandSongs rel
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+
+    // allow only Songfacts pages with the Songfacts rel
+    validationRules[ MB.constants.LINK_TYPES.songfacts.work ] = function() {
+        return $('#id-ar\\.url').val().match(/songfacts\.com\//) != null;
+    }
+
+    // allow only Soundcloud pages with the Soundcloud rel
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.label ] = function() {
+        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    }
+
+    // allow only VIAF pages with the VIAF rel
+    validationRules[ MB.constants.LINK_TYPES.viaf.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.viaf.work ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.viaf.label ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+
+    // allow only VGMdb pages with the VGMdb rel
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+
+    // allow only YouTube pages with the YouTube rel
+    validationRules[ MB.constants.LINK_TYPES.youtube.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.youtube.label ] = function() {
+        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    }
+
+    // allow only Amazon pages with the Amazon rel
+    validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function() {
+        return $('#id-ar\\.url').val().match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
+    }
+
+    // allow only IMDb pages with the IMDb rel
+    validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
