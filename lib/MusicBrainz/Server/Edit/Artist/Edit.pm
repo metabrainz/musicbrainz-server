@@ -96,7 +96,7 @@ sub build_display_data
         country    => [ qw( country_id Area )],
         area       => [ qw( area_id Area )],
         begin_area => [ qw( begin_area_id Area )],
-        end_area   => [ qw( begin_area_id Area )],
+        end_area   => [ qw( end_area_id Area )],
         name       => 'name',
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
