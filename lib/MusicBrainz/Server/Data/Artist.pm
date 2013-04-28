@@ -333,6 +333,8 @@ sub _hash_to_row
 
     my $row = hash_to_row($values, {
         area => 'area_id',
+        begin_area => 'begin_area_id',
+        end_area => 'end_area_id',
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',
