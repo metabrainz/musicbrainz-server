@@ -25,7 +25,6 @@
 
 [%- IF viewing_own_profile -%]
 [%- info_links.push (
-    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
     ['edit_profile', generic_link(c.uri_for_action("/account/edit"), l('Edit Profile'))],
     ['preferences', generic_link(c.uri_for_action("/account/preferences"), l('Preferences'))],
     ['change_password', generic_link(c.uri_for_action("/account/change_password"), l('Change Password'))],
