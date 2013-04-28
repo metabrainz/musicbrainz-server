@@ -116,7 +116,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group" || $type eq "work") {
+    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
@@ -131,9 +131,6 @@ sub search
         $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
             entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
             if ($type eq 'release');
-
-        $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
-            if ($type eq 'work');
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -180,6 +177,37 @@ sub search
                 ?
         ";
         $hard_search_limit = int($offset * 1.2);
+    }
+    elsif ($type eq "work") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                entity.name,
+                entity.type AS type_id,
+                entity.language AS language_id,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) as r
+                LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
+                JOIN ${type} AS entity ON (r.id = entity.name OR alias.${type} = entity.id)
+                JOIN ${type}_name AS aname ON entity.name = aname.id
+            GROUP BY
+                entity.id, entity.gid, entity.name, type_id, language_id
+            ORDER BY
+                rank DESC, name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
     }
     elsif ($type eq "tag") {
         $query = "
