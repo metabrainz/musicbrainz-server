@@ -36,6 +36,16 @@ has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',
 );
 
+has_field 'begin_area_id'   => ( type => 'Hidden' );
+
+has_field 'begin_area'      => ( type => 'Compound' );
+has_field 'begin_area.name' => ( type => 'Text' );
+
+has_field 'end_area_id'   => ( type => 'Hidden' );
+
+has_field 'end_area'      => ( type => 'Compound' );
+has_field 'end_area.name' => ( type => 'Text' );
+
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
     not_nullable => 1

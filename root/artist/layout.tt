@@ -41,6 +41,14 @@
                content=link_area(artist.area)
                class="area"
                    IF artist.area -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Begin Area:')
+               content=link_area(artist.begin_area)
+               class="begin_area"
+                   IF artist.begin_area -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('End Area:')
+               content=link_area(artist.end_area)
+               class="end_area"
+                   IF artist.end_area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_artist_ipi(ipi_code) class="ipi-code" %]
