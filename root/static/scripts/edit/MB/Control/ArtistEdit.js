@@ -120,7 +120,15 @@ MB.Control.ArtistEdit = function () {
     }
 
     MB.Control.EntityAutocomplete ({
-        inputs: $('span.area.autocomplete')
+        inputs: $('#area')
+    });
+
+    MB.Control.EntityAutocomplete ({
+        inputs: $('#begin_area')
+    });
+
+    MB.Control.EntityAutocomplete ({
+        inputs: $('#end_area')
     });
 
     return self;
