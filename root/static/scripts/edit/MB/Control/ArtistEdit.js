@@ -25,6 +25,8 @@ MB.Control.ArtistEdit = function () {
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
     self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
     self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
+    self.$beginarea    = $('#edit-artist\\.begin_area\\.label');
+    self.$endarea    = $('#edit-artist\\.end_area\\.label');
     self.$type   = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
@@ -33,6 +35,11 @@ MB.Control.ArtistEdit = function () {
         self.$begin.text(text[0]);
         self.$end.text(text[1]);
         self.$ended.text(text[2]);
+    };
+
+    self.changeAreaText = function (text) {
+        self.$beginarea.text(text[0]);
+        self.$endarea.text(text[1]);
     };
 
     /* Sets the label descriptions depending upon the artist type:
@@ -46,16 +53,19 @@ MB.Control.ArtistEdit = function () {
             default:
             case '0':
                 self.changeDateText(MB.text.ArtistDate.Unknown);
+                self.changeAreaText(MB.text.ArtistArea.Unknown);
                 self.enableGender();
                 break;
 
             case '1':
                 self.changeDateText(MB.text.ArtistDate.Person);
+                self.changeAreaText(MB.text.ArtistArea.Person);
                 self.enableGender();
                 break;
 
             case '2':
                 self.changeDateText(MB.text.ArtistDate.Founded);
+                self.changeAreaText(MB.text.ArtistArea.Founded);
                 self.disableGender();
                 break;
         }
