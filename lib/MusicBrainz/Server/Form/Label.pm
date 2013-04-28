@@ -28,9 +28,10 @@ has_field 'label_code' => (
     size => 5,
 );
 
-has_field 'area_id' => (
-    type => 'Select',
-);
+has_field 'area_id'   => ( type => 'Hidden' );
+
+has_field 'area'      => ( type => 'Compound' );
+has_field 'area.name' => ( type => 'Text' );
 
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',

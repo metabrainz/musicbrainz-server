@@ -57,7 +57,8 @@ sub entities {
         'ReleaseGroup' => 'release-group',
         'Release' => 'release',
         'Label' => 'label',
-        'URL' => 'url'
+        'URL' => 'url',
+        'Area' => 'area'
     };
 }
 

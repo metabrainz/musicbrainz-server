@@ -12,7 +12,10 @@
   //]]></script>
 [% END %]
 
-[%- WRAPPER 'area/layout.tt' title=l('Add a New Area') full_width=1 page='edit' -%]
-      [%- INCLUDE "area/edit_form.tt" -%]
+[%- WRAPPER 'layout.tt' title=l('Add a New Area') full_width=1 -%]
+    <div id="content">
+        <h1>[%- l('Add a New Area') -%]</h1>
+        [%- INCLUDE "area/edit_form.tt" -%]
+    </div>
 [%- END -%]
 

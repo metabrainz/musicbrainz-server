@@ -593,7 +593,9 @@ END -%]
           # pages
           IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
              entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work');
+             entity.isa('MusicBrainz::Server::Entity::Work') ||
+             entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
+             entity.isa('MusicBrainz::Server::Entity::Area');
              action = 'show';
           END;
           c.uri_for_action(c.controller.action_for(action),
@@ -606,6 +608,7 @@ END -%]
           <option value="release-group">[% l('Release Group') %]</option>
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
+          <option value="area">[% l('Area') %]</option>
         </select>
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />

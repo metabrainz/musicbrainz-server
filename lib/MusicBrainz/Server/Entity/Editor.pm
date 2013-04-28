@@ -140,7 +140,7 @@ sub is_newbie
 sub is_admin
 {
     my $self = shift;
-    return $self->is_relationship_editor || $self->is_wiki_transcluder;
+    return $self->is_relationship_editor || $self->is_wiki_transcluder || $self->is_location_editor;
 }
 
 has 'preferences' => (
