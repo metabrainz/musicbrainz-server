@@ -28,7 +28,7 @@
   </div>
 
   <div class="documentation">
-    [%- guesscase_bubble() -%]
+    [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
   </div>
 
