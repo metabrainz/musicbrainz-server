@@ -44,10 +44,22 @@
         <td>[% edit.display_data.begin_date.format %]</td>
     </tr>
     [% END %]
+    [% IF edit.display_data.begin_area %]
+    <tr>
+        <th>[% l('Begin Area:') %]</th>
+        <td>[% link_entity(edit.display_data.begin_area) %]</td>
+    </tr>
+    [% END %]
     [% IF !edit.display_data.end_date.is_empty %]
     <tr>
         <th>[% artist_end_label_from_type(edit.display_data.type.id) %]</th>
         <td>[% edit.display_data.end_date.format %]</td>
+    </tr>
+    [% END %]
+    [% IF edit.display_data.end_area %]
+    <tr>
+        <th>[% l('End Area:') %]</th>
+        <td>[% link_entity(edit.display_data.end_area) %]</td>
     </tr>
     [% END %]
     <tr>
