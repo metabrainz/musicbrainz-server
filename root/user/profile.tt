@@ -71,7 +71,7 @@
            END; %]
 
         [% IF user.area;
-             WRAPPER property name=l('Area:');
+             WRAPPER property name=l('Location:');
               link_area(user.area);
              END;
            END; %]
