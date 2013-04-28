@@ -27,9 +27,10 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'country_id' => (
-    type => 'Select',
-);
+has_field 'area_id'   => ( type => 'Hidden' );
+
+has_field 'area'      => ( type => 'Compound' );
+has_field 'area.name' => ( type => 'Text' );
 
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',
@@ -42,13 +43,12 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name type_id gender_id country_id period.begin_date
+    return qw( name sort_name type_id gender_id area_id period.begin_date
                period.end_date period.ended comment ipi_codes isni_codes );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
-sub options_country_id  { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

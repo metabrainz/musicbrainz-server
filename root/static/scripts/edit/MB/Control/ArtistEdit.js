@@ -119,6 +119,9 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
+    MB.Control.EntityAutocomplete ({
+        inputs: $('span.area.autocomplete')
+    });
 
     return self;
 };
