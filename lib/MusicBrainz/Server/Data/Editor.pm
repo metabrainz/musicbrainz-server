@@ -57,7 +57,7 @@ sub _column_mapping
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
         gender_id               => 'gender',
-        area_id              => 'area',
+        area_id                 => 'area',
         birth_date              => 'birth_date'
     };
 }

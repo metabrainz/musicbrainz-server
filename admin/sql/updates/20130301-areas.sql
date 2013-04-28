@@ -222,6 +222,8 @@ CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entit
 CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link);
 
+CREATE INDEX area_idx_name_txt ON area USING gin(to_tsvector('mb_simple', name));
+
 -----------------------------
 -- MIGRATE EXISTING TABLES --
 -----------------------------

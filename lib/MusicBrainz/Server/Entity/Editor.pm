@@ -182,6 +182,7 @@ has area_id => (
 
 has area => (
     is => 'rw',
+    isa => 'Area'
 );
 
 sub age {
