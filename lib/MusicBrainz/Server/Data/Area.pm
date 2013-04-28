@@ -81,7 +81,7 @@ sub load
     my ($self, @objs) = @_;
     load_subobjects($self, 'area', @objs);
     load_subobjects($self, 'begin_area', @objs);
-    load_subobjects($self, 'begin_area', @objs);
+    load_subobjects($self, 'end_area', @objs);
     load_subobjects($self, 'country', @objs);
 }
 
