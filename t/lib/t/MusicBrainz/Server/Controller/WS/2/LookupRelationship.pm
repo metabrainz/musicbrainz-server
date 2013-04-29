@@ -75,7 +75,7 @@ ws_test 'release lookup with release relationships',
         <text-representation>
             <language>jpn</language><script>Jpan</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -88,7 +88,7 @@ ws_test 'release lookup with release relationships',
                 <target>b3b7e934-445b-4c68-a097-730c6a6d47e6</target>
                 <attribute-list><attribute>transliterated</attribute></attribute-list>
                 <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                    <title>Summer Reggae! Rainbow</title><date>2001-07-04</date><barcode>4942463511227</barcode>
+                    <title>Summer Reggae! Rainbow</title><date>2001-07-04</date><release-event-list count="1"><release-event><date>2001-07-04</date></release-event></release-event-list><barcode>4942463511227</barcode>
                     <quality>normal</quality>
                 </release>
             </relation>
@@ -199,6 +199,12 @@ ws_test 'release lookup with recording-level relationships',
         </text-representation>
         <date>2008-04-29</date>
         <country>US</country>
+        <release-event-list count="1">
+          <release-event>
+            <date>2008-04-29</date>
+            <country>US</country>
+          </release-event>
+        </release-event-list>
         <barcode>844395014422</barcode>
         <asin>B0015XAAY2</asin>
         <cover-art-archive>

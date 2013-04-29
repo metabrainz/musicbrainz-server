@@ -365,12 +365,24 @@ sub _serialize_release
             if ($release->release_group && $inc->release_groups);
 
     if (my ($earliest_release_event) = $release->all_events) {
-        push @list, $gen->date($earliest_release_event->date->format)
-            if $earliest_release_event->date &&
-                !$earliest_release_event->date->is_empty;
+        my $serialize_release_event = sub {
+            my $event = shift;
+            my @r = ();
+            push @r, $gen->date($event->date->format)
+                if $event->date && !$event->date->is_empty;
 
-        push @list, $gen->country($earliest_release_event->country->iso_code)
-            if $earliest_release_event->country;
+            push @r, $gen->country($event->country->iso_code)
+                if $event->country;
+
+            return @r;
+        };
+
+        push @list, $serialize_release_event->($earliest_release_event);
+        push @list, $gen->release_event_list(
+            $self->_list_attributes({ total => $release->event_count }),
+            map { $gen->release_event($serialize_release_event->($_)) }
+                $release->all_events
+        )
     }
 
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;

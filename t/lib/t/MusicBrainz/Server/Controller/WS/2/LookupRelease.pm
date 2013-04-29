@@ -38,7 +38,7 @@ ws_test 'basic release lookup',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -62,6 +62,12 @@ ws_test 'release lookup, inc=annotation',
         </text-representation>
         <date>2007-01-29</date>
         <country>GB</country>
+        <release-event-list count="1">
+          <release-event>
+            <date>2007-01-29</date>
+            <country>GB</country>
+          </release-event>
+        </release-event-list>
         <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
         <cover-art-archive>
@@ -83,7 +89,7 @@ ws_test 'basic release with tags',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <tag-list>
           <tag count="1"><name>hello project</name></tag>
@@ -107,7 +113,7 @@ ws_test 'basic release with collections',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <collection-list>
             <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
@@ -150,7 +156,7 @@ ws_test 'release lookup with artists + aliases',
                 </artist>
             </name-credit>
         </artist-credit>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -171,7 +177,7 @@ ws_test 'release lookup with labels, recordings and tags',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <label-info-list count="1">
             <label-info>
@@ -258,7 +264,7 @@ ws_test 'release lookup with release-groups',
                 </name-credit>
             </artist-credit>
         </release-group>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -279,7 +285,7 @@ ws_test 'release lookup with discids and puids',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
@@ -339,7 +345,7 @@ ws_test 'release lookup, barcode is NULL',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>1999-09-23</date><country>US</country>
+        <date>1999-09-23</date><country>US</country><release-event-list count="1"><release-event><date>1999-09-23</date><country>US</country></release-event></release-event-list>
         <asin>B00001IVAI</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -360,7 +366,7 @@ ws_test 'release lookup, barcode is empty string',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>1999-09-13</date><country>GB</country>
+        <date>1999-09-13</date><country>GB</country><release-event-list count="1"><release-event><date>1999-09-13</date><country>GB</country></release-event></release-event-list>
         <barcode />
         <cover-art-archive>
             <artwork>false</artwork>
