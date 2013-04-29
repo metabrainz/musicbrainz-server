@@ -1780,7 +1780,14 @@ sub _seed_parameters {
     return collapse_hash($params);
 };
 
-
+sub _filter_deleted_release_events {
+    my (undef, $events) = @_;
+    return [
+        map { delete $_->{deleted}; $_ }
+            grep { !$_->{deleted} }
+                @$events
+    ];
+}
 
 =head1 LICENSE
 

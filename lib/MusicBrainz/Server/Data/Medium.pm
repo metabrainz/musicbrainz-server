@@ -96,24 +96,28 @@ sub find_by_tracklist
 {
     my ($self, $tracklist_id, $limit, $offset) = @_;
     my $query = "
-        SELECT
+        SELECT DISTINCT ON (medium.id)
             medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.tracklist AS m_tracklist,
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
                 release.artist_credit AS r_artist_credit_id,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
+                release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.release_group AS r_release_group
         FROM
             medium
             JOIN release ON release.id = medium.release
             JOIN release_name ON release.name = release_name.id
+            LEFT JOIN (
+              SELECT release, date_year, date_month, date_day
+              FROM release_country
+              UNION
+              SELECT release, date_year, date_month, date_day
+              FROM release_unknown_country
+            ) release_event ON (release_event.release = release.id)
         WHERE medium.tracklist = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+        ORDER BY medium.id, date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {

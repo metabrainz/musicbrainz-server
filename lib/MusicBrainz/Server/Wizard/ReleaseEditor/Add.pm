@@ -183,8 +183,8 @@ augment 'create_edits' => sub
     # add release (and release group if necessary)
     # ----------------------------------------
 
-    my @fields = qw( packaging_id status_id script_id language_id country_id 
-                     artist_credit date as_auto_editor );
+    my @fields = qw( packaging_id status_id script_id language_id
+                     artist_credit as_auto_editor events );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     $add_release_args{name} = trim ($data->{name});
@@ -213,6 +213,11 @@ augment 'create_edits' => sub
     else
     {
         $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
+    if ($add_release_args{events}) {
+        $add_release_args{events} =
+            $self->_filter_deleted_release_events($add_release_args{events});
     }
 
     # Add the release edit

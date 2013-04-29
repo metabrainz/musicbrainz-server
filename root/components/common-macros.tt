@@ -955,3 +955,26 @@ http://[%- server -%]/[%- id -%]
       }) %]">[% l('Edit') %]</a>
   ]
 [%- END -%]
+
+[%- MACRO release_events(release_events) BLOCK;
+      IF release_events.size;
+        '<ul>';
+        FOR event=release_events;
+          '<li>';
+          release_date = rdfa_release_event_date(event.date);
+          country = rdfa_release_country_abbr(event.country);
+          IF event.country AND !event.date.is_empty;
+            l('{date} ({country})',
+              { date => release_date,
+                country => country
+              });
+          ELSIF event.date.is_empty;
+            l('{country} (date unknown)', { country => country });
+          ELSE;
+            l('{date} (unknown)', { date => release_date });
+          END;
+          '</li>';
+        END;
+        '</ul>';
+      END;
+    END -%]

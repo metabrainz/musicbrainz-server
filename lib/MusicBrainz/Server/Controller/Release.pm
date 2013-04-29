@@ -20,6 +20,7 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -80,7 +81,6 @@ after 'load' => sub
     if ($c->action->name ne 'edit') {
         $c->model('ReleaseStatus')->load($release);
         $c->model('ReleasePackaging')->load($release);
-        $c->model('Country')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
         $c->model('ReleaseLabel')->load($release);
@@ -88,6 +88,7 @@ after 'load' => sub
         $c->model('ReleaseGroupType')->load($release->release_group);
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
+        load_release_events($c, $release);
     }
 };
 
@@ -634,11 +635,12 @@ around _merge_submit => sub {
 after 'merge' => sub
 {
     my ($self, $c) = @_;
-    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
-    $c->model('Country')->load(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
-    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
+    my @to_merge = @{ $c->stash->{to_merge} };
+    load_release_events($c, @to_merge);
+    $c->model('Medium')->load_for_releases(@to_merge);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
+    $c->model('ReleaseLabel')->load(@to_merge);
+    $c->model('Label')->load(map { $_->all_labels } @to_merge);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

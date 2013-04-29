@@ -3,7 +3,6 @@ use Moose;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
@@ -103,23 +102,6 @@ has 'barcode' => (
     default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
 
-has 'country_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'country' => (
-    is => 'rw',
-    isa => 'Area'
-);
-
-has 'date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
 has 'language_id' => (
     is => 'rw',
     isa => 'Int'
@@ -170,6 +152,16 @@ has 'mediums' => (
         add_medium => 'push',
         clear_mediums => 'clear',
         medium_count => 'count'
+    }
+);
+
+has events => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        add_event => 'push',
+        all_events => 'elements',
     }
 );
 

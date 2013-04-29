@@ -30,12 +30,15 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{country} = $entity->country
-        ? $entity->country->iso_code : JSON::null;
+
+    if (my ($earliest_event) = $entity->all_events) {
+        $body{date} = $earliest_event->date->format;
+        $body{country} = $earliest_event->country
+            ? $earliest_event->country->iso_code : JSON::null;
+    }
 
     $body{asin} = $entity->amazon_asin;
     $body{barcode} = $entity->barcode->code;
-    $body{date} = $entity->date->format;
     $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
     $body{quality} = _quality ($entity->quality);
