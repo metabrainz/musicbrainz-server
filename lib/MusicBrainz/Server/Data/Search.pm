@@ -139,10 +139,8 @@ sub search
             = ("JOIN ${type} entity ON r.id = entity.name", '');
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
-            $join_sql .= '
-                JOIN medium ON medium.release = entity.id
-                JOIN tracklist ON medium.tracklist = tracklist.id';
-            $where_sql = 'WHERE tracklist.track_count = ?';
+            $join_sql .= ' JOIN medium ON medium.release = entity.id';
+            $where_sql = 'WHERE medium.track_count = ?';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
@@ -332,15 +330,16 @@ sub schema_fixup
         $data->{title} = $data->{name};
         delete $data->{name};
     }
-    if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-count"}))
+    if (($type eq 'cdstub' || $type eq 'freedb')
+        && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
     {
         if (exists $data->{barcode})
         {
             $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
         }
 
-        $data->{track_count} = $data->{"track-count"};
-        delete $data->{"track-count"};
+        $data->{track_count} = $data->{"track-list"}->{count};
+        delete $data->{"track-list"}->{count};
     }
     if ($type eq 'release')
     {
@@ -373,7 +372,7 @@ sub schema_fixup
             for my $medium_data (@{$data->{"medium-list"}->{medium}})
             {
                 my $medium = MusicBrainz::Server::Entity::Medium->new(
-                    track_count => $medium_data->{"track-count"});
+                    track_count => $medium_data->{"track-list"}->{"count"});
 
                 push @{$data->{mediums}}, $medium;
             }
@@ -392,9 +391,9 @@ sub schema_fixup
         {
             my $medium = MusicBrainz::Server::Entity::Medium->new(
                 position  => $release->{"medium-list"}->{medium}->[0]->{"position"},
-                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-count"},
+                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"count"},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-offset"} + 1,
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"offset"} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
                         gid => $data->{gid}
                     )
