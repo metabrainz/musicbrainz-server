@@ -457,6 +457,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/list/a81403',
                     'release'
                 ],
+                // Allmusic
                 [
                     'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     'http://www.allmusic.com/artist/mn0000754032',
@@ -482,6 +483,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
                 ],
+                // iTunes
                 [
                     'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                     'https://itunes.apple.com/artist/id444923726',
@@ -627,8 +629,12 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                ],
+                // Soundtrack Collector
+                [
+                    'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
+                    'http://soundtrackcollector.com/composer/94/',
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
