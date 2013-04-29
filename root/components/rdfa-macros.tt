@@ -67,7 +67,7 @@ END -%]
 END -%]
 
 [%- MACRO rdfa_country_to_curi(country) BLOCK;
- 'http://ontologi.es/place/' _ country.iso_code;
+ 'http://ontologi.es/place/' _ country.primary_code;
 END -%]
 
 [%- MACRO rdfa_format_curi(medium) BLOCK;
@@ -291,7 +291,7 @@ END -%]
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(country) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.iso_code _ '</abbr>';
+ '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.primary_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 

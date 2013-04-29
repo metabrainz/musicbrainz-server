@@ -1261,13 +1261,13 @@ sub find_release_events {
         SELECT release, NULL AS country, date_year, date_month, date_day
         FROM release_unknown_country
       ) release_event
-      LEFT JOIN country ON release_event.country = country.id
+      LEFT JOIN area ON release_event.country = area.id
       WHERE release = any(?)
       ORDER BY
         date_year ASC NULLS LAST,
         date_month ASC NULLS LAST,
         date_day ASC NULLS LAST,
-        musicbrainz_collate(country.name) ASC NULLS LAST
+        musicbrainz_collate(area.name) ASC NULLS LAST
     ";
 
     my $events = $self->sql->select_list_of_hashes($query, \@release_ids);
