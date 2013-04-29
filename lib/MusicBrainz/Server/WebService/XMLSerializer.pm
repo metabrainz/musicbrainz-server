@@ -766,8 +766,24 @@ sub _serialize_area
     my @list;
     push @list, $gen->name($area->name);
     push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
-    # Missing: ISO codes
-
+    if ($area->primary_code) {
+        push @list, $gen->primary_code($area->primary_code);
+    }
+    if ($area->iso_3166_1_codes) {
+        push @list, $gen->iso_3166_1_code_list(map {
+           $gen->iso_3166_1_code($_);
+        } $area->iso_3166_1_codes);
+    }
+    if ($area->iso_3166_2_codes) {
+        push @list, $gen->iso_3166_2_code_list(map {
+           $gen->iso_3166_2_code($_);
+        } $area->iso_3166_2_codes);
+    }
+    if ($area->iso_3166_3_codes) {
+        push @list, $gen->iso_3166_3_code_list(map {
+           $gen->iso_3166_3_code($_);
+        } $area->iso_3166_3_codes);
+    }
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $area, $inc, $opts);
