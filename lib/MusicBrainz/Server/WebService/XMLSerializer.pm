@@ -135,7 +135,7 @@ sub _serialize_artist
     if ($toplevel)
     {
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
-        push @list, $gen->country($artist->country->iso_code) if ($artist->country);
+        push @list, $gen->country($artist->area->primary_code) if $artist->area && $artist->area->primary_code;
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
     }
@@ -719,7 +719,7 @@ sub _serialize_label
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $label, $inc, $opts);
-        push @list, $gen->country($label->country->iso_code) if $label->country;
+        push @list, $gen->country($label->area->primary_code) if $label->area && $label->area->primary_code;
         $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     }
 

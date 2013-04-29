@@ -130,8 +130,7 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
+        $extra_columns .= 'entity.language, entity.script, entity.barcode, entity.release_group,'
             if ($type eq 'release');
 
         $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
@@ -329,7 +328,7 @@ sub schema_fixup
 
     if (exists $data->{country})
     {
-        $data->{country} = $self->c->model('Country')->find_by_code ($data->{country});
+        $data->{country} = $self->c->model('Area')->find_by_iso_3166_1_code ($data->{country});
         delete $data->{country} unless defined $data->{country};
     }
 
