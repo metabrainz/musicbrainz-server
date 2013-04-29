@@ -738,6 +738,67 @@ sub _serialize_label
     push @$data, $gen->label(\%attrs, @list);
 }
 
+sub _serialize_area_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $area (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->area_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_area
+{
+    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($area);
+
+    my %attrs;
+    $attrs{id} = $area->gid;
+    $attrs{type} = $area->type->name if $area->type;
+
+    my @list;
+    push @list, $gen->name($area->name);
+    push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    if ($area->primary_code) {
+        push @list, $gen->primary_code($area->primary_code);
+    }
+    if ($area->iso_3166_1_codes) {
+        push @list, $gen->iso_3166_1_code_list(map {
+           $gen->iso_3166_1_code($_);
+        } $area->iso_3166_1_codes);
+    }
+    if ($area->iso_3166_2_codes) {
+        push @list, $gen->iso_3166_2_code_list(map {
+           $gen->iso_3166_2_code($_);
+        } $area->iso_3166_2_codes);
+    }
+    if ($area->iso_3166_3_codes) {
+        push @list, $gen->iso_3166_3_code_list(map {
+           $gen->iso_3166_3_code($_);
+        } $area->iso_3166_3_codes);
+    }
+    if ($toplevel)
+    {
+        $self->_serialize_annotation(\@list, $gen, $area, $inc, $opts);
+        $self->_serialize_life_span(\@list, $gen, $area, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($area, \@list, $gen, $area->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+
+    push @$data, $gen->area(\%attrs, @list);
+}
+
 sub _serialize_relation_lists
 {
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
@@ -1040,6 +1101,15 @@ sub work_resource
     return $data->[0];
 }
 
+sub area_resource
+{
+    my ($self, $gen, $area, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_area($data, $gen, $area, $inc, $stash, 1);
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1142,6 +1212,16 @@ sub work_list_resource
 
     my $data = [];
     $self->_serialize_work_list($data, $gen, $works, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub area_list_resource
+{
+    my ($self, $gen, $areas, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_area_list($data, $gen, $areas, $inc, $stash, 1);
 
     return $data->[0];
 }
