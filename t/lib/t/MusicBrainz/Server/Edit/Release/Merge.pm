@@ -188,7 +188,7 @@ test 'Old medium and tracks are removed during merge' => sub {
 
     my $release = $c->model('Release')->get_by_gid ('7a906020-72db-11de-8a39-0800200c9a71');
     $c->model('Medium')->load_for_releases ($release);
-    $c->model('Track')->load_for_media($release->all_mediums);
+    $c->model('Track')->load_for_mediums($release->all_mediums);
 
     is ($release->name, "The Prologue (disc 1)", "Release has expected name after merge");
     is ($release->combined_track_count, 1, "Release has 1 track");

@@ -84,7 +84,7 @@ sub initialize {
 
     $self->c->model('Release')->load($medium);
     $self->c->model('ArtistCredit')->load($medium->release);
-    $self->c->model('Track')->load_for_media($medium);
+    $self->c->model('Track')->load_for_mediums($medium);
 
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
 

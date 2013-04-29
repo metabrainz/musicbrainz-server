@@ -63,7 +63,7 @@ sub load
     load_subobjects($self, 'track', @objs);
 }
 
-sub load_for_media
+sub load_for_mediums
 {
     my ($self, @media) = @_;
 

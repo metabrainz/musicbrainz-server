@@ -26,7 +26,7 @@ isa_ok($edit => 'MusicBrainz::Server::Edit::Medium::SetTrackLengths');
 accept_edit($c, $edit);
 
 my $medium = $c->model('Medium')->get_by_id(1);
-$c->model('Track')->load_for_media($medium);
+$c->model('Track')->load_for_mediums($medium);
 is($medium->tracks->[0]->length, 338640);
 is($medium->tracks->[1]->length, 273133);
 is($medium->tracks->[2]->length, 327226);

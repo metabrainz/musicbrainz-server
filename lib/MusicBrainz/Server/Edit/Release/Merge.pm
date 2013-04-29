@@ -60,7 +60,7 @@ sub related_recordings
         my @tracks;
         $self->c->model('Medium')->load_for_releases(@$releases);
         my @mediums = map { $_->all_mediums } @$releases;
-        $self->c->model('Track')->load_for_media(@mediums);
+        $self->c->model('Track')->load_for_mediums(@mediums);
         @tracks = map { $_->all_tracks } @mediums;
         return $self->c->model('Recording')->load(@tracks);
     } else {

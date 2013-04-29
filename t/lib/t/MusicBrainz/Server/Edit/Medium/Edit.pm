@@ -57,7 +57,7 @@ $edit = create_edit($c, $medium);
 accept_edit($c, $edit);
 
 $medium = $medium = $c->model('Medium')->get_by_id(1);
-$c->model('Track')->load_for_media($medium);
+$c->model('Track')->load_for_mediums($medium);
 is($medium->tracks->[0]->name => 'Fluffles');
 is($medium->format_id, 1);
 is($medium->release_id, 1);
@@ -96,7 +96,7 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
     accept_edit($c, $edit1);
 
     $medium = $c->model('Medium')->get_by_id(1);
-    $c->model('Track')->load_for_media($medium);
+    $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
     my $concrete_jungle_id = $medium->tracks->[0]->id;
@@ -128,7 +128,7 @@ test 'Unused tracks are correctly deleted after tracklist changes' => sub {
     accept_edit($c, $edit2);
 
     $medium = $c->model('Medium')->get_by_id(1);
-    $c->model('Track')->load_for_media($medium);
+    $c->model('Track')->load_for_mediums($medium);
 
     is ($medium->tracks->[0]->name, 'CONCRETE JUNGLE (CONCRETE MAN STAGE)', 'First track is CONCRETE JUNGLE (CONCRETE MAN STAGE)');
     is ($medium->tracks->[1]->name, 'PLUG ELECTRIC', 'Second track is PLUG ELECTRIC');
@@ -212,7 +212,7 @@ test 'Ignore edits that dont change the tracklist' => sub {
 
     {
         my $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
         isa_ok exception {
             create_edit($c, $medium, [ $medium->all_tracks ])
@@ -229,7 +229,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Adding a new recording is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
@@ -266,7 +266,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Can change the recording to another existing recording' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $track = $medium->tracks->[0];
@@ -312,7 +312,7 @@ test 'Accept/failure conditions regarding links' => sub {
     # XXX TODO You should be able to do this!
     subtest 'Cannot change to a recording if its merged away (yet)' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $track = $medium->tracks->[0];
@@ -339,7 +339,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Adding a new recording with an existing ID is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
@@ -378,7 +378,7 @@ test 'Accept/failure conditions regarding links' => sub {
 
     subtest 'Changes that dont touch recording IDs can pass merges' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $edit = $c->model('Edit')->create(
@@ -419,7 +419,7 @@ test 'Auto-editing edit medium' => sub {
 
     subtest 'Adding a new recording is successful' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         ok !exception {
@@ -450,7 +450,7 @@ test 'Auto-editing edit medium' => sub {
 
     subtest 'Can change the recording to another existing recording' => sub {
         $medium = $c->model('Medium')->get_by_id(1);
-        $c->model('Track')->load_for_media($medium);
+        $c->model('Track')->load_for_mediums($medium);
         $c->model('ArtistCredit')->load($medium->all_tracks);
 
         my $track = $medium->tracks->[0];

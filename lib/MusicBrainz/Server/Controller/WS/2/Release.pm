@@ -116,7 +116,7 @@ sub release_toplevel
             $c->model('CDTOC')->load (@medium_cdtocs);
         }
 
-        $c->model('Track')->load_for_media(@mediums);
+        $c->model('Track')->load_for_mediums(@mediums);
         $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if ($c->stash->{inc}->artist_credits);
 

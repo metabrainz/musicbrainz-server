@@ -83,7 +83,7 @@ sub load_release {
     my $c = shift;
     my $release = $c->model('Release')->get_by_id(1);
     $c->model('Medium')->load_for_releases($release);
-    $c->model('Track')->load_for_media($release->all_mediums);
+    $c->model('Track')->load_for_mediums($release->all_mediums);
     $c->model('ArtistCredit')->load(
         $release, map { $_->all_tracks } $release->all_mediums);
     return $release;
