@@ -34,7 +34,7 @@ ws_test 'browse releases via artist (paging)',
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>1999-09-23</date><country>US</country>
+            <date>1999-09-23</date><country>US</country><release-event-list count="1"><release-event><date>1999-09-23</date><country>US</country></release-event></release-event-list>
             <asin>B00001IVAI</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -57,7 +57,7 @@ ws_test 'browse releases via label',
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
+            <date>2008-11-17</date><country>GB</country><release-event-list count="1"><release-event><date>2008-11-17</date><country>GB</country></release-event></release-event-list><barcode>600116822123</barcode>
             <asin>B001IKWNCE</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -80,7 +80,7 @@ ws_test 'browse releases via label',
             <text-representation>
                 <language>eng</language><script>Latn</script>
             </text-representation>
-            <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+            <date>2007-01-29</date><country>GB</country><release-event-list count="1"><release-event><date>2007-01-29</date><country>GB</country></release-event></release-event-list><barcode>600116817020</barcode>
             <asin>B000KJTG6K</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -108,7 +108,7 @@ ws_test 'browse releases via release group',
             <text-representation>
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -123,7 +123,7 @@ ws_test 'browse releases via release group',
             <text-representation>
                 <language>jpn</language><script>Latn</script>
             </text-representation>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -149,7 +149,7 @@ ws_test 'browse releases via recording',
             <text-representation>
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
-            <date>2004-01-15</date><country>JP</country><barcode>4988064173891</barcode>
+            <date>2004-01-15</date><country>JP</country><release-event-list count="1"><release-event><date>2004-01-15</date><country>JP</country></release-event></release-event-list><barcode>4988064173891</barcode>
             <asin>B0000YGBSG</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -172,7 +172,7 @@ ws_test 'browse releases via recording',
             <text-representation>
                 <language>jpn</language><script>Jpan</script>
             </text-representation>
-            <date>2004-01-15</date><country>JP</country><barcode>4988064173907</barcode>
+            <date>2004-01-15</date><country>JP</country><release-event-list count="1"><release-event><date>2004-01-15</date><country>JP</country></release-event></release-event-list><barcode>4988064173907</barcode>
             <asin>B0000YG9NS</asin>
             <cover-art-archive>
                 <artwork>false</artwork>
@@ -204,6 +204,12 @@ ws_test 'browse releases via track artist',
       <text-representation><language>eng</language><script>Latn</script></text-representation>
       <date>2004-03-17</date>
       <country>JP</country>
+      <release-event-list count="1">
+        <release-event>
+          <date>2004-03-17</date>
+          <country>JP</country>
+        </release-event>
+      </release-event-list>
       <barcode>4988064451180</barcode>
       <asin>B0001FAD2O</asin>
       <cover-art-archive>

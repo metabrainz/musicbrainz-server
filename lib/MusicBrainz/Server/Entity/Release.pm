@@ -162,6 +162,7 @@ has events => (
     handles => {
         add_event => 'push',
         all_events => 'elements',
+        event_count => 'count'
     }
 );
 
