@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_partial_date
     placeholders
+    object_to_ids
 );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -89,11 +90,11 @@ sub load_codes
 {
     my ($self, @objs) = @_;
 
+    my %obj_id_map = object_to_ids(@objs);
+
     for my $table (@CODE_TYPES) {
         my $all = $table . '_codes';
-
         my $applicable_areas = [ grep { scalar $_->$all == 0 } @objs ];
-        my %areas = map { $_->id => $_ } @$applicable_areas;
 
         my $codes = $self->sql->select_list_of_hashes(
             "SELECT area, code FROM $table WHERE area = any(?)",
@@ -102,7 +103,11 @@ sub load_codes
 
         my $add = 'add_' . $table;
         for my $code (@$codes) {
-            $areas{$code->{area}}->$add($code->{code});
+            if (my $entities = $obj_id_map{ $code->{area} }) {
+               for my $entity (@$entities) {
+                   $entity->$add($code->{code});
+               }
+            }
         }
     }
 }
@@ -225,6 +230,16 @@ sub _merge_impl
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
     return 1;
+}
+
+sub find_by_iso_3166_1_code {
+    my ($self, $code) = @_;
+    my $query = "SELECT iso.code, " . $self->_columns .
+        " FROM iso_3166_1 iso JOIN area ON iso.area = area.id" .
+        " WHERE iso.code = ?";
+
+    my $rows = $self->sql->select_list_of_hashes($query, $code);
+    return $self->_new_from_row($rows->[0]);
 }
 
 sub _hash_to_row
