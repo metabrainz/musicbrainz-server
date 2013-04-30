@@ -5,6 +5,7 @@ use namespace::autoclean;
 use DateTime;
 use Encode qw( encode );
 use MusicBrainz::Server::Entity::Preferences;
+use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
