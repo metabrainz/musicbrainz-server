@@ -65,6 +65,10 @@ test 'release group lookup with releases' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        country => "GB",
+                    }],
                     barcode => "600116822123",
                     packaging => JSON::null,
                     asin => JSON::null,
@@ -133,6 +137,10 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        country => "JP",
+                    }],
                     barcode => "4988064451180",
                     asin => JSON::null,
                     packaging => JSON::null,
