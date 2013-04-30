@@ -170,7 +170,7 @@ sub find_by_artist
       FROM (
         SELECT DISTINCT ON (release.id)
           " . $self->_columns . ",
-          date_year, date_month, date_day, country.name AS country_name
+          date_year, date_month, date_day, area.name AS country_name
         FROM " . $self->_table . "
         JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
         " . join(' ', @$extra_joins) . "
@@ -181,10 +181,10 @@ sub find_by_artist
           SELECT release, NULL, date_year, date_month, date_day
           FROM release_unknown_country
         ) release_event ON release_event.release = release.id
-        LEFT JOIN country ON country.id = release_event.country
+        LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country.name, barcode, musicbrainz_collate(name.name)
+          country_name, barcode, musicbrainz_collate(name.name)
       ) release
       ORDER BY date_year, date_month, date_day,
         country_name, barcode, musicbrainz_collate(name)
@@ -209,7 +209,7 @@ sub find_by_label
         SELECT DISTINCT ON (release.id)
           " . $self->_columns . ",
           date_year, date_month, date_day, catalog_number,
-          country.name AS country_name
+          area.name AS country_name
         FROM " . $self->_table . "
         JOIN release_label ON release_label.release = release.id
         " . join(' ', @$extra_joins) . "
@@ -220,7 +220,7 @@ sub find_by_label
           SELECT release, NULL, date_year, date_month, date_day
           FROM release_unknown_country
         ) release_event ON release_event.release = release.id
-        LEFT JOIN country ON country.id = release_event.country
+        LEFT JOIN area ON area.id = release_event.country
          WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day, catalog_number,
           musicbrainz_collate(name.name), country_name,
@@ -282,7 +282,7 @@ sub find_by_release_group
       SELECT *
       FROM (
         SELECT DISTINCT ON (release.id) " . $self->_columns . ",
-          date_year, date_month, date_day, country.name AS country_name
+          date_year, date_month, date_day, area.name AS country_name
         FROM " . $self->_table . "
         " . join(' ', @$extra_joins) . "
         LEFT JOIN (
@@ -292,10 +292,10 @@ sub find_by_release_group
           SELECT release, NULL, date_year, date_month, date_day
           FROM release_unknown_country
         ) release_event ON release_event.release = release.id
-        LEFT JOIN country ON country.id = release_event.country
+        LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country.name, barcode
+          country_name, barcode
       ) s
       ORDER BY date_year, date_month, date_day,
         country_name, barcode
@@ -343,7 +343,7 @@ sub find_by_track_artist
             SELECT release, NULL, date_year, date_month, date_day
             FROM release_unknown_country
           ) release_event ON release_event.release = release.id
-          LEFT JOIN country ON country.id = release_event.country
+          LEFT JOIN area ON area.id = release_event.country
           WHERE " . join(" AND ", @$conditions) . "
           ORDER BY release.id, date_year, date_month, date_day,
             musicbrainz_collate(name.name)
@@ -429,7 +429,7 @@ sub find_by_recording
           SELECT release, NULL, date_year, date_month, date_day
           FROM release_unknown_country
         ) release_event ON release_event.release = release.id
-        LEFT JOIN country ON country.id = release_event.country
+        LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
           musicbrainz_collate(name.name)
@@ -476,6 +476,41 @@ sub find_by_recordings
     }
 
     return %map;
+}
+
+sub find_by_country
+{
+    my ($self, $country_id, $limit, $offset, %args) = @_;
+
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+
+    push @$conditions, "release_event.country = ?";
+    push @$params, $country_id;
+
+    my $query = "
+      SELECT *
+      FROM (
+        SELECT DISTINCT ON (release.id)
+          " . $self->_columns . ",
+          date_year, date_month, date_day, area.name AS country_name
+        FROM " . $self->_table . "
+        JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
+        " . join(' ', @$extra_joins) . "
+        LEFT JOIN (
+          SELECT release, country, date_year, date_month, date_day
+          FROM release_country
+        ) release_event ON release_event.release = release.id
+        LEFT JOIN area ON area.id = release_event.country
+        WHERE " . join(" AND ", @$conditions) . "
+        ORDER BY release.id, date_year, date_month, date_day,
+          country_name, barcode, musicbrainz_collate(name.name)
+      ) release
+      ORDER BY date_year, date_month, date_day,
+        country_name, barcode, musicbrainz_collate(name)
+      OFFSET ?";
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, @$params, $offset || 0);
 }
 
 sub find_for_cdtoc
@@ -658,10 +693,10 @@ sub find_by_collection
             return "musicbrainz_collate(name.name), date_year, date_month, date_day"
         },
         "country" => sub {
-            $extra_join = "LEFT JOIN country ON release_event.country = country.id";
-            $also_select = "country.name AS country_name";
+            $extra_join = "LEFT JOIN area ON release_event.country = area.id";
+            $also_select = "area.name AS country_name";
             $reorder = "country_name, date_year, date_month, date_day",
-            return "country.name, date_year, date_month, date_day";
+            return "country_name, date_year, date_month, date_day";
         },
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit

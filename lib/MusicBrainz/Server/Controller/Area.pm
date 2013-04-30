@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
@@ -79,7 +80,7 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'area/index.tt');
 }
 
-=head2 show
+=head2 artists
 
 Shows artists for an area.
 
@@ -100,7 +101,7 @@ sub artists : Chained('load')
     $c->stash( artists => $artists );
 }
 
-=head2 show
+=head2 labels
 
 Shows labels for an area.
 
@@ -120,7 +121,31 @@ sub labels : Chained('load')
     $c->stash( labels => $labels );
 }
 
-sub releases : Chained('load') {}
+=head2 releases
+
+Shows releases for an area
+
+=cut
+
+sub releases : Chained('load')
+{
+    my  ($self, $c) = @_;
+
+    my $area = $c->stash->{area};
+    my $releases = $self->_load_paged($c, sub {
+            $c->model('Release')->find_by_country($c->stash->{area}->id, shift, shift);
+        });
+
+    $c->model('ArtistCredit')->load(@$releases);
+    load_release_events($c, @$releases);
+    $c->model('Medium')->load_for_releases(@$releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
+    $c->model('ReleaseLabel')->load(@$releases);
+    $c->stash(
+        template => 'area/releases.tt',
+        releases => $releases,
+    );
+}
 
 =head2 WRITE METHODS
 
