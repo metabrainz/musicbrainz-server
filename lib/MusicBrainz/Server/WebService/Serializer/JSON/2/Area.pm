@@ -1,15 +1,12 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Area;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
@@ -36,7 +33,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2011,2012,2013 MetaBrainz Foundation
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
