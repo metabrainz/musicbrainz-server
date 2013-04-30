@@ -91,22 +91,23 @@ sub load_codes
     my ($self, @objs) = @_;
 
     my %obj_id_map = object_to_ids(@objs);
+    my @all_ids = keys %obj_id_map;
 
-    for my $table (@CODE_TYPES) {
-        my $all = $table . '_codes';
-        my $applicable_areas = [ grep { scalar $_->$all == 0 } @objs ];
+    my $codes = $self->sql->select_list_of_hashes(
+        "SELECT 'iso_3166_1' AS type, code, area FROM iso_3166_1 WHERE area = any(?) UNION ALL
+         SELECT 'iso_3166_2' AS type, code, area FROM iso_3166_2 WHERE area = any(?) UNION ALL
+         SELECT 'iso_3166_3' AS type, code, area FROM iso_3166_3 WHERE area = any(?)",
+        [ @all_ids ], [ @all_ids ], [ @all_ids ]
+    );
 
-        my $codes = $self->sql->select_list_of_hashes(
-            "SELECT area, code FROM $table WHERE area = any(?)",
-            [ map { $_->id } @$applicable_areas ]
-        );
-
-        my $add = 'add_' . $table;
-        for my $code (@$codes) {
-            if (my $entities = $obj_id_map{ $code->{area} }) {
-               for my $entity (@$entities) {
-                   $entity->$add($code->{code});
-               }
+    for my $code (@$codes) {
+        if (my $entities = $obj_id_map{ $code->{area} }) {
+            my $all = $code->{type} . '_codes';
+            my $add = 'add_' . $code->{type};
+            for my $entity (@$entities) {
+                if (!grep { $_ eq $code->{code} } $entity->$all) {
+                    $entity->$add($code->{code});
+                }
             }
         }
     }
