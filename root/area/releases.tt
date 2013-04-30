@@ -4,7 +4,7 @@
     <h2>[% l('Releases') %]</h2>
 
     [%- IF releases.size -%]
-        [%- INCLUDE 'release_group/releases-list.tt' rdfa_made=1 WRAPPER 'components/with-pager.tt' -%]
+        [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
 [%- END -%]
