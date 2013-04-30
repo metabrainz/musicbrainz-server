@@ -251,10 +251,14 @@ CREATE CONSTRAINT TRIGGER remove_orphaned_tracks
     AFTER DELETE OR UPDATE ON track DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE delete_orphaned_recordings();
 
+<<<<<<< HEAD
 CREATE TRIGGER b_upd_tracklist BEFORE UPDATE ON tracklist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_url BEFORE UPDATE ON url
+=======
+CREATE TRIGGER b_upd_url BEFORE UPDATE ON url 
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_work AFTER INSERT ON work

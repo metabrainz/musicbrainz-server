@@ -557,29 +557,29 @@ sub _serialize_medium
     push @med, $gen->format($medium->format->name) if ($medium->format);
     $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
 
-    $self->_serialize_track_list(\@med, $gen, $medium->tracklist, $inc, $stash);
+    $self->_serialize_tracks(\@med, $gen, $medium, $inc, $stash);
 
     push @$data, $gen->medium(@med);
 }
 
-sub _serialize_track_list
+sub _serialize_tracks
 {
-    my ($self, $data, $gen, $tracklist, $inc, $stash) = @_;
+    my ($self, $data, $gen, $medium, $inc, $stash) = @_;
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
     # therefore can be represented as if a query had been performed with
     # limit = 1 and offset = track->position.
 
-    my $min = @{$tracklist->tracks} ? $tracklist->tracks->[0]->position : 0;
+    my $min = @{$medium->tracks} ? $medium->tracks->[0]->position : 0;
     my @list;
-    foreach my $track (nsort_by { $_->position } @{$tracklist->tracks})
+    foreach my $track (nsort_by { $_->position } @{$medium->tracks})
     {
         $min = $track->position if $track->position < $min;
         $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
     }
 
-    my %attr = ( count => $tracklist->track_count );
+    my %attr = ( count => $medium->track_count );
     $attr{offset} = $min - 1 if $min > 0;
 
     push @$data, $gen->track_list(\%attr, @list);

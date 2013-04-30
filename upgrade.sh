@@ -48,6 +48,7 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+<<<<<<< HEAD
 echo `date` : 'MBS-5861, work attributes'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -84,6 +85,10 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-redupli
 
 echo `date` : Applying admin/sql/updates/20120914-isni.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120914-isni.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+=======
+echo `date` : 'MBS-1839, Reduplicate tracklists'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 
 ################################################################################
 # Re-enable replication
@@ -133,6 +138,7 @@ then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
 
+<<<<<<< HEAD
     echo `date` : 'MBS-5861, work attribute foreign keys'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -150,13 +156,24 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Migrate wiki transclusion table'
     OUTPUT=`./admin/sql/updates/20130309-migrate-transclusion-table.pl 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+=======
+    echo `date` : 'MBS-1839, Add track MBID foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-1839, Update track triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-track-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 fi
 
 ################################################################################
 # Bump schema sequence
 
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
+<<<<<<< HEAD
 echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+=======
+#echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 
 ################################################################################
 # Prompt for final manual intervention

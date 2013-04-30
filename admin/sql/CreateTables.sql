@@ -1156,6 +1156,10 @@ CREATE TABLE editor_watch_release_status
 CREATE TABLE medium
 (
     id                  SERIAL,
+<<<<<<< HEAD
+=======
+    track_count         INTEGER NOT NULL DEFAULT 0,
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
     release             INTEGER NOT NULL, -- references release.id
     position            INTEGER NOT NULL,
     format              INTEGER, -- references medium_format.id
@@ -1498,6 +1502,13 @@ CREATE TABLE track
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE track_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references track.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE track_gid_redirect

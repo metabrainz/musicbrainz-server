@@ -209,8 +209,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
            (2, '2a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
            (3, '3a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1);
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO medium (id, release, position, tracklist)
+
+INSERT INTO medium (id, release, position, track_count)
     VALUES (1, 1, 1, 1),
            (2, 2, 1, 1),
            (3, 3, 1, 1);

@@ -19,13 +19,17 @@
                 <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
+<<<<<<< HEAD
                     <th colspan="8">[% group.0.tracklist.medium.release.l_status_name || l('(unknown)') %]</th>
+=======
+                    <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
                   </tr>
                   [%- FOREACH track=group %]
-                    [%- release=track.tracklist.medium.release -%]
+                    [%- release=track.medium.release -%]
                     [% rdfa_recording_hidden_published_as(track) %]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
-		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.tracklist.track_count -%]</td>
+		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
                       <td>[%- rdfa_label_title(track.name) -%]</td>
                       <td>[%- rdfa_recording_duration(track) -%]</td>
                       <td>[%- rdfa_link_release_track(release, track) -%]</td>

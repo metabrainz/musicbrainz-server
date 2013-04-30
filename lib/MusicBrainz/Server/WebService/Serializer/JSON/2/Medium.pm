@@ -21,14 +21,14 @@ sub serialize
         } sort_by { $_->cdtoc->discid } $entity->all_cdtocs ];
     }
 
-    $body{"track-count"} = $entity->tracklist->track_count;
+    $body{"track-count"} = $entity->track_count;
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
     # therefore can be represented as if a query had been performed with
     # limit = 1 and offset = track->position.
 
-    my @tracks = nsort_by { $_->position } @{$entity->tracklist->tracks};
+    my @tracks = nsort_by { $_->position } $entity->all_tracks;
     my $min = scalar @tracks ? $tracks[0]->position : 0;
 
     my @list;
