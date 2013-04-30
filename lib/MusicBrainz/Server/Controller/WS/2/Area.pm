@@ -45,7 +45,7 @@ sub area_toplevel
 
     my $opts = $stash->store ($area);
 
-    $self->linked_labels ($c, $stash, [ $area ]);
+    $self->linked_areas ($c, $stash, [ $area ]);
 
 
     $c->model('Area')->load_codes($area);

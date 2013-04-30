@@ -330,6 +330,29 @@ sub linked_artists
     }
 }
 
+sub linked_areas
+{
+    my ($self, $c, $stash, $areas) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Area')->alias->find_by_entity_id(map { $_->id } @$areas) };
+        $c->model('Area')->alias_type->load(@aliases);
+
+        my %alias_per_area;
+        foreach (@aliases)
+        {
+            $alias_per_area{$_->area_id} = [] unless $alias_per_area{$_->area_id};
+            push @{ $alias_per_area{$_->area_id} }, $_;
+        }
+
+        foreach (@$areas)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_area{$_->id};
+        }
+    }
+}
+
 sub linked_lists
 {
     my ($self, $c, $stash, $lists) = @_;
