@@ -80,17 +80,11 @@ INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (5, '53
 INSERT INTO release_name (id, name)
     VALUES (6, 'The Prologue (disc 1)'), (7, 'The Prologue (disc 2)'),
            (8, 'Subversion EP (disc 1)'), (9, 'Subversion EP (disc 2)');
-<<<<<<< HEAD
-INSERT INTO release (id, gid, name, release_group, artist_credit) VALUES (6, '7a906020-72db-11de-8a39-0800200c9a70', 6, 1, 1), (7, '7a906020-72db-11de-8a39-0800200c9a71', 7, 1, 1), (8, '7a906020-72db-11de-8a39-0800200c9a72', 8, 1, 1), (9, '7a906020-72db-11de-8a39-0800200c9a73', 9, 1, 1);
-;
-INSERT INTO tracklist (id, track_count) VALUES (2, 1), (3, 1), (4, 1), (5, 1);
-=======
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (6, '7a906020-72db-11de-8a39-0800200c9a70', 6, 1, 1),
            (7, '7a906020-72db-11de-8a39-0800200c9a71', 7, 1, 1),
            (8, '7a906020-72db-11de-8a39-0800200c9a72', 8, 1, 1),
            (9, '7a906020-72db-11de-8a39-0800200c9a73', 9, 1, 1);
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (2, '50a772b0-f0cc-11df-98cf-0800200c9a66', 1, 1),
            (3, '5d9cb570-f0cc-11df-98cf-0800200c9a66', 1, 1),

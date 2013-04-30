@@ -242,9 +242,6 @@ ws_test 'single artist release lookup',
 
 ws_test 'various artists release lookup',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
-<<<<<<< HEAD
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-list count="1"><release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7"><title>the Love Bug</title><status>Official</status><quality>normal</quality><text-representation><language>eng</language><script>Latn</script></text-representation><date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode></release></release-list></artist></metadata>';
-=======
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -259,12 +256,12 @@ ws_test 'various artists release lookup',
                 <text-representation><language>eng</language><script>Latn</script></text-representation>
                 <date>2004-03-17</date>
                 <country>JP</country>
+                <release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list>
                 <barcode>4988064451180</barcode>
             </release>
         </release-list>
     </artist>
 </metadata>';
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 
 $mech->get('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=coffee');
 is($mech->status, 400);

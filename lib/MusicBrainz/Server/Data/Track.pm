@@ -89,15 +89,10 @@ sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;
     my $query = "
-<<<<<<< HEAD
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            track.id, track_name.name, track.tracklist, track.position,
-=======
-        SELECT
             track.id, track_name.name, track.medium, track.position,
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
                 track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
@@ -109,12 +104,10 @@ sub find_by_recording
                 release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.edits_pending AS r_edits_pending,
-<<<<<<< HEAD
                 release.comment AS r_comment,
             date_year, date_month, date_day
           FROM track
-          JOIN tracklist ON tracklist.id = track.tracklist
-          JOIN medium ON medium.tracklist = tracklist.id
+          JOIN medium ON medium.id = track.medium
           JOIN release ON release.id = medium.release
           JOIN release_name ON release.name = release_name.id
           JOIN track_name ON track.name = track_name.id
@@ -129,18 +122,8 @@ sub find_by_recording
           ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release_name.name)
         ) s
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
-=======
-                release.comment AS r_comment
-        FROM
-            track
-            JOIN medium ON medium.id = track.medium
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-            JOIN track_name ON track.name = track_name.id
-        WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
         OFFSET ?";
+
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             my $row       = shift;

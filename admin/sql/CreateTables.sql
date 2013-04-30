@@ -1156,10 +1156,7 @@ CREATE TABLE editor_watch_release_status
 CREATE TABLE medium
 (
     id                  SERIAL,
-<<<<<<< HEAD
-=======
     track_count         INTEGER NOT NULL DEFAULT 0,
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
     release             INTEGER NOT NULL, -- references release.id
     position            INTEGER NOT NULL,
     format              INTEGER, -- references medium_format.id

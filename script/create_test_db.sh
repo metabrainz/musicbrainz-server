@@ -25,12 +25,8 @@ echo "
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
-<<<<<<< HEAD
   CREATE SCHEMA cover_art_archive;
   CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public $DATABASE 2>&1
-=======
-  CREATE SCHEMA cover_art_archive;" | ./admin/psql --schema=public $DATABASE 2>&1
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 ` || ( echo "$OUTPUT" && exit 1 )
 
 if [ `compare_postgres_version 9.1` == "older" ]; then
@@ -65,13 +61,10 @@ OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/Cre
 OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-<<<<<<< HEAD
 
 echo `date` : Creating Wikidocs Schema
 OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-=======
->>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
 
 echo `date` : Complete with no errors
 
