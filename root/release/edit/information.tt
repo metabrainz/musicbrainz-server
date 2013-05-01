@@ -61,6 +61,37 @@
     <fieldset>
       <legend>[% l('Release event') %]</legend>
 
+      <div class="event-container" style="padding: 0.5em 0">
+        [% FOR field=form.field('events').fields %]
+        <div class="release-event">
+          [%- country_id = field.field('country_id');
+              date = field.field('date');
+              r.label(date, l('Date:'), class => 'date');
+              r.date(date);
+              '<br>';
+              r.label(country_id, l('Country:'), class => 'country_id' );
+              r.select(country_id, style => 'width: 10em' );
+          %]
+          <span class="remove-event">
+            [%- r.hidden(field.field('deleted')) -%]
+            <a class="icon remove-event" href="#remove_event">
+              <div class="icon img" title="[% l('Remove Event') %]"></div>
+            </a>
+          </span>
+          [%- field_errors(r.form, country_id);
+              field_errors(r.form, date) %]
+        </div>
+        [% END %]
+
+        [% WRAPPER form_row %]
+          <div class="add-event" style="text-align: right; width: 100%; ">
+            <span class="add-event" style="padding: 0 1em;">[% lp('Add Event', 'header') %]</span>
+            <a class="icon add-event" href="#add_event" style="margin-right: 14px;">
+              <div class="icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
+            </a>
+          </div>
+        [% END %]
+      </div>
 
       [% form_row_select (r, 'packaging_id', l('Packaging:')) %]
 
@@ -96,36 +127,6 @@
             <span class="add-label" style="padding: 0 1em;">[% lp('Add Label', 'header') %]</span>
             <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
               <div class="icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
-            </a>
-          </div>
-        [% END %]
-      </div>
-
-      <div class="event-container" style="padding: 0.5em 0">
-        [% FOR field=form.field('events').fields %]
-        <div class="release-event">
-          [%- country_id = field.field('country_id');
-              date = field.field('date');
-              r.label(country_id, l('Country:'), class => 'country_id' );
-              r.select(country_id, style => 'width: 10em' );
-              r.label(date, l('Date:'), class => 'date');
-              r.date(date); %]
-          <span class="remove-event">
-            [%- r.hidden(field.field('deleted')) -%]
-            <a class="icon remove-event" href="#remove_event">
-              <div class="icon img" title="[% l('Remove Event') %]"></div>
-            </a>
-          </span>
-          [%- field_errors(r.form, country_id); 
-              field_errors(r.form, date) %]
-        </div>
-        [% END %]
-
-        [% WRAPPER form_row %]
-          <div class="add-event" style="text-align: right; width: 100%; ">
-            <span class="add-event" style="padding: 0 1em;">[% lp('Add Event', 'header') %]</span>
-            <a class="icon add-event" href="#add_event" style="margin-right: 14px;">
-              <div class="icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
             </a>
           </div>
         [% END %]
