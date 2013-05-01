@@ -48,7 +48,7 @@ $(function() {
             var id = this.id.substr(13);
             var attrDiv = $(this);
             if (attrs[id]) {
-                attrDiv.find(':input').removeAttr('disabled');
+                attrDiv.find(':input').prop('disabled', false);
                 attrDiv.show();
                 has_attributes = true;
                 var attr = attrs[id];
@@ -64,7 +64,7 @@ $(function() {
                 }
             }
             else {
-                attrDiv.find(':input').attr('disabled', 'disabled');
+                attrDiv.find(':input').prop('disabled', true);
                 attrDiv.hide();
             }
         });
@@ -97,7 +97,9 @@ $(function() {
         }
     }
 
-    $('div.ar-attr .selects').each(function() {
+    var $attrContainers = $('div.ar-attr .selects');
+
+    $attrContainers.each(function() {
         var selects = $(this);
         var btn = $(MB.html.input({ type: 'button', value: MB.text.AddAnother} ));
         btn.click(function() {
@@ -131,26 +133,26 @@ $(function() {
         });
     });
 
-    $('a.selectFilterPrev').live('click', function() {
+    var KEY_UP = 37, KEY_LEFT = 38,
+        KEY_DOWN = 40, KEY_RIGHT = 39;
+
+    $attrContainers.on("click", "a.selectFilterPrev", function() {
         var $input = $(this).siblings('input');
         $input.focus();
         filterSelect($input, -1);
         return false;
-    });
-    $('a.selectFilterNext').live('click', function() {
+
+    }).on("click", "a.selectFilterNext", function() {
         var $input = $(this).siblings('input');
         $input.focus();
         filterSelect($input, 1);
         return false;
-    });
-    $('input.removeAttr').live('click', function(ev) {
+
+    }).on("click", "input.removeAttr", function(ev) {
         ev.preventDefault();
         $(this).parent('div').remove();
-    });
 
-    var KEY_UP = 37, KEY_LEFT = 38,
-        KEY_DOWN = 40, KEY_RIGHT = 39;
-    $('input.selectFilter').live('keyup', function(event) {
+    }).on("keyup", "input.selectFilter", function(event) {
         var $input = $(this);
         if (event.keyCode == KEY_UP || event.keyCode == KEY_LEFT) {
             filterSelect($input, -1);

@@ -184,16 +184,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         return request;
     };
 
-    self.resultHook = function (data) {
-
-        data.push ({
-            "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedEntity['artist']
-        });
-
-        return data;
-    };
-
     self.nameBlurred = function(event) {
         /* mark the field as having an error if no lookup was
          * performed for this artist name. */
@@ -406,8 +396,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
-        'lookupHook': self.lookupHook,
-        'resultHook': self.resultHook
+        'lookupHook': self.lookupHook
     }).initialize ();
 
     if (obj === null)
@@ -469,8 +458,7 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
-            'lookupHook': self.lookupHook,
-            'resultHook': self.resultHook
+            'lookupHook': self.lookupHook
         }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
@@ -524,16 +512,6 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         self.$artist_input.removeClass ('error');
 
         return request;
-    };
-
-    self.resultHook = function (data) {
-
-        data.push ({
-            "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedEntity['artist']
-        });
-
-        return data;
     };
 
     self.addArtistBox = function () {
@@ -756,12 +734,12 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         if (self.box.length > 1 || self.box[0].hasCredit ())
             return;
 
-        $target.removeAttr ('disabled');
+        $target.prop('disabled', false);
         $target.closest ('span.autocomplete').removeClass ('disabled');
     };
 
     self.disableTarget = function () {
-        $target.attr ('disabled', 'disabled');
+        $target.prop('disabled', true);
         $target.closest ('span.autocomplete').addClass ('disabled');
     };
 

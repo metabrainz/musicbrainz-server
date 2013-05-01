@@ -340,18 +340,7 @@ MB.GuessCase.Main = function () {
         }
 
         $.each (options, function (key, value) {
-            var $checkbox = $('#gc-' + key);
-            if ($checkbox.length)
-            {
-                if (value)
-                {
-                    $checkbox.attr ('checked', 'checked');
-                }
-                else
-                {
-                    $checkbox.removeAttr ('checked');
-                }
-            }
+            $('#gc-' + key).prop('checked', Boolean(value));
         });
     };
 
