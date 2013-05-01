@@ -110,7 +110,7 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
 
     $c->model('Release')->load($medium);
 
-    $c->model('Track')->load_for_media($medium);
+    $c->model('Track')->load_for_mediums($medium);
     $c->model('Recording')->load($medium->all_tracks);
     $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 

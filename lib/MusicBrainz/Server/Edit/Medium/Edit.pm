@@ -159,7 +159,7 @@ sub initialize
         };
 
         if ($tracklist) {
-            $self->c->model('Track')->load_for_media ($entity);
+            $self->c->model('Track')->load_for_mediums ($entity);
             $self->c->model('ArtistCredit')->load ($entity->all_tracks);
 
             my $old = tracks_to_hash($entity->tracks);
@@ -310,7 +310,7 @@ sub accept {
 
     if ($data_new_tracklist) {
         my $medium = $self->c->model('Medium')->get_by_id($self->medium_id);
-        $self->c->model('Track')->load_for_media($medium);
+        $self->c->model('Track')->load_for_mediums($medium);
         $self->c->model('ArtistCredit')->load($medium->all_tracks);
 
         # Make sure we aren't using undef for any new recording IDs, as it will merge incorrectly

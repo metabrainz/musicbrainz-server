@@ -155,7 +155,7 @@ sub accept {
 
     if ($self->data->{update_tracklists}) {
         $self->c->model('Medium')->load_for_releases($release);
-        $self->c->model('Track')->load_for_media($release->all_mediums);
+        $self->c->model('Track')->load_for_mediums($release->all_mediums);
         $self->c->model('ArtistCredit')->load(
             map { $_->all_tracks } $release->all_mediums);
 

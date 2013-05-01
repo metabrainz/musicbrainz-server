@@ -71,7 +71,7 @@ sub initialize
 
     my $medium = $args{medium} or die 'Missing required medium object';
 
-    $self->c->model('Track')->load_for_media ($medium);
+    $self->c->model('Track')->load_for_mediums ($medium);
     $self->c->model('ArtistCredit')->load ($medium->all_tracks);
 
     $self->data({

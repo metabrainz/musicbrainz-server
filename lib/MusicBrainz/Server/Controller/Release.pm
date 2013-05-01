@@ -164,7 +164,7 @@ sub show : Chained('load') PathPart('')
     my $release = $c->stash->{release};
 
     my @mediums = $release->all_mediums;
-    $c->model('Track')->load_for_media(@mediums);
+    $c->model('Track')->load_for_mediums(@mediums);
 
     my @tracks = map { $_->all_tracks } @mediums;
     my @recordings = $c->model('Recording')->load(@tracks);
@@ -506,7 +506,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub _merge_form_arguments {
     my ($self, $c, @releases) = @_;
     $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Track')->load_for_media(map { $_->all_mediums } @releases);
+    $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
     $c->model('Recording')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
     $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
 

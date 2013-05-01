@@ -90,7 +90,7 @@ around 'search' => sub
             $c->model('Country')->load(@releases);
             $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
-            $c->model('Track')->load_for_media(@mediums);
+            $c->model('Track')->load_for_mediums(@mediums);
             $c->model('Recording')->load(map { $_->all_tracks } @mediums);
 
             my @need_artists = (@releases, map { $_->all_tracks } @mediums);
@@ -155,7 +155,7 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Medium')->load_for_releases($release);
 
         my @mediums = $release->all_mediums;
-        $c->model('Track')->load_for_media(@mediums);
+        $c->model('Track')->load_for_mediums(@mediums);
         $c->model('Recording')->load(map { $_->all_tracks } @mediums);
         $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if $c->stash->{inc}->artist;
