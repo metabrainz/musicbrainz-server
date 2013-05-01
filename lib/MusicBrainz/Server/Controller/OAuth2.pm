@@ -325,13 +325,16 @@ sub userinfo : Local
 {
     my ($self, $c) = @_;
 
-    # http://openid.net/specs/openid-connect-basic-1_0.html#userinfo
+    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
 
     $c->authenticate({}, 'musicbrainz.org');
     $self->_send_error($c, 'invalid_token', 'Invalid value')
         unless $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
 
     $c->model('Gender')->load($c->user);
+
+    # http://openid.net/specs/openid-connect-basic-1_0.html#userinfo
 
     my $data = {
         sub => $c->user->name,
