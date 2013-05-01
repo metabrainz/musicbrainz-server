@@ -5,7 +5,7 @@ library:     jQuery
 license:     MIT
 version:     1.9.1
 author:      jQuery Foundation and other contributors
-		     (https://github.com/jquery/jquery/blob/master/AUTHORS.txt)
+             (https://github.com/jquery/jquery/blob/master/AUTHORS.txt)
 url:         http://jquery.com
 
 -- jquery.ui/ --
