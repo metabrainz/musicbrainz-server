@@ -1154,22 +1154,12 @@ sub _edit_release_track_edits
             $opts->{name} = trim ($new->{name}) if $new->{name};
             $opts->{format_id} = $new->{format_id} if $new->{format_id};
 
-            if ($new->{tracks}) {
-                $self->c->model('Artist')->load_for_artist_credits (
-                    map { $_->artist_credit } @{ $new->{tracks} });
-                $opts->{tracklist} = $new->{tracks};
-            }
-            elsif (my $tracklist_id = $new->{tracklist_id}) {
-                my $tracklist_entity = $self->c->model('Tracklist')->get_by_id($tracklist_id);
-                $self->c->model('Track')->load_for_tracklists($tracklist_entity);
-                $self->c->model('ArtistCredit')->load($tracklist_entity->all_tracks);
-                $self->c->model('Artist')->load_for_artist_credits (
-                    map { $_->artist_credit } $tracklist_entity->all_tracks);
-                $opts->{tracklist} = $tracklist_entity->tracks;
-            }
-            else {
-                die "Medium data does not contain sufficient information to create a tracklist";
-            }
+            die "Medium data does not contain sufficient information to create a tracklist"
+                unless $new->{tracks};
+
+            $self->c->model('Artist')->load_for_artist_credits (
+                map { $_->artist_credit } @{ $new->{tracks} });
+            $opts->{tracklist} = $new->{tracks};
 
             # Add medium
             my $add_medium = $create_edit->($EDIT_MEDIUM_CREATE, $editnote, %$opts);
