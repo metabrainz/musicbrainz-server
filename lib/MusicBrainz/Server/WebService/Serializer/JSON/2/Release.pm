@@ -35,8 +35,8 @@ sub serialize
         my $add_release_event = sub {
             my ($release_event, $target) = @_;
             $target->{date} = $release_event->date->format;
-            $target->{country} = $release_event->country
-                ? $release_event->country->iso_code : JSON::null;
+            $target->{area} = $release_event->country
+                ? serialize_entity($release_event->country) : JSON::null;
             return $target;
         };
 
