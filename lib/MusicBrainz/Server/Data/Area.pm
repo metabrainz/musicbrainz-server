@@ -210,6 +210,7 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('area', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
+    $self->merge_codes($new_id, @old_ids);
 
     merge_table_attributes(
         $self->sql => (
@@ -231,6 +232,21 @@ sub _merge_impl
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
     return 1;
+}
+
+sub merge_codes
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    my @ids = ($new_id, @old_ids);
+
+    for my $type (@CODE_TYPES) {
+        # No work needed to keep codes distinct, as `code` is the PK
+        # Simply move everything to the new area
+        $self->sql->do('UPDATE ' . $type . ' SET area = ?
+                  WHERE area IN ('.placeholders(@old_ids).')',
+                  $new_id, @old_ids);
+    }
 }
 
 sub find_by_iso_3166_1_code {
