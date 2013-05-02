@@ -333,6 +333,7 @@ sub userinfo : Local
         unless $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
 
     $c->model('Gender')->load($c->user);
+    $c->model('Editor')->load_preferences($c->user);
 
     # http://openid.net/specs/openid-connect-basic-1_0.html#userinfo
 
@@ -347,6 +348,10 @@ sub userinfo : Local
 
     if ($c->user->gender_id) {
         $data->{gender} = lc($c->user->gender->name);
+    }
+
+    if ($c->user->preferences->timezone) {
+        $data->{zoneinfo} = $c->user->preferences->timezone;
     }
 
     if ($c->user->is_authorized($ACCESS_SCOPE_EMAIL) && $c->user->has_email_address) {

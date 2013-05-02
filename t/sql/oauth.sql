@@ -6,6 +6,7 @@ INSERT INTO editor (id, name, password)
 INSERT INTO gender (id, name) VALUES (1, 'female');
 
 UPDATE editor SET website='http://www.mysite.com/', gender=1, email='me@mysite.com', email_confirm_date=now() WHERE id=1;
+INSERT INTO editor_preference (editor, name, value) VALUES (1, 'timezone', 'Europe/Bratislava');
 
 INSERT INTO application (id, owner, name, oauth_id, oauth_secret, oauth_redirect_uri)
    VALUES (1, 1, 'Test Desktop', 'id-desktop', 'id-desktop-secret', NULL),

@@ -511,6 +511,7 @@ test 'User info' => sub {
         profile => 'http://localhost/user/editor1',
         website => 'http://www.mysite.com/',
         gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
         email => 'me@mysite.com',
         email_verified => JSON::true,
     });
@@ -525,6 +526,7 @@ test 'User info' => sub {
         profile => 'http://localhost/user/editor1',
         website => 'http://www.mysite.com/',
         gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
     });
 };
 
