@@ -33,8 +33,7 @@ sub authorize : Local Args(0) RequireAuth
 {
     my ($self, $c) = @_;
 
-    $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    $self->_enforce_tls_html($c);
 
     my %params;
     my %defaults = ( access_type => 'online', approval_prompt => 'auto' );
@@ -97,8 +96,7 @@ sub oob : Local Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    $self->_enforce_tls_html($c);
 
     my $code = $c->request->params->{code};
     my $token = $c->model('EditorOAuthToken')->get_by_authorization_code($code);
@@ -118,8 +116,7 @@ sub token : Local Args(0)
 {
     my ($self, $c) = @_;
 
-    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    $self->_enforce_tls($c);
 
     $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
         if $c->request->method ne 'POST';
@@ -274,6 +271,22 @@ sub _send_redirect_response
     $c->detach;
 }
 
+sub _enforce_tls
+{
+    my ($self, $c) = @_;
+
+    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+}
+
+sub _enforce_tls_html
+{
+    my ($self, $c) = @_;
+
+    $self->_send_html_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
+        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+}
+
 sub _check_redirect_uri
 {
     my ($self, $application, $redirect_uri) = @_;
@@ -292,8 +305,7 @@ sub tokeninfo : Local
 {
     my ($self, $c) = @_;
 
-    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    $self->_enforce_tls($c);
 
     my $access_token = $c->request->params->{access_token};
     my $token = $c->model('EditorOAuthToken')->get_by_access_token($access_token);
@@ -325,8 +337,7 @@ sub userinfo : Local
 {
     my ($self, $c) = @_;
 
-    $self->_send_error($c, 'invalid_request', 'Invalid protocol, only HTTPS is allowed')
-        if DBDefs->OAUTH2_ENFORCE_TLS && !$c->request->secure;
+    $self->_enforce_tls($c);
 
     $c->authenticate({}, 'musicbrainz.org');
     $self->_send_error($c, 'invalid_token', 'Invalid value')
