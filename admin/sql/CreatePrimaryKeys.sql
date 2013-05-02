@@ -31,6 +31,7 @@ ALTER TABLE cdtoc_raw ADD CONSTRAINT cdtoc_raw_pkey PRIMARY KEY (id);
 ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country_area ADD CONSTRAINT country_area_pkey PRIMARY KEY (area);
 ALTER TABLE edit ADD CONSTRAINT edit_pkey PRIMARY KEY (id);
+ALTER TABLE edit_area ADD CONSTRAINT edit_area_pkey PRIMARY KEY (edit, area);
 ALTER TABLE edit_artist ADD CONSTRAINT edit_artist_pkey PRIMARY KEY (edit, artist);
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_pkey PRIMARY KEY (edit, label);
 ALTER TABLE edit_note ADD CONSTRAINT edit_note_pkey PRIMARY KEY (id);

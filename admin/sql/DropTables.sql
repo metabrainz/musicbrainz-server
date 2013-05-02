@@ -31,6 +31,7 @@ DROP TABLE cdtoc_raw;
 DROP TABLE clientversion;
 DROP TABLE country_area;
 DROP TABLE edit;
+DROP TABLE edit_area;
 DROP TABLE edit_artist;
 DROP TABLE edit_label;
 DROP TABLE edit_note;

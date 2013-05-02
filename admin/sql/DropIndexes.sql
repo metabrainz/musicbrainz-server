@@ -30,6 +30,7 @@ DROP INDEX cdtoc_idx_freedb_id;
 DROP INDEX cdtoc_raw_discid;
 DROP INDEX cdtoc_raw_toc;
 DROP INDEX cdtoc_raw_track_offset;
+DROP INDEX edit_area_idx;
 DROP INDEX edit_artist_idx;
 DROP INDEX edit_artist_idx_status;
 DROP INDEX edit_close_time_date;

@@ -337,6 +337,12 @@ CREATE TABLE edit_note
     post_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE edit_area
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    area                INTEGER NOT NULL  -- PK, references area.id CASCADE
+);
+
 CREATE TABLE edit_artist
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id
