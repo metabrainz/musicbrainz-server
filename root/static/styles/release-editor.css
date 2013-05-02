@@ -9,11 +9,16 @@ h1 span {
 
 #release-editor div.artist-credit label,
 #release-editor div.release-label label.label-name,
-#release-editor div.release-event label.country_id {
+#release-editor div.release-event label.country_id,
+#release-editor div.release-event label.date {
     float: left;
     margin-right: 12px;
     text-align: right;
-    width: 132px;
+    width: 100px;
+}
+
+#release-editor div.release-event span.partial-date {
+    margin: 11px;
 }
 
 #release-editor div.release-label input[disabled] {
@@ -24,14 +29,19 @@ h1 span {
 
 #release-editor tr.artist-credit-box input[type=text] { width: 200px; }
 
-#release-editor div.release-label { margin: 6px 0; }
+#release-editor div.release-label,
+#release-editor div.release-event { 
+    margin: 0; 
+}
+
 #release-editor div.release-label input.name { width: 134px; }
 #release-editor div.release-label label.catno {
+    float: none;
     text-align: right;
-    display: inline-block;
     width: 40px;
     padding: 0 4px 0 10px;
 }
+
 #release-editor div.release-label input.catno { width: 86px; }
 
 #release-editor div.release-label input.label-name,
@@ -42,8 +52,12 @@ h1 span {
 
 #release-editor fieldset select#id-language_id,
 #release-editor fieldset select#id-script_id {
-    width: 180px;
+    width: 220px;
     font-weight: bold;
+}
+
+#release-editor .country_select {
+    width: 220px;
 }
 
 #release-editor fieldset input[type=text],

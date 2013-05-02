@@ -64,20 +64,22 @@
       <div class="event-container" style="padding: 0.5em 0">
         [% FOR field=form.field('events').fields %]
         <div class="release-event">
-          [%- country_id = field.field('country_id');
-              date = field.field('date');
+           [% WRAPPER form_row %]
+              [%- date = field.field('date');
               r.label(date, l('Date:'), class => 'date');
-              r.date(date);
-              '<br>';
+              r.date(date); -%]
+           [% END %]
+           [% WRAPPER form_row %]
+              [%- country_id = field.field('country_id');
               r.label(country_id, l('Country:'), class => 'country_id' );
-              r.select(country_id, style => 'width: 10em' );
-          %]
-          <span class="remove-event">
-            [%- r.hidden(field.field('deleted')) -%]
-            <a class="icon remove-event" href="#remove_event">
-              <div class="icon img" title="[% l('Remove Event') %]"></div>
-            </a>
-          </span>
+              r.select(country_id, class => 'country_select' ); -%]
+              <span class="remove-event">
+                [%- r.hidden(field.field('deleted')) -%]
+                <a class="icon remove-event" href="#remove_event">
+                  <div class="icon img" title="[% l('Remove Event') %]"></div>
+                </a>
+              </span>
+            [% END %]
           [%- field_errors(r.form, country_id);
               field_errors(r.form, date) %]
         </div>
@@ -97,29 +99,31 @@
 
       <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
-        <div class="release-label">
-          [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
-          <span class="label autocomplete">
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            [% label_id = field.field('label_id').value %]
-            [% label = labels_by_id.$label_id %]
-            <input type="hidden" class="gid" value="[% label.gid | html %]" />
-            <input type="hidden" class="comment" value="[% label.comment | html %]" />
-            <input type="hidden" class="sortname" value="[% label.sort_name | html %]" />
-            [%- r.hidden(field.field('label_id'), class => 'id') -%]
-            [%- r.text(field.field('name'), class => 'name') -%]
-          </span>
-          [%- r.label(field.field('catalog_number'), l('Cat.No:'), class => 'catno') -%]
-          [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
+          [% WRAPPER form_row %]
+           <div class="release-label">
+            [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
+            <span class="label autocomplete">
+              <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+              [% label_id = field.field('label_id').value %]
+              [% label = labels_by_id.$label_id %]
+              <input type="hidden" class="gid" value="[% label.gid | html %]" />
+              <input type="hidden" class="comment" value="[% label.comment | html %]" />
+              <input type="hidden" class="sortname" value="[% label.sort_name | html %]" />
+              [%- r.hidden(field.field('label_id'), class => 'id') -%]
+              [%- r.text(field.field('name'), class => 'name') -%]
+            </span>
+            [%- r.label(field.field('catalog_number'), l('Cat. No:'), class => 'catno') -%]
+            [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
 
-          <span class="remove-label">
-            [%- r.hidden(field.field('deleted')) -%]
-            <a class="icon remove-label" href="#remove_label">
-              <div class="icon img" title="[% l('Remove Label') %]"></div>
-            </a>
-          </span>
+            <span class="remove-label">
+              [%- r.hidden(field.field('deleted')) -%]
+              <a class="icon remove-label" href="#remove_label">
+                <div class="icon img" title="[% l('Remove Label') %]"></div>
+              </a>
+            </span>
 
-        </div>
+           </div>
+          [% END %]
         [% END %]
 
         [% WRAPPER form_row %]
