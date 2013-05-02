@@ -374,8 +374,7 @@ sub _serialize_release
             push @r, $gen->date($event->date->format)
                 if $event->date && !$event->date->is_empty;
 
-            push @r, $gen->country($event->country->iso_code)
-                if $event->country;
+            $self->_serialize_area(\@r, $gen, $event->country, $inc, $stash, $toplevel) if $event->country;
 
             return @r;
         };
