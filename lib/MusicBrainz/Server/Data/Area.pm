@@ -90,7 +90,7 @@ sub load_codes
 {
     my ($self, @objs) = @_;
 
-    my %obj_id_map = object_to_ids(@objs);
+    my %obj_id_map = object_to_ids(grep { defined } @objs);
     my @all_ids = keys %obj_id_map;
 
     my $codes = $self->sql->select_list_of_hashes(
