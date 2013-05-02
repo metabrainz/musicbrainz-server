@@ -136,6 +136,9 @@ sub _serialize_artist
     {
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
         push @list, $gen->country($artist->area->primary_code) if $artist->area && $artist->area->primary_code;
+        $self->_serialize_area(\@list, $gen, $artist->area, $inc, $stash, $toplevel) if $artist->area;
+        $self->_serialize_begin_area(\@list, $gen, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
+        $self->_serialize_end_area(\@list, $gen, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
 
         $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
     }
@@ -739,6 +742,7 @@ sub _serialize_label
     {
         $self->_serialize_annotation(\@list, $gen, $label, $inc, $opts);
         push @list, $gen->country($label->area->primary_code) if $label->area && $label->area->primary_code;
+        $self->_serialize_area(\@list, $gen, $label->area, $inc, $stash, $toplevel) if $label->area;
         $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     }
 
@@ -772,7 +776,7 @@ sub _serialize_area_list
     }
 }
 
-sub _serialize_area
+sub _serialize_area_inner
 {
     my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
 
@@ -815,7 +819,34 @@ sub _serialize_area
     $self->_serialize_relation_lists($area, \@list, $gen, $area->relationships, $inc, $stash) if ($inc->has_rels);
     $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
 
-    push @$data, $gen->area(\%attrs, @list);
+    return (\%attrs, @list);
+}
+
+sub _serialize_area
+{
+    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+
+    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
+
+    push @$data, $gen->area($attrs, @list);
+}
+
+sub _serialize_begin_area
+{
+    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+
+    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
+
+    push @$data, $gen->begin_area($attrs, @list);
+}
+
+sub _serialize_end_area
+{
+    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+
+    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
+
+    push @$data, $gen->end_area($attrs, @list);
 }
 
 sub _serialize_relation_lists
