@@ -141,6 +141,7 @@ sub releases : Chained('load')
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
+    $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->stash(
         template => 'area/releases.tt',
         releases => $releases,

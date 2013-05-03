@@ -123,6 +123,7 @@ sub find_by_recording
         ) s
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
         OFFSET ?";
+
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
             my $row       = shift;

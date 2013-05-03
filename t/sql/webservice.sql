@@ -98,7 +98,11 @@ INSERT INTO clientversion (created, id, version) VALUES ('2011-01-18 15:21:33.71
 INSERT INTO puid (id, puid, version) VALUES (679814, 'cdec3fe2-0473-073c-3cbb-bfb0c01a87ff', 130);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5333297, 679814, 4223059);
 INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4255, 'JPA600102450', 4223059, 0);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 4223059;
 INSERT INTO track_name (id, name) VALUES (4804827, 'HELLO! また会おうね (7人祭 version)');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (265420, '', 0, '487cac92-eed5-4efa-8563-c9a818079b9a', 4223060, NULL, 213106, 4804827);
@@ -250,7 +254,11 @@ INSERT INTO puid (id, puid, version) VALUES (86037, '138f0487-85eb-5fe9-355d-9b9
 INSERT INTO puid (id, puid, version) VALUES (310223, '59963809-99c6-86c8-246a-85c1779bed07', 1);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4464373, 86037, 1542682);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 399193, 310223, 1542682);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 1542682;
 INSERT INTO track_name (id, name) VALUES (4885949, 'Top & Low Rent');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (11545, '', 0, '8920288e-7541-48a7-b23b-f80447c8b1ab', 1542683, NULL, 230506, 4885949);
@@ -502,7 +510,11 @@ INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_upda
 INSERT INTO clientversion (created, id, version) VALUES ('2011-01-18 15:21:33.71184+00', 140, 'MusicBrainz Picard-0.7.2');
 INSERT INTO puid (id, puid, version) VALUES (1582677, '3f8c1f24-428e-c2d8-6456-b5f41a63bee2', 140);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 3948009, 1582677, 6750260);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 6750260;
 INSERT INTO track_name (id, name) VALUES (3492776, 'My Demons');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (427385, '', 0, '290792d5-5b32-4ba7-bd06-272589ab9669', 6750261, NULL, 291000, 3492776);
@@ -647,7 +659,11 @@ INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_upda
 INSERT INTO clientversion (created, id, version) VALUES ('2011-01-18 15:21:33.71184+00', 194, 'MusicBrainz Picard-0.10');
 INSERT INTO puid (id, puid, version) VALUES (3015596, 'cd3710ed-dbaa-1e71-a6ad-27e8cdd58c98', 194);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 3788564, 3015596, 8509231);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8509231;
 INSERT INTO track_name (id, name) VALUES (1389798, 'Out of Mind');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (427385, '', 0, '1468c415-12bd-4fb9-b9e9-ca8d3f1df161', 8509232, NULL, 340626, 1389798);
@@ -857,7 +873,11 @@ INSERT INTO artist_alias (artist, begin_date_day, begin_date_month, begin_date_y
 INSERT INTO artist_alias (artist, begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (9496, NULL, NULL, NULL, 0, NULL, NULL, NULL, 11902, '2011-01-18 15:20:17.74049+00', NULL, 430210, '0', 430210, NULL);
 INSERT INTO artist_alias (artist, begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (9496, NULL, NULL, NULL, 0, NULL, NULL, NULL, 11901, '2011-01-18 15:20:17.74049+00', NULL, 474655, '0', 474655, NULL);
 INSERT INTO artist_alias (artist, begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (9496, NULL, NULL, NULL, 0, NULL, NULL, NULL, 18652, '2011-01-18 15:20:17.74049+00', NULL, 316395, '0', 316395, NULL);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE artist_meta SET rating_count = 3, rating = 87 WHERE id = 9496;
 INSERT INTO tag (id, name, ref_count) VALUES (558, 'kpop', 45);
 INSERT INTO tag (id, name, ref_count) VALUES (741, 'jpop', 150);
@@ -902,7 +922,11 @@ INSERT INTO track_name (id, name) VALUES (1041200, 'the Love Bug (cover)');
 INSERT INTO artist_name (id, name) VALUES (672240, 'BAGDAD CAFE THE trench town');
 INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES (1, '2011-01-18 16:24:02.551922+00', 283833, 672240, 53);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '97fa3f6e-557c-4227-bc0e-95a7f9f3285d', 283833, NULL, 672240, 672240, NULL);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 283833;
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (283833, 283833, '', 672240, 0);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (283833, '', 0, '3f33fc37-43d0-44dc-bfd6-60efd38810c5', 4525011, NULL, 333000, 1041200);
@@ -978,7 +1002,11 @@ INSERT INTO clientversion (created, id, version) VALUES ('2011-01-18 15:21:33.71
 INSERT INTO puid (id, puid, version) VALUES (3559549, 'acaef019-b6dd-ba4f-75ab-31a055b68859', 204);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 204361, 158736, 3451976);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4494269, 3559549, 3451976);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 3451976;
 INSERT INTO track_name (id, name) VALUES (599530, 'Shine We Are!');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (9496, '', 0, 'ddbe4d0c-9b41-4db8-9244-cd08cc6ee2d8', 1307406, NULL, 307000, 599530);
@@ -1119,7 +1147,11 @@ INSERT INTO label_name (id, name) VALUES (21186, 'Avex Trax Japan');
 INSERT INTO label_name (id, name) VALUES (15858, 'エイベックス・トラックス');
 INSERT INTO label_alias (begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, label, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (NULL, NULL, NULL, 0, NULL, NULL, NULL, 895, 28, '2011-01-18 15:21:33.71184+00', NULL, 21186, '0', 21186, NULL);
 INSERT INTO label_alias (begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, label, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (NULL, NULL, NULL, 0, NULL, NULL, NULL, 3311, 28, '2011-01-18 15:21:33.71184+00', NULL, 15858, '0', 15858, NULL);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 28;
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES (NULL, 69343, 28, '2011-01-18 15:52:02.917556+00', 4675);
 UPDATE release_meta SET amazon_asin = 'B0000YGBSG', date_added = '2004-02-15 07:01:30.766831+00', info_url = 'http://www.amazon.co.jp/gp/product/B0000YGBSG', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 4675;
@@ -1241,7 +1273,11 @@ INSERT INTO track_name (id, name) VALUES (1497388, 'Desert Siege');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (781759, '', 0, '933fc27f-aa4c-4a6f-a354-ababd8e99ea2', 7883923, NULL, NULL, 1497388);
 INSERT INTO puid (id, puid, version) VALUES (3124244, '3a87c994-ebec-ec72-36c6-5a5d221eed26', 204);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 3922978, 3124244, 7883923);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 7883923;
 INSERT INTO tag (id, name, ref_count) VALUES (26, 'drum and bass', 5525);
 INSERT INTO recording_tag (count, last_updated, recording, tag) VALUES (1, '2011-01-18 15:56:00.408782+00', 7883923, 26);
@@ -1302,7 +1338,11 @@ INSERT INTO track_name (id, name) VALUES (2239819, 'Cool Down');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (9772, '', 0, 'd7f08a31-0a84-4ffa-86c1-5d13635e8ada', 2746106, NULL, NULL, 2239819);
 INSERT INTO puid (id, puid, version) VALUES (3155033, '1984dd0d-699d-4367-0914-456edd06ed40', 204);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 3963076, 3155033, 2746106);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 2746106;
 INSERT INTO track_name (id, name) VALUES (4388355, 'Roll On');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (9772, '', 0, '1588fa10-441b-458d-9e39-c00790d3d9e6', 2746107, NULL, NULL, 4388355);
@@ -1373,7 +1413,11 @@ INSERT INTO track_name (id, name) VALUES (1219234, 'Acid Test');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (199379, '', 0, '0c71b286-e732-4dad-8286-d6776765ffe7', 7776491, NULL, 358000, 1219234);
 INSERT INTO puid (id, puid, version) VALUES (4410256, 'f1fc5f0b-55d7-a443-d38a-24e16b36f51b', 246);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5580074, 4410256, 7776491);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 7776491;
 INSERT INTO track_name (id, name) VALUES (2075953, 'Get on Up');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (199379, '', 0, 'c643e715-4be1-440c-b55f-a29e1464e3e0', 7776492, NULL, 358000, 2075953);
@@ -1732,7 +1776,11 @@ INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES 
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5048051, 3995566, 1353886);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5984116, 4457824, 1353886);
 INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189222, 'GBAAA9900297', 1353886, 0);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 1353886;
 INSERT INTO recording_tag (count, last_updated, recording, tag) VALUES (2, '2011-01-18 15:56:00.408782+00', 1353886, 11);
 INSERT INTO recording_tag (count, last_updated, recording, tag) VALUES (2, '2011-01-18 15:56:00.408782+00', 1353886, 559);
@@ -2001,7 +2049,11 @@ INSERT INTO label_name (id, name) VALUES (32956, 'Astralwerks');
 INSERT INTO label (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, label_code, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', 222, 0, NULL, NULL, NULL, '0', '60f3af98-d6ca-4995-a9b5-b93924e2405f', 187, NULL, NULL, 32956, 32956, 4);
 INSERT INTO label_name (id, name) VALUES (2867, 'Astralwerks Records');
 INSERT INTO label_alias (begin_date_day, begin_date_month, begin_date_year, edits_pending, end_date_day, end_date_month, end_date_year, id, label, last_updated, locale, name, primary_for_locale, sort_name, type) VALUES (NULL, NULL, NULL, 0, NULL, NULL, NULL, 3411, 187, '2011-01-18 15:21:33.71184+00', NULL, 2867, '0', 2867, NULL);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 187;
 INSERT INTO tag (id, name, ref_count) VALUES (20, 'alternative rock', 8771);
 INSERT INTO label_tag (count, label, last_updated, tag) VALUES (1, 187, '2011-01-18 15:21:33.71184+00', 20);
@@ -2114,7 +2166,11 @@ INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, 
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (242, 0, '200dd597-f1d2-32ee-8f2f-d75afb33370d', '196', '2011-01-18 15:56:00.408782+00', 405760, 31689, 4482563, '11', 11, 2726281);
 INSERT INTO label_name (id, name) VALUES (25898, 'Freestyle Dust');
 INSERT INTO label (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, label_code, last_updated, name, sort_name, type) VALUES (NULL, NULL, 1995, '', 221, 0, NULL, NULL, NULL, '0', '86b88c78-b21f-4711-a43d-991d8d1db10b', 2988, 3098, NULL, 25898, 25898, 4);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 2988;
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('XDUSTCD4', 478343, 2988, '2011-01-18 15:52:02.917556+00', 31689);
 UPDATE release_meta SET amazon_asin = NULL, date_added = '2004-08-23 07:28:55.160816+00', info_url = NULL, cover_art_presence = 'absent', amazon_store = NULL WHERE id = 31689;
@@ -2233,7 +2289,11 @@ INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, 
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (242, 0, 'dce5de51-6c0a-3b99-b222-2a6d0052803f', '201', '2011-01-18 15:56:00.408782+00', 439000, 73608, 2880936, '4', 4, 4844123);
 INSERT INTO label_name (id, name) VALUES (33007, 'Virgin Records Australia');
 INSERT INTO label (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, label_code, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', 13, 0, NULL, NULL, NULL, '0', '42adf77e-f597-4bfe-9abd-b3e2516851e3', 9632, NULL, NULL, 33007, 33007, NULL);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 9632;
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('7243 8 48849 0 1', 90296, 9632, '2011-01-18 15:52:02.917556+00', 338506);
 UPDATE release_meta SET amazon_asin = 'B00003W1QB', date_added = '2004-08-23 07:28:55.160816+00', info_url = 'http://www.amazon.de/gp/product/B00003W1QB', cover_art_presence = 'absent', amazon_store = NULL WHERE id = 338506;
@@ -2460,7 +2520,11 @@ INSERT INTO clientversion (created, id, version) VALUES ('2011-01-18 15:21:33.71
 INSERT INTO puid (id, puid, version) VALUES (1758781, '771dd34e-cf2d-3b55-5001-f1939cfca97e', 157);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5617272, 1527739, 1462891);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 2196708, 1758781, 1462891);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 1462891;
 INSERT INTO track_name (id, name) VALUES (2184354, 'Make It Hot (LP version)');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (301255, '', 0, '337b7a16-648e-414a-b60c-3a99411ace6d', 1462892, NULL, 270000, 2184354);
@@ -2731,7 +2795,11 @@ INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES 
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5549911, 4387122, 160074);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 5740176, 4536303, 160074);
 INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 30027, 'USAT20703876', 160074, 0);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = 2, rating = 60 WHERE id = 160074;
 INSERT INTO tag (id, name, ref_count) VALUES (344, 'drsaunde', 96);
 INSERT INTO recording_tag (count, last_updated, recording, tag) VALUES (2, '2011-01-18 15:56:00.408782+00', 160074, 271);
@@ -3702,7 +3770,11 @@ INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES 
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 1312027, 1039263, 334848);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 1399318, 1110958, 334848);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 2149980, 1721627, 334848);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 334848;
 INSERT INTO tag (id, name, ref_count) VALUES (2987, 'rock pop', 2370);
 INSERT INTO recording_tag (count, last_updated, recording, tag) VALUES (1, '2011-01-18 15:56:00.408782+00', 334848, 2987);
@@ -4073,7 +4145,11 @@ INSERT INTO track_name (id, name) VALUES (735914, 'Time Is Now');
 INSERT INTO artist_name (id, name) VALUES (945229, 'SKC & Bratwa');
 INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES (1, '2011-01-18 16:24:02.551922+00', 180273, 945229, 13);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, '', NULL, 0, NULL, NULL, NULL, '0', NULL, '5b85945c-c9ca-4346-a58e-7992f6c6a5b6', 180273, '2010-05-23 13:32:49.951844+00', 945229, 945229, 2);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 180273;
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (180273, 180273, '', 945229, 0);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (180273, '', 0, '643d0549-ad6d-4692-9a73-0ee98b05c03b', 7505756, NULL, 379000, 735914);
@@ -4097,7 +4173,11 @@ INSERT INTO track_name (id, name) VALUES (1812435, 'Chillin''');
 INSERT INTO artist_name (id, name) VALUES (262999, 'Mindscape');
 INSERT INTO artist_credit (artist_count, created, id, name, ref_count) VALUES (1, '2011-01-18 16:24:02.551922+00', 57874, 262999, 64);
 INSERT INTO artist (begin_date_day, begin_date_month, begin_date_year, comment, country, edits_pending, end_date_day, end_date_month, end_date_year, ended, gender, gid, id, last_updated, name, sort_name, type) VALUES (NULL, NULL, NULL, 'drum n bass from Hungary', NULL, 0, NULL, NULL, NULL, '0', NULL, 'e92b807c-a734-4cee-a88c-1cf03d462c70', 57874, NULL, 262999, 262999, 2);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE artist_meta SET rating_count = NULL, rating = NULL WHERE id = 57874;
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (57874, 57874, '', 262999, 0);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (57874, '', 0, 'b80a7303-1c0e-453e-b383-8d4a2a2d222d', 7505767, NULL, 359000, 1812435);
@@ -4309,7 +4389,11 @@ INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES 
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 2013187, 1610780, 685418);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 3571635, 2848629, 685418);
 INSERT INTO recording_puid (created, edits_pending, id, puid, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4559465, 3609335, 685418);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 685418;
 INSERT INTO track_name (id, name) VALUES (174656, 'Sweet Little Angel');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (22492, '', 0, '3c82a9db-9c99-4787-bca6-6551ec01b6b1', 685419, NULL, 256826, 174656);
@@ -4915,7 +4999,11 @@ INSERT INTO cdtoc (created, degraded, discid, freedb_id, id, leadout_offset, tra
 INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES (248388, 0, 269967, '2011-01-18 15:21:33.71184+00', 375273);
 INSERT INTO track_name (id, name) VALUES (3028498, 'Reverend Charisma');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (398438, '', 0, '88d26635-cfc8-4fd9-b81e-36f7a1b3d270', 7905439, NULL, 256666, 3028498);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 7905439;
 INSERT INTO track_name (id, name) VALUES (790420, 'Dear Diary');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (398438, '', 0, '37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9', 7905440, NULL, 86666, 790420);
@@ -5184,7 +5272,11 @@ INSERT INTO release (artist_credit, barcode, comment, country, date_day, date_mo
 INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES (0, 1, 459740, '2011-01-18 15:21:33.71184+00', NULL, 1, 459740, 15);
 INSERT INTO track_name (id, name) VALUES (1009634, 'Here');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (398598, '', 0, 'b997f9c9-c7d9-42cc-a9dd-2561215c6611', 8621499, NULL, 1027000, 1009634);
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621499;
 INSERT INTO track_name (id, name) VALUES (2544282, 'Kira');
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name) VALUES (398598, '', 0, 'c87d7541-3478-4c71-9e14-10bad6e16768', 8621500, NULL, 394000, 2544282);
@@ -7171,5 +7263,9 @@ UPDATE medium
 SET track_count = tc.count
 FROM (SELECT count(id),medium FROM track GROUP BY medium) tc
 WHERE tc.medium = medium.id;
+<<<<<<< HEAD
+>>>>>>> 092026a6062a0bf03c668c856141396ef7c07e89
+=======
 >>>>>>> warp-bitbucket/mbs-6069-master
+>>>>>>> 38ea7cd8a4106431f271e3cf380cf155259d3c27
 
