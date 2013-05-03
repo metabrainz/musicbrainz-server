@@ -564,7 +564,6 @@ sub load_with_medium_for_recording
     push @$params, $recording_id;
 
     my $query = "
-<<<<<<< HEAD
       SELECT *
       FROM (
         SELECT DISTINCT ON (release.id)
@@ -643,17 +642,6 @@ sub find_by_puid
                 )';
     return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                          $query, @{ids});
-}
-
-sub find_by_tracklist
-{
-    my ($self, $tracklist_id) = @_;
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                ' JOIN medium ON medium.release = release.id ' .
-                ' WHERE medium.tracklist = ?';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query, $tracklist_id);
 }
 
 sub find_by_medium
