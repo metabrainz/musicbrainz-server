@@ -396,7 +396,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
-        'lookupHook': self.lookupHook
+        'clear': self.clear,
+        'lookupHook': self.lookupHook,
+        'allow_empty': true
     }).initialize ();
 
     if (obj === null)
@@ -458,7 +460,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
-            'lookupHook': self.lookupHook
+            'clear': self.clear,
+            'lookupHook': self.lookupHook,
+            'allow_empty': true
         }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);

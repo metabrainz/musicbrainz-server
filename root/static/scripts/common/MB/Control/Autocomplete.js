@@ -146,7 +146,7 @@ MB.Control.Autocomplete = function (options) {
                 .appendTo (ul);
         }
 
-        if (item.pages === 1)
+        if (item.current == item.pages)
         {
             return $();
         }
@@ -176,12 +176,16 @@ MB.Control.Autocomplete = function (options) {
         return li;
     };
 
+    self.resetPage = function () {
+        self.currentPage = 1;
+        self.currentResults = [];
+    };
+
     self.searchAgain = function (toggle) {
         if (toggle) {
             self.indexed_search = !self.indexed_search;
         }
-        self.currentPage = 1;
-        self.currentResults = [];
+        self.resetPage();
         self.autocomplete._search(self.$input.val());
     };
 
@@ -203,8 +207,7 @@ MB.Control.Autocomplete = function (options) {
         if (request.term != self.page_term)
         {
             /* always reset to first page if we're looking for something new. */
-            self.currentPage = 1;
-            self.currentResults = [];
+            self.resetPage();
             self.page_term = request.term;
         }
 
@@ -272,6 +275,7 @@ MB.Control.Autocomplete = function (options) {
 
     self.clear = function (clearAction) {
         self.currentSelection = null;
+        self.resetPage();
         if (options.clear)
         {
             options.clear (clearAction);
