@@ -307,7 +307,7 @@ sub merge
         merge_table_attributes(
             $self->sql => (
                 table => 'artist',
-                columns => [ qw( gender area type ) ],
+                columns => [ qw( gender area begin_area end_area type ) ],
                 old_ids => $old_ids,
                 new_id => $new_id
             )
