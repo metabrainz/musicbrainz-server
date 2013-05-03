@@ -19,7 +19,7 @@
                 <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
-                    <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
+                    <th colspan="8">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]

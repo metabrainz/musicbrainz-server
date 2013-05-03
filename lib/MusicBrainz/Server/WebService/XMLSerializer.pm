@@ -369,18 +369,21 @@ sub _serialize_release
 
     if (my ($earliest_release_event) = $release->all_events) {
         my $serialize_release_event = sub {
-            my $event = shift;
+            my ($event, $include_country) = @_;
             my @r = ();
             push @r, $gen->date($event->date->format)
                 if $event->date && !$event->date->is_empty;
 
-            push @r, $gen->country($event->country->iso_code)
-                if $event->country;
+            if ($include_country) {
+                push @r, $gen->country($event->country->primary_code) if $event->country && $event->country->primary_code;
+            } else {
+                $self->_serialize_area(\@r, $gen, $event->country, $inc, $stash, $toplevel) if $event->country;
+            }
 
             return @r;
         };
 
-        push @list, $serialize_release_event->($earliest_release_event);
+        push @list, $serialize_release_event->($earliest_release_event, 1);
         push @list, $gen->release_event_list(
             $self->_list_attributes({ total => $release->event_count }),
             map { $gen->release_event($serialize_release_event->($_)) }
