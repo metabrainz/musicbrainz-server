@@ -19,7 +19,7 @@ use Text::Trim;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-    "tracklist" => {
+    "medium" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
@@ -62,14 +62,14 @@ sub entities {
     };
 }
 
-sub tracklist : Chained('root') PathPart Args(1) {
+sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+                              $medium->all_tracks);
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
@@ -79,7 +79,7 @@ sub tracklist : Chained('root') PathPart Args(1) {
         artist_credit => artist_credit_to_ref (
             $_->artist_credit, [ "comment", "gid", "sortname" ]),
     }, sort { $a->position <=> $b->position }
-    $tracklist->all_tracks ];
+    $medium->all_tracks ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
@@ -267,19 +267,19 @@ sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
 sub associations : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('Recording')->load ($tracklist->all_tracks);
+    my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('Recording')->load ($medium->all_tracks);
 
-    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
+    $c->model('ArtistCredit')->load($medium->all_tracks, map { $_->recording } $medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+        $medium->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
-        [ map { $_->recording } $tracklist->all_tracks ], 3);
+        [ map { $_->recording } $medium->all_tracks ], 3);
 
     my @structure;
-    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
+    for (sort { $a->position <=> $b->position } $medium->all_tracks)
     {
         my $track = {
             name => $_->name,
