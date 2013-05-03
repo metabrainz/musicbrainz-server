@@ -3,6 +3,8 @@
 ** From http://particletree.com/features/rediscovering-the-button-element/
 */
 
+.buttons { display: inline-block; }
+
 .buttons a { text-align: center; }
 
 .buttons a,
