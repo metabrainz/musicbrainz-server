@@ -31,7 +31,7 @@
             <!-- Invalid HTML, commenting out for now.  See MBS-5244.
                 <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
             -->
-                [%- INCLUDE 'medium/tracklist.tt' medium=medium -%]
+                [%- INCLUDE 'medium/tracklist.tt' tracks=medium.tracks -%]
         [%- END -%]
         </tbody>
     </table>

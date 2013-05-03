@@ -116,7 +116,7 @@ sub build_display_data
         name         => $self->data->{name} || '',
         format       => $format ? $loaded->{MediumFormat}->{ $format } : '',
         position     => $self->data->{position},
-        tracklist    => display_tracklist($loaded, $self->data->{tracklist}),
+        tracks       => display_tracklist($loaded, $self->data->{tracklist}),
         release      => $medium ? $medium->release : undef,
     };
 

@@ -364,7 +364,6 @@
                 [% r.hidden(medium_field.field('toc'), class => 'toc') %]
                 [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
                 [% r.hidden(medium_field.field('position'), class => 'position') %]
-                [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
 
                 <div class="row">
                   [% r.label(medium_field.field('format_id'), l('Format')) %]
