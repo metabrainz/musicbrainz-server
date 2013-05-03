@@ -317,7 +317,7 @@ sub find_by_track_artist
         release.id IN (
             SELECT release FROM medium
                 JOIN track tr
-                ON tr.tracklist = medium.tracklist
+                ON tr.medium = medium.id
                 JOIN artist_credit_name acn
                 ON acn.artist_credit = tr.artist_credit
             WHERE acn.artist = ?)
@@ -368,7 +368,7 @@ sub find_for_various_artists
         AND release.id IN (
             SELECT release FROM medium
                 JOIN track tr
-                ON tr.tracklist = medium.tracklist
+                ON tr.medium = medium.id
                 JOIN artist_credit_name acn
                 ON acn.artist_credit = tr.artist_credit
             WHERE acn.artist = ?)";
@@ -421,7 +421,7 @@ sub find_by_recording
         FROM " . $self->_table . "
         " . join(' ', @$extra_joins) . "
         JOIN medium ON medium.release = release.id
-        JOIN track ON track.tracklist = medium.tracklist
+        JOIN track ON track.medium = medium.id
         LEFT JOIN (
           SELECT release, country, date_year, date_month, date_day
           FROM release_country
@@ -461,7 +461,7 @@ sub find_by_recordings
            FROM release
            JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN track ON track.medium = medium.id
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
@@ -530,8 +530,6 @@ sub find_for_cdtoc
            ON medium.release = release.id
         LEFT JOIN medium_format
            ON medium_format.id = medium.format
-        JOIN tracklist
-           ON medium.tracklist = tracklist.id
         JOIN release_group
            ON release.release_group = release_group.id
         LEFT JOIN (
@@ -541,7 +539,7 @@ sub find_for_cdtoc
           SELECT release, NULL, date_year, date_month, date_day
           FROM release_unknown_country
         ) release_event ON release_event.release = release.id
-        WHERE tracklist.track_count = ?
+        WHERE medium.track_count = ?
           AND acn.artist = ?
           AND (medium_format.id IS NULL OR medium_format.has_discids)
         ORDER BY release.id, release.release_group,
@@ -556,7 +554,7 @@ sub find_for_cdtoc
         $query, $track_count, $artist_id, $offset || 0);
 }
 
-sub load_with_tracklist_for_recording
+sub load_with_medium_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
 
@@ -566,6 +564,7 @@ sub load_with_tracklist_for_recording
     push @$params, $recording_id;
 
     my $query = "
+<<<<<<< HEAD
       SELECT *
       FROM (
         SELECT DISTINCT ON (release.id)
@@ -582,19 +581,17 @@ sub load_with_tracklist_for_recording
           medium.format AS m_format,
           medium.position AS m_position,
           medium.name AS m_name,
-          medium.tracklist AS m_tracklist,
-          tracklist.track_count AS m_track_count,
+          medium.track_count AS m_track_count,
           track.id AS t_id,
           track_name.name AS t_name,
-          track.tracklist AS t_tracklist,
+          track.medium AS t_medium,
           track.position AS t_position,
           track.length AS t_length,
           track.artist_credit AS t_artist_credit,
           track.number AS t_number,
           date_year, date_month, date_day
         FROM track
-        JOIN tracklist ON tracklist.id = track.tracklist
-        JOIN medium ON medium.tracklist = tracklist.id
+        JOIN medium ON medium.id = track.medium
         JOIN release ON release.id = medium.release
         JOIN release_name ON release.name = release_name.id
         JOIN track_name ON track.name = track_name.id
@@ -619,11 +616,11 @@ sub load_with_tracklist_for_recording
             my $row = shift;
             my $track = MusicBrainz::Server::Data::Track->_new_from_row($row, 't_');
             my $medium = MusicBrainz::Server::Data::Medium->_new_from_row($row, 'm_');
-            my $tracklist = $medium->tracklist;
+
             my $release = $self->_new_from_row($row, 'r_');
 
             push @{ $release->mediums }, $medium;
-            push @{ $tracklist->tracks }, $track;
+            push @{ $medium->tracks }, $track;
 
             return $release;
         },
@@ -638,7 +635,7 @@ sub find_by_puid
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
-                      JOIN track ON track.tracklist = medium.tracklist
+                      JOIN track ON track.medium = medium.id
                       JOIN recording ON recording.id = track.recording
                       JOIN recording_puid ON recording_puid.recording = recording.id
                       JOIN puid ON puid.id = recording_puid.puid
@@ -873,15 +870,13 @@ sub can_merge {
         my $mediums_differ = $self->sql->select_single_value(
             'SELECT TRUE
              FROM (
-                 SELECT medium.id, medium.position, tracklist.track_count
+                 SELECT medium.id, medium.position, medium.track_count
                  FROM medium
-                 JOIN tracklist ON tracklist.id = medium.tracklist
                  WHERE release IN (' . placeholders(@old_ids) . ')
              ) s
              LEFT JOIN medium new_medium ON
                  (new_medium.position = s.position AND new_medium.release = ?)
-             LEFT JOIN tracklist ON tracklist.id = new_medium.tracklist
-             WHERE tracklist.track_count <> s.track_count
+             WHERE new_medium.track_count <> s.track_count
                 OR new_medium.id IS NULL
              LIMIT 1',
             @old_ids, $new_id);
@@ -953,12 +948,12 @@ sub determine_recording_merges
         my @mediums = @{ $medium_by_position{$m_pos} };
         next if @mediums <= 1;
         # all mediums must have the same number of tracks
-        my $track_count = $mediums[0]->tracklist->track_count;
-        next if grep { $_->tracklist->track_count != $track_count } @mediums;
+        my $track_count = $mediums[0]->track_count;
+        next if grep { $_->track_count != $track_count } @mediums;
         # group recordings by track position
         $recording_by_position{$m_pos} = {};
         for my $medium (@mediums) {
-            for my $tr ($medium->tracklist->all_tracks) {
+            for my $tr ($medium->all_tracks) {
                 my $tr_pos = $tr->position;
                 if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
                     push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
@@ -1101,9 +1096,7 @@ sub merge
         my @merges = @{
             $self->sql->select_list_of_hashes(
                 'SELECT newmed.id AS new_id,
-                        oldmed.id AS old_id,
-                        newmed.tracklist AS new_tracklist,
-                        oldmed.tracklist AS old_tracklist
+                        oldmed.id AS old_id
                    FROM medium newmed, medium oldmed
                   WHERE newmed.release = ?
                     AND oldmed.release IN (' . placeholders(@old_ids) . ')
@@ -1112,21 +1105,18 @@ sub merge
             )
         };
         for my $merge (@merges) {
-            $self->c->model('Tracklist')->merge(
-                $merge->{new_tracklist},
-                $merge->{old_tracklist}
-            ) if $merge->{new_tracklist} != $merge->{old_tracklist};
-
+            $self->c->model('Medium')->merge($merge->{new_id}, $merge->{old_id});
             $self->c->model('MediumCDTOC')->merge_mediums(
                 $merge->{new_id},
                 $merge->{old_id}
             );
         }
 
-        $self->sql->do(
-            'DELETE FROM medium WHERE release IN (' . placeholders(@old_ids) . ')',
-            @old_ids
-        );
+        my $delete_these_media = $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release IN ('.placeholders(@old_ids).')',
+            @old_ids);
+
+        $self->c->model('Medium')->delete($_) for @$delete_these_media;
     }
 
     $self->sql->do(

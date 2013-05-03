@@ -104,30 +104,31 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
-    my $tracklist_id = $c->req->query_params->{tracklist};
-    my ($mediums) = $c->model('Medium')->find_by_tracklist(
-        $tracklist_id, 100, 0)
-        or die "Could not find mediums";
+    my $medium_id = $c->req->query_params->{medium};
+    my $medium = $c->model('Medium')->get_by_id ($medium_id)
+        or die "Could not find medium";
 
-    $c->model('Release')->load(@$mediums);
+    $c->model('Release')->load($medium);
 
-    $c->model('Track')->load_for_tracklists(
-        $c->model('Tracklist')->load($mediums->[0]));
-    $c->model('Recording')->load($mediums->[0]->tracklist->all_tracks);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('Recording')->load($medium->all_tracks);
+    $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
-    $c->model('ArtistCredit')->load($mediums->[0]->tracklist->all_tracks, map { $_->release } @$mediums);
+    $c->stash( medium => $medium );
 
-    $c->stash( mediums => $mediums );
+    # use Data::Dumper;
+    # warn "stash: ".Dumper ($c->stash)."\n";
 
     $self->edit_action($c,
         form => 'Confirm',
         type => $EDIT_SET_TRACK_LENGTHS,
         edit_args => {
-            tracklist_id => $tracklist_id,
+            medium_id => $medium_id,
             cdtoc_id => $cdtoc->id
         },
         on_creation => sub {
-            $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
+            $c->response->redirect(
+                $c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
         }
     );
 }

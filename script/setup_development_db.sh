@@ -15,7 +15,7 @@ if [ -z "$1" ]; then
 elif [ "$1" = "--destroy-all-the-things" ]; then
 
     script/create_test_db.sh READWRITE
-    ./admin/psql READWRITE < ./t/sql/webservice.sql
+    ( printf "BEGIN;\n"; cat ./t/sql/webservice.sql; printf "\nCOMMIT;\n"; ) | ./admin/psql READWRITE
     ./admin/psql READWRITE < ./t/sql/editor.sql
     ./admin/psql READWRITE < ./admin/sql/SetSequences.sql
 

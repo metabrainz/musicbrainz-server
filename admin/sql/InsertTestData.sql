@@ -143,23 +143,19 @@ INSERT INTO url (id, gid, url)
 INSERT INTO medium_format (id, name) VALUES (1, 'CD');
 INSERT INTO medium_format (id, name) VALUES (2, 'Vinyl');
 
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO tracklist (id) VALUES (2);
+INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'The First Disc');
+INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'The Second Disc');
 
-
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (1, 1, 1, 1, 1, 'The First Disc');
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (2, 1, 2, 2, 1, 'The Second Disc');
-
-INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit, length)
-    VALUES (1, 1, 1, 1, 1, 1, 2, 123456);
+INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit, length)
+    VALUES (1, '3fd2523e-1ced-4f83-8b93-c7ecf6960b32', 1, 1, 1, 1, 1, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (2, 'Track 2');
-INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit, length)
-    VALUES (2, 1, 1, 2, 2, 2, 2, 123456);
+INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit, length)
+    VALUES (2, '680b2ca7-1c54-4c1b-a034-486f0d22eb87', 1, 1, 2, 2, 2, 2, 123456);
 
 INSERT INTO track_name (id, name) VALUES (3, 'Track 3');
-INSERT INTO track (id, recording, tracklist, position, number, name, artist_credit)
-    VALUES (3, 1, 2, 1, 1, 3, 2);
+INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit)
+    VALUES (3, '06ebb97d-bdf8-42c8-96c2-cd0f3eb39de6', 1, 2, 1, 1, 3, 2);
 
 -- A full editor
 INSERT INTO
@@ -212,8 +208,11 @@ INSERT INTO release_label (id, release, label, catalog_number)
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (4, 3, 2, '82796 97772 2');
 
-INSERT INTO tracklist (id) VALUES (3);
-INSERT INTO tracklist (id) VALUES (4);
+INSERT INTO medium (id, release, position, format, name) VALUES (3, 2, 1, 1, 'A Sea of Honey');
+INSERT INTO medium (id, release, position, format, name) VALUES (4, 2, 2, 1, 'A Sky of Honey');
+
+INSERT INTO medium (id, release, position, format, name) VALUES (5, 3, 1, 1, 'A Sea of Honey');
+INSERT INTO medium (id, release, position, format, name) VALUES (6, 3, 2, 1, 'A Sky of Honey');
 
 INSERT INTO track_name (id, name) VALUES (4, 'King of the Mountain');
 INSERT INTO track_name (id, name) VALUES (5, 'π');
@@ -267,29 +266,41 @@ INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
 INSERT INTO recording (id, gid, name, artist_credit, length) VALUES
     (17, '1539ac10-5081-4469-b8f2-c5896132724e', 19, 3, 472880);
 
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (4, 3, 1, 1, 2, 4, 3, 293720);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (5, 3, 2, 2, 3, 5, 3, 369680);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (6, 3, 3, 3, 4, 6, 3, 258839);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (7, 3, 4, 4, 5, 7, 3, 358960);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (8, 3, 5, 5, 6, 8, 3, 332613);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (9, 3, 6, 6, 7, 9, 3, 296160);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (10, 3, 7, 7, 8, 10, 3, 372386);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (4, '39164965-d4bd-49e6-925d-72026ad03dce', 3, 1, 1, 2, 4, 3, 293720);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (5, '82edb036-4097-484d-ac8a-cf4971451ca0', 3, 2, 2, 3, 5, 3, 369680);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (6, '37e395f0-a23e-45a2-9e67-60de472767e7', 3, 3, 3, 4, 6, 3, 258839);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (7, 'ea7b8e52-2b25-4d2d-aab0-2f1c51be92ef', 3, 4, 4, 5, 7, 3, 358960);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (8, 'bb365eeb-dbdf-438c-a249-718c7b0bea52', 3, 5, 5, 6, 8, 3, 332613);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (9, '37c6df32-d67e-4f9a-b1ff-14ba032dbf26', 3, 6, 6, 7, 9, 3, 296160);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (10, 'a187f0e9-6642-40cb-8571-2f56695641dd', 3, 7, 7, 8, 10, 3, 372386);
 
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (11, 4, 1, 1, 9, 11, 3, 86186);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (12, 4, 2, 2, 10, 12, 3, 342306);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (13, 4, 3, 3, 11, 13, 3, 290053);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (14, 4, 4, 4, 12, 14, 3, 95933);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (15, 4, 5, 5, 13, 15, 3, 358573);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (16, 4, 6, 6, 14, 16, 3, 61333);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (17, 4, 7, 7, 15, 17, 3, 300626);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (18, 4, 8, 8, 16, 18, 3, 514679);
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length) VALUES (19, 4, 9, 9, 17, 19, 4, 472880);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (11, '88032ed3-9921-46e1-982c-41909cc724af', 4, 1, 1, 9, 11, 3, 86186);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (12, 'ac9da1bf-ff74-4e64-9b4f-76704feb1ce6', 4, 2, 2, 10, 12, 3, 342306);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (13, 'dc71aad9-82fd-421f-8e4a-12656eb4ff4e', 4, 3, 3, 11, 13, 3, 290053);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (14, 'd5916ff1-fd23-42a0-a908-425860fef00f', 4, 4, 4, 12, 14, 3, 95933);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (15, '816a6e79-2c9a-4e15-a358-994044c43355', 4, 5, 5, 13, 15, 3, 358573);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (16, '7deb0f39-d1db-4168-ae8b-d30bd39b954e', 4, 6, 6, 14, 16, 3, 61333);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (17, '07e62d01-af88-4621-8b67-29ec910d31ac', 4, 7, 7, 15, 17, 3, 300626);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (18, '1cc78aa6-1cad-426e-a5e8-31d64e523399', 4, 8, 8, 16, 18, 3, 514679);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (19, '2d6bc3f9-620a-40d3-b36d-fd63d8be48c5', 4, 9, 9, 17, 19, 4, 472880);
 
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (3, 2, 1, 3, 1, 'A Sea of Honey');
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (4, 2, 2, 4, 1, 'A Sky of Honey');
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (20, '26f68708-a04d-4606-9d00-77fbf38238fb', 5, 1, 1, 2, 4, 3, 293720);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (21, '68866291-3937-45d9-bbc9-fd00551a1cfc', 5, 2, 2, 3, 5, 3, 369680);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (22, '6b1a422b-4872-4202-ac77-0c11d0ceec6b', 5, 3, 3, 4, 6, 3, 258839);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (23, 'b74bc478-dfd3-4b31-b8a9-b9d736f266f1', 5, 4, 4, 5, 7, 3, 358960);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (24, 'd77512b3-5d85-4282-a7ef-65021c2e061d', 5, 5, 5, 6, 8, 3, 332613);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (25, '93f35f65-eb26-4f96-b2af-e0291ace234a', 5, 6, 6, 7, 9, 3, 296160);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (26, 'fa2faefb-0bc3-4991-8125-5ee8b848fda5', 5, 7, 7, 8, 10, 3, 372386);
 
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (5, 3, 1, 3, 1, 'A Sea of Honey');
-INSERT INTO medium (id, release, position, tracklist, format, name) VALUES (6, 3, 2, 4, 1, 'A Sky of Honey');
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (27, '67b5cff6-4fd4-46a4-a354-f7e912cb8f7f', 6, 1, 1, 9, 11, 3, 86186);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (28, '56ad6df9-fdd8-46e8-befb-8c842bcabf66', 6, 2, 2, 10, 12, 3, 342306);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (29, '6121d50d-cf00-4e0c-b045-f02d3684c862', 6, 3, 3, 11, 13, 3, 290053);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (30, '4938b277-297e-4224-84ac-d555f69cb7cc', 6, 4, 4, 12, 14, 3, 95933);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (31, '1c8aec4f-dc70-4aef-90df-748a16f6d2f5', 6, 5, 5, 13, 15, 3, 358573);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (32, '66f51b3e-c401-4d23-8630-7df66cb3904a', 6, 6, 6, 14, 16, 3, 61333);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (33, 'd6e5d737-6fdc-4a29-9d95-b2de5bd3e834', 6, 7, 7, 15, 17, 3, 300626);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (34, 'db770a93-c0ad-4806-af76-f6fc835a057d', 6, 8, 8, 16, 18, 3, 514679);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (35, '65464409-1c68-4e90-8664-65ec8a21843a', 6, 9, 9, 17, 19, 4, 472880);
 
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
 

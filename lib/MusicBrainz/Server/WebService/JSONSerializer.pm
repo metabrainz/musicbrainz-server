@@ -81,7 +81,7 @@ sub serialize_release
 
             my $tracks_data = $medium_data->{tracks};
 
-            for my $track ($medium->tracklist->all_tracks) {
+            for my $track ($medium->all_tracks) {
                 my $track_data = {
                     name     => $track->name,
                     position => $track->position,

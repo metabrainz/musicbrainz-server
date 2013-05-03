@@ -64,18 +64,16 @@ sub lookup
     my $dur_string = "'{" . join(",", @durations) . "}'";
 
     my $list = $self->sql->select_list_of_hashes(
-            "SELECT ti.tracklist AS tracklist,
+            "SELECT medium_index.medium AS medium,
                     cube_distance(toc, create_cube_from_durations($dur_string)) AS distance,
-                    m.id as medium,
                     release,
                     position,
                     format,
                     name,
                     edits_pending
-               FROM tracklist_index ti
-               JOIN tracklist t ON t.id = ti.tracklist
-               JOIN medium m ON m.tracklist = ti.tracklist
-             WHERE  t.track_count = ?
+               FROM medium_index
+               JOIN medium ON medium_index.medium = medium.id
+             WHERE  medium.track_count = ?
                 AND toc <@ create_bounding_cube($dur_string, ?)
            ORDER BY distance", $toc_info{tracks}, $fuzzy);
 
@@ -88,7 +86,6 @@ sub lookup
         my $medium = MusicBrainz::Server::Entity::Medium->new();
         $medium->id($item->{medium});
         $medium->release_id($item->{release});
-        $medium->tracklist_id($item->{tracklist});
         $medium->position($item->{position});
         $medium->format_id($item->{format}) if $item->{format};
         $medium->name($item->{name} or '');
@@ -101,38 +98,38 @@ sub lookup
 
 sub update
 {
-    my ($self, $tracklist_id) = @_;
+    my ($self, $medium_id) = @_;
 
     return unless $self->sql->select_single_value(
-        'SELECT 1 FROM tracklist
-           JOIN track ON track.tracklist = tracklist.id
-          WHERE tracklist.id = ?
-         HAVING count(track.id) <= 99
+        'SELECT 1 FROM medium
+           JOIN track ON track.medium = medium.id
+          WHERE medium.id = ?
+         HAVING count(medium.id) <= 99
             AND sum(track.length) < 4800000',
-        $tracklist_id
+        $medium_id
     );
 
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
                         SELECT t.length
                           FROM track t
-                         WHERE tracklist = ?
+                         WHERE medium = ?
                       ORDER BY t.position
                     )
             ))';
 
     if ($self->sql->select_single_value(
-        'SELECT 1 FROM tracklist_index WHERE tracklist = ?', $tracklist_id
+        'SELECT 1 FROM medium_index WHERE medium = ?', $medium_id
     )) {
         $self->sql->do(
-            "UPDATE tracklist_index SET toc = $create_cube
-              WHERE tracklist = ?", $tracklist_id, $tracklist_id);
+            "UPDATE medium_index SET toc = $create_cube
+              WHERE medium = ?", $medium_id, $medium_id);
     }
     else {
         $self->sql->do(
-            "INSERT INTO tracklist_index (tracklist, toc)
+            "INSERT INTO medium_index (medium, toc)
              VALUES (?, $create_cube)",
-            $tracklist_id, $tracklist_id);
+            $medium_id, $medium_id);
     }
 }
 

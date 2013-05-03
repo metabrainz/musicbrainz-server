@@ -93,15 +93,14 @@ around 'search' => sub
 
             load_release_events($c, @releases);
 
-            my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-            $c->model('Track')->load_for_tracklists(@tracklists);
-            $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+            $c->model('Track')->load_for_mediums(@mediums);
+            $c->model('Recording')->load(map { $_->all_tracks } @mediums);
 
-            my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
+            my @need_artists = (@releases, map { $_->all_tracks } @mediums);
             $c->model('ArtistCredit')->load(@need_artists);
             $c->model('Artist')->load(map { $_->artist_credit->all_names } @need_artists);
 
-            my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+            my @recordings = map { $_->recording } map { $_->all_tracks } @mediums;
         }
         elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
             my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($disc_id);
@@ -159,13 +158,12 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Medium')->load_for_releases($release);
 
         my @mediums = $release->all_mediums;
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+        $c->model('Track')->load_for_mediums(@mediums);
+        $c->model('Recording')->load(map { $_->all_tracks } @mediums);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if $c->stash->{inc}->artist;
 
-        my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+        my @recordings = map { $_->recording } map { $_->all_tracks } @mediums;
 
         $c->model('ISRC')->load_for_recordings(@recordings)
             if $c->stash->{inc}->isrcs;

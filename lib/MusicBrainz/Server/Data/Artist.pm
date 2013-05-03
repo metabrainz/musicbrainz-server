@@ -147,7 +147,7 @@ sub find_by_release
                      FROM artist
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN track ON track.artist_credit = acn.artist_credit
-                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN medium ON medium.id = track.medium
                      WHERE medium.release = ?)
                  OR artist.id IN (SELECT artist.id
                      FROM artist

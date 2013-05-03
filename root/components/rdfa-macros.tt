@@ -48,7 +48,7 @@
     'mo:MusicalWork' IF type =='work';
     'mo:Release' IF type == 'release';
     'mo:Track' IF type == 'track';
-    'mo:Record' IF type == 'tracklist' || type == 'medium';
+    'mo:Record' IF type == 'medium';
     'mo:Label' IF type == 'label';
     'geo:SpatialThing' IF type == 'area';
 END -%]
@@ -142,8 +142,8 @@ END -%]
  '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
 END -%]
 
-[%- MACRO rdfa_tracklist_curi(tl) BLOCK;
-    '[mbz:tracklist/' _ tl.id _ '#' _ hash_suffix _ ']';
+[%- MACRO rdfa_medium_curi(release, medium) BLOCK;
+    '[mbz:release/' _ release.gid _ '#disc' _ medium.position _ ']';
 END -%]
 
 [%- MACRO rdfa_area_curi(area) BLOCK;
@@ -539,10 +539,11 @@ END -%]
 [%- END -%]
 [%- END -%]
 
-[%- MACRO rdfa_medium_in_release(medium) BLOCK -%]
-    <a rel="mo:record"
-       [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
-       href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
+[%- MACRO rdfa_medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a rel="mo:record" id="[%- fragment  -%]"
+       [%- IF doRDFa %] resource="[%- rdfa_medium_curi(release, medium) -%]" [%- END -%]
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
     [%~ medium_format_name(medium) =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:

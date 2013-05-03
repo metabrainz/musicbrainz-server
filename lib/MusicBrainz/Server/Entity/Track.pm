@@ -3,7 +3,7 @@ package MusicBrainz::Server::Entity::Track;
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
-extends 'MusicBrainz::Server::Entity';
+extends 'MusicBrainz::Server::Entity::CoreEntity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'recording_id' => (
@@ -18,14 +18,14 @@ has 'recording' => (
     clearer => 'clear_recording'
 );
 
-has 'tracklist_id' => (
+has 'medium_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'tracklist' => (
+has 'medium' => (
     is => 'rw',
-    isa => 'Tracklist'
+    isa => 'Medium'
 );
 
 has 'position' => (

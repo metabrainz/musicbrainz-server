@@ -25,13 +25,13 @@
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
                 <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
-                    [% rdfa_medium_in_release(medium) %]
+                    [% rdfa_medium_in_release(release, medium) %]
                 </td>
             </tr>
             <!-- Invalid HTML, commenting out for now.  See MBS-5244.
                 <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
             -->
-                [%- INCLUDE 'tracklist/tracklist.tt' tracklist=medium.tracklist -%]
+                [%- INCLUDE 'medium/tracklist.tt' medium=medium -%]
         [%- END -%]
         </tbody>
     </table>
