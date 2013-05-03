@@ -96,21 +96,22 @@ sub build_display_data {
         $self->data->{old}{attributes},
         $self->data->{new}{attributes}
     );
-    return if Compare($old, $new) &&
+    my $data = {
+        link_type => $loaded->{LinkType}{ $self->data->{link_id} }
+    };
+    return $data if Compare($old, $new) &&
         $self->data->{old}{parent_id} == $self->data->{new}{parent_id};
 
-    return {
-        attributes => {
+    $data->{attributes} = {
             old => $self->_build_attributes($old, $loaded),
-            new => $self->_build_attributes($new, $loaded),
-        },
-        parent => {
+            new => $self->_build_attributes($new, $loaded)};
+
+    $data->{parent} = {
             map {
                 $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
-            } qw( old new )
-        },
-        link_type => $loaded->{LinkType}{ $self->data->{link_id} }
-    }
+            } qw( old new )};
+
+    return $data;
 }
 
 sub allow_auto_edit { 1 }
