@@ -218,7 +218,7 @@
           <td><input type="text" id="track-count" class="track-count" value="" /></td>
           <td>
             <div class="buttons">
-              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
+              <a style="min-width: 5em;" id="import-search-go" href="#import-search">[% l('Search') %]</a>
             </div>
           </td>
         </tr>
