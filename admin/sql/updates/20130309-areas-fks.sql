@@ -119,6 +119,18 @@ ALTER TABLE artist ADD CONSTRAINT artist_fk_area FOREIGN KEY (area) REFERENCES a
 -- labels
 ALTER TABLE label ADD CONSTRAINT label_fk_area FOREIGN KEY (area) REFERENCES area(id);
 
+CREATE OR REPLACE FUNCTION unique_primary_area_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE area_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND area = NEW.area;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE TRIGGER b_upd_area BEFORE UPDATE ON area
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

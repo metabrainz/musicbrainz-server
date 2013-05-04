@@ -119,7 +119,7 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20130426-area-edits.sql
-    OUTPUT=`./admin/psql READWRITE < .admin/sql/updates/20130426-area-edits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130426-area-edits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
