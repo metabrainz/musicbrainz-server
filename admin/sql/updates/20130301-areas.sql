@@ -202,6 +202,7 @@ UPDATE editor SET privs = privs | 256 WHERE name IN ('nikki', 'reosarevok', 'ian
 --------------------
 
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
+CREATE INDEX area_idx_page ON area (page_index(name));
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 
@@ -220,6 +221,8 @@ CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1,
 CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link);
+
+CREATE INDEX area_idx_name_txt ON area USING gin(to_tsvector('mb_simple', name));
 
 -----------------------------
 -- MIGRATE EXISTING TABLES --
