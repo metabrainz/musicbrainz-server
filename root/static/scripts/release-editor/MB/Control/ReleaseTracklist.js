@@ -877,6 +877,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$position = $format.find ('input.position');
     self.$format_id = $format.find ('input.format');
     self.$medium_id = $format.find ('input.id');
+    self.$medium_id_for_recordings = self.$fieldset.find ('input.medium_id_for_recordings');
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 

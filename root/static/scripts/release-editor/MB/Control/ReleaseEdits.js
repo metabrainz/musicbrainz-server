@@ -150,6 +150,10 @@ MB.Control.ReleaseEdits = function ($edits) {
         self.$edits.val ('');
     };
 
+    self.editsFromTracklist = function (data) {
+        self.$edits.val (JSON.stringify (data));
+    };
+
     self.$edits = $edits;
 
     return self;

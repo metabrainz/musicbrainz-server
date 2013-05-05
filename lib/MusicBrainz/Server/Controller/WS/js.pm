@@ -71,7 +71,9 @@ sub medium : Chained('root') PathPart Args(1) {
                               $medium->all_tracks);
 
     my $ret = { toc => "" };
+    $ret->{medium_id} = $id,
     $ret->{tracks} = [ map {
+        position => $_->position,
         length => $_->length,
         number => $_->number,
         name => $_->name,

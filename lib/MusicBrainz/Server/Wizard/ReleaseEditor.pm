@@ -590,7 +590,9 @@ sub prepare_recordings
     my @recording_edits = @{ $self->get_value ('tracklist', 'rec_mediums') // [] };
 
     my $mediums_by_id = $self->c->model('Medium')->get_by_ids(
-        map { $_->{id} } grep { defined $_->{id} } @medium_edits);
+        map { $_->{id} || $_->{medium_id_for_recordings} }
+        grep { defined $_->{id} || defined $_->{medium_id_for_recordings} }
+        @medium_edits);
 
     $self->c->model('Track')->load_for_mediums (values %$mediums_by_id);
 
@@ -614,7 +616,10 @@ sub prepare_recordings
             $json->decode ($medium_edit->{edits})) if $medium_edit->{edits};
 
         my $medium = defined $medium_edit->{id} ?
-            $mediums_by_id->{$medium_edit->{id}} : undef;
+            $mediums_by_id->{$medium_edit->{id}} :
+            defined $medium_edit->{medium_id_for_recordings} ?
+            $mediums_by_id->{$medium_edit->{medium_id_for_recordings}} :
+            undef;
 
         if ($medium_edit->{edits} && $medium)
         {
