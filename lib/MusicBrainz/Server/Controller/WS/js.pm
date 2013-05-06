@@ -72,7 +72,9 @@ sub medium : Chained('root') PathPart Args(1) {
                               $medium->all_tracks);
 
     my $ret = { toc => "" };
+    $ret->{medium_id} = $id,
     $ret->{tracks} = [ map {
+        position => $_->position,
         length => $_->length,
         number => $_->number,
         name => $_->name,
@@ -162,12 +164,12 @@ sub tracklist_results {
                 medium => $medium->name,
                 comment => $release->comment,
                 artist => $release->artist_credit->name,
-                tracklist_id => $medium->tracklist_id,
+                medium_id => $medium->id,
             };
         }
     }
 
-    return uniq_by { $_->{tracklist_id} } @output;
+    return uniq_by { $_->{medium_id} } @output;
 };
 
 sub disc_results {
@@ -244,7 +246,7 @@ sub disc_search {
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 };
 
-sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
+sub medium_search : Chained('root') PathPart('medium') Args(0) {
     my ($self, $c) = @_;
 
     return $self->disc_search ($c, 'release');

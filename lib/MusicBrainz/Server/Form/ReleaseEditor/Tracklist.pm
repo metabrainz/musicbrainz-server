@@ -17,6 +17,7 @@ has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
+has_field 'mediums.medium_id_for_recordings' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 has_field 'mediums.edits' => ( type => 'Text' );
 
 sub options_mediums_format_id {
