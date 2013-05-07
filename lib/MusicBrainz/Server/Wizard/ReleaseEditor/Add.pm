@@ -125,10 +125,10 @@ sub change_page_duplicates
     # and only to the first disc.  So we can safely ignore subsequent discs.
     if (defined $seededmedia[0] && $seededmedia[0]->{toc})
     {
-        my $tracklist = $self->c->model('Tracklist')->get_by_id($media[0]->{tracklist_id});
-        $self->c->model('Track')->load_for_tracklists ($tracklist);
+        my $medium = $self->c->model('Medium')->get_by_id($media[0]->{medium_id_for_recordings});
+        $self->c->model('Track')->load_for_mediums ($medium);
 
-        my @tracks = $self->track_edits_from_tracklist ($tracklist);
+        my @tracks = $self->track_edits_from_medium ($medium);
         my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
 
         my @new_edits = map {
