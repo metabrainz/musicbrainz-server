@@ -237,22 +237,27 @@ sub recording_edits_from_medium
     return %recording_edits;
 }
 
-=method track_edits_from_tracklist
+=method track_edits_from_medium
 
-Create no-op track edits for a particular tracklist.
+Create no-op track edits for a particular medium.
 
 =cut
 
-sub track_edits_from_tracklist
+sub track_edits_from_medium
 {
-    my ($self, $tracklist) = @_;
+    my ($self, $medium) = @_;
 
-    my @tracks;
+    $self->c->model('Track')->load_for_mediums ($medium);
+    $self->c->model('ArtistCredit')->load ($medium->all_tracks);
+    $self->c->model('Recording')->load ($medium->all_tracks);
 
-    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
-    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+    my @data = map { $self->track_edit_from_track ($_) } $medium->all_tracks;
 
-    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+    use Data::Dumper;
+    warn "track edits from medium: ".Dumper (
+        { input => $medium, output => \@data });
+
+    return @data;
 }
 
 =method _search_recordings

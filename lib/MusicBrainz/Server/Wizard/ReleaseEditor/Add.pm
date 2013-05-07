@@ -101,12 +101,12 @@ sub change_page_duplicates
     $self->c->model('Medium')->load_for_releases($release);
 
     my @media = map +{
-        tracklist_id => $_->tracklist_id,
+        medium_id_for_recordings => $_->id,
         position => $_->position,
         format_id => $_->format_id,
         name => $_->name,
         deleted => 0,
-        edits => '',
+        edits => $json->encode ([ $self->track_edits_from_medium ($_) ]),
     }, $release->all_mediums;
 
     # Any existing edits on the tracklist page were probably seeded,
