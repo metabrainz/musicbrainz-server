@@ -13,7 +13,7 @@ CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
-CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias 
+CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER replace_old_sub_on_add BEFORE INSERT ON editor_subscribe_collection
@@ -31,97 +31,97 @@ CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON artist_alias
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
-CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag 
+CREATE TRIGGER b_upd_artist_tag BEFORE UPDATE ON artist_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor 
+CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
     FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
 
-CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist 
+CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_label BEFORE UPDATE ON l_artist_label 
+CREATE TRIGGER b_upd_l_artist_label BEFORE UPDATE ON l_artist_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_recording BEFORE UPDATE ON l_artist_recording 
+CREATE TRIGGER b_upd_l_artist_recording BEFORE UPDATE ON l_artist_recording
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_release BEFORE UPDATE ON l_artist_release 
+CREATE TRIGGER b_upd_l_artist_release BEFORE UPDATE ON l_artist_release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_release_group BEFORE UPDATE ON l_artist_release_group 
+CREATE TRIGGER b_upd_l_artist_release_group BEFORE UPDATE ON l_artist_release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_url BEFORE UPDATE ON l_artist_url 
+CREATE TRIGGER b_upd_l_artist_url BEFORE UPDATE ON l_artist_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_artist_work BEFORE UPDATE ON l_artist_work 
+CREATE TRIGGER b_upd_l_artist_work BEFORE UPDATE ON l_artist_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_label BEFORE UPDATE ON l_label_label 
+CREATE TRIGGER b_upd_l_label_label BEFORE UPDATE ON l_label_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_recording BEFORE UPDATE ON l_label_recording 
+CREATE TRIGGER b_upd_l_label_recording BEFORE UPDATE ON l_label_recording
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_release BEFORE UPDATE ON l_label_release 
+CREATE TRIGGER b_upd_l_label_release BEFORE UPDATE ON l_label_release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_release_group BEFORE UPDATE ON l_label_release_group 
+CREATE TRIGGER b_upd_l_label_release_group BEFORE UPDATE ON l_label_release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_url BEFORE UPDATE ON l_label_url 
+CREATE TRIGGER b_upd_l_label_url BEFORE UPDATE ON l_label_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_label_work BEFORE UPDATE ON l_label_work 
+CREATE TRIGGER b_upd_l_label_work BEFORE UPDATE ON l_label_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_recording_recording BEFORE UPDATE ON l_recording_recording 
+CREATE TRIGGER b_upd_l_recording_recording BEFORE UPDATE ON l_recording_recording
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_recording_release BEFORE UPDATE ON l_recording_release 
+CREATE TRIGGER b_upd_l_recording_release BEFORE UPDATE ON l_recording_release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_recording_release_group BEFORE UPDATE ON l_recording_release_group 
+CREATE TRIGGER b_upd_l_recording_release_group BEFORE UPDATE ON l_recording_release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_recording_url BEFORE UPDATE ON l_recording_url 
+CREATE TRIGGER b_upd_l_recording_url BEFORE UPDATE ON l_recording_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_recording_work BEFORE UPDATE ON l_recording_work 
+CREATE TRIGGER b_upd_l_recording_work BEFORE UPDATE ON l_recording_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_release BEFORE UPDATE ON l_release_release 
+CREATE TRIGGER b_upd_l_release_release BEFORE UPDATE ON l_release_release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_release_group BEFORE UPDATE ON l_release_release_group 
+CREATE TRIGGER b_upd_l_release_release_group BEFORE UPDATE ON l_release_release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_url BEFORE UPDATE ON l_release_url 
+CREATE TRIGGER b_upd_l_release_url BEFORE UPDATE ON l_release_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_work BEFORE UPDATE ON l_release_work 
+CREATE TRIGGER b_upd_l_release_work BEFORE UPDATE ON l_release_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_group_release_group BEFORE UPDATE ON l_release_group_release_group 
+CREATE TRIGGER b_upd_l_release_group_release_group BEFORE UPDATE ON l_release_group_release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_group_url BEFORE UPDATE ON l_release_group_url 
+CREATE TRIGGER b_upd_l_release_group_url BEFORE UPDATE ON l_release_group_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_release_group_work BEFORE UPDATE ON l_release_group_work 
+CREATE TRIGGER b_upd_l_release_group_work BEFORE UPDATE ON l_release_group_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_url_url BEFORE UPDATE ON l_url_url 
+CREATE TRIGGER b_upd_l_url_url BEFORE UPDATE ON l_url_url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_url_work BEFORE UPDATE ON l_url_work 
+CREATE TRIGGER b_upd_l_url_work BEFORE UPDATE ON l_url_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_l_work_work BEFORE UPDATE ON l_work_work 
+CREATE TRIGGER b_upd_l_work_work BEFORE UPDATE ON l_work_work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_label AFTER INSERT ON label
@@ -136,7 +136,7 @@ CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
-CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias 
+CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
@@ -145,7 +145,7 @@ CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON label_alias
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
 
-CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag 
+CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
@@ -154,13 +154,13 @@ CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
 CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
     FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
 
-CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type 
+CREATE TRIGGER b_upd_link_attribute_type BEFORE UPDATE ON link_attribute_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type 
+CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type 
+CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
@@ -196,7 +196,25 @@ CREATE TRIGGER a_del_release AFTER DELETE ON release
 CREATE TRIGGER b_upd_release BEFORE UPDATE ON release
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label 
+CREATE TRIGGER a_ins_release_event AFTER INSERT ON release_country
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_event();
+
+CREATE TRIGGER a_upd_release_event AFTER UPDATE ON release_country
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_event();
+
+CREATE TRIGGER a_del_release_event AFTER DELETE ON release_country
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_event();
+
+CREATE TRIGGER a_ins_release_event AFTER INSERT ON release_unknown_country
+    FOR EACH ROW EXECUTE PROCEDURE a_ins_release_event();
+
+CREATE TRIGGER a_upd_release_event AFTER UPDATE ON release_unknown_country
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_event();
+
+CREATE TRIGGER a_del_release_event AFTER DELETE ON release_unknown_country
+    FOR EACH ROW EXECUTE PROCEDURE a_del_release_event();
+
+CREATE TRIGGER b_upd_release_label BEFORE UPDATE ON release_label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_release_group AFTER INSERT ON release_group
@@ -214,7 +232,7 @@ CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
 CREATE TRIGGER b_upd_release_group_tag BEFORE UPDATE ON release_group_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation 
+CREATE TRIGGER b_upd_tag_relation BEFORE UPDATE ON tag_relation
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_track AFTER INSERT ON track
@@ -226,14 +244,14 @@ CREATE TRIGGER a_upd_track AFTER UPDATE ON track
 CREATE TRIGGER a_del_track AFTER DELETE ON track
     FOR EACH ROW EXECUTE PROCEDURE a_del_track();
 
-CREATE TRIGGER b_upd_track BEFORE UPDATE ON track 
+CREATE TRIGGER b_upd_track BEFORE UPDATE ON track
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE CONSTRAINT TRIGGER remove_orphaned_tracks
     AFTER DELETE OR UPDATE ON track DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE delete_orphaned_recordings();
 
-CREATE TRIGGER b_upd_url BEFORE UPDATE ON url 
+CREATE TRIGGER b_upd_url BEFORE UPDATE ON url
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER a_ins_work AFTER INSERT ON work
@@ -242,7 +260,7 @@ CREATE TRIGGER a_ins_work AFTER INSERT ON work
 CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
-CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias 
+CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias

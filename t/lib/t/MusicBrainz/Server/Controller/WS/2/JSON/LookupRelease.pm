@@ -33,6 +33,10 @@ test 'basic release lookup' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                country => "JP",
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -66,6 +70,10 @@ test 'basic release lookup, inc=annotation' => sub {
             },
             date => "2007-01-29",
             country => "GB",
+            "release-events" => [{
+                date => "2007-01-29",
+                country => "GB",
+            }],
             barcode => "600116817020",
             asin => "B000KJTG6K",
             annotation => "this is a release annotation",
@@ -102,6 +110,10 @@ test 'basic release with tags' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                country => "JP",
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -142,6 +154,10 @@ test 'basic release with collections' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                country => "JP",
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -198,6 +214,10 @@ test 'release lookup with artists + aliases' => sub {
                 }],
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                country => "JP",
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
         });
@@ -226,6 +246,10 @@ test 'release lookup with labels and recordings' => sub {
             },
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                country => "JP",
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             "label-info" => [
@@ -306,6 +330,10 @@ test 'release lookup with release-groups' => sub {
             },
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                country => "JP",
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             "artist-credit" => [
@@ -367,6 +395,10 @@ test 'release lookup with discids and puids' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                country => "JP",
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -443,6 +475,10 @@ test 'release lookup, barcode is NULL' => sub {
             },
             date => "1999-09-23",
             country => "US",
+            "release-events" => [{
+                date => "1999-09-23",
+                country => "US",
+            }],
             barcode => JSON::null,
             asin => "B00001IVAI",
             disambiguation => "",
@@ -474,6 +510,10 @@ test 'release lookup, barcode is  empty string' => sub {
             },
             date => "1999-09-13",
             country => "GB",
+            "release-events" => [{
+                date => "1999-09-13",
+                country => "GB",
+            }],
             barcode => "",
             asin => JSON::null,
             disambiguation => "",

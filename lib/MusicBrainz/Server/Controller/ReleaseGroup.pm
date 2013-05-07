@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_SET_COVER_ART
 );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 use MusicBrainz::Server::Form::Confirm;
 
@@ -60,7 +61,7 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Country')->load(@$releases);
+    load_release_events($c, @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);

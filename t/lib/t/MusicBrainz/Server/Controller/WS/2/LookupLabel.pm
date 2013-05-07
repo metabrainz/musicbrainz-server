@@ -73,7 +73,7 @@ ws_test 'label lookup with releases, inc=media',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
+                <date>2008-11-17</date><country>GB</country><release-event-list count="1"><release-event><date>2008-11-17</date><country>GB</country></release-event></release-event-list><barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
                         <position>1</position><format>CD</format><track-list count="9" />
@@ -90,7 +90,7 @@ ws_test 'label lookup with releases, inc=media',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+                <date>2007-01-29</date><country>GB</country><release-event-list count="1"><release-event><date>2007-01-29</date><country>GB</country></release-event></release-event-list><barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format><track-list count="12" />

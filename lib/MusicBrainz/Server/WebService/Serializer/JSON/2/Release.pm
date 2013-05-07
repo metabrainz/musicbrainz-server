@@ -30,12 +30,25 @@ sub serialize
     my %body;
 
     $body{title} = $entity->name;
-    $body{country} = $entity->country
-        ? $entity->country->iso_code : JSON::null;
+
+    if (my ($earliest_event) = $entity->all_events) {
+        my $add_release_event = sub {
+            my ($release_event, $target) = @_;
+            $target->{date} = $release_event->date->format;
+            $target->{country} = $release_event->country
+                ? $release_event->country->iso_code : JSON::null;
+            return $target;
+        };
+
+        $add_release_event->($earliest_event, \%body);
+
+        $body{'release-events'} = [
+            map { $add_release_event->($_, {}) } $entity->all_events
+        ]
+    }
 
     $body{asin} = $entity->amazon_asin;
     $body{barcode} = $entity->barcode->code;
-    $body{date} = $entity->date->format;
     $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;
     $body{quality} = _quality ($entity->quality);

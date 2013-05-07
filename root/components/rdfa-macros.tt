@@ -276,16 +276,16 @@ END -%]
 END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_event_date(release) BLOCK -%]
+[%- MACRO rdfa_release_event_date(date) BLOCK -%]
  [%- IF doRDFa -%]
-   <span about="[evn:]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- release.date.format | date_xsd_type -%]">[%- release.date.format -%]</span>
- [%- ELSE -%][%- release.date.format -%][%- END -%]
+   <span about="[evn:]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- date.format | date_xsd_type -%]">[%- date.format -%]</span>
+ [%- ELSE -%][%- date.format -%][%- END -%]
 [%- END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_country_abbr(release) BLOCK;
- '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(release.country.l_name) _ '">' _ release.country.iso_code _ '</abbr>';
+[%- MACRO rdfa_release_country_abbr(country) BLOCK;
+ '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
+ '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.iso_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 

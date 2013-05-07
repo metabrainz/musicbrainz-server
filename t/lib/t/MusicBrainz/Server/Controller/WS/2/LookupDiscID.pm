@@ -30,6 +30,11 @@ ws_test 'direct disc id lookup',
         <title>Aerial</title>
         <quality>normal</quality>
         <date>2007</date>
+        <release-event-list count="1">
+          <release-event>
+            <date>2007</date>
+          </release-event>
+        </release-event-list>
         <cover-art-archive>
             <artwork>false</artwork>
             <count>0</count>
@@ -70,6 +75,11 @@ ws_test 'lookup via toc',
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2008</date>
+      <release-event-list count="1">
+        <release-event>
+          <date>2008</date>
+        </release-event>
+      </release-event-list>
       <cover-art-archive>
           <artwork>false</artwork>
           <count>0</count>
@@ -97,6 +107,11 @@ ws_test 'lookup via toc',
       <title>Aerial</title>
       <quality>normal</quality>
       <date>2007</date>
+      <release-event-list count="1">
+        <release-event>
+          <date>2007</date>
+        </release-event>
+      </release-event-list>
       <cover-art-archive>
           <artwork>false</artwork>
           <count>0</count>

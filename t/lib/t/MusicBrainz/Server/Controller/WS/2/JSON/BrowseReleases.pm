@@ -50,6 +50,10 @@ test 'browse releases via artist (paging)' => sub {
                     },
                     date => "1999-09-23",
                     country => "US",
+                    "release-events" => [{
+                        date => "1999-09-23",
+                        country => "US",
+                    }],
                     asin => "B00001IVAI",
                     barcode => JSON::null,
                     disambiguation => "",
@@ -83,6 +87,10 @@ test 'browse releases via label' => sub {
                     },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        country => "GB",
+                    }],
                     barcode => "600116822123",
                     media => [
                         { format => "CD", "track-count" => 9, title => JSON::null },
@@ -106,6 +114,10 @@ test 'browse releases via label' => sub {
                     },
                     date => "2007-01-29",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        country => "GB",
+                    }],
                     barcode => "600116817020",
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ],
                     asin => "B000KJTG6K",
@@ -140,6 +152,10 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        country => "JP",
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -160,6 +176,10 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        country => "JP",
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -193,6 +213,10 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        country => "JP",
+                    }],
                     barcode => "4988064173891",
                     asin => "B0000YGBSG",
                     "label-info" => [
@@ -224,6 +248,10 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        country => "JP",
+                    }],
                     barcode => "4988064173907",
                     asin => "B0000YG9NS",
                     "label-info" => [
@@ -268,6 +296,10 @@ test 'browse releases via track artist' => sub {
                     },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        country => "JP",
+                    }],
                     barcode => "4988064451180",
                     asin => "B0001FAD2O",
                     disambiguation => "",

@@ -86,7 +86,9 @@ sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;
     my $query = "
-        SELECT
+        SELECT *
+        FROM (
+          SELECT DISTINCT ON (track.id, medium.id)
             track.id, track_name.name, track.tracklist, track.position,
                 track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
@@ -97,22 +99,28 @@ sub find_by_recording
             release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
-                release.date_year AS r_date_year,
-                release.date_month AS r_date_month,
-                release.date_day AS r_date_day,
-                release.country AS r_country, release.status AS r_status,
+                release.status AS r_status,
                 release.packaging AS r_packaging,
                 release.edits_pending AS r_edits_pending,
-                release.comment AS r_comment
-        FROM
-            track
-            JOIN tracklist ON tracklist.id = track.tracklist
-            JOIN medium ON medium.tracklist = tracklist.id
-            JOIN release ON release.id = medium.release
-            JOIN release_name ON release.name = release_name.id
-            JOIN track_name ON track.name = track_name.id
-        WHERE track.recording = ?
-        ORDER BY date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+                release.comment AS r_comment,
+            date_year, date_month, date_day
+          FROM track
+          JOIN tracklist ON tracklist.id = track.tracklist
+          JOIN medium ON medium.tracklist = tracklist.id
+          JOIN release ON release.id = medium.release
+          JOIN release_name ON release.name = release_name.id
+          JOIN track_name ON track.name = track_name.id
+          LEFT JOIN (
+            SELECT release, country, date_year, date_month, date_day
+            FROM release_country
+            UNION ALL
+            SELECT release, NULL, date_year, date_month, date_day
+            FROM release_unknown_country
+          ) release_event ON release_event.release = release.id
+          WHERE track.recording = ?
+          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+        ) s
+        ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
         OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {

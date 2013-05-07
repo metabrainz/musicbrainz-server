@@ -8,7 +8,8 @@ h1 span {
 #release-editor div.half-width { margin: 0; }
 
 #release-editor div.artist-credit label,
-#release-editor div.release-label label.label-name {
+#release-editor div.release-label label.label-name,
+#release-editor div.release-event label.country_id {
     float: left;
     margin-right: 12px;
     text-align: right;
@@ -35,7 +36,9 @@ h1 span {
 
 #release-editor div.release-label input.label-name,
 #release-editor div.release-label label.catno,
-#release-editor div.release-label input.catno { margin: 0; }
+#release-editor div.release-label input.catno,
+#release-editor div.release-event label.date
+{ margin: 0; }
 
 #release-editor fieldset select#id-language_id,
 #release-editor fieldset select#id-script_id {
@@ -53,7 +56,6 @@ h1 span {
 
 #release-editor fieldset input[type=checkbox],
 #release-editor fieldset span.partial-date input { width: auto; }
-#release-editor fieldset span.partial-date { width: 300px; display: inline-block; }
 
 #release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
 #release-editor fieldset div.recordings-loading,

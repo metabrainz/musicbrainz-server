@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Controller::Tracklist;
 use Moose;
+
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Scalar::Util qw( looks_like_number );
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
@@ -35,7 +37,7 @@ sub show : Chained('tracklist') PathPart('')
     my @releases = map { $_->release } @$release_media;
     $c->model('ArtistCredit')->load(
         $tracklist->all_tracks, @releases);
-    $c->model('Country')->load(@releases);
+    load_release_events($c, @releases);
     $c->model('Medium')->load_for_releases(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);

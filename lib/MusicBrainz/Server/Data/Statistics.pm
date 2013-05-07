@@ -649,8 +649,9 @@ my %stats = (
 
             my $data = $sql->select_list_of_lists(
                 "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(r.gid) AS count
-                FROM release r FULL OUTER JOIN country c
-                    ON r.country=c.id
+                FROM release r
+                LEFT JOIN release_country rc ON r.id = rc.release
+                FULL OUTER JOIN country c ON rc.country = c.id
                 GROUP BY c.iso_code
                 ",
             );
