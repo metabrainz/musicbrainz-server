@@ -77,7 +77,8 @@ has_field 'attributes.max' => (
 );
 
 has_field 'documentation' => (
-    type => 'TextArea'
+    type => 'TextArea',
+    not_nullable => 1
 );
 
 has root => (
