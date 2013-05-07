@@ -141,7 +141,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit Requi
         $entity->id);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    $c->model('Country')->load(@$releases);
+    load_release_events($c, @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 

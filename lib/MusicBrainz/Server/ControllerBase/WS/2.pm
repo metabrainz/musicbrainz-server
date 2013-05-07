@@ -416,7 +416,7 @@ sub linked_releases
 
     $c->model('Language')->load(@$releases);
     $c->model('Script')->load(@$releases);
-    $c->model('Country')->load(@$releases);
+    load_release_events($c, @$releases);
 
     my @mediums;
     if ($c->stash->{inc}->media)
