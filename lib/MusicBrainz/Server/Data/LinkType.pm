@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::LinkType;
 use Moose;
 use namespace::autoclean;
 use Sql;
+use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkTypeAttribute;
 use MusicBrainz::Server::Data::Utils qw(
@@ -283,16 +284,58 @@ sub in_use {
 sub load_documentation {
     my ($self, @link_types) = @_;
 
+    my $link_type_ids = [ map { $_->id } @link_types ];
+
     my %documentation_strings = map { @$_ } @{
         $self->sql->select_list_of_lists(
             'SELECT id, documentation
              FROM documentation.link_type_documentation
-             WHERE id = any(?)', [ map { $_->id } @link_types ]
+             WHERE id = any(?)', $link_type_ids
          );
     };
 
+
+    my $all_examples_query =
+        sprintf 'SELECT * FROM (%s) s WHERE link_type = any(?)',
+            join(
+                ' UNION ALL ',
+                map {
+                    my ($a, $b) = @$_;
+                    my $t = "l_${a}_${b}";
+                    "SELECT link_type, l.id, ex.name, ex.published, entity_type0,
+                       entity_type1
+                     FROM documentation.${t}_example ex
+                     JOIN $t l USING (id)
+                     JOIN link ON (l.link = link.id)
+                     JOIN link_type ON (link.link_type = link_type.id)"
+                }
+                $self->c->model('Relationship')->all_pairs
+            );
+
+    my %examples;
+    for my $example (@{
+        $self->sql->select_list_of_hashes($all_examples_query, $link_type_ids)
+    }) {
+        push @{ $examples{ $example->{link_type} } //= [] },
+            MusicBrainz::Server::Entity::ExampleRelationship->new(
+                name => $example->{name},
+                published => $example->{published},
+                relationship => $self->c->model('Relationship')->get_by_id(
+                    $example->{entity_type0}, $example->{entity_type1},
+                    $example->{id}
+                )
+            )
+    }
+
+    my @relationships = map { $_->relationship } map { @$_ } values %examples;
+    $self->c->model('Link')->load(@relationships);
+    $self->c->model('LinkType')->load(map { $_->link } @relationships);
+    $self->c->model('Relationship')->load_entities(@relationships);
+
     for my $link_type (@link_types) {
-        $link_type->documentation($documentation_strings{$link_type->id} // '');
+        my $id = $link_type->id;
+        $link_type->documentation($documentation_strings{$id} // '');
+        $link_type->examples($examples{$id} // []);
     }
 }
 
