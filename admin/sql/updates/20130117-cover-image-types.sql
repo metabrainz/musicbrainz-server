@@ -16,7 +16,7 @@ INSERT INTO image_type (mime_type, suffix)
            ('image/png', 'png'),
            ('image/gif', 'gif');
 
-ALTER TABLE cover_art
-    ADD COLUMN mime_type TEXT NOT NULL DEFAULT 'image/jpeg';
+ALTER TABLE cover_art ADD COLUMN mime_type TEXT NOT NULL DEFAULT 'image/jpeg';
+ALTER TABLE cover_art ALTER COLUMN mime_type DROP DEFAULT;
 
 COMMIT;
