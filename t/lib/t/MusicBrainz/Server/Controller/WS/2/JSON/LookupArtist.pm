@@ -393,7 +393,7 @@ test 'artist lookup with releases and discids' => sub {
                             "track-count" => 12,
                         }],
                     "release-events" => [{
-                        date => "2007-01-29"
+                        date => "2007-01-29",
                         "area" => {
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",

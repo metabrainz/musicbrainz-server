@@ -94,7 +94,7 @@ test 'label lookup, inc=aliases' => sub {
                 ended => JSON::false,
             },
             "area" => {
-                "id":"8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "id"  => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso_3166_1_codes" => ["GB"],
@@ -128,7 +128,7 @@ test 'label lookup with releases, inc=media' => sub {
                 ended => JSON::false,
             },
             "area" => {
-                "id":"8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
                 "iso_3166_1_codes" => ["GB"],
@@ -146,7 +146,7 @@ test 'label lookup with releases, inc=media' => sub {
                     "release-events" => [{
                         date => "2008-11-17",
                         "area" => {
-                            "id":"8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso_3166_1_codes" => ["GB"],
@@ -173,7 +173,7 @@ test 'label lookup with releases, inc=media' => sub {
                     "release-events" => [{
                         date => "2007-01-29",
                         "area" => {
-                            "id":"8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
                             "iso_3166_1_codes" => ["GB"],
