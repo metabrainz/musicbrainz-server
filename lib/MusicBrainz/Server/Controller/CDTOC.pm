@@ -203,12 +203,11 @@ sub attach : Local
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count,shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-        $c->model('Track')->load_for_tracklists(
-            map { $_->tracklist } map { $_->all_mediums } @$releases);
+        $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
         $c->model('Country')->load(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
@@ -248,9 +247,9 @@ sub attach : Local
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = map { $_->all_mediums } @releases;
-            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+            $c->model('Track')->load_for_mediums(@mediums);
 
-            my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
+            my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
             $c->model('Country')->load(@releases);
@@ -379,7 +378,7 @@ sub move : Local RequireAuth Edit
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;
-            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+            $c->model('Track')->load_for_mediums(@mediums);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases
