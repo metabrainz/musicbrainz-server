@@ -27,6 +27,8 @@ INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (1, 0, 1, 1, '');
 
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
+
 INSERT INTO release_name (id, name) VALUES (1, 'Release');
 INSERT INTO release_group (id, gid, name, artist_credit)
   VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
