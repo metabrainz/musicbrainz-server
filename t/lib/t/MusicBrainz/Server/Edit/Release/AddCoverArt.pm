@@ -17,7 +17,6 @@ test 'Accepting replaces current art' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 EOSQL
 
@@ -36,7 +35,6 @@ test 'Rejecting cleans up pending artwork' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+release');
     MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 EOSQL
 
