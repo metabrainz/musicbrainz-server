@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship::Role::RenameLongLinkPhrase';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Add relationship type') }

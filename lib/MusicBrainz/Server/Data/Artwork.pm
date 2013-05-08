@@ -108,13 +108,9 @@ sub find_front_cover_by_release
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
         JOIN musicbrainz.release
         ON cover_art_archive.index_listing.release = musicbrainz.release.id
-        LEFT JOIN country ON release.country = country.id
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
-        AND is_front = true
-        ORDER BY
-            release.date_year, release.date_month, release.date_day,
-            country.name, release.barcode";
+        AND is_front = true";
 
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
@@ -154,8 +150,7 @@ sub load_for_release_groups
         ON release_group_cover_art.release = musicbrainz.release.id
         WHERE release.release_group IN (" . placeholders(@ids) . ")
         AND is_front = true
-        ORDER BY release.release_group, release_group_cover_art.release,
-                 release.date_year, release.date_month, release.date_day";
+        ORDER BY release.release_group, release_group_cover_art.release";
 
     $self->sql->select($query, @ids);
     while (my $row = $self->sql->next_row_hash_ref) {

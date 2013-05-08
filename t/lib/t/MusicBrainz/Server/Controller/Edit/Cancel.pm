@@ -75,7 +75,8 @@ EOSQL
         edit_type => $EDIT_ARTIST_EDIT,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'Changed comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => [],
     );
 
     $mech->get_ok('/login');

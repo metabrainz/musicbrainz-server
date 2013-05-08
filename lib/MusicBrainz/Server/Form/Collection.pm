@@ -10,13 +10,19 @@ has_field 'name' => (
     required => 1,
 );
 
+has_field 'description' => (
+    type => 'TextArea',
+    required => 0,
+    not_nullable => 1,    
+);
+
 has_field 'public' => (
     type => 'Boolean',
 );
 
 sub edit_field_names
 {
-    return qw( name public );
+    return qw( name description public );
 }
 
 1;

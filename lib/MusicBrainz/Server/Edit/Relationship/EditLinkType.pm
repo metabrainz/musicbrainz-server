@@ -43,6 +43,17 @@ has '+data' => (
     ]
 );
 
+sub initialize {
+    my ($self, %opts) = @_;
+
+    for (qw( old new )) {
+        $opts{$_}{short_link_phrase} = delete $opts{$_}{long_link_phrase}
+            if exists $opts{$_} && exists $opts{$_}{long_link_phrase};
+    }
+
+    $self->data(\%opts);
+}
+
 sub edit_conditions
 {
     my $conditions = {

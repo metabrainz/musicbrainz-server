@@ -228,7 +228,7 @@ sub _mapping
                 name => $lt->name,
                 link_phrase => $lt->link_phrase,
                 reverse_link_phrase => $lt->reverse_link_phrase,
-                short_link_phrase => $lt->short_link_phrase,
+                short_link_phrase => $lt->long_link_phrase,
             };
         },
         entity0 => sub {
@@ -269,7 +269,7 @@ sub initialize
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
-        short_link_phrase => $opts{link_type}->short_link_phrase
+        short_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
     my $link = $relationship->link;
@@ -289,7 +289,7 @@ sub initialize
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
                 reverse_link_phrase => $link->type->reverse_link_phrase,
-                short_link_phrase => $link->type->short_link_phrase
+                short_link_phrase => $link->type->long_link_phrase
             },
             entity0 => {
                 id => $relationship->entity0_id,

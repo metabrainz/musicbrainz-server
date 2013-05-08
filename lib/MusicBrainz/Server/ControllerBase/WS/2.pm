@@ -4,6 +4,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
@@ -411,6 +412,7 @@ sub linked_releases
 
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('ReleasePackaging')->load(@$releases);
+    load_release_events($c, @$releases);
 
     $c->model('Language')->load(@$releases);
     $c->model('Script')->load(@$releases);
@@ -562,6 +564,10 @@ sub load_relationships {
             map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
         );
         $c->model('Language')->load(@load_language_for);
+
+        my @releases = map { $_->target } grep { $_->target_type eq 'release' }
+            map { $_->all_relationships } @for;
+        $c->model('Release')->load_release_events(@releases);
     }
 }
 

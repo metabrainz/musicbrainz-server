@@ -7,8 +7,9 @@ use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
 
-with 'MusicBrainz::Server::Edit::Relationship';
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship';
+with 'MusicBrainz::Server::Edit::Relationship::Role::RenameLongLinkPhrase';
 
 sub edit_name { N_l('Remove relationship type') }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE }

@@ -128,6 +128,10 @@ sub _serialize_artist
         map { $gen->ipi($_->ipi) } $artist->all_ipi_codes
     ) if ($artist->all_ipi_codes);
 
+    push @list, $gen->isni_list(
+        map { $gen->isni($_->isni) } $artist->all_isni_codes
+    ) if ($artist->all_isni_codes);
+
     if ($toplevel)
     {
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
@@ -360,8 +364,27 @@ sub _serialize_release
     $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
 
-    push @list, $gen->date($release->date->format) if $release->date && !$release->date->is_empty;
-    push @list, $gen->country($release->country->iso_code) if $release->country;
+    if (my ($earliest_release_event) = $release->all_events) {
+        my $serialize_release_event = sub {
+            my $event = shift;
+            my @r = ();
+            push @r, $gen->date($event->date->format)
+                if $event->date && !$event->date->is_empty;
+
+            push @r, $gen->country($event->country->iso_code)
+                if $event->country;
+
+            return @r;
+        };
+
+        push @list, $serialize_release_event->($earliest_release_event);
+        push @list, $gen->release_event_list(
+            $self->_list_attributes({ total => $release->event_count }),
+            map { $gen->release_event($serialize_release_event->($_)) }
+                $release->all_events
+        )
+    }
+
     push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
     push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
     $self->_serialize_cover_art_archive(\@list, $gen, $release, $inc, $stash) if $release->cover_art_presence;
@@ -707,6 +730,10 @@ sub _serialize_label
     push @list, $gen->ipi_list(
         map { $gen->ipi($_->ipi) } $label->all_ipi_codes
     ) if ($label->all_ipi_codes);
+
+    push @list, $gen->isni_list(
+        map { $gen->isni($_->isni) } $label->all_isni_codes
+    ) if ($label->all_isni_codes);
 
     if ($toplevel)
     {

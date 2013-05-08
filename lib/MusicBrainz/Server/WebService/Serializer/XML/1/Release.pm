@@ -111,15 +111,19 @@ sub serialize
         # FIXME - try and find other possible release events
         my @events = grep {
             # Don't do ANYTHING if this is a totally empty release event
-            !$_->date->is_empty || $_->country || $_->barcode ||
-            $_->combined_format_name ||
-            ($inc && $inc->labels && @{ $_->labels });
+            $_->release->barcode ||
+            $_->release->combined_format_name ||
+            ($inc && $inc->labels && @{ $_->release->labels });
         }
         map {
-            ReleaseEvent->meta->rebless_instance(
-                $entity->meta->clone_object($_)
+            ReleaseEvent->new(
+                release => $entity,
+                event => $_
             )
-        } $entity;
+        } grep {
+            !$_->date->is_empty || $_->country
+        }
+        $entity->all_events;
 
         push @body, (
             list_of( \'release-event-list', \@events, $inc )

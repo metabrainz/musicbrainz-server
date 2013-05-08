@@ -44,7 +44,7 @@ ws_test 'recording lookup with releases',
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
                 </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
             </release>
             <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
                 <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
@@ -52,7 +52,7 @@ ws_test 'recording lookup with releases',
                 <text-representation>
                     <language>jpn</language><script>Latn</script>
                 </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
             </release>
         </release-list>
     </recording>
@@ -82,7 +82,7 @@ ws_test 'lookup recording with official singles',
                 <text-representation>
                     <language>jpn</language><script>Jpan</script>
                 </text-representation>
-                <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+                <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
             </release>
         </release-list>
     </recording>
@@ -96,7 +96,7 @@ ws_test 'lookup recording with official singles (+media)',
         <title>サマーれげぇ!レインボー</title><length>296026</length>
         <release-list count="1">
             <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title><status>Official</status><date>2001-07-04</date><country>JP</country>
+                <title>サマーれげぇ!レインボー</title><status>Official</status><date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list>
                 <quality>normal</quality>
                 <medium-list count="1">
                     <medium>
@@ -166,6 +166,11 @@ ws_test 'recording lookup with release relationships',
                     <title>An Inextricable Tale Audiobook</title>
                     <quality>normal</quality>
                     <date>2007-11-08</date>
+                    <release-event-list count="1">
+                      <release-event>
+                        <date>2007-11-08</date>
+                      </release-event>
+                    </release-event-list>
                     <barcode>634479663338</barcode>
                 </release>
             </relation>

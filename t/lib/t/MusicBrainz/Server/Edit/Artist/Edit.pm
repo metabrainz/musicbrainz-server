@@ -63,6 +63,11 @@ is(scalar @$ipi_codes, 2, "Artist has two ipi codes after accepting edit");
 isa_ok($ipi_codes->[0], "MusicBrainz::Server::Entity::ArtistIPI");
 isa_ok($ipi_codes->[1], "MusicBrainz::Server::Entity::ArtistIPI");
 
+my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($artist->id);
+is(scalar @$isni_codes, 2, "Artist has two isni codes after accepting edit");
+isa_ok($isni_codes->[0], "MusicBrainz::Server::Entity::ArtistISNI");
+isa_ok($isni_codes->[1], "MusicBrainz::Server::Entity::ArtistISNI");
+
 # load the edit and test if it provides a populated ->display_data
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);
@@ -85,6 +90,8 @@ is($edit->display_data->{end_date}->{old}->format, '');
 is($edit->display_data->{end_date}->{new}->format, '2000-03-20');
 cmp_set($edit->display_data->{ipi_codes}->{old}, []);
 cmp_set($edit->display_data->{ipi_codes}->{new}, [ '00145958831', '00151894163' ]);
+cmp_set($edit->display_data->{isni_codes}->{old}, []);
+cmp_set($edit->display_data->{isni_codes}->{new}, [ '0000000106750994', '0000000106750995' ]);
 
 # Make sure we can use NULL values where possible
 $edit = $c->model('Edit')->create(
@@ -98,6 +105,7 @@ $edit = $c->model('Edit')->create(
     begin_date => { year => undef, month => undef, day => undef },
     end_date => { year => undef, month => undef, day => undef },
     ipi_codes => [],
+    isni_codes => [],
 );
 
 accept_edit($c, $edit);
@@ -126,6 +134,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         to_edit   => $c->model('Artist')->get_by_id(2),
         name => 'Renamed artist',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -134,6 +143,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         to_edit   => $c->model('Artist')->get_by_id(2),
         comment   => 'Comment change',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -156,6 +166,7 @@ test 'Check conflicts (conflicting edits)' => sub {
         name      => 'Renamed artist',
         sort_name => 'Sort FOO',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -165,6 +176,7 @@ test 'Check conflicts (conflicting edits)' => sub {
         comment   => 'Comment change',
         sort_name => 'Sort BAR',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -186,6 +198,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(2),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '33333333333', '44444444444' ],
     );
@@ -200,6 +213,7 @@ test 'Check IPI changes' => sub {
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Artist')->get_by_id(2),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '33333333333',
                        '55555555555', '66666666666' ],
     );
@@ -209,7 +223,8 @@ test 'Check IPI changes' => sub {
     my $edit_3 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(2),
+        to_edit   => $c->model('Artist')->get_by_id(1),
+        isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '55555555555', '77777777777' ],
     );
@@ -239,7 +254,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(3),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -248,7 +264,8 @@ test 'Editing two artists into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Artist')->get_by_id(4),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
@@ -301,6 +318,7 @@ sub _create_full_edit {
         gender_id => 1,
         country_id => 1,
         ipi_codes => [ '00151894163', '00145958831' ],
+        isni_codes => [ '0000000106750994', '0000000106750995' ],
     );
 }
 

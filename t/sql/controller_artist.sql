@@ -45,9 +45,9 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (1, 'ecc33260-454c-11de-8a39-0800200c9a66', 1, 1, 1),
     (2, '7348f3a0-454e-11de-8a39-0800200c9a66', 2, 1, 1);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group, date_year,
-                     date_month, date_day) VALUES
-    (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1, 2009, 5, 8);
+INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 3, 1, 1);
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2009, 5, 8);
+;
 
 -- A full editor
 INSERT INTO
@@ -90,13 +90,13 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',
             'performer');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
     VALUES (2, 'a610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',

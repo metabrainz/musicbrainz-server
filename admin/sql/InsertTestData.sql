@@ -87,8 +87,8 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
 INSERT INTO work_type (id, name) VALUES (1, 'Composition');
 INSERT INTO work_type (id, name) VALUES (2, 'Symphony');
 INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
-INSERT INTO work (id, gid, name, artist_credit, type) VALUES
-    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, NULL, 1);
+INSERT INTO work (id, gid, name, type) VALUES
+    (1, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
 INSERT INTO release_status (id, name) VALUES (2, 'Promotional');
@@ -128,9 +128,9 @@ INSERT INTO label_name (id, name) VALUES (5, 'Empty Label');
 INSERT INTO label (id, gid, name, sort_name) VALUES
     (4, 'f34c079d-374e-4436-9448-da92dedef3ce', 5, 5);
 
-INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, date_year,
-                     date_month, date_day, barcode, country) VALUES
-    (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1, 2009, 5, 8, '731453398122', 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, barcode) VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 1, 2, 1, 1, 1, '731453398122');
+INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (1, 1, 2009, 5, 8);
+;
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 2, 'ABC-123');
@@ -198,13 +198,13 @@ INSERT INTO release_name (id, name) VALUES (2, 'Aerial');
 INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES
     (2, '7c3218d7-75e0-4e8c-971f-f097b6c308c5', 2, 3, 1);
 
-INSERT INTO release
-    (id, gid, name, artist_credit, release_group, status, date_year, date_month, date_day, country, barcode)
-    VALUES (2, 'f205627f-b70a-409d-adbe-66289b614e80', 2, 3, 2, 1, 2005, 11, 7, 1, '0094634396028');
+INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (2, 'f205627f-b70a-409d-adbe-66289b614e80', 2, 3, 2, 1, '0094634396028');
+INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (2, 1, 2005, 11, 7);
+;
 
-INSERT INTO release
-    (id, gid, name, artist_credit, release_group, status, date_year, date_month, date_day, country, barcode)
-    VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 2, 3, 2, 1, 2005, 11, 8, 2, '0827969777220');
+INSERT INTO release (id, gid, name, artist_credit, release_group, status, barcode) VALUES (3, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 2, 3, 2, 1, '0827969777220');
+INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES (3, 2, 2005, 11, 8);
+;
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (3, 2, 2, '343 960 2');
@@ -302,7 +302,7 @@ INSERT INTO link_attribute_type (id, parent, root, gid, name)
 INSERT INTO link_attribute_type (id, parent, root, gid, name)
     VALUES (4, 3, 2, 'c3273296-91ba-453d-94e4-2fb6e958568e', 'Guitar');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase, description)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase, description)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'recording', 'instrument',
             'performed {additional} {instrument} on',
             'has {additional} {instrument} performed by',

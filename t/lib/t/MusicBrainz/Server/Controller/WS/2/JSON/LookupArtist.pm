@@ -129,6 +129,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
@@ -141,6 +142,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
@@ -153,6 +155,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
@@ -165,6 +168,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
@@ -177,6 +181,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
@@ -222,6 +227,10 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        country => "JP",
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 },
@@ -235,6 +244,10 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        country => "JP",
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 }
@@ -272,6 +285,10 @@ test 'artist lookup with pseudo-releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        country => "JP",
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 }
@@ -324,7 +341,11 @@ test 'artist lookup with releases and discids' => sub {
                             format => "CD",
                             discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
                             "track-count" => 9,
-                        }]
+                        }],
+                    "release-events" => [{
+                        country => "GB",
+                        date => "2008-11-17",
+                    }]
                 },
                 {
                     id => "adcf7b48-086e-48ee-b420-1001f88d672f",
@@ -344,7 +365,11 @@ test 'artist lookup with releases and discids' => sub {
                             format => "CD",
                             discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
-                        }]
+                        }],
+                    "release-events" => [{
+                        country => "GB",
+                        date => "2007-01-29"
+                    }],
                 }],
             ipis => [],
         });
@@ -493,6 +518,10 @@ test 'single artist release lookup' => sub {
                     status => "Official",
                     barcode => "4988064451180",
                     asin => JSON::null,
+                    "release-events" => [{
+                        country => "JP",
+                        date => "2004-03-17",
+                    }]
                 }
             ],
             ipis => [],
@@ -527,6 +556,10 @@ test 'various artists release lookup' => sub {
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        country => "JP",
+                    }],
                     barcode => "4988064451180",
                     asin => JSON::null,
                     disambiguation => "",
@@ -732,6 +765,7 @@ test 'artist lookup with artist relations' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
                     type => 'member of band',
                     'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
                     direction => 'forward',

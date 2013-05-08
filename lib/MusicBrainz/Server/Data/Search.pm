@@ -128,12 +128,17 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
+        $extra_columns .= 'entity.language, entity.script, entity.barcode, entity.release_group,'
             if ($type eq 'release');
 
         $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
             if ($type eq 'work');
+
+        my $extra_ordering = '';
+        if ($type eq "recording" || $type eq "release" || $type eq "release_group") {
+            $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
+            $extra_ordering = ', entity.artist_credit';
+        }
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -160,7 +165,6 @@ sub search
                 entity.id,
                 entity.gid,
                 entity.comment,
-                entity.artist_credit AS artist_credit_id,
                 $extra_columns
                 r.name,
                 r.rank
@@ -175,7 +179,8 @@ sub search
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, r.name, entity.artist_credit
+                r.rank DESC, r.name
+                $extra_ordering
             OFFSET
                 ?
         ";

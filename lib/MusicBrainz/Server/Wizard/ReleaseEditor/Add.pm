@@ -17,6 +17,8 @@ extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
+    $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 around render => sub {
@@ -183,8 +185,8 @@ augment 'create_edits' => sub
     # add release (and release group if necessary)
     # ----------------------------------------
 
-    my @fields = qw( packaging_id status_id script_id language_id country_id 
-                     artist_credit date as_auto_editor );
+    my @fields = qw( packaging_id status_id script_id language_id
+                     artist_credit as_auto_editor events );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     $add_release_args{name} = trim ($data->{name});
@@ -213,6 +215,11 @@ augment 'create_edits' => sub
     else
     {
         $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
+    if ($add_release_args{events}) {
+        $add_release_args{events} =
+            $self->_filter_deleted_release_events($add_release_args{events});
     }
 
     # Add the release edit
@@ -337,30 +344,9 @@ augment 'load' => sub
     return $release;
 };
 
-# Approve edits edits that should never fail
-after create_edits => sub {
-    my ($self, %args) = @_;
-    my ($data, $create_edit, $editnote, $release, $previewing)
-        = @args{qw( data create_edit edit_note release previewing )};
-    return if $previewing;
-
-    my $c = $self->c->model('MB')->context;
-
-    $c->sql->begin;
-    my @edits = @{ $self->c->stash->{edits} };
-    for my $edit (@edits) {
-        if (should_approve($edit)) {
-            $c->model('Edit')->accept($edit);
-        }
-    }
-    $c->sql->commit;
-};
-
 sub should_approve {
-    my $edit = shift;
-    return unless $edit->is_open;
-    return $edit->meta->name eq 'MusicBrainz::Server::Edit::Medium::Create' ||
-           $edit->meta->name eq 'MusicBrainz::Server::Edit::Release::ReorderMediums';
+    my ($self, $type) = @_;
+    return $type == $EDIT_MEDIUM_CREATE || $type == $EDIT_RELEASE_REORDER_MEDIUMS;
 }
 
 __PACKAGE__->meta->make_immutable;
