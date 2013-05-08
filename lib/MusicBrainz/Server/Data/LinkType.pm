@@ -218,6 +218,43 @@ sub insert
     return $self->_entity_class->new( id => $id, gid => $row->{gid} );
 }
 
+sub set_examples {
+    my ($self, $id, $examples) = @_;
+
+    my $link_table = $self->sql->select_single_value(
+        "SELECT 'l_' || entity_type0 || '_' || entity_type1
+         FROM link_type
+         WHERE id = ?",
+        $id
+    );
+
+    my $documentation_link_table = sprintf "documentation.%s_example",
+        $link_table;
+
+    $self->sql->do(
+        "DELETE FROM $documentation_link_table
+         WHERE id IN (
+             SELECT l.id
+             FROM $documentation_link_table
+             JOIN $link_table l USING (id)
+             JOIN link ON (link.id = l.link)
+             WHERE link.link_type = ?
+         )",
+        $id
+    );
+
+    for my $example (@$examples) {
+        $self->sql->insert_row(
+            $documentation_link_table,
+            {
+                name => $example->{name},
+                id => $example->{relationship}{id},
+                published => 1
+            }
+        );
+    }
+}
+
 sub update
 {
     my ($self, $id, $values) = @_;
@@ -233,6 +270,11 @@ sub update
             { id => $id }
         );
     }
+
+    if (exists $values->{examples}) {
+        $self->set_examples($id, $values->{examples});
+    }
+
     if (exists $values->{attributes}) {
         $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
         foreach my $attrib (@{$values->{attributes}}) {
@@ -293,7 +335,6 @@ sub load_documentation {
              WHERE id = any(?)', $link_type_ids
          );
     };
-
 
     my $all_examples_query =
         sprintf 'SELECT * FROM (%s) s WHERE link_type = any(?)',

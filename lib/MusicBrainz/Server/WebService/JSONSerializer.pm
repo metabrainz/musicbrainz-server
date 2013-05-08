@@ -134,6 +134,7 @@ sub serialize_relationships
             ended         => $_->link->ended ? 1 : 0,
             target        => $self->$entity( $_->target ),
             edits_pending => $_->edits_pending,
+            verbose_phrase => $_->verbose_phrase
         };
 
         $out->{direction} = 'backward'

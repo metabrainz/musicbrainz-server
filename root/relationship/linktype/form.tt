@@ -44,6 +44,226 @@
       [% r.textarea('documentation', { cols => 80, rows => 10 }) %]
     [% END %]
 
+    [% IF form.isa('MusicBrainz::Server::Form::Admin::LinkType::Edit') %]
+    <fieldset>
+        <legend>[% l('Examples') %]</legend>
+        <span data-bind="if: examples().length > 0">
+            <span data-bind="foreach: examples">
+                [% WRAPPER form_row %]
+                    <label class="required"
+                           data-bind="attr: { for: examplePrefix($index(), 'name') }">
+                        [%- l('Name:') -%]
+                    </label>
+                    <input data-bind="attr: { name: examplePrefix($index(), 'name') }, value: name" />
+                    <button data-bind="click: removeExample">
+                        [% l('Remove Example') %]
+                    </button>
+                [% END %]
+
+                [% WRAPPER form_row %]
+                <div class="no-label" data-bind="with: relationship">
+                    <input data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id"
+                           type="hidden" />
+                    
+                    <a data-bind="text: source.name"></a>
+                    <span data-bind="text: phrase" /></span>
+                    <a data-bind="text: target.name"></a>
+                </div>
+                [% END %]
+            </span>
+        </span>
+
+        <span data-bind="if: examples().length == 0">
+            [% WRAPPER form_row %]
+                <div class="no-label">
+                    [% l('This relationship type does not have any examples.') %]
+                </div>
+            [% END %]
+        </span>
+
+        <h3>[% l('Add a New Example') %]</h3>
+        [% WRAPPER form_row %]
+            <label>[% l('Name:') %]</label>
+            <input data-bind="value: currentExample.name" />
+        [% END %]
+
+        [% WRAPPER form_row %]
+            <label>[% l('Artist:') %]</label>
+            <input data-bind="value: currentExample.possibleRelationships.query" />
+            <button data-bind="click: currentExample.possibleRelationships.search, enable: currentExample.possibleRelationships.query()">
+                [% l('Find Relationships') %]</button>
+        [% END %]
+
+        <span data-bind="if: currentExample.possibleRelationships.results().length">
+        [% WRAPPER form_row %]
+            <div class="no-label">
+                <ul data-bind="foreach: currentExample.possibleRelationships.results">
+                    <li>
+                        <input type="radio"
+                               name="current-example.relationship"
+                               data-bind="checkObject: $root.currentExample.relationship" />
+                        <a data-bind="text: source.name"></a>
+                        <span data-bind="text: phrase" /></span>
+                        <a data-bind="text: target.name"></a>
+                    </li>
+                </ul>
+            </div>
+        [% END %]
+        </span>
+
+        [% WRAPPER form_row %]
+            <div class="no-label">
+                <button data-bind="click: currentExample.add, enable: currentExample.name() && currentExample.relationship()">
+                    [% l('Add Example') %]</button>
+                </button>
+            </div>
+        [% END %]
+
+        <script type="text/javascript">
+var type0 = '[% link_type.entity0_type %]',
+    type1 = '[% link_type.entity1_type %]',
+    link_type_name = '[% link_type.name %]';
+
+function searchUrl(mbid) {
+    return '[% c.uri_for("/ws/js/entity/") %]' + mbid + '?inc=rels';
+}
+
+var RelationshipSearcher = function () {
+    var self = this;
+
+    self.query = ko.observable();
+
+    self.results = ko.observableArray();
+
+    self.search = function() {
+        var possible = this.currentExample.possibleRelationships;
+
+        $.ajax(
+            searchUrl(possible.query()),
+            {
+                success: function(data) {
+                    _.each(
+                        data['relationships'][type1][link_type_name],
+                        function (rel) {
+                            var source = data, target = rel.target;
+
+                            if (rel.direction == "backward") {
+                                source = rel.target;
+                                target = data;
+                            }
+
+                            possible.results.push({
+                                id: rel.id,
+                                phrase: rel.verbose_phrase,
+                                source: {
+                                    name: source.name,
+                                    mbid: source.mbid
+                                },
+                                target: {
+                                    name: target.name
+                                }
+                            })
+                        }
+                    )
+                }
+            }
+        )
+    };
+
+    self.clear =  function() {
+        this.query('');
+        this.results.removeAll();
+    }
+
+    return self;
+}
+
+var ExampleModel = function () {
+    var self = this;
+
+    self.examples = ko.observableArray();
+
+    self.currentExample = {
+        name: ko.observable(),
+        relationship: ko.observable(),
+        add: function() {
+            var ce = this.currentExample;
+
+            this.examples.push(new Example(ce.name(), ce.relationship()));
+
+            ce.name('');
+            ce.relationship(null);
+            ce.possibleRelationships.clear();
+        },
+        possibleRelationships: new RelationshipSearcher()
+    }
+
+    return self;
+};
+
+function Example(name, relationship) {
+    var self = this;
+    
+    self.name = ko.observable(name);
+    self.relationship = relationship;
+    self.removeExample = function() {
+        exampleModel.examples.remove(this);
+    }
+
+    return self;
+}
+
+function examplePrefix(i, s) { 
+    return '[% form.name %].examples.' + i + '.' + s;
+}
+
+ko.bindingHandlers.checkObject = {
+    init: function (element, valueAccessor, all, vm, bindingContext) {
+        ko.utils.registerEventHandler(element, "click", function() {
+            var checkedValue = valueAccessor(),
+                meValue = bindingContext.$data,
+                checked = element.checked;
+            if (checked && ko.isObservable(checkedValue)) {
+                checkedValue(meValue);
+            }
+        });
+    },
+    update: function (element, valueAccessor, all, vm, bindingContext) {
+        var checkedValue = ko.utils.unwrapObservable(valueAccessor()),
+            meValue = bindingContext.$data;
+
+        element.checked = (checkedValue === meValue);
+    }
+};
+
+var exampleModel = new ExampleModel();
+ko.applyBindings(exampleModel);
+
+[% FOREACH example=form.field('examples').fields %]
+    [%- relationship_id = example.field('relationship').field('id').value;
+        relationship = relationship_map.$relationship_id -%]
+exampleModel.examples.push(
+    new Example(
+        '[% example.field('name').value %]',
+        {
+            id: [% relationship_id %],
+            phrase: '[% relationship.verbose_phrase %]',
+            source: {
+                name: '[% relationship.source.name %]',
+                mbid: '[% relationship.source.gid %]'
+            },
+            target: {
+                name: '[% relationship.target.name %]',
+                mbid: '[% relationship.target.gid %]'
+            }
+        }
+    )
+);
+[% END %]
+        </script>
+    </fieldset>
+    [% END %]
+    
     <div class="row no-label">
         [% form_submit(l('Save')) %]
     </div>
