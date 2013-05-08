@@ -39,7 +39,7 @@ sub _fix_html_links
     # if this is not a link to the wikidocs server, don't mess with it.
     elsif ($href =~ m,^https?://$wiki_server,)
     {
-        $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
+        $href =~ s,^https?://$wiki_server/?,/doc/,;
         $node->attr('href', $href);
     }
     elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
