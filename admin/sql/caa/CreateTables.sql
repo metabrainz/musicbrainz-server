@@ -1,4 +1,5 @@
 BEGIN;
+\set ON_ERROR_STOP 1
 
 SET search_path = 'cover_art_archive';
 
@@ -20,8 +21,7 @@ CREATE TABLE cover_art (
     edit INTEGER NOT NULL, -- references musicbrainz.edit.id
     ordering INTEGER NOT NULL CHECK (ordering > 0),
     date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
-    edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    mime_type TEXT NOT NULL DEFAULT 'image/jpeg'  -- references image_type.mime_type
+    edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0)
 );
 
 CREATE TABLE cover_art_type (
