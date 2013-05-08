@@ -200,7 +200,7 @@ sub create_full_edit {
         name => 'Edit Name',
         sort_name => 'Edit Sort',
         comment => 'Edit comment',
-        country_id => 1,
+        area_id => 221,
         type_id => 1,
         label_code => 12345,
         begin_date => { year => 1995, month => 1, day => 12 },
@@ -214,7 +214,7 @@ sub is_unchanged {
     my $label = shift;
     is($label->name, 'Label Name');
     is($label->sort_name, 'Label Name');
-    is($label->$_, undef) for qw( country_id label_code );
+    is($label->$_, undef) for qw( area_id label_code );
     is($label->comment, '');
     ok($label->begin_date->is_empty);
     ok($label->end_date->is_empty);

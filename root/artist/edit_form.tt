@@ -42,7 +42,7 @@
         [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
         [% WRAPPER form_row %]
           [% area_field = form.field('area.name') %]
-          <label for="[% area_field.id %]">[% l('Area:') %]</label>
+          <label for="id-edit-artist.area.name">[% l('Area:') %]</label>
           <span id="area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             <input type="hidden" class="gid" />
@@ -63,7 +63,7 @@
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
         [% WRAPPER form_row %]
           [% begin_area_field = form.field('begin_area.name') %]
-          <label id="edit-artist.begin_area.label" for="[% begin_area_field.id %]">[% l('Begin Area:') %]</label>
+          <label for="id-edit-artist.begin_area.name">[% l('Begin Area:') %]</label>
           <span id="begin_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             <input type="hidden" class="gid" />
@@ -76,7 +76,7 @@
         [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
         [% WRAPPER form_row %]
           [% end_area_field = form.field('end_area.name') %]
-          <label id="edit-artist.end_area.label" for="[% end_area_field.id %]">[% l('End Area:') %]</label>
+          <label for="id-edit-artist.end_area.name">[% l('End Area:') %]</label>
           <span id="end_area" class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
             <input type="hidden" class="gid" />

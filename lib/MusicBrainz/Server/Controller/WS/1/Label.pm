@@ -57,6 +57,7 @@ sub lookup : Chained('load') PathPart('')
     }
 
     $c->model('Area')->load($label);
+    $c->model('Area')->load_codes($label->area);
     $c->model('LabelType')->load($label);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
