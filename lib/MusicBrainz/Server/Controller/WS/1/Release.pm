@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::1::Release;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
+
 __PACKAGE__->config(
     model => 'Release',
 );
@@ -87,8 +89,9 @@ around 'search' => sub
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Language')->load(@releases);
             $c->model('Script')->load(@releases);
-            $c->model('Country')->load(@releases);
             $c->model('Relationship')->load_subset([ 'url' ], @releases);
+
+            load_release_events($c, @releases);
 
             my @tracklists = grep { defined } map { $_->tracklist } @mediums;
             $c->model('Track')->load_for_tracklists(@tracklists);
@@ -115,7 +118,7 @@ around 'search' => sub
   	}
     else {
         $self->$orig($c);
-    } 
+    }
 };
 
 sub lookup : Chained('load') PathPart('')
@@ -184,7 +187,8 @@ sub lookup : Chained('load') PathPart('')
         my @mediums = $release->all_mediums;
         $c->model('MediumFormat')->load(@mediums);
         $c->model('ReleaseLabel')->load($release);
-        $c->model('Country')->load($release);
+
+        load_release_events($c, $release);
 
         $c->model('Label')->load($release->all_labels)
             if $c->stash->{inc}->labels;
@@ -240,7 +244,7 @@ sub submit_cdstub : Private
         my $data = { title => $track_title };
 
         if ($track_artist) {
-            $data->{artist} = $track_artist;    
+            $data->{artist} = $track_artist;
         }
 
         push @tracks, $data;

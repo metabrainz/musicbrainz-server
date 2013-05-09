@@ -5,6 +5,7 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
+with 'MusicBrainz::Server::Form::Role::ISNI';
 
 has '+name' => ( default => 'edit-label' );
 
@@ -43,7 +44,7 @@ has_field 'period' => (
 sub edit_field_names
 {
     return qw( name sort_name comment type_id country_id period.begin_date
-               period.end_date period.ended label_code ipi_codes );
+               period.end_date period.ended label_code ipi_codes isni_codes );
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }

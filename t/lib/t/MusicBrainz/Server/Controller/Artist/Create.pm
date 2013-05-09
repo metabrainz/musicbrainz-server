@@ -62,6 +62,7 @@ subtest 'Create artists with all fields' => sub {
         },
         ended => 1,
         ipi_codes => [],
+        isni_codes => [],
     });
 
 

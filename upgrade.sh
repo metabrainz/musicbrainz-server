@@ -24,6 +24,9 @@ then
     echo `date` : Export pending db changes
     ./admin/RunExport
 
+    echo `date` : Initialize bundled replication packets
+    ./admin/sql/updates/20130322-init-bundled-replication.pl
+
     echo `date` : 'Drop replication triggers (musicbrainz)'
     ./admin/psql READWRITE < ./admin/sql/DropReplicationTriggers.sql
 
@@ -45,11 +48,42 @@ fi
 echo `date` : 'Creating wikidocs transclusion table'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-transclusion-table.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'MBS-5861, work attributes'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'MBS-4115, Add cover art image types'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Create documentation tables'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Creditable link attributes'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-instrument-credits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Dropping work.artist_credit'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130222-drop-work.artist_credit.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Applying 20130322-multiple-country-dates.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 20130225-rename-link_type.short_link_phrase.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.short_link_phrase.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Creating the Area entity'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Updating musicbrainz schema sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'MBS-1839, Reduplicate tracklists'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Applying admin/sql/updates/20120914-isni.sql
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20120914-isni.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -58,6 +92,9 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Create replication triggers (documentation)'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/documentation/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'Create replication triggers (cover_art_archive)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/caa/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -75,12 +112,32 @@ fi
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Adding master constraints
+    echo `date` : Applying 20130309-areas-fks.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130309-areas-fks.sql 2>&1` || ( echo "$OUTPUT"; exit 1 )
+
+    echo `date` : Applying 20130425-edit-area-fk.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area-fk.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Adding ISNI constraints
+    OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20120914-isni-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : 'MBS-4115, Add cover art image types (foreign keys)'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-type-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'MBS-5861, work attribute foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130414-work-attributes-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-1839, Add track MBID foreign keys'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-foreign-keys.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'MBS-1839, Update track triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-track-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
@@ -96,7 +153,7 @@ fi
 # Bump schema sequence
 
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
-#echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
+echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql READWRITE
 
 ################################################################################
 # Prompt for final manual intervention

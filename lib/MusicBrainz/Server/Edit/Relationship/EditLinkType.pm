@@ -30,7 +30,8 @@ sub change_fields
             min  => Nullable[Int],
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
-        ]]]
+        ]]],
+        documentation => Optional[Str]
     ]
 }
 
@@ -42,6 +43,17 @@ has '+data' => (
         types   => Optional[Tuple[Str, Str]],
     ]
 );
+
+sub initialize {
+    my ($self, %opts) = @_;
+
+    for (qw( old new )) {
+        $opts{$_}{short_link_phrase} = delete $opts{$_}{long_link_phrase}
+            if exists $opts{$_} && exists $opts{$_}{long_link_phrase};
+    }
+
+    $self->data(\%opts);
+}
 
 sub edit_conditions
 {
@@ -67,7 +79,7 @@ sub foreign_keys {
                 @{ $self->data->{old}{attributes} },
                 @{ $self->data->{new}{attributes} }
             ],
-        LinkType => [
+        LinkType => [ $self->data->{link_id},
             map { $self->data->{$_}{parent_id} }
                 qw( old new )
             ],
@@ -108,7 +120,8 @@ sub build_display_data {
             map {
                 $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
             } qw( old new )
-        }
+        },
+        link_type => $loaded->{LinkType}{ $self->data->{link_id} }
     }
 }
 

@@ -40,7 +40,7 @@ INSERT INTO recording (id, gid, name, artist_credit)
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase,
-     reverse_link_phrase, short_link_phrase, description)
+     reverse_link_phrase, long_link_phrase, description)
   VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
           '', '', '', '', ''),
          (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
@@ -392,6 +392,40 @@ EOSQL
     is($artist->end_date->year, 2005);
     is($artist->end_date->month, undef);
     is($artist->end_date->day, 12);
+};
+
+test 'Merging attributes for VA' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+country');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO artist_name (id, name) VALUES (4, 'artist name');
+INSERT INTO artist (id, gid, name, sort_name, gender) VALUES
+  (4, '745c079d-374e-4436-9448-da92dedef3ce', 4, 4, 3);
+
+INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
+    end_date_day, comment)
+  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2000, 2005, 12,
+          'Artist 4');
+
+INSERT INTO artist (id, gid, name, sort_name, country, type, comment)
+  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2, 2,
+          'Artist 5');
+EOSQL
+
+    $c->model('Artist')->merge(1, [4, 5, 6]);
+    my $artist = $c->model('Artist')->get_by_id(1);
+
+    is($artist->begin_date->year, undef, "begin date...");
+    is($artist->begin_date->month, undef);
+    is($artist->begin_date->day, undef);
+    is($artist->end_date->year, undef, "end date...");
+    is($artist->end_date->month, undef);
+    is($artist->end_date->day, undef);
+    is($artist->country_id, undef, "country is undef");
+    is($artist->gender_id, undef, "gender is undef");
+    is($artist->type_id, 3, "type is unchanged");
 };
 
 test 'Cannot edit an artist into something that would violate uniqueness' => sub {

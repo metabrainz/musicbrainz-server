@@ -42,6 +42,7 @@
         [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
         [%- form_row_select(r, 'country_id', l('Country:')) -%]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
+        [%- form_row_text_list(r, 'isni_codes', l('ISNI codes:'), l('ISNI code')) -%]
       </fieldset>
 
       <fieldset>

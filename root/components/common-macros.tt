@@ -18,7 +18,7 @@ END -%]
 [%- MACRO make_lcfirst(text) BLOCK; text | lcfirst; END -%]
 [%- MACRO make_upper(text) BLOCK; text | upper; END -%]
 [%- MACRO make_lower(text) BLOCK; text | lower; END -%]
-[%- USE UserDate(c.user.preferences) -%]
+[%- USE UserDate(c.user.preferences, current_language) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%- MACRO va_doc_link BLOCK -%]
@@ -212,6 +212,8 @@ END -%]
   [% END %]
 [%- END -%]
 
+[%- MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
+
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
@@ -284,11 +286,11 @@ END -%]
 [%- MACRO link_artist(artist, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
-    text = text == '' ? html_escape(artist.name) : text;
     hover = html_escape(artist.sort_name);
     IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
     '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<span class="name-variation">' IF text != artist.name AND action == 'show';
+    '<span class="name-variation">' IF text != '' AND text != artist.name AND action == 'show';
+    text = text == '' ? html_escape(artist.name) : text;
     '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
@@ -322,10 +324,10 @@ END -%]
 [%- MACRO link_recording(recording, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
-    text = text == '' ? html_escape(recording.name) : text;
     hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
-    '<span class="name-variation">' IF text != recording.name AND action == 'show';
+    '<span class="name-variation">' IF text != '' AND text != recording.name AND action == 'show';
+    text = text == '' ? html_escape(recording.name) : text;
     '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
@@ -438,7 +440,7 @@ END -%]
 
 [%- MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
   [%- text = text == '' ? search_value : text -%]
-  <a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
+  [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
       [%- text -%]</a>
 [%- END -%]
 
@@ -486,7 +488,7 @@ END-%]
         seen.${ label.label_id } = 1;
       END;
     END;
-    out.join(', ');
+    comma_only_list(out);
 END -%]
 
 [%- MACRO release_catno_list(labels) BLOCK;
@@ -498,7 +500,7 @@ END -%]
         seen.${ label.catalog_number } = 1;
       END;
     END;
-    out.join(', ');
+    comma_only_list(out);
 END -%]
 
 [%- MACRO sortble_table_header(name, label) BLOCK -%]
@@ -660,6 +662,7 @@ END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
             [% phrase_field = phrase_field || 'phrase' %]
+            [% extra_attributes_field = "extra_${phrase_field}_attributes" %]
             [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
             [%- relationship.${phrase_field} | html %]
             [% descriptive_link(relationship.target) %]
@@ -687,6 +690,9 @@ END -%]
             [%- ELSIF relationship.link.ended -%]
                 [% l('ended') %]
             [%- END -%]
+            [%- IF relationship.${extra_attributes_field} -%]
+                ([%- relationship.${extra_attributes_field} | html %])
+            [%- END -%]
 [%- END -%]
 
 [%- MACRO trusted_domain(url) BLOCK;
@@ -706,8 +712,10 @@ END -%]
 [%- MACRO favicon_class(url)
        IF url.url.host.search('amazon'); 'amazon';
     ELSIF url.url.host.search('allmusic.com'); 'allmusic';
+    ELSIF url.url.host.search('animenewsnetwork.com'); 'animenewsnetwork';
     ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
     ELSIF url.url.host.search('facebook.com'); 'facebook';
+    ELSIF url.url.host.search('generasia.com'); 'generasia';
     ELSIF url.url.host.search('last.fm'); 'lastfm';
     ELSIF url.url.host.search('myspace.com'); 'myspace';
     ELSIF url.url.host.search('twitter.com'); 'twitter';
@@ -738,7 +746,27 @@ END -%]
     ELSIF url.url.host.search('thesession.org'); 'thesession';
     ELSIF url.url.host.search('plus.google.com'); 'googleplus';
     ELSIF url.url.host.search('openlibrary.org'); 'openlibrary';
+    ELSIF url.url.host.search('bandcamp.com'); 'bandcamp';
+    ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
+    ELSIF url.url.host.search('spotify.com'); 'spotify';
+    ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
     ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
+    ELSE; '';
+END -%]
+
+[%- MACRO license_class(url)
+       IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/publicdomain/'); 'CCPD';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-sa/'); 'CCBYNCSA';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-nd/'); 'CCBYNCND';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-sa/'); 'CCBYSA';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc/'); 'CCBYNC';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nd/'); 'CCBYND';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/by/'); 'CCBY';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/nc-sampling\\+/'); 'CCNCSamplingPlus';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling\\+/'); 'CCSamplingPlus';
+    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling/'); 'CCSampling';
+    ELSIF url.url.as_string.search('artlibre.org/licence/lal'); 'ArtLibre';
     ELSE; '';
 END -%]
 
@@ -887,6 +915,7 @@ http://[%- server -%]/[%- id -%]
   [% ELSE %]
       [% link_entity(rel.target) %]
   [% END %]
+  [% '(' _ rel.extra_phrase_attributes _ ')' | html IF rel.extra_phrase_attributes %]
   [% '(' _ rel.link.formatted_date _ ')' IF rel.link.formatted_date %]
   </span>
 [%- END -%]
@@ -908,3 +937,26 @@ http://[%- server -%]/[%- id -%]
       }) %]">[% l('Edit') %]</a>
   ]
 [%- END -%]
+
+[%- MACRO release_events(release_events) BLOCK;
+      IF release_events.size;
+        '<ul>';
+        FOR event=release_events;
+          '<li>';
+          release_date = rdfa_release_event_date(event.date);
+          country = rdfa_release_country_abbr(event.country);
+          IF event.country AND !event.date.is_empty;
+            l('{date} ({country})',
+              { date => release_date,
+                country => country
+              });
+          ELSIF event.date.is_empty;
+            l('{country} (date unknown)', { country => country });
+          ELSE;
+            l('{date} (unknown)', { date => release_date });
+          END;
+          '</li>';
+        END;
+        '</ul>';
+      END;
+    END -%]

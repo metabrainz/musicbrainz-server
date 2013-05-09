@@ -38,7 +38,7 @@ ws_test 'basic release lookup',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -62,6 +62,12 @@ ws_test 'release lookup, inc=annotation',
         </text-representation>
         <date>2007-01-29</date>
         <country>GB</country>
+        <release-event-list count="1">
+          <release-event>
+            <date>2007-01-29</date>
+            <country>GB</country>
+          </release-event>
+        </release-event-list>
         <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
         <cover-art-archive>
@@ -83,7 +89,7 @@ ws_test 'basic release with tags',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <tag-list>
           <tag count="1"><name>hello project</name></tag>
@@ -107,7 +113,7 @@ ws_test 'basic release with collections',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <collection-list>
             <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
@@ -150,7 +156,7 @@ ws_test 'release lookup with artists + aliases',
                 </artist>
             </name-credit>
         </artist-credit>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -171,7 +177,7 @@ ws_test 'release lookup with labels, recordings and tags',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <label-info-list count="1">
             <label-info>
@@ -258,7 +264,7 @@ ws_test 'release lookup with release-groups',
                 </name-credit>
             </artist-credit>
         </release-group>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -279,7 +285,7 @@ ws_test 'release lookup with discids and puids',
         <text-representation>
             <language>jpn</language><script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
@@ -339,7 +345,7 @@ ws_test 'release lookup, barcode is NULL',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>1999-09-23</date><country>US</country>
+        <date>1999-09-23</date><country>US</country><release-event-list count="1"><release-event><date>1999-09-23</date><country>US</country></release-event></release-event-list>
         <asin>B00001IVAI</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -360,7 +366,7 @@ ws_test 'release lookup, barcode is empty string',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>1999-09-13</date><country>GB</country>
+        <date>1999-09-13</date><country>GB</country><release-event-list count="1"><release-event><date>1999-09-13</date><country>GB</country></release-event></release-event-list>
         <barcode />
         <cover-art-archive>
             <artwork>false</artwork>
@@ -368,6 +374,52 @@ ws_test 'release lookup, barcode is empty string',
             <front>false</front>
             <back>false</back>
         </cover-art-archive>
+    </release>
+</metadata>';
+
+ws_test 'release lookup, relation attributes',
+    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="757a1723-3769-4298-89cd-48d31177852a">
+        <title>LOVE &amp; HONESTY</title>
+        <status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2004-01-15</date><country>JP</country><asin>B0000YGBSG</asin>
+        <cover-art-archive>
+            <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
+        </cover-art-archive>
+        <relation-list target-type="release">
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>28fc2337-985b-3da9-ac40-ad6f28ff0d8e</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <barcode>4988064173891</barcode>
+                </release>
+            </relation>
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>cacc586f-c2f2-49db-8534-6f44b55196f2</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <barcode>4988064173907</barcode>
+                </release>
+            </relation>
+        </relation-list>
     </release>
 </metadata>';
 

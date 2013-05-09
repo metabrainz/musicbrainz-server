@@ -362,24 +362,30 @@ sub order_by
 {
     my ($order, $default, $map) = @_;
 
+    my $desc = 0;
     my $order_by = $map->{$default};
     if ($order) {
-        my $desc = 0;
-        if ($order =~ /-(.*)/) {
-            $desc = 1;
-            $order = $1;
+        if ($order =~ /^-(.*)/) {
+           $desc = 1;
+           $order = $1;
         }
         if (exists $map->{$order}) {
             $order_by = $map->{$order};
-            if (ref($order_by) eq 'CODE') {
-                $order_by = $order_by->();
-            }
-            if ($desc) {
-                my @list = map { "$_ DESC" } split ',', $order_by;
-                $order_by = join ',', @list;
-            }
+        }
+        else {
+            $desc = 0;
         }
     }
+
+    if (ref($order_by) eq 'CODE') {
+        $order_by = $order_by->();
+    }
+
+    if ($desc) {
+        my @list = map { "$_ DESC" } split ',', $order_by;
+        $order_by = join ',', @list;
+    }
+
     return $order_by;
 }
 

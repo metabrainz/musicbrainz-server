@@ -1,3 +1,4 @@
-BEGIN; 
-ALTER TABLE editor_collection ADD COLUMN description TEXT DEFAULT '' NOT NULL; 
+\set ON_ERROR_STOP 1
+BEGIN;
+ALTER TABLE editor_collection ADD COLUMN description TEXT DEFAULT '' NOT NULL;
 COMMIT;

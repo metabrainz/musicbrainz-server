@@ -161,6 +161,13 @@ sub delete {
 sub merge_releases {
     my ($self, $new_release, @old_releases) = @_;
 
+    # cover_art_presence enum has 'darkened' as max, and 'absent' as min,
+    # so we always want the highest value to be preserved
+    $self->sql->do(
+        "UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence)
+           FROM release_meta WHERE id = any(?))
+           WHERE id = ?", [ $new_release, @old_releases ], $new_release);
+
     for my $old_release (@old_releases) {
         $self->sql->do(
             'UPDATE cover_art_archive.cover_art
@@ -174,6 +181,31 @@ sub merge_releases {
             $new_release,
             $old_release);
     }
+}
+
+sub merge_release_groups {
+    my ($self, $new_release_group_id, @old_release_groups) = @_;
+
+    my $all_ids = [ $new_release_group_id, @old_release_groups ];
+    $self->sql->do('
+      DELETE FROM cover_art_archive.release_group_cover_art
+      WHERE release_group = any(?) AND release_group NOT IN (
+        SELECT release_group
+        FROM cover_art_archive.release_group_cover_art
+        WHERE release_group = any(?)
+        ORDER BY (release_group = ?) DESC
+        LIMIT 1
+      )',
+        $all_ids,
+        $all_ids,
+        $new_release_group_id
+    );
+
+    $self->sql->do('
+        UPDATE cover_art_archive.release_group_cover_art SET release_group = ?
+        WHERE release_group = any(?)',
+        $new_release_group_id, $all_ids
+    );
 }
 
 sub exists {

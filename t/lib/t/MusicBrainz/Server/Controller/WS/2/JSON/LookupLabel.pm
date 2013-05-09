@@ -115,6 +115,10 @@ test 'label lookup with releases, inc=media' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        country => "GB",
+                    }],
                     barcode => "600116822123",
                     asin => JSON::null,
                     disambiguation => "",
@@ -132,6 +136,10 @@ test 'label lookup with releases, inc=media' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2007-01-29",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        country => "GB",
+                    }],
                     barcode => "600116817020",
                     asin => JSON::null,
                     disambiguation => "",

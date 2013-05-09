@@ -16,6 +16,7 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBeGroups') %]">[% l('Artists that may be groups') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsThatMayBePersons') %]">[% l('Artists that may be persons') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsWithNoSubscribers') %]">[% l('Artists with no subscribers') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateArtists') %]">[% l('Possibly duplicate artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'CollaborationRelationships') %]">[% l('Artists which have collaboration relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'PossibleCollaborations') %]">[% l('Artists which look like collaborations') %]</a></li>
@@ -63,6 +64,8 @@
             <li><a href="[% c.uri_for_action('/report/show', 'UnlinkedPseudoReleases') %]">[% l('Translated/Transliterated Pseudo-Releases not linked to an original version') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesInCAAWithCoverArtRelationships') %]">
               [% l('Releases in the Cover Art Archive that still have cover art relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'CoverArtRelationships') %]">
+              [% l('Releases of any sort that still have cover art relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'MediumsWithSequenceIssues') %]">[% l('Releases with non-sequential mediums') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithUnlikelyLanguageScript') %]">[% l('Releases with unlikely language/script pairs') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'TracksWithoutTimes') %]">[% l('Releases with unknown track times') %]</a></li>
@@ -88,6 +91,12 @@
 
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'ISRCsWithManyRecordings') %]">[% l('ISRCs with multiple recordings') %]</a></li>
+        </ul>
+
+        <h2>[% l('ISWCs') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'ISWCsWithManyWorks') %]">[% l('ISWCs with multiple works') %]</a></li>
         </ul>
     </div>
 [%- END -%]

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
+with 'MusicBrainz::Server::Edit::Relationship::Role::RenameLongLinkPhrase';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Add relationship type') }
@@ -31,8 +32,25 @@ has '+data' => (
             min  => Nullable[Int],
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
-        ]]
+        ]],
+        documentation => Optional[Str]
     ]
+);
+
+sub foreign_keys {
+    my $self = shift;
+    return {
+        LinkAttributeType => [
+            grep { defined }
+            map { $_->{type} }
+                @{ $self->data->{attributes} }
+            ]
+    }
+}
+
+has entity_id => (
+    isa => 'Int',
+    is => 'rw'
 );
 
 sub edit_conditions
@@ -54,7 +72,31 @@ sub allow_auto_edit { 1 }
 
 sub accept {
     my $self = shift;
-    $self->c->model('LinkType')->insert($self->data);
+    $self->entity_id($self->c->model('LinkType')->insert($self->data)->id);
+}
+
+sub build_display_data {
+    my ($self, $loaded) = @_;
+
+    return {
+        attributes => $self->_build_attributes($self->data->{attributes}, $loaded),
+    }
+}
+
+sub _build_attributes {
+    my ($self, $list, $loaded) = @_;
+    return [
+        map {
+            MusicBrainz::Server::Entity::LinkTypeAttribute->new(
+                min => $_->{min},
+                max => $_->{max},
+                type => $loaded->{LinkAttributeType}{ $_->{type} } ||
+                    MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => $_->{name}
+                    )
+                  )
+          } @$list
+    ]
 }
 
 no Moose;

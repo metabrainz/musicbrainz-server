@@ -3,7 +3,6 @@ use Moose;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
@@ -103,23 +102,6 @@ has 'barcode' => (
     default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
 
-has 'country_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'country' => (
-    is => 'rw',
-    isa => 'Country'
-);
-
-has 'date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
 has 'language_id' => (
     is => 'rw',
     isa => 'Int'
@@ -170,6 +152,17 @@ has 'mediums' => (
         add_medium => 'push',
         clear_mediums => 'clear',
         medium_count => 'count'
+    }
+);
+
+has events => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        add_event => 'push',
+        all_events => 'elements',
+        event_count => 'count'
     }
 );
 
@@ -337,6 +330,8 @@ sub combined_track_relationships {
 
     my $medium_count = scalar $self->all_mediums;
 
+    $merge_rels->($self->grouped_relationships);
+
     for my $medium ($self->all_mediums) {
         for my $track ($medium->tracklist->all_tracks) {
             # XXX tracklist->medium is a hack, but needed by the track_number
@@ -358,8 +353,6 @@ sub combined_track_relationships {
                     $track->recording->all_relationships
         }
     }
-
-    $merge_rels->($self->grouped_relationships);
 
     # Given a track, return its number. If there are *any* duplicate track
     # numbers on the release, prepend all track numbers with the medium

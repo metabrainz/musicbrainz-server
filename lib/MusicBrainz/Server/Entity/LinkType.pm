@@ -56,14 +56,14 @@ sub l_reverse_link_phrase {
     return l($self->reverse_link_phrase);
 }
 
-has 'short_link_phrase' => (
+has 'long_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
 
-sub l_short_link_phrase {
+sub l_long_link_phrase {
     my $self = shift;
-    return l($self->short_link_phrase);
+    return l($self->long_link_phrase);
 }
 
 has 'description' => (
@@ -116,6 +116,10 @@ sub sorted_children {
     my $self = shift;
     return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
 }
+
+has 'documentation' => (
+    is => 'rw'
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

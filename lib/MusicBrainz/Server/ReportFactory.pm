@@ -8,9 +8,11 @@ use MusicBrainz::Server::PagedReport;
     ArtistsContainingDisambiguationComments
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
+    ArtistsWithNoSubscribers
     BadAmazonURLs
     CatNoLooksLikeASIN
     CollaborationRelationships
+    CoverArtRelationships
     CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
@@ -27,6 +29,7 @@ use MusicBrainz::Server::PagedReport;
     FeaturingReleaseGroups
     FeaturingReleases
     ISRCsWithManyRecordings
+    ISWCsWithManyWorks
     MediumsWithSequenceIssues
     MultipleASINs
     MultipleDiscogsLinks
@@ -53,9 +56,11 @@ use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
+use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
+use MusicBrainz::Server::Report::CoverArtRelationships;
 use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
@@ -72,6 +77,7 @@ use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
+use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::MediumsWithSequenceIssues;
 use MusicBrainz::Server::Report::MultipleASINs;
 use MusicBrainz::Server::Report::MultipleDiscogsLinks;

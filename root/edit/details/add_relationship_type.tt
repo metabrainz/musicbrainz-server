@@ -6,11 +6,31 @@
 
   <tr>
     <th>[% l('Description:') %]</th>
-    <td>[% edit.data.description || l('(none)') %]</td>
+    <td>[% edit.data.description || lp('(none)', 'description') %]</td>
   </tr>
 
   <tr>
     <th>[% l('Link phrase:') %]</th>
     <td><em>[% edit.data.types.0 %]</em> [% edit.data.link_phrase | html %] <em>[% edit.data.types.1 %]</em></td>
+  </tr>
+
+  [% IF edit.display_data.attributes %]
+  <tr>
+    <th>[% l('Attributes:') %]</th>
+    <td>
+      <ul>
+        [% FOR attribute=edit.display_data.attributes %]
+        <li>
+          [% attribute.type.name %]: [% attribute.min %]-[% attribute.max %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Documentation:') %]</th>
+    <td>[% edit.data.documentation | format_wikitext %]</td>
   </tr>
 </table>

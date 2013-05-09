@@ -10,7 +10,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash );
 use MusicBrainz::Server::Entity::Types;
 use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Structured qw( Dict Optional );
 
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Link;
@@ -36,7 +36,8 @@ has '+data' => (
                 id => Int,
                 name => Str,
             ],
-            phrase     => Str,
+            phrase => Str,
+            extra_phrase_attributes => Optional[Str],
             link => Dict[
                 begin_date => PartialDateHash,
                 end_date => PartialDateHash,
@@ -90,7 +91,10 @@ sub build_display_data
                 $self->c->model($self->model1)->_entity_class->new(
                     name => $self->data->{relationship}{entity1}{name}
                 ),
-            verbose_phrase => $self->data->{relationship}{phrase},
+            _verbose_phrase => [
+                $self->data->{relationship}{phrase},
+                $self->data->{relationship}{extra_phrase_attributes},
+            ],
             link => MusicBrainz::Server::Entity::Link->new(
                 begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
                 end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}), 
@@ -162,6 +166,7 @@ sub initialize
                 name => $relationship->entity1->name
             },
             phrase => $relationship->verbose_phrase,
+            extra_phrase_attributes => $relationship->extra_verbose_phrase_attributes,
             link => {
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),
