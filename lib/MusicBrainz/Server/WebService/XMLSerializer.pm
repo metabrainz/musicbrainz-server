@@ -1007,8 +1007,9 @@ sub _serialize_relation
 
     push @list, $gen->attribute_list(
         map {
-            $text_attrs{$_->id} ? $gen->attribute({ value => $text_attrs{$_->id} }, $_->name)
-                                : $gen->attribute($_->name)
+            my $type = $_->type;
+            $text_attrs{$type->id} ? $gen->attribute({ value => $text_attrs{$type->id} }, $type->name)
+                                   : $gen->attribute($type->name)
         } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);
 

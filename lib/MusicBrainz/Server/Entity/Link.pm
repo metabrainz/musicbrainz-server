@@ -38,7 +38,7 @@ has 'ended' => (
 
 has 'attributes' => (
     is => 'rw',
-    isa => 'ArrayRef[LinkAttributeType]',
+    isa => 'ArrayRef[LinkAttribute]',
     traits => [ 'Array' ],
     default => sub { [] },
     lazy => 1,
@@ -69,7 +69,8 @@ sub has_attribute
 
     $name = lc $name;
     foreach my $attr ($self->all_attributes) {
-        if (defined $attr->root && lc $attr->root->name eq $name) {
+        my $type = $attr->type;
+        if (defined $type->root && lc $type->root->name eq $name) {
             return 1;
         }
     }
@@ -83,8 +84,9 @@ sub get_attribute
     my @values;
     $name = lc $name;
     foreach my $attr ($self->all_attributes) {
-        if (defined $attr->root && lc $attr->root->name eq $name) {
-            push @values, lc $attr->name;
+        my $type = $attr->type;
+        if (defined $type->root && lc $type->root->name eq $name) {
+            push @values, lc $attr->type->name;
         }
     }
     return \@values;

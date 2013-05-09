@@ -214,21 +214,25 @@ sub _interpolate
     my $text_attrs = $self->link->attribute_text_values;
     my %attrs;
     foreach my $attr (@attrs) {
-        my $name = lc $attr->root->name;
-        my $value = $attr->l_name;
+        my $type = $attr->type;
+        my $name = lc $type->root->name;
+        my $value = $type->l_name;
 
-        if ($attr->root->id == $INSTRUMENT_ROOT_ID && $attr->gid) {
-            $value = "<a href=\"/instrument/".$attr->gid."\">$value</a>";
+        if ($type->root->id == $INSTRUMENT_ROOT_ID && $type->gid) {
+            $value = "<a href=\"/instrument/".$type->gid."\">$value</a>";
         }
 
-        if ($attr->free_text && (my $text_value = $text_attrs->{$attr->id})) {
+        if (my $credit = $attr->credited_as) {
+            $value = l('{attribute} [{credited_as}]', { attribute => $value, credited_as => $credit })
+        }
+
+        if ($type->free_text && (my $text_value = $text_attrs->{$type->id})) {
             $value = l('{attribute}: {value}', { attribute => $value, value => $text_value });
         }
 
         if (exists $attrs{$name}) {
             push @{$attrs{$name}}, $value;
-        }
-        else {
+        } else {
             $attrs{$name} = [ $value ];
         }
     }

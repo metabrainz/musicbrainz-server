@@ -2,11 +2,13 @@ package MusicBrainz::Server::Edit::Relationship::Edit;
 use Moose;
 use Carp;
 use Clone 'clone';
+use List::UtilsBy qw( sort_by );
 use Moose::Util::TypeConstraints qw( as subtype find_type_constraint );
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( normalize_date_period );
@@ -30,8 +32,6 @@ sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
 sub edit_kind { 'edit' }
 
-sub _xml_arguments { ForceArray => ['attributes'] }
-
 subtype 'LinkHash'
     => as Dict[
         link_type => Dict[
@@ -41,7 +41,10 @@ subtype 'LinkHash'
             reverse_link_phrase => Str,
             long_link_phrase => Str
         ],
-        attributes => Nullable[ArrayRef[Int]],
+        attributes => Nullable[ArrayRef[Dict[
+            id => Int,
+            credited_as => Nullable[Str]
+        ]]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
         ended => Optional[Bool],
@@ -65,7 +68,10 @@ subtype 'RelationshipHash'
             reverse_link_phrase => Str,
             long_link_phrase => Str
         ]],
-        attributes => Nullable[ArrayRef[Int]],
+        attributes => Nullable[ArrayRef[Dict[
+            id => Int,
+            credited_as => Nullable[Str]
+        ]]],
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
         ended => Optional[Bool],
@@ -111,12 +117,14 @@ sub foreign_keys
         $self->data->{old}{link_type} ? $self->data->{old}{link_type}{id} : (),
     ];
     $load{LinkAttributeType} = [
-        @{ $self->data->{link}->{attributes} },
-        @{ $self->data->{new}->{attributes} || [] },
-        @{ $self->data->{old}->{attributes} || [] },
-        keys %{ $self->data->{link}->{attribute_text_values} // {} },
-        keys %{ $self->data->{old}->{attribute_text_values} // {} },
-        keys %{ $self->data->{new}->{attribute_text_values} // {} },
+        map { $_->{id} } (
+            @{ $self->data->{link}->{attributes} },
+            @{ $self->data->{new}->{attributes} || [] },
+            @{ $self->data->{old}->{attributes} || [] },
+            keys %{ $self->data->{link}->{attribute_text_values} // {} },
+            keys %{ $self->data->{old}->{attribute_text_values} // {} },
+            keys %{ $self->data->{new}->{attribute_text_values} // {} },
+        )
     ];
 
     my $old = $self->data->{old};
@@ -164,12 +172,15 @@ sub _build_relationship
             ended      => $ended,
             attributes => [
                 map {
-                    my $attr    = $loaded->{LinkAttributeType}{ $_ };
+                    my $attr    = $loaded->{LinkAttributeType}{ $_->{id} };
 
                     if ($attr) {
                         my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
                         $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                        $attr;
+                        MusicBrainz::Server::Entity::LinkAttribute->new(
+                            type => $attr,
+                            credited_as => $_->{credited_as}
+                        );
                     }
                     else {
                         ();
@@ -243,7 +254,12 @@ sub _mapping
         begin_date => sub { return partial_date_to_hash(shift->link->begin_date); },
         end_date =>   sub { return partial_date_to_hash(shift->link->end_date);   },
         ended => sub { return shift->link->ended },
-        attributes => sub { return [ sort map { $_->id } shift->link->all_attributes ]; },
+        attributes => sub {
+            [ sort_by { $_->{id} } map +{
+                id => $_->type->id,
+                credited_as => $_->credited_as
+            }, shift->link->all_attributes ];
+        },
         link_type => sub {
             my $rel = shift;
             my $lt = $rel->link->type;
@@ -347,7 +363,10 @@ sub initialize
             begin_date => partial_date_to_hash($link->begin_date),
             end_date =>   partial_date_to_hash ($link->end_date),
             ended => $link->ended,
-            attributes => [ map { $_->id } $link->all_attributes ],
+            attributes => [ map +{
+                id => $_->type->id,
+                credited_as => $_->credited_as
+            }, $link->all_attributes ],
             link_type => {
                 id => $link->type_id,
                 name => $link->type->name,
@@ -399,7 +418,10 @@ sub accept
         entity0_id   => $data->{new}{entity0}{id}   // $relationship->entity0_id,
         entity1_id   => $data->{new}{entity1}{id}   // $relationship->entity1_id,
         attributes   => $data->{new}{attributes}    // [
-            map { $_->id } $relationship->link->all_attributes
+            map +{
+                id => $_->type->id,
+                credited_as => $_->credited_as
+            }, $relationship->link->all_attributes
         ],
         link_type_id => $data->{new}{link_type}{id} // $relationship->link->type_id,
         begin_date   => $data->{new}{begin_date}    // $relationship->link->begin_date,

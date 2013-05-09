@@ -43,7 +43,10 @@ has '+data' => (
             reverse_link_phrase => Str,
             long_link_phrase => Str
         ],
-        attributes   => Nullable[ArrayRef[Int]],
+        attributes   => Nullable[ArrayRef[Dict[
+            id => Int,
+            credited_as => Nullable[Str]
+        ]]],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
         type0        => Str,
@@ -113,8 +116,10 @@ sub foreign_keys
     my ($self) = @_;
 
     my %load = (
-        LinkType            => [ $self->data->{link_type}{id} ],
-        LinkAttributeType   =>   $self->data->{attributes},
+        LinkType => [ $self->data->{link_type}{id} ],
+        LinkAttributeType => [
+            map { $_->{id} } @{ $self->data->{attributes} // [] }
+        ],
     );
 
     my $type0 = $self->data->{type0};
@@ -148,11 +153,14 @@ sub build_display_data
                 ended      => $self->data->{ended},
                 attributes => [
                     map {
-                        my $attr = $loaded->{LinkAttributeType}{ $_ };
+                        my $attr = $loaded->{LinkAttributeType}{ $_->{id} };
                         if ($attr) {
                             my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
                             $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                            $attr;
+                            MusicBrainz::Server::Entity::LinkAttribute->new(
+                                type => $attr,
+                                credited_as => $_->{credited_as}
+                            )
                         }
                         else {
                             ()

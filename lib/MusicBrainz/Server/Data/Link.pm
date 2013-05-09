@@ -5,6 +5,7 @@ use Moose;
 use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
+use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
@@ -54,6 +55,7 @@ sub _load_attributes
                 attr.id,
                 attr.gid,
                 attr.name AS name,
+                attr_credit.credited_as,
                 root_attr.id AS root_id,
                 root_attr.gid AS root_gid,
                 root_attr.name AS root_name,
@@ -64,12 +66,13 @@ sub _load_attributes
                 JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
                 LEFT OUTER JOIN link_attribute_text_value USING (link, attribute_type)
+                LEFT OUTER JOIN link_attribute_credit attr_credit USING (link, attribute_type)
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
+
         for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-            my $id = $row->{link};
-            if (exists $data->{$id}) {
-                my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
+            if (my $link = $data->{ $row->{link} }) {
+                my $attr_type = MusicBrainz::Server::Entity::LinkAttributeType->new(
                     id => $row->{id},
                     gid => $row->{gid},
                     name => $row->{name},
@@ -80,12 +83,18 @@ sub _load_attributes
                         name => $row->{root_name},
                     ),
                 );
-                $data->{$id}->add_attribute($attr) unless any {
-                    $attr->id == $_->id
-                } $data->{$id}->all_attributes;
+
+                my $attr = MusicBrainz::Server::Entity::LinkAttribute->new(
+                    credited_as => $row->{credited_as},
+                    type => $attr_type
+                );
+
+                $link->add_attribute($attr) unless any {
+                    $attr_type->id == $_->type->id
+                } $link->all_attributes;
 
                 if ($row->{free_text} && defined($row->{text_value})) {
-                    $data->{$id}->attribute_text_values->{$row->{id}} = $row->{text_value};
+                    $link->attribute_text_values->{$row->{id}} = $row->{text_value};
                 }
             }
         }
@@ -160,7 +169,22 @@ sub find
     foreach my $attr (@attrs) {
         push @joins, "JOIN link_attribute a$i ON a$i.link = link.id";
         push @conditions, "a$i.attribute_type = ?";
-        push @args, $attr;
+        push @args, $attr->{id};
+
+        push @joins,
+            "LEFT JOIN link_attribute_credit ac$i ON
+               (a$i.attribute_type = ac$i.attribute_type
+                  AND a$i.link = ac$i.link)";
+
+        my $credited_as = $attr->{credited_as};
+        if (defined $credited_as) {
+            push @conditions, "ac$i.credited_as = ?";
+            push @args, $credited_as;
+        }
+        else {
+            push @conditions, "ac$i.credited_as IS NULL";
+        }
+
         $i += 1;
     }
 
@@ -199,10 +223,20 @@ sub find_or_insert
     $id = $self->sql->insert_row("link", $row, "id");
 
     foreach my $attr (@attrs) {
+        my $attribute_type = $attr->{id};
+
         $self->sql->insert_row("link_attribute", {
             link           => $id,
-            attribute_type => $attr,
+            attribute_type => $attribute_type,
         });
+
+        if (my $credited_as = $attr->{credited_as}) {
+            $self->sql->insert_row("link_attribute_credit", {
+                attribute_type => $attribute_type,
+                link => $id,
+                credited_as => $credited_as
+            });
+        }
     }
 
     my %attrs = %{ $values->{attribute_text_values} };
