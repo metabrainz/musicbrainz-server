@@ -115,7 +115,8 @@ ws_test 'label lookup with label-relationships',
     <sort-name>RAM Records</sort-name>
     <country>GB</country>
     <life-span begin="1992" />
-      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelOwnership">
+    <relation-list target-type="Label">
+     <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelOwnership">
         <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="OriginalProduction">
           <name>Frequency Recordings</name><sort-name>Frequency Recordings</sort-name><country>GB</country>
           <life-span begin="2001" />

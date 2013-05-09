@@ -42,6 +42,7 @@ sub lookup : Chained('load') PathPart('')
         # load the label country and type, as /ws/1 always included that for labels.
         my @labels = grep { $_->target_type eq 'label' } @{$c->stash->{data}->{rels}};
         $c->model('Area')->load(map { $_->target } @labels);
+        $c->model('Area')->load_codes(map { $_->target->area } @labels);
         $c->model('LabelType')->load(map { $_->target } @labels);
 
         my @releases = grep { $_->target_type eq 'release' } @{$c->stash->{data}->{rels}};
