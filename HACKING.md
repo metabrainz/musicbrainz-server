@@ -31,6 +31,31 @@ While to run all Data:: tests you can do the following:
     $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
 
 
+Database tests (pgTAP)
+----------------------
+
+For unit testing database functions we use pgtap, on a recent Ubuntu
+you can install pgtap like this:
+
+    $ sudo apt-get install pgtap
+
+To run the tests, pgtap needs to be able to connect to the test
+database.  You can use environment variables for the database
+configuration, the easiest way to set these is to use the provided
+database_configuration script like this:
+
+    $ eval `carton exec -Ilib -- script/database_configuration TEST`
+
+Now that that is set up you can run individual pgtap tests like this:
+
+    $ prove --verbose --source pgTAP t/pgtap/unaccent.sql
+
+Or all of them like this:
+
+    $ prove --verbose --source pgTAP t/pgtap/* t/pgtap/unused-tags/*
+
+
+
 Cover art archive development
 -----------------------------
 
