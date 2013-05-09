@@ -5,7 +5,6 @@ extends 'MusicBrainz::Server::Form::Admin::LinkType';
 
 has_field 'examples' => (
     type => 'Repeatable',
-    required => 1,
     num_when_empty => 0
 );
 
