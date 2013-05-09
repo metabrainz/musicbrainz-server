@@ -62,12 +62,12 @@ role
         my ($orig, $self, @names) = @_;
         return {} unless scalar @names;
 
-        my $nametable = $self->name_table;
         my $type = $params->type;
         my $query =
             "WITH search (term) AS (".
             "    VALUES " . join (",", ("(?)") x scalar @names) . "), ";
-        if (defined $nametable) {
+        if ($self->has_name_table) {
+            my $nametable = $self->name_table;
             $query = $query .
                 "    matching_names (term, name) AS (" .
                 "        SELECT term, $nametable.id FROM $nametable, search" .

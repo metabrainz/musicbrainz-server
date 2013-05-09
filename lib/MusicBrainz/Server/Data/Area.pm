@@ -80,10 +80,7 @@ sub _entity_class
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'area', @objs);
-    load_subobjects($self, 'begin_area', @objs);
-    load_subobjects($self, 'end_area', @objs);
-    load_subobjects($self, 'country', @objs);
+    load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
 }
 
 sub load_codes
@@ -94,10 +91,11 @@ sub load_codes
     my @all_ids = keys %obj_id_map;
 
     my $codes = $self->sql->select_list_of_hashes(
-        "SELECT 'iso_3166_1' AS type, code, area FROM iso_3166_1 WHERE area = any(?) UNION ALL
-         SELECT 'iso_3166_2' AS type, code, area FROM iso_3166_2 WHERE area = any(?) UNION ALL
-         SELECT 'iso_3166_3' AS type, code, area FROM iso_3166_3 WHERE area = any(?)",
-        [ @all_ids ], [ @all_ids ], [ @all_ids ]
+        "SELECT type, area, code
+           FROM (SELECT 'iso_3166_1' AS type, code, area FROM iso_3166_1 UNION ALL
+                 SELECT 'iso_3166_2' AS type, code, area FROM iso_3166_2 UNION ALL
+                 SELECT 'iso_3166_3' AS type, code, area FROM iso_3166_3) s WHERE area = any(?)",
+        [ @all_ids ]
     );
 
     for my $code (@$codes) {

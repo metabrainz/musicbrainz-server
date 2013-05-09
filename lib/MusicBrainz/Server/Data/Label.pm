@@ -40,6 +40,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Area';
 
 sub browse_column { 'sort_name.name' }
 
@@ -147,17 +148,9 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
-sub find_by_area
+sub _area_cols
 {
-    my ($self, $area_id, $limit, $offset) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE area = ?
-                 ORDER BY musicbrainz_collate(name.name), label.id
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $area_id, $offset || 0);
+    return ['area']
 }
 
 sub load

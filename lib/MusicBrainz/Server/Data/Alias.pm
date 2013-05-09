@@ -150,15 +150,17 @@ sub insert
     my %names;
     if ($type ne 'area') {
         %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
+    } else {
+        %names = map { $_->{name} => $_->{name}, $_->{sort_name} => $_->{sort_name} } @alias_hashes;
     }
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},
-            name => $type ne 'area' ? $names{ $hash->{name} } : $hash->{name},
+            name =>  $names{ $hash->{name} },
             locale => $hash->{locale},
-            sort_name => $type ne 'area' ? $names{ $hash->{sort_name} } : $hash->{sort_name},
+            sort_name => $names{ $hash->{sort_name} },
             primary_for_locale => $hash->{primary_for_locale},
             type => $hash->{type_id},
         };
