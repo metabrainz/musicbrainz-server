@@ -12,6 +12,8 @@ test 'Test reordering cover art' => sub {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
+SELECT setval('edit_id_seq', (SELECT MAX(id) FROM edit));
+
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
