@@ -113,6 +113,8 @@ INSERT INTO track (id, name, artist_credit, tracklist, position, number, recordi
 INSERT INTO medium (id, release, tracklist, position)
     VALUES (6, 10, 6, 1), (7, 11, 6, 1);
 
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
+
 -- release_meta
 UPDATE release_meta SET cover_art_presence = 'present' WHERE id in (7, 8);
 UPDATE release_meta SET cover_art_presence = 'darkened' WHERE id = 9;
