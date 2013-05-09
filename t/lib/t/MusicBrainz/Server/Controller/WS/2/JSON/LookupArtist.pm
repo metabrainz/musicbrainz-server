@@ -133,6 +133,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
@@ -145,6 +146,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
@@ -157,6 +159,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
@@ -169,6 +172,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
@@ -181,6 +185,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     direction => "forward",
                     url => {
                         id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
@@ -822,6 +827,7 @@ test 'artist lookup with artist relations' => sub {
             type => "Person",
             relations => [
                 {
+                    attributes => [],
                     type => 'member of band',
                     'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',
                     direction => 'forward',

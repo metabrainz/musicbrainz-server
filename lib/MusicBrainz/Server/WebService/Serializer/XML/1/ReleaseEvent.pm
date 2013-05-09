@@ -16,7 +16,7 @@ sub attributes {
     push @attr, ( date => $event->date->format )
         unless $event->date->is_empty;
 
-    push @attr, ( country => $event->country->iso_code_3166_1 )
+    push @attr, ( country => $event->country->primary_code )
         if $event->country;
 
     push @attr, ( barcode => $release->barcode )

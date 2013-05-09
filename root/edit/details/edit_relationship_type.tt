@@ -65,4 +65,10 @@
     <td class="new">[% edit.display_data.parent.new.name %]</td>
   </tr>
   [% END %]
+
+  [% IF edit.data.old.documentation != edit.data.new.documentation;
+       display_word_diff(l('Documentation:'),
+                         html_escape(edit.data.old.documentation),
+                         html_escape(edit.data.new.documentation));
+     END %]
 </table>

@@ -170,7 +170,8 @@ test 'Editing two labels into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Label')->get_by_id(2),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => [ ],
     );
 
     my $edit_2 = $c->model('Edit')->create(
@@ -179,7 +180,8 @@ test 'Editing two labels into a conflict fails gracefully' => sub {
         to_edit   => $c->model('Label')->get_by_id(3),
         name => 'Conflicting name',
         comment => 'Conflicting comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => [ ],
     );
 
     ok !exception { $edit_1->accept }, 'First edit can be applied';
