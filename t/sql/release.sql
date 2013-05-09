@@ -122,5 +122,3 @@ INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recor
 ALTER SEQUENCE release_name_id_seq RESTART 10;
 ALTER SEQUENCE release_group_id_seq RESTART 5;
 ALTER SEQUENCE release_id_seq RESTART 12;
-
-
