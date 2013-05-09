@@ -218,14 +218,14 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                     id => $e0->id,
                     name => $e0->name,
                     gid => $e0->gid,
-                    comment => $e0->comment
+                    comment => $e0->can('comment') ? $e0->comment : ''
                 };
 
                 $example->{relationship}{entity1} = {
                     id => $e1->id,
                     name => $e1->name,
                     gid => $e1->gid,
-                    comment => $e1->comment
+                    comment => $e1->can('comment') ? $e1->comment : ''
                 };
 
                 $example->{relationship}{link} = {
