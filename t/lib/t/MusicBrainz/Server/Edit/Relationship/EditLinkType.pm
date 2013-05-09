@@ -20,7 +20,7 @@ test 'Can change relationship documentation by editing' => sub {
         name => 'founded',
         link_phrase => 'founded',
         reverse_link_phrase => 'founded',
-        short_link_phrase => 'founded',
+        long_link_phrase  => 'founded',
         attributes => [],
         documentation => $old_documentation
     });
