@@ -197,6 +197,13 @@ sub insert
     my $row = $self->_hash_to_row($values);
     $row->{gid} = $values->{gid} || generate_gid();
     my $id = $self->sql->insert_row('link_type', $row, 'id');
+    $self->sql->insert_row(
+        'documentation.link_type_documentation',
+        {
+            documentation => $values->{documentation} // '',
+            id => $id
+        }
+    );
     if (exists $values->{attributes}) {
         foreach my $attrib (@{$values->{attributes}}) {
             $self->sql->insert_row('link_type_attribute_type', {
@@ -218,6 +225,13 @@ sub update
     if (%$row) {
         $self->sql->update_row('link_type', $row, { id => $id });
     }
+    if (exists $values->{documentation}) {
+        $self->sql->update_row(
+            'documentation.link_type_documentation',
+            { documentation => $values->{documentation} },
+            { id => $id }
+        );
+    }
     if (exists $values->{attributes}) {
         $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
         foreach my $attrib (@{$values->{attributes}}) {
@@ -235,6 +249,7 @@ sub delete
 {
     my ($self, $id) = @_;
 
+    $self->sql->do('DELETE FROM documentation.link_type_documentation WHERE id = ?', $id);
     $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
     $self->sql->do('DELETE FROM link_type WHERE id = ?', $id);
 }
@@ -263,6 +278,22 @@ sub in_use {
         'SELECT TRUE FROM link WHERE link_type = ? LIMIT 1',
         $link_type_id
     );
+}
+
+sub load_documentation {
+    my ($self, @link_types) = @_;
+
+    my %documentation_strings = map { @$_ } @{
+        $self->sql->select_list_of_lists(
+            'SELECT id, documentation
+             FROM documentation.link_type_documentation
+             WHERE id = any(?)', [ map { $_->id } @link_types ]
+         );
+    };
+
+    for my $link_type (@link_types) {
+        $link_type->documentation($documentation_strings{$link_type->id} // '');
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

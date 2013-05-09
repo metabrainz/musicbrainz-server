@@ -21,11 +21,13 @@ echo "
   DROP SCHEMA IF EXISTS musicbrainz CASCADE;
   DROP SCHEMA IF EXISTS statistics CASCADE;
   DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
+  DROP SCHEMA IF EXISTS documentation CASCADE;
   DROP SCHEMA IF EXISTS wikidocs CASCADE;
 
   CREATE SCHEMA musicbrainz;
   CREATE SCHEMA statistics;
   CREATE SCHEMA cover_art_archive;
+  CREATE SCHEMA documentation;
   CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
@@ -65,6 +67,11 @@ OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/Cre
 echo `date` : Creating Wikidocs Schema
 OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating documentation Schema
+OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 

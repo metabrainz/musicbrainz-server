@@ -30,7 +30,8 @@ sub change_fields
             min  => Nullable[Int],
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
-        ]]]
+        ]]],
+        documentation => Optional[Str]
     ]
 }
 
