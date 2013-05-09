@@ -65,9 +65,9 @@
                     <input data-bind="attr: { name: examplePrefix($index(), 'relationship.id') }, value: id"
                            type="hidden" />
                     
-                    <a data-bind="text: source.name"></a>
+                    <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
                     <span data-bind="text: phrase" /></span>
-                    <a data-bind="text: target.name"></a>
+                    <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                 </div>
                 [% END %]
             </span>
@@ -102,9 +102,9 @@
                         <input type="radio"
                                name="current-example.relationship"
                                data-bind="checkObject: $root.currentExample.relationship" />
-                        <a data-bind="text: source.name, attr: { href: '[% c.uri_for('/${link_type.entity0_type}/') %]' + source.mbid }"></a>
+                        <a data-bind="text: source.name, attr: { href: '[% c.uri_for("/${link_type.entity0_type}/") %]' + source.mbid }"></a>
                         <span data-bind="text: phrase" /></span>
-                        <a data-bind="text: target.name, attr: { href: '[% c.uri_for('/${link_type.entity0_type}/') %]' + target.mbid }"></a>
+                        <a data-bind="text: target.name, attr: { href: '[% c.uri_for("/${link_type.entity1_type}/") %]' + target.mbid }"></a>
                     </li>
                 </ul>
             </div>
