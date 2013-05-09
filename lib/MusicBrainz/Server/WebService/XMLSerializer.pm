@@ -135,7 +135,7 @@ sub _serialize_artist
     if ($toplevel)
     {
         push @list, $gen->gender($artist->gender->name) if ($artist->gender);
-        push @list, $gen->country($artist->area->primary_code) if $artist->area && $artist->area->primary_code;
+        push @list, $gen->country($artist->area->country_code) if $artist->area && $artist->area->country_code;
         $self->_serialize_area(\@list, $gen, $artist->area, $inc, $stash, $toplevel) if $artist->area;
         $self->_serialize_begin_area(\@list, $gen, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
         $self->_serialize_end_area(\@list, $gen, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
@@ -376,7 +376,7 @@ sub _serialize_release
                 if $event->date && !$event->date->is_empty;
 
             if ($include_country) {
-                push @r, $gen->country($event->country->primary_code) if $event->country && $event->country->primary_code;
+                push @r, $gen->country($event->country->country_code) if $event->country && $event->country->country_code;
             } else {
                 $self->_serialize_area(\@r, $gen, $event->country, $inc, $stash, $toplevel) if $event->country;
             }
@@ -745,7 +745,7 @@ sub _serialize_label
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $label, $inc, $opts);
-        push @list, $gen->country($label->area->primary_code) if $label->area && $label->area->primary_code;
+        push @list, $gen->country($label->area->country_code) if $label->area && $label->area->country_code;
         $self->_serialize_area(\@list, $gen, $label->area, $inc, $stash, $toplevel) if $label->area;
         $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
     }
