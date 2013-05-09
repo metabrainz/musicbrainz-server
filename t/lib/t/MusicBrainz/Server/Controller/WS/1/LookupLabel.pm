@@ -202,14 +202,6 @@ ws_test 'label lookup with ratings',
         <sort-name>Warp Records</sort-name>
         <label-code>2070</label-code>
         <country>GB</country>
-        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-            <name>United Kingdom</name>
-            <sort-name>United Kingdom</sort-name>
-            <primary-code>GB</primary-code>
-            <iso-3166-1-code-list>
-                <iso-3166-1-code>GB</iso-3166-1-code>
-            </iso-3166-1-code-list>
-        </area>
         <life-span begin="1989" />
         <user-rating>5</user-rating>
     </label>
