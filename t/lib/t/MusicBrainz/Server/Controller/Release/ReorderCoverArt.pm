@@ -15,9 +15,9 @@ test 'Test reordering cover art' => sub {
 
     $c->sql->do(<<'EOSQL');
 
-INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 1, 316, '', 2, now());
-INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering)
-  VALUES (12345, 1, 1, 1), (12346, 1, 1, 2);
+INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (222, 10, 316, '', 2, now());
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering)
+  VALUES (12346, 1, 'image/jpeg', 1, 1), (12347, 1, 'image/jpeg', 1, 2);
 EOSQL
 
     $mech->get_ok('/login');
@@ -28,9 +28,9 @@ EOSQL
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'reorder-cover-art.artwork.0.id' => 12345,
+                'reorder-cover-art.artwork.0.id' => 12346,
                 'reorder-cover-art.artwork.0.position' => 2,
-                'reorder-cover-art.artwork.1.id' => 12346,
+                'reorder-cover-art.artwork.1.id' => 12347,
                 'reorder-cover-art.artwork.1.position' => 1,
             }
         );
@@ -44,8 +44,8 @@ EOSQL
 
     is_deeply(
         $data->{new},
-        [ { id => 12345, position => 2 } ,
-          { id => 12346, position => 1 } ],
+        [ { id => 12346, position => 2 } ,
+          { id => 12347, position => 1 } ],
         'Correctly reorders artwork');
 };
 

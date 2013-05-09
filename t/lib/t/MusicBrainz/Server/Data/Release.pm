@@ -645,8 +645,7 @@ test 'find_by_collection ordering' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+collection');
     MusicBrainz::Server::Test->prepare_test_database($c, <<EOSQL);
-INSERT INTO tracklist (id, track_count) VALUES (1, 0);
-INSERT INTO medium (id, release, tracklist, position) VALUES (1, 1, 1, 1), (3, 3, 1, 1);
+INSERT INTO medium (id, release, track_count, position) VALUES (1, 1, 0, 1), (3, 3, 0, 1);
 EOSQL
 
     for my $order (qw( date title country label artist catno format tracks )) {

@@ -599,6 +599,18 @@ test 'release lookup, relation attributes' => sub {
             },
             date => "2004-01-15",
             country => "JP",
+            'release-events' => [ 
+                {
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+                date => '2004-01-15'
+                }  
+            ],
             barcode => JSON::null,
             asin => "B0000YGBSG",
             disambiguation => "",
@@ -617,6 +629,12 @@ test 'release lookup, relation attributes' => sub {
                         barcode => '4988064173907',
                         country => JSON::null,
                         date => '2004-01-15',
+                        'release-events' => [
+                            {
+                            "area" => undef,
+                            date => '2004-01-15'
+                            }
+                        ],
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,
@@ -642,6 +660,12 @@ test 'release lookup, relation attributes' => sub {
                         barcode => '4988064173891',
                         country => JSON::null,
                         date => '2004-01-15',
+                        'release-events' => [
+                            {
+                            "area" => undef,
+                            date => '2004-01-15'
+                            }
+                        ],
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,

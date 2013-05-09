@@ -35,7 +35,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 EOSQL
 
     $mech->get_ok('/login');
-    $mech->submit_form( with_fields => { username => 'caa_editor', password => 'password' } );
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     $mech->get_ok('/release/14b9d183-7dab-42ba-94a3-7388a66604b8/add-cover-art');
     my @edits = capture_edits {

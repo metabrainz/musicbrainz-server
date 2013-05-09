@@ -337,7 +337,22 @@ ws_test 'single artist release lookup',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2004-03-17</date><country>JP</country><release-event-list count="1"><release-event><date>2004-03-17</date><country>JP</country></release-event></release-event-list><barcode>4988064451180</barcode>
+                <date>2004-03-17</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2004-03-17</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <primary-code>JP</primary-code>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4988064451180</barcode>
             </release>
         </release-list>
     </artist>

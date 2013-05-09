@@ -190,7 +190,7 @@ ws_test 'browse releases via release group',
             <quality>normal</quality>
             <text-representation>
                 <language>jpn</language>
-                <script>Jpan</script>
+                <script>Latn</script>
             </text-representation>
             <date>2001-07-04</date>
             <country>JP</country>
