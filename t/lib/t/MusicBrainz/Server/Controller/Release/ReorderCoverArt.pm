@@ -28,6 +28,17 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
     VALUES (1, 0, 1, 1, '');
+
+INSERT INTO release_name (id, name) VALUES (1, 'Release');
+INSERT INTO release_group (id, gid, name, artist_credit)
+  VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group)
+  VALUES (1, '14b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 1);
+
+INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 1, 316, '', 2, now());
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering)
+  VALUES (12345, 1, 'image/jpeg', 1, 1), (12346, 1, 'image/jpeg', 1, 2);
 EOSQL
 
     $mech->get_ok('/login');
