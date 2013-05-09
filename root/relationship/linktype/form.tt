@@ -88,7 +88,7 @@
         [% END %]
 
         [% WRAPPER form_row %]
-            <label>[% l('Artist:') %]</label>
+            <label>[% l('Endpoint MBID:') %]</label>
             <input data-bind="value: currentExample.possibleRelationships.query" />
             <button data-bind="click: currentExample.possibleRelationships.search, enable: currentExample.possibleRelationships.query()">
                 [% l('Find Relationships') %]</button>
@@ -102,9 +102,9 @@
                         <input type="radio"
                                name="current-example.relationship"
                                data-bind="checkObject: $root.currentExample.relationship" />
-                        <a data-bind="text: source.name"></a>
+                        <a data-bind="text: source.name, attr: { href: '[% c.uri_for('/${link_type.entity0_type}/') %]' + source.mbid }"></a>
                         <span data-bind="text: phrase" /></span>
-                        <a data-bind="text: target.name"></a>
+                        <a data-bind="text: target.name, attr: { href: '[% c.uri_for('/${link_type.entity0_type}/') %]' + target.mbid }"></a>
                     </li>
                 </ul>
             </div>
@@ -142,8 +142,9 @@ var RelationshipSearcher = function () {
             searchUrl(possible.query()),
             {
                 success: function(data) {
+                    var endPointType = data.type == type0 ? type1 : type0;
                     _.each(
-                        data['relationships'][type1][link_type_name],
+                        data['relationships'][endPointType][link_type_name],
                         function (rel) {
                             var source = data, target = rel.target;
 
@@ -156,11 +157,12 @@ var RelationshipSearcher = function () {
                                 id: rel.id,
                                 phrase: rel.verbose_phrase,
                                 source: {
-                                    name: source.name,
-                                    mbid: source.mbid
+                                    name: source.name || source.url,
+                                    mbid: source.gid
                                 },
                                 target: {
-                                    name: target.name
+                                    name: target.name || target.url,
+                                    mbid: target.gid
                                 }
                             })
                         }
