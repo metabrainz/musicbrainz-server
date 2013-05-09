@@ -223,7 +223,7 @@ test 'Check IPI changes' => sub {
     my $edit_3 = $c->model('Edit')->create(
         edit_type => $EDIT_ARTIST_EDIT,
         editor_id => 1,
-        to_edit   => $c->model('Artist')->get_by_id(1),
+        to_edit   => $c->model('Artist')->get_by_id(2),
         isni_codes => [],
         ipi_codes => [ '11111111111', '22222222222',
                        '55555555555', '77777777777' ],
@@ -288,6 +288,7 @@ test 'Edits are idempotent' => sub {
         name      => 'Renamed artist',
         sort_name => 'Sort FOO',
         ipi_codes => [],
+        isni_codes => [],
     );
 
     my $edit_1 = $c->model('Edit')->create(%edit);

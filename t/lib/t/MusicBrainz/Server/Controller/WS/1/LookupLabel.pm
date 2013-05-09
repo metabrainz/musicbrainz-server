@@ -115,7 +115,8 @@ ws_test 'label lookup with label-relationships',
     <sort-name>RAM Records</sort-name>
     <country>GB</country>
     <life-span begin="1992" />
-      <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelOwnership">
+    <relation-list target-type="Label">
+     <relation target="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="LabelOwnership">
         <label id="60a71ab7-a21b-4f25-94e0-1f51a84a9add" type="OriginalProduction">
           <name>Frequency Recordings</name><sort-name>Frequency Recordings</sort-name><country>GB</country>
           <life-span begin="2001" />
@@ -202,14 +203,6 @@ ws_test 'label lookup with ratings',
         <sort-name>Warp Records</sort-name>
         <label-code>2070</label-code>
         <country>GB</country>
-        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-            <name>United Kingdom</name>
-            <sort-name>United Kingdom</sort-name>
-            <primary-code>GB</primary-code>
-            <iso-3166-1-code-list>
-                <iso-3166-1-code>GB</iso-3166-1-code>
-            </iso-3166-1-code-list>
-        </area>
         <life-span begin="1989" />
         <user-rating>5</user-rating>
     </label>
