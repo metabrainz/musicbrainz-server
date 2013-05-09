@@ -371,6 +371,7 @@ sub _serialize_release
         my $serialize_release_event = sub {
             my ($event, $include_country) = @_;
             my @r = ();
+
             push @r, $gen->date($event->date->format)
                 if $event->date && !$event->date->is_empty;
 

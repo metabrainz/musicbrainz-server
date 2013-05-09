@@ -715,8 +715,8 @@ sub find_by_collection
         },
         "tracks" => sub {
             $extra_join = "JOIN
-                (SELECT medium.release, sum(tracklist.track_count) AS total_track_count
-                    FROM medium JOIN tracklist on medium.tracklist = tracklist.id
+                (SELECT medium.release, sum(track_count) AS total_track_count
+                    FROM medium
                     GROUP BY medium.release) medium
                 ON medium.release = release.id";
             $also_select = "total_track_count";

@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
@@ -102,8 +103,8 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         when ('release') {
-            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
+            load_release_events($c, @entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
         }

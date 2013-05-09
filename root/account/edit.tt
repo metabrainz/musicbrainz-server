@@ -31,7 +31,7 @@
       [% form_row_select(r, 'gender_id', l('Gender:')) %]
       [% WRAPPER form_row %]
         [% area_field = form.field('area.name') %]
-        <label for="[% area_field.id %]">[% l('Location:') %]</label>
+        <label for="id-profile.area.name">[% l('Location:') %]</label>
         <span class="area autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           <input type="hidden" class="gid" />

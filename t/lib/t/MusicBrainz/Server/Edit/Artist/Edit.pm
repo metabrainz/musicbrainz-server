@@ -49,7 +49,7 @@ is($artist->name, 'New Name');
 is($artist->sort_name, 'New Sort');
 is($artist->comment, 'New comment');
 is($artist->type_id, 1);
-is($artist->country_id, 1);
+is($artist->area_id, 221);
 is($artist->gender_id, 1);
 is($artist->begin_date->year, 1990);
 is($artist->begin_date->month, 5);
@@ -80,8 +80,8 @@ is($edit->display_data->{type}->{old}, undef);
 is($edit->display_data->{type}->{new}->name, 'Group');
 is($edit->display_data->{gender}->{old}, undef);
 is($edit->display_data->{gender}->{new}->{name}, 'Male');
-is($edit->display_data->{country}->{old}, undef);
-is($edit->display_data->{country}->{new}->{name}, 'United Kingdom');
+is($edit->display_data->{area}->{old}, undef);
+is($edit->display_data->{area}->{new}->{name}, 'United Kingdom');
 is($edit->display_data->{comment}->{old}, '');
 is($edit->display_data->{comment}->{new}, 'New comment');
 is($edit->display_data->{begin_date}->{old}->format, '');
@@ -101,7 +101,7 @@ $edit = $c->model('Edit')->create(
 
     type_id => undef,
     gender_id => undef,
-    country_id => undef,
+    area_id => undef,
     begin_date => { year => undef, month => undef, day => undef },
     end_date => { year => undef, month => undef, day => undef },
     ipi_codes => [],
@@ -110,7 +110,7 @@ $edit = $c->model('Edit')->create(
 
 accept_edit($c, $edit);
 $artist = $c->model('Artist')->get_by_id(2);
-is($artist->country_id, undef);
+is($artist->area_id, undef);
 is($artist->gender_id, undef);
 is($artist->type_id, undef);
 ok($artist->begin_date->is_empty);
@@ -316,7 +316,7 @@ sub _create_full_edit {
         end_date => { year => 2000, month => 3, day => 20 },
         type_id => 1,
         gender_id => 1,
-        country_id => 1,
+        area_id => 221,
         ipi_codes => [ '00151894163', '00145958831' ],
         isni_codes => [ '0000000106750994', '0000000106750995' ],
     );
@@ -326,7 +326,7 @@ sub is_unchanged {
     my $artist = shift;
     is($artist->name, 'Artist Name');
     is($artist->sort_name, 'Artist Name');
-    is($artist->$_, undef) for qw( type_id country_id gender_id );
+    is($artist->$_, undef) for qw( type_id area_id gender_id );
     is($artist->comment, '');
     ok($artist->begin_date->is_empty);
     ok($artist->end_date->is_empty);

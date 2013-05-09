@@ -96,7 +96,7 @@ test 'Can load relationship documentation' => sub {
 
     my $expected_documentation = 'Documentation goes here';
     $test->c->sql->do(<<EOSQL, $expected_documentation);
-INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, short_link_phrase) VALUES
+INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
     (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b', 'performer', 'performer', 'performer'),
     (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26', 'composer', 'composer', 'composer');
 INSERT INTO documentation.link_type_documentation (id, documentation) VALUES (1, ?);

@@ -237,22 +237,27 @@ sub recording_edits_from_medium
     return %recording_edits;
 }
 
-=method track_edits_from_tracklist
+=method track_edits_from_medium
 
-Create no-op track edits for a particular tracklist.
+Create no-op track edits for a particular medium.
 
 =cut
 
-sub track_edits_from_tracklist
+sub track_edits_from_medium
 {
-    my ($self, $tracklist) = @_;
+    my ($self, $medium) = @_;
 
-    my @tracks;
+    $self->c->model('Track')->load_for_mediums ($medium);
+    $self->c->model('ArtistCredit')->load ($medium->all_tracks);
+    $self->c->model('Recording')->load ($medium->all_tracks);
 
-    $self->c->model('ArtistCredit')->load (@{ $tracklist->{tracks} });
-    $self->c->model('Recording')->load (@{ $tracklist->{tracks} });
+    my @data = map { $self->track_edit_from_track ($_) } $medium->all_tracks;
 
-    return map { $self->track_edit_from_track ($_) } @{ $tracklist->{tracks} };
+    use Data::Dumper;
+    warn "track edits from medium: ".Dumper (
+        { input => $medium, output => \@data });
+
+    return @data;
 }
 
 =method _search_recordings
@@ -590,7 +595,9 @@ sub prepare_recordings
     my @recording_edits = @{ $self->get_value ('tracklist', 'rec_mediums') // [] };
 
     my $mediums_by_id = $self->c->model('Medium')->get_by_ids(
-        map { $_->{id} } grep { defined $_->{id} } @medium_edits);
+        map { $_->{id} || $_->{medium_id_for_recordings} }
+        grep { defined $_->{id} || defined $_->{medium_id_for_recordings} }
+        @medium_edits);
 
     $self->c->model('Track')->load_for_mediums (values %$mediums_by_id);
 
@@ -614,7 +621,10 @@ sub prepare_recordings
             $json->decode ($medium_edit->{edits})) if $medium_edit->{edits};
 
         my $medium = defined $medium_edit->{id} ?
-            $mediums_by_id->{$medium_edit->{id}} : undef;
+            $mediums_by_id->{$medium_edit->{id}} :
+            defined $medium_edit->{medium_id_for_recordings} ?
+            $mediums_by_id->{$medium_edit->{medium_id_for_recordings}} :
+            undef;
 
         if ($medium_edit->{edits} && $medium)
         {

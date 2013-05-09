@@ -66,7 +66,7 @@ test all => sub {
         name => 'RAM Records',
         sort_name => 'RAM Records',
         type_id => 1,
-        country_id => 1,
+        area_id => 221,
         ipi_codes => [ '00407982340' ],
         isni_codes => [ '0000000106750994' ],
         end_date => { year => 2000, month => 05 }
@@ -94,7 +94,7 @@ test all => sub {
     is($label->name, 'RAM Records', "name");
     is($label->sort_name, 'RAM Records', "sort name");
     is($label->type_id, 1, "type id");
-    is($label->country_id, 1, "country id");
+    is($label->area_id, 221, "area id");
     ok(!$label->end_date->is_empty, "end date is not empty");
     is($label->end_date->year, 2000, "end date, year");
     is($label->end_date->month, 5, "end date, month");

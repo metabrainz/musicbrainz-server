@@ -38,7 +38,7 @@ sub serialize
     push @body, ($self->gen->label_code($entity->label_code)) if $entity->label_code;
     push @body, ($self->gen->disambiguation($entity->comment)) if $entity->comment;
 
-    push @body, ($self->gen->country($entity->country->iso_code)) if $entity->country;
+    push @body, ($self->gen->country($entity->area->primary_code)) if $entity->area && $entity->area->primary_code;
 
     push @body, ( $self->lifespan ($entity) ) if $self->has_lifespan ($entity);
 

@@ -63,7 +63,7 @@ test 'direct disc id lookup' => sub {
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2007",
-                        country => JSON::null,
+                        area => JSON::null,
                     }]
                 }
             ]
@@ -120,7 +120,7 @@ test 'lookup via toc' => sub {
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2008",
-                        country => JSON::null,
+                        area => JSON::null,
                     }]
                 },
                 {
@@ -163,7 +163,7 @@ test 'lookup via toc' => sub {
                     'text-representation' => { language => JSON::null, script => JSON::null },
                     "release-events" => [{
                         date => "2007",
-                        country => JSON::null,
+                        area => JSON::null,
                     }]
                 }
             ]
