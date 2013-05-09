@@ -67,7 +67,7 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations,
         LabelType => 'type_id',
-        Area      => defined($self->data->{old}{area_id}) ? 'area_id' : 'country_id',
+        Area      => exists($self->data->{old}{area_id}) ? 'area_id' : 'country_id',
     );
 
     $relations->{Label} = [ $self->data->{entity}{id} ];
