@@ -95,6 +95,21 @@ sub primary_code
     }
 }
 
+=head2 country_code
+
+This function returns a country (ISO-3166-1) code only. For now, it will only return intrinsic ones;
+in the future it may make sense to use the first two characters of an iso-3166-2 code as well.
+
+=cut
+
+sub country_code
+{
+    my ($self) = @_;
+    if (scalar $self->iso_3166_1_codes) {
+        return first { defined($_) } $self->iso_3166_1_codes;
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
