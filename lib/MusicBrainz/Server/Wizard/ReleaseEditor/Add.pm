@@ -17,6 +17,8 @@ extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
+    $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 around render => sub {
@@ -342,30 +344,9 @@ augment 'load' => sub
     return $release;
 };
 
-# Approve edits edits that should never fail
-after create_edits => sub {
-    my ($self, %args) = @_;
-    my ($data, $create_edit, $editnote, $release, $previewing)
-        = @args{qw( data create_edit edit_note release previewing )};
-    return if $previewing;
-
-    my $c = $self->c->model('MB')->context;
-
-    $c->sql->begin;
-    my @edits = @{ $self->c->stash->{edits} };
-    for my $edit (@edits) {
-        if (should_approve($edit)) {
-            $c->model('Edit')->accept($edit);
-        }
-    }
-    $c->sql->commit;
-};
-
 sub should_approve {
-    my $edit = shift;
-    return unless $edit->is_open;
-    return $edit->meta->name eq 'MusicBrainz::Server::Edit::Medium::Create' ||
-           $edit->meta->name eq 'MusicBrainz::Server::Edit::Release::ReorderMediums';
+    my ($self, $type) = @_;
+    return $type == $EDIT_MEDIUM_CREATE || $type == $EDIT_RELEASE_REORDER_MEDIUMS;
 }
 
 __PACKAGE__->meta->make_immutable;

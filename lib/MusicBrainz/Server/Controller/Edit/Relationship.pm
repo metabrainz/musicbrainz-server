@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
 sub build_type_info
 {
-    my ($tree) = @_;
+    my ($tree, $c) = @_;
 
     sub _builder
     {
@@ -26,6 +26,8 @@ sub build_type_info
                 defined $_->max ? 0 + $_->max : undef,
             ] } $root->all_attributes;
             $info->{$root->id} = {
+                doc_link => $c->uri_for('/doc/relationship-types',
+                                        $root->gid)->as_string,
                 descr => $root->l_description,
                 attrs => \%attrs,
             };
@@ -67,7 +69,7 @@ sub edit : Local RequireAuth Edit
     $c->model('Relationship')->load_entities($rel);
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = build_type_info($tree);
+    my %type_info = build_type_info($tree, $c);
 
     if (!%type_info) {
         $c->stash(
@@ -209,7 +211,7 @@ sub create : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree($type0, $type1);
-    my %type_info = build_type_info($tree);
+    my %type_info = build_type_info($tree, $c);
 
     if (!%type_info) {
         $c->stash(
@@ -305,7 +307,7 @@ sub create_url : Local RequireAuth Edit
     }
 
     my $tree = $c->model('LinkType')->get_tree(@types);
-    my %type_info = build_type_info($tree);
+    my %type_info = build_type_info($tree, $c);
 
     if (!%type_info) {
         $c->stash(

@@ -136,6 +136,7 @@
         </ul>
     [% END %]
 
+    [% INCLUDE "layout/sidebar/sidebar-licenses.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=release %]

@@ -377,6 +377,52 @@ ws_test 'release lookup, barcode is empty string',
     </release>
 </metadata>';
 
+ws_test 'release lookup, relation attributes',
+    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="757a1723-3769-4298-89cd-48d31177852a">
+        <title>LOVE &amp; HONESTY</title>
+        <status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2004-01-15</date><country>JP</country><asin>B0000YGBSG</asin>
+        <cover-art-archive>
+            <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
+        </cover-art-archive>
+        <relation-list target-type="release">
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>28fc2337-985b-3da9-ac40-ad6f28ff0d8e</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <barcode>4988064173891</barcode>
+                </release>
+            </relation>
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>cacc586f-c2f2-49db-8534-6f44b55196f2</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <barcode>4988064173907</barcode>
+                </release>
+            </relation>
+        </relation-list>
+    </release>
+</metadata>';
+
 };
 
 1;
