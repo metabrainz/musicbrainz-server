@@ -5,26 +5,32 @@ use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 
 parameter 'name_table' => (
-    isa => 'Str',
-    required => 1,
+    isa => 'Maybe[Str]',
+    required => 0,
+    predicate => 'has_name_table'
 );
 
 role
 {
     my $params = shift;
-    my $table = $params->name_table;
+    my $table = $params->has_name_table ? $params->name_table : undef;
 
     requires 'c';
 
     has 'name_table' => (
-        isa => 'Str',
+        isa => 'Maybe[Str]',
         is => 'ro',
-        default => $table
+        default => $table,
+        predicate => 'has_name_table'
     );
 
     method 'find_or_insert_names' => sub
     {
         my ($self, @names) = @_;
+        if (!$self->has_name_table) {
+            warn "Called find_or_insert_names for an entity type not using a name table";
+            return undef;
+        }
         @names = uniq grep { defined } @names or return;
         my $query = "SELECT id, name FROM $table" .
                     ' WHERE name IN (' . placeholders(@names) . ')';
@@ -45,7 +51,6 @@ role
         return {} unless scalar @names;
 
         my $type = $params->type;
-        my $id = $self->_id_column;
         my $query =
             "WITH search (term) AS (" .
                 "VALUES " . join (",", ("(?)") x scalar @names) .
@@ -53,9 +58,11 @@ role
                 # Search over name/sort-name
                 "(".
                     "SELECT search.term AS search_term, " . $self->_columns .
-                    " FROM " . $self->name_table . " search_name" .
-                    " JOIN search ON musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
-                    " JOIN " . $self->_table_join_name("search_name.id").
+                    " FROM " . ( $self->name_table // $self->_table ) . " search_name" .
+                    " JOIN search ON (musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))".
+                    ($self->has_name_table ?
+                     ") JOIN " . $self->_table_join_name("search_name.id") :
+                     " OR musicbrainz_unaccent(lower(search_name.sort_name)) = musicbrainz_unaccent(lower(search.term)))").
                 ")";
 
         $self->c->sql->select($query, @names);
@@ -77,7 +84,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Oliver Charles
+Copyright (C) 2009 Oliver Charles, 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

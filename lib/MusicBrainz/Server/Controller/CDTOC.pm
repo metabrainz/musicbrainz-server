@@ -15,6 +15,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 use List::UtilsBy qw( sort_by );
 
@@ -46,7 +47,7 @@ sub _load_releases
     $c->model('Medium')->load_for_releases(@releases);
     my @rgs = $c->model('ReleaseGroup')->load(@releases);
     $c->model('ReleaseGroup')->load_meta(@rgs);
-    $c->model('Country')->load(@releases);
+    load_release_events($c, @releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
@@ -208,7 +209,7 @@ sub attach : Local
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
-        $c->model('Country')->load(@$releases);
+        load_release_events($c, @$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
@@ -252,7 +253,7 @@ sub attach : Local
             my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
-            $c->model('Country')->load(@releases);
+            load_release_events($c, @releases);
             $c->model('ReleaseLabel')->load(@releases);
             $c->model('Label')->load(map { $_->all_labels } @releases);
 
@@ -334,12 +335,12 @@ sub move : Local RequireAuth Edit
         $c->model('Medium')->load($medium_cdtoc);
 
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
-        $c->model('Country')->load($medium->release);
+        load_release_events($c, $medium->release);
         $c->model('ReleaseLabel')->load($medium->release);
         $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
 
-        $c->stash( 
+        $c->stash(
             medium => $medium
         );
 
@@ -372,7 +373,7 @@ sub move : Local RequireAuth Edit
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
-            $c->model('Country')->load(@releases);
+            load_release_events($c, @releases);
             $c->model('ReleaseLabel')->load(@releases);
             $c->model('Label')->load(map { $_->all_labels } @releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);

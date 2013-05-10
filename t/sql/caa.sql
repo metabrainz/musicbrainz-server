@@ -3,7 +3,7 @@ INSERT INTO
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
              auto_edits_accepted, edits_failed)
     VALUES ( 10, 'caa_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -19,9 +19,11 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
   VALUES (1, '14b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 1);
 
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
+
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 10, 316, '', 2, now());
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
-INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering) VALUES (12345, 1, 1, 1);
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 1, 'image/jpeg', 1, 1);
 INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (12345, 1);
 
 ALTER SEQUENCE edit_id_seq RESTART 2;

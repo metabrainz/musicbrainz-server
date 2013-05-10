@@ -11,8 +11,7 @@
                         <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
-                        <th>[% l('Release Date') %]</th>
-                        <th>[% l('Country') %]</th>
+                        <th>[% l('Release Events') %]</th>
                         <th>[% l('Label') %]</th>
                         <th>[% l('Catalog#') %]</th>
                     </tr>
@@ -20,7 +19,7 @@
                 <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
-                    <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
+                    <th colspan="8">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]
@@ -31,12 +30,7 @@
                       <td>[%- rdfa_recording_duration(track) -%]</td>
                       <td>[%- rdfa_link_release_track(release, track) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
-                      <td>[%- rdfa_release_event_date(release) -%]</td>
-                      <td>
-                        [%- IF release.country -%]
-                          [% rdfa_release_country_abbr(release) %]
-                        [%- END -%]
-                      </td>
+                      <td>[%- release_events(release.events) -%]</td>
                       <td>[% rdfa_release_label_list(release.labels) %]</td>
                       <td>[% rdfa_release_catno_list(release.labels) %]</td>
                     </tr>

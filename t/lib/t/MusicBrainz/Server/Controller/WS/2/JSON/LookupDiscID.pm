@@ -61,6 +61,10 @@ test 'direct disc id lookup' => sub {
                     packaging => JSON::null,
                     status => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
+                    "release-events" => [{
+                        date => "2007",
+                        area => JSON::null,
+                    }]
                 }
             ]
         });
@@ -114,6 +118,10 @@ test 'lookup via toc' => sub {
                     packaging => JSON::null,
                     status => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
+                    "release-events" => [{
+                        date => "2008",
+                        area => JSON::null,
+                    }]
                 },
                 {
                     id => "f205627f-b70a-409d-adbe-66289b614e80",
@@ -153,6 +161,10 @@ test 'lookup via toc' => sub {
                     packaging => JSON::null,
                     status => JSON::null,
                     'text-representation' => { language => JSON::null, script => JSON::null },
+                    "release-events" => [{
+                        date => "2007",
+                        area => JSON::null,
+                    }]
                 }
             ]
         });

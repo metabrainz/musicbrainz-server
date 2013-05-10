@@ -4,6 +4,18 @@ BEGIN;
 CREATE INDEX application_idx_owner ON application (owner);
 CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
 
+CREATE UNIQUE INDEX area_idx_gid ON area (gid);
+CREATE INDEX area_idx_name ON area (name);
+CREATE INDEX area_idx_sort_name ON area (sort_name);
+CREATE INDEX area_idx_page ON area (page_index(name));
+
+CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
+CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
+CREATE INDEX iso_3166_3_idx_area ON iso_3166_3 (area);
+
+CREATE INDEX area_alias_idx_area ON area_alias (area);
+CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
@@ -30,8 +42,6 @@ CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE INDEX cdtoc_raw_track_offset ON cdtoc_raw (track_offset);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
-
-CREATE UNIQUE INDEX country_idx_iso_code ON country (iso_code);
 
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
@@ -73,6 +83,7 @@ CREATE INDEX edit_close_time_date ON edit (date_trunc('day', close_time AT TIME 
 CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIME ZONE 'UTC'));
 
 -- Entity indexes
+CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_label_idx ON edit_label (label);
 CREATE INDEX edit_release_idx ON edit_release (release);
@@ -89,6 +100,18 @@ CREATE UNIQUE INDEX isrc_idx_isrc_recording ON isrc (isrc, recording);
 
 CREATE INDEX iswc_idx_work ON iswc (work);
 CREATE UNIQUE INDEX iswc_idx_iswc ON iswc (iswc, work);
+
+CREATE INDEX work_attribute_type_allowed_value_idx_name ON work_attribute_type_allowed_value (work_attribute_type);
+CREATE INDEX work_attribute_idx_work ON work_attribute (work);
+
+CREATE UNIQUE INDEX l_area_area_idx_uniq ON l_area_area (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_artist_idx_uniq ON l_area_artist (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_label_idx_uniq ON l_area_label (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_recording_idx_uniq ON l_area_recording (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link);
+CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link);
 
 CREATE UNIQUE INDEX l_artist_artist_idx_uniq ON l_artist_artist (entity0, entity1, link);
 CREATE UNIQUE INDEX l_artist_label_idx_uniq ON l_artist_label (entity0, entity1, link);
@@ -227,7 +250,6 @@ CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
 CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
-CREATE INDEX release_idx_date ON release (date_year, date_month, date_day);
 
 CREATE INDEX release_tag_idx_tag ON release_tag (tag);
 
@@ -283,7 +305,6 @@ CREATE INDEX vote_idx_editor ON vote (editor);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
-CREATE INDEX work_idx_artist_credit ON work (artist_credit);
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;

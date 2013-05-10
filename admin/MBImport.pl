@@ -356,6 +356,13 @@ sub ImportAllTables
         work_rating_raw
         work_tag_raw
         annotation
+        area
+        area_type
+        area_alias
+        area_alias_type
+        area_annotation
+        area_gid_redirect
+        country_area
         artist
         artist_alias
         artist_alias_type
@@ -370,7 +377,6 @@ sub ImportAllTables
         artist_type
         cdtoc
         clientversion
-        country
         editor
         editor_language
         editor_preference
@@ -379,8 +385,19 @@ sub ImportAllTables
         editor_subscribe_editor
         editor_subscribe_label
         gender
+        iso_3166_1
+        iso_3166_2
+        iso_3166_3
         isrc
         iswc
+        l_area_area
+        l_area_artist
+        l_area_label
+        l_area_recording
+        l_area_release
+        l_area_release_group
+        l_area_url
+        l_area_work
         l_artist_artist
         l_artist_label
         l_artist_recording
@@ -422,7 +439,9 @@ sub ImportAllTables
         language
         link
         link_attribute
+        link_attribute_credit
         link_attribute_type
+        link_creditable_attribute_type
         link_type
         link_type_attribute_type
         editor_collection
@@ -439,6 +458,7 @@ sub ImportAllTables
         recording_tag
         release
         release_annotation
+        release_country
         release_gid_redirect
         release_group
         release_group_annotation
@@ -455,6 +475,7 @@ sub ImportAllTables
         release_packaging
         release_status
         release_tag
+        release_unknown_country
         replication_control
         script
         script_language
@@ -470,6 +491,9 @@ sub ImportAllTables
         work_alias
         work_alias_type
         work_annotation
+        work_attribute
+        work_attribute_type
+        work_attribute_type_allowed_value
         work_gid_redirect
         work_meta
         work_name
@@ -477,9 +501,40 @@ sub ImportAllTables
         work_type
 
         cover_art_archive.art_type
+        cover_art_archive.image_type
         cover_art_archive.cover_art
         cover_art_archive.cover_art_type
         cover_art_archive.release_group_cover_art
+
+        documentation.l_artist_artist_example
+        documentation.l_artist_label_example
+        documentation.l_artist_recording_example
+        documentation.l_artist_release_example
+        documentation.l_artist_release_group_example
+        documentation.l_artist_url_example
+        documentation.l_artist_work_example
+        documentation.l_label_label_example
+        documentation.l_label_recording_example
+        documentation.l_label_release_example
+        documentation.l_label_release_group_example
+        documentation.l_label_url_example
+        documentation.l_label_work_example
+        documentation.l_recording_recording_example
+        documentation.l_recording_release_example
+        documentation.l_recording_release_group_example
+        documentation.l_recording_url_example
+        documentation.l_recording_work_example
+        documentation.l_release_group_release_group_example
+        documentation.l_release_group_url_example
+        documentation.l_release_group_work_example
+        documentation.l_release_release_example
+        documentation.l_release_release_group_example
+        documentation.l_release_url_example
+        documentation.l_release_work_example
+        documentation.l_url_url_example
+        documentation.l_url_work_example
+        documentation.l_work_work_example
+        documentation.link_type_documentation
 
         statistics.statistic
         statistics.statistic_event

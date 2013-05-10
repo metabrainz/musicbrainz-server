@@ -1,24 +1,15 @@
-package MusicBrainz::Server::Entity::Country;
+package MusicBrainz::Server::Entity::URL::CCSamplingPlus;
 
 use Moose;
-use MusicBrainz::Server::Translation::Countries qw ( l );
 
-extends 'MusicBrainz::Server::Entity';
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::License';
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
-sub l_name {
+sub sidebar_name {
     my $self = shift;
-    return l($self->name);
-}
 
-has 'iso_code' => (
-    is => 'rw',
-    isa => 'Str'
-);
+    return "CC Sampling Plus";
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -26,7 +17,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

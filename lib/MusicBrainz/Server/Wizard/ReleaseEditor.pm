@@ -961,7 +961,8 @@ sub _edit_missing_entities
             name => trim ($artist->{name}),
             sort_name => trim ($artist->{sort_name}) || '',
             comment => trim ($artist->{comment}) || '',
-            ipi_codes => [ ]);
+            ipi_codes => [ ],
+            isni_codes => [ ]);
     } grep { !$_->{entity_id} } @missing_artist;
 
     my @missing_label = @{ $data->{missing}{label} || [] };
@@ -974,7 +975,8 @@ sub _edit_missing_entities
             name => trim ($label->{name}),
             sort_name => trim ($label->{sort_name}) || '',
             comment => trim ($label->{comment}) || '',
-            ipi_codes => [ ]);
+            ipi_codes => [ ],
+            isni_codes => [ ]);
     } grep { !$_->{entity_id} } @{ $data->{missing}{label} };
 
     return () if $previewing;
@@ -1251,6 +1253,9 @@ sub _submit_edit
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
+    # Set as autoedits edits that cannot fail
+    $privs |= $AUTO_EDITOR_FLAG if $self->should_approve($type);
+
     my $edit = $self->_create_edit(
         sub { $self->c->model('Edit')->create(@_) },
         $type, $self->c->user->id,
@@ -1268,6 +1273,16 @@ sub _submit_edit
 
     $self->c->stash->{changes} = 1;
     return $edit;
+}
+
+=method should_approve
+
+Takes a type, and should return 1 if the edit should be an autoedit
+
+=cut
+
+sub should_approve {
+    return 0;
 }
 
 sub _create_edit {
@@ -1482,7 +1497,7 @@ sub _seed_parameters {
         ],
         [
             'country_id', 'country',
-            sub { shift->model('Country')->find_by_code(shift) },
+            sub { shift->model('Area')->find_by_iso_3166_1_code(shift) },
         ],
         [
             'script_id', 'script',
@@ -1707,7 +1722,14 @@ sub _seed_parameters {
     return collapse_hash($params);
 };
 
-
+sub _filter_deleted_release_events {
+    my (undef, $events) = @_;
+    return [
+        map { delete $_->{deleted}; $_ }
+            grep { !$_->{deleted} }
+                @$events
+    ];
+}
 
 =head1 LICENSE
 

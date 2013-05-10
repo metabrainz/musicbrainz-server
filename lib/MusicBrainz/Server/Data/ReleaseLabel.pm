@@ -62,27 +62,6 @@ sub load
     }
 }
 
-sub find_by_label
-{
-    my ($self, $label_id, $limit, $offset) = @_;
-    $offset ||= 0;
-    my $query = "SELECT " . $self->_columns . ",
-                    " . MusicBrainz::Server::Data::Release->_columns . "
-                 FROM " . $self->_table . "
-                    JOIN release ON release.id=rl.release
-                    JOIN release_name name ON release.name=name.id
-                 WHERE rl.label = ?
-                 ORDER BY date_year, date_month, date_day, catalog_number, musicbrainz_collate(name.name)
-                 OFFSET ?";
-    return query_to_list_limited(
-        $self->c->sql, $offset, $limit, sub {
-            my $rl = $self->_new_from_row(@_);
-            $rl->release(MusicBrainz::Server::Data::Release->_new_from_row(@_));
-            return $rl;
-        },
-        $query, $label_id, $offset);
-}
-
 sub merge_labels
 {
     my ($self, $new_id, @old_ids) = @_;

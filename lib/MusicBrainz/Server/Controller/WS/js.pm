@@ -57,7 +57,8 @@ sub entities {
         'ReleaseGroup' => 'release-group',
         'Release' => 'release',
         'Label' => 'label',
-        'URL' => 'url'
+        'URL' => 'url',
+        'Area' => 'area'
     };
 }
 
@@ -210,7 +211,7 @@ sub disc_search {
 
     push @query, $title if $query;
     push @query, "artist:($artist)" if $artist;
-    push @query, "tracks:($tracks)" if $tracks;
+    push @query, "tracksmedium:($tracks)" if $tracks;
 
     $query = join (" AND ", @query);
 

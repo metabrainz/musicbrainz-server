@@ -402,12 +402,12 @@ div.warning img.warning {
     margin-top: 0;
 }
 
-#sidebar ul.links {
+#sidebar ul {
     margin: 0;
     padding-left: 1.5em;
 }
 
-#sidebar ul.links hr {
+#sidebar ul hr {
     padding: 0;
     margin: 3px;
     height: 1px;
@@ -420,9 +420,6 @@ div.warning img.warning {
 #sidebar ul.external_links {
     margin: 5px 0;
     padding-left: 0;
-}
-
-#sidebar ul.external_links {
     list-style-image: none;
     list-style-type: none;
 }
@@ -588,6 +585,30 @@ div.warning img.warning {
 
 #sidebar ul.external_links li.viaf {
     background-image: url("../images/favicons/viaf-16.png");
+}
+
+#sidebar ul.external_links li.bandcamp {
+    background-image: url("../images/favicons/bandcamp-16.png");
+}
+
+#sidebar ul.external_links li.iTunes {
+    background-image: url("../images/favicons/iTunes-16.png");
+}
+
+#sidebar ul.external_links li.spotify {
+    background-image: url("../images/favicons/spotify-16.png");
+}
+
+#sidebar ul.licenses {
+    margin: 5px 0;
+    padding-left: 0;
+    list-style-image: none;
+    list-style-type: none;
+}
+
+#sidebar ul.licenses li{
+    display: inline-block;
+    margin-bottom: 2px;
 }
 
 #sidebar .cover-art {
@@ -974,6 +995,10 @@ div.artwork-cont {
     padding: 10px;
     margin: 5px;
     text-align: center;
+}
+
+div.artwork-cont p {
+    width: 250px;
 }
 
 div.artwork { position: relative; width: 250px; }

@@ -62,6 +62,16 @@ test 'recording lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -75,6 +85,16 @@ test 'recording lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -103,6 +123,16 @@ test 'lookup recording with official singles' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -133,6 +163,16 @@ test 'lookup recording with official singles (+media)' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => JSON::null,
                     asin => JSON::null,
                     disambiguation => "",
@@ -221,6 +261,7 @@ test 'recording lookup with release relationships' => sub {
             length => 86666,
             relations => [
                 {
+                    attributes => [],
                     type => 'samples material',
                     'type-id' => '967746f9-9d79-456c-9d1e-50116f0b27fc',
                     direction => 'forward',
@@ -229,6 +270,10 @@ test 'recording lookup with release relationships' => sub {
                         barcode => '634479663338',
                         country => JSON::null,
                         date => '2007-11-08',
+                        "release-events" => [{
+                            area => JSON::null,
+                            date => '2007-11-08',
+                        }],
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
@@ -242,6 +287,39 @@ test 'recording lookup with release relationships' => sub {
                     ended => JSON::false,
                 }
             ]
+        });
+};
+
+test 'recording lookup with work relationships' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with artists',
+    '/recording/0cf3008f-e246-428f-abc1-35f87d584d60?inc=work-rels' => encode_json (
+        {
+            id => "0cf3008f-e246-428f-abc1-35f87d584d60",
+            title => "the Love Bug",
+            disambiguation => "",
+            length => 242226,
+            relations => [
+                {
+                    attributes => [],
+                    direction => 'forward',
+                    begin => JSON::null,
+                    end => JSON::null,
+                    ended => JSON::false,
+                    type => 'performance',
+                    'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
+                    work => {
+                        disambiguation => '',
+                        id => '46724ef1-241e-3d7f-9f3b-e51ba34e2aa1',
+                        iswcs => [],
+                        language => JSON::null,
+                        title => 'the Love Bug',
+                        type => JSON::null,
+                    }
+                }
+            ],
         });
 };
 

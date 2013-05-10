@@ -1,0 +1,17 @@
+[%- WRAPPER 'area/layout.tt' title=l('Remove') full_width=1 -%]
+    <h2>[% l('Remove Area') %]</h2>
+    [%- IF can_delete -%]
+        <p>
+            [%- l('Are you sure you wish to remove the area {area} from MusicBrainz?', { area => link_entity(area) }) -%]
+        </p>
+        <form action="[% c.req.uri %]" method="post">
+            [%- USE r = FormRenderer(form) -%]
+            [%- INCLUDE 'forms/edit-note.tt' -%]
+            [% enter_edit() %]
+        </form>
+    [%- ELSE -%]
+    <p>
+       [% l('This area cannot be removed because there are still artists, labels, and/or releases using it.') -%]
+    </p>
+    [%- END -%]
+[%- END -%]

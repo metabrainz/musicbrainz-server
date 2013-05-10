@@ -14,9 +14,6 @@ use MusicBrainz::Server::Entity::Track;
 test all => sub {
 
 my $release = MusicBrainz::Server::Entity::Release->new();
-ok( defined $release->date );
-ok( $release->date->is_empty );
-
 does_ok( $release, 'MusicBrainz::Server::Entity::Role::Quality' );
 
 $release->edits_pending(2);

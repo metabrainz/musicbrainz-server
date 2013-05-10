@@ -16,7 +16,13 @@ sub authenticate
     $auth = $self->_authenticate_mac($c, $realm, $auth_info);
     return $auth if $auth;
 
-    return $self->SUPER::authenticate($c, $realm, $auth_info);
+    $auth = $self->SUPER::authenticate($c, $realm, $auth_info);
+    if ($auth && $auth->requires_password_reset) {
+        $self->authentication_failed($c, $realm, $auth_info);
+    }
+    else {
+        return $auth;
+    }
 }
 
 sub authorization_required_response

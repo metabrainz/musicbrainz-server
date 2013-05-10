@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
@@ -92,7 +93,7 @@ sub direct : Private
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
-            $c->model('Country')->load(@entities);
+            $c->model('Area')->load(@entities);
             $c->model('Gender')->load(@entities);
         }
         when ('editor') {
@@ -102,13 +103,14 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         when ('release') {
-            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
+            load_release_events($c, @entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
@@ -134,6 +136,11 @@ sub direct : Private
             $c->model('Work')->load_recording_artists(@entities);
             $c->model('ISWC')->load_for_works(@entities);
             $c->model('Language')->load(@entities);
+            $c->model('WorkType')->load(@entities);
+        }
+        when ('area') {
+            $c->model('Area')->load_codes(@entities);
+            $c->model('AreaType')->load(@entities);
         }
     }
 

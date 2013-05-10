@@ -464,7 +464,7 @@
                 <select name="gc-mode" id="gc-mode"> </select>
                 <br />
                 <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-                <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+                <label for="gc-keepuppercase">[% l('Keep all-uppercase words uppercased') %]</label>
                 <br />
                 <input type="checkbox" name="gc-roman" id="gc-roman">
                 <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>

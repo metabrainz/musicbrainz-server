@@ -51,13 +51,13 @@ has 'entity1' => (
     isa => 'Linkable',
 );
 
-has 'phrase' => (
+has '_phrase' => (
     is => 'ro',
     builder => '_build_phrase',
     lazy => 1
 );
 
-has 'verbose_phrase' => (
+has '_verbose_phrase' => (
     is => 'ro',
     builder => '_build_verbose_phrase',
     lazy => 1
@@ -109,6 +109,30 @@ sub target_key
         : $self->target->gid;
 }
 
+sub phrase
+{
+    my ($self) = @_;
+    return $self->_phrase->[0];
+}
+
+sub extra_phrase_attributes
+{
+    my ($self) = @_;
+    return $self->_phrase->[1];
+}
+
+sub verbose_phrase
+{
+    my ($self) = @_;
+    return $self->_verbose_phrase->[0];
+}
+
+sub extra_verbose_phrase_attributes
+{
+    my ($self) = @_;
+    return $self->_verbose_phrase->[1];
+}
+
 sub _join_attrs
 {
     my @attrs = map { $_ } @{$_[0]};
@@ -134,7 +158,7 @@ sub _build_phrase {
 
 sub _build_verbose_phrase {
     my ($self) = @_;
-    $self->_interpolate($self->link->type->short_link_phrase);
+    $self->_interpolate($self->link->type->long_link_phrase);
 }
 
 sub _interpolate
@@ -153,9 +177,11 @@ sub _interpolate
             $attrs{$name} = [ $value ];
         }
     }
+    my %extra_attrs = %attrs;
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
+        delete $extra_attrs{$name};
         if (!$alt) {
             return '' unless exists $attrs{$name};
             return _join_attrs($attrs{$name});
@@ -171,7 +197,8 @@ sub _interpolate
     $phrase =~ s/{(.*?)(?::(.*?))?}/$replace_attrs->(lc $1, $2)/eg;
     trim_in_place($phrase);
 
-    return $phrase;
+    my @extra_attrs = map { @$_ } values %extra_attrs;
+    return [ $phrase, _join_attrs(\@extra_attrs) ];
 }
 
 sub _cmp {

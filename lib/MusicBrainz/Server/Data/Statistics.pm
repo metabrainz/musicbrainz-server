@@ -197,6 +197,37 @@ my %stats = (
         DESC => "Count of all release groups",
         SQL => "SELECT COUNT(*) FROM release_group",
     },
+    "count.area" => {
+        DESC => "Count of all areas",
+        SQL => "SELECT COUNT(*) FROM area",
+    },
+    "count.country_area" => {
+        DESC => "Count of all areas eligible for release country use",
+        SQL => "SELECT COUNT(*) FROM country_area",
+    },
+    "count.area.type.country" => {
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
+                FROM area
+                GROUP BY type
+                ",
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                "count.area.type.country" => $dist{1} || 0,
+                "count.area.type.null"  => $dist{null} || 0
+            };
+        },
+    },
+    "count.area.type.null" => {
+        PREREQ => [qw[ count.area.type.country ]],
+        PREREQ_ONLY => 1,
+    },
     "count.artist" => {
         DESC => "Count of all artists",
         SQL => "SELECT COUNT(*) FROM artist",
@@ -581,6 +612,22 @@ my %stats = (
         DESC => "Count of labels with an IPI code",
         SQL => "SELECT COUNT(DISTINCT label) FROM label_ipi",
     },
+    "count.isni" => {
+        DESC => "Count of ISNI codes",
+        PREREQ => [qw[ count.isni.artist count.isni.label ]],
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch("count.isni.artist") + $self->fetch("count.isni.label");
+        },
+    },
+    "count.isni.artist" => {
+        DESC => "Count of artists with an ISNI code",
+        SQL => "SELECT COUNT(DISTINCT artist) FROM artist_isni",
+    },
+    "count.isni.label" => {
+        DESC => "Count of labels with an ISNI code",
+        SQL => "SELECT COUNT(DISTINCT label) FROM label_isni",
+    },
     "count.isrc.all" => {
         DESC => "Count of all ISRCs joined to recordings",
         SQL => "SELECT COUNT(*) FROM isrc",
@@ -609,10 +656,11 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(l.gid) AS count
-                FROM label l FULL OUTER JOIN country c
-                    ON l.country=c.id
-                GROUP BY c.iso_code
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(l.gid) AS count
+                FROM label l FULL OUTER JOIN country_area c
+                    ON l.area=c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 
@@ -632,10 +680,12 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(r.gid) AS count
-                FROM release r FULL OUTER JOIN country c
-                    ON r.country=c.id
-                GROUP BY c.iso_code
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(r.gid) AS count
+                FROM release r
+                LEFT JOIN release_country rc ON r.id = rc.release
+                FULL OUTER JOIN country_area c ON rc.country = c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 
@@ -1019,10 +1069,11 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(a.gid) AS count
-                FROM artist a FULL OUTER JOIN country c
-                    ON a.country=c.id
-                GROUP BY c.iso_code
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(a.gid) AS count
+                FROM artist a FULL OUTER JOIN country_area c
+                    ON a.area=c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 

@@ -1,13 +1,22 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
 <table class="details edit-relationship-type">
+  [%- IF edit.display_data.link_type -%]
+      <tr>
+        <th>[% l('Entity types:') %]</th>
+        <td>[% edit.display_data.link_type.entity0_type %]</td>
+        <td>[% edit.display_data.link_type.entity1_type %]</td>
+      </tr>
+  [%- END -%]
   [%- display_word_diff(l('Name:'),
                         html_escape(edit.data.old.name),
-                        html_escape(edit.data.new.name)) -%]
+                        html_escape(edit.data.new.name)) ||
+      '<tr><th>' _ l('Name:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.name) _ '</td></tr>' -%]
 
   [%- display_word_diff(l('Description:'),
                         edit.data.old.description,
-                        edit.data.new.description) -%]
+                        edit.data.new.description) ||
+      '<tr><th>' _ l('Description:') _ '</th><td colspan=2>' _ html_escape(edit.data.old.description) _ '</td></tr>' -%]
 
   [%- display_word_diff(l('Link phrase:'),
                         html_escape(edit.data.old.link_phrase),
@@ -17,9 +26,9 @@
                         html_escape(edit.data.old.reverse_link_phrase),
                         html_escape(edit.data.new.reverse_link_phrase)) -%]
 
-  [%- display_word_diff(l('Short link phrase:'),
-                        html_escape(edit.data.old.short_link_phrase),
-                        html_escape(edit.data.new.short_link_phrase)) -%]
+  [%- display_word_diff(l('Long link phrase:'),
+                        html_escape(edit.data.old.long_link_phrase),
+                        html_escape(edit.data.new.long_link_phrase)) -%]
 
   [%- display_word_diff(l('Child order:'),
                         html_escape(edit.data.old.child_order),
@@ -56,4 +65,10 @@
     <td class="new">[% edit.display_data.parent.new.name %]</td>
   </tr>
   [% END %]
+
+  [% IF edit.data.old.documentation != edit.data.new.documentation;
+       display_word_diff(l('Documentation:'),
+                         html_escape(edit.data.old.documentation),
+                         html_escape(edit.data.new.documentation));
+     END %]
 </table>
