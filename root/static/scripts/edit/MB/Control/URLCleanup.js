@@ -146,6 +146,12 @@ MB.constants.LINK_TYPES = {
         artist: 310,
         label: 311,
         work: 312
+    },
+    wikidata: {
+        artist: 352,
+        label: 354,
+        release_group: 353,
+        work: 351
     }
 };
 
@@ -415,6 +421,13 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
         type: MB.constants.LINK_TYPES.vgmdb
     },
+    wikidata: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
+        type: MB.constants.LINK_TYPES.wikidata,
+        clean: function(url) {
+            return url.replace(/^https:\/\//, "http://");
+        }
+    },
     otherdatabases: {
         match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
@@ -496,6 +509,20 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     // allow only artist pages in BBC Music links
     validationRules[ MB.constants.LINK_TYPES.bbcmusic.artist ] = function() {
         return $('#id-ar\\.url').val().match(/\/music\/artists\//) != null;
+    }
+
+    // allow only Wikidata pages with the Wikidata rel
+    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
     }
 
     // only allow domains on the cover art whitelist
