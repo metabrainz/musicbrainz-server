@@ -131,7 +131,7 @@ $edit = $c->model('Edit')->create(
 
 $c->model('Edit')->load_all($edit);
 ok($edit->display_data);
-ok(defined $edit->display_data->{tracks}->[0]{recording_id}, "New recording was created");
+ok(defined $edit->display_data->{tracks}->[0]->{recording_id}, "New recording was created");
 
 };
 

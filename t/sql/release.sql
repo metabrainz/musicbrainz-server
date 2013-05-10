@@ -133,4 +133,3 @@ ALTER SEQUENCE release_group_id_seq RESTART 5;
 
 ALTER SEQUENCE release_id_seq RESTART 12;
 ALTER SEQUENCE release_label_id_seq RESTART 3;
-
