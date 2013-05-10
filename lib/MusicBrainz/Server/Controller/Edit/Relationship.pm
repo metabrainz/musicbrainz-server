@@ -33,7 +33,7 @@ sub build_type_info
             };
         }
         foreach my $child ($root->all_children) {
-            _builder($child, $info);
+            _builder($c, $child, $info);
         }
     }
 
