@@ -1497,7 +1497,7 @@ sub _seed_parameters {
         ],
         [
             'country_id', 'country',
-            sub { shift->model('Country')->find_by_code(shift) },
+            sub { shift->model('Area')->find_by_iso_3166_1_code(shift) },
         ],
         [
             'script_id', 'script',
