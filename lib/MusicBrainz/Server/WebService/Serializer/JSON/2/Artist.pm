@@ -26,8 +26,8 @@ sub serialize
     {
         $body{type} = $entity->type_name;
 
-        $body{country} = $entity->area && $entity->area->primary_code
-            ? $entity->area->primary_code : JSON::null;
+        $body{country} = $entity->area && $entity->area->country_code
+            ? $entity->area->country_code : JSON::null;
 
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
         $body{begin_area} = $entity->begin_area ? serialize_entity($entity->begin_area) : JSON::null;
