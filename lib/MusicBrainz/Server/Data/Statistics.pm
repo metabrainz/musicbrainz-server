@@ -219,8 +219,8 @@ my %stats = (
             my %dist = map { @$_ } @$data;
 
             +{
-                "count.artist.type.country" => $dist{1} || 0,
-                "count.artist.type.null"  => $dist{null} || 0
+                "count.area.type.country" => $dist{1} || 0,
+                "count.area.type.null"  => $dist{null} || 0
             };
         },
     },
@@ -656,10 +656,11 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(l.gid) AS count
-                FROM label l FULL OUTER JOIN country c
-                    ON l.country=c.id
-                GROUP BY c.iso_code
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(l.gid) AS count
+                FROM label l FULL OUTER JOIN country_area c
+                    ON l.area=c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 
@@ -679,11 +680,12 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(r.gid) AS count
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(r.gid) AS count
                 FROM release r
                 LEFT JOIN release_country rc ON r.id = rc.release
-                FULL OUTER JOIN country c ON rc.country = c.id
-                GROUP BY c.iso_code
+                FULL OUTER JOIN country_area c ON rc.country = c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 
@@ -1067,10 +1069,11 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(c.iso_code::text, 'null'), COUNT(a.gid) AS count
-                FROM artist a FULL OUTER JOIN country c
-                    ON a.country=c.id
-                GROUP BY c.iso_code
+                "SELECT COALESCE(iso.code::text, 'null'), COUNT(a.gid) AS count
+                FROM artist a FULL OUTER JOIN country_area c
+                    ON a.area=c.area
+                JOIN iso_3166_1 iso ON c.area = iso.area
+                GROUP BY iso.code
                 ",
             );
 
