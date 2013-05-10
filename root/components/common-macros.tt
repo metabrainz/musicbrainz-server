@@ -750,6 +750,7 @@ END -%]
     ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
     ELSIF url.url.host.search('spotify.com'); 'spotify';
     ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
+    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
     ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
     ELSE; '';
 END -%]
