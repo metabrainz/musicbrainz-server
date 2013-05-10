@@ -21,8 +21,6 @@ sub pretty_name
     my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
     $name =~ s{^/wiki/}{};
 
-    $name = "Wikidata: $name";
-
     return $name;
 }
 
