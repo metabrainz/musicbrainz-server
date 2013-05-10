@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Encode qw( encode );
 use JSON qw( decode_json );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
 use MusicBrainz::Server::Validation qw( is_guid );
@@ -66,7 +67,7 @@ sub prepare_duplicates
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $self->c->model('Country')->load(@releases);
+    load_release_events($self->c, @releases);
     $self->c->model('ReleaseLabel')->load(@releases);
     $self->c->model('Label')->load(map { $_->all_labels } @releases);
 
