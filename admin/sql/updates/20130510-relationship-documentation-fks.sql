@@ -1,5 +1,6 @@
--- Automatically generated, do not edit.
 \set ON_ERROR_STOP 1
+
+BEGIN;
 
 SET search_path = 'documentation';
 
@@ -42,6 +43,7 @@ ALTER TABLE l_area_work_example
    ADD CONSTRAINT l_area_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_area_work(id);
+
 
 ALTER TABLE l_artist_artist_example
    ADD CONSTRAINT l_artist_artist_example_fk_id
@@ -107,11 +109,6 @@ ALTER TABLE l_label_work_example
    ADD CONSTRAINT l_label_work_example_fk_id
    FOREIGN KEY (id)
    REFERENCES musicbrainz.l_label_work(id);
-
-ALTER TABLE l_recording_recording_example
-   ADD CONSTRAINT l_recording_recording_example_fk_id
-   FOREIGN KEY (id)
-   REFERENCES musicbrainz.l_recording_recording(id);
 
 ALTER TABLE l_recording_release_example
    ADD CONSTRAINT l_recording_release_example_fk_id
@@ -188,3 +185,5 @@ ALTER TABLE link_type_documentation
    FOREIGN KEY (id)
    REFERENCES musicbrainz.link_type(id);
 
+
+COMMIT;
