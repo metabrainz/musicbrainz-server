@@ -36,8 +36,8 @@ sub serialize
             my ($release_event, $target, $include_country) = @_;
             $target->{date} = $release_event->date->format;
             if ($include_country) {
-                $target->{country} = $release_event->country && $release_event->country->primary_code
-                    ? $release_event->country->primary_code : JSON::null;
+                $target->{country} = $release_event->country && $release_event->country->country_code
+                    ? $release_event->country->country_code : JSON::null;
             } else {
                 $target->{area} = $release_event->country
                     ? serialize_entity($release_event->country) : JSON::null;

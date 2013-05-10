@@ -25,7 +25,7 @@ sub serialize
     if ($toplevel)
     {
         $body{type} = $entity->type_name;
-        $body{country} = $entity->area && $entity->area->primary_code ? $entity->area->primary_code : JSON::null;
+        $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 
         $body{releases} = list_of ($entity, $inc, $stash, "releases")

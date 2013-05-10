@@ -793,9 +793,6 @@ sub _serialize_area_inner
     my @list;
     push @list, $gen->name($area->name);
     push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
-    if ($area->primary_code) {
-        push @list, $gen->primary_code($area->primary_code);
-    }
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {
            $gen->iso_3166_1_code($_);
