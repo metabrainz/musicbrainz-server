@@ -12,13 +12,9 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
                content=rdfa_recording_duration(recording) class="length"
                    IF recording.length -%]
-            [%- FOR isrc IN isrcs -%]
+            [%- FOR isrc IN recording.isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]
                 [% rdfa_recording_isrc(recording, isrc) %]
-                [% IF c.user_exists %]
-                [% l('({delete_uri|remove})', {
-                       delete_uri => c.uri_for_action('/isrc/delete', { isrc_id => isrc.id }) }) %]
-                [% END %]
                 [% END %]
             [%- END -%]
         [% END %]
@@ -31,7 +27,6 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
           [% IF c.user_exists %]
-          <li>[% link_entity(recording, 'add_isrc', lp('Add ISRC', 'button/menu')) %]</li>
           [% annotation_links(recording) %]
           <li>
             <a href="[% c.uri_for_action('/recording/merge_queue', { 'add-to-merge' => recording.id }) %]">

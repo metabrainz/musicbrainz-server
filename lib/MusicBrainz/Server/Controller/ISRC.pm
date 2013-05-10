@@ -3,7 +3,6 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_REMOVE_ISRC );
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use List::UtilsBy qw( sort_by );
@@ -38,33 +37,6 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         recordings => \@recordings,
         template   => 'isrc/index.tt',
-    );
-}
-
-sub delete : Local RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $isrc_id = $c->req->query_params->{isrc_id};
-    my $isrc = $c->model('ISRC')->get_by_id($isrc_id);
-
-    $c->model('Recording')->load($isrc);
-    $c->model('ArtistCredit')->load($isrc->recording);
-
-    $c->stash( isrc => $isrc );
-
-    if (!$isrc) {
-        $c->detach('/error_500');
-        $c->stash( message => l('This ISRC does not exist' ));
-    }
-
-    $self->edit_action($c,
-        form        => 'Confirm',
-        edit_args   => { isrc => $isrc },
-        type        => $EDIT_RECORDING_REMOVE_ISRC,
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/isrc/show', [ $isrc->isrc ]));
-        }
     );
 }
 

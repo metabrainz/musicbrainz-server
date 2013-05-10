@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Form::Recording;
 use HTML::FormHandler::Moose;
+use List::AllUtils qw( uniq );
+
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -23,6 +25,28 @@ has_field 'artist_credit' => (
     type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
     required => 1
 );
+
+has_field 'isrcs' => (
+    type => 'Repeatable',
+    inflate_default_method => \&inflate_isrcs
+);
+
+has_field 'isrcs.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::ISRC',
+);
+
+after 'validate' => sub {
+    my ($self) = @_;
+    return if $self->has_errors;
+
+    my $isrcs =  $self->field('isrcs');
+    $isrcs->value([ uniq sort grep { $_ } @{ $isrcs->value } ]);
+};
+
+sub inflate_isrcs {
+    my ($self, $value) = @_;
+    return [ map { $_->isrc } @$value ];
+}
 
 sub edit_field_names
 {
