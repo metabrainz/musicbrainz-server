@@ -498,6 +498,17 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/\/music\/artists\//) != null;
     }
 
+    // allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/artist\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/release\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/work\//) != null;
+    }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
