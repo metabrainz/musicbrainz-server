@@ -19,6 +19,7 @@ INSERT INTO
     VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
              'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
 
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
