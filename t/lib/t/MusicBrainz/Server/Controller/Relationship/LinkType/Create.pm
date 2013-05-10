@@ -48,7 +48,7 @@ test 'Creating new relationship types under /relationship/artist-artist as admin
         for ( [ entity0_type => 'artist' ],
               [ entity1_type => 'artist' ],
               [ link_phrase => $forward_lp ],
-              [ short_link_phrase => $long_lp ],
+              [ long_link_phrase => $long_lp ],
               [ reverse_link_phrase => $reverse_lp ],
               [ child_order => $child_order ],
               [ priority => $priority ] );

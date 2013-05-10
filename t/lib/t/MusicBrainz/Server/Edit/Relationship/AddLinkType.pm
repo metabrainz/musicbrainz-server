@@ -19,11 +19,10 @@ test 'Can create relationship types with documentation' => sub {
         entity1_type => 'label',
         name => 'founded',
         link_phrase => 'founded',
-        short_link_phrase => 'founded',
         reverse_link_phrase => 'was founded by',
         documentation => $documentation,
         attributes => [],
-        short_link_phrase => 'founded'
+        long_link_phrase => 'founded'
     );
 
     $edit->accept;

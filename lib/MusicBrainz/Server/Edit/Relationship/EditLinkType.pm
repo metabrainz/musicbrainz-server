@@ -22,7 +22,7 @@ sub change_fields
         child_order         => Optional[Int],
         link_phrase         => Optional[Str],
         reverse_link_phrase => Optional[Str],
-        short_link_phrase   => Optional[Str],
+        long_link_phrase   => Optional[Str],
         description         => Nullable[Str],
         priority            => Optional[Int],
         attributes          => Optional[ArrayRef[Dict[
@@ -43,17 +43,6 @@ has '+data' => (
         types   => Optional[Tuple[Str, Str]],
     ]
 );
-
-sub initialize {
-    my ($self, %opts) = @_;
-
-    for (qw( old new )) {
-        $opts{$_}{short_link_phrase} = delete $opts{$_}{long_link_phrase}
-            if exists $opts{$_} && exists $opts{$_}{long_link_phrase};
-    }
-
-    $self->data(\%opts);
-}
 
 sub edit_conditions
 {
@@ -131,6 +120,15 @@ sub accept {
     my $self = shift;
     $self->c->model('LinkType')->update($self->data->{link_id}, $self->data->{new});
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    for my $side (qw( old new )) {
+        $data->{$side}{long_link_phrase} =
+            delete $data->{$side}{short_link_phrase}
+                if exists $data->{$side}{short_link_phrase};
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

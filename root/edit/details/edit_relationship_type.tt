@@ -26,9 +26,9 @@
                         html_escape(edit.data.old.reverse_link_phrase),
                         html_escape(edit.data.new.reverse_link_phrase)) -%]
 
-  [%- display_word_diff(l('Short link phrase:'),
-                        html_escape(edit.data.old.short_link_phrase),
-                        html_escape(edit.data.new.short_link_phrase)) -%]
+  [%- display_word_diff(l('Long link phrase:'),
+                        html_escape(edit.data.old.long_link_phrase),
+                        html_escape(edit.data.new.long_link_phrase)) -%]
 
   [%- display_word_diff(l('Child order:'),
                         html_escape(edit.data.old.child_order),

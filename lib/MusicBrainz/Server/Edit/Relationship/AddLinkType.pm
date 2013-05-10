@@ -8,7 +8,6 @@ use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship::Role::RenameLongLinkPhrase';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Add relationship type') }
@@ -22,7 +21,7 @@ has '+data' => (
         parent_id           => Nullable[Str],
         gid                 => Nullable[Str],
         link_phrase         => Str,
-        short_link_phrase   => Optional[Str],
+        long_link_phrase   => Optional[Str],
         reverse_link_phrase => Str,
         child_order         => Optional[Int],
         description         => Nullable[Str],
@@ -98,6 +97,12 @@ sub _build_attributes {
           } @$list
     ]
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{long_link_phrase} = delete $data->{short_link_phrase}
+        if exists $data->{short_link_phrase};
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
