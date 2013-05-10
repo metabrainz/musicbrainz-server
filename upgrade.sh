@@ -57,9 +57,6 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130117-cover-image-types.
 echo `date` : Applying admin/sql/updates/20130312-collection-descriptions.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130312-collection-descriptions.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'Create documentation tables'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 echo `date` : 'Creditable link attributes'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-instrument-credits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
@@ -76,8 +73,8 @@ echo `date` : 'Creating the Area entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'Creating relationship documentation for areas'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130510-relationship-documentation-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Create documentation tables'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -124,8 +121,8 @@ then
     echo `date` : Applying 20130426-area-edits.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130426-area-edits.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-    echo `date` : 'Creating relationship documentation for areas (fks)'
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130510-relationship-documentation-areas-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    echo `date` : 'Applying 20130510-relationship-documentation-fks.sql'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130510-relationship-documentation-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Applying 20130322-multiple-country-dates-constraints.sql
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-dates-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
