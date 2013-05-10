@@ -44,7 +44,6 @@ ws_test 'browse releases via artist (paging)',
                     <area id="489ce91b-6658-3307-9877-795b68554c98">
                         <name>United States</name>
                         <sort-name>United States</sort-name>
-                        <primary-code>US</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>US</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -83,7 +82,6 @@ ws_test 'browse releases via label',
                     <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
                         <name>United Kingdom</name>
                         <sort-name>United Kingdom</sort-name>
-                        <primary-code>GB</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>GB</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -123,7 +121,6 @@ ws_test 'browse releases via label',
                     <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
                         <name>United Kingdom</name>
                         <sort-name>United Kingdom</sort-name>
-                        <primary-code>GB</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>GB</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -168,7 +165,6 @@ ws_test 'browse releases via release group',
                      <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                          <name>Japan</name>
                          <sort-name>Japan</sort-name>
-                         <primary-code>JP</primary-code>
                          <iso-3166-1-code-list>
                              <iso-3166-1-code>JP</iso-3166-1-code>
                          </iso-3166-1-code-list>
@@ -200,7 +196,6 @@ ws_test 'browse releases via release group',
                      <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                          <name>Japan</name>
                          <sort-name>Japan</sort-name>
-                         <primary-code>JP</primary-code>
                          <iso-3166-1-code-list>
                              <iso-3166-1-code>JP</iso-3166-1-code>
                          </iso-3166-1-code-list>
@@ -243,7 +238,6 @@ ws_test 'browse releases via recording',
                      <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                          <name>Japan</name>
                          <sort-name>Japan</sort-name>
-                         <primary-code>JP</primary-code>
                          <iso-3166-1-code-list>
                              <iso-3166-1-code>JP</iso-3166-1-code>
                          </iso-3166-1-code-list>
@@ -283,7 +277,6 @@ ws_test 'browse releases via recording',
                      <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                          <name>Japan</name>
                          <sort-name>Japan</sort-name>
-                         <primary-code>JP</primary-code>
                          <iso-3166-1-code-list>
                              <iso-3166-1-code>JP</iso-3166-1-code>
                          </iso-3166-1-code-list>
@@ -328,7 +321,6 @@ ws_test 'browse releases via track artist',
           <area id="2db42837-c832-3c27-b4a3-08198f75693c">
             <name>Japan</name>
             <sort-name>Japan</sort-name>
-            <primary-code>JP</primary-code>
             <iso-3166-1-code-list>
               <iso-3166-1-code>JP</iso-3166-1-code>
             </iso-3166-1-code-list>

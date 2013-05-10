@@ -50,7 +50,6 @@ ws_test 'label lookup with tags and ratings',
         <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
             <name>United Kingdom</name>
             <sort-name>United Kingdom</sort-name>
-            <primary-code>GB</primary-code>
             <iso-3166-1-code-list>
                 <iso-3166-1-code>GB</iso-3166-1-code>
             </iso-3166-1-code-list>
@@ -140,7 +139,6 @@ ws_test 'release lookup with release-groups, tags and ratings',
 	    	<area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
 		    <name>United Kingdom</name>
 	            <sort-name>United Kingdom</sort-name>
-		    <primary-code>GB</primary-code>
 		    <iso-3166-1-code-list>
 	    		<iso-3166-1-code>GB</iso-3166-1-code>
 	   	    </iso-3166-1-code-list>

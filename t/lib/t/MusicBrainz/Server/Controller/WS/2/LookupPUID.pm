@@ -60,7 +60,6 @@ ws_test 'puid lookup with releases',
                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                         <name>Japan</name>
                         <sort-name>Japan</sort-name>
-                        <primary-code>JP</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>JP</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -84,7 +83,6 @@ ws_test 'puid lookup with releases',
                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                         <name>Japan</name>
                         <sort-name>Japan</sort-name>
-                        <primary-code>JP</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>JP</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -150,7 +148,6 @@ ws_test 'puid lookup with release groups',
                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                         <name>Japan</name>
                         <sort-name>Japan</sort-name>
-                        <primary-code>JP</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>JP</iso-3166-1-code>
                         </iso-3166-1-code-list>
@@ -193,7 +190,6 @@ ws_test 'puid lookup with release groups',
                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                         <name>Japan</name>
                         <sort-name>Japan</sort-name>
-                        <primary-code>JP</primary-code>
                         <iso-3166-1-code-list>
                             <iso-3166-1-code>JP</iso-3166-1-code>
                         </iso-3166-1-code-list>

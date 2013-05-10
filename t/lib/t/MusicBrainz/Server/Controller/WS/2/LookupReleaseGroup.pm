@@ -72,7 +72,6 @@ ws_test 'release group lookup with releases',
                         <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
                             <name>United Kingdom</name>
                             <sort-name>United Kingdom</sort-name>
-                            <primary-code>GB</primary-code>
                             <iso-3166-1-code-list>
                                 <iso-3166-1-code>GB</iso-3166-1-code>
                             </iso-3166-1-code-list>
@@ -137,7 +136,6 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
                         <area id="2db42837-c832-3c27-b4a3-08198f75693c">
                            <name>Japan</name>
                            <sort-name>Japan</sort-name>
-                            <primary-code>JP</primary-code>
                             <iso-3166-1-code-list>
                                 <iso-3166-1-code>JP</iso-3166-1-code>
                             </iso-3166-1-code-list>
