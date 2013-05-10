@@ -67,7 +67,7 @@ sub foreign_keys
 
     $keys->{Label}->{ $self->data->{old}{label}{id} } = [] if $self->data->{old}{label};
     $keys->{Label}->{ $self->data->{new}{label}{id} } = [] if $self->data->{new}{label};
-    $keys->{Country} = [
+    $keys->{Area} = [
         map { $_->{country_id} }
            @{ $self->data->{release}{events} // [] }
     ];
@@ -108,7 +108,7 @@ sub build_display_data
 
     $data->{extra}{events} = [
         map +{
-            country => $loaded->{Country}->{ $_->{country_id} },
+            country => $loaded->{Area}->{ $_->{country_id} },
             date => MusicBrainz::Server::Entity::PartialDate->new( $_->{date} )
         }, @{ $data->{extra}{events} // [] }
     ];
@@ -159,7 +159,6 @@ sub initialize
 
     unless ($release_label->release) {
         $self->c->model ('Release')->load ($release_label);
-        $self->c->model ('Country')->load ($release_label->release);
         $self->c->model ('Medium')->load_for_releases ($release_label->release);
         $self->c->model ('MediumFormat')->load ($release_label->release->all_mediums);
     }
