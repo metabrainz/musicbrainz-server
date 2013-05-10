@@ -119,7 +119,7 @@ sub foreign_keys
         }
     }
 
-    $relations->{Country} = [
+    $relations->{Area} = [
         map { $_->{country_id} }
         map { @{ $self->data->{$_}{events} // [] } }
         qw( old new )
@@ -164,10 +164,12 @@ sub build_display_data
             my $country_id = $event->{country_id};
             return MusicBrainz::Server::Entity::ReleaseEvent->new(
                 country_id => $country_id,
-                country => $loaded->{Country}{$country_id},
+                country => $loaded->{Area}{$country_id},
                 date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event->{date}),
             )
         };
+
+        $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } (@{ $self->data->{old}{events} }, @{ $self->data->{new}{events} }));
 
         $data->{events} = {
             map {

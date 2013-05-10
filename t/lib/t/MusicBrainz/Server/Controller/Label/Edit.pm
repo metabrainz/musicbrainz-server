@@ -24,7 +24,7 @@ my $response = $mech->submit_form(
         'edit-label.sort_name' => 'label, controller',
         'edit-label.type_id' => 2,
         'edit-label.label_code' => 12345,
-        'edit-label.country_id' => 2,
+        'edit-label.area_id' => 222,
         'edit-label.period.begin_date.year' => 1990,
         'edit-label.period.begin_date.month' => 01,
         'edit-label.period.begin_date.day' => 02,
@@ -46,7 +46,7 @@ is_deeply($edit->data, {
             name => 'controller label',
             sort_name => 'label, controller',
             type_id => 2,
-            country_id => 2,
+            area_id => 222,
             label_code => 12345,
             comment => 'label created in controller_label.t',
             begin_date => {
@@ -64,7 +64,7 @@ is_deeply($edit->data, {
             name => 'Warp Records',
             sort_name => 'Warp Records',
             type_id => 1,
-            country_id => 1,
+            area_id => 221,
             label_code => 2070,
             comment => 'Sheffield based electronica label',
             begin_date => {
@@ -88,8 +88,8 @@ $mech->text_contains('label, controller', '..has new sortname');
 $mech->text_contains('Warp Records', '..has old sortname');
 $mech->text_contains('Special MusicBrainz Label', '..has new type');
 $mech->text_contains('Production', '..has old type');
-$mech->text_contains('United States', '..has new country');
-$mech->text_contains('United Kingdom', '..has old country');
+$mech->text_contains('United States', '..has new area');
+$mech->text_contains('United Kingdom', '..has old area');
 $mech->text_contains('12345', '..has new label code');
 $mech->text_contains('2070', '..has old label code');
 $mech->text_like(qr/2008\D+05\D+19/, '..has new date');

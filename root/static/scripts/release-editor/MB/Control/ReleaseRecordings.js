@@ -345,10 +345,10 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
     };
 
     self.lazyLoad = function () {
-        var tracklist = self.$fieldset.find ('input.tracklist-id').val ();
+        var medium = self.$fieldset.find ('input.medium-id').val ();
         self.$fieldset.find ('.clickedit').hide ();
         self.$nowloading.show ();
-        $.getJSON ('/ws/js/associations/' + tracklist, self.load);
+        $.getJSON ('/ws/js/associations/' + medium, self.load);
     };
 
     self.initializeTracks = function () {

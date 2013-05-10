@@ -1,39 +1,33 @@
-package MusicBrainz::Server::Data::Country;
+package MusicBrainz::Server::Data::AreaType;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Entity::Country;
+use MusicBrainz::Server::Entity::AreaType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'c' };
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'art' };
+with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
 {
-    return 'country';
+    return 'area_type';
 }
 
 sub _columns
 {
-    return 'id, iso_code, name';
+    return 'id, name';
 }
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Country';
+    return 'MusicBrainz::Server::Entity::AreaType';
 }
 
 sub load
 {
     my ($self, @objs) = @_;
-    load_subobjects($self, 'country', @objs);
-}
-
-sub find_by_code
-{
-    my ($self, $code) = @_;
-    return $self->_get_by_key('iso_code' => $code, transform => 'lower');
+    load_subobjects($self, 'type', @objs);
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -42,7 +36,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

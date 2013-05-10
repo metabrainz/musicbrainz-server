@@ -164,6 +164,8 @@ END -%]
             l('releases');
         CASE 'artist';
             l('artists');
+        CASE 'area';
+            l('areas');
         CASE 'label';
             l('labels');
         CASE 'track';
@@ -182,7 +184,18 @@ END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
     ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' IF entity.comment;
+    historical(entity) IF entity.isa('MusicBrainz::Server::Entity::Area');
 END -%]
+
+[%- MACRO historical(entity) BLOCK -%]
+    [%- IF entity.ended -%]
+        <span class="historical">(<bdi>historical
+            [%- IF entity.end_date.has_year -%]
+                [%- ', ' _ entity.begin_date.year _ '–' _ entity.end_date.year -%]
+            [%- END -%]
+        [%- -%]</bdi>)</span>
+    [%- END -%]
+[%- END -%]
 
 [%- MACRO artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
@@ -217,6 +230,7 @@ END -%]
 [%- MACRO link_entity(entity, action, text) BLOCK;
     IF entity.gid;
       IF    entity.isa('MusicBrainz::Server::Entity::Artist'); link_artist(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); link_area(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
@@ -256,6 +270,7 @@ END -%]
 [%- MACRO entity_type(entity) BLOCK;
     type = "$entity";
     IF    type.search('Entity::Artist='); "artist";
+    ELSIF type.search('Entity::Area='); "area";
     ELSIF type.search('Entity::Work='); "work";
     ELSIF type.search('Entity::Label='); "label";
     ELSIF type.search('Entity::Release='); "release";
@@ -294,6 +309,15 @@ END -%]
     '<a href="' _ link _ '" title="' _ hover _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != artist.name AND action == 'show';
     '</span>' IF artist.edits_pending AND action == 'show';
+END -%]
+
+[%- MACRO link_area(area, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/area/$action", [ area.gid ]);
+    text = text == '' ? html_escape(area.l_name) : text;
+    '<span class="mp">' IF area.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF area.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_collection(collection, action, text) BLOCK;
@@ -512,6 +536,7 @@ END -%]
 
 [%- MACRO entity_label(type) BLOCK;
     IF type == 'artist'; l('Artist:');
+    ELSIF type == 'area'; l('Area:');
     ELSIF type == 'label'; l('Label:');
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
@@ -523,6 +548,7 @@ END -%]
 
 [%- MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
+        ELSIF type_name == 'area'; l('Area');
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');
@@ -567,7 +593,9 @@ END -%]
           # pages
           IF entity.isa('MusicBrainz::Server::Entity::Recording') ||
              entity.isa('MusicBrainz::Server::Entity::URL') ||
-             entity.isa('MusicBrainz::Server::Entity::Work');
+             entity.isa('MusicBrainz::Server::Entity::Work') ||
+             entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
+             entity.isa('MusicBrainz::Server::Entity::Area');
              action = 'show';
           END;
           c.uri_for_action(c.controller.action_for(action),
@@ -580,6 +608,7 @@ END -%]
           <option value="release-group">[% l('Release Group') %]</option>
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
+          <option value="area">[% l('Area') %]</option>
         </select>
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
@@ -864,8 +893,16 @@ http://[%- server -%]/[%- id -%]
     [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
 [%- END -%]
 
+[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') %]
+[%- END -%]
+
 [%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
     [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
+[%- END -%]
+
+[%- MACRO artist_end_area_label_from_type(type_id) BLOCK -%]
+    [% type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') %]
 [%- END -%]
 
 [%- MACRO show_wikipedia_extract BLOCK -%]

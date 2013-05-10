@@ -15,7 +15,7 @@ has country_id => (
 
 has country => (
     is => 'rw',
-    isa => 'Maybe[Country]'
+    isa => 'Maybe[Area]'
 );
 
 1;

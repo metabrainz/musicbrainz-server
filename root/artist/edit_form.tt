@@ -40,7 +40,17 @@
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_select(r, 'gender_id', l('Gender:')) -%]
-        [%- form_row_select(r, 'country_id', l('Country:')) -%]
+        [% WRAPPER form_row %]
+          [% area_field = form.field('area.name') %]
+          <label for="id-edit-artist.area.name">[% l('Area:') %]</label>
+          <span id="area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [% r.hidden ('area_id', class => 'id') %]
+            [% r.text(area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'area.name') %]
+        [% END %]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
         [%- form_row_text_list(r, 'isni_codes', l('ISNI codes:'), l('ISNI code')) -%]
       </fieldset>
@@ -51,8 +61,30 @@
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% WRAPPER form_row %]
+          [% begin_area_field = form.field('begin_area.name') %]
+          <label for="id-edit-artist.begin_area.name">[% l('Begin Area:') %]</label>
+          <span id="begin_area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [% r.hidden ('begin_area_id', class => 'id') %]
+            [% r.text(begin_area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'begin_area.name') %]
+        [% END %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
         [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
+        [% WRAPPER form_row %]
+          [% end_area_field = form.field('end_area.name') %]
+          <label for="id-edit-artist.end_area.name">[% l('End Area:') %]</label>
+          <span id="end_area" class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [% r.hidden ('end_area_id', class => 'id') %]
+            [% r.text(end_area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'end_area.name') %]
+        [% END %]
       </fieldset>
 
       [% IF edit_artist_credits && artist_credits %]

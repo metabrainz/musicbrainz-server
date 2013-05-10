@@ -75,7 +75,22 @@ ws_test 'release lookup with release relationships',
         <text-representation>
             <language>jpn</language><script>Jpan</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><release-event-list count="1"><release-event><date>2001-07-04</date><country>JP</country></release-event></release-event-list><barcode>4942463511227</barcode>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <primary-code>JP</primary-code>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -149,6 +164,14 @@ ws_test 'label lookup with label and url relationships',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="72a46579-e9a0-405a-8ee1-e6e6b63b8212">
         <name>rhythm zone</name><sort-name>rhythm zone</sort-name><country>JP</country>
+        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+            <name>Japan</name>
+            <sort-name>Japan</sort-name>
+            <primary-code>JP</primary-code>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>JP</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
         <relation-list target-type="url">
             <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
                 <target id="4e5f8e53-a6fc-46e2-8fe4-2b3192be57e1">http://en.wikipedia.org/wiki/Rhythm_Zone</target>
@@ -202,7 +225,14 @@ ws_test 'release lookup with recording-level relationships',
         <release-event-list count="1">
           <release-event>
             <date>2008-04-29</date>
-            <country>US</country>
+            <area id="489ce91b-6658-3307-9877-795b68554c98">
+                <name>United States</name>
+                <sort-name>United States</sort-name>
+                <primary-code>US</primary-code>
+                <iso-3166-1-code-list>
+                    <iso-3166-1-code>US</iso-3166-1-code>
+                </iso-3166-1-code-list>
+            </area>
           </release-event>
         </release-event-list>
         <barcode>844395014422</barcode>

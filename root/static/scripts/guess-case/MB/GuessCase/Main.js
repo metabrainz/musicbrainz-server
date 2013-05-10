@@ -254,6 +254,64 @@ MB.GuessCase.Main = function () {
 	return os;
     };
 
+    /**
+     * Guess the capitalization of a area name
+     * @param	 is		the un-processed input string
+     * @returns			the processed string
+     **/
+    self.guessArea = function(is, mode) {
+	var os, handler;
+	gc.init();
+
+	if (!self.areaHandler) {
+	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	}
+	handler = self.areaHandler;
+
+	self.useSelectedMode(mode);
+
+	// we need to query the handler if the input string is
+	// a special case, fetch the correct format, if the
+	// returned case is indeed a special case.
+	var num = handler.checkSpecialCase(is);
+	if (handler.isSpecialCase(num)) {
+	    os = handler.getSpecialCaseFormatted(is, num);
+	} else {
+	    // if it was not a special case, start Guessing
+	    os = handler.process(is);
+	}
+
+	return os;
+    };
+
+    /**
+     * Guess the sortname of a given area name
+     * @param	 is		the un-processed input string
+     * @returns			the processed string
+     **/
+    self.guessAreaSortname = function(is) {
+	var os, handler;
+	gc.init();
+
+	if (!self.areaHandler) {
+	    self.areaHandler = MB.GuessCase.Handler.Area ();
+	}
+	handler = self.areaHandler;
+
+	// we need to query the handler if the input string is
+	// a special case, fetch the correct format, if the
+	// returned case is indeed a special case.
+	var num = handler.checkSpecialCase(is);
+	if (handler.isSpecialCase(num)) {
+	    os = handler.getSpecialCaseFormatted(is, num);
+	} else {
+	    // if it was not a special case, start Guessing
+	    os = handler.guessSortName(is);
+	}
+
+	return os;
+    };
+
 
     /**
      * Guess the capitalization of n release name

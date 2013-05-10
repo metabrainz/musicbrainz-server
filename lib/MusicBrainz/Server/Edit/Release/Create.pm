@@ -65,7 +65,7 @@ sub foreign_keys
     my $self = shift;
     my $fks = {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
-        Country          => [ map { $_->{country_id} } @{ $self->data->{events} } ],
+        Area             => [ map { $_->{country_id} } @{ $self->data->{events} } ],
         ReleaseStatus    => [ $self->data->{status_id} ],
         ReleasePackaging => [ $self->data->{packaging_id} ],
         Script           => [ $self->data->{script_id} ],
@@ -90,6 +90,8 @@ sub build_display_data
     my $script = $self->data->{script_id};
     my $lang = $self->data->{language_id};
 
+    $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } @{ $self->data->{events} });
+
     return {
         artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
@@ -113,7 +115,7 @@ sub build_display_data
             map {
                 MusicBrainz::Server::Entity::ReleaseEvent->new(
                     country => defined($_->{country_id})
-                        ? $loaded->{Country}{ $_->{country_id} }
+                        ? $loaded->{Area}{ $_->{country_id} }
                         : undef,
                     date => PartialDate->new({
                         year => $_->{date}{year},

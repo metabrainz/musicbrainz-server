@@ -105,30 +105,31 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
-    my $tracklist_id = $c->req->query_params->{tracklist};
-    my ($mediums) = $c->model('Medium')->find_by_tracklist(
-        $tracklist_id, 100, 0)
-        or die "Could not find mediums";
+    my $medium_id = $c->req->query_params->{medium};
+    my $medium = $c->model('Medium')->get_by_id ($medium_id)
+        or die "Could not find medium";
 
-    $c->model('Release')->load(@$mediums);
+    $c->model('Release')->load($medium);
 
-    $c->model('Track')->load_for_tracklists(
-        $c->model('Tracklist')->load($mediums->[0]));
-    $c->model('Recording')->load($mediums->[0]->tracklist->all_tracks);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('Recording')->load($medium->all_tracks);
+    $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
-    $c->model('ArtistCredit')->load($mediums->[0]->tracklist->all_tracks, map { $_->release } @$mediums);
+    $c->stash( medium => $medium );
 
-    $c->stash( mediums => $mediums );
+    # use Data::Dumper;
+    # warn "stash: ".Dumper ($c->stash)."\n";
 
     $self->edit_action($c,
         form => 'Confirm',
         type => $EDIT_SET_TRACK_LENGTHS,
         edit_args => {
-            tracklist_id => $tracklist_id,
+            medium_id => $medium_id,
             cdtoc_id => $cdtoc->id
         },
         on_creation => sub {
-            $c->response->redirect($c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
+            $c->response->redirect(
+                $c->uri_for_action($self->action_for('show'), [ $cdtoc->discid ]));
         }
     );
 }
@@ -203,12 +204,11 @@ sub attach : Local
         # List releases
         my $artist = $c->model('Artist')->get_by_id($artist_id);
         my $releases = $self->_load_paged($c, sub {
-            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count,shift, shift)
+            $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
         });
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-        $c->model('Track')->load_for_tracklists(
-            map { $_->tracklist } map { $_->all_mediums } @$releases);
+        $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
         load_release_events($c, @$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
@@ -248,9 +248,9 @@ sub attach : Local
             $c->model('Medium')->load_for_releases(@releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = map { $_->all_mediums } @releases;
-            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+            $c->model('Track')->load_for_mediums(@mediums);
 
-            my @tracks = map { $_->all_tracks } map { $_->tracklist } @mediums;
+            my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
             load_release_events($c, @releases);
@@ -379,7 +379,7 @@ sub move : Local RequireAuth Edit
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             my @mediums = grep { !$_->format || $_->format->has_discids }
                 map { $_->all_mediums } @releases;
-            $c->model('Track')->load_for_tracklists( map { $_->tracklist } @mediums);
+            $c->model('Track')->load_for_mediums(@mediums);
             $c->stash(
                 template => 'cdtoc/attach_filter_release.tt',
                 results => $releases

@@ -42,6 +42,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
+with 'MusicBrainz::Server::Data::Role::Area';
 
 sub browse_column { 'sort_name.name' }
 
@@ -61,9 +62,10 @@ sub _table_join_name {
 sub _columns
 {
     return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
-           'artist.type, artist.country, gender, artist.edits_pending, ' .
+           'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
+           'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, artist.comment, artist.last_updated,' .
+           'end_date_year, end_date_month, end_date_day,' .
            'ended';
 }
 
@@ -85,7 +87,9 @@ sub _column_mapping
         name => 'name',
         sort_name => 'sort_name',
         type_id => 'type',
-        country_id => 'country',
+        area_id => 'area',
+        begin_area_id => 'begin_area',
+        end_area_id => 'end_area',
         gender_id => 'gender',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
@@ -144,7 +148,7 @@ sub find_by_release
                      FROM artist
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN track ON track.artist_credit = acn.artist_credit
-                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN medium ON medium.id = track.medium
                      WHERE medium.release = ?)
                  OR artist.id IN (SELECT artist.id
                      FROM artist
@@ -193,6 +197,11 @@ sub find_by_work
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
         $query, $work_id, $work_id, $offset || 0);
+}
+
+sub _area_cols
+{
+    return ['area', 'begin_area', 'end_area'];
 }
 
 sub load
@@ -291,7 +300,7 @@ sub merge
         merge_table_attributes(
             $self->sql => (
                 table => 'artist',
-                columns => [ qw( gender country type ) ],
+                columns => [ qw( gender area begin_area end_area type ) ],
                 old_ids => $old_ids,
                 new_id => $new_id
             )
@@ -316,7 +325,9 @@ sub _hash_to_row
     my ($self, $values, $names) = @_;
 
     my $row = hash_to_row($values, {
-        country => 'country_id',
+        area => 'area_id',
+        begin_area => 'begin_area_id',
+        end_area => 'end_area_id',
         type    => 'type_id',
         gender  => 'gender_id',
         comment => 'comment',

@@ -610,7 +610,7 @@ INSERT INTO release_label (catalog_number, id, label, last_updated, release) VAL
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 INSERT INTO editor (auto_edits_accepted, bio, birth_date, area, edits_accepted, edits_failed, edits_rejected, email, email_confirm_date, gender, id, last_login_date, last_updated, member_since, name, password, privs, website) VALUES (0, NULL, NULL, NULL, 0, 0, 0, NULL, NULL, NULL, 95821, NULL, '2013-04-02 17:42:38.063723+00', '2013-04-02 17:42:38.063723+00', 'the-anti-kuno', 'notreally', 0, NULL);
 INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
-INSERT INTO cover_art_archive.cover_art (comment, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
+INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES ('1031598329', 1);
 UPDATE release_meta SET amazon_asin = 'B0001FAD2O', date_added = '2005-09-07 02:23:50.964236+00', info_url = 'http://www.amazon.co.jp/gp/product/B0001FAD2O', cover_art_presence = 'present', amazon_store = NULL WHERE id = 59662;
 UPDATE release_group_meta SET first_release_date_month = 3, rating_count = NULL, first_release_date_year = 2004, release_count = 1, first_release_date_day = 17, rating = NULL WHERE id = 403214;

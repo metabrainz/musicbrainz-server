@@ -68,7 +68,8 @@ after 'load' => sub
     }
 
     $c->model('LabelType')->load($label);
-    $c->model('Country')->load($c->stash->{label});
+    $c->model('Area')->load($c->stash->{label});
+    $c->model('Area')->load_codes($label->area);
 };
 
 =head2 relations

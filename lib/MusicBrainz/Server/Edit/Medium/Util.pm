@@ -19,7 +19,6 @@ use MusicBrainz::Server::Edit::Utils qw(
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
-use aliased 'MusicBrainz::Server::Entity::Tracklist';
 use aliased 'MusicBrainz::Server::Entity::Track';
 
 use Sub::Exporter -setup => { exports => [qw(
@@ -47,6 +46,7 @@ sub tracks_to_hash
     my $tracks = shift;
 
     my $tmp = [ map +{
+        id => $_->id,
         name => $_->name,
         artist_credit => artist_credit_to_ref ($_->artist_credit, []),
         recording_id => $_->recording_id,
@@ -76,6 +76,7 @@ sub tracklist_foreign_keys {
 
 sub track {
     return Dict[
+        id => Nullable[Int],
         name => Str,
         artist_credit => ArtistCreditDefinition,
         length => Nullable[Int],
@@ -89,8 +90,7 @@ sub display_tracklist {
     my ($loaded, $tracklist) = @_;
     $tracklist ||= [];
 
-    return Tracklist->new(
-        tracks => [ map {
+    return [ map {
             Track->new(
                 name => $_->{name},
                 length => $_->{length},
@@ -98,13 +98,12 @@ sub display_tracklist {
                 position => $_->{position},
                 number => $_->{number} // $_->{position},
                 recording => !$_->{recording_id} || !$loaded->{Recording}{ $_->{recording_id} } ?
-                    Recording->new( name => $_->{name} ) : 
+                    Recording->new( name => $_->{name} ) :
                     $loaded->{Recording}{ $_->{recording_id} },
                 defined($_->{recording_id}) ?
                     (recording_id => $_->{recording_id}) : ()
             )
-        } sort { $a->{position} <=> $b->{position} } @$tracklist ]
-    )
+    } sort { $a->{position} <=> $b->{position} } @$tracklist ];
 }
 
 1;

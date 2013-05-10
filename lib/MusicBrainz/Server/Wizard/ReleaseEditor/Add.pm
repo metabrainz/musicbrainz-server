@@ -104,12 +104,12 @@ sub change_page_duplicates
     $self->c->model('Medium')->load_for_releases($release);
 
     my @media = map +{
-        tracklist_id => $_->tracklist_id,
+        medium_id_for_recordings => $_->id,
         position => $_->position,
         format_id => $_->format_id,
         name => $_->name,
         deleted => 0,
-        edits => '',
+        edits => $json->encode ([ $self->track_edits_from_medium ($_) ]),
     }, $release->all_mediums;
 
     # Any existing edits on the tracklist page were probably seeded,
@@ -128,10 +128,10 @@ sub change_page_duplicates
     # and only to the first disc.  So we can safely ignore subsequent discs.
     if (defined $seededmedia[0] && $seededmedia[0]->{toc})
     {
-        my $tracklist = $self->c->model('Tracklist')->get_by_id($media[0]->{tracklist_id});
-        $self->c->model('Track')->load_for_tracklists ($tracklist);
+        my $medium = $self->c->model('Medium')->get_by_id($media[0]->{medium_id_for_recordings});
+        $self->c->model('Track')->load_for_mediums ($medium);
 
-        my @tracks = $self->track_edits_from_tracklist ($tracklist);
+        my @tracks = $self->track_edits_from_medium ($medium);
         my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
 
         my @new_edits = map {

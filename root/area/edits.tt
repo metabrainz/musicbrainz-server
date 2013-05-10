@@ -1,0 +1,22 @@
+[% BLOCK layout_head %]
+    <script type="text/javascript">//<![CDATA[
+        $(function() {
+            $('.edit-list').each(function() {
+                MB.Control.EditSummary(this);
+            });
+            [% IF c.user.is_auto_editor %]
+              MB.Control.EditList('#edits');
+            [% END %]
+        });
+    //]]></script>
+[% END %]
+
+[% WRAPPER 'layout.tt' title=l('Edits for {name}', { name => html_escape(area.name) }) full_width=1 %]
+    <div class="areaheader">
+        <h1>[% l('Edits for {link}', { link => link_entity(area) }) %]</h1>
+        <p class="subheader">
+            <span class="prefix">~</span> [% html_escape(area.type_name) or l('Area') %]
+        </p>
+    </div>
+    [% INCLUDE 'edit/list.tt' %]
+[% END %]

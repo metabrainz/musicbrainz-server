@@ -50,9 +50,9 @@ EOSQL
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'reorder-cover-art.artwork.0.id' => 12345,
+                'reorder-cover-art.artwork.0.id' => 12346,
                 'reorder-cover-art.artwork.0.position' => 2,
-                'reorder-cover-art.artwork.1.id' => 12346,
+                'reorder-cover-art.artwork.1.id' => 12347,
                 'reorder-cover-art.artwork.1.position' => 1,
             }
         );
@@ -66,8 +66,8 @@ EOSQL
 
     is_deeply(
         $data->{new},
-        [ { id => 12345, position => 2 } ,
-          { id => 12346, position => 1 } ],
+        [ { id => 12346, position => 2 } ,
+          { id => 12347, position => 1 } ],
         'Correctly reorders artwork');
 };
 
