@@ -18,7 +18,7 @@ sub build_type_info
 
     sub _builder
     {
-        my ($root, $info) = @_;
+        my ($c, $root, $info) = @_;
 
         if ($root->id) {
             my %attrs = map { $_->type_id => [
@@ -33,12 +33,12 @@ sub build_type_info
             };
         }
         foreach my $child ($root->all_children) {
-            _builder($child, $info);
+            _builder($c, $child, $info);
         }
     }
 
     my %type_info;
-    _builder($tree, \%type_info);
+    _builder($c, $tree, \%type_info);
     return %type_info;
 }
 
