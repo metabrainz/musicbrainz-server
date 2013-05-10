@@ -607,7 +607,7 @@ test 'find_by_cdtoc' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
-    my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 2);
+    my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 1);
     is_deeply(
       [map { $_->id } @$releases],
       [8, 9, 6, 7]
