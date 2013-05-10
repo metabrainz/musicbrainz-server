@@ -65,8 +65,8 @@ OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/Cre
 OUTPUT=`./admin/psql --schema='cover_art_archive' $DATABASE <./admin/sql/caa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating Wikidocs Schema
-OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
-OUTPUT=`./admin/psql --schema='wikidocs' TEST <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='wikidocs' $DATABASE <./admin/sql/wikidocs/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql --schema='wikidocs' $DATABASE <./admin/sql/wikidocs/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating documentation Schema
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
