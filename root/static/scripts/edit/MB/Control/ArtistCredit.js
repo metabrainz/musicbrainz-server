@@ -132,9 +132,13 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.update = function(event, data) {
         if (data.name)
         {
+            var oldName = self.$name.data("mb_selected_name");
+            var oldCredit = self.$credit.val();
             self.$name.data ('mb_selected_name', data.name);
             self.$name.val (data.name).removeClass ('error');
-            self.$credit.val(data.name);
+            if (oldName === oldCredit) {
+                self.$credit.val(data.name);
+            }
             self.container.clearError (self);
             self.$sortname.val (data.sortname);
             self.$gid.val (data.gid);
