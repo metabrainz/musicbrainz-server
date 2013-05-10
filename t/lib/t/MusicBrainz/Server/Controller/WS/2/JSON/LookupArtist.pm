@@ -147,8 +147,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
                         resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
                     },
-                    type => "musicmoz",
-                    "type-id" => 'ded9a80a-e6de-4831-880c-c78b9981b54b',
+                    type => "image",
+                    "type-id" => '221132e9-e30e-43f2-a741-15afc4c5fa7c',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
@@ -160,8 +160,8 @@ test 'basic artist lookup, inc=url-rels' => sub {
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
                         resource => 'http://members.boardhost.com/wedlock/'
                     },
-                    type => "youtube",
-                    'type-id' => '6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0',
+                    type => "online community",
+                    'type-id' => '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
                     begin => JSON::null,
                     end => JSON::null,
                     ended => JSON::false,
