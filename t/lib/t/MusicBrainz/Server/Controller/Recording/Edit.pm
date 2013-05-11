@@ -117,18 +117,20 @@ is_deeply($edit->data, {
         recording => {
             id => 1,
             name => 'Dancing Queen'
-        }
-    } ]
+        },
+        source => 0,
+    } ],
+    client_version => JSON::null
 });
 	
 $edit = $edits[2];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC');
-my @isrc = $c->model('ISRC')->find_by_isrc('USS1Z9900001');
+my @isrc = $c->model('ISRC')->find_by_isrc('DEE250800231');
 	
 is_deeply($edit->data, {
     isrc => {
         id => $isrc[0]->id,
-        isrc => 'USS1Z9900001',
+        isrc => 'DEE250800231',
     },
     recording => {
         id => 1,
