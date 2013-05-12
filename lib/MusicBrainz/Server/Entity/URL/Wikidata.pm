@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 =method pretty_name
 
-Attempt to display Wikipedia URLs as 'language: Page Name'. This will only
+Attempt to display Wikidata URLs as their Wikidata ID. This will only
 happen if the URL can be decoded from utf-8. If not, the entire URL is used.
 
 =cut
