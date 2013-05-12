@@ -2,7 +2,8 @@ package MusicBrainz::Server::Controller::Statistics;
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
-use MusicBrainz::Server::Data::Country;
+use MusicBrainz::Server::Data::CountryArea;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by sort_by );
@@ -90,7 +91,9 @@ sub countries : Local
     my $artist_country_prefix = 'count.artist.country';
     my $release_country_prefix = 'count.release.country';
     my $label_country_prefix = 'count.label.country';
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    my @countries = $c->model('CountryArea')->get_all();
+    $c->model('Area')->load_codes(@countries);
+    my %countries = map { $_->country_code => $_ } grep { defined $_->country_code } @countries;
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 

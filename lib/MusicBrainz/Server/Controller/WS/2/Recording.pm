@@ -70,7 +70,7 @@ sub recording_toplevel
         my @results;
         if ($c->stash->{inc}->media)
         {
-            @results = $c->model('Release')->load_with_tracklist_for_recording(
+            @results = $c->model('Release')->load_with_medium_for_recording(
                 $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
         else
@@ -81,7 +81,7 @@ sub recording_toplevel
 
         my @releases = @{$results[0]};
 
-        $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } map { $_->all_mediums } @releases)
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases)
             if ($c->stash->{inc}->artist_credits);
 
         $self->linked_releases ($c, $stash, $results[0]);

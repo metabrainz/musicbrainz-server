@@ -5,6 +5,7 @@ requires 'load';
 
 use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_ADD_ALIAS $EDIT_ARTIST_DELETE_ALIAS $EDIT_ARTIST_EDIT_ALIAS
+    $EDIT_AREA_ADD_ALIAS $EDIT_AREA_DELETE_ALIAS $EDIT_AREA_EDIT_ALIAS
     $EDIT_LABEL_ADD_ALIAS $EDIT_LABEL_DELETE_ALIAS $EDIT_LABEL_EDIT_ALIAS
     $EDIT_WORK_ADD_ALIAS $EDIT_WORK_DELETE_ALIAS $EDIT_WORK_EDIT_ALIAS
 );
@@ -12,16 +13,19 @@ use MusicBrainz::Server::Constants qw(
 my %model_to_edit_type = (
     add => {
         Artist => $EDIT_ARTIST_ADD_ALIAS,
+        Area => $EDIT_AREA_ADD_ALIAS,
         Label  => $EDIT_LABEL_ADD_ALIAS,
         Work   => $EDIT_WORK_ADD_ALIAS,
     },
     delete => {
         Artist => $EDIT_ARTIST_DELETE_ALIAS,
+        Area => $EDIT_AREA_DELETE_ALIAS,
         Label  => $EDIT_LABEL_DELETE_ALIAS,
         Work   => $EDIT_WORK_DELETE_ALIAS,
     },
     edit => {
         Artist => $EDIT_ARTIST_EDIT_ALIAS,
+        Area => $EDIT_AREA_EDIT_ALIAS,
         Label  => $EDIT_LABEL_EDIT_ALIAS,
         Work   => $EDIT_WORK_EDIT_ALIAS,
     }
@@ -29,6 +33,7 @@ my %model_to_edit_type = (
 
 my %model_to_search_hint_type_id = (
     Artist => 3,
+    Area => 2,
     Label => 2,
     Work => 2
 );

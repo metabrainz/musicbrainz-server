@@ -28,6 +28,7 @@ parameter defs => (
 our (%types, %statuses);
 our %relation_types = (
     1 => {
+        "area-rels" => 1,
         "artist-rels" => 1,
         "release-rels" => 1,
         "track-rels" => 1,
@@ -36,6 +37,7 @@ our %relation_types = (
         "url-rels" => 1,
     },
     2 => {
+        "area-rels" => 1,
         "artist-rels" => 1,
         "release-rels" => 1,
         "release-group-rels" => 1,

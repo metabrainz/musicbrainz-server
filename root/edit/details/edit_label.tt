@@ -45,16 +45,21 @@
                   edit.display_data.ended.new ? l('Yes') : l('No'),
                   '-') %]
 
-  [% display_full_change(l('Country:'),
-                         html_escape(edit.display_data.country.old.name),
-                         html_escape(edit.display_data.country.new.name)) %]
+  [% display_full_change(l('Area:'),
+                         edit.display_data.area.old ? link_entity(edit.display_data.area.old): '',
+                         edit.display_data.area.new ? link_entity(edit.display_data.area.new): '') %]
 
   [% display_diff(l('IPI code:'),
                   edit.display_data.ipi_code.old,
                   edit.display_data.ipi_code.new) %]
 
   [% display_diff(l('IPI codes:'),
-                  edit.display_data.ipi_codes.old.join (", "),
-                  edit.display_data.ipi_codes.new.join (", "),
+                  comma_only_list(edit.display_data.ipi_codes.old),
+                  comma_only_list(edit.display_data.ipi_codes.new),
+                  ', ') %]
+
+  [% display_diff(l('ISNI codes:'),
+                  comma_only_list(edit.display_data.isni_codes.old),
+                  comma_only_list(edit.display_data.isni_codes.new),
                   ', ') %]
 </table>

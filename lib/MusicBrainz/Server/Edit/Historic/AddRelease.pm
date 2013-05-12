@@ -65,7 +65,7 @@ sub foreign_keys
     my $self = shift;
     return {
         Artist        => [ $self->_artist_ids ],
-        Country       => [ map { $_->{country_id} } $self->_release_events ],
+        Area          => [ map { $_->{country_id} } $self->_release_events ],
         Label         => [ map { $_->{label_id} } $self->_release_events ],
         Language      => [ $self->data->{language_id} ],
         MediumFormat  => [ map { $_->{format_id} } $self->_release_events ],
@@ -98,7 +98,7 @@ sub build_display_data
         release_events => [
             map { +{
                 country        => defined($_->{country_id}) &&
-                                    $loaded->{Country}->{ $_->{country_id} },
+                                    $loaded->{Area}->{ $_->{country_id} },
                 date           => MusicBrainz::Server::Entity::PartialDate->new_from_row( $_->{date} ),
                 label          => $_->{label_id}
                     ? ($loaded->{Label}->{ $_->{label_id} } || Label->new( id => $_->{label_id} ))

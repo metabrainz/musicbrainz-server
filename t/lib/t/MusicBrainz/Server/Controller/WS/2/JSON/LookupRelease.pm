@@ -33,6 +33,16 @@ test 'basic release lookup' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -66,6 +76,16 @@ test 'basic release lookup, inc=annotation' => sub {
             },
             date => "2007-01-29",
             country => "GB",
+            "release-events" => [{
+                date => "2007-01-29",
+                "area" => {
+                    "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                    "name" => "United Kingdom",
+                    "sort-name" => "United Kingdom",
+                    "iso_3166_1_codes" => ["GB"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "600116817020",
             asin => "B000KJTG6K",
             annotation => "this is a release annotation",
@@ -102,6 +122,16 @@ test 'basic release with tags' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -142,6 +172,16 @@ test 'basic release with collections' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -198,6 +238,16 @@ test 'release lookup with artists + aliases' => sub {
                 }],
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
         });
@@ -226,6 +276,16 @@ test 'release lookup with labels and recordings' => sub {
             },
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             "label-info" => [
@@ -306,6 +366,16 @@ test 'release lookup with release-groups' => sub {
             },
             date => "2004-03-17",
             country => "JP",
+            "release-events" => [{
+                date => "2004-03-17",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4988064451180",
             asin => "B0001FAD2O",
             "artist-credit" => [
@@ -367,6 +437,16 @@ test 'release lookup with discids and puids' => sub {
             },
             date => "2001-07-04",
             country => "JP",
+            "release-events" => [{
+                date => "2001-07-04",
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "4942463511227",
             asin => "B00005LA6G",
             disambiguation => "",
@@ -443,6 +523,16 @@ test 'release lookup, barcode is NULL' => sub {
             },
             date => "1999-09-23",
             country => "US",
+            "release-events" => [{
+                date => "1999-09-23",
+                "area" => {
+                    "id" => "489ce91b-6658-3307-9877-795b68554c98",
+                    "name" => "United States",
+                    "sort-name" => "United States",
+                    "iso_3166_1_codes" => ["US"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => JSON::null,
             asin => "B00001IVAI",
             disambiguation => "",
@@ -474,10 +564,127 @@ test 'release lookup, barcode is  empty string' => sub {
             },
             date => "1999-09-13",
             country => "GB",
+            "release-events" => [{
+                date => "1999-09-13",
+                "area" => {
+                    "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                    "name" => "United Kingdom",
+                    "sort-name" => "United Kingdom",
+                    "iso_3166_1_codes" => ["GB"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+            }],
             barcode => "",
             asin => JSON::null,
             disambiguation => "",
             packaging => JSON::null,
+        });
+};
+
+test 'release lookup, relation attributes' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'release lookup, relation attributes',
+    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' => encode_json (
+        {
+            id => "757a1723-3769-4298-89cd-48d31177852a",
+            title => "LOVE & HONESTY",
+            "cover-art-archive" => {
+                artwork => JSON::false,
+                count => 0,
+                front => JSON::false,
+                back => JSON::false,
+                darkened => JSON::false,
+            },
+            date => "2004-01-15",
+            country => "JP",
+            'release-events' => [ 
+                {
+                "area" => {
+                    "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                    "name" => "Japan",
+                    "sort-name" => "Japan",
+                    "iso_3166_1_codes" => ["JP"],
+                    "iso_3166_2_codes" => [],
+                    "iso_3166_3_codes" => []},
+                date => '2004-01-15'
+                }  
+            ],
+            barcode => JSON::null,
+            asin => "B0000YGBSG",
+            disambiguation => "",
+            packaging => JSON::null,
+            relations => [
+                {
+                    attributes => [ 'transliterated' ],
+                    begin => JSON::null,
+                    end => JSON::null,
+                    direction => 'backward',
+                    ended => JSON::false,
+                    release => {
+                        id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
+                        title => 'LOVE & HONESTY',
+                        asin => JSON::null,
+                        barcode => '4988064173907',
+                        country => JSON::null,
+                        date => '2004-01-15',
+                        'release-events' => [
+                            {
+                            "area" => undef,
+                            date => '2004-01-15'
+                            }
+                        ],
+                        disambiguation => '',
+                        'text-representation' => {
+                            language => JSON::null,
+                            script => JSON::null,
+                        },
+                        status => JSON::null,
+                        packaging => JSON::null,
+                        quality => 'normal',
+                    },
+                    type => 'transl-tracklisting',
+                    'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
+                },
+                {
+                    attributes => [ 'transliterated' ],
+                    begin => JSON::null,
+                    end => JSON::null,
+                    direction => 'backward',
+                    ended => JSON::false,
+                    release => {
+                        id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
+                        title => 'LOVE & HONESTY',
+                        asin => JSON::null,
+                        barcode => '4988064173891',
+                        country => JSON::null,
+                        date => '2004-01-15',
+                        'release-events' => [
+                            {
+                            "area" => undef,
+                            date => '2004-01-15'
+                            }
+                        ],
+                        disambiguation => '',
+                        'text-representation' => {
+                            language => JSON::null,
+                            script => JSON::null,
+                        },
+                        status => JSON::null,
+                        packaging => JSON::null,
+                        quality => 'normal',
+                    },
+                    type => 'transl-tracklisting',
+                    'type-id' => 'fc399d47-23a7-4c28-bfcf-0607a562b644',
+                }
+            ],
+            status => "Pseudo-Release",
+            quality => "normal",
+            "text-representation" => {
+                language => "jpn",
+                script => "Latn",
+            },
         });
 };
 

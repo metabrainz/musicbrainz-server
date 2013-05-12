@@ -19,13 +19,6 @@
     <h2 class="release-information">[% l('Release information') %]</h2>
 
     [% WRAPPER 'layout/sidebar/properties.tt';
-        INCLUDE 'layout/sidebar/property.tt' label=l('Date:') class="date"
-           content=release.date.format IF release.date.format;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-           content=link_searchable_property('country', release.country.iso_code, 'release', release.country.l_name)
-           class="country"
-               IF release.country.name;
-
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
            content=release.barcode.format property='mo:gtin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:') class="format"
@@ -64,6 +57,11 @@
       </li>
     [% END %]
     </ul>
+    [% END %]
+    
+    [% IF release.events.size %]
+    <h2>[% l('Release Events') %]</h2>
+    [% release_events(release.events) %]
     [% END %]
 
     [% UNLESS editing %]
@@ -138,6 +136,7 @@
         </ul>
     [% END %]
 
+    [% INCLUDE "layout/sidebar/sidebar-licenses.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-favicons.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-affiliates.tt" source=release %]
     [% INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=release %]
