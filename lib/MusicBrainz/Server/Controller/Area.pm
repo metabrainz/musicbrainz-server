@@ -172,7 +172,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_AREA_DELETE,
 };
 
-for my $method (qw( create edit merge merge_queue delete )) {
+for my $method (qw( create edit merge merge_queue delete add_alias edit_alias delete_alias edit_annotation )) {
     before $method => sub {
         my ($self, $c) = @_;
         if (!$c->user->is_location_editor) {
