@@ -300,53 +300,6 @@ sub change_quality : Chained('load') PathPart('change-quality') RequireAuth
     );
 }
 
-sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    if ($c->req->query_params->{dest}) {
-        my $release_group = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
-        $c->model('ArtistCredit')->load($release_group);
-        if ($release->release_group_id == $release_group->id) {
-            $c->stash( message => l('This release is already in the selected release group') );
-            $c->detach('/error_400');
-        }
-
-        $c->stash(
-            template => 'release/move_confirm.tt',
-            release_group => $release_group
-        );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_RELEASE_MOVE,
-            edit_args => {
-                release => $release,
-                new_release_group => $release_group
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $release->gid ]));
-            }
-        );
-    }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        $query->field('query')->input($release->release_group->name);
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                $c->model('Search')->search('release_group',
-                                            $query->field('query')->value, shift, shift)
-            });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-            $results = [ grep { $release->release_group_id != $_->entity->id } @$results ];
-            $c->stash( search_results => $results );
-        }
-        $c->stash( template => 'release/move_search.tt' );
-    }
-}
-
 =head2 collections
 
 View a list of collections that this release has been added to.
