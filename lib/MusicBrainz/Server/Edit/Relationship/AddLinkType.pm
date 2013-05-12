@@ -21,7 +21,7 @@ has '+data' => (
         parent_id           => Nullable[Str],
         gid                 => Nullable[Str],
         link_phrase         => Str,
-        short_link_phrase   => Optional[Str],
+        long_link_phrase   => Optional[Str],
         reverse_link_phrase => Str,
         child_order         => Optional[Int],
         description         => Nullable[Str],
@@ -31,7 +31,8 @@ has '+data' => (
             min  => Nullable[Int],
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
-        ]]
+        ]],
+        documentation => Optional[Str]
     ]
 );
 
@@ -45,6 +46,11 @@ sub foreign_keys {
             ]
     }
 }
+
+has entity_id => (
+    isa => 'Int',
+    is => 'rw'
+);
 
 sub edit_conditions
 {
@@ -65,7 +71,7 @@ sub allow_auto_edit { 1 }
 
 sub accept {
     my $self = shift;
-    $self->c->model('LinkType')->insert($self->data);
+    $self->entity_id($self->c->model('LinkType')->insert($self->data)->id);
 }
 
 sub build_display_data {
@@ -91,6 +97,12 @@ sub _build_attributes {
           } @$list
     ]
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{long_link_phrase} = delete $data->{short_link_phrase}
+        if exists $data->{short_link_phrase};
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

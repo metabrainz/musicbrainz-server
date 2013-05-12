@@ -37,6 +37,7 @@ sub show : Chained('load') PathPart('')
     $c->model('WorkType')->load(@works);
     $c->model('Work')->load_writers(@works);
     $c->model('Work')->load_recording_artists(@works);
+    $c->model('Language')->load(@works);
     $c->stash(
         works => \@works,
         template => 'iswc/index.tt',

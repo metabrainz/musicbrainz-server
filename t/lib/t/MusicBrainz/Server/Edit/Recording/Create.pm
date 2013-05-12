@@ -14,6 +14,13 @@ around run_test => sub {
 INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO release_name (id, name) VALUES (22, 'エアリアル');
+INSERT INTO release_group (id, name, type, artist_credit, gid)
+       VALUES (22, 22, 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217');
+INSERT INTO release (id, name, release_group, artist_credit, gid)
+    VALUES (22, 22, 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5');
+INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
 ALTER SEQUENCE artist_name_id_seq RESTART 2;
 ALTER SEQUENCE artist_id_seq RESTART 2;
 EOSQL
@@ -71,11 +78,11 @@ test 'Reject when in use' => sub {
 
     my $edit = $test->edit;
 
-    $test->c->sql->do('
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO track (id, tracklist, artist_credit, name, recording, position, number)
-    VALUES (1, 1, (SELECT id FROM artist_credit LIMIT 1),
-                  (SELECT id FROM track_name LIMIT 1), ' . $edit->entity_id . ", 1, 1);
+    $test->c->sql->do("
+INSERT INTO track (id, gid, medium, artist_credit, name, recording, position, number)
+    VALUES (1, '32b10778-137d-46bd-957d-2bef4435882f', 22,
+             (SELECT id FROM artist_credit LIMIT 1),
+             (SELECT id FROM track_name LIMIT 1), " . $edit->entity_id . ", 1, 1);
 ");
 
     reject_edit($test->c, $edit);

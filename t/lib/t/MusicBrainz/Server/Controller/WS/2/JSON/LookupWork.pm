@@ -88,6 +88,7 @@ test 'work lookup with recording relationships' => sub {
             disambiguation => "",
             relations => [
                 {
+                    attributes => [],
                     type => "performance",
                     'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",
@@ -102,6 +103,7 @@ test 'work lookup with recording relationships' => sub {
                     ended => JSON::false,
                 },
                 {
+                    attributes => [],
                     type => "performance",
                     'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
                     direction => "backward",

@@ -37,6 +37,12 @@
     <p>[% l('The following {count} users are transclusion editors:', { count => transclusion_editors.size }) %]</p>
     [%- INCLUDE results editors=transclusion_editors -%]
 
+    <h2>[% l("Location editors") %]</h2>
+    <p>[% l('Location editors are users who can add or modify {uri|areas}.',
+             { uri => doc_link('Area') }) %]</p>
+    <p>[% l('The following {count} users are location editors:', { count => location_editors.size }) %]</p>
+    [%- INCLUDE results editors=location_editors -%]
+
     <h2>[% l("Bots") %]</h2>
     <p>[% l('The following {count} user accounts are bots:', { count => bots.size }) %]</p>
     [%- INCLUDE results editors=bots -%]
