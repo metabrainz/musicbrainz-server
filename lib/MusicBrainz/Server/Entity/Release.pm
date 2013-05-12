@@ -3,7 +3,6 @@ use Moose;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Entity::Barcode;
-use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation qw( l );
 
@@ -103,23 +102,6 @@ has 'barcode' => (
     default => sub { MusicBrainz::Server::Entity::Barcode->new() },
 );
 
-has 'country_id' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-has 'country' => (
-    is => 'rw',
-    isa => 'Country'
-);
-
-has 'date' => (
-    is => 'rw',
-    isa => 'PartialDate',
-    lazy => 1,
-    default => sub { MusicBrainz::Server::Entity::PartialDate->new() },
-);
-
 has 'language_id' => (
     is => 'rw',
     isa => 'Int'
@@ -173,6 +155,17 @@ has 'mediums' => (
     }
 );
 
+has events => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        add_event => 'push',
+        all_events => 'elements',
+        event_count => 'count'
+    }
+);
+
 sub combined_track_count
 {
     my ($self) = @_;
@@ -180,7 +173,7 @@ sub combined_track_count
     return "" if !@mediums;
     my @counts;
     foreach my $medium (@mediums) {
-        push @counts, $medium->tracklist ? $medium->tracklist->track_count : 0;
+        push @counts, $medium->track_count;
     }
     return join " + ", @counts;
 }
@@ -197,8 +190,7 @@ sub has_multiple_artists
 {
     my ($self) = @_;
     foreach my $medium ($self->all_mediums) {
-        next unless $medium->tracklist;
-        foreach my $track ($medium->tracklist->all_tracks) {
+        foreach my $track ($medium->all_tracks) {
             if ($track->artist_credit_id != $self->artist_credit_id) {
                 return 1;
             }
@@ -230,7 +222,7 @@ sub may_have_cover_art {
 sub find_medium_for_recording {
     my ($self, $recording) = @_;
     for my $medium ($self->all_mediums) {
-        for my $track ($medium->tracklist->all_tracks) {
+        for my $track ($medium->all_tracks) {
             next unless defined $track->recording;
             return $medium if $track->recording->gid eq $recording->gid;
         }
@@ -240,7 +232,7 @@ sub find_medium_for_recording {
 sub find_track_for_recording {
     my ($self, $recording) = @_;
     my $medium = $self->find_medium_for_recording($recording) or return;
-    for my $track ($medium->tracklist->all_tracks) {
+    for my $track ($medium->all_tracks) {
         next unless defined $track->recording;
         return $track if $track->recording->gid eq $recording->gid;
     }
@@ -251,9 +243,7 @@ sub all_tracks
     my $self = shift;
     my @mediums = $self->all_mediums
         or return ();
-    my @tracklists = grep { defined } map { $_->tracklist } @mediums
-        or return ();
-    return map { $_->all_tracks } @tracklists;
+    return map { $_->all_tracks } @mediums;
 }
 
 sub filter_labels
@@ -340,11 +330,10 @@ sub combined_track_relationships {
     $merge_rels->($self->grouped_relationships);
 
     for my $medium ($self->all_mediums) {
-        for my $track ($medium->tracklist->all_tracks) {
-            # XXX tracklist->medium is a hack, but needed by the track_number
+        for my $track ($medium->all_tracks) {
+            # XXX track->medium is a hack, but needed by the track_number
             # MACRO in root/release/index.tt.
-            $track->tracklist($medium->tracklist);
-            $medium->tracklist->medium($medium);
+            $track->medium($medium);
 
             if (!$show_medium_prefix && $medium_count > 1 &&
                     exists $track_numbers{ $track->number }) {
@@ -367,7 +356,7 @@ sub combined_track_relationships {
     my $track_number = sub {
         my ($track) = @_;
         return ($show_medium_prefix ?
-            $track->tracklist->medium->position . '.' : '') . $track->number;
+            $track->medium->position . '.' : '') . $track->number;
     };
 
     # Convert a list of tracks to a string representation of the track numbers,

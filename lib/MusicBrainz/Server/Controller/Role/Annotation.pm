@@ -15,6 +15,7 @@ my %model_to_edit_type = (
     Release => $EDIT_RELEASE_ADD_ANNOTATION,
     ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
     Work => $EDIT_WORK_ADD_ANNOTATION,
+    Area => $EDIT_AREA_ADD_ANNOTATION,
 );
 
 after 'load' => sub

@@ -9,12 +9,56 @@ CREATE TRIGGER "reptg_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "annotation"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_area"
+AFTER INSERT OR DELETE OR UPDATE ON "area"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_country_area"
+AFTER INSERT OR DELETE OR UPDATE ON "country_area"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_area_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "area_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_area_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "area_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_area_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "area_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_area_type"
+AFTER INSERT OR DELETE OR UPDATE ON "area_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_area_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "area_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_iso_3166_1"
+AFTER INSERT OR DELETE OR UPDATE ON "iso_3166_1"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_iso_3166_2"
+AFTER INSERT OR DELETE OR UPDATE ON "iso_3166_2"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_iso_3166_3"
+AFTER INSERT OR DELETE OR UPDATE ON "iso_3166_3"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "artist"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_ipi"
 AFTER INSERT OR DELETE OR UPDATE ON "artist_ipi"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_artist_isni"
+AFTER INSERT OR DELETE OR UPDATE ON "artist_isni"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_artist_alias"
@@ -70,10 +114,6 @@ CREATE TRIGGER "reptg_clientversion"
 AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_country"
-AFTER INSERT OR DELETE OR UPDATE ON "country"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 -- not replicated:
 -- currentstat
 
@@ -91,6 +131,38 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 -- not replicated:
 -- historicalstat
+
+CREATE TRIGGER "reptg_l_area_area"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_area"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_artist"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_artist"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_label"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_label"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_area_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_artist_artist"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_artist"
@@ -224,6 +296,10 @@ CREATE TRIGGER "reptg_label_ipi"
 AFTER INSERT OR DELETE OR UPDATE ON "label_ipi"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
+CREATE TRIGGER "reptg_label_isni"
+AFTER INSERT OR DELETE OR UPDATE ON "label_isni"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_label_meta"
 AFTER INSERT OR DELETE OR UPDATE ON "label_meta"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -254,6 +330,14 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_link_attribute"
 AFTER INSERT OR DELETE OR UPDATE ON "link_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_link_attribute_credit"
+AFTER INSERT OR DELETE OR UPDATE ON "link_attribute_credit"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_link_creditable_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "link_creditable_attribute_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_link_attribute_type"
@@ -310,6 +394,14 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release"
 AFTER INSERT OR DELETE OR UPDATE ON "release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_country"
+AFTER INSERT OR DELETE OR UPDATE ON "release_country"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_release_unknown_country"
+AFTER INSERT OR DELETE OR UPDATE ON "release_unknown_country"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_release_annotation"
@@ -396,12 +488,12 @@ CREATE TRIGGER "reptg_track_name"
 AFTER INSERT OR DELETE OR UPDATE ON "track_name"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_tracklist"
-AFTER INSERT OR DELETE OR UPDATE ON "tracklist"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+CREATE TRIGGER "reptg_track_gid_redirect"
+   AFTER INSERT OR DELETE OR UPDATE ON "track_gid_redirect"
+   FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
-CREATE TRIGGER "reptg_tracklist_index"
-AFTER INSERT OR DELETE OR UPDATE ON "tracklist_index"
+CREATE TRIGGER "reptg_medium_index"
+AFTER INSERT OR DELETE OR UPDATE ON "medium_index"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_url"
@@ -426,6 +518,18 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_work_annotation"
 AFTER INSERT OR DELETE OR UPDATE ON "work_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_attribute"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_attribute_type"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_work_attribute_type_allowed_value"
+AFTER INSERT OR DELETE OR UPDATE ON "work_attribute_type_allowed_value"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_work_gid_redirect"

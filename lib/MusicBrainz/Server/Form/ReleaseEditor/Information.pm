@@ -23,9 +23,21 @@ has_field 'status_id'        => ( type => 'Select'    );
 has_field 'language_id'      => ( type => 'Select'    );
 has_field 'script_id'        => ( type => 'Select'    );
 
-# Release event
-has_field 'date'             => ( type => '+MusicBrainz::Server::Form::Field::PartialDate', not_nullable => 1 );
-has_field 'country_id'       => ( type => 'Select'    );
+# Release events
+has_field 'events' => (
+    type => 'Repeatable'
+);
+has_field 'events.date' => (
+    type => '+MusicBrainz::Server::Form::Field::PartialDate',
+    not_nullable => 1
+);
+has_field 'events.country_id' => (
+    type => 'Select'
+);
+has_field 'events.deleted' => (
+    type => 'Checkbox'
+);
+
 has_field 'packaging_id'     => ( type => 'Select'    );
 
 has_field 'labels'           => ( type => 'Repeatable' );
@@ -46,7 +58,7 @@ sub options_primary_type_id   { shift->_select_all('ReleaseGroupType') }
 sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
-sub options_country_id        { shift->_select_all('Country', sort_by_accessor => 1) }
+sub options_events_country_id { shift->_select_all('CountryArea', sort_by_accessor => 1) }
 
 sub options_language_id       { return language_options (shift->ctx); }
 sub options_script_id         { return script_options (shift->ctx); }
@@ -54,8 +66,8 @@ sub options_script_id         { return script_options (shift->ctx); }
 sub validate {
     my $self = shift;
 
-    my $current_release = $self->init_object // 
-        $self->field('id')->value ? 
+    my $current_release = $self->init_object //
+        $self->field('id')->value ?
         $self->ctx->model('Release')->get_by_id($self->field('id')->value) :
         undef;
     unless (!defined $self->field('barcode')->value ||
@@ -66,6 +78,16 @@ sub validate {
     {
         $self->field('barcode')->add_error (
             l("This barcode is invalid, please check that you've correctly entered the barcode."));
+    }
+
+    my %witnessed_countries;
+    for my $event (
+        grep { !$_->field('deleted')->value && $_->field('country_id')->value }
+        @{ $self->field('events')->fields }
+    ) {
+        my $field = $event->field('country_id');
+        $field->add_error(l('You cannot use the same country more than once'))
+            if (++$witnessed_countries{$field->value} > 1);
     }
 
     # A release_group_id *must* be present if we're editing an existing release.

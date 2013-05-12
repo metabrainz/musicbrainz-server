@@ -11,6 +11,15 @@ subtype 'Annotation'
 subtype 'Application'
     => as class_type 'MusicBrainz::Server::Entity::Application';
 
+subtype 'Area'
+    => as class_type 'MusicBrainz::Server::Entity::Area';
+
+subtype 'AreaAlias'
+    => as class_type 'MusicBrainz::Server::Entity::AreaAlias';
+
+subtype 'AreaType'
+    => as class_type 'MusicBrainz::Server::Entity::AreaType';
+
 subtype 'Artist'
     => as class_type 'MusicBrainz::Server::Entity::Artist';
 
@@ -82,9 +91,6 @@ subtype 'LinkType'
 
 subtype 'LinkTypeAttribute'
     => as class_type 'MusicBrainz::Server::Entity::LinkTypeAttribute';
-
-subtype 'Country'
-    => as class_type 'MusicBrainz::Server::Entity::Country';
 
 subtype 'Gender'
     => as class_type 'MusicBrainz::Server::Entity::Gender';
@@ -159,7 +165,7 @@ subtype 'WorkType'
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009-2013 Lukas Lalinsky, MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

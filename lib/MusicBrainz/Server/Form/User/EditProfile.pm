@@ -31,9 +31,10 @@ has_field 'gender_id' => (
     type => 'Select',
 );
 
-has_field 'country_id' => (
-    type => 'Select',
-);
+has_field 'area_id'   => ( type => 'Hidden' );
+
+has_field 'area'      => ( type => 'Compound' );
+has_field 'area.name' => ( type => 'Text' );
 
 has_field 'birth_date' => (
     type => '+MusicBrainz::Server::Form::Field::PartialDate'
@@ -54,7 +55,6 @@ has_field 'languages.fluency' => (
 );
 
 sub options_gender_id { shift->_select_all('Gender') }
-sub options_country_id { shift->_select_all('Country', sort_by_accessor => 1) }
 sub options_languages_language_id { return language_options(shift->ctx) }
 sub options_languages_fluency {
     return [
