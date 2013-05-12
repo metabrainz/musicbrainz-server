@@ -46,10 +46,10 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-                [% annotation_links(area) %]
-                <hr/>
-
                 [% IF c.user.is_location_editor %]
+                    [% annotation_links(area) %]
+                    <hr/>
+
                     <li>
                       <a href="[% c.uri_for_action('/area/merge_queue', { 'add-to-merge' => area.id }) %]">
                         [% l('Merge area') %]
@@ -63,8 +63,8 @@
                     <li>[% relate_to_ellipsis(area) %]</li>
                     <li>[% relate_to_url(area) %]</li>
 
-                <hr/>
-            [% END %]
+                    <hr/>
+                [% END %]
                 <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>
             [% ELSE %]

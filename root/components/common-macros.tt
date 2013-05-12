@@ -268,15 +268,14 @@ END -%]
     END; -%]
 
 [%- MACRO entity_type(entity) BLOCK;
-    type = "$entity";
-    IF    type.search('Entity::Artist='); "artist";
-    ELSIF type.search('Entity::Area='); "area";
-    ELSIF type.search('Entity::Work='); "work";
-    ELSIF type.search('Entity::Label='); "label";
-    ELSIF type.search('Entity::Release='); "release";
-    ELSIF type.search('Entity::ReleaseGroup='); "release_group";
-    ELSIF type.search('Entity::Recording='); "recording";
-    ELSIF type.search('Entity::URL='); "url";
+    IF entity.isa('MusicBrainz::Server::Entity::Artist'); "artist";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); "release";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); "release_group";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); "recording";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::URL'); "url";
     END;
 END -%]
 
@@ -608,7 +607,10 @@ END -%]
           <option value="release-group">[% l('Release Group') %]</option>
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
+          [%- IF (entity_type(entity) != 'area' && entity_type(entity) != 'url')
+                  || c.user.is_location_editor -%]
           <option value="area">[% l('Area') %]</option>
+          [%- END -%]
         </select>
         <span class="autocomplete">
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
@@ -958,6 +960,7 @@ http://[%- server -%]/[%- id -%]
 [%- END -%]
 
 [%- MACRO relationship_edit_links(rel) BLOCK -%]
+  [%- IF rel.editor_can_edit(c.user) -%]
   [
       <a href="[% c.uri_for_action('/edit/relationship/delete', {
           type0 => rel.link.type.entity0_type,
@@ -973,6 +976,7 @@ http://[%- server -%]/[%- id -%]
           returnto => c.req.uri
       }) %]">[% l('Edit') %]</a>
   ]
+  [%- END -%]
 [%- END -%]
 
 [%- MACRO release_events(release_events) BLOCK;
