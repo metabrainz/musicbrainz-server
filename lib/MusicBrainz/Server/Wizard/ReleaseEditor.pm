@@ -115,6 +115,15 @@ sub load
         );
     }
 
+    if (!$release->event_count)
+    {
+        $release->add_event(
+            MusicBrainz::Server::Entity::ReleaseEvent->new (
+                date => MusicBrainz::Server::Entity::PartialDate->new
+            )
+        );
+    }
+
     $self->initialize($release);
 }
 
@@ -1716,6 +1725,10 @@ sub _seed_parameters {
     $params->{labels} = [
         { label => '', catalog_number => '' }
     ] unless @{ $params->{labels}||[] };
+
+    $params->{events} = [
+        { deleted => 0 }
+    ] unless @{ $params->{events}||[] };
 
     $params->{seeded} = 1;
 

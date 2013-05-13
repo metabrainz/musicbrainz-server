@@ -128,6 +128,9 @@ subtype 'ReleaseGroupType'
 subtype 'Release'
     => as class_type 'MusicBrainz::Server::Entity::Release';
 
+subtype 'ReleaseEvent'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseEvent';
+
 subtype 'ReleaseStatus'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseStatus';
 
