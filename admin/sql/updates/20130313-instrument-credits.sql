@@ -3,7 +3,7 @@
 BEGIN;
 
 CREATE TABLE link_creditable_attribute_type (
-  attribute_type INT NOT NULL -- PK, references link_attribute_type.id
+  attribute_type INT NOT NULL PRIMARY KEY REFERENCES link_attribute_type (id)
 );
 
 CREATE TABLE link_attribute_credit (
