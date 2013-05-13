@@ -240,6 +240,9 @@ CREATE TABLE link_type_documentation (
   examples_deleted SMALLINT NOT NULL DEFAULT 0
 );
 
+INSERT INTO link_type_documentation (id, documentation)
+SELECT id, '' FROM musicbrainz.link_type;
+
 ALTER TABLE l_area_area_example ADD CONSTRAINT l_area_area_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_artist_example ADD CONSTRAINT l_area_artist_example_pkey PRIMARY KEY (id);
 ALTER TABLE l_area_label_example ADD CONSTRAINT l_area_label_example_pkey PRIMARY KEY (id);
