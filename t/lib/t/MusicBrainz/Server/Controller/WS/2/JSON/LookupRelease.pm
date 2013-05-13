@@ -599,7 +599,7 @@ test 'release lookup, relation attributes' => sub {
             },
             date => "2004-01-15",
             country => "JP",
-            'release-events' => [ 
+            'release-events' => [
                 {
                 "area" => {
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
@@ -609,7 +609,7 @@ test 'release lookup, relation attributes' => sub {
                     "iso_3166_2_codes" => [],
                     "iso_3166_3_codes" => []},
                 date => '2004-01-15'
-                }  
+                }
             ],
             barcode => JSON::null,
             asin => "B0000YGBSG",
@@ -623,10 +623,10 @@ test 'release lookup, relation attributes' => sub {
                     direction => 'backward',
                     ended => JSON::false,
                     release => {
-                        id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
+                        id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
                         title => 'LOVE & HONESTY',
                         asin => JSON::null,
-                        barcode => '4988064173907',
+                        barcode => '4988064173891',
                         country => JSON::null,
                         date => '2004-01-15',
                         'release-events' => [
@@ -654,10 +654,10 @@ test 'release lookup, relation attributes' => sub {
                     direction => 'backward',
                     ended => JSON::false,
                     release => {
-                        id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
+                        id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
                         title => 'LOVE & HONESTY',
                         asin => JSON::null,
-                        barcode => '4988064173891',
+                        barcode => '4988064173907',
                         country => JSON::null,
                         date => '2004-01-15',
                         'release-events' => [
