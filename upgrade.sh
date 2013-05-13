@@ -146,8 +146,7 @@ then
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-track-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Creditable relationship attributes foreign key
-    OUTPUT=`./admin/psql READWRITE <
-    ./admin/sql/updates/20130413-creditable-relationship-attributes-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130413-creditable-relationship-attributes-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
