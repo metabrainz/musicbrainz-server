@@ -1,4 +1,4 @@
-SET search_path = 'documentation';
+SET search_path = documentation, musicbrainz, public;
 
 \set ON_ERROR_STOP 1
 
