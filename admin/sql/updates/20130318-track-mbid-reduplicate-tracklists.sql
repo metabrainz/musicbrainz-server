@@ -21,8 +21,9 @@ CREATE INDEX medium_index_idx ON medium_index USING GIST (toc);
 CREATE SEQUENCE track2013_id_seq START 1;
 
 CREATE TABLE track2013 AS
-    SELECT nextval('track2013_id_seq') AS id, generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
-                        'http://musicbrainz.org/track/' || currval('track2013_id_seq') ) AS gid,
+    SELECT nextval('track2013_id_seq')::int AS id,
+           generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8',
+           'http://musicbrainz.org/track/' || currval('track2013_id_seq') ) AS gid,
            track.recording, medium.id AS medium,
            track.position, track.number,
            track.name, track.artist_credit, track.length,
@@ -70,7 +71,9 @@ ALTER TABLE medium2013
   ALTER COLUMN id SET NOT NULL,
   ALTER COLUMN last_updated SET DEFAULT now(),
   ALTER COLUMN position SET NOT NULL,
-  ALTER COLUMN release SET NOT NULL;
+  ALTER COLUMN release SET NOT NULL,
+  ALTER COLUMN track_count SET NOT NULL,
+  ALTER COLUMN track_count SET DEFAULT 0;
 
 ALTER SEQUENCE medium_id_seq OWNED BY medium2013.id;
 
