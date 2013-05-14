@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::ReleaseEditor::Information;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Form::Utils qw( language_options script_options );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_valid_ean );
@@ -80,14 +81,28 @@ sub validate {
             l("This barcode is invalid, please check that you've correctly entered the barcode."));
     }
 
+    my @active_release_events = grep { !$_->field('deleted')->value }
+        @{ $self->field('events')->fields };
+
+    # Countries can only be used once
     my %witnessed_countries;
     for my $event (
-        grep { !$_->field('deleted')->value && $_->field('country_id')->value }
-        @{ $self->field('events')->fields }
+        grep { $_->field('country_id')->value } @active_release_events
     ) {
         my $field = $event->field('country_id');
         $field->add_error(l('You cannot use the same country more than once'))
             if (++$witnessed_countries{$field->value} > 1);
+    }
+
+    # Release events without countries must set a date
+    for my $event (
+        grep { !$_->field('country_id')->value } @active_release_events
+    ) {
+        my $field = $event->field('date');
+        my $date = $field->value;
+        $field->add_error(
+            l('Release events without a country must have a date'))
+            if MusicBrainz::Server::Entity::PartialDate->new($date)->is_empty;
     }
 
     # A release_group_id *must* be present if we're editing an existing release.
