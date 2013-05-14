@@ -56,6 +56,7 @@ sub relationship_type : Path('/doc/relationship-types/') Args(1) {
     my $relationship_type = $c->model('LinkType')->get_by_gid($link_type_gid)
         or $self->not_found($c);
 
+    $c->model('LinkType')->load_documentation($relationship_type);
     $c->stash( relationship_type => $relationship_type );
 }
 
