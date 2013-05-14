@@ -2,8 +2,8 @@
 
 SET client_min_messages TO 'warning';
 
-TRUNCATE release_group_primary_type CASCADE;
-TRUNCATE release_status CASCADE;
+DELETE FROM release_group_primary_type;
+DELETE FROM release_status;
 
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
 INSERT INTO area (id, gid, name, sort_name, type) VALUES

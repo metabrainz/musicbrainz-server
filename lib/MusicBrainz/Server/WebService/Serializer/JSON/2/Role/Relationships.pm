@@ -1,6 +1,7 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships;
 use Moose::Role;
 
+use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(serialize_entity);
 
 requires 'serialize';
@@ -12,7 +13,9 @@ around serialize => sub
 
     return $ret unless defined $inc && $inc->has_rels;
 
-    my @rels = map { serialize_entity ($_) } @{ $entity->relationships };
+    my @rels = map { serialize_entity ($_) }
+        sort_by { $_->target_key . $_->link->type->name }
+            @{ $entity->relationships };
 
     $ret->{relations} = \@rels;
 
