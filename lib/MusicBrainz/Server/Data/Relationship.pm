@@ -469,6 +469,21 @@ sub lock_and_do {
     }, $self->c->sql);
 }
 
+=method editor_can_edit
+
+Returns true if the editor is allowed to edit a $type0-$type1 rel
+
+=cut
+
+sub editor_can_edit
+{
+    my ($self, $editor, $type0, $type1) = @_;
+    my @types = sort ($type0, $type1);
+    my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
+    my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
+    return (!$is_area_url && !$is_area_area) || $editor->is_location_editor;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
