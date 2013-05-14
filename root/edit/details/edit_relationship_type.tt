@@ -71,4 +71,32 @@
                          html_escape(edit.data.old.documentation),
                          html_escape(edit.data.new.documentation));
      END %]
+
+  <tr>
+    <th>[% l('Examples:') %]</th>
+    <td class="old">
+      <ul>
+        [% FOREACH example=edit.display_data.examples.old %]
+        <li>
+          [% descriptive_link(example.relationship.source); %]
+          [% example.relationship.verbose_phrase; %]
+          [% descriptive_link(example.relationship.target); %]
+          [% relationship_date_text(example.relationship); %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+    <td class="new">
+      <ul>
+        [% FOREACH example=edit.display_data.examples.new %]
+        <li>
+          [% descriptive_link(example.relationship.source); %]
+          [% example.relationship.verbose_phrase; %]
+          [% descriptive_link(example.relationship.target); %]
+          [% relationship_date_text(example.relationship); %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
 </table>
