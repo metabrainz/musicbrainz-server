@@ -49,7 +49,7 @@
             [% IF edit_links AND c.user_exists %]
             <td>
               <a href="[% c.uri_for_action('/cdtoc/set_durations',
-                              [ cdtoc.discid ], { tracklist => medium.tracklist_id }) %]">
+                              [ cdtoc.discid ], { medium => medium.id }) %]">
                 [% l('Set track durations') %]
               </a> |
               <a href="[% c.uri_for_action('cdtoc/remove',
