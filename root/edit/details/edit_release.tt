@@ -22,11 +22,6 @@
   </tr>
   [% END %]
 
-  [%- display_diff(l('Date:'),
-                     html_escape(edit.display_data.date.old.format),
-                     html_escape(edit.display_data.date.new.format),
-                     '-') -%]
-
   [%- display_full_change(l('Packaging:'),
                           edit.display_data.packaging.old.l_name,
                           edit.display_data.packaging.new.l_name) -%]
@@ -39,10 +34,6 @@
                           edit.display_data.language.old.l_name,
                           edit.display_data.language.new.l_name) -%]
 
-  [%- display_full_change(l('Country:'),
-                          edit.display_data.country.old.l_name,
-                          edit.display_data.country.new.l_name) -%]
-
   [%- display_full_change(lp('Status:', 'release status'),
                           edit.display_data.status.old.l_name,
                           edit.display_data.status.new.l_name) -%]
@@ -54,5 +45,24 @@
   [%- display_diff(l('Barcode:'),
           html_escape (edit.display_data.barcode.old.format),
           html_escape (edit.display_data.barcode.new.format)) -%]
+
+  [%- IF edit.display_data.events.old.size <= 1 AND
+         edit.display_data.events.new.size <= 1 -%]
+      [%- display_diff(l('Date:'),
+                         html_escape(edit.display_data.events.old.0.date.format),
+                         html_escape(edit.display_data.events.new.0.date.format),
+                         '-') -%]
+
+      [%- display_diff(l('Country:'),
+                         html_escape(edit.display_data.events.old.0.country.l_name),
+                         html_escape(edit.display_data.events.new.0.country.l_name),
+                         '-') -%]
+  [%- ELSE -%]
+  <tr>
+    <th>[% l('Release Events:') %]</th>
+    <td class="old">[% release_events(edit.display_data.events.old) %]</td>
+    <td class="new">[% release_events(edit.display_data.events.new) %]</td>
+  </tr>
+  [%- END -%]
 
 </table>

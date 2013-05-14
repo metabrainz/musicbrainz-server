@@ -1,0 +1,39 @@
+<form action="[% c.req.uri %]" method="post" class="edit-area">
+  [%- USE r = FormRenderer(form) -%]
+
+  <div class="half-width">
+    <fieldset>
+      <legend>[%- l('Area Details') -%]</legend>
+      [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_text_long(r, 'sort_name', l('Sort Name:')) -%]
+      [%- form_row_select(r, 'type_id', l('Type:')) -%]
+      [%- form_row_text_list(r, 'iso_3166_1', l('ISO 3166-1:'), l('ISO 3166-1')) -%]
+      [%- form_row_text_list(r, 'iso_3166_2', l('ISO 3166-2:'), l('ISO 3166-2')) -%]
+      [%- form_row_text_list(r, 'iso_3166_3', l('ISO 3166-3:'), l('ISO 3166-3')) -%]
+    </fieldset>
+
+    <fieldset>
+      <legend>[% l('Date Period') %]</legend>
+      <p>
+        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
+      </p>
+      [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% form_row_date(r, 'period.end_date', l('End date:')) %]
+      [% form_row_checkbox(r, 'period.ended', l('This area has ended.')) %]
+    </fieldset>
+
+    [%- INCLUDE 'forms/edit-note.tt' -%]
+    [%- enter_edit() -%]
+
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+    [%- sortname_bubble() -%]
+  </div>
+
+</form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-area', 'button.submit.positive');
+</script>

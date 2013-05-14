@@ -35,7 +35,7 @@ sub _columns
 {
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
-            edits_rejected, auto_edits_accepted, edits_failed, gender, country,
+            edits_rejected, auto_edits_accepted, edits_failed, gender, area,
             birth_date';
 }
 
@@ -57,7 +57,7 @@ sub _column_mapping
         registration_date       => 'member_since',
         last_login_date         => 'last_login_date',
         gender_id               => 'gender',
-        country_id              => 'country',
+        area_id                 => 'area',
         birth_date              => 'birth_date'
     };
 }
@@ -272,7 +272,7 @@ sub update_profile
         $update,
         {
             bio => 'biography',
-            country => 'country_id',
+            area => 'area_id',
             gender => 'gender_id',
             website => 'website',
             birth_date => 'birth_date',
@@ -301,6 +301,7 @@ sub update_privileges
                 + $values->{bot}              * $BOT_FLAG
                 + $values->{untrusted}        * $UNTRUSTED_FLAG
                 + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
+                + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
                 + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
@@ -400,7 +401,8 @@ sub donation_check
 
     my $nag = 1;
     $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
-                 $obj->is_relationship_editor || $obj->is_wiki_transcluder);
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
+                 $obj->is_location_editor);
 
     my $days = 0.0;
     if ($nag)
@@ -468,7 +470,7 @@ sub delete {
                            email_confirm_date = NULL,
                            website = NULL,
                            bio = NULL,
-                           country = NULL,
+                           area = NULL,
                            birth_date = NULL,
                            gender = NULL
          WHERE id = ?",

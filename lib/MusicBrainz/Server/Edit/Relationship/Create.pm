@@ -38,7 +38,7 @@ has '+data' => (
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            short_link_phrase => Str
+            long_link_phrase => Str
         ],
         attributes   => Nullable[ArrayRef[Int]],
         begin_date   => Nullable[PartialDateHash],
@@ -71,7 +71,7 @@ sub initialize
         name => $lt->name,
         link_phrase => $lt->link_phrase,
         reverse_link_phrase => $lt->reverse_link_phrase,
-        short_link_phrase => $lt->short_link_phrase
+        long_link_phrase => $lt->long_link_phrase
     };
 
     $self->data({ %opts });
@@ -209,6 +209,13 @@ sub reject
         $self->c->model('CoverArt')->cache_cover_art($release);
     }
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{link_type}{long_link_phrase} =
+        delete $data->{link_type}{short_link_phrase}
+            if exists $data->{link_type}{short_link_phrase};
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

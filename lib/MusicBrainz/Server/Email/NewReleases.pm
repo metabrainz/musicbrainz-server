@@ -38,7 +38,7 @@ sub text {
     my $self = shift;
     return strip tt q{
 [% FOR release=self.releases %]
-[% release.name %] by [% release.artist_credit.name %] - released [% release.date.format %] on [% release.combined_format_name %]
+[% release.name %] by [% release.artist_credit.name %] - released [% release.events.0.date.format %] on [% release.combined_format_name %]
 [% self.server %]/release/[% release.gid %]
 [% END %]
 };

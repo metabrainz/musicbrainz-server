@@ -127,7 +127,7 @@ INSERT INTO url (id, gid, url)
   VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
-    reverse_link_phrase, short_link_phrase)
+    reverse_link_phrase, long_link_phrase)
   VALUES (1, '46687254-01e8-41a9-833f-183f1f25e487', 'release', 'url',
     'cover art link', 'cover art link', 'cover art link', 'cover art link');
 INSERT INTO link (id, link_type) VALUES (1, 1);

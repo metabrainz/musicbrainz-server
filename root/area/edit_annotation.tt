@@ -1,0 +1,4 @@
+[% WRAPPER 'area/layout.tt' title=l('Edit Area Annotation') full_width=1 %]
+    <h2>[% l('Edit area annotation') %]</h2>
+    [% INCLUDE 'annotation/edit.tt' %]
+[% END %]

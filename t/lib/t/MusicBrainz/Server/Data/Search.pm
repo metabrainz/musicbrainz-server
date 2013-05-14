@@ -60,7 +60,7 @@ is ( $release->language->iso_code_3, 'eng' );
 is ( $release->artist_credit->names->[0]->artist->name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->sort_name, 'HOUND DOG' );
 is ( $release->artist_credit->names->[0]->artist->gid, 'bd21b7a2-c6b5-45d6-bdb7-18e5de8bfa75' );
-is ( $release->mediums->[0]->tracklist->track_count, 9 );
+is ( $release->mediums->[0]->track_count, 9 );
 
 
 
@@ -84,8 +84,8 @@ is ( @{$extra}, 3 );
 is ( $extra->[0]->release_group->primary_type->name, "album" );
 is ( $extra->[0]->name, "Sixpence None the Richer" );
 is ( $extra->[0]->gid, "24efdbe1-a15d-4cc0-a6d7-59bd1ebbdcc3" );
-is ( $extra->[0]->mediums->[0]->tracklist->tracks->[0]->position, 11 );
-is ( $extra->[0]->mediums->[0]->tracklist->track_count, 12 );
+is ( $extra->[0]->mediums->[0]->tracks->[0]->position, 11 );
+is ( $extra->[0]->mediums->[0]->track_count, 12 );
 
 
 $data = load_data('label', $test->c);
