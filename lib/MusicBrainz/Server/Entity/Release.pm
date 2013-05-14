@@ -157,7 +157,9 @@ has 'mediums' => (
 
 has events => (
     is => 'rw',
-    isa => 'ArrayRef',
+    isa => 'ArrayRef[ReleaseEvent]',
+    lazy => 1,
+    default => sub { [] },
     traits => [ 'Array' ],
     handles => {
         add_event => 'push',
