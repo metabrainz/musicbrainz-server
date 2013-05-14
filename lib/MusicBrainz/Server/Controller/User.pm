@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use DateTime;
+use DBDefs;
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
@@ -86,7 +87,8 @@ sub _perform_login {
             $c->detach;
         }
         else {
-            $c->model('Editor')->update_last_login_date($c->user->id);
+            $c->model('Editor')->update_last_login_date($c->user->id)
+                unless DBDefs->DB_READ_ONLY;
 
             return 1;
         }
