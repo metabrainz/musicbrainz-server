@@ -8,14 +8,14 @@ SELECT
          '{' ||
            '"entity_id":' || id || ',' ||
            '"name":"' || name || '",' ||
-           '"sort_name":"' || sort_name || '"' ||
+           '"sort_name":"' || sort_name || '",' ||
            '"type_id":' || COALESCE(type::text, 'null'::text) || ',' ||
            '"begin_date":{"month":' || COALESCE(begin_date_month::text, 'null'::text) || ',"day":' || COALESCE(begin_date_day::text, 'null'::text) || ',"year":' || COALESCE(begin_date_year::text, 'null'::text) || '},' ||
            '"end_date":{"month":' || COALESCE(end_date_month::text, 'null'::text) || ',"day":' || COALESCE(end_date_day::text, 'null'::text) || ',"year":' || COALESCE(end_date_year::text, 'null'::text) || '},' ||
            '"ended":"' || ended::int || '",' ||
            '"iso_3166_1":[' || coalesce(dash1.codes::text, ''::text) || '],' ||
            '"iso_3166_2":[' || coalesce(dash2.codes::text, ''::text) || '],' ||
-           '"iso_3166_3":[' || coalesce(dash3.codes::text, ''::text) || '],' ||
+           '"iso_3166_3":[' || coalesce(dash3.codes::text, ''::text) || ']' ||
          '}' AS data
       INTO TEMPORARY tmp_area_edits
       FROM area
