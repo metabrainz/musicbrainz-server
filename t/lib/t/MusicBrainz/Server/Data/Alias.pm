@@ -39,7 +39,7 @@ ok(!$alias->locale, 'has no locale');
 
 # Loading the artist from an alias
 $artist_data->load($alias);
-ok(defined $alias->artist, 'didnt load artist');
+ok(defined $alias->artist, 'didn\'t load artist');
 isa_ok($alias->artist, 'MusicBrainz::Server::Entity::Artist', 'not an artist object');
 is($alias->artist->id, $alias->artist_id, 'loaded artist id');
 
@@ -134,8 +134,8 @@ EOSQL
     $c->model('Artist')->alias->merge(1, 2, 3);
 
     my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
-    is(@$aliases, 1);
-    is($aliases->[0]->name, 'Old name', 'has old name alias',);
+    is(@$aliases, 1, 'has one alias');
+    is($aliases->[0]->name, 'Old name', 'has old name alias');
     ok(!(grep { $_->name eq 'Name' } @$aliases), 'does not have new name alias');
 };
 
@@ -154,9 +154,72 @@ EOSQL
     $c->model('Artist')->alias->merge(1, 2);
 
     my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
-    is(@$aliases, 1);
+    is(@$aliases, 1, 'has one alias');
     is($aliases->[0]->name, 'Old name', 'has old name alias',);
     ok(!(grep { $_->name eq 'Name' } @$aliases), 'does not have new name alias');
+};
+
+test 'Merging should preserve primary_for_locale' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
+INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale) VALUES (1, 2, 2, 'en_GB', FALSE), (2, 3, 3, 'en_GB', TRUE);
+EOSQL
+
+    $c->model('Artist')->alias->merge(1, 2);
+    my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
+
+    is(@$aliases, 2, 'has two aliases');
+
+    my @should_be_primary = grep { $_->name eq 'Foo name' } @$aliases;
+    is(@should_be_primary, 1, 'has one "Foo name" alias');
+    ok(@should_be_primary, 'has "Foo name" alias');
+    ok($should_be_primary[0]->primary_for_locale, 'is primary');
+    is($should_be_primary[0]->locale, 'en_GB', 'has appropriate locale');
+
+    my @should_be_old = grep { $_->name eq 'Old name' } @$aliases;
+    is(@should_be_old, 1, 'has an "Old name" alias');
+    ok(!$should_be_old[0]->primary_for_locale, 'is not primary');
+    is($should_be_old[0]->locale, 'en_GB', 'has appropriate locale');
+};
+
+test 'Multiple aliases with a locale are preserved on merge' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    $c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name'), (4, 'Extra name');
+INSERT INTO artist (id, gid, name, sort_name)
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
+INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale) VALUES (1, 4, 4, 'en_GB', FALSE), (2, 3, 3, 'en_GB', TRUE);
+EOSQL
+
+    $c->model('Artist')->alias->merge(1, 2);
+    my $aliases = $c->model('Artist')->alias->find_by_entity_id(1);
+
+    is(@$aliases, 3, 'has three aliases (old, foo, extra)');
+
+    my @should_be_primary = grep { $_->name eq 'Foo name' } @$aliases;
+    is(@should_be_primary, 1, 'has one "Foo name" alias');
+    ok(@should_be_primary, 'has "Foo name" alias');
+    ok($should_be_primary[0]->primary_for_locale, 'is primary');
+    is($should_be_primary[0]->locale, 'en_GB', 'has appropriate locale');
+
+    my @should_be_old = grep { $_->name eq 'Old name' } @$aliases;
+    is(@should_be_old, 1, 'has an "Old name" alias');
+    ok(!$should_be_old[0]->primary_for_locale, 'is not primary');
+    is($should_be_old[0]->locale, undef, 'has appropriate locale');
+
+    my @should_be_extra = grep { $_->name eq 'Extra name' } @$aliases;
+    is(@should_be_extra, 1, 'has an "Extra name" alias');
+    ok(!$should_be_extra[0]->primary_for_locale, 'is not primary');
+    is($should_be_extra[0]->locale, 'en_GB', 'has appropriate locale');
 };
 
 test 'Exists only checks a single entity' => sub {

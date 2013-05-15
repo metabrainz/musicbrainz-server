@@ -17,7 +17,7 @@ has_field 'mediums.name' => ( type => 'Text' );
 has_field 'mediums.deleted' => ( type => 'Checkbox' );
 has_field 'mediums.format_id' => ( type => 'Select' );
 has_field 'mediums.position' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
-has_field 'mediums.tracklist_id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
+has_field 'mediums.medium_id_for_recordings' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 has_field 'mediums.edits' => ( type => 'Text' );
 
 sub options_mediums_format_id {
@@ -95,7 +95,7 @@ sub _track_errors {
         # of those the track lengths were set, so we'll have to take the
         # track length currently set for the track.
 
-        my $details = $medium->tracklist->tracks->[$pos - 1];
+        my $details = $medium->tracks->[$pos - 1];
 
         # if $details is undef the track doesn't exist, presumably the user
         # is trying to add tracks despite a discid present, this will be
@@ -134,8 +134,7 @@ sub _validate_edits {
     if ($medium_id)
     {
         $entity = $self->ctx->model('Medium')->get_by_id ($medium_id);
-        $self->ctx->model('Tracklist')->load ($entity);
-        $self->ctx->model('Track')->load_for_tracklists ($entity->tracklist);
+        $self->ctx->model('Track')->load_for_mediums ($entity);
 
         my @medium_cdtocs = $self->ctx->model('MediumCDTOC')->load_for_mediums($entity);
         $self->ctx->model('CDTOC')->load(@medium_cdtocs);
@@ -192,8 +191,9 @@ sub validate {
         $medium_count++;
 
         my $edits = $medium->field('edits')->value;
+        my $medium_id = $medium->field('id')->value;
 
-        unless ($edits || $medium->field('tracklist_id')->value)
+        unless ($edits || $medium_id)
         {
             $medium->add_error (l('A tracklist is required'));
             next;
@@ -202,7 +202,7 @@ sub validate {
         my @errors = $self->_validate_edits ($medium) if $edits;
         map { $medium->add_error ($_) } @errors;
 
-        if (my $medium_id = $medium->field('id')->value) {
+        if ($medium_id) {
             $self->ctx->model('MediumCDTOC')->find_by_medium($medium_id)
                 or next;
 

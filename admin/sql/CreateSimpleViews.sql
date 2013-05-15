@@ -61,7 +61,7 @@ CREATE OR REPLACE VIEW s_release_group AS
 
 CREATE OR REPLACE VIEW s_track AS
     SELECT
-        t.id, recording, tracklist, position, n.name, artist_credit,
+        t.id, recording, medium, position, n.name, artist_credit,
         length, edits_pending, last_updated, t.number
     FROM track t
     JOIN track_name n ON t.name=n.id;

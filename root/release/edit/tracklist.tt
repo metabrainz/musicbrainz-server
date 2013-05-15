@@ -218,7 +218,7 @@
           <td><input type="text" id="track-count" class="track-count" value="" /></td>
           <td>
             <div class="buttons">
-              <a style="min-width: 5em;" href="#import-search">[% l('Search') %]</a>
+              <a style="min-width: 5em;" id="import-search-go" href="#import-search">[% l('Search') %]</a>
             </div>
           </td>
         </tr>
@@ -342,6 +342,7 @@
 
     [% FOR medium_field=form.field('mediums').fields %]
     <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
+      [% r.hidden(medium_field.field('medium_id_for_recordings'), class => 'medium_id_for_recordings') %]
       [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
 
       <legend>
@@ -364,7 +365,6 @@
                 [% r.hidden(medium_field.field('toc'), class => 'toc') %]
                 [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
                 [% r.hidden(medium_field.field('position'), class => 'position') %]
-                [% r.hidden(medium_field.field('tracklist_id'), class => 'tracklist-id') %]
 
                 <div class="row">
                   [% r.label(medium_field.field('format_id'), l('Format')) %]

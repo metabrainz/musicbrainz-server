@@ -14,9 +14,9 @@
 
 [% WRAPPER 'layout.tt' title=l('Edits for {name}', { name => display_url(url) }) full_width=1 %]
     <div class="urlheader">
-        <h1>[% l('Edits for {link}', { link => display_url(url) }) %]</h1>
+        <h1>[% l('Edits for {link}', { link => link_entity(url, 'show', url.url) }) %]</h1>
         <p class="subheader">
-            <span class="prefix">~</span> [% html_escape(url.type_name) or l('Url') %]
+            <span class="prefix">~</span> [% html_escape(url.type_name) or l('URL') %]
         </p>
     </div>
     [% INCLUDE 'edit/list.tt' %]

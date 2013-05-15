@@ -13,7 +13,7 @@ FROM (
   SELECT release.id
   FROM track
   JOIN track_name tname ON tname.id = track.name
-  JOIN medium ON track.tracklist = medium.tracklist
+  JOIN medium ON track.medium = medium.id
   JOIN release ON medium.release = release.id
   JOIN release_name ON release.name = release_name.id
   WHERE tname.name ~ '^[0-9]'

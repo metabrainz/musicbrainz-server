@@ -1,3 +1,7 @@
+[%- BLOCK layout_head -%]
+  [% script_manifest('knockout.js.manifest') %]
+[%- END -%]
+
 [% WRAPPER "layout.tt" title=l("Edit Relationship Type") full_width=1 %]
     <div id="content">
         <h1>[% l("Edit Relationship Type") %]</h1>

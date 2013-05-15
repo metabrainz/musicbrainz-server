@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
-        short_link_phrase description priority attributes
+        long_link_phrase description priority attributes documentation
   ) }
 
 has '+name' => ( default => 'linktype' );
@@ -39,7 +39,7 @@ has_field 'reverse_link_phrase' => (
     maxlength => 255
 );
 
-has_field 'short_link_phrase' => (
+has_field 'long_link_phrase' => (
     type      => 'Text',
     required  => 1,
     maxlength => 255
@@ -47,6 +47,7 @@ has_field 'short_link_phrase' => (
 
 has_field 'description' => (
     type => 'Text',
+    not_nullable => 1
 );
 
 has_field 'priority' => (
@@ -73,6 +74,11 @@ has_field 'attributes.min' => (
 
 has_field 'attributes.max' => (
     type => '+MusicBrainz::Server::Form::Field::Integer'
+);
+
+has_field 'documentation' => (
+    type => 'TextArea',
+    not_nullable => 1
 );
 
 has root => (

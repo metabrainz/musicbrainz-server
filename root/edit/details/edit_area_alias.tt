@@ -1,0 +1,54 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+[%- MACRO show_locale(loc) BLOCK;
+      loc | locale;
+    END -%]
+
+<table class="details edit-area-alias">
+  <tr>
+    <th>[%- l('Area:') -%]</th>
+    <td colspan="2">[%- link_entity(edit.display_data.area) -%]</td>
+  </tr>
+
+  [%- IF entity_exists(edit.display_data.area) -%]
+  <tr>
+    <th>[%- l('Alias:') -%]</th>
+    <td colspan="2">
+      [%- edit.alias.name | html -%]
+      ([%- link_entity(edit.display_data.area, 'aliases', l('view all aliases')) -%])
+    </td>
+  </tr>
+  [%- END -%]
+
+  [%- display_diff(l('Alias:'),
+                  html_escape(edit.display_data.alias.old),
+                  html_escape(edit.display_data.alias.new),
+                  '\s+') -%]
+
+  [%- display_diff(l('Sort name:'),
+                  html_escape(edit.display_data.sort_name.old),
+                  html_escape(edit.display_data.sort_name.new),
+                  '\s+') -%]
+
+  [%- display_full_change(l('Locale:'),
+                         show_locale(edit.display_data.locale.old),
+                         show_locale(edit.display_data.locale.new)) -%]
+
+  [%- display_full_change(l('Primary for locale:'),
+                         edit.display_data.primary_for_locale.old ? l('Yes') : l('No'),
+                         edit.display_data.primary_for_locale.new ? l('Yes') : l('No')) -%]
+
+  [%- display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) -%]
+
+  [%- display_diff(l('Begin date:'),
+                  html_escape(edit.display_data.begin_date.old.format),
+                  html_escape(edit.display_data.begin_date.new.format),
+                  '\s+') -%]
+
+  [%- display_diff(l('End date:'),
+                  html_escape(edit.display_data.end_date.old.format),
+                  html_escape(edit.display_data.end_date.new.format),
+                  '\s+') -%]
+
+</table>

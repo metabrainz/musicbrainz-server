@@ -98,16 +98,12 @@ $edit = $c->model('Edit')->create(
 
 my $medium_id = $edit->medium_id;
 $medium = $c->model('Medium')->get_by_id($medium_id);
-my $tracklist_id = $medium->tracklist_id;
 reject_edit($c, $edit);
 
 $medium = $c->model('Medium')->get_by_id($medium_id);
 ok(!defined $medium);
 
-$tracklist = $c->model('Tracklist')->get_by_id($tracklist_id);
-ok(!defined $tracklist, 'deleted now orphaned tracklist');
-
-my $tracklist_creating_recordings = [
+my $tracks_creating_recordings = [
     Track->new(
         name => 'Fluffles',
         artist_credit => ArtistCredit->new(
@@ -130,12 +126,12 @@ $edit = $c->model('Edit')->create(
     position => 2,
     format_id => 1,
     release => $c->model('Release')->get_by_id(1),
-    tracklist => $tracklist_creating_recordings
+    tracklist => $tracks_creating_recordings
 );
 
 $c->model('Edit')->load_all($edit);
 ok($edit->display_data);
-ok(defined $edit->display_data->{tracklist}{tracks}[0]{recording_id}, "New recording was created");
+ok(defined $edit->display_data->{tracks}->[0]->{recording_id}, "New recording was created");
 
 };
 
