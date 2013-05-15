@@ -394,7 +394,7 @@ sub schema_fixup
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
                     country => defined($release_event_data->{area}) ? 
-                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => [ $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"}->[0] ] ) 
+                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
                         : undef, 
                     date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
 
