@@ -37,7 +37,6 @@ use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use DateTime::Format::ISO8601;
 use feature "switch";
 
