@@ -3,12 +3,11 @@ use Test::More;
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
+use Test::JSON import => [ 'is_valid_json' ];
 
 with 't::Mechanize', 't::Context';
 
 test all => sub {
-
-    use Test::JSON import => [ 'is_valid_json' ];
 
     my $test = shift;
     my $c = $test->c;
