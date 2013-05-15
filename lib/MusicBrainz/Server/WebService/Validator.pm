@@ -223,7 +223,7 @@ sub validate_inc
 
         $i =~ s/mediums/media/;
 
-        if ($version == 1)
+        if ($version eq '1')
         {
             $i = lc($i);
 
@@ -280,7 +280,7 @@ sub validate_inc
         push @filtered, $i;
     }
 
-    if ($version == 1)
+    if ($version eq '1')
     {
         return WebServiceIncV1->new(inc => \@filtered, rg_type => $type_used,
                                     rel_status => $status_used, relations => \@relations_used,
