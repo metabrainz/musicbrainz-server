@@ -59,7 +59,7 @@
                          '-') -%]
   [%- ELSE -%]
   <tr>
-    <th>[% l('Release Events:') %]</th>
+    <th>[% l('Release events:') %]</th>
     <td class="old">[% release_events(edit.display_data.events.old) %]</td>
     <td class="new">[% release_events(edit.display_data.events.new) %]</td>
   </tr>
