@@ -24,7 +24,7 @@ test 'Viewing /relationship/artist-artist as admin' => sub {
 
     $test->c->sql->do(<<'EOSQL');
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name,
-    link_phrase, reverse_link_phrase, short_link_phrase)
+    link_phrase, reverse_link_phrase, long_link_phrase)
   VALUES (1, '77a0f1d3-f9ec-4055-a6e7-24d7258c21f7', 'artist', 'artist', 'member of band', '', '', '');
 EOSQL
 

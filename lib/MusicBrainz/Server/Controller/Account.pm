@@ -290,6 +290,7 @@ sub edit : Local RequireAuth
     }
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
 
     my $form = $c->form( form => 'User::EditProfile', init_object => $editor );

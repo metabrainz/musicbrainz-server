@@ -1,0 +1,8 @@
+[%- WRAPPER "area/layout.tt" page='index' -%]
+    [%- INCLUDE 'area/annotation.tt' summary=1 -%]
+
+    [%- show_wikipedia_extract() -%]
+
+    <h2 class="relationships">[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=area -%]
+[% END %]

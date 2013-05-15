@@ -56,7 +56,7 @@ sub foreign_keys
     );
 
     return {
-        Country      => [ map { $_->{country_id } } @everything ],
+        Area         => [ map { $_->{country_id } } @everything ],
         Label        => [ map { $_->{label_id   } } @everything ],
         MediumFormat => [ map { $_->{format_id  } } @everything ],
         Release      => [ $self->_release_ids ],
@@ -67,7 +67,7 @@ sub _build_re {
     my ($re, $loaded) = @_;
     return {
         release        => $re->{release_id} && $loaded->{Release}{ $re->{release_id} },
-        country        => $re->{country_id} && $loaded->{Country}{ $re->{country_id} },
+        country        => $re->{country_id} && $loaded->{Area}{ $re->{country_id} },
         label          => $re->{label_id}   && $loaded->{Label}{ $re->{label_id} },
         format         => $re->{format_id}  && $loaded->{MediumFormat}{ $re->{format_id} },
         label_id       => $re->{label_id},
@@ -100,8 +100,8 @@ sub build_display_data
                     new => MusicBrainz::Server::Entity::PartialDate->new_from_row($_->{new}{date})
                 },
                 country => {
-                    old => $loaded->{Country}{ $_->{old}{country_id} },
-                    new => $loaded->{Country}{ $_->{new}{country_id} },
+                    old => $loaded->{Area}{ $_->{old}{country_id} },
+                    new => $loaded->{Area}{ $_->{new}{country_id} },
                 },
                 format => {
                     old => $_->{old}{format_id} && $loaded->{MediumFormat}{ $_->{old}{format_id} },

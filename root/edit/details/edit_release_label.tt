@@ -31,19 +31,22 @@
      [% END %]
    [% END %]
 
-
    [%- IF edit.display_data.defined('extra') -%]
-     [%- IF edit.display_data.extra.date -%]
-     <tr>
-       <th>[% l('Date:') %]</th>
-       <td colspan="2">[% edit.display_data.extra.date %]</td>
-     </tr>
-     [%- END -%]
-     [%- IF edit.display_data.extra.country -%]
-     <tr>
-       <th>[% l('Country:') %]</th>
-       <td colspan="2">[% edit.display_data.extra.country  %]</td>
-     </tr>
+     [%- IF edit.display_data.extra.events.size <= 1 -%]
+         [%- IF edit.display_data.extra.events.0.date -%]
+         <tr>
+           <th>[% l('Date:') %]</th>
+           <td colspan="2">[% edit.display_data.extra.events.0.date.format %]</td>
+         </tr>
+         [%- END -%]
+         [%- IF edit.display_data.extra.events.0.country -%]
+         <tr>
+           <th>[% l('Country:') %]</th>
+           <td colspan="2">[% link_entity(edit.display_data.extra.events.0.country) %]</td>
+         </tr>
+         [%- END -%]
+     [%- ELSE -%]
+         [%- release_events(edit.display_data.extra.events) -%]
      [%- END -%]
      [%- IF edit.display_data.extra.barcode -%]
      <tr>

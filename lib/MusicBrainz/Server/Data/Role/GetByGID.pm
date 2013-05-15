@@ -11,6 +11,9 @@ sub get_by_gid {
     if (scalar(@result)) {
         return $result[0];
     }
+    else {
+        return undef;
+    }
 }
 
 sub get_by_gids {
