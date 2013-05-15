@@ -37,6 +37,7 @@ use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use DateTime::Format::ISO8601;
 use feature "switch";
 
@@ -386,9 +387,19 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (exists $data->{date})
+        if (exists $data->{"release-event-list"} &&
+            exists $data->{"release-event-list"}->{"release-event"})
         {
-            $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+            $data->{events} = [];
+            for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
+            {
+                my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
+                    country => MusicBrainz::Server::Entity::Area->new( iso_3166_1 => [ $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"}->[0] ] ), 
+                    date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
+
+                push @{$data->{events}}, $release_event;
+            }
+            delete $data->{"release-event-list"};
         }
         if (exists $data->{barcode})
         {
