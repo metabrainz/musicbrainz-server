@@ -1,6 +1,14 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+ALTER TABLE l_area_area_example DROP CONSTRAINT l_area_area_example_fk_id;
+ALTER TABLE l_area_artist_example DROP CONSTRAINT l_area_artist_example_fk_id;
+ALTER TABLE l_area_label_example DROP CONSTRAINT l_area_label_example_fk_id;
+ALTER TABLE l_area_recording_example DROP CONSTRAINT l_area_recording_example_fk_id;
+ALTER TABLE l_area_release_example DROP CONSTRAINT l_area_release_example_fk_id;
+ALTER TABLE l_area_release_group_example DROP CONSTRAINT l_area_release_group_example_fk_id;
+ALTER TABLE l_area_url_example DROP CONSTRAINT l_area_url_example_fk_id;
+ALTER TABLE l_area_work_example DROP CONSTRAINT l_area_work_example_fk_id;
 ALTER TABLE l_artist_artist_example DROP CONSTRAINT l_artist_artist_example_fk_id;
 ALTER TABLE l_artist_label_example DROP CONSTRAINT l_artist_label_example_fk_id;
 ALTER TABLE l_artist_recording_example DROP CONSTRAINT l_artist_recording_example_fk_id;

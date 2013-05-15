@@ -28,6 +28,13 @@ test 'basic label lookup' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             ipis => [],
         });
 
@@ -55,6 +62,13 @@ test 'basic label lookup, inc=annotation' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             ipis => [],
         });
 
@@ -79,6 +93,13 @@ test 'label lookup, inc=aliases' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                "id"  => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             aliases => [
                 { name => "Planet µ", "sort-name" => "Planet µ", locale => JSON::null, primary => JSON::null, type => JSON::null }
             ],
@@ -106,6 +127,13 @@ test 'label lookup with releases, inc=media' => sub {
                 end => JSON::null,
                 ended => JSON::false,
             },
+            "area" => {
+                "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                "name" => "United Kingdom",
+                "sort-name" => "United Kingdom",
+                "iso_3166_1_codes" => ["GB"],
+                "iso_3166_2_codes" => [],
+                "iso_3166_3_codes" => []},
             releases => [
                 {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
@@ -117,7 +145,13 @@ test 'label lookup with releases, inc=media' => sub {
                     country => "GB",
                     "release-events" => [{
                         date => "2008-11-17",
-                        country => "GB",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
                     }],
                     barcode => "600116822123",
                     asin => JSON::null,
@@ -138,7 +172,13 @@ test 'label lookup with releases, inc=media' => sub {
                     country => "GB",
                     "release-events" => [{
                         date => "2007-01-29",
-                        country => "GB",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
                     }],
                     barcode => "600116817020",
                     asin => JSON::null,

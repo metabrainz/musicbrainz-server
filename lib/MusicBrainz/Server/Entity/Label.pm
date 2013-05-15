@@ -55,14 +55,14 @@ sub format_label_code
     return "";
 }
 
-has 'country_id' => (
+has 'area_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'country' => (
+has 'area' => (
     is => 'rw',
-    isa => 'Country'
+    isa => 'Area'
 );
 
 has 'comment' => (

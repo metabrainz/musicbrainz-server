@@ -71,6 +71,6 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
   VALUES (155, '14b9d183-7dab-42ba-94a3-7388a66604b8', 155, 155, 155);
 
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (130, 10, 316, '', 2, now());
-INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering) VALUES (12345, 155, 130, 1);
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 155, 'image/jpeg', 130, 1);
 
 SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));

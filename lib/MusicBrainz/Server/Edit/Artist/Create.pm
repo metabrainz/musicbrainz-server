@@ -29,12 +29,15 @@ has '+data' => (
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
+        area_id    => Nullable[Int],
+        begin_area_id => Nullable[Int],
+        end_area_id => Nullable[Int],
         comment    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
-        isni_codes  => Optional[ArrayRef[Str]],
+        isni_codes => Optional[ArrayRef[Str]],
         ended      => Optional[Bool]
     ]
 );
@@ -52,7 +55,8 @@ sub foreign_keys
         Artist     => [ $self->entity_id ],
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
-        Country    => [ $self->data->{country_id} ]
+        Area       => [ $self->data->{country_id}, $self->data->{area_id},
+                        $self->data->{begin_area_id}, $self->data->{end_area_id} ]
     };
 }
 
@@ -62,13 +66,17 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
-    my $country = $self->data->{country_id};
+    my $area = $self->data->{area_id} // $self->data->{country_id};
+    my $begin_area = $self->data->{begin_area_id};
+    my $end_area = $self->data->{end_area_id};
 
     return {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name comment ) ),
         type       => $type ? $loaded->{ArtistType}->{$type} : '',
         gender     => $gender ? $loaded->{Gender}->{$gender} : '',
-        country    => $country ? $loaded->{Country}->{$country} : '',
+        area       => $area ? $loaded->{Area}->{$area} : undef,
+        begin_area => $begin_area ? $loaded->{Area}->{$begin_area} : undef,
+        end_area   => $end_area ? $loaded->{Area}->{$end_area} : undef,
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
         artist     => ($self->entity_id && $loaded->{Artist}->{ $self->entity_id }) ||

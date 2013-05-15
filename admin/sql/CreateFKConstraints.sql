@@ -62,6 +62,11 @@ ALTER TABLE artist
    REFERENCES area(id);
 
 ALTER TABLE artist
+   ADD CONSTRAINT artist_fk_gender
+   FOREIGN KEY (gender)
+   REFERENCES gender(id);
+
+ALTER TABLE artist
    ADD CONSTRAINT artist_fk_begin_area
    FOREIGN KEY (begin_area)
    REFERENCES area(id);
@@ -70,11 +75,6 @@ ALTER TABLE artist
    ADD CONSTRAINT artist_fk_end_area
    FOREIGN KEY (end_area)
    REFERENCES area(id);
-
-ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_gender
-   FOREIGN KEY (gender)
-   REFERENCES gender(id);
 
 ALTER TABLE artist_alias
    ADD CONSTRAINT artist_alias_fk_artist

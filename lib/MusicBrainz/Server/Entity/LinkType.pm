@@ -117,6 +117,24 @@ sub sorted_children {
     return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
 }
 
+has 'documentation' => (
+    is => 'rw'
+);
+
+has 'examples' => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        all_examples => 'elements',
+    }
+);
+
+sub published_examples {
+    my $self = shift;
+    return grep { $_->published } $self->all_examples;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

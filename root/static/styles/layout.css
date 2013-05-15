@@ -402,12 +402,12 @@ div.warning img.warning {
     margin-top: 0;
 }
 
-#sidebar ul {
+#sidebar ul.links {
     margin: 0;
     padding-left: 1.5em;
 }
 
-#sidebar ul hr {
+#sidebar ul.links hr {
     padding: 0;
     margin: 3px;
     height: 1px;

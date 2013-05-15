@@ -42,6 +42,9 @@ sub change_fields
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
         country_id => Nullable[Int],
+        area_id    => Nullable[Int],
+        begin_area_id => Nullable[Int],
+        end_area_id => Nullable[Int],
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
@@ -69,8 +72,14 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations, (
                           ArtistType => 'type_id',
-                          Country => 'country_id',
+                          Area => exists($self->data->{old}{area_id}) ? 'area_id' : 'country_id',
                           Gender => 'gender_id',
+                      ));
+    changed_relations($self->data, $relations, (
+                          Area => 'begin_area_id',
+                      ));
+    changed_relations($self->data, $relations, (
+                          Area => 'end_area_id',
                       ));
     $relations->{Artist} = [ $self->data->{entity}{id} ];
 
@@ -84,7 +93,10 @@ sub build_display_data
     my %map = (
         type       => [ qw( type_id ArtistType )],
         gender     => [ qw( gender_id Gender )],
-        country    => [ qw( country_id Country )],
+        country    => [ qw( country_id Area )],
+        area       => [ qw( area_id Area )],
+        begin_area => [ qw( begin_area_id Area )],
+        end_area   => [ qw( end_area_id Area )],
         name       => 'name',
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
@@ -97,35 +109,25 @@ sub build_display_data
     $data->{artist} = $loaded->{Artist}{ $self->data->{entity}{id} }
         || Artist->new( name => $self->data->{entity}{name} );
 
-    if (exists $self->data->{new}{begin_date}) {
-        $data->{begin_date} = {
-            new => PartialDate->new($self->data->{new}{begin_date}),
-            old => PartialDate->new($self->data->{old}{begin_date}),
-        };
+
+    for my $date_prop (qw( begin_date end_date )) {
+        if (exists $self->data->{new}{$date_prop}) {
+            $data->{$date_prop} = {
+                new => PartialDate->new($self->data->{new}{$date_prop}),
+                old => PartialDate->new($self->data->{old}{$date_prop}),
+            };
+        }
     }
 
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
+    for my $prop (qw( ipi_codes isni_codes )) {
+        if (exists $self->data->{new}{$prop}) {
+            $data->{$prop}->{old} = $self->data->{old}{$prop};
+            $data->{$prop}->{new} = $self->data->{new}{$prop};
+        }
     }
 
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
-    }
-
-    if (exists $self->data->{new}{ipi_codes}) {
-        $data->{ipi_codes}->{old} = $self->data->{old}{ipi_codes};
-        $data->{ipi_codes}->{new} = $self->data->{new}{ipi_codes};
-    }
-
-    if (exists $self->data->{new}{isni_codes}) {
-        $data->{isni_codes}->{old} = $self->data->{old}{isni_codes};
-        $data->{isni_codes}->{new} = $self->data->{new}{isni_codes};
+    if (exists $data->{country} && !exists $data->{area}) {
+        $data->{area} = delete $data->{country};
     }
 
     return $data;
@@ -179,6 +181,8 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{gender_id}
         and defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
 
+    return 0 if exists $self->data->{old}{area_id}
+        and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
     return 0 if exists $self->data->{old}{country_id}
         and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
 

@@ -33,14 +33,19 @@ sub serialize
 
     if (my ($earliest_event) = $entity->all_events) {
         my $add_release_event = sub {
-            my ($release_event, $target) = @_;
+            my ($release_event, $target, $include_country) = @_;
             $target->{date} = $release_event->date->format;
-            $target->{country} = $release_event->country
-                ? $release_event->country->iso_code : JSON::null;
+            if ($include_country) {
+                $target->{country} = $release_event->country && $release_event->country->country_code
+                    ? $release_event->country->country_code : JSON::null;
+            } else {
+                $target->{area} = $release_event->country
+                    ? serialize_entity($release_event->country) : JSON::null;
+            }
             return $target;
         };
 
-        $add_release_event->($earliest_event, \%body);
+        $add_release_event->($earliest_event, \%body, 1);
 
         $body{'release-events'} = [
             map { $add_release_event->($_, {}) } $entity->all_events

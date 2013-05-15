@@ -42,10 +42,10 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
                content=html_escape(label.format_label_code) class="label-code"
                    IF label.label_code -%]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=link_searchable_property('country', label.country.iso_code, 'label', label.country.l_name)
-               class="country"
-                   IF label.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+               content=link_area(label.area)
+               class="area"
+                   IF label.area -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=label -%]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=label tags=top_tags

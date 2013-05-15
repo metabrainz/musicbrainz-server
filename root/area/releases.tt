@@ -1,0 +1,10 @@
+[%- WRAPPER 'area/layout.tt' title=l('Releases') page='releases' -%]
+
+    [%- filter_button() -%]
+    <h2>[% l('Releases') %]</h2>
+
+    [%- IF releases.size -%]
+        [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]
+    [%- END -%]
+
+[%- END -%]

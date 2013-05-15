@@ -5,6 +5,7 @@ use Readonly;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Validation qw( trim_in_place );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Data::Relationship;
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
@@ -62,6 +63,13 @@ has '_verbose_phrase' => (
     builder => '_build_verbose_phrase',
     lazy => 1
 );
+
+sub editor_can_edit
+{
+    my ($self, $editor) = @_;
+    return MusicBrainz::Server::Data::Relationship->editor_can_edit($editor,
+        $self->link->type->entity0_type, $self->link->type->entity1_type);
+}
 
 sub source
 {

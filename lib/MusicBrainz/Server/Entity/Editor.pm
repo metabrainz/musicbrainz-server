@@ -5,6 +5,7 @@ use namespace::autoclean;
 use DateTime;
 use Encode qw( encode );
 use MusicBrainz::Server::Entity::Preferences;
+use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
@@ -76,6 +77,12 @@ sub is_account_admin
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_location_editor
+{
+    my $mask = $LOCATION_EDITOR_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 has 'email' => (
     is        => 'rw',
     isa       => 'Str',
@@ -134,7 +141,7 @@ sub is_newbie
 sub is_admin
 {
     my $self = shift;
-    return $self->is_relationship_editor || $self->is_wiki_transcluder;
+    return $self->is_relationship_editor || $self->is_wiki_transcluder || $self->is_location_editor;
 }
 
 has 'preferences' => (
@@ -169,13 +176,14 @@ has gender => (
     is => 'rw',
 );
 
-has country_id => (
+has area_id => (
     is => 'rw',
     isa => 'Int',
 );
 
-has country => (
+has area => (
     is => 'rw',
+    isa => 'Area'
 );
 
 sub age {

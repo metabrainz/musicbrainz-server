@@ -58,7 +58,7 @@ is($release->packaging_id, 1, 'packaging id is 1');
 is($release->script_id, 1, 'script id is 1');
 is($release->release_group_id, 2, 'release_group id is 2');
 is($release->barcode->format, 'BARCODE', 'barcode is BARCODE');
-is($release->events->[0]->country_id, 1, 'country id is 1');
+is($release->events->[0]->country_id, 221, 'country id is 1');
 is($release->events->[0]->date->year, 1985, 'year is 1985');
 is($release->events->[0]->date->month, 4, 'month is 4');
 is($release->events->[0]->date->day, 13, 'day is 13');
@@ -156,7 +156,7 @@ sub create_edit {
             date => {
                 year => 1985, month => 4, day => 13
             },
-            country_id => 1,
+            country_id => 221,
         }],
         artist_credit => {
             names => [

@@ -209,8 +209,8 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
            (2, '2a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
            (3, '3a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1);
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO medium (id, release, position, tracklist)
+
+INSERT INTO medium (id, release, position, track_count)
     VALUES (1, 1, 1, 1),
            (2, 2, 1, 1),
            (3, 3, 1, 1);
@@ -306,7 +306,7 @@ is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
 $release_data->load_release_events($release);
 is($release->all_events, 1, 'Has one release event');
-is($release->events->[0]->country_id, 1);
+is($release->events->[0]->country_id, 221);
 is($release->events->[0]->date->year, 2009);
 is($release->events->[0]->date->month, 5);
 is($release->events->[0]->date->day, 8);
@@ -377,7 +377,7 @@ $release = $release_data->insert({
     comment => 'A comment',
     events => [
         MusicBrainz::Server::Entity::ReleaseEvent->new(
-            country_id => 1,
+            country_id => 221,
             date => MusicBrainz::Server::Entity::PartialDate->new( year => 2001, month => 2, day => 15 ),
         )
     ]
@@ -399,7 +399,7 @@ ok(!$release->events->[0]->date->is_empty);
 is($release->events->[0]->date->year, 2001);
 is($release->events->[0]->date->month, 2);
 is($release->events->[0]->date->day, 15);
-is($release->events->[0]->country_id, 1);
+is($release->events->[0]->country_id, 221);
 
 $release_data->update($release->id, {
     name => 'Blue Lines',
@@ -556,7 +556,11 @@ test 'find_by_artist orders by release date and country' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<EOSQL);
-INSERT INTO country (id, iso_code, name) VALUES (2, 'FR', 'France');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1),
+  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 'France', 1);
+INSERT INTO country_area (area) VALUES (1), (2);
+INSERT INTO iso_3166_1 (area, code) VALUES (1, 'EE'), (2, 'FR');
 
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
 VALUES (9, 2009, 5, 8), (8, 2008, 12, 3);
@@ -578,7 +582,11 @@ test 'find_by_label orders by release date, catalog_number, name, country, barco
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
     $c->sql->do(<<EOSQL);
-INSERT INTO country (id, iso_code, name) VALUES (2, 'FR', 'France');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1),
+  (2, '8a754a16-0027-3a29-c6d7-2b40ea0481ed', 'France', 'France', 1);
+INSERT INTO country_area (area) VALUES (1), (2);
+INSERT INTO iso_3166_1 (area, code) VALUES (1, 'EE'), (2, 'FR');
 
 INSERT INTO release_country (release, country, date_year, date_month, date_day)
 VALUES (2, 2, 2007, 5, 8), (7, 1, 2008, 5, 8), (7, 2, 2008, 5, 8);
@@ -599,20 +607,20 @@ test 'find_by_cdtoc' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
-    my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 2);
+    my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 1);
     is_deeply(
       [map { $_->id } @$releases],
       [8, 9, 6, 7]
     );
 };
 
-test 'load_with_tracklist_for_recording' => sub {
+test 'load_with_medium_for_recording' => sub {
     my $test = shift;
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
-    my ($releases, undef) = $c->model('Release')->load_with_tracklist_for_recording(1);
+    my ($releases, undef) = $c->model('Release')->load_with_medium_for_recording(1);
     is_deeply(
       [map { $_->id } @$releases],
       [3]
@@ -637,8 +645,7 @@ test 'find_by_collection ordering' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+collection');
     MusicBrainz::Server::Test->prepare_test_database($c, <<EOSQL);
-INSERT INTO tracklist (id, track_count) VALUES (1, 0);
-INSERT INTO medium (id, release, tracklist, position) VALUES (1, 1, 1, 1), (3, 3, 1, 1);
+INSERT INTO medium (id, release, track_count, position) VALUES (1, 1, 0, 1), (3, 3, 0, 1);
 EOSQL
 
     for my $order (qw( date title country label artist catno format tracks )) {

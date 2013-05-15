@@ -1,6 +1,18 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE TRIGGER b_upd_area BEFORE UPDATE ON area
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_area_alias BEFORE UPDATE ON area_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON area_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_area_alias();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON area
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
 CREATE TRIGGER a_ins_artist AFTER INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE a_ins_artist();
 
@@ -39,6 +51,30 @@ CREATE TRIGGER b_upd_editor BEFORE UPDATE ON editor
 
 CREATE TRIGGER a_ins_editor AFTER INSERT ON editor
     FOR EACH ROW EXECUTE PROCEDURE a_ins_editor();
+
+CREATE TRIGGER b_upd_l_area_area BEFORE UPDATE ON l_area_area
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_artist BEFORE UPDATE ON l_area_artist
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_label BEFORE UPDATE ON l_area_label
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_recording BEFORE UPDATE ON l_area_recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_release BEFORE UPDATE ON l_area_release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_release_group BEFORE UPDATE ON l_area_release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_url BEFORE UPDATE ON l_area_url
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_area_work BEFORE UPDATE ON l_area_work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_upd_l_artist_artist BEFORE UPDATE ON l_artist_artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();

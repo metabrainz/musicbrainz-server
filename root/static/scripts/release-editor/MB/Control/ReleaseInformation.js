@@ -429,9 +429,10 @@ MB.Control.ReleaseInformation = function(action) {
         });
 
         $('a[href=#add_event]').bind ('click.mb', function (event) {
-            self.addEvent ();
-            self.bubbles.hideAll ();
             event.preventDefault ();
+            event = self.addEvent();
+            self.bubbles.hideAll ();
+            $("#id-events\\." + event.eventno + "\\.country_id").val('');
         });
 
         self.artistcredit = MB.Control.ArtistCreditVertical (

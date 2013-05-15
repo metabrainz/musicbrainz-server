@@ -185,12 +185,9 @@ INSERT INTO iso_3166_1 (code, area)
 -- new relationship types
 INSERT INTO link_type (gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase) VALUES
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/url/wikipedia'), 'area', 'url', 'wikipedia', 'Points to the Wikipedia page for this area. (<a href="http://musicbrainz.org/doc/Wikipedia_Relationship_Type">Details</a>)', 'Wikipedia', 'Wikipedia page for', 'has a Wikipedia page at'),
-  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/url/geonames'), 'area', 'url', 'geonames', 'Points to the Geonames page for this area.', 'Geonames', 'Geonames page for', 'has a Geonames page at'),
 
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/area/part_of'), 'area', 'area', 'part of', 'Designates that one area is contained by another.', 'parts', 'part of', 'has part'),
 
-  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/label/based_in'), 'area', 'label', 'based in', 'Designates that a label''s base of operations or headquarters is within a specified area', 'labels', 'Location', 'is location for'),
-  (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/artist/lived_in'), 'area', 'artist', 'lived in', 'Designates that a artist lived within a specified area during a certain time frame', 'resident artists', 'Location', 'is location for'),
   (generate_uuid_v3('6ba7b8119dad11d180b400c04fd430c8', 'http://musicbrainz.org/linktype/area/work/anthem'), 'area', 'work', 'anthem', 'Designates that a work is or was the anthem for an area', 'anthem of', 'anthem', 'is the anthem of')
   RETURNING id, gid, entity_type0, entity_type1, name, long_link_phrase;
 
@@ -201,7 +198,17 @@ UPDATE editor SET privs = privs | 256 WHERE name IN ('nikki', 'reosarevok', 'ian
 -- CREATE INDEXES --
 --------------------
 
+ALTER TABLE l_area_area ADD CONSTRAINT l_area_area_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_artist ADD CONSTRAINT l_area_artist_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_label ADD CONSTRAINT l_area_label_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_recording ADD CONSTRAINT l_area_recording_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_release ADD CONSTRAINT l_area_release_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_release_group ADD CONSTRAINT l_area_release_group_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_url ADD CONSTRAINT l_area_url_pkey PRIMARY KEY (id);
+ALTER TABLE l_area_work ADD CONSTRAINT l_area_work_pkey PRIMARY KEY (id);
+
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
+CREATE INDEX area_idx_page ON area (page_index(name));
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
 
@@ -220,6 +227,8 @@ CREATE UNIQUE INDEX l_area_release_idx_uniq ON l_area_release (entity0, entity1,
 CREATE UNIQUE INDEX l_area_release_group_idx_uniq ON l_area_release_group (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_url_idx_uniq ON l_area_url (entity0, entity1, link);
 CREATE UNIQUE INDEX l_area_work_idx_uniq ON l_area_work (entity0, entity1, link);
+
+CREATE INDEX area_idx_name_txt ON area USING gin(to_tsvector('mb_simple', name));
 
 -----------------------------
 -- MIGRATE EXISTING TABLES --
