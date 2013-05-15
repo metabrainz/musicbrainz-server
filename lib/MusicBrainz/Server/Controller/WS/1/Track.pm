@@ -78,7 +78,7 @@ around 'search' => sub
         }
 
         my @releases  = map { @$_ } values %recording_release_map;
-        my %track_map = map { $_->tracklist->medium->release_id => $_ } @tracks;
+        my %track_map = map { $_->medium->release_id => $_ } @tracks;
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
