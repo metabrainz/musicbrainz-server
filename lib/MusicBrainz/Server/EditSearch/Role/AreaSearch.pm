@@ -1,4 +1,4 @@
-package MusicBrainz::Server::EditSearch::Role::CountrySearch;
+package MusicBrainz::Server::EditSearch::Role::AreaSearch;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use feature 'switch';
@@ -55,7 +55,7 @@ role {
         $query->add_where([
             join(' ', "$final_table_alias.$column", $self->operator,
                  $self->operator eq '='  ? 'any(?)' :
-                 $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
+                 $self->operator eq '!=' ? 'all(?)' : die 'Shouldn\'t get here'),
             $self->sql_arguments
         ]) if $self->arguments > 0;
     };
