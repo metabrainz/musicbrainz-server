@@ -8,9 +8,21 @@ parameter 'type' => (
     required => 1
 );
 
+parameter 'column' => (
+    isa => 'Str',
+    required => 0
+);
+
+parameter 'extra_join' => (
+    isa => 'HashRef[Str]',
+    required => 0
+);
+
 role {
     my $params = shift;
     my $type = $params->type;
+    my $column = $params->column // 'area';
+    my $extra_join_params = $params->extra_join;
 
     requires 'arguments';
 
@@ -27,8 +39,21 @@ role {
         my $type_alias = "${type}_$join_r_idx";
         $query->add_join("JOIN $type $type_alias ON $type_alias.id = $edit_alias.$type");
 
+        my $final_table_alias = $type_alias;
+        if ($extra_join_params && $extra_join_params->{table}) {
+            my $extra_join = $extra_join_params->{table};
+            my $type_col = $extra_join_params->{type_col} // 'id';
+            my $extra_col = $extra_join_params->{extra_col} // $type;
+
+            my $join_l_idx = $query->inc_joins;
+            my $extra_alias = "${extra_join}_$join_l_idx";
+            $query->add_join("JOIN $extra_join $extra_alias ON $type_alias.$type_col = $extra_alias.$extra_col");
+
+            $final_table_alias = $extra_alias;
+        }
+
         $query->add_where([
-            join(' ', "$type_alias.country", $self->operator,
+            join(' ', "$final_table_alias.$column", $self->operator,
                  $self->operator eq '='  ? 'any(?)' :
                  $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
             $self->sql_arguments
