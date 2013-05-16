@@ -667,10 +667,10 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         {
             /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
-            var tracklist_id = self.$tracklist_id.val ();
-            if (tracklist_id)
+            var medium_id = self.$medium_id.val ();
+            if (medium_id)
             {
-                $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
+                $.getJSON ('/ws/js/medium/' + medium_id, {}, function (data) {
                     use_data (self.changeTrackArtists (data.tracks));
                 });
             }
@@ -876,7 +876,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$deleted = $format.find ('input.deleted');
     self.$position = $format.find ('input.position');
     self.$format_id = $format.find ('input.format');
-    self.$tracklist_id = $format.find ('input.tracklist-id');
+    self.$medium_id = $format.find ('input.id');
+    self.$medium_id_for_recordings = self.$fieldset.find ('input.medium_id_for_recordings');
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
@@ -995,7 +996,7 @@ MB.Control.ReleaseTracklist = function () {
         $("#id-mediums\\."+discs+"\\.id").val('');
         $("#id-mediums\\."+discs+"\\.name").val('');
         $("#id-mediums\\."+discs+"\\.position").val(newposition);
-        $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
+        $("#id-mediums\\."+discs+"\\.id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
         $('#id-mediums\\.'+discs+'\\.toc').val('');

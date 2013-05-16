@@ -32,6 +32,8 @@ $(function() {
             var selected = typeInfo[id];
             if (selected.descr) {
                 message = selected.descr;
+                message += ' (<a href="' + selected.doc_link + '">' +
+                                'more documentation</a>)';
             }
             else {
                 message = MB.text.PleaseSelectARSubtype;

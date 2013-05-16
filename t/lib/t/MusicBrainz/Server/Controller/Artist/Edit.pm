@@ -28,14 +28,16 @@ my $response = $mech->submit_form(
         'edit-artist.name' => 'edit artist',
         'edit-artist.sort_name' => 'artist, controller',
         'edit-artist.type_id' => '',
-        'edit-artist.country_id' => 2,
+        'edit-artist.area_id' => 222,
         'edit-artist.gender_id' => 2,
         'edit-artist.period.begin_date.year' => 1990,
         'edit-artist.period.begin_date.month' => 01,
         'edit-artist.period.begin_date.day' => 02,
+        'edit-artist.begin_area_id' => 222,
         'edit-artist.period.end_date.year' => '',
         'edit-artist.period.end_date.month' => '',
         'edit-artist.period.end_date.day' => '',
+        'edit-artist.end_area_id' => 222,
         'edit-artist.comment' => 'artist created in controller_artist.t',
         'edit-artist.rename_artist_credit' => undef
     }
@@ -54,7 +56,7 @@ is_deeply($edit->data, {
             name => 'edit artist',
             sort_name => 'artist, controller',
             type_id => undef,
-            country_id => 2,
+            area_id => 222,
             gender_id => 2,
             comment => 'artist created in controller_artist.t',
             begin_date => {
@@ -62,29 +64,33 @@ is_deeply($edit->data, {
                 month => 01,
                 day => 02
             },
+            begin_area_id => 222,
             end_date => {
                 year => undef,
                 month => undef,
                 day => undef,
             },
+            end_area_id => 222,
         },
         old => {
             name => 'Test Artist',
             sort_name => 'Artist, Test',
             type_id => 1,
             gender_id => 1,
-            country_id => 1,
+            area_id => 221,
             comment => 'Yet Another Test Artist',
             begin_date => {
                 year => 2008,
                 month => 1,
                 day => 2
             },
+            begin_area_id => 221,
             end_date => {
                 year => 2009,
                 month => 3,
                 day => 4
             },
+            end_area_id => 221,
         }
     });
 
@@ -97,8 +103,8 @@ $mech->text_contains ('Test Artist', '.. contains new artist name');
 $mech->text_contains ('artist, controller', '.. contains old sort name');
 $mech->text_contains ('Artist, Test', '.. contains new sort name');
 $mech->text_contains ('Person', '.. contains new artist type');
-$mech->text_contains ('United States', '.. contains old country');
-$mech->text_contains ('United Kingdom', '.. contains new country');
+$mech->text_contains ('United States', '.. contains old area');
+$mech->text_contains ('United Kingdom', '.. contains new area');
 $mech->text_contains ('Male', '.. contains old artist gender');
 $mech->text_contains ('Female', '.. contains new artist gender');
 $mech->text_contains ('2008-01-02', '.. contains old begin date');

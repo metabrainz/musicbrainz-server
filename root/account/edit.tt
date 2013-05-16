@@ -1,3 +1,15 @@
+[%- BLOCK layout_head -%]
+  [% script_manifest('edit.js.manifest') %]
+
+  <script type="text/javascript">//<![CDATA[
+    $(document).ready(function() {
+
+      MB.Control.AccountEdit();
+
+    });
+  //]]></script>
+[% END %]
+
 [% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
 
     <h1>[% l("Edit Profile") %]</h1>
@@ -17,7 +29,18 @@
       [% form_row_text_long(r, 'email', l('Email:')) %]
       [% form_row_text_long(r, 'website', l('Website:')) %]
       [% form_row_select(r, 'gender_id', l('Gender:')) %]
-      [% form_row_select(r, 'country_id', l('Country:')) %]
+      [% WRAPPER form_row %]
+        [% area_field = form.field('area.name') %]
+        <label for="id-profile.area.name">[% l('Location:') %]</label>
+        <span class="area autocomplete">
+          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          <input type="hidden" class="gid" />
+          [% r.hidden ('area_id', class => 'id') %]
+          [% r.text(area_field, class => 'name') %]
+        </span>
+        [% l('You can pick the level you prefer here: your country, region or city. Be as specific as you want to!') %]
+        [% field_errors(r.form, 'area.name') %]
+      [% END %]
       [% WRAPPER form_row %]
         [% r.label('birth_date', l('Birth date:'), fake => 1) %]
         [% r.date('birth_date') %]

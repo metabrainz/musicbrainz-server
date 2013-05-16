@@ -5,6 +5,7 @@ extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::CheckDuplicates';
 with 'MusicBrainz::Server::Form::Role::IPI';
+with 'MusicBrainz::Server::Form::Role::ISNI';
 
 has '+name' => ( default => 'edit-artist' );
 
@@ -26,13 +27,24 @@ has_field 'type_id' => (
     type => 'Select',
 );
 
-has_field 'country_id' => (
-    type => 'Select',
-);
+has_field 'area_id'   => ( type => 'Hidden' );
+
+has_field 'area'      => ( type => 'Compound' );
+has_field 'area.name' => ( type => 'Text' );
 
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',
 );
+
+has_field 'begin_area_id'   => ( type => 'Hidden' );
+
+has_field 'begin_area'      => ( type => 'Compound' );
+has_field 'begin_area.name' => ( type => 'Text' );
+
+has_field 'end_area_id'   => ( type => 'Hidden' );
+
+has_field 'end_area'      => ( type => 'Compound' );
+has_field 'end_area.name' => ( type => 'Text' );
 
 has_field 'period' => (
     type => '+MusicBrainz::Server::Form::Field::DatePeriod',
@@ -41,13 +53,13 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name sort_name type_id gender_id country_id period.begin_date
-               period.end_date period.ended comment ipi_codes );
+    return qw( name sort_name type_id gender_id area_id begin_area_id end_area_id 
+               period.begin_date period.end_date period.ended comment
+               ipi_codes isni_codes );
 }
 
 sub options_gender_id   { shift->_select_all('Gender') }
 sub options_type_id     { shift->_select_all('ArtistType') }
-sub options_country_id  { shift->_select_all('Country', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

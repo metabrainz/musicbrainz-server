@@ -1,0 +1,43 @@
+[% WRAPPER 'layout.tt' title=l("Browse Areas") full_width=1 %]
+    <div id="content">
+        <h1>[% l("Browse Areas") %]</h1>
+
+        [% INCLUDE "browse/page_selector.tt" %]
+
+        [% IF index %]
+            <h2>[% l('Areas starting with “{index}”', { index => html_escape(index) }) %]</h2>
+        [% END %]
+
+        [% IF entities.size %]
+            [% WRAPPER 'components/with-pager.tt' %]
+                <div class="browse-entities columns-2">
+                    [% offset = pager.first %]
+                    [% WHILE entities.size %]
+                        <div class="column">
+                            <ol start="[% (loop.index || 0) + offset %]">
+                                [% FOR entity IN entities %]
+                                [% LAST IF loop.index >= 50 %]
+                                    <li>[% link_entity(entity) %]</li>
+                                [% END %]
+                            </ol>
+                        </div>
+                        [% CALL entities.splice(0, 50) %]
+                        [% offset = offset + 50 %]
+                    [% END %]
+                    <div class="clear">
+                    </div>
+                </div>
+            [% END %]
+        [% ELSE %]
+            [%- IF index && index.length > 0 -%]
+                <p>
+                    [% l('Sorry, there are no areas starting with “{index}”. Please {pre|go back} and try again.',
+                        { index => html_escape(index),
+                          pre => c.req.uri_with( index => "${c.req.query_params.index.remove('.$')}", page => 1) }) %]
+                </p>
+            [% ELSE %]
+                <p>[% l('To begin browsing, please select a letter above.') %]</p>
+            [% END %]
+        [% END %]
+    </div>
+[% END %]
