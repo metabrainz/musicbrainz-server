@@ -1,6 +1,8 @@
 [%- WRAPPER "area/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- SET disallow = c.user_exists ? !c.user.is_location_editor : 1 -%]
     [%- INCLUDE "components/aliases.tt" entity=area
         delete_path='/area/delete_alias'
         add_path='/area/add_alias'
-        edit_path='/area/edit_alias' -%]
+        edit_path='/area/edit_alias'
+        disallow_editing=disallow -%]
 [%- END -%]
