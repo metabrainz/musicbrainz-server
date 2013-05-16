@@ -554,6 +554,24 @@ sub find_for_cdtoc
         $query, $track_count, $artist_id, $offset || 0);
 }
 
+sub find_gid_for_track
+{
+    my ($self, $track_id) = @_;
+
+    # A track is not a user visible entity, this function is called by
+    # the track controller to issue a redirect to the release page
+    # on which the track appears.  So only the release MBID is needed.
+
+    my $query =
+        "SELECT release.gid
+           FROM release
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.medium = medium.id
+          WHERE track.id = ?";
+
+    return $self->sql->select_single_value($query, $track_id);
+}
+
 sub load_with_medium_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
