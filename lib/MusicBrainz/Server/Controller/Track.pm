@@ -7,9 +7,6 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'track',
     model       => 'Track',
 };
-with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
-
-use MusicBrainz::Server::Entity::Track;
 
 =head1 NAME
 
@@ -39,10 +36,10 @@ sub show : Chained('load') PathPart('')
 
     my $release_gid = $c->model('Release')->find_gid_for_track ($track->id);
 
-    my $fragment = '#' . $track->gid;
+    my $uri = $c->uri_for_action('/release/show', [ $release_gid ]);
+    $uri->fragment ($track->gid);
 
-    $c->response->redirect($c->uri_for_action('/release/show', [ $release_gid ])
-                           . $fragment, 303);
+    $c->response->redirect($uri, 303);
     $c->detach;
 }
 
