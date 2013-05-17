@@ -670,33 +670,34 @@ sub find_by_collection
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            $reorder = "date_year, date_month, date_day, musicbrainz_collate(name)",
-            return "date_year, date_month, date_day, musicbrainz_collate(name.name)"
+            return "date_year, date_month, date_day, musicbrainz_collate(name)"
         },
         "title" => sub {
-            $reorder = "musicbrainz_collate(name), date_year, date_month, date_day",
-            return "musicbrainz_collate(name.name), date_year, date_month, date_day"
+            return "musicbrainz_collate(name), date_year, date_month, date_day"
         },
         "country" => sub {
             $extra_join = "LEFT JOIN area ON release_event.country = area.id";
             $also_select = "area.name AS country_name";
-            $reorder = "country_name, date_year, date_month, date_day",
             return "country_name, date_year, date_month, date_day";
         },
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
                            JOIN artist_name ac_name ON ac_name.id=ac.name";
             $also_select = "ac_name.name AS ac_name";
-            $reorder = "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
-            return "musicbrainz_collate(ac_name.name), musicbrainz_collate(name.name)";
+            return "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
         },
         "label" => sub {
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(musicbrainz_collate(label_name.name)) AS labels FROM release_label
+                    JOIN label ON release_label.label = label.id
+                    JOIN label_name ON label.sort_name = label_name.id
+                    GROUP BY release) rl
+                ON rl.release = release.id";
             $extra_join = "LEFT JOIN release_label ON release_label.release = release.id
                            LEFT JOIN label ON label.id = release_label.label
                            LEFT JOIN label_name ON label_name.id = label.name";
-            $reorder = "musicbrainz_collate(label_name), musicbrainz_collate(name)";
-            $also_select = "label_name.name AS label_name";
-            return "musicbrainz_collate(label_name.name), musicbrainz_collate(name.name)";
+            $also_select = "rl.labels AS labels";
+            return "labels, musicbrainz_collate(name)";
         },
         "catno" => sub {
             $extra_join = "LEFT OUTER JOIN
@@ -704,7 +705,6 @@ sub find_by_collection
                   WHERE catalog_number IS NOT NULL GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "catnos";
-            $reorder = "catnos, musicbrainz_collate(name)";
             return "catnos, musicbrainz_collate(name)";
         },
         "format" => sub {
@@ -745,7 +745,7 @@ sub find_by_collection
         WHERE cr.collection = ?
         ORDER BY release.id, date_year, date_month, date_day
       ) release
-      ORDER BY $reorder
+      ORDER BY $order_by
       OFFSET ?";
 
     return query_to_list_limited(
