@@ -220,7 +220,7 @@ augment 'create_edits' => sub
 
     if ($add_release_args{events}) {
         $add_release_args{events} =
-            $self->_filter_deleted_release_events($add_release_args{events});
+            $self->_filter_release_events($add_release_args{events});
     }
 
     # Add the release edit
