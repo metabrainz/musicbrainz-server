@@ -38,7 +38,6 @@ sub change_fields
         sort_name  => Optional[Str],
         type_id    => Nullable[Int],
         label_code => Nullable[Int],
-        country_id => Nullable[Int],
         area_id    => Nullable[Int],
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
@@ -67,7 +66,7 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations,
         LabelType => 'type_id',
-        Area      => exists($self->data->{old}{area_id}) ? 'area_id' : 'country_id',
+        Area      => 'area_id',
     );
 
     $relations->{Label} = [ $self->data->{entity}{id} ];
@@ -86,7 +85,6 @@ sub build_display_data
         label_code => 'label_code',
         comment    => 'comment',
         ipi_code   => 'ipi_code',
-        country    => [ qw( country_id Area ) ],
         area       => [ qw( area_id Area ) ],
         ended      => 'ended'
     );
@@ -163,10 +161,8 @@ sub allow_auto_edit
         $self->data->{old}{comment}, $self->data->{new}{comment});
     return 0 if $old_comment ne $new_comment;
 
-    # Don't allow an autoedit if the country/area changed
-    # TODO: remove country_id once all possible edits using it have either passed or failed
+    # Don't allow an autoedit if the area changed
     return 0 if defined $self->data->{old}{area_id};
-    return 0 if defined $self->data->{old}{country_id};
 
     # Adding a date is automatic if there was no date yet.
     return 0 if exists $self->data->{old}{begin_date}
@@ -224,6 +220,17 @@ around extract_property => sub {
 sub _conflicting_entity_path {
     my ($self, $mbid) = @_;
     return "/label/$mbid";
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for my $side (qw( old new )) {
+        $data->{$side}{area_id} = delete $data->{$side}{country_id}
+            if exists $data->{$side}{country_id};
+    }
+
+    $self->data($data);
 }
 
 __PACKAGE__->meta->make_immutable;

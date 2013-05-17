@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -82,6 +83,7 @@ my @tables = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_meta
     artist_name
     artist_tag
@@ -96,6 +98,7 @@ my @tables = qw(
     editor_language
     editor_sanitised
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -147,6 +150,7 @@ my @tables = qw(
     label_annotation
     label_gid_redirect
     label_ipi
+    label_isni
     label_meta
     label_name
     label_tag
@@ -221,6 +225,14 @@ my @tables = qw(
     cover_art_archive.cover_art_type
     cover_art_archive.release_group_cover_art
 
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
     documentation.l_artist_artist_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
@@ -281,6 +293,7 @@ my @group_core = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_name
     artist_type
     cdtoc
@@ -329,6 +342,7 @@ my @group_core = qw(
     label_alias_type
     label_gid_redirect
     label_ipi
+    label_isni
     label_name
     label_type
     language
@@ -410,6 +424,7 @@ my @group_editor = qw(
 
 my @group_edit = qw(
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -440,6 +455,7 @@ my @group_private = qw(
     editor_oauth_token
     editor_preference
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -477,6 +493,14 @@ my @group_wikidocs = (
 );
 
 my @group_documentation = qw(
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
     documentation.l_artist_artist_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example

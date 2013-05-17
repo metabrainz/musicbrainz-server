@@ -41,7 +41,6 @@ sub change_fields
         sort_name  => Optional[Str],
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
-        country_id => Nullable[Int],
         area_id    => Nullable[Int],
         begin_area_id => Nullable[Int],
         end_area_id => Nullable[Int],
@@ -72,7 +71,7 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations, (
                           ArtistType => 'type_id',
-                          Area => exists($self->data->{old}{area_id}) ? 'area_id' : 'country_id',
+                          Area => 'area_id',
                           Gender => 'gender_id',
                       ));
     changed_relations($self->data, $relations, (
@@ -93,7 +92,6 @@ sub build_display_data
     my %map = (
         type       => [ qw( type_id ArtistType )],
         gender     => [ qw( gender_id Gender )],
-        country    => [ qw( country_id Area )],
         area       => [ qw( area_id Area )],
         begin_area => [ qw( begin_area_id Area )],
         end_area   => [ qw( end_area_id Area )],
@@ -183,8 +181,6 @@ sub allow_auto_edit
 
     return 0 if exists $self->data->{old}{area_id}
         and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
-    return 0 if exists $self->data->{old}{country_id}
-        and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
 
     return 0 if exists $self->data->{old}{ended}
         and $self->data->{old}{ended} != $self->data->{new}{ended};
@@ -231,6 +227,17 @@ around extract_property => sub {
 sub _conflicting_entity_path {
     my ($self, $mbid) = @_;
     return "/artist/$mbid";
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for my $side (qw( old new )) {
+        $data->{$side}{area_id} = delete $data->{$side}{country_id}
+            if exists $data->{$side}{country_id};
+    }
+
+    $self->data($data);
 }
 
 __PACKAGE__->meta->make_immutable;

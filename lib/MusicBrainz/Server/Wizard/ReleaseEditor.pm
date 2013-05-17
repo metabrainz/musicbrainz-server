@@ -1735,6 +1735,26 @@ sub _seed_parameters {
     return collapse_hash($params);
 };
 
+
+sub _filter_release_events {
+    my ($self, $events) = @_;
+
+    return $self->_filter_empty_release_events (
+        $self->_filter_deleted_release_events ($events));
+}
+
+sub _filter_empty_release_events {
+    my (undef, $events) = @_;
+
+    return [
+        grep {
+            (defined $_->{country_id} ||
+             defined $_->{date}->{year} ||
+             defined $_->{date}->{month} ||
+             defined $_->{date}->{day})
+        } @$events ];
+}
+
 sub _filter_deleted_release_events {
     my (undef, $events) = @_;
     return [

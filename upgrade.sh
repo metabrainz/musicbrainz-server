@@ -69,15 +69,15 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130322-multiple-country-d
 echo `date` : 20130225-rename-link_type.short_link_phrase.sql
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130225-rename-link_type.short_link_phrase.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Updating musicbrainz schema sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'Creating the Area entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130301-areas.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130425-edit-area.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Create documentation tables'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130313-relationship-documentation.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : Updating musicbrainz schema sequence values
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'MBS-1839, Reduplicate tracklists'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130318-track-mbid-reduplicate-tracklists.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
