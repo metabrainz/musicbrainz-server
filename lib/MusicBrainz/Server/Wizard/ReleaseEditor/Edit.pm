@@ -50,7 +50,7 @@ augment 'create_edits' => sub
     }
 
     if ($args{events}) {
-        $args{events} = $self->_filter_deleted_release_events($args{events});
+        $args{events} = $self->_filter_release_events($args{events});
     }
 
     $args{'to_edit'} = $self->release;
