@@ -665,7 +665,6 @@ sub find_by_collection
     my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
-    my $reorder = "";
     my $also_select = "";
 
     my $order_by = order_by($order, "date", {
