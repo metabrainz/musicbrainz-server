@@ -693,9 +693,6 @@ sub find_by_collection
                     JOIN label_name ON label.sort_name = label_name.id
                     GROUP BY release) rl
                 ON rl.release = release.id";
-            $extra_join = "LEFT JOIN release_label ON release_label.release = release.id
-                           LEFT JOIN label ON label.id = release_label.label
-                           LEFT JOIN label_name ON label_name.id = label.name";
             $also_select = "rl.labels AS labels";
             return "labels, musicbrainz_collate(name)";
         },
