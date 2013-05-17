@@ -232,10 +232,11 @@ sub update
     my $type = $self->type;
 
     my %row = %$alias_hash;
-    delete @row{qw( name begin_date end_date )};
+    delete @row{qw( begin_date end_date )};
 
     # Only change to name tables if it's not an area
     if ($type ne 'area') {
+        delete @row{qw( name )};
         if (exists $alias_hash->{name}) {
             my %names = $self->parent->find_or_insert_names($alias_hash->{name});
             $row{name} = $names{ $alias_hash->{name} };
