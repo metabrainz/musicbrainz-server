@@ -96,6 +96,8 @@ sub post_fields
 sub insert_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
+    my $mime_type = 'image/jpeg';
+
     # make sure the $cover_art_position slot is available.
     $self->sql->do(
         ' UPDATE cover_art_archive.cover_art
@@ -104,9 +106,9 @@ sub insert_cover_art {
         $release_id, $position);
 
     $self->sql->do(
-        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, comment)
-         VALUES (?, ?, ?, ?, ?)',
-        $release_id, $edit, $position, $cover_art_id, $comment);
+        'INSERT INTO cover_art_archive.cover_art (release, mime_type, edit, ordering, id, comment)
+         VALUES (?, ?, ?, ?, ?, ?)',
+        $release_id, $mime_type, $edit, $position, $cover_art_id, $comment);
 
     for my $type_id (@$types)
     {
@@ -158,6 +160,13 @@ sub delete {
 
 sub merge_releases {
     my ($self, $new_release, @old_releases) = @_;
+
+    # cover_art_presence enum has 'darkened' as max, and 'absent' as min,
+    # so we always want the highest value to be preserved
+    $self->sql->do(
+        "UPDATE release_meta SET cover_art_presence = (SELECT max(cover_art_presence)
+           FROM release_meta WHERE id = any(?))
+           WHERE id = ?", [ $new_release, @old_releases ], $new_release);
 
     for my $old_release (@old_releases) {
         $self->sql->do(

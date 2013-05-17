@@ -71,6 +71,9 @@ MB.constants.LINK_TYPES = {
     discography: {
         artist: 184
     },
+    discographyentry: {
+        release: 288
+    },
     mailorder: {
         artist: 175,
         release: 79
@@ -109,10 +112,16 @@ MB.constants.LINK_TYPES = {
         label: 218
     },
     soundcloud: {
-        artist:291,
+        artist: 291,
         label: 290
     },
+    blog: {
+        artist: 199,
+        label: 224
+    },
     streamingmusic: {
+	artist: 194,
+	release: 85, 
         recording: 268
     },
     vgmdb: {
@@ -238,7 +247,7 @@ MB.constants.CLEANUPS = {
         }
     },
     downloadpurchase: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|itunes\\.apple\\.com/)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|audiojelly\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
             // iTunes cleanup
@@ -295,6 +304,10 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
         type: MB.constants.LINK_TYPES.discography
     },
+    discographyentry: {
+        match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
+        type: MB.constants.LINK_TYPES.discographyentry
+    },
     microblog: {
         match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
         type: MB.constants.LINK_TYPES.microblog,
@@ -348,6 +361,14 @@ MB.constants.CLEANUPS = {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
         }
     },
+    blog: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp)", "i"),
+        type: MB.constants.LINK_TYPES.blog,
+        clean: function(url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
+            return url;
+        }
+    },
     spotify: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(spotify\\.com)", "i"),
         type: MB.constants.LINK_TYPES.streamingmusic,
@@ -395,7 +416,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.vgmdb
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -481,6 +502,12 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
+    };
+
+    // avoid wikipedia being added as release-level discography entry
+    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/'); 
+        return !is_wikipedia.test($('#id-ar\\.url').val())
     };
 
     // only allow domains on the score whitelist

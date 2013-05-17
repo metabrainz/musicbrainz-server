@@ -25,15 +25,12 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 8.4)
+3.  PostgreSQL (at least version 9.1)
 
     PostgreSQL is required, along with its development libraries. To install
-    using packages run the following, replacing 8.x with the latest version.
+    using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib-8.x
-
-    Since Ubuntu 11.10, you can also install postgresql 9.x; replace '8.x' by the
-    most recent 9.x version to do so.
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
@@ -92,6 +89,9 @@ Server configuration
         cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
     Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
+    If you are using a reverse proxy, you should set the environment variable
+    MUSICBRAINZ_USE_PROXY=1 when starting the server.
+    This makes the server aware of it when checking for the canonical uri.
 
     Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 

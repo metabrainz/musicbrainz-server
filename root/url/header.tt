@@ -6,16 +6,11 @@
 <div class="urlheader">
 <h1>
   [% '<span class="mp">' IF url.edits_pending %]
-  <a href="[% html_escape(url.affiliate_url) %]">[% url.pretty_name | html %]</a>
+  [% link_entity(url, 'show', url.url) %]
   [% '</span>' IF url.edits_pending %]
 </h1>
 <p class="subheader">
-<span class="prefix">~</span>
-[% IF url.description %]
-     [% html_escape(url.description) %]
-[% ELSE %]
-     [% display_url(url.url) %]
-[% END %]
+<span class="prefix">~</span> [% html_escape(url.type_name) or l('URL') %]
 </p>
 </div>
 

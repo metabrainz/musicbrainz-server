@@ -1,0 +1,6 @@
+<table class="details remove-area">
+  <tr>
+    <th>[% l('Area:') %]</th>
+    <td>[% descriptive_link(edit.display_data.entity) %]</td>
+  </tr>
+</table>
