@@ -109,7 +109,7 @@
                   [% END %]
                 </th>
               </tr>
-              [% FOR track=medium.tracklist.tracks %]
+              [% FOR track=medium.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
                 <td class="pos t">
                   <span style="display: none">[% rdfa_track_number(track.position) %]</span>
