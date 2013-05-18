@@ -391,9 +391,21 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (exists $data->{date})
+        if (exists $data->{"release-event-list"} &&
+            exists $data->{"release-event-list"}->{"release-event"})
         {
-            $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+            $data->{events} = [];
+            for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
+            {
+                my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
+                    country => defined($release_event_data->{area}) ? 
+                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
+                        : undef, 
+                    date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
+
+                push @{$data->{events}}, $release_event;
+            }
+            delete $data->{"release-event-list"};
         }
         if (exists $data->{barcode})
         {
