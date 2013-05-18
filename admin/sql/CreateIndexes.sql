@@ -285,6 +285,8 @@ CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
 CREATE UNIQUE INDEX tag_idx_name ON tag (name);
 
+CREATE UNIQUE INDEX track_idx_gid ON track (gid);
+
 CREATE INDEX track_idx_recording ON track (recording);
 CREATE INDEX track_idx_medium ON track (medium, position);
 CREATE INDEX track_idx_name ON track (name);
