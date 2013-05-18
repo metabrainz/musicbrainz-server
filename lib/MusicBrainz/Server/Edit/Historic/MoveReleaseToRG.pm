@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Edit::Release::Move;
+package MusicBrainz::Server::Edit::Historic::MoveReleaseToRG;
 use Moose;
 use namespace::autoclean;
 
@@ -14,8 +14,9 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
-sub edit_name { N_l('Change release group') }
+sub edit_name { N_l('Change release group (historic)') }
 sub edit_type { $EDIT_RELEASE_MOVE }
+sub edit_template { 'historic/move_release_to_rg' }
 
 sub release_id { shift->data->{release}{id} }
 sub release_ids { shift->release_id }
