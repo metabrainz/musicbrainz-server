@@ -125,6 +125,14 @@ MB.Control.autocomplete_formatters = {
         }
 
         return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+    },
+
+    "area": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + '</span>');
+
+        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
     }
 };
 
