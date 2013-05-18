@@ -36,6 +36,7 @@ sub options_type
         'recording'     => l('Recording'),
         'work'          => l('Work'),
         'label'         => l('Label'),
+        'area'          => l('Area'),
         'annotation'    => l('Annotation'),
         'cdstub'        => l('CD Stub'),
         'editor'        => l('Editor'),

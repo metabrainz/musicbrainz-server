@@ -1,9 +1,10 @@
 # IMPORTANT
 # jQuery must be added here *first*
 lib/jquery/jquery.js
+lib/jquery/jquery.browser.js
 lib/jquery/jquery.tablesorter.js
-lib/jquery.ui/ui/jquery-ui-1.8.16.custom.js
-lib/jquery.ui/external/jquery.cookie.js
+lib/jquery/jquery.cookie.js
+lib/jquery.ui/ui/jquery-ui.custom.js
 lib/thickbox/thickbox.js
 
 lib/underscore/underscore.js

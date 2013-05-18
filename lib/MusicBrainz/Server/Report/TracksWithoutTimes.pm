@@ -12,7 +12,7 @@ SELECT release.id AS release_id,
 FROM (
   SELECT release.id
   FROM track
-  JOIN medium ON track.tracklist = medium.tracklist
+  JOIN medium ON track.medium = medium.id
   JOIN release ON medium.release = release.id
   JOIN release_name ON release.name = release_name.id
   WHERE track.length is null

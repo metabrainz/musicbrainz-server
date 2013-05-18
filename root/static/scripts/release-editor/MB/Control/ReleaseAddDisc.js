@@ -56,7 +56,9 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
         self.$tracklist.addClass ('tracklist-padding');
         self.$loading.show ();
 
-        $.getJSON ('/ws/js/' + self.type + '/' + self.$id.val (), function (data) {
+        var url_type = (self.type === "tracklist") ? "medium" : self.type;
+
+        $.getJSON ('/ws/js/' + url_type + '/' + self.$id.val (), function (data) {
             self.$table.find ('tr.track').eq (0).nextAll ().remove ();
 
             self.selected_data = data;
@@ -152,7 +154,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
             self.$tracklist.find ('span.medium').text (medium);
         };
 
-        var id = item.tracklist_id ? item.tracklist_id :
+        var id = item.medium_id ? item.medium_id :
             item.category ? item.category + '/' + item.discid :
             item.discid;
 
@@ -211,7 +213,7 @@ MB.Control.ReleaseImport = function (parent, type) {
         };
 
         $.ajax ({
-            url: '/ws/js/' + type,
+            url: '/ws/js/' + (type === "tracklist" ? "medium" : type),
             dataType: 'json',
             data: data,
             success: self.results,
@@ -460,10 +462,11 @@ MB.Control.ReleaseAddDisc = function () {
             return;
 
         var disc = MB.Control.release_tracklist.emptyDisc ();
-        disc.$tracklist_id.val (self.use_tracklist.selected.$id.val ());
         disc.collapse ();
+        disc.edits.$edits.val (
+            JSON.stringify (self.use_tracklist.selected.selected_data.tracks));
+        disc.$medium_id_for_recordings.val (self.use_tracklist.selected.selected_data.medium_id);
         disc.expand ();
-
         self.close (event);
     };
 

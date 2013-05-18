@@ -11,14 +11,22 @@ has 'position' => (
     isa => 'Int'
 );
 
-has 'tracklist_id' => (
+has 'track_count' => (
     is => 'rw',
-    isa => 'Int'
+    isa => 'Int',
 );
 
-has 'tracklist' => (
+has 'tracks' => (
     is => 'rw',
-    isa => 'Tracklist'
+    isa => 'ArrayRef[Track]',
+    lazy => 1,
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_tracks => 'elements',
+        add_track => 'push',
+        clear_tracks => 'clear',
+    }
 );
 
 has 'release_id' => (
@@ -91,9 +99,18 @@ CDTOC, or both.
 sub length {
     my $self = shift;
 
-    if ($self->tracklist)
+    if (scalar $self->all_tracks > 0)
     {
-        return $self->tracklist->length;
+        my $length = 0;
+
+        for my $trk ($self->all_tracks)
+        {
+            return undef unless defined $trk->length;
+
+            $length += $trk->length;
+        }
+
+        return $length;
     }
     elsif ($self->cdtocs->[0] && $self->cdtocs->[0]->cdtoc)
     {
@@ -104,8 +121,6 @@ sub length {
         return undef;
     }
 }
-
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -99,7 +99,7 @@ $("body")
         if (this.style.display == "none") return;
         activeSelect.select(this);
     })
-    .on("hover", "div.multiselect > div.menu > a", function(event) {
+    .on("mouseenter", "div.multiselect > div.menu > a", function(event) {
         var menu = this.parentNode;
 
         if (activeSelect && activeSelect.menu === menu) {

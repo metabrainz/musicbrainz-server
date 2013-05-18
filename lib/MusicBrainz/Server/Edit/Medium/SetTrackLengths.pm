@@ -20,7 +20,8 @@ sub edit_type { $EDIT_SET_TRACK_LENGTHS }
 
 has '+data' => (
     isa => Dict[
-        tracklist_id => Int,
+        tracklist_id => Nullable[Int],
+        medium_id => Nullable[Int],
         cdtoc => Dict[
             id => Int,
             toc => Str
@@ -73,25 +74,23 @@ sub build_display_data {
 
 sub initialize {
     my ($self, %opts) = @_;
-    my $tracklist_id = $opts{tracklist_id}
-        or die 'Missing tracklist ID';
+    my $medium_id = $opts{medium_id}
+        or die 'Missing medium ID';
 
     my $cdtoc_id = $opts{cdtoc_id}
         or die 'Missing CDTOC ID';
 
-    my ($mediums) = $self->c->model('Medium')
-        ->find_by_tracklist($tracklist_id, 100, 0);
+    my $medium = $self->c->model('Medium')->get_by_id ($medium_id);
 
-    $self->c->model('Release')->load(@$mediums);
-    $self->c->model('ArtistCredit')->load(map { $_->release } @$mediums);
-
-    my $tracklist = $self->c->model('Tracklist')->get_by_id($tracklist_id);
-    $self->c->model('Track')->load_for_tracklists($tracklist);
+    $self->c->model('Release')->load($medium);
+    $self->c->model('ArtistCredit')->load($medium->release);
+    $self->c->model('Track')->load_for_mediums($medium);
 
     my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id);
 
     $self->data({
-        tracklist_id => $tracklist_id,
+        tracklist_id => undef,
+        medium_id => $medium_id,
         cdtoc => {
             id => $cdtoc_id,
             toc => $cdtoc->toc
@@ -99,9 +98,9 @@ sub initialize {
         affected_releases => [ map +{
             id => $_->id,
             name => $_->name
-        }, map { $_->release } @$mediums ],
+        }, $medium->release ] ,
         length => {
-            old => [ map { $_->length } $tracklist->all_tracks ],
+            old => [ map { $_->length } $medium->all_tracks ],
             new => [ map { $_->{length_time} } @{ $cdtoc->track_details } ],
         }
     })
@@ -110,19 +109,17 @@ sub initialize {
 sub accept {
     my $self = shift;
 
-    my $tracklist_id = $self->data->{tracklist_id};
-    if (!$self->c->model('Tracklist')->get_by_id($tracklist_id)) {
+    my $medium_id = $self->data->{medium_id};
+    if (!$self->c->model('Medium')->get_by_id($medium_id)) {
         MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-            'The tracklist to set track times no longer exists. It may have '.
+            'The medium to set track times no longer exists. It may have '.
             'been merged into another identical tracklist, or been changed '.
             'since this edit was entered.'
         );
     }
 
-    $self->c->model('Tracklist')->set_lengths_to_cdtoc(
-        $tracklist_id,
-        $self->data->{cdtoc}{id}
-    );
+    $self->c->model('Medium')->set_lengths_to_cdtoc(
+        $medium_id, $self->data->{cdtoc}{id});
 }
 
 __PACKAGE__->meta->make_immutable;

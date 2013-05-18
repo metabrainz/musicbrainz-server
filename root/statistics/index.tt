@@ -50,8 +50,10 @@
     <th colspan="4">[% l('Other Entities') %]</th>
 </tr>
 <tr>
-    <th>[% l('Editors:') %]</th>
-    <td colspan="3">[% add_commas(stats.statistic('count.editor')) %]</td>
+    <th>[% l('Editors (valid / deleted):') %]</th>
+    <td>[% add_commas(stats.statistic('count.editor.valid')) %]</td>
+    <td>/</td>
+    <td>[% add_commas(stats.statistic('count.editor.deleted')) %]</td>
 </tr>
 <tr>
     <th>[% l('Relationships:') %]</th>
@@ -105,6 +107,10 @@
 <tr>
     <th>[% l('IPIs:') %]</th>
     <td colspan="3">[% add_commas(stats.statistic('count.ipi')) %]</td>
+</tr>
+<tr>
+    <th>[% l('ISNIs:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.isni')) %]</td>
 </tr>
 </tbody>
 </table>
@@ -551,15 +557,15 @@
     <th colspan="5">[% l('Editors') %]</th>
 </tr>
 <tr>
-    <th colspan="3">[% l('Editors:') %]</th>
-    <td>[% add_commas(stats.statistic('count.editor')) %]</td>
+    <th colspan="3">[% l('Editors (valid):') %]</th>
+    <td>[% add_commas(stats.statistic('count.editor.valid')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
     <th colspan="2">[% l('active last week:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor')) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor.valid')) }) %]</td>
 </tr>
 <tr>
     <th></th>

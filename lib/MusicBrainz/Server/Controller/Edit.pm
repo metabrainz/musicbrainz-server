@@ -187,7 +187,7 @@ sub search : Path('/search/edits') RequireAuth
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
-        countries => [ $c->model('Country')->get_all ],
+        countries => [ $c->model('CountryArea')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
     return unless %{ $c->req->query_params };

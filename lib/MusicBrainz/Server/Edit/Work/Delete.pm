@@ -18,7 +18,7 @@ override 'foreign_keys' => sub {
     my $data = super();
 
     $data->{Work} = {
-        $self->work_id => [ 'ArtistCredit' ]
+        $self->work_id => [ ]
     };
     return $data;
 };

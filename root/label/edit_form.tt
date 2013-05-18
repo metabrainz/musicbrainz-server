@@ -35,13 +35,24 @@
         [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
-        [%- form_row_select(r, 'country_id', l('Country:')) -%]
+        [% WRAPPER form_row %]
+          [% area_field = form.field('area.name') %]
+          <label for="id-edit-label.area.name">[% l('Area:') %]</label>
+          <span class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [% r.hidden ('area_id', class => 'id') %]
+            [% r.text(area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'area.name') %]
+        [% END %]
         [% WRAPPER form_row %]
             [%- r.label('label_code', l('Label code:')) %]
             LC- [% r.text('label_code', size => 5, class => "label-code") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
         [%- form_row_text_list(r, 'ipi_codes', l('IPI codes:'), l('IPI code')) -%]
+        [%- form_row_text_list(r, 'isni_codes', l('ISNI codes:'), l('ISNI code')) -%]
       </fieldset>
 
       <fieldset>
