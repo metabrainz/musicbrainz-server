@@ -7,11 +7,6 @@
     <td>[% artist_credit(release.artist_credit) %]</td>
   [% END %]
   <td>[% release_events(release.events) %]</td>
-  <td>
-    [%- IF release.country -%]
-[% rdfa_release_country_abbr(release.country) %]
-    [%- END -%]
-  </td>
   <td>[% rdfa_release_label_list(release.labels) %]</td>
   <td>[% rdfa_release_catno_list(release.labels) %]</td>
   <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
