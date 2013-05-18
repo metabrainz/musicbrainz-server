@@ -206,6 +206,7 @@ DROP INDEX release_tag_raw_idx_tag;
 DROP INDEX script_idx_iso_code;
 DROP INDEX tag_idx_name;
 DROP INDEX track_idx_artist_credit;
+DROP INDEX track_idx_gid;
 DROP INDEX track_idx_medium;
 DROP INDEX track_idx_name;
 DROP INDEX track_idx_recording;
