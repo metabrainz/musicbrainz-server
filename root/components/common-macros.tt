@@ -981,7 +981,7 @@ http://[%- server -%]/[%- id -%]
 
 [%- MACRO release_events(release_events) BLOCK;
       IF release_events.size;
-        '<ul>';
+        '<ul class="links">';
         FOR event=release_events;
           '<li>';
           release_date = rdfa_release_event_date(event.date);
