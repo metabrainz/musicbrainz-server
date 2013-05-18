@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Warn;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi encode_entities normalise_strings is_valid_barcode is_valid_ean );
+use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi is_valid_isni format_isni encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
 test 'Test trim_in_place' => sub {
     my $a = '  ';
@@ -97,6 +97,13 @@ test 'Test format_ipi' => sub {
     is(format_ipi('MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)'),
        'MusicBrainz::Server::Entity::ArtistIPI=HASH(0x11c9a410)',
        'Regression test #MBS-5066');
+};
+
+test 'Test is_valid_isni' => sub {
+    ok(is_valid_isni('0000000106750994'));
+    ok(is_valid_isni('000000010675099X'));
+    ok(!is_valid_isni('000000010675099Y'));
+    ok(!is_valid_isni('106750994'));
 };
 
 test 'Test is_freedb_id' => sub {

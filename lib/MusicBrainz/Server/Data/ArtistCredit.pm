@@ -314,7 +314,7 @@ sub related_entities {
     }
 
     my $track_ac_releases = $self->c->sql->select_single_column_array(
-        "SELECT DISTINCT medium.release FROM track JOIN medium ON track.tracklist = medium.tracklist WHERE track.artist_credit = ?",
+        "SELECT DISTINCT medium.release FROM track JOIN medium ON track.medium = medium.id WHERE track.artist_credit = ?",
         $ac_id
     );
 

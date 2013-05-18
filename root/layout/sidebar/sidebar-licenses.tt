@@ -1,0 +1,30 @@
+[%- MACRO display_license(url) BLOCK -%]
+       <li class="[% license_class(url) %]">
+          <a href="[% url.affiliate_url %]"><img src="[% '/static/images/licenses/' _ license_class(url) _ '.png' %]" /></a>
+        </li>
+[%- END -%]
+
+[%- MACRO display_licenses(entity) BLOCK -%]
+    [%- licenses = entity.relationships_by_type('url').sort('phrase') -%]
+
+    [%- to_display = [] -%]
+    [%- FOREACH license IN licenses -%]
+        [%- IF license.target.does('MusicBrainz::Server::Entity::URL::License') AND
+               license.target.show_license_in_sidebar -%]
+            [%- to_display.push(display_license(license.target)) -%]
+        [%- END -%]
+    [%- END -%]
+
+    [%- IF to_display.size -%]
+        <h2 class="licenses">[% l('License') %]</h2>
+        <ul class="licenses">
+
+    [%- FOREACH display IN to_display.unique -%]
+        [% display %]
+    [%- END -%]
+        </ul>
+    [%- END -%]
+	
+[%- END -%]
+
+[%- display_licenses(entity) -%]

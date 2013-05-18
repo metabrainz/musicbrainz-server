@@ -1,0 +1,9 @@
+[%- WRAPPER 'area/layout.tt' title='Artists' page='artists' -%]
+    <h2>[% l('Artists') %]</h2>
+
+    [% IF artists.size %]
+      [% INCLUDE 'area/artists-list.tt' WRAPPER 'components/with-pager.tt' %]
+    [% ELSE %]
+      [% l('This area is not currently associated with any artists.') %]
+    [% END %]
+[%- END -%]

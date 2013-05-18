@@ -2,10 +2,11 @@ package MusicBrainz::Server::Edit::Release::Edit;
 use Moose;
 use 5.10.0;
 
-use MooseX::Types::Moose qw( Int Str Maybe );
+use MooseX::Types::Moose qw( ArrayRef Int Str Maybe );
 use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Barcode';
+use Clone 'clone';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Data::Utils qw(
     partial_date_to_hash
@@ -47,14 +48,15 @@ sub change_fields
         artist_credit    => Optional[ArtistCreditDefinition],
         release_group_id => Optional[Int],
         comment          => Optional[Maybe[Str]],
-        date             => Nullable[PartialDateHash],
-
         barcode          => Nullable[Str],
-        country_id       => Nullable[Int],
         language_id      => Nullable[Int],
         packaging_id     => Nullable[Int],
         script_id        => Nullable[Int],
         status_id        => Nullable[Int],
+        events           => Optional[ArrayRef[Dict[
+          country_id => Nullable[Int],
+          date => Nullable[PartialDateHash],
+        ]]]
     ];
 }
 
@@ -94,7 +96,6 @@ sub foreign_keys
     changed_relations($self->data, $relations, (
         ReleasePackaging => 'packaging_id',
         ReleaseStatus    => 'status_id',
-        Country          => 'country_id',
         Language         => 'language_id',
         Script           => 'script_id',
     ));
@@ -118,6 +119,12 @@ sub foreign_keys
         }
     }
 
+    $relations->{Area} = [
+        map { $_->{country_id} }
+        map { @{ $self->data->{$_}{events} // [] } }
+        qw( old new )
+    ];
+
     return $relations;
 }
 
@@ -129,7 +136,6 @@ sub build_display_data
         packaging => [ qw( packaging_id ReleasePackaging )],
         status    => [ qw( status_id ReleaseStatus )],
         group     => [ qw( release_group_id ReleaseGroup )],
-        country   => [ qw( country_id Country )],
         language  => [ qw( language_id Language )],
         script    => [ qw( script_id Script )],
         name      => 'name',
@@ -152,10 +158,25 @@ sub build_display_data
         };
     }
 
-    if (exists $self->data->{new}{date}) {
-        $data->{date} = {
-            new => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{new}{date}),
-            old => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}),
+    if (exists $self->data->{new}{events}) {
+        my $inflate_event = sub {
+            my $event = shift;
+            my $country_id = $event->{country_id};
+            return MusicBrainz::Server::Entity::ReleaseEvent->new(
+                country_id => $country_id,
+                country => $loaded->{Area}{$country_id},
+                date => MusicBrainz::Server::Entity::PartialDate->new_from_row($event->{date}),
+            )
+        };
+
+        $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } (@{ $self->data->{old}{events} }, @{ $self->data->{new}{events} }));
+
+        $data->{events} = {
+            map {
+                $_ => [
+                    map { $inflate_event->($_) } @{ $self->data->{$_}{events} }
+                ]
+            } qw( old new )
         };
     }
 
@@ -167,12 +188,20 @@ sub build_display_data
 
 sub _mapping
 {
+    my $self = shift;
     return (
-        date => sub { partial_date_to_hash(shift->date) },
         artist_credit => sub {
             clean_submitted_artist_credits (shift->artist_credit)
         },
-        barcode => sub { shift->barcode->code }
+        barcode => sub { shift->barcode->code },
+        events => sub {
+            my $id = shift->id;
+            my $events = $self->c->model('Release')->find_release_events($id);
+            return [ map +{
+                date => partial_date_to_hash($_->date),
+                country_id => $_->country_id
+            }, @{ $events->{$id} } ];
+        }
     );
 }
 
@@ -199,10 +228,6 @@ around extract_property => sub {
             return merge_artist_credit($self->c, $ancestor, $current, $new);
         }
 
-        when ('date') {
-            return merge_partial_date('date' => $ancestor, $current, $new);
-        }
-
         when ('barcode') {
             return merge_barcode ($ancestor, $current, $new);
         }
@@ -215,7 +240,9 @@ around extract_property => sub {
 
 sub current_instance {
     my $self = shift;
-    return $self->c->model('Release')->get_by_id($self->entity_id);
+    my $release = $self->c->model('Release')->get_by_id($self->entity_id);
+    $self->c->model('Release')->load_release_events($release);
+    return $release;
 }
 
 sub _edit_hash
@@ -259,18 +286,54 @@ sub allow_auto_edit
     return 0 if defined $self->data->{old}{packaging_id};
     return 0 if defined $self->data->{old}{status_id};
     return 0 if defined $self->data->{old}{barcode};
-    return 0 if defined $self->data->{old}{country_id};
     return 0 if defined $self->data->{old}{language_id};
     return 0 if defined $self->data->{old}{script_id};
 
-    return 0 if exists $self->data->{old}{date} &&
-        MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{date}) ne '';
+    return 0 if defined $self->data->{old}{events};
 
     return 0 if exists $self->data->{old}{release_group_id};
     return 0 if exists $self->data->{new}{artist_credit};
 
     return 1;
 }
+
+sub restore {
+    my ($self, $data) = @_;
+    if (exists $data->{new}{date} || exists $data->{new}{country_id}) {
+        $data->{$_}{events} = [
+            {
+                exists $data->{$_}{date}
+                    ? (date => delete $data->{$_}{date}) : (),
+
+                exists $data->{$_}{country_id}
+                    ? (country_id => delete $data->{$_}{country_id}) : ()
+            }
+        ] for qw( old new );
+    }
+
+    $self->data($data);
+}
+
+around new_data => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $new = clone($self->$orig(@_));
+
+    delete $new->{events};
+    return $new;
+};
+
+around merge_changes => sub {
+    my $orig = shift;
+    my $self = shift;
+
+    my $merged = $self->$orig (@_);
+
+    $merged->{events} = $self->data->{new}{events};
+
+    return $merged;
+};
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

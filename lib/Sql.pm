@@ -154,6 +154,32 @@ sub insert_row
     }
 }
 
+sub insert_many {
+    my ($self, $table, @insertions) = @_;
+    return unless @insertions;
+
+    my %pivot;
+    for my $insertion (@insertions) {
+        my %row = %$insertion;
+        for my $key (keys %row) {
+            push @{ $pivot{$key} //= [] }, $row{$key};
+        }
+    }
+
+    my @keys = keys %pivot or return;
+    scalar(@{$pivot{$_}}) == scalar(@{$pivot{$keys[0]}}) or die "Inconsist row list"
+        for @keys ;
+
+    my $query = "INSERT INTO $table (" . join(', ', @keys) . ') VALUES ' .
+        join(', ', map { '(' . join(', ', ('?') x @keys) . ')' } @insertions);
+
+    $self->do($query,
+             map {
+                 my $i = $_;
+                 map { $pivot{$_}->[$i] } @keys
+             } (0..$#insertions));
+}
+
 sub update_row
 {
     my ($self, $table, $update, $conditions) = @_;

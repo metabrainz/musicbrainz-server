@@ -26,15 +26,15 @@ ok ( scalar(@$result) > 0, 'found results' );
 
 if (my ($result) = grep { $_->medium_id == 1 } @$result) {
     ok ($result, 'returned medium 1');
-    is ( $result->medium->tracklist_id, 1 );
     is ( $result->distance, 1 );
+    is ( $result->medium->id, 1 );
     is ( $result->medium_id, 1 );
 }
 
 if (my ($result) = grep { $_->medium_id == 3 } @$result) {
     ok ($result, 'returned medium 3');
-    is ( $result->medium->tracklist_id, 1 );
     is ( $result->distance, 1 );
+    is ( $result->medium->id, 3 );
     is ( $result->medium_id, 3 );
 }
 
@@ -43,15 +43,15 @@ $result = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 9272
 
 if (my ($result) = grep { $_->medium_id == 2 } @$result) {
     ok ($result, 'returned medium 1');
-    is ( $result->medium->tracklist_id, 2 );
     is ( $result->distance, 1 );
+    is ( $result->medium->id, 2 );
     is ( $result->medium_id, 2 );
 }
 
 if (my ($result) = grep { $_->medium_id == 4 } @$result) {
     ok ($result, 'returned medium 4');
-    is ( $result->medium->tracklist_id, 2 );
     is ( $result->distance, 1 );
+    is ( $result->medium->id, 4 );
     is ( $result->medium_id, 4 );
 }
 

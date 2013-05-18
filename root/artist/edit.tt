@@ -4,7 +4,7 @@
   <script type="text/javascript">//<![CDATA[
     $(document).ready(function() {
 
-      var edit = MB.Control.ArtistEdit ();
+      var edit = MB.Control.ArtistEdit();
       edit.initializeArtistCreditPreviews ('[% artist.gid %]');
 
       var bubbles = MB.Control.BubbleCollection ();
