@@ -121,7 +121,7 @@ MB.constants.LINK_TYPES = {
     },
     streamingmusic: {
 	artist: 194,
-	release: 85, 
+	release: 85,
         recording: 268
     },
     vgmdb: {
@@ -506,7 +506,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
-        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/'); 
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/');
         return !is_wikipedia.test($('#id-ar\\.url').val())
     };
 
@@ -569,14 +569,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
-            $('button[type="submit"]').attr('disabled', false);
+            $('button[type="submit"]').prop('disabled', false);
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
             if (event.type === 'submit') {
                 event.preventDefault();
             }
-            $('button[type="submit"]').attr('disabled', 'disabled');
+            $('button[type="submit"]').prop('disabled', true);
         }
     };
 
@@ -595,7 +595,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         if (self.typeControl.length) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
-                .attr('selected', 'selected').trigger('change');
+                .prop('selected', true).trigger('change');
             typeChanged(event);
         }
     };

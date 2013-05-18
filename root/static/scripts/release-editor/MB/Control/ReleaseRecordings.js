@@ -94,7 +94,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
             self.$comment.closest ('tr').hide ();
         }
 
-        self.$radio.attr ('checked', true);
+        self.$radio.prop('checked', true);
         self.$radio.trigger ('change');
     };
 
@@ -129,7 +129,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
     self.$link = self.$row.find ('span.recording');
     self.$gid = self.$row.find ('input.gid');
     self.$artist = self.$row.next ().find ('span.recording-artist');
-    self.$use_recording = self.$row.next ().andSelf ().find ('span.recording');
+    self.$use_recording = self.$row.next ().addBack ().find ('span.recording');
     self.$add_recording = self.$row.find ('span.add-recording');
 
     self.$use_suggested = self.$container.find ('button.use-suggested');
@@ -185,19 +185,19 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
     self.select_first_suggestion = function () {
         var $suggestion_rows = self.$container.find ('tr.servermatch');
         var $rec = $suggestion_rows.eq (0);
-        self.$container.find ('input.newrecording').removeAttr ('checked');
-        $suggestion_rows.find ('input.servermatch').removeAttr ('checked');
-        $rec.find ('input.servermatch').attr ('checked', 'checked');
+        self.$container.find ('input.newrecording').prop('checked', false);
+        $suggestion_rows.find ('input.servermatch').prop('checked', false);
+        $rec.find ('input.servermatch').prop('checked', true);
 
         return $rec;
     };
 
     self.select_add_new_recording = function () {
         var $suggestion_rows = self.$container.find ('tr.servermatch');
-        $suggestion_rows.find ('input.servermatch').removeAttr ('checked');
+        $suggestion_rows.find ('input.servermatch').prop('checked', false);
 
         return self.$container.find ('input.newrecording')
-            .attr ('checked', 'checked').closest ('tr');
+            .prop('checked', true).closest ('tr');
     };
 
     self.use_suggested = function (event) {
@@ -307,7 +307,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         var $table = $('table.disc-template').clone ().appendTo (self.$fieldset)
             .show ().removeClass ('disc-template');
 
-        var $track_templates = $table.find ('tr.track.template').next ('tr.template').andSelf ();
+        var $track_templates = $table.find ('tr.track.template').next ('tr.template').addBack ();
         var $select_template = $('div.select-recording-container.template');
 
         $.each (data, function (idx, trk) {
@@ -338,7 +338,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
                 $bubble.find ('tr.servermatch.releaselist').show ();
             }
 
-            $bubble.find ('input.servermatch').attr ('checked', true).trigger ('change');
+            $bubble.find ('input.servermatch').prop('checked', true).trigger ('change');
         });
 
         $track_templates.remove ();
@@ -386,11 +386,6 @@ MB.Control.ReleaseRecordings = function () {
 
 $(function() {
     $('#id-propagate_all_track_changes').change(function() {
-        if ($(this).attr('checked')) {
-            $('input.copy-to-recording').attr('checked', 'checked');
-        }
-        else {
-            $('input.copy-to-recording').attr('checked', null);
-        }
+        $('input.copy-to-recording').prop('checked', $(this).prop('checked'));
     });
 });
