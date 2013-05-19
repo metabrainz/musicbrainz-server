@@ -40,7 +40,7 @@ MB.Control.EditList = function(container) {
             $(this).attr('name', 'vote-on-all');
         });
 
-        $voteOptions.find(':input').attr('checked', false);
+        $voteOptions.find(':input').prop('checked', false);
 
         $voteOptions.find('.vote').attr('class', 'vote');
 
@@ -54,7 +54,7 @@ MB.Control.EditList = function(container) {
             $(this).click(function() {
                     $container.find('div.voteopts').each(function() {
                             $(this).find('input').eq(i)
-                                .attr('checked', 'checked')
+                                .prop('checked', true)
                                 .change();
                         });
             });

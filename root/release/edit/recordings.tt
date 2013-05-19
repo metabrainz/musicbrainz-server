@@ -179,13 +179,13 @@
       [%- notice(l('Some tracks were changed, please select a recording for each of these tracks.')) -%]
     [%- END -%]
 
-    [%- IF tracklist_vanished -%]
-      [%- warning(l('A tracklist on this release has been recently changed by someone else, cannot load recordings.')) -%]
+    [%- IF medium_vanished -%]
+      [%- warning(l('A medium on this release has been recently changed by someone else, cannot load recordings.')) -%]
     [%- END -%]
 
     [%- USE w = Wizard() -%]
     [%- information = w.page('information') -%]
-    [%- multidisc = tracklist_edits.size > 1 -%]
+    [%- multidisc = medium_edits.size > 1 -%]
 
     <div class="half-width recording-assoc">
 
@@ -236,13 +236,13 @@
 
     [%- FOR rec_medium=form.field('rec_mediums').fields -%]
       [%- medium_idx = loop.index -%]
-      [%- medium = tracklist_edits.$medium_idx -%]
-      [%- edits = tracklist_edits.$medium_idx.edits -%]
+      [%- medium = medium_edits.$medium_idx -%]
+      [%- edits = medium_edits.$medium_idx.edits -%]
 
       <fieldset class="recording-assoc-disc" id="recording-assoc-disc-[% medium_idx %]"
         [%- IF medium.deleted %] style="display: none"[% END %]>
 
-        [%- r.hidden (rec_medium.field('tracklist_id'), class => 'tracklist-id' ) -%]
+        [%- r.hidden (rec_medium.field('medium_id'), class => 'medium-id' ) -%]
         <legend>
           [%- IF medium.name -%]
             [%- IF multidisc -%]
@@ -273,7 +273,7 @@
             [%- IF edits -%]
               [%- track=edits.$track_idx -%]
             [%- ELSE -%]
-              [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+              [%- track=mediums.$medium_idx.tracks.$track_idx -%]
             [%- END -%]
             [%- recording = suggestions.$medium_idx.$track_idx.0;
                 USE Compare;
@@ -409,14 +409,14 @@
       [%- FOR rec_medium=form.field('rec_mediums').fields -%]
 
         [%- medium_idx = loop.index -%]
-        [%- edits = tracklist_edits.$medium_idx.edits -%]
+        [%- edits = medium_edits.$medium_idx.edits -%]
 
         [%- FOR assoc=rec_medium.field('associations').fields -%]
           [%- track_idx = loop.index -%]
           [%- IF edits -%]
             [%- track=edits.$track_idx -%]
           [%- ELSE -%]
-            [%- track=tracklists.$medium_idx.tracks.$track_idx -%]
+            [%- track=mediums.$medium_idx.tracks.$track_idx -%]
           [%- END -%]
           [% name = "select-recording-$medium_idx-$track_idx" %]
           [% confirmed = assoc.field('confirmed').value -%]

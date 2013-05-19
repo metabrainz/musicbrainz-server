@@ -19,13 +19,6 @@
     <h2 class="release-information">[% l('Release information') %]</h2>
 
     [% WRAPPER 'layout/sidebar/properties.tt';
-        INCLUDE 'layout/sidebar/property.tt' label=l('Date:') class="date"
-           content=release.date.format IF release.date.format;
-        INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-           content=link_searchable_property('country', release.country.iso_code, 'release', release.country.l_name)
-           class="country"
-               IF release.country.name;
-
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
            content=release.barcode.format property='mo:gtin' datatype='xsd:string' IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:') class="format"
@@ -65,6 +58,11 @@
     [% END %]
     </ul>
     [% END %]
+    
+    [% IF release.events.size %]
+    <h2>[% l('Release events') %]</h2>
+    [% release_events(release.events) %]
+    [% END %]
 
     [% UNLESS editing %]
         [% INCLUDE 'layout/sidebar/sidebar-rating.tt' entity=release.release_group %]
@@ -79,7 +77,6 @@
       [% IF c.user_exists %]
         [% annotation_links(release) %]
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
-        <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>
           <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
             [% l('Merge release') %]

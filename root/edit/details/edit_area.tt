@@ -1,0 +1,49 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details edit-area">
+  <tr>
+    <th>[% l('Area:') %]</th>
+    <td>
+      [% descriptive_link(edit.display_data.area) %]
+    </td>
+  </tr>
+
+  [%- display_word_diff(l('Name:'),
+                        html_escape(edit.display_data.name.old),
+                        html_escape(edit.display_data.name.new)) -%]
+
+  [%- display_word_diff(l('Sort name:'),
+                        html_escape(edit.display_data.sort_name.old),
+                        html_escape(edit.display_data.sort_name.new)) -%]
+
+  [%- display_word_diff(l('Type:'),
+                        html_escape(edit.display_data.type.old.name),
+                        html_escape(edit.display_data.type.new.name)) -%]
+
+  [%- display_diff(l('ISO 3166-1:'),
+                   comma_only_list(edit.display_data.iso_3166_1.old),
+                   comma_only_list(edit.display_data.iso_3166_1.new)) -%]
+
+  [%- display_diff(l('ISO 3166-2:'),
+                   comma_only_list(edit.display_data.iso_3166_2.old),
+                   comma_only_list(edit.display_data.iso_3166_2.new)) -%]
+
+  [%- display_diff(l('ISO 3166-3:'),
+                   comma_only_list(edit.display_data.iso_3166_3.old),
+                   comma_only_list(edit.display_data.iso_3166_3.new)) -%]
+
+  [% display_diff(l('Begin date:'),
+                  edit.display_data.begin_date.old.format,
+                  edit.display_data.begin_date.new.format,
+                  '-') %]
+
+  [% display_diff(l('End date:'),
+                  edit.display_data.end_date.old.format,
+                  edit.display_data.end_date.new.format,
+                  '-') %]
+
+  [% display_diff(l('Ended:'),
+                  edit.display_data.ended.old ? l('Yes') : l('No'),
+                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  '-') %]
+</table>

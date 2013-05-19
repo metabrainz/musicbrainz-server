@@ -20,16 +20,16 @@ my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
 
 my @tags = $tag_data->find_top_tags(3, 2);
 is( scalar(@tags), 2 );
-is( $tags[0]->tag->name, 'rock' );
+is( $tags[0]->tag->name, 'rock', 'Find top tags finds rock');
 is( $tags[0]->count, 3 );
-is( $tags[1]->tag->name, 'musical' );
+is( $tags[1]->tag->name, 'musical', 'Find top tags finds musical');
 is( $tags[1]->count, 1 );
 
 @tags = $tag_data->find_top_tags(4, 2);
 is( scalar(@tags), 2 );
-is( $tags[0]->tag->name, 'musical' );
+is( $tags[0]->tag->name, 'musical', 'Find top tags finds musical');
 is( $tags[0]->count, 5 );
-is( $tags[1]->tag->name, 'rock' );
+is( $tags[1]->tag->name, 'rock', 'Find top tags finds rock');
 is( $tags[1]->count, 3 );
 
 my $count = $tag_data->find_tag_count (4);
@@ -62,13 +62,12 @@ my $tag_data = MusicBrainz::Server::Data::EntityTag->new(
 my ($tags, $hits) = $test->c->model('Artist')->tags->find_entities(1, 10, 0);
 is($hits, 2);
 is(scalar(@$tags), 2);
-is($tags->[0]->count, 5);
+is($tags->[0]->count, 5, "Found 5 artists tagged with musical");
 is($tags->[0]->entity->id, 4);
-is($tags->[0]->entity->name, 'Artist 2');
+is($tags->[0]->entity->name, 'Artist 2', '"Artist 2" is tagged with musical');
 is($tags->[1]->count, 1);
 is($tags->[1]->entity->id, 3);
-is($tags->[1]->entity->name, 'Artist 1');
-
+is($tags->[1]->entity->name, 'Artist 1', '"Artist 1" is tagged with musical');
 
 #     (1, 3, 1)
 #     (2, 3, 2)
@@ -118,8 +117,8 @@ is( $tags[3]->count, 1 );
 @tags = $tag_data->parse_tags('world music, jazz!@');
 is( scalar(@tags), 2 );
 my %tags = map { $_ => 1 } @tags;
-ok( exists $tags{'world music'} );
-ok( exists $tags{'jazz!@'} );
+ok( exists $tags{'world music'}, 'parse tags correctly separated "world music" ...' );
+ok( exists $tags{'jazz!@'},      '... and "jazz!@"');
 
 $tag_data->update(1, 3, 'world music, techno');
 
@@ -159,7 +158,7 @@ is( $tags[4]->tag->name, 'world music' );
 is( $tags[4]->count, 1 );
 
 $tags = $test->c->sql->select_single_column_array("SELECT tag FROM artist_tag_raw WHERE editor=2 AND artist=3 ORDER BY tag");
-is_deeply([5], $tags);
+is_deeply($tags, [200]);
 
 };
 

@@ -1,0 +1,9 @@
+[%- WRAPPER 'area/layout.tt' title='Labels' page='labels' -%]
+    <h2>[% l('Labels') %]</h2>
+
+    [% IF labels.size %]
+      [% INCLUDE 'area/labels-list.tt' WRAPPER 'components/with-pager.tt' %]
+    [% ELSE %]
+      [% l('This area is not currently associated with any labels.') %]
+    [% END %]
+[%- END -%]

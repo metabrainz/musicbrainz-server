@@ -121,7 +121,7 @@ MB.constants.LINK_TYPES = {
     },
     streamingmusic: {
 	artist: 194,
-	release: 85, 
+	release: 85,
         recording: 268
     },
     vgmdb: {
@@ -146,6 +146,12 @@ MB.constants.LINK_TYPES = {
         artist: 310,
         label: 311,
         work: 312
+    },
+    wikidata: {
+        artist: 352,
+        label: 354,
+        release_group: 353,
+        work: 351
     }
 };
 
@@ -415,6 +421,13 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
         type: MB.constants.LINK_TYPES.vgmdb
     },
+    wikidata: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
+        type: MB.constants.LINK_TYPES.wikidata,
+        clean: function(url) {
+            return url.replace(/^https:\/\//, "http://");
+        }
+    },
     otherdatabases: {
         match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
@@ -498,6 +511,20 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/\/music\/artists\//) != null;
     }
 
+    // allow only Wikidata pages with the Wikidata rel
+    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
@@ -506,7 +533,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
-        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/'); 
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/');
         return !is_wikipedia.test($('#id-ar\\.url').val())
     };
 
@@ -569,14 +596,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
-            $('button[type="submit"]').attr('disabled', false);
+            $('button[type="submit"]').prop('disabled', false);
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
             if (event.type === 'submit') {
                 event.preventDefault();
             }
-            $('button[type="submit"]').attr('disabled', 'disabled');
+            $('button[type="submit"]').prop('disabled', true);
         }
     };
 
@@ -595,7 +622,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         if (self.typeControl.length) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
-                .attr('selected', 'selected').trigger('change');
+                .prop('selected', true).trigger('change');
             typeChanged(event);
         }
     };

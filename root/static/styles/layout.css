@@ -599,6 +599,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/spotify-16.png");
 }
 
+#sidebar ul.external_links li.wikidata {
+    background-image: url("../images/favicons/wikidata-16.png");
+}
+
 #sidebar ul.licenses {
     margin: 5px 0;
     padding-left: 0;

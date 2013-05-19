@@ -12,3 +12,7 @@ INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00145958831');
 INSERT INTO artist_ipi (artist, ipi) VALUES (4, '00145958831');
 INSERT INTO artist_ipi (artist, ipi) VALUES (4, '00151894065');
 
+INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730476');
+INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750994');
+INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730477');
+INSERT INTO artist_isni (artist, isni) VALUES (3, '0000000106750995');

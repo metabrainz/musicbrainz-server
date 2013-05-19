@@ -23,7 +23,7 @@ $mech->content_like(qr/2008-01-02/, 'has start date');
 $mech->content_like(qr/2009-03-04/, 'has end date');
 $mech->content_like(qr/Person/, 'has artist type');
 $mech->content_like(qr/Male/, 'has gender');
-$mech->content_like(qr/United Kingdom/, 'has country');
+$mech->content_like(qr/United Kingdom/, 'has area');
 $mech->content_like(qr/Test annotation 1/, 'has annotation');
 $mech->content_like(qr/More annotation/, 'displays the full annotation');
 
