@@ -19,7 +19,7 @@
             [% meta_desc.push(date_period_label _ ' ' _ artist.end_date.format) %]
         [% END %]
     [% END %]
-    [% meta_desc.push(l('Country:') _ ' ' _ html_escape(artist.country.name)) IF artist.country %]
+    [% meta_desc.push(l('Area:') _ ' ' _ html_escape(artist.area.name)) IF artist.area %]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
