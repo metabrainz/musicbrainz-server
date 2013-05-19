@@ -36,7 +36,6 @@
         [%- END -%]
         <script type="text/javascript">//<![CDATA[
             $(document).ready (function () {
-                $("[placeholder]").mb_placeholder ();
                 [% IF c.user_exists %]
                     MB.Control.RelateTo ();
                 [%- END -%]

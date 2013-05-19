@@ -179,7 +179,7 @@ sub clean_submitted_artist_credits
             delete $part->{artist}->{gid};
 
             # Fill in the artist credit from the artist name if no artist credit
-            # was submitted (because it is displayed as a HTML5 placeholder).
+            # was submitted.
             $part->{name} = $part->{artist}->{name} unless $part->{name};
 
             # MBS-3226, Fill in the artist name from the artist credit if the user
