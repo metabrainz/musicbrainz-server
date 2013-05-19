@@ -135,6 +135,10 @@ sub published_examples {
     return grep { $_->published } $self->all_examples;
 }
 
+sub is_deprecated {
+    return shift->description =~ /deprecated/;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
