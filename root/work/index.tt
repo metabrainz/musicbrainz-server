@@ -1,3 +1,9 @@
+[% BLOCK layout_head %]
+    [% meta_desc = [] %]
+    [% meta_desc.push(html_escape(work.comment)) IF work.comment %]
+    <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
+[% END %]
+
 [%- WRAPPER "work/layout.tt" page='index' -%]
     [% IF eligble_for_cleanup %]
       <p class="cleanup">
