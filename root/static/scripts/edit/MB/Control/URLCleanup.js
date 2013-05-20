@@ -24,7 +24,8 @@ MB.constants.LINK_TYPES = {
         artist: 179,
         label: 216,
         release_group: 89,
-        work: 279
+        work: 279,
+        area: 355
     },
     discogs: {
         release: 76,
@@ -533,6 +534,9 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.area ] = function() {
         return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
     }
 
