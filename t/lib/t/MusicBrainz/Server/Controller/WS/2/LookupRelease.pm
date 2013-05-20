@@ -33,12 +33,28 @@ ws_test 'basic release lookup',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <title>Summer Reggae! Rainbow</title>
+        <status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
-            <language>jpn</language><script>Latn</script>
+            <language>jpn</language>
+            <script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -62,6 +78,18 @@ ws_test 'release lookup, inc=annotation',
         </text-representation>
         <date>2007-01-29</date>
         <country>GB</country>
+        <release-event-list count="1">
+          <release-event>
+              <date>2007-01-29</date>
+              <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                  <name>United Kingdom</name>
+                  <sort-name>United Kingdom</sort-name>
+                  <iso-3166-1-code-list>
+                      <iso-3166-1-code>GB</iso-3166-1-code>
+                  </iso-3166-1-code-list>
+              </area>
+          </release-event>
+        </release-event-list>
         <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
         <cover-art-archive>
@@ -78,12 +106,28 @@ ws_test 'basic release with tags',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <title>Summer Reggae! Rainbow</title>
+        <status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
-            <language>jpn</language><script>Latn</script>
+            <language>jpn</language>
+            <script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <tag-list>
           <tag count="1"><name>hello project</name></tag>
@@ -102,12 +146,28 @@ ws_test 'basic release with collections',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <title>Summer Reggae! Rainbow</title>
+        <status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
-            <language>jpn</language><script>Latn</script>
+            <language>jpn</language>
+            <script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <collection-list>
             <collection id="f34c079d-374e-4436-9448-da92dedef3cd">
@@ -130,10 +190,12 @@ ws_test 'release lookup with artists + aliases',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>Official</status>
+        <title>the Love Bug</title>
+        <status>Official</status>
         <quality>normal</quality>
         <text-representation>
-            <language>eng</language><script>Latn</script>
+            <language>eng</language>
+            <script>Latn</script>
         </text-representation>
         <artist-credit>
             <name-credit>
@@ -150,7 +212,21 @@ ws_test 'release lookup with artists + aliases',
                 </artist>
             </name-credit>
         </artist-credit>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2004-03-17</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -166,12 +242,28 @@ ws_test 'release lookup with labels, recordings and tags',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>Official</status>
+        <title>the Love Bug</title>
+        <status>Official</status>
         <quality>normal</quality>
         <text-representation>
-            <language>eng</language><script>Latn</script>
+            <language>eng</language>
+            <script>Latn</script>
         </text-representation>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2004-03-17</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <label-info-list count="1">
             <label-info>
@@ -232,10 +324,12 @@ ws_test 'release lookup with release-groups',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
-        <title>the Love Bug</title><status>Official</status>
+        <title>the Love Bug</title>
+        <status>Official</status>
         <quality>normal</quality>
         <text-representation>
-            <language>eng</language><script>Latn</script>
+            <language>eng</language>
+            <script>Latn</script>
         </text-representation>
         <artist-credit>
             <name-credit>
@@ -258,7 +352,21 @@ ws_test 'release lookup with release-groups',
                 </name-credit>
             </artist-credit>
         </release-group>
-        <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+        <date>2004-03-17</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2004-03-17</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4988064451180</barcode>
         <asin>B0001FAD2O</asin>
         <cover-art-archive>
             <artwork>true</artwork>
@@ -274,12 +382,28 @@ ws_test 'release lookup with discids and puids',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-        <title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status>
+        <title>Summer Reggae! Rainbow</title>
+        <status>Pseudo-Release</status>
         <quality>normal</quality>
         <text-representation>
-            <language>jpn</language><script>Latn</script>
+            <language>jpn</language>
+            <script>Latn</script>
         </text-representation>
-        <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+        <date>2001-07-04</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2001-07-04</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <medium-list count="1">
             <medium>
@@ -334,12 +458,27 @@ ws_test 'release lookup, barcode is NULL',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-        <title>For Beginner Piano</title><status>Official</status>
+        <title>For Beginner Piano</title>
+        <status>Official</status>
         <quality>normal</quality>
         <text-representation>
-            <language>eng</language><script>Latn</script>
+            <language>eng</language>
+            <script>Latn</script>
         </text-representation>
-        <date>1999-09-23</date><country>US</country>
+        <date>1999-09-23</date>
+        <country>US</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>1999-09-23</date>
+                <area id="489ce91b-6658-3307-9877-795b68554c98">
+                    <name>United States</name>
+                    <sort-name>United States</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>US</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
         <asin>B00001IVAI</asin>
         <cover-art-archive>
             <artwork>false</artwork>
@@ -360,7 +499,20 @@ ws_test 'release lookup, barcode is empty string',
         <text-representation>
             <language>eng</language><script>Latn</script>
         </text-representation>
-        <date>1999-09-13</date><country>GB</country>
+        <date>1999-09-13</date>
+        <country>GB</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>1999-09-13</date>
+                <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                    <name>United Kingdom</name>
+                    <sort-name>United Kingdom</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>GB</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
         <barcode />
         <cover-art-archive>
             <artwork>false</artwork>
@@ -371,7 +523,76 @@ ws_test 'release lookup, barcode is empty string',
     </release>
 </metadata>';
 
+ws_test 'release lookup, relation attributes',
+    '/release/757a1723-3769-4298-89cd-48d31177852a?inc=release-rels+artist-rels' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release id="757a1723-3769-4298-89cd-48d31177852a">
+        <title>LOVE &amp; HONESTY</title>
+        <status>Pseudo-Release</status>
+        <quality>normal</quality>
+        <text-representation>
+            <language>jpn</language><script>Latn</script>
+        </text-representation>
+        <date>2004-01-15</date>
+        <country>JP</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2004-01-15</date>
+                <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                    <name>Japan</name>
+                    <sort-name>Japan</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>JP</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <asin>B0000YGBSG</asin>
+        <cover-art-archive>
+            <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
+        </cover-art-archive>
+        <relation-list target-type="release">
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>28fc2337-985b-3da9-ac40-ad6f28ff0d8e</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <release-event-list count="1">
+                        <release-event>
+                            <date>2004-01-15</date>
+                        </release-event>
+                    </release-event-list>
+                    <barcode>4988064173891</barcode>
+                </release>
+            </relation>
+            <relation type-id="fc399d47-23a7-4c28-bfcf-0607a562b644" type="transl-tracklisting">
+                <target>cacc586f-c2f2-49db-8534-6f44b55196f2</target>
+                <direction>backward</direction>
+                <attribute-list>
+                    <attribute>transliterated</attribute>
+                </attribute-list>
+                <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
+                    <title>LOVE &amp; HONESTY</title>
+                    <quality>normal</quality>
+                    <date>2004-01-15</date>
+                    <release-event-list count="1">
+                        <release-event>
+                            <date>2004-01-15</date>
+                        </release-event>
+                    </release-event-list>
+                    <barcode>4988064173907</barcode>
+                </release>
+            </relation>
+        </relation-list>
+    </release>
+</metadata>';
+
 };
 
 1;
-

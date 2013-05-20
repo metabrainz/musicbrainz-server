@@ -31,6 +31,13 @@ sub index : Path Args(0)
 
 }
 
+sub area : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Area');
+}
+
 sub artist : Local
 {
     my ($self, $c) = @_;
