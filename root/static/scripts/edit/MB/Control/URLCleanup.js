@@ -24,7 +24,8 @@ MB.constants.LINK_TYPES = {
         artist: 179,
         label: 216,
         release_group: 89,
-        work: 279
+        work: 279,
+        area: 355
     },
     discogs: {
         release: 76,
@@ -151,7 +152,8 @@ MB.constants.LINK_TYPES = {
         artist: 352,
         label: 354,
         release_group: 353,
-        work: 351
+        work: 351,
+        area: 358
     }
 };
 
@@ -522,6 +524,9 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function() {
         return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
     }
 
