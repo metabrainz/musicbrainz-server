@@ -21,22 +21,22 @@
 
 MB.constants.LINK_TYPES = {
     wikipedia: {
+        area: 355,
         artist: 179,
         label: 216,
         release_group: 89,
-        work: 279,
-        area: 355
+        work: 279
     },
     discogs: {
-        release: 76,
-        release_group: 90,
         artist: 180,
-        label: 217
+        label: 217,
+        release: 76,
+        release_group: 90
     },
     imdb: {
-        release_group: 97,
         artist: 178,
-        label: 313
+        label: 313,
+        release_group: 97
     },
     myspace: {
         artist: 189,
@@ -47,9 +47,9 @@ MB.constants.LINK_TYPES = {
     },
     allmusic: {
         artist: 283,
+        recording: 285,
         release_group: 284,
-        work: 286,
-        recording: 285
+        work: 286
     },
     amazon: {
         release: 77
@@ -81,13 +81,13 @@ MB.constants.LINK_TYPES = {
     },
     downloadpurchase: {
         artist: 176,
-        release: 74,
-        recording: 254
+        recording: 254,
+        release: 74
     },
     downloadfree: {
         artist: 177,
-        release: 75,
-        recording: 255
+        recording: 255,
+        release: 75
     },
     microblog: {
         artist: 198,
@@ -101,9 +101,9 @@ MB.constants.LINK_TYPES = {
         work: 274
     },
     secondhandsongs: {
-        work: 280,
         artist: 307,
-        release: 308
+        release: 308,
+        work: 280
     },
     songfacts: {
         work: 289
@@ -122,13 +122,13 @@ MB.constants.LINK_TYPES = {
     },
     streamingmusic: {
 	artist: 194,
-	release: 85,
-        recording: 268
+        recording: 268,
+	release: 85
     },
     vgmdb: {
         artist: 191,
-        release: 86,
-        label: 210
+        label: 210,
+        release: 86
     },
     youtube: {
         artist: 193,
@@ -138,10 +138,10 @@ MB.constants.LINK_TYPES = {
     otherdatabases: {
         artist: 188,
         label: 222,
-        release_group: 96,
+        recording: 306,
         release: 82,
-        work: 273,
-        recording: 306
+        release_group: 96,
+        work: 273
     },
     viaf: {
         artist: 310,
@@ -149,11 +149,11 @@ MB.constants.LINK_TYPES = {
         work: 312
     },
     wikidata: {
+        area: 358,
         artist: 352,
         label: 354,
         release_group: 353,
-        work: 351,
-        area: 358
+        work: 351
     }
 };
 
