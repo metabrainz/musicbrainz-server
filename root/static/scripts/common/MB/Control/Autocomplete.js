@@ -199,6 +199,7 @@ MB.Control.Autocomplete = function (options) {
 
     self.close = function (event) {
         self.$input.focus();
+        self.resetPage();
     };
 
     self.open = function (event) {
