@@ -862,7 +862,7 @@ if ($fDoReplication)
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
-dumptable("replication_control");
+dumptable("replication_control") unless scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist;
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
