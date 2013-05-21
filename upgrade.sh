@@ -44,27 +44,27 @@ if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     # export
     echo `date` : Exporting just the track tables for slaves to use
-    mkdir -p catchup
-    ./admin/ExportAllTables --table='track' -d catchup
+    mkdir -p catchup
+    ./admin/ExportAllTables --table='track' -d catchup
 fi
 
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
     # import
     echo `date` : Downloading correct track table
-    mkdir -p catchup
-    OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
+    mkdir -p catchup
+    OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
 
-    echo `date` : Fixing the track table
+    echo `date` : Fixing the track table
 
     echo `date` : Dropping indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-drop-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
     echo `date` : Emptying the track table
-    OUTPUT=`echo 'DELETE FROM track' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
+    OUTPUT=`echo 'DELETE FROM track' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 
-    echo `date` : Importing the version of the track table from master
-    OUTPUT=`./admin/MBImport.pl --skip-editor catchup/mbdump.tar.bz2 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    echo `date` : Importing the version of the track table from master
+    ./admin/MBImport.pl --tmp-dir=/mnt/music/tmp --skip-editor catchup/mbdump.tar.bz2
 
     echo `date` : Recreating indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -80,6 +80,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-cred
 
 echo `date` : Creating an index on medium.release
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Renaming track2013_ and medium2013_ indexes and constraints
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-rename-indexes-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -97,6 +100,10 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : Adding track constraints
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-readd-track-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 fi
 
 ################################################################################
