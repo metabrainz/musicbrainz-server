@@ -40,16 +40,6 @@ then
     ./admin/sql/DisableLastUpdatedTriggers.pl
 fi
 
-################################################################################
-# Scripts that should run on *all* nodes (master/slave/standalone)
-echo `date` : Updating musicbrainz schema sequence values
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-## fix ref_counts here
-
-echo `date` : Creating an index on medium.release
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
     # export
@@ -79,6 +69,17 @@ then
     echo `date` : Recreating indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
+
+################################################################################
+# Scripts that should run on *all* nodes (master/slave/standalone)
+echo `date` : Updating musicbrainz schema sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Fix the artist_credit.ref_count column
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : Creating an index on medium.release
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
