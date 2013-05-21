@@ -1,3 +1,5 @@
+\set ON_ERROR_STOP 1
+
 BEGIN;
 
 UPDATE artist_credit SET ref_count = (SELECT
