@@ -76,7 +76,7 @@ echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Fix the artist_credit.ref_count column
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount-faster.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Creating an index on medium.release
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -103,6 +103,9 @@ then
 
     echo `date` : Adding track constraints
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-readd-track-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Re-add artist_credit FKs
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount-faster-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 fi
 
