@@ -64,7 +64,7 @@ then
     OUTPUT=`echo 'DELETE FROM track' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 
     echo `date` : Importing the version of the track table from master
-    ./admin/MBImport.pl --tmp-dir=/mnt/music/tmp --skip-editor catchup/mbdump.tar.bz2
+    ./admin/MBImport.pl --skip-editor catchup/mbdump.tar.bz2
 
     echo `date` : Recreating indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
