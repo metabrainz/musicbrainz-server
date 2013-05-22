@@ -17,6 +17,28 @@ then
 fi
 
 ################################################################################
+# Acquire track table update
+
+if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+then
+    DOWNLOAD_PREFIX=ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15
+    DOWNLOAD_PREFIX=http://localhost/catchup
+
+    echo `date` : Downloading correct track table
+    mkdir -p catchup
+    OUTPUT=`wget -q "$DOWNLOAD_PREFIX/MD5SUMS" -O catchup/MD5SUMS` || ( echo "$OUTPUT" ; exit 1 )
+    wget --continue "$DOWNLOAD_PREFIX/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2 || exit 1
+
+    echo `date` : Verifying track table dump
+    cd catchup
+    OUTPUT=`grep mbdump.tar.bz2 MD5SUMS | md5sum -c`  || ( echo "$OUTPUT" ; exit 1 )
+    cd ..
+fi
+
+echo "done"
+exit 2
+
+################################################################################
 # Backup and disable replication triggers
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
@@ -51,10 +73,6 @@ fi
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
     # import
-    echo `date` : Downloading correct track table
-    mkdir -p catchup
-    OUTPUT=`wget -q "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2` || ( echo "$OUTPUT" ; exit 1 )
-
     echo `date` : Fixing the track table
 
     echo `date` : Dropping indexes on the track table
