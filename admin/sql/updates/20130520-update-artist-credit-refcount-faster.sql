@@ -11,7 +11,7 @@ BEGIN;
         artist_credit.id,
         artist_credit.name,
         artist_credit.artist_count,
-        coalesce(track_ac_count.count, 0) + coalesce(release_ac_count.count, 0) + coalesce(release_group_ac_count.count, 0) + coalesce(recording_ac_count.count, 0) AS ref_count,
+        (coalesce(track_ac_count.count, 0) + coalesce(release_ac_count.count, 0) + coalesce(release_group_ac_count.count, 0) + coalesce(recording_ac_count.count, 0))::integer AS ref_count,
         artist_credit.created
     FROM
         artist_credit

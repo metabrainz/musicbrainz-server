@@ -68,6 +68,9 @@ then
 
     echo `date` : Recreating indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Removing the medium_cdtoc FK that should not exist
+    OUTPUT=`echo 'ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium;' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 fi
 
 ################################################################################
