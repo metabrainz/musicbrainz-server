@@ -114,8 +114,11 @@ sub insert
 
         $self->c->model('Track')->insert(@$tracklist);
 
+        $self->c->model('DurationLookup')->update($medium_created->id);
+
         push @created, $medium_created;
     }
+
     return @medium_hashes > 1 ? @created : $created[0];
 }
 
