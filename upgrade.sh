@@ -34,9 +34,6 @@ then
     cd ..
 fi
 
-echo "done"
-exit 2
-
 ################################################################################
 # Backup and disable replication triggers
 
