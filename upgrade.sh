@@ -22,7 +22,6 @@ fi
 if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
 then
     DOWNLOAD_PREFIX=ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15
-    DOWNLOAD_PREFIX=http://localhost/catchup
 
     echo `date` : Downloading correct track table
     mkdir -p catchup
