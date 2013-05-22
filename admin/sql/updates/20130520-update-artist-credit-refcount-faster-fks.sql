@@ -2,6 +2,11 @@
 
 BEGIN;
 
+ALTER TABLE artist_credit
+   ADD CONSTRAINT artist_credit_fk_name
+   FOREIGN KEY (name)
+   REFERENCES artist_name(id);
+
 ALTER TABLE artist_credit_name
    ADD CONSTRAINT artist_credit_name_fk_artist_credit
    FOREIGN KEY (artist_credit)
