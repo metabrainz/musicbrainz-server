@@ -29,9 +29,9 @@ then
     wget --continue "$DOWNLOAD_PREFIX/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2 || exit 1
 
     echo `date` : Verifying track table dump
-    cd catchup
+    pushd catchup
     OUTPUT=`grep mbdump.tar.bz2 MD5SUMS | md5sum -c`  || ( echo "$OUTPUT" ; exit 1 )
-    cd ..
+    popd
 fi
 
 ################################################################################
