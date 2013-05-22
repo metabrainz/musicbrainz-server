@@ -82,6 +82,9 @@ echo `date` : Creating an index on medium.release
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Renaming track2013_ and medium2013_ indexes and constraints
+# do these unconditionally -- they may fail for things imported from schema-17 dumps
+echo "ALTER INDEX medium2013_pkey RENAME TO medium_pkey;" | ./admin/psql READWRITE > /dev/null 2>&1
+echo "ALTER INDEX track2013_pkey RENAME TO track_pkey;" | ./admin/psql READWRITE > /dev/null 2>&1
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-rename-indexes-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
