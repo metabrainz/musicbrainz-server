@@ -22,7 +22,9 @@ sub get_mediums_to_update
 
     my $results = $c->sql->select_list_of_hashes (
         "SELECT track.medium AS medium_id,
-                (sum(track.length) < 4800000 AND count(track.id) <= 99) AS should_have_index,
+                (sum(track.length) < 4800000 AND
+                 count(track.id) = count(track.length) AND
+                 count(track.id) <= 99) AS should_have_index,
                 medium_index.medium IS NOT NULL AS has_index
            FROM track
       LEFT JOIN medium_index ON medium_index.medium = track.medium
