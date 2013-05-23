@@ -57,6 +57,7 @@ our @EXPORT_OK = qw(
 Readonly my %TYPE_TO_MODEL => (
     'annotation'    => 'Annotation',
     'artist'        => 'Artist',
+    'area'          => 'Area',
     'cdstub'        => 'CDStub',
     'collection'    => 'Collection',
     'editor'        => 'Editor',
@@ -134,17 +135,34 @@ sub load_subobjects
     @objs = grep { defined } @objs;
     return unless @objs;
 
-    my $attr_id = $attr_obj . "_id";
-    @objs = grep { $_->meta->find_attribute_by_name($attr_id) } grep { defined } @objs;
-    my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @objs;
-    my @ids = grep { $_ } keys %ids;
+    my @ids;
+    my %attr_ids;
+    my %objs;
+    if (ref($attr_obj) ne 'ARRAY') {
+        $attr_obj = [ $attr_obj ];
+    }
+
+    for my $obj_type (@$attr_obj) {
+        my $attr_id = $obj_type . "_id";
+        $attr_ids{$attr_id} = $obj_type;
+
+        $objs{$attr_id} = [ grep { $_->meta->find_attribute_by_name($attr_id) } @objs ];
+        my %ids = map { ($_->meta->find_attribute_by_name($attr_id)->get_value($_) || "") => 1 } @{ $objs{$attr_id} };
+
+        @ids = grep { !($ids{$_}) } @ids if scalar @ids;
+        push @ids, grep { $_ } keys %ids;
+    }
+
     my $data;
     if (@ids) {
         $data = $data_access->get_by_ids(@ids);
-        foreach my $obj (@objs) {
-            my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
-            if (defined $id && exists $data->{$id}) {
-                $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
+        for my $attr_id (keys %attr_ids) {
+            my $attr_obj = $attr_ids{$attr_id};
+            for my $obj (@{ $objs{$attr_id} }) {
+                my $id = $obj->meta->find_attribute_by_name($attr_id)->get_value($obj);
+                if (defined $id && exists $data->{$id}) {
+                    $obj->meta->find_attribute_by_name($attr_obj)->set_value($obj, $data->{$id});
+                }
             }
         }
     }
@@ -362,24 +380,30 @@ sub order_by
 {
     my ($order, $default, $map) = @_;
 
+    my $desc = 0;
     my $order_by = $map->{$default};
     if ($order) {
-        my $desc = 0;
-        if ($order =~ /-(.*)/) {
-            $desc = 1;
-            $order = $1;
+        if ($order =~ /^-(.*)/) {
+           $desc = 1;
+           $order = $1;
         }
         if (exists $map->{$order}) {
             $order_by = $map->{$order};
-            if (ref($order_by) eq 'CODE') {
-                $order_by = $order_by->();
-            }
-            if ($desc) {
-                my @list = map { "$_ DESC" } split ',', $order_by;
-                $order_by = join ',', @list;
-            }
+        }
+        else {
+            $desc = 0;
         }
     }
+
+    if (ref($order_by) eq 'CODE') {
+        $order_by = $order_by->();
+    }
+
+    if ($desc) {
+        my @list = map { "$_ DESC" } split ',', $order_by;
+        $order_by = join ',', @list;
+    }
+
     return $order_by;
 }
 

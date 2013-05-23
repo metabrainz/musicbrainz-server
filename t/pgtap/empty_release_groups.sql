@@ -10,7 +10,7 @@ INSERT INTO edit (id, type, status, data, open_time, close_time, expire_time, ed
   VALUES (1, 1, 1, '', now(), now(), now(), 1);
 
 INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
-    reverse_link_phrase, short_link_phrase)
+    reverse_link_phrase, long_link_phrase)
   VALUES (1, '0059c07e-e9f5-4680-b48b-b40c6f82dd72', 'artist', 'label', '', '', '', '');
 INSERT INTO link (id, link_type) VALUES (1, 1);
 

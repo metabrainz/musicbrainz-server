@@ -15,7 +15,7 @@ MusicBrainz::Server::Test->prepare_test_database($c);
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,
-     short_link_phrase)
+     long_link_phrase)
     VALUES (1000, '8610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work', 'instrument',
             'performed',
             'performed by',

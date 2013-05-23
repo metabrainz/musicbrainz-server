@@ -73,6 +73,11 @@
             Person: [ '[% l('Born:') | js %]', '[% l('Died:') | js %]', '[% l('This person is deceased.') | js %]' ],
             Founded: [ '[% l('Founded:') | js %]', '[% l('Dissolved:') | js %]', '[% l('This group has dissolved.') | js %]' ]
         },
+        ArtistArea: {
+            Unknown: [ '[% l('Begin area:') | js %]', '[% l('End area:') | js %]' ],
+            Person: [ '[% l('Born in:') | js %]', '[% l('Died in:') | js %]' ],
+            Founded: [ '[% l('Founded in:') | js %]', '[% l('Dissolved in:') | js %]' ]
+        },
         Pager: '[% l('page #{page} of #{total}') | js %]',
         SwitchToDirectSearch: '[% l('Not found? Try again with direct search.') | js %]',
         SwitchToIndexedSearch: '[% l('Slow? Switch back to indexed search.') | js %]',
@@ -119,6 +124,8 @@
         ConfirmSwap: '[% l('This tracklist has artist credits with information that will be lost if you swap artist credits with track titles. This cannot be undone. Do you wish to continue?') | js %]',
         ConfirmNavigation: '[% l('All of your changes will be lost if you leave this page.') | js %]',
         SubmissionError: '[% l('We\'re very sorry, an error occurred during submission. The server may be under heavy load; please wait a moment and try again.') | js %]',
-        VoteOnAllEdits: '[% l('Vote on all edits:') | js %]'
+        VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
+        EnumerationComma: '[% l(', ') | js %]',
+        EnumerationAnd: '[% l('{b} and {a}') | js %]'
     });
 })(MB);

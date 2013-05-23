@@ -96,6 +96,8 @@ sub post_fields
 sub insert_cover_art {
     my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
 
+    my $mime_type = 'image/jpeg';
+
     # make sure the $cover_art_position slot is available.
     $self->sql->do(
         ' UPDATE cover_art_archive.cover_art
@@ -104,9 +106,9 @@ sub insert_cover_art {
         $release_id, $position);
 
     $self->sql->do(
-        'INSERT INTO cover_art_archive.cover_art (release, edit, ordering, id, comment)
-         VALUES (?, ?, ?, ?, ?)',
-        $release_id, $edit, $position, $cover_art_id, $comment);
+        'INSERT INTO cover_art_archive.cover_art (release, mime_type, edit, ordering, id, comment)
+         VALUES (?, ?, ?, ?, ?, ?)',
+        $release_id, $mime_type, $edit, $position, $cover_art_id, $comment);
 
     for my $type_id (@$types)
     {
@@ -179,6 +181,31 @@ sub merge_releases {
             $new_release,
             $old_release);
     }
+}
+
+sub merge_release_groups {
+    my ($self, $new_release_group_id, @old_release_groups) = @_;
+
+    my $all_ids = [ $new_release_group_id, @old_release_groups ];
+    $self->sql->do('
+      DELETE FROM cover_art_archive.release_group_cover_art
+      WHERE release_group = any(?) AND release_group NOT IN (
+        SELECT release_group
+        FROM cover_art_archive.release_group_cover_art
+        WHERE release_group = any(?)
+        ORDER BY (release_group = ?) DESC
+        LIMIT 1
+      )',
+        $all_ids,
+        $all_ids,
+        $new_release_group_id
+    );
+
+    $self->sql->do('
+        UPDATE cover_art_archive.release_group_cover_art SET release_group = ?
+        WHERE release_group = any(?)',
+        $new_release_group_id, $all_ids
+    );
 }
 
 sub exists {

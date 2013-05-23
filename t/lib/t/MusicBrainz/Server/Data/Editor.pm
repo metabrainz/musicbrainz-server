@@ -156,14 +156,17 @@ test 'Deleting editors removes most information' => sub {
     my $model = $c->model('Editor');
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO area_type (id, name) VALUES (1, 'Country');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1);
+INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
 INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since,
     email_confirm_date, last_login_date, edits_accepted, edits_rejected,
-    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
+    auto_edits_accepted, edits_failed, privs, birth_date, area, gender)
   VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
-    now(), now(), 100, 101, 102, 103, 1, now(), 1, 1);
+    now(), now(), 100, 101, 102, 103, 1, now(), 221, 1);
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
 
@@ -220,7 +223,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -230,7 +234,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
@@ -267,7 +272,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -277,7 +283,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);

@@ -11,6 +11,7 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 use aliased 'MusicBrainz::Server::Entity::Editor';
 use aliased 'MusicBrainz::Server::Entity::Release';
+use aliased 'MusicBrainz::Server::Entity::ReleaseEvent';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Medium';
 use aliased 'MusicBrainz::Server::Entity::MediumFormat';
@@ -29,7 +30,11 @@ test all => sub {
         Release->new(
             gid => 'b475f6e0-c4fd-4b1e-a104-8ba9de02a471',
             name => 'Resistance',
-            date => PartialDate->new( year => 2010 ),
+            events => [
+                ReleaseEvent->new(
+                    date => PartialDate->new( year => 2010 ),
+                )
+            ],
             artist_credit => ArtistCredit->new(
                 names => [
                     ArtistCreditName->new( name => 'Break' )]),
@@ -38,7 +43,11 @@ test all => sub {
         Release->new(
             gid => 'ab950dd7-4bff-409c-b406-2ab9af1739b0',
             name => 'Psycho',
-            date => PartialDate->new( year => 2010, month => 12 ),
+            events => [
+                ReleaseEvent->new(
+                    date => PartialDate->new( year => 2010, month => 12 )
+                ),
+            ],
             artist_credit => ArtistCredit->new(
                 names => [
                     ArtistCreditName->new( name => 'Phace' )]),
@@ -64,7 +73,7 @@ test all => sub {
                     'Has release medium formats: ' . $_->name)
         for @releases;
 
-    contains_string($email->text, $_->date->format,
+    contains_string($email->text, $_->events->[0]->date->format,
                     'Has release date: ' . $_->name)
         for @releases;
 

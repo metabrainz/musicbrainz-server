@@ -66,6 +66,9 @@ is($a2->edits_pending, 0);
 my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($a2->id);
 is(scalar @$ipi_codes, 3, "Merged Artist has all ipi codes after accepting edit");
 
+my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($a2->id);
+is(scalar @$isni_codes, 4, "Merged Artist has all isni codes after accepting edit");
+
 };
 
 sub create_edit {

@@ -36,13 +36,19 @@ INSERT INTO edit (id, type, editor, status, data, expire_time)
            (3, 218, 1, 1, '', now());
 INSERT INTO edit_recording (edit, recording) VALUES (1, 2), (2, 3), (3, 4);
 
-INSERT INTO tracklist (id) VALUES (1);
-INSERT INTO track (id, position, number, artist_credit, name, recording, tracklist)
-  VALUES (1, 1, '1', 1, 1, 1, 1),
-         (2, 2, '2', 1, 1, 2, 1),
-         (3, 3, '3', 1, 1, 3, 1),
-         (4, 4, '4', 1, 1, 4, 1),
-         (5, 5, '5', 1, 1, 5, 1);
+INSERT INTO release_name (id, name) VALUES (1, 'A Release');
+INSERT INTO release_group (id, gid, name, artist_credit)
+    VALUES (1, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO release (id, gid, name, artist_credit, release_group)
+    VALUES (1, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 1, 1, 1);
+INSERT INTO medium (id, track_count, release, position) VALUES (1, 5, 1, 1);
+
+INSERT INTO track (id, gid, position, number, artist_credit, name, recording, medium)
+  VALUES (1, 'edce7187-c4c3-4718-aa6b-88aadd798c95', 1, '1', 1, 1, 1, 1),
+         (2, 'f95632aa-d3a8-42db-8a71-7324d196e1e1', 2, '2', 1, 1, 2, 1),
+         (3, 'c1f77b6d-7bdc-4842-a977-96c47a6d5a9e', 3, '3', 1, 1, 3, 1),
+         (4, '86228613-dbd0-4d69-b426-26fed23ffc08', 4, '4', 1, 1, 4, 1),
+         (5, '667a4000-7adc-4127-9feb-04b90134fad1', 5, '5', 1, 1, 5, 1);
 
 -- Switch to a new recording
 INSERT INTO recording (id, gid, name, artist_credit)

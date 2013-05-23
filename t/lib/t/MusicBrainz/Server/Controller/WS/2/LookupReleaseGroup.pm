@@ -61,9 +61,23 @@ ws_test 'release group lookup with releases',
                 <title>Repercussions</title><status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
-                    <language>eng</language><script>Latn</script>
+                    <language>eng</language>
+                    <script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country>
+                <date>2008-11-17</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2008-11-17</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
                 <barcode>600116822123</barcode>
             </release>
         </release-list>
@@ -114,7 +128,21 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+                <date>2004-03-17</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2004-03-17</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4988064451180</barcode>
             </release>
         </release-list>
     </release-group>

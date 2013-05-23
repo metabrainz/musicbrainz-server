@@ -92,7 +92,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 16 }
+sub DB_SCHEMA_SEQUENCE { 17 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -127,6 +127,9 @@ sub DB_SCHEMA_SEQUENCE { 16 }
 
 # The host names used by the server.
 # To use a port number other than 80, add it like so: "myhost:8000"
+# Additionally you should set the environment variable
+# MUSICBRAINZ_USE_PROXY=1 when using a reverse proxy to make the server
+# aware of it when generating things like the canonical url in catalyst.
 sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # sub LUCENE_SERVER             { "search.musicbrainz.org" }
 # sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }

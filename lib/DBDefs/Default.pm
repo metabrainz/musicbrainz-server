@@ -149,9 +149,6 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # transclusion table.
 sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
-sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
-sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
-
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
 # Alternatively, if you're okay with the search results pointing to
