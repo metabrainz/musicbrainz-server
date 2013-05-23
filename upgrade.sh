@@ -3,6 +3,7 @@
 set -o errexit
 cd `dirname $0`
 eval `./admin/ShowDBDefs`
+source ./admin/config.sh
 
 NEW_SCHEMA_SEQUENCE=18
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
