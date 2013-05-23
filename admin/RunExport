@@ -68,10 +68,12 @@ then
     chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
+    cp -a "$TEMP_DIR"/replication-*.tar.bz2.asc "$BACKUP_DIR"/replication/
 
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
+    mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
     $mb_server/bin/rsync-replication-files
 fi
 
