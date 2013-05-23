@@ -9,8 +9,6 @@ use MusicBrainz::Server::Data::DurationLookup;
 use MusicBrainz::Server::Test qw( accept_edit );
 use Sql;
 
-use Try::Tiny;
-
 with 't::Context';
 
 test 'tracklist used to fit lookup criteria but no longer does' => sub {
