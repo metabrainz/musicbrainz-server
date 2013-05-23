@@ -68,13 +68,18 @@ sub REPLICATION_TYPE { RT_STANDALONE }
 # GPG Signature
 ################################################################################
 
-# Location of the public key file
+# Location of the public key file to use for verifying packets.
 sub GPG_PUB_KEY { "" }
 
 # Define how validation deals with the missing signature file:
 #   FAIL    - validation fails if signature file is missing
 #   PASS    - validation passes if signature file is missing
 sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets.
+sub GPG_SIGN_KEY { "" }
+sub GPG_ENCRYPT_KEY { "" }
 
 ################################################################################
 # HTTP Server Names

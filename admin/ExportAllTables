@@ -557,8 +557,6 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
-my $encrypt_for = undef;
-my $sign_with = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -572,9 +570,10 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
-    "encrypt-for|e=s" => \$encrypt_for,
-    "sign-with|s=s" => \$sign_with
 );
+
+my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY ne "" ? DBDefs->GPG_ENCRYPT_KEY : undef;
+my $sign_with = DBDefs->GPG_SIGN_KEY ne "" ? DBDefs->GPG_SIGN_KEY : undef;
 
 sub usage
 {
@@ -590,8 +589,6 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
-    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
-    -s, --sign-with       A GPG key that is used to sign data dumps.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -602,9 +599,11 @@ If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
 
 GPG encryption of private data requires you pass a recipient to encrypt data
-for. This parameter can take any value that gpg(1) can take for
-`--recipient`. The user running ExportAllTables must have a GPG keyring setup
-that is aware of this recipient.
+for. This value is taken from DBDefs and can take any value that gpg(1) can
+take for `--recipient`. The user running ExportAllTables must have a GPG
+keyring setup that is aware of this recipient. GPG signing works similarly.
+
+Encryption uses DBDefs->GPG_ENCRYPT_KEY and signing uses DBDefs->GPG_SIGN_KEY.
 
 EOF
 }
