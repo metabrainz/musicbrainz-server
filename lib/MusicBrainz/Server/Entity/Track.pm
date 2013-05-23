@@ -50,7 +50,8 @@ has 'artist_credit_id' => (
 
 has 'length' => (
     is => 'rw',
-    isa => 'Maybe[Int]'
+    isa => 'Maybe[Int]',
+    clearer => 'clear_length'
 );
 
 has 'artist_credit' => (
