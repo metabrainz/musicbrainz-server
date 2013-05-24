@@ -78,8 +78,7 @@ ALTER TABLE medium2013
 ALTER SEQUENCE medium_id_seq OWNED BY medium2013.id;
 
 ALTER TABLE medium_cdtoc
-  DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium,
-  ADD CONSTRAINT medium_cdtoc_fk_medium FOREIGN KEY (medium) REFERENCES medium2013 (id);
+  DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium;
 
 DROP TABLE medium;
 DROP TABLE tracklist;
