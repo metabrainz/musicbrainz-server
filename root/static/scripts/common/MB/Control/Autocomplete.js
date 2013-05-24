@@ -199,6 +199,14 @@ MB.Control.Autocomplete = function (options) {
 
     self.close = function (event) {
         self.$input.focus();
+
+        // If the menu is closing for good (i.e. not just temporarily after
+        // hitting "Show more..."), clear the current page and results.
+        if (cancelSearch) {
+            self.resetPage();
+        }
+
+        cancelSearch = true;
     };
 
     self.open = function (event) {
