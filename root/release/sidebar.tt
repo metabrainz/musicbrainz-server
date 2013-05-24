@@ -3,7 +3,9 @@
         [%- SWITCH release.cover_art_presence -%]
         [%- CASE 'absent' -%]
           [%- IF release.cover_art_url -%]
-            <img src="[% cover_art_url(release.cover_art_url) -%]" />
+            <img src="[% cover_art_url(release.cover_art_url) -%]" />i
+            [% foo = release.cover_art_url.match('https?://([^/]+)') %]
+            [% foo.1 %]
           [%- ELSE -%]
             <p style="text-align:left">[%- l("No cover art available.") -%]</p>
           [%- END -%]
