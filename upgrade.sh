@@ -44,9 +44,9 @@ then
     ./admin/RunExport
 
     echo `date`" : Bundling replication packets, daily"
-    carton exec -- ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
+    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period daily --require-previous
     echo `date`" : + weekly"
-    carton exec -- ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
+    ./admin/replication/BundleReplicationPackets $FTP_DATA_DIR/replication --period weekly --require-previous
 
     # We are only updating tables in the main namespace for this change.
     echo `date` : 'Drop replication triggers (musicbrainz)'
@@ -79,7 +79,7 @@ then
     OUTPUT=`echo 'DELETE FROM track' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
 
     echo `date` : Importing the version of the track table from master
-    ./admin/MBImport.pl --skip-editor catchup/mbdump.tar.bz2
+    ./admin/MBImport.pl --noupdate-replication-control --skip-editor catchup/mbdump.tar.bz2
 
     echo `date` : Recreating indexes on the track table
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
