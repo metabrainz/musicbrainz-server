@@ -671,7 +671,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (medium_id)
             {
                 $.getJSON ('/ws/js/medium/' + medium_id, {}, function (data) {
-                    use_data (self.changeTrackArtists (data.tracks));
+                    use_data (data.tracks);
                 });
             }
             else
@@ -692,7 +692,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             data = [];
         }
 
-        self.tracklist = data;
+        /* do a deep clone of our input to ensure that we always have
+           a copy of the data as loaded from /js/medium, without any
+           changes. */
+        self.tracklist = jQuery.extend (true, {}, data);
+        data = self.changeTrackArtists (data);
         self.trackparser = MB.TrackParser.Parser (self, data);
 
         self.removeTracks (data.length);
