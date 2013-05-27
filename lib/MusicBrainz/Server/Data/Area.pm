@@ -120,25 +120,33 @@ sub load_parent_country
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
+    my $area_area_parent_type = 356;
 
-    my $query = "WITH RECURSIVE area_descendants AS (
-        SELECT entity0 AS parent, entity1 AS ancestor, ARRAY[entity1] AS descendants
-          FROM l_area_area laa JOIN link ON laa.link = link.id WHERE link_type = 356
-      UNION ALL
-        SELECT entity0 AS parent, ancestor, descendants || entity1
-          FROM l_area_area laa JOIN link ON laa.link=link.id
-                               JOIN area_descendants ON area_descendants.parent = laa.entity1
-         WHERE link_type = 256 AND NOT entity0 = ANY(descendants))
-    SELECT DISTINCT ON (ancestor) ancestor, " . $self->_columns . "
-      FROM area_descendants JOIN area ON area_descendants.parent = area.id
-     WHERE area.type = 1 AND ancestor IN (" . placeholders(@all_ids) . ")
-     ORDER BY ancestor, array_length(descendants, 1) ASC";
+    my $query = "
+        WITH RECURSIVE area_descendants AS (
+            SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+             WHERE link_type = $area_area_parent_type
+                UNION ALL
+            SELECT entity0 AS parent, descendant, descendants || entity1
+              FROM l_area_area laa
+              JOIN link ON laa.link=link.id
+              JOIN area_descendants ON area_descendants.parent = laa.entity1
+             WHERE link_type = $area_area_parent_type AND NOT entity0 = ANY(descendants))
+        SELECT DISTINCT ON (descendant) descendant, " . $self->_columns . "
+          FROM area_descendants
+          JOIN area ON area_descendants.parent = area.id
+         WHERE area.type = 1
+           AND descendant IN (" . placeholders(@all_ids) . ")
+         ORDER BY descendant, array_length(descendants, 1) ASC
+    ";
     my $parent_countries = $self->sql->select_list_of_hashes($query, @all_ids);
 
     my $parent_objects = $self->get_by_ids(map { $_->{id} } @$parent_countries);
 
     for my $parent (@$parent_countries) {
-        if (my $entities = $obj_id_map{$parent->{ancestor}}) {
+        if (my $entities = $obj_id_map{$parent->{descendant}}) {
             my $parent_obj = $parent_objects->{$parent->{id}};
             for my $entity (@$entities) {
                 $entity->parent_country($parent_obj);
