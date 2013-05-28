@@ -727,7 +727,7 @@ sub external_search
                 map { $_->gid } @entities_from_search);
 
             for my $search_result (@entities_from_search) {
-                my $db_result = $entities_from_database->{ $_->gid };
+                my $db_result = $entities_from_database->{ $search_result->gid };
                 next unless $db_result;
                 $_->area_id ($db_result->area_id) if $db_result->area_id;
                 $_->begin_area_id ($db_result->begin_area_id) if $db_result->begin_area_id;
