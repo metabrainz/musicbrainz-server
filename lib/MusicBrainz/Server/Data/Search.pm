@@ -680,11 +680,10 @@ sub external_search
             # FIXME: The following is a temporary fix for MBS-6330.
             # When the search server returns these results (SEARCH-292), this
             # block of code can be removed again.
-            my $data_access = $self->c->model($type eq 'artist' ? 'Artist' : 'Label');
-
             my @entities_from_search = map { $_->entity } @results;
-            my $entities_from_database = $data_access->get_by_gids (
-                map { $_->entity->gid } @results);
+            my $entities_from_database = $self->c->model(
+                type_to_model ($type))->get_by_gids (
+                map { $_->gid } @entities_from_search);
 
             for my $search_result (@entities_from_search) {
                 my $db_result = $entities_from_database->{ $_->gid };
