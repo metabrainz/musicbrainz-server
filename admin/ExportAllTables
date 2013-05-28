@@ -572,8 +572,8 @@ GetOptions(
     "help"                              => \$fHelp,
 );
 
-my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY ne "" ? DBDefs->GPG_ENCRYPT_KEY : undef;
-my $sign_with = DBDefs->GPG_SIGN_KEY ne "" ? DBDefs->GPG_SIGN_KEY : undef;
+my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY || undef;
+my $sign_with = DBDefs->GPG_SIGN_KEY || undef;
 
 sub usage
 {
