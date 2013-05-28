@@ -1,8 +1,8 @@
 package MusicBrainz::Server::Controller::Track;
 use Moose;
+use MusicBrainz::Server::Validation qw( is_guid );
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
-
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name => 'track',
     model       => 'Track',
@@ -32,17 +32,41 @@ sub base : Chained('/') PathPart('track') CaptureArgs(0) { }
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
-    my $track = $c->stash->{track};
+    my $uri;
 
-    my $release_gid = $c->model('Release')->find_gid_for_track ($track->id);
+    if (defined ($c->stash->{recording}))
+    {
+        $uri = $c->uri_for_action('/recording/show', [ $c->stash->{recording}->gid ]);
+    }
+    else
+    {
+        my $track = $c->stash->{track};
+        my $release_gid = $c->model('Release')->find_gid_for_track ($track->id);
 
-    my $uri = $c->uri_for_action('/release/show', [ $release_gid ]);
-    $uri->fragment ($track->gid);
+        $uri = $c->uri_for_action('/release/show', [ $release_gid ]);
+        $uri->fragment ($track->gid);
+    }
 
     $c->response->redirect($uri, 303);
     $c->detach;
 }
 
+around load => sub {
+    my ($orig, $self, $c, $id) = @_;
+
+    # The /track/:mbid link can be an old link to a pre-ngs track
+    # entity, which became recording entities with ngs.  If no
+    # recording with the the specified :mbid exists, use the normal
+    # load() methods from Role::Load.  If a recording :mbid does
+    # exist, stash it so we can redirect to /recording/:mbid in
+    # show().
+
+    my $recording = $c->model('Recording')->get_by_gid($id) if is_guid($id);
+    return $self->$orig ($c, $id) unless defined $recording;
+
+    $c->stash( recording => $recording );
+    $c->stash( entity    => $recording );
+};
 
 =head1 LICENSE
 
