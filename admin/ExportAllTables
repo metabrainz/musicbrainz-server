@@ -572,8 +572,8 @@ GetOptions(
     "help"                              => \$fHelp,
 );
 
-my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY ne "" ? DBDefs->GPG_ENCRYPT_KEY : undef;
-my $sign_with = DBDefs->GPG_SIGN_KEY ne "" ? DBDefs->GPG_SIGN_KEY : undef;
+my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY || undef;
+my $sign_with = DBDefs->GPG_SIGN_KEY || undef;
 
 sub usage
 {
@@ -1060,7 +1060,6 @@ sub gpg_sign
     if ( $? != 0 ) {
         printf STDERR "Failed to sign $file_to_be_signed \n"
             . "GPG returned $?";
-        exit($?)
     }
 }
 
