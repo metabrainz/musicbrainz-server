@@ -582,6 +582,7 @@ sub load_with_medium_for_recording
           medium.name AS m_name,
           medium.track_count AS m_track_count,
           track.id AS t_id,
+          track.gid AS t_gid,
           track_name.name AS t_name,
           track.medium AS t_medium,
           track.position AS t_position,

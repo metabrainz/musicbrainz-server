@@ -307,6 +307,7 @@ test 'release lookup with labels and recordings' => sub {
                     "track-count" => 3,
                     tracks => [
                         {
+                            id => "ec60f5e2-ed8a-391d-90cd-bf119c50f6a0",
                             number => "1",
                             title => "the Love Bug",
                             length => 243000,
@@ -318,6 +319,7 @@ test 'release lookup with labels and recordings' => sub {
                             }
                         },
                         {
+                            id => "2519283c-93d9-30de-a0ba-75f99ca25604",
                             number => "2",
                             length => 222000,
                             title => "the Love Bug (Big Bug NYC remix)",
@@ -329,6 +331,7 @@ test 'release lookup with labels and recordings' => sub {
                             }
                         },
                         {
+                            id => "4ffc18f0-96cc-3e1f-8192-cf0d0c489beb",
                             number => "3",
                             length => 333000,
                             title => "the Love Bug (cover)",
@@ -460,6 +463,7 @@ test 'release lookup with discids and puids' => sub {
                     "track-offset" => 0,
                     tracks => [
                         {
+                            id => "3b9d0128-ed86-3c2c-af24-c331a3798875",
                             number => "1",
                             title => "Summer Reggae! Rainbow",
                             length => 296026,
@@ -472,6 +476,7 @@ test 'release lookup with discids and puids' => sub {
                             }
                         },
                         {
+                            id => "c7c21691-6f85-3ec7-9b08-e431c3b310a5",
                             number => "2",
                             title => "Hello! Mata Aou Ne (7nin Matsuri version)",
                             length => 213106,
@@ -484,6 +489,7 @@ test 'release lookup with discids and puids' => sub {
                             }
                         },
                         {
+                            id => "e436c057-ca19-36c6-9f1e-dc4ada2604b0",
                             number => "3",
                             title => "Summer Reggae! Rainbow (Instrumental)",
                             length => 292800,
