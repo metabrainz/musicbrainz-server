@@ -23,7 +23,7 @@ $(function() {
 
     var conditionCounter = 0;
 
-    $('#extra-condition select').live('change', function() {
+    $(document).on("change", "#extra-condition select", function() {
         var newCondition = $(this).parent('li');
 
         var append = newCondition.clone();
@@ -39,13 +39,11 @@ $(function() {
             .find('option:first').remove();
 
         newCondition.find('button.remove').show();
-    })
 
-    $('ul.conditions li.condition button.remove').live('click', function() {
+    }).on("click", "ul.conditions li.condition button.remove", function() {
         $(this).parent('li').remove();
-    });
 
-    $('ul.conditions select.field').live('change', function() {
+    }).on("change", "ul.conditions select.field", function() {
         var val = $(this).val();
         var $replacement = $('#fields .field-' + val).clone();
         if($replacement.length) {
@@ -70,6 +68,16 @@ $(function() {
         else {
             console.error('There is no field-' + val);
         }
+
+    }).on("change", "ul.conditions select.operator", function() {
+        var $field = $(this).parent('span.field');
+
+        var predicate = filteredClassName($field, 'predicate-');
+        var cardinality = cardinalityMap[predicate][$(this).val()];
+
+        $field.find('.arg').hide();
+        $field.find('.arg:lt(' + cardinality + ')').show();
+        $field.find('.arg:first :input:first').focus();
     });
 
     function prefixedInputName($element) {
@@ -82,17 +90,6 @@ $(function() {
             $input.attr('name', prefixedInputName($input));
         }
     }
-
-    $('ul.conditions select.operator').live('change', function() {
-        var $field = $(this).parent('span.field');
-
-        var predicate = filteredClassName($field, 'predicate-');
-        var cardinality = cardinalityMap[predicate][$(this).val()];
-
-        $field.find('.arg').hide();
-        $field.find('.arg:lt(' + cardinality + ')').show();
-        $field.find('.arg:first :input:first').focus();
-    });
 
     function filteredClassName($element, prefix) {
         var classList = $element.attr('class').split(/\s+/);

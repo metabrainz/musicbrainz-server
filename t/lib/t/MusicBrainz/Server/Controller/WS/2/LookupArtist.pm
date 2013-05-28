@@ -67,7 +67,62 @@ ws_test 'artist lookup, inc=annotation',
 
 ws_test 'artist lookup with releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases' =>
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f"><name>7人祭</name><sort-name>7nin Matsuri</sort-name><release-list count="2"><release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e"><title>サマーれげぇ!レインボー</title><status>Official</status><quality>normal</quality><text-representation><language>jpn</language><script>Jpan</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release><release id="b3b7e934-445b-4c68-a097-730c6a6d47e6"><title>Summer Reggae! Rainbow</title><status>Pseudo-Release</status><quality>normal</quality><text-representation><language>jpn</language><script>Latn</script></text-representation><date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode></release></release-list></artist></metadata>';
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Group" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+        <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+        <release-list count="2">
+            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title>
+                <status>Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>jpn</language>
+                    <script>Jpan</script>
+                </text-representation>
+                <date>2001-07-04</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2001-07-04</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4942463511227</barcode>
+            </release>
+            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+                <title>Summer Reggae! Rainbow</title>
+                <status>Pseudo-Release</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>jpn</language>
+                    <script>Latn</script>
+                </text-representation>
+                <date>2001-07-04</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2001-07-04</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4942463511227</barcode>
+            </release>
+        </release-list>
+    </artist>
+</metadata>';
 
 ws_test 'artist lookup with pseudo-releases',
     '/artist/802673f0-9b88-4e8a-bb5c-dd01d68b086f?inc=releases&type=single&status=pseudo-release' =>
@@ -86,6 +141,18 @@ ws_test 'artist lookup with pseudo-releases',
                 </text-representation>
                 <date>2001-07-04</date>
                 <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2001-07-04</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
                 <barcode>4942463511227</barcode>
             </release>
         </release-list>
@@ -100,12 +167,28 @@ ws_test 'artist lookup with releases and discids',
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list count="2">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-                <title>Repercussions</title><status>Official</status>
+                <title>Repercussions</title>
+                <status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
-                    <language>eng</language><script>Latn</script>
+                    <language>eng</language>
+                    <script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
+                <date>2008-11-17</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2008-11-17</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
                         <position>1</position><format>CD</format>
@@ -128,12 +211,28 @@ ws_test 'artist lookup with releases and discids',
                 </medium-list>
             </release>
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title><status>Official</status>
+                <title>My Demons</title>
+                <status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
-                    <language>eng</language><script>Latn</script>
+                    <language>eng</language>
+                    <script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+                <date>2007-01-29</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2007-01-29</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format>
@@ -233,7 +332,21 @@ ws_test 'single artist release lookup',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
-                <date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode>
+                <date>2004-03-17</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2004-03-17</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4988064451180</barcode>
             </release>
         </release-list>
     </artist>
@@ -241,7 +354,38 @@ ws_test 'single artist release lookup',
 
 ws_test 'various artists release lookup',
     '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=releases+various-artists&status=official' =>
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55"><name>BoA</name><sort-name>BoA</sort-name><life-span><begin>1986-11-05</begin></life-span><release-list count="1"><release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7"><title>the Love Bug</title><status>Official</status><quality>normal</quality><text-representation><language>eng</language><script>Latn</script></text-representation><date>2004-03-17</date><country>JP</country><barcode>4988064451180</barcode></release></release-list></artist></metadata>';
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Person" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+        <name>BoA</name>
+        <sort-name>BoA</sort-name>
+        <life-span><begin>1986-11-05</begin></life-span>
+        <release-list count="1">
+            <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+                <title>the Love Bug</title><status>Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language><script>Latn</script>
+                </text-representation>
+                <date>2004-03-17</date>
+                <country>JP</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2004-03-17</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                           <name>Japan</name>
+                           <sort-name>Japan</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>JP</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>4988064451180</barcode>
+            </release>
+        </release-list>
+    </artist>
+</metadata>';
 
 $mech->get('/ws/2/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=coffee');
 is($mech->status, 400);
@@ -297,6 +441,13 @@ ws_test 'artist lookup with artist relations',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" id="678ba12a-e485-44c7-8eaf-25e61a78a61b">
         <name>後藤真希</name><sort-name>Goto, Maki</sort-name><gender>Female</gender><country>JP</country>
+        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+    	    <name>Japan</name>
+            <sort-name>Japan</sort-name>
+	    <iso-3166-1-code-list>
+		<iso-3166-1-code>JP</iso-3166-1-code>
+	    </iso-3166-1-code-list>
+	</area>
         <life-span>
             <begin>1985-09-23</begin>
         </life-span>

@@ -1,0 +1,30 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>[% l('Artist') %]</th>
+      <th>[% l('Type') %]</th>
+      <th>[% l('Gender') %]</th>
+      [% UNLESS no_ratings %]
+      <th>[% l('Rating') %]</th>
+      [% END %]
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR artist IN artists %]
+    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+      <td>
+        [% descriptive_link(artist) %]
+      </td>
+      <td>
+        [% artist.l_type_name %]
+      </td>
+      <td>
+        [% artist.l_gender_name %]
+      </td>
+      [% UNLESS no_ratings %]
+      <td>[% rating_stars(artist) %]</td>
+      [% END %]
+    </tr>
+    [% END %]
+  </tbody>
+</table>

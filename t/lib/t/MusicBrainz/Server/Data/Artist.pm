@@ -40,7 +40,7 @@ INSERT INTO recording (id, gid, name, artist_credit)
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase,
-     reverse_link_phrase, short_link_phrase, description)
+     reverse_link_phrase, long_link_phrase, description)
   VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'recording', 'work',
           '', '', '', '', ''),
          (2, '1610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'work',
@@ -166,7 +166,7 @@ $artist = $artist_data->insert({
         name => 'New Artist',
         sort_name => 'Artist, New',
         comment => 'Artist comment',
-        country_id => 1,
+        area_id => 221,
         type_id => 1,
         gender_id => 1,
         begin_date => { year => 2000, month => 1, day => 2 },
@@ -186,7 +186,7 @@ is($artist->end_date->month, 3);
 is($artist->end_date->day, 4);
 is($artist->type_id, 1);
 is($artist->gender_id, 1);
-is($artist->country_id, 1);
+is($artist->area_id, 221);
 is($artist->comment, 'Artist comment');
 ok(defined $artist->gid);
 
@@ -199,7 +199,7 @@ $artist_data->update($artist->id, {
         end_date => { year => 1990, month => 6, day => 17 },
         type_id => undef,
         gender_id => 2,
-        country_id => 2,
+        area_id => 222,
         comment => 'Updated comment',
     });
 
@@ -215,7 +215,7 @@ is($artist->end_date->month, 6);
 is($artist->end_date->day, 17);
 is($artist->type_id, undef);
 is($artist->gender_id, 2);
-is($artist->country_id, 2);
+is($artist->area_id, 222);
 is($artist->comment, 'Updated comment');
 
 $artist_data->update($artist->id, {
@@ -289,7 +289,7 @@ ok(!$artist_data->can_delete(3));
         name => 'Test Artist',
         sort_name => 'Artist, Test',
         comment => 'J-Pop artist',
-        country_id => 1,
+        area_id => 221,
         type_id => 1,
         gender_id => 1,
     });
@@ -398,7 +398,7 @@ test 'Merging attributes for VA' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c, '+special-purpose');
     MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
-    MusicBrainz::Server::Test->prepare_test_database($c, '+country');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     $c->sql->do(<<'EOSQL');
 INSERT INTO artist_name (id, name) VALUES (4, 'artist name');
 INSERT INTO artist (id, gid, name, sort_name, gender) VALUES
@@ -409,8 +409,8 @@ INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
   VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2000, 2005, 12,
           'Artist 4');
 
-INSERT INTO artist (id, gid, name, sort_name, country, type, comment)
-  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2, 2,
+INSERT INTO artist (id, gid, name, sort_name, area, type, comment)
+  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 4, 4, 222, 2,
           'Artist 5');
 EOSQL
 
@@ -423,7 +423,7 @@ EOSQL
     is($artist->end_date->year, undef, "end date...");
     is($artist->end_date->month, undef);
     is($artist->end_date->day, undef);
-    is($artist->country_id, undef, "country is undef");
+    is($artist->area_id, undef, "area is undef");
     is($artist->gender_id, undef, "gender is undef");
     is($artist->type_id, 3, "type is unchanged");
 };

@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -64,6 +65,16 @@ my @tables = qw(
     work_tag_raw
     annotation
     application
+    area
+    area_type
+    area_alias
+    area_alias_type
+    area_annotation
+    area_gid_redirect
+    country_area
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -72,6 +83,7 @@ my @tables = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_meta
     artist_name
     artist_tag
@@ -80,13 +92,13 @@ my @tables = qw(
     autoeditor_election_vote
     cdtoc
     clientversion
-    country
     editor
     editor_oauth_token
     editor_preference
     editor_language
     editor_sanitised
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -96,6 +108,14 @@ my @tables = qw(
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -130,6 +150,7 @@ my @tables = qw(
     label_annotation
     label_gid_redirect
     label_ipi
+    label_isni
     label_meta
     label_name
     label_tag
@@ -137,7 +158,9 @@ my @tables = qw(
     language
     link
     link_attribute
+    link_attribute_credit
     link_attribute_type
+    link_creditable_attribute_type
     link_type
     link_type_attribute_type
     editor_collection
@@ -154,6 +177,7 @@ my @tables = qw(
     recording_tag
     release
     release_annotation
+    release_country
     release_gid_redirect
     release_group
     release_group_annotation
@@ -170,21 +194,25 @@ my @tables = qw(
     release_packaging
     release_status
     release_tag
+    release_unknown_country
     replication_control
     script
     script_language
     tag
     tag_relation
     track
+    track_gid_redirect
     track_name
-    tracklist
-    tracklist_index
+    medium_index
     url
     url_gid_redirect
     work
     work_alias
     work_alias_type
     work_annotation
+    work_attribute
+    work_attribute_type
+    work_attribute_type_allowed_value
     work_gid_redirect
     work_meta
     work_name
@@ -192,12 +220,53 @@ my @tables = qw(
     work_type
 
     cover_art_archive.art_type
+    cover_art_archive.image_type
     cover_art_archive.cover_art
     cover_art_archive.cover_art_type
     cover_art_archive.release_group_cover_art
 
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
+    documentation.l_artist_artist_example
+    documentation.l_artist_label_example
+    documentation.l_artist_recording_example
+    documentation.l_artist_release_example
+    documentation.l_artist_release_group_example
+    documentation.l_artist_url_example
+    documentation.l_artist_work_example
+    documentation.l_label_label_example
+    documentation.l_label_recording_example
+    documentation.l_label_release_example
+    documentation.l_label_release_group_example
+    documentation.l_label_url_example
+    documentation.l_label_work_example
+    documentation.l_recording_recording_example
+    documentation.l_recording_release_example
+    documentation.l_recording_release_group_example
+    documentation.l_recording_url_example
+    documentation.l_recording_work_example
+    documentation.l_release_group_release_group_example
+    documentation.l_release_group_url_example
+    documentation.l_release_group_work_example
+    documentation.l_release_release_example
+    documentation.l_release_release_group_example
+    documentation.l_release_url_example
+    documentation.l_release_work_example
+    documentation.l_url_url_example
+    documentation.l_url_work_example
+    documentation.l_work_work_example
+    documentation.link_type_documentation
+
     statistics.statistic
     statistics.statistic_event
+
+    wikidocs.wikidocs_index
 );
 
 my @replication_tables = qw(
@@ -207,6 +276,16 @@ my @replication_tables = qw(
 
 
 my @group_core = qw(
+    area
+    area_type
+    area_alias
+    country_area
+    area_alias_type
+    area_annotation
+    area_gid_redirect
+    iso_3166_1
+    iso_3166_2
+    iso_3166_3
     artist
     artist_alias
     artist_alias_type
@@ -214,14 +293,22 @@ my @group_core = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_name
     artist_type
     cdtoc
     clientversion
-    country
     gender
     isrc
     iswc
+    l_area_area
+    l_area_artist
+    l_area_label
+    l_area_recording
+    l_area_release
+    l_area_release_group
+    l_area_url
+    l_area_work
     l_artist_artist
     l_artist_label
     l_artist_recording
@@ -255,6 +342,7 @@ my @group_core = qw(
     label_alias_type
     label_gid_redirect
     label_ipi
+    label_isni
     label_name
     label_type
     language
@@ -271,6 +359,7 @@ my @group_core = qw(
     recording_gid_redirect
     recording_puid
     release
+    release_country
     release_gid_redirect
     release_group
     release_group_gid_redirect
@@ -281,10 +370,12 @@ my @group_core = qw(
     release_name
     release_packaging
     release_status
+    release_unknown_country
     replication_control
     script
     script_language
     track
+    track_gid_redirect
     track_name
     tracklist
     url
@@ -316,7 +407,7 @@ my @group_derived = qw(
     release_tag
     tag
     tag_relation
-    tracklist_index
+    medium_index
     work_annotation
     work_meta
     work_tag
@@ -333,6 +424,7 @@ my @group_editor = qw(
 
 my @group_edit = qw(
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -363,6 +455,7 @@ my @group_private = qw(
     editor_oauth_token
     editor_preference
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -389,9 +482,54 @@ my @group_cdstubs = qw(
 
 my @group_cover_art_archive = (
     'cover_art_archive.art_type',
+    'cover_art_archive.image_type',
     'cover_art_archive.cover_art',
     'cover_art_archive.cover_art_type',
     'cover_art_archive.release_group_cover_art'
+);
+
+my @group_wikidocs = (
+    'wikidocs.wikidocs_index'
+);
+
+my @group_documentation = qw(
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
+    documentation.l_artist_artist_example
+    documentation.l_artist_label_example
+    documentation.l_artist_recording_example
+    documentation.l_artist_release_example
+    documentation.l_artist_release_group_example
+    documentation.l_artist_url_example
+    documentation.l_artist_work_example
+    documentation.l_label_label_example
+    documentation.l_label_recording_example
+    documentation.l_label_release_example
+    documentation.l_label_release_group_example
+    documentation.l_label_url_example
+    documentation.l_label_work_example
+    documentation.l_recording_recording_example
+    documentation.l_recording_release_example
+    documentation.l_recording_release_group_example
+    documentation.l_recording_url_example
+    documentation.l_recording_work_example
+    documentation.l_release_group_release_group_example
+    documentation.l_release_group_url_example
+    documentation.l_release_group_work_example
+    documentation.l_release_release_example
+    documentation.l_release_release_group_example
+    documentation.l_release_url_example
+    documentation.l_release_work_example
+    documentation.l_url_url_example
+    documentation.l_url_work_example
+    documentation.l_work_work_example
+    documentation.link_type_documentation
 );
 
 my @groups = (
@@ -403,6 +541,8 @@ my @groups = (
     \@group_closedmoderation,
     \@group_private,
     \@group_cdstubs,
+    \@group_wikidocs,
+    \@group_documentation
 );
 
 ################################################################################
@@ -574,7 +714,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 last_updated,
                 NULL AS birth_date,
                 NULL AS gender,
-                NULL as country
+                NULL as area
               INTO TEMPORARY editor_sanitised
               FROM editor");
 }
@@ -661,16 +801,16 @@ sub dumptable
     $rows;
 }
 
-# Is there any replication data to dump?
-my $fAnyReplicationData = 0;
-for my $table (@replication_tables)
-{
-    $fAnyReplicationData = 1
-        if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
-}
-
 if ($fDoReplication)
 {
+    # Is there any replication data to dump?
+    my $fAnyReplicationData = 0;
+    for my $table (@replication_tables)
+    {
+        $fAnyReplicationData = 1
+            if $sql->select_single_value("SELECT COUNT(*) FROM $table") > 0;
+    }
+
     if ($fAnyReplicationData or not $iReplicationSequence)
     {
         # Are we starting replication for the first time?
@@ -717,15 +857,13 @@ if ($fDoReplication)
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
         writefile("REPLICATION_SEQUENCE", "");
     }
-} elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
-    print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-    writefile("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
 } else {
     writefile("REPLICATION_SEQUENCE", "");
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
-dumptable("replication_control");
+# Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
+dumptable("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
@@ -763,6 +901,8 @@ if ($fCompress and $fDoFullExport)
     make_tar("mbdump-private.tar.bz2", @group_private);
     make_tar("mbdump-cdstubs.tar.bz2", @group_cdstubs);
     make_tar("mbdump-cover-art-archive.tar.bz2", @group_cover_art_archive);
+    make_tar("mbdump-wikidocs.tar.bz2", @group_wikidocs);
+    make_tar("mbdump-documentation.tar.bz2", @group_documentation);
 
     system "cd $OutputDir && /usr/bin/md5sum --binary *.tar.bz2" .
            ' | grep -v mbdump-private > MD5SUMS';

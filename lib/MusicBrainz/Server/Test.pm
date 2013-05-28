@@ -4,7 +4,7 @@ binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
 use DBDefs;
-use Encode qw( encode );
+use Encode qw( decode encode );
 use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
@@ -98,7 +98,7 @@ sub _load_query
     # comment PostgreSQL interactive terminal commands.
     $query =~ s/^(\\.*)$/-- $1/mg;
 
-    return $query;
+    return decode ("utf-8", $query);
 }
 
 sub prepare_test_database
