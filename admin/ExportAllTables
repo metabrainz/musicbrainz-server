@@ -1059,7 +1059,6 @@ sub gpg_sign
     if ( $? != 0 ) {
         printf STDERR "Failed to sign $file_to_be_signed \n"
             . "GPG returned $?";
-        exit($?)
     }
 }
 
