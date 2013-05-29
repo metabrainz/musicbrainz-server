@@ -99,13 +99,8 @@ sub enter_votes
             --( $delta{ $id }->{yes} ) if $s->{vote} == $VOTE_YES;
         }
 
-        # Select all the edits that have not yet received a no vote
-        $query = 'SELECT edit FROM vote WHERE edit IN (' . placeholders(@edit_ids) . ') AND vote = ?';
-        my $emailed = $self->sql->select_single_column_array($query, @edit_ids, $VOTE_NO);
-        my %already_emailed = map { $_ => 1 } @$emailed;
-
-        # Select all edits where there are not, currently, any no votes (but some may have been superseded)
-        $query = 'SELECT id FROM edit WHERE id IN (' . placeholders(@edit_ids) . ') AND no_votes = 0';
+        # Select all edits which have more than 0 'no' votes already.
+        $query = 'SELECT id FROM edit WHERE id IN (' . placeholders(@edit_ids) . ') AND no_votes > 0';
         my $no_voted = $self->sql->select_single_column_array($query, @edit_ids);
         my %already_no_voted = map { $_ => 1 } @$no_voted;
 
@@ -128,14 +123,14 @@ sub enter_votes
         }
 
         # Send out the emails for no votes
-        my @email_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
-                             grep { !exists $already_emailed{$_} } @edit_ids;
+        my @email_extend_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
+                             grep { !exists $already_no_voted{$_} } @edit_ids;
         my $email = MusicBrainz::Server::Email->new( c => $self->c );
-        my $editors = $self->c->model('Editor')->get_by_ids((map { $edits->{$_}->editor_id } @email_edit_ids),
+        my $editors = $self->c->model('Editor')->get_by_ids((map { $edits->{$_}->editor_id } @email_extend_edit_ids),
                                                             $editor_id);
         $self->c->model('Editor')->load_preferences(values %$editors);
 
-        for my $edit_id (@email_edit_ids) {
+        for my $edit_id (@email_extend_edit_ids) {
             my $edit = $edits->{ $edit_id };
             my $voter = $editors->{ $editor_id  };
             my $editor = $editors->{ $edit->editor_id };
@@ -143,10 +138,8 @@ sub enter_votes
                 if $editor->preferences->email_on_no_vote;
         }
 
-        # Extend the expiration in cases where this edit has just gone from 0 to 1 active "No" votes
-        my @extend_edit_ids = grep { $edit_to_vote{$_} == $VOTE_NO }
-                              grep { !exists $already_no_voted{$_} } @edit_ids;
-        $self->c->model('Edit')->extend_expiration_time(@extend_edit_ids);
+        # Extend the expiration of no-voted edits where applicable
+        $self->c->model('Edit')->extend_expiration_time(@email_extend_edit_ids);
 
     }, $self->c->sql);
 }

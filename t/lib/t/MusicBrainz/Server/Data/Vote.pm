@@ -37,10 +37,21 @@ test 'Email on first no vote' => sub {
     my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 
     $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
-    is($email_transport->delivery_count, 0);
+    is($email_transport->delivery_count, 0, 'yes vote sends no email');
 
     $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
-    is($email_transport->delivery_count, 1);
+    is($email_transport->delivery_count, 1, 'first no vote sends email');
+
+    $c->model('Vote')->enter_votes(3, { edit_id => $edit->id, vote => $VOTE_NO });
+    is($email_transport->delivery_count, 1, 'second no vote sends no email');
+
+    $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_YES });
+    is($email_transport->delivery_count, 1, 'yes vote sends no email');
+    $c->model('Vote')->enter_votes(3, { edit_id => $edit->id, vote => $VOTE_YES });
+    is($email_transport->delivery_count, 1, 'yes vote sends no email');
+
+    $c->model('Vote')->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
+    is($email_transport->delivery_count, 2, 'new no vote bringing count from 0 to 1 sends an email');
 };
 
 test all => sub {
@@ -114,9 +125,13 @@ $edit = $test->c->model('Edit')->get_by_id($edit->id);
 is($edit->yes_votes, 0);
 is($edit->no_votes, 0);
 
-# Make sure future no votes do not cause another email to be sent out
+# Make sure *new* no-votes against result in an email being sent
 $vote_data->enter_votes(2, { edit_id => $edit->id, vote => $VOTE_NO });
-is($email_transport->delivery_count, 0);
+is($email_transport->delivery_count, 1, 'no-vote count 0-1 results in email');
+
+# but that ones that just add extra no-votes don't send any
+$vote_data->enter_votes(3, { edit_id => $edit->id, vote => $VOTE_NO });
+is($email_transport->delivery_count, 1, 'no-vote count 1-2 does not result in additional email');
 
 # Entering invalid votes doesn't do anything
 $vote_data->load_for_edits($edit);
