@@ -730,10 +730,12 @@ sub external_search
                 my $db_result = $entities_from_database->{ $search_result->gid };
                 next unless $db_result;
                 $search_result->area_id ($db_result->area_id) if $db_result->area_id;
-                $search_result->begin_area_id ($db_result->begin_area_id)
-                    if $db_result->begin_area_id;
-                $search_result->end_area_id ($db_result->end_area_id)
-                    if $db_result->end_area_id;
+                if ($type eq 'artist') {
+                    $search_result->begin_area_id ($db_result->begin_area_id)
+                        if $db_result->begin_area_id;
+                    $search_result->end_area_id ($db_result->end_area_id)
+                        if $db_result->end_area_id;
+                }
             }
 
             $self->c->model('Area')->load(@entities_from_search);
