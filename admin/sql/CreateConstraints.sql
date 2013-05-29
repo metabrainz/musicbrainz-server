@@ -42,4 +42,6 @@ ALTER TABLE artist ADD CONSTRAINT artist_va_check
             end_date_month IS NULL AND
             end_date_day IS NULL));
 
+ALTER TABLE editor_remember_me ALTER COLUMN token SET DEFAULT generate_uuid_v4();
+
 COMMIT;

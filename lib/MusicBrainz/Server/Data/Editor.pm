@@ -613,10 +613,9 @@ sub consume_remember_me_token {
 sub allocate_remember_me_token {
     my ($self, $user_name) = @_;
     return $self->sql->select_single_value(
-        'INSERT INTO editor_remember_me (editor, token)
-         SELECT id, ? FROM editor WHERE name = ?
-         RETURNING token',
-        generate_gid(), $user_name
+        'INSERT INTO editor_remember_me (editor)
+         SELECT id FROM editor WHERE name = ?
+         RETURNING token', $user_name
     );
 }
 
