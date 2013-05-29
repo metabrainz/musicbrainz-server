@@ -257,7 +257,6 @@ sub CreateRelations
         for ($DB->schema, 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    RequireMinimumPostgreSQLVersion();
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
@@ -493,6 +492,7 @@ if ($fInstallExtension)
 }
 
 SanityCheck();
+RequireMinimumPostgreSQLVersion();
 
 print localtime() . " : InitDb.pl starting\n" unless $fQuiet;
 my $started = 1;
