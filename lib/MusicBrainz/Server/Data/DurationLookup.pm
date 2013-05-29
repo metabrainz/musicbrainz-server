@@ -107,7 +107,7 @@ sub update
 
     my $results = $self->sql->select_list_of_hashes (
         "SELECT (sum(track.length) < 4800000 AND
-                 count(track.id) = count(track.length) AND
+                 bool_and(track.length IS NOT NULL) AND
                  count(track.id) <= 99) AS should_have_index,
                 medium_index.medium IS NOT NULL AS has_index
            FROM track

@@ -114,8 +114,6 @@ sub insert
 
         $self->c->model('Track')->insert(@$tracklist);
 
-        $self->c->model('DurationLookup')->update($medium_created->id);
-
         push @created, $medium_created;
     }
 
@@ -205,8 +203,6 @@ sub set_lengths_to_cdtoc
 
         $i++;
     }
-
-    $self->c->model('DurationLookup')->update($medium_id);
 }
 
 sub merge

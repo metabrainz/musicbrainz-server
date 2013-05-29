@@ -419,8 +419,6 @@ sub accept {
             $self->c->model ('Track')->delete ($old_track->id)
                 unless $tracks_reused{$old_track->id}
         }
-
-        $self->c->model('DurationLookup')->update($medium->id);
     }
 }
 
