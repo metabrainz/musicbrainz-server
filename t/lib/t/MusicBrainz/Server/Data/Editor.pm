@@ -52,7 +52,7 @@ is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');
 is($editor->accepted_auto_edits, 59, 'auto edits');
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2009, month => 01, day => 01),
+is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 04, day => 05),
     'last login date');
 
 is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
@@ -116,7 +116,7 @@ is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
 ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
 is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
 
-$editor_data->update_password($new_editor_2, 'password2');
+$editor_data->update_password($new_editor_2->name, 'password2');
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->password, 'password2');
@@ -156,14 +156,17 @@ test 'Deleting editors removes most information' => sub {
     my $model = $c->model('Editor');
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO area_type (id, name) VALUES (1, 'Country');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1);
+INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
 INSERT INTO gender (id, name) VALUES (1, 'Male');
 INSERT INTO editor (id, name, password, email, website, bio, member_since,
     email_confirm_date, last_login_date, edits_accepted, edits_rejected,
-    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
+    auto_edits_accepted, edits_failed, privs, birth_date, area, gender)
   VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
-    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+    now(), now(), 100, 101, 102, 103, 1, now(), 221, 1);
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
 
@@ -220,7 +223,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -230,7 +234,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
@@ -267,7 +272,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -277,7 +283,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);

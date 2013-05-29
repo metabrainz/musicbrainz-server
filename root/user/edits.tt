@@ -12,7 +12,15 @@
     //]]></script>
 [% END %]
 
-[% WRAPPER 'user/profile/layout.tt' title=l('Edits') page=c.action.name _ "_edits" %]
-   <h2>[% l('Edits by {name}', { name => html_escape(user.name) }) %]</h2>
+[%- IF c.action.name == "votes";
+   page_title = l('Votes');
+   page_heading = l('Votes by {name}', { name => html_escape(user.name) });
+ELSE;
+   page_title = l('Edits');
+   page_heading = l('Edits by {name}', { name => html_escape(user.name) });
+END; -%]
+
+[% WRAPPER 'user/profile/layout.tt' title=page_title %]
+   <h2>[% page_heading %]</h2>
    [% INCLUDE 'edit/list.tt' guess_search=1 %]
 [% END %]

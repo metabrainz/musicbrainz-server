@@ -1,0 +1,30 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>[% l('Label') %]</th>
+      <th>[% l('Type') %]</th>
+      <th>[% l('Code') %]</th>
+      [% UNLESS no_ratings %]
+      <th>[% l('Rating') %]</th>
+      [% END %]
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR label IN labels %]
+    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+      <td>
+        [% descriptive_link(label) %]
+      </td>
+      <td>
+        [% label.l_type_name %]
+      </td>
+      <td>
+        [% label.format_label_code %]
+      </td>
+      [% UNLESS no_ratings %]
+      <td>[% rating_stars(label) %]</td>
+      [% END %]
+    </tr>
+    [% END %]
+  </tbody>
+</table>

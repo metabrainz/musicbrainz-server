@@ -56,14 +56,14 @@ sub l_reverse_link_phrase {
     return l($self->reverse_link_phrase);
 }
 
-has 'short_link_phrase' => (
+has 'long_link_phrase' => (
     is => 'rw',
     isa => 'Str',
 );
 
-sub l_short_link_phrase {
+sub l_long_link_phrase {
     my $self = shift;
-    return l($self->short_link_phrase);
+    return l($self->long_link_phrase);
 }
 
 has 'description' => (
@@ -115,6 +115,28 @@ has 'attributes' => (
 sub sorted_children {
     my $self = shift;
     return sort { $a->child_order <=> $b->child_order || lc($a->name) cmp lc($b->name) } $self->all_children;
+}
+
+has 'documentation' => (
+    is => 'rw'
+);
+
+has 'examples' => (
+    is => 'rw',
+    isa => 'ArrayRef',
+    traits => [ 'Array' ],
+    handles => {
+        all_examples => 'elements',
+    }
+);
+
+sub published_examples {
+    my $self = shift;
+    return grep { $_->published } $self->all_examples;
+}
+
+sub is_deprecated {
+    return shift->description =~ /deprecated/;
 }
 
 __PACKAGE__->meta->make_immutable;

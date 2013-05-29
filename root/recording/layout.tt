@@ -56,6 +56,8 @@
           [% END %]
         </ul>
 
+        [%- INCLUDE "layout/sidebar/sidebar-licenses.tt" source=recording -%]
+
         [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=recording -%]
 
         [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=recording -%]

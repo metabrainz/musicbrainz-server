@@ -17,7 +17,7 @@
             <input type="radio" name="merge.target" value="[% recording.id %]" />
           </td>
         [% END %]
-        [% INCLUDE 'artist/recordings-list.tt' recordings=to_merge show_artists=1 select_all=0 %]
+        [% INCLUDE 'artist/recordings-list.tt' recordings=to_merge show_artists=1 select_all=0 no_ratings=1 %]
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]

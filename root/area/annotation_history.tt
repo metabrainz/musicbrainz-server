@@ -1,0 +1,4 @@
+[% WRAPPER 'area/layout.tt' full_width=1 title=l('Annotation history') %]
+  <h2>[% l('Annotation history') %]</h2>
+  [% INCLUDE 'annotation/history.tt' %]
+[% END %]

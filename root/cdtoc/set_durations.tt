@@ -7,24 +7,21 @@
 
   [% INCLUDE 'cdtoc/info.tt' %]
 
-  <h2>[% l('Tracklist') %]</h2>
+  <h2>[% l('Medium') %]</h2>
   <table class="tbl"><tbody>
-  [%- INCLUDE 'tracklist/tracklist.tt' tracklist=mediums.0.tracklist show_artists=1 hide_rating=1 -%]
+  [%- INCLUDE 'medium/tracklist.tt' medium=medium show_artists=1 hide_rating=1 -%]
   </tbody></table>
 
   <h2>[% l('Changes') %]</h2>
-  [%- track_duration_changes([1 .. mediums.0.tracklist.all_tracks.size], mediums.0.tracklist.all_tracks, cdtoc.track_details, 'length', 'length_time') -%]
+  [%- track_duration_changes([1 .. medium.all_tracks.size], medium.all_tracks, cdtoc.track_details, 'length', 'length_time') -%]
 
-  <h2>[% l('Mediums') %]</h2>
   <p>
-    [% l('The tracklist you are altering is currently in use by the following releases:') %]
+    [% l('The medium you are altering is part of the following release:') %]
   </p>
-  [% FOR medium=mediums %]
   <ul>
     <li>[% l('{release} by {artist}', { release => link_entity(medium.release),
                                         artist => artist_credit(medium.release.artist_credit) }) %]</li>
   </ul>
-  [% END %]
 
   <form method="post">
   [% INCLUDE 'forms/edit-note.tt' %]

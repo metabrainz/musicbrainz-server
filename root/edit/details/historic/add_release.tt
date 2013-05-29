@@ -84,7 +84,7 @@
           [% FOR release_event=edit.display_data.release_events %]
           <tr>
             <td>[% release_event.date.format %]</td>
-            <td>[% release_event.country.name %]</td>
+            <td>[% link_entity(release_event.country) IF release_event.country %]</td>
             <td>[% link_entity(release_event.label) IF release_event.label %]</td>
             <td>[% release_event.catalog_number | html %]</td>
             <td>[% release_event.barcode %]</td>

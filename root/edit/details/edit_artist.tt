@@ -31,9 +31,9 @@
                   html_escape(edit.display_data.gender.old.name),
                   html_escape(edit.display_data.gender.new.name)) %]
 
-  [% display_full_change(l('Country:'),
-                  html_escape(edit.display_data.country.old.name),
-                  html_escape(edit.display_data.country.new.name)) %]
+  [% display_full_change(l('Area:'),
+                         edit.display_data.area.old ? link_entity(edit.display_data.area.old): '',
+                         edit.display_data.area.new ? link_entity(edit.display_data.area.new): '') %]
 
   [%- IF edit.display_data.type.old && edit.display_data.type.new != edit.display_data.type.old -%]
       [%- display_type_id = 0 -%]
@@ -43,10 +43,17 @@
   [% display_diff(artist_begin_label_from_type(display_type_id),
                   html_escape(edit.display_data.begin_date.old.format),
                   html_escape(edit.display_data.begin_date.new.format), '-') %]
+  [% display_full_change(l('Begin Area:'),
+                         edit.display_data.begin_area.old ? link_entity(edit.display_data.begin_area.old): '',
+                         edit.display_data.begin_area.new ? link_entity(edit.display_data.begin_area.new): '') %]
+
 
   [% display_diff(artist_end_label_from_type(display_type_id),
                   html_escape(edit.display_data.end_date.old.format),
                   html_escape(edit.display_data.end_date.new.format), '-') %]
+  [% display_full_change(l('End Area:'),
+                         edit.display_data.end_area.old ? link_entity(edit.display_data.end_area.old): '',
+                         edit.display_data.end_area.new ? link_entity(edit.display_data.end_area.new): '') %]
 
   [% display_diff(l('Ended:'),
                   edit.display_data.ended.old ? l('Yes') : l('No'),
@@ -58,7 +65,12 @@
                   html_escape(edit.display_data.ipi_code.new)) %]
 
   [% display_diff(l('IPI codes:'),
-                  edit.display_data.ipi_codes.old.join (", "),
-                  edit.display_data.ipi_codes.new.join (", "),
+                  comma_only_list(edit.display_data.ipi_codes.old),
+                  comma_only_list(edit.display_data.ipi_codes.new),
+                  ', ') %]
+
+  [% display_diff(l('ISNI codes:'),
+                  comma_only_list(edit.display_data.isni_codes.old),
+                  comma_only_list(edit.display_data.isni_codes.new),
                   ', ') %]
 </table>

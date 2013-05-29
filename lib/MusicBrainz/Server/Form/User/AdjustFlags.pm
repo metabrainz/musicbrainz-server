@@ -26,6 +26,10 @@ has_field 'link_editor' => (
     type => 'Boolean',
 );
 
+has_field 'location_editor' => (
+    type => 'Boolean',
+);
+
 has_field 'no_nag' => (
     type => 'Boolean',
 );

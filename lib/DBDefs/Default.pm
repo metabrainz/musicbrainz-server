@@ -65,6 +65,23 @@ use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
+# GPG Signature
+################################################################################
+
+# Location of the public key file to use for verifying packets.
+sub GPG_PUB_KEY { "" }
+
+# Define how validation deals with the missing signature file:
+#   FAIL    - validation fails if signature file is missing
+#   PASS    - validation passes if signature file is missing
+sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets.
+sub GPG_SIGN_KEY { "" }
+sub GPG_ENCRYPT_KEY { "" }
+
+################################################################################
 # HTTP Server Names
 ################################################################################
 
@@ -137,9 +154,6 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # transclusion table.
 sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
-sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
-sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
-
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
 # Alternatively, if you're okay with the search results pointing to
@@ -150,7 +164,7 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 
@@ -389,7 +403,7 @@ sub EMAIL_BUGS { undef }
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
 # http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.nu?out=json' }
+sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################
