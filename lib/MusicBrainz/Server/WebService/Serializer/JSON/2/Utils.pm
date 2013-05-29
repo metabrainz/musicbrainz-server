@@ -80,14 +80,14 @@ sub serialize_entity
 
 sub list_of
 {
-    my ($entity, $inc, $stash, $type) = @_;
+    my ($entity, $inc, $stash, $type, $toplevel) = @_;
 
     my $opts = $stash->store ($entity);
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
     return [
-        map { serialize_entity($_, $inc, $stash) }
+        map { serialize_entity($_, $inc, $stash, $toplevel) }
         sort_by { $_->gid } @$items ];
 }
 
