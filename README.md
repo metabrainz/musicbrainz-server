@@ -19,7 +19,7 @@ General Prerequisites:
 
 * Ubuntu/Debian
 * Perl (at least version 5.10.1)
-* PostgreSQL (at least version 8.4)
+* PostgreSQL (at least version 9.1)
 * Memcached
 
 Reporting bugs
