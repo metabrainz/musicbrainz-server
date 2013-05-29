@@ -708,7 +708,7 @@ sub find_by_collection
             $extra_join = "JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
             $also_select = "medium_format.name AS medium_format_name";
-            return "medium_format.name, musicbrainz_collate(name)";
+            return "medium_format_name, musicbrainz_collate(name)";
         },
         "tracks" => sub {
             $extra_join = "JOIN
