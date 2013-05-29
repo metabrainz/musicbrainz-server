@@ -52,6 +52,7 @@ requires 'Email::Valid';
 requires 'Encode::Detect'                             => '1.01';
 requires 'Exception::Class'                           => '1.29';
 requires 'File::Spec';
+requires 'GnuPG'                                      => '0.17';
 requires 'Hash::Merge';
 requires 'HTML::FormHandler'                          => '0.40013';
 requires 'HTML::Tiny'                                 => '1.05';
