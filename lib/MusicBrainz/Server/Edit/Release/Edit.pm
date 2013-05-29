@@ -254,6 +254,21 @@ sub _edit_hash
         $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     }
 
+    if (exists $data->{events}) {
+        $data->{events} = [
+            grep {
+                # The new release events for a release must contain either a
+                # country_id or at least one date field.
+                $_->{country_id} ||
+                    (exists($_->{date}) && (
+                        $_->{date}{year} ||
+                        $_->{date}{month} ||
+                        $_->{date}{day}))
+            }
+            @{ $data->{events} }
+        ];
+    }
+
     return $data;
 }
 
