@@ -8,7 +8,7 @@ INSERT INTO url (id, gid, url)
 INSERT INTO url (id, gid, url)
     VALUES (3, '25d6b63a-12dc-41c9-858a-2f42ae610a7d', 'http://zh-yue.wikipedia.org/wiki/王菲');
 
-INSERT INTO link_type (id, name, gid, link_phrase, short_link_phrase, reverse_link_phrase, entity_type0, entity_type1)
+INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1)
   VALUES (1, 'wikipedia', 'fcd58926-4243-40bb-a2e5-c7464b3ce577', 'wikipedia', 'wikipedia', 'wikipedia',
           'artist', 'url');
 INSERT INTO artist_name (id, name) VALUES (100, 'Faye Wong');

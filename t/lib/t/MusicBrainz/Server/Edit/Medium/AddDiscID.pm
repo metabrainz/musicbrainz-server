@@ -7,8 +7,9 @@ around run_test => sub {
     my ($orig, $test) = splice(@_, 0, 2);
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+edit_medium');
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO track (id, name, tracklist, recording, artist_credit, position, number)
-    VALUES (1, 1, 1, 1, 1, 1, 1), (2, 1, 1, 1, 1, 2, 2);
+INSERT INTO track (id, gid, name, medium, recording, artist_credit, position, number)
+    VALUES (1, '15d6a884-0274-486c-81fe-94ff57b8cf36', 1, 1, 1, 1, 1, 1),
+           (2, '03d0854f-6053-416c-a67f-8c79a796ed39', 1, 1, 1, 1, 2, 2);
 EOSQL
     $test->_clear_edit;
     $test->$orig(@_);
@@ -43,10 +44,10 @@ test 'Entering a CDTOC for a medium with no track times sets them' => sub {
     my $test = shift;
     $test->create_edit;
 
-    my $tracklist = $test->c->model('Tracklist')->get_by_id(100);
-    $test->c->model('Track')->load_for_tracklists($tracklist);
-    is($tracklist->tracks->[0]->length, 290240);
-    is($tracklist->tracks->[1]->length, 3183066);
+    my $medium = $test->c->model('Medium')->get_by_id(1);
+    $test->c->model('Track')->load_for_mediums($medium);
+    is($medium->tracks->[0]->length, 290240);
+    is($medium->tracks->[1]->length, 3183066);
 };
 
 test 'Entering a CDTOC for a medium with some track times does not set them' => sub {
@@ -55,10 +56,10 @@ test 'Entering a CDTOC for a medium with some track times does not set them' => 
 
     $test->create_edit;
 
-    my $tracklist = $test->c->model('Tracklist')->get_by_id(1);
-    $test->c->model('Track')->load_for_tracklists($tracklist);
-    is($tracklist->tracks->[0]->length, 19999);
-    is($tracklist->tracks->[1]->length, undef);
+    my $medium = $test->c->model('Medium')->get_by_id(1);
+    $test->c->model('Track')->load_for_mediums($medium);
+    is($medium->tracks->[0]->length, 19999);
+    is($medium->tracks->[1]->length, undef);
 };
 
 sub _build_edit {

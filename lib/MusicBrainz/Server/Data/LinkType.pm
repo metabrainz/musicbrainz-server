@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::LinkType;
 use Moose;
 use namespace::autoclean;
 use Sql;
+use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::LinkType;
 use MusicBrainz::Server::Entity::LinkTypeAttribute;
 use MusicBrainz::Server::Data::Utils qw(
@@ -27,7 +28,7 @@ sub _columns
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
-            child_order, short_link_phrase';
+            child_order, long_link_phrase';
 }
 
 sub _entity_class
@@ -197,6 +198,13 @@ sub insert
     my $row = $self->_hash_to_row($values);
     $row->{gid} = $values->{gid} || generate_gid();
     my $id = $self->sql->insert_row('link_type', $row, 'id');
+    $self->sql->insert_row(
+        'documentation.link_type_documentation',
+        {
+            documentation => $values->{documentation} // '',
+            id => $id
+        }
+    );
     if (exists $values->{attributes}) {
         foreach my $attrib (@{$values->{attributes}}) {
             $self->sql->insert_row('link_type_attribute_type', {
@@ -210,6 +218,43 @@ sub insert
     return $self->_entity_class->new( id => $id, gid => $row->{gid} );
 }
 
+sub set_examples {
+    my ($self, $id, $examples) = @_;
+
+    my $link_table = $self->sql->select_single_value(
+        "SELECT 'l_' || entity_type0 || '_' || entity_type1
+         FROM link_type
+         WHERE id = ?",
+        $id
+    );
+
+    my $documentation_link_table = sprintf "documentation.%s_example",
+        $link_table;
+
+    $self->sql->do(
+        "DELETE FROM $documentation_link_table
+         WHERE id IN (
+             SELECT l.id
+             FROM $documentation_link_table
+             JOIN $link_table l USING (id)
+             JOIN link ON (link.id = l.link)
+             WHERE link.link_type = ?
+         )",
+        $id
+    );
+
+    for my $example (@$examples) {
+        $self->sql->insert_row(
+            $documentation_link_table,
+            {
+                name => $example->{name},
+                id => $example->{relationship}{id},
+                published => 1
+            }
+        );
+    }
+}
+
 sub update
 {
     my ($self, $id, $values) = @_;
@@ -218,6 +263,18 @@ sub update
     if (%$row) {
         $self->sql->update_row('link_type', $row, { id => $id });
     }
+    if (exists $values->{documentation}) {
+        $self->sql->update_row(
+            'documentation.link_type_documentation',
+            { documentation => $values->{documentation} },
+            { id => $id }
+        );
+    }
+
+    if (exists $values->{examples}) {
+        $self->set_examples($id, $values->{examples});
+    }
+
     if (exists $values->{attributes}) {
         $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
         foreach my $attrib (@{$values->{attributes}}) {
@@ -235,6 +292,7 @@ sub delete
 {
     my ($self, $id) = @_;
 
+    $self->sql->do('DELETE FROM documentation.link_type_documentation WHERE id = ?', $id);
     $self->sql->do('DELETE FROM link_type_attribute_type WHERE link_type = ?', $id);
     $self->sql->do('DELETE FROM link_type WHERE id = ?', $id);
 }
@@ -252,7 +310,7 @@ sub _hash_to_row
         description     => 'description',
         link_phrase      => 'link_phrase',
         reverse_link_phrase     => 'reverse_link_phrase',
-        short_link_phrase => 'short_link_phrase',
+        long_link_phrase => 'long_link_phrase',
         priority        => 'priority',
     });
 }
@@ -263,6 +321,63 @@ sub in_use {
         'SELECT TRUE FROM link WHERE link_type = ? LIMIT 1',
         $link_type_id
     );
+}
+
+sub load_documentation {
+    my ($self, @link_types) = @_;
+
+    my $link_type_ids = [ map { $_->id } @link_types ];
+
+    my %documentation_strings = map { @$_ } @{
+        $self->sql->select_list_of_lists(
+            'SELECT id, documentation
+             FROM documentation.link_type_documentation
+             WHERE id = any(?)', $link_type_ids
+         );
+    };
+
+    my $all_examples_query =
+        sprintf 'SELECT * FROM (%s) s WHERE link_type = any(?)',
+            join(
+                ' UNION ALL ',
+                map {
+                    my ($a, $b) = @$_;
+                    my $t = "l_${a}_${b}";
+                    "SELECT link_type, l.id, ex.name, ex.published, entity_type0,
+                       entity_type1
+                     FROM documentation.${t}_example ex
+                     JOIN $t l USING (id)
+                     JOIN link ON (l.link = link.id)
+                     JOIN link_type ON (link.link_type = link_type.id)"
+                }
+                $self->c->model('Relationship')->all_pairs
+            );
+
+    my %examples;
+    for my $example (@{
+        $self->sql->select_list_of_hashes($all_examples_query, $link_type_ids)
+    }) {
+        push @{ $examples{ $example->{link_type} } //= [] },
+            MusicBrainz::Server::Entity::ExampleRelationship->new(
+                name => $example->{name},
+                published => $example->{published},
+                relationship => $self->c->model('Relationship')->get_by_id(
+                    $example->{entity_type0}, $example->{entity_type1},
+                    $example->{id}
+                )
+            )
+    }
+
+    my @relationships = map { $_->relationship } map { @$_ } values %examples;
+    $self->c->model('Link')->load(@relationships);
+    $self->c->model('LinkType')->load(map { $_->link } @relationships);
+    $self->c->model('Relationship')->load_entities(@relationships);
+
+    for my $link_type (@link_types) {
+        my $id = $link_type->id;
+        $link_type->documentation($documentation_strings{$id} // '');
+        $link_type->examples($examples{$id} // []);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

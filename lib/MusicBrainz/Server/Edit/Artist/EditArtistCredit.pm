@@ -41,7 +41,7 @@ sub alter_edit_pending {
 
 sub _build_related_entities {
     my ($self) = @_;
-    my $related = { };
+    my $related = $self->c->model('ArtistCredit')->related_entities($self->data->{old}{artist_credit});
 
     my %new = load_artist_credit_definitions($self->data->{new}{artist_credit});
     my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});

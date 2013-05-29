@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
 use MusicBrainz::Server::Translation qw ( l );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -116,12 +117,38 @@ lookup_handler 'artist-ipi' => sub {
     $c->detach;
 };
 
+lookup_handler 'artist-isni' => sub {
+    my ($self, $c, $isni) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'isni:' . $isni,
+            type => 'artist',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
 lookup_handler 'label-ipi' => sub {
     my ($self, $c, $ipi) = @_;
 
     $c->response->redirect(
         $c->uri_for_action ('/search/search', {
             query => 'ipi:' . $ipi,
+            type => 'label',
+            advanced => '1',
+        }));
+
+    $c->detach;
+};
+
+lookup_handler 'label-isni' => sub {
+    my ($self, $c, $isni) = @_;
+
+    $c->response->redirect(
+        $c->uri_for_action ('/search/search', {
+            query => 'isni:' . $isni,
             type => 'label',
             advanced => '1',
         }));
@@ -156,7 +183,7 @@ lookup_handler 'freedbid' => sub {
     my @releases = $c->model('Release')->load(@mediums);
 
     $c->model('ArtistCredit')->load (@releases);
-    $c->model('Country')->load(@releases);
+    load_release_events($c, @releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);
     $c->model('Medium')->load_for_releases(@releases);

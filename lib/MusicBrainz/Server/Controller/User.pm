@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use DateTime;
+use DBDefs;
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
@@ -21,6 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $WIKI_TRANSCLUSION_FLAG
     $RELATIONSHIP_EDITOR_FLAG
+    $LOCATION_EDITOR_FLAG
 );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -85,7 +87,8 @@ sub _perform_login {
             $c->detach;
         }
         else {
-            $c->model('Editor')->update_last_login_date($c->user->id);
+            $c->model('Editor')->update_last_login_date($c->user->id)
+                unless DBDefs->DB_READ_ONLY;
 
             return 1;
         }
@@ -171,7 +174,7 @@ sub cookie_login : Private
 
             my $user = $c->model('Editor')->get_by_name($user_name) or return;
 
-            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+            my $correct_pass_sha1 = cookie_password_hash($user);
             die "Password sha1 do not match"
                 unless $pass_sha1 eq $correct_pass_sha1;
 
@@ -188,6 +191,11 @@ sub cookie_login : Private
         $c->log->error($_);
         $self->_clear_login_cookie($c);
     };
+}
+
+sub cookie_password_hash {
+    my $user = shift;
+    return sha1_base64(encode('utf-8', $user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM));
 }
 
 sub _clear_login_cookie
@@ -211,7 +219,7 @@ sub _set_login_cookie
 {
     my ($self, $c) = @_;
     my $expiry_time = time + 86400 * 635;
-    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
+    my $password_sha1 = cookie_password_hash($c->user);
     my $ip_mask = '';
     my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
                                              $expiry_time, $ip_mask);
@@ -246,6 +254,15 @@ sub _load
 
     return $user;
 }
+
+after 'load' => sub {
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{entity};
+
+    $c->model('Area')->load($user);
+
+};
 
 =head2 contact
 
@@ -329,7 +346,6 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
     $c->model('Gender')->load($user);
-    $c->model('Country')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
     $c->stash(
@@ -456,17 +472,20 @@ sub privileged : Path('/privileged')
     my @auto_editors = $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG);
     my @transclusion_editors = $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG);
     my @relationship_editors = $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG);
+    my @location_editors = $c->model ('Editor')->find_by_privileges ($LOCATION_EDITOR_FLAG);
 
     $c->model ('Editor')->load_preferences (@bots);
     $c->model ('Editor')->load_preferences (@auto_editors);
     $c->model ('Editor')->load_preferences (@transclusion_editors);
     $c->model ('Editor')->load_preferences (@relationship_editors);
+    $c->model ('Editor')->load_preferences (@location_editors);
 
     $c->stash(
         bots => [ @bots ],
         auto_editors => [ @auto_editors ],
         transclusion_editors => [ @transclusion_editors ],
         relationship_editors => [ @relationship_editors ],
+        location_editors => [ @location_editors ],
         template => 'user/privileged.tt',
     );
 }

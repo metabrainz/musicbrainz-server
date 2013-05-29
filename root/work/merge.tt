@@ -14,7 +14,6 @@
                     <th>[% l('ISWC') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Language') %]</th>
-                    <th class="rating c">[% l('Rating') %]</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +51,6 @@
                     </td>
                     <td>[% entity.l_type_name %]</td>
                     <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
-                    <td class="c">[% rating_stars(entity) %]</td>
                   </tr>
                 </tr>
             [%- END -%]

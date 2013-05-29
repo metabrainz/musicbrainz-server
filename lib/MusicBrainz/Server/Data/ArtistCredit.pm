@@ -84,6 +84,14 @@ sub find_by_artist_id
     return $self->find_by_ids($ids);
 }
 
+sub uncache_for_artist_ids
+{
+    my ($self, @artist_ids) = @_;
+    my $query = 'SELECT DISTINCT artist_credit FROM artist_credit_name WHERE artist = any(?)';
+    my $artist_credit_ids = $self->sql->select_single_column_array($query, \@artist_ids);
+    $self->_delete_from_cache(@$artist_credit_ids) if scalar @$artist_credit_ids;
+}
+
 sub _find
 {
     my ($self, $artist_credit) = @_;
@@ -290,6 +298,29 @@ sub in_use {
     }
 
     return 0;
+}
+
+sub related_entities {
+    my ($self, $ac) = @_;
+
+    my $related = {};
+    my $ac_id = $self->find($ac) or return $related;
+
+    for my $t (qw( recording release release_group )) {
+        my $uses = $self->c->sql->select_single_column_array(
+            "SELECT DISTINCT id FROM $t WHERE artist_credit = ?", $ac_id
+        );
+        push @{ $related->{$t} }, @$uses;
+    }
+
+    my $track_ac_releases = $self->c->sql->select_single_column_array(
+        "SELECT DISTINCT medium.release FROM track JOIN medium ON track.medium = medium.id WHERE track.artist_credit = ?",
+        $ac_id
+    );
+
+    push @{ $related->{release} }, @{ $track_ac_releases };
+
+    return $related;
 }
 
 __PACKAGE__->meta->make_immutable;

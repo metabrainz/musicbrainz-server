@@ -1,0 +1,23 @@
+[%- WRAPPER 'layout.tt' full_width=1 -%]
+  <h2>[%- relationship_type.name -%]</h2>
+  <p>
+    [%- relationship_type.description -%]
+  </p>
+  [%- IF relationship_type.documentation -%]
+  <p>
+    [%- relationship_type.documentation -%]
+  </p>
+  [%- END -%]
+
+  [%- IF relationship_type.examples.size -%]
+  <h3>[%- l('Examples') -%]</h3>
+    [%- FOR example=relationship_type.examples -%]
+      <h4>[% example.name %]</h4>
+      <p>[%-
+        rel = example.relationship;
+        descriptive_link(rel.source);
+        display_relationship(rel, 'verbose_phrase')
+      -%]</p>
+    [%- END -%]
+  [%- END -%]
+[%- END -%]

@@ -1,9 +1,22 @@
 from fabric.api import *
 from time import sleep
 from fabric.colors import red
+from datetime import date
 
 env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
+
+def prepare_release():
+    """
+    Prepare for a new release.
+    """
+    no_local_changes()
+    local("git checkout beta")
+    local("git pull --ff-only origin beta")
+    local("git checkout master")
+    local("git pull --ff-only origin master")
+    local("git merge beta")
+    local("git push origin master")
 
 def socket_deploy():
     """
@@ -134,3 +147,10 @@ def reset_test():
 
 def shutdown():
     sudo("svc -d /etc/service/mb_server-fastcgi")
+
+def tag():
+    tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
+    blog_url = prompt("Blog post URL", validate=r'^http.*')
+    no_local_changes()
+    local("git tag -u 'CE33CF04' %s -m '%s' master" % (tag, blog_url))
+    local("git push origin %s" % (tag))

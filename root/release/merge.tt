@@ -28,8 +28,7 @@
                     <th>[% l('Artist') %]</th>
                     <th>[% l('Format') %]</th>
                     <th>[% l('Tracks') %]</th>
-                    <th>[% l('Date') %]</th>
-                    <th>[% l('Country') %]</th>
+                    <th>[% l('Release Events') %]</th>
                     <th>[% l('Label') %]</th>
                     <th>[% l('Catalog#') %]</th>
                     <th>[% l('Barcode') %]</th>
@@ -60,12 +59,7 @@
                   <td>[% artist_credit(release.artist_credit) %]</td>
                   <td>[% rdfa_release_format(release) or "-" %]</td>
                   <td>[% release.combined_track_count or "-" %]</td>
-                  <td>[% rdfa_release_event_date(release) %]</td>
-                  <td>
-                  [%- IF release.country -%]
-                    [% rdfa_release_country_abbr(release) %]
-                  [%- END -%]
-                  </td>
+                  <td>[% release_events(release.events) %]</td>
                   [%- IF filter_label -%]
                       <td>[% rdfa_release_catno_list(release.filter_labels(filter_label)) %]</td>
                   [%- ELSE -%]
@@ -115,7 +109,7 @@
                   [% END %]
                 </th>
               </tr>
-              [% FOR track=medium.tracklist.tracks %]
+              [% FOR track=medium.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
                 <td class="pos t">
                   <span style="display: none">[% rdfa_track_number(track.position) %]</span>
