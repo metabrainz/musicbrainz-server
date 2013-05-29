@@ -13,7 +13,7 @@ To get help, please join #musicbrainz-devel on irc.freenode.net
 Installation
 ------------
 
-Full installation instructions are available in INSTALL.md.
+Full installation instructions are available in [INSTALL.md](INSTALL.md).
 
 General Prerequisites:
 
