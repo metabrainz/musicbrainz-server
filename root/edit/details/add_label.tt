@@ -41,10 +41,10 @@
     <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
   </tr>
 
-  [% IF edit.display_data.country %]
+  [% IF edit.display_data.area %]
   <tr>
-    <th>[% l('Country:') %]</th>
-    <td>[% edit.display_data.country.name %]</td>
+    <th>[% l('Area:') %]</th>
+    <td>[% link_entity(edit.display_data.area) %]</td>
   </tr>
   [% END %]
 
@@ -67,6 +67,15 @@
       <tr>
         <th>[% l('IPI code:') %]</th>
         <td>[% ipi_code %]</td>
+      </tr>
+    [% END %]
+  [% END %]
+
+  [% IF edit.display_data.isni_codes.size %]
+    [%- FOR isni_code IN edit.display_data.isni_codes -%]
+      <tr>
+        <th>[% l('ISNI code:') %]</th>
+        <td>[% isni_code %]</td>
       </tr>
     [% END %]
   [% END %]

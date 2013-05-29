@@ -43,6 +43,9 @@ test 'basic artist lookup' => sub {
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -69,6 +72,9 @@ test 'basic artist lookup, inc=annotation' => sub {
             type => "Person",
             annotation => "this is an artist annotation",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -90,6 +96,9 @@ test 'basic artist lookup, inc=aliases' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -120,6 +129,9 @@ test 'basic artist lookup, inc=url-rels' => sub {
             name => "Paul Allgood",
             "sort-name" => "Allgood, Paul",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -209,6 +221,9 @@ test 'artist lookup with releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -227,6 +242,16 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 },
@@ -240,6 +265,16 @@ test 'artist lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 }
@@ -259,6 +294,9 @@ test 'artist lookup with pseudo-releases' => sub {
             name => "7人祭",
             "sort-name" => "7nin Matsuri",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => JSON::null,
@@ -277,6 +315,16 @@ test 'artist lookup with pseudo-releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                 }
@@ -297,6 +345,9 @@ test 'artist lookup with releases and discids' => sub {
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -329,7 +380,17 @@ test 'artist lookup with releases and discids' => sub {
                             format => "CD",
                             discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
                             "track-count" => 9,
-                        }]
+                        }],
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }]
                 },
                 {
                     id => "adcf7b48-086e-48ee-b420-1001f88d672f",
@@ -349,7 +410,17 @@ test 'artist lookup with releases and discids' => sub {
                             format => "CD",
                             discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
-                        }]
+                        }],
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                 }],
             ipis => [],
         });
@@ -367,6 +438,9 @@ test 'artist lookup with recordings and artist credits' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -447,6 +521,9 @@ test 'artist lookup with release groups' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -479,6 +556,9 @@ test 'single artist release lookup' => sub {
             "sort-name" => "m-flo",
             type => "Group",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1998",
@@ -498,6 +578,16 @@ test 'single artist release lookup' => sub {
                     status => "Official",
                     barcode => "4988064451180",
                     asin => JSON::null,
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }]
                 }
             ],
             ipis => [],
@@ -515,6 +605,9 @@ test 'various artists release lookup' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -532,6 +625,16 @@ test 'various artists release lookup' => sub {
                     "text-representation" => { "language" => "eng", "script" => "Latn" },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064451180",
                     asin => JSON::null,
                     disambiguation => "",
@@ -552,6 +655,9 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             name => "Distance",
             "sort-name" => "Distance",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "UK dubstep artist Greg Sanders",
             "life-span" => {
                 begin => JSON::null,
@@ -584,6 +690,9 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             name => "BoA",
             "sort-name" => "BoA",
             country => JSON::null,
+            area => JSON::null,
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1986-11-05",
@@ -728,6 +837,15 @@ test 'artist lookup with artist relations' => sub {
             name => "後藤真希",
             "sort-name" => "Goto, Maki",
             country => "JP",
+	    "area" => {
+		"id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+		"name" => "Japan",
+		"sort-name" => "Japan",
+		"iso_3166_1_codes" => ["JP"],
+		"iso_3166_2_codes" => [],
+		"iso_3166_3_codes" => []},
+            begin_area => JSON::null,
+            end_area => JSON::null,
             disambiguation => "",
             "life-span" => {
                 begin => "1985-09-23",

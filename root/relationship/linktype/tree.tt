@@ -11,7 +11,7 @@
         [% END %]
         <strong>[% l('Forward link phrase:') %]</strong> [% obj.l_link_phrase || lp("(none)", 'link phrase') | html %]<br />
         <strong>[% l('Reverse link phrase:') %]</strong> [% obj.l_reverse_link_phrase || lp("(none)", 'link phrase') | html %]<br />
-        <strong>[% l('Long link phrase:') %]</strong> [% obj.l_short_link_phrase || lp("(none)", 'link phrase') | html %]<br />
+        <strong>[% l('Long link phrase:') %]</strong> [% obj.l_long_link_phrase || lp("(none)", 'link phrase') | html %]<br />
         <strong>[% l('Description:') %]</strong> [% obj.l_description || lp("(none)", 'description') %]<br />
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
         [%- IF c.user.is_relationship_editor -%]

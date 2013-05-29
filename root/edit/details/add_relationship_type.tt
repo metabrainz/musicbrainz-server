@@ -28,4 +28,9 @@
     </td>
   </tr>
   [% END %]
+
+  <tr>
+    <th>[% l('Documentation:') %]</th>
+    <td>[% edit.data.documentation | format_wikitext %]</td>
+  </tr>
 </table>

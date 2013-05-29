@@ -32,6 +32,7 @@ my $edit = $c->model('Edit')->create(
     begin_date => { 'year' => 1981, 'month' => 5 },
     ended => 1,
     ipi_codes => [ ],
+    isni_codes => [ ],
 );
 isa_ok($edit, 'MusicBrainz::Server::Edit::Artist::Create');
 
@@ -50,6 +51,9 @@ is($artist->ended, 1, "Has 'ended' set on created artist.");
 
 my $ipi_codes = $c->model('Artist')->ipi->find_by_entity_id($artist->id);
 is(scalar @$ipi_codes, 0, "Artist has no ipi codes");
+
+my $isni_codes = $c->model('Artist')->isni->find_by_entity_id($artist->id);
+is(scalar @$isni_codes, 0, "Artist has no isni codes");
 
 $edit = $c->model('Edit')->get_by_id($edit->id);
 $c->model('Edit')->load_all($edit);

@@ -34,6 +34,11 @@ Entity.prototype.init = function(obj) {
     var options = {href: "/" + this.type + "/" + this.gid, target: "_blank"};
     if (obj.sortname) options.title = obj.sortname;
     this.rendering = MB.html.a(options, this.name);
+
+    if (obj.comment) {
+        this.rendering += " <span class=\"comment\">(" +
+            _.escape(obj.comment) + ")</span>";
+    }
 };
 
 Entity.prototype.toJS = function() {
