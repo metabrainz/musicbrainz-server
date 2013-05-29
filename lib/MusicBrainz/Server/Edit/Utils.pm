@@ -28,6 +28,7 @@ our @EXPORT_OK = qw(
     edit_status_name
     conditions_without_autoedit
     hash_artist_credit
+    hash_artist_credit_without_join_phrases
     merge_artist_credit
     merge_barcode
     merge_partial_date
@@ -271,6 +272,14 @@ sub status_names
 
 
 sub hash_artist_credit {
+    return _hash_artist_credit(shift)
+}
+
+sub hash_artist_credit_without_join_phrases {
+    return _hash_artist_credit(shift, 1)
+}
+
+sub _hash_artist_credit {
     my ($artist_credit, $visible_only) = @_;
     return join(', ', map {
         '[' .

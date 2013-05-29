@@ -224,7 +224,7 @@ END -%]
             END;
           END;
         END; -%]
-    [%- IF show_list -%][%- '> ' _ comma_only_list(artist_list) -%][%- END -%]
+    [%- IF show_list -%][%- comma_only_list(artist_list) -%][%- END -%]
   [% END %]
 [%- END -%]
 
