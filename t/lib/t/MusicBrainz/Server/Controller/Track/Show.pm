@@ -14,7 +14,6 @@ test 'redirect' => sub {
 
     $mech->max_redirect (0);
     $mech->get ('/track/3fd2523e-1ced-4f83-8b93-c7ecf6960b32', 'fetch track');
-    html_ok ($mech->content);
 
     is ($mech->response->code, 303, "response is 303 See Other");
     is ($mech->response->header ('Location'),
