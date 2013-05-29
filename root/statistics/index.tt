@@ -33,6 +33,10 @@
     <td colspan="3">[% add_commas(stats.statistic('count.recording')) %]</td>
 </tr>
 <tr>
+    <th>[% l('Tracks:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.track')) %]</td>
+</tr>
+<tr>
     <th>[% l('Labels:') %]</th>
     <td colspan="3">[% add_commas(stats.statistic('count.label')) %]</td>
 </tr>
@@ -43,6 +47,10 @@
 <tr>
     <th>[% l('URLs:') %]</th>
     <td colspan="3">[% add_commas(stats.statistic('count.url')) %]</td>
+</tr>
+<tr>
+    <th>[% l('Areas:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.area')) %]</td>
 </tr>
 </tbody>
 <tbody>
@@ -525,9 +533,12 @@
 </tbody>
 </table>
 
-<h2>[% l('Work Types') %]</h2>
+<h2>[% l('Works') %]</h2>
 <table class="database-statistics">
 <tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Types') %]</th>
+</tr>
 <tr>
     <th colspan="2">[% l('Works:') %]</th>
     <td>[% add_commas(stats.statistic('count.work')) %]</td>
@@ -546,6 +557,34 @@
    <th>[% l('None') %]</th>
    <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
    <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
+<h2>[% l('Areas') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Areas:') %]</th>
+    <td>[% add_commas(stats.statistic('count.area')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH area_type IN area_types %]
+<tr>
+   <th></th>
+   <th>[% area_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.area.type.' _ area_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.area.type.' _ area_type.id, 'count.area')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.area.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.area.type.null', 'count.area')) }) %]</td>
 </tr>
 </tbody>
 </table>
