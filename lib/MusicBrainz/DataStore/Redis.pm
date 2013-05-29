@@ -28,7 +28,9 @@ has '_connection' => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        return Redis->new(%{ $self->redis_new_args });
+        my $connection = Redis->new(%{ $self->redis_new_args });
+        $connection->select( $self->database );
+        return $connection;
     }
 );
 
