@@ -707,9 +707,8 @@ sub find_by_collection
         "format" => sub {
             $extra_join = "JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
-            $reorder = "medium_format_name, musicbrainz_collate(name)";
             $also_select = "medium_format.name AS medium_format_name";
-            return "medium_format.name, musicbrainz_collate(name.name)";
+            return "medium_format.name, musicbrainz_collate(name)";
         },
         "tracks" => sub {
             $extra_join = "JOIN
@@ -718,8 +717,7 @@ sub find_by_collection
                     GROUP BY medium.release) medium
                 ON medium.release = release.id";
             $also_select = "total_track_count";
-            $reorder = "total_track_count, musicbrainz_collate(name)";
-            return "medium.total_track_count, musicbrainz_collate(name.name)";
+            return "total_track_count, musicbrainz_collate(name)";
         },
     });
 
