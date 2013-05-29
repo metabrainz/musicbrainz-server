@@ -57,7 +57,7 @@ my $fVerbose = 0;
 my $sqldir = "$FindBin::Bin/sql";
 -d $sqldir or die "Couldn't find SQL script directory";
 
-sub GetPostgreSQLVersion
+sub RequireMinimumPostgreSQLVersion
 {
     my $mb = Databases->get_connection('READWRITE');
     my $sql = Sql->new( $mb->conn );
@@ -65,7 +65,9 @@ sub GetPostgreSQLVersion
     my $version = $sql->select_single_value ("SELECT version();");
     $version =~ s/PostgreSQL ([0-9\.]*)(?:beta[0-9]*)? .*/$1/;
 
-    return version->parse ("v".$version);
+    if (version->parse ("v".$version) < version->parse('v9.1')) {
+        die 'MusicBrainz requires PostgreSQL 9.1 on later';
+    }
 }
 
 sub RunSQLScript
@@ -255,14 +257,8 @@ sub CreateRelations
         for ($DB->schema, 'cover_art_archive', 'documentation', 'report', 'statistics', 'wikidocs');
     die "\nFailed to create schema\n" if ($? >> 8);
 
-    if (GetPostgreSQLVersion () >= version->parse ("v9.1"))
-    {
-        RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions for PostgreSQL 9.1 or newer");
-    }
-    else
-    {
-        InstallExtension($SYSMB, "cube.sql", $DB->schema);
-    }
+    RequireMinimumPostgreSQLVersion();
+    RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
     InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
 
@@ -291,7 +287,6 @@ sub CreateRelations
     RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
     RunSQLScript($DB, "wikidocs/CreatePrimaryKeys.sql", "Creating wikidocs primary keys ...");
 
-    RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
 

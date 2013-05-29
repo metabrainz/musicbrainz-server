@@ -2,6 +2,7 @@
 BEGIN;
 
 CREATE EXTENSION cube WITH SCHEMA public;
+CREATE EXTENSION musicbrainz_unaccent WITH SCHEMA musicbrainz;
 
 COMMIT;
 
