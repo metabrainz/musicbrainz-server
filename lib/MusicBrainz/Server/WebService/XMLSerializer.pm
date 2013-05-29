@@ -618,7 +618,7 @@ sub _serialize_track
     $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
         if ($track->recording);
 
-    push @$data, $gen->track(@track);
+    push @$data, $gen->track({ id => $track->gid }, @track);
 }
 
 sub _serialize_disc_list
