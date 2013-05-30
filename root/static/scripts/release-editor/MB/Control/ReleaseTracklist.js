@@ -793,6 +793,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * Reset free-text track numbers back to their integer values.
      */
     self.resetTrackNumbers = function (event) {
+        self.updateTrackNumbers ();
         $.each (self.sorted_tracks, function (idx, item) {
             item.number (item.position ());
         });
