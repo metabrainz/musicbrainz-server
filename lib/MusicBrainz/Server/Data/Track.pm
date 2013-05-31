@@ -57,11 +57,13 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Track';
 }
 
-sub _medium_id
+sub _medium_ids
 {
-    my ($self, $track_id) = @_;
-    return $self->sql->select_single_value (
-        "SELECT medium FROM track WHERE id = ?", $track_id);
+    my ($self, @track_ids) = @_;
+    return $self->sql->select_single_column_array (
+        "SELECT distinct(medium)
+           FROM track
+          WHERE id IN (" . placeholders(@track_ids) . ")", @track_ids);
 }
 
 sub load
@@ -173,16 +175,20 @@ sub update
     my %names = $self->find_or_insert_names($update->{name});
     my $row = $self->_create_row($update, \%names);
     $self->sql->update_row('track', $row, { id => $track_id });
-    $self->c->model('DurationLookup')->update($self->_medium_id ($track_id));
+
+    my $mediums = $self->_medium_ids ($track_id);
+    $self->c->model('DurationLookup')->update($mediums->[0]);
 }
 
 sub delete
 {
     my ($self, @track_ids) = @_;
+    my $mediums = $self->_medium_ids (@track_ids);
+
     my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
     $self->sql->do($query, @track_ids);
 
-    $self->c->model('DurationLookup')->update($self->_medium_id ($_)) for @track_ids;
+    $self->c->model('DurationLookup')->update($_) for @$mediums;
     return 1;
 }
 
