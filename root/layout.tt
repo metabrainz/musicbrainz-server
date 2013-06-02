@@ -2,9 +2,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        [% css_manifest('common.css.manifest') %]
+        [% css_manifest('common') %]
         [%- IF c.debug -%]
-            <link rel="stylesheet/less" type="text/css" href="/static/styles/debug.css" />
+            <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
         [%- END -%]
         [%- IF c.user_exists -%]
           <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery-ui.css') %]" />
