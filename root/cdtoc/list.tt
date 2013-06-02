@@ -6,7 +6,6 @@
             <th>[% l('Title') %]</th>
             <th>[% l('Artist') %]</th>
             <th>[% l('Release Events') %]</th>
-            <th>[% l('Country') %]</th>
             <th>[% l('Label') %]</th>
             <th>[% l('Catalog#') %]</th>
             <th>[% l('Barcode') %]</th>
