@@ -55,6 +55,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
             self.$number.val (self.position ());
         }
 
+        self.$id.val (data.id);
         self.$title.val (data.name);
         if (self.getDuration () === null || !self.parent.hasToc ())
         {
