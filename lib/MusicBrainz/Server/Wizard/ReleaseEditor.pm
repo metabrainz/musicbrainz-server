@@ -1352,7 +1352,6 @@ sub _expand_track
     }
 
     my $entity = Track->new(
-        id => $trk->{id} // undef,
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
