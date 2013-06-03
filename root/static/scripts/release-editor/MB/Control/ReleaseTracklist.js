@@ -568,7 +568,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                     "id": $(row).find ('input.id').val ()
                 },
                 "name": $(row).find ('input.credit').val (),
-                "join": $(row).find ('input.join').val ()
+                "join_phrase": $(row).find ('input.join').val ()
             };
 
             preview += names[idx].name + names[idx].join;
