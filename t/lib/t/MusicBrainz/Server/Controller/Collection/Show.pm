@@ -42,6 +42,26 @@ test 'Collection view has link back to all collections (not yours)' => sub {
             'contains correct description');
 };
 
+test 'Collection view includes description when there is one' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');
+    $mech->content_like(qr/Testy!/, 'description shows');
+};
+
+test 'Collection view does not include description when there is none' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cd');
+    my $tx = test_xpath_html ($mech->content);
+
+    $tx->not_ok('//html:div[@id=collection]', 'no description element');
+
+};
+
+
 test 'Unknown collection' => sub {
     my $test = shift;
     my $mech = $test->mech;

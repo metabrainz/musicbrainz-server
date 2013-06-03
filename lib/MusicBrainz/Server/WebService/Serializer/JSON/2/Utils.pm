@@ -27,6 +27,7 @@ Readonly my %ENTITY_TO_SERIALIZER => (
     'MusicBrainz::Server::Entity::Release' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Release',
     'MusicBrainz::Server::Entity::ReleaseGroup' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup',
     'MusicBrainz::Server::Entity::Work' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Work',
+    'MusicBrainz::Server::Entity::Area' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::Area',
     'MusicBrainz::Server::Entity::URL' => 'MusicBrainz::Server::WebService::Serializer::JSON::2::URL',
 );
 

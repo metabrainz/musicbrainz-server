@@ -50,6 +50,16 @@ test 'browse releases via artist (paging)' => sub {
                     },
                     date => "1999-09-23",
                     country => "US",
+                    "release-events" => [{
+                        date => "1999-09-23",
+                        "area" => {
+                            "id" => "489ce91b-6658-3307-9877-795b68554c98",
+                            "name" => "United States",
+                            "sort-name" => "United States",
+                            "iso_3166_1_codes" => ["US"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     asin => "B00001IVAI",
                     barcode => JSON::null,
                     disambiguation => "",
@@ -83,6 +93,16 @@ test 'browse releases via label' => sub {
                     },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116822123",
                     media => [
                         { format => "CD", "track-count" => 9, title => JSON::null },
@@ -106,6 +126,16 @@ test 'browse releases via label' => sub {
                     },
                     date => "2007-01-29",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116817020",
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ],
                     asin => "B000KJTG6K",
@@ -140,6 +170,16 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -160,6 +200,16 @@ test  'browse releases via release group' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => "B00005LA6G",
                     disambiguation => "",
@@ -193,6 +243,16 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064173891",
                     asin => "B0000YGBSG",
                     "label-info" => [
@@ -224,6 +284,16 @@ test 'browse releases via recording' => sub {
                     },
                     date => "2004-01-15",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-01-15",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064173907",
                     asin => "B0000YG9NS",
                     "label-info" => [
@@ -268,6 +338,16 @@ test 'browse releases via track artist' => sub {
                     },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064451180",
                     asin => "B0001FAD2O",
                     disambiguation => "",

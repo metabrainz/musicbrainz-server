@@ -46,7 +46,9 @@ INSERT INTO language (frequency, iso_code_1, iso_code_2t, name, id, iso_code_2b,
 INSERT INTO release_packaging (id, name) VALUES (1, 'Jewel Case');
 
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00151894163');
+INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730476');
 INSERT INTO label_ipi (label, ipi) VALUES (1, '00151894166');
+INSERT INTO label_isni (label, isni) VALUES (1, '0000000106750994');
 INSERT INTO
     editor ( id, name, password, privs, email, website, bio,
              email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
@@ -69,6 +71,6 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
   VALUES (155, '14b9d183-7dab-42ba-94a3-7388a66604b8', 155, 155, 155);
 
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (130, 10, 316, '', 2, now());
-INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering) VALUES (12345, 155, 130, 1);
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 155, 'image/jpeg', 130, 1);
 
 SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));

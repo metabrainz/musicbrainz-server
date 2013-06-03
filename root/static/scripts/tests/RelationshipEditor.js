@@ -27,9 +27,9 @@ var typeInfo = {
                         },
                         {
                             "attrs": {"1": [0, 1], "3": [0, null], "194": [0, 1], "596": [0, 1]},
-                            "reverse_phrase": "{additional} {guest} {solo} {vocal} vocals",
+                            "reverse_phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
                             "id": 149,
-                            "phrase": "{additional} {guest} {solo} {vocal} vocals",
+                            "phrase": "{additional} {guest} {solo} {vocal:%|vocals}",
                             "descr": 1
                         }
                     ],
@@ -207,6 +207,18 @@ var attrInfo = {
         ],
         "id": 14
     },
+    "vocal": {
+        "l_name": "vocal",
+        "name": "vocal",
+        "id": 3,
+        "children": [
+            {
+                "l_name": "lead vocals",
+                "name": "lead vocals",
+                "id": 4
+            }
+        ]
+    },
     "associate": {
         "name": "associate",
         "l_name": "associate",
@@ -311,7 +323,9 @@ $.extend(MB.text = MB.text || {}, {
     InvalidDate: "The date you've entered is not valid.",
     InvalidEndDate: "The end date cannot preceed the begin date.",
     InvalidValue: "The value you've entered is not valid.",
-    RequiredField: "Required field."
+    RequiredField: "Required field.",
+    EnumerationComma: ", ",
+    EnumerationAnd: "{b} and {a}"
 });
 
 
@@ -487,7 +501,7 @@ MB.tests.RelationshipEditor.Relationship = function() {
                 linkType: 148,
                 backward: false,
                 attrs: {instrument: [123, 229, 277], solo: true},
-                expected: "solo zither, guitar & bass guitar"
+                expected: "solo zither, guitar and bass guitar"
             },
             {
                 linkType: 141,
@@ -499,7 +513,20 @@ MB.tests.RelationshipEditor.Relationship = function() {
                 linkType: 154,
                 backward: true,
                 attrs: {instrument: [69, 75, 109, 302], additional: true},
-                expected: "contains additional strings, guitars, lyre & plucked string instruments samples by"
+                expected: "contains additional strings, guitars, lyre and plucked string instruments samples by"
+            },
+            // MBS-6129
+            {
+                linkType: 149,
+                backward: true,
+                attrs: {additional: false, vocal: [4]},
+                expected: "lead vocals"
+            },
+            {
+                linkType: 149,
+                backward: true,
+                attrs: {additional: false, vocal: []},
+                expected: "vocal"
             }
         ];
 

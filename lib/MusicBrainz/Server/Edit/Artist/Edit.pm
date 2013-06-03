@@ -27,6 +27,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 with 'MusicBrainz::Server::Edit::Role::IPI';
+with 'MusicBrainz::Server::Edit::Role::ISNI';
 
 sub edit_name { N_l('Edit artist') }
 sub edit_type { $EDIT_ARTIST_EDIT }
@@ -40,10 +41,13 @@ sub change_fields
         sort_name  => Optional[Str],
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
-        country_id => Nullable[Int],
+        area_id    => Nullable[Int],
+        begin_area_id => Nullable[Int],
+        end_area_id => Nullable[Int],
         comment    => Nullable[Str],
         ipi_code   => Nullable[Str],
         ipi_codes  => Optional[ArrayRef[Str]],
+        isni_codes  => Optional[ArrayRef[Str]],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool]
@@ -67,8 +71,14 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations, (
                           ArtistType => 'type_id',
-                          Country => 'country_id',
+                          Area => 'area_id',
                           Gender => 'gender_id',
+                      ));
+    changed_relations($self->data, $relations, (
+                          Area => 'begin_area_id',
+                      ));
+    changed_relations($self->data, $relations, (
+                          Area => 'end_area_id',
                       ));
     $relations->{Artist} = [ $self->data->{entity}{id} ];
 
@@ -82,7 +92,9 @@ sub build_display_data
     my %map = (
         type       => [ qw( type_id ArtistType )],
         gender     => [ qw( gender_id Gender )],
-        country    => [ qw( country_id Country )],
+        area       => [ qw( area_id Area )],
+        begin_area => [ qw( begin_area_id Area )],
+        end_area   => [ qw( end_area_id Area )],
         name       => 'name',
         sort_name  => 'sort_name',
         ipi_code   => 'ipi_code',
@@ -95,30 +107,25 @@ sub build_display_data
     $data->{artist} = $loaded->{Artist}{ $self->data->{entity}{id} }
         || Artist->new( name => $self->data->{entity}{name} );
 
-    if (exists $self->data->{new}{begin_date}) {
-        $data->{begin_date} = {
-            new => PartialDate->new($self->data->{new}{begin_date}),
-            old => PartialDate->new($self->data->{old}{begin_date}),
-        };
+
+    for my $date_prop (qw( begin_date end_date )) {
+        if (exists $self->data->{new}{$date_prop}) {
+            $data->{$date_prop} = {
+                new => PartialDate->new($self->data->{new}{$date_prop}),
+                old => PartialDate->new($self->data->{old}{$date_prop}),
+            };
+        }
     }
 
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
+    for my $prop (qw( ipi_codes isni_codes )) {
+        if (exists $self->data->{new}{$prop}) {
+            $data->{$prop}->{old} = $self->data->{old}{$prop};
+            $data->{$prop}->{new} = $self->data->{new}{$prop};
+        }
     }
 
-    if (exists $self->data->{new}{end_date}) {
-        $data->{end_date} = {
-            new => PartialDate->new($self->data->{new}{end_date}),
-            old => PartialDate->new($self->data->{old}{end_date}),
-        };
-    }
-
-    if (exists $self->data->{new}{ipi_codes}) {
-        $data->{ipi_codes}->{old} = $self->data->{old}{ipi_codes};
-        $data->{ipi_codes}->{new} = $self->data->{new}{ipi_codes};
+    if (exists $data->{country} && !exists $data->{area}) {
+        $data->{area} = delete $data->{country};
     }
 
     return $data;
@@ -134,6 +141,10 @@ sub _mapping
         ipi_codes => sub {
             my $ipis = $self->c->model('Artist')->ipi->find_by_entity_id(shift->id);
             return [ map { $_->ipi } @$ipis ];
+        },
+        isni_codes => sub {
+            my $isnis = $self->c->model('Artist')->isni->find_by_entity_id(shift->id);
+            return [ map { $_->isni } @$isnis ];
         },
     );
 }
@@ -168,8 +179,8 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{gender_id}
         and defined($self->data->{old}{gender_id}) && $self->data->{old}{gender_id} != 0;
 
-    return 0 if exists $self->data->{old}{country_id}
-        and defined($self->data->{old}{country_id}) && $self->data->{old}{country_id} != 0;
+    return 0 if exists $self->data->{old}{area_id}
+        and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
 
     return 0 if exists $self->data->{old}{ended}
         and $self->data->{old}{ended} != $self->data->{new}{ended};
@@ -179,8 +190,9 @@ sub allow_auto_edit
                                                     $self->data->{new}{ipi_code});
         return 0 if $new_ipi ne $old_ipi;
     }
-
     return 0 if $self->data->{new}{ipi_codes};
+
+    return 0 if $self->data->{new}{isni_codes};
 
     return 1;
 }
@@ -215,6 +227,17 @@ around extract_property => sub {
 sub _conflicting_entity_path {
     my ($self, $mbid) = @_;
     return "/artist/$mbid";
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for my $side (qw( old new )) {
+        $data->{$side}{area_id} = delete $data->{$side}{country_id}
+            if exists $data->{$side}{country_id};
+    }
+
+    $self->data($data);
 }
 
 __PACKAGE__->meta->make_immutable;

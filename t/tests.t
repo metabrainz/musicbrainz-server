@@ -12,12 +12,15 @@ my @classes = (
     't::TemplateMacros',
     't::Sql',
     't::MusicBrainz::DataStore::Redis',
+    't::MusicBrainz::Script::RebuildCoverArt',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (
         't::MusicBrainz::Server'
     )
 );
+
+MusicBrainz::Server::Test->prepare_test_server;
 
 @classes = commandline_override ("t::MusicBrainz::Server::", @classes);
 

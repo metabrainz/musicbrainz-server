@@ -278,10 +278,6 @@ ko.bindingHandlers.autocomplete = (function() {
                     .on("keyup focus click", showRecentEntities);
 
             setAutocompleteEntity(Dialog.target, Dialog.mode() != "edit");
-
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                $autocomplete.autocomplete("destroy");
-            });
         }
     };
 }());

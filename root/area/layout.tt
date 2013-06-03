@@ -1,0 +1,103 @@
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? area.name _ " - ${title}" : area.name -%]
+  [%- IF !full_width -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+
+        <h2 class="area-information">[% l('Area information') %]</h2>
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
+               content=rdfa_sort_name(area.sort_name) class="sort-name"
+                   IF area.name != area.sort_name -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(area.l_type_name) class="type"
+                   IF area.type -%]
+            [%- UNLESS area.begin_date.is_empty AND area.end_date.is_empty AND !area.ended -%]
+                    [%- IF area.begin_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Begin date:") class="begin-date" %]
+                            [% area.begin_date.format %]
+                            [% IF area.has_age AND not area.end_date.format %]
+                                ([% display_age_ago(area.age) %])
+                            [% END %]
+                        [% END %]
+                    [%- END -%]
+                    [% IF area.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" %]
+                            [% area.end_date.format %]
+                            [% IF area.has_age %]
+                                ([% display_age (area.age) %])
+                            [% END %]
+                        [% END %]
+                    [% ELSIF area.ended %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" %]
+                            [% l('[unknown]') %]
+                        [% END %]
+                    [% END %]
+            [%- END -%]
+            [% FOR code=area.iso_3166_1_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-1:') content=html_escape(code) class="iso-3166-1" %]
+            [% END %]
+            [% FOR code=area.iso_3166_2_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-2:') content=html_escape(code) class="iso-3166-2" %]
+            [% END %]
+            [% FOR code=area.iso_3166_3_codes %]
+                [% INCLUDE 'layout/sidebar/property.tt' label=l('ISO 3166-3:') content=html_escape(code) class="iso-3166-3" %]
+            [% END %]
+        [% END %]
+
+        <h2 class="editing">[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                [% sidebar_edit_annotation(area) IF c.user.is_location_editor %]
+                [% sidebar_annotation_history(area) %]
+
+                [%# We only want to show this <hr /> if either of the macros
+                    produced output. %]
+                [% '<hr />' IF number_of_revisions > 0 ||
+                               c.user_is_location_editor %]
+
+                [% IF c.user.is_location_editor %]
+                    <li>
+                      <a href="[% c.uri_for_action('/area/merge_queue', { 'add-to-merge' => area.id }) %]">
+                        [% l('Merge area') %]
+                      </a>
+                    </li>
+                    <li>[% link_entity(area, 'delete', l('Remove area')) %]</li>
+                    <hr/>
+                [% END %]
+
+                [%# We only show the 'Create a relationship with' link if the
+                    user is a location editor, or the other end point is *not* an
+                    area. %]
+                [% IF c.user.is_location_editor
+                        || c.session.relationship.type0 != 'area' %]
+                    [%# Adds <li> itself %]
+                    [% use_in_relationship(area) %]
+                [% END %]
+                
+                <li>[% relate_to_ellipsis(area) %]</li>
+
+                [%# Only location editors can create area-url relationships %]
+                [% IF c.user.is_location_editor %]
+                    <li>[% relate_to_url(area) %]</li>
+                [% END %]
+
+                <hr/>
+
+                <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
+                <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=area -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=area -%]
+    [% END %]
+  [% END -%]
+
+  <div id="content">
+    [%- INCLUDE "area/header.tt" -%]
+    [%- content -%]
+  </div>
+
+[%- END -%]

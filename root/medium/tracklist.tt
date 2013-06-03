@@ -1,0 +1,84 @@
+<style>
+table.tbl td { vertical-align: top }
+
+dl.ars, dl.ars dd, dl.ars dt {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+}
+
+dl.ars { margin-left: 2em; line-height: 2.2ex; }
+dl.ars dd { margin: 0.2em 0; }
+
+dl.ars dt {
+    margin-right: 0.5em;
+    clear: left;
+    float: left;
+    color: #555;
+}
+
+</style>
+
+[% MACRO group_dd(group) BLOCK;
+     links = [];
+     links.push(link_entity(rel.target)) FOR rel=group.value;
+     links.join(', ');
+   END -%]
+
+[%- FOR track=tracks; recording = track.recording %]
+[%# model tracks as blank nodes %]
+<tr rel="mo:track" class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]"
+    id="[% track.gid %]"
+    about="[% rdfa_track_curi(track) %]" typeof="[% rdfa_concept_curi('track') %]">
+    <td class="pos t">
+      <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+      [%- track.number -%]
+    </td>
+    <td>
+      [%- IF recording.gid -%]
+        [%- rdfa_link_recording_as_track(recording, 'show', track.name) -%]
+      [%- ELSE -%]
+        [%- html_escape(track.name) -%]
+      [%- END -%]
+      [% IF recording.relationships.size %]
+        <br/>
+        <div class="ars" style="display: none;">
+        [% FOR type_relationships=recording.grouped_relationships %]
+          <dl class="ars">
+          [% IF type_relationships.key == 'work' %]
+            [% FOR group=type_relationships.value %]
+              [% FOR rel=group.value %]
+                <dt>[% l(group.key) %]:</dt>
+                <dd>
+                  [% link_entity(rel.target) %]
+                  [% FOR work_rel_type=rel.target.grouped_relationships('artist') %]
+                    <dl class="ars">
+                      [% FOR work_rel_group=work_rel_type.value %]
+                        <dt>[% l(work_rel_group.key) %]:</dt>
+                        <dd>[% group_dd(work_rel_group) %]</dd>
+                      [% END %]
+                    </dl>
+                  [% END %]
+                </dd>
+              [% END %]
+            [% END %]
+          [% ELSE %]
+            [% FOR group=type_relationships.value %]
+              <dt>[% l(group.key) %]:</dt>
+              <dd>[% group_dd(group) %]</dd>
+            [% END %]
+          [% END %]
+        </dl>
+        [% END %]
+        </div>
+      [% END %]
+    </td>
+    [%- IF show_artists -%]
+        <td>[% rdfa_artist_credit(track.artist_credit) %]</td>
+    [%- END -%]
+    [% UNLESS hide_rating %]
+    <td class="rating c">[% rating_stars(recording) %]</td>
+    [% END %]
+    <td class="treleases">[% rdfa_recording_duration(track) %]</td>
+</tr>
+[%- END -%]

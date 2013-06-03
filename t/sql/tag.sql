@@ -1,8 +1,6 @@
 
 SET client_min_messages TO 'WARNING';
 
-
-
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
 INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
 
@@ -24,6 +22,6 @@ INSERT INTO artist_tag (tag, artist, count) VALUES
     (3, 4, 2),
     (4, 4, 1);
 
-ALTER SEQUENCE tag_id_seq RESTART 5;
+ALTER SEQUENCE tag_id_seq RESTART 200;
 
 
