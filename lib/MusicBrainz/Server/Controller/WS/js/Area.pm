@@ -32,6 +32,7 @@ sub search : Chained('root') PathPart('area')
 after _load_entities => sub {
     my ($self, $c, @entities) = @_;
     $c->model('AreaType')->load(@entities);
+    $c->model('Area')->load_parent_country(@entities);
 };
 
 1;

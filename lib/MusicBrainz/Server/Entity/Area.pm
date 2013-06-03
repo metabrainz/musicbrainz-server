@@ -44,6 +44,11 @@ sub l_type_name
     return $self->type ? $self->type->l_name : undef;
 }
 
+has 'parent_country' => (
+    is => 'rw',
+    isa => 'Maybe[Area]',
+);
+
 has 'iso_3166_1' => (
     traits => [ 'Array' ],
     is => 'ro',
