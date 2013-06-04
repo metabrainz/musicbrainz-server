@@ -259,8 +259,6 @@ sub CreateRelations
 
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
-    InstallExtension($SYSMB, "musicbrainz_collate.sql", $DB->schema);
-
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
