@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -1351,8 +1352,7 @@ sub _expand_track
         $names[$i]->{artist} = $artist if $artist;
     }
 
-    my $entity = Track->new(
-        id => $trk->{id} // undef,
+    my %new_track = (
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
@@ -1360,6 +1360,9 @@ sub _expand_track
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
+
+    $new_track{id} = $trk->{id} if looks_like_number ($trk->{id});
+    my $entity = Track->new(%new_track);
 
     if ($assoc)
     {
