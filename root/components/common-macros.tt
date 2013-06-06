@@ -980,6 +980,30 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
+[%- MACRO release_countries(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF event.country;
+            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
+[%- MACRO release_dates(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF !event.date.is_empty;
+            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
 [%- MACRO release_events(release_events) BLOCK;
       IF release_events.size;
         '<ul class="links">';
