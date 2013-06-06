@@ -985,7 +985,8 @@ http://[%- server -%]/[%- id -%]
         '<ul class="links">';
         FOR event=release_events;
           IF event.country;
-            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+            release_country = rdfa_release_country_abbr(event.country);
+            '<li>' _ l('{country}', { country => release_country }) _ '</li>';
           END;
         END;
         '</ul>';
@@ -997,7 +998,8 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF !event.date.is_empty;
-            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+            release_date = rdfa_release_event_date(event.date);
+            '<li>' _ l('{data}', { date => release_date }) _ '</li>';
           END;
         END;
         '</ul>';
@@ -1012,12 +1014,12 @@ END -%]
           release_date = rdfa_release_event_date(event.date);
           country = rdfa_release_country_abbr(event.country);
           IF event.country AND !event.date.is_empty;
-            l('{date} ({country})',
+            l('{date} {country}',
               { date => release_date,
                 country => country
               });
           ELSIF event.country;
-            l('???? ({country})', { country => country });
+            l('{country}', { country => country });
           ELSE;
             l('{date}', { date => release_date });
           END;
