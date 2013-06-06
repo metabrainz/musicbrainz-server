@@ -226,9 +226,14 @@ Please do not respond to this email.
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
 
-Please note, this email will only be sent for the first vote against your edit,
-not for each one, and that you can disable this notification by modifying your
-preferences at $prefs_url.
+Please note, this email will only be sent when the number of 'No' votes changes
+from 0 to 1, not for each one, and that you can disable this notification by
+modifying your preferences at $prefs_url.
+
+To ensure time for you and other editors to respond, the soonest this edit will
+close is 72 hours from the time of this email, regardless of the number of 'No'
+votes it gets. If it would have expired within that time, this edit's
+expiration has been extended to 72 hours from the time of this email.
 
 -- The MusicBrainz Team
 EOS
