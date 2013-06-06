@@ -1551,6 +1551,14 @@ sub _seed_parameters {
         }
     }
 
+    if (exists $params->{country_id} || exists $params->{date})
+    {
+        # schema 16 style country/date pair, convert to schema 18 release event.
+        $params->{events} = [ { deleted => 0 } ];
+        $params->{events}->[0]->{date} = $params->{date} if exists $params->{date};
+        $params->{events}->[0]->{country_id} = $params->{country_id} if exists $params->{country_id};
+    }
+
     if (my $release_group_mbid = delete $params->{release_group}) {
         if(is_guid($release_group_mbid) and
                my $release_group = $self->c->model('ReleaseGroup')
@@ -1573,7 +1581,6 @@ sub _seed_parameters {
             $label->{name} = $name;
         }
     }
-
 
     $params->{mediums} = [ map {
         defined $_ ? $_ : { position => 1 }
