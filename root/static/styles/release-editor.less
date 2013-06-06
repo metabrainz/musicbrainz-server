@@ -5,89 +5,10 @@ h1 span {
     color: inherit;
 }
 
-#release-editor div.half-width { margin: 0; }
+/* __________________________________
 
-#release-editor div.artist-credit label,
-#release-editor div.release-label label.label-name,
-#release-editor div.release-event label.country_id,
-#release-editor div.release-event label.date {
-    float: left;
-    margin-right: 12px;
-    text-align: right;
-    width: 100px;
-}
-
-#release-editor div.release-event span.partial-date {
-    margin: 11px;
-}
-
-#release-editor div.release-label input[disabled] {
-    text-decoration: line-through;
-    color: #aaa;
-    background: #fff;
-}
-
-#release-editor tr.artist-credit-box input[type=text] { width: 200px; }
-
-#release-editor div.release-label,
-#release-editor div.release-event { 
-    margin: 0; 
-}
-
-#release-editor div.release-label input.name { width: 134px; }
-#release-editor div.release-label label.catno {
-    float: none;
-    text-align: right;
-    width: 40px;
-    padding: 0 4px 0 10px;
-}
-
-#release-editor div.release-label input.catno { width: 86px; }
-
-#release-editor div.release-label input.label-name,
-#release-editor div.release-label label.catno,
-#release-editor div.release-label input.catno,
-#release-editor div.release-event label.date
-{ margin: 0; }
-
-#release-editor fieldset select#id-language_id,
-#release-editor fieldset select#id-script_id {
-    width: 220px;
-    font-weight: bold;
-}
-
-#release-editor .country_select {
-    width: 220px;
-}
-
-#release-editor fieldset input[type=text],
-#release-editor fieldset select {
-    font-size: 1em;
-    width: 300px;
-}
-
-#release-editor fieldset select.format { width: 150px; }
-
-#release-editor fieldset input[type=checkbox],
-#release-editor fieldset span.partial-date input { width: auto; }
-
-#release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
-#release-editor fieldset div.recordings-loading,
-#release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
-#release-editor fieldset div.recordings-loading,
-#release-editor fieldset div.tracklist-loading p {
-    width: 100%;
-    text-align: center;
-}
-
-div.guesscase-options,
-#tracklist-options {
-    margin: 10px 0 10px 10px;
-}
-
-#release-editor fieldset div.guesscase-options select {
-    width: 100px;
-}
+       GLOBAL
+   __________________________________ */
 
 #release-editor > ul.tabs {
     background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
@@ -152,7 +73,87 @@ div.guesscase-options,
     display: block !important;
 }
 
-#release-editor #editnote  { height: 70px; }
+#release-editor .documentation p { margin-top: 0; }
+#release-editor .documentation div.warning p { margin-top: 1em; }
+
+#release-editor fieldset legend {
+    color: #fc6714;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+#release-editor fieldset {
+    border: 1px solid #aaa;
+    background: #ffffff;
+    margin-top: 0;
+
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+}
+
+#release-editor fieldset input[type=checkbox] { width: auto; }
+
+/* __________________________________
+
+       INFORMATION TAB
+   __________________________________ */
+
+
+#release-editor div.half-width { margin: 0; }
+
+#release-editor div.artist-credit label,
+#release-editor div.release-label label.label-name,
+#release-editor div.release-event label.country,
+#release-editor div.release-event label.date {
+    float: left;
+    margin-right: 12px;
+    text-align: right;
+    width: 100px;
+}
+
+#release-editor div.release-event span.partial-date {
+    margin: 0 11px;
+    width: 300px;
+    display: inline-block;
+}
+#release-editor div.release-event span.partial-date input { width: auto; }
+
+
+#release-editor div.release-label input[disabled] {
+    text-decoration: line-through;
+    color: #aaa;
+    background: #fff;
+}
+
+#release-editor tr.artist-credit-box input[type=text] { width: 200px; }
+
+#release-editor div.release-label input.name { width: 134px; }
+#release-editor div.release-label label.catno {
+    float: none;
+    text-align: right;
+    width: 40px;
+    padding: 0 4px 0 10px;
+}
+
+#release-editor div.release-label input.catno { width: 85px; }
+
+#release-editor div.release-label input.label-name,
+#release-editor div.release-label label.catno,
+#release-editor div.release-label input.catno,
+#release-editor div.release-event label.date
+{ margin: 0; }
+
+#release-editor fieldset span.partial-date input { width: auto; }
+
+#release-editor .documentation div.barcode-container,
+#release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
+
+/* __________________________________
+
+       TRACKLIST TAB
+   __________________________________ */
 
 #release-editor div.basic-disc.deleted,
 #release-editor textarea.tracklist.deleted,
@@ -198,21 +199,6 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
 
-#release-editor .recordings p { margin-top: 0; }
-#release-editor .documentation p { margin-top: 0; }
-#release-editor .documentation div.warning p { margin-top: 1em; }
-#release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
-#release-editor table.preview .artist { width: 160px; }
-#release-editor table.preview .duration {
-    width: 50px;
-    padding-left: 10px;
-}
-#release-editor table.preview .trackno {
-    width: 30px;
-    padding-right: 10px;
-    text-align: right;
-}
-
 #release-editor div.basic-disc.expanded { margin: 0 0 10px 0; }
 #release-editor table.basic-format { width: 100%; padding: 0 10px; margin: 0; }
 #release-editor table.basic-format h3 { margin: 0; }
@@ -235,34 +221,6 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 }
 #release-editor fieldset.advanced-disc div.icon { display: none; }
 #release-editor fieldset.advanced-disc.expanded div.icon { display: block; }
-
-#release-editor fieldset legend {
-    color: #fc6714;
-    font-size: 120%;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
-#release-editor fieldset {
-    border: 1px solid #aaa;
-    background: #ffffff;
-    margin-top: 0;
-
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border-radius: 6px;
-}
-
-#release-editor fieldset.editnote {
-    border: 0;
-    background: inherit;
-}
-
-#release-editor fieldset.editnote textarea {
-    width: 300px;
-}
-
-#release-editor div.editnote { margin-bottom: 1em; }
 
 #release-editor .medium.tbl tr.track-artist-credit,
 #release-editor .medium.tbl tr.track-artist-credit th,
@@ -290,10 +248,25 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     padding-left: 10px
 }
 
-#release-editor .documentation div.barcode-container,
-#release-editor .documentation div.artist-credit-container { width: 100%; margin-top: 60px; }
+#release-editor fieldset select.format { width: 150px; }
 
-#release-editor div.select-recording { background: #f0f0f0; }
+#release-editor fieldset.advanced-disc div.tracklist-loading { width: 100%; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading { padding: 110px 0 0 0; height: 140px; }
+#release-editor fieldset div.recordings-loading,
+#release-editor fieldset div.tracklist-loading p {
+    width: 100%;
+    text-align: center;
+}
+
+div.guesscase-options,
+#tracklist-options {
+    margin: 10px 0 10px 10px;
+}
+
+#release-editor fieldset div.guesscase-options select {
+    width: 100px;
+}
 
 /* __________________________________
 
@@ -336,9 +309,45 @@ div.dialog div.buttons { margin-top: 1em; width: 100%; }
             RECORDINGS TAB
    __________________________________ */
 
+#release-editor .recordings p { margin-top: 0; }
+#release-editor div.select-recording { background: #f0f0f0; }
+
 span.add-recording { color: #999; }
 table.matches { width: 100%; }
 a.change-recording { min-width: 48px; }
+
+/* __________________________________
+
+        EDIT PREVIEW / EDIT NOTE
+   __________________________________ */
+
+
+#release-editor #editnote  { height: 70px; }
+
+#release-editor fieldset.editnote {
+    border: 0;
+    background: inherit;
+}
+
+#release-editor fieldset.editnote textarea {
+    width: 300px;
+}
+
+#release-editor div.editnote { margin-bottom: 1em; }
+
+
+#release-editor table.preview { width: 100%; margin: 0 0 10px 0 }
+#release-editor table.preview .artist { width: 160px; }
+#release-editor table.preview .duration {
+    width: 50px;
+    padding-left: 10px;
+}
+#release-editor table.preview .trackno {
+    width: 30px;
+    padding-right: 10px;
+    text-align: right;
+}
+
 
 /* __________________________________
 
@@ -368,3 +377,4 @@ td.buttons { display: table-cell; }
 }
 
 input.disabled-hint { cursor: help; }
+

@@ -113,6 +113,8 @@ sub textarea
 sub label
 {
     my ($self, $field_name, $label, $attrs) = @_;
+    $attrs = (ref $attrs eq 'HASH') ? clone ($attrs) : {};
+
     my $fake_label = delete $attrs->{fake};
 
     my $field = $self->_lookup_field($field_name) or return;
@@ -150,6 +152,8 @@ sub inline_label
 sub select
 {
     my ($self, $field_name, $attrs) = @_;
+    $attrs = (ref $attrs eq 'HASH') ? clone ($attrs) : {};
+
     my $field = $self->_lookup_field($field_name) or return;
 
     my @selected = $field->multiple ? @{ $field->value || [] } : ( $field->value );
@@ -192,7 +196,6 @@ sub select
         }
     }
 
-    $attrs ||= {};
     if (!$field->required || delete $attrs->{no_default})
     {
         unshift @options, $self->h->option({
@@ -200,11 +203,15 @@ sub select
         }, ' ')
     }
 
+    my @class;
+    push @class, delete $attrs->{class} if $attrs->{class};
+
     return $self->h->select({
         id => $self->_id($field),
         name => $field->html_name,
         multiple => $field->multiple ? "multiple" : undef,
         disabled => $field->disabled ? "disabled" : undef,
+        class => join(' ', @class) || undef,
         %{ $attrs || {} }
     }, \@options);
 }

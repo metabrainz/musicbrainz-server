@@ -3,6 +3,16 @@ input:-moz-placeholder { color: #aaa; }
 input[disabled].lookup-performed,
 input[disabled] { background: #DCDAD5; cursor: default; }
 
+/* this is to ensure input/select/textarea elements are all the same
+   width if you set the same width on them. (without this a <select>
+   is a few pixels narrower than an <input type="text> in at least
+   firefox and chrome) */
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 button.nobutton:focus,
 button.nobutton:hover,
 button.nobutton {
@@ -15,6 +25,7 @@ button.nobutton {
     padding: 0;
     margin: 0;
 }
+button.nobutton::-moz-focus-inner { margin: -1px; padding: 0; };
 
 div.various-artists.warning { width: 50em; }
 
@@ -42,10 +53,11 @@ form div.row div.label {
 
 div.form-row-text-list { margin-left: 144px; }
 div.form-row-text-list button > img { vertical-align: middle; }
-div.half-width fieldset div.text-list-row > input { width: 278px; }
 
-div.form-row-add button { text-align: right; }
-div.form-row-add span.add-row { display: inline-block; width: 278px; padding: 2px; }
+div.form-row-add { text-align: right; width: 302px; }
+div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
+/* these rows are missing a <label> on the left and use a margin instead. */
+div.form-row-add.nolabel { margin-left: 144px; }
 
 div.bubble div.row input[type=text] {
     width: 176px;
@@ -240,6 +252,17 @@ div.half-width fieldset select {
     width: 300px;
 }
 
+div.half-width fieldset input.short,
+div.half-width fieldset select.short {
+    width: 220px;
+    font-weight: bold;
+}
+
+div.half-width fieldset input.with-remove,
+div.half-width fieldset select.with-remove {
+    width: 282px;
+}
+
 div.half-width fieldset input[type=checkbox],
 div.half-width fieldset span.partial-date input {
     width: auto;
@@ -314,7 +337,13 @@ input.icon, div.icon.img {
     height: 16px;
     border: 0 !important;
     background-repeat: no-repeat;
+    vertical-align: text-bottom;
 }
+/* remove (button) icons are next to <select> or <input> fields, align to the middle.
+div.icon.remove { vertical-align: middle; }
+/* other (button) icons are next to text, align them with the text. */
+div.icon.img { vertical-align: text-bottom; }
+
 
 div.img { display: inline-block; }
 
