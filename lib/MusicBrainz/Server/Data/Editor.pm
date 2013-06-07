@@ -9,6 +9,7 @@ use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
+use Encode;
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -590,7 +591,7 @@ sub hash_password {
     Authen::Passphrase::BlowfishCrypt->new(
         salt_random => 1,
         cost => 10,
-        passphrase => $password
+        passphrase => encode('utf-8', $password)
     )->as_rfc2307
 }
 
