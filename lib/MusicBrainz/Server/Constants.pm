@@ -6,6 +6,8 @@ use warnings;
 use base 'Exporter';
 
 use Readonly;
+use DateTime::Duration;
+use DateTime::Format::Pg;
 
 sub _get
 {
@@ -257,7 +259,7 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 Readonly our $REQUIRED_VOTES => 3;
-Readonly our $EDIT_MINIMUM_RESPONSE_HOURS => 72;
+Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Format::Pg->format_interval(DateTime::Duration->new(hours => 72));
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;

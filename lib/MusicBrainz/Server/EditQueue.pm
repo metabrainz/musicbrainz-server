@@ -3,7 +3,7 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $EDIT_MINIMUM_RESPONSE_HOURS );
+use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $EDIT_MINIMUM_RESPONSE_PERIOD );
 
 has 'c' => (
     is => 'ro',
@@ -61,9 +61,9 @@ sub process_edits
           WHERE status = ?
             AND (expire_time < now() OR
                  (yes_votes >= ? AND no_votes = 0) OR
-                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - interval '$EDIT_MINIMUM_RESPONSE_HOURS hours'))
+                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - ?))
           ORDER BY id",
-        $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES);
+        $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES, $EDIT_MINIMUM_RESPONSE_PERIOD);
 
     my %stats;
     my $errors = 0;
