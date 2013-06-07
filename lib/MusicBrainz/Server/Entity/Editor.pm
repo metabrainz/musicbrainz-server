@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Authen::Passphrase;
 use DateTime;
+use Encode;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
@@ -214,7 +215,8 @@ has ha1 => (
 
 sub match_password {
     my ($self, $password) = @_;
-    Authen::Passphrase->from_rfc2307($self->password)->match($password);
+    Authen::Passphrase->from_rfc2307($self->password)->match(
+        encode('utf-8', $password));
 }
 
 no Moose;
