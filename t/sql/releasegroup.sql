@@ -19,7 +19,7 @@ INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pe
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '4c767e70-72d8-11de-8a39-0800200c9a66', 2, 1, 1);
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834');
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'change');
 INSERT INTO release_group_annotation (release_group, annotation) VALUES (1, 1);
 

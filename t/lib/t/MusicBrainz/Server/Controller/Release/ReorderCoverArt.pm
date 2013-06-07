@@ -14,12 +14,7 @@ test 'Test reordering cover art' => sub {
     $c->sql->do(<<'EOSQL');
 SELECT setval('edit_id_seq', (SELECT MAX(id) FROM edit));
 
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)

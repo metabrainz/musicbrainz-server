@@ -19,8 +19,7 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'editor', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
 INSERT INTO editor_collection (id, gid, editor, name)
     VALUES (1, 'b33f3e54-caab-4ad4-94a6-a598e0e52eec', 1, 'My Collection');
 EOSQL
