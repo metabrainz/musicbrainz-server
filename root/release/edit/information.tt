@@ -88,7 +88,7 @@
         [% WRAPPER form_row %]
         <div class="form-row-add nolabel">
           <button class="nobutton add-event">
-            <span class="add-event">[% lp('Add Event', 'header') %]</span>
+            <span class="add-event">[% lp('Add Event', 'button/menu') %]</span>
             <div class="add-item icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
           </button>
         </div>
@@ -129,7 +129,7 @@
         [% WRAPPER form_row %]
           <div class="form-row-add nolabel">
             <button class="nobutton add-label">
-              <span class="add-label">[% lp('Add Label', 'header') %]</span>
+              <span class="add-label">[% lp('Add Label', 'button/menu') %]</span>
               <div class="add-item icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
             </button>
           </div>
