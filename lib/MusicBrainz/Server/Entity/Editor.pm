@@ -2,8 +2,8 @@ package MusicBrainz::Server::Entity::Editor;
 use Moose;
 use namespace::autoclean;
 
+use Authen::Passphrase;
 use DateTime;
-use Encode qw( encode );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
@@ -207,9 +207,14 @@ sub requires_password_reset {
     return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY
 };
 
-sub password_bytes {
-    my $self = shift;
-    return encode('utf-8', $self->password);
+has ha1 => (
+    isa => 'Str',
+    is => 'rw',
+);
+
+sub match_password {
+    my ($self, $password) = @_;
+    Authen::Passphrase->from_rfc2307($self->password)->match($password);
 }
 
 no Moose;
