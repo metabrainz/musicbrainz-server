@@ -118,7 +118,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group" || $type eq "work") {
+    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
@@ -133,14 +133,9 @@ sub search
         $extra_columns .= 'entity.language, entity.script, entity.barcode, entity.release_group,'
             if ($type eq 'release');
 
-        $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
-            if ($type eq 'work');
-
         my $extra_ordering = '';
-        if ($type eq "recording" || $type eq "release" || $type eq "release_group") {
-            $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
-            $extra_ordering = ', entity.artist_credit';
-        }
+        $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
+        $extra_ordering = ', entity.artist_credit';
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
@@ -186,6 +181,39 @@ sub search
         ";
         $hard_search_limit = int($offset * 1.2);
     }
+
+    elsif ($type eq "work") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                r.name,
+                entity.type AS type_id,
+                entity.language AS language_id,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) as r
+                LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
+                JOIN ${type} AS entity ON (r.id = entity.name OR alias.${type} = entity.id)
+                JOIN ${type}_name AS aname ON entity.name = aname.id
+            GROUP BY
+                entity.id, entity.gid, r.name, type_id, language_id
+            ORDER BY
+                rank DESC, r.name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
+    }
+
     # Could be merged with artist/label once name tables are killed
     elsif ($type eq "area") {
 
@@ -203,12 +231,17 @@ sub search
             FROM
                 (
                     SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-                    FROM ${type}, plainto_tsquery('mb_simple', ?) AS query
+                    FROM
+                        (SELECT name              FROM ${type}       UNION ALL
+                         SELECT sort_name AS name FROM ${type}       UNION ALL
+                         SELECT name              FROM ${type}_alias UNION ALL
+                         SELECT sort_name AS name FROM ${type}_alias) names,
+                        plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
-                LEFT JOIN ${type}_alias AS alias ON alias.name = r.name
+                LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
             GROUP BY
                 entity.id, entity.gid, entity.name, entity.sort_name, entity.type,
@@ -222,6 +255,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
+
     elsif ($type eq "tag") {
         $query = "
             SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
@@ -386,9 +420,21 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (exists $data->{date})
+        if (exists $data->{"release-event-list"} &&
+            exists $data->{"release-event-list"}->{"release-event"})
         {
-            $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+            $data->{events} = [];
+            for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
+            {
+                my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
+                    country => defined($release_event_data->{area}) ? 
+                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
+                        : undef, 
+                    date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
+
+                push @{$data->{events}}, $release_event;
+            }
+            delete $data->{"release-event-list"};
         }
         if (exists $data->{barcode})
         {
@@ -668,6 +714,32 @@ sub external_search
             {
                 $result->{type} = ref_to_type($result->{entity}->{parent});
             }
+        }
+
+        if ($type eq 'artist' || $type eq 'label')
+        {
+            # FIXME: The following is a temporary fix for MBS-6330.
+            # When the search server returns these results (SEARCH-292), this
+            # block of code can be removed again.
+            my @entities_from_search = map { $_->entity } @results;
+            my $entities_from_database = $self->c->model(
+                type_to_model ($type))->get_by_gids (
+                map { $_->gid } @entities_from_search);
+
+            for my $search_result (@entities_from_search) {
+                my $db_result = $entities_from_database->{ $search_result->gid };
+                next unless $db_result;
+                $search_result->area_id ($db_result->area_id) if $db_result->area_id;
+                if ($type eq 'artist') {
+                    $search_result->begin_area_id ($db_result->begin_area_id)
+                        if $db_result->begin_area_id;
+                    $search_result->end_area_id ($db_result->end_area_id)
+                        if $db_result->end_area_id;
+                }
+            }
+
+            $self->c->model('Area')->load(@entities_from_search);
+            $self->c->model('Area')->load_codes(map { $_->area } @entities_from_search);
         }
 
         if ($type eq 'work')

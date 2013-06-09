@@ -60,7 +60,7 @@
     [% END %]
     
     [% IF release.events.size %]
-    <h2>[% l('Release Events') %]</h2>
+    <h2>[% l('Release events') %]</h2>
     [% release_events(release.events) %]
     [% END %]
 
@@ -77,7 +77,6 @@
       [% IF c.user_exists %]
         [% annotation_links(release) %]
         <li>[% link_entity(release, 'change_quality', l('Change release quality')) %]</li>
-        <li>[% link_entity(release, 'move', l('Change release group')) %]</li>
         <li>
           <a href="[% c.uri_for_action('/release/merge_queue', { 'add-to-merge' => release.id }) %]">
             [% l('Merge release') %]

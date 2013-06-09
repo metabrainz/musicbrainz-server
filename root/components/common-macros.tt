@@ -781,6 +781,7 @@ END -%]
     ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
     ELSIF url.url.host.search('spotify.com'); 'spotify';
     ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
+    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
     ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
     ELSE; '';
 END -%]
@@ -981,7 +982,7 @@ http://[%- server -%]/[%- id -%]
 
 [%- MACRO release_events(release_events) BLOCK;
       IF release_events.size;
-        '<ul>';
+        '<ul class="links">';
         FOR event=release_events;
           '<li>';
           release_date = rdfa_release_event_date(event.date);
@@ -991,10 +992,10 @@ http://[%- server -%]/[%- id -%]
               { date => release_date,
                 country => country
               });
-          ELSIF event.date.is_empty;
-            l('{country} (date unknown)', { country => country });
+          ELSIF event.country;
+            l('???? ({country})', { country => country });
           ELSE;
-            l('{date} (unknown)', { date => release_date });
+            l('{date}', { date => release_date });
           END;
           '</li>';
         END;

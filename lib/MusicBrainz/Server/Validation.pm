@@ -48,7 +48,6 @@ require Exporter;
         is_valid_barcode
         is_valid_ean
         is_valid_isrc
-        is_tunecore
         is_valid_iso_3166_1
         is_valid_iso_3166_2
         is_valid_iso_3166_3
@@ -204,13 +203,7 @@ sub is_valid_ean
 sub is_valid_isrc
 {
     my $isrc = $_[0];
-    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/ && !is_tunecore($isrc);
-}
-
-sub is_tunecore
-{
-    my $supposed_isrc = $_[0];
-    return $supposed_isrc =~ /^TC\.*/;
+    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
 }
 
 sub is_valid_iso_3166_1

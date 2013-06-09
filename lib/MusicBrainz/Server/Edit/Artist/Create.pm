@@ -14,6 +14,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { N_l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
@@ -28,7 +29,6 @@ has '+data' => (
         sort_name  => Optional[Str],
         type_id    => Nullable[Int],
         gender_id  => Nullable[Int],
-        country_id => Nullable[Int],
         area_id    => Nullable[Int],
         begin_area_id => Nullable[Int],
         end_area_id => Nullable[Int],
@@ -55,7 +55,7 @@ sub foreign_keys
         Artist     => [ $self->entity_id ],
         ArtistType => [ $self->data->{type_id} ],
         Gender     => [ $self->data->{gender_id} ],
-        Area       => [ $self->data->{country_id}, $self->data->{area_id},
+        Area       => [ $self->data->{area_id},
                         $self->data->{begin_area_id}, $self->data->{end_area_id} ]
     };
 }
@@ -66,7 +66,7 @@ sub build_display_data
 
     my $type = $self->data->{type_id};
     my $gender = $self->data->{gender_id};
-    my $area = $self->data->{area_id} // $self->data->{country_id};
+    my $area = $self->data->{area_id};
     my $begin_area = $self->data->{begin_area_id};
     my $end_area = $self->data->{end_area_id};
 
@@ -103,6 +103,15 @@ after insert => sub {
         $self->c->model('Artist')->subscription->subscribe($editor->id, $self->entity_id);
     }
 };
+
+sub restore {
+    my ($self, $data) = @_;
+
+    $data->{area_id} = delete $data->{country_id}
+        if exists $data->{country_id};
+
+    $self->data($data);
+}
 
 sub allow_auto_edit { 1 }
 

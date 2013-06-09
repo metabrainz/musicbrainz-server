@@ -185,6 +185,7 @@ test 'lookup recording with official singles (+media)' => sub {
                             "track-offset" => 0,
                             tracks => [
                                 {
+                                    id => "4a7c2f1e-cf40-383c-a1c1-d1272d8234cd",
                                     number => "1",
                                     title => "サマーれげぇ!レインボー",
                                     length => 296026,

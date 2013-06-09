@@ -94,17 +94,6 @@ sub validate {
             if (++$witnessed_countries{$field->value} > 1);
     }
 
-    # Release events without countries must set a date
-    for my $event (
-        grep { !$_->field('country_id')->value } @active_release_events
-    ) {
-        my $field = $event->field('date');
-        my $date = $field->value;
-        $field->add_error(
-            l('Release events without a country must have a date'))
-            if MusicBrainz::Server::Entity::PartialDate->new($date)->is_empty;
-    }
-
     # A release_group_id *must* be present if we're editing an existing release.
     $self->field('release_group.name')->add_error(
         l('You must select an existing release group. If you wish to move this release,

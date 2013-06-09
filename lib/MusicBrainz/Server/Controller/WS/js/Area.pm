@@ -21,10 +21,18 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub type { 'area' }
 
+sub serialization_routine { '_area' }
+
 sub search : Chained('root') PathPart('area')
 {
     my ($self, $c) = @_;
     $self->dispatch_search($c);
 }
+
+after _load_entities => sub {
+    my ($self, $c, @entities) = @_;
+    $c->model('AreaType')->load(@entities);
+    $c->model('Area')->load_parent_country(@entities);
+};
 
 1;

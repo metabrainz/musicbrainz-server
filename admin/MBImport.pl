@@ -337,6 +337,7 @@ sub ImportAllTables
         artist_tag_raw
         cdtoc_raw
         edit
+        edit_area
         edit_artist
         edit_label
         edit_note
@@ -371,6 +372,7 @@ sub ImportAllTables
         artist_credit_name
         artist_gid_redirect
         artist_ipi
+        artist_isni
         artist_meta
         artist_name
         artist_tag
@@ -382,6 +384,7 @@ sub ImportAllTables
         editor_preference
         editor_sanitised
         editor_subscribe_artist
+        editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
         gender
@@ -432,6 +435,7 @@ sub ImportAllTables
         label_annotation
         label_gid_redirect
         label_ipi
+        label_isni
         label_meta
         label_name
         label_tag
@@ -506,6 +510,14 @@ sub ImportAllTables
         cover_art_archive.cover_art_type
         cover_art_archive.release_group_cover_art
 
+        documentation.l_area_area_example
+        documentation.l_area_artist_example
+        documentation.l_area_label_example
+        documentation.l_area_recording_example
+        documentation.l_area_release_example
+        documentation.l_area_release_group_example
+        documentation.l_area_url_example
+        documentation.l_area_work_example
         documentation.l_artist_artist_example
         documentation.l_artist_label_example
         documentation.l_artist_recording_example

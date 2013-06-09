@@ -68,10 +68,12 @@ then
     chown "$BACKUP_USER:$BACKUP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$BACKUP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     cp -a "$TEMP_DIR"/replication-*.tar.bz2 "$BACKUP_DIR"/replication/
+    cp -a "$TEMP_DIR"/replication-*.tar.bz2.asc "$BACKUP_DIR"/replication/
 
     chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/replication-*.tar.bz2
     chmod "$FTP_FILE_MODE" "$TEMP_DIR"/replication-*.tar.bz2
     mv "$TEMP_DIR"/replication-*.tar.bz2 "$FTP_DATA_DIR"/replication/
+    mv "$TEMP_DIR"/replication-*.tar.bz2.asc "$FTP_DATA_DIR"/replication/
     $mb_server/bin/rsync-replication-files
 fi
 
@@ -86,6 +88,7 @@ then
 
     # Now remove the "private" file(s)
     rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2
+    rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2.asc
     rm -rf "$TEMP_DIR"/mbdump-private.tar.bz2.gpg
 
     # and move the rest to the FTP directory

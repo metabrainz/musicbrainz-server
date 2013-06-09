@@ -13,6 +13,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Label';
+with 'MusicBrainz::Server::Edit::Role::Insert';
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
@@ -29,7 +30,6 @@ has '+data' => (
         label_code   => Nullable[Int],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],
-        country_id   => Nullable[Int],
         area_id      => Nullable[Int],
         comment      => Nullable[Str],
         ipi_code     => Nullable[Str],
@@ -52,7 +52,7 @@ sub foreign_keys
     return {
         Label     => [ $self->entity_id ],
         LabelType => [ $self->data->{type_id} ],
-        Area      => [ $self->data->{country_id}, $self->data->{area_id} ],
+        Area      => [ $self->data->{area_id} ],
     };
 }
 
@@ -68,9 +68,8 @@ sub build_display_data
         type       => defined($self->data->{type_id}) &&
                         $loaded->{LabelType}->{ $self->data->{type_id} },
         label_code => $self->data->{label_code},
-        area       => defined($self->data->{area_id}) ?
-                        $loaded->{Area}->{ $self->data->{area_id} } :
-                        defined($self->data->{country_id}) && $loaded->{Area}->{ $self->data->{country_id} },
+        area       => defined($self->data->{area_id}) &&
+                        $loaded->{Area}->{ $self->data->{area_id} },
         comment    => $self->data->{comment},
         ipi_codes   => $self->data->{ipi_codes} // [ $self->data->{ipi_code} // () ],
         isni_codes => $self->data->{isni_codes},
@@ -90,6 +89,14 @@ after insert => sub {
     }
 };
 
+sub restore {
+    my ($self, $data) = @_;
+
+    $data->{area_id} = delete $data->{country_id}
+        if exists $data->{country_id};
+
+    $self->data($data);
+}
 
 sub allow_auto_edit { 1 }
 

@@ -172,11 +172,11 @@ MB.utility.rememberCheckbox = function (id, name) {
        value from the html. */
     if ($.cookie (name) === "1")
     {
-        $(id).attr ('checked', 'checked');
+        $(id).prop('checked', true);
     }
     else if ($.cookie (name) === "0")
     {
-        $(id).removeAttr ('checked');
+        $(id).prop('checked', false);
     }
 
     $(id).bind ('change.mb', function () {

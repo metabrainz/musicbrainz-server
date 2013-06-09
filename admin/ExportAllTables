@@ -42,6 +42,7 @@ my @tables = qw(
     artist_tag_raw
     cdtoc_raw
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -82,6 +83,7 @@ my @tables = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_meta
     artist_name
     artist_tag
@@ -96,6 +98,7 @@ my @tables = qw(
     editor_language
     editor_sanitised
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -147,6 +150,7 @@ my @tables = qw(
     label_annotation
     label_gid_redirect
     label_ipi
+    label_isni
     label_meta
     label_name
     label_tag
@@ -221,6 +225,14 @@ my @tables = qw(
     cover_art_archive.cover_art_type
     cover_art_archive.release_group_cover_art
 
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
     documentation.l_artist_artist_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
@@ -281,6 +293,7 @@ my @group_core = qw(
     artist_credit_name
     artist_gid_redirect
     artist_ipi
+    artist_isni
     artist_name
     artist_type
     cdtoc
@@ -329,6 +342,7 @@ my @group_core = qw(
     label_alias_type
     label_gid_redirect
     label_ipi
+    label_isni
     label_name
     label_type
     language
@@ -410,6 +424,7 @@ my @group_editor = qw(
 
 my @group_edit = qw(
     edit
+    edit_area
     edit_artist
     edit_label
     edit_note
@@ -440,6 +455,7 @@ my @group_private = qw(
     editor_oauth_token
     editor_preference
     editor_subscribe_artist
+    editor_subscribe_collection
     editor_subscribe_editor
     editor_subscribe_label
     editor_watch_artist
@@ -477,6 +493,14 @@ my @group_wikidocs = (
 );
 
 my @group_documentation = qw(
+    documentation.l_area_area_example
+    documentation.l_area_artist_example
+    documentation.l_area_label_example
+    documentation.l_area_recording_example
+    documentation.l_area_release_example
+    documentation.l_area_release_group_example
+    documentation.l_area_url_example
+    documentation.l_area_work_example
     documentation.l_artist_artist_example
     documentation.l_artist_label_example
     documentation.l_artist_recording_example
@@ -533,8 +557,6 @@ my $fDoFullExport = 1;
 my $fDoReplication = 0;
 my $fCheckCompleteness = 0;
 my @tablelist;
-my $encrypt_for = undef;
-my $sign_with = undef;
 
 GetOptions(
     "output-dir|d=s"    => \$OutputDir,
@@ -548,9 +570,10 @@ GetOptions(
     "without-full-export"       => sub { $fDoFullExport = 0 },
     "check-completeness"        => sub { $fCheckCompleteness = 1 },
     "help"                              => \$fHelp,
-    "encrypt-for|e=s" => \$encrypt_for,
-    "sign-with|s=s" => \$sign_with
 );
+
+my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY || undef;
+my $sign_with = DBDefs->GPG_SIGN_KEY || undef;
 
 sub usage
 {
@@ -566,8 +589,6 @@ Usage: ExportAllTables [options]
         --with[out]-replication  Do [not] produce a replication packet
         --with[out]-full-export  Do [not] export full tables
         --check-completeness     Check that all tables from DB schema are exported
-    -e, --encrypt-for     A GPG aware recipient to encrypt private data for.
-    -s, --sign-with       A GPG key that is used to sign data dumps.
 
 Certain combinations of options are pointless:
  * specifying --without-replication and --without-full-export
@@ -578,9 +599,11 @@ If you specify --table TABLE, you won't get a complete consistent snapshot
 of the database, of course.
 
 GPG encryption of private data requires you pass a recipient to encrypt data
-for. This parameter can take any value that gpg(1) can take for
-`--recipient`. The user running ExportAllTables must have a GPG keyring setup
-that is aware of this recipient.
+for. This value is taken from DBDefs and can take any value that gpg(1) can
+take for `--recipient`. The user running ExportAllTables must have a GPG
+keyring setup that is aware of this recipient. GPG signing works similarly.
+
+Encryption uses DBDefs->GPG_ENCRYPT_KEY and signing uses DBDefs->GPG_SIGN_KEY.
 
 EOF
 }
@@ -675,7 +698,6 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 {
     $sql->do("SELECT id,
                 name,
-                'mb' AS password,
                 0 AS privs,
                 '' AS email,
                 NULL AS website,
@@ -690,7 +712,9 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 last_updated,
                 NULL AS birth_date,
                 NULL AS gender,
-                NULL as area
+                NULL as area,
+                '{CLEARTEXT}mb' AS password,
+                md5(name || ':musicbrainz.org:mb') AS ha1
               INTO TEMPORARY editor_sanitised
               FROM editor");
 }
@@ -838,7 +862,8 @@ if ($fDoReplication)
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
-dumptable("replication_control");
+# Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
+dumptable("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
 # Make sure our replication data is safe before we commit its removal from the database
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
@@ -884,8 +909,10 @@ if ($fCompress and $fDoFullExport)
 
     $? == 0 or die "md5sum returned $?";
 
+    gpg_sign("$OutputDir/MD5SUMS");
+
     if ($encrypt_for) {
-        system "/usr/bin/gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
+        system "gpg --recipient '$encrypt_for' --encrypt $OutputDir/mbdump-private.tar.bz2";
         system "rm $OutputDir/mbdump-private.tar.bz2";
     }
 }
@@ -940,8 +967,7 @@ sub make_tar
     $? == 0 or die "Tar returned $?";
     printf "%s : Tar completed in %d seconds\n", scalar localtime, tv_interval($t0);
 
-    system "/usr/bin/gpg --default-key $sign_with --sign $OutputDir/$tarfile"
-        if $sign_with;
+    gpg_sign( "$OutputDir/$tarfile" ) if $sign_with;
 }
 
 sub writefile
@@ -1015,6 +1041,27 @@ sub check_tables_completeness
     }
     printf "Table exported but not included in any tar: %s\n", $_
         for sort @no_group_tables;
+}
+
+sub gpg_sign
+{
+    my ($file_to_be_signed) = @_;
+
+    # Skip GPG signing of a file if no "sign with" key is given
+    return unless $sign_with;
+
+    # Sign requested file
+    system "gpg",
+        "--default-key", "$sign_with",
+        "--detach-sign",
+        "--armor",
+        $file_to_be_signed;
+
+    # Inform user about a failed signature process
+    if ( $? != 0 ) {
+        printf STDERR "Failed to sign $file_to_be_signed \n"
+            . "GPG returned $?";
+    }
 }
 
 # eof ExportAllTables
