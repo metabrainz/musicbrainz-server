@@ -6,6 +6,7 @@ use List::UtilsBy 'sort_by';
 
 our @EXPORT_OK = qw(
     boolean
+    count_of
     list_of
     number
     date_period
@@ -89,6 +90,17 @@ sub list_of
     return [
         map { serialize_entity($_, $inc, $stash, $toplevel) }
         sort_by { $_->gid } @$items ];
+}
+
+sub count_of
+{
+    my ($entity, $inc, $stash, $type, $toplevel) = @_;
+
+    my $opts = $stash->store ($entity);
+    my $list = $opts->{$type};
+    my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
+
+    return number (scalar @$items);
 }
 
 1;
