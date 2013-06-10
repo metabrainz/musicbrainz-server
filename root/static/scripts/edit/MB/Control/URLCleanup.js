@@ -332,7 +332,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
         type: MB.constants.LINK_TYPES.microblog,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "http://twitter.com");
+            return url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "https://twitter.com");
         }
     },
     ozonru: {
