@@ -602,7 +602,7 @@ sub prepare_recordings
     my $json = JSON::Any->new( utf8 => 1 );
 
     my @medium_edits = @{ $self->get_value ('tracklist', 'mediums') // [] };
-    my @recording_edits = @{ $self->get_value ('tracklist', 'rec_mediums') // [] };
+    my @recording_edits = @{ $self->get_value ('recordings', 'rec_mediums') // [] };
 
     my $mediums_by_id = $self->c->model('Medium')->get_by_ids(
         map { $_->{id} || $_->{medium_id_for_recordings} }
