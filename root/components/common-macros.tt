@@ -209,19 +209,22 @@ END -%]
 [%- END -%]
 
 [%- MACRO expanded_artist_credit(ac) IF ac -%]
-  [% artist_credit(ac) %]
-  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
-  <ul>
-    [% FOR name=ac.names %]
-      <li>
-      [% IF name.artist.name != name.name %]
-        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
-      [% ELSE %]
-        [% descriptive_link(name.artist) %]
-      [% END %]
-      </li>
-    [% END %]
-  </ul>
+  [%- artist_credit(ac) -%]<br />
+  [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
+    [%- SET artist_list = [];
+        SET show_list = 0;
+        FOR name=ac.names;
+          IF name.artist.name != name.name;
+            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}));
+            SET show_list = 1;
+          ELSE;
+            artist_list.push(descriptive_link(name.artist));
+            IF name.artist.comment;
+              SET show_list = 1;
+            END;
+          END;
+        END; -%]
+    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</div>[%- END -%]
   [% END %]
 [%- END -%]
 

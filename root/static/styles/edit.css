@@ -382,3 +382,7 @@ div.editimage.selected p.currently-selected { display: block; }
     font-size: 200%;
     text-align: center;
 }
+
+.expanded-ac-list {
+    padding-left: 1em;
+}
