@@ -12,7 +12,7 @@
         <th>[% l('Date') %]</th>
         <th>[% l('Country') %]</th>
         <th>[% l('Language') %]</th>
-        [%- IF c.session.tport -%]
+        [%- IF c.try_get_session('tport') -%]
           <th>[% l('Tagger') %]</th>
         [%- END -%]
       </tr>
@@ -33,7 +33,7 @@
             [%= '/' IF result.entity.language && result.entity.script =%]
             <abbr title="[% result.entity.script.l_name %]">[% result.entity.script.iso_code %]</abbr>
           </td>
-          [%- IF c.session.tport -%]
+          [%- IF c.try_get_sesison('tport') -%]
             <td>[% tagger_icon(result.entity) %]</td>
           [%- END -%]
         </tr>

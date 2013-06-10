@@ -37,7 +37,7 @@ $(document).ready (function () {
               <th>[% l('Label') %]</th>
               <th>[% l('Catalog#') %]</th>
               <th>[% l('Barcode') %]</th>
-              [%- IF c.session.tport -%]
+              [%- IF c.try_get_session('tport') -%]
                 <th>[% l('Tagger') %]</th>
               [%- END -%]
             </tr>
@@ -48,7 +48,7 @@ $(document).ready (function () {
             [% FOR release=releases %]
               [%- IF release.release_group.gid != current_rg -%]
                   [% current_rg = release.release_group.gid %]
-                  <tr class="subh"><th colspan=[% IF c.session.tport; '7'; ELSE; '6'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
+                  <tr class="subh"><th colspan=[% IF c.try_get_session('tport'); '7'; ELSE; '6'; END %]>[% l('Release Group: {release_group_link}', { release_group_link => link_entity(release.release_group) }) %]</th></tr>
               [%- END -%]
               [% zebra = zebra + 1 %]
               [% INCLUDE 'cdtoc/attach_list.tt' %]

@@ -25,19 +25,19 @@ has 'redis_new_args' => (
 has '_connection' => (
     is => 'rw',
     isa => 'Redis',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $connection = Redis->new(%{ $self->redis_new_args });
+        $connection->select( $self->database );
+        return $connection;
+    }
 );
 
 has '_json' => (
     is => 'ro',
     default => sub { return JSON->new->allow_nonref->ascii; }
 );
-
-sub BUILD {
-    my $self = shift;
-
-    $self->_connection( Redis->new(%{ $self->redis_new_args }) );
-    $self->_connection->select( $self->database );
-};
 
 sub get {
     my ($self, $key) = @_;
