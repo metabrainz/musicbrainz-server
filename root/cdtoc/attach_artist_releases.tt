@@ -32,7 +32,8 @@ $(document).ready (function () {
           <thead>
             <tr>
               <th colspan="2">[% l('Release') %]</th>
-              <th>[% l('Release Events') %]</th>
+              <th>[% l('Date') %]</th>
+              <th>[% l('Country') %]</th>
               <th>[% l('Label') %]</th>
               <th>[% l('Catalog#') %]</th>
               <th>[% l('Barcode') %]</th>
