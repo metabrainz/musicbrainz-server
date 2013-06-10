@@ -567,7 +567,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                     "id": $(row).find ('input.id').val ()
                 },
                 "name": $(row).find ('input.credit').val (),
-                "join": $(row).find ('input.join').val ()
+                "join_phrase": $(row).find ('input.join').val ()
             };
 
             preview += names[idx].name + names[idx].join;
@@ -661,6 +661,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         if (data)
         {
+            self.tracklist = jQuery.extend (true, {}, data);
             use_data (data);
         }
         else if (!self.tracklist)
@@ -671,6 +672,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
             if (medium_id)
             {
                 $.getJSON ('/ws/js/medium/' + medium_id, {}, function (data) {
+
+                    /* do a deep clone of our input to ensure that we always have
+                       a copy of the data as loaded from /js/medium, without any
+                       changes. */
+                    self.tracklist = jQuery.extend (true, {}, data.tracks);
                     use_data (self.changeTrackArtists (data.tracks));
                 });
             }
@@ -686,13 +692,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
-    self.loadTracklist = function (data) {
-        if (!data)
-        {
-            data = [];
-        }
 
-        self.tracklist = data;
+    self.loadTracklist = function (data) {
+
         self.trackparser = MB.TrackParser.Parser (self, data);
 
         self.removeTracks (data.length);

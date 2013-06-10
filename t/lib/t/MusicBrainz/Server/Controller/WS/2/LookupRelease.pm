@@ -23,7 +23,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice_annotation');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
-INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb');
+INSERT INTO editor (id, name, password, ha1) VALUES (15412, 'editor', '{CLEARTEXT}mb', 'be88da857f697a78656b1307f89f90ab');
 INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE);
 INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054);
 EOSQL
@@ -277,7 +277,7 @@ ws_test 'release lookup with labels, recordings and tags',
             <medium>
                 <position>1</position>
                 <track-list count="3" offset="0">
-                    <track>
+                    <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
                         <position>1</position><number>1</number>
                         <length>243000</length>
                         <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
@@ -287,7 +287,7 @@ ws_test 'release lookup with labels, recordings and tags',
                             </tag-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="2519283c-93d9-30de-a0ba-75f99ca25604">
                         <position>2</position><number>2</number>
                         <length>222000</length>
                         <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
@@ -297,7 +297,7 @@ ws_test 'release lookup with labels, recordings and tags',
                             </tag-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="4ffc18f0-96cc-3e1f-8192-cf0d0c489beb">
                         <position>3</position><number>3</number>
                         <length>333000</length>
                         <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
@@ -414,7 +414,7 @@ ws_test 'release lookup with discids and puids',
                     </disc>
                 </disc-list>
                 <track-list count="3" offset="0">
-                    <track>
+                    <track id="3b9d0128-ed86-3c2c-af24-c331a3798875">
                         <position>1</position><number>1</number><title>Summer Reggae! Rainbow</title><length>296026</length>
                         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
                             <title>サマーれげぇ!レインボー</title><length>296026</length>
@@ -423,7 +423,7 @@ ws_test 'release lookup with discids and puids',
                             </puid-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="c7c21691-6f85-3ec7-9b08-e431c3b310a5">
                         <position>2</position><number>2</number><title>Hello! Mata Aou Ne (7nin Matsuri version)</title><length>213106</length>
                         <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
                             <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
@@ -432,7 +432,7 @@ ws_test 'release lookup with discids and puids',
                             </puid-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="e436c057-ca19-36c6-9f1e-dc4ada2604b0">
                         <position>3</position><number>3</number><title>Summer Reggae! Rainbow (Instrumental)</title><length>292800</length>
                         <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
                             <title>サマーれげぇ!レインボー (instrumental)</title><length>292800</length>

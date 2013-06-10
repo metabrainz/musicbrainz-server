@@ -211,7 +211,8 @@ sub _area
         id      => $area->id,
         gid     => $area->gid,
         type    => $area->type_id,
-        $area->type ? (typeName => $area->type->name) : ()    };
+        $area->type ? (typeName => $area->type->name) : (),
+        $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
 }
 
 sub autocomplete_editor
