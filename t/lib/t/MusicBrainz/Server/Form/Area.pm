@@ -5,10 +5,6 @@ use Test::More;
 use MusicBrainz::Server::Form::Area;
 
 my $AREA_GID = 'f03dd94f-a936-42eb-bb97-819102487899';
-my $INSERT_CONFLICTING_AREA = <<"EOSQL";
-INSERT INTO area (id, gid, name, sort_name)
-  VALUES (1, '$AREA_GID', 'Area', 'Area');
-EOSQL
 
 with 't::Context';
 
@@ -66,7 +62,8 @@ sub prepare_conflict {
     my ($c, $iso_field, $iso_code) = @_;
 
     $c->sql->do(<<"EOSQL");
-$INSERT_CONFLICTING_AREA
+INSERT INTO area (id, gid, name, sort_name)
+  VALUES (1, '$AREA_GID', 'Area', 'Area');
 INSERT INTO $iso_field (area, code) VALUES (1, '$iso_code');
 EOSQL
 }
