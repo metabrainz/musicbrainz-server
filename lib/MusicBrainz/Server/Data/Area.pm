@@ -247,11 +247,6 @@ sub merge_codes
     }
 }
 
-sub find_by_iso_3166_1_code {
-    my ($self, $code) = @_;
-    return $self->get_by_iso_3166_1($code)->{$code};
-}
-
 sub _hash_to_row
 {
     my ($self, $area) = @_;
