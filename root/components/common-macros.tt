@@ -224,7 +224,7 @@ END -%]
             END;
           END;
         END; -%]
-    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</div>[%- END -%]
+    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
   [% END %]
 [%- END -%]
 
