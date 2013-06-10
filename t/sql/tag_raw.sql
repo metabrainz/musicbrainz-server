@@ -1,11 +1,7 @@
 
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor1', 'password'),
-                                               (2, 'editor2', 'password'),
-                                               (3, 'editor3', 'password'),
-                                               (4, 'editor4', 'password'),
-                                               (5, 'editor5', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (2, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'), (3, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'), (4, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb'), (5, 'editor5', '{CLEARTEXT}password', '3df132c9df92678048a6b25c5ad751ef');
 
 INSERT INTO artist_tag_raw (tag, artist, editor) VALUES
 

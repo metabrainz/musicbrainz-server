@@ -770,6 +770,8 @@ table.tbl tr.ev th {
     background: #F2F2F2;
 }
 
+table.tbl tr:target td { background-color: #F2F2b2; }
+
 table.tbl .pos { width: 1em; white-space: nowrap; }
 table.tbl th { word-break: keep-all; white-space: nowrap; }
 

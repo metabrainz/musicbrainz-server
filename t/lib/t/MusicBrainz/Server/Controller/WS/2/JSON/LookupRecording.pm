@@ -73,7 +73,6 @@ test 'recording lookup with releases' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                 },
@@ -96,7 +95,6 @@ test 'recording lookup with releases' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                 }]
@@ -134,7 +132,6 @@ test 'lookup recording with official singles' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                 }]
@@ -174,7 +171,6 @@ test 'lookup recording with official singles (+media)' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => JSON::null,
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [
@@ -185,6 +181,7 @@ test 'lookup recording with official singles (+media)' => sub {
                             "track-offset" => 0,
                             tracks => [
                                 {
+                                    id => "4a7c2f1e-cf40-383c-a1c1-d1272d8234cd",
                                     number => "1",
                                     title => "サマーれげぇ!レインボー",
                                     length => 296026,
@@ -266,7 +263,6 @@ test 'recording lookup with release relationships' => sub {
                     'type-id' => '967746f9-9d79-456c-9d1e-50116f0b27fc',
                     direction => 'forward',
                     release => {
-                        asin => JSON::null,
                         barcode => '634479663338',
                         country => JSON::null,
                         date => '2007-11-08',

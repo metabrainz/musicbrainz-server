@@ -154,7 +154,6 @@ test 'label lookup with releases, inc=media' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "600116822123",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [
@@ -181,7 +180,6 @@ test 'label lookup with releases, inc=media' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "600116817020",
-                    asin => JSON::null,
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]

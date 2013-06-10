@@ -20,7 +20,7 @@ INSERT INTO label (id, gid, name, sort_name, type, area, label_code,
 INSERT INTO label (id, gid, name, sort_name)
     VALUES (2, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 2, 2);
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'pass');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834');
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Label Annotation', 'Changes');
 INSERT INTO label_annotation (label, annotation) VALUES (3, 1);
 
