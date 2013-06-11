@@ -4,15 +4,21 @@
         [%- CASE 'absent' -%]
           [%- IF release.cover_art_url -%]
             <img src="[% cover_art_url(release.cover_art_url) -%]" />
+            [% host = release.cover_art_url.match('https?://([^/]+)').join('') %]
+            [%- IF host.match('images-amazon.com') -%]
+                <span class="cover-art-note">[% l("Cover art from {cover|Amazon}", { cover => cover_art_url(release.cover_art_url)}) %]</span>
+            [%- ELSE -%]
+                <span class="cover-art-note">[% l("Cover art from {cover|host}", { cover => cover_art_url(release.cover_art_url), host => host}) %]</span>
+            [%- END -%]
           [%- ELSE -%]
-            <p style="text-align:left">[%- l("No cover art available.") -%]</p>
+            <p class="cover-art-note" style="text-align:left">[%- l("No cover art available.") -%]</p>
           [%- END -%]
         [%- CASE 'present' -%]
           [%- SET cover_art_message = l("No front cover image available.<br/>{all|View all artwork}.",
                                         { all => c.uri_for_action('/release/cover_art', [ release.gid ]) }) -%]
           [%- display_artwork (release_artwork, cover_art_url(release.cover_art_url), cover_art_message) -%]
         [%- CASE 'darkened' -%]
-          [%- l("No cover art available.") -%]
+          <p class="cover-art-note" style="text-align:left">[%- l("No cover art available.") -%]</p>
         [%- END -%]
     </div>
 
