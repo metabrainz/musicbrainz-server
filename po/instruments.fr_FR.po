@@ -1,16 +1,17 @@
 # 
 # Translators:
-#   <email address hidden>, 2012.
-# Benjamin <email address hidden>, 2011.
-# Benjamin Sonntag <email address hidden>, 2011, 2012.
-# Benjamin Sonntag <email address hidden>, 2011.
-# Dibou  <email address hidden>, 2012.
-# murdos <email address hidden>, 2011.
+# murdos <email address hidden>, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# Benjamin Sonntag <email address hidden>, 2011, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# kmartin <email address hidden>, 2013
+# Dibou <email address hidden>, 2012
+# murdos <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:37+0000\n"
+"PO-Revision-Date: 2013-06-11 17:13+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/musicbrainz/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +82,7 @@ msgstr "guitare hawaïenne"
 
 #: DB:link_attribute_type/name:502
 msgid "Indian bamboo flutes"
-msgstr ""
+msgstr "Flûte indienne en bambou"
 
 #: DB:link_attribute_type/name:491
 msgid "Irish bouzouki"
@@ -89,7 +90,7 @@ msgstr "bouzouki irlandais"
 
 #: DB:link_attribute_type/name:435
 msgid "Irish harp / clàrsach"
-msgstr ""
+msgstr "Harpe irlandaise / clàrsach"
 
 #: DB:link_attribute_type/name:673
 msgid "Lyricon"
@@ -97,23 +98,23 @@ msgstr ""
 
 #: DB:link_attribute_type/name:175
 msgid "Mellotron"
-msgstr ""
+msgstr "Mellotron"
 
 #: DB:link_attribute_type/name:117
 msgid "Mexican vihuela"
-msgstr ""
+msgstr "Vihuela mexicain"
 
 #: DB:link_attribute_type/name:349
 msgid "Minimoog"
-msgstr ""
+msgstr "Minimoog"
 
 #: DB:link_attribute_type/name:348
 msgid "Moog"
-msgstr ""
+msgstr "Moog"
 
 #: DB:link_attribute_type/name:438
 msgid "Northumbrian pipes"
-msgstr ""
+msgstr "Northumbrian smallpipes"
 
 #: DB:link_attribute_type/name:688
 msgid "Reactable"
@@ -121,7 +122,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:182
 msgid "Rhodes piano"
-msgstr ""
+msgstr "Piano Rhodes"
 
 #: DB:link_attribute_type/name:585
 msgid "Saraswati veena"
@@ -133,11 +134,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:206
 msgid "Spanish acoustic guitar"
-msgstr ""
+msgstr "Guitare acoustique espagnole"
 
 #: DB:link_attribute_type/name:332
 msgid "Spanish vihuela"
-msgstr ""
+msgstr "Vihuela espagnole"
 
 #: DB:link_attribute_type/name:543
 msgid "Stroh violin"
@@ -751,12 +752,16 @@ msgstr ""
 msgid "dohol"
 msgstr ""
 
+#: DB:link_attribute_type/name:742
+msgid "dombra"
+msgstr ""
+
 #: DB:link_attribute_type/name:594
 msgid "domra"
 msgstr ""
 
 #: DB:link_attribute_type/name:71
-msgid "double bass (contrabass, acoustic upright bass)"
+msgid "double bass / contrabass / acoustic upright bass"
 msgstr ""
 
 #: DB:link_attribute_type/name:17
@@ -789,6 +794,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
+msgstr ""
+
+#: DB:link_attribute_type/name:740
+msgid "duxianqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:404
@@ -857,6 +866,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:21
 msgid "english horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:285
+msgid "erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:641
@@ -1047,6 +1060,10 @@ msgstr ""
 msgid "gut guitar"
 msgstr ""
 
+#: DB:link_attribute_type/name:544
+msgid "guzheng"
+msgstr ""
+
 #: DB:link_attribute_type/name:141
 msgid "güiro"
 msgstr ""
@@ -1152,7 +1169,7 @@ msgid "jing'erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:284
-msgid "jing hú"
+msgid "jinghu"
 msgstr ""
 
 #: DB:link_attribute_type/name:615
@@ -1224,7 +1241,7 @@ msgid "khim"
 msgstr ""
 
 #: DB:link_attribute_type/name:395
-msgid "khèn meò"
+msgid "khèn Mèo"
 msgstr ""
 
 #: DB:link_attribute_type/name:384
@@ -1327,6 +1344,10 @@ msgstr ""
 msgid "maddale"
 msgstr ""
 
+#: DB:link_attribute_type/name:744
+msgid "mandocello"
+msgstr ""
+
 #: DB:link_attribute_type/name:308
 msgid "mandola"
 msgstr ""
@@ -1375,10 +1396,6 @@ msgstr ""
 msgid "mirliton"
 msgstr ""
 
-#: DB:link_attribute_type/name:310
-msgid "moon lute"
-msgstr ""
-
 #: DB:link_attribute_type/name:294
 msgid "morin khuur / matouqin"
 msgstr ""
@@ -1415,6 +1432,10 @@ msgstr ""
 msgid "nai"
 msgstr ""
 
+#: DB:link_attribute_type/name:743
+msgid "naobo"
+msgstr ""
+
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
 msgstr ""
@@ -1433,6 +1454,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:270
 msgid "nose flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:738
+msgid "nose whistle"
 msgstr ""
 
 #: DB:link_attribute_type/name:298
@@ -1599,6 +1624,10 @@ msgstr ""
 msgid "rattle"
 msgstr ""
 
+#: DB:link_attribute_type/name:739
+msgid "rauschpfeife"
+msgstr ""
+
 #: DB:link_attribute_type/name:309
 msgid "rebab"
 msgstr ""
@@ -1655,10 +1684,6 @@ msgstr ""
 msgid "sampler"
 msgstr ""
 
-#: DB:link_attribute_type/name:347
-msgid "sanh tiên"
-msgstr ""
-
 #: DB:link_attribute_type/name:315
 msgid "sanshin"
 msgstr ""
@@ -1672,7 +1697,7 @@ msgid "santur"
 msgstr ""
 
 #: DB:link_attribute_type/name:314
-msgid "sanxián"
+msgid "sanxian"
 msgstr ""
 
 #: DB:link_attribute_type/name:418
@@ -1685,6 +1710,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:250
 msgid "sarod"
+msgstr ""
+
+#: DB:link_attribute_type/name:741
+msgid "saron"
 msgstr ""
 
 #: DB:link_attribute_type/name:692
@@ -1889,6 +1918,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:269
 msgid "sáo trúc"
+msgstr ""
+
+#: DB:link_attribute_type/name:347
+msgid "sênh tiền"
 msgstr ""
 
 #: DB:link_attribute_type/name:381
@@ -2281,6 +2314,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:220
 msgid "xylophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:324
+msgid "yangqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:676
