@@ -214,8 +214,7 @@ sub _create_no_vote_email
     my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
-    my $close_time = DateTime->now() + $EDIT_MINIMUM_RESPONSE_PERIOD;
-    my $close_time_formatted = $close_time->strftime("%F %H:00 UTC");
+    my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->add( hours => 1 )->strftime('%F %H:00 UTC');
 
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
@@ -235,7 +234,7 @@ You can disable this notification by changing your preferences at
 $prefs_url.
 
 To ensure time for you and other editors to respond, the soonest this edit will
-close is $close_time_formatted, 72 hours from the time of this email, unless
+close is $close_time, 72 hours from the time of this email, unless
 it is approved by an autoeditor.
 
 -- The MusicBrainz Team
