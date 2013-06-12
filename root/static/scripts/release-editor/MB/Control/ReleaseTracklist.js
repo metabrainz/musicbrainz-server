@@ -122,7 +122,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$moveDown.unbind ('click.mb');
         self.$moveUp.unbind ('click.mb');
 
-        self.$length.attr ('disabled', 'disabled');
+        self.$length.prop('disabled', true);
         self.$row.find ("input.remove-track").hide ();
 
         self.$position.add(self.$length)
@@ -567,7 +567,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                     "id": $(row).find ('input.id').val ()
                 },
                 "name": $(row).find ('input.credit').val (),
-                "join": $(row).find ('input.join').val ()
+                "join_phrase": $(row).find ('input.join').val ()
             };
 
             preview += names[idx].name + names[idx].join;
@@ -661,16 +661,22 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         if (data)
         {
+            self.tracklist = jQuery.extend (true, {}, data);
             use_data (data);
         }
         else if (!self.tracklist)
         {
             /* FIXME: ignore result if the disc has been collapsed in
                the meantime.  --warp. */
-            var tracklist_id = self.$tracklist_id.val ();
-            if (tracklist_id)
+            var medium_id = self.$medium_id.val ();
+            if (medium_id)
             {
-                $.getJSON ('/ws/js/tracklist/' + tracklist_id, {}, function (data) {
+                $.getJSON ('/ws/js/medium/' + medium_id, {}, function (data) {
+
+                    /* do a deep clone of our input to ensure that we always have
+                       a copy of the data as loaded from /js/medium, without any
+                       changes. */
+                    self.tracklist = jQuery.extend (true, {}, data.tracks);
                     use_data (self.changeTrackArtists (data.tracks));
                 });
             }
@@ -686,13 +692,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         }
     };
 
-    self.loadTracklist = function (data) {
-        if (!data)
-        {
-            data = [];
-        }
 
-        self.tracklist = data;
+    self.loadTracklist = function (data) {
+
         self.trackparser = MB.TrackParser.Parser (self, data);
 
         self.removeTracks (data.length);
@@ -783,7 +785,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
         if (self.$title.val () === '')
         {
-            self.$title.attr ('disabled', 'disabled');
+            self.$title.prop('disabled', true);
             self.$title.siblings ('input.icon.guesscase-medium').hide ();
         }
     };
@@ -813,7 +815,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var requireConf = self.hasComplexArtistCredits();
         if (!requireConf || (requireConf && confirm(MB.text.ConfirmSwap))) {
             // Ensure that we can edit track artists
-            self.$artist_column_checkbox.attr('checked', 'checked');
+            self.$artist_column_checkbox.prop('checked', true);
             self.updateArtistColumn();
 
             $.each (self.sorted_tracks, function(idx, item) {
@@ -854,7 +856,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * Enable the disc title field if there are multiple discs.
      */
     self.enableDiscTitle = function () {
-        self.$title.removeAttr ('disabled');
+        self.$title.prop('disabled', false);
         self.$title.siblings ('input.icon.guesscase-medium').show ();
     };
 
@@ -876,7 +878,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$deleted = $format.find ('input.deleted');
     self.$position = $format.find ('input.position');
     self.$format_id = $format.find ('input.format');
-    self.$tracklist_id = $format.find ('input.tracklist-id');
+    self.$medium_id = $format.find ('input.id');
+    self.$medium_id_for_recordings = self.$fieldset.find ('input.medium_id_for_recordings');
 
     self.$title.siblings ('input.guesscase-medium').bind ('click.mb', self.guessCaseTitle);
 
@@ -978,7 +981,7 @@ MB.Control.ReleaseTracklist = function () {
 
         var mediumid = new RegExp ("mediums.[0-9]+");
 
-        $newdisc.find ("*").andSelf ().each (function (idx, element) {
+        $newdisc.find ("*").addBack ().each (function (idx, element) {
             var item = $(element);
             if (item.attr ('id'))
             {
@@ -995,7 +998,7 @@ MB.Control.ReleaseTracklist = function () {
         $("#id-mediums\\."+discs+"\\.id").val('');
         $("#id-mediums\\."+discs+"\\.name").val('');
         $("#id-mediums\\."+discs+"\\.position").val(newposition);
-        $("#id-mediums\\."+discs+"\\.tracklist_id").val('');
+        $("#id-mediums\\."+discs+"\\.id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
         $('#id-mediums\\.'+discs+'\\.toc').val('');
@@ -1172,7 +1175,8 @@ MB.Control.ReleaseTracklist = function () {
         self.guessCase ();
     });
 
-    $('.artist-credit-box input.name').live ('VariousArtists', self.variousArtistsWarning);
+    $("#release-editor").on("VariousArtists", ".artist-credit-box input.name",
+        self.variousArtistsWarning);
 
     self.$va_warning = $('div.various-artists.warning');
     self.$tab = $('div.advanced-tracklist');

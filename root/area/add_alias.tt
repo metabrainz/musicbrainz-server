@@ -1,0 +1,15 @@
+[% BLOCK layout_head %]
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+  <script type="text/javascript">//<![CDATA[
+    $(function() {
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_guess_case (bubbles, 'area', 'id-edit-alias');
+    });
+    //]]></script>
+[% END %]
+
+[%- WRAPPER 'area/layout.tt' title=l('Add Area Alias') full_width=1 -%]
+    <h2>[% l('Add area alias') %]</h2>
+    [%- INCLUDE 'alias/edit_form.tt' search_hint_type_id=3 -%]
+[%- END -%]

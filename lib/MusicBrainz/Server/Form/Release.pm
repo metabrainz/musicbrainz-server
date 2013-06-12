@@ -81,7 +81,7 @@ has_field 'artist_credit' => ( type => '+MusicBrainz::Server::Form::Field::Artis
 
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
-sub options_country_id        { shift->_select_all('Country', sort_by_accessor => 1) }
+sub options_country_id        { shift->_select_all('CountryArea', sort_by_accessor => 1) }
 sub options_language_id       { shift->_select_all('Language') }
 sub options_script_id         { shift->_select_all('Script') }
 sub options_mediums_format_id { shift->_select_all('MediumFormat') }

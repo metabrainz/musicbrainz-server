@@ -40,7 +40,7 @@ MB.CoverArt.image_error = function ($img, image) {
     }
     else
     {
-        /* image doesn't exist at all, perhaps it was removed 
+        /* image doesn't exist at all, perhaps it was removed
            between requesting the index and loading the image.
            FIXME: start over if this happens?  obviously the
            data in the index is incorrect. */
@@ -117,7 +117,7 @@ MB.CoverArt.reorder_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function () {
-    $('#add-cover-art-submit').removeAttr('disabled');
+    $('#add-cover-art-submit').prop('disabled', false);
 
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();

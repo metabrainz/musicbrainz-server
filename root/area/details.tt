@@ -1,0 +1,40 @@
+[%- PROCESS 'components/details.tt' -%]
+
+[% WRAPPER "area/layout.tt" title=l('Details') page='details' %]
+<h2>[%- l('Details') -%]</h2>
+<table class="details" [% rdfa_about_attr(rdfa_area_curi(area)) %]>
+  <tr>
+    <th>[%- l('Name:') -%]</th>
+    <td>[% link_entity(area) %]</td>
+  </tr>
+  <tr>
+    <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+               {mbid => doc_link("MusicBrainz_Identifier")}) -%]
+    </th>
+    <td><code>[% rdfa_mbid(area.gid) %]</code></td>
+  </tr>
+  <tr>
+    <th>[% l('Last updated:') %]</th>
+    <td>[% last_updated(area) %]</td>
+  </tr>
+  <tr>
+    <th>
+      [% l('Permanent link:') %]
+    </th>
+    <td>
+      [% perma="http://musicbrainz.org/area/${area.gid}" %]
+      <a href="[% perma | url %]">
+        [%- perma | html -%]
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th>[% l('XML:') %]</th>
+    <td>
+      [% link = c.uri_for('/ws/2/area', area.gid, { 'inc' => 'aliases' }) %]
+      <a href="[% link %]">[% display_url(link) %]</a>
+    </td>
+  </tr>
+</table>
+
+[% END %]

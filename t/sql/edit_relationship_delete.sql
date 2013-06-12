@@ -6,7 +6,7 @@ INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
     (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
     (2, '75a40343-ff6e-45d6-a5d2-110388d34858', 1, 1, 'Artist 2');
 
-INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, short_link_phrase)
+INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase, long_link_phrase)
     VALUES (1, '7610b0e9-40c1-48b3-b06c-2c1d30d9dc3e', 'artist', 'artist', 'member',
             'foo', 'oof', 'f');
 

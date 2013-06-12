@@ -447,4 +447,87 @@ test 'Exchange refresh code' => sub {
     ok($response->{expires_in});
 };
 
+test 'Token info' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my ($code, $response);
+
+    # Unknown token
+    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 400);
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_token');
+
+    # Expired token
+    $code = "3fxf40Z5r6K78D9b031xaw";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 400);
+    $response = from_json($test->mech->content);
+    is($response->{error}, 'invalid_token');
+
+    # Valid token
+    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $test->mech->get("/oauth2/tokeninfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    ok($response->{expires_in});
+    delete $response->{expires_in};
+    is_deeply($response, {
+        audience => 'id-desktop',
+        issued_to => 'id-desktop',
+        access_type => 'offline',
+        token_type => 'Bearer',
+        scope => 'profile collection rating email submit_puid tag submit_barcode submit_isrc',
+    });
+};
+
+test 'User info' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my ($code, $response);
+
+    # Unknown token
+    $code = "xxxxxxxxxxxxxxxxxxxxxx";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 401);
+
+    # Expired token
+    $code = "3fxf40Z5r6K78D9b031xaw";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 401);
+
+    # Valid token with email
+    $code = "Nlaa7v15QHm9g8rUOmT3dQ";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    is_deeply($response, {
+        sub => 'editor1',
+        profile => 'http://localhost/user/editor1',
+        website => 'http://www.mysite.com/',
+        gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
+        email => 'me@mysite.com',
+        email_verified => JSON::true,
+    });
+
+    # Valid token without email
+    $code = "7Fjfp0ZBr1KtDRbnfVdmIw";
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json($test->mech->content);
+    is_deeply($response, {
+        sub => 'editor1',
+        profile => 'http://localhost/user/editor1',
+        website => 'http://www.mysite.com/',
+        gender => 'female',
+        zoneinfo => 'Europe/Bratislava',
+    });
+};
+
 1;

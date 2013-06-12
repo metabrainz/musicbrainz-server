@@ -72,9 +72,7 @@ sub serialize
     my $tracklist = 'track-list';
     if ($inc && $inc->tracklist) {
         push @body, ( $self->gen->$tracklist({
-            offset => (sum map {
-                $_->tracklist->track_count
-            } $entity->all_mediums) - 1
+            offset => (sum map { $_->track_count } $entity->all_mediums) - 1
         }));
     }
     elsif ($opts && $opts->{track_map}) {
@@ -103,7 +101,7 @@ sub serialize
                              (artist_credit => $_->artist_credit) : ())
                     );
                 }
-                    map { $_->tracklist->all_tracks } $entity->all_mediums
+                map { $_->all_tracks } $entity->all_mediums
             ], $inc));
     }
 
@@ -111,15 +109,19 @@ sub serialize
         # FIXME - try and find other possible release events
         my @events = grep {
             # Don't do ANYTHING if this is a totally empty release event
-            !$_->date->is_empty || $_->country || $_->barcode ||
-            $_->combined_format_name ||
-            ($inc && $inc->labels && @{ $_->labels });
+            $_->release->barcode ||
+            $_->release->combined_format_name ||
+            ($inc && $inc->labels && @{ $_->release->labels });
         }
         map {
-            ReleaseEvent->meta->rebless_instance(
-                $entity->meta->clone_object($_)
+            ReleaseEvent->new(
+                release => $entity,
+                event => $_
             )
-        } $entity;
+        } grep {
+            !$_->date->is_empty || $_->country
+        }
+        $entity->all_events;
 
         push @body, (
             list_of( \'release-event-list', \@events, $inc )
@@ -159,7 +161,7 @@ sub serialize
             ($opts && $opts->{track_map}) )
         {
             push @body, ( $self->gen->$tracklist({
-                count => sum map { $_->tracklist->track_count } $entity->all_mediums
+                count => sum map { $_->track_count } $entity->all_mediums
             }) )
         }
     }

@@ -1,11 +1,11 @@
 package MusicBrainz::Server::Edit::Release::Create;
 use Carp;
 use Moose;
-use MooseX::Types::Moose qw( Int Str );
-use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Int Str );
+use MooseX::Types::Structured qw( Dict Optional );
 use aliased 'MusicBrainz::Server::Entity::Barcode';
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_CREATE );
-use MusicBrainz::Server::Edit::Types qw( 
+use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
     Nullable
     NullableOnPreview
@@ -15,6 +15,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_preview
     verify_artist_credits
 );
+use MusicBrainz::Server::Entity::ReleaseEvent;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -37,14 +38,17 @@ has '+data' => (
         artist_credit    => ArtistCreditDefinition,
         release_group_id => NullableOnPreview[Int],
         comment          => Nullable[Str],
-        date             => Nullable[PartialDateHash],
 
         barcode          => Nullable[Str],
-        country_id       => Nullable[Int],
         language_id      => Nullable[Int],
         packaging_id     => Nullable[Int],
         script_id        => Nullable[Int],
         status_id        => Nullable[Int],
+
+        events => Optional[ArrayRef[Dict[
+            date => Nullable[PartialDateHash],
+            country_id => Nullable[Int],
+        ]]]
     ]
 );
 
@@ -61,7 +65,7 @@ sub foreign_keys
     my $self = shift;
     my $fks = {
         Artist           => { load_artist_credit_definitions($self->data->{artist_credit}) },
-        Country          => [ $self->data->{country_id} ],
+        Area             => [ map { $_->{country_id} } @{ $self->data->{events} } ],
         ReleaseStatus    => [ $self->data->{status_id} ],
         ReleasePackaging => [ $self->data->{packaging_id} ],
         Script           => [ $self->data->{script_id} ],
@@ -86,12 +90,12 @@ sub build_display_data
     my $script = $self->data->{script_id};
     my $lang = $self->data->{language_id};
 
+    $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } @{ $self->data->{events} });
+
     return {
         artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',
         comment       => $self->data->{comment} || '',
-        country       => defined($self->data->{country_id}) &&
-                           $loaded->{Country}{ $self->data->{country_id} },
         packaging     => defined($self->data->{packaging_id}) &&
                            $loaded->{ReleasePackaging}{ $self->data->{packaging_id} },
         status        => defined($status) &&
@@ -107,9 +111,20 @@ sub build_display_data
         release       => (defined($self->entity_id) &&
                               $loaded->{Release}{ $self->entity_id }) ||
                                   Release->new( name => $self->data->{name} ),
-        date          => PartialDate->new({
-            map { $_ => $self->data->{date}{$_} } qw( year month day )
-        })
+        events => [
+            map {
+                MusicBrainz::Server::Entity::ReleaseEvent->new(
+                    country => defined($_->{country_id})
+                        ? $loaded->{Area}{ $_->{country_id} }
+                        : undef,
+                    date => PartialDate->new({
+                        year => $_->{date}{year},
+                        month => $_->{date}{month},
+                        day => $_->{date}{day}
+                    })
+                )
+            } @{ $self->data->{events} }
+        ]
     };
 }
 
@@ -118,6 +133,25 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     return $data
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    $self->entity_id(delete $data->{entity_id})
+        if $data->{entity_id};
+
+    if (exists $data->{date} || exists $data->{country_id}) {
+        $data->{events} = [{
+            exists $data->{date}
+                ? (date => delete $data->{date}) : (),
+
+            exists $data->{country_id}
+                ? (country_id => delete $data->{country_id}) : ()
+        }]
+    }
+
+    $self->data($data);
 }
 
 __PACKAGE__->meta->make_immutable;

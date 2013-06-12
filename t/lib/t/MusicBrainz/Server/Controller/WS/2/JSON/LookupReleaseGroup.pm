@@ -65,6 +65,16 @@ test 'release group lookup with releases' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2008-11-17",
                     country => "GB",
+                    "release-events" => [{
+                        date => "2008-11-17",
+                        "area" => {
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso_3166_1_codes" => ["GB"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "600116822123",
                     packaging => JSON::null,
                     asin => JSON::null,
@@ -133,6 +143,16 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     "text-representation" => { language => "eng", script => "Latn" },
                     date => "2004-03-17",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2004-03-17",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4988064451180",
                     asin => JSON::null,
                     packaging => JSON::null,

@@ -28,6 +28,7 @@ parameter defs => (
 our (%types, %statuses);
 our %relation_types = (
     1 => {
+        "area-rels" => 1,
         "artist-rels" => 1,
         "release-rels" => 1,
         "track-rels" => 1,
@@ -36,6 +37,7 @@ our %relation_types = (
         "url-rels" => 1,
     },
     2 => {
+        "area-rels" => 1,
         "artist-rels" => 1,
         "release-rels" => 1,
         "release-group-rels" => 1,
@@ -221,7 +223,7 @@ sub validate_inc
 
         $i =~ s/mediums/media/;
 
-        if ($version == 1)
+        if ($version eq '1')
         {
             $i = lc($i);
 
@@ -278,7 +280,7 @@ sub validate_inc
         push @filtered, $i;
     }
 
-    if ($version == 1)
+    if ($version eq '1')
     {
         return WebServiceIncV1->new(inc => \@filtered, rg_type => $type_used,
                                     rel_status => $status_used, relations => \@relations_used,
