@@ -666,4 +666,37 @@ EOSQL
     }
 };
 
+test 'Merging releases with the same date should discard unknown country events' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $release_data = $c->model('Release');
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+    $c->sql->do(<<EOSQL);
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (1, '8a754a16-0027-4a29-c6d7-2b40ea0481ed', 'Estonia', 'Estonia', 1);
+INSERT INTO country_area (area) VALUES (1);
+
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
+VALUES (8, 2009, 5, 8);
+
+INSERT INTO release_country (release, country, date_year, date_month, date_day)
+VALUES (9, 1, 2009, 5, 8);
+EOSQL
+
+    $release_data->merge(
+        old_ids => [ 9 ],
+        new_id => 8,
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE
+    );
+    my $release = $release_data->get_by_id(8);
+    $release_data->load_release_events($release);
+
+    is((grep { $_->country_id == 1 } $release->all_events), 1,
+        'one release event in Estonia');
+
+    is((grep { !defined($_->country_id) } $release->all_events), 0,
+       'no unknown release events');
+};
+
 1;

@@ -1004,6 +1004,30 @@ sub merge
         )
     );
 
+    # Remove any release_unknown_country rows if other releases have the same
+    # date but also set a country. However, only apply this clean up for
+    # different releases - don't do within-release clean ups.
+    $self->sql->do(
+        'DELETE FROM release_unknown_country
+         WHERE release IN (
+             SELECT release_unknown_country.release
+             FROM
+               release_unknown_country,
+               release_country
+             WHERE release_unknown_country.release = any(?)
+               AND release_country.release = any(?)
+               AND release_unknown_country.release <> release_country.release
+               AND release_unknown_country.date_year IS NOT DISTINCT FROM
+                     release_country.date_year
+               AND release_unknown_country.date_month IS NOT DISTINCT FROM
+                     release_country.date_month
+               AND release_unknown_country.date_day IS NOT DISTINCT FROM
+                     release_country.date_day
+         )',
+         [ $new_id, @old_ids ],
+         [ $new_id, @old_ids ],
+    );
+
     $self->sql->do(
         'DELETE FROM release_country
          WHERE release IN (
