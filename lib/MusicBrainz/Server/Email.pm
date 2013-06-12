@@ -13,7 +13,7 @@ use DBDefs;
 use Try::Tiny;
 use List::UtilsBy qw( sort_by );
 
-use MusicBrainz::Server::Constants qw( :edit_status :email_addresses );
+use MusicBrainz::Server::Constants qw( :edit_status :email_addresses $EDIT_MINIMUM_RESPONSE_PERIOD );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -214,6 +214,9 @@ sub _create_no_vote_email
     my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
+    my $close_time = DateTime->now() + $EDIT_MINIMUM_RESPONSE_PERIOD;
+    my $close_time_formatted = $close_time->strftime("%F %H:00 UTC");
+
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
 -------------------------------------------------------------------------
@@ -226,14 +229,14 @@ Please do not respond to this email.
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
 
-Please note, this email will only be sent when the number of 'No' votes changes
-from 0 to 1, not for each one, and that you can disable this notification by
-modifying your preferences at $prefs_url.
+Please note that this email will not be sent for every vote against an edit.
+
+You can disable this notification by changing your preferences at
+$prefs_url.
 
 To ensure time for you and other editors to respond, the soonest this edit will
-close is 72 hours from the time of this email, regardless of the number of 'No'
-votes it gets. If it would have expired within that time, this edit's
-expiration has been extended to 72 hours from the time of this email.
+close is $close_time_formatted, 72 hours from the time of this email, unless
+it is approved by an autoeditor.
 
 -- The MusicBrainz Team
 EOS

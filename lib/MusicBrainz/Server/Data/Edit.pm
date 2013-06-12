@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Carp qw( carp croak confess );
 use Data::OptList;
 use DateTime;
+use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
@@ -682,8 +683,9 @@ sub add_link {
 
 sub extend_expiration_time {
     my ($self, @ids) = @_;
+    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
     $self->sql->do("UPDATE edit SET expire_time = NOW() + ?
-        WHERE id = any(?) AND expire_time < NOW() + ?", $EDIT_MINIMUM_RESPONSE_PERIOD, \@ids, $EDIT_MINIMUM_RESPONSE_PERIOD);
+        WHERE id = any(?) AND expire_time < NOW() + ?", $interval, \@ids, $interval);
 }
 
 __PACKAGE__->meta->make_immutable;
