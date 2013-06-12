@@ -466,6 +466,8 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
             //Standardising Generasia
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
+            //Standardising Soundtrack Collector
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://www.soundtrackcollector.com/$1/$2/");
             return url;
         }
     }
@@ -678,14 +680,24 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
     validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
 
+    // Ensure Soundtrack Collector stuff is added to the right level
+    var STCollector_is_not_RG = function () {
+        var STcheckRG = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/title/');
+        return !STcheckRG.test($('#id-ar\\.url').val())
+    };
+    var STCollector_is_not_artist = function () {
+        var STcheckartist = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/composer/');
+        return !STcheckartist.test($('#id-ar\\.url').val())
+    };
+
     // only allow domains on the other databases whitelist
     var validateOtherDatabases = function() {
         return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
     };
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = function () {return validateOtherDatabases() && STCollector_is_not_RG()}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = validateOtherDatabases
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = function () {return validateOtherDatabases() && STCollector_is_not_artist()}
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function () {return validateOtherDatabases() && STCollector_is_not_RG() && STCollector_is_not_artist()}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 
