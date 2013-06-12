@@ -3,6 +3,8 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use DateTime;
+use DBDefs;
 use Digest::SHA1 qw(sha1_base64);
 use Encode;
 use HTTP::Status qw( :constants );
@@ -20,6 +22,7 @@ use MusicBrainz::Server::Constants qw(
     $AUTO_EDITOR_FLAG
     $WIKI_TRANSCLUSION_FLAG
     $RELATIONSHIP_EDITOR_FLAG
+    $LOCATION_EDITOR_FLAG
 );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -64,6 +67,34 @@ sub index : Private
     $c->detach('/user/profile', [ $c->user->name ]);
 }
 
+sub _perform_login {
+    my ($self, $c, $user_name, $password) = @_;
+
+    if( !$c->authenticate({ username => $user_name, password => $password }) )
+    {
+        # Bad username / password combo
+        $c->log->info('Invalid username/password');
+        $c->stash( bad_login => 1 );
+        return 0;
+    }
+    else {
+        if ($c->user->requires_password_reset) {
+            $c->response->redirect($c->uri_for_action('/account/change_password', {
+                username => $c->user->name,
+                mandatory => 1
+            } ));
+            $c->logout;
+            $c->detach;
+        }
+        else {
+            $c->model('Editor')->update_last_login_date($c->user->id)
+                unless DBDefs->DB_READ_ONLY;
+
+            return 1;
+        }
+    }
+}
+
 sub do_login : Private
 {
     my ($self, $c) = @_;
@@ -74,17 +105,9 @@ sub do_login : Private
 
     if ($c->form_posted && $form->process(params => $c->req->params))
     {
-        if( !$c->authenticate({ username => $form->field("username")->value,
-                                password => $form->field("password")->value }) )
-        {
-            # Bad username / password combo
-            $c->log->info('Invalid username/password');
-            $c->stash( bad_login => 1 );
-        }
-        else
-        {
+        if ($self->_perform_login($c, $form->field("username")->value, $form->field("password")->value)) {
             if ($form->field('remember_me')->value) {
-                $self->_set_login_cookie($c);
+                $self->_renew_login_cookie($c, $form->field('username')->value);
             }
 
             # Logged in OK
@@ -120,54 +143,49 @@ sub login : Path('/login') ForbiddenOnSlaves RequireSSL
     $c->forward('/user/do_login');
 }
 
+sub logout : Path('/logout')
+{
+    my ($self, $c) = @_;
+
+    if ($c->user_exists) {
+        $self->_consume_remember_me_cookie($c, $c->user->name);
+        $c->logout;
+        $c->delete_session;
+    }
+
+    $self->redirect_back($c, '/logout', '/');
+}
+
 sub cookie_login : Private
 {
     my ($self, $c) = @_;
-    my $cookie = $c->req->cookie('remember_login') or return;
-    return unless $cookie->value;
+
     return if $c->user_exists;
 
-    my ($user_name, $password, $delete_cookie);
-    my $value = decode('utf-8', $cookie->value);
-
-    # Format 1: plaintext user + password
-    try {
-        if ($value =~ /^1\t(.*?)\t(.*)$/) {
-            ($user_name, $password) = ($1, $2);
-        }
-        # Format 2: username, sha1(password + secret), expiry time,
-        # IP address mask, sha1(previous fields + secret)
-        elsif ($value =~ /^2\t(.*?)\t(\S+)\t(\d+)\t(\S*)\t(\S+)$/)
-        {
-            ($user_name, my $pass_sha1, my $expiry, my $ipmask, my $sha1)
-                = ($1, $2, $3, $4, $5);
-
-            my $correct_sha1 = _cookie_sha($1, $2, $3, $4);
-            die "Invalid cookie sha1 - got $sha1, expected $correct_sha1"
-                unless $sha1 eq $correct_sha1;
-
-            die "Expired"
-                if time() > $expiry;
-
-            my $user = $c->model('Editor')->get_by_name($user_name) or return;
-
-            my $correct_pass_sha1 = sha1_base64($user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
-            die "Password sha1 do not match"
-                unless $pass_sha1 eq $correct_pass_sha1;
-
-            $password = $user->password;
-        }
-        else {
-            # TODO add other formats: e.g. sha1(password), tied to IP, etc
-            die "Didn't recognise permanent cookie format";
-        }
-
-        $c->authenticate({ username => $user_name, password => $password });
+    if (my $user_name = $self->_consume_remember_me_cookie($c)) {
+        $self->_renew_login_cookie($c, $user_name);
+        $c->set_authenticated($c->find_user({ username => $user_name }));
     }
-    catch {
-        $c->log->error($_);
-        $self->_clear_login_cookie($c);
-    };
+}
+
+sub _consume_remember_me_cookie {
+    my ($self, $c) = @_;
+
+    my $cookie = $c->req->cookie('remember_login') or return;
+    return unless $cookie->value;
+
+    my $value = decode('utf-8', $cookie->value);
+    $self->_clear_login_cookie($c);
+
+    if ($value =~ /^3\t(.*?)\t(.*)$/) {
+        my ($user_name, $token) = ($1, $2);
+
+        if ($c->model('Editor')->consume_remember_me_token($user_name, $token)) {
+            return $user_name;
+        }
+    }
+
+    return;
 }
 
 sub _clear_login_cookie
@@ -179,40 +197,18 @@ sub _clear_login_cookie
     };
 }
 
-sub _cookie_sha {
-    my ($user_name, $password_sha1, $expiry_time, $ip_mask) = @_;
-    return sha1_base64(
-        encode('utf-8', "2\t$user_name\t$password_sha1\t$expiry_time\t$ip_mask") .
-            DBDefs->SMTP_SECRET_CHECKSUM
-    );
-}
-
-sub _set_login_cookie
+sub _renew_login_cookie
 {
-    my ($self, $c) = @_;
-    my $expiry_time = time + 86400 * 635;
-    my $password_sha1 = sha1_base64($c->user->password . "\t" . DBDefs->SMTP_SECRET_CHECKSUM);
-    my $ip_mask = '';
-    my $value = sprintf("2\t%s\t%s\t%s\t%s", $c->user->name, $password_sha1,
-                                             $expiry_time, $ip_mask);
+    my ($self, $c, $user_name) = @_;
+    my $token = $c->model('Editor')->allocate_remember_me_token($user_name);
+    my $cookie_version = 3;
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
-        value => encode('utf-8', $value . "\t" . _cookie_sha($c->user->name, $password_sha1, $expiry_time, $ip_mask))
+        value => $token
+            ? encode('utf-8', join("\t", $cookie_version, $user_name, $token))
+            : ''
     };
-}
-
-sub logout : Path('/logout')
-{
-    my ($self, $c) = @_;
-
-    if ($c->user_exists) {
-        $c->logout;
-        $c->delete_session;
-        $self->_clear_login_cookie($c);
-    }
-
-    $self->redirect_back($c, '/logout', '/');
 }
 
 sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnSlaves { }
@@ -226,6 +222,15 @@ sub _load
 
     return $user;
 }
+
+after 'load' => sub {
+    my ($self, $c) = @_;
+
+    my $user = $c->stash->{entity};
+
+    $c->model('Area')->load($user);
+
+};
 
 =head2 contact
 
@@ -309,7 +314,6 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->stash->{votes}            = $c->model('Vote')->editor_statistics($user);
 
     $c->model('Gender')->load($user);
-    $c->model('Country')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
     $c->stash(
@@ -436,17 +440,20 @@ sub privileged : Path('/privileged')
     my @auto_editors = $c->model ('Editor')->find_by_privileges ($AUTO_EDITOR_FLAG);
     my @transclusion_editors = $c->model ('Editor')->find_by_privileges ($WIKI_TRANSCLUSION_FLAG);
     my @relationship_editors = $c->model ('Editor')->find_by_privileges ($RELATIONSHIP_EDITOR_FLAG);
+    my @location_editors = $c->model ('Editor')->find_by_privileges ($LOCATION_EDITOR_FLAG);
 
     $c->model ('Editor')->load_preferences (@bots);
     $c->model ('Editor')->load_preferences (@auto_editors);
     $c->model ('Editor')->load_preferences (@transclusion_editors);
     $c->model ('Editor')->load_preferences (@relationship_editors);
+    $c->model ('Editor')->load_preferences (@location_editors);
 
     $c->stash(
         bots => [ @bots ],
         auto_editors => [ @auto_editors ],
         transclusion_editors => [ @transclusion_editors ],
         relationship_editors => [ @relationship_editors ],
+        location_editors => [ @location_editors ],
         template => 'user/privileged.tt',
     );
 }

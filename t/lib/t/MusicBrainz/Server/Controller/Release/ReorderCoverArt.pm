@@ -12,12 +12,9 @@ test 'Test reordering cover art' => sub {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'new_editor', 'password', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', '2009-01-01', 12, 2, 59, 9 );
+SELECT setval('edit_id_seq', (SELECT MAX(id) FROM edit));
+
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478');
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
@@ -34,8 +31,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
   VALUES (1, '14b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 1);
 
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (1, 1, 316, '', 2, now());
-INSERT INTO cover_art_archive.cover_art (id, release, edit, ordering)
-  VALUES (12345, 1, 1, 1), (12346, 1, 1, 2);
+INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
+INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering)
+  VALUES (12345, 1, 'image/jpeg', 1, 1), (12346, 1, 'image/jpeg', 1, 2);
 EOSQL
 
     $mech->get_ok('/login');
@@ -43,12 +41,13 @@ EOSQL
 
     my $new_comment = 'Adding a comment';
     $mech->get_ok('/release/14b9d183-7dab-42ba-94a3-7388a66604b8/reorder-cover-art');
+
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'reorder-cover-art.artwork.0.id' => 12345,
+                'reorder-cover-art.artwork.0.id' => 12346,
                 'reorder-cover-art.artwork.0.position' => 2,
-                'reorder-cover-art.artwork.1.id' => 12346,
+                'reorder-cover-art.artwork.1.id' => 12347,
                 'reorder-cover-art.artwork.1.position' => 1,
             }
         );
@@ -62,8 +61,8 @@ EOSQL
 
     is_deeply(
         $data->{new},
-        [ { id => 12345, position => 2 } ,
-          { id => 12346, position => 1 } ],
+        [ { id => 12346, position => 2 } ,
+          { id => 12347, position => 1 } ],
         'Correctly reorders artwork');
 };
 

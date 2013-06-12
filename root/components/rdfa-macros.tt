@@ -48,8 +48,9 @@
     'mo:MusicalWork' IF type =='work';
     'mo:Release' IF type == 'release';
     'mo:Track' IF type == 'track';
-    'mo:Record' IF type == 'tracklist' || type == 'medium';
+    'mo:Record' IF type == 'medium';
     'mo:Label' IF type == 'label';
+    'geo:SpatialThing' IF type == 'area';
 END -%]
 
 [%- MACRO rdfa_entity_curi(entity, action, text) BLOCK;
@@ -61,11 +62,12 @@ END -%]
     ELSIF type.search('Entity::ReleaseGroup='); rdfa_release_group_curi(entity);
     ELSIF type.search('Entity::Recording='); rdfa_recording_curi(entity);
     ELSIF type.search('Entity::URL='); link_url(entity, action, text);
+    ELSIF type.search('Entity::Area='); rdfa_area_curi(entity);
     END;
 END -%]
 
 [%- MACRO rdfa_country_to_curi(country) BLOCK;
- 'http://ontologi.es/place/' _ country.iso_code;
+ 'http://ontologi.es/place/' _ country.primary_code;
 END -%]
 
 [%- MACRO rdfa_format_curi(medium) BLOCK;
@@ -136,12 +138,20 @@ END -%]
  '[mbz:label/' _ label.gid _ '#' _ hash_suffix _']';
 END -%]
 
+[%- MACRO rdfa_track_curi(track) BLOCK;
+ '[mbz:track/' _ track.gid _ '#' _ hash_suffix _']';
+END -%]
+
 [%- MACRO rdfa_work_curi(work) BLOCK;
  '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
 END -%]
 
-[%- MACRO rdfa_tracklist_curi(tl) BLOCK;
-    '[mbz:tracklist/' _ tl.id _ '#' _ hash_suffix _ ']';
+[%- MACRO rdfa_medium_curi(release, medium) BLOCK;
+    '[mbz:release/' _ release.gid _ '#disc' _ medium.position _ ']';
+END -%]
+
+[%- MACRO rdfa_area_curi(area) BLOCK;
+ '[mbz:area/' _ area.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%-##############-%]
@@ -204,9 +214,21 @@ END -%]
     [%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 
+[%- MACRO rdfa_artist_isni(isni_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(isni_code.artist) -%]" property="mo:isni">[%- END -%]
+        [%- html_escape(isni_code.isni) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
 [%- MACRO rdfa_label_ipi(ipi_code) BLOCK -%]
     [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(ipi_code.label) -%]" property="mo:ipi">[%- END -%]
         [%- html_escape(ipi_code.ipi) -%]
+    [%- IF doRDFa -%]</span>[%- END -%]
+[%- END -%]
+
+[%- MACRO rdfa_label_isni(isni_code) BLOCK -%]
+    [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(isni_code.label) -%]" property="mo:isni">[%- END -%]
+        [%- html_escape(isni_code.isni) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 
@@ -264,16 +286,16 @@ END -%]
 END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_event_date(release) BLOCK -%]
+[%- MACRO rdfa_release_event_date(date) BLOCK -%]
  [%- IF doRDFa -%]
-   <span about="[evn:]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- release.date.format | date_xsd_type -%]">[%- release.date.format -%]</span>
- [%- ELSE -%][%- release.date.format -%][%- END -%]
+   <span about="[evn:]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- date.format | date_xsd_type -%]">[%- date.format -%]</span>
+ [%- ELSE -%][%- date.format -%][%- END -%]
 [%- END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_country_abbr(release) BLOCK;
- '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(release.country) _ '">' IF doRDFa;
- '<abbr title="' _ html_escape(release.country.l_name) _ '">' _ release.country.iso_code _ '</abbr>';
+[%- MACRO rdfa_release_country_abbr(country) BLOCK;
+ '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
+ '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.primary_code _ '</abbr>';
  '</span>' IF doRDFa;
 END -%]
 
@@ -354,6 +376,8 @@ END -%]
     ELSIF type.search('Entity::Work=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     ELSIF type.search('Entity::Label=');
+    '<span property="skos:altLabel">' _ alias _ '</span>';
+    ELSIF type.search('Entity::Area=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     END;
   ELSE;
@@ -519,10 +543,11 @@ END -%]
 [%- END -%]
 [%- END -%]
 
-[%- MACRO rdfa_medium_in_release(medium) BLOCK -%]
-    <a rel="mo:record"
-       [%- IF doRDFa %] resource="[%- rdfa_tracklist_curi(medium) -%]" [%- END -%]
-       href="[%- c.uri_for_action('/tracklist/show', [medium.tracklist.id]) -%]">
+[%- MACRO rdfa_medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a rel="mo:record" id="[%- fragment  -%]"
+       [%- IF doRDFa %] resource="[%- rdfa_medium_curi(release, medium) -%]" [%- END -%]
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
     [%~ medium_format_name(medium) =%]
     [%= medium.position ~%]
     [%~ IF medium.name ~%]:
@@ -642,6 +667,23 @@ END -%]
   END;
 END -%]
 
+[%-#########-%]
+[%-# Areas #-%]
+[%-#########-%]
+
+[%- MACRO rdfa_link_area_header(area) BLOCK;
+  IF doRDFa;
+    action = action || 'show';
+    link = c.uri_for_action("/area/$action", [ area.gid ]);
+    text = text == '' ? html_escape(area.name) : html_escape(text);
+    '<span class="mp">' IF area.edits_pending AND action == 'show';
+    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:area" xml:lang="" lang="">' _ text _ '</a>';
+    '</span>' IF area.edits_pending AND action == 'show';
+  ELSE;
+    link_area(area);
+  END;
+END -%]
+
 [%-########################-%]
 [%-# pagination / seeAlso #-%]
 [%-########################-%]
@@ -701,6 +743,10 @@ END -%]
 
 [%- MACRO rdfa_seeAlso_link_work(w, action, text) BLOCK;
    rdfa_seeAlso_link(w, 'work', action, text);
+END -%]
+
+[%- MACRO rdfa_seeAlso_link_area(area, action, text) BLOCK;
+   rdfa_seeAlso_link(area, 'area', action, text);
 END -%]
 
 [%-#################-%]

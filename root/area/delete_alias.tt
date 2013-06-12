@@ -1,0 +1,4 @@
+[%- WRAPPER 'area/layout.tt' title=l('Remove Area Alias') full_width=1 -%]
+    <h2>[% l('Remove area alias') %]</h2>
+    [% INCLUDE 'alias/delete.tt' %]
+[%- END -%]

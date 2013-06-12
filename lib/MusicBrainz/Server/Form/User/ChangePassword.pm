@@ -7,6 +7,11 @@ extends 'MusicBrainz::Server::Form';
 
 has '+name' => ( default => 'changepassword' );
 
+has_field 'username' => (
+    type => 'Text',
+    required => 1,
+);
+
 has_field 'old_password' => (
     type => 'Password',
     required => 1,
@@ -26,18 +31,30 @@ has_field 'confirm_password' => (
     min_length => 1,
 );
 
-sub validate_old_password
-{
-    my ($self, $field) = @_;
+after validate => sub {
+    my ($self) = @_;
 
-    my $password = $field->value;
+    my $password_field = $self->field('old_password');
+    my $password = $password_field->value;
+
     if ($password) {
-        my $editor = $self->ctx->model('Editor')->get_by_id($self->ctx->user->id);
-        if ($editor->password ne $password) {
-            $field->add_error(l('The old password is incorrect'));
+        my $username_field = $self->field('username');
+
+        my $editor = $self->ctx->model('Editor')->get_by_name(
+            $username_field->value);
+
+        if ($editor) {
+            if (!$editor->match_password($password)) {
+                $password_field->add_error(
+                    l('The old password is incorrect'));
+            }
+        }
+        else {
+            $username_field->add_error(
+                l('An account with this name could not be found'));
         }
     }
-}
+};
 
 1;
 

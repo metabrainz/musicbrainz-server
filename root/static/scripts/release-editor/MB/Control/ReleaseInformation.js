@@ -35,17 +35,17 @@ MB.Control.ReleaseGroup = function (action, parent) {
     self.$name.bind ('lookup-performed', function (event) {
         var data = self.$name.data ('lookup-result');
 
-        self.$type.find ('option').removeAttr ('selected');
+        self.$type.find ('option').prop('selected', false);
         var $select_option = data.type ?
             self.$type.find ('option[value='+data.type+']') :
             self.$type.find ('option:eq(0)');
 
-        $select_option.attr ('selected', 'selected');
-        self.$type.attr ('disabled', 'disabled');
+        $select_option.prop('selected', true);
+        self.$type.prop('disabled', true);
     });
 
     self.$name.bind ('cleared.mb', function (event) {
-        self.$type.removeAttr ('disabled');
+        self.$type.prop('disabled', false);
     });
 
     self.$name.bind ('focus.mb', function (event) {
@@ -258,11 +258,11 @@ MB.Control.ReleaseBarcode = function() {
         if (self.$no_barcode.is (':checked'))
         {
             self.$input.val ("");
-            self.$input.attr ('disabled', 'disabled');
+            self.$input.prop('disabled', true);
         }
         else
         {
-            self.$input.removeAttr ('disabled', 'disabled');
+            self.$input.prop('disabled', false);
         }
 
         var barcode = self.clean ();
@@ -326,13 +326,12 @@ MB.Control.ReleaseBarcode = function() {
 };
 
 
-MB.Control.ReleaseDate = function (bubble_collection) {
+MB.Control.ReleaseDate = function (inputs, bubble_collection) {
     var self = MB.Object ();
 
     self.bubbles = bubble_collection;
 
-    self.inputs = [ $('#id-date\\.year'),
-        $('#id-date\\.month'), $('#id-date\\.day') ]
+    self.inputs = $.map(inputs, function (i) { return $(i); });
     self.message = $('div.date');
 
     self.amazonEpoch = function () {
@@ -350,32 +349,9 @@ MB.Control.ReleaseDate = function (bubble_collection) {
         var amazon = self.amazonEpoch ();
         var january = self.januaryFirst ();
 
-        if (amazon || january)
-        {
-            self.bubble.show ();
-        }
-        else
-        {
-            self.bubble.hide ();
-        }
-
-        if (amazon)
-        {
-            $('p.amazon').show ();
-        }
-        else
-        {
-            $('p.amazon').hide ();
-        }
-
-        if (january)
-        {
-            $('p.january-first').show ();
-        }
-        else
-        {
-            $('p.january-first').hide ();
-        }
+        self.bubble.toggle (amazon || january);
+        $('p.amazon').toggle(amazon);
+        $('p.january-first').toggle(january);
     };
 
     $.each (self.inputs, function (idx, item) {
@@ -392,7 +368,6 @@ MB.Control.ReleaseInformation = function(action) {
     var self = MB.Object();
 
     self.bubbles = MB.Control.BubbleCollection ();
-    self.release_date = MB.Control.ReleaseDate (self.bubbles);
 
     self.variousArtistsChecked = function () {
         if (self.artistcredit.isEmpty ())
@@ -431,14 +406,18 @@ MB.Control.ReleaseInformation = function(action) {
         if ($('div.artist-credit-box:eq(0) input.gid').val () ===
             MB.constants.VARTIST_GID)
         {
-            $('#id-various_artists').attr ('checked', 'checked');
+            $('#id-various_artists').prop('checked', true);
         }
 
         $('div.release-label').each (function () {
             self.addLabel ($(this));
         });
 
-        $('#id-barcode').live ('change', function () {
+        $('div.release-event').each (function () {
+            self.addEvent ($(this));
+        });
+
+        $('#id-barcode').on('change', function () {
             var barcode = $(this).val ().replace (/[^0-9]/g, '');
             $(this).val (barcode);
         });
@@ -447,6 +426,13 @@ MB.Control.ReleaseInformation = function(action) {
             self.addLabel ();
             self.bubbles.hideAll ();
             event.preventDefault ();
+        });
+
+        $('a[href=#add_event]').bind ('click.mb', function (event) {
+            event.preventDefault ();
+            event = self.addEvent();
+            self.bubbles.hideAll ();
+            $("#id-events\\." + event.eventno + "\\.country_id").val('');
         });
 
         self.artistcredit = MB.Control.ArtistCreditVertical (
@@ -463,14 +449,24 @@ MB.Control.ReleaseInformation = function(action) {
         return l;
     };
 
+    self.addEvent = function ($row) {
+        var eventno = self.events.length;
+        var l = MB.Control.ReleaseEvent($row, self, eventno, self.bubbles);
+
+        self.events.push (l);
+
+        return l;
+    };
+
     self.submit = function () {
         // always submit disabled inputs.
-        $('input:disabled').removeAttr ('disabled');
+        $('input:disabled').prop('disabled', false);
     };
 
     self.release_group = MB.Control.ReleaseGroup (action, self);
     self.barcode = MB.Control.ReleaseBarcode ();
     self.labels = [];
+    self.events = [];
 
     self.initialize ();
 
@@ -478,4 +474,73 @@ MB.Control.ReleaseInformation = function(action) {
 
     return self;
 }
+
+/**
+ * MB.Control.ReleaseEvent keeps track of the country/date inputs.
+ */
+MB.Control.ReleaseEvent = function($row, parent, eventno, bubble_collection) {
+    var self = MB.Object();
+
+    self.$row = $row;
+    self.parent = parent;
+    self.eventno = eventno;
+
+    if (!self.$row)
+    {
+        $('div.catno-container:first').clone ().hide ()
+            .insertAfter ($('div.catno-container:last'));
+
+        self.$row = $('div.release-event:first').clone ();
+        self.$row.find ('input').val('');
+
+        self.$row.find ('*').each (function (idx, element) {
+            var item = $(element);
+            if (item.attr ('id'))
+            {
+                item.attr ('id', item.attr('id').
+                           replace('events.0', "events." + self.eventno));
+            }
+            if (item.attr ('name'))
+            {
+                item.attr ('name', item.attr('name').
+                           replace('events.0', "events." + self.eventno));
+            }
+        });
+
+        self.$row.insertAfter ($('div.release-event:last'));
+        self.$row.find ('span.remove-event input').val ('0');
+        self.$row.show ();
+    }
+
+    MB.Control.ReleaseDate(self.$row.find('span.partial-date input'),
+                          bubble_collection);
+
+    /**
+     * markDeleted marks the track for deletion.
+     */
+    self.markDeleted = function () {
+        self.$deleted.val('1');
+        self.$row.hide ();
+    };
+
+    /**
+     * isDeleted returns true if this track is marked for deletion.
+     */
+    self.isDeleted = function () {
+        return self.$deleted.val () === '1';
+    };
+
+    self.$deleted = self.$row.find ('span.remove-event input');
+
+    self.$row.find ("a[href=#remove_event]").click (function () { self.markDeleted() });
+
+    if (self.isDeleted ())
+    {
+        // if the event is marked as deleted, make sure it is displayed as such
+        // after page load.
+        self.markDeleted ();
+    }
+
+    return self;
+};
 

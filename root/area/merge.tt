@@ -1,0 +1,22 @@
+[% WRAPPER 'layout.tt' title=l('Merge Areas') full_width=1 %]
+    <div id="content">
+    <h1>[% l('Merge Areas') %]</h1>
+    <p>[% l('You are about to merge the following areas into a single area. Please
+             select the area which you would like other areas to be merged into:') %]</p>
+    <form action="[% c.req.uri %]" method="post">
+        <ul>
+            [% FOR entity=to_merge %]
+            <li>
+                <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                <input type="radio" name="merge.target" value="[% entity.id %]" />
+                [% descriptive_link(entity) %]
+            </li>
+            [% END %]
+        </ul>
+        [% field_errors(form, 'target') %]
+
+        [% INCLUDE "forms/edit-note.tt" %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
+    </form>
+    </div>
+[% END %]

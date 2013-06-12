@@ -28,6 +28,7 @@ with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'label' };
@@ -41,6 +42,7 @@ with 'MusicBrainz::Server::Data::Role::Subscription' => {
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Area';
 
 sub browse_column { 'sort_name.name' }
 
@@ -60,7 +62,7 @@ sub _table_join_name {
 sub _columns
 {
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
-           'label.type, label.country, label.edits_pending, label.label_code, ' .
+           'label.type, label.area, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
 }
@@ -83,7 +85,7 @@ sub _column_mapping
         name => 'name',
         sort_name => 'sort_name',
         type_id => 'type',
-        country_id => 'country',
+        area_id => 'area',
         label_code => 'label_code',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
@@ -148,6 +150,11 @@ sub find_by_release
         $query, $release_id, $offset || 0);
 }
 
+sub _area_cols
+{
+    return ['area']
+}
+
 sub load
 {
     my ($self, @objs) = @_;
@@ -172,6 +179,7 @@ sub insert
         );
 
         $self->ipi->set_ipis($created->id, @{ $label->{ipi_codes} });
+        $self->isni->set_isnis($created->id, @{ $label->{isni_codes} });
 
         push @created, $created;
     }
@@ -224,6 +232,7 @@ sub delete
     $self->annotation->delete(@label_ids);
     $self->alias->delete_entities(@label_ids);
     $self->ipi->delete_entities(@label_ids);
+    $self->isni->delete_entities(@label_ids);
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
@@ -237,6 +246,7 @@ sub _merge_impl
 
     $self->alias->merge($new_id, @old_ids);
     $self->ipi->merge($new_id, @old_ids);
+    $self->isni->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
     $self->subscription->merge_entities($new_id, @old_ids);
@@ -248,7 +258,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'label',
-            columns => [ qw( type country label_code ) ],
+            columns => [ qw( type area label_code ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -272,7 +282,7 @@ sub _hash_to_row
 {
     my ($self, $label, $names) = @_;
     my $row = hash_to_row($label, {
-        country => 'country_id',
+        area => 'area_id',
         type => 'type_id',
         ended => 'ended',
         map { $_ => $_ } qw( label_code comment )

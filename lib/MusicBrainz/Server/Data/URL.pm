@@ -14,11 +14,14 @@ with
     'MusicBrainz::Server::Data::Role::Merge';
 
 my %URL_SPECIALIZATIONS = (
+
+    # External links section
     '45cat'            => qr{^https?://(?:www.)?45cat.com/}i,
     'Allmusic'         => qr{^https?://(?:www.)?allmusic.com/}i,
     'AnimeNewsNetwork' => qr{^https?://(?:www.)?animenewsnetwork.com/}i,
     'ASIN'             => qr{^https?://(?:www.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'         => qr{^https?://(?:www.)?bbc.co.uk/music/}i,
+    'Bandcamp'         => qr{^https?://([^/]+.)?bandcamp.com/}i,
     'Canzone'          => qr{^https?://(?:www.)?discografia.dds.it/}i,
     'CDBaby'           => qr{^https?://(?:www.)?cdbaby.com/}i,
     'DHHU'             => qr{^https?://(?:www.)?dhhu.dk/}i,
@@ -35,6 +38,7 @@ my %URL_SPECIALIZATIONS = (
     'IMSLP'            => qr{^https?://(?:www.)?imslp.org/wiki/}i,
     'IOBDb'            => qr{^https?://(?:www.)?lortel.org/}i,
     'InternetArchive'  => qr{^https?://(?:www.)?archive.org/details/}i,
+    'iTunes'           => qr{^https?://itunes.apple.com/}i,
     'ISRCTW'           => qr{^https?://(?:www.)?isrc.ncl.edu.tw/}i,
     'Jamendo'          => qr{^https?://(?:www.)?jamendo.com/}i,
     'LastFM'           => qr{^https?://(?:www.)?last.fm/}i,
@@ -55,6 +59,8 @@ my %URL_SPECIALIZATIONS = (
     'SecondHandSongs'  => qr{^https?://(?:www.)?secondhandsongs.com/}i,
     'Songfacts'        => qr{^https?://(?:www.)?songfacts.com/}i,
     'SoundCloud'       => qr{^https?://(?:www.)?soundcloud.com/}i,
+    'STcollector'      => qr{^https?://(?:www.)?soundtrackcollector.com/}i,
+    'Spotify'          => qr{^https?://([^/]+.)?spotify.com/}i,
     'SpiritOfMetal'    => qr{^https?://(?:www.)?spirit-of-metal.com/}i,
     'Theatricalia'     => qr{^https?://(?:www.)?theatricalia.com/}i,
     'TheSession'       => qr{^https?://(?:www.)?thesession.org/}i,
@@ -62,9 +68,25 @@ my %URL_SPECIALIZATIONS = (
     'Twitter'          => qr{^https?://(?:www.)?twitter.com/}i,
     'VGMdb'            => qr{^https?://(?:www.)?vgmdb.net/}i,
     'VIAF'             => qr{^https?://(?:www.)?viaf.org/}i,
+    'Wikidata'         => qr{^https?://(?:www.)?wikidata.org/wiki/}i,
     'Wikipedia'        => qr{^https?://([\w-]{2,})\.wikipedia.org/wiki/}i,
     'Worldcat'         => qr{^https?://(?:www.)?worldcat.org/}i,
     'YouTube'          => qr{^https?://(?:www.)?youtube.com/}i,
+
+    # License links
+    'CCBY'              => qr{^http://creativecommons.org/licenses/by/}i,
+    'CCBYND'            => qr{^http://creativecommons.org/licenses/by-nd/}i,
+    'CCBYNC'            => qr{^http://creativecommons.org/licenses/by-nc/}i,
+    'CCBYNCND'          => qr{^http://creativecommons.org/licenses/by-nc-nd/}i,
+    'CCBYNCSA'          => qr{^http://creativecommons.org/licenses/by-nc-sa/}i,
+    'CCBYSA'            => qr{^http://creativecommons.org/licenses/by-sa/}i,
+    'CC0'               => qr{^http://creativecommons.org/publicdomain/zero/}i,
+    'CCPD'              => qr{^http://creativecommons.org/licenses/publicdomain/}i,
+    'CCSampling'        => qr{^http://creativecommons.org/licenses/sampling/}i,
+    'CCNCSamplingPlus'  => qr{^http://creativecommons.org/licenses/nc-sampling\+/}i,
+    'CCSamplingPlus'    => qr{^http://creativecommons.org/licenses/sampling\+/}i,
+    'ArtLibre'          => qr{^http://artlibre.org/licence/lal}i,
+
 );
 
 sub _gid_redirect_table

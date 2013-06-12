@@ -19,7 +19,7 @@ use Text::Trim;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
-    "tracklist" => {
+    "medium" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
@@ -57,28 +57,31 @@ sub entities {
         'ReleaseGroup' => 'release-group',
         'Release' => 'release',
         'Label' => 'label',
-        'URL' => 'url'
+        'URL' => 'url',
+        'Area' => 'area'
     };
 }
 
-sub tracklist : Chained('root') PathPart Args(1) {
+sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('ArtistCredit')->load($tracklist->all_tracks);
+    my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('ArtistCredit')->load($medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+                              $medium->all_tracks);
 
     my $ret = { toc => "" };
+    $ret->{medium_id} = $id,
     $ret->{tracks} = [ map {
+        position => $_->position,
         length => $_->length,
         number => $_->number,
         name => $_->name,
         artist_credit => artist_credit_to_ref (
             $_->artist_credit, [ "comment", "gid", "sortname" ]),
     }, sort { $a->position <=> $b->position }
-    $tracklist->all_tracks ];
+    $medium->all_tracks ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
@@ -161,12 +164,12 @@ sub tracklist_results {
                 medium => $medium->name,
                 comment => $release->comment,
                 artist => $release->artist_credit->name,
-                tracklist_id => $medium->tracklist_id,
+                medium_id => $medium->id,
             };
         }
     }
 
-    return uniq_by { $_->{tracklist_id} } @output;
+    return uniq_by { $_->{medium_id} } @output;
 };
 
 sub disc_results {
@@ -208,7 +211,7 @@ sub disc_search {
 
     push @query, $title if $query;
     push @query, "artist:($artist)" if $artist;
-    push @query, "tracks:($tracks)" if $tracks;
+    push @query, "tracksmedium:($tracks)" if $tracks;
 
     $query = join (" AND ", @query);
 
@@ -243,7 +246,7 @@ sub disc_search {
     $c->res->body($c->stash->{serializer}->serialize('generic', \@output));
 };
 
-sub tracklist_search : Chained('root') PathPart('tracklist') Args(0) {
+sub medium_search : Chained('root') PathPart('medium') Args(0) {
     my ($self, $c) = @_;
 
     return $self->disc_search ($c, 'release');
@@ -266,19 +269,19 @@ sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
 sub associations : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $tracklist = $c->model('Tracklist')->get_by_id($id);
-    $c->model('Track')->load_for_tracklists($tracklist);
-    $c->model('Recording')->load ($tracklist->all_tracks);
+    my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('Track')->load_for_mediums($medium);
+    $c->model('Recording')->load ($medium->all_tracks);
 
-    $c->model('ArtistCredit')->load($tracklist->all_tracks, map { $_->recording } $tracklist->all_tracks);
+    $c->model('ArtistCredit')->load($medium->all_tracks, map { $_->recording } $medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $tracklist->all_tracks);
+        $medium->all_tracks);
 
     my %appears_on = $c->model('Recording')->appears_on (
-        [ map { $_->recording } $tracklist->all_tracks ], 3);
+        [ map { $_->recording } $medium->all_tracks ], 3);
 
     my @structure;
-    for (sort { $a->position <=> $b->position } $tracklist->all_tracks)
+    for (sort { $a->position <=> $b->position } $medium->all_tracks)
     {
         my $track = {
             name => $_->name,

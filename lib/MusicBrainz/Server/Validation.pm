@@ -40,13 +40,17 @@ require Exporter;
         format_iswc
         is_valid_ipi
         format_ipi
+        is_valid_isni
+        format_isni
         is_valid_url
         is_freedb_id
         is_valid_discid
         is_valid_barcode
         is_valid_ean
         is_valid_isrc
-        is_tunecore
+        is_valid_iso_3166_1
+        is_valid_iso_3166_2
+        is_valid_iso_3166_3
         encode_entities
         normalise_strings
     )
@@ -137,6 +141,20 @@ sub format_ipi
     return sprintf("%011.0f", $ipi)
 }
 
+sub is_valid_isni
+{
+    my $isni = shift;
+    $isni =~ s/[\s\.-]//g;
+    return $isni =~ /^\d{15}[\dX]$/;
+}
+
+sub format_isni
+{
+    my $isni = shift;
+    $isni =~ s/[\s\.]//g;
+    return $isni;
+}
+
 sub is_valid_url
 {
     my ($url) = @_;
@@ -185,13 +203,25 @@ sub is_valid_ean
 sub is_valid_isrc
 {
     my $isrc = $_[0];
-    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/ && !is_tunecore($isrc);
+    return $isrc =~ /[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/;
 }
 
-sub is_tunecore
+sub is_valid_iso_3166_1
 {
-    my $supposed_isrc = $_[0];
-    return $supposed_isrc =~ /^TC\.*/;
+    my $iso_3166_1 = shift;
+    return $iso_3166_1 =~ /^[A-Z]{2}$/;
+}
+
+sub is_valid_iso_3166_2
+{
+    my $iso_3166_2 = shift;
+    return $iso_3166_2 =~ /^[A-Z]{2}-[A-Z0-9]+$/;
+}
+
+sub is_valid_iso_3166_3
+{
+    my $iso_3166_3 = shift;
+    return $iso_3166_3 =~ /^[A-Z]{4}$/;
 }
 
 ################################################################################

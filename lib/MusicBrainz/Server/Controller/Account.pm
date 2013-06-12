@@ -154,12 +154,17 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         my $email = $form->field('email')->value;
 
         my $editor = $c->model('Editor')->get_by_name($username);
+
         if (!defined $editor) {
             $form->field('username')->add_error(l('There is no user with this username'));
         }
         else {
-            if ($editor->email && $editor->email ne $email) {
+            # HTML::FormHandler::Field::Email lowercases the email, so we should compare the lowercase version (MBS-6158)
+            if ($editor->email && lc($editor->email) ne lc($email)) {
                 $form->field('email')->add_error(l('There is no user with this username and email'));
+            }
+            elsif (!$editor->email) {
+                $form->field('email')->add_error(l('We can\'t send a password reset email, because we have no email on record for this user.'));
             }
             else {
                 $self->_send_password_reset_email($c, $editor);
@@ -225,7 +230,7 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
 
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor, $password);
+        $c->model('Editor')->update_password($editor->name, $password);
 
         $c->model('Editor')->load_preferences($editor);
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
@@ -290,6 +295,7 @@ sub edit : Local RequireAuth
     }
 
     my $editor = $c->model('Editor')->get_by_id($c->user->id);
+    $c->model('Area')->load($editor);
     $c->model('EditorLanguage')->load_for_editor($editor);
 
     my $form = $c->form( form => 'User::EditProfile', init_object => $editor );
@@ -332,21 +338,32 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password') RequireAuth
+sub change_password : Path('/account/change-password')
 {
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/change_password_ok.tt');
+        $c->flash->{message} = l('Your password has been changed.');
+        $c->response->redirect($c->uri_for_action('/user/login'));
+
         $c->detach;
     }
 
-    my $form = $c->form( form => 'User::ChangePassword' );
+    $c->stash( mandatory => $c->req->query_params->{mandatory} );
+
+    my $form = $c->form(
+        form => 'User::ChangePassword',
+        init_object => {
+            username => $c->user_exists
+                ? $c->user->name
+                : ($c->req->query_parameters->{username} // '')
+        }
+    );
 
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-
         my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($c->user, $password);
+        $c->model('Editor')->update_password(
+            $form->field('username')->value, $password);
 
         $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
         $c->detach;

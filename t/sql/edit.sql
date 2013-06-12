@@ -1,15 +1,7 @@
 
 SET client_min_messages TO 'warning';
 
-INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
-        email_confirm_date, last_login_date, edits_accepted, edits_rejected,
-        auto_edits_accepted, edits_failed)
-    VALUES (1, 'new_editor', 'password', 1+8+32, 'test@email.com', 'http://test.website',
-        'biography', '1989-07-23', '2005-10-20', '2009-01-01', 12, 2, 59, 9),
-         (2, 'Alice', 'secret1', 0, 'alice@example.com', 'http://example.com',
-        'second biography', '2007-07-23', '2007-10-20', '2009-12-05', 11, 3, 41, 8),
-         (3, 'kuno', 'byld', 0, 'kuno@example.com', 'http://frob.nl',
-        'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0);
+INSERT INTO editor (id, name, password, privs, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 1+8+32, 'test@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 12, 2, 59, 9, 'e1dd8fee8ee728b0ddc8027d3a3db478'), (2, 'Alice', '{CLEARTEXT}secret1', 0, 'alice@example.com', 'http://example.com', 'second biography', '2007-07-23', '2007-10-20', '2009-12-05', 11, 3, 41, 8, '473045b48884c866cae27da3e4b5d618'), (3, 'kuno', '{CLEARTEXT}byld', 0, 'kuno@example.com', 'http://frob.nl', 'donation check test user', '2010-03-25', '2010-03-25', '2010-03-25', 0, 0, 0, 0, '7519d5878645b8944a03555ea66f1ac3');
 
 INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (1, 1, 123, 1, '{ "key": "value" }', NOW());

@@ -186,6 +186,17 @@ test 'Replace artist credit identity' => sub {
        'artist credit still exists');
 };
 
+test 'related_entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $artist_credit_data = $c->model('ArtistCredit');
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    my $ac = $artist_credit_data->get_by_id(135345);
+    is_deeply( $artist_credit_data->related_entities($ac), {recording => [], release => [ 59662 ], release_group => [ 403214 ]} );
+};
+
 test all => sub {
 
 my $test = shift;

@@ -12,9 +12,9 @@
     //]]></script>
 [%- END -%]
 
-[% WRAPPER 'layout.tt' title=l('Edits For Your Subscribed Entities') full_width=1 %]
+[% WRAPPER 'layout.tt' title=l('Edits for Your Subscribed Entities') full_width=1 %]
     <div id="content">
-        <h1>[% l('Edits For Your Subscribed Entities') %]</h1>
+        <h1>[% l('Edits for Your Subscribed Entities') %]</h1>
         [% INCLUDE 'edit/list.tt' %]
     </div>
 [% END %]

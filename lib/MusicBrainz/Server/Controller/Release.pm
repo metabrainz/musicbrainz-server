@@ -20,6 +20,7 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -80,7 +81,6 @@ after 'load' => sub
     if ($c->action->name ne 'edit') {
         $c->model('ReleaseStatus')->load($release);
         $c->model('ReleasePackaging')->load($release);
-        $c->model('Country')->load($release);
         $c->model('Language')->load($release);
         $c->model('Script')->load($release);
         $c->model('ReleaseLabel')->load($release);
@@ -88,6 +88,7 @@ after 'load' => sub
         $c->model('ReleaseGroupType')->load($release->release_group);
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
+        load_release_events($c, $release);
     }
 };
 
@@ -164,10 +165,9 @@ sub show : Chained('load') PathPart('')
     my $release = $c->stash->{release};
 
     my @mediums = $release->all_mediums;
-    my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-    $c->model('Track')->load_for_tracklists(@tracklists);
+    $c->model('Track')->load_for_mediums(@mediums);
 
-    my @tracks = map { $_->all_tracks } @tracklists;
+    my @tracks = map { $_->all_tracks } @mediums;
     my @recordings = $c->model('Recording')->load(@tracks);
     $c->model('Recording')->load_meta(@recordings);
     if ($c->user_exists) {
@@ -298,53 +298,6 @@ sub change_quality : Chained('load') PathPart('change-quality') RequireAuth
             $c->response->redirect($uri);
         }
     );
-}
-
-sub move : Chained('load') RequireAuth Edit ForbiddenOnSlaves
-{
-    my ($self, $c) = @_;
-    my $release = $c->stash->{release};
-
-    if ($c->req->query_params->{dest}) {
-        my $release_group = $c->model('ReleaseGroup')->get_by_gid($c->req->query_params->{dest});
-        $c->model('ArtistCredit')->load($release_group);
-        if ($release->release_group_id == $release_group->id) {
-            $c->stash( message => l('This release is already in the selected release group') );
-            $c->detach('/error_400');
-        }
-
-        $c->stash(
-            template => 'release/move_confirm.tt',
-            release_group => $release_group
-        );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_RELEASE_MOVE,
-            edit_args => {
-                release => $release,
-                new_release_group => $release_group
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action($self->action_for('show'), [ $release->gid ]));
-            }
-        );
-    }
-    else {
-        my $query = $c->form( query_form => 'Search::Query', name => 'filter' );
-        $query->field('query')->input($release->release_group->name);
-        if ($query->submitted_and_valid($c->req->params)) {
-            my $results = $self->_load_paged($c, sub {
-                $c->model('Search')->search('release_group',
-                                            $query->field('query')->value, shift, shift)
-            });
-            $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-            $results = [ grep { $release->release_group_id != $_->entity->id } @$results ];
-            $c->stash( search_results => $results );
-        }
-        $c->stash( template => 'release/move_search.tt' );
-    }
 }
 
 =head2 collections
@@ -507,9 +460,9 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 sub _merge_form_arguments {
     my ($self, $c, @releases) = @_;
     $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Track')->load_for_tracklists(map { $_->tracklist } map { $_->all_mediums } @releases);
-    $c->model('Recording')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
-    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->tracklist } map { $_->all_mediums } @releases);
+    $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
+    $c->model('Recording')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
+    $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
 
     my @mediums;
     my %medium_by_id;
@@ -634,11 +587,12 @@ around _merge_submit => sub {
 after 'merge' => sub
 {
     my ($self, $c) = @_;
-    $c->model('Medium')->load_for_releases(@{ $c->stash->{to_merge} });
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @{ $c->stash->{to_merge} });
-    $c->model('Country')->load(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseLabel')->load(@{ $c->stash->{to_merge} });
-    $c->model('Label')->load(map { $_->all_labels } @{ $c->stash->{to_merge} });
+    my @to_merge = @{ $c->stash->{to_merge} };
+    load_release_events($c, @to_merge);
+    $c->model('Medium')->load_for_releases(@to_merge);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
+    $c->model('ReleaseLabel')->load(@to_merge);
+    $c->model('Label')->load(map { $_->all_labels } @to_merge);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

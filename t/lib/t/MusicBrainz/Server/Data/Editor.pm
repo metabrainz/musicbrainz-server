@@ -1,8 +1,10 @@
 package t::MusicBrainz::Server::Data::Editor;
+use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
 
+use Authen::Passphrase::RejectAll;
 use DateTime;
 use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw( :edit_status $EDIT_ARTIST_EDIT );
@@ -32,6 +34,29 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
     is($ratings->{artist}->[0]->rating_count => 1, 'has rating on entity');
 };
 
+test 'Remember me tokens' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
+
+    my $model = $test->c->model('Editor');
+
+    my $user_name = 'Alice';
+    my $token = $model->allocate_remember_me_token($user_name);
+
+    ok($model->consume_remember_me_token($user_name, $token),
+       'Can consume "remember me" tokens');
+
+    ok(!$model->consume_remember_me_token($user_name, $token),
+       'Cannot consume "remember me" tokens more than once');
+
+    ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
+       'It is not an exception to attempt to consume tokens for non-existant users');
+
+    is($model->allocate_remember_me_token('Unknown User'), undef,
+       'Allocating tokens for unknown users returns undefined');
+};
+
 test all => sub {
 
 my $test = shift;
@@ -45,14 +70,14 @@ ok(defined $editor, 'no editor returned');
 isa_ok($editor, 'MusicBrainz::Server::Entity::Editor', 'not a editor');
 is($editor->id, 1, 'id');
 is($editor->name, 'new_editor', 'name');
-is($editor->password, 'password', 'password');
+ok($editor->match_password('password'));
 is($editor->privileges, 1+8+32, 'privileges');
 is($editor->accepted_edits, 12, 'accepted edits');
 is($editor->rejected_edits, 2, 'rejected edits');
 is($editor->failed_edits, 9, 'failed edits');
 is($editor->accepted_auto_edits, 59, 'auto edits');
 
-is_deeply($editor->last_login_date, DateTime->new(year => 2009, month => 01, day => 01),
+is_deeply($editor->last_login_date, DateTime->new(year => 2013, month => 04, day => 05),
     'last login date');
 
 is_deeply($editor->email_confirmation_date, DateTime->new(year => 2005, month => 10, day => 20),
@@ -99,7 +124,7 @@ my $new_editor_2 = $editor_data->insert({
 });
 ok($new_editor_2->id > $editor->id);
 is($new_editor_2->name, 'new_editor_2', 'new editor 2 has name new_editor_2');
-is($new_editor_2->password, 'password', 'new editor 2 has correct password');
+ok($new_editor_2->match_password('password'), 'new editor 2 has correct password');
 is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
 
 
@@ -116,10 +141,10 @@ is($editor->email, 'editor@example.com', 'editor has correct e-mail address');
 ok($now <= $editor->email_confirmation_date, 'email confirmation date updated correctly');
 is($new_editor_2->email_confirmation_date, $editor->email_confirmation_date);
 
-$editor_data->update_password($new_editor_2, 'password2');
+$editor_data->update_password($new_editor_2->name, 'password2');
 
 $editor = $editor_data->get_by_id($new_editor_2->id);
-is($editor->password, 'password2');
+ok($editor->match_password('password2'));
 
 my @editors = $editor_data->find_by_email('editor@example.com');
 is(scalar(@editors), 1);
@@ -156,14 +181,13 @@ test 'Deleting editors removes most information' => sub {
     my $model = $c->model('Editor');
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO country (id, iso_code, name) VALUES (1, 'bb', 'Bobland');
+INSERT INTO area_type (id, name) VALUES (1, 'Country');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+  (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 'United Kingdom', 1);
+INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 INSERT INTO language (id, iso_code_3, name) VALUES (1, 'bob', 'Bobch');
 INSERT INTO gender (id, name) VALUES (1, 'Male');
-INSERT INTO editor (id, name, password, email, website, bio, member_since,
-    email_confirm_date, last_login_date, edits_accepted, edits_rejected,
-    auto_edits_accepted, edits_failed, privs, birth_date, country, gender)
-  VALUES (1, 'Bob', 'bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(),
-    now(), now(), 100, 101, 102, 103, 1, '1980-02-03', 1, 1);
+INSERT INTO editor (id, name, password, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, privs, birth_date, area, gender, ha1) VALUES (1, 'Bob', '{CLEARTEXT}bob', 'bob@bob.bob', 'http://bob.bob/', 'Bobography', now(), now(), now(), 100, 101, 102, 103, 1, now(), 221, 1, '026299da47965340ef66ca485a57975d');
 INSERT INTO editor_language (editor, language, fluency) VALUES (1, 1, 'native');
 EOSQL
 
@@ -172,7 +196,7 @@ EOSQL
     my $bob = $model->get_by_id(1);
 
     is($bob->name, 'Deleted Editor #' . $bob->id);
-    is($bob->password, '');
+    is($bob->password, Authen::Passphrase::RejectAll->new->as_rfc2307);
     is($bob->privileges, 0);
     is($bob->accepted_edits, 100);
     is($bob->rejected_edits, 101);
@@ -182,7 +206,7 @@ EOSQL
     my $exclusions = Set::Scalar->new(
         qw( id name password privileges accepted_edits rejected_edits
             accepted_auto_edits last_login_date failed_edits languages
-            registration_date preferences
+            registration_date preferences ha1
       ));
 
     for my $attribute (grep { !$exclusions->contains($_->name) }
@@ -220,7 +244,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -230,7 +255,8 @@ test 'Deleting an editor cancels all open edits' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
@@ -246,8 +272,7 @@ test 'Deleting an editor unsubscribes anyone who was subscribed to them' => sub 
     my $c = $test->c;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password)
-  VALUES (1, 'Subject', ''), (2, 'Subscriber', '');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Subject', '{CLEARTEXT}', '46182940755cef2bdcc0a03b6c1a3580'), (2, 'Subscriber', '{CLEARTEXT}', '37d4b8c8bd88e53c69068830c9e34efc');
 INSERT INTO editor_subscribe_editor (editor, subscribed_editor, last_edit_sent)
   VALUES (2, 1, 1);
 EOSQL
@@ -267,7 +292,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'An additional comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     accept_edit($c, $applied_edit);
@@ -277,7 +303,8 @@ test 'Open edit and last-24-hour counts' => sub {
         editor_id => 1,
         to_edit => $c->model('Artist')->get_by_id(1),
         comment => 'A Comment',
-        ipi_codes => []
+        ipi_codes => [],
+        isni_codes => []
     );
 
     is ($open_edit->status, $STATUS_OPEN);
@@ -297,8 +324,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO label (id, gid, name, sort_name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
 
-INSERT INTO editor (id, name, password)
-  VALUES (1, 'Alice', 'al1c3'), (2, 'Bob', 'b0b');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943'), (2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae');
 
 INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 1, 1, 1, '', now());
 

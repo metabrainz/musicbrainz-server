@@ -23,6 +23,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_PUID_DELETE
 );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw(
     group_by_release_status_nested
 );
@@ -110,9 +111,9 @@ sub show : Chained('load') PathPart('')
         $c->model('Track')->find_by_recording($recording->id, shift, shift);
     });
 
-    my @releases = map { $_->tracklist->medium->release } @$tracks;
+    my @releases = map { $_->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
-    $c->model('Country')->load(@releases);
+    load_release_events($c, @releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ReleaseStatus')->load(@releases);
@@ -121,7 +122,7 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         tracks =>
             group_by_release_status_nested(
-                sub { shift->tracklist->medium->release },
+                sub { shift->medium->release },
                 @$tracks),
         template => 'recording/index.tt',
     );
@@ -176,17 +177,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         else {
             return ();
         }
-    }
-};
-
-around create => sub {
-    my ($orig, $self, $c, @args) = @_;
-    if ($c->user_exists && $c->user->is_limited) {
-        $c->stash( template => 'recording/cannot_add.tt' );
-        $c->detach;
-    }
-    else {
-        $self->$orig($c, @args);
     }
 };
 

@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
+with 'MusicBrainz::Server::Entity::Role::ISNI';
 
 has 'sort_name' => (
     is => 'rw',
@@ -63,14 +64,34 @@ sub l_gender_name
     return $self->gender ? $self->gender->l_name : undef;
 }
 
-has 'country_id' => (
+has 'area_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'country' => (
+has 'area' => (
     is => 'rw',
-    isa => 'Country'
+    isa => 'Area'
+);
+
+has 'begin_area_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'begin_area' => (
+    is => 'rw',
+    isa => 'Area'
+);
+
+has 'end_area_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'end_area' => (
+    is => 'rw',
+    isa => 'Area'
 );
 
 has 'comment' => (

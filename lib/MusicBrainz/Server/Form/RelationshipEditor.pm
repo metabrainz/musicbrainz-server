@@ -121,8 +121,10 @@ after validate => sub {
         my $link_type_field = $field->field('link_type');
         next if !$link_type_field->value || $link_type_field->has_errors;
 
+        my $action = $field->field('action')->value;
         my $link_type = $self->validate_link_type(
-                $c, $field->field('link_type'), $field->field('attrs'));
+                $c, $field->field('link_type'), $field->field('attrs'),
+                $action eq 'remove');
 
         my $entity0 = $field->field('entity')->field('0');
         my $entity1 = $field->field('entity')->field('1');
@@ -168,7 +170,7 @@ after validate => sub {
         my $id_field = $field->field('id');
         next if $id_field->has_errors;
 
-        if ($field->field('action')->value =~ /^(edit|remove)$/) {
+        if ($action =~ /^(edit|remove)$/) {
             my $id = $id_field->value;
 
             if (!defined($id)) {

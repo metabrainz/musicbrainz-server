@@ -165,8 +165,8 @@ sub diff_artist_credits {
                 );
 
                 # Diff the join phrases
-                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-');
-                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+');
+                $sides{old} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '-', '\s+');
+                $sides{new} .= $self->diff_side($old_name->join_phrase, $new_name->join_phrase, '+', '\s+');
             }
 
             when('-') {
