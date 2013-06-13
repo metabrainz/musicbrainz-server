@@ -44,7 +44,7 @@ after validate => sub {
             $username_field->value);
 
         if ($editor) {
-            if ($editor->password ne $password) {
+            if (!$editor->match_password($password)) {
                 $password_field->add_error(
                     l('The old password is incorrect'));
             }

@@ -66,9 +66,9 @@ sub build_display_data
         area       => ($self->entity_id && $loaded->{Area}->{ $self->entity_id }) ||
             Area->new( name => $self->data->{name} ),
         ended      => $self->data->{ended} // 0,
-        iso_3166_1 => $self->data->{iso_3166_1},
-        iso_3166_2 => $self->data->{iso_3166_2},
-        iso_3166_3 => $self->data->{iso_3166_3},
+        iso_3166_1 => @{ $self->data->{iso_3166_1} } ? $self->data->{iso_3166_1} : undef,
+        iso_3166_2 => @{ $self->data->{iso_3166_2} } ? $self->data->{iso_3166_2} : undef,
+        iso_3166_3 => @{ $self->data->{iso_3166_3} } ? $self->data->{iso_3166_3} : undef,
     };
 }
 

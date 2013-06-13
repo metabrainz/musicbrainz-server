@@ -10,6 +10,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::AreaType;
+use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
@@ -368,12 +370,40 @@ sub schema_fixup
     {
         $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
     }
-    if (($type eq 'artist' || $type eq 'label') && exists $data->{'life-span'})
+    if ($type eq 'area' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
+    }
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area') && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
+    }
+    if ($type eq 'area') {
+        for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
+            my $json_subprop = $prop . '-code';
+            $json_subprop =~ s/_/-/g;
+            my $json_prop = $json_subprop . '-list';
+            if (exists $data->{$json_prop}) {
+                $data->{$prop} = $data->{$json_prop}->{$json_subprop};
+                delete $data->{$json_prop};
+            }
+        }
+    }
+    if ($type eq 'artist' || $type eq 'label') {
+        for my $prop (qw( area begin_area end_area )) {
+            my $json_prop = $prop;
+            $json_prop =~ s/_/-/;
+            if (exists $data->{$json_prop})
+            {
+                my $area = delete $data->{$json_prop};
+                $area->{gid} = $area->{id};
+                $area->{id} = 1;
+                $data->{$prop} = MusicBrainz::Server::Entity::Area->new($area);
+            }
+        }
     }
     if($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );

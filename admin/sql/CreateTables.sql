@@ -391,7 +391,6 @@ CREATE TABLE editor
 (
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
-    password            VARCHAR(64) NOT NULL,
     privs               INTEGER DEFAULT 0,
     email               VARCHAR(64) DEFAULT NULL,
     website             VARCHAR(255) DEFAULT NULL,
@@ -406,7 +405,9 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
-    area                INTEGER -- references area.id
+    area                INTEGER, -- references area.id
+    password            VARCHAR(128) NOT NULL,
+    ha1                 CHAR(32) NOT NULL
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
@@ -1151,6 +1152,12 @@ CREATE TABLE editor_watch_release_status
 (
     editor INTEGER NOT NULL, -- PK, references editor.id CASCADE
     release_status INTEGER NOT NULL -- PK, references release_status.id
+);
+
+CREATE TABLE editor_remember_me (
+    editor integer NOT NULL, -- PK, references editor.id
+    token uuid NOT NULL, -- PK
+    allocated timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE medium
