@@ -21,6 +21,8 @@ test all => sub {
     my $mech = $test->mech;
     my $c    = $test->c;
 
+    $c->sql->do("DELETE FROM isrc WHERE recording = 1");
+
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');
 
@@ -55,8 +57,6 @@ test 'Warn the user when merging recordings with different ISRCs' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
-
-    $c->sql->do("INSERT INTO isrc (isrc, recording) VALUES ('XXX250800230', 1)");
 
     $mech->get_ok('/recording/merge_queue?add-to-merge=1');
     $mech->get_ok('/recording/merge_queue?add-to-merge=2');
