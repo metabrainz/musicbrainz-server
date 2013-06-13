@@ -806,6 +806,129 @@ ws_test 'release lookup, track artists have no tags',
   </release>
 </metadata>';
 
+ws_test 'release lookup, track artists have no aliases',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artists+recordings+artist-credits+aliases+artist-rels+recording-level-rels' =>
+    '<?xml version="1.0" ?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
+    <title>the Love Bug</title><status>Official</status><quality>normal</quality>
+    <text-representation>
+      <language>eng</language><script>Latn</script>
+    </text-representation>
+    <artist-credit>
+      <name-credit>
+        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+          <name>m-flo</name><sort-name>m-flo</sort-name>
+          <alias-list count="6">
+            <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
+          </alias-list>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <date>2004-03-17</date><country>JP</country>
+    <release-event-list count="1">
+      <release-event>
+        <date>2004-03-17</date>
+        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+          <name>Japan</name><sort-name>Japan</sort-name>
+          <iso-3166-1-code-list>
+            <iso-3166-1-code>JP</iso-3166-1-code>
+          </iso-3166-1-code-list>
+        </area>
+      </release-event>
+    </release-event-list>
+    <barcode>4988064451180</barcode><asin>B0001FAD2O</asin>
+    <cover-art-archive>
+      <artwork>true</artwork><count>1</count><front>true</front><back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium>
+        <position>1</position>
+        <track-list count="3" offset="0">
+          <track id="ec60f5e2-ed8a-391d-90cd-bf119c50f6a0">
+            <position>1</position><number>1</number><length>243000</length>
+            <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
+              <title>the Love Bug</title><length>242226</length>
+              <artist-credit>
+                <name-credit joinphrase="♥">
+                  <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <alias-list count="6">
+                      <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
+                    </alias-list>
+                  </artist>
+                </name-credit>
+                <name-credit>
+                  <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                    <name>BoA</name><sort-name>BoA</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+              <relation-list target-type="artist">
+                <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
+                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                  <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                  </artist>
+                </relation>
+                <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
+                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                  <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                  </artist>
+                </relation>
+                <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
+                  <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target><direction>backward</direction>
+                  <attribute-list>
+                    <attribute>guest</attribute>
+                  </attribute-list>
+                  <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                    <name>BoA</name><sort-name>BoA</sort-name>
+                  </artist>
+                </relation>
+              </relation-list>
+            </recording>
+          </track>
+          <track id="2519283c-93d9-30de-a0ba-75f99ca25604">
+            <position>2</position><number>2</number><length>222000</length>
+            <recording id="84c98ebf-5d40-4a29-b7b2-0e9c26d9061d">
+              <title>the Love Bug (Big Bug NYC remix)</title><length>222000</length>
+              <artist-credit>
+                <name-credit joinphrase="♥">
+                  <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+                    <name>m-flo</name><sort-name>m-flo</sort-name>
+                    <alias-list count="6">
+                      <alias sort-name="m-flow">m-flow</alias><alias sort-name="mediarite-flow crew">mediarite-flow crew</alias><alias sort-name="meteorite-flow crew">meteorite-flow crew</alias><alias sort-name="mflo">mflo</alias><alias sort-name="えむふろう">えむふろう</alias><alias sort-name="エムフロウ">エムフロウ</alias>
+                    </alias-list>
+                  </artist>
+                </name-credit>
+                <name-credit>
+                  <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+                    <name>BoA</name><sort-name>BoA</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+          <track id="4ffc18f0-96cc-3e1f-8192-cf0d0c489beb">
+            <position>3</position><number>3</number><length>333000</length>
+            <recording id="3f33fc37-43d0-44dc-bfd6-60efd38810c5">
+              <title>the Love Bug (cover)</title><length>333000</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
+                    <name>BAGDAD CAFE THE trench town</name><sort-name>BAGDAD CAFE THE trench town</sort-name>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
+
 };
 
 1;

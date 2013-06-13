@@ -76,7 +76,7 @@ sub _serialize_alias
 {
     my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
 
-    if (@$aliases)
+    if (!$in_relation_node && @$aliases)
     {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
