@@ -64,7 +64,7 @@ $mech->text_contains('Composition', '..has old work type');
 $mech->text_contains('A comment!', '..has new comment');
 
 $edit = $edits[1];
-isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddISWCs');
+isa_ok($edit, 'MusicBrainz::Server::Edit::Work::AddISWCs', 'adds ISWCs');
 is_deeply($edit->data, {
     iswcs => [ {
         iswc => 'T-000.000.002-0',
@@ -73,10 +73,10 @@ is_deeply($edit->data, {
             name => 'Dancing Queen'
         }
     } ]
-});
+}, 'add ISWC data looks correct');
 
 $edit = $edits[2];
-isa_ok($edit, 'MusicBrainz::Server::Edit::Work::RemoveISWC');
+isa_ok($edit, 'MusicBrainz::Server::Edit::Work::RemoveISWC', 'also removes ISWCs');
 my @iswc = $c->model('ISWC')->find_by_iswc('T-000.000.001-0');
 
 is_deeply($edit->data, {
@@ -88,7 +88,7 @@ is_deeply($edit->data, {
         id => 1,
         name => 'Dancing Queen'
     }
-});
+}, 'remove ISWC data looks correct');
 
 };
 

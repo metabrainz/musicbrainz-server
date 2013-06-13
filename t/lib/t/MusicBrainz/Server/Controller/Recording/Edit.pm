@@ -110,7 +110,7 @@ $mech->text_contains('ABBA', '..has old artist');
 $mech->content_contains('/artist/a45c079d-374e-4436-9448-da92dedef3cf', '...and links to artist');
 
 $edit = $edits[1];
-isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs');
+isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddISRCs', 'adds ISRCs');
 is_deeply($edit->data, {
     isrcs => [ {
         isrc => 'USS1Z9900001',
@@ -121,10 +121,10 @@ is_deeply($edit->data, {
         source => 0,
     } ],
     client_version => JSON::null
-});
+}, 'add ISRC edit data is correct');
 	
 $edit = $edits[2];
-isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC');
+isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC', 'also removes ISRCs');
 my @isrc = $c->model('ISRC')->find_by_isrc('DEE250800231');
 	
 is_deeply($edit->data, {
@@ -136,7 +136,7 @@ is_deeply($edit->data, {
         id => 1,
         name => 'Dancing Queen'
     }
-});
+}, 'remove ISRC data is correct');
 
 };
 
