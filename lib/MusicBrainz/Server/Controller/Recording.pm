@@ -165,7 +165,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $recording) = @_;
 
         return (
-            post_creation => $self->_edit_with_identifiers($c, $recording)
+            post_creation => $self->edit_with_identifiers($c, $recording)
         );
     }
 };
@@ -190,7 +190,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $c->stash( initial_artist => $artist );
             $ret{item} = $rg;
         }
-        $ret{post_creation} = $self->_create_with_identifiers($c);
+        $ret{post_creation} = $self->create_with_identifiers($c);
         return %ret;
     }
 };

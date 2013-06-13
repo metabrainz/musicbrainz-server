@@ -80,7 +80,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $work) = @_;
 
         return (
-            post_creation => $self->_edit_with_identifiers($c, $work)
+            post_creation => $self->edit_with_identifiers($c, $work)
         );
     }
 };
@@ -119,7 +119,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         my ($self, $c) = @_;
 
         return (
-            post_creation => $self->_create_with_identifiers($c)
+            post_creation => $self->create_with_identifiers($c)
         );
     }
 };
@@ -128,7 +128,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009 Lukas Lalinsky, 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
