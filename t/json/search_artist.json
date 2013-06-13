@@ -1,1 +1,233 @@
-{"artist-list":{"offset":0,"count":784,"artist":[{"gender":"male","score":"100","type":"group","id":"34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47","name":"Love","sort-name":"Love","disambiguation":"folk-rock/psychedelic band","alias-list":{"alias":["Love (With Arthur Lee)"]}},{"score":"100","type":"unknown","id":"6c7f130a-4658-43dc-8b8f-5407da1915e0","name":"Love?","sort-name":"Love?"},{"score":"100","type":"group","id":"e414a176-b978-492f-b6bc-9fd4c89df221","name":"L.O.V.E.","sort-name":"L.O.V.E.","alias-list":{"alias":["Eko Fresh & Valezka","Eko & Valezka"]}},{"score":"100","type":"unknown","id":"c375b340-5d52-4e78-ac4c-b855fd7da632","name":"Love","sort-name":"Love","disambiguation":"Art directors"},{"score":"100","type":"person","id":"c6a5a81d-2544-499a-8b30-6c52179c0857","name":"LOVE","sort-name":"LOVE","disambiguation":"Otsuka Ai stage name"},{"score":"70","type":"group","id":"d703af9a-d993-4f00-92aa-14ea284e39bd","name":"Love Spit Love","sort-name":"Love Spit Love"},{"score":"62","type":"person","id":"af953ba2-283b-41ef-93bc-b4cfc5feeebc","name":"Darlene Love","sort-name":"Love, Darlene","life-span":{"begin":"1938-07-26"}},{"score":"62","type":"unknown","id":"2f87ffea-d79d-497a-8218-2723c4601c63","name":"Love Connection","sort-name":"Love Connection"},{"score":"62","type":"group","id":"20fa3e73-7ac4-4550-b9f5-6ac8c523bda5","name":"Love Battery","sort-name":"Love Battery","life-span":{"begin":"1989"}},{"score":"62","type":"unknown","id":"8e1e2077-d854-4c86-91b9-2ba14467fa8e","name":"Love Pirates","sort-name":"Love Pirates"},{"score":"62","type":"group","id":"c2522b64-956a-4420-9f9a-f3874da5ddfa","name":"Love Committee","sort-name":"Love Committee","disambiguation":"70s US funk/disco group","alias-list":{"alias":["Love Commitee","The Love Committee"]}},{"score":"62","type":"unknown","id":"03d7919a-90f3-463c-bf01-4bffd2dd4843","name":"Lexi Love","sort-name":"Lexi Love"},{"score":"62","type":"group","id":"3908588d-5fff-4e12-9eff-1a5ec686042c","name":"Love Message","sort-name":"Love Message"},{"score":"62","type":"person","id":"53299fed-ec27-464f-94eb-5fda2db2902a","name":"Laura Love","sort-name":"Love, Laura"},{"score":"62","type":"unknown","id":"22d54efd-416d-4f72-9372-013e32e9a312","name":"Kandice Love","sort-name":"Love, Kandice"},{"score":"62","type":"group","id":"7f3f028b-7ced-4a04-a3e2-e9f502a79306","name":"Love/Hate","sort-name":"Love/Hate","alias-list":{"alias":["Love-Hate","Love\\Hate"]}},{"score":"62","type":"unknown","id":"7843b341-48b7-438c-9d99-832517b457c0","name":"Love Corporation","sort-name":"Love Corporation"},{"score":"62","type":"group","id":"4231388d-489e-4fb6-918c-ecc514bf882d","name":"Love Jones","sort-name":"Love Jones","life-span":{"begin":"1990"}},{"score":"62","type":"unknown","id":"406bca37-056f-405e-a974-624864c9f641","name":"Sunset Love","sort-name":"Sunset Love"},{"score":"62","type":"unknown","id":"10ad45ec-6485-4f72-8b7b-c06588af0747","name":"Love Rush","sort-name":"Love Rush"},{"score":"62","type":"group","id":"e2dea604-4af9-4e01-b8d1-53e9de8eef57","name":"Love Inc.","sort-name":"Love Inc.","disambiguation":"Canadian dance trio","alias-list":{"alias":["love.inc.","Love Inc"]}},{"score":"62","type":"unknown","id":"59a393ef-67e4-4f4a-b33e-142eb3dbb8c9","name":"Love Colony","sort-name":"Love Colony"},{"score":"62","type":"unknown","id":"ffa29fe0-fff0-4495-be3b-ba86689c485d","name":"One Love","sort-name":"One Love","disambiguation":"unknown dub artist with several albums, please help"},{"score":"62","type":"unknown","id":"a003d576-9441-4dfb-90c4-f268643f9ee7","name":"Love Nugget","sort-name":"Love Nugget"},{"score":"62","type":"person","id":"18981178-50bc-46a3-90b0-53b379601d4f","name":"(Love) Tattoo","sort-name":"Love Tattoo"}]}}
+{
+ "artist-list": {
+  "offset": 0,
+  "count": 784,
+  "artist": [
+   {
+    "gender": "male",
+    "score": "100",
+    "type": "group",
+    "id": "34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47",
+    "name": "Love",
+    "sort-name": "Love",
+    "area": {
+     "id": "695fa46b-4b20-48ac-964a-a12cd3ecfa16",
+     "name": "Area",
+     "sort-name": "Area"
+    },
+    "disambiguation": "folk-rock/psychedelic band",
+    "alias-list": {
+     "alias": [
+      "Love (With Arthur Lee)"
+     ]
+    }
+   },
+   {
+    "score": "100",
+    "type": "unknown",
+    "id": "6c7f130a-4658-43dc-8b8f-5407da1915e0",
+    "name": "Love?",
+    "sort-name": "Love?"
+   },
+   {
+    "score": "100",
+    "type": "group",
+    "id": "e414a176-b978-492f-b6bc-9fd4c89df221",
+    "name": "L.O.V.E.",
+    "sort-name": "L.O.V.E.",
+    "alias-list": {
+     "alias": [
+      "Eko Fresh & Valezka",
+      "Eko & Valezka"
+     ]
+    }
+   },
+   {
+    "score": "100",
+    "type": "unknown",
+    "id": "c375b340-5d52-4e78-ac4c-b855fd7da632",
+    "name": "Love",
+    "sort-name": "Love",
+    "disambiguation": "Art directors"
+   },
+   {
+    "score": "100",
+    "type": "person",
+    "id": "c6a5a81d-2544-499a-8b30-6c52179c0857",
+    "name": "LOVE",
+    "sort-name": "LOVE",
+    "disambiguation": "Otsuka Ai stage name"
+   },
+   {
+    "score": "70",
+    "type": "group",
+    "id": "d703af9a-d993-4f00-92aa-14ea284e39bd",
+    "name": "Love Spit Love",
+    "sort-name": "Love Spit Love"
+   },
+   {
+    "score": "62",
+    "type": "person",
+    "id": "af953ba2-283b-41ef-93bc-b4cfc5feeebc",
+    "name": "Darlene Love",
+    "sort-name": "Love, Darlene",
+    "life-span": {
+     "begin": "1938-07-26"
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "2f87ffea-d79d-497a-8218-2723c4601c63",
+    "name": "Love Connection",
+    "sort-name": "Love Connection"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "20fa3e73-7ac4-4550-b9f5-6ac8c523bda5",
+    "name": "Love Battery",
+    "sort-name": "Love Battery",
+    "life-span": {
+     "begin": "1989"
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "8e1e2077-d854-4c86-91b9-2ba14467fa8e",
+    "name": "Love Pirates",
+    "sort-name": "Love Pirates"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "c2522b64-956a-4420-9f9a-f3874da5ddfa",
+    "name": "Love Committee",
+    "sort-name": "Love Committee",
+    "disambiguation": "70s US funk/disco group",
+    "alias-list": {
+     "alias": [
+      "Love Commitee",
+      "The Love Committee"
+     ]
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "03d7919a-90f3-463c-bf01-4bffd2dd4843",
+    "name": "Lexi Love",
+    "sort-name": "Lexi Love"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "3908588d-5fff-4e12-9eff-1a5ec686042c",
+    "name": "Love Message",
+    "sort-name": "Love Message"
+   },
+   {
+    "score": "62",
+    "type": "person",
+    "id": "53299fed-ec27-464f-94eb-5fda2db2902a",
+    "name": "Laura Love",
+    "sort-name": "Love, Laura"
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "22d54efd-416d-4f72-9372-013e32e9a312",
+    "name": "Kandice Love",
+    "sort-name": "Love, Kandice"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "7f3f028b-7ced-4a04-a3e2-e9f502a79306",
+    "name": "Love/Hate",
+    "sort-name": "Love/Hate",
+    "alias-list": {
+     "alias": [
+      "Love-Hate",
+      "Love\\Hate"
+     ]
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "7843b341-48b7-438c-9d99-832517b457c0",
+    "name": "Love Corporation",
+    "sort-name": "Love Corporation"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "4231388d-489e-4fb6-918c-ecc514bf882d",
+    "name": "Love Jones",
+    "sort-name": "Love Jones",
+    "life-span": {
+     "begin": "1990"
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "406bca37-056f-405e-a974-624864c9f641",
+    "name": "Sunset Love",
+    "sort-name": "Sunset Love"
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "10ad45ec-6485-4f72-8b7b-c06588af0747",
+    "name": "Love Rush",
+    "sort-name": "Love Rush"
+   },
+   {
+    "score": "62",
+    "type": "group",
+    "id": "e2dea604-4af9-4e01-b8d1-53e9de8eef57",
+    "name": "Love Inc.",
+    "sort-name": "Love Inc.",
+    "disambiguation": "Canadian dance trio",
+    "alias-list": {
+     "alias": [
+      "love.inc.",
+      "Love Inc"
+     ]
+    }
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "59a393ef-67e4-4f4a-b33e-142eb3dbb8c9",
+    "name": "Love Colony",
+    "sort-name": "Love Colony"
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "ffa29fe0-fff0-4495-be3b-ba86689c485d",
+    "name": "One Love",
+    "sort-name": "One Love",
+    "disambiguation": "unknown dub artist with several albums, please help"
+   },
+   {
+    "score": "62",
+    "type": "unknown",
+    "id": "a003d576-9441-4dfb-90c4-f268643f9ee7",
+    "name": "Love Nugget",
+    "sort-name": "Love Nugget"
+   },
+   {
+    "score": "62",
+    "type": "person",
+    "id": "18981178-50bc-46a3-90b0-53b379601d4f",
+    "name": "(Love) Tattoo",
+    "sort-name": "Love Tattoo"
+   }
+  ]
+ }
+}
