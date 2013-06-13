@@ -64,8 +64,12 @@
                     [%- l('You haven\'t {view_url|donated} recently. Donations help MusicBrainz keep going.', {
                         view_url="http://metabrainz.org/donate"
                     }) -%]
-            [% ELSE %]
+            [% ELSIF user.is_nag_free %]
                     [%- l('You have {view_url|donated} recently. Thank you for contributing to MusicBrainz.', {
+                        view_url="http://metabrainz.org/donate"
+                    }) -%]
+            [% ELSE %]
+                    [%- l('Thanks for your contribution to MusicBrainz! If you want to support us further, you can always {view_url|donate}.', {
                         view_url="http://metabrainz.org/donate"
                     }) -%]
             [% END %]
