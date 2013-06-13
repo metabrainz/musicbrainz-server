@@ -389,7 +389,7 @@ sub linked_recordings
 
     if ($c->stash->{inc}->isrcs)
     {
-        my @isrcs = $c->model('ISRC')->find_by_recording(map { $_->id } @$recordings);
+        my @isrcs = $c->model('ISRC')->find_by_recordings(map { $_->id } @$recordings);
 
         my %isrc_per_recording;
         for (@isrcs)

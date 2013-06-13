@@ -150,6 +150,14 @@ Edit recording details (sequence number, recording time and title)
 
 =cut
 
+with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
+    entity_type => 'recording',
+    identifier_type => 'isrc',
+    add_edit => $EDIT_RECORDING_ADD_ISRCS,
+    remove_edit => $EDIT_RECORDING_REMOVE_ISRC,
+    include_source => 1
+};
+
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Recording',
     edit_type      => $EDIT_RECORDING_EDIT,
@@ -157,26 +165,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $recording) = @_;
 
         return (
-            post_creation => sub {
-                my ($edit, $form) = @_;
-
-                my @current_isrcs = $c->model('ISRC')->find_by_recording($recording->id);
-                my %current_isrcs = map { $_->isrc => 1 } @current_isrcs;
-                my @submitted = @{ $form->field('isrcs')->value };
-                my %submitted = map { $_ => 1 } @submitted;
-
-                my @added = grep { !exists($current_isrcs{$_}) } @submitted;
-                my @removed = grep { !exists($submitted{$_->isrc}) } @current_isrcs;
-
-                $self->_add_isrcs($c, $form, $recording, @added) if @added;
-                $self->_remove_isrcs($c, $form, $recording, @removed) if @removed;
-
-                if ((@added || @removed) && $c->stash->{makes_no_changes}) {
-                    $c->stash( makes_no_changes => 0 );
-                    $c->response->redirect(
-                        $c->uri_for_action($self->action_for('show'), [ $recording->gid ]));
-                }
-            }
+            post_creation => $self->_edit_with_identifiers($c, $recording)
         );
     }
 };
@@ -201,12 +190,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $c->stash( initial_artist => $artist );
             $ret{item} = $rg;
         }
-        $ret{post_creation} = sub {
-                my ($edit, $form) = @_;
-                my $recording = $c->model('Recording')->get_by_id($edit->entity_id);
-                my @isrcs = @{ $form->field('isrcs')->value };
-                $self->_add_isrcs($c, $form, $recording, @isrcs) if scalar @isrcs;
-            };
+        $ret{post_creation} = $self->_create_with_identifiers($c);
         return %ret;
     }
 };
@@ -237,38 +221,6 @@ around '_merge_search' => sub {
     $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     return $results;
 };
-
-sub _add_isrcs : Chained('load') PathPart('add-isrc') RequireAuth {
-    my ($self, $c, $form, $recording, @isrcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RECORDING_ADD_ISRCS,
-            isrcs => [ map {
-                isrc => $_,
-                recording => {
-                    id => $recording->id,
-                    name => $recording->name
-                },
-            source    => 0
-            }, @isrcs ]
-        );
-    });
-}
-
-sub _remove_isrcs {
-    my ($self, $c, $form, $recording, @isrcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_RECORDING_REMOVE_ISRC,
-            isrc => $_,
-            recording => $recording
-        );
-    }) for @isrcs;
-}
 
 sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
 {

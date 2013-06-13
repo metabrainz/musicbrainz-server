@@ -27,7 +27,7 @@ is($edits->[0]->id, $edit->id);
 my $recording = $c->model('Recording')->get_by_id(1);
 is($recording->edits_pending, 0);
 
-my @isrcs = $c->model('ISRC')->find_by_recording(1);
+my @isrcs = $c->model('ISRC')->find_by_recordings(1);
 is(scalar @isrcs, 1);
 is($isrcs[0]->isrc, 'DEE250800232');
 
