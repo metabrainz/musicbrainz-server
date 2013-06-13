@@ -467,7 +467,7 @@ MB.constants.CLEANUPS = {
             //Standardising Generasia
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
             //Standardising Soundtrack Collector
-            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://www.soundtrackcollector.com/$1/$2/");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
             return url;
         }
     }
