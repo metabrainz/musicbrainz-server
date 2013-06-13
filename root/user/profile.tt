@@ -64,7 +64,7 @@
                     [%- l('You haven\'t {view_url|donated} recently. Donations help MusicBrainz keep going.', {
                         view_url="http://metabrainz.org/donate"
                     }) -%]
-            [% ELSIF user.is_nag_free %]
+            [% ELSIF user.exists && user.is_nag_free %]
                     [%- l('You have {view_url|donated} recently. Thank you for contributing to MusicBrainz.', {
                         view_url="http://metabrainz.org/donate"
                     }) -%]

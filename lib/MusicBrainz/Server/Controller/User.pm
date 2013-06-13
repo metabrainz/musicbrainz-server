@@ -348,7 +348,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
-    my $result = $c->model('Editor')->donation_check($c->user);
+    my $result = $c->model('Editor')->donation_check($user);
     $c->detach('/error_500') unless $result;
 
     $c->stash(
