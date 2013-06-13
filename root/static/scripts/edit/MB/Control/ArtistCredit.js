@@ -23,7 +23,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
 
     self.boxnumber = boxnumber;
     self.container = container;
-    self.placeholder_options = { 'submit_placeholder_if_empty': true };
 
     if (obj === null)
     {
@@ -67,15 +66,10 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$gid.val ('');
         self.$id.val ('');
         self.updateLookupPerformed ();
-
-        self.$credit.attr ('placeholder', '')
-            .mb_placeholder (self.placeholder_options);
+        self.$credit.val("");
     };
 
     self.render = function (data) {
-
-        var artist_name = data.artist.name;
-
         self.$name.val (data.artist.name).removeClass('error');
         self.container.clearError (self);
         self.$sortname.val (data.artist.sortname);
@@ -84,19 +78,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$gid.val (data.artist.gid);
         self.$id.val (data.artist.id);
         self.updateLookupPerformed ();
-
-        if (data.name === '' || data.name === artist_name)
-        {
-            self.$credit.val ('')
-        }
-        else
-        {
-            self.$credit.val (data.name);
-        }
-
-        self.$credit
-            .attr ('placeholder', artist_name)
-            .mb_placeholder (self.placeholder_options);
+        self.$credit.val(data.name || data.artist.name);
 
         if (self.$join.val () !== '')
         {
@@ -113,12 +95,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             if (self.$credit.val () !== "")
             {
                 self.$credit.val (MB.GuessCase.artist.guess (self.$credit.val ()));
-            }
-            else if (self.$credit.attr ('placeholder') !== "")
-            {
-                self.$credit.attr (
-                    'placeholder',
-                    MB.GuessCase.artist.guess (self.$credit.attr ('placeholder')));
             }
         }
     };
@@ -156,20 +132,18 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     self.update = function(event, data) {
         if (data.name)
         {
+            var oldName = self.$name.data("mb_selected_name");
+            var oldCredit = self.$credit.val();
             self.$name.data ('mb_selected_name', data.name);
             self.$name.val (data.name).removeClass ('error');
+            if (oldName === oldCredit) {
+                self.$credit.val(data.name);
+            }
             self.container.clearError (self);
             self.$sortname.val (data.sortname);
             self.$gid.val (data.gid);
             self.$id.val (data.id);
             self.updateLookupPerformed ();
-
-            if (self.$credit.val () === '' || self.$credit.hasClass ('mb_placeholder'))
-            {
-                self.$credit.attr ('placeholder', data.name)
-                    .mb_placeholder (self.placeholder_options);
-            }
-
             self.container.renderPreview();
         }
 
@@ -182,16 +156,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         self.$name.removeClass ('error');
 
         return request;
-    };
-
-    self.resultHook = function (data) {
-
-        data.push ({
-            "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedEntity['artist']
-        });
-
-        return data;
     };
 
     self.nameBlurred = function(event) {
@@ -223,19 +187,14 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             self.updateLookupPerformed ();
         }
 
-        /* if the artist credit is empty use the value of $name as
-         * placeholder.
-         */
-        if (self.$credit.val () === '')
-        {
-            self.$credit.attr ('placeholder', self.$name.val ())
-                .mb_placeholder (self.placeholder_options);
-        }
-
         self.container.renderPreview();
     };
 
     self.creditBlurred = function(event) {
+        if (self.$credit.val() === "") {
+            self.$credit.val(self.$name.val());
+        }
+
         self.container.renderPreview();
     };
 
@@ -406,8 +365,9 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
         'input': self.$name,
         'entity': 'artist',
         'select': self.update,
+        'clear': self.clear,
         'lookupHook': self.lookupHook,
-        'resultHook': self.resultHook
+        'allow_empty': true
     }).initialize ();
 
     if (obj === null)
@@ -418,17 +378,6 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     }
     else
     {
-        /* if artist name and artist credit are identical on load, render
-           the artist credit as a placeholder.  Also initialize the placeholder
-           if the artist credit is empty. */
-        if (self.$name.val () === self.$credit.val ()
-            || self.$credit.val () === '')
-        {
-            self.$credit.val ('');
-            self.$credit.attr ('placeholder', self.$name.val ())
-                .mb_placeholder (self.placeholder_options);
-        }
-
         if (self.$id.val () !== '')
         {
             self.$name.data ('mb_selected_name', self.$name.val ());
@@ -469,8 +418,9 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
             'input': self.$artist_input,
             'entity': 'artist',
             'select': self.update,
+            'clear': self.clear,
             'lookupHook': self.lookupHook,
-            'resultHook': self.resultHook
+            'allow_empty': true
         }).initialize ();
 
         self.$add_artist.bind ('click.mb', self.addArtistBox);
@@ -524,16 +474,6 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         self.$artist_input.removeClass ('error');
 
         return request;
-    };
-
-    self.resultHook = function (data) {
-
-        data.push ({
-            "action": function () { self.clear () },
-            "message": MB.text.RemoveLinkedEntity['artist']
-        });
-
-        return data;
     };
 
     self.addArtistBox = function () {
@@ -756,12 +696,12 @@ MB.Control.ArtistCreditContainer = function($target, $container) {
         if (self.box.length > 1 || self.box[0].hasCredit ())
             return;
 
-        $target.removeAttr ('disabled');
+        $target.prop('disabled', false);
         $target.closest ('span.autocomplete').removeClass ('disabled');
     };
 
     self.disableTarget = function () {
-        $target.attr ('disabled', 'disabled');
+        $target.prop('disabled', true);
         $target.closest ('span.autocomplete').addClass ('disabled');
     };
 

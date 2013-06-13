@@ -1,0 +1,18 @@
+[%- BLOCK layout_head -%]
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+
+  <script type="text/javascript">//<![CDATA[
+    $(document).ready(function() {
+
+      var bubbles = MB.Control.BubbleCollection ();
+      MB.Control.initialize_guess_case (bubbles, 'area', 'id-edit-area');
+
+    });
+  //]]></script>
+[% END %]
+
+[%- WRAPPER 'area/layout.tt' title=l('Edit Area') full_width=1 page='edit' -%]
+      [%- INCLUDE "area/edit_form.tt" -%]
+[%- END -%]
+

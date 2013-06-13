@@ -3,13 +3,15 @@
   [% script_manifest('guess-case.js.manifest') %]
 
   <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
+    $(function() {
 
       var bubbles = MB.Control.BubbleCollection ();
       MB.Control.initialize_artist_credit (bubbles);
       MB.Control.initialize_guess_case (bubbles, 'recording', 'id-edit-recording');
 
-      $('.artist-credit-box input.name').live ('VariousArtists', function (event) {
+      $(".artist-credit-container").on("VariousArtists",
+              ".artist-credit-box input.name", function (event) {
+
           var $va = $('.artist-credit-box input.name.various-artists');
 
           if (!$va.length)

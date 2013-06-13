@@ -21,9 +21,7 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO release_status (id, name)
     VALUES (3, 'Bootleg');
 
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'acid2', 'xxx'),
-           (2, 'rob', 'XXX');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'acid2', '{CLEARTEXT}xxx', '7d9d2d8a17d6a0aa928c409efdd2884c'), (2, 'rob', '{CLEARTEXT}XXX', '2cebfa4cc482ec4b55eb226b52000a61');
 
 INSERT INTO editor_watch_artist (editor, artist)
     VALUES (1, 1), (1, 2);

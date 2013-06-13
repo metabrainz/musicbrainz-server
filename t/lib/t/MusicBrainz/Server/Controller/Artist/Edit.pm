@@ -28,14 +28,16 @@ my $response = $mech->submit_form(
         'edit-artist.name' => 'edit artist',
         'edit-artist.sort_name' => 'artist, controller',
         'edit-artist.type_id' => '',
-        'edit-artist.country_id' => 2,
+        'edit-artist.area_id' => 222,
         'edit-artist.gender_id' => 2,
         'edit-artist.period.begin_date.year' => 1990,
         'edit-artist.period.begin_date.month' => 01,
         'edit-artist.period.begin_date.day' => 02,
+        'edit-artist.begin_area_id' => 222,
         'edit-artist.period.end_date.year' => '',
         'edit-artist.period.end_date.month' => '',
         'edit-artist.period.end_date.day' => '',
+        'edit-artist.end_area_id' => 222,
         'edit-artist.comment' => 'artist created in controller_artist.t',
         'edit-artist.rename_artist_credit' => undef
     }
@@ -54,7 +56,7 @@ is_deeply($edit->data, {
             name => 'edit artist',
             sort_name => 'artist, controller',
             type_id => undef,
-            country_id => 2,
+            area_id => 222,
             gender_id => 2,
             comment => 'artist created in controller_artist.t',
             begin_date => {
@@ -62,29 +64,33 @@ is_deeply($edit->data, {
                 month => 01,
                 day => 02
             },
+            begin_area_id => 222,
             end_date => {
                 year => undef,
                 month => undef,
                 day => undef,
             },
+            end_area_id => 222,
         },
         old => {
             name => 'Test Artist',
             sort_name => 'Artist, Test',
             type_id => 1,
             gender_id => 1,
-            country_id => 1,
+            area_id => 221,
             comment => 'Yet Another Test Artist',
             begin_date => {
                 year => 2008,
                 month => 1,
                 day => 2
             },
+            begin_area_id => 221,
             end_date => {
                 year => 2009,
                 month => 3,
                 day => 4
             },
+            end_area_id => 221,
         }
     });
 
@@ -97,8 +103,8 @@ $mech->text_contains ('Test Artist', '.. contains new artist name');
 $mech->text_contains ('artist, controller', '.. contains old sort name');
 $mech->text_contains ('Artist, Test', '.. contains new sort name');
 $mech->text_contains ('Person', '.. contains new artist type');
-$mech->text_contains ('United States', '.. contains old country');
-$mech->text_contains ('United Kingdom', '.. contains new country');
+$mech->text_contains ('United States', '.. contains old area');
+$mech->text_contains ('United Kingdom', '.. contains new area');
 $mech->text_contains ('Male', '.. contains old artist gender');
 $mech->text_contains ('Female', '.. contains new artist gender');
 $mech->text_contains ('2008-01-02', '.. contains old begin date');
@@ -181,10 +187,9 @@ test 'Test updating artist credits' => sub {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, email_confirm_date)
-  VALUES ( 1, 'new_editor', 'password', 'example@example.com', '2005-10-20');
-INSERT INTO editor (id, name, password)
-  VALUES ( 4, 'ModBot', '' );
+INSERT INTO editor (id, name, password, email, email_confirm_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, ha1)
+  VALUES ( 4, 'ModBot', '', '' );
 INSERT INTO artist_name (id, name) VALUES (1, 'Artist name'), (2, 'Alternative Name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES (10, '9f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 1, 1);
 

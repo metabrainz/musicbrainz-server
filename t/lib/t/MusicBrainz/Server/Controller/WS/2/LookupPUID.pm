@@ -52,7 +52,21 @@ ws_test 'puid lookup with releases',
             <text-representation>
               <language>jpn</language><script>Jpan</script>
             </text-representation>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
           </release>
           <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
@@ -61,7 +75,21 @@ ws_test 'puid lookup with releases',
             <text-representation>
               <language>jpn</language><script>Latn</script>
             </text-representation>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
           </release>
         </release-list>
       </recording>
@@ -112,7 +140,21 @@ ws_test 'puid lookup with release groups',
                 </name-credit>
               </artist-credit>
             </release-group>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
           </release>
           <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
             <title>Summer Reggae! Rainbow</title>
@@ -140,7 +182,21 @@ ws_test 'puid lookup with release groups',
                 </name-credit>
               </artist-credit>
             </release-group>
-            <date>2001-07-04</date><country>JP</country><barcode>4942463511227</barcode>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2001-07-04</date>
+                    <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                        <name>Japan</name>
+                        <sort-name>Japan</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>JP</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
           </release>
         </release-list>
       </recording>

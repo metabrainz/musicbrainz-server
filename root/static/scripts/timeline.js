@@ -23,17 +23,17 @@ $(document).ready(function () {
         var alldata =  [];
         var ratedata = [];
         $("#graph-lines div input").filter(":checked").each(function () {
-            if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').attr('checked')) {
+            if ($(this).parents('div.graph-category').prev('.toggler').children('input:checkbox').prop('checked')) {
                 var datasetId = $(this).parent('div.graph-control').attr('id').substr(controlIDPrefix.length);
                 var $this_control = $(this).parents('div.graph-control');
                 if (!MB.Timeline.datasets[datasetId].data && !$this_control.hasClass('loading')) {
-                   $this_control.addClass('loading').find('input').attr('disabled', 'disabled');
+                   $this_control.addClass('loading').find('input').prop('disabled', true);
                    $.ajax({url: '../../statistics/dataset/' + datasetId,
                        dataType: 'json',
                        success: function(data) {
                            MB.Timeline.datasets[datasetId].data = data;
                            rateData(datasetId);
-                           $this_control.removeClass('loading').find('input').removeAttr('disabled');
+                           $this_control.removeClass('loading').find('input').prop('disabled', false);
                            $(window).hashchange();
                    }});
                 } else if (MB.Timeline.datasets[datasetId].data) {
@@ -305,7 +305,7 @@ $(document).ready(function () {
 
     // Hashchange related functions
     function check(elem, checked) {
-        elem.children('input:checkbox').attr('checked', checked).change();
+        elem.children('input:checkbox').prop('checked', checked).change();
     }
     $(window).hashchange(function () {
             var hash = location.hash.replace( /^#/, '' );
@@ -315,9 +315,9 @@ $(document).ready(function () {
                 if (value.substr(0,2) == 'g-') {
                     graphZoomOptions = geometryFromHashPart(value);
                 } else if (value.substr(0,3) == '-v-') {
-                    $('#disable-events-checkbox').attr('checked', false).change();
+                    $('#disable-events-checkbox').prop('checked', false).change();
                 } else if (value.substr(0,2) == 'r-') {
-                    $('#show-rate-graph').attr('checked', true).change();
+                    $('#show-rate-graph').prop('checked', true).change();
                 } else {
                     var checked = (value.substr(0,1) != '-');
                     if (!checked) {
@@ -341,7 +341,7 @@ $(document).ready(function () {
                 plot = $.plot($("#graph-container"), data[0], plotOptions);
                 plot.triggerRedrawOverlay();
 
-                if ($('#show-rate-graph').attr('checked')) {
+                if ($('#show-rate-graph').prop('checked')) {
                     var rateZoomOptions = {yaxis: {min: null, max: null}};
                     $.each(data[1], function(index, value) {
                        var thresholds = value.thresholds;
@@ -391,7 +391,7 @@ $(document).ready(function () {
     }
     function controlChange() {
         var $this = $(this);
-        var minus = !$this.attr('checked');
+        var minus = !$this.prop('checked');
         var identifier = $this.parent('div').attr('id').substr(controlIDPrefix.length);
         var newHashPart = identifier.substr('count.'.length);
         var hide = (MB.text.Timeline.Stat(identifier).Hide ? true : false);
@@ -408,7 +408,7 @@ $(document).ready(function () {
         var $this = $(this);
 
         var categoryId = $this.parent('.toggler').next('div.graph-category').attr('id');
-        var minus = !$this.attr('checked');
+        var minus = !$this.prop('checked');
         var newHashPart = categoryId.replace(new RegExp(categoryIDPrefix), 'c-');
         var hide = (MB.text.Timeline.Category[categoryId.substr(categoryIDPrefix.length)].Hide ? true : false);
         changeHash(minus, newHashPart, hide);
@@ -448,7 +448,7 @@ $(document).ready(function () {
 
         // toggler for MusicBrainz Events
         $('#disable-events-checkbox').change(function () {
-            var minus = !$(this).attr('checked');
+            var minus = !$(this).prop('checked');
             musicbrainzEventsOptions.musicbrainzEvents.enabled = !minus;
             changeHash(minus, 'v-', false);
         });
@@ -456,23 +456,23 @@ $(document).ready(function () {
         // toggler for Rate of Change graph, plus auto-hiding it
         $('#show-rate-graph').change(function () {
             var $graph = $('#rate-of-change-graph');
-            var $show = $(this).attr('checked');
+            var $show = $(this).prop('checked');
             $graph.css($show ? {position: 'relative', right: ''} : {position: 'absolute', right: 100000});
             $graph.prev('h2')[$show ? 'show' : 'hide']();
             changeHash(!$show, 'r-', true);
-        }).attr('checked', false).change();
+        }).prop('checked', false).change();
 
         // Turn off categories and lines that should be hidden by default
         $('div.graph-category').each(function () {
             var category = $(this).attr('id').substr(categoryIDPrefix.length);
             if (MB.text.Timeline.Category[category].Hide && !(new RegExp('\\+?-?c-' + category + '(?=($|\\+))').test(location.hash))) {
-                $(this).prev('.toggler').children('input:checkbox').attr('checked', false).change();
+                $(this).prev('.toggler').children('input:checkbox').prop('checked', false).change();
             }
         });
         $('div.graph-control').each(function () {
             var identifier = $(this).attr('id').substr(controlIDPrefix.length);
             if (MB.text.Timeline.Stat(identifier).Hide && !(new RegExp('\\+?-?' + identifier.substr('count.'.length) + '(?=($|\\+))').test(location.hash))) {
-                $(this).children('input:checkbox').attr('checked', false).change();
+                $(this).children('input:checkbox').prop('checked', false).change();
             }
         });
 

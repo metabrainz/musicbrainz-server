@@ -58,7 +58,7 @@ sub field_list
 
 sub validate_link_type
 {
-    my ($self, $c, $link_type_field, $attrs_field) = @_;
+    my ($self, $c, $link_type_field, $attrs_field, $allow_deprecated) = @_;
 
     if(my $link_type_id = $link_type_field->value) {
         my $link_type = $c->model('LinkType')->get_by_id($link_type_id);
@@ -69,12 +69,12 @@ sub validate_link_type
                   'Please select a subtype of the currently selected '.
                   'relationship type.')
             );
-            return;
-        } elsif ($link_type->description =~ /This relationship type is <strong>deprecated<\/strong>/) {
+            return $link_type;
+        } elsif ($link_type->is_deprecated && !$allow_deprecated) {
             $link_type_field->add_error(
                 l("This relationship type is deprecated.")
             );
-            return
+            return $link_type;
         }
 
         my %attribute_bounds = map { $_->type_id => [$_->min, $_->max] }

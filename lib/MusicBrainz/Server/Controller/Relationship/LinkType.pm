@@ -6,7 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 use Sql;
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Data::Relationship;
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_ADD_TYPE
     $EDIT_RELATIONSHIP_EDIT_LINK_TYPE
@@ -134,23 +134,32 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
     my ($self, $c, $gid) = @_;
 
     my $link_type = $c->stash->{link_type};
+    $c->model('LinkType')->load_documentation($link_type);
 
     my $attribs = $c->model('LinkType')->get_attribute_type_list($link_type->id);
     my %attrib_names = map { $_->{type} => $_->{name} } @$attribs;
     $c->stash( attrib_names => \%attrib_names );
 
     my $form = $c->form(
-        form => 'Admin::LinkType',
+        form => 'Admin::LinkType::Edit',
         init_object => {
             attributes => $attribs,
             map { $_ => $link_type->$_ }
                 qw( parent_id child_order name link_phrase reverse_link_phrase
-                    short_link_phrase description priority )
+                    long_link_phrase description priority documentation
+                    examples )
         },
         root => $c->model('LinkType')->get_tree($link_type->entity0_type,
                                                 $link_type->entity1_type)
     );
     $form->field('parent_id')->_load_options;
+
+    my $relationship_map = {
+        map { $_->relationship->id => $_->relationship }
+            $link_type->all_examples
+    };
+
+    $c->stash( relationship_map => $relationship_map );
 
     my $old_values = { map { $_->name => $_->value } $form->edit_fields };
     $old_values->{attributes} = [
@@ -162,23 +171,109 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
         }, grep { $_->{active} } @{ $old_values->{attributes} }
     ];
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
-        my $values = { map { $_->name => $_->value } $form->edit_fields };
-        $values->{attributes} = $self->_get_attribute_values($form);
+    if ($c->form_posted) {
+        my $valid = $form->process( params => $c->req->params );
 
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
-                old => $old_values,
-                new => $values,
-                link_id => $link_type->id
+        # Load any relationships the user may have subsequently added as
+        # examples.
+        my @load_subdata;
+        for my $relationship_id (
+            grep { $_ && !exists $relationship_map->{$_} }
+                map { $_->field('relationship')->field('id')->input }
+                    $form->field('examples')->fields
+        ) {
+            my $rel = $relationship_map->{$relationship_id} =
+                $c->model('Relationship')->get_by_id(
+                    $link_type->entity0_type, $link_type->entity1_type,
+                    $relationship_id
+                );
+
+            push @load_subdata, $rel;
+        }
+
+        $c->model('Link')->load(@load_subdata);
+        $c->model('LinkType')->load(map { $_->link } @load_subdata);
+        $c->model('Relationship')->load_entities(@load_subdata);
+
+        if ($valid) {
+            my $values = { map { $_->name => $_->value } $form->edit_fields };
+            $values->{attributes} = $self->_get_attribute_values($form);
+
+            # Inflate the provided example relationships so we have sufficient
+            # information for edit history.
+            for my $example (
+                @{ $values->{examples} }, @{ $old_values->{examples} }
+            ) {
+                my $relationship =
+                    $relationship_map->{$example->{relationship}{id}}
+                        or die 'Unable to find example relationship';
+
+                # We have to store relationships in the forward direction.
+                my ($e0, $e1) =
+                    $relationship->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD
+                        ? ($relationship->entity0, $relationship->entity1)
+                        : ($relationship->entity1, $relationship->entity0);
+
+                $example->{relationship}{entity0} = {
+                    id => $e0->id,
+                    name => $e0->name,
+                    gid => $e0->gid,
+                    comment => $e0->can('comment') ? $e0->comment : ''
+                };
+
+                $example->{relationship}{entity1} = {
+                    id => $e1->id,
+                    name => $e1->name,
+                    gid => $e1->gid,
+                    comment => $e1->can('comment') ? $e1->comment : ''
+                };
+
+                $example->{relationship}{link} = {
+                    begin_date =>
+                        partial_date_to_hash($relationship->link->begin_date),
+                    end_date =>
+                        partial_date_to_hash($relationship->link->end_date),
+                    link_type => {
+                        entity0_type => $link_type->entity0_type,
+                        entity1_type => $link_type->entity1_type,
+                    }
+                };
+
+
+                $example->{relationship}{verbose_phrase} =
+                    $relationship->verbose_phrase;
+            }
+
+            # Anything a user submits is immediately published.
+            for my $example (@{ $values->{examples} }) {
+                $example->{published} = 1;
+            }
+
+            # Preserve the published flag for existing relationships
+            my %old_examples = map { $_->relationship->id => $_ }
+                $link_type->all_examples;
+            for my $example (@{ $old_values->{examples} }) {
+                $example->{published} =
+                    $old_examples{$example->{relationship}{id}}->published;
+            }
+
+            $c->model('MB')->with_transaction(sub {
+                $self->_insert_edit(
+                    $c, $form,
+                    edit_type => $EDIT_RELATIONSHIP_EDIT_LINK_TYPE,
+                    old => $old_values,
+                    new => $values,
+                    link_id => $link_type->id
+                );
+            });
+
+            my $url = $c->uri_for_action(
+                '/relationship/linktype/tree', [ $c->stash->{types} ],
+                { msg => 'updated' }
             );
-        });
-
-        my $url = $c->uri_for_action('/relationship/linktype/tree', [ $c->stash->{types} ], { msg => 'updated' });
-        $c->response->redirect($url);
-        $c->detach;
+            $c->response->redirect($url);
+            $c->detach;
+        }
     }
 }
 
@@ -204,7 +299,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
                 types => [ $link_type->entity0_type, $link_type->entity1_type ],
                 name => $link_type->name,
                 link_phrase => $link_type->link_phrase,
-                short_link_phrase => $link_type->short_link_phrase,
+                long_link_phrase => $link_type->long_link_phrase,
                 reverse_link_phrase => $link_type->reverse_link_phrase,
                 description => $link_type->description,
                 attributes => [

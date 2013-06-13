@@ -1,0 +1,3 @@
+[%- WRAPPER 'area/layout.tt' full_width=1 title=l('Annotation') -%]
+    [% INCLUDE 'annotation/common.tt' full_annotation=1 show_change_log=1 %]
+[%- END -%]

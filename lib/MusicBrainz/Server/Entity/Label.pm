@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 with 'MusicBrainz::Server::Entity::Role::IPI';
+with 'MusicBrainz::Server::Entity::Role::ISNI';
 
 has 'sort_name' => (
     is => 'rw',
@@ -54,14 +55,14 @@ sub format_label_code
     return "";
 }
 
-has 'country_id' => (
+has 'area_id' => (
     is => 'rw',
     isa => 'Int'
 );
 
-has 'country' => (
+has 'area' => (
     is => 'rw',
-    isa => 'Country'
+    isa => 'Area'
 );
 
 has 'comment' => (

@@ -21,15 +21,14 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO link_type
     (id, parent, child_order, gid, entity_type0, entity_type1,
-     name, description, link_phrase, reverse_link_phrase, short_link_phrase)
+     name, description, link_phrase, reverse_link_phrase, long_link_phrase)
 VALUES (251, NULL, 1, '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5', 'recording', 'url',
         'download for free', 'Indicates a webpage where you can download',
         'download for free', 'free download page for', 'download for free');
 INSERT INTO link (id, link_type, attribute_count) VALUES (24957, 251, 0);
 INSERT INTO l_recording_url (id, link, entity0, entity1)
     VALUES (9000, 24957, 4223059, 195251);
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'editor', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
 EOSQL
 
 MusicBrainz::Server::Test->prepare_raw_test_database(
@@ -108,6 +107,32 @@ ws_test 'lookup track with puids',
     </puid-list>
   </track>
 </metadata>';
+
+ws_test 'lookup track by puid',
+    '/track/?type=xml&puid=24dd0c12-3f22-955d-f35e-d3d8867eee8d' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
+    <track-list>
+        <track id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
+            <title>Be Rude to Your School</title><duration>208706</duration>
+            <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
+                <name>Plone</name><sort-name>Plone</sort-name>
+            </artist>
+            <release-list>
+                <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
+                    <title>For Beginner Piano</title>
+                </release>
+                <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
+                    <title>For Beginner Piano</title>
+                </release>
+                <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
+                    <title>For Beginner Piano</title>
+                </release>
+            </release-list>
+        </track>
+    </track-list>
+</metadata>
+';
 
 ws_test 'lookup track with releases',
     '/track/162630d9-36d2-4a8d-ade1-1c77440b34e7?type=xml&inc=releases' =>

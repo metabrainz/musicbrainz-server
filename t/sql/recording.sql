@@ -1,6 +1,6 @@
 SET client_min_messages TO 'warning';
 
-INSERT INTO editor (id, name, password) VALUES (1, 'editor', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'changelog');
 INSERT INTO recording_annotation (recording, annotation) VALUES (1, 1);
 INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426', 1);
@@ -21,15 +21,13 @@ INSERT INTO release (id, name, release_group, artist_credit, gid)
            (23, 23, 23, 1, '785a5e34-bf47-40f2-8148-65b1ed631ac5'),
            (24, 24, 24, 1, 'ac6e8393-2694-4e47-a5b3-82dc93477c5f');
 
-INSERT INTO tracklist (id) VALUES (22), (23), (24);
+INSERT INTO medium (id, release, position, format, name)
+       VALUES (22, 22, 1, 1, 'A Sea of Honey'),
+              (23, 23, 1, 1, NULL),
+              (24, 24, 1, 1, NULL);
 
-INSERT INTO medium (id, release, tracklist, position, format, name)
-       VALUES (22, 22, 22, 1, 1, 'A Sea of Honey'),
-              (23, 23, 23, 1, 1, NULL),
-              (24, 24, 24, 1, 1, NULL);
-
-INSERT INTO track (id, tracklist, position, number, recording, name, artist_credit, length)
-       VALUES (22, 22, 1, 1, 1, 1, 1, NULL),
-              (23, 23, 1, 1, 1, 1, 1, NULL),
-              (24, 24, 1, 1, 1, 1, 1, NULL);
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
+       VALUES (62, '98d47750-2da0-497c-94aa-9dedc713ca53', 22, 1, 1, 1, 1, 1, NULL),
+              (63, 'f89d2463-8c12-49cb-9c83-229f2a5d4028', 23, 1, 1, 1, 1, 1, NULL),
+              (64, '13103972-499f-4407-b248-3d04c1afcc24', 24, 1, 1, 1, 1, 1, NULL);
 

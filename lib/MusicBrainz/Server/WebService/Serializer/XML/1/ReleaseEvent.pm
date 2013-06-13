@@ -10,15 +10,24 @@ sub attributes {
     my ($self, $entity, $inc, $opts) = @_;
     my @attr;
 
-    push @attr, ( date => $entity->date->format ) unless $entity->date->is_empty;
-    push @attr, ( country => $entity->country->iso_code ) if $entity->country;
-    push @attr, ( barcode => $entity->barcode ) if $entity->barcode;
-    push @attr, ( format => $entity->combined_format_name )
-        if $entity->combined_format_name;
+    my $event = $entity->event;
+    my $release = $entity->release;
+
+    push @attr, ( date => $event->date->format )
+        unless $event->date->is_empty;
+
+    push @attr, ( country => $event->country->country_code )
+        if $event->country && $event->country->country_code;
+
+    push @attr, ( barcode => $release->barcode )
+        if $release->barcode;
+
+    push @attr, ( format => $release->combined_format_name )
+        if $release->combined_format_name;
 
     # FIXME - multiple release labels = multiple release events?
-    if ($entity->labels->[0]) {
-        push @attr, ( 'catalog-number' => $entity->labels->[0]->catalog_number )
+    if ($release->labels->[0]) {
+        push @attr, ( 'catalog-number' => $release->labels->[0]->catalog_number )
     }
 
     return @attr;
@@ -29,9 +38,11 @@ sub serialize
     my ($self, $entity, $inc, $opts) = @_;
     my @body;
 
+    my $release = $entity->release;
+
     # FIXME - multiple release labels = multiple release events?
-    if ($entity->labels->[0]) {
-        push @body, ( serialize_entity( $entity->labels->[0]->label) )
+    if ($release->labels->[0]) {
+        push @body, ( serialize_entity( $release->labels->[0]->label) )
             if $inc && $inc->labels;
     }
 

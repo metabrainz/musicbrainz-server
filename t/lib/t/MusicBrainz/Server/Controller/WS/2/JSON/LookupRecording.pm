@@ -62,6 +62,16 @@ test 'recording lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -75,6 +85,16 @@ test 'recording lookup with releases' => sub {
                     "text-representation" => { language => "jpn", script => "Latn" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -82,7 +102,6 @@ test 'recording lookup with releases' => sub {
                 }]
         });
 };
-
 
 test 'lookup recording with official singles' => sub {
 
@@ -104,6 +123,16 @@ test 'lookup recording with official singles' => sub {
                     "text-representation" => { language => "jpn", script => "Jpan" },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => "4942463511227",
                     asin => JSON::null,
                     disambiguation => "",
@@ -134,6 +163,16 @@ test 'lookup recording with official singles (+media)' => sub {
                     },
                     date => "2001-07-04",
                     country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso_3166_1_codes" => ["JP"],
+                            "iso_3166_2_codes" => [],
+                            "iso_3166_3_codes" => []},
+                    }],
                     barcode => JSON::null,
                     asin => JSON::null,
                     disambiguation => "",
@@ -146,6 +185,7 @@ test 'lookup recording with official singles (+media)' => sub {
                             "track-offset" => 0,
                             tracks => [
                                 {
+                                    id => "4a7c2f1e-cf40-383c-a1c1-d1272d8234cd",
                                     number => "1",
                                     title => "サマーれげぇ!レインボー",
                                     length => 296026,
@@ -231,6 +271,10 @@ test 'recording lookup with release relationships' => sub {
                         barcode => '634479663338',
                         country => JSON::null,
                         date => '2007-11-08',
+                        "release-events" => [{
+                            area => JSON::null,
+                            date => '2007-11-08',
+                        }],
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
@@ -281,4 +325,3 @@ test 'recording lookup with work relationships' => sub {
 };
 
 1;
-

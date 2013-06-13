@@ -10,6 +10,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::AreaType;
+use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
@@ -27,6 +29,7 @@ use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
 use MusicBrainz::Server::Exceptions;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::Release;
@@ -43,6 +46,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
+    area          => 'MusicBrainz::Server::Data::Area',
     label         => 'MusicBrainz::Server::Data::Label',
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
@@ -75,8 +79,8 @@ sub search
         $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.label_code, entity.country,' if $type eq 'label';
-        $extra_columns .= 'entity.gender, entity.country,' if $type eq 'artist';
+        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
+        $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
         $query = "
             SELECT
@@ -116,7 +120,7 @@ sub search
 
         $hard_search_limit = $offset * 2;
     }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group" || $type eq "work") {
+    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
         my $type2 = $type;
         $type2 = "track" if $type eq "recording";
         $type2 = "release" if $type eq "release_group";
@@ -128,21 +132,19 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script, entity.country, entity.barcode,
-            entity.date_year, entity.date_month, entity.date_day, entity.release_group,'
+        $extra_columns .= 'entity.language, entity.script, entity.barcode, entity.release_group,'
             if ($type eq 'release');
 
-        $extra_columns .= 'entity.type AS type_id, entity.language AS language_id,'
-            if ($type eq 'work');
+        my $extra_ordering = '';
+        $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
+        $extra_ordering = ', entity.artist_credit';
 
         my ($join_sql, $where_sql)
             = ("JOIN ${type} entity ON r.id = entity.name", '');
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
-            $join_sql .= '
-                JOIN medium ON medium.release = entity.id
-                JOIN tracklist ON medium.tracklist = tracklist.id';
-            $where_sql = 'WHERE tracklist.track_count = ?';
+            $join_sql .= ' JOIN medium ON medium.release = entity.id';
+            $where_sql = 'WHERE medium.track_count = ?';
             push @where_args, $where->{track_count};
         }
         elsif ($type eq 'recording') {
@@ -160,7 +162,6 @@ sub search
                 entity.id,
                 entity.gid,
                 entity.comment,
-                entity.artist_credit AS artist_credit_id,
                 $extra_columns
                 r.name,
                 r.rank
@@ -175,12 +176,88 @@ sub search
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, r.name, entity.artist_credit
+                r.rank DESC, r.name
+                $extra_ordering
             OFFSET
                 ?
         ";
         $hard_search_limit = int($offset * 1.2);
     }
+
+    elsif ($type eq "work") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                r.name,
+                entity.type AS type_id,
+                entity.language AS language_id,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) as r
+                LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
+                JOIN ${type} AS entity ON (r.id = entity.name OR alias.${type} = entity.id)
+                JOIN ${type}_name AS aname ON entity.name = aname.id
+            GROUP BY
+                entity.id, entity.gid, r.name, type_id, language_id
+            ORDER BY
+                rank DESC, r.name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
+    }
+
+    # Could be merged with artist/label once name tables are killed
+    elsif ($type eq "area") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                entity.name,
+                entity.sort_name,
+                entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day,
+                entity.ended,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM
+                        (SELECT name              FROM ${type}       UNION ALL
+                         SELECT sort_name AS name FROM ${type}       UNION ALL
+                         SELECT name              FROM ${type}_alias UNION ALL
+                         SELECT sort_name AS name FROM ${type}_alias) names,
+                        plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
+                JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
+            GROUP BY
+                entity.id, entity.gid, entity.name, entity.sort_name, entity.type,
+                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
+            ORDER BY
+                rank DESC, sort_name, name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
+    }
+
     elsif ($type eq "tag") {
         $query = "
             SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
@@ -285,7 +362,7 @@ sub schema_fixup
 
     if (exists $data->{country})
     {
-        $data->{country} = $self->c->model('Country')->find_by_code ($data->{country});
+        $data->{country} = $self->c->model('Area')->find_by_iso_3166_1_code ($data->{country});
         delete $data->{country} unless defined $data->{country};
     }
 
@@ -293,12 +370,40 @@ sub schema_fixup
     {
         $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
     }
-    if (($type eq 'artist' || $type eq 'label') && exists $data->{'life-span'})
+    if ($type eq 'area' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
+    }
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area') && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
+    }
+    if ($type eq 'area') {
+        for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
+            my $json_subprop = $prop . '-code';
+            $json_subprop =~ s/_/-/g;
+            my $json_prop = $json_subprop . '-list';
+            if (exists $data->{$json_prop}) {
+                $data->{$prop} = $data->{$json_prop}->{$json_subprop};
+                delete $data->{$json_prop};
+            }
+        }
+    }
+    if ($type eq 'artist' || $type eq 'label') {
+        for my $prop (qw( area begin_area end_area )) {
+            my $json_prop = $prop;
+            $json_prop =~ s/_/-/;
+            if (exists $data->{$json_prop})
+            {
+                my $area = delete $data->{$json_prop};
+                $area->{gid} = $area->{id};
+                $area->{id} = 1;
+                $data->{$prop} = MusicBrainz::Server::Entity::Area->new($area);
+            }
+        }
     }
     if($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
@@ -332,7 +437,8 @@ sub schema_fixup
         $data->{title} = $data->{name};
         delete $data->{name};
     }
-    if (($type eq 'cdstub' || $type eq 'freedb') && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
+    if (($type eq 'cdstub' || $type eq 'freedb')
+        && (exists $data->{"track-list"} && exists $data->{"track-list"}->{count}))
     {
         if (exists $data->{barcode})
         {
@@ -344,9 +450,21 @@ sub schema_fixup
     }
     if ($type eq 'release')
     {
-        if (exists $data->{date})
+        if (exists $data->{"release-event-list"} &&
+            exists $data->{"release-event-list"}->{"release-event"})
         {
-            $data->{date} = MusicBrainz::Server::Entity::PartialDate->new( name => $data->{date} );
+            $data->{events} = [];
+            for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
+            {
+                my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
+                    country => defined($release_event_data->{area}) ? 
+                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
+                        : undef, 
+                    date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
+
+                push @{$data->{events}}, $release_event;
+            }
+            delete $data->{"release-event-list"};
         }
         if (exists $data->{barcode})
         {
@@ -372,15 +490,10 @@ sub schema_fixup
             $data->{mediums} = [];
             for my $medium_data (@{$data->{"medium-list"}->{medium}})
             {
-                if (exists $medium_data->{"track-list"})
-                {
-                    my $medium = MusicBrainz::Server::Entity::Medium->new(
-                        tracklist => MusicBrainz::Server::Entity::Tracklist->new(
-                            track_count => $medium_data->{"track-list"}->{count}
-                        )
-                    );
-                    push @{$data->{mediums}}, $medium;
-                }
+                my $medium = MusicBrainz::Server::Entity::Medium->new(
+                    track_count => $medium_data->{"track-list"}->{"count"});
+
+                push @{$data->{mediums}}, $medium;
             }
             delete $data->{"medium-list"};
         }
@@ -395,10 +508,11 @@ sub schema_fixup
 
         foreach my $release (@{$data->{"release-list"}->{release}})
         {
-            my $tracklist = MusicBrainz::Server::Entity::Tracklist->new(
-                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{count},
+            my $medium = MusicBrainz::Server::Entity::Medium->new(
+                position  => $release->{"medium-list"}->{medium}->[0]->{"position"},
+                track_count => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"count"},
                 tracks => [ MusicBrainz::Server::Entity::Track->new(
-                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{offset} + 1,
+                    position => $release->{"medium-list"}->{medium}->[0]->{"track-list"}->{"offset"} + 1,
                     recording => MusicBrainz::Server::Entity::Recording->new(
                         gid => $data->{gid}
                     )
@@ -412,12 +526,7 @@ sub schema_fixup
             push @releases, MusicBrainz::Server::Entity::Release->new(
                 gid     => $release->{id},
                 name    => $release->{title},
-                mediums => [
-                    MusicBrainz::Server::Entity::Medium->new(
-                         tracklist => $tracklist,
-                         position  => $release->{"medium-list"}->{medium}->[0]->{"position"}
-                    )
-                ],
+                mediums => [ $medium ],
                 release_group => $release_group
             );
         }

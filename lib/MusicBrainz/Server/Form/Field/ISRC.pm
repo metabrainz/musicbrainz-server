@@ -12,7 +12,7 @@ has '+maxlength' => ( default => 12 );
 apply ([
     {
         check => sub { is_valid_isrc(shift) },
-        message => l('This is not a valid ISRC. If this code starts with "TC", it is a TuneCore ID, which should be put into the annotation instead.'),
+        message => l('This is not a valid ISRC.'),
     }
 ]);
 

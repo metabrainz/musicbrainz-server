@@ -4,7 +4,7 @@
         </li>
 [%- END -%]
 
-[%- MACRO display_licenses(entity, empty) BLOCK -%]
+[%- MACRO display_licenses(entity) BLOCK -%]
     [%- licenses = entity.relationships_by_type('url').sort('phrase') -%]
 
     [%- to_display = [] -%]
@@ -12,20 +12,19 @@
         [%- IF license.target.does('MusicBrainz::Server::Entity::URL::License') AND
                license.target.show_license_in_sidebar -%]
             [%- to_display.push(display_license(license.target)) -%]
-            [%- urls = 1 -%]
         [%- END -%]
     [%- END -%]
+
+    [%- IF to_display.size -%]
+        <h2 class="licenses">[% l('License') %]</h2>
+        <ul class="licenses">
 
     [%- FOREACH display IN to_display.unique -%]
         [% display %]
     [%- END -%]
+        </ul>
+    [%- END -%]
 	
 [%- END -%]
 
-[%- licenses_section = display_licenses(entity, 1); -%]
-[%- IF licenses_section -%]
-<h2 class="licenses">[% l('License') %]</h2>
-<ul class="licenses">
-  [%- licenses_section -%]
-</ul>
-[%- END -%]
+[%- display_licenses(entity) -%]

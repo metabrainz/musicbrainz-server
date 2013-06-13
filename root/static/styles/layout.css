@@ -599,6 +599,10 @@ div.warning img.warning {
     background-image: url("../images/favicons/spotify-16.png");
 }
 
+#sidebar ul.external_links li.wikidata {
+    background-image: url("../images/favicons/wikidata-16.png");
+}
+
 #sidebar ul.licenses {
     margin: 5px 0;
     padding-left: 0;
@@ -765,6 +769,8 @@ table.tbl tr.ev th {
     padding: 0.2em 0.4em;
     background: #F2F2F2;
 }
+
+table.tbl tr:target td { background-color: #F2F2b2; }
 
 table.tbl .pos { width: 1em; white-space: nowrap; }
 table.tbl th { word-break: keep-all; white-space: nowrap; }

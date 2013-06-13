@@ -36,7 +36,7 @@ subtype 'LinkHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            short_link_phrase => Str
+            long_link_phrase => Str
         ],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -59,7 +59,7 @@ subtype 'RelationshipHash'
             name => Str,
             link_phrase => Str,
             reverse_link_phrase => Str,
-            short_link_phrase => Str
+            long_link_phrase => Str
         ]],
         attributes => Nullable[ArrayRef[Int]],
         begin_date => Nullable[PartialDateHash],
@@ -228,7 +228,7 @@ sub _mapping
                 name => $lt->name,
                 link_phrase => $lt->link_phrase,
                 reverse_link_phrase => $lt->reverse_link_phrase,
-                short_link_phrase => $lt->short_link_phrase,
+                long_link_phrase => $lt->long_link_phrase,
             };
         },
         entity0 => sub {
@@ -269,7 +269,7 @@ sub initialize
         name => $opts{link_type}->name,
         link_phrase => $opts{link_type}->link_phrase,
         reverse_link_phrase => $opts{link_type}->reverse_link_phrase,
-        short_link_phrase => $opts{link_type}->short_link_phrase
+        long_link_phrase => $opts{link_type}->long_link_phrase
     } if $opts{link_type};
 
     my $link = $relationship->link;
@@ -289,7 +289,7 @@ sub initialize
                 name => $link->type->name,
                 link_phrase => $link->type->link_phrase,
                 reverse_link_phrase => $link->type->reverse_link_phrase,
-                short_link_phrase => $link->type->short_link_phrase
+                long_link_phrase => $link->type->long_link_phrase
             },
             entity0 => {
                 id => $relationship->entity0_id,
@@ -411,6 +411,20 @@ sub accept
         $self->c->model('CoverArt')->cache_cover_art($old_release);
     }
 }
+
+before restore => sub {
+    my ($self, $data) = @_;
+    $data->{link}{link_type}{long_link_phrase} =
+        delete $data->{link}{link_type}{short_link_phrase}
+            if exists $data->{link}{link_type}{short_link_phrase};
+
+    for my $side (qw( old new )) {
+        next unless exists $data->{$side}{link_type};
+        $data->{$side}{link_type}{long_link_phrase} =
+            delete $data->{$side}{link_type}{short_link_phrase}
+                if exists $data->{$side}{link_type}{short_link_phrase};
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 
