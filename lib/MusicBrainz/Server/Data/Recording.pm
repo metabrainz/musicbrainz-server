@@ -128,7 +128,7 @@ sub find_by_release
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                      JOIN track ON track.recording = recording.id
-                     JOIN medium ON medium.tracklist = track.tracklist
+                     JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
                  ORDER BY musicbrainz_collate(name.name)
@@ -301,7 +301,7 @@ sub appears_on
            JOIN release_name name ON rg.name=name.id
            JOIN release ON release.release_group = rg.id
            JOIN medium ON release.id = medium.release
-           JOIN track ON track.tracklist = medium.tracklist
+           JOIN track ON track.medium = medium.id
            JOIN recording ON recording.id = track.recording
          WHERE recording.id IN (" . placeholders (@ids) . ")";
 
@@ -364,21 +364,20 @@ sub find_tracklist_offsets {
       r (id) AS ( SELECT ?::int ),
       bef AS (
         SELECT container.id AS container,
-               sum(tracklist.track_count)
+               sum(container.track_count)
         FROM medium container
-        JOIN track ON track.tracklist = container.tracklist
+        JOIN track ON track.medium = container.id
         JOIN medium bef ON (
           container.release = bef.release AND
           container.position > bef.position
         )
-        JOIN tracklist ON bef.tracklist = tracklist.id
         JOIN r ON r.id = track.recording
         GROUP BY container.id, track.id
       )
       SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
       FROM track
       JOIN r ON r.id = track.recording
-      JOIN medium ON track.tracklist = medium.tracklist
+      JOIN medium ON track.medium = medium.id
       LEFT JOIN bef ON bef.container = medium.id;
 EOSQL
 

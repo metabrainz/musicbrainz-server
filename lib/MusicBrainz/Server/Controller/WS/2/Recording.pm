@@ -7,6 +7,8 @@ use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
+    $ACCESS_SCOPE_SUBMIT_PUID
+    $ACCESS_SCOPE_SUBMIT_ISRC
 );
 
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
@@ -68,7 +70,7 @@ sub recording_toplevel
         my @results;
         if ($c->stash->{inc}->media)
         {
-            @results = $c->model('Release')->load_with_tracklist_for_recording(
+            @results = $c->model('Release')->load_with_medium_for_recording(
                 $recording->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
         }
         else
@@ -79,7 +81,7 @@ sub recording_toplevel
 
         my @releases = @{$results[0]};
 
-        $c->model('ArtistCredit')->load(map { $_->tracklist->all_tracks } map { $_->all_mediums } @releases)
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases)
             if ($c->stash->{inc}->artist_credits);
 
         $self->linked_releases ($c, $stash, $results[0]);
@@ -228,6 +230,16 @@ sub recording_submit : Private
     for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
         $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};
+    }
+
+    if (%submit_puid) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_PUID);
+    }
+
+    if (%submit_isrc) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_ISRC);
     }
 
     $c->model('MB')->with_transaction(sub {

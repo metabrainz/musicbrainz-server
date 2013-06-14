@@ -65,6 +65,23 @@ use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
+# GPG Signature
+################################################################################
+
+# Location of the public key file to use for verifying packets.
+sub GPG_PUB_KEY { "" }
+
+# Define how validation deals with the missing signature file:
+#   FAIL    - validation fails if signature file is missing
+#   PASS    - validation passes if signature file is missing
+sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets.
+sub GPG_SIGN_KEY { "" }
+sub GPG_ENCRYPT_KEY { "" }
+
+################################################################################
 # HTTP Server Names
 ################################################################################
 
@@ -137,9 +154,6 @@ sub WIKITRANS_SERVER     { "wiki.musicbrainz.org" }
 # transclusion table.
 sub WIKITRANS_SERVER_API { "wiki.musicbrainz.org/api.php" }
 
-sub WIKITRANS_INDEX_FILE { my $self = shift; $self->MB_SERVER_ROOT . "/root/static/wikidocs/index.txt" }
-sub WIKITRANS_INDEX_URL  { "http://musicbrainz.org/static/wikidocs/index.txt" }
-
 # To enable documentation search on your server, create your own Google Custom
 # Search engine and enter its ID as the value of GOOGLE_CUSTOM_SEARCH.
 # Alternatively, if you're okay with the search results pointing to
@@ -150,7 +164,7 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 
@@ -244,6 +258,48 @@ sub MINIFY_STYLES { return \&MINIFY_DUMMY; }
 # sub MINIFY_STYLES { use CSS::Minifier; return \&CSS::Minifier::minify }
 
 ################################################################################
+# Sessions (advanced)
+################################################################################
+
+sub SESSION_STORE { "Session::Store::MusicBrainz" }
+sub SESSION_STORE_ARGS { return {} }
+sub SESSION_EXPIRE { return 36000; } # 10 hours
+
+# Redis by default has 16 numbered databases available, of which DB 0
+# is the default.  Here you can configure which of these databases are
+# used by musicbrainz-server.
+#
+# test_database will be completely erased on each test run, so make
+# sure it doesn't point at any production data you may have in your
+# redis server.
+
+sub DATASTORE_REDIS_ARGS {
+    my $self = shift;
+    return {
+        prefix => $self->MEMCACHED_NAMESPACE(),
+        database => 0,
+        test_database => 1,
+        redis_new_args => {
+            server => '127.0.0.1:6379',
+            reconnect => 60,
+            encoding => undef,
+        }
+    };
+};
+
+################################################################################
+# Session cookies
+################################################################################
+
+# How long (in seconds) a web/rdf session can go "idle" before being timed out
+sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
+
+# The cookie name to use
+sub SESSION_COOKIE { "AF_SID" }
+# The domain into which the session cookie is written
+sub SESSION_DOMAIN { undef }
+
+################################################################################
 # Other Settings
 ################################################################################
 
@@ -274,14 +330,6 @@ sub GIT_BRANCH
     return $branch, $sha, $msg;
   }
 }
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { "AF_SID" }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 # How long an annotation is considered as being locked.
 sub ANNOTATION_LOCK_TIME { 60*15 }
@@ -325,35 +373,8 @@ sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 # Add a Google Analytics tracking code to enable Google Analytics tracking.
 sub GOOGLE_ANALYTICS_CODE { '' }
 
-################################################################################
-# Sessions (advanced)
-################################################################################
-
-# Unless you are installing an MusicBrainz server that needs to be fully r
-# redundant/load balanced, you do not need to change anything in this section.
-
-# If you're using multiple front-end webservers make sure they all connect to
-# the same memcached server.  Also make sure enough memory is configured for
-# memcached so sessions aren't evicted from the cache.
-sub SESSION_STORE { "Session::Store::MusicBrainz" }
-sub SESSION_STORE_ARGS
-{
-    my $self = shift;
-    return {
-        memcached_new_args => {
-            data => $self->MEMCACHED_SERVERS(),
-            namespace => $self->MEMCACHED_NAMESPACE()
-        }
-    }
-}
-
-# MusicBrainz::Server::Wizard saves wizard sessions in memcached,
-# seperately from the regular session store.
-sub WIZARD_MEMCACHED
-{
-    my $self = shift;
-    return { servers => $self->MEMCACHED_SERVERS(), namespace => $self->MEMCACHED_NAMESPACE() };
-}
+# Disallow OAuth2 requests over plain HTTP
+sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER }
 
 sub USE_ETAGS { 1 }
 
@@ -361,7 +382,7 @@ sub CATALYST_DEBUG { 1 }
 
 # If you are developing on MusicBrainz, you should set this to a true value
 # This will turn off some optimizations (such as CSS/JS compression) to make
-# developing and debuging easier
+# developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
 # Please activate the officially approved languages here. Not every .po
@@ -382,7 +403,7 @@ sub EMAIL_BUGS { undef }
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
 # http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.nu?out=json' }
+sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 ################################################################################

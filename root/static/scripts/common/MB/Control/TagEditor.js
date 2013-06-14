@@ -40,7 +40,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
                     tag: tag,
                     tagLink: encodeURIComponent(tag)
                 });
-            }).join(', ') : MB.text.None;
+            }).join(', ') : MB.text.TagNone;
 
         if (more) {
             html += ', ' + moreHtml;

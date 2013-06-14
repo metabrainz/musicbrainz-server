@@ -2,7 +2,12 @@ package MusicBrainz::Server::Controller::WS::1::Track;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
-use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS $EDIT_RECORDING_ADD_ISRCS );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RECORDING_ADD_PUIDS
+    $EDIT_RECORDING_ADD_ISRCS
+    $ACCESS_SCOPE_SUBMIT_PUID
+    $ACCESS_SCOPE_SUBMIT_ISRC
+);
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use List::Util qw( first );
 use Try::Tiny;
@@ -73,7 +78,7 @@ around 'search' => sub
         }
 
         my @releases  = map { @$_ } values %recording_release_map;
-        my %track_map = map { $_->tracklist->medium->release_id => $_ } @tracks;
+        my %track_map = map { $_->medium->release_id => $_ } @tracks;
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body(
@@ -92,8 +97,6 @@ sub submit : Private
 {
     my ($self, $c) = @_;
 
-    $c->authenticate({}, 'musicbrainz.org');
-
     my (@puids, @isrcs);
     if (my $submitted = $c->req->params->{puid}) {
         @puids = ref($submitted) ? @$submitted : ($submitted);
@@ -102,6 +105,11 @@ sub submit : Private
     if (my $submitted = $c->req->params->{isrc}) {
         @isrcs = ref($submitted) ? @$submitted : ($submitted);
     }
+
+    my $scope = 0;
+    $scope |= $ACCESS_SCOPE_SUBMIT_PUID if @puids;
+    $scope |= $ACCESS_SCOPE_SUBMIT_ISRC if @isrcs;
+    $self->authenticate($c, $scope);
 
     if (@isrcs && @puids) {
         $c->stash->{error} = 'You cannot submit PUIDs and ISRCs in one call';

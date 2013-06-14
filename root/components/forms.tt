@@ -103,14 +103,14 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value" />
-              <button class="nobutton icon remove">
+              <button class="nobutton icon remove" style="vertical-align: middle">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value" />
-              <button class="nobutton icon remove">
+              <button class="nobutton icon remove" style="vertical-align: middle">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
                        alt="[% l('Remove {item}', item => item_name) %]" />
@@ -119,8 +119,8 @@
           [% END -%]
           <div class="form-row-add">
             <button class="nobutton add" style="margin-right: 8px;">
-              <span class="add-row" style="padding: 0 1em;">[% l('Add {item}', item => item_name) %]</span>
-              <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
+              <span class="add-row">[% l('Add {item}', item => item_name) %]</span>
+              <div class="add-item icon img" style="vertical-align: text-bottom" title="[% l('Add {item}', item => item_name) %]"></div>
             </button>
           </div>
       </div>
@@ -175,7 +175,7 @@
         <select name="gc-mode" id="gc-mode"> </select>
         <br />
       <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-      <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+      <label for="gc-keepuppercase">[% l('Keep all-uppercase words uppercased') %]</label>
       <br />
       <input type="checkbox" name="gc-roman" id="gc-roman">
       <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
@@ -199,7 +199,7 @@
             [%- UNLESS hide_mode -%]
               <select name="gc-mode" id="gc-mode"> </select><br />
               <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked" />
-              <label for="gc-keepuppercase">[% l('Keep uppercase words uppercased') %]</label>
+              <label for="gc-keepuppercase">[% l('Keep all-uppercase words uppercased') %]</label>
               <br />
               <input type="checkbox" name="gc-roman" id="gc-roman" />
               <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>

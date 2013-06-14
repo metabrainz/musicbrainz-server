@@ -23,11 +23,7 @@
             [% vote_checkbox(l('None'), -2) %]
         </div>
         [% UNLESS summary %]
-            [% IF edit.latest_vote_for_editor(c.user.id).vote %]
-                [% form_submit(l('Change vote')) %]
-            [% ELSE %]
-                [% form_submit(l('Enter vote')) %]
-            [% END %]
+                [% form_submit(l('Submit vote and note')) %]
         [% END %]
     </div>
 [% END %]

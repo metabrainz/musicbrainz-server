@@ -4,7 +4,7 @@ binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
 use DBDefs;
-use Encode qw( encode );
+use Encode qw( decode encode );
 use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
@@ -46,6 +46,7 @@ BEGIN {
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { "localhost" };
     *DBDefs::RECAPTCHA_PUBLIC_KEY = sub { undef };
     *DBDefs::RECAPTCHA_PRIVATE_KEY = sub { undef };
+    *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
 }
 
 use MusicBrainz::Server::DatabaseConnectionFactory;
@@ -97,7 +98,7 @@ sub _load_query
     # comment PostgreSQL interactive terminal commands.
     $query =~ s/^(\\.*)$/-- $1/mg;
 
-    return $query;
+    return decode ("utf-8", $query);
 }
 
 sub prepare_test_database

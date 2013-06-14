@@ -1,3 +1,7 @@
+[%- MACRO note_anchor(edit, loop) BLOCK -%]
+note-[%- edit.id -%]-[%- loop.count() -%]
+[%- END -%]
+
 [% BLOCK votename %]
     [%- FOR vote=edit.votes -%]
         [%- vote.vote_name IF (vote.editor_id == note.editor_id) && !vote.superseded -%]
@@ -14,7 +18,7 @@
 <div class="edit-notes">
     [% IF edit.edit_notes.size %]
         [% FOR note=edit.edit_notes %]
-            <div class="edit-note">
+            <div class="edit-note" id="[% note_anchor(edit, loop) %]">
                 <h3 class="[%- PROCESS votename -%]">
                     [%- link_entity(note.editor) -%]
                     [%- FOR vote=edit.votes; 
@@ -23,7 +27,7 @@
                            (vote.vote_name == 'No' || vote.vote_name == 'Yes'); 
                         '<div class="voting-icon"></div>'; LAST; 
                     END; END; -%]
-                    <span class="date">[%- UserDate.format(note.post_time) -%]</span>
+                    <a href="#[% note_anchor(edit, loop) %]" class="date">[%- UserDate.format(note.post_time) -%]</a>
                     [%- editor_type_info(note.editor) -%]
                 </h3>
                 <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">

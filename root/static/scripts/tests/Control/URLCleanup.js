@@ -117,6 +117,39 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // Japanese blogs
+                [
+                    'artist', 'http://ameblo.jp/murataayumi/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://ameblo.jp/murataayumi/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://blog.livedoor.jp/mintmania/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://blog.livedoor.jp/mintmania/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://milk-pu-rin.jugem.jp/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://milk-pu-rin.jugem.jp/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
+                [
+                    'artist', 'http://psgarden.exblog.jp/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
+                [
+                    'label', 'http://psgarden.exblog.jp/',
+                    MB.constants.LINK_TYPES.blog.label
+                ],
                 [
                     'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
@@ -137,10 +170,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://www.utamap.com/showkasi.php?surl=34985',
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
+                // Vimeo
                 [
                     'recording', 'http://vimeo.com/1109226',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
+                // YouTube
                 [
                     'recording', 'http://www.youtube.com/watch?v=UmHdefsaL6I',
                     MB.constants.LINK_TYPES.streamingmusic.recording
@@ -153,6 +188,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://youtube.com/user/officialpsy/videos',
                     MB.constants.LINK_TYPES.youtube.label
                 ],
+                // iTunes
                 [
                     'artist', 'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                     MB.constants.LINK_TYPES.downloadpurchase.artist
@@ -169,6 +205,20 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                     MB.constants.LINK_TYPES.downloadpurchase.recording
                 ],
+                // Other download stores
+                [
+                    'release', 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://www.junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://www.audiojelly.com/releases/turn-up-the-sound/242895',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                // Allmusic
                 [
                     'artist', 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     MB.constants.LINK_TYPES.allmusic.artist
@@ -202,6 +252,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // SoundtrackCollector
+                [
+                    'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://soundtrackcollector.com/title/5751/Jurassic+Park',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
                 // Second Hand Songs
                 [
                     'artist', 'http://www.secondhandsongs.com/artist/103',
@@ -232,7 +291,86 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
                     MB.constants.LINK_TYPES.lyrics.work
+                ],
+                // BBC Music
+                [
+                    'artist', 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
+                    MB.constants.LINK_TYPES.bbcmusic.artist
+                ],
+                // Anime News Network
+                [
+                    'artist', 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                    MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // Generasia
+                [
+                    'artist', 'http://www.generasia.com/wiki/Wink',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.generasia.com/wiki/Ai_ga_Tomaranai_~Turn_It_into_Love~',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
+                ],
+                [
+                    'work', 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    MB.constants.LINK_TYPES.otherdatabases.work
+                ],
+                // Japanese discography pages
+                [
+                    'release', 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.jvcmusic.co.jp/-/Discography/A015120/VICC-60560.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://www.kingrecords.co.jp/cs/g/gKICM-1091/',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                // Classical discography pages
+                [
+                    'release', 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                [
+                    'release', 'http://bis.se/index.php?op=album&aID=BIS-1961',
+                    MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                // Wikidata
+                [
+                    'artist', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.artist
+                ],
+                [
+                    'label', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.label
+                ],
+                [
+                    'release_group', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.release_group
+                ],
+                [
+                    'work', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.work
                 ]
+
             ];
 
         $.each(tests, function(i, test) {
@@ -343,6 +481,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://thesession.org/recordings/1488',
                     'release_group'
                 ],
+                // ameblo.jp
+                [
+                    'http://ameblo.jp/murataayumi',
+                    'http://ameblo.jp/murataayumi/',
+                    'artist'
+                ],
+                // Creative Commons
                 [
                     'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
                     'http://creativecommons.org/publicdomain/zero/1.0/',
@@ -353,11 +498,18 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
                     'release'
                 ],
+                    // Facebook
                 [
                     'http://www.facebook.com/sininemusic',
                     'https://www.facebook.com/sininemusic',
                     'artist'
                 ],
+                [
+                    'https://www.facebook.com/RomanzMusic?fref=ts',
+                    'https://www.facebook.com/RomanzMusic',
+                    'artist'
+                ],
+                    // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
@@ -551,6 +703,24 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
+                ],
+                // Anime News Network
+                [
+                    'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                ],
+                [
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
+                    'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                ],
+                // Generasia
+                [
+                    'http://generasia.com/wiki/Wink',
+                    'http://www.generasia.com/wiki/Wink',
+                ],
+                [
+                    'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ]
 
             ];

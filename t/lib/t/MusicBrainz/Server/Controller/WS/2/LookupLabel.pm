@@ -27,9 +27,19 @@ ws_test 'basic label lookup',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
-        <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <name>Planet Mu</name>
+        <sort-name>Planet Mu</sort-name>
         <country>GB</country>
-        <life-span><begin>1995</begin></life-span>
+        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+            <name>United Kingdom</name>
+            <sort-name>United Kingdom</sort-name>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
+        <life-span>
+            <begin>1995</begin>
+        </life-span>
     </label>
 </metadata>';
 
@@ -38,9 +48,19 @@ ws_test 'label lookup, inc=aliases',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
-        <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <name>Planet Mu</name>
+        <sort-name>Planet Mu</sort-name>
         <country>GB</country>
-        <life-span><begin>1995</begin></life-span>
+        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+            <name>United Kingdom</name>
+            <sort-name>United Kingdom</sort-name>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
+        <life-span>
+            <begin>1995</begin>
+        </life-span>
         <alias-list count="1"><alias sort-name="Planet µ">Planet µ</alias></alias-list>
     </label>
 </metadata>';
@@ -50,11 +70,21 @@ ws_test 'label lookup, inc=annotation',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="46f0f4cd-8aab-4b33-b698-f459faf64190">
-        <name>Warp Records</name><sort-name>Warp Records</sort-name>
+        <name>Warp Records</name>
+        <sort-name>Warp Records</sort-name>
         <label-code>2070</label-code>
         <annotation><text>this is a label annotation</text></annotation>
         <country>GB</country>
-        <life-span><begin>1989</begin></life-span>
+        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+            <name>United Kingdom</name>
+            <sort-name>United Kingdom</sort-name>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
+        <life-span>
+            <begin>1989</begin>
+        </life-span>
     </label>
 </metadata>';
 
@@ -63,17 +93,43 @@ ws_test 'label lookup with releases, inc=media',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" id="b4edce40-090f-4956-b82a-5d9d285da40b">
-        <name>Planet Mu</name><sort-name>Planet Mu</sort-name>
+        <name>Planet Mu</name>
+        <sort-name>Planet Mu</sort-name>
         <country>GB</country>
-        <life-span><begin>1995</begin></life-span>
+        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+            <name>United Kingdom</name>
+            <sort-name>United Kingdom</sort-name>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>GB</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
+        <life-span>
+            <begin>1995</begin>
+        </life-span>
         <release-list count="2">
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
-                <title>Repercussions</title><status>Official</status>
+                <title>Repercussions</title>
+                <status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
-                    <language>eng</language><script>Latn</script>
+                    <language>eng</language>
+                    <script>Latn</script>
                 </text-representation>
-                <date>2008-11-17</date><country>GB</country><barcode>600116822123</barcode>
+                <date>2008-11-17</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2008-11-17</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116822123</barcode>
                 <medium-list count="2">
                     <medium>
                         <position>1</position><format>CD</format><track-list count="9" />
@@ -85,12 +141,28 @@ ws_test 'label lookup with releases, inc=media',
                 </medium-list>
             </release>
             <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title><status>Official</status>
+                <title>My Demons</title>
+                <status>Official</status>
                 <quality>normal</quality>
                 <text-representation>
-                    <language>eng</language><script>Latn</script>
+                    <language>eng</language>
+                    <script>Latn</script>
                 </text-representation>
-                <date>2007-01-29</date><country>GB</country><barcode>600116817020</barcode>
+                <date>2007-01-29</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2007-01-29</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116817020</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format><track-list count="12" />

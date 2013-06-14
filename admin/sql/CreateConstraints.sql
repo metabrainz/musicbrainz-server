@@ -30,4 +30,23 @@ ADD CHECK (
 ALTER TABLE release_label
 ADD CHECK (catalog_number IS NOT NULL OR label IS NOT NULL);
 
+ALTER TABLE artist ADD CONSTRAINT artist_va_check
+    CHECK (id <> 1 OR
+           (type = 3 AND
+            gender IS NULL AND
+            area IS NULL AND
+            begin_area IS NULL AND
+            end_area IS NULL AND
+            begin_date_year IS NULL AND
+            begin_date_month IS NULL AND
+            begin_date_day IS NULL AND
+            end_date_year IS NULL AND
+            end_date_month IS NULL AND
+            end_date_day IS NULL));
+
+ALTER TABLE release_unknown_country ADD CONSTRAINT non_empty_date
+    CHECK (date_year IS NOT NULL OR date_month IS NOT NULL OR date_day IS NOT NULL);
+
+ALTER TABLE editor_remember_me ALTER COLUMN token SET DEFAULT generate_uuid_v4();
+
 COMMIT;

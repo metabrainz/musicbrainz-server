@@ -25,15 +25,12 @@ Prerequisites
 
         perl -v
 
-3.  PostgreSQL (at least version 8.4)
+3.  PostgreSQL (at least version 9.1)
 
     PostgreSQL is required, along with its development libraries. To install
-    using packages run the following, replacing 8.x with the latest version.
+    using packages run the following, replacing 9.x with the latest version.
 
-        sudo apt-get install postgresql-8.x postgresql-server-dev-8.x postgresql-contrib-8.x
-
-    Since Ubuntu 11.10, you can also install postgresql 9.x; replace '8.x' by the
-    most recent 9.x version to do so.
+        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube extension found in contrib/cube. The database import
@@ -53,11 +50,24 @@ Prerequisites
     same server with default settings. To install Memcached, run the following:
 
         sudo apt-get install memcached
-    
-    You can change the memcached server name and port, or configure other datastores 
+
+    You can change the memcached server name and port, or configure other datastores
     in lib/DBDefs.pm.
 
-6.  Standard Development Tools
+6.  Redis
+
+    Sessions are stored in Redis, so a running Redis server is
+    required.  Redis can be installed with the
+    following command and will not need any further configuration:
+
+        sudo apt-get install redis-server
+
+    The databases and key prefix used by musicbrainz can be configured
+    in lib/DBDefs.pm.  The defaults should be fine if you don't use
+    your redis install for anything else.
+
+
+7.  Standard Development Tools
 
     In order to install some of the required Perl and Postgresql modules, you'll
     need a C compiler and make. You can install a basic set of development tools
@@ -71,7 +81,7 @@ Server configuration
 
 1.  Download the source code.
 
-        git clone git://git.musicbrainz.org/musicbrainz-server.git
+        git clone git://github.com/metabrainz/musicbrainz-server.git
         cd musicbrainz-server
 
 2.  Modify the server configuration file.
@@ -79,6 +89,9 @@ Server configuration
         cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
     Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
+    If you are using a reverse proxy, you should set the environment variable
+    MUSICBRAINZ_USE_PROXY=1 when starting the server.
+    This makes the server aware of it when checking for the canonical uri.
 
     Determine what type of server this will be and set `REPLICATION_TYPE` accordingly:
 
@@ -155,6 +168,11 @@ Below outlines how to setup MusicBrainz server with Carton.
     having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
     directory to remove all packages previously installed by carton, and then run
     the above step again.
+
+    If carton complains about a missing "cpanfile", you can create it with:
+
+        cat Makefile.PL | grep ^requires > cpanfile
+
 
     If you still see errors, you can install individual packages manually by running:
 

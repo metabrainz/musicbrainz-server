@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
@@ -85,13 +86,15 @@ sub direct : Private
 
     my $results = $self->_load_paged($c, sub {
        $c->model('Search')->search($type, $query, shift, shift);
-    }, $form->field('limit')->value);
+    }, limit => $form->field('limit')->value);
 
     my @entities = map { $_->entity } @$results;
 
     given($type) {
         when ('artist') {
             $c->model('ArtistType')->load(@entities);
+            $c->model('Area')->load(@entities);
+            $c->model('Gender')->load(@entities);
         }
         when ('editor') {
             $c->model('Editor')->load_preferences(@entities);
@@ -100,13 +103,14 @@ sub direct : Private
             $c->model('ReleaseGroupType')->load(@entities);
         }
         when ('release') {
-            $c->model('Country')->load(@entities);
             $c->model('Language')->load(@entities);
+            load_release_events($c, @entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
         }
         when ('label') {
             $c->model('LabelType')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
         when ('recording') {
             my %recording_releases_map = $c->model('Release')->find_by_recordings(map {
@@ -122,11 +126,9 @@ sub direct : Private
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);
-            $c->model('Tracklist')->load(map { $_->all_mediums } @releases);
-            $c->model('Track')->load_for_tracklists(map { $_->tracklist }
-                                                    map { $_->all_mediums } @releases);
-            $c->model('Recording')->load(map { $_->tracklist->all_tracks }
-                                         map { $_->all_mediums } @releases);
+            $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
+            $c->model('Recording')->load(
+                map { $_->all_tracks } map { $_->all_mediums } @releases);
             $c->model('ISRC')->load_for_recordings(map { $_->entity } @$results);
         }
         when ('work') {
@@ -134,6 +136,11 @@ sub direct : Private
             $c->model('Work')->load_recording_artists(@entities);
             $c->model('ISWC')->load_for_works(@entities);
             $c->model('Language')->load(@entities);
+            $c->model('WorkType')->load(@entities);
+        }
+        when ('area') {
+            $c->model('Area')->load_codes(@entities);
+            $c->model('AreaType')->load(@entities);
         }
     }
 

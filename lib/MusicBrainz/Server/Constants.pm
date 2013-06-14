@@ -26,10 +26,11 @@ our %EXPORT_TAGS = (
     editor          => _get(qr/^EDITOR_/),
     vote            => _get(qr/^VOTE_/),
     edit_status     => _get(qr/^STATUS_/),
+    access_scope    => _get(qr/^ACCESS_SCOPE_/),
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
             $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG )
+            $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG )
     ],
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
@@ -48,12 +49,12 @@ our %EXPORT_TAGS = (
 
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
-        $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
-        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
-        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG
+        $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
+        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
+        $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
         $REQUIRED_VOTES ),
-    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS)_/) },
+    @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
 );
 
 Readonly our $DLABEL_ID => 1;
@@ -147,6 +148,15 @@ Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
 Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
+Readonly our $EDIT_AREA_CREATE => 81;
+Readonly our $EDIT_AREA_EDIT => 82;
+Readonly our $EDIT_AREA_DELETE => 83;
+Readonly our $EDIT_AREA_MERGE => 84;
+Readonly our $EDIT_AREA_ADD_ANNOTATION => 85;
+Readonly our $EDIT_AREA_ADD_ALIAS => 86;
+Readonly our $EDIT_AREA_DELETE_ALIAS => 87;
+Readonly our $EDIT_AREA_EDIT_ALIAS => 88;
+
 Readonly our $EDIT_RELATIONSHIP_CREATE => 90;
 Readonly our $EDIT_RELATIONSHIP_EDIT => 91;
 Readonly our $EDIT_RELATIONSHIP_DELETE => 92;
@@ -235,6 +245,7 @@ Readonly our $DONT_NAG_FLAG            => 16;
 Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
+Readonly our $LOCATION_EDITOR_FLAG     => 256;
 
 Readonly our $ELECTION_VOTE_NO      => -1;
 Readonly our $ELECTION_VOTE_ABSTAIN => 0;
@@ -246,6 +257,15 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 Readonly our $REQUIRED_VOTES => 3;
+
+Readonly our $ACCESS_SCOPE_PROFILE        => 1;
+Readonly our $ACCESS_SCOPE_EMAIL          => 2;
+Readonly our $ACCESS_SCOPE_TAG            => 4;
+Readonly our $ACCESS_SCOPE_RATING         => 8;
+Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
+Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
+Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
+Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
 =head1 NAME
 

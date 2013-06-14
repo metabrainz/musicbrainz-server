@@ -7,6 +7,7 @@ use Sql;
 use Carp qw( carp croak );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
@@ -24,6 +25,7 @@ use Scalar::Util 'weaken';
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my @TYPES => qw(
+    area
     artist
     label
     recording
@@ -144,6 +146,12 @@ sub _load
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, url";
+        } elsif ($target eq 'area') {
+            $query = "
+            SELECT $select
+              JOIN $target ON $target_id = ${target}.id
+            WHERE " . join(" OR ", @cond) . "
+            ORDER BY $order, musicbrainz_collate(name)";
         } else {
             my $name_table =
                 $target eq 'recording'     ? 'track_name'   :
@@ -300,6 +308,42 @@ sub merge_entities
     foreach my $t (_generate_table_list($type)) {
         my ($table, $entity0, $entity1) = @$t;
 
+        # First, MBS-3669:
+        # Delete relationships where:
+        # a.) there is no date set (no begin or end date, and the ended flag is off), and
+        # b.) there is no relationship on the same pre-merge entity which
+        #     *does* have a date, since this indicates the quasi-duplication
+        #     may be intentional
+        $self->sql->do("
+        DELETE FROM $table WHERE id IN (
+            SELECT id
+            FROM (
+              SELECT
+                a.id, $entity0, rank()
+                  OVER (
+                    PARTITION BY $entity1, link_type, attributes
+                    ORDER BY (begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+                              end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND NOT ended) ASC
+                  ) > 1 AS redundant
+              FROM (
+                SELECT id, link, entity0, entity1, array_agg(attribute_type ORDER BY attribute_type) attributes
+                FROM $table
+                LEFT JOIN link_attribute USING (link)
+                WHERE $entity0 IN (" .placeholders($target_id, @source_ids) .")
+                GROUP BY id, link, entity0, entity1
+              ) a
+              JOIN link ON (link.id = a.link)
+            ) b
+            WHERE redundant
+              AND NOT EXISTS (SELECT TRUE FROM $table same_entity_dated JOIN link ON same_entity_dated.link = link.id
+                                         WHERE (begin_date_year IS NOT NULL OR begin_date_month IS NOT NULL OR begin_date_day IS NOT NULL OR
+                                                end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL OR
+                                                ended)
+                                           AND same_entity_dated.$entity0 = b.$entity0
+                                           AND same_entity_dated.id <> b.id)
+        )", $target_id, @source_ids);
+        # Having deleted those duplicates, continue with merging by link ID
+
         # We want to keep a single row for each link type, and foreign entity.
         $self->sql->do(
             "DELETE FROM $table
@@ -423,6 +467,21 @@ sub lock_and_do {
     Sql::run_in_transaction(sub {
         $code->();
     }, $self->c->sql);
+}
+
+=method editor_can_edit
+
+Returns true if the editor is allowed to edit a $type0-$type1 rel
+
+=cut
+
+sub editor_can_edit
+{
+    my ($self, $editor, $type0, $type1) = @_;
+    my @types = sort ($type0, $type1);
+    my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
+    my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
+    return (!$is_area_url && !$is_area_area) || $editor->is_location_editor;
 }
 
 __PACKAGE__->meta->make_immutable;

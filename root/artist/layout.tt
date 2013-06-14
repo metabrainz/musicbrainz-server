@@ -13,7 +13,7 @@
                property='foaf:gender' class="gender"
                content=html_escape(artist.l_gender_name)
                    IF artist.gender -%]
-            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended -%]
+            [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended AND !artist.begin_area AND !artist.end_area -%]
                     [%- IF artist.begin_date.format %]
                         [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
@@ -22,6 +22,12 @@
                                 (<span style="display:none">[% rdfa_artist_age(display_age (artist.age)) %]</span>[% display_age_ago(artist.age) %])
                             [% END %]
                         [% END %]
+                    [%- END -%]
+                    [%- IF artist.begin_area %]
+                        [% INCLUDE 'layout/sidebar/property.tt' label= artist_begin_area_label_from_type(artist.type_id)
+                            content=link_area(artist.begin_area)
+                            class="begin_area"
+                        %]
                     [%- END -%]
                     [% date_period_label = artist_end_label_from_type(artist.type_id) %]
                     [% IF artist.end_date.format %]
@@ -36,15 +42,24 @@
                             [% l('[unknown]') %]
                         [% END %]
                     [% END %]
+                    [%- IF artist.end_area %]
+                        [% INCLUDE 'layout/sidebar/property.tt' label= artist_end_area_label_from_type(artist.type_id)
+                            content=link_area(artist.end_area)
+                            class="end_area"
+                        %]
+                    [%- END -%]
             [%- END -%]
-            [%# TODO model country %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Country:')
-               content=link_searchable_property('country', artist.country.iso_code, 'artist', artist.country.l_name)
-               class="country"
-                   IF artist.country -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+               content=link_area(artist.area)
+               class="area"
+                   IF artist.area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
                  content=rdfa_artist_ipi(ipi_code) class="ipi-code" %]
+            [%- END -%]
+            [%- FOR isni_code IN artist.isni_codes -%]
+              [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
+                 content=rdfa_artist_isni(isni_code) class="isni-code" %]
             [%- END -%]
         [% END %]
 

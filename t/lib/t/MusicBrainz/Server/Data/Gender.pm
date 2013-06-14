@@ -36,7 +36,7 @@ is ( $genders->{2}->name, "Female" );
 
 does_ok($gender_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @gs = $gender_data->get_all;
-is(@gs, 2);
+is(@gs, 3);
 is($gs[0]->id, 1);
 is($gs[1]->id, 2);
 

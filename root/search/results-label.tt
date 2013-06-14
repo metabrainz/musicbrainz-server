@@ -9,6 +9,7 @@
                             <th>[% l('Sort Name') %]</th>
                             <th>[% l('Type') %]</th>
                             <th>[% l('Code') %]</th>
+                            <th>[% l('Area') %]</th>
                             <th>[% l('Begin') %]</th>
                             <th>[% l('End') %]</th>
                         </tr>
@@ -23,6 +24,7 @@
                             <td>[% result.entity.sort_name %]</td>
                             <td>[% result.entity.l_type_name  %]</td>
                             <td>[% result.entity.format_label_code %]</td>
+                            <td>[% link_entity(result.entity.area) IF result.entity.area %]</td>
                             <td>[% result.entity.begin_date.format %]</td>
                             <td>
                               [% IF !result.entity.end_date.is_empty;

@@ -1,4 +1,8 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
+[%- history_message = l('We are unable to display history for this cover art.
+                         For a current listing of cover art, please see the
+                         {coverart|release\'s cover art page}.',
+                        coverart => c.uri_for_action('/release/cover_art', [ edit.display_data.release.gid ])) -%]
 
 <table class="details reorder-cover-art">
   <tr>
@@ -11,7 +15,7 @@
     <td>
       [%- FOR art=edit.display_data.old -%]
         <div class="thumb-position">
-          [%- display_artwork (art) -%]
+          [%- display_artwork(art, undef, history_message) -%]
         </div>
       [%- END -%]
     </td>
@@ -25,7 +29,7 @@
       [%- FOR art=edit.display_data.new -%]
         <div class="thumb-position
         [%- IF art.id != edit.display_data.old.$count.id %] moved[% END -%]">
-          [%- display_artwork (art) -%]
+          [%- display_artwork(art, undef, history_message) -%]
         </div>
         [%- SET count = count + 1 -%]
       [%- END -%]

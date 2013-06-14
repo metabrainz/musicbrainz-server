@@ -30,7 +30,7 @@ around BUILDARGS => sub {
     return $class->$orig( @_ ) unless @_ == 1;
 
     my $info = shift;
-    if (!ref($info) && $info && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
+    if (!ref($info) && defined($info) && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
     {
         $info = {};
         $info->{year} = $1 if ($1 && $1 > 0);
@@ -101,7 +101,7 @@ sub _cmp
 
     # We have years for both dates, we can now assume real sorting
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
-    my @end =   ($b->year, $b->month || 1, $b->day || 1);
+    my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
 
     my ($days) = Date::Calc::Delta_Days(@begin, @end);
 

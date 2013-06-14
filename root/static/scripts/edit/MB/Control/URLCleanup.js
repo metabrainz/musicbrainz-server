@@ -21,21 +21,27 @@
 
 MB.constants.LINK_TYPES = {
     wikipedia: {
+        area: 355,
         artist: 179,
         label: 216,
         release_group: 89,
-        work: 279
+        work: 279,
+        area: 355
     },
     discogs: {
-        release: 76,
-        release_group: 90,
         artist: 180,
-        label: 217
+        label: 217,
+        release: 76,
+        release_group: 90
     },
     imdb: {
-        release_group: 97,
         artist: 178,
-        label: 313
+        label: 313,
+        release_group: 97
+    },
+    imdbsamples: {
+        release: 83,
+        recording: 258
     },
     myspace: {
         artist: 189,
@@ -46,9 +52,9 @@ MB.constants.LINK_TYPES = {
     },
     allmusic: {
         artist: 283,
+        recording: 285,
         release_group: 284,
-        work: 286,
-        recording: 285
+        work: 286
     },
     amazon: {
         release: 77
@@ -71,19 +77,22 @@ MB.constants.LINK_TYPES = {
     discography: {
         artist: 184
     },
+    discographyentry: {
+        release: 288
+    },
     mailorder: {
         artist: 175,
         release: 79
     },
     downloadpurchase: {
         artist: 176,
-        release: 74,
-        recording: 254
+        recording: 254,
+        release: 74
     },
     downloadfree: {
         artist: 177,
-        release: 75,
-        recording: 255
+        recording: 255,
+        release: 75
     },
     microblog: {
         artist: 198,
@@ -97,9 +106,9 @@ MB.constants.LINK_TYPES = {
         work: 274
     },
     secondhandsongs: {
-        work: 280,
         artist: 307,
-        release: 308
+        release: 308,
+        work: 280
     },
     songfacts: {
         work: 289
@@ -109,16 +118,22 @@ MB.constants.LINK_TYPES = {
         label: 218
     },
     soundcloud: {
-        artist:291,
+        artist: 291,
         label: 290
     },
+    blog: {
+        artist: 199,
+        label: 224
+    },
     streamingmusic: {
-        recording: 268
+	artist: 194,
+        recording: 268,
+	release: 85
     },
     vgmdb: {
         artist: 191,
-        release: 86,
-        label: 210
+        label: 210,
+        release: 86
     },
     youtube: {
         artist: 193,
@@ -128,15 +143,22 @@ MB.constants.LINK_TYPES = {
     otherdatabases: {
         artist: 188,
         label: 222,
-        release_group: 96,
+        recording: 306,
         release: 82,
-        work: 273,
-        recording: 306
+        release_group: 96,
+        work: 273
     },
     viaf: {
         artist: 310,
         label: 311,
-        work: 312 
+        work: 312
+    },
+    wikidata: {
+        area: 358,
+        artist: 352,
+        label: 354,
+        release_group: 353,
+        work: 351
     }
 };
 
@@ -168,6 +190,13 @@ MB.constants.CLEANUPS = {
     imdb: {
         match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
         type: MB.constants.LINK_TYPES.imdb,
+        clean: function(url) {
+            return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
+        }
+    },
+    imdbsamples: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i"),
+        type: MB.constants.LINK_TYPES.imdbsamples,
         clean: function(url) {
             return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
         }
@@ -223,7 +252,7 @@ MB.constants.CLEANUPS = {
     archive: {
         match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/.*\\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
         type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) { 
+        clean: function(url) {
             url = url.replace(/\?cnt=\d+$/, "");
             return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
         }
@@ -237,10 +266,11 @@ MB.constants.CLEANUPS = {
             return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
         }
     },
-    itunes: {
-        match: new RegExp("^https?://itunes.apple.com/", "i"),
+    downloadpurchase: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(beatport\\.com|junodownload\\.com|audiojelly\\.com|itunes\\.apple\\.com/)", "i"),
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
+            // iTunes cleanup
             return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
         }
     },
@@ -294,6 +324,10 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
         type: MB.constants.LINK_TYPES.discography
     },
+    discographyentry: {
+        match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
+        type: MB.constants.LINK_TYPES.discographyentry
+    },
     microblog: {
         match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
         type: MB.constants.LINK_TYPES.microblog,
@@ -329,7 +363,7 @@ MB.constants.CLEANUPS = {
             if (url.match (/^https:\/\/www\.facebook\.com.*$/))
             {
                   // Remove ref (where the user came from) and sk (subpages in a page, since we want the main link)
-                  url = url.replace(/([&?])(sk|ref)=([^?&]*)/, "$1");
+                  url = url.replace(/([&?])(sk|ref|fref)=([^?&]*)/, "$1");
                   // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
@@ -345,6 +379,14 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function(url) {
             return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
+        }
+    },
+    blog: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?(ameblo\\.jp|blog\\.livedoor\\.jp|([^./]+)\\.jugem\\.jp|([^./]+)\\.exblog\\.jp)", "i"),
+        type: MB.constants.LINK_TYPES.blog,
+        clean: function(url) {
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
+            return url;
         }
     },
     spotify: {
@@ -371,7 +413,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
             // Remove query string, just the video id should be enough.
             url = url.replace(/\?.*/, "");
-	    return url;
+            return url;
         }
     },
     youtube: {
@@ -386,15 +428,22 @@ MB.constants.CLEANUPS = {
             // YouTube embeds
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             url = url.replace(/\/user\/([^\/\?#]+).*$/, "/user/$1");
-	    return url;
+            return url;
         }
     },
     vgmdb: {
         match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
         type: MB.constants.LINK_TYPES.vgmdb
     },
+    wikidata: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
+        type: MB.constants.LINK_TYPES.wikidata,
+        clean: function(url) {
+            return url.replace(/^https:\/\//, "http://");
+        }
+    },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
@@ -413,6 +462,10 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(www\.)?thesession\.org\/([^\/]+)(\/.*)?\/([0-9]+)+(#.*)*$/, "http://thesession.org/$2/$4");
             //Standardising Open Library
             url = url.replace(/^(?:https?:\/\/)?(www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]\/)(.*)*$/, "http://openlibrary.org/$2/$3");
+            //Standardising Anime News Network
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
+            //Standardising Generasia
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
             return url;
         }
     }
@@ -442,35 +495,199 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     };
     // allow Discogs page only for the correct entities
     validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/\/(artist|user)\//) != null;
+        return $('#id-ar\\.url').val().match(/discogs\.com\/(artist|user)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function() {
-        return $('#id-ar\\.url').val().match(/\/label\//) != null;
+        return $('#id-ar\\.url').val().match(/discogs\.com\/label\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/\/master\//) != null;
+        return $('#id-ar\\.url').val().match(/discogs\.com\/master\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
-        return $('#id-ar\\.url').val().match(/\/(release|mp3)\//) != null;
+        return $('#id-ar\\.url').val().match(/discogs\.com\/(release|mp3)\//) != null;
     }
     // allow Allmusic page only for the correct entities
     validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/\/artist\/mn/) != null;
+        return $('#id-ar\\.url').val().match(/allmusic\.com\/artist\/mn/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/\/album\/mw/) != null;
+        return $('#id-ar\\.url').val().match(/allmusic\.com\/album\/mw/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
-        return $('#id-ar\\.url').val().match(/\/composition\/mc|song\/mt/) != null;
+        return $('#id-ar\\.url').val().match(/allmusic\.com\/composition\/mc|song\/mt/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
-        return $('#id-ar\\.url').val().match(/\/performance\/mq/) != null;
+        return $('#id-ar\\.url').val().match(/allmusic\.com\/performance\/mq/) != null;
     }
+
+    // allow only artist pages in BBC Music links
+    validationRules[ MB.constants.LINK_TYPES.bbcmusic.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/bbc\.co\.uk\/music\/artists\//) != null;
+    }
+
+    // allow only Wikipedia pages with the Wikipedia rel
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.work ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.label ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.area ] = function() {
+        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    }
+
+    // allow only Myspace pages with the Myspace rel
+    validationRules[ MB.constants.LINK_TYPES.myspace.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.myspace.label ] = function() {
+        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    }
+
+    // allow only PureVolume pages with the PureVolume rel
+    validationRules[ MB.constants.LINK_TYPES.purevolume.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/purevolume\.com\//) != null;
+    }
+
+    // allow only SecondHandSongs pages with the SecondHandSongs rel
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    }
+
+    // allow only Songfacts pages with the Songfacts rel
+    validationRules[ MB.constants.LINK_TYPES.songfacts.work ] = function() {
+        return $('#id-ar\\.url').val().match(/songfacts\.com\//) != null;
+    }
+
+    // allow only Soundcloud pages with the Soundcloud rel
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.label ] = function() {
+        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    }
+
+    // allow only VIAF pages with the VIAF rel
+    validationRules[ MB.constants.LINK_TYPES.viaf.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.viaf.work ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.viaf.label ] = function() {
+        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    }
+
+    // allow only VGMdb pages with the VGMdb rel
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function() {
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+    }
+
+    // allow only YouTube pages with the YouTube rel
+    validationRules[ MB.constants.LINK_TYPES.youtube.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.youtube.label ] = function() {
+        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    }
+
+    // allow only Amazon pages with the Amazon rel
+    validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function() {
+        return $('#id-ar\\.url').val().match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
+    }
+
+    // allow only IMDb pages with the IMDb rels
+    validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function() {
+        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    }
+
+    // allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/artist\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/release\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
+        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/work\//) != null;
+    }
+
+    // allow only Wikidata pages with the Wikidata rel
+    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function() {
+        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+
     // only allow domains on the cover art whitelist
     validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
         var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
         return sites.test($('#id-ar\\.url').val())
     };
+
+    // avoid wikipedia being added as release-level discography entry
+    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
+        var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/');
+        return !is_wikipedia.test($('#id-ar\\.url').val())
+    };
+
+    // only allow domains on the score whitelist
+    var validateScore = function() {
+        return MB.constants.CLEANUPS.score.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
+    validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
+
+    // only allow domains on the other databases whitelist
+    var validateOtherDatabases = function() {
+        return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
+    };
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 
     var validateFacebook = function() {
         var url = $('#id-ar\\.url').val();
@@ -513,14 +730,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         var checker = validationRules[$('#id-ar\\.link_type_id').val()];
         if (!checker || checker()) {
             self.errorList.hide();
-            $('button[type="submit"]').attr('disabled', false);
+            $('button[type="submit"]').prop('disabled', false);
         }
         else {
             self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
             if (event.type === 'submit') {
                 event.preventDefault();
             }
-            $('button[type="submit"]').attr('disabled', 'disabled');
+            $('button[type="submit"]').prop('disabled', true);
         }
     };
 
@@ -539,7 +756,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
         if (self.typeControl.length) {
             var type = self.guessType(self.sourceType, clean);
             self.typeControl.children('option[value="' + type +'"]')
-                .attr('selected', 'selected').trigger('change');
+                .prop('selected', true).trigger('change');
             typeChanged(event);
         }
     };

@@ -4,6 +4,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
@@ -116,6 +117,14 @@ sub success : Private
     $c->res->body($c->stash->{serializer}->output_success);
 }
 
+sub forbidden : Private
+{
+    my ($self, $c) = @_;
+    $c->res->status(401);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->output_error("You are not authorized to access this resource."));
+}
+
 sub unauthorized : Private
 {
     my ($self, $c) = @_;
@@ -161,7 +170,16 @@ sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
     };
 
     $self->apply_rate_limit($c);
-    $c->authenticate({}, 'musicbrainz.org') if ($c->stash->{authorization_required});
+    $self->authenticate($c, $c->stash->{authorization_scope})
+        if ($c->stash->{authorization_required});
+}
+
+sub authenticate
+{
+    my ($self, $c, $scope) = @_;
+
+    $c->authenticate({}, 'musicbrainz.org');
+    $self->forbidden($c) unless $c->user->is_authorized($scope);
 }
 
 sub _error
@@ -312,6 +330,29 @@ sub linked_artists
     }
 }
 
+sub linked_areas
+{
+    my ($self, $c, $stash, $areas) = @_;
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Area')->alias->find_by_entity_id(map { $_->id } @$areas) };
+        $c->model('Area')->alias_type->load(@aliases);
+
+        my %alias_per_area;
+        foreach (@aliases)
+        {
+            $alias_per_area{$_->area_id} = [] unless $alias_per_area{$_->area_id};
+            push @{ $alias_per_area{$_->area_id} }, $_;
+        }
+
+        foreach (@$areas)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_area{$_->id};
+        }
+    }
+}
+
 sub linked_lists
 {
     my ($self, $c, $stash, $lists) = @_;
@@ -394,10 +435,11 @@ sub linked_releases
 
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('ReleasePackaging')->load(@$releases);
+    load_release_events($c, @$releases);
 
     $c->model('Language')->load(@$releases);
     $c->model('Script')->load(@$releases);
-    $c->model('Country')->load(@$releases);
+    load_release_events($c, @$releases);
 
     my @mediums;
     if ($c->stash->{inc}->media)
@@ -545,6 +587,10 @@ sub load_relationships {
             map { $collect_works->($_) } (@rels, map { $_->all_relationships } @works)
         );
         $c->model('Language')->load(@load_language_for);
+
+        my @releases = map { $_->target } grep { $_->target_type eq 'release' }
+            map { $_->all_relationships } @for;
+        $c->model('Release')->load_release_events(@releases);
     }
 }
 

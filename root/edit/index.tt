@@ -75,9 +75,9 @@
             <h2>[% l('Edit notes') %]</h2>
             [% INCLUDE 'edit/notes.tt' %]
             [%- IF edit.editor_may_vote(c.user) -%]
-                    [%- form_submit(l('Add note and vote')) -%]
+                    [%- form_submit(l('Submit vote and note')) -%]
             [%- ELSIF edit.editor_may_add_note(c.user) -%]
-                    [%- form_submit(l('Add note')) -%]
+                    [%- form_submit(l('Submit note')) -%]
             [%- END -%]
         </form>
     </div>

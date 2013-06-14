@@ -53,8 +53,8 @@
 [% IF entity.looks_like_va %]
 <h2>[% l('Import as Multiple Artist Release') %]</h2>
 <p>[% l('The tracklist found looks like it may have different artists on some tracks. If
-  the below display looks correct, you should import this releases as a multiple
-  release') %]</p>
+  the below display looks correct, you should import this release as a release
+  with multiple artists.') %]</p>
 
 <table class="tbl">
   <thead>

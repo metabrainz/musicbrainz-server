@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::Tag;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $ACCESS_SCOPE_TAG );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 use Readonly;
@@ -27,7 +28,8 @@ use MusicBrainz::Server::Validation qw( is_guid );
 sub tag : Path('/ws/1/tag')
 {
     my ($self, $c) = @_;
-    $c->authenticate({}, 'musicbrainz.org');
+
+    $self->authenticate($c, $ACCESS_SCOPE_TAG);
 
     if ($c->req->method eq 'POST') {
         $self->deny_readonly($c);

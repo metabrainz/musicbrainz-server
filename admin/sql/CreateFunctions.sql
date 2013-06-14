@@ -229,7 +229,6 @@ BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     -- increment release_count of the parent release group
     UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
-    PERFORM set_release_group_first_release_date(NEW.release_group);
     -- add new release_meta
     INSERT INTO release_meta (id) VALUES (NEW.id);
     INSERT INTO release_coverart (id) VALUES (NEW.id);
@@ -248,8 +247,8 @@ BEGIN
         UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
         UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
         PERFORM set_release_group_first_release_date(OLD.release_group);
+        PERFORM set_release_group_first_release_date(NEW.release_group);
     END IF;
-    PERFORM set_release_group_first_release_date(NEW.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -260,7 +259,6 @@ BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     -- decrement release_count of the parent release group
     UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
-    PERFORM set_release_group_first_release_date(OLD.release_group);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -301,8 +299,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_ins_track() RETURNS trigger AS $$
 BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
-    -- increment track_count in the parent tracklist
-    UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
+    -- increment track_count in the parent medium
+    UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -313,10 +311,10 @@ BEGIN
         PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
         PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     END IF;
-    IF NEW.tracklist != OLD.tracklist THEN
-        -- tracklist is changed, decrement track_count in the original tracklist, increment in the new one
-        UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
-        UPDATE tracklist SET track_count = track_count + 1 WHERE id = NEW.tracklist;
+    IF NEW.medium != OLD.medium THEN
+        -- medium is changed, decrement track_count in the original medium, increment in the new one
+        UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
+        UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     END IF;
     RETURN NULL;
 END;
@@ -325,8 +323,8 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION a_del_track() RETURNS trigger AS $$
 BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
-    -- decrement track_count in the parent tracklist
-    UPDATE tracklist SET track_count = track_count - 1 WHERE id = OLD.tracklist;
+    -- decrement track_count in the parent medium
+    UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -340,6 +338,23 @@ BEGIN
     INSERT INTO work_meta (id) VALUES (NEW.id);
     RETURN NULL;
 END;
+$$ LANGUAGE 'plpgsql';
+
+-- Ensure attribute type allows free text if free text is added
+CREATE OR REPLACE FUNCTION ensure_work_attribute_type_allows_text()
+RETURNS trigger AS $$
+  BEGIN
+    IF NEW.work_attribute_text IS NOT NULL
+        AND NOT EXISTS (
+           SELECT TRUE FROM work_attribute_type
+		WHERE work_attribute_type.id = NEW.work_attribute_type
+		AND free_text
+	)
+    THEN
+        RAISE EXCEPTION 'This attribute type can not contain free text';
+    ELSE RETURN NEW;
+    END IF;
+  END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
@@ -526,11 +541,52 @@ BEGIN
                                   first_release_date_month = first.date_month,
                                   first_release_date_day = first.date_day
       FROM (
-        SELECT date_year, date_month, date_day FROM release
-         WHERE release_group = release_group_id
-      ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
-         LIMIT 1
-           ) AS first WHERE id = release_group_id;
+        SELECT date_year, date_month, date_day
+        FROM (
+          SELECT date_year, date_month, date_day
+          FROM release
+          JOIN release_country ON (release_country.release = release.id)
+          WHERE release.release_group = release_group_id
+          UNION
+          SELECT date_year, date_month, date_day
+          FROM release
+          JOIN release_unknown_country ON (release_unknown_country.release = release.id)
+          WHERE release.release_group = release_group_id
+        ) b
+        ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
+        LIMIT 1
+      ) AS first
+    WHERE id = release_group_id;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_ins_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id = NEW.release;
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id IN (NEW.release, OLD.release);
+  RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_del_release_event()
+RETURNS TRIGGER AS $$
+BEGIN
+  PERFORM set_release_group_first_release_date(release_group)
+  FROM release
+  WHERE release.id = OLD.release;
+  RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -961,6 +1017,18 @@ BEGIN
     END IF;
 
     RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION unique_primary_area_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE area_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND area = NEW.area;
+    END IF;
+    RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
 

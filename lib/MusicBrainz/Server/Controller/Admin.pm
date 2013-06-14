@@ -3,6 +3,8 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use MusicBrainz::Server::Translation qw (l ln );
+
 sub index : Path Args(0) RequireAuth
 {
     my ($self, $c) = @_;
@@ -16,7 +18,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
     my ($self, $c, $user_name) = @_;
     
     $c->detach('/error_403')
-        unless $c->user->is_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
+        unless $c->user->is_account_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
 
     my $user = $c->model('Editor')->get_by_name($user_name);
     my $form = $c->form(
@@ -26,6 +28,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
             bot             => $user->is_bot,
             untrusted       => $user->is_untrusted,
             link_editor     => $user->is_relationship_editor,
+            location_editor => $user->is_location_editor,
             no_nag          => $user->is_nag_free,
             wiki_transcluder=> $user->is_wiki_transcluder,
             mbid_submitter  => $user->is_mbid_submitter,
@@ -70,7 +73,8 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 			}
 		}
 
-        $c->response->redirect($c->uri_for_action('/admin/edit_user', $user->name));
+        $c->flash->{message} = l('User successfully edited.');
+        $c->response->redirect($c->uri_for_action('/user/profile', [$user->name]));
         $c->detach;
     }
 

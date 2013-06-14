@@ -80,20 +80,19 @@ SELECT lives_ok(
    VALUES (1, ''1fb3106e-00de-44fe-8511-aa949eb6fe0c'', 1, 1, 1, ''A comment'')');
 
 --------------------------------------------------------------------------------
-INSERT INTO tracklist (id, track_count) VALUES (1, 0);
 
 SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, tracklist, position)
-   VALUES (1, ''Disc  1'', 1, 1, 1)');
+  'INSERT INTO medium (id, name, release, track_count, position)
+   VALUES (1, ''Disc  1'', 1, 0, 1)');
 SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, tracklist, position)
-   VALUES (1, ''Disc 1 '', 1, 1, 1)');
+  'INSERT INTO medium (id, name, release, track_count, position)
+   VALUES (1, ''Disc 1 '', 1, 0, 1)');
 SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, tracklist, position)
-   VALUES (1, '' Disc 1'', 1, 1, 1)');
+  'INSERT INTO medium (id, name, release, track_count, position)
+   VALUES (1, '' Disc 1'', 1, 0, 1)');
 SELECT lives_ok(
-  'INSERT INTO medium (id, name, release, tracklist, position)
-   VALUES (1, ''Disc 1'', 1, 1, 1)');
+  'INSERT INTO medium (id, name, release, track_count, position)
+   VALUES (1, ''Disc 1'', 1, 0, 1)');
 
 --------------------------------------------------------------------------------
 SELECT lives_ok(
@@ -131,14 +130,14 @@ SELECT lives_ok(
 
 --------------------------------------------------------------------------------
 SELECT throws_ok(
-  'INSERT INTO track (id, tracklist, name, position, number, artist_credit, recording)
-   VALUES (1, 1, 1, 1, ''1 '', 1, 1)');
+  'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
+   VALUES (1, ''82dd4327-03a2-4b91-aeac-cc2f5bb2ffb1'', 1, 1, 1, ''1 '', 1, 1)');
 SELECT throws_ok(
-  'INSERT INTO track (id, tracklist, name, position, number, artist_credit, recording)
-   VALUES (1, 1, 1, 1, '' 1'', 1, 1)');
+  'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
+   VALUES (1, ''82dd4327-03a2-4b91-aeac-cc2f5bb2ffb1'', 1, 1, 1, '' 1'', 1, 1)');
 SELECT lives_ok(
-  'INSERT INTO track (id, tracklist, name, position, number, artist_credit, recording)
-   VALUES (1, 1, 1, 1, ''1'', 1, 1)');
+  'INSERT INTO track (id, gid, medium, name, position, number, artist_credit, recording)
+   VALUES (1, ''82dd4327-03a2-4b91-aeac-cc2f5bb2ffb1'', 1, 1, 1, ''1'', 1, 1)');
 
 --------------------------------------------------------------------------------
 SELECT lives_ok(

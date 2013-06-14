@@ -2,7 +2,8 @@ package MusicBrainz::Server::Controller::Statistics;
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
-use MusicBrainz::Server::Data::Country;
+use MusicBrainz::Server::Data::CountryArea;
+use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by sort_by );
@@ -27,6 +28,7 @@ sub statistics : Path('')
     my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
+    my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
@@ -35,6 +37,7 @@ sub statistics : Path('')
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
         work_types => \@work_types,
+        area_types => \@area_types,
         stats => $latest_stats
     );
 }
@@ -43,7 +46,7 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
+    my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats
@@ -90,7 +93,9 @@ sub countries : Local
     my $artist_country_prefix = 'count.artist.country';
     my $release_country_prefix = 'count.release.country';
     my $label_country_prefix = 'count.label.country';
-    my %countries = map { $_->iso_code => $_ } $c->model('Country')->get_all();
+    my @countries = $c->model('CountryArea')->get_all();
+    $c->model('Area')->load_codes(@countries);
+    my %countries = map { $_->country_code => $_ } grep { defined $_->country_code } @countries;
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) { 

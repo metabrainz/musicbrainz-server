@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::Admin::WikiDoc::Edit;
+use Digest::MD5 qw( md5_hex );
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( capture_edits html_ok );
@@ -10,8 +11,8 @@ test 'Edit an already transcluded page' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do('INSERT INTO editor (id, name, password, privs) VALUES (?, ?, ?, ?)',
-                1, 'new_editor', 'password', 255);
+    $c->sql->do('INSERT INTO editor (id, name, password, privs, ha1) VALUES (?, ?, ?, ?, ?)',
+                1, 'new_editor', '{CLEARTEXT}password', 255, md5_hex('new_editor:musicbrainz.org:password'));
 
     $c->model('WikiDocIndex')->set_page_version('Transclusion_Testing', 1);
 

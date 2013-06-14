@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Label;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
@@ -25,7 +25,8 @@ sub serialize
     if ($toplevel)
     {
         $body{type} = $entity->type_name;
-        $body{country} = $entity->country ? $entity->country->iso_code : JSON::null;
+        $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
+        $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 
         $body{releases} = list_of ($entity, $inc, $stash, "releases")
             if ($inc && $inc->releases);

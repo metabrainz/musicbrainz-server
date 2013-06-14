@@ -1,0 +1,16 @@
+[%- WRAPPER 'components/with-pager.tt' -%]
+<table class="tbl">
+    <thead>
+        <tr>
+            <th>[% l('Work') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+        [%- FOR item IN items -%]
+        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            <td>[% link_entity(item.work) %]</td>
+        </tr>
+        [%- END -%]
+    </tbody>
+</table>
+[%- END -%]

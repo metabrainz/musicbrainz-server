@@ -96,21 +96,22 @@ sub approve : Chained('load') RequireAuth(auto_editor)
             $c->stash( template => 'edit/cannot_approve.tt' );
             return;
         }
-        elsif($edit->approval_requires_comment($c->user)) {
-            $c->model('EditNote')->load_for_edits($edit);
-            my $left_note;
-            for my $note (@{ $edit->edit_notes }) {
-                next if $note->editor_id != $c->user->id;
-                $left_note = 1;
-                last;
+        else {
+            if($edit->approval_requires_comment($c->user)) {
+                $c->model('EditNote')->load_for_edits($edit);
+                my $left_note;
+                for my $note (@{ $edit->edit_notes }) {
+                    next if $note->editor_id != $c->user->id;
+                    $left_note = 1;
+                    last;
+                }
+
+                unless($left_note) {
+                    $c->stash( template => 'edit/require_note.tt' );
+                    return;
+                };
             }
 
-            unless($left_note) {
-                $c->stash( template => 'edit/require_note.tt' );
-                return;
-            };
-        }
-        else {
             $c->model('Edit')->approve($edit, $c->user->id);
             $c->response->redirect(
                 $c->req->query_params->{url} || $c->uri_for_action('/edit/show', [ $edit->id ]));
@@ -186,7 +187,7 @@ sub search : Path('/search/edits') RequireAuth
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],
         languages => [ grep { $_->frequency > 0 } $c->model('Language')->get_all ],
-        countries => [ $c->model('Country')->get_all ],
+        countries => [ $c->model('CountryArea')->get_all ],
         relationship_type => [ $c->model('LinkType')->get_full_tree ]
     );
     return unless %{ $c->req->query_params };

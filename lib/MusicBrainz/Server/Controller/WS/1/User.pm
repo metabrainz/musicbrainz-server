@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::User;
 BEGIN { use Moose; extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use HTTP::Status qw( :constants );
+use MusicBrainz::Server::Constants qw/ $ACCESS_SCOPE_PROFILE /;
 use MusicBrainz::Server::WebService::Serializer::XML::1::Utils qw( list_of );
 
 __PACKAGE__->config(
@@ -25,7 +26,7 @@ sub user_repository : Path('/ws/1/user') {
     return $self->bad_req($c, 'Only GET is acceptable')
         unless $c->req->method eq 'GET';
 
-    $c->authenticate({}, 'musicbrainz.org');
+    $self->authenticate($c, $ACCESS_SCOPE_PROFILE);
 
     if ($c->req->query_params->{name} ne $c->user->name) {
         $c->res->status(HTTP_FORBIDDEN);

@@ -2,6 +2,8 @@ package MusicBrainz::Server::Controller::WS::1::Release;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
+
 __PACKAGE__->config(
     model => 'Release',
 );
@@ -30,6 +32,10 @@ with 'MusicBrainz::Server::Controller::WS::1::Role::Serializer';
 use aliased 'MusicBrainz::Server::Entity::CDTOC';
 
 use MusicBrainz::Server::Exceptions;
+use MusicBrainz::Server::Constants qw(
+    $ACCESS_SCOPE_RATING
+    $ACCESS_SCOPE_TAG
+);
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use Try::Tiny;
 
@@ -83,18 +89,18 @@ around 'search' => sub
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Language')->load(@releases);
             $c->model('Script')->load(@releases);
-            $c->model('Country')->load(@releases);
             $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
-            my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-            $c->model('Track')->load_for_tracklists(@tracklists);
-            $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+            load_release_events($c, @releases);
 
-            my @need_artists = (@releases, map { $_->all_tracks } @tracklists);
+            $c->model('Track')->load_for_mediums(@mediums);
+            $c->model('Recording')->load(map { $_->all_tracks } @mediums);
+
+            my @need_artists = (@releases, map { $_->all_tracks } @mediums);
             $c->model('ArtistCredit')->load(@need_artists);
             $c->model('Artist')->load(map { $_->artist_credit->all_names } @need_artists);
 
-            my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+            my @recordings = map { $_->recording } map { $_->all_tracks } @mediums;
         }
         elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
             my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($disc_id);
@@ -111,7 +117,7 @@ around 'search' => sub
   	}
     else {
         $self->$orig($c);
-    } 
+    }
 };
 
 sub lookup : Chained('load') PathPart('')
@@ -120,8 +126,10 @@ sub lookup : Chained('load') PathPart('')
 
     my $release = $c->stash->{entity};
 
-    $c->authenticate({}, 'musicbrainz.org')
-        if $c->stash->{inc}->user_ratings || $c->stash->{inc}->user_tags;
+    my $scope = 0;
+    $scope |= $ACCESS_SCOPE_RATING if $c->stash->{inc}->user_ratings;
+    $scope |= $ACCESS_SCOPE_TAG if $c->stash->{inc}->user_tags;
+    $self->authenticate($c, $scope) if $scope;
 
     # This is always displayed, regardless of inc parameters
     $c->model('ReleaseGroup')->load($release);
@@ -150,13 +158,12 @@ sub lookup : Chained('load') PathPart('')
         $c->model('Medium')->load_for_releases($release);
 
         my @mediums = $release->all_mediums;
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+        $c->model('Track')->load_for_mediums(@mediums);
+        $c->model('Recording')->load(map { $_->all_tracks } @mediums);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if $c->stash->{inc}->artist;
 
-        my @recordings = map { $_->recording } map { $_->all_tracks } @tracklists;
+        my @recordings = map { $_->recording } map { $_->all_tracks } @mediums;
 
         $c->model('ISRC')->load_for_recordings(@recordings)
             if $c->stash->{inc}->isrcs;
@@ -178,7 +185,8 @@ sub lookup : Chained('load') PathPart('')
         my @mediums = $release->all_mediums;
         $c->model('MediumFormat')->load(@mediums);
         $c->model('ReleaseLabel')->load($release);
-        $c->model('Country')->load($release);
+
+        load_release_events($c, $release);
 
         $c->model('Label')->load($release->all_labels)
             if $c->stash->{inc}->labels;
@@ -234,7 +242,7 @@ sub submit_cdstub : Private
         my $data = { title => $track_title };
 
         if ($track_artist) {
-            $data->{artist} = $track_artist;    
+            $data->{artist} = $track_artist;
         }
 
         push @tracks, $data;

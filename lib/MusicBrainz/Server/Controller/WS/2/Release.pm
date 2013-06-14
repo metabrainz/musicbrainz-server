@@ -5,8 +5,10 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_EDIT_BARCODES
+    $ACCESS_SCOPE_SUBMIT_BARCODE
 );
 use List::UtilsBy qw( uniq_by );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
@@ -57,6 +59,7 @@ sub release_toplevel
     my ($self, $c, $stash, $release) = @_;
 
     $c->model('Release')->load_meta($release);
+    load_release_events($c, $release);
     $self->linked_releases ($c, $stash, [ $release ]);
 
     if ($release->cover_art_presence eq 'present') {
@@ -115,12 +118,11 @@ sub release_toplevel
             $c->model('CDTOC')->load (@medium_cdtocs);
         }
 
-        my @tracklists = grep { defined } map { $_->tracklist } @mediums;
-        $c->model('Track')->load_for_tracklists(@tracklists);
-        $c->model('ArtistCredit')->load(map { $_->all_tracks } @tracklists)
+        $c->model('Track')->load_for_mediums(@mediums);
+        $c->model('ArtistCredit')->load(map { $_->all_tracks } @mediums)
             if ($c->stash->{inc}->artist_credits);
 
-        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @tracklists);
+        my @recordings = $c->model('Recording')->load(map { $_->all_tracks } @mediums);
         $c->model('Recording')->load_meta(@recordings);
 
         if ($c->stash->{inc}->recording_level_rels)
@@ -287,6 +289,9 @@ sub release_submit : Private
     @submit = $c->model('Release')->filter_barcode_changes(@submit);
 
     if (@submit) {
+        $self->forbidden($c)
+            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_BARCODE);
+
         try {
             $c->model('MB')->with_transaction(sub {
                 $c->model('Edit')->create(

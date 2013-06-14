@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Encode qw( encode );
 use JSON qw( decode_json );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
+use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
 use MusicBrainz::Server::Validation qw( is_guid );
@@ -17,6 +18,8 @@ extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
     $EDIT_RELEASEGROUP_CREATE
+    $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_REORDER_MEDIUMS
 );
 
 around render => sub {
@@ -64,7 +67,7 @@ sub prepare_duplicates
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    $self->c->model('Country')->load(@releases);
+    load_release_events($self->c, @releases);
     $self->c->model('ReleaseLabel')->load(@releases);
     $self->c->model('Label')->load(map { $_->all_labels } @releases);
 
@@ -101,12 +104,12 @@ sub change_page_duplicates
     $self->c->model('Medium')->load_for_releases($release);
 
     my @media = map +{
-        tracklist_id => $_->tracklist_id,
+        medium_id_for_recordings => $_->id,
         position => $_->position,
         format_id => $_->format_id,
         name => $_->name,
         deleted => 0,
-        edits => '',
+        edits => $json->encode ([ $self->track_edits_from_medium ($_) ]),
     }, $release->all_mediums;
 
     # Any existing edits on the tracklist page were probably seeded,
@@ -125,10 +128,10 @@ sub change_page_duplicates
     # and only to the first disc.  So we can safely ignore subsequent discs.
     if (defined $seededmedia[0] && $seededmedia[0]->{toc})
     {
-        my $tracklist = $self->c->model('Tracklist')->get_by_id($media[0]->{tracklist_id});
-        $self->c->model('Track')->load_for_tracklists ($tracklist);
+        my $medium = $self->c->model('Medium')->get_by_id($media[0]->{medium_id_for_recordings});
+        $self->c->model('Track')->load_for_mediums ($medium);
 
-        my @tracks = $self->track_edits_from_tracklist ($tracklist);
+        my @tracks = $self->track_edits_from_medium ($medium);
         my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
 
         my @new_edits = map {
@@ -183,8 +186,8 @@ augment 'create_edits' => sub
     # add release (and release group if necessary)
     # ----------------------------------------
 
-    my @fields = qw( packaging_id status_id script_id language_id country_id 
-                     artist_credit date as_auto_editor );
+    my @fields = qw( packaging_id status_id script_id language_id
+                     artist_credit as_auto_editor events );
     my %add_release_args = map { $_ => $data->{$_} } grep { defined $data->{$_} } @fields;
 
     $add_release_args{name} = trim ($data->{name});
@@ -213,6 +216,11 @@ augment 'create_edits' => sub
     else
     {
         $add_release_args{barcode} = undef unless $data->{barcode};
+    }
+
+    if ($add_release_args{events}) {
+        $add_release_args{events} =
+            $self->_filter_release_events($add_release_args{events});
     }
 
     # Add the release edit
@@ -287,39 +295,41 @@ augment 'load' => sub
         ]
     );
 
-    if ($rg_gid)
+    if ($rg_gid && is_guid($rg_gid))
     {
-        $self->c->detach () unless is_guid($rg_gid);
         my $rg = $self->c->model('ReleaseGroup')->get_by_gid($rg_gid);
-        $self->c->detach () unless $rg;
 
-        $release->release_group_id ($rg->id);
-        $release->release_group ($rg);
-        $release->name ($rg->name);
+        if ($rg) {
+            $release->release_group_id ($rg->id);
+            $release->release_group ($rg);
+            $release->name ($rg->name);
 
-        $self->c->model('ArtistCredit')->load ($rg);
+            $self->c->model('ArtistCredit')->load ($rg);
 
-        $release->artist_credit ($rg->artist_credit);
+            $release->artist_credit ($rg->artist_credit);
+        }
     }
-    elsif ($label_gid)
+    elsif ($artist_gid && is_guid($artist_gid))
     {
-        $self->c->detach () unless is_guid($label_gid);
+        my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
+
+        if ($artist) {
+            $release->artist_credit (
+                MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        }
+    }
+
+    if ($label_gid && is_guid($label_gid))
+    {
         my $label = $self->c->model('Label')->get_by_gid($label_gid);
 
-        $release->add_label(
-            MusicBrainz::Server::Entity::ReleaseLabel->new(
-                label => $label,
-                label_id => $label->id
-           ));
-    }
-    elsif ($artist_gid)
-    {
-        $self->c->detach () unless is_guid($artist_gid);
-        my $artist = $self->c->model('Artist')->get_by_gid($artist_gid);
-        $self->c->detach () unless $artist;
-
-        $release->artist_credit (
-            MusicBrainz::Server::Entity::ArtistCredit->from_artist ($artist));
+        if ($label) {
+            $release->add_label(
+                MusicBrainz::Server::Entity::ReleaseLabel->new(
+                    label => $label,
+                    label_id => $label->id
+               ));
+        }
     }
 
     unless(defined $release->artist_credit) {
@@ -335,30 +345,9 @@ augment 'load' => sub
     return $release;
 };
 
-# Approve edits edits that should never fail
-after create_edits => sub {
-    my ($self, %args) = @_;
-    my ($data, $create_edit, $editnote, $release, $previewing)
-        = @args{qw( data create_edit edit_note release previewing )};
-    return if $previewing;
-
-    my $c = $self->c->model('MB')->context;
-
-    $c->sql->begin;
-    my @edits = @{ $self->c->stash->{edits} };
-    for my $edit (@edits) {
-        if (should_approve($edit)) {
-            $c->model('Edit')->accept($edit);
-        }
-    }
-    $c->sql->commit;
-};
-
 sub should_approve {
-    my $edit = shift;
-    return unless $edit->is_open;
-    return $edit->meta->name eq 'MusicBrainz::Server::Edit::Medium::Create' ||
-           $edit->meta->name eq 'MusicBrainz::Server::Edit::Release::ReorderMediums';
+    my ($self, $type) = @_;
+    return $type == $EDIT_MEDIUM_CREATE || $type == $EDIT_RELEASE_REORDER_MEDIUMS;
 }
 
 __PACKAGE__->meta->make_immutable;
