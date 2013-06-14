@@ -115,9 +115,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
         moderators => {
             use_session => 1,
             credential => {
-                class => 'Password',
-                password_field => 'password',
-                password_type => 'clear'
+                class => '+MusicBrainz::Server::Authentication::Credential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store'
@@ -128,8 +126,8 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             credential => {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
-                password_field => 'password_bytes',
-                password_type => 'clear',
+                password_field => 'ha1',
+                password_type => 'clear'
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::WS::Store'
@@ -326,7 +324,7 @@ around dispatch => sub {
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
             $beta_redirect && !$unset_beta &&
-            $c->req->method == 'GET') {
+            $c->req->method eq 'GET') {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;

@@ -352,7 +352,25 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://bis.se/index.php?op=album&aID=BIS-1961',
                     MB.constants.LINK_TYPES.discographyentry.release
+                ],
+                // Wikidata
+                [
+                    'artist', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.artist
+                ],
+                [
+                    'label', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.label
+                ],
+                [
+                    'release_group', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.release_group
+                ],
+                [
+                    'work', 'http://www.wikidata.org/wiki/Q42',
+                    MB.constants.LINK_TYPES.wikidata.work
                 ]
+
             ];
 
         $.each(tests, function(i, test) {

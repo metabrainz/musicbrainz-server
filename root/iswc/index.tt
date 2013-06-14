@@ -17,6 +17,7 @@
                 <th>[% l('Writers') %]</th>
                 <th>[% l('Artists') %]</th>
                 <th>[% l('Type') %]</th>
+    		<th>[% l('Language') %]</th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +50,9 @@
                 <td>
                   [% work.l_type_name %]
                 </td>
+		<td>
+		  <abbr title="[% work.language.l_name %]">[% work.language.iso_code_3 %]</abbr>
+    		</td>
             </tr>
             [%- END -%]
         </tbody>

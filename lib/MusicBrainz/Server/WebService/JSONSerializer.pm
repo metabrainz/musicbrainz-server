@@ -49,6 +49,7 @@ sub recording_list     { shift->entity_list (@_, "recording", "recordings") };
 sub release_list       { shift->entity_list (@_, "release", "releases") };
 sub release_group_list { shift->entity_list (@_, "release-group", "release-groups") };
 sub work_list          { shift->entity_list (@_, "work", "works") };
+sub area_list          { shift->entity_list (@_, "area", "areas") };
 
 sub serialize_data
 {
@@ -80,7 +81,7 @@ sub serialize_release
 
             my $tracks_data = $medium_data->{tracks};
 
-            for my $track ($medium->tracklist->all_tracks) {
+            for my $track ($medium->all_tracks) {
                 my $track_data = {
                     name     => $track->name,
                     position => $track->position,
@@ -134,6 +135,7 @@ sub serialize_relationships
             ended         => $_->link->ended ? 1 : 0,
             target        => $self->$entity( $_->target ),
             edits_pending => $_->edits_pending,
+            verbose_phrase => $_->verbose_phrase
         };
 
         $out->{direction} = 'backward'
@@ -170,7 +172,8 @@ sub _generic
         name    => $entity->name,
         id      => $entity->id,
         gid     => $entity->gid,
-        comment => $entity->comment,
+        $entity->meta->has_attribute('comment') 
+            ? (comment => $entity->comment) : (),
         $entity->meta->has_attribute('sort_name')
             ? (sortname => $entity->sort_name) : (),
         $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
@@ -183,6 +186,34 @@ sub _artist { goto &_generic }
 sub _label { goto &_generic }
 
 sub _release { goto &_generic }
+
+sub autocomplete_area
+{
+    my ($self, $results, $pager) = @_;
+
+    my @output;
+    push @output, $self->_area($_) for @$results;
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json (\@output);
+}
+
+sub _area
+{
+    my ($self, $area) = @_;
+
+    return {
+        name    => $area->name,
+        id      => $area->id,
+        gid     => $area->gid,
+        type    => $area->type_id,
+        $area->type ? (typeName => $area->type->name) : (),
+        $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
+}
 
 sub autocomplete_editor
 {

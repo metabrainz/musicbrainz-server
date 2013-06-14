@@ -1,0 +1,24 @@
+[%- info_links = [
+    ['index', link_area(area, 'show', l('Overview'))],
+    ['artists', rdfa_seeAlso_link_area(area, 'artists', l('Artists'))],
+    ['labels', rdfa_seeAlso_link_area(area, 'labels', l('Labels'))],
+    ['releases', rdfa_seeAlso_link_area(area, 'releases', l('Releases'))],
+    ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
+    ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
+] -%]
+
+[% IF c.user.is_location_editor %]
+    [%- info_links.push(
+        ['edit', link_area(area, 'edit', l('Edit'))],
+    ) -%]
+[% END %]
+
+<div class="areaheader">
+    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) -%]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span>
+             [% html_escape(area.l_type_name) or l('Area') %][%- IF area.parent_country %], [% l('in {country}', country => link_entity(area.parent_country)) -%][%- END -%]
+    </p>
+</div>
+
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]

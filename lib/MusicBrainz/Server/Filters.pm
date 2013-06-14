@@ -234,7 +234,7 @@ sub gravatar {
 
 sub _amazon_https {
     my $url = shift;
-    $url =~ s,http://ecx\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
+    $url =~ s,http://ec[x4]\.images-amazon\.com/,https://images-na.ssl-images-amazon.com/,;
     return $url;
 }
 

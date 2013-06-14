@@ -3,6 +3,10 @@ use Moose;
 use namespace::autoclean;
 
 extends 'MusicBrainz::Server::EditSearch::Predicate::Set';
-with 'MusicBrainz::Server::EditSearch::Role::CountrySearch' => { type => 'release' };
+with 'MusicBrainz::Server::EditSearch::Role::AreaSearch' => {
+    type => 'release',
+    column => 'country',
+    extra_join => { 'table' => 'release_country' }
+};
 
 1;

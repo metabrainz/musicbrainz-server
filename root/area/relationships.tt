@@ -1,0 +1,6 @@
+[%- WRAPPER 'area/layout.tt' title=l("Relationships") page='relationships' -%]
+    <div [% rdfa_about_attr(rdfa_area_curi(area)) %]>
+    <h2>[% l("Relationships") %]</h2>
+    [%- INCLUDE "components/relationships.tt" source=area -%]
+    </div>
+[%- END -%]
