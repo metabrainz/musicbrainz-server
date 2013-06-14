@@ -24,6 +24,8 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::WorkType';
 }
 
+sub sort_in_forms { 1 }
+
 sub load
 {
     my ($self, @objs) = @_;

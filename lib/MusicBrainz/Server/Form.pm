@@ -17,11 +17,12 @@ sub submitted_and_valid
 sub _select_all
 {
     my ($self, $model, %opts) = @_;
-    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
+
+    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
     my $accessor = $opts{accessor} // 'l_name';
     my $coll = $self->ctx->get_collator();
 
-    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
     return [ map {
         $_->id => l($_->$accessor)
     } sort_by {

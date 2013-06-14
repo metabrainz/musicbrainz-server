@@ -49,7 +49,6 @@ sub edit_field_names
 }
 
 sub options_type_id    { shift->_select_all('LabelType') }
-sub options_area_id { shift->_select_all('Area', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Label') }
 

@@ -87,7 +87,7 @@ sub load : Private {
     my $attr_info = build_attr_info($self->attr_tree);
 
     my $i = 0;
-    my $work_types = [ part { int($i++ / 2 ) } @{ $form->_select_all('WorkType', sort_by_accessor => 1) } ];
+    my $work_types = [ part { int($i++ / 2 ) } @{ $form->_select_all('WorkType') } ];
 
     $c->stash(
         attr_info => $json->encode($attr_info),
