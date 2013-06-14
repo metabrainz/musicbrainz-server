@@ -68,11 +68,17 @@ sub del {
 
 =method expire
 
-Expire the specified key at (unix) $timestamp.
+Expire the specified key in $s seconds
 
 =cut
 
 sub expire {
+    my ($self, $key, $s) = @_;
+
+    return $self->_connection->expire ($self->prefix.$key, $s);
+}
+
+sub expireat {
     my ($self, $key, $timestamp) = @_;
 
     return $self->_connection->expireat ($self->prefix.$key, $timestamp);

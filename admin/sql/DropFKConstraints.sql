@@ -74,7 +74,6 @@ ALTER TABLE editor_language DROP CONSTRAINT editor_language_fk_language;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_fk_editor;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_fk_application;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_fk_editor;
-ALTER TABLE editor_remember_me DROP CONSTRAINT editor_remember_me_fk_editor;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_fk_editor;
 ALTER TABLE editor_subscribe_collection DROP CONSTRAINT editor_subscribe_collection_fk_editor;
 ALTER TABLE editor_subscribe_editor DROP CONSTRAINT editor_subscribe_editor_fk_editor;
