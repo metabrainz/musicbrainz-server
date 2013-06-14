@@ -407,6 +407,11 @@ around 'finalize_error' => sub {
     });
 };
 
+sub try_get_session {
+    my ($c, $key) = @_;
+    return $c->sessionid ? $c->session->{$key} : undef;
+}
+
 =head1 NAME
 
 MusicBrainz::Server - Catalyst-based MusicBrainz server

@@ -14,7 +14,7 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{releases} = list_of ($entity, $inc, $stash, "releases");
+        $body{releases} = list_of ($entity, $inc, $stash, "releases", $toplevel);
     }
 
     return \%body;

@@ -1,18 +1,18 @@
 # 
 # Translators:
-# Alexander Dupuy <email address hidden>, 2012.
-# gr0uch0mars <email address hidden>, 2011.
-# Héctor Arroyo <email address hidden>, 2012.
-# Ismael Olea <email address hidden>, 2012.
-# Nicolás Tamargo <email address hidden>, 2011-2013.
-#   <email address hidden>, 2012.
-#   Tobias Quathamer <email address hidden>, 2007.
-#   <email address hidden>, 2012.
+# Alexander Dupuy <email address hidden>, 2012
+# gr0uch0mars <email address hidden>, 2011
+# Héctor Arroyo <email address hidden>, 2012
+# Ismael Olea <email address hidden>, 2012
+# Nicolás Tamargo <email address hidden>, 2011-2013
+# kelopezcl <email address hidden>, 2012
+#   Tobias Quathamer <email address hidden>, 2007
+# t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"PO-Revision-Date: 2013-06-11 17:13+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -375,6 +375,11 @@ msgstr "Lenguas celtas"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Lenguas indígenas de Centroamérica"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr ""
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
