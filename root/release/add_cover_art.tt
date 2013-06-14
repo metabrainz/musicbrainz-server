@@ -1,5 +1,11 @@
 [%- BLOCK layout_head -%]
   [%- script_manifest('edit.js.manifest') -%]
+
+  <script type="text/javascript">//<![CDATA[
+
+    MB.cover_art_types_json = [% cover_art_types_json %];
+
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
@@ -9,16 +15,87 @@
     <p>[% l('This page requires JavaScript.') %]</p>
   </noscript>
 
-  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" style="display: none">
-    [%- USE r = FormRenderer(form) -%]
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
 
-    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
+    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ]) %]"
                 width="500" height="100" style="border: 0;"></iframe>
     [%- r.hidden('id') -%]
     <div style="display: none">[% r.select('mime_type') %]</div>
 
-    [%- INCLUDE 'release/cover_art_fields.tt' -%]
+    <div class="add-files row" style="min-height: 25px;">
+      <label for="files">&nbsp;</label>
+      <input style="position: absolute; top: 0; left: -1000px; "
+             class="add-files" accept="image/*" type="file" name="files[]" multiple="multiple" />
+      <span class="fileinput-button buttons">
+        <button type="button" class="add-files">Select images...</button>
+      </span>
+    </div>
 
+    <table style="width: 100%">
+      <tbody data-bind="foreach: files_to_upload">
+        <tr>
+          <td>
+            <div class="status" style="float: right; width: 264px;">
+              <div role="progressbar"
+                   class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                <div class="ui-progressbar-value ui-widget-header ui-corner-left"
+                     data-bind="style: { width: progress() + '%' }">&nbsp;
+                </div>
+              </div>
+              <span data-bind="visible: status() == 'validating'"   class="msg">[%- l('Validating file...') -%]</span>
+              <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
+              <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
+              <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
+              <span data-bind="visible: status() == 'submitting'" class="msg">[%- l('Creating edit...') -%]</span>
+              <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
+              <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
+              <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
+              <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
+              <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
+              <br />
+              <button type="button" class="cancel-file" style="float: right;">[%- l('Cancel') -%]</button>
+            </div>
+
+            <div class="file-info row">
+              <input type="button" class="icon file-down" title="[% l('Move file down') %]"
+                     style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-down.png") %]); width: 16px; height: 16px; border: 0;" />
+              <input type="button" class="icon file-up" title="[% l('Move file up') %]"
+                     style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-up.png") %]); width: 16px; height: 16px; border: 0;" />
+
+              <label>[%- l("File:") -%]</label>
+              <span data-bind="text: name"></span>
+              (<span data-bind="text: size"></span>)
+            </div>
+
+            <div class="cover-art-types row">
+              <label>[%- l("Type:") -%]</label>
+              <ul class="checkboxes" data-bind="foreach: types">
+                <li>
+                  <label>
+                      <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
+                      <span data-bind="text: name" />
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div class="cover-art-types-help row">
+              <label>&nbsp;</label>
+              <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
+            </div>
+            <div class="comment row">
+              <label>[%- l('Comment:') -%]</label>
+              <input class="comment" type="text" size="47" data-bind="value: comment" />
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr />
+    [%- USE r = FormRenderer(form) -%]
+
+    [%- r.hidden('position') -%]
     <div class="row" id="cover-art-position-row">
       <label id="cover-art-position-label" class="required">[% l('Position:') %]</label>
 
@@ -48,7 +125,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.image_position ("[% index_url %]", "[% artwork.id %]");
+            MB.CoverArt.image_position ();
         </script>
       [%- END -%]
     </div>
@@ -66,7 +143,6 @@
 
   <script type="text/javascript">
     MB.CoverArt.add_cover_art ("[%- entity.gid -%]");
-    $('#add-cover-art').show();
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]
