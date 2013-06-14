@@ -126,7 +126,7 @@
         </div>
         [% END %]
 
-        [% IF c.flash.message %]
+        [% IF c.sessionid.defined AND c.flash.message %]
             <div class="flash">
                 <p>
                     [% c.flash.message %]
@@ -142,7 +142,7 @@
         </div>
 
         [%- INCLUDE 'layout/merge-helper.tt'
-           IF c.session.merger AND !hide_merge_helper -%]
+           IF c.try_get_session('merger') AND !hide_merge_helper -%]
 
         <div id="footer">
             <p class="left">
@@ -170,7 +170,7 @@
         [%- BLOCK invisible_content -%][%- END -%]
         [% INCLUDE invisible_content %]
 
-        [%- IF c.session.tport -%]
+        [%- IF c.try_get_session('tport') -%]
             <iframe name="tagger-iframe" height="0" width="0" frameborder="0"></iframe>
         [%- END -%]
     </body>

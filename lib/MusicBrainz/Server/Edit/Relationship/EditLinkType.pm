@@ -125,7 +125,6 @@ sub _build_attributes {
 
 sub build_display_data {
     my ($self, $loaded) = @_;
-
     my $display_data = {};
 
     my ($old_attributes, $new_attributes) =
@@ -138,13 +137,14 @@ sub build_display_data {
         };
     }
 
+    $display_data->{link_type} = $loaded->{LinkType}{ $self->data->{link_id} };
+
     if ($self->data->{old}{parent_id} != $self->data->{new}{parent_id}) {
         $display_data->{parent} = {
             map {
                 $_ => $loaded->{LinkType}{ $self->data->{$_}{parent_id} }
             } qw( old new )
-        },
-        link_type => $loaded->{LinkType}{ $self->data->{link_id} }
+        }
     }
 
     my ($old_examples, $new_examples) =
