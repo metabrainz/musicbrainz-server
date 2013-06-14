@@ -6,8 +6,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, privs)
-  VALUES (1, 'editor1', 'pass', 'editor1@example.com', 255)
+INSERT INTO editor (id, name, password, email, privs, ha1) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', 255, '16a4862191803cb596ee4b16802bb7ee')
 EOSQL
 
     $test->mech->get('/login');

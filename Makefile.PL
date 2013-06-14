@@ -12,6 +12,7 @@ version_from 'lib/MusicBrainz/Server.pm';
 # Mandatory modules
 requires 'Algorithm::Diff';
 requires 'Algorithm::Merge';
+requires 'Authen::Passphrase';
 requires 'Cache::Memcached';
 requires 'Captcha::reCAPTCHA';
 requires 'Catalyst::Action::RenderView'               => '0.09';
