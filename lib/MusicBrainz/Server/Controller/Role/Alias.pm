@@ -33,7 +33,7 @@ my %model_to_edit_type = (
 
 my %model_to_search_hint_type_id = (
     Artist => 3,
-    Area => 2,
+    Area => 3,
     Label => 2,
     Work => 2
 );
