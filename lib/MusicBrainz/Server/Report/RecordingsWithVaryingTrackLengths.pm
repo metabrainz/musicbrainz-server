@@ -12,7 +12,7 @@ sub query {
         FROM (
             SELECT DISTINCT
                 r.id,
-                an.name as aname,
+                an.name AS aname,
                 rn.name AS rname
             FROM
                 recording r
