@@ -63,7 +63,7 @@ sub process_edits
           WHERE status = ?
             AND (expire_time < now() OR
                  (yes_votes >= ? AND no_votes = 0) OR
-                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - ?))
+                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - interval ?))
           ORDER BY id",
         $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES, $interval);
 
