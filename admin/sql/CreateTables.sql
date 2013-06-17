@@ -541,6 +541,36 @@ CREATE TABLE l_area_place
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE l_area_recording
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE l_area_work
 (
     id                  SERIAL,
@@ -557,36 +587,6 @@ CREATE TABLE l_area_url
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
     entity1             INTEGER NOT NULL, -- references url.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE l_area_recording
-(
-    id                  SERIAL,
-    link                INTEGER NOT NULL, -- references link.id
-    entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references recording.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE l_area_release_group
-(
-    id                  SERIAL,
-    link                INTEGER NOT NULL, -- references link.id
-    entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references release_group.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE l_area_release
-(
-    id                  SERIAL,
-    link                INTEGER NOT NULL, -- references link.id
-    entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references release.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
