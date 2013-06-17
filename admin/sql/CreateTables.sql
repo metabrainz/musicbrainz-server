@@ -1323,7 +1323,7 @@ CREATE TABLE place_alias
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    type                INTEGER, -- references label_alias_type.id
+    type                INTEGER, -- references place_alias_type.id
     sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
