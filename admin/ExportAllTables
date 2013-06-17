@@ -281,7 +281,6 @@ my @group_core = qw(
     area_alias
     country_area
     area_alias_type
-    area_annotation
     area_gid_redirect
     iso_3166_1
     iso_3166_2
@@ -395,6 +394,7 @@ my @group_core = qw(
 
 my @group_derived = qw(
     annotation
+    area_annotation
     artist_annotation
     artist_meta
     artist_tag
