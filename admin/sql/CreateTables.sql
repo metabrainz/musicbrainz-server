@@ -1281,6 +1281,95 @@ CREATE TABLE medium_format
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+CREATE TABLE place (
+    id                  SERIAL, -- PK
+    gid                 uuid NOT NULL,
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
+    type                INTEGER, -- references area_type.id
+    address             VARCHAR,
+    coordinates         VARCHAR,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      )
+);
+
+CREATE TABLE place_alias
+(
+    id                  SERIAL,
+    place               INTEGER NOT NULL, -- references place.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    type                INTEGER, -- references label_alias_type.id
+    sort_name           VARCHAR NOT NULL,
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
+);
+
+CREATE TABLE place_alias_type (
+    id SERIAL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE place_annotation
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE place_tag
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE place_tag_raw
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
 CREATE TABLE puid
 (
     id                  SERIAL,
