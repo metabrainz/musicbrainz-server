@@ -10,6 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
+use Math::Random::Secure qw();
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -602,24 +603,27 @@ sub ha1_password {
 
 sub consume_remember_me_token {
     my ($self, $user_name, $token) = @_;
-    return $self->sql->select_single_value(
-        'DELETE FROM editor_remember_me
-         USING editor
-         WHERE editor.name = ?
-           AND editor_remember_me.editor = editor.id
-           AND token = ?
-         RETURNING TRUE',
-        $user_name, $token
-    );
+
+    my $token_key = "$user_name|$token";
+    # Expire consumed tokens in 5 minutes. This allows the case where the user
+    # has no session, and opens multiple tabs using the same remember_me token.
+    $self->redis->expire($token_key, 5 * 60);
+    $self->redis->exists($token_key);
 }
 
 sub allocate_remember_me_token {
     my ($self, $user_name) = @_;
-    return $self->sql->select_single_value(
-        'INSERT INTO editor_remember_me (editor)
-         SELECT id FROM editor WHERE name = ?
-         RETURNING token', $user_name
-    );
+
+    # Generate a 128-bit token. irand is 32-bit.
+    my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+
+    my $key = "$user_name|$token";
+    $self->redis->add($key, 1);
+
+    # Expire tokens after 1 year.
+    $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
+
+    return $token;
 }
 
 no Moose;

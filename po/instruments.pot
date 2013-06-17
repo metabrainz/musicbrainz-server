@@ -740,12 +740,16 @@ msgstr ""
 msgid "dohol"
 msgstr ""
 
+#: DB:link_attribute_type/name:742
+msgid "dombra"
+msgstr ""
+
 #: DB:link_attribute_type/name:594
 msgid "domra"
 msgstr ""
 
 #: DB:link_attribute_type/name:71
-msgid "double bass (contrabass, acoustic upright bass)"
+msgid "double bass / contrabass / acoustic upright bass"
 msgstr ""
 
 #: DB:link_attribute_type/name:17
@@ -778,6 +782,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
+msgstr ""
+
+#: DB:link_attribute_type/name:740
+msgid "duxianqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:404
@@ -846,6 +854,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:21
 msgid "english horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:285
+msgid "erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:641
@@ -1036,6 +1048,10 @@ msgstr ""
 msgid "gut guitar"
 msgstr ""
 
+#: DB:link_attribute_type/name:544
+msgid "guzheng"
+msgstr ""
+
 #: DB:link_attribute_type/name:141
 msgid "güiro"
 msgstr ""
@@ -1141,7 +1157,7 @@ msgid "jing'erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:284
-msgid "jing hú"
+msgid "jinghu"
 msgstr ""
 
 #: DB:link_attribute_type/name:615
@@ -1213,7 +1229,7 @@ msgid "khim"
 msgstr ""
 
 #: DB:link_attribute_type/name:395
-msgid "khèn meò"
+msgid "khèn Mèo"
 msgstr ""
 
 #: DB:link_attribute_type/name:384
@@ -1316,6 +1332,10 @@ msgstr ""
 msgid "maddale"
 msgstr ""
 
+#: DB:link_attribute_type/name:744
+msgid "mandocello"
+msgstr ""
+
 #: DB:link_attribute_type/name:308
 msgid "mandola"
 msgstr ""
@@ -1364,10 +1384,6 @@ msgstr ""
 msgid "mirliton"
 msgstr ""
 
-#: DB:link_attribute_type/name:310
-msgid "moon lute"
-msgstr ""
-
 #: DB:link_attribute_type/name:294
 msgid "morin khuur / matouqin"
 msgstr ""
@@ -1404,6 +1420,10 @@ msgstr ""
 msgid "nai"
 msgstr ""
 
+#: DB:link_attribute_type/name:743
+msgid "naobo"
+msgstr ""
+
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
 msgstr ""
@@ -1422,6 +1442,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:270
 msgid "nose flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:738
+msgid "nose whistle"
 msgstr ""
 
 #: DB:link_attribute_type/name:298
@@ -1588,6 +1612,10 @@ msgstr ""
 msgid "rattle"
 msgstr ""
 
+#: DB:link_attribute_type/name:739
+msgid "rauschpfeife"
+msgstr ""
+
 #: DB:link_attribute_type/name:309
 msgid "rebab"
 msgstr ""
@@ -1644,10 +1672,6 @@ msgstr ""
 msgid "sampler"
 msgstr ""
 
-#: DB:link_attribute_type/name:347
-msgid "sanh tiên"
-msgstr ""
-
 #: DB:link_attribute_type/name:315
 msgid "sanshin"
 msgstr ""
@@ -1661,7 +1685,7 @@ msgid "santur"
 msgstr ""
 
 #: DB:link_attribute_type/name:314
-msgid "sanxián"
+msgid "sanxian"
 msgstr ""
 
 #: DB:link_attribute_type/name:418
@@ -1674,6 +1698,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:250
 msgid "sarod"
+msgstr ""
+
+#: DB:link_attribute_type/name:741
+msgid "saron"
 msgstr ""
 
 #: DB:link_attribute_type/name:692
@@ -1878,6 +1906,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:269
 msgid "sáo trúc"
+msgstr ""
+
+#: DB:link_attribute_type/name:347
+msgid "sênh tiền"
 msgstr ""
 
 #: DB:link_attribute_type/name:381
@@ -2272,6 +2304,10 @@ msgstr ""
 msgid "xylophone"
 msgstr ""
 
+#: DB:link_attribute_type/name:324
+msgid "yangqin"
+msgstr ""
+
 #: DB:link_attribute_type/name:676
 msgid "yatga"
 msgstr ""
@@ -2284,16 +2320,12 @@ msgstr ""
 msgid "yehu"
 msgstr ""
 
-#: DB:link_attribute_type/name:324
-msgid "yángqín"
+#: DB:link_attribute_type/name:310
+msgid "yueqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:405
 msgid "zarb"
-msgstr ""
-
-#: DB:link_attribute_type/name:544
-msgid "zheng"
 msgstr ""
 
 #: DB:link_attribute_type/name:287
@@ -2314,10 +2346,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:492
 msgid "zurna"
-msgstr ""
-
-#: DB:link_attribute_type/name:285
-msgid "èrhú"
 msgstr ""
 
 #: DB:link_attribute_type/name:383

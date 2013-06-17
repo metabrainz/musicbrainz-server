@@ -1,16 +1,22 @@
 # 
 # Translators:
-#   <email address hidden>, 2012.
-# Benjamin <email address hidden>, 2011.
-# Benjamin Sonntag <email address hidden>, 2011, 2012.
-# Benjamin Sonntag <email address hidden>, 2011.
-# Dibou  <email address hidden>, 2012.
-# murdos <email address hidden>, 2011.
+# murdos <email address hidden>, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# Benjamin <email address hidden>, 2011
+# Benjamin Sonntag <email address hidden>, 2011, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# Benjamin Sonntag <email address hidden>, 2011-2012
+# kmartin <email address hidden>, 2013
+# Dibou <email address hidden>, 2012
+# Dibou  <email address hidden>, 2012
+#   <email address hidden>, 2012
+# murdos <email address hidden>, 2011
+# murdos <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-10-05 10:58+0000\n"
+"PO-Revision-Date: 2013-06-11 17:12+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/musicbrainz/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +50,11 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Album"
 
+#: DB:area_alias_type/name:1
+msgctxt "alias_type"
+msgid "Area name"
+msgstr ""
+
 #: DB:work_type/name:1
 msgctxt "work_type"
 msgid "Aria"
@@ -62,7 +73,7 @@ msgstr "Livre audio"
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr ""
+msgstr "Retour"
 
 #: DB:work_type/name:2
 msgctxt "work_type"
@@ -82,7 +93,7 @@ msgstr "blu-ray"
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Livret"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -97,7 +108,7 @@ msgstr "Production de bootleg"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr ""
+msgstr "Broadcast"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -129,6 +140,11 @@ msgctxt "medium_format"
 msgid "Cassette"
 msgstr "Cassette"
 
+#: DB:area_type/name:3
+msgctxt "area_type"
+msgid "City"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
 msgid "Compilation"
@@ -138,6 +154,11 @@ msgstr "Compilation"
 msgctxt "work_type"
 msgid "Concerto"
 msgstr "Concerto"
+
+#: DB:area_type/name:1
+msgctxt "area_type"
+msgid "Country"
+msgstr ""
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -198,6 +219,11 @@ msgstr "EP"
 msgctxt "gender"
 msgid "Female"
 msgstr "Femme"
+
+#: DB:area_alias_type/name:2
+msgctxt "alias_type"
+msgid "Formal name"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -277,7 +303,7 @@ msgstr "Messe"
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr ""
+msgstr "Milieu"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -314,6 +340,11 @@ msgctxt "work_type"
 msgid "Opera"
 msgstr "Opéra"
 
+#: DB:work_type/name:24
+msgctxt "work_type"
+msgid "Operetta"
+msgstr ""
+
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
@@ -332,7 +363,7 @@ msgstr "Autre"
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "Autre"
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -389,6 +420,11 @@ msgctxt "release_status"
 msgid "Promotion"
 msgstr "Promotion"
 
+#: DB:work_type/name:23
+msgctxt "work_type"
+msgid "Prose"
+msgstr ""
+
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
@@ -419,6 +455,11 @@ msgctxt "release_group_secondary_type"
 msgid "Remix"
 msgstr "Remix"
 
+#: DB:label_type/name:8
+msgctxt "label_type"
+msgid "Rights Society"
+msgstr ""
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -430,7 +471,7 @@ msgid "SVCD"
 msgstr "SVCD"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2
+#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr "Conseil de recherche"
@@ -465,6 +506,11 @@ msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Bande originale"
 
+#: DB:work_type/name:22
+msgctxt "work_type"
+msgid "Soundtrack"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
@@ -478,6 +524,11 @@ msgstr "Texte parlé"
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
+msgstr "Autocollant"
+
+#: DB:area_type/name:2
+msgctxt "area_type"
+msgid "Subdivision"
 msgstr ""
 
 #: DB:work_type/name:6
@@ -498,7 +549,7 @@ msgstr "Symphonie"
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr ""
+msgstr "Piste"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"

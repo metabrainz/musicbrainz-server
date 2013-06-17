@@ -345,6 +345,7 @@ sub ImportAllTables
         edit_recording
         edit_release
         edit_release_group
+        edit_url
         edit_work
         label_rating_raw
         label_tag_raw
@@ -353,12 +354,14 @@ sub ImportAllTables
         recording_tag_raw
         release_group_rating_raw
         release_group_tag_raw
+        release_tag_raw
         release_raw
         track_raw
         vote
         work_rating_raw
         work_tag_raw
         annotation
+        application
         area
         area_type
         area_alias
@@ -366,6 +369,9 @@ sub ImportAllTables
         area_annotation
         area_gid_redirect
         country_area
+        iso_3166_1
+        iso_3166_2
+        iso_3166_3
         artist
         artist_alias
         artist_alias_type
@@ -379,20 +385,24 @@ sub ImportAllTables
         artist_name
         artist_tag
         artist_type
+        autoeditor_election
+        autoeditor_election_vote
         cdtoc
         clientversion
         editor
-        editor_language
+        editor_oauth_token
         editor_preference
+        editor_language
         editor_sanitised
         editor_subscribe_artist
         editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
+        editor_watch_artist
+        editor_watch_preferences
+        editor_watch_release_group_type
+        editor_watch_release_status
         gender
-        iso_3166_1
-        iso_3166_2
-        iso_3166_3
         isrc
         iswc
         l_area_area
@@ -568,6 +578,8 @@ sub ImportAllTables
 
         statistics.statistic
         statistics.statistic_event
+
+        wikidocs.wikidocs_index
     )) {
         my $file = (find_file($table))[0];
         $file or print("No data file found for '$table', skipping\n"), next;

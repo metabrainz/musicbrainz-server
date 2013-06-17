@@ -175,8 +175,6 @@ my $url = "$baseuri/$uriprefix$file";
 my $localfile = "$tmpdir/$file";
 
 my $resp = retrieve_remote_file($url, $localfile);
-validate_file_signature($localfile);
-
 # We only understand a limited set of responses:
 # OK, not found, and the rest.
 if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
@@ -191,7 +189,10 @@ elsif ($catchup) {
     $localfile = "$tmpdir/$file";
     $resp = retrieve_remote_file($url, $localfile);
     validate_file_signature($localfile);
+} else {
+    validate_file_signature($localfile);
 }
+
 
 if ($resp->code == RC_NOT_FOUND)
 {

@@ -60,7 +60,7 @@
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.text(field_name, { size => 47 })  %]
-      [% field_errors(form, field_name) %]
+      [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
 

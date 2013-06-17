@@ -328,14 +328,15 @@ sub combined_track_relationships {
     };
 
     my $medium_count = scalar $self->all_mediums;
+    my $track_count = 0;
+    my $abs_track_position = {};
 
     $merge_rels->($self->grouped_relationships);
 
     for my $medium ($self->all_mediums) {
         for my $track ($medium->all_tracks) {
-            # XXX track->medium is a hack, but needed by the track_number
-            # MACRO in root/release/index.tt.
             $track->medium($medium);
+            $abs_track_position->{ $track->id } = ++$track_count;
 
             if (!$show_medium_prefix && $medium_count > 1 &&
                     exists $track_numbers{ $track->number }) {
@@ -370,13 +371,16 @@ sub combined_track_relationships {
 
         for (my $i = 1; $i <= $#tracks; $i++) {
             my $b = $tracks[$i];
-            my $seq = $b->position - $a->position == 1;
+            my $apos = $abs_track_position->{ $a->id };
+            my $bpos = $abs_track_position->{ $b->id };
+            my $seq = $bpos - $apos == 1;
 
             if (!$seq || $i == $#tracks) {
                 my ($anum, $bnum) = ($track_number->($a), $track_number->($b));
 
-                my $endseq = ($i > 1 && $a->position -
-                    $tracks[$i - 2]->position == 1 ? '&#x2013;' . $anum : '');
+                my $endseq = ($i > 1 &&
+                    $apos - $abs_track_position->{ $tracks[$i - 2]->id } == 1 ?
+                    '&#x2013;' . $anum : '');
 
                 $result .= ($seq ? '&#x2013;' . $bnum : $endseq . ', ' . $bnum);
             }
