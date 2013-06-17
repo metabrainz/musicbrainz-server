@@ -165,6 +165,7 @@ CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link)
 
 CREATE INDEX l_artist_artist_idx_entity1 ON l_artist_artist (entity1);
 CREATE INDEX l_artist_label_idx_entity1 ON l_artist_label (entity1);
+CREATE INDEX l_artist_place_idx_entity1 ON l_artist_place (entity1);
 CREATE INDEX l_artist_recording_idx_entity1 ON l_artist_recording (entity1);
 CREATE INDEX l_artist_release_idx_entity1 ON l_artist_release (entity1);
 CREATE INDEX l_artist_release_group_idx_entity1 ON l_artist_release_group (entity1);
@@ -172,11 +173,19 @@ CREATE INDEX l_artist_url_idx_entity1 ON l_artist_url (entity1);
 CREATE INDEX l_artist_work_idx_entity1 ON l_artist_work (entity1);
 
 CREATE INDEX l_label_label_idx_entity1 ON l_label_label (entity1);
+CREATE INDEX l_label_place_idx_entity1 ON l_label_place (entity1);
 CREATE INDEX l_label_recording_idx_entity1 ON l_label_recording (entity1);
 CREATE INDEX l_label_release_idx_entity1 ON l_label_release (entity1);
 CREATE INDEX l_label_release_group_idx_entity1 ON l_label_release_group (entity1);
 CREATE INDEX l_label_url_idx_entity1 ON l_label_url (entity1);
 CREATE INDEX l_label_work_idx_entity1 ON l_label_work (entity1);
+
+CREATE INDEX l_place_place_idx_entity1 ON l_place_place (entity1);
+CREATE INDEX l_place_recording_idx_entity1 ON l_place_recording (entity1);
+CREATE INDEX l_place_release_idx_entity1 ON l_place_release (entity1);
+CREATE INDEX l_place_release_group_idx_entity1 ON l_place_release_group (entity1);
+CREATE INDEX l_place_url_idx_entity1 ON l_place_url (entity1);
+CREATE INDEX l_place_work_idx_entity1 ON l_place_work (entity1);
 
 CREATE INDEX l_recording_recording_idx_entity1 ON l_recording_recording (entity1);
 CREATE INDEX l_recording_release_idx_entity1 ON l_recording_release (entity1);
