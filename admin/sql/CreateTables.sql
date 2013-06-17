@@ -1286,7 +1286,7 @@ CREATE TABLE place (
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
     sort_name           VARCHAR NOT NULL,
-    type                INTEGER, -- references area_type.id
+    type                INTEGER, -- references place_type.id
     address             VARCHAR,
     coordinates         VARCHAR,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -1368,6 +1368,11 @@ CREATE TABLE place_tag_raw
     place               INTEGER NOT NULL, -- PK, references place.id
     editor              INTEGER NOT NULL, -- PK, references editor.id
     tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
+CREATE TABLE place_type (
+    id                  SERIAL, -- PK
+    name                VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE puid
