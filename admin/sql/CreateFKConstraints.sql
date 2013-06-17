@@ -838,6 +838,96 @@ ALTER TABLE l_label_work
    FOREIGN KEY (entity1)
    REFERENCES work(id);
 
+ALTER TABLE l_place_place
+   ADD CONSTRAINT l_place_place_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_place
+   ADD CONSTRAINT l_place_place_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_place
+   ADD CONSTRAINT l_place_place_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_recording
+   ADD CONSTRAINT l_place_recording_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_recording
+   ADD CONSTRAINT l_place_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_recording
+   ADD CONSTRAINT l_place_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_place_release
+   ADD CONSTRAINT l_place_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_release
+   ADD CONSTRAINT l_place_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_release
+   ADD CONSTRAINT l_place_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_place_release_group
+   ADD CONSTRAINT l_place_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_release_group
+   ADD CONSTRAINT l_place_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_release_group
+   ADD CONSTRAINT l_place_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_place_url
+   ADD CONSTRAINT l_place_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_url
+   ADD CONSTRAINT l_place_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_url
+   ADD CONSTRAINT l_place_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES url(id);
+
+ALTER TABLE l_place_work
+   ADD CONSTRAINT l_place_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_place_work
+   ADD CONSTRAINT l_place_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES place(id);
+
+ALTER TABLE l_place_work
+   ADD CONSTRAINT l_place_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
 ALTER TABLE l_recording_recording
    ADD CONSTRAINT l_recording_recording_fk_link
    FOREIGN KEY (link)
@@ -1074,14 +1164,14 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
-   ADD CONSTRAINT label_fk_area
-   FOREIGN KEY (area)
-   REFERENCES area(id);
-
-ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);
+
+ALTER TABLE label
+   ADD CONSTRAINT label_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_label
