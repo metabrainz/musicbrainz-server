@@ -80,7 +80,7 @@ test all => sub {
     $redis->incr ("int", 2);
     is ($redis->get ("int"), 25, "retrieved incremented integer");
 
-    ok ($redis->expire ("int", time () + 1), "expire int in one second");
+    ok ($redis->expireat ("int", time () + 1), "expire int in one second");
     ok ($redis->exists ("int"), "int still exists");
     sleep (2);
     ok (! $redis->exists ("int"), "int no longer exists");
