@@ -31,7 +31,7 @@ MB.Control.FilterButton = function () {
             $.ajax ({
                 url: self.filter_ajax_form_url,
                 success: function (data) {
-                    self.$filter.find ('input[type=hidden]').before ($(data));
+                    self.$filter.find ('input[type=hidden]').before ($.parseHTML(data));
                     self.show ();
                 }
             });
