@@ -357,6 +357,12 @@ CREATE TABLE edit_label
     status              SMALLINT NOT NULL -- materialized from edit.status
 );
 
+CREATE TABLE edit_place
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    place               INTEGER NOT NULL  -- PK, references place.id CASCADE
+);
+
 CREATE TABLE edit_release
 (
     edit                INTEGER NOT NULL, -- PK, references edit.id

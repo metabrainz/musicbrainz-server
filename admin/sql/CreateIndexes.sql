@@ -90,6 +90,7 @@ CREATE INDEX edit_expire_time_date ON edit (date_trunc('day', expire_time AT TIM
 CREATE INDEX edit_area_idx ON edit_area (area);
 CREATE INDEX edit_artist_idx ON edit_artist (artist);
 CREATE INDEX edit_label_idx ON edit_label (label);
+CREATE INDEX edit_place_idx ON edit_place (place);
 CREATE INDEX edit_release_idx ON edit_release (release);
 CREATE INDEX edit_release_group_idx ON edit_release_group (release_group);
 CREATE INDEX edit_recording_idx ON edit_recording (recording);

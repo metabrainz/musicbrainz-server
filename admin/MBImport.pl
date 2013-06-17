@@ -341,6 +341,7 @@ sub ImportAllTables
         edit_artist
         edit_label
         edit_note
+        edit_place
         edit_recording
         edit_release
         edit_release_group

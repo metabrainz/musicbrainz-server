@@ -272,6 +272,17 @@ ALTER TABLE edit_note
    FOREIGN KEY (edit)
    REFERENCES edit(id);
 
+ALTER TABLE edit_place
+   ADD CONSTRAINT edit_place_fk_edit
+   FOREIGN KEY (edit)
+   REFERENCES edit(id);
+
+ALTER TABLE edit_place
+   ADD CONSTRAINT edit_place_fk_place
+   FOREIGN KEY (place)
+   REFERENCES place(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE edit_recording
    ADD CONSTRAINT edit_recording_fk_edit
    FOREIGN KEY (edit)
