@@ -1355,6 +1355,13 @@ CREATE TABLE place_annotation
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
+CREATE TABLE place_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references place.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE place_tag
 (
     place               INTEGER NOT NULL, -- PK, references place.id
