@@ -144,6 +144,10 @@ CREATE TRIGGER "reptg_l_area_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_area_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_area_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_area_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "l_area_recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -172,6 +176,10 @@ CREATE TRIGGER "reptg_l_artist_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_artist_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_artist_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_artist_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "l_artist_recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -196,6 +204,10 @@ CREATE TRIGGER "reptg_l_label_label"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_label"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_l_label_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_label_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
 CREATE TRIGGER "reptg_l_label_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
@@ -214,6 +226,30 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_label_work"
 AFTER INSERT OR DELETE OR UPDATE ON "l_label_work"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_place"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_recording"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_recording"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_release"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_release_group"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_release_group"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_url"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_url"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_l_place_work"
+AFTER INSERT OR DELETE OR UPDATE ON "l_place_work"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_l_recording_recording"
@@ -362,6 +398,34 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_medium_format"
 AFTER INSERT OR DELETE OR UPDATE ON "medium_format"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_place"
+AFTER INSERT OR DELETE OR UPDATE ON "place"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "place_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_alias_type"
+AFTER INSERT OR DELETE OR UPDATE ON "place_alias_type"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
+
+CREATE TRIGGER "reptg_place_annotation"
+AFTER INSERT OR DELETE OR UPDATE ON "place_annotation"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_gid_redirect"
+AFTER INSERT OR DELETE OR UPDATE ON "place_gid_redirect"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_tag"
+AFTER INSERT OR DELETE OR UPDATE ON "place_tag"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_place_type"
+AFTER INSERT OR DELETE OR UPDATE ON "place_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_puid"
