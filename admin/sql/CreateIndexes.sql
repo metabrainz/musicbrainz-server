@@ -166,6 +166,7 @@ CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link)
 CREATE INDEX l_area_area_idx_entity1 ON l_area_area (entity1);
 CREATE INDEX l_area_artist_idx_entity1 ON l_area_artist (entity1);
 CREATE INDEX l_area_label_idx_entity1 ON l_area_label (entity1);
+CREATE INDEX l_area_place_idx_entity1 ON l_area_place (entity1);
 CREATE INDEX l_area_recording_idx_entity1 ON l_area_recording (entity1);
 CREATE INDEX l_area_release_idx_entity1 ON l_area_release (entity1);
 CREATE INDEX l_area_release_group_idx_entity1 ON l_area_release_group (entity1);
