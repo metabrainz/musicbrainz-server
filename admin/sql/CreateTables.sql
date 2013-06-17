@@ -1288,7 +1288,7 @@ CREATE TABLE place (
     sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references place_type.id
     address             VARCHAR,
-    coordinates         VARCHAR,
+    coordinates         POINT,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
