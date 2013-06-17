@@ -347,6 +347,7 @@ sub ImportAllTables
         edit_work
         label_rating_raw
         label_tag_raw
+        place_tag_raw
         recording_rating_raw
         recording_tag_raw
         release_group_rating_raw
@@ -396,6 +397,7 @@ sub ImportAllTables
         l_area_area
         l_area_artist
         l_area_label
+        l_area_place
         l_area_recording
         l_area_release
         l_area_release_group
@@ -403,17 +405,25 @@ sub ImportAllTables
         l_area_work
         l_artist_artist
         l_artist_label
+        l_artist_place
         l_artist_recording
         l_artist_release
         l_artist_release_group
         l_artist_url
         l_artist_work
         l_label_label
+        l_label_place
         l_label_recording
         l_label_release
         l_label_release_group
         l_label_url
         l_label_work
+        l_place_place
+        l_place_recording
+        l_place_release
+        l_place_release_group
+        l_place_url
+        l_place_work
         l_recording_recording
         l_recording_release
         l_recording_release_group
@@ -453,6 +463,13 @@ sub ImportAllTables
         medium
         medium_cdtoc
         medium_format
+        place
+        place_alias
+        place_alias_type
+        place_annotation
+        place_gid_redirect
+        place_tag
+        place_type
         puid
         recording
         recording_annotation
