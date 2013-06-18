@@ -355,7 +355,15 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
     self.addFile = function (file) {
         self.files_to_upload.push (new MB.CoverArt.FileUpload (file));
-        self.files_to_upload()[0].comment ("file was added");
+    }
+
+    self.moveFile = function (to_move, direction) {
+        var new_pos = self.files_to_upload ().indexOf (to_move) + direction;
+        if (new_pos < 0 || new_pos >= self.files_to_upload().length)
+            return
+
+        self.files_to_upload.remove (to_move);
+        self.files_to_upload.splice (new_pos, 0, to_move);
     }
 };
 
@@ -375,13 +383,28 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    window.upvm = new MB.CoverArt.UploadProcessViewModel ();
-    ko.applyBindings (window.upvm);
-
     if (typeof (FormData) === "function")
     {
         /* FormData is supported, so we can present the multifile ajax
          * upload form. */
+
+        upvm = new MB.CoverArt.UploadProcessViewModel ();
+        ko.applyBindings (upvm);
+
+        $(document).on ('click', 'button.cancel-file', function (event) {
+            event.preventDefault ();
+            upvm.files_to_upload.remove (ko.dataFor (this));
+        });
+
+        $(document).on ('click', 'input.file-up', function (event) {
+            event.preventDefault ();
+            upvm.moveFile (ko.dataFor (this), -1);
+        });
+
+        $(document).on ('click', 'input.file-down', function (event) {
+            event.preventDefault ();
+            upvm.moveFile (ko.dataFor (this), 1);
+        });
 
         $('button.add-files').on ('click', function (event) {
             $('input.add-files').trigger ('click');
@@ -398,7 +421,7 @@ MB.CoverArt.add_cover_art = function (gid) {
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
             console.log ("submit!");
-            MB.CoverArt.add_cover_art_submit (gid, window.upvm);
+            MB.CoverArt.add_cover_art_submit (gid, upvm);
         });
     }
     else
@@ -424,5 +447,4 @@ MB.CoverArt.add_cover_art = function (gid) {
             return false;
         });
     }
-
 };
