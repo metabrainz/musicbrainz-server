@@ -360,12 +360,6 @@ sub schema_fixup
         }
     }
 
-    if (exists $data->{country})
-    {
-        $data->{country} = $self->c->model('Area')->find_by_iso_3166_1_code ($data->{country});
-        delete $data->{country} unless defined $data->{country};
-    }
-
     if ($type eq 'artist' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
@@ -457,9 +451,12 @@ sub schema_fixup
             for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
-                    country => defined($release_event_data->{area}) ? 
-                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
-                        : undef, 
+                    country => defined($release_event_data->{area}) ?
+                        MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
+                                                                iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"},
+                                                                name => $release_event_data->{area}->{name},
+                                                                sort_name => $release_event_data->{area}->{'sort-name'} )
+                        : undef,
                     date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
 
                 push @{$data->{events}}, $release_event;
