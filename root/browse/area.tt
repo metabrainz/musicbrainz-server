@@ -9,7 +9,7 @@
         [% END %]
 
         [% IF entities.size %]
-            [% WRAPPER 'components/with-pager.tt' %]
+            [% WRAPPER 'components/with-pager.tt' guess_search=1 %]
                 <div class="browse-entities columns-2">
                     [% offset = pager.first %]
                     [% WHILE entities.size %]
