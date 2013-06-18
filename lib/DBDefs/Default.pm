@@ -197,39 +197,31 @@ sub PLUGIN_CACHE_OPTIONS {
 # The caching options here relate to object caching - such as caching artists,
 # releases, etc in order to speed up queries. If you are using Memcached
 # to store sessions as well this should be a *different* memcached server.
-our %CACHE_MANAGER_OPTIONS = (
-    profiles => {
-        memory => {
-            class => 'Cache::Memory',
-            wrapped => 1,
-            keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
-            options => {
-                default_expires => '1 hour',
+sub CACHE_MANAGER_OPTIONS {
+    my $self = shift;
+    my %CACHE_MANAGER_OPTIONS = (
+        profiles => {
+            memory => {
+                class => 'Cache::Memory',
+                wrapped => 1,
+                keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
+                options => {
+                    default_expires => '1 hour',
+                },
+            },
+            external => {
+                class => 'Cache::Memcached::Fast',
+                options => {
+                    servers => $self->MEMCACHED_SERVERS(),
+                    namespace => $self->MEMCACHED_NAMESPACE()
+                },
             },
         },
-        external => {
-            class => 'Cache::Memcached::Fast',
-            options => {
-                servers => MEMCACHED_SERVERS(),
-                namespace => MEMCACHED_NAMESPACE()
-            },
-        },
-    },
-    default_profile => 'external',
-);
+        default_profile => 'external',
+    );
 
-# No caching
-#our %CACHE_MANAGER_OPTIONS = (
-#    profiles => {
-#        null => {
-#            class => 'Cache::Null',
-#            wrapped => 1,
-#        },
-#    },
-#    default_profile => 'null',
-#);
-
-sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
+    return \%CACHE_MANAGER_OPTIONS
+}
 
 ################################################################################
 # Rate-Limiting
