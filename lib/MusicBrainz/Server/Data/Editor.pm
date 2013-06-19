@@ -415,6 +415,11 @@ sub donation_check
 
     my $nag = 1;
 
+    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
+                 $obj->is_location_editor);
+
+
     my $days = 0.0;
     if ($nag)
     {
@@ -436,10 +441,6 @@ sub donation_check
             return undef;
         }
     }
-
-    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
-                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
-                 $obj->is_location_editor);
 
     return { nag => $nag, days => $days };
 }
