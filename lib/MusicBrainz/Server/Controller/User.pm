@@ -318,7 +318,6 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
-
     $c->stash(
         user     => $user,
         template => 'user/profile.tt',
