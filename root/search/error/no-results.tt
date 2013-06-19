@@ -1,5 +1,0 @@
-[% WRAPPER "search/error/wrapper.tt" %]
-    <p>
-        [% l('Sorry, but your query "(<code>query</code>)" did not match any {type}. Please check you used the correct spelling.  Sometimes searching for fewer or different words may also help.', {query => html_escape(form.value('query')), type => get_plural_type(type)}) %]
-    </p>
-[% END %]

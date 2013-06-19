@@ -1,3 +1,0 @@
-\set ON_ERROR_STOP 1
-
-ALTER TABLE url DROP COLUMN description;

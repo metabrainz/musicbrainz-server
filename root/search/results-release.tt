@@ -1,3 +1,0 @@
-[% WRAPPER 'search/results-layout.tt' %]
-        [% INCLUDE 'search/lib/inline-results-release.tt' %]
-[% END %]

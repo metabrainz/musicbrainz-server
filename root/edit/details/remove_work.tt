@@ -1,6 +1,0 @@
-<table class="details">
-  <tr>
-    <th>[% l('Work:') %]</th>
-    <td>[% descriptive_link(edit.display_data.entity) %]</td>
-  </tr>
-</table>

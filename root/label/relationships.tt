@@ -1,4 +1,0 @@
-[%- WRAPPER "label/layout.tt" title=l('Relationships') page='relationships' -%]
-    <h2>[% l("Relationships") %]</h2>
-    [%- INCLUDE "components/relationships.tt" source=label -%]
-[%- END -%]

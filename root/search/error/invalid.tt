@@ -1,5 +1,0 @@
-[% WRAPPER "search/error/wrapper.tt" %]
-    <p>
-        [% l('Your search query was deemed invalid by our ruthless search server.') %]
-    </p>
-[% END %]

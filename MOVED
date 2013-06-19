@@ -1,0 +1,11 @@
+musicbrainz-server is now hosted on github:
+
+    https://github.com/metabrainz/musicbrainz-server
+
+If this is an existing install you'd like to update, please run:
+
+    git remote set-url origin https://github.com/metabrainz/musicbrainz-server.git
+    git fetch --prune origin
+
+and then proceed with whatever update process you were using, presumably either
+'git pull' or 'git checkout {tag}' for some tag.

@@ -1,6 +1,0 @@
-[% WRAPPER 'layout.tt' full_width=1 title=l('Cannot Create Relationship') %]
-   <h1>[% l('Cannot Create Relationship') %]</h1>
-   <p>[% l('There are not currently any relationship types available between
-            {types0} and {types1}.', { types0 => get_plural_type(type0),
-                                       types1 => get_plural_type(type1) }) %]</p>
-[% END %]

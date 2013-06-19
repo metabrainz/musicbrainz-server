@@ -1,5 +1,0 @@
-[% WRAPPER 'artist/layout.tt' title=l('Edit Artist Annotation') full_width=1 %]
-    <h2>[% l('Edit artist annotation') %]</h2>
-    [% INCLUDE 'annotation/edit.tt' %]
-[% END %]
-

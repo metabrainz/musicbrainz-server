@@ -1,3 +1,0 @@
-[%- WRAPPER 'collection/layout.tt' title=l('Tags') page='tags' -%]
-    [%- INCLUDE "components/tags.tt" no_tags_text=l('This collection has no tags.') -%]
-[%- END -%]

@@ -1,5 +1,0 @@
-<div class="add-edit-note">
-    [% USE f = FormRenderer(add_edit_note) %]
-    [% f.textarea('text', { placeholder => 'Add an edit note', rows => 1 }) %]
-    [% form_submit(l('Add edit note')) %]
-</div>

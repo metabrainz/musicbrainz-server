@@ -1,5 +1,0 @@
-[% WRAPPER "search/error/wrapper.tt" %]
-    <p>
-        [% l('Sorry, but your query (<code>{query}</code>) could not be performed, due to an error which we are not quite able to identify.', {query => html_escape(form.field('query').value)}) %]
-    </p>
-[% END %]

@@ -1,4 +1,0 @@
-[% INCLUDE "annotation/annotation.tt" parent=release %]
-<h2>[% l("Relationships") %]</h2>
-[% INCLUDE "components/relationships.tt" source=release %]
-[% INCLUDE "release/release.tt" %]

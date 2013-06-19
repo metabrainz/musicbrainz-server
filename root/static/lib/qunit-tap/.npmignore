@@ -1,6 +1,0 @@
-.git*
-test/
-.idea*
-node_modules/
-Gemfile
-Gemfile.lock

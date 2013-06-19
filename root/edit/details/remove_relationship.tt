@@ -1,9 +1,0 @@
-<table class="details remove-relationship">
-  <tr>
-    <th>[% l('Relationship:') %]</th>
-    <td>
-      [% descriptive_link(edit.display_data.relationship.source) %]
-      [% display_relationship(edit.display_data.relationship, 'verbose_phrase') %]
-    </td>
-  </tr>
-</table>

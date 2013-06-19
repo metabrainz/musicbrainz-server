@@ -1,3 +1,0 @@
-[%- WRAPPER 'collection/layout.tt' title=lp('Tag', 'verb') -%]
-    [%- INCLUDE "components/tag.tt" tag_this_text=l('Tag this collection') -%]
-[%- END -%]
