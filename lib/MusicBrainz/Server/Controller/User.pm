@@ -318,14 +318,12 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
-    $c->detach('/error_500') unless $result;
 
     $c->stash(
         user     => $user,
         template => 'user/profile.tt',
         last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
-        open_count => $c->model('Editor')->open_edit_count($user->id),
-        nag => $result->{nag}
+        open_count => $c->model('Editor')->open_edit_count($user->id)
     );
 }
 
