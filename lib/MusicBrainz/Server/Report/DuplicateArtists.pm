@@ -27,14 +27,14 @@ sub run
     my $sql = $self->sql;
 
     my $artists = $sql->select_list_of_hashes(
-        'SELECT artist.gid, name.name AS name, sort_name.name AS sort_name,
-                musicbrainz_unaccent(name.name) AS name_unac,
-                musicbrainz_unaccent(sort_name.name) AS sort_name_unac,
-                artist.comment, artist.type, artist.id,
-                (artist.comment IS NOT NULL) AS has_comment
-         FROM artist
-         JOIN artist_name name ON name.id = artist.name
-         JOIN artist_name sort_name ON sort_name.id = artist.sort_name'
+        q{SELECT artist.gid, name.name AS name, sort_name.name AS sort_name,
+                 musicbrainz_unaccent(name.name) AS name_unac,
+                 musicbrainz_unaccent(sort_name.name) AS sort_name_unac,
+                 artist.comment, artist.type, artist.id,
+                 (artist.comment != '') AS has_comment
+          FROM artist
+          JOIN artist_name name ON name.id = artist.name
+          JOIN artist_name sort_name ON sort_name.id = artist.sort_name}
     );
 
     for my $r (@$artists) {
@@ -46,10 +46,11 @@ sub run
         "SELECT artist.gid, artist.id, name.name AS name, sort_name.name AS sort_name,
                 musicbrainz_unaccent(alias_name.name) AS alias,
                 CASE
-                  WHEN artist.comment IS NULL THEN 'alias: ' || musicbrainz_unaccent(alias_name.name)
+                  WHEN artist.comment = '' THEN
+                      'alias: ' || musicbrainz_unaccent(alias_name.name)
                   ELSE artist.comment || ') (alias: ' || musicbrainz_unaccent(alias_name.name)
                 END AS comment,
-                (artist.comment IS NOT NULL) AS has_comment,
+                (artist.comment != '') AS has_comment,
                 artist.type
          FROM artist
          JOIN artist_name name ON name.id = artist.name

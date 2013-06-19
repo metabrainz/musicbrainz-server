@@ -404,9 +404,6 @@ MB.Control.Autocomplete = function (options) {
     self.changeEntity = function (entity) {
         self.entity = entity.replace ('_', '-');
         self.url = options.url || "/ws/js/" + self.entity;
-        if (self.entity == 'area') {
-            self.indexed_search = false;
-        }
 
         if (options.formatItem)
         {

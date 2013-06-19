@@ -4,11 +4,18 @@ use namespace::autoclean;
 use LWP;
 use URI::Escape;
 
+use Authen::Passphrase;
+use Authen::Passphrase::BlowfishCrypt;
+use Authen::Passphrase::RejectAll;
 use DateTime;
+use Digest::MD5 qw( md5_hex );
+use Encode;
+use Math::Random::Secure qw();
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     hash_to_row
     load_subobjects
     placeholders
@@ -36,7 +43,7 @@ sub _columns
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
             edits_rejected, auto_edits_accepted, edits_failed, gender, area,
-            birth_date';
+            birth_date, ha1';
 }
 
 sub _column_mapping
@@ -58,7 +65,8 @@ sub _column_mapping
         last_login_date         => 'last_login_date',
         gender_id               => 'gender',
         area_id                 => 'area',
-        birth_date              => 'birth_date'
+        birth_date              => 'birth_date',
+        ha1                     => 'ha1'
     };
 }
 
@@ -219,11 +227,15 @@ sub insert
 {
     my ($self, $data) = @_;
 
+    $data->{password} = hash_password($data->{password});
+    $data->{ha1} = ha1_password($data->{name}, $data->{password});
+
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
             id => $self->sql->insert_row('editor', $data, 'id'),
             name => $data->{name},
             password => $data->{password},
+            ha1 => $data->{ha1},
             accepted_edits => 0,
             rejected_edits => 0,
             failed_edits => 0,
@@ -259,8 +271,10 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET password = ?, last_login_date = now() WHERE name=?',
-                 $password, $editor_name);
+        $self->sql->do('UPDATE editor SET password = ?, ha1 = md5(name || \':musicbrainz.org:\' || ?), last_login_date = now() WHERE name = ?',
+                       hash_password($password),
+                       $password,
+                       $editor_name);
     }, $self->sql);
 }
 
@@ -465,7 +479,8 @@ sub delete {
     $self->sql->begin;
     $self->sql->do(
         "UPDATE editor SET name = 'Deleted Editor #' || id,
-                           password = '',
+                           password = ?,
+                           ha1 = '',
                            privs = 0,
                            email = NULL,
                            email_confirm_date = NULL,
@@ -475,6 +490,7 @@ sub delete {
                            birth_date = NULL,
                            gender = NULL
          WHERE id = ?",
+        Authen::Passphrase::RejectAll->new->as_rfc2307,
         $editor_id
     );
 
@@ -570,6 +586,45 @@ sub update_last_login_date {
     my ($self, $editor_id) = @_;
     $self->sql->auto_commit(1);
     $self->sql->do('UPDATE editor SET last_login_date = now() WHERE id = ?', $editor_id);
+}
+
+sub hash_password {
+    my $password = shift;
+    Authen::Passphrase::BlowfishCrypt->new(
+        salt_random => 1,
+        cost => 10,
+        passphrase => encode('utf-8', $password)
+    )->as_rfc2307
+}
+
+sub ha1_password {
+    my ($username, $password) = @_;
+    return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+}
+
+sub consume_remember_me_token {
+    my ($self, $user_name, $token) = @_;
+
+    my $token_key = "$user_name|$token";
+    # Expire consumed tokens in 5 minutes. This allows the case where the user
+    # has no session, and opens multiple tabs using the same remember_me token.
+    $self->redis->expire($token_key, 5 * 60);
+    $self->redis->exists($token_key);
+}
+
+sub allocate_remember_me_token {
+    my ($self, $user_name) = @_;
+
+    # Generate a 128-bit token. irand is 32-bit.
+    my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+
+    my $key = "$user_name|$token";
+    $self->redis->add($key, 1);
+
+    # Expire tokens after 1 year.
+    $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
+
+    return $token;
 }
 
 no Moose;

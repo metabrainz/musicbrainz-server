@@ -148,7 +148,7 @@ test 'basic release with collections' => sub {
     MusicBrainz::Server::Test->prepare_test_database(
         $c,
         "INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114); " .
-        "INSERT INTO editor (id, name, password) VALUES (15412, 'editor', 'mb'); " .
+        "INSERT INTO editor (id, name, password, ha1) VALUES (15412, 'editor', '{CLEARTEXT}mb', 'be88da857f697a78656b1307f89f90ab'); " .
         "INSERT INTO editor_collection (id, gid, editor, name, public) VALUES (14933, 'f34c079d-374e-4436-9448-da92dedef3cd', 15412, 'My Collection', TRUE); " .
         "INSERT INTO editor_collection_release (collection, release) VALUES (14933, 123054); ");
 
@@ -631,7 +631,6 @@ test 'release lookup, relation attributes' => sub {
                     release => {
                         id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
                         title => 'LOVE & HONESTY',
-                        asin => JSON::null,
                         barcode => '4988064173891',
                         country => JSON::null,
                         date => '2004-01-15',
@@ -662,7 +661,6 @@ test 'release lookup, relation attributes' => sub {
                     release => {
                         id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
                         title => 'LOVE & HONESTY',
-                        asin => JSON::null,
                         barcode => '4988064173907',
                         country => JSON::null,
                         date => '2004-01-15',

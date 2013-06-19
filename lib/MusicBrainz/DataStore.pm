@@ -8,11 +8,19 @@ requires 'del';
 
 =method expire
 
+Expire the specified key in $s seconds.
+
+=cut
+
+requires 'expireat';
+
+=method expireat
+
 Expire the specified key at (unix) $timestamp.
 
 =cut
 
-requires 'expire';
+requires 'expireat';
 
 =method incr
 
