@@ -58,24 +58,6 @@
 
         [% END %]
 
-        [% IF viewing_own_profile %]
-          [% WRAPPER property name=l("Donation:") %]
-            [% IF nag %]
-                    [%- l('You haven\'t {view_url|donated} recently. Donations help MusicBrainz keep going.', {
-                        view_url="http://metabrainz.org/donate"
-                    }) -%]
-            [% ELSIF user.exists && user.is_nag_free %]
-                    [%- l('You have {view_url|donated} recently. Thank you for contributing to MusicBrainz.', {
-                        view_url="http://metabrainz.org/donate"
-                    }) -%]
-            [% ELSE %]
-                    [%- l('Thanks for your contribution to MusicBrainz! If you want to support us further, you can always {view_url|donate}.', {
-                        view_url="http://metabrainz.org/donate"
-                    }) -%]
-            [% END %]
-          [% END %]
-        [% END %]
-
         [% IF user.age;
              WRAPPER property name=l('Age:');
               user.age;
