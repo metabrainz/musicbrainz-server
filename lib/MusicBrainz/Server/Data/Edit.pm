@@ -684,8 +684,8 @@ sub add_link {
 sub extend_expiration_time {
     my ($self, @ids) = @_;
     my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
-    $self->sql->do("UPDATE edit SET expire_time = NOW() + ?
-        WHERE id = any(?) AND expire_time < NOW() + ?", $interval, \@ids, $interval);
+    $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
+        WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }
 
 __PACKAGE__->meta->make_immutable;
