@@ -22,5 +22,12 @@
   </tr>
   [% END %]
 
+  [% IF edit.display_data.artwork.comment %]
+  <tr>
+    <th>[% l('Format:') %]</th>
+    <td>[% edit.display_data.artwork.suffix | html %]</td>
+  </tr>
+  [% END %]
+
   [%- display_edit_artwork(edit.display_data.artwork, edit.display_data.release) -%]
 </table>

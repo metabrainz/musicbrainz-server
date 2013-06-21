@@ -94,9 +94,7 @@ sub post_fields
 }
 
 sub insert_cover_art {
-    my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment) = @_;
-
-    my $mime_type = 'image/jpeg';
+    my ($self, $release_id, $edit, $cover_art_id, $position, $types, $comment, $mime_type) = @_;
 
     # make sure the $cover_art_position slot is available.
     $self->sql->do(

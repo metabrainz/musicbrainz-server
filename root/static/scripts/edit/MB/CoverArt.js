@@ -40,7 +40,6 @@ MB.CoverArt.validate_cover_art_file = function () {
         mime_type = "image/gif";
     }
 
-    console.log ('mime type is', mime_type);
     $('#id-add-cover-art\\.mime_type').val(mime_type);
 
     $('iframe').contents ().find ('#cover-art-file-error').toggle (!mime_type);

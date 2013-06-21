@@ -288,6 +288,14 @@ sub mime_types {
         'SELECT mime_type, suffix FROM cover_art_archive.image_type');
 }
 
+sub image_type_suffix {
+    my ($self, $mime_type) = @_;
+
+    return $self->c->sql->select_single_value (
+        'SELECT suffix FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type);
+}
+
 1;
 
 =head1 COPYRIGHT
