@@ -25,12 +25,27 @@ MB.CoverArt.lastCheck;
 
 MB.CoverArt.validate_cover_art_file = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
-    var invalid = (filename == ""
-                   || filename.match(/\.j(peg|pg|pe|fif|if)$/i) == null);
+    var mime_type = null;
 
-    $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
+    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
+    {
+        mime_type = "image/jpeg";
+    }
+    else if (filename.match(/\.png$/i))
+    {
+        mime_type = "image/png";
+    }
+    else if (filename.match(/\.gif$/i))
+    {
+        mime_type = "image/gif";
+    }
 
-    return !invalid;
+    console.log ('mime type is', mime_type);
+    $('#id-add-cover-art\\.mime_type').val(mime_type);
+
+    $('iframe').contents ().find ('#cover-art-file-error').toggle (!mime_type);
+
+    return Boolean(mime_type);
 };
 
 MB.CoverArt.image_error = function ($img, image) {

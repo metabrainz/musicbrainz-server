@@ -281,6 +281,13 @@ sub url_updated {
     $self->cache_cover_art($_) for @releases;
 }
 
+sub mime_types {
+    my $self = shift;
+
+    return $self->c->sql->select_list_of_hashes (
+        'SELECT mime_type, suffix FROM cover_art_archive.image_type');
+}
+
 1;
 
 =head1 COPYRIGHT

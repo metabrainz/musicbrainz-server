@@ -387,6 +387,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             position => $count
         }
     );
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
@@ -399,12 +400,17 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
                     ],
                 cover_art_position => $form->field ("position")->value,
                 cover_art_id => $form->field('id')->value,
-                cover_art_comment => $form->field('comment')->value || ''
+                cover_art_comment => $form->field('comment')->value || '',
+                cover_art_mime_type => $form->field('mime_type')->value,
             );
         });
 
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
+    }
+    elsif ($form->has_errors)
+    {
+        warn "$_\n" for $form->errors;
     }
 }
 
