@@ -196,24 +196,26 @@ MB.CoverArt.upload_status_enum = {
     'done':           'done',
 };
 
-/* NOTE: javascript objects do not allow integer keys, these are
-   coerced to strings. */
-MB.CoverArt.image_signatures = {
-    0x38464947: 'image/gif',  /* GIF signature. "GIF8" */
-    0x474E5089: 'image/png',  /* PNG signature, [137 "PNG"] */
-    0xE0FFD8FF: 'image/jpeg', /* JPEG signature. */
-};
-
 MB.CoverArt.validate_file = function (file) {
     var deferred = $.Deferred ();
     var reader = new FileReader();
     reader.addEventListener("loadend", function() {
         var uint32view = new Uint32Array(reader.result);
 
-        var mime_type = MB.CoverArt.image_signatures[uint32view[0]];
-        if (mime_type)
+        /* JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
+           Some cameras and phones write a different fourth byte. */
+
+        if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
         {
-            deferred.resolve (mime_type);
+            deferred.resolve ('image/jpeg');
+        }
+        else if (uint32view[0] === 0x38464947) /* GIF signature. "GIF8" */
+        {
+            deferred.resolve ('image/gif');
+        }
+        else if (uint32view[0] === 0x474E5089) /* PNG signature, 0x89 "PNG" */
+        {
+            deferred.resolve ('image/png');
         }
         else
         {
@@ -285,12 +287,13 @@ MB.CoverArt.upload_image = function (postfields, file) {
     return deferred.promise ();
 };
 
-MB.CoverArt.submit_edit = function (file_upload, postfields, position) {
+MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position) {
     var deferred = $.Deferred ();
 
     var formdata = new FormData ();
     formdata.append ('add-cover-art.id', postfields.image_id);
     formdata.append ('add-cover-art.position', position);
+    formdata.append ('add-cover-art.mime_type', mime_type);
     formdata.append ('add-cover-art.comment', file_upload.comment ());
     formdata.append ('add-cover-art.edit_note', $('textarea.edit-note').val ());
 
@@ -337,7 +340,6 @@ MB.CoverArt.FileUpload = function(file) {
     self.comment = ko.observable ();
     self.types = MB.CoverArt.cover_art_types ();
     self.data = file;
-    self.mime_type = null;
 
     self.progress = ko.observable (0);
     self.status = ko.observable ('validating');
@@ -346,16 +348,15 @@ MB.CoverArt.FileUpload = function(file) {
         .fail (function () {
             self.status (statuses.validate_error)
         })
-        .then (function (mime_type) {
+        .done (function (mime_type) {
             self.status (statuses.waiting)
-            self.mime_type = mime_type;
         });
 
     self.doUpload = function (gid, position) {
         var deferred = $.Deferred ();
 
         self.validating.fail (function (msg) { deferred.reject(msg); });
-        self.validating.then (function (mime_type) {
+        self.validating.done (function (mime_type) {
             if (self.status () !== "waiting")
             {
                 /* This file already had its upload started. */
@@ -381,7 +382,9 @@ MB.CoverArt.FileUpload = function(file) {
                 uploading.done (function () {
                     self.status (statuses.submitting);
 
-                    var submitting = MB.CoverArt.submit_edit (self, postfields, position);
+                    var submitting = MB.CoverArt.submit_edit (
+                        self, postfields, mime_type, position);
+
                     submitting.fail (function (msg) {
                         self.status (statuses.submit_error);
                         deferred.reject (msg);
@@ -421,13 +424,16 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
     var pos = parseInt ($('#id-add-cover-art\\.position').val (), 10);
     console.log ("submit some cover arts!!", gid, pos);
 
+    $('#cover-art-position-row').hide ();
+    $('#content')[0].scrollIntoView ();
+
     var queue = _(upvm.files_to_upload ()).map (function (item, idx) {
         return function () {
             return item.doUpload (gid, pos++);
         };
     });
 
-    MB.utility.iteratePromises (queue).then (function () {
+    MB.utility.iteratePromises (queue).done (function () {
         console.log ("all promises done, yay!");
     });
 };
