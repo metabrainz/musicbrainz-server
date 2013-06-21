@@ -34,6 +34,9 @@ my $ws_defs = Data::OptList::mkopt([
     "associations" => {
         method => 'GET',
     },
+    "cover-art-upload" => {
+        method => 'GET',
+    },
     "entity" => {
         method => 'GET',
         inc => [ qw(rels) ]
@@ -316,6 +319,23 @@ sub associations : Chained('root') PathPart Args(1) {
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
+}
+
+sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
+{
+    my ($self, $c, $gid) = @_;
+
+    my $id = $c->model('CoverArtArchive')->fresh_id;
+    my $bucket = 'mbid-' . $gid;
+
+    my $data = {
+        action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
+        image_id => "$id",
+        formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id)
+    };
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('generic', $data));
 }
 
 sub entity : Chained('root') PathPart('entity') Args(1)
