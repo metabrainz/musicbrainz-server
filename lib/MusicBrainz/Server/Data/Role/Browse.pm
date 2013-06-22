@@ -12,16 +12,22 @@ sub find_by_name_prefix
     my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
 
     my $browse_on = $self->browse_column;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
+    my $query_base = " FROM " . $self->_table . "
                  WHERE page_index($browse_on) BETWEEN page_index(?) AND
                                                       page_index_max(?)";
 
-    $query .= " AND ($conditions)" if $conditions;
-    $query .= " ORDER BY musicbrainz_collate($browse_on) OFFSET ? LIMIT 2000";
+    $query_base .= " AND ($conditions)" if $conditions;
 
-    return query_to_list_limited(
+    my $data_query = "SELECT " . $self->_columns . $query_base . " ORDER BY musicbrainz_collate($browse_on) OFFSET ? LIMIT 100";
+    my $count_query = "SELECT count(*) " . $query_base;
+
+    my @data = query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $prefix, $prefix, @bind, $offset || 0);
+        $data_query, $prefix, $prefix, @bind, $offset || 0);
+
+    my $count = $self->c->sql->select_single_value($count_query, $prefix, $prefix, @bind);
+    $data[1] = $count;
+    return @data;
 }
 
 no Moose::Role;
@@ -29,7 +35,7 @@ no Moose::Role;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 LukasLalinsky
+Copyright (C) 2009 Lukas Lalinsky, 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
