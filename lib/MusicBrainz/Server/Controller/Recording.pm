@@ -207,7 +207,7 @@ around '_merge_search' => sub {
     return $results;
 };
 
-sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
+sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth Edit
 {
     my ($self, $c) = @_;
 
@@ -239,7 +239,7 @@ sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
     }
 }
 
-sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
+sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $puid_str = $c->req->query_params->{puid};

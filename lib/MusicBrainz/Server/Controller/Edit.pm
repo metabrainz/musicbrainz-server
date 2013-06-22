@@ -65,7 +65,7 @@ sub show : Chained('load') PathPart('') RequireAuth
     $c->stash->{template} = 'edit/index.tt';
 }
 
-sub enter_votes : Local RequireAuth
+sub enter_votes : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -84,7 +84,7 @@ sub enter_votes : Local RequireAuth
     $c->detach;
 }
 
-sub approve : Chained('load') RequireAuth(auto_editor)
+sub approve : Chained('load') RequireAuth(auto_editor) DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -119,7 +119,7 @@ sub approve : Chained('load') RequireAuth(auto_editor)
     });
 }
 
-sub cancel : Chained('load') RequireAuth
+sub cancel : Chained('load') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $edit = $c->stash->{edit};

@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Controller::Account::SubscriptionsRole;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 
-sub add : Local RequireAuth HiddenOnSlaves
+sub add : Local RequireAuth HiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -13,7 +13,7 @@ sub add : Local RequireAuth HiddenOnSlaves
     $c->detach;
 }
 
-sub remove : Local RequireAuth HiddenOnSlaves
+sub remove : Local RequireAuth HiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 

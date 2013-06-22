@@ -338,7 +338,7 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth Edit
 {
     my ($self, $c) = @_;
 
@@ -354,7 +354,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
-sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
+sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
@@ -408,7 +408,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     }
 }
 
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
