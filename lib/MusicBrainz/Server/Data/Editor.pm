@@ -226,8 +226,9 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    $data->{password} = hash_password($data->{password});
-    $data->{ha1} = ha1_password($data->{name}, $data->{password});
+    my $plaintext = $data->{password};
+    $data->{password} = hash_password($plaintext);
+    $data->{ha1} = ha1_password($data->{name}, $plaintext);
 
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
