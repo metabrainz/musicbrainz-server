@@ -358,6 +358,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
+    my $json = JSON::Any->new( utf8 => 1 );
 
     $c->model('Release')->load_meta($entity);
 
@@ -377,7 +378,11 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     $c->stash({
         id => $id,
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
-        images => \@artwork
+        images => \@artwork,
+        cover_art_types_json => $json->encode (
+            [ map {
+                { name => $_->name, l_name => $_->l_name, id => $_->id }
+            } $c->model('CoverArtType')->get_all () ]),
     });
 
     my $form = $c->form(
