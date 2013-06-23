@@ -44,7 +44,7 @@ MB.CoverArt.validate_cover_art_file = function () {
 
     $('iframe').contents ().find ('#cover-art-file-error').toggle (!mime_type);
 
-    return Boolean(mime_type);
+    return mime_type;
 };
 
 MB.CoverArt.image_error = function ($img, image) {
@@ -130,17 +130,18 @@ MB.CoverArt.reorder_position = function () {
     $('div.editimage script').remove ();
 };
 
-MB.CoverArt.add_cover_art = function () {
+MB.CoverArt.add_cover_art = function (mbid) {
     $('#add-cover-art-submit').prop('disabled', false);
 
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
 
-        var valid = MB.CoverArt.validate_cover_art_file ();
+        var mime_type = MB.CoverArt.validate_cover_art_file ();
 
-        if (valid)
+        if (mime_type)
         {
-            $('iframe').contents ().find ('form').submit ();
+            $('iframe')[0].contentWindow.upload (
+                mbid, $('#id-add-cover-art\\.id').val (), mime_type);
         }
 
         return false;

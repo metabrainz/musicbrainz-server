@@ -54,7 +54,7 @@ sub thumb
 
     $log->info ("Generating ${max}x${max} thumbnail, $newfile\n");
 
-    `convert -thumbnail ${max}x${max} $filename $newfile`;
+    `convert -thumbnail ${max}x${max} "$filename\[0\]" $newfile`;
 }
 
 sub create_bucket

@@ -45,6 +45,7 @@ sub _column_mapping
         is_front => 'is_front',
         is_back => 'is_back',
         approved => 'approved',
+        suffix => 'suffix',
     };
 }
 
@@ -194,7 +195,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012,2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

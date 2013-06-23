@@ -325,13 +325,18 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {
     my ($self, $c, $gid) = @_;
 
-    my $id = $c->model('CoverArtArchive')->fresh_id;
+    my $id = $c->request->params->{image_id} // $c->model('CoverArtArchive')->fresh_id;
     my $bucket = 'mbid-' . $gid;
+
+    my %args;
+    $args{mime_type} = $c->request->params->{mime_type};
+    $args{redirect} = $c->uri_for_action('/release/cover_art_uploaded', [ $gid ])->as_string ()
+        if $c->request->params->{redirect};
 
     my $data = {
         action => DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket),
         image_id => "$id",
-        formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id)
+        formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id, \%args)
     };
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

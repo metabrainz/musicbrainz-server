@@ -57,13 +57,17 @@ Generate the policy and form values to upload cover art.
 
 sub post_fields
 {
-    my ($self, $bucket, $mbid, $id, $redirect) = @_;
+    my ($self, $bucket, $mbid, $id, $opts) = @_;
+
+    my $mime_type = $opts->{mime_type} // "image/jpeg";
+    my $redirect = $opts->{redirect};
+    my $suffix = $self->c->model('CoverArt')->image_type_suffix ($mime_type);
 
     my $access_key = DBDefs->COVER_ART_ARCHIVE_ACCESS_KEY;
     my $secret_key = DBDefs->COVER_ART_ARCHIVE_SECRET_KEY;
 
     my $policy = Net::Amazon::S3::Policy->new(expiration => int(time()) + 3600);
-    my $filename = "mbid-$mbid-" . $id . '.jpg';
+    my $filename = "mbid-$mbid-$id.$suffix";
 
     my %extra_fields = (
         "x-archive-auto-make-bucket" => 1,
@@ -73,9 +77,9 @@ sub post_fields
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
-    $policy->add ({'success_action_redirect' => $redirect});
+    $policy->add ({'success_action_redirect' => $redirect }) if $redirect;
     $policy->add ('$key eq '.$filename);
-    $policy->add ('$content-type starts-with image/jpeg');
+    $policy->add ('$content-type starts-with '.$mime_type);
 
     for my $field (keys %extra_fields) {
         $policy->add("$field eq " . $extra_fields{$field});
@@ -87,7 +91,7 @@ sub post_fields
         signature => $policy->signature_base64($secret_key),
         key => $filename,
         acl => 'public-read',
-        "content-type" => 'image/jpeg',
+        "content-type" => $mime_type,
         success_action_redirect => $redirect,
         %extra_fields
     };

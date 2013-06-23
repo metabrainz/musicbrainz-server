@@ -343,15 +343,11 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my $id = $c->req->query_params->{id} or die "Need destination ID";
-
     my $bucket = 'mbid-' . $entity->gid;
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ],
-                                      { id => $id })->as_string ();
+                                      [ $entity->gid ])->as_string ();
 
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
-    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
 sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
