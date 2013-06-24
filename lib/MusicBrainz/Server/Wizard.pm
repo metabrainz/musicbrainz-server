@@ -278,7 +278,7 @@ sub value
         {
             $data{$key} = $value;
         }
-    } 
+    }
 
     return \%data;
 }
@@ -472,7 +472,7 @@ sub _store
     if (defined $value)
     {
         $self->_datastore->set ($key, $value);
-        $self->_datastore->expire ($key, time () + DBDefs->SESSION_EXPIRE);
+        $self->_datastore->expire ($key, DBDefs->SESSION_EXPIRE);
     }
     else
     {

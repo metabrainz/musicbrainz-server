@@ -11,7 +11,8 @@
                         <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
                         <th>[% l('Release Artist') %]</th>
-                        <th>[% l('Release Events') %]</th>
+                        <th>[% l('Date') %]</th>
+                        <th>[% l('Country') %]</th>
                         <th>[% l('Label') %]</th>
                         <th>[% l('Catalog#') %]</th>
                     </tr>
@@ -30,7 +31,8 @@
                       <td>[%- rdfa_recording_duration(track) -%]</td>
                       <td>[%- rdfa_link_release_track(release, track) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
-                      <td>[%- release_events(release.events) -%]</td>
+                      <td>[% release_dates(release.events) %]</td>
+                      <td>[% release_countries(release.events) %]</td>
                       <td>[% rdfa_release_label_list(release.labels) %]</td>
                       <td>[% rdfa_release_catno_list(release.labels) %]</td>
                     </tr>
