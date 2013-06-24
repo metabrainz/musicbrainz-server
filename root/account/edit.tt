@@ -10,7 +10,7 @@
   //]]></script>
 [% END %]
 
-[% WRAPPER "user/profile/layout.tt" page="edit_profile" %]
+[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") %]
 
    <h2>[% l("Edit Profile") %]</h2>
 
