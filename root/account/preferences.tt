@@ -1,5 +1,5 @@
 [% USE dt = Class('DateTime') %]
-[% WRAPPER "user/profile/layout.tt" page="preferences" %]
+[% WRAPPER "user/profile/layout.tt" page="preferences" title=l("Preferences") %]
 
    <h2>[% l("Preferences") %]</h2>
 
