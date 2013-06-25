@@ -614,16 +614,26 @@ sub consume_remember_me_token {
 sub allocate_remember_me_token {
     my ($self, $user_name) = @_;
 
-    # Generate a 128-bit token. irand is 32-bit.
-    my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+    if (
+        $self->sql->select_single_value(
+            'SELECT TRUE FROM editor WHERE name = ?',
+            $user_name
+        )
+    ) {
+        # Generate a 128-bit token. irand is 32-bit.
+        my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
 
-    my $key = "$user_name|$token";
-    $self->redis->add($key, 1);
+        my $key = "$user_name|$token";
+        $self->redis->add($key, 1);
 
-    # Expire tokens after 1 year.
-    $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
+        # Expire tokens after 1 year.
+        $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
 
-    return $token;
+        return $token;
+    }
+    else {
+        return undef;
+    }
 }
 
 no Moose;

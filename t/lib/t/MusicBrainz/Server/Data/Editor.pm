@@ -47,6 +47,9 @@ test 'Remember me tokens' => sub {
     ok($model->consume_remember_me_token($user_name, $token),
        'Can consume "remember me" tokens');
 
+    ok( $test->c->redis->ttl("$user_name|$token") <= 5 * 60,
+        'TTL of remember me token at most 5 minutes' );
+
     ok(!$model->consume_remember_me_token($user_name, $token),
        'Cannot consume "remember me" tokens more than once');
 
