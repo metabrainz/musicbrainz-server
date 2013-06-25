@@ -4,14 +4,15 @@
 # Benjamin <email address hidden>, 2011.
 # Benjamin Sonntag <email address hidden>, 2011, 2012.
 # Benjamin Sonntag <email address hidden>, 2011.
+#  <email address hidden>, 2013.
 # Dibou  <email address hidden>, 2012.
 # murdos <email address hidden>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-05-29 21:57+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-04-11 20:47+0000\n"
+"Last-Translator: kmartin <email address hidden>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/musicbrainz/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -577,7 +578,7 @@ msgstr "sud-arabique, himyarite"
 #. frequency:1 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkish"
-msgstr ""
+msgstr "Turc ancien"
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54

@@ -1,11 +1,11 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012.
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-03-12 06:34+0000\n"
+"PO-Revision-Date: 2013-06-11 17:21+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -368,6 +368,11 @@ msgstr "keldi keeled"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Kesk-Ameerika indiaanikeeled"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr "Kesk-Okinawa"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
