@@ -158,8 +158,9 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
+                // Lyrics
                 [
-                    'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                    'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
                 [
@@ -168,6 +169,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 [
                     'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
+                    'work', 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
                 // Vimeo
