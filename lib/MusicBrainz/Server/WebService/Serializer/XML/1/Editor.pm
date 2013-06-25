@@ -12,7 +12,6 @@ sub attributes {
     push @types, "AutoEditor" if $entity->is_auto_editor;
     push @types, "RelationshipEditor" if $entity->is_relationship_editor;
     push @types, "Bot" if $entity->is_bot;
-    push @types, "NotNaggable" if $entity->is_nag_free;
 
     return (
         type => join (' ', @types) || ''
@@ -23,12 +22,10 @@ sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
 
-    my $nag_status = $opts->{nag_status};
-
     return (
         $self->gen->name($entity->name),
         $self->gen->${ \'ext:nag' }(
-            { show => $nag_status && $nag_status->{nag} ? 'true' : 'false' }
+            { show => 'false' }
         )
     )
 }

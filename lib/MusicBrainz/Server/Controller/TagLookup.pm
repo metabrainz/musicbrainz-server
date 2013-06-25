@@ -5,8 +5,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::Data::Search qw( alias_query escape_query );
 
-use constant LOOKUPS_PER_NAG => 5;
-
 sub _parse_filename
 {
    my ($filename) = @_;
@@ -74,46 +72,6 @@ sub _parse_filename
 
    return $data;
 }
-
-# returns 1 if the user should get a "please donate" screen, 0 otherwise.
-sub nag_check
-{
-    my ($self, $c) = @_;
-
-    # Always nag users who are not logged in
-    return 1 unless $c->user_exists;
-
-    # Editors with special privileges should not get nagged.
-    my $editor = $c->user;
-    return 0 if ($editor->is_nag_free ||
-                 $editor->is_auto_editor ||
-                 $editor->is_bot ||
-                 $editor->is_relationship_editor ||
-                 $editor->is_wiki_transcluder);
-
-    # Otherwise, do the normal nagging per LOOKUPS_PER_NAG check
-    my $session = $c->session;
-    $session->{nag} = 0 unless defined $session->{nag};
-
-    return 0 if ($session->{nag} == -1);
-
-    if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
-    {
-        my $result = $c->model('Editor')->donation_check ($c->user);
-        my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
-
-        $session->{nag} = -1 unless $nag;
-        $session->{nag_check_timeout} = time() + (24 * 60 * 60); # check again tomorrow.
-    }
-
-    $session->{nag}++;
-
-    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
-
-    $session->{nag} = 0;
-    return 1; # nag this user.
-}
-
 
 sub puid : Private
 {
@@ -208,7 +166,6 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
-    $c->stash( nag => $self->nag_check($c) );
 
     my $mapped_params = {
         map {
