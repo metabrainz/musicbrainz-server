@@ -182,6 +182,12 @@ sub allow_auto_edit
     return 0 if exists $self->data->{old}{area_id}
         and defined($self->data->{old}{area_id}) && $self->data->{old}{area_id} != 0;
 
+    return 0 if exists $self->data->{old}{begin_area_id}
+        and defined($self->data->{old}{begin_area_id}) && $self->data->{old}{begin_area_id} != 0;
+
+    return 0 if exists $self->data->{old}{end_area_id}
+        and defined($self->data->{old}{end_area_id}) && $self->data->{old}{end_area_id} != 0;
+
     return 0 if exists $self->data->{old}{ended}
         and $self->data->{old}{ended} != $self->data->{new}{ended};
 
