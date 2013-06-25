@@ -92,7 +92,6 @@ sub post_fields
         key => $filename,
         acl => 'public-read',
         "content-type" => $mime_type,
-        success_action_redirect => $redirect,
         %extra_fields
     };
 

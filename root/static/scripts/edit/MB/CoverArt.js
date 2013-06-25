@@ -444,6 +444,8 @@ MB.CoverArt.add_cover_art = function (gid) {
         /* FormData is supported, so we can present the multifile ajax
          * upload form. */
 
+        $('.with-formdata').show ();
+
         upvm = new MB.CoverArt.UploadProcessViewModel ();
         ko.applyBindings (upvm);
 
@@ -482,6 +484,7 @@ MB.CoverArt.add_cover_art = function (gid) {
     }
     else
     {
+        $('.without-formdata').show ();
         $('#add-cover-art-submit').prop('disabled', false);
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
@@ -493,7 +496,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             if (mime_type)
             {
                 $('iframe')[0].contentWindow.upload (
-                    mbid, $('#id-add-cover-art\\.id').val (), mime_type);
+                    gid, $('#id-add-cover-art\\.id').val (), mime_type);
             }
             else
             {
