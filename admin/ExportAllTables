@@ -710,7 +710,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 NULL AS bio,
                 member_since,
                 email_confirm_date,
-                last_login_date,
+                now() AS last_login_date,
                 edits_accepted,
                 edits_rejected,
                 auto_edits_accepted,
