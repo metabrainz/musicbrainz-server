@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Translation qw( l );
 use List::UtilsBy qw( sort_by );
+use List::AllUtils qw( part );
 
 with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
@@ -85,10 +86,13 @@ sub load : Private {
     my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
 
+    my $i = 0;
+    my $work_types = [ part { int($i++ / 2 ) } @{ $form->_select_all('WorkType') } ];
+
     $c->stash(
         attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
-        work_types => [ $c->model('WorkType')->get_all ],
+        work_types => $work_types,
         work_languages => $self->build_work_languages($c, $form->language_options),
     );
 }
