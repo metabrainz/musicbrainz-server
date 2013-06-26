@@ -22,8 +22,8 @@
         [% END %]
 
         [% IF edit.is_open AND server_details.testing_features %]
-           <a class="positive" href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept edit') %]</a></li>
-           <a class="negative" href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a></li>
+           <a class="positive" href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept edit') %]</a>
+           <a class="negative" href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a>
         [% END %]
     </div>
     [% END %]
