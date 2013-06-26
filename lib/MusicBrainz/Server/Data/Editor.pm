@@ -564,7 +564,7 @@ sub hash_password {
 
 sub ha1_password {
     my ($username, $password) = @_;
-    return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {
