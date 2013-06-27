@@ -362,7 +362,9 @@ sub schema_fixup
 
     if (exists $data->{country})
     {
-        $data->{country} = $self->c->model('Area')->find_by_iso_3166_1_code ($data->{country});
+        my $iso = $data->{country};
+        $data->{country} =
+            $self->c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
         delete $data->{country} unless defined $data->{country};
     }
 
