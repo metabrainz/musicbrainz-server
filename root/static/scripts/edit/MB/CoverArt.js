@@ -373,14 +373,19 @@ MB.CoverArt.FileUpload = function(file) {
 
             signing.done (function (postfields) {
                 self.status (statuses.uploading);
+                self.updateProgress (1, 100);
 
                 var uploading = MB.CoverArt.upload_image (postfields, self.data);
+                uploading.progress (function (value) {
+                    self.updateProgress (2, value);
+                });
                 uploading.fail (function (msg) {
                     self.status (statuses.upload_error);
                     deferred.reject (msg);
                 });
                 uploading.done (function () {
                     self.status (statuses.submitting);
+                    self.updateProgress (2, 100);
 
                     var submitting = MB.CoverArt.submit_edit (
                         self, postfields, mime_type, position);
@@ -391,6 +396,7 @@ MB.CoverArt.FileUpload = function(file) {
                     })
                     submitting.done (function () {
                         self.status (statuses.done);
+                        self.updateProgress (3, 100);
                         deferred.resolve ();
                     });
                 });
@@ -400,6 +406,30 @@ MB.CoverArt.FileUpload = function(file) {
 
         return deferred.promise ();
     };
+
+    self.updateProgress = function (step, value) {
+        /*
+          To make the progress bar show progress for the entire process each of
+          the three requests get a chunk of the progress bar:
+
+          step 1. Signing       0% to  10%
+          step 2. Upload       10% to  90%
+          step 3. Create edit  90% to 100%
+        */
+
+        switch (step) {
+        case 1:
+            self.progress ( 0 + value * 0.1);
+            break;
+        case 2:
+            self.progress (10 + value * 0.8);
+            break;
+        case 3:
+            self.progress (90 + value * 0.1);
+            break;
+        }
+    };
+
 };
 
 MB.CoverArt.UploadProcessViewModel = function () {
