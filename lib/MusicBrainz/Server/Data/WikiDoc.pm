@@ -18,7 +18,6 @@ sub _fix_html_links
 {
     my ($self, $node, $index) = @_;
 
-    my $server      = DBDefs->WEB_SERVER;
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
 
     my $class = $node->attr('class') || "";
