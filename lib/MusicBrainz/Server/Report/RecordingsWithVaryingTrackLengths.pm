@@ -22,7 +22,8 @@ sub query {
                 JOIN artist_credit ac ON r.artist_credit = ac.id
                 JOIN artist_name an ON ac.name = an.id
             WHERE
-                @(t0.length - t1.length) > 30000
+                t0.id != t1.id
+                AND @(t0.length - t1.length) > 30000
         ) AS q
     ";
 }
