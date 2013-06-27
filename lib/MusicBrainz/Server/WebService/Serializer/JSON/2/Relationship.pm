@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::Relation;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::Relationship;
 use Moose;
 use Hash::Merge qw(merge);
 use String::CamelCase qw(camelize);
