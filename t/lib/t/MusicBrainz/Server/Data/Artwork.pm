@@ -20,6 +20,8 @@ INSERT INTO release_group (id, gid, name, artist_credit, comment)
 INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (1, '7b906020-72db-11de-8a39-0800200c9a70', 1, 1, 1),
            (2, '7c906020-72db-11de-8a39-0800200c9a71', 1, 1, 1);
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
+  VALUES (1, 2000, 10, 15), (2, 2000, 11, NULL);
 
 INSERT INTO editor (id, name, password, ha1) VALUES (1, '', '', '');
 INSERT INTO edit (id, editor, type, status, data, expire_time)
@@ -30,13 +32,14 @@ INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
 INSERT INTO cover_art_archive.image_type (mime_type, suffix)
 VALUES ('image/png', 'png');
 INSERT INTO cover_art_archive.cover_art
-  (id, release, edit, ordering, mime_type, type)
-VALUES (1, 1, 1, 1, 'image/png', 1), (2, 2, 2, 1, 'image/png', 1);
+  (id, release, edit, ordering, mime_type)
+VALUES (1, 1, 1, 1, 'image/png'), (2, 2, 2, 1, 'image/png');
+INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES (1, 1), (2, 1);
 EOSQL
 
     my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('Artwork')->load_for_release_groups($release_group);
-    is($release_group->cover_art->id, 2);
+    is($release_group->cover_art->id, 1);
 };
 
 1;
