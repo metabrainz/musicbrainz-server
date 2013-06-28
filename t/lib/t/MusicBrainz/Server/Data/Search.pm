@@ -13,6 +13,17 @@ use MusicBrainz::Server::Data::Search;
 
 with 't::Context';
 
+test 'Searching artists with area lookup' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $area_name = 'Area';
+
+    my $data = load_data('artist', $c);
+    my $artist = $data->{results}[0]{entity};
+    is($artist->area->name, $area_name);
+};
+
 test all => sub {
 
 my $test = shift;

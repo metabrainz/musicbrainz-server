@@ -13,10 +13,9 @@ test 'Test splitting an artist' => sub {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, email_confirm_date)
-  VALUES ( 1, 'new_editor', 'password', 'example@example.com', '2005-10-20');
-INSERT INTO editor (id, name, password)
-  VALUES ( 4, 'ModBot', '' );
+INSERT INTO editor (id, name, password, email, email_confirm_date, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
+INSERT INTO editor (id, name, password, ha1)
+  VALUES ( 4, 'ModBot', '', '' );
 INSERT INTO artist_name (id, name) VALUES (1, 'Bob & David'), (2, 'Bob'), (3, 'David');
 INSERT INTO artist (id, gid, name, sort_name) VALUES
     (10, '9f0b3e1a-2431-400f-b6ff-2bcebbf0971a', 1, 1),

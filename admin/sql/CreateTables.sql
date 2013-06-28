@@ -391,7 +391,6 @@ CREATE TABLE editor
 (
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
-    password            VARCHAR(64) NOT NULL,
     privs               INTEGER DEFAULT 0,
     email               VARCHAR(64) DEFAULT NULL,
     website             VARCHAR(255) DEFAULT NULL,
@@ -406,7 +405,9 @@ CREATE TABLE editor
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     birth_date          DATE,
     gender              INTEGER, -- references gender.id
-    area                INTEGER -- references area.id
+    area                INTEGER, -- references area.id
+    password            VARCHAR(128) NOT NULL,
+    ha1                 CHAR(32) NOT NULL
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');

@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::Area;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -61,7 +62,31 @@ sub dupe_model { shift->ctx->model('Area') }
 sub validate {
     my ($self) = @_;
 
+    for my $iso (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
+        $self->_unique_iso_code($iso);
+    }
+
+
     return 1;
+}
+
+sub _unique_iso_code {
+    my ($self, $iso_field) = @_;
+
+    my $area_id = $self->init_object ? $self->init_object->id : 0;
+    my $method = "get_by_$iso_field";
+    my $container = $self->field($iso_field);
+
+    if (
+        my %areas = %{ $self->ctx->model('Area')->$method($container->value) }
+    ) {
+        for my $f ($container->fields) {
+            my $area_using_iso_code = $areas{$f->value} or next;
+            if ($area_using_iso_code->id != $area_id) {
+                $f->add_error(l('An area already exists with this ISO code'));
+            }
+        }
+    }
 }
 
 1;

@@ -45,8 +45,7 @@ sub search : Path('')
             $c->forward('external');
         }
         elsif ($form->field('type')->value eq 'tag' ||
-               $form->field('type')->value eq 'editor' ||
-               $form->field('type')->value eq 'area')
+               $form->field('type')->value eq 'editor')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');

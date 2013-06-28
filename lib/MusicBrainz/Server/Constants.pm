@@ -6,6 +6,7 @@ use warnings;
 use base 'Exporter';
 
 use Readonly;
+use DateTime::Duration;
 
 sub _get
 {
@@ -29,7 +30,7 @@ our %EXPORT_TAGS = (
     access_scope    => _get(qr/^ACCESS_SCOPE_/),
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
-            $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
+            $RELATIONSHIP_EDITOR_FLAG $WIKI_TRANSCLUSION_FLAG
             $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG )
     ],
     election_status => [
@@ -50,7 +51,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
-        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
+        $RELATIONSHIP_EDITOR_FLAG $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
         $REQUIRED_VOTES ),
@@ -241,7 +242,6 @@ Readonly our $AUTO_EDITOR_FLAG         => 1;
 Readonly our $BOT_FLAG                 => 2;
 Readonly our $UNTRUSTED_FLAG           => 4;
 Readonly our $RELATIONSHIP_EDITOR_FLAG => 8;
-Readonly our $DONT_NAG_FLAG            => 16;
 Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
@@ -257,6 +257,7 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
 Readonly our $REQUIRED_VOTES => 3;
+Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
 
 Readonly our $ACCESS_SCOPE_PROFILE        => 1;
 Readonly our $ACCESS_SCOPE_EMAIL          => 2;

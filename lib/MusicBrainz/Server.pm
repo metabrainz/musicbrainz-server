@@ -8,6 +8,7 @@ use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
+use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
 use aliased 'MusicBrainz::Server::Translation';
 
@@ -114,9 +115,7 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
         moderators => {
             use_session => 1,
             credential => {
-                class => 'Password',
-                password_field => 'password',
-                password_type => 'clear'
+                class => '+MusicBrainz::Server::Authentication::Credential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store'
@@ -127,8 +126,8 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             credential => {
                 class => '+MusicBrainz::Server::Authentication::WS::Credential',
                 type => 'digest',
-                password_field => 'password_bytes',
-                password_type => 'clear',
+                password_field => 'ha1',
+                password_type => 'clear'
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::WS::Store'
@@ -249,6 +248,15 @@ sub relative_uri
 sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
+
+sub get_collator
+{
+    my ($self) = @_;
+    my $coll = Unicode::ICU::Collator->new($self->stash->{current_language} // 'en');
+    # make sure to update the postgresql collate extension as well
+    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
+    return $coll;
+}
 
 sub set_language_cookie {
     my ($c, $lang) = @_;
@@ -408,6 +416,11 @@ around 'finalize_error' => sub {
         }
     });
 };
+
+sub try_get_session {
+    my ($c, $key) = @_;
+    return $c->sessionid ? $c->session->{$key} : undef;
+}
 
 =head1 NAME
 

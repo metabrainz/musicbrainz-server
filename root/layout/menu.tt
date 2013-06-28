@@ -253,6 +253,9 @@
                 <a href="[% doc_link('Style') %]">[% l('Style Guidelines') %]</a>
             </li>
             <li>
+                <a href="[% doc_link('How_To') %]">[% l('How Tos') %]</a>
+            </li>
+            <li>
                 <a href="[% doc_link('Frequently_Asked_Questions') %]">[% l('FAQs') %]</a>
             </li>
             <li class="separator">

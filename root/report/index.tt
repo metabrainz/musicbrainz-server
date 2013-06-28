@@ -79,6 +79,7 @@
            <li><a href="[% c.uri_for_action('/report/show', 'TracksNamedWithSequence') %]">[% l('Tracks whose names include their sequence numbers') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'FeaturingRecordings') %]">[% l('Recordings with titles containing featuring artists') %]</a></li>
            <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsRecordings') %]">[% l('Recordings with possible duplicate relationships') %]</a></li>
+           <li><a href="[% c.uri_for_action('/report/show', 'RecordingsWithVaryingTrackLengths') %]">[% l('Recordings with varying track times') %]</a></li>
         </ul>
 
         <h2>[% l('Works') %]</h2>

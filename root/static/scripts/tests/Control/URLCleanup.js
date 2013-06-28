@@ -158,8 +158,9 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
+                // Lyrics
                 [
-                    'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                    'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
                 [
@@ -168,6 +169,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 [
                     'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
+                    'work', 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
                 // Vimeo
@@ -551,6 +556,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.jamendo.com/list/a81403',
                     'release'
                 ],
+                // Allmusic
                 [
                     'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                     'http://www.allmusic.com/artist/mn0000754032',
@@ -576,6 +582,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
                 ],
+                // iTunes
                 [
                     'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
                     'https://itunes.apple.com/artist/id444923726',
@@ -721,8 +728,12 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                ],
+                // Soundtrack Collector
+                [
+                    'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
+                    'http://soundtrackcollector.com/composer/94/',
                 ]
-
             ];
 
         $.each(tests, function(i, test) {

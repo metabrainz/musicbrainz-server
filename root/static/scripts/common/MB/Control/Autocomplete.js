@@ -130,7 +130,13 @@ MB.Control.autocomplete_formatters = {
     "area": function (ul, item) {
         var a = $("<a>").text (item.name);
 
-        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + '</span>');
+        if (item.typeName || item.parentCountry) {
+             a.append ('<br /><span class="autocomplete-comment">' +
+                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
+                       (item.typeName && item.parentCountry ? ', ' : '') +
+                       (item.parentCountry ? MB.utility.escapeHTML(item.parentCountry) : '') +
+                       '</span>');
+        };
 
         return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     }
@@ -398,9 +404,6 @@ MB.Control.Autocomplete = function (options) {
     self.changeEntity = function (entity) {
         self.entity = entity.replace ('_', '-');
         self.url = options.url || "/ws/js/" + self.entity;
-        if (self.entity == 'area') {
-            self.indexed_search = false;
-        }
 
         if (options.formatItem)
         {

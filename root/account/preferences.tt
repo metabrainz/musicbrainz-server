@@ -1,7 +1,5 @@
 [% USE dt = Class('DateTime') %]
-[% WRAPPER "layout.tt" title=l("Preferences") full_width=1 %]
-
-<h1>[% l('Preferences') %]</h1>
+[% WRAPPER "user/profile/layout.tt" page="preferences" title=l("Preferences") %]
 
 <form action="[% c.req.uri %]" method="post" style="margin-top:1em">
 

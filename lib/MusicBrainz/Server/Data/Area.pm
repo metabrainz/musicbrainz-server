@@ -111,6 +111,61 @@ sub load_codes
     }
 }
 
+sub load_parent_country
+{
+    my ($self, @objs) = @_;
+    my $country_area_type = 1;
+    my $area_area_parent_type = 356;
+
+    my @objects_to_use = grep { defined $_ &&
+                                !defined $_->parent_country &&
+                                ( defined $_->type ? $_->type->id != $country_area_type : $_->type_id != $country_area_type)} @objs;
+    return unless @objects_to_use;
+    my %obj_id_map = object_to_ids(@objects_to_use);
+    my @all_ids = keys %obj_id_map;
+
+    # First, construct a table (recursively) of parent -> descendant connections
+    # for areas including an array of the path (the 'descendants' array).
+    #
+    # Then, for given descendants, find the shortest path to a parent of type
+    # 1 (country) by joining to area, limiting on type=1, distinct on descendant,
+    # and order by array_length(descendants).
+    #
+    # Thus, find the nearest containing country for an area.
+    my $query = "
+        WITH RECURSIVE area_descendants AS (
+            SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
+            FROM   l_area_area laa
+            JOIN   link ON laa.link = link.id
+            WHERE  link_type = $area_area_parent_type
+                UNION ALL
+            SELECT entity0 AS parent, descendant, descendants || entity1
+            FROM   l_area_area laa
+            JOIN   link ON laa.link=link.id
+            JOIN   area_descendants ON area_descendants.parent = laa.entity1
+            WHERE  link_type = $area_area_parent_type
+            AND    NOT entity0 = ANY(descendants))
+        SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
+        FROM     area_descendants
+        JOIN     area ON area_descendants.parent = area.id
+        WHERE    area.type = $country_area_type
+        AND      descendant IN (" . placeholders(@all_ids) . ")
+        ORDER BY descendant, array_length(descendants, 1) ASC
+    ";
+    my $parent_countries = $self->sql->select_list_of_hashes($query, @all_ids);
+
+    my $parent_objects = $self->get_by_ids(map { $_->{id} } @$parent_countries);
+
+    for my $parent (@$parent_countries) {
+        if (my $entities = $obj_id_map{$parent->{descendant}}) {
+            my $parent_obj = $parent_objects->{$parent->{id}};
+            for my $entity (@$entities) {
+                $entity->parent_country($parent_obj);
+            }
+        }
+    };
+}
+
 sub _set_codes
 {
     my ($self, $area, $type, $codes) = @_;
@@ -247,16 +302,6 @@ sub merge_codes
     }
 }
 
-sub find_by_iso_3166_1_code {
-    my ($self, $code) = @_;
-    my $query = "SELECT iso.code, " . $self->_columns .
-        " FROM iso_3166_1 iso JOIN area ON iso.area = area.id" .
-        " WHERE iso.code = ?";
-
-    my $rows = $self->sql->select_list_of_hashes($query, $code);
-    return $self->_new_from_row($rows->[0]);
-}
-
 sub _hash_to_row
 {
     my ($self, $area) = @_;
@@ -271,6 +316,32 @@ sub _hash_to_row
     add_partial_date_to_row($row, $area->{end_date}, 'end_date');
 
     return $row;
+}
+
+sub get_by_iso_3166_1 {
+    shift->_get_by_iso('iso_3166_1', @_);
+}
+
+sub get_by_iso_3166_2 {
+    shift->_get_by_iso('iso_3166_2', @_);
+}
+
+sub get_by_iso_3166_3 {
+    shift->_get_by_iso('iso_3166_3', @_);
+}
+
+sub _get_by_iso {
+    my ($self, $table, @codes) = @_;
+    my $query = "SELECT iso.code, " . $self->_columns .
+        " FROM $table iso JOIN area ON iso.area = area.id" .
+        " WHERE iso.code = any(?)";
+
+    my %ret = map { $_ => undef } @codes;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
+        $ret{$row->{code}} = $self->_new_from_row($row);
+    }
+
+    return \%ret;
 }
 
 __PACKAGE__->meta->make_immutable;

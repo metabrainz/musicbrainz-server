@@ -20,8 +20,14 @@
         [% IF edit.can_cancel(c.user) %]
             <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { url=c.req.uri }) %]">[% l('Cancel edit') %]</a>
         [% END %]
+
+        [% IF edit.is_open AND server_details.testing_features %]
+           <a class="positive" href="[% c.uri_for_action('/test/accept_edit', edit.id) %]">[% l('Accept edit') %]</a>
+           <a class="negative" href="[% c.uri_for_action('/test/reject_edit', edit.id) %]">[% l('Reject edit') %]</a>
+        [% END %]
     </div>
     [% END %]
+
 [% ELSE %]
     [%- WRAPPER 'layout/sidebar/properties.tt' class='edit-status'-%]
         [%- INCLUDE 'layout/sidebar/property.tt' label=lp('Status:', 'edit status')

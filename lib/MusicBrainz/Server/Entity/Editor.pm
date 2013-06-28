@@ -2,8 +2,9 @@ package MusicBrainz::Server::Entity::Editor;
 use Moose;
 use namespace::autoclean;
 
+use Authen::Passphrase;
 use DateTime;
-use Encode qw( encode );
+use Encode;
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
@@ -44,12 +45,6 @@ sub is_bot
 sub is_untrusted
 {
     my $mask = $UNTRUSTED_FLAG;
-    return (shift->privileges & $mask) > 0;
-}
-
-sub is_nag_free
-{
-    my $mask = $DONT_NAG_FLAG;
     return (shift->privileges & $mask) > 0;
 }
 
@@ -207,9 +202,15 @@ sub requires_password_reset {
     return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY
 };
 
-sub password_bytes {
-    my $self = shift;
-    return encode('utf-8', $self->password);
+has ha1 => (
+    isa => 'Str',
+    is => 'rw',
+);
+
+sub match_password {
+    my ($self, $password) = @_;
+    Authen::Passphrase->from_rfc2307($self->password)->match(
+        encode('utf-8', $password));
 }
 
 no Moose;
@@ -293,10 +294,6 @@ The editor is a bot, not a human being
 =head2 is_untrusted
 
 The editor is flagged untrusted
-
-=head2 is_nag_free
-
-The editor should not be nagged to donate
 
 =head2 is_mbid_submitter
 
