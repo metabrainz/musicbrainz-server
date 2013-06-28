@@ -640,7 +640,7 @@ sub split : Chained('load') Edit {
             ) {
                 my $rem = $c->model('Edit')->create(
                     edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                    editor_id    => $EDITOR_MODBOT,
+                    editor_id    => $c->user->id,
                     type0        => 'artist',
                     type1        => 'artist',
                     relationship => $relationship
@@ -650,7 +650,7 @@ sub split : Chained('load') Edit {
                     $rem->id,
                     {
                         text => "This collaboration has been split in edit #$editid.",
-                        editor_id => $EDITOR_MODBOT
+                        editor_id => $c->user->id
                     }
                 );
             }
