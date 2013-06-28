@@ -409,10 +409,6 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
         $c->response->redirect($c->uri_for_action('/release/cover_art', [ $entity->gid ]));
         $c->detach;
     }
-    elsif ($form->has_errors)
-    {
-        warn "$_\n" for $form->errors;
-    }
 }
 
 sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth

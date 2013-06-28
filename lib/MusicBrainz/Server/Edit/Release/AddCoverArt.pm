@@ -122,6 +122,15 @@ sub build_display_data {
     };
 }
 
+sub restore {
+    my ($self, $data) = @_;
+
+    $data->{cover_art_mime_type} = 'image/jpeg'
+        unless exists $data->{cover_art_mime_type};
+
+    $self->data ($data);
+}
+
 1;
 
 =head1 COPYRIGHT
