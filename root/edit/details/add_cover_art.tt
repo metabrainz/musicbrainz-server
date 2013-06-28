@@ -22,7 +22,7 @@
   </tr>
   [% END %]
 
-  [% IF edit.display_data.artwork.comment %]
+  [% IF edit.display_data.artwork.suffix %]
   <tr>
     <th>[% l('Format:') %]</th>
     <td>[% edit.display_data.artwork.suffix | html %]</td>
