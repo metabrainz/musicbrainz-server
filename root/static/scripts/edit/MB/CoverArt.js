@@ -18,7 +18,6 @@
 
 */
 
-
 MB.CoverArt = {};
 
 MB.CoverArt.lastCheck;
@@ -124,33 +123,6 @@ MB.CoverArt.reorder_position = function () {
      * insertAfter() will rerun them.  The script bits for these
      * images should NOT be ran again, so remove those nodes. */
     $('div.editimage script').remove ();
-};
-
-MB.CoverArt.add_files = function (event) {
-    $.each ($('input.add-files')[0].files, function (idx, file) {
-        console.log ("add files", file.type, file.name, filesize (file.size), file);
-/*
-        var $filebox;
-        if (file.type === "image/jpeg")
-        {
-            $filebox = $('.file-box.template').clone ().removeClass ('template');
-        }
-        else
-        {
-            $filebox = $('.file-box-error.template').clone ().removeClass ('template');
-        }
-        $filebox.insertBefore ($('#add-files-end'))
-            .show ()
-            .find ('.filename').text (file.name).end ()
-            .find ('.filesize').text ('(' + filesize (file.size) + ')').end ()
-            .find ('.file-down').click (MB.CoverArt.file_down).end ()
-            .find ('.file-up').click (MB.CoverArt.file_up).end ()
-            .data ('file', file);
-*/
-    });
-
-    /* Only display the the cover art type help once. */
-//    $('.cover-art-types-help').hide ().eq (1).show ();
 };
 
 MB.CoverArt.CoverArtType = function (name, id) {
@@ -437,7 +409,9 @@ MB.CoverArt.UploadProcessViewModel = function () {
     self.files_to_upload = ko.observableArray ();
 
     self.addFile = function (file) {
-        self.files_to_upload.push (new MB.CoverArt.FileUpload (file));
+        var file_upload = new MB.CoverArt.FileUpload (file);
+        self.files_to_upload.push (file_upload);
+        return file_upload;
     }
 
     self.moveFile = function (to_move, direction) {
@@ -450,18 +424,25 @@ MB.CoverArt.UploadProcessViewModel = function () {
     }
 };
 
-MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
-    var pos = parseInt ($('#id-add-cover-art\\.position').val (), 10);
-    console.log ("submit some cover arts!!", gid, pos);
 
-    $('#cover-art-position-row').hide ();
-    $('#content')[0].scrollIntoView ();
+MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 
     var queue = _(upvm.files_to_upload ()).map (function (item, idx) {
         return function () {
             return item.doUpload (gid, pos++);
         };
     });
+
+    return queue;
+};
+
+MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
+    var pos = parseInt ($('#id-add-cover-art\\.position').val (), 10);
+
+    $('#cover-art-position-row').hide ();
+    $('#content')[0].scrollIntoView ();
+
+    var queue = MB.CoverArt.process_upload_queue (gid, upvm, pos);
 
     MB.utility.iteratePromises (queue).done (function () {
         console.log ("all promises done, yay!");
@@ -476,7 +457,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('.with-formdata').show ();
 
-        upvm = new MB.CoverArt.UploadProcessViewModel ();
+        var upvm = new MB.CoverArt.UploadProcessViewModel ();
         ko.applyBindings (upvm);
 
         $(document).on ('click', 'button.cancel-file', function (event) {
