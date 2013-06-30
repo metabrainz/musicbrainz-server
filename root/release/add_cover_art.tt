@@ -68,13 +68,13 @@
               (<span data-bind="text: size"></span>)
             </div>
 
-            <div class="cover-art-types row">
+            <div class="cover-art-types row" data-bind="visible: status() == 'waiting'">
               <label>[%- l("Type:") -%]</label>
               <ul class="checkboxes" data-bind="foreach: types">
                 <li>
-                  <label>
+                  <label style="white-space:nowrap;">
                       <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
-                      <span data-bind="text: name" />
+                      <span style="white-space:normal;" data-bind="text: name" />
                   </label>
                 </li>
               </ul>
