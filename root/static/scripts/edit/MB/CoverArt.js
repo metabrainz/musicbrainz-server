@@ -445,7 +445,7 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
     var queue = MB.CoverArt.process_upload_queue (gid, upvm, pos);
 
     MB.utility.iteratePromises (queue).done (function () {
-        console.log ("all promises done, yay!");
+        window.location.href = '/release/' + gid + '/cover-art';
     });
 };
 
@@ -489,7 +489,6 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
-            console.log ("submit!");
             MB.CoverArt.add_cover_art_submit (gid, upvm);
         });
     }
