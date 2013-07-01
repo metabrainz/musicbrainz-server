@@ -695,8 +695,8 @@ sub validate_tar
 sub EnsureEditorTable {
     $sql->begin;
     $sql->do(
-        "INSERT INTO editor (id, name, password)
-             SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, ''
+        "INSERT INTO editor (id, name, password, ha1)
+             SELECT DISTINCT s.editor, 'Editor #' || s.editor::text, '', ''
              FROM (
                  SELECT editor FROM annotation
              UNION ALL
