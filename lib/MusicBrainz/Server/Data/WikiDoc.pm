@@ -18,7 +18,6 @@ sub _fix_html_links
 {
     my ($self, $node, $index) = @_;
 
-    my $server      = DBDefs->WEB_SERVER;
     my $wiki_server = DBDefs->WIKITRANS_SERVER;
 
     my $class = $node->attr('class') || "";
@@ -39,7 +38,7 @@ sub _fix_html_links
     # if this is not a link to the wikidocs server, don't mess with it.
     elsif ($href =~ m,^https?://$wiki_server,)
     {
-        $href =~ s,^https?://$wiki_server/?,//$server/doc/,;
+        $href =~ s,^https?://$wiki_server/?,/doc/,;
         $node->attr('href', $href);
     }
     elsif ($href =~ m,^$WIKI_IMAGE_PREFIX,) {
