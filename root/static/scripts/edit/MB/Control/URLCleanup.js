@@ -439,7 +439,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function(url) {
-            return url.replace(/^https:\/\//, "http://");
+            return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
         }
     },
     otherdatabases: {
