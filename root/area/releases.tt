@@ -5,6 +5,8 @@
 
     [%- IF releases.size -%]
         [%- INCLUDE 'release_group/releases-list.tt' WRAPPER 'components/with-pager.tt' -%]
+    [%- ELSE -%]
+      [% l('This area is not currently associated with any releases.') %]
     [%- END -%]
 
 [%- END -%]
