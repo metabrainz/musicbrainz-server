@@ -111,6 +111,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$row.hide ();
         self.$row.addClass ('deleted');
 
+        self.parent.sort ();
         self.parent.updateTrackNumbers ();
     };
 
@@ -423,7 +424,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      */
     self.sort = function () {
         self.sorted_tracks = [];
-        $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
+        $.each (self.tracks, function (idx, item) {
+            if (!item.isDeleted ()) {
+                self.sorted_tracks.push (item);
+            }
+        });
 
         self.sorted_tracks.sort (function (a, b) {
             return a.position () - b.position ();
@@ -835,15 +840,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * tracklist has been deleted.
      */
     self.updateTrackNumbers = function () {
-        var trackpos = 1;
-
         $.each (self.sorted_tracks, function (idx, item) {
-            item.position (trackpos);
-
-            if (!item.isDeleted ())
-            {
-                trackpos += 1;
-            }
+            item.position (idx + 1);
         });
     };
 
