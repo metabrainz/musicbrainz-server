@@ -203,15 +203,12 @@ sub select
         }, ' ')
     }
 
-    my @class;
-    push @class, delete $attrs->{class} if $attrs->{class};
-
     return $self->h->select({
         id => $self->_id($field),
         name => $field->html_name,
         multiple => $field->multiple ? "multiple" : undef,
         disabled => $field->disabled ? "disabled" : undef,
-        class => join(' ', @class) || undef,
+        class => $attrs->{class},
         %{ $attrs || {} }
     }, \@options);
 }
