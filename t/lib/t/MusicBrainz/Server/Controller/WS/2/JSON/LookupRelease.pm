@@ -303,6 +303,7 @@ test 'release lookup with labels and recordings' => sub {
                 {
                     format => JSON::null,
                     title => JSON::null,
+                    position => 1,
                     "track-offset" => 0,
                     "track-count" => 3,
                     tracks => [
@@ -458,6 +459,7 @@ test 'release lookup with discids and puids' => sub {
                 {
                     format => "CD",
                     title => JSON::null,
+                    position => 1,
                     discs => [ { id => "W01Qvrvwkaz2Cm.IQm55_RHoRxs-", sectors => 60295 } ],
                     "track-count" => 3,
                     "track-offset" => 0,

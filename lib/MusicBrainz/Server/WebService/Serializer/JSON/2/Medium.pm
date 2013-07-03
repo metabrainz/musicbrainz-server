@@ -13,6 +13,7 @@ sub serialize
 
     $body{title} = $entity->name;
     $body{format} = $entity->format ? $entity->format->name : JSON::null;
+    $body{position} = $entity->position;
 
     if (defined $inc && $inc->discids)
     {

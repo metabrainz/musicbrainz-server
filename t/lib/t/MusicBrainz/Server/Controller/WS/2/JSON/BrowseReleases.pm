@@ -105,8 +105,18 @@ test 'browse releases via label' => sub {
                     }],
                     barcode => "600116822123",
                     media => [
-                        { format => "CD", "track-count" => 9, title => JSON::null },
-                        { format => "CD", "track-count" => 9, title => "Chestplate Singles" }],
+                        {
+                            format => "CD",
+                            position => 1,
+                            "track-count" => 9,
+                            title => JSON::null
+                        },
+                        {
+                            format => "CD",
+                            position => 2,
+                            "track-count" => 9,
+                            title => "Chestplate Singles"
+                        }],
                     asin => "B001IKWNCE",
                     disambiguation => "",
                     packaging => JSON::null,
@@ -137,7 +147,13 @@ test 'browse releases via label' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "600116817020",
-                    media => [ { format => "CD", "track-count" => 12, title => JSON::null } ],
+                    media => [
+                        {
+                            format => "CD",
+                            position => 1,
+                            "track-count" => 12,
+                            title => JSON::null
+                        } ],
                     asin => "B000KJTG6K",
                     disambiguation => "",
                     packaging => JSON::null,

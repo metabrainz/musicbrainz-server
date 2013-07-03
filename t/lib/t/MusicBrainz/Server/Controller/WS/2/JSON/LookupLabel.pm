@@ -157,8 +157,18 @@ test 'label lookup with releases, inc=media' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [
-                        { format => "CD", "track-count" => 9, title => JSON::null },
-                        { format => "CD", "track-count" => 9, title => "Chestplate Singles" },
+                        {
+                            format => "CD",
+                            "track-count" => 9,
+                            position => 1,
+                            title => JSON::null
+                        },
+                        {
+                            format => "CD",
+                            "track-count" => 9,
+                            position => 2,
+                            title => "Chestplate Singles"
+                        },
                     ],
                 },
                 {
@@ -182,7 +192,13 @@ test 'label lookup with releases, inc=media' => sub {
                     barcode => "600116817020",
                     disambiguation => "",
                     packaging => JSON::null,
-                    media => [ { format => "CD", "track-count" => 12, title => JSON::null } ]
+                    media => [
+                        {
+                            format => "CD",
+                            "track-count" => 12,
+                            position => 1,
+                            title => JSON::null
+                        } ]
                 }
             ],
             ipis => [],
