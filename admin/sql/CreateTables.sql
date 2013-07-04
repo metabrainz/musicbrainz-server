@@ -83,6 +83,21 @@ CREATE TABLE area_alias (
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
              CONSTRAINT primary_check
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
@@ -149,6 +164,21 @@ CREATE TABLE artist_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
@@ -931,6 +961,21 @@ CREATE TABLE label_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
@@ -1600,6 +1645,21 @@ CREATE TABLE work_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
