@@ -83,6 +83,7 @@ CREATE TABLE area_alias (
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     ended               BOOLEAN NOT NULL DEFAULT FALSE
       CHECK (
         (
@@ -98,7 +99,6 @@ CREATE TABLE area_alias (
            end_date_day IS NULL)
         )
       ),
-    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
              CONSTRAINT primary_check
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
 
@@ -164,6 +164,7 @@ CREATE TABLE artist_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     ended               BOOLEAN NOT NULL DEFAULT FALSE
       CHECK (
         (
@@ -179,7 +180,6 @@ CREATE TABLE artist_alias
            end_date_day IS NULL)
         )
       ),
-    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -961,6 +961,7 @@ CREATE TABLE label_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     ended               BOOLEAN NOT NULL DEFAULT FALSE
       CHECK (
         (
@@ -976,7 +977,6 @@ CREATE TABLE label_alias
            end_date_day IS NULL)
         )
       ),
-    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -1645,6 +1645,7 @@ CREATE TABLE work_alias
     end_date_year       SMALLINT,
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     ended               BOOLEAN NOT NULL DEFAULT FALSE
       CHECK (
         (
@@ -1660,7 +1661,6 @@ CREATE TABLE work_alias
            end_date_day IS NULL)
         )
       ),
-    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
