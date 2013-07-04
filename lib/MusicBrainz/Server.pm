@@ -249,7 +249,9 @@ sub ngettext { shift; Translation->instance->ngettext(@_) }
 sub get_collator
 {
     my ($self) = @_;
-    return Translation::get_collator($self->stash->{current_language} // 'en');
+    return MusicBrainz::Server::Translation::get_collator(
+        $self->stash->{current_language} // 'en'
+    );
 }
 
 sub set_language_cookie {
