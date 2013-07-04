@@ -4,6 +4,7 @@
 DROP TRIGGER b_upd_area ON area;
 DROP TRIGGER b_upd_area_alias ON area_alias;
 DROP TRIGGER unique_primary_for_locale ON area_alias;
+DROP TRIGGER search_hint ON area_alias;
 DROP TRIGGER end_date_implies_ended ON area;
 DROP TRIGGER a_ins_artist ON artist;
 DROP TRIGGER b_upd_artist ON artist;
