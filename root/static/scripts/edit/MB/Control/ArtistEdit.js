@@ -1,6 +1,6 @@
 /*
    This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2010 MetaBrainz Foundation
+   Copyright (C) 2010, 2013 MetaBrainz Foundation
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -129,18 +129,12 @@ MB.Control.ArtistEdit = function () {
         });
     }
 
-    MB.Control.EntityAutocomplete ({
-        inputs: $('#area')
-    });
+    var bubbles = MB.Control.BubbleCollection ();
+    MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-artist');
 
-    MB.Control.EntityAutocomplete ({
-        inputs: $('#begin_area')
-    });
-
-    MB.Control.EntityAutocomplete ({
-        inputs: $('#end_area')
-    });
+    MB.Control.Area('#area', bubbles);
+    MB.Control.Area('#begin_area', bubbles);
+    MB.Control.Area('#end_area', bubbles);
 
     return self;
 };
-

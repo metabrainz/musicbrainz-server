@@ -40,7 +40,7 @@
           <label for="id-edit-label.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            <input type="hidden" class="gid" />
+            [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
             [% r.hidden ('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]
           </span>
@@ -72,6 +72,13 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
+    <div class="area-container" style="display: none">
+      <div class="area bubble">
+        <p>
+          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
+        </p>
+      </div>
+    </div>
   </div>
 
 </form>
