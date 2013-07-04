@@ -16,9 +16,9 @@ INSERT INTO label_name (id, name) VALUES
 INSERT INTO label (name, sort_name, gid) VALUES
     (1, 1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1');
 
-INSERT INTO editor (id, name, password) VALUES (1, 'Anonymous', '');
-INSERT INTO editor (id, name, password) VALUES (2, 'FreeDB', '');
-INSERT INTO editor (id, name, password) VALUES (4, 'ModBot', '');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Anonymous', '', '');
+INSERT INTO editor (id, name, password, ha1) VALUES (2, 'FreeDB', '', '');
+INSERT INTO editor (id, name, password, ha1) VALUES (4, 'ModBot', '', '');
 
 INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
 
