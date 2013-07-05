@@ -6,6 +6,7 @@ Installation:
  % (install libunac - https://gna.org/projects/unac/)
  % make
  % sudo make install
+ % psql -d dbname -f $(pg_config --sharedir)/contrib/musicbrainz_unaccent.sql
 
 See http://www.postgresql.org/docs/8.3/interactive/contrib.html for
 information how to install it into your database.
