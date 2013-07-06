@@ -94,6 +94,11 @@
                 [% l('Find Relationships') %]</button>
         [% END %]
 
+        <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
+            <label>&nbsp;</label>
+            <span class="error" data-bind="text: currentExample.possibleRelationships.error"></span>
+        </div>
+
         <span data-bind="if: currentExample.possibleRelationships.results().length">
         [% WRAPPER form_row %]
             <div class="no-label">
