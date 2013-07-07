@@ -39,7 +39,7 @@ sub validate_username
     my ($self, $field) = @_;
 
     my $username = $field->value;
-    if ($username) {
+    if (defined $username) {
         my $editor = $self->ctx->model('Editor')->get_by_name($username);
         if (defined $editor) {
             $field->add_error(l('Please choose another username, this one is already taken'));
