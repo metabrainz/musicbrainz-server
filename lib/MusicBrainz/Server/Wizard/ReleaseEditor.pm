@@ -1512,7 +1512,7 @@ sub _seed_parameters {
             'country_id', 'country',
             sub {
                 my ($c, $iso) = @_;
-                $c->model('Area')->find_by_iso_3166_1_code($iso)->{$iso}
+                $c->model('Area')->get_by_iso_3166_1($iso)->{$iso}
             },
         ],
         [
