@@ -230,12 +230,14 @@ sub query_to_list_limited
     my $wrapping_query = "
         WITH x AS ($query)
         SELECT x.*, c.count AS total_row_count
-        FROM x, (SELECT count(*) from x) c
-        LIMIT $limit";
+        FROM x, (SELECT count(*) from x) c";
+    if (defined $limit) {
+        $wrapping_query = $wrapping_query . " LIMIT $limit";
+    }
     $sql->select($wrapping_query, @args);
     my @result;
-    my $hits;
-    while (!defined($limit) || $limit--) {
+    my $hits = 0;
+    while (1) {
         my $row = $sql->next_row_hash_ref or last;
         $hits = $row->{total_row_count};
         my $obj = $builder->($row);

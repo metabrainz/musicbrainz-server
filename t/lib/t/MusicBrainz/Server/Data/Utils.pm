@@ -39,12 +39,12 @@ is ( $hits, 2, 'got two total' );
 is ( $result[0]->{id}, 1, 'got result with id 1 as the first' );
 
 $offset = 1;
-my ($result, $hits) = query_to_list_limited(
+my ($result2, $hits2) = query_to_list_limited(
     $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
                               WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
-@result = @{$result};
+@result = @{$result2};
 is ( scalar(@result), 1, 'got one result (with offset)' );
-is ( $hits, 2, 'got two total (with offset)' );
+is ( $hits2, 2, 'got two total (with offset)' );
 is ( $result[0]->{id}, 2, 'got result with id 2 as the first (with offset)' );
 
 my $order_by;
