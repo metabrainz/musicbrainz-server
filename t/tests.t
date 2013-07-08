@@ -26,6 +26,7 @@ MusicBrainz::Server::Test->prepare_test_server;
 
 # XXX Filter out WatchArtist for now as the tests are broken
 @classes = grep { $_ !~ /WatchArtist/ } @classes;
+@classes = grep { $_ !~ /OAuth2/ } @classes;
 
 plan tests => scalar(@classes);
 run_tests($_ => $_) for (@classes);
