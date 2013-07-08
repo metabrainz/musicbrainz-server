@@ -204,7 +204,7 @@
             <select id="work-type" data-bind="value: type, disable: loading">
               <option selected="selected"></option>
               [%- FOR type=work_types %]
-                <option value="[% type.id %]">[% type.l_name | html %]</option>
+                <option value="[% type.0 %]">[% type.1 | html %]</option>
               [%- END %]
             </select>
           </td>

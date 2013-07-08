@@ -12,6 +12,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
 use Set::Scalar;
 use Sql;
+use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -131,6 +132,7 @@ is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->email, undef);
 is($editor->email_confirmation_date, undef);
+is($editor->ha1, md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')), 'ha1 was generated correctly');
 
 my $now = DateTime::Format::Pg->parse_datetime(
     $test->c->sql->select_single_value('SELECT now()'));

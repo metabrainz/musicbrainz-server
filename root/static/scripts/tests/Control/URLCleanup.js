@@ -78,13 +78,23 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 // MySpace
                 [
-                    'artist', 'http://www.myspace.com/instramentaluk',
+                    'artist', 'https://myspace.com/instramentaluk',
                     MB.constants.LINK_TYPES.myspace.artist
                 ],
                 [
-                    'label', 'http://www.myspace.com/hospitalrecords',
+                    'label', 'https://myspace.com/hospitalrecords',
                     MB.constants.LINK_TYPES.myspace.label
                 ],
+                // Soundcloud
+                [
+                    'artist', 'https://soundcloud.com/metro-luminal',
+                    MB.constants.LINK_TYPES.soundcloud.artist
+                ],
+                [
+                    'label', 'https://soundcloud.com/dimmakrecords',
+                    MB.constants.LINK_TYPES.soundcloud.label
+                ],
+                // Purevolume
                 [
                     'artist', 'http://www.purevolume.com/withbloodcomescleansing',
                     MB.constants.LINK_TYPES.purevolume.artist
@@ -158,8 +168,9 @@ MB.tests.URLCleanup.GuessType = function() {
                     'recording', 'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
                     MB.constants.LINK_TYPES.streamingmusic.recording
                 ],
+                // Lyrics
                 [
-                    'recording', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
+                    'release', 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
                     MB.constants.LINK_TYPES.lyrics.release
                 ],
                 [
@@ -168,6 +179,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 ],
                 [
                     'work', 'http://www.utamap.com/showkasi.php?surl=34985',
+                    MB.constants.LINK_TYPES.lyrics.work
+                ],
+                [
+                    'work', 'http://decoda.com/robi-on-ne-meurt-plus-damour-lyrics',
                     MB.constants.LINK_TYPES.lyrics.work
                 ],
                 // Vimeo
@@ -419,16 +434,29 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
                     'http://www.amazon.com/-/e/B0017PAU8Y'
                 ],
+                // Myspace
                 [
                     'http://fr.myspace.com/jujusasadada',
-                    'http://www.myspace.com/jujusasadada',
+                    'https://myspace.com/jujusasadada',
                     'artist'
                 ],
                 [
                     'http://myspace.de/diekisten',
-                    'http://www.myspace.com/diekisten',
+                    'https://myspace.com/diekisten',
                     'artist'
                 ],
+                [
+                    'http://www.myspace.com/whoevenusesthisanymore',
+                    'https://myspace.com/whoevenusesthisanymore',
+                    'label'
+                ],
+                // SoundCloud
+                [
+                    'http://soundcloud.com/alec_empire',
+                    'https://soundcloud.com/alec_empire',
+                    'artist'
+                ],
+                // Discogs
                 [
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
