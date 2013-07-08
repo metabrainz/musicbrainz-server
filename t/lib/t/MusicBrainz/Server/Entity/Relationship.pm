@@ -139,27 +139,33 @@ $rel = MusicBrainz::Server::Entity::Relationship->new(
     link => MusicBrainz::Server::Entity::Link->new(
         type => $member_link_type,
         attributes => [
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'founding',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'founding',
-                    id => $INSTRUMENT_ROOT_ID
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'founding',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'vocal',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
                     name => 'vocal',
-                    id => $INSTRUMENT_ROOT_ID
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'vocal',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
             ),
-            MusicBrainz::Server::Entity::LinkAttributeType->new(
-                name => 'guitar',
-                root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    name => 'instrument',
-                    id => $INSTRUMENT_ROOT_ID
+            MusicBrainz::Server::Entity::LinkAttribute->new(
+                type => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                    name => 'guitar',
+                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
+                        name => 'instrument',
+                        id => $INSTRUMENT_ROOT_ID
+                    ),
                 ),
-            ),
+            )
         ]
     ),
 );

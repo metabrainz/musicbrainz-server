@@ -18,13 +18,14 @@ sub serialize
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
 
     $body = merge($body, date_period($entity->link));
-    $body->{attributes} = [ map { $_->name } $entity->link->all_attributes ];
+    $body->{attributes} = [ map { $_->type->name } $entity->link->all_attributes ];
 
     my %text_attrs = %{ $entity->link->attribute_text_values };
 
     $body->{"attribute-values"} = {
         map {
-            $text_attrs{$_->id} ? ($_->name => $text_attrs{$_->id}) : ()
+            my $type = $_->type;
+            $text_attrs{$type->id} ? ($type->name => $text_attrs{$type->id}) : ()
         }
         $entity->link->all_attributes
     };
