@@ -53,6 +53,10 @@ fi
 echo `date` : 'Creating the Place entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130618-places.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : Updating musicbrainz schema sequence values
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+
 ################################################################################
 # Re-enable replication
 
