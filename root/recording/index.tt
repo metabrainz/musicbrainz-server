@@ -6,7 +6,7 @@
             <table class="tbl">
                 <thead>
                     <tr>
-                        <th class="t pos" [% 'colspan="2"' IF clock %]>[% l('#') %]</th>
+                        <th class="t pos">[% l('#') %]</th>
                         <th>[% l('Title') %]</th>
                         <th class="treleases">[% l('Length') %]</th>
                         <th>[% l('Release Title') %]</th>
@@ -20,7 +20,7 @@
                 <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
-                    <th colspan="8">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
+                    <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]

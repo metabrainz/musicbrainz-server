@@ -541,19 +541,6 @@ sub _checksum
     return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
-sub donation : Local RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $result = $c->model('Editor')->donation_check($c->user);
-    $c->detach('/error_500') unless $result;
-
-    $c->stash(
-        nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
-    );
-}
-
 sub applications : Path('/account/applications') RequireAuth
 {
     my ($self, $c) = @_;

@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Recordings with Varying Track Lengths') full_width=1 -%]
+
+<h1>[% l('Recordings with Varying Track Lengths') %]</h1>
+
+<ul>
+    <li>[% l('This report shows recordings where the linked tracks have times that
+              vary by more than 30 seconds.') %]</li>
+    <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/recording_list.tt' -%]
+
+[%- END -%]

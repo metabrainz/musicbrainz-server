@@ -103,6 +103,11 @@ sub add {
     return $self->_connection->setnx ($self->prefix.$key, $self->_json->encode ($value));
 }
 
+sub ttl {
+    my ($self, $key) = @_;
+    return $self->_connection->ttl ($self->prefix.$key);
+}
+
 sub _flushdb {
     my ($self) = @_;
 

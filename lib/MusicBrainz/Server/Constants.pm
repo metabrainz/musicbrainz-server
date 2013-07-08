@@ -30,7 +30,7 @@ our %EXPORT_TAGS = (
     access_scope    => _get(qr/^ACCESS_SCOPE_/),
     privileges      => [
         qw( $AUTO_EDITOR_FLAG         $BOT_FLAG           $UNTRUSTED_FLAG
-            $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG      $WIKI_TRANSCLUSION_FLAG
+            $RELATIONSHIP_EDITOR_FLAG $WIKI_TRANSCLUSION_FLAG
             $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG $LOCATION_EDITOR_FLAG )
     ],
     election_status => [
@@ -51,10 +51,12 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (
     qw( $DLABEL_ID $DARTIST_ID $VARTIST_ID $VARTIST_GID
         $AUTO_EDITOR_FLAG         $BOT_FLAG            $UNTRUSTED_FLAG
-        $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
+        $RELATIONSHIP_EDITOR_FLAG $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $REQUIRED_VOTES ),
+        $REQUIRED_VOTES
+        $ARTIST_ARTIST_COLLABORATION
+    ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
 );
 
@@ -242,7 +244,6 @@ Readonly our $AUTO_EDITOR_FLAG         => 1;
 Readonly our $BOT_FLAG                 => 2;
 Readonly our $UNTRUSTED_FLAG           => 4;
 Readonly our $RELATIONSHIP_EDITOR_FLAG => 8;
-Readonly our $DONT_NAG_FLAG            => 16;
 Readonly our $WIKI_TRANSCLUSION_FLAG   => 32;
 Readonly our $MBID_SUBMITTER_FLAG      => 64;
 Readonly our $ACCOUNT_ADMIN_FLAG       => 128;
@@ -268,6 +269,8 @@ Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
 Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
+
+Readonly our $ARTIST_ARTIST_COLLABORATION => '75c09861-6857-4ec0-9729-84eefde7fc86';
 
 =head1 NAME
 

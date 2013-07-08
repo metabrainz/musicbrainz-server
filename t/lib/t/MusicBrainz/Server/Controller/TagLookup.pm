@@ -19,7 +19,6 @@ test 'Can perform tag lookups with artist and release titles' => sub {
     html_ok($test->mech->content);
     $test->mech->content_contains('中島美嘉', 'has correct artist result');
     $test->mech->content_contains('LOVE', 'has correct release result');
-    $test->mech->content_contains('Make a donation now', 'has nag screen');
 };
 
 test 'Can perform tag lookups with PUIDs' => sub {
@@ -28,7 +27,6 @@ test 'Can perform tag lookups with PUIDs' => sub {
     html_ok($test->mech->content);
     $test->mech->content_contains('ABBA', 'has correct artist result');
     $test->mech->content_contains('Arrival', 'has correct release result');
-    $test->mech->content_contains('Make a donation now', 'has nag screen');
 };
 
 1;

@@ -42,6 +42,7 @@ has '+data' => (
                 begin_date => PartialDateHash,
                 end_date => PartialDateHash,
                 type => Dict[
+                    id => Optional[Int],
                     entity0_type => Str,
                     entity1_type => Str
                 ]
@@ -171,6 +172,7 @@ sub initialize
                 begin_date => partial_date_to_hash($relationship->link->begin_date),
                 end_date => partial_date_to_hash($relationship->link->end_date),
                 type => {
+                    id => $relationship->link->type->id,
                     entity0_type => $relationship->link->type->entity0_type,
                     entity1_type => $relationship->link->type->entity1_type,
                 }

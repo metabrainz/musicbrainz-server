@@ -39,6 +39,8 @@ doesn't exists on the server.
 
 requires 'add';
 
+requires 'ttl';
+
 =head1 LICENSE
 
 Copyright (C) 2013 MetaBrainz Foundation

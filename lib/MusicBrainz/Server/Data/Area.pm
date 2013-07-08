@@ -302,16 +302,6 @@ sub merge_codes
     }
 }
 
-sub find_by_iso_3166_1_code {
-    my ($self, $code) = @_;
-    my $query = "SELECT iso.code, " . $self->_columns .
-        " FROM iso_3166_1 iso JOIN area ON iso.area = area.id" .
-        " WHERE iso.code = ?";
-
-    my $rows = $self->sql->select_list_of_hashes($query, $code);
-    return $self->_new_from_row($rows->[0]);
-}
-
 sub _hash_to_row
 {
     my ($self, $area) = @_;
@@ -326,6 +316,32 @@ sub _hash_to_row
     add_partial_date_to_row($row, $area->{end_date}, 'end_date');
 
     return $row;
+}
+
+sub get_by_iso_3166_1 {
+    shift->_get_by_iso('iso_3166_1', @_);
+}
+
+sub get_by_iso_3166_2 {
+    shift->_get_by_iso('iso_3166_2', @_);
+}
+
+sub get_by_iso_3166_3 {
+    shift->_get_by_iso('iso_3166_3', @_);
+}
+
+sub _get_by_iso {
+    my ($self, $table, @codes) = @_;
+    my $query = "SELECT iso.code, " . $self->_columns .
+        " FROM $table iso JOIN area ON iso.area = area.id" .
+        " WHERE iso.code = any(?)";
+
+    my %ret = map { $_ => undef } @codes;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
+        $ret{$row->{code}} = $self->_new_from_row($row);
+    }
+
+    return \%ret;
 }
 
 __PACKAGE__->meta->make_immutable;

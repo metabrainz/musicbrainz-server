@@ -302,6 +302,7 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (34, 'db770a93-c0ad-4806-af76-f6fc835a057d', 6, 8, 8, 16, 18, 3, 514679);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (35, '65464409-1c68-4e90-8664-65ec8a21843a', 6, 9, 9, 17, 19, 4, 472880);
 
+INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
 
 INSERT INTO link_attribute_type (id, root, gid, name)
