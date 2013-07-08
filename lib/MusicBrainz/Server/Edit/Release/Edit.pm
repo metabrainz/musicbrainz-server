@@ -169,14 +169,55 @@ sub build_display_data
             )
         };
 
-        $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } (@{ $self->data->{old}{events} }, @{ $self->data->{new}{events} }));
+        $self->c->model('Area')->load_codes(
+            map { $loaded->{Area}->{ $_->{country_id} } }
+                @{ $self->data->{old}{events} },
+                @{ $self->data->{new}{events} }
+        );
 
-        $data->{events} = {
+        my $inflated_events = {
             map {
                 $_ => [
                     map { $inflate_event->($_) } @{ $self->data->{$_}{events} }
                 ]
             } qw( old new )
+        };
+
+        my $by_country = sub { map { $_->country_id => $_ } @{ shift() } };
+
+        my %old_by_country = $by_country->($inflated_events->{old});
+        my %new_by_country = $by_country->($inflated_events->{new});
+
+        # Attempt to correlate release event changes over old/new release
+        # where the country is unchanged
+        my %by_country = map {
+                $_ => {
+                    old => $old_by_country{$_},
+                    new => $new_by_country{$_}
+                }
+            }
+            grep {
+                exists $old_by_country{$_} && $new_by_country{$_}
+            }
+            map { $_->country_id } values %old_by_country;
+
+        # Take all remaining release events that can't be correlated
+        my $filter_unmatched = sub {
+            my ($filter_input, $filter_against) = @_;
+            return [
+                grep { !exists $filter_against->{$_->country_id} }
+                    values %$filter_input
+            ];
+        };
+
+        my %changed_countries = (
+            old => $filter_unmatched->(\%old_by_country, \%new_by_country),
+            new => $filter_unmatched->(\%new_by_country, \%old_by_country),
+        );
+
+        $data->{events} = {
+            unchanged_countries => \%by_country,
+            changed_countries => \%changed_countries
         };
     }
 
