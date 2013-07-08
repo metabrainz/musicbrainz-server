@@ -227,15 +227,22 @@ sub query_to_list
 sub query_to_list_limited
 {
     my ($sql, $offset, $limit, $builder, $query, @args) = @_;
-    $sql->select($query, @args);
+    my $wrapping_query = "
+        WITH x AS ($query)
+        SELECT x.*, c.count AS total_row_count
+        FROM x, (SELECT count(*) from x) c
+        LIMIT $limit";
+    $sql->select($wrapping_query, @args);
     my @result;
+    my $hits;
     while (!defined($limit) || $limit--) {
         my $row = $sql->next_row_hash_ref or last;
+        $hits = $row->{total_row_count};
         my $obj = $builder->($row);
         push @result, $obj;
     }
 
-    my $hits = $sql->row_count + ($offset || 0);
+    $hits = $hits + ($offset || 0);
     $sql->finish;
     return (\@result, $hits);
 }
@@ -530,7 +537,7 @@ sub take_while (&@) {
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009 Lukas Lalinsky, 2009-2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
