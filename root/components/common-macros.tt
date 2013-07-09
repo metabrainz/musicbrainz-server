@@ -1024,21 +1024,10 @@ END -%]
     END -%]
 
 [%- MACRO release_event(event) BLOCK;
-      release_date = rdfa_release_event_date(event.date);
+      date = event.date;
       country = event.country;
-      country_abbr =
-        '<abbr title="' _ html_escape(country.l_name) _ '">' _
-          country.primary_code _
-        '</abbr>';
-      country_link = link_area(event.country, 'show', country_abbr);
-      IF event.country AND !event.date.is_empty;
-        l('{date} ({country})',
-          { date => release_date,
-            country => country_link
-          });
-      ELSIF event.country;
-        l('???? ({country})', { country => country_link });
-      ELSE;
-        l('{date}', { date => release_date });
-      END;
+      parts = [];
+      parts.push(link_entity(country)) IF country.defined;
+      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.join('<br />');
     END -%]
