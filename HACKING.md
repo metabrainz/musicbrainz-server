@@ -8,27 +8,53 @@ We use standard Perl tools for unit testing. Tests are located in the t/
 directory. The preferred way to run them is to use the `prove` program from
 Test::Harness. For example, to run all tests use:
 
- $ prove -l t/
+    $ prove -l t/
 
 If you're using Carton, you should instead run:
 
- $ carton exec -Ilib -- prove t/
+    $ carton exec -Ilib -- prove t/
 
 The bulk of tests will run from the single tests.t file, which can take a while
 to complete. If you are only interested in running a single test, you can pass
 the --tests option. For example if you want to run a controller test such as
 t::MusicBrainz::Server::Controller::WS::2::LookupArtist you can use:
 
- $ carton exec -Ilib -- prove t/tests.t :: --tests WS::2::LookupArtist
+    $ carton exec -Ilib -- prove t/tests.t :: --tests WS::2::LookupArtist
 
 The --tests argument takes a regular expression to match against the test
 name. For example, run multiple tests you can use regular expression groups:
 
- $ carton exec -Ilib -- prove t/tests.t :: --tests '(Data::URL|Entity::URL)'
+    $ carton exec -Ilib -- prove t/tests.t :: --tests '(Data::URL|Entity::URL)'
 
 While to run all Data:: tests you can do the following:
 
- $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
+    $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
+
+
+Database tests (pgTAP)
+----------------------
+
+For unit testing database functions we use pgtap, on a recent Ubuntu
+you can install pgtap like this:
+
+    $ sudo apt-get install pgtap
+
+To run the tests, pgtap needs to be able to connect to the test
+database.  You can use environment variables for the database
+configuration, the easiest way to set these is to use the provided
+database_configuration script like this:
+
+    $ eval `carton exec -Ilib -- script/database_configuration TEST`
+
+Now that that is set up you can run individual pgtap tests like this:
+
+    $ prove --verbose --source pgTAP t/pgtap/unaccent.sql
+
+Or all of them like this:
+
+    $ prove --verbose --source pgTAP t/pgtap/* t/pgtap/unused-tags/*
+
+
 
 Cover art archive development
 -----------------------------
@@ -54,19 +80,19 @@ can be done with phantomjs.
 
 To install phantomjs:
 
-  $ sudo apt-get install libqt4-dev libqt4-webkit     # on debian
-  $ sudo apt-get install libqtwebkit-dev              # on ubuntu
-  $ sudo apt-get install xvfb
-  $ cd ~/opt
-  ~/opt$ git clone git://github.com/ariya/phantomjs.git
-  ~/opt$ cd phantomjs
-  ~/opt/phantomjs$ qmake
-  ~/opt/phantomjs$ make
+    $ sudo apt-get install libqt4-dev libqt4-webkit     # on debian
+    $ sudo apt-get install libqtwebkit-dev              # on ubuntu
+    $ sudo apt-get install xvfb
+    $ cd ~/opt
+    ~/opt$ git clone git://github.com/ariya/phantomjs.git
+    ~/opt$ cd phantomjs
+    ~/opt/phantomjs$ qmake
+    ~/opt/phantomjs$ make
 
 Now you should be able to use it to run QUnit tests.  A testrunner is
 available in root/static/scripts/tests:
 
-  $ xvfb-run ~/opt/phantomjs/bin/phantomjs root/static/scripts/tests/phantom-qunit.js http://localhost:3000/static/scripts/tests/all.html
+    $ xvfb-run ~/opt/phantomjs/bin/phantomjs root/static/scripts/tests/phantom-qunit.js http://localhost:3000/static/scripts/tests/all.html
 
 
 Cache
