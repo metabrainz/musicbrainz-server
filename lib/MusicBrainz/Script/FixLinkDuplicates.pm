@@ -36,11 +36,6 @@ has verbose => (
 );
 
 
-sub link_tables {
-    my ($self) = @_;
-    return map { join('_', 'l', @$_) } $self->c->model('Relationship')->all_pairs;
-}
-
 sub sql_do
 {
     my ($self, $query, @args) = @_;
