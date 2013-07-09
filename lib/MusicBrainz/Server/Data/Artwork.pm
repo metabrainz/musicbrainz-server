@@ -45,6 +45,7 @@ sub _column_mapping
         is_front => 'is_front',
         is_back => 'is_back',
         approved => 'approved',
+        suffix => 'suffix',
     };
 }
 
@@ -69,10 +70,14 @@ sub find_by_release
             cover_art_archive.cover_art.edits_pending,
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back
+            cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix
         FROM cover_art_archive.index_listing
         JOIN cover_art_archive.cover_art
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
         ORDER BY cover_art_archive.index_listing.ordering";
@@ -102,12 +107,16 @@ sub find_front_cover_by_release
             cover_art_archive.cover_art.edits_pending,
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
-            cover_art_archive.index_listing.is_back
+            cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix
         FROM cover_art_archive.index_listing
         JOIN cover_art_archive.cover_art
         ON cover_art_archive.cover_art.id = cover_art_archive.index_listing.id
         JOIN musicbrainz.release
         ON cover_art_archive.index_listing.release = musicbrainz.release.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE cover_art_archive.index_listing.release
         IN (" . placeholders(@ids) . ")
         AND is_front = true";
@@ -151,6 +160,8 @@ sub load_for_release_groups
             cover_art_archive.index_listing.approved,
             cover_art_archive.index_listing.is_front,
             cover_art_archive.index_listing.is_back,
+            cover_art_archive.image_type.mime_type,
+            cover_art_archive.image_type.suffix,
             musicbrainz.release.release_group,
             musicbrainz.release.gid AS release_gid
         FROM cover_art_archive.index_listing
@@ -165,6 +176,8 @@ sub load_for_release_groups
         ) release_event ON (release_event.release = release.id)
         FULL OUTER JOIN cover_art_archive.release_group_cover_art
         ON release_group_cover_art.release = musicbrainz.release.id
+        JOIN cover_art_archive.image_type
+        ON cover_art_archive.index_listing.mime_type = cover_art_archive.image_type.mime_type
         WHERE release.release_group IN (" . placeholders(@ids) . ")
         AND is_front = true
         ORDER BY release.release_group, release_group_cover_art.release,
@@ -191,7 +204,7 @@ no Moose;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2012 MetaBrainz Foundation
+Copyright (C) 2012,2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
