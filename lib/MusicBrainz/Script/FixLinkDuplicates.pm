@@ -51,6 +51,7 @@ sub sql_do
 sub remove_one_duplicate
 {
     my ($self, $table, $keep_id, $remove_id) = @_;
+    my $count = 0;
 
     # First remove those rows which link = $keep_id and have the same entities.
     my $query = "DELETE FROM $table WHERE id IN (
@@ -62,14 +63,15 @@ sub remove_one_duplicate
         AND NOT l1.link = l2.link
           WHERE l1.link = ? AND l2.link = ?)";
 
-    $self->sql_do ($query, $keep_id, $remove_id);
+    $count = $self->sql_do ($query, $keep_id, $remove_id);
     $query = "UPDATE $table SET link = ? WHERE link = ?";
-    return $self->sql_do ($query, $keep_id, $remove_id);
+    return $count + $self->sql_do ($query, $keep_id, $remove_id);
 }
 
 sub remove_duplicates
 {
     my ($self, $keep_id, @remove_ids) = @_;
+    my $count = 0;
 
     printf "%s : Replace links %s with %s\n",
         scalar localtime, join (", ", @remove_ids), $keep_id if $self->verbose;
@@ -80,18 +82,19 @@ sub remove_duplicates
     {
         for my $remove_id (@remove_ids)
         {
-            $self->remove_one_duplicate ($table, $keep_id, $remove_id);
+            $count += $self->remove_one_duplicate ($table, $keep_id, $remove_id);
         }
     }
 
     my $query = "DELETE FROM link_attribute WHERE link IN (" . placeholders (@remove_ids) . ")";
-    $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do ($query, @remove_ids);
 
     $query = "DELETE FROM link_attribute_credit WHERE link IN (" . placeholders (@remove_ids) . ")";
-    $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do ($query, @remove_ids);
 
     $query = "DELETE FROM link WHERE id IN (" . placeholders (@remove_ids) . ")";
-    $self->sql_do ($query, @remove_ids);
+    $count += $self->sql_do ($query, @remove_ids);
+    return $count;
 }
 
 sub run {
@@ -123,7 +126,7 @@ sub run {
 
     my $rows = $self->c->sql->select_single_column_array ($query);
 
-    my ($count, $removed) = (0, 0);
+    my ($count, $removed, $total_row_changes) = (0, 0, 0);
 
     for my $link (@$rows)
     {
@@ -133,7 +136,7 @@ sub run {
         }
         my $keep = shift $link;
         Sql::run_in_transaction(sub {
-            $self->remove_duplicates ($keep, @$link);
+            $total_row_changes += $self->remove_duplicates ($keep, @$link);
         }, $self->c->sql);
         $removed += scalar @$link;
         $count++;
@@ -150,6 +153,16 @@ sub run {
             scalar localtime,
             $removed, ($removed==1 ? "" : "s")
                 if !$self->dry_run;
+        printf "%s : Touched %d row%s total.\n",
+            scalar localtime,
+            $total_row_changes, ($total_row_changes==1 ? "" : "s")
+                if !$self->dry_run;
+    }
+
+    if ($count == scalar @$rows) {
+        return 2; # Done
+    } else {
+        return 0; # More to process
     }
 }
 
