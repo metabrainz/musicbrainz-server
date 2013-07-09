@@ -116,7 +116,7 @@ sub run {
        SELECT array_agg(id ORDER BY created ASC)
            FROM (SELECT link.*,array_agg((attribute_type, credited_as) ORDER BY attribute_type) AS attributes
                  FROM link
-                 JOIN link_attribute ON link_attribute.link = link.id
+                 LEFT JOIN link_attribute ON link_attribute.link = link.id
                  LEFT JOIN link_attribute_credit USING (link, attribute_type)
                  GROUP BY link.id) AS link_with_attributes
        GROUP BY link_type, attribute_count, ended, attributes,
@@ -134,11 +134,11 @@ sub run {
             print localtime() . " : Removed limit of " . $self->limit . ", stopping until next invocation\n";
             last;
         }
-        my $keep = shift $link;
+        my ($keep, @drop) = @$link;
         Sql::run_in_transaction(sub {
-            $total_row_changes += $self->remove_duplicates ($keep, @$link);
+            $total_row_changes += $self->remove_duplicates ($keep, @drop);
         }, $self->c->sql);
-        $removed += scalar @$link;
+        $removed += scalar @drop;
         $count++;
     }
 
