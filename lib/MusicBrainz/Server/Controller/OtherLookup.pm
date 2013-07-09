@@ -60,7 +60,7 @@ lookup_handler 'barcode' => sub {
 lookup_handler 'mbid' => sub {
     my ($self, $c, $gid) = @_;
 
-    for my $model (qw(Artist Label Recording Release ReleaseGroup URL Work)) {
+    for my $model (qw(Artist Label Recording Release ReleaseGroup Track URL Work)) {
         my $entity = $c->model($model)->get_by_gid($gid) or next;
         $c->response->redirect(
             $c->uri_for_action(
