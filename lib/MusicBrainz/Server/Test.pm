@@ -9,6 +9,7 @@ use FindBin '$Bin';
 use Getopt::Long;
 use HTTP::Headers;
 use HTTP::Request;
+use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
@@ -154,7 +155,7 @@ sub capture_edits (&$)
     $code->();
     my $new_max = $c->sql->select_single_value('SELECT max(id) FROM edit');
     return () if $new_max <= $current_max;
-    return values %{ $c->model('Edit')->get_by_ids(
+    return nsort_by { $_->id } values %{ $c->model('Edit')->get_by_ids(
         ($current_max + 1)..$new_max
     ) };
 }

@@ -64,9 +64,9 @@ sub UnformatTrackLength
     {
         return ($1 * 60 + $2) * 1000;
     }
-    elsif ($length =~ /^\s*(\d+)\s+ms\s*$/)
+    elsif ($length =~ /^\s*(\d+(\.\d+)?)?\s+ms\s*$/)
     {
-        return $1;
+        return int($1);
     }
     elsif ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
     {

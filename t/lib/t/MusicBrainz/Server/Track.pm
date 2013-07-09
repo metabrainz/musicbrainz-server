@@ -39,6 +39,7 @@ test 'Unformat Track Length' => sub {
 
     is (unformat_track_length ('9000:20'), 540020000, 'Absurdly long track lengths');
     is (unformat_track_length ('933 ms'), 933, 'Millisecond track lengths');
+    is (unformat_track_length ('93.33333 ms'), 93, 'Sub-millisecond track lengths');
     is (unformat_track_length ('20:30'), 1230000, 'Reasonable track lengths');
     is (unformat_track_length ('?:??'), undef, 'Undefined track lengths');
 };

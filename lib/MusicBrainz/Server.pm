@@ -8,12 +8,9 @@ use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
-
-use aliased 'MusicBrainz::Server::Translation';
-
-use Try::Tiny;
 use Sys::Hostname;
+use Try::Tiny;
+use aliased 'MusicBrainz::Server::Translation';
 
 # Set flags and add plugins for the application
 #
@@ -252,10 +249,9 @@ sub ngettext { shift; Translation->instance->ngettext(@_) }
 sub get_collator
 {
     my ($self) = @_;
-    my $coll = Unicode::ICU::Collator->new($self->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-    return $coll;
+    return MusicBrainz::Server::Translation::get_collator(
+        $self->stash->{current_language} // 'en'
+    );
 }
 
 sub set_language_cookie {
