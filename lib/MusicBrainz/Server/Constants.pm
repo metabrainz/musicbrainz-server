@@ -140,6 +140,15 @@ Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
+Readonly our $EDIT_PLACE_CREATE => 61;
+Readonly our $EDIT_PLACE_EDIT => 62;
+Readonly our $EDIT_PLACE_DELETE => 63;
+Readonly our $EDIT_PLACE_MERGE => 64;
+Readonly our $EDIT_PLACE_ADD_ANNOTATION => 65;
+Readonly our $EDIT_PLACE_ADD_ALIAS => 66;
+Readonly our $EDIT_PLACE_DELETE_ALIAS => 67;
+Readonly our $EDIT_PLACE_EDIT_ALIAS => 66;
+
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_DELETE => 73;

@@ -110,6 +110,18 @@ subtype 'MediumFormat'
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
 
+subtype 'Place'
+    => as class_type 'MusicBrainz::Server::Entity::Place';
+
+subtype 'PlaceAlias'
+    => as class_type 'MusicBrainz::Server::Entity::PlaceAlias';
+
+subtype 'PlaceType'
+    => as class_type 'MusicBrainz::Server::Entity::PlaceType';
+
+subtype 'Point'
+    => as class_type 'MusicBrainz::Server::Entity::Point';
+
 subtype 'PUID'
     => as class_type 'MusicBrainz::Server::Entity::PUID';
 
