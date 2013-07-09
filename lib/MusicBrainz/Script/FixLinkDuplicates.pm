@@ -76,14 +76,19 @@ sub remove_duplicates
     printf "%s : Replace links %s with %s\n",
         scalar localtime, join (", ", @remove_ids), $keep_id if $self->verbose;
 
-    my @link_tables = $self->link_tables;
+    my $rows = $self->c->sql->select_list_of_hashes(
+        'SELECT entity_type0, entity_type1
+           FROM link_type
+           JOIN link
+             ON link.link_type = link_type.id
+          WHERE link.id = ?',
+        $keep_id);
 
-    for my $table (@link_tables)
+    my $table = join('_', 'l', $rows->[0]->{entity_type0}, $rows->[0]->{entity_type1});
+
+    for my $remove_id (@remove_ids)
     {
-        for my $remove_id (@remove_ids)
-        {
-            $count += $self->remove_one_duplicate ($table, $keep_id, $remove_id);
-        }
+        $count += $self->remove_one_duplicate ($table, $keep_id, $remove_id);
     }
 
     my $query = "DELETE FROM link_attribute WHERE link IN (" . placeholders (@remove_ids) . ")";
