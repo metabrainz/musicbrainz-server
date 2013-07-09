@@ -1,43 +1,11 @@
 package MusicBrainz::Script::FixLinkDuplicates;
 use Moose;
-
 use DBDefs;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw( placeholders );
-
 with 'MooseX::Runnable';
 with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
-
-my @link_tables = qw(
-    l_artist_artist
-    l_artist_label
-    l_artist_recording
-    l_artist_release
-    l_artist_release_group
-    l_artist_url
-    l_artist_work
-    l_label_label
-    l_label_recording
-    l_label_release
-    l_label_release_group
-    l_label_url
-    l_label_work
-    l_recording_recording
-    l_recording_release
-    l_recording_release_group
-    l_recording_url
-    l_recording_work
-    l_release_group_release_group
-    l_release_group_url
-    l_release_group_work
-    l_release_release
-    l_release_release_group
-    l_release_url
-    l_release_work
-    l_url_url
-    l_url_work
-    l_work_work );
 
 has dry_run => (
     isa => 'Bool',
@@ -45,6 +13,14 @@ has dry_run => (
     default => 0,
     traits => [ 'Getopt' ],
     cmd_flag => 'dry-run'
+);
+
+has limit => (
+    isa => 'Int',
+    is => 'ro',
+    default => 20,
+    traits => [ 'Getopt' ],
+    cmd_flag => 'limit'
 );
 
 has summary => (
@@ -59,17 +35,24 @@ has verbose => (
     default => 0,
 );
 
+
+sub link_tables {
+    my ($self) = @_;
+    return map { join('_', 'l', @$_) } $self->c->model('Relationship')->all_pairs;
+}
+
 sub sql_do
 {
     my ($self, $query, @args) = @_;
 
-    $self->c->sql->do ($query, @args) unless $self->dry_run;
+    return $self->c->sql->do ($query, @args) unless $self->dry_run;
 }
 
 sub remove_one_duplicate
 {
     my ($self, $table, $keep_id, $remove_id) = @_;
 
+    # First remove those rows which link = $keep_id and have the same entities.
     my $query = "DELETE FROM $table WHERE id IN (
          SELECT l2.id
            FROM $table l1
@@ -79,11 +62,9 @@ sub remove_one_duplicate
         AND NOT l1.link = l2.link
           WHERE l1.link = ? AND l2.link = ?)";
 
-    # First remove those rows which link = $keep_id and have the same entities.
     $self->sql_do ($query, $keep_id, $remove_id);
-
     $query = "UPDATE $table SET link = ? WHERE link = ?";
-    $self->sql_do ($query, $keep_id, $remove_id);
+    return $self->sql_do ($query, $keep_id, $remove_id);
 }
 
 sub remove_duplicates
@@ -92,6 +73,8 @@ sub remove_duplicates
 
     printf "%s : Replace links %s with %s\n",
         scalar localtime, join (", ", @remove_ids), $keep_id if $self->verbose;
+
+    my @link_tables = $self->link_tables;
 
     for my $table (@link_tables)
     {
@@ -104,6 +87,9 @@ sub remove_duplicates
     my $query = "DELETE FROM link_attribute WHERE link IN (" . placeholders (@remove_ids) . ")";
     $self->sql_do ($query, @remove_ids);
 
+    $query = "DELETE FROM link_attribute_credit WHERE link IN (" . placeholders (@remove_ids) . ")";
+    $self->sql_do ($query, @remove_ids);
+
     $query = "DELETE FROM link WHERE id IN (" . placeholders (@remove_ids) . ")";
     $self->sql_do ($query, @remove_ids);
 }
@@ -113,33 +99,51 @@ sub run {
 
     print localtime() . " : Finding duplicate rows in link table\n";
 
-    my $rows = $self->c->sql->select_single_column_array (
-        "SELECT array_agg(id)
-           FROM (SELECT link.*,array_agg(attribute_type ORDER BY attribute_type) AS attributes
+    # The conditions where 'link' rows are duplicated is when, for the columns of 'link:
+    #  * id is different
+    #  * link_type is the same
+    #  * begin_date_* and end_date_* are the same
+    #  * attribute_count is the same
+    #  * created is whatever
+    #  * ended is the same
+    # and where the actual attributes are the same, including credits
+    # (not that, at time of this writing, credits are fully implemented)
+    # And when we do, we should keep the oldest one (i.e., earliest 'created' date)
+    my $query = "
+       SELECT array_agg(id ORDER BY created ASC)
+           FROM (SELECT link.*,array_agg((attribute_type, credited_as) ORDER BY attribute_type) AS attributes
                  FROM link
                  JOIN link_attribute ON link_attribute.link = link.id
+                 LEFT JOIN link_attribute_credit USING (link, attribute_type)
                  GROUP BY link.id) AS link_with_attributes
        GROUP BY link_type, attribute_count, ended, attributes,
                 begin_date_year, begin_date_month, begin_date_day,
                 end_date_year, end_date_month, end_date_day
-         HAVING count(id) > 1;");
+         HAVING count(id) > 1";
+
+    my $rows = $self->c->sql->select_single_column_array ($query);
 
     my ($count, $removed) = (0, 0);
 
     for my $link (@$rows)
     {
+        if ($self->limit > 0 && $count >= $self->limit) {
+            print localtime() . " : Removed limit of " . $self->limit . ", stopping until next invocation\n";
+            last;
+        }
         my $keep = shift $link;
-
         Sql::run_in_transaction(sub {
             $self->remove_duplicates ($keep, @$link);
         }, $self->c->sql);
-
         $removed += scalar @$link;
         $count++;
     }
 
     if ($self->summary) {
         printf "%s : Found %d duplicated link%s.\n",
+            scalar localtime,
+            scalar @$rows, ((scalar @$rows)==1 ? "" : "s");
+        printf "%s : Processed %d link%s.\n",
             scalar localtime,
             $count, ($count==1 ? "" : "s");
         printf "%s : Successfully removed %d duplicate%s.\n",
