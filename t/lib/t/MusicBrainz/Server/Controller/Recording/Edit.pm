@@ -5,6 +5,7 @@ use MusicBrainz::Server::Test qw( capture_edits html_ok );
 use HTTP::Request::Common;
 use List::UtilsBy qw( sort_by );
 
+with 't::Edit';
 with 't::Mechanize', 't::Context';
 
 test all => sub {
@@ -13,13 +14,29 @@ my $test = shift;
 my $mech = $test->mech;
 my $c    = $test->c;
 
-MusicBrainz::Server::Test->prepare_test_database($c);
+$c->sql->do(<<EOSQL);
+INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
+INSERT INTO artist (id, gid, name, sort_name, comment)
+VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 'A'),
+       (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'B'),
+       (4, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'C'),
+       (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 1, 1, 'D');
+
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (1, 0, 6, 1);
+INSERT INTO track_name (id, name) VALUES (1, 'Dancing Queen');
+INSERT INTO recording (id, gid, name, artist_credit, length)
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 123456);
+INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
+ALTER SEQUENCE artist_name_id_seq RESTART 2;
+EOSQL
 
 $mech->get_ok('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+$mech->submit_form(
+    with_fields => { username => 'editor', password => 'pass' } );
 
 my @edits = capture_edits {
-    $mech->get_ok("/recording/123c079d-374e-4436-9448-da92dedef3ce/edit");
+    $mech->get_ok("/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit");
     html_ok($mech->content);
     my $request = POST $mech->uri, [
         'edit-recording.length' => '1:23',
@@ -43,7 +60,7 @@ my @edits = capture_edits {
 @edits = sort_by { $_->id } @edits;
 
 ok($mech->success);
-ok($mech->uri =~ qr{/recording/123c079d-374e-4436-9448-da92dedef3ce$});
+like($mech->uri, qr{/recording/54b9d183-7dab-42ba-94a3-7388a66604b8$});
 html_ok($mech->content);
 
 my $edit = $edits[0];

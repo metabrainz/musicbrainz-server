@@ -1,6 +1,27 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
+CREATE OR REPLACE FUNCTION _median(anyarray) RETURNS anyelement AS $$
+  WITH q AS (
+      SELECT val
+      FROM unnest($1) val
+      WHERE VAL IS NOT NULL
+      ORDER BY val
+  )
+  SELECT val
+  FROM q
+  LIMIT 1
+  -- Subtracting (n + 1) % 2 creates a left bias
+  OFFSET greatest(0, floor((select count(*) FROM q) / 2.0) - ((select count(*) + 1 FROM q) % 2));
+$$ LANGUAGE sql IMMUTABLE;
+
+CREATE AGGREGATE median(anyelement) (
+  SFUNC=array_append,
+  STYPE=anyarray,
+  FINALFUNC=_median,
+  INITCOND='{}'
+);
+
 -- We may want to create a CreateAggregate.sql script, but it seems silly to do that for one aggregate
 CREATE AGGREGATE array_accum (basetype = anyelement, sfunc = array_append, stype = anyarray, initcond = '{}');
 
@@ -247,6 +268,7 @@ BEGIN
     PERFORM inc_ref_count('artist_credit', NEW.artist_credit, 1);
     -- increment track_count in the parent medium
     UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -262,6 +284,10 @@ BEGIN
         UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
         UPDATE medium SET track_count = track_count + 1 WHERE id = NEW.medium;
     END IF;
+    IF OLD.recording <> NEW.recording THEN
+      PERFORM materialise_recording_length(OLD.recording);
+    END IF;
+    PERFORM materialise_recording_length(NEW.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -271,6 +297,7 @@ BEGIN
     PERFORM dec_ref_count('artist_credit', OLD.artist_credit, 1);
     -- decrement track_count in the parent medium
     UPDATE medium SET track_count = track_count - 1 WHERE id = OLD.medium;
+    PERFORM materialise_recording_length(OLD.recording);
     RETURN NULL;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -1115,6 +1142,17 @@ BEGIN
     RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
   END IF;
   RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
+RETURNS void as $$
+BEGIN
+  UPDATE recording
+  SET length = (SELECT median(track.length)
+                FROM track
+                WHERE track.recording = recording.id)
+  WHERE recording.id = recording_id;
 END;
 $$ LANGUAGE 'plpgsql';
 

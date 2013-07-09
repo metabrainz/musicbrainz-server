@@ -28,7 +28,7 @@ is ( $rec->id, 1 );
 is ( $rec->gid, "54b9d183-7dab-42ba-94a3-7388a66604b8" );
 is ( $rec->name, "King of the Mountain" );
 is ( $rec->artist_credit_id, 1 );
-is ( $rec->length, 293720 );
+is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
 
 $rec = $rec_data->get_by_gid("54b9d183-7dab-42ba-94a3-7388a66604b8");
@@ -36,7 +36,7 @@ is ( $rec->id, 1 );
 is ( $rec->gid, "54b9d183-7dab-42ba-94a3-7388a66604b8" );
 is ( $rec->name, "King of the Mountain" );
 is ( $rec->artist_credit_id, 1 );
-is ( $rec->length, 293720 );
+is ( $rec->length, undef );
 is ( $rec->edits_pending, 0 );
 
 my ($recs, $hits) = $rec_data->find_by_artist(1, 100, 0);

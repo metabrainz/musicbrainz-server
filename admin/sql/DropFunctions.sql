@@ -1,6 +1,7 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+DROP FUNCTION _median(anyarray);
 DROP FUNCTION a_del_recording();
 DROP FUNCTION a_del_release();
 DROP FUNCTION a_del_release_event();
