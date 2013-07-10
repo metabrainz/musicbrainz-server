@@ -31,7 +31,7 @@ var validationHandlers = {
         } else if (!typeInfo.descr) {
             field.error(MB.text.PleaseSelectARSubtype);
         }
-        else if (typeInfo.descr.contains('deprecated')) {
+        else if (typeInfo.deprecated) {
             field.error(MB.text.RelationshipTypeDeprecated);
         }
     },
