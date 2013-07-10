@@ -235,8 +235,8 @@ sub edit_relationship {
     $self->try_and_edit(
         $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
             new_link_type_id => $rel->{link_type},
-            new_begin_date => $rel->{period}{begin_date},
-            new_end_date => $rel->{period}{end_date},
+            new_begin_date => $rel->{period}{begin_date} // {},
+            new_end_date => $rel->{period}{end_date} // {},
             attributes => \@attributes,
             entity0_id => $c->stash->{loaded_entities}->{$entity0->{gid}}->id,
             entity1_id => $c->stash->{loaded_entities}->{$entity1->{gid}}->id,
