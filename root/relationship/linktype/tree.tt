@@ -20,8 +20,9 @@
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
             |
         [% END %]
-          [% l('{url|Documentation}', {
-                 url => c.uri_for_action('/doc/relationship_type', obj.gid)
+          [% l('{relationship_documentation_url|Documentation}', {
+                 relationship_documentation_url =>
+                    c.uri_for_action('/doc/relationship_type', obj.gid)
              }) %]
         ]
         </div>
