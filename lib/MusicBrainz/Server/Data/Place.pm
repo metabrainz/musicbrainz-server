@@ -1,0 +1,209 @@
+package MusicBrainz::Server::Data::Place;
+
+use Moose;
+use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Data::Edit;
+use MusicBrainz::Server::Entity::Place;
+use MusicBrainz::Server::Entity::Point;
+use MusicBrainz::Server::Entity::PartialDate;
+use MusicBrainz::Server::Data::Utils qw(
+    add_partial_date_to_row
+    check_in_use
+    generate_gid
+    hash_to_row
+    load_subobjects
+    merge_table_attributes
+    merge_partial_date
+    placeholders
+    query_to_list
+    query_to_list_limited
+);
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
+use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
+
+extends 'MusicBrainz::Server::Data::CoreEntity';
+with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'place' };
+with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'place' };
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'place' };
+with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'place' };
+with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
+with 'MusicBrainz::Server::Data::Role::Browse';
+with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
+with 'MusicBrainz::Server::Data::Role::Merge';
+
+sub _table
+{
+    return 'place ';
+}
+
+sub _columns
+{
+    return 'place.id, gid, place.name, place.sort_name, place.type, place.address, place.coordinates, ' .
+           'place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
+           'end_date_year, end_date_month, end_date_day, ended, comment, place.last_updated';
+}
+
+sub _id_column
+{
+    return 'place.id';
+}
+
+sub _gid_redirect_table
+{
+    return 'place_gid_redirect';
+}
+
+sub _table_join_name {}
+
+sub _column_mapping
+{
+    return {
+        id => 'id',
+        gid => 'gid',
+        name => 'name',
+        sort_name => 'sort_name',
+        type_id => 'type',
+        address => 'address',
+        # will need to turn into new_from_rowish stuff
+        coordinates => 'coordinates',
+        begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
+        end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
+        edits_pending => 'edits_pending',
+        comment => 'comment',
+        last_updated => 'last_updated',
+        ended => 'ended'
+    };
+}
+
+sub _entity_class
+{
+    return 'MusicBrainz::Server::Entity::Place';
+}
+
+sub load
+{
+    my ($self, @objs) = @_;
+    load_subobjects($self, 'place', @objs);
+}
+
+sub insert
+{
+    my ($self, @places) = @_;
+    my $class = $self->_entity_class;
+    my @created;
+    for my $place (@places)
+    {
+        my $row = $self->_hash_to_row($place);
+        $row->{gid} = $place->{gid} || generate_gid();
+
+        my $created = $class->new(
+            name => $place->{name},
+            id => $self->sql->insert_row('area', $row, 'id'),
+            gid => $row->{gid}
+        );
+
+        push @created, $created;
+    }
+    return @places > 1 ? @created : $created[0];
+}
+
+sub update
+{
+    my ($self, $place_id, $update) = @_;
+
+    my $row = $self->_hash_to_row($update);
+
+    $self->sql->update_row('place', $row, { id => $place_id }) if %$row;
+
+    return 1;
+}
+
+sub can_delete {1}
+
+sub delete
+{
+    my ($self, @place_ids) = @_;
+
+    $self->c->model('Relationship')->delete_entities('place', @place_ids);
+    $self->annotation->delete(@place_ids);
+    $self->alias->delete_entities(@place_ids);
+    $self->tags->delete(@place_ids);
+    $self->remove_gid_redirects(@place_ids);
+    $self->sql->do('DELETE FROM place WHERE id IN (' . placeholders(@place_ids) . ')', @place_ids);
+    return 1;
+}
+
+sub _merge_impl
+{
+    my ($self, $new_id, @old_ids) = @_;
+
+    $self->alias->merge($new_id, @old_ids);
+    $self->tags->merge($new_id, @old_ids);
+    $self->annotation->merge($new_id, @old_ids);
+    $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
+    $self->c->model('Relationship')->merge_entities('place', $new_id, @old_ids);
+
+    merge_table_attributes(
+        $self->sql => (
+            table => 'place',
+            columns => [ qw( type address coordinates ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
+    merge_partial_date(
+        $self->sql => (
+            table => 'place',
+            field => $_,
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    ) for qw( begin_date end_date );
+
+    $self->_delete_and_redirect_gids('place', $new_id, @old_ids);
+    return 1;
+}
+
+sub _hash_to_row
+{
+    my ($self, $place, $names) = @_;
+    my $row = hash_to_row($place, {
+        type => 'type_id',
+        ended => 'ended',
+        name => 'name',
+        sort_name => 'sort_name',
+        map { $_ => $_ } qw( label_code comment )
+    });
+
+    add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
+    add_partial_date_to_row($row, $place->{end_date}, 'end_date');
+
+    return $row;
+}
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
+1;
+
+=head1 COPYRIGHT
+
+Copyright (C) 2013 Metabrainz Foundation
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+=cut

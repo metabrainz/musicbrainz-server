@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::Area;
+package MusicBrainz::Server::Entity::Place;
 
 use Moose;
 use MusicBrainz::Server::Entity::PartialDate;
