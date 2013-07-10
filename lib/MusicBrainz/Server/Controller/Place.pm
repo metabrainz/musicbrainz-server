@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Controller::Role::Alias';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
+with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use Data::Page;
@@ -75,6 +76,14 @@ sub show : PathPart('') Chained('load')
 
     $c->stash(template => 'place/index.tt');
 }
+
+=head2 show
+
+Shows recordings linked to a place.
+
+=cut
+
+sub recordings : Chained('load') { }
 
 =head2 WRITE METHODS
 
