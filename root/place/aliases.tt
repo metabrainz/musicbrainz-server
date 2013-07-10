@@ -1,0 +1,6 @@
+[%- WRAPPER "place/layout.tt" title=l('Aliases') page='aliases' -%]
+    [%- INCLUDE "components/aliases.tt" entity=place
+        delete_path='/place/delete_alias'
+        add_path='/place/add_alias'
+        edit_path='/place/edit_alias' -%]
+[%- END -%]
