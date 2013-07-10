@@ -59,7 +59,7 @@ my $sqldir = "$FindBin::Bin/sql";
 
 sub RequireMinimumPostgreSQLVersion
 {
-    my $mb = Databases->get_connection('READWRITE');
+    my $mb = Databases->get_connection('SYSTEM');
     my $sql = Sql->new( $mb->conn );
 
     my $version = $sql->select_single_value ("SELECT version();");
