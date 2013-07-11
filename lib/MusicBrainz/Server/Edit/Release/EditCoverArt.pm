@@ -135,10 +135,8 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    $data{artwork} = Artwork->new(release => $data{release},
-                               id => $self->data->{id},
-                               comment => $self->data->{new}{comment} // '',
-                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{new}{types} }]);
+    $data{artwork} = $self->c->model('Artwork')->get_by_id ($self->data->{id});
+    $self->c->model('Release')->load ($data{artwork});
 
     if ($self->data->{old}->{types})
     {

@@ -19,7 +19,7 @@
 
   <tr>
     <th>[% l('Filename:') %]</th>
-    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.cover_art_id %].jpg</code></td>
+    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.cover_art_id %].[% edit.display_data.artwork.suffix | html %]</code></td>
   </tr>
 
   <tr>

@@ -8,7 +8,7 @@
 
   <tr>
     <th>[% l('Filename:') %]</th>
-    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.id %].jpg</code></td>
+    <td><code>mbid-[% edit.data.entity.mbid %]-[% edit.data.id %].[% edit.display_data.artwork.suffix | html %]</code></td>
   </tr>
 
   [% display_diff(l('Types:'),
