@@ -23,15 +23,17 @@
     ['all_edits', generic_link(c.uri_for_action("/user/edits/all", [ user.name ]), l('All Edits'))],
 ) -%]
 
-[%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
+[%- IF viewing_own_profile -%]
 [%- info_links.push (
-    ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Edit User'))],
+    ['edit_profile', generic_link(c.uri_for_action("/account/edit"), l('Edit Profile'))],
+    ['preferences', generic_link(c.uri_for_action("/account/preferences"), l('Preferences'))],
+    ['change_password', generic_link(c.uri_for_action("/account/change_password"), l('Change Password'))],
 ) -%]
 [%- END -%]
 
-[%- IF viewing_own_profile -%]
+[%- IF c.user.is_account_admin || (server_details.testing_features && c.user_exists)-%]
 [%- info_links.push (
-    ['donation', generic_link(c.uri_for_action("/account/donation"), l('Donation Check'))],
+    ['edit_user', generic_link(c.uri_for_action("/admin/edit_user", user.name), l('Admin'))],
 ) -%]
 [%- END -%]
 

@@ -10,6 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
+use Math::Random::Secure qw();
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -226,8 +227,9 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    $data->{password} = hash_password($data->{password});
-    $data->{ha1} = ha1_password($data->{name}, $data->{password});
+    my $plaintext = $data->{password};
+    $data->{password} = hash_password($plaintext);
+    $data->{ha1} = ha1_password($data->{name}, $plaintext);
 
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
@@ -315,7 +317,6 @@ sub update_privileges
                 + $values->{untrusted}        * $UNTRUSTED_FLAG
                 + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
                 + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
-                + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
@@ -406,40 +407,6 @@ sub lock_row
     my ($self, $editor_id) = @_;
     my $query = "SELECT 1 FROM " . $self->_table . " WHERE id = ? FOR UPDATE";
     $self->sql->do($query, $editor_id);
-}
-
-sub donation_check
-{
-    my ($self, $obj) = @_;
-
-    my $nag = 1;
-    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
-                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
-                 $obj->is_location_editor);
-
-    my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
-
-        my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/donations/nag-check/' .
-            uri_escape_utf8($obj->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
-            $nag = $1;
-            $days = $2;
-        }
-        else
-        {
-            return undef;
-        }
-    }
-
-    return { nag => $nag, days => $days };
 }
 
 sub editors_with_subscriptions
@@ -597,29 +564,42 @@ sub hash_password {
 
 sub ha1_password {
     my ($username, $password) = @_;
-    return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {
     my ($self, $user_name, $token) = @_;
-    return $self->sql->select_single_value(
-        'DELETE FROM editor_remember_me
-         USING editor
-         WHERE editor.name = ?
-           AND editor_remember_me.editor = editor.id
-           AND token = ?
-         RETURNING TRUE',
-        $user_name, $token
-    );
+
+    my $token_key = "$user_name|$token";
+    # Expire consumed tokens in 5 minutes. This allows the case where the user
+    # has no session, and opens multiple tabs using the same remember_me token.
+    $self->redis->expire($token_key, 5 * 60);
+    $self->redis->exists($token_key);
 }
 
 sub allocate_remember_me_token {
     my ($self, $user_name) = @_;
-    return $self->sql->select_single_value(
-        'INSERT INTO editor_remember_me (editor)
-         SELECT id FROM editor WHERE name = ?
-         RETURNING token', $user_name
-    );
+
+    if (
+        $self->sql->select_single_value(
+            'SELECT TRUE FROM editor WHERE name = ?',
+            $user_name
+        )
+    ) {
+        # Generate a 128-bit token. irand is 32-bit.
+        my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
+
+        my $key = "$user_name|$token";
+        $self->redis->add($key, 1);
+
+        # Expire tokens after 1 year.
+        $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
+
+        return $token;
+    }
+    else {
+        return undef;
+    }
 }
 
 no Moose;

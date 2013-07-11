@@ -25,19 +25,19 @@ has 'redis_new_args' => (
 has '_connection' => (
     is => 'rw',
     isa => 'Redis',
+    lazy => 1,
+    default => sub {
+        my $self = shift;
+        my $connection = Redis->new(%{ $self->redis_new_args });
+        $connection->select( $self->database );
+        return $connection;
+    }
 );
 
 has '_json' => (
     is => 'ro',
     default => sub { return JSON->new->allow_nonref->ascii; }
 );
-
-sub BUILD {
-    my $self = shift;
-
-    $self->_connection( Redis->new(%{ $self->redis_new_args }) );
-    $self->_connection->select( $self->database );
-};
 
 sub get {
     my ($self, $key) = @_;
@@ -68,11 +68,17 @@ sub del {
 
 =method expire
 
-Expire the specified key at (unix) $timestamp.
+Expire the specified key in $s seconds
 
 =cut
 
 sub expire {
+    my ($self, $key, $s) = @_;
+
+    return $self->_connection->expire ($self->prefix.$key, $s);
+}
+
+sub expireat {
     my ($self, $key, $timestamp) = @_;
 
     return $self->_connection->expireat ($self->prefix.$key, $timestamp);
@@ -95,6 +101,11 @@ sub add {
     my ($self, $key, $value) = @_;
 
     return $self->_connection->setnx ($self->prefix.$key, $self->_json->encode ($value));
+}
+
+sub ttl {
+    my ($self, $key) = @_;
+    return $self->_connection->ttl ($self->prefix.$key);
 }
 
 sub _flushdb {

@@ -109,6 +109,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             to['position'] = trk.position ();
             to['deleted'] = trk.$deleted.val ();
             to['number'] = trk.$number.val ();
+            to['id'] = trk.$id.val ();
 
             edited_tracklist.push (to);
 

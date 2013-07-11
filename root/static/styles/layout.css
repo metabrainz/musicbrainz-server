@@ -624,6 +624,11 @@ div.warning img.warning {
     max-width: 218px; /* references #sidebar's width */
 }
 
+#sidebar .cover-art-note {
+    color: #777;
+    display: block;
+}
+
 /*
 ** Footer
 */

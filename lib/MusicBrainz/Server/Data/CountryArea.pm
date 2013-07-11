@@ -16,6 +16,8 @@ around '_get_all_from_db' => sub {
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
 };
 
+sub sort_in_forms { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

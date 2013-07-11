@@ -46,7 +46,6 @@ DROP TABLE editor_collection_release;
 DROP TABLE editor_language;
 DROP TABLE editor_oauth_token;
 DROP TABLE editor_preference;
-DROP TABLE editor_remember_me;
 DROP TABLE editor_subscribe_artist;
 DROP TABLE editor_subscribe_collection;
 DROP TABLE editor_subscribe_editor;

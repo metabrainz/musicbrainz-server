@@ -10,7 +10,12 @@
                 <span>[% page | html %]</span>
             </div>
 
-            [% form_row_text(r, 'version', l('Version:')) %]
+            <div class="row">
+                <label>[% l('Current version:') %]</label>
+                <span>[% current_version %]</span>
+            </div>
+
+            [% form_row_text(r, 'version', l('New version:')) %]
 
             <div class="row no-label">
                 [% form_submit(l('Update')) %]

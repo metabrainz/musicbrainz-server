@@ -13,7 +13,7 @@ use DBDefs;
 use Try::Tiny;
 use List::UtilsBy qw( sort_by );
 
-use MusicBrainz::Server::Constants qw( :edit_status :email_addresses );
+use MusicBrainz::Server::Constants qw( :edit_status :email_addresses $EDIT_MINIMUM_RESPONSE_PERIOD );
 use MusicBrainz::Server::Email::AutoEditorElection::Nomination;
 use MusicBrainz::Server::Email::AutoEditorElection::VotingOpen;
 use MusicBrainz::Server::Email::AutoEditorElection::Timeout;
@@ -214,6 +214,12 @@ sub _create_no_vote_email
     my $url = sprintf 'http://%s/edit/%d', DBDefs->WEB_SERVER_USED_IN_EMAIL, $edit_id;
     my $prefs_url = sprintf 'http://%s/account/preferences', DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
+    my $close_time = DateTime->now()->add_duration($EDIT_MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
+    if ($editor->preferences) {
+        $close_time->set_time_zone($editor->preferences->timezone);
+    }
+    $close_time = $close_time->strftime('%F %H:%M %Z');
+
     my $body = <<EOS;
 '${\ $voter->name }' has voted against your edit #$edit_id.
 -------------------------------------------------------------------------
@@ -226,9 +232,14 @@ Please do not respond to this email.
 If clicking the link above doesn't work, please copy and paste the URL in a
 new browser window instead.
 
-Please note, this email will only be sent for the first vote against your edit,
-not for each one, and that you can disable this notification by modifying your
-preferences at $prefs_url.
+Please note that this email will not be sent for every vote against an edit.
+
+You can disable this notification by changing your preferences at
+$prefs_url.
+
+To ensure time for you and other editors to respond, the soonest this edit will
+be rejected, if applicable, is $close_time, 72 hours from the time of
+this email.
 
 -- The MusicBrainz Team
 EOS

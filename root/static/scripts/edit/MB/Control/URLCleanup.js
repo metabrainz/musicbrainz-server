@@ -205,7 +205,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i"),
         type: MB.constants.LINK_TYPES.myspace,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "http://www.myspace.com");
+            return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
         }
     },
     purevolume: {
@@ -310,7 +310,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function(url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
@@ -332,7 +332,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
         type: MB.constants.LINK_TYPES.microblog,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "http://twitter.com");
+            return url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "https://twitter.com");
         }
     },
     ozonru: {
@@ -378,7 +378,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i"),
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
+            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
         }
     },
     blog: {
@@ -466,6 +466,8 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?animenewsnetwork\.com\/encyclopedia\/(people|company).php\?id=([0-9]+).*$/, "http://www.animenewsnetwork.com/encyclopedia/$1.php?id=$2");
             //Standardising Generasia
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
+            //Standardising Soundtrack Collector
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
             return url;
         }
     }
@@ -678,14 +680,24 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
     validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
 
+    // Ensure Soundtrack Collector stuff is added to the right level
+    var STCollector_is_not_RG = function () {
+        var STcheckRG = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/title/');
+        return !STcheckRG.test($('#id-ar\\.url').val())
+    };
+    var STCollector_is_not_artist = function () {
+        var STcheckartist = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/composer/');
+        return !STcheckartist.test($('#id-ar\\.url').val())
+    };
+
     // only allow domains on the other databases whitelist
     var validateOtherDatabases = function() {
         return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
     };
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = function () {return validateOtherDatabases() && STCollector_is_not_RG()}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = validateOtherDatabases
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = validateOtherDatabases
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = function () {return validateOtherDatabases() && STCollector_is_not_artist()}
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function () {return validateOtherDatabases() && STCollector_is_not_RG() && STCollector_is_not_artist()}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 

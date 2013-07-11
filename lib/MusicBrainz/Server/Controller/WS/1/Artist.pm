@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::1::Artist;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
+use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 __PACKAGE__->config(
@@ -43,6 +44,10 @@ sub lookup : Chained('load') PathPart('')
 
     my @rg;
     if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
+        if ($artist->id == $VARTIST_ID) {
+            $self->forbidden($c);
+        }
+
         if ($c->stash->{inc}->various_artists)
         {
             @rg = $c->model('ReleaseGroup')->filter_by_track_artist($artist->id, filter => { type => $c->stash->{inc}->rg_type });

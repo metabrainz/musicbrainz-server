@@ -377,11 +377,6 @@ ALTER TABLE editor_preference
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
-ALTER TABLE editor_remember_me
-   ADD CONSTRAINT editor_remember_me_fk_editor
-   FOREIGN KEY (editor)
-   REFERENCES editor(id);
-
 ALTER TABLE editor_subscribe_artist
    ADD CONSTRAINT editor_subscribe_artist_fk_editor
    FOREIGN KEY (editor)
@@ -1023,14 +1018,14 @@ ALTER TABLE label
    REFERENCES label_name(id);
 
 ALTER TABLE label
-   ADD CONSTRAINT label_fk_area
-   FOREIGN KEY (area)
-   REFERENCES area(id);
-
-ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);
+
+ALTER TABLE label
+   ADD CONSTRAINT label_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_label

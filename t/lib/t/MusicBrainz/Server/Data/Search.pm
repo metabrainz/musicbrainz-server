@@ -18,18 +18,9 @@ test 'Searching artists with area lookup' => sub {
     my $c = $test->c;
 
     my $area_name = 'Area';
-    $c->sql->do(<<EOSQL, $area_name);
-INSERT INTO artist_name (id, name) VALUES (1, 'Love');
-INSERT INTO area (id, gid, name, sort_name) VALUES
-  (1, '695fa46b-4b20-48ac-964a-a12cd3ecfa16', ?, 'Area');
-INSERT INTO artist (id, gid, name, sort_name, area)
-  VALUES (5, '34ec9a8d-c65b-48fd-bcdd-aad2f72fdb47', 1, 1, 1);
-EOSQL
 
     my $data = load_data('artist', $c);
     my $artist = $data->{results}[0]{entity};
-    $c->model('Area')->load($artist);
-    is($artist->area_id, 1);
     is($artist->area->name, $area_name);
 };
 

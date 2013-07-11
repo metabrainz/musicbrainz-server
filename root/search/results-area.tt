@@ -41,7 +41,7 @@
         [%- END -%]
         <p>
           [% IF c.user.is_location_editor %]
-              [% l('Alternatively, you may {uri|add a new label}.', {
+              [% l('Alternatively, you may {uri|add a new area}.', {
                     uri => c.uri_for_action('/area/create', {
                              'edit-area.name' => query
                            }) }) %]

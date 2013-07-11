@@ -1,16 +1,16 @@
 # 
 # Translators:
-#   <email address hidden>, 2012.
-# Benjamin <email address hidden>, 2011.
-# Benjamin Sonntag <email address hidden>, 2011, 2012.
-# Benjamin Sonntag <email address hidden>, 2011.
-# Dibou  <email address hidden>, 2012.
-# murdos <email address hidden>, 2011.
+# murdos <email address hidden>, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# Benjamin Sonntag <email address hidden>, 2011, 2012
+# Benjamin Sonntag <email address hidden>, 2011
+# Dibou <email address hidden>, 2012
+# murdos <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"PO-Revision-Date: 2013-06-11 17:13+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/musicbrainz/language/fr_FR/)\n"
 "MIME-Version: 1.0\n"
@@ -373,6 +373,11 @@ msgstr "celtiques, langues ; celtes, langues"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "amérindiennes de l'Amérique centrale, langues"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr ""
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75

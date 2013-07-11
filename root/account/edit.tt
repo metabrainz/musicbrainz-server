@@ -10,9 +10,9 @@
   //]]></script>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") %]
 
-    <h1>[% l("Edit Profile") %]</h1>
+   <h2>[% l("Edit Profile") %]</h2>
 
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]

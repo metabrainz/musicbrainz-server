@@ -15,11 +15,12 @@
                 <th>[% l('Release') %]</th>
                 <th>[% l('Format') %]</th>
                 <th>[% l('Tracks') %]</th>
-                <th>[% l('Release Events') %]</th>
+                <th>[% l('Date') %]</th>
+                <th>[% l('Country') %]</th>
                 <th>[% l('Label') %]</th>
                 <th>[% l('Catalog#') %]</th>
                 <th>[% l('Barcode') %]</th>
-                [%- IF c.session.tport -%]
+                [%- IF c.try_get_session('tport') -%]
                   <th>[% l('Tagger') %]</th>
                 [%- END -%]
               </tr>
@@ -32,7 +33,7 @@
             [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
-                <th colspan="[% c.session.tport ? 8 : 7 %]">[% group.0.l_status_name || l('(unknown)') %]</th>
+                <th colspan="[% (c.try_get_session('tport') ? 9 : 8) %]">[% group.0.l_status_name || l('(unknown)') %]</th>
               </tr>
               [% FOR release=group %]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
@@ -55,11 +56,12 @@
 	            [% END %]
                 <td>[% rdfa_release_format(release) or "-" %]</td>
                 <td>[% release.combined_track_count or "-" %]</td>
-                <td>[% release_events(release.events) %]</td>
+                <td>[% release_dates(release.events) %]</td>
+                <td>[% release_countries(release.events) %]</td>
                 <td>[% rdfa_release_label_list(release.labels) %]</td>
                 <td>[% rdfa_release_catno_list(release.labels) %]</td>
                 <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
-                [%- IF c.session.tport -%]
+                [%- IF c.try_get_session('tport') -%]
                   <td>[% tagger_icon(release) %]</td>
                 [%- END -%]
               </tr>

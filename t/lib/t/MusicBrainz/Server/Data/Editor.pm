@@ -12,6 +12,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
 use Set::Scalar;
 use Sql;
+use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -47,8 +48,8 @@ test 'Remember me tokens' => sub {
     ok($model->consume_remember_me_token($user_name, $token),
        'Can consume "remember me" tokens');
 
-    ok(!$model->consume_remember_me_token($user_name, $token),
-       'Cannot consume "remember me" tokens more than once');
+    ok( $test->c->redis->ttl("$user_name|$token") <= 5 * 60,
+        'TTL of remember me token at most 5 minutes' );
 
     ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
        'It is not an exception to attempt to consume tokens for non-existant users');
@@ -131,6 +132,7 @@ is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->email, undef);
 is($editor->email_confirmation_date, undef);
+is($editor->ha1, md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')), 'ha1 was generated correctly');
 
 my $now = DateTime::Format::Pg->parse_datetime(
     $test->c->sql->select_single_value('SELECT now()'));
