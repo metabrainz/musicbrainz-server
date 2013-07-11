@@ -1,0 +1,6 @@
+[submodule "postgresql-musicbrainz-unaccent"]
+	path = postgresql-musicbrainz-unaccent
+	url = git://github.com/metabrainz/postgresql-musicbrainz-unaccent
+[submodule "postgresql-musicbrainz-collate"]
+	path = postgresql-musicbrainz-collate
+	url = git://github.com/metabrainz/postgresql-musicbrainz-collate.git

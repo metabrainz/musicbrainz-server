@@ -81,7 +81,7 @@ Server configuration
 
 1.  Download the source code.
 
-        git clone git://github.com/metabrainz/musicbrainz-server.git
+        git clone --recursive git://github.com/metabrainz/musicbrainz-server.git
         cd musicbrainz-server
 
 2.  Modify the server configuration file.
@@ -118,11 +118,6 @@ Server configuration
         require manually importing a new database dump in order to bring it up to
         date with the master database. Local editing is available, but keep in
         mind that none of your changes will be pushed up to http://musicbrainz.org.
-
-        Stand alone servers will need to manually download and update their
-        WikiDoc transclusion table:
-
-            wget -O root/static/wikidocs/index.txt http://musicbrainz.org/static/wikidocs/index.txt
 
     If you chose RT_SLAVE, please ensure that there is a configuration for
     both READONLY and READWRITE, or the server will not function correctly.

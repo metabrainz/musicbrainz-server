@@ -31,13 +31,8 @@ echo "
   CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
-if [ `compare_postgres_version 9.1` == "older" ]; then
-    echo `date` : Installing extensions
-    ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz
-    ./admin/InitDb.pl --install-extension=musicbrainz_collate.sql  --extension-schema=musicbrainz
-fi
-
 echo `date` : Creating MusicBrainz Schema
+OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/Extensions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
