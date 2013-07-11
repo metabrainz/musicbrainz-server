@@ -12,7 +12,6 @@
         <h2>[%- l('Technical flags') -%]</h2>
         [% form_row_checkbox(r, 'bot', l('Bot')) %]
         [% form_row_checkbox(r, 'untrusted', l('Untrusted')) %]
-        [% form_row_checkbox(r, 'no_nag', l('No nag')) %]
 
         <h2>[%- l('Administration flags') -%]</h2>
         [% form_row_checkbox(r, 'mbid_submitter', l('<abbr title="MusicBrainz Identifier">MBID</abbr> submitter')) %]

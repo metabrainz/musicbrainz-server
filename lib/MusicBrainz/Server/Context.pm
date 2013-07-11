@@ -2,6 +2,7 @@ package MusicBrainz::Server::Context;
 use Moose;
 
 use DBDefs;
+use MusicBrainz::DataStore::Redis;
 use MusicBrainz::Server::Replication ':replication_type';
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -51,6 +52,13 @@ has data_prefix => (
     isa => 'Str',
     is => 'ro',
     default => 'MusicBrainz::Server::Data'
+);
+
+has redis => (
+    is => 'ro',
+    does => 'MusicBrainz::DataStore',
+    lazy => 1,
+    default => sub { MusicBrainz::DataStore::Redis->new }
 );
 
 sub model

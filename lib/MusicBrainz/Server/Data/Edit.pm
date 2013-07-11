@@ -5,6 +5,7 @@ use namespace::autoclean;
 use Carp qw( carp croak confess );
 use Data::OptList;
 use DateTime;
+use DateTime::Format::Pg;
 use Try::Tiny;
 use List::MoreUtils qw( uniq zip );
 use List::AllUtils qw( any );
@@ -12,7 +13,7 @@ use MusicBrainz::Server::Constants qw( $QUALITY_UNKNOWN_MAPPED $EDITOR_MODBOT );
 use MusicBrainz::Server::Data::Editor;
 use MusicBrainz::Server::EditRegistry;
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG $VOTE_APPROVE );
+use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG $UNTRUSTED_FLAG $VOTE_APPROVE $EDIT_MINIMUM_RESPONSE_PERIOD );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
@@ -681,6 +682,13 @@ sub insert_votes_and_notes {
 sub add_link {
     my ($self, $type, $id, $edit) = @_;
     $self->sql->do("INSERT INTO edit_$type (edit, $type) VALUES (?, ?)", $edit, $id);
+}
+
+sub extend_expiration_time {
+    my ($self, @ids) = @_;
+    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
+    $self->sql->do("UPDATE edit SET expire_time = NOW() + interval ?
+        WHERE id = any(?) AND expire_time < NOW() + interval ?", $interval, \@ids, $interval);
 }
 
 __PACKAGE__->meta->make_immutable;

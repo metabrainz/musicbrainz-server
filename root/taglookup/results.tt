@@ -1,8 +1,6 @@
 [% WRAPPER "layout.tt" title=l('Tag Lookup Results') full_width=1 %]
     <div class="content">
         <h1>[% l('Tag Lookup Results') %]</h1>
-        [%- INCLUDE 'taglookup/nag.tt' -%]
-
         [%- INCLUDE "search/lib/inline-results-${type}.tt" -%]
 
         [%- INCLUDE 'taglookup/form.tt' -%]

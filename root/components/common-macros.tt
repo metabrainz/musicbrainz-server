@@ -209,19 +209,22 @@ END -%]
 [%- END -%]
 
 [%- MACRO expanded_artist_credit(ac) IF ac -%]
-  [% artist_credit(ac) %]
-  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
-  <ul>
-    [% FOR name=ac.names %]
-      <li>
-      [% IF name.artist.name != name.name %]
-        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
-      [% ELSE %]
-        [% descriptive_link(name.artist) %]
-      [% END %]
-      </li>
-    [% END %]
-  </ul>
+  [%- artist_credit(ac) -%]<br />
+  [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
+    [%- SET artist_list = [];
+        SET show_list = 0;
+        FOR name=ac.names;
+          IF name.artist.name != name.name;
+            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}));
+            SET show_list = 1;
+          ELSE;
+            artist_list.push(descriptive_link(name.artist));
+            IF name.artist.comment;
+              SET show_list = 1;
+            END;
+          END;
+        END; -%]
+    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
   [% END %]
 [%- END -%]
 
@@ -988,20 +991,49 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
+[%- MACRO release_countries(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF event.country;
+            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
+[%- MACRO release_dates(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF !event.date.is_empty;
+            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
 [%- MACRO release_events(release_events) BLOCK;
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
           '<li>';
           release_date = rdfa_release_event_date(event.date);
-          country = rdfa_release_country_abbr(event.country);
+          country = event.country;
+          country_abbr =
+            '<abbr title="' _ html_escape(country.l_name) _ '">' _
+              country.primary_code _
+            '</abbr>';
+          country_link = link_area(event.country, 'show', country_abbr);
           IF event.country AND !event.date.is_empty;
             l('{date} ({country})',
               { date => release_date,
-                country => country
+                country => country_link
               });
           ELSIF event.country;
-            l('???? ({country})', { country => country });
+            l('???? ({country})', { country => country_link });
           ELSE;
             l('{date}', { date => release_date });
           END;

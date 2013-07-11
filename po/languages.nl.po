@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Maurits Meulenbelt <email address hidden>, 2012.
-# Nikolai Prokoschenko <email address hidden>, 2011.
+# Maurits Meulenbelt <email address hidden>, 2012
+# Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-02-28 20:15+0000\n"
+"PO-Revision-Date: 2013-06-11 17:13+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -369,6 +369,11 @@ msgstr "Keltische talen"
 #: DB:language/name:66
 msgid "Central American Indian languages"
 msgstr "Meso-Amerikaanse talen"
+
+#. frequency:1 iso_code_3:ryu
+#: DB:language/name:5809
+msgid "Central Okinawan"
+msgstr ""
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75

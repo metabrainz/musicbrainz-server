@@ -47,7 +47,6 @@ ALTER TABLE editor_collection_release DROP CONSTRAINT editor_collection_release_
 ALTER TABLE editor_language DROP CONSTRAINT editor_language_pkey;
 ALTER TABLE editor_oauth_token DROP CONSTRAINT editor_oauth_token_pkey;
 ALTER TABLE editor_preference DROP CONSTRAINT editor_preference_pkey;
-ALTER TABLE editor_remember_me DROP CONSTRAINT editor_remember_me_pkey;
 ALTER TABLE editor_subscribe_artist DROP CONSTRAINT editor_subscribe_artist_pkey;
 ALTER TABLE editor_subscribe_artist_deleted DROP CONSTRAINT editor_subscribe_artist_deleted_pkey;
 ALTER TABLE editor_subscribe_collection DROP CONSTRAINT editor_subscribe_collection_pkey;

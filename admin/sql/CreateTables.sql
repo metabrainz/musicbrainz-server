@@ -1179,12 +1179,6 @@ CREATE TABLE editor_watch_release_status
     release_status INTEGER NOT NULL -- PK, references release_status.id
 );
 
-CREATE TABLE editor_remember_me (
-    editor integer NOT NULL, -- PK, references editor.id
-    token uuid NOT NULL, -- PK
-    allocated timestamptz NOT NULL DEFAULT now()
-);
-
 CREATE TABLE medium
 (
     id                  SERIAL,

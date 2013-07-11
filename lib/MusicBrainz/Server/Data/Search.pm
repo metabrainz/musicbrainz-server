@@ -10,6 +10,8 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::Annotation;
 use MusicBrainz::Server::Entity::ArtistType;
+use MusicBrainz::Server::Entity::AreaType;
+use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
@@ -358,22 +360,44 @@ sub schema_fixup
         }
     }
 
-    if (exists $data->{country})
-    {
-        $data->{country} = $self->c->model('Area')->find_by_iso_3166_1_code ($data->{country});
-        delete $data->{country} unless defined $data->{country};
-    }
-
     if ($type eq 'artist' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::ArtistType->new( name => $data->{type} );
     }
-    if (($type eq 'artist' || $type eq 'label') && exists $data->{'life-span'})
+    if ($type eq 'area' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
+    }
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area') && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
+    }
+    if ($type eq 'area') {
+        for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
+            my $json_subprop = $prop . '-code';
+            $json_subprop =~ s/_/-/g;
+            my $json_prop = $json_subprop . '-list';
+            if (exists $data->{$json_prop}) {
+                $data->{$prop} = $data->{$json_prop}->{$json_subprop};
+                delete $data->{$json_prop};
+            }
+        }
+    }
+    if ($type eq 'artist' || $type eq 'label') {
+        for my $prop (qw( area begin_area end_area )) {
+            my $json_prop = $prop;
+            $json_prop =~ s/_/-/;
+            if (exists $data->{$json_prop})
+            {
+                my $area = delete $data->{$json_prop};
+                $area->{gid} = $area->{id};
+                $area->{id} = 1;
+                $data->{$prop} = MusicBrainz::Server::Entity::Area->new($area);
+            }
+        }
     }
     if($type eq 'artist' && exists $data->{gender}) {
         $data->{gender} = MusicBrainz::Server::Entity::Gender->new( name => ucfirst($data->{gender}) );
@@ -427,9 +451,12 @@ sub schema_fixup
             for my $release_event_data (@{$data->{"release-event-list"}->{"release-event"}})
             {
                 my $release_event = MusicBrainz::Server::Entity::ReleaseEvent->new(
-                    country => defined($release_event_data->{area}) ? 
-                        MusicBrainz::Server::Entity::Area->new( iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"} ) 
-                        : undef, 
+                    country => defined($release_event_data->{area}) ?
+                        MusicBrainz::Server::Entity::Area->new( gid => $release_event_data->{area}->{id},
+                                                                iso_3166_1 => $release_event_data->{area}->{"iso-3166-1-code-list"}->{"iso-3166-1-code"},
+                                                                name => $release_event_data->{area}->{name},
+                                                                sort_name => $release_event_data->{area}->{'sort-name'} )
+                        : undef,
                     date => MusicBrainz::Server::Entity::PartialDate->new( $release_event_data->{date} ));
 
                 push @{$data->{events}}, $release_event;
@@ -714,32 +741,6 @@ sub external_search
             {
                 $result->{type} = ref_to_type($result->{entity}->{parent});
             }
-        }
-
-        if ($type eq 'artist' || $type eq 'label')
-        {
-            # FIXME: The following is a temporary fix for MBS-6330.
-            # When the search server returns these results (SEARCH-292), this
-            # block of code can be removed again.
-            my @entities_from_search = map { $_->entity } @results;
-            my $entities_from_database = $self->c->model(
-                type_to_model ($type))->get_by_gids (
-                map { $_->gid } @entities_from_search);
-
-            for my $search_result (@entities_from_search) {
-                my $db_result = $entities_from_database->{ $search_result->gid };
-                next unless $db_result;
-                $search_result->area_id ($db_result->area_id) if $db_result->area_id;
-                if ($type eq 'artist') {
-                    $search_result->begin_area_id ($db_result->begin_area_id)
-                        if $db_result->begin_area_id;
-                    $search_result->end_area_id ($db_result->end_area_id)
-                        if $db_result->end_area_id;
-                }
-            }
-
-            $self->c->model('Area')->load(@entities_from_search);
-            $self->c->model('Area')->load_codes(map { $_->area } @entities_from_search);
         }
 
         if ($type eq 'work')

@@ -3,7 +3,8 @@ package MusicBrainz::Server::EditQueue;
 use Moose;
 use Try::Tiny;
 use DBDefs;
-use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES );
+use MusicBrainz::Server::Constants qw( :expire_action :editor :edit_status $REQUIRED_VOTES $EDIT_MINIMUM_RESPONSE_PERIOD );
+use DateTime::Format::Pg;
 
 has 'c' => (
     is => 'ro',
@@ -55,12 +56,16 @@ sub process_edits
     my $sql = $self->c->sql;
 
     $self->log->debug("Selecting eligible edit IDs\n");
+    my $interval = DateTime::Format::Pg->format_interval($EDIT_MINIMUM_RESPONSE_PERIOD);
     my $edit_ids = $sql->select_single_column_array("
         SELECT id FROM edit
+          LEFT JOIN (SELECT edit, min(vote_time) AS timestamp FROM vote WHERE vote = 0 AND NOT superseded GROUP BY edit) first_no_vote ON edit.id = first_no_vote.edit
           WHERE status = ?
-            AND (expire_time < now() OR (yes_votes >= ? AND no_votes = 0) OR (no_votes >= ? AND yes_votes = 0))
+            AND (expire_time < now() OR
+                 (yes_votes >= ? AND no_votes = 0) OR
+                 (no_votes >= ? AND yes_votes = 0 AND first_no_vote.timestamp < NOW() - interval ?))
           ORDER BY id",
-        $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES);
+        $STATUS_OPEN, $REQUIRED_VOTES, $REQUIRED_VOTES, $interval);
 
     my %stats;
     my $errors = 0;

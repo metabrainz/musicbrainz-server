@@ -281,7 +281,6 @@ my @group_core = qw(
     area_alias
     country_area
     area_alias_type
-    area_annotation
     area_gid_redirect
     iso_3166_1
     iso_3166_2
@@ -348,7 +347,9 @@ my @group_core = qw(
     language
     link
     link_attribute
+    link_attribute_credit
     link_attribute_type
+    link_creditable_attribute_type
     link_type
     link_type_attribute_type
     medium
@@ -383,6 +384,9 @@ my @group_core = qw(
     work
     work_alias
     work_alias_type
+    work_attribute
+    work_attribute_type
+    work_attribute_type_allowed_value
     work_gid_redirect
     work_name
     work_type
@@ -390,6 +394,7 @@ my @group_core = qw(
 
 my @group_derived = qw(
     annotation
+    area_annotation
     artist_annotation
     artist_meta
     artist_tag
@@ -541,6 +546,7 @@ my @groups = (
     \@group_closedmoderation,
     \@group_private,
     \@group_cdstubs,
+    \@group_cover_art_archive,
     \@group_wikidocs,
     \@group_documentation
 );
@@ -704,7 +710,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
                 NULL AS bio,
                 member_since,
                 email_confirm_date,
-                last_login_date,
+                now() AS last_login_date,
                 edits_accepted,
                 edits_rejected,
                 auto_edits_accepted,
@@ -1006,23 +1012,28 @@ END
     writefile("README", $text);
 }
 
+sub parse_create_tables
+{
+    my ($dir, $schema, $tables) = @_;
+
+    open FILE, "<$FindBin::Bin/../admin/sql/$dir/CreateTables.sql";
+    my $create_tables_sql = do { local $/; <FILE> };
+    close FILE;
+    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
+        my $table = $schema ? "$schema.$1" : $1;
+        push @$tables, $table;
+    }
+}
+
 sub check_tables_completeness
 {
     my @create_tables;
 
-    open FILE, "<$FindBin::Bin/../admin/sql/CreateTables.sql";
-    my $create_tables_sql = do { local $/; <FILE> };
-    close FILE;
-    while ($create_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
-        push @create_tables, $1;
-    }
-
-    open FILE, "<$FindBin::Bin/../admin/sql/vertical/rawdata/CreateTables.sql";
-    my $create_raw_tables_sql = do { local $/; <FILE> };
-    close FILE;
-    while ($create_raw_tables_sql =~ m/CREATE TABLE\s+([a-z0-9_]+)\s+\(\s*(.*?)\s*\);/gsi) {
-        push @create_tables, $1;
-    }
+    parse_create_tables('', '', \@create_tables);
+    parse_create_tables('caa', 'cover_art_archive', \@create_tables);
+    parse_create_tables('documentation', 'documentation', \@create_tables);
+    parse_create_tables('wikidocs', 'wikidocs', \@create_tables);
+    parse_create_tables('statistics', 'statistics', \@create_tables);
 
     my %exported_tables = map { $_ => 1 } @tables;
     my @not_exported_tables = grep { not exists $exported_tables{$_} } @create_tables;

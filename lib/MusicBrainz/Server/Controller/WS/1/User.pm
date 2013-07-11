@@ -36,14 +36,12 @@ sub user_repository : Path('/ws/1/user') {
     my $user = $c->model('Editor')->get_by_id($c->user->id)
         or $self->bad_req($c, 'Cannot load user');
 
-    my $nag_status = $c->model('Editor')->donation_check($user);
-
     $c->stash->{serializer}->add_namespace( ext => 'http://musicbrainz.org/ns/ext-1.0#' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->xml(
         list_of(
             \'ext:user-list',
-            [ $user ], undef, { nag => $nag_status }
+            [ $user ], undef, {}
         )
     ));
 }

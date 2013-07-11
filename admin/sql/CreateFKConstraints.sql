@@ -382,11 +382,6 @@ ALTER TABLE editor_preference
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
-ALTER TABLE editor_remember_me
-   ADD CONSTRAINT editor_remember_me_fk_editor
-   FOREIGN KEY (editor)
-   REFERENCES editor(id);
-
 ALTER TABLE editor_subscribe_artist
    ADD CONSTRAINT editor_subscribe_artist_fk_editor
    FOREIGN KEY (editor)

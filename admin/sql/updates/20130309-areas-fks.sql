@@ -91,6 +91,76 @@ ALTER TABLE l_area_recording
    FOREIGN KEY (link)
    REFERENCES link(id);
 
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_recording
+   ADD CONSTRAINT l_area_recording_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES recording(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release
+   ADD CONSTRAINT l_area_release_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_release_group
+   ADD CONSTRAINT l_area_release_group_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES release_group(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_url
+   ADD CONSTRAINT l_area_url_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_link
+   FOREIGN KEY (link)
+   REFERENCES link(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity0
+   FOREIGN KEY (entity0)
+   REFERENCES area(id);
+
+ALTER TABLE l_area_work
+   ADD CONSTRAINT l_area_work_fk_entity1
+   FOREIGN KEY (entity1)
+   REFERENCES work(id);
+
 ALTER TABLE iso_3166_1
    ADD CONSTRAINT iso_3166_1_fk_area
    FOREIGN KEY (area)

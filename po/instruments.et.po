@@ -1,13 +1,13 @@
 # 
 # Translators:
-#   <email address hidden>, 2012.
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013.
+# Hinkus <email address hidden>, 2012
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-03-14 09:54+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2013-06-11 17:13+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -747,13 +747,17 @@ msgstr ""
 msgid "dohol"
 msgstr ""
 
+#: DB:link_attribute_type/name:742
+msgid "dombra"
+msgstr ""
+
 #: DB:link_attribute_type/name:594
 msgid "domra"
 msgstr "domra"
 
 #: DB:link_attribute_type/name:71
-msgid "double bass (contrabass, acoustic upright bass)"
-msgstr "kontrabass"
+msgid "double bass / contrabass / acoustic upright bass"
+msgstr ""
 
 #: DB:link_attribute_type/name:17
 msgid "double reed"
@@ -786,6 +790,10 @@ msgstr ""
 #: DB:link_attribute_type/name:606
 msgid "dulcian"
 msgstr "dultsian"
+
+#: DB:link_attribute_type/name:740
+msgid "duxianqin"
+msgstr ""
 
 #: DB:link_attribute_type/name:404
 msgid "ebow"
@@ -854,6 +862,10 @@ msgstr "otseflööt"
 #: DB:link_attribute_type/name:21
 msgid "english horn"
 msgstr "inglissarv (altoboe)"
+
+#: DB:link_attribute_type/name:285
+msgid "erhu"
+msgstr ""
 
 #: DB:link_attribute_type/name:641
 msgid "esraj"
@@ -1043,6 +1055,10 @@ msgstr "gusli"
 msgid "gut guitar"
 msgstr "sooltest keeltega kitarr"
 
+#: DB:link_attribute_type/name:544
+msgid "guzheng"
+msgstr ""
+
 #: DB:link_attribute_type/name:141
 msgid "güiro"
 msgstr "guiro"
@@ -1148,8 +1164,8 @@ msgid "jing'erhu"
 msgstr ""
 
 #: DB:link_attribute_type/name:284
-msgid "jing hú"
-msgstr "jing hú"
+msgid "jinghu"
+msgstr ""
 
 #: DB:link_attribute_type/name:615
 msgid "jug"
@@ -1220,8 +1236,8 @@ msgid "khim"
 msgstr ""
 
 #: DB:link_attribute_type/name:395
-msgid "khèn meò"
-msgstr "khèn meò"
+msgid "khèn Mèo"
+msgstr ""
 
 #: DB:link_attribute_type/name:384
 msgid "ki pah"
@@ -1323,6 +1339,10 @@ msgstr ""
 msgid "maddale"
 msgstr ""
 
+#: DB:link_attribute_type/name:744
+msgid "mandocello"
+msgstr ""
+
 #: DB:link_attribute_type/name:308
 msgid "mandola"
 msgstr "mandoola"
@@ -1371,10 +1391,6 @@ msgstr "metallofon"
 msgid "mirliton"
 msgstr ""
 
-#: DB:link_attribute_type/name:310
-msgid "moon lute"
-msgstr "kuulauto"
-
 #: DB:link_attribute_type/name:294
 msgid "morin khuur / matouqin"
 msgstr ""
@@ -1411,6 +1427,10 @@ msgstr ""
 msgid "nai"
 msgstr ""
 
+#: DB:link_attribute_type/name:743
+msgid "naobo"
+msgstr ""
+
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
 msgstr ""
@@ -1430,6 +1450,10 @@ msgstr ""
 #: DB:link_attribute_type/name:270
 msgid "nose flute"
 msgstr "ninaflööt"
+
+#: DB:link_attribute_type/name:738
+msgid "nose whistle"
+msgstr ""
 
 #: DB:link_attribute_type/name:298
 msgid "nyckelharpa"
@@ -1595,6 +1619,10 @@ msgstr "käristi"
 msgid "rattle"
 msgstr "kõristi"
 
+#: DB:link_attribute_type/name:739
+msgid "rauschpfeife"
+msgstr ""
+
 #: DB:link_attribute_type/name:309
 msgid "rebab"
 msgstr ""
@@ -1651,10 +1679,6 @@ msgstr ""
 msgid "sampler"
 msgstr "sämpler"
 
-#: DB:link_attribute_type/name:347
-msgid "sanh tiên"
-msgstr "sanh tiên"
-
 #: DB:link_attribute_type/name:315
 msgid "sanshin"
 msgstr ""
@@ -1668,8 +1692,8 @@ msgid "santur"
 msgstr ""
 
 #: DB:link_attribute_type/name:314
-msgid "sanxián"
-msgstr "sanxián"
+msgid "sanxian"
+msgstr ""
 
 #: DB:link_attribute_type/name:418
 msgid "sapek clappers"
@@ -1681,6 +1705,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:250
 msgid "sarod"
+msgstr ""
+
+#: DB:link_attribute_type/name:741
+msgid "saron"
 msgstr ""
 
 #: DB:link_attribute_type/name:692
@@ -1886,6 +1914,10 @@ msgstr "sáo meò"
 #: DB:link_attribute_type/name:269
 msgid "sáo trúc"
 msgstr "sáo trúc"
+
+#: DB:link_attribute_type/name:347
+msgid "sênh tiền"
+msgstr ""
 
 #: DB:link_attribute_type/name:381
 msgid "t'rưng"
@@ -2278,6 +2310,10 @@ msgstr ""
 #: DB:link_attribute_type/name:220
 msgid "xylophone"
 msgstr "ksülofon"
+
+#: DB:link_attribute_type/name:324
+msgid "yangqin"
+msgstr ""
 
 #: DB:link_attribute_type/name:676
 msgid "yatga"

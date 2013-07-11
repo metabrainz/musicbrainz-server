@@ -253,7 +253,6 @@ test 'artist lookup with releases' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 },
                 {
                     id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
@@ -276,7 +275,6 @@ test 'artist lookup with releases' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 }
                 ],
             ipis => [],
@@ -326,7 +324,6 @@ test 'artist lookup with pseudo-releases' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4942463511227",
-                    asin => JSON::null,
                 }
                 ],
             ipis => [],
@@ -366,7 +363,6 @@ test 'artist lookup with releases and discids' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
-                    asin => JSON::null,
                     barcode => "600116822123",
                     media => [
                         {
@@ -402,7 +398,6 @@ test 'artist lookup with releases and discids' => sub {
                     disambiguation => "",
                     packaging => JSON::null,
                     country => "GB",
-                    asin => JSON::null,
                     barcode => "600116817020",
                     media => [
                         {
@@ -577,7 +572,6 @@ test 'single artist release lookup' => sub {
                     quality => "normal",
                     status => "Official",
                     barcode => "4988064451180",
-                    asin => JSON::null,
                     "release-events" => [{
                         date => "2004-03-17",
                         "area" => {
@@ -636,7 +630,6 @@ test 'various artists release lookup' => sub {
                             "iso_3166_3_codes" => []},
                     }],
                     barcode => "4988064451180",
-                    asin => JSON::null,
                     disambiguation => "",
                 }
             ],
