@@ -95,7 +95,7 @@
         [% END %]
 
         <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
-            <label>&nbsp;</label>
+            <label>&#xa0;</label>
             <span class="error" data-bind="text: currentExample.possibleRelationships.error"></span>
         </div>
 

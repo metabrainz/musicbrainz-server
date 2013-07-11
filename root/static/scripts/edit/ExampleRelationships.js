@@ -98,7 +98,7 @@ RelationshipSearcher = function () {
         request.done (function (data, status, jqxhr) {
             var endPointType = data.type == type0 ? type1 : type0;
 
-            if (data.type !== type0 && data.type !== type1) {
+            if (! (data.type === type0 || data.type === type1)) {
                 self.error ('Invalid type for this relationship: ' +  data.type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
