@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Carp qw( carp croak confess );
+use Data::Dumper::Concise;
 use Data::OptList;
 use DateTime;
 use DateTime::Format::Pg;
@@ -370,7 +371,6 @@ sub preview
             confess $_;
         }
         else {
-            use Data::Dumper;
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
@@ -397,7 +397,6 @@ sub create
             confess $_;
         }
         else {
-            use Data::Dumper;
             croak join "\n\n", "Could not create $class edit", Dumper(\%opts), $_;
         }
     };
