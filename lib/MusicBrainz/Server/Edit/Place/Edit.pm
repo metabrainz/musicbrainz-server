@@ -77,7 +77,7 @@ sub build_display_data
         type       => [ qw( type_id PlaceType )],
         name       => 'name',
         sort_name  => 'sort_name',
-        ended      => 'ended'
+        ended      => 'ended',
         comment    => 'comment',
         address    => 'address'
     );
