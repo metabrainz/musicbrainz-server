@@ -306,6 +306,32 @@ my %stats = (
         DESC => "Artists in no artist credits",
         SQL => "SELECT COUNT(DISTINCT artist.id) FROM artist LEFT OUTER JOIN artist_credit_name ON artist.id = artist_credit_name.artist WHERE artist_credit_name.artist_credit IS NULL",
     },
+    "count.place" => {
+        DESC => "Count of all places",
+        SQL => "SELECT COUNT(*) FROM place",
+    },
+    "count.place.type" => {
+        DESC => "Distribution of places by type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(place.id) AS count
+                 FROM place_type type
+                 FULL OUTER JOIN place ON place.type = type.id
+                 GROUP BY type.id",
+            );
+
+            my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
+
+            +{
+                map {
+                    "count.place.type.".$_ => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
     "count.url" => {
         DESC => 'Count of all URLs',
         SQL => 'SELECT count(*) FROM url',
