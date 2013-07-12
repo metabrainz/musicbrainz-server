@@ -219,7 +219,7 @@ sub search
     }
 
     # Could be merged with artist/label once name tables are killed
-    elsif ($type eq "area" || $type eq "place")) {
+    elsif ($type eq "area" || $type eq "place") {
 
         my $extra_columns = "";
         $extra_columns .= 'entity.comment,'
