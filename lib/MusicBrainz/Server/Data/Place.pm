@@ -175,7 +175,7 @@ sub _hash_to_row
         ended => 'ended',
         name => 'name',
         sort_name => 'sort_name',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment address )
     });
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');

@@ -44,7 +44,7 @@ has 'comment' => (
     isa => 'Str'
 );
 
-has 'addresss' => (
+has 'address' => (
     is => 'rw',
     isa => 'Str'
 );
