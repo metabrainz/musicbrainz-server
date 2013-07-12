@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Data::Role::Editable' => {
 sub _table
 {
     return 'cover_art_archive.cover_art ' .
-        'NATURAL JOIN cover_art_archive.image_type';
+        'JOIN cover_art_archive.image_type USING (mime_type)';
 }
 
 sub _columns
