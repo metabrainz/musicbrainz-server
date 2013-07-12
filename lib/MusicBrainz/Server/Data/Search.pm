@@ -20,6 +20,7 @@ use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::Place;
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseGroup;
@@ -48,6 +49,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
     area          => 'MusicBrainz::Server::Data::Area',
     label         => 'MusicBrainz::Server::Data::Label',
+    place         => 'MusicBrainz::Server::Data::Place',
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
@@ -217,7 +219,11 @@ sub search
     }
 
     # Could be merged with artist/label once name tables are killed
-    elsif ($type eq "area") {
+    elsif ($type eq "area" || $type eq "place")) {
+
+        my $extra_columns = "";
+        $extra_columns .= 'entity.comment,'
+            if ($type eq 'place');
 
         $query = "
             SELECT
@@ -225,6 +231,7 @@ sub search
                 entity.gid,
                 entity.name,
                 entity.sort_name,
+                $extra_columns
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day,

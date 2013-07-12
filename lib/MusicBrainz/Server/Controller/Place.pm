@@ -28,7 +28,7 @@ with Place entities
 
 =head1 DESCRIPTION
 
-The area controller is used for interacting with
+The place controller is used for interacting with
 L<MusicBrainz::Server::Place> entities - both read and write.
 
 =head1 ACTIONS

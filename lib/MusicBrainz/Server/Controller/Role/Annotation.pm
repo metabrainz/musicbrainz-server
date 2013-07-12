@@ -11,6 +11,7 @@ requires 'load', 'show';
 my %model_to_edit_type = (
     Artist => $EDIT_ARTIST_ADD_ANNOTATION,
     Label => $EDIT_LABEL_ADD_ANNOTATION,
+    Place => $EDIT_PLACE_ADD_ANNOTATION,
     Recording => $EDIT_RECORDING_ADD_ANNOTATION,
     Release => $EDIT_RELEASE_ADD_ANNOTATION,
     ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,

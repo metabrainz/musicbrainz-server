@@ -142,6 +142,9 @@ sub direct : Private
             $c->model('Area')->load_codes(@entities);
             $c->model('AreaType')->load(@entities);
         }
+        when ('place') {
+            $c->model('PlaceType')->load(@entities);
+        }
     }
 
     if ($type =~ /(recording|release|release_group)/)
