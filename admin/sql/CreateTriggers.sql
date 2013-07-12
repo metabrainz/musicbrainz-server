@@ -311,6 +311,9 @@ CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER inserting_edits_requires_confirmed_email_address BEFORE INSERT ON edit
+    FOR EACH ROW EXECUTE PROCEDURE inserting_edits_requires_confirmed_email_address();
+
 CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
     FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();
 
