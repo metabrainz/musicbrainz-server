@@ -1,4 +1,5 @@
 [%- WRAPPER "place/layout.tt" title=l('Recordings') page='recordings' -%]
     <h2>[% l("Recordings") %]</h2>
-    [%- INCLUDE "components/relationships.tt" source=place -%]
+    [% INCLUDE "components/relationships.tt" source=place
+        relationships=place.grouped_relationships('recording', 'release', 'release_group') %]
 [%- END -%]

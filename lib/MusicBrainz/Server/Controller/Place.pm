@@ -77,14 +77,18 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'place/index.tt');
 }
 
-=head2 show
+=head2 recordings
 
 Shows recordings linked to a place.
 
 =cut
 
-sub recordings : Chained('load') { }
+sub recordings : Chained('load')
+{
+    my ($self, $c) = @_;
 
+    $self->relationships($c);
+}
 =head2 WRITE METHODS
 
 =cut
