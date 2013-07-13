@@ -1,5 +1,4 @@
 [% BLOCK layout_head %]
-    [% script_manifest('knockout.js.manifest') %]
     [% script_manifest('relationship-editor.js.manifest') %]
     <script type="text/javascript">//<![CDATA[
     $(function() {
