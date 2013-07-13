@@ -1,0 +1,58 @@
+<table class="details">
+    <tr>
+        <th>[% l('Place:') %]</th>
+        <td>[% link_entity(edit.display_data.place) %]</td>
+    </tr>
+</table>
+
+<table class="details add-place">
+  <tr>
+    <th>[% l('Name:') %]</th>
+    <td>[% edit.display_data.name | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l('Sort name:') %]</th>
+    <td>[% edit.display_data.sort_name | html %]</td>
+  </tr>
+
+  [% IF edit.display_data.comment %]
+  <tr>
+    <th>[% l('Disambiguation:') %]</th>
+    <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
+ [% IF edit.display_data.type %]
+  <tr>
+    <th>[% l('Type:') %]</th>
+    <td>[% edit.display_data.type.name | html%]</td>
+  </tr>
+  [% END %]
+
+  [% IF edit.display_data.address %]
+  <tr>
+    <th>[% l('Address:') %]</th>
+    <td>[% edit.display_data.address | html %]</td>
+  </tr>
+  [% END %]
+
+  [% IF !edit.display_data.begin_date.is_empty %]
+  <tr>
+    <th>[% l('Begin date:') %]</th>
+    <td>[% edit.display_data.begin_date.format %]</td>
+  </tr>
+  [% END %]
+
+  [% IF !edit.display_data.end_date.is_empty %]
+  <tr>
+    <th>[% l('End date:') %]</th>
+    <td>[% edit.display_data.end_date.format %]</td>
+  </tr>
+  [% END %]
+
+  <tr>
+    <th>[% l('Ended:') %]</th>
+    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+  </tr>
+</table>
