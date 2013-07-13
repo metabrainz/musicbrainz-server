@@ -139,3 +139,11 @@ license:     Apache 2.0
 version:     1.3.3
 author:      Alexis Sellier & The Core LESS Team
 url:         https://github.com/cloudhead/less.js
+
+-- aclass/aclass.js --
+
+library:     aclass
+license:     MIT
+version:     0.3.3
+author:      Michael Wiencek
+url:         https://github.com/mwiencek/aclass

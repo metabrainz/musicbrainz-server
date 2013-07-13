@@ -10,4 +10,6 @@ lib/thickbox/thickbox.js
 lib/underscore/underscore.js
 lib/underscore/underscore.string.js
 
+lib/aclass/aclass.js
+
 scripts/common
