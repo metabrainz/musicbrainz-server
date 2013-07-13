@@ -12,6 +12,32 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDIT );
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
 
+test 'Editing releases should not remove release events' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO release_unknown_country (release, date_year) VALUES (1, 2000);
+EOSQL
+
+    my $load_release = sub { $c->model('Release')->get_by_id(1) };
+
+    my $new_name = 'Renamed release';
+    $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_EDIT,
+        editor_id => 1,
+        to_edit   => $load_release->(),
+        name => $new_name,
+    )->accept;
+
+    my $release = $load_release->();
+    $c->model('Release')->load_release_events($release);
+
+    is($release->name, $new_name, 'Edit was applied');
+    is($release->event_count, 1, 'Release still has release events');
+};
+
 test all => sub {
 
 my $test = shift;

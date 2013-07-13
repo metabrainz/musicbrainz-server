@@ -863,21 +863,9 @@ END
 $BODY$
 LANGUAGE 'plpgsql' ;
 
-CREATE OR REPLACE FUNCTION deny_special_purpose_artist_deletion() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION deny_special_purpose_deletion() RETURNS trigger AS $$
 BEGIN
-    IF OLD.id IN (1, 2) THEN
-        RAISE EXCEPTION 'Attempted to delete a special purpose row';
-    END IF;
-    RETURN OLD;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION deny_special_purpose_label_deletion() RETURNS trigger AS $$
-BEGIN
-    IF OLD.id = 1 THEN
-        RAISE EXCEPTION 'Attempted to delete a special purpose row';
-    END IF;
-    RETURN OLD;
+    RAISE EXCEPTION 'Attempted to delete a special purpose row';
 END;
 $$ LANGUAGE 'plpgsql';
 

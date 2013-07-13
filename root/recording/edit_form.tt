@@ -1,4 +1,4 @@
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-recording">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
@@ -8,6 +8,7 @@
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_text_long(r, 'length', l('Length:')) -%]
+      [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
@@ -18,6 +19,11 @@
   <div class="documentation">
     [%- artist_credit_table(form, 1) -%]
     [%- guesscase_bubble() -%]
+    [%- isrc_bubble(link_entity(recording)) -%]
   </div>
 
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-recording', 'button.submit.positive');
+</script>

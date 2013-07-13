@@ -78,6 +78,10 @@ sub validate_birth_date {
         return $field->add_error(l('You must supply a complete birth date for us to display your age.'));
     }
 
+    if ($field->field('year')->value < 1900) {
+        $field->field('year')->add_error(l('Birth year must be after 1900'));
+    }
+
     return $field->add_error("invalid date") unless Date::Calc::check_date ($year, $month, $day);
 }
 

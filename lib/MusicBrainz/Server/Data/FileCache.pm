@@ -139,6 +139,16 @@ sub compile_javascript_manifest {
 
 sub compile_css_manifest {
     my ($self, $manifest) = @_;
+    my $less_manifest = $manifest;
+    $less_manifest =~ s/\.css\.manifest/\.less/;
+    if (-f $less_manifest) {
+        my $css = $less_manifest;
+        $css =~ s/\.less$/\.css/;
+        printf STDERR "Compiling $less_manifest to $css...\n";
+
+        my $lessc = DBDefs->MB_SERVER_ROOT . '/node_modules/.bin/lessc';
+        system "$lessc -x $less_manifest $css"
+    }
     return $self->squash(DBDefs->MINIFY_STYLES, $manifest, 'css', 'styles/');
 }
 

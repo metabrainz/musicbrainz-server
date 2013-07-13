@@ -15,6 +15,7 @@
     <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
                 width="500" height="100" style="border: 0;"></iframe>
     [%- r.hidden('id') -%]
+    <div style="display: none">[% r.select('mime_type') %]</div>
 
     [%- INCLUDE 'release/cover_art_fields.tt' -%]
 
@@ -64,7 +65,7 @@
   </form>
 
   <script type="text/javascript">
-    MB.CoverArt.add_cover_art ();
+    MB.CoverArt.add_cover_art ("[%- entity.gid -%]");
     $('#add-cover-art').show();
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
