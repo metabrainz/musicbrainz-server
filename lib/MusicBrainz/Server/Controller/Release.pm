@@ -136,18 +136,6 @@ sub discids : Chained('load')
     $c->stash( has_cdtocs => scalar(@medium_cdtocs) > 0 );
 }
 
-=head2 relations
-
-Show all relationships attached to this release
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
-
 =head2 show
 
 Display a release to the user.

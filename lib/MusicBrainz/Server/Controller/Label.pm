@@ -72,18 +72,6 @@ after 'load' => sub
     $c->model('Area')->load_codes($label->area);
 };
 
-=head2 relations
-
-Show all relations to this label
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    $c->stash->{relations} = $c->model('Relation')->load_relations($self->entity);
-}
-
 =head2 show
 
 Show this label to a user, including a summary of ARs, and the releases
