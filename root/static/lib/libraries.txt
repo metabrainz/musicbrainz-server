@@ -92,11 +92,11 @@ version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
 
--- knockout/knockout-2.2.1.debug.js --
+-- knockout/knockout-2.3.0.debug.js --
 
 library:     Knockout
 license:     MIT
-version:     2.2.1
+version:     2.3.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
