@@ -24,11 +24,10 @@ sub place_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name       => Str,
-        gid        => Optional[Str],
-        sort_name  => Optional[Str],
-        comment    => Optional[Str],
+        sort_name  => Str,
+        comment    => Nullable[Str],
         type_id    => Nullable[Int],
-        address    => Optional[Str],
+        address    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool],

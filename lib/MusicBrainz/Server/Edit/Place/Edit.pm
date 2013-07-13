@@ -37,9 +37,9 @@ sub change_fields
     return Dict[
         name       => Optional[Str],
         sort_name  => Optional[Str],
-        comment    => Optional[Str],
+        comment    => Nullable[Str],
         type_id    => Nullable[Int],
-        address    => Optional[Str],
+        address    => Nullable[Str],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool],
