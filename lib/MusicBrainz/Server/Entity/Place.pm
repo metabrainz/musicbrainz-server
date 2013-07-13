@@ -54,6 +54,19 @@ has 'coordinates' => (
     isa => 'Point'
 );
 
+sub recordings {
+    my $self = shift;
+    my @rels = @{ $self->relationships_by_type('release', 'release_group', 'recording') };
+
+    my %groups;
+    for my $rel (@rels) {
+        my $phrase = $rel->link->type->name;
+        $groups{ $phrase } ||= [];
+        push @{ $groups{$phrase} }, $rel;
+    }
+
+    return \%groups;
+}
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
