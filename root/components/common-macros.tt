@@ -612,6 +612,7 @@ END -%]
              entity.isa('MusicBrainz::Server::Entity::URL') ||
              entity.isa('MusicBrainz::Server::Entity::Work') ||
              entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
+             entity.isa('MusicBrainz::Server::Entity::Place') ||
              entity.isa('MusicBrainz::Server::Entity::Area');
              action = 'show';
           END;
