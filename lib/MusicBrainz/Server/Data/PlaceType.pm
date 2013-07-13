@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::PlaceType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'art' };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'pt' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
