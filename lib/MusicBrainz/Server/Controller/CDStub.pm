@@ -49,7 +49,8 @@ sub _load
     $c->stash->{cdstub} = $cdstubtoc;
 }
 
-sub add : Path('add') {
+sub add : Path('add') DenyWhenReadonly
+{
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
@@ -115,7 +116,7 @@ sub browse : Path('browse')
              );
 }
 
-sub edit : Chained('load')
+sub edit : Chained('load') DenyWhenReadonly
 {
     my ($self, $c) = @_;
     my $cdstub_toc = $c->stash->{cdstub};
