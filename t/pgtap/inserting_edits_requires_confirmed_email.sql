@@ -28,4 +28,5 @@ SELECT lives_ok(
     'insert_edit'
 );
 
+SELECT finish();
 ROLLBACK;
