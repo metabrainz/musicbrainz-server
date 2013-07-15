@@ -730,6 +730,7 @@ test 'release lookup, track artists have no tags' => sub {
             title => undef,
             'track-count' => 10,
             'track-offset' => 0,
+            position => 1,
             tracks => [
                 {
                     id => '9b9a84b5-0a41-38f6-859f-36cb22ac813c',

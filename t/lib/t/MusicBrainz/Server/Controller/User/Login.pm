@@ -93,8 +93,9 @@ EOSQL
 };
 
 sub enable_ssl {
-    my $wrapper = wrap test,
-        pre => sub { *DBDefs::SSL_REDIRECTS_ENABLED = sub { 1 }; };
+    my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? "DBDefs" : "DBDefs::Default";
+    my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",
+        pre => sub { $_[-1] = 1 };
 
     return $wrapper
 }

@@ -23,7 +23,7 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
   VALUES (1, 2000, 10, 15), (2, 2000, 11, NULL);
 
-INSERT INTO editor (id, name, password, ha1) VALUES (1, '', '', '');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, '', '', '', '', now());
 INSERT INTO edit (id, editor, type, status, data, expire_time)
 VALUES (1, 1, 1, 1, '', now()), (2, 1, 1, 1, '', now());
 
