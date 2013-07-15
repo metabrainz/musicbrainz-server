@@ -392,7 +392,7 @@ sub _build_ws_test_xml {
             $validator->($mech->content, 'validating');
 
             is_xml_same($expected, $mech->content);
-            $Test->note(encode('utf-8', $mech->content));
+            $Test->note($mech->content);
         });
     }
 }
