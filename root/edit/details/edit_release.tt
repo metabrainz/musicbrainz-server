@@ -47,10 +47,11 @@
             event =
               edit.display_data.events.unchanged_countries.${common_event.key};
             '<li>';
-              Diff.diff_side(release_event(event.old),
-                             release_event(event.new),
-                             side == 'old' ? '-' : '+',
-                             '');
+            doRDFa = 0;
+            Diff.diff_side(release_event(event.old),
+                           release_event(event.new),
+                           side == 'old' ? '-' : '+',
+                           '');
             '</li>';
           END;
           FOR event=edit.display_data.events.changed_countries.${side};
