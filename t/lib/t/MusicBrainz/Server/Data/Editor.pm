@@ -328,6 +328,8 @@ INSERT INTO label (id, gid, name, sort_name)
 
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943'), (2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae');
 
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 1, 1, 1, '', now());
+
 INSERT INTO editor_collection (id, gid, editor, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff');
 

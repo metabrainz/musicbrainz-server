@@ -18,6 +18,7 @@ use MusicBrainz::Server::Constants qw( :edit_status $VOTE_YES $AUTO_EDITOR_FLAG 
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
 use JSON::Any;
 
+use aliased 'MusicBrainz::Server::Entity::Subscription::Active' => 'ActiveSubscription';
 use aliased 'MusicBrainz::Server::Entity::CollectionSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
@@ -97,8 +98,7 @@ sub get_max_id
 {
     my ($self) = @_;
 
-    return $self->sql->select_single_value("SELECT id FROM edit ORDER BY id DESC
-                                    LIMIT 1");
+    return $self->sql->select_single_value("SELECT max(id) FROM edit");
 }
 
 sub find
@@ -194,7 +194,7 @@ sub find_for_subscription
             $STATUS_OPEN, $STATUS_APPLIED
         );
     }
-    else {
+    elsif ($subscription->does(ActiveSubscription)) {
         my $type = $subscription->type;
         my $query = 'SELECT ' . $self->_columns . ' FROM ' . $self->_table .
             " WHERE id IN (SELECT edit FROM edit_$type WHERE $type = ?) " .
@@ -205,6 +205,9 @@ sub find_for_subscription
             $query, $subscription->target_id, $subscription->last_edit_sent,
             $STATUS_OPEN, $STATUS_APPLIED
         );
+    }
+    else {
+        return ();
     }
 }
 

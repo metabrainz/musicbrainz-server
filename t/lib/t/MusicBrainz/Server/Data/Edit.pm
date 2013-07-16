@@ -198,8 +198,8 @@ is ($editor_cancelled->$_, $editor->$_,
 };
 
 test 'Find edits by subscription' => sub {
-    use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
-    use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
     my $test = shift;

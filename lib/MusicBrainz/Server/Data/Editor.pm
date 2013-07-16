@@ -30,7 +30,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribed_editor',
-    class => 'MusicBrainz::Server::Entity::EditorSubscription'
+    active_class => 'MusicBrainz::Server::Entity::EditorSubscription'
 };
 
 sub _table
@@ -415,9 +415,11 @@ sub editors_with_subscriptions
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_artist_deleted
         editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
+        editor_subscribe_label_deleted
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
