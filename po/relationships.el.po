@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Panos Bouklis <email address hidden>, 2012
+# Dimitris <email address hidden>, 2013
 # Dimitris <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-21 08:46+0000\n"
+"Last-Translator: Dimitris <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +28,7 @@ msgstr "Allmusic"
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:283
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:285
 msgid "Allmusic page for"
-msgstr "Σελίδα Allmusic για"
+msgstr "Σελίδα του Allmusic για"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
@@ -105,7 +106,7 @@ msgid ""
 "credit third party reviews / articles about the release that are not bundled"
 " with the media. (<a "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Υποδεικνύει το συγγραφέα σημειώσεων ή άλλου κειμένου που παρέχεται μαζί με την κυκλοφορία (συνήθως στο ένθετο ή στο οπισθόφυλλο).  Ενώ συνήθως οι σημειώσεις είναι απλώς πληροφορίες για τους συντελεστές και την παραγωγή, κάποιες φορές περιλαμβάνουν και ένα μικρό κείμενο (άρθρο). Αυτή η σύνδεση θα πρέπει να χρησιμοποιείται στη δεύτερη περίπτωση. Αυτή η σύνδεση δεν πρέπει να χρησιμοποιείται για να αναφέρει κριτικές τρίτων ή άρθρα σχετικά με την κυκλοφορία τα οποία όμως δεν παρέχονται μαζί με την κυκλοφορία καθεαυτή. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -194,7 +195,7 @@ msgstr "IMDb"
 
 #: DB:link_type/reverse_link_phrase:83 DB:link_type/reverse_link_phrase:258
 msgid "IMDb entry sampled in"
-msgstr "Το δείγμα της εγγραφής IMDb λήφθηκε στις"
+msgstr "χρησιμοποιήθηκε sample από την καταχώριση του IMDb στο"
 
 #: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
 #: DB:link_type/reverse_link_phrase:97
@@ -218,7 +219,7 @@ msgid ""
 "together, but did not form a lasting group. For groups you should use the "
 "membership type. (<a "
 "href=\"http://musicbrainz.org/doc/Collaboration_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει τη συνεργασία μεταξύ δύο ή περισσοτέρων καλλιτεχνών. Χρησιμοποιείστε αυτό για πρότζεκτ, singles, ή ακόμα και για κομμάτια όπου μερικοί καλλιτέχνες συνεργάστηκαν, αλλά δεν συγκρότησαν ένα συγκρότημα που άντεξε στο χρόνο. Για συγκροτήματα πρέπει να χρησιμοποιήσετε τον τύπο μέλους. (<a href=\"http://musicbrainz.org/doc/Collaboration_Relationship_Type\">Details</a>)"
+msgstr "Υποδεικνύει τη συνεργασία μεταξύ δύο ή περισσοτέρων καλλιτεχνών. Χρησιμοποιείστε αυτό για πρότζεκτ, singles, ή ακόμα και για κομμάτια όπου μερικοί καλλιτέχνες συνεργάστηκαν, αλλά δεν συγκρότησαν ένα μόνιμο συγκρότημα. Για συγκροτήματα πρέπει να χρησιμοποιήσετε τον τύπο μέλους. (<a href=\"http://musicbrainz.org/doc/Collaboration_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:15
 msgid ""
@@ -263,7 +264,7 @@ msgid ""
 " albums and/or at concerts. This is a person-person relationship and "
 "normally applies to well-known solo artists. (<a "
 "href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένας μουσικός υποστηρίζει παίζοντας κάποιο όργανο για μεγάλο χρονικό διάστημα κάποιον άλλον σε άλμπουμ ή/και σε συναυλίες. Αυτή είναι μία διαπροσωπική σχέση και συνήθως αφορά γνωστούς σόλο καλλιτέχνες. (<a href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένας μουσικός υποστηρίζει παίζοντας κάποιο όργανο για μεγάλο χρονικό διάστημα για κάποιον άλλον καλλιτέχνη σε άλμπουμ ή/και σε συναυλίες. Αυτή είναι μία διαπροσωπική σχέση και συνήθως αφορά γνωστούς σόλο καλλιτέχνες. (<a href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:107
 msgid ""
@@ -315,14 +316,14 @@ msgid ""
 "Indicates a person or agency that did the design/illustration for this "
 "album. (<a "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που ανέλαβε το σχεδιασμό/παρουσίαση για αυτό το άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που δημιούργησε κάποιο σχέδιο ή άλλη εικόνα για αυτό το άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:248
 msgid ""
 "Indicates a person or agency that did the design/illustration for this work."
 " (<a "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που ανέλαβε το σχεδιασμό/παρουσίαση για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που δημιούργησε κάποιο σχέδιο ή άλλη εικόνα για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:27
 msgid ""
@@ -519,7 +520,7 @@ msgid ""
 "Indicates that a person or agency did the design/illustration for this "
 "track. (<a "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που ανέλαβε το σχεδιασμό/παρουσίαση για αυτό το κομμάτι(<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ένα άτομο ή πρακτορείο που δημιούργησε κάποιο σχέδιο ή άλλη εικόνα για αυτό το κομμάτι(<a href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:125
 msgid ""
@@ -555,7 +556,7 @@ msgid ""
 " original works were rearranged to create a new recording in the form of a "
 "medley. (<a "
 "href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι μία ηχογράφηση αποτελείται από ποτ πουρί από διάφορα τραγούδια. Αυτό σημαίνει ότι τα αρχικά έργα ενορχηστρώνονται ξανά για να δημιουργήσουν μία νέα ηχογράφηση στη μορφή ενός ποτ πουρί. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι μία ηχογράφηση αποτελεί ποτ πουρί διαφόρων τραγουδιών. Αυτό σημαίνει ότι τα αρχικά έργα ενορχηστρώνονται ξανά για να δημιουργήσουν μία νέα ηχογράφηση στη μορφή ενός ποτ πουρί. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:11
 msgid ""
@@ -564,19 +565,19 @@ msgid ""
 "group to be linked to its associated singles, EPs, and remix release groups."
 " (<a "
 "href=\"http://musicbrainz.org/doc/Single_From_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι μία ομάδα κυκλοφοριών single ή EP περιλαμβάνει τουλάχιστον ένα κομμάτι από το κάποιο άλμπουμ ή soundtrack.​ Αυτό επιτρέπει σε μια κυκλοφορία να συνδέεται με τις σχετιζόμενες ομάδες singles, EP, και remix. (<a href=\"http://musicbrainz.org/doc/Single_From_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι μία ομάδα κυκλοφοριών single ή EP περιλαμβάνει τουλάχιστον ένα κομμάτι από κάποιο άλμπουμ ή soundtrack.​ Αυτό επιτρέπει σε μια κυκλοφορία να συνδέεται με τις σχετιζόμενες ομάδες singles, EP, και remix. (<a href=\"http://musicbrainz.org/doc/Single_From_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:69
 msgid ""
 "Indicates that a track contains samples from an album. (<a "
 "href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένα κομμάτι περιλαμβάνει δείγματα από ένα άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένα κομμάτι περιλαμβάνει samples από ένα άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:231
 msgid ""
 "Indicates that a track contains samples from another (or more) tracks. (<a "
 "href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένα κομμάτι περιλαμβάνει δείγματα από κάποιο άλλο (ή άλλα) κομμάτια. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένα κομμάτι περιλαμβάνει samples από κάποιο άλλο (ή άλλα) κομμάτια. (<a href=\"http://musicbrainz.org/doc/Samples_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:228
 msgid ""
@@ -594,7 +595,7 @@ msgid ""
 "version is a version of the song with the main vocals removed, designed to "
 "be used for karaoke. (<a "
 "href=\"/doc/Karaoke_Version_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένα κομμάτι είναι η καραόκε έκδοση ενός άλλου κομματιού. Μία έκδοση καραόκε είναι η έκδοση ενός τραγουδιού με αφαιρεμένα τα βασικά φωνητικά, σχεδιασμένη για χρήση καραόκε. (<a href=\"/doc/Karaoke_Version_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένα κομμάτι είναι η καραόκε έκδοση ενός άλλου κομματιού. Μία έκδοση καραόκε είναι η έκδοση ενός τραγουδιού χωρίς τα βασικά φωνητικά, σχεδιασμένη για χρήση καραόκε. (<a href=\"/doc/Karaoke_Version_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:239
 msgid ""
@@ -602,7 +603,7 @@ msgid ""
 "the original songs were rearranged to create a new work in the form of a "
 "medley. (<a "
 "href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένα έργο είναι ποτ πουρί από διάφορα άλλα τραγούδια. Αυτό σημαίνει ότι στα αρχικά τραγούδια έχει γίνει ξανά ενορχήστρωση ώστε να δημιουργηθεί ένα νέο έργο σε μορφή ποτ πουρί. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένα έργο είναι ποτ πουρί διαφόρων άλλων τραγουδιών. Αυτό σημαίνει ότι τα αρχικά τραγούδια έχουν ενορχηστρωθεί ξανά ώστε να δημιουργηθεί ένα νέο έργο σε μορφή ποτ πουρί. (<a href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:10
 msgid ""
@@ -634,7 +635,7 @@ msgid ""
 "two albums are identical, and each of the titles corresponds in meaning. (<a"
 " "
 "href=\"http://musicbrainz.org/doc/Translation_Transliteration_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένας δίσκος περιέχει μεταφρασμένους ή μεταγλωττισμένους τίτλους από κάποια άλλη κυκλοφορία άλμπουμ. Αυτή η σχέση δεν υποδεικνύει μία διασκευή όπου οι στίχοι έχουν μεταφραστεί (αυτό θα έπρεπε να οριστεί ως \"διασκευή\", αν και θα μπορούσαν να χρησιμοποιηθούν και οι δύο σχέσεις για τις περισσότερες περιπτώσεις). Αυτή η σχέση μπορεί να χρησιμοποιηθεί μόνο όταν ο αριθμός, σειρά και ήχος σε δύο άλμπουμ είναι πανομοιότυπα, και κάθε ένας από τους τίτλους ανταποκρίνεται στην ερμηνεία του αρχικού. (<a href=\"http://musicbrainz.org/doc/Translation_Transliteration_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένας δίσκος περιέχει μεταφρασμένους ή μεταγραμμένους τίτλους από κάποια άλλη κυκλοφορία άλμπουμ. Αυτή η σχέση δεν υποδεικνύει μία διασκευή όπου οι στίχοι έχουν μεταφραστεί (αυτό θα έπρεπε να οριστεί ως \"διασκευή\", αν και θα μπορούσαν να χρησιμοποιηθούν και οι δύο σχέσεις σε κάποιες περιπτώσεις). Αυτή η σχέση μπορεί να χρησιμοποιηθεί μόνο όταν ο αριθμός, σειρά και ήχος των κομματιών στα δύο άλμπουμ είναι πανομοιότυπα, και κάθε ένας από τους τίτλους ανταποκρίνεται στην ερμηνεία του αρχικού. (<a href=\"http://musicbrainz.org/doc/Translation_Transliteration_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:9
 msgid ""
@@ -650,7 +651,7 @@ msgid ""
 "material was used. Please take care to always point to the "
 "<strong>first</strong> version ever released! (<a "
 "href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι ένας δίσκος είναι remaster ενός άλλου άλμπουμ. Αυτό σημαίνει ότι τα δεδομένα ήχου έχουν αλλάξει σε αυτή τη διαδικασία αλλά χρησιμοποιήθηκε το ίδιο αρχικό ηχογραφημένο υλικό. Παρακαλούμε προσέξτε να δείχνετε πάντα την <strong>πρώτη</strong> έκδοση που κυκλοφόρησε! (<a href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι ένα album είναι remaster ενός άλλου άλμπουμ. Αυτό σημαίνει ότι τα δεδομένα ήχου έχουν αλλάξει σε αυτή τη διαδικασία αλλά χρησιμοποιήθηκε το ίδιο αρχικό ηχογραφημένο υλικό. Παρακαλούμε προσέξτε να δείχνετε πάντα την <strong>πρώτη</strong> έκδοση που κυκλοφόρησε! (<a href=\"http://musicbrainz.org/doc/Remaster_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:17
 msgid ""
@@ -689,7 +690,7 @@ msgid ""
 "performed by another artist. Use this only if you really cannot figure out "
 "the particular track that has been sampled. (<a "
 "href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι το άλμπουμ περιέχει δείγματα από υλικό το οποίο αρχικά είχε εκτελεστεί από άλλον καλλιτέχνη. Χρησιμοποιήστε το μόνο αν πραγματικά δεν μπορείτε να εξακριβώσετε από ποιο κομμάτι είναι τα δείγματα. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι το άλμπουμ περιέχει samples από υλικό το οποίο αρχικά είχε εκτελεστεί από άλλον καλλιτέχνη. Χρησιμοποιήστε το μόνο αν πραγματικά δεν μπορείτε να εξακριβώσετε από ποιο κομμάτι είναι τα samples. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:232
 msgid ""
@@ -706,7 +707,7 @@ msgid ""
 "performed by another artist. Use this only if you really cannot figure out "
 "the particular track that has been sampled. (<a "
 "href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει ότι το κομμάτι περιέχει δείγματα από υλικό το οποίο αρχικά είχε εκτελεστεί από άλλον καλλιτέχνη. Χρησιμοποιήστε το μόνο αν πραγματικά δεν μπορείτε να εξακριβώσετε από ποιο κομμάτι είναι τα δείγματα. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει ότι το κομμάτι περιέχει samples από υλικό το οποίο αρχικά είχε εκτελεστεί από άλλον καλλιτέχνη. Χρησιμοποιήστε το μόνο αν πραγματικά δεν μπορείτε να εξακριβώσετε από ποιο κομμάτι είναι τα samples. (<a href=\"http://musicbrainz.org/doc/Samples_Artist_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:108
 msgid ""
@@ -746,13 +747,13 @@ msgid ""
 "Indicates the composer for this work, i.e. the person who wrote the music "
 "(not necessarily the lyrics) of this work. (<a "
 "href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει το συνθέτη αυτού του έργου, π.χ. το άτομο που έγραψε τη μουσική (όχι αναγκαστικά τους στίχους) για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει το συνθέτη αυτού του έργου, π.χ. το άτομο που έγραψε τη μουσική (όχι απαραίτητα τους στίχους) για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:55
 msgid ""
 "Indicates the composer for this work. (<a "
 "href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Details</a>)"
-msgstr "Υποδεικνύει το συνθέτη για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει το συνθέτη αυτού του έργου. (<a href=\"http://musicbrainz.org/doc/Composer_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:264
 msgid ""
@@ -1079,7 +1080,7 @@ msgstr ""
 msgid ""
 "Points to the Wikipedia page for this album. (<a "
 "href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Δείχνει προς τη σελίδα της Wikipedia για αυτό το άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει τη σελίδα της Wikipedia για αυτό το άλμπουμ. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:355
 msgid ""
@@ -1091,13 +1092,13 @@ msgstr ""
 msgid ""
 "Points to the Wikipedia page for this artist. (<a "
 "href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Δείχνει προς τη σελίδα της Wikipedia για αυτόν τον καλλιτέχνη. (<a href=\"http://musicbrainzorg/doc/\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει τη σελίδα της Wikipedia για αυτόν τον καλλιτέχνη. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:279
 msgid ""
 "Points to the Wikipedia page for this work. (<a "
 "href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Δείχνει προς τη σελίδα της Wikipedia για αυτό το έργο. (<a href=\"http://musicbrainzorg/doc/\">Λεπτομέρειες</a>)"
+msgstr "Υποδεικνύει τη σελίδα της Wikipedia για αυτό το έργο. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1105,7 +1106,7 @@ msgstr "PureVolume"
 
 #: DB:link_type/reverse_link_phrase:174
 msgid "PureVolume page for"
-msgstr "Σελίδα PureVolume για"
+msgstr "Σελίδα στο PureVolume για"
 
 #: DB:link_type/description:97
 msgid ""
@@ -1130,7 +1131,7 @@ msgid ""
 "Should be used to describe the fact an artist signed a recording contract "
 "with a label. (<a "
 "href=\"http://musicbrainz.org/doc/Recording_Contract_Relationship_Type\">Details</a>)"
-msgstr "Πρέπει να χρησιμοποιείται για να περιγράψει το γεγονός ότι ένας καλλιτέχνης έχει υπογράψει συμβόλαιο με μια δισκογραφική εταιρία. (<a href=\"http://musicbrainz.org/doc/Recording_Contract_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Χρησιμοποιείται για να περιγράψει το γεγονός ότι ένας καλλιτέχνης έχει υπογράψει συμβόλαιο με μια δισκογραφική εταιρία. (<a href=\"http://musicbrainz.org/doc/Recording_Contract_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/reverse_link_phrase:289
 msgid "Songfacts"
@@ -1189,7 +1190,7 @@ msgstr ""
 msgid ""
 "This attribute describes if a particular performance role was considered "
 "normal or additional."
-msgstr "Το χαρακτηριστικό αυτό περιγράφει το αν ένας συγκεκριμένος εκτελεστικός ρόλος θεωρήθηκε φυσιολογικός ή επιπρόσθετος."
+msgstr "Το χαρακτηριστικό αυτό περιγράφει το αν ένας συγκεκριμένος εκτελεστικός ρόλος θεωρήθηκε κανονικός ή επιπρόσθετος."
 
 #: DB:link_attribute_type/description:194
 msgid ""
@@ -1261,7 +1262,7 @@ msgid ""
 " the fact a label has been bought by another one, or that a label is a "
 "subdivision of another one. (<a "
 "href=\"http://musicbrainz.org/doc/Label_Ownership_Relationship_Type\">Details</a>)"
-msgstr "Αυτό περιγράφει το γεγονός ότι μία δισκογραφική εταιρία είναι (ή ήταν) θυγατρική μίας άλλης εταιρίας, για ένα συγκεκριμένο χρονικό διάστημα. Αυτό πρέπει να χρησιμοποιείται για να περιγράψει το γεγονός ότι μία δισκογραφική εταιρία αγοράστηκε από μία άλλη, ή ότι μία δισκογραφική εταιρία αποτελεί επιμέρους τμήμα μίας άλλης. (<a href=\"http://musicbrainz.org/doc/Label_Ownership_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Αυτό περιγράφει το γεγονός ότι μία δισκογραφική εταιρία είναι (ή ήταν) θυγατρική μίας άλλης εταιρίας, για ένα συγκεκριμένο χρονικό διάστημα. Αυτό πρέπει να χρησιμοποιείται για να περιγράψει είτε το γεγονός ότι μία δισκογραφική εταιρία αγοράστηκε από μία άλλη είτε ότι μία δισκογραφική εταιρία αποτελεί επιμέρους τμήμα μίας άλλης. (<a href=\"http://musicbrainz.org/doc/Label_Ownership_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:203
 msgid ""
@@ -1345,7 +1346,7 @@ msgstr ""
 msgid ""
 "This is used to link a label to its corresponding Wikipedia page. (<a "
 "href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr "Αυτό χρησιμοποιείται για να συνδεθεί μία δισκογραφική εταιρία με τη σελίδα στη Wikipedia. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Αυτό χρησιμοποιείται για να συνδεθεί μία δισκογραφική εταιρία με τη σελίδα της στη Wikipedia. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:278
 msgid ""
@@ -1383,27 +1384,27 @@ msgstr "Αυτός ο σύνδεσμος χρησιμοποιείται για �
 msgid ""
 "This link points to (one of) the official website(s) of the label (<a "
 "href=\"http://musicbrainz.org/doc/Official_Site_Relationship_Type\">Details</a>)."
-msgstr "Αυτός ο σύνδεσμος δείχνει προς την επίσημη ιστοσελίδα (μία από αυτές αν υπάρχουν περισσότερες) της δισκογραφικής εταιρίας (<a href=\"http://musicbrainz.org/doc/Official_Site_Relationship_Type\">Λεπτομέρειες</a>)."
+msgstr "Αυτός ο σύνδεσμος υποδεικνύει την επίσημη ιστοσελίδα (μία από αυτές αν υπάρχουν περισσότερες) της δισκογραφικής εταιρίας (<a href=\"http://musicbrainz.org/doc/Official_Site_Relationship_Type\">Λεπτομέρειες</a>)."
 
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist."
-msgstr "Αυτός ο σύνδεσμος δείχνει προς μία σελίδα για μία συγκεκριμένη κυκλοφορία της δισκογραφίας ενός καλλιτέχνη."
+msgstr "Αυτός ο σύνδεσμος υποδεικνύει μία σελίδα για μία συγκεκριμένη κυκλοφορία της δισκογραφίας ενός καλλιτέχνη."
 
 #: DB:link_type/description:211
 msgid ""
 "This link points to a site describing relevant facts about the label "
 "history. (<a "
 "href=\"http://musicbrainz.org/doc/History_Site_Relationship_Type\">Details</a>)"
-msgstr "Αυτός ο σύνδεσμος δείχνει προς μια ιστοσελίδα που περιέχει πληροφορίες σχετικές με την ιστορία της δισκογραφικής εταιρίας. (<a href=\"http://musicbrainz.org/doc/History_Site_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Αυτός ο σύνδεσμος υποδεικνύει μια ιστοσελίδα που περιέχει πληροφορίες σχετικές με την ιστορία της δισκογραφικής εταιρίας. (<a href=\"http://musicbrainz.org/doc/History_Site_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:212
 msgid ""
 "This link points to a site that contains a catalog (eg: list) of records "
 "published by the label. (<a "
 "href=\"http://musicbrainz.org/doc/Catalog_Site_Relationship_Type\">Details</a>)"
-msgstr "Αυτός ο σύνδεσμος δείχνει προς μια ιστοσελίδα που περιέχει τον κατάλογο (λίστα) των δίσκων που έχουν εκδοθεί από μια δισκογραφική εταιρία. (<a href=\"http://musicbrainz.org/doc/Catalog_Site_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Αυτός ο σύνδεσμος υποδεικνύει μια ιστοσελίδα που περιέχει τον κατάλογο (λίστα) των δίσκων που έχουν εκδοθεί από μια δισκογραφική εταιρία. (<a href=\"http://musicbrainz.org/doc/Catalog_Site_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:77
 msgid ""
@@ -1618,7 +1619,7 @@ msgid ""
 "equivalent entry in PureVolume. Please use URLs in the format "
 "<code>http://www.purevolume.com/&lt;artist&gt;</code> (<a "
 "href=\"http://musicbrainz.org/doc/PureVolume_Relationship_Type\">Details</a>)"
-msgstr "Αυτός ο τύπος σχέσης μπορεί να χρησιμοποιηθεί για να συνδεθεί ένας καλλιτέχνης του MusicBrainz με την αντίστοιχη καταχώρηση το PureVolume. Παρακαλούμε χρησιμοποιείστε URLs στη μορφή <code>http://www.purevolume.com/&lt;artist&gt;</code> (<a href=\"http://musicbrainz.org/doc/PureVolume_Relationship_Type\">Λεπτομέρειες</a>)"
+msgstr "Αυτός ο τύπος σχέσης μπορεί να χρησιμοποιηθεί για να συνδεθεί ένας καλλιτέχνης του MusicBrainz με την αντίστοιχη καταχώρηση στο PureVolume. Παρακαλούμε χρησιμοποιείστε URLs στη μορφή <code>http://www.purevolume.com/&lt;artist&gt;</code> (<a href=\"http://musicbrainz.org/doc/PureVolume_Relationship_Type\">Λεπτομέρειες</a>)"
 
 #: DB:link_type/description:198
 msgid ""
@@ -1649,7 +1650,7 @@ msgid ""
 "This relationship type can be used to link a MusicBrainz label to their "
 "microblog on a service such as Twitter or identi.ca (<a "
 "href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Details</a>)."
-msgstr "Αυτός ο τύπος σχέσης μπορεί να χρησιμοποιηθεί για να συνδεθεί μία δισκογραφική εταιρία του MusicBrainz με τοmicroblog της σε μία υπηρεσία όπως το Twitter ή το identi.ca (<a href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Λεπτομέρειες</a>)."
+msgstr "Αυτός ο τύπος σχέσης μπορεί να χρησιμοποιηθεί για να συνδεθεί μία δισκογραφική εταιρία του MusicBrainz με το microblog της σε μία υπηρεσία όπως το Twitter ή το identi.ca (<a href=\"http://musicbrainz.org/doc/Microblog_Relationship_Type\">Λεπτομέρειες</a>)."
 
 #: DB:link_type/description:224
 msgid ""

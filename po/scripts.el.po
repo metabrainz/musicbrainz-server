@@ -1,13 +1,14 @@
 # 
 # Translators:
-# Dimitris  <email address hidden>, 2012.
-# Panos Bouklis <email address hidden>, 2012.
+# Dimitris <email address hidden>, 2013
+# Dimitris <email address hidden>, 2012
+# Panos Bouklis <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-09-03 21:59+0000\n"
-"Last-Translator: Panos Bouklis <email address hidden>\n"
+"PO-Revision-Date: 2013-06-21 19:03+0000\n"
+"Last-Translator: Dimitris <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,7 +39,7 @@ msgstr "Αβεστική"
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
-msgstr ""
+msgstr "Μπαλινέζικη"
 
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
@@ -468,7 +469,7 @@ msgstr ""
 #. frequency:1 iso_code:Mend
 #: DB:script/name:148
 msgid "Mende"
-msgstr ""
+msgstr "Μέντε"
 
 #. frequency:1 iso_code:Merc
 #: DB:script/name:153

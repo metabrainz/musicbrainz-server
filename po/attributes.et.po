@@ -1,12 +1,12 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-11 17:54+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "album"
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "piirkonna nimi"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -52,7 +52,7 @@ msgstr "aaria"
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr "Kunstnikunimi"
+msgstr "kunstnikunimi"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -132,7 +132,7 @@ msgstr "kassett"
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr ""
+msgstr "linn"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -147,7 +147,7 @@ msgstr "kontsert"
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "riik"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -212,7 +212,7 @@ msgstr "naine"
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr ""
+msgstr "ametlik nimi"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -257,7 +257,7 @@ msgstr "DVD-karp"
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "Plaadifirma nimi"
+msgstr "plaadifirma nimi"
 
 #: DB:medium_format/name:5
 msgctxt "medium_format"
@@ -267,7 +267,7 @@ msgstr "LaserDisc"
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "Kodanikunimi"
+msgstr "kodanikunimi"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -332,7 +332,7 @@ msgstr "ooper"
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "operett"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
@@ -412,7 +412,7 @@ msgstr "promo"
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "proosa"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -447,7 +447,7 @@ msgstr "remiks"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "õiguste valdajate ühing"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -463,7 +463,7 @@ msgstr "SVCD"
 #: DB:work_alias_type/name:2 DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr "Otsinguvihje"
+msgstr "otsinguvihje"
 
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
@@ -498,7 +498,7 @@ msgstr "saatemuusika"
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "saatemuusika"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -518,7 +518,7 @@ msgstr "kleeps"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "haldusüksus"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
@@ -583,7 +583,7 @@ msgstr "vaharull"
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr "Teose nimi"
+msgstr "teose nimi"
 
 #: DB:work_type/name:19
 msgctxt "work_type"
