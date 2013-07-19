@@ -183,10 +183,11 @@ sub update
 sub delete
 {
     my ($self, @track_ids) = @_;
-    my $mediums = $self->_medium_ids (@track_ids);
 
-    my $query = 'DELETE FROM track WHERE id IN (' . placeholders(@track_ids) . ')';
-    $self->sql->do($query, @track_ids);
+    my $query = 'DELETE FROM track ' .
+        'WHERE id IN (' . placeholders(@track_ids) . ') RETURNING medium';
+
+    my $mediums = $self->sql->select_single_column_array($query, @track_ids);
 
     $self->c->model('DurationLookup')->update($_) for @$mediums;
     return 1;

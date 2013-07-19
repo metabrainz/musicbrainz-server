@@ -70,7 +70,8 @@ $track = $track_data->insert({
     number => 8
 });
 
-ok(defined $track);
+
+ok(defined $track, "Track instance returned by insert");
 ok($track->id > 0);
 
 $track = $track_data->get_by_id($track->id);
@@ -82,9 +83,16 @@ is($track->length, 500);
 is($track->name, "Test track!");
 
 Sql::run_in_transaction(sub {
-    $track_data->delete($track->id);
-    $track = $track_data->get_by_id($track->id);
+    my $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
+    is ($toc, undef, 'medium_index does not have an entry for medium 1');
+
+    $track_data->delete(1);
+    $track = $track_data->get_by_id(1);
     ok(!defined $track);
+
+    my $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
+    is ($toc, '(628519, 358960, 332613, 296160, 372386, 500)', 'DurationLookup updated medium_index after track delete');
+
 }, $test->c->sql);
 
 };
