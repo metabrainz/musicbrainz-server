@@ -205,28 +205,27 @@ my %stats = (
         DESC => "Count of all areas eligible for release country use",
         SQL => "SELECT COUNT(*) FROM country_area",
     },
-    "count.area.type.country" => {
+    "count.area.type" => {
+        DESC => "Distribution of areas by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(type::text, 'null'), COUNT(*) AS count
-                FROM area
-                GROUP BY type
-                ",
+                "SELECT COALESCE(type.id::text, 'null'), COUNT(area.id) AS count
+                 FROM area_type type
+                 FULL OUTER JOIN area ON area.type = type.id
+                 GROUP BY type.id",
             );
 
             my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
 
             +{
-                "count.area.type.country" => $dist{1} || 0,
-                "count.area.type.null"  => $dist{null} || 0
+                map {
+                    "count.area.type.".$_ => $dist{$_}
+                } keys %dist
             };
         },
-    },
-    "count.area.type.null" => {
-        PREREQ => [qw[ count.area.type.country ]],
-        PREREQ_ONLY => 1,
     },
     "count.artist" => {
         DESC => "Count of all artists",
@@ -516,6 +515,16 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM editor",
         NONREPLICATED => 1,
     },
+    "count.editor.deleted" => {
+        DESC => "Count of all editors that have been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
+        SQL => "SELECT COUNT(*) FROM editor WHERE name = 'Deleted Editor #' || id",
+        NONREPLICATED => 1,
+    },
+    "count.editor.valid" => {
+        DESC => "Count of all editors that have not been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
+        SQL => "SELECT COUNT(*) FROM editor WHERE name <> ('Deleted Editor #' || id)",
+        NONREPLICATED => 1,
+    },
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
@@ -584,6 +593,7 @@ my %stats = (
             );
 
             my %dist = map { @$_ } @$data;
+            $dist{null} ||= 0;
 
             +{
                 map {

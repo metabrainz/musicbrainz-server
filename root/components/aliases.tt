@@ -14,7 +14,7 @@
                     <th>[% l('End Date') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Locale') %]</th>
-                    [% IF c.user_exists %]
+                    [% IF c.user_exists AND !disallow_editing %]
                         <th class="actions-header">
                             [% l('Actions') %]
                         </th>
@@ -43,7 +43,7 @@
                         [% l('(<span class="comment">primary</span>)') %]
                       [% END %]
                     </td>
-                    [% IF c.user_exists %]
+                    [% IF c.user_exists AND !disallow_editing %]
                         <td>
                             <a href="[% c.uri_for_action(edit_path, [ entity.gid, alias.id ]) %]">
                               [%- l('Edit') -%]
@@ -62,13 +62,13 @@
             [%- l('{entity} has no aliases.', {entity => link_entity(entity)}) -%]
         </p>
     [%- END -%]
-    [% IF c.user_exists %]
+    [% IF c.user_exists AND !disallow_editing %]
        <p>
          <a href="[% c.uri_for_action(add_path, [ entity.gid ]) %]">
            [% l('Add a new alias') %]
          </a>
        </p>
-    [% ELSE %]
+    [% ELSIF !disallow_editing %]
        <p>[% l('Please {log_in|log in} to add or edit aliases',
                { log_in => login_url() }) %]</p>
     [% END %]

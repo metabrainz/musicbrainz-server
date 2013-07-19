@@ -33,6 +33,11 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
+use Try::Tiny;
+use LWP::UserAgent;
+use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+use GnuPG qw( :algo );
+
 use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE
@@ -49,6 +54,7 @@ my $catchup;
 my $baseuri = "http://data.musicbrainz.org/pub/musicbrainz/data/replication";
 my $lockfile = my $deflockfile = "/tmp/.mb-LoadReplicationChanges";
 my @process_opts;
+my $fVerifySig = 0;
 
 GetOptions(
     "help"                      => \$fHelp,
@@ -58,6 +64,7 @@ GetOptions(
     "limit=i"                   => \$limit,
     "period=s"                  => \$period,
     "catchup"                   => \$catchup,
+    "verify-sig"                => \$fVerifySig,
 ) or exit 2;
 
 $baseuri =~ s/\/$//;
@@ -82,7 +89,9 @@ Usage: LoadReplicationChanges [options]
                        these replication options.
     --catchup          For periods other than 'hourly', apply hourly packets
                        until in sync with available packets for the provided
-                       period 
+                       period
+    --verify-sig       If this option is present the replication packets will
+                       be verified against their signature.
 
 EOF
 }
@@ -165,19 +174,9 @@ if ($period ne 'hourly') {
 my $url = "$baseuri/$uriprefix$file";
 my $localfile = "$tmpdir/$file";
 
-use LWP::UserAgent;
-my $ua = LWP::UserAgent->new(
-    agent => '$Id$',
-);
-$ua->env_proxy;
-
-print localtime() . " : Downloading $url to $localfile\n";
-my $resp = $ua->mirror($url, $localfile);
-
+my $resp = retrieve_remote_file($url, $localfile);
 # We only understand a limited set of responses:
 # OK, not found, and the rest.
-use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
-
 if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
     print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
     exit 0;
@@ -188,8 +187,12 @@ elsif ($catchup) {
     $uriprefix = '';
     $url = "$baseuri/$uriprefix$file";
     $localfile = "$tmpdir/$file";
-    $resp = $ua->mirror($url, $localfile);
+    $resp = retrieve_remote_file($url, $localfile);
+    validate_file_signature($localfile);
+} else {
+    validate_file_signature($localfile);
 }
+
 
 if ($resp->code == RC_NOT_FOUND)
 {
@@ -355,6 +358,69 @@ if ($limit > 0 && $count >= $limit) {
 }
 # Loop back round and start again
 goto NEXT_PACKET;
+
+sub retrieve_remote_file {
+    my ($url, $file) = @_;
+
+    # Initialise User Agent
+    my $ua = LWP::UserAgent->new(
+        agent => '$Id$',
+    );
+    $ua->env_proxy;
+
+    # Fetch the file and inform the user about what is being done
+    print localtime() . " : Downloading $url to $file\n";
+    my $f_resp = $ua->mirror($url, $file);
+
+    return $f_resp unless $fVerifySig;
+
+    # Identify signature URL and Local filename
+    $url .= '.asc';
+    my $signature = $file . '.asc';
+
+    # Fetch file signature and inform the user about what is being done
+    print localtime() . " : Downloading $url to $signature\n";
+    my $s_resp = $ua->mirror($url, $signature);
+
+    return $f_resp;
+}
+
+sub validate_file_signature {
+    my ($file, $signature) = @_;
+
+    # Only proceed if signature verification was requested
+    return unless $fVerifySig;
+
+    # Make sure that the file to be tested exists
+    die "Can't find file $file: $!" unless (-e $file);
+
+    # Fall back to the default signature if one is not supplied
+    $signature = $file . ".asc" unless $signature;
+
+    # Make sure that the signature exists
+    unless (-e $signature) {
+        # React based on the configured mode for missing signature
+        (DBDefs->GPG_MISSING_SIGNATURE_MODE =~ m/FAIL/i)
+            ? die "Can't find signature file $file: $!"
+            : return;
+    }
+
+    # Initialise GnuPG module in local scope
+    my $gpg = GnuPG->new;
+
+    # Attempt to verify file signature
+    try {
+        $gpg->import_keys( keys => [ DBDefs->GPG_PUB_KEY ] );
+        $gpg->verify( signature => $signature, file => $file );
+    }
+
+    # Exist with and error if verification failed
+    catch {
+        printf STDERR "Failed to verify signature for $file \n"
+            . "GPG returned $_";
+        die;
+    };
+}
 
 sub read_file
 {

@@ -244,7 +244,7 @@ ws_test 'release lookup with recording-level relationships',
             <medium>
                 <position>1</position>
                 <track-list count="9" offset="0">
-                    <track>
+                    <track id="719e1eba-920f-31da-9c45-9eb53f791aee">
                         <position>1</position><number>1</number>
                         <length>256666</length>
                         <recording id="88d26635-cfc8-4fd9-b81e-36f7a1b3d270">
@@ -260,7 +260,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="5a0b7a30-4297-3cda-ba0f-2547c4b7ae9b">
                         <position>2</position><number>2</number>
                         <length>86666</length>
                         <recording id="37a8d72a-a9c9-4edc-9ecf-b5b58e6197a9">
@@ -276,7 +276,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="a5b038bf-6e36-362b-9397-9cecda03e9bc">
                         <position>3</position><number>3</number>
                         <length>213666</length>
                         <recording id="7152d72e-c7d4-4b15-9f8e-97fabb88b1af">
@@ -292,7 +292,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="7c66606c-8a1b-3407-a856-21e4622da140">
                         <position>4</position><number>4</number>
                         <length>266666</length>
                         <recording id="da778cae-9e88-4385-af7f-666e102b94af">
@@ -308,7 +308,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="2d11d4ec-b9c0-3bfe-86d9-df5034e2522e">
                         <position>5</position><number>5</number>
                         <length>254666</length>
                         <recording id="150b8c8c-ed02-4ade-99cc-e8d673f6f5b9">
@@ -324,7 +324,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="3ec79596-482b-3d1b-8f48-325a1b332366">
                         <position>6</position><number>6</number>
                         <length>236666</length>
                         <recording id="9815c3e5-f842-41c2-bb5c-bcd0dd97dbe5">
@@ -332,7 +332,7 @@ ws_test 'release lookup with recording-level relationships',
                             <length>236666</length>
                         </recording>
                     </track>
-                    <track>
+                    <track id="baaa07d9-6c32-31e6-bbea-1796fd79a8f1">
                         <position>7</position><number>7</number>
                         <length>230666</length>
                         <recording id="6356e37c-a44b-4218-80ce-6fb6c11a124f">
@@ -348,7 +348,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="61add1a9-5a53-3eb3-afa6-fb503998a909">
                         <position>8</position><number>8</number>
                         <length>274666</length>
                         <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
@@ -376,7 +376,7 @@ ws_test 'release lookup with recording-level relationships',
                             </relation-list>
                         </recording>
                     </track>
-                    <track>
+                    <track id="8cef791e-3363-3c36-8b29-1f5dd2982902">
                         <position>9</position><number>9</number>
                         <length>249653</length>
                         <recording id="15918f5f-20b1-4e1a-888d-8762790017a9">

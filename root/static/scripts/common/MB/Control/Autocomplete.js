@@ -40,7 +40,7 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
 
     "recording": function (ul, item) {
@@ -85,7 +85,7 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
 
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
 
     "release-group": function (ul, item) {
@@ -100,7 +100,7 @@ MB.Control.autocomplete_formatters = {
         a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
 
     "work": function (ul, item) {
@@ -124,46 +124,57 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (artists.join (", ")) + '</span>');
         }
 
-        return $("<li>").data ("item.autocomplete", item).append (a).appendTo (ul);
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+    },
+
+    "area": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        if (item.typeName || item.parentCountry) {
+             a.append ('<br /><span class="autocomplete-comment">' +
+                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
+                       (item.typeName && item.parentCountry ? ', ' : '') +
+                       (item.parentCountry ? MB.utility.escapeHTML(item.parentCountry) : '') +
+                       '</span>');
+        };
+
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     }
 };
 
 
 MB.Control.Autocomplete = function (options) {
     var self = MB.Object();
+    var cancelSearch = true;
 
     var formatPager = function (ul, item) {
-        self.number_of_pages = item.pages;
-        self.pager_menu_item = null;
-
         if (ul.children ().length === 0)
         {
             var span = $('<span>(' + MB.text.NoResults + ')</span>');
 
-            var li = $("<li>")
-                .data ("item.autocomplete", item)
+            return $("<li>")
+                .data ("ui-autocomplete-item", item)
                 .addClass("ui-menu-item")
                 .css ('text-align', 'center')
                 .append (span)
                 .appendTo (ul);
-
-            return li;
         }
 
-        if (item.pages === 1)
+        if (item.current == item.pages)
         {
-            return;
+            return $();
         }
 
-        self.pager_menu_item = $("<a>").text ('(' + item.current + ' / ' + item.pages + ')');
+        item.action = function () {
+            self.currentPage += 1;
+            self.autocomplete._search(self.$input.val());
+        };
 
-        var li = $('<li>')
-            .data ("item.autocomplete", item)
+        return $('<li>')
+            .data ("ui-autocomplete-item", item)
             .css ('text-align', 'center')
-            .append (self.pager_menu_item)
+            .append ($("<a>").text(MB.text.ShowMore))
             .appendTo (ul);
-
-        return li;
     };
 
     var formatMessage = function (ul, item) {
@@ -171,7 +182,7 @@ MB.Control.Autocomplete = function (options) {
         var message = $("<a>").text (item.message);
 
         var li = $('<li>')
-            .data ("item.autocomplete", item)
+            .data ("ui-autocomplete-item", item)
             .css ('text-align', 'center')
             .append (message)
             .appendTo (ul);
@@ -179,124 +190,37 @@ MB.Control.Autocomplete = function (options) {
         return li;
     };
 
-    self.pagerButtons = function () {
-        var li = self.pager_menu_item;
-
-        if (!li)
-        {
-            return;
-        }
-
-        var prev = $('<button title="prev">prev</button>');
-        var next = $('<button title="next">next</button>');
-
-        li.append (prev).append (next);
-
-        prev.addClass ("autocomplete-pager ui-icon ui-icon-triangle-1-w")
-        next.addClass ("autocomplete-pager ui-icon ui-icon-triangle-1-e");
-
-        prev.position ({ my: "left",  at: "left",  of: li, offset: "8 0" });
-        next.position ({ my: "right", at: "right", of: li, offset: "-8 0" });
-
-        prev.click (function (event) { self.switchPage (event, -1); });
-        next.click (function (event) { self.switchPage (event,  1); });
-    };
-
-    self.pagerKeyEvent = function (event) {
-        var menu = self.autocomplete.menu;
-
-        if (!menu.element.is (":visible") ||
-            !self.pager_menu_item ||
-            !self.pager_menu_item.hasClass ('ui-state-hover'))
-        {
-            return;
-        }
-
-        var keyCode = $.ui.keyCode;
-
-        switch (event.keyCode) {
-        case keyCode.LEFT:
-            self.switchPage (event, -1);
-            event.preventDefault ();
-            break;
-        case keyCode.RIGHT:
-            self.switchPage (event, 1);
-            event.preventDefault ();
-            break;
-        case keyCode.ENTER:
-        case keyCode.NUMPAD_ENTER:
-            event.preventDefault();
-            break;
-        };
-    };
-
-    self.switchPage = function (event, direction) {
-        self.current_page = self.current_page + direction;
-
-        if (self.current_page < 1)
-        {
-            self.current_page = 1;
-            return;
-        }
-        else if (self.current_page > self.number_of_pages)
-        {
-            self.current_page = self.number_of_pages;
-            return;
-        }
-
-        var menu = self.autocomplete.menu;
-
-        if (menu.last ())
-        {
-            self.selected_item = -1;
-        }
-        else
-        {
-            self.selected_item = menu.active.prevAll (".ui-menu-item").length;
-        }
-
-        self.autocomplete.search (null, event);
+    self.resetPage = function () {
+        self.currentPage = 1;
+        self.currentResults = [];
     };
 
     self.searchAgain = function (toggle) {
         if (toggle) {
-            // Toggling should reset the page the user is on, because both
-            // searches return different results
-            self.current_page = 1;
-            self.indexed_search = ! self.indexed_search;
+            self.indexed_search = !self.indexed_search;
         }
-
-        self.autocomplete.search (self.$input.val ());
+        self.resetPage();
+        self.autocomplete._search(self.$input.val());
     };
 
-    self.close = function (event) { self.$input.focus (); };
+    self.close = function (event) {
+        self.$input.focus();
+
+        // If the menu is closing for good (i.e. not just temporarily after
+        // hitting "Show more..."), clear the current page and results.
+        if (cancelSearch) {
+            self.resetPage();
+        }
+
+        cancelSearch = true;
+    };
+
     self.open = function (event) {
         var menu = self.autocomplete.menu;
+        menu.focus(event, menu.element.children("li:eq(0)"));
 
-        var newItem;
-        if (self.selected_item === -1)
-        {
-            newItem = menu.element.children (".ui-menu-item:last");
-        }
-        else
-        {
-            newItem = menu.element.children (".ui-menu-item").eq(self.selected_item);
-        }
-
-        if (!newItem.length)
-        {
-            newItem = menu.element.children (".ui-menu-item:last");
-        }
-
-        if (newItem.length)
-        {
-            menu.activate (event, newItem);
-        }
-
-        self.pagerButtons ();
-
-        if ($(document).height () > $('body').height ())
-        {
+        // XXX MBS-1675
+        if ($(document).height () > $('body').height ()) {
             $('body').height ($(document).height ());
         }
     };
@@ -305,19 +229,22 @@ MB.Control.Autocomplete = function (options) {
         if (request.term != self.page_term)
         {
             /* always reset to first page if we're looking for something new. */
-            self.current_page = 1;
+            self.resetPage();
             self.page_term = request.term;
         }
 
         $.ajax(self.lookupHook ({
             url: self.url,
-            data: { q: request.term, page: self.current_page, direct: !self.indexed_search },
+            data: { q: request.term, page: self.currentPage, direct: !self.indexed_search },
             success: function (data, result, request) {
+                data = self.resultHook(data);
+                var jumpTo = self.currentResults.length;
+                self.currentResults.push.apply(self.currentResults, data.slice(0, -1));
+                var pager = data.pop();
+                data = self.currentResults.slice(0);
+                data.push(pager);
 
-                data = self.resultHook (data);
-
-                if (options.allow_empty)
-                {
+                if (options.allow_empty) {
                     data.push ({
                         "action": function () { self.clear (true) },
                         "message": MB.text.RemoveLinkedEntity[self.entity]
@@ -331,107 +258,77 @@ MB.Control.Autocomplete = function (options) {
                         MB.text.SwitchToIndexedSearch
                 });
 
-                /* FIXME: this shouldn't be neccesary.  figure out why
-                 * this gets cleared on page switches. */
-                if (self.$input.val () == '')
-                {
-                    self.$input.val (self.page_term);
-                }
+                var re = response(data, result, request);
 
-                return response (data, result, request);
+                self.autocomplete._delay(function () {
+                    var menu = self.autocomplete.menu;
+                    var $ul = menu.element;
+
+                    if (menu.active) {
+                        menu.active.children("a").removeClass("ui-state-focus");
+                    }
+
+                    var $item = menu.active = $ul.children("li:eq(" + jumpTo + ")");
+                    $item.children("a").addClass("ui-state-focus");
+
+                    if (self.currentPage > 1) {
+                        $ul.scrollTop($item.position().top + $ul.scrollTop());
+                    }
+                });
+
+                return re;
             }
         }));
     };
 
     self.select = function (event, data) {
-        event.preventDefault ();
-        self.currentSelection = data.item;
-        return data.item.action ? data.item.action () : options.select (event, data.item);
+        event.preventDefault();
+        var item = self.currentSelection = data.item;
+
+        if (item.action) {
+            cancelSearch = false;
+            item.action();
+            self.autocomplete.menu.mouseHandled = false;
+        } else {
+            cancelSearch = true;
+            options.select(event, item);
+        }
     };
 
     self.clear = function (clearAction) {
         self.currentSelection = null;
+        self.resetPage();
         if (options.clear)
         {
             options.clear (clearAction);
         }
     };
 
-    /* iamfeelinglucky is used in selenium tests.
-
-       Operating the autocomplete menus is very cumbersome and unreliable
-       from selenium, so instead a selenium test can trigger this event.
-       This function will perform a direct search and select the first
-       result (hence the name).
-
-       To use this in selenium do (using release-artist as an example):
-
-       FireEvent        "release-artist"                      "iamfeelinglucky"
-       waitForNotValue  "id-artist_credit.names.0.artist_id"  ""
-
-       Using an empty string with waitForNotValue means we wait for the value
-       to not be the empty string.
-    */
-    self.iamfeelinglucky = function (event) {
-        self.indexed_search = false;
-
-        var fake_event = { preventDefault: function () {} };
-
-        var term = self.$input.val ();
-        self.lookup ({ "term": term }, function (data, result, request) {
-            self.select (fake_event, { item: data[0] });
-        });
+    // Prevent menu item focus from changing the input value
+    self.focus = function (event, data) {
+        return false;
     };
 
     self.initialize = function () {
-
         self.changeEntity (options.entity);
 
         var entity_regex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
 
-        /* The keydown event for $input is also handled by the jQuery
-           autocomplete plugin. This needs to run before that. Entering
-           an MBID into the field would otherwise cause it to search for
-           that string, and show a menu with 0 results each time. The
-           handler below stops all input from propagating to the
-           autocomplete handler until it's verified an MBID wasn't
-           entered, at which point it triggers the autocomplete handler
-           manually.
-
-           Key codes that are only used to interact with the UI are
-           allowed to propagate.
-         */
-        self.$input.bind ('keydown.mb', function (event) {
-            var keyCode = $.ui.keyCode;
-            switch (event.keyCode) {
-            // These are handled by jquery.ui.autocomplete
-            case keyCode.PAGE_UP:
-            case keyCode.PAGE_DOWN:
-            case keyCode.UP:
-            case keyCode.DOWN:
-            case keyCode.ENTER:
-            case keyCode.NUMPAD_ENTER:
-            case keyCode.TAB:
-            case keyCode.ESCAPE:
-                return;
-                break;
-            // Otherwise assume the input event will fire
-            default:
-                event.stopImmediatePropagation();
-                break;
-            }
-        });
-
-        self.$input.bind ('input', function (event) {
+        self.$input.on('input', function (event) {
             var match = this.value.match(entity_regex);
-            if (match == null) {
+            if (match === null) {
                 $(this).trigger("keydown.autocomplete");
                 return;
             }
+            cancelSearch = true;
+            self.autocomplete.close();
+            // MBS-6385: prevent the autocomplete from searching the entered
+            // URL/MBID as an entity name. After a short timeout, a search is
+            // only performed if "term" differs from the input value.
+            self.autocomplete.term = this.value;
             var mbid = match[0];
 
-            $(this).trigger("blur.autocomplete")
-                   .attr("disabled", "disabled");
+            $(this).trigger("blur.autocomplete").prop("disabled", true);
 
             $.ajax({
                 url: "/ws/js/entity/" + mbid,
@@ -454,30 +351,30 @@ MB.Control.Autocomplete = function (options) {
                     self.clear();
                 },
                 complete: function () {
-                    self.$input.removeAttr("disabled").focus();
+                    self.$input.prop("disabled", false).focus();
                 }
             });
         });
 
         self.$input.autocomplete ($.extend({}, options, {
-            'source': self.lookup,
-            'minLength': options.minLength ? options.minLength : 1,
-            'select': self.select,
-            'close': self.close,
-            'open': self.open
+            source:    self.lookup,
+            minLength: options.minLength ? options.minLength : 1,
+            select:    self.select,
+            close:     self.close,
+            open:      self.open,
+            focus:     self.focus
         }));
 
-        self.autocomplete = self.$input.data ('autocomplete');
-        self.$input.bind ('keydown.mb', self.pagerKeyEvent);
-        self.$input.bind ('iamfeelinglucky', self.iamfeelinglucky);
-        self.$input.bind ('blur', function(event) {
+        self.autocomplete = self.$input.data ('ui-autocomplete');
+
+        self.$input.on('blur', function(event) {
             if (!self.currentSelection) return;
             if (self.currentSelection.name !== self.$input.val()) {
                 self.clear (false);
             }
         });
 
-        self.$search.bind ('click.mb', function (event) {
+        self.$search.on('click.mb', function (event) {
             self.searchAgain ();
             self.$input.focus ();
         });
@@ -488,28 +385,25 @@ MB.Control.Autocomplete = function (options) {
                 self.formatItem (ul, item);
         };
 
-        /* because we're overriding select above we also need to override
-           blur on the menu.  select() was used to render the selected value
-           to the associated input, which blur would then reset back to it's
-           original value (We need to prevent blur from doing that). */
-        self.autocomplete.menu.options.blur = function (event, ui) { };
-
-        /* focus, idem. */
-        self.autocomplete.menu.options.focus = function (event, ui) { };
-
         /* Click events inside the menu, but outside of a relate-to box,
            should not cause the box to close. */
         self.autocomplete.menu.element.click(function (event) {
             event.stopPropagation();
         });
+
+        self.autocomplete.close = function (event) {
+            // XXX selecting the show-more or direct-search buttons closes the
+            // menu, which stops the in-progress searches.
+            if (cancelSearch) {
+                self.autocomplete.cancelSearch = true;
+            }
+            self.autocomplete._close(event);
+        };
     };
 
     self.changeEntity = function (entity) {
         self.entity = entity.replace ('_', '-');
         self.url = options.url || "/ws/js/" + self.entity;
-        if (self.entity == 'area') {
-            self.indexed_search = false;
-        }
 
         if (options.formatItem)
         {
@@ -530,8 +424,8 @@ MB.Control.Autocomplete = function (options) {
     self.lookupHook = options.lookupHook || function (r) { return r; };
     self.resultHook = options.resultHook || function (r) { return r; };
     self.page_term = '';
-    self.current_page = 1;
-    self.number_of_pages = 1;
+    self.currentPage = 1;
+    self.currentResults = [];
     self.selected_item = 0;
     self.indexed_search = true;
 
@@ -594,25 +488,11 @@ MB.Control.EntityAutocomplete = function (options) {
 
     options.input = $name;
 
-    var self = MB.Control.Autocomplete (options);
-
-    self.select = function (event, data) {
-        event.preventDefault ();
-
-        self.currentSelection = data.item;
-        if (data.item.action)
-        {
-            return data.item.action ();
-        }
-
+    options.select = function (event, item) {
         // We need to do this manually, rather than using $.each, due to recordings
         // having a 'length' property.
-        for (key in data.item) {
-            var $elem = $inputs.find ('input.' + key);
-            if ($elem)
-            {
-                $elem.val (data.item[key]);
-            }
+        for (key in item) {
+            $inputs.find('input.' + key).val(item[key]);
         }
 
         $name.removeClass('error');
@@ -620,9 +500,11 @@ MB.Control.EntityAutocomplete = function (options) {
         {
             $name.addClass ('lookup-performed');
         }
-        $name.data ('lookup-result', data.item);
-        $name.trigger ('lookup-performed', [ data.item ]);
+        $name.data ('lookup-result', item);
+        $name.trigger ('lookup-performed', [ item ]);
     };
+
+    var self = MB.Control.Autocomplete(options);
 
     /* if clearAction is set, also clear the autocomplete input itself,
        otherwise only clear the lookup / selection. */

@@ -554,6 +554,24 @@ sub find_for_cdtoc
         $query, $track_count, $artist_id, $offset || 0);
 }
 
+sub find_gid_for_track
+{
+    my ($self, $track_id) = @_;
+
+    # A track is not a user visible entity, this function is called by
+    # the track controller to issue a redirect to the release page
+    # on which the track appears.  So only the release MBID is needed.
+
+    my $query =
+        "SELECT release.gid
+           FROM release
+           JOIN medium ON release.id = medium.release
+           JOIN track ON track.medium = medium.id
+          WHERE track.id = ?";
+
+    return $self->sql->select_single_value($query, $track_id);
+}
+
 sub load_with_medium_for_recording
 {
     my ($self, $recording_id, $limit, $offset, %args) = @_;
@@ -582,6 +600,7 @@ sub load_with_medium_for_recording
           medium.name AS m_name,
           medium.track_count AS m_track_count,
           track.id AS t_id,
+          track.gid AS t_gid,
           track_name.name AS t_name,
           track.medium AS t_medium,
           track.position AS t_position,
@@ -665,53 +684,49 @@ sub find_by_collection
     my ($self, $collection_id, $limit, $offset, $order) = @_;
 
     my $extra_join = "";
-    my $reorder = "";
     my $also_select = "";
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
-            $reorder = "date_year, date_month, date_day, musicbrainz_collate(name)",
-            return "date_year, date_month, date_day, musicbrainz_collate(name.name)"
+            return "date_year, date_month, date_day, musicbrainz_collate(name)"
         },
         "title" => sub {
-            $reorder = "musicbrainz_collate(name), date_year, date_month, date_day",
-            return "musicbrainz_collate(name.name), date_year, date_month, date_day"
+            return "musicbrainz_collate(name), date_year, date_month, date_day"
         },
         "country" => sub {
             $extra_join = "LEFT JOIN area ON release_event.country = area.id";
             $also_select = "area.name AS country_name";
-            $reorder = "country_name, date_year, date_month, date_day",
             return "country_name, date_year, date_month, date_day";
         },
         "artist" => sub {
             $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
                            JOIN artist_name ac_name ON ac_name.id=ac.name";
             $also_select = "ac_name.name AS ac_name";
-            $reorder = "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
-            return "musicbrainz_collate(ac_name.name), musicbrainz_collate(name.name)";
+            return "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
         },
         "label" => sub {
-            $extra_join = "LEFT JOIN release_label ON release_label.release = release.id
-                           LEFT JOIN label ON label.id = release_label.label
-                           LEFT JOIN label_name ON label_name.id = label.name";
-            $reorder = "musicbrainz_collate(label_name), musicbrainz_collate(name)";
-            $also_select = "label_name.name AS label_name";
-            return "musicbrainz_collate(label_name.name), musicbrainz_collate(name.name)";
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(musicbrainz_collate(label_name.name)) AS labels FROM release_label
+                    JOIN label ON release_label.label = label.id
+                    JOIN label_name ON label.sort_name = label_name.id
+                    GROUP BY release) rl
+                ON rl.release = release.id";
+            $also_select = "rl.labels AS labels";
+            return "labels, musicbrainz_collate(name)";
         },
         "catno" => sub {
-            $extra_join = "LEFT JOIN release_label ON release_label.release = release.id
-                           LEFT JOIN label ON label.id = release_label.label
-                           LEFT JOIN label_name ON label_name.id = label.name";
-            $also_select = "catalog_number";
-            $reorder = "catalog_number, musicbrainz_collate(name)";
-            return "catalog_number, musicbrainz_collate(name.name)";
+            $extra_join = "LEFT OUTER JOIN
+                (SELECT release, array_agg(catalog_number) AS catnos from release_label
+                  WHERE catalog_number IS NOT NULL GROUP BY release) rl
+                ON rl.release = release.id";
+            $also_select = "catnos";
+            return "catnos, musicbrainz_collate(name)";
         },
         "format" => sub {
             $extra_join = "JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
-            $reorder = "medium_format_name, musicbrainz_collate(name)";
             $also_select = "medium_format.name AS medium_format_name";
-            return "medium_format.name, musicbrainz_collate(name.name)";
+            return "medium_format_name, musicbrainz_collate(name)";
         },
         "tracks" => sub {
             $extra_join = "JOIN
@@ -720,8 +735,7 @@ sub find_by_collection
                     GROUP BY medium.release) medium
                 ON medium.release = release.id";
             $also_select = "total_track_count";
-            $reorder = "total_track_count, musicbrainz_collate(name)";
-            return "medium.total_track_count, musicbrainz_collate(name.name)";
+            return "total_track_count, musicbrainz_collate(name)";
         },
     });
 
@@ -744,7 +758,7 @@ sub find_by_collection
         WHERE cr.collection = ?
         ORDER BY release.id, date_year, date_month, date_day
       ) release
-      ORDER BY $reorder
+      ORDER BY $order_by
       OFFSET ?";
 
     return query_to_list_limited(
@@ -988,6 +1002,30 @@ sub merge
             old_ids => \@old_ids,
             new_id => $new_id
         )
+    );
+
+    # Remove any release_unknown_country rows if other releases have the same
+    # date but also set a country. However, only apply this clean up for
+    # different releases - don't do within-release clean ups.
+    $self->sql->do(
+        'DELETE FROM release_unknown_country
+         WHERE release IN (
+             SELECT release_unknown_country.release
+             FROM
+               release_unknown_country,
+               release_country
+             WHERE release_unknown_country.release = any(?)
+               AND release_country.release = any(?)
+               AND release_unknown_country.release <> release_country.release
+               AND release_unknown_country.date_year IS NOT DISTINCT FROM
+                     release_country.date_year
+               AND release_unknown_country.date_month IS NOT DISTINCT FROM
+                     release_country.date_month
+               AND release_unknown_country.date_day IS NOT DISTINCT FROM
+                     release_country.date_day
+         )',
+         [ $new_id, @old_ids ],
+         [ $new_id, @old_ids ],
     );
 
     $self->sql->do(

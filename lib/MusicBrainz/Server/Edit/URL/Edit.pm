@@ -77,7 +77,7 @@ around accept => sub {
     my ($orig, $self) = @_;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
-        l('This URL has already been merged into another URL')
+        'This URL has already been merged into another URL'
     ) unless $self->c->model('URL')->get_by_id($self->url_id);
 
     my $new_id = $self->c->model( $self->_edit_model )->update(

@@ -2,24 +2,26 @@
 -- jquery/jquery.js --
 
 library:     jQuery
-license:     MIT/GPLv2
-version:     1.7.2
-author:      John Resig
+license:     MIT
+version:     1.9.1
+author:      jQuery Foundation and other contributors
+             (https://github.com/jquery/jquery/blob/master/AUTHORS.txt)
 url:         http://jquery.com
 
 -- jquery.ui/ --
 
 library:     jQuery UI
-license:     MIT/GPLv2
-version:     1.8.16
+license:     MIT
+version:     1.10.2
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
-components:  Autocomplete, Draggable
+components:  Autocomplete, Dialog, Tabs, Tooltip
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
-             the resulting jquery-1.8.16-custom.zip is included here as
-             "jquery.ui".
+             the resulting jquery-1.10.2-custom.zip is included here as
+             "jquery.ui", minus the minified and component JS/CSS files,
+             demos, documentation, and grunt-related files.
 
 -- json/json2.js --
 
@@ -90,11 +92,11 @@ version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
 
--- knockout/knockout-latest.debug.js --
+-- knockout/knockout-2.2.1.debug.js --
 
 library:     Knockout
 license:     MIT
-version:     2.2.0
+version:     2.2.1
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
@@ -113,3 +115,19 @@ license:     MIT
 version:     2.3.0
 author:      Esa-Matti Suuronen
 url:         http://epeli.github.com/underscore.string
+
+-- jquery/jquery.browser.js --
+
+library:     jquery-browser-plugin
+license:     MIT
+version:     0.0.1
+author:      Gabriel Cebrian. Initial implementation by the jQuery Team
+url:         https://github.com/gabceb/jquery-browser-plugin
+
+-- jquery/jquery.cookie.js --
+
+library:     jquery.cookie
+license:     MIT
+version:     1.3.1
+author:      Klaus Hartl
+url:         https://github.com/carhartl/jquery-cookie

@@ -10,10 +10,6 @@
                         html_escape(edit.display_data.name.old),
                         html_escape(edit.display_data.name.new)) -%]
 
-  [%- display_word_diff(l('Disambiguation:'),
-                        html_escape(edit.display_data.comment.old),
-                        html_escape(edit.display_data.comment.new)) -%]
-
   [% IF edit.display_data.artist_credit %]
   <tr>
     <th>[% l('Artist:') %]</th>
@@ -22,29 +18,25 @@
   </tr>
   [% END %]
 
-  [%- display_full_change(l('Packaging:'),
-                          edit.display_data.packaging.old.l_name,
-                          edit.display_data.packaging.new.l_name) -%]
+  [%- display_full_change(l('Release Group:'),
+                          descriptive_link(edit.display_data.group.old),
+                          descriptive_link(edit.display_data.group.new)) -%]
 
-  [%- display_full_change(l('Script:'),
-                          edit.display_data.script.old.l_name,
-                          edit.display_data.script.new.l_name) -%]
-
-  [%- display_full_change(l('Language:'),
-                          edit.display_data.language.old.l_name,
-                          edit.display_data.language.new.l_name) -%]
+  [%- display_word_diff(l('Disambiguation:'),
+                        html_escape(edit.display_data.comment.old),
+                        html_escape(edit.display_data.comment.new)) -%]
 
   [%- display_full_change(lp('Status:', 'release status'),
                           edit.display_data.status.old.l_name,
                           edit.display_data.status.new.l_name) -%]
 
-  [%- display_full_change(l('Release Group:'),
-                          descriptive_link(edit.display_data.group.old),
-                          descriptive_link(edit.display_data.group.new)) -%]
+  [%- display_full_change(l('Language:'),
+                          edit.display_data.language.old.l_name,
+                          edit.display_data.language.new.l_name) -%]
 
-  [%- display_diff(l('Barcode:'),
-          html_escape (edit.display_data.barcode.old.format),
-          html_escape (edit.display_data.barcode.new.format)) -%]
+  [%- display_full_change(l('Script:'),
+                          edit.display_data.script.old.l_name,
+                          edit.display_data.script.new.l_name) -%]
 
   [%- IF edit.display_data.events.old.size <= 1 AND
          edit.display_data.events.new.size <= 1 -%]
@@ -59,10 +51,18 @@
                          '-') -%]
   [%- ELSE -%]
   <tr>
-    <th>[% l('Release Events:') %]</th>
+    <th>[% l('Release events:') %]</th>
     <td class="old">[% release_events(edit.display_data.events.old) %]</td>
     <td class="new">[% release_events(edit.display_data.events.new) %]</td>
   </tr>
   [%- END -%]
+
+  [%- display_full_change(l('Packaging:'),
+                          edit.display_data.packaging.old.l_name,
+                          edit.display_data.packaging.new.l_name) -%]
+
+  [%- display_diff(l('Barcode:'),
+          html_escape (edit.display_data.barcode.old.format),
+          html_escape (edit.display_data.barcode.new.format)) -%]
 
 </table>

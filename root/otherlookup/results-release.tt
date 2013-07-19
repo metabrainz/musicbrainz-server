@@ -9,7 +9,7 @@
               <th>[% l('Tracks') %]</th>
               <th>[% l('Country') %]</th>
               <th>[% l('Language') %]</th>
-              [%- IF c.session.tport -%]
+              [%- IF c.try_get_session('tport') -%]
                 <th>[% l('Tagger') %]</th>
               [%- END -%]
             </tr>
@@ -28,7 +28,7 @@
                 [%= '/' IF result.language && result.script =%]
                 <abbr title="[% result.script.name %]">[% result.script.iso_code %]</abbr>
               </td>
-              [%- IF c.session.tport -%]
+              [%- IF c.try_get_session('tport') -%]
                 <td>[% tagger_icon(result) %]</td>
               [%- END -%]
             </tr>

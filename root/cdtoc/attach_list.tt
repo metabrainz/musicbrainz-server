@@ -6,16 +6,12 @@
   [% IF show_artists %]
     <td>[% artist_credit(release.artist_credit) %]</td>
   [% END %]
-  <td>[% release_events(release.events) %]</td>
-  <td>
-    [%- IF release.country -%]
-[% rdfa_release_country_abbr(release.country) %]
-    [%- END -%]
-  </td>
+  <td>[% release_dates(release.events) %]</td>
+  <td>[% release_countries(release.events) %]</td>
   <td>[% rdfa_release_label_list(release.labels) %]</td>
   <td>[% rdfa_release_catno_list(release.labels) %]</td>
   <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
-  [%- IF c.session.tport -%]
+  [%- IF c.try_get_session('tport') -%]
     <td>[% tagger_icon(release) %]</td>
   [%- END -%]
 </tr>

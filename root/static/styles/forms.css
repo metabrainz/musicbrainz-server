@@ -1,6 +1,5 @@
 input { background: #fff; color: #000; }
 input:-moz-placeholder { color: #aaa; }
-input.mb_placeholder { color: #aaa ! important; }
 input[disabled].lookup-performed,
 input[disabled] { background: #DCDAD5; cursor: default; }
 

@@ -35,17 +35,17 @@ MB.Control.ReleaseGroup = function (action, parent) {
     self.$name.bind ('lookup-performed', function (event) {
         var data = self.$name.data ('lookup-result');
 
-        self.$type.find ('option').removeAttr ('selected');
+        self.$type.find ('option').prop('selected', false);
         var $select_option = data.type ?
             self.$type.find ('option[value='+data.type+']') :
             self.$type.find ('option:eq(0)');
 
-        $select_option.attr ('selected', 'selected');
-        self.$type.attr ('disabled', 'disabled');
+        $select_option.prop('selected', true);
+        self.$type.prop('disabled', true);
     });
 
     self.$name.bind ('cleared.mb', function (event) {
-        self.$type.removeAttr ('disabled');
+        self.$type.prop('disabled', false);
     });
 
     self.$name.bind ('focus.mb', function (event) {
@@ -258,11 +258,11 @@ MB.Control.ReleaseBarcode = function() {
         if (self.$no_barcode.is (':checked'))
         {
             self.$input.val ("");
-            self.$input.attr ('disabled', 'disabled');
+            self.$input.prop('disabled', true);
         }
         else
         {
-            self.$input.removeAttr ('disabled', 'disabled');
+            self.$input.prop('disabled', false);
         }
 
         var barcode = self.clean ();
@@ -406,7 +406,7 @@ MB.Control.ReleaseInformation = function(action) {
         if ($('div.artist-credit-box:eq(0) input.gid').val () ===
             MB.constants.VARTIST_GID)
         {
-            $('#id-various_artists').attr ('checked', 'checked');
+            $('#id-various_artists').prop('checked', true);
         }
 
         $('div.release-label').each (function () {
@@ -417,7 +417,7 @@ MB.Control.ReleaseInformation = function(action) {
             self.addEvent ($(this));
         });
 
-        $('#id-barcode').live ('change', function () {
+        $('#id-barcode').on('change', function () {
             var barcode = $(this).val ().replace (/[^0-9]/g, '');
             $(this).val (barcode);
         });
@@ -460,7 +460,7 @@ MB.Control.ReleaseInformation = function(action) {
 
     self.submit = function () {
         // always submit disabled inputs.
-        $('input:disabled').removeAttr ('disabled');
+        $('input:disabled').prop('disabled', false);
     };
 
     self.release_group = MB.Control.ReleaseGroup (action, self);

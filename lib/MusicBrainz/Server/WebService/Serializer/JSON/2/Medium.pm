@@ -35,6 +35,7 @@ sub serialize
     foreach my $track_entity (@tracks)
     {
         my %track_output = (
+            id => $track_entity->gid,
             length => $track_entity->length,
             number => $track_entity->number,
             title => $track_entity->name

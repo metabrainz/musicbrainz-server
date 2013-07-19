@@ -1,8 +1,8 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
 [% USE date %]
 [%- MACRO graph_line(statistic) BLOCK -%]
-{label: MB.text.Timeline.Stat("[%- statistic -%]").Label, 
- color: MB.text.Timeline.Stat("[%- statistic -%]").Color, 
+{label: MB.text.Timeline.Stat("[%- statistic -%]").Label,
+ color: MB.text.Timeline.Stat("[%- statistic -%]").Color,
  category: MB.text.Timeline.Stat("[%- statistic -%]").Category
 },
 [% END %]
@@ -27,15 +27,15 @@
       #overview { height: 150px; }
       #graph-container, #rate-of-change-graph { height: 400px; }
       .graph-control input { margin-bottom: 0px; display: inline-block; }
-      .graph-color-swatch { 
-          width: 14px; height: 10px; 
-          overflow: hidden; 
-          border: 2px solid #ccc; 
-          margin: 0px 4px; display: inline-block; 
+      .graph-color-swatch {
+          width: 14px; height: 10px;
+          overflow: hidden;
+          border: 2px solid #ccc;
+          margin: 0px 4px; display: inline-block;
       }
       h2.toggler, h2.collapse-top-margin { margin-top: 0px; }
       .graph-control { padding-left: 16px; }
-      .graph-control.loading { 
+      .graph-control.loading {
           background: url('../../static/images/icons/loading.gif') no-repeat;
       }
   </style>
@@ -59,7 +59,7 @@
             yaxis: {tickFormatter: function () { return '' }},
             selection: {mode: "xy"}});
           [% IF show_all %]
-          $('.toggler input:checkbox, .graph-control input:checkbox').attr('checked', true).change();
+          $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
           [% END %]
       });
   //]]></script>

@@ -46,12 +46,7 @@
     function togglePrimaryForLocale() {
         var allowed = $('#id-edit-alias\\\.locale').val() != '';
         $('#allow_primary_for_locale').toggle(allowed);
-        if (allowed) {
-            $('#allow_primary_for_locale input').removeAttr('disabled');
-        }
-        else {
-            $('#allow_primary_for_locale input').attr('disabled', true);
-        }
+        $('#allow_primary_for_locale input').prop('disabled', !allowed);
     }
 
     function denyDataForSearchHints() {
@@ -60,12 +55,8 @@
             .add('#id-edit-alias\\\.primary_for_locale')
             .add('.partial-date input');
 
-        if ($('#id-edit-alias\\\.type_id').val() == [% search_hint_type_id %]) {
-            conditionalFields.attr('disabled', true);
-        }
-        else {
-            conditionalFields.removeAttr('disabled');
-        }
+        conditionalFields.prop('disabled',
+          $('#id-edit-alias\\\.type_id').val() == [% search_hint_type_id %]);
     }
 
     $(function() {

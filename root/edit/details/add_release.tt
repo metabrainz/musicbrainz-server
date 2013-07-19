@@ -71,7 +71,7 @@
 
   [% IF edit.display_data.events.size %]
   <tr>
-    <th>[% l('Release Events:') %]</th>
+    <th>[% l('Release events:') %]</th>
     <td>[% release_events(edit.display_data.events) %]</td>
   </tr>
   [% END %]

@@ -10,6 +10,9 @@ CREATE TRIGGER b_upd_area_alias BEFORE UPDATE ON area_alias
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON area_alias
     FOR EACH ROW EXECUTE PROCEDURE unique_primary_area_alias();
 
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON area_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
+
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON area
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 

@@ -36,12 +36,7 @@ INSERT INTO label (id, gid, name, sort_name) VALUES (1, '00a23bd0-72db-11de-8a39
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'ABC-123'), (2, 1, 1, 'ABC-123-X');
 
-INSERT INTO
-    editor ( id, name, password, privs, email, website, bio,
-             email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected,
-             auto_edits_accepted, edits_failed)
-    VALUES ( 1, 'editor', 'pass', 0, 'test@editor.org', 'http://musicbrainz.org',
-             'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9 );
+INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, '3f3edade87115ce351d63f42d92a1834');
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Annotation', 'change');
 INSERT INTO release_annotation (release, annotation) VALUES (1, 1);
 

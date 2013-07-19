@@ -20,8 +20,7 @@ my $mech = $test->mech;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'editor', 'password'), (2, 'other editor', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca'), (2, 'other editor', '{CLEARTEXT}password', '63965b645d6c64e41ad695fd80f1f1e9');
 EOSQL
 
 subtest 'Submit a set of PUIDs' => sub {
@@ -70,18 +69,6 @@ subtest 'Submit a set of ISRCs' => sub {
           }
       }
     ]);
-};
-
-subtest 'Submit invalid ISRCs' => sub {
-    my $request = POST '/ws/1/track/?type=xml', [
-        client => 'test-1.0',
-        isrc   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 TCABF1283419'
-    ];
-
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
-
-    my $response = $mech->request($request);
-    is($mech->status, 400, "TuneCore ID does not get submitted.");
 };
 
 };

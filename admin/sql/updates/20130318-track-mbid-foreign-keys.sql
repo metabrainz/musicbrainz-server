@@ -19,4 +19,8 @@ ALTER TABLE track ADD CONSTRAINT track_fk_medium
 ALTER TABLE track ADD CONSTRAINT track_fk_name
    FOREIGN KEY (name) REFERENCES track_name(id);
 
+ALTER TABLE medium_cdtoc
+  DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium,
+  ADD CONSTRAINT medium_cdtoc_fk_medium FOREIGN KEY (medium) REFERENCES medium (id);
+
 COMMIT;

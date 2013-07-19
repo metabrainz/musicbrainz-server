@@ -246,6 +246,8 @@ BEGIN
         -- release group is changed, decrement release_count in the original RG, increment in the new one
         UPDATE release_group_meta SET release_count = release_count - 1 WHERE id = OLD.release_group;
         UPDATE release_group_meta SET release_count = release_count + 1 WHERE id = NEW.release_group;
+        PERFORM set_release_group_first_release_date(OLD.release_group);
+        PERFORM set_release_group_first_release_date(NEW.release_group);
     END IF;
     RETURN NULL;
 END;
@@ -342,12 +344,12 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION ensure_work_attribute_type_allows_text()
 RETURNS trigger AS $$
   BEGIN
-    IF NEW.work_attribute_text IS NOT NULL 
+    IF NEW.work_attribute_text IS NOT NULL
         AND NOT EXISTS (
-           SELECT TRUE FROM work_attribute_type 
-		WHERE work_attribute_type.id = NEW.work_attribute_type 
+           SELECT TRUE FROM work_attribute_type
+		WHERE work_attribute_type.id = NEW.work_attribute_type
 		AND free_text
-	) 
+	)
     THEN
         RAISE EXCEPTION 'This attribute type can not contain free text';
     ELSE RETURN NEW;

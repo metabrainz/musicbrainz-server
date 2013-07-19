@@ -10,14 +10,14 @@
   //]]></script>
 [% END %]
 
-[% WRAPPER "layout.tt" title=l("Edit Profile") full_width=1 %]
+[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") %]
 
-    <h1>[% l("Edit Profile") %]</h1>
+   <h2>[% l("Edit Profile") %]</h2>
 
     [%- WRAPPER 'layout/guidelines.tt' -%]
         [%- create_guideline(l('See also your {uri|user preferences}, which includes your privacy settings.', {uri => c.uri_for_action('/account/preferences')})) %]
         [%- create_guideline(l('If you change your email address, you will be required to verify it. ')) %]
-        [%- create_guideline(l('If you would like to delete your account, go to {uri|the "Delete Account" tab in your profile}.',  {uri => c.uri_for_action("/admin/delete_user", user.name) }))%] 
+        [%- create_guideline(l('If you would like to delete your account, go to {uri|the "Delete Account" tab in your profile}.',  {uri => c.uri_for_action("/admin/delete_user", user.name) }))%]
     [% END %]
 
     [%- USE r = FormRenderer(form) -%]
@@ -78,10 +78,12 @@
       <script>//<![CDATA[
       $(function() {
           var languageCount = $('li.language').size();
-          $('button.remove').live('click', function(event) {
+
+          $('#edit-profile-form').on('click', 'button.remove', function (event) {
               event.preventDefault();
               $(this).parent('li').remove();
           });
+
           $('button.another').click(function(event) {
               event.preventDefault();
 

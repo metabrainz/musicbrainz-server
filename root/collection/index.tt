@@ -18,8 +18,8 @@
                   [% sortble_table_header('artist', l('Artist')) %]
                   [% sortble_table_header('format', l('Format')) %]
                   [% sortble_table_header('tracks', l('Tracks')) %]
-                  [% sortble_table_header('date', l('Date')) %]
-                  [% sortble_table_header('country', l('Country')) %]
+                  <th>[% l('Date') %]</th>
+                  <th>[% l('Country') %]</th>
                   [% sortble_table_header('label', l('Label')) %]
                   [% sortble_table_header('catno', l('Catalog#')) %]
                   <th>[% l('Rating') %]</th>
@@ -38,14 +38,8 @@
                   <td>[% artist_credit(release.artist_credit) %]</td>
                   <td>[% release.combined_format_name or "-" %]</td>
                   <td>[% release.combined_track_count or "-" %]</td>
-                  <td>[% release.date.format %]</td>
-                  <td>
-                      [%- IF release.country -%]
-                      <abbr title="[% release.country.name | html %]">
-                          [% release.country.iso_code | html %]
-                      </abbr>
-                      [%- END -%]
-                  </td>
+                  <td>[% release_dates(release.events) %]</td>
+                  <td>[% release_countries(release.events) %]</td>
                   <td>[% release_label_list(release.labels) %]</td>
                   <td>[% release_catno_list(release.labels) %]</td>
                   <td>[% rating_stars(release.release_group) %]</td>

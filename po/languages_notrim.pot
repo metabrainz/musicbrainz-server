@@ -6078,7 +6078,7 @@ msgstr ""
 msgid "Central Ojibwa"
 msgstr ""
 
-#. frequency:0 iso_code_3:ryu 
+#. frequency:1 iso_code_3:ryu 
 #: DB:language/name:5809
 msgid "Central Okinawan"
 msgstr ""

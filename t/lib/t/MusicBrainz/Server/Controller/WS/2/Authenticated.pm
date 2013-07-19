@@ -25,8 +25,7 @@ $mech->default_header ("Accept" => "application/xml");
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'new_editor', 'password')
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'new_editor', '{CLEARTEXT}password', 'e1dd8fee8ee728b0ddc8027d3a3db478')
 EOSQL
 
 my $content = '<?xml version="1.0" encoding="UTF-8"?>

@@ -85,6 +85,8 @@ $b = Date->new( month => 1, day => 1 );
 ok(!($a < $b));
 ok(!($b < $a));
 
+ok(Date->new('')->is_empty);
+
 };
 
 1;

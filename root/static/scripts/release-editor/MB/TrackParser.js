@@ -587,18 +587,7 @@ MB.TrackParser.Parser = function (disc, serialized) {
 
     self.setOptions = function (options) {
         $.each (options, function (key, value) {
-            var $checkbox = $('#' + key);
-            if ($checkbox.length)
-            {
-                if (value)
-                {
-                    $checkbox.attr ('checked', 'checked');
-                }
-                else
-                {
-                    $checkbox.removeAttr ('checked');
-                }
-            }
+            $('#' + key).prop('checked', Boolean(value));
         });
     };
 

@@ -46,10 +46,15 @@
         <h2 class="editing">[% l('Editing') %]</h2>
         <ul class="links">
             [% IF c.user_exists %]
-                [% IF c.user.is_location_editor %]
-                    [% annotation_links(area) %]
-                    <hr/>
+                [% sidebar_edit_annotation(area) IF c.user.is_location_editor %]
+                [% sidebar_annotation_history(area) %]
 
+                [%# We only want to show this <hr /> if either of the macros
+                    produced output. %]
+                [% '<hr />' IF number_of_revisions > 0 ||
+                               c.user_is_location_editor %]
+
+                [% IF c.user.is_location_editor %]
                     <li>
                       <a href="[% c.uri_for_action('/area/merge_queue', { 'add-to-merge' => area.id }) %]">
                         [% l('Merge area') %]
@@ -57,14 +62,26 @@
                     </li>
                     <li>[% link_entity(area, 'delete', l('Remove area')) %]</li>
                     <hr/>
+                [% END %]
 
+                [%# We only show the 'Create a relationship with' link if the
+                    user is a location editor, or the other end point is *not* an
+                    area. %]
+                [% IF c.user.is_location_editor
+                        || c.session.relationship.type0 != 'area' %]
                     [%# Adds <li> itself %]
                     [% use_in_relationship(area) %]
-                    <li>[% relate_to_ellipsis(area) %]</li>
-                    <li>[% relate_to_url(area) %]</li>
-
-                    <hr/>
                 [% END %]
+                
+                <li>[% relate_to_ellipsis(area) %]</li>
+
+                [%# Only location editors can create area-url relationships %]
+                [% IF c.user.is_location_editor %]
+                    <li>[% relate_to_url(area) %]</li>
+                [% END %]
+
+                <hr/>
+
                 <li>[% link_entity(area, 'open_edits', l('Open edits')) %]</li>
                 <li>[% link_entity(area, 'edits', l('Editing history')) %]</li>
             [% ELSE %]

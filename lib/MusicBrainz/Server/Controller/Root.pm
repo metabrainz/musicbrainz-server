@@ -282,13 +282,6 @@ sub begin : Private
         $c->forward('/error_400');
     }
 
-    # Load current relationship
-    my $rel = $c->session->{current_relationship};
-    if ($rel)
-    {
-    $c->stash->{current_relationship} = $c->model(ucfirst $rel->{type})->load($rel->{id});
-    }
-
     # Update the tagger port
     if (exists $c->req->query_params->{tport})
     {
@@ -296,7 +289,7 @@ sub begin : Private
     }
 
     # Merging
-    if (my $merger = $c->session->{merger}) {
+    if (my $merger = $c->try_get_session('merger')) {
         my $model = $c->model($merger->type);
         my @merge = values %{
             $model->get_by_ids($merger->all_entities)

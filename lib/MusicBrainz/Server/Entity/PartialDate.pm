@@ -30,7 +30,7 @@ around BUILDARGS => sub {
     return $class->$orig( @_ ) unless @_ == 1;
 
     my $info = shift;
-    if (!ref($info) && $info && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
+    if (!ref($info) && defined($info) && $info =~ /(\d{4})?-?(\d{1,2})?-?(\d{1,2})?/)
     {
         $info = {};
         $info->{year} = $1 if ($1 && $1 > 0);

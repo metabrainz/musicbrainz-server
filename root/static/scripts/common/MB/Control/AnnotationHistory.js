@@ -30,12 +30,12 @@ MB.Control.AnnotationHistory = function (table) {
                 $old = $tr.find('input.old'),
                 $new = $tr.find('input.new');
 
-            seenOld = seenOld || !!$old.attr('checked');
+            seenOld = seenOld || !!$old.prop('checked');
 
             $old.toggle(seenNew);
             $new.toggle(!seenOld);
 
-            seenNew = seenNew || !!$new.attr('checked');
+            seenNew = seenNew || !!$new.prop('checked');
         });
     };
 

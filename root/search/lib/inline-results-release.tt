@@ -9,9 +9,10 @@
         <th>[% l('Name') %]</th>
         <th>[% l('Artist') %]</th>
         <th>[% l('Tracks') %]</th>
+        <th>[% l('Date') %]</th>
         <th>[% l('Country') %]</th>
         <th>[% l('Language') %]</th>
-        [%- IF c.session.tport -%]
+        [%- IF c.try_get_session('tport') -%]
           <th>[% l('Tagger') %]</th>
         [%- END -%]
       </tr>
@@ -25,15 +26,14 @@
           <td>[% link_entity(result.entity) %]</td>
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
           <td>[% result.entity.combined_track_count %]</td>
-          <td>
-            <abbr title="[% result.entity.country.l_name %]">[% result.entity.country.iso_code %]</abbr>
-          </td>
+          <td>[% release_dates(result.entity.events) %]</td>
+          <td>[% release_countries(result.entity.events) %]</td>
           <td>
             <abbr title="[% result.entity.language.l_name %]">[% result.entity.language.iso_code_3 %]</abbr>
             [%= '/' IF result.entity.language && result.entity.script =%]
             <abbr title="[% result.entity.script.l_name %]">[% result.entity.script.iso_code %]</abbr>
           </td>
-          [%- IF c.session.tport -%]
+          [%- IF c.try_get_sesison('tport') -%]
             <td>[% tagger_icon(result.entity) %]</td>
           [%- END -%]
         </tr>

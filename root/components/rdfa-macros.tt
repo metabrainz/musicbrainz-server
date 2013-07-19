@@ -138,6 +138,10 @@ END -%]
  '[mbz:label/' _ label.gid _ '#' _ hash_suffix _']';
 END -%]
 
+[%- MACRO rdfa_track_curi(track) BLOCK;
+ '[mbz:track/' _ track.gid _ '#' _ hash_suffix _']';
+END -%]
+
 [%- MACRO rdfa_work_curi(work) BLOCK;
  '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
 END -%]

@@ -1,8 +1,4 @@
-INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
-       email_confirm_date, last_login_date, edits_accepted, edits_rejected,
-       auto_edits_accepted, edits_failed)
-  VALUES (1, 'webservice', 'password', 1+8+32, 'test@email.com', 'http://test.website',
-         'biography', '1989-07-23', '2005-10-20', now(), 12, 2, 59, 9);
+INSERT INTO editor (id, name, password, privs, email, website, bio, member_since, email_confirm_date, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (1, 'webservice', '{CLEARTEXT}password', 1+8+32, 'test@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 12, 2, 59, 9, '97d1525140e8ae3e45abf70a5cc366e9');
 
 INSERT INTO annotation (id, editor, text)
         VALUES (1, 1, 'this is an artist annotation'),

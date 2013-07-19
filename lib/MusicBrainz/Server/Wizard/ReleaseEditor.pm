@@ -14,6 +14,7 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
@@ -601,7 +602,7 @@ sub prepare_recordings
     my $json = JSON::Any->new( utf8 => 1 );
 
     my @medium_edits = @{ $self->get_value ('tracklist', 'mediums') // [] };
-    my @recording_edits = @{ $self->get_value ('tracklist', 'rec_mediums') // [] };
+    my @recording_edits = @{ $self->get_value ('recordings', 'rec_mediums') // [] };
 
     my $mediums_by_id = $self->c->model('Medium')->get_by_ids(
         map { $_->{id} || $_->{medium_id_for_recordings} }
@@ -1351,7 +1352,7 @@ sub _expand_track
         $names[$i]->{artist} = $artist if $artist;
     }
 
-    my $entity = Track->new(
+    my %new_track = (
         length => $trk->{length} // (($infer_durations and $assoc) ? $assoc->length : undef),
         name => $trk->{name},
         position => trim ($trk->{position}),
@@ -1359,6 +1360,9 @@ sub _expand_track
         artist_credit => ArtistCredit->from_array ([
             grep { $_->{name} } @names
         ]));
+
+    $new_track{id} = $trk->{id} if looks_like_number ($trk->{id});
+    my $entity = Track->new(%new_track);
 
     if ($assoc)
     {
@@ -1506,7 +1510,10 @@ sub _seed_parameters {
         ],
         [
             'country_id', 'country',
-            sub { shift->model('Area')->find_by_iso_3166_1_code(shift) },
+            sub {
+                my ($c, $iso) = @_;
+                $c->model('Area')->get_by_iso_3166_1($iso)->{$iso}
+            },
         ],
         [
             'script_id', 'script',
@@ -1551,6 +1558,14 @@ sub _seed_parameters {
         }
     }
 
+    if (exists $params->{country_id} || exists $params->{date})
+    {
+        # schema 16 style country/date pair, convert to schema 18 release event.
+        $params->{events} = [ { deleted => 0 } ];
+        $params->{events}->[0]->{date} = $params->{date} if exists $params->{date};
+        $params->{events}->[0]->{country_id} = $params->{country_id} if exists $params->{country_id};
+    }
+
     if (my $release_group_mbid = delete $params->{release_group}) {
         if(is_guid($release_group_mbid) and
                my $release_group = $self->c->model('ReleaseGroup')
@@ -1573,7 +1588,6 @@ sub _seed_parameters {
             $label->{name} = $name;
         }
     }
-
 
     $params->{mediums} = [ map {
         defined $_ ? $_ : { position => 1 }

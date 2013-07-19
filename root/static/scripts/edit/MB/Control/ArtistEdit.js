@@ -72,15 +72,15 @@ MB.Control.ArtistEdit = function () {
     };
 
     self.enableGender = function() {
-        if (self.$gender.attr('disabled')) {
+        if (self.$gender.prop('disabled')) {
             self.$gender
-               .attr("disabled", null)
+               .prop("disabled", false)
                .val(self.old_gender);
         }
     };
 
     self.disableGender = function() {
-        self.$gender.attr("disabled", "disabled");
+        self.$gender.prop("disabled", true);
         self.old_gender = self.$gender.val();
         self.$gender.val('');
     };

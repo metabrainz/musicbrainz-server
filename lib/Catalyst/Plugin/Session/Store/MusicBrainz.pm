@@ -9,7 +9,7 @@ extends 'Catalyst::Plugin::Session::Store';
 
 has '_datastore' => (
     is => 'rw',
-    isa => 'MusicBrainz::DataStore',
+    does => 'MusicBrainz::DataStore',
     default => sub { return MusicBrainz::DataStore::Redis->new; }
 );
 
@@ -37,7 +37,7 @@ sub store_session_data {
     else
     {
         $self->_datastore->set ($key, encode_base64 (nfreeze($data)));
-        $self->_datastore->expire($key, $self->session_expires);
+        $self->_datastore->expireat($key, $self->session_expires);
     }
 }
 

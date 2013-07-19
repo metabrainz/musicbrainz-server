@@ -71,6 +71,9 @@ div.rel-editor-dialog textarea {
 div.rel-editor-dialog textarea {
     margin-top: 0.5em;
 }
+div.rel-editor-dialog .buttons {
+    display: block !important;
+}
 
 #dialog.rel-editor-dialog div.ar-descr {
     box-sizing: border-box;

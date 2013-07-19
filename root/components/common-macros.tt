@@ -209,19 +209,22 @@ END -%]
 [%- END -%]
 
 [%- MACRO expanded_artist_credit(ac) IF ac -%]
-  [% artist_credit(ac) %]
-  [% IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment %]
-  <ul>
-    [% FOR name=ac.names %]
-      <li>
-      [% IF name.artist.name != name.name %]
-        [% l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}) %]
-      [% ELSE %]
-        [% descriptive_link(name.artist) %]
-      [% END %]
-      </li>
-    [% END %]
-  </ul>
+  [%- artist_credit(ac) -%]<br />
+  [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
+    [%- SET artist_list = [];
+        SET show_list = 0;
+        FOR name=ac.names;
+          IF name.artist.name != name.name;
+            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => name.name}));
+            SET show_list = 1;
+          ELSE;
+            artist_list.push(descriptive_link(name.artist));
+            IF name.artist.comment;
+              SET show_list = 1;
+            END;
+          END;
+        END; -%]
+    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
   [% END %]
 [%- END -%]
 
@@ -781,6 +784,7 @@ END -%]
     ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
     ELSIF url.url.host.search('spotify.com'); 'spotify';
     ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
+    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
     ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
     ELSE; '';
 END -%]
@@ -876,12 +880,20 @@ http://[%- server -%]/[%- id -%]
   </div>
 [%- END -%]
 
-[%- MACRO annotation_links(entity) BLOCK -%]
+[%- MACRO annotation_links(entity) BLOCK;
+      sidebar_edit_annotation(entity);
+      sidebar_annotation_history(entity);
+    END -%]
+
+[%- MACRO sidebar_edit_annotation(entity) BLOCK -%]
   <li>
     <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
       [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
     </a>
   </li>
+[%- END -%]
+
+[%- MACRO sidebar_annotation_history(entity) BLOCK -%]
   [%- IF number_of_revisions > 0 %]
   <li>
     <a href="[% c.uri_for_action(c.controller.action_for('annotation_history'), [ entity.gid ]) %]">
@@ -979,22 +991,51 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
+[%- MACRO release_countries(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF event.country;
+            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
+[%- MACRO release_dates(release_events) BLOCK;
+    IF release_events.size;
+        '<ul class="links">';
+        FOR event=release_events;
+          IF !event.date.is_empty;
+            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+          END;
+        END;
+        '</ul>';
+    END;
+END -%]
+
 [%- MACRO release_events(release_events) BLOCK;
       IF release_events.size;
-        '<ul>';
+        '<ul class="links">';
         FOR event=release_events;
           '<li>';
           release_date = rdfa_release_event_date(event.date);
-          country = rdfa_release_country_abbr(event.country);
+          country = event.country;
+          country_abbr =
+            '<abbr title="' _ html_escape(country.l_name) _ '">' _
+              country.primary_code _
+            '</abbr>';
+          country_link = link_area(event.country, 'show', country_abbr);
           IF event.country AND !event.date.is_empty;
             l('{date} ({country})',
               { date => release_date,
-                country => country
+                country => country_link
               });
-          ELSIF event.date.is_empty;
-            l('{country} (date unknown)', { country => country });
+          ELSIF event.country;
+            l('???? ({country})', { country => country_link });
           ELSE;
-            l('{date} (unknown)', { date => release_date });
+            l('{date}', { date => release_date });
           END;
           '</li>';
         END;

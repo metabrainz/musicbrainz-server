@@ -144,16 +144,12 @@ div.guesscase-options,
     visibility:hidden;
 }
 
-.ui-helper-clearfix {
-    display:inline-block;
-}
-
 * html .ui-helper-clearfix {
     height:1%;
 }
 
 .ui-helper-clearfix {
-    display:block;
+    display: block !important;
 }
 
 #release-editor #editnote  { height: 70px; }

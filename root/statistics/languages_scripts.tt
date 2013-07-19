@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 [% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
 
-<p>[%- l('Last updated: {date}', { date => stats.date_collected }) -%]</p>
+<p>[%- l('Last updated: {date}', { date => date_collected }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>
 
 <div style="float:left; display:inline-block; margin-right: 50px;">

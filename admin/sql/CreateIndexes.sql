@@ -20,6 +20,10 @@ CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
 
+CREATE INDEX artist_idx_area ON artist (area);
+CREATE INDEX artist_idx_begin_area ON artist (begin_area);
+CREATE INDEX artist_idx_end_area ON artist (end_area);
+
 CREATE UNIQUE INDEX artist_idx_null_comment ON artist (name) WHERE comment IS NULL;
 CREATE UNIQUE INDEX artist_idx_uniq_name_comment ON artist (name, comment) WHERE comment IS NOT NULL;
 
@@ -148,6 +152,15 @@ CREATE UNIQUE INDEX l_url_work_idx_uniq ON l_url_work (entity0, entity1, link);
 
 CREATE UNIQUE INDEX l_work_work_idx_uniq ON l_work_work (entity0, entity1, link);
 
+CREATE INDEX l_area_area_idx_entity1 ON l_area_area (entity1);
+CREATE INDEX l_area_artist_idx_entity1 ON l_area_artist (entity1);
+CREATE INDEX l_area_label_idx_entity1 ON l_area_label (entity1);
+CREATE INDEX l_area_recording_idx_entity1 ON l_area_recording (entity1);
+CREATE INDEX l_area_release_idx_entity1 ON l_area_release (entity1);
+CREATE INDEX l_area_release_group_idx_entity1 ON l_area_release_group (entity1);
+CREATE INDEX l_area_url_idx_entity1 ON l_area_url (entity1);
+CREATE INDEX l_area_work_idx_entity1 ON l_area_work (entity1);
+
 CREATE INDEX l_artist_artist_idx_entity1 ON l_artist_artist (entity1);
 CREATE INDEX l_artist_label_idx_entity1 ON l_artist_label (entity1);
 CREATE INDEX l_artist_recording_idx_entity1 ON l_artist_recording (entity1);
@@ -191,6 +204,8 @@ CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
 CREATE INDEX label_idx_sort_name ON label (sort_name);
+
+CREATE INDEX label_idx_area ON label (area);
 
 CREATE UNIQUE INDEX label_idx_null_comment ON label (name) WHERE comment IS NULL;
 CREATE UNIQUE INDEX label_idx_uniq_name_comment ON label (name, comment) WHERE comment IS NOT NULL;
@@ -263,6 +278,8 @@ CREATE INDEX release_raw_idx_modify_count ON release_raw (modify_count);
 
 CREATE INDEX release_label_idx_release ON release_label (release);
 CREATE INDEX release_label_idx_label ON release_label (label);
+
+CREATE INDEX release_country_idx_country ON release_country (country);
 
 
 CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);

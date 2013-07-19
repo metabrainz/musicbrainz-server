@@ -187,7 +187,33 @@ sub _label { goto &_generic }
 
 sub _release { goto &_generic }
 
-sub _area { goto &_generic }
+sub autocomplete_area
+{
+    my ($self, $results, $pager) = @_;
+
+    my @output;
+    push @output, $self->_area($_) for @$results;
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json (\@output);
+}
+
+sub _area
+{
+    my ($self, $area) = @_;
+
+    return {
+        name    => $area->name,
+        id      => $area->id,
+        gid     => $area->gid,
+        type    => $area->type_id,
+        $area->type ? (typeName => $area->type->name) : (),
+        $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
+}
 
 sub autocomplete_editor
 {

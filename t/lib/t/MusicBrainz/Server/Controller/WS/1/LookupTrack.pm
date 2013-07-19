@@ -28,8 +28,7 @@ VALUES (251, NULL, 1, '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5', 'recording', 'url'
 INSERT INTO link (id, link_type, attribute_count) VALUES (24957, 251, 0);
 INSERT INTO l_recording_url (id, link, entity0, entity1)
     VALUES (9000, 24957, 4223059, 195251);
-INSERT INTO editor (id, name, password)
-    VALUES (1, 'editor', 'password');
+INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca');
 EOSQL
 
 MusicBrainz::Server::Test->prepare_raw_test_database(

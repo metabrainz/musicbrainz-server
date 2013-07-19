@@ -41,10 +41,10 @@ MB.Control.SelectAll = function (table) {
 
             if (first > last) {
                 self.$checkboxes.slice(last, first + 1)
-                    .attr('checked', this.checked);
+                    .prop('checked', this.checked);
             } else if (last > first) {
                 self.$checkboxes.slice(first, last + 1)
-                    .attr('checked', this.checked);
+                    .prop('checked', this.checked);
             }
         }
         self.lastChecked = this;

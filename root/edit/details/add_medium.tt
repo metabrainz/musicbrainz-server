@@ -51,7 +51,7 @@
            </tr>
          </thead>
          <tbody>
-           [% display_condensed_track_acs(edit.display_data.tracklist.tracks) %]
+           [% display_condensed_track_acs(edit.display_data.tracks) %]
          </tbody>
        </table>
      </td>

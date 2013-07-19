@@ -17,7 +17,7 @@
                         [%- FOR result=results -%]
                         <tr[%- ' class="ev"' IF loop.count % 2 == 0 -%]>
                             <td>[%- result.score -%]</td>
-                            <td>[%- descriptive_link(result.entity) -%]</td>
+                            <td>[%- link_entity(result.entity) -%]</td>
                             <td>
                               <ul>
                                 [% FOR rel_artist=result.entity.writers %]

@@ -28,6 +28,7 @@ sub statistics : Path('')
     my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
+    my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
@@ -36,6 +37,7 @@ sub statistics : Path('')
         primary_types => \%primary_types,
         secondary_types => \%secondary_types,
         work_types => \@work_types,
+        area_types => \@area_types,
         stats => $latest_stats
     );
 }
@@ -44,7 +46,7 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
+    my @stats = qw( count.artist count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats

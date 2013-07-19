@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::User::Register;
+use utf8;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
@@ -16,8 +17,8 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->submit_form( with_fields => {
     'register.username' => 'brand_new_editor',
-    'register.password' => 'magic_password',
-    'register.confirm_password' => 'magic_password',
+    'register.password' => 'ıaa2',
+    'register.confirm_password' => 'ıaa2',
 });
 
 like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
@@ -25,8 +26,8 @@ like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page af
 $mech->get_ok('/register', 'Fetch registration page');
 $mech->submit_form( with_fields => {
     'register.username' => 'email_editor',
-    'register.password' => 'magic_password',
-    'register.confirm_password' => 'magic_password',
+    'register.password' => 'ıaa2',
+    'register.confirm_password' => 'ıaa2',
     'register.email' => 'foo@bar.com',
 });
 

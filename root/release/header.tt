@@ -1,5 +1,5 @@
 <div class="releaseheader" [%- rdfa_about_attr(rdfa_release_curi(release)) %] [% rdfa_typeof(rdfa_concept_curi('release')) -%]>
-[%- IF c.session.tport -%]
+[%- IF c.try_get_session('tport') -%]
     [%- tagger_icon(release) -%]
 [%- END -%]
 <h1>[%- rdfa_link_release_header(release) %] [% disambiguation(release) -%]</h1>

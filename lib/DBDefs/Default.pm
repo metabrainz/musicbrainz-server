@@ -65,6 +65,23 @@ use MusicBrainz::Server::Replication ':replication_type';
 sub REPLICATION_TYPE { RT_STANDALONE }
 
 ################################################################################
+# GPG Signature
+################################################################################
+
+# Location of the public key file to use for verifying packets.
+sub GPG_PUB_KEY { "" }
+
+# Define how validation deals with the missing signature file:
+#   FAIL    - validation fails if signature file is missing
+#   PASS    - validation passes if signature file is missing
+sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets.
+sub GPG_SIGN_KEY { "" }
+sub GPG_ENCRYPT_KEY { "" }
+
+################################################################################
 # HTTP Server Names
 ################################################################################
 
@@ -147,7 +164,7 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 
@@ -180,39 +197,31 @@ sub PLUGIN_CACHE_OPTIONS {
 # The caching options here relate to object caching - such as caching artists,
 # releases, etc in order to speed up queries. If you are using Memcached
 # to store sessions as well this should be a *different* memcached server.
-our %CACHE_MANAGER_OPTIONS = (
-    profiles => {
-        memory => {
-            class => 'Cache::Memory',
-            wrapped => 1,
-            keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
-            options => {
-                default_expires => '1 hour',
+sub CACHE_MANAGER_OPTIONS {
+    my $self = shift;
+    my %CACHE_MANAGER_OPTIONS = (
+        profiles => {
+            memory => {
+                class => 'Cache::Memory',
+                wrapped => 1,
+                keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
+                options => {
+                    default_expires => '1 hour',
+                },
+            },
+            external => {
+                class => 'Cache::Memcached::Fast',
+                options => {
+                    servers => $self->MEMCACHED_SERVERS(),
+                    namespace => $self->MEMCACHED_NAMESPACE()
+                },
             },
         },
-        external => {
-            class => 'Cache::Memcached::Fast',
-            options => {
-                servers => MEMCACHED_SERVERS(),
-                namespace => MEMCACHED_NAMESPACE()
-            },
-        },
-    },
-    default_profile => 'external',
-);
+        default_profile => 'external',
+    );
 
-# No caching
-#our %CACHE_MANAGER_OPTIONS = (
-#    profiles => {
-#        null => {
-#            class => 'Cache::Null',
-#            wrapped => 1,
-#        },
-#    },
-#    default_profile => 'null',
-#);
-
-sub CACHE_MANAGER_OPTIONS { \%CACHE_MANAGER_OPTIONS }
+    return \%CACHE_MANAGER_OPTIONS
+}
 
 ################################################################################
 # Rate-Limiting

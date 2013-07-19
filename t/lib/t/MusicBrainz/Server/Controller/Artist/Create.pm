@@ -145,6 +145,7 @@ subtest 'Creating artists with only the minimal amount of fields' => sub {
 sub _delete_artist
 {
     my $c = shift;
+    $c->sql->do('DELETE FROM editor_subscribe_artist WHERE artist IN (?)', @_);
     $c->sql->do('DELETE FROM artist WHERE id IN (?)', @_);
 }
 

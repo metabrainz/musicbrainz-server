@@ -71,10 +71,10 @@
                predicate_vote(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage';
                predicate_release_language(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistCountry';
-               predicate_country(field.field_name, field);
-             CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelCountry';
-               predicate_country(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::ArtistArea';
+               predicate_link(field.field_name, field, 'area');
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::LabelArea';
+               predicate_link(field.field_name, field, 'area');
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry';
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
@@ -218,14 +218,15 @@
   </select>
 
   <br />
-  <p>[% l('Note: this currently only searches edits that add or edit relationships, created after 2011-05-16') %]</p>
+  <p>[% l('Note: only searches edits that: add or edit relationships, created after 2011-05-16; or which remove relationships, created after 2013-07-08.') %]</p>
 [% END %]
 
-[% MACRO predicate_link(field, field_contents) WRAPPER wfield predicate="set" %]
+[% MACRO predicate_link(field, field_contents, autocomplete_name) WRAPPER wfield predicate="set" %]
+  [%- autocomplete_name = autocomplete_name.defined ? autocomplete_name : field | replace('_', '-') -%]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <span class="autocomplete [% field | replace('_', '-') %]">
+  <span class="autocomplete [% autocomplete_name %]">
       <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
       <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
       <input type="hidden" class="gid" />
@@ -270,11 +271,11 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
   <select name="args" multiple="multiple">
-    [% FOR country=countries %]
+    [%- FOR country=countries -%]
     <option value="[% country.id %]"
-            [% 'selected="selected"' IF field_contents.find_argument(country.id) %]
-            >[% html_escape(country.l_name) %]</option>
-    [% END %]
+            [%- 'selected="selected"' IF field_contents.find_argument(country.id) %]>
+        [%- html_escape(country.l_name) -%]</option>
+    [%- END -%]
   </select>
 [% END %]
 
@@ -301,8 +302,8 @@
                    [ 'vote', l('My Vote') ]
                    [ 'release_language', l('Release Language') ],
                    [ 'release_quality', l('Release Quality') ],
-                   [ 'artist_country', l('Artist Country') ],
-                   [ 'label_country', l('Label Country') ]
+                   [ 'artist_area', l('Artist Area') ],
+                   [ 'label_area', l('Label Area') ]
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
                    ] %]
@@ -333,8 +334,8 @@
 
     [% predicate_vote('vote') %]
     [% predicate_release_language('release_language') %]
-    [% predicate_country('artist_country') %]
-    [% predicate_country('label_country') %]
+    [% predicate_link('artist_area', undef, 'area') %]
+    [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]
     [% predicate_link_type('link_type') %]
   </div>

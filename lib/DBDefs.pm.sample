@@ -92,7 +92,7 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
 # replication_control.current_schema_sequence.
 # This is required, there is no default in order to prevent it changing without
 # manual intervention.
-sub DB_SCHEMA_SEQUENCE { 17 }
+sub DB_SCHEMA_SEQUENCE { 18 }
 
 # What type of server is this?
 # * RT_MASTER - This is a master replication server.  Changes are allowed, and
@@ -108,6 +108,25 @@ sub DB_SCHEMA_SEQUENCE { 17 }
 # * RT_STANDALONE - This server neither generates nor uses replication
 #               packets.  Changes to the database are allowed.
 # sub REPLICATION_TYPE { RT_STANDALONE }
+
+################################################################################
+# GPG Signature
+################################################################################
+
+# Location of the public key file
+# sub GPG_PUB_KEY { "" }
+
+# Define how validation deals with the missing signature file:
+#   FAIL    - validation fails if signature file is missing
+#   PASS    - validation passes if signature file is missing
+# sub GPG_MISSING_SIGNATURE_MODE { "PASS" }
+
+# Key identifiers (compatible with --recipient in GPG) for
+# signatures and encryption of data dumps and packets. Should
+# only be required on the master server.
+# sub GPG_SIGN_KEY { "" }
+# sub GPG_ENCRYPT_KEY { "" }
+
 
 ################################################################################
 # HTTP Server Names
@@ -184,7 +203,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # Cache Settings
 ################################################################################
 
-# MEMCACHED_SERVERS allows configuration of global memcached servers, if more 
+# MEMCACHED_SERVERS allows configuration of global memcached servers, if more
 # close configuration is not required
 # sub MEMCACHED_SERVERS { return ['127.0.0.1:11211']; };
 

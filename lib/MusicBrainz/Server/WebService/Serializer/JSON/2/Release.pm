@@ -52,7 +52,7 @@ sub serialize
         ]
     }
 
-    $body{asin} = $entity->amazon_asin;
+    $body{asin} = $entity->amazon_asin if ($toplevel);
     $body{barcode} = $entity->barcode->code;
     $body{disambiguation} = $entity->comment // "";
     $body{status} = $entity->status_name;

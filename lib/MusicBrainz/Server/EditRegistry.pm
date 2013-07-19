@@ -69,7 +69,6 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Release::EditCoverArt
     MusicBrainz::Server::Edit::Release::EditReleaseLabel
     MusicBrainz::Server::Edit::Release::Merge
-    MusicBrainz::Server::Edit::Release::Move
     MusicBrainz::Server::Edit::Release::RemoveCoverArt
     MusicBrainz::Server::Edit::Release::ReorderCoverArt
     MusicBrainz::Server::Edit::Release::ReorderMediums
@@ -117,6 +116,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Historic::MergeReleaseMAC
     MusicBrainz::Server::Edit::Historic::MoveDiscID
     MusicBrainz::Server::Edit::Historic::MoveRelease
+    MusicBrainz::Server::Edit::Historic::MoveReleaseToRG
     MusicBrainz::Server::Edit::Historic::RemoveDiscID
     MusicBrainz::Server::Edit::Historic::RemoveLabelAlias
     MusicBrainz::Server::Edit::Historic::RemoveLink

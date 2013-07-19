@@ -222,10 +222,9 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
         self.$container.show ();
 
         self.$container.position({
-            my: "left top",
+            my: "left+37 top-23",
             at: "right top",
             of: self.$target,
-            offset: "37 -23",
             collision: "none none"
         });
 
@@ -234,10 +233,9 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
         if (window.opera)
         {
             self.$container.position({
-                my: "left top",
+                my: "left+37 top-23",
                 at: "right top",
                 of: self.$target,
-                offset: "37 -23",
                 collision: "none none"
             });
         }
@@ -271,10 +269,9 @@ MB.Control.BubbleDocBase = function (parent, $target, $content) {
         var offsetY = targetY - self.$content.offset ().top;
 
         self.$balloon0.position({
-            my: "right top",
+            my: "right top+" + Math.floor(offsetY),
             at: "left top",
-            of: self.$content,
-            offset: "0 " + Math.floor (offsetY)
+            of: self.$content
         });
 
         self.$balloon1.css ('background', '#eee')
@@ -327,10 +324,9 @@ MB.Control.BubbleRow = function (parent, $target, $acrow, offset) {
         var offsetX = targetX - self.$content.offset ().left;
 
         self.$balloon0.position({
-            my: "left bottom",
+            my: "left+" + parseInt(offsetX, 10) + " bottom+1",
             at: "left top",
             of: self.$content,
-            offset: parseInt (offsetX, 10) + " 1",
             collision: "none",
             'using': function (props) {
                 /* fix unstable positioning due to fractions. */
@@ -387,7 +383,7 @@ MB.Control.BubbleCollection = function ($targets, $contents) {
 
         /* .add() used to accept only a single target + container, it may still be
          * called like that, and the caller will expect that bubble to be returned.
-         */ 
+         */
         return bubble;
     };
 

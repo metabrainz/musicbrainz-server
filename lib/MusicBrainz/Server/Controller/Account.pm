@@ -154,12 +154,17 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         my $email = $form->field('email')->value;
 
         my $editor = $c->model('Editor')->get_by_name($username);
+
         if (!defined $editor) {
             $form->field('username')->add_error(l('There is no user with this username'));
         }
         else {
-            if ($editor->email && $editor->email ne $email) {
+            # HTML::FormHandler::Field::Email lowercases the email, so we should compare the lowercase version (MBS-6158)
+            if ($editor->email && lc($editor->email) ne lc($email)) {
                 $form->field('email')->add_error(l('There is no user with this username and email'));
+            }
+            elsif (!$editor->email) {
+                $form->field('email')->add_error(l('We can\'t send a password reset email, because we have no email on record for this user.'));
             }
             else {
                 $self->_send_password_reset_email($c, $editor);
@@ -534,19 +539,6 @@ sub _checksum
 {
     my ($self, $email, $uid, $time) = @_;
     return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
-}
-
-sub donation : Local RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $result = $c->model('Editor')->donation_check($c->user);
-    $c->detach('/error_500') unless $result;
-
-    $c->stash(
-        nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
-    );
 }
 
 sub applications : Path('/account/applications') RequireAuth

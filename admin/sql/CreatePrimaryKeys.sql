@@ -15,6 +15,7 @@ ALTER TABLE artist_alias_type ADD CONSTRAINT artist_alias_type_pkey PRIMARY KEY 
 ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_pkey PRIMARY KEY (artist, annotation);
 ALTER TABLE artist_credit ADD CONSTRAINT artist_credit_pkey PRIMARY KEY (id);
 ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_pkey PRIMARY KEY (artist_credit, position);
+ALTER TABLE artist_deletion ADD CONSTRAINT artist_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_pkey PRIMARY KEY (artist, ipi);
 ALTER TABLE artist_isni ADD CONSTRAINT artist_isni_pkey PRIMARY KEY (artist, isni);
@@ -47,9 +48,11 @@ ALTER TABLE editor_language ADD CONSTRAINT editor_language_pkey PRIMARY KEY (edi
 ALTER TABLE editor_oauth_token ADD CONSTRAINT editor_oauth_token_pkey PRIMARY KEY (id);
 ALTER TABLE editor_preference ADD CONSTRAINT editor_preference_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_artist ADD CONSTRAINT editor_subscribe_artist_pkey PRIMARY KEY (id);
+ALTER TABLE editor_subscribe_artist_deleted ADD CONSTRAINT editor_subscribe_artist_deleted_pkey PRIMARY KEY (editor, gid);
 ALTER TABLE editor_subscribe_collection ADD CONSTRAINT editor_subscribe_collection_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_editor ADD CONSTRAINT editor_subscribe_editor_pkey PRIMARY KEY (id);
 ALTER TABLE editor_subscribe_label ADD CONSTRAINT editor_subscribe_label_pkey PRIMARY KEY (id);
+ALTER TABLE editor_subscribe_label_deleted ADD CONSTRAINT editor_subscribe_label_deleted_pkey PRIMARY KEY (editor, gid);
 ALTER TABLE editor_watch_artist ADD CONSTRAINT editor_watch_artist_pkey PRIMARY KEY (artist, editor);
 ALTER TABLE editor_watch_preferences ADD CONSTRAINT editor_watch_preferences_pkey PRIMARY KEY (editor);
 ALTER TABLE editor_watch_release_group_type ADD CONSTRAINT editor_watch_release_group_type_pkey PRIMARY KEY (editor, release_group_type);
@@ -100,6 +103,7 @@ ALTER TABLE label ADD CONSTRAINT label_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias ADD CONSTRAINT label_alias_pkey PRIMARY KEY (id);
 ALTER TABLE label_alias_type ADD CONSTRAINT label_alias_type_pkey PRIMARY KEY (id);
 ALTER TABLE label_annotation ADD CONSTRAINT label_annotation_pkey PRIMARY KEY (label, annotation);
+ALTER TABLE label_deletion ADD CONSTRAINT label_deletion_pkey PRIMARY KEY (gid);
 ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE label_ipi ADD CONSTRAINT label_ipi_pkey PRIMARY KEY (label, ipi);
 ALTER TABLE label_isni ADD CONSTRAINT label_isni_pkey PRIMARY KEY (label, isni);

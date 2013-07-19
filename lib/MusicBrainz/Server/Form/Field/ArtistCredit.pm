@@ -77,16 +77,6 @@ around 'validate_field' => sub {
     return !$self->has_errors;
 };
 
-=method value
-
-An artist credit which has the same value as the artist name is
-displayed as a placeholder.  These will not be submitted by the
-browser.  When requesting the value of an ArtistCredit field using
-this method these 'undef' artist credits will be replaced with the
-artist name.
-
-=cut
-
 around 'value' => sub {
     my $orig = shift;
     my $self = shift;
