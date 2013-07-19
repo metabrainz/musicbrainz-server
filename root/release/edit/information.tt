@@ -53,8 +53,8 @@
         </div>
       [% END %]
       [% form_row_select (r, 'status_id', lp('Status:', 'release status')) %]
-      [% form_row_select (r, 'language_id', l('Language:'), { class => 'short' }) %]
-      [% form_row_select (r, 'script_id', l('Script:'), { class => 'short' }) %]
+      [% form_row_select (r, 'language_id', l('Language:'), 'short') %]
+      [% form_row_select (r, 'script_id', l('Script:'), 'short') %]
 
     </fieldset>
 
