@@ -216,8 +216,8 @@ INSERT INTO place_alias_type (id, name) VALUES (1, 'Place name'), (2, 'Search hi
 
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
-CREATE INDEX place_idx_sort_name ON place (sort_name);
 CREATE INDEX place_idx_page ON place (page_index(name));
+CREATE INDEX place_idx_area ON place (area);
 
 CREATE INDEX edit_place_idx ON edit_place (place);
 
