@@ -1310,9 +1310,9 @@ CREATE TABLE place (
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references place_type.id
     address             VARCHAR,
+    area                INTEGER, -- references area.id
     coordinates         POINT,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),

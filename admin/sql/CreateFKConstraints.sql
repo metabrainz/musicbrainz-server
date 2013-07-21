@@ -1411,6 +1411,11 @@ ALTER TABLE place
    FOREIGN KEY (type)
    REFERENCES place_type(id);
 
+ALTER TABLE place
+   ADD CONSTRAINT place_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
+
 ALTER TABLE place_alias
    ADD CONSTRAINT place_alias_fk_place
    FOREIGN KEY (place)

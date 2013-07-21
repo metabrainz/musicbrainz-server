@@ -279,6 +279,7 @@ ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_cdtoc;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_fk_parent;
 ALTER TABLE medium_index DROP CONSTRAINT medium_index_fk_medium;
 ALTER TABLE place DROP CONSTRAINT place_fk_type;
+ALTER TABLE place DROP CONSTRAINT place_fk_area;
 ALTER TABLE place_alias DROP CONSTRAINT place_alias_fk_place;
 ALTER TABLE place_alias DROP CONSTRAINT place_alias_fk_type;
 ALTER TABLE place_annotation DROP CONSTRAINT place_annotation_fk_place;
