@@ -509,9 +509,9 @@ END-%]
     out = [];
     seen = {};
     FOR label=labels;
-      IF label.label_id AND !seen.${ label.label_id };
+      IF label.label.gid AND !seen.${ label.label.gid };
         out.push(link_entity(label.label));
-        seen.${ label.label_id } = 1;
+        seen.${ label.label.gid } = 1;
       END;
     END;
     comma_only_list(out);
