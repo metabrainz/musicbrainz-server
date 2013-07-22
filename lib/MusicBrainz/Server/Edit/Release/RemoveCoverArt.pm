@@ -78,6 +78,9 @@ sub foreign_keys {
         Release => {
             $self->data->{entity}{id} => [ 'ArtistCredit' ]
         },
+        Artwork => {
+            $self->data->{cover_art_id} => [ 'Release' ]
+        },
         CoverArtType => $self->data->{cover_art_types}
     };
 }
@@ -88,8 +91,14 @@ sub build_display_data {
     my $release = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    my $artwork = $self->c->model('Artwork')->get_by_id ($self->data->{cover_art_id});
-    $self->c->model('Release')->load ($artwork);
+    my $artwork = $loaded->{Artwork}{ $self->data->{cover_art_id} } ||
+        Artwork->new(release => $release,
+                     id => $self->data->{cover_art_id},
+                     comment => $self->data->{cover_art_comment},
+                     cover_art_types => [ map {
+                         $loaded->{CoverArtType}{$_}
+                     } @{ $self->data->{cover_art_types} }]
+        );
 
     return {
         release => $release,
