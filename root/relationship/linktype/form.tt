@@ -118,7 +118,7 @@
 
         [% WRAPPER form_row %]
             <div class="no-label">
-                <button data-bind="click: currentExample.add, enable: currentExample.name() && currentExample.relationship()">
+                <button data-bind="click: currentExample.add, enable: currentExample.relationship()">
                     [% l('Add Example') %]</button>
                 </button>
             </div>

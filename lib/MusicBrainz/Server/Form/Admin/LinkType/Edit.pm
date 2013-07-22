@@ -20,7 +20,7 @@ has_field 'examples.relationship.id' => (
 
 has_field 'examples.name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
+    not_nullable => 1
 );
 
 override edit_field_names => sub {
