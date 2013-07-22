@@ -1,0 +1,8 @@
+[% WRAPPER 'layout.tt' title=l('Track Not Found') full_width=1 %]
+<h1>[% l('Track Not Found') %]</h1>
+
+<p>[% l('Sorry, we could find neither a recording nor a track with that
+         MusicBrainz ID. You may wish to try and {search_url|search for it}
+         instead.',
+         { search_url => c.uri_for_action('/search/search') }) %]</p>
+[% END %]
