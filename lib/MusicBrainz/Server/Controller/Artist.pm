@@ -124,49 +124,6 @@ after 'aliases' => sub
     $c->stash( artist_credits => $artist_credits );
 };
 
-=head2 similar
-
-Display artists similar to this artist
-
-=cut
-
-sub similar : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{similar_artists} = $c->model('Artist')->find_similar_artists($artist);
-}
-
-=head2 relations
-
-Shows all the entities (except track) that this artist is related to.
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{relations} = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-}
-
-=head2 appearances
-
-Display a list of releases that an artist appears on via advanced
-relations.
-
-=cut
-
-sub appearances : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
-}
-
 =head2 show
 
 Shows an artist's main landing page.
