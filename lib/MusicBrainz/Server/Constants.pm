@@ -147,7 +147,7 @@ Readonly our $EDIT_PLACE_MERGE => 64;
 Readonly our $EDIT_PLACE_ADD_ANNOTATION => 65;
 Readonly our $EDIT_PLACE_ADD_ALIAS => 66;
 Readonly our $EDIT_PLACE_DELETE_ALIAS => 67;
-Readonly our $EDIT_PLACE_EDIT_ALIAS => 66;
+Readonly our $EDIT_PLACE_EDIT_ALIAS => 68;
 
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
