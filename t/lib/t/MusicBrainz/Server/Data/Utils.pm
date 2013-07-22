@@ -29,13 +29,23 @@ is ( scalar(@result), 2 );
 is ( $result[0]->{id}, 1 );
 is ( $result[1]->{id}, 2 );
 
+my $offset = 0;
 my ($result, $hits) = query_to_list_limited(
-    $test->c->sql, 0, 1, sub { $_[0] }, "SELECT * FROM artist_type
-                              WHERE id IN (1, 2) ORDER BY id");
+    $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
+                              WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
 @result = @{$result};
-is ( scalar(@result), 1 );
-is ( $hits, 2 );
-is ( $result[0]->{id}, 1 );
+is ( scalar(@result), 1, 'got one result');
+is ( $hits, 2, 'got two total' );
+is ( $result[0]->{id}, 1, 'got result with id 1 as the first' );
+
+$offset = 1;
+my ($result2, $hits2) = query_to_list_limited(
+    $test->c->sql, $offset, 1, sub { $_[0] }, "SELECT * FROM artist_type
+                              WHERE id IN (1, 2) ORDER BY id OFFSET ?", $offset);
+@result = @{$result2};
+is ( scalar(@result), 1, 'got one result (with offset)' );
+is ( $hits2, 2, 'got two total (with offset)' );
+is ( $result[0]->{id}, 2, 'got result with id 2 as the first (with offset)' );
 
 my $order_by;
 
