@@ -338,26 +338,23 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth Edit
 {
     my ($self, $c) = @_;
 
     my $entity = $c->stash->{$self->{entity_name}};
-    my $id = $c->req->query_params->{id} or die "Need destination ID";
-
     my $bucket = 'mbid-' . $entity->gid;
     my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ],
-                                      { id => $id })->as_string ();
+                                      [ $entity->gid ])->as_string ();
 
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
-    $c->stash->{s3fields} = $c->model ('CoverArtArchive')->post_fields ($bucket, $entity->gid, $id, $redirect);
 }
 
-sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
+sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
+    my $json = JSON::Any->new( utf8 => 1 );
 
     $c->model('Release')->load_meta($entity);
 
@@ -377,7 +374,11 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     $c->stash({
         id => $id,
         index_url => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $entity->gid . "/",
-        images => \@artwork
+        images => \@artwork,
+        cover_art_types_json => $json->encode (
+            [ map {
+                { name => $_->name, l_name => $_->l_name, id => $_->id }
+            } $c->model('CoverArtType')->get_all () ]),
     });
 
     my $form = $c->form(
@@ -387,6 +388,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
             position => $count
         }
     );
+
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         $c->model('MB')->with_transaction(sub {
             $self->_insert_edit(
@@ -399,7 +401,8 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
                     ],
                 cover_art_position => $form->field ("position")->value,
                 cover_art_id => $form->field('id')->value,
-                cover_art_comment => $form->field('comment')->value || ''
+                cover_art_comment => $form->field('comment')->value || '',
+                cover_art_mime_type => $form->field('mime_type')->value,
             );
         });
 
@@ -408,7 +411,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth
     }
 }
 
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};

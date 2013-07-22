@@ -31,13 +31,8 @@ echo "
   CREATE SCHEMA wikidocs;" | ./admin/psql --schema=public $DATABASE 2>&1
 ` || ( echo "$OUTPUT" && exit 1 )
 
-if [ `compare_postgres_version 9.1` == "older" ]; then
-    echo `date` : Installing extensions
-    ./admin/InitDb.pl --install-extension=cube.sql --extension-schema=musicbrainz
-    ./admin/InitDb.pl --install-extension=musicbrainz_collate.sql  --extension-schema=musicbrainz
-fi
-
 echo `date` : Creating MusicBrainz Schema
+OUTPUT=`./admin/psql --system $DATABASE <./admin/sql/Extensions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/CreateConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
@@ -72,6 +67,9 @@ echo `date` : Creating documentation Schema
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Set up pgtap extension
+OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Complete with no errors
 

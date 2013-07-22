@@ -2,16 +2,17 @@ package MusicBrainz::Server::Wizard::ReleaseEditor;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::CGI::Expand qw( collapse_hash expand_hash );
 use Clone 'clone';
+use Data::Dumper::Concise;
 use JSON::Any;
 use List::UtilsBy 'uniq_by';
+use MusicBrainz::Server::CGI::Expand qw( collapse_hash expand_hash );
+use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref hash_structure trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Track qw( unformat_track_length format_track_length );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Validation qw( is_guid normalise_strings );
 use MusicBrainz::Server::Wizard;
 use Scalar::Util qw( looks_like_number );
@@ -1312,7 +1313,13 @@ sub _create_edit {
         push @{ $self->c->stash->{edits} }, $edit;
     }
     catch {
-        die $_ unless ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges';
+        unless(ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
+            die join("\n",
+                "Failed to create edit",
+                "Wizard data:" . Dumper($self->value),
+                $_
+            );
+        }
     };
 
     return $edit;
@@ -1510,7 +1517,10 @@ sub _seed_parameters {
         ],
         [
             'country_id', 'country',
-            sub { shift->model('Area')->find_by_iso_3166_1_code(shift) },
+            sub {
+                my ($c, $iso) = @_;
+                $c->model('Area')->get_by_iso_3166_1($iso)->{$iso}
+            },
         ],
         [
             'script_id', 'script',

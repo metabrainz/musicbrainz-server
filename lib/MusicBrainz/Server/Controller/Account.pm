@@ -31,7 +31,7 @@ address" emails)
 
 =cut
 
-sub verify_email : Path('/verify-email') ForbiddenOnSlaves
+sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -178,7 +178,7 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     $c->stash->{form} = $form;
 }
 
-sub reset_password : Path('/reset-password') ForbiddenOnSlaves
+sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -281,7 +281,7 @@ request is received), update the profile data in the database.
 
 =cut
 
-sub edit : Local RequireAuth
+sub edit : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -338,7 +338,7 @@ when use to update the database data when we receive a valid POST request.
 
 =cut
 
-sub change_password : Path('/account/change-password')
+sub change_password : Path('/account/change-password') DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -376,7 +376,7 @@ Change the users preferences
 
 =cut
 
-sub preferences : Path('/account/preferences') RequireAuth
+sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -410,7 +410,7 @@ new user.
 
 =cut
 
-sub register : Path('/register') ForbiddenOnSlaves RequireSSL
+sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -541,19 +541,6 @@ sub _checksum
     return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
-sub donation : Local RequireAuth HiddenOnSlaves
-{
-    my ($self, $c) = @_;
-
-    my $result = $c->model('Editor')->donation_check($c->user);
-    $c->detach('/error_500') unless $result;
-
-    $c->stash(
-        nag => $result->{nag},
-        days => sprintf ("%.0f", $result->{days}),
-    );
-}
-
 sub applications : Path('/account/applications') RequireAuth
 {
     my ($self, $c) = @_;
@@ -572,7 +559,7 @@ sub applications : Path('/account/applications') RequireAuth
     $c->stash( tokens => $tokens, applications => $applications );
 }
 
-sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth
+sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $application_id, $scope) = @_;
 
@@ -586,7 +573,7 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
     }
 }
 
-sub register_application : Path('/account/applications/register') RequireAuth
+sub register_application : Path('/account/applications/register') RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
@@ -604,7 +591,7 @@ sub register_application : Path('/account/applications/register') RequireAuth
     }
 }
 
-sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
+sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 
@@ -627,7 +614,7 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth
     }
 }
 
-sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth
+sub remove_application : Path('/account/applications/remove') Args(1) RequireAuth DenyWhenReadonly
 {
     my ($self, $c, $id) = @_;
 

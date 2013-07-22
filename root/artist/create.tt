@@ -6,9 +6,6 @@
 
       MB.Control.ArtistEdit ();
 
-      var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_guess_case (bubbles, 'artist', 'id-edit-artist');
-
     });
     //]]></script>
 [% END %]

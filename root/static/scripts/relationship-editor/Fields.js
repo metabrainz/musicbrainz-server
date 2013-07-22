@@ -31,6 +31,9 @@ var validationHandlers = {
         } else if (!typeInfo.descr) {
             field.error(MB.text.PleaseSelectARSubtype);
         }
+        else if (typeInfo.deprecated) {
+            field.error(MB.text.RelationshipTypeDeprecated);
+        }
     },
 
     "period.begin_date": function(field, value, relationship) {

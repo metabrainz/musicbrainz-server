@@ -5,7 +5,7 @@ SELECT no_plan();
 
 --------------------------------------------------------------------------------
 -- Test setup. See below for tests.
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', '', now());
 INSERT INTO edit (id, type, status, data, open_time, close_time, expire_time, editor)
   VALUES (1, 1, 1, '', now(), now(), now(), 1);
 

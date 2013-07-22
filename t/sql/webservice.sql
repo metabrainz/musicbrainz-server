@@ -608,7 +608,7 @@ INSERT INTO label_alias (begin_date_day, begin_date_month, begin_date_year, edit
 UPDATE label_meta SET rating_count = NULL, rating = NULL WHERE id = 2882;
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('RZCD-45118', 134076, 2882, '2011-01-18 15:52:02.917556+00', 59662);
 INSERT INTO cover_art_archive.art_type (id, name) VALUES (1, 'Front');
-INSERT INTO editor (id, name, password, ha1) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 INSERT INTO cover_art_archive.cover_art_type (id, type_id) VALUES ('1031598329', 1);

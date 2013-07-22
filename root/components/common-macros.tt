@@ -847,11 +847,9 @@ http://[%- server -%]/[%- id -%]
 [%- MACRO css_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
-        <link rel="stylesheet" type="text/css" href="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]" />
-    [%- END -%]
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
   [%- ELSE -%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
   [%- END -%]
 [%- END -%]
 
@@ -1019,21 +1017,17 @@ END -%]
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
-          '<li>';
-          release_date = rdfa_release_event_date(event.date);
-          country = rdfa_release_country_abbr(event.country);
-          IF event.country AND !event.date.is_empty;
-            l('{date} ({country})',
-              { date => release_date,
-                country => country
-              });
-          ELSIF event.country;
-            l('???? ({country})', { country => country });
-          ELSE;
-            l('{date}', { date => release_date });
-          END;
-          '</li>';
+          '<li>' _ release_event(event) _ '</li>';
         END;
         '</ul>';
       END;
+    END -%]
+
+[%- MACRO release_event(event) BLOCK;
+      date = event.date;
+      country = event.country;
+      parts = [];
+      parts.push(link_entity(country)) IF country.defined;
+      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.join('<br />');
     END -%]

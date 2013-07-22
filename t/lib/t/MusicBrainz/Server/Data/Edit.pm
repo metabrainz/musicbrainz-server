@@ -60,7 +60,7 @@ test 'Test locks on edits' => sub {
         fresh => 1
     );
 
-    $foreign_connection->dbh->do("INSERT INTO editor (id, name, password, ha1) VALUES (50, 'editor', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca')");
+    $foreign_connection->dbh->do('INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (50, $$editor$$, $${CLEARTEXT}password$$, $$3a115bc4f05ea9856bd4611b75c80bca$$, $$foo@example.com$$, now())');
     $foreign_connection->dbh->do(
         q{INSERT INTO edit (id, editor, type, status, data, expire_time)
              VALUES (12345, 50, 123, 1, '{ "key": "value" }', NOW())}
@@ -198,8 +198,8 @@ is ($editor_cancelled->$_, $editor->$_,
 };
 
 test 'Find edits by subscription' => sub {
-    use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
-    use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
+    use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
     use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
 
     my $test = shift;

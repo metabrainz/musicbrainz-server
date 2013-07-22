@@ -114,7 +114,7 @@
                 <td>
                     [% release_rels = 0 %]
                     [% FOREACH item IN key.items %]
-                        [% release_rels = 1 IF item.release %]
+                        [% release_rels = release_rels || item.release %]
                         [% IF item.tracks.size %]
                           <div class="track-rel">
                           [% relationship_target_links(item.rel) %]

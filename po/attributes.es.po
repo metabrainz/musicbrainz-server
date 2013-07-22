@@ -8,6 +8,7 @@
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Héctor Arroyo <email address hidden>, 2012
+# Ismael Olea <email address hidden>, 2013
 # Nicolás Tamargo <email address hidden>, 2011-2012
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
@@ -18,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-12 11:01+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +56,7 @@ msgstr "Álbum"
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "Nombre del área geográfica"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -145,7 +146,7 @@ msgstr "Casete"
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr ""
+msgstr "Ciudad"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -160,7 +161,7 @@ msgstr "Concierto"
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "País"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -225,7 +226,7 @@ msgstr "Mujer"
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr ""
+msgstr "Nombre legal"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -345,7 +346,7 @@ msgstr "Ópera"
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "Opereta"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
@@ -425,7 +426,7 @@ msgstr "Promocional"
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "Prosa"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -460,7 +461,7 @@ msgstr "Remezclas"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "Sociedad de gestión de derechos"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -511,7 +512,7 @@ msgstr "Banda sonora"
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "Banda sonora"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -531,7 +532,7 @@ msgstr "Pegatina"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Subdivisión"
 
 #: DB:work_type/name:6
 msgctxt "work_type"

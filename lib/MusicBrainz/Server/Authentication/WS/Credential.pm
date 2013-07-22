@@ -3,7 +3,10 @@ use base qw/Catalyst::Authentication::Credential::HTTP/;
 
 use DBDefs;
 use Digest::HMAC_SHA1 qw ( hmac_sha1 );
+use Encode qw( decode );
+use HTTP::Status qw( HTTP_BAD_REQUEST );
 use MIME::Base64 qw( encode_base64 );
+use Try::Tiny;
 
 sub authenticate
 {
@@ -15,6 +18,17 @@ sub authenticate
 
     $auth = $self->_authenticate_mac($c, $realm, $auth_info);
     return $auth if $auth;
+
+    # We can only use digest authentication if the Authorization header is
+    # correctly encoded as UTF-8. Catalyst::Plugin::Unicode::Encoding only deals
+    # with parameters and URL captures - not arbitrary headers.
+    try {
+        decode('utf-8', $c->req->header('Authorization'), Encode::FB_CROAK)
+    }
+    catch {
+        $c->response->status(HTTP_BAD_REQUEST);
+        $c->detach;
+    };
 
     $auth = $self->SUPER::authenticate($c, $realm, $auth_info);
     if ($auth && $auth->requires_password_reset) {

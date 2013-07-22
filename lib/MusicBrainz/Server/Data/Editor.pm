@@ -30,7 +30,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribed_editor',
-    class => 'MusicBrainz::Server::Entity::EditorSubscription'
+    active_class => 'MusicBrainz::Server::Entity::EditorSubscription'
 };
 
 sub _table
@@ -227,8 +227,9 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    $data->{password} = hash_password($data->{password});
-    $data->{ha1} = ha1_password($data->{name}, $data->{password});
+    my $plaintext = $data->{password};
+    $data->{password} = hash_password($plaintext);
+    $data->{ha1} = ha1_password($data->{name}, $plaintext);
 
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
@@ -316,7 +317,6 @@ sub update_privileges
                 + $values->{untrusted}        * $UNTRUSTED_FLAG
                 + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
                 + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
-                + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
@@ -409,49 +409,17 @@ sub lock_row
     $self->sql->do($query, $editor_id);
 }
 
-sub donation_check
-{
-    my ($self, $obj) = @_;
-
-    my $nag = 1;
-    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
-                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
-                 $obj->is_location_editor);
-
-    my $days = 0.0;
-    if ($nag)
-    {
-        my $ua = LWP::UserAgent->new;
-        $ua->agent("MusicBrainz server");
-        $ua->timeout(5); # in seconds.
-
-        my $response = $ua->request(HTTP::Request->new (GET =>
-            'http://metabrainz.org/donations/nag-check/' .
-            uri_escape_utf8($obj->name)));
-
-        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
-        {
-            $nag = $1;
-            $days = $2;
-        }
-        else
-        {
-            return undef;
-        }
-    }
-
-    return { nag => $nag, days => $days };
-}
-
 sub editors_with_subscriptions
 {
     my ($self) = @_;
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_artist_deleted
         editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
+        editor_subscribe_label_deleted
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
@@ -598,7 +566,7 @@ sub hash_password {
 
 sub ha1_password {
     my ($username, $password) = @_;
-    return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {

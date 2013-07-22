@@ -44,7 +44,7 @@ sub index : Path Args(0)
     );
 }
 
-sub create : Local Args(0) RequireAuth(wiki_transcluder)
+sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 
@@ -71,14 +71,15 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder)
     }
 }
 
-sub edit : Local Args(0) RequireAuth(wiki_transcluder)
+sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 
     my $page = $c->req->params->{page};
-    my $version = $c->model('WikiDocIndex')->get_page_version($page);
+    my $new_version = $c->req->params->{new_version};
+    my $current_version = $c->model('WikiDocIndex')->get_page_version($page);
     my $form = $c->form( form => 'Admin::WikiDoc::Edit',
-                         init_object => { version => $version } );
+                         init_object => { version => $new_version } );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         my $values = $form->values;
@@ -88,7 +89,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder)
                 editor_id    => $c->user->id,
 
                 page        => $page,
-                old_version => $version,
+                old_version => $current_version,
                 new_version => $values->{version},
             );
         });
@@ -98,10 +99,10 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder)
         $c->detach;
     }
 
-    $c->stash( page => $page, version => $version );
+    $c->stash( page => $page, current_version => $current_version, new_version => $new_version );
 }
 
-sub delete : Local Args(0) RequireAuth(wiki_transcluder)
+sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 

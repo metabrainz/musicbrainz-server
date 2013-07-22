@@ -18,6 +18,8 @@ sub fmt { 'xml' }
 Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
 Readonly my $xml_decl_end => '</metadata>';
 
+our $in_relation_node = 0;
+
 sub _list_attributes
 {
     my ($self, $list) = @_;
@@ -74,7 +76,7 @@ sub _serialize_alias
 {
     my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
 
-    if (@$aliases)
+    if (!$in_relation_node && @$aliases)
     {
         my %attr = ( count => scalar(@$aliases) );
         my @alias_list;
@@ -898,6 +900,7 @@ sub _serialize_relation
     unless ($rel->target_type eq 'url')
     {
         my $method =  "_serialize_" . $rel->target_type;
+        local $in_relation_node = 1;
         $self->$method(\@list, $gen, $rel->target, $inc, $stash);
     }
 
@@ -984,6 +987,7 @@ sub _serialize_tags_and_ratings
 sub _serialize_tag_list
 {
     my ($self, $data, $gen, $inc, $opts) = @_;
+    return if $in_relation_node;
 
     my @list;
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})

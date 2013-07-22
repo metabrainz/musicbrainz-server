@@ -45,8 +45,8 @@ test 'test recalculate_all' => sub {
 test 'top_recently_active_editors' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass') FROM generate_series(1, 4) s(x);
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 4) s(x);
 
 INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
 VALUES
@@ -77,8 +77,8 @@ EOSQL
 test 'top_editors' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass') FROM generate_series(1, 4) s(x);
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 4) s(x);
 
 INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
 VALUES
@@ -114,8 +114,8 @@ EOSQL
 test 'top_recently_active_voters' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass') FROM generate_series(1, 5) s(x);
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 5) s(x);
 INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
   SELECT x, '{}', 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
 
@@ -152,8 +152,8 @@ EOSQL
 test 'top_voters' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1)
-  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass') FROM generate_series(1, 5) s(x);
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
+  SELECT x, 'Editor ' || x, '{CLEARTEXT}pass', md5('Editor ' || x || ':musicbrainz:pass'), '', now() FROM generate_series(1, 5) s(x);
 INSERT INTO edit (id, data, status, type, open_time, expire_time, editor)
   SELECT x, '{}', 2, 1, now(), now(), 1 FROM generate_series(1, 4) s(x);
 

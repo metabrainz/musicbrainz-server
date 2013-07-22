@@ -265,6 +265,38 @@ sub _merge_impl
     $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
     $self->merge_codes($new_id, @old_ids);
 
+    # If any of the areas being merged is a country, then the new area is a
+    # country
+    $self->sql->do(
+        'INSERT INTO country_area (area)
+         SELECT DISTINCT ?::int
+         FROM country_area
+         WHERE area = any(?) AND NOT EXISTS (
+           SELECT TRUE from country_area WHERE area = ?
+         )',
+         $new_id, \@old_ids, $new_id
+    );
+
+    for my $update (
+        [ artist => "area" ],
+        [ artist => "begin_area" ],
+        [ artist => "end_area" ],
+        [ label => "area" ],
+        [ release_country => "country" ]
+    ) {
+        my ($table, $column) = @$update;
+        $self->sql->do(
+            "UPDATE $table SET $column = ? WHERE $column = any(?)",
+            $new_id, \@old_ids
+        );
+    }
+
+    my $all_ids = [ $new_id, @old_ids ];
+    $self->sql->do(
+        'DELETE FROM country_area WHERE area = any(?)',
+        \@old_ids
+    );
+
     merge_table_attributes(
         $self->sql => (
             table => 'area',
@@ -302,16 +334,6 @@ sub merge_codes
     }
 }
 
-sub find_by_iso_3166_1_code {
-    my ($self, $code) = @_;
-    my $query = "SELECT iso.code, " . $self->_columns .
-        " FROM iso_3166_1 iso JOIN area ON iso.area = area.id" .
-        " WHERE iso.code = ?";
-
-    my $rows = $self->sql->select_list_of_hashes($query, $code);
-    return $self->_new_from_row($rows->[0]);
-}
-
 sub _hash_to_row
 {
     my ($self, $area) = @_;
@@ -326,6 +348,32 @@ sub _hash_to_row
     add_partial_date_to_row($row, $area->{end_date}, 'end_date');
 
     return $row;
+}
+
+sub get_by_iso_3166_1 {
+    shift->_get_by_iso('iso_3166_1', @_);
+}
+
+sub get_by_iso_3166_2 {
+    shift->_get_by_iso('iso_3166_2', @_);
+}
+
+sub get_by_iso_3166_3 {
+    shift->_get_by_iso('iso_3166_3', @_);
+}
+
+sub _get_by_iso {
+    my ($self, $table, @codes) = @_;
+    my $query = "SELECT iso.code, " . $self->_columns .
+        " FROM $table iso JOIN area ON iso.area = area.id" .
+        " WHERE iso.code = any(?)";
+
+    my %ret = map { $_ => undef } @codes;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
+        $ret{$row->{code}} = $self->_new_from_row($row);
+    }
+
+    return \%ret;
 }
 
 __PACKAGE__->meta->make_immutable;

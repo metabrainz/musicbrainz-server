@@ -2,10 +2,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        [% css_manifest('common.css.manifest') %]
-        [% IF extra_css %]
-            <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/extra/') %][% extra_css %]" />
-        [% END %]
+        [% css_manifest('common') %]
         [%- IF c.debug -%]
             <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
         [%- END -%]
@@ -57,6 +54,10 @@
             })();
           </script>
         [%- END -%]
+        [%- IF server_details.developement_server -%]
+            <script>less = { rootpath: "[% c.uri_for('/static/styles/') %]" }</script>
+            <script src="[% c.uri_for('/static/lib/less/less-1.3.3.js') %]"></script>
+        [%- END -%]
     </head>
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
@@ -94,8 +95,9 @@
             <div class="server-details">
                 <p>
                     [%~ server_details.staging_server_description || l('This is a MusicBrainz development server.') =%]
-                    [%= l('The main server is located at {uri}.',
-                        { uri => '<a href="http://musicbrainz.org" class="external">http://musicbrainz.org</a>' }) ~%]
+                    [%= l('{uri|Return to musicbrainz.org}.',
+                          { uri => '//musicbrainz.org' _
+                                   (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
@@ -103,8 +105,7 @@
             <div class="server-details">
                 <p>
                     [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
-                          visit the main server at {uri}.',
-                         { uri => '<a href="http://musicbrainz.org/" class="external">http://musicbrainz.org</a>' }) %]
+                          {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
                 </p>
                 <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>

@@ -33,6 +33,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_DELETE
     $EDIT_ARTIST_EDITCREDIT
     $EDIT_RELATIONSHIP_DELETE
+    $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Form::Artist;
@@ -46,8 +47,6 @@ use MusicBrainz::Server::FilterUtils qw(
 use Sql;
 
 use List::AllUtils qw( any );
-
-my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
 =head1 NAME
 
@@ -630,14 +629,18 @@ sub split : Chained('load') Edit {
             my $editid = $edit->id;
             my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
-            for my $relationship (grep {
-                $_->link->type->gid == $COLLABORATION &&
+            # Delete any collaboration relationships that the artist being split
+            # was involved in.
+            for my $relationship (
+                grep {
+                    $_->link->type->gid == $ARTIST_ARTIST_COLLABORATION &&
                     exists $artists{$_->entity0_id} &&
-                        $_->entity1_id == $artist->id
-                    } $artist->all_relationships) {
+                    $_->entity1_id == $artist->id
+                } $artist->all_relationships
+            ) {
                 my $rem = $c->model('Edit')->create(
                     edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                    editor_id    => $EDITOR_MODBOT,
+                    editor_id    => $c->user->id,
                     type0        => 'artist',
                     type1        => 'artist',
                     relationship => $relationship
@@ -647,12 +650,11 @@ sub split : Chained('load') Edit {
                     $rem->id,
                     {
                         text => "This collaboration has been split in edit #$editid.",
-                        editor_id => $EDITOR_MODBOT
+                        editor_id => $c->user->id
                     }
                 );
             }
-        },
-        on_creation => sub {
+
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
@@ -662,7 +664,7 @@ sub split : Chained('load') Edit {
 sub can_split {
     my $artist = shift;
     return (grep {
-        $_->link->type->gid != $COLLABORATION
+        $_->link->type->gid != $ARTIST_ARTIST_COLLABORATION
     } $artist->all_relationships) == 0;
 }
 
