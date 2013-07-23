@@ -51,7 +51,12 @@ sub _column_mapping
 
 sub _entity_class
 {
-    return 'MusicBrainz::Server::Entity::Artwork';
+    my ($self, $row) = @_;
+    if (exists $row->{release_group}) {
+        return 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup';
+    } else {
+        return 'MusicBrainz::Server::Entity::Artwork::Release';
+    }
 }
 
 sub find_by_release
@@ -188,12 +193,12 @@ sub load_for_release_groups
     while (my $row = $self->sql->next_row_hash_ref) {
 
         my $artwork = $self->_new_from_row ($row);
+
         $artwork->release (
             MusicBrainz::Server::Entity::Release->new (
                 id => $row->{release},
                 gid => $row->{release_gid},
                 release_group_id => $row->{release_group}));
-
         $artwork->release_group($id_to_rg{ $row->{release_group} }->[0]);
 
         $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);

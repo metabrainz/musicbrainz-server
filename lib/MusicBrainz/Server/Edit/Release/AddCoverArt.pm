@@ -10,7 +10,7 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork';
+use aliased 'MusicBrainz::Server::Entity::Artwork::Release' => 'Artwork';
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
