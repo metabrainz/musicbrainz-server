@@ -77,7 +77,7 @@ sub post_fields
 
     $policy->add ({'bucket' => $bucket});
     $policy->add ({'acl' => 'public-read'});
-    $policy->add ({'success_action_redirect' => $redirect }) if $redirect;
+    $policy->add ({'success_action_redirect' => $redirect}) if $redirect;
     $policy->add ('$key eq '.$filename);
     $policy->add ('$content-type starts-with '.$mime_type);
 
@@ -85,7 +85,7 @@ sub post_fields
         $policy->add("$field eq " . $extra_fields{$field});
     }
 
-    return {
+    my $ret = {
         AWSAccessKeyId => $access_key,
         policy => $policy->base64(),
         signature => $policy->signature_base64($secret_key),
@@ -95,6 +95,10 @@ sub post_fields
         success_action_redirect => $redirect,
         %extra_fields
     };
+
+    $ret->{success_action_redirect} = $redirect if $redirect;
+
+    return $ret;
 }
 
 sub insert_cover_art {
