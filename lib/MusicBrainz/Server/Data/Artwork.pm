@@ -194,6 +194,8 @@ sub load_for_release_groups
                 gid => $row->{release_gid},
                 release_group_id => $row->{release_group}));
 
+        $artwork->release_group($id_to_rg{ $row->{release_group} }->[0]);
+
         $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);
     };
 }
