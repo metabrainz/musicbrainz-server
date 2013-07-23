@@ -601,7 +601,7 @@ sub stop_watching : Chained('load') RequireAuth {
         $c->req->referer || $c->uri_for_action('/artist/show', [ $artist->gid ]));
 }
 
-sub split : Chained('load') Edit {
+sub split : Chained('load') RequireAuth Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
     $c->model('Relationship')->load($artist);
