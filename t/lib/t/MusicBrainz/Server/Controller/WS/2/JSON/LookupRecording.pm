@@ -274,6 +274,7 @@ test 'recording lookup with release relationships' => sub {
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
+                        relations => [],
                         quality => 'normal',
                         status => JSON::null,
                         'text-representation' => { language => JSON::null, script => JSON::null },
@@ -314,6 +315,7 @@ test 'recording lookup with work relationships' => sub {
                         language => JSON::null,
                         title => 'the Love Bug',
                         type => JSON::null,
+                        relations => []
                     }
                 }
             ],
