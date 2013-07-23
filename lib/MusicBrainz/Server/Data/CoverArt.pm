@@ -242,11 +242,12 @@ sub cache_cover_art
     };
     $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 
-    if ($cover_art) {
-        my $meta_update  = $cover_art->cache_data;
-        $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
-            if keys %$meta_update;
-    }
+     my $meta_update = $cover_art
+         ? $cover_art->cache_data
+         : { info_url => undef, amazon_asin => undef };
+
+     $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
+         if keys %$meta_update;
 
     return $cover_art;
 }
