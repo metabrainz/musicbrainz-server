@@ -59,9 +59,21 @@ has suffix => (
     isa => 'Str',
 );
 
+has release_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has release => (
+    is => 'rw',
+    isa => 'Release',
+);
+
 sub _urlprefix
 {
-    die "unimplemented";
+    my $self = shift;
+
+    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
 }
 
 sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }

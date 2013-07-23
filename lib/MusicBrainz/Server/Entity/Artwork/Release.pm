@@ -5,23 +5,6 @@ use DBDefs;
 
 extends 'MusicBrainz::Server::Entity::Artwork';
 
-has release_id => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has release => (
-    is => 'rw',
-    isa => 'Release',
-);
-
-sub _urlprefix
-{
-    my $self = shift;
-
-    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -6,16 +6,6 @@ use MusicBrainz::Server::Entity::CoverArtType;
 
 extends 'MusicBrainz::Server::Entity::Artwork';
 
-has release_id => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has release => (
-    is => 'rw',
-    isa => 'Release',
-);
-
 has release_group_id => (
     is => 'rw',
     isa => 'Int',
@@ -29,10 +19,8 @@ has release_group => (
 sub _urlprefix
 {
     my $self = shift;
-    my $entity = defined $self->release_group ? 'release-group' : 'release';
-    my $gid = defined $self->release_group ? $self->release_group->gid : $self->release->gid;
-    my $id = defined $self->release_group ? 'front' : $self->id;
 
+    # Release Groups only support front cover art.
     return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release-group', $self->release_group->gid, 'front')
 }
 
