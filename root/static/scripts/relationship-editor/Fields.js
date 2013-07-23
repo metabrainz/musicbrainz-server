@@ -30,9 +30,10 @@ var validationHandlers = {
             field.error(MB.text.PleaseSelectARType);
         } else if (!typeInfo.descr) {
             field.error(MB.text.PleaseSelectARSubtype);
-        }
-        else if (typeInfo.deprecated) {
+        } else if (typeInfo.deprecated) {
             field.error(MB.text.RelationshipTypeDeprecated);
+        } else {
+            field.error("");
         }
     },
 
