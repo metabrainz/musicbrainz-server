@@ -1087,6 +1087,17 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION end_area_implies_ended()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.end_area IS NOT NULL
+    THEN
+        NEW.ended = TRUE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION delete_orphaned_recordings()
 RETURNS TRIGGER
 AS $$
