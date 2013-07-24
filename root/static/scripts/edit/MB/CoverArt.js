@@ -70,7 +70,7 @@ MB.CoverArt.image_position = function () {
             $pos.val (parseInt ($pos.val (), 10) - 1);
         }
 
-        $editimage.find('button.left').focus();
+        $(this).focus();
         event.preventDefault ();
         return false;
     });
@@ -83,7 +83,7 @@ MB.CoverArt.image_position = function () {
             $pos.val (parseInt ($pos.val (), 10) + 1);
         }
 
-        $editimage.find('button.right').focus();
+        $(this).focus();
         event.preventDefault ();
         return false;
     });
@@ -105,7 +105,7 @@ MB.CoverArt.reorder_position = function () {
             swap_values ($prev.find ('input.position'), $editimage.find ('input.position'));
         }
 
-        $editimage.find('button.left').focus();
+        $(this).focus();
         event.preventDefault ();
         return false;
     });
@@ -119,7 +119,7 @@ MB.CoverArt.reorder_position = function () {
             swap_values ($next.find ('input.position'), $editimage.find ('input.position'));
         }
 
-        $editimage.find('button.right').focus();
+        $(this).focus();
         event.preventDefault ();
         return false;
     });
