@@ -14,7 +14,7 @@
 	var base    = 10,
 	    right   = /\.(.*)/,
 	    bit     = /b$/,
-	    byte    = /^B$/,
+	    byte_    = /^B$/,
 	    zero    = /^0$/,
 	    options = {
 	    	all : {
@@ -39,16 +39,16 @@
 		var result = "",
 		    bits   = true,
 		    skip   = false,
-		    i, neg, num, pos, short, size, sizes, suffix, z;
+		    i, neg, num, pos, short_, size, sizes, suffix, z;
 
 		// Determining arguments
 		if (arguments[3] !== undefined) {
 			pos   = arguments[1];
-			short = arguments[2];
+			short_ = arguments[2];
 			bits  = arguments[3];
 		}
 		else {
-			typeof arguments[1] === "boolean" ? short = arguments[1] : pos = arguments[1];
+			typeof arguments[1] === "boolean" ? short_ = arguments[1] : pos = arguments[1];
 
 			if ( typeof arguments[2] === "boolean" ) {
 				bits = arguments[2];
@@ -59,9 +59,9 @@
 			throw Error("Invalid arguments");
 		}
 
-		short = ( short === true );
+		short_ = ( short_ === true );
 		bits  = ( bits === true );
-		pos   = short ? 1 : ( pos === undefined ? 2 : parseInt( pos, base ) );
+		pos   = short_ ? 1 : ( pos === undefined ? 2 : parseInt( pos, base ) );
 		num   = Number( arg );
 		neg   = ( num < 0 );
 
@@ -90,14 +90,14 @@
 
 				if ( num >= size ) {
 					// Treating bytes as cardinal
-					if ( byte.test( suffix ) ) {
+					if ( byte_.test( suffix ) ) {
 						skip = true;
 						pos  = 0;
 					}
 
 					result = ( num / size ).toFixed( pos );
 
-					if ( !skip && short ) {
+					if ( !skip && short_ ) {
 						if ( bits && bit.test( suffix ) ) {
 							suffix = suffix.toLowerCase();
 						}
