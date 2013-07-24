@@ -43,7 +43,7 @@
                      data-bind="style: { width: progress() + '%' }">&nbsp;
                 </div>
               </div>
-              <span data-bind="visible: status() == 'validating'"   class="msg">[%- l('Validating file...') -%]</span>
+              <span data-bind="visible: status() == 'validating'" class="msg">[%- l('Validating file...') -%]</span>
               <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
               <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
               <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
@@ -58,10 +58,10 @@
             </div>
 
             <div class="file-info row">
-              <input type="button" class="icon file-down" title="[% l('Move file down') %]"
-                     style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-down.png") %]); width: 16px; height: 16px; border: 0;" />
-              <input type="button" class="icon file-up" title="[% l('Move file up') %]"
-                     style="float: left; background-image: url([% c.uri_for("/static/images/icons/track-up.png") %]); width: 16px; height: 16px; border: 0;" />
+              <input type="button" class="icon file-down track-down"
+                     title="[% l('Move file down') %]" style="float: left;" />
+              <input type="button" class="icon file-up track-up"
+                     title="[% l('Move file up') %]" style="float: left;" />
 
               <label>[%- l("File:") -%]</label>
               <span data-bind="text: name"></span>
