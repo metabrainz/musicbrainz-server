@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::ReleaseEditor' }
 
 use aliased 'MusicBrainz::Server::Wizard::ReleaseEditor::Edit' => 'Wizard';
 
-sub edit : Chained('/release/load') Edit RequireAuth
+sub edit : Chained('/release/load') Edit
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};

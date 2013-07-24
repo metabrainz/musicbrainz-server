@@ -20,8 +20,8 @@ role {
 
     $extra{consumer}->name->config(
         action => {
-            merge => { Local => undef, RequireAuth => undef, Edit => undef },
-            merge_queue => { Local => undef, RequireAuth => undef, Edit => undef }
+            merge => { Local => undef, Edit => undef },
+            merge_queue => { Local => undef, Edit => undef }
         }
     );
 

@@ -222,7 +222,7 @@ around '_merge_search' => sub {
     return $results;
 };
 
-sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth Edit
+sub delete_puid : Chained('load') PathPart('remove-puid') Edit
 {
     my ($self, $c) = @_;
     my $puid_str = $c->req->query_params->{puid};

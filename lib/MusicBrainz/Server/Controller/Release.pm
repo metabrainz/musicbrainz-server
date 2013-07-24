@@ -283,7 +283,7 @@ sub rating : Chained('load') Args(2)
     $c->response->redirect($c->entity_url($self->entity, 'show'));
 }
 
-sub change_quality : Chained('load') PathPart('change-quality') RequireAuth
+sub change_quality : Chained('load') PathPart('change-quality') Edit
 {
     my ($self, $c) = @_;
     my $release = $c->stash->{release};
@@ -338,7 +338,7 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded')
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireAuth Edit
+sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit
 {
     my ($self, $c) = @_;
 
@@ -350,7 +350,7 @@ sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') RequireA
     $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
 }
 
-sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth Edit
+sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
@@ -411,7 +411,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') RequireAuth Edit
     }
 }
 
-sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') RequireAuth Edit
+sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
 {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
@@ -602,7 +602,7 @@ with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type      => $EDIT_RELEASE_DELETE,
 };
 
-sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit RequireAuth
+sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
 {
     my ($self, $c, $id) = @_;
 
@@ -649,7 +649,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit Req
     }
 }
 
-sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit RequireAuth {
+sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit {
     my ($self, $c, $id) = @_;
 
     my $release = $c->stash->{entity};
@@ -683,7 +683,7 @@ sub cover_art : Chained('load') PathPart('cover-art') {
     $c->stash(cover_art => $artwork);
 }
 
-sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit RequireAuth {
+sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
