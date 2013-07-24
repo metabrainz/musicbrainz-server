@@ -8,6 +8,7 @@ Disallow: /cdtoc/
 Disallow: /edit/
 Disallow: /freedb/
 Disallow: /isrc/
+Disallow: /login
 Disallow: /otherlookup
 Disallow: /partners/
 Disallow: /puid/
@@ -17,8 +18,8 @@ Disallow: /report/
 Disallow: /reports
 Disallow: /search
 Disallow: /tag/
-Disallow: /tags
 Disallow: /taglookup
+Disallow: /tags
 Disallow: /test/
 Disallow: /tracklist/
 Disallow: /unit_tests/
