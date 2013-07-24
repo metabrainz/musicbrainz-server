@@ -271,7 +271,8 @@ sub begin : Private
         }
     }
 
-    if (exists $c->action->attributes->{Edit} && $c->user_exists && !$c->user->has_confirmed_email_address)
+    if (exists $c->action->attributes->{Edit} && $c->user_exists &&
+        !$c->user->has_confirmed_email_address)
     {
         $c->forward('/error_401');
     }

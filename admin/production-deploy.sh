@@ -11,6 +11,7 @@ export PERL_CARTON_PATH=$mb_server/local
 #md5sum carton.lock > .carton.lock.md5
 
 echo `date` : "Rebuilding resources"
+npm install
 carton exec -- script/compile_resources.pl
 
 echo `date` : "Building and installing translations"

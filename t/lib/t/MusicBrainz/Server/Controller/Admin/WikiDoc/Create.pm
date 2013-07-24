@@ -11,7 +11,7 @@ test 'Create a new transcluded page' => sub {
     my $c = $test->c;
     my $mech = $test->mech;
 
-    $c->sql->do('INSERT INTO editor (id, name, password, privs, ha1) VALUES (?, ?, ?, ?, ?)',
+    $c->sql->do('INSERT INTO editor (id, name, password, privs, ha1, email, email_confirm_date) VALUES (?, ?, ?, ?, ?, $$foo@example.com$$, now())',
                 1, 'new_editor', '{CLEARTEXT}password', 255, md5_hex('new_editor:musicbrainz.org:password'));
 
     $c->model('WikiDocIndex')->set_page_version('Transclusion_Testing', undef);

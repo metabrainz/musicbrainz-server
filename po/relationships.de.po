@@ -2,12 +2,13 @@
 # Translators:
 # nikki2 <email address hidden>, 2012
 # nikki <email address hidden>, 2013
+# Shepard <email address hidden>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-12 21:11+0000\n"
+"Last-Translator: Shepard <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,11 +161,11 @@ msgstr ""
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
-msgstr ""
+msgstr "Gibt an, dass ein Werk die Nationalhymne für ein Gebiet ist oder war"
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Gibt an, dass ein Gebiet in einem anderen enthalten ist."
 
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:217
@@ -1829,24 +1830,24 @@ msgstr "VGMdb-Seite für"
 #: DB:link_type/link_phrase:310 DB:link_type/link_phrase:311
 #: DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
-msgstr ""
+msgstr "VIAF-ID"
 
 #: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:310
 #: DB:link_type/reverse_link_phrase:311
 msgid "VIAF ID for"
-msgstr ""
+msgstr "VIAF-ID für"
 
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:353
 #: DB:link_type/link_phrase:358 DB:link_type/link_phrase:354
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:352
 #: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:358
 #: DB:link_type/reverse_link_phrase:354
 msgid "Wikidata page for"
-msgstr ""
+msgstr "Wikidata-Seite für"
 
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
@@ -1882,11 +1883,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:357
 msgid "anthem"
-msgstr ""
+msgstr "Nationalhymne"
 
 #: DB:link_type/reverse_link_phrase:357
 msgid "anthem of"
-msgstr ""
+msgstr "Nationalhymne von"
 
 #: DB:link_type/reverse_link_phrase:350
 msgid "arrangement of"
@@ -2294,7 +2295,7 @@ msgstr "has Amazon-ASIN"
 
 #: DB:link_type/long_link_phrase:310 DB:link_type/long_link_phrase:311
 msgid "has VIAF ID at"
-msgstr ""
+msgstr "hat VIAF-ID unter"
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
@@ -2333,7 +2334,7 @@ msgstr "hat eine VGMdb-Seite unter"
 #: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:353
 #: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:354
 msgid "has a Wikidata page at"
-msgstr ""
+msgstr "hat Wikidata-Seite unter"
 
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:89
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
@@ -2428,7 +2429,7 @@ msgstr "hat eine Online-Community-Seite unter"
 
 #: DB:link_type/long_link_phrase:357
 msgid "has anthem"
-msgstr ""
+msgstr "hat Nationalhymne"
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
@@ -2532,7 +2533,7 @@ msgstr "ist eine Songfacts-Seite für"
 
 #: DB:link_type/long_link_phrase:351
 msgid "is a Wikidata page for"
-msgstr ""
+msgstr "ist eine Wikidata-Seite für"
 
 #: DB:link_type/long_link_phrase:279
 msgid "is a Wikipedia page for"
@@ -2589,7 +2590,7 @@ msgstr "steht unter der Creative Commons {license}-Lizenz zum Download bereit un
 
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
-msgstr ""
+msgstr "basiert auf"
 
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
@@ -2597,11 +2598,11 @@ msgstr "ist lizensiert unter"
 
 #: DB:link_type/long_link_phrase:312
 msgid "is the VIAF ID for"
-msgstr ""
+msgstr "ist die VIAF-ID für"
 
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
-msgstr ""
+msgstr "ist die Grundlage für"
 
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
@@ -2621,7 +2622,7 @@ msgstr "ist Elternteil von"
 
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
-msgstr ""
+msgstr "ist die Verwertungsgesellschaft für"
 
 #: DB:link_type/link_phrase:11 DB:link_type/long_link_phrase:11
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
@@ -3152,11 +3153,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:349
 msgid "rights society"
-msgstr ""
+msgstr "Verwertungsgesellschaft"
 
 #: DB:link_type/link_phrase:349
 msgid "rights society associated with"
-msgstr ""
+msgstr "Verwertungsgesellschaft verbunden mit"
 
 #: DB:link_type/link_phrase:83 DB:link_type/link_phrase:258
 msgid "samples IMDb entry"

@@ -33,8 +33,8 @@ url:         http://www.json.org/json2.js
 -- qunit/ --
 
 library:     QUnit
-license:     MIT/GPLv2
-version:     (commit e34ffb61488459f6823ded82e19865ba4b46e2ed)
+license:     MIT
+version:     v1.12.0
 authors:     Jörn Zaefferer, John Resig
 url:         http://qunitjs.com, http://github.com/jquery/qunit
 
@@ -131,3 +131,11 @@ license:     MIT
 version:     1.3.1
 author:      Klaus Hartl
 url:         https://github.com/carhartl/jquery-cookie
+
+-- less/* --
+
+library:     less
+license:     Apache 2.0
+version:     1.3.3
+author:      Alexis Sellier & The Core LESS Team
+url:         https://github.com/cloudhead/less.js

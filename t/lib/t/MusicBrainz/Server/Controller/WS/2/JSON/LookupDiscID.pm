@@ -32,12 +32,14 @@ test 'direct disc id lookup' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            position => 2,
                             'track-count' => 9,
                             discs => [
                                 {
@@ -94,12 +96,14 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            position => 2,
                             'track-count' => 9,
                             discs => [],
                         },
@@ -132,12 +136,14 @@ test 'lookup via toc' => sub {
                         {
                             title => "A Sea of Honey",
                             format => "Format",
+                            position => 1,
                             'track-count' => 7,
                             discs => [],
                         },
                         {
                             title => "A Sky of Honey",
                             format => "Format",
+                            position => 2,
                             'track-count' => 9,
                             discs => [
                                 {

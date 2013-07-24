@@ -38,23 +38,34 @@
                           edit.display_data.script.old.l_name,
                           edit.display_data.script.new.l_name) -%]
 
-  [%- IF edit.display_data.events.old.size <= 1 AND
-         edit.display_data.events.new.size <= 1 -%]
-      [%- display_diff(l('Date:'),
-                         html_escape(edit.display_data.events.old.0.date.format),
-                         html_escape(edit.display_data.events.new.0.date.format),
-                         '-') -%]
 
-      [%- display_diff(l('Country:'),
-                         html_escape(edit.display_data.events.old.0.country.l_name),
-                         html_escape(edit.display_data.events.new.0.country.l_name),
-                         '-') -%]
-  [%- ELSE -%]
-  <tr>
-    <th>[% l('Release events:') %]</th>
-    <td class="old">[% release_events(edit.display_data.events.old) %]</td>
-    <td class="new">[% release_events(edit.display_data.events.new) %]</td>
-  </tr>
+  [%- IF edit.display_data.events -%]
+    [%- MACRO diff_side(side) BLOCK;
+        '<td class="' _ side _ '">';
+          '<ul>';
+          FOR common_event=edit.display_data.events.unchanged_countries;
+            event =
+              edit.display_data.events.unchanged_countries.${common_event.key};
+            '<li>';
+            doRDFa = 0;
+            Diff.diff_side(release_event(event.old),
+                           release_event(event.new),
+                           side == 'old' ? '-' : '+',
+                           '');
+            '</li>';
+          END;
+          FOR event=edit.display_data.events.changed_countries.${side};
+            '<li>' _ release_event(event) _ '</li>';
+          END;
+          '</ul>';
+        '</td>';
+    END -%]
+
+    <tr>
+      <th>[% l('Release events:') %]</th>
+      [%- diff_side('old') -%]
+      [%- diff_side('new') -%]
+    </tr>
   [%- END -%]
 
   [%- display_full_change(l('Packaging:'),

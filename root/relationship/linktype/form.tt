@@ -1,4 +1,4 @@
-<form action="[% c.req.uri %]" method="post">
+<form action="[% c.req.uri %]" method="post" class="edit-relationship">
     [%- USE r = FormRenderer(form) -%]
 
     [% form_row_select(r, 'parent_id', l('Parent:')) %]
@@ -94,6 +94,11 @@
                 [% l('Find Relationships') %]</button>
         [% END %]
 
+        <div class="row" data-bind="visible: currentExample.possibleRelationships.error">
+            <label>&#xa0;</label>
+            <span class="error" data-bind="text: currentExample.possibleRelationships.error"></span>
+        </div>
+
         <span data-bind="if: currentExample.possibleRelationships.results().length">
         [% WRAPPER form_row %]
             <div class="no-label">
@@ -164,3 +169,10 @@ function examplePrefix(i, s) {
         [% form_submit(l('Save')) %]
     </div>
 </form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction (
+        'form.edit-relationship',
+        'form.edit-relationship button[type="submit"]'
+    );
+</script>

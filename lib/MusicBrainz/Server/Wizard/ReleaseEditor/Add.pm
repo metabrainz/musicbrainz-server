@@ -248,8 +248,8 @@ after 'prepare_tracklist' => sub {
     # release, a lookup for that artist may have been required on the
     # information tab.  In that case the artist id/gid should be applied
     # to all track artists with the same name.
-    my $release_artist = MusicBrainz::Server::Entity::ArtistCredit->from_array (
-        $self->value->{artist_credit}->{names});
+    my $release_artist = MusicBrainz::Server::Entity::ArtistCredit->from_array(
+        clean_submitted_artist_credits($self->value->{artist_credit})->{names});
 
     for my $medium (@tracklist_edits)
     {

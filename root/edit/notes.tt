@@ -44,7 +44,7 @@ note-[%- edit.id -%]-[%- loop.count() -%]
     [% IF !server_details.read_only %]
       [% IF edit.editor_may_add_note(c.user)  %]
           <div class="add-edit-note edit-note"
-              [%- 'style="display: none"' IF hide -%]>
+              [% 'style="display: none"' IF hide -%]>
               <h3 class="owner">[% link_entity(c.user) %]</h3>
               <div class="edit-note-text">
                   <textarea class="edit-note" rows="5" placeholder="[% l('Add an edit note') %]"

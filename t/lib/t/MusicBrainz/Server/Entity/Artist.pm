@@ -31,7 +31,7 @@ is( $artist->edits_pending, 2 );
 
 ok( !$artist->has_age );
 
-wrap 'DateTime::now', post => sub {
+my $constant_now = wrap 'DateTime::now', post => sub {
     return DateTime->new(
         year => '2011',
         month => 8,

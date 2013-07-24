@@ -17,8 +17,8 @@ my $c = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+labeltype');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834');
-INSERT INTO editor (id, name, password, ha1) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834', '', now());
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (4, 'modbot', '{CLEARTEXT}pass', 'a359885742ca76a15d93724f1a205cc7', '', now());
 EOSQL
 
 my $edit = create_edit($c);

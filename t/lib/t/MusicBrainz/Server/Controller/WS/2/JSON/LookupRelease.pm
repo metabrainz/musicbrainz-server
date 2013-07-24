@@ -303,6 +303,7 @@ test 'release lookup with labels and recordings' => sub {
                 {
                     format => JSON::null,
                     title => JSON::null,
+                    position => 1,
                     "track-offset" => 0,
                     "track-count" => 3,
                     tracks => [
@@ -458,6 +459,7 @@ test 'release lookup with discids and puids' => sub {
                 {
                     format => "CD",
                     title => JSON::null,
+                    position => 1,
                     discs => [ { id => "W01Qvrvwkaz2Cm.IQm55_RHoRxs-", sectors => 60295 } ],
                     "track-count" => 3,
                     "track-offset" => 0,
@@ -690,6 +692,356 @@ test 'release lookup, relation attributes' => sub {
                 script => "Latn",
             },
         });
+};
+
+test 'release lookup, track artists have no tags' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'release lookup, track artists have no tags',
+    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels'
+    => encode_json ({
+        'artist-credit' => [ {
+            artist => {
+                disambiguation => '',
+                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                name => 'Plone',
+                relations => [],
+                'sort-name' => 'Plone'
+            },
+            joinphrase => '',
+            name => 'Plone'
+        } ],
+        asin => 'B00001IVAI',
+        barcode => '5021603064126',
+        country => 'GB',
+        'cover-art-archive' => {
+            artwork => JSON::false,
+            back => JSON::false,
+            count => 0,
+            darkened => JSON::false,
+            front => JSON::false
+        },
+        date => '1999-09-13',
+        disambiguation => '',
+        id => '4f5a6b97-a09b-4893-80d1-eae1f3bfa221',
+        media => [ {
+            format => undef,
+            title => undef,
+            'track-count' => 10,
+            'track-offset' => 0,
+            position => 1,
+            tracks => [
+                {
+                    id => '9b9a84b5-0a41-38f6-859f-36cb22ac813c',
+                    length => 267560,
+                    number => '1',
+                    recording => {
+                            disambiguation => '',
+                            id => '44704dda-b877-4551-a2a8-c1f764476e65',
+                            length => 267560,
+                            relations => [
+                                {
+                                    artist => {
+                                        disambiguation => '',
+                                        id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                        name => 'Plone',
+                                        'sort-name' => 'Plone'
+                                    },
+                                    attributes => [],
+                                    begin => undef,
+                                    direction => 'backward',
+                                    end => undef,
+                                    ended => JSON::false,
+                                type => 'producer',
+                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                            }
+                        ],
+                        title => 'On My Bus'
+                    },
+                    title => 'On My Bus'
+                },
+                {
+                    id => 'f38b8e31-a10d-3973-8c1f-10923ee61adc',
+                    length => 230506,
+                    number => '2',
+                    recording => {
+                        disambiguation => '',
+                        id => '8920288e-7541-48a7-b23b-f80447c8b1ab',
+                        length => 230506,
+                        relations => [ {
+                                artist => {
+                                    disambiguation => '',
+                                    id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                    name => 'Plone',
+                                    'sort-name' => 'Plone'
+                                },
+                                attributes => [],
+                                begin => undef,
+                                direction => 'backward',
+                                end => undef,
+                                ended => JSON::false,
+                                type => 'producer',
+                                'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Top & Low Rent'
+                    },
+                    title => 'Top & Low Rent'
+                },
+                {
+                    id => 'd17bed32-940a-3fcc-9210-a5d7c516b4bb',
+                    length => 237133,
+                    number => '3',
+                    recording => {
+                        disambiguation => '',
+                        id => '6e89c516-b0b6-4735-a758-38e31855dcb6',
+                        length => 237133,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Plock'
+                    },
+                    title => 'Plock'
+                },
+                {
+                    id => '001bc675-ba25-32bc-9914-d5d9e22c3c44',
+                    length => 229826,
+                    number => '4',
+                    recording => {
+                        disambiguation => '',
+                        id => '791d9b27-ae1a-4295-8943-ded4284f2122',
+                        length => 229826,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Marbles'
+                    },
+                    title => 'Marbles'
+                },
+                {
+                    id => 'c009176f-ff26-3f5f-bd16-46cede30ebe6',
+                    length => 217440,
+                    number => '5',
+                    recording => {
+                        disambiguation => '',
+                        id => '4f392ffb-d3df-4f8a-ba74-fdecbb1be877',
+                        length => 217440,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Busy Working'
+                    },
+                    title => 'Busy Working'
+                },
+                {
+                    id => '70454e43-b39b-3ca7-8c50-ae235b5ef358',
+                    length => 227293,
+                    number => '6',
+                    recording => {
+                        disambiguation => '',
+                        id => 'dc891eca-bf42-4103-8682-86068fe732a5',
+                        length => 227293,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'The Greek Alphabet'
+                    },
+                    title => 'The Greek Alphabet'
+                },
+                {
+                    id => '1b5da50c-e20f-3762-839c-5a0eea89d6a5',
+                    length => 244506,
+                    number => '7',
+                    recording => {
+                        disambiguation => '',
+                        id => '25e9ae0f-8b7d-4230-9cde-9a07f7680e4a',
+                        length => 244506,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Press a Key'
+                    },
+                    title => 'Press a Key'
+                },
+                {
+                    id => 'f1b5bd23-ad01-3c0c-a49a-cf8e99088369',
+                    length => 173960,
+                    number => '8',
+                    recording => {
+                        disambiguation => '',
+                        id => '6f9c8c32-3aae-4dad-b023-56389361cf6b',
+                        length => 173960,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Bibi Plone'
+                    },
+                    title => 'Bibi Plone'
+                },
+                {
+                    id => '928f2274-5694-35f9-92da-a1fc565867cf',
+                    length => 208706,
+                    number => '9',
+                    recording => {
+                        disambiguation => '',
+                        id => '7e379a1d-f2bc-47b8-964e-00723df34c8a',
+                        length => 208706,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Be Rude to Your School'
+                    },
+                    title => 'Be Rude to Your School'
+                },
+                {
+                    id => '40727388-237d-34b2-8a3a-288878e5c883',
+                    length => 320067,
+                    number => '10',
+                    recording => {
+                        disambiguation => '',
+                        id => 'a8614bda-42dc-43c7-ac5f-4067acb6f1c5',
+                        length => 320067,
+                        relations => [ {
+                            artist => {
+                                disambiguation => '',
+                                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                                name => 'Plone',
+                                'sort-name' => 'Plone'
+                            },
+                            attributes => [],
+                            begin => undef,
+                            direction => 'backward',
+                            end => undef,
+                            ended => JSON::false,
+                            type => 'producer',
+                            'type-id' => '5c0ceac3-feb4-41f0-868d-dc06f6e27fc0'
+                        } ],
+                        title => 'Summer Plays Out'
+                    },
+                    title => 'Summer Plays Out'
+                }
+            ]
+        } ],
+        packaging => undef,
+        quality => 'normal',
+        relations => [ {
+            artist => {
+                disambiguation => '',
+                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                name => 'Plone',
+                'sort-name' => 'Plone'
+            },
+            attributes => [],
+            begin => undef,
+            direction => 'backward',
+            end => undef,
+            ended => JSON::false,
+            type => 'design/illustration',
+            'type-id' => '307e95dd-88b5-419b-8223-b146d4a0d439'
+        } ],
+        'release-events' => [ {
+            area => {
+                id => '8a754a16-0027-3a29-b6d7-2b40ea0481ed',
+                iso_3166_1_codes => [ 'GB' ],
+                iso_3166_2_codes => [],
+                iso_3166_3_codes => [],
+                name => 'United Kingdom',
+                'sort-name' => 'United Kingdom'
+            },
+            date => '1999-09-13'
+        } ],
+        status => 'Official',
+        tags => [],
+        'text-representation' => {
+            language => 'eng',
+            script => 'Latn'
+        },
+        title => 'For Beginner Piano'
+    });
 };
 
 1;
