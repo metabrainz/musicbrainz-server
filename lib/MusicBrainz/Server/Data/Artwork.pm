@@ -55,7 +55,7 @@ sub _entity_class
     if (exists $row->{release_group}) {
         return 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup';
     } else {
-        return 'MusicBrainz::Server::Entity::Artwork::Release';
+        return 'MusicBrainz::Server::Entity::Artwork';
     }
 }
 

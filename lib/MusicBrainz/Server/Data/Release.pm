@@ -25,7 +25,7 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list_limited
 );
 use MusicBrainz::Server::Log qw( log_debug );
-use aliased 'MusicBrainz::Server::Entity::Artwork::Release' => 'Artwork';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };

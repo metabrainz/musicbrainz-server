@@ -13,7 +13,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use List::UtilsBy 'nsort_by';
 
 use aliased 'MusicBrainz::Server::Entity::Release';
-use aliased 'MusicBrainz::Server::Entity::Artwork::Release' => 'Artwork';
+use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Release';
