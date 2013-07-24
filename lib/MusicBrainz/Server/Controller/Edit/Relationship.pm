@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use MusicBrainz::Server::Translation qw( l ln );
 use JSON;
+use Hash::Merge qw( merge );
 
 with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
@@ -256,7 +257,8 @@ sub create : Local RequireAuth Edit
         root => $tree
     );
     if (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = merge( $c->req->query_params, $form->fif );
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 
@@ -354,7 +356,8 @@ sub create_url : Local RequireAuth Edit
         attr_tree => $attr_tree
     );
     if (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = merge( $c->req->query_params, $form->fif );
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 

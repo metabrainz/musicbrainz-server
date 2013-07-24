@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw( $AUTO_EDITOR_FLAG );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation;
 use Try::Tiny;
+use Hash::Merge qw( merge );
 
 __PACKAGE__->config(
     form_namespace => 'MusicBrainz::Server::Form',
@@ -166,7 +167,8 @@ sub edit_action
         return $edit;
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = merge( $c->req->query_params, $form->fif );
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 }
