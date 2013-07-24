@@ -309,7 +309,7 @@ MB.CoverArt.FileUpload = function(file) {
 
     self.name = file.name;
     self.size = filesize (file.size);
-    self.comment = ko.observable ();
+    self.comment = ko.observable ("");
     self.types = MB.CoverArt.cover_art_types ();
     self.data = file;
 
