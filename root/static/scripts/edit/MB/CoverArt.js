@@ -20,8 +20,6 @@
 
 MB.CoverArt = {};
 
-MB.CoverArt.lastCheck;
-
 MB.CoverArt.get_image_mime_type = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
     var mime_type = null;
