@@ -165,7 +165,7 @@ MB.CoverArt.upload_status_enum = {
     'upload_error':   'upload_error',
     'submitting':     'submitting',
     'submit_error':   'submit_error',
-    'done':           'done',
+    'done':           'done'
 };
 
 MB.CoverArt.validate_file = function (file) {
