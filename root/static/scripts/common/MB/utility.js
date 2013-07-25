@@ -334,3 +334,8 @@ MB.utility.joinList = function (items) {
     return "";
 };
 
+
+MB.utility.filesize = function (size) {
+    return filesize (size, 1, false);
+};
+
