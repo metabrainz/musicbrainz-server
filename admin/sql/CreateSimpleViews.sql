@@ -47,10 +47,20 @@ CREATE OR REPLACE VIEW s_recording AS
 CREATE OR REPLACE VIEW s_release AS
     SELECT
         r.id, gid, n.name, artist_credit, release_group, status, packaging,
-        country, language, script, date_year, date_month, date_day,
-        barcode, comment, edits_pending, quality, last_updated
+        language, script, barcode, comment, edits_pending, quality, last_updated
     FROM release r
     JOIN release_name n ON r.name=n.id;
+
+CREATE OR REPLACE VIEW s_release_event AS
+    SELECT
+        release, date_year, date_month, date_day, country
+    FROM (
+        SELECT release, date_year, date_month, date_day, country
+        FROM release_country
+        UNION ALL
+        SELECT release, date_year, date_month, date_day, NULL
+        FROM release_unknown_country
+    );
 
 CREATE OR REPLACE VIEW s_release_group AS
     SELECT
