@@ -176,6 +176,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     media => [
                         {
                             format => "CD",
+                            position => 1,
                             title => JSON::null,
                             "track-count" => 3,
                             "track-offset" => 0,

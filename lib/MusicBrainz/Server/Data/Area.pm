@@ -265,6 +265,38 @@ sub _merge_impl
     $self->c->model('Relationship')->merge_entities('area', $new_id, @old_ids);
     $self->merge_codes($new_id, @old_ids);
 
+    # If any of the areas being merged is a country, then the new area is a
+    # country
+    $self->sql->do(
+        'INSERT INTO country_area (area)
+         SELECT DISTINCT ?::int
+         FROM country_area
+         WHERE area = any(?) AND NOT EXISTS (
+           SELECT TRUE from country_area WHERE area = ?
+         )',
+         $new_id, \@old_ids, $new_id
+    );
+
+    for my $update (
+        [ artist => "area" ],
+        [ artist => "begin_area" ],
+        [ artist => "end_area" ],
+        [ label => "area" ],
+        [ release_country => "country" ]
+    ) {
+        my ($table, $column) = @$update;
+        $self->sql->do(
+            "UPDATE $table SET $column = ? WHERE $column = any(?)",
+            $new_id, \@old_ids
+        );
+    }
+
+    my $all_ids = [ $new_id, @old_ids ];
+    $self->sql->do(
+        'DELETE FROM country_area WHERE area = any(?)',
+        \@old_ids
+    );
+
     merge_table_attributes(
         $self->sql => (
             table => 'area',

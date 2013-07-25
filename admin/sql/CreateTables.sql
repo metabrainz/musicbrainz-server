@@ -110,7 +110,7 @@ CREATE TABLE artist (
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     ended               BOOLEAN NOT NULL DEFAULT FALSE
-      CHECK (
+      CONSTRAINT artist_ended_check CHECK (
         (
           -- If any end date fields are not null, then ended must be true
           (end_date_year IS NOT NULL OR
@@ -993,7 +993,7 @@ CREATE TABLE label (
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     ended               BOOLEAN NOT NULL DEFAULT FALSE
-      CHECK (
+      CONSTRAINT label_ended_check CHECK (
         (
           -- If any end date fields are not null, then ended must be true
           (end_date_year IS NOT NULL OR
@@ -1147,7 +1147,7 @@ CREATE TABLE link
     attribute_count     INTEGER NOT NULL DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     ended               BOOLEAN NOT NULL DEFAULT FALSE
-      CHECK (
+      CONSTRAINT link_ended_check CHECK (
         (
           -- If any end date fields are not null, then ended must be true
           (end_date_year IS NOT NULL OR

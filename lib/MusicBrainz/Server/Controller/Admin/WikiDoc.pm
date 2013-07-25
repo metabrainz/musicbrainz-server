@@ -44,7 +44,7 @@ sub index : Path Args(0)
     );
 }
 
-sub create : Local Args(0) RequireAuth(wiki_transcluder)
+sub create : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 
@@ -71,7 +71,7 @@ sub create : Local Args(0) RequireAuth(wiki_transcluder)
     }
 }
 
-sub edit : Local Args(0) RequireAuth(wiki_transcluder)
+sub edit : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 
@@ -102,7 +102,7 @@ sub edit : Local Args(0) RequireAuth(wiki_transcluder)
     $c->stash( page => $page, current_version => $current_version, new_version => $new_version );
 }
 
-sub delete : Local Args(0) RequireAuth(wiki_transcluder)
+sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
 {
     my ($self, $c) = @_;
 

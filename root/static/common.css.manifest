@@ -1,12 +1,1 @@
-styles/edit.css
-styles/entity.css
-styles/forms.css
-styles/layout.css
-styles/release-editor.css
-styles/relationship-editor.css
-styles/widgets.css
-styles/multiselect.css
-styles/extra/homepage.css
-styles/extra/user.css
-styles/extra/wikidocs.css
-lib/thickbox/thickbox.css
+common.css

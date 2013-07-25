@@ -57,7 +57,8 @@ sub create_edit {
         cover_art_id => '1234',
         cover_art_types => [ 1 ],
         cover_art_position => 1,
-        cover_art_comment => ''
+        cover_art_comment => '',
+        cover_art_mime_type => 'image/jpeg'
     );
 }
 

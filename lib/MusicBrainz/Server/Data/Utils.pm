@@ -69,6 +69,8 @@ Readonly my %TYPE_TO_MODEL => (
     'release_group' => 'ReleaseGroup',
     'url'           => 'URL',
     'work'          => 'Work',
+    'isrc'          => 'ISRC',
+    'iswc'          => 'ISWC'
 );
 
 sub copy_escape {

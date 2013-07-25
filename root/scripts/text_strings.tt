@@ -126,6 +126,7 @@
         SubmissionError: '[% l('We\'re very sorry, an error occurred during submission. The server may be under heavy load; please wait a moment and try again.') | js %]',
         VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
         EnumerationComma: '[% l(', ') | js %]',
-        EnumerationAnd: '[% l('{b} and {a}') | js %]'
+        EnumerationAnd: '[% l('{b} and {a}') | js %]',
+        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]'
     });
 })(MB);

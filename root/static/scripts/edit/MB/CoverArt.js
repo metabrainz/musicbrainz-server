@@ -23,14 +23,24 @@ MB.CoverArt = {};
 
 MB.CoverArt.lastCheck;
 
-MB.CoverArt.validate_cover_art_file = function () {
+MB.CoverArt.get_image_mime_type = function () {
     var filename = $('iframe').contents ().find ('#file').val ();
-    var invalid = (filename == ""
-                   || filename.match(/\.j(peg|pg|pe|fif|if)$/i) == null);
+    var mime_type = null;
 
-    $('iframe').contents ().find ('#cover-art-file-error').toggle (invalid);
+    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
+    {
+        mime_type = "image/jpeg";
+    }
+    else if (filename.match(/\.png$/i))
+    {
+        mime_type = "image/png";
+    }
+    else if (filename.match(/\.gif$/i))
+    {
+        mime_type = "image/gif";
+    }
 
-    return !invalid;
+    return mime_type;
 };
 
 MB.CoverArt.image_error = function ($img, image) {
@@ -116,18 +126,25 @@ MB.CoverArt.reorder_position = function () {
     $('div.editimage script').remove ();
 };
 
-MB.CoverArt.add_cover_art = function () {
+MB.CoverArt.add_cover_art = function (mbid) {
     $('#add-cover-art-submit').prop('disabled', false);
 
     $('button.submit').bind ('click.mb', function (event) {
         event.preventDefault ();
 
-        var valid = MB.CoverArt.validate_cover_art_file ();
+        var mime_type = MB.CoverArt.get_image_mime_type ();
+        $('#id-add-cover-art\\.mime_type').val(mime_type);
 
-        if (valid)
+        if (mime_type)
         {
-            $('iframe').contents ().find ('form').submit ();
+            $('iframe')[0].contentWindow.upload (
+                mbid, $('#id-add-cover-art\\.id').val (), mime_type);
         }
+        else
+        {
+            $('iframe').contents ().find ('#cover-art-file-error').show ();
+        }
+
 
         return false;
     });

@@ -68,6 +68,9 @@ OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentati
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql --schema='documentation' $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
+echo `date` : Set up pgtap extension
+OUTPUT=`echo "CREATE EXTENSION pgtap WITH SCHEMA public;" | ./admin/psql $DATABASE 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
 echo `date` : Complete with no errors
 
 # eof

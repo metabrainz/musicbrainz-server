@@ -104,6 +104,7 @@ DROP TRIGGER b_upd_work_alias ON work_alias;
 DROP TRIGGER unique_primary_for_locale ON work_alias;
 DROP TRIGGER search_hint ON work_alias;
 DROP TRIGGER b_upd_work_tag ON work_tag;
+DROP TRIGGER inserting_edits_requires_confirmed_email_address ON edit;
 DROP TRIGGER a_upd_edit ON edit;
 DROP TRIGGER a_ins_edit_artist ON edit_artist;
 DROP TRIGGER a_ins_edit_artist ON edit_label;

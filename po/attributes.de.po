@@ -8,17 +8,19 @@
 # Mineo <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
+# nikki <email address hidden>, 2013
 # phwolfer <email address hidden>, 2012
 # Shepard <email address hidden>, 2011
 # Shepard <email address hidden>, 2011
+# Shepard <email address hidden>, 2013
 # Tobias Quathamer <email address hidden>, 2007
 # Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-12 20:36+0000\n"
+"Last-Translator: Shepard <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +56,7 @@ msgstr "Album"
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "Gebietsname"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -144,7 +146,7 @@ msgstr "Kassette"
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr ""
+msgstr "Stadt"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -159,7 +161,7 @@ msgstr "Instrumentalkonzert"
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -224,7 +226,7 @@ msgstr "Weiblich"
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr ""
+msgstr "Amtlicher Name"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -344,7 +346,7 @@ msgstr "Oper"
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "Operette"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
@@ -424,7 +426,7 @@ msgstr "Promotion"
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "Prosa"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -459,7 +461,7 @@ msgstr "Remix"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "Verwertungsgesellschaft"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -510,7 +512,7 @@ msgstr "Soundtrack"
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "Soundtrack"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -530,7 +532,7 @@ msgstr "Aufkleber"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Verwaltungseinheit"
 
 #: DB:work_type/name:6
 msgctxt "work_type"

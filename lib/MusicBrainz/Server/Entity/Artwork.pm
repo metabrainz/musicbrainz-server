@@ -59,6 +59,16 @@ has edit_id => (
     isa => 'Int',
 );
 
+has mime_type => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+has suffix => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 sub _urlprefix
 {
     my $self = shift;
@@ -67,7 +77,7 @@ sub _urlprefix
         "/release/" . $self->release->gid . "/" . $self->id;
 }
 
-sub image           { return shift->_urlprefix . ".jpg"; }
+sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
 sub small_thumbnail { return shift->_urlprefix . "-250.jpg"; }
 sub large_thumbnail { return shift->_urlprefix . "-500.jpg"; }
 

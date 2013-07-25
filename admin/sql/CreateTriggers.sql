@@ -23,7 +23,7 @@ CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
 CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
-    FOR EACH ROW EXECUTE PROCEDURE deny_special_purpose_artist_deletion();
+    FOR EACH ROW WHEN (OLD.id IN (1, 2)) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
@@ -167,7 +167,7 @@ CREATE TRIGGER a_ins_label AFTER INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE a_ins_label();
 
 CREATE TRIGGER b_del_label_special BEFORE DELETE ON label
-    FOR EACH ROW EXECUTE PROCEDURE deny_special_purpose_label_deletion();
+    FOR EACH ROW WHEN (OLD.id = 1) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
 CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
@@ -310,6 +310,9 @@ CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON work_alias
 
 CREATE TRIGGER b_upd_work_tag BEFORE UPDATE ON work_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER inserting_edits_requires_confirmed_email_address BEFORE INSERT ON edit
+    FOR EACH ROW EXECUTE PROCEDURE inserting_edits_requires_confirmed_email_address();
 
 CREATE TRIGGER a_upd_edit AFTER UPDATE ON edit
     FOR EACH ROW EXECUTE PROCEDURE a_upd_edit();

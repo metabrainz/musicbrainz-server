@@ -1,11 +1,12 @@
 # 
 # Translators:
-# Dimitris  <email address hidden>, 2012.
+# Dimitris <email address hidden>, 2012
+# Dimitris  <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2012-08-14 09:13+0000\n"
+"PO-Revision-Date: 2013-06-20 15:34+0000\n"
 "Last-Translator: Dimitris <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"

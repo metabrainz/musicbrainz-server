@@ -155,5 +155,21 @@ test 'OAuth bearer' => sub {
     $mech->get_ok("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
 };
 
+test 'Authorization header must be correctly encoded' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+
+    # This is not valid UTF-8, so it should immediately 400 without even trying
+    # to parse this header.
+    $mech->delete_header('Authorization');
+    $mech->add_header('Authorization', pack("H*", "df27"));
+
+    $mech->get("/ws/2/rating?id=802673f0-9b88-4e8a-bb5c-dd01d68b086f&entity=artist");
+    is($mech->status, 400);
+};
+
 1;
 

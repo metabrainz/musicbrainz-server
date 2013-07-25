@@ -9,13 +9,12 @@ use utf8;
 
 with 't::Mechanize', 't::Context';
 
-wrap test, pre => sub { *DBDefs::SSL_REDIRECTS_ENABLED = sub { 1 }; };
-
 test all => sub {
 
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
+    my $enable_ssl = enable_ssl();
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
     $c->sql->do('UPDATE editor SET password = ? WHERE name = ?',
@@ -43,6 +42,7 @@ test 'https login' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
+    my $enable_ssl = enable_ssl();
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
@@ -61,6 +61,8 @@ test 'http login with redirects to ssl' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
+    my $enable_ssl = enable_ssl();
+
     $mech->get_ok('http://localhost/login');
     html_ok($mech->content);
     is($mech->uri->scheme, 'https', 'Redirected to secure login form');
@@ -74,6 +76,7 @@ test 'http login with redirects to ssl' => sub {
 test 'Can login with usernames that contain the "/" character"' => sub {
     my $test = shift;
     my $mech = $test->mech;
+    my $enable_ssl = enable_ssl();
 
     $test->c->sql->do(<<'EOSQL');
 INSERT INTO editor (id, name, password, ha1) VALUES (100, 'ocharles/bot', '{CLEARTEXT}mb', 'f067d1b82bbf64c403cbbc996de73cda');
@@ -88,5 +91,13 @@ EOSQL
     );
     like($mech->uri->path, qr{/user/ocharles%2Fbot});
 };
+
+sub enable_ssl {
+    my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? "DBDefs" : "DBDefs::Default";
+    my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",
+        pre => sub { $_[-1] = 1 };
+
+    return $wrapper
+}
 
 1;

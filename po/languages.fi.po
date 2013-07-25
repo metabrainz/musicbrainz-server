@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Jaakko Perttilä <email address hidden>, 2012
+# Jaakko Perttilä <email address hidden>, 2012-2013
 # ListMyCDs.com Martikainen <>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # Timo Martikainen <>, 2012
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-07-11 22:00+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -378,7 +378,7 @@ msgstr "keskiamerikkalaiset intiaanikielet"
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
-msgstr ""
+msgstr "keskiokinawa"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
