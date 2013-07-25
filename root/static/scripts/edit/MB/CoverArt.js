@@ -238,7 +238,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
         else
         {
             deferred.reject ("error uploading image: " +
-                             xhr.status + " " + responseText);
+                             xhr.status + " " + xhr.responseText);
         }
     });
 
