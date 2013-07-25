@@ -155,9 +155,8 @@
     </div>
 
     <div class="buttons">
-      <input style="float: right;" type="button" class="close" value="[% l('Done') %]" />
       <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
-      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+      <input type="button" class="negative cancel" value="[% l('Close') %]" />
     </div>
   </div>
 
