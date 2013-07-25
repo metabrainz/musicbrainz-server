@@ -117,10 +117,13 @@ sub do_login : Private
     }
 
     # Form not even posted
+    my $action = $c->req->uri_with({ uri => $redirect });
+    $action->scheme(DBDefs->SSL_REDIRECTS_ENABLED ? 'https' : 'http');
+
     $c->stash(
+        login_action => $action,
         template => 'user/login.tt',
-        login_form => $form,
-        redirect => $redirect,
+        login_form => $form
     );
 
     $c->stash->{required_login} = 1
