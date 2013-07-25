@@ -128,6 +128,11 @@ ALTER TABLE artist_credit_name
    FOREIGN KEY (name)
    REFERENCES artist_name(id);
 
+ALTER TABLE artist_deletion
+   ADD CONSTRAINT artist_deletion_fk_last_known_name
+   FOREIGN KEY (last_known_name)
+   REFERENCES artist_name(id);
+
 ALTER TABLE artist_gid_redirect
    ADD CONSTRAINT artist_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
@@ -393,6 +398,31 @@ ALTER TABLE editor_subscribe_artist
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE editor_subscribe_artist
+   ADD CONSTRAINT editor_subscribe_artist_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id);
+
+ALTER TABLE editor_subscribe_artist
+   ADD CONSTRAINT editor_subscribe_artist_fk_last_edit_sent
+   FOREIGN KEY (last_edit_sent)
+   REFERENCES edit(id);
+
+ALTER TABLE editor_subscribe_artist_deleted
+   ADD CONSTRAINT editor_subscribe_artist_deleted_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE editor_subscribe_artist_deleted
+   ADD CONSTRAINT editor_subscribe_artist_deleted_fk_gid
+   FOREIGN KEY (gid)
+   REFERENCES artist_deletion(gid);
+
+ALTER TABLE editor_subscribe_artist_deleted
+   ADD CONSTRAINT editor_subscribe_artist_deleted_fk_deleted_by
+   FOREIGN KEY (deleted_by)
+   REFERENCES edit(id);
+
 ALTER TABLE editor_subscribe_collection
    ADD CONSTRAINT editor_subscribe_collection_fk_editor
    FOREIGN KEY (editor)
@@ -412,6 +442,31 @@ ALTER TABLE editor_subscribe_label
    ADD CONSTRAINT editor_subscribe_label_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
+
+ALTER TABLE editor_subscribe_label
+   ADD CONSTRAINT editor_subscribe_label_fk_label
+   FOREIGN KEY (label)
+   REFERENCES label(id);
+
+ALTER TABLE editor_subscribe_label
+   ADD CONSTRAINT editor_subscribe_label_fk_last_edit_sent
+   FOREIGN KEY (last_edit_sent)
+   REFERENCES edit(id);
+
+ALTER TABLE editor_subscribe_label_deleted
+   ADD CONSTRAINT editor_subscribe_label_deleted_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
+ALTER TABLE editor_subscribe_label_deleted
+   ADD CONSTRAINT editor_subscribe_label_deleted_fk_gid
+   FOREIGN KEY (gid)
+   REFERENCES label_deletion(gid);
+
+ALTER TABLE editor_subscribe_label_deleted
+   ADD CONSTRAINT editor_subscribe_label_deleted_fk_deleted_by
+   FOREIGN KEY (deleted_by)
+   REFERENCES edit(id);
 
 ALTER TABLE editor_watch_artist
    ADD CONSTRAINT editor_watch_artist_fk_artist
@@ -1203,6 +1258,11 @@ ALTER TABLE label_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
 
+ALTER TABLE label_deletion
+   ADD CONSTRAINT label_deletion_fk_last_known_name
+   FOREIGN KEY (last_known_name)
+   REFERENCES label_name(id);
+
 ALTER TABLE label_gid_redirect
    ADD CONSTRAINT label_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
@@ -1350,6 +1410,11 @@ ALTER TABLE place
    ADD CONSTRAINT place_fk_type
    FOREIGN KEY (type)
    REFERENCES place_type(id);
+
+ALTER TABLE place
+   ADD CONSTRAINT place_fk_area
+   FOREIGN KEY (area)
+   REFERENCES area(id);
 
 ALTER TABLE place_alias
    ADD CONSTRAINT place_alias_fk_place

@@ -38,7 +38,7 @@ sub _build_context {
 sub models {
     my @models;
 
-    my @exclude = qw( Alias AliasType EntityAnnotation Rating Utils );
+    my @exclude = qw( Alias AliasType EntityAnnotation Rating Subscription Utils );
     my $searcher = Module::Pluggable::Object->new(
         search_path => 'MusicBrainz::Server::Data',
         except      => [ map { "MusicBrainz::Server::Data::$_" } @exclude ]

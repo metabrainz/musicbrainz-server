@@ -14,13 +14,15 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Role::Preview';
 with 'MusicBrainz::Server::Edit::Artist';
+with 'MusicBrainz::Server::Edit::Role::SubscribeOnCreation' => {
+    editor_subscription_preference => sub { shift->subscribe_to_created_artists }
+};
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { N_l('Add artist') }
 sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
-
 
 has '+data' => (
     isa => Dict[
@@ -92,16 +94,6 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{sort_name} ||= $data->{name};
     return $data;
-};
-
-after insert => sub {
-    my ($self) = @_;
-    my $editor = $self->c->model('Editor')->get_by_id($self->editor_id);
-    $self->c->model('Editor')->load_preferences($editor);
-
-    if ($editor->preferences->subscribe_to_created_artists) {
-        $self->c->model('Artist')->subscription->subscribe($editor->id, $self->entity_id);
-    }
 };
 
 sub restore {

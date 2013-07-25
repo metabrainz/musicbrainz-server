@@ -59,7 +59,7 @@ sub options_primary_type_id   { shift->_select_all('ReleaseGroupType') }
 sub options_secondary_type_ids { shift->_select_all('ReleaseGroupSecondaryType') }
 sub options_status_id         { shift->_select_all('ReleaseStatus') }
 sub options_packaging_id      { shift->_select_all('ReleasePackaging') }
-sub options_events_country_id { shift->_select_all('CountryArea', sort_by_accessor => 1) }
+sub options_events_country_id { shift->_select_all('CountryArea') }
 
 sub options_language_id       { return language_options (shift->ctx); }
 sub options_script_id         { return script_options (shift->ctx); }

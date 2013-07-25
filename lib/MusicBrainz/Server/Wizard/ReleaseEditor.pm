@@ -1510,7 +1510,10 @@ sub _seed_parameters {
         ],
         [
             'country_id', 'country',
-            sub { shift->model('Area')->find_by_iso_3166_1_code(shift) },
+            sub {
+                my ($c, $iso) = @_;
+                $c->model('Area')->get_by_iso_3166_1($iso)->{$iso}
+            },
         ],
         [
             'script_id', 'script',

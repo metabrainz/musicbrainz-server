@@ -8,9 +8,9 @@ CREATE TABLE place (
     id                  SERIAL, -- PK
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     type                INTEGER, -- references place_type.id
     address             VARCHAR,
+    area                INTEGER, -- references area.id
     coordinates         POINT,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
@@ -216,8 +216,8 @@ INSERT INTO place_alias_type (id, name) VALUES (1, 'Place name'), (2, 'Search hi
 
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
-CREATE INDEX place_idx_sort_name ON place (sort_name);
 CREATE INDEX place_idx_page ON place (page_index(name));
+CREATE INDEX place_idx_area ON place (area);
 
 CREATE INDEX edit_place_idx ON edit_place (place);
 
