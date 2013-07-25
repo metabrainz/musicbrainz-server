@@ -10,6 +10,7 @@ use Encode;
 use HTTP::Status qw( :constants );
 use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -117,11 +118,10 @@ sub do_login : Private
     }
 
     # Form not even posted
-    my $action = $c->req->uri_with({ uri => $redirect });
-    $action->scheme(DBDefs->SSL_REDIRECTS_ENABLED ? 'https' : 'http');
+    ensure_ssl($c);
 
     $c->stash(
-        login_action => $action,
+        login_action => $c->req->uri_with({ uri => $redirect }),
         template => 'user/login.tt',
         login_form => $form
     );
