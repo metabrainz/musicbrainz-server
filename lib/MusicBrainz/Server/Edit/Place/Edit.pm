@@ -36,10 +36,10 @@ sub change_fields
 {
     return Dict[
         name       => Optional[Str],
-        sort_name  => Optional[Str],
         comment    => Nullable[Str],
         type_id    => Nullable[Int],
         address    => Nullable[Str],
+        area_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool],
@@ -63,6 +63,7 @@ sub foreign_keys
     my $relations = {};
     changed_relations($self->data, $relations, (
                          PlaceType => 'type_id',
+                         Area      => 'area_id',
                       ));
     $relations->{Place} = [ $self->data->{entity}{id} ];
 
@@ -76,10 +77,10 @@ sub build_display_data
     my %map = (
         type       => [ qw( type_id PlaceType )],
         name       => 'name',
-        sort_name  => 'sort_name',
         ended      => 'ended',
         comment    => 'comment',
-        address    => 'address'
+        address    => 'address',
+        area       => [ qw( area_id Area ) ]
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -120,15 +121,12 @@ sub allow_auto_edit
 {
     my ($self) = @_;
 
-    # Changing name or sortname is allowed if the change only affects
+    # Changing name is allowed if the change only affects
     # small things like case etc.
     my ($old_name, $new_name) = normalise_strings(
         $self->data->{old}{name}, $self->data->{new}{name});
-    my ($old_sort_name, $new_sort_name) = normalise_strings(
-        $self->data->{old}{sort_name}, $self->data->{new}{sort_name});
 
     return 0 if $old_name ne $new_name;
-    return 0 if $old_sort_name ne $new_sort_name;
 
     my ($old_comment, $new_comment) = normalise_strings(
         $self->data->{old}{comment}, $self->data->{new}{comment});
@@ -146,6 +144,11 @@ sub allow_auto_edit
     my ($old_address, $new_address) = normalise_strings(
         $self->data->{old}{address}, $self->data->{new}{address});
     return 0 if $old_address ne $new_address;
+
+    # Don't allow an autoedit if the area changed
+    return 0 if defined $self->data->{old}{area_id};
+
+    return 1;
 }
 
 sub current_instance {

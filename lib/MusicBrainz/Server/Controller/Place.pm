@@ -59,6 +59,8 @@ after 'load' => sub
     my $place = $c->stash->{place};
 
     $c->model('PlaceType')->load($place);
+    $c->model('Area')->load($c->stash->{place});
+    $c->model('Area')->load_codes($place->area);
 };
 
 =head2 show

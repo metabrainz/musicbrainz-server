@@ -7,9 +7,6 @@
 
       MB.Control.PlaceEdit();
 
-      var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_guess_case (bubbles, 'place', 'id-edit-place');
-
     });
   //]]></script>
 [% END %]

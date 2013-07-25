@@ -24,10 +24,10 @@ sub place_id { shift->entity_id }
 has '+data' => (
     isa => Dict[
         name       => Str,
-        sort_name  => Str,
         comment    => Nullable[Str],
         type_id    => Nullable[Int],
         address    => Nullable[Str],
+        area_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         ended      => Optional[Bool],
@@ -40,6 +40,7 @@ sub foreign_keys
     return {
         Place       => [ $self->entity_id ],
         PlaceType   => [ $self->data->{type_id} ],
+        Area        => [ $self->data->{area_id} ],
     };
 }
 
@@ -50,7 +51,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name ) ),
+        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
         type       => $type ? $loaded->{PlaceType}->{$type} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
@@ -58,16 +59,11 @@ sub build_display_data
             Place->new( name => $self->data->{name} ),
         ended      => $self->data->{ended} // 0,
         comment    => $self->data->{comment},
-        address    => $self->data->{address}
+        address    => $self->data->{address},
+        area       => defined($self->data->{area_id}) &&
+                        $loaded->{Area}->{ $self->data->{area_id} }
     };
 }
-
-sub _insert_hash
-{
-    my ($self, $data) = @_;
-    $data->{sort_name} ||= $data->{name};
-    return $data;
-};
 
 sub allow_auto_edit { 1 }
 

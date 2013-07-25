@@ -32,6 +32,7 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'place' };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'place' };
 with 'MusicBrainz::Server::Data::Role::Merge';
+with 'MusicBrainz::Server::Data::Role::Area';
 
 sub _table
 {
@@ -40,8 +41,8 @@ sub _table
 
 sub _columns
 {
-    return 'place.id, gid, place.name, place.sort_name, place.type, place.address, place.coordinates, ' .
-           'place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
+    return 'place.id, gid, place.name, place.type, place.address, place.area, ' .
+           'place.coordinates, place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, place.last_updated';
 }
 
@@ -63,9 +64,9 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        sort_name => 'sort_name',
         type_id => 'type',
         address => 'address',
+        area_id => 'area',
         # will need to turn into new_from_rowish stuff
         coordinates => 'coordinates',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
@@ -80,6 +81,11 @@ sub _column_mapping
 sub _entity_class
 {
     return 'MusicBrainz::Server::Entity::Place';
+}
+
+sub _area_cols
+{
+    return ['area']
 }
 
 sub load
@@ -148,7 +154,7 @@ sub _merge_impl
     merge_table_attributes(
         $self->sql => (
             table => 'place',
-            columns => [ qw( type address coordinates ) ],
+            columns => [ qw( type address area coordinates ) ],
             old_ids => \@old_ids,
             new_id => $new_id
         )
@@ -174,7 +180,7 @@ sub _hash_to_row
         type => 'type_id',
         ended => 'ended',
         name => 'name',
-        sort_name => 'sort_name',
+        area => 'area_id',
         map { $_ => $_ } qw( comment address )
     });
 

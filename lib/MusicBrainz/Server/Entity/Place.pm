@@ -12,11 +12,6 @@ with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Age';
 
-has 'sort_name' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'type_id' => (
     is => 'rw',
     isa => 'Int'
@@ -47,6 +42,16 @@ has 'comment' => (
 has 'address' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'area_id' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'area' => (
+    is => 'rw',
+    isa => 'Area'
 );
 
 has 'coordinates' => (

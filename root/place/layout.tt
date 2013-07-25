@@ -3,9 +3,6 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         <h2 class="place-information">[% l('Place information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(place.sort_name) class="sort-name"
-                   IF place.name != place.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(place.l_type_name) class="type"
                    IF place.type -%]
@@ -34,6 +31,10 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Address:')
                content=html_escape(place.address) class="address"
                    IF place.address -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+               content=link_area(place.area)
+               class="area"
+                   IF place.area -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
             more=more_tags tag_this_text=l('Tag this place')
