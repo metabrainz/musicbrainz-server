@@ -364,6 +364,19 @@ MB.Control.ReleaseDate = function (inputs, bubble_collection) {
     return self;
 };
 
+MB.Control.ReleaseStatus = function (typeInput, bubble_collection) {
+    var self = MB.Object ();
+
+    self.input = $(typeInput);
+    self.bubble = bubble_collection.add(self.input, $('div.status.bubble'));
+
+    self.input.bind ('change keyup focus', function(event) {
+        self.bubble.toggle (self.input.find('option:selected').val() === '4');
+    });
+
+    return self;
+};
+
 MB.Control.ReleaseInformation = function(action) {
     var self = MB.Object();
 
@@ -465,6 +478,7 @@ MB.Control.ReleaseInformation = function(action) {
 
     self.release_group = MB.Control.ReleaseGroup (action, self);
     self.barcode = MB.Control.ReleaseBarcode ();
+    self.release_status = MB.Control.ReleaseStatus($('#id-status_id'), self.bubbles);
     self.labels = [];
     self.events = [];
 

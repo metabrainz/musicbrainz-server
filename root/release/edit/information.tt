@@ -244,6 +244,20 @@
       </div>
     </div>
 
+    <div class="status-container" style="display: none">
+      <div class="status bubble">
+        <p class="documentation-4">
+          [%- l('This release status should only be used for alternate versions
+                 of a release where the titles have been changed. These don\'t
+                 correspond to any real release and should be linked to the
+                 original release using the
+                 {url|transl(iter)ation relationship}.',
+                { url => doc_link('Translation_Transliteration_Relationship_Type') })
+          -%]
+        </p>
+      </div>
+    </div>
+
   </div>
 
 [%- END -%]
