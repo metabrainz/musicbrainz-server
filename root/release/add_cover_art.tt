@@ -52,6 +52,7 @@
               <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
               <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
               <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
+              <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
               <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
               <br />
               <button data-bind="visible: status() == 'waiting'" type="button" class="cancel-file" style="float: right;">[%- l('Cancel') -%]</button>

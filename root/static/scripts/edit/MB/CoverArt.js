@@ -161,6 +161,7 @@ MB.CoverArt.upload_status_enum = {
     'sign_error':     'sign_error',
     'uploading':      'uploading',
     'upload_error':   'upload_error',
+    'slowdown_error': 'slowdown_error',
     'submitting':     'submitting',
     'submit_error':   'submit_error',
     'done':           'done'
@@ -237,8 +238,8 @@ MB.CoverArt.upload_image = function (postfields, file) {
         }
         else
         {
-            deferred.reject ("error uploading image: " +
-                             xhr.status + " " + xhr.responseText);
+            deferred.reject ("error uploading image: " + xhr.status + " " +
+                             xhr.responseText, xhr.status);
         }
     });
 
@@ -349,8 +350,9 @@ MB.CoverArt.FileUpload = function(file) {
                 uploading.progress (function (value) {
                     self.updateProgress (2, value);
                 });
-                uploading.fail (function (msg) {
-                    self.status (statuses.upload_error);
+                uploading.fail (function (msg, status) {
+                    self.status (status === 503 ?
+                                 statuses.slowdown_error : statuses.upload_error);
                     deferred.reject (msg);
                 });
                 uploading.done (function () {
