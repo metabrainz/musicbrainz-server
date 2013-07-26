@@ -31,13 +31,12 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     return 'release_group rg
-            JOIN release_group_meta rgm ON rgm.id = rg.id
-            JOIN release_name name ON rg.name=name.id';
+            JOIN release_group_meta rgm ON rgm.id = rg.id';
 }
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -82,7 +81,7 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @query, "(to_tsvector('mb_simple', rg.name) @@ plainto_tsquery('mb_simple', ?) OR rg.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
@@ -132,11 +131,11 @@ sub find_by_name_prefix
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE page_index(name.name)
+                 WHERE page_index(rg.name)
                  BETWEEN page_index(?) AND page_index_max(?)";
 
     $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY name.name OFFSET ?';
+    $query .= ' ORDER BY rg.name OFFSET ?';
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -191,7 +190,7 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate,
+                    musicbrainz_collate(rg.name) AS name_collate,
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -209,7 +208,7 @@ sub find_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -234,7 +233,7 @@ sub find_by_track_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name),
+                    musicbrainz_collate(rg.name),
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -265,7 +264,7 @@ sub find_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -297,7 +296,7 @@ sub filter_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate
+                    musicbrainz_collate(rg.name) AS name_collate
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
@@ -308,7 +307,7 @@ sub filter_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -358,7 +357,7 @@ sub filter_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -387,7 +386,7 @@ sub find_by_release
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -414,7 +413,7 @@ sub find_by_release_gids
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -437,7 +436,7 @@ sub find_by_recording
                  WHERE recording.id = ?
                  ORDER BY
                     rg.type,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
 
     return query_to_list(
         $self->c->sql, sub {
