@@ -1,0 +1,24 @@
+<table class="tbl">
+  <thead>
+    <tr>
+      <th>[% l('Place') %]</th>
+      <th>[% l('Type') %]</th>
+      <th>[% l('Address') %]</th>
+    </tr>
+  </thead>
+  <tbody>
+    [% FOR place IN places %]
+    <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
+      <td>
+        [% descriptive_link(place) %]
+      </td>
+      <td>
+        [% place.l_type_name %]
+      </td>
+      <td>
+        [% place.address %]
+      </td>
+    </tr>
+    [% END %]
+  </tbody>
+</table>
