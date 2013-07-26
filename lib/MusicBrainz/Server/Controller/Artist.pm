@@ -394,7 +394,7 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') RequireAuth Edit {
+sub edit : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
 
@@ -632,7 +632,7 @@ sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
     $c->stash( ac => $ac );
 }
 
-sub edit_credit : Chained('credit') PathPart('edit') RequireAuth Edit {
+sub edit_credit : Chained('credit') PathPart('edit') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
     my $ac = $c->stash->{ac};

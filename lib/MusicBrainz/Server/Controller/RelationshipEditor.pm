@@ -19,7 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
 __PACKAGE__->config( namespace => 'relationship_editor' );
 
-sub base : Path('/relationship-editor') Args(0) Edit RequireAuth {
+sub base : Path('/relationship-editor') Args(0) Edit {
     my ($self, $c) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
