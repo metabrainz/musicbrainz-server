@@ -54,7 +54,9 @@
               <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
               <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
               <br />
-              <button data-bind="visible: status() == 'waiting'" type="button" class="cancel-file" style="float: right;">[%- l('Cancel') -%]</button>
+              <span class="buttons" data-bind="visible: !busy()" style="float: right;">
+                 <button type="button" class="cancel-file">[%- l('Remove') -%]</button>
+              </span>
             </div>
 
             <div class="file-info row">
