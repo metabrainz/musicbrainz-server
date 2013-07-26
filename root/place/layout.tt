@@ -38,7 +38,7 @@
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
             more=more_tags tag_this_text=l('Tag this place')
-            async = c.uri_for_action('/label/tag_async', [ place.gid ])
+            async = c.uri_for_action('/place/tag_async', [ place.gid ])
             -%]
 
         <h2 class="editing">[% l('Editing') %]</h2>
