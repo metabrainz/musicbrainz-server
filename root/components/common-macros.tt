@@ -1031,7 +1031,7 @@ END -%]
       date = event.date;
       country = event.country;
       parts = [];
-      parts.push(link_entity(country)) IF country.defined;
+      parts.push(link_entity(country)) IF country.id;
       parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
