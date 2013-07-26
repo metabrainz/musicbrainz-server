@@ -164,7 +164,7 @@ var fieldChanged = function(newValue) {
 
     // entities are unique, we compare them directly.
     /^entity/.test(name)
-        ? (origValue = RE.Entity(origValue))
+        ? (origValue = MB.entity(origValue))
         : (newValue = ko.toJS(newValue));
 
     changed = !_.isEqual(origValue, newValue);
@@ -313,7 +313,7 @@ Fields.Entity = function(entity, relationship) {
 
 Fields.Entity.prototype.write = function(entity) {
     var currentEntity = this.entity.peek();
-    entity = RE.Entity(entity);
+    entity = MB.entity(entity);
 
     if (currentEntity !== entity && currentEntity.type == entity.type) {
         this.entity(entity);
