@@ -68,6 +68,15 @@ MB.tests.utility.All = function() {
         QUnit.equal (MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
     });
 
+    QUnit.test('filesize.js wrapper', function() {
+
+        equal (MB.utility.filesize (857372), "837.3KB");
+        equal (MB.utility.filesize (1235783), "1.2MB");
+        equal (MB.utility.filesize (7440138), "7.1MB");
+        equal (MB.utility.filesize (2379302), "2.3MB");
+        equal (MB.utility.filesize (159985050), "152.5MB");
+
+    });
 };
 
 MB.tests.utility.Run = function() {
