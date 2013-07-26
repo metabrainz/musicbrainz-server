@@ -21,12 +21,12 @@ with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
 sub _table
 {
-    return 'track JOIN track_name name ON track.name=name.id';
+    return 'track';
 }
 
 sub _columns
 {
-    return 'track.id, track.gid, name.name, track.medium, track.recording,
+    return 'track.id, track.gid, track.name, track.medium, track.recording,
             track.number, track.position, track.length, track.artist_credit,
             track.edits_pending';
 }
@@ -92,13 +92,13 @@ sub find_by_recording
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            track.id, track_name.name, track.medium, track.position,
+            track.id, track.name, track.medium, track.position,
                 track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,
                 medium.track_count AS m_track_count,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+            release.id AS r_id, release.gid AS r_gid, release.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
                 release.status AS r_status,
@@ -109,8 +109,6 @@ sub find_by_recording
           FROM track
           JOIN medium ON medium.id = track.medium
           JOIN release ON release.id = medium.release
-          JOIN release_name ON release.name = release_name.id
-          JOIN track_name ON track.name = track_name.id
           LEFT JOIN (
             SELECT release, country, date_year, date_month, date_day
             FROM release_country
@@ -119,7 +117,7 @@ sub find_by_recording
             FROM release_unknown_country
           ) release_event ON release_event.release = release.id
           WHERE track.recording = ?
-          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release.name)
         ) s
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
         OFFSET ?";
