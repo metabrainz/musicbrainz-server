@@ -139,7 +139,7 @@
                 type: "recording",
                 gid: recording.gid,
                 name: this.name,
-                comment: recording.comment,
+                comment: recording.comment
             });
         }
     });
