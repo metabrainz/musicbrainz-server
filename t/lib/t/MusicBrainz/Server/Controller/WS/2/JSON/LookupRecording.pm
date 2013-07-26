@@ -156,7 +156,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     status => "Official",
                     quality => "normal",
                     "text-representation" => {
-                        language => JSON::null, script => JSON::null
+                        language => 'jpn', script => 'Jpan'
                     },
                     date => "2001-07-04",
                     country => "JP",
@@ -170,7 +170,7 @@ test 'lookup recording with official singles (+media)' => sub {
                             "iso_3166_2_codes" => [],
                             "iso_3166_3_codes" => []},
                     }],
-                    barcode => JSON::null,
+                    barcode => '4942463511227',
                     disambiguation => "",
                     packaging => JSON::null,
                     media => [
