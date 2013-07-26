@@ -487,25 +487,6 @@ sub schema_fixup
                     { iso_code => $data->{"text-representation"}->{script} }
             );
         }
-        if (exists $data->{"medium-list"} &&
-            exists $data->{"medium-list"}->{medium})
-        {
-            $data->{mediums} = [];
-            for my $medium_data (@{$data->{"medium-list"}->{medium}})
-            {
-                my $format = $medium_data->{format};
-                my $medium = MusicBrainz::Server::Entity::Medium->new(
-                    track_count => $medium_data->{"track-list"}->{"count"},
-                    format => $format &&
-                        MusicBrainz::Server::Entity::MediumFormat->new(
-                            name => $format
-                        )
-                );
-
-                push @{$data->{mediums}}, $medium;
-            }
-            delete $data->{"medium-list"};
-        }
 
         if ($data->{'label-info-list'}) {
             $data->{labels} = [
