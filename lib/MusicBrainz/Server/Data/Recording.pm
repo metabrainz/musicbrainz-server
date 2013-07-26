@@ -33,12 +33,12 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 
 sub _table
 {
-    return 'recording JOIN track_name name ON recording.name=name.id';
+    return 'recording';
 }
 
 sub _columns
 {
-    return 'recording.id, recording.gid, name.name,
+    return 'recording.id, recording.gid, recording.name,
             recording.artist_credit AS artist_credit_id,
             recording.length, recording.comment,
             recording.edits_pending, recording.last_updated';
@@ -97,7 +97,7 @@ sub find_by_artist
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
         if (exists $filter{name}) {
-            push @where_query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @where_query, "(to_tsvector('mb_simple', recording.name) @@ plainto_tsquery('mb_simple', ?) OR recording.name = ?)";
             push @where_args, $filter{name}, $filter{name};
         }
         if (exists $filter{artist_credit_id}) {
@@ -107,13 +107,13 @@ sub find_by_artist
     }
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
-                        musicbrainz_collate(name.name) AS name_collate,
+                        musicbrainz_collate(recording.name) AS name_collate,
                         musicbrainz_collate(comment) AS comment_collate
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
                  WHERE " . join(" AND ", @where_query) . "
-                 ORDER BY musicbrainz_collate(name.name),
+                 ORDER BY musicbrainz_collate(recording.name),
                           musicbrainz_collate(comment)
                  OFFSET ?";
     return query_to_list_limited(
@@ -131,7 +131,7 @@ sub find_by_release
                      JOIN medium ON medium.id = track.medium
                      JOIN release ON release.id = medium.release
                  WHERE release.id = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(recording.name)
                  OFFSET ?";
 
     return query_to_list_limited(
@@ -265,7 +265,7 @@ sub find_standalone
             ON acn.artist_credit = recording.artist_credit
          WHERE t.id IS NULL
            AND acn.artist = ?
-      ORDER BY musicbrainz_collate(name.name)
+      ORDER BY musicbrainz_collate(recording.name)
         OFFSET ?';
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -289,11 +289,10 @@ sub appears_on
     my @ids = map { $_->id } @$recordings;
 
     my $query =
-        "SELECT DISTINCT ON (recording.id, name.name, type)
-             rg.id, rg.gid, type AS primary_type_id, name.name,
+        "SELECT DISTINCT ON (recording.id, rg.name, type)
+             rg.id, rg.gid, type AS primary_type_id, rg.name,
              rg.artist_credit AS artist_credit_id, recording.id AS recording
          FROM release_group rg
-           JOIN release_name name ON rg.name=name.id
            JOIN release ON release.release_group = rg.id
            JOIN medium ON release.id = medium.release
            JOIN track ON track.medium = medium.id
