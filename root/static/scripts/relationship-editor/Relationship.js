@@ -55,7 +55,7 @@ var Relationship = function(obj) {
         ended:      ko.observable(false)
     };
 
-    var entity0 = RE.Entity(obj.entity[0]), entity1 = RE.Entity(obj.entity[1]);
+    var entity0 = MB.entity(obj.entity[0]), entity1 = MB.entity(obj.entity[1]);
     this.entity = [new Fields.Entity(entity0, this), new Fields.Entity(entity1, this)];
     this.type = entity0.type + "-" + entity1.type;
 
@@ -273,8 +273,8 @@ Relationship.prototype.isDuplicate = function(other) {
 
 
 Relationship.prototype.openEdits = function() {
-    var entity0 = RE.Entity(this.original_fields.entity[0]),
-        entity1 = RE.Entity(this.original_fields.entity[1]);
+    var entity0 = MB.entity(this.original_fields.entity[0]),
+        entity1 = MB.entity(this.original_fields.entity[1]);
 
     return _.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
