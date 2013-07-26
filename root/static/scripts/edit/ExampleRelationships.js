@@ -18,6 +18,17 @@ ERE.init = function(config) {
 
     ERE.viewModel = new ViewModel();
 
+    var autocomplete = MB.Control.EntityAutocomplete({
+        'inputs': $('span.autocomplete'),
+        'entity': type0,
+        'setEntity': ERE.viewModel.selectedEntityType
+    });
+    ERE.viewModel.selectedEntityType.subscribe (autocomplete.changeEntity);
+    ERE.viewModel.availableEntityTypes (
+        _.chain([ type0, type1 ]).uniq().map(function (value) {
+            return { 'value': value, 'text': MB.text.Entity[value] };
+        }).value ());
+
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function() {
@@ -55,6 +66,8 @@ ERE.Example = function(name, relationship) {
 ViewModel = function () {
     return {
         examples: ko.observableArray(),
+        availableEntityTypes: ko.observableArray(),
+        selectedEntityType: ko.observable(),
         currentExample: {
             name: ko.observable(),
             relationship: ko.observable(),
