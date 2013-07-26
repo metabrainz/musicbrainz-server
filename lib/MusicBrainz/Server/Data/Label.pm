@@ -24,7 +24,7 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
