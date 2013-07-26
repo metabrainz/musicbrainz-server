@@ -64,13 +64,8 @@ after 'load' => sub
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, $release->release_group);
     }
 
-    # FIXME: replace this with a proper MusicBrainz::Server::Entity::Artwork object
-    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX . "/release/" . $release->gid;
-    $c->stash->{release_artwork} = {
-        image => $prefix.'/front',
-        large_thumbnail => $prefix.'/front-500',
-        small_thumbnail => $prefix.'/front-250'
-    };
+    my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
+    $c->stash->{release_artwork} = $artwork->[0];
 
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
