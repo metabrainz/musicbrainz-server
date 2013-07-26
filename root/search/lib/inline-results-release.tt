@@ -45,7 +45,7 @@
           </td>
           <td>[% result.entity.release_group.l_type_name %]</td>
           <td>[% result.entity.l_status_name %]</td>
-          [%- IF c.session.tport -%]
+          [%- IF c.try_get_session('tport') -%]
             <td>[% tagger_icon(result.entity) %]</td>
           [%- END -%]
         </tr>
