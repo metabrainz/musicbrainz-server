@@ -1,8 +1,8 @@
 INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
         email_confirm_date, last_login_date, edits_accepted, edits_rejected,
         auto_edits_accepted, edits_failed, ha1)
-    VALUES (4, 'ModBot', '{CLEARTEXT}mb', 0, '', 'http://musicbrainz.org/doc/ModBot',
-         'See the above link for more information.', NULL, NULL, NULL, 2, 1, 99951, 3560, '9bcacf185adc9268d460694f78615c33');
+    VALUES (4, 'ModBot', '{CLEARTEXT}mb', 0, 'support@musicbrainz.org', 'http://musicbrainz.org/doc/ModBot',
+         'See the above link for more information.', NULL, now(), NULL, 2, 1, 99951, 3560, '9bcacf185adc9268d460694f78615c33');
 
 INSERT INTO artist_name (id, name) VALUES (1, 'Kate Bush');
 INSERT INTO artist (id, gid, name, sort_name)
