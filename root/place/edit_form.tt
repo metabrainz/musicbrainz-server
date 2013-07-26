@@ -32,7 +32,6 @@
       <fieldset>
         <legend>[% l('Place Details') %]</legend>
         [%- form_row_text_long(r, 'name', l('Name:')) -%]
-        [%- form_row_text_long(r, 'sort_name', l('Sort name:')) -%]
         [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
@@ -65,7 +64,6 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
-    [%- sortname_bubble() -%]
   </div>
 
 </form>

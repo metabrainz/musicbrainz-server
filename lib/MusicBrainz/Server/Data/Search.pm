@@ -225,12 +225,14 @@ sub search
         $extra_columns .= 'entity.comment,'
             if ($type eq 'place');
 
+        $extra_columns .= 'entity.sort_name,'
+            if ($type eq 'area');
+
         $query = "
             SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
-                entity.sort_name,
                 $extra_columns
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
