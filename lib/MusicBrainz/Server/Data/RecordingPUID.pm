@@ -130,7 +130,7 @@ sub find_by_puid
             recording_puid.edits_pending,
             recording.id AS r_id,
             recording.gid AS r_gid,
-            name.name AS r_name,
+            recording.name AS r_name,
             recording.artist_credit AS r_artist_credit_id,
             recording.length AS r_length,
             recording.comment AS r_comment,
@@ -138,9 +138,8 @@ sub find_by_puid
         FROM
             recording_puid
             JOIN recording ON recording.id = recording_puid.recording
-            JOIN track_name name ON name.id = recording.name
         WHERE recording_puid.puid = ?
-        ORDER BY name.name, recording.id";
+        ORDER BY recording.name, recording.id";
     return query_to_list(
         $self->c->sql, sub {
             my $row = shift;
