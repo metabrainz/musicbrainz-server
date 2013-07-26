@@ -85,7 +85,6 @@ my @tables = qw(
     artist_ipi
     artist_isni
     artist_meta
-    artist_name
     artist_tag
     artist_type
     autoeditor_election
@@ -152,7 +151,6 @@ my @tables = qw(
     label_ipi
     label_isni
     label_meta
-    label_name
     label_tag
     label_type
     language
@@ -190,7 +188,6 @@ my @tables = qw(
     release_label
     release_meta
     release_coverart
-    release_name
     release_packaging
     release_status
     release_tag
@@ -202,7 +199,6 @@ my @tables = qw(
     tag_relation
     track
     track_gid_redirect
-    track_name
     medium_index
     url
     url_gid_redirect
@@ -215,7 +211,6 @@ my @tables = qw(
     work_attribute_type_allowed_value
     work_gid_redirect
     work_meta
-    work_name
     work_tag
     work_type
 
@@ -293,7 +288,6 @@ my @group_core = qw(
     artist_gid_redirect
     artist_ipi
     artist_isni
-    artist_name
     artist_type
     cdtoc
     clientversion
@@ -342,7 +336,6 @@ my @group_core = qw(
     label_gid_redirect
     label_ipi
     label_isni
-    label_name
     label_type
     language
     link
@@ -368,7 +361,6 @@ my @group_core = qw(
     release_group_secondary_type
     release_group_secondary_type_join
     release_label
-    release_name
     release_packaging
     release_status
     release_unknown_country
@@ -377,7 +369,6 @@ my @group_core = qw(
     script_language
     track
     track_gid_redirect
-    track_name
     tracklist
     url
     url_gid_redirect
@@ -388,7 +379,6 @@ my @group_core = qw(
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
-    work_name
     work_type
     );
 
