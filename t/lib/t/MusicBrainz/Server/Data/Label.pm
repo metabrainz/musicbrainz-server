@@ -54,12 +54,6 @@ test all => sub {
     is( $results->[0]->entity->name, "Warp Records", "Found Warp Records");
     is( $results->[0]->entity->sort_name, "Warp Records", "Found Warp Records");
 
-    my %names = $label_data->find_or_insert_names('Warp Records', 'RAM Records');
-    is(keys %names, 2);
-    is($names{'Warp Records'}, 1);
-    ok($names{'RAM Records'} > 1);
-
-
     $test->c->sql->begin;
 
     $label = $label_data->insert({

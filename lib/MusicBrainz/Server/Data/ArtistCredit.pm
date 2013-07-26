@@ -163,9 +163,8 @@ sub find_or_insert
 
     if(!defined $id)
     {
-        my %names_id = $self->c->model('Artist')->find_or_insert_names(@$credits, $name);
         $id = $self->sql->insert_row('artist_credit', {
-            name => $names_id{$name},
+            name => $name,
             artist_count => scalar @$credits,
         }, 'id');
         for my $i (@$positions)
@@ -174,7 +173,7 @@ sub find_or_insert
                     artist_credit => $id,
                     position => $i,
                     artist => $artists->[$i],
-                    name => $names_id{$credits->[$i]},
+                    name => $credits->[$i],
                     join_phrase => _clean($join_phrases->[$i]),
                 });
         }
@@ -235,10 +234,9 @@ sub merge_artists
                 $names{$ac_id} .= $name->{join_phrase} if defined $name->{join_phrase};
             }
 
-            my %names_id = $self->c->model('Artist')->find_or_insert_names(values %names);
             for my $ac_id (@artist_credit_ids) {
                 $self->sql->do('UPDATE artist_credit SET name = ? WHERE id = ?',
-                               $names_id{$names{$ac_id}}, $ac_id);
+                               $names{$ac_id}, $ac_id);
             }
         }
     }

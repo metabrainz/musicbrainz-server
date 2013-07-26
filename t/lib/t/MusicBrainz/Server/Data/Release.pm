@@ -356,13 +356,6 @@ $release = $release_data->get_by_gid('71dc55d8-0fc6-41c1-94e0-85ff2404997d');
 is ( $release->id, 1, 'get release by gid' );
 
 
-my %names = $release_data->find_or_insert_names('Arrival', 'Release #2', 'Protection');
-is(keys %names, 3);
-is($names{'Arrival'}, 1);
-is($names{'Release #2'}, 2);
-ok($names{'Protection'} > 2);
-
-
 my $sql = $test->c->sql;
 $sql->begin;
 $release = $release_data->insert({

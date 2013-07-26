@@ -77,11 +77,6 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Dancing Queen" );
 
 
-my %names = $work_data->find_or_insert_names('Dancing Queen', 'Traits');
-is(keys %names, 2);
-is($names{'Dancing Queen'}, 1);
-ok($names{'Traits'} > 1);
-
 $test->c->sql->begin;
 
 $work = $work_data->insert({

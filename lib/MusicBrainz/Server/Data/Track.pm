@@ -141,7 +141,6 @@ sub find_by_recording
 sub insert
 {
     my ($self, @track_hashes) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @track_hashes);
     my $class = $self->_entity_class;
     my @created;
     for my $track_hash (@track_hashes) {
@@ -149,7 +148,7 @@ sub insert
 
         $track_hash->{number} ||= "".$track_hash->{position};
 
-        my $row = $self->_create_row($track_hash, \%names);
+        my $row = $self->_create_row($track_hash);
         $row->{gid} = $track_hash->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('track', $row, 'id')
@@ -161,8 +160,7 @@ sub insert
 sub update
 {
     my ($self, $track_id, $update) = @_;
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_create_row($update, \%names);
+    my $row = $self->_create_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 }
 
@@ -176,15 +174,13 @@ sub delete
 
 sub _create_row
 {
-    my ($self, $track_hash, $names) = @_;
+    my ($self, $track_hash) = @_;
 
     my $mapping = $self->_column_mapping;
     my %row = map {
         my $mapped = $mapping->{$_} || $_;
         $mapped => $track_hash->{$_}
     } keys %$track_hash;
-
-    $row{name} = $names->{ $track_hash->{name} } if exists $track_hash->{name};
 
     if (exists $row{length} && defined($row{length})) {
         $row{length} = undef if $row{length} == 0;

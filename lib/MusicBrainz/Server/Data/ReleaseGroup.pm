@@ -452,11 +452,10 @@ sub insert
     my ($self, @groups) = @_;
     my @created;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
     my $class = $self->_entity_class;
     for my $group (@groups)
     {
-        my $row = $self->_hash_to_row($group, \%names);
+        my $row = $self->_hash_to_row($group);
         $row->{gid} = $group->{gid} || generate_gid();
         my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
@@ -473,8 +472,7 @@ sub update
 {
     my ($self, $group_id, $update) = @_;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
         if exists $update->{secondary_type_ids};
@@ -581,14 +579,11 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $group, $names) = @_;
+    my ($self, $group) = @_;
     my $row = hash_to_row($group, {
         type => 'primary_type_id',
-        map { $_ => $_ } qw( artist_credit comment edits_pending )
+        map { $_ => $_ } qw( artist_credit comment edits_pending name )
     });
-
-    $row->{name} = $names->{$group->{name}}
-        if (exists $group->{name});
 
     return $row;
 }

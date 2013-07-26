@@ -770,11 +770,10 @@ sub insert
 {
     my ($self, @releases) = @_;
     my @created;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @releases);
     my $class = $self->_entity_class;
     for my $release (@releases)
     {
-        my $row = $self->_hash_to_row($release, \%names);
+        my $row = $self->_hash_to_row($release);
         $row->{gid} = $release->{gid} || generate_gid();
         my $id = $self->sql->insert_row('release', $row, 'id');
         push @created, $class->new(
@@ -809,8 +808,7 @@ sub update
         $release_id, _release_events_from_spec($update->{events})
     ) if $update->{events};
 
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release', $row, { id => $release_id });
 }
 
@@ -1157,7 +1155,7 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $release, $names) = @_;
+    my ($self, $release) = @_;
     my $row = hash_to_row($release, {
         artist_credit => 'artist_credit',
         release_group => 'release_group_id',
@@ -1165,11 +1163,8 @@ sub _hash_to_row
         packaging => 'packaging_id',
         script => 'script_id',
         language => 'language_id',
-        map { $_ => $_ } qw( barcode comment quality )
+        map { $_ => $_ } qw( barcode comment quality name )
     });
-
-    $row->{name} = $names->{$release->{name}}
-        if (exists $release->{name});
 
     return $row;
 }

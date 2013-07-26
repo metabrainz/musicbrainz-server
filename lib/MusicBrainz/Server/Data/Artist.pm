@@ -215,12 +215,11 @@ sub load
 sub insert
 {
     my ($self, @artists) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
     my $class = $self->_entity_class;
     my @created;
     for my $artist (@artists)
     {
-        my $row = $self->_hash_to_row($artist, \%names);
+        my $row = $self->_hash_to_row($artist);
         $row->{gid} = $artist->{gid} || generate_gid();
 
         my $created = $class->new(
@@ -241,8 +240,7 @@ sub update
 {
     my ($self, $artist_id, $update) = @_;
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
 
     assert_uniqueness_conserved($self, artist => $artist_id, $update);
 
@@ -324,7 +322,7 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $values, $names) = @_;
+    my ($self, $values) = @_;
 
     my $row = hash_to_row($values, {
         area => 'area_id',
@@ -334,6 +332,8 @@ sub _hash_to_row
         gender  => 'gender_id',
         comment => 'comment',
         ended => 'ended',
+        name => 'name',
+        sort_name => 'sort_name',
     });
 
     if (exists $values->{begin_date}) {
@@ -342,14 +342,6 @@ sub _hash_to_row
 
     if (exists $values->{end_date}) {
         add_partial_date_to_row($row, $values->{end_date}, 'end_date');
-    }
-
-    if (exists $values->{name}) {
-        $row->{name} = $names->{ $values->{name} };
-    }
-
-    if (exists $values->{sort_name}) {
-        $row->{sort_name} = $names->{ $values->{sort_name} };
     }
 
     return $row;

@@ -151,16 +151,6 @@ is( $results->[0]->entity->sort_name, "Artist, Test" );
 $sql->begin;
 
 # ---
-# Find/insert artist names
-my %names = $artist_data->find_or_insert_names('Test Artist', 'Minimal Artist',
-                                               'Massive Attack');
-is(keys %names, 3);
-is($names{'Test Artist'}, 1);
-is($names{'Minimal Artist'}, 3);
-ok($names{'Massive Attack'} > 3);
-
-
-# ---
 # Creating new artists
 $artist = $artist_data->insert({
         name => 'New Artist',

@@ -126,12 +126,11 @@ sub load
 sub insert
 {
     my ($self, @works) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
     my $class = $self->_entity_class;
     my @created;
     for my $work (@works)
     {
-        my $row = $self->_hash_to_row($work, \%names);
+        my $row = $self->_hash_to_row($work);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('work', $row, 'id'),
@@ -145,8 +144,7 @@ sub update
 {
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('work', $row, { id => $work_id });
 }
 
@@ -194,15 +192,12 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $work, $names) = @_;
+    my ($self, $work) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
         language => 'language_id',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment name )
     });
-
-    $row->{name} = $names->{$work->{name}}
-        if (exists $work->{name});
 
     return $row;
 }

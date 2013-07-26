@@ -157,12 +157,11 @@ sub insert
 {
     my ($self, @recordings) = @_;
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names(map { $_->{name} } @recordings);
     my $class = $self->_entity_class;
     my @created;
     for my $recording (@recordings)
     {
-        my $row = $self->_hash_to_row($recording, \%names);
+        my $row = $self->_hash_to_row($recording);
         $row->{gid} = $recording->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('recording', $row, 'id'),
@@ -176,8 +175,7 @@ sub update
 {
     my ($self, $recording_id, $update) = @_;
     my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
-    my %names = $track_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
@@ -209,13 +207,10 @@ sub delete
 
 sub _hash_to_row
 {
-    my ($self, $recording, $names) = @_;
+    my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
-        map { $_ => $_ } qw( artist_credit length comment )
+        map { $_ => $_ } qw( artist_credit length comment name )
     });
-
-    $row->{name} = $names->{$recording->{name}}
-        if (exists $recording->{name});
 
     return $row;
 }

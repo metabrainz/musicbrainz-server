@@ -164,12 +164,11 @@ sub load
 sub insert
 {
     my ($self, @labels) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
     my $class = $self->_entity_class;
     my @created;
     for my $label (@labels)
     {
-        my $row = $self->_hash_to_row($label, \%names);
+        my $row = $self->_hash_to_row($label);
         $row->{gid} = $label->{gid} || generate_gid();
 
         my $created = $class->new(
@@ -190,8 +189,7 @@ sub update
 {
     my ($self, $label_id, $update) = @_;
 
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
 
     assert_uniqueness_conserved($self, label => $label_id, $update);
 
@@ -280,22 +278,16 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $label, $names) = @_;
+    my ($self, $label) = @_;
     my $row = hash_to_row($label, {
         area => 'area_id',
         type => 'type_id',
         ended => 'ended',
-        map { $_ => $_ } qw( label_code comment )
+        map { $_ => $_ } qw( label_code comment name sort_name )
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $label->{end_date}, 'end_date');
-
-    $row->{name} = $names->{$label->{name}}
-        if (exists $label->{name});
-
-    $row->{sort_name} = $names->{$label->{sort_name}}
-        if (exists $label->{sort_name});
 
     return $row;
 }
