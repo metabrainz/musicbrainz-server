@@ -336,6 +336,7 @@ MB.utility.joinList = function (items) {
 
 
 MB.utility.filesize = function (size) {
+    /* 1 decimal place.  false disables bit sizes. */
     return filesize (size, 1, false);
 };
 
