@@ -54,8 +54,6 @@ sub _gid_redirect_table
     return 'area_gid_redirect';
 }
 
-sub _table_join_name {}
-
 sub _column_mapping
 {
     return {

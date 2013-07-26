@@ -54,11 +54,6 @@ sub _table
            'JOIN label_name sort_name ON label.sort_name=sort_name.id';
 }
 
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON label.name = $join_on OR label.sort_name = $join_on");
-}
-
 sub _columns
 {
     return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .

@@ -34,11 +34,6 @@ sub _table
     return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
 }
 
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON work.name = $join_on");
-}
-
 sub _columns
 {
     return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
