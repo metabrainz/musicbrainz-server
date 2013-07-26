@@ -81,7 +81,7 @@ has 'comment' => (
 );
 
 has 'cover_art' => (
-    isa       => 'MusicBrainz::Server::Entity::Artwork',
+    isa       => 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup',
     is        => 'rw',
     predicate => 'has_cover_art',
 );
