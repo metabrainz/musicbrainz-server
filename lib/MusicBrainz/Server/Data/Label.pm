@@ -44,19 +44,17 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name.name' }
+sub browse_column { 'sort_name' }
 
 sub _table
 {
     my $self = shift;
-    return 'label ' . (shift() || '') . ' ' .
-           'JOIN label_name name ON label.name=name.id ' .
-           'JOIN label_name sort_name ON label.sort_name=sort_name.id';
+    return 'label';
 }
 
 sub _columns
 {
-    return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
+    return 'label.id, gid, name, sort_name, ' .
            'label.type, label.area, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
@@ -103,7 +101,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(sort_name.name), label.id
+                 ORDER BY musicbrainz_collate(label.sort_name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -137,7 +135,7 @@ sub find_by_release
                  FROM " . $self->_table . "
                      JOIN release_label ON release_label.label = label.id
                  WHERE release_label.release = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(label.name)
                  OFFSET ?";
 
     return query_to_list_limited(

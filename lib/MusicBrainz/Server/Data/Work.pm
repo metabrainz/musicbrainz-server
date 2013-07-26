@@ -31,13 +31,13 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     my $self = shift;
-    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
+    return 'work';
 }
 
 sub _columns
 {
     return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
-            name.name, work.comment, work.edits_pending, work.last_updated';
+            work.name, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -78,7 +78,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(work.name)
          OFFSET ?';
 
     # We actually use this for the side effect in the closure
@@ -105,7 +105,7 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY musicbrainz_collate(name.name)";
+                 ORDER BY musicbrainz_collate(work.name)";
 
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
