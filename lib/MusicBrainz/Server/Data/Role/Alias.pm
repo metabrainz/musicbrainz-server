@@ -20,7 +20,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class', '_table_join_name';
+    requires 'c', '_entity_class';
 
     has 'alias' => (
         is => 'ro',

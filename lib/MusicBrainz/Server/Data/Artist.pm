@@ -46,24 +46,17 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name.name' }
+sub browse_column { 'sort_name' }
 
 sub _table
 {
     my $self = shift;
-    return 'artist ' . (shift() || '') . ' ' .
-           'JOIN artist_name name ON artist.name=name.id ' .
-           'JOIN artist_name sort_name ON artist.sort_name=sort_name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON artist.name = $join_on OR artist.sort_name = $join_on");
+    return 'artist';
 }
 
 sub _columns
 {
-    return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
+    return 'artist.id, artist.gid, name, sort_name, ' .
            'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
            'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
@@ -119,7 +112,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(sort_name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.sort_name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -134,7 +127,7 @@ sub find_by_recording
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN recording ON recording.artist_credit = acn.artist_credit
                  WHERE recording.id = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -157,7 +150,7 @@ sub find_by_release
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
                      wHERE release.id = ?)
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -172,7 +165,7 @@ sub find_by_release_group
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN release_group ON release_group.artist_credit = acn.artist_credit
                  WHERE release_group.id = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
