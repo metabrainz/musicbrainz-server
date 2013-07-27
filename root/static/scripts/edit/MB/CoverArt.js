@@ -326,7 +326,6 @@ MB.CoverArt.FileUpload = function(file) {
     MB.CoverArt.file_data_uri(file)
         .done(function (data_uri) {
             self.data_uri(data_uri);
-            console.log(self.data_uri());
         });
 
     self.progress = ko.observable (0);
