@@ -35,6 +35,13 @@
     <table style="width: 100%; display: none;" class="with-formdata">
       <tbody data-bind="foreach: files_to_upload">
         <tr>
+          <td class="uploader-preview-column">
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
+              <input type="button" class="icon file-up track-up"
+                     title="[% l('Move file up') %]" style="float: right;" />
+              <input type="button" class="icon file-down track-down"
+                     title="[% l('Move file down') %]" style="clear: right; float: right;" />
+          </td>
           <td>
             <div class="status" style="float: right; width: 264px;">
               <div role="progressbar"
@@ -58,11 +65,6 @@
             </div>
 
             <div class="file-info row">
-              <input type="button" class="icon file-down track-down"
-                     title="[% l('Move file down') %]" style="float: left;" />
-              <input type="button" class="icon file-up track-up"
-                     title="[% l('Move file up') %]" style="float: left;" />
-
               <label>[%- l("File:") -%]</label>
               <span data-bind="text: name"></span>
               (<span data-bind="text: size"></span>)
@@ -88,9 +90,6 @@
               <input class="comment" type="text" size="47" data-bind="value: comment" />
             </div>
 
-          </td>
-          <td>
-              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
           </td>
         </tr>
       </tbody>
