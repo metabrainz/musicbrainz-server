@@ -89,6 +89,9 @@
             </div>
 
           </td>
+          <td>
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
+          </td>
         </tr>
       </tbody>
     </table>
