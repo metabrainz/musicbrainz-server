@@ -23,13 +23,14 @@
     [%- r.hidden('id') -%]
     <div style="display: none">[% r.select('mime_type') %]</div>
 
-    <div style="display: none" class="add-files row with-formdata" style="min-height: 25px;">
+    <div style="display: none" class="add-files row with-formdata">
       <label for="files">&nbsp;</label>
       <input style="position: absolute; top: 0; left: -1000px; "
              class="add-files" accept="image/*" type="file" name="files[]" multiple="multiple" />
-      <span class="fileinput-button buttons">
-        <button type="button" class="add-files">Select images...</button>
+      <span class="fileinput-button buttons" style="vertical-align: middle">
+        <button type="button" class="add-files">[%- l('Select images...') -%]</button>
       </span>
+      <div id="drop-zone">[%- l('or drop files here') -%]</div>
     </div>
 
     <table style="width: 100%; display: none;" class="with-formdata">

@@ -488,6 +488,22 @@ MB.CoverArt.add_cover_art = function (gid) {
             $('#add-cover-art-submit').prop ('disabled', false);
         });
 
+        $('#drop-zone').on ('dragover', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.dataTransfer.dropEffect = 'copy';
+        });
+
+        $('#drop-zone').on ('drop', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            $.each (event.originalEvent.dataTransfer.files, function (idx, file) {
+                upvm.addFile (file);
+            });
+
+            $('#add-cover-art-submit').prop ('disabled', false);
+        });
+
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
             MB.CoverArt.add_cover_art_submit (gid, upvm);
