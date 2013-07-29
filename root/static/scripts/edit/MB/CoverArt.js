@@ -197,10 +197,11 @@ MB.CoverArt.validate_file = function (file) {
     return deferred.promise ();
 };
 
-MB.CoverArt.sign_upload = function (file, gid) {
+MB.CoverArt.sign_upload = function (file, gid, mime_type) {
     var deferred = $.Deferred ();
 
-    var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid);
+    var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid,
+                               { mime_type: mime_type });
     postfields.fail (function (jqxhr, status, error) {
         deferred.reject ("error obtaining signature: " + status + " " + error);
     });
@@ -337,7 +338,7 @@ MB.CoverArt.FileUpload = function(file) {
 
             self.status (statuses.signing);
 
-            var signing = MB.CoverArt.sign_upload (self.data, gid);
+            var signing = MB.CoverArt.sign_upload (self.data, gid, mime_type);
             signing.fail (function (msg) {
                 self.status (statuses.sign_error);
                 deferred.reject (msg);
