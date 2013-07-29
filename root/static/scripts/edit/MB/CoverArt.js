@@ -55,33 +55,35 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
+MB.CoverArt.reorder_button = function(event, direction, $editimage, after) {
+    return function (event) {
+        if (!$editimage) {
+            $editimage = $(this).closest('div.editimage');
+        }
+        var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
+        if ($swap.length)
+        {
+            $editimage[direction === 'next' ? 'insertAfter' : 'insertBefore']($swap);
+            after($swap, $editimage)
+        }
+
+        $(this).focus();
+        event.preventDefault();
+        return false;
+    }
+};
+
 MB.CoverArt.image_position = function () {
     var $pos = $('#id-add-cover-art\\.position');
     var $editimage = $('div.editimage');
 
-    $('div.editimage button.left').bind ('click.mb', function (event) {
-        var $prev = $editimage.prev ();
-        if ($prev.length)
-        {
-            $editimage.insertBefore ($prev);
-            $pos.val (parseInt ($pos.val (), 10) - 1);
-        }
+    $('div.editimage button.left').bind('click.mb',
+      MB.CoverArt.reorder_button(event, 'prev', $editimage,
+                                 function() { $pos.val(parseInt($pos.val(), 10) - 1) }));
 
-        event.preventDefault ();
-        return false;
-    });
-
-    $('div.editimage button.right').bind ('click.mb', function (event) {
-        var $next = $editimage.next ();
-        if ($next.length)
-        {
-            $editimage.insertAfter ($next);
-            $pos.val (parseInt ($pos.val (), 10) + 1);
-        }
-
-        event.preventDefault ();
-        return false;
-    });
+    $('div.editimage button.right').bind('click.mb',
+      MB.CoverArt.reorder_button(event, 'next', $editimage,
+                                 function() { $pos.val(parseInt($pos.val(), 10) + 1) }));
 };
 
 MB.CoverArt.reorder_position = function () {
@@ -91,31 +93,13 @@ MB.CoverArt.reorder_position = function () {
         $b.val (otherval);
     };
 
-    $('div.editimage button.left').bind ('click.mb', function (event) {
-        var $editimage = $(this).closest ('div.editimage');
-        var $prev = $editimage.prev ();
-        if ($prev.length)
-        {
-            $editimage.insertBefore ($prev);
-            swap_values ($prev.find ('input.position'), $editimage.find ('input.position'));
-        }
+    $('div.editimage button.left').bind('click.mb',
+      MB.CoverArt.reorder_button(event, 'prev', null,
+                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
 
-        event.preventDefault ();
-        return false;
-    });
-
-    $('div.editimage button.right').bind ('click.mb', function (event) {
-        var $editimage = $(this).closest ('div.editimage');
-        var $next = $editimage.next ();
-        if ($next.length)
-        {
-            $editimage.insertAfter ($next);
-            swap_values ($next.find ('input.position'), $editimage.find ('input.position'));
-        }
-
-        event.preventDefault ();
-        return false;
-    });
+    $('div.editimage button.right').bind('click.mb',
+      MB.CoverArt.reorder_button(event, 'next', null,
+                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
 
     /* moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
