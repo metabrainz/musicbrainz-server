@@ -86,7 +86,7 @@
               <label>&nbsp;</label>
               <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
             </div>
-            <div class="comment row">
+            <div class="comment row" data-bind="visible: status() == 'waiting'">
               <label>[%- l('Comment:') -%]</label>
               <input class="comment" type="text" size="47" data-bind="value: comment" />
             </div>
