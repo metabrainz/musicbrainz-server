@@ -67,12 +67,40 @@ test 'Handles Amazon ASINs for downloads' => sub {
 
     my $test = shift;
 
-    my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B000W23HCY');
+    my $release = make_release('amazon asin', 'http://www.amazon.com/gp/product/B00544JMLA');
 
     $test->c->model('CoverArt')->load($release);
     ok($release->has_cover_art);
     ok($test->ua->get($release->cover_art->image_uri)->is_success);
+};
 
+test 'Can update release_meta for ASINs with no artwork' => sub {
+    plan skip_all => 'Testing Amazon ASINs requires the AWS_PUBLIC and AWS_PRIVATE configuration variables to be set'
+        unless DBDefs->AWS_PUBLIC() && DBDefs->AWS_PRIVATE();
+
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO link_type (id, gid, name, entity_type0, entity_type1, link_phrase, long_link_phrase, reverse_link_phrase)
+VALUES (77, 'b04b10e7-1467-4d1f-94fe-5b7798bf5753', 'amazon asin', 'release', 'url', '', '', '');
+
+INSERT INTO url (id, gid, url)
+VALUES (1, 'fbf96576-1c9c-4676-bb7d-7b9d3173edb8', 'http://www.amazon.co.uk/gp/product/B000057QPT');
+
+INSERT INTO link (id, link_type) VALUES (1, 77);
+INSERT INTO l_release_url (entity0, entity1, link) VALUES (1, 1, 1);
+EOSQL
+
+    my $release = $c->model('Release')->get_by_id(1);
+    $c->model('Relationship')->load_subset([ 'url' ], $release);
+    $c->model('CoverArt')->cache_cover_art($release);
+
+    $release = $c->model('Release')->get_by_id(1);
+    $c->model('Release')->load_meta($release);
+    is ($release->cover_art_url, undef);
+    is ($release->amazon_asin, 'B000057QPT');
 };
 
 test 'Check cover art provider regular expression matching' => sub {
