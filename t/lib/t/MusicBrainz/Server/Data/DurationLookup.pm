@@ -16,7 +16,9 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    $c->sql->do ("INSERT INTO editor (id, name, password) VALUES (1, 'annotation_editor', 'password')");
+    $c->sql->do ("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
+                 "VALUES (1, 'annotation_editor', '{CLEARTEXT}password', ".
+                 "'3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')");
 
     my $artist_credit = {
         names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }]
@@ -57,7 +59,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
     $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
     is (scalar @$durationlookup, 1, "one match with TOC lookup");
 
-    my $medium = $durationlookup->[0]->medium;
+    $medium = $durationlookup->[0]->medium;
     $c->model ('Track')->load_for_mediums ($medium);
     $c->model ('ArtistCredit')->load ($medium->all_tracks);
 
@@ -76,7 +78,7 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     accept_edit($c, $edit);
 
-    my $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
     is (scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
 };
 
