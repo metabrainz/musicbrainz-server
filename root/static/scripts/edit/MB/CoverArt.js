@@ -316,6 +316,12 @@ MB.CoverArt.FileUpload = function(file) {
 
     self.progress = ko.observable (0);
     self.status = ko.observable ('validating');
+    self.busy = ko.computed(function () {
+        return (self.status () === 'validating' ||
+                self.status () === 'signing' ||
+                self.status () === 'uploading' ||
+                self.status () === 'submitting');
+    });
 
     self.validating = MB.CoverArt.validate_file (self.data)
         .fail (function () {
@@ -440,6 +446,7 @@ MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
     var pos = parseInt ($('#id-add-cover-art\\.position').val (), 10);
 
+    $('.add-files.row').hide();
     $('#cover-art-position-row').hide ();
     $('#content')[0].scrollIntoView ();
 
