@@ -198,6 +198,17 @@ MB.CoverArt.validate_file = function (file) {
     return deferred.promise ();
 };
 
+MB.CoverArt.file_data_uri = function (file) {
+    var deferred = $.Deferred ();
+    var reader = new FileReader();
+    reader.addEventListener("loadend", function() {
+        deferred.resolve(reader.result);
+    });
+    reader.readAsDataURL(file);
+
+    return deferred.promise();
+};
+
 MB.CoverArt.sign_upload = function (file, gid, mime_type) {
     var deferred = $.Deferred ();
 
@@ -314,6 +325,12 @@ MB.CoverArt.FileUpload = function(file) {
     self.comment = ko.observable ("");
     self.types = MB.CoverArt.cover_art_types ();
     self.data = file;
+    self.data_uri = ko.observable("");
+
+    MB.CoverArt.file_data_uri(file)
+        .done(function (data_uri) {
+            self.data_uri(data_uri);
+        });
 
     self.progress = ko.observable (0);
     self.status = ko.observable ('validating');
