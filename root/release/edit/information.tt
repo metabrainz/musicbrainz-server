@@ -53,8 +53,8 @@
         </div>
       [% END %]
       [% form_row_select (r, 'status_id', lp('Status:', 'release status')) %]
-      [% form_row_select (r, 'language_id', l('Language:')) %]
-      [% form_row_select (r, 'script_id', l('Script:')) %]
+      [% form_row_select (r, 'language_id', l('Language:'), 'short') %]
+      [% form_row_select (r, 'script_id', l('Script:'), 'short') %]
 
     </fieldset>
 
@@ -69,10 +69,11 @@
               r.label(date, l('Date:'), class => 'date');
               r.date(date); -%]
            [% END %]
+
            [% WRAPPER form_row %]
               [%- country_id = field.field('country_id');
-              r.label(country_id, l('Country:'), class => 'country_id' );
-              r.select(country_id, class => 'country_select' ); -%]
+              r.label(country_id, l('Country:'), class => 'country' );
+              r.select(country_id, class => 'with-remove' ); -%]
               <span class="remove-event">
                 [%- r.hidden(field.field('deleted')) -%]
                 <a class="icon remove-event" href="#remove_event">
@@ -84,14 +85,13 @@
               field_errors(r.form, date) %]
         </div>
         [% END %]
-
         [% WRAPPER form_row %]
-          <div class="add-event" style="text-align: right; width: 100%; ">
-            <span class="add-event" style="padding: 0 1em;">[% lp('Add Event', 'header') %]</span>
-            <a class="icon add-event" href="#add_event" style="margin-right: 14px;">
-              <div class="icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
-            </a>
-          </div>
+        <div class="form-row-add nolabel">
+          <button class="nobutton add-event">
+            <span class="add-event">[% lp('Add Event', 'button/menu') %]</span>
+            <div class="add-item icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
+          </button>
+        </div>
         [% END %]
       </div>
 
@@ -99,8 +99,8 @@
 
       <div class="label-container" style="padding: 0.5em 0">
         [% FOR field=form.field('labels').fields %]
-          [% WRAPPER form_row %]
-           <div class="release-label">
+
+           <div class="row release-label">
             [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
             <span class="label autocomplete">
               <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
@@ -123,15 +123,15 @@
             </span>
 
            </div>
-          [% END %]
+
         [% END %]
 
         [% WRAPPER form_row %]
-          <div class="add-label" style="text-align: right; width: 100%; ">
-            <span class="add-label" style="padding: 0 1em;">[% lp('Add Label', 'header') %]</span>
-            <a class="icon add-label" href="#add_label" style="margin-right: 14px;">
-              <div class="icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
-            </a>
+          <div class="form-row-add nolabel">
+            <button class="nobutton add-label">
+              <span class="add-label">[% lp('Add Label', 'button/menu') %]</span>
+              <div class="add-item icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
+            </button>
           </div>
         [% END %]
       </div>
