@@ -55,7 +55,7 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(event, direction, $editimage, after) {
+MB.CoverArt.reorder_button = function(direction, $editimage, after) {
     return function (event) {
         if (!$editimage) {
             $editimage = $(this).closest('div.editimage');
@@ -78,11 +78,11 @@ MB.CoverArt.image_position = function () {
     var $editimage = $('div.editimage');
 
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button(event, 'prev', $editimage,
+      MB.CoverArt.reorder_button('prev', $editimage,
                                  function() { $pos.val(parseInt($pos.val(), 10) - 1) }));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button(event, 'next', $editimage,
+      MB.CoverArt.reorder_button('next', $editimage,
                                  function() { $pos.val(parseInt($pos.val(), 10) + 1) }));
 };
 
@@ -94,11 +94,11 @@ MB.CoverArt.reorder_position = function () {
     };
 
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button(event, 'prev', null,
+      MB.CoverArt.reorder_button('prev', null,
                                  function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button(event, 'next', null,
+      MB.CoverArt.reorder_button('next', null,
                                  function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
 
     /* moving <script> elements around with insertBefore() and
