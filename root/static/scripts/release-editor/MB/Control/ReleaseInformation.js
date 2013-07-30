@@ -25,7 +25,10 @@ MB.Control.ReleaseGroup = function (action, parent) {
     self.parent = parent;
     self.$span = $('span.release-group.autocomplete');
     self.$name = self.$span.find ('input.name');
-    self.$type = $('#id-type_id');
+    self.$type = $('#id-primary_type_id');
+    self.$secondary_types = $('#id-secondary_type_ids');
+
+    self.selectsToDisable = self.$type.add(self.$secondary_types);
 
     MB.Control.EntityAutocomplete ({
         inputs: $('span.release-group.autocomplete'),
@@ -35,17 +38,24 @@ MB.Control.ReleaseGroup = function (action, parent) {
     self.$name.bind ('lookup-performed', function (event) {
         var data = self.$name.data ('lookup-result');
 
-        self.$type.find ('option').prop('selected', false);
+        self.selectsToDisable.find ('option').prop('selected', false);
+
         var $select_option = data.type ?
             self.$type.find ('option[value='+data.type+']') :
             self.$type.find ('option:eq(0)');
 
+        $.each(data.secondary_types, function (idx, type) {
+            self.$secondary_types
+              .find('option[value='+type+']').prop('selected', true);
+        });
+
         $select_option.prop('selected', true);
-        self.$type.prop('disabled', true);
+
+        self.selectsToDisable.prop('disabled', true);
     });
 
     self.$name.bind ('cleared.mb', function (event) {
-        self.$type.prop('disabled', false);
+        self.selectsToDisable.prop('disabled', false);
     });
 
     self.$name.bind ('focus.mb', function (event) {
