@@ -299,10 +299,14 @@ sub merge
     $self->c->model('Relationship')->merge_entities('artist', $new_id, @$old_ids);
 
     unless (is_special_artist($new_id)) {
+        my $merge_columns = [ qw( area begin_area end_area type ) ];
+        if ($self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id) != 2) {
+            push @$merge_columns, 'gender';
+        }
         merge_table_attributes(
             $self->sql => (
                 table => 'artist',
-                columns => [ qw( gender area begin_area end_area type ) ],
+                columns => $merge_columns,
                 old_ids => $old_ids,
                 new_id => $new_id
             )
