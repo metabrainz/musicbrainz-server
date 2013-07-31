@@ -163,7 +163,7 @@ sub search
                 entity.gid,
                 entity.comment,
                 $extra_columns
-                r.name,
+                aname.name,
                 r.rank
             FROM
                 (
@@ -173,10 +173,11 @@ sub search
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
+                JOIN ${type2}_name AS aname ON entity.name = aname.id
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, r.name
+                r.rank DESC, aname.name
                 $extra_ordering
             OFFSET
                 ?
@@ -190,7 +191,7 @@ sub search
             SELECT
                 entity.id,
                 entity.gid,
-                r.name,
+                aname.name,
                 entity.type AS type_id,
                 entity.language AS language_id,
                 MAX(rank) AS rank
@@ -206,9 +207,9 @@ sub search
                 JOIN ${type} AS entity ON (r.id = entity.name OR alias.${type} = entity.id)
                 JOIN ${type}_name AS aname ON entity.name = aname.id
             GROUP BY
-                entity.id, entity.gid, r.name, type_id, language_id
+                entity.id, entity.gid, aname.name, type_id, language_id
             ORDER BY
-                rank DESC, r.name
+                rank DESC, aname.name
             OFFSET
                 ?
         ";
