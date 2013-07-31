@@ -337,14 +337,16 @@ MB.CoverArt.FileUpload = function(file) {
     self.doUpload = function (gid, position) {
         var deferred = $.Deferred ();
 
+        if (self.status () === 'done' || self.busy ())
+        {
+            /* This file is currently being uploaded or has already
+               been uploaded. */
+            deferred.reject ();
+            return deferred.promise ();
+        }
+
         self.validating.fail (function (msg) { deferred.reject(msg); });
         self.validating.done (function (mime_type) {
-            if (self.status () !== "waiting")
-            {
-                /* This file already had its upload started. */
-                return;
-            }
-
             self.status (statuses.signing);
 
             var signing = MB.CoverArt.sign_upload (self.data, gid, mime_type);
@@ -453,12 +455,17 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
     $('.add-files.row').hide();
     $('#cover-art-position-row').hide ();
     $('#content')[0].scrollIntoView ();
+    $('#add-cover-art-submit').prop ('disabled', true);
 
     var queue = MB.CoverArt.process_upload_queue (gid, upvm, pos);
 
-    MB.utility.iteratePromises (queue).done (function () {
-        window.location.href = '/release/' + gid + '/cover-art';
-    });
+    MB.utility.iteratePromises (queue)
+        .done (function () {
+            window.location.href = '/release/' + gid + '/cover-art';
+        })
+        .fail (function () {
+            $('#add-cover-art-submit').prop ('disabled', false);
+        });
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
