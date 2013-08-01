@@ -163,8 +163,11 @@ MB.tests.GuessCase.Modes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            /* input and expected don't exist as options and will be ignored. */
-            MB.GuessCase.work.gc.setOptions (test);
+            var gc = MB.GuessCase.work.gc;
+
+            gc.CFG_UC_ROMANNUMERALS = test.roman;
+            gc.CFG_UC_UPPERCASED = test.keepuppercase;
+            gc.mode = MB.GuessCase.Mode[test.mode]();
 
             result = MB.GuessCase.work.guess (test.input);
             QUnit.equal(result, test.expected, test.input);
@@ -293,8 +296,7 @@ MB.tests.GuessCase.BugFixes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            /* input and expected don't exist as options and will be ignored. */
-            MB.GuessCase.work.gc.setOptions (test);
+            MB.GuessCase.work.gc.mode = MB.GuessCase.Mode[test.mode]();
 
             result = MB.GuessCase.work.guess (test.input);
             QUnit.equal(result, test.expected, test.bug + ', ' + test.input);
