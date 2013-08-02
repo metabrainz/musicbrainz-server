@@ -5,7 +5,7 @@ use 5.10.0;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace trim partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -24,6 +24,7 @@ our @EXPORT_OK = qw(
     changed_relations
     changed_display_data
     clean_submitted_artist_credits
+    coordinate_closure
     date_closure
     edit_status_name
     conditions_without_autoedit
@@ -76,6 +77,15 @@ sub date_closure
     return sub {
         my $a = shift;
         return partial_date_to_hash($a->$attr);
+    };
+}
+
+sub coordinate_closure
+{
+    my $attr = shift;
+    return sub {
+        my $a = shift;
+        return coordinates_to_hash($a->$attr);
     };
 }
 

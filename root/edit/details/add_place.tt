@@ -39,6 +39,13 @@
   </tr>
   [% END %]
 
+  [% IF edit.display_data.coordinates %]
+  <tr>
+    <th>[% l('Coordinates:') %]</th>
+    <td>[% edit.display_data.coordinates.format %]</td>
+  </tr>
+  [% END %]
+
   [% IF !edit.display_data.begin_date.is_empty %]
   <tr>
     <th>[% l('Begin date:') %]</th>

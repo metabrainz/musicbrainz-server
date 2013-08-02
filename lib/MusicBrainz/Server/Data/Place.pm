@@ -5,10 +5,11 @@ use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Place;
-use MusicBrainz::Server::Entity::Point;
+use MusicBrainz::Server::Entity::Coordinates;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
+    add_coordinates_to_row
     check_in_use
     generate_gid
     hash_to_row
@@ -41,8 +42,8 @@ sub _table
 
 sub _columns
 {
-    return 'place.id, gid, place.name, place.type, place.address, place.area, ' .
-           'place.coordinates, place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
+    return 'place.id, gid, place.name, place.type, place.address, place.area, place.coordinates[0] as coordinates_x, ' .
+           'place.coordinates[1] as coordinates_y, place.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, place.last_updated';
 }
 
@@ -67,8 +68,7 @@ sub _column_mapping
         type_id => 'type',
         address => 'address',
         area_id => 'area',
-        # will need to turn into new_from_rowish stuff
-        coordinates => 'coordinates',
+        coordinates =>  sub { MusicBrainz::Server::Entity::Coordinates->new_from_row(shift, shift() . 'coordinates') },
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         edits_pending => 'edits_pending',
@@ -186,7 +186,7 @@ sub _hash_to_row
 
     add_partial_date_to_row($row, $place->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $place->{end_date}, 'end_date');
-
+    add_coordinates_to_row($row, $place->{coordinates}, 'coordinates');
     return $row;
 }
 

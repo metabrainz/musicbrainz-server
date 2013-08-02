@@ -56,7 +56,7 @@ has 'area' => (
 
 has 'coordinates' => (
     is => 'rw',
-    isa => 'Point'
+    isa => 'Coordinates'
 );
 
 sub recordings {

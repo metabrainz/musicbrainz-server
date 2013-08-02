@@ -46,6 +46,8 @@
           </span>
           [% field_errors(r.form, 'area.name') %]
         [% END %]
+        [%- form_row_text_long(r, 'coordinates.latitude', l('Latitude:')) -%]
+        [%- form_row_text_long(r, 'coordinates.longitude', l('Longitude:')) -%]
       </fieldset>
 
       <fieldset>

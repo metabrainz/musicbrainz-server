@@ -35,6 +35,10 @@
                content=link_area(place.area)
                class="area"
                    IF place.area -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
+               content=html_escape(place.coordinates.format)
+               class="coordinates"
+                   IF place.coordinates.latitude && place.coordinates.longitude -%]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
             more=more_tags tag_this_text=l('Tag this place')

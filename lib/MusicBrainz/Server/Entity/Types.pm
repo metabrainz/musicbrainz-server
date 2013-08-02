@@ -53,6 +53,9 @@ subtype 'CDStub'
 subtype 'Collection'
     => as class_type 'MusicBrainz::Server::Entity::Collection';
 
+subtype 'Coordinates'
+    => as class_type 'MusicBrainz::Server::Entity::Coordinates';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 
@@ -118,9 +121,6 @@ subtype 'PlaceAlias'
 
 subtype 'PlaceType'
     => as class_type 'MusicBrainz::Server::Entity::PlaceType';
-
-subtype 'Point'
-    => as class_type 'MusicBrainz::Server::Entity::Point';
 
 subtype 'PUID'
     => as class_type 'MusicBrainz::Server::Entity::PUID';

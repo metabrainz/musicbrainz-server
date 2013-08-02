@@ -24,6 +24,10 @@ has_field 'area_id'   => ( type => 'Hidden' );
 has_field 'area'      => ( type => 'Compound' );
 has_field 'area.name' => ( type => 'Text' );
 
+has_field 'coordinates' => (
+    type => '+MusicBrainz::Server::Form::Field::Coordinates',
+);
+
 has_field 'comment' => (
     type => '+MusicBrainz::Server::Form::Field::Comment',
 );
@@ -35,12 +39,10 @@ has_field 'period' => (
 
 sub edit_field_names
 {
-    return qw( name type_id address area_id comment period.begin_date period.end_date period.ended );
+    return qw( name type_id address area_id comment coordinates period.begin_date period.end_date period.ended );
 }
 
 sub options_type_id     { shift->_select_all('PlaceType') }
-
-sub options_area_id { shift->_select_all('Area', sort_by_accessor => 1) }
 
 sub dupe_model { shift->ctx->model('Place') }
 

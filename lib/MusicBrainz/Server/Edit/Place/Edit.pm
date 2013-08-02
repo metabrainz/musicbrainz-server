@@ -4,10 +4,11 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_EDIT );
 use MusicBrainz::Server::Constants qw( :edit_status );
-use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw( CoordinateHash Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
+    coordinate_closure
     date_closure
     merge_partial_date
 );
@@ -22,6 +23,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Place';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
+use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
@@ -35,14 +37,15 @@ sub _edit_model { 'Place' }
 sub change_fields
 {
     return Dict[
-        name       => Optional[Str],
-        comment    => Nullable[Str],
-        type_id    => Nullable[Int],
-        address    => Nullable[Str],
-        area_id    => Nullable[Int],
-        begin_date => Nullable[PartialDateHash],
-        end_date   => Nullable[PartialDateHash],
-        ended      => Optional[Bool],
+        name        => Optional[Str],
+        comment     => Nullable[Str],
+        type_id     => Nullable[Int],
+        address     => Nullable[Str],
+        area_id     => Nullable[Int],
+        coordinates => Nullable[CoordinateHash],
+        begin_date  => Nullable[PartialDateHash],
+        end_date    => Nullable[PartialDateHash],
+        ended       => Optional[Bool],
     ];
 }
 
@@ -104,6 +107,13 @@ sub build_display_data
         }
     }
 
+    if (exists $self->data->{new}{coordinates}) {
+        $data->{coordinates} = {
+            new => Coordinates->new($self->data->{new}{coordinates}),
+            old => Coordinates->new($self->data->{old}{coordinates}),
+        };
+    }
+
     return $data;
 }
 
@@ -114,6 +124,7 @@ sub _mapping
     return (
         begin_date => date_closure('begin_date'),
         end_date => date_closure('end_date'),
+        coordinates  => coordinate_closure('coordinates'),
     );
 }
 
@@ -137,6 +148,8 @@ sub allow_auto_edit
         and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
     return 0 if exists $self->data->{old}{end_date}
         and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
+
+    return 0 if exists $self->data->{old}{coordinates};
 
     return 0 if exists $self->data->{old}{type_id}
         and $self->data->{old}{type_id} != 0;

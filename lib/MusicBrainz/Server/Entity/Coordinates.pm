@@ -1,16 +1,34 @@
-package MusicBrainz::Server::Entity::Point;
+package MusicBrainz::Server::Entity::Coordinates;
 
 use Moose;
 
-has 'x' => (
+has 'latitude' => (
     is => 'rw',
     isa => 'Num'
 );
 
-has 'y' => (
+has 'longitude' => (
     is => 'rw',
     isa => 'Num'
 );
+
+sub new_from_row {
+    my ($class, $row, $prefix) = @_;
+    $prefix //= '';
+    my %info;
+    $info{latitude} = $row->{$prefix . '_x'} if defined $row->{$prefix . '_x'};
+    $info{longitude} = $row->{$prefix . '_y'} if defined $row->{$prefix . '_y'};
+    return $class->new(%info);
+}
+
+sub format
+{
+    my ($self) = @_;
+
+    my @res = ($self->latitude, $self->longitude);
+
+    return join(', ', @res);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
