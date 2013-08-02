@@ -9,8 +9,9 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
-use MusicBrainz::Server::Translation qw ( N_l l );
+use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
+use MusicBrainz::Server::Translation qw ( N_l l );
 use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit::WithDifferences';
@@ -48,7 +49,8 @@ has '+data' => (
             medium_formats => Nullable[ArrayRef[Str]],
             events => Optional[ArrayRef[Dict[
                 date => Nullable[Str],
-                country_id => Nullable[Int]
+                country_id => Nullable[Int],
+                country_name => Nullable[Str]
             ]]]
         ],
         new => find_type_constraint('ReleaseLabelHash'),
@@ -108,7 +110,11 @@ sub build_display_data
 
     $data->{extra}{events} = [
         map +{
-            country => $loaded->{Area}->{ $_->{country_id} },
+            country => $loaded->{Area}->{ $_->{country_id} } //
+                (defined($_->{country_name}) &&
+                    MusicBrainz::Server::Entity::Area->new(
+                        name => $_->{country_name}
+                    )),
             date => MusicBrainz::Server::Entity::PartialDate->new( $_->{date} )
         }, @{ $data->{extra}{events} // [] }
     ];
@@ -267,9 +273,19 @@ sub restore {
     my ($self, $data) = @_;
 
     if (exists $data->{release}{date} || exists $data->{release}{country}) {
+        my $country_name = delete $data->{release}{country};
+        my $countries =
+            $self->c->model('Area')->search_by_names(
+                $country_name)->{$country_name};
+
         $data->{release}{events} = [{
             date => delete $data->{release}{date},
-            country_id => delete $data->{release}{country}
+            country_name => $country_name,
+
+            # $countries will be undefined if there is no search result. It's
+            # not possible for $countries to be the empty list
+            # (Data::Role::Alias immediately pushes to it).
+            country_id => $countries && $countries->[0]->id
         }];
     }
 
