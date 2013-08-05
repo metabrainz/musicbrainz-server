@@ -6,6 +6,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use HTTP::Status qw( :constants );
 use ModDefs;
+use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
@@ -182,41 +183,13 @@ sub error_mirror_404 : Private
     $c->detach;
 }
 
-sub _ssl_redirect
-{
-    my ($self, $c) = @_;
-
-    return unless DBDefs->SSL_REDIRECTS_ENABLED;
-
-    if (exists $c->action->attributes->{RequireSSL} && !$c->request->secure)
-    {
-        $c->response->cookies->{return_to_http} = { value => 1 };
-        $c->response->redirect(
-            "https://".DBDefs->WEB_SERVER_SSL.$c->request->env->{REQUEST_URI});
-        return 1;
-    }
-
-    if (!exists $c->action->attributes->{RequireSSL}
-        && $c->request->secure
-        && $c->request->cookie ('return_to_http'))
-    {
-        # expire in the past == delete cookie
-        $c->response->cookies->{return_to_http} = { value => 1, expires => '-1m' };
-        $c->response->redirect(
-            "http://".DBDefs->WEB_SERVER.$c->request->env->{REQUEST_URI});
-        return 1;
-    }
-
-    return 0;
-}
-
 sub begin : Private
 {
     my ($self, $c) = @_;
 
     return if exists $c->action->attributes->{Minimal};
 
-    return if $self->_ssl_redirect ($c);
+    ensure_ssl($c) if $c->action->attributes->{RequireSSL};
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
