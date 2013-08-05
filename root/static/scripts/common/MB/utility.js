@@ -251,6 +251,47 @@ MB.utility.renderArtistCredit = function (ac) {
     return html;
 }
 
+/* This takes a list of asynchronous functions (i.e. functions which
+   return a jquery promise) and runs them in sequence.  It in turn
+   returns a promise which is only resolved when all promises in the
+   queue have been resolved.  If one of the promises is rejected, the
+   rest of the queue is still processed (but the returned promise will
+   be rejected).
+
+   Note that any results are currently ignored, it is assumed you are
+   interested in the side effects of the functions executed.
+*/
+MB.utility.iteratePromises = function (promises) {
+    var deferred = $.Deferred ();
+    var queue = promises;
+    var iterate = null;
+    var failed = false;
+
+    iterate = function () {
+        if (queue.length > 0)
+        {
+            queue.shift ()().then (iterate, function () {
+                failed = true;
+                iterate ();
+            });
+        }
+        else
+        {
+            if (failed)
+            {
+                deferred.reject ();
+            }
+            else
+            {
+                deferred.resolve ();
+            }
+        }
+    };
+
+    iterate ();
+    return deferred.promise ();
+};
+
 // Based on http://javascript.crockford.com/prototypal.html
 MB.utility.beget = function(o) {
     function F() {};
@@ -291,5 +332,11 @@ MB.utility.joinList = function (items) {
         return items[0];
     }
     return "";
+};
+
+
+MB.utility.filesize = function (size) {
+    /* 1 decimal place.  false disables bit sizes. */
+    return filesize (size, 1, false);
 };
 

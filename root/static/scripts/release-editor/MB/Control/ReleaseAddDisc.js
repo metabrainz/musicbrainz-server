@@ -388,10 +388,6 @@ MB.Control.ReleaseTrackParser = function (dialog) {
     self.$dialog.find ('input.parse-tracks').bind ('click.mb', function (event) {
         self.parseTracks (self.disc);
     });
-    self.$dialog.find ('input.close').bind ('click.mb', function (event) {
-        self.parseTracks (self.disc);
-        self.close (event);
-    });
 
     self.disc = null;
 

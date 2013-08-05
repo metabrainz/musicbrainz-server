@@ -10,7 +10,6 @@
       [% IF edit.display_data.old_releases.size %]
         <ul>
           [% FOR release=edit.display_data.old_releases %]
-            <li>[% release %]</li>
             <li>[% descriptive_link(release) %]</li>
           [% END %]
         </ul>

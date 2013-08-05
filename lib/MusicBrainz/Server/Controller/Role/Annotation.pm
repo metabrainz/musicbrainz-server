@@ -96,7 +96,7 @@ after 'load' => sub {
     );
 };
 
-sub edit_annotation : Chained('load') PathPart RequireAuth Edit
+sub edit_annotation : Chained('load') PathPart Edit
 {
     my ($self, $c) = @_;
     my $model = $self->{model};

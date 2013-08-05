@@ -17,136 +17,60 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-MB.RelationshipEditor = (function(RE) {
+MB.RelationshipEditor = (function (RE) {
 
-// represents a core entitiy, either existing or newly-created.
-// Entity is private - modules use RE.Entity to find or create an entity.
 
-var Entity = function() {};
+MB.entity.CoreEntity.extend({
 
-Entity.prototype.init = function(obj) {
-    obj = obj || {};
-    this.gid = obj.gid;
-    this.id = obj.id;
-    this.name = obj.name || "";
-    this.relationships = ko.observableArray([]);
+    after$init: function () {
+        this.relationships = ko.observableArray([]);
+    },
 
-    var options = {href: "/" + this.type + "/" + this.gid, target: "_blank"};
-    if (obj.sortname) options.title = obj.sortname;
-    this.rendering = MB.html.a(options, this.name);
+    toJS: function () {
+        return { gid: this.gid, type: this.type };
+    },
 
-    if (obj.comment) {
-        this.rendering += " <span class=\"comment\">(" +
-            _.escape(obj.comment) + ")</span>";
-    }
-};
+    // searches this entity's relationships for potential duplicate "rel"
+    // if it is a duplicate, remove and merge it
 
-Entity.prototype.toJS = function() {
-    return {gid: this.gid, type: this.type};
-};
+    mergeRelationship: function (rel) {
+        var relationships = (rel.type == "recording-work")
+                ? this.performanceRelationships() : this.relationships();
 
-// searches this entity's relationships for potential duplicate "rel"
-// if it is a duplicate, remove and merge it
+        for (var i = 0; i < relationships.length; i++) {
+            var other = relationships[i];
 
-Entity.prototype.mergeRelationship = function(rel) {
-    var relationships = (rel.type == "recording-work")
-            ? this.performanceRelationships() : this.relationships();
+            if (rel !== other && rel.isDuplicate(other)) {
+                var obj = rel.toJS();
+                delete obj.id;
+                delete obj.action;
 
-    for (var i = 0; i < relationships.length; i++) {
-        var other = relationships[i];
+                obj.period.begin_date = RE.Util.mergeDates(
+                    rel.period.begin_date, other.period.begin_date);
 
-        if (rel !== other && rel.isDuplicate(other)) {
-            var obj = rel.toJS();
-            delete obj.id;
-            delete obj.action;
+                obj.period.end_date = RE.Util.mergeDates(
+                    rel.period.end_date, other.period.end_date);
 
-            obj.period.begin_date = RE.Util.mergeDates(rel.period.begin_date, other.period.begin_date);
-            obj.period.end_date = RE.Util.mergeDates(rel.period.end_date, other.period.end_date);
+                other.fromJS(obj);
+                rel.remove();
 
-            other.fromJS(obj);
-            rel.remove();
-
-            return true;
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-};
+});
 
-Artist = function(obj) {
-    obj = obj || {};
-    this.init(obj);
-    this.sortname = ko.observable(obj.sortname);
-};
 
-Artist.prototype = new Entity;
-Artist.prototype.type = "artist";
-
-Label = function(obj) {
-    this.init(obj);
-};
-
-Label.prototype = new Entity;
-Label.prototype.type = "label";
-
-Recording = function(obj) {
-    obj = obj || {};
-    this.init(obj);
-    this.number = obj.number;
-    this.position = obj.position;
-    this.length = obj.length;
-    this.artistCredit = obj.artistCredit;
+MB.entity.Recording.after("init", function () {
     this.performanceRelationships = ko.observableArray([]);
-};
+});
 
-Recording.prototype = new Entity;
-Recording.prototype.type = "recording";
 
-Release = function(obj) {
-    this.init(obj);
-};
-
-Release.prototype = new Entity;
-Release.prototype.type = "release";
-
-ReleaseGroup = function(obj) {
-    this.init(obj);
-};
-
-ReleaseGroup.prototype = new Entity;
-ReleaseGroup.prototype.type = "release_group";
-
-Work = function(obj) {
-    obj = obj || {};
-    this.init(obj);
+MB.entity.Work.after("init", function (data) {
     this.performanceCount = 0;
-    this.comment = ko.observable(obj.comment || "");
-    this.work_type = ko.observable(obj.work_type || null);
-    this.work_language = ko.observable(obj.work_language || null);
-};
+});
 
-Work.prototype = new Entity;
-Work.prototype.type = "work";
-
-RE.Entity = (function() {
-    var entities = {
-        artist:        Artist,
-        label:         Label,
-        recording:     Recording,
-        release:       Release,
-        release_group: ReleaseGroup,
-        work:          Work
-    }, cache = {};
-
-    return function(obj, type) {
-        if (obj instanceof Entity) return obj;
-        if (obj.gid) return cache[obj.gid] || (cache[obj.gid] = new entities[type || obj.type](obj));
-        return new entities[type || obj.type](obj);
-    };
-}());
-
-RE.Entity.isInstance = function(obj) {
-    return obj instanceof Entity;
-};
 
 return RE;
 

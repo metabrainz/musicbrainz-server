@@ -492,7 +492,7 @@ MB.Control.EntityAutocomplete = function (options) {
         // We need to do this manually, rather than using $.each, due to recordings
         // having a 'length' property.
         for (key in item) {
-            $inputs.find('input.' + key).val(item[key]);
+            $inputs.find('input.' + key).val(item[key]).trigger('change');
         }
 
         $name.removeClass('error');

@@ -9,18 +9,23 @@
     <script type="text/javascript" charset="utf-8" src="../../lib/underscore/underscore.string.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/json/json2.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/sha1/sha1.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/filesize.js/lib/filesize.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/qunit/qunit/qunit.js"></script>
     <script type="text/javascript" charset="utf-8" src="../../lib/qunit-tap/lib/qunit-tap.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-2.2.1.debug.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/knockout/knockout-2.3.0.debug.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../lib/aclass/aclass.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/utility.js"></script>
     <script type="text/javascript" charset="utf-8" src="../common/MB/html.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../common/entity.js"></script>
 
     <!-- URL Cleanup -->
     <script type="text/javascript" charset="utf-8" src="../edit/MB/Control/URLCleanup.js"></script>
 
+    <!-- Edit Cover Art -->
+    <script type="text/javascript" charset="utf-8" src="../edit/MB/CoverArt.js"></script>
+
     <!-- Guess Case -->
-    <script type="text/javascript" charset="utf-8" src="../../lib/jquery.ui/external/jquery.cookie.js"></script>
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Handler/Artist.js"></script>
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Handler/Base.js"></script>
     <script type="text/javascript" charset="utf-8" src="../guess-case/MB/GuessCase/Handler/Label.js"></script>
@@ -70,21 +75,23 @@
 
     <script type="text/javascript" charset="utf-8" src="utility.js"></script>
     <script type="text/javascript" charset="utf-8" src="Control/URLCleanup.js"></script>
+    <script type="text/javascript" charset="utf-8" src="CoverArt.js"></script>
     <script type="text/javascript" charset="utf-8" src="GuessCase.js"></script>
     <script type="text/javascript" charset="utf-8" src="TrackParser.js"></script>
     <script type="text/javascript" charset="utf-8" src="RelationshipEditor.js"></script>
+    <script type="text/javascript" charset="utf-8" src="entity.js"></script>
 
     <!-- Start! -->
     <script type="text/javascript">//<![CDATA[
 
       $(document).ready (function () {
-
           MB.tests.utility.Run ();
           MB.tests.URLCleanup.Run ();
+          MB.tests.CoverArt.Run ();
           MB.tests.GuessCase.Run ();
           MB.tests.TrackParser.Run ();
           MB.tests.RelationshipEditor.Run ();
-
+          MB.tests.entity();
       });
 
     //]]></script>
@@ -122,4 +129,3 @@
 
   </body>
 </html>
-

@@ -44,6 +44,10 @@ Now that you're running this script, mb_server should be able to
 upload images and indexes to http://localhost/caa/$BUCKET, where
 $BUCKET is the bucket name.
 
+To simulate a 503 Slow Down error, run slowdown.psgi instead of ssssss.psgi:
+
+    $ plackup --port 5050 contrib/slowdown.psgi
+
 
 CAA-indexer
 ===========

@@ -16,7 +16,8 @@
       <p>[%-
         rel = example.relationship;
         descriptive_link(rel.source);
-        display_relationship(rel, 'verbose_phrase')
+        ' ';
+        display_relationship(rel, 'verbose_phrase');
       -%]</p>
     [%- END -%]
   [%- END -%]

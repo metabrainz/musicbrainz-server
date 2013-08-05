@@ -116,6 +116,7 @@ sub insert
 
         push @created, $medium_created;
     }
+
     return @medium_hashes > 1 ? @created : $created[0];
 }
 
@@ -202,8 +203,6 @@ sub set_lengths_to_cdtoc
 
         $i++;
     }
-
-    $self->c->model('DurationLookup')->update($medium_id);
 }
 
 sub merge
