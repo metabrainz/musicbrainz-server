@@ -222,15 +222,17 @@ RE.createWorks = function(works, editNote, success, error) {
 };
 
 
+var recordingCheckboxes = "td.recording > input[type=checkbox]";
+var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
+
+
 UI.checkedRecordings = function() {
-    return $.map($tracklist.find("td.recording > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input).recording});
+    return $.map($(recordingCheckboxes + ":checked", $tracklist), ko.dataFor);
 };
 
 
 UI.checkedWorks = function() {
-    return $.map($tracklist.find("td.works > div.ar > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input)});
+    return $.map($(workCheckboxes + ":checked", $tracklist), ko.dataFor);
 };
 
 
@@ -238,8 +240,6 @@ function initCheckboxes(trackCount) {
 
     var medium_recording_selector = "input.medium-recordings",
         medium_work_selector = "input.medium-works",
-        recording_selector = "td.recording > input[type=checkbox]",
-        work_selector = "td.works > div.ar > input[type=checkbox]",
         checkboxes = RE.releaseViewModel.checkboxes;
 
     // get translated strings for the checkboxes
@@ -256,12 +256,7 @@ function initCheckboxes(trackCount) {
     getPlurals("{n} work selected", "{n} works selected", Math.max(10, Math.min(trackCount * 2, 100)), "workStrings");
 
     function count($inputs) {
-        var src = {}, count = 0, input;
-        for (var i = 0; input = $inputs[i]; i++) {
-            var id = ko.dataFor(input).id;
-            if (src[id] === undefined) count += (src[id] = 1);
-        }
-        return count;
+        return _.uniq($inputs, ko.dataFor).length;
     }
 
     function medium(medium_selector, selector, counter) {
@@ -301,14 +296,14 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    medium(medium_recording_selector, recording_selector, checkboxes.recordingCount);
-    medium(medium_work_selector, work_selector, checkboxes.workCount);
+    medium(medium_recording_selector, recordingCheckboxes, checkboxes.recordingCount);
+    medium(medium_work_selector, workCheckboxes, checkboxes.workCount);
 
     _release(medium_recording_selector, "recordings");
     _release(medium_work_selector, "works");
 
-    range(recording_selector, checkboxes.recordingCount);
-    range(work_selector, checkboxes.workCount);
+    range(recordingCheckboxes, checkboxes.recordingCount);
+    range(workCheckboxes, checkboxes.workCount);
 }
 
 
