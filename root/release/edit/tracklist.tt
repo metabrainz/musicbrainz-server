@@ -321,7 +321,7 @@
           <a class="credits-button" href="#credits">[% l('credits') %]</a>
         </td>
         <td class="length">
-          <input type="text" class="track-length" size="5" value="?:??" />
+          <input type="text" class="track-length" size="5" placeholder="?:??" />
         </td>
         <td class="icon">
           <input type="button" class="icon guesscase-track"

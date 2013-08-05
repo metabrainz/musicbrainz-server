@@ -189,7 +189,7 @@ MB.utility.formatTrackLength = function (duration)
 {
     if (duration === null)
     {
-        return '?:??';
+        return '';
     }
 
     if (duration < 1000)
