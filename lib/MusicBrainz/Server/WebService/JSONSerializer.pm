@@ -327,9 +327,29 @@ sub autocomplete_work
 
     my @output;
 
+    my %alias_preference = (
+        en => 1,
+        en_US => 2,
+        en_GB => 3
+    );
+
     for (@$results) {
         my $out = $self->_work( $_->{work} );
         $out->{artists} = $_->{artists};
+
+        my ($primary_alias) =
+            sort {
+                my $pref_a = $alias_preference{$a};
+                my $pref_b = $alias_preference{$b};
+
+                defined($pref_a) && defined($pref_b)
+                    ? $pref_a <=> $pref_b
+                    : defined($pref_a) || -(defined($pref_b)) || 0;
+            }
+            grep { $_->type_id == 1 && $_->primary_for_locale }
+                @{ $_->{aliases} };
+
+        $out->{primary_alias} = $primary_alias && $primary_alias->name;
         push @output, $out;
     }
 
@@ -346,10 +366,11 @@ sub _work
     my ($self, $work) = @_;
 
     return {
-        name    => $work->name,
-        id      => $work->id,
-        gid     => $work->gid,
+        name => $work->name,
+        id => $work->id,
+        gid => $work->gid,
         comment => $work->comment,
+        language => $work->language && $work->language->l_name
     };
 }
 
