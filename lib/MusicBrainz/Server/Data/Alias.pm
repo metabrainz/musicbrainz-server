@@ -112,7 +112,8 @@ sub find_by_entity_ids
 sub find_by_entity_id
 {
     my ($self, @ids) = @_;
-    return values %{ $self->find_by_entity_ids(@ids) };
+    my $alias_map = $self->find_by_entity_ids(@ids);
+    return [ map { @{ $alias_map->{$_} } } @ids ];
 }
 
 sub has_locale
