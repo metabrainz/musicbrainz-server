@@ -130,50 +130,41 @@ Installing Perl dependencies
 The fundamental thing that needs to happen here is all the dependency Perl
 modules get installed, somewhere where your server can find them. There are many
 ways to make this happen, and the best choice will be very
-site-dependent. MusicBrainz ships with support for Carton, a Perl package
-manager, which will allow you to have the exact same dependencies as our
-production servers. Carton also manages everything for you, and lets you avoid
-polluting your system installation with these dependencies.
+site-dependent. MusicBrainz recommends the use of local::lib, which will install
+Perl libraries into your home directory, and does not require root permissions
+and avoids modifying the rest of your system.
 
-Below outlines how to setup MusicBrainz server with Carton.
+Below outlines how to setup MusicBrainz server with local::lib.
 
 
 1.  Prerequisites
 
-    Before you get started you will actually need to have Carton installed as
-    MusicBrainz does not yet ship with an executable. There are also a few
-    development headers that will be needed when installing dependencies. Run
-    the following steps as a normal user on your system.
+    Before you get started you will actually need to have local::lib installed.
+    There are also a few development headers that will be needed when installing
+    dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached
-        sudo cpan Carton
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl
 
-    NOTE: This installs Carton at the system level, if you prefer to install
-    this in your home directory, use [local::lib](http://search.cpan.org/perldoc?local::lib).
+3.  Enable local::lib
+
+    local::lib requires a few environment variables are set. The easiest way to
+    do this is via .bashrc, assuming you use bash as your shell. Simply run the
+    following to append local::lib configuration to your bash configuration:
+
+        echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
+
+    Next either close and open your shell again, or you can run:
+
+        source ~/.bashrc
+
+    To reload your configuration.
 
 2.  Install dependencies
 
     To install the dependencies for MusicBrainz server, first make sure you are
     in the MusicBrainz source code directory and run the following:
 
-        carton install --deployment
-
-    Note that if you've previously used this command in the musicbrainz folder it
-    will not always upgrade all packages to their correct version.  If you're
-    having trouble running musicbrainz, run "rm -rf local" in the musicbrainz
-    directory to remove all packages previously installed by carton, and then run
-    the above step again.
-
-    If carton complains about a missing "cpanfile", you can create it with:
-
-        cat Makefile.PL | grep ^requires > cpanfile
-
-
-    If you still see errors, you can install individual packages manually by running:
-
-        carton install {module name}
-
-    Where {module name} is something like Function::Parameters or Locale::TextDomain.
+        cpanm --installdeps --notest .
 
 
 Creating the database
@@ -247,7 +238,7 @@ Creating the database
 
         To use a clean database, all you need to do is run:
 
-            carton exec ./admin/InitDb.pl -- --createdb --clean
+            ./admin/InitDb.pl -- --createdb --clean
 
     2.  Import a database dump
 
@@ -271,7 +262,7 @@ Creating the database
 
         If this is OK and you wish to continue, you can import them with:
 
-            carton exec ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         `--echo` just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2
@@ -298,7 +289,7 @@ The development server is a lightweight HTTP server that gives good debug
 output and is much more convenient than having to set up a standalone
 server. Just run:
 
-    carton exec -- plackup -Ilib -r
+    plackup -Ilib -r
 
 Visiting http://your.machines.ip.address:5000 should now present you with
 your own running instance of the MusicBrainz Server.
@@ -352,8 +343,7 @@ If you intend to run a server with translations, there are a few steps to follow
          sudo apt-get install language-pack-{language code}
 
    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-   (if you've installed with carton, local/lib/perl5/Locale/Util.pm) to add entries
-   to LANG2COUNTRY. Suggested ones include: 
+   to add entries to LANG2COUNTRY. Suggested ones include: 
    * es => 'ES'
    * et => 'EE'
    * el => 'GR'

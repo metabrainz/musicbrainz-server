@@ -10,26 +10,21 @@ Test::Harness. For example, to run all tests use:
 
     $ prove -l t/
 
-If you're using Carton, you should instead run:
-
-    $ carton exec -Ilib -- prove t/
-
 The bulk of tests will run from the single tests.t file, which can take a while
 to complete. If you are only interested in running a single test, you can pass
 the --tests option. For example if you want to run a controller test such as
 t::MusicBrainz::Server::Controller::WS::2::LookupArtist you can use:
 
-    $ carton exec -Ilib -- prove t/tests.t :: --tests WS::2::LookupArtist
+    $ prove -l t/tests.t :: --tests WS::2::LookupArtist
 
 The --tests argument takes a regular expression to match against the test
 name. For example, run multiple tests you can use regular expression groups:
 
-    $ carton exec -Ilib -- prove t/tests.t :: --tests '(Data::URL|Entity::URL)'
+    $ prove -l t/tests.t :: --tests '(Data::URL|Entity::URL)'
 
 While to run all Data:: tests you can do the following:
 
-    $ carton exec -Ilib -- prove t/tests.t :: --tests 'Data::'
-
+    $ prove -l t/tests.t :: --tests 'Data::'
 
 Database tests (pgTAP)
 ----------------------
@@ -44,7 +39,7 @@ database.  You can use environment variables for the database
 configuration, the easiest way to set these is to use the provided
 database_configuration script like this:
 
-    $ eval `carton exec -Ilib -- script/database_configuration TEST`
+    $ eval `perl -Ilib script/database_configuration TEST`
 
 Now that that is set up you can run individual pgtap tests like this:
 
@@ -53,8 +48,6 @@ Now that that is set up you can run individual pgtap tests like this:
 Or all of them like this:
 
     $ prove --verbose --source pgTAP t/pgtap/* t/pgtap/unused-tags/*
-
-
 
 Cover art archive development
 -----------------------------
