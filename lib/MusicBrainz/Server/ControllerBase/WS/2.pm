@@ -11,6 +11,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>
@@ -283,6 +284,11 @@ sub _ratings
     }
 }
 
+sub is_nat {
+    my $n = shift;
+    return looks_like_number($n) && int($n) == $n && $n >= 0;
+}
+
 sub _limit_and_offset
 {
     my ($self, $c) = @_;
@@ -290,6 +296,12 @@ sub _limit_and_offset
     my $args = $c->stash->{args};
     my $limit = $args->{limit} ? $args->{limit} : 25;
     my $offset = $args->{offset} ? $args->{offset} : 0;
+
+    if (!(is_nat($limit) && is_nat($offset))) {
+        $self->_error(
+            $c, "The 'limit' and 'offset' parameters must be positive integers"
+        );
+    }
 
     return ($limit > 100 ? 100 : $limit, $offset);
 }
