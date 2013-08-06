@@ -163,7 +163,7 @@ sub search
                 entity.gid,
                 entity.comment,
                 $extra_columns
-                aname.name,
+                r.name,
                 r.rank
             FROM
                 (
@@ -173,11 +173,10 @@ sub search
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
-                JOIN ${type2}_name AS aname ON entity.name = aname.id
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, aname.name
+                r.rank DESC, r.name
                 $extra_ordering
             OFFSET
                 ?
