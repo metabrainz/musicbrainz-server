@@ -47,6 +47,8 @@ sub _columns
            'end_date_year, end_date_month, end_date_day, ended, comment, place.last_updated';
 }
 
+sub browse_column { 'name' }
+
 sub _id_column
 {
     return 'place.id';
