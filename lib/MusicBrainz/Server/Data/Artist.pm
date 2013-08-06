@@ -300,7 +300,8 @@ sub merge
 
     unless (is_special_artist($new_id)) {
         my $merge_columns = [ qw( area begin_area end_area type ) ];
-        if ($self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id) != 2) {
+        my $group_type = 2;
+        if ($self->sql->select_single_value('SELECT type FROM artist WHERE id = ?', $new_id) != $group_type) {
             push @$merge_columns, 'gender';
         }
         merge_table_attributes(
