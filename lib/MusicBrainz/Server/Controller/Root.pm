@@ -241,6 +241,11 @@ sub begin : Private
     # Setup the searchs on the sidebar
     $c->form( sidebar_search => 'Search::Search' );
 
+    # Edit implies RequireAuth
+    if (!exists $c->action->attributes->{RequireAuth} && exists $c->action->attributes->{Edit}) {
+        $c->action->attributes->{RequireAuth} = 1;
+    }
+
     # Returns a special 404 for areas of the site that shouldn't exist on a slave (e.g. /user pages)
     if (exists $c->action->attributes->{HiddenOnSlaves}) {
         $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_slave_db});

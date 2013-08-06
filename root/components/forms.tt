@@ -88,10 +88,10 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class) BLOCK -%]
     [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.select(field_name) %]
+      [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
+      [% r.select(field_name, { class => class }) -%]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -102,15 +102,15 @@
       <div class="form-row-text-list">
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
-              <input type="text" value="" name="" class="value" />
-              <button class="nobutton icon remove" style="vertical-align: middle">
+              <input type="text" value="" name="" class="value with-remove" />
+              <button class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
-              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value" />
-              <button class="nobutton icon remove" style="vertical-align: middle">
+              <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
+              <button class="nobutton icon remove">
                 <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
                      title="[% l('Remove {item}', item => item_name) %]"
                        alt="[% l('Remove {item}', item => item_name) %]" />
@@ -118,9 +118,9 @@
           </div>
           [% END -%]
           <div class="form-row-add">
-            <button class="nobutton add" style="margin-right: 8px;">
+            <button class="nobutton add">
               <span class="add-row">[% l('Add {item}', item => item_name) %]</span>
-              <div class="add-item icon img" style="vertical-align: text-bottom" title="[% l('Add {item}', item => item_name) %]"></div>
+              <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
             </button>
           </div>
       </div>
@@ -149,11 +149,11 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <input type="text" id="[% id %]" style="width: 262px"
+          <input type="text" id="[% id %]" class="artist-credit-input"
               value="[% html_escape(form.field('artist_credit').item.name) %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
-        <input type="button" id="open-ac" value=" &gt;&gt; " style="width: 32px; height: 22px; margin-left: 3px;" />
+        <input type="button" id="open-ac" value=" &gt;&gt; " />
         [% field_errors(r.form, 'artist_credit') %]
     [%- END -%]
 [%- END -%]

@@ -69,7 +69,7 @@ sub detach_if_disallowed
     }
 }
 
-sub edit : Local RequireAuth Edit
+sub edit : Local Edit
 {
     my ($self, $c) = @_;
 
@@ -192,7 +192,7 @@ sub edit : Local RequireAuth Edit
     }
 }
 
-sub create : Local RequireAuth Edit
+sub create : Local Edit
 {
     my ($self, $c) = @_;
 
@@ -299,7 +299,7 @@ sub create : Local RequireAuth Edit
     }
 }
 
-sub create_url : Local RequireAuth Edit
+sub create_url : Local Edit
 {
     my ($self, $c) = @_;
     my $qp = $c->req->query_params;
@@ -389,7 +389,7 @@ sub create_url : Local RequireAuth Edit
     }
 }
 
-sub delete : Local RequireAuth Edit
+sub delete : Local Edit
 {
     my ($self, $c) = @_;
 

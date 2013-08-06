@@ -27,6 +27,8 @@ def socket_deploy():
     with cd("~/musicbrainz-server"):
         run("git remote set-url origin git://github.com/metabrainz/musicbrainz-server.git")
         run("git pull --ff-only")
+        run("git submodule init")
+        run("git submodule update")
         run("~/musicbrainz-server/admin/socket-deploy.sh")
 
 def no_local_changes():
@@ -108,6 +110,8 @@ def production():
 
         old_rev = sudo("git rev-parse HEAD", user="musicbrainz")
         sudo("git pull --ff-only", user="musicbrainz")
+        sudo("git submodule init", user="musicbrainz")
+        sudo("git submodule update", user="musicbrainz")
         new_rev = sudo("git rev-parse HEAD", user="musicbrainz")
 
         sql_updates = sudo("git diff --name-only %s %s -- admin/sql/updates" % (old_rev, new_rev), user="musicbrainz")

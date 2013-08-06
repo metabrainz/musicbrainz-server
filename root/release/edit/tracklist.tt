@@ -155,9 +155,8 @@
     </div>
 
     <div class="buttons">
-      <input style="float: right;" type="button" class="close" value="[% l('Done') %]" />
       <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
-      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+      <input type="button" class="negative cancel" value="[% l('Close') %]" />
     </div>
   </div>
 
@@ -440,7 +439,7 @@
 
       <div class="icon add-track" style="float: right;">
         <span style="padding-right: 1em">
-          [% l('Add {num} track(s)', num => '<input type="text" class="add-track-count" value="1" />') %]
+          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" class="add-track-count" value="1" />') %]
         </span>
         <input type="button" class="icon add-track"
             title="[% l('Add track(s)') %]" />

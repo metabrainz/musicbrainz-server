@@ -145,6 +145,10 @@ ws_test 'lookup recording with official singles (+media)',
                 <status>Official</status>
                 <quality>normal</quality>
                 <date>2001-07-04</date>
+                <text-representation>
+                  <language>jpn</language>
+                  <script>Jpan</script>
+                </text-representation>
                 <country>JP</country>
                 <release-event-list count="1">
                     <release-event>
@@ -158,6 +162,7 @@ ws_test 'lookup recording with official singles (+media)',
                         </area>
                     </release-event>
                 </release-event-list>
+                <barcode>4942463511227</barcode>
                 <medium-list count="1">
                     <medium>
                         <position>1</position><format>CD</format>

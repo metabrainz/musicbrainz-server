@@ -47,7 +47,8 @@ role
         }
 
         # First stash is more convenient for the actual controller
-        $c->stash( $entity_name => $entity ) if $entity_name;
+        $c->stash( $entity_name => $entity )
+          if $entity_name && !$c->stash->{$entity_name};
 
         # Second is useful to roles or other places that need introspection
         $c->stash( entity       => $entity );

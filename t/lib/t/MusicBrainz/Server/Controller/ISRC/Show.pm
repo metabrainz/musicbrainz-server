@@ -17,6 +17,7 @@ $mech->get_ok('/isrc/DEE250800230');
 html_ok($mech->content);
 $mech->content_contains('King of the Mountain');
 $mech->content_contains('Kate Bush');
+$mech->content_contains('DEE250800230');
 
 $mech->get('/isrc/DEE250812345');
 is($mech->status(), 404);

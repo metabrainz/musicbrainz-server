@@ -30,9 +30,10 @@ var validationHandlers = {
             field.error(MB.text.PleaseSelectARType);
         } else if (!typeInfo.descr) {
             field.error(MB.text.PleaseSelectARSubtype);
-        }
-        else if (typeInfo.deprecated) {
+        } else if (typeInfo.deprecated) {
             field.error(MB.text.RelationshipTypeDeprecated);
+        } else {
+            field.error("");
         }
     },
 
@@ -163,7 +164,7 @@ var fieldChanged = function(newValue) {
 
     // entities are unique, we compare them directly.
     /^entity/.test(name)
-        ? (origValue = RE.Entity(origValue))
+        ? (origValue = MB.entity(origValue))
         : (newValue = ko.toJS(newValue));
 
     changed = !_.isEqual(origValue, newValue);
@@ -312,7 +313,7 @@ Fields.Entity = function(entity, relationship) {
 
 Fields.Entity.prototype.write = function(entity) {
     var currentEntity = this.entity.peek();
-    entity = RE.Entity(entity);
+    entity = MB.entity(entity);
 
     if (currentEntity !== entity && currentEntity.type == entity.type) {
         this.entity(entity);

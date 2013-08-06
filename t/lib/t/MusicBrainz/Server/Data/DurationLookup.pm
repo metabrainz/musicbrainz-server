@@ -3,13 +3,84 @@ use Test::Routine;
 use Test::Moose;
 use Test::More;
 
-use MusicBrainz::Server::Data::DurationLookup;
-
+use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Test;
+use MusicBrainz::Server::Data::DurationLookup;
+use MusicBrainz::Server::Test qw( accept_edit );
 use Sql;
 
 with 't::Context';
+
+test 'tracklist used to fit lookup criteria but no longer does' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
+    $c->sql->do ("INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) ".
+                 "VALUES (1, 'annotation_editor', '{CLEARTEXT}password', ".
+                 "'3a115bc4f05ea9856bd4611b75c80bca', 'editor\@example.org', '2005-02-18')");
+
+    my $artist_credit = {
+        names => [{ artist => { id => 1 }, name => 'Artist', join_phrase => '' }]
+    };
+
+    my $insert_hash = {
+        name => 'Bonus disc',
+        format_id => 1,
+        position => 3,
+        release_id => 1,
+        tracklist => [
+            {
+                name => 'Dirty Electro Mix',
+                position => 1,
+                recording_id => 1,
+                length => 330160,
+                artist_credit => $artist_credit,
+            },
+            {
+                name => 'I.Y.F.F.E Guest Mix',
+                position => 2,
+                recording_id => 2,
+                length => 262000,
+                artist_credit => $artist_credit,
+            }
+        ]
+    };
+
+    my $toc = "1 2 44412 0 24762";
+
+    my $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    is (scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
+
+    my $created = $c->model ('Medium')->insert($insert_hash);
+    my $medium = $c->model ('Medium')->get_by_id ($created->id);
+    isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
+
+    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    is (scalar @$durationlookup, 1, "one match with TOC lookup");
+
+    $medium = $durationlookup->[0]->medium;
+    $c->model ('Track')->load_for_mediums ($medium);
+    $c->model ('ArtistCredit')->load ($medium->all_tracks);
+
+    # clear length on the track and then submit an edit for the medium
+    # with that track length cleared.  A disc where not all tracks have a
+    # length should not have an entry in medium_index.
+
+    $medium->tracks->[0]->clear_length ();
+
+    my $edit = $c->model('Edit')->create(
+        editor_id => 1,
+        edit_type => $EDIT_MEDIUM_EDIT,
+        to_edit => $medium,
+        tracklist => $medium->tracks
+    );
+
+    accept_edit($c, $edit);
+
+    $durationlookup = $c->model ('DurationLookup')->lookup ($toc, 10000);
+    is (scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
+};
 
 test all => sub {
 

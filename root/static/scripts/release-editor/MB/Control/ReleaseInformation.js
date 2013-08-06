@@ -422,17 +422,17 @@ MB.Control.ReleaseInformation = function(action) {
             $(this).val (barcode);
         });
 
-        $('a[href=#add_label]').bind ('click.mb', function (event) {
+        $('button.add-label').on ('click', function (event) {
+            event.preventDefault ();
             self.addLabel ();
             self.bubbles.hideAll ();
-            event.preventDefault ();
         });
 
-        $('a[href=#add_event]').bind ('click.mb', function (event) {
+        $('button.add-event').on ('click', function (event) {
             event.preventDefault ();
-            event = self.addEvent();
+            var release_event = self.addEvent();
             self.bubbles.hideAll ();
-            $("#id-events\\." + event.eventno + "\\.country_id").val('');
+            $("#id-events\\." + release_event.eventno + "\\.country_id").val('');
         });
 
         self.artistcredit = MB.Control.ArtistCreditVertical (
