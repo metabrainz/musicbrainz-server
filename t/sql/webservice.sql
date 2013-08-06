@@ -1216,7 +1216,7 @@ INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, 
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '2314b78d-4957-3ef1-95ad-1e98cf0c0752', '260', '2011-01-18 15:56:00.408782+00', 197266, 513103, 'The Crunge', '4', 4, 162923);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '8ada7327-0ef2-3839-9961-5a5ed70f1499', '270', '2011-01-18 15:56:00.408782+00', 223173, 513103, 'Dancing Days', '5', 5, 162924);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '05c61a62-1791-37db-9335-b41fa4f3caa6', '280', '2011-01-18 15:56:00.408782+00', 262626, 513103, 'D''yer Mak''er', '6', 6, 162925);
-INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '95c92b58-9d54-3a11-a4ad-16563dfa35f1', '290', '2011-01-18 15:56:00.408782+00', 420573, 513103, 'No Quarter', 7, 162926);
+INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '95c92b58-9d54-3a11-a4ad-16563dfa35f1', '290', '2011-01-18 15:56:00.408782+00', 420573, 513103, 'No Quarter', '7', 7, 162926);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, 'fbfa1b01-8199-3bb2-9ea1-32064b091d46', '300', '2011-01-18 15:56:00.408782+00', 271066, 513103, 'The Ocean', '8', 8, 162927);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, '46d1726f-5d58-31ee-88e4-f6dec92dedee', '229', '2011-01-18 15:56:00.408782+00', 330160, 523041, 'The Song Remains the Same', '1', 1, 160074);
 INSERT INTO track (artist_credit, edits_pending, gid, id, last_updated, length, medium, name, number, position, recording) VALUES (388, 0, 'ae7fd789-b3a8-3440-afb8-28d62c3aef00', '239', '2011-01-18 15:56:00.408782+00', 459266, 523041, 'The Rain Song', '2', 2, 162921);
@@ -2467,6 +2467,7 @@ INSERT INTO medium_cdtoc (cdtoc, edits_pending, id, last_updated, medium) VALUES
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (95821, 'the-anti-kuno', '{CLEARTEXT}notreally', '79237ef54f6d3b8711030c0d6d5939a0', 'foo@example.com', now());
 
 INSERT INTO edit (autoedit, close_time, data, editor, expire_time, id, language, no_votes, open_time, quality, status, type, yes_votes) VALUES (0, NULL, '{}', 95821, '2013-04-16 17:42:38.063723+00', 1, NULL, 0, '2013-04-02 17:42:38.063723+00', 1, 2, 314, 0);
+SELECT setval('edit_id_seq', (SELECT max(id) FROM edit));
 
 INSERT INTO cover_art_archive.cover_art (comment, mime_type, date_uploaded, edit, edits_pending, id, ordering, release) VALUES ('', 'image/jpeg', '2012-05-24 07:35:13.984115+00', 1, 0, '1031598329', 1, 59662);
 
