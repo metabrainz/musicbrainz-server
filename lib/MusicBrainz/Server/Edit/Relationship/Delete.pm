@@ -93,7 +93,7 @@ sub build_display_data
     my $link = MusicBrainz::Server::Entity::Link->new(
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{relationship}{link}{end_date}),
-        type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $self->data->{relationship}{link}{type}{long_link_phrase}),
+        type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $self->data->{relationship}{link}{type}{long_link_phrase} // ''),
         attributes => $attrs
     );
 
