@@ -26,15 +26,12 @@ sub serialize
     $body{releases} = list_of ($entity, $inc, $stash, "releases")
         if ($toplevel && $inc && $inc->releases);
 
-    return \%body unless defined $inc && ($inc->isrcs || $inc->puids);
+    return \%body unless defined $inc && ($inc->isrcs);
 
     my $opts = $stash->store ($entity);
     $body{isrcs} = [
         map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
         ] if $inc->isrcs;
-    $body{puids} = [
-        map { $_->puid->puid } sort_by { $_->puid->puid } @{ $opts->{puids} }
-        ] if $inc->puids;
 
     return \%body;
 };

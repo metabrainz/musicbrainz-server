@@ -307,13 +307,6 @@ CREATE TABLE cdtoc_raw
     track_offset         INTEGER[] NOT NULL
 );
 
-CREATE TABLE clientversion
-(
-    id                  SERIAL,
-    version             VARCHAR(64) NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 CREATE TABLE country_area
 (
     area                INTEGER -- PK, references area.id
@@ -1210,13 +1203,6 @@ CREATE TABLE medium_format
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE puid
-(
-    id                  SERIAL,
-    puid                CHAR(36) NOT NULL,
-    version             INTEGER NOT NULL -- references clientversion.id
-);
-
 CREATE TABLE replication_control
 (
     id                              SERIAL,
@@ -1267,15 +1253,6 @@ CREATE TABLE recording_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references recording.id
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE recording_puid
-(
-    id                  SERIAL,
-    puid                INTEGER NOT NULL, -- references puid.id
-    recording           INTEGER NOT NULL, -- references recording.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

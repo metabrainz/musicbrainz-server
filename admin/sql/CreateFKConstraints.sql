@@ -1260,11 +1260,6 @@ ALTER TABLE medium_index
    REFERENCES medium(id)
    ON DELETE CASCADE;
 
-ALTER TABLE puid
-   ADD CONSTRAINT puid_fk_version
-   FOREIGN KEY (version)
-   REFERENCES clientversion(id);
-
 ALTER TABLE recording
    ADD CONSTRAINT recording_fk_name
    FOREIGN KEY (name)
@@ -1295,16 +1290,6 @@ ALTER TABLE recording_meta
    FOREIGN KEY (id)
    REFERENCES recording(id)
    ON DELETE CASCADE;
-
-ALTER TABLE recording_puid
-   ADD CONSTRAINT recording_puid_fk_puid
-   FOREIGN KEY (puid)
-   REFERENCES puid(id);
-
-ALTER TABLE recording_puid
-   ADD CONSTRAINT recording_puid_fk_recording
-   FOREIGN KEY (recording)
-   REFERENCES recording(id);
 
 ALTER TABLE recording_rating_raw
    ADD CONSTRAINT recording_rating_raw_fk_recording

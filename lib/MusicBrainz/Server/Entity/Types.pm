@@ -110,9 +110,6 @@ subtype 'MediumFormat'
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
 
-subtype 'PUID'
-    => as class_type 'MusicBrainz::Server::Entity::PUID';
-
 subtype 'Recording'
     => as class_type 'MusicBrainz::Server::Entity::Recording';
 

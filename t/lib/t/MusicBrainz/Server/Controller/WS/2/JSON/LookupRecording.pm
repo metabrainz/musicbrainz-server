@@ -230,18 +230,17 @@ test 'recording lookup with artists' => sub {
         });
 };
 
-test 'recording lookup with puids and isrcs' => sub {
+test 'recording lookup with isrcs' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'recording lookup with puids and isrcs',
-    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=puids+isrcs' => encode_json (
+    ws_test_json 'recording lookup with isrcs',
+    '/recording/162630d9-36d2-4a8d-ade1-1c77440b34e7?inc=isrcs' => encode_json (
         {
             id => "162630d9-36d2-4a8d-ade1-1c77440b34e7",
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             length => 296026,
-            puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
             isrcs => [ "JPA600102450" ],
         });
 };

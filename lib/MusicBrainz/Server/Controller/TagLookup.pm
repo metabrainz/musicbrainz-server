@@ -73,27 +73,6 @@ sub _parse_filename
    return $data;
 }
 
-sub puid : Private
-{
-    my ($self, $c, $form) = @_;
-
-    my $puid = $form->field('puid')->value();
-    my @releases = $c->model('Release')->find_by_puid($puid);
-
-    $c->model('ArtistCredit')->load(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Script')->load(@releases);
-    $c->model('Language')->load(@releases);
-
-    my @results = map { { entity => $_ } } @releases;
-
-    $c->stash(
-        # A PUID search displays releases as results
-        type    => 'release',
-        results => \@results
-    );
-}
-
 sub external : Private
 {
     my ($self, $c, $form) = @_;
@@ -171,7 +150,7 @@ sub index : Path('')
         map {
             ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
                                 $c->req->query_params->{$_})
-        } qw( artist release tracknum track duration filename puid )
+        } qw( artist release tracknum track duration filename )
     };
 
     # All the fields are optional, but we shouldn't do anything unless at
@@ -179,13 +158,7 @@ sub index : Path('')
     return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
 
-    if ($form->field('puid')->value()) {
-        $self->puid($c, $form);
-    }
-    else {
-        $self->external($c, $form);
-    }
-
+    $self->external($c, $form);
     $c->stash( template => 'taglookup/results.tt' );
 }
 

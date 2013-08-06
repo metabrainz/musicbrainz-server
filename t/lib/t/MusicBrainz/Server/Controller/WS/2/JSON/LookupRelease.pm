@@ -417,12 +417,12 @@ test 'release lookup with release-groups' => sub {
         });
 };
 
-test 'release lookup with discids and puids' => sub {
+test 'release lookup with discids' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'release lookup with discids and puids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' => encode_json (
+    ws_test_json 'release lookup with discids',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+recordings' => encode_json (
         {
             id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
             title => "Summer Reggae! Rainbow",
@@ -474,7 +474,6 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー",
                                 length => 296026,
                                 disambiguation => "",
-                                puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
                             }
                         },
                         {
@@ -487,7 +486,6 @@ test 'release lookup with discids and puids' => sub {
                                 title => "HELLO! また会おうね (7人祭 version)",
                                 length => 213106,
                                 disambiguation => "",
-                                puids => [ "251bd265-84c7-ed8f-aecf-1d9918582399" ],
                             }
                         },
                         {
@@ -500,7 +498,6 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー (instrumental)",
                                 length => 292800,
                                 disambiguation => "",
-                                puids => [ "7b8a868f-1e67-852b-5141-ad1edfb1e492" ],
                             }
                         }]
                 }]
