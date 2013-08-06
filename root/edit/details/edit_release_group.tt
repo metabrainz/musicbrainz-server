@@ -3,7 +3,7 @@
 <table class="details edit-release-group">
   <tr>
     <th>[% l('Release Group:') %]</th>
-    <td>
+    <td colspan="2">
       [% descriptive_link(edit.display_data.release_group) %]
     </td>
   </tr>

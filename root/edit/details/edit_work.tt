@@ -3,7 +3,7 @@
 <table class="details edit-work">
   <tr>
     <th>[% l('Work:') %]</th>
-    <td>
+    <td colspan="2">
       [% descriptive_link(edit.display_data.work) %]
     </td>
   </tr>
