@@ -22,6 +22,11 @@ test 'Adding a CDTOC to a medium removes CD stubs' => sub {
     VALUES
         (3, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-', '5908ea07', 7, 171327,
          ARRAY[150,22179,49905,69318,96240,121186,143398]);
+    INSERT INTO editor (id, name, password, privs, email, website, bio, member_since,
+        email_confirm_date, last_login_date, edits_accepted, edits_rejected,
+        auto_edits_accepted, edits_failed, ha1)
+    VALUES (4, 'ModBot', '{CLEARTEXT}mb', 0, 'support@musicbrainz.org', 'http://musicbrainz.org/doc/ModBot',
+         'See the above link for more information.', NULL, now(), NULL, 2, 1, 99951, 3560, '9bcacf185adc9268d460694f78615c33');
 EOSQL
 
     my $discid = 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-';

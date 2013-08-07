@@ -46,6 +46,14 @@ version:     (commit 3faf29a93d1c060d8eaf5f4e104623d15cbb6f78)
 authors:     Takuto Wada
 url:         https://github.com/twada/qunit-tap
 
+-- filesize.js --
+
+library:     filesize.js
+license:     BSD (3 clause)
+version:     1.9.3
+author:      Jason Mulligan
+url:         http://filesizejs.com, http://github.com/avoidwork/filesize.js
+
 -- sha1/sha1.js --
 
 library:     sha1
@@ -92,11 +100,11 @@ version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
 
--- knockout/knockout-2.2.1.debug.js --
+-- knockout/knockout-2.3.0.debug.js --
 
 library:     Knockout
 license:     MIT
-version:     2.2.1
+version:     2.3.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
@@ -139,3 +147,11 @@ license:     Apache 2.0
 version:     1.3.3
 author:      Alexis Sellier & The Core LESS Team
 url:         https://github.com/cloudhead/less.js
+
+-- aclass/aclass.js --
+
+library:     aclass
+license:     MIT
+version:     0.3.3
+author:      Michael Wiencek
+url:         https://github.com/mwiencek/aclass

@@ -1563,6 +1563,16 @@ sub _seed_parameters {
             my $obj = $transform->($self->c, delete $params->{$alias}) or next;
             $params->{$key} = $obj->id;
         }
+
+        if (exists $params->{events}) {
+            for my $i (0 .. $#{ $params->{events} }) {
+                if (exists $params->{events}->[$i]->{$alias}) {
+                    my $obj = $transform->($self->c,
+                        delete $params->{events}->[$i]->{$alias}) or next;
+                    $params->{events}->[$i]->{$key} = $obj->id;
+                }
+            }
+        }
     }
 
     if (exists $params->{country_id} || exists $params->{date})

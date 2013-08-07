@@ -25,6 +25,9 @@ CREATE TRIGGER b_upd_artist BEFORE UPDATE ON artist
 CREATE TRIGGER b_del_artist_special BEFORE DELETE ON artist
     FOR EACH ROW WHEN (OLD.id IN (1, 2)) EXECUTE PROCEDURE deny_special_purpose_deletion();
 
+CREATE TRIGGER end_area_implies_ended BEFORE UPDATE OR INSERT ON artist
+    FOR EACH ROW EXECUTE PROCEDURE end_area_implies_ended();
+
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 

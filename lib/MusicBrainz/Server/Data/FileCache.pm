@@ -118,6 +118,9 @@ sub squash {
         printf STDERR "Compiling $manifest...";
         try {
             my $output = $minifier->(input => $input);
+            if ($output =~ /^\s+$/) {
+                die "Empty file generated. Perhaps a trailing comma in a .js file?";
+            }
             $output > io($filename);
             printf STDERR "OK\n";
         } catch {

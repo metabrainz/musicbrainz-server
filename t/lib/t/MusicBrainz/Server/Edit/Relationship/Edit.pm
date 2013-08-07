@@ -158,6 +158,39 @@ EOSQL
     is($r2->cover_art_url, 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 };
 
+test 'Editing relationships fails if the underlying link type changes' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_relationship_edit');
+
+    my $rel = $c->model('Relationship')->get_by_id('artist', 'artist', 1);
+    $c->model('Link')->load($rel);
+    $c->model('LinkType')->load($rel->link);
+
+    my $edit1 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        type0 => 'artist',
+        type1 => 'artist',
+        relationship => $rel,
+        begin_date => { year => 1994 },
+    );
+
+    my $edit2 = $c->model('Edit')->create(
+        edit_type => $EDIT_RELATIONSHIP_EDIT,
+        editor_id => 1,
+        type0 => 'artist',
+        type1 => 'artist',
+        relationship => $rel,
+        link_type => $c->model('LinkType')->get_by_id(2),
+    );
+
+    is (exception { $edit2->accept }, undef);
+    is (exception { $edit1->accept },
+        'This relationship has changed type since this edit was entered');
+};
+
 sub _create_edit {
     my $c = shift;
 

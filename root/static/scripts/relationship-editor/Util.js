@@ -44,27 +44,39 @@ Util.init = function(typeInfo, attrInfo) {
 };
 
 
-Util.parseRelationships = function(source) {
-    if (source.relationships) _.each(source.relationships, function(rel_types, target_type) {
-        if (source.type == "work" && target_type == "recording") return;
-        if (target_type == "url") return; // no url support yet
+Util.parseRelationships = function (source, sourceType) {
+    if (!source.relationships) {
+        return;
+    }
 
-        _.each(rel_types, function(rels, rel_type) {
+    _.each(source.relationships, function (relTypes, targetType) {
+        if (source.type == "work" && targetType == "recording") return;
+        if (targetType == "url") return; // no url support yet
+
+        _.each(relTypes, function (rels) {
             for (var i = 0, obj; obj = rels[i]; i++) {
-
-                var target = obj.target, relationship, type, orig;
+                var target = obj.target;
                 obj.attrs = obj.attributes;
                 delete obj.attributes;
                 delete obj.target;
 
-                obj.entity = [RE.Entity(source), RE.Entity(target, target_type)];
-                if (obj.direction == "backward") obj.entity.reverse();
-                obj.period = {begin_date: obj.begin_date, end_date: obj.end_date, ended: obj.ended};
+                obj.entity = [MB.entity(source, sourceType),
+                              MB.entity(target, targetType)];
 
-                relationship = RE.Relationship(obj);
+                if (obj.direction === "backward") {
+                    obj.entity.reverse();
+                }
+
+                obj.period = {
+                    begin_date: obj.begin_date,
+                    end_date:   obj.end_date,
+                    ended:      obj.ended
+                };
+
+                var relationship = RE.Relationship(obj);
                 if (!relationship.visible) relationship.show();
 
-                Util.parseRelationships(target);
+                Util.parseRelationships(target, targetType);
             }
         });
     });
@@ -83,26 +95,12 @@ Util.parseDate = function(str) {
 };
 
 
-Util.compareArtistCredits = function(a, b) {
-    var an = a.length, bn = b.length;
-    if (an != bn) return false;
-
-    for (var i = 0; i < an; i++) {
-        var aac = a[i], bac = b[i];
-
-        if (aac.artist.gid != bac.artist.gid) return false;
-        if (aac.artist.name != bac.artist.name) return false;
-        if (aac.joinphrase != bac.joinphrase) return false;
-    }
-    return true;
-};
-
-
 var MBIDRegex = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/;
 
 Util.isMBID = function(str) {
     return MBIDRegex.test(str);
 };
+
 
 // Attempts to merge two dates, otherwise returns false if they conflict.
 
