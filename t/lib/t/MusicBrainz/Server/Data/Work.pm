@@ -186,4 +186,21 @@ test 'Loading work attributes for works with no attributes' => sub {
     is($work->all_attributes, 0, 'work has no attributes')
 };
 
+test 'Loading work attributes for works with free text attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', true);
+INSERT INTO work_attribute (work, work_attribute_type, work_attribute_text)
+VALUES (1, 1, 'Value');
+EOSQL
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 1, 'work has 1 attribute')
+};
+
 1;

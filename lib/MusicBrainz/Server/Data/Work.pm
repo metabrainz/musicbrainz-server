@@ -16,6 +16,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkAttribute;
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
@@ -411,7 +413,7 @@ sub load_attributes {
 
     my @work_ids = map { $_->id } @works;
 
-    my $attributes = $self->sql->select_list_of_lists(
+    my $attributes = $self->sql->select_list_of_hashes(
         'SELECT
            work_attribute_type.name AS type_name,
            work_attribute_type.comment AS type_comment,
@@ -434,7 +436,7 @@ sub load_attributes {
     }
 
     for my $attribute (@$attributes) {
-        for my $work ($work_map{$attribute->{work}}) {
+        for my $work (@{ $work_map{$attribute->{work}} }) {
             $work->add_attribute(
                 MusicBrainz::Server::Entity::WorkAttribute->new(
                     type => MusicBrainz::Server::Entity::WorkAttributeType->new(
