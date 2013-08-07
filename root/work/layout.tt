@@ -20,6 +20,11 @@
                 [% rdfa_work_iswc(work, iswc) %]
                 [% END %]
             [%- END -%]
+            [%- FOR attribute=work.attributes -%]
+                [%- INCLUDE 'layout/sidebar/property.tt'
+                      content=html_escape(attribute.value)
+                      label=l(attribute.type.l_name _ ':') -%]
+            [%- END -%]
         [% END %]
         [% END %]
         [%- INCLUDE "layout/sidebar/sidebar-rating.tt" entity=work -%]

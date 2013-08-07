@@ -46,11 +46,6 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    my $work = $c->stash->{work};
-    $c->model('WorkType')->load($work);
-    $c->model('Language')->load($work);
-    $c->model('Work')->load_writers($work);
-
     # need to call relationships for overview page
     $self->relationships($c);
 
@@ -63,6 +58,7 @@ for my $action (qw( relationships aliases tags details )) {
         my $work = $c->stash->{work};
         $c->model('WorkType')->load($work);
         $c->model('Language')->load($work);
+        $c->model('Work')->load_attributes($work);
     };
 }
 
