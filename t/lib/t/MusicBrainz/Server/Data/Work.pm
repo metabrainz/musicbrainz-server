@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
+use Test::Fatal;
 use Test::More;
 
 use MusicBrainz::Server::Data::Work;
@@ -172,6 +173,17 @@ EOSQL
        'Points to artist 1');
     is($final_work->relationships->[0]->entity1_id => 1,
        'Originates from work 1');
+};
+
+test 'Loading work attributes for works with no attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 0, 'work has no attributes')
 };
 
 1;
