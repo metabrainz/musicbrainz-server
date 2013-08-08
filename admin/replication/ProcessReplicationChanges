@@ -50,6 +50,12 @@ use DBDefs;
 use MusicBrainz::Server::Context;
 use Sql;
 
+my $long_sql = 0;
+my $short_sql = 0;
+my $debug_xact = 0;
+my $skip_seqid;
+my $limit = 10000;
+
 my $help = <<EOF;
 Usage: ProcessReplicationChanges [OPTIONS]
 
@@ -58,19 +64,20 @@ Options are:
         --long-sql      Show the full text of each "write" statement executed
         --debug-xact    Show when each transaction starts / ends
     -s, --skip-seqid=N  Ignore SeqId's up to and including SeqId N
+        --limit=N       Update, insert, or delete at most N rows at a time
+                        This option is useful if you have a system with a small
+                        amount of memory - a setting of 10,000 works well for
+                        machines with 64MB RAM. The default is $limit.
     -h, --help          Show this help
 
 EOF
 
-my $long_sql = 0;
-my $short_sql = 0;
-my $debug_xact = 0;
-my $skip_seqid;
 GetOptions(
     "short-sql"         => \$short_sql,
     "long-sql"          => \$long_sql,
     "debug-xact"        => \$debug_xact,
     "skip-seqid|s=i"=> \$skip_seqid,
+    "limit=i"           => \$limit,
     "help|h"            => sub { print $help; exit },
 ) or exit 2;
 print($help), exit 2 if @ARGV;
@@ -158,27 +165,31 @@ if (my $totalrows = $sql->select($query))
                 ORDER BY SeqId, IsKey DESC
         |;
 
-        if ($sql2->select($query, $XID))
-        {
-                my (@row2, $curTuple);
+        $slave->begin;
+        $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
-                print localtime() . " : BEGIN XID #$XID (max seq #$maxSeqId)\n" if $debug_xact;
-                $slave->begin;
-                while(@row2 = $sql2->next_row)
+        my @row2;
+        while (1) {
+            $sql2->select("FETCH FORWARD $limit FROM csr") or last;
+
+            while(@row2 = $sql2->next_row)
+            {
+                # TODO: Figure out how to handle errors here
+                if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
                 {
-                        # TODO: Figure out how to handle errors here
-                        if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
-                        {
-                                die "Mirror command failed.\n";
-                        }
-                        ++$strows;
+                    die "Mirror command failed.\n";
                 }
-                $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
-                print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
-                $slave->commit;
+                ++$strows;
+            }
+
+            $sql2->finish;
         }
 
-        $sql2->finish;
+        $sql2->do("CLOSE csr");
+        $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
+
+        print localtime() . " : COMMIT XID #$XID\n" if $debug_xact;
+        $slave->commit;
 
         ++$rows;
         unless ($rows & 0x1F and time() == $lasttime)
