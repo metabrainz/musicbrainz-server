@@ -76,6 +76,15 @@ sub _urlprefix
     return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
 }
 
+sub filename
+{
+    my $self = shift;
+
+    return undef unless $self->release->gid && $self->suffix;
+
+    return sprintf ("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
+}
+
 sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
 sub small_thumbnail { return shift->_urlprefix . "-250.jpg"; }
 sub large_thumbnail { return shift->_urlprefix . "-500.jpg"; }
