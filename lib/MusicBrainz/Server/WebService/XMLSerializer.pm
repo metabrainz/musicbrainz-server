@@ -4,7 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -116,6 +116,8 @@ sub _serialize_artist
 
     my $opts = $stash->store ($artist);
 
+    my $compact_display = $artist->id == $VARTIST_ID && !$toplevel;
+
     my %attrs;
     $attrs{id} = $artist->gid;
     $attrs{type} = $artist->type->name if ($artist->type);
@@ -146,7 +148,7 @@ sub _serialize_artist
     }
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
-        if ($inc->aliases && $opts->{aliases});
+        if ($inc->aliases && $opts->{aliases} && !$compact_display);
 
     if ($toplevel)
     {
@@ -164,7 +166,8 @@ sub _serialize_artist
     }
 
     $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts)
+        if !$compact_display;
 
     push @$data, $gen->artist(\%attrs, @list);
 }
