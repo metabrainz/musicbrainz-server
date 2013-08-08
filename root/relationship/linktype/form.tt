@@ -151,16 +151,16 @@ var editor = MB.ExampleRelationshipsEditor.init({
         relationship = relationship_map.$relationship_id -%]
 MB.ExampleRelationshipsEditor.viewModel.examples.push(
     new MB.ExampleRelationshipsEditor.Example(
-        '[% example.field('name').value %]',
+        '[% example.field('name').value | js %]',
         {
             id: [% relationship_id %],
-            phrase: '[% relationship.verbose_phrase %]',
+            phrase: '[% relationship.verbose_phrase | js %]',
             source: {
-                name: '[% relationship.source.name %]',
+                name: '[% relationship.source.name | js %]',
                 mbid: '[% relationship.source.gid %]'
             },
             target: {
-                name: '[% relationship.target.name %]',
+                name: '[% relationship.target.name | js%]',
                 mbid: '[% relationship.target.gid %]'
             }
         }
