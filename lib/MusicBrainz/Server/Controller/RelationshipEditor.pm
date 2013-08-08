@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
 );
+use MusicBrainz::Server::Form::RelationshipEditor;
 use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Translation qw( l );
 use List::UtilsBy qw( sort_by );
@@ -34,9 +35,10 @@ sub base : Path('/relationship-editor') Args(0) Edit {
                 $params->{$key} = $params->{$key}->[0];
             }
         }
-        if ($form->submitted_and_valid($c->req->body_parameters)) {
+
+        if (my $validated = $form->validate($c->req->body_params)) {
             $c->model('MB')->with_transaction(sub {
-                $self->submit_edits($c, $form);
+                $self->submit_edits($c, $validated);
             });
             $c->res->body(encode_json({message => 'OK'}));
         } else {
@@ -67,8 +69,8 @@ sub load_form : Private {
         errors => {},
     );
 
-    return $c->form(
-        form => 'RelationshipEditor',
+    MusicBrainz::Server::Form::RelationshipEditor->new(
+        ctx => $c,
         link_type_tree => \@link_type_tree,
         attr_tree => $attr_tree,
         language_options => $language_options,
