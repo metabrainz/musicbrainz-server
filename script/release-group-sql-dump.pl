@@ -367,8 +367,6 @@ sub artist
 
     my $data = get_rows ($dbh, 'artist', 'id', $id);
 
-    generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{name});
-    generic_verbose ($dbh, 'artist_name', 'id', $data->[0]->{sort_name});
     generic ($dbh, 'artist_type', 'id', $data->[0]->{type});
     generic ($dbh, 'gender', 'id', $data->[0]->{gender});
     generic ($dbh, 'country', 'id', $data->[0]->{country});
@@ -388,10 +386,6 @@ sub artist_alias
     my ($dbh, $id) = @_;
 
     my $data = get_rows ($dbh, 'artist_alias', 'artist', $id);
-    for (@$data)
-    {
-        generic ($dbh, 'artist_name', 'id', $_->{name});
-    }
     backup ($dbh, 'artist_alias', $data);
 }
 
@@ -402,7 +396,6 @@ sub artist_credit_name
     my $data = get_rows ($dbh, 'artist_credit_name', 'artist_credit', $id);
     for (@$data)
     {
-        generic ($dbh, 'artist_name', 'id', $_->{name});
         artist ($dbh, $_->{artist});
     }
     backup ($dbh, 'artist_credit_name', $data);
@@ -416,7 +409,6 @@ sub artist_credit
     return unless $tmp;
     my $data = $tmp->[0];
 
-    generic ($dbh, 'artist_name', 'id', $data->{name});
     backup ($dbh, 'artist_credit', $tmp);
     artist_credit_name ($dbh, $id);
 }
@@ -428,7 +420,6 @@ sub recording
     $core_entities{recording}{$id} = 1;
 
     my $data = get_rows ($dbh, 'recording', 'id', $id);
-    generic_verbose ($dbh, 'track_name', 'id', $data->[0]->{name});
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'recording', $data);
 
@@ -469,7 +460,6 @@ sub tracks
 
     for (@$data)
     {
-        generic ($dbh, 'track_name', 'id', $_->{name});
         recording ($dbh, $_->{recording});
         artist_credit ($dbh, $_->{artist_credit});
     }
@@ -515,7 +505,6 @@ sub label_alias
     my $data = get_rows ($dbh, 'label_alias', 'label', $id);
     for (@$data)
     {
-        generic ($dbh, 'label_name', 'id', $_->{name});
     }
     backup ($dbh, 'label_alias', $data);
 }
@@ -529,7 +518,6 @@ sub label
     my $data = get_rows ($dbh, 'label', 'id', $id);
 
     generic ($dbh, 'label_type', 'id', $data->[0]->{type});
-    generic_verbose ($dbh, 'label_name', 'id', $data->[0]->{name});
     backup ($dbh, 'label', $data);
     label_alias ($dbh, $data->[0]->{id});
 
@@ -566,7 +554,6 @@ sub releases
         generic ($dbh, 'country', 'id', $_->{country});
         generic ($dbh, 'language', 'id', $_->{language});
         generic ($dbh, 'script', 'id', $_->{script});
-        generic_verbose ($dbh, 'release_name', 'id', $_->{name});
         artist_credit ($dbh, $_->{artist_credit});
     }
 
@@ -590,7 +577,6 @@ sub release_group
     $core_entities{'release-group'}{$data->{id}} = 1;
 
     generic ($dbh, 'release_group_primary_type', 'id', $data->{type});
-    generic_verbose ($dbh, 'release_name', 'id', $data->{name});
     artist_credit ($dbh, $data->{artist_credit});
 
     backup ($dbh, 'release_group', $tmp);
@@ -610,7 +596,6 @@ sub work
     my $data = get_rows ($dbh, 'work', 'id', $id);
 
     generic ($dbh, 'work_type', 'id', $data->[0]->{type});
-    generic_verbose ($dbh, 'work_name', 'id', $data->[0]->{name});
     artist_credit ($dbh, $data->[0]->{artist_credit});
     backup ($dbh, 'work', $data);
 
