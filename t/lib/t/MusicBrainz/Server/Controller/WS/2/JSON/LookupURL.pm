@@ -38,7 +38,8 @@ test 'basic url lookup' => sub {
                         id => "05d83760-08b5-42bb-a8d7-00d80b3bf47c",
                         name => 'Paul Allgood',
                         'sort-name' => 'Allgood, Paul',
-                        disambiguation => ''
+                        disambiguation => '',
+                        relations => []
                     },
                     ended => JSON::false,
                     begin => JSON::null,

@@ -97,6 +97,7 @@ test 'work lookup with recording relationships' => sub {
                         title => "サマーれげぇ!レインボー",
                         length => 296026,
                         disambiguation => "",
+                        relations => []
                     },
                     begin => JSON::null,
                     end => JSON::null,
@@ -112,6 +113,7 @@ test 'work lookup with recording relationships' => sub {
                         title => "サマーれげぇ!レインボー (instrumental)",
                         length => 292800,
                         disambiguation => "",
+                        relations => []
                     },
                     begin => JSON::null,
                     end => JSON::null,
