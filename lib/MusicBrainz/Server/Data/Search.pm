@@ -9,21 +9,27 @@ use Data::Page;
 use URI::Escape qw( uri_escape_utf8 );
 use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Entity::Annotation;
-use MusicBrainz::Server::Entity::ArtistType;
-use MusicBrainz::Server::Entity::AreaType;
 use MusicBrainz::Server::Entity::Area;
+use MusicBrainz::Server::Entity::AreaType;
+use MusicBrainz::Server::Entity::ArtistType;
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Gender;
 use MusicBrainz::Server::Entity::ISRC;
 use MusicBrainz::Server::Entity::ISWC;
+use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::Medium;
+use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Release;
+use MusicBrainz::Server::Entity::ReleaseLabel;
 use MusicBrainz::Server::Entity::ReleaseGroup;
 use MusicBrainz::Server::Entity::ReleaseGroupType;
+use MusicBrainz::Server::Entity::ReleaseGroupSecondaryType;
+use MusicBrainz::Server::Entity::ReleaseStatus;
 use MusicBrainz::Server::Entity::Script;
 use MusicBrainz::Server::Entity::SearchResult;
 use MusicBrainz::Server::Entity::WorkType;
@@ -132,7 +138,8 @@ sub search
         $extra_columns = "entity.length,"
             if ($type eq "recording");
 
-        $extra_columns .= 'entity.language, entity.script, entity.barcode, entity.release_group,'
+        $extra_columns .= 'entity.language, entity.script, entity.barcode,
+                           entity.release_group, entity.status,'
             if ($type eq 'release');
 
         my $extra_ordering = '';
@@ -329,7 +336,6 @@ my %mapping = (
     'sort-name'      => 'sort_name',
     'title'          => 'name',
     'artist-credit'  => 'artist_credit',
-    'status'         => '',
     'label-code'     => 'label_code',
 );
 
@@ -481,18 +487,70 @@ sub schema_fixup
                     { iso_code => $data->{"text-representation"}->{script} }
             );
         }
+
+        if ($data->{'label-info-list'}) {
+            $data->{labels} = [
+                map {
+                    MusicBrainz::Server::Entity::ReleaseLabel->new(
+                        label => $_->{label} &&
+                            MusicBrainz::Server::Entity::Label->new(
+                                name => $_->{label}{name},
+                                gid => $_->{label}{id}
+                            ),
+                        catalog_number => $_->{'catalog-number'}
+                    )
+                } @{ $data->{'label-info-list'}{'label-info'} // [] }
+            ];
+        }
+
         if (exists $data->{"medium-list"} &&
             exists $data->{"medium-list"}->{medium})
         {
             $data->{mediums} = [];
             for my $medium_data (@{$data->{"medium-list"}->{medium}})
             {
+                my $format = $medium_data->{format};
                 my $medium = MusicBrainz::Server::Entity::Medium->new(
-                    track_count => $medium_data->{"track-list"}->{"count"});
+                    track_count => $medium_data->{"track-list"}->{"count"},
+                    format => $format &&
+                        MusicBrainz::Server::Entity::MediumFormat->new(
+                            name => $format
+                        )
+                );
 
                 push @{$data->{mediums}}, $medium;
             }
             delete $data->{"medium-list"};
+        }
+
+        my $release_group = delete $data->{'release-group'};
+
+        my %rg_args;
+        if ($release_group->{'primary-type'}) {
+            $rg_args{primary_type} =
+                MusicBrainz::Server::Entity::ReleaseGroupType->new(
+                    name => $release_group->{'primary-type'}
+                );
+        }
+
+        if ($release_group->{'secondary-type-list'}) {
+            $rg_args{secondary_types} = [
+                map {
+                    MusicBrainz::Server::Entity::ReleaseGroupSecondaryType->new(
+                        name => $_
+                    )
+                } @{ $release_group->{'secondary-type-list'}{'secondary-type'} }
+            ]
+        }
+
+        $data->{release_group} = MusicBrainz::Server::Entity::ReleaseGroup->new(
+            %rg_args
+        );
+
+        if ($data->{status}) {
+            $data->{status} = MusicBrainz::Server::Entity::ReleaseStatus->new(
+                name => delete $data->{status}
+            )
         }
     }
     if ($type eq 'recording' &&
