@@ -265,6 +265,16 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "10000 dB Goa Trance",
                 expected: "10000 dB Goa Trance",
                 bug: "MBS-2756", mode: "English"
+            },
+            {
+                input: "¿qué No? ¡anda Que No!",
+                expected: "¿Qué no? ¡Anda que no!",
+                bug: "MBS-1549", mode: "Sentence"
+            },
+            {
+                input: "¿QUÉ NO? ¡ANDA QUE NO!",
+                expected: "¿Qué no? ¡Anda que no!",
+                bug: "MBS-1549", mode: "Sentence"
             }
 
 
