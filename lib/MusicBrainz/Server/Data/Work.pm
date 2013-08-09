@@ -425,7 +425,9 @@ sub load_attributes {
          FROM work_attribute
          JOIN work_attribute_type
            ON work_attribute_type.id = work_attribute.work_attribute_type
-         LEFT JOIN work_attribute_type_allowed_value USING (work_attribute_type)
+         LEFT JOIN work_attribute_type_allowed_value
+           ON work_attribute_type_allowed_value.id =
+                work_attribute.work_attribute_type_allowed_value
          WHERE work_attribute.work = any(?)',
         \@work_ids
     );

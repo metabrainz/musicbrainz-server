@@ -214,7 +214,7 @@ test 'Loading work attributes for works with finite values' => sub {
 INSERT INTO work_attribute_type (id, name, free_text)
 VALUES (1, 'Attribute', false);
 INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
-VALUES (1, 1, 'Value');
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
 INSERT INTO work_attribute
   (work, work_attribute_type, work_attribute_type_allowed_value)
 VALUES (1, 1, 1);
