@@ -9,7 +9,7 @@ INSERT INTO label (id, gid, name, sort_name)
     VALUES (1, '56a40160-8ff2-11de-8a39-0800200c9a66', 'Label Name', 'Label Name');
 
 INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (1, 'e4919fa0-8ff2-11de-8a39-0800200c9a66', 'Recording Name', 'Recording Name');
+    VALUES (1, 'e4919fa0-8ff2-11de-8a39-0800200c9a66', 'Recording Name', 1);
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, 'ca10b110-8ff3-11de-8a39-0800200c9a66', 'Release Group Name', 1);
