@@ -32,19 +32,12 @@ MB.GuessCase.Main = function () {
 
     var self = MB.Object ();
 
-    // ----------------------------------------------------------------------------
-    // placeholders for stuff which used to be inherited from the edit suite.
-    // ---------------------------------------------------------------------------
-    self.isConfigTrue = function (cfg) { return cfg (); };
+    self.modeName = $.cookie("guesscase_mode") || "English";
+    self.mode = MB.GuessCase.Mode[self.modeName]();
 
     /* config. */
-    self.CFG_AUTOFIX = function () { return false; };
-    self.CFG_UC_ROMANNUMERALS = function () { return $('#gc-roman').is(':checked'); };
-    self.CFG_UC_UPPERCASED = function () { return $('#gc-keepuppercase').is(':checked'); };
-
-    /* Remember config. */
-    MB.utility.rememberCheckbox ('#gc-roman', 'guesscase_roman');
-    MB.utility.rememberCheckbox ('#gc-keepuppercase', 'guesscase_keepuppercase');
+    self.CFG_UC_ROMANNUMERALS = $.cookie("guesscase_roman") !== "false";
+    self.CFG_UC_UPPERCASED = $.cookie("guesscase_keepuppercase") !== "false";
 
     // ----------------------------------------------------------------------------
     // member variables
@@ -63,10 +56,8 @@ MB.GuessCase.Main = function () {
 	SERIES_NUMBER 	: /^(\d+|[ivx]+)$/i
     }; // holder for the regular expressions
 
-    self.modes = MB.GuessCase.Modes ();
-
     /* FIXME: inconsistent. */
-    self.artistmode = self.modes.artist_mode;
+    self.artistmode = MB.GuessCase.Mode.Artist();
 
     // ----------------------------------------------------------------------------
     // member functions
@@ -149,6 +140,9 @@ MB.GuessCase.Main = function () {
 	var os, handler;
 	gc.init();
 
+        var mode_backup = self.mode;
+        self.mode = MB.GuessCase.Mode.English();;
+
 	if (!self.labelHandler) {
 	    self.labelHandler = MB.GuessCase.Handler.Label ();
 	}
@@ -164,6 +158,8 @@ MB.GuessCase.Main = function () {
 	    // if it was not a special case, start Guessing
 	    os = handler.process(is);
 	}
+
+        self.mode = mode_backup;
 
 	return os;
     };
@@ -201,7 +197,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessWork = function(is, mode) {
+    self.guessWork = function(is) {
 	var os, handler;
 	gc.init();
 
@@ -209,8 +205,6 @@ MB.GuessCase.Main = function () {
 	    self.workHandler = MB.GuessCase.Handler.Work ();
 	}
 	handler = self.workHandler;
-
-	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the
@@ -259,7 +253,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessArea = function(is, mode) {
+    self.guessArea = function(is) {
 	var os, handler;
 	gc.init();
 
@@ -267,8 +261,6 @@ MB.GuessCase.Main = function () {
 	    self.areaHandler = MB.GuessCase.Handler.Area ();
 	}
 	handler = self.areaHandler;
-
-	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the
@@ -318,7 +310,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessRelease = function(is, mode) {
+    self.guessRelease = function(is) {
 	var os, handler;
 	gc.init();
 
@@ -326,8 +318,6 @@ MB.GuessCase.Main = function () {
 	    self.releaseHandler = MB.GuessCase.Handler.Release ();
 	}
 	handler = self.releaseHandler;
-
-	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the
@@ -349,7 +339,7 @@ MB.GuessCase.Main = function () {
      * @param	 is		the un-processed input string
      * @returns			the processed string
      **/
-    self.guessTrack = function(is, mode) {
+    self.guessTrack = function(is) {
 	var os, handler;
 	self.init();
 
@@ -357,8 +347,6 @@ MB.GuessCase.Main = function () {
 	    self.trackHandler = MB.GuessCase.Handler.Track ();
 	}
 	handler = self.trackHandler;
-
-	self.useSelectedMode(mode);
 
 	// we need to query the handler if the input string is
 	// a special case, fetch the correct format, if the
@@ -373,33 +361,6 @@ MB.GuessCase.Main = function () {
 
 	}
 	return os;
-    };
-
-    /**
-     * Selects the current value from the DropDown.
-     **/
-    self.useSelectedMode = function () {
-        self.mode = self.modes.getMode ();
-    };
-
-    self.getMode = function () {
-        return self.modes.getMode ();
-    };
-
-    self.setMode = function (value) {
-        self.mode = self.modes.setMode (value);
-        return self.mode;
-    };
-
-    self.setOptions = function (options) {
-        if (options.mode)
-        {
-            self.setMode (options.mode);
-        }
-
-        $.each (options, function (key, value) {
-            $('#gc-' + key).prop('checked', Boolean(value));
-        });
     };
 
     /**
@@ -441,8 +402,6 @@ MB.GuessCase.Main = function () {
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     window.gc = self;
-
-    self.useSelectedMode ();
 
     return self;
 };

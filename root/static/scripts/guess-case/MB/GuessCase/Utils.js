@@ -92,7 +92,7 @@ MB.GuessCase.Utils = function () {
                 "vocal" ];
     };
     self.isPrepBracketSingleWord = function(w) {
-	
+
 	if (!self.preBracketSingleWords) {
 	    self.preBracketSingleWords = self.toAssocArray(self.getPrepBracketSingleWords());
 	}
@@ -296,9 +296,7 @@ MB.GuessCase.Utils = function () {
 	var os;
 	var LC = is.toLowerCase(); // prepare all LC word
 	var UC = is.toUpperCase(); // prepare all UC word
-	if ((is == UC) &&
-	    (is.length > 1) &&
-	    gc.isConfigTrue(gc.CFG_UC_UPPERCASED)) {
+	if (is == UC && is.length > 1 && gc.CFG_UC_UPPERCASED) {
 	    os = UC;
 
 	    // we got an 'x (apostrophe),keep the text lowercased

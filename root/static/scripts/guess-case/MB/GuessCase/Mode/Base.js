@@ -156,7 +156,7 @@ MB.GuessCase.Mode.Base = function () {
             self.romanNumerals = gc.u.toAssocArray(self.getRomanNumberals());
         }
         var f = gc.u.inArray(self.upperCaseWords, w);
-        if (!f && gc.isConfigTrue(gc.CFG_UC_ROMANNUMERALS)) {
+        if (!f && gc.CFG_UC_ROMANNUMERALS) {
             f = gc.u.inArray(self.romanNumerals, w);
         }
 
@@ -499,36 +499,3 @@ MB.GuessCase.Mode.Base = function () {
 
     return self;
 };
-
-
-/**
- * Models the Dummy GuessCase mode.
- *
- * FIXME: make this unneccesary (some parts of GuessCase expect a mode
- * to be initialized even though there is no need for a mode on a
- * particular page.  When no general guesscase modes are loaded, this
- * dummy is returned instead by Modes.js to keep those parts of
- * GuessCase happy for now).
- **/
-MB.GuessCase.Mode.Dummy = function () {
-    var self = MB.GuessCase.Mode.Base ();
-
-    self.setConfig('Dummy mode', '', '');
-
-    self.isSentenceCaps = function() { return false; };
-    self.getLowerCaseWords = function() { return []; };
-    self.isLowerCaseWord = function(w) { return false; };
-    self.getUpperCaseWords = function() { return []; };
-    self.isUpperCaseWord = function(w) { return false; };
-    self.prepExtraTitleInfo = function(w) { return w; };
-    self.preProcessCommons = function(is) { return is; };
-    self.preProcessTitles = function(is) { return is; };
-    self.runPostProcess = function(is) { return is; };
-    self.runFixes = function(is, list) { return is; };
-    self.stripInformationToOmit = function(is) { return is; };
-    self.runFinalChecks = function(is) { return is; };
-    self.doWord = function() { return false; };
-
-    return self;
-};
-
