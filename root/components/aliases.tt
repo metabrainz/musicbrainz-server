@@ -24,22 +24,19 @@
             <tbody about="[% rdfa_entity_curi(entity) %]">
             [%- FOREACH alias IN aliases -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    [% IF alias.name == alias.sort_name %]
-                      <td colspan="2">
-                          [% '<span class="mp">' IF alias.edits_pending %]
-                          [% rdfa_alias(alias.name, entity) %]
-                          [% '</span>' IF alias.edits_pending %]
-                      </td>
-                    [% ELSE %]
-                      <td>
-                          [% '<span class="mp">' IF alias.edits_pending %]
-                          [% rdfa_alias(alias.name, entity) %]
-                          [% '</span>' IF alias.edits_pending %]
-                      </td>
-                      <td>
-                        [% alias.sort_name | html %]
-                      </td>
-                    [% END %]
+                    [%- show_sort_name = alias.name != alias.sort_name -%]
+                    <td [% 'colspan="2"' IF !show_sort_name %]>
+                      [% '<span class="mp">' IF alias.edits_pending %]
+                      [% rdfa_alias(alias.name, entity) %]
+                      [% '</span>' IF alias.edits_pending %]
+                    </td>
+
+                    [%- IF show_sort_name -%]
+                    <td>
+                      [%- alias.sort_name | html -%]
+                    </td>
+                    [%- END -%]
+
                     <td>[% alias.begin_date.format %]</td>
                     <td>[% alias.end_date.format %]</td>
                     <td>[% alias.type_name %]</td>
