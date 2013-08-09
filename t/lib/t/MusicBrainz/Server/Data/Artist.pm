@@ -21,22 +21,19 @@ with 't::Context';
 test 'Test find_by_work' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Dancing Queen');
 INSERT INTO work (id, gid, name)
-    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 1);
+    VALUES (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen');
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Test Artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
-           (2, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Other test artist');
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', ''),
+           (2, '145c079d-374e-4436-9448-da92dedef3cf', 'Test Artist', 'Test Artist', 'Other test artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test Artist', 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, '');
+    VALUES (1, 0, 1, 'Test Artist', '');
 
-INSERT INTO track_name (id, name) VALUES (1, 'Recording');
 INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1);
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Recording', 1);
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase,
@@ -358,18 +355,17 @@ test 'Deny delete "Deleted Artist" trigger' => sub {
 test 'Merging attributes' => sub {
     my $c = shift->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'artist name');
 INSERT INTO artist (id, gid, name, sort_name) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1);
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name');
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
     end_date_day, comment)
-  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 2005, 12,
+  VALUES (4, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
           'Artist 4');
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year,
     begin_date_month, comment)
-  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 1, 1, 2000, 06,
+  VALUES (5, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 06,
           'Artist 5');
 EOSQL
 
@@ -390,17 +386,16 @@ test 'Merging attributes for VA' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
     MusicBrainz::Server::Test->prepare_test_database($c, '+area');
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (4, 'artist name');
 INSERT INTO artist (id, gid, name, sort_name, gender) VALUES
-  (4, '745c079d-374e-4436-9448-da92dedef3ce', 4, 4, 3);
+  (4, '745c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 3);
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, end_date_year,
     end_date_day, comment)
-  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 4, 4, 2000, 2005, 12,
+  VALUES (5, '145c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 2000, 2005, 12,
           'Artist 4');
 
 INSERT INTO artist (id, gid, name, sort_name, area, type, comment)
-  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 4, 4, 222, 2,
+  VALUES (6, '245c079d-374e-4436-9448-da92dedef3ce', 'artist name', 'artist name', 222, 2,
           'Artist 5');
 EOSQL
 
@@ -421,10 +416,9 @@ EOSQL
 test 'Cannot edit an artist into something that would violate uniqueness' => sub {
     my $c = shift->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'A'), (2, 'B');
 INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-  (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, ''),
-  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 2, 1, 'Comment');
+  (3, '745c079d-374e-4436-9448-da92dedef3ce', 'A', 'A', ''),
+  (4, '7848d7ce-d650-40c4-b98f-62fc037a678b', 'B', 'A', 'Comment');
 EOSQL
 
     my $conflicts_exception_ok = sub {

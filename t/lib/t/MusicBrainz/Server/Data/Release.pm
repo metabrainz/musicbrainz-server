@@ -20,17 +20,15 @@ with 't::Context';
 test 'filter_barcode_changes' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Name');
-INSERT INTO artist (id, gid, name, sort_name) VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 1, 0, '');
+INSERT INTO artist (id, gid, name, sort_name) VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
+INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase) VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO release_name (id, name) VALUES (1, 'R1');
-INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
+INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1);
 INSERT INTO release (id, gid, name, artist_credit, release_group, barcode)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '796122009228'),
-           (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, '600116802422'),
-           (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1, 1, NULL);
+    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '796122009228'),
+           (2, '5b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, '600116802422'),
+           (3, '6b4faa80-72d9-11de-8a39-0800200c9a66', 'R1', 1, 1, NULL);
 INSERT INTO release_gid_redirect (gid, new_id) VALUES ('1b4faa80-72d9-11de-8a39-0800200c9a66', 1);
 EOSQL
 
@@ -195,20 +193,18 @@ test 'can_merge for the merge strategy' => sub {
 test 'can_merge for the append strategy' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Name');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 1, 1);
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+    VALUES (1, 'a9d99e40-72d7-11de-8a39-0800200c9a66', 'Name', 'Name');
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Name', 1);
 INSERT INTO artist_credit_name (artist_credit, artist, name, position, join_phrase)
-    VALUES (1, 1, 1, 0, '');
+    VALUES (1, 1, 'Name', 0, '');
 
-INSERT INTO release_name (id, name) VALUES (1, 'Release');
  INSERT INTO release_group (id, gid, name, artist_credit)
-    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, '3b4faa80-72d9-11de-8a39-0800200c9a66', 'Release', 1);
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-    VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
-           (2, '2a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1),
-           (3, '3a906020-72db-11de-8a39-0800200c9a66', 1, 1, 1);
+    VALUES (1, '1a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
+           (2, '2a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
+           (3, '3a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
 
 INSERT INTO medium (id, release, position, track_count)
     VALUES (1, 1, 1, 1),

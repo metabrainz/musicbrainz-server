@@ -11,10 +11,9 @@ test 'MBS-3532: Cannot edit label-url into an existing label-url relationship' =
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO label_name (id, name) VALUES (1, 'label 1'), (2, 'label 2');
 INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '8900d437-6cc7-4b4c-bdd3-e83634c128df', 1, 1),
-           (2, '0900d437-6cc7-4b4c-bdd3-e83634c128df', 2, 2);
+    VALUES (1, '8900d437-6cc7-4b4c-bdd3-e83634c128df', 'label 1', 'label 1'),
+           (2, '0900d437-6cc7-4b4c-bdd3-e83634c128df', 'label 2', 'label 2');
 
 INSERT INTO url (id, gid, url)
     VALUES (1, '1900d437-6cc7-4b4c-bdd3-e83634c128df', 'http://www.myspace.com/lizardopenmind');
