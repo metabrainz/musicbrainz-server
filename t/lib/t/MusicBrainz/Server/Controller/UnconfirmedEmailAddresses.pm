@@ -288,6 +288,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::User::Edits::accepted",
   "Controller::User::Edits::all",
   "Controller::User::Edits::autoedits",
+  "Controller::User::Edits::cancelled",
   "Controller::User::Edits::failed",
   "Controller::User::Edits::open",
   "Controller::User::Edits::rejected",
