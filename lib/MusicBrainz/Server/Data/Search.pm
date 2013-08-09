@@ -76,10 +76,13 @@ sub search
 
     if ($type eq "artist" || $type eq "label" || $type eq "area") {
 
+        my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "artist") {
             $deleted_entity = $DARTIST_ID;
         } elsif ($type eq "label") {
             $deleted_entity = $DLABEL_ID;
+        } else {
+            $where_deleted = "";
         }
 
         my $extra_columns = '';
@@ -93,6 +96,7 @@ sub search
                 entity.id,
                 entity.gid,
                 entity.name,
+                ${include_comment}
                 entity.sort_name,
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
@@ -115,6 +119,7 @@ sub search
                 ) AS r
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
+                $where_deleted
             GROUP BY
                 $extra_columns entity.id, entity.gid, ${include_comment}entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
