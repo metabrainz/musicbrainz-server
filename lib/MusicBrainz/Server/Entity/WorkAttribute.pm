@@ -7,6 +7,12 @@ has type => (
     is => 'ro',
 );
 
+has value_id => (
+    isa => 'Maybe[Int]',
+    required => 1,
+    is => 'ro',
+);
+
 has value => (
     isa => 'Str',
     required => 1,

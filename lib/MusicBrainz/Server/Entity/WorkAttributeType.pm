@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Entity::WorkAttributeType;
 use Moose;
 
+extends 'MusicBrainz::Server::Entity';
+
 has name => (
     isa => 'Str',
     is => 'ro',
