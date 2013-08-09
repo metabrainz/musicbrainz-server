@@ -193,9 +193,15 @@ test 'Loading work attributes for works with free text attributes' => sub {
     $test->c->sql->do(<<EOSQL);
 INSERT INTO work_attribute_type (id, name, free_text)
 VALUES (1, 'Attribute', true);
-INSERT INTO work_attribute (work, work_attribute_type, work_attribute_text)
-VALUES (1, 1, 'Value');
 EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_text => 'Value'
+        }
+    );
 
     my $work = $test->c->model('Work')->get_by_id(1);
     is exception { $test->c->model('Work')->load_attributes($work) }, undef;
@@ -215,10 +221,15 @@ INSERT INTO work_attribute_type (id, name, free_text)
 VALUES (1, 'Attribute', false);
 INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
 VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
-INSERT INTO work_attribute
-  (work, work_attribute_type, work_attribute_type_allowed_value)
-VALUES (1, 1, 1);
 EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_value_id => 1
+        }
+    );
 
     my $work = $test->c->model('Work')->get_by_id(1);
     is exception { $test->c->model('Work')->load_attributes($work) }, undef;
@@ -227,6 +238,35 @@ EOSQL
     is($work->attributes->[0]->type->name, 'Attribute',
         'has correct attribute name');
     is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
+};
+
+test 'Multiple attributes for a work' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', false), (2, 'Type two', true);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
+EOSQL
+
+    $test->c->model('Work')->set_attributes(
+        1,
+        {
+            attribute_type_id => 1,
+            attribute_value_id => 2
+        },
+        {
+            attribute_type_id => 2,
+            attribute_text => 'Anything you want'
+        }
+    );
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 2, 'work has 2 attributes');
 };
 
 1;
