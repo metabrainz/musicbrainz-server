@@ -6,7 +6,7 @@ INSERT INTO artist (id, gid, name, sort_name, comment)
            (2, '92a72730-792f-11de-8a39-0800200c9a66', 'Artist', 'Artist', 'Artist 2');
 
 INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist', 1);
-INSERT INTO artist_credit_name (artist_credit, position, name, artist) VALUES (1, 1, 'Artist', 1)
+INSERT INTO artist_credit_name (artist_credit, position, name, artist) VALUES (1, 1, 'Artist', 1);
 
 INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'RG', 1);
