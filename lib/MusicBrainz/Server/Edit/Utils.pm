@@ -15,6 +15,7 @@ use Set::Scalar;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Barcode';
+use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
 use base 'Exporter';
 
@@ -32,6 +33,7 @@ our @EXPORT_OK = qw(
     hash_artist_credit_without_join_phrases
     merge_artist_credit
     merge_barcode
+    merge_coordinates
     merge_partial_date
     merge_set
     merge_value
@@ -342,6 +344,21 @@ sub merge_partial_date {
     );
 }
 
+=method merge_coordinates
+
+Merge coordinates, using a canonical hash and allowing for slightly different representations of data.
+
+=cut
+
+sub merge_coordinates {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ Coordinates->new($ancestor->{$name} // {})->format, $ancestor->{$name} ],
+        [ $current->$name->format, coordinates_to_hash($current->$name) ],
+        [ Coordinates->new($new->{$name} // {})->format, $new->{$name} ],
+    );
+}
 
 =method merge_list
 

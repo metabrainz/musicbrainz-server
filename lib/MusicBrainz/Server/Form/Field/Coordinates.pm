@@ -20,4 +20,17 @@ has_field 'longitude' => (
     precision => 6,
 );
 
+sub validate {
+    my $self = shift;
+
+    my $latitude = $self->field('latitude')->value;
+    my $longitude = $self->field('longitude')->value;
+
+    # valid coordinates need both latitude and longitude
+    return $self->field('longitude')->add_error (l("Please provide both latitude and longitude, or neither")) if ($latitude && !$longitude);
+    return $self->field('latitude')->add_error (l("Please provide both latitude and longitude, or neither")) if (!$latitude && $longitude);
+
+    return 1;
+}
+
 1;

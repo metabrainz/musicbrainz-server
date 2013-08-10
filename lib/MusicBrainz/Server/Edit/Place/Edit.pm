@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     changed_display_data
     coordinate_closure
     date_closure
+    merge_coordinates
     merge_partial_date
 );
 use MusicBrainz::Server::Entity::PartialDate;
@@ -109,8 +110,8 @@ sub build_display_data
 
     if (exists $self->data->{new}{coordinates}) {
         $data->{coordinates} = {
-            new => Coordinates->new($self->data->{new}{coordinates}),
-            old => Coordinates->new($self->data->{old}{coordinates}),
+            new => defined $self->data->{new}{coordinates} && defined $self->data->{new}{coordinates}{latitude} ? Coordinates->new($self->data->{new}{coordinates}) : '',
+            old => defined $self->data->{old}{coordinates} && defined $self->data->{old}{coordinates}{latitude} ? Coordinates->new($self->data->{old}{coordinates}) : '',
         };
     }
 
@@ -186,6 +187,11 @@ around extract_property => sub {
         when ('end_date') {
             return merge_partial_date('end_date' => $ancestor, $current, $new);
         }
+
+        when ('coordinates') {
+            return merge_coordinates('coordinates' => $ancestor, $current, $new);
+        }
+
         default {
             return ($self->$orig(@_));
         }

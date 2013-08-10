@@ -37,8 +37,8 @@ subtype PartialDateHash,
 
 subtype CoordinateHash,
     as Dict[
-        latitude => Num,
-        longitude => Num,
+        latitude => Nullable[Num],
+        longitude => Nullable[Num],
     ];
 
 subtype ArtistCreditDefinition,

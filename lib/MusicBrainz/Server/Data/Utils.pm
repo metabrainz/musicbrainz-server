@@ -339,10 +339,11 @@ sub add_coordinates_to_row
 {
     my ($row, $coordinates, $prefix) = @_;
 
-    if (defined $coordinates) {
-            if (exists $coordinates->{latitude} && exists $coordinates->{longitude}) {
-                $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
-        }
+    if (defined $coordinates && defined $coordinates->{latitude} && defined $coordinates->{longitude}) {
+        $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
+    }
+    else {
+        $row->{$prefix} = undef;
     }
 }
 

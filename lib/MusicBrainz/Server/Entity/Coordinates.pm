@@ -4,12 +4,12 @@ use Moose;
 
 has 'latitude' => (
     is => 'rw',
-    isa => 'Num'
+    isa => 'Maybe[Num]'
 );
 
 has 'longitude' => (
     is => 'rw',
-    isa => 'Num'
+    isa => 'Maybe[Num]'
 );
 
 sub new_from_row {
@@ -25,9 +25,14 @@ sub format
 {
     my ($self) = @_;
 
-    my @res = ($self->latitude, $self->longitude);
+    if (defined $self->latitude && defined $self->longitude) {
+        my @res = ($self->latitude, $self->longitude);
 
-    return join(', ', @res);
+        return join(', ', @res);
+    }
+    else {
+    return '';
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
