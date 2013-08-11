@@ -7,7 +7,6 @@ use Algorithm::Merge qw( merge );
 use JSON::Any;
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
 use Try::Tiny;
-use Data::Dumper qw( Dumper );
 
 =head1 NAME
 
@@ -113,10 +112,6 @@ sub merge_changes {
     my $ancestor_data = $self->ancestor_data;
     my $new_data      = $self->new_data;
     my $current_data  = $self->current_instance;
-
-    warn Dumper($ancestor_data);
-    warn Dumper($current_data);
-    warn Dumper($new_data);
 
     try {
         for my $name (keys %$new_data) {
