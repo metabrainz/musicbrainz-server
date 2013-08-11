@@ -383,6 +383,31 @@ sub linked_labels
     }
 }
 
+sub linked_places
+{
+    my ($self, $c, $stash, $places) = @_;
+
+    $self->_tags_and_ratings($c, 'Place', $places, $stash);
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Place')->alias->find_by_entity_id(map { $_->id } @$places) };
+        $c->model('Place')->alias_type->load(@aliases);
+
+        my %alias_per_place;
+        foreach (@aliases)
+        {
+            $alias_per_place{$_->place_id} = [] unless $alias_per_place{$_->place_id};
+            push @{ $alias_per_place{$_->place_id} }, $_;
+        }
+
+        foreach (@$places)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_place{$_->id};
+        }
+    }
+}
+
 sub linked_recordings
 {
     my ($self, $c, $stash, $recordings) = @_;
