@@ -157,5 +157,5 @@ ko.bindingHandlers.guessCase = {
         ko.applyBindingsToDescendants(context, element);
 
         return { controlsDescendantBindings: true };
-    },
+    }
 };
