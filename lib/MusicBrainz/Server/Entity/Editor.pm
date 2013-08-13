@@ -48,6 +48,12 @@ sub is_untrusted
     return (shift->privileges & $mask) > 0;
 }
 
+sub is_nag_free
+{
+    my $mask = $DONT_NAG_FLAG;
+    return (shift->privileges & $mask) > 0;
+}
+
 sub is_relationship_editor
 {
     my $mask = $RELATIONSHIP_EDITOR_FLAG;
@@ -294,6 +300,10 @@ The editor is a bot, not a human being
 =head2 is_untrusted
 
 The editor is flagged untrusted
+
+=head2 is_nag_free
+
+The editor should not be nagged to donate
 
 =head2 is_mbid_submitter
 
