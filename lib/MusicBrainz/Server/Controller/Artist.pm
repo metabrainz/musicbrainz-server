@@ -401,17 +401,11 @@ sub edit : Chained('load') Edit {
     my $artist_credits =$c->model('ArtistCredit')->find_by_artist_id($artist->id);
     $c->stash( artist_credits => $artist_credits );
 
-    my @default_artist_credits =
-        grep { $_ } map {
-            my @found = grep { $_->name eq $artist->name } $_->all_names;
-            scalar(@found) ? $_->id : undef;
-        } @$artist_credits;
-
     $self->edit_action(
         $c,
         form        => 'ArtistEdit',
         form_args   => { artist_credits => $artist_credits,
-                         default_artist_credits => \@default_artist_credits },
+                         default_artist_credits => [] },
         type        => $EDIT_ARTIST_EDIT,
         item        => $artist,
         edit_args   => { to_edit => $artist },
