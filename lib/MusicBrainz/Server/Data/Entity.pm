@@ -41,12 +41,14 @@ sub _get_by_keys_append_sql
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
                 $extra_sql;
     my $sql = $self->sql;
-
+    $self->sql->select($query, @ids);
     my %result;
-    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
+    while (1) {
+        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         $result{$obj->id} = $obj;
     }
+    $self->sql->finish;
     return \%result;
 }
 

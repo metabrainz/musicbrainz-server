@@ -32,8 +32,7 @@ Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
 sub _table
 {
-    my $self = shift;
-    return 'area ' . (shift() || '') . ' ';
+    return 'area';
 }
 
 sub _columns
