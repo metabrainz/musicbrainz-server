@@ -69,12 +69,16 @@ sub load_form : Private {
         errors => {},
     );
 
-    MusicBrainz::Server::Form::RelationshipEditor->new(
+    my $form = MusicBrainz::Server::Form::RelationshipEditor->new(
         ctx => $c,
         link_type_tree => \@link_type_tree,
         attr_tree => $attr_tree,
         language_options => $language_options,
     );
+
+    $c->stash( form => $form );
+
+    return $form;
 }
 
 sub load : Private {
