@@ -496,6 +496,34 @@ sub set_attributes {
     );
 }
 
+sub allowed_attribute_values {
+    my ($self, @type_ids) = @_;
+    return map {
+        my ($id, $allows_free_text, $allowed_values) = @$_;
+        (
+            $id => do {
+                if ($allows_free_text) {
+                    sub { 1 }
+                }
+                else {
+                    my %allowed = map { $_ => 1 } @$allowed_values;
+                    sub { exists $allowed{shift()} }
+                }
+            }
+        )
+    } @{
+        $self->sql->select_list_of_lists(
+            'SELECT wat.id, free_text, array_agg(watav.id) AS allowed_values
+                FROM work_attribute_type wat
+                LEFT JOIN work_attribute_type_allowed_value watav
+                  ON (wat.id = watav.work_attribute_type)
+                WHERE wat.id = any(?)
+                GROUP BY wat.id',
+            \@type_ids
+        )
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
