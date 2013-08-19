@@ -14,31 +14,44 @@
     <fieldset>
       <legend>[%- l('Work Attributes') -%]</legend>
       <!-- ko with: MB.WorkAttributes.viewModel -->
-      <!-- ko foreach: attributes -->
       [% WRAPPER form_row %]
-        <select data-bind="value: typeId, options: $parent.attributeTypes, optionsText: $parent.formatAttributeType, attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }">
-        </select>
+        <label>[% l('Attributes:') %]</label>
+        <div class="form-row-text-list">
 
-        <!-- ko if: allowsFreeText -->
-        <input type="text" data-bind="attr: { name: 'edit-work.attributes.' + $index() + '.value' }" />
+        <!-- ko foreach: attributes -->
+          <div class="text-list-row" style="margin-bottom: 1em">
+            <select data-bind="value: typeId, options: $parent.attributeTypes, optionsText: $parent.formatAttributeType, attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }">
+            </select>
+    
+            <!-- ko if: allowsFreeText -->
+            <input type="text" data-bind="attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
+                   class="value with-remove" />
+            <!-- /ko -->
+    
+            <!-- ko ifnot: allowsFreeText -->
+            <select data-bind="options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
+                    class="value with-remove">
+            </select>
+            <!-- /ko -->
+
+            <button class="nobutton icon remove" data-bind="click: remove">
+              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
+                   title="[% l('Remove attribute') %]"
+                     alt="[% l('Remove attribute') %]" />
+            </button>
+          </div>
         <!-- /ko -->
 
-        <!-- ko ifnot: allowsFreeText -->
-        <select data-bind="options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }">
-        </select>
-        <!-- /ko -->
-
+        <div class="form-row-add">
+          <button class="nobutton add"
+             data-bind="click: newAttribute">
+            [% caption = l('Add Work Attribute') %]
+            <span class="add-row">[% caption %]</span>
+            <div class="add-item icon img" title="[% caption %]"></div>
+          </button>
+        </div>
+        </div>
       [% END %]
-      <!-- /ko -->
-
-      <div class="form-row-add">
-        <button class="nobutton add"
-           data-bind="click: newAttribute">
-          [% caption = l('Add Work Attribute') %]
-          <span class="add-row">[% caption %]</span>
-          <div class="add-item icon img" title="[% caption %]"></div>
-        </button>
-      </div>
       <!-- /ko -->
     </fieldset>
 

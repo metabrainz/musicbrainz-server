@@ -31,6 +31,10 @@ WorkAttribute = function(typeId) {
     self.valueFormatter = function(item) {
         return attributeTypes[self.typeId()].values[item];
     };
+    self.remove = function() {
+        MB.WorkAttributes.viewModel.attributes.remove(this);
+    };
+
 
     return self;
 };
