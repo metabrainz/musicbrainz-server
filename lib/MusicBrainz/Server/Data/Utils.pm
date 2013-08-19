@@ -234,6 +234,7 @@ sub query_to_list_limited
         SELECT x.*, c.count AS total_row_count
         FROM x, (SELECT count(*) from x) c";
     if (defined $limit) {
+        die "Query limit must be positive" if $limit < 0;
         $wrapping_query = $wrapping_query . " LIMIT $limit";
     }
     $sql->select($wrapping_query, @args);
