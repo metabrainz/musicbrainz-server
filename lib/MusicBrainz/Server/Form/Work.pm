@@ -35,12 +35,38 @@ has_field 'iswcs.contains' => (
     type => '+MusicBrainz::Server::Form::Field::ISWC',
 );
 
+has_field 'attributes' => (
+    type => 'Repeatable',
+);
+
+has_field 'attributes.type_id' => (
+    type => 'Integer',
+    required => 1
+);
+
+has_field 'attributes.value' => (
+    type => '+MusicBrainz::Server::Form::Field::Text',
+    required => 1
+);
+
 after 'validate' => sub {
     my ($self) = @_;
     return if $self->has_errors;
 
-    my $iswcs =  $self->field('iswcs');
+    my $iswcs = $self->field('iswcs');
     $iswcs->value([ uniq sort grep { $_ } @{ $iswcs->value } ]);
+
+    my $attributes = $self->field('attributes');
+    my %allowed_values = $self->ctx->model('Work')->allowed_attribute_values(
+        map { $_->{type_id} } @{ $attributes->value }
+    );
+
+    for my $attribute_field ($attributes->fields) {
+        my $v = $attribute_field->value;
+        $attribute_field->field('value')->add_error(
+            l('This value is not allowed for this work attribute type')
+        ) if !$allowed_values{$v->{type_id}}->($v->{value});
+    }
 };
 
 sub inflate_iswcs {
