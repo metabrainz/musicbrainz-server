@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Work;
 
 use Moose;
 use namespace::autoclean;
-use List::MoreUtils qw( uniq );
+use List::AllUtils qw( uniq zip );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
@@ -523,6 +523,37 @@ sub allowed_attribute_values {
                 WHERE wat.id = any(?)
                 GROUP BY wat.id',
             \@type_ids
+        )
+    };
+}
+
+sub all_work_attributes {
+    my $self = shift;
+    return map {
+        my ($id, $name, $allows_free_text, $allowed_ids, $allowed_values) = @$_;
+        (
+            $id => {
+                name => $name,
+                allowsFreeText => $allows_free_text,
+                values => do {
+                    if ($allows_free_text) {
+                        +{};
+                    }
+                    else {
+                        +{ zip @$allowed_ids, @$allowed_values }
+                    }
+                }
+            }
+        );
+    } @{
+        $self->sql->select_list_of_lists(
+            'SELECT wat.id, name, free_text,
+               array_agg(watav.id) AS allowed_value_ids,
+               array_agg(watav.value) AS allowed_value
+             FROM work_attribute_type wat
+             LEFT JOIN work_attribute_type_allowed_value watav
+             ON (wat.id = watav.work_attribute_type)
+             GROUP BY wat.id'
         )
     };
 }

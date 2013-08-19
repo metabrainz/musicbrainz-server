@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Controller::Work;
+use 5.10.0;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
+use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_WORK_CREATE
     $EDIT_WORK_EDIT
@@ -96,6 +98,13 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+
+    state $json = JSON::Any->new( utf8 => 1 );
+
+    my %all_work_attributes = $c->model('Work')->all_work_attributes;
+    $c->stash(
+        workAttributesJson => $json->encode(\%all_work_attributes)
+    );
 };
 
 after 'merge' => sub

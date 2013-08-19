@@ -11,6 +11,37 @@
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
+    <fieldset>
+      <legend>[%- l('Work Attributes') -%]</legend>
+      <!-- ko with: MB.WorkAttributes.viewModel -->
+      <!-- ko foreach: attributes -->
+      [% WRAPPER form_row %]
+        <select data-bind="value: typeId, options: $parent.attributeTypes, optionsText: $parent.formatAttributeType, attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }">
+        </select>
+
+        <!-- ko if: allowsFreeText -->
+        <input type="text" data-bind="attr: { name: 'edit-work.attributes.' + $index() + '.value' }" />
+        <!-- /ko -->
+
+        <!-- ko ifnot: allowsFreeText -->
+        <select data-bind="options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }">
+        </select>
+        <!-- /ko -->
+
+      [% END %]
+      <!-- /ko -->
+
+      <div class="form-row-add">
+        <button class="nobutton add"
+           data-bind="click: newAttribute">
+          [% caption = l('Add Work Attribute') %]
+          <span class="add-row">[% caption %]</span>
+          <div class="add-item icon img" title="[% caption %]"></div>
+        </button>
+      </div>
+      <!-- /ko -->
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -22,6 +53,14 @@
   </div>
 
 </form>
+
+<script type="text/javascript"
+    src="[% c.uri_for('/static/scripts/edit/WorkAttributes.js') %]">
+</script>
+
+<script type="text/javascript">
+var editor = MB.WorkAttributes.init([% workAttributesJson %]);
+</script>
 
 <script type="text/javascript">
     $(function () {

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( language_options );
+use MusicBrainz::Server::Translation qw( l );
 use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::Form';
@@ -67,7 +68,12 @@ after 'validate' => sub {
         my $type_id = $v->{type_id};
         my $parser = $allowed_values{$v->{type_id}};
 
-        if ($parser->{allows_value}->($type_id)) {
+        if (!defined($parser)) {
+            $attribute_field->field('type_id')->add_error(
+                l('Unknown work attribute type')
+            );
+        }
+        elsif ($parser->{allows_value}->($type_id)) {
             # Convert the value to a format supported by Edit::Work::Edit
             $attribute_field->value({
                 attribute_text => $parser->{allows_free_text} ? $value : undef,
