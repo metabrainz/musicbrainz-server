@@ -24,12 +24,12 @@
             </select>
     
             <!-- ko if: allowsFreeText -->
-            <input type="text" data-bind="attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
+            <input type="text" data-bind="value: attributeValue, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
                    class="value with-remove" />
             <!-- /ko -->
     
             <!-- ko ifnot: allowsFreeText -->
-            <select data-bind="options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
+            <select data-bind="value: attributeValue, options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
                     class="value with-remove">
             </select>
             <!-- /ko -->
@@ -73,6 +73,12 @@
 
 <script type="text/javascript">
 var editor = MB.WorkAttributes.init([% workAttributesJson %]);
+[% FOR attribute=form.field('attributes').fields %]
+editor.viewModel.attributes.push(new MB.WorkAttributes.WorkAttribute(
+    [% attribute.field('type_id').value %],
+    "[% attribute.field('value').value | js %]"
+));
+[% END %]
 </script>
 
 <script type="text/javascript">

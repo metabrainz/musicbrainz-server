@@ -4,19 +4,23 @@ MB.WorkAttributes = (function(WA) {
 var attributeTypes;
 
 // Private classes
-var ViewModel, WorkAttribute, WorkAttributeType;
+var ViewModel;
 
 WA.init = function(config) {
     attributeTypes = config;
 
     WA.viewModel = new ViewModel(config);
     ko.applyBindings(WA.viewModel);
+
+    return WA;
 };
 
-WorkAttribute = function(typeId) {
+WA.WorkAttribute = function(typeId, value) {
     var self = this;
 
     self.typeId = ko.observable(typeId);
+    self.attributeValue = ko.observable(value);
+
     self.allowsFreeText = ko.computed(function() {
         return !self.typeId() || attributeTypes[self.typeId()].allowsFreeText;
     });
@@ -35,7 +39,6 @@ WorkAttribute = function(typeId) {
         MB.WorkAttributes.viewModel.attributes.remove(this);
     };
 
-
     return self;
 };
 
@@ -51,7 +54,7 @@ ViewModel = function () {
     };
 
     model.newAttribute = function() {
-        model.attributes.push(new WorkAttribute(undefined));
+        model.attributes.push(new WA.WorkAttribute("", ""));
     };
 
     return model;

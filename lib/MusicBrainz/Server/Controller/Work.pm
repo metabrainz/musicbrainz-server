@@ -98,6 +98,7 @@ before 'edit' => sub
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+    $c->model('Work')->load_attributes($work);
 
     state $json = JSON::Any->new( utf8 => 1 );
 

@@ -38,6 +38,7 @@ has_field 'iswcs.contains' => (
 
 has_field 'attributes' => (
     type => 'Repeatable',
+    inflate_default_method => \&inflate_attributes
 );
 
 has_field 'attributes.type_id' => (
@@ -98,6 +99,16 @@ after 'validate' => sub {
 sub inflate_iswcs {
     my ($self, $value) = @_;
     return [ map { $_->iswc } @$value ];
+}
+
+sub inflate_attributes {
+    my ($self, $value) = @_;
+    return [
+        map +{
+            type_id => $_->type->id,
+            value => $_->value_id // $_->value
+        }, @$value
+    ];
 }
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
