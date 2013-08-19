@@ -11,7 +11,7 @@ use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use Math::Random::Secure qw();
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -516,9 +516,9 @@ sub subscription_summary {
     );
 }
 
-sub open_edit_count
+sub _edit_count
 {
-    my ($self, $editor_id) = @_;
+    my ($self, $editor_id, $status) = @_;
     my $query =
         'SELECT count(*)
            FROM edit
@@ -526,7 +526,19 @@ sub open_edit_count
           AND editor = ?
        ';
 
-    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+    return $self->sql->select_single_value($query, $status, $editor_id);
+}
+
+sub open_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_OPEN);
+}
+
+sub cancelled_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_DELETED);
 }
 
 sub last_24h_edit_count

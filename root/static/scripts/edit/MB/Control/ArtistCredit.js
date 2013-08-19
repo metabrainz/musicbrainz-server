@@ -282,18 +282,22 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
     };
 
     self.renderPreviewText = function () {
-        return self.renderName () + self.$join.val ();
+        return self.renderName () + self.renderJoinPhrase();
+    };
+
+    self.renderJoinPhrase = function() {
+        return self.$join.val() || '';
     };
 
     self.renderPreviewHTML = function () {
         if (self.$gid.val () === '')
         {
             return MB.utility.escapeHTML (self.renderName ()) +
-                MB.utility.escapeHTML (self.$join.val ());
+                MB.utility.escapeHTML (self.renderJoinPhrase());
         }
 
         var hover = self.$sortname.val ();
-        if (self.$comment.val () != '')
+        if (self.$comment.val () && self.$comment.val() != '')
         {
             hover = hover + ", " + self.$comment.val ();
         }
@@ -302,7 +306,7 @@ MB.Control.ArtistCredit = function(obj, boxnumber, container) {
             MB.utility.escapeHTML (self.$gid.val ()) + '" title="' +
             MB.utility.escapeHTML (hover) + '">' +
             MB.utility.escapeHTML (self.renderName ()) + '</a>' +
-            MB.utility.escapeHTML (self.$join.val ());
+            MB.utility.escapeHTML (self.renderJoinPhrase());
     };
 
     self.remove = function () {

@@ -244,6 +244,21 @@
       </div>
     </div>
 
+    <div class="status-container" style="display: none">
+      <div class="status bubble">
+        <p class="documentation-4">
+          [%- l('This release status should be used for unofficial translations
+                 and transliterations of tracklists and release titles, and does
+                 not denote a separate real release. It should not be used to
+                 denote bootlegs, mixtape/street albums, demos, or digital
+                 albums. Be sure to link to the corresponding real release with
+                 the {url|transl(iter)ation relationship}.',
+                { url => doc_link('Translation_Transliteration_Relationship_Type') })
+          -%]
+        </p>
+      </div>
+    </div>
+
   </div>
 
 [%- END -%]

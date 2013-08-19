@@ -86,21 +86,34 @@ sub _entity_class
     return shift->entity;
 }
 
-sub find_by_entity_id
+sub find_by_entity_ids
 {
     my ($self, @ids) = @_;
-    return [] unless @ids;
+    return {} unless @ids;
 
     my $key = $self->type;
 
-    my $query = "SELECT " . $self->_columns . "
+    my $query = "SELECT $key parent_id, " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
                  ORDER BY locale NULLS LAST, musicbrainz_collate(" . $self->_sort_name . "), musicbrainz_collate(" . $self->_name . ")";
 
-    return [ query_to_list($self->c->sql, sub {
-        $self->_new_from_row(@_)
-    }, $query, @ids) ];
+    my %ret = map { $_ => [] } @ids;
+
+    my $rows = $self->sql->select_list_of_hashes($query, @ids);
+    while (my $row = shift(@$rows)) {
+        push @{ $ret{$row->{parent_id}} },
+            $self->_new_from_row($row);
+    }
+
+    return \%ret;
+}
+
+sub find_by_entity_id
+{
+    my ($self, @ids) = @_;
+    my $alias_map = $self->find_by_entity_ids(@ids);
+    return [ map { @{ $alias_map->{$_} } } @ids ];
 }
 
 sub has_locale

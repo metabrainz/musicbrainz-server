@@ -20,7 +20,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class', '_table_join_name';
+    requires 'c', '_entity_class', '_table_join_name', 'has_name_table';
 
     has 'alias' => (
         is => 'ro',
@@ -66,7 +66,7 @@ role
         my $query =
             "WITH search (term) AS (".
             "    VALUES " . join (",", ("(?)") x scalar @names) . "), ";
-        if ($self->has_name_table) {
+        if ($self->has_name_table && $self->name_table) {
             my $nametable = $self->name_table;
             $query = $query .
                 "    matching_names (term, name) AS (" .
@@ -92,15 +92,13 @@ role
             "      SELECT term AS search_term, ".$self->_columns.
             "      FROM ".$self->_table ("JOIN entity_matches ON entity_matches.entity = $type.id");
 
-        $self->c->sql->select($query, @names);
         my %ret;
-        while (my $row = $self->c->sql->next_row_hash_ref) {
+        for my $row (@{ $self->c->sql->select_list_of_hashes($query, @names) }) {
             my $search_term = delete $row->{search_term};
 
             $ret{$search_term} ||= [];
             push @{ $ret{$search_term} }, $self->_new_from_row ($row);
         }
-        $self->c->sql->finish;
 
         return \%ret;
     };

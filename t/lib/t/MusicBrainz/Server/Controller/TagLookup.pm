@@ -17,7 +17,7 @@ test 'Can perform tag lookups with artist and release titles' => sub {
     my $test = shift;
     $test->mech->get_ok('/taglookup?artist=中島+美嘉&release=love', 'performed tag lookup');
     html_ok($test->mech->content);
-    $test->mech->content_contains('中島美嘉', 'has correct artist result');
+    $test->mech->content_contains('中島', 'has correct artist result');
     $test->mech->content_contains('LOVE', 'has correct release result');
 };
 

@@ -163,8 +163,11 @@ MB.tests.GuessCase.Modes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            /* input and expected don't exist as options and will be ignored. */
-            MB.GuessCase.work.gc.setOptions (test);
+            var gc = MB.GuessCase.work.gc;
+
+            gc.CFG_UC_ROMANNUMERALS = test.roman;
+            gc.CFG_UC_UPPERCASED = test.keepuppercase;
+            gc.mode = MB.GuessCase.Mode[test.mode]();
 
             result = MB.GuessCase.work.guess (test.input);
             QUnit.equal(result, test.expected, test.input);
@@ -265,6 +268,16 @@ MB.tests.GuessCase.BugFixes = function() {
                 input: "10000 dB Goa Trance",
                 expected: "10000 dB Goa Trance",
                 bug: "MBS-2756", mode: "English"
+            },
+            {
+                input: "¿qué No? ¡anda Que No!",
+                expected: "¿Qué no? ¡Anda que no!",
+                bug: "MBS-1549", mode: "Sentence"
+            },
+            {
+                input: "¿QUÉ NO? ¡ANDA QUE NO!",
+                expected: "¿Qué no? ¡Anda que no!",
+                bug: "MBS-1549", mode: "Sentence"
             }
 
 
@@ -293,8 +306,7 @@ MB.tests.GuessCase.BugFixes = function() {
         ];
 
         $.each(tests, function(idx, test) {
-            /* input and expected don't exist as options and will be ignored. */
-            MB.GuessCase.work.gc.setOptions (test);
+            MB.GuessCase.work.gc.mode = MB.GuessCase.Mode[test.mode]();
 
             result = MB.GuessCase.work.guess (test.input);
             QUnit.equal(result, test.expected, test.bug + ', ' + test.input);

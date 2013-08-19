@@ -257,7 +257,7 @@
   <tr class="track" data-bind="css: {ev: position % 2 == 0}">
     <td class="pos t" data-bind="text: number"></td>
     <td class="recording">
-      <input type="checkbox">
+      <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
       <span data-bind="html: html()"></span>
       <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
           by <span data-bind="html: artistCredit.html()"></span>

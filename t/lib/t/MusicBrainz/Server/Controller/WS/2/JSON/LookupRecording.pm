@@ -274,6 +274,7 @@ test 'recording lookup with release relationships' => sub {
                         disambiguation => '',
                         id => '4ccb3e54-caab-4ad4-94a6-a598e0e52eec',
                         packaging => JSON::null,
+                        relations => [],
                         quality => 'normal',
                         status => JSON::null,
                         'text-representation' => { language => JSON::null, script => JSON::null },
@@ -314,10 +315,58 @@ test 'recording lookup with work relationships' => sub {
                         language => JSON::null,
                         title => 'the Love Bug',
                         type => JSON::null,
+                        relations => []
                     }
                 }
             ],
         });
+};
+
+test 'recording lookup with work-level relationships' => sub {
+
+    MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
+
+    ws_test_json 'recording lookup with work-level relationships',
+    '/recording/4878bc36-7306-497a-b45a-561d9f7f8573?inc=artist-rels+work-rels+work-level-rels' =>
+    encode_json ({
+        disambiguation => '',
+        id => '4878bc36-7306-497a-b45a-561d9f7f8573',
+        length => 274666,
+        relations => [ {
+            attributes => [],
+            begin => undef,
+            direction => 'forward',
+            end => undef,
+            ended => JSON::false,
+            type => 'performance',
+            'type-id' => 'fdc57134-e05c-30bc-aff6-425684475276',
+            work => {
+                disambiguation => '',
+                id => 'f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8',
+                iswcs => [],
+                language => 'jpn',
+                relations => [ {
+                    artist => {
+                        disambiguation => 'UK dubstep artist Greg Sanders',
+                        id => '472bc127-8861-45e8-bc9e-31e8dd32de7a',
+                        name => 'Distance',
+                        relations => [],
+                        'sort-name' => 'Distance'
+                    },
+                    attributes => [],
+                    begin => undef,
+                    direction => 'backward',
+                    end => undef,
+                    ended => JSON::false,
+                    type => 'composer',
+                    'type-id' => '21d842db-81d4-4d30-a0bd-8c6cc07e1dc2'
+                } ],
+                title => 'Asseswaving',
+                type => undef
+            }
+        } ],
+        title => 'Asseswaving'
+    });
 };
 
 1;

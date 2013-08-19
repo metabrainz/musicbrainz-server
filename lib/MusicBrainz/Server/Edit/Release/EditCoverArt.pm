@@ -110,6 +110,10 @@ sub foreign_keys {
         $self->data->{entity}{id} => [ 'ArtistCredit' ]
     };
 
+    $fk{Artwork} = {
+        $self->data->{id} => [ 'Release' ]
+    };
+
     $fk{CoverArtType} = [
         @{ $self->data->{new}->{types} },
         @{ $self->data->{old}->{types} }
@@ -135,10 +139,15 @@ sub build_display_data {
     $data{release} = $loaded->{Release}{ $self->data->{entity}{id} } ||
         Release->new( name => $self->data->{entity}{name} );
 
-    $data{artwork} = Artwork->new(release => $data{release},
-                               id => $self->data->{id},
-                               comment => $self->data->{new}{comment} // '',
-                               cover_art_types => [map {$loaded->{CoverArtType}{$_}} @{ $self->data->{new}{types} }]);
+    $data{artwork} = $loaded->{Artwork}{ $self->data->{id} } ||
+        Artwork->new(release => $data{release},
+                     id => $self->data->{id},
+                     comment => $self->data->{new}->{comment} // '',
+                     cover_art_types => [ map {
+                         $loaded->{CoverArtType}{$_}
+                     } @{ $self->data->{new}->{types} // [] }]
+        );
+
 
     if ($self->data->{old}->{types})
     {
