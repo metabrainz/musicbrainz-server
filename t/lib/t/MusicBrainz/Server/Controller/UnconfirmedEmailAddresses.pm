@@ -60,6 +60,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Account::Subscriptions::Label::remove",
   "Controller::Account::applications",
   "Controller::Account::change_password",
+  "Controller::Account::donation",
   "Controller::Account::edit",
   "Controller::Account::edit_application",
   "Controller::Account::index",
