@@ -99,6 +99,9 @@ test 'Editing works with attributes' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c);
     $c->sql->do(<<'EOSQL');
+-- We aren't interested in ISWC editing
+DELETE FROM iswc;
+
 INSERT INTO work_attribute_type (id, name, free_text)
 VALUES
   (1, 'Attribute', false),
@@ -114,6 +117,7 @@ EOSQL
         $mech->get_ok("/work/745c079d-374e-4436-9448-da92dedef3ce/edit");
         html_ok($mech->content);
         my $request = POST $mech->uri, [
+            'edit-work.name' => 'Work name',
             'edit-work.attributes.0.type_id' => 2,
             'edit-work.attributes.0.value' => 'Free text',
             'edit-work.attributes.1.type_id' => 1,
@@ -123,6 +127,21 @@ EOSQL
     } $c;
 
     is(@edits, 1, 'An edit was created');
+    is_deeply(
+        $edits[0]->data->{new}{attributes},
+        [
+            {
+                attribute_text => "Free text",
+                attribute_type_id => 2,
+                attribute_value_id => undef
+            },
+            {
+                attribute_text => undef,
+                attribute_type_id => 1,
+                attribute_value_id => 3
+            }
+        ]
+    );
 };
 
 1;

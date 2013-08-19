@@ -276,14 +276,14 @@ EOSQL
 
     my %allowed_values = $test->c->model('Work')->allowed_attribute_values(1..3);
 
-    ok($allowed_values{1}->(1), 'Attribute #1 allows value #1');
-    ok($allowed_values{1}->(2), 'Attribute #1 allows value #2');
-    ok(!$allowed_values{1}->(3), 'Attribute #1 disallows value #3');
+    ok($allowed_values{1}->{allows_value}->(1), 'Attribute #1 allows value #1');
+    ok($allowed_values{1}->{allows_value}->(2), 'Attribute #1 allows value #2');
+    ok(!$allowed_values{1}->{allows_value}->(3), 'Attribute #1 disallows value #3');
 
-    ok($allowed_values{2}->('Anything you want'),
+    ok($allowed_values{2}->{allows_value}->('Anything you want'),
         'Attribute #2 allows arbitrary text');
 
-    ok($allowed_values{3}->(3), 'Attribute #3 allows value #3');
+    ok($allowed_values{3}->{allows_value}->(3), 'Attribute #3 allows value #3');
 };
 
 1;

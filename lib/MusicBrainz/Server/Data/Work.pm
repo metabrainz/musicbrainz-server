@@ -501,14 +501,17 @@ sub allowed_attribute_values {
     return map {
         my ($id, $allows_free_text, $allowed_values) = @$_;
         (
-            $id => do {
-                if ($allows_free_text) {
-                    sub { 1 }
-                }
-                else {
-                    my %allowed = map { $_ => 1 } @$allowed_values;
-                    sub { exists $allowed{shift()} }
-                }
+            $id => {
+                allows_value => do {
+                    if ($allows_free_text) {
+                        sub { 1 }
+                    }
+                    else {
+                        my %allowed = map { $_ => 1 } @$allowed_values;
+                        sub { exists $allowed{shift()} }
+                    }
+                },
+                allows_free_text => $allows_free_text
             }
         )
     } @{

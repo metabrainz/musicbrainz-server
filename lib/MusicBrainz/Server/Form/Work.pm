@@ -63,10 +63,30 @@ after 'validate' => sub {
 
     for my $attribute_field ($attributes->fields) {
         my $v = $attribute_field->value;
-        $attribute_field->field('value')->add_error(
-            l('This value is not allowed for this work attribute type')
-        ) if !$allowed_values{$v->{type_id}}->($v->{value});
+        my $value = $v->{value};
+        my $type_id = $v->{type_id};
+        my $parser = $allowed_values{$v->{type_id}};
+
+        if ($parser->{allows_value}->($type_id)) {
+            # Convert the value to a format supported by Edit::Work::Edit
+            $attribute_field->value({
+                attribute_text => $parser->{allows_free_text} ? $value : undef,
+                attribute_value_id => $parser->{allows_free_text} ? undef : $value,
+                attribute_type_id => $type_id
+            });
+        }
+        else {
+            $attribute_field->field('value')->add_error(
+                l('This value is not allowed for this work attribute type')
+            );
+        }
     }
+
+    # We need to reset the repeatable value as we may have changed the value of
+    # inner fields.
+    $attributes->value([
+        map { $_->value } $attributes->fields
+    ]);
 };
 
 sub inflate_iswcs {
@@ -74,7 +94,7 @@ sub inflate_iswcs {
     return [ map { $_->iswc } @$value ];
 }
 
-sub edit_field_names { qw( type_id language_id name comment artist_credit ) }
+sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
 
 sub options_type_id           { shift->_select_all('WorkType') }
 sub options_language_id       { return language_options (shift->ctx); }
