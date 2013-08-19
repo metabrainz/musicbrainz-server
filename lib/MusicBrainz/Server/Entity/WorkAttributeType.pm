@@ -19,7 +19,7 @@ has comment => (
 
 sub l_name {
     my $self = shift;
-    return lp($self->name)
+    return lp($self->name, 'work_attribute_type')
 }
 
 __PACKAGE__->meta->make_immutable;

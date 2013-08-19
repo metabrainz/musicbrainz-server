@@ -60,6 +60,7 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'attributes', 'table' => 'work_attribute_type', columns => ['name'], ctx => 'NULL', ctxtable => 'work_attribute_type' },
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
               {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
