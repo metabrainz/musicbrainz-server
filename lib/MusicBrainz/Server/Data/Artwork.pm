@@ -15,7 +15,8 @@ with 'MusicBrainz::Server::Data::Role::Editable' => {
 
 sub _table
 {
-    return 'cover_art_archive.cover_art';
+    return 'cover_art_archive.cover_art ' .
+        'JOIN cover_art_archive.image_type USING (mime_type)';
 }
 
 sub _columns
@@ -25,7 +26,9 @@ sub _columns
             cover_art_archive.cover_art.comment,
             cover_art_archive.cover_art.edit,
             cover_art_archive.cover_art.ordering,
-            cover_art_archive.cover_art.edits_pending';
+            cover_art_archive.cover_art.edits_pending,
+            cover_art_archive.cover_art.mime_type,
+            cover_art_archive.image_type.suffix';
 }
 
 sub _id_column

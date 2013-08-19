@@ -1172,8 +1172,8 @@ MB.Control.ReleaseTracklist = function () {
 
     };
 
-    $("a[href=#guesscase]").click (function () {
-        self.guessCase ();
+    ko.applyBindingsToNode($("div.guesscase-advanced")[0], {
+        guessCase: self.guessCase
     });
 
     $("#release-editor").on("VariousArtists", ".artist-credit-box input.name",

@@ -11,7 +11,7 @@ use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use Math::Random::Secure qw();
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -317,6 +317,7 @@ sub update_privileges
                 + $values->{untrusted}        * $UNTRUSTED_FLAG
                 + $values->{link_editor}      * $RELATIONSHIP_EDITOR_FLAG
                 + $values->{location_editor}  * $LOCATION_EDITOR_FLAG
+                + $values->{no_nag}           * $DONT_NAG_FLAG
                 + $values->{wiki_transcluder} * $WIKI_TRANSCLUSION_FLAG
                 + $values->{mbid_submitter}   * $MBID_SUBMITTER_FLAG
                 + $values->{account_admin}    * $ACCOUNT_ADMIN_FLAG;
@@ -407,6 +408,40 @@ sub lock_row
     my ($self, $editor_id) = @_;
     my $query = "SELECT 1 FROM " . $self->_table . " WHERE id = ? FOR UPDATE";
     $self->sql->do($query, $editor_id);
+}
+
+sub donation_check
+{
+    my ($self, $obj) = @_;
+
+    my $nag = 1;
+    $nag = 0 if ($obj->is_nag_free || $obj->is_auto_editor || $obj->is_bot ||
+                 $obj->is_relationship_editor || $obj->is_wiki_transcluder ||
+                 $obj->is_location_editor);
+
+    my $days = 0.0;
+    if ($nag)
+    {
+        my $ua = LWP::UserAgent->new;
+        $ua->agent("MusicBrainz server");
+        $ua->timeout(5); # in seconds.
+
+        my $response = $ua->request(HTTP::Request->new (GET =>
+            'http://metabrainz.org/donations/nag-check/' .
+            uri_escape_utf8($obj->name)));
+
+        if ($response->is_success && $response->content =~ /\s*([-01]+),([-0-9.]+)\s*/)
+        {
+            $nag = $1;
+            $days = $2;
+        }
+        else
+        {
+            return undef;
+        }
+    }
+
+    return { nag => $nag, days => $days };
 }
 
 sub editors_with_subscriptions
@@ -516,9 +551,9 @@ sub subscription_summary {
     );
 }
 
-sub open_edit_count
+sub _edit_count
 {
-    my ($self, $editor_id) = @_;
+    my ($self, $editor_id, $status) = @_;
     my $query =
         'SELECT count(*)
            FROM edit
@@ -526,7 +561,19 @@ sub open_edit_count
           AND editor = ?
        ';
 
-    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+    return $self->sql->select_single_value($query, $status, $editor_id);
+}
+
+sub open_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_OPEN);
+}
+
+sub cancelled_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_DELETED);
 }
 
 sub last_24h_edit_count

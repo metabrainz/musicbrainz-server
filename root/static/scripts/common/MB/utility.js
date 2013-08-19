@@ -189,7 +189,7 @@ MB.utility.formatTrackLength = function (duration)
 {
     if (duration === null)
     {
-        return '?:??';
+        return '';
     }
 
     if (duration < 1000)
@@ -230,7 +230,7 @@ MB.utility.unformatTrackLength = function (duration)
     }
 
     var parts = duration.replace(/[:\.]/, ':').split (':');
-    if (parts[0] == '?' || parts[0] == '??')
+    if (parts[0] == '?' || parts[0] == '??' || duration === '')
     {
         return null;
     }

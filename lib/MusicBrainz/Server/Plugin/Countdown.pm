@@ -51,14 +51,10 @@ sub days {
 
     my $dur = $dt - DateTime->now;
 
-    return $dur->days;
-}
-
-sub total_days {
-    my ($self, $dt) = @_;
-
-    # using $dur->days doesn't factor in the number of weeks
-    return DateTime->now->delta_days($dt)->delta_days;
+    # $dur->days is defined strangely, as:
+    # abs( ( $dur->in_units( 'days', 'weeks' ) )[0] )
+    # weeks and hours are defined following this pattern instead:
+    return abs( $dur->in_units( 'days' ) )
 }
 
 sub hours {
@@ -74,7 +70,10 @@ sub minutes {
 
     my $dur = $dt - DateTime->now;
 
-    return $dur->minutes;
+    # $dur->minutes is defined strangely, as:
+    # abs( ( $dur->in_units( 'minutes', 'hours' ) )[0] )
+    # weeks and hours are defined following this pattern instead:
+    return abs( $dur->in_units( 'minutes' ) );
 }
 
 1;

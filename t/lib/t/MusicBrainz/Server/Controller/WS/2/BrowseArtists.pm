@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::2::BrowseArtists;
 use Test::Routine;
 use Test::More;
+use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Test qw( html_ok );
 
 with 't::Mechanize', 't::Context';
@@ -112,6 +113,15 @@ ws_test 'browse artists via work',
         </artist>
     </artist-list>
 </metadata>';
+
+my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&limit=-1');
+is($res->code, HTTP_BAD_REQUEST);
+
+my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&offset=a+bit');
+is($res->code, HTTP_BAD_REQUEST);
+
+my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&limit=10&offset=-1');
+is($res->code, HTTP_BAD_REQUEST);
 
 };
 

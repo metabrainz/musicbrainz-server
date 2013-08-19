@@ -24,5 +24,10 @@
 </form>
 
 <script type="text/javascript">
+    $(function () {
+        var bubbles = MB.Control.BubbleCollection();
+        MB.Control.initialize_guess_case(bubbles, "work", "id-edit-work");
+        bubbles.add($("input[name=edit-work\\.iswcs\\.0]"), $("div.iswcs.bubble"));
+    });
     MB.utility.setDefaultAction ('form.edit-work', 'button.submit.positive');
 </script>

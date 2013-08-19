@@ -1,0 +1,74 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use FindBin '$Bin';
+use lib "$Bin/../../lib";
+
+use DBDefs;
+use DBI;
+use Getopt::Long;
+use MusicBrainz::Server::Context;
+use Pod::Usage;
+
+my $c = MusicBrainz::Server::Context->create_script_context;
+my $res = $c->sql->select_single_row_array(
+    "      
+SELECT extract(day from date_trunc('day', now() - min(generated_at))) as days_old
+FROM report.index
+     ")
+    or critical('Failed to determine when reports last ran');
+
+my ($days_old) = @$res;
+my $message = "reports are $days_old days old";
+
+my ($exit, $status) = (
+      $days_old > 1 ? (2, "CRITICAL: $message")
+    : $days_old > 0 ? (1, "WARNING: $message")
+    :                 (0, "OK: $message")
+);
+
+print $status, "\n";
+exit $exit;
+
+sub critical {
+    my $message = shift;
+    print "CRITICAL\n$message\n";
+    exit 2;
+}
+
+__END__
+
+=head1 NAME
+
+statistics-collected - Nagios check for statistics collections
+
+=head1 SYNOPSIS
+
+statistics-collected
+
+=head1 DESCRIPTION
+
+Nagios check to make sure statistics have been collected
+
+Checks that statistics have been collected recently. The alerts are:
+
+=over 4
+
+=item CRITICAL
+
+Statistics have not been collected at all.
+
+The command fails to connect to the database.
+
+Statistics have not been collected in over 2 days.
+
+=item WARNING
+
+Statistics have not been collected in over 28 hours.
+
+=item OK
+
+Otherwise
+
+=cut

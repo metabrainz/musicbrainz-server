@@ -50,6 +50,28 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlav
     );
 }
 
+sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth HiddenOnSlaves {
+    my ($self, $c) = @_;
+    $self->_edits($c, sub {
+        return $c->model('Edit')->find({
+            editor => $c->stash->{user}->id,
+            status => $STATUS_DELETED
+        }, shift, shift);
+    });
+    $c->stash(
+        refine_url_args => 
+            { auto_edit_filter => '', order=> 'desc', negation=> 0, 
+              combinator=>'and', 
+              'conditions.0.field' => 'editor', 
+              'conditions.0.operator' => '=', 
+              'conditions.0.name' => $c->stash->{user}->name, 
+              'conditions.0.args.0' => $c->stash->{user}->id, 
+              'conditions.1.field' => 'status', 
+              'conditions.1.operator' => '=', 
+              'conditions.1.args' => $STATUS_DELETED },
+    );
+}
+
 sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth HiddenOnSlaves {
     my ($self, $c) = @_;
     $self->_edits($c, sub {
