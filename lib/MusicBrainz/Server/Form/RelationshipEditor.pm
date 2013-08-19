@@ -161,6 +161,12 @@ sub _get_errors {
 
 sub edit_field_names { qw() }
 
+sub field {
+    my ($self, $field) = @_;
+    my $val = $field eq 'as_auto_editor' ? 1 : '';
+    return bless { val => $val, name => $field }, 'ApparentlyAField';
+}
+
 package ApparentlyAForm;
 
 sub field {
@@ -190,16 +196,16 @@ sub field {
     my ($self, $field) = @_;
 
     if (!defined($self->value)) {
-        return bless { val => undef }, 'ApparentlyAField';
+        return bless { val => undef, name => $field }, 'ApparentlyAField';
     }
     elsif ($field =~ /^\d+$/ && exists($self->value->[$field])) {
-        return bless { val => $self->value->[$field] }, 'ApparentlyAField';
+        return bless { val => $self->value->[$field], name => $field }, 'ApparentlyAField';
     }
     elsif (exists ($self->value->{$field})) {
-        return bless { val => $self->value->{$field} }, 'ApparentlyAField';
+        return bless { val => $self->value->{$field}, name => $field }, 'ApparentlyAField';
     }
     else {
-        return bless { val => undef }, 'ApparentlyAField';
+        return bless { val => undef, name => $field }, 'ApparentlyAField';
     }
 }
 
@@ -216,5 +222,17 @@ sub add_error {
     my ($self, $error) = @_;
     push @{ $self->{errors} //= [] }, $error;
 }
+
+sub required { 0 }
+
+sub name { shift->{name} }
+
+sub html_name { 'rel-editor.' . shift->{name} }
+
+sub id { shift->html_name }
+
+sub fif { '' }
+
+sub checkbox_value { 1 }
 
 1;

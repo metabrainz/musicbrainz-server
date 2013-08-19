@@ -19,6 +19,7 @@ test 'Can perform tag lookups with artist and release titles' => sub {
     html_ok($test->mech->content);
     $test->mech->content_contains('中島', 'has correct artist result');
     $test->mech->content_contains('LOVE', 'has correct release result');
+    $test->mech->content_contains('Make a donation now', 'has nag screen');
 };
 
 1;
