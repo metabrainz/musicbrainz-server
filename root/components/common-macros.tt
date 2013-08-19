@@ -388,13 +388,6 @@ END -%]
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
-[%- MACRO link_puid(puid, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
-    text = text == '' ? '<code>' _ html_escape(puid.puid) _ '</code>' : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
-END -%]
-
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);
@@ -509,9 +502,9 @@ END-%]
     out = [];
     seen = {};
     FOR label=labels;
-      IF label.label_id AND !seen.${ label.label_id };
+      IF label.label.gid AND !seen.${ label.label.gid };
         out.push(link_entity(label.label));
-        seen.${ label.label_id } = 1;
+        seen.${ label.label.gid } = 1;
       END;
     END;
     comma_only_list(out);
@@ -662,11 +655,11 @@ END -%]
 
 [%- MACRO expiration_time(datetime) BLOCK -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
-        [%- IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days -%]
+        [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
-                  Countdown.total_days(datetime),
-                { num => Countdown.total_days(datetime),
+                  Countdown.days(datetime),
+                { num => Countdown.days(datetime),
                   exactdate => UserDate.format(datetime) }) -%]
         [%- ELSIF Countdown.hours(datetime) > 0 # Show hours -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',

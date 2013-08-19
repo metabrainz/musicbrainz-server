@@ -49,6 +49,8 @@ fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
+echo `date` : 'DROP TABLE puid;'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130807-drop-table-puid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 
 ################################################################################

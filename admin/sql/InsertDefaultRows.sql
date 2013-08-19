@@ -13,8 +13,6 @@ INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Anonymous', '', '');
 INSERT INTO editor (id, name, password, ha1) VALUES (2, 'FreeDB', '', '');
 INSERT INTO editor (id, name, password, ha1) VALUES (4, 'ModBot', '', '');
 
-INSERT INTO clientversion (id, version) VALUES (1, 'unknown');
-
 INSERT INTO replication_control VALUES (
     1,   -- fixed primary key
     1,   -- schema #1

@@ -249,18 +249,37 @@ sub find_artists
     my @ids = map { $_->id } @$works;
     return () unless @ids;
 
-    my %map;
-    $self->_find_writers(\@ids, \%map);
-    $self->_find_recording_artists(\@ids, \%map);
+    my (%writers, %artists);
+    $self->_find_writers(\@ids, \%writers);
+    $self->_find_recording_artists(\@ids, \%artists);
 
-    for my $work_id (keys %map)
-    {
-        my @artists = uniq map { $_->{entity}->name } @{ $map{$work_id} };
+    my %map = map +{
+        $_ => {
+            writers => { hits => 0, results => [] },
+            artists => { hits => 0, results => [] }
+        }
+    }, @ids;
+
+    for my $work_id (@ids) {
+        my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
+        my @writers = uniq map { $_->{entity}->name } @{ $writers{$work_id} };
+
         $map{$work_id} = {
-            hits => scalar @artists,
-            results => $limit && scalar @artists > $limit ? [ @artists[ 0 .. ($limit-1) ] ] : \@artists,
+            writers => {
+                hits => scalar @writers,
+                results => $limit && scalar @writers > $limit
+                    ? [ @writers[ 0 .. ($limit-1) ] ]
+                    : \@writers,
+            },
+            artists => {
+                hits => scalar @artists,
+                results => $limit && scalar @artists > $limit
+                    ? [ @artists[ 0 .. ($limit-1) ] ]
+                    : \@artists,
+            },
         }
     }
+
     return %map;
 }
 
@@ -302,7 +321,7 @@ sub _find_writers
         ORDER BY count(*) DESC, artist
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
@@ -355,7 +374,7 @@ sub _find_recording_artists
         ORDER BY count(*) DESC, artist_credit
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids); 
+    my $rows = $self->sql->select_list_of_lists($query, @$ids);
 
     my @artist_credit_ids = map { $_->[1] } @$rows;
     my $artist_credits = $self->c->model('ArtistCredit')->get_by_ids(@artist_credit_ids);

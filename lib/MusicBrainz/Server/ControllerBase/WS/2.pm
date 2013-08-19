@@ -11,6 +11,7 @@ use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
+use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
 
 with 'MusicBrainz::Server::WebService::Format' =>
@@ -27,10 +28,6 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
 with 'MusicBrainz::Server::Controller::Role::ETags';
-
-# This defines what options are acceptable for WS calls.
-# Note that the validator will automatically add inc= arguments to the allowed list
-# based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
 
 sub apply_rate_limit
 {
@@ -283,6 +280,11 @@ sub _ratings
     }
 }
 
+sub is_nat {
+    my $n = shift;
+    return looks_like_number($n) && int($n) == $n && $n >= 0;
+}
+
 sub _limit_and_offset
 {
     my ($self, $c) = @_;
@@ -290,6 +292,12 @@ sub _limit_and_offset
     my $args = $c->stash->{args};
     my $limit = $args->{limit} ? $args->{limit} : 25;
     my $offset = $args->{offset} ? $args->{offset} : 0;
+
+    if (!(is_nat($limit) && is_nat($offset))) {
+        $self->_error(
+            $c, "The 'limit' and 'offset' parameters must be positive integers"
+        );
+    }
 
     return ($limit > 100 ? 100 : $limit, $offset);
 }
@@ -401,23 +409,6 @@ sub linked_recordings
         for (@$recordings)
         {
             $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
-        }
-    }
-
-    if ($c->stash->{inc}->puids)
-    {
-        my @puids = $c->model('RecordingPUID')->find_by_recording(map { $_->id } @$recordings);
-
-        my %puid_per_recording;
-        for (@puids)
-        {
-            $puid_per_recording{$_->recording_id} = [] unless $puid_per_recording{$_->recording_id};
-            push @{ $puid_per_recording{$_->recording_id} }, $_;
-        };
-
-        for (@$recordings)
-        {
-            $stash->store ($_)->{puids} = $puid_per_recording{$_->id};
         }
     }
 

@@ -16,7 +16,6 @@ our %ACCESS_SCOPE_BY_NAME = (
     'tag'            => $ACCESS_SCOPE_TAG,
     'rating'         => $ACCESS_SCOPE_RATING,
     'collection'     => $ACCESS_SCOPE_COLLECTION,
-    'submit_puid'    => $ACCESS_SCOPE_SUBMIT_PUID,
     'submit_isrc'    => $ACCESS_SCOPE_SUBMIT_ISRC,
     'submit_barcode' => $ACCESS_SCOPE_SUBMIT_BARCODE,
 );

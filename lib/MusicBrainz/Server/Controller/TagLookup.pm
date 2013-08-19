@@ -5,6 +5,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 use MusicBrainz::Server::Form::TagLookup;
 use MusicBrainz::Server::Data::Search qw( alias_query escape_query );
 
+use constant LOOKUPS_PER_NAG => 5;
+
 sub _parse_filename
 {
    my ($filename) = @_;
@@ -73,25 +75,43 @@ sub _parse_filename
    return $data;
 }
 
-sub puid : Private
+# returns 1 if the user should get a "please donate" screen, 0 otherwise.
+sub nag_check
 {
-    my ($self, $c, $form) = @_;
+    my ($self, $c) = @_;
 
-    my $puid = $form->field('puid')->value();
-    my @releases = $c->model('Release')->find_by_puid($puid);
+    # Always nag users who are not logged in
+    return 1 unless $c->user_exists;
 
-    $c->model('ArtistCredit')->load(@releases);
-    $c->model('Medium')->load_for_releases(@releases);
-    $c->model('Script')->load(@releases);
-    $c->model('Language')->load(@releases);
+    # Editors with special privileges should not get nagged.
+    my $editor = $c->user;
+    return 0 if ($editor->is_nag_free ||
+                 $editor->is_auto_editor ||
+                 $editor->is_bot ||
+                 $editor->is_relationship_editor ||
+                 $editor->is_wiki_transcluder);
 
-    my @results = map { { entity => $_ } } @releases;
+    # Otherwise, do the normal nagging per LOOKUPS_PER_NAG check
+    my $session = $c->session;
+    $session->{nag} = 0 unless defined $session->{nag};
 
-    $c->stash(
-        # A PUID search displays releases as results
-        type    => 'release',
-        results => \@results
-    );
+    return 0 if ($session->{nag} == -1);
+
+    if (!defined $session->{nag_check_timeout} || $session->{nag_check_timeout} <= time())
+    {
+        my $result = $c->model('Editor')->donation_check ($c->user);
+        my $nag = $result ? $result->{nag} : 0; # don't nag if metabrainz is unreachable.
+
+        $session->{nag} = -1 unless $nag;
+        $session->{nag_check_timeout} = time() + (24 * 60 * 60); # check again tomorrow.
+    }
+
+    $session->{nag}++;
+
+    return 0 if ($session->{nag} < LOOKUPS_PER_NAG);
+
+    $session->{nag} = 0;
+    return 1; # nag this user.
 }
 
 sub external : Private
@@ -166,12 +186,13 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
+    $c->stash( nag => $self->nag_check($c) );
 
     my $mapped_params = {
         map {
             ("tag-lookup.$_" => $c->req->query_params->{"tag-lookup.$_"} //
                                 $c->req->query_params->{$_})
-        } qw( artist release tracknum track duration filename puid )
+        } qw( artist release tracknum track duration filename )
     };
 
     # All the fields are optional, but we shouldn't do anything unless at
@@ -179,13 +200,7 @@ sub index : Path('')
     return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
 
-    if ($form->field('puid')->value()) {
-        $self->puid($c, $form);
-    }
-    else {
-        $self->external($c, $form);
-    }
-
+    $self->external($c, $form);
     $c->stash( template => 'taglookup/results.tt' );
 }
 

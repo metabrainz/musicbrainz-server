@@ -4,7 +4,7 @@ use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
 use List::UtilsBy qw( nsort_by sort_by );
-use MusicBrainz::Server::Constants qw( :quality );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID :quality );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
@@ -116,6 +116,8 @@ sub _serialize_artist
 
     my $opts = $stash->store ($artist);
 
+    my $compact_display = $artist->id == $VARTIST_ID && !$toplevel;
+
     my %attrs;
     $attrs{id} = $artist->gid;
     $attrs{type} = $artist->type->name if ($artist->type);
@@ -146,7 +148,7 @@ sub _serialize_artist
     }
 
     $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
-        if ($inc->aliases && $opts->{aliases});
+        if ($inc->aliases && $opts->{aliases} && !$compact_display);
 
     if ($toplevel)
     {
@@ -164,7 +166,8 @@ sub _serialize_artist
     }
 
     $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts)
+        if !$compact_display;
 
     push @$data, $gen->artist(\%attrs, @list);
 }
@@ -532,8 +535,6 @@ sub _serialize_recording
             if $inc->artist_credits;
     }
 
-    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, $stash)
-        if ($opts->{puids} && $inc->puids);
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
@@ -907,33 +908,6 @@ sub _serialize_relation
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
 }
 
-sub _serialize_puid_list
-{
-    my ($self, $data, $gen, $puids, $inc, $stash) = @_;
-
-    my @list;
-    foreach my $puid (sort_by { $_->puid->puid } @$puids)
-    {
-        $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $stash);
-    }
-    push @$data, $gen->puid_list({ count => scalar(@$puids) }, @list);
-}
-
-sub _serialize_puid
-{
-    my ($self, $data, $gen, $puid, $inc, $stash, $toplevel) = @_;
-
-    my $opts = $stash->store ($puid);
-
-    my @list;
-    if ($toplevel)
-    {
-        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $stash, $toplevel)
-            if ${opts}->{recordings};
-    }
-    push @$data, $gen->puid({ id => $puid->puid }, @list);
-}
-
 sub _serialize_isrc_list
 {
     my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
@@ -1181,15 +1155,6 @@ sub isrc_resource
 
     my $data = [];
     $self->_serialize_isrc($data, $gen, $isrc, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub puid_resource
-{
-    my ($self, $gen, $puid, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_puid($data, $gen, $puid, $inc, $stash, 1);
     return $data->[0];
 }
 

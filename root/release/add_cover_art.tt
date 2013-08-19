@@ -63,7 +63,7 @@
               <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
               <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
               <br />
-              <span class="buttons" data-bind="visible: !busy()" style="float: right;">
+              <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
                  <button type="button" class="cancel-file">[%- l('Remove') -%]</button>
               </span>
             </div>

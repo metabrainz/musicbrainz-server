@@ -221,7 +221,7 @@ MB.GuessCase.Input = function () {
 	var splitwords = [];
 	var word = [];
 	if (!gc.re.SPLITWORDSANDPUNCTUATION) {
-	    gc.re.SPLITWORDSANDPUNCTUATION = /[^!\"%&'´`‘’()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
+	    gc.re.SPLITWORDSANDPUNCTUATION = /[^!¿¡\"%&'´`‘’()\[\]\{\}\*\+,-\.\/:;<=>\?\s#]/;
 	}
 	for (var i=0; i<chars.length; i++) {
 	    if (chars[i].match(gc.re.SPLITWORDSANDPUNCTUATION)) {

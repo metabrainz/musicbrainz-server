@@ -8,10 +8,16 @@
         [%- END -%]
         <th>[% l('Name') %]</th>
         <th>[% l('Artist') %]</th>
+        <th>[% l('Format') %]</th>
         <th>[% l('Tracks') %]</th>
         <th>[% l('Date') %]</th>
         <th>[% l('Country') %]</th>
+        <th>[% l('Label') %]</th>
+        <th>[% l('Catalog#') %]</th>
+        <th>[% l('Barcode') %]</th>
         <th>[% l('Language') %]</th>
+        <th>[% l('Type') %]</th>
+        <th>[% l('Status') %]</th>
         [%- IF c.try_get_session('tport') -%]
           <th>[% l('Tagger') %]</th>
         [%- END -%]
@@ -25,15 +31,21 @@
           [%- END -%]
           <td>[% link_entity(result.entity) %]</td>
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
+          <td>[% rdfa_release_format(result.entity) or "-" %]</td>
           <td>[% result.entity.combined_track_count %]</td>
           <td>[% release_dates(result.entity.events) %]</td>
           <td>[% release_countries(result.entity.events) %]</td>
+          <td>[% release_label_list(result.entity.labels) %]</td>
+          <td>[% release_catno_list(result.entity.labels) %]</td>
+          <td>[% result.entity.barcode.format IF result.entity.barcode.format %]</td>
           <td>
             <abbr title="[% result.entity.language.l_name %]">[% result.entity.language.iso_code_3 %]</abbr>
             [%= '/' IF result.entity.language && result.entity.script =%]
             <abbr title="[% result.entity.script.l_name %]">[% result.entity.script.iso_code %]</abbr>
           </td>
-          [%- IF c.try_get_sesison('tport') -%]
+          <td>[% result.entity.release_group.l_type_name %]</td>
+          <td>[% result.entity.l_status_name %]</td>
+          [%- IF c.try_get_session('tport') -%]
             <td>[% tagger_icon(result.entity) %]</td>
           [%- END -%]
         </tr>

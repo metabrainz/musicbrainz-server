@@ -75,11 +75,11 @@ sub xml_search
             $query = "(" . join(" AND ", split /\s+/, $term) . ")";
         }
         if ($args->{artistid})
-        { 
+        {
             $query .= " AND arid:" . escape_query($args->{artistid});
         }
         else
-        { 
+        {
             my $term = escape_query($args->{artist});
             $term =~ s/\s*(.*?)\s*$/$1/;
             if (not $term =~ /^\s*$/)
@@ -143,7 +143,7 @@ sub xml_search
             }
         }
         if ($args->{releaseid})
-        { 
+        {
             $query .= " AND reid:" . escape_query($args->{releaseid});
         }
         else
@@ -184,8 +184,8 @@ sub xml_search
     }
     else
     {
-        return { 
-            error => "Invalid resource $resource.", 
+        return {
+            error => "Invalid resource $resource.",
             code  => HTTP_BAD_REQUEST
         };
     }
@@ -194,8 +194,8 @@ sub xml_search
     # In case we have a blank query
     if ($query =~ /^\s*$/)
     {
-        return { 
-            error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.", 
+        return {
+            error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.",
             code  => HTTP_BAD_REQUEST
         };
     }
@@ -222,7 +222,7 @@ sub xml_search
         {
             return {
                 error => "Could not retrieve sub-document page from search server. Error: $url  -> " . $response->status_line,
-                code  => HTTP_BAD_REQUEST
+                code  => HTTP_SERVICE_UNAVAILABLE
             }
         }
     }

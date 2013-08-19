@@ -109,10 +109,11 @@ RelationshipSearcher = function () {
         });
 
         request.done (function (data, status, jqxhr) {
-            var endPointType = data.type == type0 ? type1 : type0;
+            var search_result_type = data.type.replace ("-", "_");
+            var endPointType = search_result_type == type0 ? type1 : type0;
 
-            if (! (data.type === type0 || data.type === type1)) {
-                self.error ('Invalid type for this relationship: ' +  data.type +
+            if (! (search_result_type === type0 || search_result_type === type1)) {
+                self.error ('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
             else if (! _(data.relationships).has(endPointType)) {

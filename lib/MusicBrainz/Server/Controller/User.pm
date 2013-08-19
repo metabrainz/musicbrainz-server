@@ -10,6 +10,7 @@ use Encode;
 use HTTP::Status qw( :constants );
 use List::Util 'sum';
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw ( l ln );
@@ -117,10 +118,12 @@ sub do_login : Private
     }
 
     # Form not even posted
+    ensure_ssl($c);
+
     $c->stash(
+        login_action => $c->req->uri_with({ uri => $redirect }),
         template => 'user/login.tt',
-        login_form => $form,
-        redirect => $redirect,
+        login_form => $form
     );
 
     $c->stash->{required_login} = 1
@@ -322,7 +325,8 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
         user     => $user,
         template => 'user/profile.tt',
         last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
-        open_count => $c->model('Editor')->open_edit_count($user->id)
+        open_count => $c->model('Editor')->open_edit_count($user->id),
+        cancelled_count => $c->model('Editor')->cancelled_edit_count($user->id)
     );
 }
 

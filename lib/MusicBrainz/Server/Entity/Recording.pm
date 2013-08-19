@@ -53,16 +53,6 @@ has 'isrcs' => (
     }
 );
 
-has 'puids' => (
-    isa     => 'ArrayRef',
-    is      => 'ro',
-    traits  => [ 'Array' ],
-    default => sub { [] },
-    handles => {
-        add_puid => 'push',
-    }
-);
-
 sub related_works {
     my $self = shift;
     return uniq_by { $_->id }
