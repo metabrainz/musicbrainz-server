@@ -471,6 +471,23 @@ sub load_attributes {
     }
 }
 
+sub set_attributes {
+    my ($self, $work_id, @attributes) = @_;
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
+    $self->sql->insert_many(
+        'work_attribute',
+        map +{
+            work => $work_id,
+            work_attribute_type => $_->{attribute_type_id},
+            work_attribute_text =>
+                exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
+            work_attribute_type_allowed_value =>
+                exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
+                    undef
+        }, @attributes
+    );
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
