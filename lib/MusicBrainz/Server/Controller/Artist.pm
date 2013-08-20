@@ -404,8 +404,7 @@ sub edit : Chained('load') Edit {
     $self->edit_action(
         $c,
         form        => 'ArtistEdit',
-        form_args   => { artist_credits => $artist_credits,
-                         default_artist_credits => [] },
+        form_args   => { artist_credits => $artist_credits },
         type        => $EDIT_ARTIST_EDIT,
         item        => $artist,
         edit_args   => { to_edit => $artist },
