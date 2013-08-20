@@ -23,21 +23,21 @@ FROM
   SELECT DISTINCT release.*
   FROM
     ( SELECT
-        track.tracklist,
+        track.medium,
         min(track.position) AS first_track,
         max(track.position) AS last_track,
         count(track.position) AS track_count,
         sum(track.position) AS track_pos_acc
       FROM
         track
-      GROUP BY track.tracklist
+      GROUP BY track.medium
    ) s
-   JOIN medium ON medium.tracklist = s.tracklist
+   JOIN medium ON medium.id = s.medium
    JOIN release ON release.id = medium.release
    WHERE
      first_track != 1
-     OR last_track != track_count
-     OR (track_count * (1 + track_count)) / 2 <> track_pos_acc
+     OR last_track != s.track_count
+     OR (s.track_count * (1 + s.track_count)) / 2 <> track_pos_acc
 ) release
 JOIN release_name rel_name ON rel_name.id = release.name
 EOSQL
