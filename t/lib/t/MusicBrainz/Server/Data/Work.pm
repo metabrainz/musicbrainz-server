@@ -1,5 +1,6 @@
 package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
+use Test::Fatal;
 use Test::More;
 
 use MusicBrainz::Server::Data::Work;
@@ -172,6 +173,60 @@ EOSQL
        'Points to artist 1');
     is($final_work->relationships->[0]->entity1_id => 1,
        'Originates from work 1');
+};
+
+test 'Loading work attributes for works with no attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 0, 'work has no attributes')
+};
+
+test 'Loading work attributes for works with free text attributes' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', true);
+INSERT INTO work_attribute (work, work_attribute_type, work_attribute_text)
+VALUES (1, 1, 'Value');
+EOSQL
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 1, 'work has 1 attribute');
+    is($work->attributes->[0]->type->name, 'Attribute',
+        'has correct attribute name');
+    is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
+};
+
+test 'Loading work attributes for works with finite values' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2');
+INSERT INTO work_attribute
+  (work, work_attribute_type, work_attribute_type_allowed_value)
+VALUES (1, 1, 1);
+EOSQL
+
+    my $work = $test->c->model('Work')->get_by_id(1);
+    is exception { $test->c->model('Work')->load_attributes($work) }, undef;
+
+    is($work->all_attributes, 1, 'work has 1 attribute');
+    is($work->attributes->[0]->type->name, 'Attribute',
+        'has correct attribute name');
+    is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
 };
 
 1;

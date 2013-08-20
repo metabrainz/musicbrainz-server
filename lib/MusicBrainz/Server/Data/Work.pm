@@ -16,6 +16,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkAttribute;
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
@@ -423,6 +425,50 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub load_attributes {
+    my ($self, @works) = @_;
+
+    my @work_ids = map { $_->id } @works;
+
+    my $attributes = $self->sql->select_list_of_hashes(
+        'SELECT
+           work_attribute_type.name AS type_name,
+           work_attribute_type.comment AS type_comment,
+           coalesce(
+             work_attribute_type_allowed_value.value,
+             work_attribute.work_attribute_text
+           ) AS value,
+           work
+         FROM work_attribute
+         JOIN work_attribute_type
+           ON work_attribute_type.id = work_attribute.work_attribute_type
+         LEFT JOIN work_attribute_type_allowed_value
+           ON work_attribute_type_allowed_value.id =
+                work_attribute.work_attribute_type_allowed_value
+         WHERE work_attribute.work = any(?)',
+        \@work_ids
+    );
+
+    my %work_map;
+    for my $work (@works) {
+        push @{ $work_map{$work->id} //= [] }, $work;
+    }
+
+    for my $attribute (@$attributes) {
+        for my $work (@{ $work_map{$attribute->{work}} }) {
+            $work->add_attribute(
+                MusicBrainz::Server::Entity::WorkAttribute->new(
+                    type => MusicBrainz::Server::Entity::WorkAttributeType->new(
+                        name => $attribute->{type_name},
+                        comment => $attribute->{type_comment}
+                    ),
+                    value => $attribute->{value}
+                )
+            );
+        }
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
