@@ -380,6 +380,8 @@ sub schema_fixup
             if (exists $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
+        $data->{ended} = $data->{'life-span'}->{ended} eq 'true'
+            if exists $data->{'life-span'}->{ended};
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {
