@@ -440,7 +440,9 @@ sub load_attributes {
              work_attribute_type_allowed_value.value,
              work_attribute.work_attribute_text
            ) AS value,
-           work
+           work,
+           work_attribute.work_attribute_type_allowed_value AS value_id,
+           work_attribute_type.id AS type_id
          FROM work_attribute
          JOIN work_attribute_type
            ON work_attribute_type.id = work_attribute.work_attribute_type
@@ -462,9 +464,11 @@ sub load_attributes {
                 MusicBrainz::Server::Entity::WorkAttribute->new(
                     type => MusicBrainz::Server::Entity::WorkAttributeType->new(
                         name => $attribute->{type_name},
-                        comment => $attribute->{type_comment}
+                        comment => $attribute->{type_comment},
+                        id => $attribute->{type_id}
                     ),
-                    value => $attribute->{value}
+                    value => $attribute->{value},
+                    value_id => $attribute->{value_id}
                 )
             );
         }
