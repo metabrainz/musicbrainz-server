@@ -41,7 +41,8 @@ sub _format_output {
         {
             work => $_,
             aliases => $aliases->{$_->id},
-            artists => $artists{$_->id}
+            artists => $artists{$_->id},
+            current_language => $c->stash->{current_language} // 'en'
         }
     } @entities;
 }
