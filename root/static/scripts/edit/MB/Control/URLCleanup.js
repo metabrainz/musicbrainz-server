@@ -271,7 +271,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
             // iTunes cleanup
-            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.+-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
+            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.*+-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
         }
     },
     jamendo: {
