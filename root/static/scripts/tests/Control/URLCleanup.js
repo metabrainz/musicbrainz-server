@@ -217,10 +217,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     MB.constants.LINK_TYPES.downloadpurchase.release
                 ],
                 [
-                    'release', 'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
-                    MB.constants.LINK_TYPES.downloadpurchase.release
-                ],
-                [
                     'recording', 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                     MB.constants.LINK_TYPES.downloadpurchase.recording
                 ],
@@ -623,6 +619,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://itunes.apple.com/au/preorder/the-last-of-the-tourists/id499465357',
                     'https://itunes.apple.com/au/preorder/id499465357',
+                    'release'
+                ],
+                [
+                    'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
+                    'https://itunes.apple.com/album/id589456329',
                     'release'
                 ],
                 [
