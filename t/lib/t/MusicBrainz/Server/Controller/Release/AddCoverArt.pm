@@ -57,7 +57,8 @@ EOSQL
         cover_art_types => [],
         cover_art_position => 1,
         cover_art_id => 12345,
-        cover_art_comment => ''
+        cover_art_comment => '',
+        cover_art_mime_type => 'image/jpeg'
     });
 };
 

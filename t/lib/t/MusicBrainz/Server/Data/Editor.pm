@@ -12,6 +12,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test qw( accept_edit );
 use Set::Scalar;
 use Sql;
+use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -131,6 +132,7 @@ is($new_editor_2->accepted_edits, 0, 'new editor 2 has no accepted edits');
 $editor = $editor_data->get_by_id($new_editor_2->id);
 is($editor->email, undef);
 is($editor->email_confirmation_date, undef);
+is($editor->ha1, md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')), 'ha1 was generated correctly');
 
 my $now = DateTime::Format::Pg->parse_datetime(
     $test->c->sql->select_single_value('SELECT now()'));
@@ -324,7 +326,11 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO label (id, gid, name, sort_name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 1);
 
-INSERT INTO editor (id, name, password, ha1) VALUES (1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943'), (2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
+(1, 'Alice', '{CLEARTEXT}al1c3', 'd61b477a6269ddd11dbd70644335a943', '', now()),
+(2, 'Bob', '{CLEARTEXT}b0b', '47ac7eb9fe940581057e46994840a4ae', '', now());
+
+INSERT INTO edit (id, editor, type, status, data, expire_time) VALUES (1, 1, 1, 1, '', now());
 
 INSERT INTO editor_collection (id, gid, editor, name)
   VALUES (1, 'dd448d65-d7c5-4eef-8e13-12e1bfdacdc6', 1, 'Stuff');

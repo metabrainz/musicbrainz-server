@@ -7,7 +7,6 @@
         [% form_row_text_long(r, 'track', l('Track:')) %]
         [% form_row_text(r, 'duration', l('Duration:')) %]
         [% form_row_text_long(r, 'filename', l('Filename:')) %]
-        [% form_row_text_long(r, 'puid', l('PUID:')) %]
 
         <div class="row no-label">
         [% form_submit(l('Search')) %]

@@ -48,6 +48,8 @@ role
 
         return @all;
     };
+
+    method 'sort_in_forms' => sub { 0 };
 };
 
 no Moose::Role;

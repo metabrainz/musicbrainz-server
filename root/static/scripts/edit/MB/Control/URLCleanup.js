@@ -205,7 +205,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)","i"),
         type: MB.constants.LINK_TYPES.myspace,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "http://www.myspace.com");
+            return url.replace(/^(https?:\/\/)?([^.]+\.)?myspace\.(com|de|fr)/, "https://myspace.com");
         }
     },
     purevolume: {
@@ -310,7 +310,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|lyricstatus\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function(url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
@@ -378,7 +378,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?soundcloud\\.com","i"),
         type: MB.constants.LINK_TYPES.soundcloud,
         clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "http://soundcloud.com");
+            return url.replace(/^(https?:\/\/)?(www\.)?soundcloud\.com(\/#!)?/, "https://soundcloud.com");
         }
     },
     blog: {
@@ -439,7 +439,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function(url) {
-            return url.replace(/^https:\/\//, "http://");
+            return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
         }
     },
     otherdatabases: {

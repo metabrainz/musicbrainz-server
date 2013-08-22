@@ -21,7 +21,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_EDIT
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
-    $EDIT_PUID_DELETE
+    $EDIT_RECORDING_REMOVE_ISRC
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw(
@@ -64,8 +64,7 @@ after 'load' => sub
     if ($c->user_exists) {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, $recording);
     }
-    my @isrcs = $c->model('ISRC')->find_by_recording($recording->id);
-    $c->stash( isrcs => \@isrcs );
+    $c->model('ISRC')->load_for_recordings($recording);
     $c->model('ArtistCredit')->load($recording);
 };
 
@@ -88,19 +87,6 @@ after 'relationships' => sub {
 
     my $recording = $c->stash->{recording};
     $c->model('Relationship')->load($recording->related_works);
-};
-
-=head2 details
-
-Show details of a recording
-
-=cut
-
-after 'details' => sub
-{
-    my ($self, $c) = @_;
-    # XXX Load PUID count?
-    my $recording = $c->stash->{recording};
 };
 
 sub show : Chained('load') PathPart('')
@@ -128,17 +114,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub fingerprints : Chained('load') PathPart('fingerprints')
-{
-    my ($self, $c) = @_;
-
-    my $recording = $c->stash->{recording};
-    my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-    $c->stash(
-        puids    => \@puids,
-        template => 'recording/fingerprints.tt',
-    );
-}
+sub fingerprints : Chained('load') PathPart('fingerprints') { }
 
 =head2 DESTRUCTIVE METHODS
 
@@ -150,9 +126,24 @@ Edit recording details (sequence number, recording time and title)
 
 =cut
 
+with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
+    entity_type => 'recording',
+    identifier_type => 'isrc',
+    add_edit => $EDIT_RECORDING_ADD_ISRCS,
+    remove_edit => $EDIT_RECORDING_REMOVE_ISRC,
+    include_source => 1
+};
+
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Recording',
     edit_type      => $EDIT_RECORDING_EDIT,
+    edit_arguments => sub {
+        my ($self, $c, $recording) = @_;
+
+        return (
+            post_creation => $self->edit_with_identifiers($c, $recording)
+        );
+    }
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -167,16 +158,16 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
     edit_arguments => sub {
         my ($self, $c) = @_;
         my $artist_gid = $c->req->query_params->{artist};
+        my %ret;
         if ( my $artist = $c->model('Artist')->get_by_gid($artist_gid) ) {
             my $rg = MusicBrainz::Server::Entity::Recording->new(
                 artist_credit => ArtistCredit->from_artist($artist)
             );
             $c->stash( initial_artist => $artist );
-            return ( item => $rg );
+            $ret{item} = $rg;
         }
-        else {
-            return ();
-        }
+        $ret{post_creation} = $self->create_with_identifiers($c);
+        return %ret;
     }
 };
 
@@ -206,67 +197,6 @@ around '_merge_search' => sub {
     $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     return $results;
 };
-
-sub add_isrc : Chained('load') PathPart('add-isrc') RequireAuth
-{
-    my ($self, $c) = @_;
-
-    my $recording = $c->stash->{recording};
-    my $form = $c->form(form => 'AddISRC');
-    if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('MB')->with_transaction(sub {
-            $self->_insert_edit(
-                $c, $form,
-                edit_type => $EDIT_RECORDING_ADD_ISRCS,
-                isrcs => [ {
-                    isrc      => $form->field('isrc')->value,
-                    recording => {
-                        id => $recording->id,
-                        name => $recording->name
-                    },
-                    source    => 0
-                } ]
-            );
-        });
-
-        if ($c->stash->{makes_no_changes}) {
-            $form->field('isrc')->add_error(l('This ISRC already exists for this recording'));
-        }
-        else {
-            $c->response->redirect($c->uri_for_action('/recording/show', [ $recording->gid ]));
-            $c->detach;
-        }
-    }
-}
-
-sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth
-{
-    my ($self, $c) = @_;
-    my $puid_str = $c->req->query_params->{puid};
-    my $recording = $c->stash->{recording};
-    my $puid = $c->model('RecordingPUID')->get_by_recording_puid($recording->id, $puid_str);
-
-    if (!$puid) {
-        $c->stash( message => 'Not a valid PUID' );
-        $c->detach('/error_500');
-    }
-    else
-    {
-        $c->stash( puid => $puid );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_PUID_DELETE,
-            edit_args => {
-                puid => $puid,
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/recording/fingerprints', [ $recording->gid ]));
-            }
-        );
-    }
-}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type => $EDIT_RECORDING_DELETE,

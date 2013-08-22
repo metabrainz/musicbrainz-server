@@ -133,7 +133,7 @@ MB.GuessCase.Handler.Base = function () {
 	    // check them.
 	    var handled = false;
 	    if (!gc.re.SPECIALCASES) {
-		gc.re.SPECIALCASES = /(&|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
+		gc.re.SPECIALCASES = /(&|¿|¡|\?|\!|;|:|'|‘|’|"|\-|\+|,|\*|\.|#|%|\/|\(|\)|\{|\}|\[|\])/;
 	    }
 	    if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
 		handled = true;
@@ -148,6 +148,7 @@ MB.GuessCase.Handler.Base = function () {
 		} else if (self.doSlash()) {
 		} else if (self.doColon()) {
 		} else if (self.doHyphen()) {
+        } else if (self.doInvertedMarks()) {
 		} else if (self.doPlus()) {
 		} else if (self.doAsterix()) {
 		} else if (self.doDiamond()) {
@@ -367,6 +368,24 @@ MB.GuessCase.Handler.Base = function () {
 	    return true;
 	}
 	return false;
+    };
+
+    /**
+     * Deal with inverted question (¿) and exclamation marks (¡).
+     **/
+    self.doInvertedMarks = function() {
+	    if (!gc.re.INVERTEDMARKS) {
+	        gc.re.INVERTEDMARKS = /(¿|¡)/;
+	    }
+	    if (gc.i.matchCurrentWord(gc.re.INVERTEDMARKS)) {
+	        gc.o.appendWordPreserveWhiteSpace({apply: true, capslast: false});
+	        gc.f.resetContext();
+
+	        // next word is start of a new sentence.
+	        gc.f.forceCaps = true;
+	        return true;
+	    }
+	    return false;
     };
 
     /**

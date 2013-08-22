@@ -67,7 +67,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub remove : Local RequireAuth
+sub remove : Local Edit
 {
     my ($self, $c) = @_;
     my $cdtoc_id  = $c->req->query_params->{cdtoc_id};
@@ -100,7 +100,7 @@ sub remove : Local RequireAuth
     )
 }
 
-sub set_durations : Chained('load') PathPart('set-durations') Edit RequireAuth
+sub set_durations : Chained('load') PathPart('set-durations') Edit
 {
     my ($self, $c) = @_;
 
@@ -299,7 +299,7 @@ sub attach : Local
     }
 }
 
-sub move : Local RequireAuth Edit
+sub move : Local Edit
 {
     my ($self, $c) = @_;
 

@@ -41,7 +41,7 @@ use Plack::Response;
 use Log::Dispatch;
 
 my $log = Log::Dispatch->new(outputs => [[ 'Screen', min_level => 'info' ]] );
-my $imgext = 'jpg|png';
+my $imgext = 'jpg|png|gif';
 
 sub catfile { return File::Spec->catfile (@_); }
 
@@ -50,11 +50,11 @@ sub thumb
     my ($filename, $max) = @_;
 
     my $newfile = $filename;
-    $newfile =~ s/.($imgext)$/_thumb$max.$1/;
+    $newfile =~ s/.($imgext)$/_thumb$max.jpg/;
 
     $log->info ("Generating ${max}x${max} thumbnail, $newfile\n");
 
-    `convert -thumbnail ${max}x${max} $filename $newfile`;
+    `convert -thumbnail ${max}x${max} "$filename\[0\]" $newfile`;
 }
 
 sub create_bucket

@@ -23,15 +23,13 @@ MB.Control.GuessCase = function (type, $name) {
 
     self.type = type;
     self.$name = $name;
-    self.$guesscase = $('a[href=#guesscase]');
 
-    self.guesscase = function (event) {
+    self.guesscase = function () {
         self.$name.val (MB.GuessCase[self.type].guess (self.$name.val ()));
-
-        event.preventDefault ();
     };
 
-    self.$guesscase.bind ('click.mb', self.guesscase);
+    ko.applyBindingsToNode($("div.guess-case.bubble")[0],
+        { guessCase: self.guesscase });
 
     return self;
 };
@@ -94,7 +92,7 @@ MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
     bubbles.add ($name, $gcdoc);
     MB.Control.GuessCase (type, $name);
 
-    if (type === 'label' || type === 'artist' || type === 'work' || type === 'area')
+    if (type === 'label' || type === 'artist' || type === 'area')
     {
         var $sortname = $('input#' + form_prefix + '\\.sort_name');
         var $sortdoc = $('div.sortname.bubble');
@@ -108,5 +106,56 @@ MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
         {
             MB.Control.SortName (type, $name, $sortname, $('body')).initialize ();
         }
+    }
+};
+
+
+ko.bindingHandlers.guessCase = {
+
+    init: function (element, valueAccessor, allBindingsAccessor,
+                    viewModel, bindingContext) {
+
+        var gc = MB.GuessCase.Main();
+        var callback = valueAccessor();
+        var cookieSettings = { path: "/", expires: 365 };
+
+        var bindings = {
+            modeName: ko.observable(gc.modeName),
+            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED),
+            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS),
+            guessCase: _.bind(callback, bindings)
+        };
+
+        var mode = ko.computed(function () {
+            var modeName = bindings.modeName()
+
+            if (modeName !== gc.modeName) {
+                gc.modeName = modeName;
+                gc.mode = MB.GuessCase.Mode[modeName]();
+                $.cookie("guesscase_mode", modeName, cookieSettings);
+            }
+            return gc.mode;
+        });
+
+        bindings.help = ko.computed(function () {
+            return mode().getDescription();
+        });
+
+        bindings.keepUpperCase.subscribe(function (value) {
+            gc.CFG_UC_UPPERCASED = value;
+
+            $.cookie("guesscase_keepuppercase", value, cookieSettings);
+        });
+
+        bindings.upperCaseRoman.subscribe(function (value) {
+            gc.CFG_UC_ROMANNUMERALS = value;
+
+            $.cookie("guesscase_roman", value, cookieSettings);
+        });
+
+        var context = bindingContext.createChildContext(bindings);
+        ko.applyBindingsToDescendants(context, element);
+
+        return { controlsDescendantBindings: true };
     }
 };

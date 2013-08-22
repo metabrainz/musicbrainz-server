@@ -52,7 +52,7 @@ sub has_age
     my @begin_comp = $self->begin_date->defined_run or return 0;
 
     # Only compute ages when the begin date is AD
-    return 0 if $self->begin_date->year < 0;
+    return 0 if $self->begin_date->year < 1;
 
     # The begin date must be before now().
     return 0

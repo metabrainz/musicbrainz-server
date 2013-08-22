@@ -100,14 +100,24 @@ sub update
 {
     my ($self, $medium_id) = @_;
 
-    return unless $self->sql->select_single_value(
-        'SELECT 1 FROM medium
-           JOIN track ON track.medium = medium.id
-          WHERE medium.id = ?
-         HAVING count(medium.id) <= 99
-            AND sum(track.length) < 4800000',
-        $medium_id
-    );
+    # Disc should have an index if:
+    #    1. the length of the disc is < 4800000
+    #    2. all tracks on the disc have a length
+    #    3. there are at most 99 tracks on the disc
+
+    my $results = $self->sql->select_list_of_hashes (
+        "SELECT (sum(track.length) < 4800000 AND
+                 bool_and(track.length IS NOT NULL) AND
+                 count(track.id) <= 99) AS should_have_index,
+                medium_index.medium IS NOT NULL AS has_index
+           FROM track
+      LEFT JOIN medium_index ON medium_index.medium = track.medium
+          WHERE track.medium = ?
+       GROUP BY track.medium, medium_index.medium;", $medium_id);
+
+    return unless $results;
+
+    my %disc = %{ $results->[0] };
 
     my $create_cube = 'create_cube_from_durations((
                     SELECT array(
@@ -118,14 +128,20 @@ sub update
                     )
             ))';
 
-    if ($self->sql->select_single_value(
-        'SELECT 1 FROM medium_index WHERE medium = ?', $medium_id
-    )) {
+    if ($disc{has_index} && ! $disc{should_have_index})
+    {
+        $self->sql->delete_row ("medium_index", { medium => $medium_id });
+    }
+
+    if ($disc{has_index} && $disc{should_have_index})
+    {
         $self->sql->do(
             "UPDATE medium_index SET toc = $create_cube
               WHERE medium = ?", $medium_id, $medium_id);
     }
-    else {
+
+    if (! $disc{has_index} && $disc{should_have_index})
+    {
         $self->sql->do(
             "INSERT INTO medium_index (medium, toc)
              VALUES (?, $create_cube)",

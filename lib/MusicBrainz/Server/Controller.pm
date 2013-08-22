@@ -73,6 +73,10 @@ sub submit_and_validate
 sub _insert_edit {
     my ($self, $c, $form, %opts) = @_;
 
+    if (!$c->user->has_confirmed_email_address) {
+        $c->detach('/error_401');
+    }
+
     my $privs   = $c->user->privileges;
     if ($c->user->is_auto_editor &&
         $form->field('as_auto_editor') &&
@@ -122,6 +126,10 @@ sub _insert_edit {
 sub edit_action
 {
     my ($self, $c, %opts) = @_;
+
+    if (!$c->user->has_confirmed_email_address) {
+        $c->detach('/error_401');
+    }
 
     my %form_args = %{ $opts{form_args} || {}};
     $form_args{init_object} = $opts{item} if exists $opts{item};

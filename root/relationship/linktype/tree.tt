@@ -14,12 +14,17 @@
         <strong>[% l('Long link phrase:') %]</strong> [% obj.l_long_link_phrase || lp("(none)", 'link phrase') | html %]<br />
         <strong>[% l('Description:') %]</strong> [% obj.l_description || lp("(none)", 'description') %]<br />
         <strong>[% l('UUID:') %]</strong> [% obj.gid %]<br />
-        [%- IF c.user.is_relationship_editor -%]
         [
+        [%- IF c.user.is_relationship_editor -%]
             <a href="[% c.uri_for_action('/relationship/linktype/edit', [ obj.gid ]) %]">[% l('Edit') %]</a>
             [% UNLESS obj.children.size %] | <a href="[% c.uri_for_action('/relationship/linktype/delete', [ obj.gid ]) %]">[% l('Remove') %]</a>[% END %]
-        ]
+            |
         [% END %]
+          [% l('{relationship_documentation_url|Documentation}', {
+                 relationship_documentation_url =>
+                    c.uri_for_action('/doc/relationship_type', obj.gid)
+             }) %]
+        ]
         </div>
 
         [% IF obj.children %]

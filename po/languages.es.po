@@ -3,7 +3,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
-# Ismael Olea <email address hidden>, 2012
+# Ismael Olea <email address hidden>, 2012-2013
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-12 10:59+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1039,7 +1039,7 @@ msgstr "Italiano"
 #. frequency:1 iso_code_3:jam
 #: DB:language/name:2980
 msgid "Jamaican Creole English"
-msgstr ""
+msgstr "Inglés criollo jamaicano"
 
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198

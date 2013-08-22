@@ -1,22 +1,40 @@
 <html>
   <head>
-    [% css_manifest('common.css.manifest') %]
+    [%- css_manifest('common') -%]
+    [%- script_manifest('common.js.manifest') -%]
     <style type="text/css">
       body { min-width: 200px; width: auto; background: #fff; padding: 0; margin: 0; }
       form { margin-top: 1em; }
     </style>
+    [%- IF server_details.developement_server -%]
+        <script src="[% c.uri_for('/static/lib/less/less-1.3.3.js') %]"></script>
+    [%- END -%]
   </head>
   <body>
     <form id="add-cover-art" action="[% form_action %]" method="post" enctype="multipart/form-data">
-      [% FOREACH field IN s3fields %]
-          <input type="hidden" id="[% field.key %]" name="[% field.key %]" value="[% field.value %]" />
-      [% END %]
       [% WRAPPER form_row %]
           <label for="file" class="required">[% l('Choose file:') %]</label>
-          <input id="file" type="file" name="file" value="" accept="image/jpeg" />
+          <input id="file" type="file" name="file" value="" accept="image/jpeg,image/png,image/gif" />
       [% END %]
        <ul id="cover-art-file-error" class="errors" style="display: none">
-         <li>[% l('Please choose a valid image. Currently the Cover Art Archive only supports JPEG files.') %]</li>
+         <li>[% l('Please choose a valid image. Currently the Cover Art Archive only supports JPEG, PNG and GIF files.') %]</li>
        </ul>
     </form>
+    <script>
+        var upload = function (gid, image_id, mime_type) {
+          var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid,
+              { image_id: image_id, mime_type: mime_type, redirect: true });
+          postfields.fail (function (jqxhr, status, error) {
+              console.log ("error obtaining signature: " + status + " " + error);
+          });
+          postfields.done (function (data, status, jqxhr) {
+              var $form = $('#add-cover-art');
+              $.each (data.formdata, function (key, value) {
+                  $('<input type="hidden" />').
+                      attr('name', key).val(value).appendTo ($form);
+              })
+              $form[0].submit ();
+          });
+        };
+    </script>
 </html>

@@ -32,8 +32,9 @@ test 'Set cover art' => sub {
     $rg = $c->model('ReleaseGroup')->get_by_id(1);
     $c->model('Artwork')->load_for_release_groups ($rg);
 
-    isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::Artwork');
+    isa_ok($rg->cover_art, 'MusicBrainz::Server::Entity::Artwork::ReleaseGroup');
     isa_ok($rg->cover_art->release, 'MusicBrainz::Server::Entity::Release');
+    isa_ok($rg->cover_art->release_group, 'MusicBrainz::Server::Entity::ReleaseGroup');
 
     is ($rg->cover_art->is_front, 1, "Associated cover art is a frontiest cover");
     is ($rg->cover_art->id, 12345, "Associated cover art has expected id");

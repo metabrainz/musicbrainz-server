@@ -388,13 +388,6 @@ END -%]
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
-[%- MACRO link_puid(puid, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
-    text = text == '' ? '<code>' _ html_escape(puid.puid) _ '</code>' : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
-END -%]
-
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);
@@ -509,9 +502,9 @@ END-%]
     out = [];
     seen = {};
     FOR label=labels;
-      IF label.label_id AND !seen.${ label.label_id };
+      IF label.label.gid AND !seen.${ label.label.gid };
         out.push(link_entity(label.label));
-        seen.${ label.label_id } = 1;
+        seen.${ label.label.gid } = 1;
       END;
     END;
     comma_only_list(out);
@@ -662,11 +655,11 @@ END -%]
 
 [%- MACRO expiration_time(datetime) BLOCK -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
-        [%- IF Countdown.total_days(datetime) > 0 # If the date is far away, only display days -%]
+        [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
                   'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
-                  Countdown.total_days(datetime),
-                { num => Countdown.total_days(datetime),
+                  Countdown.days(datetime),
+                { num => Countdown.days(datetime),
                   exactdate => UserDate.format(datetime) }) -%]
         [%- ELSIF Countdown.hours(datetime) > 0 # Show hours -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
@@ -695,38 +688,42 @@ END -%]
 [%- END -%]
 
 [%- MACRO display_relationship(relationship, phrase_field) BLOCK; -%]
-            [% phrase_field = phrase_field || 'phrase' %]
-            [% extra_attributes_field = "extra_${phrase_field}_attributes" %]
-            [%- IF relationship.edits_pending %]<span class="mp">[% END -%]
-            [%- relationship.${phrase_field} | html %]
-            [% descriptive_link(relationship.target) %]
-            [%- IF !relationship.link.begin_date.is_empty -%]
-                [%- IF !relationship.link.end_date.is_empty -%]
-                    [%- IF relationship.link.begin_date.format == relationship.link.end_date.format -%]
-                        [%- IF relationship.link.begin_date.day -%]
-                            [% l('on {date}', { date => relationship.link.begin_date.format }) %]
-                        [%- ELSE -%]
-                            [% l('in {date}', { date => relationship.link.begin_date.format }) %]
-                        [%- END -%]
-                    [%- ELSE -%]
-                        [% l('from {begin_date} until {end_date}', {
-                            begin_date => relationship.link.begin_date.format,
-                            end_date => relationship.link.end_date.format
-                        }) %]
-                    [%- END -%]
-                [%- ELSIF relationship.link.ended -%]
-                    [% l('from {date} to ????', { date => relationship.link.begin_date.format }) %]
-                [%- ELSE -%]
-                    [% l('from {date} to present', { date => relationship.link.begin_date.format }) %]
-                [%- END -%]
-            [%- ELSIF !relationship.link.end_date.is_empty -%]
-                [% l('until {date}', { date => relationship.link.end_date.format }) %]
-            [%- ELSIF relationship.link.ended -%]
-                [% l('ended') %]
-            [%- END -%]
-            [%- IF relationship.${extra_attributes_field} -%]
-                ([%- relationship.${extra_attributes_field} | html %])
-            [%- END -%]
+  [%- phrase_field = phrase_field || 'phrase';
+    extra_attributes_field = "extra_${phrase_field}_attributes";
+    IF relationship.edits_pending; '<span class="mp">'; END;
+    relationship.${ phrase_field } | html;
+    ' ';
+    descriptive_link(relationship.target);
+    IF !relationship.link.begin_date.is_empty;
+        ' ';
+        IF !relationship.link.end_date.is_empty;
+            IF relationship.link.begin_date.format == relationship.link.end_date.format;
+                IF relationship.link.begin_date.day;
+                    l('on {date}', { date => relationship.link.begin_date.format });
+                ELSE;
+                    l('in {date}', { date => relationship.link.begin_date.format });
+                END;
+            ELSE;
+                l('from {begin_date} until {end_date}', {
+                    begin_date => relationship.link.begin_date.format,
+                    end_date => relationship.link.end_date.format
+                });
+            END;
+        ELSIF relationship.link.ended;
+            l('from {date} to ????', { date => relationship.link.begin_date.format });
+        ELSE;
+            l('from {date} to present', { date => relationship.link.begin_date.format });
+        END;
+    ELSIF !relationship.link.end_date.is_empty;
+        ;' ';
+        l('until {date}', { date => relationship.link.end_date.format });
+    ELSIF relationship.link.ended;
+        ' ';
+        l('ended');
+    END;
+    IF relationship.${extra_attributes_field};
+        '(' _ relationship.${extra_attributes_field} _ ')' | html;
+    END; -%]
 [%- END -%]
 
 [%- MACRO trusted_domain(url) BLOCK;
@@ -847,11 +844,9 @@ http://[%- server -%]/[%- id -%]
 [%- MACRO css_manifest(manifest) BLOCK -%]
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'css'); -%]
-        <link rel="stylesheet" type="text/css" href="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]" />
-    [%- END -%]
+    <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
   [%- ELSE -%]
-    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest, 'css') %].css" />
+    <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
   [%- END -%]
 [%- END -%]
 
@@ -1019,21 +1014,17 @@ END -%]
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
-          '<li>';
-          release_date = rdfa_release_event_date(event.date);
-          country = rdfa_release_country_abbr(event.country);
-          IF event.country AND !event.date.is_empty;
-            l('{date} ({country})',
-              { date => release_date,
-                country => country
-              });
-          ELSIF event.country;
-            l('???? ({country})', { country => country });
-          ELSE;
-            l('{date}', { date => release_date });
-          END;
-          '</li>';
+          '<li>' _ release_event(event) _ '</li>';
         END;
         '</ul>';
       END;
+    END -%]
+
+[%- MACRO release_event(event) BLOCK;
+      date = event.date;
+      country = event.country;
+      parts = [];
+      parts.push(link_entity(country)) IF country.id;
+      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.join('<br />');
     END -%]

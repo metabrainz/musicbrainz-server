@@ -1,0 +1,418 @@
+@form-half-width: 465px;
+@form-margin: 12px;
+@form-label-width: 132px;
+@form-input-width: 300px;
+@form-input-width-short: 220px;
+@form-icon-size: 16px;
+
+.border-radius (@radius) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+
+input { background: #fff; color: #000; }
+input:-moz-placeholder { color: #aaa; }
+input[disabled].lookup-performed,
+input[disabled] { background: #DCDAD5; cursor: default; }
+
+/* this is to ensure input/select/textarea elements are all the same
+   width if you set the same width on them. (without this a <select>
+   is a few pixels narrower than an <input type="text> in at least
+   firefox and chrome) */
+input, select, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+button.nobutton:focus,
+button.nobutton:hover,
+button.nobutton {
+    background: transparent;
+    color: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+button.nobutton::-moz-focus-inner { margin: -1px; padding: 0; };
+
+div.various-artists.warning { width: 50em; }
+
+fieldset {
+    margin-top: @form-margin;
+    margin-bottom: @form-margin;
+    border: none;
+    padding: 0;
+}
+
+fieldset legend { margin-top: 0; }
+
+form div.row {
+    clear: left;
+    margin: 6px 0;
+}
+
+form div.row label,
+form div.row div.label {
+    float: left;
+    text-align: right;
+    min-width: @form-label-width;
+    margin-right: @form-margin;
+}
+
+/* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
+div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
+div.form-row-text-list button > img { vertical-align: middle; }
+
+div.form-row-add { text-align: right; width: @form-input-width + 2; }
+div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
+/* these rows are missing a <label> on the left and use a margin instead. */
+div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
+
+div.bubble div.row input[type=text] {
+    width: 176px;
+    font-size: 1em;
+}
+
+div.bubble div.row label,
+div.bubble div.row div.label { width: 150px; }
+
+form div.row p { float: none; clear: none; }
+form div.row ul { overflow: auto; }
+
+form div.no-label,
+form p.no-label,
+form ul.errors {
+    margin-left: @form-label-width + @form-margin;
+}
+
+form ul.errors {
+    margin-top: 4px;
+    padding-left: 0;
+    list-style-type: none;
+    list-style-image: none;
+}
+
+form ul.errors li,
+span.error { color: #ff2222; }
+span.success { color: #22aa22; }
+
+input.error,
+select.error {
+    background: #ffaaaa ! important;
+}
+
+input.lookup-performed { background: #bfb; }
+
+form .input-note {
+    font-style: italic;
+    font-size: 85%;
+}
+
+div.enter-edit input.submit {
+    font-size: 18pt;
+}
+
+ul.radio-list {
+    list-style-type: none;
+    list-style-image: none;
+    padding: 0;
+}
+
+label.required,
+div.required {
+    font-weight: bold;
+}
+
+textarea {
+    font-family: sans-serif;
+    font-size: 12.5px;
+}
+
+label.inline {
+    float: none !important;
+    width: auto !important;
+}
+
+dl.properties label {
+    float: none;
+    width: auto;
+}
+
+div.ar-descr {
+    background: #F9F9F9;
+    padding: 4px;
+    border: dotted 1px #D0D0D0;
+    margin: 6px;
+}
+
+a.selectFilterPrev,
+a.selectFilterNext {
+    color: #000;
+    text-decoration: none;
+}
+
+a.selectFilterPrev:hover,
+a.selectFilterNext:hover {
+    color: #666;
+}
+
+div.searchform {
+    margin-top: 24px;
+}
+
+/* __________________________________
+
+          Guess Case doc bubble
+   __________________________________ */
+
+div.guesscase-options table td { vertical-align: top; width: 50%; }
+
+/* __________________________________
+
+          MB.Control.Autocomplete
+   __________________________________ */
+
+span.autocomplete { display: inline-block; position: relative; }
+span.autocomplete img.search { position: absolute; right: 2px; top: 3px; }
+span.autocomplete.disabled img.search { display: none; }
+span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
+
+.ui-autocomplete-loading {
+    background: white url(../images/icons/loading.gif) right center no-repeat;
+}
+.autocomplete-length,
+.autocomplete-comment { font-size: smaller; color: #666; }
+button.autocomplete-pager {
+    position: absolute;
+    display: block;
+    border: 0;
+    width: 18px;
+    height: 18px;
+    background-color: transparent;
+}
+
+span.autocomplete-isrcs,
+span.autocomplete-appears,
+span.autocomplete-comment {
+    margin-left: @form-margin;
+    color: #999;
+    font-size: 80%;
+}
+
+span.autocomplete-length { float:right; margin-left: 2em; }
+
+/* __________________________________
+
+         Half-width edit forms
+   __________________________________ */
+
+div.half-width {
+    clear: both;
+    float: left;
+    margin: @form-margin 0 0 0;
+    width: @form-half-width;
+}
+
+div.half-width p,
+fieldset > p {
+    margin: 1em;
+}
+
+div.documentation {
+    margin-left: @form-half-width + 20;
+}
+
+div.half-width fieldset {
+    border: 1px solid #ddd;
+    margin-top: 0;
+    .border-radius(6px);
+}
+
+div.half-width fieldset.editnote {
+    background-color: inherit;
+    border-color: transparent; /* this preserves the spacing below the legend, but keeps the border hidden */
+}
+
+div.half-width fieldset legend {
+    color: #fc6714;
+    font-size: 120%;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+div.half-width fieldset label.row {
+    float: left;
+    margin-right: @form-margin;
+    text-align: right;
+    width: @form-label-width;
+}
+
+div.half-width fieldset label.required {
+    font-weight: bold;
+}
+
+div.half-width fieldset input,
+div.half-width fieldset select {
+    font-size: 1em;
+    width: @form-input-width;
+}
+
+div.half-width fieldset input.short,
+div.half-width fieldset select.short {
+    width: @form-input-width-short;
+    font-weight: bold;
+}
+
+div.half-width fieldset input.with-remove,
+div.half-width fieldset select.with-remove {
+    width: @form-input-width - @form-icon-size - 2;
+}
+
+div.half-width fieldset input[type=checkbox],
+div.half-width fieldset span.partial-date input {
+    width: auto;
+}
+
+div.half-width fieldset textarea {
+    width: @form-input-width;
+}
+
+div.half-width fieldset input.label-code {
+    width: 100px;
+}
+
+div.half-width fieldset h3 {
+    margin: 24px 10px 0;
+}
+
+div.documentation div.bubble {
+    margin: 0;
+    padding: @form-margin;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    .border-radius(12px);
+}
+
+div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
+div.documentation div.container { width: 100%; }
+
+table.form th,
+table.form td{
+    vertical-align: top;
+}
+
+table.form th {
+    text-align: right;
+    padding-bottom: 8pt;
+    width: 100pt;
+}
+
+table.form {
+    padding: 10pt 0;
+}
+
+ul.conditions button.remove {
+    display: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+ul.conditions button.remove img {
+    vertical-align: middle;
+}
+
+#filter {
+    margin-top: 0.75em;
+    border: 1px solid #999;
+    background: #f0f0f0;
+    .border-radius(3px);
+    padding: 0.5em;
+    display: none;
+}
+
+input.icon, div.icon.img {
+    width: @form-icon-size;
+    height: @form-icon-size;
+    border: 0 !important;
+    background-repeat: no-repeat;
+    vertical-align: text-bottom;
+}
+/* remove (button) icons are next to <select> or <input> fields, align to the middle.
+div.icon.remove { vertical-align: middle; }
+/* other (button) icons are next to text, align them with the text. */
+div.icon.img { vertical-align: text-bottom; }
+
+
+div.img { display: inline-block; }
+
+input.add-artist-credit,
+input.add-track,
+a.add-event div,
+a.add-label div,
+div.add-item {
+    background-image: url('../images/icons/add_row.png');
+}
+
+input.remove-artist-credit,
+input.remove-track,
+input.remove-disc,
+a.remove-event div,
+a.remove-label div,
+div.remove-item {
+    background-image: url('../images/icons/delete_row.png');
+}
+
+input.guesscase-track, input.guesscase-medium {
+    background-image: url('../images/icons/guesscase.png');
+}
+
+input.collapse-disc {
+    background-image: url('../images/icons/collapse.png');
+}
+
+input.expand-disc {
+    background-image: url('../images/icons/expand.png');
+}
+
+input.track-down {
+    background-image: url('../images/icons/track-down.png');
+}
+
+input.disc-down {
+    background-image: url('../images/icons/down.png');
+}
+
+input.track-up {
+    background-image: url('../images/icons/track-up.png');
+}
+
+input.disc-up {
+    background-image: url('../images/icons/up.png');
+}
+
+/*
+  Artist credits
+  ================================================
+*/
+
+@form-open-ac-width: 32px;
+
+#open-ac {
+    width: @form-open-ac-width;
+    height: 22px;
+    margin-left: 3px;
+}
+
+.artist-credit-input {
+    width: @form-input-width - @form-open-ac-width - 7px ! important;
+}
+
+

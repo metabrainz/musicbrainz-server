@@ -111,6 +111,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$row.hide ();
         self.$row.addClass ('deleted');
 
+        self.parent.sort ();
         self.parent.updateTrackNumbers ();
     };
 
@@ -423,7 +424,11 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      */
     self.sort = function () {
         self.sorted_tracks = [];
-        $.each (self.tracks, function (idx, item) { self.sorted_tracks.push (item); });
+        $.each (self.tracks, function (idx, item) {
+            if (!item.isDeleted ()) {
+                self.sorted_tracks.push (item);
+            }
+        });
 
         self.sorted_tracks.sort (function (a, b) {
             return a.position () - b.position ();
@@ -835,15 +840,8 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
      * tracklist has been deleted.
      */
     self.updateTrackNumbers = function () {
-        var trackpos = 1;
-
         $.each (self.sorted_tracks, function (idx, item) {
-            item.position (trackpos);
-
-            if (!item.isDeleted ())
-            {
-                trackpos += 1;
-            }
+            item.position (idx + 1);
         });
     };
 
@@ -999,9 +997,9 @@ MB.Control.ReleaseTracklist = function () {
         /* clear the cloned rowid for this medium and tracklist, so a
          * new medium and tracklist will be created. */
         $("#id-mediums\\."+discs+"\\.id").val('');
+        $("#id-mediums\\."+discs+"\\.medium_id_for_recordings").val('');
         $("#id-mediums\\."+discs+"\\.name").val('');
         $("#id-mediums\\."+discs+"\\.position").val(newposition);
-        $("#id-mediums\\."+discs+"\\.id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
         $('#id-mediums\\.'+discs+'\\.toc').val('');
@@ -1174,8 +1172,8 @@ MB.Control.ReleaseTracklist = function () {
 
     };
 
-    $("a[href=#guesscase]").click (function () {
-        self.guessCase ();
+    ko.applyBindingsToNode($("div.guesscase-advanced")[0], {
+        guessCase: self.guessCase
     });
 
     $("#release-editor").on("VariousArtists", ".artist-credit-box input.name",

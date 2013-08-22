@@ -8,7 +8,8 @@ use HTTP::Request::Common qw( POST );
 around run_test => sub {
     my ($orig, $test, @args) = @_;
     $test->c->sql->do(<<'EOSQL');
-INSERT INTO editor (id, name, password, email, privs, ha1) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', 255, '16a4862191803cb596ee4b16802bb7ee')
+INSERT INTO editor (id, name, password, email, privs, ha1, email_confirm_date)
+VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', 255, '16a4862191803cb596ee4b16802bb7ee', now())
 EOSQL
 
     $test->mech->get('/login');

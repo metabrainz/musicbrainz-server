@@ -16,6 +16,8 @@ has 'link_type_name' => (
 
 requires 'lookup_cover_art';
 
+sub fallback_meta { return undef; }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -8,11 +8,9 @@ use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
-
-use aliased 'MusicBrainz::Server::Translation';
-
-use Try::Tiny;
 use Sys::Hostname;
+use Try::Tiny;
+use aliased 'MusicBrainz::Server::Translation';
 
 # Set flags and add plugins for the application
 #
@@ -248,6 +246,14 @@ sub gettext  { shift; Translation->instance->gettext(@_) }
 sub pgettext { shift; Translation->instance->pgettext(@_) }
 sub ngettext { shift; Translation->instance->ngettext(@_) }
 
+sub get_collator
+{
+    my ($self) = @_;
+    return MusicBrainz::Server::Translation::get_collator(
+        $self->stash->{current_language} // 'en'
+    );
+}
+
 sub set_language_cookie {
     my ($c, $lang) = @_;
     $c->res->cookies->{lang} = { 'value' => $lang, 'path' => '/', 'expires' => time()+31536000 };
@@ -314,11 +320,11 @@ around dispatch => sub {
 
     if (DBDefs->BETA_REDIRECT_HOSTNAME &&
             $beta_redirect && !$unset_beta &&
-            $c->req->method eq 'GET') {
+            !($c->req->uri =~ /set-beta-preference$/)) {
         my $new_url = $c->req->uri;
         my $ws = DBDefs->WEB_SERVER;
         $new_url =~ s/$ws/DBDefs->BETA_REDIRECT_HOSTNAME/e;
-        $c->res->redirect($new_url);
+        $c->res->redirect($new_url, 307);
     } else {
         $c->with_translations(sub {
             $c->$orig(@args)

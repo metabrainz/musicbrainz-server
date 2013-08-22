@@ -1,14 +1,21 @@
 package MusicBrainz::Server::Data::Subscription;
-
 use Moose;
 use namespace::autoclean;
-use Sql;
+
+use Class::Load qw( load_class );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_ARTIST_MERGE
+    $EDIT_ARTIST_DELETE
+    $EDIT_LABEL_MERGE
+    $EDIT_LABEL_DELETE
+);
 use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     is_special_label
     placeholders
     query_to_list
 );
+use Sql;
 
 with 'MusicBrainz::Server::Data::Role::NewFromRow';
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -23,14 +30,20 @@ has 'column' => (
     isa => 'Str'
 );
 
-has 'class' => (
+has 'active_class' => (
     is => 'ro',
     isa => 'Str',
+    required => 1
+);
+
+has 'deleted_class' => (
+    is => 'ro',
+    isa => 'Maybe[Str]',
 );
 
 sub _entity_class {
     my $self = shift;
-    return $self->class;
+    return $self->active_class;
 }
 
 sub _column_mapping {
@@ -39,8 +52,6 @@ sub _column_mapping {
         id => 'id',
         $self->column . '_id' => $self->column,
         'last_edit_sent' => 'last_edit_sent',
-        'deleted_by_edit' => 'deleted_by_edit',
-        'merged_by_edit' => 'merged_by_edit',
         'editor_id' => 'editor',
         'available' => 'available',
         'last_seen_name' => 'last_seen_name',
@@ -63,7 +74,7 @@ sub subscribe
             SELECT id FROM $table WHERE editor = ? AND $column = ?",
             $user_id, $id);
 
-        my $max_edit_id = $self->c->model('Edit')->get_max_id() || 0;
+        my $max_edit_id = $self->c->model('Edit')->get_max_id();
         $self->sql->do("INSERT INTO $table (editor, $column, last_edit_sent)
                   VALUES (?, ?, ?)", $user_id, $id, $max_edit_id);
 
@@ -139,9 +150,50 @@ sub get_subscribed_editor_count
 sub get_subscriptions
 {
     my ($self, $editor_id) = @_;
-    my $query = 'SELECT * FROM ' . $self->table . ' WHERE editor = ?';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-        $query, $editor_id);
+    my $table = $self->table;
+    my $column = $self->column;
+
+    load_class($self->active_class);
+    my @subscriptions = query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(shift) },
+        "SELECT *
+         FROM $table
+         WHERE editor = ?",
+        $editor_id
+    );
+
+    if (my $deleted_class = $self->deleted_class) {
+        load_class($self->deleted_class);
+
+        push @subscriptions, query_to_list(
+            $self->c->sql, sub {
+                my $row = shift;
+                return $deleted_class->new(
+                    edit_id => $row->{deleted_by},
+                    editor_id => $row->{editor},
+                    last_known_name => $row->{last_known_name},
+                    last_known_comment => $row->{last_known_comment},
+                    reason => $row->{reason}
+                );
+            },
+            "SELECT
+               sub.editor, n.name AS last_known_name, last_known_comment, deleted_by,
+               CASE
+                 WHEN edit.type = any(?) THEN 'merged'
+                 WHEN edit.type = any(?) THEN 'deleted'
+               END AS reason
+             FROM ${table}_deleted sub
+             JOIN ${column}_deletion del USING (gid)
+             JOIN ${column}_name n ON (n.id = del.last_known_name)
+             JOIN edit ON (edit.id = deleted_by)
+             WHERE sub.editor = ?",
+            [ $EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE ],
+            [ $EDIT_ARTIST_DELETE, $EDIT_LABEL_DELETE ],
+            $editor_id
+        )
+    }
+
+    return @subscriptions;
 }
 
 sub merge
@@ -182,13 +234,38 @@ sub merge_entities
 
 sub delete
 {
-    my ($self, $edit_id, @ids) = @_;
+    my ($self, @ids) = @_;
 
     my $table = $self->table;
     my $column = $self->column;
 
-    $self->sql->do("UPDATE $table SET deleted_by_edit = ?
-               WHERE $column IN (".placeholders(@ids).")", $edit_id, @ids);
+    return $self->sql->select_list_of_hashes(
+        "DELETE FROM $table WHERE $column = any(?)
+         RETURNING editor, $column",
+        \@ids
+    );
+}
+
+sub log_deletion_for_editors {
+    my ($self, $edit_id, $gid, @editors) = @_;
+    $self->log_deletions(
+        $edit_id,
+        map +{
+            gid => $gid,
+            editor => $_
+        }, @editors
+    );
+}
+
+sub log_deletions {
+    my ($self, $edit_id, @deletions) = @_;
+    $self->sql->insert_many(
+        $self->table . '_deleted',
+        map +{
+            %$_,
+            deleted_by => $edit_id,
+        }, @deletions
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

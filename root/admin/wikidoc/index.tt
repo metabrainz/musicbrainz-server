@@ -58,7 +58,7 @@
                         [% IF c.user.is_wiki_transcluder %]
                           <td class="c nowrap">
                               [
-                              <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id }) | html %]">[% l('Update') %]</a> |
+                              <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id, new_version => page.wiki_version }) | html %]">[% l('Update') %]</a> |
                               <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
                               <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                               ]

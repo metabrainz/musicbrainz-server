@@ -41,7 +41,7 @@ test 'Edit queue does not close open edits with insufficient votes' => sub {
     my $test = shift;
 
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (101, 10, $mock_class, '{}', 1, now());
 EOSQL
 
@@ -60,7 +60,7 @@ test 'Edit queue correctly handles locked edits' => sub {
 
     Sql::run_in_transaction(sub {
         $other_dbh->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
 INSERT INTO edit (id, editor, type, data, status, expire_time, yes_votes) VALUES (101, 10, $mock_class, '{}', 1, now(), 100);
 EOSQL
     }, $other_dbh->sql);
@@ -98,7 +98,7 @@ EOSQL
 test 'Edit queue can close edits with sufficient yes votes' => sub {
     my $test = shift;
     $test->c->sql->do(<<EOSQL);
-INSERT INTO editor (id, name, password, ha1) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d');
+INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (10, 'Editor', '{CLEARTEXT}pass', 'b5ba49bbd92eb35ddb35b5acd039440d', '', now());
 INSERT INTO edit (id, editor, type, data, status, expire_time, yes_votes)
   VALUES (101, 10, $mock_class, '{}', 1, now(), 100);
 EOSQL

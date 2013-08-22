@@ -60,7 +60,7 @@ lookup_handler 'barcode' => sub {
 lookup_handler 'mbid' => sub {
     my ($self, $c, $gid) = @_;
 
-    for my $model (qw(Artist Label Recording Release ReleaseGroup URL Work)) {
+    for my $model (qw(Artist Label Recording Release ReleaseGroup Track URL Work)) {
         my $entity = $c->model($model)->get_by_gid($gid) or next;
         $c->response->redirect(
             $c->uri_for_action(
@@ -153,13 +153,6 @@ lookup_handler 'label-isni' => sub {
             advanced => '1',
         }));
 
-    $c->detach;
-};
-
-lookup_handler 'puid' => sub {
-    my ($self, $c, $puid) = @_;
-
-    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
     $c->detach;
 };
 

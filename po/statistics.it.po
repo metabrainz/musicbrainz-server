@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-11 23:12+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -215,7 +215,7 @@ msgid ""
 "In an effort to reduce the size of the open edit queue and force less "
 "waiting for changes, the length of time edits stay open before expiration is"
 " reduced from 14 to 7 days."
-msgstr ""
+msgstr "Nel tentativo di ridurre la dimensione della coda di modifiche aperte e costringere a una minore attesa per l'applicazione dei cambiamenti, il periodo di tempo in cui le modifiche restano aperte prima della scadenza è ridotto da 14 a 7 giorni."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
@@ -474,7 +474,7 @@ msgstr "Miglioramento della logica di voto, rilascio delle elezioni per auto-edi
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "Periodo di votazione ridotto a 7 giorni"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
@@ -562,11 +562,11 @@ msgstr "Approva:"
 
 #: ../root/statistics/index.tt:564
 msgid "Areas"
-msgstr ""
+msgstr "Aree"
 
 #: ../root/statistics/index.tt:52 ../root/statistics/index.tt:571
 msgid "Areas:"
-msgstr ""
+msgstr "Aree:"
 
 #: ../root/statistics/view_js.tt:28
 msgid "Artist Countries"
@@ -582,7 +582,7 @@ msgstr "IPI di artisti"
 
 #: ../root/statistics/view_js.tt:132
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNI artista"
 
 #: ../root/statistics/view_js.tt:163
 msgid "Artist Ratings"
@@ -795,15 +795,15 @@ msgstr "Numero totale di IPI per etichette"
 
 #: ../root/statistics/view_js.tt:131
 msgid "Count of all ISNIs"
-msgstr ""
+msgstr "Numero totale di ISNI"
 
 #: ../root/statistics/view_js.tt:132
 msgid "Count of all ISNIs for Artists"
-msgstr ""
+msgstr "Numero totale di ISNI per artisti"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Count of all ISNIs for Labels"
-msgstr ""
+msgstr "Numero totale di ISNI per etichette"
 
 #: ../root/statistics/view_js.tt:134 ../root/statistics/view_js.tt:135
 msgid "Count of all ISRCs"
@@ -1011,7 +1011,7 @@ msgstr "Numero totale di opere"
 
 #: ../root/statistics/view_js.tt:75
 msgid "Count of deleted editors"
-msgstr ""
+msgstr "Numero di editor eliminati"
 
 #: ../root/statistics/view_js.tt:76
 msgid "Count of editors who have submitted edits during the last week"
@@ -1031,7 +1031,7 @@ msgstr "Numero di modifiche per settimana"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of non-deleted editors"
-msgstr ""
+msgstr "Numero di editor non eliminati"
 
 #: ../root/statistics/view_js.tt:52
 msgid "Count of open edits"
@@ -1109,23 +1109,23 @@ msgstr "Editor"
 
 #: ../root/statistics/view_js.tt:73
 msgid "Editors (all)"
-msgstr ""
+msgstr "Editor (tutti)"
 
 #: ../root/statistics/view_js.tt:75
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Editor (eliminati)"
 
 #: ../root/statistics/index.tt:61
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Editor (validi / eliminati):"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Editors (valid)"
-msgstr ""
+msgstr "Editor (validi)"
 
 #: ../root/statistics/index.tt:599
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Editor (validi):"
 
 #: ../root/statistics/index.tt:592
 msgid "Editors, Edits, and Votes"
@@ -1246,11 +1246,11 @@ msgstr "IPI:"
 
 #: ../root/statistics/view_js.tt:131
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI"
 
 #: ../root/statistics/index.tt:120
 msgid "ISNIs:"
-msgstr ""
+msgstr "ISNI:"
 
 #: ../root/statistics/view_js.tt:134
 msgid "ISRCs"
@@ -1294,7 +1294,7 @@ msgstr "IPI di etichette"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Label ISNIs"
-msgstr ""
+msgstr "ISNI etichetta"
 
 #: ../root/statistics/view_js.tt:164
 msgid "Label Ratings"
@@ -1861,11 +1861,11 @@ msgstr "Tracce"
 
 #: ../root/statistics/index.tt:36
 msgid "Tracks:"
-msgstr ""
+msgstr "Tracce:"
 
 #: ../root/statistics/index.tt:540 ../root/statistics/index.tt:568
 msgid "Types"
-msgstr ""
+msgstr "Tipi"
 
 #: ../root/statistics/index.tt:300
 msgid "URL Relationships:"

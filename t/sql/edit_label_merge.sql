@@ -1,4 +1,3 @@
-
 SET client_min_messages TO 'warning';
 
 INSERT INTO label_name (id, name) VALUES (1, 'Label');
@@ -9,5 +8,3 @@ INSERT INTO label (id, gid, name, sort_name, comment)
 
 INSERT INTO label_ipi (label, ipi) VALUES (2, '00284373936');
 INSERT INTO label_isni (label, isni) VALUES (2, '0000000106750994');
-
-

@@ -144,6 +144,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     attributes => [],
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350',
                         resource => 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg'
                     },
@@ -157,6 +158,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     attributes => [],
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '09ea2bb6-0280-4be1-aa7a-46e641c16451',
                         resource => 'http://members.boardhost.com/wedlock/'
                     },
@@ -170,6 +172,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     attributes => [],
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => 'e0a79771-e9f0-4127-b58a-f5e6869c8e96',
                         resource => 'http://www.discogs.com/artist/Paul+Allgood'
                     },
@@ -183,6 +186,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     attributes => [],
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
                         resource => 'http://www.imdb.com/name/nm4057169/'
                     },
@@ -196,6 +200,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     attributes => [],
                     direction => "forward",
                     url => {
+                        relations => [],
                         id => 'daa73242-f491-4d94-bbd0-b08a03a4a69b',
                         resource => 'http://www.paulallgood.com/'
                     },
@@ -368,12 +373,14 @@ test 'artist lookup with releases and discids' => sub {
                         {
                             title => JSON::null,
                             format => "CD",
+                            position => 1,
                             discs => [ { id => "93K4ogyxWlv522XF0BG8fZOuay4-", sectors => 215137 } ],
                             "track-count" => 9,
                         },
                         {
                             title => "Chestplate Singles",
                             format => "CD",
+                            position => 2,
                             discs => [ { id => "VnL0A7ksXznBxvZ94H3Z61EZY3k-", sectors => 208393 } ],
                             "track-count" => 9,
                         }],
@@ -403,6 +410,7 @@ test 'artist lookup with releases and discids' => sub {
                         {
                             title => JSON::null,
                             format => "CD",
+                            position => 1,
                             discs => [ { id => "75S7Yp3IiqPVREQhjAjMXPhwz0Y-", sectors => 281289 } ],
                             "track-count" => 12,
                         }],
@@ -857,6 +865,7 @@ test 'artist lookup with artist relations' => sub {
                         name => "7人祭",
                         "sort-name" => "7nin Matsuri",
                         disambiguation => "",
+                        relations => []
                     },
                     begin => '2001',
                     end => JSON::null,

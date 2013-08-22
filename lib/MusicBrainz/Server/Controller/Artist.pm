@@ -33,6 +33,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_ARTIST_DELETE
     $EDIT_ARTIST_EDITCREDIT
     $EDIT_RELATIONSHIP_DELETE
+    $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Form::Artist;
@@ -46,8 +47,6 @@ use MusicBrainz::Server::FilterUtils qw(
 use Sql;
 
 use List::AllUtils qw( any );
-
-my $COLLABORATION = '75c09861-6857-4ec0-9729-84eefde7fc86';
 
 =head1 NAME
 
@@ -124,49 +123,6 @@ after 'aliases' => sub
     my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
     $c->stash( artist_credits => $artist_credits );
 };
-
-=head2 similar
-
-Display artists similar to this artist
-
-=cut
-
-sub similar : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{similar_artists} = $c->model('Artist')->find_similar_artists($artist);
-}
-
-=head2 relations
-
-Shows all the entities (except track) that this artist is related to.
-
-=cut
-
-sub relations : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{relations} = $c->model('Relation')->load_relations($artist, to_type => [ 'artist', 'url', 'label', 'album' ]);
-}
-
-=head2 appearances
-
-Display a list of releases that an artist appears on via advanced
-relations.
-
-=cut
-
-sub appearances : Chained('load')
-{
-    my ($self, $c) = @_;
-    my $artist = $self->entity;
-
-    $c->stash->{releases} = $c->model('Release')->find_linked_albums($artist);
-}
 
 =head2 show
 
@@ -438,7 +394,7 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') RequireAuth Edit {
+sub edit : Chained('load') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
 
@@ -630,14 +586,18 @@ sub split : Chained('load') Edit {
             my $editid = $edit->id;
             my %artists = map { $_ => 1 } $edit->new_artist_ids;
 
-            for my $relationship (grep {
-                $_->link->type->gid == $COLLABORATION &&
+            # Delete any collaboration relationships that the artist being split
+            # was involved in.
+            for my $relationship (
+                grep {
+                    $_->link->type->gid == $ARTIST_ARTIST_COLLABORATION &&
                     exists $artists{$_->entity0_id} &&
-                        $_->entity1_id == $artist->id
-                    } $artist->all_relationships) {
+                    $_->entity1_id == $artist->id
+                } $artist->all_relationships
+            ) {
                 my $rem = $c->model('Edit')->create(
                     edit_type    => $EDIT_RELATIONSHIP_DELETE,
-                    editor_id    => $EDITOR_MODBOT,
+                    editor_id    => $c->user->id,
                     type0        => 'artist',
                     type1        => 'artist',
                     relationship => $relationship
@@ -647,12 +607,11 @@ sub split : Chained('load') Edit {
                     $rem->id,
                     {
                         text => "This collaboration has been split in edit #$editid.",
-                        editor_id => $EDITOR_MODBOT
+                        editor_id => $c->user->id
                     }
                 );
             }
-        },
-        on_creation => sub {
+
             $c->res->redirect(
                 $c->uri_for_action('/artist/show', [ $artist->gid ]))
         }
@@ -662,7 +621,7 @@ sub split : Chained('load') Edit {
 sub can_split {
     my $artist = shift;
     return (grep {
-        $_->link->type->gid != $COLLABORATION
+        $_->link->type->gid != $ARTIST_ARTIST_COLLABORATION
     } $artist->all_relationships) == 0;
 }
 
@@ -673,7 +632,7 @@ sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
     $c->stash( ac => $ac );
 }
 
-sub edit_credit : Chained('credit') PathPart('edit') RequireAuth Edit {
+sub edit_credit : Chained('credit') PathPart('edit') Edit {
     my ($self, $c) = @_;
     my $artist = $c->stash->{artist};
     my $ac = $c->stash->{ac};

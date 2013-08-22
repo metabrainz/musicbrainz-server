@@ -26,6 +26,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'label' };
@@ -35,7 +36,8 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_label',
     column => 'label',
-    class => 'MusicBrainz::Server::Entity::LabelSubscription'
+    active_class => 'MusicBrainz::Server::Entity::Subscription::Label',
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedLabel'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
@@ -234,7 +236,7 @@ sub delete
     $self->tags->delete(@label_ids);
     $self->rating->delete(@label_ids);
     $self->remove_gid_redirects(@label_ids);
-    $self->sql->do('DELETE FROM label WHERE id IN (' . placeholders(@label_ids) . ')', @label_ids);
+    $self->delete_returning_gids('label', @label_ids);
     return 1;
 }
 
@@ -272,6 +274,7 @@ sub _merge_impl
     ) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('label', $new_id, @old_ids);
+
     return 1;
 }
 

@@ -863,21 +863,9 @@ END
 $BODY$
 LANGUAGE 'plpgsql' ;
 
-CREATE OR REPLACE FUNCTION deny_special_purpose_artist_deletion() RETURNS trigger AS $$
+CREATE OR REPLACE FUNCTION deny_special_purpose_deletion() RETURNS trigger AS $$
 BEGIN
-    IF OLD.id IN (1, 2) THEN
-        RAISE EXCEPTION 'Attempted to delete a special purpose row';
-    END IF;
-    RETURN OLD;
-END;
-$$ LANGUAGE 'plpgsql';
-
-CREATE OR REPLACE FUNCTION deny_special_purpose_label_deletion() RETURNS trigger AS $$
-BEGIN
-    IF OLD.id = 1 THEN
-        RAISE EXCEPTION 'Attempted to delete a special purpose row';
-    END IF;
-    RETURN OLD;
+    RAISE EXCEPTION 'Attempted to delete a special purpose row';
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -1099,6 +1087,17 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION end_area_implies_ended()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.end_area IS NOT NULL
+    THEN
+        NEW.ended = TRUE;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION delete_orphaned_recordings()
 RETURNS TRIGGER
 AS $$
@@ -1137,7 +1136,6 @@ AS $$
       DELETE FROM isrc WHERE recording = OLD.recording;
       DELETE FROM recording_annotation WHERE recording = OLD.recording;
       DELETE FROM recording_gid_redirect WHERE new_id = OLD.recording;
-      DELETE FROM recording_puid WHERE recording = OLD.recording;
       DELETE FROM recording_rating_raw WHERE recording = OLD.recording;
       DELETE FROM recording_tag WHERE recording = OLD.recording;
       DELETE FROM recording_tag_raw WHERE recording = OLD.recording;
@@ -1184,6 +1182,21 @@ RETURNS trigger AS $$
     PERFORM delete_unused_tag(OLD.tag);
     RETURN NULL;
   END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION inserting_edits_requires_confirmed_email_address()
+RETURNS trigger AS $$
+BEGIN
+  IF NOT (
+    SELECT email_confirm_date IS NOT NULL AND email_confirm_date <= now()
+    FROM editor
+    WHERE editor.id = NEW.editor
+  ) THEN
+    RAISE EXCEPTION 'Editor tried to create edit without a confirmed email address';
+  ELSE
+    RETURN NEW;
+  END IF;
+END;
 $$ LANGUAGE 'plpgsql';
 
 COMMIT;

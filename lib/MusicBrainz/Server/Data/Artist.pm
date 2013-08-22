@@ -29,6 +29,7 @@ extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
+with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::ISNI' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'artist' };
@@ -38,7 +39,8 @@ with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_artist',
     column => 'artist',
-    class => 'MusicBrainz::Server::Entity::ArtistSubscription'
+    active_class => 'MusicBrainz::Server::Entity::Subscription::Artist',
+    deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist'
 };
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
@@ -272,8 +274,8 @@ sub delete
     $self->tags->delete(@artist_ids);
     $self->rating->delete(@artist_ids);
     $self->remove_gid_redirects(@artist_ids);
-    my $query = 'DELETE FROM artist WHERE id IN (' . placeholders(@artist_ids) . ')';
-    $self->sql->do($query, @artist_ids);
+    $self->delete_returning_gids('artist', @artist_ids);
+
     return 1;
 }
 

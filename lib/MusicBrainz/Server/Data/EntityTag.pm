@@ -29,7 +29,6 @@ has [qw( tag_table type )] => (
 sub find_tags
 {
     my ($self, $entity_id, $limit, $offset) = @_;
-    $limit ||= -1;
     $offset ||= 0;
     my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
                 "JOIN tag ON tag.id = entity_tag.tag " .

@@ -302,6 +302,7 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (34, 'db770a93-c0ad-4806-af76-f6fc835a057d', 6, 8, 8, 16, 18, 3, 514679);
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length) VALUES (35, '65464409-1c68-4e90-8664-65ec8a21843a', 6, 9, 9, 17, 19, 4, 472880);
 
+INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800230', 2);
 
 INSERT INTO link_attribute_type (id, root, gid, name)
@@ -363,14 +364,6 @@ INSERT INTO recording_gid_redirect VALUES ('0986e67c-6b7a-40b7-b4ba-c9d7583d6426
 INSERT INTO release_gid_redirect VALUES ('71dc55d8-0fc6-41c1-94e0-85ff2404997d', 1);
 INSERT INTO release_group_gid_redirect VALUES ('77637e8c-be66-46ea-87b3-73addc722fc9', 1);
 INSERT INTO work_gid_redirect VALUES ('28e73402-5666-4d74-80ab-c3734dc699ea', 1);
-
-INSERT INTO clientversion (id, version) VALUES (1, 'mb_client/1.0');
-INSERT INTO puid (id, puid, version) VALUES
-    (1, 'b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 1),
-    (2, '134478d1-306e-41a1-8b37-ff525e53c8be', 1);
-
-INSERT INTO recording_puid (id, recording, puid) VALUES
-    (1, 1, 1), (2, 1, 2);
 
 INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used'), (3, 'hip-hop/rap');
 INSERT INTO artist_tag (tag, artist, count) VALUES (1, 3, 2), (3, 3, 2);

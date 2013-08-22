@@ -155,9 +155,8 @@
     </div>
 
     <div class="buttons">
-      <input style="float: right;" type="button" class="close" value="[% l('Done') %]" />
       <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
-      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
+      <input type="button" class="negative cancel" value="[% l('Close') %]" />
     </div>
   </div>
 
@@ -322,7 +321,7 @@
           <a class="credits-button" href="#credits">[% l('credits') %]</a>
         </td>
         <td class="length">
-          <input type="text" class="track-length" size="5" value="?:??" />
+          <input type="text" class="track-length" size="5" placeholder="?:??" />
         </td>
         <td class="icon">
           <input type="button" class="icon guesscase-track"
@@ -440,7 +439,7 @@
 
       <div class="icon add-track" style="float: right;">
         <span style="padding-right: 1em">
-          [% l('Add {num} track(s)', num => '<input type="text" class="add-track-count" value="1" />') %]
+          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" class="add-track-count" value="1" />') %]
         </span>
         <input type="button" class="icon add-track"
             title="[% l('Add track(s)') %]" />
@@ -450,32 +449,7 @@
     [% END %]
 
     <div class="guesscase-advanced">
-      [%#- FIXME: use guesscase() -%]
-
-      <fieldset class="guesscase">
-        <legend>[% lp('Guess case', 'header') %]</legend>
-        <table style="width: 100%">
-          <tr>
-            <td class="icon" style="vertical-align: top; padding: 10px; width: 32px;">
-              <img src="[% c.uri_for("/static/images/icons/guesscase.32x32.png") %]" />
-            </td>
-            <td class="options" style="vertical-align: top;">
-              <p class="guesscase-options">
-                <select name="gc-mode" id="gc-mode"> </select>
-                <br />
-                <input type="checkbox" name="gc-keepuppercase" id="gc-keepuppercase" checked="checked">
-                <label for="gc-keepuppercase">[% l('Keep all-uppercase words uppercased') %]</label>
-                <br />
-                <input type="checkbox" name="gc-roman" id="gc-roman">
-                <label for="gc-roman">[% l('Uppercase roman numerals') %]</label>
-              </p>
-            </td>
-            <td class="buttons" style="margin: 10px; vertical-align: top;">
-              <a href="#guesscase" style="float: right">[% lp('Guess case', 'button/menu') %]</a>
-            </td>
-          </tr>
-        </table>
-      </fieldset>
+      [% guesscase(show_icon=1) %]
     </div>
 
     <div class="buttons ui-helper-clearfix">

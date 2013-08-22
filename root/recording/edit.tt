@@ -27,6 +27,7 @@
 
       $('.artist-credit-box input.name').trigger ('VariousArtists');
 
+      bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
     });
   //]]></script>
 [%- END -%]

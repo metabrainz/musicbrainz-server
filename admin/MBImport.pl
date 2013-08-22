@@ -386,7 +386,6 @@ sub ImportAllTables
         autoeditor_election
         autoeditor_election_vote
         cdtoc
-        clientversion
         editor
         editor_oauth_token
         editor_preference
@@ -463,12 +462,10 @@ sub ImportAllTables
         medium
         medium_cdtoc
         medium_format
-        puid
         recording
         recording_annotation
         recording_gid_redirect
         recording_meta
-        recording_puid
         recording_tag
         release
         release_annotation

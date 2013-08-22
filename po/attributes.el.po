@@ -1,5 +1,6 @@
 # 
 # Translators:
+# Dimitris <email address hidden>, 2013
 # Dimitris <email address hidden>, 2012
 # Dimitris  <email address hidden>, 2012
 # Panos Bouklis <email address hidden>, 2012
@@ -8,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-21 15:19+0000\n"
+"Last-Translator: Dimitris <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,12 +41,12 @@ msgstr "CD 8cm"
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr "Άλμπουμ"
+msgstr "Δίσκος"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "Ονομασία περιοχής"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -65,7 +66,7 @@ msgstr "Βιβλίο ήχου"
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr ""
+msgstr "Οπισθόφυλλο"
 
 #: DB:work_type/name:2
 msgctxt "work_type"
@@ -85,7 +86,7 @@ msgstr "Blu-ray"
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Ένθετο"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
@@ -100,7 +101,7 @@ msgstr "Παραγωγή Bootleg"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr ""
+msgstr "Αναμετάδοση"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -135,7 +136,7 @@ msgstr "Κασέτα"
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr ""
+msgstr "Πόλη"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -150,7 +151,7 @@ msgstr "Κονσέρτο"
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "Χώρα"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -215,12 +216,12 @@ msgstr "Γυναίκα"
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr ""
+msgstr "Επίσημο όνομα"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
-msgstr ""
+msgstr "Εξώφυλλο"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -240,7 +241,7 @@ msgstr "HDCD"
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
-msgstr ""
+msgstr "Μητρική"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -250,12 +251,12 @@ msgstr "Συνέντευξη"
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr ""
+msgstr "Πλαστική θήκη"
 
 #: DB:release_packaging/name:6
 msgctxt "release_packaging"
 msgid "Keep Case"
-msgstr ""
+msgstr "Keep Case"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -275,7 +276,7 @@ msgstr "Νόμιμο όνομα"
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "Ζωντανός δίσκος"
+msgstr "Live"
 
 #: DB:work_type/name:7
 msgctxt "work_type"
@@ -290,12 +291,12 @@ msgstr "Άνδρας"
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr ""
+msgstr "Λειτουργία"
 
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr ""
+msgstr "Μέσον"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -305,7 +306,7 @@ msgstr "MiniDisc"
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr ""
+msgstr "Mixtape"
 
 #: DB:work_type/name:9
 msgctxt "work_type"
@@ -320,7 +321,7 @@ msgstr "Κανένα"
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
-msgstr ""
+msgstr "Obi"
 
 #: DB:release_status/name:1
 msgctxt "release_status"
@@ -335,7 +336,7 @@ msgstr "Όπερα"
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "Οπερέττα"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
@@ -355,7 +356,7 @@ msgstr "Άλλο"
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "Άλλο"
 
 #: DB:gender/name:3
 msgctxt "gender"
@@ -395,7 +396,7 @@ msgstr "Πρόσωπο"
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
-msgstr ""
+msgstr "Ρολό πιάνου"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -410,12 +411,12 @@ msgstr "Παραγωγή"
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr "Προώθηση"
+msgstr "Διαφημιστική"
 
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "Πρόζα"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -435,7 +436,7 @@ msgstr "Κουαρτέτο"
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr ""
+msgstr "Reel-to-reel"
 
 #: DB:label_type/name:6
 msgctxt "label_type"
@@ -450,7 +451,7 @@ msgstr "Remix"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "Εταιρεία πνευματικών δικαιωμάτων"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -476,7 +477,7 @@ msgstr "Single"
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr ""
+msgstr "Λεπτή πλαστική θήκη"
 
 #: DB:work_type/name:5
 msgctxt "work_type"
@@ -501,12 +502,12 @@ msgstr "Soundtrack"
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "Soundtrack"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr ""
+msgstr "Ράχη"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
@@ -516,17 +517,17 @@ msgstr "Προφορικός λόγος"
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr ""
+msgstr "Αυτοκόλλητο"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Υποκατηγορία"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr "Συνοδία"
+msgstr "Σουίτα"
 
 #: DB:work_type/name:18
 msgctxt "work_type"
@@ -541,12 +542,12 @@ msgstr "Συμφωνία"
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr ""
+msgstr "Κομμάτι"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr ""
+msgstr "Θήκη"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
@@ -591,7 +592,7 @@ msgstr "Ονομασία έργου"
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr ""
+msgstr "Ζαρζουέλα"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"
@@ -601,4 +602,4 @@ msgstr "slotMusic"
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr ""
+msgstr "Ετούντ"

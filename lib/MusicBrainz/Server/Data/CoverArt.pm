@@ -227,13 +227,31 @@ sub find_outdated_releases
 sub cache_cover_art
 {
     my ($self, $release) = @_;
+    my @ordered_relationships =
+        rev_sort_by { $_->last_updated } $release->all_relationships;
+
     my $cover_art;
-    for my $relationship (rev_sort_by { $_->last_updated } $release->all_relationships) {
-        last if defined($cover_art);
+    for my $relationship (@ordered_relationships) {
         $cover_art = $self->parse_from_type_url(
             $relationship->link->type->name,
             $relationship->entity1->url
-        );
+        ) and last;
+    }
+
+    my $meta_update = { info_url => undef, amazon_asin => undef };
+    if ($cover_art) {
+        $meta_update = $cover_art->cache_data;
+    }
+    else {
+        for my $relationship (@ordered_relationships) {
+            if (my $meta = $self->fallback_meta(
+                $relationship->link->type->name,
+                $relationship->entity1->url
+            )) {
+                $meta_update = $meta;
+                last;
+            }
+        }
     }
 
     my $cover_update = {
@@ -242,11 +260,8 @@ sub cache_cover_art
     };
     $self->c->sql->update_row('release_coverart', $cover_update, { id => $release->id });
 
-    if ($cover_art) {
-        my $meta_update  = $cover_art->cache_data;
-        $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
-            if keys %$meta_update;
-    }
+    $self->c->sql->update_row('release_meta', $meta_update, { id => $release->id })
+        if keys %$meta_update;
 
     return $cover_art;
 }
@@ -260,10 +275,21 @@ sub parse_from_type_url
     for my $provider (@{ $self->get_providers($type) }) {
         next unless $provider->handles($url);
         $cover_art = $provider->lookup_cover_art($url, undef)
-            and last;
+            and return $cover_art;
     }
+}
 
-    return $cover_art;
+sub fallback_meta
+{
+    my ($self, $type, $url) = @_;
+    return unless $self->can_parse($type);
+
+    my $meta;
+    for my $provider (@{ $self->get_providers($type) }) {
+        next unless $provider->handles($url);
+        $meta = $provider->fallback_meta($url)
+            and return $meta;
+    }
 }
 
 sub url_updated {
@@ -279,6 +305,21 @@ sub url_updated {
     my @releases = values %{ $self->c->model('Release')->get_by_ids(@release_ids) };
     $self->c->model('Relationship')->load_subset([ 'url' ], @releases);
     $self->cache_cover_art($_) for @releases;
+}
+
+sub mime_types {
+    my $self = shift;
+
+    return $self->c->sql->select_list_of_hashes (
+        'SELECT mime_type, suffix FROM cover_art_archive.image_type');
+}
+
+sub image_type_suffix {
+    my ($self, $mime_type) = @_;
+
+    return $self->c->sql->select_single_value (
+        'SELECT suffix FROM cover_art_archive.image_type WHERE mime_type = ?',
+        $mime_type);
 }
 
 1;

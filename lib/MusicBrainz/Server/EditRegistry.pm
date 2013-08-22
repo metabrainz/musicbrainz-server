@@ -38,9 +38,7 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::MoveDiscID
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
     MusicBrainz::Server::Edit::Medium::SetTrackLengths
-    MusicBrainz::Server::Edit::PUID::Delete
     MusicBrainz::Server::Edit::Recording::AddAnnotation
-    MusicBrainz::Server::Edit::Recording::AddPUIDs
     MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Delete
     MusicBrainz::Server::Edit::Recording::Edit

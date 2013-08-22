@@ -1,10 +1,10 @@
 package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
+with 'MusicBrainz::Server::Form::Role::SelectAll';
 
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );
-use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
 has '+name' => ( required => 1 );
 has '+html_prefix' => ( default => 1 );
@@ -13,23 +13,6 @@ sub submitted_and_valid
 {
     my ($self, $params) = @_;
     return $self->process( params => $params) && $self->has_params if values %$params;
-}
-
-sub _select_all
-{
-    my ($self, $model, %opts) = @_;
-    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
-    my $accessor = $opts{accessor} // 'l_name';
-    my $coll = Unicode::ICU::Collator->new($self->ctx->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-
-    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
-    return [ map {
-        $_->id => l($_->$accessor)
-    } sort_by {
-        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
-    } $model_ref->get_all ];
 }
 
 # Modified copy from HTML/FormHandler.pm (including a bug fix for

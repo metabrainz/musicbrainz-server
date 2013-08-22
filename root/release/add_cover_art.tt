@@ -1,5 +1,11 @@
 [%- BLOCK layout_head -%]
   [%- script_manifest('edit.js.manifest') -%]
+
+  <script type="text/javascript">//<![CDATA[
+
+    MB.cover_art_types_json = [% cover_art_types_json %];
+
+  //]]></script>
 [%- END -%]
 
 [%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
@@ -9,14 +15,93 @@
     <p>[% l('This page requires JavaScript.') %]</p>
   </noscript>
 
-  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" style="display: none">
+  <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
 
-    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ], { id => id }) %]"
-                width="500" height="100" style="border: 0;"></iframe>
+    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ]) %]"
+                class="without-formdata" width="500" height="100" style="border: 0; display: none"></iframe>
     [%- r.hidden('id') -%]
+    <div style="display: none">[% r.select('mime_type') %]</div>
 
-    [%- INCLUDE 'release/cover_art_fields.tt' -%]
+    <div style="display: none" class="add-files row with-formdata">
+      <label for="files">&nbsp;</label>
+      <input style="position: absolute; top: 0; left: -1000px; "
+             class="add-files" accept="image/*" type="file" name="files[]" multiple="multiple" />
+      <span class="fileinput-button buttons" style="vertical-align: middle">
+        <button type="button" class="add-files">[%- l('Select images...') -%]</button>
+      </span>
+      <div id="drop-zone">[%- l('or drop files here') -%]</div>
+    </div>
+
+    <table style="width: 100%; display: none;" class="with-formdata">
+      <tbody data-bind="foreach: files_to_upload">
+        <tr>
+          <td class="uploader-preview-column">
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
+              <input type="button" class="icon file-up track-up"
+                     title="[% l('Move file up') %]" style="float: right;" />
+              <input type="button" class="icon file-down track-down"
+                     title="[% l('Move file down') %]" style="clear: right; float: right;" />
+          </td>
+          <td>
+            <div class="status" style="float: right; width: 264px;">
+              <div role="progressbar"
+                   class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                <div class="ui-progressbar-value ui-widget-header ui-corner-left"
+                     data-bind="style: { width: progress() + '%' }">&nbsp;
+                </div>
+              </div>
+              <span data-bind="visible: status() == 'validating'" class="msg">[%- l('Validating file...') -%]</span>
+              <span data-bind="visible: status() == 'waiting'" class="msg">&nbsp;</span>
+              <span data-bind="visible: status() == 'signing'" class="msg">[%- l('Request signature...') -%]</span>
+              <span data-bind="visible: status() == 'uploading'" class="msg">[%- l('Uploading image...') -%]</span>
+              <span data-bind="visible: status() == 'submitting'" class="msg">[%- l('Creating edit...') -%]</span>
+              <span data-bind="visible: status() == 'done'" class="msg success">[%- l('&#x2713; Success') -%]</span>
+              <span data-bind="visible: status() == 'validate_error'" class="msg error">[%- l('&#x26a0; Unrecognized file') -%]</span>
+              <span data-bind="visible: status() == 'sign_error'" class="msg error">[%- l('&#x26a0; Error requesting signature') -%]</span>
+              <span data-bind="visible: status() == 'upload_error'" class="msg error">[%- l('&#x26a0; Error uploading image') -%]</span>
+              <span data-bind="visible: status() == 'slowdown_error'" class="msg error">[%- l('&#x26a0; Server busy, try again later') -%]</span>
+              <span data-bind="visible: status() == 'submit_error'" class="msg error">[%- l('&#x26a0; Error creating edit') -%]</span>
+              <br />
+              <span class="buttons" data-bind="visible: !busy() && status() != 'done'" style="float: right;">
+                 <button type="button" class="cancel-file">[%- l('Remove') -%]</button>
+              </span>
+            </div>
+
+            <div class="file-info row">
+              <label>[%- l("File:") -%]</label>
+              <span data-bind="text: name"></span>
+              (<span data-bind="text: size"></span>)
+            </div>
+
+            <div class="cover-art-types row" data-bind="visible: status() == 'waiting'">
+              <label>[%- l("Type:") -%]</label>
+              <ul class="checkboxes" data-bind="foreach: types">
+                <li>
+                  <label style="white-space:nowrap;">
+                      <input type="checkbox" class="type" data-bind="checked: checked, value: id" />
+                      <span style="white-space:normal;" data-bind="text: name" />
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div class="cover-art-types-help row" data-bind="visible: status() == 'waiting'">
+              <label>&nbsp;</label>
+              <p>[%- l('Please see the <a href="{doc}" target="_blank">Cover Art Types</a> documentation for a description of these types.', {doc => doc_link('Cover_Art/Types')}) -%]</p>
+            </div>
+            <div class="comment row" data-bind="visible: status() == 'waiting'">
+              <label>[%- l('Comment:') -%]</label>
+              <input class="comment" type="text" size="47" data-bind="value: comment" />
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="without-formdata" style="display: none">
+      [%- INCLUDE 'release/cover_art_fields.tt' -%]
+    </div>
 
     <div class="row" id="cover-art-position-row">
       <label id="cover-art-position-label" class="required">[% l('Position:') %]</label>
@@ -47,7 +132,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.image_position ("[% index_url %]", "[% artwork.id %]");
+            MB.CoverArt.image_position ();
         </script>
       [%- END -%]
     </div>
@@ -64,8 +149,7 @@
   </form>
 
   <script type="text/javascript">
-    MB.CoverArt.add_cover_art ();
-    $('#add-cover-art').show();
+    MB.CoverArt.add_cover_art ("[%- entity.gid -%]");
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]

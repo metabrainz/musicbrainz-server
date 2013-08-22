@@ -11,7 +11,7 @@ use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use Math::Random::Secure qw();
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_DELETED $STATUS_OPEN );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
@@ -30,7 +30,7 @@ extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
     table => 'editor_subscribe_editor',
     column => 'subscribed_editor',
-    class => 'MusicBrainz::Server::Entity::EditorSubscription'
+    active_class => 'MusicBrainz::Server::Entity::EditorSubscription'
 };
 
 sub _table
@@ -227,8 +227,9 @@ sub insert
 {
     my ($self, $data) = @_;
 
-    $data->{password} = hash_password($data->{password});
-    $data->{ha1} = ha1_password($data->{name}, $data->{password});
+    my $plaintext = $data->{password};
+    $data->{password} = hash_password($plaintext);
+    $data->{ha1} = ha1_password($data->{name}, $plaintext);
 
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
@@ -449,9 +450,11 @@ sub editors_with_subscriptions
 
     my @tables = qw(
         editor_subscribe_artist
+        editor_subscribe_artist_deleted
         editor_subscribe_collection
         editor_subscribe_editor
         editor_subscribe_label
+        editor_subscribe_label_deleted
     );
     my $ids = join(' UNION ALL ', map { "SELECT editor FROM $_" } @tables);
     my $query = "SELECT " . $self->_columns . ", ep.value AS prefs_value
@@ -548,9 +551,9 @@ sub subscription_summary {
     );
 }
 
-sub open_edit_count
+sub _edit_count
 {
-    my ($self, $editor_id) = @_;
+    my ($self, $editor_id, $status) = @_;
     my $query =
         'SELECT count(*)
            FROM edit
@@ -558,7 +561,19 @@ sub open_edit_count
           AND editor = ?
        ';
 
-    return $self->sql->select_single_value($query, $STATUS_OPEN, $editor_id);
+    return $self->sql->select_single_value($query, $status, $editor_id);
+}
+
+sub open_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_OPEN);
+}
+
+sub cancelled_edit_count
+{
+    my ($self, $editor_id) = @_;
+    return $self->_edit_count ($editor_id, $STATUS_DELETED);
 }
 
 sub last_24h_edit_count
@@ -598,7 +613,7 @@ sub hash_password {
 
 sub ha1_password {
     my ($username, $password) = @_;
-    return md5_hex(join(':', $username, 'musicbrainz.org', $password));
+    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {

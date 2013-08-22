@@ -66,6 +66,13 @@ for my $action (qw( relationships aliases tags details )) {
     };
 }
 
+with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
+    entity_type => 'work',
+    identifier_type => 'iswc',
+    add_edit => $EDIT_WORK_ADD_ISWCS,
+    remove_edit => $EDIT_WORK_REMOVE_ISWC
+};
+
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Work',
     edit_type      => $EDIT_WORK_EDIT,
@@ -73,26 +80,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $work) = @_;
 
         return (
-            post_creation => sub {
-                my ($edit, $form) = @_;
-
-                my @current_iswcs = $c->model('ISWC')->find_by_works($work->id);
-                my %current_iswcs = map { $_->iswc => 1 } @current_iswcs;
-                my @submitted = @{ $form->field('iswcs')->value };
-                my %submitted = map { $_ => 1 } @submitted;
-
-                my @added = grep { !exists($current_iswcs{$_}) } @submitted;
-                my @removed = grep { !exists($submitted{$_->iswc}) } @current_iswcs;
-
-                $self->_add_iswcs($c, $form, $work, @added) if @added;
-                $self->_remove_iswcs($c, $form, $work, @removed) if @removed;
-
-                if ((@added || @removed) && $c->stash->{makes_no_changes}) {
-                    $c->stash( makes_no_changes => 0 );
-                    $c->response->redirect(
-                        $c->uri_for_action($self->action_for('show'), [ $work->gid ]));
-                }
-            }
+            post_creation => $self->edit_with_identifiers($c, $work)
         );
     }
 };
@@ -131,52 +119,16 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         my ($self, $c) = @_;
 
         return (
-            post_creation => sub {
-                my ($edit, $form) = @_;
-                my $work = $c->model('Work')->get_by_id($edit->entity_id);
-                my @iswcs = @{ $form->field('iswcs')->value };
-                $self->_add_iswcs($c, $form, $work, @iswcs) if scalar @iswcs;
-            }
+            post_creation => $self->create_with_identifiers($c)
         );
     }
 };
-
-sub _add_iswcs {
-    my ($self, $c, $form, $work, @iswcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_WORK_ADD_ISWCS,
-            iswcs => [ map {
-                iswc => $_,
-                work => {
-                    id => $work->id,
-                    name => $work->name
-                }
-            }, @iswcs ]
-        );
-    });
-}
-
-sub _remove_iswcs {
-    my ($self, $c, $form, $work, @iswcs) = @_;
-
-    $c->model('MB')->with_transaction(sub {
-        $self->_insert_edit(
-            $c, $form,
-            edit_type => $EDIT_WORK_REMOVE_ISWC,
-            iswc => $_,
-            work => $work
-        );
-    }) for @iswcs;
-}
 
 1;
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2009 Lukas Lalinsky, 2013 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

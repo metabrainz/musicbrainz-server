@@ -7,9 +7,11 @@ use Test::Routine;
 use Test::Routine::Util;
 use MusicBrainz::Server::Test;
 
-use aliased 'MusicBrainz::Server::Entity::ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Artist' => 'ArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::DeletedArtist' => 'DeletedArtistSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::DeletedLabel' => 'DeletedLabelSubscription';
+use aliased 'MusicBrainz::Server::Entity::Subscription::Label' => 'LabelSubscription';
 use aliased 'MusicBrainz::Server::Entity::EditorSubscription';
-use aliased 'MusicBrainz::Server::Entity::LabelSubscription';
 use aliased 'MusicBrainz::Server::Edit';
 use aliased 'MusicBrainz::Server::Entity::Editor';
 use aliased 'MusicBrainz::Script::SubscriptionEmails' => 'Script';
@@ -128,10 +130,23 @@ test 'No edits means no email' => sub {
 
 test 'Handling deletes and merges' => sub {
     my $test = shift;
-    my $label  = LabelSubscription->new( deleted_by_edit => 1, label_id => 1,  editor_id => $acid2->id,
-                                         last_edit_sent => 0 );
-    my $artist = ArtistSubscription->new( merged_by_edit => 1, artist_id => 1, editor_id => $acid2->id,
-                                          last_edit_sent => 0 );
+
+    my $label  = DeletedLabelSubscription->new(
+        edit_id => 1,
+        last_known_name => 'Revolution Records',
+        last_known_comment => 'drum & bass',
+        editor_id => $acid2->id,
+        reason => 'merged'
+    );
+
+    my $artist = DeletedArtistSubscription->new(
+        edit_id => 2,
+        artist_id => 1,
+        editor_id => $acid2->id,
+        last_known_name => 'Nosaj Thing',
+        last_known_comment => '',
+        reason => 'deleted'
+    );
 
     mock_subscriptions(
         editors => [ $acid2 ],
@@ -141,7 +156,7 @@ test 'Handling deletes and merges' => sub {
     );
 
     $test->script->run;
-    
+
     subtest 'Sent emails about merges and deletes' => sub {
         my %args = inspect($test->emailer)->send_subscriptions_digest(anything)
             ->arguments;

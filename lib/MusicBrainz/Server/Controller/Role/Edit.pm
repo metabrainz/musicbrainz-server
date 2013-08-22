@@ -22,7 +22,7 @@ role {
 
     $extra{consumer}->name->config(
         action => {
-            edit => { Chained => 'load', RequireAuth => undef, Edit => undef }
+            edit => { Chained => 'load', Edit => undef }
         }
     );
 

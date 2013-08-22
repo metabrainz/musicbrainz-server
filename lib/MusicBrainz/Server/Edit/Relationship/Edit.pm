@@ -321,6 +321,12 @@ sub accept
 
     $self->c->model('Link')->load($relationship);
 
+    # If the relationship type has changed, then it doesn't make sense to
+    # perform further edits as the entire context has changed.
+    MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+        'This relationship has changed type since this edit was entered'
+    ) if $data->{link}{link_type}{id} != $relationship->link->type_id;;
+
     # Because we're using a "find_or_insert" instead of an update, this link
     # dict should be complete.  If a value isn't defined in $values in doesn't
     # change, so take the original value as it was stored in $link.

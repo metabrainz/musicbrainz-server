@@ -4,13 +4,14 @@
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
+# Luca Salini <email address hidden>, 2013
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-06-11 22:59+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +47,7 @@ msgstr "Album"
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "Nome area"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -136,7 +137,7 @@ msgstr "Audiocassetta"
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr ""
+msgstr "Città"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -151,7 +152,7 @@ msgstr "Concerto"
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "Paese"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -216,7 +217,7 @@ msgstr "Donna"
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr ""
+msgstr "Nome ufficiale"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
@@ -336,7 +337,7 @@ msgstr "Opera"
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr ""
+msgstr "Operetta"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
@@ -416,7 +417,7 @@ msgstr "Promozionale"
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr ""
+msgstr "Prosa"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
@@ -451,7 +452,7 @@ msgstr "Remix"
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr ""
+msgstr "Società di tutela dei diritti d'autore"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -502,7 +503,7 @@ msgstr "Colonna sonora"
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr ""
+msgstr "Colonna sonora"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -522,7 +523,7 @@ msgstr "Adesivo"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Circoscrizione"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
