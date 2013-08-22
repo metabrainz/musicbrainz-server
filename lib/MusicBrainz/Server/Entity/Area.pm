@@ -14,7 +14,12 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 
 sub l_name {
     my $self = shift;
-    return l($self->name);
+    my $type = defined $self->type ? $self->type->id : $self->type_id;
+    if ($type == 1) {
+        return l($self->name);
+    } else {
+        return $self->name;
+    }
 }
 
 has 'sort_name' => (
