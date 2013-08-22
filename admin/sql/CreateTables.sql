@@ -84,6 +84,21 @@ CREATE TABLE area_alias (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
              CONSTRAINT primary_check
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
 
@@ -158,6 +173,21 @@ CREATE TABLE artist_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -305,13 +335,6 @@ CREATE TABLE cdtoc_raw
     track_count          INTEGER NOT NULL,
     leadout_offset       INTEGER NOT NULL,
     track_offset         INTEGER[] NOT NULL
-);
-
-CREATE TABLE clientversion
-(
-    id                  SERIAL,
-    version             VARCHAR(64) NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE country_area
@@ -957,6 +980,21 @@ CREATE TABLE label_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -1210,13 +1248,6 @@ CREATE TABLE medium_format
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE puid
-(
-    id                  SERIAL,
-    puid                CHAR(36) NOT NULL,
-    version             INTEGER NOT NULL -- references clientversion.id
-);
-
 CREATE TABLE replication_control
 (
     id                              SERIAL,
@@ -1267,15 +1298,6 @@ CREATE TABLE recording_gid_redirect
 (
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references recording.id
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE recording_puid
-(
-    id                  SERIAL,
-    puid                INTEGER NOT NULL, -- references puid.id
-    recording           INTEGER NOT NULL, -- references recording.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -1626,6 +1648,21 @@ CREATE TABLE work_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (

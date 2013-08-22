@@ -78,22 +78,6 @@ ws_test 'discid lookup with artist-credits',
     </disc>
 </metadata>';
 
-ws_test 'basic puid lookup',
-    '/puid/138f0487-85eb-5fe9-355d-9b94a60ff1dc' =>
-    '<?xml version="1.0" encoding="UTF-8"?>
-<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-    <puid id="138f0487-85eb-5fe9-355d-9b94a60ff1dc">
-        <recording-list count="2">
-            <recording id="44704dda-b877-4551-a2a8-c1f764476e65">
-                <title>On My Bus</title><length>267560</length>
-            </recording>
-            <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
-                <title>Plock</title><length>237133</length>
-            </recording>
-        </recording-list>
-    </puid>
-</metadata>';
-
 ws_test 'isrc lookup with releases',
     '/isrc/JPA600102460?inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>

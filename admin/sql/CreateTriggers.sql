@@ -13,6 +13,9 @@ CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON area_alias
 CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON area_alias
     FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(3);
 
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON area_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON area
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
@@ -29,6 +32,9 @@ CREATE TRIGGER end_area_implies_ended BEFORE UPDATE OR INSERT ON artist
     FOR EACH ROW EXECUTE PROCEDURE end_area_implies_ended();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON artist_alias
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER b_upd_artist_alias BEFORE UPDATE ON artist_alias
@@ -178,6 +184,9 @@ CREATE TRIGGER b_upd_label BEFORE UPDATE ON label
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON label
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON label_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
 CREATE TRIGGER b_upd_label_alias BEFORE UPDATE ON label_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -304,6 +313,9 @@ CREATE TRIGGER b_upd_work BEFORE UPDATE ON work
 
 CREATE TRIGGER b_upd_work_alias BEFORE UPDATE ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON work_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON work_alias
     FOR EACH ROW EXECUTE PROCEDURE unique_primary_work_alias();

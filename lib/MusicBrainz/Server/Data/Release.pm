@@ -650,24 +650,6 @@ sub load_with_medium_for_recording
         $query, @$params, $offset || 0);
 }
 
-sub find_by_puid
-{
-    my ($self, $ids) = @_;
-    my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                ' WHERE release.id IN (
-                    SELECT release FROM medium
-                      JOIN track ON track.medium = medium.id
-                      JOIN recording ON recording.id = track.recording
-                      JOIN recording_puid ON recording_puid.recording = recording.id
-                      JOIN puid ON puid.id = recording_puid.puid
-                     WHERE puid.puid IN (' . placeholders(@ids) . ')
-                )';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query, @{ids});
-}
-
 sub find_by_medium
 {
     my ($self, $ids, $limit, $offset) = @_;

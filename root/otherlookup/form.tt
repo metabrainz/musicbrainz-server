@@ -10,7 +10,6 @@
                    , [ 'label-isni', l('Label ISNI:') ]
                    , [ 'freedbid', l('FreeDB ID:') ]
                    , [ 'mbid', l('MBID:') ]
-                   , [ 'puid', l('PUID:') ]
                    , [ 'discid', l('Disc ID:') ]
                    ] %]
       <form action="[% c.uri_for_action('/otherlookup/' _ field.0) %]">

@@ -148,7 +148,6 @@ Readonly our $EDIT_RECORDING_DELETE => 73;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
-Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
 Readonly our $EDIT_AREA_CREATE => 81;
@@ -173,8 +172,6 @@ Readonly our $EDIT_RELATIONSHIP_ADD_ATTRIBUTE => 98;
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
-
-Readonly our $EDIT_PUID_DELETE => 113;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME       => 201;
 Readonly our $EDIT_HISTORIC_EDIT_TRACKNAME          => 204;
@@ -205,7 +202,6 @@ Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE   => 244;
 Readonly our $EDIT_HISTORIC_EDIT_TRACK_LENGTH       => 245;
-Readonly our $EDIT_HISTORIC_REMOVE_PUID             => 246;
 Readonly our $EDIT_HISTORIC_ADD_RELEASE_EVENTS      => 249;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS     => 250;
 Readonly our $EDIT_HISTORIC_REMOVE_RELEASE_EVENTS   => 251;
@@ -267,7 +263,6 @@ Readonly our $ACCESS_SCOPE_EMAIL          => 2;
 Readonly our $ACCESS_SCOPE_TAG            => 4;
 Readonly our $ACCESS_SCOPE_RATING         => 8;
 Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
-Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 
