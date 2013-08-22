@@ -32,7 +32,8 @@ subtype 'AliasHash'
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         type_id => Nullable[Int],
-        primary_for_locale => Nullable[Bool]
+        primary_for_locale => Nullable[Bool],
+        ended      => Optional[Bool]
     ];
 
 has '+data' => (
@@ -108,6 +109,10 @@ sub build_display_data
         primary_for_locale => {
             new => $self->data->{new}{primary_for_locale},
             old => $self->data->{old}{primary_for_locale},
+        },
+        ended => {
+            new => $self->data->{new}{ended},
+            old => $self->data->{old}{ended}
         }
     };
 }
@@ -188,6 +193,9 @@ sub allow_auto_edit
         and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{begin_date})->format ne '';
     return 0 if exists $self->data->{old}{end_date}
         and MusicBrainz::Server::Entity::PartialDate->new_from_row($self->data->{old}{end_date})->format ne '';
+
+    return 0 if exists $self->data->{old}{ended}
+        and $self->data->{old}{ended} != $self->data->{new}{ended};
 
     return 0 if $self->data->{old}{locale};
 

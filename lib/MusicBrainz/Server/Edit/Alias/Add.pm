@@ -24,7 +24,8 @@ has '+data' => (
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
         type_id => Nullable[Int],
-        primary_for_locale => Nullable[Bool]
+        primary_for_locale => Nullable[Bool],
+        ended      => Optional[Bool]
     ]
 );
 
@@ -46,6 +47,7 @@ sub build_display_data
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date => PartialDate->new($self->data->{end_date}),
         primary_for_locale => $self->data->{primary_for_locale},
+        ended      => $self->data->{ended} // 0
     };
 }
 
