@@ -38,7 +38,7 @@ use LWP::UserAgent;
 use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
 use GnuPG qw( :algo );
 
-use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 DBDefs->REPLICATION_TYPE == RT_SLAVE
     or die "This is not a slave server!\n";
@@ -437,7 +437,7 @@ sub read_file
 
 sub check_foreign_keys
 {
-    my %non_rep = map { $_ => 1 } NON_REPLICATED_TABLES;
+    my %non_rep = ();
 
     my $fks = $sql->select_list_of_hashes("
         SELECT  c.conname, a.relname AS fk_table, b.relname AS pk_table
