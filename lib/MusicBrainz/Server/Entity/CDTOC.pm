@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Entity::CDTOC;
 
 use Moose;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA qw(sha1_base64);
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
