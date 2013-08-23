@@ -48,6 +48,7 @@ sub show : PathPart('') Chained('load')
 
     # need to call relationships for overview page
     $self->relationships($c);
+    $c->model('Work')->load_writers($c->stash->{work});
 
     $c->stash->{template} = 'work/index.tt';
 }
