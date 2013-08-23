@@ -74,7 +74,7 @@ after 'validate' => sub {
                 l('Unknown work attribute type')
             );
         }
-        elsif ($parser->{allows_value}->($type_id)) {
+        elsif ($parser->{allows_value}->($value)) {
             # Convert the value to a format supported by Edit::Work::Edit
             $attribute_field->value({
                 attribute_text => $parser->{allows_free_text} ? $value : undef,
