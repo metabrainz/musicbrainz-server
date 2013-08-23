@@ -242,6 +242,10 @@ sub recording_submit : Private
             unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_ISRC);
     }
 
+    if (!$c->user->has_confirmed_email_address) {
+        $self->_error($c, "You must have a confirmed email address to submit edits");
+    }
+
     $c->model('MB')->with_transaction(sub {
 
         # Submit PUIDs

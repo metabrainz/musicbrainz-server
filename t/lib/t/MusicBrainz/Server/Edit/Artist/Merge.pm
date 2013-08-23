@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Edit::Artist::Merge;
 use Test::Routine;
 use Test::More;
+use Test::Fatal;
 
 with 't::Edit';
 with 't::Context';
@@ -25,6 +26,24 @@ test 'Non-existant merge target' => sub {
 
     is($edit->status, $STATUS_FAILEDDEP);
     ok(defined $c->model('Artist')->get_by_id(3));
+};
+
+test 'Merge Person with gender into Group' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_artist_merge');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+gender');
+    MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+UPDATE artist SET type = 2 WHERE id = 4;
+UPDATE artist SET type = 1, gender = 2 WHERE id = 3;
+EOSQL
+
+    # merge 3 -> 4
+    my $edit = create_edit($c);
+
+    ok(!exception { accept_edit($c, $edit) },
+       'Edit merging person with gender to group does not cause exception');
 };
 
 test all => sub {
