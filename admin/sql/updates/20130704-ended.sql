@@ -10,22 +10,6 @@ ALTER TABLE artist_alias ADD COLUMN ended BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE label_alias ADD COLUMN ended BOOLEAN NOT NULL DEFAULT FALSE;
 ALTER TABLE work_alias ADD COLUMN ended BOOLEAN NOT NULL DEFAULT FALSE;
 
------------------------
--- TRUE IF END DATES --
------------------------
-
-UPDATE area_alias SET ended = TRUE
-WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
-
-UPDATE artist_alias SET ended = TRUE
-WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
-
-UPDATE label_alias SET ended = TRUE
-WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
-
-UPDATE work_alias SET ended = TRUE
-WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
-
 ------------------------
 -- ADD ENDED TRIGGERS --
 ------------------------
@@ -41,6 +25,22 @@ FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON work_alias
 FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+-----------------------
+-- TRUE IF END DATES --
+-----------------------
+
+UPDATE area_alias SET ended = TRUE
+WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
+
+UPDATE artist_alias SET ended = TRUE
+WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
+
+UPDATE label_alias SET ended = TRUE
+WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
+
+UPDATE work_alias SET ended = TRUE
+WHERE end_date_year IS NOT NULL OR end_date_month IS NOT NULL OR end_date_day IS NOT NULL;
 
 ---------------------
 -- ADD CONSTRAINTS --
