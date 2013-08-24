@@ -32,7 +32,7 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
-use MusicBrainz::Server::Replication qw( :replication_type NON_REPLICATED_TABLES );
+use MusicBrainz::Server::Replication qw( :replication_type );
 
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
@@ -568,12 +568,6 @@ sub ImportAllTables
         {
                 my $basetable = $table;
                 $basetable =~ s/_sanitised$//;
-
-                if (grep { $basetable eq $_ } NON_REPLICATED_TABLES)
-                {
-                        warn "Skipping non-replicated table $basetable\n";
-                        next;
-                }
         }
 
         if ($table =~ /^(.*)_sanitised$/)
