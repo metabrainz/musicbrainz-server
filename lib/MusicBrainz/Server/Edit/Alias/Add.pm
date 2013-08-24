@@ -78,7 +78,8 @@ sub insert
             begin_date => $data{begin_date},
             end_date => $data{end_date},
             type_id => $data{type_id},
-            primary_for_locale => $data{primary_for_locale}
+            primary_for_locale => $data{primary_for_locale},
+            ended => $data{ended}
         })->id
     );
 }
