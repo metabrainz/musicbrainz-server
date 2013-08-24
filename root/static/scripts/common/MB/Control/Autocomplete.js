@@ -345,9 +345,9 @@ MB.Control.Autocomplete = function (options) {
             cancelSearch = true;
             self.autocomplete.close();
             // MBS-6385: prevent the autocomplete from searching the entered
-            // URL/MBID as an entity name. After a short timeout, a search is
-            // only performed if "term" differs from the input value.
-            self.autocomplete.term = this.value;
+            // URL/MBID as an entity name by clearing the internal timeout it
+            // uses before searching.
+            clearTimeout(self.autocomplete.searching);
             var mbid = match[0];
 
             $(this).trigger("blur.autocomplete").prop("disabled", true);
