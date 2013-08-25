@@ -397,10 +397,6 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                     MB.constants.LINK_TYPES.otherdatabases.release
-                ],
-                [
-                    'area', 'http://www.rockipedia.no/steder/oslo-1235/',
-                    MB.constants.LINK_TYPES.otherdatabases.area
                 ]
             ];
 
