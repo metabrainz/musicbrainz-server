@@ -44,7 +44,8 @@ is_deeply($edit->data, {
         month => undef,
         day => undef
     },
-    type_id => undef
+    type_id => undef,
+    ended => 0
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');
