@@ -465,6 +465,8 @@ GetOptions(
     "tmp-dir=s"           => \$tmp_dir
 ) or exit 2;
 
+$databaseName = '';
+
 $databaseName = "READWRITE" if $databaseName eq '';
 my $DB = Databases->get($databaseName);
 # Register a new database connection as the system user, but to the MB
