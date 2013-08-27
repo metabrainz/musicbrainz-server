@@ -1,0 +1,1018 @@
+\set ON_ERROR_STOP 1
+BEGIN;
+
+-- Generate new tables
+------------------------
+-- artist
+CREATE TABLE artist2013 AS
+  SELECT artist.id, artist.gid, name.name AS name, sort_name.name AS sort_name,
+         begin_date_year, begin_date_month, begin_date_day,
+         end_date_year, end_date_month, end_date_day,
+         type, area, gender, comment, edits_pending, last_updated, ended,
+         begin_area, end_area
+    FROM artist
+    JOIN artist_name name ON artist.name = name.id
+    JOIN artist_name sort_name ON artist.sort_name = sort_name.id;
+
+ALTER TABLE artist2013
+  ADD CONSTRAINT artist_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT artist_ended_check CHECK (
+        (
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
+  ALTER COLUMN id SET DEFAULT nextval('artist_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN sort_name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN ended SET DEFAULT FALSE,
+  ALTER COLUMN ended SET NOT NULL;
+
+ALTER SEQUENCE artist_id_seq OWNED BY artist2013.id;
+
+-- artist_alias
+CREATE TABLE artist_alias2013 AS
+  SELECT artist_alias.id, artist_alias.artist, name.name AS name,
+         artist_alias.locale, artist_alias.edits_pending,
+         artist_alias.last_updated, artist_alias.type,
+         sort_name.name AS sort_name,
+         begin_date_year, begin_date_month, begin_date_day,
+         end_date_year, end_date_month, end_date_day,
+         primary_for_locale
+    FROM artist_alias
+    JOIN artist_name name ON artist_alias.name = name.id
+    JOIN artist_name sort_name ON artist_alias.sort_name = sort_name.id;
+
+ALTER TABLE artist_alias2013
+  ADD CONSTRAINT artist_alias_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+  ADD CONSTRAINT search_hints_are_empty CHECK (
+      (type <> 3) OR (
+        type = 3 AND sort_name = name AND
+        begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+        end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+        primary_for_locale IS FALSE AND locale IS NULL
+      )),
+  ALTER COLUMN id SET DEFAULT nextval('artist_alias_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN artist SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN sort_name SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN primary_for_locale SET DEFAULT FALSE,
+  ALTER COLUMN primary_for_locale SET NOT NULL;
+
+ALTER SEQUENCE artist_alias_id_seq OWNED BY artist_alias2013.id;
+
+-- artist_credit
+CREATE TABLE artist_credit2013 AS
+  SELECT artist_credit.id, name.name AS name, artist_count, ref_count, artist_credit.created
+    FROM artist_credit
+    JOIN artist_name name ON artist_credit.name = name.id;
+
+ALTER TABLE artist_credit2013
+  ALTER COLUMN id SET DEFAULT nextval('artist_credit_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN artist_count SET NOT NULL,
+  ALTER COLUMN ref_count SET DEFAULT 0,
+  ALTER COLUMN created SET DEFAULT NOW();
+
+ALTER SEQUENCE artist_credit_id_seq OWNED BY artist_credit2013.id;
+
+-- artist_credit_name
+CREATE TABLE artist_credit_name2013 AS
+  SELECT artist_credit_name.artist_credit, artist_credit_name.position,
+         artist_credit_name.artist, name.name AS name, join_phrase
+    FROM artist_credit_name
+    JOIN artist_name name ON artist_credit_name.name = name.id;
+
+ALTER TABLE artist_credit_name2013
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN position SET NOT NULL,
+  ALTER COLUMN artist SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN join_phrase SET DEFAULT '',
+  ALTER COLUMN join_phrase SET NOT NULL;
+
+-- label
+CREATE TABLE label2013 AS
+  SELECT label.id, label.gid, name.name AS name, sort_name.name AS sort_name,
+         begin_date_year, begin_date_month, begin_date_day,
+         end_date_year, end_date_month, end_date_day,
+         label_code, type, area, comment, edits_pending, last_updated, ended
+    FROM label
+    JOIN label_name name ON label.name = name.id
+    JOIN label_name sort_name ON label.sort_name = sort_name.id;
+
+ALTER TABLE label2013
+  ADD CONSTRAINT label_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT label_ended_check CHECK (
+        (
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
+  ADD CONSTRAINT label_label_code_check CHECK (
+      label_code > 0 AND label_code < 100000
+  ),
+  ALTER COLUMN id SET DEFAULT nextval('label_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN sort_name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN ended SET DEFAULT FALSE,
+  ALTER COLUMN ended SET NOT NULL;
+
+ALTER SEQUENCE label_id_seq OWNED BY label2013.id;
+
+-- label_alias
+CREATE TABLE label_alias2013 AS
+  SELECT label_alias.id, label_alias.label, name.name AS name,
+         label_alias.locale, label_alias.edits_pending,
+         label_alias.last_updated, label_alias.type,
+         sort_name.name AS sort_name,
+         begin_date_year, begin_date_month, begin_date_day,
+         end_date_year, end_date_month, end_date_day,
+         primary_for_locale
+    FROM label_alias
+    JOIN label_name name ON label_alias.name = name.id
+    JOIN label_name sort_name ON label_alias.sort_name = sort_name.id;
+
+ALTER TABLE label_alias2013
+  ADD CONSTRAINT label_alias_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+  ADD CONSTRAINT search_hints_are_empty CHECK (
+      (type <> 2) OR (
+        type = 2 AND sort_name = name AND
+        begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+        end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+        primary_for_locale IS FALSE AND locale IS NULL
+      )),
+  ALTER COLUMN id SET DEFAULT nextval('label_alias_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN label SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN sort_name SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN primary_for_locale SET DEFAULT FALSE,
+  ALTER COLUMN primary_for_locale SET NOT NULL;
+
+ALTER SEQUENCE label_alias_id_seq OWNED BY label_alias2013.id;
+
+-- release
+CREATE TABLE release2013 AS
+  SELECT release.id, release.gid, name.name, artist_credit,
+         release_group, status, packaging, language, script,
+         barcode, comment, edits_pending, quality, last_updated
+    FROM release
+    JOIN release_name name ON release.name = name.id;
+
+ALTER TABLE release2013
+  ADD CONSTRAINT release_edits_pending_check CHECK (edits_pending >= 0),
+  ALTER COLUMN id SET DEFAULT nextval('release_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN release_group SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN quality SET DEFAULT -1,
+  ALTER COLUMN quality SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW();
+
+ALTER SEQUENCE release_id_seq OWNED BY release2013.id;
+
+-- release_group
+CREATE TABLE release_group2013 AS
+  SELECT rg.id, rg.gid, name.name, artist_credit,
+         type, comment, edits_pending, last_updated
+    FROM release_group rg
+    JOIN release_name name ON rg.name = name.id;
+
+ALTER TABLE release_group2013
+  ADD CONSTRAINT release_group_edits_pending_check CHECK (edits_pending >= 0),
+  ALTER COLUMN id SET DEFAULT nextval('release_group_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW();
+
+ALTER SEQUENCE release_group_id_seq OWNED BY release_group2013.id;
+
+-- recording
+CREATE TABLE recording2013 AS
+  SELECT recording.id, recording.gid, name.name, artist_credit,
+         length, comment, edits_pending, last_updated
+    FROM recording
+    JOIN track_name name ON recording.name = name.id;
+
+ALTER TABLE recording2013
+  ADD CONSTRAINT recording_edits_pending_check CHECK (edits_pending >= 0),
+  ALTER COLUMN id SET DEFAULT nextval('recording_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW();
+
+ALTER SEQUENCE recording_id_seq OWNED BY recording2013.id;
+
+-- track
+CREATE TABLE track2013 AS
+  SELECT track.id, track.gid, recording, medium, position,
+         number, name.name, artist_credit, length,
+         edits_pending, last_updated
+    FROM track
+    JOIN track_name name ON track.name = name.id;
+
+ALTER TABLE track2013
+  ADD CONSTRAINT track_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT track_length_check CHECK (length IS NULL OR length > 0),
+  ALTER COLUMN id SET DEFAULT nextval('track_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN recording SET NOT NULL,
+  ALTER COLUMN medium SET NOT NULL,
+  ALTER COLUMN position SET NOT NULL,
+  ALTER COLUMN number SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN artist_credit SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW();
+
+ALTER SEQUENCE track_id_seq OWNED BY track2013.id;
+
+-- work
+CREATE TABLE work2013 AS
+  SELECT work.id, work.gid, name.name AS name,
+         type, comment, edits_pending, last_updated, language
+    FROM work
+    JOIN work_name name ON work.name = name.id;
+
+ALTER TABLE work2013
+  ADD CONSTRAINT work_edits_pending_check CHECK (edits_pending >= 0),
+  ALTER COLUMN id SET DEFAULT nextval('work_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN comment SET DEFAULT '',
+  ALTER COLUMN comment SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW();
+
+ALTER SEQUENCE work_id_seq OWNED BY work2013.id;
+
+-- work_alias
+CREATE TABLE work_alias2013 AS
+  SELECT work_alias.id, work_alias.work, name.name AS name,
+         work_alias.locale, work_alias.edits_pending,
+         work_alias.last_updated, work_alias.type,
+         sort_name.name AS sort_name,
+         begin_date_year, begin_date_month, begin_date_day,
+         end_date_year, end_date_month, end_date_day,
+         primary_for_locale
+    FROM work_alias
+    JOIN work_name name ON work_alias.name = name.id
+    JOIN work_name sort_name ON work_alias.sort_name = sort_name.id;
+
+ALTER TABLE work_alias2013
+  ADD CONSTRAINT work_alias_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+  ADD CONSTRAINT search_hints_are_empty CHECK (
+      (type <> 2) OR (
+        type = 2 AND sort_name = name AND
+        begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+        end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+        primary_for_locale IS FALSE AND locale IS NULL
+      )),
+  ALTER COLUMN id SET DEFAULT nextval('work_alias_id_seq'),
+  ALTER COLUMN id SET NOT NULL,
+  ALTER COLUMN work SET NOT NULL,
+  ALTER COLUMN name SET NOT NULL,
+  ALTER COLUMN sort_name SET NOT NULL,
+  ALTER COLUMN edits_pending SET DEFAULT 0,
+  ALTER COLUMN edits_pending SET NOT NULL,
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN primary_for_locale SET DEFAULT FALSE,
+  ALTER COLUMN primary_for_locale SET NOT NULL;
+
+ALTER SEQUENCE work_alias_id_seq OWNED BY work_alias2013.id;
+
+-- Drop FKs
+------------------------
+ALTER TABLE artist_alias
+  DROP CONSTRAINT IF EXISTS artist_alias_fk_artist;
+ALTER TABLE artist_annotation
+  DROP CONSTRAINT IF EXISTS artist_annotation_fk_artist;
+ALTER TABLE artist_ipi
+  DROP CONSTRAINT IF EXISTS artist_ipi_fk_artist;
+ALTER TABLE artist_isni
+  DROP CONSTRAINT IF EXISTS artist_isni_fk_artist;
+ALTER TABLE artist_meta
+  DROP CONSTRAINT IF EXISTS artist_meta_fk_id;
+ALTER TABLE artist_tag
+  DROP CONSTRAINT IF EXISTS artist_tag_fk_artist;
+ALTER TABLE artist_rating_raw
+  DROP CONSTRAINT IF EXISTS artist_rating_raw_fk_artist;
+ALTER TABLE artist_tag_raw
+  DROP CONSTRAINT IF EXISTS artist_tag_raw_fk_artist;
+ALTER TABLE artist_credit_name
+  DROP CONSTRAINT IF EXISTS artist_credit_name_fk_artist;
+ALTER TABLE artist_gid_redirect
+  DROP CONSTRAINT IF EXISTS artist_gid_redirect_fk_new_id;
+ALTER TABLE edit_artist
+  DROP CONSTRAINT IF EXISTS edit_artist_fk_artist;
+ALTER TABLE editor_subscribe_artist
+  DROP CONSTRAINT IF EXISTS editor_subscribe_artist_fk_artist;
+ALTER TABLE editor_watch_artist
+  DROP CONSTRAINT IF EXISTS editor_watch_artist_fk_artist;
+
+ALTER TABLE l_area_artist
+  DROP CONSTRAINT IF EXISTS l_area_artist_fk_entity1;
+ALTER TABLE l_artist_artist
+  DROP CONSTRAINT IF EXISTS l_artist_artist_fk_entity0;
+ALTER TABLE l_artist_artist
+  DROP CONSTRAINT IF EXISTS l_artist_artist_fk_entity1;
+ALTER TABLE l_artist_label
+  DROP CONSTRAINT IF EXISTS l_artist_label_fk_entity0;
+ALTER TABLE l_artist_recording
+  DROP CONSTRAINT IF EXISTS l_artist_recording_fk_entity0;
+ALTER TABLE l_artist_release
+  DROP CONSTRAINT IF EXISTS l_artist_release_fk_entity0;
+ALTER TABLE l_artist_release_group
+  DROP CONSTRAINT IF EXISTS l_artist_release_group_fk_entity0;
+ALTER TABLE l_artist_url
+  DROP CONSTRAINT IF EXISTS l_artist_url_fk_entity0;
+ALTER TABLE l_artist_work
+  DROP CONSTRAINT IF EXISTS l_artist_work_fk_entity0;
+
+ALTER TABLE artist_credit_name
+  DROP CONSTRAINT IF EXISTS artist_credit_name_fk_artist_credit;
+ALTER TABLE recording
+  DROP CONSTRAINT IF EXISTS recording_fk_artist_credit;
+ALTER TABLE track
+  DROP CONSTRAINT IF EXISTS track_fk_artist_credit;
+ALTER TABLE release
+  DROP CONSTRAINT IF EXISTS release_fk_artist_credit;
+ALTER TABLE release_group
+  DROP CONSTRAINT IF EXISTS release_group_fk_artist_credit;
+
+ALTER TABLE label_alias
+  DROP CONSTRAINT IF EXISTS label_alias_fk_label;
+ALTER TABLE label_annotation
+  DROP CONSTRAINT IF EXISTS label_annotation_fk_label;
+ALTER TABLE label_ipi
+  DROP CONSTRAINT IF EXISTS label_ipi_fk_label;
+ALTER TABLE label_isni
+  DROP CONSTRAINT IF EXISTS label_isni_fk_label;
+ALTER TABLE label_meta
+  DROP CONSTRAINT IF EXISTS label_meta_fk_id;
+ALTER TABLE label_tag
+  DROP CONSTRAINT IF EXISTS label_tag_fk_label;
+ALTER TABLE label_rating_raw
+  DROP CONSTRAINT IF EXISTS label_rating_raw_fk_label;
+ALTER TABLE label_tag_raw
+  DROP CONSTRAINT IF EXISTS label_tag_raw_fk_label;
+ALTER TABLE label_gid_redirect
+  DROP CONSTRAINT IF EXISTS label_gid_redirect_fk_new_id;
+ALTER TABLE edit_label
+  DROP CONSTRAINT IF EXISTS edit_label_fk_label;
+ALTER TABLE editor_subscribe_label
+  DROP CONSTRAINT IF EXISTS editor_subscribe_label_fk_label;
+ALTER TABLE release_label
+  DROP CONSTRAINT IF EXISTS release_label_fk_label;
+
+ALTER TABLE l_area_label
+  DROP CONSTRAINT IF EXISTS l_area_label_fk_entity1;
+ALTER TABLE l_artist_label
+  DROP CONSTRAINT IF EXISTS l_artist_label_fk_entity1;
+ALTER TABLE l_label_label
+  DROP CONSTRAINT IF EXISTS l_label_label_fk_entity1;
+ALTER TABLE l_label_label
+  DROP CONSTRAINT IF EXISTS l_label_label_fk_entity0;
+ALTER TABLE l_label_recording
+  DROP CONSTRAINT IF EXISTS l_label_recording_fk_entity0;
+ALTER TABLE l_label_release
+  DROP CONSTRAINT IF EXISTS l_label_release_fk_entity0;
+ALTER TABLE l_label_release_group
+  DROP CONSTRAINT IF EXISTS l_label_release_group_fk_entity0;
+ALTER TABLE l_label_url
+  DROP CONSTRAINT IF EXISTS l_label_url_fk_entity0;
+ALTER TABLE l_label_work
+  DROP CONSTRAINT IF EXISTS l_label_work_fk_entity0;
+
+ALTER TABLE release_annotation
+  DROP CONSTRAINT IF EXISTS release_annotation_fk_release;
+ALTER TABLE release_meta
+  DROP CONSTRAINT IF EXISTS release_meta_fk_id;
+ALTER TABLE release_tag
+  DROP CONSTRAINT IF EXISTS release_tag_fk_release;
+ALTER TABLE release_tag_raw
+  DROP CONSTRAINT IF EXISTS release_tag_raw_fk_release;
+ALTER TABLE release_country
+  DROP CONSTRAINT IF EXISTS release_country_fk_release;
+ALTER TABLE release_unknown_country
+  DROP CONSTRAINT IF EXISTS release_unknown_country_fk_release;
+ALTER TABLE release_label
+  DROP CONSTRAINT IF EXISTS release_label_fk_release;
+ALTER TABLE release_gid_redirect
+  DROP CONSTRAINT IF EXISTS release_gid_redirect_fk_new_id;
+ALTER TABLE medium
+  DROP CONSTRAINT IF EXISTS medium_fk_release;
+ALTER TABLE edit_release
+  DROP CONSTRAINT IF EXISTS edit_release_fk_release;
+ALTER TABLE editor_collection_release
+  DROP CONSTRAINT IF EXISTS editor_collection_release_fk_release;
+ALTER TABLE release_coverart
+  DROP CONSTRAINT IF EXISTS release_coverart_fk_id;
+ALTER TABLE cover_art_archive.cover_art
+  DROP CONSTRAINT IF EXISTS cover_art_fk_release;
+ALTER TABLE cover_art_archive.release_group_cover_art
+  DROP CONSTRAINT IF EXISTS release_group_cover_art_fk_release;
+
+ALTER TABLE l_area_release
+  DROP CONSTRAINT IF EXISTS l_area_release_fk_entity1;
+ALTER TABLE l_artist_release
+  DROP CONSTRAINT IF EXISTS l_artist_release_fk_entity1;
+ALTER TABLE l_label_release
+  DROP CONSTRAINT IF EXISTS l_label_release_fk_entity1;
+ALTER TABLE l_recording_release
+  DROP CONSTRAINT IF EXISTS l_recording_release_fk_entity1;
+ALTER TABLE l_release_release
+  DROP CONSTRAINT IF EXISTS l_release_release_fk_entity1;
+ALTER TABLE l_release_release
+  DROP CONSTRAINT IF EXISTS l_release_release_fk_entity0;
+ALTER TABLE l_release_release_group
+  DROP CONSTRAINT IF EXISTS l_release_release_group_fk_entity0;
+ALTER TABLE l_release_url
+  DROP CONSTRAINT IF EXISTS l_release_url_fk_entity0;
+ALTER TABLE l_release_work
+  DROP CONSTRAINT IF EXISTS l_release_work_fk_entity0;
+
+ALTER TABLE release_group_annotation
+  DROP CONSTRAINT IF EXISTS release_group_annotation_fk_release_group;
+ALTER TABLE release_group_meta
+  DROP CONSTRAINT IF EXISTS release_group_meta_fk_id;
+ALTER TABLE release_group_tag
+  DROP CONSTRAINT IF EXISTS release_group_tag_fk_release_group;
+ALTER TABLE release_group_rating_raw
+  DROP CONSTRAINT IF EXISTS release_group_rating_raw_fk_release_group;
+ALTER TABLE release_group_tag_raw
+  DROP CONSTRAINT IF EXISTS release_group_tag_raw_fk_release_group;
+ALTER TABLE release_group_gid_redirect
+  DROP CONSTRAINT IF EXISTS release_group_gid_redirect_fk_new_id;
+ALTER TABLE edit_release_group
+  DROP CONSTRAINT IF EXISTS edit_release_group_fk_release_group;
+ALTER TABLE release
+  DROP CONSTRAINT IF EXISTS release_fk_release_group;
+ALTER TABLE release_group_secondary_type_join
+  DROP CONSTRAINT IF EXISTS release_group_secondary_type_join_fk_release_group;
+ALTER TABLE cover_art_archive.release_group_cover_art
+  DROP CONSTRAINT IF EXISTS release_group_cover_art_fk_release_group;
+
+ALTER TABLE l_area_release_group
+  DROP CONSTRAINT IF EXISTS l_area_release_group_fk_entity1;
+ALTER TABLE l_artist_release_group
+  DROP CONSTRAINT IF EXISTS l_artist_release_group_fk_entity1;
+ALTER TABLE l_label_release_group
+  DROP CONSTRAINT IF EXISTS l_label_release_group_fk_entity1;
+ALTER TABLE l_recording_release_group
+  DROP CONSTRAINT IF EXISTS l_recording_release_group_fk_entity1;
+ALTER TABLE l_release_release_group
+  DROP CONSTRAINT IF EXISTS l_release_release_group_fk_entity1;
+ALTER TABLE l_release_group_release_group
+  DROP CONSTRAINT IF EXISTS l_release_group_release_group_fk_entity1;
+ALTER TABLE l_release_group_release_group
+  DROP CONSTRAINT IF EXISTS l_release_group_release_group_fk_entity0;
+ALTER TABLE l_release_group_url
+  DROP CONSTRAINT IF EXISTS l_release_group_url_fk_entity0;
+ALTER TABLE l_release_group_work
+  DROP CONSTRAINT IF EXISTS l_release_group_work_fk_entity0;
+
+ALTER TABLE edit_recording
+  DROP CONSTRAINT IF EXISTS edit_recording_fk_recording;
+ALTER TABLE isrc
+  DROP CONSTRAINT IF EXISTS isrc_fk_recording;
+ALTER TABLE recording_annotation
+  DROP CONSTRAINT IF EXISTS recording_annotation_fk_recording;
+ALTER TABLE recording_meta
+  DROP CONSTRAINT IF EXISTS recording_meta_fk_id;
+ALTER TABLE recording_tag
+  DROP CONSTRAINT IF EXISTS recording_tag_fk_recording;
+ALTER TABLE recording_rating_raw
+  DROP CONSTRAINT IF EXISTS recording_rating_raw_fk_recording;
+ALTER TABLE recording_tag_raw
+  DROP CONSTRAINT IF EXISTS recording_tag_raw_fk_recording;
+ALTER TABLE track
+  DROP CONSTRAINT IF EXISTS track_fk_recording;
+ALTER TABLE recording_gid_redirect
+  DROP CONSTRAINT IF EXISTS recording_gid_redirect_fk_new_id;
+
+ALTER TABLE l_area_recording
+  DROP CONSTRAINT IF EXISTS l_area_recording_fk_entity1;
+ALTER TABLE l_artist_recording
+  DROP CONSTRAINT IF EXISTS l_artist_recording_fk_entity1;
+ALTER TABLE l_label_recording
+  DROP CONSTRAINT IF EXISTS l_label_recording_fk_entity1;
+ALTER TABLE l_recording_recording
+  DROP CONSTRAINT IF EXISTS l_recording_recording_fk_entity1;
+ALTER TABLE l_recording_recording
+  DROP CONSTRAINT IF EXISTS l_recording_recording_fk_entity0;
+ALTER TABLE l_recording_release_group
+  DROP CONSTRAINT IF EXISTS l_recording_release_group_fk_entity0;
+ALTER TABLE l_recording_release
+  DROP CONSTRAINT IF EXISTS l_recording_release_fk_entity0;
+ALTER TABLE l_recording_url
+  DROP CONSTRAINT IF EXISTS l_recording_url_fk_entity0;
+ALTER TABLE l_recording_work
+  DROP CONSTRAINT IF EXISTS l_recording_work_fk_entity0;
+
+ALTER TABLE track_gid_redirect
+  DROP CONSTRAINT IF EXISTS track_gid_redirect_fk_new_id;
+
+ALTER TABLE work_alias
+  DROP CONSTRAINT IF EXISTS work_alias_fk_work;
+ALTER TABLE iswc
+  DROP CONSTRAINT IF EXISTS iswc_fk_work;
+ALTER TABLE work_annotation
+  DROP CONSTRAINT IF EXISTS work_annotation_fk_work;
+ALTER TABLE work_meta
+  DROP CONSTRAINT IF EXISTS work_meta_fk_id;
+ALTER TABLE work_tag
+  DROP CONSTRAINT IF EXISTS work_tag_fk_work;
+ALTER TABLE work_rating_raw
+  DROP CONSTRAINT IF EXISTS work_rating_raw_fk_work;
+ALTER TABLE work_tag_raw
+  DROP CONSTRAINT IF EXISTS work_tag_raw_fk_work;
+ALTER TABLE work_gid_redirect
+  DROP CONSTRAINT IF EXISTS work_gid_redirect_fk_new_id;
+ALTER TABLE edit_work
+  DROP CONSTRAINT IF EXISTS edit_work_fk_work;
+ALTER TABLE work_attribute
+  DROP CONSTRAINT IF EXISTS work_attribute_fk_work;
+
+ALTER TABLE l_area_work
+  DROP CONSTRAINT IF EXISTS l_area_work_fk_entity1;
+ALTER TABLE l_artist_work
+  DROP CONSTRAINT IF EXISTS l_artist_work_fk_entity1;
+ALTER TABLE l_label_work
+  DROP CONSTRAINT IF EXISTS l_label_work_fk_entity1;
+ALTER TABLE l_recording_work
+  DROP CONSTRAINT IF EXISTS l_recording_work_fk_entity1;
+ALTER TABLE l_release_work
+  DROP CONSTRAINT IF EXISTS l_release_work_fk_entity1;
+ALTER TABLE l_release_group_work
+  DROP CONSTRAINT IF EXISTS l_release_group_work_fk_entity1;
+ALTER TABLE l_url_work
+  DROP CONSTRAINT IF EXISTS l_url_work_fk_entity1;
+ALTER TABLE l_work_work
+  DROP CONSTRAINT IF EXISTS l_work_work_fk_entity1;
+ALTER TABLE l_work_work
+  DROP CONSTRAINT IF EXISTS l_work_work_fk_entity0;
+
+-- Drop dependent functions
+------------------------
+DROP FUNCTION IF EXISTS empty_artists();
+DROP FUNCTION IF EXISTS empty_labels();
+DROP FUNCTION IF EXISTS empty_release_groups();
+DROP FUNCTION IF EXISTS empty_works();
+
+-- Drop and rename tables
+------------------------
+DROP TABLE artist;
+ALTER TABLE artist2013 RENAME TO artist;
+
+DROP TABLE artist_alias;
+ALTER TABLE artist_alias2013 RENAME TO artist_alias;
+
+DROP TABLE artist_credit;
+ALTER TABLE artist_credit2013 RENAME TO artist_credit;
+
+DROP TABLE artist_credit_name;
+ALTER TABLE artist_credit_name2013 RENAME TO artist_credit_name;
+
+DROP TABLE label;
+ALTER TABLE label2013 RENAME TO label;
+
+DROP TABLE label_alias;
+ALTER TABLE label_alias2013 RENAME TO label_alias;
+
+DROP TABLE release;
+ALTER TABLE release2013 RENAME TO release;
+
+DROP TABLE release_group;
+ALTER TABLE release_group2013 RENAME TO release_group;
+
+DROP TABLE recording;
+ALTER TABLE recording2013 RENAME TO recording;
+
+DROP TABLE track;
+ALTER TABLE track2013 RENAME TO track;
+
+DROP TABLE work;
+ALTER TABLE work2013 RENAME TO work;
+
+DROP TABLE work_alias;
+ALTER TABLE work_alias2013 RENAME TO work_alias;
+
+-- Add primary keys
+------------------------
+ALTER TABLE artist
+  ADD PRIMARY KEY (id);
+ALTER TABLE artist_alias
+  ADD PRIMARY KEY (id);
+ALTER TABLE artist_credit
+  ADD PRIMARY KEY (id);
+ALTER TABLE artist_credit_name
+  ADD PRIMARY KEY (artist_credit, position);
+ALTER TABLE label
+  ADD PRIMARY KEY (id);
+ALTER TABLE label_alias
+  ADD PRIMARY KEY (id);
+ALTER TABLE release
+  ADD PRIMARY KEY (id);
+ALTER TABLE release_group
+  ADD PRIMARY KEY (id);
+ALTER TABLE recording
+  ADD PRIMARY KEY (id);
+ALTER TABLE track
+  ADD PRIMARY KEY (id);
+ALTER TABLE work
+  ADD PRIMARY KEY (id);
+ALTER TABLE work_alias
+  ADD PRIMARY KEY (id);
+
+-- Create indexes
+------------------------
+CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
+CREATE INDEX artist_idx_name ON artist (name);
+CREATE INDEX artist_idx_sort_name ON artist (sort_name);
+CREATE INDEX artist_idx_page ON artist (page_index(name));
+CREATE INDEX artist_idx_area ON artist (area);
+CREATE INDEX artist_idx_begin_area ON artist (begin_area);
+CREATE INDEX artist_idx_end_area ON artist (end_area);
+CREATE UNIQUE INDEX artist_idx_null_comment ON artist (name) WHERE comment IS NULL;
+CREATE UNIQUE INDEX artist_idx_uniq_name_comment ON artist (name, comment) WHERE comment IS NOT NULL;
+CREATE INDEX artist_idx_lower_name ON artist (lower(name));
+CREATE INDEX artist_idx_musicbrainz_collate ON artist (musicbrainz_collate(name));
+
+CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
+CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+CREATE INDEX artist_credit_idx_musicbrainz_collate ON artist_credit (musicbrainz_collate(name));
+
+CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
+CREATE INDEX artist_credit_name_idx_musicbrainz_collate ON artist_credit_name (musicbrainz_collate(name));
+
+CREATE UNIQUE INDEX label_idx_gid ON label (gid);
+CREATE INDEX label_idx_name ON label (name);
+CREATE INDEX label_idx_sort_name ON label (sort_name);
+CREATE INDEX label_idx_page ON label (page_index(name));
+CREATE INDEX label_idx_area ON label (area);
+CREATE UNIQUE INDEX label_idx_null_comment ON label (name) WHERE comment IS NULL;
+CREATE UNIQUE INDEX label_idx_uniq_name_comment ON label (name, comment) WHERE comment IS NOT NULL;
+CREATE INDEX label_idx_lower_name ON label (lower(name));
+CREATE INDEX label_idx_musicbrainz_collate ON label (musicbrainz_collate(name));
+
+CREATE INDEX label_alias_idx_label ON label_alias (label);
+CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+CREATE UNIQUE INDEX release_idx_gid ON release (gid);
+CREATE INDEX release_idx_name ON release (name);
+CREATE INDEX release_idx_page ON release (page_index(name));
+CREATE INDEX release_idx_release_group ON release (release_group);
+CREATE INDEX release_idx_artist_credit ON release (artist_credit);
+CREATE INDEX release_idx_musicbrainz_collate ON release (musicbrainz_collate(name));
+
+CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);
+CREATE INDEX release_group_idx_name ON release_group (name);
+CREATE INDEX release_group_idx_page ON release_group (page_index(name));
+CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
+CREATE INDEX release_group_idx_musicbrainz_collate ON release_group (musicbrainz_collate(name));
+
+CREATE UNIQUE INDEX recording_idx_gid ON recording (gid);
+CREATE INDEX recording_idx_name ON recording (name);
+CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
+CREATE INDEX recording_idx_musicbrainz_collate ON recording (musicbrainz_collate(name));
+
+CREATE UNIQUE INDEX track_idx_gid ON track (gid);
+CREATE INDEX track_idx_recording ON track (recording);
+CREATE INDEX track_idx_medium ON track (medium, position);
+CREATE INDEX track_idx_name ON track (name);
+CREATE INDEX track_idx_artist_credit ON track (artist_credit);
+CREATE INDEX track_idx_musicbrainz_collate ON track (musicbrainz_collate(name));
+
+CREATE UNIQUE INDEX work_idx_gid ON work (gid);
+CREATE INDEX work_idx_name ON work (name);
+CREATE INDEX work_idx_page ON work (page_index(name));
+CREATE INDEX work_idx_musicbrainz_collate ON work (musicbrainz_collate(name));
+
+CREATE INDEX work_alias_idx_work ON work_alias (work);
+CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
+-- Create functions
+------------------------
+CREATE OR REPLACE FUNCTION empty_artists() RETURNS SETOF artist AS
+$BODY$
+DECLARE
+    artist_row artist%rowtype;
+BEGIN
+    FOR artist_row IN
+        SELECT * FROM artist
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_artist
+            WHERE edit_artist.artist = artist.id
+            AND edit_artist.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM artist_credit_name
+             WHERE artist = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_recording
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_work
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_url
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_artist
+             WHERE entity0 = artist_row.id OR entity1 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_label
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release
+             WHERE entity0 = artist_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release_group WHERE entity0 = artist_row.id
+             LIMIT 1
+        );
+        RETURN NEXT artist_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+CREATE OR REPLACE FUNCTION empty_labels() RETURNS SETOF label AS
+$BODY$
+DECLARE
+    label_row label%rowtype;
+BEGIN
+    FOR label_row IN
+        SELECT * FROM label
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_label
+            WHERE edit_label.label = label.id
+            AND edit_label.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM release_label
+             WHERE label = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_label
+             WHERE entity1 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_label
+             WHERE entity0 = label_row.id OR entity1 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_recording
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release_group
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_url
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_work
+             WHERE entity0 = label_row.id
+             LIMIT 1
+        );
+        RETURN NEXT label_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+CREATE OR REPLACE FUNCTION empty_release_groups() RETURNS SETOF release_group AS
+$BODY$
+DECLARE
+    rg_row release_group%rowtype;
+BEGIN
+    FOR rg_row IN
+        SELECT * FROM release_group
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_release_group
+            JOIN edit ON edit_release_group.edit = edit.id
+            WHERE edit_release_group.release_group = release_group.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM release
+             WHERE release_group = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_artist_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_release_group
+             WHERE entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_release_group
+             WHERE entity0 = rg_row.id OR entity1 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_url
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity0 = rg_row.id
+             LIMIT 1
+        );
+        RETURN NEXT rg_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+CREATE OR REPLACE FUNCTION empty_works() RETURNS SETOF work AS
+$BODY$
+DECLARE
+    work_row work%rowtype;
+BEGIN
+    FOR work_row IN
+        SELECT * FROM work
+        WHERE edits_pending = 0
+          AND (last_updated < NOW() - '1 day'::INTERVAL OR
+               last_updated IS NULL)
+          AND NOT EXISTS (
+            SELECT TRUE FROM edit_work
+            JOIN edit ON edit.id = edit_work.edit
+            WHERE edit_work.work = work.id
+            AND edit.status = 1
+            LIMIT 1
+          )
+    LOOP
+        CONTINUE WHEN
+        (
+            SELECT TRUE FROM l_artist_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_label_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_recording_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_release_group_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_url_work
+             WHERE entity1 = work_row.id
+             LIMIT 1
+        ) OR
+        (
+            SELECT TRUE FROM l_work_work
+             WHERE entity0 = work_row.id OR entity1 = work_row.id
+             LIMIT 1
+        );
+        RETURN NEXT work_row;
+    END LOOP;
+END
+$BODY$
+LANGUAGE 'plpgsql' ;
+
+-- Actually drop the _name tables themselves
+------------------------
+DROP TABLE artist_name;
+DROP TABLE label_name;
+DROP TABLE release_name;
+DROP TABLE track_name;
+DROP TABLE work_name;
+
+COMMIT;
