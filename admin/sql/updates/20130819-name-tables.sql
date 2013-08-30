@@ -344,10 +344,10 @@ ALTER SEQUENCE work_alias_id_seq OWNED BY work_alias2013.id;
 
 -- artist_deletion
 CREATE TABLE artist_deletion2013 AS
-  SELECT artist_deletion.gid, name.last_known_name,
+  SELECT artist_deletion.gid, name.name AS last_known_name,
          artist_deletion.last_known_comment, deleted_at
     FROM artist_deletion
-    JOIN artist_name name ON artist_deletion.name = name.id;
+    JOIN artist_name name ON artist_deletion.last_known_name = name.id;
 
 ALTER TABLE artist_deletion2013
   ALTER COLUMN gid SET NOT NULL,
@@ -358,12 +358,12 @@ ALTER TABLE artist_deletion2013
 
 -- label_deletion
 CREATE TABLE label_deletion2013 AS
-  SELECT label_deletion.gid, name.last_known_name,
+  SELECT label_deletion.gid, name.name AS last_known_name,
          label_deletion.last_known_comment, deleted_at
     FROM label_deletion
-    JOIN label_name name ON label_deletion.name = name.id;
+    JOIN label_name name ON label_deletion.last_known_name = name.id;
 
-ALTER TABLE artist_deletion2013
+ALTER TABLE label_deletion2013
   ALTER COLUMN gid SET NOT NULL,
   ALTER COLUMN last_known_name SET NOT NULL,
   ALTER COLUMN last_known_comment SET NOT NULL,

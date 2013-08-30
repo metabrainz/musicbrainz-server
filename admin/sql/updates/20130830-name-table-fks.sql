@@ -46,9 +46,7 @@ ALTER TABLE work_alias ADD CONSTRAINT work_alias_fk_work FOREIGN KEY (work) REFE
 ALTER TABLE work_alias ADD CONSTRAINT work_alias_fk_type FOREIGN KEY (type) REFERENCES work_alias_type(id);
 
 -- artist
-ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
 ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
-ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_fk_artist FOREIGN KEY (artist) REFERENCES artist(id) ON DELETE CASCADE;
 ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_fk_new_id FOREIGN KEY (new_id) REFERENCES artist(id);
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
 ALTER TABLE artist_isni ADD CONSTRAINT artist_isni_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
@@ -71,18 +69,12 @@ ALTER TABLE l_artist_url ADD CONSTRAINT l_artist_url_fk_entity0 FOREIGN KEY (ent
 ALTER TABLE l_artist_work ADD CONSTRAINT l_artist_work_fk_entity0 FOREIGN KEY (entity0) REFERENCES artist(id);
 -- artist_alias (no FKs)
 
--- artist_credit
-ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id) ON DELETE CASCADE;
-ALTER TABLE recording ADD CONSTRAINT recording_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
-ALTER TABLE release ADD CONSTRAINT release_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
-ALTER TABLE release_group ADD CONSTRAINT release_group_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
-ALTER TABLE track ADD CONSTRAINT track_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
+-- artist_credit (all done above)
 -- artist_credit_name (no FKs)
 
 -- label
 ALTER TABLE edit_label ADD CONSTRAINT edit_label_fk_label FOREIGN KEY (label) REFERENCES label(id) ON DELETE CASCADE;
 ALTER TABLE editor_subscribe_label ADD CONSTRAINT editor_subscribe_label_fk_label FOREIGN KEY (label) REFERENCES label(id);
-ALTER TABLE label_alias ADD CONSTRAINT label_alias_fk_label FOREIGN KEY (label) REFERENCES label(id);
 ALTER TABLE label_annotation ADD CONSTRAINT label_annotation_fk_label FOREIGN KEY (label) REFERENCES label(id);
 ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_fk_new_id FOREIGN KEY (new_id) REFERENCES label(id);
 ALTER TABLE label_ipi ADD CONSTRAINT label_ipi_fk_label FOREIGN KEY (label) REFERENCES label(id);
@@ -117,8 +109,8 @@ ALTER TABLE release_meta ADD CONSTRAINT release_meta_fk_id FOREIGN KEY (id) REFE
 ALTER TABLE release_tag ADD CONSTRAINT release_tag_fk_release FOREIGN KEY (release) REFERENCES release(id);
 ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_fk_release FOREIGN KEY (release) REFERENCES release(id);
 ALTER TABLE release_unknown_country ADD CONSTRAINT release_unknown_country_fk_release FOREIGN KEY (release) REFERENCES release(id);
-ALTER TABLE cover_art ADD CONSTRAINT cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id) ON DELETE CASCADE;
-ALTER TABLE release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id);
+ALTER TABLE cover_art_archive.cover_art ADD CONSTRAINT cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id) ON DELETE CASCADE;
+ALTER TABLE cover_art_archive.release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id);
 
 ALTER TABLE l_area_release ADD CONSTRAINT l_area_release_fk_entity1 FOREIGN KEY (entity1) REFERENCES release(id);
 ALTER TABLE l_artist_release ADD CONSTRAINT l_artist_release_fk_entity1 FOREIGN KEY (entity1) REFERENCES release(id);
@@ -132,7 +124,6 @@ ALTER TABLE l_release_work ADD CONSTRAINT l_release_work_fk_entity0 FOREIGN KEY 
 
 -- release_group
 ALTER TABLE edit_release_group ADD CONSTRAINT edit_release_group_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id) ON DELETE CASCADE;
-ALTER TABLE release ADD CONSTRAINT release_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_annotation ADD CONSTRAINT release_group_annotation_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_gid_redirect ADD CONSTRAINT release_group_gid_redirect_fk_new_id FOREIGN KEY (new_id) REFERENCES release_group(id);
 ALTER TABLE release_group_meta ADD CONSTRAINT release_group_meta_fk_id FOREIGN KEY (id) REFERENCES release_group(id) ON DELETE CASCADE;
@@ -140,7 +131,7 @@ ALTER TABLE release_group_rating_raw ADD CONSTRAINT release_group_rating_raw_fk_
 ALTER TABLE release_group_secondary_type_join ADD CONSTRAINT release_group_secondary_type_join_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_tag ADD CONSTRAINT release_group_tag_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_tag_raw ADD CONSTRAINT release_group_tag_raw_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
-ALTER TABLE release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release_group FOREIGN KEY (release_group) REFERENCES musicbrainz.release_group(id);
+ALTER TABLE cover_art_archive.release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release_group FOREIGN KEY (release_group) REFERENCES musicbrainz.release_group(id);
 
 ALTER TABLE l_area_release_group ADD CONSTRAINT l_area_release_group_fk_entity1 FOREIGN KEY (entity1) REFERENCES release_group(id);
 ALTER TABLE l_artist_release_group ADD CONSTRAINT l_artist_release_group_fk_entity1 FOREIGN KEY (entity1) REFERENCES release_group(id);
@@ -161,7 +152,6 @@ ALTER TABLE recording_meta ADD CONSTRAINT recording_meta_fk_id FOREIGN KEY (id) 
 ALTER TABLE recording_rating_raw ADD CONSTRAINT recording_rating_raw_fk_recording FOREIGN KEY (recording) REFERENCES recording(id);
 ALTER TABLE recording_tag ADD CONSTRAINT recording_tag_fk_recording FOREIGN KEY (recording) REFERENCES recording(id);
 ALTER TABLE recording_tag_raw ADD CONSTRAINT recording_tag_raw_fk_recording FOREIGN KEY (recording) REFERENCES recording(id);
-ALTER TABLE track ADD CONSTRAINT track_fk_recording FOREIGN KEY (recording) REFERENCES recording(id);
 
 ALTER TABLE l_area_recording ADD CONSTRAINT l_area_recording_fk_entity1 FOREIGN KEY (entity1) REFERENCES recording(id);
 ALTER TABLE l_artist_recording ADD CONSTRAINT l_artist_recording_fk_entity1 FOREIGN KEY (entity1) REFERENCES recording(id);
@@ -179,7 +169,6 @@ ALTER TABLE track_gid_redirect ADD CONSTRAINT track_gid_redirect_fk_new_id FOREI
 -- work
 ALTER TABLE edit_work ADD CONSTRAINT edit_work_fk_work FOREIGN KEY (work) REFERENCES work(id) ON DELETE CASCADE;
 ALTER TABLE iswc ADD CONSTRAINT iswc_fk_work FOREIGN KEY (work) REFERENCES work(id);
-ALTER TABLE work_alias ADD CONSTRAINT work_alias_fk_work FOREIGN KEY (work) REFERENCES work(id);
 ALTER TABLE work_annotation ADD CONSTRAINT work_annotation_fk_work FOREIGN KEY (work) REFERENCES work(id);
 ALTER TABLE work_attribute ADD CONSTRAINT work_attribute_fk_work FOREIGN KEY (work) REFERENCES work(id);
 ALTER TABLE work_gid_redirect ADD CONSTRAINT work_gid_redirect_fk_new_id FOREIGN KEY (new_id) REFERENCES work(id);
