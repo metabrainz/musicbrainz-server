@@ -15,10 +15,10 @@ with 'MooseX::Getopt';
 with 'MusicBrainz::Script::Role::Context';
 
 my %entity_query_map = (
-    artist => 'SELECT id FROM empty_artists()',
-    label => 'SELECT id FROM empty_labels()',
-    release_group => 'SELECT id FROM empty_release_groups()',
-    work => 'SELECT id FROM empty_works()',
+    artist => 'SELECT * FROM empty_artists()',
+    label => 'SELECT * FROM empty_labels()',
+    release_group => 'SELECT * FROM empty_release_groups()',
+    work => 'SELECT * FROM empty_works()',
 );
 
 my %skip_ids = (
