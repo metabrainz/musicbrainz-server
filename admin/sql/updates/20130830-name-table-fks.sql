@@ -4,6 +4,47 @@ BEGIN;
 ------------------
 -- foreign keys --
 ------------------
+-- intrinsic to tables
+ALTER TABLE artist ADD CONSTRAINT artist_fk_type FOREIGN KEY (type) REFERENCES artist_type(id);
+ALTER TABLE artist ADD CONSTRAINT artist_fk_area FOREIGN KEY (area) REFERENCES area(id);
+ALTER TABLE artist ADD CONSTRAINT artist_fk_gender FOREIGN KEY (gender) REFERENCES gender(id);
+ALTER TABLE artist ADD CONSTRAINT artist_fk_begin_area FOREIGN KEY (begin_area) REFERENCES area(id);
+ALTER TABLE artist ADD CONSTRAINT artist_fk_end_area FOREIGN KEY (end_area) REFERENCES area(id);
+
+ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
+ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_fk_type FOREIGN KEY (type) REFERENCES artist_alias_type(id);
+
+ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id) ON DELETE CASCADE;
+ALTER TABLE artist_credit_name ADD CONSTRAINT artist_credit_name_fk_artist FOREIGN KEY (artist) REFERENCES artist(id) ON DELETE CASCADE;
+
+ALTER TABLE label ADD CONSTRAINT label_fk_type FOREIGN KEY (type) REFERENCES label_type(id);
+ALTER TABLE label ADD CONSTRAINT label_fk_area FOREIGN KEY (area) REFERENCES area(id);
+
+ALTER TABLE label_alias ADD CONSTRAINT label_alias_fk_label FOREIGN KEY (label) REFERENCES label(id);
+ALTER TABLE label_alias ADD CONSTRAINT label_alias_fk_type FOREIGN KEY (type) REFERENCES label_alias_type(id);
+
+ALTER TABLE recording ADD CONSTRAINT recording_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
+
+ALTER TABLE release ADD CONSTRAINT release_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_status FOREIGN KEY (status) REFERENCES release_status(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_packaging FOREIGN KEY (packaging) REFERENCES release_packaging(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_language FOREIGN KEY (language) REFERENCES language(id);
+ALTER TABLE release ADD CONSTRAINT release_fk_script FOREIGN KEY (script) REFERENCES script(id);
+
+ALTER TABLE release_group ADD CONSTRAINT release_group_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
+ALTER TABLE release_group ADD CONSTRAINT release_group_fk_type FOREIGN KEY (type) REFERENCES release_group_primary_type(id);
+
+ALTER TABLE track ADD CONSTRAINT track_fk_recording FOREIGN KEY (recording) REFERENCES recording(id);
+ALTER TABLE track ADD CONSTRAINT track_fk_medium FOREIGN KEY (medium) REFERENCES medium(id);
+ALTER TABLE track ADD CONSTRAINT track_fk_artist_credit FOREIGN KEY (artist_credit) REFERENCES artist_credit(id);
+
+ALTER TABLE work ADD CONSTRAINT work_fk_type FOREIGN KEY (type) REFERENCES work_type(id);
+ALTER TABLE work ADD CONSTRAINT work_fk_language FOREIGN KEY (language) REFERENCES language(id);
+
+ALTER TABLE work_alias ADD CONSTRAINT work_alias_fk_work FOREIGN KEY (work) REFERENCES work(id);
+ALTER TABLE work_alias ADD CONSTRAINT work_alias_fk_type FOREIGN KEY (type) REFERENCES work_alias_type(id);
+
 -- artist
 ALTER TABLE artist_alias ADD CONSTRAINT artist_alias_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
 ALTER TABLE artist_annotation ADD CONSTRAINT artist_annotation_fk_artist FOREIGN KEY (artist) REFERENCES artist(id);
@@ -76,6 +117,8 @@ ALTER TABLE release_meta ADD CONSTRAINT release_meta_fk_id FOREIGN KEY (id) REFE
 ALTER TABLE release_tag ADD CONSTRAINT release_tag_fk_release FOREIGN KEY (release) REFERENCES release(id);
 ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_fk_release FOREIGN KEY (release) REFERENCES release(id);
 ALTER TABLE release_unknown_country ADD CONSTRAINT release_unknown_country_fk_release FOREIGN KEY (release) REFERENCES release(id);
+ALTER TABLE cover_art ADD CONSTRAINT cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id) ON DELETE CASCADE;
+ALTER TABLE release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release FOREIGN KEY (release) REFERENCES musicbrainz.release(id);
 
 ALTER TABLE l_area_release ADD CONSTRAINT l_area_release_fk_entity1 FOREIGN KEY (entity1) REFERENCES release(id);
 ALTER TABLE l_artist_release ADD CONSTRAINT l_artist_release_fk_entity1 FOREIGN KEY (entity1) REFERENCES release(id);
@@ -97,6 +140,7 @@ ALTER TABLE release_group_rating_raw ADD CONSTRAINT release_group_rating_raw_fk_
 ALTER TABLE release_group_secondary_type_join ADD CONSTRAINT release_group_secondary_type_join_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_tag ADD CONSTRAINT release_group_tag_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
 ALTER TABLE release_group_tag_raw ADD CONSTRAINT release_group_tag_raw_fk_release_group FOREIGN KEY (release_group) REFERENCES release_group(id);
+ALTER TABLE release_group_cover_art ADD CONSTRAINT release_group_cover_art_fk_release_group FOREIGN KEY (release_group) REFERENCES musicbrainz.release_group(id);
 
 ALTER TABLE l_area_release_group ADD CONSTRAINT l_area_release_group_fk_entity1 FOREIGN KEY (entity1) REFERENCES release_group(id);
 ALTER TABLE l_artist_release_group ADD CONSTRAINT l_artist_release_group_fk_entity1 FOREIGN KEY (entity1) REFERENCES release_group(id);
@@ -160,23 +204,21 @@ ALTER TABLE l_work_work ADD CONSTRAINT l_work_work_fk_entity1 FOREIGN KEY (entit
 -----------------
 ALTER TABLE artist        ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE label         ADD CHECK (controlled_for_whitespace(comment));
-ALTER TABLE medium        ADD CHECK (controlled_for_whitespace(name));
 ALTER TABLE recording     ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE release       ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE release_group ADD CHECK (controlled_for_whitespace(comment));
-ALTER TABLE release_label ADD CHECK (controlled_for_whitespace(catalog_number));
 ALTER TABLE track         ADD CHECK (controlled_for_whitespace(number));
 ALTER TABLE work          ADD CHECK (controlled_for_whitespace(comment));
 
 ALTER TABLE artist
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE artist_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
@@ -194,7 +236,7 @@ ALTER TABLE label
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
@@ -220,7 +262,7 @@ ALTER TABLE work
 
 ALTER TABLE work_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 

@@ -245,6 +245,7 @@ CREATE TABLE recording2013 AS
 
 ALTER TABLE recording2013
   ADD CONSTRAINT recording_edits_pending_check CHECK (edits_pending >= 0),
+  ADD CONSTRAINT recording_length_check CHECK (length IS NULL OR length > 0),
   ALTER COLUMN id SET DEFAULT nextval('recording_id_seq'),
   ALTER COLUMN id SET NOT NULL,
   ALTER COLUMN gid SET NOT NULL,
