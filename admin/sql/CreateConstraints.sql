@@ -16,19 +16,19 @@ ALTER TABLE area
 
 ALTER TABLE area_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE artist
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE artist_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
@@ -46,7 +46,7 @@ ALTER TABLE label
 
 ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
@@ -72,7 +72,7 @@ ALTER TABLE work
 
 ALTER TABLE work_alias
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
-  ADD CONSTRAINT only_non_empty CHECK (name != '');
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
