@@ -199,6 +199,12 @@ ALTER TABLE l_work_work ADD CONSTRAINT l_work_work_fk_entity0 FOREIGN KEY (entit
 ALTER TABLE l_work_work ADD CONSTRAINT l_work_work_fk_entity1 FOREIGN KEY (entity1) REFERENCES work(id);
 -- work_alias (no FKs)
 
+-- artist_deletion
+ALTER TABLE editor_subscribe_artist_deleted ADD CONSTRAINT editor_subscribe_artist_deleted_fk_gid FOREIGN KEY (gid) REFERENCES artist_deletion(gid);
+
+-- label_deletion
+ALTER TABLE editor_subscribe_label_deleted ADD CONSTRAINT editor_subscribe_label_deleted_fk_gid FOREIGN KEY (gid) REFERENCES label_deletion(gid);
+
 -----------------
 -- constraints --
 -----------------

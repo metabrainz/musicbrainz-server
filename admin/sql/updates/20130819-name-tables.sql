@@ -342,6 +342,34 @@ ALTER TABLE work_alias2013
 
 ALTER SEQUENCE work_alias_id_seq OWNED BY work_alias2013.id;
 
+-- artist_deletion
+CREATE TABLE artist_deletion2013 AS
+  SELECT artist_deletion.gid, name.last_known_name,
+         artist_deletion.last_known_comment, deleted_at
+    FROM artist_deletion
+    JOIN artist_name name ON artist_deletion.name = name.id;
+
+ALTER TABLE artist_deletion2013
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN last_known_name SET NOT NULL,
+  ALTER COLUMN last_known_comment SET NOT NULL,
+  ALTER COLUMN deleted_at SET DEFAULT now(),
+  ALTER COLUMN deleted_at SET NOT NULL;
+
+-- label_deletion
+CREATE TABLE label_deletion2013 AS
+  SELECT label_deletion.gid, name.last_known_name,
+         label_deletion.last_known_comment, deleted_at
+    FROM label_deletion
+    JOIN label_name name ON label_deletion.name = name.id;
+
+ALTER TABLE artist_deletion2013
+  ALTER COLUMN gid SET NOT NULL,
+  ALTER COLUMN last_known_name SET NOT NULL,
+  ALTER COLUMN last_known_comment SET NOT NULL,
+  ALTER COLUMN deleted_at SET DEFAULT now(),
+  ALTER COLUMN deleted_at SET NOT NULL;
+
 -- Drop FKs
 ------------------------
 ALTER TABLE artist_alias
@@ -614,6 +642,12 @@ ALTER TABLE l_work_work
 ALTER TABLE l_work_work
   DROP CONSTRAINT IF EXISTS l_work_work_fk_entity0;
 
+ALTER TABLE editor_subscribe_artist_deleted
+  DROP CONSTRAINT IF EXISTS editor_subscribe_artist_deleted_fk_gid;
+
+ALTER TABLE editor_subscribe_label_deleted
+  DROP CONSTRAINT IF EXISTS editor_subscribe_label_deleted_fk_gid;
+
 -- Drop dependent functions
 ------------------------
 DROP FUNCTION IF EXISTS empty_artists();
@@ -659,6 +693,12 @@ ALTER TABLE work2013 RENAME TO work;
 DROP TABLE work_alias;
 ALTER TABLE work_alias2013 RENAME TO work_alias;
 
+DROP TABLE artist_deletion;
+ALTER TABLE artist_deletion2013 RENAME TO artist_deletion;
+
+DROP TABLE label_deletion;
+ALTER TABLE label_deletion2013 RENAME TO label_deletion;
+
 -- Add primary keys
 ------------------------
 ALTER TABLE artist
@@ -685,6 +725,10 @@ ALTER TABLE work
   ADD PRIMARY KEY (id);
 ALTER TABLE work_alias
   ADD PRIMARY KEY (id);
+ALTER TABLE artist_deletion
+  ADD PRIMARY KEY (gid);
+ALTER TABLE label_deletion
+  ADD PRIMARY KEY (gid);
 
 -- Create indexes
 ------------------------
