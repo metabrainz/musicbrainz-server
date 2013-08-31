@@ -46,7 +46,7 @@ sub show : Path('')
     }
 }
 
-sub relationship_type : Path('/doc/relationship-types') Args(1) {
+sub relationship_type : Path('/relationship') Args(1) {
     my ($self, $c, $link_type_gid) = @_;
 
     if (!is_guid($link_type_gid)) {
@@ -56,6 +56,7 @@ sub relationship_type : Path('/doc/relationship-types') Args(1) {
     my $relationship_type = $c->model('LinkType')->get_by_gid($link_type_gid)
         or $self->not_found($c);
 
+	$c->model('LinkAttributeType')->load($relationship_type->all_attributes);
     $c->model('LinkType')->load_documentation($relationship_type);
     $c->stash( relationship_type => $relationship_type );
 }
