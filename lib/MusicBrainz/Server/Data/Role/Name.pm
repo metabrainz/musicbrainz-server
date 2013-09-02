@@ -27,15 +27,14 @@ role
                     " OR musicbrainz_unaccent(lower(search_name.sort_name)) = musicbrainz_unaccent(lower(search.term)))" .
                 ")";
 
-        $self->c->sql->select($query, @names);
         my %ret;
-        while (my $row = $self->c->sql->next_row_hash_ref) {
+        for my $row (@{ $self->c->sql->select_list_of_hashes($query, @names) })
+        {
             my $search_term = delete $row->{search_term};
 
             $ret{$search_term} ||= [];
             push @{ $ret{$search_term} }, $self->_new_from_row ($row);
         }
-        $self->c->sql->finish;
 
         return \%ret;
     }
