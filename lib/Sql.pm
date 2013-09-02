@@ -433,18 +433,17 @@ sub _select_list
     my $method = "fetchrow_$type";
     my @params = @$params;
 
+    my $sth;
     try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        $self->sth( $self->dbh->prepare_cached($query) );
-        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
+        $sth = $self->dbh->prepare_cached($query);
+        my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
         my @vals;
-        while(my $row = $self->sth->$method) {
+        while(my $row = $sth->$method) {
             push @vals, $form_row->($row);
         }
-
-        $self->finish;
 
         return \@vals;
     }
@@ -453,6 +452,9 @@ sub _select_list
         cluck "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
         confess $err;
+    }
+    finally {
+        $sth->finish if $sth;
     };
 }
 
