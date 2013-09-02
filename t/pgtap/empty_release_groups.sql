@@ -43,7 +43,7 @@ ALTER TABLE release_group DISABLE TRIGGER USER;
 --------------------------------------------------------------------------------
 -- Newly created release groups are not in empty_release_groups()
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 
 --------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ SELECT set_eq(
 -- Release groups with edits pending are not eligible for empty_release_groups()
 UPDATE release_group SET edits_pending = edits_pending + 1 WHERE id = 1;
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 UPDATE release_group SET edits_pending = 0;
 
@@ -67,7 +67,7 @@ UPDATE release_group SET edits_pending = 0;
 -- l_artist_release_group entries exclude release_groups from empty_release_groups()
 INSERT INTO l_artist_release_group (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_artist_release_group;
 
@@ -75,7 +75,7 @@ DELETE FROM l_artist_release_group;
 -- l_label_release_group entries exclude release_groups from empty_release_groups()
 INSERT INTO l_label_release_group (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_label_release_group;
 
@@ -83,7 +83,7 @@ DELETE FROM l_label_release_group;
 -- l_recording_release_group entries exclude release_groups from empty_release_groups()
 INSERT INTO l_recording_release_group (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_recording_release_group;
 
@@ -91,7 +91,7 @@ DELETE FROM l_recording_release_group;
 -- l_release_release_group entries exclude release_groups from empty_release_groups()
 INSERT INTO l_release_release_group (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_release_release_group;
 
@@ -99,7 +99,7 @@ DELETE FROM l_release_release_group;
 -- l_release_group_release_group entries exclude release_groups from empty_release_groups()
 INSERT INTO l_release_group_release_group (id, entity0, entity1, link) VALUES (1, 1, 2, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_release_group_release_group;
 
@@ -107,7 +107,7 @@ DELETE FROM l_release_group_release_group;
 -- l_release_group_url entries exclude release_groups from empty_release_groups()
 INSERT INTO l_release_group_url (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_release_group_url;
 
@@ -115,7 +115,7 @@ DELETE FROM l_release_group_url;
 -- l_release_group_work entries exclude release_groups from empty_release_groups()
 INSERT INTO l_release_group_work (id, entity0, entity1, link) VALUES (1, 1, 1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 DELETE FROM l_release_group_work;
 
@@ -123,7 +123,7 @@ DELETE FROM l_release_group_work;
 -- A release_group with releases is excluded from empty_release_groups()
 UPDATE release SET release_group = 1;
 SELECT set_eq(
-  'SELECT id FROM empty_labels()', '{}'::INT[]
+  'SELECT * FROM empty_labels()', '{}'::INT[]
 );
 DELETE FROM release;
 
@@ -131,13 +131,13 @@ DELETE FROM release;
 -- A release_group with open edits linked to it is excluded from empty_release_groups()
 INSERT INTO edit_release_group (edit, release_group) VALUES (1, 1);
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{}'::INT[]
 );
 
 -- But edits that aren't open don't block empty_release_groups()
 UPDATE edit SET status = 2;
 SELECT set_eq(
-  'SELECT id FROM empty_release_groups()', '{1}'::INT[]
+  'SELECT * FROM empty_release_groups()', '{1}'::INT[]
 );
 
 SELECT finish();
