@@ -87,6 +87,17 @@ has 'iswcs' => (
     }
 );
 
+has attributes => (
+    is => 'ro',
+    isa => 'ArrayRef',
+    default => sub { [] },
+    traits => [ 'Array' ],
+    handles => {
+        all_attributes => 'elements',
+        add_attribute => 'push'
+    }
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

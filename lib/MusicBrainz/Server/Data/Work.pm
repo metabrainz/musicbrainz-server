@@ -16,6 +16,8 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkAttribute;
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
@@ -423,6 +425,71 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub load_attributes {
+    my ($self, @works) = @_;
+
+    my @work_ids = map { $_->id } @works;
+
+    my $attributes = $self->sql->select_list_of_hashes(
+        'SELECT
+           work_attribute_type.name AS type_name,
+           work_attribute_type.comment AS type_comment,
+           coalesce(
+             work_attribute_type_allowed_value.value,
+             work_attribute.work_attribute_text
+           ) AS value,
+           work,
+           work_attribute.work_attribute_type_allowed_value AS value_id,
+           work_attribute_type.id AS type_id
+         FROM work_attribute
+         JOIN work_attribute_type
+           ON work_attribute_type.id = work_attribute.work_attribute_type
+         LEFT JOIN work_attribute_type_allowed_value
+           ON work_attribute_type_allowed_value.id =
+                work_attribute.work_attribute_type_allowed_value
+         WHERE work_attribute.work = any(?)',
+        \@work_ids
+    );
+
+    my %work_map;
+    for my $work (@works) {
+        push @{ $work_map{$work->id} //= [] }, $work;
+    }
+
+    for my $attribute (@$attributes) {
+        for my $work (@{ $work_map{$attribute->{work}} }) {
+            $work->add_attribute(
+                MusicBrainz::Server::Entity::WorkAttribute->new(
+                    type => MusicBrainz::Server::Entity::WorkAttributeType->new(
+                        name => $attribute->{type_name},
+                        comment => $attribute->{type_comment},
+                        id => $attribute->{type_id}
+                    ),
+                    value => $attribute->{value},
+                    value_id => $attribute->{value_id}
+                )
+            );
+        }
+    }
+}
+
+sub set_attributes {
+    my ($self, $work_id, @attributes) = @_;
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
+    $self->sql->insert_many(
+        'work_attribute',
+        map +{
+            work => $work_id,
+            work_attribute_type => $_->{attribute_type_id},
+            work_attribute_text =>
+                exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
+            work_attribute_type_allowed_value =>
+                exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
+                    undef
+        }, @attributes
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

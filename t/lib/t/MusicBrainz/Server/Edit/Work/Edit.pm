@@ -168,27 +168,54 @@ test 'Check conflicts (non-conflicting edits)' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work');
+    $c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES (1, 'Attribute', false), (2, 'Type two', true);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (10, 1, 'Value'), (2, 1, 'Value 2');
+EOSQL
 
     my $edit_1 = $c->model('Edit')->create(
         edit_type => $EDIT_WORK_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Work')->get_by_id(1),
-        name => 'Awesome work is awesome'
+        name => 'Awesome work is awesome',
+        attributes => [
+            {
+                attribute_type_id => 1,
+                attribute_value_id => 10,
+                attribute_text => undef,
+            },
+            {
+                attribute_type_id => 2,
+                attribute_text => 'Attr value',
+                attribute_value_id => undef
+            }
+        ]
     );
 
-    ok !exception { $edit_1->accept }, 'accepted edit 1';
+    is exception { $edit_1->accept }, undef, 'accepted edit 1';
 
     my $edit_2 = $c->model('Edit')->create(
         edit_type => $EDIT_WORK_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Work')->get_by_id(1),
-        name      => 'Awesome work'
+        name      => 'Awesome work',
+        attributes => [
+            {
+                attribute_type_id => 2,
+                attribute_text => 'Attr value',
+                attribute_value_id => undef
+            }
+        ]
     );
 
-    ok !exception { $edit_2->accept }, 'accepted edit 2';
+    is exception { $edit_2->accept }, undef, 'accepted edit 2';
 
     my $work = $c->model('Work')->get_by_id(1);
+    $c->model('Work')->load_attributes($work);
     is ($work->name, 'Awesome work', 'work renamed');
+    is ($work->all_attributes, 2, 'Work has two attributes');
 };
 
 test 'Check conflicts (conflicting edits)' => sub {
@@ -201,14 +228,16 @@ test 'Check conflicts (conflicting edits)' => sub {
         edit_type   => $EDIT_WORK_EDIT,
         editor_id   => 1,
         to_edit     => $c->model('Work')->get_by_id(1),
-        name        => 'A'
+        name        => 'A',
+        attributes  => []
     );
 
     my $edit_2 = $c->model('Edit')->create(
         edit_type   => $EDIT_WORK_EDIT,
         editor_id   => 1,
         to_edit     => $c->model('Work')->get_by_id(1),
-        name        => 'B'
+        name        => 'B',
+        attributes  => []
     );
 
     ok !exception { $edit_1->accept }, 'accepted edit 1';
@@ -225,6 +254,7 @@ sub create_edit {
         edit_type => $EDIT_WORK_EDIT,
         editor_id => 1,
         to_edit => $work,
+        attributes => [],
         @_
     );
 }
