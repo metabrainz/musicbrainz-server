@@ -622,6 +622,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'https://itunes.apple.com/album/beatbox-+-iphone-+-guitar/id589456329?ign-mpt=uo%3D4',
+                    'https://itunes.apple.com/album/id589456329',
+                    'release'
+                ],
+                [
                     'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
                     'https://itunes.apple.com/music-video/id564322420',
                     'recording'
