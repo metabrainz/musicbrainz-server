@@ -18,7 +18,7 @@ __PACKAGE__->config(
 my $ws_defs = Data::OptList::mkopt([
     track => {
         method   => 'GET',
-        inc      => [ qw( artist tags isrcs releases _relations ratings user-ratings user-tags  ) ],
+        inc      => [ qw( artist tags isrcs puids releases _relations ratings user-ratings user-tags  ) ],
     },
     track => {
         method => 'POST',
@@ -43,7 +43,22 @@ around 'search' => sub
     my ($self, $c) = @_;
 
     $c->detach('submit') if $c->req->method eq 'POST';
-    $self->$orig($c);
+
+    if (my $puid = $c->req->query_params->{puid}) {
+        $self->bad_req($c, 'Invalid argument "puid": not a valid PUID')
+            unless is_guid($puid);
+    }
+
+    if (exists $c->req->query_params->{puid}) {
+        $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+        $c->res->body(
+            $c->stash->{serializer}->xml('')
+        );
+        $c->detach;
+    }
+    else {
+        $self->$orig($c);
+    }
 };
 
 sub submit : Private

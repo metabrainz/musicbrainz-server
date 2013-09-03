@@ -14,7 +14,7 @@ test 'browse recordings via artist (first page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (first page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3' => encode_json (
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' => encode_json (
         {
             "recording-count" => 10,
             "recording-offset" => 0,
@@ -23,18 +23,21 @@ test 'browse recordings via artist (first page)' => sub {
                     id => "4f392ffb-d3df-4f8a-ba74-fdecbb1be877",
                     title => "Busy Working",
                     length => 217440,
+                    puids => [ ],
                     disambiguation => "",
                 },
                 {
                     id => "6f9c8c32-3aae-4dad-b023-56389361cf6b",
                     title => "Bibi Plone",
                     length => 173960,
+                    puids => [ ],
                     disambiguation => "",
                 },
                 {
                     id => "7e379a1d-f2bc-47b8-964e-00723df34c8a",
                     title => "Be Rude to Your School",
                     length => 208706,
+                    puids => [ ],
                     disambiguation => "",
                 }]
         });
@@ -45,7 +48,7 @@ test 'browse recordings via artist (second page)' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse recordings via artist (second page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3&offset=3' => encode_json (
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' => encode_json (
         {
             "recording-count" => 10,
             "recording-offset" => 3,
@@ -54,18 +57,21 @@ test 'browse recordings via artist (second page)' => sub {
                     id => "44704dda-b877-4551-a2a8-c1f764476e65",
                     title => "On My Bus",
                     length => 267560,
+                    puids => [ ],
                     disambiguation => "",
                 },
                 {
                     id => "6e89c516-b0b6-4735-a758-38e31855dcb6",
                     title => "Plock",
                     length => 237133,
+                    puids => [ ],
                     disambiguation => "",
                 },
                 {
                     id => "791d9b27-ae1a-4295-8943-ded4284f2122",
                     title => "Marbles",
                     length => 229826,
+                    puids => [ ],
                     disambiguation => "",
                 }]
         });
