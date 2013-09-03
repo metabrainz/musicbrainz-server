@@ -108,6 +108,7 @@ sub deny_readonly : Private
         $c->res->status(503);
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->output_error("The database is currently in readonly mode and cannot handle your request"));
+        $c->detach;
     }
 }
 
