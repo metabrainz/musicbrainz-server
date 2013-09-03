@@ -20,7 +20,6 @@ ALTER TABLE artist_gid_redirect ADD CONSTRAINT artist_gid_redirect_pkey PRIMARY 
 ALTER TABLE artist_ipi ADD CONSTRAINT artist_ipi_pkey PRIMARY KEY (artist, ipi);
 ALTER TABLE artist_isni ADD CONSTRAINT artist_isni_pkey PRIMARY KEY (artist, isni);
 ALTER TABLE artist_meta ADD CONSTRAINT artist_meta_pkey PRIMARY KEY (id);
-ALTER TABLE artist_name ADD CONSTRAINT artist_name_pkey PRIMARY KEY (id);
 ALTER TABLE artist_rating_raw ADD CONSTRAINT artist_rating_raw_pkey PRIMARY KEY (artist, editor);
 ALTER TABLE artist_tag ADD CONSTRAINT artist_tag_pkey PRIMARY KEY (artist, tag);
 ALTER TABLE artist_tag_raw ADD CONSTRAINT artist_tag_raw_pkey PRIMARY KEY (artist, editor, tag);
@@ -117,7 +116,6 @@ ALTER TABLE label_gid_redirect ADD CONSTRAINT label_gid_redirect_pkey PRIMARY KE
 ALTER TABLE label_ipi ADD CONSTRAINT label_ipi_pkey PRIMARY KEY (label, ipi);
 ALTER TABLE label_isni ADD CONSTRAINT label_isni_pkey PRIMARY KEY (label, isni);
 ALTER TABLE label_meta ADD CONSTRAINT label_meta_pkey PRIMARY KEY (id);
-ALTER TABLE label_name ADD CONSTRAINT label_name_pkey PRIMARY KEY (id);
 ALTER TABLE label_rating_raw ADD CONSTRAINT label_rating_raw_pkey PRIMARY KEY (label, editor);
 ALTER TABLE label_tag ADD CONSTRAINT label_tag_pkey PRIMARY KEY (label, tag);
 ALTER TABLE label_tag_raw ADD CONSTRAINT label_tag_raw_pkey PRIMARY KEY (label, editor, tag);
@@ -166,7 +164,6 @@ ALTER TABLE release_group_tag ADD CONSTRAINT release_group_tag_pkey PRIMARY KEY 
 ALTER TABLE release_group_tag_raw ADD CONSTRAINT release_group_tag_raw_pkey PRIMARY KEY (release_group, editor, tag);
 ALTER TABLE release_label ADD CONSTRAINT release_label_pkey PRIMARY KEY (id);
 ALTER TABLE release_meta ADD CONSTRAINT release_meta_pkey PRIMARY KEY (id);
-ALTER TABLE release_name ADD CONSTRAINT release_name_pkey PRIMARY KEY (id);
 ALTER TABLE release_packaging ADD CONSTRAINT release_packaging_pkey PRIMARY KEY (id);
 ALTER TABLE release_raw ADD CONSTRAINT release_raw_pkey PRIMARY KEY (id);
 ALTER TABLE release_status ADD CONSTRAINT release_status_pkey PRIMARY KEY (id);
@@ -180,7 +177,6 @@ ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);
 ALTER TABLE track_gid_redirect ADD CONSTRAINT track_gid_redirect_pkey PRIMARY KEY (gid);
-ALTER TABLE track_name ADD CONSTRAINT track_name_pkey PRIMARY KEY (id);
 ALTER TABLE track_raw ADD CONSTRAINT track_raw_pkey PRIMARY KEY (id);
 ALTER TABLE url ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 ALTER TABLE url_gid_redirect ADD CONSTRAINT url_gid_redirect_pkey PRIMARY KEY (gid);
@@ -194,7 +190,6 @@ ALTER TABLE work_attribute_type ADD CONSTRAINT work_attribute_type_pkey PRIMARY 
 ALTER TABLE work_attribute_type_allowed_value ADD CONSTRAINT work_attribute_type_allowed_value_pkey PRIMARY KEY (id);
 ALTER TABLE work_gid_redirect ADD CONSTRAINT work_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE work_meta ADD CONSTRAINT work_meta_pkey PRIMARY KEY (id);
-ALTER TABLE work_name ADD CONSTRAINT work_name_pkey PRIMARY KEY (id);
 ALTER TABLE work_rating_raw ADD CONSTRAINT work_rating_raw_pkey PRIMARY KEY (work, editor);
 ALTER TABLE work_tag ADD CONSTRAINT work_tag_pkey PRIMARY KEY (work, tag);
 ALTER TABLE work_tag_raw ADD CONSTRAINT work_tag_raw_pkey PRIMARY KEY (work, editor, tag);
