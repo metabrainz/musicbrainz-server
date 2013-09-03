@@ -206,4 +206,52 @@ ALTER TABLE place_tag_raw
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+CREATE TRIGGER b_upd_l_area_place BEFORE UPDATE ON l_area_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_artist_place BEFORE UPDATE ON l_artist_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_label_place BEFORE UPDATE ON l_label_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_place BEFORE UPDATE ON l_place_place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_recording BEFORE UPDATE ON l_place_recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_release BEFORE UPDATE ON l_place_release
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_release_group BEFORE UPDATE ON l_place_release_group
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_url BEFORE UPDATE ON l_place_url
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_l_place_work BEFORE UPDATE ON l_place_work
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_place BEFORE UPDATE ON place
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON place
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON place_alias
+    FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
+
+CREATE TRIGGER b_upd_place_alias BEFORE UPDATE ON place_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON place_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_place_alias();
+
+CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON place_alias
+    FOR EACH ROW EXECUTE PROCEDURE simplify_search_hints(2);
+
+CREATE TRIGGER b_upd_place_tag BEFORE UPDATE ON place_tag
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
 COMMIT;
