@@ -19,7 +19,7 @@ sub serialize
 
     $body = merge ($body, date_period ($entity->link));
     $body->{attributes} = [ map { $_->name } $entity->link->all_attributes ];
-    $body->{$entity->target_type} = serialize_entity ($entity->target);
+    $body->{$entity->target_type} = serialize_entity ($entity->target, $inc, $opts);
 
     return $body;
 };

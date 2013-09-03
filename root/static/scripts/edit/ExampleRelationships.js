@@ -18,6 +18,17 @@ ERE.init = function(config) {
 
     ERE.viewModel = new ViewModel();
 
+    var autocomplete = MB.Control.EntityAutocomplete({
+        'inputs': $('span.autocomplete'),
+        'entity': type0,
+        'setEntity': ERE.viewModel.selectedEntityType
+    });
+    ERE.viewModel.selectedEntityType.subscribe (autocomplete.changeEntity);
+    ERE.viewModel.availableEntityTypes (
+        _.chain([ type0, type1 ]).uniq().map(function (value) {
+            return { 'value': value, 'text': MB.text.Entity[value] };
+        }).value ());
+
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function() {
@@ -55,6 +66,8 @@ ERE.Example = function(name, relationship) {
 ViewModel = function () {
     return {
         examples: ko.observableArray(),
+        availableEntityTypes: ko.observableArray(),
+        selectedEntityType: ko.observable(),
         currentExample: {
             name: ko.observable(),
             relationship: ko.observable(),
@@ -96,10 +109,11 @@ RelationshipSearcher = function () {
         });
 
         request.done (function (data, status, jqxhr) {
-            var endPointType = data.type == type0 ? type1 : type0;
+            var search_result_type = data.type.replace ("-", "_");
+            var endPointType = search_result_type == type0 ? type1 : type0;
 
-            if (! (data.type === type0 || data.type === type1)) {
-                self.error ('Invalid type for this relationship: ' +  data.type +
+            if (! (search_result_type === type0 || search_result_type === type1)) {
+                self.error ('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
             else if (! _(data.relationships).has(endPointType)) {

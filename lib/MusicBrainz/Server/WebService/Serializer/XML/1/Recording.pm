@@ -29,9 +29,6 @@ sub serialize
     push @body, ( list_of($entity->isrcs) )
         if $inc && $inc->isrcs;
 
-    push @body, ( list_of([ map { $_->puid } @{ $entity->puids} ]) )
-        if $inc && $inc->puids;
-
     # FIXME This is hackish
     # Because a recording might appear multiple times on the same release,
     # we have to create a new release for each track and "stuff" the offset

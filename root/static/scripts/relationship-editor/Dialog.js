@@ -148,7 +148,7 @@ ko.bindingHandlers.targetType = (function() {
         if (!(mode == "add" || /^batch\.(recording|work)$/.test(mode))) return;
 
         var ac = Dialog.autocomplete, relationship = Dialog.relationship.peek(),
-            newTarget = RE.Entity({type: this.value, name: Dialog.target.name}),
+            newTarget = MB.entity({type: this.value, name: Dialog.target.name}),
             obj = relationship.toJS();
 
         obj.entity[Dialog.target.gid == obj.entity[0].gid ? 0 : 1] = newTarget;
@@ -229,7 +229,7 @@ ko.bindingHandlers.autocomplete = (function() {
         dup && recent.splice(recent.indexOf(dup), 1);
         recent.unshift(data);
 
-        Dialog.targetField.peek()(RE.Entity(data));
+        Dialog.targetField.peek()(MB.entity(data));
     }
 
     function showRecentEntities(event) {
@@ -358,7 +358,7 @@ var Dialog = UI.Dialog = {
     disableTypeSelection : ko.observable(false),
 
     init: function() {
-        var self = this, entity = [RE.Entity({type: "artist"}), RE.Entity({type: "recording"})];
+        var self = this, entity = [MB.entity({type: "artist"}), MB.entity({type: "recording"})];
 
         // this is used as an "empty" state when the dialog is hidden, so that
         // none of the bindings error out.
@@ -463,7 +463,7 @@ var Dialog = UI.Dialog = {
     createWork: function(data, event) {
 
         WorkDialog.show(function(work) {
-            var target = RE.Entity(work, "work");
+            var target = MB.entity(work, "work");
             setAutocompleteEntity(target, false);
             Dialog.targetField.peek()(target);
 
@@ -648,7 +648,7 @@ UI.BatchRelationshipDialog.show = function(targets) {
         var source = targets[0];
 
         UI.AddDialog.show.call(this, {
-            entity: [RE.Entity({type: "artist"}), source],
+            entity: [MB.entity({type: "artist"}), source],
             source: source,
             mode: "batch." + source.type
         });
@@ -684,12 +684,12 @@ UI.BatchCreateWorksDialog.show = function() {
     });
 
     if (Dialog.targets.length > 0) {
-        var source = Dialog.targets[0], target = RE.Entity({type: "work"});
+        var source = Dialog.targets[0], target = MB.entity({type: "work"});
 
         // the user can't edit the target in this dialog, but the gid of the
         // temporary target entity has to be set to something valid, so that
         // validation passes and the dialog can be okay'd. we don't want to pass
-        // the gid to RE.Entity either, or else the entity will be cached.
+        // the gid to MB.entity either, or else the entity will be cached.
         target.gid = "00000000-0000-0000-0000-000000000000";
 
         UI.AddDialog.show.call(this, {
@@ -712,7 +712,7 @@ UI.BatchCreateWorksDialog.accept = function() {
 
     function success(data) {
         UI.BatchRelationshipDialog.accept.call(this, function(obj) {
-            obj.entity[1] = RE.Entity(data.works.shift(), "work");
+            obj.entity[1] = MB.entity(data.works.shift(), "work");
             if (data.works.length == 0) Dialog.loading(false);
             return true;
         });

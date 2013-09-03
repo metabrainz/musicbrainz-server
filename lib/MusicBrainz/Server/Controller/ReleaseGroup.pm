@@ -130,7 +130,7 @@ around '_merge_search' => sub
     return $results;
 };
 
-sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit RequireAuth
+sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 {
     my ($self, $c, $id) = @_;
 

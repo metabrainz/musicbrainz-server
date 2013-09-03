@@ -1,9 +1,0 @@
-[% WRAPPER 'recording/layout.tt' title=l('Remove PUID') %]
-   <p>[% l('Are you sure you want to remove the PUID <code>{puid}</code> from {recording} by {ac}?',
-           { puid => puid.puid.puid, recording => link_entity(recording),
-             ac => artist_credit(recording.artist_credit) }) %]</p>
-   <form action="[% c.req.uri %]" method="post">
-     [%- INCLUDE 'forms/edit-note.tt' -%]
-     [% enter_edit() %]
-   </form>
-[% END %]

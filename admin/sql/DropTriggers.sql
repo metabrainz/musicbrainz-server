@@ -9,6 +9,7 @@ DROP TRIGGER end_date_implies_ended ON area;
 DROP TRIGGER a_ins_artist ON artist;
 DROP TRIGGER b_upd_artist ON artist;
 DROP TRIGGER b_del_artist_special ON artist;
+DROP TRIGGER end_area_implies_ended ON artist;
 DROP TRIGGER end_date_implies_ended ON artist;
 DROP TRIGGER b_upd_artist_alias ON artist_alias;
 DROP TRIGGER replace_old_sub_on_add ON editor_subscribe_collection;

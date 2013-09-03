@@ -5,9 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 use aliased 'MusicBrainz::Server::Buffer';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RECORDING_ADD_PUIDS
     $EDIT_RECORDING_ADD_ISRCS
-    $ACCESS_SCOPE_SUBMIT_PUID
     $ACCESS_SCOPE_SUBMIT_ISRC
 );
 
@@ -25,13 +23,13 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits puids isrcs annotation
+                         inc      => [ qw(artist-credits isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits puids isrcs aliases
+                         inc      => [ qw(artists releases artist-credits isrcs aliases
                                           _relations tags user-tags ratings user-ratings
                                           release-groups work-level-rels annotation) ],
                          optional => [ qw(fmt) ],
@@ -193,7 +191,7 @@ sub recording_submit : Private
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
-    my (%submit_puid, %submit_isrc);
+    my (%submit_isrc);
     for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
         my $id = $xp->find('@mb:id', $node)->string_value or
@@ -201,16 +199,6 @@ sub recording_submit : Private
 
         $self->_error($c, "$id is not a valid MBID")
             unless is_guid($id);
-
-        my @puids = $xp->find('mb:puid-list/mb:puid', $node)->get_nodelist;
-        for my $puid_node (@puids) {
-            my $puid = $xp->find('@mb:id', $puid_node)->string_value;
-            $self->_error($c, "$puid is not a valid PUID")
-                unless is_guid($puid);
-
-            $submit_puid{ $id } ||= [];
-            push @{ $submit_puid{$id} }, $puid;
-        }
 
         my @isrcs = $xp->find('mb:isrc-list/mb:isrc', $node)->get_nodelist;
         for my $isrc_node (@isrcs) {
@@ -223,18 +211,12 @@ sub recording_submit : Private
         }
     }
 
-    my %recordings_by_gid = %{ $c->model('Recording')->get_by_gids(keys %submit_puid,
-                                                                   keys %submit_isrc) };
+    my %recordings_by_gid = %{ $c->model('Recording')->get_by_gids(keys %submit_isrc) };
 
     my @submissions;
-    for my $recording_gid (keys %submit_puid, keys %submit_isrc) {
+    for my $recording_gid (keys %submit_isrc) {
         $self->_error($c, "$recording_gid does not match any known recordings")
             unless exists $recordings_by_gid{$recording_gid};
-    }
-
-    if (%submit_puid) {
-        $self->forbidden($c)
-            unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_PUID);
     }
 
     if (%submit_isrc) {
@@ -243,39 +225,8 @@ sub recording_submit : Private
     }
 
     $c->model('MB')->with_transaction(sub {
-
-        # Submit PUIDs
-        my $buffer = Buffer->new(
-            limit => 100,
-            on_full => sub {
-                my $contents = shift;
-                my $new_rows = $c->model('RecordingPUID')->filter_additions(@$contents);
-                return unless @$new_rows;
-
-                $c->model('Edit')->create(
-                    edit_type      => $EDIT_RECORDING_ADD_PUIDS,
-                    editor_id      => $c->user->id,
-                    client_version => $client,
-                    puids          => $new_rows
-                );
-            }
-        );
-
-        $buffer->flush_on_complete(sub {
-            for my $recording_gid (keys %submit_puid) {
-                $buffer->add_items(map +{
-                    recording => {
-                        id => $recordings_by_gid{$recording_gid}->id,
-                        name => $recordings_by_gid{$recording_gid}->name
-                    },
-                    puid      => $_
-                }, @{ $submit_puid{$recording_gid} });
-            }
-        });
-
-
         # Submit ISRCs
-        $buffer = Buffer->new(
+        my $buffer = Buffer->new(
             limit => 100,
             on_full => sub {
                 my $contents = shift;

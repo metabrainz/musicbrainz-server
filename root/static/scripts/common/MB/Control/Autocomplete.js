@@ -105,24 +105,46 @@ MB.Control.autocomplete_formatters = {
 
     "work": function (ul, item) {
         var a = $("<a>").text (item.name);
+        var comment = [];
+
+        if (item.language)
+        {
+            a.prepend ('<span class="autocomplete-length">' + item.language + '</span>');
+        }
+
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
 
         if (item.comment)
         {
-            a.append ('<span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (item.comment) + ')</span>');
+            comment.push (item.comment);
         }
 
-        if (item.artists && item.artists.hits > 0)
+        if (comment.length)
         {
-            var artists = item.artists.results;
-            if (item.artists.hits > item.artists.results.length)
-            {
-                artists.push ('...');
-            }
-
-            a.append ('<br /><span class="autocomplete-comment">by ' +
-                      MB.utility.escapeHTML (artists.join (", ")) + '</span>');
+            a.append (' <span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
         }
+
+        var artistRenderer = function(prefix, artists) {
+            if (artists && artists.hits > 0)
+            {
+                var toRender = artists.results;
+                if (artists.hits > toRender.length)
+                {
+                    toRender.push ('...');
+                }
+
+                a.append ('<br /><span class="autocomplete-comment">' +
+                        prefix + ': ' +
+                        MB.utility.escapeHTML (toRender.join (", ")) + '</span>');
+            }
+        };
+
+        artistRenderer("Writers", item.artists.writers);
+        artistRenderer("Artists", item.artists.artists);
 
         return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
@@ -492,7 +514,7 @@ MB.Control.EntityAutocomplete = function (options) {
         // We need to do this manually, rather than using $.each, due to recordings
         // having a 'length' property.
         for (key in item) {
-            $inputs.find('input.' + key).val(item[key]);
+            $inputs.find('input.' + key).val(item[key]).trigger('change');
         }
 
         $name.removeClass('error');

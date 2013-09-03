@@ -11,7 +11,7 @@ has works => (
     isa => 'HashRef',
 );
 
-sub create_works : Path("/relationship-editor/create-works") Edit RequireAuth
+sub create_works : Path("/relationship-editor/create-works") Edit
 {
     my ($self, $c) = @_;
 

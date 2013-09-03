@@ -1,5 +1,4 @@
 [% BLOCK layout_head %]
-    [% script_manifest('knockout.js.manifest') %]
     [% script_manifest('relationship-editor.js.manifest') %]
     <script type="text/javascript">//<![CDATA[
     $(function() {
@@ -50,7 +49,7 @@
         <tr>
           <td class="section" data-bind="text: MB.text.Entity[sourceField()().type] + ':'"></td>
           <td>
-            <span data-bind="html: sourceField()().rendering"></span>
+            <span data-bind="html: sourceField()().html()"></span>
             <div class="error" data-bind="text: sourceField().error"></div>
           </td>
         </tr>
@@ -258,22 +257,26 @@
   <tr class="track" data-bind="css: {ev: position % 2 == 0}">
     <td class="pos t" data-bind="text: number"></td>
     <td class="recording">
-      <input type="checkbox">
-      <span data-bind="html: rendering"></span>
-      <!-- ko if: artistCredit -->by <span data-bind="html: artistCredit"></span><!-- /ko -->
+      <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
+      <span data-bind="html: html()"></span>
+      <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
+          by <span data-bind="html: artistCredit.html()"></span>
+      <!-- /ko -->
       (<!-- ko text: length --><!-- /ko -->)
-      <!-- ko template: {name: 'template.relationships', data: $data} --><!-- /ko -->
+      <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
     </td>
     <td class="midcol">
       <span class="relate-work btn">
         &#8592; <img src="/static/images/icons/add.png" class="bottom"> [% l('Add related work') %] &#8594;
       </span>
     </td>
-    <td class="works" data-bind="template: {
-        name: 'template.relationship.performance',
-        foreach: performanceRelationships
-    }">
-    </td>
+    <!-- ko with: recording -->
+      <td class="works" data-bind="template: {
+          name: 'template.relationship.performance',
+          foreach: performanceRelationships
+      }">
+      </td>
+    <!-- /ko -->
   </tr>
 </script>
 
@@ -285,7 +288,7 @@
   <div class="ar">
     <span class="remove-button">&#215;</span>
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
-    <span class="entity" data-bind="html: target($parents[0]).rendering, css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: target($parents[0]).html(), css: {'rel-edit': edits_pending}"></span>
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
     <!-- /ko -->
@@ -295,7 +298,7 @@
 <script type="text/html" id="template.relationship.performance">
   <div class="ar">
     <!-- ko with: entity[1] --><input type="checkbox"/><!-- /ko -->
-    <span class="entity" data-bind="html: entity[1]().rendering, css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: entity[1]().html(), css: {'rel-edit': edits_pending}"></span>
     (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
@@ -382,7 +385,7 @@
             </td>
             <td><input type="checkbox" class="medium-works"></td>
           </tr>
-          <!-- ko template: {name: 'template.track', foreach: recordings} --><!-- /ko -->
+          <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
         </tbody>
       </table>
 

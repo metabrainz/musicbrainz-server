@@ -46,7 +46,7 @@ sub show : Path('')
     }
 }
 
-sub relationship_type : Path('/doc/relationship-types/') Args(1) {
+sub relationship_type : Path('/doc/relationship-types') Args(1) {
     my ($self, $c, $link_type_gid) = @_;
 
     if (!is_guid($link_type_gid)) {

@@ -264,7 +264,6 @@ CREATE INDEX medium_cdtoc_idx_medium ON medium_cdtoc (medium);
 CREATE INDEX medium_cdtoc_idx_cdtoc ON medium_cdtoc (cdtoc);
 CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
 
-
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
 CREATE INDEX place_idx_page ON place (page_index(name));
@@ -278,15 +277,9 @@ CREATE INDEX place_tag_idx_tag ON place_tag (tag);
 CREATE INDEX place_tag_raw_idx_tag ON place_tag_raw (tag);
 CREATE INDEX place_tag_raw_idx_editor ON place_tag_raw (editor);
 
-
-CREATE UNIQUE INDEX puid_idx_puid ON puid (puid);
-
 CREATE UNIQUE INDEX recording_idx_gid ON recording (gid);
 CREATE INDEX recording_idx_name ON recording (name);
 CREATE INDEX recording_idx_artist_credit ON recording (artist_credit);
-
-CREATE UNIQUE INDEX recording_puid_idx_uniq ON recording_puid (recording, puid);
-CREATE INDEX recording_puid_idx_puid ON recording_puid (puid);
 
 CREATE INDEX recording_tag_idx_tag ON recording_tag (tag);
 

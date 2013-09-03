@@ -1,8 +1,0 @@
-BEGIN;
-SET client_min_messages TO 'WARNING';
-
-TRUNCATE edit CASCADE;
-TRUNCATE edit_label CASCADE;
-TRUNCATE vote CASCADE;
-
-COMMIT;

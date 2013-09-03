@@ -25,30 +25,6 @@ INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES
   (2, 'other editor', '{CLEARTEXT}password', '63965b645d6c64e41ad695fd80f1f1e9', 'foo@example.com', now());
 EOSQL
 
-subtest 'Submit a set of PUIDs' => sub {
-    my $request = POST '/ws/1/track/?type=xml', [
-        client => 'test-1.0',
-        puid   => '162630d9-36d2-4a8d-ade1-1c77440b34e7 7b8a868f-1e67-852b-5141-ad1edfb1e492'
-    ];
-
-    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor', 'password');
-
-    my $response = $mech->request($request);
-    ok($mech->success);
-
-    my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
-    my $rec = $c->model('Recording')->get_by_gid('162630d9-36d2-4a8d-ade1-1c77440b34e7');
-    isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::AddPUIDs');
-    is_deeply($edit->data->{puids}, [
-        { puid => '7b8a868f-1e67-852b-5141-ad1edfb1e492',
-          recording => {
-              id => $rec->id,
-              name => $rec->name
-          }
-      }
-    ]);
-};
-
 subtest 'Submit a set of ISRCs' => sub {
     my $request = POST '/ws/1/track/?type=xml', [
         client => 'test-1.0',

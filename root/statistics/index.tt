@@ -97,10 +97,6 @@
     <th colspan="4">[% l('Identifiers') %]</th>
 </tr>
 <tr>
-    <th>[% l('PUIDs (all / unique):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid')) %]</td><td>/</td><td>[% add_commas(stats.statistic('count.puid.ids')) %]</td>
-</tr>
-<tr>
     <th>[% l('ISRCs (all / unique):') %]</th>
     <td>[% add_commas(stats.statistic('count.isrc.all')) %]</td><td>/</td><td>[% add_commas(stats.statistic('count.isrc')) %]</td>
 </tr>
@@ -470,7 +466,7 @@
 </tbody>
 </table>
 
-<h2>[% l('Recordings and PUIDs') %]</h2>
+<h2>[% l('Recordings') %]</h2>
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
@@ -480,59 +476,6 @@
     <th colspan="2">[% l('Recordings:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording')) %]</td>
     <td></td>
-</tr>
-<tr>
-    <th colspan="2">[% l('Recordings with no PUIDs:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.0puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.0puids', 'count.recording')) }) %]</td>
-</tr>
-<tr>
-    <th colspan="2">[% l('Recordings with at least one PUID:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.has_puid')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.has_puid', 'count.recording')) }) %]</td>
-</tr>
-[%- FOREACH num IN [1 .. 9] -%]
-<tr>
-    <th></th>
-    <th>[% ln('with {num} PUID:', 'with {num} PUIDs:', num, { num => num }) %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.' _ num _ 'puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.' _ num _ 'puids', 'count.recording.has_puid')) }) %]</td>
-</tr>
-[%- END -%]
-<tr>
-    <th></th>
-    <th>[% l('with 10 or more PUIDs:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.10puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.10puids', 'count.recording.has_puid')) }) %]</td>
-</tr>
-</tbody>
-<tbody>
-<tr class="thead">
-    <th colspan="4">[% l('PUIDs') %]</th>
-</tr>
-<tr>
-    <th colspan="2">[% l('PUIDs (on recordings):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid')) %]</td>
-    <td></td>
-</tr>
-<tr>
-    <th colspan="2">[% l('PUIDs (distinct IDs):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.ids')) %]</td>
-    <td></td>
-</tr>
-[%- FOREACH num IN [1 .. 9] -%]
-<tr>
-    <th></th>
-    <th>[% ln('which identify 1 recording:', 'which identify {num} recordings:', num, { num => num }) %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.' _ num _ 'recordings')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.' _ num _ 'recordings', 'count.puid.ids')) }) %]</td>
-</tr>
-[%- END -%]
-<tr>
-    <th></th>
-    <th>[% l('which identify 10+ recordings:') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.10recordings')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.10recordings', 'count.puid.ids')) }) %]</td>
 </tr>
 </tbody>
 </table>

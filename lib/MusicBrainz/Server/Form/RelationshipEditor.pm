@@ -1,18 +1,23 @@
 package MusicBrainz::Server::Form::RelationshipEditor;
-use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
+use Moose;
+use MusicBrainz::Server::CGI::Expand;
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_guid );
+use Scalar::Util qw( looks_like_number );
 
-extends 'MusicBrainz::Server::Form';
-
-with 'MusicBrainz::Server::Form::Role::Edit';
 with 'MusicBrainz::Server::Form::Role::LinkType' => {
     -alias    => { field_list => '_field_list' },
     -excludes => 'field_list'
 };
 
-has '+name' => ( default => 'rel-editor' );
+has ctx => (
+    isa => 'Object',
+    required => 1,
+    is => 'ro'
+);
+
+with 'MusicBrainz::Server::Form::Role::SelectAll';
 
 has link_type_tree => (
     is => 'ro',
@@ -24,106 +29,41 @@ has language_options => (
     required => 1
 );
 
-has_field 'rels' => (
-    type => 'Repeatable'
-);
+my %actions = map { $_ => 1 } qw( remove add edit );
 
-has_field 'rels.id' => (
-    type => 'Integer',
-);
+my %relatable_entity_types = map { $_ => 1 }
+    qw( artist label recording release release_group url work );
 
-has_field 'rels.action' => (
-    type => 'Select',
-    required => 1
-);
+sub validate {
+    my ($self, $submission) = @_;
 
-has_field 'rels.link_type' => (
-    type => 'Integer',
-    required => 1
-);
+    my $expanded = MusicBrainz::Server::CGI::Expand->expand_hash($submission);
 
-has_field 'rels.entity' => (
-    type => 'Repeatable',
-    required => 1
-);
+    # Basic structure parsing
+    return undef unless (
+        $expanded &&
+        ref($expanded) eq 'HASH' &&
+        exists($expanded->{'rel-editor'}) &&
+        ref($expanded->{'rel-editor'}) eq 'HASH' &&
+        exists($expanded->{'rel-editor'}->{rels}) &&
+        ref($expanded->{'rel-editor'}{rels}) eq 'ARRAY'
+    );
 
-has_field 'rels.entity.gid' => (
-    type => 'Text',
-    required => 1
-);
+    my $form_like = bless $expanded->{'rel-editor'}, 'ApparentlyAForm';
 
-has_field 'rels.entity.type' => (
-    type => 'Select',
-    required => 1
-);
-
-has_field 'rels.period' => (
-    type => '+MusicBrainz::Server::Form::Field::DatePeriod'
-);
-
-has_field 'rels.attrs' => (
-    type => 'Compound'
-);
-
-sub options_rels_entity_work_type {
-    shift->_select_all('WorkType');
-}
-
-sub options_rels_entity_work_language {
-    return shift->language_options;
-}
-
-sub options_rels_action {
-    return [
-        'remove' => 'remove',
-        'add' => 'add',
-        'edit' => 'edit'
-    ];
-}
-
-sub options_rels_entity_type {
-    return [
-        'artist' => 'artist',
-        'label' => 'label',
-        'recording' => 'recording',
-        'release' => 'release',
-        'release_group' => 'release_group',
-        'url' => 'url',
-        'work' => 'work'
-    ];
-}
-
-sub options_rels_link_type
-{
-    my ($self) = @_;
-
-    my @options;
-    for my $root (@{ $self->link_type_tree }) {
-        push @options, $self->_build_options($root, 'ROOT');
-    }
-    return \@options;
-}
-
-sub field_list
-{
-    my ($self) = @_;
-
-    return $self->_field_list('rels.', undef);
-}
-
-after validate => sub {
-    my ($self) = @_;
-
-    my $c = $self->ctx;
-
-    foreach my $field ($self->field('rels')->fields) {
+    foreach my $field ($form_like->field('rels')->fields) {
+        $field->field('id')->add_error(l('ID must be an integer'))
+            unless defined($field->field('id')->value) &&
+                looks_like_number($field->field('id')->value);
 
         my $link_type_field = $field->field('link_type');
         next if !$link_type_field->value || $link_type_field->has_errors;
 
+        $field->field('action')->add_error(l('Unknown action'))
+            unless exists($actions{$field->field('action')->value});
         my $action = $field->field('action')->value;
         my $link_type = $self->validate_link_type(
-                $c, $field->field('link_type'), $field->field('attrs'),
+                $self->ctx, $field->field('link_type'), $field->field('attrs'),
                 $action eq 'remove');
 
         my $entity0 = $field->field('entity')->field('0');
@@ -139,6 +79,12 @@ after validate => sub {
         my $type0 = $entity0->field('type')->value;
         my $type1 = $entity1->field('type')->value;
 
+        $entity0->field('type')->add_error(l('Unknown entity type'))
+            unless $relatable_entity_types{$type0};
+
+        $entity1->field('type')->add_error(l('Unknown entity type'))
+            unless $relatable_entity_types{$type1};
+
         if ($type0 ne $link_type->entity0_type || $type1 ne $link_type->entity1_type) {
             $link_type_field->add_error(
                 l('This relationship type is not valid between the given types of entities.'));
@@ -147,7 +93,7 @@ after validate => sub {
         next if $link_type_field->has_errors;
 
         my $i = 0;
-        my $loaded_entities = $c->stash->{loaded_entities};
+        my $loaded_entities = $self->ctx->stash->{loaded_entities};
 
         foreach my $ent_field (($entity0, $entity1)) {
             my $ent = $ent_field->value;
@@ -157,7 +103,7 @@ after validate => sub {
 
             } elsif (!defined($loaded_entities->{$ent->{gid}})) {
                 my $model = type_to_model($ent->{type});
-                my $ent_data = $c->model($model)->get_by_gid($ent->{gid});
+                my $ent_data = $self->ctx->model($model)->get_by_gid($ent->{gid});
 
                 if ($ent_data) {
                     $loaded_entities->{$ent->{gid}} = $ent_data;
@@ -178,22 +124,24 @@ after validate => sub {
                 next;
             }
             my $types = $type0 . '-' . $type1;
-            my $rel = $c->model('Relationship')->get_by_id($type0, $type1, $id);
+            my $rel = $self->ctx->model('Relationship')->get_by_id($type0, $type1, $id);
 
             if ($rel) {
-                $c->model('Link')->load($rel);
-                $c->model('LinkType')->load($rel->link);
-                $c->stash->{loaded_relationships}->{$types} //= {};
-                $c->stash->{loaded_relationships}->{$types}->{$id} = $rel;
+                $self->ctx->model('Link')->load($rel);
+                $self->ctx->model('LinkType')->load($rel->link);
+                $self->ctx->stash->{loaded_relationships}->{$types} //= {};
+                $self->ctx->stash->{loaded_relationships}->{$types}->{$id} = $rel;
             } else {
                 $field->add_error(l('This relationship no longer exists.'));
             }
         }
     }
     my $num = 0;
-    foreach my $field ($self->field('rels')->fields) {
-        $self->_get_errors($c, $field, $num++);
+    foreach my $field ($form_like->field('rels')->fields) {
+        $self->_get_errors($self->ctx, $field, $num++);
     }
+
+    return $form_like;
 };
 
 sub _get_errors {
@@ -212,5 +160,79 @@ sub _get_errors {
 }
 
 sub edit_field_names { qw() }
+
+sub field {
+    my ($self, $field) = @_;
+    my $val = $field eq 'as_auto_editor' ? 1 : '';
+    return bless { val => $val, name => $field }, 'ApparentlyAField';
+}
+
+package ApparentlyAForm;
+
+sub field {
+    my ($self, $field) = @_;
+    return bless { val => $self->{$field} }, 'ApparentlyAField';
+}
+
+sub does {
+    my ($self, $role) = @_;
+    return $role eq 'MusicBrainz::Server::Form::Role::Edit';
+}
+
+package ApparentlyAField;
+
+sub fields {
+    my $self = shift;
+
+    my @fields =
+        ref ($self->value) eq 'ARRAY' ? @{ $self->value } :
+        ref ($self->value) eq 'HASH'  ? values %{ $self->value }
+                                      : ();
+
+    return map { bless { val => $_ }, 'ApparentlyAField' } @fields;
+}
+
+sub field {
+    my ($self, $field) = @_;
+
+    if (!defined($self->value)) {
+        return bless { val => undef, name => $field }, 'ApparentlyAField';
+    }
+    elsif ($field =~ /^\d+$/ && exists($self->value->[$field])) {
+        return bless { val => $self->value->[$field], name => $field }, 'ApparentlyAField';
+    }
+    elsif (exists ($self->value->{$field})) {
+        return bless { val => $self->value->{$field}, name => $field }, 'ApparentlyAField';
+    }
+    else {
+        return bless { val => undef, name => $field }, 'ApparentlyAField';
+    }
+}
+
+sub value { shift->{val} }
+
+sub has_errors { 0 }
+
+sub has_fields {
+    my $self = shift;
+    return ref($self->value) ? 1 : 0;
+}
+
+sub add_error {
+    my ($self, $error) = @_;
+    push @{ $self->{errors} //= [] }, $error;
+}
+
+sub required { 0 }
+
+sub name { shift->{name} }
+
+sub html_name { 'rel-editor.' . shift->{name} }
+
+sub id { shift->html_name }
+
+sub fif { '' }
+
+sub checkbox_value { 1 }
 
 1;

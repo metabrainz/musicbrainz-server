@@ -17,7 +17,6 @@ SELECT setval('autoeditor_election_id_seq', (SELECT MAX(id) FROM autoeditor_elec
 SELECT setval('autoeditor_election_vote_id_seq', (SELECT MAX(id) FROM autoeditor_election_vote));
 SELECT setval('cdtoc_id_seq', (SELECT MAX(id) FROM cdtoc));
 SELECT setval('cdtoc_raw_id_seq', (SELECT MAX(id) FROM cdtoc_raw));
-SELECT setval('clientversion_id_seq', (SELECT MAX(id) FROM clientversion));
 SELECT setval('edit_id_seq', (SELECT MAX(id) FROM edit));
 SELECT setval('edit_note_id_seq', (SELECT MAX(id) FROM edit_note));
 SELECT setval('editor_id_seq', (SELECT MAX(id) FROM editor));
@@ -92,10 +91,8 @@ SELECT setval('place_id_seq', (SELECT MAX(id) FROM place));
 SELECT setval('place_alias_id_seq', (SELECT MAX(id) FROM place_alias));
 SELECT setval('place_alias_type_id_seq', (SELECT MAX(id) FROM place_alias_type));
 SELECT setval('place_type_id_seq', (SELECT MAX(id) FROM place_type));
-SELECT setval('puid_id_seq', (SELECT MAX(id) FROM puid));
 SELECT setval('replication_control_id_seq', (SELECT MAX(id) FROM replication_control));
 SELECT setval('recording_id_seq', (SELECT MAX(id) FROM recording));
-SELECT setval('recording_puid_id_seq', (SELECT MAX(id) FROM recording_puid));
 SELECT setval('release_id_seq', (SELECT MAX(id) FROM release));
 SELECT setval('release_raw_id_seq', (SELECT MAX(id) FROM release_raw));
 SELECT setval('release_label_id_seq', (SELECT MAX(id) FROM release_label));

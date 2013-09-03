@@ -29,7 +29,6 @@ ALTER TABLE autoeditor_election ADD CONSTRAINT autoeditor_election_pkey PRIMARY 
 ALTER TABLE autoeditor_election_vote ADD CONSTRAINT autoeditor_election_vote_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc ADD CONSTRAINT cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE cdtoc_raw ADD CONSTRAINT cdtoc_raw_pkey PRIMARY KEY (id);
-ALTER TABLE clientversion ADD CONSTRAINT clientversion_pkey PRIMARY KEY (id);
 ALTER TABLE country_area ADD CONSTRAINT country_area_pkey PRIMARY KEY (area);
 ALTER TABLE edit ADD CONSTRAINT edit_pkey PRIMARY KEY (id);
 ALTER TABLE edit_area ADD CONSTRAINT edit_area_pkey PRIMARY KEY (edit, area);
@@ -143,12 +142,10 @@ ALTER TABLE place_gid_redirect ADD CONSTRAINT place_gid_redirect_pkey PRIMARY KE
 ALTER TABLE place_tag ADD CONSTRAINT place_tag_pkey PRIMARY KEY (place, tag);
 ALTER TABLE place_tag_raw ADD CONSTRAINT place_tag_raw_pkey PRIMARY KEY (place, editor, tag);
 ALTER TABLE place_type ADD CONSTRAINT place_type_pkey PRIMARY KEY (id);
-ALTER TABLE puid ADD CONSTRAINT puid_pkey PRIMARY KEY (id);
 ALTER TABLE recording ADD CONSTRAINT recording_pkey PRIMARY KEY (id);
 ALTER TABLE recording_annotation ADD CONSTRAINT recording_annotation_pkey PRIMARY KEY (recording, annotation);
 ALTER TABLE recording_gid_redirect ADD CONSTRAINT recording_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE recording_meta ADD CONSTRAINT recording_meta_pkey PRIMARY KEY (id);
-ALTER TABLE recording_puid ADD CONSTRAINT recording_puid_pkey PRIMARY KEY (id);
 ALTER TABLE recording_rating_raw ADD CONSTRAINT recording_rating_raw_pkey PRIMARY KEY (recording, editor);
 ALTER TABLE recording_tag ADD CONSTRAINT recording_tag_pkey PRIMARY KEY (recording, tag);
 ALTER TABLE recording_tag_raw ADD CONSTRAINT recording_tag_raw_pkey PRIMARY KEY (recording, editor, tag);

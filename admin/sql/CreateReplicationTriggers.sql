@@ -103,15 +103,11 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 
 -- not replicated:
--- editor editor_preference editor_subscribe_artist editor_subscribe_label 
+-- editor editor_preference editor_subscribe_artist editor_subscribe_label
 -- editor_subscribe_editor editor_collection editor_collection_release
 
 CREATE TRIGGER "reptg_cdtoc"
 AFTER INSERT OR DELETE OR UPDATE ON "cdtoc"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
-CREATE TRIGGER "reptg_clientversion"
-AFTER INSERT OR DELETE OR UPDATE ON "clientversion"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 -- not replicated:
@@ -428,10 +424,6 @@ CREATE TRIGGER "reptg_place_type"
 AFTER INSERT OR DELETE OR UPDATE ON "place_type"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_puid"
-AFTER INSERT OR DELETE OR UPDATE ON "puid"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 CREATE TRIGGER "reptg_recording"
 AFTER INSERT OR DELETE OR UPDATE ON "recording"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
@@ -446,10 +438,6 @@ FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
 CREATE TRIGGER "reptg_recording_gid_redirect"
 AFTER INSERT OR DELETE OR UPDATE ON "recording_gid_redirect"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
-
-CREATE TRIGGER "reptg_recording_puid"
-AFTER INSERT OR DELETE OR UPDATE ON "recording_puid"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
 
 CREATE TRIGGER "reptg_recording_tag"

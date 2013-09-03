@@ -51,7 +51,7 @@ has 'format_id' => (
 
 has 'format' => (
     is => 'rw',
-    isa => 'MediumFormat',
+    isa => 'Maybe[MediumFormat]',
 );
 
 sub format_name

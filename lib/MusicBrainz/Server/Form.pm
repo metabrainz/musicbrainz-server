@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
+with 'MusicBrainz::Server::Form::Role::SelectAll';
 
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );
@@ -12,22 +13,6 @@ sub submitted_and_valid
 {
     my ($self, $params) = @_;
     return $self->process( params => $params) && $self->has_params if values %$params;
-}
-
-sub _select_all
-{
-    my ($self, $model, %opts) = @_;
-    my $model_ref = ref($model) ? $model : $self->ctx->model($model);
-
-    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
-    my $accessor = $opts{accessor} // 'l_name';
-    my $coll = $self->ctx->get_collator();
-
-    return [ map {
-        $_->id => l($_->$accessor)
-    } sort_by {
-        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
-    } $model_ref->get_all ];
 }
 
 # Modified copy from HTML/FormHandler.pm (including a bug fix for

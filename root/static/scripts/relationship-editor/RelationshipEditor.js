@@ -20,7 +20,7 @@
 MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    $tracklist, parseMedium, parseTrack, releaseLoaded;
+    $tracklist, releaseLoaded;
 
 RE.releaseViewModel = {
     RE: RE,
@@ -69,7 +69,9 @@ RE.releaseViewModel = {
         };
 
         _.each(this.media.peek(), function(medium) {
-            _.each(medium.recordings.peek(), function(recording) {
+            _.each(medium.tracks, function(track) {
+                var recording = track.recording;
+
                 _.each(recording.relationships.peek(), addChanged);
 
                 _.each(recording.performanceRelationships.peek(), function(relationship) {
@@ -171,22 +173,29 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
 };
 
 
-releaseLoaded = function(data) {
-    RE.releaseViewModel.release(RE.Entity(data, "release"));
-    RE.releaseViewModel.releaseGroup(RE.Entity(data.release_group, "release_group"));
+releaseLoaded = function (data) {
+    var release = MB.entity(data, "release");
+    var mediumData, medium;
+    var trackCount = 0;
 
-    for (var i = 0, trackCount = 0, medium; medium = data.mediums[i]; i++)
-        trackCount += medium.tracks.length;
+    RE.releaseViewModel.release(release);
+    RE.releaseViewModel.releaseGroup(MB.entity(data.release_group, "release_group"));
+
+    for (var i = 0, len = data.mediums.length; i < len; i++) {
+        mediumData = data.mediums[i];
+        trackCount += mediumData.tracks.length;
+        RE.releaseViewModel.media.push(new MB.entity.Medium(mediumData));
+
+        Util.callbackQueue(mediumData.tracks, function (trackData) {
+            Util.parseRelationships(trackData.recording, "recording");
+        });
+    }
 
     initButtons();
     initCheckboxes(trackCount);
 
-    Util.callbackQueue(data.mediums, function(medium) {
-        parseMedium(medium, RE.releaseViewModel.media, data);
-    });
-
-    Util.parseRelationships(data);
-    Util.parseRelationships(data.release_group);
+    Util.parseRelationships(data, "release");
+    Util.parseRelationships(data.release_group, "release_group");
 };
 
 
@@ -195,39 +204,6 @@ UI.loadingIndicator =
         '<img src="../../../static/images/icons/loading.gif" class="bottom"/> ' +
          MB.text.Loading +
     '</span>';
-
-
-parseMedium = function(medium, media, release) {
-    medium.format = (medium.format || MB.text.Medium) + " " + medium.position;
-    var tracks = medium.tracks;
-    delete medium.tracks;
-    medium.recordings = ko.observableArray([]);
-    media.push(medium);
-
-    Util.callbackQueue(tracks, function(track) {
-        var recording = parseTrack(track, release);
-        Util.parseRelationships(track.recording);
-        medium.recordings.push(recording);
-    });
-};
-
-
-parseTrack = function(track, release) {
-    var recording = track.recording;
-    recording.type = "recording";
-    recording.name = track.name;
-    delete recording.artist_credit;
-
-    var entity = RE.Entity(recording);
-    entity.position = track.position;
-    entity.number = track.number;
-    entity.artistCredit = "";
-
-    if (!Util.compareArtistCredits(release.artist_credit, track.artist_credit))
-        entity.artistCredit = UI.renderArtistCredit(track.artist_credit);
-
-    return entity;
-};
 
 
 RE.createWorks = function(works, editNote, success, error) {
@@ -246,15 +222,17 @@ RE.createWorks = function(works, editNote, success, error) {
 };
 
 
+var recordingCheckboxes = "td.recording > input[type=checkbox]";
+var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
+
+
 UI.checkedRecordings = function() {
-    return $.map($tracklist.find("td.recording > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input)});
+    return $.map($(recordingCheckboxes + ":checked", $tracklist), ko.dataFor);
 };
 
 
 UI.checkedWorks = function() {
-    return $.map($tracklist.find("td.works > div.ar > input[type=checkbox]:checked"),
-        function(input) {return ko.dataFor(input)});
+    return $.map($(workCheckboxes + ":checked", $tracklist), ko.dataFor);
 };
 
 
@@ -262,8 +240,6 @@ function initCheckboxes(trackCount) {
 
     var medium_recording_selector = "input.medium-recordings",
         medium_work_selector = "input.medium-works",
-        recording_selector = "td.recording > input[type=checkbox]",
-        work_selector = "td.works > div.ar > input[type=checkbox]",
         checkboxes = RE.releaseViewModel.checkboxes;
 
     // get translated strings for the checkboxes
@@ -280,12 +256,7 @@ function initCheckboxes(trackCount) {
     getPlurals("{n} work selected", "{n} works selected", Math.max(10, Math.min(trackCount * 2, 100)), "workStrings");
 
     function count($inputs) {
-        var src = {}, count = 0, input;
-        for (var i = 0; input = $inputs[i]; i++) {
-            var id = ko.dataFor(input).id;
-            if (src[id] === undefined) count += (src[id] = 1);
-        }
-        return count;
+        return _.uniq($inputs, ko.dataFor).length;
     }
 
     function medium(medium_selector, selector, counter) {
@@ -325,14 +296,14 @@ function initCheckboxes(trackCount) {
         });
     }
 
-    medium(medium_recording_selector, recording_selector, checkboxes.recordingCount);
-    medium(medium_work_selector, work_selector, checkboxes.workCount);
+    medium(medium_recording_selector, recordingCheckboxes, checkboxes.recordingCount);
+    medium(medium_work_selector, workCheckboxes, checkboxes.workCount);
 
     _release(medium_recording_selector, "recordings");
     _release(medium_work_selector, "works");
 
-    range(recording_selector, checkboxes.recordingCount);
-    range(work_selector, checkboxes.workCount);
+    range(recordingCheckboxes, checkboxes.recordingCount);
+    range(workCheckboxes, checkboxes.workCount);
 }
 
 
@@ -354,7 +325,7 @@ function initButtons() {
     $("#content").on("click", "span.add-rel", function(event) {
         var source = ko.dataFor(this);
         UI.AddDialog.show({
-            entity: [RE.Entity({type: "artist"}), source],
+            entity: [MB.entity({type: "artist"}), source],
             source: source,
             posx: event.pageX,
             posy: event.pageY
@@ -362,7 +333,9 @@ function initButtons() {
     });
 
     $("#content").on("click", "span.relate-work", function() {
-        var source = ko.dataFor(this), target = RE.Entity({type: "work", name: source.name});
+        var source = ko.dataFor(this).recording,
+            target = MB.entity({type: "work", name: source.name});
+
         UI.AddDialog.show({entity: [source, target], source: source, disableTypeSelection: true});
     });
 
@@ -396,14 +369,6 @@ function initButtons() {
             });
     });
 }
-
-
-UI.renderArtistCredit = function(obj) {
-    var html = "", name;
-    for (var i = 0; name = obj[i]; i++)
-        html += RE.Entity(name.artist, "artist").rendering + name.joinphrase;
-    return html;
-};
 
 
 $(function() {

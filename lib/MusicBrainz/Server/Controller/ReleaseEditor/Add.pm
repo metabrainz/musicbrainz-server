@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::ReleaseEditor' };
 
 use aliased 'MusicBrainz::Server::Wizard::ReleaseEditor::Add' => 'Wizard';
 
-sub add : Path('/release/add') Edit RequireAuth
+sub add : Path('/release/add') Edit
 {
     my ($self, $c) = @_;
     my $wizard = Wizard->new(

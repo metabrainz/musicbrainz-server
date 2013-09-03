@@ -62,10 +62,16 @@ sub handles
     return $public && $private;
 }
 
+sub parse_asin {
+    my $uri = shift;
+    my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    return ($store, $asin);
+}
+
 sub lookup_cover_art
 {
     my ($self, $uri) = @_;
-    my ($store, $asin) = $uri =~ m{^http://(?:www.)?(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i;
+    my ($store, $asin) = parse_asin($uri);
     return unless $asin;
 
     my $end_point = $self->get_store_api($store);
@@ -87,6 +93,13 @@ sub lookup_cover_art
     $cover_art->information_uri($uri);
 
     return $cover_art;
+}
+
+sub fallback_meta {
+    my ($self, $uri) = @_;
+    my ($store, $asin) = parse_asin($uri);
+    return unless $asin;
+    return { amazon_asin => $asin };
 }
 
 sub _lookup_coverart {

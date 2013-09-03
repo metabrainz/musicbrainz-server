@@ -70,7 +70,7 @@ test 'http login with redirects to ssl' => sub {
     warn $mech->cookie_jar->as_string."\n";
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
     is($mech->uri->path, '/user/new_editor');
-    is($mech->uri->scheme, 'http', 'We started insecure, so correctly redirected back to http');
+    is($mech->uri->scheme, 'https', 'We started insecure, but we have stayed on https');
 };
 
 test 'Can login with usernames that contain the "/" character"' => sub {

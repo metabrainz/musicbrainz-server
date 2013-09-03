@@ -22,7 +22,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_MERGE
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_RECORDING_REMOVE_ISRC
-    $EDIT_PUID_DELETE
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw(
@@ -90,19 +89,6 @@ after 'relationships' => sub {
     $c->model('Relationship')->load($recording->related_works);
 };
 
-=head2 details
-
-Show details of a recording
-
-=cut
-
-after 'details' => sub
-{
-    my ($self, $c) = @_;
-    # XXX Load PUID count?
-    my $recording = $c->stash->{recording};
-};
-
 sub show : Chained('load') PathPart('')
 {
     my ($self, $c) = @_;
@@ -128,17 +114,7 @@ sub show : Chained('load') PathPart('')
     );
 }
 
-sub fingerprints : Chained('load') PathPart('fingerprints')
-{
-    my ($self, $c) = @_;
-
-    my $recording = $c->stash->{recording};
-    my @puids = $c->model('RecordingPUID')->find_by_recording($recording->id);
-    $c->stash(
-        puids    => \@puids,
-        template => 'recording/fingerprints.tt',
-    );
-}
+sub fingerprints : Chained('load') PathPart('fingerprints') { }
 
 =head2 DESTRUCTIVE METHODS
 
@@ -221,35 +197,6 @@ around '_merge_search' => sub {
     $c->model('ArtistCredit')->load(map { $_->entity } @$results);
     return $results;
 };
-
-sub delete_puid : Chained('load') PathPart('remove-puid') RequireAuth Edit
-{
-    my ($self, $c) = @_;
-    my $puid_str = $c->req->query_params->{puid};
-    my $recording = $c->stash->{recording};
-    my $puid = $c->model('RecordingPUID')->get_by_recording_puid($recording->id, $puid_str);
-
-    if (!$puid) {
-        $c->stash( message => 'Not a valid PUID' );
-        $c->detach('/error_500');
-    }
-    else
-    {
-        $c->stash( puid => $puid );
-
-        $self->edit_action($c,
-            form => 'Confirm',
-            type => $EDIT_PUID_DELETE,
-            edit_args => {
-                puid => $puid,
-            },
-            on_creation => sub {
-                $c->response->redirect(
-                    $c->uri_for_action('/recording/fingerprints', [ $recording->gid ]));
-            }
-        );
-    }
-}
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
     edit_type => $EDIT_RECORDING_DELETE,

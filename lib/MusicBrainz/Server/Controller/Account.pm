@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
-use Digest::SHA1 qw(sha1_base64);
+use Digest::SHA qw(sha1_base64);
 use MusicBrainz::Server::Translation qw (l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use Try::Tiny;
@@ -539,6 +539,19 @@ sub _checksum
 {
     my ($self, $email, $uid, $time) = @_;
     return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
+}
+
+sub donation : Local RequireAuth HiddenOnSlaves
+{
+    my ($self, $c) = @_;
+
+    my $result = $c->model('Editor')->donation_check($c->user);
+    $c->detach('/error_500') unless $result;
+
+    $c->stash(
+        nag => $result->{nag},
+        days => sprintf ("%.0f", $result->{days}),
+    );
 }
 
 sub applications : Path('/account/applications') RequireAuth

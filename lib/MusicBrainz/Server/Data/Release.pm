@@ -589,11 +589,16 @@ sub load_with_medium_for_recording
           release.gid AS r_gid,
           release_name.name AS r_name,
           release.artist_credit AS r_artist_credit_id,
+          release.release_group AS r_release_group,
           release.status AS r_status,
           release.packaging AS r_packaging,
-          release.quality AS r_quality,
-          release.release_group AS r_release_group,
           release.comment AS r_comment,
+          release.edits_pending AS r_edits_pending,
+          release.barcode AS r_barcode,
+          release.script AS r_script,
+          release.language AS r_language,
+          release.quality AS r_quality,
+          release.last_updated as r_last_updated,
           medium.id AS m_id,
           medium.format AS m_format,
           medium.position AS m_position,
@@ -643,24 +648,6 @@ sub load_with_medium_for_recording
             return $release;
         },
         $query, @$params, $offset || 0);
-}
-
-sub find_by_puid
-{
-    my ($self, $ids) = @_;
-    my @ids = ref $ids ? @$ids : ( $ids );
-    my $query = 'SELECT ' . $self->_columns .
-                ' FROM ' . $self->_table .
-                ' WHERE release.id IN (
-                    SELECT release FROM medium
-                      JOIN track ON track.medium = medium.id
-                      JOIN recording ON recording.id = track.recording
-                      JOIN recording_puid ON recording_puid.recording = recording.id
-                      JOIN puid ON puid.id = recording_puid.puid
-                     WHERE puid.puid IN (' . placeholders(@ids) . ')
-                )';
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
-                         $query, @{ids});
 }
 
 sub find_by_medium

@@ -164,6 +164,10 @@
             [% l('{count} ({view_url|view})', { count => add_commas(open_count), view_url => c.uri_for_action('/user/edits/open', [ user.name ]) }) %]
         [% END %]
 
+        [% WRAPPER statistics name=l("Cancelled") %]
+            [% l('{count} ({view_url|view})', { count => add_commas(cancelled_count), view_url => c.uri_for_action('/user/edits/cancelled', [ user.name ]) }) %]
+        [% END %]
+
         [% WRAPPER statistics name=l("Last 24 hours") %]
             [% l('{count} ({view_url|view})', { count => add_commas(last_day_count),
                      view_url => html_escape(c.uri_for('/search/edits', {

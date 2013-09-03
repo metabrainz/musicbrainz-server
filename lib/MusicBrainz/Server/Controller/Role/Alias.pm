@@ -64,7 +64,7 @@ sub alias : Chained('load') PathPart('alias') CaptureArgs(1)
     $c->stash( alias => $alias );
 }
 
-sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
+sub add_alias : Chained('load') PathPart('add-alias') Edit
 {
     my ($self, $c) = @_;
     my $type = $self->{entity_name};
@@ -89,7 +89,7 @@ sub add_alias : Chained('load') PathPart('add-alias') RequireAuth Edit
     );
 }
 
-sub delete_alias : Chained('alias') PathPart('delete') RequireAuth Edit
+sub delete_alias : Chained('alias') PathPart('delete') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
@@ -104,7 +104,7 @@ sub delete_alias : Chained('alias') PathPart('delete') RequireAuth Edit
     );
 }
 
-sub edit_alias : Chained('alias') PathPart('edit') RequireAuth Edit
+sub edit_alias : Chained('alias') PathPart('edit') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};

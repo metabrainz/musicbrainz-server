@@ -997,9 +997,9 @@ MB.Control.ReleaseTracklist = function () {
         /* clear the cloned rowid for this medium and tracklist, so a
          * new medium and tracklist will be created. */
         $("#id-mediums\\."+discs+"\\.id").val('');
+        $("#id-mediums\\."+discs+"\\.medium_id_for_recordings").val('');
         $("#id-mediums\\."+discs+"\\.name").val('');
         $("#id-mediums\\."+discs+"\\.position").val(newposition);
-        $("#id-mediums\\."+discs+"\\.id").val('');
         $('#id-mediums\\.'+discs+'\\.deleted').val('0');
         $('#id-mediums\\.'+discs+'\\.edits').val('');
         $('#id-mediums\\.'+discs+'\\.toc').val('');
@@ -1172,8 +1172,8 @@ MB.Control.ReleaseTracklist = function () {
 
     };
 
-    $("a[href=#guesscase]").click (function () {
-        self.guessCase ();
+    ko.applyBindingsToNode($("div.guesscase-advanced")[0], {
+        guessCase: self.guessCase
     });
 
     $("#release-editor").on("VariousArtists", ".artist-credit-box input.name",

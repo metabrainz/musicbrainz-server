@@ -44,16 +44,6 @@ has approved => (
     isa => 'Bool',
 );
 
-has release_id => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-has release => (
-    is => 'rw',
-    isa => 'Release',
-);
-
 has edit_id => (
     is => 'rw',
     isa => 'Int',
@@ -69,12 +59,30 @@ has suffix => (
     isa => 'Str',
 );
 
+has release_id => (
+    is => 'rw',
+    isa => 'Int',
+);
+
+has release => (
+    is => 'rw',
+    isa => 'Release',
+);
+
 sub _urlprefix
 {
     my $self = shift;
 
-    return DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX .
-        "/release/" . $self->release->gid . "/" . $self->id;
+    return join('/', DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX, 'release', $self->release->gid, $self->id)
+}
+
+sub filename
+{
+    my $self = shift;
+
+    return undef unless $self->release->gid && $self->suffix;
+
+    return sprintf ("mbid-%s-%d.%s", $self->release->gid, $self->id, $self->suffix);
 }
 
 sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }

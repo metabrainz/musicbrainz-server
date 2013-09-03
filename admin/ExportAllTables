@@ -93,7 +93,6 @@ my @tables = qw(
     autoeditor_election
     autoeditor_election_vote
     cdtoc
-    clientversion
     editor
     editor_oauth_token
     editor_preference
@@ -186,12 +185,10 @@ my @tables = qw(
     place_gid_redirect
     place_tag
     place_type
-    puid
     recording
     recording_annotation
     recording_gid_redirect
     recording_meta
-    recording_puid
     recording_tag
     release
     release_annotation
@@ -314,7 +311,6 @@ my @group_core = qw(
     artist_name
     artist_type
     cdtoc
-    clientversion
     gender
     isrc
     iswc
@@ -387,10 +383,8 @@ my @group_core = qw(
     place_alias_type
     place_gid_redirect
     place_type
-    puid
     recording
     recording_gid_redirect
-    recording_puid
     release
     release_country
     release_gid_redirect

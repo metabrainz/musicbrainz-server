@@ -90,7 +90,7 @@ sub find_by_artist
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
     my (@where_query, @where_args);
-   
+
     push @where_query, "acn.artist = ?";
     push @where_args, $artist_id;
 
@@ -194,7 +194,6 @@ sub delete
     my ($self, @recording_ids) = @_;
 
     $self->c->model('Relationship')->delete_entities('recording', @recording_ids);
-    $self->c->model('RecordingPUID')->delete_recordings(@recording_ids);
     $self->c->model('ISRC')->delete_recordings(@recording_ids);
     $self->annotation->delete(@recording_ids);
     $self->tags->delete(@recording_ids);
@@ -237,7 +236,6 @@ sub _merge_impl
     $self->annotation->merge($new_id, @old_ids);
     $self->tags->merge($new_id, @old_ids);
     $self->rating->merge($new_id, @old_ids);
-    $self->c->model('RecordingPUID')->merge_recordings($new_id, @old_ids);
     $self->c->model('ISRC')->merge_recordings($new_id, @old_ids);
     $self->c->model('Edit')->merge_entities('recording', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('recording', $new_id, @old_ids);
