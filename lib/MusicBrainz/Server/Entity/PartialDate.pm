@@ -99,9 +99,12 @@ sub _cmp
     return  1 if ( defined($a->year) && !defined($b->year));
     return -1 if (!defined($a->year) &&  defined($b->year));
 
-    # Years <= 0 are sorted just on year, as Date::Calc can't understand them
+    # Date::Calc can't understand years <= 0, so we special case this sorting
     if ($a->year <= 0 || $b->year <= 0) {
-        return $a->year <=> $b->year;
+        return
+            $a->year <=> $b->year ||
+            (($a->month // 1) <=> ($b->month // 12)) ||
+            (($a->day // 1)   <=> ($b->day // 31));
     }
 
     # We have years for both dates, we can now assume real sorting

@@ -95,6 +95,12 @@ $b = Date->new( year => -1 );
 ok($a > $b);
 ok($b < $a);
 
+$a = Date->new( year => -1, month => 1 );
+$b = Date->new( year => -1, month => 2 );
+
+ok($b > $a);
+ok($a < $b);
+
 ok(Date->new('')->is_empty);
 
 };
