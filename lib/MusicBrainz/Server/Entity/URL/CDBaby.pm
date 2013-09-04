@@ -11,7 +11,6 @@ sub sidebar_name { 'CD Baby' }
 override affiliate_url => sub {
     my $self = shift;
     my $url = super()->clone;
-	$url->scheme("");
     $url->path($url->path . '/from/musicbrainz');
     return $url
 };
