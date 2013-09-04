@@ -327,39 +327,41 @@ sub autocomplete_work
 
     my @output;
 
-    my $munge_lang = sub {
-        my $lang = shift;
-        $lang =~ s/_[A-Z]{2}/_/;
-        return $lang;
-    };
+    if (@$results) {
+        my $munge_lang = sub {
+            my $lang = shift;
+            $lang =~ s/_[A-Z]{2}/_/;
+            return $lang;
+        };
 
-    my %alias_preference = (
-        en => 2,
-        en_ => 1
-    );
-    my $lang = $munge_lang->($results->[0]->{current_language});
-    $lang =~ s/_$//;
-    $alias_preference{$lang} = 4 if $lang ne 'en';
-    $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
+        my %alias_preference = (
+            en => 2,
+            en_ => 1
+        );
+        my $lang = $munge_lang->($results->[0]->{current_language});
+        $lang =~ s/_$//;
+        $alias_preference{$lang} = 4 if $lang ne 'en';
+        $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
 
-    for (@$results) {
-        my $out = $self->_work( $_->{work} );
-        $out->{artists} = $_->{artists};
+        for (@$results) {
+            my $out = $self->_work( $_->{work} );
+            $out->{artists} = $_->{artists};
 
-        my ($primary_alias, @others) =
-            reverse sort {
-                my $pref_a = $alias_preference{$munge_lang->($a->locale)};
-                my $pref_b = $alias_preference{$munge_lang->($b->locale)};
+            my ($primary_alias, @others) =
+                reverse sort {
+                    my $pref_a = $alias_preference{$munge_lang->($a->locale)};
+                    my $pref_b = $alias_preference{$munge_lang->($b->locale)};
 
-                defined($pref_a) && defined($pref_b)
-                    ? $pref_a <=> $pref_b
-                    : defined($pref_a) || -(defined($pref_b)) || 0;
-            } grep {
-                $_->primary_for_locale
-            } @{ $_->{aliases} };
+                    defined($pref_a) && defined($pref_b)
+                        ? $pref_a <=> $pref_b
+                        : defined($pref_a) || -(defined($pref_b)) || 0;
+                } grep {
+                    $_->primary_for_locale
+                } @{ $_->{aliases} };
 
-        $out->{primary_alias} = $primary_alias && $primary_alias->name;
-        push @output, $out;
+            $out->{primary_alias} = $primary_alias && $primary_alias->name;
+            push @output, $out;
+        }
     }
 
     push @output, {
