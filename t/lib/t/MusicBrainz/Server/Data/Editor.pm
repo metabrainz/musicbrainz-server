@@ -203,12 +203,13 @@ EOSQL
     is($bob->accepted_edits, 100);
     is($bob->rejected_edits, 101);
     is($bob->accepted_auto_edits, 102);
+    is($bob->deleted, 1);
 
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
         qw( id name password privileges accepted_edits rejected_edits
             accepted_auto_edits last_login_date failed_edits languages
-            registration_date preferences ha1
+            registration_date preferences ha1 deleted
       ));
 
     for my $attribute (grep { !$exclusions->contains($_->name) }

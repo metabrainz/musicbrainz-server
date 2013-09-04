@@ -408,7 +408,8 @@ CREATE TABLE editor
     gender              INTEGER, -- references gender.id
     area                INTEGER, -- references area.id
     password            VARCHAR(128) NOT NULL,
-    ha1                 CHAR(32) NOT NULL
+    ha1                 CHAR(32) NOT NULL,
+    deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
