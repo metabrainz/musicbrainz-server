@@ -11,9 +11,12 @@ sub sidebar_name { 'CD Baby' }
 override affiliate_url => sub {
     my $self = shift;
     my $url = super()->clone;
+	$url->scheme("");
     $url->path($url->path . '/from/musicbrainz');
     return $url
 };
+
+sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
