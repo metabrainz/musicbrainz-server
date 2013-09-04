@@ -384,8 +384,20 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'work', 'http://www.wikidata.org/wiki/Q42',
                     MB.constants.LINK_TYPES.wikidata.work
+                ],
+                // Rockipedia
+                [
+                    'artist', 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'label', 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
+                    MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                [
+                    'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
+                    MB.constants.LINK_TYPES.otherdatabases.release
                 ]
-
             ];
 
         $.each(tests, function(i, test) {
@@ -761,6 +773,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                ],
+                // Rockipedia
+                [
+                    'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
+                    'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
                 ]
             ];
 
