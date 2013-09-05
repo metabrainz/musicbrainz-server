@@ -88,6 +88,4 @@
 		[%- l("This relationship type is only used for grouping other relationship types.") -%]
 	</p>
 	[%- END -%]
-[% USE Dumper %]
-[% Dumper.dump(relationship_type) %]
 [%- END -%]
