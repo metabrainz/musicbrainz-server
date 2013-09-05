@@ -99,6 +99,14 @@ sub _cmp
     return  1 if ( defined($a->year) && !defined($b->year));
     return -1 if (!defined($a->year) &&  defined($b->year));
 
+    # Date::Calc can't understand years <= 0, so we special case this sorting
+    if ($a->year <= 0 || $b->year <= 0) {
+        return
+            $a->year <=> $b->year ||
+            (($a->month // 1) <=> ($b->month // 12)) ||
+            (($a->day // 1)   <=> ($b->day // 31));
+    }
+
     # We have years for both dates, we can now assume real sorting
     my @begin = ($a->year, $a->month || 1, $a->day || 1);
     my @end =   ($b->year, $b->month || 12, $b->day || Date::Calc::Days_in_Month($b->year, $b->month || 12));
