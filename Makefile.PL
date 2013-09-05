@@ -62,6 +62,7 @@ requires 'IO::All'                                    => '0.44';
 requires 'JSON'                                       => '2.59';
 requires 'JSON::XS'                                   => '2.32';
 requires 'Javascript::Closure'                        => '0.07';
+requires 'List::AllUtils'                             => '0.02';
 requires 'List::MoreUtils'                            => '0.33';
 requires 'List::UtilsBy'                              => '0.08';
 requires 'Log::Dispatch'                              => '2.29';
