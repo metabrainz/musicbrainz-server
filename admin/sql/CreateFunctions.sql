@@ -1084,5 +1084,17 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION deny_deprecated_links()
+RETURNS trigger AS $$
+BEGIN
+  IF (TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND OLD.link_type <> NEW.link_type))
+    AND (SELECT is_deprecated FROM link_type WHERE id = NEW.link_type)
+  THEN
+    RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 COMMIT;
 -- vi: set ts=4 sw=4 et :
