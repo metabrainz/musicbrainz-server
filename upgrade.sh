@@ -52,6 +52,9 @@ fi
 echo `date` : 'DROP TABLE puid;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130807-drop-table-puid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Adding link_type.is_deprecated'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130905-deprecated-link-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 
 ################################################################################
 # Re-enable replication
