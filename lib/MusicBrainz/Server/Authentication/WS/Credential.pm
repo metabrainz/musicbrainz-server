@@ -92,7 +92,7 @@ sub _authenticate_bearer
     if (exists $c->req->params->{access_token}) {
         $c->log->debug('Found bearer access token in GET/POST params') if $c->debug;
         my $user = $realm->find_user( { oauth_access_token => $c->req->params->{access_token} }, $c);
-        return $user if $user && !$user->oauth_token->is_expired && !$user->oauth_token->mac_key;
+        return $user if $user && !$user->oauth_token->is_expired && !$user->oauth_token->mac_key && !$user->deleted;
     }
 
     return;
@@ -115,7 +115,7 @@ sub _authenticate_mac
             @key_val;
         } split /,\s?/, $authorization;
         my $user = $realm->find_user( { oauth_access_token => $res{id} }, $c);
-        return $user if $user && !$user->oauth_token->is_expired && $self->_check_mac($c, $user, $res{ts}, $res{nonce}, $res{mac}, $res{ext});
+        return $user if $user && !$user->oauth_token->is_expired && $self->_check_mac($c, $user, $res{ts}, $res{nonce}, $res{mac}, $res{ext}) && !$user->deleted;
     }
 
     return;

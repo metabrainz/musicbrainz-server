@@ -49,6 +49,27 @@ test 'Authenticate WS bearer' => sub {
     is(401, $test->mech->status);
 };
 
+test 'Deleted users (bearer)' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    # No authentication
+    $test->mech->get('/ws/1/user/?name=editor1');
+    is(401, $test->mech->status);
+
+    # Correctly authenticated 
+    $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
+    $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
+
+    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 1;");
+
+    $test->mech->get('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
+    is(401, $test->mech->status);
+    $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
+    is(401, $test->mech->status);
+};
+
 test 'Authenticate WS mac' => sub {
     my $test = shift;
 
@@ -109,4 +130,19 @@ test 'Authenticate WS mac' => sub {
     is(401, $test->mech->status);
 };
 
+test 'Deleted users (mac)' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+
+    # Correctly authenticated
+    $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc123", mac="mlMWUmfya9O/7zIuc+SLAhDe66E="' });
+
+    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 1;");
+
+    # With different nonce, but works above
+    $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc456", mac="W4DD2JLtzqWgdZlcIGWFYO4rCyw="' });
+    is(401, $test->mech->status);
+};
 1;
