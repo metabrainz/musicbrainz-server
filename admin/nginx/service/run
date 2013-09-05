@@ -5,7 +5,7 @@ set -e
 cd mb_server
 umask 022
 exec \
-    setuidgid musicbrainz carton exec -- \
+    setuidgid musicbrainz \
         plackup -Ilib \
             -s FCGI \
             -E deployment \

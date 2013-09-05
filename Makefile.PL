@@ -10,144 +10,142 @@ license 'gpl';
 version_from 'lib/MusicBrainz/Server.pm';
 
 # Mandatory modules
-requires 'Algorithm::Diff';
-requires 'Algorithm::Merge';
-requires 'Authen::Passphrase';
-requires 'Cache::Memcached';
-requires 'Captcha::reCAPTCHA';
-requires 'Catalyst::Action::RenderView'               => '0.09';
-requires 'Catalyst::Plugin::Authentication'           => '0.10011';
-requires 'Catalyst::Authentication::Credential::HTTP' => '1.009';
-requires 'Catalyst::Plugin::I18N'                     => '0.09';
-requires 'Catalyst::Plugin::Cache';
-requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.2';
-requires 'Catalyst::Runtime'                          => '5.90007';
-requires 'Catalyst::View::TT'                         => '0.29';
-requires 'CGI::Expand';
-requires 'Class::MOP';
-requires 'CSS::Minifier';
-requires 'Clone';
-requires 'Cwd';
-requires 'Data::Compare';
-requires 'Data::Dumper::Concise';
-requires 'Data::OptList';
-requires 'Data::Page'                                 => '2.01';
-requires 'Date::Calc'                                 => '5.8';
-requires 'Data::UUID::MT'                             => '0.004';
-requires 'DateTime::TimeZone';
+requires 'Algorithm::Diff'                            => '1.1902';
+requires 'Algorithm::Merge'                           => '0.08';
+requires 'Authen::Passphrase'                         => '0.007';
+requires 'Cache::Memcached'                           => '1.29';
+requires 'Captcha::reCAPTCHA'                         => '0.93';
+requires 'Catalyst::Action::RenderView'               => '0.16';
+requires 'Catalyst::Plugin::Authentication'           => '0.10017';
+requires 'Catalyst::Authentication::Credential::HTTP' => '1.013';
+requires 'Catalyst::Plugin::I18N'                     => '0.10';
+requires 'Catalyst::Plugin::Cache'                    => '0.10';
+requires 'Catalyst::Plugin::Unicode::Encoding'        => '1.3';
+requires 'Catalyst::Runtime'                          => '5.90011';
+requires 'Catalyst::View::TT'                         => '0.37';
+requires 'CGI::Expand'                                => '2.03';
+requires 'Class::MOP'                                 => '2.0401';
+requires 'CSS::Minifier'                              => '0.01';
+requires 'Clone'                                      => '0.31';
+requires 'Cwd'                                        => '3.40';
+requires 'Data::Compare'                              => '1.22';
+requires 'Data::Dumper::Concise'                      => '2.020';
+requires 'Data::OptList'                              => '0.107';
+requires 'Data::Page'                                 => '2.02';
+requires 'Date::Calc'                                 => '6.3';
+requires 'Data::UUID::MT'                             => '0.006';
+requires 'DateTime::TimeZone'                         => '1.42';
 requires 'DateTime::Format::Duration'                 => '1.03';
-requires 'DateTime::Format::Pg'                       => '0.16004';
-requires 'DateTime::Format::Natural'                  => '0.96';
-requires 'DateTime::Format::ISO8601';
-requires 'DBIx::Connector';
-requires 'DBD::Pg'                                    => '2.11.8';
-requires 'DBI'                                        => '1.607';
+requires 'DateTime::Format::Pg'                       => '0.16007';
+requires 'DateTime::Format::Natural'                  => '0.98';
+requires 'DateTime::Format::ISO8601'                  => '0.07';
+requires 'DBIx::Connector'                            => '0.47';
+requires 'DBD::Pg'                                    => '2.19.0';
+requires 'DBI'                                        => '1.616';
 requires 'Digest::HMAC_SHA1'                          => '1.03';
-requires 'Digest::MD5'                                => '2.36';
+requires 'Digest::MD5'                                => '2.51';
 requires 'Digest::SHA'                                => '5.73';
-requires 'Email::Address';
-requires 'Email::Sender';
-requires 'Email::MIME';
-requires 'Email::MIME::Creator';
-requires 'Email::Valid';
+requires 'Email::Address'                             => '1.892';
+requires 'Email::MIME'                                => '1.910';
+requires 'Email::MIME::Creator'                       => '1.910';
+requires 'Email::Sender'                              => '0.110001'; 
+requires 'Email::Valid'                               => '0.185';
 requires 'Encode::Detect'                             => '1.01';
-requires 'Exception::Class'                           => '1.29';
-requires 'File::Spec';
-requires 'GnuPG'                                      => '0.17';
-requires 'Hash::Merge';
-requires 'HTML::FormHandler'                          => '0.40013';
+requires 'Exception::Class'                           => '1.37';
+requires 'File::Spec'                                 => '3.40';
+requires 'GnuPG'                                      => '0.18';
+requires 'Hash::Merge'                                => '0.12';
+requires 'HTML::FormHandler'                          => '0.40016';
 requires 'HTML::Tiny'                                 => '1.05';
-requires 'HTML::TreeBuilder::XPath';
-requires 'IO::All';
-requires 'Javascript::Closure';
-requires 'JSON'                                       => '2.14';
-requires 'JSON::XS'                                   => '2.27';
-requires 'Log::Dispatch';
-requires 'List::UtilsBy'                              => '0.06';
-requires 'List::MoreUtils'                            => '0.22';
-requires 'Method::Signatures::Simple';
+requires 'HTML::TreeBuilder::XPath'                   => '0.14';
+requires 'IO::All'                                    => '0.44';
+requires 'Javascript::Closure'                        => '0.07';
+requires 'JSON'                                       => '2.59';
+requires 'JSON::XS'                                   => '2.32';
+requires 'Log::Dispatch'                              => '2.29';
+requires 'List::UtilsBy'                              => '0.08';
+requires 'List::MoreUtils'                            => '0.33';
+requires 'Method::Signatures::Simple'                 => '1.02';
 requires 'Module::Pluggable'                          => '3.9';
-requires 'Moose'                                      => '2.0402';
-requires 'MooseX::ABC'                                => '0.05';
-requires 'MooseX::Clone';
-requires 'MooseX::Getopt';
-requires 'MooseX::MethodAttributes'                   => '0.24';
-requires 'MooseX::Role::Parameterized'                => '0.16';
-requires 'MooseX::Runnable';
-requires 'MooseX::Singleton';
-requires 'MooseX::Types'                              => '0.16';
-requires 'MooseX::Types::Structured'                  => '0.24';
+requires 'Moose'                                      => '2.0401';
+requires 'MooseX::ABC'                                => '0.06';
+requires 'MooseX::Clone'                              => '0.05';
+requires 'MooseX::Getopt'                             => '0.37';
+requires 'MooseX::MethodAttributes'                   => '0.25';
+requires 'MooseX::Role::Parameterized'                => '0.27';
+requires 'MooseX::Runnable'                           => '0.03';
+requires 'MooseX::Singleton'                          => '0.29';
+requires 'MooseX::Types'                              => '0.31';
+requires 'MooseX::Types::Structured'                  => '0.28';
 requires 'MooseX::Types::URI'                         => '0.03';
-requires 'MRO::Compat'                                => '0.10';
-requires 'Net::Amazon::AWSSign';
+requires 'MRO::Compat'                                => '0.11';
+requires 'Net::Amazon::AWSSign'                       => '0.12';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
-requires 'Net::CoverArtArchive';
-requires 'Unicode::ICU::Collator';
-requires 'Package::Stash'                             => '0.29';
-requires 'REST::Utils'                                => '0.4';
+requires 'Net::CoverArtArchive'                       => '1.02';
+requires 'Unicode::ICU::Collator'                     => '0.002';
+requires 'Package::Stash'                             => '0.33';
+requires 'REST::Utils'                                => '0.6';
 requires 'Readonly'                                   => '1.03';
-requires 'Redis'                                      => '1.961';
-requires 'Statistics::Basic'                          => '1.6602';
-requires 'String::CamelCase';
-requires 'String::ShellQuote'                         => '1.030';
+requires 'Redis'                                      => '1.926';
+requires 'Statistics::Basic'                          => '1.6601';
+requires 'String::CamelCase'                          => '0.02';
+requires 'String::ShellQuote'                         => '1.03';
 requires 'String::TT'                                 => '0.03';
-requires 'Sys::Hostname';
-requires 'Template::Plugin::Math';
-requires 'Template::Plugin::Class';
-requires 'Template::Plugin::JavaScript';
-requires 'Template::Plugin::Map';
+requires 'Sys::Hostname'                              => '1.16';
+requires 'Template::Plugin::Math'                     => '1.16';
+requires 'Template::Plugin::Class'                    => '0.13';
+requires 'Template::Plugin::JavaScript'               => '0.02';
 requires 'Text::WikiFormat'                           => '0.80';
-requires 'Text::Unaccent';
+requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';
-requires 'Time::Duration';
-requires 'Throwable';
-requires 'TryCatch';
-requires 'URI'                                        => '1.50';
-requires 'XML::Generator';
+requires 'Time::Duration'                             => '1.06';
+requires 'Throwable'                                  => '0.102080';
+requires 'TryCatch'                                   => '1.003000';
+requires 'URI'                                        => '1.59';
+requires 'XML::Generator'                             => '1.04';
 requires 'XML::Parser::Lite'                          => '0.714';
 requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::SemanticDiff'                          => '1.0000';
-requires 'XML::Simple'                                => '2.14';
-requires 'XML::XPath';
+requires 'XML::Simple'                                => '2.18';
+requires 'XML::XPath'                                 => '1.13';
 
 feature 'ETag Caching' =>
     -default                        => 1,
-    'Catalyst::Plugin::Cache::HTTP' => '0.001',
+    'Catalyst::Plugin::Cache::HTTP' => '0.001000',
     ;
 
 feature 'Default caching setup' =>
     -default                 => 1,
     'Cache::Memory'          => '2.04',
-    'Cache::Memcached::Fast' => '0.16'
+    'Cache::Memcached::Fast' => '0.19'
     ;
 
 feature 'Default session store/state management' =>
     -default                                     => 1,
-    'Catalyst::Plugin::Session::State::Cookie'   => '0.11',
-    'Catalyst::Plugin::Session::Store::FastMmap' => '0.07',
+    'Catalyst::Plugin::Session::State::Cookie'   => '0.17',
+    'Catalyst::Plugin::Session::Store::FastMmap' => '0.14',
     ;
 
 feature 'Developer features' =>
     -default                           => 1,
-    'Catalyst::Plugin::StackTrace'     => '0.09',
-    'Catalyst::Devel'                  => '1.25',
+    'Catalyst::Plugin::StackTrace'     => '0.11',
+    'Catalyst::Devel'                  => '1.36',
     'Plack'                            => '0.9985',
     'Plack::Middleware::Debug'         => '0.14',
-    'Catalyst::Runtime'                => '5.9'
     ;
 
 feature 'Production server' =>
     'Digest::MD5::File' => '0.07',
-    'Catalyst::Plugin::AutoRestart' => '0.93',
-    'Catalyst::Plugin::ErrorCatcher' => '0.0.8.8',
+    'Catalyst::Plugin::AutoRestart' => '0.96',
+    'Catalyst::Plugin::ErrorCatcher' => '0.0.8.13',
     'Catalyst::Plugin::Session::Store::Memcached' => '0.05',
-    'FCGI' => '0',
-    'FCGI::ProcManager' => '0.19',
+    'FCGI' => '0.74',
+    'FCGI::ProcManager' => '0.24',
     ;
 
 # These are just for I18N
 requires 'Locale::PO';
-requires 'Locale::Messages';
+requires 'Locale::Messages' => '1.20';
 
 author_requires 'Test::NoTabs';
 author_requires 'Test::EOL';
