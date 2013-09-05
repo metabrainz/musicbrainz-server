@@ -67,6 +67,7 @@ requires 'List::UtilsBy'                              => '0.08';
 requires 'Log::Dispatch'                              => '2.29';
 requires 'Math::Random::Secure'                       => '0.06';
 requires 'Method::Signatures::Simple'                 => '1.02';
+requires 'MIME::Base64'                               => '3.13';
 requires 'Module::Pluggable'                          => '3.9';
 requires 'Moose'                                      => '2.0401';
 requires 'MooseX::ABC'                                => '0.06';
