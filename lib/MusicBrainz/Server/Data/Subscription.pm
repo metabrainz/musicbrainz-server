@@ -177,14 +177,13 @@ sub get_subscriptions
                 );
             },
             "SELECT
-               sub.editor, n.name AS last_known_name, last_known_comment, deleted_by,
+               sub.editor, last_known_name, last_known_comment, deleted_by,
                CASE
                  WHEN edit.type = any(?) THEN 'merged'
                  WHEN edit.type = any(?) THEN 'deleted'
                END AS reason
              FROM ${table}_deleted sub
              JOIN ${column}_deletion del USING (gid)
-             JOIN ${column}_name n ON (n.id = del.last_known_name)
              JOIN edit ON (edit.id = deleted_by)
              WHERE sub.editor = ?",
             [ $EDIT_ARTIST_MERGE, $EDIT_LABEL_MERGE ],

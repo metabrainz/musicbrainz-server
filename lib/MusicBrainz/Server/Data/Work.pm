@@ -19,7 +19,7 @@ use MusicBrainz::Server::Entity::Work;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
@@ -31,18 +31,13 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     my $self = shift;
-    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON work.name = $join_on");
+    return 'work';
 }
 
 sub _columns
 {
     return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
-            name.name, work.comment, work.edits_pending, work.last_updated';
+            work.name, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -83,7 +78,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(work.name)
          OFFSET ?';
 
     # We actually use this for the side effect in the closure
@@ -110,7 +105,7 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY musicbrainz_collate(name.name)";
+                 ORDER BY musicbrainz_collate(work.name)";
 
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
@@ -126,12 +121,11 @@ sub load
 sub insert
 {
     my ($self, @works) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
     my $class = $self->_entity_class;
     my @created;
     for my $work (@works)
     {
-        my $row = $self->_hash_to_row($work, \%names);
+        my $row = $self->_hash_to_row($work);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('work', $row, 'id'),
@@ -145,8 +139,7 @@ sub update
 {
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('work', $row, { id => $work_id });
 }
 
@@ -194,15 +187,12 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $work, $names) = @_;
+    my ($self, $work) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
         language => 'language_id',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment name )
     });
-
-    $row->{name} = $names->{$work->{name}}
-        if (exists $work->{name});
 
     return $row;
 }

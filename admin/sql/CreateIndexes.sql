@@ -19,6 +19,7 @@ CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE pr
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
+CREATE INDEX artist_idx_page ON artist (page_index(name));
 
 CREATE INDEX artist_idx_area ON artist (area);
 CREATE INDEX artist_idx_begin_area ON artist (begin_area);
@@ -31,9 +32,6 @@ CREATE INDEX artist_alias_idx_artist ON artist_alias (artist);
 CREATE UNIQUE INDEX artist_alias_idx_primary ON artist_alias (artist, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 
 CREATE INDEX artist_credit_name_idx_artist ON artist_credit_name (artist);
-
-CREATE UNIQUE INDEX artist_name_idx_name ON artist_name (name);
-CREATE INDEX artist_name_idx_page ON artist_name (page_index(name));
 
 CREATE INDEX artist_tag_idx_tag ON artist_tag (tag);
 
@@ -204,6 +202,7 @@ CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
 CREATE INDEX label_idx_sort_name ON label (sort_name);
+CREATE INDEX label_idx_page ON label (page_index(name));
 
 CREATE INDEX label_idx_area ON label (area);
 
@@ -212,9 +211,6 @@ CREATE UNIQUE INDEX label_idx_uniq_name_comment ON label (name, comment) WHERE c
 
 CREATE INDEX label_alias_idx_label ON label_alias (label);
 CREATE UNIQUE INDEX label_alias_idx_primary ON label_alias (label, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
-
-CREATE UNIQUE INDEX label_name_idx_name ON label_name (name);
-CREATE INDEX label_name_idx_page ON label_name (page_index(name));
 
 CREATE INDEX label_tag_idx_tag ON label_tag (tag);
 
@@ -258,6 +254,7 @@ CREATE INDEX recording_tag_raw_idx_editor ON recording_tag_raw (editor);
 
 CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
+CREATE INDEX release_idx_page ON release (page_index(name));
 CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
 
@@ -279,6 +276,7 @@ CREATE INDEX release_country_idx_country ON release_country (country);
 
 CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);
 CREATE INDEX release_group_idx_name ON release_group (name);
+CREATE INDEX release_group_idx_page ON release_group (page_index(name));
 CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
@@ -288,10 +286,6 @@ CREATE INDEX release_group_rating_raw_idx_editor ON release_group_rating_raw (ed
 
 CREATE INDEX release_group_tag_raw_idx_tag ON release_group_tag_raw (tag);
 CREATE INDEX release_group_tag_raw_idx_editor ON release_group_tag_raw (editor);
-
-
-CREATE UNIQUE INDEX release_name_idx_name ON release_name (name);
-CREATE INDEX release_name_idx_page ON release_name (page_index(name));
 
 CREATE UNIQUE INDEX script_idx_iso_code ON script (iso_code);
 
@@ -303,8 +297,6 @@ CREATE INDEX track_idx_recording ON track (recording);
 CREATE INDEX track_idx_medium ON track (medium, position);
 CREATE INDEX track_idx_name ON track (name);
 CREATE INDEX track_idx_artist_credit ON track (artist_credit);
-
-CREATE UNIQUE INDEX track_name_idx_name ON track_name (name);
 
 CREATE INDEX track_raw_idx_release ON track_raw (release);
 
@@ -319,27 +311,29 @@ CREATE INDEX vote_idx_editor ON vote (editor);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
+CREATE INDEX work_idx_page ON work (page_index(name));
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
-
-CREATE UNIQUE INDEX work_name_idx_name ON work_name (name);
-CREATE INDEX work_name_idx_page ON work_name (page_index(name));
 
 CREATE INDEX work_tag_idx_tag ON work_tag (tag);
 
 CREATE INDEX work_tag_raw_idx_tag ON work_tag_raw (tag);
 
 -- lowercase indexes for javascript autocomplete
-CREATE INDEX artist_name_idx_lower_name ON artist_name (lower(name));
-CREATE INDEX label_name_idx_lower_name ON label_name (lower(name));
+CREATE INDEX artist_idx_lower_name ON artist (lower(name));
+CREATE INDEX label_idx_lower_name ON label (lower(name));
 
 -- musicbrainz_collate indexes for unicode sorting
-CREATE INDEX release_name_idx_musicbrainz_collate ON release_name (musicbrainz_collate(name));
-CREATE INDEX artist_name_idx_musicbrainz_collate ON artist_name (musicbrainz_collate(name));
-CREATE INDEX label_name_idx_musicbrainz_collate ON label_name (musicbrainz_collate(name));
-CREATE INDEX track_name_idx_musicbrainz_collate ON track_name (musicbrainz_collate(name));
-CREATE INDEX work_name_idx_musicbrainz_collate ON work_name (musicbrainz_collate(name));
+CREATE INDEX release_idx_musicbrainz_collate ON release (musicbrainz_collate(name));
+CREATE INDEX release_group_idx_musicbrainz_collate ON release_group (musicbrainz_collate(name));
+CREATE INDEX artist_idx_musicbrainz_collate ON artist (musicbrainz_collate(name));
+CREATE INDEX artist_credit_idx_musicbrainz_collate ON artist_credit (musicbrainz_collate(name));
+CREATE INDEX artist_credit_name_idx_musicbrainz_collate ON artist_credit_name (musicbrainz_collate(name));
+CREATE INDEX label_idx_musicbrainz_collate ON label (musicbrainz_collate(name));
+CREATE INDEX track_idx_musicbrainz_collate ON track (musicbrainz_collate(name));
+CREATE INDEX recording_idx_musicbrainz_collate ON recording (musicbrainz_collate(name));
+CREATE INDEX work_idx_musicbrainz_collate ON work (musicbrainz_collate(name));
 
 COMMIT;
 

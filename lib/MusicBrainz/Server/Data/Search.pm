@@ -80,162 +80,35 @@ sub search
 
     my @where_args;
 
-    if ($type eq "artist" || $type eq "label") {
+    if ($type eq "artist" || $type eq "label" || $type eq "area") {
 
-        $deleted_entity = ($type eq "artist") ? $DARTIST_ID : $DLABEL_ID;
+        my $where_deleted = "WHERE entity.id != ?";
+        if ($type eq "artist") {
+            $deleted_entity = $DARTIST_ID;
+        } elsif ($type eq "label") {
+            $deleted_entity = $DLABEL_ID;
+        } else {
+            $where_deleted = "";
+        }
 
         my $extra_columns = '';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
-        $query = "
-            SELECT
-                entity.id,
-                entity.gid,
-                entity.comment,
-                aname.name AS name,
-                asort_name.name AS sort_name,
-                entity.type,
-                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day,
-                entity.ended,
-                $extra_columns
-                MAX(rank) AS rank
-            FROM
-                (
-                    SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-                    FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
-                    ORDER BY rank DESC
-                    LIMIT ?
-                ) AS r
-                LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
-                JOIN ${type} AS entity ON (r.id = entity.name OR r.id = entity.sort_name OR alias.${type} = entity.id)
-                JOIN ${type}_name AS aname ON entity.name = aname.id
-                JOIN ${type}_name AS asort_name ON entity.sort_name = asort_name.id
-                WHERE entity.id != ?
-            GROUP BY
-                $extra_columns entity.id, entity.gid, entity.comment, aname.name, asort_name.name, entity.type,
-                entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
-                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
-            ORDER BY
-                rank DESC, sort_name, name
-            OFFSET
-                ?
-        ";
-
-        $hard_search_limit = $offset * 2;
-    }
-    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
-        my $type2 = $type;
-        $type2 = "track" if $type eq "recording";
-        $type2 = "release" if $type eq "release_group";
-
-        my $extra_columns = "";
-        $extra_columns .= 'entity.type AS primary_type_id,'
-            if ($type eq 'release_group');
-
-        $extra_columns = "entity.length,"
-            if ($type eq "recording");
-
-        $extra_columns .= 'entity.language, entity.script, entity.barcode,
-                           entity.release_group, entity.status,'
-            if ($type eq 'release');
-
-        my $extra_ordering = '';
-        $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
-        $extra_ordering = ', entity.artist_credit';
-
-        my ($join_sql, $where_sql)
-            = ("JOIN ${type} entity ON r.id = entity.name", '');
-
-        if ($type eq 'release' && $where && exists $where->{track_count}) {
-            $join_sql .= ' JOIN medium ON medium.release = entity.id';
-            $where_sql = 'WHERE medium.track_count = ?';
-            push @where_args, $where->{track_count};
-        }
-        elsif ($type eq 'recording') {
-            if ($where && exists $where->{artist})
-            {
-                $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit"
-                    ." JOIN artist_name ON artist_credit.name = artist_name.id";
-                $where_sql = 'WHERE artist_name.name LIKE ?';
-                push @where_args, "%".$where->{artist}."%";
-            }
-        }
-
-        $query = "
-            SELECT DISTINCT
-                entity.id,
-                entity.gid,
-                entity.comment,
-                $extra_columns
-                r.name,
-                r.rank
-            FROM
-                (
-                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-                    FROM ${type2}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
-                    ORDER BY rank DESC
-                    LIMIT ?
-                ) AS r
-                $join_sql
-                $where_sql
-            ORDER BY
-                r.rank DESC, r.name
-                $extra_ordering
-            OFFSET
-                ?
-        ";
-        $hard_search_limit = int($offset * 1.2);
-    }
-
-    elsif ($type eq "work") {
-
-        $query = "
-            SELECT
-                entity.id,
-                entity.gid,
-                aname.name,
-                entity.type AS type_id,
-                entity.language AS language_id,
-                MAX(rank) AS rank
-            FROM
-                (
-                    SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
-                    FROM ${type}_name, plainto_tsquery('mb_simple', ?) AS query
-                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
-                    ORDER BY rank DESC
-                    LIMIT ?
-                ) as r
-                LEFT JOIN ${type}_alias AS alias ON alias.name = r.id
-                JOIN ${type} AS entity ON (r.id = entity.name OR alias.${type} = entity.id)
-                JOIN ${type}_name AS aname ON entity.name = aname.id
-            GROUP BY
-                entity.id, entity.gid, aname.name, type_id, language_id
-            ORDER BY
-                rank DESC, aname.name
-            OFFSET
-                ?
-        ";
-
-        $hard_search_limit = $offset * 2;
-    }
-
-    # Could be merged with artist/label once name tables are killed
-    elsif ($type eq "area") {
+        my $include_comment = $type eq 'area' ? '' : 'entity.comment, ';
 
         $query = "
             SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
+                ${include_comment}
                 entity.sort_name,
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day,
                 entity.ended,
+                $extra_columns
                 MAX(rank) AS rank
             FROM
                 (
@@ -252,12 +125,108 @@ sub search
                 ) AS r
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
+                $where_deleted
             GROUP BY
-                entity.id, entity.gid, entity.name, entity.sort_name, entity.type,
+                $extra_columns entity.id, entity.gid, ${include_comment}entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
                 rank DESC, sort_name, name
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = $offset * 2;
+    }
+    elsif ($type eq "recording" || $type eq "release" || $type eq "release_group") {
+        my $extra_columns = "";
+        $extra_columns .= 'entity.type AS primary_type_id,'
+            if ($type eq 'release_group');
+
+        $extra_columns = "entity.length,"
+            if ($type eq "recording");
+
+        $extra_columns .= 'entity.language, entity.script, entity.barcode,
+                           entity.release_group, entity.status,'
+            if ($type eq 'release');
+
+        my $extra_ordering = '';
+        $extra_columns .= 'entity.artist_credit AS artist_credit_id,';
+        $extra_ordering = ', entity.artist_credit';
+
+        my ($join_sql, $where_sql)
+            = ("JOIN ${type} entity ON r.name = entity.name", '');
+
+        if ($type eq 'release' && $where && exists $where->{track_count}) {
+            $join_sql .= ' JOIN medium ON medium.release = entity.id';
+            $where_sql = 'WHERE medium.track_count = ?';
+            push @where_args, $where->{track_count};
+        }
+        elsif ($type eq 'recording') {
+            if ($where && exists $where->{artist})
+            {
+                $join_sql .= " JOIN artist_credit ON artist_credit.id = entity.artist_credit";
+                $where_sql = 'WHERE artist_credit.name LIKE ?';
+                push @where_args, "%".$where->{artist}."%";
+            }
+        }
+
+        $query = "
+            SELECT DISTINCT
+                entity.id,
+                entity.gid,
+                entity.comment,
+                $extra_columns
+                r.name,
+                r.rank
+            FROM
+                (
+                    SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) as rank
+                    FROM ${type},
+                        plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                $join_sql
+                $where_sql
+            ORDER BY
+                r.rank DESC, r.name
+                $extra_ordering
+            OFFSET
+                ?
+        ";
+
+        $hard_search_limit = int($offset * 1.2);
+    }
+
+    elsif ($type eq "work") {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                entity.name,
+                entity.type AS type_id,
+                entity.language AS language_id,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM
+                        (SELECT name              FROM ${type}       UNION ALL
+                         SELECT name              FROM ${type}_alias) names,
+                        plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                    LIMIT ?
+                ) AS r
+                LEFT JOIN ${type}_alias AS alias ON alias.name = r.name
+                JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
+            GROUP BY
+                entity.id, entity.gid, entity.name, type_id, language_id
+            ORDER BY
+                rank DESC, entity.name
             OFFSET
                 ?
         ";

@@ -95,8 +95,8 @@ CREATE TABLE area_annotation (
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references artist_name.id
-    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -131,7 +131,7 @@ CREATE TABLE artist (
 CREATE TABLE artist_deletion
 (
     gid UUID NOT NULL, -- PK
-    last_known_name INTEGER NOT NULL, -- references artist_name.id
+    last_known_name VARCHAR NOT NULL,
     last_known_comment TEXT NOT NULL,
     deleted_at timestamptz NOT NULL DEFAULT now()
 );
@@ -145,12 +145,12 @@ CREATE TABLE artist_alias
 (
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references artist_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -223,7 +223,7 @@ CREATE TABLE artist_tag_raw
 
 CREATE TABLE artist_credit (
     id                  SERIAL,
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -233,7 +233,7 @@ CREATE TABLE artist_credit_name (
     artist_credit       INTEGER NOT NULL, -- PK, references artist_credit.id CASCADE
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     join_phrase         TEXT NOT NULL DEFAULT ''
 );
 
@@ -242,11 +242,6 @@ CREATE TABLE artist_gid_redirect
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references artist.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE artist_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE artist_type (
@@ -875,8 +870,8 @@ CREATE TABLE l_work_work
 CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references label_name.id
-    sort_name           INTEGER NOT NULL, -- references label_name.id
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -909,7 +904,7 @@ CREATE TABLE label (
 CREATE TABLE label_deletion
 (
     gid UUID NOT NULL, -- PK
-    last_known_name INTEGER NOT NULL, -- references label_name.id
+    last_known_name VARCHAR NOT NULL,
     last_known_comment TEXT NOT NULL,
     deleted_at timestamptz NOT NULL DEFAULT now()
 );
@@ -937,12 +932,12 @@ CREATE TABLE label_alias
 (
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
-    name                INTEGER NOT NULL, -- references label_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references label_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references label_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -996,11 +991,6 @@ CREATE TABLE label_gid_redirect
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references label.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE label_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE label_tag
@@ -1214,7 +1204,7 @@ CREATE TABLE replication_control
 CREATE TABLE recording (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references track_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -1267,7 +1257,7 @@ CREATE TABLE recording_tag
 CREATE TABLE release (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references release_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
@@ -1380,7 +1370,7 @@ CREATE TABLE release_tag
 CREATE TABLE release_group (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references release_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_primary_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -1450,11 +1440,6 @@ CREATE TABLE release_group_secondary_type_join (
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE release_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
-);
-
 CREATE TABLE script
 (
     id                  SERIAL,
@@ -1496,7 +1481,7 @@ CREATE TABLE track
     medium              INTEGER NOT NULL, -- references medium.id
     position            INTEGER NOT NULL,
     number              TEXT NOT NULL,
-    name                INTEGER NOT NULL, -- references track_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -1517,11 +1502,6 @@ CREATE TABLE track_raw
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),   -- For VA albums, otherwise empty
     sequence            INTEGER NOT NULL
-);
-
-CREATE TABLE track_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE medium_index
@@ -1559,7 +1539,7 @@ CREATE TABLE vote
 CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references work_name.id
+    name                VARCHAR NOT NULL,
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -1590,12 +1570,12 @@ CREATE TABLE work_alias
 (
     id                  SERIAL,
     work                INTEGER NOT NULL, -- references work.id
-    name                INTEGER NOT NULL, -- references work_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references work_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references work_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -1633,11 +1613,6 @@ CREATE TABLE work_meta
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
-);
-
-CREATE TABLE work_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE work_tag

@@ -146,23 +146,12 @@ sub _load
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, url";
-        } elsif ($target eq 'area') {
+        } else {
             $query = "
             SELECT $select
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, musicbrainz_collate(name)";
-        } else {
-            my $name_table =
-                $target eq 'recording'     ? 'track_name'   :
-                $target eq 'release_group' ? 'release_name' :
-                                             "${target}_name";
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-              JOIN $name_table name ON name.id = ${target}.name
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, musicbrainz_collate(name.name)";
         }
 
         $self->sql->select($query, @params);

@@ -27,7 +27,7 @@ use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'artist' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'artist_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'artist' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'artist' };
@@ -46,24 +46,17 @@ with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' };
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name.name' }
+sub browse_column { 'sort_name' }
 
 sub _table
 {
     my $self = shift;
-    return 'artist ' . (shift() || '') . ' ' .
-           'JOIN artist_name name ON artist.name=name.id ' .
-           'JOIN artist_name sort_name ON artist.sort_name=sort_name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON artist.name = $join_on OR artist.sort_name = $join_on");
+    return 'artist';
 }
 
 sub _columns
 {
-    return 'artist.id, artist.gid, name.name, sort_name.name AS sort_name, ' .
+    return 'artist.id, artist.gid, artist.name, artist.sort_name, ' .
            'artist.type, artist.area, artist.begin_area, artist.end_area, ' .
            'gender, artist.edits_pending, artist.comment, artist.last_updated, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
@@ -119,7 +112,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_artist s ON artist.id = s.artist
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(sort_name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.sort_name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -134,7 +127,7 @@ sub find_by_recording
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN recording ON recording.artist_credit = acn.artist_credit
                  WHERE recording.id = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -157,7 +150,7 @@ sub find_by_release
                      JOIN artist_credit_name acn ON acn.artist = artist.id
                      JOIN release ON release.artist_credit = acn.artist_credit
                      wHERE release.id = ?)
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -172,7 +165,7 @@ sub find_by_release_group
                     JOIN artist_credit_name acn ON acn.artist = artist.id
                     JOIN release_group ON release_group.artist_credit = acn.artist_credit
                  WHERE release_group.id = ?
-                 ORDER BY musicbrainz_collate(name.name), artist.id
+                 ORDER BY musicbrainz_collate(artist.name), artist.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -215,12 +208,11 @@ sub load
 sub insert
 {
     my ($self, @artists) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @artists);
     my $class = $self->_entity_class;
     my @created;
     for my $artist (@artists)
     {
-        my $row = $self->_hash_to_row($artist, \%names);
+        my $row = $self->_hash_to_row($artist);
         $row->{gid} = $artist->{gid} || generate_gid();
 
         my $created = $class->new(
@@ -241,8 +233,7 @@ sub update
 {
     my ($self, $artist_id, $update) = @_;
     croak '$artist_id must be present and > 0' unless $artist_id > 0;
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
 
     assert_uniqueness_conserved($self, artist => $artist_id, $update);
 
@@ -324,7 +315,7 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $values, $names) = @_;
+    my ($self, $values) = @_;
 
     my $row = hash_to_row($values, {
         area => 'area_id',
@@ -334,6 +325,8 @@ sub _hash_to_row
         gender  => 'gender_id',
         comment => 'comment',
         ended => 'ended',
+        name => 'name',
+        sort_name => 'sort_name',
     });
 
     if (exists $values->{begin_date}) {
@@ -342,14 +335,6 @@ sub _hash_to_row
 
     if (exists $values->{end_date}) {
         add_partial_date_to_row($row, $values->{end_date}, 'end_date');
-    }
-
-    if (exists $values->{name}) {
-        $row->{name} = $names->{ $values->{name} };
-    }
-
-    if (exists $values->{sort_name}) {
-        $row->{sort_name} = $names->{ $values->{sort_name} };
     }
 
     return $row;
