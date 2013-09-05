@@ -5,9 +5,8 @@ SELECT no_plan();
  
 --------------------------------------------------------------------------------
 -- Test setup. See below for tests.
-INSERT INTO work_name (id, name) VALUES (1, 'blah');
 INSERT INTO work (id, gid, name)
-  VALUES (1, '86a36512-88e8-4346-b7bf-1ecbb7b43fb3', 1);
+  VALUES (1, '86a36512-88e8-4346-b7bf-1ecbb7b43fb3', 'blah');
 INSERT INTO work_attribute_type (id, name, comment, free_text)
   VALUES (1, 'with_text', '', TRUE),
          (2, 'no_text', '', FALSE);
