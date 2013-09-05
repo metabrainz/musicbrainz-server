@@ -1,91 +1,91 @@
 [%- typename = relationship_type.name | ucfirst -%]
 [%- title = l("Relationship Type") _ " / " _ typename -%]
 [%- WRAPPER 'layout.tt' full_width=1 title=title -%]
-	<h1 class="hierarchy-links"><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
+    <h1 class="hierarchy-links"><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[% l('Relationship Types') %]</a>
     / <a href="/relationships/[%- relationship_type.entity0_type -%]-[%- relationship_type.entity1_type -%]">[% l('{entity0}-{entity1}',
     { entity0 => format_entity_type_name(relationship_type.entity0_type), entity1 => format_entity_type_name(relationship_type.entity1_type) }) -%]</a>
     / [% typename | html -%]</h1>
 
-	[%- IF c.user.is_relationship_editor -%]
-	<span class="buttons" style="float: right">
-		<a href="[% c.uri_for_action('/relationship/linktype/edit', [ relationship_type.gid ]) %]">[% l('Edit') %]</a>
-		[% UNLESS relationship_type.children.size %]
+    [%- IF c.user.is_relationship_editor -%]
+    <span class="buttons" style="float: right">
+        <a href="[% c.uri_for_action('/relationship/linktype/edit', [ relationship_type.gid ]) %]">[% l('Edit') %]</a>
+        [% UNLESS relationship_type.children.size %]
             <a href="[% c.uri_for_action('/relationship/linktype/delete', [ relationship_type.gid ]) %]">[% l('Remove') %]</a>
         [% END %]
-	</span>
-	[% END %]
+    </span>
+    [% END %]
 
-	[%- IF relationship_type.description -%]
-	<h2>[%- l('Description') -%]</h2>
-	<p>
-		[%- relationship_type.description -%]
-	</p>
-	<p>
-		[%- IF c.user.is_relationship_editor -%]
-		<strong>[% l('Child order:') %]</strong> [% relationship_type.child_order %]<br />
-		[% END %]
-		<strong>[% l('UUID:') %]</strong> [% relationship_type.gid %]<br />
-	</p>
+    [%- IF relationship_type.description -%]
+    <h2>[%- l('Description') -%]</h2>
+    <p>
+        [%- relationship_type.description -%]
+    </p>
+    <p>
+        [%- IF c.user.is_relationship_editor -%]
+        <strong>[% l('Child order:') %]</strong> [% relationship_type.child_order %]<br />
+        [% END %]
+        <strong>[% l('UUID:') %]</strong> [% relationship_type.gid %]<br />
+    </p>
 
-	<h2>[%- l('Link phrases') -%]</h2>
-	<p>
-	<ul>
-		<li><strong>[% l('Forward link phrase:') %]</strong> [%- relationship_type.link_phrase | html -%]</li>
-		<li><strong>[% l('Reverse link phrase:') %]</strong> [%- relationship_type.reverse_link_phrase | html -%]</li>
-		<li><strong>[% l('Long link phrase:') %]</strong> [%- relationship_type.long_link_phrase | html -%]</li>
-	</ul>
-	</p>
+    <h2>[%- l('Link phrases') -%]</h2>
+    <p>
+    <ul>
+        <li><strong>[% l('Forward link phrase:') %]</strong> [%- relationship_type.link_phrase | html -%]</li>
+        <li><strong>[% l('Reverse link phrase:') %]</strong> [%- relationship_type.reverse_link_phrase | html -%]</li>
+        <li><strong>[% l('Long link phrase:') %]</strong> [%- relationship_type.long_link_phrase | html -%]</li>
+    </ul>
+    </p>
 
-	<h2>[%- l('Attributes') -%]</h2>
-	<p>
-		[%- l('The following attributes can be used with this relationship type:') -%]
-		[%- IF relationship_type.attributes.size -%]
-			[%- FOR attr=relationship_type.attributes -%]
-				<h3>[% l(attr.type.name) %]</h3>
-				<p>[%- l(attr.type.description) -%]</p>
-			[%- END -%]
-		[%- END -%]
-		<h3>[%- l('start date') -%]</h3>
-		<p></p>
+    <h2>[%- l('Attributes') -%]</h2>
+    <p>
+        [%- l('The following attributes can be used with this relationship type:') -%]
+        [%- IF relationship_type.attributes.size -%]
+            [%- FOR attr=relationship_type.attributes -%]
+                <h3>[% l(attr.type.name) %]</h3>
+                <p>[%- l(attr.type.description) -%]</p>
+            [%- END -%]
+        [%- END -%]
+        <h3>[%- l('start date') -%]</h3>
+        <p></p>
 
-		<h3>[%- l('end date') -%]</h3>
-		<p></p>
-	</p>
+        <h3>[%- l('end date') -%]</h3>
+        <p></p>
+    </p>
 
-	[%- IF relationship_type.documentation || relationship_type.entity0_type == "url" || relationship_type.entity1_type == "url" -%]
-	<h2>[%- l('Guidelines') -%]</h2>
-	[%- IF relationship_type.entity0_type == "url" || relationship_type.entity1_type == "url" -%]
-	<p>
-		[%- l('See the general {url|guidelines for URLs}.', { url => doc_link('Style/Relationships/URLs') }) -%]
-	</p>
-	[%- END -%]
-	<p>
-		[%- relationship_type.documentation -%]
-	</p>
-	[%- END -%]
-
-
-	[%- IF relationship_type.examples.size -%]
-	<h2>[%- l('Examples') -%]</h2>
-		[% lastname = '' %]
-		[%- FOR example=relationship_type.examples -%]
-			[%- IF lastname != example.name -%]
-			<h3>[% l(example.name) %]</h3>
-			[%- END -%]
-			[%- lastname = example.name -%]
-			<p>[%-
-				rel = example.relationship;
-				descriptive_link(rel.source);
-				' ';
-				display_relationship(rel, 'verbose_phrase');
-			-%]</p>
-		[%- END -%]
-	[%- END -%]
+    [%- IF relationship_type.documentation || relationship_type.entity0_type == "url" || relationship_type.entity1_type == "url" -%]
+    <h2>[%- l('Guidelines') -%]</h2>
+    [%- IF relationship_type.entity0_type == "url" || relationship_type.entity1_type == "url" -%]
+    <p>
+        [%- l('See the general {url|guidelines for URLs}.', { url => doc_link('Style/Relationships/URLs') }) -%]
+    </p>
+    [%- END -%]
+    <p>
+        [%- relationship_type.documentation -%]
+    </p>
+    [%- END -%]
 
 
-	[%- ELSE -%]
-	<p>
-		[%- l("This relationship type is only used for grouping other relationship types.") -%]
-	</p>
-	[%- END -%]
+    [%- IF relationship_type.examples.size -%]
+    <h2>[%- l('Examples') -%]</h2>
+        [% lastname = '' %]
+        [%- FOR example=relationship_type.examples -%]
+            [%- IF lastname != example.name -%]
+            <h3>[% l(example.name) %]</h3>
+            [%- END -%]
+            [%- lastname = example.name -%]
+            <p>[%-
+                rel = example.relationship;
+                descriptive_link(rel.source);
+                ' ';
+                display_relationship(rel, 'verbose_phrase');
+            -%]</p>
+        [%- END -%]
+    [%- END -%]
+
+
+    [%- ELSE -%]
+    <p>
+        [%- l("This relationship type is only used for grouping other relationship types.") -%]
+    </p>
+    [%- END -%]
 [%- END -%]

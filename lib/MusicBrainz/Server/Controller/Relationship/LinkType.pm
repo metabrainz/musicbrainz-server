@@ -271,7 +271,6 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
                 '/doc/relationship_type', [ $link_type->gid ],
                 { msg => 'updated' }
             );
-
             $c->response->redirect($url);
             $c->detach;
         }
