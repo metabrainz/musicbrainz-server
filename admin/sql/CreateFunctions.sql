@@ -1148,11 +1148,14 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION materialise_recording_length(recording_id INT)
 RETURNS void as $$
 BEGIN
-  UPDATE recording
-  SET length = (SELECT median(track.length)
-                FROM track
-                WHERE track.recording = recording.id)
-  WHERE recording.id = recording_id;
+  UPDATE recording SET length = median
+  FROM (
+    SELECT median(track.length)
+    FROM track
+    WHERE track.recording = recording_id
+  ) track
+  WHERE recording.id = recording_id
+    AND recording.length IS DISTINCT FROM track.median;
 END;
 $$ LANGUAGE 'plpgsql';
 
