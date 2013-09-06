@@ -54,4 +54,25 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION b_upd_recording() RETURNS TRIGGER AS $$
+BEGIN
+  IF OLD.length IS DISTINCT FROM NEW.length
+    AND EXISTS (SELECT TRUE FROM track WHERE recording = NEW.id)
+    AND NEW.length IS DISTINCT FROM (
+      SELECT median(track.length) FROM track WHERE recording = NEW.id
+    )
+  THEN
+    NEW.length = (SELECT median(track.length) FROM track WHERE recording = NEW.id);
+  END IF;
+
+  NEW.last_updated = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
+DROP TRIGGER b_upd_recording ON recording;
+
+CREATE TRIGGER b_upd_recording BEFORE UPDATE ON recording
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_recording();
+
 COMMIT;
