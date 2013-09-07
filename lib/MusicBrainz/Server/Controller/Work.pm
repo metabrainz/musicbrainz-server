@@ -80,7 +80,11 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
         my ($self, $c, $work) = @_;
 
         return (
-            post_creation => $self->edit_with_identifiers($c, $work)
+            post_creation => $self->edit_with_identifiers($c, $work),
+            edit_args => {
+                to_edit => $work,
+                attributes => []
+            }
         );
     }
 };

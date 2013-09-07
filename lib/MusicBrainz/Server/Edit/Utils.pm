@@ -393,7 +393,7 @@ sub merge_set {
         - ($old_set - $current_set))  # leave out those removed in the meantime
         + ($current_set - $old_set);  # ... and include those added
 
-    return [ $result_set->members ];
+    return $result_set->members;
 }
 
 1;

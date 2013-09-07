@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Edit::Work::Edit;
 use Moose;
+use 5.10.0;
 
 use Clone qw( clone );
-use MooseX::Types::Moose qw( Int Str );
+use JSON;
+use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_EDIT );
@@ -20,6 +22,40 @@ extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Work';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
+with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
+    prop_name => 'attributes',
+    get_current => sub { shift->current_instance->attributes },
+    extract_value => \&_work_attribute_to_edit,
+    hash => sub {
+        my $input = shift;
+        state $json = JSON::Any->new(
+            utf8 => 1, allow_blessed => 1, canonical => 1
+        );
+        return $json->objToJson($input);
+    }
+};
+
+sub _mapping {
+    my $self = shift;
+    return (
+        attributes => sub {
+            my $instance = shift;
+            return [
+                map { _work_attribute_to_edit($_) } $instance->all_attributes
+            ];
+        }
+    );
+}
+
+sub _work_attribute_to_edit {
+    my $work_attribute = shift;
+    return {
+        attribute_text =>
+            $work_attribute->value_id ? undef : $work_attribute->value,
+        attribute_value_id => $work_attribute->value_id,
+        attribute_type_id => $work_attribute->type->id
+    };
+}
 
 sub edit_type { $EDIT_WORK_EDIT }
 sub edit_name { N_l('Edit work') }
@@ -33,7 +69,12 @@ sub change_fields
         comment       => Nullable[Str],
         type_id       => Nullable[Str],
         language_id   => Nullable[Int],
-        iswc          => Nullable[Str]
+        iswc          => Nullable[Str],
+        attributes    => Optional[ArrayRef[Dict[
+            attribute_text => Maybe[Str],
+            attribute_value_id => Maybe[Int],
+            attribute_type_id => Int
+        ]]]
     ];
 }
 
@@ -103,7 +144,9 @@ sub allow_auto_edit
 
 sub current_instance {
     my $self = shift;
-    $self->c->model('Work')->get_by_id($self->entity_id),
+    my $work = $self->c->model('Work')->get_by_id($self->entity_id);
+    $self->c->model('Work')->load_attributes($work);
+    return $work;
 }
 
 around new_data => sub {
@@ -144,6 +187,10 @@ after accept => sub {
                   ->throw('Data has changed since this edit was created, and now conflicts ' .
                               'with changes made in this edit.');
         }
+    }
+
+    if (my $attributes = $self->_edit_hash->{attributes}) {
+        $self->c->model('Work')->set_attributes($self->work_id, @$attributes);
     }
 };
 
