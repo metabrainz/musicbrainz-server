@@ -31,32 +31,17 @@ has [qw( table type entity )] => (
 sub _table
 {
     my $self = shift;
-    if ($self->type eq 'area') {
-        return $self->table;
-    } else {
-        return sprintf '%s JOIN %s name ON %s.name=name.id JOIN %s sort_name ON %s.sort_name=sort_name.id',
-            $self->table, $self->parent->name_table, $self->table, $self->parent->name_table, $self->table;
-    }
+    return $self->table;
 }
 
 sub _columns
 {
     my $self = shift;
-    return sprintf '%s.id, %s, %s AS sort_name, %s, locale,
+    return sprintf '%s.id, name, sort_name, %s, locale,
                     edits_pending, begin_date_year, begin_date_month,
                     begin_date_day, end_date_year, end_date_month,
                     end_date_day, type AS type_id, primary_for_locale',
-        $self->table, $self->_name, $self->_sort_name, $self->type;
-}
-
-sub _name {
-    my $self = shift;
-    return $self->type eq 'area' ? $self->table . '.name' : 'name.name';
-}
-
-sub _sort_name {
-    my $self = shift;
-    return $self->type eq 'area' ? $self->table . '.sort_name' : 'sort_name.name';
+        $self->table, $self->type;
 }
 
 sub _column_mapping
@@ -96,7 +81,7 @@ sub find_by_entity_ids
     my $query = "SELECT $key parent_id, " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(" . $self->_sort_name . "), musicbrainz_collate(" . $self->_name . ")";
+                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name), musicbrainz_collate(name)";
 
     my %ret = map { $_ => [] } @ids;
 
@@ -159,21 +144,14 @@ sub insert
 {
     my ($self, @alias_hashes) = @_;
     my ($table, $type, $class) = ($self->table, $self->type, $self->entity);
-    # Only use name tables if it's not an area
-    my %names;
-    if ($type ne 'area') {
-        %names = $self->parent->find_or_insert_names(map { $_->{name}, $_->{sort_name} } @alias_hashes);
-    } else {
-        %names = map { $_->{name} => $_->{name}, $_->{sort_name} => $_->{sort_name} } @alias_hashes;
-    }
     my @created;
     Class::MOP::load_class($class);
     for my $hash (@alias_hashes) {
         my $row = {
             $type => $hash->{$type . '_id'},
-            name =>  $names{ $hash->{name} },
+            name => $hash->{name},
             locale => $hash->{locale},
-            sort_name => $names{ $hash->{sort_name} },
+            sort_name => $hash->{sort_name},
             primary_for_locale => $hash->{primary_for_locale},
             type => $hash->{type_id},
         };
@@ -247,20 +225,6 @@ sub update
     my %row = %$alias_hash;
     delete @row{qw( begin_date end_date )};
 
-    # Only change to name tables if it's not an area
-    if ($type ne 'area') {
-        delete @row{qw( name )};
-        if (exists $alias_hash->{name}) {
-            my %names = $self->parent->find_or_insert_names($alias_hash->{name});
-            $row{name} = $names{ $alias_hash->{name} };
-        }
-
-        if (exists $alias_hash->{sort_name}) {
-            my %names = $self->parent->find_or_insert_names($alias_hash->{sort_name});
-            $row{sort_name} = $names{ $alias_hash->{sort_name} };
-        }
-    }
-
     add_partial_date_to_row(\%row, $alias_hash->{begin_date}, "begin_date")
         if exists $alias_hash->{begin_date};
     add_partial_date_to_row(\%row, $alias_hash->{end_date}, "end_date")
@@ -273,14 +237,12 @@ sub update
 
 sub exists {
     my ($self, $alias) = @_;
-    my $name_table = $self->parent->name_table;
     my $table = $self->table;
     my $type = $self->type;
     return $self->sql->select_single_value(
         "SELECT EXISTS (
              SELECT TRUE
              FROM $table " .
-             ($type ne 'area' ? "JOIN $name_table name ON $table.name = name.id " : "") .
              "WHERE " . $self->_name . " IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?

@@ -20,12 +20,10 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
 
     TRUNCATE artist CASCADE;
     TRUNCATE artist_meta CASCADE;
-    TRUNCATE artist_name CASCADE;
 
-    INSERT INTO artist_name (id, name) VALUES (1, 'Test');
     INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 1'),
-        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 2');
+        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
+        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
 
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
@@ -141,10 +139,9 @@ test 'Test find_editor_ratings' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, "
-    INSERT INTO artist_name (id, name) VALUES (1, 'Test');
     INSERT INTO artist (id, gid, name, sort_name, comment) VALUES
-        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 1'),
-        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 1, 1, 'Test 2');
+        (1, 'c09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 1'),
+        (2, 'd09150d1-1e1b-46ad-9873-cc76d0c44499', 'Test', 'Test', 'Test 2');
 
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;

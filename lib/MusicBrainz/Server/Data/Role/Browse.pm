@@ -5,7 +5,7 @@ use MusicBrainz::Server::Data::Utils qw( query_to_list_limited );
 
 requires '_columns', '_table';
 
-sub browse_column { 'name.name' }
+sub browse_column { 'name' }
 
 sub find_by_name_prefix
 {

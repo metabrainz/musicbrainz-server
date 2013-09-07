@@ -29,7 +29,7 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
@@ -41,12 +41,12 @@ Readonly our $MERGE_MERGE => 2;
 
 sub _table
 {
-    return 'release JOIN release_name name ON release.name=name.id';
+    return 'release';
 }
 
 sub _columns
 {
-    return 'release.id, release.gid, name.name, release.artist_credit AS artist_credit_id,
+    return 'release.id, release.gid, release.name, release.artist_credit AS artist_credit_id,
             release.release_group, release.status, release.packaging,
             release.comment, release.edits_pending, release.barcode,
             release.script, release.language, release.quality, release.last_updated';
@@ -100,7 +100,7 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @query, "(to_tsvector('mb_simple', release.name) @@ plainto_tsquery('mb_simple', ?) OR release.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
@@ -184,7 +184,7 @@ sub find_by_artist
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode, musicbrainz_collate(name.name)
+          country_name, barcode, musicbrainz_collate(release.name)
       ) release
       ORDER BY date_year, date_month, date_day,
         country_name, barcode, musicbrainz_collate(name)
@@ -223,7 +223,7 @@ sub find_by_label
         LEFT JOIN area ON area.id = release_event.country
          WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day, catalog_number,
-          musicbrainz_collate(name.name), country_name,
+          musicbrainz_collate(release.name), country_name,
           barcode
       ) s
       ORDER BY date_year, date_month, date_day, catalog_number,
@@ -258,7 +258,7 @@ sub find_by_disc_id
         ) release_event ON release_event.release = release.id
         WHERE cdtoc.discid = ?
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(name.name)
+          musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name)";
@@ -346,7 +346,7 @@ sub find_by_track_artist
           LEFT JOIN area ON area.id = release_event.country
           WHERE " . join(" AND ", @$conditions) . "
           ORDER BY release.id, date_year, date_month, date_day,
-            musicbrainz_collate(name.name)
+            musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name)
@@ -393,7 +393,7 @@ sub find_for_various_artists
         ) release_event ON release_event.release = release.id
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id,
-          date_year, date_month, date_day, musicbrainz_collate(name.name)
+          date_year, date_month, date_day, musicbrainz_collate(release.name)
       ) release
       ORDER BY date_year, date_month, date_day, musicbrainz_collate(name)
       OFFSET ?";
@@ -432,7 +432,7 @@ sub find_by_recording
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(name.name)
+          musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(name)
@@ -459,7 +459,6 @@ sub find_by_recordings
         "SELECT DISTINCT ON (release.id, track.recording) " . $self->_columns . ",
                 track.recording, track.position
            FROM release
-           JOIN release_name name ON name.id = release.name
            JOIN medium ON release.id = medium.release
            JOIN track ON track.medium = medium.id
           WHERE track.recording IN (" . placeholders(@ids) . ")";
@@ -503,7 +502,7 @@ sub find_by_country
         LEFT JOIN area ON area.id = release_event.country
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode, musicbrainz_collate(name.name)
+          country_name, barcode, musicbrainz_collate(release.name)
       ) release
       ORDER BY date_year, date_month, date_day,
         country_name, barcode, musicbrainz_collate(name)
@@ -543,7 +542,7 @@ sub find_for_cdtoc
           AND acn.artist = ?
           AND (medium_format.id IS NULL OR medium_format.has_discids)
         ORDER BY release.id, release.release_group,
-          date_year, date_month, date_day, musicbrainz_collate(name.name)
+          date_year, date_month, date_day, musicbrainz_collate(release.name)
       ) s
       ORDER BY release_group,
           date_year, date_month, date_day, musicbrainz_collate(name)
@@ -587,7 +586,7 @@ sub load_with_medium_for_recording
         SELECT DISTINCT ON (release.id)
           release.id AS r_id,
           release.gid AS r_gid,
-          release_name.name AS r_name,
+          release.name AS r_name,
           release.artist_credit AS r_artist_credit_id,
           release.release_group AS r_release_group,
           release.status AS r_status,
@@ -606,7 +605,7 @@ sub load_with_medium_for_recording
           medium.track_count AS m_track_count,
           track.id AS t_id,
           track.gid AS t_gid,
-          track_name.name AS t_name,
+          track.name AS t_name,
           track.medium AS t_medium,
           track.position AS t_position,
           track.length AS t_length,
@@ -616,8 +615,6 @@ sub load_with_medium_for_recording
         FROM track
         JOIN medium ON medium.id = track.medium
         JOIN release ON release.id = medium.release
-        JOIN release_name ON release.name = release_name.id
-        JOIN track_name ON track.name = track_name.id
         LEFT JOIN (
           SELECT release, country, date_year, date_month, date_day
           FROM release_country
@@ -628,7 +625,7 @@ sub load_with_medium_for_recording
         " . join(' ', @$extra_joins) . "
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          musicbrainz_collate(release_name.name)
+          musicbrainz_collate(release.name)
       ) s
       ORDER BY date_year, date_month, date_day,
         musicbrainz_collate(r_name)
@@ -686,16 +683,14 @@ sub find_by_collection
             return "country_name, date_year, date_month, date_day";
         },
         "artist" => sub {
-            $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit
-                           JOIN artist_name ac_name ON ac_name.id=ac.name";
-            $also_select = "ac_name.name AS ac_name";
+            $extra_join = "JOIN artist_credit ac ON ac.id = release.artist_credit";
+            $also_select = "ac.name AS ac_name";
             return "musicbrainz_collate(ac_name), musicbrainz_collate(name)";
         },
         "label" => sub {
             $extra_join = "LEFT OUTER JOIN
-                (SELECT release, array_agg(musicbrainz_collate(label_name.name)) AS labels FROM release_label
+                (SELECT release, array_agg(musicbrainz_collate(label.sort_name)) AS labels FROM release_label
                     JOIN label ON release_label.label = label.id
-                    JOIN label_name ON label.sort_name = label_name.id
                     GROUP BY release) rl
                 ON rl.release = release.id";
             $also_select = "rl.labels AS labels";
@@ -757,11 +752,10 @@ sub insert
 {
     my ($self, @releases) = @_;
     my @created;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @releases);
     my $class = $self->_entity_class;
     for my $release (@releases)
     {
-        my $row = $self->_hash_to_row($release, \%names);
+        my $row = $self->_hash_to_row($release);
         $row->{gid} = $release->{gid} || generate_gid();
         my $id = $self->sql->insert_row('release', $row, 'id');
         push @created, $class->new(
@@ -796,8 +790,7 @@ sub update
         $release_id, _release_events_from_spec($update->{events})
     ) if $update->{events};
 
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release', $row, { id => $release_id });
 }
 
@@ -1144,7 +1137,7 @@ sub merge
 
 sub _hash_to_row
 {
-    my ($self, $release, $names) = @_;
+    my ($self, $release) = @_;
     my $row = hash_to_row($release, {
         artist_credit => 'artist_credit',
         release_group => 'release_group_id',
@@ -1152,11 +1145,8 @@ sub _hash_to_row
         packaging => 'packaging_id',
         script => 'script_id',
         language => 'language_id',
-        map { $_ => $_ } qw( barcode comment quality )
+        map { $_ => $_ } qw( barcode comment quality name )
     });
-
-    $row->{name} = $names->{$release->{name}}
-        if (exists $release->{name});
 
     return $row;
 }

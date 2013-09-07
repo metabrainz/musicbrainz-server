@@ -380,7 +380,6 @@ sub ImportAllTables
         artist_ipi
         artist_isni
         artist_meta
-        artist_name
         artist_tag
         artist_type
         autoeditor_election
@@ -446,7 +445,6 @@ sub ImportAllTables
         label_ipi
         label_isni
         label_meta
-        label_name
         label_tag
         label_type
         language
@@ -482,7 +480,6 @@ sub ImportAllTables
         release_label
         release_meta
         release_coverart
-        release_name
         release_packaging
         release_status
         release_tag
@@ -494,7 +491,6 @@ sub ImportAllTables
         tag_relation
         track
         track_gid_redirect
-        track_name
         medium_index
         url
         url_gid_redirect
@@ -507,7 +503,6 @@ sub ImportAllTables
         work_attribute_type_allowed_value
         work_gid_redirect
         work_meta
-        work_name
         work_tag
         work_type
 

@@ -337,6 +337,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::2::Label::base",
   "Controller::WS::2::Label::label",
   "Controller::WS::2::Label::label_search",
+  "Controller::WS::2::PUID::puid",
   "Controller::WS::2::Rating::rating_lookup",
   "Controller::WS::2::Recording::base",
   "Controller::WS::2::Recording::recording",

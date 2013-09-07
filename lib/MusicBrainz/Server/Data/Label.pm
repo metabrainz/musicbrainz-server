@@ -24,7 +24,7 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'label_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' };
 with 'MusicBrainz::Server::Data::Role::DeleteAndLog';
 with 'MusicBrainz::Server::Data::Role::IPI' => { type => 'label' };
@@ -44,24 +44,17 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name.name' }
+sub browse_column { 'sort_name' }
 
 sub _table
 {
     my $self = shift;
-    return 'label ' . (shift() || '') . ' ' .
-           'JOIN label_name name ON label.name=name.id ' .
-           'JOIN label_name sort_name ON label.sort_name=sort_name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON label.name = $join_on OR label.sort_name = $join_on");
+    return 'label';
 }
 
 sub _columns
 {
-    return 'label.id, gid, name.name, sort_name.name AS sort_name, ' .
+    return 'label.id, gid, name, sort_name, ' .
            'label.type, label.area, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
@@ -108,7 +101,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(sort_name.name), label.id
+                 ORDER BY musicbrainz_collate(label.sort_name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -142,7 +135,7 @@ sub find_by_release
                  FROM " . $self->_table . "
                      JOIN release_label ON release_label.label = label.id
                  WHERE release_label.release = ?
-                 ORDER BY musicbrainz_collate(name.name)
+                 ORDER BY musicbrainz_collate(label.name)
                  OFFSET ?";
 
     return query_to_list_limited(
@@ -164,12 +157,11 @@ sub load
 sub insert
 {
     my ($self, @labels) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name}, $_->{sort_name } } @labels);
     my $class = $self->_entity_class;
     my @created;
     for my $label (@labels)
     {
-        my $row = $self->_hash_to_row($label, \%names);
+        my $row = $self->_hash_to_row($label);
         $row->{gid} = $label->{gid} || generate_gid();
 
         my $created = $class->new(
@@ -190,8 +182,7 @@ sub update
 {
     my ($self, $label_id, $update) = @_;
 
-    my %names = $self->find_or_insert_names($update->{name}, $update->{sort_name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
 
     assert_uniqueness_conserved($self, label => $label_id, $update);
 
@@ -280,22 +271,16 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $label, $names) = @_;
+    my ($self, $label) = @_;
     my $row = hash_to_row($label, {
         area => 'area_id',
         type => 'type_id',
         ended => 'ended',
-        map { $_ => $_ } qw( label_code comment )
+        map { $_ => $_ } qw( label_code comment name sort_name )
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');
     add_partial_date_to_row($row, $label->{end_date}, 'end_date');
-
-    $row->{name} = $names->{$label->{name}}
-        if (exists $label->{name});
-
-    $row->{sort_name} = $names->{$label->{sort_name}}
-        if (exists $label->{sort_name});
 
     return $row;
 }
