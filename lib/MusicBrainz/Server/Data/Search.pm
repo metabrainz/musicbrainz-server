@@ -206,7 +206,8 @@ sub search
 
         my $extra_columns = '';
         $extra_columns .= 'entity.language,' if $type eq 'work';
-        $extra_columns .= 'entity.area,' if $type eq 'place';
+        $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
 
         $query = "
             SELECT
@@ -214,7 +215,7 @@ sub search
                 entity.gid,
                 entity.name,
                 entity.comment,
-                entity.type AS type_id,
+                entity.type,
                 $extra_columns
                 MAX(rank) AS rank
             FROM
@@ -232,7 +233,7 @@ sub search
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
             GROUP BY
-                entity.id, entity.gid, entity.name, entity.comment, $extra_columns type_id
+                entity.id, entity.gid, entity.name, entity.comment, $extra_columns entity.type
             ORDER BY
                 rank DESC, entity.name
             OFFSET

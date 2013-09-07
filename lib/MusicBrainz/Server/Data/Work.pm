@@ -38,7 +38,7 @@ sub _table
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type AS type_id, work.language,
+    return 'work.id, work.gid, work.type, work.language,
             work.name, work.comment, work.edits_pending, work.last_updated';
 }
 
