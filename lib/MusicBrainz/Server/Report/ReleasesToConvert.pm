@@ -10,15 +10,14 @@ sub query {
           row_number() OVER (ORDER BY musicbrainz_collate(ac_name.name), musicbrainz_collate(release_name.name))
         FROM track_name
         JOIN track ON track.name = track_name.id
-        JOIN tracklist ON track.tracklist = tracklist.id
-        JOIN medium ON medium.tracklist = tracklist.id
+        JOIN medium ON medium.id = track.medium
         JOIN release ON medium.release = release.id
         JOIN release_name ON release.name = release_name.id
         JOIN artist_credit ON release.artist_credit = artist_credit.id
         JOIN artist_name ac_name ON artist_credit.name = ac_name.id
         WHERE track_name.name ~* E'[^\\d]-[^\\d]' OR track_name.name LIKE '%/%'
-        GROUP BY release.id, release_name.name, tracklist.id, tracklist.track_count, ac_name.name
-        HAVING count(*) = tracklist.track_count
+        GROUP BY release.id, release_name.name, medium.id, medium.track_count, ac_name.name
+        HAVING count(*) = medium.track_count
     ";
 }
 

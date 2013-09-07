@@ -48,7 +48,7 @@ sub get_extract
 sub get_extract_by_language
 {
     my ($self, $title, $language, %opts) = @_;
-    my $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exsentences=100&format=json&redirects=1&titles=%s";
+    my $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=1&format=json&redirects=1&titles=%s";
     return $self->_fetch_cache_or_url($url_pattern, 'extract',
                                       $EXTRACT_CACHE_TIMEOUT,
                                       $title, $language,
