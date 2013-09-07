@@ -145,4 +145,18 @@ test 'Deleted users (mac)' => sub {
     $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'MAC id="NeYRRMSFFEjRoowpZ1K59Q", ts="1352543598", nonce="abc456", mac="W4DD2JLtzqWgdZlcIGWFYO4rCyw="' });
     is(401, $test->mech->status);
 };
+
+test 'Can view own user' => sub {
+    my $test = shift;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    $test->mech->credentials('localhost:80', 'musicbrainz.org', 'editor1', 'pass');
+    $test->mech->get_ok('/ws/1/user/?type=xml&name=editor1');
+
+    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 1;");
+
+    $test->mech->get('/ws/1/user/?type=xml&name=editor1');
+    is(401, $test->mech->status);
+};
 1;

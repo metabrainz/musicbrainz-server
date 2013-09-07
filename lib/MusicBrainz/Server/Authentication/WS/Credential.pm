@@ -31,7 +31,7 @@ sub authenticate
     };
 
     $auth = $self->SUPER::authenticate($c, $realm, $auth_info);
-    if ($auth && $auth->requires_password_reset) {
+    if ($auth && ($auth->requires_password_reset || $auth->deleted)) {
         $self->authentication_failed($c, $realm, $auth_info);
     }
     else {
