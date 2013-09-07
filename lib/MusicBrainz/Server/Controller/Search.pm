@@ -151,6 +151,7 @@ sub direct : Private
         }
         when ('place') {
             $c->model('PlaceType')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
     }
 

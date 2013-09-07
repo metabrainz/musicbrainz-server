@@ -202,7 +202,11 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "work") {
+    elsif ($type eq "work" || $type eq "place") {
+
+        my $extra_columns = '';
+        $extra_columns .= 'entity.language,' if $type eq 'work';
+        $extra_columns .= 'entity.area,' if $type eq 'place';
 
         $query = "
             SELECT
@@ -210,7 +214,7 @@ sub search
                 entity.gid,
                 entity.name,
                 entity.type AS type_id,
-                entity.language AS language_id,
+                $extra_columns
                 MAX(rank) AS rank
             FROM
                 (
@@ -227,7 +231,7 @@ sub search
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
             GROUP BY
-                entity.id, entity.gid, entity.name, type_id, language_id
+                entity.id, entity.gid, entity.name, $extra_columns type_id
             ORDER BY
                 rank DESC, entity.name
             OFFSET

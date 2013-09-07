@@ -38,8 +38,21 @@ sub _table
 
 sub _columns
 {
-    return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
+    return 'work.id, work.gid, work.type AS type_id, work.language,
             work.name, work.comment, work.edits_pending, work.last_updated';
+}
+
+sub _column_mapping
+{
+    return {
+        id => 'id',
+        gid => 'gid',
+        name => 'name',
+        type_id => 'type',
+        comment => 'comment',
+        language_id => 'language',
+        last_updated => 'last_updated'
+    };
 }
 
 sub _id_column
