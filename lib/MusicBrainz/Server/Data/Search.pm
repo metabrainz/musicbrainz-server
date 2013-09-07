@@ -207,6 +207,7 @@ sub search
                 entity.id,
                 entity.gid,
                 entity.name,
+                entity.comment,
                 entity.type AS type_id,
                 entity.language AS language_id,
                 MAX(rank) AS rank
@@ -225,7 +226,7 @@ sub search
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
             GROUP BY
-                entity.id, entity.gid, entity.name, type_id, language_id
+                entity.id, entity.gid, entity.name, entity.comment, type_id, language_id
             ORDER BY
                 rank DESC, entity.name
             OFFSET
