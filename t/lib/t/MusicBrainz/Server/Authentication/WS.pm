@@ -146,7 +146,7 @@ test 'Deleted users (mac)' => sub {
     is(401, $test->mech->status);
 };
 
-test 'Can view own user' => sub {
+test 'Deleted users (digest)' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
