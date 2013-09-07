@@ -94,7 +94,7 @@ if (DBDefs->EMAIL_BUGS) {
         to => DBDefs->EMAIL_BUGS(),
         from => 'bug-reporter@' . DBDefs->WEB_SERVER(),
         use_tags => 1,
-        subject => 'Unhandled error in %f (line %l)'
+        subject => '%h: Unhandled error in %f (line %l)'
     };
 
     push @args, "ErrorCatcher";

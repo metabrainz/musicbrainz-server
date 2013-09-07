@@ -217,13 +217,14 @@ sub search
                     SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
                     FROM
                         (SELECT name              FROM ${type}       UNION ALL
-                         SELECT name              FROM ${type}_alias) names,
+                         SELECT name              FROM ${type}_alias UNION ALL
+                         SELECT sort_name AS name FROM ${type}_alias) names,
                         plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS r
-                LEFT JOIN ${type}_alias AS alias ON alias.name = r.name
+                LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
             GROUP BY
                 entity.id, entity.gid, entity.name, type_id, language_id
@@ -351,6 +352,8 @@ sub schema_fixup
             if (exists $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (exists $data->{'life-span'}->{end});
+        $data->{ended} = $data->{'life-span'}->{ended} eq 'true'
+            if exists $data->{'life-span'}->{ended};
     }
     if ($type eq 'area') {
         for my $prop (qw( iso_3166_1 iso_3166_2 iso_3166_3 )) {

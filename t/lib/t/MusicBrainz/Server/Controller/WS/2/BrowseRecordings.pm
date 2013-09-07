@@ -22,7 +22,7 @@ my $diff = XML::SemanticDiff->new;
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
 ws_test 'browse recordings via artist (first page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3' =>
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording-list count="10">
@@ -39,7 +39,7 @@ ws_test 'browse recordings via artist (first page)',
 </metadata>';
 
 ws_test 'browse recordings via artist (second page)',
-    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&limit=3&offset=3' =>
+    '/recording?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&inc=puids&limit=3&offset=3' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording-list count="10" offset="3">

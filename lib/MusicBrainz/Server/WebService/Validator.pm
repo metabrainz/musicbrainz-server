@@ -52,11 +52,11 @@ our %relation_types = (
 
 
 # extra inc contains inc= arguments which should be allowed if another
-# argument is present.  E.g. isrcs only make sense on a
+# argument is present.  E.g. puids and isrcs only make sense on a
 # request for a recording or a request with inc=recordings.  This hash
 # helps validate the second case (inc=recordings).
 our %extra_inc = (
-    'recordings' => [ qw( artist-credits isrcs ) ],
+    'recordings' => [ qw( artist-credits puids isrcs ) ],
     'releases' => [ qw( artist-credits discids media type status ) ],
     'release-groups' => [ qw( artist-credits type ) ],
     'works' => [ qw( artist-credits ) ],

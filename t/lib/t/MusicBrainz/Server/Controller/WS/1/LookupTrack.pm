@@ -96,6 +96,22 @@ ws_test 'lookup track with isrcs',
   </track>
 </metadata>';
 
+ws_test 'lookup track with puids',
+    '/track/c869cc03-cb88-462b-974e-8e46c1538ad4?type=xml&inc=puids' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
+  <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
+    <title>Rock With You</title><duration>255146</duration>
+  </track>
+</metadata>';
+
+ws_test 'lookup track by puid',
+    '/track/?type=xml&puid=24dd0c12-3f22-955d-f35e-d3d8867eee8d' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
+</metadata>
+';
+
 ws_test 'lookup track with releases',
     '/track/162630d9-36d2-4a8d-ade1-1c77440b34e7?type=xml&inc=releases' =>
     '<?xml version="1.0" encoding="UTF-8"?>
