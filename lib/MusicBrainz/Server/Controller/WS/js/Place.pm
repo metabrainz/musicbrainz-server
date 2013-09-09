@@ -5,7 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
 
 my $ws_defs = Data::OptList::mkopt([
-    "area" => {
+    "place" => {
         method   => 'GET',
         required => [ qw(q) ],
         optional => [ qw(direct limit page timestamp) ]
@@ -32,6 +32,7 @@ sub search : Chained('root') PathPart('place')
 after _load_entities => sub {
     my ($self, $c, @entities) = @_;
     $c->model('PlaceType')->load(@entities);
+    $c->model('Area')->load(@entities);
 };
 
 1;
