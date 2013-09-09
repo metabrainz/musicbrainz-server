@@ -9,9 +9,8 @@ sub query {
     "
         SELECT DISTINCT
 			rg.id AS release_group_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(rg_name.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(rg.name))
 		FROM release_group rg
-            JOIN release_name rg_name ON rg_name.id = rg.name
 		    JOIN release rel ON rel.release_group = rg.id
 		WHERE rel.id IN (
 			SELECT r0.id

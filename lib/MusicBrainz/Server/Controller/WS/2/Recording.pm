@@ -23,13 +23,13 @@ my $ws_defs = Data::OptList::mkopt([
      recording => {
                          method   => 'GET',
                          linked   => [ qw(artist release) ],
-                         inc      => [ qw(artist-credits isrcs annotation
+                         inc      => [ qw(artist-credits puids isrcs annotation
                                           _relations tags user-tags ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
      },
      recording => {
                          method   => 'GET',
-                         inc      => [ qw(artists releases artist-credits isrcs aliases
+                         inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags ratings user-ratings
                                           release-groups work-level-rels annotation) ],
                          optional => [ qw(fmt) ],
@@ -222,6 +222,10 @@ sub recording_submit : Private
     if (%submit_isrc) {
         $self->forbidden($c)
             unless $c->user->is_authorized($ACCESS_SCOPE_SUBMIT_ISRC);
+    }
+
+    if (!$c->user->has_confirmed_email_address) {
+        $self->_error($c, "You must have a confirmed email address to submit edits");
     }
 
     $c->model('MB')->with_transaction(sub {

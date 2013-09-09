@@ -16,17 +16,17 @@ use MusicBrainz::Server::Data::Utils qw(
 use Scalar::Util 'weaken';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'track_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'track' };
 
 sub _table
 {
-    return 'track JOIN track_name name ON track.name=name.id';
+    return 'track';
 }
 
 sub _columns
 {
-    return 'track.id, track.gid, name.name, track.medium, track.recording,
+    return 'track.id, track.gid, track.name, track.medium, track.recording,
             track.number, track.position, track.length, track.artist_credit,
             track.edits_pending';
 }
@@ -101,13 +101,13 @@ sub find_by_recording
         SELECT *
         FROM (
           SELECT DISTINCT ON (track.id, medium.id)
-            track.id, track_name.name, track.medium, track.position,
+            track.id, track.name, track.medium, track.position,
                 track.length, track.artist_credit, track.edits_pending,
                 medium.id AS m_id, medium.format AS m_format,
                 medium.position AS m_position, medium.name AS m_name,
                 medium.release AS m_release,
                 medium.track_count AS m_track_count,
-            release.id AS r_id, release.gid AS r_gid, release_name.name AS r_name,
+            release.id AS r_id, release.gid AS r_gid, release.name AS r_name,
                 release.release_group AS r_release_group,
                 release.artist_credit AS r_artist_credit_id,
                 release.status AS r_status,
@@ -118,8 +118,6 @@ sub find_by_recording
           FROM track
           JOIN medium ON medium.id = track.medium
           JOIN release ON release.id = medium.release
-          JOIN release_name ON release.name = release_name.id
-          JOIN track_name ON track.name = track_name.id
           LEFT JOIN (
             SELECT release, country, date_year, date_month, date_day
             FROM release_country
@@ -128,7 +126,7 @@ sub find_by_recording
             FROM release_unknown_country
           ) release_event ON release_event.release = release.id
           WHERE track.recording = ?
-          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release_name.name)
+          ORDER BY track.id, medium.id, date_year, date_month, date_day, musicbrainz_collate(release.name)
         ) s
         ORDER BY date_year, date_month, date_day, musicbrainz_collate(r_name)
         OFFSET ?";
@@ -150,7 +148,6 @@ sub find_by_recording
 sub insert
 {
     my ($self, @track_hashes) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @track_hashes);
     my $class = $self->_entity_class;
     my @created;
     for my $track_hash (@track_hashes) {
@@ -158,7 +155,7 @@ sub insert
 
         $track_hash->{number} ||= "".$track_hash->{position};
 
-        my $row = $self->_create_row($track_hash, \%names);
+        my $row = $self->_create_row($track_hash);
         $row->{gid} = $track_hash->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('track', $row, 'id')
@@ -172,8 +169,7 @@ sub insert
 sub update
 {
     my ($self, $track_id, $update) = @_;
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_create_row($update, \%names);
+    my $row = $self->_create_row($update);
     $self->sql->update_row('track', $row, { id => $track_id });
 
     my $mediums = $self->_medium_ids ($track_id);
@@ -195,15 +191,13 @@ sub delete
 
 sub _create_row
 {
-    my ($self, $track_hash, $names) = @_;
+    my ($self, $track_hash) = @_;
 
     my $mapping = $self->_column_mapping;
     my %row = map {
         my $mapped = $mapping->{$_} || $_;
         $mapped => $track_hash->{$_}
     } keys %$track_hash;
-
-    $row{name} = $names->{ $track_hash->{name} } if exists $track_hash->{name};
 
     if (exists $row{length} && defined($row{length})) {
         $row{length} = undef if $row{length} == 0;

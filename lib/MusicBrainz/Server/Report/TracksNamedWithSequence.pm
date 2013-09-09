@@ -8,21 +8,18 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     <<'EOSQL'
 SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(release_name.name))
+  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
 FROM (
   SELECT release.id
   FROM track
-  JOIN track_name tname ON tname.id = track.name
   JOIN medium ON track.medium = medium.id
   JOIN release ON medium.release = release.id
-  JOIN release_name ON release.name = release_name.id
-  WHERE tname.name ~ '^[0-9]'
-  AND   tname.name ~ ('^0*' || track.position || '[^0-9]')
+  WHERE track.name ~ '^[0-9]'
+  AND   track.name ~ ('^0*' || track.position || '[^0-9]')
   GROUP BY release.id
   HAVING count(*) > 2
 ) s
 JOIN release ON s.id = release.id
-JOIN release_name ON release_name.id = release.name
 EOSQL
 }
 

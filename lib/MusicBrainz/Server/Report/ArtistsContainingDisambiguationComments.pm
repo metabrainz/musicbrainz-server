@@ -6,11 +6,10 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "SELECT artist.id AS artist_id,
-       row_number() OVER (ORDER BY musicbrainz_collate(name.name))
+       row_number() OVER (ORDER BY musicbrainz_collate(artist.name))
      FROM artist
-     JOIN artist_name AS name ON artist.name=name.id
-     WHERE (name.name LIKE '%(%' OR name.name LIKE '%)%')
-       AND name.name NOT LIKE '(%'";
+     WHERE (name LIKE '%(%' OR name LIKE '%)%')
+       AND name NOT LIKE '(%'";
 }
 
 __PACKAGE__->meta->make_immutable;

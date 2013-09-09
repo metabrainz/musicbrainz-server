@@ -6,12 +6,11 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "SELECT DISTINCT ON (artist.id) artist.id AS artist_id,
-       row_number() OVER (ORDER BY musicbrainz_collate(name.name), artist.id)
+       row_number() OVER (ORDER BY musicbrainz_collate(artist.name), artist.id)
      FROM artist
      JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
      JOIN link ON link.id=l_artist_artist.link
      JOIN link_type ON link_type.id=link.link_type
-     JOIN artist_name AS name ON artist.name=name.id
      WHERE artist.type IS DISTINCT FROM 2
        AND link_type.name IN ('collaboration', 'member of band', 'conductor position')"
 }

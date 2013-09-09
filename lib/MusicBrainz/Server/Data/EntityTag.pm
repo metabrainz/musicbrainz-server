@@ -376,7 +376,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
+                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {

@@ -10,25 +10,73 @@ ALTER TABLE release_label ADD CHECK (controlled_for_whitespace(catalog_number));
 ALTER TABLE track         ADD CHECK (controlled_for_whitespace(number));
 ALTER TABLE work          ADD CHECK (controlled_for_whitespace(comment));
 
-ALTER TABLE artist_name
+ALTER TABLE area
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
-ALTER TABLE label_name
+ALTER TABLE area_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE artist
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE artist_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE artist_credit
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
-ALTER TABLE release_name
+ALTER TABLE artist_credit_name
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
-ALTER TABLE track_name
+ALTER TABLE label
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE label_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
+ALTER TABLE release
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
 
-ALTER TABLE work_name
+ALTER TABLE release_group
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE track
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE recording
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE work
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE work_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
 ALTER TABLE artist
 ADD CONSTRAINT group_type_implies_null_gender CHECK (

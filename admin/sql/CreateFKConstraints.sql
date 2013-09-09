@@ -42,16 +42,6 @@ ALTER TABLE area_gid_redirect
    REFERENCES area(id);
 
 ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_name
-   FOREIGN KEY (name)
-   REFERENCES artist_name(id);
-
-ALTER TABLE artist
-   ADD CONSTRAINT artist_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES artist_name(id);
-
-ALTER TABLE artist
    ADD CONSTRAINT artist_fk_type
    FOREIGN KEY (type)
    REFERENCES artist_type(id);
@@ -82,19 +72,9 @@ ALTER TABLE artist_alias
    REFERENCES artist(id);
 
 ALTER TABLE artist_alias
-   ADD CONSTRAINT artist_alias_fk_name
-   FOREIGN KEY (name)
-   REFERENCES artist_name(id);
-
-ALTER TABLE artist_alias
    ADD CONSTRAINT artist_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES artist_alias_type(id);
-
-ALTER TABLE artist_alias
-   ADD CONSTRAINT artist_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES artist_name(id);
 
 ALTER TABLE artist_annotation
    ADD CONSTRAINT artist_annotation_fk_artist
@@ -105,11 +85,6 @@ ALTER TABLE artist_annotation
    ADD CONSTRAINT artist_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
-
-ALTER TABLE artist_credit
-   ADD CONSTRAINT artist_credit_fk_name
-   FOREIGN KEY (name)
-   REFERENCES artist_name(id);
 
 ALTER TABLE artist_credit_name
    ADD CONSTRAINT artist_credit_name_fk_artist_credit
@@ -122,16 +97,6 @@ ALTER TABLE artist_credit_name
    FOREIGN KEY (artist)
    REFERENCES artist(id)
    ON DELETE CASCADE;
-
-ALTER TABLE artist_credit_name
-   ADD CONSTRAINT artist_credit_name_fk_name
-   FOREIGN KEY (name)
-   REFERENCES artist_name(id);
-
-ALTER TABLE artist_deletion
-   ADD CONSTRAINT artist_deletion_fk_last_known_name
-   FOREIGN KEY (last_known_name)
-   REFERENCES artist_name(id);
 
 ALTER TABLE artist_gid_redirect
    ADD CONSTRAINT artist_gid_redirect_fk_new_id
@@ -1063,16 +1028,6 @@ ALTER TABLE l_work_work
    REFERENCES work(id);
 
 ALTER TABLE label
-   ADD CONSTRAINT label_fk_name
-   FOREIGN KEY (name)
-   REFERENCES label_name(id);
-
-ALTER TABLE label
-   ADD CONSTRAINT label_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES label_name(id);
-
-ALTER TABLE label
    ADD CONSTRAINT label_fk_type
    FOREIGN KEY (type)
    REFERENCES label_type(id);
@@ -1088,19 +1043,9 @@ ALTER TABLE label_alias
    REFERENCES label(id);
 
 ALTER TABLE label_alias
-   ADD CONSTRAINT label_alias_fk_name
-   FOREIGN KEY (name)
-   REFERENCES label_name(id);
-
-ALTER TABLE label_alias
    ADD CONSTRAINT label_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES label_alias_type(id);
-
-ALTER TABLE label_alias
-   ADD CONSTRAINT label_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES label_name(id);
 
 ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_label
@@ -1111,11 +1056,6 @@ ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_annotation
    FOREIGN KEY (annotation)
    REFERENCES annotation(id);
-
-ALTER TABLE label_deletion
-   ADD CONSTRAINT label_deletion_fk_last_known_name
-   FOREIGN KEY (last_known_name)
-   REFERENCES label_name(id);
 
 ALTER TABLE label_gid_redirect
    ADD CONSTRAINT label_gid_redirect_fk_new_id
@@ -1261,11 +1201,6 @@ ALTER TABLE medium_index
    ON DELETE CASCADE;
 
 ALTER TABLE recording
-   ADD CONSTRAINT recording_fk_name
-   FOREIGN KEY (name)
-   REFERENCES track_name(id);
-
-ALTER TABLE recording
    ADD CONSTRAINT recording_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
@@ -1327,11 +1262,6 @@ ALTER TABLE recording_tag_raw
    REFERENCES tag(id);
 
 ALTER TABLE release
-   ADD CONSTRAINT release_fk_name
-   FOREIGN KEY (name)
-   REFERENCES release_name(id);
-
-ALTER TABLE release
    ADD CONSTRAINT release_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
@@ -1391,11 +1321,6 @@ ALTER TABLE release_gid_redirect
    ADD CONSTRAINT release_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES release(id);
-
-ALTER TABLE release_group
-   ADD CONSTRAINT release_group_fk_name
-   FOREIGN KEY (name)
-   REFERENCES release_name(id);
 
 ALTER TABLE release_group
    ADD CONSTRAINT release_group_fk_artist_credit
@@ -1550,11 +1475,6 @@ ALTER TABLE track
    REFERENCES medium(id);
 
 ALTER TABLE track
-   ADD CONSTRAINT track_fk_name
-   FOREIGN KEY (name)
-   REFERENCES track_name(id);
-
-ALTER TABLE track
    ADD CONSTRAINT track_fk_artist_credit
    FOREIGN KEY (artist_credit)
    REFERENCES artist_credit(id);
@@ -1585,11 +1505,6 @@ ALTER TABLE vote
    REFERENCES edit(id);
 
 ALTER TABLE work
-   ADD CONSTRAINT work_fk_name
-   FOREIGN KEY (name)
-   REFERENCES work_name(id);
-
-ALTER TABLE work
    ADD CONSTRAINT work_fk_type
    FOREIGN KEY (type)
    REFERENCES work_type(id);
@@ -1605,19 +1520,9 @@ ALTER TABLE work_alias
    REFERENCES work(id);
 
 ALTER TABLE work_alias
-   ADD CONSTRAINT work_alias_fk_name
-   FOREIGN KEY (name)
-   REFERENCES work_name(id);
-
-ALTER TABLE work_alias
    ADD CONSTRAINT work_alias_fk_type
    FOREIGN KEY (type)
    REFERENCES work_alias_type(id);
-
-ALTER TABLE work_alias
-   ADD CONSTRAINT work_alias_fk_sort_name
-   FOREIGN KEY (sort_name)
-   REFERENCES work_name(id);
 
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work

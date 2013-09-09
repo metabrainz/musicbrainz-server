@@ -4,10 +4,9 @@ SET search_path = 'musicbrainz', 'public';
 BEGIN;
 SELECT no_plan();
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 1, 1, 'Artist 1'),
-         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 1, 1, 'Artist 2');
+  VALUES (1, '82ac9811-db47-4c05-9792-83cf4208afd0', 'Artist', 'Artist', 'Artist 1'),
+         (2, '9baea67a-8d86-422d-b653-b0f6d0a93c7c', 'Artist', 'Artist', 'Artist 2');
 
 INSERT INTO tag (id, name) VALUES (2, 'Unused tag'), (4, 'Used tag'), (5, 'Shared tag');
 INSERT INTO artist_tag (artist, tag, count) VALUES

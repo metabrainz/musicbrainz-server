@@ -377,8 +377,8 @@ ws_test 'release lookup with release-groups',
     </release>
 </metadata>';
 
-ws_test 'release lookup with discids',
-    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+recordings' =>
+ws_test 'release lookup with discids and puids',
+    '/release/b3b7e934-445b-4c68-a097-730c6a6d47e6?inc=discids+puids+recordings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">

@@ -16,10 +16,12 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
+use MusicBrainz::Server::Entity::WorkAttribute;
+use MusicBrainz::Server::Entity::WorkAttributeType;
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'work_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'work' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'work' };
@@ -31,18 +33,13 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     my $self = shift;
-    return 'work ' . (shift() || '') . ' JOIN work_name name ON work.name=name.id';
-}
-
-sub _table_join_name {
-    my ($self, $join_on) = @_;
-    return $self->_table("ON work.name = $join_on");
+    return 'work';
 }
 
 sub _columns
 {
     return 'work.id, work.gid, work.type AS type_id, work.language AS language_id,
-            name.name, work.comment, work.edits_pending, work.last_updated';
+            work.name, work.comment, work.edits_pending, work.last_updated';
 }
 
 sub _id_column
@@ -83,7 +80,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
-       ORDER BY musicbrainz_collate(name.name)
+       ORDER BY musicbrainz_collate(work.name)
          OFFSET ?';
 
     # We actually use this for the side effect in the closure
@@ -110,7 +107,7 @@ sub find_by_iswc
                  FROM " . $self->_table . "
                  JOIN iswc ON work.id = iswc.work
                  WHERE iswc.iswc = ?
-                 ORDER BY musicbrainz_collate(name.name)";
+                 ORDER BY musicbrainz_collate(work.name)";
 
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) },
@@ -126,12 +123,11 @@ sub load
 sub insert
 {
     my ($self, @works) = @_;
-    my %names = $self->find_or_insert_names(map { $_->{name} } @works);
     my $class = $self->_entity_class;
     my @created;
     for my $work (@works)
     {
-        my $row = $self->_hash_to_row($work, \%names);
+        my $row = $self->_hash_to_row($work);
         $row->{gid} = $work->{gid} || generate_gid();
         push @created, $class->new(
             id => $self->sql->insert_row('work', $row, 'id'),
@@ -145,8 +141,7 @@ sub update
 {
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
-    my %names = $self->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('work', $row, { id => $work_id });
 }
 
@@ -194,15 +189,12 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $work, $names) = @_;
+    my ($self, $work) = @_;
     my $row = hash_to_row($work, {
         type => 'type_id',
         language => 'language_id',
-        map { $_ => $_ } qw( comment )
+        map { $_ => $_ } qw( comment name )
     });
-
-    $row->{name} = $names->{$work->{name}}
-        if (exists $work->{name});
 
     return $row;
 }
@@ -423,6 +415,71 @@ sub is_empty {
           $used_in_relationship
         )
 EOSQL
+}
+
+sub load_attributes {
+    my ($self, @works) = @_;
+
+    my @work_ids = map { $_->id } @works;
+
+    my $attributes = $self->sql->select_list_of_hashes(
+        'SELECT
+           work_attribute_type.name AS type_name,
+           work_attribute_type.comment AS type_comment,
+           coalesce(
+             work_attribute_type_allowed_value.value,
+             work_attribute.work_attribute_text
+           ) AS value,
+           work,
+           work_attribute.work_attribute_type_allowed_value AS value_id,
+           work_attribute_type.id AS type_id
+         FROM work_attribute
+         JOIN work_attribute_type
+           ON work_attribute_type.id = work_attribute.work_attribute_type
+         LEFT JOIN work_attribute_type_allowed_value
+           ON work_attribute_type_allowed_value.id =
+                work_attribute.work_attribute_type_allowed_value
+         WHERE work_attribute.work = any(?)',
+        \@work_ids
+    );
+
+    my %work_map;
+    for my $work (@works) {
+        push @{ $work_map{$work->id} //= [] }, $work;
+    }
+
+    for my $attribute (@$attributes) {
+        for my $work (@{ $work_map{$attribute->{work}} }) {
+            $work->add_attribute(
+                MusicBrainz::Server::Entity::WorkAttribute->new(
+                    type => MusicBrainz::Server::Entity::WorkAttributeType->new(
+                        name => $attribute->{type_name},
+                        comment => $attribute->{type_comment},
+                        id => $attribute->{type_id}
+                    ),
+                    value => $attribute->{value},
+                    value_id => $attribute->{value_id}
+                )
+            );
+        }
+    }
+}
+
+sub set_attributes {
+    my ($self, $work_id, @attributes) = @_;
+    $self->sql->do('DELETE FROM work_attribute WHERE work = ?', $work_id);
+    $self->sql->insert_many(
+        'work_attribute',
+        map +{
+            work => $work_id,
+            work_attribute_type => $_->{attribute_type_id},
+            work_attribute_text =>
+                exists $_->{attribute_text} ?  $_->{attribute_text} : undef,
+            work_attribute_type_allowed_value =>
+                exists $_->{attribute_value_id} ? $_->{attribute_value_id} :
+                    undef
+        }, @attributes
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

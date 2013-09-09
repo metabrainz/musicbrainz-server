@@ -6,18 +6,17 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 
 sub query {
     "
-        SELECT
+        SELECT DISTINCT ON (r.id)
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
         FROM
             release r
-            JOIN release_name rn ON r.name = rn.id
             JOIN artist_credit ac ON r.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
             JOIN release_group rg on rg.id = r.release_group
+            LEFT JOIN release_country ON r.id = release_country.release
         WHERE
-            rn.name ~ E'\((disc [0-9]+|bonus disc)(: .*)?\)'
-            AND NOT (rg.type = 2 AND r.country = 221)
+            r.name ~ E'\((disc [0-9]+|bonus disc)(: .*)?\)'
+            AND NOT (rg.type = 2 AND release_country.country = 221)
     ";
 }
 

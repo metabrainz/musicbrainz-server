@@ -8,6 +8,12 @@ use MusicBrainz::Server::Edit::Utils qw( merge_set );
 parameter prop_name => ( isa => 'Str', required => 1 );
 parameter get_current => ( isa => 'CodeRef', required => 1 );
 parameter extract_value => ( isa => 'CodeRef', required => 1 );
+parameter hash => ( isa => 'CodeRef', default => sub { sub { shift } } );
+
+sub hashed {
+    my ($f, @xs) = @_;
+    return map { $f->($_) => $_ } @xs;
+}
 
 role {
     my $params = shift;
@@ -36,13 +42,32 @@ role {
 
         my $merged = $self->$orig (@_);
 
-        my $current = $params->get_current->($self);
+        if ($self->data->{new}->{$prop_name}) {
+            my $current = $params->get_current->($self);
 
-        $merged->{$prop_name} = merge_set(
-            $self->data->{old}->{$prop_name},
-            [ map { $params->extract_value->($_) } @$current ],
-            $self->data->{new}->{$prop_name})
-            if $self->data->{new}->{$prop_name};
+            my %old = hashed(
+                $params->hash,
+                @{ $self->data->{old}->{$prop_name} }
+            );
+
+            my %current = hashed(
+                $params->hash,
+                map { $params->extract_value->($_) } @$current
+            );
+
+            my %new = hashed(
+                $params->hash, @{ $self->data->{new}->{$prop_name} }
+            );
+
+            my @keys = merge_set(
+                [ keys %old ],
+                [ keys %current ],
+                [ keys %new ],
+            );
+
+            my %all_values = (%old, %current, %new);
+            $merged->{$prop_name} = [ map { $all_values{$_} } @keys ];
+        }
 
         return $merged;
     };
