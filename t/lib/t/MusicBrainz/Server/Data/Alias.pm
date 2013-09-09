@@ -98,7 +98,8 @@ $artist_data->alias->insert({
     name => 'New alias',
     sort_name => 'New sort name',
     locale => 'en_AU',
-    primary_for_locale => 0
+    primary_for_locale => 0,
+    ended => 0
 });
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);

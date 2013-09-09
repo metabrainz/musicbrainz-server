@@ -47,4 +47,8 @@
     <td>[%- edit.display_data.end_date.format | html -%]</td>
   </tr>
   [%- END -%]
+  <tr>
+    <th>[% l('Ended:') %]</th>
+    <td>[% edit.display_data.ended ? l('Yes') : l('No') %]</td>
+  </tr>
 </table>

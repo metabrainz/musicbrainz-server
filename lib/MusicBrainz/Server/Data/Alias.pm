@@ -40,7 +40,7 @@ sub _columns
     return sprintf '%s.id, name, sort_name, %s, locale,
                     edits_pending, begin_date_year, begin_date_month,
                     begin_date_day, end_date_year, end_date_month,
-                    end_date_day, type AS type_id, primary_for_locale',
+                    end_date_day, type AS type_id, primary_for_locale, ended',
         $self->table, $self->type;
 }
 
@@ -57,7 +57,8 @@ sub _column_mapping
         type_id             => 'type_id',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
-        primary_for_locale  => 'primary_for_locale'
+        primary_for_locale  => 'primary_for_locale',
+        ended                => 'ended'
     };
 }
 
@@ -154,6 +155,7 @@ sub insert
             sort_name => $hash->{sort_name},
             primary_for_locale => $hash->{primary_for_locale},
             type => $hash->{type_id},
+            ended => $hash->{ended},
         };
 
         add_partial_date_to_row($row, $hash->{begin_date}, "begin_date");
