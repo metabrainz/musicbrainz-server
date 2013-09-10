@@ -67,28 +67,19 @@ sub pretty_name {
 
 sub name { shift->url->as_string }
 
-sub affiliate_url {
-	my ($self, $url) = @_;
-
-	return $url;
-}
+sub affiliate_url { shift->url }
 
 sub url_is_scheme_independent { 0 }
 
-sub scheme_independent_url {
-	my ($self, $url) = @_;
+sub href_url {
+	my $self = shift;
+	my $url = $self->affiliate_url();
 
 	if ($self->url_is_scheme_independent()) {
 		$url->scheme("");
 	}
 
 	return $url;
-}
-
-sub href_url {
-	my $self = shift;
-
-	return $self->scheme_independent_url($self->affiliate_url($self->url))
 }
 
 __PACKAGE__->meta->make_immutable;
