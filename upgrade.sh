@@ -72,6 +72,9 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'Adding link_type.is_deprecated triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130910-deprecated-link-types-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
