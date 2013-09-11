@@ -99,14 +99,18 @@ before 'edit' => sub
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
     $c->model('Work')->load_attributes($work);
-
-    state $json = JSON::Any->new( utf8 => 1 );
-
-    my %all_work_attributes = $c->model('Work')->all_work_attributes;
-    $c->stash(
-        workAttributesJson => $json->encode(\%all_work_attributes)
-    );
+    stash_work_attribute_json($c);
 };
+
+sub stash_work_attribute_json {
+    my ($c) = @_;
+    state $json = JSON::Any->new( utf8 => 1 );
+    $c->stash(
+        workAttributesJson => $json->encode({
+            $c->model('Work')->all_work_attributes
+        })
+    );
+}
 
 after 'merge' => sub
 {
@@ -132,6 +136,12 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             post_creation => $self->create_with_identifiers($c)
         );
     }
+};
+
+before 'create' => sub
+{
+    my ($self, $c) = @_;
+    stash_work_attribute_json($c);
 };
 
 1;
