@@ -38,4 +38,20 @@
     <td>[% edit.display_data.language.name | html%]</td>
   </tr>
   [% END %]
+
+  [%- IF edit.data.attributes -%]
+  <tr>
+    <th>[% l('Attributes:') %]</th>
+    <td>
+      <ul>
+      [%- FOR attribute=edit.display_data.attributes -%]
+        <li>
+          [%- l(attribute.type.l_name _ ':') %]
+          [% attribute.value | html -%]
+        </li>
+      [%- END -%]
+      </ul>
+    </td>
+  </tr>
+  [%- END -%]
 </table>

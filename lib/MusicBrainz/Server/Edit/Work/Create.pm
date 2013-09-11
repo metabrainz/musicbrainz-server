@@ -53,7 +53,10 @@ sub build_display_data
         language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
         iswc          => $self->data->{iswc},
         work          => $loaded->{Work}{ $self->entity_id }
-            || Work->new( name => $self->data->{name} )
+            || Work->new( name => $self->data->{name} ),
+        attributes    => $self->c->model('Work')->inflate_attributes(
+            $self->data->{attributes}
+        )
     };
 }
 
