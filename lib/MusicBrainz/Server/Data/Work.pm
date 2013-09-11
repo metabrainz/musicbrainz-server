@@ -558,6 +558,41 @@ sub all_work_attributes {
     };
 }
 
+sub inflate_attributes {
+    my ($self, $attributes) = @_;
+
+    return [] unless @$attributes;
+    return [
+        map {
+            MusicBrainz::Server::Entity::WorkAttribute->new(
+                type => MusicBrainz::Server::Entity::WorkAttributeType->new(
+                    name => $_->{name},
+                    comment => $_->{comment}
+                ),
+                value => $_->{value},
+                value_id => $_->{value_id}
+            )
+        } @{
+            $self->sql->select_list_of_hashes(
+                'SELECT wat.name, wat.comment, inflate.value_id,
+                   coalesce(watav.value, inflate.value_text) AS value
+                 FROM
+                   (VALUES ' . join(', ', ('(?::int, ?::int, ?)') x @$attributes) . ')
+                     inflate (type_id, value_id, value_text)
+                 JOIN work_attribute_type wat ON (wat.id = inflate.type_id)
+                 LEFT JOIN work_attribute_type_allowed_value watav
+                   ON (watav.work_attribute_type = wat.id AND
+                       watav.id = inflate.value_id)',
+                map {
+                    $_->{attribute_type_id},
+                    $_->{attribute_value_id},
+                    $_->{attribute_text}
+                } @$attributes
+            );
+        }
+    ];
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

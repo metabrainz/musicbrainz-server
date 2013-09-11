@@ -120,6 +120,16 @@ sub build_display_data
     $data->{work} = $loaded->{Work}{ $self->entity_id }
         || Work->new( name => $self->data->{entity}{name} );
 
+    if (exists $self->data->{new}{attributes}) {
+        $data->{attributes} = {
+            map {
+                $_ => $self->c->model('Work')->inflate_attributes(
+                    $self->data->{$_}{attributes}
+                )
+            } qw( old new )
+        };
+    }
+
     return $data;
 }
 

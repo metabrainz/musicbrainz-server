@@ -27,4 +27,22 @@
   [%- display_full_change(l('Language:'),
                           html_escape(edit.display_data.language.old.name),
                           html_escape(edit.display_data.language.new.name)) -%]
+
+  [%- IF edit.data.new.attributes -%]
+  <tr>
+    <th>[% l('Attributes:') %]</th>
+    [% MACRO attribute_list(attributes) BLOCK;
+         '<ul>';
+         FOR attribute=attributes;
+           '<li>';
+             l(attribute.type.l_name _ ':'); ' ';
+             attribute.value | html;
+           '</li>';
+         END;
+         '</ul>';
+       END %]
+    <td class="old">[%- attribute_list(edit.display_data.attributes.old) -%]</td>
+    <td class="new">[%- attribute_list(edit.display_data.attributes.new) -%]</td>
+  </tr>
+  [%- END -%]
 </table>
