@@ -245,7 +245,7 @@ sub exists {
         "SELECT EXISTS (
              SELECT TRUE
              FROM $table " .
-             "WHERE " . $self->_name . " IS NOT DISTINCT FROM ?
+             "WHERE name IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
                AND $table.id IS DISTINCT FROM ?
