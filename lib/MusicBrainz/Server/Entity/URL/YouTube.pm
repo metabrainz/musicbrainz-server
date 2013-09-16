@@ -8,16 +8,18 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
+    if ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
         return "Watch on YouTube";
     }
-    elsif ($self->url =~ m{^http://(?:www.)?youtube.com/(?:user/)?([a-z0-9_-]+)/?$}i) {
+    elsif ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/(?:user/)?([a-z0-9_-]+)/?$}i) {
         return $1;
     }
     else {
         return "YouTube";
     }
 };
+
+sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

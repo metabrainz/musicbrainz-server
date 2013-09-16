@@ -11,6 +11,8 @@ sub sidebar_name {
     return "CC-PD";
 }
 
+sub url_is_scheme_independent { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -11,7 +11,7 @@ sub pretty_name
 {
     my $self = shift;
 
-    if ($self->url =~ m{^http://(?:www.)?(.*?\.)([a-z]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
+    if ($self->url =~ m{^(?:https?:)?//(?:www.)?(.*?\.)([a-z]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
         my $country = $2;
         $country = "US" if $country eq "com";
         $country =~ tr/a-z/A-Z/;
@@ -25,9 +25,8 @@ sub pretty_name
 sub sidebar_name { shift->pretty_name }
 
 sub affiliate_url {
-    my $self = shift;
-    my $url = $self->url;
-    if ($url =~ m{^http://(?:.*?\.)(amazon\.([a-z\.]+))(?:\:[0-9]+)?/[^?]+$}i) {
+    my ($self, $url) = @_;
+    if ($url =~ m{^(?:https?:)?//(?:.*?\.)(amazon\.([a-z\.]+))(?:\:[0-9]+)?/[^?]+$}i) {
         my $ass_id = DBDefs->AWS_ASSOCIATE_ID($1);
         return $url unless $ass_id;
         return URI->new("$url?tag=$ass_id");
@@ -35,6 +34,8 @@ sub affiliate_url {
         return $url;
     }
 }
+
+sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -1,6 +1,6 @@
 [%- MACRO display_license(url) BLOCK -%]
        <li class="[% license_class(url) %]">
-          <a href="[% url.affiliate_url %]"><img src="[% '/static/images/licenses/' _ license_class(url) _ '.png' %]" /></a>
+          <a href="[% url.href_url %]"><img src="[% '/static/images/licenses/' _ license_class(url) _ '.png' %]" /></a>
         </li>
 [%- END -%]
 
