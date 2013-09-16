@@ -61,6 +61,7 @@ DROP FUNCTION trg_delete_unused_tag_ref();
 DROP FUNCTION unique_primary_area_alias();
 DROP FUNCTION unique_primary_artist_alias();
 DROP FUNCTION unique_primary_label_alias();
+DROP FUNCTION unique_primary_place_alias();
 DROP FUNCTION unique_primary_work_alias();
 DROP FUNCTION whitespace_collapsed(TEXT);
 DROP AGGREGATE array_accum (anyelement);

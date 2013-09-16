@@ -929,6 +929,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_place_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE place_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND place = NEW.place;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION unique_primary_work_alias()
 RETURNS trigger AS $$
 BEGIN

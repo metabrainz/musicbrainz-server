@@ -266,7 +266,6 @@ ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_medium;
 ALTER TABLE medium_cdtoc DROP CONSTRAINT medium_cdtoc_fk_cdtoc;
 ALTER TABLE medium_format DROP CONSTRAINT medium_format_fk_parent;
 ALTER TABLE medium_index DROP CONSTRAINT medium_index_fk_medium;
-<<<<<<< HEAD
 ALTER TABLE place DROP CONSTRAINT place_fk_type;
 ALTER TABLE place DROP CONSTRAINT place_fk_area;
 ALTER TABLE place_alias DROP CONSTRAINT place_alias_fk_place;
@@ -279,9 +278,6 @@ ALTER TABLE place_tag DROP CONSTRAINT place_tag_fk_tag;
 ALTER TABLE place_tag_raw DROP CONSTRAINT place_tag_raw_fk_place;
 ALTER TABLE place_tag_raw DROP CONSTRAINT place_tag_raw_fk_editor;
 ALTER TABLE place_tag_raw DROP CONSTRAINT place_tag_raw_fk_tag;
-ALTER TABLE recording DROP CONSTRAINT recording_fk_name;
-=======
->>>>>>> c3bb94c7a52f3388825accff3d3ad4d9132286a0
 ALTER TABLE recording DROP CONSTRAINT recording_fk_artist_credit;
 ALTER TABLE recording_annotation DROP CONSTRAINT recording_annotation_fk_recording;
 ALTER TABLE recording_annotation DROP CONSTRAINT recording_annotation_fk_annotation;
