@@ -659,6 +659,21 @@ ALTER TABLE l_work_work
 ALTER TABLE l_work_work
   DROP CONSTRAINT IF EXISTS l_work_work_fk_entity0;
 
+-- Some slaves don't have these tables, so we'll just create empty stubs for now
+CREATE TABLE IF NOT EXISTS editor_subscribe_artist_deleted
+(
+    editor INTEGER,
+    gid UUID,
+    deleted_by INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS editor_subscribe_label_deleted
+(
+    editor INTEGER,
+    gid UUID,
+    deleted_by INTEGER
+);
+
 ALTER TABLE editor_subscribe_artist_deleted
   DROP CONSTRAINT IF EXISTS editor_subscribe_artist_deleted_fk_gid;
 
