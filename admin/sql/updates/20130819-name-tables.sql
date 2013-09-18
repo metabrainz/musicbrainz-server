@@ -342,6 +342,23 @@ ALTER TABLE work_alias2013
 
 ALTER SEQUENCE work_alias_id_seq OWNED BY work_alias2013.id;
 
+-- Some slaves don't have these tables, so we'll just create empty stubs for now
+CREATE TABLE IF NOT EXISTS artist_deletion
+(
+    gid UUID,
+    last_known_name INT,
+    last_known_comment TEXT,
+    deleted_at timestamptz
+);
+
+CREATE TABLE IF NOT EXISTS label_deletion
+(
+    gid UUID,
+    last_known_name INT,
+    last_known_comment TEXT,
+    deleted_at timestamptz
+);
+
 -- artist_deletion
 CREATE TABLE artist_deletion2013 AS
   SELECT artist_deletion.gid, name.name AS last_known_name,
