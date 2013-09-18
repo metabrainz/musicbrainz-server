@@ -17,7 +17,7 @@ sub query {
                 FROM
                     url JOIN l_label_url llu ON llu.entity1 = url.id
                 WHERE
-                    url ~ '^http://www.discogs.com/'
+                    url ~ E'^http://www\\\\.discogs\\\\.com/'
                 GROUP BY
                     url.id, url.gid, url HAVING COUNT(url) > 1
             ) AS q
