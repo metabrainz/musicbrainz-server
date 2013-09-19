@@ -184,7 +184,6 @@ END -%]
 
 [%- MACRO disambiguation(entity) BLOCK;
     ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' IF entity.comment;
-    historical(entity) IF entity.isa('MusicBrainz::Server::Entity::Area');
 END -%]
 
 [%- MACRO historical(entity) BLOCK -%]

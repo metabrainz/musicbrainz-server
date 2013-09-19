@@ -14,7 +14,7 @@
 [% END %]
 
 <div class="areaheader">
-    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) -%]</h1>
+    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) %] [% historical(area) -%]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
              [% html_escape(area.l_type_name) or l('Area') %][%- IF area.parent_country %], [% l('in {country}', country => link_entity(area.parent_country)) -%][%- END -%]

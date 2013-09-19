@@ -61,6 +61,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130903-editor-deletion.sq
 echo `date` : 'Adding ended columns for alias'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130704-ended.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Add disambiguation to areas'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130919-area-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -77,6 +80,7 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+A
 
     echo `date` : Recreating constraints/triggers for regenerated tables with name columns
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130830-name-table-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
