@@ -11,7 +11,6 @@ Disallow: /isrc/
 Disallow: /login
 Disallow: /otherlookup
 Disallow: /partners/
-Disallow: /puid/
 Disallow: /rating/
 Disallow: /recording/
 Disallow: /report/

@@ -388,13 +388,6 @@ END -%]
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
-[%- MACRO link_puid(puid, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
-    text = text == '' ? '<code>' _ html_escape(puid.puid) _ '</code>' : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
-END -%]
-
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/isrc/$action", [ isrc ]);

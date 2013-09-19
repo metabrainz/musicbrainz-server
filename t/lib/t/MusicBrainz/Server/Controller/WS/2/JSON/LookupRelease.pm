@@ -474,7 +474,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー",
                                 length => 296026,
                                 disambiguation => "",
-                                puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
+                                puids => [ ],
                             }
                         },
                         {
@@ -487,7 +487,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "HELLO! また会おうね (7人祭 version)",
                                 length => 213106,
                                 disambiguation => "",
-                                puids => [ "251bd265-84c7-ed8f-aecf-1d9918582399" ],
+                                puids => [ ],
                             }
                         },
                         {
@@ -500,7 +500,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー (instrumental)",
                                 length => 292800,
                                 disambiguation => "",
-                                puids => [ "7b8a868f-1e67-852b-5141-ad1edfb1e492" ],
+                                puids => [ ],
                             }
                         }]
                 }]

@@ -478,18 +478,6 @@ END -%]
     out.join(', ');
 END -%]
 
-[%-# asssumes rdfa_recording_ns creates rec ns #-%]
-[%- MACRO rdfa_link_puid(puid, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.name ]);
-    text = text == '' ? '<code about="[rec:]" property="mo:puid">' _ html_escape(puid.name) _ '</code>' : html_escape(text);
-    '<a href="' _ link _ '">' _ text _ '</a>';
-  ELSE;
-    link_puid(puid, action, text);
-  END;
-END -%]
-
 [%- MACRO rdfa_link_release_track(release, track, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';

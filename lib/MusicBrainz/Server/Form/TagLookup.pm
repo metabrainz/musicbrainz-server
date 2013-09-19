@@ -10,6 +10,5 @@ has_field 'tracknum' => ( type => '+MusicBrainz::Server::Form::Field::Integer' )
 has_field 'track'    => ( type => 'Text'    );
 has_field 'duration' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
 has_field 'filename' => ( type => 'Text'    );
-has_field 'puid'     => ( type => 'Text'    );
 
 1;

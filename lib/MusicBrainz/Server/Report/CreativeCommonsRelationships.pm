@@ -9,13 +9,11 @@ sub query {
     "
         SELECT
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(r.name))
         FROM release r
-            JOIN release_name rn ON r.name = rn.id
             JOIN l_release_url l_ru ON r.id = l_ru.entity0
             JOIN link l ON l_ru.link = l.id
             JOIN artist_credit ac on ac.id = r.artist_credit
-            JOIN artist_name an on an.id = ac.name
         WHERE l.link_type = 84 AND l_ru.edits_pending = 0
     ";
 }

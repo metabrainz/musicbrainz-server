@@ -15,15 +15,12 @@ with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
 sub get_by_ids
 {
     my ($self, @ids) = @_;
-    my $query = "SELECT artist, artist_name.name, join_phrase, artist_credit,
-                        artist.id, gid, n2.name AS artist_name,
-                        n3.name AS sort_name,
+    my $query = "SELECT artist, artist_credit_name.name, join_phrase, artist_credit,
+                        artist.id, gid, artist.name AS artist_name,
+                        artist.sort_name AS sort_name,
                         comment " .
                 "FROM artist_credit_name " .
-                "JOIN artist_name ON artist_name.id=artist_credit_name.name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
-                "JOIN artist_name n2 ON n2.id=artist.name " .
-                "JOIN artist_name n3 ON n3.id=artist.sort_name " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
     my %result;
@@ -114,11 +111,10 @@ sub _find
     my (@joins, @conditions, @args);
     for my $i (@positions) {
         my $ac_name = $names[$i];
-        my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id " .
-                   "JOIN artist_name an_$i ON an_$i.id = acn_$i.name";
+        my $join = "JOIN artist_credit_name acn_$i ON acn_$i.artist_credit = ac.id";
         my $condition = "acn_$i.position = ? AND ".
                         "acn_$i.artist = ? AND ".
-                        "an_$i.name = ?";
+                        "acn_$i.name = ?";
         push @args, ($i, $artists[$i], $credits[$i]);
         if (defined $ac_name->{join_phrase} && $ac_name->{join_phrase} ne '')
         {
@@ -163,9 +159,8 @@ sub find_or_insert
 
     if(!defined $id)
     {
-        my %names_id = $self->c->model('Artist')->find_or_insert_names(@$credits, $name);
         $id = $self->sql->insert_row('artist_credit', {
-            name => $names_id{$name},
+            name => $name,
             artist_count => scalar @$credits,
         }, 'id');
         for my $i (@$positions)
@@ -174,7 +169,7 @@ sub find_or_insert
                     artist_credit => $id,
                     position => $i,
                     artist => $artists->[$i],
-                    name => $names_id{$credits->[$i]},
+                    name => $credits->[$i],
                     join_phrase => _clean($join_phrases->[$i]),
                 });
         }
@@ -221,9 +216,8 @@ sub merge_artists
 
         if (@artist_credit_ids) {
             my $partial_names = $self->sql->select_list_of_hashes(
-                'SELECT acn.artist_credit, acn.join_phrase, an.name
+                'SELECT acn.artist_credit, acn.join_phrase, acn.name
                    FROM artist_credit_name acn
-	               JOIN artist_name an ON acn.name = an.id
                   WHERE artist_credit IN (' . placeholders(@artist_credit_ids) . ')
                ORDER BY artist_credit, position',
                 @artist_credit_ids);
@@ -235,10 +229,9 @@ sub merge_artists
                 $names{$ac_id} .= $name->{join_phrase} if defined $name->{join_phrase};
             }
 
-            my %names_id = $self->c->model('Artist')->find_or_insert_names(values %names);
             for my $ac_id (@artist_credit_ids) {
                 $self->sql->do('UPDATE artist_credit SET name = ? WHERE id = ?',
-                               $names_id{$names{$ac_id}}, $ac_id);
+                               $names{$ac_id}, $ac_id);
             }
         }
     }

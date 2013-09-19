@@ -32,9 +32,7 @@ sub serialize
     $body{isrcs} = [
         map { $_->isrc } sort_by { $_->isrc } @{ $opts->{isrcs} }
         ] if $inc->isrcs;
-    $body{puids} = [
-        map { $_->puid->puid } sort_by { $_->puid->puid } @{ $opts->{puids} }
-        ] if $inc->puids;
+    $body{puids} = [ ] if $inc->puids;
 
     return \%body;
 };

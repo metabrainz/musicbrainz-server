@@ -102,9 +102,6 @@ ws_test 'lookup track with puids',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#">
   <track id="c869cc03-cb88-462b-974e-8e46c1538ad4">
     <title>Rock With You</title><duration>255146</duration>
-    <puid-list><puid id="242d65cb-3cd2-517c-f0a7-5d05413cf4c9" />
-      <puid id="acaef019-b6dd-ba4f-75ab-31a055b68859" />
-    </puid-list>
   </track>
 </metadata>';
 
@@ -112,25 +109,6 @@ ws_test 'lookup track by puid',
     '/track/?type=xml&puid=24dd0c12-3f22-955d-f35e-d3d8867eee8d' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-1.0#" >
-    <track-list>
-        <track id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
-            <title>Be Rude to Your School</title><duration>208706</duration>
-            <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
-                <name>Plone</name><sort-name>Plone</sort-name>
-            </artist>
-            <release-list>
-                <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-                    <title>For Beginner Piano</title>
-                </release>
-                <release id="dd66bfdd-6097-32e3-91b6-67f47ba25d4c">
-                    <title>For Beginner Piano</title>
-                </release>
-                <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
-                    <title>For Beginner Piano</title>
-                </release>
-            </release-list>
-        </track>
-    </track-list>
 </metadata>
 ';
 

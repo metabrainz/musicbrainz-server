@@ -20,7 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
@@ -53,8 +53,6 @@ sub _gid_redirect_table
 {
     return 'area_gid_redirect';
 }
-
-sub _table_join_name {}
 
 sub _column_mapping
 {
