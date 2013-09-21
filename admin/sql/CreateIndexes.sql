@@ -13,9 +13,6 @@ CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
 CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
 CREATE INDEX iso_3166_3_idx_area ON iso_3166_3 (area);
 
-CREATE UNIQUE INDEX area_idx_null_comment ON area (name) WHERE comment IS NULL;
-CREATE UNIQUE INDEX area_idx_uniq_name_comment ON area (name, comment) WHERE comment IS NOT NULL;
-
 CREATE INDEX area_alias_idx_area ON area_alias (area);
 CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
 

@@ -1,5 +1,6 @@
 BEGIN;
 
+ALTER TABLE area          ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE artist        ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE label         ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE medium        ADD CHECK (controlled_for_whitespace(name));

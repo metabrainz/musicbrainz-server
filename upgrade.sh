@@ -80,10 +80,12 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
-A
 
     echo `date` : Recreating constraints/triggers for regenerated tables with name columns
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130830-name-table-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : Adding non-whitespace constraint to area comments
+    OUTPUT=`./admin/psql READWRITE < .admin/sql/updates/20130919-area-comments-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
