@@ -206,6 +206,18 @@ ALTER TABLE place_tag_raw
    FOREIGN KEY (tag)
    REFERENCES tag(id);
 
+ALTER TABLE place         ADD CHECK (controlled_for_whitespace(comment));
+
+ALTER TABLE place
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE place_alias
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != ''),
+  ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
+  ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
+
 CREATE TRIGGER b_upd_l_area_place BEFORE UPDATE ON l_area_place
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
