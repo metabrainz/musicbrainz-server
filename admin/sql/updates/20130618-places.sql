@@ -9,7 +9,7 @@ CREATE TABLE place (
     gid                 uuid NOT NULL,
     name                VARCHAR NOT NULL,
     type                INTEGER, -- references place_type.id
-    address             VARCHAR,
+    address             VARCHAR NOT NULL DEFAULT '',
     area                INTEGER, -- references area.id
     coordinates         POINT,
     comment             VARCHAR(255) NOT NULL DEFAULT '',
