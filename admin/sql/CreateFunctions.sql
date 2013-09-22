@@ -785,13 +785,13 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_place_place
   EXCEPT
-  SELECT entity1 FROM l_recording_place
+  SELECT entity1 FROM l_place_recording
   EXCEPT
-  SELECT entity1 FROM l_release_place
+  SELECT entity1 FROM l_place_release
   EXCEPT
-  SELECT entity1 FROM l_release_group_place
+  SELECT entity1 FROM l_place_release_group
   EXCEPT
-  SELECT entity1 FROM l_url_place
+  SELECT entity1 FROM l_place_url
   EXCEPT
   SELECT entity1 FROM l_place_work;
 $BODY$
