@@ -1255,7 +1255,8 @@ CREATE TABLE recording (
     length              INTEGER CHECK (length IS NULL OR length > 0),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    video               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE recording_rating_raw

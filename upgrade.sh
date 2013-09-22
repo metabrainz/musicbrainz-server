@@ -61,6 +61,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130903-editor-deletion.sq
 echo `date` : 'Adding ended columns for alias'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130704-ended.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Adding video flag to recordings'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130922-video.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
