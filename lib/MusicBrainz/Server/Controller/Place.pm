@@ -18,7 +18,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE $EDIT_PLACE_EDIT $EDIT_PLACE_DELETE $EDIT_PLACE_MERGE );
+use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE $EDIT_PLACE_EDIT $EDIT_PLACE_MERGE );
 use Sql;
 
 =head1 NAME
@@ -109,10 +109,6 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_PLACE_MERGE,
     confirmation_template => 'place/merge_confirm.tt',
     search_template       => 'place/merge_search.tt',
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_PLACE_DELETE,
 };
 
 =head1 LICENSE
