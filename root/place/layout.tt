@@ -54,7 +54,6 @@
                     [% l('Merge place') %]
                   </a>
                 </li>
-                <li>[% link_entity(place, 'delete', l('Remove place')) %]</li>
 
                 <hr/>
 
