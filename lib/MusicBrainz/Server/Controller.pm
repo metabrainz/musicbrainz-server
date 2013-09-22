@@ -166,7 +166,8 @@ sub edit_action
         return $edit;
     }
     elsif (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 }

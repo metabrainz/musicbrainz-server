@@ -479,12 +479,12 @@ END-%]
     [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
         [% USE date %]
         <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
-            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            class="tagger-icon" title="[% l('Open in tagger') %]">
             <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
         </a>
     [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
         <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
-            target="tagger-iframe" class="tagger-icon" title="[% l('Open in tagger') %]">
+            class="tagger-icon" title="[% l('Open in tagger') %]">
             <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
         </a>
     [%- END -%]
@@ -772,6 +772,7 @@ END -%]
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('nla.gov.au'); 'trove';
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
+    ELSIF url.url.host.search('rockipedia.no'); 'rockipedia';
     ELSIF url.url.host.search('viaf.org'); 'viaf';
     ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
     ELSIF url.url.host.search('thesession.org'); 'thesession';

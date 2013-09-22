@@ -78,13 +78,13 @@ Now install PGQ in the database and run the ticker:
 Install the triggers into the database:
 
     $ cd ../musicbrainz-server/
-    $ carton exec -- ./admin/psql READWRITE < ./admin/sql/caa/CreatePGQ.sql
+    $ ./admin/psql READWRITE < ./admin/sql/caa/CreatePGQ.sql
     $ cd -
 
 Install the dependancies for the CAA-indexer and create a
 configuration file for the CAA-indexer itself:
 
-    $ carton install
+    $ cpanm --installdeps --notest .
     $ cp config.ini.example config.ini
     $ vim config.ini
 
@@ -97,7 +97,7 @@ source, edit lib/CoverArtArchive/IAS3Request.pm and change line 21.
 
 And finally run the indexer:
 
-    $ carton exec -Ilib -- ./caa-indexer
+    $ ./caa-indexer
 
 
 coverart_redirect

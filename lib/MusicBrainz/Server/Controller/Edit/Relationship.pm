@@ -256,7 +256,8 @@ sub create : Local Edit
         root => $tree
     );
     if (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 
@@ -354,7 +355,8 @@ sub create_url : Local Edit
         attr_tree => $attr_tree
     );
     if (!$c->form_posted && %{ $c->req->query_params }) {
-        $form->process( params => $c->req->query_params );
+        my $merged = { ( %{$form->fif}, %{$c->req->query_params} ) };
+        $form->process( params => $merged );
         $form->clear_errors;
     }
 
