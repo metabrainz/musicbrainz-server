@@ -5,7 +5,7 @@ use 5.10.0;
 
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace trim partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
@@ -15,6 +15,7 @@ use Set::Scalar;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use aliased 'MusicBrainz::Server::Entity::Barcode';
+use aliased 'MusicBrainz::Server::Entity::Coordinates';
 
 use base 'Exporter';
 
@@ -24,6 +25,7 @@ our @EXPORT_OK = qw(
     changed_relations
     changed_display_data
     clean_submitted_artist_credits
+    coordinate_closure
     date_closure
     edit_status_name
     conditions_without_autoedit
@@ -31,6 +33,7 @@ our @EXPORT_OK = qw(
     hash_artist_credit_without_join_phrases
     merge_artist_credit
     merge_barcode
+    merge_coordinates
     merge_partial_date
     merge_set
     merge_value
@@ -76,6 +79,15 @@ sub date_closure
     return sub {
         my $a = shift;
         return partial_date_to_hash($a->$attr);
+    };
+}
+
+sub coordinate_closure
+{
+    my $attr = shift;
+    return sub {
+        my $a = shift;
+        return coordinates_to_hash($a->$attr);
     };
 }
 
@@ -332,6 +344,21 @@ sub merge_partial_date {
     );
 }
 
+=method merge_coordinates
+
+Merge coordinates, using a canonical hash and allowing for slightly different representations of data.
+
+=cut
+
+sub merge_coordinates {
+    my ($name, $ancestor, $current, $new) = @_;
+
+    return (
+        [ Coordinates->new($ancestor->{$name} // {})->format, $ancestor->{$name} ],
+        [ $current->$name->format, coordinates_to_hash($current->$name) ],
+        [ Coordinates->new($new->{$name} // {})->format, $new->{$name} ],
+    );
+}
 
 =method merge_list
 

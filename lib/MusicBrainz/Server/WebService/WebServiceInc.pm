@@ -12,7 +12,7 @@ has $_ => (
           aliases discids isrcs media puids various_artists artist_credits
           artists labels recordings releases release_groups works
           artist_rels label_rels recording_rels release_rels
-          release_group_rels url_rels work_rels area_rels
+          release_group_rels url_rels work_rels area_rels place_rels
           tags ratings user_tags user_ratings collections
           recording_level_rels work_level_rels rels annotation
 );
@@ -23,7 +23,7 @@ sub has_rels
 
     return 1 if ($self->artist_rels || $self->label_rels || $self->recording_rels ||
                  $self->release_rels || $self->release_group_rels || $self->url_rels ||
-                 $self->work_rels || $self->area_rels);
+                 $self->work_rels || $self->area_rels || $self->place_rels);
 
     return 0;
 }
@@ -36,6 +36,7 @@ sub get_rel_types
     push @rels, 'artist' if ($self->artist_rels);
     push @rels, 'area' if ($self->area_rels);
     push @rels, 'label' if ($self->label_rels);
+    push @rels, 'place' if ($self->place_rels);
     push @rels, 'recording' if ($self->recording_rels);
     push @rels, 'release' if ($self->release_rels);
     push @rels, 'release_group' if ($self->release_group_rels);

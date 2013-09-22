@@ -6,7 +6,7 @@ use List::AllUtils qw( any );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Constants
     qw( $EDITOR_MODBOT $VARTIST_ID $DARTIST_ID $DLABEL_ID $EDIT_ARTIST_DELETE
-        $EDIT_LABEL_DELETE $BOT_FLAG $AUTO_EDITOR_FLAG $EDIT_WORK_DELETE $EDIT_RELEASEGROUP_DELETE );
+        $EDIT_LABEL_DELETE $EDIT_PLACE_DELETE $BOT_FLAG $AUTO_EDITOR_FLAG $EDIT_WORK_DELETE $EDIT_RELEASEGROUP_DELETE );
 use MusicBrainz::Server::Log qw( log_debug log_warning log_notice );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
@@ -17,6 +17,7 @@ with 'MusicBrainz::Script::Role::Context';
 my %entity_query_map = (
     artist => 'SELECT * FROM empty_artists()',
     label => 'SELECT * FROM empty_labels()',
+    place => 'SELECT * FROM empty_places()',
     release_group => 'SELECT * FROM empty_release_groups()',
     work => 'SELECT * FROM empty_works()',
 );
@@ -24,6 +25,7 @@ my %entity_query_map = (
 my %skip_ids = (
     artist => [ $VARTIST_ID, $DARTIST_ID ],
     label => [ $DLABEL_ID ],
+    place => [],
     release_group => [],
     work => []
 );
@@ -31,6 +33,7 @@ my %skip_ids = (
 my %edit_class = (
     artist => $EDIT_ARTIST_DELETE,
     label => $EDIT_LABEL_DELETE,
+    place => $EDIT_PLACE_DELETE,
     release_group => $EDIT_RELEASEGROUP_DELETE,
     work => $EDIT_WORK_DELETE,
 );

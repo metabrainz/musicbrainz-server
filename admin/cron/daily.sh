@@ -37,6 +37,9 @@ OUTPUT=`./admin/cleanup/RemoveEmpty artist` || echo "$OUTPUT"
 echo `date`" : Removing unused labels"
 OUTPUT=`./admin/cleanup/RemoveEmpty label` || echo "$OUTPUT"
 
+echo `date`" : Removing unused places"
+OUTPUT=`./admin/cleanup/RemoveEmpty place` || echo "$OUTPUT"
+
 echo `date`" : Removing unused release groups"
 OUTPUT=`./admin/cleanup/RemoveEmpty release_group` || echo "$OUTPUT"
 

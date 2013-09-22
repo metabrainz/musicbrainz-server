@@ -22,11 +22,13 @@ use Text::Trim qw ();
 
 our @EXPORT_OK = qw(
     add_partial_date_to_row
+    add_coordinates_to_row
     artist_credit_to_ref
     check_data
     check_in_use
     collapse_whitespace
     copy_escape
+    coordinates_to_hash
     defined_hash
     generate_gid
     generate_token
@@ -63,6 +65,7 @@ Readonly my %TYPE_TO_MODEL => (
     'editor'        => 'Editor',
     'freedb'        => 'FreeDB',
     'label'         => 'Label',
+    'place'         => 'Place',
     'recording'     => 'Recording',
     'release'       => 'Release',
     'release_group' => 'ReleaseGroup',
@@ -207,6 +210,15 @@ sub partial_date_to_hash
     };
 }
 
+sub coordinates_to_hash
+{
+    my ($coordinates) = @_;
+    return {
+        latitude => $coordinates->latitude,
+        longitude => $coordinates->longitude
+    };
+}
+
 sub placeholders
 {
     return join ",", ("?") x scalar(@_);
@@ -332,6 +344,19 @@ sub add_partial_date_to_row
         }
     }
 }
+
+sub add_coordinates_to_row
+{
+    my ($row, $coordinates, $prefix) = @_;
+
+    if (defined $coordinates && defined $coordinates->{latitude} && defined $coordinates->{longitude}) {
+        $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
+    }
+    elsif (defined $coordinates) {
+        $row->{$prefix} = undef;
+    }
+}
+
 
 sub collapse_whitespace {
     my $t = shift;

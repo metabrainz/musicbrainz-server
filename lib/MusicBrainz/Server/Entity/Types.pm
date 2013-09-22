@@ -53,6 +53,9 @@ subtype 'CDStub'
 subtype 'Collection'
     => as class_type 'MusicBrainz::Server::Entity::Collection';
 
+subtype 'Coordinates'
+    => as class_type 'MusicBrainz::Server::Entity::Coordinates';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 
@@ -109,6 +112,15 @@ subtype 'MediumFormat'
 
 subtype 'PartialDate'
     => as class_type 'MusicBrainz::Server::Entity::PartialDate';
+
+subtype 'Place'
+    => as class_type 'MusicBrainz::Server::Entity::Place';
+
+subtype 'PlaceAlias'
+    => as class_type 'MusicBrainz::Server::Entity::PlaceAlias';
+
+subtype 'PlaceType'
+    => as class_type 'MusicBrainz::Server::Entity::PlaceType';
 
 subtype 'Recording'
     => as class_type 'MusicBrainz::Server::Entity::Recording';

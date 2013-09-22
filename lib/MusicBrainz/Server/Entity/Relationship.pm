@@ -211,7 +211,6 @@ sub _interpolate
 
 sub _cmp {
     my ($a, $b) = @_;
-
     my $a_sortname = $a->target->can('sort_name')
         ? $a->target->sort_name
         : $a->target->name;

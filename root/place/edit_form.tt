@@ -1,0 +1,75 @@
+[%- WRAPPER 'layout/guidelines.tt' -%]
+    [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines} then use the fields below to update the information of this place.', {doc_styleguide => doc_link('Style_Guideline')})) %]
+    [%- create_guideline(l('If one or more places with the same name already exist in the database, you will be prompted to add a {doc_comment|disambiguation comment to this place} that will allow users to distinguish this entry from the other place(s) with the same name.', {doc_comment => doc_link('Disambiguation_Comment')})) %]
+[% END %]
+<form action="[% c.req.uri %]" method="post" class="edit-place">
+    [%- USE r = FormRenderer(form) -%]
+
+    <div class="half-width">
+
+      [% IF form.has_duplicates %]
+      <fieldset>
+          <legend>[% l('Possible Duplicate Places') %]</legend>
+          <p>
+              <strong class='warning'>[% l('Warning:') %]</strong>
+              [% l('You are attempting to add a place which appears to be very similar, if not exactly the same, as these existing places:') %]
+              <ul>
+                  [% FOREACH dupe=form.duplicates %]
+                  <li>[% link_entity(dupe) %]</li>
+                  [% END %]
+              </ul>
+          </p>
+
+          [%- WRAPPER 'layout/guidelines.tt' -%]
+              [%- create_guideline(l('You are required to enter a disambiguation comment which allows users to distinguish this place from the other places with the same name, if the final place name is similar to an existing place.')) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_comment|disambiguation documentation}, understood how we distinguish places with the same name, and that you know what you are doing.', {doc_comment => doc_link('Disambiguation_Comment')})) -%]
+          [%- END -%]
+
+          [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this place is not duplicate, and I know what I am doing.')) %]
+      </fieldset>
+      [% END %]
+
+      <fieldset>
+        <legend>[% l('Place Details') %]</legend>
+        [%- form_row_text_long(r, 'name', l('Name:')) -%]
+        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_select(r, 'type_id', l('Type:')) -%]
+        [%- form_row_text_long(r, 'address', l('Address:')) -%]
+        [% WRAPPER form_row %]
+          [% area_field = form.field('area.name') %]
+          <label for="id-edit-label.area.name">[% l('Area:') %]</label>
+          <span class="area autocomplete">
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+            <input type="hidden" class="gid" />
+            [% r.hidden ('area_id', class => 'id') %]
+            [% r.text(area_field, class => 'name') %]
+          </span>
+          [% field_errors(r.form, 'area.name') %]
+        [% END %]
+        [%- form_row_text_long(r, 'coordinates.latitude', l('Latitude:')) -%]
+        [%- form_row_text_long(r, 'coordinates.longitude', l('Longitude:')) -%]
+      </fieldset>
+
+      <fieldset>
+        <legend>[% l('Date Period') %]</legend>
+        <p>
+            [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
+        </p>
+        [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% form_row_date(r, 'period.end_date', l('End date:')) %]
+        [% form_row_checkbox(r, 'period.ended', l('This place has ended.')) %]
+      </fieldset>
+      [% INCLUDE 'forms/edit-note.tt' %]
+
+      [% enter_edit() %]
+  </div>
+
+  <div class="documentation">
+    [%- guesscase_bubble(1) -%]
+  </div>
+
+</form>
+
+<script type="text/javascript">
+    MB.utility.setDefaultAction ('form.edit-place', 'button.submit.positive');
+</script>
