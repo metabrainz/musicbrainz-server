@@ -26,6 +26,7 @@ has_field 'area.name' => ( type => 'Text' );
 
 has_field 'coordinates' => (
     type => '+MusicBrainz::Server::Form::Field::Coordinates',
+    not_nullable => 1
 );
 
 has_field 'comment' => (

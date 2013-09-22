@@ -140,12 +140,22 @@ is($place->end_date->day, 17);
 is($place->type_id, undef);
 is($place->area_id, 222);
 is($place->comment, 'Updated comment');
+is($place->coordinates->latitude, 0.1);
+is($place->coordinates->longitude, 0.2);
 
 $place_data->update($place->id, {
         type_id => 2
     });
 $place = $place_data->get_by_id($place->id);
 is($place->type_id, 2);
+
+$place_data->update($place->id, {
+        coordinates => { latitude => undef, longitude => undef }
+    });
+
+$place = $place_data->get_by_id($place->id);
+is ( $place->coordinates->latitude, undef );
+is ( $place->coordinates->longitude, undef );
 
 $place_data->delete($place->id);
 $place = $place_data->get_by_id($place->id);

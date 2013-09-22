@@ -352,7 +352,7 @@ sub add_coordinates_to_row
     if (defined $coordinates && defined $coordinates->{latitude} && defined $coordinates->{longitude}) {
         $row->{$prefix} = ($coordinates->{latitude} . ', ' . $coordinates->{longitude});
     }
-    else {
+    elsif (defined $coordinates) {
         $row->{$prefix} = undef;
     }
 }
