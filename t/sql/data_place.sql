@@ -1,6 +1,7 @@
 SET client_min_messages TO 'WARNING';
 
 INSERT INTO place_type (id, name) VALUES (1, 'Venue');
+INSERT INTO place_type (id, name) VALUES (2, 'Studio');
 
 INSERT INTO area_type (id, name) VALUES (1, 'Country');
 INSERT INTO area (id, gid, name, sort_name, type) VALUES
