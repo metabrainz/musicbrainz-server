@@ -26,6 +26,7 @@
             <th>[% l('ISRCs') %]</th>
             [% UNLESS no_ratings %]<th class="rating c">[% l('Rating') %]</th>[% END %]
             <th>[%- l('Length') -%]</th>
+            <th>[%- l('Video') -%]</th>
         </tr>
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
@@ -48,6 +49,7 @@
               </td>
               [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
               <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
+              <td>[%- IF recording.video -%]&#x2714;[%- END -%]</td>
           </tr>
           [% ELSE %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>

@@ -8,6 +8,7 @@
         <th class="treleases">[% l('Length') %]</th>
         <th>[% l('Artist') %]</th>
         <th>[% l('ISRCs') %]</th>
+        <th>[%- l('Video') -%]</th>
         <th>[% l('Release') %]</th>
         [%- IF c.try_get_session('tport') -%]
           <th>[% l('Tagger') %]</th>
@@ -36,6 +37,7 @@
               [%- ELSE -%]
                 <td colspan="5">&#xa0;</td>
               [%- END -%]
+              <td>[%- IF result.entity.video -%]&#x2714;[%- END -%]</td>
               <td>[%- link_entity(release) -%]</td>
               [%- IF c.try_get_session('tport') -%]
                 <td>[% tagger_icon(release) %]</td>
@@ -57,6 +59,7 @@
                 [% link_isrc(isrc.isrc) %]<br />
               [% END %]
             </td>
+            <td>[%- IF result.entity.video -%]&#x2714;[%- END -%]</td>
             <td>[% l('(standalone recording)') %]</td>
             [%- IF c.try_get_session('tport') -%]
               <td>[% tagger_icon(result.entity) %]</td>

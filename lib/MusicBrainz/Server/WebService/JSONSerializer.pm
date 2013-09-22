@@ -319,6 +319,7 @@ sub _recording
         $show_ac ? ( artist_credit  =>
             $self->_artist_credit($recording->artist_credit) ) : (),
         isrcs => [ map { $_->isrc } $recording->all_isrcs ],
+        video   => $recording->video ? 1 : 0
     };
 }
 

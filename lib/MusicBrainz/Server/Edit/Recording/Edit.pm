@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Recording::Edit;
 use Moose;
 use 5.10.0;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_EDIT );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
@@ -51,7 +51,8 @@ sub change_fields
         name          => Optional[Str],
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
-        comment       => Nullable[Str]
+        comment       => Nullable[Str],
+        video         => Optional[Bool]
     ];
 }
 
@@ -98,6 +99,7 @@ sub build_display_data
         name    => 'name',
         comment => 'comment',
         length  => 'length',
+        video      => 'video',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -186,6 +188,9 @@ sub allow_auto_edit
     my ($old_comment, $new_comment) = normalise_strings(
         $self->data->{old}{comment}, $self->data->{new}{comment});
     return 0 if $old_comment ne $new_comment;
+
+    return 0 if exists $self->data->{old}{video}
+        and $self->data->{old}{video} != $self->data->{new}{video};
 
     return 0 if $self->data->{old}{length};
     return 0 if exists $self->data->{new}{artist_credit};
