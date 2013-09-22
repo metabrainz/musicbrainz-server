@@ -37,6 +37,7 @@ DROP FUNCTION delete_unused_url(ids INTEGER[]);
 DROP FUNCTION deny_special_purpose_deletion();
 DROP FUNCTION empty_artists();
 DROP FUNCTION empty_labels();
+DROP FUNCTION empty_places();
 DROP FUNCTION empty_release_groups();
 DROP FUNCTION empty_works();
 DROP FUNCTION end_area_implies_ended();

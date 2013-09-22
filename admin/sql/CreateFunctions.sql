@@ -617,6 +617,8 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_artist_label
   EXCEPT
+  SELECT entity0 FROM l_artist_place
+  EXCEPT
   SELECT entity0 FROM l_artist_recording
   EXCEPT
   SELECT entity0 FROM l_artist_release
@@ -655,6 +657,8 @@ $BODY$
   SELECT entity1 FROM l_label_label
   EXCEPT
   SELECT entity0 FROM l_label_label
+  EXCEPT
+  SELECT entity0 FROM l_label_place
   EXCEPT
   SELECT entity0 FROM l_label_recording
   EXCEPT
@@ -695,6 +699,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_label_release_group
   EXCEPT
+  SELECT entity1 FROM l_place_release_group
+  EXCEPT
   SELECT entity1 FROM l_recording_release_group
   EXCEPT
   SELECT entity1 FROM l_release_release_group
@@ -734,6 +740,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_label_work
   EXCEPT
+  SELECT entity1 FROM l_place_work
+  EXCEPT
   SELECT entity1 FROM l_recording_work
   EXCEPT
   SELECT entity1 FROM l_release_work
@@ -745,6 +753,47 @@ $BODY$
   SELECT entity1 FROM l_work_work
   EXCEPT
   SELECT entity0 FROM l_work_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find places that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_places() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM place
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT place
+  FROM edit_place
+  JOIN edit ON (edit.id = edit_place.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_place
+  EXCEPT
+  SELECT entity1 FROM l_artist_place
+  EXCEPT
+  SELECT entity1 FROM l_label_place
+  EXCEPT
+  SELECT entity1 FROM l_place_place
+  EXCEPT
+  SELECT entity0 FROM l_place_place
+  EXCEPT
+  SELECT entity1 FROM l_recording_place
+  EXCEPT
+  SELECT entity1 FROM l_release_place
+  EXCEPT
+  SELECT entity1 FROM l_release_group_place
+  EXCEPT
+  SELECT entity1 FROM l_url_place
+  EXCEPT
+  SELECT entity1 FROM l_place_work;
 $BODY$
 LANGUAGE 'sql';
 
