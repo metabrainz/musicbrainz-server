@@ -1,6 +1,6 @@
 [%- info_links = [
     ['index', link_place(place, 'show', l('Overview'))],
-    ['recordings', rdfa_seeAlso_link_place(place, 'recordings', l('Recordings'))],
+    ['recordings', rdfa_seeAlso_link_place(place, 'performances', l('Performances'))],
     ['aliases', rdfa_seeAlso_link_place(place, 'aliases', l('Aliases'))],
     ['tags', link_place(place, 'tags', l('Tags'))],
     ['details', rdfa_seeAlso_link_place(place, 'details', l('Details'))],

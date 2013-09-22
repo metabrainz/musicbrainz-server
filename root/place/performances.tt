@@ -1,6 +1,6 @@
-[%- WRAPPER "place/layout.tt" title=l('Recordings') page='recordings' -%]
-    <h2>[% l('Recordings') %]</h2>
-    [% IF place.recordings.size %]
+[%- WRAPPER "place/layout.tt" title=l('Performances') page='performances' -%]
+    <h2>[% l('Performances') %]</h2>
+    [% IF place.performances.size %]
     <table class="tbl">
         <thead>
             <tr>
@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-        [%- FOREACH relationship IN place.recordings.pairs -%]
+        [%- FOREACH relationship IN place.performances.pairs -%]
 
                 <tr class="subh">
                     <th></th>

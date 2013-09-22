@@ -59,7 +59,7 @@ has 'coordinates' => (
     isa => 'Coordinates'
 );
 
-sub recordings {
+sub performances {
     my $self = shift;
     my @rels = @{ $self->relationships_by_type('release', 'release_group', 'recording') };
 

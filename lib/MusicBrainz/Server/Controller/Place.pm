@@ -79,13 +79,13 @@ sub show : PathPart('') Chained('load')
     $c->stash(template => 'place/index.tt');
 }
 
-=head2 recordings
+=head2 performances
 
-Shows recordings linked to a place.
+Shows performances linked to a place.
 
 =cut
 
-sub recordings : Chained('load')
+sub performances : Chained('load')
 {
     my ($self, $c) = @_;
 
