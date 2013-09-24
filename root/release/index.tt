@@ -40,12 +40,15 @@
                 [%- END -%]
                 <th class="rating c">[% l('Rating') %]</th>
                 <th class="treleases">[% l('Length') %]</th>
+                [%- IF show_video -%]
+                    <th class="video c"></th>
+                [%- END -%]            
             </tr>
         </thead>
         <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
+                <td>&#xa0;</td><td colspan="[% IF show_artists && show_video %]5[% ELSIF show_artists || show_video %]4[% ELSE %]3[% END %]">
                     [% rdfa_medium_in_release(release, medium) %]
                 </td>
             </tr>

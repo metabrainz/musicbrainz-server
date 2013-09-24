@@ -80,5 +80,8 @@ dl.ars dt {
     <td class="rating c">[% rating_stars(recording) %]</td>
     [% END %]
     <td class="treleases">[% rdfa_recording_duration(track) %]</td>
+    [%- IF show_video -%]
+        <td class="video c">[%- IF recording.video -%]<img src="/static/images/icons/video.png" class="bottom"/>[%- END -%]</td>
+    [%- END -%]
 </tr>
 [%- END -%]
