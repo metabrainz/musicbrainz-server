@@ -54,7 +54,7 @@ CREATE TABLE area (
            end_date_day IS NULL)
         )
       ),
-    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    comment             VARCHAR(255) NOT NULL DEFAULT ''
 );
 
 CREATE TABLE area_gid_redirect
