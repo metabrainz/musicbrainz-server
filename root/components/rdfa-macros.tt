@@ -627,6 +627,7 @@ END -%]
     '<span class="name-variation">' IF text != recording.name AND action == 'show';
     '<span property="dct:title rdfs:label" xml:lang="" lang="" content="' _ text _ '"></span>';
     '<a rel="mo:publication_of" resource="' _ rdfa_recording_curi(recording) _ '" href="' _ link _ '" title="' _ hover _ '"><span property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
+    '  <img src="/static/images/icons/video.png" class="bottom"/>' IF recording.video;
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
   ELSE;
