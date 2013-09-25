@@ -1,26 +1,18 @@
-package MusicBrainz::Server::Report::TracksWithoutTimes;
+package MusicBrainz::Server::Entity::URL::Rockipedia;
+
 use Moose;
-use namespace::autoclean;
 
-with 'MusicBrainz::Server::Report::ReleaseReport',
-     'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
+extends 'MusicBrainz::Server::Entity::URL';
+with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub query {
-    <<'EOSQL'
-SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
-FROM (
-  SELECT release.id
-  FROM track
-  JOIN medium ON track.medium = medium.id
-  JOIN release ON medium.release = release.id
-  WHERE track.length is null
-  GROUP BY release.id
-) s
-JOIN release ON s.id = release.id
-EOSQL
+sub sidebar_name {
+    my $self = shift;
+
+    return "Rockipedia";
 }
 
+__PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
 =head1 COPYRIGHT

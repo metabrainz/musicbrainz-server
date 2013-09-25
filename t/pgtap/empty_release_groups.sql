@@ -14,28 +14,22 @@ INSERT INTO link_type (id, gid, entity_type0, entity_type1, name, link_phrase,
   VALUES (1, '0059c07e-e9f5-4680-b48b-b40c6f82dd72', 'artist', 'label', '', '', '', '');
 INSERT INTO link (id, link_type) VALUES (1, 1);
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Test');
-INSERT INTO label_name (id, name) VALUES (1, 'Test');
-INSERT INTO release_name (id, name) VALUES (1, 'Test');
-INSERT INTO track_name (id, name) VALUES (1, 'Test');
-INSERT INTO work_name (id, name) VALUES (1, 'Test');
-
 INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1, 1);
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 'Test');
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Test', 1);
 INSERT INTO label (id, gid, name, sort_name)
-  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 1, 1);
+  VALUES (1, '159cb1fa-dbe9-4777-abf6-7ecb3ce84f91', 'Test', 'Test');
 INSERT INTO recording (id, gid, name, artist_credit)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1, 1);
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 1);
 INSERT INTO release_group (id, gid, name, artist_credit)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1, 1),
-         (2, '9c172831-ff88-4eff-9c58-47fa1408b6b2', 1, 1);
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 1),
+         (2, '9c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 1);
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1, 1, 2);
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test', 1, 2);
 INSERT INTO url (id, gid, url)
   VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'http://google.com/');
 INSERT INTO work (id, gid, name)
-  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 1);
+  VALUES (1, '0c172831-ff88-4eff-9c58-47fa1408b6b2', 'Test');
 
 -- Disable triggers so we can actually update the last_updated field
 ALTER TABLE release_group DISABLE TRIGGER USER;

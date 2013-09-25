@@ -43,7 +43,7 @@ sub _columns
     return 'editor.id, editor.name, password, privs, email, website, bio,
             member_since, email_confirm_date, last_login_date, edits_accepted,
             edits_rejected, auto_edits_accepted, edits_failed, gender, area,
-            birth_date, ha1';
+            birth_date, ha1, deleted';
 }
 
 sub _column_mapping
@@ -66,7 +66,8 @@ sub _column_mapping
         gender_id               => 'gender',
         area_id                 => 'area',
         birth_date              => 'birth_date',
-        ha1                     => 'ha1'
+        ha1                     => 'ha1',
+        deleted                 => 'deleted'
     };
 }
 
@@ -490,7 +491,8 @@ sub delete {
                            bio = NULL,
                            area = NULL,
                            birth_date = NULL,
-                           gender = NULL
+                           gender = NULL,
+                           deleted = TRUE
          WHERE id = ?",
         Authen::Passphrase::RejectAll->new->as_rfc2307,
         $editor_id

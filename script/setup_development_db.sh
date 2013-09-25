@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
     echo "  WARNING: running this script will overwrite the production database."
     echo "  If you are sure you want to do this, run this:"
     echo " "
-    echo "  carton exec -Ilib -- script/setup_development_db.sh --destroy-all-the-things"
+    echo "  script/setup_development_db.sh --destroy-all-the-things"
     echo " "
     echo "=========================================================================="
 elif [ "$1" = "--destroy-all-the-things" ]; then

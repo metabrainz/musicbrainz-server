@@ -542,13 +542,13 @@ my %stats = (
         NONREPLICATED => 1,
     },
     "count.editor.deleted" => {
-        DESC => "Count of all editors that have been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
-        SQL => "SELECT COUNT(*) FROM editor WHERE name = 'Deleted Editor #' || id",
+        DESC => "Count of all editors that have been deleted",
+        SQL => "SELECT COUNT(*) FROM editor WHERE deleted",
         NONREPLICATED => 1,
     },
     "count.editor.valid" => {
-        DESC => "Count of all editors that have not been deleted (defined as 'has name Deleted Editor #<id>' for convenience)",
-        SQL => "SELECT COUNT(*) FROM editor WHERE name <> ('Deleted Editor #' || id)",
+        DESC => "Count of all editors that have not been deleted",
+        SQL => "SELECT COUNT(*) FROM editor WHERE NOT deleted",
         NONREPLICATED => 1,
     },
     "count.barcode" => {

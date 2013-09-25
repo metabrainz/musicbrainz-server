@@ -328,30 +328,41 @@ sub autocomplete_work
 
     my @output;
 
-    my %alias_preference = (
-        en => 1,
-        en_US => 2,
-        en_GB => 3
-    );
+    if (@$results) {
+        my $munge_lang = sub {
+            my $lang = shift;
+            $lang =~ s/_[A-Z]{2}/_/;
+            return $lang;
+        };
 
-    for (@$results) {
-        my $out = $self->_work( $_->{work} );
-        $out->{artists} = $_->{artists};
+        my %alias_preference = (
+            en => 2,
+            en_ => 1
+        );
+        my $lang = $munge_lang->($results->[0]->{current_language});
+        $lang =~ s/_$//;
+        $alias_preference{$lang} = 4 if $lang ne 'en';
+        $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
 
-        my ($primary_alias) =
-            sort {
-                my $pref_a = $alias_preference{$a};
-                my $pref_b = $alias_preference{$b};
+        for (@$results) {
+            my $out = $self->_work( $_->{work} );
+            $out->{artists} = $_->{artists};
 
-                defined($pref_a) && defined($pref_b)
-                    ? $pref_a <=> $pref_b
-                    : defined($pref_a) || -(defined($pref_b)) || 0;
-            }
-            grep { $_->type_id == 1 && $_->primary_for_locale }
-                @{ $_->{aliases} };
+            my ($primary_alias, @others) =
+                reverse sort {
+                    my $pref_a = $alias_preference{$munge_lang->($a->locale)};
+                    my $pref_b = $alias_preference{$munge_lang->($b->locale)};
 
-        $out->{primary_alias} = $primary_alias && $primary_alias->name;
-        push @output, $out;
+                    defined($pref_a) && defined($pref_b)
+                        ? $pref_a <=> $pref_b
+                        : defined($pref_a) || -(defined($pref_b)) || 0;
+                } grep {
+                    $_->primary_for_locale
+                } @{ $_->{aliases} };
+
+            $out->{primary_alias} = $primary_alias && $primary_alias->name;
+            push @output, $out;
+        }
     }
 
     push @output, {

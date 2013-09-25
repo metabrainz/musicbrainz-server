@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
+# Maurits Meulenbelt <email address hidden>, 2013
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-07-25 08:38+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgstr "Een batátrommel is een zandlopervormige trommel afkomstig uit Nigeria"
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
+msgstr "Een Turkse versie van de tamboerijn / daf, gemaakt van dierenhuid en met de vingers bespeeld."
 
 #: DB:link_attribute_type/description:600
 msgid ""
@@ -61,11 +62,11 @@ msgstr "Een groep Zuid-Amerikaanse gitaren"
 
 #: DB:link_attribute_type/description:679
 msgid "A classical guitar strung with gut strings."
-msgstr ""
+msgstr "Een klassieke gitaar met darmsnaren."
 
 #: DB:link_attribute_type/description:678
 msgid "A classical guitar strung with nylon strings."
-msgstr ""
+msgstr "Een klassieke gitaar met nylonsnaren."
 
 #: DB:link_attribute_type/description:563
 msgid ""
@@ -103,7 +104,7 @@ msgstr ""
 msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
-msgstr ""
+msgstr "Een grotere versie van de tef die wordt gebruikt om ritmische structuren (usul) aan te geven in makam-muziek."
 
 #: DB:link_attribute_type/description:627
 msgid ""
@@ -128,7 +129,7 @@ msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon 
 msgid ""
 "A plucked instrument from the Renaissance. (<a "
 "href=\"http://en.wikipedia.org/wiki/Orpharion\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een orpharion is een tokkelinstrument uit de renaissance. (<a href=\"http://en.wikipedia.org/wiki/Orpharion\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:590
 msgid ""
@@ -164,14 +165,14 @@ msgstr "Een soort fretloze citer."
 
 #: DB:link_attribute_type/description:638
 msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr ""
+msgstr "Een typemachine, gebruikt voor percussie. (<a href=\"http://en.wikipedia.org/wiki/Typewriter#In_music\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:633
 msgid ""
 "A valveless trumpet, in the model of the ones from the 16th to 18th "
 "centuries (<a "
 "href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een ventielloze trompet gemaakt naar het model van trompetten uit de zestiende tot achttiende eeuw. (<a href=\"http://en.wikipedia.org/wiki/Baroque_trumpet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:739
 msgid ""
@@ -188,7 +189,7 @@ msgstr "De algoze of algoza (Punjabi: ਅਲਗੋਜ਼ੇ) is een gebekte dubb
 
 #: DB:link_attribute_type/description:651
 msgid "Acoustic guitar without frets."
-msgstr ""
+msgstr "Akoestische gitaar zonder fretten."
 
 #: DB:link_attribute_type/description:557
 msgid ""
@@ -217,7 +218,7 @@ msgid ""
 "An Indian version of the jew's harp, played as a percussion instrument in "
 "Carnatic music and Rajastani folk music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Morsing\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een Indiase variant op de mondharp, bespeeld als percussie-instrument in Carnatische en Rajastaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Morsing\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:435
 msgid ""
@@ -372,7 +373,7 @@ msgstr "Duhol, traditionele Iraanse trommel"
 msgid ""
 "Double headed drum from India.  (<a "
 "href=\"http://en.wikipedia.org/wiki/Dhol\">Wikipedia</a>)"
-msgstr ""
+msgstr " De Dhol (Punjabi: ਢੋਲ, Devanagari: ढोल, Urdu: ڈھول) is een tweevellige trommel uit India. (<a href=\"http://nl.wikipedia.org/wiki/Dhol\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:161
 msgid "Dubreq Stylophone"
@@ -390,7 +391,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:650
 msgid "Electric guitar without frets."
-msgstr ""
+msgstr "Een elektrische gitaar zonder fretten."
 
 #: DB:link_attribute_type/description:500
 msgid ""
@@ -523,7 +524,7 @@ msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana. (<a "
 "href=\"http://en.wikipedia.org/wiki/Maddale\">Wikipedia</a>)"
-msgstr ""
+msgstr "De maddale (Kannada: ಮದ್ದಲೆ) is een tweekoppige trommel uit Karnata, India. Samen met de chande zorgt de maddale voor ritmische begeleiding in Yakshagana. (<a href=\"http://en.wikipedia.org/wiki/Maddale\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:110
 msgid ""
@@ -880,14 +881,14 @@ msgid ""
 "The bulbul tarang (बुलबुल तरंग, Indian banjo) is a string instrument from "
 "India and Pakistan (<a href=\"http://en.wikipedia.org/wiki/Bulbul "
 "tarang\">Wikipedia</a>)"
-msgstr ""
+msgstr "De bulbul tarang (Hindi: बुलबुल तरंग, Punjabi: بلبل ترنگ) is een snaarinstrument uit India en Pakistan. (<a href=\"http://en.wikipedia.org/wiki/Bulbul tarang\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:636
 msgid ""
 "The cavaquinho is a small plucked string instrument of Portuguese origin "
 "with four wire or gut strings (<a "
 "href=\"http://en.wikipedia.org/wiki/Cavaquinho\">Wikipedia</a>)"
-msgstr ""
+msgstr "De cavaquinho is een klein tokkelinstrument van Portugese origine met vier snaren van draad of darm. (<a href=\"http://nl.wikipedia.org/wiki/Cavaquinho\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:599
 msgid ""
@@ -906,7 +907,7 @@ msgstr ""
 msgid ""
 "The chande is a drum used in the traditional and classical music of South "
 "India. (<a href=\"http://en.wikipedia.org/wiki/Chande\">Wikipedia</a>)"
-msgstr ""
+msgstr "De chande is een trommel die gebruikt wordt in de traditionele en klassieke muziek van Zuid-India. (<a href=\"http://en.wikipedia.org/wiki/Chande\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:559
 msgid "The charango is a small South American lute."
@@ -956,7 +957,7 @@ msgid ""
 "The dilruba is a bowed string instrument from Northern India, mostly used in"
 " religious music and light classical songs (<a "
 "href=\"http://en.wikipedia.org/wiki/Dilruba\">Wikipedia</a>)"
-msgstr ""
+msgstr "De dilruba is een strijkinstrument uit Noord-India en wordt meestal gebruikt in religieuze en licht-klassieke muziek. (<a href=\"http://en.wikipedia.org/wiki/Dilruba\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:290
 msgid ""
@@ -1027,7 +1028,7 @@ msgid ""
 "The esraj is a bowed string instrument from Eastern and Central India, "
 "mostly used as an accompanying instrument (<a "
 "href=\"http://en.wikipedia.org/wiki/Esraj\">Wikipedia</a>)"
-msgstr ""
+msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een strijkinstrument uit Oost- en Centraal India en wordt meestal gebruikt als begeleiding. (<a href=\"http://en.wikipedia.org/wiki/Esraj\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:682
 msgid ""
@@ -1170,7 +1171,7 @@ msgid ""
 "The kartal is an Indian percussion instrument with jingles, played with the "
 "hands, mainly used in Kirtans, Bhajans and in Rajastani folk music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Khartal\">Wikipedia</a>)"
-msgstr ""
+msgstr "De kartal of karthal is een Indiaas percussie-instrument met belletjes en wordt bespeeld met de hand. Het wordt meestal gebruikt bij kirtans, bhajans en Rajastaanse volksmuziek. (<a href=\"http://en.wikipedia.org/wiki/Khartal\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:551
 msgid ""
@@ -1204,7 +1205,7 @@ msgid ""
 "The komuz or qomuz is a fretless string instrument used in Central Asian "
 "music, seen as the Kyrgyz national instrument. (<a "
 "href=\"http://en.wikipedia.org/wiki/Komuz\">Wikipedia</a>)"
-msgstr ""
+msgstr "De komuz of qomuz (Kirgizisch: комуз), Azerbeidzjaans: Gopuz, Turks: Kopuz) is een fretloos snaarinstrument uit Centraal Azië. (<a href=\"http://en.wikipedia.org/wiki/Komuz\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:107
 msgid ""
