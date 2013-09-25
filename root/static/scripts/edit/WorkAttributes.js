@@ -10,7 +10,7 @@ WA.init = function(config) {
     attributeTypes = config;
 
     WA.viewModel = new ViewModel(config);
-    ko.applyBindings(WA.viewModel);
+    ko.applyBindings(WA.viewModel, document.getElementById('work_attributes'));
 
     return WA;
 };

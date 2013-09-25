@@ -11,7 +11,7 @@
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
-    <fieldset>
+    <fieldset id="work_attributes">
       <legend>[%- l('Work Attributes') -%]</legend>
       <!-- ko with: MB.WorkAttributes.viewModel -->
       [% WRAPPER form_row %]
