@@ -149,6 +149,8 @@ sub allow_auto_edit
 
     return 0 if defined $self->data->{old}{language_id};
 
+    return 0 if defined $self->data->{old}{attributes};
+
     return 1;
 }
 
