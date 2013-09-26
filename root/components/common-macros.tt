@@ -182,9 +182,14 @@ END -%]
             l('Error: Unknown Type');
     END -%]
 
-[%- MACRO disambiguation(entity) BLOCK;
-    ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' IF entity.comment;
-END -%]
+[%- MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.comment -%]
+        [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
+    [%- END -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Area') -%]
+        [%- historical(entity) -%]
+    [%- END -%]
+[%- END -%]
 
 [%- MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
