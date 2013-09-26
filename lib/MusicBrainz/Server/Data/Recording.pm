@@ -282,6 +282,22 @@ sub find_standalone
         $query, $artist_id, $offset || 0);
 }
 
+sub find_video
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query ='
+        SELECT ' . $self->_columns . '
+          FROM ' . $self->_table . '
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = recording.artist_credit
+         WHERE video IS TRUE
+           AND acn.artist = ?
+      ORDER BY musicbrainz_collate(recording.name)
+        OFFSET ?';
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
+}
 =method appears_on
 
 This method will return a list of release groups the recordings appear

@@ -264,6 +264,12 @@ sub recordings : Chained('load')
             });
             $c->stash( standalone_only => 1 );
         }
+        elsif ($c->req->query_params->{video}) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_video($artist->id, shift, shift);
+            });
+            $c->stash( video_only => 1 );
+        }
         else {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
