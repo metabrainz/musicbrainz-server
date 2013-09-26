@@ -530,10 +530,11 @@ sub allowed_attribute_values {
 sub all_work_attributes {
     my $self = shift;
     return map {
-        my ($id, $name, $allows_free_text, $allowed_ids, $allowed_values) = @$_;
+        my ($id, $name, $allows_free_text, $allowed_ids, $allowed_values, $comment) = @$_;
         (
             $id => {
                 name => $name,
+                comment => $comment,
                 allowsFreeText => $allows_free_text,
                 values => do {
                     if ($allows_free_text) {
@@ -549,7 +550,8 @@ sub all_work_attributes {
         $self->sql->select_list_of_lists(
             'SELECT wat.id, name, free_text,
                array_agg(watav.id) AS allowed_value_ids,
-               array_agg(watav.value) AS allowed_value
+               array_agg(watav.value) AS allowed_value,
+               comment
              FROM work_attribute_type wat
              LEFT JOIN work_attribute_type_allowed_value watav
              ON (wat.id = watav.work_attribute_type)
