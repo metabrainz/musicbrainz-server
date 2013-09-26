@@ -35,7 +35,7 @@ dl.ars dt {
       [%- track.number -%]
     </td>
     [%- IF show_video -%]
-        <td class="video c">[%- IF recording.video -%]<img src="/static/images/icons/video.png" alt="video" title="video" class="bottom"/>[%- END -%]</td>
+        <td class="video c">[%- IF recording.video -%]<img src="/static/images/icons/video.png" alt="This recording is a video" title="This recording is a video" class="bottom"/>[%- END -%]</td>
     [%- END -%]
     <td>
       [%- IF recording.gid -%]
