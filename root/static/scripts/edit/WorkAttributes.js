@@ -18,7 +18,7 @@ WA.init = function(config) {
 WA.WorkAttribute = function(typeId, value) {
     var self = this;
 
-    self.typeId = ko.observable(typeId);
+    self.typeId = ko.observable(typeId + "");
     self.attributeValue = ko.observable(value);
 
     self.allowsFreeText = ko.computed(function() {
@@ -38,6 +38,10 @@ WA.WorkAttribute = function(typeId, value) {
     self.remove = function() {
         MB.WorkAttributes.viewModel.attributes.remove(this);
     };
+
+    self.typeId.subscribe(function() {
+        self.attributeValue("");
+    });
 
     return self;
 };
