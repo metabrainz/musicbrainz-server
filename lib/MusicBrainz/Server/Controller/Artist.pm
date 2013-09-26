@@ -284,9 +284,12 @@ sub recordings : Chained('load')
 
     $c->stash(
         recordings => $recordings,
-        show_artists => scalar grep {
+        show_artists => scalar (grep {
             $_->artist_credit->name ne $artist->name
-        } @$recordings,
+        } @$recordings),
+        show_video => scalar (grep {
+            $_->video
+        } @$recordings),
     );
 }
 

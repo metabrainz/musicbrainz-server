@@ -19,6 +19,9 @@
               [% END %]
             </th>
             [% END %]
+            [%- IF show_video -%]
+                <th class="video c"></th>
+            [%- END -%]
             <th>[%- l('Name') -%]</th>
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
@@ -26,7 +29,6 @@
             <th>[% l('ISRCs') %]</th>
             [% UNLESS no_ratings %]<th class="rating c">[% l('Rating') %]</th>[% END %]
             <th>[%- l('Length') -%]</th>
-            <th>[%- l('Video') -%]</th>
         </tr>
     </thead>
     <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
@@ -34,6 +36,9 @@
           [% IF recording.gid %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
               [% PROCESS recording_row_prefix UNLESS no_prefix %]
+              [%- IF show_video -%]
+                  <td class="video c">[%- IF recording.video -%]<img src="/static/images/icons/video.png" alt="video" title="video" class="bottom"/>[%- END -%]</td>
+              [%- END -%]
               <td>
                 [% rdfa_made_recording_link(recording) %]
                 [% disambiguation(recording) %]
@@ -49,7 +54,6 @@
               </td>
               [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
               <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
-              <td>[%- IF recording.video -%]&#x2714;[%- END -%]</td>
           </tr>
           [% ELSE %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
