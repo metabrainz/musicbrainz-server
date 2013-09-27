@@ -1036,3 +1036,7 @@ END -%]
       parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
+
+[%- MACRO format_isni(isni) BLOCK;
+      isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
+    END -%]

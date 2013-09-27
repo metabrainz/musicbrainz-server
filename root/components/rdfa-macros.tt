@@ -217,7 +217,7 @@ END -%]
 [%- MACRO rdfa_artist_isni(isni_code) BLOCK -%]
     <a href="http://isni-url.oclc.nl/isni/[% isni_code.isni %]">
     [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(isni_code.artist) -%]" property="mo:isni">[%- END -%]
-        [%- html_escape(isni_code.isni) -%]
+        [%- format_isni(isni_code.isni) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
     </a>
 [%- END -%]
@@ -231,7 +231,7 @@ END -%]
 [%- MACRO rdfa_label_isni(isni_code) BLOCK -%]
     <a href="http://isni-url.oclc.nl/isni/[% isni_code.isni %]">
     [%- IF doRDFa -%]<span about="[%- rdfa_label_curi(isni_code.label) -%]" property="mo:isni">[%- END -%]
-        [%- html_escape(isni_code.isni) -%]
+        [%- format_isni(isni_code.isni) -%]
     [%- IF doRDFa -%]</span>[%- END -%]
     </a>
 [%- END -%]
