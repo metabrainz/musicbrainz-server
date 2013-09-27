@@ -24,8 +24,10 @@ sub pretty_name
 
 sub sidebar_name { shift->pretty_name }
 
-sub affiliate_url {
-    my ($self, $url) = @_;
+override affiliate_url => sub {
+    my $self = shift;
+
+    my $url = super()->clone;
     if ($url =~ m{^(?:https?:)?//(?:.*?\.)(amazon\.([a-z\.]+))(?:\:[0-9]+)?/[^?]+$}i) {
         my $ass_id = DBDefs->AWS_ASSOCIATE_ID($1);
         return $url unless $ass_id;
@@ -33,7 +35,7 @@ sub affiliate_url {
     } else {
         return $url;
     }
-}
+};
 
 sub url_is_scheme_independent { 1 }
 
