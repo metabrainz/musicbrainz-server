@@ -100,7 +100,7 @@ lookup_handler 'iswc' => sub {
         );
     }
     else {
-        $c->detach('not_found');
+        $self->not_found($c);
     }
 };
 
