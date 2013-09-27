@@ -6,4 +6,13 @@
       [% display_relationship(edit.display_data.relationship, 'verbose_phrase') %]
     </td>
   </tr>
+  [% IF edit.display_data.unknown_attributes %]
+  <tr>
+    <th></th>
+    <td>
+      [% l('This relationship edit also included changes to relationship attributes
+            which no longer exists.') %]
+    </td>
+  </tr>
+  [% END %]
 </table>
