@@ -125,6 +125,7 @@ sub coverart : Local
     my $release_format_stats = [];
     my $type_stats = [];
     my $per_release_stats = [];
+    my $rg_type_stats = [];
 
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
@@ -140,6 +141,9 @@ sub coverart : Local
         if (my ($type) = $stat_name =~ /^count\.coverart.type\.(.*)$/) {
             push(@$type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
         }
+        if (my ($type) = $stat_name =~ /^count\.releasegroup\.type\.(.*)\.has_coverart$/) {
+            push(@$rg_type_stats, ({'stat_name' => $stat_name, 'type' => $type}));
+        }
     }
 
     $c->stash(
@@ -148,7 +152,8 @@ sub coverart : Local
         release_type_stats => $release_type_stats,
         release_status_stats => $release_status_stats,
         release_format_stats => $release_format_stats,
-        type_stats => $type_stats
+        type_stats => $type_stats,
+        release_group_type_stats => $rg_type_stats
     );
 }
 

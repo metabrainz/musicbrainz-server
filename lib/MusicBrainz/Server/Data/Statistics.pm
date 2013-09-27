@@ -932,6 +932,37 @@ my %stats = (
             };
         },
     },
+    "count.releasegroup.type.typename.has_coverart" => {
+        DESC => "Count of release groups with cover art, by primary type",
+        CALC => sub {
+            my ($self, $sql) = @_;
+
+            my $data = $sql->select_list_of_lists(
+                "SELECT
+                   coalesce(release_group_primary_type.name, 'null'),
+                   count(DISTINCT cover_art.release_group)
+                 FROM release_group
+                 JOIN cover_art_archive.release_group_cover_art cover_art
+                   ON cover_art.release_group = release_group.id
+                 FULL OUTER JOIN release_group_primary_type
+                   ON release_group_primary_type.id = release_group.type
+                 GROUP BY coalesce(release_group_primary_type.name, 'null')"
+            );
+
+            my %dist = map { @$_ } @$data;
+
+            +{
+                map {
+                    "count.releasegroup.type.".$_.".has_coverart" => $dist{$_}
+                } keys %dist
+            };
+        },
+    },
+    "count.releasegroup.caa" => {
+        DESC => "Count of release groups that have CAA artwork",
+        SQL => 'SELECT count(DISTINCT release_group)
+                FROM cover_art_archive.release_group_cover_art'
+    },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
         SQL => 'SELECT COUNT(*) FROM release

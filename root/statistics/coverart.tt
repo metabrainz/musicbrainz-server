@@ -43,7 +43,7 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan="4">[% l('By Release Type') %]</th>
+    <th colspan="4">[% l('By Release Group Type') %]</th>
 </tr>
 <tr>
     <th colspan="2">[% l('Releases with cover art:') %]</th>
@@ -93,6 +93,27 @@
 </tbody>
 </table>
 [%- END -%]
+
+<h2>[% l('Release groups') %]</h2>
+<table class="database-statistics">
+<tr class="thead">
+    <th colspan="4">[% l('By Release Group Type') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Release groups with cover art:') %]</th>
+    <td>[% add_commas(stats.statistic('count.releasegroup.caa')) %]</td>
+    <td></td>
+</tr>
+[%- FOREACH type IN release_group_type_stats -%]
+<tr>
+    <th></th>
+    <th>[% name_or_null(type.type, l('No type')) %]</th>
+    <td>[% add_commas(stats.statistic(type.stat_name)) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio(type.stat_name, 'count.release.has_caa')) }) %]</td>
+</tr>
+[%- END -%]
+</tbody>
+</table>
 
 <h2>[% l('Pieces of cover art') %]</h2>
 [%- IF stats.statistic('count.release.has_caa') < 1 -%]
