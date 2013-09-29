@@ -344,7 +344,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.review
     },
     score: {
-        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/|neyzen\\.com)", "i"),
         type: MB.constants.LINK_TYPES.score
     },
     secondhandsongs: {
