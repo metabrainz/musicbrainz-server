@@ -321,6 +321,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
                     MB.constants.LINK_TYPES.otherdatabases.label
                 ],
+                // VK
+                [
+                    'artist', 'http://vk.com/tin_sontsya',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
                 // Generasia
                 [
                     'artist', 'http://www.generasia.com/wiki/Wink',
