@@ -6,7 +6,7 @@ use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Data::Utils qw( load_subobjects );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'label_types' };
+with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'label_type' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
 
 sub _table
