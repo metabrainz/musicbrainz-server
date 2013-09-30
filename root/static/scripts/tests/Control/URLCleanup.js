@@ -107,13 +107,20 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // NeyZen
+                [
+                    'work', 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+                // IMSLP
+                [
+                    'work', 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+                // Jamendo
                 [
                     'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
                     MB.constants.LINK_TYPES.downloadfree.recording
-                ],
-                [
-                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
-                    MB.constants.LINK_TYPES.otherdatabases.release
                 ],
                 [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
@@ -123,6 +130,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.jamendo.com/album/16090',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
+                // Trove
+                [
+                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // Mange-Disque
                 [
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
