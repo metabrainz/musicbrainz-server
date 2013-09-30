@@ -268,7 +268,7 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             });
 
             my $url = $c->uri_for_action(
-                '/relationship/linktype/tree', [ $c->stash->{types} ],
+                '/doc/relationship_type', [ $link_type->gid ],
                 { msg => 'updated' }
             );
             $c->response->redirect($url);
