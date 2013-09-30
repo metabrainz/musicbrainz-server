@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-26 00:30+0000\n"
+"PO-Revision-Date: 2013-07-16 01:26+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -542,7 +542,7 @@ msgstr "Ülejäänud keeltes ja kirjasüsteemides väljalaskeid ja teoseid teada
 
 #: ../root/statistics/index.tt:294
 msgid "Amazon:"
-msgstr "Amazon:"
+msgstr "Amazonist:"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Applied edits"
@@ -691,7 +691,7 @@ msgstr "Väljalaske tüübi järgi"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
-msgstr "Kaanepildiarhiiv:"
+msgstr "Kaanepildiarhiivist:"
 
 #: ../root/statistics/index.tt:71
 msgid "CD Stubs (all time / current):"
@@ -1437,7 +1437,7 @@ msgstr "Ilma esikaanepildita:"
 
 #: ../root/statistics/index.tt:272
 msgid "No packaging set"
-msgstr "Määramata"
+msgstr "[määramata]"
 
 #: ../root/statistics/relationships.tt:25
 msgid "No relationship statistics available."
@@ -1449,7 +1449,7 @@ msgstr ""
 
 #: ../root/statistics/index.tt:248
 msgid "No status set"
-msgstr "Määramata"
+msgstr "[ääramata]"
 
 #: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
 msgid "No type"
@@ -1465,7 +1465,7 @@ msgstr "Mittegruppe:"
 
 #: ../root/statistics/index.tt:557 ../root/statistics/index.tt:585
 msgid "None"
-msgstr ""
+msgstr "[määramata]"
 
 #: ../root/statistics/view_js.tt:158
 msgid "Normal Data Quality"
@@ -1857,15 +1857,15 @@ msgstr "Rajad"
 
 #: ../root/statistics/index.tt:36
 msgid "Tracks:"
-msgstr ""
+msgstr "Radu:"
 
 #: ../root/statistics/index.tt:540 ../root/statistics/index.tt:568
 msgid "Types"
-msgstr ""
+msgstr "Tüübid"
 
 #: ../root/statistics/index.tt:300
 msgid "URL Relationships:"
-msgstr ""
+msgstr "URLi-seostest:"
 
 #: ../root/statistics/index.tt:48
 msgid "URLs:"
@@ -1874,7 +1874,7 @@ msgstr "URL-e:"
 #: ../root/statistics/countries.tt:17 ../root/statistics/view_js.tt:80
 #: ../root/statistics/view_js.tt:81 ../root/statistics/view_js.tt:82
 msgid "Unknown Country"
-msgstr "[Riik määramata]"
+msgstr "[riik määramata]"
 
 #: ../root/statistics/view_js.tt:157
 msgid "Unknown Data Quality"
@@ -1886,7 +1886,7 @@ msgstr "Teadmata andmekvaliteediga:"
 
 #: ../root/statistics/formats.tt:5
 msgid "Unknown Format"
-msgstr "[Formaat määramata]"
+msgstr "[formaat määramata]"
 
 #: ../root/statistics/view_js.tt:100
 msgid "Unknown Format (medium)"
@@ -1906,11 +1906,11 @@ msgstr ""
 
 #: ../root/statistics/languages_scripts.tt:15
 msgid "Unknown language"
-msgstr "[Keel määramata]"
+msgstr "[keel määramata]"
 
 #: ../root/statistics/languages_scripts.tt:22
 msgid "Unknown script"
-msgstr "[Kiri määramata]"
+msgstr "[kiri määramata]"
 
 #: ../root/statistics/view_js.tt:106
 msgid "Unknown-gender Artists"

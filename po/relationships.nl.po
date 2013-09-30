@@ -2,14 +2,15 @@
 # Translators:
 # nikki2 <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
+# Maurits Meulenbelt <email address hidden>, 2013
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-07-22 09:02+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,7 +163,7 @@ msgstr "Geeft aan dat een persoon een contract had bij een platenmaatschappij in
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
-msgstr ""
+msgstr "Geeft aan dat een compositie een anthem van een gebied is of was"
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
@@ -1057,25 +1058,25 @@ msgstr ""
 msgid ""
 "Points to the Wikidata page for this artist. (<a "
 "href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Verwijst naar de Wikidatapagina over deze artiest. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label. (<a "
 "href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Verwijst naar de Wikidatapagina voor deze platenmaatschappij. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:353
 msgid ""
 "Points to the Wikidata page for this release group. (<a "
 "href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Verwijst naar de Wikidatapagina voor deze uitgavegroep. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work. (<a "
 "href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Verwijst naar de Wikidatapagina voor deze compositie. (<a href=\"http://musicbrainz.org/doc/Wikidata_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:89
 msgid ""
@@ -1087,7 +1088,7 @@ msgstr "Verwijst naar de Wikipediapagina over dit album. (<a href=\"http://music
 msgid ""
 "Points to the Wikipedia page for this area. (<a "
 "href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Verwijst naar de Wikipediapagina voor dit gebied. (<a href=\"http://musicbrainz.org/doc/Wikipedia_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:179
 msgid ""
@@ -1447,13 +1448,13 @@ msgstr "Dit koppelt een uitgave aan een licentie waaronder het beschikbaar is."
 msgid ""
 "This links a work to an arrangement of the work. (<a "
 "href=\"http://wiki.musicbrainz.org/Arrangement_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Dit koppelt een compositie aan een arrangement van de compositie. (<a href=\"http://wiki.musicbrainz.org/Arrangement_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:316
 msgid ""
 "This links a work to an orchestration of the work. (<a "
 "href=\"http://wiki.musicbrainz.org/Orchestration_Relationship_Type\">Details</a>)"
-msgstr ""
+msgstr "Dit koppelt een compositie aan een orkestratie van de compositie. (<a href=\"http://wiki.musicbrainz.org/Orchestration_Relationship_Type\">Details</a>)"
 
 #: DB:link_type/description:292
 msgid ""
@@ -1842,13 +1843,13 @@ msgstr ""
 #: DB:link_type/link_phrase:358 DB:link_type/link_phrase:354
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:352
 #: DB:link_type/reverse_link_phrase:353 DB:link_type/reverse_link_phrase:358
 #: DB:link_type/reverse_link_phrase:354
 msgid "Wikidata page for"
-msgstr ""
+msgstr "Wikidatapagina over"
 
 #: DB:link_type/link_phrase:355 DB:link_type/link_phrase:89
 #: DB:link_type/link_phrase:179 DB:link_type/link_phrase:216
@@ -1892,11 +1893,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:350
 msgid "arrangement of"
-msgstr ""
+msgstr "arrangement van"
 
 #: DB:link_type/link_phrase:350
 msgid "arrangements"
-msgstr ""
+msgstr "arrangementen"
 
 #: DB:link_type/link_phrase:265 DB:link_type/reverse_link_phrase:265
 msgid "art direction"
@@ -2321,7 +2322,7 @@ msgstr "heeft een PureVolumepagina op"
 
 #: DB:link_type/long_link_phrase:307 DB:link_type/long_link_phrase:308
 msgid "has a SecondHandSongs page at"
-msgstr ""
+msgstr "heeft een SecondHandSongs-pagina op"
 
 #: DB:link_type/long_link_phrase:290 DB:link_type/long_link_phrase:291
 msgid "has a SoundCloud page at"
@@ -2430,11 +2431,11 @@ msgstr "heeft een online gemeenschapspagina op"
 
 #: DB:link_type/long_link_phrase:357
 msgid "has anthem"
-msgstr ""
+msgstr "heeft anthem"
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
-msgstr ""
+msgstr "heeft arrangement"
 
 #: DB:link_type/long_link_phrase:265
 msgid "has art direction by"
@@ -2474,7 +2475,7 @@ msgstr "heeft liedteksten beschikbaar op"
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
-msgstr ""
+msgstr "heeft orkestratie"
 
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
 msgid "has part"
@@ -2482,7 +2483,7 @@ msgstr "heeft deel"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
-msgstr ""
+msgstr "heeft revisie"
 
 #: DB:link_type/long_link_phrase:110
 msgid "has sibling(s)"
@@ -2534,7 +2535,7 @@ msgstr "is een Songfacts-pagina over"
 
 #: DB:link_type/long_link_phrase:351
 msgid "is a Wikidata page for"
-msgstr ""
+msgstr "is een Wikidatapagina over"
 
 #: DB:link_type/long_link_phrase:279
 msgid "is a Wikipedia page for"
@@ -2591,7 +2592,7 @@ msgstr "is beschikbaar als download onder de {license} Creative Commons licentie
 
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
-msgstr ""
+msgstr "is gebaseerd op"
 
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
@@ -2603,7 +2604,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
-msgstr ""
+msgstr "is de basis voor"
 
 #: DB:link_type/long_link_phrase:238
 msgid "is the earliest release of"
@@ -3154,11 +3155,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:349
 msgid "rights society"
-msgstr ""
+msgstr "auteursrechtenorganisatie"
 
 #: DB:link_type/link_phrase:349
 msgid "rights society associated with"
-msgstr ""
+msgstr "auteursrechtenorganisatie verbonden met"
 
 #: DB:link_type/link_phrase:83 DB:link_type/link_phrase:258
 msgid "samples IMDb entry"

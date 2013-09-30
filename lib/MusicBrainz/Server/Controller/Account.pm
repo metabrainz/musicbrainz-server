@@ -414,6 +414,12 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
+    if ($c->user_exists) {
+        $c->response->redirect($c->uri_for_action('/user/profile',
+                                                 [ $c->user->name ]));
+        $c->detach;
+    }
+
     my $form = $c->form(register_form => 'User::Register');
 
     my $captcha = Captcha::reCAPTCHA->new;

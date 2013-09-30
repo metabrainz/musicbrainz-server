@@ -2,13 +2,14 @@
 # Translators:
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
+# Maurits Meulenbelt <email address hidden>, 2013
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-07-22 08:40+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,11 +117,11 @@ msgstr "Programmeerfouten verbeterd"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr ""
+msgstr "Eerste uitgave van de CAA"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "Officiële uitgave van de CAA"
 
 #: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
@@ -213,7 +214,7 @@ msgid ""
 "In an effort to reduce the size of the open edit queue and force less "
 "waiting for changes, the length of time edits stay open before expiration is"
 " reduced from 14 to 7 days."
-msgstr ""
+msgstr "In een poging om de lengte van de wachtrij voor bewerkingen en de wachttijd voor veranderingen te verminderen, is de tijd waarin bewerkingen open blijven staan verminderd van veertien naar zeven dagen."
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
@@ -372,7 +373,7 @@ msgstr "Oliver Charles wordt voltijds werknemer van MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
-msgstr ""
+msgstr "Relatiebewerker"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
@@ -430,11 +431,11 @@ msgstr "De BBC wordt een klant van MetaBrainz en begint gegevens van MusicBrainz
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available"
-msgstr ""
+msgstr "De Cover Art Archive wordt voor het eerst beschikbaar"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
-msgstr ""
+msgstr "De Cover Art Archive wordt officieel uitgebracht"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
@@ -446,7 +447,7 @@ msgstr "De Stichting MetaBrainz, het legale thuis van MusicBrainz wordt aan het 
 msgid ""
 "The relationship editor, for bulk-editing relationships for a release, is "
 "released to production."
-msgstr ""
+msgstr "De relatiebewerker voor massabewerkingen aan relaties van uitgaves, is uitgebracht."
 
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
@@ -472,7 +473,7 @@ msgstr "Logica voor stemmen verbeterd en verkiezingen voor autoredacteurs uitgeb
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "Stemmingsperiode tot zeven dagen ingekort"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
@@ -544,7 +545,7 @@ msgstr "Alle andere beschikbare talen en schriften hebben nul uitgaves en compos
 
 #: ../root/statistics/index.tt:294
 msgid "Amazon:"
-msgstr ""
+msgstr "Amazon:"
 
 #: ../root/statistics/view_js.tt:58
 msgid "Applied edits"
@@ -560,11 +561,11 @@ msgstr "bevestigd:"
 
 #: ../root/statistics/index.tt:564
 msgid "Areas"
-msgstr ""
+msgstr "Gebieden"
 
 #: ../root/statistics/index.tt:52 ../root/statistics/index.tt:571
 msgid "Areas:"
-msgstr ""
+msgstr "Gebieden:"
 
 #: ../root/statistics/view_js.tt:28
 msgid "Artist Countries"
@@ -580,7 +581,7 @@ msgstr "Artiest-IPI's"
 
 #: ../root/statistics/view_js.tt:132
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNI's van artiesten"
 
 #: ../root/statistics/view_js.tt:163
 msgid "Artist Ratings"
@@ -693,7 +694,7 @@ msgstr "Per uitgavetype"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/index.tt:71
 msgid "CD Stubs (all time / current):"
@@ -793,15 +794,15 @@ msgstr "Totaal aantal IPI's van platenmaatschappijen"
 
 #: ../root/statistics/view_js.tt:131
 msgid "Count of all ISNIs"
-msgstr ""
+msgstr "Totaal aantal ISNI's"
 
 #: ../root/statistics/view_js.tt:132
 msgid "Count of all ISNIs for Artists"
-msgstr ""
+msgstr "Totaal aantal ISNI's van artiesten"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Count of all ISNIs for Labels"
-msgstr ""
+msgstr "Totaal aantal ISNI's van platenmaatschappijen"
 
 #: ../root/statistics/view_js.tt:134 ../root/statistics/view_js.tt:135
 msgid "Count of all ISRCs"
@@ -1009,7 +1010,7 @@ msgstr "Totaal aantal composities"
 
 #: ../root/statistics/view_js.tt:75
 msgid "Count of deleted editors"
-msgstr ""
+msgstr "Aantal verwijderde redacteurs"
 
 #: ../root/statistics/view_js.tt:76
 msgid "Count of editors who have submitted edits during the last week"
@@ -1029,7 +1030,7 @@ msgstr "Aantal bewerkingen per week"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Count of non-deleted editors"
-msgstr ""
+msgstr "Aantal niet-verwijderde redacteurs"
 
 #: ../root/statistics/view_js.tt:52
 msgid "Count of open edits"
@@ -1058,7 +1059,7 @@ msgstr "Hoesafbeelding(en)"
 
 #: ../root/statistics/index.tt:279
 msgid "Cover Art Sources"
-msgstr ""
+msgstr "Bronnen voor hoesafbeeldingen"
 
 #: ../root/statistics/index.tt:313
 msgid "Data Quality"
@@ -1107,23 +1108,23 @@ msgstr "Redacteurs"
 
 #: ../root/statistics/view_js.tt:73
 msgid "Editors (all)"
-msgstr ""
+msgstr "Redacteurs (totaal)"
 
 #: ../root/statistics/view_js.tt:75
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Redacteurs (verwijderd)"
 
 #: ../root/statistics/index.tt:61
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Redacteurs (geldig / verwijderd):"
 
 #: ../root/statistics/view_js.tt:74
 msgid "Editors (valid)"
-msgstr ""
+msgstr "Redacteurs (geldig)"
 
 #: ../root/statistics/index.tt:599
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Redacteurs (geldig):"
 
 #: ../root/statistics/index.tt:592
 msgid "Editors, Edits, and Votes"
@@ -1244,11 +1245,11 @@ msgstr "IPI's:"
 
 #: ../root/statistics/view_js.tt:131
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI's"
 
 #: ../root/statistics/index.tt:120
 msgid "ISNIs:"
-msgstr ""
+msgstr "ISNI's:"
 
 #: ../root/statistics/view_js.tt:134
 msgid "ISRCs"
@@ -1292,7 +1293,7 @@ msgstr "IPI's van platenmaatschappijen"
 
 #: ../root/statistics/view_js.tt:133
 msgid "Label ISNIs"
-msgstr ""
+msgstr "ISNI's van platenmaatschappijen"
 
 #: ../root/statistics/view_js.tt:164
 msgid "Label Ratings"
@@ -1423,11 +1424,11 @@ msgstr "Geen stemmen"
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
 #: ../root/statistics/coverart.tt:100
 msgid "No coverart statistics available."
-msgstr ""
+msgstr "Geen statistieken voor hoesafbeeldingen beschikbaar."
 
 #: ../root/statistics/edits.tt:12
 msgid "No edit statistics available."
-msgstr ""
+msgstr "Geen statistieken voor bewerkingen beschikbaar."
 
 #: ../root/statistics/coverart.tt:88
 msgid "No format"
@@ -1435,7 +1436,7 @@ msgstr "Geen mediumtype"
 
 #: ../root/statistics/index.tt:306
 msgid "No front cover art:"
-msgstr ""
+msgstr "Geen hoesafbeelding van de voorkant:"
 
 #: ../root/statistics/index.tt:272
 msgid "No packaging set"
@@ -1443,7 +1444,7 @@ msgstr "Geen verpakking ingesteld"
 
 #: ../root/statistics/relationships.tt:25
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "Geen statistieken voor relaties beschikbaar."
 
 #: ../root/statistics/coverart.tt:72
 msgid "No status"
@@ -1859,15 +1860,15 @@ msgstr "Nummers"
 
 #: ../root/statistics/index.tt:36
 msgid "Tracks:"
-msgstr ""
+msgstr "Nummers:"
 
 #: ../root/statistics/index.tt:540 ../root/statistics/index.tt:568
 msgid "Types"
-msgstr ""
+msgstr "Types"
 
 #: ../root/statistics/index.tt:300
 msgid "URL Relationships:"
-msgstr ""
+msgstr "URL-relaties:"
 
 #: ../root/statistics/index.tt:48
 msgid "URLs:"
