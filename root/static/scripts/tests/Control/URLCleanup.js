@@ -280,6 +280,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // ReverbNation
+                [
+                    'artist', 'http://www.reverbnation.com/asangelsbleed',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
                 // SoundtrackCollector
                 [
                     'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
