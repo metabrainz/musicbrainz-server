@@ -202,6 +202,9 @@ CREATE TRIGGER b_upd_label_tag BEFORE UPDATE ON label_tag
 CREATE TRIGGER end_date_implies_ended BEFORE UPDATE OR INSERT ON link
     FOR EACH ROW EXECUTE PROCEDURE end_date_implies_ended();
 
+CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link
+    FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();
+
 CREATE TRIGGER b_upd_link_attribute BEFORE UPDATE OR INSERT ON link_attribute
     FOR EACH ROW EXECUTE PROCEDURE prevent_invalid_attributes();
 

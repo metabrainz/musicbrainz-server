@@ -68,6 +68,7 @@ DROP TRIGGER unique_primary_for_locale ON label_alias;
 DROP TRIGGER search_hint ON label_alias;
 DROP TRIGGER b_upd_label_tag ON label_tag;
 DROP TRIGGER end_date_implies_ended ON link;
+DROP TRIGGER deny_deprecated ON link;
 DROP TRIGGER b_upd_link_attribute ON link_attribute;
 DROP TRIGGER b_upd_link_attribute_type ON link_attribute_type;
 DROP TRIGGER b_upd_link_type ON link_type;
