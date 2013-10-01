@@ -23,42 +23,258 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
+    <script>
+MB.Release = (function (Release) {
+
+  var ViewModel, Medium;
+
+  Release.init = function(initialMedia) {
+    Release.viewModel = new ViewModel(initialMedia);
+    ko.applyBindings(Release.viewModel);
+  };
+
+  Medium = function(medium) {
+    var model = this;
+
+    model.name = ko.observable(medium.name);
+
+    model.tracks = ko.observableArray(
+      _.map(medium.tracks, function(track) {
+        return new Track(track);
+      })
+    );
+
+    model.format = ko.observable(medium.format);
+
+    model.position = ko.observable(medium.position);
+
+    model.positionName = ko.computed(function () {
+      var name = "";
+
+      name += (model.format() || "Medium");
+      name += " " + model.position();
+
+      if (model.name()) {
+        name += ": " + model.name();
+      }
+
+      return name;
+    });
+
+    model.editsPending = ko.observable(medium.editsPending);
+
+    return model;
+  };
+
+  Track = function (track) {
+    var model = this;
+
+    model.number = ko.observable(track.number);
+
+    model.position = ko.observable(track.position);
+
+    model.name = ko.observable(track.name);
+
+    model.artistCredit = ko.observableArray(
+      _.map(
+        track.artistCredit,
+        function (credit) {
+          return {
+            "joinPhrase": credit.joinPhrase,
+            "name": credit.name
+          };
+        }
+      )
+    ); 
+
+    model.length = ko.observable(track.length);
+
+    model.editsPending = ko.observable(track.editsPending);
+
+    model.recording = {
+      "mbid": ko.observable(track.recording),
+      "relationships": ko.observableArray()
+    };
+
+    return model;
+  };
+
+  ViewModel = function (initialMedia) {
+    var model = this;
+
+    this.mediums = ko.observableArray(
+      _.map(initialMedia, function(medium) {
+        return new Medium(medium);
+      })
+    );
+
+    this.showArtists = ko.computed(function () {
+      var allArtistCredits = _.flatten(
+        _.map(model.mediums(), function(medium) {
+          return _.map(medium.tracks(), function (track) {
+            return track.artistCredit();
+          });
+        })
+      );
+
+      var reference = _.head(allArtistCredits),
+          subjects = _.tail(allArtistCredits);
+
+      return subjects.length > 0 &&
+        _.some(subjects, function(subject) {
+          return !_.isEqual(subject, reference)
+        });
+    });
+
+    return model;
+  };
+
+  return Release;
+
+}(MB.Release || {}));
+    </script>
+
+    <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
-        <thead>
-            <tr>
-                <th class="pos t">#</th>
-                [%- IF show_video -%]
-                    <th class="video c"></th>
-                [%- END -%]
-                <th>
-                  <span style="float: right; font-weight: normal; padding-right: 1em;">
-                    <a style="display: none;" class="bottom-credits" href="">[% l('Display Credits at Bottom') %]</a>
-                    <a style="display: none;" class="inline-credits" href="">[% l('Display Credits Inline') %]</a>
-                    <input style="display: none;" type="checkbox" id="bottom-credits" />
-                  </span>
-                  [% l('Title') %]
-                </th>
-                [%- IF show_artists -%]
-                    <th>[% l('Artist') %]</th>
-                [%- END -%]
-                <th class="rating c">[% l('Rating') %]</th>
-                <th class="treleases">[% l('Length') %]</th>
+      <thead>
+        <tr>
+          <th class="pos t">#</th>
+          <th>
+            <span style="float: right; font-weight: normal; padding-right: 1em;">
+              <a style="display: none;" class="bottom-credits" href="">
+                [% l('Display Credits at Bottom') %]</a>
+              <a style="display: none;" class="inline-credits" href="">
+                [% l('Display Credits Inline') %]</a>
+              <input style="display: none;" type="checkbox" id="bottom-credits" />
+            </span>
+
+            [% l('Title') %]
+          </th>
+          <!-- ko if: showArtists -->
+            <th>[% l('Artist') %]</th>
+          <!-- /ko -->
+          <th class="rating c">[% l('Rating') %]</th>
+          <th class="treleases">[% l('Length') %]</th>
+        </tr>
+      </thead>
+      <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
+        <!-- ko foreach: mediums -->
+          <tr data-bind="css: { subh: true, mp: editsPending > 0}">
+            <td>&#xa0;</td>
+            <td data-bind="attr: { colspan: $root.showArtists ? 4 : 3 }">
+              <a data-bind="text: positionName(), attr: { href: '#disc' + position() }"></a>
+              <!-- [% rdfa_medium_in_release(release, medium) %] -->
+            </td>
+          </tr>
+
+          <!-- ko foreach: tracks -->
+          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }"
+              id="[% track.gid %]"
+              about="[% rdfa_track_curi(track) %]" typeof="[% rdfa_concept_curi('track') %]">
+              <td class="pos t">
+                <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                <!-- ko text: number --><!-- /ko -->
+              </td>
+              <td>
+                <a data-bind="text: name, attr: { href: '/recording/' + recording.mbid() }"></a>
+                <!-- ko with: recording -->
+                <!-- ko if: relationships.length -->
+                  <br/>
+                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
+                    <dl class="ars">
+                      <!-- ko if: key == 'work' -->
+                        <!-- ko foreach: value -->
+                          [% FOR rel=group.value %]
+                            <dt>[%  %]:</dt>
+                            <dd>
+                              [% link_entity(rel.target) %]
+                              [% FOR work_rel_type=rel.target.grouped_relationships('artist') %]
+                                <dl class="ars">
+                                  [% FOR work_rel_group=work_rel_type.value %]
+                                    <dt>[% l(work_rel_group.key) %]:</dt>
+                                    <dd>[% group_dd(work_rel_group) %]</dd>
+                                  [% END %]
+                                </dl>
+                              [% END %]
+                            </dd>
+                          [% END %]
+                        <!-- /ko -->
+                      <!-- /ko -->
+
+                      <!-- ko if: key != 'work' -->
+                        [% FOR group=type_relationships.value %]
+                          <dt>[% l(group.key) %]:</dt>
+                          <dd>[% group_dd(group) %]</dd>
+                        [% END %]
+                      <!-- /ko -->
+                    </dl>
+                  </div>
+                <!-- /ko -->
+                <!-- /ko -->
+              </td>
+              <!-- ko if: $root.showArtists -->
+                <td data-bind="foreach: artistCredit"
+                  ><a href="#" data-bind="text: name"></a
+                  ><!-- ko text: joinPhrase --><!-- /ko --> </td>
+              <!-- /ko -->
+              [% UNLESS hide_rating %]
+              <td class="rating c">[% rating_stars(recording) %]</td>
+              [% END %]
+              <td class="treleases" data-bind="text: MB.utility.formatTrackLength(length())">
+              </td>
             </tr>
-        </thead>
-        <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
-        [%- FOR medium=release.mediums -%]
-            <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&#xa0;</td><td colspan="[% IF show_artists && show_video %]5[% ELSIF show_artists || show_video %]4[% ELSE %]3[% END %]">
-                    [% rdfa_medium_in_release(release, medium) %]
-                </td>
-            </tr>
-            <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-                <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-            -->
-                [%- INCLUDE 'medium/tracklist.tt' tracks=medium.tracks -%]
-        [%- END -%]
-        </tbody>
+          <!-- /ko -->
+
+          <!-- Invalid HTML, commenting out for now.  See MBS-5244.
+            <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
+          -->
+        <!-- /ko -->
+      </tbody>
     </table>
+    <!-- /ko -->
+
+    [% USE JSON.Escape %]
+    <script>
+      MB.Release.init(
+      [%-
+        mediums = [];
+        FOR medium = release.mediums;
+          tracks = [];
+
+          FOR track = medium.tracks;
+            artist_credits = [];
+
+            FOR credit = track.artist_credit.names;
+              artist_credits.push({
+                name => credit.name,
+                joinPhrase => credit.join_phrase
+              });
+            END;
+
+            tracks.push({
+              position => track.position,
+              number => track.number,
+              name => track.name,
+              length => track.length,
+              editsPending => track.edits_pending,
+              artistCredit => artist_credits,
+              recording => track.recording.gid
+            });
+          END;
+
+          mediums.push({
+            name => medium.name,
+            tracks => tracks,
+            position => medium.position,
+            format => medium.format.l_name
+          });
+        END;
+
+        mediums.json;
+      %]
+      )
+    </script>
+
     <script type="text/javascript">
     $(function() {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");
