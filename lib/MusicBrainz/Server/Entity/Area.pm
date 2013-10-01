@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Area;
 
 use Moose;
+use MusicBrainz::Server::Constants qw( $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Translation::Countries qw ( l );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
@@ -15,7 +16,7 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 sub l_name {
     my $self = shift;
     my $type = defined $self->type ? $self->type->id : $self->type_id;
-    if ($type == 1) {
+    if ($type == $AREA_TYPE_COUNTRY) {
         return l($self->name);
     } else {
         return $self->name;

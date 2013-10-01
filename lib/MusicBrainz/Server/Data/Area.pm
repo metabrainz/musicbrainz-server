@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -114,12 +114,11 @@ sub load_codes
 sub load_parent_country
 {
     my ($self, @objs) = @_;
-    my $country_area_type = 1;
     my $area_area_parent_type = 356;
 
     my @objects_to_use = grep { defined $_ &&
                                 !defined $_->parent_country &&
-                                ( defined $_->type ? $_->type->id != $country_area_type : $_->type_id != $country_area_type)} @objs;
+                                ( defined $_->type ? $_->type->id != $AREA_TYPE_COUNTRY : $_->type_id != $AREA_TYPE_COUNTRY)} @objs;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
@@ -148,7 +147,7 @@ sub load_parent_country
         SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
         FROM     area_descendants
         JOIN     area ON area_descendants.parent = area.id
-        WHERE    area.type = $country_area_type
+        WHERE    area.type = $AREA_TYPE_COUNTRY
         AND      descendant IN (" . placeholders(@all_ids) . ")
         ORDER BY descendant, array_length(descendants, 1) ASC
     ";
