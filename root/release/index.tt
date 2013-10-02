@@ -86,7 +86,7 @@
                           <!-- ko foreach: value -->
                             <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
                             <dd>
-                              <a href="#" data-bind="text: target.name"></a>
+                              <span data-bind="html: target.html()"></span>
                               <!-- ko foreachKv: groupedSubRelationships -->
                                 <!-- ko if: key == 'artist' -->
                                   <dl class="ars">
@@ -113,9 +113,7 @@
                 <!-- /ko -->
               </td>
               <!-- ko if: $root.showArtists -->
-                <td data-bind="foreach: artistCredit"
-                  ><a href="#" data-bind="text: name"></a
-                  ><!-- ko text: joinPhrase --><!-- /ko --> </td>
+              <td data-bind="html: artistCredit.html()"></td>
               <!-- /ko -->
               [% UNLESS hide_rating %]
               <td class="rating c">[% rating_stars(recording) %]</td>
@@ -147,7 +145,13 @@
             FOR credit = track.artist_credit.names;
               artist_credits.push({
                 name => credit.name,
-                joinPhrase => credit.join_phrase
+                joinphrase => credit.join_phrase,
+                artist => {
+                  gid => credit.artist.gid,
+                  id => credit.artist.id,
+                  sortname => credit.artist.sortname,
+                  name => credit.artist.name
+                }
               });
             END;
 
@@ -169,8 +173,10 @@
 
               relationships.push({
                 target => {
+                  gid => relationship.target.gid,
                   type => relationship.target_type,
                   name => relationship.target.name,
+                  sortname => relationship.target.sort_name,
                   comment => relationship.target.comment
                 },
                 phrase => relationship.phrase,
