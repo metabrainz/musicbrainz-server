@@ -30,6 +30,24 @@ MB.Release = (function (Release) {
 
   Release.init = function(initialMedia) {
     Release.viewModel = new ViewModel(initialMedia);
+
+    ko.bindingHandlers.foreachKv = {
+      transformObject: function (obj) {
+        if (obj === undefined) return [];
+        return _.map(
+          _.keys(obj).sort(),
+          function (k) { return { key: k, value: obj[k] } }
+        );
+      },
+      init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var value = ko.utils.unwrapObservable(valueAccessor()),
+            properties = ko.bindingHandlers.foreachKv.transformObject(value);
+        ko.applyBindingsToNode(element, { foreach: properties });
+        return { controlsDescendantBindings: true };
+      }
+    };
+    ko.virtualElements.allowedBindings.foreachKv = true;
+
     ko.applyBindings(Release.viewModel);
   };
 
@@ -92,12 +110,73 @@ MB.Release = (function (Release) {
     model.editsPending = ko.observable(track.editsPending);
 
     model.recording = {
-      "mbid": ko.observable(track.recording),
-      "relationships": ko.observableArray()
+      "mbid": ko.observable(track.recording.mbid),
+      "relationships": ko.observableArray(track.recording.relationships),
+      "groupedRelationships": ko.computed({
+        "read": function () {
+          return computeGroupedRelationships(model.recording.relationships());
+        },
+        "deferEvaluation": true
+      })
     };
 
     return model;
   };
+
+  function computeGroupedRelationships(relationships) {
+    var result = _.foldl(
+      _.map(
+        relationships,
+        function (relationship) {
+          var o = {};
+          relationship = _.extend(
+            relationship,
+            {
+              "groupedSubRelationships":
+                computeGroupedRelationships(relationship.subRelationships)
+            }
+          );
+ 
+          o[relationship.target.type] = {};
+          o[relationship.target.type][relationship.phrase] = [ relationship ];
+
+          return o;
+        }
+      ),
+      mergeObjectArrays,
+      {}
+    );
+ 
+    return result;
+  }
+
+  // Merge all values of object b into object a. The keys of b will then be a
+  // proper subset of the keys a. If a already has a key that b has and that
+  // value is a an array, b's value will be concatenated onto a's.
+  // If a has a key and it is an object, then mergeObjectArrays will be called
+  // recursively
+  function mergeObjectArrays(a, b) {
+    var newA = _.clone(a);
+
+    _.each(
+      _.keys(b),
+      function(k) {
+        if (newA.hasOwnProperty(k)) {
+          if (_.isArray(b[k])) {
+            newA[k] = a[k].concat(b[k]);
+          }
+          else {
+            newA[k] = mergeObjectArrays(newA[k], b[k]);
+          }
+        }
+        else {
+          newA[k] = b[k];
+        }
+      }
+    );
+
+    return newA;
+  }
 
   ViewModel = function (initialMedia) {
     var model = this;
@@ -133,6 +212,25 @@ MB.Release = (function (Release) {
 
 }(MB.Release || {}));
     </script>
+    <style>
+    table.tbl td { vertical-align: top }
+
+    dl.ars, dl.ars dd, dl.ars dt {
+        padding: 0;
+        margin: 0;
+        font-size: 11px;
+    }
+
+    dl.ars { margin-left: 2em; line-height: 2.2ex; }
+    dl.ars dd { margin: 0.2em 0; }
+
+    dl.ars dt {
+        margin-right: 0.5em;
+        clear: left;
+        float: left;
+        color: #555;
+    }
+    </style>
 
     <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
@@ -177,39 +275,49 @@ MB.Release = (function (Release) {
               </td>
               <td>
                 <a data-bind="text: name, attr: { href: '/recording/' + recording.mbid() }"></a>
+
                 <!-- ko with: recording -->
-                <!-- ko if: relationships.length -->
                   <br/>
-                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
+                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships()">
                     <dl class="ars">
                       <!-- ko if: key == 'work' -->
-                        <!-- ko foreach: value -->
-                          [% FOR rel=group.value %]
-                            <dt>[%  %]:</dt>
+                        <!-- ko foreachKv: value -->
+                          <!-- ko foreach: value -->
+                            <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
                             <dd>
-                              [% link_entity(rel.target) %]
-                              [% FOR work_rel_type=rel.target.grouped_relationships('artist') %]
-                                <dl class="ars">
-                                  [% FOR work_rel_group=work_rel_type.value %]
-                                    <dt>[% l(work_rel_group.key) %]:</dt>
-                                    <dd>[% group_dd(work_rel_group) %]</dd>
-                                  [% END %]
-                                </dl>
-                              [% END %]
+                              <a href="#" data-bind="text: target.name"></a>
+                              <!-- ko foreachKv: groupedSubRelationships -->
+                                <!-- ko if: key == 'artist' -->
+                                  <!-- ko foreachKv: value -->
+                                    <dl class="ars">
+                                      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+                                      <dd>
+                                        <!-- ko foreach: value -->
+                                          <a href="#" data-bind="text: target.name"></a>
+                                        <!-- /ko -->
+                                      </dd>
+                                    </dl>
+                                  <!-- /ko -->
+                                <!-- /ko -->
+                              <!-- /ko -->
                             </dd>
-                          [% END %]
+                          <!-- /ko -->
                         <!-- /ko -->
                       <!-- /ko -->
 
                       <!-- ko if: key != 'work' -->
-                        [% FOR group=type_relationships.value %]
-                          <dt>[% l(group.key) %]:</dt>
-                          <dd>[% group_dd(group) %]</dd>
-                        [% END %]
+                        <!-- ko foreachKv: value -->
+                          <dt><!-- ko text: key --><!-- /ko -->:</dt>
+                          <dd><!-- ko foreach: value
+                            --><a href="#" data-bind="text: target.name"></a
+                              ><span class="comment" data-bind="if: target.comment != ''"
+                              > (<!-- ko text: target.comment --><!-- /ko -->)</span>,
+                            <!-- /ko -->
+                          </dd>
+                        <!-- /ko -->
                       <!-- /ko -->
                     </dl>
                   </div>
-                <!-- /ko -->
                 <!-- /ko -->
               </td>
               <!-- ko if: $root.showArtists -->
@@ -251,6 +359,31 @@ MB.Release = (function (Release) {
               });
             END;
 
+            relationships = [];
+            FOR relationship = track.recording.relationships;
+              subRelationships = [];
+              FOR subRelationship = relationship.target.relationships;
+                subRelationships.push({
+                  target => {
+                    type => subRelationship.target_type,
+                    name => subRelationship.target.name,
+                    comment => subRelationship.target.comment
+                  },
+                  phrase => subRelationship.phrase
+                });
+              END;
+
+              relationships.push({
+                target => {
+                  type => relationship.target_type,
+                  name => relationship.target.name,
+                  comment => relationship.target.comment
+                },
+                phrase => relationship.phrase,
+                subRelationships => subRelationships
+              });
+            END;
+
             tracks.push({
               position => track.position,
               number => track.number,
@@ -258,7 +391,10 @@ MB.Release = (function (Release) {
               length => track.length,
               editsPending => track.edits_pending,
               artistCredit => artist_credits,
-              recording => track.recording.gid
+              recording => {
+                relationships => relationships,
+                mbid => track.recording.gid
+              }
             });
           END;
 
