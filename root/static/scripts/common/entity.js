@@ -108,13 +108,11 @@
         }
     });
 
-
     MB.entity.Release = aclass(MB.entity.CoreEntity, { type: "release" });
 
     MB.entity.ReleaseGroup = aclass(
         MB.entity.CoreEntity, { type: "release_group" }
     );
-
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",
@@ -145,6 +143,7 @@
         }
     });
 
+    MB.entity.URL = aclass(MB.entity.CoreEntity, { type: "url" });
 
     MB.entity.Work = aclass(MB.entity.CoreEntity, { type: "work" });
 
@@ -289,6 +288,7 @@
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,
         release_group: MB.entity.ReleaseGroup,
-        work:          MB.entity.Work
+        work:          MB.entity.Work,
+        url:           MB.entity.URL
     };
 }());
