@@ -190,7 +190,7 @@
         },
 
         isEqual: function (other) {
-            return ko.unwrap(this.artist) === ko.unwrap(other.artist) &&
+            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },

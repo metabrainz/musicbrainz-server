@@ -67,17 +67,7 @@ MB.Release = (function (Release) {
 
     model.name = ko.observable(track.name);
 
-    model.artistCredit = ko.observableArray(
-      _.map(
-        track.artistCredit,
-        function (credit) {
-          return {
-            "joinPhrase": credit.joinPhrase,
-            "name": credit.name
-          };
-        }
-      )
-    );
+    model.artistCredit = MB.entity.ArtistCredit(track.artistCredit);
 
     model.length = ko.observable(track.length);
 
@@ -164,7 +154,7 @@ MB.Release = (function (Release) {
       var allArtistCredits = _.flatten(
         _.map(model.mediums(), function(medium) {
           return _.map(medium.tracks(), function (track) {
-            return track.artistCredit();
+            return track.artistCredit;
           });
         })
       );
@@ -174,7 +164,7 @@ MB.Release = (function (Release) {
 
       return subjects.length > 0 &&
         _.some(subjects, function(subject) {
-          return !_.isEqual(subject, reference)
+          return !subject.isEqual(reference)
         });
     });
 
