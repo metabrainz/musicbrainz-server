@@ -129,16 +129,15 @@ MB.Release = (function (Release) {
         relationships,
         function (relationship) {
           var o = {};
-          relationship = _.extend(
-            relationship,
-            {
-              "groupedSubRelationships":
-                computeGroupedRelationships(relationship.subRelationships)
-            }
-          );
  
           o[relationship.target.type] = {};
-          o[relationship.target.type][relationship.phrase] = [ relationship ];
+          o[relationship.target.type][relationship.phrase] = [
+            { 
+              target: MB.entity(relationship.target),
+              groupedSubRelationships:
+                computeGroupedRelationships(relationship.subRelationships)
+            }
+          ];
 
           return o;
         }
@@ -232,6 +231,12 @@ MB.Release = (function (Release) {
     }
     </style>
 
+    <script type="text/html" id="relationship-group">
+      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+      <dd data-bind="html: _.map(value, function(v) { return v.target.html() }).join(', ')">
+      </dd>
+    </script>
+
     <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
       <thead>
@@ -288,16 +293,12 @@ MB.Release = (function (Release) {
                               <a href="#" data-bind="text: target.name"></a>
                               <!-- ko foreachKv: groupedSubRelationships -->
                                 <!-- ko if: key == 'artist' -->
-                                  <!-- ko foreachKv: value -->
-                                    <dl class="ars">
-                                      <dt><!-- ko text: key --><!-- /ko -->:</dt>
-                                      <dd>
-                                        <!-- ko foreach: value -->
-                                          <a href="#" data-bind="text: target.name"></a>
-                                        <!-- /ko -->
-                                      </dd>
-                                    </dl>
-                                  <!-- /ko -->
+                                  <dl class="ars">
+                                    <!-- ko foreachKv: value -->
+                                      <!-- ko template: { name: 'relationship-group' } -->
+                                      <!-- /ko -->
+                                    <!-- /ko -->
+                                  </dl>
                                 <!-- /ko -->
                               <!-- /ko -->
                             </dd>
@@ -307,13 +308,8 @@ MB.Release = (function (Release) {
 
                       <!-- ko if: key != 'work' -->
                         <!-- ko foreachKv: value -->
-                          <dt><!-- ko text: key --><!-- /ko -->:</dt>
-                          <dd><!-- ko foreach: value
-                            --><a href="#" data-bind="text: target.name"></a
-                              ><span class="comment" data-bind="if: target.comment != ''"
-                              > (<!-- ko text: target.comment --><!-- /ko -->)</span>,
-                            <!-- /ko -->
-                          </dd>
+                          <!-- ko template: { name: 'relationship-group' } -->
+                          <!-- /ko -->
                         <!-- /ko -->
                       <!-- /ko -->
                     </dl>
@@ -365,8 +361,10 @@ MB.Release = (function (Release) {
               FOR subRelationship = relationship.target.relationships;
                 subRelationships.push({
                   target => {
+                    gid => subRelationship.target.gid,
                     type => subRelationship.target_type,
                     name => subRelationship.target.name,
+                    sortname => subRelationship.target.sort_name,
                     comment => subRelationship.target.comment
                   },
                   phrase => subRelationship.phrase
