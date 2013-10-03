@@ -61,7 +61,7 @@
           <tr data-bind="css: { subh: true, mp: editsPending > 0}">
             <td>&#xa0;</td>
             <td data-bind="attr: { colspan: $root.showArtists ? 4 : 3 }">
-              <a data-bind="text: positionName(), attr: { href: '#disc' + position() }"></a>
+              <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
               <!-- [% rdfa_medium_in_release(release, medium) %] -->
             </td>
           </tr>
@@ -75,11 +75,11 @@
                 <!-- ko text: number --><!-- /ko -->
               </td>
               <td>
-                <a data-bind="text: name, attr: { href: '/recording/' + recording.mbid() }"></a>
+                <a data-bind="text: name, attr: { href: '/recording/' + recording.mbid }"></a>
 
                 <!-- ko with: recording -->
                   <br/>
-                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships()">
+                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
                     <dl class="ars">
                       <!-- ko if: key == 'work' -->
                         <!-- ko foreachKv: value -->
@@ -118,7 +118,7 @@
               [% UNLESS hide_rating %]
               <td class="rating c">[% rating_stars(recording) %]</td>
               [% END %]
-              <td class="treleases" data-bind="text: MB.utility.formatTrackLength(length())">
+              <td class="treleases" data-bind="text: MB.utility.formatTrackLength(length)">
               </td>
             </tr>
           <!-- /ko -->
@@ -202,7 +202,8 @@
             name => medium.name,
             tracks => tracks,
             position => medium.position,
-            format => medium.format.l_name
+            format => medium.format.l_name,
+            editsPending => medium.edits_pending
           });
         END;
 
