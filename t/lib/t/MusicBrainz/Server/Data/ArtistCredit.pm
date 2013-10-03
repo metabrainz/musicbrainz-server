@@ -287,6 +287,22 @@ ok($ac > 1);
 $ac = $artist_credit_data->get_by_id($ac);
 is(scalar $ac->all_names, 2);
 
+my $normalized_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => ' & ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+my $messy_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => '      &   ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+is($normalized_ac, $messy_ac);
+
 };
 
 1;

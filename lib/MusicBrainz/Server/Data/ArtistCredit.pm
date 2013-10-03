@@ -127,7 +127,7 @@ sub _find
         }
         else
         {
-            $condition .= " AND (acn_$i.join_phrase = '' OR acn_$i.join_phrase IS NULL)"
+            $condition .= " AND acn_$i.join_phrase = ''"
         }
         push @joins, $join;
         push @conditions, $condition;
@@ -156,10 +156,14 @@ sub find
 
 sub find_or_insert
 {
-    my ($self, @artist_joinphrase) = @_;
+    my ($self, $artist_credit) = @_;
+
+    for my $name (@{ $artist_credit->{names} }) {
+        $name->{join_phrase} = _clean($name->{join_phrase});
+    }
 
     my ($id, $name, $positions, $credits, $artists, $join_phrases) =
-        $self->_find (@artist_joinphrase);
+        $self->_find($artist_credit);
 
     if(!defined $id)
     {
@@ -175,7 +179,7 @@ sub find_or_insert
                     position => $i,
                     artist => $artists->[$i],
                     name => $names_id{$credits->[$i]},
-                    join_phrase => _clean($join_phrases->[$i]),
+                    join_phrase => $join_phrases->[$i],
                 });
         }
     }
