@@ -25,49 +25,6 @@ MB.Release = (function (Release) {
     ko.applyBindings(Release.viewModel);
   };
 
-  Medium = function(medium) {
-    return _.extend(
-      medium,
-      {
-        tracks: _.map(medium.tracks, function(track) {
-          return new Track(track);
-        }),
-        positionName: (function () {
-          var name = "";
-
-          name += (medium.format || "Medium");
-          name += " " + medium.position;
-
-          if (medium.name) {
-            name += ": " + medium.name;
-          }
-
-          return name;
-        })()
-      }
-    );
-  };
-
-  Track = function (track) {
-    return _.extend(
-      track,
-      {
-        artistCredit: MB.entity.ArtistCredit(track.artistCredit),
-        recording: _.extend(
-          track.recording,
-          {
-            "groupedRelationships": ko.computed({
-              "read": function () {
-                return computeGroupedRelationships(track.recording.relationships);
-              },
-              "deferEvaluation": true
-            })
-          }
-        )
-      }
-    );
-  };
-
   function computeGroupedRelationships(relationships) {
     var result = _.foldl(
       _.map(
@@ -127,7 +84,22 @@ MB.Release = (function (Release) {
 
     this.mediums = _.map(
       initialMedia, function(medium) {
-        return new Medium(medium);
+        var medium = new MB.entity.Medium(medium);
+        _.each(
+          medium.tracks,
+          function (track) {
+            track.recording.extend({
+              "groupedRelationships": ko.computed({
+                "read": function () {
+                  return computeGroupedRelationships(track.recording.relationships);
+                },
+                "deferEvaluation": true
+              })
+            })
+          }
+        );
+
+        return medium
       }
     );
 

@@ -118,7 +118,7 @@
               [% UNLESS hide_rating %]
               <td class="rating c">[% rating_stars(recording) %]</td>
               [% END %]
-              <td class="treleases" data-bind="text: MB.utility.formatTrackLength(length)">
+              <td class="treleases" data-bind="text: length">
               </td>
             </tr>
           <!-- /ko -->
