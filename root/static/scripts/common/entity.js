@@ -105,6 +105,7 @@
 
         after$init: function (data) {
             this.length = data.length;
+            this.relationships = data.relationships;
         }
     });
 
@@ -121,6 +122,8 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
+            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
+            this.editsPending = data.editsPending;
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -270,11 +273,29 @@
 
 
     MB.entity.Medium = aclass(Entity, function (data) {
-        this.format = (data.format || MB.text.Medium) + " " + data.position;
+        this.format = data.format;
+
+        this.position = data.position;
 
         this.tracks = _.map(data.tracks, function (obj) {
             return new MB.entity.Track(obj);
         });
+
+        this.editsPending = data.editsPending;
+
+        this.positionName = (function () {
+          var name = "";
+
+          name += (this.format || MB.text.Medium) + " " + this.position;
+
+          if (this.name) {
+            name += ": " + this.name;
+          }
+
+          return name;
+        })();
+
+        this.editsPending = data.editsPending;
     });
 
 
