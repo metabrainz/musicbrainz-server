@@ -26,65 +26,46 @@ MB.Release = (function (Release) {
   };
 
   Medium = function(medium) {
-    var model = this;
+    return _.extend(
+      medium,
+      {
+        tracks: _.map(medium.tracks, function(track) {
+          return new Track(track);
+        }),
+        positionName: (function () {
+          var name = "";
 
-    model.name = ko.observable(medium.name);
+          name += (medium.format || "Medium");
+          name += " " + medium.position;
 
-    model.tracks = ko.observableArray(
-      _.map(medium.tracks, function(track) {
-        return new Track(track);
-      })
-    );
+          if (medium.name) {
+            name += ": " + medium.name;
+          }
 
-    model.format = ko.observable(medium.format);
-
-    model.position = ko.observable(medium.position);
-
-    model.positionName = ko.computed(function () {
-      var name = "";
-
-      name += (model.format() || "Medium");
-      name += " " + model.position();
-
-      if (model.name()) {
-        name += ": " + model.name();
+          return name;
+        })()
       }
-
-      return name;
-    });
-
-    model.editsPending = ko.observable(medium.editsPending);
-
-    return model;
+    );
   };
 
   Track = function (track) {
-    var model = this;
-
-    model.number = ko.observable(track.number);
-
-    model.position = ko.observable(track.position);
-
-    model.name = ko.observable(track.name);
-
-    model.artistCredit = MB.entity.ArtistCredit(track.artistCredit);
-
-    model.length = ko.observable(track.length);
-
-    model.editsPending = ko.observable(track.editsPending);
-
-    model.recording = {
-      "mbid": ko.observable(track.recording.mbid),
-      "relationships": ko.observableArray(track.recording.relationships),
-      "groupedRelationships": ko.computed({
-        "read": function () {
-          return computeGroupedRelationships(model.recording.relationships());
-        },
-        "deferEvaluation": true
-      })
-    };
-
-    return model;
+    return _.extend(
+      track,
+      {
+        artistCredit: MB.entity.ArtistCredit(track.artistCredit),
+        recording: _.extend(
+          track.recording,
+          {
+            "groupedRelationships": ko.computed({
+              "read": function () {
+                return computeGroupedRelationships(track.recording.relationships);
+              },
+              "deferEvaluation": true
+            })
+          }
+        )
+      }
+    );
   };
 
   function computeGroupedRelationships(relationships) {
@@ -144,16 +125,16 @@ MB.Release = (function (Release) {
   ViewModel = function (initialMedia) {
     var model = this;
 
-    this.mediums = ko.observableArray(
-      _.map(initialMedia, function(medium) {
+    this.mediums = _.map(
+      initialMedia, function(medium) {
         return new Medium(medium);
-      })
+      }
     );
 
     this.showArtists = ko.computed(function () {
       var allArtistCredits = _.flatten(
-        _.map(model.mediums(), function(medium) {
-          return _.map(medium.tracks(), function (track) {
+        _.map(model.mediums, function(medium) {
+          return _.map(medium.tracks, function (track) {
             return track.artistCredit;
           });
         })
