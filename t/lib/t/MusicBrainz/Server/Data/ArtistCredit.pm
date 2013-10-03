@@ -64,8 +64,13 @@ test 'Merging updates the complete name' => sub {
     $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
     $c->sql->commit;
 
-    my $ac = $artist_credit_data->get_by_id(1);
-    is( $ac->id, 1 );
+    my $artist_credit_id =
+        $c->sql->select_single_value(
+            'SELECT artist_credit FROM artist_credit_name WHERE artist = ?',
+            3
+        );
+    my $ac = $artist_credit_data->get_by_id($artist_credit_id);
+
     is( $ac->artist_count, 2, "2 artists in artist credit");
     is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
     is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
@@ -83,7 +88,7 @@ test 'Merging updates the complete name' => sub {
 
     my $name = $c->sql->select_single_value("
         SELECT an.name FROM artist_credit ac JOIN artist_name an ON ac.name=an.id
-        WHERE ac.id=1");
+        WHERE ac.id=?", $artist_credit_id);
     is( $name, "Queen & Merge", "Name is Queen & Merge" );
 };
 
