@@ -198,8 +198,9 @@
         <tbody>
           <tr class="track template">
             <td class="position" rowspan="2" style="width: 10%; padding: 0 0.5em; text-align: right; font-size: 200%"></td>
-            <td style="width: 40%; padding: 0.5em 0.5em 0 0;" >
-              <span class="name"> <span class="length">
+            <td class="track" style="width: 40%; padding: 0.5em 0.5em 0 0;" >
+              <span class="name"></span>
+              <span class="track-length"></span>
             </td>
             <td class="recording" style="width: 40%; padding: 0.5em 0 0 0;">
               <input class="gid" type="hidden" />
