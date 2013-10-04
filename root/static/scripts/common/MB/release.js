@@ -83,11 +83,18 @@ MB.Release = (function (Release) {
     var model = this;
 
     this.mediums = _.map(
-      initialMedia, function(medium) {
+      initialMedia, function(medium, mediumIndex) {
         var medium = new MB.entity.Medium(medium);
         _.each(
           medium.tracks,
-          function (track) {
+          function (track, trackIndex) {
+            track.recording.relationships =
+              initialMedia[mediumIndex].tracks[trackIndex].recording.relationships;
+
+            if (track.length === '') {
+              track.length = '?:??';
+            }
+
             track.recording.extend({
               "groupedRelationships": ko.computed({
                 "read": function () {
@@ -96,9 +103,6 @@ MB.Release = (function (Release) {
                 "deferEvaluation": true
               }),
             })
-            if (track.length === '') {
-              track.length = '?:??';
-            }
           }
         );
 

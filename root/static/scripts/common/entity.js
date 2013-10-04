@@ -105,7 +105,6 @@
 
         after$init: function (data) {
             this.length = data.length;
-            this.relationships = data.relationships;
         }
     });
 
