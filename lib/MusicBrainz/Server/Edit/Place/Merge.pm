@@ -9,6 +9,7 @@ with 'MusicBrainz::Server::Edit::Place';
 
 sub edit_type { $EDIT_PLACE_MERGE }
 sub edit_name { N_l('Merge places') }
+sub place_ids { @{ shift->_entity_ids } }
 
 sub _merge_model { 'Place' }
 
@@ -26,6 +27,14 @@ sub foreign_keys
         }
     }
 }
+
+before build_display_data => sub {
+    my ($self, $loaded) = @_;
+
+    my @places = grep defined, map { $loaded->{Place}{$_} } $self->place_ids;
+    $self->c->model('PlaceType')->load(@places);
+    $self->c->model('Area')->load(@places);
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
