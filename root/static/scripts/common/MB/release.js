@@ -88,8 +88,10 @@ MB.Release = (function (Release) {
         _.each(
           medium.tracks,
           function (track, trackIndex) {
-            track.recording.relationships =
-              initialMedia[mediumIndex].tracks[trackIndex].recording.relationships;
+            var inputRecording =
+              initialMedia[mediumIndex].tracks[trackIndex].recording;
+
+            track.recording.relationships = inputRecording.relationships;
 
             if (track.length === '') {
               track.length = '?:??';
@@ -102,6 +104,9 @@ MB.Release = (function (Release) {
                 },
                 "deferEvaluation": true
               }),
+              rating: inputRecording.rating,
+              userRating: inputRecording.userRating,
+              id: inputRecording.id
             })
           }
         );
