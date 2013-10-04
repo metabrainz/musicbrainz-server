@@ -131,84 +131,66 @@
     </table>
     <!-- /ko -->
 
-    [% USE JSON.Escape %]
     <script>
       MB.Release.init(
-      [%-
-        mediums = [];
-        FOR medium = release.mediums;
-          tracks = [];
-
-          FOR track = medium.tracks;
-            artist_credits = [];
-
-            FOR credit = track.artist_credit.names;
-              artist_credits.push({
-                name => credit.name,
-                joinphrase => credit.join_phrase,
-                artist => {
-                  gid => credit.artist.gid,
-                  id => credit.artist.id,
-                  sortname => credit.artist.sortname,
-                  name => credit.artist.name
-                }
-              });
-            END;
-
-            relationships = [];
-            FOR relationship = track.recording.relationships;
-              subRelationships = [];
-              FOR subRelationship = relationship.target.relationships;
-                subRelationships.push({
-                  target => {
-                    gid => subRelationship.target.gid,
-                    type => subRelationship.target_type,
-                    name => subRelationship.target.name,
-                    sortname => subRelationship.target.sort_name,
-                    comment => subRelationship.target.comment
-                  },
-                  phrase => subRelationship.phrase
-                });
-              END;
-
-              relationships.push({
+      [%- PERL -%]
+        my $rel_to_json = sub {
+            my $rel = shift;
+            my $target = $rel->target;
+            return (
                 target => {
-                  gid => relationship.target.gid,
-                  type => relationship.target_type,
-                  name => relationship.target.name,
-                  sortname => relationship.target.sort_name,
-                  comment => relationship.target.comment
+                    gid => $target->gid,
+                    type => $rel->target_type,
+                    name => $target->name,
+                    sortname => $target->can('sort_name') ? $target->sort_name : undef,
+                    comment => $target->can('comment') ? $target->comment : ''
                 },
-                phrase => relationship.phrase,
-                subRelationships => subRelationships
-              });
-            END;
+                phrase => $rel->phrase
+            );
+        };
 
-            tracks.push({
-              position => track.position,
-              number => track.number,
-              name => track.name,
-              length => track.length,
-              editsPending => track.edits_pending,
-              artistCredit => artist_credits,
-              recording => {
-                relationships => relationships,
-                mbid => track.recording.gid
-              }
-            });
-          END;
-
-          mediums.push({
-            name => medium.name,
-            tracks => tracks,
-            position => medium.position,
-            format => medium.format.l_name,
-            editsPending => medium.edits_pending
-          });
-        END;
-
-        mediums.json;
-      %]
+        print $context->plugin('JSON.Escape')->json_encode([
+            map +{
+                name => $_->name,
+                tracks => [
+                    map +{
+                        position => $_->position,
+                        number => $_->number,
+                        name => $_->name,
+                        length => $_->length,
+                        editsPending => $_->edits_pending,
+                        artistCredit => [
+                            map +{
+                                name => $_->name,
+                                joinphrase => $_->join_phrase,
+                                artist => {
+                                    gid => $_->artist->gid,
+                                    id => $_->artist->id,
+                                    sortname => $_->artist->sort_name,
+                                    name => $_->artist->name
+                                }
+                            }, $_->artist_credit->all_names
+                        ],
+                        recording => {
+                            relationships => [
+                                map +{
+                                    $rel_to_json->($_),
+                                    subRelationships => [
+                                        map +{ $rel_to_json->($_) },
+                                            $_->target->all_relationships
+                                    ]
+                                }, $_->recording->all_relationships
+                            ],
+                            mbid => $_->recording->gid
+                        }
+                    }, $_->all_tracks
+                ],
+                position => $_->position,
+                format => $_->l_format_name,
+                editsPending => $_->edits_pending
+            }, @{ $stash->get('release')->{mediums} }
+        ]);
+      [%- END -%]
       )
     </script>
 
