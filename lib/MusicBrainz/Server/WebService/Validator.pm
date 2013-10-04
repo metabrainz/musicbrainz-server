@@ -332,7 +332,10 @@ role {
             }
 
             # Check to make sure that only appropriate inc values have been requested
-            my $inc;
+            my $inc = do {
+                my $class = $version eq '2' ? WebServiceInc : WebServiceIncV1;
+                $class->new;
+            };
 
             if ($def->[1]->{inc})
             {
