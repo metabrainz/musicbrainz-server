@@ -127,7 +127,7 @@ sub _find
         }
         else
         {
-            $condition .= " AND (acn_$i.join_phrase = '' OR acn_$i.join_phrase IS NULL)"
+            $condition .= " AND acn_$i.join_phrase = ''"
         }
         push @joins, $join;
         push @conditions, $condition;
@@ -156,10 +156,14 @@ sub find
 
 sub find_or_insert
 {
-    my ($self, @artist_joinphrase) = @_;
+    my ($self, $artist_credit) = @_;
+
+    for my $name (@{ $artist_credit->{names} }) {
+        $name->{join_phrase} = _clean($name->{join_phrase});
+    }
 
     my ($id, $name, $positions, $credits, $artists, $join_phrases) =
-        $self->_find (@artist_joinphrase);
+        $self->_find($artist_credit);
 
     if(!defined $id)
     {
@@ -175,7 +179,7 @@ sub find_or_insert
                     position => $i,
                     artist => $artists->[$i],
                     name => $names_id{$credits->[$i]},
-                    join_phrase => _clean($join_phrases->[$i]),
+                    join_phrase => $join_phrases->[$i],
                 });
         }
     }
@@ -209,37 +213,52 @@ sub merge_artists
     my ($self, $new_id, $old_ids, %opts) = @_;
 
     if ($opts{rename}) {
-        my @artist_credit_ids = @{
-            $self->sql->select_single_column_array(
-                'UPDATE artist_credit_name acn SET name = artist.name
-                   FROM artist
-                  WHERE artist.id = ?
-                    AND acn.artist IN (' . placeholders(@$old_ids) . ')
-              RETURNING artist_credit',
-                $new_id, @$old_ids);
-        };
+        my $new_artist_credits = $self->sql->select_list_of_lists(
+            'SELECT
+               artist_credit,
+               array_agg(artist ORDER BY position ASC),
+               array_agg(CASE
+                 WHEN artist_credit_name.artist = any(?) THEN new_artist.name
+                 ELSE artist_credit_name.name
+               END ORDER BY position ASC),
+               array_agg(join_phrase ORDER BY position ASC)
+             FROM (
+               SELECT artist.id, artist_name.name
+               FROM artist JOIN artist_name ON artist_name.id = artist.name
+               WHERE artist.id = ?
+             ) new_artist,
+             (
+               SELECT artist_credit, artist, artist_name.name, join_phrase, position
+               FROM artist_credit_name
+               JOIN artist_name ON artist_name.id = artist_credit_name.name
+               WHERE artist_credit_name.artist_credit IN (
+                 SELECT artist_credit
+                 FROM artist_credit_name
+                 WHERE artist = any(?)
+               )
+             ) artist_credit_name
+             GROUP BY artist_credit',
+            $old_ids, $new_id, $old_ids
+        );
 
-        if (@artist_credit_ids) {
-            my $partial_names = $self->sql->select_list_of_hashes(
-                'SELECT acn.artist_credit, acn.join_phrase, an.name
-                   FROM artist_credit_name acn
-	               JOIN artist_name an ON acn.name = an.id
-                  WHERE artist_credit IN (' . placeholders(@artist_credit_ids) . ')
-               ORDER BY artist_credit, position',
-                @artist_credit_ids);
-            my %names;
-            for my $name (@$partial_names) {
-                my $ac_id = $name->{artist_credit};
-                $names{$ac_id} ||= '';
-                $names{$ac_id} .= $name->{name};
-                $names{$ac_id} .= $name->{join_phrase} if defined $name->{join_phrase};
-            }
+        for my $new_artist_credit (@$new_artist_credits) {
+            my ($old_credit_id, $artists, $names, $join_phrases) =
+                @$new_artist_credit;
 
-            my %names_id = $self->c->model('Artist')->find_or_insert_names(values %names);
-            for my $ac_id (@artist_credit_ids) {
-                $self->sql->do('UPDATE artist_credit SET name = ? WHERE id = ?',
-                               $names_id{$names{$ac_id}}, $ac_id);
-            }
+            my $n = scalar(@$artists);
+            my $new_credit_id = $self->find_or_insert({
+                names => [
+                    map +{
+                        artist => {
+                            id => $artists->[$_],
+                        },
+                        name => $names->[$_],
+                        join_phrase => $join_phrases->[$_]
+                    }, (0 .. $n - 1)
+                ]
+            });
+
+            $self->_swap_artist_credits($old_credit_id, $new_credit_id);
         }
     }
 
@@ -261,6 +280,13 @@ sub replace {
 
     my $old_credit_id = $self->find ($old_ac) or return;
     my $new_credit_id = $self->find_or_insert($new_ac);
+
+    $self->_swap_artist_credits($old_credit_id, $new_credit_id);
+}
+
+sub _swap_artist_credits {
+    my ($self, $old_credit_id, $new_credit_id) = @_;
+
     return if $old_credit_id == $new_credit_id;
 
     for my $table (qw( recording release release_group track )) {
