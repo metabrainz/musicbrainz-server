@@ -283,19 +283,12 @@
 
         this.editsPending = data.editsPending;
 
-        this.positionName = (function () {
-          var name = "";
+        this.positionName = "";
+        this.positionName += (this.format || MB.text.Medium) + " " + this.position;
 
-          name += (this.format || MB.text.Medium) + " " + this.position;
-
-          if (this.name) {
-            name += ": " + this.name;
-          }
-
-          return name;
-        })();
-
-        this.editsPending = data.editsPending;
+        if (this.name) {
+            this.positionName += ": " + this.name;
+        }
     });
 
 
