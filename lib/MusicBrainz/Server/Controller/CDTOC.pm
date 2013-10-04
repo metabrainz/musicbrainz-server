@@ -105,9 +105,16 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
-    my $medium_id = $c->req->query_params->{medium};
+    my $medium_id = $c->req->query_params->{medium}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a medium ID')
+        );
     my $medium = $c->model('Medium')->get_by_id ($medium_id)
-        or die "Could not find medium";
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Could not find medium')
+        );
 
     $c->model('Release')->load($medium);
 
