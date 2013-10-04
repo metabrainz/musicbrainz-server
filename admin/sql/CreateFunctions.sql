@@ -545,12 +545,12 @@ BEGIN
         FROM (
           SELECT date_year, date_month, date_day
           FROM release
-          JOIN release_country ON (release_country.release = release.id)
+          LEFT JOIN release_country ON (release_country.release = release.id)
           WHERE release.release_group = release_group_id
           UNION
           SELECT date_year, date_month, date_day
           FROM release
-          JOIN release_unknown_country ON (release_unknown_country.release = release.id)
+          LEFT JOIN release_unknown_country ON (release_unknown_country.release = release.id)
           WHERE release.release_group = release_group_id
         ) b
         ORDER BY date_year NULLS LAST, date_month NULLS LAST, date_day NULLS LAST
