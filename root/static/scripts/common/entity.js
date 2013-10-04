@@ -123,6 +123,7 @@
             this.length = MB.utility.formatTrackLength(data.length);
             this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             this.editsPending = data.editsPending;
+            this.gid = data.gid;
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");

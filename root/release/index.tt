@@ -67,15 +67,12 @@
           </tr>
 
           <!-- ko foreach: tracks -->
-          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }"
-              id="[% track.gid %]"
-              about="[% rdfa_track_curi(track) %]" typeof="[% rdfa_concept_curi('track') %]">
+          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
-                <span style="display: none">[% rdfa_track_number(track.position) %]</span>
                 <!-- ko text: number --><!-- /ko -->
               </td>
               <td>
-                <a data-bind="text: name, attr: { href: '/recording/' + recording.mbid }"></a>
+                <a data-bind="text: name, attr: { href: '/recording/' + recording.gid }"></a>
 
                 <!-- ko with: recording -->
                   <br/>
@@ -116,7 +113,37 @@
               <td data-bind="html: artistCredit.html()"></td>
               <!-- /ko -->
               [% UNLESS hide_rating %]
-              <td class="rating c">[% rating_stars(recording) %]</td>
+                <td class="rating c" data-bind="with: recording">
+                  <span class="inline-rating">
+                    <span class="star-rating small-star">
+                      <!-- ko if: userRating !== null -->
+                      <span class="current-user-rating"
+                            data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
+                      <!-- /ko -->
+
+                      <!-- ko if: userRating === null -->
+                      <span class="current-rating"
+                            data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
+                      <!-- /ko -->
+
+                      [%- IF c.user_exists -%]
+                        [%- FOR rating IN [ 1 .. 5 ] -%]
+                          <!-- ko if: userRating == [% rating * 20 %] -->
+                          <a class="stars-[% rating %] remove-rating"
+                             title="[% rating_tooltip (0) %]"
+                             data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
+                          <!-- /ko -->
+
+                          <!-- ko if: userRating != [% rating * 20 %] -->
+                          <a class="stars-[% rating %] set-rating"
+                             title="[% rating_tooltip (rating) %]"
+                             data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
+                          <!-- /ko -->
+                        [%- END -%]
+                      [%- END -%]
+                    </span>
+                  </span>
+                </td>
               [% END %]
               <td class="treleases" data-bind="text: length">
               </td>
@@ -154,6 +181,7 @@
                 name => $_->name,
                 tracks => [
                     map +{
+                        gid => $_->gid,
                         position => $_->position,
                         number => $_->number,
                         name => $_->name,
@@ -181,7 +209,10 @@
                                     ]
                                 }, $_->recording->all_relationships
                             ],
-                            mbid => $_->recording->gid
+                            gid => $_->recording->gid,
+                            rating => $_->recording->rating,
+                            userRating => $_->recording->user_rating,
+                            id => $_->recording->id
                         }
                     }, $_->all_tracks
                 ],
