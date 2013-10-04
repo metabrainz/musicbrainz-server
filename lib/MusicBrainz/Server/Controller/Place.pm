@@ -111,6 +111,13 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     search_template       => 'place/merge_search.tt',
 };
 
+after 'merge' => sub
+{
+    my ($self, $c) = @_;
+    $c->model('PlaceType')->load(@{ $c->stash->{to_merge} });
+    $c->model('Area')->load(@{ $c->stash->{to_merge} });
+};
+
 =head1 LICENSE
 
 This software is provided "as is", without warranty of any kind, express or
