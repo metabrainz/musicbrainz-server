@@ -94,8 +94,11 @@ MB.Release = (function (Release) {
                   return computeGroupedRelationships(track.recording.relationships);
                 },
                 "deferEvaluation": true
-              })
+              }),
             })
+            if (track.length === '') {
+              track.length = '?:??';
+            }
           }
         );
 
