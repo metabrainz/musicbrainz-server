@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
+use MusicBrainz::Server::Data::Place;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
@@ -28,6 +29,7 @@ Readonly my @TYPES => qw(
     area
     artist
     label
+    place
     recording
     release
     release_group

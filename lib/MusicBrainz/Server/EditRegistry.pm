@@ -38,6 +38,14 @@ my @CLASSES = qw(
     MusicBrainz::Server::Edit::Medium::MoveDiscID
     MusicBrainz::Server::Edit::Medium::RemoveDiscID
     MusicBrainz::Server::Edit::Medium::SetTrackLengths
+    MusicBrainz::Server::Edit::Place::AddAlias
+    MusicBrainz::Server::Edit::Place::DeleteAlias
+    MusicBrainz::Server::Edit::Place::AddAnnotation
+    MusicBrainz::Server::Edit::Place::Create
+    MusicBrainz::Server::Edit::Place::Delete
+    MusicBrainz::Server::Edit::Place::Edit
+    MusicBrainz::Server::Edit::Place::EditAlias
+    MusicBrainz::Server::Edit::Place::Merge
     MusicBrainz::Server::Edit::Recording::AddAnnotation
     MusicBrainz::Server::Edit::Recording::Create
     MusicBrainz::Server::Edit::Recording::Delete

@@ -21,6 +21,7 @@ use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::Language;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkType;
+use MusicBrainz::Server::Entity::Place;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Entity::MediumFormat;
 use MusicBrainz::Server::Entity::Relationship;
@@ -54,6 +55,7 @@ Readonly my %TYPE_TO_DATA_CLASS => (
     artist        => 'MusicBrainz::Server::Data::Artist',
     area          => 'MusicBrainz::Server::Data::Area',
     label         => 'MusicBrainz::Server::Data::Label',
+    place         => 'MusicBrainz::Server::Data::Place',
     recording     => 'MusicBrainz::Server::Data::Recording',
     release       => 'MusicBrainz::Server::Data::Release',
     release_group => 'MusicBrainz::Server::Data::ReleaseGroup',
@@ -200,7 +202,12 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "work") {
+    elsif ($type eq "work" || $type eq "place") {
+
+        my $extra_columns = '';
+        $extra_columns .= 'entity.language,' if $type eq 'work';
+        $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
 
         $query = "
             SELECT
@@ -208,8 +215,8 @@ sub search
                 entity.gid,
                 entity.name,
                 entity.comment,
-                entity.type AS type_id,
-                entity.language AS language_id,
+                entity.type,
+                $extra_columns
                 MAX(rank) AS rank
             FROM
                 (
@@ -226,7 +233,7 @@ sub search
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
             GROUP BY
-                entity.id, entity.gid, entity.name, entity.comment, type_id, language_id
+                entity.id, entity.gid, entity.name, entity.comment, $extra_columns entity.type
             ORDER BY
                 rank DESC, entity.name
             OFFSET
@@ -345,7 +352,12 @@ sub schema_fixup
     {
         $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
     }
-    if (($type eq 'artist' || $type eq 'label' || $type eq 'area') && exists $data->{'life-span'})
+    if ($type eq 'place' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
+        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} )  if (exists $data->{coordinates});
+    }
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
@@ -365,7 +377,7 @@ sub schema_fixup
             }
         }
     }
-    if ($type eq 'artist' || $type eq 'label') {
+    if ($type eq 'artist' || $type eq 'label' || $type eq 'place') {
         for my $prop (qw( area begin_area end_area )) {
             my $json_prop = $prop;
             $json_prop =~ s/_/-/;

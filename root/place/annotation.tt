@@ -1,0 +1,1 @@
+[%- INCLUDE 'annotation/common.tt' annotation = place.latest_annotation -%]
