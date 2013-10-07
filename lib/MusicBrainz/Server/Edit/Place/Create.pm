@@ -62,7 +62,7 @@ sub build_display_data
         ended       => $self->data->{ended} // 0,
         comment     => $self->data->{comment},
         address     => $self->data->{address},
-        coordinates => $self->data->{coordinates} ? Coordinates->new($self->data->{coordinates}) : '',
+        coordinates => $self->data->{coordinates}->{latitude} ? Coordinates->new($self->data->{coordinates}) : '',
         area        => defined($self->data->{area_id}) &&
                         $loaded->{Area}->{ $self->data->{area_id} }
     };

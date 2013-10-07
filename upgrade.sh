@@ -52,20 +52,26 @@ fi
 echo `date` : 'DROP TABLE puid;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130807-drop-table-puid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Remove _name tables and regenerate name columns'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130819-name-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'Creating the Place entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130618-places.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : 'Remove _name tables and regenerate name columns'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130819-name-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
 echo `date` : 'Mark deleted editors more accurately'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130903-editor-deletion.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Adding ended columns for alias'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130704-ended.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Adding link_type.is_deprecated'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130905-deprecated-link-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Creating views'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateViews.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -89,6 +95,9 @@ then
 
     echo `date` : Recreating constraints/triggers for regenerated tables with name columns
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130830-name-table-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+    echo `date` : 'Adding link_type.is_deprecated triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130910-deprecated-link-types-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################

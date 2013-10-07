@@ -34,6 +34,7 @@ DROP FUNCTION delete_ratings(enttype TEXT, ids INTEGER[]);
 DROP FUNCTION delete_tags(enttype TEXT, ids INTEGER[]);
 DROP FUNCTION delete_unused_tag(tag_id INT);
 DROP FUNCTION delete_unused_url(ids INTEGER[]);
+DROP FUNCTION deny_deprecated_links();
 DROP FUNCTION deny_special_purpose_deletion();
 DROP FUNCTION empty_artists();
 DROP FUNCTION empty_labels();

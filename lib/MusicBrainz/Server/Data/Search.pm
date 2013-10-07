@@ -352,7 +352,12 @@ sub schema_fixup
     {
         $data->{type} = MusicBrainz::Server::Entity::AreaType->new( name => $data->{type} );
     }
-    if (($type eq 'artist' || $type eq 'label' || $type eq 'area') && exists $data->{'life-span'})
+    if ($type eq 'place' && exists $data->{type})
+    {
+        $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
+        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} )  if (exists $data->{coordinates});
+    }
+    if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
     {
         $data->{begin_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{begin})
             if (exists $data->{'life-span'}->{begin});
@@ -372,7 +377,7 @@ sub schema_fixup
             }
         }
     }
-    if ($type eq 'artist' || $type eq 'label') {
+    if ($type eq 'artist' || $type eq 'label' || $type eq 'place') {
         for my $prop (qw( area begin_area end_area )) {
             my $json_prop = $prop;
             $json_prop =~ s/_/-/;
