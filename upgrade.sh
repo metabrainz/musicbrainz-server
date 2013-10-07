@@ -52,14 +52,14 @@ fi
 echo `date` : 'DROP TABLE puid;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130807-drop-table-puid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Remove _name tables and regenerate name columns'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130819-name-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'Creating the Place entity'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130618-places.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-echo `date` : 'Remove _name tables and regenerate name columns'
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130819-name-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 echo `date` : 'Mark deleted editors more accurately'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130903-editor-deletion.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
