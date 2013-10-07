@@ -37,6 +37,7 @@ sub change_fields
     return Dict[
         name       => Optional[Str],
         sort_name  => Optional[Str],
+        comment    => Nullable[Str],
         type_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
@@ -78,6 +79,7 @@ sub build_display_data
         type       => [ qw( type_id AreaType )],
         name       => 'name',
         sort_name  => 'sort_name',
+        comment    => 'comment',
         ended      => 'ended'
     );
 

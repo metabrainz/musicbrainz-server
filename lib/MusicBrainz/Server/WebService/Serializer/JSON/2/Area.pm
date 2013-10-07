@@ -15,6 +15,7 @@ sub serialize
 
     $body{name} = $entity->name;
     $body{"sort-name"} = $entity->sort_name;
+    $body{disambiguation} = $entity->comment // "";
     $body{iso_3166_1_codes} = $entity->iso_3166_1 ? [ map { $_ } @{ $entity->iso_3166_1 } ] : JSON::null;
     $body{iso_3166_2_codes} = $entity->iso_3166_2 ? [ map { $_ } @{ $entity->iso_3166_2 } ] : JSON::null;
     $body{iso_3166_3_codes} = $entity->iso_3166_3 ? [ map { $_ } @{ $entity->iso_3166_3 } ] : JSON::null;

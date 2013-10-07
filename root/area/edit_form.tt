@@ -6,6 +6,7 @@
       <legend>[%- l('Area Details') -%]</legend>
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'sort_name', l('Sort Name:')) -%]
+      [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_text_list(r, 'iso_3166_1', l('ISO 3166-1:'), l('ISO 3166-1')) -%]
       [%- form_row_text_list(r, 'iso_3166_2', l('ISO 3166-2:'), l('ISO 3166-2')) -%]

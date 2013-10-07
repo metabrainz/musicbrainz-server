@@ -50,9 +50,13 @@ has_field 'period' => (
     not_nullable => 1
 );
 
+has_field 'comment' => (
+    type => '+MusicBrainz::Server::Form::Field::Comment',
+);
+
 sub edit_field_names
 {
-    return qw( name sort_name type_id period.begin_date period.end_date period.ended iso_3166_1 iso_3166_2 iso_3166_3 );
+    return qw( name sort_name comment type_id period.begin_date period.end_date period.ended iso_3166_1 iso_3166_2 iso_3166_3 );
 }
 
 sub options_type_id     { shift->_select_all('AreaType') }

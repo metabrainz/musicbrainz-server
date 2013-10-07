@@ -211,6 +211,7 @@ sub _area
         name    => $area->name,
         id      => $area->id,
         gid     => $area->gid,
+        comment => $area->comment,
         type    => $area->type_id,
         $area->type ? (typeName => $area->type->name) : (),
         $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
