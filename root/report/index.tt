@@ -23,6 +23,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsContainingDisambiguationComments') %]">[% l('Artists containing disambiguation comments in their name') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DiscogsLinksWithMultipleArtists') %]">[% l('Discogs URLs linked to multiple artists') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsArtists') %]">[% l('Artists with possible duplicate relationships') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ArtistsWithMultipleOccurancesInArtistCredits') %]">[% l('Artists occuring multiple times in the same artist credit') %]</a></li>
         </ul>
 
         <h2>[% l('Labels') %]</h2>
