@@ -99,13 +99,11 @@ then
     echo `date` : Recreating constraints/triggers for regenerated tables with name columns
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130830-name-table-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-<<<<<<< HEAD
     echo `date` : Adding non-whitespace constraint to area comments
     OUTPUT=`./admin/psql READWRITE < .admin/sql/updates/20130919-area-comments-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-=======
+
     echo `date` : 'Adding link_type.is_deprecated triggers'
     OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130910-deprecated-link-types-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
->>>>>>> ec9eb7a58c669939c80f9f46416d8d85245ff8a2
 fi
 
 ################################################################################
