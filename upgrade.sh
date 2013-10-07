@@ -64,6 +64,9 @@ OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130704-ended.sql 2>&1` ||
 echo `date` : 'Adding link_type.is_deprecated'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130905-deprecated-link-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Creating views'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateViews.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
