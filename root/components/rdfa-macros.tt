@@ -50,7 +50,7 @@
     'mo:Track' IF type == 'track';
     'mo:Record' IF type == 'medium';
     'mo:Label' IF type == 'label';
-    'geo:SpatialThing' IF type == 'area';
+    'geo:SpatialThing' IF type == 'area' || type == 'place';
 END -%]
 
 [%- MACRO rdfa_entity_curi(entity, action, text) BLOCK;
@@ -63,6 +63,7 @@ END -%]
     ELSIF type.search('Entity::Recording='); rdfa_recording_curi(entity);
     ELSIF type.search('Entity::URL='); link_url(entity, action, text);
     ELSIF type.search('Entity::Area='); rdfa_area_curi(entity);
+    ELSIF type.search('Entity::Place='); rdfa_place_curi(entity);
     END;
 END -%]
 
@@ -152,6 +153,10 @@ END -%]
 
 [%- MACRO rdfa_area_curi(area) BLOCK;
  '[mbz:area/' _ area.gid _ '#' _ hash_suffix _']';
+END -%]
+
+[%- MACRO rdfa_place_curi(place) BLOCK;
+ '[mbz:place/' _ place.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%-##############-%]
@@ -382,6 +387,8 @@ END -%]
     ELSIF type.search('Entity::Label=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     ELSIF type.search('Entity::Area=');
+    '<span property="skos:altLabel">' _ alias _ '</span>';
+    ELSIF type.search('Entity::Place=');
     '<span property="skos:altLabel">' _ alias _ '</span>';
     END;
   ELSE;
@@ -676,6 +683,22 @@ END -%]
   END;
 END -%]
 
+[%-##########-%]
+[%-# Places #-%]
+[%-##########-%]
+[%- MACRO rdfa_link_place_header(place) BLOCK;
+  IF doRDFa;
+    action = action || 'show';
+    link = c.uri_for_action("/place/$action", [ place.gid ]);
+    text = text == '' ? html_escape(place.name) : html_escape(text);
+    '<span class="mp">' IF place.edits_pending AND action == 'show';
+    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '" property="dct:title rdfs:place" xml:lang="" lang="">' _ text _ '</a>';
+    '</span>' IF place.edits_pending AND action == 'show';
+  ELSE;
+    link_place(place);
+  END;
+END -%]
+
 [%-########################-%]
 [%-# pagination / seeAlso #-%]
 [%-########################-%]
@@ -719,6 +742,10 @@ END -%]
 
 [%- MACRO rdfa_seeAlso_link_label(label, action, text) BLOCK;
     rdfa_seeAlso_link(label, 'label', action, text);
+END -%]
+
+[%- MACRO rdfa_seeAlso_link_place(place, action, text) BLOCK;
+    rdfa_seeAlso_link(place, 'place', action, text);
 END -%]
 
 [%- MACRO rdfa_seeAlso_link_recording(recording, action, text) BLOCK;

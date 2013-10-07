@@ -22,10 +22,10 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 var allowedRelations = {
-    recording:     ["artist", "label", "recording", "release", "work"],
+    recording:     ["artist", "label", "place", "recording", "release", "work"],
     work:          ["artist", "label", "work"],
-    release:       ["artist", "label", "recording", "release"],
-    release_group: ["artist", "release_group"]
+    release:       ["artist", "label", "place", "recording", "release"],
+    release_group: ["artist", "place", "release_group"]
 };
 
 // For select attributes and the link type field, we use a custom binding handler

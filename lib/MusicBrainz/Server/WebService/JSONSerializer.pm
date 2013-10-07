@@ -50,6 +50,7 @@ sub release_list       { shift->entity_list (@_, "release", "releases") };
 sub release_group_list { shift->entity_list (@_, "release-group", "release-groups") };
 sub work_list          { shift->entity_list (@_, "work", "works") };
 sub area_list          { shift->entity_list (@_, "area", "areas") };
+sub place_list         { shift->entity_list (@_, "place", "places") };
 
 sub serialize_data
 {
@@ -384,6 +385,34 @@ sub _work
         comment => $work->comment,
         language => $work->language && $work->language->l_name
     };
+}
+
+sub autocomplete_place
+{
+    my ($self, $results, $pager) = @_;
+
+    my @output;
+    push @output, $self->_place($_) for @$results;
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json (\@output);
+}
+
+sub _place
+{
+    my ($self, $place) = @_;
+
+    return {
+        name    => $place->name,
+        id      => $place->id,
+        gid     => $place->gid,
+        type    => $place->type_id,
+        $place->type ? (typeName => $place->type->name) : (),
+        $place->area ? (area => $place->area->name) : () };
 }
 
 sub _url

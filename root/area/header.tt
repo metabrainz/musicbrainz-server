@@ -3,6 +3,7 @@
     ['artists', rdfa_seeAlso_link_area(area, 'artists', l('Artists'))],
     ['labels', rdfa_seeAlso_link_area(area, 'labels', l('Labels'))],
     ['releases', rdfa_seeAlso_link_area(area, 'releases', l('Releases'))],
+    ['places', rdfa_seeAlso_link_area(area, 'places', l('Places'))],
     ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
     ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
 ] -%]

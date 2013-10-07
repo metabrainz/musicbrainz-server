@@ -204,7 +204,7 @@ sub merge
               WHERE $type IN (".placeholders(@old_ids).")", $new_id, @old_ids);
 
     # Insert any aliases from old entity names
-    my $sortnamecol = $type eq 'work' ? 'name' : 'sort_name';
+    my $sortnamecol = ($type eq 'work' || $type eq 'place') ? 'name' : 'sort_name';
     $self->sql->do(
         "INSERT INTO $table (name, $type, sort_name)
             SELECT DISTINCT ON (old_entity.name) old_entity.name, new_entity.id, old_entity.$sortnamecol
@@ -245,7 +245,7 @@ sub exists {
         "SELECT EXISTS (
              SELECT TRUE
              FROM $table " .
-             "WHERE " . $self->_name . " IS NOT DISTINCT FROM ?
+             "WHERE name IS NOT DISTINCT FROM ?
                AND locale IS NOT DISTINCT FROM ?
                AND type IS NOT DISTINCT FROM ?
                AND $table.id IS DISTINCT FROM ?

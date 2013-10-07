@@ -680,6 +680,21 @@ ALTER TABLE editor_subscribe_artist_deleted
 ALTER TABLE editor_subscribe_label_deleted
   DROP CONSTRAINT IF EXISTS editor_subscribe_label_deleted_fk_gid;
 
+-- Drop views
+------------------------
+
+DROP VIEW IF EXISTS s_artist;
+DROP VIEW IF EXISTS s_artist_credit;
+DROP VIEW IF EXISTS s_artist_credit_name;
+DROP VIEW IF EXISTS s_label;
+DROP VIEW IF EXISTS s_recording;
+DROP VIEW IF EXISTS s_release;
+DROP VIEW IF EXISTS s_release_group;
+DROP VIEW IF EXISTS s_track;
+DROP VIEW IF EXISTS s_work;
+
+DROP VIEW IF EXISTS s_release_event;
+
 -- Drop dependent functions
 ------------------------
 DROP FUNCTION IF EXISTS empty_artists();

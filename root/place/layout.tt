@@ -1,0 +1,85 @@
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? place.name _ " - ${title}" : place.name -%]
+  [%- IF !full_width -%]
+    [% WRAPPER 'layout/sidebar.tt' %]
+        <h2 class="place-information">[% l('Place information') %]</h2>
+        [% WRAPPER 'layout/sidebar/properties.tt' %]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
+               content=html_escape(place.l_type_name) class="type"
+                   IF place.type -%]
+            [%- UNLESS place.begin_date.is_empty AND place.end_date.is_empty AND !place.ended -%]
+                    [%- IF place.begin_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" %]
+                            [% place.begin_date.format %]
+                            [% IF place.has_age AND not place.end_date.format %]
+                                ([% display_age_ago(place.age) %])
+                            [% END %]
+                        [% END %]
+                    [%- END -%]
+                    [% IF place.end_date.format %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
+                            [% place.end_date.format %]
+                            [% IF place.has_age %]
+                                ([% display_age (place.age) %])
+                            [% END %]
+                        [% END %]
+                    [% ELSIF place.ended %]
+                        [% WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" %]
+                            [% l('[unknown]') %]
+                        [% END %]
+                    [% END %]
+            [%- END -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Address:')
+               content=html_escape(place.address) class="address"
+                   IF place.address -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
+               content=link_area(place.area)
+               class="area"
+                   IF place.area -%]
+            [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
+               content=html_escape(place.coordinates.format)
+               class="coordinates"
+                   IF place.coordinates.latitude && place.coordinates.longitude -%]
+        [% END %]
+        [%- INCLUDE "layout/sidebar/sidebar-tags.tt" entity=place tags=top_tags
+            more=more_tags tag_this_text=l('Tag this place')
+            async = c.uri_for_action('/place/tag_async', [ place.gid ])
+            -%]
+
+        <h2 class="editing">[% l('Editing') %]</h2>
+        <ul class="links">
+            [% IF c.user_exists %]
+                [% annotation_links(place) %]
+                <li>
+                  <a href="[% c.uri_for_action('/place/merge_queue', { 'add-to-merge' => place.id }) %]">
+                    [% l('Merge place') %]
+                  </a>
+                </li>
+
+                <hr/>
+
+                [%# Adds <li> itself %]
+                [% use_in_relationship(place) %]
+                <li>[% relate_to_ellipsis(place) %]</li>
+                <li>[% relate_to_url(place) %]</li>
+
+                <hr/>
+
+                <li>[% link_entity(place, 'open_edits', l('Open edits')) %]</li>
+                <li>[% link_entity(place, 'edits', l('Editing history')) %]</li>
+            [% ELSE %]
+                <li>[% request_login(l('Log in to edit')) %]</li>
+            [% END %]
+        </ul>
+
+        [%- INCLUDE "layout/sidebar/sidebar-favicons.tt" source=place -%]
+
+        [%- INCLUDE "layout/sidebar/sidebar-lastupdate.tt" entity=place -%]
+    [% END %]
+  [% END -%]
+
+  <div id="content">
+    [%- INCLUDE "place/header.tt" -%]
+    [%- content -%]
+  </div>
+
+[%- END -%]

@@ -21,6 +21,12 @@ CREATE TABLE l_area_label_example (
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_area_place_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_area_place.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_area_recording_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_area_recording.id
   published BOOLEAN NOT NULL,
@@ -64,6 +70,12 @@ CREATE TABLE l_artist_label_example (
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_artist_place_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_place.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_artist_recording_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_artist_recording.id
   published BOOLEAN NOT NULL,
@@ -102,6 +114,12 @@ CREATE TABLE l_label_label_example (
   name TEXT NOT NULL
 );
 
+CREATE TABLE l_label_place_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_label_place.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
 CREATE TABLE l_label_recording_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_label_recording.id
   published BOOLEAN NOT NULL,
@@ -128,6 +146,47 @@ CREATE TABLE l_label_url_example (
 
 CREATE TABLE l_label_work_example (
   id INTEGER NOT NULL, -- PK, references musicbrainz.l_label_work.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+
+
+
+
+
+CREATE TABLE l_place_place_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_place.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_recording_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_recording.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_release_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_release.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_release_group_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_release_group.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_url_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_url.id
+  published BOOLEAN NOT NULL,
+  name TEXT NOT NULL
+);
+
+CREATE TABLE l_place_work_example (
+  id INTEGER NOT NULL, -- PK, references musicbrainz.l_place_work.id
   published BOOLEAN NOT NULL,
   name TEXT NOT NULL
 );

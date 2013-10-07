@@ -35,6 +35,8 @@ INSERT INTO label_type (id, name) VALUES (4, 'Original Production');
 INSERT INTO label_type (id, name) VALUES (6, 'Reissue Production');
 INSERT INTO label_type (id, name) VALUES (7, 'Publisher');
 
+INSERT INTO place_type (id, name) VALUES (1, 'Venue');
+
 INSERT INTO work_type (id, name) VALUES (17, 'Song');
 
 INSERT INTO release_status (id, name) VALUES (1, 'Official');
@@ -1596,6 +1598,12 @@ INSERT INTO release_label (catalog_number, id, label, last_updated, release) VAL
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('UDCD 548', 29772, 4349, '2011-01-18 15:52:02.917556+00', 672077);
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('KOU-004', 261286, 3933, '2011-01-18 15:52:02.917556+00', 375273);
 INSERT INTO release_label (catalog_number, id, label, last_updated, release) VALUES ('GVP01', 313869, 30181, '2011-01-18 15:52:02.917556+00', 459740);
+
+-- Places
+
+INSERT INTO place (id, gid, name, type, address, area, coordinates, comment, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended) VALUES (1, 'df9269dd-0470-4ea2-97e8-c11e46080edd', 'A Test Place', 1, 'An Address', 241, '(0.323,1.234)', 'A PLACE!', 0, '2013-09-07 14:40:22.041309+00', 2013, NULL, NULL, NULL, NULL, NULL, '0');
+
+INSERT INTO place_alias (id, place, name, locale, edits_pending, last_updated, type, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, primary_for_locale, ended) VALUES (1, 1, 'A Test Place Alias', NULL, 0, '2013-09-16 11:00:11.746172+00', NULL, 'A Test Place Alias', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0');
 
 -- Works
 

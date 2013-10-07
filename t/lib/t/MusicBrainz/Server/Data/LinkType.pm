@@ -117,5 +117,21 @@ EOSQL
     is($subject->documentation, $new_documentation, 'can update documentation');
 };
 
-1;
+test 'Deprecated relationships are loaded as is_deprecated' => sub {
+    my $test = shift;
+    my $c = $test->c;
 
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO link_type (id, name, entity_type0, entity_type1, gid, link_phrase, reverse_link_phrase, long_link_phrase, is_deprecated) VALUES
+    (1, 'performer', 'artist', 'artist', '0e747859-2491-4b16-8173-87d211a8f56b',
+    'performer', 'performer', 'performer', FALSE),
+    (2, 'composer', 'artist', 'artist', '6f68ed33-e70c-46e8-82de-3a16d2dcba26',
+    'composer', 'composer', 'composer', TRUE);
+EOSQL
+
+    my $link_types = $c->model('LinkType')->get_by_ids(1, 2);
+    ok(!$link_types->{1}->is_deprecated, 'LT 1 is not deprecated');
+    ok($link_types->{2}->is_deprecated, 'LT 2 is deprecated');
+};
+
+1;
