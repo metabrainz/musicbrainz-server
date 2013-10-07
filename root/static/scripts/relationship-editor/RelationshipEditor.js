@@ -142,6 +142,38 @@ RE.releaseViewModel = {
     }
 };
 
+RE.releaseViewModel['changes'] = ko.computed(function () {
+    var breaker = {};
+    var breakIfChanged = function (relationship) {
+        if (relationship.action()) throw breaker;
+    };
+
+    try {
+        _.each(RE.releaseViewModel.media(), function(medium) {
+            _.each(medium.tracks, function(track) {
+                var recording = track.recording;
+
+                _.each(recording.relationships(), breakIfChanged);
+
+                _.each(recording.performanceRelationships(), function(relationship) {
+                    breakIfChanged(relationship);
+                    _.each(relationship.entity[1]().relationships(), breakIfChanged);
+                });
+            });
+        });
+        _.each(RE.releaseViewModel.release().relationships, breakIfChanged);
+        _.each(RE.releaseViewModel.releaseGroup().relationships, breakIfChanged);
+    }
+    catch (e) {
+        if (e == breaker) {
+            return true;
+        }
+        else {
+            throw e;
+        }
+    }
+    return false;
+});
 
 UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
@@ -158,6 +190,17 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
 
     ko.applyBindings(RE.releaseViewModel, document.getElementById("content"));
+
+    RE.releaseViewModel.changes.subscribe(function (hasChanges) {
+        if (hasChanges) {
+            window.onbeforeunload = function() {
+                return MB.text.ConfirmNavigation;
+            };
+        }
+        else {
+            window.onbeforeunload = undefined;
+        }
+    });
 
     if (data) {
         releaseLoaded(data);
@@ -376,11 +419,7 @@ $(function() {
        Opera 12 supports it, but it doesn't, at least not <= 12.10.)
        https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
      */
-    if ("onbeforeunload" in window) {
-        window.onbeforeunload = function() {
-            return MB.text.ConfirmNavigation;
-        };
-    } else {
+    if (!("onbeforeunload" in window)) {
         var prevented = false;
 
         /* This catches the backspace key and asks the user whether they want to
