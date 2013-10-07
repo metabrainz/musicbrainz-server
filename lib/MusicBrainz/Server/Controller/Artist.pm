@@ -180,6 +180,13 @@ sub show : PathPart('') Chained('load')
             );
         }
 
+	if (($show_va || $va_only) && !%filter && $pager->total_entries == 0) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            });
+            $c->stash( standalone_only => 1 );
+	}
+
         $c->stash(
             show_va => $show_va,
             template => 'artist/index.tt'
