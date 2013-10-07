@@ -528,7 +528,7 @@ sub _serialize_recording
     push @list, $gen->title($recording->name);
     push @list, $gen->length($recording->length) if $recording->length;
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
-
+    push @list, $gen->video('true') if $recording->video;
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $recording, $inc, $opts);

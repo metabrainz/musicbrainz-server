@@ -35,6 +35,10 @@ has_field 'isrcs.contains' => (
     type => '+MusicBrainz::Server::Form::Field::ISRC',
 );
 
+has_field 'video' => (
+    type => 'Checkbox'
+);
+
 after 'validate' => sub {
     my ($self) = @_;
     return if $self->has_errors;
@@ -50,7 +54,7 @@ sub inflate_isrcs {
 
 sub edit_field_names
 {
-    return qw( name length comment artist_credit );
+    return qw( name length comment artist_credit video );
 }
 
 sub options_type_id { shift->_select_all('RecordingType') }

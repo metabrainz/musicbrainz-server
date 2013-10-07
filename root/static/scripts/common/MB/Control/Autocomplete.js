@@ -57,6 +57,11 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
+        if (item.video)
+        {
+            a.append ('<span class="autocomplete-video">(video)</span>');
+        }
+
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 

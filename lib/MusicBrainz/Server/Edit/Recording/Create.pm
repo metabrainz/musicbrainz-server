@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Edit::Recording::Create;
 use Moose;
 
-use MooseX::Types::Moose qw( Int Str );
+use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE );
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
@@ -30,8 +30,8 @@ has '+data' => (
         name          => Optional[Str],
         artist_credit => Optional[ArtistCreditDefinition],
         length        => Nullable[Int],
-        comment       => Nullable[Str]
-    ]
+        comment       => Nullable[Str],
+        video         => Optional[Bool]    ]
 );
 
 sub foreign_keys
@@ -52,6 +52,7 @@ sub build_display_data
         name          => $self->data->{name},
         comment       => $self->data->{comment},
         length        => $self->data->{length},
+        video         => $self->data->{video},
         recording => $loaded->{Recording}{ $self->entity_id } ||
             Recording->new( name => $self->data->{name} )
     };

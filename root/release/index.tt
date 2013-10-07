@@ -27,6 +27,9 @@
         <thead>
             <tr>
                 <th class="pos t">#</th>
+                [%- IF show_video -%]
+                    <th class="video c"></th>
+                [%- END -%]
                 <th>
                   <span style="float: right; font-weight: normal; padding-right: 1em;">
                     <a style="display: none;" class="bottom-credits" href="">[% l('Display Credits at Bottom') %]</a>
@@ -45,7 +48,7 @@
         <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
         [%- FOR medium=release.mediums -%]
             <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&#xa0;</td><td colspan="[% IF show_artists %]4[% ELSE %]3[% END %]">
+                <td>&#xa0;</td><td colspan="[% IF show_artists && show_video %]5[% ELSIF show_artists || show_video %]4[% ELSE %]3[% END %]">
                     [% rdfa_medium_in_release(release, medium) %]
                 </td>
             </tr>

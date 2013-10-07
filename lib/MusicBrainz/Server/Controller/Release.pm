@@ -167,6 +167,7 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         template      => 'release/index.tt',
         show_artists  => $release->has_multiple_artists,
+        show_video  => $release->includes_video,
         combined_rels => $release->combined_track_relationships,
     );
 }
