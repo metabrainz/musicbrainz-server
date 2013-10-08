@@ -96,16 +96,15 @@
     [%- END -%]
 
     [%- IF recordings.size -%]
-            <form action="[% c.uri_for_action('/recording/merge_queue') %]"
-            method="post">
             [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
-            [% form_submit(l('Add selected recordings for merging')) WRAPPER form_row IF c.user_exists %]
-        </form>
     [%- END -%]
 
-    [% IF va_only && pager.total_entries == 0 %]
-        <p>[% l('This artist does not have any release groups') %]</p>
+    [% IF va_only && standalone_only && pager.total_entries == 0 %]
+        <p>[% l('This artist does not have any release groups or standalone recordings.') %]</p>
     [% ELSE %]
+        [% IF standalone_only %]
+	    <p>[% l('This artist has no release groups, only standalone recordings.') %]</p>
+	[% ELSE %]
         [% IF release_groups.size == 0 %]
             <p>[% l('No release groups found') %]</p>
         [% END %]
@@ -119,6 +118,7 @@
             [% ELSE %]
                 <p>[% l('Showing Various Artist release groups. {show_subset|Show release groups by this artist instead}.',
                         { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
+		[% END %]
             [% END %]
         [% END %]
     [% END %]
