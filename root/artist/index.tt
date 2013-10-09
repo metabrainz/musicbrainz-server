@@ -103,15 +103,26 @@
         [% END %]
 
         [% IF va_only %]
-            <p>[% l('This artist only has release groups by various artists.') %]</p>
-        [% ELSE %]
-            [% IF !show_va %]
-                <p>[% l('Showing release groups by this artist. {show_all|Show Various Artist release groups instead}.',
-                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+            [% IF !show_all %]
+                <p>[% l('This artist only has release groups by various artists. Showing official release groups only. {show_all|Show all release groups instead}.',
+                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }) }) %]</p>') %]</p>
             [% ELSE %]
-                <p>[% l('Showing Various Artist release groups. {show_subset|Show release groups by this artist instead}.',
-                        { show_subset = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
+                <p>[% l('This artist only has release groups by various artists. Showing all release groups. {show_official|Show only official release groups instead}.',
+                        { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }) }) %]</p>') %]</p>
             [% END %]
+        [% ELSE %]
+            [% IF !show_va && !show_all %]
+                <p>[% l('Showing official release groups by this artist. {show_all|Show all release groups instead}, or {show_va|show various artists release groups}.',
+                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+            [% ELSIF show_va && !show_all %]
+                <p>[% l('Showing official release groups for various artists. {show_all|Show all various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
+                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 1}), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
+            [% ELSIF !show_va && show_all %]
+                <p>[% l('Showing all release groups by this artist. {show_official|Show only official release groups instead}, or {show_va|show various artists release groups}.',
+                         { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
+            [% ELSIF show_va && show_all %]
+                <p>[% l('Showing all release groups for various artists. {show_official|Show only official various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
+                         { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0, va = 1 }), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>            [% END %]
         [% END %]
     [% END %]
 [% END %]

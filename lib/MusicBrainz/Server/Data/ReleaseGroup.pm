@@ -234,7 +234,7 @@ sub find_by_track_artist
 
     my $extra_conditions = '';
     unless ($show_all) {
-        my $extra_conditions = " AND (EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
+        $extra_conditions = " AND (EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
                             NOT EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status IS NOT NULL)) ";
        }
 
