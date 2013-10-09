@@ -102,7 +102,7 @@
     [% IF va_only && standalone_only && pager.total_entries == 0 %]
         <p>[% l('This artist does not have any release groups or standalone recordings.') %]</p>
     [% ELSE %]
-        [% IF standalone_only %]
+        [% IF !show_va && standalone_only %]
 	    <p>[% l('This artist has no release groups, only standalone recordings.') %]</p>
 	[% ELSE %]
         [% IF release_groups.size == 0 %]

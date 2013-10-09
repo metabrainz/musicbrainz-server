@@ -181,7 +181,7 @@ sub show : PathPart('') Chained('load')
             );
         }
 
-	if (($show_va || $c->stash->{va_only}) && !%filter && $pager->total_entries == 0) {
+	if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
             });
