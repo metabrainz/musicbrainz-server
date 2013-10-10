@@ -13,7 +13,7 @@ sub query {
             LEFT JOIN link ON link.id=l_artist_artist.link
             LEFT JOIN link_type ON link_type.id=link.link_type
         WHERE
-            (artist.name ~ '&' OR artist.name ~ 'vs.' OR artist.name ~ 'feat.')
+            (artist.name ~ '&' OR artist.name ~ E'\\\\yvs\\\\.' OR artist.name ~ E'\\\\yfeat\\\\.')
             AND (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
         GROUP BY artist.id, artist.name
     "

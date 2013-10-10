@@ -9,7 +9,7 @@ use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -279,11 +279,6 @@ sub _ratings
                 if $_->user_rating;
         }
     }
-}
-
-sub is_nat {
-    my $n = shift;
-    return looks_like_number($n) && int($n) == $n && $n >= 0;
 }
 
 sub _limit_and_offset

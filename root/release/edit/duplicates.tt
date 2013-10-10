@@ -27,8 +27,8 @@
 
     <div class="row no-label">
         [% made_selection = 0;
-           FOR release=similar_releases;
-             IF release.id == wizard.get_value('duplicates', 'duplicate_id');
+           FOR similar_release=similar_releases;
+             IF similar_release.id == wizard.get_value('duplicates', 'duplicate_id');
                made_selection = 1;
              END;
            END; %]

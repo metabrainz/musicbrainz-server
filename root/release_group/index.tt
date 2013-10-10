@@ -1,6 +1,14 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
 
+    [% IF eligble_for_cleanup %]
+      <p class="cleanup">
+          [% l('This release group has no relationships or releases associated,
+                and will be removed automatically in the next few days. If this
+                is not intended, please add more data to this release group.') %]
+      </p>
+    [% END %]
+
     [%- show_wikipedia_extract() -%]
 
     [%- IF releases.size -%]
