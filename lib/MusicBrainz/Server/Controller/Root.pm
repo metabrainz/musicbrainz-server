@@ -296,6 +296,10 @@ sub begin : Private
         );
         $c->detach;
     }
+
+    if (DBDefs->REPLICATION_TYPE == RT_SLAVE) {
+        $c->stash( last_replication_date => $c->model('Replication')->last_replication_date );
+    }
 }
 
 =head2 end
