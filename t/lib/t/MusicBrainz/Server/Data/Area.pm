@@ -40,7 +40,7 @@ EOSQL
     };
 }
 
-test 'Test load_parent_country' => sub {
+test 'Test load_containment' => sub {
     my $test = shift;
     $test->c->sql->do(<<'EOSQL');
 INSERT INTO area_type (id, name) VALUES (1, 'Country'), (2, 'Subdivision');
@@ -58,7 +58,7 @@ EOSQL
     my $area = $test->c->model('Area')->get_by_id(1);
     is($area->name, 'descendant', 'correct descendant country is loaded');
 
-    $test->c->model('Area')->load_parent_country($area);
+    $test->c->model('Area')->load_containment($area);
     is($area->parent_country->name, 'parent', 'correct parent country is loaded');
 };
 

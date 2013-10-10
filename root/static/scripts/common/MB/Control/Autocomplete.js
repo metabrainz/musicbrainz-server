@@ -157,11 +157,14 @@ MB.Control.autocomplete_formatters = {
     "area": function (ul, item) {
         var a = $("<a>").text (item.name);
 
-        if (item.typeName || item.parentCountry) {
+        if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
+             var items = [];
+             if (item.typeName) items.push(MB.utility.escapeHTML(item.typeName));
+             if (item.parentCity) items.push(MB.utility.escapeHTML(item.parentCity));
+             if (item.parentSubdivision) items.push(MB.utility.escapeHTML(item.parentSubdivision));
+             if (item.parentCountry) items.push(MB.utility.escapeHTML(item.parentCountry));
              a.append ('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
-                       (item.typeName && item.parentCountry ? ', ' : '') +
-                       (item.parentCountry ? MB.utility.escapeHTML(item.parentCountry) : '') +
+                       items.join(", ") +
                        '</span>');
         };
 

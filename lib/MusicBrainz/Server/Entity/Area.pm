@@ -54,6 +54,16 @@ has 'parent_country' => (
     isa => 'Maybe[Area]',
 );
 
+has 'parent_subdivision' => (
+    is => 'rw',
+    isa => 'Maybe[Area]',
+);
+
+has 'parent_city' => (
+    is => 'rw',
+    isa => 'Maybe[Area]',
+);
+
 has 'iso_3166_1' => (
     traits => [ 'Array' ],
     is => 'ro',

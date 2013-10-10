@@ -110,15 +110,25 @@ sub load_codes
     }
 }
 
-sub load_parent_country
+sub load_containment
 {
     my ($self, @objs) = @_;
-    my $country_area_type = 1;
     my $area_area_parent_type = 356;
+    my $types = {
+        1 => 'parent_country',
+        2 => 'parent_subdivision',
+        3 => 'parent_city',
+    };
 
-    my @objects_to_use = grep { defined $_ &&
-                                !defined $_->parent_country &&
-                                ( defined $_->type ? $_->type->id != $country_area_type : $_->type_id != $country_area_type)} @objs;
+    my $use_object = sub {
+        my $obj = $_;
+        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
+        return 0 if !defined $obj;
+        # for each containment type, subtract it only if it's already done or shouldn't be
+        # if all containments are loaded, this ends up as 0
+        return (scalar (keys $types)) - (scalar grep { defined $obj->{ $types->{$_} } || $obj_type == $_ } (keys $types));
+    };
+    my @objects_to_use = grep { $use_object->($_) } @objs;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
@@ -144,25 +154,40 @@ sub load_parent_country
             JOIN   area_descendants ON area_descendants.parent = laa.entity1
             WHERE  link_type = $area_area_parent_type
             AND    NOT entity0 = ANY(descendants))
-        SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
-        FROM     area_descendants
-        JOIN     area ON area_descendants.parent = area.id
-        WHERE    area.type = $country_area_type
-        AND      descendant IN (" . placeholders(@all_ids) . ")
-        ORDER BY descendant, array_length(descendants, 1) ASC
     ";
-    my $parent_countries = $self->sql->select_list_of_hashes($query, @all_ids);
+    for my $type (keys $types) {
+        $query .= ", " . $types->{$type} . " AS (
+                  SELECT   DISTINCT ON (descendant) descendant, parent FROM area_descendants
+                  JOIN     area ON area_descendants.parent = area.id
+                  WHERE    area.type = $type ORDER BY descendant, array_length(descendants, 1) ASC)";
+    }
+    $query .= " SELECT ";
+    for my $type (values $types) {
+        $query .= " $type.parent AS $type,";
+    }
+    $query .= " area.id AS descendant
+        FROM area ";
+    for my $type (values $types) {
+        $query .= " LEFT JOIN $type ON $type.descendant = area.id";
+    }
+    $query .= " WHERE area.id IN (" . placeholders(@all_ids) . ")";
 
-    my $parent_objects = $self->get_by_ids(map { $_->{id} } @$parent_countries);
+    my $containment = $self->sql->select_list_of_hashes($query, @all_ids);
 
-    for my $parent (@$parent_countries) {
-        if (my $entities = $obj_id_map{$parent->{descendant}}) {
-            my $parent_obj = $parent_objects->{$parent->{id}};
-            for my $entity (@$entities) {
-                $entity->parent_country($parent_obj);
+    my @parent_ids = map { my $data = $_; map { $data->{$_} } values $types } @$containment;
+
+    my $parent_objects = $self->get_by_ids(@parent_ids);
+
+    for my $data (@$containment) {
+        if (my $entities = $obj_id_map{$data->{descendant}}) {
+            for my $type (values $types) {
+                my $parent_obj = $parent_objects->{$data->{$type}};
+                for my $entity (@$entities) {
+                    $entity->$type($parent_obj);
+                }
             }
         }
-    };
+    }
 }
 
 sub _set_codes
