@@ -8,6 +8,8 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 
 sub edit_field_names { qw() }
 
+has '+requires_edit_note' => ( default => 1 );
+
 has '+name' => ( default => 'merge' );
 
 has_field 'target' => (

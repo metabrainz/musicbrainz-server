@@ -645,6 +645,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     $self->edit_action($c,
         form        => 'Confirm',
+        form_args   => { requires_edit_note => 1 },
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
             release   => $release,

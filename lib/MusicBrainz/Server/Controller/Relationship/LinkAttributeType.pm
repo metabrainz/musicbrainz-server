@@ -123,7 +123,10 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
     my ($self, $c, $gid) = @_;
 
     my $link_attr_type = $c->stash->{link_attr_type};
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form(
+        form => 'Confirm',
+        requires_edit_note => 1
+    );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {
         $c->stash( template => $c->namespace . '/in_use.tt');

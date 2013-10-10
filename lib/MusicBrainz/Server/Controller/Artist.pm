@@ -36,8 +36,6 @@ use MusicBrainz::Server::Constants qw(
     $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
-use MusicBrainz::Server::Form::Artist;
-use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::FilterUtils qw(
     create_artist_release_groups_form

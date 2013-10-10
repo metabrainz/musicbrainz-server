@@ -25,8 +25,6 @@ use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 
-use MusicBrainz::Server::Form::Confirm;
-use MusicBrainz::Server::Form::Label;
 use Sql;
 
 =head1 NAME
