@@ -44,6 +44,7 @@ EOSQL
                         "release-events" => [{
                             date => "2001-07-04",
                             "area" => {
+                                disambiguation => '',
                                 "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                                 "name" => "Japan",
                                 "sort-name" => "Japan",
