@@ -25,7 +25,7 @@
                     [%- END -%]
                     [%- IF artist.begin_area %]
                         [% INCLUDE 'layout/sidebar/property.tt' label= artist_begin_area_label_from_type(artist.type_id)
-                            content=link_area(artist.begin_area)
+                            content=link_area_with_containment(artist.begin_area)
                             class="begin_area"
                         %]
                     [%- END -%]
@@ -44,13 +44,13 @@
                     [% END %]
                     [%- IF artist.end_area %]
                         [% INCLUDE 'layout/sidebar/property.tt' label= artist_end_area_label_from_type(artist.type_id)
-                            content=link_area(artist.end_area)
+                            content=link_area_with_containment(artist.end_area)
                             class="end_area"
                         %]
                     [%- END -%]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=link_area(artist.area)
+               content=link_area_with_containment(artist.area)
                class="area"
                    IF artist.area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]

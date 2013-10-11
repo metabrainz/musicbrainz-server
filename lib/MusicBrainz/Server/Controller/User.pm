@@ -234,7 +234,7 @@ after 'load' => sub {
     my $user = $c->stash->{entity};
 
     $c->model('Area')->load($user);
-
+    $c->model('Area')->load_containment($user->area);
 };
 
 =head2 contact

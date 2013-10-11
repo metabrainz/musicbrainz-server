@@ -19,21 +19,8 @@
     <p class="subheader">
         <span class="prefix">~</span>
              [% html_escape(area.l_type_name) or l('Area') %]
-             [%- IF area.parent_country %],
-                 [%- IF area.parent_subdivision %]
-                     [%- IF area.parent_city %]
-                         [% l('in {city}, {subdivision}, {country}',
-                              city => link_entity(area.parent_city),
-                              subdivision => link_entity(area.parent_subdivision),
-                              country => link_entity(area.parent_country)) -%]
-                     [%- ELSE %]
-                         [% l('in {subdivision}, {country}',
-                              subdivision => link_entity(area.parent_subdivision),
-                              country => link_entity(area.parent_country)) -%]
-                     [%- END -%]
-                 [%- ELSE %]
-                     [% l('in {country}', country => link_entity(area.parent_country)) -%]
-                 [%- END -%]
+             [%- IF area.parent_country || area.parent_subdivision || area.parent_city %],
+                 [% l('in {parent_areas}', parent_areas => link_area_containment(area)) -%]
              [%- END -%]
     </p>
 </div>

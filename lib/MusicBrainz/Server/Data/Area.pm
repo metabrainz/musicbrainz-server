@@ -122,8 +122,8 @@ sub load_containment
 
     my $use_object = sub {
         my $obj = $_;
-        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
         return 0 if !defined $obj;
+        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
         # for each containment type, subtract it only if it's already done or shouldn't be
         # if all containments are loaded, this ends up as 0
         return (scalar (keys $types)) - (scalar grep { defined $obj->{ $types->{$_} } || $obj_type == $_ } (keys $types));
