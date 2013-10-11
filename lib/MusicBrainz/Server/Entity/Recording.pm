@@ -42,6 +42,11 @@ has 'comment' => (
     isa => 'Str'
 );
 
+has 'video' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 has 'isrcs' => (
     isa     => 'ArrayRef',
     is      => 'ro',

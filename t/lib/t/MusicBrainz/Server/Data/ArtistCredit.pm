@@ -62,8 +62,13 @@ test 'Merging updates the complete name' => sub {
     $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
     $c->sql->commit;
 
-    my $ac = $artist_credit_data->get_by_id(1);
-    is( $ac->id, 1 );
+    my $artist_credit_id =
+        $c->sql->select_single_value(
+            'SELECT artist_credit FROM artist_credit_name WHERE artist = ?',
+            3
+        );
+    my $ac = $artist_credit_data->get_by_id($artist_credit_id);
+
     is( $ac->artist_count, 2, "2 artists in artist credit");
     is( $ac->name, "Queen & Merge", "Name is Queen & Merge");
     is( $ac->names->[0]->name, "Queen", "First artist credit is Queen");
@@ -80,7 +85,7 @@ test 'Merging updates the complete name' => sub {
     is( $ac->names->[1]->join_phrase, '' );
 
     my $name = $c->sql->select_single_value("
-        SELECT name FROM artist_credit ac WHERE id=1");
+        SELECT name FROM artist_credit ac WHERE id=?", $artist_credit_id);
     is( $name, "Queen & Merge", "Name is Queen & Merge" );
 };
 
@@ -282,6 +287,22 @@ ok($ac > 1);
 
 $ac = $artist_credit_data->get_by_id($ac);
 is(scalar $ac->all_names, 2);
+
+my $normalized_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => ' & ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+my $messy_ac = $artist_credit_data->find_or_insert({
+    names => [
+        { artist => { id => 1 }, name => 'Bob', join_phrase => '      &   ' },
+        { artist => { id => 2 }, name => 'Tom', join_phrase => '' },
+    ]
+});
+
+is($normalized_ac, $messy_ac);
 
 };
 

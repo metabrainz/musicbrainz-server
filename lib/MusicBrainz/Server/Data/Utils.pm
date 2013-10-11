@@ -40,6 +40,7 @@ our @EXPORT_OK = qw(
     load_subobjects
     map_query
     merge_table_attributes
+    merge_boolean_attributes
     merge_partial_date
     model_to_type
     object_to_ids
@@ -494,6 +495,31 @@ sub merge_table_attributes {
                      SELECT (id = ?) AS first, $_ AS new_val
                        FROM $table
                       WHERE $_ IS NOT NULL
+                        AND id IN (" . placeholders(@all_ids) . ")
+                   ORDER BY first DESC
+                      LIMIT 1
+                      ) s)";
+            } @columns) . '
+            WHERE id = ?',
+        (@all_ids, $new_id) x @columns, $new_id
+    );
+}
+
+sub merge_boolean_attributes {
+    my ($sql, %named_params) = @_;
+    my $table = $named_params{table} or confess 'Missing parameter $table';
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
+    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
+    my @all_ids = ($new_id, @old_ids);
+
+    $sql->do(
+        "UPDATE $table SET " .
+            join(',', map {
+                "$_ = (SELECT new_val FROM (
+                     SELECT (id = ?) AS first, $_ AS new_val
+                       FROM $table
+                      WHERE $_
                         AND id IN (" . placeholders(@all_ids) . ")
                    ORDER BY first DESC
                       LIMIT 1

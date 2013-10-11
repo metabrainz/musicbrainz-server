@@ -92,13 +92,16 @@ sub build_display_data {
         Release->new( name => $self->data->{entity}{name} );
 
     my $artwork = $loaded->{Artwork}{ $self->data->{cover_art_id} } ||
-        Artwork->new(release => $release,
-                     id => $self->data->{cover_art_id},
-                     comment => $self->data->{cover_art_comment},
-                     cover_art_types => [ map {
-                         $loaded->{CoverArtType}{$_}
-                     } @{ $self->data->{cover_art_types} }]
+        Artwork->new(
+            release => $release,
+            id => $self->data->{cover_art_id},
+            comment => $self->data->{cover_art_comment}
         );
+
+    $artwork->cover_art_types([
+        map { $loaded->{CoverArtType}{$_} }
+            @{ $self->data->{cover_art_types} }
+    ]);
 
     return {
         release => $release,

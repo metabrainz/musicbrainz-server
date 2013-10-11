@@ -15,7 +15,7 @@ sub query {
             JOIN release_group rg on rg.id = r.release_group
             LEFT JOIN release_country ON r.id = release_country.release
         WHERE
-            r.name ~ E'\((disc [0-9]+|bonus disc)(: .*)?\)'
+            r.name ~ E'\\\\((disc [0-9]+|bonus disc)(: .*)?\\\\)'
             AND NOT (rg.type = 2 AND release_country.country = 221)
     ";
 }

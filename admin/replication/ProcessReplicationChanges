@@ -169,21 +169,23 @@ if (my $totalrows = $sql->select($query))
         $sql2->do("DECLARE csr NO SCROLL CURSOR FOR $query", $XID);
 
         my @row2;
-        while (1) {
-            $sql2->select("FETCH FORWARD $limit FROM csr") or last;
-
+        my $pull = sub {
+            $sql2->finish;
+            $sql2->select("FETCH FORWARD $limit FROM csr");
+        };
+        while ($pull->())
+        {
             while(@row2 = $sql2->next_row)
             {
                 # TODO: Figure out how to handle errors here
-                if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID))
+                if (!mirrorCommand($row2[2], $sql2, $slave, \@row2, $XID, $pull))
                 {
                     die "Mirror command failed.\n";
                 }
                 ++$strows;
             }
-
-            $sql2->finish;
         }
+        $sql2->finish;
 
         $sql2->do("CLOSE csr");
         $slave->do(qq[DELETE FROM dbmirror_pending WHERE XID = ?], $XID);
@@ -236,7 +238,7 @@ exit;
 
 sub mirrorCommand
 {
-    my ($op, $result, $slave, $row, $transId)  = @_;
+    my ($op, $result, $slave, $row, $transId, $pull)  = @_;
 
     my $table = $row->[1];
     $table =~ s/^"public"\.//;
@@ -259,7 +261,7 @@ sub mirrorCommand
     {
         ++$upd;
         ++$t->[1];
-        return mirrorUpdate($result, $slave, $row, $transId);
+        return mirrorUpdate($result, $slave, $row, $transId, $pull);
     }
     return 0;
 }
@@ -304,7 +306,7 @@ sub mirrorDelete
 
 sub mirrorUpdate
 {
-    my ($result, $slave, $row, $transId) = @_;
+    my ($result, $slave, $row, $transId, $pull) = @_;
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
@@ -312,6 +314,11 @@ sub mirrorUpdate
         or die;
 
     my @row2 = $result->next_row;
+    if (!@row2) {
+        unless ($pull->() and @row2 = $result->next_row) {
+            die 'Unable to find required data to perform UPDATE';
+        }
+    }
     my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);

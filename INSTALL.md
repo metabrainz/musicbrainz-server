@@ -143,7 +143,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
     There are also a few development headers that will be needed when installing
     dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl cpanminus
 
 3.  Enable local::lib
 

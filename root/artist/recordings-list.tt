@@ -19,6 +19,9 @@
               [% END %]
             </th>
             [% END %]
+            [%- IF show_video -%]
+                <th class="video c"></th>
+            [%- END -%]
             <th>[%- l('Name') -%]</th>
             [%- IF show_artists -%]
                 <th>[%- l('Artist') -%]</th>
@@ -33,6 +36,9 @@
           [% IF recording.gid %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_recording_ns(recording) %]>
               [% PROCESS recording_row_prefix UNLESS no_prefix %]
+              [%- IF show_video -%]
+                  <td class="video c">[%- IF recording.video -%]<img src="/static/images/icons/video.png" alt="This recording is a video" title="This recording is a video" class="bottom"/>[%- END -%]</td>
+              [%- END -%]
               <td>
                 [% rdfa_made_recording_link(recording) %]
                 [% disambiguation(recording) %]

@@ -53,13 +53,15 @@ require Exporter;
         is_valid_iso_3166_3
         encode_entities
         normalise_strings
+        is_nat
     )
 }
 
 use strict;
-use Encode qw( decode encode );
-use Date::Calc qw( check_date Delta_YMD );
 use Carp qw( carp cluck croak );
+use Date::Calc qw( check_date Delta_YMD );
+use Encode qw( decode encode );
+use Scalar::Util qw( looks_like_number );
 use Text::Unaccent qw( unac_string_utf16 );
 
 sub unaccent_utf16 ($)
@@ -265,6 +267,11 @@ sub normalise_strings
     } @_;
 
     wantarray ? @r : $r[-1];
+}
+
+sub is_nat {
+    my $n = shift;
+    return looks_like_number($n) && int($n) == $n && $n >= 0;
 }
 
 1;

@@ -145,7 +145,7 @@ sub search
         $extra_columns .= 'entity.type AS primary_type_id,'
             if ($type eq 'release_group');
 
-        $extra_columns = "entity.length,"
+        $extra_columns = "entity.length, entity.video,"
             if ($type eq "recording");
 
         $extra_columns .= 'entity.language, entity.script, entity.barcode,

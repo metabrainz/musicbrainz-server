@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -37,7 +37,7 @@ sub _table
 
 sub _columns
 {
-    return 'area.id, gid, area.name, area.sort_name, area.type, ' .
+    return 'area.id, gid, area.name, area.sort_name, area.comment, area.type, ' .
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
 }
@@ -64,6 +64,7 @@ sub _column_mapping
         type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
+        comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
         ended => 'ended'
@@ -112,12 +113,11 @@ sub load_codes
 sub load_parent_country
 {
     my ($self, @objs) = @_;
-    my $country_area_type = 1;
     my $area_area_parent_type = 356;
 
     my @objects_to_use = grep { defined $_ &&
                                 !defined $_->parent_country &&
-                                ( defined $_->type ? $_->type->id != $country_area_type : $_->type_id != $country_area_type)} @objs;
+                                ( defined $_->type ? $_->type->id != $AREA_TYPE_COUNTRY : $_->type_id != $AREA_TYPE_COUNTRY)} @objs;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
@@ -146,7 +146,7 @@ sub load_parent_country
         SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
         FROM     area_descendants
         JOIN     area ON area_descendants.parent = area.id
-        WHERE    area.type = $country_area_type
+        WHERE    area.type = $AREA_TYPE_COUNTRY
         AND      descendant IN (" . placeholders(@all_ids) . ")
         ORDER BY descendant, array_length(descendants, 1) ASC
     ";
@@ -340,6 +340,7 @@ sub _hash_to_row
         ended => 'ended',
         name => 'name',
         sort_name => 'sort_name',
+        map { $_ => $_ } qw( comment )
     });
 
     add_partial_date_to_row($row, $area->{begin_date}, 'begin_date');

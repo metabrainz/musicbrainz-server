@@ -239,7 +239,7 @@ ALTER SEQUENCE release_group_id_seq OWNED BY release_group2013.id;
 -- recording
 CREATE TABLE recording2013 AS
   SELECT recording.id, recording.gid, name.name, artist_credit,
-         length, comment, edits_pending, last_updated
+         length, comment, edits_pending, last_updated, FALSE as video
     FROM recording
     JOIN track_name name ON recording.name = name.id;
 
@@ -255,7 +255,9 @@ ALTER TABLE recording2013
   ALTER COLUMN comment SET NOT NULL,
   ALTER COLUMN edits_pending SET DEFAULT 0,
   ALTER COLUMN edits_pending SET NOT NULL,
-  ALTER COLUMN last_updated SET DEFAULT NOW();
+  ALTER COLUMN last_updated SET DEFAULT NOW(),
+  ALTER COLUMN video SET DEFAULT FALSE,
+  ALTER COLUMN video SET NOT NULL;
 
 ALTER SEQUENCE recording_id_seq OWNED BY recording2013.id;
 
@@ -679,6 +681,21 @@ ALTER TABLE editor_subscribe_artist_deleted
 
 ALTER TABLE editor_subscribe_label_deleted
   DROP CONSTRAINT IF EXISTS editor_subscribe_label_deleted_fk_gid;
+
+-- Drop views
+------------------------
+
+DROP VIEW IF EXISTS s_artist;
+DROP VIEW IF EXISTS s_artist_credit;
+DROP VIEW IF EXISTS s_artist_credit_name;
+DROP VIEW IF EXISTS s_label;
+DROP VIEW IF EXISTS s_recording;
+DROP VIEW IF EXISTS s_release;
+DROP VIEW IF EXISTS s_release_group;
+DROP VIEW IF EXISTS s_track;
+DROP VIEW IF EXISTS s_work;
+
+DROP VIEW IF EXISTS s_release_event;
 
 -- Drop dependent functions
 ------------------------

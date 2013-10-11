@@ -211,6 +211,7 @@ sub _area
         name    => $area->name,
         id      => $area->id,
         gid     => $area->gid,
+        comment => $area->comment,
         type    => $area->type_id,
         $area->type ? (typeName => $area->type->name) : (),
         $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
@@ -319,6 +320,7 @@ sub _recording
         $show_ac ? ( artist_credit  =>
             $self->_artist_credit($recording->artist_credit) ) : (),
         isrcs => [ map { $_->isrc } $recording->all_isrcs ],
+        video   => $recording->video ? 1 : 0
     };
 }
 

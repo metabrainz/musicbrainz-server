@@ -14,6 +14,7 @@ use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     generate_gid
     hash_to_row
+    merge_boolean_attributes
     merge_table_attributes
     placeholders
     load_subobjects
@@ -40,7 +41,7 @@ sub _columns
 {
     return 'recording.id, recording.gid, recording.name,
             recording.artist_credit AS artist_credit_id,
-            recording.length, recording.comment,
+            recording.length, recording.comment, recording.video,
             recording.edits_pending, recording.last_updated';
 }
 sub _column_mapping
@@ -52,6 +53,7 @@ sub _column_mapping
         artist_credit_id => 'artist_credit_id',
         length           => 'length',
         comment          => 'comment',
+        video            => 'video',
         edits_pending    => 'edits_pending',
         last_updated     => 'last_updated',
     };
@@ -208,6 +210,7 @@ sub _hash_to_row
 {
     my ($self, $recording) = @_;
     my $row = hash_to_row($recording, {
+        video => 'video',
         map { $_ => $_ } qw( artist_credit length comment name )
     });
 
@@ -248,6 +251,15 @@ sub _merge_impl
         )
     );
 
+    merge_boolean_attributes(
+        $self->sql => (
+            table => 'recording',
+            columns => [ qw( video ) ],
+            old_ids => \@old_ids,
+            new_id => $new_id
+        )
+    );
+
     $self->_delete_and_redirect_gids('recording', $new_id, @old_ids);
     return 1;
 }
@@ -270,6 +282,22 @@ sub find_standalone
         $query, $artist_id, $offset || 0);
 }
 
+sub find_video
+{
+    my ($self, $artist_id, $limit, $offset) = @_;
+    my $query ='
+        SELECT ' . $self->_columns . '
+          FROM ' . $self->_table . '
+          JOIN artist_credit_name acn
+            ON acn.artist_credit = recording.artist_credit
+         WHERE video IS TRUE
+           AND acn.artist = ?
+      ORDER BY musicbrainz_collate(recording.name)
+        OFFSET ?';
+    return query_to_list_limited(
+        $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
+        $query, $artist_id, $offset || 0);
+}
 =method appears_on
 
 This method will return a list of release groups the recordings appear

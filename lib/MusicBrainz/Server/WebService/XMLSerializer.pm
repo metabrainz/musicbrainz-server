@@ -528,7 +528,7 @@ sub _serialize_recording
     push @list, $gen->title($recording->name);
     push @list, $gen->length($recording->length) if $recording->length;
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
-
+    push @list, $gen->video('true') if $recording->video;
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $recording, $inc, $opts);
@@ -806,6 +806,7 @@ sub _serialize_area_inner
     my @list;
     push @list, $gen->name($area->name);
     push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    push @list, $gen->disambiguation($area->comment) if ($area->comment);
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {
            $gen->iso_3166_1_code($_);
