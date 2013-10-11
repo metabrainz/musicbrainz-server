@@ -219,6 +219,7 @@ sub merge_artists
                array_agg(join_phrase ORDER BY position ASC)
              FROM (
                SELECT artist.id, artist.name
+               FROM artist
                WHERE artist.id = ?
              ) new_artist,
              (
