@@ -6,4 +6,14 @@
 
 <table class="details edit-relationship">
   [%- display_relationship_differences(l('Relationship:'), old_rel, new_rel) -%]
+
+  [% IF edit.display_data.unknown_attributes %]
+  <tr>
+    <th></th>
+    <td colspan="2">
+      [% l('This relationship edit also included changes to relationship attributes
+            which no longer exists.') %]
+    </td>
+  </tr>
+  [% END %]
 </table>

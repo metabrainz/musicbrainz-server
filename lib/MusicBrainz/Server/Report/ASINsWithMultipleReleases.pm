@@ -20,7 +20,7 @@ sub query {
                 FROM
                     url JOIN l_release_url lru ON lru.entity1 = url.id
                 WHERE
-                    url ~ '^http://www.amazon.(com|ca|co.uk|fr|de|it|es|co.jp|cn)'
+                    url ~ E'^http://www\\\\.amazon\\\\.(com|ca|co\\\\.uk|fr|de|it|es|co\\\\.jp|cn)'
                 GROUP BY
                     url.id, url.gid, url HAVING COUNT(url) > 1
             ) AS q
