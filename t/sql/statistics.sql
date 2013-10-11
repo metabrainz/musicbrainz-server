@@ -17,16 +17,14 @@ INSERT INTO edit (id, editor, type, status, data, expire_time)
 INSERT INTO edit (id, editor, type, status, data, expire_time)
     VALUES (6, 3, 123, 1, '{ "key": "value" }', NOW());
 
-INSERT INTO artist_name (id, name) VALUES (1, 'artist');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 2'),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 3'),
-           (4, '445c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 4');
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 1'),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 2'),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 3'),
+           (4, '445c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist', 'Artist 4');
 
-INSERT INTO label_name (id, name) VALUES (1, 'label');
 INSERT INTO label (id, gid, name, sort_name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'label', 1);
 
 INSERT INTO edit_artist (edit, artist) VALUES (1, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 1);
@@ -44,19 +42,17 @@ INSERT INTO label_isni (label, isni) VALUES (1, '0000000106750994');
 
 INSERT INTO editor (id, name, password, privs, email, website, bio, email_confirm_date, member_since, last_login_date, edits_accepted, edits_rejected, auto_edits_accepted, edits_failed, ha1) VALUES (10, 'caa_editor', '{CLEARTEXT}password', 0, 'test@editor.org', 'http://musicbrainz.org', 'biography', '2005-10-20', '1989-07-23', now(), 12, 2, 59, 9, 'a0f97d2b669b73949f14743e885a8a4b');
 
-INSERT INTO artist_name (id, name) VALUES (155, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (155, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1);
+    VALUES (155, '945c079d-374e-4436-9448-da92dedef3cf', 'artist', 'artist');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (155, 155, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (155, 'Artist', 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (155, 0, 155, 155, '');
+    VALUES (155, 0, 155, 'Artist', '');
 
-INSERT INTO release_name (id, name) VALUES (155, 'Release');
 INSERT INTO release_group (id, gid, name, artist_credit)
-  VALUES (155, '54b9d183-7dab-42ba-94a3-7388a66604b8', 155, 155);
+  VALUES (155, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Release', 155);
 INSERT INTO release (id, gid, name, artist_credit, release_group)
-  VALUES (155, '14b9d183-7dab-42ba-94a3-7388a66604b8', 155, 155, 155);
+  VALUES (155, '14b9d183-7dab-42ba-94a3-7388a66604b8', 'Release', 155, 155);
 
 INSERT INTO edit (id, editor, type, data, status, expire_time) VALUES (130, 10, 316, '', 2, now());
 INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering) VALUES (12345, 155, 'image/jpeg', 130, 1);

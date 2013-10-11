@@ -418,27 +418,18 @@ ws_test 'release lookup with discids and puids',
                         <position>1</position><number>1</number><title>Summer Reggae! Rainbow</title><length>296026</length>
                         <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
                             <title>サマーれげぇ!レインボー</title><length>296026</length>
-                            <puid-list count="1">
-                                <puid id="cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" />
-                            </puid-list>
                         </recording>
                     </track>
                     <track id="c7c21691-6f85-3ec7-9b08-e431c3b310a5">
                         <position>2</position><number>2</number><title>Hello! Mata Aou Ne (7nin Matsuri version)</title><length>213106</length>
                         <recording id="487cac92-eed5-4efa-8563-c9a818079b9a">
                             <title>HELLO! また会おうね (7人祭 version)</title><length>213106</length>
-                            <puid-list count="1">
-                                <puid id="251bd265-84c7-ed8f-aecf-1d9918582399" />
-                            </puid-list>
                         </recording>
                     </track>
                     <track id="e436c057-ca19-36c6-9f1e-dc4ada2604b0">
                         <position>3</position><number>3</number><title>Summer Reggae! Rainbow (Instrumental)</title><length>292800</length>
                         <recording id="eb818aa4-d472-4d2b-b1a9-7fe5f1c7d26e">
                             <title>サマーれげぇ!レインボー (instrumental)</title><length>292800</length>
-                            <puid-list count="1">
-                                <puid id="7b8a868f-1e67-852b-5141-ad1edfb1e492" />
-                            </puid-list>
                         </recording>
                     </track>
                 </track-list>

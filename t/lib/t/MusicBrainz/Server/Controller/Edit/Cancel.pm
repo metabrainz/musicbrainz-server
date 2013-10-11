@@ -63,9 +63,8 @@ sub prepare {
     my $mech = $test->mech;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'artist');
 INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 1, 1);
+  VALUES (1, 'e69a970a-e916-11e0-a751-00508db50876', 'artist', 'artist');
 INSERT INTO editor (id, name, password, email, ha1, email_confirm_date) VALUES (1, 'editor1', '{CLEARTEXT}pass', 'editor1@example.com', '16a4862191803cb596ee4b16802bb7ee', now())
 EOSQL
 

@@ -241,7 +241,7 @@ test 'recording lookup with puids and isrcs' => sub {
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             length => 296026,
-            puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
+            puids => [ ],
             isrcs => [ "JPA600102450" ],
         });
 };

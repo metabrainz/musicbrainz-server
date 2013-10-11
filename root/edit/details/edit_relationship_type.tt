@@ -34,6 +34,13 @@
                         html_escape(edit.data.old.child_order),
                         html_escape(edit.data.new.child_order)) -%]
 
+  [%- IF edit.data.old.is_deprecated != edit.data.new.is_deprecated %]
+  [%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
+  [%- display_full_change(l('Deprecated:'),
+                          yesno(edit.data.old.is_deprecated),
+                          yesno(edit.data.new.is_deprecated)) -%]
+  [% END %]
+
   [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>

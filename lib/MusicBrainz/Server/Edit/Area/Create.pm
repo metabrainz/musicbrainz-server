@@ -26,6 +26,7 @@ has '+data' => (
         name       => Str,
         gid        => Optional[Str],
         sort_name  => Optional[Str],
+        comment    => Nullable[Str],
         type_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
         end_date   => Nullable[PartialDateHash],
@@ -60,6 +61,7 @@ sub build_display_data
 
     return {
         ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name ) ),
+        comment    => $self->data->{comment},
         type       => $type ? $loaded->{AreaType}->{$type} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),

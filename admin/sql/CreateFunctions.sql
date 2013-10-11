@@ -617,6 +617,8 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_artist_label
   EXCEPT
+  SELECT entity0 FROM l_artist_place
+  EXCEPT
   SELECT entity0 FROM l_artist_recording
   EXCEPT
   SELECT entity0 FROM l_artist_release
@@ -655,6 +657,8 @@ $BODY$
   SELECT entity1 FROM l_label_label
   EXCEPT
   SELECT entity0 FROM l_label_label
+  EXCEPT
+  SELECT entity0 FROM l_label_place
   EXCEPT
   SELECT entity0 FROM l_label_recording
   EXCEPT
@@ -695,6 +699,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_label_release_group
   EXCEPT
+  SELECT entity1 FROM l_place_release_group
+  EXCEPT
   SELECT entity1 FROM l_recording_release_group
   EXCEPT
   SELECT entity1 FROM l_release_release_group
@@ -734,6 +740,8 @@ $BODY$
   EXCEPT
   SELECT entity1 FROM l_label_work
   EXCEPT
+  SELECT entity1 FROM l_place_work
+  EXCEPT
   SELECT entity1 FROM l_recording_work
   EXCEPT
   SELECT entity1 FROM l_release_work
@@ -745,6 +753,47 @@ $BODY$
   SELECT entity1 FROM l_work_work
   EXCEPT
   SELECT entity0 FROM l_work_work;
+$BODY$
+LANGUAGE 'sql';
+
+-------------------------------------------------------------------
+-- Find places that are empty, and have not been updated within the
+-- last 1 day
+-------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION empty_places() RETURNS SETOF int AS
+$BODY$
+  SELECT id FROM place
+  WHERE
+    edits_pending = 0 AND
+    (
+      last_updated < now() - '1 day'::interval OR last_updated is NULL
+    )
+  EXCEPT
+  SELECT place
+  FROM edit_place
+  JOIN edit ON (edit.id = edit_place.edit)
+  WHERE edit.status = 1
+  EXCEPT
+  SELECT entity1 FROM l_area_place
+  EXCEPT
+  SELECT entity1 FROM l_artist_place
+  EXCEPT
+  SELECT entity1 FROM l_label_place
+  EXCEPT
+  SELECT entity1 FROM l_place_place
+  EXCEPT
+  SELECT entity0 FROM l_place_place
+  EXCEPT
+  SELECT entity1 FROM l_place_recording
+  EXCEPT
+  SELECT entity1 FROM l_place_release
+  EXCEPT
+  SELECT entity1 FROM l_place_release_group
+  EXCEPT
+  SELECT entity1 FROM l_place_url
+  EXCEPT
+  SELECT entity1 FROM l_place_work;
 $BODY$
 LANGUAGE 'sql';
 
@@ -929,6 +978,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION unique_primary_place_alias()
+RETURNS trigger AS $$
+BEGIN
+    IF NEW.primary_for_locale THEN
+      UPDATE place_alias SET primary_for_locale = FALSE
+      WHERE locale = NEW.locale AND id != NEW.id
+        AND place = NEW.place;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION unique_primary_work_alias()
 RETURNS trigger AS $$
 BEGIN
@@ -1021,7 +1082,6 @@ AS $$
       DELETE FROM isrc WHERE recording = OLD.recording;
       DELETE FROM recording_annotation WHERE recording = OLD.recording;
       DELETE FROM recording_gid_redirect WHERE new_id = OLD.recording;
-      DELETE FROM recording_puid WHERE recording = OLD.recording;
       DELETE FROM recording_rating_raw WHERE recording = OLD.recording;
       DELETE FROM recording_tag WHERE recording = OLD.recording;
       DELETE FROM recording_tag_raw WHERE recording = OLD.recording;
@@ -1082,6 +1142,18 @@ BEGIN
   ELSE
     RETURN NEW;
   END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION deny_deprecated_links()
+RETURNS trigger AS $$
+BEGIN
+  IF (TG_OP = 'INSERT' OR (TG_OP = 'UPDATE' AND OLD.link_type <> NEW.link_type))
+    AND (SELECT is_deprecated FROM link_type WHERE id = NEW.link_type)
+  THEN
+    RAISE EXCEPTION 'Attempt to create or change a relationship into a deprecated relationship type';
+  END IF;
+  RETURN NEW;
 END;
 $$ LANGUAGE 'plpgsql';
 

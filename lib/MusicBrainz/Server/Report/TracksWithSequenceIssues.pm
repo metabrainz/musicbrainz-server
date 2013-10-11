@@ -17,7 +17,7 @@ sub query {
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
     <<'EOSQL'
 SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(rel_name.name))
+  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
 FROM
 (
   SELECT DISTINCT release.*
@@ -39,7 +39,6 @@ FROM
      OR last_track != s.track_count
      OR (s.track_count * (1 + s.track_count)) / 2 <> track_pos_acc
 ) release
-JOIN release_name rel_name ON rel_name.id = release.name
 EOSQL
 }
 

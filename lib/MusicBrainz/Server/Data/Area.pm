@@ -20,7 +20,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
@@ -37,7 +37,7 @@ sub _table
 
 sub _columns
 {
-    return 'area.id, gid, area.name, area.sort_name, area.type, ' .
+    return 'area.id, gid, area.name, area.sort_name, area.comment, area.type, ' .
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
 }
@@ -54,8 +54,6 @@ sub _gid_redirect_table
     return 'area_gid_redirect';
 }
 
-sub _table_join_name {}
-
 sub _column_mapping
 {
     return {
@@ -66,6 +64,7 @@ sub _column_mapping
         type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
+        comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
         ended => 'ended'
@@ -341,6 +340,7 @@ sub _hash_to_row
         ended => 'ended',
         name => 'name',
         sort_name => 'sort_name',
+        map { $_ => $_ } qw( comment )
     });
 
     add_partial_date_to_row($row, $area->{begin_date}, 'begin_date');

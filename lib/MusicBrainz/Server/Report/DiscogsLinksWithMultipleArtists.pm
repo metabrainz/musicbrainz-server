@@ -9,7 +9,7 @@ sub query {
     "
         SELECT
             a.id AS artist_id, q.id AS url_id, q.count,
-            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(an.name))
+            row_number() OVER (ORDER BY q.count DESC, q.url, musicbrainz_collate(a.name))
         FROM
             (
                 SELECT
@@ -23,7 +23,6 @@ sub query {
             ) AS q
             JOIN l_artist_url lau ON lau.entity1 = q.id
             JOIN artist a ON a.id = lau.entity0
-            JOIN artist_name an ON an.id = a.name
     ";
 }
 

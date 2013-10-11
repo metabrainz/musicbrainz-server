@@ -341,6 +341,7 @@ sub ImportAllTables
         edit_artist
         edit_label
         edit_note
+        edit_place
         edit_recording
         edit_release
         edit_release_group
@@ -348,6 +349,7 @@ sub ImportAllTables
         edit_work
         label_rating_raw
         label_tag_raw
+        place_tag_raw
         recording_rating_raw
         recording_tag_raw
         release_group_rating_raw
@@ -380,13 +382,11 @@ sub ImportAllTables
         artist_ipi
         artist_isni
         artist_meta
-        artist_name
         artist_tag
         artist_type
         autoeditor_election
         autoeditor_election_vote
         cdtoc
-        clientversion
         editor
         editor_oauth_token
         editor_preference
@@ -406,6 +406,7 @@ sub ImportAllTables
         l_area_area
         l_area_artist
         l_area_label
+        l_area_place
         l_area_recording
         l_area_release
         l_area_release_group
@@ -413,17 +414,25 @@ sub ImportAllTables
         l_area_work
         l_artist_artist
         l_artist_label
+        l_artist_place
         l_artist_recording
         l_artist_release
         l_artist_release_group
         l_artist_url
         l_artist_work
         l_label_label
+        l_label_place
         l_label_recording
         l_label_release
         l_label_release_group
         l_label_url
         l_label_work
+        l_place_place
+        l_place_recording
+        l_place_release
+        l_place_release_group
+        l_place_url
+        l_place_work
         l_recording_recording
         l_recording_release
         l_recording_release_group
@@ -447,7 +456,6 @@ sub ImportAllTables
         label_ipi
         label_isni
         label_meta
-        label_name
         label_tag
         label_type
         language
@@ -463,12 +471,17 @@ sub ImportAllTables
         medium
         medium_cdtoc
         medium_format
-        puid
+        place
+        place_alias
+        place_alias_type
+        place_annotation
+        place_gid_redirect
+        place_tag
+        place_type
         recording
         recording_annotation
         recording_gid_redirect
         recording_meta
-        recording_puid
         recording_tag
         release
         release_annotation
@@ -485,7 +498,6 @@ sub ImportAllTables
         release_label
         release_meta
         release_coverart
-        release_name
         release_packaging
         release_status
         release_tag
@@ -497,7 +509,6 @@ sub ImportAllTables
         tag_relation
         track
         track_gid_redirect
-        track_name
         medium_index
         url
         url_gid_redirect
@@ -510,7 +521,6 @@ sub ImportAllTables
         work_attribute_type_allowed_value
         work_gid_redirect
         work_meta
-        work_name
         work_tag
         work_type
 

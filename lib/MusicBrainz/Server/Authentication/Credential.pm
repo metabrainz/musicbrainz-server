@@ -10,7 +10,7 @@ sub new {
 sub authenticate {
     my ($self, $c, $realm, $authinfo) = @_;
     if (my $user = $realm->find_user($authinfo, $c)) {
-        return $user if $user->match_password($authinfo->{password});
+        return $user if $user->match_password($authinfo->{password}) && !$user->deleted;
     }
 
     return;

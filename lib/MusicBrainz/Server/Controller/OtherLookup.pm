@@ -156,13 +156,6 @@ lookup_handler 'label-isni' => sub {
     $c->detach;
 };
 
-lookup_handler 'puid' => sub {
-    my ($self, $c, $puid) = @_;
-
-    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
-    $c->detach;
-};
-
 lookup_handler 'discid' => sub {
     my ($self, $c, $discid) = @_;
 

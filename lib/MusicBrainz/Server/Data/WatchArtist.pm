@@ -23,11 +23,10 @@ has 'date_formatter' => (
 sub find_watched_artists {
     my ($self, $editor_id) = @_;
     my $query =
-        'SELECT artist_name.name AS a_name, artist.id AS a_id,
+        'SELECT artist.name AS a_name, artist.id AS a_id,
                 artist.gid AS a_gid
            FROM editor_watch_artist
            JOIN artist ON editor_watch_artist.artist = artist.id
-           JOIN artist_name ON artist_name.id = artist.name
           WHERE editor = ?';
 
     return query_to_list(
