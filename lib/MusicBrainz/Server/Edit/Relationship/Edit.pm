@@ -154,9 +154,15 @@ sub _build_relationship
             attributes => [
                 map {
                     my $attr    = $loaded->{LinkAttributeType}{ $_ };
-                    my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                    $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                    $attr;
+
+                    if ($attr) {
+                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
+                        $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
+                        $attr;
+                    }
+                    else {
+                        ();
+                    }
                 } @$attributes
             ]
         ),
@@ -177,6 +183,12 @@ sub build_display_data
     return {
         old => $self->_build_relationship ($loaded, $self->data, $old),
         new => $self->_build_relationship ($loaded, $self->data, $new),
+        unknown_attributes => scalar(
+            grep { !exists $loaded->{LinkAttributeType}{$_} }
+                @{ $old->{attributes} // [] },
+                @{ $new->{attributes} // [] },
+                @{ $self->data->{link}{attributes} // [] }
+        )
     };
 }
 

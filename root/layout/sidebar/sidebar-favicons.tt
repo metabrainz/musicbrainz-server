@@ -1,6 +1,6 @@
 [%- MACRO display_favicon(url, text, class) BLOCK -%]
        <li class="[% class || favicon_class(url) %]">
-          <a href="[% url.affiliate_url %]">[%- text || url.sidebar_name | html -%]</a>
+          <a href="[% url.href_url %]">[%- text || url.sidebar_name | html -%]</a>
         </li>
 [%- END -%]
 

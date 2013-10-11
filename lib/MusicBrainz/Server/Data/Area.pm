@@ -2,7 +2,7 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -115,7 +115,7 @@ sub load_containment
     my ($self, @objs) = @_;
     my $area_area_parent_type = 356;
     my $types = {
-        1 => 'parent_country',
+        $AREA_TYPE_COUNTRY => 'parent_country',
         2 => 'parent_subdivision',
         3 => 'parent_city',
     };

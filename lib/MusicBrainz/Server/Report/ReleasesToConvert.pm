@@ -12,7 +12,7 @@ sub query {
         JOIN medium ON medium.id = track.medium
         JOIN release ON medium.release = release.id
         JOIN artist_credit ON release.artist_credit = artist_credit.id
-        WHERE track.name ~* E'[^\\d]-[^\\d]' OR track.name LIKE '%/%'
+        WHERE track.name ~* E'[^\\\\d]-[^\\\\d]' OR track.name LIKE '%/%'
         GROUP BY release.id, release.name, medium.id, medium.track_count, artist_credit.name
         HAVING count(*) = medium.track_count
     ";

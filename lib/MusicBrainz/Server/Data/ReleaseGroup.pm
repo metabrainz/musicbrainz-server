@@ -16,8 +16,9 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-use MusicBrainz::Server::Constants '$VARTIST_ID';
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
@@ -678,6 +679,33 @@ sub merge_releases {
             # whether it is set or not.
         }
     }
+}
+
+sub is_empty {
+    my ($self, $release_group_id) = @_;
+
+    my $used_in_relationship =
+        used_in_relationship($self->c, release_group => 'release_group_row.id');
+
+    return $self->sql->select_single_value(<<EOSQL, $release_group_id, $STATUS_OPEN);
+        SELECT TRUE
+        FROM release_group release_group_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_release_group
+            JOIN edit ON edit.id = edit_release_group.edit
+            WHERE status = ? AND release_group = release_group_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM release
+            WHERE release.release_group = release_group_row.id
+            LIMIT 1
+          ) OR
+          $used_in_relationship
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

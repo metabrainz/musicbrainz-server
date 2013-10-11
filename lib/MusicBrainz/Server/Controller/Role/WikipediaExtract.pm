@@ -15,6 +15,7 @@ sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
 
     $self->_get_extract($c, 0);
 
+    $c->res->headers->header('X-Robots-Tag' => 'noindex');
     $c->stash->{template} = 'components/wikipedia_extract.tt';
 }
 

@@ -26,6 +26,8 @@ sub pretty_name
 
 sub sidebar_name { shift->pretty_name }
 
+sub url_is_scheme_independent { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
