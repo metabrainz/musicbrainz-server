@@ -185,7 +185,6 @@ sub show : PathPart('') Chained('load')
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
             });
-            $c->stash( standalone_only => 1 );
 	}
 
         $c->stash(
