@@ -36,6 +36,7 @@ sub change_fields
             type => Optional[Int], # Used in the new edits
         ]]],
         documentation => Optional[Str],
+        is_deprecated => Optional[Bool],
         examples => Optional[ArrayRef[Dict[
             relationship => Dict[
                 id => Int,

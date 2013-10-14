@@ -9,10 +9,11 @@ sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;
     my $area_cols = $self->_area_cols;
+    my $name_column = $self->isa('MusicBrainz::Server::Data::Place') ? 'name' : 'name.name';
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE " . join(" OR ", map { $_ . " = ?" } @$area_cols ) . "
-                 ORDER BY musicbrainz_collate(name.name), id
+                 ORDER BY musicbrainz_collate(name), id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },

@@ -100,7 +100,7 @@ lookup_handler 'iswc' => sub {
         );
     }
     else {
-        $c->detach('not_found');
+        $self->not_found($c);
     }
 };
 
@@ -153,13 +153,6 @@ lookup_handler 'label-isni' => sub {
             advanced => '1',
         }));
 
-    $c->detach;
-};
-
-lookup_handler 'puid' => sub {
-    my ($self, $c, $puid) = @_;
-
-    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
     $c->detach;
 };
 

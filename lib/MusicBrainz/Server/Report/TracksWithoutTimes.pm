@@ -8,18 +8,16 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     <<'EOSQL'
 SELECT release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(release_name.name))
+  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
 FROM (
   SELECT release.id
   FROM track
   JOIN medium ON track.medium = medium.id
   JOIN release ON medium.release = release.id
-  JOIN release_name ON release.name = release_name.id
   WHERE track.length is null
   GROUP BY release.id
 ) s
 JOIN release ON s.id = release.id
-JOIN release_name ON release_name.id = release.name
 EOSQL
 }
 

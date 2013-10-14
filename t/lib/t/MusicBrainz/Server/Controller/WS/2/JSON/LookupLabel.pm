@@ -29,6 +29,7 @@ test 'basic label lookup' => sub {
                 ended => JSON::false,
             },
             "area" => {
+                disambiguation => '',
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
@@ -63,6 +64,7 @@ test 'basic label lookup, inc=annotation' => sub {
                 ended => JSON::false,
             },
             "area" => {
+                disambiguation => '',
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
@@ -94,6 +96,7 @@ test 'label lookup, inc=aliases' => sub {
                 ended => JSON::false,
             },
             "area" => {
+                disambiguation => '',
                 "id"  => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
@@ -128,6 +131,7 @@ test 'label lookup with releases, inc=media' => sub {
                 ended => JSON::false,
             },
             "area" => {
+                disambiguation => '',
                 "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                 "name" => "United Kingdom",
                 "sort-name" => "United Kingdom",
@@ -146,6 +150,7 @@ test 'label lookup with releases, inc=media' => sub {
                     "release-events" => [{
                         date => "2008-11-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
@@ -182,6 +187,7 @@ test 'label lookup with releases, inc=media' => sub {
                     "release-events" => [{
                         date => "2007-01-29",
                         "area" => {
+                            disambiguation => '',
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",

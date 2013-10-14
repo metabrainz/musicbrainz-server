@@ -204,7 +204,7 @@ sub CACHE_MANAGER_OPTIONS {
             memory => {
                 class => 'Cache::Memory',
                 wrapped => 1,
-                keys => [qw( at g c lng lt mf rgt rs rp scr wt )],
+                keys => [qw( at g c lng lt mf place_types rgt rs rp scr wt )],
                 options => {
                     default_expires => '1 hour',
                 },

@@ -124,7 +124,20 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $response = $self->c->lwp->get($doc_url);
+    my $response;
+    my $retries_remaining = int(25.0 / $self->c->lwp->timeout);
+    while (!defined($response) && --$retries_remaining > 0) {
+        $response = $self->c->lwp->get($doc_url);
+
+        # The wiki responds using chunked transfer encoding. Occasionally, a
+        # chunk gets delayed, and the LWP timeout fires causing the response to
+        # only be partially completed. In this case, the X-Died header is set.
+        # If this happens, we retry the request.
+        my $x_died = $response->headers->header("X-Died");
+        $response = undef if ($x_died && $x_died =~ /read timeout/);
+    }
+
+    return undef unless $response;
 
     if (!$response->is_success) {
         if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {

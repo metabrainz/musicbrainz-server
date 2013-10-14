@@ -159,12 +159,12 @@ sub find_for_cdstub {
            FROM (
                     SELECT id, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank,
                            name
-                    FROM release_name, plainto_tsquery('mb_simple', ?) AS query
+                    FROM release, plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query
                     ORDER BY rank DESC
                     LIMIT ?
                 ) AS name
-           JOIN release ON name.id = release.name
+           JOIN release ON name.id = release.id
            JOIN medium ON medium.release = release.id
       LEFT JOIN medium_format ON medium.format = medium_format.id
           WHERE track_count = ? AND (medium_format.id IS NULL OR medium_format.has_discids)

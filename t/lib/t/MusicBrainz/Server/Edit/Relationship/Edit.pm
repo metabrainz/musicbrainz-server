@@ -111,18 +111,17 @@ test 'Editing a relationship refreshes existing cover art' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
-INSERT INTO release_name (id, name) VALUES (1, 'Release');
 INSERT INTO artist (id, gid, name, sort_name)
-  VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 1, 1);
-INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 1);
+  VALUES (1, '9d0ed9ec-ebd4-40d3-80ec-af70c07c3667', 'Artist', 'Artist');
+INSERT INTO artist_credit (id, artist_count, name) VALUES (1, 1, 'Artist');
+
 INSERT INTO release_group (id, name, artist_credit, gid)
-  VALUES (1, 1, 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
+  VALUES (1, 'Release', 1, '8265e53b-94d8-4700-bcd2-c3d25dcf104d');
 INSERT INTO release (id, gid, artist_credit, name, release_group)
-  VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 1, 1),
-         (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 1, 1);
+  VALUES (1, 'aa289662-5b07-425c-a3e7-bbb6898ff46d', 1, 'Release', 1),
+         (2, '362e3ac2-5afb-4d14-95be-3b808da95121', 1, 'Release', 1);
 UPDATE release_coverart
-SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
+  SET cover_art_url = 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg';
 INSERT INTO url (id, gid, url)
   VALUES (1, '24332737-b876-4d5e-9c30-e414b4570bda', 'http://www.archive.org/download/CoverArtsForVariousAlbum/karenkong-mulakan.jpg');
 

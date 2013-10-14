@@ -98,7 +98,8 @@ $artist_data->alias->insert({
     name => 'New alias',
     sort_name => 'New sort name',
     locale => 'en_AU',
-    primary_for_locale => 0
+    primary_for_locale => 0,
+    ended => 0
 });
 
 $alias_set = $artist_data->alias->find_by_entity_id(1);
@@ -124,11 +125,10 @@ test 'Merging should not add aliases identical to new name' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'Artist 1'),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 1, 1, 'Artist 2'),
-           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 2, 2, '');
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Name', 'Name', 'Artist 1'),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 'Name', 'Name', 'Artist 2'),
+           (3, '686cdcc0-7218-11de-8a39-0800200c9a66', 'Old name', 'Old name', '');
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2, 3);
@@ -144,11 +144,10 @@ test 'Merging should not add aliases that already exist' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2);
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Name', 'Name'),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 'Old name', 'Old name');
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 'Old name', 'Old name');
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);
@@ -164,11 +163,12 @@ test 'Merging should preserve primary_for_locale' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale) VALUES (1, 2, 2, 'en_GB', FALSE), (2, 3, 3, 'en_GB', TRUE);
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Name', 'Name'),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 'Old name', 'Old name');
+INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale)
+    VALUES (1, 'Old name', 'Old name', 'en_GB', FALSE),
+           (2, 'Foo name', 'Foo name', 'en_GB', TRUE);
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);
@@ -193,11 +193,12 @@ test 'Multiple aliases with a locale are preserved on merge' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name'), (4, 'Extra name');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2);
-INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale) VALUES (1, 4, 4, 'en_GB', FALSE), (2, 3, 3, 'en_GB', TRUE);
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Name', 'Name'),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 'Old name', 'Old name');
+INSERT INTO artist_alias (artist, name, sort_name, locale, primary_for_locale)
+    VALUES (1, 'Extra name', 'Extra name', 'en_GB', FALSE),
+           (2, 'Foo name', 'Foo name', 'en_GB', TRUE);
 EOSQL
 
     $c->model('Artist')->alias->merge(1, 2);
@@ -227,12 +228,11 @@ test 'Exists only checks a single entity' => sub {
     my $c = $test->c;
 
     $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'Name'), (2, 'Old name'), (3, 'Foo name');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, ''),
-           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 2, 2, 'Artist 2'),
-           (3, '1153890e-afdf-404c-85d1-aea98dfe576d', 2, 2, 'Artist 3');
-INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 2, 2), (2, 3, 3);
+    VALUES (1, '945c079d-374e-4436-9448-da92dedef3cf', 'Name', 'Name', ''),
+           (2, '73371ea0-7217-11de-8a39-0800200c9a66', 'Old name', 'Old name', 'Artist 2'),
+           (3, '1153890e-afdf-404c-85d1-aea98dfe576d', 'Old name', 'Old name', 'Artist 3');
+INSERT INTO artist_alias (artist, name, sort_name) VALUES (1, 'Old name', 'Old name'), (2, 'Foo name', 'Foo name');
 EOSQL
 
     my $check_alias = sub {

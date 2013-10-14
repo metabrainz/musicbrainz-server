@@ -16,6 +16,13 @@
     <td>[% edit.display_data.sort_name | html %]</td>
   </tr>
 
+  [% IF edit.display_data.comment %]
+  <tr>
+      <th>[% l('Disambiguation:') %]</th>
+      <td>[% edit.display_data.comment | html %]</td>
+  </tr>
+  [% END %]
+
   [% IF edit.display_data.type %]
   <tr>
     <th>[% l('Type:') %]</th>

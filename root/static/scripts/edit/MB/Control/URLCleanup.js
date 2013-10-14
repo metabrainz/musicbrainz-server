@@ -344,7 +344,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.review
     },
     score: {
-        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/|neyzen\\.com)", "i"),
         type: MB.constants.LINK_TYPES.score
     },
     secondhandsongs: {
@@ -356,7 +356,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|plus.google.com)/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|reverbnation\\.com|plus.google.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
@@ -620,13 +620,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // allow only IMDb pages with the IMDb rels
     validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character)/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+        return $('#id-ar\\.url').val().match(/imdb\.com\/company/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+        return $('#id-ar\\.url').val().match(/imdb\.com\/title/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function() {
         return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;

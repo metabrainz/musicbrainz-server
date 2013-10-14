@@ -11,6 +11,7 @@ use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
+use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_guid );
 use List::UtilsBy qw( uniq_by );
@@ -136,13 +137,31 @@ sub change_page_duplicates
         my @tracks = $self->track_edits_from_medium ($medium);
         my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
 
+        my $cdtoc_details = MusicBrainz::Server::Entity::CDTOC->new_from_toc(
+            $seededmedia[0]->{toc}
+        )->track_details;
+
         my @new_edits = map {
-            $tracks[$_]->{length} = $edits[$_]->{length};
-            $tracks[$_]->{position} = $_ + 1;
-            $self->update_track_edit_hash ($tracks[$_]);
-        } 0..$#edits;
+            $self->update_track_edit_hash({
+                %{
+                    # Use the existing track on the medium
+                    $tracks[$_]
+                    # But if this doesnt exist, create a new track
+                    // {
+                        name => '',
+                        artist_credit => {
+                            names => []
+                        }
+                    }
+                },
+                length => exists $cdtoc_details->[$_] &&
+                    $cdtoc_details->[$_]->{length_time},
+                position => $_ + 1
+            })
+        } 0 .. scalar(@$cdtoc_details) - 1;
 
         $media[0]->{edits} = $json->encode (\@new_edits);
+        $media[0]->{toc} = $seededmedia[0]->{toc};
     }
 
     $self->_post_to_page ($self->page_number->{'tracklist'},

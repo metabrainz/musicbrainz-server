@@ -16,8 +16,7 @@ test 'Old edit work edits to add ISWCs still pass (insert)' => sub {
     my $test = shift;
     my $c = $test->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Work');
-INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 1);
+INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO edit (expire_time, id, editor, type, status, data)
     VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}')
 EOSQL
@@ -32,8 +31,7 @@ test 'Old edit work edits to add ISWCs still pass (update)' => sub {
     my $test = shift;
     my $c = $test->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Work');
-INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 1);
+INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
 INSERT INTO edit (expire_time, id, editor, type, status, data)
     VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":"T-110.986.678-6"}}')
@@ -49,8 +47,7 @@ test 'Old edit work edits to add ISWCs still pass (delete)' => sub {
     my $test = shift;
     my $c = $test->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Work');
-INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 1);
+INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
 INSERT INTO edit (expire_time, id, editor, type, status, data)
     VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":null},"old":{"iswc":"T-110.986.678-6"}}')
@@ -66,8 +63,7 @@ test 'Old edit work edits to add ISWCs still pass (conflict)' => sub {
     my $test = shift;
     my $c = $test->c;
     $c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name) VALUES (1, 'Work');
-INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 1);
+INSERT INTO work (id, gid, name) VALUES (1, '51546e7c-b11d-410e-a0ff-6c88aa91f5ac', 'Work');
 INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-110.986.678-6');
 INSERT INTO edit (expire_time, id, editor, type, status, data)
     VALUES (now(), 1, 1, 42, 1, '{"entity":{"name":"Work","id":1},"new":{"iswc":"T-910.986.678-6"},"old":{"iswc":null}}')

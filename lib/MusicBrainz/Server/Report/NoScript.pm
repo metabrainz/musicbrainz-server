@@ -10,7 +10,6 @@ sub query {
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM release r
-            JOIN release_name rn ON r.name = rn.id
         WHERE script IS NULL
     ";
 }

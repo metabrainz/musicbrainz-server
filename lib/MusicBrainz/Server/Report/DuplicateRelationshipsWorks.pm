@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::WorkReport',
 sub query {
     "
 
-SELECT q.entity AS work_id, row_number() OVER (ORDER BY musicbrainz_collate(work_name.name)) FROM (
+SELECT q.entity AS work_id, row_number() OVER (ORDER BY musicbrainz_collate(work.name)) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_work lxx
@@ -58,8 +58,7 @@ SELECT q.entity AS work_id, row_number() OVER (ORDER BY musicbrainz_collate(work
 
 ) AS q
 JOIN work on q.entity = work.id
-JOIN work_name on work_name.id = work.name
-GROUP BY q.entity, work_name.name
+GROUP BY q.entity, work.name
 
     ";
 }

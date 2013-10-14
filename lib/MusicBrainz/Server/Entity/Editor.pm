@@ -219,6 +219,11 @@ sub match_password {
         encode('utf-8', $password));
 }
 
+has deleted => (
+    isa => 'Bool',
+    is => 'rw',
+);
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

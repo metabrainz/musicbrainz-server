@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
+use MusicBrainz::Server::Data::Place;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
@@ -28,6 +29,7 @@ Readonly my @TYPES => qw(
     area
     artist
     label
+    place
     recording
     release
     release_group
@@ -146,23 +148,12 @@ sub _load
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, url";
-        } elsif ($target eq 'area') {
+        } else {
             $query = "
             SELECT $select
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, musicbrainz_collate(name)";
-        } else {
-            my $name_table =
-                $target eq 'recording'     ? 'track_name'   :
-                $target eq 'release_group' ? 'release_name' :
-                                             "${target}_name";
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-              JOIN $name_table name ON name.id = ${target}.name
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, musicbrainz_collate(name.name)";
         }
 
         $self->sql->select($query, @params);

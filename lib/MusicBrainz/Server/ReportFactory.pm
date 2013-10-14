@@ -6,6 +6,7 @@ use MusicBrainz::Server::PagedReport;
 @all = qw(
     ASINsWithMultipleReleases
     ArtistsContainingDisambiguationComments
+    ArtistsWithMultipleOccurancesInArtistCredits
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
     ArtistsWithNoSubscribers
@@ -13,7 +14,6 @@ use MusicBrainz::Server::PagedReport;
     CatNoLooksLikeASIN
     CollaborationRelationships
     CoverArtRelationships
-    CreativeCommonsRelationships
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
@@ -45,6 +45,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
+    SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
@@ -57,12 +58,12 @@ use MusicBrainz::Server::Report::ASINsWithMultipleReleases;
 use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
+use MusicBrainz::Server::Report::ArtistsWithMultipleOccurancesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CoverArtRelationships;
-use MusicBrainz::Server::Report::CreativeCommonsRelationships;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;
@@ -94,6 +95,7 @@ use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;

@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' title=l('Entity Not Found') full_width=1 %]
 <h1>[% l('Entity Not Found') %]</h1>
 
-<p>[% l('Sorry, we could not find a MusicBrainz entity with that MusicBrainz ID.
+<p>[% l('Sorry, we could not find a MusicBrainz entity with that ID.
          You may wish to try and {search_url|search for it} instead.',
          { search_url => c.uri_for_action('/search/search') }) %]</p>
 [% END %]

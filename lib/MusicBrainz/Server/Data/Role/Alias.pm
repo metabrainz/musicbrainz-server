@@ -20,7 +20,7 @@ role
 {
     my $params = shift;
 
-    requires 'c', '_entity_class', '_table_join_name';
+    requires 'c', '_entity_class';
 
     has 'alias' => (
         is => 'ro',
@@ -65,32 +65,16 @@ role
         my $type = $params->type;
         my $query =
             "WITH search (term) AS (".
-            "    VALUES " . join (",", ("(?)") x scalar @names) . "), ";
-        if ($self->has_name_table) {
-            my $nametable = $self->name_table;
-            $query = $query .
-                "    matching_names (term, name) AS (" .
-                "        SELECT term, $nametable.id FROM $nametable, search" .
-                "        WHERE musicbrainz_unaccent(lower(term)) = musicbrainz_unaccent(lower($nametable.name))" .
-                "    ), ".
-                "    entity_matches (term, entity) AS (" .
-                "        SELECT term, $type FROM ${type}_alias".
-                "        JOIN matching_names ON matching_names.name = ${type}_alias.name" .
-                "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.name " .
-                "        UNION SELECT term, id FROM $type JOIN matching_names ON matching_names.name = $type.sort_name) ";
-        } else {
-            $query = $query .
-                "    entity_matches (term, entity) AS (" .
-                "        SELECT term, $type FROM ${type}_alias".
-                "           JOIN search ON musicbrainz_unaccent(lower(${type}_alias.name)) = musicbrainz_unaccent(lower(term))" .
-                "        UNION SELECT term, id FROM $type " .
-                "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term))" .
-                "        UNION SELECT term, id FROM $type " .
-                "           JOIN search ON musicbrainz_unaccent(lower(${type}.sort_name)) = musicbrainz_unaccent(lower(term))) ";
-        }
-        $query = $query .
+            "    VALUES " . join (",", ("(?)") x scalar @names) . "), " .
+            "    entity_matches (term, entity) AS (" .
+            "        SELECT term, $type FROM ${type}_alias".
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}_alias.name)) = musicbrainz_unaccent(lower(term))" .
+            "        UNION SELECT term, id FROM $type " .
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}.name)) = musicbrainz_unaccent(lower(term))" .
+            "        UNION SELECT term, id FROM $type " .
+            "           JOIN search ON musicbrainz_unaccent(lower(${type}.sort_name)) = musicbrainz_unaccent(lower(term))) " .
             "      SELECT term AS search_term, ".$self->_columns.
-            "      FROM ".$self->_table ("JOIN entity_matches ON entity_matches.entity = $type.id");
+            "      FROM ". $self->_table ." JOIN entity_matches ON entity_matches.entity = $type.id";
 
         $self->c->sql->select($query, @names);
         my %ret;

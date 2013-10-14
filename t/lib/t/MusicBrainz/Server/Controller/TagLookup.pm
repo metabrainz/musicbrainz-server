@@ -22,13 +22,4 @@ test 'Can perform tag lookups with artist and release titles' => sub {
     $test->mech->content_contains('Make a donation now', 'has nag screen');
 };
 
-test 'Can perform tag lookups with PUIDs' => sub {
-    my $test = shift;
-    $test->mech->get_ok('/taglookup?puid=b9c8f51f-cc9a-48fa-a415-4c91fcca80f0', 'lookup puid ... ');
-    html_ok($test->mech->content);
-    $test->mech->content_contains('ABBA', 'has correct artist result');
-    $test->mech->content_contains('Arrival', 'has correct release result');
-    $test->mech->content_contains('Make a donation now', 'has nag screen');
-};
-
 1;

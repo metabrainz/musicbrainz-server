@@ -1,12 +1,8 @@
-
 SET client_min_messages TO 'WARNING';
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
-INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
-
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (3, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 1, 1),
-           (4, '2fed031c-0e89-406e-b9f0-3d192637907a', 2, 2);
+    VALUES (3, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 'Artist 1', 'Artist 1'),
+           (4, '2fed031c-0e89-406e-b9f0-3d192637907a', 'Artist 2', 'Artist 2');
 
 INSERT INTO tag (id, name) VALUES
     (1, 'musical'),
@@ -23,5 +19,3 @@ INSERT INTO artist_tag (tag, artist, count) VALUES
     (4, 4, 1);
 
 ALTER SEQUENCE tag_id_seq RESTART 200;
-
-

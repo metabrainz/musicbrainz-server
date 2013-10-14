@@ -8,6 +8,7 @@ with 'MusicBrainz::Server::Form::Role::Edit';
 sub edit_field_names {
     qw( parent_id child_order name link_phrase reverse_link_phrase
         long_link_phrase description priority attributes documentation
+        is_deprecated
   ) }
 
 has '+name' => ( default => 'linktype' );
@@ -84,6 +85,10 @@ has_field 'documentation' => (
 has root => (
     is => 'ro',
     required => 1
+);
+
+has_field is_deprecated => (
+    type => 'Boolean'
 );
 
 sub _build_parent_id_options

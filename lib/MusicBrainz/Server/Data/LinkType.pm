@@ -28,7 +28,7 @@ sub _columns
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
-            child_order, long_link_phrase';
+            child_order, long_link_phrase, is_deprecated';
 }
 
 sub _entity_class
@@ -312,6 +312,7 @@ sub _hash_to_row
         reverse_link_phrase     => 'reverse_link_phrase',
         long_link_phrase => 'long_link_phrase',
         priority        => 'priority',
+        is_deprecated => 'is_deprecated'
     });
 }
 

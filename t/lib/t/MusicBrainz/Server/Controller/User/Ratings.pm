@@ -13,14 +13,11 @@ my $c    = $test->c;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 MusicBrainz::Server::Test->prepare_test_database($c, "
-INSERT INTO artist_name (id, name) VALUES (7, 'Kate Bush');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (7, 'b9d99e40-72d7-11de-8a39-0800200c9a66', 7, 7);
-");
-MusicBrainz::Server::Test->prepare_raw_test_database($c, '
+    VALUES (7, 'b9d99e40-72d7-11de-8a39-0800200c9a66', 'Kate Bush', 'Kate Bush');
 TRUNCATE artist_rating_raw CASCADE;
 INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (7, 1, 80);
-');
+");
 
 $mech->get('/user/new_editor/ratings');
 $mech->content_contains('Kate Bush', "new_editor has rated Kate Bush");

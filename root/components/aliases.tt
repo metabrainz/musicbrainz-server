@@ -38,7 +38,13 @@
                     [%- END -%]
 
                     <td>[% alias.begin_date.format %]</td>
-                    <td>[% alias.end_date.format %]</td>
+                    <td>
+                      [% IF !alias.end_date.is_empty;
+                           alias.end_date.format;
+                         ELSIF alias.ended;
+                           l('[unknown]');
+                        END; -%]
+                    </td>
                     <td>[% alias.type_name %]</td>
                     <td>
                       [% IF alias.locale %]

@@ -24,16 +24,14 @@ has 'parent' => (
 sub find_editor_ratings {
     my ($self, $editor_id, $own_ratings, $limit, $offset) = @_;
 
-    my $name_table = $self->parent->name_table;
     my $table = $self->type . '_rating_raw';
     my $type = $self->type;
     my $query = "
       SELECT $type AS entity, rating
       FROM $table rating
       JOIN $type entity ON entity.id = rating.${type}
-      JOIN $name_table n ON entity.name = n.id
       WHERE editor = ?
-      ORDER BY rating DESC, musicbrainz_collate(n.name) ASC
+      ORDER BY rating DESC, musicbrainz_collate(name) ASC
       OFFSET ?";
 
     my ($rows, $hits) = query_to_list_limited(

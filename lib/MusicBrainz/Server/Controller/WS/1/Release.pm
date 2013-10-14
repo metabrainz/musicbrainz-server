@@ -168,9 +168,6 @@ sub lookup : Chained('load') PathPart('')
         $c->model('ISRC')->load_for_recordings(@recordings)
             if $c->stash->{inc}->isrcs;
 
-        $c->model('RecordingPUID')->load_for_recordings(@recordings)
-            if ($c->stash->{inc}->puids);
-
         if ($c->stash->{inc}->track_level_rels) {
             $self->load_relationships($c, @recordings);
         }

@@ -5,7 +5,7 @@ cd `dirname $0`
 eval `./admin/ShowDBDefs`
 source ./admin/config.sh
 
-NEW_SCHEMA_SEQUENCE=18
+NEW_SCHEMA_SEQUENCE=19
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 ################################################################################
@@ -15,24 +15,6 @@ if [ "$DB_SCHEMA_SEQUENCE" != "$OLD_SCHEMA_SEQUENCE" ]
 then
     echo `date` : Error: Schema sequence must be $OLD_SCHEMA_SEQUENCE when you run this script
     exit -1
-fi
-
-################################################################################
-# Acquire track table update
-
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
-then
-    DOWNLOAD_PREFIX=ftp://ftp.musicbrainz.org/pub/musicbrainz/data/schema-change-2013-05-15
-
-    echo `date` : Downloading correct track table
-    mkdir -p catchup
-    OUTPUT=`wget -q "$DOWNLOAD_PREFIX/MD5SUMS" -O catchup/MD5SUMS` || ( echo "$OUTPUT" ; exit 1 )
-    wget --continue "$DOWNLOAD_PREFIX/mbdump.tar.bz2" -O catchup/mbdump.tar.bz2 || exit 1
-
-    echo `date` : Verifying track table dump
-    pushd catchup
-    OUTPUT=`grep mbdump.tar.bz2 MD5SUMS | md5sum -c`  || ( echo "$OUTPUT" ; exit 1 )
-    popd
 fi
 
 ################################################################################
@@ -59,51 +41,40 @@ then
     ./admin/sql/DisableLastUpdatedTriggers.pl
 fi
 
-if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
-then
-    # export
-    echo `date` : Exporting just the track tables for slaves to use
-    mkdir -p catchup
-    ./admin/ExportAllTables --table='track' -d catchup
-fi
-
-if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
-then
-    # import
-    echo `date` : Fixing the track table
-
-    echo `date` : Dropping indexes on the track table
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-drop-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : Emptying the track table
-    OUTPUT=`echo 'DELETE FROM track' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
-
-    echo `date` : Importing the version of the track table from master
-    ./admin/MBImport.pl --noupdate-replication-control --skip-editor catchup/mbdump.tar.bz2
-
-    echo `date` : Recreating indexes on the track table
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-create-track-indexes.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
-    echo `date` : Removing the medium_cdtoc FK that should not exist
-    OUTPUT=`echo 'ALTER TABLE medium_cdtoc DROP CONSTRAINT IF EXISTS medium_cdtoc_fk_medium;' | ./admin/psql 2>&1` || ( echo "$OUTPUT" ; exit 1)
-fi
+################################################################################
+# Migrations that apply for only slaves
+#if [ "$REPLICATION_TYPE" = "$RT_SLAVE" ]
+#then
+#fi
 
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
+echo `date` : 'DROP TABLE puid;'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130807-drop-table-puid.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Remove _name tables and regenerate name columns'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130819-name-tables.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Creating the Place entity'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130618-places.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : Updating musicbrainz schema sequence values
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/SetSequences.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : Fix the artist_credit.ref_count column
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount-faster.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Mark deleted editors more accurately'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130903-editor-deletion.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : Creating an index on medium.release
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-medium-release-index.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Adding ended columns for alias'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130704-ended.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-echo `date` : Renaming track2013_ and medium2013_ indexes and constraints
-# do these unconditionally -- they may fail for things imported from schema-17 dumps
-echo "ALTER INDEX medium2013_pkey RENAME TO medium_pkey;" | ./admin/psql READWRITE > /dev/null 2>&1
-echo "ALTER INDEX track2013_pkey RENAME TO track_pkey;" | ./admin/psql READWRITE > /dev/null 2>&1
-OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-rename-indexes-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+echo `date` : 'Add disambiguation to areas'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130919-area-comments.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Adding link_type.is_deprecated'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130905-deprecated-link-types.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
+echo `date` : 'Creating views'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/CreateViews.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
 ################################################################################
 # Re-enable replication
@@ -119,15 +90,20 @@ fi
 
 if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
+    echo `date` : Applying 20130618-places-fks.sql
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130618-places-fks.sql 2>&1` || ( echo "$OUTPUT"; exit 1 )
+
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
 
-    echo `date` : Adding track constraints
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-readd-track-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    echo `date` : Recreating constraints/triggers for regenerated tables with name columns
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130830-name-table-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
-    echo `date` : Re-add artist_credit FKs
-    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130520-update-artist-credit-refcount-faster-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+    echo `date` : Adding non-whitespace constraint to area comments
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130919-area-comments-constraints.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+    echo `date` : 'Adding link_type.is_deprecated triggers'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20130910-deprecated-link-types-triggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
