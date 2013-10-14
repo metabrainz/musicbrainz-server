@@ -45,6 +45,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
+    SingleMediumReleasesWithMediumTitles
     SomeFormatsUnset
     SuperfluousDataTracks
     TracksNamedWithSequence
@@ -94,6 +95,7 @@ use MusicBrainz::Server::Report::ReleasesToConvert;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;
+use MusicBrainz::Server::Report::SingleMediumReleasesWithMediumTitles;
 use MusicBrainz::Server::Report::SomeFormatsUnset;
 use MusicBrainz::Server::Report::SuperfluousDataTracks;
 use MusicBrainz::Server::Report::TracksNamedWithSequence;
