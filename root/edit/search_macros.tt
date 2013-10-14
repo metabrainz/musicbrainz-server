@@ -79,6 +79,8 @@
                predicate_country(field.field_name, field);
              CASE 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType';
                predicate_link_type(field.field_name, field);
+             CASE 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag';
+               predicate_editor_flag(field.field_name, field);
            END %]
         [% IF field.does('MusicBrainz::Server::EditSearch::Predicate::SubscribedEntity');
              predicate_subscription(field.field_name, field);
@@ -279,6 +281,24 @@
   </select>
 [% END %]
 
+[% MACRO predicate_editor_flag(field, field_contents) WRAPPER wfield predicate="set" %]
+  [% operators([ [ '=', l('is') ]
+                 [ '!=', l('is not') ] ], field_contents) %]
+  <select name="args" multiple="multiple">
+    [% FOR item=[ [   1,   l('Auto-Editor') ]
+                , [   2,   l('Bot') ]
+                , [   4,   l('Untrusted') ]
+                , [   8,   l('Relationship Editor') ]
+                , [  32,   l('Wiki Transcluder') ]
+                , [ 256,   l('Location Editor') ]
+                ] %]
+    <option value="[% html_escape(item.0) %]"
+            [% 'selected="selected"' IF field_contents.find_argument(item.0).defined %]
+            >[% html_escape(item.1) %]</option>
+    [% END %]
+  </select>
+[% END %]
+
 [% MACRO select_field(field_contents) BLOCK %]
   <select name="field" class="field">
     [% UNLESS field_contents %]
@@ -306,6 +326,7 @@
                    [ 'label_area', l('Label Area') ]
                    [ 'release_country', l('Release Country') ]
                    [ 'link_type', l('Relationship Type') ],
+                   [ 'editor_flag', l('Editor Flag') ],
                    ] %]
     <option
        [% 'selected="selected"' IF field_contents.field_name == field.0 %]
@@ -338,5 +359,6 @@
     [% predicate_link('label_area', undef, 'area') %]
     [% predicate_country('release_country') %]
     [% predicate_link_type('link_type') %]
+    [% predicate_editor_flag('editor_flag') %]
   </div>
 [% END %]
