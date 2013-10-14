@@ -8,13 +8,11 @@ sub query {
    "SELECT DISTINCT ON (release.id)
       release.id AS release_id,
       row_number() OVER (
-        ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name)
+        ORDER BY musicbrainz_collate(artist_credit.name), musicbrainz_collate(release.name)
       )
     FROM release
     JOIN medium ON release.id = medium.release
     JOIN artist_credit ON release.artist_credit = artist_credit.id
-    JOIN artist_name an ON an.id = artist_credit.name
-    JOIN release_name rn ON release.name = rn.id
     WHERE release.id IN (
       SELECT release
       FROM medium
