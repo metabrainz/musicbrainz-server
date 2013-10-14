@@ -477,6 +477,11 @@
     <td>[% add_commas(stats.statistic('count.recording')) %]</td>
     <td></td>
 </tr>
+<tr>
+    <th colspan="2">[% l('Videos:') %]</th>
+    <td>[% add_commas(stats.statistic('count.video')) %]</td>
+    <td></td>
+</tr>
 </tbody>
 </table>
 
