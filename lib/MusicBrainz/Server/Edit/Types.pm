@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Edit::Types;
 use strict;
-use MooseX::Types -declare => [qw( ArtistCreditDefinition PartialDateHash )];
-use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
+use MooseX::Types -declare => [qw( ArtistCreditDefinition CoordinateHash PartialDateHash )];
+use MooseX::Types::Moose qw( ArrayRef Int Maybe Num Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use Sub::Exporter -setup => { exports => [qw(
     ArtistCreditDefinition
     Changeset
+    CoordinateHash
     Nullable
     NullableOnPreview
     PartialDateHash
@@ -32,6 +33,12 @@ subtype PartialDateHash,
         year => Nullable[Int],
         month => Nullable[Int],
         day => Nullable[Int]
+    ];
+
+subtype CoordinateHash,
+    as Dict[
+        latitude => Nullable[Num],
+        longitude => Nullable[Num],
     ];
 
 subtype ArtistCreditDefinition,

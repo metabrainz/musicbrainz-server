@@ -40,10 +40,6 @@ has_field 'label-isni'     => (
     type => '+MusicBrainz::Server::Form::Field::ISNI',
 );
 
-has_field 'puid' => (
-    type => '+MusicBrainz::Server::Form::Field::GID',
-);
-
 has_field 'discid' => (
     type => '+MusicBrainz::Server::Form::Field::DiscID',
 );

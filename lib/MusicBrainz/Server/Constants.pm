@@ -54,7 +54,7 @@ our @EXPORT_OK = (
         $RELATIONSHIP_EDITOR_FLAG $DONT_NAG_FLAG       $WIKI_TRANSCLUSION_FLAG
         $MBID_SUBMITTER_FLAG      $ACCOUNT_ADMIN_FLAG  $LOCATION_EDITOR_FLAG
         $COVERART_FRONT_TYPE      $COVERART_BACK_TYPE  $INSTRUMENT_ROOT_ID
-        $REQUIRED_VOTES
+        $AREA_TYPE_COUNTRY        $REQUIRED_VOTES
         $ARTIST_ARTIST_COLLABORATION
     ),
     @{ _get(qr/^(EDIT|EXPIRE|QUALITY|EDITOR|ELECTION|EMAIL|VOTE|STATUS|ACCESS_SCOPE)_/) },
@@ -142,13 +142,21 @@ Readonly our $EDIT_MEDIUM_ADD_DISCID => 55;
 Readonly our $EDIT_MEDIUM_MOVE_DISCID => 56;
 Readonly our $EDIT_SET_TRACK_LENGTHS => 58;
 
+Readonly our $EDIT_PLACE_CREATE => 61;
+Readonly our $EDIT_PLACE_EDIT => 62;
+Readonly our $EDIT_PLACE_DELETE => 63;
+Readonly our $EDIT_PLACE_MERGE => 64;
+Readonly our $EDIT_PLACE_ADD_ANNOTATION => 65;
+Readonly our $EDIT_PLACE_ADD_ALIAS => 66;
+Readonly our $EDIT_PLACE_DELETE_ALIAS => 67;
+Readonly our $EDIT_PLACE_EDIT_ALIAS => 68;
+
 Readonly our $EDIT_RECORDING_CREATE => 71;
 Readonly our $EDIT_RECORDING_EDIT => 72;
 Readonly our $EDIT_RECORDING_DELETE => 73;
 Readonly our $EDIT_RECORDING_MERGE => 74;
 Readonly our $EDIT_RECORDING_ADD_ANNOTATION => 75;
 Readonly our $EDIT_RECORDING_ADD_ISRCS => 76;
-Readonly our $EDIT_RECORDING_ADD_PUIDS => 77;
 Readonly our $EDIT_RECORDING_REMOVE_ISRC => 78;
 
 Readonly our $EDIT_AREA_CREATE => 81;
@@ -173,8 +181,6 @@ Readonly our $EDIT_RELATIONSHIP_ADD_ATTRIBUTE => 98;
 Readonly our $EDIT_WIKIDOC_CHANGE => 120;
 
 Readonly our $EDIT_URL_EDIT => 101;
-
-Readonly our $EDIT_PUID_DELETE => 113;
 
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_NAME       => 201;
 Readonly our $EDIT_HISTORIC_EDIT_TRACKNAME          => 204;
@@ -205,7 +211,6 @@ Readonly our $EDIT_HISTORIC_REMOVE_LINK_TYPE        => 238;
 Readonly our $EDIT_HISTORIC_REMOVE_LINK_ATTR        => 243;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE   => 244;
 Readonly our $EDIT_HISTORIC_EDIT_TRACK_LENGTH       => 245;
-Readonly our $EDIT_HISTORIC_REMOVE_PUID             => 246;
 Readonly our $EDIT_HISTORIC_ADD_RELEASE_EVENTS      => 249;
 Readonly our $EDIT_HISTORIC_EDIT_RELEASE_EVENTS     => 250;
 Readonly our $EDIT_HISTORIC_REMOVE_RELEASE_EVENTS   => 251;
@@ -259,6 +264,8 @@ Readonly our $COVERART_BACK_TYPE   => 2;
 
 Readonly our $INSTRUMENT_ROOT_ID => 14;
 
+Readonly our $AREA_TYPE_COUNTRY => 1;
+
 Readonly our $REQUIRED_VOTES => 3;
 Readonly our $EDIT_MINIMUM_RESPONSE_PERIOD => DateTime::Duration->new(hours => 72);
 
@@ -267,7 +274,6 @@ Readonly our $ACCESS_SCOPE_EMAIL          => 2;
 Readonly our $ACCESS_SCOPE_TAG            => 4;
 Readonly our $ACCESS_SCOPE_RATING         => 8;
 Readonly our $ACCESS_SCOPE_COLLECTION     => 16;
-Readonly our $ACCESS_SCOPE_SUBMIT_PUID    => 32;
 Readonly our $ACCESS_SCOPE_SUBMIT_ISRC    => 64;
 Readonly our $ACCESS_SCOPE_SUBMIT_BARCODE => 128;
 

@@ -110,9 +110,14 @@ sub build_display_data
                 attributes => [
                     map {
                         my $attr    = $loaded->{LinkAttributeType}{ $_ };
-                        my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
-                        $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
-                        $attr;
+                        if ($attr) {
+                            my $root_id = $self->c->model('LinkAttributeType')->find_root($attr->id);
+                            $attr->root( $self->c->model('LinkAttributeType')->get_by_id($root_id) );
+                            $attr;
+                        }
+                        else {
+                            ()
+                        }
                     } @{ $self->data->{attributes} }
                 ]
             ),
@@ -124,6 +129,10 @@ sub build_display_data
                 $self->c->model($model1)->_entity_class->new(
                     name => $self->data->{entity1}{name}
                 ),
+        ),
+        unknown_attributes => scalar(
+            grep { !exists $loaded->{LinkAttributeType}{$_} }
+                @{ $self->data->{attributes} // [] }
         )
     }
 }

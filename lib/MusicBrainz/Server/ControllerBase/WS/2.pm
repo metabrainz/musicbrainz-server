@@ -9,7 +9,7 @@ use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
 use MusicBrainz::Server::Data::Utils qw( type_to_model object_to_ids );
-use MusicBrainz::Server::Validation qw( is_guid );
+use MusicBrainz::Server::Validation qw( is_guid is_nat );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -28,10 +28,6 @@ with 'MusicBrainz::Server::Controller::Role::Profile' => {
 
 with 'MusicBrainz::Server::Controller::Role::CORS';
 with 'MusicBrainz::Server::Controller::Role::ETags';
-
-# This defines what options are acceptable for WS calls.
-# Note that the validator will automatically add inc= arguments to the allowed list
-# based on other inc= arguments.  (puids are allowed if recordings are allowed, etc..)
 
 sub apply_rate_limit
 {
@@ -285,11 +281,6 @@ sub _ratings
     }
 }
 
-sub is_nat {
-    my $n = shift;
-    return looks_like_number($n) && int($n) == $n && $n >= 0;
-}
-
 sub _limit_and_offset
 {
     my ($self, $c) = @_;
@@ -396,6 +387,31 @@ sub linked_labels
     }
 }
 
+sub linked_places
+{
+    my ($self, $c, $stash, $places) = @_;
+
+    $self->_tags_and_ratings($c, 'Place', $places, $stash);
+
+    if ($c->stash->{inc}->aliases)
+    {
+        my @aliases = @{ $c->model('Place')->alias->find_by_entity_id(map { $_->id } @$places) };
+        $c->model('Place')->alias_type->load(@aliases);
+
+        my %alias_per_place;
+        foreach (@aliases)
+        {
+            $alias_per_place{$_->place_id} = [] unless $alias_per_place{$_->place_id};
+            push @{ $alias_per_place{$_->place_id} }, $_;
+        }
+
+        foreach (@$places)
+        {
+            $stash->store ($_)->{aliases} = $alias_per_place{$_->id};
+        }
+    }
+}
+
 sub linked_recordings
 {
     my ($self, $c, $stash, $recordings) = @_;
@@ -414,23 +430,6 @@ sub linked_recordings
         for (@$recordings)
         {
             $stash->store ($_)->{isrcs} = $isrc_per_recording{$_->id};
-        }
-    }
-
-    if ($c->stash->{inc}->puids)
-    {
-        my @puids = $c->model('RecordingPUID')->find_by_recording(map { $_->id } @$recordings);
-
-        my %puid_per_recording;
-        for (@puids)
-        {
-            $puid_per_recording{$_->recording_id} = [] unless $puid_per_recording{$_->recording_id};
-            push @{ $puid_per_recording{$_->recording_id} }, $_;
-        };
-
-        for (@$recordings)
-        {
-            $stash->store ($_)->{puids} = $puid_per_recording{$_->id};
         }
     }
 

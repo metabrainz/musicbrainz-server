@@ -149,6 +149,23 @@ sub releases : Chained('load')
     );
 }
 
+=head2 places
+
+Shows places for an area.
+
+=cut
+
+sub places : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $area = $c->stash->{area};
+    my $places = $self->_load_paged($c, sub {
+        $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+    $c->model('PlaceType')->load(@$places);
+    $c->stash( places => $places );
+}
+
 =head2 WRITE METHODS
 
 =cut

@@ -52,6 +52,13 @@ sub label : Local
     $self->_browse($c, 'Label');
 }
 
+sub place : Local
+{
+    my ($self, $c) = @_;
+
+    $self->_browse($c, 'Place');
+}
+
 sub release : Local
 {
     my ($self, $c) = @_;

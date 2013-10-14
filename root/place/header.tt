@@ -1,0 +1,17 @@
+[%- info_links = [
+    ['index', link_place(place, 'show', l('Overview'))],
+    ['performances', rdfa_seeAlso_link_place(place, 'performances', l('Performances'))],
+    ['aliases', rdfa_seeAlso_link_place(place, 'aliases', l('Aliases'))],
+    ['tags', link_place(place, 'tags', l('Tags'))],
+    ['details', rdfa_seeAlso_link_place(place, 'details', l('Details'))],
+    ['edit', link_place(place, 'edit', l('Edit'))],
+] -%]
+
+<div class="placeheader">
+    <h1>[%- rdfa_link_place_header(place) %] [% disambiguation(place) -%]</h1>
+    <p class="subheader">
+        <span class="prefix">~</span> 
+             [% html_escape(place.l_type_name) or l('Place') %]    </p>
+</div>
+
+[%- INCLUDE 'components/tabs.tt' list=info_links -%]

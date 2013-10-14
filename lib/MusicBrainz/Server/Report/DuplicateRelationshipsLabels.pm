@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::LabelReport',
 sub query {
     "
 
-SELECT q.entity AS label_id, row_number() OVER (ORDER BY musicbrainz_collate(label_name.name)) FROM (
+SELECT q.entity AS label_id, row_number() OVER (ORDER BY musicbrainz_collate(label.name)) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_label lxx
@@ -65,8 +65,7 @@ SELECT q.entity AS label_id, row_number() OVER (ORDER BY musicbrainz_collate(lab
 
 ) AS q
 JOIN label on q.entity = label.id
-JOIN label_name on label_name.id = label.name
-GROUP BY q.entity, label_name.name
+GROUP BY q.entity, label.name
 
     ";
 }

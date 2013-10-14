@@ -46,6 +46,7 @@ my @tables = qw(
     edit_artist
     edit_label
     edit_note
+    edit_place
     edit_recording
     edit_release
     edit_release_group
@@ -53,6 +54,7 @@ my @tables = qw(
     edit_work
     label_rating_raw
     label_tag_raw
+    place_tag_raw
     recording_rating_raw
     recording_tag_raw
     release_group_rating_raw
@@ -85,13 +87,11 @@ my @tables = qw(
     artist_ipi
     artist_isni
     artist_meta
-    artist_name
     artist_tag
     artist_type
     autoeditor_election
     autoeditor_election_vote
     cdtoc
-    clientversion
     editor
     editor_oauth_token
     editor_preference
@@ -111,6 +111,7 @@ my @tables = qw(
     l_area_area
     l_area_artist
     l_area_label
+    l_area_place
     l_area_recording
     l_area_release
     l_area_release_group
@@ -118,17 +119,25 @@ my @tables = qw(
     l_area_work
     l_artist_artist
     l_artist_label
+    l_artist_place
     l_artist_recording
     l_artist_release
     l_artist_release_group
     l_artist_url
     l_artist_work
     l_label_label
+    l_label_place
     l_label_recording
     l_label_release
     l_label_release_group
     l_label_url
     l_label_work
+    l_place_place
+    l_place_recording
+    l_place_release
+    l_place_release_group
+    l_place_url
+    l_place_work
     l_recording_recording
     l_recording_release
     l_recording_release_group
@@ -152,7 +161,6 @@ my @tables = qw(
     label_ipi
     label_isni
     label_meta
-    label_name
     label_tag
     label_type
     language
@@ -168,12 +176,17 @@ my @tables = qw(
     medium
     medium_cdtoc
     medium_format
-    puid
+    place
+    place_alias
+    place_alias_type
+    place_annotation
+    place_gid_redirect
+    place_tag
+    place_type
     recording
     recording_annotation
     recording_gid_redirect
     recording_meta
-    recording_puid
     recording_tag
     release
     release_annotation
@@ -190,7 +203,6 @@ my @tables = qw(
     release_label
     release_meta
     release_coverart
-    release_name
     release_packaging
     release_status
     release_tag
@@ -202,7 +214,6 @@ my @tables = qw(
     tag_relation
     track
     track_gid_redirect
-    track_name
     medium_index
     url
     url_gid_redirect
@@ -215,7 +226,6 @@ my @tables = qw(
     work_attribute_type_allowed_value
     work_gid_redirect
     work_meta
-    work_name
     work_tag
     work_type
 
@@ -293,16 +303,15 @@ my @group_core = qw(
     artist_gid_redirect
     artist_ipi
     artist_isni
-    artist_name
     artist_type
     cdtoc
-    clientversion
     gender
     isrc
     iswc
     l_area_area
     l_area_artist
     l_area_label
+    l_area_place
     l_area_recording
     l_area_release
     l_area_release_group
@@ -310,17 +319,25 @@ my @group_core = qw(
     l_area_work
     l_artist_artist
     l_artist_label
+    l_artist_place
     l_artist_recording
     l_artist_release
     l_artist_release_group
     l_artist_url
     l_artist_work
     l_label_label
+    l_label_place
     l_label_recording
     l_label_release
     l_label_release_group
     l_label_url
     l_label_work
+    l_place_place
+    l_place_recording
+    l_place_release
+    l_place_release_group
+    l_place_url
+    l_place_work
     l_recording_recording
     l_recording_release
     l_recording_release_group
@@ -342,7 +359,6 @@ my @group_core = qw(
     label_gid_redirect
     label_ipi
     label_isni
-    label_name
     label_type
     language
     link
@@ -355,10 +371,13 @@ my @group_core = qw(
     medium
     medium_cdtoc
     medium_format
-    puid
+    place
+    place_alias
+    place_alias_type
+    place_gid_redirect
+    place_type
     recording
     recording_gid_redirect
-    recording_puid
     release
     release_country
     release_gid_redirect
@@ -368,7 +387,6 @@ my @group_core = qw(
     release_group_secondary_type
     release_group_secondary_type_join
     release_label
-    release_name
     release_packaging
     release_status
     release_unknown_country
@@ -377,7 +395,6 @@ my @group_core = qw(
     script_language
     track
     track_gid_redirect
-    track_name
     tracklist
     url
     url_gid_redirect
@@ -388,7 +405,6 @@ my @group_core = qw(
     work_attribute_type
     work_attribute_type_allowed_value
     work_gid_redirect
-    work_name
     work_type
     );
 
@@ -401,6 +417,8 @@ my @group_derived = qw(
     label_annotation
     label_meta
     label_tag
+    place_annotation
+    place_tag
     recording_annotation
     recording_meta
     recording_tag
@@ -433,6 +451,7 @@ my @group_edit = qw(
     edit_artist
     edit_label
     edit_note
+    edit_place
     edit_recording
     edit_release
     edit_release_group
@@ -469,6 +488,7 @@ my @group_private = qw(
     editor_watch_release_status
     label_rating_raw
     label_tag_raw
+    place_tag_raw
     recording_rating_raw
     recording_tag_raw
     release_coverart

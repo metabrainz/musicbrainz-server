@@ -16,13 +16,14 @@ use MusicBrainz::Server::Data::Utils qw(
     query_to_list
     query_to_list_limited
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
-use MusicBrainz::Server::Constants '$VARTIST_ID';
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => 'release_name' };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release_group' };
@@ -31,13 +32,12 @@ with 'MusicBrainz::Server::Data::Role::Merge';
 sub _table
 {
     return 'release_group rg
-            JOIN release_group_meta rgm ON rgm.id = rg.id
-            JOIN release_name name ON rg.name=name.id';
+            JOIN release_group_meta rgm ON rgm.id = rg.id';
 }
 
 sub _columns
 {
-    return 'rg.id, rg.gid, rg.type AS primary_type_id, name.name,
+    return 'rg.id, rg.gid, rg.type AS primary_type_id, rg.name,
             rg.artist_credit AS artist_credit_id,
             rg.comment, rg.edits_pending, rg.last_updated,
             rgm.first_release_date_year,
@@ -82,7 +82,7 @@ sub _where_filter
 
     if (defined $filter) {
         if (exists $filter->{name}) {
-            push @query, "(to_tsvector('mb_simple', name.name) @@ plainto_tsquery('mb_simple', ?) OR name.name = ?)";
+            push @query, "(to_tsvector('mb_simple', rg.name) @@ plainto_tsquery('mb_simple', ?) OR rg.name = ?)";
             push @params, $filter->{name}, $filter->{name};
         }
         if (exists $filter->{artist_credit_id}) {
@@ -132,11 +132,11 @@ sub find_by_name_prefix
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
-                 WHERE page_index(name.name)
+                 WHERE page_index(rg.name)
                  BETWEEN page_index(?) AND page_index_max(?)";
 
     $query .= " AND ($conditions)" if $conditions;
-    $query .= ' ORDER BY name.name OFFSET ?';
+    $query .= ' ORDER BY rg.name OFFSET ?';
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -191,7 +191,7 @@ sub find_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate,
+                    musicbrainz_collate(rg.name) AS name_collate,
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -209,7 +209,7 @@ sub find_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -234,7 +234,7 @@ sub find_by_track_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name),
+                    musicbrainz_collate(rg.name),
                     array(
                       SELECT name FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
@@ -265,7 +265,7 @@ sub find_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -297,7 +297,7 @@ sub filter_by_artist
                     rgm.release_count,
                     rgm.rating_count,
                     rgm.rating,
-                    musicbrainz_collate(name.name) AS name_collate
+                    musicbrainz_collate(rg.name) AS name_collate
                  FROM " . $self->_table . "
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
@@ -308,7 +308,7 @@ sub filter_by_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -358,7 +358,7 @@ sub filter_by_track_artist
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -387,7 +387,7 @@ sub find_by_release
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)
+                    musicbrainz_collate(rg.name)
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {
@@ -414,7 +414,7 @@ sub find_by_release_gids
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
     return query_to_list(
         $self->c->sql, sub {
             my $row = $_[0];
@@ -437,7 +437,7 @@ sub find_by_recording
                  WHERE recording.id = ?
                  ORDER BY
                     rg.type,
-                    musicbrainz_collate(name.name)";
+                    musicbrainz_collate(rg.name)";
 
     return query_to_list(
         $self->c->sql, sub {
@@ -452,11 +452,10 @@ sub insert
     my ($self, @groups) = @_;
     my @created;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names(map { $_->{name} } @groups);
     my $class = $self->_entity_class;
     for my $group (@groups)
     {
-        my $row = $self->_hash_to_row($group, \%names);
+        my $row = $self->_hash_to_row($group);
         $row->{gid} = $group->{gid} || generate_gid();
         my $new = $class->new(
             id => $self->sql->insert_row('release_group', $row, 'id'),
@@ -473,8 +472,7 @@ sub update
 {
     my ($self, $group_id, $update) = @_;
     my $release_data = MusicBrainz::Server::Data::Release->new(c => $self->c);
-    my %names = $release_data->find_or_insert_names($update->{name});
-    my $row = $self->_hash_to_row($update, \%names);
+    my $row = $self->_hash_to_row($update);
     $self->sql->update_row('release_group', $row, { id => $group_id }) if %$row;
     $self->c->model('ReleaseGroupSecondaryType')->set_types($group_id, $update->{secondary_type_ids})
         if exists $update->{secondary_type_ids};
@@ -581,14 +579,11 @@ sub _merge_impl
 
 sub _hash_to_row
 {
-    my ($self, $group, $names) = @_;
+    my ($self, $group) = @_;
     my $row = hash_to_row($group, {
         type => 'primary_type_id',
-        map { $_ => $_ } qw( artist_credit comment edits_pending )
+        map { $_ => $_ } qw( artist_credit comment edits_pending name )
     });
-
-    $row->{name} = $names->{$group->{name}}
-        if (exists $group->{name});
 
     return $row;
 }
@@ -684,6 +679,33 @@ sub merge_releases {
             # whether it is set or not.
         }
     }
+}
+
+sub is_empty {
+    my ($self, $release_group_id) = @_;
+
+    my $used_in_relationship =
+        used_in_relationship($self->c, release_group => 'release_group_row.id');
+
+    return $self->sql->select_single_value(<<EOSQL, $release_group_id, $STATUS_OPEN);
+        SELECT TRUE
+        FROM release_group release_group_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_release_group
+            JOIN edit ON edit.id = edit_release_group.edit
+            WHERE status = ? AND release_group = release_group_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM release
+            WHERE release.release_group = release_group_row.id
+            LIMIT 1
+          ) OR
+          $used_in_relationship
+        )
+EOSQL
 }
 
 __PACKAGE__->meta->make_immutable;

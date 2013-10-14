@@ -29,4 +29,10 @@
     <td>[% edit.display_data.length | format_length %]</td>
   </tr>
   [% END %]
+
+  <tr>
+    <th>[% l('Video:') %]</th>
+    <td>[% edit.display_data.video ? l('Yes') : l('No') %]</td>
+  </tr>
+
 </table>

@@ -30,6 +30,7 @@ my %serializers =
         CDTOC
         Collection
         Label
+        Place
         Medium
         Recording
         Relationship

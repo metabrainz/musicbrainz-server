@@ -118,6 +118,11 @@ sub _track_errors {
         }
     }
 
+    if (defined($track->{length}) && $track->{length} <= 0) {
+        return l('Track {pos} has a duration less than or equal to 0 seconds',
+                 { pos => $pos });
+    }
+
     return 0;
 };
 

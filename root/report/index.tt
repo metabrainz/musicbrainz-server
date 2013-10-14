@@ -45,7 +45,6 @@
         <h2>[% l('Releases') %]</h2>
 
         <ul>
-            <li><a href="[% c.uri_for_action('/report/show', 'CreativeCommonsRelationships') %]">[% l('Releases with Creative Commons Download relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesToConvert') %]">[% l('Releases which might need converting to "multiple artists"') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'NoLanguage') %]">[% l('Releases without language') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'NoScript') %]">[% l('Releases without script') %]</a></li>

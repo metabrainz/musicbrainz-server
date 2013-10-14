@@ -250,6 +250,7 @@ test 'artist lookup with releases' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -272,6 +273,7 @@ test 'artist lookup with releases' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -321,6 +323,7 @@ test 'artist lookup with pseudo-releases' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -387,6 +390,7 @@ test 'artist lookup with releases and discids' => sub {
                     "release-events" => [{
                         date => "2008-11-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
@@ -417,6 +421,7 @@ test 'artist lookup with releases and discids' => sub {
                     "release-events" => [{
                         date => "2007-01-29",
                         "area" => {
+                            disambiguation => '',
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
@@ -477,7 +482,8 @@ test 'artist lookup with recordings and artist credits' => sub {
                             },
                             joinphrase => ""
                         }
-                    ]
+                    ],
+                    video => 0
                 },
                 {
                     id => "84c98ebf-5d40-4a29-b7b2-0e9c26d9061d",
@@ -505,7 +511,8 @@ test 'artist lookup with recordings and artist credits' => sub {
                             },
                             joinphrase => ""
                         }
-                    ]
+                    ],
+                    video => 0
                 },
             ],
             ipis => [],
@@ -583,6 +590,7 @@ test 'single artist release lookup' => sub {
                     "release-events" => [{
                         date => "2004-03-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -630,6 +638,7 @@ test 'various artists release lookup' => sub {
                     "release-events" => [{
                         date => "2004-03-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -839,12 +848,13 @@ test 'artist lookup with artist relations' => sub {
             "sort-name" => "Goto, Maki",
             country => "JP",
 	    "area" => {
-		"id" => "2db42837-c832-3c27-b4a3-08198f75693c",
-		"name" => "Japan",
-		"sort-name" => "Japan",
-		"iso_3166_1_codes" => ["JP"],
-		"iso_3166_2_codes" => [],
-		"iso_3166_3_codes" => []},
+            disambiguation => '',
+            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+            "name" => "Japan",
+            "sort-name" => "Japan",
+            "iso_3166_1_codes" => ["JP"],
+            "iso_3166_2_codes" => [],
+            "iso_3166_3_codes" => []},
             begin_area => JSON::null,
             end_area => JSON::null,
             disambiguation => "",

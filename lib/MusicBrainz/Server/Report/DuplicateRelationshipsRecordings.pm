@@ -7,7 +7,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
 sub query {
     "
 
-SELECT q.entity AS recording_id, row_number() OVER (ORDER BY musicbrainz_collate(track_name.name)) FROM (
+SELECT q.entity AS recording_id, row_number() OVER (ORDER BY musicbrainz_collate(recording.name)) FROM (
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
     FROM l_artist_recording lxx
@@ -66,8 +66,7 @@ SELECT q.entity AS recording_id, row_number() OVER (ORDER BY musicbrainz_collate
 
 ) AS q
 JOIN recording on q.entity = recording.id
-JOIN track_name on track_name.id = recording.name
-GROUP BY q.entity, track_name.name
+GROUP BY q.entity, recording.name
 
     ";
 }
