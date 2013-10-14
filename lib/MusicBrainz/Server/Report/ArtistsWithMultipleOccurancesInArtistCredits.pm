@@ -6,15 +6,14 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "SELECT artist AS artist_id,
-       row_number() OVER (ORDER BY musicbrainz_collate(artist_name.name))
+       row_number() OVER (ORDER BY musicbrainz_collate(artist.name))
      FROM (
        SELECT DISTINCT artist
        FROM artist_credit_name
        GROUP BY artist_credit, artist
        HAVING count(position) > 1
      ) q
-    JOIN artist ON artist.id = q.artist
-    JOIN artist_name ON artist_name.id = artist.name";
+    JOIN artist ON artist.id = q.artist";
 
 }
 
