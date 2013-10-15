@@ -579,6 +579,10 @@ sub schema_fixup
         ];
     }
 
+    if ($type eq 'recording') {
+        $data->{video} = $data->{video} eq 'true';
+    }
+
     if (exists $data->{"relation-list"} &&
         exists $data->{"relation-list"}->[0] &&
         exists $data->{"relation-list"}->[0]->{"relation"})
