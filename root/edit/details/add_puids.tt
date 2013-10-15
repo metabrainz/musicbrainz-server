@@ -1,0 +1,20 @@
+<table class="details add-puids">
+  <tr>
+    <th>[% l('Client:') %]</th>
+    <td>[% edit.data.client_version | html %]</td>
+  </tr>
+
+  <tr>
+    <th>[% l("PUIDs:") %]</th>
+    <td>
+      <ul>
+        [% FOR puid=edit.display_data.puids %]
+        <li>
+          <code>[% puid %]</code> -
+          [% descriptive_link(puid.recording) %]
+        </li>
+        [% END %]
+      </ul>
+    </td>
+  </tr>
+</table>
