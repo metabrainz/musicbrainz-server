@@ -480,7 +480,7 @@
 <tr>
     <th colspan="2">[% l('Videos:') %]</th>
     <td>[% add_commas(stats.statistic('count.video')) %]</td>
-    <td></td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.video', 'count.recording')) }) %]</td>
 </tr>
 </tbody>
 </table>
