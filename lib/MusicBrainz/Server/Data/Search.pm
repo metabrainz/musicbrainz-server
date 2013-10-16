@@ -97,14 +97,12 @@ sub search
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
-        my $include_comment = $type eq 'area' ? '' : 'entity.comment, ';
-
         $query = "
             SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
-                ${include_comment}
+                entity.comment,
                 entity.sort_name,
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
@@ -129,7 +127,7 @@ sub search
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
                 $where_deleted
             GROUP BY
-                $extra_columns entity.id, entity.gid, ${include_comment}entity.name, entity.sort_name, entity.type,
+                $extra_columns entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
