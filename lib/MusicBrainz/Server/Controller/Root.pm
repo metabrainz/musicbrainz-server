@@ -207,7 +207,8 @@ sub begin : Private
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
             is_slave_db    => DBDefs->REPLICATION_TYPE == RT_SLAVE,
-            read_only      => DBDefs->DB_READ_ONLY
+            read_only      => DBDefs->DB_READ_ONLY,
+            alert => $c->model('MB')->context->redis->get('alert')
         },
     );
 
@@ -317,10 +318,8 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     $c->stash->{server_details} = {
-        staging_server             => DBDefs->DB_STAGING_SERVER,
+        %{ $c->stash->{server_details} },
         staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,
-        testing_features           => DBDefs->DB_STAGING_TESTING_FEATURES,
-        is_slave_db                => DBDefs->REPLICATION_TYPE == RT_SLAVE,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         developement_server        => DBDefs->DEVELOPMENT_SERVER,
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
