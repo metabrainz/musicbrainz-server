@@ -116,7 +116,7 @@ sub _insert_edit {
     if (defined $edit)
     {
         $c->flash->{message} = $edit->is_open
-            ? l('Thank you, your edit has been entered into the edit queue for peer review.')
+            ? l('Thank you, your edit #{id} has been entered into the edit queue for peer review.', { id => $edit->id })
             : l('Thank you, your edit has been accepted and applied');
     }
 
