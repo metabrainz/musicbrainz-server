@@ -133,6 +133,18 @@ MB.Release = (function (Release) {
         });
     });
 
+    this.showVideo = ko.computed(function () {
+      return _.any(
+        _.flatten(
+          _.map(model.mediums, function(medium) {
+            return _.map(medium.tracks, function (track) {
+              return track.recording.video;
+            });
+          })
+        )
+      );
+    });
+
     return model;
   };
 

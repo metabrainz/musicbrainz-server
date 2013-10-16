@@ -105,6 +105,7 @@
 
         after$init: function (data) {
             this.length = data.length;
+            this.video = data.video;
         }
     });
 
