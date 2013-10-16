@@ -3,17 +3,14 @@ SET search_path = 'musicbrainz', 'public';
 BEGIN;
 SELECT no_plan();
 
-INSERT INTO artist_name (id, name) VALUES (1, 'name');
-INSERT INTO artist (id, gid, name, sort_name) VALUES (1, '6a84ba85-1428-41ef-934f-7b9ef6d227ce', 1, 1);
+INSERT INTO artist (id, gid, name, sort_name) VALUES (1, '6a84ba85-1428-41ef-934f-7b9ef6d227ce', 'name', 'name');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'name', 1);
 
-INSERT INTO release_name VALUES (1, 'name');
-
-INSERT INTO release_group (id, gid, artist_credit, name) VALUES (1, '1e95786d-5ead-4626-be49-4357af6d4c21', 1, 1);
+INSERT INTO release_group (id, gid, artist_credit, name) VALUES (1, '1e95786d-5ead-4626-be49-4357af6d4c21', 1, 'name');
 
 INSERT INTO release (id, gid, release_group, artist_credit, name)
-VALUES (1, '958f7767-51bb-4884-bcfc-4be8098f55b6', 1, 1, 1);
+VALUES (1, '958f7767-51bb-4884-bcfc-4be8098f55b6', 1, 1, 'name');
 
 PREPARE first_release_date AS
 SELECT first_release_date_year, first_release_date_month, first_release_date_day

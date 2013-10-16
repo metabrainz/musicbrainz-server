@@ -1,12 +1,4 @@
-
 SET client_min_messages TO 'warning';
-
-
-
-
-
-
-
 
 INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'Additional'),
@@ -41,29 +33,17 @@ INSERT INTO link_attribute (link, attribute_type) VALUES (1, 4),
                                                          (2, 1),
                                                          (2, 3);
 
-
-
-
-
-
-
-
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1');
-INSERT INTO artist_name (id, name) VALUES (2, 'Artist 2');
-INSERT INTO track_name (id, name) VALUES (1, 'Track 1');
-INSERT INTO track_name (id, name) VALUES (2, 'Track 2');
-
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 1, 1),
-           (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 2, 2);
+    VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 'Artist 1', 'Artist 1'),
+           (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 'Artist 2', 'Artist 2');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Artist 1', 1);
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 1, '');
+    VALUES (1, 0, 1, 'Artist 1', '');
 
 INSERT INTO recording (id, gid, name, artist_credit)
-    VALUES (1, '99caac80-72e4-11de-8a39-0800200c9a66', 1, 1),
-           (2, 'a12bb640-72e4-11de-8a39-0800200c9a66', 2, 1);
+    VALUES (1, '99caac80-72e4-11de-8a39-0800200c9a66', 'Track 1', 1),
+           (2, 'a12bb640-72e4-11de-8a39-0800200c9a66', 'Track 2', 1);
 
 INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (1, 1, 1, 1);
 INSERT INTO l_artist_recording (id, link, entity0, entity1, edits_pending) VALUES (2, 1, 2, 1, 1);

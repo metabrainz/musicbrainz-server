@@ -78,11 +78,6 @@ is( $results->[0]->position, 1 );
 is( $results->[0]->entity->name, "Dancing Queen" );
 
 
-my %names = $work_data->find_or_insert_names('Dancing Queen', 'Traits');
-is(keys %names, 2);
-is($names{'Dancing Queen'}, 1);
-ok($names{'Traits'} > 1);
-
 $test->c->sql->begin;
 
 $work = $work_data->insert({
@@ -137,16 +132,13 @@ test 'Merge with funky relationships' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 1, 1);
+    VALUES (1, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Artist', 'Artist');
 
-INSERT INTO work_name (id, name)
-    VALUES (1, 'Target'), (2, 'Merge 1'), (3, 'Merge 2');
 INSERT INTO work (id, gid, name)
-    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 1),
-           (2, '245c079d-374e-4436-9448-da92dedef3cf', 2),
-           (3, '345c079d-374e-4436-9448-da92dedef3cf', 3);
+    VALUES (1, '145c079d-374e-4436-9448-da92dedef3cf', 'Target'),
+           (2, '245c079d-374e-4436-9448-da92dedef3cf', 'Merge 1'),
+           (3, '345c079d-374e-4436-9448-da92dedef3cf', 'Merge 2');
 
 INSERT INTO link_type
     (id, gid, entity_type0, entity_type1, name, link_phrase, reverse_link_phrase,

@@ -78,7 +78,6 @@ our %ACCESS_SCOPE_PERMISSIONS = (
     $ACCESS_SCOPE_TAG            => N_l('View and modify your private tags'),
     $ACCESS_SCOPE_RATING         => N_l('View and modify your private ratings'),
     $ACCESS_SCOPE_COLLECTION     => N_l('View and modify your private collections'),
-    $ACCESS_SCOPE_SUBMIT_PUID    => N_l('Submit new PUIDs to the database'),
     $ACCESS_SCOPE_SUBMIT_ISRC    => N_l('Submit new ISRCs to the database'),
     $ACCESS_SCOPE_SUBMIT_BARCODE => N_l('Submit new barcodes to the database'),
 );
@@ -141,7 +140,7 @@ can be of two types:
   with the shared secret.
 
 The refresh_token is only set when the application asked for offline access.
-When it's set, the application can ask to update the access_token and 
+When it's set, the application can ask to update the access_token and
 reset its expiration time. When refresh_token is not set, the access token is
 can't be reused after it's expired.
 

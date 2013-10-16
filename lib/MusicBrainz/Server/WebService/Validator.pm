@@ -43,6 +43,7 @@ our %relation_types = (
         "release-group-rels" => 1,
         "recording-rels" => 1,
         "label-rels" => 1,
+        "place-rels" => 1,
         "work-rels" => 1,
         "url-rels" => 1,
     },
@@ -332,10 +333,7 @@ role {
             }
 
             # Check to make sure that only appropriate inc values have been requested
-            my $inc = do {
-                my $class = $version eq '2' ? WebServiceInc : WebServiceIncV1;
-                $class->new;
-            };
+            my $inc;
 
             if ($def->[1]->{inc})
             {

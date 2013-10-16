@@ -272,6 +272,12 @@ sub recordings : Chained('load')
             });
             $c->stash( standalone_only => 1 );
         }
+        elsif ($c->req->query_params->{video}) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_video($artist->id, shift, shift);
+            });
+            $c->stash( video_only => 1 );
+        }
         else {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_by_artist($artist->id, shift, shift, filter => \%filter);
@@ -292,9 +298,12 @@ sub recordings : Chained('load')
 
     $c->stash(
         recordings => $recordings,
-        show_artists => scalar grep {
+        show_artists => scalar (grep {
             $_->artist_credit->name ne $artist->name
-        } @$recordings,
+        } @$recordings),
+        show_video => scalar (grep {
+            $_->video
+        } @$recordings),
     );
 }
 

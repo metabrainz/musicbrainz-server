@@ -12,15 +12,13 @@ sub query {
         FROM (
             SELECT DISTINCT
                 r.id,
-                an.name AS aname,
-                rn.name AS rname
+                ac.name AS aname,
+                r.name AS rname
             FROM
                 recording r
                 JOIN track t0 ON t0.recording = r.id
                 JOIN track t1 ON t1.recording = r.id
-                JOIN track_name rn ON r.name = rn.id
                 JOIN artist_credit ac ON r.artist_credit = ac.id
-                JOIN artist_name an ON ac.name = an.id
             WHERE
                 t0.id != t1.id
                 AND @(t0.length - t1.length) > 30000

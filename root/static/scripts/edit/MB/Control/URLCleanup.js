@@ -26,7 +26,8 @@ MB.constants.LINK_TYPES = {
         label: 216,
         release_group: 89,
         work: 279,
-        area: 355
+        area: 355,
+        place: 595
     },
     discogs: {
         artist: 180,
@@ -45,7 +46,8 @@ MB.constants.LINK_TYPES = {
     },
     myspace: {
         artist: 189,
-        label: 215
+        label: 215,
+        place: 462
     },
     purevolume: {
         artist: 174
@@ -94,10 +96,6 @@ MB.constants.LINK_TYPES = {
         recording: 255,
         release: 75
     },
-    microblog: {
-        artist: 198,
-        label: 223
-    },
     review: {
         release_group: 94
     },
@@ -115,7 +113,8 @@ MB.constants.LINK_TYPES = {
     },
     socialnetwork: {
         artist: 192,
-        label: 218
+        label: 218,
+        place: 429
     },
     soundcloud: {
         artist: 291,
@@ -123,7 +122,8 @@ MB.constants.LINK_TYPES = {
     },
     blog: {
         artist: 199,
-        label: 224
+        label: 224,
+        place: 627
     },
     streamingmusic: {
 	artist: 194,
@@ -138,11 +138,13 @@ MB.constants.LINK_TYPES = {
     youtube: {
         artist: 193,
         label: 225,
-        recording: 268
+        recording: 268,
+        place: 528
     },
     otherdatabases: {
         artist: 188,
         label: 222,
+        place: 561,
         recording: 306,
         release: 82,
         release_group: 96,
@@ -158,7 +160,8 @@ MB.constants.LINK_TYPES = {
         artist: 352,
         label: 354,
         release_group: 353,
-        work: 351
+        work: 351,
+        place: 594
     }
 };
 
@@ -328,13 +331,6 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
         type: MB.constants.LINK_TYPES.discographyentry
     },
-    microblog: {
-        match: new RegExp("^(https?://)?(www\\.)?twitter\\.com/", "i"),
-        type: MB.constants.LINK_TYPES.microblog,
-        clean: function(url) {
-            return url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "https://twitter.com");
-        }
-    },
     ozonru: {
         match: new RegExp("^(https?://)?(www\\.)?ozon\\.ru/context/detail/id/", "i"),
         type: MB.constants.LINK_TYPES.mailorder
@@ -356,7 +352,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|reverbnation\\.com|plus.google.com)/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
@@ -371,6 +367,7 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
+            url = url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "https://twitter.com");
             return url;
         }
     },

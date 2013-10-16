@@ -28,6 +28,11 @@ has 'sort_name' => (
     isa => 'Str'
 );
 
+has 'comment' => (
+    is => 'rw',
+    isa => 'Str'
+);
+
 has 'type_id' => (
     is => 'rw',
     isa => 'Maybe[Int]'

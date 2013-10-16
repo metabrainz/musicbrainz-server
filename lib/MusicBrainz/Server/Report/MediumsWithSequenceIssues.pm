@@ -18,8 +18,8 @@ sub query
     #    1 + 2 + 3 + 3 + 5 = 1 + 2 + 3 + 4 + 5
 	<<'EOSQL'
 SELECT DISTINCT release.id AS release_id,
-  musicbrainz_collate(rel_name.name), rel_name.name,
-  row_number() OVER (ORDER BY musicbrainz_collate(rel_name.name))
+  musicbrainz_collate(release.name), release.name,
+  row_number() OVER (ORDER BY musicbrainz_collate(release.name))
 FROM (
     SELECT
       medium.release,
@@ -32,7 +32,6 @@ FROM (
     GROUP BY medium.release
 ) s
 JOIN release ON release.id = s.release
-JOIN release_name rel_name ON rel_name.id = release.name
 WHERE
      first_medium != 1
   OR last_medium != medium_count

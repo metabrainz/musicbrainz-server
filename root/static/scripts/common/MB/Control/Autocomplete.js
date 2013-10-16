@@ -57,6 +57,11 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
+        if (item.video)
+        {
+            a.append ('<span class="autocomplete-video">(video)</span>');
+        }
+
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   MB.utility.escapeHTML (item.artist) + '</span>');
 
@@ -161,7 +166,35 @@ MB.Control.autocomplete_formatters = {
         };
 
         return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+    },
+
+    "place": function (ul, item) {
+        var a = $("<a>").text (item.name);
+
+        var comment = [];
+
+        if (item.comment)
+        {
+            comment.push (item.comment);
+        }
+
+        if (comment.length)
+        {
+            a.append (' <span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
+        }
+
+        if (item.typeName || item.area) {
+             a.append ('<br /><span class="autocomplete-comment">' +
+                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
+                       (item.typeName && item.area ? ', ' : '') +
+                       (item.area ? MB.utility.escapeHTML(item.area) : '') +
+                       '</span>');
+        };
+
+        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     }
+
 };
 
 

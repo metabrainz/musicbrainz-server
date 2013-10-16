@@ -1,0 +1,17 @@
+[%- WRAPPER 'layout.tt' title=l('Releases with a single medium that has a name') full_width=1 -%]
+
+<h1>[% l('Releases released too early') %]</h1>
+
+<ul>
+    <li>[% l('This report shows releases that have a single medium, where this
+    medium also has a specific name. Usually, this is not necessary and is
+    duplicate information which can be removed.') %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]
+

@@ -29,6 +29,7 @@ sub statistics : Path('')
     my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
+    my @place_types = sort_by { $_->l_name } $c->model('PlaceType')->get_all();
 
     $c->stash(
         template => 'statistics/index.tt',
@@ -38,6 +39,7 @@ sub statistics : Path('')
         secondary_types => \%secondary_types,
         work_types => \@work_types,
         area_types => \@area_types,
+        place_types => \@place_types,
         stats => $latest_stats
     );
 }

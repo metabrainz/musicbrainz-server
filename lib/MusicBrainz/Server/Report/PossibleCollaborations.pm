@@ -6,17 +6,16 @@ with 'MusicBrainz::Server::Report::ArtistReport',
 
 sub query {
     "
-        SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY musicbrainz_collate(name.name) )
+        SELECT artist.id AS artist_id, row_number() OVER ( ORDER BY musicbrainz_collate(artist.name) )
         FROM
             artist
             LEFT JOIN l_artist_artist ON l_artist_artist.entity1=artist.id
             LEFT JOIN link ON link.id=l_artist_artist.link
             LEFT JOIN link_type ON link_type.id=link.link_type
-            LEFT JOIN artist_name AS name ON artist.name=name.id
         WHERE
-            (name.name ~ '&' OR name.name ~ E'\\\\yvs\\\\.' OR name.name ~ E'\\\\yfeat\\\\.')
+            (artist.name ~ '&' OR artist.name ~ E'\\\\yvs\\\\.' OR artist.name ~ E'\\\\yfeat\\\\.')
             AND (link_type.name IS NULL OR link_type.name NOT IN ('collaboration', 'member of band'))
-        GROUP BY artist.id, name.name
+        GROUP BY artist.id, artist.name
     "
 }
 
