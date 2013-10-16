@@ -314,7 +314,7 @@ sub end : ActionClass('RenderView')
     return if exists $c->action->attributes->{Minimal};
 
     $c->stash->{server_details} = {
-        %{ $c->stash->{server_details} },
+        %{ $c->stash->{server_details} // {} },
         staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
         developement_server        => DBDefs->DEVELOPMENT_SERVER,
