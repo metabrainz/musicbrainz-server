@@ -38,6 +38,9 @@
       <thead>
         <tr>
           <th class="pos t">#</th>
+          <!-- ko if: $root.showVideo -->
+          <th class="video c"></th>
+          <!-- /ko -->
           <th>
             <span style="float: right; font-weight: normal; padding-right: 1em;">
               <a style="display: none;" class="bottom-credits" href="">
@@ -60,17 +63,24 @@
         <!-- ko foreach: mediums -->
           <tr data-bind="css: { subh: true, mp: editsPending > 0}">
             <td>&#xa0;</td>
-            <td data-bind="attr: { colspan: $root.showArtists ? 4 : 3 }">
+            <td data-bind="attr: { colspan: 3 + ($root.showVideo ? 1 : 0) + ($root.showArtists ? 1 : 0) }">
               <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
               <!-- [% rdfa_medium_in_release(release, medium) %] -->
             </td>
           </tr>
-
           <!-- ko foreach: tracks -->
           <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
                 <!-- ko text: number --><!-- /ko -->
               </td>
+              <!-- ko if: $root.showVideo -->
+                <td class="video c" data-bind="if: recording.video">
+                  <img src="/static/images/icons/video.png"
+                       alt="[% l('This recording is a video') %]"
+                       title="[% l('This recording is a video') %]"
+                       class="bottom"/>
+              </td>
+              <!-- /ko -->
               <td>
                 <a data-bind="text: name, attr: { href: '/recording/' + recording.gid }"></a>
 
@@ -212,7 +222,9 @@
                             gid => $_->recording->gid,
                             rating => $_->recording->rating,
                             userRating => $_->recording->user_rating,
-                            id => $_->recording->id
+                            id => $_->recording->id,
+                            video =>
+                                $_->recording->video ? JSON::true : JSON::false
                         }
                     }, $_->all_tracks
                 ],
