@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Data::Search;
 
+use Carp;
+use Try::Tiny;
 use Moose;
 use Class::MOP;
 use JSON;
@@ -754,7 +756,16 @@ sub external_search
     }
     else
     {
-        my $data = JSON->new->utf8->decode($response->content);
+        my $data;
+        try {
+            $data = JSON->new->utf8->decode($response->content);
+        }
+        catch {
+            use Data::Dumper;
+            croak "Failed to decode JSON search data:\n" .
+                  Dumper($response->content) . "\n" .
+                  "Exception:" . Dumper($_);
+        };
 
         my @results;
         my $xmltype = $type;
