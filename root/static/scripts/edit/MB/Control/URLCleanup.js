@@ -26,7 +26,8 @@ MB.constants.LINK_TYPES = {
         label: 216,
         release_group: 89,
         work: 279,
-        area: 355
+        area: 355,
+        place: 595
     },
     discogs: {
         artist: 180,
@@ -45,7 +46,8 @@ MB.constants.LINK_TYPES = {
     },
     myspace: {
         artist: 189,
-        label: 215
+        label: 215,
+        place: 462
     },
     purevolume: {
         artist: 174
@@ -111,7 +113,8 @@ MB.constants.LINK_TYPES = {
     },
     socialnetwork: {
         artist: 192,
-        label: 218
+        label: 218,
+        place: 429
     },
     soundcloud: {
         artist: 291,
@@ -119,7 +122,8 @@ MB.constants.LINK_TYPES = {
     },
     blog: {
         artist: 199,
-        label: 224
+        label: 224,
+        place: 627
     },
     streamingmusic: {
 	artist: 194,
@@ -134,11 +138,13 @@ MB.constants.LINK_TYPES = {
     youtube: {
         artist: 193,
         label: 225,
-        recording: 268
+        recording: 268,
+        place: 528
     },
     otherdatabases: {
         artist: 188,
         label: 222,
+        place: 561,
         recording: 306,
         release: 82,
         release_group: 96,
@@ -154,7 +160,8 @@ MB.constants.LINK_TYPES = {
         artist: 352,
         label: 354,
         release_group: 353,
-        work: 351
+        work: 351,
+        place: 594
     }
 };
 
