@@ -111,6 +111,13 @@
             </div>
         [% END %]
 
+        [%- IF server_details.alert -%]
+            <div class="warning-header">
+                <p>[% server_details.alert %]</p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [%- END -%]
+
         [%- IF server_details.read_only -%]
             <div class="server-details">
                 <p>
