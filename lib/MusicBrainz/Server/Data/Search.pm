@@ -289,7 +289,7 @@ sub search
         my $row = $self->sql->next_row_hash_ref or last;
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
-            score => int(100 * $row->{rank}),
+            score => int(1000 * $row->{rank}),
             entity => $TYPE_TO_DATA_CLASS{$type}->_new_from_row($row)
         );
         push @result, $res;
