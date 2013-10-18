@@ -1,0 +1,10 @@
+<table class="details remove-puid">
+  <tr>
+    <th>[% l('Recording:') %]</th>
+    <td>[% link_entity(edit.display_data.recording) %]</td>
+  </tr>
+  <tr>
+    <th>[% l('PUID:') %]</th>
+    <td>[% edit.display_data.puid_name %]</td>
+  </tr>
+</table>
