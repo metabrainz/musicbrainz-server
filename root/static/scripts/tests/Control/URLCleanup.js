@@ -63,6 +63,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://thesession.org/tunes/2305',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // Wikimedia Commons
+                [
+                    'artist', 'http://commons.wikimedia.org/wiki/File:NIN2008.jpg',
+                    MB.constants.LINK_TYPES.image.artist
+                ],
+                [
+                    'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
+                    MB.constants.LINK_TYPES.image.label
+                ],
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
