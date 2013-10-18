@@ -1014,6 +1014,7 @@ BEGIN
         NEW.end_date_month := NULL;
         NEW.end_date_day := NULL;
         NEW.end_date_day := NULL;
+        NEW.ended := FALSE;
         NEW.locale := NULL;
     END IF;
     RETURN NEW;
