@@ -17,6 +17,7 @@ has_field 'type_id' => (
 
 has_field 'address' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
+    not_nullable => 1
 );
 
 has_field 'area_id'   => ( type => 'Hidden' );
@@ -46,12 +47,6 @@ sub edit_field_names
 sub options_type_id     { shift->_select_all('PlaceType') }
 
 sub dupe_model { shift->ctx->model('Place') }
-
-sub validate {
-    my ($self) = @_;
-
-    return 1;
-}
 
 1;
 
