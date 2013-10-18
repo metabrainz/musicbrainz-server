@@ -355,7 +355,10 @@ sub schema_fixup
     if ($type eq 'place' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
-        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} )  if (exists $data->{coordinates});
+    }
+    if ($type eq 'place' && exists $data->{coordinates})
+    {
+        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
     if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
     {
