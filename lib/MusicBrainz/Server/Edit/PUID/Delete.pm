@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
 use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Edit::Exceptions;
 use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -54,11 +55,16 @@ sub build_display_data
     };
 }
 
-sub alter_edit_pending  { die 'This edit is read only' }
+sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
+
 sub initialize { die 'This edit is read only' }
 sub insert { die 'This edit is read only' }
-sub reject { die 'This edit is read only' }
-sub accept { die 'This edit is read only' }
+
+sub reject {
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'This edit cannot be rejected as PUIDs no longer exist in MusicBrainz'
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

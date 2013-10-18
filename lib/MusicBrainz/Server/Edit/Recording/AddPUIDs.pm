@@ -5,6 +5,8 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
 use MusicBrainz::Server::Translation qw ( N_l );
 
+use MusicBrainz::Server::Edit::Exceptions;
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
@@ -59,11 +61,14 @@ sub build_display_data
 
 sub allow_auto_edit { 1 }
 
-sub alter_edit_pending  { die 'This edit is read only' }
 sub initialize { die 'This edit is read only' }
 sub insert { die 'This edit is read only' }
-sub reject { die 'This edit is read only' }
-sub accept { die 'This edit is read only' }
+
+sub accept {
+    MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
+        'This edit cannot be applied as PUIDs are no longer stored by MusicBrainz')
+    )
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
