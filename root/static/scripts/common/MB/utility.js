@@ -340,3 +340,7 @@ MB.utility.filesize = function (size) {
     return filesize (size, 1, false);
 };
 
+MB.utility.percentOf = function(x, y) {
+    return x * y / 100;
+};
+
