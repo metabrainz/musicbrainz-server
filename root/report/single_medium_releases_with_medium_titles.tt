@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('Releases with a single medium that has a name') full_width=1 -%]
 
-<h1>[% l('Releases released too early') %]</h1>
+<h1>[% l('Releases with a single medium that has a name') %]</h1>
 
 <ul>
     <li>[% l('This report shows releases that have a single medium, where this
