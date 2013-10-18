@@ -32,12 +32,14 @@ MB.constants.LINK_TYPES = {
     discogs: {
         artist: 180,
         label: 217,
+        place: 705,
         release: 76,
         release_group: 90
     },
     imdb: {
         artist: 178,
         label: 313,
+        place: 706,
         release_group: 97
     },
     imdbsamples: {
