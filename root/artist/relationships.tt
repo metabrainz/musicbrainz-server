@@ -3,7 +3,7 @@
 
     <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=artist
-        relationships=artist.grouped_relationships('artist', 'url', 'label') %]
+        relationships=artist.grouped_relationships('artist', 'url', 'label', 'place') %]
 
     [% IF artist.appearances.size %]
     <h2>[% l('Appearances') %]</h2>
