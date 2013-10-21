@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Data::Work;
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
+use Test::Deep qw( cmp_deeply methods noclass set );
 
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::WorkType;
@@ -284,6 +285,66 @@ EOSQL
         'Attribute #2 allows arbitrary text');
 
     ok($allowed_values{3}->{allows_value}->(3), 'Attribute #3 allows value #3');
+};
+
+test 'Merge attributes for works' => sub {
+    my $test = shift;
+
+    my $work_data = $test->c->model('Work');
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO work_attribute_type (id, name, free_text)
+VALUES
+  (1, 'Attribute', false),
+  (2, 'Free attribute', true),
+  (3, 'Attribute 3', false);
+INSERT INTO work_attribute_type_allowed_value (id, work_attribute_type, value)
+VALUES (1, 1, 'Value'), (2, 1, 'Value 2'), (3, 3, 'Value 3');
+EOSQL
+
+    my $a = $work_data->insert({ name => 'Traits' });
+    my $b = $work_data->insert({ name => 'Tru Beat' });
+
+    $work_data->set_attributes(
+        $a->id,
+        { attribute_type_id => 1, attribute_value_id => 1 },
+        { attribute_type_id => 2, attribute_text => 'Free Text' }
+    );
+
+    $work_data->set_attributes(
+        $b->id,
+        { attribute_type_id => 1, attribute_value_id => 1 },
+        { attribute_type_id => 1, attribute_value_id => 2 },
+        { attribute_type_id => 3, attribute_value_id => 3 },
+        { attribute_type_id => 2, attribute_text => 'Free Text' }
+    );
+
+    $work_data->merge($a->id, $b->id);
+
+    my $final_work = $work_data->get_by_gid($a->gid);
+    $work_data->load_attributes($final_work);
+
+    cmp_deeply(
+        $final_work->attributes,
+        set(
+            methods(
+                type => methods(id => 1),
+                value_id => 1
+            ),
+            methods(
+                type => methods(id => 1),
+                value_id => 2
+            ),
+            methods(
+                type => methods(id => 2),
+                value => "Free Text"
+            ),
+            methods(
+                type => methods(id => 3),
+                value_id => 3
+            )
+        )
+    )
 };
 
 1;

@@ -188,6 +188,24 @@ sub _merge_impl
     $self->c->model('Relationship')->merge_entities('work', $new_id, @old_ids);
     $self->c->model('ISWC')->merge_works($new_id, @old_ids);
 
+    $self->sql->do(
+        'WITH all_attributes AS (
+           DELETE FROM work_attribute WHERE work = any(?)
+           RETURNING work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         )
+         INSERT INTO work_attribute
+           (work, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value)
+         SELECT DISTINCT ON
+           (work_attribute_type,
+            coalesce(work_attribute_text, work_attribute_type_allowed_value::text))
+           ?, work_attribute_type, work_attribute_text,
+           work_attribute_type_allowed_value
+         FROM all_attributes',
+      [ $new_id, @old_ids ], $new_id
+    );
+
     merge_table_attributes(
         $self->sql => (
             table => 'work',
@@ -563,7 +581,7 @@ sub all_work_attributes {
 sub inflate_attributes {
     my ($self, $attributes) = @_;
 
-    return [] unless @$attributes;
+    return [] unless @{ $attributes // [] };
     return [
         map {
             MusicBrainz::Server::Entity::WorkAttribute->new(
