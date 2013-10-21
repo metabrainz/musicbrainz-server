@@ -22,6 +22,7 @@
     </p>
     <p>
         [%- IF c.user.is_relationship_editor -%]
+        <strong>[% l('ID:') %]</strong> [% relationship_type.id %]<br />
         <strong>[% l('Child order:') %]</strong> [% relationship_type.child_order %]<br />
         [% END %]
         <strong>[% l('UUID:') %]</strong> [% relationship_type.gid %]<br />
