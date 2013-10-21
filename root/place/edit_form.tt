@@ -66,6 +66,15 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
+
+    <div class="area-container" style="display: none">
+      <div class="area bubble">
+        <p>
+          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
+        </p>
+      </div>
+    </div>
+
   </div>
 
 </form>

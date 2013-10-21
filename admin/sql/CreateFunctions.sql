@@ -785,15 +785,15 @@ $BODY$
   EXCEPT
   SELECT entity0 FROM l_place_place
   EXCEPT
-  SELECT entity1 FROM l_place_recording
+  SELECT entity0 FROM l_place_recording
   EXCEPT
-  SELECT entity1 FROM l_place_release
+  SELECT entity0 FROM l_place_release
   EXCEPT
-  SELECT entity1 FROM l_place_release_group
+  SELECT entity0 FROM l_place_release_group
   EXCEPT
-  SELECT entity1 FROM l_place_url
+  SELECT entity0 FROM l_place_url
   EXCEPT
-  SELECT entity1 FROM l_place_work;
+  SELECT entity0 FROM l_place_work;
 $BODY$
 LANGUAGE 'sql';
 
