@@ -6,6 +6,12 @@
     { entity0 => format_entity_type_name(relationship_type.entity0_type), entity1 => format_entity_type_name(relationship_type.entity1_type) }) -%]</a>
     / [% typename | html -%]</h1>
 
+    [%- IF relationship_type.is_deprecated -%]
+      <p class="cleanup">
+        [% l('This relationship type is deprecated and should not be used.') %]
+      </p>
+    [%- END -%]
+
     [%- IF c.user.is_relationship_editor -%]
     <span class="buttons" style="float: right">
         <a href="[% c.uri_for_action('/relationship/linktype/edit', [ relationship_type.gid ]) %]">[% l('Edit') %]</a>
