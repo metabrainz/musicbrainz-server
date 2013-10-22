@@ -37,6 +37,17 @@ sub format
     }
 }
 
+sub osm_url
+{
+    my ($self, $zoom) = @_;
+    if (defined $self->latitude && defined $self->longitude) {
+        return 'http://www.openstreetmap.org/#map=' . join('/', $zoom, $self->latitude, $self->longitude);
+    }
+    else {
+        return '';
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
