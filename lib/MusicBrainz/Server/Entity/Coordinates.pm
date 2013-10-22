@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Coordinates;
 
 use Moose;
+use utf8;
 
 has 'latitude' => (
     is => 'rw',
@@ -26,7 +27,8 @@ sub format
     my ($self) = @_;
 
     if (defined $self->latitude && defined $self->longitude) {
-        my @res = ($self->latitude, $self->longitude);
+        my @res = (abs($self->latitude) . '°' . ($self->latitude > 0 ? 'N' : 'S'),
+                   abs($self->longitude) . '°' . ($self->longitude > 0 ? 'E' : 'W'));
 
         return join(', ', @res);
     }
