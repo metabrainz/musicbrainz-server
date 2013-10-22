@@ -173,6 +173,11 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
+
         if (item.comment)
         {
             comment.push (item.comment);

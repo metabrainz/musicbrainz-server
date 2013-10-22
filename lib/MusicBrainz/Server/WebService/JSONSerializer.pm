@@ -328,8 +328,30 @@ sub autocomplete_work
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $result = shift;
 
+            my $out = $self->_work( $result->{work} );
+            $out->{artists} = $result->{artists};
+
+            return $out;
+        }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
+}
+
+sub _with_primary_alias {
+    my ($results, $renderer) = @_;
+
+    my @output;
     if (@$results) {
         my $munge_lang = sub {
             my $lang = shift;
@@ -346,9 +368,8 @@ sub autocomplete_work
         $alias_preference{$lang} = 4 if $lang ne 'en';
         $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
 
-        for (@$results) {
-            my $out = $self->_work( $_->{work} );
-            $out->{artists} = $_->{artists};
+        for my $result (@$results) {
+            my $out = $renderer->($result);
 
             my ($primary_alias, @others) =
                 reverse sort {
@@ -360,19 +381,14 @@ sub autocomplete_work
                         : defined($pref_a) || -(defined($pref_b)) || 0;
                 } grep {
                     $_->primary_for_locale
-                } @{ $_->{aliases} };
+                } @{ $result->{aliases} };
 
             $out->{primary_alias} = $primary_alias && $primary_alias->name;
             push @output, $out;
         }
     }
 
-    push @output, {
-        pages => $pager->last_page,
-        current => $pager->current_page
-    } if $pager;
-
-    return encode_json (\@output);
+    return \@output;
 }
 
 sub _work
@@ -392,15 +408,17 @@ sub autocomplete_place
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
-    push @output, $self->_place($_) for @$results;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_place(shift->{place}) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json ($output);
 }
 
 sub _place

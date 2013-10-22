@@ -29,10 +29,18 @@ sub search : Chained('root') PathPart('place')
     $self->dispatch_search($c);
 }
 
-after _load_entities => sub {
+sub _format_output {
     my ($self, $c, @entities) = @_;
     $c->model('PlaceType')->load(@entities);
     $c->model('Area')->load(@entities);
-};
+    my $aliases = $c->model('Place')->alias->find_by_entity_ids(
+        map { $_->id } @entities);
+
+    return map +{
+        place => $_,
+        aliases => $aliases->{$_->id},
+        current_language => $c->stash->{current_language} // 'en'
+    }, @entities;
+}
 
 1;
