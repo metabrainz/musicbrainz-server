@@ -165,6 +165,23 @@ sub autocomplete_generic
     return encode_json (\@output);
 }
 
+sub autocomplete_label
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_label( shift->{entity} ) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
+}
+
 sub _generic
 {
     my ($self, $entity) = @_;
@@ -192,15 +209,34 @@ sub autocomplete_area
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
-    push @output, $self->_area($_) for @$results;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_area( shift->{entity} ) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json ($output);
+}
+
+sub autocomplete_artist
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_artist( shift->{entity} ) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
 }
 
 sub _area
@@ -333,7 +369,7 @@ sub autocomplete_work
         sub {
             my $result = shift;
 
-            my $out = $self->_work( $result->{work} );
+            my $out = $self->_work( $result->{entity} );
             $out->{artists} = $result->{artists};
 
             return $out;
@@ -410,7 +446,7 @@ sub autocomplete_place
 
     my $output = _with_primary_alias(
         $results,
-        sub { $self->_place(shift->{place}) }
+        sub { $self->_place(shift->{entity}) }
     );
 
     push @$output, {

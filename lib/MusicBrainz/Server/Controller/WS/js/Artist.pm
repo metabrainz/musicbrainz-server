@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'Artist',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "artist" => {
@@ -20,6 +23,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 };
 
 sub type { 'artist' }
+
+sub serialization_routine { '_artist' }
 
 sub search : Chained('root') PathPart('artist')
 {
