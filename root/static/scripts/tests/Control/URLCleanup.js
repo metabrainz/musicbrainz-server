@@ -33,6 +33,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
                 ],
+                // WhoSampled
+                [
+                    'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
+                    MB.constants.LINK_TYPES.otherdatabases.recording
+                ],
+                // MusicMoz
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
                     MB.constants.LINK_TYPES.otherdatabases.artist
