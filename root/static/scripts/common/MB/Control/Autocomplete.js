@@ -96,6 +96,12 @@ MB.Control.autocomplete_formatters = {
     "release-group": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.firstReleaseDate)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                        item.firstReleaseDate + ')</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +

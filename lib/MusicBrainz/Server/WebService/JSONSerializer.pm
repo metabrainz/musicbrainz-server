@@ -273,7 +273,8 @@ sub _release_group
         comment => $item->comment,
         artist  => $item->artist_credit->name,
         type    => $item->primary_type_id,
-        $item->primary_type ? (typeName => $item->primary_type->name) : (),
+        typeName => $item->type_name,
+        firstReleaseDate => $item->first_release_date->format,
         secondary_types => [ map { $_->id } $item->all_secondary_types ]
     };
 }
