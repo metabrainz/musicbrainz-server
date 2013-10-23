@@ -318,8 +318,6 @@ MB.GuessCase.Main = function () {
         }
         handler = self.placeHandler;
 
-        self.useSelectedMode(mode);
-
         // we need to query the handler if the input string is
         // a special case, fetch the correct format, if the
         // returned case is indeed a special case.

@@ -47,6 +47,8 @@
             "count.release": { Label: '[% l('Releases') | js %]', Color: "#a8ff00", Description: '[% l('Count of all releases') | js %]', Category: "core-entities"  },
             "count.releasegroup": { Label: '[% l('Release Groups') | js %]', Color: "#ae00ff", Description: '[% l('Count of all release groups') | js %]', Category: "core-entities"  },
             "count.label": { Label: '[% l('Labels') | js %]', Color: "#ff0096", Description: '[% l('Count of all labels') | js %]', Category: "core-entities"  },
+            "count.area": { Label: '[% l('Areas') | js %]', Color: "#ff0000", Description: '[% l('Count of all areas') | js %]', Category: "core-entities"  },
+            "count.place": { Label: '[% l('Places') | js %]', Color: "#bc0a0a", Description: '[% l('Count of all places') | js %]', Category: "core-entities"  },
 
             "count.edit": { Label: '[% l('Edits') | js %]', Color: '#ff00ff', Description: '[% l('Count of all edits') | js %]', Category: "edit-information", Hide: true },
             "count.edit.open": { Label: '[% l('Open Edits') | js %]', Color: '#ffe400', Description: '[% l('Count of open edits') | js %]', Category: "edit-information" },
