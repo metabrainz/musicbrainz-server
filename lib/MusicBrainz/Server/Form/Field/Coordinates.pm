@@ -26,7 +26,7 @@ sub validate {
         return;
     }
 
-    my $dmsPart = '(?:(\d+)[:°d]\s?(\d+)[:′]\s?(\d+(?:\.\d+|)))[″]?\s?([NSEW]?)';
+    my $dmsPart = '(?:(\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
     if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
         $self->value({
             latitude  => dms($1, $2, $3, $4),
