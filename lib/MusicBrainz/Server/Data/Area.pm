@@ -114,12 +114,16 @@ sub load_containment
 {
     my ($self, @objs) = @_;
     my $area_area_parent_type = 356;
+    # Define a map of area_type IDs to what property they correspond to
+    # on an Entity::Area.
     my $types = {
         $AREA_TYPE_COUNTRY => 'parent_country',
         2 => 'parent_subdivision',
         3 => 'parent_city',
     };
 
+    # This helper function determines if a given area object should continue with loading
+    # it won't include an object if all the containments are already loaded, or with undef.
     my $use_object = sub {
         my $obj = $_;
         return 0 if !defined $obj;
@@ -135,12 +139,6 @@ sub load_containment
 
     # First, construct a table (recursively) of parent -> descendant connections
     # for areas including an array of the path (the 'descendants' array).
-    #
-    # Then, for given descendants, find the shortest path to a parent of type
-    # 1 (country) by joining to area, limiting on type=1, distinct on descendant,
-    # and order by array_length(descendants).
-    #
-    # Thus, find the nearest containing country for an area.
     my $query = "
         WITH RECURSIVE area_descendants AS (
             SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
@@ -155,6 +153,11 @@ sub load_containment
             WHERE  link_type = $area_area_parent_type
             AND    NOT entity0 = ANY(descendants))
     ";
+    # Then find the shortest path to a parent of a given type by joining to
+    # area, limiting on the appropriate type id, distinct on descendant, and
+    # order by the length of the array of descendants.
+    #
+    # Do this for every applicable type, as defined in $types above.
     for my $type (keys $types) {
         $query .= ", " . $types->{$type} . " AS (
                   SELECT   DISTINCT ON (descendant) descendant, parent FROM area_descendants
@@ -176,8 +179,9 @@ sub load_containment
 
     my @parent_ids = map { my $data = $_; map { $data->{$_} } values $types } @$containment;
 
+    # Having determined the IDs for all the parents, actually load them and attach to the
+    # descendant objects.
     my $parent_objects = $self->get_by_ids(@parent_ids);
-
     for my $data (@$containment) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
             for my $type (values $types) {
