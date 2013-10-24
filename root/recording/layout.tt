@@ -1,6 +1,7 @@
-[% main_title = l('Recording “{name}” by {artist}', {
+[% main_title = l('{type} “{name}” by {artist}', {
     artist => artist_credit(recording.artist_credit, plain => 1),
-    name => html_escape(recording.name)
+    name => html_escape(recording.name),
+    type => recording.video ? l('Video') : l('Recording') 
 }) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
   [%- IF !full_width -%]
