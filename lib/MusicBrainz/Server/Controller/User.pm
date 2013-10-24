@@ -165,12 +165,10 @@ sub cookie_login : Private
 
     return if $c->user_exists;
 
-    $c->model('MB')->with_transaction(sub {
-        if (my $user_name = $self->_consume_remember_me_cookie($c)) {
-            $self->_renew_login_cookie($c, $user_name);
-            $c->set_authenticated($c->find_user({ username => $user_name }));
-        }
-    });
+    if (my $user_name = $self->_consume_remember_me_cookie($c)) {
+        $self->_renew_login_cookie($c, $user_name);
+        $c->set_authenticated($c->find_user({ username => $user_name }));
+    }
 }
 
 sub _consume_remember_me_cookie {

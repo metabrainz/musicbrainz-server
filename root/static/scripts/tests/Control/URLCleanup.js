@@ -63,6 +63,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://thesession.org/tunes/2305',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // Wikimedia Commons
+                [
+                    'artist', 'http://commons.wikimedia.org/wiki/File:NIN2008.jpg',
+                    MB.constants.LINK_TYPES.image.artist
+                ],
+                [
+                    'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
+                    MB.constants.LINK_TYPES.image.label
+                ],
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -285,6 +294,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'artist', 'http://www.reverbnation.com/asangelsbleed',
                     MB.constants.LINK_TYPES.socialnetwork.artist
                 ],
+                // Twitter
+                [
+                    'artist', 'https://twitter.com/miguelgrimaldo',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
                 // SoundtrackCollector
                 [
                     'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
@@ -338,6 +352,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
                     MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // VK
+                [
+                    'artist', 'http://vk.com/tin_sontsya',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
                 ],
                 // Generasia
                 [
@@ -479,6 +498,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.myspace.com/whoevenusesthisanymore',
                     'https://myspace.com/whoevenusesthisanymore',
                     'label'
+                ],
+                // Twitter
+                [
+                    'http://twitter.com/miguelgrimaldo',
+                    'https://twitter.com/miguelgrimaldo',
+                    'artist'
                 ],
                 // SoundCloud
                 [

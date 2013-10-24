@@ -516,17 +516,14 @@ sub merge_boolean_attributes {
     $sql->do(
         "UPDATE $table SET " .
             join(',', map {
-                "$_ = (SELECT new_val FROM (
-                     SELECT (id = ?) AS first, $_ AS new_val
-                       FROM $table
-                      WHERE $_
-                        AND id IN (" . placeholders(@all_ids) . ")
-                   ORDER BY first DESC
-                      LIMIT 1
-                      ) s)";
+                "$_ = (
+                        SELECT bool_or($_)
+                        FROM $table
+                        WHERE id IN (" . placeholders(@all_ids) . ")
+                      )";
             } @columns) . '
             WHERE id = ?',
-        (@all_ids, $new_id) x @columns, $new_id
+        (@all_ids) x @columns, $new_id
     );
 }
 

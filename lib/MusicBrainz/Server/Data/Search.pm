@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Data::Search;
 
+use Carp;
+use Try::Tiny;
 use Moose;
 use Class::MOP;
 use JSON;
@@ -97,14 +99,12 @@ sub search
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
-        my $include_comment = $type eq 'area' ? '' : 'entity.comment, ';
-
         $query = "
             SELECT
                 entity.id,
                 entity.gid,
                 entity.name,
-                ${include_comment}
+                entity.comment,
                 entity.sort_name,
                 entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
@@ -129,7 +129,7 @@ sub search
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
                 $where_deleted
             GROUP BY
-                $extra_columns entity.id, entity.gid, ${include_comment}entity.name, entity.sort_name, entity.type,
+                $extra_columns entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY
@@ -289,7 +289,7 @@ sub search
         my $row = $self->sql->next_row_hash_ref or last;
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
-            score => int(100 * $row->{rank}),
+            score => int(1000 * $row->{rank}),
             entity => $TYPE_TO_DATA_CLASS{$type}->_new_from_row($row)
         );
         push @result, $res;
@@ -355,7 +355,10 @@ sub schema_fixup
     if ($type eq 'place' && exists $data->{type})
     {
         $data->{type} = MusicBrainz::Server::Entity::PlaceType->new( name => $data->{type} );
-        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} )  if (exists $data->{coordinates});
+    }
+    if ($type eq 'place' && exists $data->{coordinates})
+    {
+        $data->{coordinates} = MusicBrainz::Server::Entity::Coordinates->new( $data->{coordinates} );
     }
     if (($type eq 'artist' || $type eq 'label' || $type eq 'area' || $type eq 'place') && exists $data->{'life-span'})
     {
@@ -579,6 +582,10 @@ sub schema_fixup
         ];
     }
 
+    if ($type eq 'recording') {
+        $data->{video} = $data->{video} eq 'true';
+    }
+
     if (exists $data->{"relation-list"} &&
         exists $data->{"relation-list"}->[0] &&
         exists $data->{"relation-list"}->[0]->{"relation"})
@@ -754,7 +761,16 @@ sub external_search
     }
     else
     {
-        my $data = JSON->new->utf8->decode($response->content);
+        my $data;
+        try {
+            $data = JSON->new->utf8->decode($response->content);
+        }
+        catch {
+            use Data::Dumper;
+            croak "Failed to decode JSON search data:\n" .
+                  Dumper($response->content) . "\n" .
+                  "Exception:" . Dumper($_);
+        };
 
         my @results;
         my $xmltype = $type;

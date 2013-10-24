@@ -9,6 +9,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
+with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::Details';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';

@@ -587,6 +587,15 @@ sub _do_accept
             );
             return $STATUS_ERROR;
         }
+        elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err->message
+                }
+            );
+            return $STATUS_ERROR;
+        }
         else {
             die $err;
         }

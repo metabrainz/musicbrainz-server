@@ -12,7 +12,7 @@
     <th></th>
     <td colspan="2">
       [% l('This relationship edit also included changes to relationship attributes
-            which no longer exists.') %]
+            which no longer exist.') %]
     </td>
   </tr>
   [% END %]

@@ -111,6 +111,13 @@
             </div>
         [% END %]
 
+        [%- IF server_details.alert -%]
+            <div class="warning-header">
+                <p>[% server_details.alert %]</p>
+                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
+            </div>
+        [%- END -%]
+
         [%- IF server_details.read_only -%]
             <div class="server-details">
                 <p>
@@ -154,6 +161,11 @@
                 <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
                 [%- IF server_details.beta_redirect %] |
                 <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
+                [%- END -%]
+                [%- IF last_replication_date -%]
+                <br />
+                [% l('Last replication packet received at {datetime}',
+                     { datetime => UserDate.format(last_replication_date) }) %]
                 [%- END -%]
             </p>
 

@@ -68,6 +68,7 @@ test 'release group lookup with releases' => sub {
                     "release-events" => [{
                         date => "2008-11-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                             "name" => "United Kingdom",
                             "sort-name" => "United Kingdom",
@@ -145,6 +146,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     "release-events" => [{
                         date => "2004-03-17",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",

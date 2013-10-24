@@ -157,6 +157,12 @@ MB.Control.autocomplete_formatters = {
     "area": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
         if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
              var items = [];
              if (item.typeName) items.push(MB.utility.escapeHTML(item.typeName));

@@ -51,7 +51,8 @@ sub _column_mapping
         type_id => 'type',
         comment => 'comment',
         language_id => 'language',
-        last_updated => 'last_updated'
+        last_updated => 'last_updated',
+        edits_pending => 'edits_pending',
     };
 }
 
