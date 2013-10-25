@@ -15,20 +15,17 @@ my $mech = $test->mech;
 my $c    = $test->c;
 
 $c->sql->do(<<EOSQL);
-INSERT INTO artist_name (id, name) VALUES (1, 'ABBA');
 INSERT INTO artist (id, gid, name, sort_name, comment)
-VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 1, 1, 'A'),
-       (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'B'),
-       (4, '945c079d-374e-4436-9448-da92dedef3cf', 1, 1, 'C'),
-       (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 1, 1, 'D');
+VALUES (3, '745c079d-374e-4436-9448-da92dedef3ce', 'ABBA', 'ABBA', 'A'),
+       (6, 'a45c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'B'),
+       (4, '945c079d-374e-4436-9448-da92dedef3cf', 'ABBA', 'ABBA', 'C'),
+       (5, '5441c29d-3602-4898-b1a1-b77fa23b8e50', 'ABBA', 'ABBA', 'D');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 1, 1);
-INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (1, 0, 6, 1);
-INSERT INTO track_name (id, name) VALUES (1, 'Dancing Queen');
+INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'ABBA', 1);
+INSERT INTO artist_credit_name (artist_credit, position, artist, name) VALUES (1, 0, 6, 'ABBA');
 INSERT INTO recording (id, gid, name, artist_credit, length)
-    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 1, 1, 123456);
+    VALUES (1, '54b9d183-7dab-42ba-94a3-7388a66604b8', 'Dancing Queen', 1, 123456);
 INSERT INTO isrc (isrc, recording) VALUES ('DEE250800231', 1);
-ALTER SEQUENCE artist_name_id_seq RESTART 2;
 EOSQL
 
 $mech->get_ok('/login');
