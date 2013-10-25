@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
@@ -112,15 +113,15 @@ sub load_codes
 
 sub load_containment
 {
-    my ($self, @objs) = @_;
+    my ($self, @areas) = @_;
     my $area_area_parent_type = 356;
     # Define a map of area_type IDs to what property they correspond to
     # on an Entity::Area.
-    my $types = {
+    my %type_parent_attribute = (
         $AREA_TYPE_COUNTRY => 'parent_country',
         2 => 'parent_subdivision',
         3 => 'parent_city',
-    };
+    );
 
     # This helper function determines if a given area object should continue with loading
     # it won't include an object if all the containments are already loaded, or with undef.
@@ -128,17 +129,18 @@ sub load_containment
         my $obj = $_;
         return 0 if !defined $obj;
         my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
-        # for each containment type, subtract it only if it's already done or shouldn't be
-        # if all containments are loaded, this ends up as 0
-        return (scalar (keys $types)) - (scalar grep { defined $obj->{ $types->{$_} } || $obj_type == $_ } (keys $types));
+        # For each containment type, loading should continue
+        # if the object type differs and the parent property is undefined
+        # If all containments are loaded or match the object type, no loading needs to happen.
+        return any { !defined($obj->{$type_parent_attribute{$_}}) && $obj_type != $_ } keys %type_parent_attribute;
     };
-    my @objects_to_use = grep { $use_object->($_) } @objs;
+    my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
 
     # First, construct a table (recursively) of parent -> descendant connections
-    # for areas including an array of the path (the 'descendants' array).
+    # for areas, including an array of the path (the 'descendants' array).
     my $query = "
         WITH RECURSIVE area_descendants AS (
             SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
@@ -157,37 +159,39 @@ sub load_containment
     # area, limiting on the appropriate type id, distinct on descendant, and
     # order by the length of the array of descendants.
     #
-    # Do this for every applicable type, as defined in $types above.
-    for my $type (keys $types) {
-        $query .= ", " . $types->{$type} . " AS (
+    # Do this for every applicable type, as defined in %type_parent_attribute above.
+    for my $type (keys %type_parent_attribute) {
+        $query .= ", " . $type_parent_attribute{$type} . " AS (
                   SELECT   DISTINCT ON (descendant) descendant, parent FROM area_descendants
                   JOIN     area ON area_descendants.parent = area.id
                   WHERE    area.type = $type ORDER BY descendant, array_length(descendants, 1) ASC)";
     }
     $query .= " SELECT ";
-    for my $type (values $types) {
+    for my $type (values %type_parent_attribute) {
         $query .= " $type.parent AS $type,";
     }
     $query .= " area.id AS descendant
         FROM area ";
-    for my $type (values $types) {
+    for my $type (values %type_parent_attribute) {
         $query .= " LEFT JOIN $type ON $type.descendant = area.id";
     }
     $query .= " WHERE area.id IN (" . placeholders(@all_ids) . ")";
 
     my $containment = $self->sql->select_list_of_hashes($query, @all_ids);
 
-    my @parent_ids = map { my $data = $_; map { $data->{$_} } values $types } @$containment;
+    my @parent_ids = grep { defined } map { my $data = $_; map { $data->{$_} } values %type_parent_attribute } @$containment;
 
     # Having determined the IDs for all the parents, actually load them and attach to the
     # descendant objects.
     my $parent_objects = $self->get_by_ids(@parent_ids);
     for my $data (@$containment) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
-            for my $type (values $types) {
-                my $parent_obj = $parent_objects->{$data->{$type}};
-                for my $entity (@$entities) {
-                    $entity->$type($parent_obj);
+            for my $type (values %type_parent_attribute) {
+                if (defined $data->{$type}) {
+                    my $parent_obj = $parent_objects->{$data->{$type}};
+                    for my $entity (@$entities) {
+                        $entity->$type($parent_obj);
+                    }
                 }
             }
         }
