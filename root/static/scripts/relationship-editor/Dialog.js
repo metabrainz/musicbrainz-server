@@ -21,13 +21,6 @@ MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
-var allowedRelations = {
-    recording:     ["area", "artist", "label", "place", "recording", "release", "work"],
-    work:          ["area", "artist", "label", "work"],
-    release:       ["area", "artist", "label", "place", "recording", "release"],
-    release_group: ["artist", "place", "release_group"]
-};
-
 // For select attributes and the link type field, we use a custom binding handler
 // for performance reasons (the instrument tree is huge, for example). We also
 // need to support the unaccented instrument names. the builtin options binding
@@ -176,7 +169,7 @@ ko.bindingHandlers.targetType = (function() {
         init: function(element) {
             var $element = $(element).change(change), relationship = Dialog.relationship(),
                 types = (relationship.type == "recording-work")
-                    ? ["work"] : allowedRelations[Dialog.source.type];
+                    ? ["work"] : Util.allowedRelations[Dialog.source.type];
 
             $element.empty();
             $.each(types, function(i, type) {
@@ -208,7 +201,7 @@ ko.bindingHandlers.autocomplete = (function() {
     var recentEntities = {};
 
     function setEntity(type) {
-        if (!_.contains(allowedRelations[Dialog.source.type], type) ||
+        if (!_.contains(Util.allowedRelations[Dialog.source.type], type) ||
                 (Dialog.disableTypeSelection() && type != Dialog.target.type)) {
             Dialog.autocomplete.clear();
             return false;
