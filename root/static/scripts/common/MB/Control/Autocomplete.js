@@ -24,7 +24,7 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.sortname && !MB.utility.is_ascii (item.name))
+        if (item.sortname && !MB.utility.is_latin (item.name))
         {
             comment.push (item.sortname);
         }
