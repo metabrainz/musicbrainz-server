@@ -66,7 +66,6 @@ MB.GuessCase.Handler.Place = function () {
     self.doWord = function() {
         if (self.doVersusStyle()) {
         } else if (self.doIgnoreWords ()) {
-        } else if (self.doVersusStyle()) {
         } else if (self.doVolumeNumberStyle()) {
         } else if (self.doPartNumberStyle()) {
         } else if (gc.mode.doWord()) {
