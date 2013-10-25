@@ -22,9 +22,9 @@ MB.RelationshipEditor = (function(RE) {
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
 var allowedRelations = {
-    recording:     ["artist", "label", "place", "recording", "release", "work"],
-    work:          ["artist", "label", "work"],
-    release:       ["artist", "label", "place", "recording", "release"],
+    recording:     ["area", "artist", "label", "place", "recording", "release", "work"],
+    work:          ["area", "artist", "label", "work"],
+    release:       ["area", "artist", "label", "place", "recording", "release"],
     release_group: ["artist", "place", "release_group"]
 };
 
@@ -219,8 +219,7 @@ ko.bindingHandlers.autocomplete = (function() {
     function changeTarget(event, data) {
         if (!data.gid) return;
 
-        // XXX release groups' numeric "type" conflicts with the entity type
-        data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
+        data.type = data.type || Dialog.target.type;
 
         // Add/move to the top of the recent entities menu.
         var recent = recentEntities[data.type] = recentEntities[data.type] || [],

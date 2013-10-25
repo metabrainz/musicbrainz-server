@@ -212,7 +212,7 @@ sub _area
         id      => $area->id,
         gid     => $area->gid,
         comment => $area->comment,
-        type    => $area->type_id,
+        typeID  => $area->type_id,
         $area->type ? (typeName => $area->type->name) : (),
         $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
 }
@@ -272,7 +272,7 @@ sub _release_group
         gid     => $item->gid,
         comment => $item->comment,
         artist  => $item->artist_credit->name,
-        type    => $item->primary_type_id,
+        typeID  => $item->primary_type_id,
         $item->primary_type ? (typeName => $item->primary_type->name) : (),
         secondary_types => [ map { $_->id } $item->all_secondary_types ]
     };
@@ -411,7 +411,7 @@ sub _place
         name    => $place->name,
         id      => $place->id,
         gid     => $place->gid,
-        type    => $place->type_id,
+        typeID  => $place->type_id,
         $place->type ? (typeName => $place->type->name) : (),
         $place->area ? (area => $place->area->name) : () };
 }
