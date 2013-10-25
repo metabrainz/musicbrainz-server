@@ -42,11 +42,8 @@ MB.GuessCase.Handler.Place = function () {
      * @returns os                the processed string
      **/
     self.process = function(is) {
-        is = gc.mode.stripInformationToOmit(is);
         is = gc.mode.preProcessCommons(is);
-        is = gc.mode.preProcessTitles(is);
         var words = gc.i.splitWordsAndPunctuation(is);
-        words = gc.mode.prepExtraTitleInfo(words);
         gc.o.init();
         gc.i.init(is, words);
         while (!gc.i.isIndexAtEnd()) {
@@ -54,7 +51,6 @@ MB.GuessCase.Handler.Place = function () {
         }
         var os = gc.o.getOutput();
         os = gc.mode.runPostProcess(os);
-        os = gc.mode.runFinalChecks(os);
         return os;
     };
 
@@ -62,17 +58,14 @@ MB.GuessCase.Handler.Place = function () {
      * Delegate function which handles words not handled
      * in the common word handlers.
      *
-     * - Handles DiscNumberStyle (DiscNumberWithNameStyle)
-     * - Handles FeaturingArtistStyle
      * - Handles VersusStyle
      * - Handles VolumeNumberStyle
      * - Handles PartNumberStyle
      *
      **/
     self.doWord = function() {
-        if (self.doDiscNumberStyle()) {
+        if (self.doVersusStyle()) {
         } else if (self.doIgnoreWords ()) {
-        } else if (self.doFeaturingArtistStyle()) {
         } else if (self.doVersusStyle()) {
         } else if (self.doVolumeNumberStyle()) {
         } else if (self.doPartNumberStyle()) {
