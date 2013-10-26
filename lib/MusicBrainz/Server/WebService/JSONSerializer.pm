@@ -433,8 +433,8 @@ sub _artist_credit
     my ($self, $ac) = @_;
 
     return [ map +{
-        artist     => $self->_artist( $_->artist ),
-        joinphrase => $_->join_phrase,
+        artist      => $self->_artist( $_->artist ),
+        join_phrase => $_->join_phrase,
     }, $ac->all_names ];
 }
 

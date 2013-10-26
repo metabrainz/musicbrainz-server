@@ -2,12 +2,14 @@ package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
 use Scalar::Util qw( looks_like_number );
 use Text::Trim qw( );
+use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
 
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
 has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
@@ -63,6 +65,10 @@ around 'validate_field' => sub {
                       { artist => ($name || $artist_name) }));
             }
         }
+        elsif (!$artist_id)
+        {
+            $self->add_error (l('Please add an artist name for each credit.'));
+        }
     }
 
     # Do not nag about the field being required if there are other
@@ -97,6 +103,20 @@ around 'value' => sub {
 
     return clean_submitted_artist_credits($ret);
 };
+
+sub json {
+    my $result = shift->result;
+
+    if (defined $result) {
+        if ($result->input) {
+            return to_json($result->input->{names});
+        }
+        if ($result->value) {
+            return to_json($result->value->{names});
+        }
+    }
+    return '[{}]';
+}
 
 =head1 LICENSE
 

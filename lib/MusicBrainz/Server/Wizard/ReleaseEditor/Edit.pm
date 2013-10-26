@@ -75,6 +75,8 @@ after 'prepare_tracklist' => sub {
     my $database_artist = artist_credit_to_ref ($release->artist_credit, [ "gid" ]);
     my $submitted_artist = $self->c->stash->{release_artist};
 
+    $self->c->stash->{submitted_release_artist} = $json->encode($submitted_artist);
+
     if ($self->_is_same_artist ($database_artist, $submitted_artist))
     {
         # Just use "null" here to indicate the release artist wasn't edited.

@@ -621,6 +621,8 @@ ko.bindingHandlers.autocomplete = {
         var autocomplete = $(element).autocomplete(options)
             .data("ui-autocomplete");
 
+        if (options.artistCredit) {
+            options.artistCredit.setAutocomplete(autocomplete, element);
         }
     }
 };

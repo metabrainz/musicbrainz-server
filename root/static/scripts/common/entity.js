@@ -186,31 +186,32 @@
         ),
 
         init: function (data) {
-            data = data || { artist: {} };
+            data = data || {};
+            data.artist = MB.entity(data.artist || {}, "artist");
+
             this.artist = data.artist;
             this.name = data.name || data.artist.name || "";
-            this.joinPhrase = data.joinphrase || "";
+            this.joinPhrase = data.join_phrase || "";
         },
 
         isEmpty: function () {
-            return !(ko.unwrap(this.artist) || ko.unwrap(this.name) ||
+            return !(this.hasArtist() || ko.unwrap(this.name) ||
                      ko.unwrap(this.joinPhrase));
         },
 
-        hasName: function () {
-            var artist = ko.unwrap(this.artist);
-            var name = ko.unwrap(this.name);
-            return Boolean(name && (!artist || artist.name !== name));
+        hasArtist: function () {
+            var artist = ko.unwrap(this.artist) || {};
+            return Boolean(artist.id || artist.gid);
         },
 
         isVariousArtists: function () {
-            var artist = this.artist();
+            var artist = ko.unwrap(this.artist);
             return artist && (artist.gid === MB.constants.VARTIST_GID ||
                               artist.id == MB.constants.VARTIST_ID);
         },
 
         isEqual: function (other) {
-            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
+            return ko.unwrap(this.artist) === ko.unwrap(other.artist) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
@@ -220,13 +221,13 @@
         },
 
         html: function () {
-            var artist = ko.unwrap(this.artist);
-
-            if (!artist) {
+            if (!this.hasArtist()) {
                 return _.escape(this.text());
             }
 
+            var artist = ko.unwrap(this.artist);
             var title = artist.sortname;
+
             if (artist.comment) {
                 title += ", " + artist.comment;
             }
@@ -237,6 +238,23 @@
                 name:  ko.unwrap(this.name),
                 join:  ko.unwrap(this.joinPhrase)
             });
+        },
+
+        toJS: function () {
+            if (this.isEmpty()) {
+                return null;
+            }
+            var artist = ko.unwrap(this.artist) || {};
+
+            return {
+                artist: {
+                    name: artist.name,
+                    id:   artist.id,
+                    gid:  artist.gid
+                },
+                name: ko.unwrap(this.name),
+                join_phrase: ko.unwrap(this.joinPhrase)
+            };
         }
     });
 
@@ -244,9 +262,11 @@
     MB.entity.ArtistCredit = aclass(Entity, {
 
         init: function (data) {
-            this.names = _.map(data, function (name) {
-                return new MB.entity.ArtistCreditName(name);
-            });
+            this.names = _.map(data, MB.entity.ArtistCreditName);
+        },
+
+        isVariousArtists: function () {
+            return _.any(_.invoke(ko.unwrap(this.names), "isVariousArtists"));
         },
 
         isEqual: function (other) {
@@ -266,9 +286,7 @@
         },
 
         isEmpty: function () {
-            return _.every(names, function (name) {
-                return name.isEmpty();
-            });
+            return _.every(_.invoke(ko.unwrap(this.names), "isEmpty"));
         },
 
         text: function () {
@@ -285,6 +303,10 @@
             return _.reduce(names, function (memo, name) {
                 return memo + name.html();
             }, "");
+        },
+
+        toJS: function () {
+            return _.compact(_.invoke(ko.unwrap(this.names), "toJS"));
         }
     });
 

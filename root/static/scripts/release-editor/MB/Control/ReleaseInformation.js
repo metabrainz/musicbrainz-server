@@ -409,7 +409,6 @@ MB.Control.ReleaseInformation = function(action) {
 
         self.bubbles.add ($('#id-name'), $('div.guess-case.bubble'));
         self.bubbles.add ($('#help-cta'), $('div.help-cta'));
-        self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-packaging_id'), $('div.packaging'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#id-annotation'), $('div.annotation'));
@@ -424,7 +423,9 @@ MB.Control.ReleaseInformation = function(action) {
             }
         });
 
-        if ($('div.artist-credit-box:eq(0) input.gid').val () ===
+        self.artistcredit = MB.Control.initialize_artist_credit(self.bubbles);
+
+        if (self.artistcredit.names()[0].artist().gid ===
             MB.constants.VARTIST_GID)
         {
             $('#id-various_artists').prop('checked', true);
@@ -455,10 +456,6 @@ MB.Control.ReleaseInformation = function(action) {
             self.bubbles.hideAll ();
             $("#id-events\\." + release_event.eventno + "\\.country_id").val('');
         });
-
-        self.artistcredit = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
-        );
     };
 
     self.addLabel = function ($row) {

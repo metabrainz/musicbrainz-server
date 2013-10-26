@@ -149,12 +149,13 @@
     [%- WRAPPER form_row -%]
         <label for="[% id %]" class="required">[% l('Artist:') %]</label>
         <span class="autocomplete">
-          <input type="text" id="[% id %]" class="artist-credit-input"
-              value="[% html_escape(form.field('artist_credit').item.name) %]" />
+          <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
         <input type="button" id="open-ac" value=" &gt;&gt; " />
-        [% field_errors(r.form, 'artist_credit') %]
+        [%- IF form -%]
+          [% field_errors(form, 'artist_credit') %]
+        [%- END -%]
     [%- END -%]
 [%- END -%]
 
@@ -281,68 +282,61 @@
   </div>
 [%- END -%]
 
-[%- MACRO artist_credit_table(form) BLOCK -%]
+[%- MACRO artist_credit_table BLOCK -%]
   <div class="artist-credit-container" style="display: none">
-    <div class="artist-credit bubble">
-      [%- acfield = form.field('artist_credit') -%]
-
+    <div class="artist-credit bubble" id="artist-credit-bubble">
       <p>
         [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
       </p>
-      <div class="row">
+      <div class="row artist-credit-preview">
         <label>[% l('Preview') %]</label>
-        <span class="artist-credit-preview">[% artist_credit(acfield.item) %]</span>
+        <span data-bind="html: html()"></span>
       </div>
 
-      [%- FOR ac=acfield.field('names').fields -%]
-        [%- artistnum = loop.index -%]
-
-        [%- artist = ac.field('artist').item -%]
+      <!-- ko foreach: names -->
         <div class="artist-credit-box" style="margin: 2em 0">
 
           <div class="row">
             <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
+
             <span class="artist autocomplete">
-              [%- r.text (ac.field('artist').field('name'), class => 'name') -%]
+              <input type="text" class="name" data-bind="
+                autocomplete: { entity: 'artist', currentSelection: artist },
+                css: { 'various-artists': isVariousArtists() }"/>
               <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-              <input type="hidden" class="gid" value="[% artist.gid | html %]" />
-              <input type="hidden" class="sortname" value="[% artist.sort_name | html %]" />
-              [%- r.hidden (ac.field('artist').field('id'), class => 'id') -%]
             </span>
 
             <input type="button" class="icon remove-artist-credit"
-              title="[% l('Remove Artist Credit') %]" />
+              title="[% l('Remove Artist Credit') %]" data-bind="click: function () { $parent.removeName($data); }" />
 
           </div>
 
           <div class="row">
             <label>[% l('Artist as credited') %]</label>
-            <span class="artistcredit">
-              [%- r.text (ac.field('name'), class => 'credit') -%]
-            </span>
+            <input type="text" data-bind="value: name" />
           </div>
 
-          <div class="row join-container">
+          <div class="row">
             <label>[% l('Join phrase') %]</label>
-            <span class="joinphrase">
-              [%- r.text (ac.field('join_phrase'), class => 'join') -%]
-            </span>
+            <input type="text" data-bind="value: joinPhrase,
+              event: { change: _.bind(joinChanged, $data, $element) }" />
           </div>
 
         </div>
-      [%- END -%]
+      <!-- /ko -->
 
-      <div class="row">
-        <label> &#xa0; </label>
-        <span style="display: inline-block; width: 170px; text-align: right; padding-right: 10px;">
-            <button type="button" class="nobutton add-artist-credit">
-                [%- l('Add Artist Credit') -%]
-            </button>
-        </span>
-        <input type="button" class="icon add-artist-credit"
-          title="[% l('Add Artist Credit') %]" />
-      </div>
+      [% WRAPPER form_row %]
+        <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
+          [%- l('Add Artist Credit') -%]
+          <div class="add-item icon img" title="[% l('Add Artist Credit') %]"></div>
+        </button>
+      [% END %]
 
+      <!-- ko if: hiddenInputs -->
+        <!-- ko foreach: hiddenInputs -->
+          <input type="hidden" data-bind="attr: $data"/>
+        <!-- /ko -->
+      <!-- /ko -->
     </div>
   </div>
 [%- END -%]
