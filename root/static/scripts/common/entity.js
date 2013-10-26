@@ -43,7 +43,7 @@
         if (data instanceof Entity) {
             return data;
         }
-        type = type || data.type;
+        type = (type || data.type || "").replace("-", "_");
         var entityClass = coreEntityMapping[type];
 
         if (!entityClass) {
@@ -108,14 +108,28 @@
         after$init: function (data) {
             this.length = data.length;
             this.video = data.video;
+
+            // Returned from the /ws/js/recording search.
+            if (_.isObject(data.appears_on)) {
+                this.appearsOn = data.appears_on;
+            }
+
+            if (_.isString(data.artist)) {
+                this.artist = data.artist;
+            }
         }
     });
 
     MB.entity.Release = aclass(MB.entity.CoreEntity, { type: "release" });
 
-    MB.entity.ReleaseGroup = aclass(
-        MB.entity.CoreEntity, { type: "release_group" }
-    );
+    MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, {
+        type: "release_group",
+
+        after$init: function (data) {
+            this.typeID = data.typeID;
+            this.secondaryTypes = data.secondary_types;
+        }
+    });
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",

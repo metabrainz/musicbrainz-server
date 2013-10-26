@@ -32,19 +32,17 @@ MB.Control.ReleaseGroup = function (action, parent) {
 
     MB.Control.EntityAutocomplete ({
         inputs: $('span.release-group.autocomplete'),
-        allow_empty: (action !== 'edit')
+        allowEmpty: (action !== 'edit')
     });
 
-    self.$name.bind ('lookup-performed', function (event) {
-        var data = self.$name.data ('lookup-result');
-
+    self.$name.bind ('lookup-performed', function (event, data) {
         self.selectsToDisable.find ('option').prop('selected', false);
 
         var $select_option = data.typeID ?
             self.$type.find ('option[value='+data.typeID+']') :
             self.$type.find ('option:eq(0)');
 
-        $.each(data.secondary_types, function (idx, type) {
+        $.each(data.secondaryTypes, function (idx, type) {
             self.$secondary_types
               .find('option[value='+type+']').prop('selected', true);
         });
@@ -58,7 +56,7 @@ MB.Control.ReleaseGroup = function (action, parent) {
         self.selectsToDisable.prop('disabled', false);
     });
 
-    self.$name.bind ('focus.mb', function (event) {
+    self.$name.bind ('focus.mb lookup-performed cleared', function (event) {
         var gid = self.$span.find ('input.gid').val ();
         if (gid)
         {
@@ -191,7 +189,7 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
 
     self.$label.find ('input.name').bind ('focus.mb', self.docBubbleUpdate);
     self.$catno.bind ('change.mb keyup.mb focus.mb', self.docBubbleUpdate);
-    MB.Control.EntityAutocomplete ({ inputs: self.$label, allow_empty: true });
+    MB.Control.EntityAutocomplete ({ inputs: self.$label, allowEmpty: true });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 

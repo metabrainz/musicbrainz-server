@@ -43,34 +43,22 @@ MB.Control.RelateTo = function () {
         return self.$select.find ('option:selected').val ();
     };
 
-    self.$autocomplete.bind ('lookup-performed.mb', function (event, data) {
-        self.selected_item = data;
-        self.selected_item.type = self.type ();
-    });
-
-    self.$autocomplete.bind ('cleared.mb', function (event) {
-        self.selected_item = null;
-    });
-
     function cleanType(type) {
-        if (type === 'release-group') {
-            return 'release_group';
-        }
-        else {
-            return type;
-        }
+        return type.replace("-", "_");
     }
 
     self.createRelationship = function (event) {
-        if (!self.selected_item) {
+        var item = self.autocomplete.currentSelection.peek();
+
+        if (!item.gid) {
             return;
         }
         var location = '/edit/relationship/create',
             query_string = $.param ({
                 type0: cleanType(self.$type0.val()),
-                type1: cleanType(self.selected_item.type),
+                type1: cleanType(item.type),
                 entity0: self.$gid0.val (),
-                entity1: self.selected_item.gid,
+                entity1: item.gid,
                 returnto: self.$returnto.val()
             });
 
@@ -106,15 +94,15 @@ MB.Control.RelateTo = function () {
         self.$relate.offset ({ top: Math.round (top), left: Math.round (left) });
 
         self.$select.focus();
-        ui_autocomplete.options.disabled = false;
+        self.autocomplete.options.disabled = false;
     };
 
     self.hide = function (event) {
         /* Normally the autocomplete menu closes on its own, but there's a
            reproducible way to make it stay open. Just force it to close. */
-        ui_autocomplete.close();
+        self.autocomplete.close();
         // Guarantee the menu won't pop up later if a lookup was in-progress.
-        ui_autocomplete.options.disabled = true;
+        self.autocomplete.options.disabled = true;
         self.$relate.hide();
     };
 
@@ -155,8 +143,7 @@ MB.Control.RelateTo = function () {
         }
     });
 
-    var hovering = false,
-        ui_autocomplete = self.autocomplete.autocomplete;
+    var hovering = false;
 
     self.$relate.hover(function () {
         hovering = true;

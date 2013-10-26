@@ -73,11 +73,9 @@
               disable: mode() == 'edit' || disableTypeSelection()"></select>
           </td>
           <td>
-            <span id="autocomplete" class="autocomplete" data-bind="autocomplete: relationship">
+            <span id="autocomplete" class="autocomplete">
               <img class="search" src="../../../static/images/icons/search.png"/>
-              <input class="name" type="text"/>
-              <input type="hidden" class="id"/>
-              <input type="hidden" class="gid"/>
+              <input class="name" type="text" data-bind="autocomplete: true" />
             </span>
             <div class="error" data-bind="text: targetField().error"></div>
           </td>
