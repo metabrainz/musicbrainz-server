@@ -788,6 +788,7 @@ END -%]
     ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
     ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
     ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
+    ELSIF url.url.host.search('whosampled.com'); 'whosampled';
     ELSIF url.url.host.search('ocremix.org'); 'ocremix';
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';

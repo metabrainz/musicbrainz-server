@@ -98,7 +98,6 @@ requires 'Sys::Hostname'                              => '1.16';
 requires 'Template::Plugin::Math'                     => '1.16';
 requires 'Template::Plugin::Class'                    => '0.13';
 requires 'Template::Plugin::JavaScript'               => '0.02';
-requires 'Template::Plugin::JSON::Escape'             => '0.02';
 requires 'Text::WikiFormat'                           => '0.80';
 requires 'Text::Unaccent'                             => '1.08';
 requires 'Text::Trim'                                 => '1.02';
