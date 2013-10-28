@@ -1,7 +1,6 @@
-[% main_title = l('Recording “{name}” by {artist}', {
-    artist => artist_credit(recording.artist_credit, plain => 1),
-    name => html_escape(recording.name)
-}) %]
+[% title_args = { artist => artist_credit(recording.artist_credit, plain => 1), name => html_escape(recording.name) } %]
+
+[% main_title = recording.video ? l('Video “{name}” by {artist}', title_args) : l('Recording “{name}” by {artist}', title_args) %]
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? main_title _ " - ${title}" : main_title -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' about=rdfa_recording_curi(recording)%]
