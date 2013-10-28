@@ -5,6 +5,10 @@ use utf8;
 
 extends 'MusicBrainz::Server::Form::Field::Text';
 
+has '+deflate_method' => (
+    default => sub { \&deflate_coordinates }
+);
+
 my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
 sub direction { $DIRECTIONS{lc shift} // 1}
 
@@ -48,7 +52,7 @@ sub dms {
     return sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir));
 }
 
-sub deflate {
+sub deflate_coordinates {
     my ($self, $value) = @_;
     return join(', ', $value->latitude, $value->longitude);
 }
