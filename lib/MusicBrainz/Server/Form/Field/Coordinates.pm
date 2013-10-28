@@ -10,7 +10,23 @@ has '+deflate_method' => (
 );
 
 my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
-sub direction { $DIRECTIONS{lc shift} // 1}
+sub direction { $DIRECTIONS{lc (shift() // '')} // 1}
+
+sub swap {
+    my ($direction_lat, $direction_long, $lat, $long) = @_;
+
+    $direction_lat //= 'n';
+    $direction_long //= 'e';
+
+    # We expect lat/long, but can support long/lat
+    if (lc $direction_lat eq 'e' || lc $direction_lat eq 'w' ||
+        lc $direction_long eq 'n' || lc $direction_long eq 's') {
+        return ($long, $lat);
+    }
+    else {
+        return ($lat, $long);
+    }
+}
 
 sub validate {
     my $self = shift;
@@ -21,20 +37,23 @@ sub validate {
 
     my $separators = '\s?,?\s?';
 
-    my $decimalPart = '(\-?\d+(?:\.\d+|))([nsew]?)';
+    my $decimalPart = '(\-?\d+(?:\.\d+|))\s?°?\s?([nsew]?)';
     if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
+        my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
         $self->value({
-            latitude => degree($1, $2),
-            longitude => degree($3, $4)
+            latitude => $lat,
+            longitude => $long
         });
         return;
     }
 
     my $dmsPart = '(?:(\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
     if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
+        my ($lat, $long) = swap($4, $8, dms($1, $2, $3, $4), dms($5, $6, $7, $8));
+
         $self->value({
-            latitude  => dms($1, $2, $3, $4),
-            longitude => dms($5, $6, $7, $8)
+            latitude  => $lat,
+            longitude => $long
         });
         return;
     }

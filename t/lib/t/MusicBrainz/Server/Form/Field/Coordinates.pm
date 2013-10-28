@@ -49,6 +49,11 @@ test 'Coordinate validation' => sub {
             longitude => -79.97667
         },
         {
+            parse => q{079d 58′ 36″ W 40d 26' 47" N},
+            latitude => 40.446389,
+            longitude => -79.97667
+        },
+        {
             parse => "40.446195N 79.948862W",
             latitude => 40.446195,
             longitude => -79.948862
@@ -57,6 +62,11 @@ test 'Coordinate validation' => sub {
             parse => "40.446195, -79.948862",
             latitude => 40.446195,
             longitude => -79.948862
+        },
+        {
+            parse => "0.1275° W, 51.5072° N",
+            latitude => 51.5072,
+            longitude => -0.1275
         }
     );
 
