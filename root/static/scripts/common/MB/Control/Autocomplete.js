@@ -29,7 +29,7 @@ MB.Control.autocomplete_formatters = {
             comment.push (item.primary_alias);
         }
 
-        if (item.sortname && !MB.utility.is_ascii (item.name))
+        if (item.sortname && !MB.utility.is_latin (item.name))
         {
             comment.push (item.sortname);
         }
