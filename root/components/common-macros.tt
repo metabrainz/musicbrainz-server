@@ -330,6 +330,19 @@ END -%]
     '</span>' IF area.edits_pending AND action == 'show';
 END -%]
 
+[%- MACRO link_area_containment(area) BLOCK;
+    areas = [];
+    IF area.parent_city; areas.push(link_area(area.parent_city)); END;
+    IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
+    IF area.parent_country; areas.push(link_area(area.parent_country)); END;
+    comma_only_list(areas);
+END -%]
+
+[%- MACRO link_area_with_containment(area, action, text) BLOCK;
+    link_area(area, action, text);
+    IF link_area_containment(area); ', ' _ link_area_containment(area); END;
+END -%]
+
 [%- MACRO link_place(place, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/place/$action", [ place.gid ]);

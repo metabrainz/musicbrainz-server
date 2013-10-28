@@ -250,7 +250,10 @@ sub _area
         comment => $area->comment,
         typeID  => $area->type_id,
         $area->type ? (typeName => $area->type->name) : (),
-        $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
+        $area->parent_country ? (parentCountry => $area->parent_country->name) : (),
+        $area->parent_subdivision ? (parentSubdivision => $area->parent_subdivision->name) : (),
+        $area->parent_city ? (parentCity => $area->parent_city->name) : ()
+    };
 }
 
 sub autocomplete_editor

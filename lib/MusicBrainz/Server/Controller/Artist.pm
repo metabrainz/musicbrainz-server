@@ -106,6 +106,7 @@ after 'load' => sub
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_codes($artist->area);
+    $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 
     $c->stash(
         watching_artist =>

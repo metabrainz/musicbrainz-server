@@ -2,6 +2,7 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
@@ -110,26 +111,36 @@ sub load_codes
     }
 }
 
-sub load_parent_country
+sub load_containment
 {
-    my ($self, @objs) = @_;
+    my ($self, @areas) = @_;
     my $area_area_parent_type = 356;
+    # Define a map of area_type IDs to what property they correspond to
+    # on an Entity::Area.
+    my %type_parent_attribute = (
+        $AREA_TYPE_COUNTRY => 'parent_country',
+        2 => 'parent_subdivision',
+        3 => 'parent_city',
+    );
 
-    my @objects_to_use = grep { defined $_ &&
-                                !defined $_->parent_country &&
-                                ( defined $_->type ? $_->type->id != $AREA_TYPE_COUNTRY : $_->type_id != $AREA_TYPE_COUNTRY)} @objs;
+    # This helper function determines if a given area object should continue with loading
+    # it won't include an object if all the containments are already loaded, or with undef.
+    my $use_object = sub {
+        my $obj = $_;
+        return 0 if !defined $obj;
+        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
+        # For each containment type, loading should continue
+        # if the object type differs and the parent property is undefined
+        # If all containments are loaded or match the object type, no loading needs to happen.
+        return any { !defined($obj->{$type_parent_attribute{$_}}) && $obj_type != $_ } keys %type_parent_attribute;
+    };
+    my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
 
     # First, construct a table (recursively) of parent -> descendant connections
-    # for areas including an array of the path (the 'descendants' array).
-    #
-    # Then, for given descendants, find the shortest path to a parent of type
-    # 1 (country) by joining to area, limiting on type=1, distinct on descendant,
-    # and order by array_length(descendants).
-    #
-    # Thus, find the nearest containing country for an area.
+    # for areas, including an array of the path (the 'descendants' array).
     my $query = "
         WITH RECURSIVE area_descendants AS (
             SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
@@ -143,25 +154,48 @@ sub load_parent_country
             JOIN   area_descendants ON area_descendants.parent = laa.entity1
             WHERE  link_type = $area_area_parent_type
             AND    NOT entity0 = ANY(descendants))
-        SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
-        FROM     area_descendants
-        JOIN     area ON area_descendants.parent = area.id
-        WHERE    area.type = $AREA_TYPE_COUNTRY
-        AND      descendant IN (" . placeholders(@all_ids) . ")
-        ORDER BY descendant, array_length(descendants, 1) ASC
     ";
-    my $parent_countries = $self->sql->select_list_of_hashes($query, @all_ids);
+    # Then find the shortest path to a parent of a given type by joining to
+    # area, limiting on the appropriate type id, distinct on descendant, and
+    # order by the length of the array of descendants.
+    #
+    # Do this for every applicable type, as defined in %type_parent_attribute above.
+    for my $type (keys %type_parent_attribute) {
+        $query .= ", " . $type_parent_attribute{$type} . " AS (
+                  SELECT   DISTINCT ON (descendant) descendant, parent FROM area_descendants
+                  JOIN     area ON area_descendants.parent = area.id
+                  WHERE    area.type = $type ORDER BY descendant, array_length(descendants, 1) ASC)";
+    }
+    $query .= " SELECT ";
+    for my $type (values %type_parent_attribute) {
+        $query .= " $type.parent AS $type,";
+    }
+    $query .= " area.id AS descendant
+        FROM area ";
+    for my $type (values %type_parent_attribute) {
+        $query .= " LEFT JOIN $type ON $type.descendant = area.id";
+    }
+    $query .= " WHERE area.id IN (" . placeholders(@all_ids) . ")";
 
-    my $parent_objects = $self->get_by_ids(map { $_->{id} } @$parent_countries);
+    my $containment = $self->sql->select_list_of_hashes($query, @all_ids);
 
-    for my $parent (@$parent_countries) {
-        if (my $entities = $obj_id_map{$parent->{descendant}}) {
-            my $parent_obj = $parent_objects->{$parent->{id}};
-            for my $entity (@$entities) {
-                $entity->parent_country($parent_obj);
+    my @parent_ids = grep { defined } map { my $data = $_; map { $data->{$_} } values %type_parent_attribute } @$containment;
+
+    # Having determined the IDs for all the parents, actually load them and attach to the
+    # descendant objects.
+    my $parent_objects = $self->get_by_ids(@parent_ids);
+    for my $data (@$containment) {
+        if (my $entities = $obj_id_map{$data->{descendant}}) {
+            for my $type (values %type_parent_attribute) {
+                if (defined $data->{$type}) {
+                    my $parent_obj = $parent_objects->{$data->{$type}};
+                    for my $entity (@$entities) {
+                        $entity->$type($parent_obj);
+                    }
+                }
             }
         }
-    };
+    }
 }
 
 sub _set_codes
