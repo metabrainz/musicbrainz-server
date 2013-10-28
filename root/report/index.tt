@@ -71,6 +71,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'TracksWithoutTimes') %]">[% l('Releases with unknown track times') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateRelationshipsReleases') %]">[% l('Releases with possible duplicate relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'SingleMediumReleasesWithMediumTitles') %]">[% l('Releases with a single medium that has a name') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithDownloadRelationships') %]">[% l('Non-digital releases with download relationships') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>

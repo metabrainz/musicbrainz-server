@@ -46,9 +46,15 @@
               know it's the true number. If the true number were 525, we'd see:
               500, 525, 525, ...; we'll then always show 'at least', which is
               not perfectly optimal but isn't inaccurate at least.
+
+              Furthermore, if we have less than 500 entries then we know we
+              don't have an estimate (because 500 is only the upper bound), so
+              we only indicate the search is an estimate if we have more than
+              >= 500 total results.
               -%]
           [% IF guess_search && pager.last_page > 1 &&
-                pager.total_entries % pager.entries_per_page == 0 %]
+                pager.total_entries % pager.entries_per_page == 0 &&
+                pager.total_entries >= 500 %]
             [%- ln('Found at least {n} edit', 'Found at least {n} edits' ,
                     pager.total_entries,
                     { n => add_commas(pager.total_entries) }) -%]

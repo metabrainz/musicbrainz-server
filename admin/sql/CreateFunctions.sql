@@ -895,6 +895,11 @@ BEGIN
         LIMIT 1
       ) OR
       EXISTS (
+        SELECT TRUE FROM l_place_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_recording_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -1065,6 +1070,8 @@ AS $$
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id
+          UNION ALL
+        SELECT TRUE FROM l_place_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_recording_recording WHERE entity1 = outer_r.id OR entity0 = outer_r.id
           UNION ALL

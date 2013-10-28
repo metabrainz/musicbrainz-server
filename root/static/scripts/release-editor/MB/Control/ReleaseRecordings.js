@@ -275,7 +275,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         /* track. */
         $track.find ('.position').text (idx + 1);
         $track.find ('.name').text (data.name);
-        $track.find ('.length').text('(' + MB.utility.formatTrackLength(data.length) + ')');
+        $track.find ('.track-length').text('(' + MB.utility.formatTrackLength(data.length) + ')');
         $track.find ('.track-artist').text (data.artist_credit.preview);
 
         $bubble.find ('tr.servermatch.recordingmatch').show ();

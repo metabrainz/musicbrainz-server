@@ -374,7 +374,12 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.sortname && !MB.utility.is_ascii (item.name))
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
+
+        if (item.sortname && !MB.utility.is_latin (item.name) && item.sortname != item.name)
         {
             comment.push (item.sortname);
         }
@@ -446,14 +451,22 @@ MB.Control.autocomplete_formatters = {
     "release-group": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.firstReleaseDate)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                        item.firstReleaseDate + ')</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+        if (item.typeName) {
+            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+                    MB.utility.escapeHTML (item.artist) + '</span>');
+        }
 
         return $("<li>").append (a).appendTo (ul);
     },
@@ -513,11 +526,14 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.parentCountry) {
+        if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
+             var items = [];
+             if (item.typeName) items.push(MB.utility.escapeHTML(item.typeName));
+             if (item.parentCity) items.push(MB.utility.escapeHTML(item.parentCity));
+             if (item.parentSubdivision) items.push(MB.utility.escapeHTML(item.parentSubdivision));
+             if (item.parentCountry) items.push(MB.utility.escapeHTML(item.parentCountry));
              a.append ('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
-                       (item.typeName && item.parentCountry ? ', ' : '') +
-                       (item.parentCountry ? MB.utility.escapeHTML(item.parentCountry) : '') +
+                       items.join(", ") +
                        '</span>');
         };
 
@@ -528,6 +544,11 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text (item.name);
 
         var comment = [];
+
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
 
         if (item.comment)
         {

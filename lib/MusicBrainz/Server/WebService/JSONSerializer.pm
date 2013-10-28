@@ -165,6 +165,23 @@ sub autocomplete_generic
     return encode_json (\@output);
 }
 
+sub autocomplete_label
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_label( shift->{entity} ) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
+}
+
 sub _generic
 {
     my ($self, $entity) = @_;
@@ -192,15 +209,34 @@ sub autocomplete_area
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
-    push @output, $self->_area($_) for @$results;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_area( shift->{entity} ) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json ($output);
+}
+
+sub autocomplete_artist
+{
+    my ($self, $results, $pager) = @_;
+
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_artist( shift->{entity} ) }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
 }
 
 sub _area
@@ -214,7 +250,10 @@ sub _area
         comment => $area->comment,
         typeID  => $area->type_id,
         $area->type ? (typeName => $area->type->name) : (),
-        $area->parent_country ? (parentCountry => $area->parent_country->name) : () };
+        $area->parent_country ? (parentCountry => $area->parent_country->name) : (),
+        $area->parent_subdivision ? (parentSubdivision => $area->parent_subdivision->name) : (),
+        $area->parent_city ? (parentCity => $area->parent_city->name) : ()
+    };
 }
 
 sub autocomplete_editor
@@ -273,7 +312,8 @@ sub _release_group
         comment => $item->comment,
         artist  => $item->artist_credit->name,
         typeID  => $item->primary_type_id,
-        $item->primary_type ? (typeName => $item->primary_type->name) : (),
+        typeName => $item->type_name,
+        firstReleaseDate => $item->first_release_date->format,
         secondary_types => [ map { $_->id } $item->all_secondary_types ]
     };
 }
@@ -328,8 +368,30 @@ sub autocomplete_work
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
+    my $output = _with_primary_alias(
+        $results,
+        sub {
+            my $result = shift;
 
+            my $out = $self->_work( $result->{entity} );
+            $out->{artists} = $result->{artists};
+
+            return $out;
+        }
+    );
+
+    push @$output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json ($output);
+}
+
+sub _with_primary_alias {
+    my ($results, $renderer) = @_;
+
+    my @output;
     if (@$results) {
         my $munge_lang = sub {
             my $lang = shift;
@@ -346,9 +408,8 @@ sub autocomplete_work
         $alias_preference{$lang} = 4 if $lang ne 'en';
         $alias_preference{$lang . '_'} = 3 if $lang ne 'en';
 
-        for (@$results) {
-            my $out = $self->_work( $_->{work} );
-            $out->{artists} = $_->{artists};
+        for my $result (@$results) {
+            my $out = $renderer->($result);
 
             my ($primary_alias, @others) =
                 reverse sort {
@@ -360,19 +421,14 @@ sub autocomplete_work
                         : defined($pref_a) || -(defined($pref_b)) || 0;
                 } grep {
                     $_->primary_for_locale
-                } @{ $_->{aliases} };
+                } @{ $result->{aliases} };
 
             $out->{primary_alias} = $primary_alias && $primary_alias->name;
             push @output, $out;
         }
     }
 
-    push @output, {
-        pages => $pager->last_page,
-        current => $pager->current_page
-    } if $pager;
-
-    return encode_json (\@output);
+    return \@output;
 }
 
 sub _work
@@ -392,15 +448,17 @@ sub autocomplete_place
 {
     my ($self, $results, $pager) = @_;
 
-    my @output;
-    push @output, $self->_place($_) for @$results;
+    my $output = _with_primary_alias(
+        $results,
+        sub { $self->_place(shift->{entity}) }
+    );
 
-    push @output, {
+    push @$output, {
         pages => $pager->last_page,
         current => $pager->current_page
     } if $pager;
 
-    return encode_json (\@output);
+    return encode_json ($output);
 }
 
 sub _place

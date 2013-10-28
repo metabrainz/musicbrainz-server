@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'Area',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "area" => {
@@ -32,7 +35,7 @@ sub search : Chained('root') PathPart('area')
 after _load_entities => sub {
     my ($self, $c, @entities) = @_;
     $c->model('AreaType')->load(@entities);
-    $c->model('Area')->load_parent_country(@entities);
+    $c->model('Area')->load_containment(@entities);
 };
 
 1;
