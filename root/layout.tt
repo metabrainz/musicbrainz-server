@@ -162,6 +162,11 @@
                 [%- IF server_details.beta_redirect %] |
                 <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]
+                [%- IF last_replication_date -%]
+                <br />
+                [% l('Last replication packet received at {datetime}',
+                     { datetime => UserDate.format(last_replication_date) }) %]
+                [%- END -%]
             </p>
 
             <p class="right">

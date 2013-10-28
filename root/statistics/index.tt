@@ -470,12 +470,17 @@
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan="4">[% l('Recordings') %]</th>
+    <th colspan="3">[% l('Recordings') %]</th>
 </tr>
 <tr>
-    <th colspan="2">[% l('Recordings:') %]</th>
+    <th>[% l('Recordings:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording')) %]</td>
     <td></td>
+</tr>
+<tr>
+    <th>[% l('Videos:') %]</th>
+    <td>[% add_commas(stats.statistic('count.video')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.video', 'count.recording')) }) %]</td>
 </tr>
 </tbody>
 </table>
