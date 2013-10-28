@@ -122,6 +122,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // Rockens Danmarkskort
+                [
+                    'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
+                    MB.constants.LINK_TYPES.otherdatabases.place
+                ],
                 // NeyZen
                 [
                     'work', 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
