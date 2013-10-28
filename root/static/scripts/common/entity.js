@@ -98,6 +98,8 @@
 
     MB.entity.Label = aclass(MB.entity.CoreEntity, { type: "label" });
 
+    MB.entity.Area = aclass(MB.entity.CoreEntity, { type: "area" });
+
     MB.entity.Place = aclass(MB.entity.CoreEntity, { type: "place" });
 
     MB.entity.Recording = aclass(MB.entity.CoreEntity, {
@@ -285,6 +287,7 @@
     var coreEntityMapping = {
         artist:        MB.entity.Artist,
         label:         MB.entity.Label,
+        area:          MB.entity.Area,
         place:         MB.entity.Place,
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,

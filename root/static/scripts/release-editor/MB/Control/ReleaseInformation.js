@@ -40,8 +40,8 @@ MB.Control.ReleaseGroup = function (action, parent) {
 
         self.selectsToDisable.find ('option').prop('selected', false);
 
-        var $select_option = data.type ?
-            self.$type.find ('option[value='+data.type+']') :
+        var $select_option = data.typeID ?
+            self.$type.find ('option[value='+data.typeID+']') :
             self.$type.find ('option:eq(0)');
 
         $.each(data.secondary_types, function (idx, type) {
