@@ -24,7 +24,12 @@ MB.Control.autocomplete_formatters = {
 
         var comment = [];
 
-        if (item.sortname && !MB.utility.is_ascii (item.name))
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
+
+        if (item.sortname && !MB.utility.is_latin (item.name))
         {
             comment.push (item.sortname);
         }
@@ -96,14 +101,22 @@ MB.Control.autocomplete_formatters = {
     "release-group": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.firstReleaseDate)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                        item.firstReleaseDate + ')</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+        if (item.typeName) {
+            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+                    MB.utility.escapeHTML (item.artist) + '</span>');
+        }
 
         return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
@@ -157,6 +170,12 @@ MB.Control.autocomplete_formatters = {
     "area": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.comment)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                      MB.utility.escapeHTML (item.comment) + ')</span>');
+        }
+
         if (item.typeName || item.parentCountry) {
              a.append ('<br /><span class="autocomplete-comment">' +
                        (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
@@ -172,6 +191,11 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text (item.name);
 
         var comment = [];
+
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
 
         if (item.comment)
         {

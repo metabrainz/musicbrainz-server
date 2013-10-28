@@ -1923,8 +1923,11 @@ CREATE TABLE work_attribute (
     work_attribute_type                 INTEGER NOT NULL, -- references work_attribute_type.id
     work_attribute_type_allowed_value   INTEGER, -- references work_attribute_type_allowed_value.id
     work_attribute_text                 TEXT
-    -- Either it has a value from the allowed list, or is free text
-    CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )
+    CHECK (
+        (work_attribute_type_allowed_value IS NULL AND work_attribute_text IS NOT NULL)
+        OR
+        (work_attribute_type_allowed_value IS NOT NULL AND work_attribute_text IS NULL)
+    )
 );
 
 COMMIT;

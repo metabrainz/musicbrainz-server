@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'Area',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "area" => {
