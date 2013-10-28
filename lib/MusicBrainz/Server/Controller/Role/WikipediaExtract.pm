@@ -28,17 +28,29 @@ sub _get_extract
     # Remove country codes, at least for now
     $wanted_lang =~ s/[_-][A-Za-z]+$//;
 
-    my ($wp_link) = map {
+    # Choose an AR to use:
+    #  * find all Wikipedia and Wikidata relationships
+    #  * prefer wikidata relationships
+    #  * except, if we have a matching-language wikipedia link, use it instead,
+    #    since then we don't have to do a query for languages
+    my ($link) = map {
             $_->target;
         } reverse sort_by {
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
             $_->target->language eq $wanted_lang
+        } reverse sort_by {
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
         } grep {
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia')
-        } @{ $entity->relationships_by_link_type_names('wikipedia') };
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ||
+            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
+        } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
-    if ($wp_link) {
-
-        my $wp_extract = $c->model('WikipediaExtract')->get_extract($wp_link->page_name, $wanted_lang, $wp_link->language, cache_only => $cache_only);
+    if ($link) {
+        # Use '' as a way to signal to Data::WikipediaExtract that this is wikidata, if applicable
+        my $wp_extract = $c->model('WikipediaExtract')->get_extract($link->page_name,
+            $wanted_lang,
+            $link->isa('MusicBrainz::Server::Entity::URL::Wikidata') ? '' : $link->language,
+            cache_only => $cache_only);
         if ($wp_extract) {
             $c->stash->{wikipedia_extract} = $wp_extract;
         } else {

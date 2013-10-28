@@ -27,18 +27,19 @@ sub get_extract
     }
 
     # We didn't by luck get a link in the right language
+    # Note that '' for language signifies a wikidata link
     my $languages = $self->get_available_languages($title, $wikipedia_language, cache_only => $cache_only);
 
     if (defined $languages) {
         my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
         # Make sure if english was $wikipedia_language, we still know to use it
         my $english = $wikipedia_language eq 'en' ?
-                          {'*' => $title, 'lang' => 'en'} :
+                          {'title' => $title, 'lang' => 'en'} :
                           first { $_->{lang} eq 'en' } @$languages;
 
         # Desired language, fallback to english, fall back to "whatever we have"
-        my $use_obj = $lang_wanted || $english || {'*' => $title, 'lang' => $wikipedia_language};
-        return $self->get_extract_by_language($use_obj->{'*'}, $use_obj->{lang}, cache_only => $cache_only);
+        my $lang_to_use = $lang_wanted || $english || {'title' => $title, 'lang' => $wikipedia_language};
+        return $self->get_extract_by_language($lang_to_use->{title}, $lang_to_use->{lang}, cache_only => $cache_only);
     } else {
         # We have no language data, probably because we requested cache_only
         return undef;
@@ -59,11 +60,20 @@ sub get_extract_by_language
 sub get_available_languages
 {
     my ($self, $title, $language, %opts) = @_;
-    my $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500&format=json&redirects=1&titles=%s";
-    return $self->_fetch_cache_or_url($url_pattern, 'langlinks',
+    my ($url_pattern, $key, $callback);
+    if ($language eq '') {
+        $url_pattern = "http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
+        $key = 'sitelinks';
+        $callback = \&_wikidata_languages_callback;
+    } else {
+        $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500&format=json&redirects=1&titles=%s";
+        $key = 'langlinks';
+        $callback = \&_wikipedia_languages_callback;
+    }
+    return $self->_fetch_cache_or_url($url_pattern, $key,
                                       $LANG_CACHE_TIMEOUT,
                                       $title, $language,
-                                      sub { my (%opts) = @_; return $opts{fetched}{content} // []; },
+                                      $callback,
                                       %opts);
 }
 
@@ -88,6 +98,30 @@ sub _fetch_cache_or_url
     }
 
     return $value;
+}
+
+sub _wikidata_languages_callback
+{
+    my (%opts) = @_;
+    if ($opts{fetched}{content}{sitelinks}) {
+        my @langs;
+        for my $wiki (keys %{ $opts{fetched}{content}{sitelinks} }) {
+            if ($wiki =~ /wiki$/) {
+                my $lang = $wiki;
+                $lang =~ s/wiki$//;
+                my $page = $opts{fetched}{content}{sitelinks}{$wiki}{title};
+                push @langs, {"lang" => $lang, "title" => $page}
+            }
+        }
+        return \@langs;
+    }
+}
+
+sub _wikipedia_languages_callback
+{
+    my (%opts) = @_;
+    my @langs = map { {"lang" => $_->{lang}, "title" => $_->{"*"}} } @{ $opts{fetched}{content} };
+    return \@langs;
 }
 
 sub _extract_by_language_callback
@@ -123,29 +157,35 @@ sub _get_and_process_json
 
     # decode JSON
     my $content = decode_json(encode("utf-8", $response->content));
-    unless ($content->{query}) { return undef }
-    else { $content = $content->{query} }
+    if ($content->{query}) {
+        # Wikipedia
+        $content = $content->{query};
+        # save title as passed in
+        my $noncanonical = $title;
 
-    # save title as passed in
-    my $noncanonical = $title;
+        # capitalization normalizations
+        my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
+        if ($normalized) {
+            $title = $normalized->{to};
+        }
 
-    # capitalization normalizations
-    my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
-    if ($normalized) {
-        $title = $normalized->{to};
-    }
+        # wiki redirects
+        my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
+        if ($redirects) {
+            $title = $redirects->{to};
+        }
 
-    # wiki redirects
-    my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
-    if ($redirects) {
-        $title = $redirects->{to};
-    }
+        # pull out the correct page, though there should only be one
+        my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
+        unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
-    # pull out the correct page, though there should only be one
-    my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
-    unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
-
-    return {content => $ret->{$property}, title => $noncanonical, canonical => $title}
+        return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
+    } elsif ($content->{entities}) {
+        # Wikidata
+        return {content => $content->{entities}{$title}};
+    } else {
+        return undef;
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
