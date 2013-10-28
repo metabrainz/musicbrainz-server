@@ -3,6 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
+with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion::PrimaryAlias' => {
+    model => 'Work',
+};
 
 my $ws_defs = Data::OptList::mkopt([
     "work" => {
@@ -29,23 +32,20 @@ sub search : Chained('root') PathPart('work')
     $self->dispatch_search($c);
 }
 
-sub _format_output {
+after _load_entities => sub {
     my ($self, $c, @entities) = @_;
-    my %artists = $c->model('Work')->find_artists(\@entities, 3);
-    my $aliases = $c->model('Work')->alias->find_by_entity_ids(
-        map { $_->id } @entities);
-
     $c->model('Language')->load(@entities);
+};
 
-    return map {
-        {
-            work => $_,
-            aliases => $aliases->{$_->id},
-            artists => $artists{$_->id},
-            current_language => $c->stash->{current_language} // 'en'
-        }
-    } @entities;
-}
+around _format_output => sub {
+    my ($orig, $self, $c, @entities) = @_;
+    my %artists = $c->model('Work')->find_artists(\@entities, 3);
+
+    return map +{
+        %$_,
+        artists => $artists{$_->{entity}->id},
+    }, $self->$orig($c, @entities);
+};
 
 1;
 
