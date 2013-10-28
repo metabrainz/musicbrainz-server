@@ -16,14 +16,14 @@ sub edits : Chained('load') PathPart RequireAuth
             $c->model('Edit')->find({ $type => $entity->id }, $offset, $limit);
         }
     });
-    $c->stash( 
-        refine_url_args => 
-            { auto_edit_filter => '', order=> 'desc', negation=> 0, 
-              combinator=>'and', 
-              'conditions.0.field' => model_to_type( $self->{model} ), 
-              'conditions.0.operator' => '=', 
-              'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name, 
-              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id, 
+    $c->stash(
+        refine_url_args =>
+            { auto_edit_filter => '', order=> 'desc', negation=> 0,
+              combinator=>'and',
+              'conditions.0.field' => model_to_type( $self->{model} ),
+              'conditions.0.operator' => '=',
+              'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
+              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
               'conditions.0.user_id' => $c->user->id },
     );
 }
@@ -39,18 +39,18 @@ sub open_edits : Chained('load') PathPart RequireAuth
         }
     });
 
-    $c->stash( 
+    $c->stash(
         template => model_to_type( $self->{model} ) . '/edits.tt' ,
-        refine_url_args => 
-            { auto_edit_filter => '', order=> 'desc', negation=> 0, 
-              combinator=>'and', 
-              'conditions.0.field' => model_to_type( $self->{model} ), 
+        refine_url_args =>
+            { auto_edit_filter => '', order=> 'desc', negation=> 0,
+              combinator=>'and',
+              'conditions.0.field' => model_to_type( $self->{model} ),
               'conditions.0.operator' => '=',
-              'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name, 
-              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id, 
-              'conditions.0.user_id' => $c->user->id, 
-              'conditions.1.field' => 'status', 
-              'conditions.1.operator' => '=', 
+              'conditions.0.name' => $c->stash->{ $self->{entity_name} }->name,
+              'conditions.0.args.0' => $c->stash->{ $self->{entity_name} }->id,
+              'conditions.0.user_id' => $c->user->id,
+              'conditions.1.field' => 'status',
+              'conditions.1.operator' => '=',
               'conditions.1.args' => $STATUS_OPEN },
     );
 }
@@ -69,6 +69,7 @@ sub _list {
 
     $c->stash(
         edits => $edits,
+        guess_search => 1
     );
 }
 
