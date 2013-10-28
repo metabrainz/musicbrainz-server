@@ -36,7 +36,7 @@
                class="area"
                    IF place.area -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
-               content=html_escape(place.coordinates.format)
+               content=('<a href="' _ place.coordinates.osm_url(16) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
                class="coordinates"
                    IF place.coordinates.latitude && place.coordinates.longitude -%]
         [% END %]
