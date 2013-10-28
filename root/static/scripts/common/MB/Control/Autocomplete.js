@@ -101,14 +101,22 @@ MB.Control.autocomplete_formatters = {
     "release-group": function (ul, item) {
         var a = $("<a>").text (item.name);
 
+        if (item.firstReleaseDate)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                        item.firstReleaseDate + ')</span>');
+        }
+
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+        if (item.typeName) {
+            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+                    MB.utility.escapeHTML (item.artist) + '</span>');
+        }
 
         return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
     },
