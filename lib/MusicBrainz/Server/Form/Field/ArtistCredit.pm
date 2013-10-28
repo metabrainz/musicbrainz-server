@@ -9,7 +9,6 @@ use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 
 has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
 
@@ -115,7 +114,7 @@ sub json {
             return to_json($result->value->{names});
         }
     }
-    return '[{}]';
+    return to_json([{}]);
 }
 
 =head1 LICENSE
