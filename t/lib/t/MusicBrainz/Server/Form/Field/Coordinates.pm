@@ -64,9 +64,19 @@ test 'Coordinate validation' => sub {
             longitude => -79.948862
         },
         {
+            parse => "+40.446195, -79.948862",
+            latitude => 40.446195,
+            longitude => -79.948862
+        },
+        {
             parse => "0.1275° W, 51.5072° N",
             latitude => 51.5072,
             longitude => -0.1275
+        },
+        {
+            parse => q{+55° 54' 14.49", +8° 31' 51.64"},
+            latitude => 55.904025,
+            longitude => 8.531011
         }
     );
 
