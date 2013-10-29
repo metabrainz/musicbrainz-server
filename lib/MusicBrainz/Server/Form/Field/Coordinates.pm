@@ -36,8 +36,12 @@ sub validate {
     my $coordinates = $self->value;
 
     my $separators = '\s?,?\s?';
+    my $degree_markers = q{°d};
+    my $minute_markers = q{′'};
+    my $second_markers = q{"″};
+    my $number_part = q{\d+(?:\.\d+|)};
 
-    my $decimalPart = '([+\-]?\d+(?:\.\d+|))\s?°?\s?([nsew]?)';
+    my $decimalPart = '([+\-]?'.$number_part.')\s?['. $degree_markers .']?\s?([NSEW]?)';
     if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
         my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
         $self->value({
@@ -48,8 +52,11 @@ sub validate {
     }
 
     my $dmsPart = '(?:([+\-]?\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
+    my $dmsPart = '(?:([+\-]?'.$number_part.')[:'.$degree_markers.']\s?' .
+                  '('.$number_part.')[:'.$minute_markers.']\s?' .
+                  '(?:('.$number_part.')['.$second_markers.']?)?\s?([NSEW]?))';
     if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
-        my ($lat, $long) = swap($4, $8, dms($1, $2, $3, $4), dms($5, $6, $7, $8));
+        my ($lat, $long) = swap($4, $8, dms($1, $2, $3 // 0, $4), dms($5, $6, $7 // 0, $8));
 
         $self->value({
             latitude  => $lat,
@@ -63,7 +70,7 @@ sub validate {
 
 sub degree {
     my ($degrees, $dir) = @_;
-    return sprintf("%.6f", $degrees * direction($dir));
+    return dms($degrees, 0, 0, $dir);
 }
 
 sub dms {
