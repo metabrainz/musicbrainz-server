@@ -421,7 +421,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $_ => [ $c->model(type_to_model($_))
                         ->tags->find_editor_entities($user->id, $tag->id)
                     ]
-        } qw( artist label recording release release_group work );
+        } qw( artist label recording release release_group work place );
 
         foreach my $entity_tags (values %tags) {
             $tag_in_use = 1 if @$entity_tags;
