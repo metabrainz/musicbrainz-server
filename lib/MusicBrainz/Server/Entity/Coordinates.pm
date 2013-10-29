@@ -41,7 +41,7 @@ sub osm_url
 {
     my ($self, $zoom) = @_;
     if (defined $self->latitude && defined $self->longitude) {
-        return 'http://www.openstreetmap.org/#map=' . join('/', $zoom, $self->latitude, $self->longitude);
+        return 'http://www.openstreetmap.org/?mlat=' . $self->latitude . '&mlon=' . $self->longitude . '#map=' . join('/', $zoom, $self->latitude, $self->longitude);
     }
     else {
         return '';
