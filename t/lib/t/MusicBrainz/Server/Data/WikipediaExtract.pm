@@ -72,4 +72,26 @@ test 'Get nl page from en, fallback to en' => sub {
     LWP::UserAgent::Mockable->finished;
 };
 
+test 'Get en page from wikidata' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    LWP::UserAgent::Mockable->reset(
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-wikidata.lwp-mock'
+    );
+
+    # Q494703 is the band Perfume, as with the other tests
+    # No cache
+    my $extract = $c->model('WikipediaExtract')->get_extract('Q494703', 'en', '', cache_only => 1);
+    ok(!defined $extract);
+
+    # Now let it use the network
+    $extract = $c->model('WikipediaExtract')->get_extract('Q494703', 'en', '', cache_only => 0);
+    ok(defined $extract);
+
+    like($extract->content, qr{Japanese pop girl group}, "contains english text");
+
+    LWP::UserAgent::Mockable->finished;
+};
+
 1;
