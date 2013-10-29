@@ -691,6 +691,12 @@ msgstr ""
 msgid "Slit drum, hollowed out tree with slits"
 msgstr ""
 
+#: DB:link_attribute_type/description:129
+msgid ""
+"Snare drum (also side drum, field drum)  (<a href=\"https://en.wikipedia.org/"
+"wiki/Snare_drum\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:362
 msgid "Sopranino recorder (Sopraninoblockflöte)"
 msgstr ""
@@ -2659,10 +2665,6 @@ msgstr ""
 
 #: DB:link_attribute_type/description:79
 msgid "slide guitar"
-msgstr ""
-
-#: DB:link_attribute_type/description:129
-msgid "snare drum"
 msgstr ""
 
 #: DB:link_attribute_type/description:537
