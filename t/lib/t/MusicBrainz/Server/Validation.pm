@@ -3,7 +3,7 @@ use Test::Routine;
 use Test::More;
 use Test::Warn;
 
-use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi is_valid_isni format_isni encode_entities normalise_strings is_valid_barcode is_valid_ean );
+use MusicBrainz::Server::Validation qw( is_positive_integer is_guid trim_in_place is_valid_url is_valid_isrc format_isrc is_valid_discid is_freedb_id is_valid_iswc format_iswc is_valid_ipi format_ipi is_valid_isni format_isni encode_entities normalise_strings is_valid_barcode is_valid_ean );
 
 test 'Test trim_in_place' => sub {
     my $a = '  ';
@@ -53,6 +53,7 @@ test 'Test is_valid_url' => sub {
 
 test 'Test is_valid_isrc' => sub {
     ok(is_valid_isrc('USPR37300012'));
+    ok(!is_valid_isrc('USPR373000128'));
     ok(!is_valid_isrc('12PR37300012'));
     ok(!is_valid_isrc(''));
     ok(!is_valid_isrc('123'));
@@ -81,6 +82,11 @@ test 'Test format_iswc' => sub {
     is(format_iswc('T-000000001.0'), 'T-000.000.001-0');
     is(format_iswc('T0000000010'), 'T-000.000.001-0');
     is(format_iswc('T- 101.914.232-4'), 'T-101.914.232-4');
+};
+
+test 'Test format_isrc' => sub {
+    is(format_isrc('GB-XWZ-08-00015'), 'GBXWZ0800015', 'format_isrc removes hyphens (MBS-6394)');
+    is(format_isrc('gbxwz0800015'), 'GBXWZ0800015', 'format_isrc uppercases letters (MBS-6554)');
 };
 
 test 'Test is_valid_ipi' => sub {
