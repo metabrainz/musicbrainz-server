@@ -405,7 +405,7 @@ sub object_to_ids
 {
     my @objects = @_;
     my %ret;
-    foreach my $object (@objects)
+    foreach my $object (grep defined, @objects)
     {
         $ret{$object->id} = [] unless $ret{$object->id};
         push @{ $ret{$object->id} }, $object;
