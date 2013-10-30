@@ -48,6 +48,7 @@ use MusicBrainz::Server::Data::Utils qw( ref_to_type );
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Constants qw( $DARTIST_ID $DLABEL_ID );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
 use feature "switch";
 
@@ -743,8 +744,11 @@ sub external_search
     $ua->env_proxy;
 
     # Dispatch the search request.
-    my $response = $ua->get($search_url);
-    unless ($response->is_success)
+    my $response = get_chunked_with_retry($ua, $search_url);
+    if (!defined $response) {
+        return { code => 500, error => 'We could not fetch the document from the search server. Please try again.' };
+    }
+    elsif (!$response->is_success)
     {
         return { code => $response->code, error => $response->content };
     }

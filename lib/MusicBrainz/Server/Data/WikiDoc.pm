@@ -6,6 +6,7 @@ use Carp;
 use Readonly;
 use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use URI::Escape qw( uri_unescape );
 use Encode qw( decode );
 
@@ -124,18 +125,7 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $response;
-    my $retries_remaining = int(25.0 / $self->c->lwp->timeout);
-    while (!defined($response) && --$retries_remaining > 0) {
-        $response = $self->c->lwp->get($doc_url);
-
-        # The wiki responds using chunked transfer encoding. Occasionally, a
-        # chunk gets delayed, and the LWP timeout fires causing the response to
-        # only be partially completed. In this case, the X-Died header is set.
-        # If this happens, we retry the request.
-        my $x_died = $response->headers->header("X-Died");
-        $response = undef if ($x_died && $x_died =~ /read timeout/);
-    }
+    my $response = get_chunked_with_retry($self->c->lwp, $doc_url);
 
     return undef unless $response;
 
