@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Form::Field::Coordinates;
 use Test::Routine;
 use Test::More;
 use Test::Deep qw( cmp_deeply num );
+use MusicBrainz::Server::Entity::Coordinates;
 use URI;
 use utf8;
 
@@ -17,6 +18,42 @@ use utf8;
         type => '+MusicBrainz::Server::Form::Field::Coordinates'
     );
 }
+
+test 'Correct display for undef coordinates' => sub {
+    my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new(
+        init_object => {
+            coordinates => undef
+        }
+    );
+
+    is ($form->field('coordinates')->fif, '');
+};
+
+test 'Correct display for empty coordinates' => sub {
+    my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new(
+        init_object => {
+            coordinates => MusicBrainz::Server::Entity::Coordinates->new(
+                latitude => undef,
+                longitude => undef
+            )
+        }
+    );
+
+    is ($form->field('coordinates')->fif, '');
+};
+
+test 'Correct display for non-empty coordinates' => sub {
+    my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new(
+        init_object => {
+            coordinates => MusicBrainz::Server::Entity::Coordinates->new(
+                latitude => 48.28239,
+                longitude => -37.67383
+            )
+        }
+    );
+
+    is ($form->field('coordinates')->fif, '48.28239, -37.67383');
+};
 
 test 'Coordinate validation' => sub {
     my $form = t::MusicBrainz::Server::Form::Field::Coordinates::TestForm->new;
