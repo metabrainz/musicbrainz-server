@@ -591,7 +591,7 @@ sub split : Chained('load') Edit {
             # was involved in.
             for my $relationship (
                 grep {
-                    $_->link->type->gid == $ARTIST_ARTIST_COLLABORATION &&
+                    $_->link->type->gid eq $ARTIST_ARTIST_COLLABORATION &&
                     exists $artists{$_->entity0_id} &&
                     $_->entity1_id == $artist->id
                 } $artist->all_relationships
@@ -622,7 +622,7 @@ sub split : Chained('load') Edit {
 sub can_split {
     my $artist = shift;
     return (grep {
-        $_->link->type->gid != $ARTIST_ARTIST_COLLABORATION
+        $_->link->type->gid ne $ARTIST_ARTIST_COLLABORATION
     } $artist->all_relationships) == 0;
 }
 

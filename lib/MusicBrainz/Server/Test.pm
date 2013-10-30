@@ -294,6 +294,9 @@ sub mock_search_server
             HTTP::Response->new(200, undef, undef, $json);
         }
     );
+    $mock_server->mock_return(
+        'timeout' => sub { 5; }
+    );
 }
 
 sub old_edit_row

@@ -20,6 +20,8 @@ use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw ( N_l );
 use MusicBrainz::Server::Validation qw( normalise_strings );
 
+no warnings 'experimental::smartmatch';
+
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Recording::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Recording';

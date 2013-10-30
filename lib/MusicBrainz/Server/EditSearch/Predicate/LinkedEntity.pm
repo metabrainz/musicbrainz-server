@@ -6,6 +6,8 @@ use Scalar::Util qw( looks_like_number );
 
 use MooseX::Types::Moose qw( Str );
 
+no warnings 'experimental::smartmatch';
+
 parameter type => (
     required => 1
 );

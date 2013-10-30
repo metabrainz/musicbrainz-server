@@ -52,6 +52,8 @@ use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
 use feature "switch";
 
+no warnings 'experimental::smartmatch';
+
 extends 'MusicBrainz::Server::Data::Entity';
 
 Readonly my %TYPE_TO_DATA_CLASS => (
@@ -584,7 +586,7 @@ sub schema_fixup
     }
 
     if ($type eq 'recording') {
-        $data->{video} = $data->{video} eq 'true';
+        $data->{video} = defined $data->{video} && $data->{video} eq 'true';
     }
 
     if (exists $data->{"relation-list"} &&
