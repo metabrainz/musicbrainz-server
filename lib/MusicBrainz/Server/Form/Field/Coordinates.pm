@@ -37,7 +37,7 @@ sub validate {
 
     my $separators = '\s?,?\s?';
 
-    my $decimalPart = '(\-?\d+(?:\.\d+|))\s?°?\s?([nsew]?)';
+    my $decimalPart = '([+\-]?\d+(?:\.\d+|))\s?°?\s?([nsew]?)';
     if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
         my ($lat, $long) = swap($2, $4, degree($1, $2), degree($3, $4));
         $self->value({
@@ -47,7 +47,7 @@ sub validate {
         return;
     }
 
-    my $dmsPart = '(?:(\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
+    my $dmsPart = '(?:([+\-]?\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
     if ($coordinates =~ /^${dmsPart}${separators}${dmsPart}$/i) {
         my ($lat, $long) = swap($4, $8, dms($1, $2, $3, $4), dms($5, $6, $7, $8));
 

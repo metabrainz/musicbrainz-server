@@ -339,7 +339,15 @@ var Dialog = UI.Dialog = {
         this.source = entity[1];
 
         this.linkTypeDescription = ko.computed(function() {
-            return (Util.typeInfo(Dialog.relationship().link_type()) || {}).descr || "";
+            var typeInfo = Util.typeInfo(Dialog.relationship().link_type());
+            var description = '';
+
+            if (typeInfo) {
+                description += typeInfo.descr +
+                  ' (<a href="/relationship/' + typeInfo.gid + '">' + 'more documentation</a>)';
+            }
+
+            return description || "";
         });
 
         ko.computed(function() {

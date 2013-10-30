@@ -968,6 +968,11 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
+#. frequency:1 iso_code_3:izh 
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr ""
+
 #. frequency:1 iso_code_3:inh 
 #: DB:language/name:191
 msgid "Ingush"
@@ -1121,6 +1126,11 @@ msgstr ""
 #. frequency:1 iso_code_3:kaz 
 #: DB:language/name:211
 msgid "Kazakh"
+msgstr ""
+
+#. frequency:1 iso_code_3:kca 
+#: DB:language/name:3137
+msgid "Khanty"
 msgstr ""
 
 #. frequency:1 iso_code_3:kha 
@@ -1416,6 +1426,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null 
 #: DB:language/name:279
 msgid "Manobo languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:mns 
+#: DB:language/name:4358
+msgid "Mansi"
 msgstr ""
 
 #. frequency:1 iso_code_3:glv 

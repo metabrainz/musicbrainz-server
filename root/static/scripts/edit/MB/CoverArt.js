@@ -239,9 +239,13 @@ MB.CoverArt.upload_image = function (postfields, file) {
         }
     });
 
-    /* prevent firefox from parsing a 204 No Content response as XML.
-       https://bugzilla.mozilla.org/show_bug.cgi?id=884693 */
-    xhr.overrideMimeType('text/plain');
+    /* IE10 and older don't have overrideMimeType. */
+    if (typeof(xhr.overrideMimeType) === 'function')
+    {
+        /* prevent firefox from parsing a 204 No Content response as XML.
+           https://bugzilla.mozilla.org/show_bug.cgi?id=884693 */
+        xhr.overrideMimeType('text/plain');
+    }
     xhr.addEventListener("error", function (event) {
         deferred.reject("error uploading image");
     });
