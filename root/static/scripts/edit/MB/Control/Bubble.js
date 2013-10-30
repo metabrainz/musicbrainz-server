@@ -152,17 +152,10 @@ MB.Control.BubbleBase = function (parent, $target, $content, offset) {
         self.button = false;
         self.textinput = false;
 
-        if (self.$target.filter ('a').length ||
-            self.$target.filter ('input[type=submit]').length ||
-            self.$target.filter ('input[type=button]').length ||
-            self.$target.filter ('img').length)
-        {
+        if (self.$target.is("a, :button, img")) {
             self.button = true;
         }
-        else if (self.$target.filter ('input[type=text]').length ||
-                 self.$target.filter ('textarea').length ||
-                 self.$target.filter ('select').length)
-        {
+        else if (self.$target.is(":input")) {
             self.textinput = true;
         }
 

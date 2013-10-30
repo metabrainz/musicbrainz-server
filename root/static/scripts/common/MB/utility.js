@@ -145,7 +145,9 @@ MB.utility.structureToString = function (obj) {
 
         var ret = [];
         $.each (keys, function (idx, key) {
-            ret.push (key + ":" + MB.utility.structureToString (obj[key]));
+            if (obj[key]) {
+                ret.push (key + ":" + MB.utility.structureToString (obj[key]));
+            }
         });
 
         return '{' + ret.join (",") + '}';

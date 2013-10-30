@@ -102,7 +102,7 @@ MB.Control.ReleaseEdits = function ($edits) {
             var to = {
                 'name': _.clean (trk.$title.val ()),
                 'length': trk.getDuration (from ? from.length : null),
-                'artist_credit': trk.artist_credit.toData ()
+                'artist_credit': { names: trk.artist_credit.toJS() }
             };
 
             to['edit_sha1'] = b64_sha1 (MB.utility.structureToString (to));

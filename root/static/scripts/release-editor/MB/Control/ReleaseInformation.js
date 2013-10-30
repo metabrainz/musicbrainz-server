@@ -32,19 +32,17 @@ MB.Control.ReleaseGroup = function (action, parent) {
 
     MB.Control.EntityAutocomplete ({
         inputs: $('span.release-group.autocomplete'),
-        allow_empty: (action !== 'edit')
+        allowEmpty: (action !== 'edit')
     });
 
-    self.$name.bind ('lookup-performed', function (event) {
-        var data = self.$name.data ('lookup-result');
-
+    self.$name.bind ('lookup-performed', function (event, data) {
         self.selectsToDisable.find ('option').prop('selected', false);
 
         var $select_option = data.typeID ?
             self.$type.find ('option[value='+data.typeID+']') :
             self.$type.find ('option:eq(0)');
 
-        $.each(data.secondary_types, function (idx, type) {
+        $.each(data.secondaryTypes, function (idx, type) {
             self.$secondary_types
               .find('option[value='+type+']').prop('selected', true);
         });
@@ -58,7 +56,7 @@ MB.Control.ReleaseGroup = function (action, parent) {
         self.selectsToDisable.prop('disabled', false);
     });
 
-    self.$name.bind ('focus.mb', function (event) {
+    self.$name.bind ('focus.mb lookup-performed cleared', function (event) {
         var gid = self.$span.find ('input.gid').val ();
         if (gid)
         {
@@ -191,7 +189,7 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
 
     self.$label.find ('input.name').bind ('focus.mb', self.docBubbleUpdate);
     self.$catno.bind ('change.mb keyup.mb focus.mb', self.docBubbleUpdate);
-    MB.Control.EntityAutocomplete ({ inputs: self.$label, allow_empty: true });
+    MB.Control.EntityAutocomplete ({ inputs: self.$label, allowEmpty: true });
 
     self.$row.find ("a[href=#remove_label]").click (function () { self.markDeleted() });
 
@@ -411,7 +409,6 @@ MB.Control.ReleaseInformation = function(action) {
 
         self.bubbles.add ($('#id-name'), $('div.guess-case.bubble'));
         self.bubbles.add ($('#help-cta'), $('div.help-cta'));
-        self.bubbles.add ($('#open-ac'), $('div.artist-credit'));
         self.bubbles.add ($('#id-packaging_id'), $('div.packaging'));
         self.bubbles.add ($('#id-barcode'), $('div.barcode'));
         self.bubbles.add ($('#id-annotation'), $('div.annotation'));
@@ -426,7 +423,9 @@ MB.Control.ReleaseInformation = function(action) {
             }
         });
 
-        if ($('div.artist-credit-box:eq(0) input.gid').val () ===
+        self.artistcredit = MB.Control.initialize_artist_credit(self.bubbles);
+
+        if (self.artistcredit.names()[0].artist().gid ===
             MB.constants.VARTIST_GID)
         {
             $('#id-various_artists').prop('checked', true);
@@ -457,10 +456,6 @@ MB.Control.ReleaseInformation = function(action) {
             self.bubbles.hideAll ();
             $("#id-events\\." + release_event.eventno + "\\.country_id").val('');
         });
-
-        self.artistcredit = MB.Control.ArtistCreditVertical (
-            $('input#release-artist'), $('div.artist-credit'), $('input#open-ac')
-        );
     };
 
     self.addLabel = function ($row) {
