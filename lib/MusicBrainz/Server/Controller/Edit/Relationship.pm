@@ -406,7 +406,10 @@ sub delete : Local Edit
     $c->model('LinkType')->load($rel->link);
     $c->model('Relationship')->load_entities($rel);
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form(
+        form => 'Confirm',
+        requires_edit_note => 1
+    );
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {

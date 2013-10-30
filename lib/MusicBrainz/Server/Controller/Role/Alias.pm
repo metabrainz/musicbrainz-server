@@ -95,6 +95,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     my $alias = $c->stash->{alias};
     $self->edit_action($c,
         form => 'Confirm',
+        form_args => { requires_edit_note => 1 },
         type => $model_to_edit_type{delete}->{ $self->{model} },
         edit_args => {
             alias  => $alias,
