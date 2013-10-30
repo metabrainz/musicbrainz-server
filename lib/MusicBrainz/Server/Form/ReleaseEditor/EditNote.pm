@@ -14,7 +14,7 @@ has '+requires_edit_note' => (
 );
 
 sub requires_edit_note_text {
-    l("You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!"))
+    l("You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!")
 }
 
 __PACKAGE__->meta->make_immutable;
