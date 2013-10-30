@@ -36,20 +36,18 @@ sub _get_extract
     my ($link) = map {
             $_->target;
         } reverse sort_by {
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
-            $_->target->language eq $wanted_lang
-        } reverse sort_by {
-            $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
+            if ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
+                $_->target->language eq $wanted_lang) { 2; }
+            elsif ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')) { 1; }
+            else { 0; }
         } grep {
             $_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ||
             $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
         } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
     if ($link) {
-        # Use '' as a way to signal to Data::WikipediaExtract that this is wikidata, if applicable
-        my $wp_extract = $c->model('WikipediaExtract')->get_extract($link->page_name,
+        my $wp_extract = $c->model('WikipediaExtract')->get_extract($link,
             $wanted_lang,
-            $link->isa('MusicBrainz::Server::Entity::URL::Wikidata') ? '' : $link->language,
             cache_only => $cache_only);
         if ($wp_extract) {
             $c->stash->{wikipedia_extract} = $wp_extract;

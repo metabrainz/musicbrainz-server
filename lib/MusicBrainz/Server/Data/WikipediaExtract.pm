@@ -19,26 +19,28 @@ Readonly my $EXTRACT_CACHE_TIMEOUT => 60 * 60 * 24 * 3; # 3 days
 
 sub get_extract
 {
-    my ($self, $title, $wanted_language, $wikipedia_language, %opts) = @_;
+    my ($self, $link, $wanted_language, %opts) = @_;
     my $cache_only = $opts{cache_only} // 0;
 
-    if ($wanted_language eq $wikipedia_language) {
-        return $self->get_extract_by_language($title, $wikipedia_language, cache_only => $cache_only);
+    if ($link->isa('MusicBrainz::Server::Entity::URL::Wikipedia') && $wanted_language eq $link->language) {
+        return $self->get_extract_by_language($link->page_name, $link->language, cache_only => $cache_only);
     }
 
     # We didn't by luck get a link in the right language
-    # Note that '' for language signifies a wikidata link
-    my $languages = $self->get_available_languages($title, $wikipedia_language, cache_only => $cache_only);
+    my $languages = $self->get_available_languages($link, cache_only => $cache_only);
 
-    if (defined $languages) {
+    if (defined $languages && scalar @$languages) {
         my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
-        # Make sure if english was $wikipedia_language, we still know to use it
-        my $english = $wikipedia_language eq 'en' ?
-                          {'title' => $title, 'lang' => 'en'} :
+        # Make sure if english was the link language, we still know to use it
+        my $english = $link->isa('MusicBrainz::Server::Entity::URL::Wikipedia') && $link->language eq 'en' ?
+                          {'title' => $link->page_name, 'lang' => 'en'} :
                           first { $_->{lang} eq 'en' } @$languages;
 
         # Desired language, fallback to english, fall back to "whatever we have"
-        my $lang_to_use = $lang_wanted || $english || {'title' => $title, 'lang' => $wikipedia_language};
+        my $lang_to_use = $lang_wanted || $english ||
+            ($link->isa('MusicBrainz::Server::Entity::URL::Wikipedia') ?
+             {'title' => $link->page_name, 'lang' => $link->language} :
+             $languages->[0]);
         return $self->get_extract_by_language($lang_to_use->{title}, $lang_to_use->{lang}, cache_only => $cache_only);
     } else {
         # We have no language data, probably because we requested cache_only
@@ -59,9 +61,9 @@ sub get_extract_by_language
 
 sub get_available_languages
 {
-    my ($self, $title, $language, %opts) = @_;
-    my ($url_pattern, $key, $callback);
-    if ($language eq '') {
+    my ($self, $link, %opts) = @_;
+    my ($url_pattern, $key, $callback, $language);
+    if ($link->isa('MusicBrainz::Server::Entity::URL::Wikidata')) {
         $url_pattern = "http://www.wikidata.org/w/api.php?action=wbgetentities&format=json&props=sitelinks&ids=%s%s";
         $key = 'sitelinks';
         $callback = \&_wikidata_languages_callback;
@@ -69,10 +71,11 @@ sub get_available_languages
         $url_pattern = "http://%s.wikipedia.org/w/api.php?action=query&prop=langlinks&lllimit=500&format=json&redirects=1&titles=%s";
         $key = 'langlinks';
         $callback = \&_wikipedia_languages_callback;
+        $language = $link->language;
     }
     return $self->_fetch_cache_or_url($url_pattern, $key,
                                       $LANG_CACHE_TIMEOUT,
-                                      $title, $language,
+                                      $link->page_name, $language,
                                       $callback,
                                       %opts);
 }
@@ -87,9 +90,9 @@ sub _fetch_cache_or_url
     my $value = $cache->get($cache_key);
 
     unless (defined $value || $cache_only) {
-        my $wp_url = sprintf $url_pattern, $language, uri_escape_utf8($title);
+        my $url = sprintf $url_pattern, $language // '', uri_escape_utf8($title);
 
-        my $ret = $self->_get_and_process_json($wp_url, $title, $json_property);
+        my $ret = $self->_get_and_process_json($url, $title, $json_property);
         unless (defined $ret) { return undef }
 
         $value = &$callback(fetched => $ret, language => $language);
@@ -140,7 +143,7 @@ sub _get_cache_and_key
     my ($self, $prefix, $title, $language) = @_;
     $title = uri_escape_utf8($title);
     my $cache = $self->c->cache;
-    my $cache_key = "wp:$prefix:$title:$language";
+    my $cache_key = join(':', grep { defined } ('wp', $prefix, $title, $language));
 
     return ($cache, $cache_key)
 }
