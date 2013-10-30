@@ -9,6 +9,10 @@ has '+deflate_method' => (
     default => sub { \&deflate_coordinates }
 );
 
+has '+validate_when_empty' => (
+    default => 1
+);
+
 my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
 sub direction { $DIRECTIONS{lc (shift() // '')} // 1}
 
@@ -34,6 +38,11 @@ sub validate {
     return unless $self->SUPER::validate;
 
     my $coordinates = $self->value;
+
+    if ($coordinates =~ /^\s*$/) {
+        $self->value({ latitude => undef, longitude => undef });
+        return;
+    }
 
     my $separators = '\s?,?\s?';
 

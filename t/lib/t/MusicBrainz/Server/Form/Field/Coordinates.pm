@@ -77,6 +77,11 @@ test 'Coordinate validation' => sub {
             parse => q{+55° 54' 14.49", +8° 31' 51.64"},
             latitude => 55.904025,
             longitude => 8.531011
+        },
+        {
+            parse => q{},
+            latitude => undef,
+            longitude => undef
         }
     );
 
