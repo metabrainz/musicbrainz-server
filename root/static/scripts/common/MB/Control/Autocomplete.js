@@ -118,6 +118,10 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         });
 
         this.element.on("blur", function (event) {
+            if (self.cancelAllBlurs) {
+                self.cancelAllBlurs = false;
+                return;
+            }
             // Stop searching if someone types something and then tabs out of
             // the field.
             self.cancelSearch = true;
@@ -139,19 +143,24 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }
         });
 
+        // Click events inside the menu, but outside of a relate-to box,
+        // should not cause the box to close.
+        this.menu.element.on("click", function (event) {
+            event.stopPropagation();
+        });
+
         this.changeEntity(this.options.entity);
     },
 
     // Overrides $.ui.autocomplete.prototype.close
-    // The default method cancels in-progress searches, which we don't want,
-    // because the show-more and indexed-search buttons break otherwise.
+    // Reset the currentPage and currentResults on menu close.
     close: function (event) {
-        this._close(event);
+        this._super(event);
+        this._resetPage();
     },
 
     clear: function (clearAction) {
         this.clearSelection(clearAction);
-        this._resetPage();
         this.close();
     },
 
@@ -166,8 +175,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     _searchAgain: function (toggle) {
-        // cancelBlur prevents the menu from closing after a click event
-        this.cancelBlur = true;
+        this._preventMenuClose();
 
         if (toggle) {
             this.indexedSearch = !this.indexedSearch;
@@ -178,9 +186,17 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     _showMore: function () {
-        this.cancelBlur = true;
+        this._preventMenuClose();
         this.currentPage += 1;
         this._search(this._value());
+    },
+
+    _preventMenuClose: function () {
+        // cancelBlur prevents the menu from closing after a click event
+        this.cancelBlur = true;
+
+        // $.ui deletes cancelBlur after checking it, so we also need our own
+        this.cancelAllBlurs = true;
     },
 
     setSelection: function (data) {
@@ -241,7 +257,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.close();
         this.element.prop("disabled", true);
 
-        $.ajax({
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+
+        this.xhr = $.ajax({
             url: "/ws/js/entity/" + mbid,
 
             dataType: "json",
@@ -364,6 +384,11 @@ $.widget("ui.menu", $.ui.menu, {
         } else {
             this._super(event);
         }
+
+        // When mouseHandled is true, $.ui ignores future mouse events. It only
+        // gets reset to false if you click outside of the menu, but we want
+        // it to be false no matter what.
+        this.mouseHandled = false;
     }
 });
 
