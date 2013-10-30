@@ -31,6 +31,6 @@ after validate => sub {
     if ($self->requires_edit_note && (!defined $self->field('edit_note')->value || $self->field('edit_note')->value eq '')) {
         $self->field('edit_note')->add_error($self->requires_edit_note_text);
     }
-}
+};
 
 1;
