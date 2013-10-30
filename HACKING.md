@@ -60,12 +60,13 @@ Javascript
 ----------
 
 We have a set of javascript unittests (using QUnit), which we run
-using phantomjs, these will be skipped if phantomjs isn't found.
+using phantomjs (version 1.5 or higher). These will be skipped if phantomjs
+isn't found.
 
 Currently we have a single QUnit test file to run javascript tests.
 It can be tested inside the browser by visiting
 http://test.musicbrainz.org/static/scripts/tests/all.html (or
-http://localhost:3000/static/scripts/tests/all.html on your local
+http://localhost:5000/static/scripts/tests/all.html on your local
 development checkout).
 
 It is more fun to be able to run those tests on the commandline, this
@@ -75,17 +76,15 @@ To install phantomjs:
 
     $ sudo apt-get install libqt4-dev libqt4-webkit     # on debian
     $ sudo apt-get install libqtwebkit-dev              # on ubuntu
-    $ sudo apt-get install xvfb
     $ cd ~/opt
     ~/opt$ git clone git://github.com/ariya/phantomjs.git
     ~/opt$ cd phantomjs
     ~/opt/phantomjs$ qmake
     ~/opt/phantomjs$ make
 
-Now you should be able to use it to run QUnit tests.  A testrunner is
-available in root/static/scripts/tests:
+Now you should be able to use it to run QUnit tests:
 
-    $ xvfb-run ~/opt/phantomjs/bin/phantomjs root/static/scripts/tests/phantom-qunit.js http://localhost:3000/static/scripts/tests/all.html
+    $ prove -l t/qunit.t
 
 
 Cache
