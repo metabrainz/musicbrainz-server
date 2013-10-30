@@ -8,6 +8,7 @@
         [l('Recordings'), tags.recording],
         [l('Works'), tags.work],
         [l('Labels'), tags.label],
+        [l('Places'), tags.place],
     ] %]
     [% IF section.1.size %]
         <h2>[% section.0 %]</h2>
