@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Controller::Role::WikipediaExtract;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use List::UtilsBy qw( sort_by );
+use List::UtilsBy qw( rev_nsort_by );
 use namespace::autoclean;
 
 after show => sub {
@@ -35,7 +35,7 @@ sub _get_extract
     #    since then we don't have to do a query for languages
     my ($link) = map {
             $_->target;
-        } reverse sort_by {
+        } rev_nsort_by {
             if ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
                 $_->target->language eq $wanted_lang) { 2; }
             elsif ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')) { 1; }
