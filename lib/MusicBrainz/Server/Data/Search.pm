@@ -52,7 +52,7 @@ use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use DateTime::Format::ISO8601;
 use feature "switch";
 
-no warnings 'experimental::smartmatch';
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 

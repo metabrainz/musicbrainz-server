@@ -5,7 +5,7 @@ use feature 'switch';
 
 use Scalar::Util qw( looks_like_number );
 
-no warnings 'experimental::smartmatch';
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 with 'MusicBrainz::Server::EditSearch::Predicate';
 

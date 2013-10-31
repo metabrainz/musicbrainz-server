@@ -26,7 +26,7 @@ use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::ReleaseGroup';
 
-no warnings 'experimental::smartmatch';
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';

@@ -14,7 +14,7 @@ use HTML::Tiny;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( trim_in_place );
 
-no warnings 'experimental::smartmatch';
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 sub html_filter {
     my $text = shift;
