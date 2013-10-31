@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-07-22 08:23+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2013-10-29 00:54+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -374,7 +374,7 @@ msgstr "Meso-Amerikaanse talen"
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
-msgstr ""
+msgstr "Centraal-Okinawaans"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -976,6 +976,11 @@ msgstr "Indo-Europese talen"
 msgid "Indonesian"
 msgstr "Indonesisch"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr ""
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1130,6 +1135,11 @@ msgstr "Kawi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "Kazachs"
+
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr ""
 
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
@@ -1425,6 +1435,11 @@ msgstr "Manipuri (Meitei)"
 #: DB:language/name:279
 msgid "Manobo languages"
 msgstr "Manobo-talen"
+
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr ""
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151
