@@ -9,8 +9,7 @@ our @EXPORT_OK = qw(
 sub get_chunked_with_retry {
     my ($ua, $url) = @_;
     my $response;
-    my $timeout = $ua->timeout // 5;
-    my $retries_remaining = int(25.0 / $timeout);
+    my $retries_remaining = int(25.0 / $ua->timeout);
     while (!defined($response) && --$retries_remaining > 0) {
         $response = $ua->get($url);
 
