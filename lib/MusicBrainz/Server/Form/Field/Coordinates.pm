@@ -89,7 +89,9 @@ sub dms {
 
 sub deflate_coordinates {
     my ($self, $value) = @_;
-    return join(', ', $value->latitude, $value->longitude);
+    if (defined $value && defined $value->latitude && defined $value->longitude) {
+        return join(', ', $value->latitude, $value->longitude);
+    }
 }
 
 1;
