@@ -10,7 +10,7 @@ has_field 'id' => ( type => 'Integer' );
 
 has '+requires_edit_note' => (
     lazy => 1,
-    default => sub { shift->field('id')->value }
+    default => sub { !shift->field('id')->value }
 );
 
 sub requires_edit_note_text {

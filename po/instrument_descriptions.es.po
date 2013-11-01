@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
+"PO-Revision-Date: 2013-10-29 00:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -702,6 +702,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:446
 msgid "Slit drum, hollowed out tree with slits"
+msgstr ""
+
+#: DB:link_attribute_type/description:129
+msgid ""
+"Snare drum (also side drum, field drum)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Snare_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:362
@@ -2669,10 +2675,6 @@ msgstr ""
 
 #: DB:link_attribute_type/description:79
 msgid "slide guitar"
-msgstr ""
-
-#: DB:link_attribute_type/description:129
-msgid "snare drum"
 msgstr ""
 
 #: DB:link_attribute_type/description:537

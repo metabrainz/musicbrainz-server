@@ -1,13 +1,15 @@
 # 
 # Translators:
+# Phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
 # Timo Martikainen <>, 2012
+# ListMyCDs.com Martikainen <email address hidden>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-10-17 20:35+0000\n"
+"Last-Translator: Phonebox\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -121,7 +123,7 @@ msgstr "Rhodes sähköpiano"
 
 #: DB:link_attribute_type/name:585
 msgid "Saraswati veena"
-msgstr ""
+msgstr "Saraswati vina"
 
 #: DB:link_attribute_type/name:513
 msgid "Scottish smallpipes"
@@ -233,7 +235,7 @@ msgstr "nilkkahelistin"
 
 #: DB:link_attribute_type/name:296
 msgid "archaic and other bowed string-instruments"
-msgstr ""
+msgstr "arkaaiset ja muut jousisoittimet"
 
 #: DB:link_attribute_type/name:619
 msgid "archlute"
@@ -401,7 +403,7 @@ msgstr "kellot"
 
 #: DB:link_attribute_type/name:420
 msgid "bendir"
-msgstr ""
+msgstr "bendir"
 
 #: DB:link_attribute_type/name:93
 msgid "berimbau"
@@ -429,7 +431,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:519
 msgid "bombarde"
-msgstr ""
+msgstr "pommeri"
 
 #: DB:link_attribute_type/name:437
 msgid "bones"
@@ -453,7 +455,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:275
 msgid "bowed string instruments"
-msgstr ""
+msgstr "jousisoittimet"
 
 #: DB:link_attribute_type/name:38
 msgid "brass"
@@ -525,7 +527,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:565
 msgid "chamber organ"
-msgstr ""
+msgstr "kamariurut"
 
 #: DB:link_attribute_type/name:648
 msgid "chande"
@@ -957,11 +959,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:301
 msgid "gadulka"
-msgstr ""
+msgstr "gadulka"
 
 #: DB:link_attribute_type/name:445
 msgid "gamelan"
-msgstr ""
+msgstr "gamelan"
 
 #: DB:link_attribute_type/name:464
 msgid "gankogui"
@@ -1709,7 +1711,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:741
 msgid "saron"
-msgstr ""
+msgstr "saron"
 
 #: DB:link_attribute_type/name:692
 msgid "satsuma biwa"

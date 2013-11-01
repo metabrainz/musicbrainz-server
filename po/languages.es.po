@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-12 10:59+0000\n"
+"PO-Revision-Date: 2013-10-29 19:46+0000\n"
 "Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -379,7 +379,7 @@ msgstr "Lenguas indígenas de Centroamérica"
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
 msgid "Central Okinawan"
-msgstr ""
+msgstr "Okinawense central"
 
 #. frequency:1 iso_code_3:chg
 #: DB:language/name:75
@@ -981,6 +981,11 @@ msgstr "Lenguas indoeuropeas"
 msgid "Indonesian"
 msgstr "Indonesio"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "Ingrio"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1135,6 +1140,11 @@ msgstr "Kawi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "Kazajo"
+
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "Janty"
 
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
@@ -1430,6 +1440,11 @@ msgstr "Meitei (Manipurí)"
 #: DB:language/name:279
 msgid "Manobo languages"
 msgstr "Manobo, lenguas"
+
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "Mansi"
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151

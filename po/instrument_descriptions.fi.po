@@ -1,14 +1,15 @@
 # 
 # Translators:
+# Phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # Timo Martikainen <>, 2012
-# ListMyCDs.com Martikainen <email address hidden>, 2012
+# ListMyCDs.com Martikainen <email address hidden>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:12+0000\n"
+"PO-Revision-Date: 2013-10-29 00:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -55,7 +56,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:565
 msgid "A chamber organ is a small pipe organ."
-msgstr ""
+msgstr "Kamariurut ovat pienikokoiset pilliurut."
 
 #: DB:link_attribute_type/description:531
 msgid "A class of South-American guitars"
@@ -291,7 +292,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:420
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
-msgstr ""
+msgstr "Bendir, Pohjoisamerikkalainen kehysrumpu, ei kulkusia"
 
 #: DB:link_attribute_type/description:460
 msgid ""
@@ -701,6 +702,12 @@ msgstr ""
 msgid "Slit drum, hollowed out tree with slits"
 msgstr ""
 
+#: DB:link_attribute_type/description:129
+msgid ""
+"Snare drum (also side drum, field drum)  (<a "
+"href=\"https://en.wikipedia.org/wiki/Snare_drum\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:362
 msgid "Sopranino recorder (Sopraninoblockflöte)"
 msgstr ""
@@ -784,7 +791,7 @@ msgid ""
 "The Saraswati veena (also spelt Saraswati vina) is an Indian plucked "
 "stringed instrument used in Carnatic music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Saraswati_veena\">Wikipedia</a>)"
-msgstr ""
+msgstr "Saraswati vina (tai Saraswati veena) on intialainen näppäilysoitin jota käytetään intialaisessa perinnemusiikissa. (<a href=\"http://fi.wikipedia.org/wiki/Vina\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:674
 msgid ""
@@ -1376,7 +1383,7 @@ msgid ""
 "The saron is an Indonesian musical instrument which is used in the gamelan. "
 "It normally has seven bronze bars placed on top of a resonating frame. (<a "
 "href=\"http://en.wikipedia.org/wiki/Saron_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Saron on Indonesialainen gamelan-orkesterissa käytettävä soitin. Yleensä saron koostuu seitsemästä pronssisesta tangosta, jotka on asetettu resonoivan kehyksen päälle. (<a href=\"http://en.wikipedia.org/wiki/Saron_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:692
 msgid ""
@@ -2145,7 +2152,7 @@ msgstr "congarummut"
 
 #: DB:link_attribute_type/description:519
 msgid "conical bore double-reed musical instrument from Brittany"
-msgstr ""
+msgstr "kaksoisruokolehdykkäsoitin kartiomaisella porauksella, Bretagnesta."
 
 #: DB:link_attribute_type/description:26
 msgid "contrabass clarinet"
@@ -2667,10 +2674,6 @@ msgstr ""
 #: DB:link_attribute_type/description:79
 msgid "slide guitar"
 msgstr "slide-kitara"
-
-#: DB:link_attribute_type/description:129
-msgid "snare drum"
-msgstr "pikkurumpu"
 
 #: DB:link_attribute_type/description:537
 msgid "sopranino saxophone"
