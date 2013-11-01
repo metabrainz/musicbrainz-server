@@ -120,7 +120,6 @@
         }
     });
 
-
     MB.entity.Release = aclass(MB.entity.CoreEntity, { type: "release" });
 
     MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, {
@@ -132,7 +131,6 @@
         }
     });
 
-
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",
 
@@ -140,6 +138,9 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
+            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
+            this.editsPending = data.editsPending;
+            this.gid = data.gid;
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -162,6 +163,7 @@
         }
     });
 
+    MB.entity.URL = aclass(MB.entity.CoreEntity, { type: "url" });
 
     MB.entity.Work = aclass(MB.entity.CoreEntity, { type: "work" });
 
@@ -209,7 +211,7 @@
         },
 
         isEqual: function (other) {
-            return ko.unwrap(this.artist) === ko.unwrap(other.artist) &&
+            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
@@ -310,11 +312,22 @@
 
 
     MB.entity.Medium = aclass(Entity, function (data) {
-        this.format = (data.format || MB.text.Medium) + " " + data.position;
+        this.format = data.format;
+
+        this.position = data.position;
 
         this.tracks = _.map(data.tracks, function (obj) {
             return new MB.entity.Track(obj);
         });
+
+        this.editsPending = data.editsPending;
+
+        this.positionName = "";
+        this.positionName += (this.format || MB.text.Medium) + " " + this.position;
+
+        if (this.name) {
+            this.positionName += ": " + this.name;
+        }
     });
 
 
@@ -329,6 +342,7 @@
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,
         release_group: MB.entity.ReleaseGroup,
-        work:          MB.entity.Work
+        work:          MB.entity.Work,
+        url:           MB.entity.URL
     };
 }());

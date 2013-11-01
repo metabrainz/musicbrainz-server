@@ -377,9 +377,7 @@
             <td></td>
             <td colspan="2">
               <input type="checkbox" class="medium-recordings">
-              <!-- ko text: format --><!-- /ko --><!-- ko if: name -->:
-                <!-- ko text: name --><!-- /ko -->
-              <!-- /ko -->
+              <!-- ko text: positionName --><!-- /ko -->
             </td>
             <td><input type="checkbox" class="medium-works"></td>
           </tr>
