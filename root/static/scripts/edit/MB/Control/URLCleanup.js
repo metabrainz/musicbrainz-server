@@ -628,7 +628,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // allow only IMDb pages with the IMDb rels
     validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character)/) != null;
+        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character|company)/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
         return $('#id-ar\\.url').val().match(/imdb\.com\/company/) != null;
