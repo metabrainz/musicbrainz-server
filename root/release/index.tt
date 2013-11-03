@@ -23,42 +23,220 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
+    <style>
+    table.tbl td { vertical-align: top }
+    </style>
+
+    <script type="text/html" id="relationship-group">
+      <dt><!-- ko text: key --><!-- /ko -->:</dt>
+      <dd data-bind="html: _.map(value, function(v) { return v.target.html() }).join(', ')">
+      </dd>
+    </script>
+
+    <!-- ko with: MB.Release.viewModel -->
     <table class="tbl">
-        <thead>
-            <tr>
-                <th class="pos t">#</th>
-                [%- IF show_video -%]
-                    <th class="video c"></th>
-                [%- END -%]
-                <th>
-                  <span style="float: right; font-weight: normal; padding-right: 1em;">
-                    <a style="display: none;" class="bottom-credits" href="">[% l('Display Credits at Bottom') %]</a>
-                    <a style="display: none;" class="inline-credits" href="">[% l('Display Credits Inline') %]</a>
-                    <input style="display: none;" type="checkbox" id="bottom-credits" />
+      <thead>
+        <tr>
+          <th class="pos t">#</th>
+          <!-- ko if: $root.showVideo -->
+          <th class="video c"></th>
+          <!-- /ko -->
+          <th>
+            <span style="float: right; font-weight: normal; padding-right: 1em;">
+              <a style="display: none;" class="bottom-credits" href="">
+                [% l('Display Credits at Bottom') %]</a>
+              <a style="display: none;" class="inline-credits" href="">
+                [% l('Display Credits Inline') %]</a>
+              <input style="display: none;" type="checkbox" id="bottom-credits" />
+            </span>
+
+            [% l('Title') %]
+          </th>
+          <!-- ko if: showArtists -->
+            <th>[% l('Artist') %]</th>
+          <!-- /ko -->
+          <th class="rating c">[% l('Rating') %]</th>
+          <th class="treleases">[% l('Length') %]</th>
+        </tr>
+      </thead>
+      <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
+        <!-- ko foreach: mediums -->
+          <tr data-bind="css: { subh: true, mp: editsPending > 0}">
+            <td>&#xa0;</td>
+            <td data-bind="attr: { colspan: 3 + ($root.showVideo ? 1 : 0) + ($root.showArtists ? 1 : 0) }">
+              <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
+              <!-- [% rdfa_medium_in_release(release, medium) %] -->
+            </td>
+          </tr>
+          <!-- ko foreach: tracks -->
+          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+              <td class="pos t">
+                <!-- ko text: number --><!-- /ko -->
+              </td>
+              <!-- ko if: $root.showVideo -->
+                <td class="video c" data-bind="if: recording.video">
+                  <img src="/static/images/icons/video.png"
+                       alt="[% l('This recording is a video') %]"
+                       title="[% l('This recording is a video') %]"
+                       class="bottom"/>
+              </td>
+              <!-- /ko -->
+              <td>
+                <a data-bind="text: name, attr: { href: '/recording/' + recording.gid }"></a>
+
+                <!-- ko with: recording -->
+                  <br/>
+                  <div class="ars" style="display: none;" data-bind="foreachKv: groupedRelationships">
+                    <dl class="ars">
+                      <!-- ko if: key == 'work' -->
+                        <!-- ko foreachKv: value -->
+                          <!-- ko foreach: value -->
+                            <dt><!-- ko text: $parent.key --><!-- /ko -->:</dt>
+                            <dd>
+                              <span data-bind="html: target.html()"></span>
+                              <!-- ko foreachKv: groupedSubRelationships -->
+                                <!-- ko if: key == 'artist' -->
+                                  <dl class="ars">
+                                    <!-- ko foreachKv: value -->
+                                      <!-- ko template: { name: 'relationship-group' } -->
+                                      <!-- /ko -->
+                                    <!-- /ko -->
+                                  </dl>
+                                <!-- /ko -->
+                              <!-- /ko -->
+                            </dd>
+                          <!-- /ko -->
+                        <!-- /ko -->
+                      <!-- /ko -->
+
+                      <!-- ko if: key != 'work' -->
+                        <!-- ko foreachKv: value -->
+                          <!-- ko template: { name: 'relationship-group' } -->
+                          <!-- /ko -->
+                        <!-- /ko -->
+                      <!-- /ko -->
+                    </dl>
+                  </div>
+                <!-- /ko -->
+              </td>
+              <!-- ko if: $root.showArtists -->
+              <td data-bind="html: artistCredit.html()"></td>
+              <!-- /ko -->
+              [% UNLESS hide_rating %]
+                <td class="rating c" data-bind="with: recording">
+                  <span class="inline-rating">
+                    <span class="star-rating small-star">
+                      <!-- ko if: userRating !== null -->
+                      <span class="current-user-rating"
+                            data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
+                      <!-- /ko -->
+
+                      <!-- ko if: userRating === null -->
+                      <span class="current-rating"
+                            data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
+                      <!-- /ko -->
+
+                      [%- IF c.user_exists -%]
+                        [%- FOR rating IN [ 1 .. 5 ] -%]
+                          <!-- ko if: userRating == [% rating * 20 %] -->
+                          <a class="stars-[% rating %] remove-rating"
+                             title="[% rating_tooltip (0) %]"
+                             data-bind="attr: { href: '/rating/rate?entity_type=recording&entity_id=' + id + '&rating=0' }, text: [% rating %]"></a>
+                          <!-- /ko -->
+
+                          <!-- ko if: userRating != [% rating * 20 %] -->
+                          <a class="stars-[% rating %] set-rating"
+                             title="[% rating_tooltip (rating) %]"
+                             data-bind="attr: { href: '/rating/rate?entity_type=recording&rating=[% rating * 20 %]&entity_id=' + id }, text: [% rating %]"></a>
+                          <!-- /ko -->
+                        [%- END -%]
+                      [%- END -%]
+                    </span>
                   </span>
-                  [% l('Title') %]
-                </th>
-                [%- IF show_artists -%]
-                    <th>[% l('Artist') %]</th>
-                [%- END -%]
-                <th class="rating c">[% l('Rating') %]</th>
-                <th class="treleases">[% l('Length') %]</th>
-            </tr>
-        </thead>
-        <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
-        [%- FOR medium=release.mediums -%]
-            <tr class="subh[% ' mp' IF medium.edits_pending %]">
-                <td>&#xa0;</td><td colspan="[% IF show_artists && show_video %]5[% ELSIF show_artists || show_video %]4[% ELSE %]3[% END %]">
-                    [% rdfa_medium_in_release(release, medium) %]
                 </td>
+              [% END %]
+              <td class="treleases" data-bind="text: length">
+              </td>
             </tr>
-            <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-                <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-            -->
-                [%- INCLUDE 'medium/tracklist.tt' tracks=medium.tracks -%]
-        [%- END -%]
-        </tbody>
+          <!-- /ko -->
+
+          <!-- Invalid HTML, commenting out for now.  See MBS-5244.
+            <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
+          -->
+        <!-- /ko -->
+      </tbody>
     </table>
+    <!-- /ko -->
+
+    <script>
+      MB.Release.init(
+      [%- PERL -%]
+        my $rel_to_json = sub {
+            my $rel = shift;
+            my $target = $rel->target;
+            return (
+                target => {
+                    gid => $target->gid,
+                    type => $rel->target_type,
+                    name => $target->name,
+                    sortname => $target->can('sort_name') ? $target->sort_name : undef,
+                    comment => $target->can('comment') ? $target->comment : ''
+                },
+                phrase => $rel->phrase
+            );
+        };
+
+        print $context->plugin('JSON.Escape')->json_encode([
+            map +{
+                name => $_->name,
+                tracks => [
+                    map +{
+                        gid => $_->gid,
+                        position => $_->position,
+                        number => $_->number,
+                        name => $_->name,
+                        length => $_->length,
+                        editsPending => $_->edits_pending,
+                        artistCredit => [
+                            map +{
+                                name => $_->name,
+                                joinphrase => $_->join_phrase,
+                                artist => {
+                                    gid => $_->artist->gid,
+                                    id => $_->artist->id,
+                                    sortname => $_->artist->sort_name,
+                                    name => $_->artist->name
+                                }
+                            }, $_->artist_credit->all_names
+                        ],
+                        recording => {
+                            relationships => [
+                                map +{
+                                    $rel_to_json->($_),
+                                    subRelationships => [
+                                        map +{ $rel_to_json->($_) },
+                                            $_->target->all_relationships
+                                    ]
+                                }, $_->recording->all_relationships
+                            ],
+                            gid => $_->recording->gid,
+                            rating => $_->recording->rating,
+                            userRating => $_->recording->user_rating,
+                            id => $_->recording->id,
+                            video =>
+                                $_->recording->video ? JSON::true : JSON::false
+                        }
+                    }, $_->all_tracks
+                ],
+                position => $_->position,
+                format => $_->l_format_name,
+                editsPending => $_->edits_pending
+            }, @{ $stash->get('release')->{mediums} }
+        ]);
+      [%- END -%]
+      )
+    </script>
+
     <script type="text/javascript">
     $(function() {
         MB.utility.rememberCheckbox("#bottom-credits", "bottom-credits");

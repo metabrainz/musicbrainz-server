@@ -6,26 +6,12 @@
     $(function() {
 
       var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_artist_credit (bubbles);
+      var artistCredit = MB.Control.initialize_artist_credit (bubbles);
       MB.Control.initialize_guess_case (bubbles, 'recording', 'id-edit-recording');
 
-      $(".artist-credit-container").on("VariousArtists",
-              ".artist-credit-box input.name", function (event) {
-
-          var $va = $('.artist-credit-box input.name.various-artists');
-
-          if (!$va.length)
-          {
-              $('div.various-artists.warning').hide ();
-          }
-          else
-          {
-              $('div.various-artists.warning').show ();
-          }
-
+      ko.computed(function () {
+          $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
       });
-
-      $('.artist-credit-box input.name').trigger ('VariousArtists');
 
       bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
     });

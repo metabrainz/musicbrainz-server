@@ -26,7 +26,7 @@ sub build_type_info
                 defined $_->max ? 0 + $_->max : undef,
             ] } $root->all_attributes;
             $info->{$root->id} = {
-                doc_link => $c->uri_for('/doc/relationship-types',
+                doc_link => $c->uri_for_action('/doc/relationship_type',
                                         $root->gid)->as_string,
                 descr => $root->l_description,
                 attrs => \%attrs,
@@ -406,7 +406,10 @@ sub delete : Local Edit
     $c->model('LinkType')->load($rel->link);
     $c->model('Relationship')->load_entities($rel);
 
-    my $form = $c->form( form => 'Confirm' );
+    my $form = $c->form(
+        form => 'Confirm',
+        requires_edit_note => 1
+    );
     $c->stash( relationship => $rel );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {

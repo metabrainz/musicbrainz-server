@@ -20,9 +20,10 @@ override 'foreign_keys' => sub {
     my $data = super();
 
     $data->{ReleaseGroup} = {
-        map { $_ => [ 'ArtistCredit' ] }
+        map { $_ => [ 'ArtistCredit', 'ReleaseGroupType', 'ReleaseGroupMeta' ] }
             $self->release_group_ids
     };
+
     return $data;
 };
 

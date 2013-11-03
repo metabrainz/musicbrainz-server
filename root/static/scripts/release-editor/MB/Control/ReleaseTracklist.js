@@ -66,7 +66,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
         self.$deleted.val (data.deleted);
         if (data.artist_credit)
         {
-            self.artist_credit.render (data.artist_credit);
+            self.artist_credit.setNames(data.artist_credit.names);
             self.updateVariousArtists ();
         }
 
@@ -139,7 +139,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
      * track is different from the release artist.
      */
     self.updateVariousArtists = function () {
-        if (self.isDeleted () || self.artist_credit.isReleaseArtist ())
+        if (self.isDeleted () || self.artist_credit.isEqual(MB.releaseArtistCredit))
             return;
 
         self.parent.setVariousArtists ();
@@ -235,12 +235,10 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     self.artistCreditText = function (val) {
         if (val !== undefined)
         {
-            self.artist_credit.render({
-                "names": [{
-                    "artist": { "name": val },
-                    "name": val
-                }]
-            });
+            self.artist_credit.setNames([{
+                "artist": { "name": val },
+                "name": val
+            }]);
         }
 
         return self.$artist.val();
@@ -294,7 +292,15 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     var $target = self.$row.find ("td.artist input");
     var $button = self.$row.find ("a[href=#credits]");
     self.bubble_collection.add ($button, self.$acrow);
-    self.artist_credit = MB.Control.ArtistCreditRow ($target, self.$acrow, $button);
+    self.artist_credit = MB.Control.ArtistCredit({});
+    ko.applyBindings(self.artist_credit, $target[0]);
+    ko.applyBindings(self.artist_credit, self.$acrow[0]);
+
+    ko.computed(function () {
+        if (self.artist_credit.isVariousArtists()) {
+            self.parent.parent.variousArtistsWarning();
+        }
+    });
 
     self.duration = null;
     self.duration_str = '?:??';
@@ -350,9 +356,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.sorted_tracks.push (trk);
 
         /* if the release artist is VA, clear out the track artist. */
-        if (trk.artist_credit.isVariousArtists ())
+        if (trk.artist_credit.names()[0].isVariousArtists ())
         {
-            trk.artist_credit.clear ();
+            trk.artist_credit.setNames([{}])
         }
 
         trk.disableTracklistEditing ();
@@ -441,33 +447,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
                 track.$acrow.insertAfter (track.$row);
             }
         });
-    };
-
-    /**
-     * updateArtistColumn makes sure the enabled/disabled state of each of the artist
-     * inputs matches the checkbox at the top of the column.
-     */
-    self.updateArtistColumn = function () {
-
-        if (self.$artist_column_checkbox.is (':checked'))
-        {
-            $.each (self.tracks, function (idx, item) {
-                item.artist_credit.enableTarget ();
-                item.artist_credit.$artist_input.removeClass ('column-disabled');
-            });
-        }
-        else
-        {
-            /* opening a bubble will disable the input, and re-enable
-               it on close.  make sure to close these bubbles _before_
-               trying to disable the associated input. */
-            self.bubble_collection.hideAll ();
-
-            $.each (self.tracks, function (idx, item) {
-                item.artist_credit.disableTarget ();
-                item.artist_credit.$artist_input.addClass ('column-disabled');
-            });
-        }
     };
 
     /* 'up' is visual, so the disc position decreases. */
@@ -561,28 +540,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         self.parent.updateDiscTitle (clear_title);
     };
 
-    self.getReleaseArtist = function () {
-        $release_artist = $('table.tracklist-template tr.track-artist-credit');
-
-        var names = [];
-        var preview = "";
-        $release_artist.find ('tr.artist-credit-box').each (function (idx, row) {
-            names[idx] = {
-                "artist": {
-                    "name": $(row).find ('input.name').val (),
-                    "gid": $(row).find ('input.gid').val (),
-                    "id": $(row).find ('input.id').val ()
-                },
-                "name": $(row).find ('input.credit').val (),
-                "join_phrase": $(row).find ('input.join').val ()
-            };
-
-            preview += names[idx].name + names[idx].join;
-        });
-
-        return { names: names, preview: preview };
-    };
-
     self.changeTrackArtists = function (data) {
         if (!MB.release_artist_json)
         {
@@ -612,7 +569,9 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 
                 if (update)
                 {
-                    data[idx].artist_credit = self.getReleaseArtist ();
+                    data[idx].artist_credit = {
+                        names: MB.releaseArtistCredit.toJS()
+                    };
                 }
             }
         });
@@ -643,22 +602,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
         var use_data = function (data) {
             self.loadTracklist (data);
             self.fixTrackCount ();
-
-            var vaTracklist = false;
-            $.each(data, function(idx, track) {
-                var thisArtistStr = MB.utility.structureToString(track.artist_credit);
-                if (idx > 0 && lastArtistStr != thisArtistStr) {
-                    vaTracklist = true;
-                    return false;
-                }
-
-                lastArtistStr = thisArtistStr;
-                return true;
-            });
-
-            if (vaTracklist) {
-                self.$fieldset.find('input.artistcolumn').click().trigger('change');
-            }
         };
 
         self.$nowloading.show ();
@@ -822,10 +765,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.swapArtistsAndTitles = function (event) {
         var requireConf = self.hasComplexArtistCredits();
         if (!requireConf || (requireConf && confirm(MB.text.ConfirmSwap))) {
-            // Ensure that we can edit track artists
-            self.$artist_column_checkbox.prop('checked', true);
-            self.updateArtistColumn();
-
             $.each (self.sorted_tracks, function(idx, item) {
                 var oldTitle = item.title ();
 
@@ -862,7 +801,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     };
 
     self.$table = self.$fieldset.find ('table.medium');
-    self.$artist_column_checkbox = self.$table.find ('th.artist input');
 
     self.number = parseInt (self.$fieldset.attr ('id').match ('mediums\.([0-9]+)\.advanced-disc')[1], 10);
 
@@ -910,9 +848,6 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
     self.$expand_icon.bind ('click.mb', function (ev) { self.expand (); });
     self.$collapse_icon.bind ('click.mb', function (ev) { self.collapse (); });
 
-    self.$artist_column_checkbox.bind ('change', self.updateArtistColumn);
-
-    self.updateArtistColumn ();
     self.enableDiscTitle ();
     self.sort ();
 
@@ -1175,9 +1110,6 @@ MB.Control.ReleaseTracklist = function () {
     ko.applyBindingsToNode($("div.guesscase-advanced")[0], {
         guessCase: self.guessCase
     });
-
-    $("#release-editor").on("VariousArtists", ".artist-credit-box input.name",
-        self.variousArtistsWarning);
 
     self.$va_warning = $('div.various-artists.warning');
     self.$tab = $('div.advanced-tracklist');
