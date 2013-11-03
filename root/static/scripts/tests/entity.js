@@ -20,9 +20,9 @@ MB.tests.entity = function() {
 
     QUnit.test("ArtistCredit", function() {
         var data = [
-            [{artist: {gid: 1, name: "a"}, joinphrase: "/"}],
-            [{artist: {gid: 1, name: "b"}, joinphrase: "/"}],
-            [{artist: {gid: 1, name: "a"}, joinphrase: "/"}, {artist: {gid: 2, name: "b"}}]
+            [{artist: {gid: 1, name: "a"}, join_phrase: "/"}],
+            [{artist: {gid: 1, name: "a"}, name: "b", join_phrase: "/"}],
+            [{artist: {gid: 1, name: "a"}, join_phrase: "/"}, {artist: {gid: 2, name: "b"}}]
         ];
 
         var acs = [
@@ -49,7 +49,7 @@ MB.tests.entity = function() {
                     id: 117906,
                     gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
                 },
-                joinphrase: " & "
+                join_phrase: " & "
             },
             {
                 artist: {
@@ -58,7 +58,7 @@ MB.tests.entity = function() {
                     id: 303,
                     gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
                 },
-                joinphrase: ""
+                join_phrase: ""
             }
         ];
 

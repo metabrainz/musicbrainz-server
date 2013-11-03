@@ -32,11 +32,11 @@
                content=html_escape(place.address) class="address"
                    IF place.address -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-               content=link_area(place.area)
+               content=link_area_with_containment(place.area)
                class="area"
                    IF place.area -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
-               content=html_escape(place.coordinates.format)
+               content=('<a href="' _ place.coordinates.osm_url(16) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
                class="coordinates"
                    IF place.coordinates.latitude && place.coordinates.longitude -%]
         [% END %]

@@ -89,6 +89,7 @@ sub remove : Local Edit
 
     $self->edit_action($c,
         form        => 'Confirm',
+        form_args   => { requires_edit_note => 1 },
         type        => $EDIT_MEDIUM_REMOVE_DISCID,
         edit_args   => {
             medium => $medium,
@@ -123,9 +124,6 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
     $c->stash( medium => $medium );
-
-    # use Data::Dumper;
-    # warn "stash: ".Dumper ($c->stash)."\n";
 
     $self->edit_action($c,
         form => 'Confirm',

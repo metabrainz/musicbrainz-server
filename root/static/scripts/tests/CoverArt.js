@@ -109,16 +109,19 @@ MB.tests.CoverArt.multifile = function() {
                 equal (promise.state (), expected_state, ' ... ' + expected_state);
             });
 
+            return promise;
         };
 
         /* each mime_type_test() call runs two tests, so expect 8. */
         expect (8);
-        mime_type_test ('1x1.jpg', 'image/jpeg', 'resolved');
-        mime_type_test ('1x1.png', 'image/png', 'resolved');
-        mime_type_test ('1x1.gif', 'image/gif', 'resolved');
-        mime_type_test ('not an image.txt', 'unrecognized image format', 'rejected');
 
-        start ();
+        $.when(
+            mime_type_test ('1x1.jpg', 'image/jpeg', 'resolved'),
+            mime_type_test ('1x1.png', 'image/png', 'resolved'),
+            mime_type_test ('1x1.gif', 'image/gif', 'resolved'),
+            mime_type_test ('not an image.txt', 'unrecognized image format', 'rejected')
+        )
+        .always(start);
     });
 
     QUnit.test('cover art types', function() {

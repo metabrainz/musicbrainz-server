@@ -114,6 +114,7 @@ sub build_type_info {
         ] } $root->all_attributes;
         {
             id                  => $root->id,
+            gid                 => $root->gid,
             phrase              => $root->l_link_phrase,
             reverse_phrase      => $root->l_reverse_link_phrase,
             deprecated          => $root->is_deprecated || 0,

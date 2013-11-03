@@ -1,12 +1,13 @@
 # 
 # Translators:
 # lorenzpressler <email address hidden>, 2012
+# Shepard, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-10-29 19:29+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -864,7 +865,7 @@ msgstr "Englischhorn"
 
 #: DB:link_attribute_type/name:285
 msgid "erhu"
-msgstr ""
+msgstr "Erhu"
 
 #: DB:link_attribute_type/name:641
 msgid "esraj"
@@ -1508,7 +1509,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:700
 msgid "other drums"
-msgstr ""
+msgstr "Andere Trommeln"
 
 #: DB:link_attribute_type/name:265
 msgid "other flutes"
@@ -2144,7 +2145,7 @@ msgstr "Plattenspieler"
 
 #: DB:link_attribute_type/name:638
 msgid "typewriter"
-msgstr ""
+msgstr "Schreibmaschine"
 
 #: DB:link_attribute_type/name:556
 msgid "tzoura"

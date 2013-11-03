@@ -36,8 +36,6 @@ use MusicBrainz::Server::Constants qw(
     $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
-use MusicBrainz::Server::Form::Artist;
-use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::FilterUtils qw(
     create_artist_release_groups_form
@@ -106,6 +104,7 @@ after 'load' => sub
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_codes($artist->area);
+    $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 
     $c->stash(
         watching_artist =>

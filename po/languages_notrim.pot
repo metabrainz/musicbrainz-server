@@ -12753,7 +12753,7 @@ msgstr ""
 msgid "Inga"
 msgstr ""
 
-#. frequency:0 iso_code_3:izh 
+#. frequency:1 iso_code_3:izh 
 #: DB:language/name:2967
 msgid "Ingrian"
 msgstr ""
@@ -15453,7 +15453,7 @@ msgstr ""
 msgid "Khandesi"
 msgstr ""
 
-#. frequency:0 iso_code_3:kca 
+#. frequency:1 iso_code_3:kca 
 #: DB:language/name:3137
 msgid "Khanty"
 msgstr ""
@@ -20463,7 +20463,7 @@ msgstr ""
 msgid "Mansaka"
 msgstr ""
 
-#. frequency:0 iso_code_3:mns 
+#. frequency:1 iso_code_3:mns 
 #: DB:language/name:4358
 msgid "Mansi"
 msgstr ""

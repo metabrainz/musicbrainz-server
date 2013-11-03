@@ -6,6 +6,11 @@
   <script type="text/javascript">//<![CDATA[
 
     MB.release_artist_json = [% release_artist_json %];
+
+    MB.releaseArtistCredit = MB.entity.ArtistCredit(
+        ([% submitted_release_artist %]).names
+    );
+
     MB.medium_cdtocs = [
       [%- FOR medium=release.mediums -%]
         [%- IF medium.cdtocs.size -%]
@@ -28,14 +33,14 @@
   //]]></script>
 [%- END -%]
 
-[%- MACRO artist_credit_row(release_artist) BLOCK -%]
+[%- MACRO artist_credit_row BLOCK -%]
 <table class="artist-credit bubble" style="width: 100%">
   <thead>
     <tr class="artist-credit-preview">
       <td colspan="4">
         <div class="row">
           <label>[% l('Preview') %]</label>
-          <span class="artist-credit-preview">[% artist_credit(release_artist) %]</span>
+          <span data-bind="html: html()"></span>
         </div>
       </td>
     </tr>
@@ -49,43 +54,34 @@
   </thead>
   <tbody>
 
-  [%- FOR ac=release_artist.names -%]
-    [%- artistnum = loop.index -%]
+  <!-- ko foreach: names -->
     <tr class="artist-credit-box">
       <td class="artist">
-        <span class="autocomplete" style="width: 100%">
-          <input type="text" class="name" value="[% ac.artist.name | html %]" />
+        <span class="artist autocomplete" style="width: 100%;">
+          <input type="text" class="name" data-bind="
+            autocomplete: { entity: 'artist', currentSelection: artist },
+            css: { 'various-artists': isVariousArtists() }"/>
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
-        <input type="hidden" class="gid" value="[% ac.artist.gid | html %]" />
-        <input type="hidden" class="id" value="[% ac.artist.id | html %]" />
-        <input type="hidden" class="sortname" value="[% ac.artist.sort_name | html %]" />
-        <input type="hidden" class="comment" value="[% ac.artist.comment | html %]" />
       </td>
       <td class="artistcredit">
-        <input type="text" class="credit" value="[% ac.name | html %]" />
+        <input type="text" class="credit" data-bind="value: name"/>
       </td>
       <td class="joinphrase">
-        <input type="text" class="join" value="[% ac.join_phrase | html %]" />
+        <input type="text" class="join" data-bind="value: joinPhrase, event: { change: _.bind(joinChanged, $data, $element) }"/>
       </td>
       <td class="icon">
-        <input type="button" class="icon remove-artist-credit"
-          title="[% l('Remove Artist Credit') %]" />
+        <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: function () { $parent.removeName($data); }" />
       </td>
     </tr>
-  [% END %]
+  <!-- /ko -->
 
     <tr>
-      <td> </td>
-      <td> </td>
-      <td style="text-align: right;">
-        <button type="button" class="nobutton add-artist-credit">
-            [%- l('Add Artist Credit') -%]
+      <td colspan="4" style="text-align: right;">
+        <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
+          [%- l('Add Artist Credit') -%]
+          <div class="add-item icon img" title="[% l('Add Artist Credit') %]" style="display: inline-block; padding: 0;"></div>
         </button>
-      </td>
-      <td class="icon">
-        <input type="button" class="icon add-artist-credit"
-          title="[% l('Add Artist Credit') %]" />
       </td>
     </tr>
   </tbody>
@@ -313,7 +309,7 @@
         </td>
         <td class="artist autocomplete">
           <span class="autocomplete" style="width: 100%">
-            <input type="text" class="track-artist" value="[% artist_credit_preview_from_field(release_artist) %]" />
+            <input type="text" class="track-artist" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" />
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" style="top: 1px;"  />
           </span>
         </td>
@@ -334,7 +330,7 @@
       </tr>
       <tr class="track-artist-credit container" style="display: none">
         <td colspan="6">
-          [% artist_credit_row(release_artist) %]
+          [% artist_credit_row %]
         </td>
       </tr>
     </table>
@@ -414,10 +410,7 @@
               <th class="position">[% l('#') %]</th>
               <th class="reorder"></th>
               <th class="title">[% l('Title') %]</th>
-              <th class="artist" colspan="2">
-                <input type="checkbox" id="artistcolumn" class="artistcolumn" />
-                <label for="artistcolumn">[% l('Artist') %]</label>
-              </th>
+              <th class="artist" colspan="2">[% l('Artist') %]</th>
               <th class="length">[% l('Length') %]</th>
               <th class="icons"></th>
             </tr>
