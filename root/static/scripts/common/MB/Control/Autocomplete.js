@@ -236,8 +236,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         var mbidMatch = value.match(this.mbidRegex);
 
         if (mbidMatch === null) {
+            if (!value) {
+                this.close();
+
             // only search if the value has changed
-            if (value && this.term !== value) {
+            } else if (this.term !== value) {
                 this.searching = this._delay(
                     function () {
                         this.selectedItem = null;
@@ -296,12 +299,42 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         var jumpTo = this.currentResults.length;
 
         data = this.resultHook(_.initial(data));
-        this.currentResults.push.apply(this.currentResults, data);
+
+        // "currentResults" will contain action items that aren't results,
+        // e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
+        // before appending the new results (we re-add them below).
+
+        var results = this.currentResults = _.filter(
+            this.currentResults, function (item) {
+                return !item.action;
+            });
+
+        results.push.apply(results, data);
 
         this.currentPage = parseInt(pager.current, 10);
         this.totalPages = parseInt(pager.pages, 10);
 
-        response(this.currentResults);
+        if (results.length === 0) {
+            results.push({
+                label: "(" + MB.text.NoResults + ")",
+                action: _.bind(this.close, this)
+            });
+        }
+
+        if (this.currentPage < this.totalPages) {
+            results.push({
+                label: MB.text.ShowMore,
+                action: _.bind(this._showMore, this)
+            });
+        }
+
+        results.push({
+            label: this.indexedSearch ? MB.text.SwitchToDirectSearch :
+                                        MB.text.SwitchToIndexedSearch,
+            action: _.bind(this._searchAgain, this, true)
+        });
+
+        response(results);
 
         this._delay(function () {
             // Once everything's rendered, jump to the first item that was
@@ -322,37 +355,18 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         });
     },
 
-    _renderMenu: function (ul, items) {
-        this._super(ul, items);
-
-        // We're not always here because a search occurred, so adding the
-        // buttons below doesn't always make sense. e.g. the recent entities
-        // list in the relationship editor.
-        if (this.pending === 0 || items.length === 0) {
-            return;
-        }
-
-        if (ul.children().length === 0) {
-            this._renderAction(ul, "(" + MB.text.NoResults + ")");
-
-        } else if (this.currentPage < this.totalPages) {
-            this._renderAction(ul, MB.text.ShowMore, _.bind(this._showMore, this));
-        }
-
-        var msg = this.indexedSearch ? MB.text.SwitchToDirectSearch :
-                                       MB.text.SwitchToIndexedSearch;
-        this._renderAction(ul, msg, _.bind(this._searchAgain, this, true));
-    },
-
-    _renderAction: function (ul, message, action) {
+    _renderAction: function (ul, item) {
         return $("<li>")
             .css("text-align", "center")
-            .append($("<a>").text(message))
+            .append($("<a>").text(item.label))
             .appendTo(ul)
-            .data("ui-autocomplete-item", { action: action });
+            .data("ui-autocomplete-item", { action: item.action });
     },
 
     _renderItem: function (ul, item) {
+        if (item.action) {
+            return this._renderAction(ul, item);
+        }
         var formatters = MB.Control.autocomplete_formatters;
         return (formatters[this.entity] || formatters.generic)(ul, item);
     },
