@@ -96,7 +96,13 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
 
     init: function (options) {
         this.names = ko.observableArray([]);
-        this.setNames(options.initialData || [{}]);
+
+        var initialData = options.initialData;
+
+        if (!initialData || initialData.length === 0) {
+            initialData = [{}];
+        }
+        this.setNames(initialData);
 
         if (options.hiddenInputs) {
             this.formName = options.formName;

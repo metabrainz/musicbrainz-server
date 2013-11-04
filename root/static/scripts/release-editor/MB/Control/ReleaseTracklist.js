@@ -292,7 +292,12 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     var $target = self.$row.find ("td.artist input");
     var $button = self.$row.find ("a[href=#credits]");
     self.bubble_collection.add ($button, self.$acrow);
-    self.artist_credit = MB.Control.ArtistCredit({});
+
+    // Default to the release artist.
+    self.artist_credit = MB.Control.ArtistCredit({
+        initialData: MB.releaseArtistCredit.toJS()
+    });
+
     ko.applyBindings(self.artist_credit, $target[0]);
     ko.applyBindings(self.artist_credit, self.$acrow[0]);
 

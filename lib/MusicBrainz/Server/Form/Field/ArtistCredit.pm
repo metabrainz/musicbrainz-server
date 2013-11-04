@@ -105,16 +105,21 @@ around 'value' => sub {
 
 sub json {
     my $result = shift->result;
+    my $names = [];
 
     if (defined $result) {
         if ($result->input) {
-            return to_json($result->input->{names});
-        }
-        if ($result->value) {
-            return to_json($result->value->{names});
+            $names = $result->input->{names};
+
+        } elsif ($result->value) {
+            $names = $result->value->{names};
         }
     }
-    return to_json([{}]);
+
+    if (!$names || scalar @$names == 0) {
+        $names = [{}];
+    }
+    return to_json($names);
 }
 
 =head1 LICENSE
