@@ -200,7 +200,7 @@
                         artistCredit => [
                             map +{
                                 name => $_->name,
-                                joinphrase => $_->join_phrase,
+                                join_phrase => $_->join_phrase,
                                 artist => {
                                     gid => $_->artist->gid,
                                     id => $_->artist->id,
