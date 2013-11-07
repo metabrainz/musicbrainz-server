@@ -8,8 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-31 10:29+0000\n"
+"PO-Revision-Date: 2013-11-03 07:41+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1694,7 +1693,7 @@ msgid ""
 "This relationship type is <strong>deprecated</strong>! <a "
 "href=\"http://musicbrainz.org/doc/Style/Recording#Recordings_with_Different_Mastering\">Different"
 " remasters should be merged.</a>"
-msgstr ""
+msgstr "Dit relatietype is <strong>verouder</strong>! <a href=\"http://musicbrainz.org/doc/Style/Recording#Recordings_with_Different_Mastering\"> Verschillende masters moeten worden samengevoegd."
 
 #: DB:link_type/description:238
 msgid ""
@@ -1706,7 +1705,7 @@ msgstr "Dit relatietype is <strong>verouderd</strong>!  Als twee opnames identie
 msgid ""
 "This relationship type is <strong>deprecated</strong>! Please add mastering "
 "engineers at the release level."
-msgstr ""
+msgstr "Dit relatietype is <strong>verouder</strong>! Voeg relaties voor mastering toe op uitgaveniveau."
 
 #: DB:link_type/description:1
 msgid ""
@@ -1731,26 +1730,26 @@ msgstr "Deze type relatie is <strong>verouderd</strong>! Upload afbeeldingen op 
 #: DB:link_type/description:270 DB:link_type/description:261
 #: DB:link_type/description:252 DB:link_type/description:269
 msgid "This relationship type is <strong>deprecated</strong>."
-msgstr ""
+msgstr "Dit relatietype is <strong>verouderd</strong>."
 
 #: DB:link_type/description:131
 msgid ""
 "This relationship type is <strong>deprecated</strong>. Add liner notes info "
 "on the release level."
-msgstr ""
+msgstr "Dit relatietype is <strong>verouderd</strong>. Voeg relaties voor boekteksten in op uitgaveniveau."
 
 #: DB:link_type/description:166 DB:link_type/description:39
 #: DB:link_type/description:299
 msgid ""
 "This relationship type is <strong>deprecated</strong>. Please use an "
 "(instrument) arranger relationship instead!"
-msgstr ""
+msgstr "Dit relatietype is <strong>verouderd</strong>. Gebruik in plaats hiervan het „arrangeerde (instrument)“ relatietype."
 
 #: DB:link_type/description:91 DB:link_type/description:181
 msgid ""
 "This relationship type is <strong>deprecated</strong>. Use \"has a page in a"
 " database\" instead."
-msgstr ""
+msgstr "Dit relatietype is <strong>verouderd</strong>. Gebruik in plaats hiervan „heeft een pagina in een gegevensbank“."
 
 #: DB:link_type/description:210
 msgid ""
@@ -1832,12 +1831,12 @@ msgstr "VGMdbpagina van"
 #: DB:link_type/link_phrase:310 DB:link_type/link_phrase:311
 #: DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
-msgstr ""
+msgstr "VIAF-ID"
 
 #: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:310
 #: DB:link_type/reverse_link_phrase:311
 msgid "VIAF ID for"
-msgstr ""
+msgstr "VIAF-ID van"
 
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:353
 #: DB:link_type/link_phrase:358 DB:link_type/link_phrase:354
@@ -1943,7 +1942,7 @@ msgstr "Naamsvermelding-GelijkDelen (by-sa)"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
-msgstr ""
+msgstr "achtergrondvocalen"
 
 #: DB:link_attribute_type/description:6 DB:link_attribute_type/name:6
 msgid "baritone vocals"
@@ -2182,7 +2181,7 @@ msgstr "speelt/speelde ondersteunend {instrument} voor"
 
 #: DB:link_type/long_link_phrase:107
 msgid "does/did {vocal:%|vocals} support for"
-msgstr ""
+msgstr "doet of deed {vocal:%|vocale} ondersteuning voor"
 
 #: DB:link_type/link_phrase:75 DB:link_type/link_phrase:255
 msgid "download for free"
@@ -2297,7 +2296,7 @@ msgstr "heeft Amazon ASIN"
 
 #: DB:link_type/long_link_phrase:310 DB:link_type/long_link_phrase:311
 msgid "has VIAF ID at"
-msgstr ""
+msgstr "Heeft een VIAF-ID op"
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
@@ -2336,7 +2335,7 @@ msgstr "Heeft een VGMdb pagina op"
 #: DB:link_type/long_link_phrase:352 DB:link_type/long_link_phrase:353
 #: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:354
 msgid "has a Wikidata page at"
-msgstr ""
+msgstr "heeft een Wikipediapagina op"
 
 #: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:89
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
@@ -2600,7 +2599,7 @@ msgstr "is gelicenseerd onder"
 
 #: DB:link_type/long_link_phrase:312
 msgid "is the VIAF ID for"
-msgstr ""
+msgstr "is de VIAF-ID van"
 
 #: DB:link_type/link_phrase:314 DB:link_type/long_link_phrase:314
 msgid "is the basis for"
@@ -2624,7 +2623,7 @@ msgstr "is de ouder van"
 
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
-msgstr ""
+msgstr "is de auteursrechtenorganisatie verbonden met"
 
 #: DB:link_type/link_phrase:11 DB:link_type/long_link_phrase:11
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
@@ -2910,7 +2909,7 @@ msgstr "andere versies"
 
 #: DB:link_attribute_type/name:461
 msgid "other vocals"
-msgstr ""
+msgstr "overige vocalen"
 
 #: DB:link_type/reverse_link_phrase:200
 msgid "parent label"
@@ -3151,7 +3150,7 @@ msgstr "recensies"
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
-msgstr ""
+msgstr "revisie van"
 
 #: DB:link_type/reverse_link_phrase:349
 msgid "rights society"
@@ -3398,12 +3397,12 @@ msgstr "programmeerde {additional:aanvullend} {assistant:assisterend} {associate
 #: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
-msgstr ""
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co} audio-ingenieur"
 
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
-msgstr ""
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co} redigeerde"
 
 #: DB:link_type/long_link_phrase:42 DB:link_type/long_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
@@ -3427,7 +3426,7 @@ msgstr "{additional:aanvullend|additionally:aanvullend} {assistant:assistent} {a
 #: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
-msgstr ""
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co} geluidsingenieur"
 
 #: DB:link_type/link_phrase:28 DB:link_type/link_phrase:138
 #: DB:link_type/long_link_phrase:28 DB:link_type/long_link_phrase:138

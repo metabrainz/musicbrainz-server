@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 00:54+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-11-03 13:59+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -802,7 +801,7 @@ msgstr "De Weense hoorn is een type hoorn die voornamelijk in Wenen wordt gebrui
 msgid ""
 "The Xaphoon is a keyless chromatic single-reed instrument woodwind "
 "instrument. (<a href=\"http://en.wikipedia.org/wiki/Xaphoon\">Wikipedia</a>)"
-msgstr ""
+msgstr "De Xaphoon is een chromatische enkelriet houtblazer. (<a href=\"http://en.wikipedia.org/wiki/Xaphoon\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:597
 msgid ""
@@ -824,7 +823,7 @@ msgid ""
 "deer horn mallet. Other names include 当たり鉦, 当鉦, 摺鉦, surigane, チャンチキ, "
 "chanchiki, コンチキ, konchiki. (<a "
 "href=\"http://ja.wikipedia.org/wiki/摺鉦\">Wikipedia</a>)"
-msgstr ""
+msgstr "De atarigane (Japans: 当り鉦) is een Japanse gong die met een hamer van hertenhoorn wordt aangeslagen. Andere namen zijn 当たり鉦, 当鉦, 摺鉦, surigane, チャンチキ, chanchiki, コンチキ, konchiki. (<a href=\"http://ja.wikipedia.org/wiki/摺鉦\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:598
 msgid ""
@@ -841,7 +840,7 @@ msgid ""
 "usually played along with the clappers ban (Chinese: 板, bǎn). Therefore, "
 "both instruments are known collectively as guban (Chinese: 鼓板, gǔbǎn). (<a "
 "href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De bangu (Chinees: 板鼓; pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓, pinyin: 单皮鼓, dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinese: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinese: 鼓板, pinyin: gǔbǎn) genoemd. (<a href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">Wikipedia</a>)."
 
 #: DB:link_attribute_type/description:291
 msgid ""
@@ -849,7 +848,7 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De banhu (Chinees:: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van de huqin. Het wordt ook wel banghu (Chinees:: 梆胡, pinyin: bānghú) genoemd vanwege het gebruik in de bangzi-opera. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:536
 msgid ""
@@ -873,14 +872,14 @@ msgid ""
 "The biwa (Japanese: 琵琶) is a short-necked Japanese fretted lute which is "
 "played with a large triangular-shaped plectrum. (<a "
 "href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr ""
+msgstr "De biwa (Japans: 琵琶) is een Japanse luit met fretten en een korte hals. Het wordt bespeeld met een driehoekig plectrum. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:689
 msgid ""
 "The buk (Korean: 북, buk, puk) is a Korean drum. While buk is a generic term "
 "for drum, it normally refers to a shallow barrel-shaped drum with a wooden "
 "body. (<a href=\"http://en.wikipedia.org/wiki/Buk_(drum)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De buk (Koreaans: 북) is een Koreaanse trommel. Hoewel buk een algemene term voor trommel is, verwijst het meestal naar een ondiepe tonvormige trommel van hout. (<a href=\"http://en.wikipedia.org/wiki/Buk_(drum)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:640
 msgid ""
@@ -907,7 +906,7 @@ msgid ""
 "The chalumeau is a single-reed woodwind instrument of the late baroque and "
 "early classical era. (<a "
 "href=\"http://en.wikipedia.org/wiki/Chalumeau\">Wikipedia</a>)"
-msgstr ""
+msgstr "De chalumeau is een enkelriet houtblaasinstrument uit de late barok en vroeg-klassieke periode. (<a href=\"http://nl.wikipedia.org/wiki/Chalumeau\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:648
 msgid ""
@@ -924,7 +923,7 @@ msgid ""
 "The chikuzen biwa (Japanese: 筑前琵琶) is a biwa with either four strings and "
 "frets or five strings and frets popularised during the Meiji period. (<a "
 "href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr ""
+msgstr "De chikuzen biwa (Japans: 筑前琵琶) is een biwa met vier of vijf snaren en fretten die populair werd in de Meiji-periode. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:622
 msgid ""
@@ -950,13 +949,13 @@ msgstr "De daegeum (Koreaans: 대금, ook wel taegŭm) is een grote bamboedwarsf
 msgid ""
 "The daluo (Chinese: 大鑼, 大锣, dàluó) is a Chinese large flat gong whose pitch "
 "drops when struck with a padded mallet."
-msgstr ""
+msgstr "De daluo (Chinees: 大鑼, pinyin: 大锣, dàluó) is een grote platte gong uit China waarvan toonhoogte daalt als het wordt geslagen met een gestoffeerde hamer."
 
 #: DB:link_attribute_type/description:658
 msgid ""
 "The daruan (Chinese: 大阮, dàruǎn) is a Chinese plucked lute. Also called a "
 "bass ruan."
-msgstr ""
+msgstr "De daruan (Chinees: 大阮, pinyin: dàruǎn) is een Chinese getokkelde luit. Het wordt ook wel bas-ruan genoemd. (<a href=\"http://en.wikipedia.org/wiki/Daruan\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:642
 msgid ""
@@ -971,7 +970,7 @@ msgid ""
 "instrument, with four strings and tuned like the double bass. It is also "
 "called digehu (Chinese: 低革胡, dīgéhú) or beigehu (Chinese: 倍革胡, bèigéhú). (<a"
 " href=\"http://en.wikipedia.org/wiki/Diyingehu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De diyingehu (Chinees: 低音革胡, pinyin: dīyīngéhú) is een Chinees strijkinstrument met vier snaren die als een contrabas wordt gestemd. Het wordt ook wel een digehu (Chinees: 低革胡, pinyin: dīgéhú) of beigehu (Chinees: 倍革胡, pinyin: bèigéhú) genoemd. (<a href=\"http://en.wikipedia.org/wiki/Diyingehu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:553
 msgid ""
@@ -980,7 +979,7 @@ msgid ""
 "(fue) is a more generic word referring to a whole class of flutes rather "
 "than this specific instrument. (<a "
 "href=\"http://en.wikipedia.org/wiki/Dizi_(musical_instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De dizi (Chinees: 笛子, pinyin: dízi) is een Chinese dwarsfluit die meestal van bamboe wordt gemaakt. In het Chinees wordt het soms gewoon 笛 (di) genoemd, maar in het Japans is 笛 (fue) een algemener woord voor dit soort fluiten en dus niet specifiek dit instrument. (<a href=\"http://en.wikipedia.org/wiki/Dizi_(musical_instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:742
 msgid ""
@@ -988,7 +987,7 @@ msgid ""
 "(домбыра, dombyra, dambura, dumbyra, tumbyra, danbura, dombıra, dumbura, "
 "dombira, 冬不拉 and dongbula. (<a "
 "href=\"http://en.wikipedia.org/wiki/Dombra\">Wikipedia</a>)"
-msgstr ""
+msgstr "De dombra is een luit met een lange hals uit Centraal Azië. Andere namen zijn домбыра, dombyra, dambura, dumbyra, tumbyra, danbura, dombıra, dumbura, dombira, 冬不拉 en dongbula. (<a href=\"http://nl.wikipedia.org/wiki/Dombura\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:594
 msgid ""
@@ -1005,7 +1004,7 @@ msgid ""
 "fiddle, bass violin, doghouse bass, bass viol, stand-up bass, bull fiddle, "
 "wood bass, ウッドベース, ストリングベース. (<a "
 "href=\"http://en.wikipedia.org/wiki/Double_bass\">Wikipedia</a>)"
-msgstr ""
+msgstr "De contrabas is het grootste strijkinstrument uit de familie van de violen in het moderne symfonie-orkest. Het instrument is bekend onder vele namen waaronder doublebass, staande bas of kortweg bas.  (<a href=\"http://nl.wikipedia.org/wiki/Contrabas\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:606
 msgid ""
@@ -1020,14 +1019,14 @@ msgid ""
 "likely derived from the Vietnamese đàn bầu. Also called yixianqin (Chinese: "
 "一弦琴, yīxiánqín). (<a "
 "href=\"http://en.wikipedia.org/wiki/Duxianqin\">Wikipedia</a>)"
-msgstr ""
+msgstr "De duxianqin (Chinees: 独弦琴, pinyin: dúxiánqín) is een citer met één snaar die waarschijnlijk is afgeleid van de Vietnamese đàn bầu. Het wordt ook wel yixianqin (Chinees: 一弦琴, pinyin: yīxiánqín) genoemd. (<a href=\"http://en.wikipedia.org/wiki/Duxianqin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:285
 msgid ""
 "The erhu (Chinese: 二胡, èrhú) is a bowed Chinese instrument with two strings."
 " Also known as a Chinese violin, erfu or nanhu. (<a "
 "href=\"http://en.wikipedia.org/wiki/Erhu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De erhu (Chinees: 二胡, pinyin: èrhú) is een Chinees strijkinstrument met twee snaren. Het is ook bekend als Chinese viool, erfu of nanhu. (<a href=\"http://nl.wikipedia.org/wiki/Erhu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:641
 msgid ""
@@ -1047,42 +1046,42 @@ msgid ""
 "The fujara is a large folk shepherd's fipple flute originated from central "
 "Slovakia. Also known as Slovak shepherd's long pipe. (<a "
 "href=\"http://en.wikipedia.org/wiki/Fujara\">Wikipedia</a>)"
-msgstr ""
+msgstr "De fujara is een extreem lange fluit uit Slowakije. (<a href=\"http://nl.wikipedia.org/wiki/Fujara\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:286
 msgid ""
 "The gaohu (Chinese: 高胡, gāohú) is a Chinese bowed string instrument "
 "developed from the erhu and tuned a fourth higher (<a "
 "href=\"http://en.wikipedia.org/wiki/Gaohu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De gaohu (Chinees: 高胡, pinyin: gāohú) is een Chinees strijkinstrument die is is ontstaan uit de erhu en een kwart hoger gestemd. (<a href=\"http://en.wikipedia.org/wiki/Gaohu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:99
 msgid ""
 "The gayageum (Korean: 가야금, gayageum, kayagŭm) is a traditional Korean "
 "zither-like string instrument which normally has 12 strings. (<a "
 "href=\"http://en.wikipedia.org/wiki/Gayageum\">Wikipedia</a>)"
-msgstr ""
+msgstr "De gayageum (Koreaans: 가야금, gayageum, kayagŭm) is een traditionele Koreanse citer met 12 snaren. (<a href=\"http://en.wikipedia.org/wiki/Gayageum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:289
 msgid ""
 "The gehu (Chinese: 革胡, géhú) is a Chinese bowed string instrument, with four"
 " strings and tuned like the cello (<a "
 "href=\"http://en.wikipedia.org/wiki/Gehu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De gehu (Chinees: 革胡, pinyin: géhú) is een Chinees strijkinstrument met vier snaren en is gestemd als een cello. (<a href=\"http://en.wikipedia.org/wiki/Gehu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:100
 msgid ""
 "The geomungo or komungo (Korean: 거문고) is a traditional Korean zither, based "
 "on the Chinese guqin, which typically has 6 strings. (<a "
 "href=\"http://en.wikipedia.org/wiki/Geomungo\">Wikipedia</a>)"
-msgstr ""
+msgstr "De geomungo of komungo (Koreaans: 거문고) is een traditionele Koreaanse citer die is gebaseerd op de Chinese guqin. (<a href=\"http://en.wikipedia.org/wiki/Geomungo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:694
 msgid ""
 "The gralla is a traditional Catalan double reed instrument in the oboe "
 "family. Also known as xirimita. (<a "
 "href=\"http://en.wikipedia.org/wiki/Gralla_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De gralla is een traditionele Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita. (<a href=\"http://en.wikipedia.org/wiki/Gralla_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:616
 msgid ""
@@ -1097,7 +1096,7 @@ msgid ""
 "23 or more strings and movable bridges. It is also simply called zheng "
 "(Chinese: 箏, zhēng). (<a "
 "href=\"http://en.wikipedia.org/wiki/Guzheng\">Wikipedia</a>)"
-msgstr ""
+msgstr "De guzheng (Chinees: 古箏, pinyin: gǔzhēng) is een Chinese getokkelde citer met 18, 23 of meer snaren en bewegende bruggen. Het wordt ook een zheng (Chinees: 箏, pinyin: zhēng) genoemd. (<a href=\"http://nl.wikipedia.org/wiki/Guzheng\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:595
 msgid ""
@@ -1110,7 +1109,7 @@ msgid ""
 "The heike biwa (Japanese: 平家琵琶) is a biwa with four strings and five frets "
 "used to play Heike Monogatari. (<a "
 "href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr ""
+msgstr "De heike biwa (Japans: 平家琵琶) is een biwa met vier snaren en vijf fretten dat vaak gebruikt wordt om Het verhaal van de Heike (平家物語 Heike Monogatari) te begeleiden. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:659
 msgid ""
@@ -1118,7 +1117,7 @@ msgid ""
 "instrument which has three bamboo pipes which pass through a gourd. Also "
 "known as a cucurbit flute. (<a "
 "href=\"http://en.wikipedia.org/wiki/Hulusi\">Wikipedia</a>)"
-msgstr ""
+msgstr "De hulusi (Chinees: 葫蘆絲, 葫芦丝, húlúsī) is een Chinese aerofoon met doorslaande tongen. Het instrument heeft een kalebas of cloisonné waarin zich 2 tot 3 doorslaande tongen bevinden, die leiden naar bamboe pijpen die bevestigd zijn aan de kalebas. (<a href=\"http://nl.wikipedia.org/wiki/Hulusi\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:605
 msgid ""
@@ -1133,21 +1132,21 @@ msgid ""
 "The jing (Korean: 징, jing, ching) is a large gong used in traditional Korean"
 " music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Jing_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De jing (Koreaans: 징, jing, ching) is een grote gong die wordt gebruikt in traditionele Koreaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Jing_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:661
 msgid ""
 "The jing'erhu (Chinese: 京二胡, jīng'èrhú) is a Chinese bowed string "
 "instrument, similar to the erhu, so named because is played in Beijing "
 "opera. (<a href=\"http://en.wikipedia.org/wiki/Jing_erhu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De jing'erhu (Chinees: 京二胡, pinyin: jīng'èrhú) is een Chinees strijkinstrument, vergelijkbaar met de erhu. (<a href=\"http://en.wikipedia.org/wiki/Jing_erhu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:284
 msgid ""
 "The jinghu (Chinese: 京胡,  jīnghú) is a Chinese bowed string instrument with "
 "two strings used primarily in Beijing opera. Also spelt jing hu. (<a "
 "href=\"http://en.wikipedia.org/wiki/Jiaohu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De jinghu (Chinees: 京胡, pinyin: jīnghú) is een Chinees strijkinstrument met twee snaren dat vooral in de opera van Beijing wordt gebruikt. Het wordt ook gespeld als jing hu. (<a href=\"http://en.wikipedia.org/wiki/Jiaohu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:355
 msgid ""
@@ -1196,7 +1195,7 @@ msgid ""
 "The khèn Mèo is a mouth organ used by the Hmong people. It has bamboo pipes "
 "(typically six) which each have a free reed. Other names include kềnh "
 "H'Mông, qeej."
-msgstr ""
+msgstr "De khèn Mèo is een mondorgel dat gebruikt wordt door de Hmong. Het heeft (meestal zes) buizen van bamboe en elk daarvan heeft een vrij riet. Andere namen voor het instrument zijn kềnh H'Mông en qeej."
 
 #: DB:link_attribute_type/description:608
 msgid ""
@@ -1219,7 +1218,7 @@ msgid ""
 "strings that are strung over 13 movable bridges along the width of the "
 "instrument. (<a "
 "href=\"http://en.wikipedia.org/wiki/Koto_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De koto (Japans: 箏) is een traditioneel Japans snaarinstrument met dertien snaren die over dertien beweegbare bruggen zijn gespannen. (<a href=\"http://nl.wikipedia.org/wiki/Koto_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:669
 msgid ""
@@ -1227,14 +1226,14 @@ msgid ""
 "hourglass-shaped Japanese drum with cords that can be squeezed or released "
 "to increase or decrease the tension of the heads. (<a "
 "href=\"http://en.wikipedia.org/wiki/Tsuzumi\">Wikipedia</a>)"
-msgstr ""
+msgstr "De kotsuzumi (Japans: 小鼓) of tsuzumi (Japans: 鼓) is een zandlopervormige Japanse trommel met koorden die kunnen worden gespannen of losser worden gemaakt om de spanning op de vellen te veranderen. (<a href=\"http://en.wikipedia.org/wiki/Tsuzumi\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:668
 msgid ""
 "The kōauau is a small ductless and notchless Maori flute which is four to "
 "eight inches long and has three to six fingerholes placed along the pipe. "
 "(<a href=\"http://en.wikipedia.org/wiki/Kōauau\">Wikipedia</a>)"
-msgstr ""
+msgstr "De kōauau is een kleine fluit van de Maori zonder bek van tien tot twintig centimeter lang en met drie tot zes vingergaten. (<a href=\"http://en.wikipedia.org/wiki/Kōauau\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:630
 msgid ""
@@ -1312,7 +1311,7 @@ msgid ""
 "pitched a fifth below the oboe and used primarily in the Baroque period of "
 "European classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een jachthobo of oboe da caccia is een houtblaasinstrument en een vroege vorm van de hobo. (<a href=\"http://nl.wikipedia.org/wiki/Jachthobo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:612
 msgid ""
@@ -1326,7 +1325,7 @@ msgid ""
 "The pipa (Chinese: 琵琶, pípa) is a four-stringed plucked Chinese instrument "
 "with a pear-shaped body. Also known as the Chinese lute. (<a "
 "href=\"http://en.wikipedia.org/wiki/Pipa\">Wikipedia</a>)"
-msgstr ""
+msgstr "De pipa (Chinees: 琵琶, pinyin: pípa) is een Chinees tokkelinstrument met vier snaren een een peervormige kast. Het staat ook bekend als de Chinese luit. (<a href=\"http://nl.wikipedia.org/wiki/Pipa_%28muziekinstrument%29\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:609
 msgid ""
@@ -1340,7 +1339,7 @@ msgstr "De piri (Koreaans: 피리, ook we pi'ri gespeld) is een Koreaans dubbelr
 msgid ""
 "The rondador is a set of chorded bamboo panpipes from Ecuador. (<a "
 "href=\"http://en.wikipedia.org/wiki/Rondador\">Wikipedia</a>)"
-msgstr ""
+msgstr "De rondador is een Ecuadoriaanse panfluit. (<a href=\"http://en.wikipedia.org/wiki/Rondador\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:611
 msgid ""
@@ -1354,7 +1353,7 @@ msgid ""
 "The samba whistle (Portuguese: apito de samba) is a tri-tone whistle used in"
 " samba music and other Brazilian music styles. (<a "
 "href=\"http://en.wikipedia.org/wiki/Apito\">Wikipedia</a>)"
-msgstr ""
+msgstr "De sambafluit (Portugees: apito de samba of gewoon apito) is een fluitje dat bij samba en andere Braziliaanse muziek gebruikt wordt. (<a href=\"http://en.wikipedia.org/wiki/Apito\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:315
 msgid ""
@@ -1362,13 +1361,13 @@ msgid ""
 "of a snakeskin-covered body, neck and three strings. It is traditionally "
 "played with a plectrum made of horn worn on the index finger. (<a "
 "href=\"http://en.wikipedia.org/wiki/Sanshin\">Wikipedia</a>)"
-msgstr ""
+msgstr "De shanshin (Japans: 三線) is een snaarinstrument uit Okinawa bestaande uit een kast van slangenhuid en een nek met drie snaren. Traditioneel wordt het bespeeld met een hoornen plectrum dat rond de wijsvinger wordt gedragen. (<a href=\"http://en.wikipedia.org/wiki/Sanshin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:314
 msgid ""
 "The sanxian (Chinese: 三弦, sānxián) is a Chinese lute with three strings. (<a"
 " href=\"http://en.wikipedia.org/wiki/Sanxian\">Wikipedia</a>)"
-msgstr ""
+msgstr "De sanxian (Chinees: 三弦, pinyin: sānxián) is een Chinese luit met drie snaren. (<a href=\"http://en.wikipedia.org/wiki/Sanxian\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:552
 msgid ""
@@ -1381,7 +1380,7 @@ msgid ""
 "The saron is an Indonesian musical instrument which is used in the gamelan. "
 "It normally has seven bronze bars placed on top of a resonating frame. (<a "
 "href=\"http://en.wikipedia.org/wiki/Saron_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De saron is een Indonesisch muziekinstrument dat wordt gebruikt in de gamelan. Het heeft zeven bronzen staven op een resonerend onderstel. (<a href=\"http://en.wikipedia.org/wiki/Saron_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:692
 msgid ""
@@ -1435,21 +1434,21 @@ msgstr "De shinobue (Japans: 篠笛, ook wel takebue (竹笛) genoemd), is een h
 msgid ""
 "The shudraga (Mongolian: шудрага) is a Mongolian fretless lute with three "
 "strings. Other names include: shanz, ショダルガ, shadraga."
-msgstr ""
+msgstr "De shudraga (Mongools: шудрага) is een Mongoolse luit zonder fretten en met drie snaren. Het staat ook bekend als  shanz en shadraga."
 
 #: DB:link_attribute_type/description:262
 msgid ""
 "The shō (Japanese: 笙) is a Japanese free reed instrument modelled on the "
 "Chinese sheng, although the shō tends to be smaller in size. (<a "
 "href=\"http://en.wikipedia.org/wiki/Shō_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De shō (Japans: 笙) is een Japans blaasinstrument met een vrij riet. Het is gemodelleerd naar de Chinese shenk, maar is meestal kleiner. (<a href=\"http://en.wikipedia.org/wiki/Shō_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:681
 msgid ""
 "The siku is a traditional Andean panpipe. Other names include antara, sicu, "
 "sicus, zampolla and zampoña. (<a "
 "href=\"http://en.wikipedia.org/wiki/Siku_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "De siku (Quechua: antara, Aymara: siku,of sicu, sicus, \"zampolla\" of in het Spaans zampoña) is een traditionele panfluit uit de Andes."
 
 #: DB:link_attribute_type/description:356
 msgid ""
@@ -1457,7 +1456,7 @@ msgid ""
 "wooden body (about 7 cm in diameter) attached to a flexible spring with a "
 "wooden ball on the other end and played with the foot. (<a "
 "href=\"http://en.wikipedia.org/wiki/Song_loan\">Wikipedia</a>)"
-msgstr ""
+msgstr "De song loan is een traditioneel Vietnamees instrument bestaande uit een holle houten kast met een diameter van ongeveer 7 centimeter, die is verbonden met een flexibele veer met een houten bal aan het uiteinde. Het wordt bespeeld door de bal met de voet tegen de kast aan te slaan. (<a href=\"http://en.wikipedia.org/wiki/Song_loan\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:625
 msgid ""
@@ -1472,14 +1471,14 @@ msgid ""
 " folk music of northern China. Also called laba (Chinese: 喇叭, lǎbā) or haidi"
 " (Chinese: 海笛, hǎidí). (<a "
 "href=\"http://en.wikipedia.org/wiki/Suona\">Wikipedia</a>)"
-msgstr ""
+msgstr "De suona (Chinees: 嗩吶, 唢呐, pinyin: suǒnà) is een Chinese schalmei die veel wordt gebruikt in de volksmuziek van Noord-China. Het wordt ook wel laba (Chinees: 喇叭, pinyin: lǎbā) of haidi (Chinees: 海笛, pinyin: hǎidí) genoemd. (<a href=\"http://en.wikipedia.org/wiki/Suona\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:347
 msgid ""
 "The sênh tiền is a Vietnamese instrument which is a combination of clappers,"
 " a rasp and a jingle, made from three pieces of wood with old Chinese coins "
 "attached. (<a href=\"http://en.wikipedia.org/wiki/Sênh_tiền\">Wikipedia</a>)"
-msgstr ""
+msgstr "De sênh tiền is een Vietnamees instrument bestaande uit een combinatie van klappers, een rasp en een belletje. Het wordt gemaakt van drie stukken hout en Chinese munten. (<a href=\"http://en.wikipedia.org/wiki/Sênh_tiền\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:381
 msgid ""
@@ -1493,7 +1492,7 @@ msgid ""
 "strings and keys which are used to fret the strings. Also known as taishō "
 "koto or Nagoya harp. (<a "
 "href=\"http://en.wikipedia.org/wiki/Taishōgoto\">Wikipedia</a>)"
-msgstr ""
+msgstr "De taishōgoto (Japans: 大正琴) is een Japans snaarinstrument met twee tot twaalf snaren en toetsten die gebruikt worden om de snaren te fretten. Het is ook bekend als taishō koto of Nagoyaanse harp. (<a href=\"http://en.wikipedia.org/wiki/Taishōgoto\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:656
 msgid ""
@@ -1514,7 +1513,7 @@ msgid ""
 "The taragot is a Turkish/Hungarian/Romanian reed instrument related to the "
 "saxophone and clarinet. Other names include töröksíp and tárogató. (<a "
 "href=\"http://en.wikipedia.org/wiki/Tárogató\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een taragot of tárogató is een Turks/Hongaars/Roemeens enkel-riet blaasinstrument dat familie is van de saxofoon en de klarinet. (<a href=\"http://en.wikipedia.org/wiki/Tárogató\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:589
 msgid ""
@@ -1527,14 +1526,14 @@ msgid ""
 "The thon (Thai: โทน) is a goblet drum with a ceramic or wooden body used in "
 "classical Thai and Cambodian music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">Wikipedia</a>)"
-msgstr ""
+msgstr "De thon (Thais: โทน) is een vaastrommel met een kast van keramiek of hout en wordt gebruikt bij traditionele Thaise en Cambodjaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:687
 msgid ""
 "The tonkori (Japanese: トンコリ) is a plucked string instrument played by the "
 "Ainu of northern Japan and Sakhalin. (<a "
 "href=\"http://en.wikipedia.org/wiki/Tonkori\">Wikipedia</a>)"
-msgstr ""
+msgstr "De tonkori (Japans:  トンコリ) is een tokkelinstrument dat wordt bespeeld door de Ainu uit Hokkaidō, Noord-Japan en Sakhalin. (<a href=\"http://en.wikipedia.org/wiki/Tonkori\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:623
 msgid ""
@@ -1568,21 +1567,21 @@ msgstr "De Xiao (Traditioneel Chinees: 簫, Versimpeld Chinees: 箫, pinyin: xi�
 msgid ""
 "The xiaoluo (Chinese: 小鑼, 小锣, xiǎoluó) is a Chinese small flat gong whose "
 "pitch rises when struck with the side of a flat wooden stick."
-msgstr ""
+msgstr "De xiaoluo (Chinees: 小鑼, 小锣, pinyin: xiǎoluó) is een kleine platte gong uit China."
 
 #: DB:link_attribute_type/description:324
 msgid ""
 "The yangqin (simplified Chinese: 扬琴; traditional Chinese: 揚琴; pinyin: "
 "yángqín) is a Chinese hammered dulcimer. Also spelt yang ch'in or yang "
 "t'chin. (<a href=\"http://en.wikipedia.org/wiki/Yangqin\">Wikipedia</a>)"
-msgstr ""
+msgstr "De yangqin (Vereenvoudigd Chinees: 扬琴; Traditioneel Chinees: 揚琴; pinyin: yángqín) is een Chinees hakkebord. Het wordt ook wel gespeld als yang ch'in of yang t'chin. (<a href=\"http://en.wikipedia.org/wiki/Yangqin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:676
 msgid ""
 "The yatga (Mongolian: ятга, Chinese: 雅托葛) is a traditional Mongolian plucked"
 " zither, similar to the Chinese guzheng. Other names include yatug, yatag, "
 "ヤタッグ, ヤトガ. (<a href=\"http://en.wikipedia.org/wiki/Yatga\">Wikipedia</a>)"
-msgstr ""
+msgstr "De yatga (Mongools: ятга, Chinees: 雅托葛) is een traditionele Mongoolse getokkelde citer, vergelijkbaar met de Chinese guzheng. Andere namen zijn yatug en yatag. (<a href=\"http://en.wikipedia.org/wiki/Yatga\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:639
 msgid ""
@@ -1596,41 +1595,41 @@ msgid ""
 "The yehu (Chinese: 椰胡, yēhú) is a Chinese bowed string instrument in the "
 "huqin family, made from a coconut (椰, yē) shell. (<a "
 "href=\"http://en.wikipedia.org/wiki/Yehu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De yehu (Chinees: 椰胡, pinyin: yēhú) is een Chinees strijkinstrument uit de familie van de huqin, gemaakt uit de schil van een kokosnoot. (<a href=\"http://en.wikipedia.org/wiki/Yehu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:310
 msgid ""
 "The yueqin (Chinese: 月琴, yuèqín) is a Chinese \"moon-shaped\" plucked lute. "
 "Also known as moon lute, moon guitar or yueh-ch'in. (<a "
 "href=\"http://en.wikipedia.org/wiki/Yueqin\">Wikipedia</a>)"
-msgstr ""
+msgstr "De yueqin (Chinees: 月琴, pinyin: yuèqín) is een Chinese maanvormige luit. Het staat ook bekend als maanluit, maangitaar of yueh-ch'in. (<a href=\"http://en.wikipedia.org/wiki/Yueqin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:287
 msgid ""
 "The zhonghu (Chinese: 中胡, zhōnghú) is a Chinese bowed string instrument "
 "developed from the erhu and tuned a fourth or a fifth lower (<a "
 "href=\"http://en.wikipedia.org/wiki/Zhonghu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De zhonghu (Chinees: 中胡, pinyin: zhōnghú) is een Chinees strijkinstrument dat ontwikkeld is uit de erhu. (<a href=\"http://en.wikipedia.org/wiki/Zhonghu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:311
 msgid ""
 "The zhongruan (Chinese: 中阮, zhōngruǎn) is a Chinese plucked lute, the tenor-"
 "ranged size in the ruan family. (<a "
 "href=\"http://en.wikipedia.org/wiki/Zhongruan\">Wikipedia</a>)"
-msgstr ""
+msgstr "De zhongruan (Chinees: 中阮, pinyin: zhōngruǎn) is een Chinese luit uit de familie van de ruan. (<a href=\"http://en.wikipedia.org/wiki/Zhongruan\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:321
 msgid ""
 "The đàn bầu is a one-stringed Vietnamese zither. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_bầu\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn bầu is een Vietnamese citer met één snaar. (<a href=\"http://en.wikipedia.org/wiki/Đàn_bầu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:312
 msgid ""
 "The đàn nguyệt or đàn kìm is a two-stringed Vietnamese lute with a long neck"
 " and a circular, flat body. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_nguyệt\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn nguyệt of đàn kìm is een Vietnamese luit met twee snaren, een lange hals en een ronde, platte klankkast. (<a href=\"http://en.wikipedia.org/wiki/Đàn_nguyệt\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:295
 msgid ""
@@ -1639,13 +1638,13 @@ msgid ""
 "strings and the instrument has no frets. This instrument is of Chinese "
 "descent but has relatives all over Asia. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_nhị\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn nhị is een Vietnamees snaarinstrument met een kleine, cilindrische kast die aan één kant is afgedekt met slangenhuid. De strijkstok gaat tussen de twee snaren door en het instrument heeft geen fretten. Het instrument is van Chinese origine maar heeft over heel Azië verwanten. (<a href=\"http://en.wikipedia.org/wiki/Đàn_nhị\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:414
 msgid ""
 "The đàn tam is a three-stringed fretless lute from Vietnam. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_tam\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn tam is een Vietnamese luit met drie snaren en geen fretten. (<a href=\"http://en.wikipedia.org/wiki/Đàn_tam\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:327
 msgid ""
@@ -1654,7 +1653,7 @@ msgid ""
 "rubber-clad dubs. It has many counterparts in various countries, such as the"
 " \"santoor\" in India and also the \"cimbalon\" in Hungary. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_tam_thập_lục\">Wikipedia</a>)"
-msgstr ""
+msgstr "een relatief recent geïmporteerde toevoeging aan de Vietnamese instrumenten. Een dulcimer met 36 snaren, aangeslagen met twee kleine met rubber beklede plectra. Het heeft vele tegenhangers in verschillende landen, zoals de \"santoor\" in India en ook de \"cimbalon\" in Hongarije. (<a href=\"http://en.wikipedia.org/wiki/Đàn_tam_thập_lục\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:320
 msgid ""
@@ -1662,7 +1661,7 @@ msgid ""
 "movable bridges. The strings are plucked with plectrums, while the left hand"
 " is used for ornamenting the notes by pressing the strings. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_tranh\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn tranh is een lange citer met zestien snaren en hoge beweegbare bruggen. De snaren worden getokkeld met plectra, terwijl met de linkerhand op de snaren wordt gedrukt om de noten te versieren. (<a href=\"http://en.wikipedia.org/wiki/Đàn_tranh\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:313
 msgid ""
@@ -1670,21 +1669,21 @@ msgid ""
 "Like the Chinese pipa from which is derived, it has greatly elevated frets "
 "at the neck. (<a "
 "href=\"http://en.wikipedia.org/wiki/Đàn_tỳ_bà\">Wikipedia</a>)"
-msgstr ""
+msgstr "De đàn tỳ bà is een Vietnamese luit met een peervormige klankkast. Net als de Chinese pipa waar het instrument van afgeleid is, heeft de đàn tỳ bà zeer hoge fretten op de hals. (<a href=\"http://en.wikipedia.org/wiki/Đàn_tỳ_bà\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:670
 msgid ""
 "The ōtsuzumi (Japanese: 大鼓) is an hourglass-shaped Japanese drum, larger "
 "than the kotsuzumi. (<a "
 "href=\"http://en.wikipedia.org/wiki/Ōtsuzumi\">Wikipedia</a>)"
-msgstr ""
+msgstr "De ōtsuzumi (Japans: 大鼓) is een zandlopervormige Japanse trommel, groter dan de kotsuzumi. (<a href=\"http://en.wikipedia.org/wiki/Ōtsuzumi\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:701
 msgid ""
 "The żafżafa or rabbaba is a Maltese friction drum consisting of a container "
 "(made of tin, pottery or wood) covered with animal skin with a long Arundo "
 "donax reed attached."
-msgstr ""
+msgstr "De żafżafa of rabbaba is een Maltese rommelpot bestaande uit een een met dierenhuid bespannen pot (van tin, keramiek of hout) waarin een lang riet is bevestigd."
 
 #: DB:link_attribute_type/description:702
 msgid ""
@@ -1692,7 +1691,7 @@ msgid ""
 "(typically a premature calf, goat or dog). The chanter consists of two side-"
 "by-side pipes and a bull's horn is normally attached to the end. (<a "
 "href=\"http://en.wikipedia.org/wiki/Żaqq\">Wikipedia</a>)"
-msgstr ""
+msgstr "De żaqq is een Maltese doedelzak die gemaakt is van de hele huid van een dier. De chanter bestaat uit twee pijpen naast elkaar met aan het uiteinde vaak een hoorn van een stier. (<a href=\"http://en.wikipedia.org/wiki/Żaqq\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:704
 msgid ""
@@ -1723,7 +1722,7 @@ msgid ""
 "This is a three-stringed skin-covered bass plucked lute from North-Africa. "
 "Other names include سنتير‎, guembri, guimbri الكمبري‎, gimbri and hejhouj. "
 "(<a href=\"http://en.wikipedia.org/wiki/Sintir\">Wikipedia</a>)"
-msgstr ""
+msgstr "De gumbri (Arabisch: الكمبري‎) of sintir (Arabisch: سنتير‎) is een getokkelde luit uit Noord Afrika met drie snaren. (<a href=\"http://en.wikipedia.org/wiki/Sintir\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:350
 msgid "Tibetan water drum"
