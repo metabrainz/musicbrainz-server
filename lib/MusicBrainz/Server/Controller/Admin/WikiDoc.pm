@@ -109,8 +109,7 @@ sub delete : Local Args(0) RequireAuth(wiki_transcluder) Edit
     my $page = $c->req->params->{page};
     my $version = $c->model('WikiDocIndex')->get_page_version($page);
     my $form = $c->form(
-        form => 'Confirm',
-        requires_edit_note => 1
+        form => 'Confirm'
     );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {

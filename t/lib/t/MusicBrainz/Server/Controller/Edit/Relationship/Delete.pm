@@ -34,7 +34,7 @@ EOSQL
     my @edits = capture_edits {
         $mech->submit_form(
             with_fields => {
-                'confirm.edit_note' => ''
+                'confirm.edit_note' => 'Required Edit Note'
             }
         );
     } $c;

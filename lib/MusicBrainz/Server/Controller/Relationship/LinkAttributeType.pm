@@ -124,8 +124,7 @@ sub delete : Chained('load') RequireAuth(relationship_editor)
 
     my $link_attr_type = $c->stash->{link_attr_type};
     my $form = $c->form(
-        form => 'Confirm',
-        requires_edit_note => 1
+        form => 'Confirm'
     );
 
     if ($c->model('LinkAttributeType')->in_use($link_attr_type->id)) {

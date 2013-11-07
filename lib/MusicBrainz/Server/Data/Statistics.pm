@@ -52,7 +52,7 @@ sub fetch {
         }
         else {
             my $value = $stats{ $names[0] };
-            return $value;
+            return $value // 0;
         }
     }
     else {

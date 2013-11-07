@@ -20,6 +20,8 @@ use MooseX::Types::Structured qw( Dict Optional );
 
 use aliased 'MusicBrainz::Server::Entity::Label';
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 extends 'MusicBrainz::Server::Edit::Generic::Edit';
 with 'MusicBrainz::Server::Edit::Label';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
