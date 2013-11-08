@@ -121,6 +121,16 @@ test 'Coordinate validation' => sub {
             longitude => 13.383333
         },
         {
+            parse => q{52,48470 13,39223},
+            latitude => 52.48470,
+            longitude => 13.39223
+        },
+        {
+            parse => q{55,681192, 12,576282},
+            latitude => 55.681192,
+            longitude => 12.576282
+        },
+        {
             parse => q{},
             latitude => undef,
             longitude => undef

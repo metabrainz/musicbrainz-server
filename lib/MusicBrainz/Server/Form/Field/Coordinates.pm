@@ -48,7 +48,7 @@ sub validate {
     my $degree_markers = q{°d};
     my $minute_markers = q{′'};
     my $second_markers = q{"″};
-    my $number_part = q{\d+(?:\.\d+|)};
+    my $number_part = q{\d+(?:[\.,]\d+|)};
 
     my $decimalPart = '([+\-]?'.$number_part.')\s?['. $degree_markers .']?\s?([NSEW]?)';
     if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
@@ -84,6 +84,10 @@ sub degree {
 
 sub dms {
     my ($degrees, $minutes, $seconds, $dir) = @_;
+    $degrees =~ s/,/./;
+    $minutes =~ s/,/./;
+    $seconds =~ s/,/./;
+
     return sprintf("%.6f", ((0+$degrees) + ((0+$minutes) * 60 + (0+$seconds)) / 3600) * direction($dir));
 }
 
