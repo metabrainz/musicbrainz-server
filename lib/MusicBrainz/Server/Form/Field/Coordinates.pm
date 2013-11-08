@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Field::Coordinates;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
+use List::Util qw( first );
 use utf8;
 
 extends 'MusicBrainz::Server::Form::Field::Text';
@@ -15,6 +16,17 @@ has '+validate_when_empty' => (
 
 my %DIRECTIONS = ( n => 1, s => -1, e => 1, w => -1 );
 sub direction { $DIRECTIONS{lc (shift() // '')} // 1}
+sub reverse_direction {
+    my ($number, $is_latitude) = @_;
+    my @dirs;
+    if ($is_latitude) {
+        @dirs = qw( n s );
+    } else {
+        @dirs = qw( e w );
+    }
+    my $direction = first { ($number > 0) eq ($DIRECTIONS{lc $_} > 0) } @dirs;
+    return $number * $DIRECTIONS{$direction} . uc $direction
+}
 
 sub swap {
     my ($direction_lat, $direction_long, $lat, $long) = @_;
@@ -60,7 +72,6 @@ sub validate {
         return;
     }
 
-    my $dmsPart = '(?:([+\-]?\d+)[:°d]\s?(\d+)[:′\']\s?(\d+(?:\.\d+|)))["″]?\s?([NSEW]?)';
     my $dmsPart = '(?:([+\-]?'.$number_part.')[:'.$degree_markers.']\s?' .
                   '('.$number_part.')[:'.$minute_markers.']\s?' .
                   '(?:('.$number_part.')['.$second_markers.']?)?\s?([NSEW]?))';
@@ -94,7 +105,9 @@ sub dms {
 sub deflate_coordinates {
     my ($self, $value) = @_;
     if (defined $value && defined $value->latitude && defined $value->longitude) {
-        return join(', ', $value->latitude, $value->longitude);
+        return join(', ',
+                    reverse_direction($value->latitude, 1),
+                    reverse_direction($value->longitude, 0));
     }
 }
 
