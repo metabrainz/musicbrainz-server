@@ -112,7 +112,15 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.element.on("input", function (event) {
             var selection = self.currentSelection.peek();
 
-            if (selection) {
+            // XXX The condition shouldn't be necessary, because the input
+            // event should only fire if the value has changed. But Opera
+            // doesn't fire an input event if you paste text into a field,
+            // only if you type it [1]. Pressing enter after pasting an MBID,
+            // then, has the effect of firing the input event too late, and
+            // clearing the field. Checking the current selection against the
+            // current value is done to prevent this.
+            // [1] https://developer.mozilla.org/en-US/docs/Web/Reference/Events/input
+            if (selection && selection.name !== this.value) {
                 self.clearSelection(false);
             }
         });
