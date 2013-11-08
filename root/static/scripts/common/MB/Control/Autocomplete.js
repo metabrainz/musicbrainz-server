@@ -209,7 +209,11 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     setSelection: function (data) {
         data = data || {};
-        this._value(data.name || "");
+        data.name = data.name || "";
+
+        if (this._value() !== data.name) {
+            this._value(data.name);
+        }
 
         if (this.options.showStatus) {
             var hasID = !!(data.id || data.gid);
@@ -668,12 +672,15 @@ MB.Control.EntityAutocomplete = function (options) {
     });
 
     autocomplete.currentSelection.subscribe(function (item) {
-        $inputs.find(":input").val("");
+        var $hidden = $inputs.find("input[type=hidden]").val("");
 
         // We need to do this manually, rather than using $.each, due to recordings
         // having a 'length' property.
         for (key in item) {
-            $inputs.find('input.' + key).val(item[key]).trigger('change');
+            if (item.hasOwnProperty(key)) {
+                $hidden.filter("input." + key)
+                    .val(item[key]).trigger("change");
+            }
         }
     });
 
