@@ -88,7 +88,8 @@ if ($ENV{'MUSICBRAINZ_USE_PROXY'})
 if (DBDefs->EMAIL_BUGS) {
     __PACKAGE__->config->{'Plugin::ErrorCatcher'} = {
         enable => 1,
-        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email'
+        emit_module => 'Catalyst::Plugin::ErrorCatcher::Email',
+        user_identified_by => 'identity_string'
     };
 
     __PACKAGE__->config->{'Plugin::ErrorCatcher::Email'} = {
