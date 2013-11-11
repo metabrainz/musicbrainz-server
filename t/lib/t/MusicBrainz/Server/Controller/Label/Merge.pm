@@ -21,7 +21,8 @@ test all => sub {
     $mech->get_ok('/label/merge');
     $mech->submit_form(
         with_fields => {
-            'merge.target' => 3
+            'merge.target' => 3,
+            'merge.edit_note' => 'Required'
         }
     );
 

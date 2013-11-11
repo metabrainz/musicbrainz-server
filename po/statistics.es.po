@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
+"PO-Revision-Date: 2013-10-29 00:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DB:statistics.statistic_event/description:2013-08-05
+msgid ""
+"A new AJAX coverart uploader is released, making it easier to add cover art "
+"to releases."
+msgstr ""
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -151,6 +157,10 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2013-08-05
+msgid "Cover Art Uploader"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-03-29
@@ -423,7 +433,7 @@ msgid "TRM collisions"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:172
 msgid "Tags"
 msgstr "Etiquetas"
 
@@ -498,23 +508,23 @@ msgstr "/día"
 msgid "100%"
 msgstr "100%"
 
-#: ../root/statistics/index.tt:723
+#: ../root/statistics/index.tt:703
 msgid "Abstain:"
 msgstr "Abstenciones:"
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:73
 msgid "Abstentions"
 msgstr "Abstenciones"
 
-#: ../root/statistics/view_js.tt:76
+#: ../root/statistics/view_js.tt:78
 msgid "Active Editors"
 msgstr "Editores activos"
 
-#: ../root/statistics/view_js.tt:78
+#: ../root/statistics/view_js.tt:80
 msgid "Active Users"
 msgstr "Usuarios activos"
 
-#: ../root/statistics/view_js.tt:77
+#: ../root/statistics/view_js.tt:79
 msgid "Active Voters"
 msgstr "Votantes activos"
 
@@ -522,23 +532,23 @@ msgstr "Votantes activos"
 msgid "Add/remove lines:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:58
+#: ../root/statistics/view_js.tt:60
 msgid "All edits that have been applied"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:64
 msgid "All edits that have failed by being voted down"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:60
+#: ../root/statistics/view_js.tt:62
 msgid "All edits that have failed dependency checks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:63
 msgid "All edits that have failed prerequisite checks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:59
+#: ../root/statistics/view_js.tt:61
 msgid "All edits that have hit an error"
 msgstr ""
 
@@ -550,23 +560,23 @@ msgstr ""
 msgid "Amazon:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:58
+#: ../root/statistics/view_js.tt:60
 msgid "Applied edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:641
+#: ../root/statistics/index.tt:621
 msgid "Applied:"
 msgstr ""
 
-#: ../root/statistics/index.tt:705
+#: ../root/statistics/index.tt:685
 msgid "Approve:"
 msgstr ""
 
-#: ../root/statistics/index.tt:564
+#: ../root/statistics/index.tt:516 ../root/statistics/view_js.tt:50
 msgid "Areas"
 msgstr ""
 
-#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:571
+#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:523
 msgid "Areas:"
 msgstr ""
 
@@ -574,27 +584,27 @@ msgstr ""
 msgid "Artist Countries"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:121
 msgid "Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:131
 msgid "Artist IPIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:134
 msgid "Artist ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:163
+#: ../root/statistics/view_js.tt:160
 msgid "Artist Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:169
+#: ../root/statistics/view_js.tt:166
 msgid "Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:174
 msgid "Artist Tags (raw)"
 msgstr ""
 
@@ -607,55 +617,55 @@ msgstr ""
 msgid "Artists"
 msgstr "Artistas"
 
-#: ../root/statistics/view_js.tt:116
+#: ../root/statistics/view_js.tt:118
 msgid "Artists in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:119
 msgid "Artists not in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:116
+#: ../root/statistics/view_js.tt:118
 msgid "Artists with at least one artist credit appearance"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:108
+#: ../root/statistics/view_js.tt:110
 msgid "Artists with gender set to female"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:107
+#: ../root/statistics/view_js.tt:109
 msgid "Artists with gender set to male"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:111
 msgid "Artists with gender set to other"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:106
+#: ../root/statistics/view_js.tt:108
 msgid "Artists with gender unset (non-group artists)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:119
 msgid "Artists with no appearances in artist credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:80
+#: ../root/statistics/view_js.tt:82
 msgid "Artists with no country set"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:112
+#: ../root/statistics/view_js.tt:114
 msgid "Artists with type set to group"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:113
+#: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to other"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:111
+#: ../root/statistics/view_js.tt:113
 msgid "Artists with type set to person"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:114
+#: ../root/statistics/view_js.tt:116
 msgid "Artists with type unset"
 msgstr ""
 
@@ -663,7 +673,7 @@ msgstr ""
 msgid "Artists:"
 msgstr "Artistas:"
 
-#: ../root/statistics/view_js.tt:120
+#: ../root/statistics/view_js.tt:122
 msgid "Barcodes"
 msgstr ""
 
@@ -699,27 +709,27 @@ msgstr ""
 msgid "CAA:"
 msgstr ""
 
-#: ../root/statistics/index.tt:71
+#: ../root/statistics/index.tt:75
 msgid "CD Stubs (all time / current):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:126
 msgid "CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:124
 msgid "CDStubs (all)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:125
 msgid "CDStubs (submitted)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:57
+#: ../root/statistics/view_js.tt:59
 msgid "Cancelled edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:671
+#: ../root/statistics/index.tt:651
 msgid "Cancelled:"
 msgstr "Canceladas:"
 
@@ -739,91 +749,91 @@ msgstr ""
 msgid "Core Entities"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:78
+#: ../root/statistics/view_js.tt:80
 msgid "Count of active editors (editing or voting) during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:71
+#: ../root/statistics/view_js.tt:73
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:121
 msgid "Count of all Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:163
+#: ../root/statistics/view_js.tt:160
 msgid "Count of all Artist Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:169
+#: ../root/statistics/view_js.tt:166
 msgid "Count of all Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:174
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:120
+#: ../root/statistics/view_js.tt:122
 msgid "Count of all Barcodes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:126
 msgid "Count of all CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:124
 msgid "Count of all CDStubs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:125
 msgid "Count of all CDStubs ever submitted"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:125
+#: ../root/statistics/view_js.tt:127
 msgid "Count of all Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:128
+#: ../root/statistics/view_js.tt:130
 msgid "Count of all IPIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:131
 msgid "Count of all IPIs for Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:132
 msgid "Count of all IPIs for Labels"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:133
 msgid "Count of all ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:134
 msgid "Count of all ISNIs for Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:135
 msgid "Count of all ISNIs for Labels"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:134 ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:136 ../root/statistics/view_js.tt:137
 msgid "Count of all ISRCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:136 ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:138 ../root/statistics/view_js.tt:139
 msgid "Count of all ISWCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:161
 msgid "Count of all Label Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:167
 msgid "Count of all Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:175
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
@@ -831,107 +841,91 @@ msgstr ""
 msgid "Count of all Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:147
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:72
 msgid "Count of all No votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:138 ../root/statistics/view_js.tt:139
-msgid "Count of all PUIDs"
-msgstr ""
-
-#: ../root/statistics/view_js.tt:149
-msgid "Count of all PUIDs with {n} Recordings"
-msgstr ""
-
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:159
 msgid "Count of all Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:165
 msgid "Count of all Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:162
 msgid "Count of all Recording Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:168
 msgid "Count of all Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:176
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:143
 msgid "Count of all Recordings with ISRCs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:143
-msgid "Count of all Recordings with PUIDs"
-msgstr ""
-
-#: ../root/statistics/view_js.tt:150
-msgid "Count of all Recordings with {n} PUIDs"
-msgstr ""
-
-#: ../root/statistics/view_js.tt:151
+#: ../root/statistics/view_js.tt:148
 msgid "Count of all Recordings with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:184
+#: ../root/statistics/view_js.tt:181
 msgid "Count of all Relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:163
 msgid "Count of all Release Group Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:172
+#: ../root/statistics/view_js.tt:169
 msgid "Count of all Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:181
+#: ../root/statistics/view_js.tt:178
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:149
 msgid "Count of all Release Groups with {n} Releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:177
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:153
 msgid "Count of all Releases at Default Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:156
 msgid "Count of all Releases at High Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:157
 msgid "Count of all Releases at Low Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:155
 msgid "Count of all Releases at Normal Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:154
 msgid "Count of all Releases at Unknown Data Quality"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:129
 msgid "Count of all Releases by Various Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:128
 msgid "Count of all Releases not V.A."
 msgstr ""
 
@@ -939,47 +933,51 @@ msgstr ""
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:146
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:172
 msgid "Count of all Tags"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:173
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:123
 msgid "Count of all Tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:164
 msgid "Count of all Work Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:170
 msgid "Count of all Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:182
+#: ../root/statistics/view_js.tt:179
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:71
 msgid "Count of all Yes votes"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:50
+msgid "Count of all areas"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:43
 msgid "Count of all artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:73
+#: ../root/statistics/view_js.tt:75
 msgid "Count of all editors"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:51
+#: ../root/statistics/view_js.tt:53
 msgid "Count of all edits"
 msgstr ""
 
@@ -989,6 +987,10 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:46
 msgid "Count of all mediums"
+msgstr ""
+
+#: ../root/statistics/view_js.tt:51
+msgid "Count of all places"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:44
@@ -1003,7 +1005,7 @@ msgstr ""
 msgid "Count of all releases"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:65
+#: ../root/statistics/view_js.tt:67
 msgid "Count of all votes"
 msgstr ""
 
@@ -1011,39 +1013,39 @@ msgstr ""
 msgid "Count of all works"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:77
 msgid "Count of deleted editors"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:76
+#: ../root/statistics/view_js.tt:78
 msgid "Count of editors who have submitted edits during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:77
+#: ../root/statistics/view_js.tt:79
 msgid "Count of editors who have voted on during the last week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:53
+#: ../root/statistics/view_js.tt:55
 msgid "Count of edits per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:54
+#: ../root/statistics/view_js.tt:56
 msgid "Count of edits per week"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:74
+#: ../root/statistics/view_js.tt:76
 msgid "Count of non-deleted editors"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:52
+#: ../root/statistics/view_js.tt:54
 msgid "Count of open edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:66
+#: ../root/statistics/view_js.tt:68
 msgid "Count of votes per day"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:67
+#: ../root/statistics/view_js.tt:69
 msgid "Count of votes per week"
 msgstr ""
 
@@ -1076,7 +1078,7 @@ msgstr "Estadísticas de la base de datos"
 msgid "Database Statistics - {title}"
 msgstr "Estadísticas de la base de datos - {title}"
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:153
 msgid "Default Data Quality"
 msgstr ""
 
@@ -1084,7 +1086,7 @@ msgstr ""
 msgid "Default Data Quality:"
 msgstr ""
 
-#: ../root/statistics/index.tt:355 ../root/statistics/view_js.tt:125
+#: ../root/statistics/index.tt:355 ../root/statistics/view_js.tt:127
 msgid "Disc IDs"
 msgstr "IDs de disco"
 
@@ -1105,66 +1107,66 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
-#: ../root/statistics/index.tt:596 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:576 ../root/statistics/layout.tt:5
 msgid "Editors"
 msgstr "Editores"
 
-#: ../root/statistics/view_js.tt:73
+#: ../root/statistics/view_js.tt:75
 msgid "Editors (all)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:75
+#: ../root/statistics/view_js.tt:77
 msgid "Editors (deleted)"
 msgstr ""
 
-#: ../root/statistics/index.tt:61
+#: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:74
+#: ../root/statistics/view_js.tt:76
 msgid "Editors (valid)"
 msgstr ""
 
-#: ../root/statistics/index.tt:599
+#: ../root/statistics/index.tt:579
 msgid "Editors (valid):"
 msgstr ""
 
-#: ../root/statistics/index.tt:592
+#: ../root/statistics/index.tt:572
 msgid "Editors, Edits, and Votes"
 msgstr "Editores, ediciones y votos"
 
 #: ../root/statistics/edits.tt:2 ../root/statistics/edits.tt:9
-#: ../root/statistics/index.tt:626 ../root/statistics/layout.tt:5
-#: ../root/statistics/view_js.tt:51
+#: ../root/statistics/index.tt:606 ../root/statistics/layout.tt:5
+#: ../root/statistics/view_js.tt:53
 msgid "Edits"
 msgstr "Ediciones"
 
-#: ../root/statistics/view_js.tt:56
+#: ../root/statistics/view_js.tt:58
 msgid "Edits about to be cancelled"
 msgstr "Ediciones a punto de ser canceladas"
 
-#: ../root/statistics/view_js.tt:53
+#: ../root/statistics/view_js.tt:55
 msgid "Edits per day"
 msgstr "Ediciones al día"
 
-#: ../root/statistics/view_js.tt:54
+#: ../root/statistics/view_js.tt:56
 msgid "Edits per week"
 msgstr "Ediciones a la semana"
 
-#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:629
-#: ../root/statistics/index.tt:676
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:609
+#: ../root/statistics/index.tt:656
 msgid "Edits:"
 msgstr "Ediciones:"
 
-#: ../root/statistics/view_js.tt:59
+#: ../root/statistics/view_js.tt:61
 msgid "Error edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:63
+#: ../root/statistics/view_js.tt:65
 msgid "Evalnochange Edits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:63
+#: ../root/statistics/view_js.tt:65
 msgid "Evalnochange edits"
 msgstr ""
 
@@ -1176,31 +1178,31 @@ msgstr ""
 msgid "Exclusive"
 msgstr ""
 
-#: ../root/statistics/index.tt:653
+#: ../root/statistics/index.tt:633
 msgid "Failed (dependency):"
 msgstr ""
 
-#: ../root/statistics/index.tt:665
+#: ../root/statistics/index.tt:645
 msgid "Failed (internal error):"
 msgstr ""
 
-#: ../root/statistics/index.tt:659
+#: ../root/statistics/index.tt:639
 msgid "Failed (prerequisite):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:60
+#: ../root/statistics/view_js.tt:62
 msgid "Failed edits (dependency)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:61
+#: ../root/statistics/view_js.tt:63
 msgid "Failed edits (prerequisite)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:62
+#: ../root/statistics/view_js.tt:64
 msgid "Failed edits (voted down)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:108
+#: ../root/statistics/view_js.tt:110
 msgid "Female Artists"
 msgstr "Mujeres artistas"
 
@@ -1222,11 +1224,11 @@ msgstr "Formato"
 msgid "Formats"
 msgstr "Formatos"
 
-#: ../root/statistics/view_js.tt:112
+#: ../root/statistics/view_js.tt:114
 msgid "Groups"
 msgstr "Grupos"
 
-#: ../root/statistics/view_js.tt:159
+#: ../root/statistics/view_js.tt:156
 msgid "High Data Quality"
 msgstr "Calidad de datos alta"
 
@@ -1238,7 +1240,7 @@ msgstr "Calidad de datos alta:"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:128
+#: ../root/statistics/view_js.tt:130
 msgid "IPIs"
 msgstr "IPIs"
 
@@ -1246,7 +1248,7 @@ msgstr "IPIs"
 msgid "IPIs:"
 msgstr "IPIs:"
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:133
 msgid "ISNIs"
 msgstr ""
 
@@ -1254,7 +1256,7 @@ msgstr ""
 msgid "ISNIs:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:134
+#: ../root/statistics/view_js.tt:136
 msgid "ISRCs"
 msgstr "ISRCs"
 
@@ -1262,11 +1264,11 @@ msgstr "ISRCs"
 msgid "ISRCs (all / unique):"
 msgstr "ISRCs (totales / distintos):"
 
-#: ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:137
 msgid "ISRCs (all)"
 msgstr "ISRCs (totales)"
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:138
 msgid "ISWCs"
 msgstr "ISWCs"
 
@@ -1274,11 +1276,11 @@ msgstr "ISWCs"
 msgid "ISWCs (all / unique):"
 msgstr "ISWCs (totales / distintos):"
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:139
 msgid "ISWCs (all)"
 msgstr "ISRCs (totales)"
 
-#: ../root/statistics/index.tt:93
+#: ../root/statistics/index.tt:97
 msgid "Identifiers"
 msgstr "Identificadores"
 
@@ -1290,23 +1292,23 @@ msgstr ""
 msgid "Label Countries"
 msgstr "Países de discográficas"
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:132
 msgid "Label IPIs"
 msgstr "IPIs de discográficas"
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:135
 msgid "Label ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:161
 msgid "Label Ratings"
 msgstr "Valoraciones de discográficas"
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:167
 msgid "Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:175
 msgid "Label Tags (raw)"
 msgstr ""
 
@@ -1314,7 +1316,7 @@ msgstr ""
 msgid "Labels"
 msgstr "Discográficas"
 
-#: ../root/statistics/view_js.tt:81
+#: ../root/statistics/view_js.tt:83
 msgid "Labels with no country set"
 msgstr "Discográficas sin un país indicado"
 
@@ -1338,7 +1340,7 @@ msgstr "Idiomas y alfabetos"
 msgid "Languages/Scripts"
 msgstr "Idiomas y alfabetos"
 
-#: ../root/statistics/index.tt:682 ../root/statistics/index.tt:734
+#: ../root/statistics/index.tt:662 ../root/statistics/index.tt:714
 msgid "Last Week:"
 msgstr "Semana pasada:"
 
@@ -1354,7 +1356,7 @@ msgstr "Última actualización: {date}"
 msgid "Legend"
 msgstr "Leyenda"
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:157
 msgid "Low Data Quality"
 msgstr "Calidad de datos baja"
 
@@ -1362,7 +1364,7 @@ msgstr "Calidad de datos baja"
 msgid "Low Data Quality:"
 msgstr "Calidad de datos baja:"
 
-#: ../root/statistics/view_js.tt:107
+#: ../root/statistics/view_js.tt:109
 msgid "Male Artists"
 msgstr "Artistas hombres"
 
@@ -1374,7 +1376,7 @@ msgstr "Hombres:"
 msgid "Mediums"
 msgstr "Medios"
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:147
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] "Medios con 1 ID de disco"
@@ -1392,7 +1394,7 @@ msgstr "Medios con al menos una ID de disco:"
 msgid "Mediums with no disc IDs:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:100
+#: ../root/statistics/view_js.tt:102
 msgid "Mediums with no format set"
 msgstr ""
 
@@ -1420,7 +1422,7 @@ msgstr ""
 msgid "No Statistics"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:70
+#: ../root/statistics/view_js.tt:72
 msgid "No Votes"
 msgstr ""
 
@@ -1461,7 +1463,7 @@ msgstr "Sin estatus indicado"
 msgid "No type"
 msgstr ""
 
-#: ../root/statistics/index.tt:717
+#: ../root/statistics/index.tt:697
 msgid "No:"
 msgstr "No:"
 
@@ -1469,11 +1471,12 @@ msgstr "No:"
 msgid "Non-group artists:"
 msgstr ""
 
-#: ../root/statistics/index.tt:557 ../root/statistics/index.tt:585
+#: ../root/statistics/index.tt:509 ../root/statistics/index.tt:537
+#: ../root/statistics/index.tt:565
 msgid "None"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:155
 msgid "Normal Data Quality"
 msgstr ""
 
@@ -1481,7 +1484,7 @@ msgstr ""
 msgid "Normal Data Quality:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:52
+#: ../root/statistics/view_js.tt:54
 msgid "Open Edits"
 msgstr "Ediciones abiertas"
 
@@ -1489,7 +1492,7 @@ msgstr "Ediciones abiertas"
 msgid "Open and applied edits in past week"
 msgstr "Ediciones abiertas y aplicadas en la última semana"
 
-#: ../root/statistics/index.tt:635
+#: ../root/statistics/index.tt:615
 msgid "Open:"
 msgstr ""
 
@@ -1497,7 +1500,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: ../root/statistics/index.tt:58
+#: ../root/statistics/index.tt:62
 msgid "Other Entities"
 msgstr ""
 
@@ -1505,11 +1508,11 @@ msgstr ""
 msgid "Other gender:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:109
+#: ../root/statistics/view_js.tt:111
 msgid "Other-gender Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:113
+#: ../root/statistics/view_js.tt:115
 msgid "Other-type Artists"
 msgstr ""
 
@@ -1517,41 +1520,15 @@ msgstr ""
 msgid "Overview"
 msgstr "Resumen"
 
-#: ../root/statistics/index.tt:507 ../root/statistics/view_js.tt:138
-msgid "PUIDs"
-msgstr "PUIDs"
-
-#: ../root/statistics/view_js.tt:139
-msgid "PUIDs (IDs)"
-msgstr ""
-
-#: ../root/statistics/index.tt:96
-msgid "PUIDs (all / unique):"
-msgstr ""
-
-#: ../root/statistics/index.tt:515
-msgid "PUIDs (distinct IDs):"
-msgstr "PUIDs (IDs distintas):"
-
-#: ../root/statistics/index.tt:510
-msgid "PUIDs (on recordings):"
-msgstr "PUIDs (en grabaciones):"
-
-#: ../root/statistics/view_js.tt:149
-msgid "PUIDs with 1 Recording"
-msgid_plural "PUIDs with {n} Recordings"
-msgstr[0] ""
-msgstr[1] ""
-
 #: ../root/statistics/coverart.tt:122
 msgid "Per release"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:111
+#: ../root/statistics/view_js.tt:113
 msgid "Persons"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:191
+#: ../root/statistics/view_js.tt:188
 msgid "Pieces of Cover Art"
 msgstr ""
 
@@ -1561,6 +1538,14 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
 msgid "Pieces of cover art:"
+msgstr ""
+
+#: ../root/statistics/index.tt:544 ../root/statistics/view_js.tt:51
+msgid "Places"
+msgstr ""
+
+#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:551
+msgid "Places:"
 msgstr ""
 
 #: ../root/statistics/index.tt:435
@@ -1581,15 +1566,15 @@ msgstr ""
 msgid "Rate of Change Graph"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:159
 msgid "Ratings"
 msgstr "Valoraciones"
 
-#: ../root/statistics/index.tt:83
+#: ../root/statistics/index.tt:87
 msgid "Ratings (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:165
 msgid "Ratings (raw)"
 msgstr ""
 
@@ -1597,53 +1582,32 @@ msgstr ""
 msgid "Ratings and Tags"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:162
 msgid "Recording Ratings"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:168
 msgid "Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:176
 msgid "Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:473 ../root/statistics/view_js.tt:44
+#: ../root/statistics/index.tt:469 ../root/statistics/index.tt:473
+#: ../root/statistics/view_js.tt:44
 msgid "Recordings"
 msgstr "Grabaciones"
 
-#: ../root/statistics/index.tt:469
-msgid "Recordings and PUIDs"
-msgstr "Grabaciones y PUIDs"
-
-#: ../root/statistics/view_js.tt:150
-msgid "Recordings with 1 PUID"
-msgid_plural "Recordings with {n} PUIDs"
-msgstr[0] "Grabaciones con 1 PUID"
-msgstr[1] "Grabaciones con {n} PUIDs"
-
-#: ../root/statistics/view_js.tt:151
+#: ../root/statistics/view_js.tt:148
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:143
 msgid "Recordings with ISRCs"
 msgstr ""
-
-#: ../root/statistics/view_js.tt:143
-msgid "Recordings with PUIDs"
-msgstr "Grabaciones con PUIDs"
-
-#: ../root/statistics/index.tt:486
-msgid "Recordings with at least one PUID:"
-msgstr "Grabaciones con al menos una PUID:"
-
-#: ../root/statistics/index.tt:481
-msgid "Recordings with no PUIDs:"
-msgstr "Grabaciones sin PUIDs:"
 
 #: ../root/statistics/index.tt:32 ../root/statistics/index.tt:476
 msgid "Recordings:"
@@ -1651,11 +1615,11 @@ msgstr "Grabaciones:"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
 #: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
-#: ../root/statistics/view_js.tt:184
+#: ../root/statistics/view_js.tt:181
 msgid "Relationships"
 msgstr "Relaciones"
 
-#: ../root/statistics/index.tt:67 ../root/statistics/relationships.tt:34
+#: ../root/statistics/index.tt:71 ../root/statistics/relationships.tt:34
 msgid "Relationships:"
 msgstr "Relaciones:"
 
@@ -1667,15 +1631,15 @@ msgstr "Países de publicaciones"
 msgid "Release Data Quality"
 msgstr "Calidad de datos de publicaciones"
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:163
 msgid "Release Group Ratings"
 msgstr "Valoraciones de grupos de publicaciones"
 
-#: ../root/statistics/view_js.tt:172
+#: ../root/statistics/view_js.tt:169
 msgid "Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:181
+#: ../root/statistics/view_js.tt:178
 msgid "Release Group Tags (raw)"
 msgstr ""
 
@@ -1683,7 +1647,7 @@ msgstr ""
 msgid "Release Groups"
 msgstr "Grupos de publicaciones"
 
-#: ../root/statistics/view_js.tt:152
+#: ../root/statistics/view_js.tt:149
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Grupos de publicaciones con 1 publicación"
@@ -1710,7 +1674,7 @@ msgstr "Alfabetos de publicaciones"
 msgid "Release Status"
 msgstr "Estatus de publicaciones"
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:177
 msgid "Release Tags (raw)"
 msgstr ""
 
@@ -1725,21 +1689,21 @@ msgstr "Formatos de publicaciones y medios"
 msgid "Releases"
 msgstr "Publicaciones"
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:129
 msgid "Releases (VA)"
 msgstr "Publicaciones de varios artistas"
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:128
 msgid "Releases not VA"
 msgstr "Publicaciones de un artista"
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:146
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] "Publicaciones con 1 ID de disco"
 msgstr[1] "Publicaciones con {n} IDs de disco"
 
-#: ../root/statistics/view_js.tt:192
+#: ../root/statistics/view_js.tt:189
 msgid "Releases with Cover Art"
 msgstr "Publicaciones con imágenes"
 
@@ -1747,7 +1711,7 @@ msgstr "Publicaciones con imágenes"
 msgid "Releases with Disc IDs"
 msgstr "Publicaciones con IDs de disco"
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:101
 msgid "Releases with a no-format medium"
 msgstr "Publicaciones con un medio sin formato"
 
@@ -1761,7 +1725,7 @@ msgstr "Publicaciones con al menos una ID de disco:"
 msgid "Releases with cover art:"
 msgstr "Publicaciones con imágenes:"
 
-#: ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:84
 msgid "Releases with no country set"
 msgstr "Publicaciones sin un país indicado"
 
@@ -1769,11 +1733,11 @@ msgstr "Publicaciones sin un país indicado"
 msgid "Releases with no disc IDs:"
 msgstr "Publicaciones sin IDs de disco:"
 
-#: ../root/statistics/view_js.tt:94
+#: ../root/statistics/view_js.tt:96
 msgid "Releases with no language set"
 msgstr "Publicaciones sin un idioma indicado"
 
-#: ../root/statistics/view_js.tt:89
+#: ../root/statistics/view_js.tt:91
 msgid "Releases with no script set"
 msgstr "Publicaciones sin un alfabeto indicado"
 
@@ -1812,11 +1776,11 @@ msgid ""
 "stats.tar.bz2</code>."
 msgstr ""
 
-#: ../root/statistics/index.tt:75
+#: ../root/statistics/index.tt:79
 msgid "Tags (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:173
 msgid "Tags (raw)"
 msgstr ""
 
@@ -1832,7 +1796,7 @@ msgstr ""
 msgid "Timeline Graph"
 msgstr "Gráfica cronológica"
 
-#: ../root/statistics/view_js.tt:56
+#: ../root/statistics/view_js.tt:58
 msgid "To-be-cancelled edits"
 msgstr "Ediciones esperando a ser canceladas"
 
@@ -1857,7 +1821,7 @@ msgstr "Número total de ediciones aplicadas"
 msgid "Total votes"
 msgstr "Número total de votos"
 
-#: ../root/statistics/view_js.tt:121
+#: ../root/statistics/view_js.tt:123
 msgid "Tracks"
 msgstr "Pistas"
 
@@ -1865,7 +1829,8 @@ msgstr "Pistas"
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/statistics/index.tt:540 ../root/statistics/index.tt:568
+#: ../root/statistics/index.tt:492 ../root/statistics/index.tt:520
+#: ../root/statistics/index.tt:548
 msgid "Types"
 msgstr ""
 
@@ -1877,12 +1842,12 @@ msgstr ""
 msgid "URLs:"
 msgstr "URLs:"
 
-#: ../root/statistics/countries.tt:17 ../root/statistics/view_js.tt:80
-#: ../root/statistics/view_js.tt:81 ../root/statistics/view_js.tt:82
+#: ../root/statistics/countries.tt:17 ../root/statistics/view_js.tt:82
+#: ../root/statistics/view_js.tt:83 ../root/statistics/view_js.tt:84
 msgid "Unknown Country"
 msgstr "País desconocido"
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:154
 msgid "Unknown Data Quality"
 msgstr "Calidad de datos desconocida"
 
@@ -1894,19 +1859,19 @@ msgstr "Calidad de datos desconocida:"
 msgid "Unknown Format"
 msgstr "Formato desconocido"
 
-#: ../root/statistics/view_js.tt:100
+#: ../root/statistics/view_js.tt:102
 msgid "Unknown Format (medium)"
 msgstr "Formato desconocido (medio)"
 
-#: ../root/statistics/view_js.tt:99
+#: ../root/statistics/view_js.tt:101
 msgid "Unknown Format (release)"
 msgstr "Formato desconocido (publicación)"
 
-#: ../root/statistics/view_js.tt:94
+#: ../root/statistics/view_js.tt:96
 msgid "Unknown Language"
 msgstr "Idioma desconocido"
 
-#: ../root/statistics/view_js.tt:89
+#: ../root/statistics/view_js.tt:91
 msgid "Unknown Script"
 msgstr "Alfabeto desconocido"
 
@@ -1918,15 +1883,19 @@ msgstr "Idioma desconocido"
 msgid "Unknown script"
 msgstr "Alfabeto desconocido"
 
-#: ../root/statistics/view_js.tt:106
+#: ../root/statistics/view_js.tt:108
 msgid "Unknown-gender Artists"
 msgstr "Artistas sin género indicado"
 
-#: ../root/statistics/view_js.tt:114
+#: ../root/statistics/view_js.tt:116
 msgid "Unknown-type Artists"
 msgstr "Artistas sin tipo indicado"
 
-#: ../root/statistics/index.tt:647
+#: ../root/statistics/index.tt:481
+msgid "Videos:"
+msgstr ""
+
+#: ../root/statistics/index.tt:627
 msgid "Voted down:"
 msgstr "Rechazadas:"
 
@@ -1938,7 +1907,7 @@ msgstr "Votante"
 msgid "Voters"
 msgstr "Votantes"
 
-#: ../root/statistics/index.tt:696 ../root/statistics/view_js.tt:65
+#: ../root/statistics/index.tt:676 ../root/statistics/view_js.tt:67
 msgid "Votes"
 msgstr "Votos"
 
@@ -1946,48 +1915,48 @@ msgstr "Votos"
 msgid "Votes in past week"
 msgstr "Votos durante la última semana"
 
-#: ../root/statistics/view_js.tt:66
+#: ../root/statistics/view_js.tt:68
 msgid "Votes per day"
 msgstr "Votos al día"
 
-#: ../root/statistics/view_js.tt:67
+#: ../root/statistics/view_js.tt:69
 msgid "Votes per week"
 msgstr "Votos a la semana"
 
-#: ../root/statistics/index.tt:699 ../root/statistics/index.tt:728
+#: ../root/statistics/index.tt:679 ../root/statistics/index.tt:708
 msgid "Votes:"
 msgstr "Votos:"
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:164
 msgid "Work Ratings"
 msgstr "Valoraciones de obras"
 
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:170
 msgid "Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:182
+#: ../root/statistics/view_js.tt:179
 msgid "Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:536 ../root/statistics/languages_scripts.tt:42
+#: ../root/statistics/index.tt:488 ../root/statistics/languages_scripts.tt:42
 #: ../root/statistics/view_js.tt:45
 msgid "Works"
 msgstr "Obras:"
 
-#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:543
+#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:495
 msgid "Works:"
 msgstr "Obras:"
 
-#: ../root/statistics/view_js.tt:69
+#: ../root/statistics/view_js.tt:71
 msgid "Yes Votes"
 msgstr "Votos \"Sí\""
 
-#: ../root/statistics/index.tt:711
+#: ../root/statistics/index.tt:691
 msgid "Yes:"
 msgstr "Sí:"
 
-#: ../root/statistics/index.tt:689 ../root/statistics/index.tt:741
+#: ../root/statistics/index.tt:669 ../root/statistics/index.tt:721
 msgid "Yesterday:"
 msgstr "Ayer:"
 
@@ -1995,7 +1964,7 @@ msgstr "Ayer:"
 msgid "Zoom:"
 msgstr ""
 
-#: ../root/statistics/index.tt:605
+#: ../root/statistics/index.tt:585
 msgid "active last week:"
 msgstr "activos la última semana:"
 
@@ -2007,7 +1976,7 @@ msgstr "de un solo artista:"
 msgid "by various artists:"
 msgstr "de varios artistas:"
 
-#: ../root/statistics/view_js.tt:188
+#: ../root/statistics/view_js.tt:185
 msgid "l_{first}_{second} Relationships"
 msgstr ""
 
@@ -2023,27 +1992,13 @@ msgstr "de tipo Otro:"
 msgid "of type Person:"
 msgstr "de tipo Persona:"
 
-#: ../root/statistics/index.tt:522
-msgid "which identify 1 recording:"
-msgid_plural "which identify {num} recordings:"
-msgstr[0] "que identifican 1 grabación:"
-msgstr[1] "que identifican {num} grabaciones:"
-
-#: ../root/statistics/index.tt:529
-msgid "which identify 10+ recordings:"
-msgstr "que identifican 10 o más grabaciones:"
-
-#: ../root/statistics/index.tt:612
+#: ../root/statistics/index.tt:592
 msgid "who edited last week:"
 msgstr "que editaron la semana pasada:"
 
-#: ../root/statistics/index.tt:619
+#: ../root/statistics/index.tt:599
 msgid "who voted last week:"
 msgstr "quién votó la última semana:"
-
-#: ../root/statistics/index.tt:500
-msgid "with 10 or more PUIDs:"
-msgstr "con 10 o más PUIDs:"
 
 #: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
 msgid "with 10 or more disc IDs:"
@@ -2069,12 +2024,6 @@ msgstr "sin un género indicado:"
 msgid "with no type set:"
 msgstr "sin un tipo indicado:"
 
-#: ../root/statistics/index.tt:493
-msgid "with {num} PUID:"
-msgid_plural "with {num} PUIDs:"
-msgstr[0] "con {num} PUID:"
-msgstr[1] "con {num} PUIDs:"
-
 #: ../root/statistics/index.tt:383 ../root/statistics/index.tt:416
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
@@ -2087,27 +2036,27 @@ msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "con 1 imagen:"
 msgstr[1] "con {num} imágenes:"
 
-#: ../root/statistics/view_js.tt:84
+#: ../root/statistics/view_js.tt:86
 msgid "{country} artists"
 msgstr "Artistas de {country}"
 
-#: ../root/statistics/view_js.tt:85
+#: ../root/statistics/view_js.tt:87
 msgid "{country} labels"
 msgstr "Discográficas de {country}"
 
-#: ../root/statistics/view_js.tt:86
+#: ../root/statistics/view_js.tt:88
 msgid "{country} releases"
 msgstr "Publicaciones de {country}"
 
-#: ../root/statistics/view_js.tt:96
+#: ../root/statistics/view_js.tt:98
 msgid "{language} releases"
 msgstr "Publicaciones en {language}"
 
-#: ../root/statistics/view_js.tt:103
+#: ../root/statistics/view_js.tt:105
 msgid "{name} mediums"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:102
+#: ../root/statistics/view_js.tt:104
 msgid "{name} releases"
 msgstr ""
 
@@ -2134,25 +2083,24 @@ msgstr ""
 #: ../root/statistics/index.tt:410 ../root/statistics/index.tt:418
 #: ../root/statistics/index.tt:426 ../root/statistics/index.tt:447
 #: ../root/statistics/index.tt:463 ../root/statistics/index.tt:483
-#: ../root/statistics/index.tt:488 ../root/statistics/index.tt:495
-#: ../root/statistics/index.tt:502 ../root/statistics/index.tt:524
-#: ../root/statistics/index.tt:531 ../root/statistics/index.tt:552
-#: ../root/statistics/index.tt:559 ../root/statistics/index.tt:580
-#: ../root/statistics/index.tt:587 ../root/statistics/index.tt:607
-#: ../root/statistics/index.tt:614 ../root/statistics/index.tt:621
-#: ../root/statistics/index.tt:637 ../root/statistics/index.tt:643
-#: ../root/statistics/index.tt:649 ../root/statistics/index.tt:655
-#: ../root/statistics/index.tt:661 ../root/statistics/index.tt:667
-#: ../root/statistics/index.tt:673 ../root/statistics/index.tt:684
-#: ../root/statistics/index.tt:691 ../root/statistics/index.tt:707
-#: ../root/statistics/index.tt:713 ../root/statistics/index.tt:719
-#: ../root/statistics/index.tt:725 ../root/statistics/index.tt:736
-#: ../root/statistics/index.tt:743 ../root/statistics/relationships.tt:8
+#: ../root/statistics/index.tt:504 ../root/statistics/index.tt:511
+#: ../root/statistics/index.tt:532 ../root/statistics/index.tt:539
+#: ../root/statistics/index.tt:560 ../root/statistics/index.tt:567
+#: ../root/statistics/index.tt:587 ../root/statistics/index.tt:594
+#: ../root/statistics/index.tt:601 ../root/statistics/index.tt:617
+#: ../root/statistics/index.tt:623 ../root/statistics/index.tt:629
+#: ../root/statistics/index.tt:635 ../root/statistics/index.tt:641
+#: ../root/statistics/index.tt:647 ../root/statistics/index.tt:653
+#: ../root/statistics/index.tt:664 ../root/statistics/index.tt:671
+#: ../root/statistics/index.tt:687 ../root/statistics/index.tt:693
+#: ../root/statistics/index.tt:699 ../root/statistics/index.tt:705
+#: ../root/statistics/index.tt:716 ../root/statistics/index.tt:723
+#: ../root/statistics/relationships.tt:8
 #: ../root/statistics/relationships.tt:50
 msgid "{n}%"
 msgstr "{n}%"
 
-#: ../root/statistics/view_js.tt:91
+#: ../root/statistics/view_js.tt:93
 msgid "{script} releases"
 msgstr "Publicaciones con alfabeto {script}"
 

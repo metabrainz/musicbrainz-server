@@ -6,13 +6,13 @@
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
-# ListMyCDs.com Martikainen <email address hidden>, 2012
+# ListMyCDs.com Martikainen <email address hidden>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 18:54+0000\n"
-"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"PO-Revision-Date: 2013-10-29 00:53+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,6 +85,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -134,6 +139,11 @@ msgstr "Kasetti"
 msgctxt "medium_format"
 msgid "Cassette"
 msgstr "C-kasetti"
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr ""
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -199,6 +209,11 @@ msgstr "Digitaalinen media"
 msgctxt "label_type"
 msgid "Distributor"
 msgstr "Jakelija"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr ""
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -314,6 +329,11 @@ msgstr "Mixtape/Street"
 msgctxt "work_type"
 msgid "Motet"
 msgstr "Motetti"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr ""
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
@@ -524,7 +544,7 @@ msgstr "Tarra"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr ""
+msgstr "Alaosasto"
 
 #: DB:work_type/name:6
 msgctxt "work_type"

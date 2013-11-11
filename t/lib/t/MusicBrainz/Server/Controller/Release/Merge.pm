@@ -24,6 +24,7 @@ $mech->submit_form_ok({
     with_fields => {
         'merge.target' => '6',
         'merge.merge_strategy' => '1',
+        'merge.edit_note' => 'Mandatory'
     }
 });
 
@@ -93,6 +94,7 @@ $mech->submit_form_ok({
         'merge.merge_strategy' => '1',
         'merge.medium_positions.map.0.name' => 'Foo',
         'merge.medium_positions.map.1.name' => 'Bar',
+        'merge.edit_note' => 'Empty Edit Note'
     }
 });
 

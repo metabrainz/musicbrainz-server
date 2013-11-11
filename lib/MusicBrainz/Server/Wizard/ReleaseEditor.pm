@@ -594,6 +594,9 @@ sub prepare_tracklist
     }
 
     $self->c->stash->{release_artist} = $submitted_ac;
+
+    my $json = JSON::Any->new( utf8 => 1 );
+    $self->c->stash->{submitted_release_artist} = $json->encode($submitted_ac);
 }
 
 sub prepare_recordings

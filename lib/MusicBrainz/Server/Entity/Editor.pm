@@ -224,6 +224,11 @@ has deleted => (
     is => 'rw',
 );
 
+sub identity_string {
+    my ($self) = @_;
+    return join(', ', $self->name, $self->id);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

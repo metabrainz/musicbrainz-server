@@ -3,31 +3,19 @@ use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation 'l';
 
 extends 'MusicBrainz::Server::Form::Step';
+with 'MusicBrainz::Server::Form::Role::EditNote';
 
 # Slightly hackish, but lets us know if we're editing an existing release or not
-has_field 'id'             => ( type => 'Integer' );
+has_field 'id' => ( type => 'Integer' );
 
-has_field 'edit_note'      => ( type => 'TextArea' );
-has_field 'as_auto_editor' => ( type => 'Checkbox' );
+has '+requires_edit_note' => (
+    lazy => 1,
+    default => sub { !shift->field('id')->value }
+);
 
-sub default_as_auto_editor
-{
-    my $self = shift;
-    return $self->ctx->user->is_auto_editor;
-};
-
-sub validate {
-    my $self = shift;
-
-    # An id field value is *not* present if we're adding a new release.
-    if (!$self->field('id')->value &&
-        (!defined $self->field('edit_note')->value || $self->field('edit_note')->value eq ''))
-    {
-        $self->field('edit_note')->add_error (
-            l("You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!"));
-    }
+sub requires_edit_note_text {
+    l("You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!")
 }
-
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -55,7 +55,7 @@
      </div>
 
      <div class="documentation">
-       [%- artist_credit_table(form, 1) -%]
+       [%- artist_credit_table() -%]
        [%- guesscase_bubble() -%]
      </div>
    </form>

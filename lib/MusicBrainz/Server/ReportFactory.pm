@@ -42,6 +42,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasedTooEarly
     ReleasesInCAAWithCoverArtRelationships
     ReleasesToConvert
+    ReleasesWithDownloadRelationships
     ReleasesWithUnlikelyLanguageScript
     SeparateDiscs
     SetInDifferentRG
@@ -92,6 +93,7 @@ use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleasesToConvert;
+use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::SeparateDiscs;
 use MusicBrainz::Server::Report::SetInDifferentRG;

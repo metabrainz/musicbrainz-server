@@ -6,6 +6,7 @@
     ['recording', link_tag(tag, 'recording', l('Recordings'))],
     ['work', link_tag(tag, 'work', l('Works'))],
     ['label', link_tag(tag, 'label', l('Labels'))],
+    ['place', link_tag(tag, 'place', l('Places'))],
 ] -%]
 
 <h1>[%- l('Tag “{tag}”', { tag => link_tag(tag, 'show') }) -%]</h1>

@@ -11,7 +11,6 @@ use MusicBrainz::Server::Constants qw(
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
-use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'ReleaseGroup',

@@ -25,8 +25,6 @@ use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 
-use MusicBrainz::Server::Form::Confirm;
-use MusicBrainz::Server::Form::Label;
 use Sql;
 
 =head1 NAME
@@ -70,6 +68,7 @@ after 'load' => sub
     $c->model('LabelType')->load($label);
     $c->model('Area')->load($c->stash->{label});
     $c->model('Area')->load_codes($label->area);
+    $c->model('Area')->load_containment($label->area);
 };
 
 =head2 show

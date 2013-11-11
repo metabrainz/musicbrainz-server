@@ -67,19 +67,13 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
         }
     };
 
-    self.selected = function (event) {
-
-        /* this should come in through the second parameter to the
-         * function, but it's getting lost somewhere, and I have not
-         * been able to figure out why/where. --warp. */
-        var data = self.$autocomplete.find ('input.name').data ('lookup-result');
-
+    self.selected = function (event, data) {
         self.$name.text (data.name);
         self.$name.attr ('href', '/recording/' + data.gid);
         self.$gid.val (data.gid);
         self.$artist.text (data.artist);
         self.$length.text (data.length);
-        self.renderReleaseGroups (self.$appears, data.gid, data.appears_on);
+        self.renderReleaseGroups (self.$appears, data.gid, data.appearsOn);
 
         self.$container.find ('tr.clientmatch').show ();
 
@@ -108,7 +102,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
     MB.Control.EntityAutocomplete ({
         'inputs': self.$autocomplete,
         'lookupHook': self.lookupHook,
-        'show_status': false
+        'showStatus': false
     });
 
     self.$autocomplete.bind ('lookup-performed', self.selected);
@@ -281,7 +275,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
         /* track. */
         $track.find ('.position').text (idx + 1);
         $track.find ('.name').text (data.name);
-        $track.find ('.length').text('(' + MB.utility.formatTrackLength(data.length) + ')');
+        $track.find ('.track-length').text('(' + MB.utility.formatTrackLength(data.length) + ')');
         $track.find ('.track-artist').text (data.artist_credit.preview);
 
         $bubble.find ('tr.servermatch.recordingmatch').show ();
@@ -331,7 +325,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 
             var appears = rr_track.select.renderReleaseGroups (
                 $bubble.find ('tr.servermatch span.appears'),
-                trk.recording.gid, trk.recording.appears_on);
+                trk.recording.gid, trk.recording.appearsOn);
 
             if (appears)
             {

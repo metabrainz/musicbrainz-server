@@ -5,6 +5,8 @@ use feature 'switch';
 
 use Scalar::Util qw( looks_like_number );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 sub operator_cardinality_map {

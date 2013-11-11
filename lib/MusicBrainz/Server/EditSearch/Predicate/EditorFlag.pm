@@ -14,7 +14,10 @@ sub combine_with_query {
     $query->add_join("JOIN editor $editor_alias ON $editor_alias.id = edit.editor");
 
     $query->add_where([
-        "$editor_alias.privs & (" . join(" & ", map { "?" } $self->sql_arguments) . ") != 0",
+        "$editor_alias.privs & (" . join(" & ", map { "?::integer" } @{ $self->sql_arguments->[0] }) . ") " .
+             ($self->operator eq '='  ? '!=' :
+             $self->operator eq '!=' ? '=' : die 'Shouldnt get here')
+         . " 0",
         @{ $self->sql_arguments }
     ]);
 }

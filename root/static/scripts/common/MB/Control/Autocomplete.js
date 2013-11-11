@@ -18,13 +18,419 @@
 
 */
 
+$.widget("ui.autocomplete", $.ui.autocomplete, {
+
+    mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
+
+    options: {
+        minLength: 1,
+        allowEmpty: true,
+
+        // default to showing error and lookup-performed status by adding
+        // those classes (red/green background) to lookup fields.
+        showStatus: true,
+
+        // Prevent menu item focus from changing the input value
+        focus: function (event, data) {
+            return false;
+        },
+
+        source: function (request, response) {
+            // always reset to first page if we're looking for something new.
+            if (request.term != this.pageTerm) {
+                this._resetPage();
+                this.pageTerm = request.term;
+            }
+
+            if (this.xhr) {
+                this.xhr.abort();
+            }
+
+            this.xhr = $.ajax(this.lookupHook({
+                url: "/ws/js/" + this.entity,
+                data: {
+                    q: request.term,
+                    page: this.currentPage,
+                    direct: !this.indexedSearch
+                },
+                dataType: "json",
+                success: $.proxy(this._lookupSuccess, this, response),
+                error: $.proxy(response, null, [])
+            }));
+        }
+    },
+
+    _create: function () {
+        this._super();
+
+        this.currentResults = [];
+        this.currentPage = 1;
+        this.totalPages = 1;
+        this.pageTerm = "";
+        this.indexedSearch = true;
+
+        this.setObservable(
+            this.options.currentSelection || ko.observable({
+                name: this._value()
+            })
+        );
+
+        this.$input = this.element;
+        this.$search = this.element
+            .closest("span.autocomplete").find("img.search");
+
+        var self = this;
+
+        // The following callbacks are triggered by jQuery UI. They're defined
+        // here, and not in the "options" definition above, because they need
+        // access to current instance.
+
+        this.options.open = function (event) {
+            // Automatically focus the first item in the menu.
+            self.menu.focus(event, self.menu.element.children("li:eq(0)"));
+        };
+
+        this.options.select = function (event, data) {
+            var entity;
+
+            try {
+                entity = MB.entity(data.item, self.entity);
+            } catch (e) {
+                entity = data.item;
+            }
+
+            self.currentSelection(entity);
+            self.element.trigger("lookup-performed", [entity]);
+
+            // Returning false prevents the search input's text from changing.
+            // We've already changed it in setSelection.
+            return false;
+        };
+
+        // End of options callbacks.
+
+        this.element.on("input", function (event) {
+            var selection = self.currentSelection.peek();
+
+            // XXX The condition shouldn't be necessary, because the input
+            // event should only fire if the value has changed. But Opera
+            // doesn't fire an input event if you paste text into a field,
+            // only if you type it [1]. Pressing enter after pasting an MBID,
+            // then, has the effect of firing the input event too late, and
+            // clearing the field. Checking the current selection against the
+            // current value is done to prevent this.
+            // [1] https://developer.mozilla.org/en-US/docs/Web/Reference/Events/input
+            if (selection && selection.name !== this.value) {
+                self.clearSelection(false);
+            }
+        });
+
+        this.element.on("blur", function (event) {
+            if (self.cancelAllBlurs) {
+                self.cancelAllBlurs = false;
+                return;
+            }
+            // Stop searching if someone types something and then tabs out of
+            // the field.
+            self.cancelSearch = true;
+
+            var selection = self.currentSelection.peek();
+
+            if (selection && selection.name !== self._value()) {
+                self.clear(false);
+            }
+        });
+
+        this.$search.on("click.mb", function (event) {
+            if (self.element.is(":enabled")) {
+                self.element.focus();
+
+                if (self._value()) {
+                    self._searchAgain();
+                }
+            }
+        });
+
+        // Click events inside the menu, but outside of a relate-to box,
+        // should not cause the box to close.
+        this.menu.element.on("click", function (event) {
+            event.stopPropagation();
+        });
+
+        this.changeEntity(this.options.entity);
+    },
+
+    // Overrides $.ui.autocomplete.prototype.close
+    // Reset the currentPage and currentResults on menu close.
+    close: function (event) {
+        this._super(event);
+        this._resetPage();
+    },
+
+    clear: function (clearAction) {
+        this.clearSelection(clearAction);
+        this.close();
+    },
+
+    clearSelection: function (clearAction) {
+        this.currentSelection({ name: clearAction ? "" : this._value() });
+        this.element.trigger("cleared", [clearAction]);
+    },
+
+    _resetPage: function () {
+        this.currentPage = 1;
+        this.currentResults = [];
+    },
+
+    _searchAgain: function (toggle) {
+        this._preventMenuClose();
+
+        if (toggle) {
+            this.indexedSearch = !this.indexedSearch;
+        }
+        this._resetPage();
+        this.term = this._value();
+        this._search(this.term);
+    },
+
+    _showMore: function () {
+        this._preventMenuClose();
+        this.currentPage += 1;
+        this._search(this._value());
+    },
+
+    _preventMenuClose: function () {
+        // cancelBlur prevents the menu from closing after a click event
+        this.cancelBlur = true;
+
+        // $.ui deletes cancelBlur after checking it, so we also need our own
+        this.cancelAllBlurs = true;
+    },
+
+    setSelection: function (data) {
+        data = data || {};
+        data.name = data.name || "";
+
+        if (this._value() !== data.name) {
+            this._value(data.name);
+        }
+
+        if (this.options.showStatus) {
+            var hasID = !!(data.id || data.gid);
+            var error = !(data.name || hasID || this.options.allowEmpty);
+
+            this.element
+                .toggleClass("error", error)
+                .toggleClass("lookup-performed", hasID);
+        }
+        this.term = data.name || "";
+        this.selectedItem = data;
+    },
+
+    setObservable: function (observable) {
+        if (this._selectionSubscription) {
+            this._selectionSubscription.dispose();
+        }
+        this.currentSelection = observable;
+
+        if (observable) {
+            this._selectionSubscription =
+                observable.subscribe(this.setSelection, this);
+            this.setSelection(observable.peek());
+        }
+    },
+
+    // Overrides $.ui.autocomplete.prototype._searchTimeout
+    _searchTimeout: function (event) {
+        clearTimeout(this.searching);
+
+        var value = this._value();
+        var mbidMatch = value.match(this.mbidRegex);
+
+        if (mbidMatch === null) {
+            if (!value) {
+                this.close();
+
+            // only search if the value has changed
+            } else if (this.term !== value) {
+                this.searching = this._delay(
+                    function () {
+                        this.selectedItem = null;
+                        this.search(null, event);
+                    },
+                    this.options.delay
+                );
+            }
+        } else {
+            this._lookupMBID(mbidMatch[0]);
+        }
+    },
+
+    _lookupMBID: function (mbid) {
+        var self = this;
+
+        this.close();
+        this.element.prop("disabled", true);
+
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+
+        this.xhr = $.ajax({
+            url: "/ws/js/entity/" + mbid,
+
+            dataType: "json",
+
+            success: function (data) {
+                if (data.type != self.entity) {
+                    // Only RelateTo boxes and relationship-editor dialogs
+                    // support changing the entity type.
+                    var setEntity = self.options.setEntity;
+
+                    if (!setEntity || setEntity(data.type) === false) {
+                        self.clear();
+                        return;
+                    }
+                }
+                self.currentSelection(data);
+            },
+
+            error: _.bind(this.clear, this),
+
+            complete: function () {
+                self.element.prop("disabled", false).focus();
+            }
+        });
+    },
+
+    lookupHook: _.identity,
+    resultHook: _.identity,
+
+    _lookupSuccess: function (response, data, result, request) {
+        var pager = _.last(data);
+        var jumpTo = this.currentResults.length;
+
+        data = this.resultHook(_.initial(data));
+
+        // "currentResults" will contain action items that aren't results,
+        // e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
+        // before appending the new results (we re-add them below).
+
+        var results = this.currentResults = _.filter(
+            this.currentResults, function (item) {
+                return !item.action;
+            });
+
+        results.push.apply(results, data);
+
+        this.currentPage = parseInt(pager.current, 10);
+        this.totalPages = parseInt(pager.pages, 10);
+
+        if (results.length === 0) {
+            results.push({
+                label: "(" + MB.text.NoResults + ")",
+                action: _.bind(this.close, this)
+            });
+        }
+
+        if (this.currentPage < this.totalPages) {
+            results.push({
+                label: MB.text.ShowMore,
+                action: _.bind(this._showMore, this)
+            });
+        }
+
+        results.push({
+            label: this.indexedSearch ? MB.text.SwitchToDirectSearch :
+                                        MB.text.SwitchToIndexedSearch,
+            action: _.bind(this._searchAgain, this, true)
+        });
+
+        response(results);
+
+        this._delay(function () {
+            // Once everything's rendered, jump to the first item that was
+            // added. This makes the menu scroll after hitting "Show More."
+            var menu = this.menu;
+            var $ul = menu.element;
+
+            if (menu.active) {
+                menu.active.children("a").removeClass("ui-state-focus");
+            }
+
+            var $item = menu.active = $ul.children("li:eq(" + jumpTo + ")");
+            $item.children("a").addClass("ui-state-focus");
+
+            if (this.currentPage > 1) {
+                $ul.scrollTop($item.position().top + $ul.scrollTop());
+            }
+        });
+    },
+
+    _renderAction: function (ul, item) {
+        return $("<li>")
+            .css("text-align", "center")
+            .append($("<a>").text(item.label))
+            .appendTo(ul)
+            .data("ui-autocomplete-item", { action: item.action });
+    },
+
+    _renderItem: function (ul, item) {
+        if (item.action) {
+            return this._renderAction(ul, item);
+        }
+        var formatters = MB.Control.autocomplete_formatters;
+        return (formatters[this.entity] || formatters.generic)(ul, item);
+    },
+
+    changeEntity: function (entity) {
+        this.entity = entity.replace("_", "-");
+    }
+});
+
+
+$.widget("ui.menu", $.ui.menu, {
+
+    // When a result is normally selected from an autocomplete menu, the menu
+    // is closed and the text of the search input is changed. This is not what
+    // we want to happen for menu items associated with an action (e.g. show
+    // more, switch to indexed search, clear artist, etc.). To support the
+    // desired behavior, the "select" method for jQuery UI menus is overridden
+    // below to check if an action function is associated with the selected
+    // item. If it is, the action is executed. Otherwise we fall back to the
+    // default menu behavior.
+
+    select: function (event) {
+        var active = this.active || $(event.target).closest(".ui-menu-item");
+        var item = active.data("ui-autocomplete-item");
+
+        if (item && $.isFunction(item.action)) {
+            item.action();
+            event.preventDefault();
+        } else {
+            this._super(event);
+        }
+
+        // When mouseHandled is true, $.ui ignores future mouse events. It only
+        // gets reset to false if you click outside of the menu, but we want
+        // it to be false no matter what.
+        this.mouseHandled = false;
+    }
+});
+
+
 MB.Control.autocomplete_formatters = {
     "generic": function (ul, item) {
         var a = $("<a>").text (item.name);
 
         var comment = [];
 
-        if (item.sortname && !MB.utility.is_ascii (item.name))
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
+
+        if (item.sortname && !MB.utility.is_latin (item.name) && item.sortname != item.name)
         {
             comment.push (item.sortname);
         }
@@ -40,7 +446,7 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     },
 
     "recording": function (ul, item) {
@@ -90,11 +496,17 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     },
 
     "release-group": function (ul, item) {
         var a = $("<a>").text (item.name);
+
+        if (item.firstReleaseDate)
+        {
+            a.append ('<span class="autocomplete-comment">(' +
+                        item.firstReleaseDate + ')</span>');
+        }
 
         if (item.comment)
         {
@@ -102,10 +514,12 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+        if (item.typeName) {
+            a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
+                    MB.utility.escapeHTML (item.artist) + '</span>');
+        }
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     },
 
     "work": function (ul, item) {
@@ -151,7 +565,7 @@ MB.Control.autocomplete_formatters = {
         artistRenderer("Writers", item.artists.writers);
         artistRenderer("Artists", item.artists.artists);
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     },
 
     "area": function (ul, item) {
@@ -163,21 +577,29 @@ MB.Control.autocomplete_formatters = {
                       MB.utility.escapeHTML (item.comment) + ')</span>');
         }
 
-        if (item.typeName || item.parentCountry) {
+        if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
+             var items = [];
+             if (item.typeName) items.push(MB.utility.escapeHTML(item.typeName));
+             if (item.parentCity) items.push(MB.utility.escapeHTML(item.parentCity));
+             if (item.parentSubdivision) items.push(MB.utility.escapeHTML(item.parentSubdivision));
+             if (item.parentCountry) items.push(MB.utility.escapeHTML(item.parentCountry));
              a.append ('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
-                       (item.typeName && item.parentCountry ? ', ' : '') +
-                       (item.parentCountry ? MB.utility.escapeHTML(item.parentCountry) : '') +
+                       items.join(", ") +
                        '</span>');
         };
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     },
 
     "place": function (ul, item) {
         var a = $("<a>").text (item.name);
 
         var comment = [];
+
+        if (item.primary_alias && item.primary_alias != item.name)
+        {
+            comment.push (item.primary_alias);
+        }
 
         if (item.comment)
         {
@@ -198,309 +620,15 @@ MB.Control.autocomplete_formatters = {
                        '</span>');
         };
 
-        return $("<li>").data ("ui-autocomplete-item", item).append (a).appendTo (ul);
+        return $("<li>").append (a).appendTo (ul);
     }
 
 };
 
 
-MB.Control.Autocomplete = function (options) {
-    var self = MB.Object();
-    var cancelSearch = true;
-
-    var formatPager = function (ul, item) {
-        if (ul.children ().length === 0)
-        {
-            var span = $('<span>(' + MB.text.NoResults + ')</span>');
-
-            return $("<li>")
-                .data ("ui-autocomplete-item", item)
-                .addClass("ui-menu-item")
-                .css ('text-align', 'center')
-                .append (span)
-                .appendTo (ul);
-        }
-
-        if (item.current == item.pages)
-        {
-            return $();
-        }
-
-        item.action = function () {
-            self.currentPage += 1;
-            self.autocomplete._search(self.$input.val());
-        };
-
-        return $('<li>')
-            .data ("ui-autocomplete-item", item)
-            .css ('text-align', 'center')
-            .append ($("<a>").text(MB.text.ShowMore))
-            .appendTo (ul);
-    };
-
-    var formatMessage = function (ul, item) {
-
-        var message = $("<a>").text (item.message);
-
-        var li = $('<li>')
-            .data ("ui-autocomplete-item", item)
-            .css ('text-align', 'center')
-            .append (message)
-            .appendTo (ul);
-
-        return li;
-    };
-
-    self.resetPage = function () {
-        self.currentPage = 1;
-        self.currentResults = [];
-    };
-
-    self.searchAgain = function (toggle) {
-        if (toggle) {
-            self.indexed_search = !self.indexed_search;
-        }
-        self.resetPage();
-        self.autocomplete._search(self.$input.val());
-    };
-
-    self.close = function (event) {
-        self.$input.focus();
-
-        // If the menu is closing for good (i.e. not just temporarily after
-        // hitting "Show more..."), clear the current page and results.
-        if (cancelSearch) {
-            self.resetPage();
-        }
-
-        cancelSearch = true;
-    };
-
-    self.open = function (event) {
-        var menu = self.autocomplete.menu;
-        menu.focus(event, menu.element.children("li:eq(0)"));
-
-        // XXX MBS-1675
-        if ($(document).height () > $('body').height ()) {
-            $('body').height ($(document).height ());
-        }
-    };
-
-    self.lookup = function (request, response) {
-        if (request.term != self.page_term)
-        {
-            /* always reset to first page if we're looking for something new. */
-            self.resetPage();
-            self.page_term = request.term;
-        }
-
-        $.ajax(self.lookupHook ({
-            url: self.url,
-            data: { q: request.term, page: self.currentPage, direct: !self.indexed_search },
-            success: function (data, result, request) {
-                data = self.resultHook(data);
-                var jumpTo = self.currentResults.length;
-                self.currentResults.push.apply(self.currentResults, data.slice(0, -1));
-                var pager = data.pop();
-                data = self.currentResults.slice(0);
-                data.push(pager);
-
-                if (options.allow_empty) {
-                    data.push ({
-                        "action": function () { self.clear (true) },
-                        "message": MB.text.RemoveLinkedEntity[self.entity]
-                    });
-                }
-
-                data.push ({
-                    "action": function () { self.searchAgain (true); },
-                    "message": self.indexed_search ?
-                        MB.text.SwitchToDirectSearch :
-                        MB.text.SwitchToIndexedSearch
-                });
-
-                var re = response(data, result, request);
-
-                self.autocomplete._delay(function () {
-                    var menu = self.autocomplete.menu;
-                    var $ul = menu.element;
-
-                    if (menu.active) {
-                        menu.active.children("a").removeClass("ui-state-focus");
-                    }
-
-                    var $item = menu.active = $ul.children("li:eq(" + jumpTo + ")");
-                    $item.children("a").addClass("ui-state-focus");
-
-                    if (self.currentPage > 1) {
-                        $ul.scrollTop($item.position().top + $ul.scrollTop());
-                    }
-                });
-
-                return re;
-            }
-        }));
-    };
-
-    self.select = function (event, data) {
-        event.preventDefault();
-        var item = self.currentSelection = data.item;
-
-        if (item.action) {
-            cancelSearch = false;
-            item.action();
-            self.autocomplete.menu.mouseHandled = false;
-        } else {
-            cancelSearch = true;
-            options.select(event, item);
-        }
-    };
-
-    self.clear = function (clearAction) {
-        self.currentSelection = null;
-        self.resetPage();
-        if (options.clear)
-        {
-            options.clear (clearAction);
-        }
-    };
-
-    // Prevent menu item focus from changing the input value
-    self.focus = function (event, data) {
-        return false;
-    };
-
-    self.initialize = function () {
-        self.changeEntity (options.entity);
-
-        var entity_regex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
-
-        self.$input.on('input', function (event) {
-            var match = this.value.match(entity_regex);
-            if (match === null) {
-                $(this).trigger("keydown.autocomplete");
-                return;
-            }
-            cancelSearch = true;
-            self.autocomplete.close();
-            // MBS-6385: prevent the autocomplete from searching the entered
-            // URL/MBID as an entity name by clearing the internal timeout it
-            // uses before searching.
-            clearTimeout(self.autocomplete.searching);
-            var mbid = match[0];
-
-            $(this).trigger("blur.autocomplete").prop("disabled", true);
-
-            $.ajax({
-                url: "/ws/js/entity/" + mbid,
-                dataType: "json",
-                success: function (data) {
-                    var type = data["type"];
-                    if (type != self.entity) {
-                        // Only RelateTo boxes and relationship-editor dialogs
-                        // support changing the entity type.
-                        if (!options.setEntity || options.setEntity(type) === false) {
-                            self.clear();
-                            return;
-                        }
-                    }
-                    self.select (event, { item: data });
-                    self.autocomplete.term = data.name;
-                    self.autocomplete.selectedItem = null;
-                },
-                error: function () {
-                    self.clear();
-                },
-                complete: function () {
-                    self.$input.prop("disabled", false).focus();
-                }
-            });
-        });
-
-        self.$input.autocomplete ($.extend({}, options, {
-            source:    self.lookup,
-            minLength: options.minLength ? options.minLength : 1,
-            select:    self.select,
-            close:     self.close,
-            open:      self.open,
-            focus:     self.focus
-        }));
-
-        self.autocomplete = self.$input.data ('ui-autocomplete');
-
-        self.$input.on('blur', function(event) {
-            if (!self.currentSelection) return;
-            if (self.currentSelection.name !== self.$input.val()) {
-                self.clear (false);
-            }
-        });
-
-        self.$search.on('click.mb', function (event) {
-            self.searchAgain ();
-            self.$input.focus ();
-        });
-
-        self.autocomplete._renderItem = function (ul, item) {
-            return item['pages'] ? self.formatPager (ul, item) :
-                item['message'] ? self.formatMessage (ul, item) :
-                self.formatItem (ul, item);
-        };
-
-        /* Click events inside the menu, but outside of a relate-to box,
-           should not cause the box to close. */
-        self.autocomplete.menu.element.click(function (event) {
-            event.stopPropagation();
-        });
-
-        self.autocomplete.close = function (event) {
-            // XXX selecting the show-more or direct-search buttons closes the
-            // menu, which stops the in-progress searches.
-            if (cancelSearch) {
-                self.autocomplete.cancelSearch = true;
-            }
-            self.autocomplete._close(event);
-        };
-    };
-
-    self.changeEntity = function (entity) {
-        self.entity = entity.replace ('_', '-');
-        self.url = options.url || "/ws/js/" + self.entity;
-
-        if (options.formatItem)
-        {
-            self.formatItem = options.formatItem;
-        }
-        else
-        {
-            self.formatItem = MB.Control.autocomplete_formatters[self.entity] ||
-                MB.Control.autocomplete_formatters['generic'];
-        }
-    };
-
-    self.currentSelection = null;
-
-    self.$input = options.input;
-    self.$search = self.$input.closest ('span.autocomplete').find('img.search');
-
-    self.lookupHook = options.lookupHook || function (r) { return r; };
-    self.resultHook = options.resultHook || function (r) { return r; };
-    self.page_term = '';
-    self.currentPage = 1;
-    self.currentResults = [];
-    self.selected_item = 0;
-    self.indexed_search = true;
-
-    self.formatPager = options.formatPager || formatPager;
-    self.formatMessage = options.formatMessage || formatMessage;
-
-    return self;
-};
-
-
 /*
    MB.Control.EntityAutocomplete is a helper class which simplifies using
-   Autocomplete to look up entities.  It takes care of setting 'error' and
-   'lookup-performed' classes on the search input, and setting id and gid
+   Autocomplete to look up entities.  It takes care of setting id and gid
    values on related hidden inputs.
 
    It expects to see html looking like this:
@@ -520,105 +648,56 @@ MB.Control.Autocomplete = function (options) {
    The 'lookup-performed' and 'cleared' events will be triggered on the input.name
    element (though you can just bind on the span, as events will bubble up).
 */
+
 MB.Control.EntityAutocomplete = function (options) {
-    var $inputs = options.inputs;
+    var $inputs = options.inputs || $();
+    var $name = options.input || $inputs.find("input.name");
 
-    delete options.inputs;
-
-    var $name = $inputs.find ('input.name');
-    var $id = $inputs.find ('input.id');
-    var $gid = $inputs.find ('input.gid');
-
-    if (!options.hasOwnProperty ('show_status'))
-    {
-        /* default to showing error and lookup-performed status by adding those
-           classes (red/green background) to lookup fields. */
-        options.show_status = true;
-    }
-
-    if (!options.entity)
-    {
-        /* guess the entity from span classes. */
-        $.each (MB.constants.ENTITIES, function (idx, entity) {
-            if ($inputs.hasClass (entity))
-            {
+    if (!options.entity) {
+        // guess the entity from span classes.
+        $.each(MB.constants.ENTITIES, function (idx, entity) {
+            if ($inputs.hasClass(entity)) {
                 options.entity = entity;
             }
         });
     }
 
-    options.input = $name;
+    $name.autocomplete(options);
+    var autocomplete = $name.data("ui-autocomplete");
 
-    options.select = function (event, item) {
+    autocomplete.currentSelection({
+        name: $name.val(),
+        id: $inputs.find("input.id").val(),
+        gid: $inputs.find("input.gid").val()
+    });
+
+    autocomplete.currentSelection.subscribe(function (item) {
+        var $hidden = $inputs.find("input[type=hidden]").val("");
+
         // We need to do this manually, rather than using $.each, due to recordings
         // having a 'length' property.
         for (key in item) {
-            $inputs.find('input.' + key).val(item[key]).trigger('change');
-        }
-
-        $name.removeClass('error');
-        if (options.show_status)
-        {
-            $name.addClass ('lookup-performed');
-        }
-        $name.data ('lookup-result', item);
-        $name.trigger ('lookup-performed', [ item ]);
-    };
-
-    var self = MB.Control.Autocomplete(options);
-
-    /* if clearAction is set, also clear the autocomplete input itself,
-       otherwise only clear the lookup / selection. */
-    self.clear = function (clearAction) {
-        $inputs.find ('input').each (function (idx, elem) {
-            if (! $(elem).hasClass ('name') || clearAction)
-            {
-                $(elem).val ('');
-            }
-        });
-
-        if (options.show_status && $name.val () !== '')
-        {
-            $name.addClass('error');
-        }
-        $name.removeClass ('lookup-performed');
-        $name.data ('lookup-result', null);
-        $name.trigger ('cleared');
-    };
-
-    var parent_initialize = self.initialize;
-
-    self.initialize = function () {
-        parent_initialize ();
-
-        if ($id.val () === '' && $gid.val () === '')
-        {
-            $name.removeClass ('lookup-performed');
-            if ($name.val () !== '' && options.show_status)
-            {
-                $name.addClass('error');
+            if (item.hasOwnProperty(key)) {
+                $hidden.filter("input." + key)
+                    .val(item[key]).trigger("change");
             }
         }
-        else
-        {
-            $name.removeClass('error');
-            if (options.show_status)
-            {
-                $name.addClass ('lookup-performed');
-            }
+    });
 
-            self.currentSelection = {
-                name: $name.val (),
-                id: $id.val (),
-                gid: $gid.val ()
-            };
+    return autocomplete;
+};
+
+
+ko.bindingHandlers.autocomplete = {
+
+    init: function (element, valueAccessor) {
+        var options = valueAccessor();
+
+        var autocomplete = $(element).autocomplete(options)
+            .data("ui-autocomplete");
+
+        if (options.artistCredit) {
+            options.artistCredit.setAutocomplete(autocomplete, element);
         }
     }
-
-    options.input = $name;
-
-    self.initialize ();
-
-    return self;
-}
-
+};

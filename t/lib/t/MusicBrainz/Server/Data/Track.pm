@@ -85,7 +85,7 @@ Sql::run_in_transaction(sub {
     $track = $track_data->get_by_id(1);
     ok(!defined $track);
 
-    my $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
+    $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
     is ($toc, '(628519, 358960, 332613, 296160, 372386, 500)', 'DurationLookup updated medium_index after track delete');
 
 }, $test->c->sql);

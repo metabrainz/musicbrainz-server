@@ -73,6 +73,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr ""
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -121,6 +126,11 @@ msgstr ""
 #: DB:medium_format/name:8
 msgctxt "medium_format"
 msgid "Cassette"
+msgstr ""
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
 msgstr ""
 
 #: DB:area_type/name:3
@@ -186,6 +196,11 @@ msgstr ""
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
+msgstr ""
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
 msgstr ""
 
 #: DB:medium_format/name:4
@@ -301,6 +316,11 @@ msgstr ""
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
+msgstr ""
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
 msgstr ""
 
 #: DB:release_packaging/name:7

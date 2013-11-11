@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 22:59+0000\n"
+"PO-Revision-Date: 2013-10-29 01:11+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr "Libro"
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -133,6 +138,11 @@ msgstr "Cartuccia"
 msgctxt "medium_format"
 msgid "Cassette"
 msgstr "Audiocassetta"
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr ""
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -198,6 +208,11 @@ msgstr "Supporto digitale"
 msgctxt "label_type"
 msgid "Distributor"
 msgstr "Distributore"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr ""
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -313,6 +328,11 @@ msgstr "Mixtape/Street"
 msgctxt "work_type"
 msgid "Motet"
 msgstr "Mottetto"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr "Comune"
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"

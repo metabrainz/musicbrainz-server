@@ -35,6 +35,7 @@ test all => sub {
     my $response = $mech->submit_form(
         with_fields => {
             'merge.target' => '2',
+            'merge.edit_note' => 'Destructive edits require an edit note',
         }
     );
     ok($mech->uri =~ qr{/recording/54b9d183-7dab-42ba-94a3-7388a66604b8});

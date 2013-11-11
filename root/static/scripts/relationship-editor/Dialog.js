@@ -21,13 +21,6 @@ MB.RelationshipEditor = (function(RE) {
 
 var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {}, $w = $(window);
 
-var allowedRelations = {
-    recording:     ["artist", "label", "place", "recording", "release", "work"],
-    work:          ["artist", "label", "work"],
-    release:       ["artist", "label", "place", "recording", "release"],
-    release_group: ["artist", "place", "release_group"]
-};
-
 // For select attributes and the link type field, we use a custom binding handler
 // for performance reasons (the instrument tree is huge, for example). We also
 // need to support the unaccented instrument names. the builtin options binding
@@ -168,7 +161,7 @@ ko.bindingHandlers.targetType = (function() {
         if (ac) {
             ac.clear();
             ac.changeEntity(this.value);
-            Dialog.$autocomplete.find("input.name").removeClass("error");
+            Dialog.autocomplete.clear();
         }
     }
 
@@ -176,7 +169,7 @@ ko.bindingHandlers.targetType = (function() {
         init: function(element) {
             var $element = $(element).change(change), relationship = Dialog.relationship(),
                 types = (relationship.type == "recording-work")
-                    ? ["work"] : allowedRelations[Dialog.source.type];
+                    ? ["work"] : Util.allowedRelations[Dialog.source.type];
 
             $element.empty();
             $.each(types, function(i, type) {
@@ -188,27 +181,12 @@ ko.bindingHandlers.targetType = (function() {
 }());
 
 
-function setAutocompleteEntity(entity, nameOnly) {
-    var $ac = Dialog.$autocomplete, ac = Dialog.autocomplete,
-        $name = $ac.find("input.name");
-
-    ac.term = entity.name;
-    ac.selectedItem = null;
-    $name.removeClass("error lookup-performed").val(entity.name);
-
-    if (nameOnly === false) {
-        ac.currentSelection = null;
-        $name.addClass("lookup-performed").data("lookup-result", entity);
-    }
-};
-
-
 ko.bindingHandlers.autocomplete = (function() {
 
     var recentEntities = {};
 
     function setEntity(type) {
-        if (!_.contains(allowedRelations[Dialog.source.type], type) ||
+        if (!_.contains(Util.allowedRelations[Dialog.source.type], type) ||
                 (Dialog.disableTypeSelection() && type != Dialog.target.type)) {
             Dialog.autocomplete.clear();
             return false;
@@ -216,11 +194,11 @@ ko.bindingHandlers.autocomplete = (function() {
         $("#target-type").val(type).trigger("change");
     }
 
-    function changeTarget(event, data) {
-        if (!data.gid) return;
-
-        // XXX release groups' numeric "type" conflicts with the entity type
-        data.type = _.isNumber(data.type) ? "release_group" : (data.type || Dialog.target.type);
+    function changeTarget(data) {
+        if (!data || !data.gid) {
+            return;
+        }
+        data.type = data.type || Dialog.target.type;
 
         // Add/move to the top of the recent entities menu.
         var recent = recentEntities[data.type] = recentEntities[data.type] || [],
@@ -238,7 +216,7 @@ ko.bindingHandlers.autocomplete = (function() {
             return;
 
         var recent = recentEntities[Dialog.target.type],
-            ac = Dialog.autocomplete.autocomplete;
+            ac = Dialog.autocomplete;
 
         if (!this.value && recent && recent.length && !ac.menu.active) {
             // setting ac.term to "" prevents the autocomplete plugin
@@ -248,36 +226,26 @@ ko.bindingHandlers.autocomplete = (function() {
         }
     }
 
-    function fixAutocompleteKeys(event) {
-        // In Opera 10, when the keydown event on the autocomplete bubbles up to the
-        // dialog, isDefaultPrevented returns false even though here it returns true.
-        // Other browsers work fine.
-        if ((event.keyCode == 13 && event.isDefaultPrevented()) || event.keyCode == 27)
-            event.stopPropagation();
-
-        // Opera doesn't return focus to the autocomplete after pressing esc.
-        // without preventDefault.
-        if (event.keyCode == 27)
-            event.preventDefault();
-    }
-
     return {
-        init: function(element) {
-            var $autocomplete = Dialog.$autocomplete = $(element);
+        init: function (element) {
+            Dialog.autocomplete = $(element).autocomplete({
+                    entity: Dialog.target.type,
+                    setEntity: setEntity
+                })
+                .data("ui-autocomplete");
 
-            Dialog.autocomplete = MB.Control.EntityAutocomplete({
-                inputs: $autocomplete,
-                entity: Dialog.target.type,
-                setEntity: setEntity
-            });
+            Dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
-            $autocomplete
-                .on("lookup-performed", changeTarget)
-                .find("input.name")
-                    .on("keydown keypress", fixAutocompleteKeys)
-                    .on("keyup focus click", showRecentEntities);
+            $(element).on("keyup focus click", showRecentEntities);
 
-            setAutocompleteEntity(Dialog.target, Dialog.mode() != "edit");
+            if (Dialog.mode() === "edit") {
+                Dialog.autocomplete.currentSelection(Dialog.target);
+            } else {
+                // Fills in the recording name in the add-related-work dialog.
+                Dialog.autocomplete.currentSelection({
+                    name: Dialog.target.name
+                });
+            }
         }
     };
 }());
@@ -371,7 +339,15 @@ var Dialog = UI.Dialog = {
         this.source = entity[1];
 
         this.linkTypeDescription = ko.computed(function() {
-            return (Util.typeInfo(Dialog.relationship().link_type()) || {}).descr || "";
+            var typeInfo = Util.typeInfo(Dialog.relationship().link_type());
+            var description = '';
+
+            if (typeInfo) {
+                description += typeInfo.descr +
+                  ' (<a href="/relationship/' + typeInfo.gid + '">' + 'more documentation</a>)';
+            }
+
+            return description || "";
         });
 
         ko.computed(function() {
@@ -464,7 +440,7 @@ var Dialog = UI.Dialog = {
 
         WorkDialog.show(function(work) {
             var target = MB.entity(work, "work");
-            setAutocompleteEntity(target, false);
+            Dialog.autocomplete.currentSelection(target);
             Dialog.targetField.peek()(target);
 
         }, event.pageX, event.pageY);

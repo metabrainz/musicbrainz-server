@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-12 11:01+0000\n"
+"PO-Revision-Date: 2013-10-29 19:39+0000\n"
 "Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -31,17 +31,17 @@ msgstr ""
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "Vinilo, 10″"
+msgstr "Vinilo 10\""
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "Vinilo, 12″"
+msgstr "Vinilo 12″"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "Vinilo, 7″"
+msgstr "Vinilo 7″"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -93,6 +93,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr "Libro"
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -142,6 +147,11 @@ msgstr "Cartucho"
 msgctxt "medium_format"
 msgid "Cassette"
 msgstr "Casete"
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr "Caja de cinta"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -207,6 +217,11 @@ msgstr "Digital"
 msgctxt "label_type"
 msgid "Distributor"
 msgstr "Distribuidor"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr "Distrito"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -322,6 +337,11 @@ msgstr "Mixtape/Street"
 msgctxt "work_type"
 msgid "Motet"
 msgstr "Motete"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr "Municipio"
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
