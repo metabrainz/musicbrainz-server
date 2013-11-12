@@ -121,6 +121,26 @@ test 'Coordinate validation' => sub {
             longitude => 13.383333
         },
         {
+            parse => q{北緯３５度３９分５９．８１秒　東経１３９度４４分２９．０６秒},
+            latitude => 35.666614,
+            longitude => 139.741406
+        },
+        {
+            parse => q{北緯43度2分39.22秒 東経141度21分9.77秒},
+            latitude => 43.044228,
+            longitude => 141.352714
+        },
+        {
+            parse => q{南緯22度54分30秒 西経43度11分47秒},
+            latitude => -22.908333,
+            longitude => -43.196389
+        },
+        {
+            parse => q{北緯35度39分59.81秒東経139度44分29.06秒},
+            latitude => 35.666614,
+            longitude => 139.741406
+        },
+        {
             parse => q{},
             latitude => undef,
             longitude => undef

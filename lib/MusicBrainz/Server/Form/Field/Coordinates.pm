@@ -45,10 +45,15 @@ sub validate {
     }
 
     my $separators = '\s?,?\s?';
+    my $number_part = q{\d+(?:\.\d+|)};
+
+    $coordinates =~ tr/　．０-９/ .0-9/; # replace fullwidth characters with normal ASCII
+    $coordinates =~ s/(北|南)緯\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒${separators}(東|西)経\s*(${number_part})度\s*(${number_part})分\s*(${number_part})秒/$2° $3' $4" $1, $6° $7' $8" $5/;
+    $coordinates =~ tr/北南東西/NSEW/; # replace CJK direction characters
+
     my $degree_markers = q{°d};
     my $minute_markers = q{′'};
     my $second_markers = q{"″};
-    my $number_part = q{\d+(?:\.\d+|)};
 
     my $decimalPart = '([+\-]?'.$number_part.')\s?['. $degree_markers .']?\s?([NSEW]?)';
     if ($coordinates =~ /^${decimalPart}${separators}${decimalPart}$/i) {
