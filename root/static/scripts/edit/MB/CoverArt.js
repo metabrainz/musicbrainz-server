@@ -472,7 +472,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
     File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
-    if (typeof (FormData) === "function")
+    if (typeof (FormData) !== "undefined" && typeof (FileReader) !== 'undefined')
     {
         /* FormData is supported, so we can present the multifile ajax
          * upload form. */
