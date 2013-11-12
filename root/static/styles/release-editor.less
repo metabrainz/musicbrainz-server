@@ -1,3 +1,4 @@
+@import "colors.less";
 
 h1 span {
     font-size: inherit;
@@ -11,18 +12,18 @@ h1 span {
    __________________________________ */
 
 #release-editor > ul.tabs {
-    background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828;
+    background: url(../lib/jquery.ui/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) repeat-x scroll 50% 50% #F6A828; // XXX: copied from jquery-ui
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
-    border: 1px solid #e78f08;
+    border: 1px solid #e78f08; // XXX: copied from jquery-ui
     line-height: 1.3;
     padding: 3px 0 0 4px;
 }
 
 #release-editor > ul.tabs li input[type=submit] {
     border: 0;
-    color: #1c94c4;
+    color: @re-unfocus-tab-text;
     background: white;
     font-weight: bold;
     font-family: inherit;
@@ -30,7 +31,7 @@ h1 span {
 }
 
 #release-editor > ul.tabs li.current input[type=submit] {
-    color: #eb8f00;
+    color: @re-focus-tab-text;
 }
 
 #release-editor > ul.tabs li {
@@ -53,7 +54,7 @@ h1 span {
 }
 
 #release-editor > ul.tabs li.current {
-    color: #eb8f00;
+    color: @re-focus-tab-text;
     margin: 1px 3px 0px 0;
 }
 
@@ -77,14 +78,14 @@ h1 span {
 #release-editor .documentation div.warning p { margin-top: 1em; }
 
 #release-editor fieldset legend {
-    color: #fc6714;
+    color: @text-orange;
     font-size: 120%;
     font-weight: bold;
     margin: 0 10px;
 }
 
 #release-editor fieldset {
-    border: 1px solid #aaa;
+    border: 1px solid @re-fieldset-grey;
     background: #ffffff;
     margin-top: 0;
 
@@ -123,7 +124,7 @@ h1 span {
 
 #release-editor div.release-label input[disabled] {
     text-decoration: line-through;
-    color: #aaa;
+    color: @disabled-grey;
     background: #fff;
 }
 
@@ -162,7 +163,7 @@ h1 span {
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text],
 #release-editor fieldset.advanced-disc tr.track > td > input[type=text] { border: 1px solid transparent; }
 #release-editor fieldset.advanced-disc tr.track > td > span > input[type=text]:focus,
-#release-editor fieldset.advanced-disc tr.track > td > input[type=text]:focus { border: 1px solid #FFBA58; }
+#release-editor fieldset.advanced-disc tr.track > td > input[type=text]:focus { border: 1px solid @header-orange; }
 
 #release-editor table.medium.tbl { border-collapse: collapse; width: 100%; }
 table.medium.tbl tr.deleted { display: none; }
@@ -186,14 +187,14 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
     padding: 0 5px;
 }
 
-#release-editor .medium.tbl td input[type=text][disabled] { color: #aaa; }
+#release-editor .medium.tbl td input[type=text][disabled] { color: @disabled-grey; }
 #release-editor .medium.tbl td input[type=text] {
     background: #fff;
     height: 100%;
     width: 100%;
 }
 
-#release-editor .medium.tbl td input[type=text].lookup-performed { background: #bfb; color: #000; }
+#release-editor .medium.tbl td input[type=text].lookup-performed { background: @autocomplete-success; color: @text-black; }
 
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
@@ -232,14 +233,14 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 
 #release-editor .medium.tbl tr.track-artist-credit td table {
     margin: 0; padding: 12px; border: 1px solid #999;
-    background: #f0f0f0;
+    background: @secondary-grey;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
 }
 
 #release-editor .medium.tbl tr.track-artist-credit td table td {
-    background: #f0f0f0;
+    background: @secondary-grey;
     padding: 2px;
 }
 
@@ -296,7 +297,7 @@ div.dialog textarea.tracklist {
 div.dialog div.buttons { margin-top: 1em; width: 100%; }
 
 .add-disc-dialog div.tabs li a { background: #ddd; }
-.add-disc-dialog div.tabs li.sel a { background: #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+.add-disc-dialog div.tabs li.sel a { background: @secondary-grey; border-bottom: 1px solid @secondary-grey; }
 
 .add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
 
@@ -309,7 +310,7 @@ div.dialog div.buttons { margin-top: 1em; width: 100%; }
    __________________________________ */
 
 #release-editor .recordings p { margin-top: 0; }
-#release-editor div.select-recording { background: #f0f0f0; }
+#release-editor div.select-recording { background: @secondary-grey; }
 
 span.add-recording { color: #999; }
 table.matches { width: 100%; }
@@ -371,7 +372,7 @@ td.buttons { display: table-cell; }
     width: 2em;
     border: 1px solid #ccc;
     background: transparent;
-    color: #9e9e9e;
+    color: @re-addtrack-text;
     text-align: right;
 }
 

@@ -1,3 +1,5 @@
+@import "colors.less";
+
 div.multiselect {
     position: relative;
 }
@@ -10,7 +12,7 @@ div.multiselect > input {
 
 div.multiselect > div.menu {
     position: absolute;
-    background: #E7E7E7;
+    background: @background-grey;
     border: 1px #ccc solid;
     max-height: 300px;
     overflow-y: scroll;
@@ -21,23 +23,23 @@ div.multiselect > div.menu {
 div.multiselect > div.menu > a {
     display: block;
     color: black;
-    border: 1px #E7E7E7 dotted;
+    border: 1px transparent dotted;
     text-decoration: none !important;
 }
 
 div.multiselect > div.menu > a.hover {
-    background: #FC6714;
+    background: @text-orange;
     color: white;
-    border: 1px #FC6714 dotted;
+    border: 1px transparent dotted;
 }
 
 div.multiselect > div.menu > a > em {
-    background: #FEFFDE;
+    background: @multiselect-highlight;
     font-style: normal;
 }
 
 div.multiselect > div.menu > a.hover > em {
-    color: #FEFFDE;
+    color: @multiselect-highlight;
     background: inherit;
     font-style: normal;
 }
@@ -45,7 +47,7 @@ div.multiselect > div.menu > a.hover > em {
 div.multiselect > div.items > a {
     display: block;
     padding: 1px;
-    background: #E7E7E7;
+    background: @background-grey;
     border: 1px #ccc solid;
     cursor: pointer;
     text-decoration: none !important;
@@ -57,7 +59,7 @@ div.multiselect > div.items > a {
 
 div.multiselect > div.menu > a:focus,
 div.multiselect > div.items > a:focus {
-    border: 1px #736DAB dotted !important;
+    border: 1px @header-purple dotted !important;
 }
 
 div.multiselect > div.items > a:focus {

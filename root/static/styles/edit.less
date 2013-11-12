@@ -1,3 +1,4 @@
+@import "colors.less";
 /* Edit pages ('edit/index.tt' and 'edit/list.tt') */
 
 .overall-vote {
@@ -67,17 +68,17 @@ table.vote-tally .date {
 
 .voteopts .vote-yes {
     border: 1px solid #ccc;
-    background-color: #B1EBB0;
+    background-color: @yes-bg;
 }
 
 .voteopts .vote-no {
     border: 1px solid #ccc;
-    background-color: #EBB1BA
+    background-color: @no-bg;
 }
 
 .voteopts .vote-abs {
     border: 1px solid #ccc;
-    background-color: #F2F0A5;
+    background-color: @abstain-bg;
 }
 
 .wrap-block {
@@ -130,7 +131,7 @@ table.vote-tally .date {
     position: relative;
 }
 .edit-note h3.No a img {
-    border-color: #E55451;
+    border-color: @no-border;
 }
 
 .edit-note h3.No .voting-icon {
@@ -144,7 +145,7 @@ table.vote-tally .date {
 }
 
 .edit-note h3.Yes a img {
-    border-color: #87F717;
+    border-color: @yes-border;
 }
 
 .edit-note h3.Yes .voting-icon {
@@ -220,10 +221,10 @@ table.vote-tally .date {
 
 .edit-list .applied { border-right: solid 10px transparent; }
 .edit-list .open,
-.edit-list .cancelling { border-right: solid 10px gold; }
-.edit-list .cancelled { border-right: solid 10px #999999; }
-.edit-list .failed { border-right: solid 10px #FF0000; }
-.edit-list .error { border-right: solid 10px #660000; }
+.edit-list .cancelling { border-right: solid 10px @open-header; }
+.edit-list .cancelled { border-right: solid 10px @cancelled-header; }
+.edit-list .failed { border-right: solid 10px @failed-header; }
+.edit-list .error { border-right: solid 10px @error-header; }
 
 .edit-list .vote-count {
     text-align: right;
@@ -367,7 +368,7 @@ div.thumb-position img {
 }
 
 div.thumb-position.moved {
-    background: #B1EBB0;
+    background: @moved-cover-art-bg;
 }
 
 .voteopts .vote label {
@@ -401,8 +402,8 @@ div.thumb-position.moved {
 }
 
 .set-cover-art div.editimage.selected {
-    background: #bbffbb;
-    border: 1px solid #889988;
+    background: @rg-art-selected;
+    border: 1px solid @rg-art-selected-border;
 }
 
 div.editimage button.set-cover-art {

@@ -1,21 +1,19 @@
+@import "colors.less";
+
 body {
     padding: 0 10px;
     margin: 0;
-    background-color: #E7E7E7;
-    color: #000;
+    background-color: @background-grey;
+    color: @text-black;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
     min-width: 780px;
     margin: auto;
 }
 
-/*input, select {
-    font-size: 12px;
-}*/
-
-a { color:#002BBA; text-decoration: none; }
-a:visited { color:#632D9B; }
-a:hover { color:#FC6714; text-decoration: underline; }
+a { color:@link-default; text-decoration: none; }
+a:visited { color:@link-visited; }
+a:hover { color: @text-orange; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 a.icon:hover { text-decoration: none; }
@@ -45,14 +43,14 @@ h1 {
     font-size: 150%;
 }
 
-h1 a { color: #000 !important; }
+h1 a { color: @text-black !important; }
 
 h2,
 fieldset legend {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: 120%;
-    color: #FC6714;
+    color: @text-orange;
     font-weight: bold;
 }
 
@@ -127,9 +125,9 @@ h1 img.gravatar {
 }
 
 #header-logo {
-    background: #736DAB url('../images/layout/sprites.png') no-repeat top left;
+    background: @header-purple url('../images/layout/sprites.png') no-repeat top left;
     height: 58px;
-    color: #FFF;
+    color: @text-white;
 }
 
 #header-logo div {
@@ -157,7 +155,7 @@ h1 img.gravatar {
 }
 
 #header-logo a {
-    color: #FFF;
+    color: @text-white;
 }
 
 #header-logo a.logo {
@@ -173,7 +171,7 @@ h1 img.gravatar {
 }
 
 #header-menu {
-    background: #FFBA58;
+    background: @header-orange;
     position: relative;
     font-size: 95%;
     font-weight: bold;
@@ -238,8 +236,8 @@ h1 img.gravatar {
 #header-menu ul li:hover a,
 #header-menu ul li:hover li a:hover,
 #header-menu ul a:hover {
-    background-color: #FC6714;
-    color: #FFF;
+    background-color: @text-orange;
+    color: @text-white;
 }
 
 #header-menu ul li li a {
@@ -247,8 +245,8 @@ h1 img.gravatar {
 }
 
 #header-menu ul li:hover li a {
-    background-color: #D4D4D4;
-    color: #000;
+    background-color: @menu-background;
+    color: @text-black;
 }
 
 #header-menu li ul {
@@ -262,7 +260,7 @@ h1 img.gravatar {
     float: none;
     font-weight: normal;
     margin: 0;
-    background-color: #D4D4D4;
+    background-color: @menu-background;
 }
 
 #header-menu .separator {
@@ -328,12 +326,12 @@ h1 img.gravatar {
     background: #FFFFFF;
     padding: 10px;
     border: 0;
-    color: #FC6714;
+    color: @text-orange;
     position: relative;
 }
 
 .flash {
-    color: #000;
+    color: @text-black;
     font-weight: normal;
 }
 
@@ -344,16 +342,16 @@ h1 img.gravatar {
 }
 
 .warning-header {
-    color: #000;
+    color: @text-black;
 }
 
 div.notice,
 div.warning {
     margin: 2em auto;
-    border: 1px solid #a1a1a1;
+    border: 1px solid @warning-border;
     min-height: 54px;
     width: 60em;
-    background: #ffffd0;
+    background: @warning-background;
 }
 
 div.warning p,
@@ -656,8 +654,8 @@ div.warning img.warning {
     color: #444444;
 }
 
-#footer a { color: #002BBA; }
-#footer a:hover { color: #FC6714; }
+#footer a { color: @link-default; }
+#footer a:hover { color: @text-orange; }
 
 #footer p {
     display: inline-block;
@@ -690,7 +688,7 @@ table.tbl tr.mp td,
 span.mp,
 div.mp,
 tr.diff-changes {
-    background: #FD9 !important;
+    background: @edit-orange !important;
 }
 
 .lastupdate,
@@ -774,7 +772,7 @@ table.tbl tbody th {
 table.tbl tbody th:last-child { border-right: 0; }
 
 table.tbl th a {
-    color: #000;
+    color: @text-black;
 }
 
 table.tbl th:first-child {
@@ -788,10 +786,10 @@ table.tbl td {
 table.tbl tr.ev td,
 table.tbl tr.ev th {
     padding: 0.2em 0.4em;
-    background: #F2F2F2;
+    background: @even-table-row;
 }
 
-table.tbl tr:target td { background-color: #F2F2b2; }
+table.tbl tr:target td { background-color: @highlight-table-row; }
 
 table.tbl .pos { width: 1em; white-space: nowrap; }
 table.tbl th { word-break: keep-all; white-space: nowrap; }
@@ -816,18 +814,18 @@ table.tbl ul {
 }
 
 .pageselector a {
-    border: solid 1px #000;
+    border: solid 1px @text-black;
     text-decoration: none;
     background-color: #FFF;
-    color: #000;
+    color: @text-black;
 }
 
 .pageselector a:hover {
-    background-color: #FFBA58;
+    background-color: @header-orange;
 }
 
 .pageselector a.sel {
-    background-color: #FFBA58;
+    background-color: @header-orange;
     font-weight: bold;
 }
 
@@ -882,24 +880,24 @@ table.details th {
 
 table.details td span.new,
 table.details td.new {
-    background: #E8F7E8;
+    background: @diff-new;
 }
 
 div.diff .diff-only-b,
 span.diff-only-b,
 tr.diff-addition {
-    background: #B1EBB0;
+    background: @diff-add;
 }
 
 table.details td span.old,
 table.details td.old {
-    background: #F7E8E8;
+    background: @diff-old;
 }
 
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
-    background: #EBB1BA;
+    background: @diff-rem;
 }
 
 table.details td span.new,
@@ -922,7 +920,7 @@ table.details td.old ul {
 /* Statistics pages */
 table.timeline-controls, table.database-statistics {
     border-collapse: collapse;
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
     margin: 1em 1em 1em 0;
 }
 
@@ -937,8 +935,8 @@ table.database-statistics th, table.timeline-controls th {
 
 table.database-statistics tr.thead th {
     text-align: center;
-    border: 1px solid #ADB9CC;
-    background: #F1F1F1;
+    border: 1px solid @light-border-blue;
+    background: @light-border-background;
 }
 
 table.database-statistics td, table.timeline-controls td {
@@ -947,7 +945,7 @@ table.database-statistics td, table.timeline-controls td {
 }
 
 table.timeline-controls td {
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
 }
 
 
@@ -1004,7 +1002,7 @@ div.columns-5 div.column {
 
 .nagpanel {
     background-color: #FAFAFA;
-    border: 2px dashed #736DAB;
+    border: 2px dashed @header-purple;
     padding: 0 1em;
     margin: 1em 0;
 }
@@ -1014,7 +1012,7 @@ div.columns-5 div.column {
 
 p.cleanup {
     text-align: center;
-    background: #FD9 !important;
+    background: @edit-orange !important;
     padding: 1em;
 }
 
@@ -1097,8 +1095,8 @@ div.delete { display: hidden !important; }
 }
 
 span.release-group-type {
-    background: #589DFF;
-    color: #fff;
+    background: @rg-type-label;
+    color: @text-white;
     border-radius: 3px;
     padding: 0 3px;
 }

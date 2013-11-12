@@ -1,194 +1,194 @@
+@import "../colors.less";
+
 /*
 ** WikiDocs styles
 */
 
-/* For those pesky few pages that use h1s in their content */
-.wikicontent h1.hierarchy-links * + h1 {
-    margin-top: 1em;
+.wikicontent {
+    // For those pesky few pages that use h1s in their content
+    h1.hierarchy-links * + h1 {
+        margin-top: 1em;
+    }
+
+    dt {
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+    dd {
+        margin: 0 0 5px 0;
+        padding-left: 20px;
+    }
+
+    hr {
+        border: none;
+        background-color: #CCCCCC;
+        height: 1px;
+        margin: 2px 0;
+    }
+
+    pre {
+        padding: 0.5em 1em;
+        background: #DDDDDD;
+        overflow: auto;
+        border: none;
+        border-left: 5px solid @text-orange;
+    }
+
+    code {
+        background-color: #DDDDDD;
+    }
+
+    // Images
+    div.floatright,
+    table.floatright {
+        clear: right;
+        float: right;
+        position: relative;
+        margin: 0 0 .5em .5em;
+        border: 0;
+    }
+
+    div.floatleft,
+    table.floatleft {
+        float: left;
+        clear: left;
+        position: relative;
+        margin: 0 .5em .5em 0;
+        border: 0;
+    }
+
+    div.floatright p { font-style: italic; }
+    div.floatleft p { font-style: italic; }
+
+    h1.hierarchy-links {
+        font-weight: normal;
+    }
+
+    // TOC
+    #toc,
+    .toc {
+        background-color: #F9F9F9;
+        border: 1px solid @light-border-blue;
+        font-size: 95%;
+        padding: 5px;
+        float:right;
+        max-width: 50%;
+    }
+
+    #toc #toctitle,
+    .toc #toctitle,
+    #toc .toctitle,
+    .toc .toctitle {
+        text-align:center;
+    }
+
+    #toc h2 {
+        color: @text-black;
+        font-size: 100%;
+        margin: 0 0 5px 0;
+    }
+
+    #toc ul,
+    .toc ul {
+        margin: 0;
+        padding-left: 0;
+        list-style-type: none;
+        list-style-image: none;
+        line-height: 150%;
+    }
+
+    #toc ul ul,
+    .toc ul ul {
+        margin-left: 20px;
+    }
+
+    // header section (only shown for unofficial pages)
+    .wikidocs-header {
+        border-bottom: 2px dotted #CCCCCC;
+        margin: 5px 0 10px;
+        padding-bottom: 5px;
+        font-size: 10px;
+    }
+
+    // footer section
+    .wikidocs-footer {
+        border-top: 2px dotted #CCCCCC;
+        margin-top: 10px;
+        padding-top: 5px;
+        font-size: 10px;
+        clear: both;
+    }
+
+    /*
+    ** wikitable class for skinning tables,
+    ** table[border^=1] added for backwards support
+    */
+    table[border^="1"],
+    table.wikitable {
+        border-collapse: collapse;
+        border: 1px solid @light-border-blue;
+        margin: 1em 1em 1em 0;
+    }
+
+    table[border^="1"] th,
+    table.wikitable th {
+        border: 1px solid @light-border-blue;
+        background: @light-border-background;
+        text-align: right;
+        padding: 3px 5px;
+        font-size: 110%;
+    }
+
+    table[border^="1"] tr:first-child th,
+    table.wikitable tr:first-child th {
+        text-align: center;
+    }
+
+    table[border^="1"] td,
+    table.wikitable td {
+        border: 1px solid @light-border-blue;
+        padding: 3px 5px;
+    }
+
+    // This will look nice for the few browsers that do/will support nth-child
+    table[border^="1"] tr:nth-child(odd) td,
+    table.wikitable tr:nth-child(odd) td {
+        background: #FAFAFA;
+    }
+
+    table[border^="1"] caption,
+    .wikitable caption {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    // Escape clause for tables that are used just for formatting
+    table[border^="0"],
+    table[border^="0"] td {
+        border: none !important;
+        background: none !important;
+    }
+
+    // Search box
+    .wikidoc-search {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+
+        input {
+            width: 200px;
+            margin: 0;
+        }
+    }
+
 }
 
-.wikicontent dt {
-    margin-top: 5px;
-    font-weight: bold;
-}
-
-.wikicontent dd {
-    margin: 0 0 5px 0;
-    padding-left: 20px;
-}
-
-.wikicontent hr {
-    border: none;
-    background-color: #CCCCCC;
-    height: 1px;
-    margin: 2px 0;
-}
-
-.wikicontent pre {
-    padding: 0.5em 1em;
-    background: #DDDDDD;
-    overflow: auto;
-    border: none;
-    border-left: 5px solid #FC6714;
-}
-
-.wikicontent code {
-    background-color: #DDDDDD;
-}
-
-/* 
-** Images 
-*/
-.wikicontent div.floatright,
-.wikicontent table.floatright {
-	clear: right;
-	float: right;
-	position: relative;
-	margin: 0 0 .5em .5em;
-	border: 0;
-}
-
-.wikicontent div.floatleft,
-.wikicontent table.floatleft {
-	float: left;
-	clear: left;
-	position: relative;
-	margin: 0 .5em .5em 0;
-	border: 0;
-}
-
-.wikicontent div.floatright p { font-style: italic; }
-.wikicontent div.floatleft p { font-style: italic; }
-
-.wikicontent h1.hierarchy-links {
-	font-weight: normal;
-}
-
-/*
-** TOC
-*/
-.wikicontent #toc,
-.wikicontent .toc {
-    background-color: #F9F9F9;
-    border: 1px solid #ADB9CC;
-    font-size: 95%;
-    padding: 5px;
-    float:right;
-    max-width: 50%;
-}
-
-/* For pages that have no content between the h1 and the TOC */
+// For pages that have no content between the h1 and the TOC
 h1 + #toc, h1 + .toc { margin-top: 1em; }
-
-.wikicontent #toc #toctitle,
-.wikicontent .toc #toctitle,
-.wikicontent #toc .toctitle,
-.wikicontent .toc .toctitle {
-    text-align:center;
-}
-
-.wikicontent #toc h2 {
-    color: #000000;
-    font-size: 100%;
-    margin: 0 0 5px 0;
-}
-
-.wikicontent #toc ul,
-.wikicontent .toc ul {
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
-    list-style-image: none;
-    line-height: 150%;
-}
-
-.wikicontent #toc ul ul,
-.wikicontent .toc ul ul {
-    margin-left: 20px;
-}
-
-/* header section (only shown for unofficial pages) */
-.wikicontent .wikidocs-header {
-    border-bottom: 2px dotted #CCCCCC;
-    margin: 5px 0 10px;
-    padding-bottom: 5px;
-    font-size: 10px;
-}
-
-/* footer section */
-.wikicontent .wikidocs-footer {
-    border-top: 2px dotted #CCCCCC;
-    margin-top: 10px;
-    padding-top: 5px;
-    font-size: 10px;
-    clear: both;
-}
-
-/*
-** wikitable class for skinning tables,
-** table[border^=1] added for backwards support
-*/
-.wikicontent table[border^="1"],
-.wikicontent table.wikitable {
-    border-collapse: collapse;
-    border: 1px solid #ADB9CC;
-    margin: 1em 1em 1em 0;
-}
-
-.wikicontent table[border^="1"] th,
-.wikicontent table.wikitable th {
-    border: 1px solid #ADB9CC;
-    background: #F1F1F1;
-    text-align: right;
-    padding: 3px 5px;
-    font-size: 110%;
-}
-
-.wikicontent table[border^="1"] tr:first-child th,
-.wikicontent table.wikitable tr:first-child th {
-    text-align: center;
-}
-
-.wikicontent table[border^="1"] td,
-.wikicontent table.wikitable td {
-    border: 1px solid #ADB9CC;
-    padding: 3px 5px;
-}
-
-/* This will look nice for the few browsers that do/will support nth-child */
-.wikicontent table[border^="1"] tr:nth-child(odd) td,
-.wikicontent table.wikitable tr:nth-child(odd) td {
-    background: #FAFAFA;
-}
-
-.wikicontent table[border^="1"] caption,
-.wikicontent .wikitable caption {
-    margin-bottom: 5px;
-    font-weight: bold;
-}
 
 .center {
     text-align: center;
     width: 100%;
 }
 
-/* Escape clause for tables that are used just for formatting */
-.wikicontent table[border^="0"],
-.wikicontent table[border^="0"] td {
-    border: none !important;
-    background: none !important;
-}
-
-/*
-** Search Box
-*/
-.wikicontent .wikidoc-search {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-}
-
-.wikicontent .wikidoc-search input {
-    width: 200px;
-    margin: 0;
-}

@@ -1,3 +1,5 @@
+@import "colors.less";
+
 @form-half-width: 465px;
 @form-margin: 12px;
 @form-label-width: 132px;
@@ -11,10 +13,15 @@
   -webkit-border-radius: @radius;
 }
 
-input { background: #fff; color: #000; }
-input:-moz-placeholder { color: #aaa; }
+input { background: #fff; color: @text-black; }
+input:-ms-input-placeholder, // IE10
+input::-moz-placeholder, // ff 19+
+input:-moz-placeholder, // ff 4-18
+input::-webkit-input-placeholder { // webkit
+    color: @placeholder-grey;
+}
 input[disabled].lookup-performed,
-input[disabled] { background: #DCDAD5; cursor: default; }
+input[disabled] { background: @disabled-bg-grey; cursor: default; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>
@@ -98,15 +105,17 @@ form ul.errors {
 }
 
 form ul.errors li,
-span.error { color: #ff2222; }
+span.error {
+    color: @form-error-text;
+}
 span.success { color: #22aa22; }
 
 input.error,
 select.error {
-    background: #ffaaaa ! important;
+    background: @autocomplete-error ! important;
 }
 
-input.lookup-performed { background: #bfb; }
+input.lookup-performed { background: @autocomplete-success; }
 
 form .input-note {
     font-style: italic;
@@ -152,7 +161,7 @@ div.ar-descr {
 
 a.selectFilterPrev,
 a.selectFilterNext {
-    color: #000;
+    color: @text-black;
     text-decoration: none;
 }
 
@@ -240,7 +249,7 @@ div.half-width fieldset.editnote {
 }
 
 div.half-width fieldset legend {
-    color: #fc6714;
+    color: @text-orange;
     font-size: 120%;
     font-weight: bold;
     margin: 0 10px;
@@ -295,7 +304,7 @@ div.documentation div.bubble {
     margin: 0;
     padding: @form-margin;
     border: 1px solid #999;
-    background: #f0f0f0;
+    background: @secondary-grey;
     .border-radius(12px);
 }
 
@@ -333,7 +342,7 @@ ul.conditions button.remove img {
 #filter {
     margin-top: 0.75em;
     border: 1px solid #999;
-    background: #f0f0f0;
+    background: @secondary-grey;
     .border-radius(3px);
     padding: 0.5em;
     display: none;
