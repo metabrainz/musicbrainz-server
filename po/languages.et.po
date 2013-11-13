@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:21+0000\n"
+"PO-Revision-Date: 2013-10-29 09:28+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -974,6 +974,11 @@ msgstr "Indoeuroopa keelkond"
 msgid "Indonesian"
 msgstr "indoneesia"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "isuri"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1128,6 +1133,11 @@ msgstr "kaavi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "kasahhi"
+
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "handi"
 
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
@@ -1423,6 +1433,11 @@ msgstr "manipuri"
 #: DB:language/name:279
 msgid "Manobo languages"
 msgstr "manobo keeled"
+
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "mansi"
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151

@@ -37,8 +37,6 @@ use MusicBrainz::Server::Constants qw(
     $ARTIST_ARTIST_COLLABORATION
 );
 use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
-use MusicBrainz::Server::Form::Artist;
-use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::FilterUtils qw(
     create_artist_release_groups_form
@@ -107,6 +105,7 @@ after 'load' => sub
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
     $c->model('Area')->load_codes($artist->area);
+    $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 
     $c->stash(
         watching_artist =>
@@ -593,7 +592,7 @@ sub split : Chained('load') Edit {
             # was involved in.
             for my $relationship (
                 grep {
-                    $_->link->type->gid == $ARTIST_ARTIST_COLLABORATION &&
+                    $_->link->type->gid eq $ARTIST_ARTIST_COLLABORATION &&
                     exists $artists{$_->entity0_id} &&
                     $_->entity1_id == $artist->id
                 } $artist->all_relationships
@@ -624,7 +623,7 @@ sub split : Chained('load') Edit {
 sub can_split {
     my $artist = shift;
     return (grep {
-        $_->link->type->gid != $ARTIST_ARTIST_COLLABORATION
+        $_->link->type->gid ne $ARTIST_ARTIST_COLLABORATION
     } $artist->all_relationships) == 0;
 }
 

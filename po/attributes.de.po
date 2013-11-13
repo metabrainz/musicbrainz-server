@@ -11,16 +11,16 @@
 # nikki <email address hidden>, 2013
 # phwolfer <email address hidden>, 2012
 # Shepard <email address hidden>, 2011
-# Shepard <email address hidden>, 2011
-# Shepard <email address hidden>, 2013
+# Shepard, 2011
+# Shepard, 2013
 # Tobias Quathamer <email address hidden>, 2007
 # Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-12 20:36+0000\n"
-"Last-Translator: Shepard <email address hidden>\n"
+"PO-Revision-Date: 2013-10-29 19:27+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,6 +93,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr "Buch"
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -142,6 +147,11 @@ msgstr "4-/8-Spur-Kassette"
 msgctxt "medium_format"
 msgid "Cassette"
 msgstr "Kassette"
+
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr "Kassettenhülle"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -207,6 +217,11 @@ msgstr "Digitales Medium"
 msgctxt "label_type"
 msgid "Distributor"
 msgstr "Distributor"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr "Bezirk"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -322,6 +337,11 @@ msgstr "Mixtape/Street"
 msgctxt "work_type"
 msgid "Motet"
 msgstr "Motette"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr "Gemeinde"
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"

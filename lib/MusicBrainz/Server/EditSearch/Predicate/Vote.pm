@@ -5,6 +5,8 @@ use feature 'switch';
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Constants qw( :vote );
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 with 'MusicBrainz::Server::EditSearch::Predicate';
 
 has voter_id => (

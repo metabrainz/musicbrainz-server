@@ -23,6 +23,7 @@ test all => sub {
                 "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                 "name" => "David Bowie",
                 "sortname" => "David Bowie",
+                "primary_alias" => undef
               }, { "current" => 1, "pages" => 1 } ]);
 
     ws_test 'label autocomplete response',
@@ -33,6 +34,7 @@ test all => sub {
                 "gid" => "46f0f4cd-8aab-4b33-b698-f459faf64190",
                 "name" => "Warp Records",
                 "sortname" => "Warp Records",
+                "primary_alias" => undef
               }, { "current" => 1, "pages" => 1 } ]);
 
 };

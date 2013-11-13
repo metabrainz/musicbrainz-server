@@ -37,7 +37,8 @@ test 'Do not rename artist credits' => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.rename' => 0
+            'merge.rename' => 0,
+            'merge.edit_note' => 'Some Edit Note'
         }
     );
     ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});
@@ -69,7 +70,8 @@ test 'Rename artist credits' => sub {
     $mech->submit_form(
         with_fields => {
             'merge.target' => 3,
-            'merge.rename' => 1
+            'merge.rename' => 1,
+            'merge.edit_note' => 'Some Edit Note'
         }
     );
     ok($mech->uri =~ qr{/artist/745c079d-374e-4436-9448-da92dedef3ce});

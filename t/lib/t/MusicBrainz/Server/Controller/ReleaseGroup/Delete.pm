@@ -20,7 +20,7 @@ $mech->get_ok('/release-group/ecc33260-454c-11de-8a39-0800200c9a66/delete');
 html_ok($mech->content);
 my $response = $mech->submit_form(
     with_fields => {
-        'confirm.edit_note' => ' ',
+        'confirm.edit_note' => 'Required.',
     }
 );
 ok($mech->success);

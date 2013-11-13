@@ -63,6 +63,7 @@ after 'load' => sub
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($c->stash->{place});
     $c->model('Area')->load_codes($place->area);
+    $c->model('Area')->load_containment($place->area);
 };
 
 =head2 show

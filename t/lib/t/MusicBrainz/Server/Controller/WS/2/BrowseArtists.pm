@@ -117,10 +117,10 @@ ws_test 'browse artists via work',
 my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&limit=-1');
 is($res->code, HTTP_BAD_REQUEST);
 
-my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&offset=a+bit');
+$res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&offset=a+bit');
 is($res->code, HTTP_BAD_REQUEST);
 
-my $res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&limit=10&offset=-1');
+$res = $test->mech->get('/ws/2/artist?work=3c37b9fa-a6c1-37d2-9e90-657a116d337c&limit=10&offset=-1');
 is($res->code, HTTP_BAD_REQUEST);
 
 };

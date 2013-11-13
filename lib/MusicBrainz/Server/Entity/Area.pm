@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Entity::Role::Age';
 sub l_name {
     my $self = shift;
     my $type = defined $self->type ? $self->type->id : $self->type_id;
-    if ($type == $AREA_TYPE_COUNTRY) {
+    if (defined $type && $type == $AREA_TYPE_COUNTRY) {
         return l($self->name);
     } else {
         return $self->name;
@@ -56,6 +56,16 @@ sub l_type_name
 }
 
 has 'parent_country' => (
+    is => 'rw',
+    isa => 'Maybe[Area]',
+);
+
+has 'parent_subdivision' => (
+    is => 'rw',
+    isa => 'Maybe[Area]',
+);
+
+has 'parent_city' => (
     is => 'rw',
     isa => 'Maybe[Area]',
 );

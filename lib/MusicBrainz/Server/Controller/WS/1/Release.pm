@@ -263,7 +263,7 @@ sub submit_cdstub : Private
         else {
             die $_;
         }
-    }
+    };
 
     $c->res->content_type($self->serializer->mime_type . '; charset=utf-8');
     $c->res->body($self->serializer->xml( '' ));
