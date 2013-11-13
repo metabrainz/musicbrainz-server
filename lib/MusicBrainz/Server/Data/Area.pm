@@ -141,6 +141,9 @@ sub load_containment
 
     # First, construct a table (recursively) of parent -> descendant connections
     # for areas, including an array of the path (the 'descendants' array).
+    #
+    # Then, find the shortest path to each type of parent by joining to area,
+    # distinct on descendant, type, and order by the length of the array of descendants.
     my $query = "
         WITH RECURSIVE area_descendants AS (
             SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
@@ -154,45 +157,26 @@ sub load_containment
             JOIN   area_descendants ON area_descendants.parent = laa.entity1
             WHERE  link_type = $area_area_parent_type
             AND    NOT entity0 = ANY(descendants))
-    ";
-    # Then find the shortest path to a parent of a given type by joining to
-    # area, limiting on the appropriate type id, distinct on descendant, and
-    # order by the length of the array of descendants.
-    #
-    # Do this for every applicable type, as defined in %type_parent_attribute above.
-    for my $type (keys %type_parent_attribute) {
-        $query .= ", " . $type_parent_attribute{$type} . " AS (
-                  SELECT   DISTINCT ON (descendant) descendant, parent FROM area_descendants
-                  JOIN     area ON area_descendants.parent = area.id
-                  WHERE    area.type = $type ORDER BY descendant, array_length(descendants, 1) ASC)";
-    }
-    $query .= " SELECT ";
-    for my $type (values %type_parent_attribute) {
-        $query .= " $type.parent AS $type,";
-    }
-    $query .= " area.id AS descendant
-        FROM area ";
-    for my $type (values %type_parent_attribute) {
-        $query .= " LEFT JOIN $type ON $type.descendant = area.id";
-    }
-    $query .= " WHERE area.id IN (" . placeholders(@all_ids) . ")";
+        SELECT DISTINCT ON (descendant, type) descendant, parent, area.type, descendants || parent AS descendant_hierarchy
+        FROM   area_descendants
+        JOIN   area ON area_descendants.parent = area.id
+        WHERE  descendant IN (" . placeholders(@all_ids) . ")
+        AND    area.type IN (" . placeholders(keys %type_parent_attribute) . ")
+        ORDER BY descendant, type, array_length(descendants, 1) ASC";
 
-    my $containment = $self->sql->select_list_of_hashes($query, @all_ids);
+    my $containment = $self->sql->select_list_of_hashes($query, @all_ids, keys %type_parent_attribute);
 
-    my @parent_ids = grep { defined } map { my $data = $_; map { $data->{$_} } values %type_parent_attribute } @$containment;
+    my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
 
     # Having determined the IDs for all the parents, actually load them and attach to the
     # descendant objects.
     my $parent_objects = $self->get_by_ids(@parent_ids);
     for my $data (@$containment) {
         if (my $entities = $obj_id_map{$data->{descendant}}) {
-            for my $type (values %type_parent_attribute) {
-                if (defined $data->{$type}) {
-                    my $parent_obj = $parent_objects->{$data->{$type}};
-                    for my $entity (@$entities) {
-                        $entity->$type($parent_obj);
-                    }
-                }
+            my $type = $type_parent_attribute{$data->{type}};
+            my $parent_obj = $parent_objects->{$data->{parent}};
+            for my $entity (@$entities) {
+                $entity->$type($parent_obj);
             }
         }
     }
