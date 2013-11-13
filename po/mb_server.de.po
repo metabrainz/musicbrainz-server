@@ -33,10 +33,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-10-28 17:46-0700\n"
-"PO-Revision-Date: 2013-10-31 23:19+0000\n"
-"Last-Translator: JonnyJD <email address hidden>\n"
+"PO-Revision-Date: 2013-11-08 21:46+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3268,7 +3268,7 @@ msgstr "Enddatum:"
 #: ../root/edit/details/edit_work_alias.tt:53
 #: ../root/scripts/text_strings.tt:72
 msgid "Ended:"
-msgstr "Endete:"
+msgstr "Beendet:"
 
 #: ../root/relationship/linktype/form.tt:92
 msgid "Endpoint:"
