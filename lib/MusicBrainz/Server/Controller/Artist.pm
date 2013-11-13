@@ -139,6 +139,7 @@ sub show : PathPart('') Chained('load')
 
     my $artist = $c->stash->{artist};
     my $release_groups;
+    my $recordings;
     if ($c->stash->{artist}->id == $VARTIST_ID)
     {
         my $index = $c->req->query_params->{index};
@@ -179,6 +180,12 @@ sub show : PathPart('') Chained('load')
             );
         }
 
+	if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
+            $recordings = $self->_load_paged($c, sub {
+                $c->model('Recording')->find_standalone($artist->id, shift, shift);
+            });
+	}
+
         $c->stash(
             show_va => $show_va,
             template => 'artist/index.tt'
@@ -192,6 +199,7 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
+	recordings => $recordings,
         release_groups => $release_groups,
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
