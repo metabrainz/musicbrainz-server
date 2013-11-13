@@ -335,8 +335,13 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.discography
     },
     image: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?commons\\.wikimedia\\.org","i"),
-        type: MB.constants.LINK_TYPES.image
+        match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
+        type: MB.constants.LINK_TYPES.image,
+        clean: function(url) {
+            url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
+            url = url.replace(/\?uselang=[a-z-]+$/, "");
+            return url.replace(/^https?:\/\/commons\.wikimedia\.org\/wiki\/(File|Image):/, "https://commons.wikimedia.org/wiki/File:");
+        }
     },
     discographyentry: {
         match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),

@@ -952,6 +952,21 @@ http://[%- server -%]/[%- id -%]
     [%- END -%]
 [%- END -%]
 
+[%- MACRO show_image BLOCK -%]
+    [%- IF image -%]
+        [%- INCLUDE 'components/commons-image.tt' -%]
+    [%- ELSIF image_url -%]
+        <span style="display:none" id="image-insertion-point"></span>
+        <script type="text/javascript">//<![CDATA[
+            $.get('[% image_url %]',
+                  function (data) {
+                      $('#image-insertion-point').replaceWith(data);
+                  },
+                  'html');
+        //]]></script>
+    [%- END -%]
+[%- END -%]
+
 [%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
   [% USE Diff %]
   [%- FOR i = loop_over %]

@@ -19,6 +19,7 @@ with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 
 use Data::Page;
 use HTTP::Status qw( :constants );

@@ -1,6 +1,9 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? place.name _ " - ${title}" : place.name -%]
   [%- IF !full_width -%]
+
     [% WRAPPER 'layout/sidebar.tt' %]
+        [%- show_image() -%]
+
         <h2 class="place-information">[% l('Place information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
