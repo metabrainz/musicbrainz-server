@@ -1,6 +1,5 @@
 [%- WRAPPER "layout.tt" usesRDFa=1 title=title ? place.name _ " - ${title}" : place.name -%]
   [%- IF !full_width -%]
-
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]
 
