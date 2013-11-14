@@ -207,7 +207,8 @@
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
                                         sortname => $_->artist->sort_name,
-                                        name => $_->artist->name
+                                        name => $_->artist->name,
+                                        comment => $_->artist->comment
                                     }
                                 }, $_->artist_credit->all_names
                             ],
