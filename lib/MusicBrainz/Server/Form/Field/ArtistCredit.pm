@@ -104,7 +104,8 @@ around 'value' => sub {
 };
 
 sub json {
-    my $result = shift->result;
+    my $self = shift;
+    my $result = $self->result;
     my $names = [];
 
     if (defined $result) {
@@ -119,6 +120,14 @@ sub json {
     if (!$names || scalar @$names == 0) {
         $names = [{}];
     }
+
+    my $c = $self->form->ctx;
+
+    for my $name (@$names) {
+        my $artist = $c->model('Artist')->get_by_id($name->{artist}->{id});
+        $name->{artist}->{gid} = $artist->gid if $artist;
+    }
+
     return to_json($names);
 }
 
