@@ -123,9 +123,9 @@ sub json {
 
     my $c = $self->form->ctx;
 
+    my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
     for my $name (@$names) {
-        my $artist = $c->model('Artist')->get_by_id($name->{artist}->{id});
-        $name->{artist}->{gid} = $artist->gid if $artist;
+      $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
     }
 
     return to_json($names);
