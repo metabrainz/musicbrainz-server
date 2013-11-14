@@ -15,7 +15,7 @@
       [% FOR entity=edit.display_data.old %]
         <tr>
           <td>
-            [% rdfa_made_rg_link(entity) %]
+            [% link_entity(entity) %]
             [% disambiguation(entity) %]
           </td>
           <td>[% artist_credit(entity.artist_credit) %]</td>
@@ -29,7 +29,7 @@
       </tr>
       <tr>
         <td>
-          [% rdfa_made_rg_link(edit.display_data.new) %]
+          [% link_entity(edit.display_data.new) %]
           [% disambiguation(edit.display_data.new) %]
         </td>
         <td>[% artist_credit(edit.display_data.new.artist_credit) %]</td>
