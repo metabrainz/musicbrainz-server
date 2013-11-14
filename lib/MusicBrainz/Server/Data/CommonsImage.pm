@@ -18,29 +18,23 @@ sub get_commons_image
 {
     my ($self, $title, %opts) = @_;
     my $cache_only = $opts{cache_only} // 0;
-
-    return $self->get_commons_image_by_language($title, "commons", cache_only => $cache_only);
-}
-
-sub get_commons_image_by_language
-{
-    my ($self, $title, %opts) = @_;
     my $url_pattern = "http://%s.wikimedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&redirects&format=json&iiurlwidth=250&titles=%s";
+
     return $self->_fetch_cache_or_url($url_pattern, 'imageinfo',
                                       $COMMONS_CACHE_TIMEOUT,
                                       $title, "commons",
                                       \&_commons_image_callback,
-                                      %opts);
+                                      { cache_only => $cache_only });
 }
 
 sub _commons_image_callback
 {
     my (%opts) = @_;
     if ($opts{fetched}{content}) {
+        my ($thumb, $image) = map { s/^https?://; $_ } ($opts{fetched}{content}[0]{thumburl}, $opts{fetched}{content}[0]{url});
         return CommonsImage->new( title => $opts{fetched}{title},
-                                  thumb_url => $opts{fetched}{content}[0]{thumburl},
-                                  page_url => $opts{fetched}{content}[0]{descriptionurl},
-                                  image_url => $opts{fetched}{content}[0]{url});
+                                  thumb_url => $thumb, #$opts{fetched}{content}[0]{thumburl},
+                                  image_url => $image); #$opts{fetched}{content}[0]{url});
     }
 }
 

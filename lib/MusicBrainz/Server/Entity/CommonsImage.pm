@@ -7,11 +7,6 @@ has 'title' => (
     isa => 'Str',
 );
 
-has 'page_url' => (
-    is => 'rw',
-    isa => 'Str'
-);
-
 has 'image_url' => (
     is => 'rw',
     isa => 'Str',
@@ -22,7 +17,7 @@ has 'thumb_url' => (
     isa => 'Str',
 );
 
-sub url
+sub page_url
 {
     my $self = shift;
     return sprintf "//commons.wikimedia.org/wiki/%s", $self->title;
