@@ -313,7 +313,7 @@
 
     MB.entity.Medium = aclass(Entity, function (data) {
         this.format = data.format;
-
+        this.name = data.name;
         this.position = data.position;
 
         this.tracks = _.map(data.tracks, function (obj) {
