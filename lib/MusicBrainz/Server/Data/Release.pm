@@ -1270,11 +1270,27 @@ sub newest_releases_with_artwork {
 
 sub load_release_events {
     my ($self, @releases) = @_;
-    my $events = $self->find_release_events(map { $_->id } @releases);
 
-    for my $release (@releases) {
+    my @releases_to_load = grep { $_->event_count < 1 } @releases;
+    my $events = $self->find_release_events(map { $_->id } @releases_to_load);
+
+    for my $release (@releases_to_load) {
         $release->events($events->{$release->id});
     }
+
+    $self->c->model('Area')->load(
+        grep { $_->country_id && !defined($_->country) }
+        map { $_->all_events }
+        @releases
+    );
+
+    $self->c->model('Area')->load_codes(
+        grep { !defined($_->primary_code) }
+        grep defined,
+        map { $_->country }
+        map { $_->all_events }
+        @releases
+    );
 }
 
 sub find_release_events {

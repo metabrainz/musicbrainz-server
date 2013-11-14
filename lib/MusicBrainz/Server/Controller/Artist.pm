@@ -35,7 +35,8 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
 );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
+use MusicBrainz::Server::Form::Artist;
+use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::FilterUtils qw(
     create_artist_release_groups_form
@@ -359,7 +360,7 @@ sub releases : Chained('load')
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->stash(

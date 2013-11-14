@@ -14,7 +14,6 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
@@ -138,7 +137,7 @@ sub releases : Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);

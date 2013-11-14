@@ -187,9 +187,7 @@ sub initialize
     };
 
     my $release = $release_label->release;
-    if (!$release->events) {
-        $self->c->model('Release')->load_release_events($release);
-    }
+    $self->c->model('Release')->load_release_events($release);
 
     $data->{release}{events} = [
         map +{

@@ -116,20 +116,6 @@ override build_display_data => sub
     );
 
     $self->c->model('Release')->load_release_events(
-        grep { $_->event_count < 1 }
-        values %{ $loaded->{Release} }
-    );
-
-    $self->c->model('Area')->load(
-        grep { $_->country_id && !defined($_->country) }
-        map { $_->all_events }
-        values %{ $loaded->{Release} }
-    );
-
-    $self->c->model('Area')->load_codes(
-        grep { !defined($_->primary_code) }
-        map { $_->country }
-        map { $_->all_events }
         values %{ $loaded->{Release} }
     );
 
