@@ -472,7 +472,8 @@ sub editor_can_edit
     my @types = sort ($type0, $type1);
     my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
     my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
-    return (!$is_area_url && !$is_area_area) || $editor->is_location_editor;
+    return $editor &&
+        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor);
 }
 
 __PACKAGE__->meta->make_immutable;
