@@ -1,6 +1,6 @@
 [%- IF image -%]
 <div class="picture">
     <img src="[%- image.thumb_url -%]"/><br/>
-    <span class="picture-note"><a href="[% html_escape(image.page_url) %]">[% l('from Wikimedia Commons') %]</a></span>
+    <span class="picture-note"><a href="[% html_escape(image.page_url) %]">[% l('image from Wikimedia Commons') %]</a></span>
 </div>
 [%- END -%]
