@@ -31,7 +31,7 @@ sub _get_commons_image
         } @{ $entity->relationships_by_link_type_names('image') };
 
     if ($commons_link) {
-        my $page_name = $commons_link->url;
+        my $page_name = $commons_link->page_name;
         $page_name =~ s/.*\/wiki\///;
         my $commons_image = $c->model('CommonsImage')->get_commons_image($page_name, cache_only => $cache_only);
         if ($commons_image) {

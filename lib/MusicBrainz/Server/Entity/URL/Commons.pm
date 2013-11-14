@@ -9,6 +9,17 @@ sub show_in_sidebar { 0 }
 
 sub url_is_scheme_independent { 1 }
 
+sub page_name {
+    my $self = shift;
+    return undef unless defined($self->utf8_decoded);
+
+    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ }g;
+
+    return $name;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
