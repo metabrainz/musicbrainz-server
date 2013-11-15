@@ -131,6 +131,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // Recochoku
+                [
+                    'release', 'http://recochoku.jp/album/30282664/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://recochoku.jp/song/S21893898/',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
+                ],
                 // Rockens Danmarkskort
                 [
                     'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
@@ -845,6 +854,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                ],
+                // Recochoku
+                [
+                    'https://www.recochoku.jp/album/30282664?test',
+                    'http://recochoku.jp/album/30282664/',
+                ],
+                [
+                    'recochoku.jp/song/S21893898/',
+                    'http://recochoku.jp/song/S21893898/',
                 ],
                 // Rockipedia
                 [

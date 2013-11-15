@@ -229,6 +229,13 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?purevolume\\.com","i"),
         type: MB.constants.LINK_TYPES.purevolume
     },
+    recochoku: {
+        match: new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i"),
+        type: MB.constants.LINK_TYPES.downloadpurchase,
+        clean: function(url) {
+            return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
+        }
+    },
     allmusic: {
         match: new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i"),
         type: MB.constants.LINK_TYPES.allmusic,
