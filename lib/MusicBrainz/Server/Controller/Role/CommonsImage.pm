@@ -32,7 +32,6 @@ sub _get_commons_image
 
     if ($commons_link) {
         my $page_name = $commons_link->page_name;
-        $page_name =~ s/.*\/wiki\///;
         my $commons_image = $c->model('CommonsImage')->get_commons_image($page_name, cache_only => $cache_only);
         if ($commons_image) {
             $c->stash->{image} = $commons_image;
