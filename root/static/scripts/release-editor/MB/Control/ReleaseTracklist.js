@@ -302,9 +302,8 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
     ko.applyBindings(self.artist_credit, self.$acrow[0]);
 
     ko.computed(function () {
-        if (self.artist_credit.isVariousArtists()) {
-            self.parent.parent.variousArtistsWarning();
-        }
+        self.artist_credit.isVariousArtists();
+        self.parent.parent.variousArtistsWarning();
     });
 
     self.duration = null;
