@@ -77,7 +77,7 @@ sub _get_and_process_json
         unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
         return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
-    } elsif ($content->{entities}) {
+    } elsif ($content->{entities} && $content->{entities}{$title}) {
         # Wikidata
         return {content => $content->{entities}{$title}};
     } else {
