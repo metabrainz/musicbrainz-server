@@ -82,7 +82,7 @@
               </td>
               <!-- /ko -->
               <td>
-                <a data-bind="text: name, attr: { href: '/recording/' + recording.gid }"></a>
+                <span data-bind="html: $data.html()"></span>
 
                 <!-- ko with: recording -->
                   <br/>
@@ -224,6 +224,7 @@
                             userRating => $_->recording->user_rating,
                             id => $_->recording->id,
                             name => $_->recording->name,
+                            editsPending => $_->recording->edits_pending,
                             video =>
                                 $_->recording->video ? JSON::true : JSON::false
                         }
