@@ -223,6 +223,7 @@
                             rating => $_->recording->rating,
                             userRating => $_->recording->user_rating,
                             id => $_->recording->id,
+                            name => $_->recording->name,
                             video =>
                                 $_->recording->video ? JSON::true : JSON::false
                         }
