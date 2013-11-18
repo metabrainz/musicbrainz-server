@@ -33,6 +33,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
                 ],
+                // Bandcamp
+                [
+                    'artist', 'http://davidrovics.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.artist
+                ],
+                [
+                    'label', 'http://idiotsikker.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.label
+                ],
                 // WhoSampled
                 [
                     'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
@@ -670,6 +679,17 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
+                ],
+                // Bandcamp
+                [
+                    'https://davidrovics.bandcamp.com?test',
+                    'http://davidrovics.bandcamp.com/',
+                    'artist'
+                ],
+                [
+                    'http://idiotsikker.bandcamp.com/album/supardejen-king-kong',
+                    'http://idiotsikker.bandcamp.com/',
+                    'label'
                 ],
                 // iTunes
                 [
