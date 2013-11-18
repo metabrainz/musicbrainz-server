@@ -91,20 +91,62 @@ sub format_wikitext
     return decode(
         'utf-8',
         Text::WikiFormat::format(
-            encode('utf-8' => $text), {}, {
+            encode('utf-8' => $text), {link => \&make_html_link}, {
                 prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
+                nofollow_extended => 1,
                 absolute_links => 1,
                 implicit_links => 0
             })
       );
 }
 
+# This bit copied from Text::WikiFormat
+sub make_html_link
+{
+    my ($link, $opts)        = @_;
+    $opts                  ||= {};
+
+    ($link, my $title)       = find_link_title( $link, $opts );
+    ($link, my $is_relative) = escape_link( $link, $opts );
+
+    my $prefix               = ( defined $opts->{prefix} && $is_relative )
+        ? $opts->{prefix} : '';
+
+    # This bit is new from Text::WikiFormat
+    my $nofollow             = (!$is_relative && $opts->{nofollow_extended})
+        ? ' rel="nofollow"' : '';
+
+    return qq|<a href="$prefix$link"$nofollow>$title</a>|;
+}
+
+sub escape_link
+{
+    my ($link, $opts) = @_;
+
+    my $u = URI->new( $link );
+    return $link if $u->scheme();
+
+    # it's a relative link
+    return( uri_escape( $link ), 1 );
+}
+
+sub find_link_title
+{
+    my ($link, $opts)  = @_;
+    my $title;
+
+    ($link, $title)    = split(/\|/, $link, 2) if $opts->{extended};
+    $title             = $link unless $title;
+
+    return $link, $title;
+}
+# End copying
+
 sub _make_link
 {
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
-    my $ws = DBDefs->WEB_SERVER;
     return "<a href=\"/$type/$mbid/\">$content</a>"
 }
 
@@ -120,7 +162,7 @@ sub _display_trimmed {
     $encoded_url = "http://$encoded_url"
         unless $encoded_url =~ m{^(?:https?:)?//};
 
-    return qq{<a href="$encoded_url">$display_url</a>};
+    return qq{<a href="$encoded_url" rel="nofollow">$display_url</a>};
 }
 
 sub normalise_url {
