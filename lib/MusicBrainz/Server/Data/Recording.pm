@@ -326,9 +326,7 @@ sub appears_on
          WHERE recording.id IN (" . placeholders (@ids) . ")";
 
     my %map;
-    $self->sql->select ($query, @ids);
-
-    while (my $row = $self->sql->next_row_hash_ref) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $recording_id = delete $row->{recording};
         $map{$recording_id} ||= [];
         push @{ $map{$recording_id} }, MusicBrainz::Server::Data::ReleaseGroup->_new_from_row ($row);

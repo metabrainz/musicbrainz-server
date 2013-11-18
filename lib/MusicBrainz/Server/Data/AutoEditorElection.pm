@@ -299,9 +299,7 @@ sub load_votes
     my $sql = $self->c->sql;
     my $query = "SELECT * FROM autoeditor_election_vote
                  WHERE autoeditor_election = ? ORDER BY vote_time";
-    $sql->select($query, $election->id);
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, $election->id) }) {
         my $vote = MusicBrainz::Server::Entity::AutoEditorElectionVote->new({
             election_id => $election->id,
             election    => $election,
@@ -311,7 +309,6 @@ sub load_votes
         });
         $election->add_vote($vote);
     }
-    $sql->finish;
 }
 
 sub get_all

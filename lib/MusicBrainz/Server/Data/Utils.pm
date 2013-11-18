@@ -181,14 +181,16 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    $c->sql->select("SELECT * FROM $table
-                  WHERE id IN (" . placeholders(@ids) . ")", @ids);
-    while (1) {
-        my $row = $c->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $c->sql->select_list_of_hashes(
+            "SELECT * FROM $table
+             WHERE id IN (" . placeholders(@ids) . ")",
+            @ids
+        )
+    }) {
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $c->sql->finish;
 }
 
 sub check_in_use
@@ -228,14 +230,11 @@ sub placeholders
 sub query_to_list
 {
     my ($sql, $builder, $query, @args) = @_;
-    $sql->select($query, @args);
     my @result;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $sql->select_list_of_hashes($query, @args) }) {
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    $sql->finish;
     return @result;
 }
 
@@ -250,18 +249,17 @@ sub query_to_list_limited
         die "Query limit must be positive" if $limit < 0;
         $wrapping_query = $wrapping_query . " LIMIT $limit";
     }
-    $sql->select($wrapping_query, @args);
+
     my @result;
     my $hits = 0;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $sql->select_list_of_hashes($wrapping_query, @args) }) {
         $hits = $row->{total_row_count};
         my $obj = $builder->($row);
         push @result, $obj;
     }
 
     $hits = $hits + ($offset || 0);
-    $sql->finish;
+
     return (\@result, $hits);
 }
 
