@@ -172,7 +172,7 @@ MB.constants.LINK_TYPES = {
     },
     bandcamp: {
         artist: 718,
-        place: 719
+        label: 719
     }
 };
 
