@@ -169,6 +169,10 @@ MB.constants.LINK_TYPES = {
         release_group: 353,
         work: 351,
         place: 594
+    },
+    bandcamp: {
+        artist: 718,
+        place: 719
     }
 };
 
@@ -453,6 +457,13 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function(url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
+        }
+    },
+    bandcamp: {
+        match: new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i"),
+        type: MB.constants.LINK_TYPES.bandcamp,
+        clean: function(url) {
+            return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com((\/|\?).*)?$/, "http://$1.bandcamp.com/");
         }
     },
     otherdatabases: {
