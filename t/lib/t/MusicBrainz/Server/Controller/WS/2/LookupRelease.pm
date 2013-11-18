@@ -554,9 +554,14 @@ ws_test 'release lookup, relation attributes',
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
                     <date>2004-01-15</date>
+                    <country>JP</country>
                     <release-event-list count="1">
                         <release-event>
                             <date>2004-01-15</date>
+                            <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                              <name>Japan</name><sort-name>Japan</sort-name>
+                              <iso-3166-1-code-list><iso-3166-1-code>JP</iso-3166-1-code></iso-3166-1-code-list>
+                            </area>
                         </release-event>
                     </release-event-list>
                     <barcode>4988064173891</barcode>
@@ -572,9 +577,14 @@ ws_test 'release lookup, relation attributes',
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
                     <date>2004-01-15</date>
+                    <country>JP</country>
                     <release-event-list count="1">
                         <release-event>
                             <date>2004-01-15</date>
+                            <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                              <name>Japan</name><sort-name>Japan</sort-name>
+                              <iso-3166-1-code-list><iso-3166-1-code>JP</iso-3166-1-code></iso-3166-1-code-list>
+                            </area>
                         </release-event>
                     </release-event-list>
                     <barcode>4988064173907</barcode>

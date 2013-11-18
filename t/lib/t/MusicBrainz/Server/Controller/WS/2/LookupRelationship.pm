@@ -102,7 +102,19 @@ ws_test 'release lookup with release relationships',
                 <target>b3b7e934-445b-4c68-a097-730c6a6d47e6</target>
                 <attribute-list><attribute>transliterated</attribute></attribute-list>
                 <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                    <title>Summer Reggae! Rainbow</title><date>2001-07-04</date><release-event-list count="1"><release-event><date>2001-07-04</date></release-event></release-event-list><barcode>4942463511227</barcode>
+                    <title>Summer Reggae! Rainbow</title>
+                    <date>2001-07-04</date>
+                    <country>JP</country>
+                    <release-event-list count="1">
+                      <release-event>
+                        <date>2001-07-04</date>
+                        <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                          <name>Japan</name><sort-name>Japan</sort-name>
+                          <iso-3166-1-code-list><iso-3166-1-code>JP</iso-3166-1-code></iso-3166-1-code-list>
+                        </area>
+                      </release-event>
+                    </release-event-list>
+                    <barcode>4942463511227</barcode>
                     <quality>normal</quality>
                 </release>
             </relation>

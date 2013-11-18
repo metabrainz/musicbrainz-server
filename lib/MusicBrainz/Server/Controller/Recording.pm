@@ -23,7 +23,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_RECORDING_REMOVE_ISRC
 );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw(
     group_by_release_status_nested
 );
@@ -99,7 +98,7 @@ sub show : Chained('load') PathPart('')
 
     my @releases = map { $_->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
-    load_release_events($c, @releases);
+    $c->model('Release')->load_release_events(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ReleaseStatus')->load(@releases);
