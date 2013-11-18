@@ -2,8 +2,8 @@ MB.Release = (function (Release) {
 
   var ViewModel, Medium, Track;
 
-  Release.init = function(initialMedia) {
-    Release.viewModel = new ViewModel(initialMedia);
+  Release.init = function(releaseData) {
+    Release.viewModel = new ViewModel(releaseData);
 
     ko.bindingHandlers.foreachKv = {
       transformObject: function (obj) {
@@ -79,17 +79,18 @@ MB.Release = (function (Release) {
     return newA;
   }
 
-  ViewModel = function (initialMedia) {
+  ViewModel = function (releaseData) {
     var model = this;
 
     this.mediums = _.map(
-      initialMedia, function(medium, mediumIndex) {
+      releaseData.mediums,
+      function(medium, mediumIndex) {
         var medium = new MB.entity.Medium(medium);
         _.each(
           medium.tracks,
           function (track, trackIndex) {
             var inputRecording =
-              initialMedia[mediumIndex].tracks[trackIndex].recording;
+              releaseData.mediums[mediumIndex].tracks[trackIndex].recording;
 
             track.recording.relationships = inputRecording.relationships;
 
@@ -124,13 +125,12 @@ MB.Release = (function (Release) {
         })
       );
 
-      var reference = _.head(allArtistCredits),
+      var reference = new MB.entity.ArtistCredit(releaseData.artistCredit),
           subjects = _.tail(allArtistCredits);
 
-      return subjects.length > 0 &&
-        _.some(subjects, function(subject) {
-          return !subject.isEqual(reference)
-        });
+      return _.some(subjects, function(subject) {
+        return !subject.isEqual(reference)
+      });
     });
 
     this.showVideo = ko.computed(function () {

@@ -186,55 +186,70 @@
             );
         };
 
-        print $context->plugin('JSON.Escape')->json_encode([
-            map +{
-                name => $_->name,
-                tracks => [
-                    map +{
-                        gid => $_->gid,
-                        position => $_->position,
-                        number => $_->number,
-                        name => $_->name,
-                        length => $_->length,
-                        editsPending => $_->edits_pending,
-                        artistCredit => [
-                            map +{
-                                name => $_->name,
-                                join_phrase => $_->join_phrase,
-                                artist => {
-                                    gid => $_->artist->gid,
-                                    id => $_->artist->id,
-                                    sortname => $_->artist->sort_name,
-                                    name => $_->artist->name
-                                }
-                            }, $_->artist_credit->all_names
-                        ],
-                        recording => {
-                            relationships => [
+        my $release = $stash->get('release');
+        print $context->plugin('JSON.Escape')->json_encode({
+            mediums => [
+                map +{
+                    name => $_->name,
+                    tracks => [
+                        map +{
+                            gid => $_->gid,
+                            position => $_->position,
+                            number => $_->number,
+                            name => $_->name,
+                            length => $_->length,
+                            editsPending => $_->edits_pending,
+                            artistCredit => [
                                 map +{
-                                    $rel_to_json->($_),
-                                    subRelationships => [
-                                        map +{ $rel_to_json->($_) },
-                                            $_->target->all_relationships
-                                    ]
-                                }, $_->recording->all_relationships
+                                    name => $_->name,
+                                    join_phrase => $_->join_phrase,
+                                    artist => {
+                                        gid => $_->artist->gid,
+                                        id => $_->artist->id,
+                                        sortname => $_->artist->sort_name,
+                                        name => $_->artist->name
+                                    }
+                                }, $_->artist_credit->all_names
                             ],
-                            gid => $_->recording->gid,
-                            rating => $_->recording->rating,
-                            userRating => $_->recording->user_rating,
-                            id => $_->recording->id,
-                            name => $_->recording->name,
-                            editsPending => $_->recording->edits_pending,
-                            video =>
-                                $_->recording->video ? JSON::true : JSON::false
-                        }
-                    }, $_->all_tracks
-                ],
-                position => $_->position,
-                format => $_->l_format_name,
-                editsPending => $_->edits_pending
-            }, @{ $stash->get('release')->{mediums} }
-        ]);
+                            recording => {
+                                relationships => [
+                                    map +{
+                                        $rel_to_json->($_),
+                                        subRelationships => [
+                                            map +{ $rel_to_json->($_) },
+                                                $_->target->all_relationships
+                                        ]
+                                    }, $_->recording->all_relationships
+                                ],
+                                gid => $_->recording->gid,
+                                rating => $_->recording->rating,
+                                userRating => $_->recording->user_rating,
+                                id => $_->recording->id,
+                                name => $_->recording->name,
+                                editsPending => $_->recording->edits_pending,
+                                video =>
+                                    $_->recording->video ? JSON::true : JSON::false
+                            }
+                        }, $_->all_tracks
+                    ],
+                    position => $_->position,
+                    format => $_->l_format_name,
+                    editsPending => $_->edits_pending
+                }, @{ $release->{mediums} }
+            ],
+            artistCredit => [
+                map +{
+                    name => $_->name,
+                    join_phrase => $_->join_phrase,
+                    artist => {
+                        gid => $_->artist->gid,
+                        id => $_->artist->id,
+                        sortname => $_->artist->sort_name,
+                        name => $_->artist->name
+                    }
+                }, $release->artist_credit->all_names
+            ],
+        });
       [%- END -%]
       )
     </script>
