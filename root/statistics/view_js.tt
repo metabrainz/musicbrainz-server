@@ -186,7 +186,12 @@
             [% END %]
 
             "count.coverart": { Label: '[% l('Pieces of Cover Art') | js %]', Color: '#0022dd', Description: '[% l('Pieces of Cover Art') | js %]', Category: 'cover-art' },
-            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' }
+            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' },
+
+            "count.release.coverart.amazon": { Label: '[% l('Releases with Amazon Coverart') | js %]', Color: '#dd22dd', Description: '[% l('Releases with Amazon Coverart') | js %]', Category: 'cover-art' },
+            "count.release.coverart.caa": { Label: '[% l('Releases with CAA Coverart') | js %]', Color: '#dd0022', Description: '[% l('Releases with CAA Coverart') | js %]', Category: 'cover-art' },
+            "count.release.coverart.relationship": { Label: '[% l('Releases with Coverart from Relationships') | js %]', Color: '#2200dd', Description: '[% l('Releases with Amazon Coverart') | js %]', Category: 'cover-art' },
+            "count.release.coverart.none": { Label: '[% l('Releases with No Coverart') | js %]', Color: '#00dd22', Description: '[% l('Releases with No Coverart') | js %]', Category: 'cover-art' }
         }
     });
 })(MB);
