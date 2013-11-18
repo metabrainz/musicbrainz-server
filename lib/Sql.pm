@@ -363,16 +363,15 @@ sub _select_single_row
     my $method = "fetchrow_$type";
     my @params = @$params;
 
+    my $sth;
     return try {
         my $tt = Sql::Timer->new($query, $params) if $self->debug;
 
-        $self->sth( $self->dbh->prepare_cached($query) );
-        my $rv  = $self->sth->execute(@params) or croak 'Could not execute query';
+        $sth = $self->dbh->prepare_cached($query);
+        my $rv = $sth->execute(@params) or croak 'Could not execute query';
 
-        my $first_row = $self->sth->$method;
-        my $next_row  = $self->sth->$method if $first_row;
-
-        $self->finish;
+        my $first_row = $sth->$method;
+        my $next_row  = $sth->$method if $first_row;
 
         croak 'Query returned more than one row (expected 1 row)' if $next_row;
 
@@ -382,6 +381,9 @@ sub _select_single_row
         my $err = $_;
         confess "Failed query:\n\t'$query'\n\t(@params)\n$err\n"
             unless $self->quiet;
+    }
+    finally {
+        $sth->finish if $sth;
     };
 }
 
