@@ -156,9 +156,7 @@ sub _load
             ORDER BY $order, musicbrainz_collate(name)";
         }
 
-        $self->sql->select($query, @params);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -174,7 +172,6 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $self->sql->finish;
     }
     return @rels;
 }

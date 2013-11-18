@@ -81,15 +81,13 @@ sub get_by_ids_sorted_by_name
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
                 " ORDER BY musicbrainz_collate(name)";
-    my $sql = $self->sql;
-    $self->sql->select($query, @ids);
+
     my @result;
-    while (1) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         push @result, $obj;
     }
-    $self->sql->finish;
     return \@result;
 }
 
