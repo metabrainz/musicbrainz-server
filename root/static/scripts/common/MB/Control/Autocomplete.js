@@ -270,7 +270,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         var self = this;
 
         this.close();
-        this.element.prop("disabled", true);
 
         if (this.xhr) {
             this.xhr.abort();
@@ -292,14 +291,10 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                         return;
                     }
                 }
-                self.currentSelection(data);
+                self.options.select(null, { item: data });
             },
 
-            error: _.bind(this.clear, this),
-
-            complete: function () {
-                self.element.prop("disabled", false).focus();
-            }
+            error: _.bind(this.clear, this)
         });
     },
 
