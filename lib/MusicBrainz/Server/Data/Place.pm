@@ -154,15 +154,15 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('place', $new_id, @old_ids);
 
-    my @common = ($self->sql => (
-                      table => 'place',
-                      old_ids => \@old_ids,
-                      new_id => $new_id
-                 ));
+    my @merge_options = ($self->sql => (
+                           table => 'place',
+                           old_ids => \@old_ids,
+                           new_id => $new_id
+                        ));
 
-    merge_table_attributes(@common, columns => [ qw( type area coordinates ) ]);
-    merge_string_attributes(@common, columns => [ qw( address ) ]);
-    merge_partial_date(@common, field => $_) for qw( begin_date end_date );
+    merge_table_attributes(@merge_options, columns => [ qw( type area coordinates ) ]);
+    merge_string_attributes(@merge_options, columns => [ qw( address ) ]);
+    merge_partial_date(@merge_options, field => $_) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('place', $new_id, @old_ids);
     return 1;

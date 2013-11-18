@@ -482,41 +482,43 @@ sub check_data
 }
 
 sub _merge_attributes {
-    my ($sql, $callback, %named_params) = @_;
+    my ($sql, $query_generator, %named_params) = @_;
     my $table = $named_params{table} or confess 'Missing parameter $table';
 
     my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
     my $old_ids = $named_params{old_ids} or confess 'Missing parameter \@old_ids';
     my $all_ids = [$new_id, @$old_ids];
 
-    $sql->do($callback->($table, $new_id, $old_ids, $all_ids, \%named_params));
+    $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
 }
 
 sub _conditional_merge {
-    my ($condition, $table, $new_id, $old_ids, $all_ids, $named_params) = @_;
-    my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+    my ($condition) = @_;
 
-    return ("UPDATE $table SET " .
-            join(',', map {
-                "$_ = (SELECT new_val FROM (
-                     SELECT (id = ?) AS first, $_ AS new_val
-                       FROM $table
-                      WHERE $_ $condition
-                        AND id IN (" . placeholders(@$all_ids) . ")
-                   ORDER BY first DESC
-                      LIMIT 1
-                      ) s)";
-            } @$columns) . '
-            WHERE id = ?',
-            (@$all_ids, $new_id) x @$columns, $new_id)
+    return sub {
+            my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+            my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+            ("UPDATE $table SET " .
+             join(',', map {
+                 "$_ = (SELECT new_val FROM (
+                      SELECT (id = ?) AS first, $_ AS new_val
+                        FROM $table
+                       WHERE $_ $condition
+                         AND id IN (" . placeholders(@$all_ids) . ")
+                    ORDER BY first DESC
+                       LIMIT 1
+                       ) s)";
+             } @$columns) . '
+             WHERE id = ?',
+             (@$all_ids, $new_id) x @$columns, $new_id)}
 }
 
 sub merge_table_attributes {
-    _merge_attributes(shift, sub { return _conditional_merge('IS NOT NULL', @_) }, @_);
+    _merge_attributes(shift, _conditional_merge('IS NOT NULL'), @_);
 }
 
 sub merge_string_attributes {
-    _merge_attributes(shift, sub { return _conditional_merge("!= ''", @_) }, @_);
+    _merge_attributes(shift, _conditional_merge("!= ''"), @_);
 }
 
 sub merge_boolean_attributes {
