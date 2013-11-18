@@ -14,6 +14,18 @@ test 'Cannot create Sql objects without a dbh' => sub {
         'cannot create a Sql object without a database connector');
 };
 
+test 'Nested selects' => sub {
+    my $test = shift;
+    my $sql = $test->c->sql;
+
+    my $rows = $sql->select("SELECT * FROM (VALUES (1, 'musical'), (2, 'rock')) tag (id, name)");
+    is exception {
+        while (my $row = $sql->next_row_ref) {
+            $sql->select_single_column_array("SELECT * FROM generate_series(1, 10)");
+        }
+    }, undef;
+};
+
 test 'All tests' => sub {
     my $test = shift;
 

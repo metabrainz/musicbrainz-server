@@ -267,10 +267,28 @@ sub restore {
     my ($self, $data) = @_;
 
     if (exists $data->{release}{date} || exists $data->{release}{country}) {
-        $data->{release}{events} = [{
-            date => delete $data->{release}{date},
-            country_id => delete $data->{release}{country}
-        }];
+        my $country_name = delete $data->{release}{country};
+        if (looks_like_number($country_name)) {
+            my $area = $self->c->model('Area')->get_by_id($country_name);
+            $data->{release}{events} = [{
+                date => delete $data->{release}{date},
+                country_name => $area && $area->name,
+                country_id => $country_name
+            }];
+        }
+        else {
+            my $countries = $self->c->model('Area')->search_by_names(
+                $country_name)->{$country_name};
+            $data->{release}{events} = [{
+                date => delete $data->{release}{date},
+                country_name => $country_name,
+
+                # $countries will be undefined if there is no search result. It's
+                # not possible for $countries to be the empty list
+                # (Data::Role::Alias immediately pushes to it).
+                country_id => $countries && $countries->[0]->id
+            }];
+        }
     }
 
     $self->data($data);
