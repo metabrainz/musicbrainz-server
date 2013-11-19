@@ -84,7 +84,6 @@ sub get_by_ids_sorted_by_name
 
     my @result;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-        my $row = $self->sql->next_row_hash_ref or last;
         my $obj = $self->_new_from_row($row);
         push @result, $obj;
     }
