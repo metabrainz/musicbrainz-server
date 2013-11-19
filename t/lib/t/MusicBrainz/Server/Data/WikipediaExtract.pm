@@ -21,11 +21,11 @@ test 'Get ja page from en' => sub {
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract($entity, 'ja', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it prime the cache
-    $extract = $c->model('WikipediaExtract')->get_extract($entity, 'ja', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 0);
     ok(defined $extract);
 
     like($extract->content, qr{は、広島県出身の女性3人組テクノポップユニットである。}, "contains japanese text");
@@ -43,11 +43,11 @@ test 'Get en page from en' => sub {
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract($entity, 'en', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it use the network
-    $extract = $c->model('WikipediaExtract')->get_extract($entity, 'en', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
     like($extract->content, qr{Japanese pop girl group}, "contains english text");
@@ -65,11 +65,11 @@ test 'Get nl page from en, fallback to en' => sub {
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract($entity, 'nl', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'nl', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it use the network
-    $extract = $c->model('WikipediaExtract')->get_extract($entity, 'nl', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'nl', cache_only => 0);
     ok(defined $extract);
 
     like($extract->content, qr{Japanese pop girl group}, "contains english text");
@@ -88,11 +88,11 @@ test 'Get en page from wikidata' => sub {
     # Q494703 is the band Perfume, as with the other tests
     my $entity = Wikidata->new(url => 'http://www.wikidata.org/wiki/Q494703');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract($entity, 'en', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it use the network
-    $extract = $c->model('WikipediaExtract')->get_extract($entity, 'en', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
     like($extract->content, qr{Japanese pop girl group}, "contains english text");
