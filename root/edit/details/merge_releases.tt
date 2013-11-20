@@ -1,5 +1,5 @@
-[% MACRO release_header(release) BLOCK; %]
-  <tr class="subh">
+[% MACRO release_row(release) BLOCK; %]
+  <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
     <td>[% release.combined_format_name %]</td>
@@ -29,7 +29,7 @@
   <tbody>
   [% IF edit.data.merge_strategy == 1 %]
     [% FOR change=edit.display_data.changes %]
-      [% release_header(change.release) %]
+      [% release_row(change.release) %]
       [% FOR medium=change.mediums %]
         <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
           <td colspan="9">
@@ -64,26 +64,26 @@
     [% END %]
     [% IF edit.data.item('_edit_version') == 1 %]
       [% FOR release = edit.display_data.old;
-          release_header(release);
+          release_row(release);
         END %]
-      <tr>
+      <tr class="subh">
         <th colspan="9">[% l('Into:') %]</th>
       </tr>
-      [% release_header(edit.display_data.new) %]
+      [% release_row(edit.display_data.new) %]
     [% ELSE %]
-      <tr>
+      <tr class="subh">
         <th colspan="9">[% l('Into:') %]</th>
       </tr>
-      [% release_header(edit.display_data.new) %]
+      [% release_row(edit.display_data.new) %]
     [% END%]
   [% ELSIF edit.data.merge_strategy == 2 %]
     [% FOR release = edit.display_data.old;
-         release_header(release);
+         release_row(release);
        END %]
-    <tr>
+    <tr class="subh">
       <th colspan="9">[% l('Into:') %]</th>
     </tr>
-    [% release_header(edit.display_data.new) %]
+    [% release_row(edit.display_data.new) %]
   [% END %]
 </table>
 
