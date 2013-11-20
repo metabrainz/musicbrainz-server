@@ -687,9 +687,14 @@ MB.tests.URLCleanup.GuessType = function() {
                     'artist'
                 ],
                 [
-                    'http://idiotsikker.bandcamp.com/album/supardejen-king-kong',
+                    'http://idiotsikker.bandcamp.com/tra#top',
                     'http://idiotsikker.bandcamp.com/',
                     'label'
+                ],
+                [
+                    'https://andrewhuang.bandcamp.com/track/boom-box/?test',
+                    'http://andrewhuang.bandcamp.com/track/boom-box',
+                    'recording'
                 ],
                 // iTunes
                 [

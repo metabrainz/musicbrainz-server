@@ -463,7 +463,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i"),
         type: MB.constants.LINK_TYPES.bandcamp,
         clean: function(url) {
-            return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com((\/|\?).*)?$/, "http://$1.bandcamp.com/");
+            return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
     otherdatabases: {
@@ -687,6 +687,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function() {
         return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+
+    // allow only top-level Bandcamp pages as artist/label URLs
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function() {
+        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
     }
 
     // only allow domains on the cover art whitelist
