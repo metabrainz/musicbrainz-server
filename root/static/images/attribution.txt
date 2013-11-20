@@ -39,6 +39,7 @@ Images:
 
     icons/add.png
     icons/delete.png
+    icons/information.png
 
 ----------------------------------------------------------------------------
 
