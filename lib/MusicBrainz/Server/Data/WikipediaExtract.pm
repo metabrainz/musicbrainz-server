@@ -35,10 +35,7 @@ sub get_extract
 
     if (defined $languages && scalar @$languages) {
         my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
-        # Make sure if english was the link language, we still know to use it
-        my $english = $link->isa('MusicBrainz::Server::Entity::URL::Wikipedia') && $link->language eq 'en' ?
-                          {'title' => $link->page_name, 'lang' => 'en'} :
-                          first { $_->{lang} eq 'en' } @$languages;
+        my $english = first { $_->{lang} eq 'en' } @$languages;
 
         # Desired language, fallback to english,
         # fall back to languages that are explicitly linked, finally use "whatever we have"
@@ -90,6 +87,9 @@ sub get_available_languages
                                              $callback,
                                              %opts);
         if (ref $ret eq 'ARRAY') {
+            if ($link->isa('MusicBrainz::Server::Entity::URL::Wikipedia')) {
+                push @$ret, {lang => $link->language, title => $link->page_name};
+            }
             return ($ret, $link)
         }
     }
