@@ -31,7 +31,16 @@ with 'MusicBrainz::Server::Edit::Role::ValueSet' => {
         state $json = JSON::Any->new(
             utf8 => 1, allow_blessed => 1, canonical => 1
         );
-        return $json->objToJson($input);
+
+        # The various string append and 0 additions here are to create a
+        # canonical form for hashing, as we will later be doing a string
+        # comparison on the JavaScript. Thus "foo":0 and "foo":"0" will be
+        # different, so we need to make sure all keys are normalised.
+        return $json->objToJson({
+            attribute_text => '' . ($input->{attribute_text} // ''),
+            attribute_type_id => 0 + $input->{attribute_type_id},
+            attribute_value_id => 0 + ($input->{attribute_value_id} // 0),
+        });
     }
 };
 
