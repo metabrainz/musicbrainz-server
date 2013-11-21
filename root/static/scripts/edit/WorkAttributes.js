@@ -20,7 +20,7 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
 
     self.typeId = ko.observable(typeId + "");
     self.attributeValue = ko.observable(value);
-    self.errors = valueErrors;
+    self.errors = ko.observableArray(valueErrors);
 
     self.allowsFreeText = ko.computed(function() {
         return !self.typeId() || attributeTypes[self.typeId()].allowsFreeText;
@@ -42,8 +42,14 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
         MB.WorkAttributes.viewModel.attributes.remove(this);
     };
 
+    function resetErrors() { debugger; self.errors([]) };
+
     self.typeId.subscribe(function() {
         self.attributeValue("");
+        resetErrors();
+    });
+    self.attributeValue.subscribe(function() {
+        resetErrors();
     });
 
     return self;

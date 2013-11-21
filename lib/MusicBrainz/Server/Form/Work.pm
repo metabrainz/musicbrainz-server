@@ -52,6 +52,11 @@ has_field 'attributes.value' => (
     required => 1
 );
 
+sub is_empty_attribute {
+    my ($field) = @_;
+    return !$field->field('type_id')->value && !$field->field('value')->value;
+}
+
 after 'validate' => sub {
     my ($self) = @_;
 
@@ -64,6 +69,7 @@ after 'validate' => sub {
     );
 
     for my $attribute_field ($attributes->fields) {
+        next if is_empty_attribute($attribute_field);
         next if
             $attribute_field->has_errors ||
             $attribute_field->field('type_id')->has_errors ||
@@ -97,7 +103,8 @@ after 'validate' => sub {
     # We need to reset the repeatable value as we may have changed the value of
     # inner fields.
     $attributes->value([
-        map { $_->value } $attributes->fields
+        map { $_->value }
+        $attributes->fields
     ]);
 };
 

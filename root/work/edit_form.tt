@@ -41,7 +41,7 @@
                      alt="[% l('Remove attribute') %]" />
             </button>
 
-            <!-- ko if: errors.length -->
+            <!-- ko if: errors().length -->
             <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
                 <li data-bind="text: $data"></li>
             </ul>
@@ -82,7 +82,7 @@
 var editor = MB.WorkAttributes.init([% workAttributesJson %]);
 [% FOR attribute=form.field('attributes').fields %]
 editor.viewModel.attributes.push(new MB.WorkAttributes.WorkAttribute(
-    [% attribute.field('type_id').value %],
+    "[% attribute.field('type_id').value.defined ? attribute.field('type_id').value : '' %]",
     "[% attribute.field('value').value | js %]",
     [% attribute.field('value').errors.json %]
 ));
