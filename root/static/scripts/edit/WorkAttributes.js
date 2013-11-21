@@ -29,12 +29,14 @@ WA.WorkAttribute = function(typeId, value) {
             return [];
         }
         else {
-            return _.keys(attributeTypes[self.typeId()].values);
+            return [null].concat(_.keys(attributeTypes[self.typeId()].values));
         }
     });
-    self.valueFormatter = function(item) {
-        return attributeTypes[self.typeId()].values[item];
-    };
+    self.valueFormatter = formatNullAsEmpty(
+        function(item) {
+            return attributeTypes[self.typeId()].values[item];
+        }
+    );
     self.remove = function() {
         MB.WorkAttributes.viewModel.attributes.remove(this);
     };
@@ -51,11 +53,13 @@ ViewModel = function () {
     model.attributes = ko.observableArray();
 
     model.attributeTypes = ko.computed(function() {
-        return _.keys(attributeTypes);
+        return [null].concat(_.keys(attributeTypes));
     });
-    model.formatAttributeType = function(item) {
-        return attributeTypes[item].name;
-    };
+    model.formatAttributeType = formatNullAsEmpty(
+        function (item) {
+            return attributeTypes[item].name;
+        }
+    );
 
     model.newAttribute = function() {
         model.attributes.push(new WA.WorkAttribute("", ""));
@@ -65,5 +69,16 @@ ViewModel = function () {
 };
 
 return WA;
+
+function formatNullAsEmpty(f) {
+    return function (x) {
+        if (x === null) {
+            return "";
+        }
+        else {
+            return f(x);
+        }
+    }
+}
 
 }(MB.WorkAttributes || {}));
