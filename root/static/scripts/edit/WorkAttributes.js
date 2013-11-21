@@ -15,11 +15,12 @@ WA.init = function(config) {
     return WA;
 };
 
-WA.WorkAttribute = function(typeId, value) {
+WA.WorkAttribute = function(typeId, value, valueErrors) {
     var self = this;
 
     self.typeId = ko.observable(typeId + "");
     self.attributeValue = ko.observable(value);
+    self.errors = valueErrors;
 
     self.allowsFreeText = ko.computed(function() {
         return !self.typeId() || attributeTypes[self.typeId()].allowsFreeText;

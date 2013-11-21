@@ -1,3 +1,4 @@
+[%- USE JSON.Escape %]
 <form action="[% c.req.uri %]" method="post" class="edit-work">
   [%- USE r = FormRenderer(form) -%]
 
@@ -39,6 +40,12 @@
                    title="[% l('Remove attribute') %]"
                      alt="[% l('Remove attribute') %]" />
             </button>
+
+            <!-- ko if: errors.length -->
+            <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
+                <li data-bind="text: $data"></li>
+            </ul>
+            <!-- /ko -->
           </div>
         <!-- /ko -->
 
@@ -76,7 +83,8 @@ var editor = MB.WorkAttributes.init([% workAttributesJson %]);
 [% FOR attribute=form.field('attributes').fields %]
 editor.viewModel.attributes.push(new MB.WorkAttributes.WorkAttribute(
     [% attribute.field('type_id').value %],
-    "[% attribute.field('value').value | js %]"
+    "[% attribute.field('value').value | js %]",
+    [% attribute.field('value').errors.json %]
 ));
 [% END %]
 </script>

@@ -54,7 +54,6 @@ has_field 'attributes.value' => (
 
 after 'validate' => sub {
     my ($self) = @_;
-    return if $self->has_errors;
 
     my $iswcs = $self->field('iswcs');
     $iswcs->value([ uniq sort grep { $_ } @{ $iswcs->value } ]);
@@ -65,6 +64,11 @@ after 'validate' => sub {
     );
 
     for my $attribute_field ($attributes->fields) {
+        next if
+            $attribute_field->has_errors ||
+            $attribute_field->field('type_id')->has_errors ||
+            $attribute_field->field('value')->has_errors;
+
         my $v = $attribute_field->value;
         my $value = $v->{value};
         my $type_id = $v->{type_id};
