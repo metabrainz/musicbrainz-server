@@ -202,4 +202,130 @@ CREATE CONSTRAINT TRIGGER remove_unused_links
     AFTER DELETE OR UPDATE ON l_place_work DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE remove_unused_links();
 
+-- clean up URL and link tables
+SELECT delete_unused_url(array_agg(id)) FROM url url_row WHERE NOT (
+      EXISTS (
+        SELECT TRUE FROM l_area_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_artist_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_label_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_place_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_recording_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_release_group_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_url
+        WHERE entity0 = url_row.id OR entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
+        SELECT TRUE FROM l_url_work
+        WHERE entity0 = url_row.id
+        LIMIT 1
+      ));
+
+CREATE TEMPORARY TABLE unused
+    ON COMMIT DROP
+    AS
+    SELECT link.id
+    FROM   link
+    JOIN   link_type ON link.link_type = link_type.id
+    WHERE
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'area'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_area WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'artist'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_artist WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'label'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_label WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'place'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_place WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'recording'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_recording WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'release'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_release WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'release_group'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_release_group WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'url'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_url WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'area'
+            AND link_type.entity_type1 = 'work'
+            AND NOT EXISTS (SELECT TRUE FROM l_area_work WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'artist'
+            AND link_type.entity_type1 = 'place'
+            AND NOT EXISTS (SELECT TRUE FROM l_artist_place WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'label'
+            AND link_type.entity_type1 = 'place'
+            AND NOT EXISTS (SELECT TRUE FROM l_label_place WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'place'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_place WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'recording'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_recording WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'release'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_release WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'release_group'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_release_group WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'url'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_url WHERE link = link.id LIMIT 1))
+    OR
+           (link_type.entity_type0 = 'place'
+            AND link_type.entity_type1 = 'work'
+            AND NOT EXISTS (SELECT TRUE FROM l_place_work WHERE link = link.id LIMIT 1));
+
+DELETE FROM link_attribute WHERE link IN (SELECT id FROM unused);
+DELETE FROM link WHERE id IN (SELECT id FROM unused);
+
 COMMIT;
