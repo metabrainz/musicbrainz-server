@@ -645,14 +645,21 @@ test 'release lookup, relation attributes' => sub {
                         id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
                         title => 'LOVE & HONESTY',
                         barcode => '4988064173891',
-                        country => JSON::null,
-                        date => '2004-01-15',
+                        country => "JP",
                         'release-events' => [
                             {
-                            "area" => undef,
+                            "area" => {
+                                disambiguation => '',
+                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                                "name" => "Japan",
+                                "sort-name" => "Japan",
+                                "iso_3166_1_codes" => ["JP"],
+                                "iso_3166_2_codes" => [],
+                                "iso_3166_3_codes" => []},
                             date => '2004-01-15'
                             }
                         ],
+                        date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,
@@ -676,14 +683,21 @@ test 'release lookup, relation attributes' => sub {
                         id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
                         title => 'LOVE & HONESTY',
                         barcode => '4988064173907',
-                        country => JSON::null,
-                        date => '2004-01-15',
+                        country => "JP",
                         'release-events' => [
                             {
-                            "area" => undef,
+                            "area" => {
+                                disambiguation => '',
+                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                                "name" => "Japan",
+                                "sort-name" => "Japan",
+                                "iso_3166_1_codes" => ["JP"],
+                                "iso_3166_2_codes" => [],
+                                "iso_3166_3_codes" => []},
                             date => '2004-01-15'
                             }
                         ],
+                        date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,

@@ -464,8 +464,7 @@ sub find_by_recordings
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{recording} } ||= [];
         push @{ $map{ $row->{recording} } },
             [ $self->_new_from_row($row),
@@ -1167,16 +1166,15 @@ sub load_meta
     }, @objs);
 
     my @ids = keys %id_to_obj;
-    $self->sql->select(
-        'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
-        @ids
-    );
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
+            @ids
+        )
+    }) {
         $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
             if defined $row->{cover_art_url};
     }
-    $self->sql->finish;
 }
 
 sub find_ids_by_track_ids
@@ -1270,11 +1268,27 @@ sub newest_releases_with_artwork {
 
 sub load_release_events {
     my ($self, @releases) = @_;
-    my $events = $self->find_release_events(map { $_->id } @releases);
 
-    for my $release (@releases) {
+    my @releases_to_load = grep { $_->event_count < 1 } @releases;
+    my $events = $self->find_release_events(map { $_->id } @releases_to_load);
+
+    for my $release (@releases_to_load) {
         $release->events($events->{$release->id});
     }
+
+    $self->c->model('Area')->load(
+        grep { $_->country_id && !defined($_->country) }
+        map { $_->all_events }
+        @releases
+    );
+
+    $self->c->model('Area')->load_codes(
+        grep { !defined($_->primary_code) }
+        grep defined,
+        map { $_->country }
+        map { $_->all_events }
+        @releases
+    );
 }
 
 sub find_release_events {

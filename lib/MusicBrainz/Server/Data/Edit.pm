@@ -537,10 +537,10 @@ sub load_all
         # ArtistMeta, ReleaseMeta, etc are special models that indicate
         # loading via Artist->load_meta, Release->load_meta, and so on.
         if ($model =~ /^(.*)Meta$/) {
-            $self->c->model($1)->load_meta(@$objs);
+            $self->c->model($1)->load_meta(grep defined, @$objs);
         }
         else {
-            $self->c->model($model)->load(@$objs);
+            $self->c->model($model)->load(grep defined, @$objs);
         }
     }
 

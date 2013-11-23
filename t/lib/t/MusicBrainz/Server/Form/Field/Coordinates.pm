@@ -26,7 +26,7 @@ test 'Correct display for undef coordinates' => sub {
         }
     );
 
-    is ($form->field('coordinates')->fif, '');
+    is ($form->field('coordinates')->fif, '', 'displays empty string');
 };
 
 test 'Correct display for empty coordinates' => sub {
@@ -39,7 +39,7 @@ test 'Correct display for empty coordinates' => sub {
         }
     );
 
-    is ($form->field('coordinates')->fif, '');
+    is ($form->field('coordinates')->fif, '', 'displays empty string');
 };
 
 test 'Correct display for non-empty coordinates' => sub {
@@ -51,8 +51,8 @@ test 'Correct display for non-empty coordinates' => sub {
             )
         }
     );
-
-    is ($form->field('coordinates')->fif, '48.28239, -37.67383');
+    my $expected = '48.28239N, 37.67383W';
+    is ($form->field('coordinates')->fif, $expected, "displays $expected");
 };
 
 test 'Coordinate validation' => sub {
@@ -119,6 +119,36 @@ test 'Coordinate validation' => sub {
             parse => q{52°31′N 13°23′E },
             latitude => 52.516667,
             longitude => 13.383333
+        },
+        {
+            parse => q{北緯３５度３９分５９．８１秒　東経１３９度４４分２９．０６秒},
+            latitude => 35.666614,
+            longitude => 139.741406
+        },
+        {
+            parse => q{北緯43度2分39.22秒 東経141度21分9.77秒},
+            latitude => 43.044228,
+            longitude => 141.352714
+        },
+        {
+            parse => q{南緯22度54分30秒 西経43度11分47秒},
+            latitude => -22.908333,
+            longitude => -43.196389
+        },
+        {
+            parse => q{北緯35度39分59.81秒東経139度44分29.06秒},
+            latitude => 35.666614,
+            longitude => 139.741406
+        },
+        {
+            parse => q{52,48470 13,39223},
+            latitude => 52.48470,
+            longitude => 13.39223
+        },
+        {
+            parse => q{55,681192, 12,576282},
+            latitude => 55.681192,
+            longitude => 12.576282
         },
         {
             parse => q{},

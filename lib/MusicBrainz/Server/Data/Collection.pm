@@ -230,11 +230,10 @@ sub load_release_count {
               VALUES '. join(', ', ("(?::integer)") x keys %collection_map) .'
                 ) col (id)';
 
-    $self->sql->select($query, keys %collection_map);
-    while (my ($id, $count) = $self->sql->next_row) {
+    for my $row (@{ $self->sql->select_list_of_lists($query, keys %collection_map) }) {
+        my ($id, $count) = @$row;
         $collection_map{$id}->release_count($count);
     }
-    $self->sql->finish;
 }
 
 sub update

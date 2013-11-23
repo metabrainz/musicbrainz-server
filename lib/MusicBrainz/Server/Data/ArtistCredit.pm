@@ -30,9 +30,7 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $self->sql->select($query, @ids);
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my %info = (
             artist_id => $row->{artist},
             name => $row->{name}
@@ -50,7 +48,6 @@ sub get_by_ids
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $self->sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }

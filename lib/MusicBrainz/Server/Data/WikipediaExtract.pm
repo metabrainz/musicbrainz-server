@@ -10,6 +10,7 @@ use URI::Escape qw( uri_escape_utf8 );
 use List::Util qw( first );
 
 with 'MusicBrainz::Server::Data::Role::Context';
+with 'MusicBrainz::Server::Data::Role::MediaWikiAPI';
 
 # We'll assume interlanguage links don't change much
 Readonly my $LANG_CACHE_TIMEOUT => 60 * 60 * 24 * 7; # 1 week
@@ -80,29 +81,6 @@ sub get_available_languages
                                       %opts);
 }
 
-sub _fetch_cache_or_url
-{
-    my ($self, $url_pattern, $json_property, $cache_timeout, $title, $language, $callback, %opts) = @_;
-    my $cache_only = $opts{cache_only} // 0;
-
-    my ($cache, $cache_key) = $self->_get_cache_and_key($json_property, $title, $language);
-
-    my $value = $cache->get($cache_key);
-
-    unless (defined $value || $cache_only) {
-        my $url = sprintf $url_pattern, $language // '', uri_escape_utf8($title);
-
-        my $ret = $self->_get_and_process_json($url, $title, $json_property);
-        unless (defined $ret) { return undef }
-
-        $value = &$callback(fetched => $ret, language => $language);
-
-        $cache->set($cache_key, $value, $cache_timeout);
-    }
-
-    return $value;
-}
-
 sub _wikidata_languages_callback
 {
     my (%opts) = @_;
@@ -136,59 +114,6 @@ sub _extract_by_language_callback
                                       canonical => $opts{fetched}{canonical},
                                       language => $opts{language} );
     }
-}
-
-sub _get_cache_and_key
-{
-    my ($self, $prefix, $title, $language) = @_;
-    $title = uri_escape_utf8($title);
-    my $cache = $self->c->cache;
-    my $cache_key = join(':', grep { defined } ('wp', $prefix, $title, $language));
-
-    return ($cache, $cache_key)
-}
-
-sub _get_and_process_json
-{
-    my ($self, $url, $title, $property) = @_;
-
-    # request JSON
-    my $response = $self->c->lwp->get($url);
-    unless ($response->is_success) {
-        return undef;
-    }
-
-    # decode JSON
-    my $content = decode_json(encode("utf-8", $response->content));
-    if ($content->{query}) {
-        # Wikipedia
-        $content = $content->{query};
-        # save title as passed in
-        my $noncanonical = $title;
-
-        # capitalization normalizations
-        my $normalized = first { $_->{from} eq $title } @{ $content->{normalized} } if $content->{normalized};
-        if ($normalized) {
-            $title = $normalized->{to};
-        }
-
-        # wiki redirects
-        my $redirects = first { $_->{from} eq $title } @{ $content->{redirects} } if $content->{redirects};
-        if ($redirects) {
-            $title = $redirects->{to};
-        }
-
-        # pull out the correct page, though there should only be one
-        my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
-        unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
-
-        return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
-    } elsif ($content->{entities}) {
-        # Wikidata
-        return {content => $content->{entities}{$title}};
-    } else {
-        return undef;
-    };
 }
 
 __PACKAGE__->meta->make_immutable;
