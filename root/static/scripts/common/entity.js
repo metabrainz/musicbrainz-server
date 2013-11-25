@@ -232,15 +232,22 @@
             var title = artist.sortname;
 
             if (artist.comment) {
-                title += ", " + artist.comment;
+                title += " (" + artist.comment + ")";
             }
 
-            return this.template({
+            var link = this.template({
                 gid:   artist.gid,
                 title: title,
                 name:  ko.unwrap(this.name),
                 join:  ko.unwrap(this.joinPhrase)
             });
+
+            if (ko.unwrap(this.name) != artist.name) {
+                return '<span class="name-variation">' + link + '</span>';
+            }
+            else {
+                return link;
+            }
         },
 
         toJS: function () {
