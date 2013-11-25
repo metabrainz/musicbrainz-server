@@ -2,7 +2,6 @@ package MusicBrainz::Server::Wizard::ReleaseEditor::Edit;
 use Moose;
 use Data::Compare;
 use namespace::autoclean;
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref trim );
 use MusicBrainz::Server::Form::Utils qw( expand_param expand_all_params collapse_param );
 use MusicBrainz::Server::Track qw( format_track_length );
@@ -113,7 +112,7 @@ sub _load_release
     $self->c->model('Label')->load(@{ $self->release->labels });
     $self->c->model('ReleaseGroupType')->load($self->release->release_group);
     $self->c->model('Release')->annotation->load_latest ($self->release);
-    load_release_events($self->c, $self->release);
+    $self->c->model('Release')->load_release_events($self->release);
 }
 
 sub _edits_from_tracklist

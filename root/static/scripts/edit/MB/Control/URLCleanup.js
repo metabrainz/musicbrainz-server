@@ -169,6 +169,10 @@ MB.constants.LINK_TYPES = {
         release_group: 353,
         work: 351,
         place: 594
+    },
+    bandcamp: {
+        artist: 718,
+        label: 719
     }
 };
 
@@ -320,7 +324,7 @@ MB.constants.CLEANUPS = {
         }
     },
     lyrics: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com)", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(lyrics\\.wikia\\.com|directlyrics\\.com|decoda\\.com|kasi-time\\.com|wikisource\\.org|recmusic\\.org|utamap\\.com|j-lyric\\.net|lyricsnmusic\\.com|muzikum\\.eu)", "i"),
         type: MB.constants.LINK_TYPES.lyrics,
         clean: function(url) {
             return url.replace(/^https:\/\/([a-z-]+\.)?wikisource\.org/, "http://$1wikisource.org");
@@ -335,8 +339,13 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.discography
     },
     image: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?commons\\.wikimedia\\.org","i"),
-        type: MB.constants.LINK_TYPES.image
+        match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
+        type: MB.constants.LINK_TYPES.image,
+        clean: function(url) {
+            url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, "https://commons.wikimedia.org/wiki/File:$2");
+            url = url.replace(/\?uselang=[a-z-]+$/, "");
+            return url.replace(/^https?:\/\/commons\.wikimedia\.org\/wiki\/(File|Image):/, "https://commons.wikimedia.org/wiki/File:");
+        }
     },
     discographyentry: {
         match: new RegExp("^(https?://)?(www\\.)?(naxos\\.com/catalogue/item\\.asp|bis\\.se/index\\.php\\?op=album|universal-music\\.co\\.jp/([a-z0-9-]+/)?[a-z0-9-]+/products/[a-z]{4}-[0-9]{5}/$|lantis\\.jp/release-item2\\.php\\?id=[0-9a-f]{32}$|jvcmusic\\.co\\.jp/[a-z-]+/Discography/[A0-9-]+/[A-Z]{4}-[0-9]+\\.html$|wmg\\.jp/artist/[A-Za-z0-9]+/[A-Z]{4}[0-9]{9}\\.html$|avexnet\\.jp/id/[a-z0-9]{5}/discography/product/[A-Z0-9]{4}-[0-9]{5}\\.html$|kingrecords\\.co\\.jp/cs/g/g[A-Z]{4}-[0-9]+/$)", "i"),
@@ -448,6 +457,13 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.wikidata,
         clean: function(url) {
             return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?wikidata\.org\/wiki\/(Q([0-9]+)).*$/, "http://www.wikidata.org/wiki/$1");
+        }
+    },
+    bandcamp: {
+        match: new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i"),
+        type: MB.constants.LINK_TYPES.bandcamp,
+        clean: function(url) {
+            return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
         }
     },
     otherdatabases: {
@@ -630,7 +646,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // allow only IMDb pages with the IMDb rels
     validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character)/) != null;
+        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character|company)/) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
         return $('#id-ar\\.url').val().match(/imdb\.com\/company/) != null;
@@ -671,6 +687,14 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     }
     validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function() {
         return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    }
+
+    // allow only top-level Bandcamp pages as artist/label URLs
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.artist ] = function() {
+        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
+    }
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function() {
+        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
     }
 
     // only allow domains on the cover art whitelist

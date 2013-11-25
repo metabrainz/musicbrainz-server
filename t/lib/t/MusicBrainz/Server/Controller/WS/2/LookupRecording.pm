@@ -228,9 +228,14 @@ ws_test 'recording lookup with release relationships',
                     <title>An Inextricable Tale Audiobook</title>
                     <quality>normal</quality>
                     <date>2007-11-08</date>
+                    <country>US</country>
                     <release-event-list count="1">
                       <release-event>
                         <date>2007-11-08</date>
+                        <area id="489ce91b-6658-3307-9877-795b68554c98">
+                          <name>United States</name><sort-name>United States</sort-name>
+                          <iso-3166-1-code-list><iso-3166-1-code>US</iso-3166-1-code></iso-3166-1-code-list>
+                        </area>
                       </release-event>
                     </release-event-list>
                     <barcode>634479663338</barcode>

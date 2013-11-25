@@ -12,7 +12,6 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Constants qw( :edit_status );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 after 'load' => sub
@@ -96,7 +95,7 @@ sub show : Chained('load') PathPart('')
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseGroup')->load(@$releases);

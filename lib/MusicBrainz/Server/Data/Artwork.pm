@@ -192,9 +192,7 @@ sub load_for_release_groups
           release_event.date_year, release_event.date_month,
           release_event.date_day";
 
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
-
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $artwork = $self->_new_from_row ($row);
 
         $artwork->release (
@@ -205,7 +203,7 @@ sub load_for_release_groups
         $artwork->release_group($id_to_rg{ $row->{release_group} }->[0]);
 
         $id_to_rg{ $row->{release_group} }->[0]->cover_art ($artwork);
-    };
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

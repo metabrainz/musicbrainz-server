@@ -270,10 +270,20 @@ test 'recording lookup with release relationships' => sub {
                     direction => 'forward',
                     release => {
                         barcode => '634479663338',
-                        country => JSON::null,
+                        country => 'US',
                         date => '2007-11-08',
                         "release-events" => [{
-                            area => JSON::null,
+                            area => {
+                              disambiguation => '',
+                              id => '489ce91b-6658-3307-9877-795b68554c98',
+                              iso_3166_1_codes => [
+                                'US'
+                              ],
+                              iso_3166_2_codes => [],
+                              iso_3166_3_codes => [],
+                              name => 'United States',
+                              'sort-name' => 'United States'
+                            },
                             date => '2007-11-08',
                         }],
                         disambiguation => '',

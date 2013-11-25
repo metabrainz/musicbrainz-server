@@ -52,9 +52,7 @@ sub find_by_cover_art_ids
         "WHERE cover_art_type.id IN (" . placeholders(@ids) . ")";
 
     my %map;
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
-
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{cover_art_id} } ||= [];
         push @{ $map{ $row->{cover_art_id} } }, $self->_new_from_row ($row);
     }

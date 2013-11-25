@@ -65,7 +65,7 @@ sub individual_timeline : Path('timeline') Args(1)
 {
     my ($self, $c, $stat) = @_;
 
-    my @stats = ($stat);
+    my @stats = split /\+/, $stat;
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats,

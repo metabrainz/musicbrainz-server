@@ -7,7 +7,6 @@ use JSON qw( decode_json );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $VARTIST_GID );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
@@ -70,7 +69,7 @@ sub prepare_duplicates
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    load_release_events($self->c, @releases);
+    $self->c->model('Release')->load_release_events(@releases);
     $self->c->model('ReleaseLabel')->load(@releases);
     $self->c->model('Label')->load(map { $_->all_labels } @releases);
 
