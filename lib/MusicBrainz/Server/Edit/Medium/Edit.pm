@@ -267,7 +267,7 @@ sub build_display_data
             $data->{tracklist_changes} = $tracklist_changes;
         }
 
-        if (any {$_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
+        if (any {defined $_->[1] && defined $_->[2] && $_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
             $data->{changed_mbids} = 1;
         }
 
