@@ -126,10 +126,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         });
 
         this.element.on("blur", function (event) {
-            if (self.cancelAllBlurs) {
-                self.cancelAllBlurs = false;
-                return;
-            }
             // Stop searching if someone types something and then tabs out of
             // the field.
             self.cancelSearch = true;
@@ -183,8 +179,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     _searchAgain: function (toggle) {
-        this._preventMenuClose();
-
         if (toggle) {
             this.indexedSearch = !this.indexedSearch;
         }
@@ -194,17 +188,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     _showMore: function () {
-        this._preventMenuClose();
         this.currentPage += 1;
         this._search(this._value());
-    },
-
-    _preventMenuClose: function () {
-        // cancelBlur prevents the menu from closing after a click event
-        this.cancelBlur = true;
-
-        // $.ui deletes cancelBlur after checking it, so we also need our own
-        this.cancelAllBlurs = true;
     },
 
     setSelection: function (data) {
@@ -366,8 +351,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         return $("<li>")
             .css("text-align", "center")
             .append($("<a>").text(item.label))
-            .appendTo(ul)
-            .data("ui-autocomplete-item", { action: item.action });
+            .appendTo(ul);
     },
 
     _renderItem: function (ul, item) {
@@ -395,21 +379,32 @@ $.widget("ui.menu", $.ui.menu, {
     // item. If it is, the action is executed. Otherwise we fall back to the
     // default menu behavior.
 
-    select: function (event) {
+    _selectAction: function (event) {
         var active = this.active || $(event.target).closest(".ui-menu-item");
         var item = active.data("ui-autocomplete-item");
 
         if (item && $.isFunction(item.action)) {
             item.action();
+
+            // If this is a click event on the <a>, make sure the event
+            // doesn't reach the parent <li>, or the select action will
+            // close the menu.
+            event.stopPropagation();
             event.preventDefault();
-        } else {
+
+            return true;
+        }
+    },
+
+    _create: function () {
+        this._super();
+        this._on({ "click .ui-menu-item > a": this._selectAction });
+    },
+
+    select: function (event) {
+        if (!this._selectAction(event)) {
             this._super(event);
         }
-
-        // When mouseHandled is true, $.ui ignores future mouse events. It only
-        // gets reset to false if you click outside of the menu, but we want
-        // it to be false no matter what.
-        this.mouseHandled = false;
     }
 });
 
