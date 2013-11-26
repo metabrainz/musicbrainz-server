@@ -82,7 +82,7 @@ sub _unique_iso_code {
     my $container = $self->field($iso_field);
 
     if (
-        my %areas = %{ $self->ctx->model('Area')->$method($container->value) }
+        my %areas = %{ $self->ctx->model('Area')->$method(@{ $container->value }) }
     ) {
         for my $f ($container->fields) {
             my $area_using_iso_code = $areas{$f->value} or next;
