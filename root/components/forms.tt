@@ -110,10 +110,8 @@
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
-              <button class="nobutton icon remove">
-                <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
-                     title="[% l('Remove {item}', item => item_name) %]"
-                       alt="[% l('Remove {item}', item => item_name) %]" />
+              <button class="nobutton remove">
+              <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% END -%]

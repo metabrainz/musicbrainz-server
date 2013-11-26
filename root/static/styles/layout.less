@@ -26,7 +26,7 @@ a>img { border: 0; }
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
 a.external {
-    background: url('../images/icons/external.png') no-repeat right;
+    background: data-uri('images/icons/external.png') no-repeat right;
     padding-right: 13px;
 }
 
@@ -71,7 +71,7 @@ h3 {
 ul {
     margin-left: 0;
     padding-left: 40px;
-    list-style-image: url('../images/icons/bullet.gif');
+    list-style-image: data-uri('images/icons/bullet.gif');
     list-style-type: square;
 }
 
@@ -191,16 +191,17 @@ h1 img.gravatar {
     padding: 0;
     width: 6px;
     height: 8px;
+    background-image: url('../images/layout/sprites.png');
 }
 
 #header-menu div.r {
     bottom: 0; right: 0;
-    background: url('../images/layout/sprites.png') -7px -58px;
+    background-position: -7px -58px;
 }
 
 #header-menu div.l {
     bottom: 0; left: 0;
-    background: url('../images/layout/sprites.png') -0px -58px;
+    background-position: -0px -58px;
 }
 
 #header-menu ul.r {
@@ -297,26 +298,27 @@ h1 img.gravatar {
     display: block;
     width: 8px;
     height: 8px;
+    background-image: url('../images/layout/sprites.png');
 }
 
 .tr {
     top: 0; right: 0;
-    background: url('../images/layout/sprites.png') -14px -58px;
+    background-position: -14px -58px;
 }
 
 .tl {
     top: 0; left: 0;
-    background: url('../images/layout/sprites.png') -23px -58px;
+    background-position: -23px -58px;
 }
 
 .br {
     bottom: 0; right: 0;
-    background: url('../images/layout/sprites.png') -32px -58px;
+    background-position: -32px -58px;
 }
 
 .bl {
     bottom: 0; left: 0;
-    background: url('../images/layout/sprites.png') -41px -58px;
+    background-position: -41px -58px;
 }
 
 .warning-header,
@@ -425,7 +427,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li {
-    background: url("../images/favicons/external-16.png") 0 2px no-repeat;
+    background: data-uri("images/favicons/external-16.png") 0 2px no-repeat;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
     min-height: 14px;
@@ -436,187 +438,187 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li.home {
-    background-image: url("../images/favicons/home-16.png");
+    background-image: data-uri("images/favicons/home-16.png");
 }
 
 #sidebar ul.external_links li.allmusic {
-    background-image: url("../images/favicons/allmusic-16.png");
+    background-image: data-uri("images/favicons/allmusic-16.png");
 }
 
 #sidebar ul.external_links li.amazon {
-    background-image: url("../images/favicons/amazon-16.png");
+    background-image: data-uri("images/favicons/amazon-16.png");
 }
 
 #sidebar ul.external_links li.animenewsnetwork {
-    background-image: url("../images/favicons/animenewsnetwork-16.png");
+    background-image: data-uri("images/favicons/animenewsnetwork-16.png");
 }
 
 #sidebar ul.external_links li.wikipedia {
-    background-image: url("../images/favicons/wikipedia-16.png");
+    background-image: data-uri("images/favicons/wikipedia-16.png");
 }
 
 #sidebar ul.external_links li.facebook {
-    background-image: url("../images/favicons/facebook-16.png");
+    background-image: data-uri("images/favicons/facebook-16.png");
 }
 
 #sidebar ul.external_links li.generasia {
-    background-image: url("../images/favicons/generasia-16.png");
+    background-image: data-uri("images/favicons/generasia-16.png");
 }
 
 #sidebar ul.external_links li.lastfm {
-    background-image: url("../images/favicons/lastfm-16.png");
+    background-image: data-uri("images/favicons/lastfm-16.png");
 }
 
 #sidebar ul.external_links li.myspace {
-    background-image: url("../images/favicons/myspace-16.png");
+    background-image: data-uri("images/favicons/myspace-16.png");
 }
 
 #sidebar ul.external_links li.twitter {
-    background-image: url("../images/favicons/twitter-16.png");
+    background-image: data-uri("images/favicons/twitter-16.png");
 }
 
 #sidebar ul.external_links li.youtube {
-    background-image: url("../images/favicons/youtube-16.png");
+    background-image: data-uri("images/favicons/youtube-16.png");
 }
 
 #sidebar ul.external_links li.discogs {
-    background-image: url("../images/favicons/discogs-16.png");
+    background-image: data-uri("images/favicons/discogs-16.png");
 }
 
 #sidebar ul.external_links li.rockensdanmarkskort {
-    background-image: url("../images/favicons/rockensdanmarkskort-16.png");
+    background-image: data-uri("images/favicons/rockensdanmarkskort-16.png");
 }
 
 #sidebar ul.external_links li.rockipedia {
-    background-image: url("../images/favicons/rockipedia-16.png");
+    background-image: data-uri("images/favicons/rockipedia-16.png");
 }
 
 #sidebar ul.external_links li.secondhandsongs {
-    background-image: url("../images/favicons/secondhandsongs-16.png");
+    background-image: data-uri("images/favicons/secondhandsongs-16.png");
 }
 
 #sidebar ul.external_links li.songfacts {
-    background-image: url("../images/favicons/songfacts-16.png");
+    background-image: data-uri("images/favicons/songfacts-16.png");
 }
 
 #sidebar ul.external_links li.soundcloud {
-    background-image: url("../images/favicons/soundcloud-16.png");
+    background-image: data-uri("images/favicons/soundcloud-16.png");
 }
 
 #sidebar ul.external_links li.ibdb {
-    background-image: url("../images/favicons/ibdb-16.png");
+    background-image: data-uri("images/favicons/ibdb-16.png");
 }
 
 #sidebar ul.external_links li.imslp {
-    background-image: url("../images/favicons/imslp-16.png");
+    background-image: data-uri("images/favicons/imslp-16.png");
 }
 
 #sidebar ul.external_links li.ESTERTallinn {
-    background-image: url("../images/favicons/ESTERTallinn-16.png");
+    background-image: data-uri("images/favicons/ESTERTallinn-16.png");
 }
 
 #sidebar ul.external_links li.ESTERTartu {
-    background-image: url("../images/favicons/ESTERTartu-16.png");
+    background-image: data-uri("images/favicons/ESTERTartu-16.png");
 }
 
 #sidebar ul.external_links li.worldcat {
-    background-image: url("../images/favicons/worldcat-16.png");
+    background-image: data-uri("images/favicons/worldcat-16.png");
 }
 
 #sidebar ul.external_links li.fortyfivecat {
-    background-image: url("../images/favicons/45cat-16.png");
+    background-image: data-uri("images/favicons/45cat-16.png");
 }
 
 #sidebar ul.external_links li.rateyourmusic {
-    background-image: url("../images/favicons/rateyourmusic-16.png");
+    background-image: data-uri("images/favicons/rateyourmusic-16.png");
 }
 
 #sidebar ul.external_links li.rolldabeats {
-    background-image: url("../images/favicons/rolldabeats-16.png");
+    background-image: data-uri("images/favicons/rolldabeats-16.png");
 }
 
 #sidebar ul.external_links li.psydb {
-    background-image: url("../images/favicons/psydb-16.png");
+    background-image: data-uri("images/favicons/psydb-16.png");
 }
 
 #sidebar ul.external_links li.metalarchives {
-    background-image: url("../images/favicons/metalarchives-16.png");
+    background-image: data-uri("images/favicons/metalarchives-16.png");
 }
 
 #sidebar ul.external_links li.spiritofmetal {
-    background-image: url("../images/favicons/spiritofmetal-16.png");
+    background-image: data-uri("images/favicons/spiritofmetal-16.png");
 }
 
 #sidebar ul.external_links li.theatricalia {
-    background-image: url("../images/favicons/theatricalia-16.png");
+    background-image: data-uri("images/favicons/theatricalia-16.png");
 }
 
 #sidebar ul.external_links li.ocremix {
-    background-image: url("../images/favicons/ocremix-16.png");
+    background-image: data-uri("images/favicons/ocremix-16.png");
 }
 
 #sidebar ul.external_links li.musiksammler {
-    background-image: url("../images/favicons/sammler-16.png");
+    background-image: data-uri("images/favicons/sammler-16.png");
 }
 
 #sidebar ul.external_links li.encyclopedisque {
-    background-image: url("../images/favicons/encyclopedisque-16.png");
+    background-image: data-uri("images/favicons/encyclopedisque-16.png");
 }
 
 #sidebar ul.external_links li.trove {
-    background-image: url("../images/favicons/trove-16.png");
+    background-image: data-uri("images/favicons/trove-16.png");
 }
 
 #sidebar ul.external_links li.ric {
-    background-image: url("../images/favicons/ric-16.png");
+    background-image: data-uri("images/favicons/ric-16.png");
 }
 
 #sidebar ul.external_links li.googleplus {
-    background-image: url("../images/favicons/googleplus-16.png");
+    background-image: data-uri("images/favicons/googleplus-16.png");
 }
 
 #sidebar ul.external_links li.dhhu {
-    background-image: url("../images/favicons/dhhu-16.png");
+    background-image: data-uri("images/favicons/dhhu-16.png");
 }
 
 #sidebar ul.external_links li.thesession {
-    background-image: url("../images/favicons/thesession-16.png");
+    background-image: data-uri("images/favicons/thesession-16.png");
 }
 
 #sidebar ul.external_links li.lieder {
-    background-image: url("../images/favicons/lieder-16.png");
+    background-image: data-uri("images/favicons/lieder-16.png");
 }
 
 #sidebar ul.external_links li.openlibrary {
-    background-image: url("../images/favicons/openlibrary-16.png");
+    background-image: data-uri("images/favicons/openlibrary-16.png");
 }
 
 #sidebar ul.external_links li.whosampled {
-    background-image: url("../images/favicons/whosampled-16.png");
+    background-image: data-uri("images/favicons/whosampled-16.png");
 }
 
 #sidebar ul.external_links li.viaf {
-    background-image: url("../images/favicons/viaf-16.png");
+    background-image: data-uri("images/favicons/viaf-16.png");
 }
 
 #sidebar ul.external_links li.vk {
-    background-image: url("../images/favicons/vk-16.png");
+    background-image: data-uri("images/favicons/vk-16.png");
 }
 
 #sidebar ul.external_links li.bandcamp {
-    background-image: url("../images/favicons/bandcamp-16.png");
+    background-image: data-uri("images/favicons/bandcamp-16.png");
 }
 
 #sidebar ul.external_links li.iTunes {
-    background-image: url("../images/favicons/iTunes-16.png");
+    background-image: data-uri("images/favicons/iTunes-16.png");
 }
 
 #sidebar ul.external_links li.spotify {
-    background-image: url("../images/favicons/spotify-16.png");
+    background-image: data-uri("images/favicons/spotify-16.png");
 }
 
 #sidebar ul.external_links li.wikidata {
-    background-image: url("../images/favicons/wikidata-16.png");
+    background-image: data-uri("images/favicons/wikidata-16.png");
 }
 
 #sidebar ul.licenses {
