@@ -90,8 +90,6 @@ sub build_display_data
     my $script = $self->data->{script_id};
     my $lang = $self->data->{language_id};
 
-    $self->c->model('Area')->load_codes(map { $loaded->{Area}->{ $_->{country_id} } } @{ $self->data->{events} });
-
     return {
         artist_credit => artist_credit_preview ($loaded, $self->data->{artist_credit}),
         name          => $self->data->{name} || '',

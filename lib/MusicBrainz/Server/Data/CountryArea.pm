@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' 
 around '_get_all_from_db' => sub {
     my ($orig, $self, $p) = @_;
     my $query = "SELECT " . $self->_columns .
-        " FROM country_area ca JOIN area ON ca.area = area.id " .
+        " FROM " . $self->_table . " JOIN country_area ca ON ca.area = area.id " .
         " ORDER BY " . (join ", ", @{ $p->order_by });
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
 };

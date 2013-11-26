@@ -96,7 +96,6 @@ sub countries : Local
     my $release_country_prefix = 'count.release.country';
     my $label_country_prefix = 'count.label.country';
     my @countries = $c->model('CountryArea')->get_all();
-    $c->model('Area')->load_codes(@countries);
     my %countries = map { $_->country_code => $_ } grep { defined $_->country_code } @countries;
     foreach my $stat_name
         (rev_nsort_by { $stats->statistic($_) } $stats->statistic_names) {
