@@ -100,6 +100,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://www.imdb.com/company/co0109498/',
                     MB.constants.LINK_TYPES.imdb.label
                 ],
+                // Mora
+                [
+                    'release', 'http://mora.jp/package/43000001/4534530058010/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://mora.jp/package/43000014/KIZC-211/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
                 // MySpace
                 [
                     'artist', 'https://myspace.com/instramentaluk',
@@ -130,6 +139,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
+                ],
+                // Recochoku
+                [
+                    'release', 'http://recochoku.jp/album/30282664/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://recochoku.jp/song/S21893898/',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
                 ],
                 // Rockens Danmarkskort
                 [
@@ -848,10 +866,28 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ],
+                // Mora
+                [
+                    'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
+                [
+                    'mora.jp/package/43000002/ANTCD-3106/',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                ],
+                // Recochoku
+                [
+                    'https://www.recochoku.jp/album/30282664?test',
+                    'http://recochoku.jp/album/30282664/',
+                ],
+                [
+                    'recochoku.jp/song/S21893898/',
+                    'http://recochoku.jp/song/S21893898/',
                 ],
                 // Rockipedia
                 [
