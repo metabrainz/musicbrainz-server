@@ -33,7 +33,7 @@ sub _get_extract
     #  * prefer wikidata relationships
     #  * except, if we have a matching-language wikipedia link, use it instead,
     #    since then we don't have to do a query for languages
-    my ($link) = map {
+    my @links = map {
             $_->target;
         } rev_nsort_by {
             if ($_->target->isa('MusicBrainz::Server::Entity::URL::Wikipedia') &&
@@ -45,8 +45,8 @@ sub _get_extract
             $_->target->isa('MusicBrainz::Server::Entity::URL::Wikidata')
         } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
-    if ($link) {
-        my $wp_extract = $c->model('WikipediaExtract')->get_extract($link,
+    if (scalar @links) {
+        my $wp_extract = $c->model('WikipediaExtract')->get_extract(\@links,
             $wanted_lang,
             cache_only => $cache_only);
         if ($wp_extract) {
