@@ -470,6 +470,7 @@ sub _place
         id      => $place->id,
         gid     => $place->gid,
         typeID  => $place->type_id,
+        comment => $place->comment,
         $place->type ? (typeName => $place->type->name) : (),
         $place->area ? (area => $place->area->name) : () };
 }
