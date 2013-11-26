@@ -101,7 +101,9 @@ sub display_tracklist {
                     Recording->new( name => $_->{name} ) :
                     $loaded->{Recording}{ $_->{recording_id} },
                 defined($_->{recording_id}) ?
-                    (recording_id => $_->{recording_id}) : ()
+                    (recording_id => $_->{recording_id}) : (),
+                defined($_->{id}) ?
+                    (id => $_->{id}) : ()
             )
     } sort { $a->{position} <=> $b->{position} } @$tracklist ];
 }
