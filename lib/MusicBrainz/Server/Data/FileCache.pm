@@ -150,7 +150,7 @@ sub compile_css_manifest {
         printf STDERR "Compiling $less_manifest to $css...\n";
 
         my $lessc = DBDefs->MB_SERVER_ROOT . '/node_modules/.bin/lessc';
-        system "$lessc -x $less_manifest $css"
+        system "$lessc -x -rp='/static/' -ru $less_manifest $css"
     }
     return $self->squash(DBDefs->MINIFY_STYLES, $manifest, 'css', 'styles/');
 }
