@@ -46,9 +46,9 @@ div.tabs ul li a:hover {
     color: #000;
 }
 
-.artistheader, .releaseheader, .rgheader,
-.recordingheader, .labelheader, .workheader, .blankheader,
-.collectionheader {
+.areaheader, .artistheader, .releaseheader, .rgheader,
+.recordingheader, .labelheader, .placeheader, 
+.workheader, .blankheader, .collectionheader {
     padding-left: 38px;
     background: 0 4px no-repeat;
 }
@@ -58,9 +58,11 @@ div.tabs ul li a:hover {
 .releaseheader   { background-image: data-uri('../images/entity/release_lg.png') }
 .rgheader        { background-image: data-uri('../images/entity/release_group_lg.png') }
 .recordingheader { background-image: data-uri('../images/entity/recording_lg.png') }
+.placeheader     { background-image: data-uri('../images/entity/place_lg.png') }
 .labelheader     { background-image: data-uri('../images/entity/label_lg.png') }
-.workheader, .collectionheader
-{ background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create work icon, collection icon */
+.workheader      { background-image: data-uri('../images/entity/work_lg.png') }
+.collectionheader, .areaheader
+ { background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create collection, area icons */
 
 span.comment, span.historical { 
     font-weight: normal;
