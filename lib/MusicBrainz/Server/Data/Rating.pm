@@ -89,13 +89,10 @@ sub load_user_ratings
         SELECT $type AS id, rating FROM ${type}_rating_raw
         WHERE editor = ? AND $type IN (".placeholders(@ids).")";
 
-    $self->c->sql->select($query, $user_id, @ids);
-    while (1) {
-        my $row = $self->c->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, $user_id, @ids) }) {
         my $obj = $id_to_obj{$row->{id}};
         $obj->user_rating($row->{rating});
     }
-    $self->c->sql->finish;
 }
 
 sub _update_aggregate_rating

@@ -1,22 +1,24 @@
-package MusicBrainz::Server::Data::CountryArea;
+package MusicBrainz::Server::Entity::URL::Commons;
 
 use Moose;
-use namespace::autoclean;
-use MusicBrainz::Server::Entity::Area;
-use MusicBrainz::Server::Data::Utils qw( query_to_list );
+use MusicBrainz::Server::Filters;
 
-extends 'MusicBrainz::Server::Data::Area';
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
+extends 'MusicBrainz::Server::Entity::URL';
 
-around '_get_all_from_db' => sub {
-    my ($orig, $self, $p) = @_;
-    my $query = "SELECT " . $self->_columns .
-        " FROM " . $self->_table . " JOIN country_area ca ON ca.area = area.id " .
-        " ORDER BY " . (join ", ", @{ $p->order_by });
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
-};
+sub show_in_sidebar { 0 }
 
-sub sort_in_forms { 1 }
+sub url_is_scheme_independent { 1 }
+
+sub page_name {
+    my $self = shift;
+    return undef unless defined($self->utf8_decoded);
+
+    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ }g;
+
+    return $name;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

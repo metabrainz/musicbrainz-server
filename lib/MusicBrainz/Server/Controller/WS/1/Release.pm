@@ -2,8 +2,6 @@ package MusicBrainz::Server::Controller::WS::1::Release;
 use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
-
 __PACKAGE__->config(
     model => 'Release',
 );
@@ -91,7 +89,7 @@ around 'search' => sub
             $c->model('Script')->load(@releases);
             $c->model('Relationship')->load_subset([ 'url' ], @releases);
 
-            load_release_events($c, @releases);
+            $c->model('Release')->load_release_events(@releases);
 
             $c->model('Track')->load_for_mediums(@mediums);
             $c->model('Recording')->load(map { $_->all_tracks } @mediums);
@@ -183,7 +181,7 @@ sub lookup : Chained('load') PathPart('')
         $c->model('MediumFormat')->load(@mediums);
         $c->model('ReleaseLabel')->load($release);
 
-        load_release_events($c, $release);
+        $c->model('Release')->load_release_events($release);
 
         $c->model('Label')->load($release->all_labels)
             if $c->stash->{inc}->labels;

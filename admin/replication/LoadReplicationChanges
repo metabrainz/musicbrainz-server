@@ -181,18 +181,19 @@ if ($catchup && ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)) {
     print localtime() . " : Caught up to packets for period '$period'. Please rerun now without --catchup.\n";
     exit 0;
 }
-elsif ($catchup) {
-    print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
-    $file = "replication-$iNextReplicationSequence.tar.bz2";
-    $uriprefix = '';
-    $url = "$baseuri/$uriprefix$file";
-    $localfile = "$tmpdir/$file";
-    $resp = retrieve_remote_file($url, $localfile);
-    validate_file_signature($localfile);
-} else {
-    validate_file_signature($localfile);
-}
+else {
+    if ($catchup) {
+        print localtime() . " : Not yet caught up for period '$period'. Applying an hourly packet...\n";
+        $file = "replication-$iNextReplicationSequence.tar.bz2";
+        $uriprefix = '';
+        $url = "$baseuri/$uriprefix$file";
+        $localfile = "$tmpdir/$file";
+        $resp = retrieve_remote_file($url, $localfile);
+    }
 
+    # We do not want to validate signature for non-existent files
+    validate_file_signature($localfile) unless ($resp->code == RC_NOT_FOUND);
+}
 
 if ($resp->code == RC_NOT_FOUND)
 {

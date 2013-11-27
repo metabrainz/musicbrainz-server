@@ -284,12 +284,15 @@ sub search
     push @query_args, @where_args;
     push @query_args, $offset;
 
-    $self->sql->select($query, $query_str, $query_str, @query_args);
-
     my @result;
     my $pos = $offset + 1;
-    while ($limit--) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    my @rows = @{
+        $self->sql->select_list_of_hashes($query, $query_str, $query_str, @query_args)
+    };
+
+    for my $row (@rows) {
+        last unless ($limit--);
+
         my $res = MusicBrainz::Server::Entity::SearchResult->new(
             position => $pos++,
             score => int(1000 * $row->{rank}),
@@ -297,8 +300,8 @@ sub search
         );
         push @result, $res;
     }
-    my $hits = $self->sql->row_count + $offset;
-    $self->sql->finish;
+
+    my $hits = @rows + $offset;
 
     return (\@result, $hits);
 

@@ -1,22 +1,27 @@
-package MusicBrainz::Server::Data::CountryArea;
+package MusicBrainz::Server::Entity::CommonsImage;
 
 use Moose;
-use namespace::autoclean;
-use MusicBrainz::Server::Entity::Area;
-use MusicBrainz::Server::Data::Utils qw( query_to_list );
 
-extends 'MusicBrainz::Server::Data::Area';
-with 'MusicBrainz::Server::Data::Role::SelectAll' => { order_by => [ 'name ASC' ] };
+has 'title' => (
+    is => 'rw',
+    isa => 'Str',
+);
 
-around '_get_all_from_db' => sub {
-    my ($orig, $self, $p) = @_;
-    my $query = "SELECT " . $self->_columns .
-        " FROM " . $self->_table . " JOIN country_area ca ON ca.area = area.id " .
-        " ORDER BY " . (join ", ", @{ $p->order_by });
-    return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query);
-};
+has 'image_url' => (
+    is => 'rw',
+    isa => 'Str',
+);
 
-sub sort_in_forms { 1 }
+has 'thumb_url' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
+sub page_url
+{
+    my $self = shift;
+    return sprintf "//commons.wikimedia.org/wiki/%s", $self->title;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

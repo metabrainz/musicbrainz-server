@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
     merge_table_attributes
+    merge_string_attributes
     merge_partial_date
     placeholders
     query_to_list
@@ -153,23 +154,15 @@ sub _merge_impl
     $self->c->model('Edit')->merge_entities('place', $new_id, @old_ids);
     $self->c->model('Relationship')->merge_entities('place', $new_id, @old_ids);
 
-    merge_table_attributes(
-        $self->sql => (
-            table => 'place',
-            columns => [ qw( type address area coordinates ) ],
-            old_ids => \@old_ids,
-            new_id => $new_id
-        )
-    );
+    my @merge_options = ($self->sql => (
+                           table => 'place',
+                           old_ids => \@old_ids,
+                           new_id => $new_id
+                        ));
 
-    merge_partial_date(
-        $self->sql => (
-            table => 'place',
-            field => $_,
-            old_ids => \@old_ids,
-            new_id => $new_id
-        )
-    ) for qw( begin_date end_date );
+    merge_table_attributes(@merge_options, columns => [ qw( type area coordinates ) ]);
+    merge_string_attributes(@merge_options, columns => [ qw( address ) ]);
+    merge_partial_date(@merge_options, field => $_) for qw( begin_date end_date );
 
     $self->_delete_and_redirect_gids('place', $new_id, @old_ids);
     return 1;

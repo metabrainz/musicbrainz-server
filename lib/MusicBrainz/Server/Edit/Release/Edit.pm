@@ -171,12 +171,6 @@ sub build_display_data
             )
         };
 
-        $self->c->model('Area')->load_codes(
-            map { $loaded->{Area}->{ $_->{country_id} } }
-                @{ $self->data->{old}{events} },
-                @{ $self->data->{new}{events} }
-        );
-
         my $inflated_events = {
             map {
                 $_ => [

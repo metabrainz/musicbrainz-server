@@ -61,10 +61,12 @@
     MB.entity.CoreEntity = aclass(Entity, {
 
         template: _.template(
+            "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
             "<a href=\"/<%= data.type %>/<%- data.gid %>\" target=\"_blank\"" +
             "<% if (data.sortname) { %> title=\"<%- data.sortname %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
-            "<span class=\"comment\">(<%- data.comment %>)</span><% } %>",
+            "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+            "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
         ),
@@ -73,6 +75,7 @@
             this.id = data.id;
             this.gid = data.gid;
             this.name = data.name || "";
+            this.editsPending = data.editsPending;
 
             if (data.sortname) {
                 this.sortname = data.sortname;
@@ -139,7 +142,6 @@
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
             this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
-            this.editsPending = data.editsPending;
             this.gid = data.gid;
 
             if (data.recording) {
@@ -158,7 +160,8 @@
                 type: "recording",
                 gid: recording.gid,
                 name: this.name,
-                comment: recording.comment
+                comment: recording.comment,
+                editsPending: recording.editsPending
             });
         }
     });
@@ -313,7 +316,7 @@
 
     MB.entity.Medium = aclass(Entity, function (data) {
         this.format = data.format;
-
+        this.name = data.name;
         this.position = data.position;
 
         this.tracks = _.map(data.tracks, function (obj) {

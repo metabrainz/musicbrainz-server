@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -61,7 +62,6 @@ after 'load' => sub
 
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($c->stash->{place});
-    $c->model('Area')->load_codes($place->area);
     $c->model('Area')->load_containment($place->area);
 };
 

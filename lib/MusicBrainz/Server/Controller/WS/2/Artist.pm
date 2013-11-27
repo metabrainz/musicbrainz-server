@@ -68,7 +68,6 @@ sub artist_toplevel
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area, $artist->begin_area, $artist->end_area);
     $c->model('Artist')->ipi->load_for($artist);
     $c->model('Artist')->isni->load_for($artist);
 
