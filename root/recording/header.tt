@@ -13,7 +13,11 @@
     <h1>[% rdfa_link_recording_header(recording) %] [% rdfa_disambiguation(recording) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-            [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+            [%- IF recording.video -%]
+              [% l('Video by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+            [%- ELSE -%]
+              [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+            [%- END -%]
     </p>
 </div>
 

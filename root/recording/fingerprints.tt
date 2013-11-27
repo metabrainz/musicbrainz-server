@@ -2,47 +2,6 @@
 
     <h2 id="acoustids">[%- l('Associated AcoustIDs') -%]</h2>
 
-    <h2>[%- l('Associated PUIDs') -%]</h2>
-
-    [% IF puids.size %]
-        <table class="tbl">
-            <thead>
-                <tr>
-                    <th>[% l('PUID') %]</th>
-                    [% IF c.user_exists %]
-                        <th class="actions-header">
-                            [% l('Actions') %]
-                        </th>
-                    [% END %]
-                </tr>
-            </thead>
-	    <tbody [% rdfa_recording_ns(recording) %]>
-            [% FOR puid IN puids %]
-                <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-                    <td>
-                      [% '<span class="mp">' IF puid.edits_pending %]
-                      [% rdfa_link_puid(puid.puid) %]
-                      [% '</span>' IF puid.edits_pending %]
-                    </td>
-                    [% IF c.user_exists %]
-                        <td>
-                          <a href="[% c.uri_for_action('/recording/delete_puid', [ recording.gid ], { puid => puid.puid.puid }) %]">
-                            [% l('Remove') %]</a>
-                        </td>
-                    [% END %]
-                </tr>
-            [% END %]
-	    </tbody>
-        </table>
-
-        [% UNLESS c.user_exists %]
-            <p>[% l('Please {login_url|log in} to edit these PUIDs.', { login_url => login_url() }) %]</p>
-        [% END %]
-
-    [% ELSE %]
-        <p>[% l('This recording does not have any associated PUIDs') %]</p>
-    [% END %]
-
     <script type="text/javascript">//<![CDATA[
 
         function buildAcoustidTable(tracks, mbid) {

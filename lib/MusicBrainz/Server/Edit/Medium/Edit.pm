@@ -249,6 +249,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
+                        $track->id,
                         $track->name,
                         format_track_length($track->length),
                         join(
@@ -264,6 +265,10 @@ sub build_display_data
 
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             $data->{tracklist_changes} = $tracklist_changes;
+        }
+
+        if (any {$_->[1] && $_->[2] && $_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
+            $data->{changed_mbids} = 1;
         }
 
         $data->{artist_credit_changes} = [

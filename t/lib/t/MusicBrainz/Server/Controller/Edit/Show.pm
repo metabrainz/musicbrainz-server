@@ -14,6 +14,7 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
     extends 'MusicBrainz::Server::Edit';
     sub edit_name { 'Add artist' } # Just so we use an edit template
     sub edit_type { $mock_edit_class }
+    sub edit_category { 'Fake' }
 };
 
 {

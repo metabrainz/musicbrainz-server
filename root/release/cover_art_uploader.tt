@@ -7,7 +7,8 @@
       form { margin-top: 1em; }
     </style>
     [%- IF server_details.developement_server -%]
-        <script src="[% c.uri_for('/static/lib/less/less-1.3.3.js') %]"></script>
+        <script>less = { relativeUrls: true, rootpath: "[% c.uri_for('/static/') %]" }</script>
+        <script src="[% c.uri_for('/static/lib/less/less-1.4.0.js') %]"></script>
     [%- END -%]
   </head>
   <body>

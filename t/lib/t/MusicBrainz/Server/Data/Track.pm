@@ -55,11 +55,6 @@ is( $tracks->[1]->medium->release->id, 2 );
 is( $tracks->[1]->medium->release->edits_pending, 2 );
 is( $tracks->[1]->medium->release->name, "Aerial" );
 
-my %names = $track_data->find_or_insert_names('Nocturn', 'Traits');
-is(keys %names, 2);
-is($names{'Nocturn'}, 15);
-ok($names{'Traits'} > 16);
-
 $track = $track_data->insert({
     medium_id => 1,
     recording_id => 2,
@@ -90,7 +85,7 @@ Sql::run_in_transaction(sub {
     $track = $track_data->get_by_id(1);
     ok(!defined $track);
 
-    my $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
+    $toc = $test->c->sql->select_single_value ("SELECT toc FROM medium_index WHERE medium = 1");
     is ($toc, '(628519, 358960, 332613, 296160, 372386, 500)', 'DurationLookup updated medium_index after track delete');
 
 }, $test->c->sql);

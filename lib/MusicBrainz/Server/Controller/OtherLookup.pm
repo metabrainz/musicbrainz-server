@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use Moose::Util qw( find_meta );
 use MusicBrainz::Server::Translation qw ( l );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 sub lookup_handler {
     my ($name, $code) = @_;
@@ -100,7 +99,7 @@ lookup_handler 'iswc' => sub {
         );
     }
     else {
-        $c->detach('not_found');
+        $self->not_found($c);
     }
 };
 
@@ -156,13 +155,6 @@ lookup_handler 'label-isni' => sub {
     $c->detach;
 };
 
-lookup_handler 'puid' => sub {
-    my ($self, $c, $puid) = @_;
-
-    $c->response->redirect($c->uri_for_action('/puid/show', [ $puid ]));
-    $c->detach;
-};
-
 lookup_handler 'discid' => sub {
     my ($self, $c, $discid) = @_;
 
@@ -183,7 +175,7 @@ lookup_handler 'freedbid' => sub {
     my @releases = $c->model('Release')->load(@mediums);
 
     $c->model('ArtistCredit')->load (@releases);
-    load_release_events($c, @releases);
+    $c->model('Release')->load_release_events(@releases);
     $c->model('Language')->load(@releases);
     $c->model('Script')->load(@releases);
     $c->model('Medium')->load_for_releases(@releases);

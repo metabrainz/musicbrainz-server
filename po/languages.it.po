@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 23:05+0000\n"
+"PO-Revision-Date: 2013-10-29 01:26+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -977,6 +977,11 @@ msgstr "Lingue indoeuropee"
 msgid "Indonesian"
 msgstr "Indonesiano"
 
+#. frequency:1 iso_code_3:izh
+#: DB:language/name:2967
+msgid "Ingrian"
+msgstr "Ingrico"
+
 #. frequency:1 iso_code_3:inh
 #: DB:language/name:191
 msgid "Ingush"
@@ -1131,6 +1136,11 @@ msgstr "Kawi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "Kazako"
+
+#. frequency:1 iso_code_3:kca
+#: DB:language/name:3137
+msgid "Khanty"
+msgstr "Khanty"
 
 #. frequency:1 iso_code_3:kha
 #: DB:language/name:213
@@ -1426,6 +1436,11 @@ msgstr "Manipuri"
 #: DB:language/name:279
 msgid "Manobo languages"
 msgstr "Lingue manobo"
+
+#. frequency:1 iso_code_3:mns
+#: DB:language/name:4358
+msgid "Mansi"
+msgstr "Mansi"
 
 #. frequency:1 iso_code_3:glv
 #: DB:language/name:151

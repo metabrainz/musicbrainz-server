@@ -3,6 +3,7 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_PUID_DELETE );
 use MusicBrainz::Server::Translation qw ( N_l );
+use MusicBrainz::Server::Edit::Exceptions;
 use MooseX::Types::Moose qw( Int Maybe Str );
 use MooseX::Types::Structured qw( Dict );
 
@@ -14,8 +15,6 @@ sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { N_l('Remove PUID') }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
-
-sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
 
 has '+data' => (
     isa => Dict[
@@ -41,7 +40,6 @@ sub foreign_keys
 {
     my $self = shift;
     return {
-        PUID      => [ $self->puid_id ],
         Recording => [ $self->recording_id ],
     }
 }
@@ -51,53 +49,21 @@ sub build_display_data
     my ($self, $loaded) = @_;
 
     return {
-        puid      => $loaded->{PUID}->{ $self->puid_id },
         recording => $loaded->{Recording}->{ $self->recording_id }
             || Recording->new( name => $self->data->{recording}{name} ),
         puid_name => $self->data->{puid}
     };
 }
 
-sub initialize
-{
-    my ($self, %opts) = @_;
-    my $puid = $opts{puid} or die "Missing required 'puid' object";
+sub alter_edit_pending  { { RecordingPUID => [ shift->recording_puid_id ] } }
 
-    unless ($puid->recording) {
-        $self->c->model('Recording')->load($puid);
-    }
+sub initialize { die 'This edit is read only' }
+sub insert { die 'This edit is read only' }
 
-    $self->data({
-        recording_puid_id => $puid->id,
-        puid_id => $puid->puid_id,
-        puid => $puid->puid->puid,
-        client_version => $puid->puid->client_version,
-        recording => {
-            id => $puid->recording->id,
-            name => $puid->recording->name
-        }
-    })
-}
-
-sub insert
-{
-    my ($self) = @_;
-    $self->c->model('RecordingPUID')->delete($self->puid_id, $self->recording_puid_id);
-}
-
-sub reject
-{
-    my ($self) = @_;
-
-    my %puid_id = $self->c->model('PUID')->find_or_insert(
-        $self->data->{client_version},
-        $self->data->{puid}
+sub reject {
+    MusicBrainz::Server::Edit::Exceptions::MustApply->throw(
+        'This edit cannot be rejected as PUIDs no longer exist in MusicBrainz'
     );
-
-    $self->c->model('RecordingPUID')->insert({
-        recording_id => $self->data->{recording}{id},
-        puid_id      => $puid_id{ $self->data->{puid} }
-    });
 }
 
 __PACKAGE__->meta->make_immutable;

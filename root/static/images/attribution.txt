@@ -39,6 +39,7 @@ Images:
 
     icons/add.png
     icons/delete.png
+    icons/information.png
 
 ----------------------------------------------------------------------------
 
@@ -98,6 +99,17 @@ Notes:
 Images:
 
     icons/loading.gif
+
+----------------------------------------------------------------------------
+
+Image set:   Android
+Author:      http://www.androidicons.com
+License:     CC-BY (see download page)
+Download:    http://findicons.com/icon/80718/monitor (original, cropped in MusicBrainz) 
+
+Images:
+
+    icons/video.png
 
 ----------------------------------------------------------------------------
 

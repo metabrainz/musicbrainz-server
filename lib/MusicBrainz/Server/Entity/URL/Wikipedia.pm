@@ -61,6 +61,8 @@ Wikipedia URLs are only show in the sidebar if the URL can be decoded from utf-8
 
 sub show_in_sidebar { defined(shift->utf8_decoded) }
 
+sub url_is_scheme_independent { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

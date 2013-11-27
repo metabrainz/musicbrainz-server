@@ -53,7 +53,8 @@ CREATE TABLE area (
            end_date_month IS NULL AND
            end_date_day IS NULL)
         )
-      )
+      ),
+    comment             VARCHAR(255) NOT NULL DEFAULT ''
 );
 
 CREATE TABLE area_gid_redirect
@@ -84,6 +85,21 @@ CREATE TABLE area_alias (
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
              CONSTRAINT primary_check
                  CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)));
 
@@ -95,8 +111,8 @@ CREATE TABLE area_annotation (
 CREATE TABLE artist (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references artist_name.id
-    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -131,7 +147,7 @@ CREATE TABLE artist (
 CREATE TABLE artist_deletion
 (
     gid UUID NOT NULL, -- PK
-    last_known_name INTEGER NOT NULL, -- references artist_name.id
+    last_known_name VARCHAR NOT NULL,
     last_known_comment TEXT NOT NULL,
     deleted_at timestamptz NOT NULL DEFAULT now()
 );
@@ -145,12 +161,12 @@ CREATE TABLE artist_alias
 (
     id                  SERIAL,
     artist              INTEGER NOT NULL, -- references artist.id
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references artist_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references artist_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -158,6 +174,21 @@ CREATE TABLE artist_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -223,7 +254,7 @@ CREATE TABLE artist_tag_raw
 
 CREATE TABLE artist_credit (
     id                  SERIAL,
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -233,7 +264,7 @@ CREATE TABLE artist_credit_name (
     artist_credit       INTEGER NOT NULL, -- PK, references artist_credit.id CASCADE
     position            SMALLINT NOT NULL, -- PK
     artist              INTEGER NOT NULL, -- references artist.id CASCADE
-    name                INTEGER NOT NULL, -- references artist_name.id
+    name                VARCHAR NOT NULL,
     join_phrase         TEXT NOT NULL DEFAULT ''
 );
 
@@ -242,11 +273,6 @@ CREATE TABLE artist_gid_redirect
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references artist.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE artist_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE artist_type (
@@ -307,13 +333,6 @@ CREATE TABLE cdtoc_raw
     track_offset         INTEGER[] NOT NULL
 );
 
-CREATE TABLE clientversion
-(
-    id                  SERIAL,
-    version             VARCHAR(64) NOT NULL,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 CREATE TABLE country_area
 (
     area                INTEGER -- PK, references area.id
@@ -363,6 +382,12 @@ CREATE TABLE edit_label
     edit                INTEGER NOT NULL, -- PK, references edit.id
     label               INTEGER NOT NULL, -- PK, references label.id CASCADE
     status              SMALLINT NOT NULL -- materialized from edit.status
+);
+
+CREATE TABLE edit_place
+(
+    edit                INTEGER NOT NULL, -- PK, references edit.id
+    place               INTEGER NOT NULL  -- PK, references place.id CASCADE
 );
 
 CREATE TABLE edit_release
@@ -415,7 +440,8 @@ CREATE TABLE editor
     gender              INTEGER, -- references gender.id
     area                INTEGER, -- references area.id
     password            VARCHAR(128) NOT NULL,
-    ha1                 CHAR(32) NOT NULL
+    ha1                 CHAR(32) NOT NULL,
+    deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TYPE FLUENCY AS ENUM ('basic', 'intermediate', 'advanced', 'native');
@@ -549,22 +575,12 @@ CREATE TABLE l_area_label
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE l_area_work
+CREATE TABLE l_area_place
 (
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references work.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE l_area_url
-(
-    id                  SERIAL,
-    link                INTEGER NOT NULL, -- references link.id
-    entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references url.id
+    entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -579,6 +595,16 @@ CREATE TABLE l_area_recording
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE l_area_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE l_area_release_group
 (
     id                  SERIAL,
@@ -589,12 +615,22 @@ CREATE TABLE l_area_release_group
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE l_area_release
+CREATE TABLE l_area_url
 (
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references area.id
-    entity1             INTEGER NOT NULL, -- references release.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_area_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references area.id
+    entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -615,6 +651,16 @@ CREATE TABLE l_artist_label
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references artist.id
     entity1             INTEGER NOT NULL, -- references label.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_artist_place
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references artist.id
+    entity1             INTEGER NOT NULL, -- references place.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -679,6 +725,16 @@ CREATE TABLE l_label_label
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE l_label_place
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references place.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE l_label_recording
 (
     id                  SERIAL,
@@ -724,6 +780,66 @@ CREATE TABLE l_label_work
     id                  SERIAL,
     link                INTEGER NOT NULL, -- references link.id
     entity0             INTEGER NOT NULL, -- references label.id
+    entity1             INTEGER NOT NULL, -- references work.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_place
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references place.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_recording
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references recording.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_release
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references release.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_release_group
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references release_group.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_url
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
+    entity1             INTEGER NOT NULL, -- references url.id
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE l_place_work
+(
+    id                  SERIAL,
+    link                INTEGER NOT NULL, -- references link.id
+    entity0             INTEGER NOT NULL, -- references place.id
     entity1             INTEGER NOT NULL, -- references work.id
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -882,8 +998,8 @@ CREATE TABLE l_work_work
 CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references label_name.id
-    sort_name           INTEGER NOT NULL, -- references label_name.id
+    name                VARCHAR NOT NULL,
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -916,7 +1032,7 @@ CREATE TABLE label (
 CREATE TABLE label_deletion
 (
     gid UUID NOT NULL, -- PK
-    last_known_name INTEGER NOT NULL, -- references label_name.id
+    last_known_name VARCHAR NOT NULL,
     last_known_comment TEXT NOT NULL,
     deleted_at timestamptz NOT NULL DEFAULT now()
 );
@@ -944,12 +1060,12 @@ CREATE TABLE label_alias
 (
     id                  SERIAL,
     label               INTEGER NOT NULL, -- references label.id
-    name                INTEGER NOT NULL, -- references label_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references label_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references label_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -957,6 +1073,21 @@ CREATE TABLE label_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -1003,11 +1134,6 @@ CREATE TABLE label_gid_redirect
     gid                 UUID NOT NULL, -- PK
     new_id              INTEGER NOT NULL, -- references label.id
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
-CREATE TABLE label_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE label_tag
@@ -1110,7 +1236,8 @@ CREATE TABLE link_type
     reverse_link_phrase VARCHAR(255) NOT NULL,
     long_link_phrase    VARCHAR(255) NOT NULL,
     priority            INTEGER NOT NULL DEFAULT 0,
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    is_deprecated       BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE link_type_attribute_type
@@ -1210,11 +1337,120 @@ CREATE TABLE medium_format
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE puid
+CREATE TABLE place (
+    id                  SERIAL, -- PK
+    gid                 uuid NOT NULL,
+    name                VARCHAR NOT NULL,
+    type                INTEGER, -- references place_type.id
+    address             VARCHAR NOT NULL DEFAULT '',
+    area                INTEGER, -- references area.id
+    coordinates         POINT,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      )
+);
+
+CREATE TABLE place_alias
 (
     id                  SERIAL,
-    puid                CHAR(36) NOT NULL,
-    version             INTEGER NOT NULL -- references clientversion.id
+    place               INTEGER NOT NULL, -- references place.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    type                INTEGER, -- references place_alias_type.id
+    sort_name           VARCHAR NOT NULL,
+    begin_date_year     SMALLINT,
+    begin_date_month    SMALLINT,
+    begin_date_day      SMALLINT,
+    end_date_year       SMALLINT,
+    end_date_month      SMALLINT,
+    end_date_day        SMALLINT,
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
+    CONSTRAINT search_hints_are_empty
+      CHECK (
+        (type <> 2) OR (
+          type = 2 AND sort_name = name AND
+          begin_date_year IS NULL AND begin_date_month IS NULL AND begin_date_day IS NULL AND
+          end_date_year IS NULL AND end_date_month IS NULL AND end_date_day IS NULL AND
+          primary_for_locale IS FALSE AND locale IS NULL
+        )
+      )
+);
+
+CREATE TABLE place_alias_type (
+    id SERIAL,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE place_annotation
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    annotation          INTEGER NOT NULL -- PK, references annotation.id
+);
+
+CREATE TABLE place_gid_redirect
+(
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references place.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE place_tag
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    tag                 INTEGER NOT NULL, -- PK, references tag.id
+    count               INTEGER NOT NULL,
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE place_tag_raw
+(
+    place               INTEGER NOT NULL, -- PK, references place.id
+    editor              INTEGER NOT NULL, -- PK, references editor.id
+    tag                 INTEGER NOT NULL -- PK, references tag.id
+);
+
+CREATE TABLE place_type (
+    id                  SERIAL, -- PK
+    name                VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE replication_control
@@ -1228,12 +1464,13 @@ CREATE TABLE replication_control
 CREATE TABLE recording (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references track_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    video               BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE recording_rating_raw
@@ -1270,15 +1507,6 @@ CREATE TABLE recording_gid_redirect
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
-CREATE TABLE recording_puid
-(
-    id                  SERIAL,
-    puid                INTEGER NOT NULL, -- references puid.id
-    recording           INTEGER NOT NULL, -- references recording.id
-    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
 CREATE TABLE recording_tag
 (
     recording           INTEGER NOT NULL, -- PK, references recording.id
@@ -1290,7 +1518,7 @@ CREATE TABLE recording_tag
 CREATE TABLE release (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references release_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     release_group       INTEGER NOT NULL, -- references release_group.id
     status              INTEGER, -- references release_status.id
@@ -1403,7 +1631,7 @@ CREATE TABLE release_tag
 CREATE TABLE release_group (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references release_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     type                INTEGER, -- references release_group_primary_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
@@ -1473,11 +1701,6 @@ CREATE TABLE release_group_secondary_type_join (
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
-CREATE TABLE release_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
-);
-
 CREATE TABLE script
 (
     id                  SERIAL,
@@ -1519,7 +1742,7 @@ CREATE TABLE track
     medium              INTEGER NOT NULL, -- references medium.id
     position            INTEGER NOT NULL,
     number              TEXT NOT NULL,
-    name                INTEGER NOT NULL, -- references track_name.id
+    name                VARCHAR NOT NULL,
     artist_credit       INTEGER NOT NULL, -- references artist_credit.id
     length              INTEGER CHECK (length IS NULL OR length > 0),
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -1540,11 +1763,6 @@ CREATE TABLE track_raw
     title               VARCHAR(255) NOT NULL,
     artist              VARCHAR(255),   -- For VA albums, otherwise empty
     sequence            INTEGER NOT NULL
-);
-
-CREATE TABLE track_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE medium_index
@@ -1582,7 +1800,7 @@ CREATE TABLE vote
 CREATE TABLE work (
     id                  SERIAL,
     gid                 UUID NOT NULL,
-    name                INTEGER NOT NULL, -- references work_name.id
+    name                VARCHAR NOT NULL,
     type                INTEGER, -- references work_type.id
     comment             VARCHAR(255) NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
@@ -1613,12 +1831,12 @@ CREATE TABLE work_alias
 (
     id                  SERIAL,
     work                INTEGER NOT NULL, -- references work.id
-    name                INTEGER NOT NULL, -- references work_name.id
+    name                VARCHAR NOT NULL,
     locale              TEXT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     type                INTEGER, -- references work_alias_type.id
-    sort_name           INTEGER NOT NULL, -- references work_name.id
+    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,
@@ -1626,6 +1844,21 @@ CREATE TABLE work_alias
     end_date_month      SMALLINT,
     end_date_day        SMALLINT,
     primary_for_locale  BOOLEAN NOT NULL DEFAULT false,
+    ended               BOOLEAN NOT NULL DEFAULT FALSE
+      CHECK (
+        (
+          -- If any end date fields are not null, then ended must be true
+          (end_date_year IS NOT NULL OR
+           end_date_month IS NOT NULL OR
+           end_date_day IS NOT NULL) AND
+          ended = TRUE
+        ) OR (
+          -- Otherwise, all end date fields must be null
+          (end_date_year IS NULL AND
+           end_date_month IS NULL AND
+           end_date_day IS NULL)
+        )
+      ),
     CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL)),
     CONSTRAINT search_hints_are_empty
       CHECK (
@@ -1656,11 +1889,6 @@ CREATE TABLE work_meta
     id                  INTEGER NOT NULL, -- PK, references work.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
     rating_count        INTEGER
-);
-
-CREATE TABLE work_name (
-    id                  SERIAL,
-    name                VARCHAR NOT NULL
 );
 
 CREATE TABLE work_tag
@@ -1695,8 +1923,11 @@ CREATE TABLE work_attribute (
     work_attribute_type                 INTEGER NOT NULL, -- references work_attribute_type.id
     work_attribute_type_allowed_value   INTEGER, -- references work_attribute_type_allowed_value.id
     work_attribute_text                 TEXT
-    -- Either it has a value from the allowed list, or is free text
-    CHECK ( work_attribute_type_allowed_value IS NULL OR work_attribute_text IS NULL )
+    CHECK (
+        (work_attribute_type_allowed_value IS NULL AND work_attribute_text IS NOT NULL)
+        OR
+        (work_attribute_type_allowed_value IS NOT NULL AND work_attribute_text IS NULL)
+    )
 );
 
 COMMIT;

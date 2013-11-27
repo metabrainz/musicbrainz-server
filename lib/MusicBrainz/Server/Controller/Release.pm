@@ -20,7 +20,6 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -83,7 +82,7 @@ after 'load' => sub
         $c->model('ReleaseGroupType')->load($release->release_group);
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
-        load_release_events($c, $release);
+        $c->model('Release')->load_release_events($release);
     }
 };
 
@@ -167,6 +166,7 @@ sub show : Chained('load') PathPart('')
     $c->stash(
         template      => 'release/index.tt',
         show_artists  => $release->has_multiple_artists,
+        show_video  => $release->includes_video,
         combined_rels => $release->combined_track_relationships,
     );
 }
@@ -574,7 +574,7 @@ after 'merge' => sub
 {
     my ($self, $c) = @_;
     my @to_merge = @{ $c->stash->{to_merge} };
-    load_release_events($c, @to_merge);
+    $c->model('Release')->load_release_events(@to_merge);
     $c->model('Medium')->load_for_releases(@to_merge);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
     $c->model('ReleaseLabel')->load(@to_merge);
@@ -644,6 +644,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     $self->edit_action($c,
         form        => 'Confirm',
+        form_args   => { requires_edit_note => 1 },
         type        => $EDIT_RELEASE_REMOVE_COVER_ART,
         edit_args   => {
             release   => $release,

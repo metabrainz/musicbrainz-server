@@ -50,4 +50,9 @@
                   html_escape(edit.display_data.end_date.old.format),
                   html_escape(edit.display_data.end_date.new.format),
                   '\s+') -%]
+
+  [% display_diff(l('Ended:'),
+                  edit.display_data.ended.old ? l('Yes') : l('No'),
+                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  '-') %]
 </table>

@@ -3,12 +3,13 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
 use feature 'switch';
+
+no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 sub search : Path('')
 {
@@ -104,7 +105,7 @@ sub direct : Private
         }
         when ('release') {
             $c->model('Language')->load(@entities);
-            load_release_events($c, @entities);
+            $c->model('Release')->load_release_events(@entities);
             $c->model('Script')->load(@entities);
             $c->model('Medium')->load_for_releases(@entities);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @entities);
@@ -148,6 +149,10 @@ sub direct : Private
         when ('area') {
             $c->model('Area')->load_codes(@entities);
             $c->model('AreaType')->load(@entities);
+        }
+        when ('place') {
+            $c->model('PlaceType')->load(@entities);
+            $c->model('Area')->load(@entities);
         }
     }
 

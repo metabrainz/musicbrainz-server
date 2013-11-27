@@ -8,11 +8,9 @@ sub query {
     "
         SELECT
             r.id AS release_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(ac_name.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(artist_credit.name), musicbrainz_collate(r.name))
         FROM release r
-        JOIN release_name rn ON r.name = rn.id
         JOIN artist_credit ON r.artist_credit = artist_credit.id
-        JOIN artist_name ac_name ON ac_name.id = artist_credit.name
         WHERE language IS NULL
     ";
 }

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:54+0000\n"
+"PO-Revision-Date: 2013-10-29 13:12+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -79,6 +79,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:release_packaging/name:9
+msgctxt "release_packaging"
+msgid "Book"
+msgstr "raamat"
+
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
@@ -129,10 +134,15 @@ msgctxt "medium_format"
 msgid "Cassette"
 msgstr "kassett"
 
+#: DB:release_packaging/name:8
+msgctxt "release_packaging"
+msgid "Cassette Case"
+msgstr "kassetiümbris"
+
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr "linn"
+msgstr "asula"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -193,6 +203,11 @@ msgstr "audiofailid"
 msgctxt "label_type"
 msgid "Distributor"
 msgstr "levitaja"
+
+#: DB:area_type/name:5
+msgctxt "area_type"
+msgid "District"
+msgstr "linnaosa"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -308,6 +323,11 @@ msgstr "miksilint/tänavaalbum"
 msgctxt "work_type"
 msgid "Motet"
 msgstr "motett"
+
+#: DB:area_type/name:4
+msgctxt "area_type"
+msgid "Municipality"
+msgstr "vald"
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
@@ -518,7 +538,7 @@ msgstr "kleeps"
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr "haldusüksus"
+msgstr "1. järgu haldusüksus"
 
 #: DB:work_type/name:6
 msgctxt "work_type"

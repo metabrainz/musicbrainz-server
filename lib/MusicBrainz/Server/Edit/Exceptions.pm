@@ -8,7 +8,8 @@ use Exception::Class (
     'MusicBrainz::Server::Edit::Exceptions::GeneralError',
     'MusicBrainz::Server::Edit::Exceptions::DuplicateViolation' => {
         fields => [qw( conflict )]
-    }
+    },
+    'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable'
 );
 
 1;

@@ -29,7 +29,7 @@ MB.Control.Area = function (span, bubbles) {
         inputs: self.$span
     });
 
-    self.$name.bind('focus.mb', function(event) {
+    self.$name.bind('focus.mb lookup-performed cleared', function(event) {
         var gid = self.$span.find('input.gid').val();
         if (gid)
         {

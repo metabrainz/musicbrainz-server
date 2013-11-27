@@ -2,7 +2,8 @@ package MusicBrainz::Server::Data::Area;
 
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use List::AllUtils qw( any );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -20,7 +21,7 @@ use MusicBrainz::Server::Data::Utils qw(
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
-with 'MusicBrainz::Server::Data::Role::Name' => { name_table => undef };
+with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' };
 with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'area' };
@@ -37,7 +38,7 @@ sub _table
 
 sub _columns
 {
-    return 'area.id, gid, area.name, area.sort_name, area.type, ' .
+    return 'area.id, gid, area.name, area.sort_name, area.comment, area.type, ' .
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
 }
@@ -54,8 +55,6 @@ sub _gid_redirect_table
     return 'area_gid_redirect';
 }
 
-sub _table_join_name {}
-
 sub _column_mapping
 {
     return {
@@ -66,6 +65,7 @@ sub _column_mapping
         type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
+        comment => 'comment',
         edits_pending => 'edits_pending',
         last_updated => 'last_updated',
         ended => 'ended'
@@ -111,27 +111,39 @@ sub load_codes
     }
 }
 
-sub load_parent_country
+sub load_containment
 {
-    my ($self, @objs) = @_;
-    my $country_area_type = 1;
+    my ($self, @areas) = @_;
     my $area_area_parent_type = 356;
+    # Define a map of area_type IDs to what property they correspond to
+    # on an Entity::Area.
+    my %type_parent_attribute = (
+        $AREA_TYPE_COUNTRY => 'parent_country',
+        2 => 'parent_subdivision',
+        3 => 'parent_city',
+    );
 
-    my @objects_to_use = grep { defined $_ &&
-                                !defined $_->parent_country &&
-                                ( defined $_->type ? $_->type->id != $country_area_type : $_->type_id != $country_area_type)} @objs;
+    # This helper function determines if a given area object should continue with loading
+    # it won't include an object if all the containments are already loaded, or with undef.
+    my $use_object = sub {
+        my $obj = $_;
+        return 0 if !defined $obj;
+        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
+        # For each containment type, loading should continue
+        # if the object type differs and the parent property is undefined
+        # If all containments are loaded or match the object type, no loading needs to happen.
+        return any { !defined($obj->{$type_parent_attribute{$_}}) && $obj_type != $_ } keys %type_parent_attribute;
+    };
+    my @objects_to_use = grep { $use_object->($_) } @areas;
     return unless @objects_to_use;
     my %obj_id_map = object_to_ids(@objects_to_use);
     my @all_ids = keys %obj_id_map;
 
     # First, construct a table (recursively) of parent -> descendant connections
-    # for areas including an array of the path (the 'descendants' array).
+    # for areas, including an array of the path (the 'descendants' array).
     #
-    # Then, for given descendants, find the shortest path to a parent of type
-    # 1 (country) by joining to area, limiting on type=1, distinct on descendant,
-    # and order by array_length(descendants).
-    #
-    # Thus, find the nearest containing country for an area.
+    # Then, find the shortest path to each type of parent by joining to area,
+    # distinct on descendant, type, and order by the length of the array of descendants.
     my $query = "
         WITH RECURSIVE area_descendants AS (
             SELECT entity0 AS parent, entity1 AS descendant, ARRAY[entity1] AS descendants
@@ -145,25 +157,29 @@ sub load_parent_country
             JOIN   area_descendants ON area_descendants.parent = laa.entity1
             WHERE  link_type = $area_area_parent_type
             AND    NOT entity0 = ANY(descendants))
-        SELECT   DISTINCT ON (descendant) descendant, " . $self->_columns . "
-        FROM     area_descendants
-        JOIN     area ON area_descendants.parent = area.id
-        WHERE    area.type = $country_area_type
-        AND      descendant IN (" . placeholders(@all_ids) . ")
-        ORDER BY descendant, array_length(descendants, 1) ASC
-    ";
-    my $parent_countries = $self->sql->select_list_of_hashes($query, @all_ids);
+        SELECT DISTINCT ON (descendant, type) descendant, parent, area.type, descendants || parent AS descendant_hierarchy
+        FROM   area_descendants
+        JOIN   area ON area_descendants.parent = area.id
+        WHERE  descendant IN (" . placeholders(@all_ids) . ")
+        AND    area.type IN (" . placeholders(keys %type_parent_attribute) . ")
+        ORDER BY descendant, type, array_length(descendants, 1) ASC";
 
-    my $parent_objects = $self->get_by_ids(map { $_->{id} } @$parent_countries);
+    my $containment = $self->sql->select_list_of_hashes($query, @all_ids, keys %type_parent_attribute);
 
-    for my $parent (@$parent_countries) {
-        if (my $entities = $obj_id_map{$parent->{descendant}}) {
-            my $parent_obj = $parent_objects->{$parent->{id}};
+    my @parent_ids = grep { defined } map { $_->{parent} } @$containment;
+
+    # Having determined the IDs for all the parents, actually load them and attach to the
+    # descendant objects.
+    my $parent_objects = $self->get_by_ids(@parent_ids);
+    for my $data (@$containment) {
+        if (my $entities = $obj_id_map{$data->{descendant}}) {
+            my $type = $type_parent_attribute{$data->{type}};
+            my $parent_obj = $parent_objects->{$data->{parent}};
             for my $entity (@$entities) {
-                $entity->parent_country($parent_obj);
+                $entity->$type($parent_obj);
             }
         }
-    };
+    }
 }
 
 sub _set_codes
@@ -342,6 +358,7 @@ sub _hash_to_row
         ended => 'ended',
         name => 'name',
         sort_name => 'sort_name',
+        map { $_ => $_ } qw( comment )
     });
 
     add_partial_date_to_row($row, $area->{begin_date}, 'begin_date');

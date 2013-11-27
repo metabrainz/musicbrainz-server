@@ -92,6 +92,27 @@ EOSQL
     like($mech->uri->path, qr{/user/ocharles%2Fbot});
 };
 
+test 'Deleted editors cannot login (even if they have a password)' => sub {
+
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+    my $enable_ssl = enable_ssl();
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+    $c->sql->do('UPDATE editor SET password = ?, deleted = TRUE WHERE name = ?',
+        Authen::Passphrase::BlowfishCrypt->new(
+            cost => 8,
+            salt_random => 1,
+            passphrase => encode('utf-8', 'ıaa2')
+        )->as_rfc2307, 'new_editor');
+
+    $mech->get_ok('https://localhost/login');
+    html_ok($mech->content);
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'ıaa2' } );
+    $mech->content_contains('Incorrect username or password');
+};
+
 sub enable_ssl {
     my $dbdefs = ref(*DBDefs::SSL_REDIRECTS_ENABLED) ? "DBDefs" : "DBDefs::Default";
     my $wrapper = wrap "${dbdefs}::SSL_REDIRECTS_ENABLED",

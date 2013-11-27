@@ -65,6 +65,7 @@ test 'recording lookup with releases' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -87,6 +88,7 @@ test 'recording lookup with releases' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -124,6 +126,7 @@ test 'lookup recording with official singles' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -163,6 +166,7 @@ test 'lookup recording with official singles (+media)' => sub {
                     "release-events" => [{
                         date => "2001-07-04",
                         "area" => {
+                            disambiguation => '',
                             "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                             "name" => "Japan",
                             "sort-name" => "Japan",
@@ -205,6 +209,7 @@ test 'recording lookup with artists' => sub {
             title => "the Love Bug",
             disambiguation => "",
             length => 242226,
+            video => 0,
             "artist-credit" => [
                 {
                     name => "m-flo",
@@ -241,7 +246,7 @@ test 'recording lookup with puids and isrcs' => sub {
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             length => 296026,
-            puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
+            puids => [ ],
             isrcs => [ "JPA600102450" ],
         });
 };
@@ -265,10 +270,20 @@ test 'recording lookup with release relationships' => sub {
                     direction => 'forward',
                     release => {
                         barcode => '634479663338',
-                        country => JSON::null,
+                        country => 'US',
                         date => '2007-11-08',
                         "release-events" => [{
-                            area => JSON::null,
+                            area => {
+                              disambiguation => '',
+                              id => '489ce91b-6658-3307-9877-795b68554c98',
+                              iso_3166_1_codes => [
+                                'US'
+                              ],
+                              iso_3166_2_codes => [],
+                              iso_3166_3_codes => [],
+                              name => 'United States',
+                              'sort-name' => 'United States'
+                            },
                             date => '2007-11-08',
                         }],
                         disambiguation => '',

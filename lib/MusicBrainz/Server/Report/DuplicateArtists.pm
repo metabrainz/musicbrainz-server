@@ -27,14 +27,12 @@ sub run
     my $sql = $self->sql;
 
     my $artists = $sql->select_list_of_hashes(
-        q{SELECT artist.gid, name.name AS name, sort_name.name AS sort_name,
-                 musicbrainz_unaccent(name.name) AS name_unac,
-                 musicbrainz_unaccent(sort_name.name) AS sort_name_unac,
+        q{SELECT artist.gid, artist.name, artist.sort_name,
+                 musicbrainz_unaccent(artist.name) AS name_unac,
+                 musicbrainz_unaccent(artist.sort_name) AS sort_name_unac,
                  artist.comment, artist.type, artist.id,
                  (artist.comment != '') AS has_comment
-          FROM artist
-          JOIN artist_name name ON name.id = artist.name
-          JOIN artist_name sort_name ON sort_name.id = artist.sort_name}
+          FROM artist}
     );
 
     for my $r (@$artists) {
@@ -43,20 +41,17 @@ sub run
     }
 
     my $aliases = $sql->select_list_of_hashes(
-        "SELECT artist.gid, artist.id, name.name AS name, sort_name.name AS sort_name,
-                musicbrainz_unaccent(alias_name.name) AS alias,
+        "SELECT artist.gid, artist.id, artist.name, artist.sort_name,
+                musicbrainz_unaccent(alias.name) AS alias,
                 CASE
                   WHEN artist.comment = '' THEN
-                      'alias: ' || musicbrainz_unaccent(alias_name.name)
-                  ELSE artist.comment || ') (alias: ' || musicbrainz_unaccent(alias_name.name)
+                      'alias: ' || musicbrainz_unaccent(alias.name)
+                  ELSE artist.comment || ') (alias: ' || musicbrainz_unaccent(alias.name)
                 END AS comment,
                 (artist.comment != '') AS has_comment,
                 artist.type
          FROM artist
-         JOIN artist_name name ON name.id = artist.name
-         JOIN artist_alias alias ON alias.artist = artist.id
-         JOIN artist_name alias_name ON alias_name.id = alias.name
-         JOIN artist_name sort_name ON sort_name.id = artist.sort_name"
+         JOIN artist_alias alias ON alias.artist = artist.id"
     );
 
     for my $r (@$aliases) {

@@ -4,13 +4,15 @@ use namespace::autoclean;
 
 use Encode qw( encode );
 use JSON qw( decode_json );
+use List::AllUtils qw( any );
 use MusicBrainz::Server::CGI::Expand qw( collapse_hash );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Constants qw( $VARTIST_ID $VARTIST_GID );
 use MusicBrainz::Server::Data::Utils qw( object_to_ids artist_credit_to_ref trim );
-use MusicBrainz::Server::Validation qw( is_guid );
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
+use MusicBrainz::Server::Entity::CDTOC;
+use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Validation qw( is_guid );
 use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Wizard::ReleaseEditor';
@@ -67,7 +69,7 @@ sub prepare_duplicates
 
     $self->c->model('Medium')->load_for_releases(@releases);
     $self->c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
-    load_release_events($self->c, @releases);
+    $self->c->model('Release')->load_release_events(@releases);
     $self->c->model('ReleaseLabel')->load(@releases);
     $self->c->model('Label')->load(map { $_->all_labels } @releases);
 
@@ -134,13 +136,31 @@ sub change_page_duplicates
         my @tracks = $self->track_edits_from_medium ($medium);
         my @edits = @{ $json->decode ($seededmedia[0]->{edits}) };
 
+        my $cdtoc_details = MusicBrainz::Server::Entity::CDTOC->new_from_toc(
+            $seededmedia[0]->{toc}
+        )->track_details;
+
         my @new_edits = map {
-            $tracks[$_]->{length} = $edits[$_]->{length};
-            $tracks[$_]->{position} = $_ + 1;
-            $self->update_track_edit_hash ($tracks[$_]);
-        } 0..$#edits;
+            $self->update_track_edit_hash({
+                %{
+                    # Use the existing track on the medium
+                    $tracks[$_]
+                    # But if this doesnt exist, create a new track
+                    // {
+                        name => '',
+                        artist_credit => {
+                            names => []
+                        }
+                    }
+                },
+                length => exists $cdtoc_details->[$_] &&
+                    $cdtoc_details->[$_]->{length_time},
+                position => $_ + 1
+            })
+        } 0 .. scalar(@$cdtoc_details) - 1;
 
         $media[0]->{edits} = $json->encode (\@new_edits);
+        $media[0]->{toc} = $seededmedia[0]->{toc};
     }
 
     $self->_post_to_page ($self->page_number->{'tracklist'},
@@ -251,25 +271,35 @@ after 'prepare_tracklist' => sub {
     my $release_artist = MusicBrainz::Server::Entity::ArtistCredit->from_array(
         clean_submitted_artist_credits($self->value->{artist_credit})->{names});
 
-    for my $medium (@tracklist_edits)
-    {
-        next unless defined $medium->{edits};
-
-        my @edits = @{ $json->decode ($medium->{edits}) };
-        for my $trk_idx (0..$#edits)
+    unless (
+        any {
+            $_->artist->id == $VARTIST_ID ||
+            $_->artist_id == $VARTIST_ID ||
+            $_->artist->gid eq $VARTIST_GID
+        } $release_artist->all_names
+    ) {
+        # The release artist does not mention "Various Artists", so we can
+        # continue to change track artists, if necessary.
+        for my $medium (@tracklist_edits)
         {
-            my $trk = $edits[$trk_idx];
+            next unless defined $medium->{edits};
 
-            # If the track artist is not set, or identical to the release artist,
-            # use the identified release artist for all tracks.
-            next unless $trk->{artist_credit}->{preview} eq $release_artist->name
-                || $trk->{artist_credit}->{preview} eq '';
+            my @edits = @{ $json->decode ($medium->{edits}) };
+            for my $trk_idx (0..$#edits)
+            {
+                my $trk = $edits[$trk_idx];
 
-            $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
+                # If the track artist is not set, or identical to the release
+                # artist, use the identified release artist for all tracks.
+                next unless $trk->{artist_credit}->{preview} eq $release_artist->name
+                    || $trk->{artist_credit}->{preview} eq '';
 
-            $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
+                $trk->{artist_credit} = artist_credit_to_ref ($release_artist, [ "gid" ]);
+
+                $edits[$trk_idx] = $self->update_track_edit_hash ($trk);
+            }
+            $medium->{edits} = $json->encode (\@edits);
         }
-        $medium->{edits} = $json->encode (\@edits);
     }
 
     $self->load_page('tracklist', {

@@ -6,6 +6,7 @@ use Carp;
 use Readonly;
 use HTML::TreeBuilder::XPath;
 use MusicBrainz::Server::Entity::WikiDocPage;
+use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 use URI::Escape qw( uri_unescape );
 use Encode qw( decode );
 
@@ -124,7 +125,9 @@ sub _load_page
         $doc_url .= "&oldid=$version";
     }
 
-    my $response = $self->c->lwp->get($doc_url);
+    my $response = get_chunked_with_retry($self->c->lwp, $doc_url);
+
+    return undef unless $response;
 
     if (!$response->is_success) {
         if ($response->is_redirect && $response->header("Location") =~ /https?:\/\/(.*?)\/(.*)$/) {

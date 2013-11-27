@@ -16,6 +16,11 @@
                         html_escape(edit.display_data.sort_name.old),
                         html_escape(edit.display_data.sort_name.new)) -%]
 
+  [% display_diff(l('Disambiguation:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
+
   [%- display_word_diff(l('Type:'),
                         html_escape(edit.display_data.type.old.name),
                         html_escape(edit.display_data.type.new.name)) -%]

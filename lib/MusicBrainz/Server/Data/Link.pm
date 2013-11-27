@@ -59,9 +59,7 @@ sub _load_attributes
                 JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
             WHERE link IN (" . placeholders(@ids) . ")
             ORDER BY link, attr.name";
-        $self->sql->select($query, @ids);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
             my $id = $row->{link};
             if (exists $data->{$id}) {
                 my $attr = MusicBrainz::Server::Entity::LinkAttributeType->new(
@@ -75,7 +73,6 @@ sub _load_attributes
                 $data->{$id}->add_attribute($attr);
             }
         }
-        $self->sql->finish;
     }
 }
 

@@ -22,11 +22,8 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 
-use MusicBrainz::Server::Form::Confirm;
-use MusicBrainz::Server::Form::Label;
 use Sql;
 
 =head1 NAME
@@ -70,6 +67,7 @@ after 'load' => sub
     $c->model('LabelType')->load($label);
     $c->model('Area')->load($c->stash->{label});
     $c->model('Area')->load_codes($label->area);
+    $c->model('Area')->load_containment($label->area);
 };
 
 =head2 show
@@ -88,7 +86,7 @@ sub show : PathPart('') Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);

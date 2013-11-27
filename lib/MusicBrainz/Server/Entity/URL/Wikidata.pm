@@ -26,6 +26,20 @@ sub pretty_name
 
 sub sidebar_name { shift->pretty_name }
 
+sub page_name
+{
+    my $self = shift;
+    return undef unless defined($self->utf8_decoded);
+
+    my $name = MusicBrainz::Server::Filters::uri_decode($self->url->path);
+    $name =~ s{^/wiki/}{};
+    $name =~ s{_}{ }g;
+
+    return $name;
+}
+
+sub url_is_scheme_independent { 1 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

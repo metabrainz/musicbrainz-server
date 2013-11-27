@@ -15,14 +15,10 @@ test all => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
     $c->sql->do(<<'EOSQL');
-INSERT INTO work_name (id, name)
-    VALUES (1, 'Hello! Let''s Meet Again (7nin Matsuri version)'),
-           (2, 'Hello! Let''s Meet Again (7ninmatsuri version)'),
-           (3, 'Saluton! Ni Renkontu Denove (7nin-matsuria versio)');
 INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
-    VALUES (4223060, 2, 2, 'en', FALSE),
-           (4223060, 2, 2, 'en_US', TRUE),
-           (4223060, 3, 3, 'eo', TRUE);
+    VALUES (4223060, 'Hello! Let''s Meet Again (7ninmatsuri version)', 'Hello! Let''s Meet Again (7ninmatsuri version)', 'en', FALSE),
+           (4223060, 'Hello! Let''s Meet Again (7ninmatsuri version)', 'Hello! Let''s Meet Again (7ninmatsuri version)', 'en_US', TRUE),
+           (4223060, 'Saluton! Ni Renkontu Denove (7nin-matsuria versio)', 'Saluton! Ni Renkontu Denove (7nin-matsuria versio)', 'eo', TRUE);
 EOSQL
 
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
@@ -40,7 +36,7 @@ EOSQL
 
     $c->sql->do(<<'EOSQL');
 INSERT INTO work_alias (work, name, sort_name, locale, primary_for_locale)
-    VALUES (4223060, 1, 1, 'en', TRUE);
+    VALUES (4223060, 'Hello! Let''s Meet Again (7nin Matsuri version)', 'Hello! Let''s Meet Again (7nin Matsuri version)', 'en', TRUE);
 EOSQL
 
     $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');

@@ -53,14 +53,14 @@ div.tabs ul li a:hover {
     background: 0 4px no-repeat;
 }
 
-.blankheader     { background-image: url('../images/entity/blank_lg.png') }
-.artistheader    { background-image: url('../images/entity/artist_lg.png') }
-.releaseheader   { background-image: url('../images/entity/release_lg.png') }
-.rgheader        { background-image: url('../images/entity/release_group_lg.png') }
-.recordingheader { background-image: url('../images/entity/recording_lg.png') }
-.labelheader     { background-image: url('../images/entity/label_lg.png') }
-.workheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create work icon */
-.collectionheader      { background-image: url('../images/entity/blank_lg.png') } /* TODO: create collection icon */
+.blankheader     { background-image: data-uri('../images/entity/blank_lg.png') }
+.artistheader    { background-image: data-uri('../images/entity/artist_lg.png') }
+.releaseheader   { background-image: data-uri('../images/entity/release_lg.png') }
+.rgheader        { background-image: data-uri('../images/entity/release_group_lg.png') }
+.recordingheader { background-image: data-uri('../images/entity/recording_lg.png') }
+.labelheader     { background-image: data-uri('../images/entity/label_lg.png') }
+.workheader, .collectionheader
+{ background-image: data-uri('../images/entity/blank_lg.png') } /* TODO: create work icon, collection icon */
 
 span.comment, span.historical { 
     font-weight: normal;

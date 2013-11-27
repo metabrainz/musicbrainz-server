@@ -37,6 +37,26 @@ Util.init = function(typeInfo, attrInfo) {
 
     Util.typeInfoByEntities = function(types) {return typeInfo[types]};
 
+    Util.allowedRelations = {
+        recording: [], work: [], release: [], release_group: []
+    };
+
+    _.each(_.keys(typeInfo), function (typeString) {
+        if (/url/.test(typeString)) {
+            return;
+        }
+        var types = typeString.split("-");
+        var type0 = types[0], type1 = types[1];
+
+        if (_.has(Util.allowedRelations, type0)) {
+            Util.allowedRelations[type0].push(type1);
+        }
+
+        if (type0 !== type1 && _.has(Util.allowedRelations, type1)) {
+            Util.allowedRelations[type1].push(type0);
+        }
+    });
+
     Util.attrRoot = function(name) {return attrInfo[name]};
 
     var attrValues = _.values(attrInfo);

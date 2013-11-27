@@ -9,9 +9,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_SET_COVER_ART
 );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
-use MusicBrainz::Server::Form::Confirm;
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'ReleaseGroup',
@@ -25,6 +23,7 @@ with 'MusicBrainz::Server::Controller::Role::Rating';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::Cleanup';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
 
@@ -61,7 +60,7 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
@@ -141,7 +140,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
         $entity->id);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 

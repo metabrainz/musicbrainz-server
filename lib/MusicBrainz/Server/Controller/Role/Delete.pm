@@ -33,6 +33,7 @@ role {
             $c->stash( can_delete => 1 );
             $self->edit_action($c,
                 form        => 'Confirm',
+                form_args   => { requires_edit_note => 1 },
                 type        => $params->edit_type,
                 item        => $edit_entity,
                 edit_args   => { to_delete => $edit_entity },

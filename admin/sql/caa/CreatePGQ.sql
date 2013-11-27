@@ -69,15 +69,13 @@ EXECUTE PROCEDURE reindex_release_via_catno();
 
 CREATE OR REPLACE FUNCTION reindex_caa() RETURNS trigger AS $$
     BEGIN
-        IF TG_OP = 'DELETE' THEN
-            PERFORM pgq.insert_event('CoverArtIndex', 'index',
-                     (SELECT gid FROM musicbrainz.release
-                      WHERE id = coalesce(OLD.release))::text);
-        ELSE
-            PERFORM pgq.insert_event('CoverArtIndex', 'index',
-                     (SELECT gid FROM musicbrainz.release
-                      WHERE id = coalesce(NEW.release))::text);
-        END IF;
+        PERFORM pgq.insert_event('CoverArtIndex', 'index', gid::text)
+        FROM musicbrainz.release
+        WHERE id = coalesce((
+                     CASE TG_OP
+                         WHEN 'DELETE' THEN OLD.release
+                         ELSE NEW.release
+                     END));
         RETURN NULL;
     END;
 $$ LANGUAGE 'plpgsql';

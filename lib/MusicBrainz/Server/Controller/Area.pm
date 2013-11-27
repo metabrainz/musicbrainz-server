@@ -14,7 +14,6 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
@@ -61,7 +60,7 @@ after 'load' => sub
     my $area = $c->stash->{area};
 
     $c->model('Area')->load_codes($area);
-    $c->model('Area')->load_parent_country($area);
+    $c->model('Area')->load_containment($area);
     $c->model('AreaType')->load($area);
 };
 
@@ -138,7 +137,7 @@ sub releases : Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
@@ -147,6 +146,23 @@ sub releases : Chained('load')
         template => 'area/releases.tt',
         releases => $releases,
     );
+}
+
+=head2 places
+
+Shows places for an area.
+
+=cut
+
+sub places : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $area = $c->stash->{area};
+    my $places = $self->_load_paged($c, sub {
+        $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+    $c->model('PlaceType')->load(@$places);
+    $c->stash( places => $places );
 }
 
 =head2 WRITE METHODS

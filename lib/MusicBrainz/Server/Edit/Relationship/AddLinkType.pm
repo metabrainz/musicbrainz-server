@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::AddLinkType;
 use Moose;
-use MooseX::Types::Moose qw( Int Str ArrayRef );
+use MooseX::Types::Moose qw( Bool Int Str ArrayRef );
 use MooseX::Types::Structured qw( Dict  Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
@@ -32,7 +32,8 @@ has '+data' => (
             max  => Nullable[Int],
             type => Optional[Int], # Used in the new edits
         ]],
-        documentation => Optional[Str]
+        documentation => Optional[Str],
+        is_deprecated => Optional[Bool]
     ]
 );
 

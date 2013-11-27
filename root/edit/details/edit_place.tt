@@ -1,0 +1,50 @@
+[%- PROCESS 'edit/details/macros.tt' -%]
+
+<table class="details edit-place">
+  <tr>
+    <th>[% l('Place:') %]</th>
+    <td>[% link_entity(edit.display_data.place) %]</td>
+  </tr>
+
+  [% display_diff(l('Name:'),
+                  html_escape(edit.display_data.name.old),
+                  html_escape(edit.display_data.name.new),
+                  '\s+') %]
+
+  [% display_diff(l('Disambiguation:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
+
+  [% display_full_change(l('Type:'),
+                         html_escape(edit.display_data.type.old.name),
+                         html_escape(edit.display_data.type.new.name)) %]
+
+  [% display_diff(l('Address:'),
+                  html_escape(edit.display_data.address.old),
+                  html_escape(edit.display_data.address.new),
+                  '\s+') %]
+
+  [% display_full_change(l('Area:'),
+                         edit.display_data.area.old ? link_entity(edit.display_data.area.old): '',
+                         edit.display_data.area.new ? link_entity(edit.display_data.area.new): '') %]
+
+  [% display_diff(l('Coordinates:'),
+                  edit.display_data.coordinates.old.format,
+                  edit.display_data.coordinates.new.format) %]
+
+  [% display_diff(l('Begin date:'),
+                  edit.display_data.begin_date.old.format,
+                  edit.display_data.begin_date.new.format,
+                  '-') %]
+
+  [% display_diff(l('End date:'),
+                  edit.display_data.end_date.old.format,
+                  edit.display_data.end_date.new.format,
+                  '-') %]
+
+  [% display_diff(l('Ended:'),
+                  edit.display_data.ended.old ? l('Yes') : l('No'),
+                  edit.display_data.ended.new ? l('Yes') : l('No'),
+                  '-') %]
+</table>

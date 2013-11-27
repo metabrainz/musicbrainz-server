@@ -36,6 +36,7 @@ test 'basic release lookup' => sub {
             "release-events" => [{
                 date => "2001-07-04",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -79,6 +80,7 @@ test 'basic release lookup, inc=annotation' => sub {
             "release-events" => [{
                 date => "2007-01-29",
                 "area" => {
+                    disambiguation => '',
                     "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                     "name" => "United Kingdom",
                     "sort-name" => "United Kingdom",
@@ -125,6 +127,7 @@ test 'basic release with tags' => sub {
             "release-events" => [{
                 date => "2001-07-04",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -175,6 +178,7 @@ test 'basic release with collections' => sub {
             "release-events" => [{
                 date => "2001-07-04",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -241,6 +245,7 @@ test 'release lookup with artists + aliases' => sub {
             "release-events" => [{
                 date => "2004-03-17",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -279,6 +284,7 @@ test 'release lookup with labels and recordings' => sub {
             "release-events" => [{
                 date => "2004-03-17",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -373,6 +379,7 @@ test 'release lookup with release-groups' => sub {
             "release-events" => [{
                 date => "2004-03-17",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -444,6 +451,7 @@ test 'release lookup with discids and puids' => sub {
             "release-events" => [{
                 date => "2001-07-04",
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -474,7 +482,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー",
                                 length => 296026,
                                 disambiguation => "",
-                                puids => [ "cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" ],
+                                puids => [ ],
                             }
                         },
                         {
@@ -487,7 +495,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "HELLO! また会おうね (7人祭 version)",
                                 length => 213106,
                                 disambiguation => "",
-                                puids => [ "251bd265-84c7-ed8f-aecf-1d9918582399" ],
+                                puids => [ ],
                             }
                         },
                         {
@@ -500,7 +508,7 @@ test 'release lookup with discids and puids' => sub {
                                 title => "サマーれげぇ!レインボー (instrumental)",
                                 length => 292800,
                                 disambiguation => "",
-                                puids => [ "7b8a868f-1e67-852b-5141-ad1edfb1e492" ],
+                                puids => [ ],
                             }
                         }]
                 }]
@@ -534,6 +542,7 @@ test 'release lookup, barcode is NULL' => sub {
             "release-events" => [{
                 date => "1999-09-23",
                 "area" => {
+                    disambiguation => '',
                     "id" => "489ce91b-6658-3307-9877-795b68554c98",
                     "name" => "United States",
                     "sort-name" => "United States",
@@ -575,6 +584,7 @@ test 'release lookup, barcode is  empty string' => sub {
             "release-events" => [{
                 date => "1999-09-13",
                 "area" => {
+                    disambiguation => '',
                     "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
                     "name" => "United Kingdom",
                     "sort-name" => "United Kingdom",
@@ -610,6 +620,7 @@ test 'release lookup, relation attributes' => sub {
             'release-events' => [
                 {
                 "area" => {
+                    disambiguation => '',
                     "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
                     "name" => "Japan",
                     "sort-name" => "Japan",
@@ -634,14 +645,21 @@ test 'release lookup, relation attributes' => sub {
                         id => '28fc2337-985b-3da9-ac40-ad6f28ff0d8e',
                         title => 'LOVE & HONESTY',
                         barcode => '4988064173891',
-                        country => JSON::null,
-                        date => '2004-01-15',
+                        country => "JP",
                         'release-events' => [
                             {
-                            "area" => undef,
+                            "area" => {
+                                disambiguation => '',
+                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                                "name" => "Japan",
+                                "sort-name" => "Japan",
+                                "iso_3166_1_codes" => ["JP"],
+                                "iso_3166_2_codes" => [],
+                                "iso_3166_3_codes" => []},
                             date => '2004-01-15'
                             }
                         ],
+                        date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,
@@ -665,14 +683,21 @@ test 'release lookup, relation attributes' => sub {
                         id => 'cacc586f-c2f2-49db-8534-6f44b55196f2',
                         title => 'LOVE & HONESTY',
                         barcode => '4988064173907',
-                        country => JSON::null,
-                        date => '2004-01-15',
+                        country => "JP",
                         'release-events' => [
                             {
-                            "area" => undef,
+                            "area" => {
+                                disambiguation => '',
+                                "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                                "name" => "Japan",
+                                "sort-name" => "Japan",
+                                "iso_3166_1_codes" => ["JP"],
+                                "iso_3166_2_codes" => [],
+                                "iso_3166_3_codes" => []},
                             date => '2004-01-15'
                             }
                         ],
+                        date => '2004-01-15',
                         disambiguation => '',
                         'text-representation' => {
                             language => JSON::null,
@@ -1038,6 +1063,7 @@ test 'release lookup, track artists have no tags' => sub {
         } ],
         'release-events' => [ {
             area => {
+                disambiguation => '',
                 id => '8a754a16-0027-3a29-b6d7-2b40ea0481ed',
                 iso_3166_1_codes => [ 'GB' ],
                 iso_3166_2_codes => [],

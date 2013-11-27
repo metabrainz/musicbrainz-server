@@ -4,13 +4,14 @@ use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::Constants qw( :annotation );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Translation qw( l ln );
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::Validation qw( is_positive_integer is_nat );
 
 requires 'load', 'show';
 
 my %model_to_edit_type = (
     Artist => $EDIT_ARTIST_ADD_ANNOTATION,
     Label => $EDIT_LABEL_ADD_ANNOTATION,
+    Place => $EDIT_PLACE_ADD_ANNOTATION,
     Recording => $EDIT_RECORDING_ADD_ANNOTATION,
     Release => $EDIT_RELEASE_ADD_ANNOTATION,
     ReleaseGroup => $EDIT_RELEASEGROUP_ADD_ANNOTATION,
@@ -56,6 +57,13 @@ sub annotation_revision : Chained('load') PathPart('annotation') Args(1)
     my ($self, $c, $id) = @_;
     my $entity = $c->stash->{entity};
     my $model = $self->{model};
+
+    if (!is_nat($id)) {
+        $c->stash(
+            message => l('The annotation revision ID must be a positive integer')
+        );
+        $c->detach('/error_400')
+    }
 
     my $annotation = $c->model($self->{model})->annotation->get_by_id($id)
         or $c->detach('/error_404');

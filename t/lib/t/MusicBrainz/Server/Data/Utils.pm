@@ -96,7 +96,7 @@ my $input2 = {
 };
 
 my $result1 = hash_structure ($input1);
-my $result2 = hash_structure ($input2);
+$result2 = hash_structure ($input2);
 is ($result1, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input1');
 is ($result2, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input2');
 
