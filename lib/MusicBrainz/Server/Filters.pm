@@ -91,7 +91,7 @@ sub format_wikitext
     return decode(
         'utf-8',
         Text::WikiFormat::format(
-            encode('utf-8' => $text), {link => \&make_html_link}, {
+            encode('utf-8' => $text), {}, {
                 prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
                 nofollow_extended => 1,
@@ -100,48 +100,6 @@ sub format_wikitext
             })
       );
 }
-
-# This bit copied from Text::WikiFormat
-sub make_html_link
-{
-    my ($link, $opts)        = @_;
-    $opts                  ||= {};
-
-    ($link, my $title)       = find_link_title( $link, $opts );
-    ($link, my $is_relative) = escape_link( $link, $opts );
-
-    my $prefix               = ( defined $opts->{prefix} && $is_relative )
-        ? $opts->{prefix} : '';
-
-    # This bit is new from Text::WikiFormat
-    my $nofollow             = (!$is_relative && $opts->{nofollow_extended})
-        ? ' rel="nofollow"' : '';
-
-    return qq|<a href="$prefix$link"$nofollow>$title</a>|;
-}
-
-sub escape_link
-{
-    my ($link, $opts) = @_;
-
-    my $u = URI->new( $link );
-    return $link if $u->scheme();
-
-    # it's a relative link
-    return( uri_escape( $link ), 1 );
-}
-
-sub find_link_title
-{
-    my ($link, $opts)  = @_;
-    my $title;
-
-    ($link, $title)    = split(/\|/, $link, 2) if $opts->{extended};
-    $title             = $link unless $title;
-
-    return $link, $title;
-}
-# End copying
 
 sub _make_link
 {
