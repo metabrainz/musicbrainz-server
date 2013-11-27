@@ -251,9 +251,6 @@
         },
 
         toJS: function () {
-            if (this.isEmpty()) {
-                return null;
-            }
             var artist = ko.unwrap(this.artist) || {};
 
             return {
@@ -316,7 +313,7 @@
         },
 
         toJS: function () {
-            return _.compact(_.invoke(ko.unwrap(this.names), "toJS"));
+            return _.invoke(ko.unwrap(this.names), "toJS");
         }
     });
 
