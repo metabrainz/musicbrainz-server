@@ -55,6 +55,7 @@ MB.tests.ArtistCreditControl = function () {
 
         QUnit.deepEqual(artistCredits[0].hiddenInputs(), [
             { name: "form.artist_credit.names.0.name", value: "david bowie" },
+            { name: "form.artist_credit.names.0.join_phrase", value: "" },
             { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
             { name: "form.artist_credit.names.0.artist.id", value: 956 }
         ],
@@ -62,6 +63,7 @@ MB.tests.ArtistCreditControl = function () {
 
         QUnit.deepEqual(artistCredits[1].hiddenInputs(), [
             { name: "form.artist_credit.names.0.name", value: "david robert jones" },
+            { name: "form.artist_credit.names.0.join_phrase", value: "" },
             { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
             { name: "form.artist_credit.names.0.artist.id", value: 956 }
         ],
@@ -73,6 +75,7 @@ MB.tests.ArtistCreditControl = function () {
             { name: "form.artist_credit.names.0.artist.name", value: "david bowie" },
             { name: "form.artist_credit.names.0.artist.id", value: 956 },
             { name: "form.artist_credit.names.1.name", value: "bing crosby" },
+            { name: "form.artist_credit.names.1.join_phrase", value: "" },
             { name: "form.artist_credit.names.1.artist.name", value: "bing crosby" },
             { name: "form.artist_credit.names.1.artist.id", value: 99 }
         ],
