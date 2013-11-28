@@ -48,7 +48,7 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
+    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.valid.active count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
     $c->stash(
         template => 'statistics/timeline.tt',
         stats => \@stats
