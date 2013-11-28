@@ -153,7 +153,7 @@ sub unpack_data
         $answer{$k} = $v;
     }
 
-    if ($seqid == 111117378 || $seqid == 111117379 || $seqid == 111117380) {
+    if ($seqid == 111117378 || $seqid == 111117379 || $seqid == 111117380 || $seqid == 111404809) {
         $answer{name} = substr($answer{name}, 0, 1000) . "...";
     }
 
