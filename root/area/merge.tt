@@ -8,7 +8,8 @@
             [% FOR entity=to_merge %]
             <li>
                 <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
-                <input type="radio" name="merge.target" value="[% entity.id %]" />
+                <input type="radio" name="merge.target" value="[% entity.id %]"
+                   [% 'checked="checked"' IF entity.id == form.field('target').value %] />
                 [% descriptive_link(entity) %]
             </li>
             [% END %]

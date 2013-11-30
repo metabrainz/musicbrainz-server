@@ -125,10 +125,9 @@ MB.Release = (function (Release) {
         })
       );
 
-      var reference = new MB.entity.ArtistCredit(releaseData.artistCredit),
-          subjects = _.tail(allArtistCredits);
+      var reference = new MB.entity.ArtistCredit(releaseData.artistCredit);
 
-      return _.some(subjects, function(subject) {
+      return _.some(allArtistCredits, function(subject) {
         return !subject.isEqual(reference)
       });
     });
