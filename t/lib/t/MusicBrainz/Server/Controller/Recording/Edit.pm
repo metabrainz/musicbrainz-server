@@ -122,11 +122,11 @@ is_deeply($edit->data, {
     } ],
     client_version => JSON::null
 }, 'add ISRC edit data is correct');
-	
+
 $edit = $edits[2];
 isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::RemoveISRC', 'also removes ISRCs');
 my @isrc = $c->model('ISRC')->find_by_isrc('DEE250800231');
-	
+
 is_deeply($edit->data, {
     isrc => {
         id => $isrc[0]->id,
@@ -137,6 +137,37 @@ is_deeply($edit->data, {
         name => 'Dancing Queen'
     }
 }, 'remove ISRC data is correct');
+
+
+# test edit-recording submission without artist credit fields
+
+@edits = capture_edits {
+    $mech->get_ok("/recording/123c079d-374e-4436-9448-da92dedef3ce/edit");
+    html_ok($mech->content);
+    my $request = POST $mech->uri, [
+        'edit-recording.length' => '4:56',
+        'edit-recording.name' => 'Dancing Queen'
+    ];
+
+    my $response = $mech->request($request);
+} $c;
+
+@edits = sort_by { $_->id } @edits;
+
+ok($mech->success);
+ok($mech->uri =~ qr{/recording/123c079d-374e-4436-9448-da92dedef3ce$});
+html_ok($mech->content);
+
+$edit = $edits[0];
+isa_ok($edit, 'MusicBrainz::Server::Edit::Recording::Edit');
+is_deeply($edit->data, {
+    entity => {
+        id => 1,
+        name => 'Dancing Queen'
+    },
+    new => { length => 296000 },
+    old => { length => 123456 }
+});
 
 };
 
