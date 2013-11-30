@@ -13,7 +13,7 @@ div.multiselect > input {
 div.multiselect > div.menu {
     position: absolute;
     background: @background-grey;
-    border: 1px #ccc solid;
+    border: 1px @multiselect-menu-border solid;
     max-height: 300px;
     overflow-y: scroll;
     cursor: pointer;
@@ -48,7 +48,7 @@ div.multiselect > div.items > a {
     display: block;
     padding: 1px;
     background: @background-grey;
-    border: 1px #ccc solid;
+    border: 1px @multiselect-item-link-border solid;
     cursor: pointer;
     text-decoration: none !important;
     width: 100%;
@@ -63,5 +63,5 @@ div.multiselect > div.items > a:focus {
 }
 
 div.multiselect > div.items > a:focus {
-    background: #EEE !important;
+    background: @multiselect-item-link-focus-bg !important;
 }

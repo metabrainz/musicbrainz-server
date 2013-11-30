@@ -79,8 +79,80 @@
 @error-header: #660000;                     // header for errored edits
 
 @even-table-row: #F2F2F2;                   // even table row zebra-stripe gray
-@highlight-table-row: #F2F2B2;              // highlighted rows in zebra-stripe tables
+@highlight-table-row: #F2F2B2;              // highlighted rows in zebra-stripe tables, linked edit notes
 
 @menu-background: #D4D4D4;                  // background color of opened menus
 
 @multiselect-highlight: #FEFFDE;            // highlight color when searching in the multiselect plugin
+
+@vote-tally-top: #999999;                   // table.vote-tally tr border-top
+@vote-tally-bottom: #DDDDDD;                // table.vote-tally tr border-bottom
+@vote-tally-superseded: #999999;            // table.vote-tally tr.superseded color
+@vote-border: #CCCCCC;                      // .voteopts .vote-{yes,no,abs} border
+@modbot-note: #666666;                      // .edit-notes .modbot color
+@modbot-note-link: #999999;                 // .edit-notes .modbot a color
+@editnote-h3-bg: #EAEAEA;                   // .edit-notes .edit-note h3
+@editor-class: #999999;                     // .edit-notes .edit-note .editor-class
+@edit-note-date: #333333;                   // .edit-notes .edit-note .date
+@edit-list-bg: #F7F7F7;                     // .edit-list background-color
+@edit-list-header-bg: #E5E5E5;              // .edit-list .edit-header background-color
+@edit-list-actions-bg: #E5E5E5;             // .edit-list .edit-actions background-color
+@search-refine-border-bottom: #999999;      // .search-refine border-bottom
+@search-refine-bg: #F7F7F7;                 // .search-refine background-color
+@search-help-bg: #E5E5E5;                   // .search-help background-color
+@drop-zone-border: #BBBBBB;                 // #drop-zone border
+@thumb-position-border: #E0E0E0;            // div.thumb-position border
+@thumb-position-bg: #EEEEEE;                // div.thumb-position background
+@set-coverart-border: #E0E0E0;              // .set-cover-art div.editimage border
+@comment-historical: #888888;               // span.comment, span.historical color
+@subheader-span: #999999;                   // p.subheader span color
+@ar-descr-bg: #F9F9F9;                      // div.ar-descr background
+@ar-descr-border: #D0D0D0;                  // div.ar-descr border
+@select-filter-hover: #666666;              // a.selectFilterPrev/selectFilterNext:hover text
+@autocomplete-comment-length: #666666;      // .autocomplete-{length,comment}
+@autocomplete-isrc-appear-comment-video: #999999; // span.autocomplete-{isrcs,appears,comment,video}
+@half-width-fieldset-border: #DDDDDD;       // div.half-width fieldset border
+@doc-bubble-border: #999999;                // div.documentation div.bubble border
+@filter-border: #999999;                    // #filter border
+@gravatar-border: #DDDDDD;                  // img.gravatar border
+@git-branch-color: #DDDDDD;                 // div.git-branch color
+@header-menu-link: #333333;                 // #header-menu ul a color
+@sidebar-links-hr: #D3D3D3;                 // #sidebar ul.links hr color/background-color
+@sidebar-note: #777777;                     // #sidebar .{cover-art,picture}-note
+@footer-color: #444444;                     // #footer color
+@small-sidenote: #777777;                   // .lastupdate, .annotation-details, .small color
+@tbl-border: #999999;                       // table.tbl border-{top,bottom}, table.tbl th border-bottom, table.tbl tr.subh th/td border-{top,bottom}
+@tbl-th-left: #CCCCCC;                      // table.tbl th border-left
+@tbl-th-right: #999999;                     // table.tbl tbody th border-right
+@deleted-text: #999999;                     // .deleted color
+@paginator-border-text: #999999;            // .pageselector span border/color
+@paginator-bg: #EEEEEE;                     // .pageselector span background-color
+@table-details-border: #CCCCCC;             // table.details td{.new,.old., span.new, span.old} border
+@nagpanel-bg: #FAFAFA;                      // .nagpanel background-color
+@artwork-cont-bg: #EEEEEE;                  // div.artwork-cont background
+@artwork-cont-border: #E0E0E0;              // div.artwork-cont border
+@multiselect-menu-border: #CCCCCC;          // div.multiselect > div.menu border
+@multiselect-item-link-border: #CCCCCC;     // div.multiselect > div.items > a
+@multiselect-item-link-focus-bg: #EEEEEE;   // div.multiselect > div.items > a:focus background !important
+@rel-editor-remove-button-text: #888888;    // #content.rel-editor .remove-button color +:visited
+@rel-editor-btn-disabled: #999999;          // #content.rel-editor .btn.disabled color
+@rel-editor-dialog-border: #999999;         // div.rel-editor-dialog border
+@re-tabs-li-border: #CCCCCC;                // #release-editor > ul.tabs li border
+@re-medium-table-th-bottom: #999999;        // #release-editor table.medium.tbl th border-bottom
+@re-medium-table-th-left: #CCCCCC;          // #release-editor table.medium.tbl th border-left
+@re-medium-table-td-border: #EEEEEE;        // #release-editor .medium.tbl tr td border
+@re-medium-table-track-ac-border: #999999;  // #release-editor .medium.tbl tr.track-artist-credit td table border
+@re-tracklist-dialog-bg: #FAFAFA;           // div.dialog background
+@re-tracklist-dialog-border: #999999;       // div.dialog border
+@re-tracklist-dialog-shadow: #888888;       // div.dialog box-shadow
+@re-disc-dialog-tab-link-bg: #DDDDDD;       // .add-disc-dialog div.tabs li a background
+@re-add-recording-color: #999999;           // span.add-recording color
+@re-add-track-border: #CCCCCC;              // #release-editor input.add-track-count border
+@relate-to-border: #999999;                 // div.relate-to border
+
+@wiki-hr-bg: #CCCCCC;                       // .wikicontent hr background-color
+@wiki-pre-bg: #DDDDDD;                      // .wikicontent pre background
+@wiki-code-bg: #DDDDDD;                     // .wikicontent code background-color
+@wiki-toc-bg: #F9F9F9;                      // .wikicontent #toc, .wikicontent .toc background-color
+@wikidoc-headfoot-border: #CCCCCC;          // .wikicontent .wikidocs-header border-bottom; .wikicontent .wikidocs-footer border-top
+@wiki-table-oddrow: #FAFAFA;                // .wikicontent table[border^="1"]/table.wikitable tr:nth-child(odd) td

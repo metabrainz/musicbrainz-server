@@ -12,9 +12,9 @@
 #content.rel-editor .rel-remove {background: @rel-remove !important; cursor: default !important;}
 #content.rel-editor .rel-add {background: @rel-add;}
 
-#content.rel-editor .remove-button {cursor: pointer; color: #888; padding: 0 0.5em;}
+#content.rel-editor .remove-button {cursor: pointer; color: @rel-editor-remove-button-text; padding: 0 0.5em;}
 #content.rel-editor .remove-button:hover {color: @rel-remove; text-decoration: none;}
-#content.rel-editor .remove-button:visited {color: #888;}
+#content.rel-editor .remove-button:visited {color: @rel-editor-remove-button-text;}
 
 #content.rel-editor .btn {
     cursor: pointer;
@@ -29,7 +29,7 @@
     padding-bottom: 0.5em;
 }
 img.bottom {vertical-align: bottom;}
-#content.rel-editor .btn.disabled {cursor: default; color: #999;}
+#content.rel-editor .btn.disabled {cursor: default; color: @rel-editor-btn-disabled;}
 
 #content.rel-editor .warning,
 div.rel-editor-dialog .warning {
@@ -44,7 +44,7 @@ div.rel-editor-dialog {
     /* css3 drop shadow */
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
     box-sizing: border-box;
-    border: 1px solid #999;
+    border: 1px solid @rel-editor-dialog-border;
     border-radius: 0.5em;
     background: #fff !important;
     position: absolute !important;

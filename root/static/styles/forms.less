@@ -153,9 +153,9 @@ dl.properties label {
 }
 
 div.ar-descr {
-    background: #F9F9F9;
+    background: @ar-descr-bg;
     padding: 4px;
-    border: dotted 1px #D0D0D0;
+    border: dotted 1px @ar-descr-border;
     margin: 6px;
 }
 
@@ -167,7 +167,7 @@ a.selectFilterNext {
 
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
-    color: #666;
+    color: @select-filter-hover;
 }
 
 div.searchform {
@@ -195,7 +195,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
 .autocomplete-length,
-.autocomplete-comment { font-size: smaller; color: #666; }
+.autocomplete-comment { font-size: smaller; color: @autocomplete-comment-length; }
 button.autocomplete-pager {
     position: absolute;
     display: block;
@@ -210,7 +210,7 @@ span.autocomplete-appears,
 span.autocomplete-comment,
 span.autocomplete-video {
     margin-left: @form-margin;
-    color: #999;
+    color: @autocomplete-isrc-appear-comment-video;
     font-size: 80%;
 }
 
@@ -238,7 +238,7 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid @half-width-fieldset-border;
     margin-top: 0;
     .border-radius(6px);
 }
@@ -303,7 +303,7 @@ div.half-width fieldset h3 {
 div.documentation div.bubble {
     margin: 0;
     padding: @form-margin;
-    border: 1px solid #999;
+    border: 1px solid @doc-bubble-border;
     background: @secondary-grey;
     .border-radius(12px);
 }
@@ -345,7 +345,7 @@ ul.conditions button.remove img {
 
 #filter {
     margin-top: 0.75em;
-    border: 1px solid #999;
+    border: 1px solid @filter-border;
     background: @secondary-grey;
     .border-radius(3px);
     padding: 0.5em;

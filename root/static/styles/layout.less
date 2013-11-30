@@ -114,7 +114,7 @@ img.gravatar {
     display: inline;
     max-height: 1em;
     vertical-align: middle;
-    border: 1px solid #ddd;
+    border: 1px solid @gravatar-border;
     padding: 1px;
     background: #fff;
     margin-right: 0.35em;
@@ -141,7 +141,7 @@ h1 img.gravatar {
     position: absolute;
     top: 2px;
     right: 18px;
-    color: #DDD;
+    color: @git-branch-color;
 }
 
 #header-logo #headerid-query {
@@ -226,7 +226,7 @@ h1 img.gravatar {
 }
 
 #header-menu ul a {
-    color: #333;
+    color: @header-menu-link;
     display: block;
     padding: 0.4em 0.5em;
     height: 100%;
@@ -411,8 +411,8 @@ div.warning img.warning {
     height: 1px;
     width: 75%;
     border: 0;
-    color: #D3D3D3;
-    background-color: #D3D3D3;
+    color: @sidebar-links-hr;
+    background-color: @sidebar-links-hr;
 }
 
 #sidebar ul.external_links {
@@ -639,7 +639,7 @@ div.warning img.warning {
 }
 
 #sidebar .cover-art-note, #sidebar .picture-note {
-    color: #777;
+    color: @sidebar-note;
     display: block;
 }
 
@@ -651,7 +651,7 @@ div.warning img.warning {
     margin: 1em 0;
     padding: 0 1em;
     font-size: 90%;
-    color: #444444;
+    color: @footer-color;
 }
 
 #footer a { color: @link-default; }
@@ -695,7 +695,7 @@ tr.diff-changes {
 .annotation-details,
 .small {
     font-size: 90%;
-    color: #777;
+    color: @small-sidenote;
     font-style: italic;
 }
 
@@ -709,8 +709,8 @@ table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
     width: 100%;
-    border-top: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    border-top: solid 1px @tbl-border;
+    border-bottom: solid 1px @tbl-border;
 }
 
 table.tbl th {
@@ -718,8 +718,8 @@ table.tbl th {
     background: url('../images/layout/table-header.gif') repeat-x 0 50%;
     padding: 0.2em 0.4em;
     text-align: left;
-    border-bottom: solid 1px #999999;
-    border-left: solid 1px #CCCCCC;
+    border-bottom: solid 1px @tbl-border;
+    border-left: solid 1px @tbl-th-left;
 }
 
 table.tbl thead tr .header {
@@ -753,19 +753,19 @@ table.details table.tbl th {
     width: auto;
 }
 
-.deleted { color: #999999; }
+.deleted { color: @deleted-text; }
 
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
     background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
     font-weight: bold;
-    border-top: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    border-top: solid 1px @tbl-border;
+    border-bottom: solid 1px @tbl-border;
 }
 
 table.tbl tbody th {
-    border-right: 1px solid #999999;
+    border-right: 1px solid @tbl-th-right;
     background: none;
 }
 
@@ -830,9 +830,9 @@ table.tbl ul {
 }
 
 .pageselector span {
-    border: solid 1px #999999;
-    background-color: #EEEEEE;
-    color: #999999;
+    border: solid 1px @paginator-border-text;
+    background-color: @paginator-bg;
+    color: @paginator-border-text;
 }
 
 .pageselector em {
@@ -904,7 +904,7 @@ table.details td span.new,
 table.details td span.old,
 table.details td.new,
 table.details td.old {
-    border: 1px solid #CCC;
+    border: 1px solid @table-details-border;
 }
 
 table.details td { vertical-align: top; }
@@ -1001,7 +1001,7 @@ div.columns-5 div.column {
 }
 
 .nagpanel {
-    background-color: #FAFAFA;
+    background-color: @nagpanel-bg;
     border: 2px dashed @musicbrainz-purple;
     padding: 0 1em;
     margin: 1em 0;
@@ -1025,8 +1025,8 @@ p.cleanup {
 
 div.artwork-cont {
     border-radius: 2px;
-    background: #eee;
-    border: 1px solid #e0e0e0;
+    background: @artwork-cont-bg;
+    border: 1px solid @artwork-cont-border;
     display: inline-block;
     padding: 10px;
     margin: 5px;

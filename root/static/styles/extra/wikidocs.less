@@ -22,21 +22,21 @@
 
     hr {
         border: none;
-        background-color: #CCCCCC;
+        background-color: @wiki-hr-bg;
         height: 1px;
         margin: 2px 0;
     }
 
     pre {
         padding: 0.5em 1em;
-        background: #DDDDDD;
+        background: @wiki-pre-bg;
         overflow: auto;
         border: none;
         border-left: 5px solid @text-orange;
     }
 
     code {
-        background-color: #DDDDDD;
+        background-color: @wiki-code-bg;
     }
 
     // Images
@@ -68,7 +68,7 @@
     // TOC
     #toc,
     .toc {
-        background-color: #F9F9F9;
+        background-color: @wiki-toc-bg;
         border: 1px solid @light-border-blue;
         font-size: 95%;
         padding: 5px;
@@ -105,7 +105,7 @@
 
     // header section (only shown for unofficial pages)
     .wikidocs-header {
-        border-bottom: 2px dotted #CCCCCC;
+        border-bottom: 2px dotted @wikidoc-headfoot-border;
         margin: 5px 0 10px;
         padding-bottom: 5px;
         font-size: 10px;
@@ -113,7 +113,7 @@
 
     // footer section
     .wikidocs-footer {
-        border-top: 2px dotted #CCCCCC;
+        border-top: 2px dotted @wikidoc-headfoot-border;
         margin-top: 10px;
         padding-top: 5px;
         font-size: 10px;
@@ -154,7 +154,7 @@
     // This will look nice for the few browsers that do/will support nth-child
     table[border^="1"] tr:nth-child(odd) td,
     table.wikitable tr:nth-child(odd) td {
-        background: #FAFAFA;
+        background: @wiki-table-oddrow;
     }
 
     table[border^="1"] caption,

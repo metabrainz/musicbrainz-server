@@ -31,8 +31,8 @@ table.vote-tally {
 }
 
 table.vote-tally tr {
-    border-top: 1px dotted #999999;
-    border-bottom: 1px dotted #DDDDDD;
+    border-top: 1px dotted @vote-tally-top;
+    border-bottom: 1px dotted @vote-tally-bottom;
 }
 
 table.vote-tally tr.first {
@@ -51,7 +51,7 @@ table.vote-tally td.vote {
 
 table.vote-tally tr.superseded,
 table.vote-tally tr.superseded a {
-    color: #999999;
+    color: @vote-tally-superseded;
 }
 
 table.vote-tally .date {
@@ -67,17 +67,17 @@ table.vote-tally .date {
 }
 
 .voteopts .vote-yes {
-    border: 1px solid #ccc;
+    border: 1px solid @vote-border;
     background-color: @yes-bg;
 }
 
 .voteopts .vote-no {
-    border: 1px solid #ccc;
+    border: 1px solid @vote-border;
     background-color: @no-bg;
 }
 
 .voteopts .vote-abs {
-    border: 1px solid #ccc;
+    border: 1px solid @vote-border;
     background-color: @abstain-bg;
 }
 
@@ -99,16 +99,16 @@ table.vote-tally .date {
 }
 
 .edit-notes .modbot {
-    color: #666;
+    color: @modbot-note;
 }
 
 .edit-notes .modbot a {
-    color: #999;
+    color: @modbot-note-link;
 }
 
 .edit-notes .edit-note h3 {
     font-weight: normal;
-    background-color: #EAEAEA;
+    background-color: @editnote-h3-bg;
     height: 16px;
     margin: 0 0 10px;
     padding: 5px 10px 5px 10px;
@@ -120,7 +120,7 @@ table.vote-tally .date {
 
 .edit-notes .edit-note .editor-class {
     font-weight: normal;
-    color: #999;
+    color: @editor-class;
 }
 
 .edit-notes h3 a img {
@@ -158,11 +158,11 @@ table.vote-tally .date {
     background-repeat: no-repeat;
 }
 .edit-note:target {
-    background: #F2F2b2;
+    background: @highlight-table-row;
 }
 
 .edit-notes .edit-note .date {
-    color: #333333;
+    color: @edit-note-date;
     float: right;
     font-weight: normal;
 }
@@ -188,11 +188,11 @@ table.vote-tally .date {
 .edit-list {
     clear: both;
     margin: 20px 0;
-    background-color: #F7F7F7;
+    background-color: @edit-list-bg;
 }
 
 .edit-list .edit-header {
-    background-color: #E5E5E5;
+    background-color: @edit-list-header-bg;
     border-right: 10px solid transparent;
     padding: 0 10px 10px 10px;
 }
@@ -237,7 +237,7 @@ table.vote-tally .date {
 
 .edit-list .edit-actions {
     float: right;
-    background-color: #E5E5E5;
+    background-color: @edit-list-actions-bg;
     padding: 0 10px;
 }
 
@@ -271,8 +271,8 @@ table.vote-tally .date {
 .search-refine {
     display: none;
     padding: 5px;
-    border-bottom: 2px solid #999999;
-    background-color: #F7F7F7;
+    border-bottom: 2px solid @search-refine-border-bottom;
+    background-color: @search-refine-bg;
 }
 
 .search-refine div.row {
@@ -280,7 +280,7 @@ table.vote-tally .date {
 }
 
 .search-help {
-    background-color: #E5E5E5;
+    background-color: @search-help-bg;
     margin-top: 1em;
     padding: 5px 10px;
 }
@@ -303,7 +303,7 @@ table.vote-tally .date {
 span.fileinput-button { vertical-align: middle }
 #drop-zone {
     display: inline-block;
-    border: 2px dashed #bbb;
+    border: 2px dashed @drop-zone-border;
     padding: 25px;
     text-align: center;
     margin-left: 24px;
@@ -347,8 +347,8 @@ div.thumb-position {
     margin: 3px;
     padding: 5px;
     float: left;
-    border: 1px solid #e0e0e0;
-    background: #eee;
+    border: 1px solid @thumb-position-border;
+    background: @thumb-position-bg;
     border-radius: 2px;
 }
 
@@ -397,7 +397,7 @@ div.thumb-position.moved {
     min-height: 140px;
     margin: 3px;
     padding: 5px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid @set-coverart-border;
     border-radius: 2px;
 }
 
