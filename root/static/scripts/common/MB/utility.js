@@ -36,15 +36,6 @@ MB.utility.keys = function (obj) {
     }
 };
 
-MB.utility.displayedValue = function(element) {
-    if(element.is('select')) {
-        return element.find(':selected').text();
-    }
-    else if (element.is('input[type=text]')) {
-        return element.val();
-    }
-};
-
 /* Convert fullwidth characters to standard halfwidth Latin. */
 MB.utility.fullWidthConverter = function (inputString) {
     if (inputString === "") {
@@ -67,30 +58,6 @@ MB.utility.fullWidthConverter = function (inputString) {
 
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
-
-MB.utility.load_data = function (files, loaded, callback) {
-    var uri = files.pop ();
-
-    if (uri)
-    {
-        jQuery.get (uri, function (data) {
-            loaded[uri] = data;
-
-            MB.utility.load_data (files, loaded, callback);
-        });
-    }
-    else
-    {
-        callback (loaded);
-    }
-};
-
-MB.utility.exception = function (name, message) {
-    var e = function () { this.name = name,  this.message = message };
-    e.prototype = new Error ();
-
-    return new e ();
-};
 
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
 
