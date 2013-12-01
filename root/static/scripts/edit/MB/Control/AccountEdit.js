@@ -1,5 +1,5 @@
 MB.Control.AccountEdit = function (bubbles) {
-    var self = MB.Object();
+    var self = {};
 
     MB.Control.EntityAutocomplete ({
         inputs: $('span.area.autocomplete')

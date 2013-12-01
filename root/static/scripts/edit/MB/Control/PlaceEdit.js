@@ -1,5 +1,5 @@
 MB.Control.PlaceEdit = function (bubbles) {
-    var self = MB.Object();
+    var self = {};
 
     var bubbles = MB.Control.BubbleCollection ();
     MB.Control.initialize_guess_case (bubbles, 'place', 'id-edit-place');

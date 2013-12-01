@@ -20,7 +20,7 @@
 
 MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
 {
-    var self = MB.Object();
+    var self = {};
     var tagTemplate = MB.utility.template('<a href="' + viewTag + '#{tagLink}">#{tag}</a>');
 
     self.$container = $(container);

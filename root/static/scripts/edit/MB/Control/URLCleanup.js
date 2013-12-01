@@ -517,7 +517,7 @@ MB.constants.CLEANUPS = {
 
 
 MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
-    var self = MB.Object ();
+    var self = {};
 
     self.typeControl = $(typeControl);
     self.urlControl = $(urlControl);

@@ -19,7 +19,7 @@
 */
 
 MB.Control.SelectAll = function (table) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$table = $(table);
     self.$checkboxes = self.$table.find('td input[type="checkbox"]');

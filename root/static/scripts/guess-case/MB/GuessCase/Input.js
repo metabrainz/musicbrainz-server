@@ -25,7 +25,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
  * Holds the input variables
  **/
 MB.GuessCase.Input = function () {
-    var self = MB.Object ();
+    var self = {};
 
     // ----------------------------------------------------------------------------
     // member variables
@@ -181,7 +181,7 @@ MB.GuessCase.Input = function () {
 		self.updateCurrentWord(o);
 	    }
 	    return o;
-	} 
+	}
 	return null;
     };
 
@@ -192,7 +192,7 @@ MB.GuessCase.Input = function () {
 	var w = self.getCurrentWord();
 	if (w != null) {
 	    self._w[self._wi] = o;
-	} 
+	}
     };
 
     /**

@@ -22,7 +22,7 @@
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 MB.GuessCase._Track = function () {
-    var self = MB.Object ();
+    var self = {};
 
     var guess = function (data) {
 
@@ -34,7 +34,7 @@ MB.GuessCase._Track = function () {
         var ret = [];
         $.each (data, function (idx, line) {
             ret.push (self.gc.guessTrack (line));
-        }); 
+        });
 
         return ret;
     };

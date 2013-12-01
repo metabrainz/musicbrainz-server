@@ -19,7 +19,7 @@
 */
 
 MB.Control.ReleaseImportSearchResult = function (parent, $template) {
-    var self = MB.Object ();
+    var self = {};
 
     self.parent = parent;
     self.$tracklist = $template;
@@ -174,7 +174,7 @@ MB.Control.ReleaseImportSearchResult = function (parent, $template) {
 };
 
 MB.Control.ReleaseImport = function (parent, type) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$container = $('div.add-disc-tab.' + type);
     self.$next = self.$container.find ('a[href=#next]');
@@ -297,7 +297,7 @@ MB.Control.ReleaseImport = function (parent, type) {
 };
 
 MB.Control.ReleaseTrackParserBase = function (dialog) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$dialog = $('div.' + dialog);
 
