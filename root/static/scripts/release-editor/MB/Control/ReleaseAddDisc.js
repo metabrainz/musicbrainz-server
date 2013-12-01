@@ -243,10 +243,13 @@ MB.Control.ReleaseImport = function (parent, type) {
         $.each (data, function (idx, item) {
             if (item.current)
             {
-                var pager = MB.utility.template (MB.text.Pager);
                 self.total = item.pages;
 
-                self.$pager.text (pager.draw ({ 'page': item.current, 'total': item.pages }));
+                var pager = MB.text.Pager
+                    .replace("#{page}", item.current)
+                    .replace("#{total}", item.pages);
+
+                self.$pager.text (pager);
                 self.$pager_div.show ();
                 return;
             }

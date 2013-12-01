@@ -68,22 +68,6 @@ MB.utility.fullWidthConverter = function (inputString) {
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
-MB.utility.template = function(str) {
-    var self = {};
-
-    var draw = function (o) {
-        return str.replace(/#{([^{}]*)}/g,
-            function (a, b) {
-                var r = o[b];
-                return typeof r === 'string' || typeof r === 'number' ? r : a;
-            });
-    };
-
-    self.draw = draw;
-
-    return self;
-};
-
 MB.utility.load_data = function (files, loaded, callback) {
     var uri = files.pop ();
 

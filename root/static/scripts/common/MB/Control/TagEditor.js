@@ -21,7 +21,7 @@
 MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
 {
     var self = {};
-    var tagTemplate = MB.utility.template('<a href="' + viewTag + '#{tagLink}">#{tag}</a>');
+    var tagTemplate = _.template('<a href="' + viewTag + '<%- tagLink %>"><%- tag %></a>');
 
     self.$container = $(container);
     self.$tagList = self.$container.find('span.tags');
@@ -36,7 +36,7 @@ MB.Control.TagEditor = function(container, endpoint, viewTag, moreHtml)
 
     self.updateTagDisplay = function(tags, more) {
         var html = tags.length ? tags.map(function(tag) {
-                return tagTemplate.draw({
+                return tagTemplate({
                     tag: tag,
                     tagLink: encodeURIComponent(tag)
                 });
