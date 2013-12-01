@@ -52,7 +52,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
                 }
 
                 a = '<a target="_blank" href="/release-group/' + item.gid +
-                    '">' + MB.utility.escapeHTML (item.name) + '</a>';
+                    '">' + _.escapeHTML(item.name) + '</a>';
 
                 $target.append ($(a));
             });

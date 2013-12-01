@@ -61,12 +61,6 @@ MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2
 
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
 
-MB.utility.escapeHTML = function (str) {
-    if (!str) return '';
-
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
 /* structureToString renders a structure to a string.  It is similar to
    serializing a structure, but intended as input to a hash function.
 
