@@ -26,7 +26,7 @@ MB.GuessCase._Track = function () {
 
     var guess = function (data) {
 
-        if (MB.utility.isString (data))
+        if (_.isString(data))
         {
             return self.gc.guessTrack (data);
         }

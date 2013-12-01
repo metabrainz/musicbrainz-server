@@ -65,9 +65,6 @@ MB.utility.fullWidthConverter = function (inputString) {
     return newString.reverse ().join("");
 };
 
-MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
-MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
-MB.utility.isNumber = function(o) { return (o instanceof Number  || typeof o == "number"); };
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
@@ -125,11 +122,11 @@ MB.utility.escapeHTML = function (str) {
    The output string is not easily deserialized.
 */
 MB.utility.structureToString = function (obj) {
-    if (MB.utility.isString (obj) || MB.utility.isNumber (obj))
+    if (_.isString(obj) || _.isNumber(obj))
     {
         return obj;
     }
-    else if (MB.utility.isArray (obj))
+    else if (_.isArray(obj))
     {
         var ret = [];
         $.each (obj, function (idx, item) {
@@ -345,4 +342,3 @@ MB.utility.filesize = function (size) {
 MB.utility.percentOf = function(x, y) {
     return x * y / 100;
 };
-

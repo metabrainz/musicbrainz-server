@@ -127,7 +127,7 @@ MB.GuessCase.Input = function () {
     self.matchWordAtIndex = function(index, re) {
 	var cw = (self.getWordAtIndex(index) || "");
 	var f;
-	if (MB.utility.isString(re)) {
+	if (_.isString(re)) {
 	    f = (re == cw);
 	} else {
 	    f = (cw.match(re) != null);
