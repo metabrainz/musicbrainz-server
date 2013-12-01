@@ -103,7 +103,7 @@ $(function() {
 
     $attrContainers.each(function() {
         var selects = $(this);
-        var btn = $(MB.html.input({ type: 'button', value: MB.text.AddAnother} ));
+        var btn = $("<input/>").attr({ type: "button", value: MB.text.AddAnother });
         btn.click(function() {
             var lastDiv = selects.find('div:last');
             var lastSelectName = lastDiv.find('select').attr('name');
@@ -115,23 +115,23 @@ $(function() {
             newSelect.val('');
             selects.append(newDiv);
             if(!newDiv.find('input.removeAttr').length) {
-                newDiv.append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
+                newDiv.append($("<input/>").attr({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove }));
             }
             newDiv.find('input.selectFilter').val('').focus();
         });
         selects.after(btn);
         if(selects.find('option').length > 20) {
             selects.find('div').each(function() {
-                $(this).append(' ')
-                    .append(MB.html.a({ href: '#', 'class': 'selectFilterPrev' }, '&#9668'))
-                    .append(MB.html.input({ type: 'text', size: '7', 'class': 'selectFilter' }))
-                    .append(MB.html.a({ href: '#', 'class': 'selectFilterNext' }, '&#9658;'));
+                $(this).append(' ',
+                    $("<a>&#9668;</a>").attr({ href: '#', 'class': 'selectFilterPrev' }),
+                    $("<input/>").attr({ type: 'text', size: '7', 'class': 'selectFilter' }),
+                    $("<a>&#9658;</a>").attr({ href: '#', 'class': 'selectFilterNext' }));
             });
         }
 
         selects.find('div:gt(0)').each(function() {
-            $(this).append(' ')
-                .append(MB.html.input({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove} ));
+            $(this).append(' ',
+                $("<input/>").attr({ type: 'button', 'class': 'removeAttr', value: MB.text.Remove }));
         });
     });
 

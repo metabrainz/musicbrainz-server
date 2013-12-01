@@ -19,7 +19,7 @@
 */
 
 MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$container = $container;
     self.artistname = artistname;
@@ -112,7 +112,7 @@ MB.Control.ReleaseRecordingsSelect = function ($container, artistname, callback)
 
 
 MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
-    var self = MB.Object ();
+    var self = {};
 
     self.parent = parent;
     self.$container = $('#select-recording-'+disc+'-'+track);
@@ -147,12 +147,8 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
         else
         {
             $row.find ('td.recording a').clone ().appendTo (self.$link.empty ());
-            self.$link.append(
-                MB.html.span(
-                    {},
-                    ' (' + $row.find ('td.length').text() + ')'
-                )
-            );
+            self.$link.append($("<span>").text(" (" + $row.find("td.length").text() + ")"));
+
             var comment = $row.nextAll ('.comment:eq(0)').find ('td span.comment').text ();
 
             if (comment !== '')
@@ -262,7 +258,7 @@ MB.Control.ReleaseRecordingsTrack = function (parent, disc, track, row) {
 };
 
 MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
-    var self = MB.Object ();
+    var self = {};
 
     self.parent = parent;
     self.tracks = [];
@@ -364,7 +360,7 @@ MB.Control.ReleaseRecordingsDisc = function (parent, disc, fieldset) {
 };
 
 MB.Control.ReleaseRecordings = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.discs = [];
     self.bc = MB.Control.BubbleCollection ();
