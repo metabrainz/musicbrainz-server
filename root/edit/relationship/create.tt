@@ -1,16 +1,5 @@
-[% BLOCK layout_head %]
-  [% script_manifest('edit.js.manifest') %]
-
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-
-        MB.Control.RelationshipEdit ();
-
-     });
-   //]]></script>
-[% END %]
-
 [%- WRAPPER 'layout.tt' title=l('Create Relationship') full_width=1 -%]
+    [% script_manifest('edit.js.manifest') %]
 
     <h1>[% l('Create Relationship') %]</h1>
 
@@ -117,5 +106,11 @@
     [% enter_edit() %]
 
     </form>
+
+    <script type="text/javascript">//<![CDATA[
+      $(function () {
+        MB.Control.RelationshipEdit();
+      });
+    //]]></script>
 
 [% END %]

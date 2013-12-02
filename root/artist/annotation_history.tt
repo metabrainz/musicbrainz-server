@@ -1,12 +1,10 @@
-[% BLOCK layout_head %]
-   <script type="text/javascript">//<![CDATA[
-   $(function() {
-     MB.Control.AnnotationHistory('#annotation-history');
-   });
-   //]]></script>
-[% END %]
-
 [% WRAPPER 'artist/layout.tt' full_width=1 title=l('Annotation history') %]
   <h2>[% l('Annotation history') %]</h2>
   [% INCLUDE 'annotation/history.tt' %]
+
+  <script type="text/javascript">//<![CDATA[
+    $(function () {
+      MB.Control.AnnotationHistory('#annotation-history');
+    });
+  //]]></script>
 [% END %]

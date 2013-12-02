@@ -1,3 +1,6 @@
+[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js.manifest') %]
+
 <form action="[% c.req.uri %]" method="post" class="edit-recording">
   [%- USE r = FormRenderer(form) -%]
 
@@ -25,6 +28,19 @@
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-recording', 'button.submit.positive');
-</script>
+<script type="text/javascript">//<![CDATA[
+  $(function () {
+    var bubbles = MB.Control.BubbleCollection();
+    var artistCredit = MB.Control.initialize_artist_credit(bubbles);
+
+    MB.Control.initialize_guess_case(bubbles, "recording", "id-edit-recording");
+
+    ko.computed(function () {
+        $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
+    });
+
+    bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
+
+    MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
+  });
+//]]></script>

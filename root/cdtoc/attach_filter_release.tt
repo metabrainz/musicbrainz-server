@@ -1,24 +1,3 @@
-[% BLOCK layout_head %]
-<script>
-$(document).ready (function () {
-
-    $(".tracklist").hide();
-
-    $(".toggle").click(function() {
-
-        $(this).closest('tr').next('.tracklist').toggle();
-
-        if ( $(this).closest('tr').next('.tracklist').is(':hidden') ) {
-            $(this).text("show tracklist");
-        } else {
-            $(this).text("hide tracklist");
-        }
-
-    });
-});
-</script>
-[% END %]
-
 [% WRAPPER 'layout.tt' title=lp('Attach CD TOC', 'header') full_width=1 %]
   <h1>[% lp('Attach CD TOC', 'header') %]</h1>
   <form action="[% c.req.uri_for_action('/cdtoc/attach') %]" method="get">

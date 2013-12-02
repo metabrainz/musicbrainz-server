@@ -1,16 +1,3 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('guess-case.js.manifest') %]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
-
-       $('.new-entity').each(function() {
-           MB.Control.SortName('artist', $(this).find('.for'), $(this).find('.sortname'), $(this)).initialize();
-       });
-    });
-  //]]></script>
-[%- END -%]
-
 [%- MACRO new_entity_form(field_container) BLOCK -%]
   <div class="new-entity">
     [% WRAPPER form_row %]
@@ -27,6 +14,8 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
+  [% script_manifest('guess-case.js.manifest') %]
+
   [%- USE r = FormRenderer(form) -%]
   <div class="changes">
     [%- USE w = Wizard() -%]
@@ -168,5 +157,15 @@
         </div>
     </div>
   </div>
-[%- END -%]
 
+  <script type="text/javascript">//<![CDATA[
+    $(function () {
+      MB.utility.setDefaultAction("form.release-editor", "#id-next");
+
+      $(".new-entity").each(function () {
+        MB.Control.SortName("artist", $(this).find(".for"), $(this).find(".sortname"), $(this)).initialize();
+      });
+    });
+  //]]></script>
+
+[%- END -%]

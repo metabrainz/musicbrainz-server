@@ -1,11 +1,3 @@
-[% BLOCK layout_head %]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
-    });
-  //]]></script>
-[%- END -%]
-
 [%- WRAPPER 'release/edit/layout.tt' -%]
   [%- USE r = FormRenderer(form) -%]
   <fieldset>
@@ -46,4 +38,10 @@
     [% r.submit ('previous', l('« Previous')) %]
     [% r.submit ('next', l('Next »')) %]
   </div>
+
+  <script type="text/javascript">//<![CDATA[
+    $(function () {
+       MB.utility.setDefaultAction("form.release-editor", "#id-next");
+    });
+  //]]></script>
 [%- END -%]

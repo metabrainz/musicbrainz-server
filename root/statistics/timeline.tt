@@ -8,15 +8,6 @@
 [% END %]
 
 [% BLOCK layout_head %]
-  <script type="text/javascript" src="
-      [%- lang_hash = current_language;
-          IF current_language != 'en';
-              lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('statistics', current_language);
-          END;
-          c.uri_for('/scripts', lang_hash
-              c.model('FileCache').template_signature('statistics/view_js.tt'),
-              'statistics/view.js') -%]"></script>
-  [% script_manifest('statistics.js.manifest') %]
   <style type="text/css">
       h2#graph-toggle-header {
           margin-bottom: -10px;
@@ -39,30 +30,6 @@
           background: url('../../static/images/icons/loading.gif') no-repeat;
       }
   </style>
-  <script type="text/javascript">//<![CDATA[
-      $(document).ready(function () {
-      MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
-          "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
-          [%- END -%]},
-          { xaxis: { mode: "time",
-                     timeformat: "%y/%0m/%0d",
-                     minTickSize: [7, "day"]},
-            yaxis: { tickFormatter: function numberWithCommas(x) {
-                         return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
-                     }},
-            selection: { mode: "xy" },
-            grid: { hoverable: true },
-            legend: { show: false }},
-          { legend: {show: false},
-            series: {lines: {lineWidth: 1}, shadowSize: 0},
-            xaxis: {mode: "time", minTickSize: [1, "year"]},
-            yaxis: {tickFormatter: function () { return '' }},
-            selection: {mode: "xy"}});
-          [% IF show_all %]
-          $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
-          [% END %]
-      });
-  //]]></script>
 [% END %]
 
 [%- sidebar = BLOCK -%]
@@ -94,4 +61,41 @@
 <h2>[% l('Rate of Change (average items/day vs. day)') %]</h2>
 <div id="rate-of-change-graph"></div>
 [%- PROCESS "statistics/macros-footer.tt" -%]
+
+<script type="text/javascript" src="
+    [%- lang_hash = current_language;
+        IF current_language != 'en';
+            lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('statistics', current_language);
+        END;
+        c.uri_for('/scripts', lang_hash
+            c.model('FileCache').template_signature('statistics/view_js.tt'),
+            'statistics/view.js') -%]"></script>
+
+[% script_manifest('statistics.js.manifest') %]
+
+<script type="text/javascript">//<![CDATA[
+  $(function () {
+    MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
+        "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
+        [%- END -%]},
+        { xaxis: { mode: "time",
+                   timeformat: "%y/%0m/%0d",
+                   minTickSize: [7, "day"]},
+          yaxis: { tickFormatter: function numberWithCommas(x) {
+                       return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+                   }},
+          selection: { mode: "xy" },
+          grid: { hoverable: true },
+          legend: { show: false }},
+        { legend: {show: false},
+          series: {lines: {lineWidth: 1}, shadowSize: 0},
+          xaxis: {mode: "time", minTickSize: [1, "year"]},
+          yaxis: {tickFormatter: function () { return '' }},
+          selection: {mode: "xy"}});
+        [% IF show_all %]
+        $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
+        [% END %]
+  });
+//]]></script>
+
 [% END %]

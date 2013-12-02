@@ -1,21 +1,6 @@
-[%- BLOCK layout_head -%]
-    <script type="text/javascript">//<![CDATA[
-        $(function() {
-            $('.edit-list').each(function() {
-                MB.Control.EditSummary(this);
-            });
-
-            [% IF c.user.is_auto_editor %]
-              MB.Control.EditList('#edits');
-            [% END %]
-        });
-    //]]></script>
-[%- END -%]
-
 [% WRAPPER 'layout.tt' title=l('Edits by Your Subscribed Editors') full_width=1 %]
     <div id="content">
         <h1>[% l('Edits by Your Subscribed Editors') %]</h1>
         [% INCLUDE 'edit/list.tt' %]
     </div>
 [% END %]
-

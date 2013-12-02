@@ -1,6 +1,4 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('edit.js.manifest') %]
-[%- END -%]
+[% script_manifest('edit.js.manifest') %]
 
 [% BLOCK link_type %]
     <li style="padding-top: 0.5em">

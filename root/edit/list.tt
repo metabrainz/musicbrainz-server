@@ -89,9 +89,9 @@
                            <p>[% l('An error occured while loading this edit') %]</p>
                         [% END %]
                     </div>
-                    
+
                     [% INCLUDE 'edit/notes.tt' verbose='not-verbose' hide=1 rows=1 index=loop.index %]
-    
+
                     <div class="seperator">
                     </div>
                 </div>
@@ -110,3 +110,15 @@
                { search => c.uri_for_action('/edit/search') }) %]</p>
     [% END %]
 [% END %]
+
+<script type="text/javascript">//<![CDATA[
+  $(function () {
+    $(".edit-list").each(function () {
+        MB.Control.EditSummary(this);
+    });
+
+    [% IF c.user.is_auto_editor %]
+      MB.Control.EditList("#edits");
+    [% END %]
+  });
+//]]></script>

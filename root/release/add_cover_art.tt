@@ -1,14 +1,10 @@
-[%- BLOCK layout_head -%]
+[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
   [%- script_manifest('edit.js.manifest') -%]
 
   <script type="text/javascript">//<![CDATA[
-
     MB.cover_art_types_json = [% cover_art_types_json %];
-
   //]]></script>
-[%- END -%]
 
-[%- WRAPPER "release/layout.tt" title=lp('Add Cover Art', 'header') page='add_cover_art' -%]
   <h2>[%- lp('Add Cover Art', 'header') -%]</h2>
 
   <noscript>
@@ -153,4 +149,3 @@
     MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
   </script>
 [%- END -%]
-
