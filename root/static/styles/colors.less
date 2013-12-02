@@ -1,158 +1,166 @@
-@text-black: #000000;                       // black text
-@text-white: #FFFFFF;                       // white text
+@text-black: #000000;                                // black text
+@text-white: #FFFFFF;                                // white text
 
-@background-grey: #E7E7E7;                  // site background
-@secondary-grey: #F0F0F0;                   // bubble backgrounds, tab bars, etc.
-@disabled-grey: #AAAAAA;                    // disabled inputs (text, generally)
-@disabled-bg-grey: #DCDAD5;                 // disabled inputs background
-@placeholder-grey: @disabled-grey;          // placeholder text
+@effectively-black: #333333;
+@very-dark-grey: #666666;
+@dark-grey: #999999;
+@medium-grey: #CCCCCC;
+@light-grey: #DDDDDD;
+@very-light-grey: #EEEEEE;
+@effectively-white: #F9F9F9;
 
-@musicbrainz-purple: #736DAB;               // the purple used in the top header and some subheaders
-@musicbrainz-orange: #FFBA58;               // the orange used alongside that purple
+@background-grey: @very-light-grey;                  // site background
+@secondary-grey: @very-light-grey;                   // bubble backgrounds, tab bars, etc.
+@disabled-grey: @dark-grey;                          // disabled inputs (text, generally)
+@disabled-bg-grey: @medium-grey;                     // disabled inputs background
+@placeholder-grey: @disabled-grey;                   // placeholder text
 
-@text-orange: #FC6714;                      // the orange we use for text (headers, link hovers, etc.)
-@edit-orange: #FFDD99;                      // the edits-pending color. also used other random spots
+@musicbrainz-purple: #736DAB;                        // the purple used in the top header and some subheaders
+@musicbrainz-orange: #FFBA58;                        // the orange used alongside that purple
 
-@link-default: #002BBA;                     // default link color
-@link-visited: #632D9B;                     // visited link color
+@text-orange: #FC6714;                               // the orange we use for text (headers, link hovers, etc.)
+@edit-orange: #FFDD99;                               // the edits-pending color. also used other random spots
 
-@light-border-blue: #ADB9CC;                // the thin-bordered table borders (e.g. statistics)
-@light-border-background: #F1F1F1;          // the background for the light-border tables
+@link-default: #002BBA;                              // default link color
+@link-visited: #632D9B;                              // visited link color
 
-@warning-border: #A1A1A1;                   // "warning" and "notice" border
-@warning-background: #FFFFD0;               // "warning" and "notice" background
+@light-border-blue: #ADB9CC;                         // the thin-bordered table borders (e.g. statistics)
+@light-border-background: @very-light-grey;          // the background for the light-border tables
 
-@autocomplete-success: #BBFFBB;             // successful autocomplete background
-@autocomplete-error: #FFAAAA;               // error/cancelled autocomplete background
+@warning-border: @dark-grey;                         // "warning" and "notice" border
+@warning-background: #FFFFD0;                        // "warning" and "notice" background
 
-@rel-add: #B6FFA3;                          // added rels in the rel editor (background)
-@rel-remove: #FF8F8F;                       // removed rels in the rel editor (background)
-@rel-edit: @edit-orange;                    // edited rels in the rel editor (+ edit hover) (background)
-@rel-warning: #FBE3E4;                      // warning boxes in the rel editor
+@autocomplete-success: #BBFFBB;                      // successful autocomplete background
+@autocomplete-error: #FFAAAA;                        // error/cancelled autocomplete background
 
-@diff-new-bg: #E8F7E8;                      // "new" sides of split diffs (background)
-@diff-new-highlight: #B1EBB0;               // highlight for added text in diffs
-@diff-old-bg: #F7E8E8;                      // "old" sides of split diffs (background)
-@diff-old-highlight: #EBB1BA;               // highlight for removed text in diffs
+@rel-add: #B6FFA3;                                   // added rels in the rel editor (background)
+@rel-remove: #FF8F8F;                                // removed rels in the rel editor (background)
+@rel-edit: @edit-orange;                             // edited rels in the rel editor (+ edit hover) (background)
+@rel-warning: #FBE3E4;                               // warning boxes in the rel editor
 
-@yes-border: #87F717;                       // border around 'yes' vote in edit-note h3/img
-@no-border: #E55451;                        // border around 'no' vote in edit note h3/img
+@diff-new-bg: #E8F7E8;                               // "new" sides of split diffs (background)
+@diff-new-highlight: #B1EBB0;                        // highlight for added text in diffs
+@diff-old-bg: #F7E8E8;                               // "old" sides of split diffs (background)
+@diff-old-highlight: #EBB1BA;                        // highlight for removed text in diffs
 
-@yes-bg: #B1EBB0;                           // background for 'yes'
-@no-bg: #EBB1BA;                            // background for 'no'
-@abstain-bg: #F2F0A5;                       // background for 'abstain'
+@yes-border: #87F717;                                // border around 'yes' vote in edit-note h3/img
+@no-border: #E55451;                                 // border around 'no' vote in edit note h3/img
 
-@button-text: #565656;                      // button text before hover/click
-@button-hover-background: #DFF4FF;          // default button hover/focus background
-@button-hover-text: #336699;                // default button hover/focus text
-@button-hover-border: #C2E1EF;              // default button hover/focus border
-@button-active: #6299C5;                    // default button background/border color when clicked
+@yes-bg: #B1EBB0;                                    // background for 'yes'
+@no-bg: #EBB1BA;                                     // background for 'no'
+@abstain-bg: #F2F0A5;                                // background for 'abstain'
 
-@negative-text: #D12F19;                    // negative text color
-@negative-hover-background: #FBE3E4;        // negative button hover/focus background
-@negative-hover-text: @negative-text;       // negative button hover/focus text
-@negative-hover-border: #FBC2C4;            // negative button hover/focus border
-@negative-active: @negative-text;           // negative button background/border color when clicked
+@button-text: @very-dark-grey;                       // button text before hover/click
+@button-hover-background: #DFF4FF;                   // default button hover/focus background
+@button-hover-text: #336699;                         // default button hover/focus text
+@button-hover-border: #C2E1EF;                       // default button hover/focus border
+@button-active: #6299C5;                             // default button background/border color when clicked
 
-@positive-text: #529214;                    // positive text color
-@positive-hover-background: #E6EFC2;        // positive button hover/focus background
-@positive-hover-text: @positive-text;       // positive button hover/focus text
-@positive-hover-border: #C6D880;            // positive button hover/focus border
-@positive-active: @positive-text;           // positive button background/border color when clicked
+@negative-text: #D12F19;                             // negative text color
+@negative-hover-background: #FBE3E4;                 // negative button hover/focus background
+@negative-hover-text: @negative-text;                // negative button hover/focus text
+@negative-hover-border: #FBC2C4;                     // negative button hover/focus border
+@negative-active: @negative-text;                    // negative button background/border color when clicked
 
-@rg-art-selected: #BBFFBB;                  // selected RG cover art in set-cover-art page (background)
-@rg-art-selected-border: #889988;           // selected RG cover art border
+@positive-text: #529214;                             // positive text color
+@positive-hover-background: #E6EFC2;                 // positive button hover/focus background
+@positive-hover-text: @positive-text;                // positive button hover/focus text
+@positive-hover-border: #C6D880;                     // positive button hover/focus border
+@positive-active: @positive-text;                    // positive button background/border color when clicked
 
-@dark-button-border: #D0D0D0;               // the darker of the button border colors (for shading)
-@light-button-border: #EAEAEA;              // the lighter of the button border colors (for shading)
+@rg-art-selected: #BBFFBB;                           // selected RG cover art in set-cover-art page (background)
+@rg-art-selected-border: #889988;                    // selected RG cover art border
 
-@tab-normal-border: #A1A1A1;                // the normal dark border around tabs
-@tab-unfocus-background: #F1F1F1;           // "background" tab background-color
+@dark-button-border: @medium-grey;                   // the darker of the button border colors (for shading)
+@light-button-border: @very-light-grey;              // the lighter of the button border colors (for shading)
 
-@re-fieldset-grey: @disabled-grey;          // RE fieldset border
+@tab-normal-border: @dark-grey;                      // the normal dark border around tabs
+@tab-unfocus-background: @very-light-grey;           // "background" tab background-color
 
-@rg-type-label: #589DFF;                    // RG type labels (on artist page listing)
+@re-fieldset-grey: @disabled-grey;                   // RE fieldset border
 
-@open-header: #FFD700;                      // header for open edits
-@cancelled-header: #999999;                 // header for cancelled edits
-@failed-header: #FF0000;                    // header for failed [vote] edits
-@error-header: #660000;                     // header for errored edits
+@rg-type-label: #589DFF;                             // RG type labels (on artist page listing)
 
-@even-table-row: #F2F2F2;                   // even table row zebra-stripe gray
-@highlight-table-row: #F2F2B2;              // highlighted rows in zebra-stripe tables, linked edit notes
+@open-header: #FFD700;                               // header for open edits
+@cancelled-header: @dark-grey;                       // header for cancelled edits
+@failed-header: #FF0000;                             // header for failed [vote] edits
+@error-header: #660000;                              // header for errored edits
 
-@menu-background: #D4D4D4;                  // background color of opened menus
+@even-table-row: #F2F2F2;                            // even table row zebra-stripe gray
+@highlight-table-row: #F2F2B2;                       // highlighted rows in zebra-stripe tables, linked edit notes
 
-@multiselect-highlight: #FEFFDE;            // highlight color when searching in the multiselect plugin
+@menu-background: @medium-grey;                      // background color of opened menus
 
-@vote-tally-top: #999999;                   // table.vote-tally tr border-top
-@vote-tally-bottom: #DDDDDD;                // table.vote-tally tr border-bottom
-@vote-tally-superseded: #999999;            // table.vote-tally tr.superseded color
-@vote-border: #CCCCCC;                      // .voteopts .vote-{yes,no,abs} border
-@modbot-note: #666666;                      // .edit-notes .modbot color
-@modbot-note-link: #999999;                 // .edit-notes .modbot a color
-@editnote-h3-bg: #EAEAEA;                   // .edit-notes .edit-note h3
-@editor-class: #999999;                     // .edit-notes .edit-note .editor-class
-@edit-note-date: #333333;                   // .edit-notes .edit-note .date
-@edit-list-bg: #F7F7F7;                     // .edit-list background-color
-@edit-list-header-bg: #E5E5E5;              // .edit-list .edit-header background-color
-@edit-list-actions-bg: #E5E5E5;             // .edit-list .edit-actions background-color
-@search-refine-border-bottom: #999999;      // .search-refine border-bottom
-@search-refine-bg: #F7F7F7;                 // .search-refine background-color
-@search-help-bg: #E5E5E5;                   // .search-help background-color
-@drop-zone-border: #BBBBBB;                 // #drop-zone border
-@thumb-position-border: #E0E0E0;            // div.thumb-position border
-@thumb-position-bg: #EEEEEE;                // div.thumb-position background
-@set-coverart-border: #E0E0E0;              // .set-cover-art div.editimage border
-@comment-historical: #888888;               // span.comment, span.historical color
-@subheader-span: #999999;                   // p.subheader span color
-@ar-descr-bg: #F9F9F9;                      // div.ar-descr background
-@ar-descr-border: #D0D0D0;                  // div.ar-descr border
-@select-filter-hover: #666666;              // a.selectFilterPrev/selectFilterNext:hover text
-@autocomplete-comment-length: #666666;      // .autocomplete-{length,comment}
-@autocomplete-isrc-appear-comment-video: #999999; // span.autocomplete-{isrcs,appears,comment,video}
-@half-width-fieldset-border: #DDDDDD;       // div.half-width fieldset border
-@doc-bubble-border: #999999;                // div.documentation div.bubble border
-@filter-border: #999999;                    // #filter border
-@gravatar-border: #DDDDDD;                  // img.gravatar border
-@git-branch-color: #DDDDDD;                 // div.git-branch color
-@header-menu-link: #333333;                 // #header-menu ul a color
-@sidebar-links-hr: #D3D3D3;                 // #sidebar ul.links hr color/background-color
-@sidebar-note: #777777;                     // #sidebar .{cover-art,picture}-note
-@footer-color: #444444;                     // #footer color
-@small-sidenote: #777777;                   // .lastupdate, .annotation-details, .small color
-@tbl-border: #999999;                       // table.tbl border-{top,bottom}, table.tbl th border-bottom, table.tbl tr.subh th/td border-{top,bottom}
-@tbl-th-left: #CCCCCC;                      // table.tbl th border-left
-@tbl-th-right: #999999;                     // table.tbl tbody th border-right
-@deleted-text: #999999;                     // .deleted color
-@paginator-border-text: #999999;            // .pageselector span border/color
-@paginator-bg: #EEEEEE;                     // .pageselector span background-color
-@table-details-border: #CCCCCC;             // table.details td{.new,.old., span.new, span.old} border
-@nagpanel-bg: #FAFAFA;                      // .nagpanel background-color
-@artwork-cont-bg: #EEEEEE;                  // div.artwork-cont background
-@artwork-cont-border: #E0E0E0;              // div.artwork-cont border
-@multiselect-menu-border: #CCCCCC;          // div.multiselect > div.menu border
-@multiselect-item-link-border: #CCCCCC;     // div.multiselect > div.items > a
-@multiselect-item-link-focus-bg: #EEEEEE;   // div.multiselect > div.items > a:focus background !important
-@rel-editor-remove-button-text: #888888;    // #content.rel-editor .remove-button color +:visited
-@rel-editor-btn-disabled: #999999;          // #content.rel-editor .btn.disabled color
-@rel-editor-dialog-border: #999999;         // div.rel-editor-dialog border
-@re-tabs-li-border: #CCCCCC;                // #release-editor > ul.tabs li border
-@re-medium-table-th-bottom: #999999;        // #release-editor table.medium.tbl th border-bottom
-@re-medium-table-th-left: #CCCCCC;          // #release-editor table.medium.tbl th border-left
-@re-medium-table-td-border: #EEEEEE;        // #release-editor .medium.tbl tr td border
-@re-medium-table-track-ac-border: #999999;  // #release-editor .medium.tbl tr.track-artist-credit td table border
-@re-tracklist-dialog-bg: #FAFAFA;           // div.dialog background
-@re-tracklist-dialog-border: #999999;       // div.dialog border
-@re-tracklist-dialog-shadow: #888888;       // div.dialog box-shadow
-@re-disc-dialog-tab-link-bg: #DDDDDD;       // .add-disc-dialog div.tabs li a background
-@re-add-recording-color: #999999;           // span.add-recording color
-@re-add-track-border: #CCCCCC;              // #release-editor input.add-track-count border
-@relate-to-border: #999999;                 // div.relate-to border
+@multiselect-highlight: #FEFFDE;                     // highlight color when searching in the multiselect plugin
 
-@wiki-hr-bg: #CCCCCC;                       // .wikicontent hr background-color
-@wiki-pre-bg: #DDDDDD;                      // .wikicontent pre background
-@wiki-code-bg: #DDDDDD;                     // .wikicontent code background-color
-@wiki-toc-bg: #F9F9F9;                      // .wikicontent #toc, .wikicontent .toc background-color
-@wikidoc-headfoot-border: #CCCCCC;          // .wikicontent .wikidocs-header border-bottom; .wikicontent .wikidocs-footer border-top
-@wiki-table-oddrow: #FAFAFA;                // .wikicontent table[border^="1"]/table.wikitable tr:nth-child(odd) td
+@vote-tally-top: @dark-grey;                         // table.vote-tally tr border-top
+@vote-tally-bottom: @light-grey;                     // table.vote-tally tr border-bottom
+@vote-tally-superseded: @dark-grey;                  // table.vote-tally tr.superseded color
+@vote-border: @medium-grey;                          // .voteopts .vote-{yes,no,abs} border
+@modbot-note: @very-dark-grey;                       // .edit-notes .modbot color
+@modbot-note-link: @dark-grey;                       // .edit-notes .modbot a color
+@editnote-h3-bg: @very-light-grey;                   // .edit-notes .edit-note h3
+@editor-class: @dark-grey;                           // .edit-notes .edit-note .editor-class
+@edit-note-date: @effectively-black;                 // .edit-notes .edit-note .date
+@edit-list-bg: @effectively-white;                   // .edit-list background-color
+@edit-list-header-bg: @light-grey;                   // .edit-list .edit-header background-color
+@edit-list-actions-bg: @light-grey;                  // .edit-list .edit-actions background-color
+@search-refine-border-bottom: @dark-grey;            // .search-refine border-bottom
+@search-refine-bg: @effectively-white;               // .search-refine background-color
+@search-help-bg: @light-grey;                        // .search-help background-color
+@drop-zone-border: @medium-grey;                     // #drop-zone border
+@thumb-position-border: @light-grey;                 // div.thumb-position border
+@thumb-position-bg: @very-light-grey;                // div.thumb-position background
+@set-coverart-border: @light-grey;                   // .set-cover-art div.editimage border
+@comment-historical: @dark-grey;                     // span.comment, span.historical color
+@subheader-span: @dark-grey;                         // p.subheader span color
+@ar-descr-bg: @effectively-white;                    // div.ar-descr background
+@ar-descr-border: @medium-grey;                      // div.ar-descr border
+@select-filter-hover: @very-dark-grey;               // a.selectFilterPrev/selectFilterNext:hover text
+@autocomplete-comment-length: @very-dark-grey;       // .autocomplete-{length,comment}
+@autocomplete-isrc-appear-comment-video: @dark-grey; // span.autocomplete-{isrcs,appears,comment,video}
+@half-width-fieldset-border: @light-grey;            // div.half-width fieldset border
+@doc-bubble-border: @dark-grey;                      // div.documentation div.bubble border
+@filter-border: @dark-grey;                          // #filter border
+@gravatar-border: @light-grey;                       // img.gravatar border
+@git-branch-color: @light-grey;                      // div.git-branch color
+@header-menu-link: @effectively-black;               // #header-menu ul a color
+@sidebar-links-hr: @medium-grey;                     // #sidebar ul.links hr color/background-color
+@sidebar-note: @very-dark-grey;                      // @very-dark-greyr .{cover-art,picture}-note
+@footer-color: @very-dark-grey;                      // @very-dark-grey color
+@small-sidenote: @very-dark-grey;                    // .lastupdate, .annotation-details, .small color
+@tbl-border: @dark-grey;                             // table.tbl border-{top,bottom}, table.tbl th border-bottom, table.tbl tr.subh th/td border-{top,bottom}
+@tbl-th-left: @medium-grey;                          // table.tbl th border-left
+@tbl-th-right: @dark-grey;                           // table.tbl tbody th border-right
+@deleted-text: @dark-grey;                           // .deleted color
+@paginator-border-text: @dark-grey;                  // .pageselector span border/color
+@paginator-bg: @very-light-grey;                     // .pageselector span background-color
+@table-details-border: @medium-grey;                 // table.details td{.new,.old., span.new, span.old} border
+@nagpanel-bg: @effectively-white;                    // .nagpanel background-color
+@artwork-cont-bg: @very-light-grey;                  // div.artwork-cont background
+@artwork-cont-border: @light-grey;                   // div.artwork-cont border
+@multiselect-menu-border: @medium-grey;              // div.multiselect > div.menu border
+@multiselect-item-link-border: @medium-grey;         // div.multiselect > div.items > a
+@multiselect-item-link-focus-bg: @very-light-grey;   // div.multiselect > div.items > a:focus background !important
+@rel-editor-remove-button-text: @dark-grey;          // #content.rel-editor .remove-button color +:visited
+@rel-editor-btn-disabled: @dark-grey;                // #content.rel-editor .btn.disabled color
+@rel-editor-dialog-border: @dark-grey;               // div.rel-editor-dialog border
+@re-tabs-li-border: @medium-grey;                    // #release-editor > ul.tabs li border
+@re-medium-table-th-bottom: @dark-grey;              // #release-editor table.medium.tbl th border-bottom
+@re-medium-table-th-left: @medium-grey;              // #release-editor table.medium.tbl th border-left
+@re-medium-table-td-border: @very-light-grey;        // #release-editor .medium.tbl tr td border
+@re-medium-table-track-ac-border: @dark-grey;        // #release-editor .medium.tbl tr.track-artist-credit td table border
+@re-tracklist-dialog-bg: @effectively-white;         // div.dialog background
+@re-tracklist-dialog-border: @dark-grey;             // div.dialog border
+@re-tracklist-dialog-shadow: @dark-grey;             // div.dialog box-shadow
+@re-disc-dialog-tab-link-bg: @light-grey;            // .add-disc-dialog div.tabs li a background
+@re-add-recording-color: @dark-grey;                 // span.add-recording color
+@re-add-track-border: @medium-grey;                  // #release-editor input.add-track-count border
+@relate-to-border: @dark-grey;                       // div.relate-to border
+
+@wiki-hr-bg: @medium-grey;                           // .wikicontent hr background-color
+@wiki-pre-bg: @light-grey;                           // .wikicontent pre background
+@wiki-code-bg: @light-grey;                          // .wikicontent code background-color
+@wiki-toc-bg: @effectively-white;                    // .wikicontent #toc, .wikicontent .toc background-color
+@wikidoc-headfoot-border: @medium-grey;              // .wikicontent .wikidocs-header border-bottom; .wikicontent .wikidocs-footer border-top
+@wiki-table-oddrow: @effectively-white;              // .wikicontent table[border^="1"]/table.wikitable tr:nth-child(odd) td
