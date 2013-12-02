@@ -74,7 +74,12 @@ around 'validate_field' => sub {
     # errors which already invalidate the field.
     return 0 if $self->has_errors;
 
-    if ($self->required && ! $artists)
+    # If the form is editing an existing entity and the AC field is entirely
+    # missing (as opposed to existing but being empty, which is handled above),
+    # the field will *not* be required. The form will see this is as no changes
+    # being made. This behavior allows bots and browser scripts to function
+    # properly (i.e. environments where AC fields aren't generated).
+    unless ($artists || $self->form->init_object)
     {
         $self->add_error (l("Artist credit field is required"));
     }
