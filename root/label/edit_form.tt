@@ -87,8 +87,12 @@
 </form>
 
 <script type="text/javascript">//<![CDATA[
-  $(function () {
-    MB.Control.LabelEdit();
+  (function () {
+    var bubbles = MB.Control.BubbleCollection();
+    MB.Control.initialize_guess_case(bubbles, "label", "id-edit-label");
+
+    MB.Control.Area("span.area.autocomplete", bubbles);
+
     MB.utility.setDefaultAction("form.edit-label", "button.submit.positive");
-  });
+  }());
 //]]></script>

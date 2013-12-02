@@ -29,7 +29,7 @@
 </form>
 
 <script type="text/javascript">//<![CDATA[
-  $(function () {
+  (function () {
     var bubbles = MB.Control.BubbleCollection();
     var artistCredit = MB.Control.initialize_artist_credit(bubbles);
 
@@ -42,5 +42,5 @@
     bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
 
     MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
-  });
+  }());
 //]]></script>

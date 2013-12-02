@@ -139,16 +139,16 @@
     </form>
     </div>
 
-    <script type="text/javascript">
+    <script type="text/javascript">//<![CDATA[
+      (function () {
         function updateStrategy(val) {
-            $('.merge-strategy').hide();
-            $('#merge-strategy-' + val).show();
+          $(".merge-strategy").hide();
+          $("#merge-strategy-" + val).show();
         }
 
-        $(function() {
-            $('#id-merge\\.merge_strategy').change(function() { updateStrategy($(this).val()) });
-            updateStrategy($('#id-merge\\.merge_strategy').val());
-        });
-    </script>
+        $("#id-merge\\.merge_strategy").change(function() { updateStrategy($(this).val()) });
+        updateStrategy($("#id-merge\\.merge_strategy").val());
+      }());
+    //]]></script>
 
 [% END %]

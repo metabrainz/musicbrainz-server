@@ -44,17 +44,15 @@
 [% END %]
 
 <script>//<![CDATA[
-  $(function () {
-    $(".tracklist").hide();
+  $(".tracklist").hide();
 
-    $(".toggle").click(function () {
-      $(this).closest("tr").next(".tracklist").toggle();
+  $(".toggle").click(function () {
+    $(this).closest("tr").next(".tracklist").toggle();
 
-      if ($(this).closest("tr").next(".tracklist").is(":hidden")) {
-        $(this).text("[% l('show tracklist') | js %]");
-      } else {
-        $(this).text("[% l('hide tracklist') | js %]");
-      }
-    });
+    if ($(this).closest("tr").next(".tracklist").is(":hidden")) {
+      $(this).text("[% l('show tracklist') | js %]");
+    } else {
+      $(this).text("[% l('hide tracklist') | js %]");
+    }
   });
 //]]></script>

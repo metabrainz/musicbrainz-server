@@ -441,10 +441,9 @@
       null
     ];
 
-    $(function () {
-      MB.utility.setDefaultAction("form.release-editor", "#id-next");
-      $("div.dialog").draggable();
-    });
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
+
+    $("div.dialog").draggable();
   //]]></script>
 
 [%- END -%]

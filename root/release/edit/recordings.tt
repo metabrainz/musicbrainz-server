@@ -429,10 +429,8 @@
   </div>
 
   <script type="text/javascript">//<![CDATA[
-    $(function () {
-      MB.Control.ReleaseRecordings();
-      MB.utility.setDefaultAction("form.release-editor", "#id-next");
-    });
+    MB.Control.ReleaseRecordings();
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
   //]]></script>
 
 [%- END -%]

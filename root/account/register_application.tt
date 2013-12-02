@@ -15,25 +15,17 @@
     </form>
 
     <script type="text/javascript">//<![CDATA[
-      $(function () {
+      (function () {
+        var $oauthType = $("#id-application\\.oauth_type");
+        var $oauthRedirectURI = $("#id-application\\.oauth_redirect_uri");
 
-        function toggleRedirectUri(type) {
-            if (type.val() == 'web') {
-              $('#id-application\\.oauth_redirect_uri').parent('.row').show();
-              $('#id-application\\.oauth_redirect_uri').prop('disabled', false);
-            }
-            else {
-              $('#id-application\\.oauth_redirect_uri').parent('.row').hide();
-              $('#id-application\\.oauth_redirect_uri').prop('disabled', true);
-            }
-        }
-
-        $('#id-application\\.oauth_type').click(function () {
-            toggleRedirectUri($(this));
+        $oauthType.change(function () {
+          $oauthRedirectURI.prop("disabled", this.value !== "web");
+          $oauthRedirectURI.parent().toggle(this.value === "web");
         });
 
-        toggleRedirectUri($('#id-application\\.oauth_type'));
-      });
+        $oauthType.change();
+      }());
     //]]></script>
 
 [% END %]

@@ -127,7 +127,7 @@
 </form>
 
 <script type="text/javascript">//<![CDATA[
-  $(function () {
+  (function () {
     var edit = MB.Control.ArtistEdit();
 
     [% IF artist -%]
@@ -135,5 +135,5 @@
     [%- END %]
 
     MB.utility.setDefaultAction("form.edit-artist", "button.submit.positive");
-  });
+  }());
 //]]></script>

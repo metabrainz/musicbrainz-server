@@ -250,10 +250,8 @@
   </div>
 
   <script type="text/javascript">//<![CDATA[
-    $(function () {
-       MB.Control.ReleaseInformation("[% wizard.c.action.name %]");
-       MB.utility.setDefaultAction("form.release-editor", "#id-next");
-    });
+    MB.Control.ReleaseInformation("[% wizard.c.action.name %]");
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
   //]]></script>
 
 [%- END -%]

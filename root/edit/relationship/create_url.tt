@@ -76,13 +76,11 @@
     </form>
 
     <script type="text/javascript">//<![CDATA[
-      $(function () {
-        MB.Control.URLCleanup(
-          $("#id-ar\\.type").val(),
-          $("#id-ar\\.link_type_id"),
-          $("#id-ar\\.url")
-        );
-      });
+      MB.Control.URLCleanup(
+        $("#id-ar\\.type").val(),
+        $("#id-ar\\.link_type_id"),
+        $("#id-ar\\.url")
+      );
     //]]></script>
 
 [% END %]

@@ -40,8 +40,6 @@
   </div>
 
   <script type="text/javascript">//<![CDATA[
-    $(function () {
-       MB.utility.setDefaultAction("form.release-editor", "#id-next");
-    });
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
   //]]></script>
 [%- END -%]

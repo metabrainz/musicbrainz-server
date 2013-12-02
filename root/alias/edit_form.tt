@@ -46,8 +46,8 @@
   </div>
 </form>
 
-<script>
-$(function () {
+<script>//<![CDATA[
+(function () {
     function togglePrimaryForLocale() {
         var allowed = $('#id-edit-alias\\\.locale').val() != '';
         $('#allow_primary_for_locale').toggle(allowed);
@@ -74,5 +74,5 @@ $(function () {
     MB.Control.initialize_guess_case(bubbles, '[% entity_type_name %]', 'id-edit-alias');
 
     MB.utility.setDefaultAction ('form.edit-alias', 'button.submit.positive');
-});
-</script>
+}());
+//]]></script>

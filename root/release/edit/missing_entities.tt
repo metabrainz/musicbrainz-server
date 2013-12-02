@@ -159,12 +159,10 @@
   </div>
 
   <script type="text/javascript">//<![CDATA[
-    $(function () {
-      MB.utility.setDefaultAction("form.release-editor", "#id-next");
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
 
-      $(".new-entity").each(function () {
-        MB.Control.SortName("artist", $(this).find(".for"), $(this).find(".sortname"), $(this)).initialize();
-      });
+    $(".new-entity").each(function () {
+      MB.Control.SortName("artist", $(this).find(".for"), $(this).find(".sortname"), $(this)).initialize();
     });
   //]]></script>
 

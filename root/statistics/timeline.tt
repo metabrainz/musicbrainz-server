@@ -74,28 +74,26 @@
 [% script_manifest('statistics.js.manifest') %]
 
 <script type="text/javascript">//<![CDATA[
-  $(function () {
-    MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
-        "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
-        [%- END -%]},
-        { xaxis: { mode: "time",
-                   timeformat: "%y/%0m/%0d",
-                   minTickSize: [7, "day"]},
-          yaxis: { tickFormatter: function numberWithCommas(x) {
-                       return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
-                   }},
-          selection: { mode: "xy" },
-          grid: { hoverable: true },
-          legend: { show: false }},
-        { legend: {show: false},
-          series: {lines: {lineWidth: 1}, shadowSize: 0},
-          xaxis: {mode: "time", minTickSize: [1, "year"]},
-          yaxis: {tickFormatter: function () { return '' }},
-          selection: {mode: "xy"}});
-        [% IF show_all %]
-        $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
-        [% END %]
-  });
+  MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
+    "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
+    [%- END -%]},
+    { xaxis: { mode: "time",
+               timeformat: "%y/%0m/%0d",
+               minTickSize: [7, "day"]},
+      yaxis: { tickFormatter: function numberWithCommas(x) {
+                   return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+               }},
+      selection: { mode: "xy" },
+      grid: { hoverable: true },
+      legend: { show: false }},
+    { legend: {show: false},
+      series: {lines: {lineWidth: 1}, shadowSize: 0},
+      xaxis: {mode: "time", minTickSize: [1, "year"]},
+      yaxis: {tickFormatter: function () { return '' }},
+      selection: {mode: "xy"}});
+  [% IF show_all %]
+  $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
+  [% END %]
 //]]></script>
 
 [% END %]

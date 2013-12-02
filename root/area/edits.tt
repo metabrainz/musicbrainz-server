@@ -6,16 +6,4 @@
         </p>
     </div>
     [% INCLUDE 'edit/list.tt' %]
-
-    <script type="text/javascript">//<![CDATA[
-      $(function () {
-        $('.edit-list').each(function () {
-            MB.Control.EditSummary(this);
-        });
-        [% IF c.user.is_auto_editor %]
-          MB.Control.EditList('#edits');
-        [% END %]
-      });
-    //]]></script>
-
 [% END %]

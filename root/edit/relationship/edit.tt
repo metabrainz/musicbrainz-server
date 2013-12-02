@@ -139,9 +139,7 @@ var typeInfo = [% type_info %];
 </form>
 
 <script type="text/javascript">//<![CDATA[
-  $(function () {
-    MB.Control.RelationshipEdit();
-  });
+  MB.Control.RelationshipEdit();
 //]]></script>
 
 [%- END -%]

@@ -37,8 +37,6 @@
    </div>
 
   <script type="text/javascript">//<![CDATA[
-    $(function () {
-       MB.utility.setDefaultAction("form.release-editor", "#id-save");
-    });
+    MB.utility.setDefaultAction("form.release-editor", "#id-save");
   //]]></script>
 [%- END -%]

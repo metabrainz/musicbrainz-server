@@ -12,13 +12,11 @@
     </div>
 
     <script type="text/javascript">//<![CDATA[
-      $(function () {
-        $('.search-refine select').attr('size', '10');
+      $('.search-refine select').attr('size', '10');
 
-        $('.search-toggle a').click(function () {
-          $('.search-refine').slideToggle('500');
-          return false;
-        });
+      $('.search-toggle a').click(function () {
+        $('.search-refine').slideToggle('500');
+        return false;
       });
     //]]></script>
 [% END %]

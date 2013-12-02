@@ -53,13 +53,13 @@
   </p>
 [%- END -%]
 
-<script type="text/javascript">
+<script type="text/javascript">//<![CDATA[
   $('button.set-cover-art').bind ('click.mb', function (event) {
     event.preventDefault ();
     $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
     $('div.editimage').removeClass ("selected");
     $(this).closest ('div.editimage').addClass ("selected");
   });
-</script>
+//]]></script>
 
 [%- END -%]

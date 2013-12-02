@@ -96,9 +96,7 @@
     </form>
 
     <script type="text/javascript">//<![CDATA[
-      $(function () {
-        MB.Control.AccountEdit();
-      });
+      MB.Control.EntityAutocomplete({ inputs: $("span.area.autocomplete") });
     //]]></script>
 
 [% END %]
