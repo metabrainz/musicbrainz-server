@@ -39,3 +39,9 @@
   </p>
 </form>
 [% END %]
+
+<script type="text/javascript">//<![CDATA[
+  $(function () {
+    MB.Control.AnnotationHistory('#annotation-history');
+  });
+//]]></script>
