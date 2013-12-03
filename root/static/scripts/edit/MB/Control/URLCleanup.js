@@ -775,6 +775,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.cleanUrl = function (sourceType, dirtyURL) {
         dirtyURL = dirtyURL.replace(/^\s+/, '');
         dirtyURL = dirtyURL.replace(/\s+$/, '');
+        dirtyURL = dirtyURL.replace(/%E2%80%8E$/, '');
 
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
