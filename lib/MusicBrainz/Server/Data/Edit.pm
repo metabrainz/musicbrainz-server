@@ -106,7 +106,7 @@ sub find
     my ($self, $p, $limit, $offset) = @_;
 
     my (@pred, @args);
-    for my $type (qw( area artist label release release_group recording work url )) {
+    for my $type (qw( area artist label place release release_group recording work url )) {
         next unless exists $p->{$type};
         my $ids = delete $p->{$type};
 
@@ -168,7 +168,7 @@ sub find_for_subscription
 {
     my ($self, $subscription) = @_;
     if($subscription->isa(EditorSubscription)) {
-        my $query = 'SELECT ' . $self->_columns . ' FROM edit 
+        my $query = 'SELECT ' . $self->_columns . ' FROM edit
                       WHERE id > ? AND editor = ? AND status IN (?, ?)';
 
         return query_to_list(
@@ -534,7 +534,14 @@ sub load_all
     }
 
     while (my ($model, $objs) = each %$load_arguments) {
-        $self->c->model($model)->load(@$objs);
+        # ArtistMeta, ReleaseMeta, etc are special models that indicate
+        # loading via Artist->load_meta, Release->load_meta, and so on.
+        if ($model =~ /^(.*)Meta$/) {
+            $self->c->model($1)->load_meta(grep defined, @$objs);
+        }
+        else {
+            $self->c->model($model)->load(grep defined, @$objs);
+        }
     }
 
     for my $edit (@edits) {
@@ -579,6 +586,15 @@ sub _do_accept
             return $STATUS_FAILEDDEP;
         }
         elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::GeneralError') {
+            $self->c->model('EditNote')->add_note(
+                $edit->id => {
+                    editor_id => $EDITOR_MODBOT,
+                    text => $err->message
+                }
+            );
+            return $STATUS_ERROR;
+        }
+        elsif (ref($err) eq 'MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable') {
             $self->c->model('EditNote')->add_note(
                 $edit->id => {
                     editor_id => $EDITOR_MODBOT,

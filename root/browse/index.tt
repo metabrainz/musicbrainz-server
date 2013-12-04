@@ -8,5 +8,6 @@
         [% INCLUDE "browse/page_selector.tt" browse_action="release_group" browse_title=l('Browse release groups') %]
         [% INCLUDE "browse/page_selector.tt" browse_action="work" browse_title=l('Browse works') %]
         [% INCLUDE "browse/page_selector.tt" browse_action="area" browse_title=l('Browse areas') %]
+        [% INCLUDE "browse/page_selector.tt" browse_action="place" browse_title=l('Browse places') %]
     </div>
 [% END %]

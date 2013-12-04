@@ -3,7 +3,7 @@
 <table class="details edit-area">
   <tr>
     <th>[% l('Area:') %]</th>
-    <td>
+    <td colspan="2">
       [% descriptive_link(edit.display_data.area) %]
     </td>
   </tr>
@@ -15,6 +15,11 @@
   [%- display_word_diff(l('Sort name:'),
                         html_escape(edit.display_data.sort_name.old),
                         html_escape(edit.display_data.sort_name.new)) -%]
+
+  [% display_diff(l('Disambiguation:'),
+                  html_escape(edit.display_data.comment.old),
+                  html_escape(edit.display_data.comment.new),
+                  '\s+') %]
 
   [%- display_word_diff(l('Type:'),
                         html_escape(edit.display_data.type.old.name),

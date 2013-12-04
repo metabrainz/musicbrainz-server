@@ -201,6 +201,19 @@ sub has_multiple_artists
     return 0;
 }
 
+sub includes_video
+{
+    my ($self) = @_;
+    foreach my $medium ($self->all_mediums) {
+        foreach my $track ($medium->all_tracks) {
+            if ($track->recording->video) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
 has [qw( cover_art_url info_url amazon_asin amazon_store )] => (
     is => 'rw',
     isa => 'Str',

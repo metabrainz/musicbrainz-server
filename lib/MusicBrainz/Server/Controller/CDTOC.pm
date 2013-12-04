@@ -15,7 +15,6 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Entity::CDTOC;
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 use List::UtilsBy qw( sort_by );
 
@@ -47,7 +46,7 @@ sub _load_releases
     $c->model('Medium')->load_for_releases(@releases);
     my @rgs = $c->model('ReleaseGroup')->load(@releases);
     $c->model('ReleaseGroup')->load_meta(@rgs);
-    load_release_events($c, @releases);
+    $c->model('Release')->load_release_events(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ArtistCredit')->load(@releases);
@@ -89,6 +88,7 @@ sub remove : Local Edit
 
     $self->edit_action($c,
         form        => 'Confirm',
+        form_args   => { requires_edit_note => 1 },
         type        => $EDIT_MEDIUM_REMOVE_DISCID,
         edit_args   => {
             medium => $medium,
@@ -105,9 +105,16 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
-    my $medium_id = $c->req->query_params->{medium};
+    my $medium_id = $c->req->query_params->{medium}
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Please provide a medium ID')
+        );
     my $medium = $c->model('Medium')->get_by_id ($medium_id)
-        or die "Could not find medium";
+        or $self->error(
+            $c, status => HTTP_BAD_REQUEST,
+            message => l('Could not find medium')
+        );
 
     $c->model('Release')->load($medium);
 
@@ -116,9 +123,6 @@ sub set_durations : Chained('load') PathPart('set-durations') Edit
     $c->model('ArtistCredit')->load($medium->all_tracks, $medium->release);
 
     $c->stash( medium => $medium );
-
-    # use Data::Dumper;
-    # warn "stash: ".Dumper ($c->stash)."\n";
 
     $self->edit_action($c,
         form => 'Confirm',
@@ -209,7 +213,7 @@ sub attach : Local DenyWhenReadOnly
         $c->model('Medium')->load_for_releases(@$releases);
         $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
         $c->model('Track')->load_for_mediums (map { $_->all_mediums } @$releases);
-        load_release_events($c, @$releases);
+        $c->model('Release')->load_release_events(@$releases);
         $c->model('ReleaseLabel')->load(@$releases);
         $c->model('Label')->load(map { $_->all_labels } @$releases);
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
@@ -253,7 +257,7 @@ sub attach : Local DenyWhenReadOnly
             my @tracks = map { $_->all_tracks } @mediums;
             $c->model('Recording')->load(@tracks);
             $c->model('ArtistCredit')->load(@releases, @tracks, map { $_->recording } @tracks);
-            load_release_events($c, @releases);
+            $c->model('Release')->load_release_events(@releases);
             $c->model('ReleaseLabel')->load(@releases);
             $c->model('Label')->load(map { $_->all_labels } @releases);
 
@@ -335,7 +339,7 @@ sub move : Local Edit
         $c->model('Medium')->load($medium_cdtoc);
 
         $c->model('Release')->load($medium, $medium_cdtoc->medium);
-        load_release_events($c, $medium->release);
+        $c->model('Release')->load_release_events($medium->release);
         $c->model('ReleaseLabel')->load($medium->release);
         $c->model('Label')->load($medium->release->all_labels);
         $c->model('ArtistCredit')->load($medium->release, $medium_cdtoc->medium->release);
@@ -373,7 +377,7 @@ sub move : Local Edit
             my @releases = map { $_->entity } @$releases;
             $c->model('ArtistCredit')->load(@releases);
             $c->model('Medium')->load_for_releases(@releases);
-            load_release_events($c, @releases);
+            $c->model('Release')->load_release_events(@releases);
             $c->model('ReleaseLabel')->load(@releases);
             $c->model('Label')->load(map { $_->all_labels } @releases);
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);

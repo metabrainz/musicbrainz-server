@@ -165,12 +165,10 @@ sub cookie_login : Private
 
     return if $c->user_exists;
 
-    $c->model('MB')->with_transaction(sub {
-        if (my $user_name = $self->_consume_remember_me_cookie($c)) {
-            $self->_renew_login_cookie($c, $user_name);
-            $c->set_authenticated($c->find_user({ username => $user_name }));
-        }
-    });
+    if (my $user_name = $self->_consume_remember_me_cookie($c)) {
+        $self->_renew_login_cookie($c, $user_name);
+        $c->set_authenticated($c->find_user({ username => $user_name }));
+    }
 }
 
 sub _consume_remember_me_cookie {
@@ -234,7 +232,7 @@ after 'load' => sub {
     my $user = $c->stash->{entity};
 
     $c->model('Area')->load($user);
-
+    $c->model('Area')->load_containment($user->area);
 };
 
 =head2 contact
@@ -423,7 +421,7 @@ sub tag : Chained('load') PathPart('tag') Args(1)
             $_ => [ $c->model(type_to_model($_))
                         ->tags->find_editor_entities($user->id, $tag->id)
                     ]
-        } qw( artist label recording release release_group work );
+        } qw( artist label recording release release_group work place );
 
         foreach my $entity_tags (values %tags) {
             $tag_in_use = 1 if @$entity_tags;

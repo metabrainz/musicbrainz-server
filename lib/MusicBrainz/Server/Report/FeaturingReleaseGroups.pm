@@ -8,15 +8,13 @@ sub query {
     "
         SELECT
             rg.id AS release_group_id,
-            row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(rn.name))
+            row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(rg.name))
         FROM
             release_group rg
             JOIN artist_credit ac ON rg.artist_credit = ac.id
-            JOIN artist_name an ON ac.name = an.id
-            JOIN release_name rn ON rg.name = rn.id
             JOIN release_group_meta rm ON rg.id = rm.id
         WHERE
-            rn.name ~ E' \\\\(feat\\\\. '
+            rg.name ~ E' \\\\(feat\\\\. '
     ";
 }
 

@@ -5,6 +5,8 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_ADD_PUIDS );
 use MusicBrainz::Server::Translation qw ( N_l );
 
+use MusicBrainz::Server::Edit::Exceptions;
+
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
@@ -59,24 +61,13 @@ sub build_display_data
 
 sub allow_auto_edit { 1 }
 
-sub accept
-{
-    my $self = shift;
+sub initialize { die 'This edit is read only' }
+sub insert { die 'This edit is read only' }
 
-    my @insert = @{ $self->data->{puids} };
-    my %puid_id = $self->c->model('PUID')->find_or_insert(
-        $self->data->{client_version},
-        map { $_->{puid} } @insert
-    );
-
-    my @submit = map +{
-        recording_id => $_->{recording}{id},
-        puid_id      => $puid_id{ $_->{puid} }
-    }, @insert;
-
-    $self->c->model('RecordingPUID')->insert(
-        @submit
-    );
+sub accept {
+    MusicBrainz::Server::Edit::Exceptions::NoLongerApplicable->throw(
+        'This edit cannot be applied as PUIDs are no longer stored by MusicBrainz'
+    )
 }
 
 __PACKAGE__->meta->make_immutable;

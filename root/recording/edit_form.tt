@@ -8,6 +8,7 @@
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_text_long(r, 'length', l('Length:')) -%]
+      [%- form_row_checkbox(r, 'video', l('Video')) -%]
       [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
     </fieldset>
 
@@ -17,7 +18,7 @@
   </div>
 
   <div class="documentation">
-    [%- artist_credit_table(form, 1) -%]
+    [%- artist_credit_table() -%]
     [%- guesscase_bubble() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
   </div>

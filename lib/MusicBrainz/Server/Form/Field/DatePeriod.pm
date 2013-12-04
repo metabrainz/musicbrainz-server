@@ -18,7 +18,8 @@ has_field 'end_date' => (
 );
 
 has_field 'ended' => (
-    type => 'Checkbox'
+    type => 'Checkbox',
+    default => 0
 );
 
 after 'validate' => sub {

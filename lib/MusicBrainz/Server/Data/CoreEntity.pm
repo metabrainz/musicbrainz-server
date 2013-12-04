@@ -66,7 +66,7 @@ sub find_by_name
 {
     my ($self, $name) = @_;
     my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                  WHERE musicbrainz_unaccent(lower(name.name)) = musicbrainz_unaccent(lower(?))";
+                  WHERE musicbrainz_unaccent(lower(name)) = musicbrainz_unaccent(lower(?))";
     return query_to_list($self->c->sql, sub { $self->_new_from_row(shift) }, $query, $name);
 }
 
@@ -80,16 +80,13 @@ sub get_by_ids_sorted_by_name
     my $query = "SELECT " . $self->_columns .
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
-                " ORDER BY musicbrainz_collate(name.name)";
-    my $sql = $self->sql;
-    $self->sql->select($query, @ids);
+                " ORDER BY musicbrainz_collate(name)";
+
     my @result;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $obj = $self->_new_from_row($row);
         push @result, $obj;
     }
-    $self->sql->finish;
     return \@result;
 }
 
@@ -105,7 +102,7 @@ sub find_by_names
         . ", (VALUES "
         .     join (",", ("(?)") x scalar(@names))
         .    ") search_terms (term)"
-        ." WHERE musicbrainz_unaccent(lower(name.name)) = "
+        ." WHERE musicbrainz_unaccent(lower(name)) = "
         ." musicbrainz_unaccent(lower(search_terms.term));";
 
     my $results = $self->c->sql->select_list_of_hashes ($query, @names);

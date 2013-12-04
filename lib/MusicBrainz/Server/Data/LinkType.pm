@@ -28,7 +28,7 @@ sub _columns
     return 'id, parent AS parent_id, gid, name, link_phrase,
             entity_type0 AS entity0_type, entity_type1 AS entity1_type,
             reverse_link_phrase, description, priority,
-            child_order, long_link_phrase';
+            child_order, long_link_phrase, is_deprecated';
 }
 
 sub _entity_class
@@ -46,9 +46,7 @@ sub _load_attributes
             FROM link_type_attribute_type
             WHERE link_type IN (" . placeholders(@ids) . ")
             ORDER BY link_type";
-        $self->sql->select($query, @ids);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
             my $id = $row->{link_type};
             if (exists $data->{$id}) {
                 my %args = ( type_id => $row->{attribute_type} );
@@ -58,7 +56,6 @@ sub _load_attributes
                 $data->{$id}->add_attribute($attr);
             }
         }
-        $self->sql->finish;
     }
 }
 
@@ -101,18 +98,18 @@ sub get_tree
 {
     my ($self, $type0, $type1) = @_;
 
-    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
-                  WHERE entity_type0=? AND entity_type1=?
-                  ORDER BY child_order, id', $type0, $type1);
     my %id_to_obj;
     my @objs;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+             WHERE entity_type0=? AND entity_type1=?
+             ORDER BY child_order, id', $type0, $type1)
+    }) {
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $self->sql->finish;
 
     $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
@@ -129,17 +126,17 @@ sub get_full_tree
 {
     my ($self) = @_;
 
-    $self->sql->select('SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
-                  ORDER BY entity_type0, entity_type1, child_order, id');
     my %id_to_obj;
     my @objs;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            'SELECT '  .$self->_columns . ' FROM ' . $self->_table . '
+             ORDER BY entity_type0, entity_type1, child_order, id')
+    }) {
         my $obj = $self->_new_from_row($row);
         $id_to_obj{$obj->id} = $obj;
         push @objs, $obj;
     }
-    $self->sql->finish;
 
     $self->_load_attributes(\%id_to_obj, keys %id_to_obj);
 
@@ -164,20 +161,23 @@ sub get_attribute_type_list
 {
     my ($self, $id) = @_;
 
+    my $rows;
     if (defined $id) {
-        $self->sql->select('SELECT t.id, t.name, at.link_type, at.min, at.max
-                          FROM link_attribute_type t
-                          LEFT JOIN link_type_attribute_type at
-                              ON t.id = at.attribute_type AND at.link_type = ?
-                      WHERE t.parent IS NULL ORDER BY t.child_order, t.id', $id);
+        $rows = $self->sql->select_list_of_hashes(
+            'SELECT t.id, t.name, at.link_type, at.min, at.max
+               FROM link_attribute_type t
+          LEFT JOIN link_type_attribute_type at
+                 ON t.id = at.attribute_type AND at.link_type = ?
+              WHERE t.parent IS NULL ORDER BY t.child_order, t.id', $id);
     }
     else {
-        $self->sql->select('SELECT t.id, t.name FROM link_attribute_type t
-                      WHERE t.parent IS NULL ORDER BY t.child_order, t.id');
+        $rows = $self->sql->select_list_of_hashes(
+            'SELECT t.id, t.name FROM link_attribute_type t
+              WHERE t.parent IS NULL ORDER BY t.child_order, t.id'
+        );
     }
     my @result;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@$rows) {
         push @result, {
             type   => $row->{id},
             active => $row->{link_type} ? 1 : 0,
@@ -186,7 +186,6 @@ sub get_attribute_type_list
             name   => $row->{name},
         };
     }
-    $self->sql->finish;
 
     return \@result;
 }
@@ -312,6 +311,7 @@ sub _hash_to_row
         reverse_link_phrase     => 'reverse_link_phrase',
         long_link_phrase => 'long_link_phrase',
         priority        => 'priority',
+        is_deprecated => 'is_deprecated'
     });
 }
 

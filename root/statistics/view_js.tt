@@ -47,6 +47,8 @@
             "count.release": { Label: '[% l('Releases') | js %]', Color: "#a8ff00", Description: '[% l('Count of all releases') | js %]', Category: "core-entities"  },
             "count.releasegroup": { Label: '[% l('Release Groups') | js %]', Color: "#ae00ff", Description: '[% l('Count of all release groups') | js %]', Category: "core-entities"  },
             "count.label": { Label: '[% l('Labels') | js %]', Color: "#ff0096", Description: '[% l('Count of all labels') | js %]', Category: "core-entities"  },
+            "count.area": { Label: '[% l('Areas') | js %]', Color: "#ff0000", Description: '[% l('Count of all areas') | js %]', Category: "core-entities"  },
+            "count.place": { Label: '[% l('Places') | js %]', Color: "#bc0a0a", Description: '[% l('Count of all places') | js %]', Category: "core-entities"  },
 
             "count.edit": { Label: '[% l('Edits') | js %]', Color: '#ff00ff', Description: '[% l('Count of all edits') | js %]', Category: "edit-information", Hide: true },
             "count.edit.open": { Label: '[% l('Open Edits') | js %]', Color: '#ffe400', Description: '[% l('Count of open edits') | js %]', Category: "edit-information" },
@@ -135,19 +137,14 @@
             "count.isrc.all": { Label: '[% l('ISRCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISRCs') | js %]', Category: 'other'},
             "count.iswc": { Label: '[% l('ISWCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
             "count.iswc.all": { Label: '[% l('ISWCs (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all ISWCs') | js %]', Category: 'other'},
-            "count.puid": { Label: '[% l('PUIDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs') | js %]', Category: 'other'},
-            "count.puid.ids": { Label: '[% l('PUIDs (IDs)') | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs') | js %]', Category: 'other'},
       
             "count.release.has_discid": { Label: '[% l('Releases with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with Disc IDs') | js %]', Category: 'other'},
             "count.medium.has_discid": { Label: '[% l('Mediums with Disc IDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with Disc IDs') | js %]', Category: 'other'},
-            "count.recording.has_puid": { Label: '[% l('Recordings with PUIDs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with PUIDs') | js %]', Category: 'other'},
             "count.recording.has_isrc": { Label: '[% l('Recordings with ISRCs') | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with ISRCs') | js %]', Category: 'other'},
             [% count = 0 %]
             [% WHILE count < 11 %]
                 "count.release.[% count %]discids": { Label: '[% ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Releases with {n} Disc IDs', {n => count}) | js %]', Category: 'other'},
                 "count.medium.[% count %]discids": { Label: '[% ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Mediums with {n} Disc IDs', {n => count}) | js %]', Category: 'other'},
-                "count.puid.[% count %]recordings": { Label: '[% ln('PUIDs with 1 Recording', 'PUIDs with {n} Recordings', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all PUIDs with {n} Recordings', {n => count}) | js %]', Category: 'other'},
-                "count.recording.[% count %]puids": { Label: '[% ln('Recordings with 1 PUID', 'Recordings with {n} PUIDs', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with {n} PUIDs', {n => count}) | js %]', Category: 'other'},
                 "count.recording.[% count %]releases": { Label: '[% ln('Recordings with 1 Release', 'Recordings with {n} Releases', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Recordings with {n} Releases', {n => count}) | js %]', Category: 'other'},
                 "count.releasegroup.[% count %]releases": { Label: '[% ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', count, { n => count }) | js %]', Color: '#ff0000', Description: '[% l('Count of all Release Groups with {n} Releases', {n => count}) | js %]', Category: 'other'},
                 [% count = count + 1 %]
@@ -189,7 +186,12 @@
             [% END %]
 
             "count.coverart": { Label: '[% l('Pieces of Cover Art') | js %]', Color: '#0022dd', Description: '[% l('Pieces of Cover Art') | js %]', Category: 'cover-art' },
-            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' }
+            "count.release.has_caa": { Label: '[% l('Releases with Cover Art') | js %]', Color: '#22eedd', Description: '[% l('Releases with Cover Art') | js %]', Category: 'cover-art' },
+
+            "count.release.coverart.amazon": { Label: '[% l('Releases with Amazon Cover Art') | js %]', Color: '#dd22dd', Description: '[% l('Releases with Amazon Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.caa": { Label: '[% l('Releases with CAA Cover Art') | js %]', Color: '#dd0022', Description: '[% l('Releases with CAA Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.relationship": { Label: '[% l('Releases with Cover Art from Relationships') | js %]', Color: '#2200dd', Description: '[% l('Releases with Amazon Cover Art') | js %]', Category: 'cover-art' },
+            "count.release.coverart.none": { Label: '[% l('Releases with No Cover Art') | js %]', Color: '#00dd22', Description: '[% l('Releases with No Cover Art') | js %]', Category: 'cover-art' }
         }
     });
 })(MB);

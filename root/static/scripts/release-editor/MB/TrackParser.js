@@ -152,7 +152,7 @@ MB.TrackParser.Artist = function (track, artist) {
            artist on the track. */
 
         var index = 0;
-        $.each (track.artist_credit.toData ().names, function (i, ac) {
+        $.each (track.artist_credit.toJS(), function (i, ac) {
 
             var pos = artist.indexOf (ac.name + ac.join_phrase, index);
             if (pos > -1)

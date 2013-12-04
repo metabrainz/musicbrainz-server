@@ -10,6 +10,7 @@ use MusicBrainz::Server::EditSearch::Predicate::ID;
 use MusicBrainz::Server::EditSearch::Predicate::Set;
 use MusicBrainz::Server::EditSearch::Predicate::Entity;
 use MusicBrainz::Server::EditSearch::Predicate::Editor;
+use MusicBrainz::Server::EditSearch::Predicate::EditorFlag;
 use MusicBrainz::Server::EditSearch::Predicate::Vote;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseLanguage;
 use MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality;
@@ -38,9 +39,10 @@ my %field_map = (
     label_area => 'MusicBrainz::Server::EditSearch::Predicate::LabelArea',
     release_country => 'MusicBrainz::Server::EditSearch::Predicate::ReleaseCountry',
     link_type => 'MusicBrainz::Server::EditSearch::Predicate::RelationshipType',
+    editor_flag => 'MusicBrainz::Server::EditSearch::Predicate::EditorFlag',
 
     map {
-        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_) 
+        $_ => 'MusicBrainz::Server::EditSearch::Predicate::' . camelize($_)
     } qw( artist label recording release release_group work )
 );
 

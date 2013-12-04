@@ -63,7 +63,7 @@ has search_hint_type_id => (
 
 sub edit_field_names {
     qw( name locale sort_name period.begin_date period.end_date
-        type_id primary_for_locale )
+        period.ended type_id primary_for_locale )
 }
 
 sub _locale_name_special_cases {

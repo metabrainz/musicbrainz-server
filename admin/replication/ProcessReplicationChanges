@@ -274,7 +274,7 @@ sub mirrorInsert
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
-    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4], $seqId)
         or die;
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_insert($tableName, $valuepairs);
@@ -292,7 +292,7 @@ sub mirrorDelete
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
-    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4], $seqId)
         or die;
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_delete($tableName, $keypairs);
@@ -310,7 +310,7 @@ sub mirrorUpdate
     my $seqId = $row->[0];
     my $tableName = $row->[1];
 
-    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4])
+    my $keypairs = MusicBrainz::Server::dbmirror::unpack_data($row->[4], $seqId)
         or die;
 
     my @row2 = $result->next_row;
@@ -319,7 +319,7 @@ sub mirrorUpdate
             die 'Unable to find required data to perform UPDATE';
         }
     }
-    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4]);
+    my $valuepairs = MusicBrainz::Server::dbmirror::unpack_data($row2[4], $seqId);
 
     my ($statement, $args) = MusicBrainz::Server::dbmirror::prepare_update($tableName, $valuepairs, $keypairs);
 

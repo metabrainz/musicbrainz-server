@@ -33,6 +33,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
                 ],
+                // Bandcamp
+                [
+                    'artist', 'http://davidrovics.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.artist
+                ],
+                [
+                    'label', 'http://idiotsikker.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.label
+                ],
+                // WhoSampled
+                [
+                    'recording', 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
+                    MB.constants.LINK_TYPES.otherdatabases.recording
+                ],
+                // MusicMoz
                 [
                     'artist', 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',
                     MB.constants.LINK_TYPES.otherdatabases.artist
@@ -63,6 +78,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://thesession.org/tunes/2305',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // Wikimedia Commons
+                [
+                    'artist', 'http://commons.wikimedia.org/wiki/File:NIN2008.jpg',
+                    MB.constants.LINK_TYPES.image.artist
+                ],
+                [
+                    'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
+                    MB.constants.LINK_TYPES.image.label
+                ],
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -75,6 +99,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://www.imdb.com/company/co0109498/',
                     MB.constants.LINK_TYPES.imdb.label
+                ],
+                // Mora
+                [
+                    'release', 'http://mora.jp/package/43000001/4534530058010/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://mora.jp/package/43000014/KIZC-211/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
                 ],
                 // MySpace
                 [
@@ -107,13 +140,34 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
                     MB.constants.LINK_TYPES.coverart.release
                 ],
+                // Recochoku
+                [
+                    'release', 'http://recochoku.jp/album/30282664/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://recochoku.jp/song/S21893898/',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
+                ],
+                // Rockens Danmarkskort
+                [
+                    'place', 'http://www.rockensdanmarkskort.dk/steder/den-gr%C3%A5-hal',
+                    MB.constants.LINK_TYPES.otherdatabases.place
+                ],
+                // NeyZen
+                [
+                    'work', 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+                // IMSLP
+                [
+                    'work', 'http://imslp.org/wiki/Die_Zauberfl%C3%B6te,_K.620_(Mozart,_Wolfgang_Amadeus)',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+                // Jamendo
                 [
                     'recording', 'http://www.jamendo.com/en/track/725574/giraffe',
                     MB.constants.LINK_TYPES.downloadfree.recording
-                ],
-                [
-                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
-                    MB.constants.LINK_TYPES.otherdatabases.release
                 ],
                 [
                     'release', 'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
@@ -123,6 +177,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.jamendo.com/album/16090',
                     MB.constants.LINK_TYPES.downloadfree.release
                 ],
+                // Trove
+                [
+                    'release', 'http://nla.gov.au/anbd.bib-an11701020',
+                    MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // Mange-Disque
                 [
                     'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
                     MB.constants.LINK_TYPES.coverart.release
@@ -267,6 +327,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'work', 'http://openlibrary.org/works/OL82592W/',
                     MB.constants.LINK_TYPES.otherdatabases.work
                 ],
+                // ReverbNation
+                [
+                    'artist', 'http://www.reverbnation.com/asangelsbleed',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
+                // Twitter
+                [
+                    'artist', 'https://twitter.com/miguelgrimaldo',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
                 // SoundtrackCollector
                 [
                     'artist', 'http://soundtrackcollector.com/composer/9/John+Williams',
@@ -320,6 +390,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'label', 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
                     MB.constants.LINK_TYPES.otherdatabases.label
+                ],
+                // VK
+                [
+                    'artist', 'http://vk.com/tin_sontsya',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
                 ],
                 // Generasia
                 [
@@ -461,6 +536,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.myspace.com/whoevenusesthisanymore',
                     'https://myspace.com/whoevenusesthisanymore',
                     'label'
+                ],
+                // Twitter
+                [
+                    'http://twitter.com/miguelgrimaldo',
+                    'https://twitter.com/miguelgrimaldo',
+                    'artist'
                 ],
                 // SoundCloud
                 [
@@ -617,6 +698,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
                 ],
+                // Bandcamp
+                [
+                    'https://davidrovics.bandcamp.com?test',
+                    'http://davidrovics.bandcamp.com/',
+                    'artist'
+                ],
+                [
+                    'http://idiotsikker.bandcamp.com/tra#top',
+                    'http://idiotsikker.bandcamp.com/',
+                    'label'
+                ],
+                [
+                    'https://andrewhuang.bandcamp.com/track/boom-box/?test',
+                    'http://andrewhuang.bandcamp.com/track/boom-box',
+                    'recording'
+                ],
                 // iTunes
                 [
                     'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
@@ -769,10 +866,28 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ],
+                // Mora
+                [
+                    'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
+                [
+                    'mora.jp/package/43000002/ANTCD-3106/',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                ],
+                // Recochoku
+                [
+                    'https://www.recochoku.jp/album/30282664?test',
+                    'http://recochoku.jp/album/30282664/',
+                ],
+                [
+                    'recochoku.jp/song/S21893898/',
+                    'http://recochoku.jp/song/S21893898/',
                 ],
                 // Rockipedia
                 [

@@ -3,6 +3,7 @@
     ['artists', rdfa_seeAlso_link_area(area, 'artists', l('Artists'))],
     ['labels', rdfa_seeAlso_link_area(area, 'labels', l('Labels'))],
     ['releases', rdfa_seeAlso_link_area(area, 'releases', l('Releases'))],
+    ['places', rdfa_seeAlso_link_area(area, 'places', l('Places'))],
     ['aliases', rdfa_seeAlso_link_area(area, 'aliases', l('Aliases'))],
     ['details', rdfa_seeAlso_link_area(area, 'details', l('Details'))],
 ] -%]
@@ -14,10 +15,13 @@
 [% END %]
 
 <div class="areaheader">
-    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) -%]</h1>
+    <h1>[%- rdfa_link_area_header(area) %] [% disambiguation(area) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-             [% html_escape(area.l_type_name) or l('Area') %][%- IF area.parent_country %], [% l('in {country}', country => link_entity(area.parent_country)) -%][%- END -%]
+             [% html_escape(area.l_type_name) or l('Area') %]
+             [%- IF area.parent_country || area.parent_subdivision || area.parent_city %],
+                 [% l('in {parent_areas}', parent_areas => link_area_containment(area)) -%]
+             [%- END -%]
     </p>
 </div>
 

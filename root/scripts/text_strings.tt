@@ -105,8 +105,10 @@
         ErrorLoadingRelationships: '[% l('Error loading relationships.') | js %]',
         ChangeDirection: '[% l('Change direction') | js %]',
         Entity: {
+            area:            "[% l('Area') | js %]",
             artist:          "[% l('Artist') | js %]",
             label:           "[% l('Label') | js %]",
+            place:           "[% l('Place') | js %]",
             recording:       "[% l('Recording') | js %]",
             release:         "[% l('Release') | js %]",
             release_group:   "[% l('Release group') | js %]",

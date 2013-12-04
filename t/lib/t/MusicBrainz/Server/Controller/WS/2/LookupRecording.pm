@@ -207,9 +207,6 @@ ws_test 'recording lookup with puids and isrcs',
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <recording id="162630d9-36d2-4a8d-ade1-1c77440b34e7">
         <title>サマーれげぇ!レインボー</title><length>296026</length>
-        <puid-list count="1">
-            <puid id="cdec3fe2-0473-073c-3cbb-bfb0c01a87ff" />
-        </puid-list>
         <isrc-list count="1">
             <isrc id="JPA600102450" />
         </isrc-list>
@@ -231,9 +228,14 @@ ws_test 'recording lookup with release relationships',
                     <title>An Inextricable Tale Audiobook</title>
                     <quality>normal</quality>
                     <date>2007-11-08</date>
+                    <country>US</country>
                     <release-event-list count="1">
                       <release-event>
                         <date>2007-11-08</date>
+                        <area id="489ce91b-6658-3307-9877-795b68554c98">
+                          <name>United States</name><sort-name>United States</sort-name>
+                          <iso-3166-1-code-list><iso-3166-1-code>US</iso-3166-1-code></iso-3166-1-code-list>
+                        </area>
                       </release-event>
                     </release-event-list>
                     <barcode>634479663338</barcode>

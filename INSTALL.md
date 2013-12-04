@@ -143,7 +143,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
     There are also a few development headers that will be needed when installing
     dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl
+        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev memcached liblocal-lib-perl cpanminus
 
 3.  Enable local::lib
 
@@ -238,7 +238,7 @@ Creating the database
 
         To use a clean database, all you need to do is run:
 
-            ./admin/InitDb.pl -- --createdb --clean
+            ./admin/InitDb.pl --createdb --clean
 
     2.  Import a database dump
 
@@ -262,7 +262,7 @@ Creating the database
 
         If this is OK and you wish to continue, you can import them with:
 
-            ./admin/InitDb.pl -- --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
+            ./admin/InitDb.pl --createdb --import /tmp/dumps/mbdump*.tar.bz2 --echo
 
         `--echo` just gives us a bit more feedback in case this goes wrong, you
         may leave it off. Remember to change the paths to your mbdump*.tar.bz2

@@ -1,6 +1,7 @@
 package t::MusicBrainz::Server::Controller::OAuth2;
 use Test::Routine;
 use Test::More;
+use Test::Deep;
 use utf8;
 
 use URI;
@@ -290,7 +291,7 @@ test 'Exchange authorization code' => sub {
     # Missing client_secret
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
-        grant_type => 'authorization_code', 
+        grant_type => 'authorization_code',
         redirect_uri => 'urn:ietf:wg:oauth:2.0:oob',
         code => $code,
     });
@@ -414,7 +415,7 @@ test 'Exchange refresh code' => sub {
     $test->mech->post('/oauth2/token', {
         client_id => 'id-desktop',
         client_secret => 'id-desktop-secret',
-        grant_type => 'refresh_token', 
+        grant_type => 'refresh_token',
         refresh_token => $code,
     });
     $response = from_json($test->mech->content);
@@ -475,13 +476,14 @@ test 'Token info' => sub {
     $response = from_json($test->mech->content);
     ok($response->{expires_in});
     delete $response->{expires_in};
-    is_deeply($response, {
-        audience => 'id-desktop',
-        issued_to => 'id-desktop',
-        access_type => 'offline',
-        token_type => 'Bearer',
-        scope => 'profile collection rating email submit_puid tag submit_barcode submit_isrc',
-    });
+    is($response->{audience}, 'id-desktop');
+    is($response->{issued_to}, 'id-desktop');
+    is($response->{access_type}, 'offline');
+    is($response->{token_type}, 'Bearer');
+    cmp_set(
+        [ split /\s+/, $response->{scope} ],
+        [ qw( profile collection rating email tag submit_barcode submit_isrc ) ]
+    );
 };
 
 test 'User info' => sub {

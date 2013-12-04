@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Area;
 use MusicBrainz::Server::Data::Label;
 use MusicBrainz::Server::Data::Link;
 use MusicBrainz::Server::Data::LinkType;
+use MusicBrainz::Server::Data::Place;
 use MusicBrainz::Server::Data::Recording;
 use MusicBrainz::Server::Data::ReleaseGroup;
 use MusicBrainz::Server::Data::URL;
@@ -28,6 +29,7 @@ Readonly my @TYPES => qw(
     area
     artist
     label
+    place
     recording
     release
     release_group
@@ -146,28 +148,15 @@ sub _load
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, url";
-        } elsif ($target eq 'area') {
+        } else {
             $query = "
             SELECT $select
               JOIN $target ON $target_id = ${target}.id
             WHERE " . join(" OR ", @cond) . "
             ORDER BY $order, musicbrainz_collate(name)";
-        } else {
-            my $name_table =
-                $target eq 'recording'     ? 'track_name'   :
-                $target eq 'release_group' ? 'release_name' :
-                                             "${target}_name";
-            $query = "
-            SELECT $select
-              JOIN $target ON $target_id = ${target}.id
-              JOIN $name_table name ON name.id = ${target}.name
-            WHERE " . join(" OR ", @cond) . "
-            ORDER BY $order, musicbrainz_collate(name.name)";
         }
 
-        $self->sql->select($query, @params);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -183,7 +172,6 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $self->sql->finish;
     }
     return @rels;
 }
@@ -481,7 +469,8 @@ sub editor_can_edit
     my @types = sort ($type0, $type1);
     my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
     my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
-    return (!$is_area_url && !$is_area_area) || $editor->is_location_editor;
+    return $editor &&
+        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor);
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -256,15 +256,15 @@ sub update
         if (scalar(@$old_tag_ids)) {
             # Load the corresponding tag strings from the main server
             #
-            @old_tags = $self->sql->select("SELECT id, name FROM tag
-                                      WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
-                                      @$old_tag_ids);
-            # Create a lookup friendly hash from the old tags
-            if (@old_tags) {
-                while (my $row = $self->sql->next_row_ref()) {
-                    $old_tag_info{$row->[1]} = $row->[0];
-                }
-                $self->sql->finish();
+            for my $row (@{
+                $self->sql->select_list_of_lists(
+                    "SELECT id, name FROM tag
+                     WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
+                    @$old_tag_ids
+                )
+            }) {
+                # Create a lookup friendly hash from the old tags
+                $old_tag_info{$row->[1]} = $row->[0];
             }
         }
 
@@ -376,7 +376,7 @@ sub find_entities
                  FROM " . $self->parent->_table . "
                      JOIN $tag_table tt ON " . $self->parent->_id_column . " = tt.$type
                  WHERE tag = ?
-                 ORDER BY tt.count DESC, musicbrainz_collate(name.name), " . $self->parent->_id_column . "
+                 ORDER BY tt.count DESC, musicbrainz_collate(name), " . $self->parent->_id_column . "
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub {

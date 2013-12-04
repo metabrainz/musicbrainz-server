@@ -219,6 +219,16 @@ sub match_password {
         encode('utf-8', $password));
 }
 
+has deleted => (
+    isa => 'Bool',
+    is => 'rw',
+);
+
+sub identity_string {
+    my ($self) = @_;
+    return join(', ', $self->name, $self->id);
+}
+
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
 use Scalar::Util qw( looks_like_number );
 use Text::Trim qw( );
+use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
 
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
@@ -63,13 +64,22 @@ around 'validate_field' => sub {
                       { artist => ($name || $artist_name) }));
             }
         }
+        elsif (!$artist_id)
+        {
+            $self->add_error (l('Please add an artist name for each credit.'));
+        }
     }
 
     # Do not nag about the field being required if there are other
     # errors which already invalidate the field.
     return 0 if $self->has_errors;
 
-    if ($self->required && ! $artists)
+    # If the form is editing an existing entity and the AC field is entirely
+    # missing (as opposed to existing but being empty, which is handled above),
+    # the field will *not* be required. The form will see this is as no changes
+    # being made. This behavior allows bots and browser scripts to function
+    # properly (i.e. environments where AC fields aren't generated).
+    unless ($artists || $self->form->init_object)
     {
         $self->add_error (l("Artist credit field is required"));
     }
@@ -97,6 +107,34 @@ around 'value' => sub {
 
     return clean_submitted_artist_credits($ret);
 };
+
+sub json {
+    my $self = shift;
+    my $result = $self->result;
+    my $names = [];
+
+    if (defined $result) {
+        if ($result->input) {
+            $names = $result->input->{names};
+
+        } elsif ($result->value) {
+            $names = $result->value->{names};
+        }
+    }
+
+    if (!$names || scalar @$names == 0) {
+        $names = [{}];
+    }
+
+    my $c = $self->form->ctx;
+
+    my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
+    for my $name (@$names) {
+        $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
+    }
+
+    return to_json($names);
+}
 
 =head1 LICENSE
 

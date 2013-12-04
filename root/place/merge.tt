@@ -1,0 +1,51 @@
+[% WRAPPER 'layout.tt' title=l('Merge Places') full_width=1 %]
+    <div id="content">
+    <h1>[% l('Merge Places') %]</h1>
+    <p>[% l('You are about to merge the following places into a single place. Please
+             select the place which you would like other places to be merged into:') %]</p>
+    <form action="[% c.req.uri %]" method="post">
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th style="width: 1em"></th>
+                    <th>[% l('Place') %]</th>
+                    <th>[% l('Type') %]</th>
+                    <th>[% l('Address') %]</th>
+                    <th>[% l('Area') %]</th>
+                    <th>[% l('Begin') %]</th>
+                    <th>[% l('End') %]</th>
+                </tr>
+            </thead>
+            <tbody>
+            [% FOR entity=to_merge %]
+                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
+                     <td>
+                         <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                         <input type="radio" name="merge.target" value="[% entity.id %]"
+                             [% 'checked="checked"' IF entity.id == form.field('target').value %] />
+                     </td>
+                     <td>
+                         [% descriptive_link(entity) %]
+                     </td>
+                     <td>[% entity.l_type_name  %]</td>
+                     <td>[% entity.address %]</td>
+                     <td>[% link_entity(entity.area) IF entity.area %]</td>
+                     <td>[% entity.begin_date.format %]</td>
+                     <td>
+                         [% IF !entity.end_date.is_empty;
+                              entity.end_date.format;
+                            ELSIF entity.ended;
+                              l('[unknown]');
+                            END; -%]
+                     </td>
+                 </tr>
+            [%- END -%]
+            </tbody>
+        </table>
+        [% field_errors(form, 'target') %]
+
+        [% INCLUDE "forms/edit-note.tt" %]
+        [% enter_edit('<button type="submit" name="submit" value="cancel" class="negative">' _ l('Cancel') _ '</button>') %]
+    </form>
+    </div>
+[% END %]

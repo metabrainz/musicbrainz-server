@@ -1,14 +1,12 @@
-INSERT INTO label_name (id, name) VALUES (1, 'A'), (2, 'B'), (3, 'C');
 INSERT INTO label (id, name, sort_name, gid)
-    VALUES (1, 1, 1, '9b335b20-5f88-11e0-80e3-0800200c9a66'),
-           (2, 2, 2, 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
-           (3, 3, 3, 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
+    VALUES (1, 'A', 'A', '9b335b20-5f88-11e0-80e3-0800200c9a66'),
+           (2, 'B', 'B', 'a2b31070-5f88-11e0-80e3-0800200c9a66'),
+           (3, 'C', 'C', 'a9de8b40-5f88-11e0-80e3-0800200c9a66');
 
-INSERT INTO artist_name (id, name) VALUES (1, 'Artist 1'), (2, 'Artist 2'), (3, 'Artist 3');
 INSERT INTO artist (id, gid, name, sort_name)
-    VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 1, 1),
-           (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 2, 2),
-           (3, '4444031c-0e89-406e-b9f0-3d192637907a', 3, 3);
+    VALUES (1, 'e2a083a9-9942-4d6e-b4d2-8397320b95f7', 'Artist 1', 'Artist 1'),
+           (2, '2fed031c-0e89-406e-b9f0-3d192637907a', 'Artist 2', 'Artist 2'),
+           (3, '4444031c-0e89-406e-b9f0-3d192637907a', 'Artist 3', 'Artist 3');
 
 INSERT INTO link_attribute_type (id, root, gid, name)
     VALUES (1, 1, '36990974-4f29-4ea1-b562-3838fa9b8832', 'Additional'),

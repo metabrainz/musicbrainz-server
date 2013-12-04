@@ -75,7 +75,7 @@
     [%- FOR isni_code IN edit.display_data.isni_codes -%]
       <tr>
         <th>[% l('ISNI code:') %]</th>
-        <td>[% isni_code %]</td>
+        <td>[% format_isni(isni_code) %]</td>
       </tr>
     [% END %]
   [% END %]

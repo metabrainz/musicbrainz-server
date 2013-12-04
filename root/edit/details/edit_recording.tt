@@ -6,7 +6,7 @@
 <table class="details edit-recording">
   <tr>
     <th>[% l('Recording:') %]</th>
-    <td>[% descriptive_link(edit.display_data.recording) %]</td>
+    <td colspan="2">[% descriptive_link(edit.display_data.recording) %]</td>
   </tr>
 
   [% display_diff(l('Name:'),
@@ -22,6 +22,11 @@
   [% display_diff(l('Length:'),
                   format_length(edit.display_data.length.old),
                   format_length(edit.display_data.length.new)) %]
+
+  [% display_diff(l('Video:'),
+                  edit.display_data.video.old ? l('Yes') : l('No'),
+                  edit.display_data.video.new ? l('Yes') : l('No'),
+                  '-') %]
 
   [%- IF edit.display_data.artist_credit -%]
   <tr>

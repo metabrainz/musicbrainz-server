@@ -168,6 +168,8 @@ END -%]
             l('areas');
         CASE 'label';
             l('labels');
+        CASE 'place';
+            l('places');
         CASE 'track';
             l('tracks');
         CASE 'recording';
@@ -182,10 +184,14 @@ END -%]
             l('Error: Unknown Type');
     END -%]
 
-[%- MACRO disambiguation(entity) BLOCK;
-    ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' IF entity.comment;
-    historical(entity) IF entity.isa('MusicBrainz::Server::Entity::Area');
-END -%]
+[%- MACRO disambiguation(entity) BLOCK -%]
+    [%- IF entity.comment -%]
+        [%- ' <span class="comment">(<bdi>' _ html_escape("${entity.comment}") _ '</bdi>)</span>' -%]
+    [%- END -%]
+    [%- IF entity.isa('MusicBrainz::Server::Entity::Area') -%]
+        [%- historical(entity) -%]
+    [%- END -%]
+[%- END -%]
 
 [%- MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
@@ -237,6 +243,7 @@ END -%]
       ELSIF entity.isa('MusicBrainz::Server::Entity::Collection'); link_collection(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); link_work(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); link_label(entity, action, text);
+      ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); link_place(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); link_release(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); link_release_group(entity, action, text);
       ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); link_recording(entity, action, text);
@@ -275,6 +282,7 @@ END -%]
     ELSIF entity.isa('MusicBrainz::Server::Entity::Area'); "area";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Work'); "work";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Label'); "label";
+    ELSIF entity.isa('MusicBrainz::Server::Entity::Place'); "place";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Release'); "release";
     ELSIF entity.isa('MusicBrainz::Server::Entity::ReleaseGroup'); "release_group";
     ELSIF entity.isa('MusicBrainz::Server::Entity::Recording'); "recording";
@@ -320,6 +328,28 @@ END -%]
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';
+END -%]
+
+[%- MACRO link_area_containment(area) BLOCK;
+    areas = [];
+    IF area.parent_city; areas.push(link_area(area.parent_city)); END;
+    IF area.parent_subdivision; areas.push(link_area(area.parent_subdivision)); END;
+    IF area.parent_country; areas.push(link_area(area.parent_country)); END;
+    comma_only_list(areas);
+END -%]
+
+[%- MACRO link_area_with_containment(area, action, text) BLOCK;
+    link_area(area, action, text);
+    IF link_area_containment(area); ', ' _ link_area_containment(area); END;
+END -%]
+
+[%- MACRO link_place(place, action, text) BLOCK;
+    action = action || 'show';
+    link = c.uri_for_action("/place/$action", [ place.gid ]);
+    text = text == '' ? html_escape(place.name) : text;
+    '<span class="mp">' IF place.edits_pending AND action == 'show';
+    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
+    '</span>' IF place.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_collection(collection, action, text) BLOCK;
@@ -386,13 +416,6 @@ END -%]
     link = c.uri_for_action("/tag/$action", [ tag.name ]);
     text = text == '' ? html_escape(tag.name) : text;
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
-END -%]
-
-[%- MACRO link_puid(puid, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/puid/$action", [ puid.puid ]);
-    text = text == '' ? '<code>' _ html_escape(puid.puid) _ '</code>' : text;
-    '<a href="' _ link _ '">' _ text _ '</a>';
 END -%]
 
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
@@ -540,6 +563,7 @@ END -%]
     IF type == 'artist'; l('Artist:');
     ELSIF type == 'area'; l('Area:');
     ELSIF type == 'label'; l('Label:');
+    ELSIF type == 'place'; l('Place:');
     ELSIF type == 'release'; l('Release:');
     ELSIF type == 'release_group'; l('Release group:');
     ELSIF type == 'recording'; l('Recording:');
@@ -551,6 +575,7 @@ END -%]
 [%- MACRO format_entity_type_name(type_name) BLOCK -%]
     [%- IF    type_name == 'artist'; l('Artist');
         ELSIF type_name == 'area'; l('Area');
+        ELSIF type_name == 'place'; l('Place');
         ELSIF type_name == 'release'; l('Release');
         ELSIF type_name == 'recording'; l('Recording');
         ELSIF type_name == 'release_group'; l('Release Group');
@@ -597,6 +622,7 @@ END -%]
              entity.isa('MusicBrainz::Server::Entity::URL') ||
              entity.isa('MusicBrainz::Server::Entity::Work') ||
              entity.isa('MusicBrainz::Server::Entity::ReleaseGroup') ||
+             entity.isa('MusicBrainz::Server::Entity::Place') ||
              entity.isa('MusicBrainz::Server::Entity::Area');
              action = 'show';
           END;
@@ -610,6 +636,7 @@ END -%]
           <option value="release-group">[% l('Release Group') %]</option>
           <option value="release">[% l('Release') %]</option>
           <option value="work">[% l('Work') %]</option>
+          <option value="place">[% l('Place') %]</option>
           [%- IF (entity_type(entity) != 'area' && entity_type(entity) != 'url')
                   || c.user.is_location_editor -%]
           <option value="area">[% l('Area') %]</option>
@@ -774,13 +801,16 @@ END -%]
     ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
     ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
     ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
+    ELSIF url.url.host.search('whosampled.com'); 'whosampled';
     ELSIF url.url.host.search('ocremix.org'); 'ocremix';
     ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
     ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
     ELSIF url.url.host.search('nla.gov.au'); 'trove';
+    ELSIF url.url.host.search('rockensdanmarkskort.dk'); 'rockensdanmarkskort';
     ELSIF url.url.host.search('rockinchina.com'); 'ric';
     ELSIF url.url.host.search('rockipedia.no'); 'rockipedia';
     ELSIF url.url.host.search('viaf.org'); 'viaf';
+    ELSIF url.url.host.search('vk.com'); 'vk';
     ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
     ELSIF url.url.host.search('thesession.org'); 'thesession';
     ELSIF url.url.host.search('plus.google.com'); 'googleplus';
@@ -937,6 +967,21 @@ http://[%- server -%]/[%- id -%]
     [%- END -%]
 [%- END -%]
 
+[%- MACRO show_image BLOCK -%]
+    [%- IF image -%]
+        [%- INCLUDE 'components/commons-image.tt' -%]
+    [%- ELSIF image_url -%]
+        <span style="display:none" id="image-insertion-point"></span>
+        <script type="text/javascript">//<![CDATA[
+            $.get('[% image_url %]',
+                  function (data) {
+                      $('#image-insertion-point').replaceWith(data);
+                  },
+                  'html');
+        //]]></script>
+    [%- END -%]
+[%- END -%]
+
 [%- MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
   [% USE Diff %]
   [%- FOR i = loop_over %]
@@ -1035,4 +1080,8 @@ END -%]
       parts.push(link_entity(country)) IF country.id;
       parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
       parts.join('<br />');
+    END -%]
+
+[%- MACRO format_isni(isni) BLOCK;
+      isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]

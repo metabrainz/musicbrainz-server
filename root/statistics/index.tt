@@ -52,6 +52,10 @@
     <th>[% l('Areas:') %]</th>
     <td colspan="3">[% add_commas(stats.statistic('count.area')) %]</td>
 </tr>
+<tr>
+    <th>[% l('Places:') %]</th>
+    <td colspan="3">[% add_commas(stats.statistic('count.place')) %]</td>
+</tr>
 </tbody>
 <tbody>
 <tr class="thead">
@@ -91,10 +95,6 @@
 <tbody>
 <tr class="thead">
     <th colspan="4">[% l('Identifiers') %]</th>
-</tr>
-<tr>
-    <th>[% l('PUIDs (all / unique):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid')) %]</td><td>/</td><td>[% add_commas(stats.statistic('count.puid.ids')) %]</td>
 </tr>
 <tr>
     <th>[% l('ISRCs (all / unique):') %]</th>
@@ -466,69 +466,21 @@
 </tbody>
 </table>
 
-<h2>[% l('Recordings and PUIDs') %]</h2>
+<h2>[% l('Recordings') %]</h2>
 <table class="database-statistics">
 <tbody>
 <tr class="thead">
-    <th colspan="4">[% l('Recordings') %]</th>
+    <th colspan="3">[% l('Recordings') %]</th>
 </tr>
 <tr>
-    <th colspan="2">[% l('Recordings:') %]</th>
+    <th>[% l('Recordings:') %]</th>
     <td>[% add_commas(stats.statistic('count.recording')) %]</td>
     <td></td>
 </tr>
 <tr>
-    <th colspan="2">[% l('Recordings with no PUIDs:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.0puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.0puids', 'count.recording')) }) %]</td>
-</tr>
-<tr>
-    <th colspan="2">[% l('Recordings with at least one PUID:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.has_puid')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.has_puid', 'count.recording')) }) %]</td>
-</tr>
-[%- FOREACH num IN [1 .. 9] -%]
-<tr>
-    <th></th>
-    <th>[% ln('with {num} PUID:', 'with {num} PUIDs:', num, { num => num }) %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.' _ num _ 'puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.' _ num _ 'puids', 'count.recording.has_puid')) }) %]</td>
-</tr>
-[%- END -%]
-<tr>
-    <th></th>
-    <th>[% l('with 10 or more PUIDs:') %]</th>
-    <td>[% add_commas(stats.statistic('count.recording.10puids')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.recording.10puids', 'count.recording.has_puid')) }) %]</td>
-</tr>
-</tbody>
-<tbody>
-<tr class="thead">
-    <th colspan="4">[% l('PUIDs') %]</th>
-</tr>
-<tr>
-    <th colspan="2">[% l('PUIDs (on recordings):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid')) %]</td>
-    <td></td>
-</tr>
-<tr>
-    <th colspan="2">[% l('PUIDs (distinct IDs):') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.ids')) %]</td>
-    <td></td>
-</tr>
-[%- FOREACH num IN [1 .. 9] -%]
-<tr>
-    <th></th>
-    <th>[% ln('which identify 1 recording:', 'which identify {num} recordings:', num, { num => num }) %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.' _ num _ 'recordings')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.' _ num _ 'recordings', 'count.puid.ids')) }) %]</td>
-</tr>
-[%- END -%]
-<tr>
-    <th></th>
-    <th>[% l('which identify 10+ recordings:') %]</th>
-    <td>[% add_commas(stats.statistic('count.puid.10recordings')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.puid.10recordings', 'count.puid.ids')) }) %]</td>
+    <th>[% l('Videos:') %]</th>
+    <td>[% add_commas(stats.statistic('count.video')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.video', 'count.recording')) }) %]</td>
 </tr>
 </tbody>
 </table>
@@ -585,6 +537,34 @@
    <th>[% l('None') %]</th>
    <td>[% add_commas(stats.statistic('count.area.type.null')) %]</td>
    <td>[% l('{n}%', { n => round1(stats.ratio('count.area.type.null', 'count.area')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
+<h2>[% l('Places') %]</h2>
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Types') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Places:') %]</th>
+    <td>[% add_commas(stats.statistic('count.place')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH place_type IN place_types %]
+<tr>
+   <th></th>
+   <th>[% place_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.place.type.' _ place_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.place.type.' _ place_type.id, 'count.place')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.place.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.place.type.null', 'count.place')) }) %]</td>
 </tr>
 </tbody>
 </table>

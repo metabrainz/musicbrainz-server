@@ -43,6 +43,16 @@ sub _serialize_annotation
     }
 }
 
+sub _serialize_coordinates
+{
+    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+
+    my @coordinates;
+    push @coordinates, $gen->latitude($entity->coordinates->latitude) if $entity->coordinates->latitude;
+    push @coordinates, $gen->longitude($entity->coordinates->longitude) if $entity->coordinates->longitude;
+    push @$data, $gen->coordinates(@coordinates);
+}
+
 sub _serialize_life_span
 {
     my ($self, $data, $gen, $entity, $inc, $opts) = @_;
@@ -518,7 +528,7 @@ sub _serialize_recording
     push @list, $gen->title($recording->name);
     push @list, $gen->length($recording->length) if $recording->length;
     push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
-
+    push @list, $gen->video('true') if $recording->video;
     if ($toplevel)
     {
         $self->_serialize_annotation(\@list, $gen, $recording, $inc, $opts);
@@ -535,8 +545,6 @@ sub _serialize_recording
             if $inc->artist_credits;
     }
 
-    $self->_serialize_puid_list(\@list, $gen, $opts->{puids}, $inc, $stash)
-        if ($opts->{puids} && $inc->puids);
     $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
@@ -798,6 +806,7 @@ sub _serialize_area_inner
     my @list;
     push @list, $gen->name($area->name);
     push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    push @list, $gen->disambiguation($area->comment) if ($area->comment);
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {
            $gen->iso_3166_1_code($_);
@@ -855,6 +864,53 @@ sub _serialize_end_area
     push @$data, $gen->end_area($attrs, @list);
 }
 
+sub _serialize_place_list
+{
+    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+
+    if (@{ $list->{items} })
+    {
+        my @list;
+        foreach my $place (sort_by { $_->gid } @{ $list->{items} })
+        {
+            $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
+        }
+        push @$data, $gen->place_list($self->_list_attributes ($list), @list);
+    }
+}
+
+sub _serialize_place
+{
+    my ($self, $data, $gen, $place, $inc, $stash, $toplevel) = @_;
+
+    my $opts = $stash->store ($place);
+
+    my %attrs;
+    $attrs{id} = $place->gid;
+    $attrs{type} = $place->type->name if $place->type;
+
+    my @list;
+    push @list, $gen->name($place->name);
+    push @list, $gen->disambiguation($place->comment) if $place->comment;
+    push @list, $gen->address($place->address) if $place->address;
+    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates->latitude;
+
+    if ($toplevel)
+    {
+        $self->_serialize_annotation(\@list, $gen, $place, $inc, $opts);
+        $self->_serialize_area(\@list, $gen, $place->area, $inc, $stash, $toplevel) if $place->area;
+        $self->_serialize_life_span(\@list, $gen, $place, $inc, $opts);
+    }
+
+    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+        if ($inc->aliases && $opts->{aliases});
+
+    $self->_serialize_relation_lists($place, \@list, $gen, $place->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
+
+    push @$data, $gen->place(\%attrs, @list);
+}
+
 sub _serialize_relation_lists
 {
     my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
@@ -908,33 +964,6 @@ sub _serialize_relation
     }
 
     push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
-}
-
-sub _serialize_puid_list
-{
-    my ($self, $data, $gen, $puids, $inc, $stash) = @_;
-
-    my @list;
-    foreach my $puid (sort_by { $_->puid->puid } @$puids)
-    {
-        $self->_serialize_puid(\@list, $gen, $puid->puid, $inc, $stash);
-    }
-    push @$data, $gen->puid_list({ count => scalar(@$puids) }, @list);
-}
-
-sub _serialize_puid
-{
-    my ($self, $data, $gen, $puid, $inc, $stash, $toplevel) = @_;
-
-    my $opts = $stash->store ($puid);
-
-    my @list;
-    if ($toplevel)
-    {
-        $self->_serialize_recording_list(\@list, $gen, ${opts}->{recordings}, $inc, $stash, $toplevel)
-            if ${opts}->{recordings};
-    }
-    push @$data, $gen->puid({ id => $puid->puid }, @list);
 }
 
 sub _serialize_isrc_list
@@ -1168,6 +1197,15 @@ sub area_resource
     return $data->[0];
 }
 
+sub place_resource
+{
+    my ($self, $gen, $place, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_place($data, $gen, $place, $inc, $stash, 1);
+    return $data->[0];
+}
+
 sub url_resource
 {
     my ($self, $gen, $url, $inc, $stash) = @_;
@@ -1184,15 +1222,6 @@ sub isrc_resource
 
     my $data = [];
     $self->_serialize_isrc($data, $gen, $isrc, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub puid_resource
-{
-    my ($self, $gen, $puid, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_puid($data, $gen, $puid, $inc, $stash, 1);
     return $data->[0];
 }
 
@@ -1280,6 +1309,16 @@ sub area_list_resource
 
     my $data = [];
     $self->_serialize_area_list($data, $gen, $areas, $inc, $stash, 1);
+
+    return $data->[0];
+}
+
+sub place_list_resource
+{
+    my ($self, $gen, $places, $inc, $stash) = @_;
+
+    my $data = [];
+    $self->_serialize_place_list($data, $gen, $places, $inc, $stash, 1);
 
     return $data->[0];
 }

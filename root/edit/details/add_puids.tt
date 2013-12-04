@@ -10,7 +10,7 @@
       <ul>
         [% FOR puid=edit.display_data.puids %]
         <li>
-          <code>[% link_puid(puid) %]</code> -
+          <code>[% puid.puid %]</code> -
           [% descriptive_link(puid.recording) %]
         </li>
         [% END %]

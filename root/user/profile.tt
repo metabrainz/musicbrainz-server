@@ -72,7 +72,7 @@
 
         [% IF user.area;
              WRAPPER property name=l('Location:');
-              link_area(user.area);
+              link_area_with_containment(user.area);
              END;
            END; %]
 

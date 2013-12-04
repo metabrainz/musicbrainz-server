@@ -43,7 +43,7 @@
         if (data instanceof Entity) {
             return data;
         }
-        type = type || data.type;
+        type = (type || data.type || "").replace("-", "_");
         var entityClass = coreEntityMapping[type];
 
         if (!entityClass) {
@@ -61,10 +61,12 @@
     MB.entity.CoreEntity = aclass(Entity, {
 
         template: _.template(
+            "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
             "<a href=\"/<%= data.type %>/<%- data.gid %>\" target=\"_blank\"" +
             "<% if (data.sortname) { %> title=\"<%- data.sortname %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
-            "<span class=\"comment\">(<%- data.comment %>)</span><% } %>",
+            "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+            "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
         ),
@@ -73,6 +75,7 @@
             this.id = data.id;
             this.gid = data.gid;
             this.name = data.name || "";
+            this.editsPending = data.editsPending;
 
             if (data.sortname) {
                 this.sortname = data.sortname;
@@ -98,22 +101,38 @@
 
     MB.entity.Label = aclass(MB.entity.CoreEntity, { type: "label" });
 
+    MB.entity.Area = aclass(MB.entity.CoreEntity, { type: "area" });
+
+    MB.entity.Place = aclass(MB.entity.CoreEntity, { type: "place" });
 
     MB.entity.Recording = aclass(MB.entity.CoreEntity, {
         type: "recording",
 
         after$init: function (data) {
             this.length = data.length;
+            this.video = data.video;
+
+            // Returned from the /ws/js/recording search.
+            if (_.isObject(data.appears_on)) {
+                this.appearsOn = data.appears_on;
+            }
+
+            if (_.isString(data.artist)) {
+                this.artist = data.artist;
+            }
         }
     });
 
-
     MB.entity.Release = aclass(MB.entity.CoreEntity, { type: "release" });
 
-    MB.entity.ReleaseGroup = aclass(
-        MB.entity.CoreEntity, { type: "release_group" }
-    );
+    MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, {
+        type: "release_group",
 
+        after$init: function (data) {
+            this.typeID = data.typeID;
+            this.secondaryTypes = data.secondary_types;
+        }
+    });
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",
@@ -122,6 +141,8 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
+            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
+            this.gid = data.gid;
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
@@ -139,11 +160,13 @@
                 type: "recording",
                 gid: recording.gid,
                 name: this.name,
-                comment: recording.comment
+                comment: recording.comment,
+                editsPending: recording.editsPending
             });
         }
     });
 
+    MB.entity.URL = aclass(MB.entity.CoreEntity, { type: "url" });
 
     MB.entity.Work = aclass(MB.entity.CoreEntity, { type: "work" });
 
@@ -166,31 +189,32 @@
         ),
 
         init: function (data) {
-            data = data || { artist: {} };
+            data = data || {};
+            data.artist = MB.entity(data.artist || {}, "artist");
+
             this.artist = data.artist;
             this.name = data.name || data.artist.name || "";
-            this.joinPhrase = data.joinphrase || "";
+            this.joinPhrase = data.join_phrase || "";
         },
 
         isEmpty: function () {
-            return !(ko.unwrap(this.artist) || ko.unwrap(this.name) ||
+            return !(this.hasArtist() || ko.unwrap(this.name) ||
                      ko.unwrap(this.joinPhrase));
         },
 
-        hasName: function () {
-            var artist = ko.unwrap(this.artist);
-            var name = ko.unwrap(this.name);
-            return Boolean(name && (!artist || artist.name !== name));
+        hasArtist: function () {
+            var artist = ko.unwrap(this.artist) || {};
+            return Boolean(artist.id || artist.gid);
         },
 
         isVariousArtists: function () {
-            var artist = this.artist();
+            var artist = ko.unwrap(this.artist);
             return artist && (artist.gid === MB.constants.VARTIST_GID ||
                               artist.id == MB.constants.VARTIST_ID);
         },
 
         isEqual: function (other) {
-            return ko.unwrap(this.artist) === ko.unwrap(other.artist) &&
+            return _.isEqual(ko.unwrap(this.artist), ko.unwrap(other.artist)) &&
                    ko.unwrap(this.name) === ko.unwrap(other.name) &&
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
@@ -200,23 +224,44 @@
         },
 
         html: function () {
-            var artist = ko.unwrap(this.artist);
-
-            if (!artist) {
+            if (!this.hasArtist()) {
                 return _.escape(this.text());
             }
 
+            var artist = ko.unwrap(this.artist);
             var title = artist.sortname;
+
             if (artist.comment) {
-                title += ", " + artist.comment;
+                title += " (" + artist.comment + ")";
             }
 
-            return this.template({
+            var link = this.template({
                 gid:   artist.gid,
                 title: title,
                 name:  ko.unwrap(this.name),
                 join:  ko.unwrap(this.joinPhrase)
             });
+
+            if (ko.unwrap(this.name) != artist.name) {
+                return '<span class="name-variation">' + link + '</span>';
+            }
+            else {
+                return link;
+            }
+        },
+
+        toJS: function () {
+            var artist = ko.unwrap(this.artist) || {};
+
+            return {
+                artist: {
+                    name: artist.name,
+                    id:   artist.id,
+                    gid:  artist.gid
+                },
+                name: ko.unwrap(this.name),
+                join_phrase: ko.unwrap(this.joinPhrase)
+            };
         }
     });
 
@@ -224,9 +269,11 @@
     MB.entity.ArtistCredit = aclass(Entity, {
 
         init: function (data) {
-            this.names = _.map(data, function (name) {
-                return new MB.entity.ArtistCreditName(name);
-            });
+            this.names = _.map(data, MB.entity.ArtistCreditName);
+        },
+
+        isVariousArtists: function () {
+            return _.any(_.invoke(ko.unwrap(this.names), "isVariousArtists"));
         },
 
         isEqual: function (other) {
@@ -246,9 +293,7 @@
         },
 
         isEmpty: function () {
-            return _.every(names, function (name) {
-                return name.isEmpty();
-            });
+            return _.every(_.invoke(ko.unwrap(this.names), "isEmpty"));
         },
 
         text: function () {
@@ -265,16 +310,31 @@
             return _.reduce(names, function (memo, name) {
                 return memo + name.html();
             }, "");
+        },
+
+        toJS: function () {
+            return _.invoke(ko.unwrap(this.names), "toJS");
         }
     });
 
 
     MB.entity.Medium = aclass(Entity, function (data) {
-        this.format = (data.format || MB.text.Medium) + " " + data.position;
+        this.format = data.format;
+        this.name = data.name;
+        this.position = data.position;
 
         this.tracks = _.map(data.tracks, function (obj) {
             return new MB.entity.Track(obj);
         });
+
+        this.editsPending = data.editsPending;
+
+        this.positionName = "";
+        this.positionName += (this.format || MB.text.Medium) + " " + this.position;
+
+        if (this.name) {
+            this.positionName += ": " + this.name;
+        }
     });
 
 
@@ -284,9 +344,12 @@
     var coreEntityMapping = {
         artist:        MB.entity.Artist,
         label:         MB.entity.Label,
+        area:          MB.entity.Area,
+        place:         MB.entity.Place,
         recording:     MB.entity.Recording,
         release:       MB.entity.Release,
         release_group: MB.entity.ReleaseGroup,
-        work:          MB.entity.Work
+        work:          MB.entity.Work,
+        url:           MB.entity.URL
     };
 }());

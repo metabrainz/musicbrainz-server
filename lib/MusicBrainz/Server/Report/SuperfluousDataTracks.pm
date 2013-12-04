@@ -9,24 +9,21 @@ sub query {
     <<'EOSQL'
 SELECT
   release.id AS release_id,
-  row_number() OVER (ORDER BY musicbrainz_collate(an.name), musicbrainz_collate(release_name.name))
+  row_number() OVER (ORDER BY musicbrainz_collate(ac.name), musicbrainz_collate(release.name))
 FROM (
    SELECT DISTINCT release.* FROM release
    JOIN medium ON medium.release = release.id
    LEFT JOIN medium_format ON medium.format = medium_format.id
    JOIN track ON track.medium = medium.id
-   JOIN track_name ON track_name.id = track.name
    WHERE (medium_format.has_discids = TRUE OR medium_format.has_discids IS NULL)
      AND track.position = medium.track_count
-     AND track_name.name ~* E'([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)'
+     AND track.name ~* E'([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)'
      AND NOT EXISTS (
        SELECT TRUE FROM medium_cdtoc WHERE medium_cdtoc.medium = medium.id
        LIMIT 1
      )
 ) release
-JOIN release_name ON release_name.id = release.name
 JOIN artist_credit ac ON release.artist_credit = ac.id
-JOIN artist_name an ON ac.name = an.id
 EOSQL
 }
 
