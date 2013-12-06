@@ -109,7 +109,7 @@ sub make_where_clause
 
 sub unpack_data
 {
-    my $packed = $_[0];
+    my ($packed, $seqid) = @_;
     my %answer;
 
     while (length($packed))
