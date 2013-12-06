@@ -1,13 +1,13 @@
 # 
 # Translators:
 # lorenzpressler <email address hidden>, 2012
+# nikki, 2013
 # Shepard, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 19:29+0000\n"
-"Last-Translator: Shepard\n"
+"PO-Revision-Date: 2013-12-06 14:05+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -281,7 +281,7 @@ msgstr "Bandura"
 
 #: DB:link_attribute_type/name:693
 msgid "bangu"
-msgstr ""
+msgstr "Bangu"
 
 #: DB:link_attribute_type/name:291
 msgid "banhu / banghu"
@@ -313,7 +313,7 @@ msgstr "Baritonsaxophon"
 
 #: DB:link_attribute_type/name:633
 msgid "baroque trumpet"
-msgstr ""
+msgstr "Barocktrompete"
 
 #: DB:link_attribute_type/name:699
 msgid "barrel drum"
@@ -409,7 +409,7 @@ msgstr "Berimbau"
 
 #: DB:link_attribute_type/name:460
 msgid "bin-sasara"
-msgstr ""
+msgstr "Bin-Sasara"
 
 #: DB:link_attribute_type/name:94
 msgid "biwa"
@@ -501,7 +501,7 @@ msgstr "Kastagnetten"
 
 #: DB:link_attribute_type/name:636
 msgid "cavaquinho"
-msgstr ""
+msgstr "Cavaquinho"
 
 #: DB:link_attribute_type/name:599
 msgid "caxixi"
@@ -557,7 +557,7 @@ msgstr "Cister"
 
 #: DB:link_attribute_type/name:288
 msgid "cizhonghu"
-msgstr ""
+msgstr "Cizhonghu"
 
 #: DB:link_attribute_type/name:23
 msgid "clarinet"
@@ -673,7 +673,7 @@ msgstr "Cümbüş"
 
 #: DB:link_attribute_type/name:602
 msgid "daegeum"
-msgstr ""
+msgstr "Daegeum"
 
 #: DB:link_attribute_type/name:403
 msgid "daf"
@@ -685,7 +685,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:663
 msgid "daluo"
-msgstr ""
+msgstr "Daluo"
 
 #: DB:link_attribute_type/name:419
 msgid "darbuka"
@@ -693,7 +693,7 @@ msgstr "Darbuka"
 
 #: DB:link_attribute_type/name:658
 msgid "daruan"
-msgstr ""
+msgstr "Daruan"
 
 #: DB:link_attribute_type/name:496
 msgid "davul"
@@ -729,7 +729,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:290
 msgid "diyingehu"
-msgstr ""
+msgstr "Diyingehu"
 
 #: DB:link_attribute_type/name:553
 msgid "dizi"
@@ -793,7 +793,7 @@ msgstr "Dulzian"
 
 #: DB:link_attribute_type/name:740
 msgid "duxianqin"
-msgstr ""
+msgstr "Duxianqin"
 
 #: DB:link_attribute_type/name:404
 msgid "ebow"
@@ -969,7 +969,7 @@ msgstr "Gankogui"
 
 #: DB:link_attribute_type/name:286
 msgid "gaohu"
-msgstr ""
+msgstr "Gaohu"
 
 #: DB:link_attribute_type/name:361
 msgid "garklein recorder"
@@ -981,11 +981,11 @@ msgstr "Kayagûm"
 
 #: DB:link_attribute_type/name:289
 msgid "gehu"
-msgstr ""
+msgstr "Gehu"
 
 #: DB:link_attribute_type/name:100
 msgid "geomungo"
-msgstr ""
+msgstr "Geomungo"
 
 #: DB:link_attribute_type/name:436
 msgid "german harp"
@@ -1057,7 +1057,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:544
 msgid "guzheng"
-msgstr ""
+msgstr "Guzheng"
 
 #: DB:link_attribute_type/name:141
 msgid "güiro"
@@ -1133,11 +1133,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:659
 msgid "hulusi"
-msgstr ""
+msgstr "Hulusi"
 
 #: DB:link_attribute_type/name:283
 msgid "huqin"
-msgstr ""
+msgstr "Huqin"
 
 #: DB:link_attribute_type/name:103
 msgid "hurdy gurdy"
@@ -1161,11 +1161,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:661
 msgid "jing'erhu"
-msgstr ""
+msgstr "Jing'erhu"
 
 #: DB:link_attribute_type/name:284
 msgid "jinghu"
-msgstr ""
+msgstr "Jinghu"
 
 #: DB:link_attribute_type/name:615
 msgid "jug"
@@ -1253,7 +1253,7 @@ msgstr "Kithara"
 
 #: DB:link_attribute_type/name:608
 msgid "kkwaenggwari"
-msgstr ""
+msgstr "Kkwaenggwari"
 
 #: DB:link_attribute_type/name:386
 msgid "koke"
@@ -1261,7 +1261,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:293
 msgid "kokyu"
-msgstr ""
+msgstr "Kokyū"
 
 #: DB:link_attribute_type/name:655
 msgid "komuz"
@@ -1281,7 +1281,7 @@ msgstr "Koto"
 
 #: DB:link_attribute_type/name:669
 msgid "kotsuzumi"
-msgstr ""
+msgstr "Kotsuzumi"
 
 #: DB:link_attribute_type/name:637
 msgid "kudüm"
@@ -1429,7 +1429,7 @@ msgstr "Nai"
 
 #: DB:link_attribute_type/name:743
 msgid "naobo"
-msgstr ""
+msgstr "Naobo"
 
 #: DB:link_attribute_type/name:49
 msgid "natural brass instruments"
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:603
 msgid "nohkan"
-msgstr ""
+msgstr "Nohkan"
 
 #: DB:link_attribute_type/name:270
 msgid "nose flute"
@@ -1661,7 +1661,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:657
 msgid "ruan"
-msgstr ""
+msgstr "Ruan"
 
 #: DB:link_attribute_type/name:611
 msgid "rudra veena"
@@ -1681,7 +1681,7 @@ msgstr "Sampler"
 
 #: DB:link_attribute_type/name:315
 msgid "sanshin"
-msgstr ""
+msgstr "Sanshin"
 
 #: DB:link_attribute_type/name:358
 msgid "santoor"
@@ -1693,7 +1693,7 @@ msgstr "Santur (Persien)"
 
 #: DB:link_attribute_type/name:314
 msgid "sanxian"
-msgstr ""
+msgstr "Sanxian"
 
 #: DB:link_attribute_type/name:418
 msgid "sapek clappers"
@@ -1765,7 +1765,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:564
 msgid "shinobue"
-msgstr ""
+msgstr "Shinobue"
 
 #: DB:link_attribute_type/name:262
 msgid "sho"
@@ -1889,7 +1889,7 @@ msgstr "Suikinkutsu"
 
 #: DB:link_attribute_type/name:660
 msgid "suona"
-msgstr ""
+msgstr "Suona"
 
 #: DB:link_attribute_type/name:459
 msgid "surdo"
@@ -1937,7 +1937,7 @@ msgstr "Taiko"
 
 #: DB:link_attribute_type/name:667
 msgid "taishogoto"
-msgstr ""
+msgstr "Taishōgoto"
 
 #: DB:link_attribute_type/name:656
 msgid "talharpa / hiiu kannel"
@@ -2069,7 +2069,7 @@ msgstr "Tom Tom"
 
 #: DB:link_attribute_type/name:687
 msgid "tonkori"
-msgstr ""
+msgstr "Tonkori"
 
 #: DB:link_attribute_type/name:328
 msgid "toy piano"
@@ -2305,7 +2305,7 @@ msgstr "Xiao"
 
 #: DB:link_attribute_type/name:662
 msgid "xiaoluo"
-msgstr ""
+msgstr "Xiaoluo"
 
 #: DB:link_attribute_type/name:220
 msgid "xylophone"
@@ -2313,7 +2313,7 @@ msgstr "Xylophon"
 
 #: DB:link_attribute_type/name:324
 msgid "yangqin"
-msgstr ""
+msgstr "Yangqin"
 
 #: DB:link_attribute_type/name:676
 msgid "yatga"
@@ -2325,11 +2325,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:292
 msgid "yehu"
-msgstr ""
+msgstr "Yehu"
 
 #: DB:link_attribute_type/name:310
 msgid "yueqin"
-msgstr ""
+msgstr "Yueqin"
 
 #: DB:link_attribute_type/name:405
 msgid "zarb"
@@ -2337,11 +2337,11 @@ msgstr "Tombak"
 
 #: DB:link_attribute_type/name:287
 msgid "zhonghu"
-msgstr ""
+msgstr "Zhonghu"
 
 #: DB:link_attribute_type/name:311
 msgid "zhongruan"
-msgstr ""
+msgstr "Zhongruan"
 
 #: DB:link_attribute_type/name:548
 msgid "zill"
@@ -2401,7 +2401,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:670
 msgid "ōtsuzumi"
-msgstr ""
+msgstr "Ozutsumi"
 
 #: DB:link_attribute_type/name:701
 msgid "żafżafa / rabbaba"
@@ -2409,7 +2409,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:702
 msgid "żaqq"
-msgstr ""
+msgstr "Żaqq"
 
 #: DB:link_attribute_type/name:704
 msgid "żummara"
