@@ -18,7 +18,7 @@
 [%- WRAPPER "artist/layout.tt" page='index' -%]
     [%- INCLUDE 'artist/annotation.tt' summary=1 -%]
 
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This artist has no relationships, recordings, releases or
                 release groups, and will be removed automatically in the next
