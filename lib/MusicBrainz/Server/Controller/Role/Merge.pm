@@ -127,7 +127,12 @@ role {
             form => $params->merge_form,
             $self->_merge_form_arguments($c, @entities)
         );
-        if ($self->_validate_merge($c, $form, $merger)) {
+        if ($self->_validate_merge($c, $form)) {
+            # Ensure that we use the entities that appeared on the page and the right type,
+            # in case the merger has changed since that page loaded (MBS-7057)
+            @entities = values %{
+                $c->model($self->{model})->get_by_ids(map { $_->value } $form->field('merging')->fields)
+            };
             $self->_merge_submit($c, $form, \@entities);
         }
     };
