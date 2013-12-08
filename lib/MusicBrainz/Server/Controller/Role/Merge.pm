@@ -106,6 +106,8 @@ role {
 
     method _merge_form_arguments => sub { };
 
+    method _merge_load_entities => sub { };
+
     method _merge_confirm => sub {
         my ($self, $c) = @_;
         $c->stash(
@@ -131,6 +133,8 @@ role {
                 $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields)
             };
         }
+
+        $self->_merge_load_entities($c, @entities);
 
         my $form = $c->form(
             form => $params->merge_form,

@@ -570,15 +570,14 @@ around _merge_submit => sub {
     }
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    my @to_merge = @{ $c->stash->{to_merge} };
-    $c->model('Release')->load_release_events(@to_merge);
-    $c->model('Medium')->load_for_releases(@to_merge);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
-    $c->model('ReleaseLabel')->load(@to_merge);
-    $c->model('Label')->load(map { $_->all_labels } @to_merge);
+    my ($self, $c, @releases) = @_;
+    $c->model('Release')->load_release_events(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
