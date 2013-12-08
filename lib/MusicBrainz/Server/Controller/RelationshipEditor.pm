@@ -226,7 +226,7 @@ sub add_relationship {
             attributes => \@attributes,
             begin_date => $rel->{period}{begin_date},
             end_date => $rel->{period}{end_date},
-            ended => $rel->{period}{ended},
+            ended => $rel->{period}{ended} // 0,
     ));
 }
 
@@ -248,7 +248,7 @@ sub edit_relationship {
             attributes => \@attributes,
             entity0_id => $c->stash->{loaded_entities}->{$entity0->{gid}}->id,
             entity1_id => $c->stash->{loaded_entities}->{$entity1->{gid}}->id,
-            ended => $rel->{period}{ended},
+            ended => $rel->{period}{ended} // 0,
     ));
 }
 
