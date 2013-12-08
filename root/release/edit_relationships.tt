@@ -407,11 +407,11 @@
     </div>
 
     <script type="text/javascript">//<![CDATA[
-      (function () {
+      $(function () {
         var RE = MB.RelationshipEditor;
         RE.Util.init([% type_info %], [% attr_info %]);
         RE.UI.init("[% release.gid %]", "[% release.release_group.gid %]");
-      }());
+      });
     //]]></script>
 
 [%- END -%]
