@@ -154,4 +154,38 @@ test 'Can remove relationship' => sub {
     isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Delete');
 };
 
+
+test 'MBS-7058: Can submit a relationship without "ended" fields' => sub {
+    my $test = shift;
+    my ($c, $mech) = ($test->c, $test->mech);
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+
+    $mech->get_ok("/release/f34c079d-374e-4436-9448-da92dedef3ce/edit-relationships");
+
+    my ($edit) = capture_edits {
+        $mech->post("/relationship-editor", {
+                'rel-editor.rels.0.link_type' => '1',
+                'rel-editor.rels.0.action' => 'add',
+                'rel-editor.rels.0.entity.0.gid' => '745c079d-374e-4436-9448-da92dedef3ce',
+                'rel-editor.rels.0.entity.0.type' => 'artist',
+                'rel-editor.rels.0.entity.1.gid' => '54b9d183-7dab-42ba-94a3-7388a66604b8',
+                'rel-editor.rels.0.entity.1.type' => 'recording',
+            }
+        );
+    } $c;
+
+    ok(defined $edit);
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Relationship::Create');
+    is($edit->data->{entity0}{id}, 3);
+    is($edit->data->{entity1}{id}, 2);
+    is($edit->data->{type0}, 'artist');
+    is($edit->data->{type1}, 'recording');
+    is($edit->data->{link_type}{id}, 1);
+    is($edit->data->{ended}, 0);
+};
+
 1;
