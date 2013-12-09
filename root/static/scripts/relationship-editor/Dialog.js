@@ -124,7 +124,6 @@ ko.bindingHandlers.linkType = (function() {
                 var doc = getOptions(type, backward).cloneNode(true);
 
                 $(element).empty().append(doc).val(relationship.link_type());
-                Dialog.resize();
 
                 previousType = type;
                 previousDirection = backward;
@@ -304,11 +303,46 @@ var BaseDialog = (function() {
         }
     }
 
-    return function(options) {
-        options.$dialog
-            .on("keydown", _.bind(dialogKeydown, options))
+    return function ($dialog) {
+        this.widget = $dialog
+            .dialog({
+                dialogClass: "rel-editor-dialog",
+                draggable: false,
+                resizable: false,
+                autoOpen: false,
+                width: "auto",
+                maxWidth: 500
+            })
+            .data("ui-dialog");
+
+        this.widget.uiDialog.find(".ui-dialog-titlebar").remove();
+
+        this.widget.element
+            .on("keydown", _.bind(dialogKeydown, this))
             .on("change", "select", selectChange)
-            .find("button.negative").on("keydown", _.bind(cancel, options));
+            .find("button.negative").on("keydown", _.bind(cancel, this));
+
+        function setPosition(positionBy) {
+            this.widget._setOption("position", {
+                my: "top center", at: "center", of: positionBy
+            });
+        }
+
+        this.openWidget = function (positionBy) {
+            var widget = this.widget;
+
+            setPosition.call(this, positionBy);
+            widget.open();
+
+            if (widget.uiDialog.width() > widget.options.maxWidth) {
+                widget.uiDialog.width(widget.options.maxWidth);
+            }
+
+            // Call setPosition twice to prevent jumping in Opera
+            setPosition.call(this, positionBy);
+        };
+
+        ko.applyBindings(this, this.widget.element[0]);
     };
 }());
 
@@ -368,20 +402,9 @@ var Dialog = UI.Dialog = {
             Dialog.backward(backward);
         });
 
-        this.$overlay = $("#overlay");
-        this.$dialog = $("#dialog");
-
-        BaseDialog({
-            $dialog: this.$dialog,
-            canSubmit: function() {
-                return !self.relationship.peek().hasErrors.peek();
-            },
-            accept: function() {self.instance.peek().accept()},
-            hide: function() {self.instance.peek().hide()}
-        });
-
         Dialog.instance = ko.observable(this);
-        ko.applyBindings(this, this.$dialog[0]);
+
+        BaseDialog.call(this, $("#dialog"));
     },
 
     show: function(options) {
@@ -407,26 +430,21 @@ var Dialog = UI.Dialog = {
                     event.stopPropagation();
             });
 
-        dlg.$overlay.show();
-        // prevents the page from jumping. these will be adjusted in positionDialog.
-        dlg.$dialog.css({top: $w.scrollTop(), left: $w.scrollLeft()}).show();
+        this.openWidget(options.positionBy);
 
-        positionDialog(dlg.$dialog, options.posx, options.posy);
         $("#link-type").focus();
     },
 
-    hide: function(callback) {
+    hide: function () {
         var dlg = Dialog;
+        var instance = dlg.instance.peek();
 
         WorkDialog.hide();
-        dlg.$dialog.hide();
-        dlg.$overlay.hide();
+        dlg.widget.close();
         delete dlg.targets;
 
         dlg.relationship().validateEntities = false;
-
-        if ($.isFunction(callback)) callback.call(dlg);
-
+        instance.hide.apply(instance, arguments);
         dlg.relationship().validateEntities = true;
 
         dlg.showAutocomplete(false);
@@ -434,17 +452,16 @@ var Dialog = UI.Dialog = {
         dlg.relationship(dlg.emptyRelationship);
     },
 
-    accept: function() {},
+    accept: function() {
+        Dialog.instance.peek().accept();
+    },
+
+    canSubmit: function() {
+        return !Dialog.relationship.peek().hasErrors.peek();
+    },
 
     createWork: function(data, event) {
-
-        WorkDialog.show(function(work) {
-            var target = MB.entity(work, "work");
-            Dialog.autocomplete.currentSelection(target);
-            Dialog.targetField.peek()(target);
-
-        }, event.pageX, event.pageY);
-
+        WorkDialog.show();
         WorkDialog.name(Dialog.source.name);
         $("#work-name").focus();
     },
@@ -470,61 +487,13 @@ var Dialog = UI.Dialog = {
         relationship.entity[0](entity1);
         relationship.validateEntities = true;
         relationship.entity[1](entity0);
-        this.resize();
     },
 
     toggleLinkTypeHelp: function() {
         this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
         $("#link-type").parent().find("div.ar-descr a").attr("target", "_blank");
-    },
-
-    resize: function() {
-        // note: this is called by the afterRender binding.
-        resizeDialog(Dialog.$dialog);
     }
 };
-
-
-function resizeDialog($dialog) {
-    // we want the dialog's size to "fit" the contents. the ar-descrs stretch
-    // the dialog 100%, making this impossible; hide them first.
-    var $d = $dialog, $hidden = $();
-
-    $.each($d.find("div.ar-descr, p.msg, div.error"), function(i, div) {
-        var $div = $(div);
-        if ($div.is(":visible")) $hidden = $hidden.add($div.hide());
-    });
-
-    $d.css("width", "").css("width", $d[0].offsetWidth + 2);
-    $hidden.show();
-}
-
-
-function positionDialog($dialog, posx, posy) {
-    var $d = $dialog;
-    if (!$d.is(":visible")) return;
-
-    resizeDialog($d);
-
-    var offx = $w.scrollLeft(), offy = $w.scrollTop(),
-        wwidth = $w.width(), wheight = $w.height(),
-        dwidth = $d[0].offsetWidth, dheight = $d[0].offsetHeight,
-        centerx = offx + (wwidth / 2), centery = offy + (wheight / 2);
-
-    if (!posx || !posy || wwidth < dwidth) {
-        $d.css({top: Math.max(offy, centery - dheight), left: centerx - (dwidth / 2)});
-
-    } else {
-        $d.css("left", posx <= centerx ? posx : posx - dwidth);
-
-        var dheight2 = dheight / 2, topclear = posy - dheight2 >= offy,
-            botclear = posy + dheight2 <= wheight + offy;
-
-        (topclear && botclear)
-            ? $d.css("top", posy - dheight2)
-            : $d.css("top", topclear ? (wheight + offy - dheight) : offy);
-    }
-}
 
 
 Dialog.attrs = (function() {
@@ -574,14 +543,14 @@ UI.AddDialog.accept = function() {
     if (!relationship.hasErrors()) {
         if (!Dialog.source.mergeRelationship(relationship))
             relationship.show();
-        Dialog.hide();
+        Dialog.hide(false);
     }
 };
 
 UI.AddDialog.hide = function(cancel) {
-    Dialog.hide(function() {
+    if (cancel !== false) {
         this.relationship.peek().remove();
-    });
+    }
 };
 
 
@@ -598,11 +567,9 @@ UI.EditDialog.show = function(options) {
 };
 
 UI.EditDialog.hide = function(cancel) {
-    Dialog.hide(function() {
-        if (cancel !== false)
-            this.relationship.peek().fromJS(this.originalRelationship);
-        delete Dialog.originalRelationship;
-    });
+    if (cancel !== false)
+        this.relationship.peek().fromJS(this.originalRelationship);
+    delete Dialog.originalRelationship;
 };
 
 UI.EditDialog.accept = function() {
@@ -610,7 +577,7 @@ UI.EditDialog.accept = function() {
 
     if (!relationship.hasErrors()) {
         delete Dialog.originalRelationship;
-        UI.EditDialog.hide(false);
+        Dialog.hide(false);
     }
 };
 
@@ -648,7 +615,7 @@ UI.BatchRelationshipDialog.accept = function(callback) {
         }
     });
 
-    UI.AddDialog.hide();
+    Dialog.hide(false);
 };
 
 
@@ -703,10 +670,8 @@ UI.BatchCreateWorksDialog.accept = function() {
 };
 
 UI.BatchCreateWorksDialog.hide = function() {
-    Dialog.hide(function() {
-        this.batchWorksError(false);
-        this.relationship.peek().remove();
-    });
+    this.batchWorksError(false);
+    this.relationship.peek().remove();
 };
 
 
@@ -715,7 +680,6 @@ var WorkDialog = UI.WorkDialog = {
     showName: ko.observable(true),
     loading: ko.observable(false),
     error: ko.observable(false),
-    callback: ko.observable(null),
 
     name: ko.observable(""),
     comment: ko.observable(""),
@@ -724,18 +688,7 @@ var WorkDialog = UI.WorkDialog = {
     editNote: ko.observable(""),
 
     init: function() {
-        var self = this, $dialog = $("#new-work-dialog");
-
-        BaseDialog({
-            $dialog: $dialog,
-            canSubmit: function() {
-                return self.name.peek() && !self.loading.peek();
-            },
-            accept: this.accept,
-            hide: this.hide
-        });
-
-        ko.applyBindings(this, $dialog[0]);
+        BaseDialog.call(this, $("#new-work-dialog"));
     },
 
     data: function() {
@@ -749,20 +702,19 @@ var WorkDialog = UI.WorkDialog = {
         };
     },
 
-    show: function(callback, posx, posy) {
+    show: function () {
         var self = WorkDialog;
 
         self.showName(true);
         self.loading(false);
         self.error(false);
-        self.callback(callback);
 
         self.name("");
         self.comment("");
         self.type("");
         self.language("");
 
-        positionDialog($("#new-work-dialog").show(), posx, posy);
+        self.openWidget($("#create-work-btn"));
     },
 
     accept: function() {
@@ -775,8 +727,7 @@ var WorkDialog = UI.WorkDialog = {
     },
 
     hide: function() {
-        WorkDialog.callback(null);
-        $("#new-work-dialog").hide();
+        this.widget.close();
         WorkDialog.type("");
         WorkDialog.language("");
 
@@ -785,9 +736,17 @@ var WorkDialog = UI.WorkDialog = {
         });
     },
 
+    canSubmit: function() {
+        return this.name.peek() && !this.loading.peek();
+    },
+
     successCallback: function(data) {
+        var target = MB.entity(data.works[0], "work");
+
+        Dialog.autocomplete.currentSelection(target);
+        Dialog.targetField.peek()(target);
+
         WorkDialog.loading(false);
-        WorkDialog.callback()(data.works[0]);
         WorkDialog.hide();
     },
 

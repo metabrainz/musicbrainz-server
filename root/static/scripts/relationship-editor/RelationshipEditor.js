@@ -370,8 +370,7 @@ function initButtons() {
         UI.AddDialog.show({
             entity: [MB.entity({type: "artist"}), source],
             source: source,
-            posx: event.pageX,
-            posy: event.pageY
+            positionBy: this
         });
     });
 
@@ -407,8 +406,7 @@ function initButtons() {
             UI.EditDialog.show({
                 relationship: relationship,
                 source: source,
-                posx: event.pageX,
-                posy: event.pageY
+                positionBy: this
             });
     });
 }

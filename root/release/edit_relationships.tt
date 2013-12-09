@@ -10,7 +10,6 @@
 [% END %]
 
 [%- BLOCK invisible_content -%]
-    <div id="overlay" class="rel-editor"></div>
     <div id="dialog" class="rel-editor-dialog">
 
       <!-- ko if: relationship() && relationship().edits_pending -->
@@ -58,7 +57,7 @@
           <td class="section">[% l('Type') %]:</td>
           <td>
             <select id="link-type" data-bind="linkType: relationship, value: relationship().link_type"></select>
-            <!-- ko template: {"if": sourceField()().type == targetField()().type, afterRender: resize} -->
+            <!-- ko if: sourceField()().type === targetField()().type -->
             <button data-bind="click: changeDirection, text: MB.text.ChangeDirection, disable: relationship().hasErrors"></button>
             <!-- /ko -->
             (<a href="#" data-bind="click: toggleLinkTypeHelp">[% l('help') %]</a>)
@@ -101,7 +100,7 @@
           <td id="batch-work-lang"></td>
         </tr>
         <!-- /ko -->
-        <!-- ko template: {"if": attrs().length > 0, afterRender: resize} -->
+        <!-- ko if: attrs().length > 0 -->
         <tr>
           <td class="section">
             [% l('Attributes:') %]<br/>
@@ -166,9 +165,9 @@
       </table>
 
       <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
-        <button class="negative" data-bind="click: instance().hide">[% l('Cancel') %]</button>
+        <button class="negative" data-bind="click: hide">[% l('Cancel') %]</button>
         <div class="buttons-right" style="float: right; text-align: right;">
-          <button class="positive" data-bind="click: instance().accept,
+          <button class="positive" data-bind="click: accept,
             disable: relationship().hasErrors() || loading()">[% l('Done') %]</button>
         </div>
       </div>
