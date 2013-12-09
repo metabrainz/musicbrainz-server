@@ -19,7 +19,7 @@ $(function () {
             return false;
         };
 
-        var $button = $("<a>").attr({ href: "#", class: "annotation-toggle" })
+        var $button = $("<a>").attr("href", "#").addClass("annotation-toggle")
                 .click(toggleAnnotation);
 
         toggleAnnotation();
