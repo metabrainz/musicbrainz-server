@@ -1,16 +1,5 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('edit.js.manifest') %]
-
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-
-        MB.Control.RelationshipEdit ();
-
-     });
-   //]]></script>
-[% END %]
-
 [%- WRAPPER 'layout.tt' title=l('Edit Relationship') full_width=1 extra_js='ar.js' include_js_text_strings=1 -%]
+[% script_manifest('edit.js.manifest') %]
 
 <h1>[% l('Edit Relationship') %]</h1>
 
@@ -148,5 +137,9 @@ var typeInfo = [% type_info %];
 [% enter_edit() %]
 
 </form>
+
+<script type="text/javascript">//<![CDATA[
+  MB.Control.RelationshipEdit();
+//]]></script>
 
 [%- END -%]
