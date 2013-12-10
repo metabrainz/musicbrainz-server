@@ -131,7 +131,7 @@
                             data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
                       <!-- /ko -->
 
-                      <!-- ko if: userRating === null -->
+                      <!-- ko if: userRating === null && rating !== null -->
                       <span class="current-rating"
                             data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
                       <!-- /ko -->
