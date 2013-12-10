@@ -20,7 +20,7 @@
 
 
 MB.Control.ReleaseGroup = function (action, parent) {
-    var self = MB.Object();
+    var self = {};
 
     self.parent = parent;
     self.$span = $('span.release-group.autocomplete');
@@ -91,7 +91,7 @@ MB.Control.ReleaseGroup = function (action, parent) {
  * MB.Control.ReleaseLabel keeps track of the label/catno inputs.
  */
 MB.Control.ReleaseLabel = function($row, parent, labelno) {
-    var self = MB.Object();
+    var self = {};
 
     self.$row = $row;
     self.parent = parent;
@@ -208,7 +208,7 @@ MB.Control.ReleaseLabel = function($row, parent, labelno) {
 
 
 MB.Control.ReleaseBarcode = function() {
-    var self = MB.Object();
+    var self = {};
 
     self.$input = $('#id-barcode');
     self.$message = $('p.barcode-message');
@@ -335,7 +335,7 @@ MB.Control.ReleaseBarcode = function() {
 
 
 MB.Control.ReleaseDate = function (inputs, bubble_collection) {
-    var self = MB.Object ();
+    var self = {};
 
     self.bubbles = bubble_collection;
 
@@ -373,7 +373,7 @@ MB.Control.ReleaseDate = function (inputs, bubble_collection) {
 };
 
 MB.Control.ReleaseStatus = function (typeInput, bubble_collection) {
-    var self = MB.Object ();
+    var self = {};
 
     self.input = $(typeInput);
     self.bubble = bubble_collection.add(self.input, $('div.status.bubble'));
@@ -386,7 +386,7 @@ MB.Control.ReleaseStatus = function (typeInput, bubble_collection) {
 };
 
 MB.Control.ReleaseInformation = function(action) {
-    var self = MB.Object();
+    var self = {};
 
     self.bubbles = MB.Control.BubbleCollection ();
 
@@ -498,7 +498,7 @@ MB.Control.ReleaseInformation = function(action) {
  * MB.Control.ReleaseEvent keeps track of the country/date inputs.
  */
 MB.Control.ReleaseEvent = function($row, parent, eventno, bubble_collection) {
-    var self = MB.Object();
+    var self = {};
 
     self.$row = $row;
     self.parent = parent;

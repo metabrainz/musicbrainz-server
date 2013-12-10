@@ -1,14 +1,3 @@
-[% BLOCK layout_head %]
-    [% script_manifest('relationship-editor.js.manifest') %]
-    <script type="text/javascript">//<![CDATA[
-    $(function() {
-        var RE = MB.RelationshipEditor;
-        RE.Util.init([% type_info %], [% attr_info %]);
-        RE.UI.init("[% release.gid %]", "[% release.release_group.gid %]");
-    });
-    //]]></script>
-[% END %]
-
 [%- BLOCK invisible_content -%]
     <div id="dialog" class="rel-editor-dialog">
 
@@ -314,6 +303,8 @@
 [%- END -%]
 
 [%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) -%]
+    [% script_manifest('relationship-editor.js.manifest') %]
+
     <div id="content" class="rel-editor">
       [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
 
@@ -413,4 +404,13 @@
         </div>
       </form>
     </div>
+
+    <script type="text/javascript">//<![CDATA[
+      $(function () {
+        var RE = MB.RelationshipEditor;
+        RE.Util.init([% type_info %], [% attr_info %]);
+        RE.UI.init("[% release.gid %]", "[% release.release_group.gid %]");
+      });
+    //]]></script>
+
 [%- END -%]

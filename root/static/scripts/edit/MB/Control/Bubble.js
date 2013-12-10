@@ -62,7 +62,7 @@ jQuery.fn.borderRadius = function (radius) {
    on the Release Editor.
 */
 MB.Control.BubbleBase = function (parent, $target, $content, offset) {
-    var self = MB.Object ();
+    var self = {};
 
     self.parent = parent;
     self.offset = offset ? offset : 20;
@@ -355,7 +355,7 @@ MB.Control.BubbleRow = function (parent, $target, $acrow, offset) {
    hide any other active bubbles when it is to be shown.
 */
 MB.Control.BubbleCollection = function ($targets, $contents) {
-    var self = MB.Object ();
+    var self = {};
 
     self.bubbles = [];
 

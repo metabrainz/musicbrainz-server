@@ -1,8 +1,5 @@
-[%- BLOCK layout_head -%]
-  [%- script_manifest('edit.js.manifest') -%]
-[%- END -%]
-
 [%- WRAPPER 'release_group/layout.tt' title=l('Set Release Group Cover Art') full_width=1 page='edit' -%]
+[%- script_manifest('edit.js.manifest') -%]
 
 <h2>[%- l('Set cover art') -%]</h2>
 
@@ -39,14 +36,6 @@
         </div>
       [% END %]
       </div>
-      <script type="text/javascript">
-         $('button.set-cover-art').bind ('click.mb', function (event) {
-             event.preventDefault ();
-             $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
-             $('div.editimage').removeClass ("selected");
-             $(this).closest ('div.editimage').addClass ("selected");
-         });
-      </script>
     </div>
 
     <div style="clear: left;"> </div>
@@ -63,5 +52,14 @@
     [%- l('No releases have cover art, cannot set cover art.') -%]
   </p>
 [%- END -%]
+
+<script type="text/javascript">//<![CDATA[
+  $('button.set-cover-art').bind ('click.mb', function (event) {
+    event.preventDefault ();
+    $('#id-set-cover-art\\.release').val ($(this).data ("gid"));
+    $('div.editimage').removeClass ("selected");
+    $(this).closest ('div.editimage').addClass ("selected");
+  });
+//]]></script>
 
 [%- END -%]

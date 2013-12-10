@@ -22,7 +22,7 @@ MB.Form = (MB.Form) ? MB.Form : {};
 
 MB.Form.TextList = function (input) {
     var template = input + '-template';
-    var self = MB.Object ();
+    var self = {};
     var $template = $('.' + template.replace (/\./g, '\\.'));
     var counter = 0;
 

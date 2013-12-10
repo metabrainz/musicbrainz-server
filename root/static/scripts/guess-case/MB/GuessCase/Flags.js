@@ -25,7 +25,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
  * Holds the state of the current GC operation
  */
 MB.GuessCase.Flags = function () {
-    var self = MB.Object ();
+    var self = {};
 
     /**
      * Reset the context

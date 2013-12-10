@@ -1,12 +1,4 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
-[%- BLOCK layout_head -%]
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-    MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }}, sortList: [[4,2,3,1]] }
-    MB.Control.Tablesorter();
-});
-//]]></script>
-[%- END -%]
 
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
@@ -26,7 +18,7 @@ $(document).ready(function() {
 </tr>
 [%- END -%]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %]
 
 <p>[%- l('Last updated: {date}', { date => date_collected }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>
@@ -71,4 +63,10 @@ $(document).ready(function() {
   </table>
 </div>
 [%- PROCESS "statistics/macros-footer.tt" -%]
+
+<script type="text/javascript">//<![CDATA[
+  MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }}, sortList: [[4,2,3,1]] }
+  MB.Control.Tablesorter();
+//]]></script>
+
 [% END %]

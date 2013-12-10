@@ -19,7 +19,7 @@
 */
 
 MB.Control.ReleaseEdits = function ($edits) {
-    var self = MB.Object ();
+    var self = {};
 
     self.artistChanges = function (from, to) {
 

@@ -72,19 +72,14 @@ sub related_recordings
 sub foreign_keys
 {
     my $self = shift;
-    my $fks = {
+
+    return {
         Release => {
-            $self->data->{new_entity}{id} => [
-              'ArtistCredit',
-              'ReleaseLabel'
-            ],
-            map {
-                $_->{id} => [ 'ArtistCredit' ]
-            } @{ $self->data->{old_entities} }
+            map { $_ => [ 'ArtistCredit', 'ReleaseLabel' ] }
+                $self->data->{new_entity}{id},
+                (map { $_->{id} } @{ $self->data->{old_entities} })
         }
     };
-
-    return $fks;
 }
 
 sub initialize {
