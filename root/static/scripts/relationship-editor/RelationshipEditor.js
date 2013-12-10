@@ -181,10 +181,6 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     UI.Dialog.init();
     UI.WorkDialog.init();
 
-    $("#overlay").on("click", function() {
-        UI.Dialog.instance().hide();
-    });
-
     $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering
     $("<img/>").attr("src", "../../../static/images/icons/add.png");
