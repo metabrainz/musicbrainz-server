@@ -30,7 +30,6 @@ sub js_text_strings : Chained('js_text_setup') PathPart('text.js') {
 sub statistics_js_text_strings : Chained('js_text_setup') PathPart('statistics/view.js') {
     my ($self, $c) = @_;
     my @countries = $c->model('CountryArea')->get_all();
-    $c->model('Area')->load_codes(@countries);
     my %countries = map { $_->country_code => $_ } @countries;
     my %languages = map { $_->iso_code_3 => $_ }
         grep { defined $_->iso_code_3 } $c->model('Language')->get_all();
