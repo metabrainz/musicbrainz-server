@@ -141,7 +141,6 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
-            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             this.gid = data.gid;
 
             if (data.recording) {
