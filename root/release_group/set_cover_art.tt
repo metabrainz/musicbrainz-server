@@ -49,7 +49,7 @@
 
 [%- ELSE -%]
   <p>
-    [%- l('No releases have cover art, cannot set cover art.') -%]
+    [%- l('No releases have cover art marked as "Front", cannot set cover art.') -%]
   </p>
 [%- END -%]
 
