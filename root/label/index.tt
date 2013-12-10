@@ -16,7 +16,7 @@
 [%- WRAPPER "label/layout.tt" page='index' -%]
     [%- INCLUDE 'label/annotation.tt' summary=1 -%]
 
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This label has no relationships or releases and will be removed
                 automatically in the next few days. If this is not intended,
