@@ -22,7 +22,7 @@
 MB.Control._disabled_colour = '#AAA';
 
 MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
-    var self = MB.Object ();
+    var self = {};
 
     self.parent = parent;
     self.bubble_collection = self.parent.bubble_collection;
@@ -317,7 +317,7 @@ MB.Control.ReleaseTrack = function (parent, $track, $artistcredit) {
 };
 
 MB.Control.ReleaseDisc = function (parent, $disc) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$fieldset = $disc;
     self.parent = parent;
@@ -877,7 +877,7 @@ MB.Control.ReleaseDisc = function (parent, $disc) {
 };
 
 MB.Control.ReleaseTracklist = function () {
-    var self = MB.Object ();
+    var self = {};
 
     $('#release-editor table.tbl th input[type="checkbox"]').show();
 

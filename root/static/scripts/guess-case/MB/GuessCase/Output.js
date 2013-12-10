@@ -25,7 +25,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
  * Holds the output variables
  **/
 MB.GuessCase.Output = function () {
-    var self = MB.Object ();
+    var self = {};
 
     // ----------------------------------------------------------------------------
     // member variables

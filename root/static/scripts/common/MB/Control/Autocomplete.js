@@ -433,7 +433,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append (' <span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
+                      _.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
         return $("<li>").append (a).appendTo (ul);
@@ -450,7 +450,7 @@ MB.Control.autocomplete_formatters = {
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (item.comment) + ')</span>');
+                      _.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.video)
@@ -459,7 +459,7 @@ MB.Control.autocomplete_formatters = {
         }
 
         a.append ('<br /><span class="autocomplete-comment">by ' +
-                  MB.utility.escapeHTML (item.artist) + '</span>');
+                  _.escapeHTML (item.artist) + '</span>');
 
         if (item.appears_on && item.appears_on.hits > 0)
         {
@@ -474,7 +474,7 @@ MB.Control.autocomplete_formatters = {
             }
 
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
-                      MB.utility.escapeHTML (rgs.join (", ")) + '</span>');
+                      _.escapeHTML (rgs.join (", ")) + '</span>');
         }
         else {
             a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
@@ -483,7 +483,7 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs.length)
         {
             a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                      MB.utility.escapeHTML (item.isrcs.join (", ")) + '</span>');
+                      _.escapeHTML (item.isrcs.join (", ")) + '</span>');
         }
 
         return $("<li>").append (a).appendTo (ul);
@@ -501,12 +501,12 @@ MB.Control.autocomplete_formatters = {
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (item.comment) + ')</span>');
+                      _.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.typeName) {
             a.append ('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                    MB.utility.escapeHTML (item.artist) + '</span>');
+                    _.escapeHTML (item.artist) + '</span>');
         }
 
         return $("<li>").append (a).appendTo (ul);
@@ -534,7 +534,7 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append (' <span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
+                      _.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
         var artistRenderer = function(prefix, artists) {
@@ -548,7 +548,7 @@ MB.Control.autocomplete_formatters = {
 
                 a.append ('<br /><span class="autocomplete-comment">' +
                         prefix + ': ' +
-                        MB.utility.escapeHTML (toRender.join (", ")) + '</span>');
+                        _.escapeHTML (toRender.join (", ")) + '</span>');
             }
         };
 
@@ -564,15 +564,15 @@ MB.Control.autocomplete_formatters = {
         if (item.comment)
         {
             a.append ('<span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (item.comment) + ')</span>');
+                      _.escapeHTML (item.comment) + ')</span>');
         }
 
         if (item.typeName || item.parentCountry || item.parentSubdivision || item.parentCity) {
              var items = [];
-             if (item.typeName) items.push(MB.utility.escapeHTML(item.typeName));
-             if (item.parentCity) items.push(MB.utility.escapeHTML(item.parentCity));
-             if (item.parentSubdivision) items.push(MB.utility.escapeHTML(item.parentSubdivision));
-             if (item.parentCountry) items.push(MB.utility.escapeHTML(item.parentCountry));
+             if (item.typeName) items.push(_.escapeHTML(item.typeName));
+             if (item.parentCity) items.push(_.escapeHTML(item.parentCity));
+             if (item.parentSubdivision) items.push(_.escapeHTML(item.parentSubdivision));
+             if (item.parentCountry) items.push(_.escapeHTML(item.parentCountry));
              a.append ('<br /><span class="autocomplete-comment">' +
                        items.join(", ") +
                        '</span>');
@@ -599,14 +599,14 @@ MB.Control.autocomplete_formatters = {
         if (comment.length)
         {
             a.append (' <span class="autocomplete-comment">(' +
-                      MB.utility.escapeHTML (comment.join (", ")) + ')</span>');
+                      _.escapeHTML (comment.join (", ")) + ')</span>');
         }
 
         if (item.typeName || item.area) {
              a.append ('<br /><span class="autocomplete-comment">' +
-                       (item.typeName ? MB.utility.escapeHTML(item.typeName) : '') +
+                       (item.typeName ? _.escapeHTML(item.typeName) : '') +
                        (item.typeName && item.area ? ', ' : '') +
-                       (item.area ? MB.utility.escapeHTML(item.area) : '') +
+                       (item.area ? _.escapeHTML(item.area) : '') +
                        '</span>');
         };
 

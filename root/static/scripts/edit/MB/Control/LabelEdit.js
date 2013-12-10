@@ -1,5 +1,5 @@
 MB.Control.LabelEdit = function (bubbles) {
-    var self = MB.Object();
+    var self = {};
 
     var bubbles = MB.Control.BubbleCollection ();
     MB.Control.initialize_guess_case (bubbles, 'label', 'id-edit-label');

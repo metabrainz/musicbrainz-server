@@ -30,7 +30,7 @@ MB.GuessCase.Main = function () {
         return window.gc; /* yay. we're a singleton now. */
     }
 
-    var self = MB.Object ();
+    var self = {};
 
     self.modeName = $.cookie("guesscase_mode") || "English";
     self.mode = MB.GuessCase.Mode[self.modeName]();

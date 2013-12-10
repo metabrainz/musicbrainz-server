@@ -19,7 +19,7 @@
 */
 
 MB.Control.Area = function (span, bubbles) {
-    var self = MB.Object();
+    var self = {};
 
     self.$span = $(span);
     self.$name = self.$span.find('input.name');

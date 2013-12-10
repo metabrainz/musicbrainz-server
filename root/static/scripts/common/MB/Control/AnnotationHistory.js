@@ -19,7 +19,7 @@
 */
 
 MB.Control.AnnotationHistory = function (table) {
-    var self = MB.Object ();
+    var self = {};
 
     var $table = $(table);
 
