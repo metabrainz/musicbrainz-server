@@ -110,6 +110,7 @@
               </a>
             </span>
 
+            [% field_errors(r.form, field.field('name')) %]
            </div>
 
         [% END %]

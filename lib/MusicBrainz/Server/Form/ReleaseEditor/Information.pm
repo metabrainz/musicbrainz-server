@@ -12,12 +12,12 @@ has_field 'id'               => ( type => 'Integer' );
 
 # Release information
 has_field 'name'             => ( type => 'Text', required => 1, label => l('Title') );
-has_field 'release_group_id' => ( type => 'Hidden'    );
+has_field 'release_group_id' => ( type => 'Hidden', required => 1 );
 
 has_field 'release_group'    => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
 
-has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', allow_unlinked => 1 );
+has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit' );
 has_field 'primary_type_id'  => ( type => 'Select'    );
 has_field 'secondary_type_ids' => ( type => 'Select', multiple => 1 );
 has_field 'status_id'        => ( type => 'Select'    );
@@ -94,12 +94,26 @@ sub validate {
             if (++$witnessed_countries{$field->value} > 1);
     }
 
-    # A release_group_id *must* be present if we're editing an existing release.
-    $self->field('release_group.name')->add_error(
-        l('You must select an existing release group. If you wish to move this release,
-           use the "change release group" action from the sidebar.')
-    ) if (!$self->field('release_group_id')->value &&
-           $self->field('id')->value);
+    # Labels must be selected, unless the field is deleted or empty.
+    for my $label ($self->field('labels')->fields) {
+        my $label_id = $label->field('label_id')->value;
+
+        $label->field('name')->add_error(l('You must select an existing label.'))
+            unless (
+                $label_id || $label->field('deleted')->value ||
+                    !( $label_id || $label->field('catalog_number')->value )
+            );
+    }
+
+    # A release_group_id *must* be present.
+    if (!$self->field('release_group_id')->value) {
+        $self->field('release_group.name')->add_error(
+            $self->field('id')->value ?
+            l('You must select an existing release group. If you wish to move this release,
+               use the "change release group" action from the sidebar.') :
+            l('You must select an existing release group.')
+        );
+    }
 }
 
 after 'BUILD' => sub {
