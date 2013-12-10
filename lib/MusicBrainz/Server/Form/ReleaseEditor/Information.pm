@@ -17,7 +17,7 @@ has_field 'release_group_id' => ( type => 'Hidden'    );
 has_field 'release_group'    => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
 
-has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', required => 1, allow_unlinked => 1 );
+has_field 'artist_credit'    => ( type => '+MusicBrainz::Server::Form::Field::ArtistCredit', allow_unlinked => 1 );
 has_field 'primary_type_id'  => ( type => 'Select'    );
 has_field 'secondary_type_ids' => ( type => 'Select', multiple => 1 );
 has_field 'status_id'        => ( type => 'Select'    );

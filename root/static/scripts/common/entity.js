@@ -141,7 +141,6 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
-            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             this.gid = data.gid;
 
             if (data.recording) {
@@ -251,9 +250,6 @@
         },
 
         toJS: function () {
-            if (this.isEmpty()) {
-                return null;
-            }
             var artist = ko.unwrap(this.artist) || {};
 
             return {
@@ -316,7 +312,7 @@
         },
 
         toJS: function () {
-            return _.compact(_.invoke(ko.unwrap(this.names), "toJS"));
+            return _.invoke(ko.unwrap(this.names), "toJS");
         }
     });
 
