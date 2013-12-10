@@ -251,7 +251,7 @@ ko.bindingHandlers.autocomplete = (function() {
 
 
 var BaseDialog = (function() {
-    var inputRegex = /^input|button|select$/;
+    var inputRegex = /^input|select$/;
     var selectChanged = {};
 
     function dialogKeydown(event) {
