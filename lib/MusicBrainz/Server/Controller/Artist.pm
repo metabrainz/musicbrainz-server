@@ -485,15 +485,16 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 };
 
 around _validate_merge => sub {
-    my ($orig, $self, $c, $form, $merger) = @_;
-    return unless $self->$orig($c, $form, $merger);
+    my ($orig, $self, $c, $form) = @_;
+    return unless $self->$orig($c, $form);
     my $target = $form->field('target')->value;
-    if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
+    my @all = map { $_->value } $form->field('merging')->fields;
+    if (grep { is_special_artist($_) && $target != $_ } @all) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }
 
-    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+    if (any { $_ == $DARTIST_ID } @all) {
         $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }

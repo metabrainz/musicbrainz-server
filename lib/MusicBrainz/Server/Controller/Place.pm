@@ -113,11 +113,11 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     search_template       => 'place/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    $c->model('PlaceType')->load(@{ $c->stash->{to_merge} });
-    $c->model('Area')->load(@{ $c->stash->{to_merge} });
+    my ($self, $c, @places) = @_;
+    $c->model('PlaceType')->load(@places);
+    $c->model('Area')->load(@places);
 };
 
 =head1 LICENSE
