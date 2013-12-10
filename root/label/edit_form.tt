@@ -25,7 +25,7 @@
 
           [%- WRAPPER 'layout/guidelines.tt' -%]
               [%- create_guideline(l('You are required to enter a disambiguation comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
-              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish labels with the same name, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|documentation about disambiguation comments}, understood how we distinguish labels with the same name, and that you know what you are doing.', {doc_labelcomment => doc_link('Disambiguation_Comment')})) -%]
           [%- END -%]
 
           [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
