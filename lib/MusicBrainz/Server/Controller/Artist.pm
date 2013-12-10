@@ -164,18 +164,19 @@ sub show : PathPart('') Chained('load')
 
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
+        my $show_all = $c->req->query_params->{all};
         if ($show_va) {
             $method = 'find_by_track_artist';
         }
 
         $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift, filter => \%filter);
+                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
         if (!$show_va && !%filter && $pager->total_entries == 0) {
             $release_groups = $self->_load_paged($c, sub {
-                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1
@@ -190,6 +191,7 @@ sub show : PathPart('') Chained('load')
 
         $c->stash(
             show_va => $show_va,
+            show_all => $show_all,
             template => 'artist/index.tt'
         );
     }

@@ -177,11 +177,16 @@ sub find_artist_credits_by_artist
 
 sub find_by_artist
 {
-    my ($self, $artist_id, $limit, $offset, %args) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset, %args) = @_;
 
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "acn.artist = ?";
+    # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
+    unless ($show_all) {
+        push @$conditions, "(EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status IS NOT NULL))";
+       }
     push @$params, $artist_id;
 
     my $query = "SELECT DISTINCT " . $self->_columns . ",
@@ -226,7 +231,15 @@ sub find_by_artist
 
 sub find_by_track_artist
 {
-    my ($self, $artist_id, $limit, $offset) = @_;
+    my ($self, $artist_id, $show_all, $limit, $offset) = @_;
+
+    my $extra_conditions = '';
+    # Show only RGs with official releases by default, plus all-status-less ones so people fix the status
+    unless ($show_all) {
+        $extra_conditions = " AND (EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status = '1') OR
+                            NOT EXISTS (SELECT 1 FROM release where release.release_group = rg.id AND release.status IS NOT NULL)) ";
+       }
+
     my $query = "SELECT DISTINCT " . $self->_columns . ",
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
@@ -260,6 +273,7 @@ sub find_by_track_artist
                        JOIN artist_credit_name acn
                          ON release_group.artist_credit = acn.artist_credit
                       WHERE acn.artist = ?)
+                   $extra_conditions
                  ORDER BY
                     rg.type, secondary_types,
                     rgm.first_release_date_year,
@@ -279,6 +293,7 @@ sub find_by_track_artist
         },
         $query, $artist_id, $artist_id, $offset || 0);
 }
+
 
 # This could be wrapped into find_by_artist, but it still needs to support filtering on VA releases
 sub filter_by_artist
