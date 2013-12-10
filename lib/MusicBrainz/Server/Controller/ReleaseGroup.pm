@@ -93,7 +93,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         else {
             return ();
         }
-    }
+    },
+    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

@@ -101,6 +101,7 @@ sub performances : Chained('load')
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Place',
     edit_type => $EDIT_PLACE_CREATE,
+    dialog_template => 'place/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

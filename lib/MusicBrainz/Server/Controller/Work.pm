@@ -125,7 +125,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         return (
             post_creation => $self->create_with_identifiers($c)
         );
-    }
+    },
+    dialog_template => 'work/edit_form.tt',
 };
 
 1;
