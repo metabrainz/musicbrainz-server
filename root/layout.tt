@@ -6,9 +6,6 @@
         [%- IF c.debug -%]
             <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
         [%- END -%]
-        [%- IF c.user_exists -%]
-          <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery-ui.css') %]" />
-        [%- END -%]
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
         <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
