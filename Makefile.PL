@@ -169,6 +169,7 @@ test_requires 'Test::Magpie' => '0.04';
 test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
+test_requires 'Test::WWW::Mechanize::Catalyst' => '0.58';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
