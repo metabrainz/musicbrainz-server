@@ -493,6 +493,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
                     'release'
                 ],
+                // %E2%80%8E cleanup
+                [
+                    'https://soundcloud.com/alisonwonderland%E2%80%8E',
+                    'https://soundcloud.com/alisonwonderland',
+                    'artist'
+                ],
                 [
                     'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
                     'http://www.amazon.co.uk/gp/product/B000VLR0II',

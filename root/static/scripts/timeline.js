@@ -1,6 +1,6 @@
 MB.Timeline = {};
 
-$(document).ready(function () {
+$(function () {
     var categoryIDPrefix = 'category-';
     var controlIDPrefix = 'graph-control-';
 

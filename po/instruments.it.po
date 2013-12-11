@@ -6,8 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-06-11 17:13+0000\n"
+"PO-Revision-Date: 2013-12-11 09:48+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +51,10 @@ msgstr ""
 msgid "Denis d'or"
 msgstr ""
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr ""
@@ -64,12 +67,20 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr ""
 
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
 msgstr ""
 
 #: DB:link_attribute_type/name:400
@@ -322,6 +333,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
 msgstr ""
 
 #: DB:link_attribute_type/name:70
@@ -1486,6 +1501,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
 msgstr ""
 
 #: DB:link_attribute_type/name:352

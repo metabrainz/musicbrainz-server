@@ -74,6 +74,7 @@
 [% script_manifest('statistics.js.manifest') %]
 
 <script type="text/javascript">//<![CDATA[
+$(function () {
   MB.Timeline.setupGraphing({[%- FOREACH dataset_key = stats -%]
     "[%- dataset_key -%]": [%- graph_line(dataset_key) -%]
     [%- END -%]},
@@ -94,6 +95,7 @@
   [% IF show_all %]
   $('.toggler input:checkbox, .graph-control input:checkbox').prop('checked', true).change();
   [% END %]
+});
 //]]></script>
 
 [% END %]

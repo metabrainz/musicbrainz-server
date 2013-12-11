@@ -39,7 +39,6 @@ sub lookup : Chained('load') PathPart('')
 
     $c->model('ArtistType')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area, $artist->begin_area, $artist->end_area);
 
     my @rg;
     if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
