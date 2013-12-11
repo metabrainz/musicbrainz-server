@@ -137,6 +137,7 @@
             recording:       "[% l('Add a new recording') | js %]",
             release_group:   "[% l('Add a new release group') | js %]",
             work:            "[% l('Add a new work') | js %]"
-        }
+        },
+        ImagePager: '[% l('Image {current} of {total}') | js %]'
     });
 })(MB);
