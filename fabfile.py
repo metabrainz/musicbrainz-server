@@ -2,9 +2,23 @@ from fabric.api import *
 from time import sleep
 from fabric.colors import red
 from datetime import date
+import re
 
 env.use_ssh_config = True
 env.sudo_prefix = "sudo -S -p '%(sudo_prompt)s' -H " % env
+
+def translations():
+    """
+    Update translations
+    """
+    with lcd("po/"):
+        local("./update_translations.sh")
+        diff = local('git diff', capture=True)
+        if not re.match('^\s*$', diff, re.MULTILINE):
+            print diff
+            local("git add *.po")
+            commit_message = prompt("Commit message", default='Update translations from transifex.')
+            local("git commit -m '%s'" % (commit_message))
 
 def prepare_release():
     """
