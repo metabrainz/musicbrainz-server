@@ -74,6 +74,7 @@
 
             "count.editor": { Label: '[% l('Editors (all)') | js %]', Color: '#ff0000', Description: '[% l('Count of all editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.valid": { Label: '[% l('Editors (valid)') | js %]', Color: '#ff3333', Description: '[% l('Count of non-deleted editors') | js %]', Category: "edit-information", Hide: true },
+            "count.editor.valid.active": { Label: '[% l('Editors (valid & active ever)') | js %]', Color: '#ff3333', Description: '[% l('Count of active editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.deleted": { Label: '[% l('Editors (deleted)') | js %]', Color: '#ffaaaa', Description: '[% l('Count of deleted editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') | js %]', Category: "edit-information" },
             "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') | js %]', Category: "edit-information" },

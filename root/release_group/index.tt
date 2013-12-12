@@ -1,7 +1,7 @@
 [%- WRAPPER 'release_group/layout.tt' page='index' %]
     [%- INCLUDE 'release_group/annotation.tt' summary=1 -%]
 
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This release group has no relationships or releases associated,
                 and will be removed automatically in the next few days. If this

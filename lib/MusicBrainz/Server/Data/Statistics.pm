@@ -536,21 +536,98 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM edit",
         NONREPLICATED => 1,
     },
+
     "count.editor" => {
-        DESC => "Count of all editors",
-        SQL => "SELECT COUNT(*) FROM editor",
+        DESC => "Count of all editors, and assorted sub-pieces",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $data = $sql->select_list_of_hashes(qq{
+                WITH tag_editors AS (
+                  SELECT editor FROM artist_tag_raw
+                  UNION SELECT editor FROM label_tag_raw
+                  UNION SELECT editor FROM place_tag_raw
+                  UNION SELECT editor FROM recording_tag_raw
+                  UNION SELECT editor FROM work_tag_raw
+                  UNION SELECT editor FROM release_tag_raw
+                  UNION SELECT editor FROM release_group_tag_raw
+                ),
+                rating_editors AS (
+                  SELECT editor FROM artist_rating_raw
+                  UNION SELECT editor FROM label_rating_raw
+                  UNION SELECT editor FROM recording_rating_raw
+                  UNION SELECT editor FROM work_rating_raw
+                  UNION SELECT editor FROM release_group_rating_raw
+                ),
+                subscribed_editors AS (
+                  SELECT editor FROM editor_subscribe_editor
+                  UNION SELECT editor FROM editor_subscribe_collection
+                  UNION SELECT editor FROM editor_subscribe_artist
+                  UNION SELECT editor FROM editor_subscribe_artist_deleted
+                  UNION SELECT editor FROM editor_subscribe_label
+                  UNION SELECT editor FROM editor_subscribe_label_deleted
+                ),
+                collection_editors AS (SELECT DISTINCT editor FROM editor_collection),
+                voters AS (SELECT DISTINCT editor FROM vote),
+                noters AS (SELECT DISTINCT editor FROM edit_note),
+                application_editors AS (SELECT DISTINCT owner FROM application)
+                SELECT count(id),
+                       NOT deleted AS valid,
+                       email_confirm_date IS NOT NULL AS validated,
+                       (edits_accepted > 0 OR edits_rejected > 0 OR auto_edits_accepted > 0 OR edits_failed > 0) AS edits,
+                       tag_editors.editor IS NOT NULL as tags,
+                       rating_editors.editor IS NOT NULL AS ratings,
+                       subscribed_editors.editor IS NOT NULL AS subscriptions,
+                       collection_editors.editor IS NOT NULL AS collections,
+                       voters.editor IS NOT NULL AS votes,
+                       noters.editor IS NOT NULL as notes,
+                       application_editors.owner IS NOT NULL as applications
+                FROM editor
+                LEFT JOIN tag_editors ON editor.id = tag_editors.editor
+                LEFT JOIN rating_editors ON editor.id = rating_editors.editor
+                LEFT JOIN subscribed_editors ON editor.id = subscribed_editors.editor
+                LEFT JOIN collection_editors ON editor.id = collection_editors.editor
+                LEFT JOIN voters ON editor.id = voters.editor
+                LEFT JOIN noters ON editor.id = noters.editor
+                LEFT JOIN application_editors ON editor.id = application_editors.owner
+                GROUP BY valid, validated, edits, tags, ratings, subscriptions, collections, votes, notes, applications});
+
+            my @active_markers = qw(edits tags ratings subscriptions collections votes notes applications);
+            my $stats = {
+                "count.editor" => sub { return 1 },
+                "count.editor.deleted" => sub { return !shift->{valid}},
+                "count.editor.valid" => sub { return shift->{valid} },
+                "count.editor.valid.inactive" => sub {
+                    my $row = shift;
+                    return $row->{valid} && !$row->{validated} && !(grep { $row->{$_} } @active_markers)
+                },
+                "count.editor.valid.active" => sub {
+                    my $row = shift;
+                    return $row->{valid} && (grep { $row->{$_} } @active_markers)
+                },
+                "count.editor.valid.validated_only" => sub {
+                    my $row = shift;
+                    return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers)
+                }
+            };
+            my %ret = map { $_ => 0 } (keys %$stats, map { 'count.editor.valid.active.'.$_ } @active_markers);
+            for my $row (@$data) {
+                for my $stat (keys %$stats) {
+                    if ($stats->{$stat}->($row)) {
+                        $ret{$stat} += $row->{count};
+                    }
+                }
+                for my $marker (@active_markers) {
+                    if ($row->{$marker} && $row->{valid}) {
+                        $ret{'count.editor.valid.active.'.$marker} += $row->{count};
+                    }
+                }
+            }
+            return \%ret;
+        },
         NONREPLICATED => 1,
+        PRIVATE => 1,
     },
-    "count.editor.deleted" => {
-        DESC => "Count of all editors that have been deleted",
-        SQL => "SELECT COUNT(*) FROM editor WHERE deleted",
-        NONREPLICATED => 1,
-    },
-    "count.editor.valid" => {
-        DESC => "Count of all editors that have not been deleted",
-        SQL => "SELECT COUNT(*) FROM editor WHERE NOT deleted",
-        NONREPLICATED => 1,
-    },
+
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",

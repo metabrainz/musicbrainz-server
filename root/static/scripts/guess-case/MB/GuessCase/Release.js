@@ -22,7 +22,7 @@
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 MB.GuessCase._Release = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.gc = MB.GuessCase.Main ();
     self.guess = self.gc.guessRelease;

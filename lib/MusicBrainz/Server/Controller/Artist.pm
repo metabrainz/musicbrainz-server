@@ -105,7 +105,6 @@ after 'load' => sub
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area);
     $c->model('Area')->load_containment($artist->area, $artist->begin_area, $artist->end_area);
 
     $c->stash(
@@ -164,18 +163,19 @@ sub show : PathPart('') Chained('load')
 
         my $method = 'find_by_artist';
         my $show_va = $c->req->query_params->{va};
+        my $show_all = $c->req->query_params->{all};
         if ($show_va) {
             $method = 'find_by_track_artist';
         }
 
         $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, shift, shift, filter => \%filter);
+                $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
             });
 
         my $pager = $c->stash->{pager};
         if (!$show_va && !%filter && $pager->total_entries == 0) {
             $release_groups = $self->_load_paged($c, sub {
-                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
+                    $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
                 });
             $c->stash(
                 va_only => 1
@@ -190,6 +190,7 @@ sub show : PathPart('') Chained('load')
 
         $c->stash(
             show_va => $show_va,
+            show_all => $show_all,
             template => 'artist/index.tt'
         );
     }
@@ -484,15 +485,16 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 };
 
 around _validate_merge => sub {
-    my ($orig, $self, $c, $form, $merger) = @_;
-    return unless $self->$orig($c, $form, $merger);
+    my ($orig, $self, $c, $form) = @_;
+    return unless $self->$orig($c, $form);
     my $target = $form->field('target')->value;
-    if (grep { is_special_artist($_) && $target != $_ } $merger->all_entities) {
+    my @all = map { $_->value } $form->field('merging')->fields;
+    if (grep { is_special_artist($_) && $target != $_ } @all) {
         $form->field('target')->add_error(l('You cannot merge a special purpose artist into another artist'));
         return 0;
     }
 
-    if (any { $_ == $DARTIST_ID } $merger->all_entities) {
+    if (any { $_ == $DARTIST_ID } @all) {
         $form->field('target')->add_error(l('You cannot merge into Deleted Artist'));
         return 0;
     }

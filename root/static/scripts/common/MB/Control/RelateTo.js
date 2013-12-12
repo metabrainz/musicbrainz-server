@@ -19,7 +19,7 @@
 */
 
 MB.Control.RelateTo = function () {
-    var self = MB.Object();
+    var self = {};
 
     self.$relate = $('div.relate-to');
 

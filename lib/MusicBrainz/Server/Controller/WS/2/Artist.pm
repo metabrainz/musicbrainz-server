@@ -68,7 +68,6 @@ sub artist_toplevel
     $c->model('ArtistType')->load($artist);
     $c->model('Gender')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area, $artist->begin_area, $artist->end_area);
     $c->model('Artist')->ipi->load_for($artist);
     $c->model('Artist')->isni->load_for($artist);
 
@@ -104,8 +103,9 @@ sub artist_toplevel
 
     if ($c->stash->{inc}->release_groups)
     {
+        my $show_all = 1;
         my @results = $c->model('ReleaseGroup')->find_by_artist(
-            $artist->id, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
+            $artist->id, $show_all, $MAX_ITEMS, 0, filter => { type => $c->stash->{type} });
         $opts->{release_groups} = $self->make_list (@results);
 
         $self->linked_release_groups ($c, $stash, $opts->{release_groups}->{items});

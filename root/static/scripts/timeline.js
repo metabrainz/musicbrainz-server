@@ -1,6 +1,6 @@
 MB.Timeline = {};
 
-$(document).ready(function () {
+$(function () {
     var categoryIDPrefix = 'category-';
     var controlIDPrefix = 'graph-control-';
 
@@ -374,20 +374,21 @@ $(document).ready(function () {
         var id = controlIDPrefix + 'checker' + datasetId;
         var name = controlIDPrefix + datasetId;
         var color = (MB.text.Timeline.Stat(datasetId) || { 'Color': '#ff0000' })['Color'];
-        return MB.html.div( { "class": 'graph-control', "id": name },
-                     MB.html.input( { 'id': id, 'name': name, 'type': 'checkbox', 'checked': 'checked' }, '') +
-                     MB.html.label( { 'for': id },
-                                    MB.html.div({ 'class' : 'graph-color-swatch', 'style': 'background-color: ' +  color + ';' }, '') + label));
+
+        return $("<div>").addClass("graph-control").attr({ id: name }).append(
+                $("<input/>").attr({ id: id, name: name, type: "checkbox", checked: "checked" }),
+                $("<label>").attr({ "for": id }).append(
+                    $("<div>").addClass("graph-color-swatch").css("background-color", color), label));
     }
     function categoryHtml(category) {
         var id = categoryIDPrefix + 'checker-' + category;
         var divId = categoryIDPrefix + category;
         var label = (MB.text.Timeline.Category[category] || { Label : 'Unknown' })['Label'];
-        return '<h2 class="toggler">' +
-               MB.html.input( { 'id': id, 'type': 'checkbox', 'checked': 'checked'}, '') +
-               MB.html.label( { 'for': id }, label ) +
-               '</h2>' +
-               MB.html.div( { 'class': 'graph-category', 'id': divId }, '' );
+
+        return $("<h2>").addClass("toggler").append(
+            $("<input/>").attr({ id: id, type: "checkbox", checked: "checked" }),
+            $("<label>").attr({ "for": id }).text(label))
+                .add($("<div>").addClass("graph-category").attr({ id: divId }));
     }
     function controlChange() {
         var $this = $(this);

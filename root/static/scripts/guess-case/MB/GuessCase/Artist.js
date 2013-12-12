@@ -22,7 +22,7 @@
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
 MB.GuessCase._Artist = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.gc = MB.GuessCase.Main ();
 

@@ -6,8 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 00:54+0000\n"
+"PO-Revision-Date: 2013-12-11 09:48+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -393,6 +392,11 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr ""
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -437,6 +441,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
+msgstr ""
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
 
 #: DB:link_attribute_type/description:102
@@ -849,6 +857,15 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a "
+"href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:536
@@ -1312,6 +1329,14 @@ msgid ""
 "pitched a fifth below the oboe and used primarily in the Baroque period of "
 "European classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a "
+"href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:612
@@ -1946,6 +1971,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
+msgstr ""
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
 
 #: DB:link_attribute_type/description:494
@@ -2602,7 +2631,7 @@ msgid "rebec"
 msgstr ""
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
+msgid "reed organ, also known as pump organ"
 msgstr ""
 
 #: DB:link_attribute_type/description:233

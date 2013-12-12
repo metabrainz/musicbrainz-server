@@ -22,8 +22,7 @@ has_field 'comment' => (
 );
 
 has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
-    required => 1
+    type => '+MusicBrainz::Server::Form::Field::ArtistCredit'
 );
 
 has_field 'isrcs' => (

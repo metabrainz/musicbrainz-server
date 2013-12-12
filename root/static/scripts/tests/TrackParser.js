@@ -1,7 +1,7 @@
 MB.tests.TrackParser = (MB.tests.TrackParser) ? MB.tests.TrackParser : {};
 
 MB.tests.TrackParser.ReleaseDiscMock = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.hasToc = function () { return false; }
     self.isVariousArtists = function () { return false; }

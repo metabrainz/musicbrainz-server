@@ -23,7 +23,7 @@ MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
 MB.GuessCase.Mode._fix = function (name, re, replace) {
-    var self = MB.Object ();
+    var self = {};
 
     if (typeof(re) == 'string')
     {
@@ -58,7 +58,7 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
  * Models a GuessCase mode.
  **/
 MB.GuessCase.Mode.Base = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.fix = MB.GuessCase.Mode._fix;
     self.fix_all = MB.GuessCase.Mode._fix_all;

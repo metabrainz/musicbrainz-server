@@ -44,6 +44,10 @@ msgstr ""
 msgid "Denis d'or"
 msgstr ""
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr ""
@@ -56,12 +60,20 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr ""
 
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
 msgstr ""
 
 #: DB:link_attribute_type/name:400
@@ -314,6 +326,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
 msgstr ""
 
 #: DB:link_attribute_type/name:70
@@ -1478,6 +1494,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
 msgstr ""
 
 #: DB:link_attribute_type/name:352
