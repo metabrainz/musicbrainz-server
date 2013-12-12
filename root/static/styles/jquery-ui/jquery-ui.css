@@ -325,6 +325,10 @@ button.ui-button::-moz-focus-inner {
 	margin: 0;
 	display: block;
 	outline: none;
+	max-width: 500px;
+	max-height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 .ui-menu .ui-menu {
 	margin-top: -3px;

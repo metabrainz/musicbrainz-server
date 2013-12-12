@@ -310,8 +310,7 @@ var BaseDialog = (function() {
                 draggable: false,
                 resizable: false,
                 autoOpen: false,
-                width: "auto",
-                maxWidth: 500
+                width: "auto"
             })
             .data("ui-dialog");
 
