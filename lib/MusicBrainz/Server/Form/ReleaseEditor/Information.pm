@@ -100,8 +100,9 @@ sub validate {
 
         $label->field('name')->add_error(l('You must select an existing label.'))
             unless (
-                $label_id || $label->field('deleted')->value ||
-                    !( $label_id || $label->field('catalog_number')->value )
+                $label_id ||
+                $label->field('deleted')->value ||
+                $label->field('catalog_number')->value
             );
     }
 
