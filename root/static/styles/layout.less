@@ -178,30 +178,13 @@ h1 img.gravatar {
     font-size: 95%;
     font-weight: bold;
     z-index: 9;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 #header-menu div {
     padding: 0 1em;
     overflow: hidden;
-}
-
-#header-menu div.l, #header-menu div.r {
-    position: absolute;
-    display: block;
-    padding: 0;
-    width: 6px;
-    height: 8px;
-    background-image: url('../images/layout/sprites.png');
-}
-
-#header-menu div.r {
-    bottom: 0; right: 0;
-    background-position: -7px -58px;
-}
-
-#header-menu div.l {
-    bottom: 0; left: 0;
-    background-position: -0px -58px;
 }
 
 #header-menu ul.r {
@@ -281,6 +264,7 @@ h1 img.gravatar {
     background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
     overflow: visible;
     position: relative;
+    border-radius: 6px;
 }
 
 #page.fullwidth,
@@ -291,34 +275,6 @@ h1 img.gravatar {
 
 #current-editing h2 {
     margin-top: 0; /* Remove the space above the merge-helper H2 */
-}
-
-.bl, .br, .tl, .tr {
-    position: absolute;
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-image: url('../images/layout/sprites.png');
-}
-
-.tr {
-    top: 0; right: 0;
-    background-position: -14px -58px;
-}
-
-.tl {
-    top: 0; left: 0;
-    background-position: -23px -58px;
-}
-
-.br {
-    bottom: 0; right: 0;
-    background-position: -32px -58px;
-}
-
-.bl {
-    bottom: 0; left: 0;
-    background-position: -41px -58px;
 }
 
 .warning-header,
@@ -332,6 +288,7 @@ h1 img.gravatar {
     border: 0;
     color: #FC6714;
     position: relative;
+    border-radius: 6px;
 }
 
 .flash {
