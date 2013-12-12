@@ -9,12 +9,12 @@
 #content.rel-editor #release-rels {margin-top: 1em;}
 
 #content.rel-editor .rel-edit {background: @rel-edit;}
-#content.rel-editor .rel-remove {background: @rel-remove !important; cursor: default !important;}
-#content.rel-editor .rel-add {background: @rel-add;}
+#content.rel-editor .rel-remove {background: @negative-bg !important; cursor: default !important;}
+#content.rel-editor .rel-add {background: @positive-bg;}
 
-#content.rel-editor .remove-button {cursor: pointer; color: @rel-editor-remove-button-text; padding: 0 0.5em;}
-#content.rel-editor .remove-button:hover {color: @rel-remove; text-decoration: none;}
-#content.rel-editor .remove-button:visited {color: @rel-editor-remove-button-text;}
+#content.rel-editor .remove-button {cursor: pointer; color: @button-text; padding: 0 0.5em;}
+#content.rel-editor .remove-button:hover {color: @negative-bg; text-decoration: none;}
+#content.rel-editor .remove-button:visited {color: @button-text;}
 
 #content.rel-editor .btn {
     cursor: pointer;
@@ -29,12 +29,12 @@
     padding-bottom: 0.5em;
 }
 img.bottom {vertical-align: bottom;}
-#content.rel-editor .btn.disabled {cursor: default; color: @rel-editor-btn-disabled;}
+#content.rel-editor .btn.disabled {cursor: default; color: @button-text;}
 
 #content.rel-editor .warning,
 div.rel-editor-dialog .warning {
     border: 2px red dotted;
-    background: @rel-warning;
+    background: @negative-light-bg;
     padding: 0.5em;
     font-weight: bold;
 }
@@ -72,7 +72,7 @@ div.rel-editor-dialog .buttons {
 #dialog.rel-editor-dialog input.selectFilter {width: 7em;}
 #dialog.rel-editor-dialog div.attr-select > * {margin: 2px !important;}
 #dialog.rel-editor-dialog #attrs button {
-    background-color: @secondary-grey;
+    background-color: @very-light-bg;
     border: 1px solid @dark-button-border;
     border-top: 1px solid @light-button-border;
     border-left: 1px solid @light-button-border;

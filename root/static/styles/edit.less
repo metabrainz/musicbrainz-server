@@ -31,8 +31,8 @@ table.vote-tally {
 }
 
 table.vote-tally tr {
-    border-top: 1px dotted @vote-tally-top;
-    border-bottom: 1px dotted @vote-tally-bottom;
+    border-top: 1px dotted @dark-border;
+    border-bottom: 1px dotted @light-border;
 }
 
 table.vote-tally tr.first {
@@ -51,7 +51,7 @@ table.vote-tally td.vote {
 
 table.vote-tally tr.superseded,
 table.vote-tally tr.superseded a {
-    color: @vote-tally-superseded;
+    color: @dark-text;
 }
 
 table.vote-tally .date {
@@ -67,17 +67,17 @@ table.vote-tally .date {
 }
 
 .voteopts .vote-yes {
-    border: 1px solid @vote-border;
-    background-color: @yes-bg;
+    border: 1px solid @medium-border;
+    background-color: @positive-bg;
 }
 
 .voteopts .vote-no {
-    border: 1px solid @vote-border;
-    background-color: @no-bg;
+    border: 1px solid @medium-border;
+    background-color: @negative-bg;
 }
 
 .voteopts .vote-abs {
-    border: 1px solid @vote-border;
+    border: 1px solid @medium-border;
     background-color: @abstain-bg;
 }
 
@@ -99,16 +99,16 @@ table.vote-tally .date {
 }
 
 .edit-notes .modbot {
-    color: @modbot-note;
+    color: @very-dark-text;
 }
 
 .edit-notes .modbot a {
-    color: @modbot-note-link;
+    color: @dark-text;
 }
 
 .edit-notes .edit-note h3 {
     font-weight: normal;
-    background-color: @editnote-h3-bg;
+    background-color: @very-light-bg;
     height: 16px;
     margin: 0 0 10px;
     padding: 5px 10px 5px 10px;
@@ -120,7 +120,7 @@ table.vote-tally .date {
 
 .edit-notes .edit-note .editor-class {
     font-weight: normal;
-    color: @editor-class;
+    color: @dark-text;
 }
 
 .edit-notes h3 a img {
@@ -162,7 +162,7 @@ table.vote-tally .date {
 }
 
 .edit-notes .edit-note .date {
-    color: @edit-note-date;
+    color: @effectively-black-text;
     float: right;
     font-weight: normal;
 }
@@ -188,11 +188,11 @@ table.vote-tally .date {
 .edit-list {
     clear: both;
     margin: 20px 0;
-    background-color: @edit-list-bg;
+    background-color: @effectively-white-bg;
 }
 
 .edit-list .edit-header {
-    background-color: @edit-list-header-bg;
+    background-color: @light-bg;
     border-right: 10px solid transparent;
     padding: 0 10px 10px 10px;
 }
@@ -237,7 +237,7 @@ table.vote-tally .date {
 
 .edit-list .edit-actions {
     float: right;
-    background-color: @edit-list-actions-bg;
+    background-color: @light-bg;
     padding: 0 10px;
 }
 
@@ -271,8 +271,8 @@ table.vote-tally .date {
 .search-refine {
     display: none;
     padding: 5px;
-    border-bottom: 2px solid @search-refine-border-bottom;
-    background-color: @search-refine-bg;
+    border-bottom: 2px solid @dark-border;
+    background-color: @effectively-white-bg;
 }
 
 .search-refine div.row {
@@ -280,7 +280,7 @@ table.vote-tally .date {
 }
 
 .search-help {
-    background-color: @search-help-bg;
+    background-color: @light-bg;
     margin-top: 1em;
     padding: 5px 10px;
 }
@@ -303,7 +303,7 @@ table.vote-tally .date {
 span.fileinput-button { vertical-align: middle }
 #drop-zone {
     display: inline-block;
-    border: 2px dashed @drop-zone-border;
+    border: 2px dashed @medium-border;
     padding: 25px;
     text-align: center;
     margin-left: 24px;
@@ -347,8 +347,8 @@ div.thumb-position {
     margin: 3px;
     padding: 5px;
     float: left;
-    border: 1px solid @thumb-position-border;
-    background: @thumb-position-bg;
+    border: 1px solid @light-border;
+    background: @very-light-bg;
     border-radius: 2px;
 }
 
@@ -368,7 +368,7 @@ div.thumb-position img {
 }
 
 div.thumb-position.moved {
-    background: @diff-new-highlight;
+    background: @positive-bg;
 }
 
 .voteopts .vote label {
@@ -397,13 +397,13 @@ div.thumb-position.moved {
     min-height: 140px;
     margin: 3px;
     padding: 5px;
-    border: 1px solid @set-coverart-border;
+    border: 1px solid @light-border;
     border-radius: 2px;
 }
 
 .set-cover-art div.editimage.selected {
-    background: @rg-art-selected;
-    border: 1px solid @rg-art-selected-border;
+    background: @positive-bg;
+    border: 1px solid @dark-border;
 }
 
 div.editimage button.set-cover-art {
@@ -416,7 +416,7 @@ div.editimage.selected p.currently-selected { display: block; }
 .image-placeholder {
     width: 125px;
     height: 125px;
-    border: 2px solid gray;
+    border: 2px solid @dark-border;
 }
 
 .image-placeholder p {

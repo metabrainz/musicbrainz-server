@@ -5,7 +5,7 @@
  */
 
 div.tabs {
-    border-bottom: solid 1px @tab-normal-border;
+    border-bottom: solid 1px @dark-border;
     padding-top: 1em;
     font-size: 95%;
 }
@@ -30,10 +30,10 @@ div.tabs ul li a {
     padding: 0.1em 0.5em;
     margin-left: 4px;
     text-decoration: none;
-    background: @tab-unfocus-background;
+    background: @very-light-bg;
     color: @text-black;
-    border: solid 1px @tab-normal-border;
-    border-bottom: solid 1px @tab-normal-border;
+    border: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 div.tabs ul li.sel a {
@@ -68,7 +68,7 @@ div.tabs ul li a:hover {
 
 span.comment, span.historical { 
     font-weight: normal;
-    color: @comment-historical;
+    color: @dark-text;
 }
 
 h1 span.comment, span.historical {
@@ -82,7 +82,7 @@ p.subheader {
     font-size: 96%;
 }
 
-p.subheader span { color: @subheader-span; }
+p.subheader span { color: @dark-text; }
 
 .tagger-icon img { border: 0; }
 .releaseheader .tagger-icon, .recordingheader .tagger-icon { margin-top: 1em; float: right; }

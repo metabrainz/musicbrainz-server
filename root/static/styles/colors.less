@@ -1,19 +1,29 @@
 @text-black: #000000;                                // black text
 @text-white: #FFFFFF;                                // white text
 
-@effectively-black: #333333;
-@very-dark-grey: #666666;
-@dark-grey: #999999;
-@medium-grey: #CCCCCC;
-@light-grey: #DDDDDD;
-@very-light-grey: #EEEEEE;
-@effectively-white: #F9F9F9;
+@effectively-black: #333333;                         // darkest grey
+@effectively-black-text: @effectively-black;         // even frickin' darker
+@very-dark-grey: #666666;                            // more grey
+@very-dark-text: @very-dark-grey;                    // very dark grey text
+@dark-grey: #999999;                                 // greygreygrey
+@dark-text: @dark-grey;                              // dark-grey text
+@dark-border: @dark-grey;                            // dark border
+@medium-grey: #CCCCCC;                               // lighter
+@medium-border: @medium-grey;                        // medium border
+@medium-bg: @medium-grey;                            // dark, isn't it?
+@hr-color: @medium-grey;                             // the color for hr lines
+@light-grey: #DDDDDD;                                // and lighter
+@light-text: @light-grey;                            // light text (on a dark background, usually)
+@light-border: @light-grey;                          // light border
+@light-bg: @light-grey;                              // sorta middling
+@very-light-grey: #EEEEEE;                           // pretty darn light
+@very-light-border: @very-light-grey;                // very light border
+@very-light-bg: @very-light-grey;                    // slightly darker
+@effectively-white: #F9F9F9;                         // barely even grey anymore
+@effectively-white-bg: @effectively-white;           // really darn light backgrounds
 
-@background-grey: @very-light-grey;                  // site background
-@secondary-grey: @very-light-grey;                   // bubble backgrounds, tab bars, etc.
-@disabled-grey: @dark-grey;                          // disabled inputs (text, generally)
-@disabled-bg-grey: @medium-grey;                     // disabled inputs background
-@placeholder-grey: @disabled-grey;                   // placeholder text
+@dark-button-border: @medium-border;                 // the darker of the button border colors (for shading)
+@light-button-border: @very-light-border;            // the lighter of the button border colors (for shading)
 
 @musicbrainz-purple: #736DAB;                        // the purple used in the top header and some subheaders
 @musicbrainz-orange: #FFBA58;                        // the orange used alongside that purple
@@ -25,39 +35,30 @@
 @link-visited: #632D9B;                              // visited link color
 
 @light-border-blue: #ADB9CC;                         // the thin-bordered table borders (e.g. statistics)
-@light-border-background: @very-light-grey;          // the background for the light-border tables
+@light-border-background: @very-light-border;        // the background for the light-border tables
 
-@warning-border: @dark-grey;                         // "warning" and "notice" border
 @warning-background: #FFFFD0;                        // "warning" and "notice" background
 
-@autocomplete-success: #BBFFBB;                      // successful autocomplete background
-@autocomplete-error: #FFAAAA;                        // error/cancelled autocomplete background
+@positive-bg: #B1EBB0;                               // background color for positive and success states
+@positive-light-bg: #E8F7E8;                         // lighter version
+@negative-bg: #EBB1BA;                               // background color for negative and failure states
+@negative-light-bg: #FBE3E4;                         // lighter version
 
-@rel-add: #B6FFA3;                                   // added rels in the rel editor (background)
-@rel-remove: #FF8F8F;                                // removed rels in the rel editor (background)
 @rel-edit: @edit-orange;                             // edited rels in the rel editor (+ edit hover) (background)
-@rel-warning: #FBE3E4;                               // warning boxes in the rel editor
 
-@diff-new-bg: #E8F7E8;                               // "new" sides of split diffs (background)
-@diff-new-highlight: #B1EBB0;                        // highlight for added text in diffs
-@diff-old-bg: #F7E8E8;                               // "old" sides of split diffs (background)
-@diff-old-highlight: #EBB1BA;                        // highlight for removed text in diffs
+@yes-border: @positive-text;                         // border around 'yes' vote in edit-note h3/img
+@no-border: @negative-text;                          // border around 'no' vote in edit note h3/img
 
-@yes-border: #87F717;                                // border around 'yes' vote in edit-note h3/img
-@no-border: #E55451;                                 // border around 'no' vote in edit note h3/img
+@abstain-bg: #F2F0A5;                                // background for 'abstain' votes (yes/no use @positive/negative-bg)
 
-@yes-bg: #B1EBB0;                                    // background for 'yes'
-@no-bg: #EBB1BA;                                     // background for 'no'
-@abstain-bg: #F2F0A5;                                // background for 'abstain'
-
-@button-text: @very-dark-grey;                       // button text before hover/click
+@button-text: @very-dark-text;                       // button text before hover/click
 @button-hover-background: #DFF4FF;                   // default button hover/focus background
 @button-hover-text: #336699;                         // default button hover/focus text
 @button-hover-border: #C2E1EF;                       // default button hover/focus border
 @button-active: #6299C5;                             // default button background/border color when clicked
 
 @negative-text: #D12F19;                             // negative text color
-@negative-hover-background: #FBE3E4;                 // negative button hover/focus background
+@negative-hover-background: @negative-light-bg;      // negative button hover/focus background
 @negative-hover-text: @negative-text;                // negative button hover/focus text
 @negative-hover-border: #FBC2C4;                     // negative button hover/focus border
 @negative-active: @negative-text;                    // negative button background/border color when clicked
@@ -67,17 +68,6 @@
 @positive-hover-text: @positive-text;                // positive button hover/focus text
 @positive-hover-border: #C6D880;                     // positive button hover/focus border
 @positive-active: @positive-text;                    // positive button background/border color when clicked
-
-@rg-art-selected: #BBFFBB;                           // selected RG cover art in set-cover-art page (background)
-@rg-art-selected-border: #889988;                    // selected RG cover art border
-
-@dark-button-border: @medium-grey;                   // the darker of the button border colors (for shading)
-@light-button-border: @very-light-grey;              // the lighter of the button border colors (for shading)
-
-@tab-normal-border: @dark-grey;                      // the normal dark border around tabs
-@tab-unfocus-background: @very-light-grey;           // "background" tab background-color
-
-@re-fieldset-grey: @disabled-grey;                   // RE fieldset border
 
 @rg-type-label: #589DFF;                             // RG type labels (on artist page listing)
 
@@ -89,77 +79,4 @@
 @even-table-row: #F2F2F2;                            // even table row zebra-stripe gray
 @highlight-table-row: #F2F2B2;                       // highlighted rows in zebra-stripe tables, linked edit notes
 
-@menu-background: @medium-grey;                      // background color of opened menus
-
 @multiselect-highlight: #FEFFDE;                     // highlight color when searching in the multiselect plugin
-
-@vote-tally-top: @dark-grey;                         // table.vote-tally tr border-top
-@vote-tally-bottom: @light-grey;                     // table.vote-tally tr border-bottom
-@vote-tally-superseded: @dark-grey;                  // table.vote-tally tr.superseded color
-@vote-border: @medium-grey;                          // .voteopts .vote-{yes,no,abs} border
-@modbot-note: @very-dark-grey;                       // .edit-notes .modbot color
-@modbot-note-link: @dark-grey;                       // .edit-notes .modbot a color
-@editnote-h3-bg: @very-light-grey;                   // .edit-notes .edit-note h3
-@editor-class: @dark-grey;                           // .edit-notes .edit-note .editor-class
-@edit-note-date: @effectively-black;                 // .edit-notes .edit-note .date
-@edit-list-bg: @effectively-white;                   // .edit-list background-color
-@edit-list-header-bg: @light-grey;                   // .edit-list .edit-header background-color
-@edit-list-actions-bg: @light-grey;                  // .edit-list .edit-actions background-color
-@search-refine-border-bottom: @dark-grey;            // .search-refine border-bottom
-@search-refine-bg: @effectively-white;               // .search-refine background-color
-@search-help-bg: @light-grey;                        // .search-help background-color
-@drop-zone-border: @medium-grey;                     // #drop-zone border
-@thumb-position-border: @light-grey;                 // div.thumb-position border
-@thumb-position-bg: @very-light-grey;                // div.thumb-position background
-@set-coverart-border: @light-grey;                   // .set-cover-art div.editimage border
-@comment-historical: @dark-grey;                     // span.comment, span.historical color
-@subheader-span: @dark-grey;                         // p.subheader span color
-@ar-descr-bg: @effectively-white;                    // div.ar-descr background
-@ar-descr-border: @medium-grey;                      // div.ar-descr border
-@select-filter-hover: @very-dark-grey;               // a.selectFilterPrev/selectFilterNext:hover text
-@autocomplete-comment-length: @very-dark-grey;       // .autocomplete-{length,comment}
-@autocomplete-isrc-appear-comment-video: @dark-grey; // span.autocomplete-{isrcs,appears,comment,video}
-@half-width-fieldset-border: @light-grey;            // div.half-width fieldset border
-@doc-bubble-border: @dark-grey;                      // div.documentation div.bubble border
-@filter-border: @dark-grey;                          // #filter border
-@gravatar-border: @light-grey;                       // img.gravatar border
-@git-branch-color: @light-grey;                      // div.git-branch color
-@header-menu-link: @effectively-black;               // #header-menu ul a color
-@sidebar-links-hr: @medium-grey;                     // #sidebar ul.links hr color/background-color
-@sidebar-note: @very-dark-grey;                      // @very-dark-greyr .{cover-art,picture}-note
-@footer-color: @very-dark-grey;                      // @very-dark-grey color
-@small-sidenote: @very-dark-grey;                    // .lastupdate, .annotation-details, .small color
-@tbl-border: @dark-grey;                             // table.tbl border-{top,bottom}, table.tbl th border-bottom, table.tbl tr.subh th/td border-{top,bottom}
-@tbl-th-left: @medium-grey;                          // table.tbl th border-left
-@tbl-th-right: @dark-grey;                           // table.tbl tbody th border-right
-@deleted-text: @dark-grey;                           // .deleted color
-@paginator-border-text: @dark-grey;                  // .pageselector span border/color
-@paginator-bg: @very-light-grey;                     // .pageselector span background-color
-@table-details-border: @medium-grey;                 // table.details td{.new,.old., span.new, span.old} border
-@nagpanel-bg: @effectively-white;                    // .nagpanel background-color
-@artwork-cont-bg: @very-light-grey;                  // div.artwork-cont background
-@artwork-cont-border: @light-grey;                   // div.artwork-cont border
-@multiselect-menu-border: @medium-grey;              // div.multiselect > div.menu border
-@multiselect-item-link-border: @medium-grey;         // div.multiselect > div.items > a
-@multiselect-item-link-focus-bg: @very-light-grey;   // div.multiselect > div.items > a:focus background !important
-@rel-editor-remove-button-text: @dark-grey;          // #content.rel-editor .remove-button color +:visited
-@rel-editor-btn-disabled: @dark-grey;                // #content.rel-editor .btn.disabled color
-@re-tabs-li-border: @medium-grey;                    // #release-editor > ul.tabs li border
-@re-medium-table-th-bottom: @dark-grey;              // #release-editor table.medium.tbl th border-bottom
-@re-medium-table-th-left: @medium-grey;              // #release-editor table.medium.tbl th border-left
-@re-medium-table-td-border: @very-light-grey;        // #release-editor .medium.tbl tr td border
-@re-medium-table-track-ac-border: @dark-grey;        // #release-editor .medium.tbl tr.track-artist-credit td table border
-@re-tracklist-dialog-bg: @effectively-white;         // div.dialog background
-@re-tracklist-dialog-border: @dark-grey;             // div.dialog border
-@re-tracklist-dialog-shadow: @dark-grey;             // div.dialog box-shadow
-@re-disc-dialog-tab-link-bg: @light-grey;            // .add-disc-dialog div.tabs li a background
-@re-add-recording-color: @dark-grey;                 // span.add-recording color
-@re-add-track-border: @medium-grey;                  // #release-editor input.add-track-count border
-@relate-to-border: @dark-grey;                       // div.relate-to border
-
-@wiki-hr-bg: @medium-grey;                           // .wikicontent hr background-color
-@wiki-pre-bg: @light-grey;                           // .wikicontent pre background
-@wiki-code-bg: @light-grey;                          // .wikicontent code background-color
-@wiki-toc-bg: @effectively-white;                    // .wikicontent #toc, .wikicontent .toc background-color
-@wikidoc-headfoot-border: @medium-grey;              // .wikicontent .wikidocs-header border-bottom; .wikicontent .wikidocs-footer border-top
-@wiki-table-oddrow: @effectively-white;              // .wikicontent table[border^="1"]/table.wikitable tr:nth-child(odd) td

@@ -3,7 +3,7 @@
 body {
     padding: 0 10px;
     margin: 0;
-    background-color: @background-grey;
+    background-color: @very-light-bg;
     color: @text-black;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
@@ -114,7 +114,7 @@ img.gravatar {
     display: inline;
     max-height: 1em;
     vertical-align: middle;
-    border: 1px solid @gravatar-border;
+    border: 1px solid @light-border;
     padding: 1px;
     background: #fff;
     margin-right: 0.35em;
@@ -141,7 +141,7 @@ h1 img.gravatar {
     position: absolute;
     top: 2px;
     right: 18px;
-    color: @git-branch-color;
+    color: @light-text;
 }
 
 #header-logo #headerid-query {
@@ -210,7 +210,7 @@ h1 img.gravatar {
 }
 
 #header-menu ul a {
-    color: @header-menu-link;
+    color: @effectively-black-text;
     display: block;
     padding: 0.4em 0.5em;
     height: 100%;
@@ -229,7 +229,7 @@ h1 img.gravatar {
 }
 
 #header-menu ul li:hover li a {
-    background-color: @menu-background;
+    background-color: @medium-bg;
     color: @text-black;
 }
 
@@ -244,7 +244,7 @@ h1 img.gravatar {
     float: none;
     font-weight: normal;
     margin: 0;
-    background-color: @menu-background;
+    background-color: @medium-bg;
 }
 
 #header-menu .separator {
@@ -307,7 +307,7 @@ h1 img.gravatar {
 div.notice,
 div.warning {
     margin: 2em auto;
-    border: 1px solid @warning-border;
+    border: 1px solid @dark-border;
     min-height: 54px;
     width: 60em;
     background: @warning-background;
@@ -370,8 +370,8 @@ div.warning img.warning {
     height: 1px;
     width: 75%;
     border: 0;
-    color: @sidebar-links-hr;
-    background-color: @sidebar-links-hr;
+    color: @hr-color;
+    background-color: @hr-color;
 }
 
 #sidebar ul.external_links {
@@ -598,7 +598,7 @@ div.warning img.warning {
 }
 
 #sidebar .cover-art-note, #sidebar .picture-note {
-    color: @sidebar-note;
+    color: @very-dark-text;
     display: block;
 }
 
@@ -610,7 +610,7 @@ div.warning img.warning {
     margin: 1em 0;
     padding: 0 1em;
     font-size: 90%;
-    color: @footer-color;
+    color: @very-dark-text;
 }
 
 #footer a { color: @link-default; }
@@ -654,7 +654,7 @@ tr.diff-changes {
 .annotation-details,
 .small {
     font-size: 90%;
-    color: @small-sidenote;
+    color: @very-dark-text;
     font-style: italic;
 }
 
@@ -668,8 +668,8 @@ table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
     width: 100%;
-    border-top: solid 1px @tbl-border;
-    border-bottom: solid 1px @tbl-border;
+    border-top: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 table.tbl th {
@@ -677,8 +677,8 @@ table.tbl th {
     background: url('../images/layout/table-header.gif') repeat-x 0 50%;
     padding: 0.2em 0.4em;
     text-align: left;
-    border-bottom: solid 1px @tbl-border;
-    border-left: solid 1px @tbl-th-left;
+    border-bottom: solid 1px @dark-border;
+    border-left: solid 1px @medium-border;
 }
 
 table.tbl thead tr .header {
@@ -712,19 +712,19 @@ table.details table.tbl th {
     width: auto;
 }
 
-.deleted { color: @deleted-text; }
+.deleted { color: @dark-text; }
 
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
     background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
     font-weight: bold;
-    border-top: solid 1px @tbl-border;
-    border-bottom: solid 1px @tbl-border;
+    border-top: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 table.tbl tbody th {
-    border-right: 1px solid @tbl-th-right;
+    border-right: 1px solid @dark-border;
     background: none;
 }
 
@@ -789,9 +789,9 @@ table.tbl ul {
 }
 
 .pageselector span {
-    border: solid 1px @paginator-border-text;
-    background-color: @paginator-bg;
-    color: @paginator-border-text;
+    border: solid 1px @dark-border;
+    background-color: @very-light-bg;
+    color: @dark-text;
 }
 
 .pageselector em {
@@ -839,31 +839,31 @@ table.details th {
 
 table.details td span.new,
 table.details td.new {
-    background: @diff-new-bg;
+    background: @positive-light-bg;
 }
 
 div.diff .diff-only-b,
 span.diff-only-b,
 tr.diff-addition {
-    background: @diff-new-highlight;
+    background: @positive-bg;
 }
 
 table.details td span.old,
 table.details td.old {
-    background: @diff-old-bg;
+    background: @negative-light-bg;
 }
 
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
-    background: @diff-old-highlight;
+    background: @negative-bg;
 }
 
 table.details td span.new,
 table.details td span.old,
 table.details td.new,
 table.details td.old {
-    border: 1px solid @table-details-border;
+    border: 1px solid @medium-border;
 }
 
 table.details td { vertical-align: top; }
@@ -960,7 +960,7 @@ div.columns-5 div.column {
 }
 
 .nagpanel {
-    background-color: @nagpanel-bg;
+    background-color: @effectively-white-bg;
     border: 2px dashed @musicbrainz-purple;
     padding: 0 1em;
     margin: 1em 0;
@@ -984,8 +984,8 @@ p.cleanup {
 
 div.artwork-cont {
     border-radius: 2px;
-    background: @artwork-cont-bg;
-    border: 1px solid @artwork-cont-border;
+    background: @very-light-bg;
+    border: 1px solid @light-border;
     display: inline-block;
     padding: 10px;
     margin: 5px;
@@ -1083,5 +1083,5 @@ dl.ars dt {
     margin-right: 0.5em;
     clear: left;
     float: left;
-    color: #555;
+    color: @very-dark-text;
 }

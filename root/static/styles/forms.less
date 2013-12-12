@@ -18,10 +18,10 @@ input:-ms-input-placeholder, // IE10
 input::-moz-placeholder, // ff 19+
 input:-moz-placeholder, // ff 4-18
 input::-webkit-input-placeholder { // webkit
-    color: @placeholder-grey;
+    color: @dark-text;
 }
 input[disabled].lookup-performed,
-input[disabled] { background: @disabled-bg-grey; cursor: default; }
+input[disabled] { background: @medium-bg; cursor: default; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>
@@ -105,17 +105,15 @@ form ul.errors {
 }
 
 form ul.errors li,
-span.error {
-    color: @negative-text;
-}
-span.success { color: #22aa22; }
+span.error { color: @negative-text; }
+span.success { color: @positive-text; }
 
 input.error,
 select.error {
-    background: @autocomplete-error ! important;
+    background: @negative-bg ! important;
 }
 
-input.lookup-performed { background: @autocomplete-success; }
+input.lookup-performed { background: @positive-bg; }
 
 form .input-note {
     font-style: italic;
@@ -153,9 +151,9 @@ dl.properties label {
 }
 
 div.ar-descr {
-    background: @ar-descr-bg;
+    background: @effectively-white-bg;
     padding: 4px;
-    border: dotted 1px @ar-descr-border;
+    border: dotted 1px @medium-border;
     margin: 6px;
 }
 
@@ -167,7 +165,7 @@ a.selectFilterNext {
 
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
-    color: @select-filter-hover;
+    color: @very-dark-text;
 }
 
 div.searchform {
@@ -195,7 +193,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
 .autocomplete-length,
-.autocomplete-comment { font-size: smaller; color: @autocomplete-comment-length; }
+.autocomplete-comment { font-size: smaller; color: @very-dark-text; }
 button.autocomplete-pager {
     position: absolute;
     display: block;
@@ -210,7 +208,7 @@ span.autocomplete-appears,
 span.autocomplete-comment,
 span.autocomplete-video {
     margin-left: @form-margin;
-    color: @autocomplete-isrc-appear-comment-video;
+    color: @dark-text;
     font-size: 80%;
 }
 
@@ -238,7 +236,7 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    border: 1px solid @half-width-fieldset-border;
+    border: 1px solid @light-border;
     margin-top: 0;
     .border-radius(6px);
 }
@@ -303,8 +301,8 @@ div.half-width fieldset h3 {
 div.documentation div.bubble {
     margin: 0;
     padding: @form-margin;
-    border: 1px solid @doc-bubble-border;
-    background: @secondary-grey;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
     .border-radius(12px);
 }
 
@@ -345,8 +343,8 @@ ul.conditions button.remove img {
 
 #filter {
     margin-top: 0.75em;
-    border: 1px solid @filter-border;
-    background: @secondary-grey;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
     .border-radius(3px);
     padding: 0.5em;
     display: none;

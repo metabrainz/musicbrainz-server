@@ -41,7 +41,7 @@ h1 span {
     position: relative;
     top: 1px;
     white-space: nowrap;
-    border: 1px solid @re-tabs-li-border;
+    border: 1px solid @medium-border;
     border-bottom: 0;
     margin: 0 3px 1px 0;
     padding: 6px 12px;
@@ -69,7 +69,7 @@ h1 span {
 }
 
 #release-editor fieldset {
-    border: 1px solid @re-fieldset-grey;
+    border: 1px solid @dark-border;
     background: #ffffff;
     margin-top: 0;
 
@@ -108,7 +108,7 @@ h1 span {
 
 #release-editor div.release-label input[disabled] {
     text-decoration: line-through;
-    color: @disabled-grey;
+    color: @dark-text;
     background: #fff;
 }
 
@@ -156,29 +156,29 @@ table.medium.tbl td.reorder  { width: 38px; }
 table.medium.tbl td.credits-button { width: 4em; text-align: right; }
 table.medium.tbl td.length    { width: 5em; }
 table.medium.tbl td.icon      { width: 38px; text-align: right; }
-table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
+table.medium.tbl td.guesscase a { color: @medium-grey; font-weight: bolder; }
 #release-editor table.medium.tbl th {
     background:url("../images/layout/table-header-2.gif") repeat-x scroll 0 50% transparent;
-    border-bottom:1px solid @re-medium-table-th-bottom;
-    border-left:1px solid @re-medium-table-th-left;
+    border-bottom:1px solid @dark-border;
+    border-left:1px solid @medium-border;
     font-size:95%;
     padding: 3px 5px;
     text-align:left;
 }
 #release-editor .medium.tbl tr td {
     background: #fff;
-    border: 1px dotted @re-medium-table-td-border;
+    border: 1px dotted @very-light-border;
     padding: 0 5px;
 }
 
-#release-editor .medium.tbl td input[type=text][disabled] { color: @disabled-grey; }
+#release-editor .medium.tbl td input[type=text][disabled] { color: @dark-text; }
 #release-editor .medium.tbl td input[type=text] {
     background: #fff;
     height: 100%;
     width: 100%;
 }
 
-#release-editor .medium.tbl td input[type=text].lookup-performed { background: @autocomplete-success; color: @text-black; }
+#release-editor .medium.tbl td input[type=text].lookup-performed { background: @positive-bg; color: @text-black; }
 
 #release-editor .medium.tbl td.position input { text-align: right; }
 #release-editor .medium.tbl td.length input { text-align: right; }
@@ -216,15 +216,15 @@ table.medium.tbl td.guesscase a { color: #d3d3d3; font-weight: bolder; }
 #release-editor .medium.tbl tr.track-artist-credit th { background: inherit; }
 
 #release-editor .medium.tbl tr.track-artist-credit td table {
-    margin: 0; padding: 12px; border: 1px solid @re-medium-table-track-ac-border;
-    background: @secondary-grey;
+    margin: 0; padding: 12px; border: 1px solid @dark-border;
+    background: @very-light-bg;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     border-radius: 12px;
 }
 
 #release-editor .medium.tbl tr.track-artist-credit td table td {
-    background: @secondary-grey;
+    background: @very-light-bg;
     padding: 2px;
 }
 
@@ -259,16 +259,16 @@ div.guesscase-options,
 
 div.dialog {
     position: absolute;
-    background: @re-tracklist-dialog-bg;
-    border: 1px solid @re-tracklist-dialog-border;
+    background: @effectively-white-bg;
+    border: 1px solid @dark-border;
     padding: 1em;
     width: 600px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    -webkit-box-shadow: 0 1px 16px @re-tracklist-dialog-shadow;
-    -moz-box-shadow: 0 1px 16px @re-tracklist-dialog-shadow;
-    box-shadow: 0 1px 16px @re-tracklist-dialog-shadow;
+    -webkit-box-shadow: 0 1px 16px @dark-grey;
+    -moz-box-shadow: 0 1px 16px @dark-grey;
+    box-shadow: 0 1px 16px @dark-grey;
     z-index: 20;
 }
 
@@ -280,8 +280,8 @@ div.dialog textarea.tracklist {
 
 div.dialog div.buttons { margin-top: 1em; width: 100%; }
 
-.add-disc-dialog div.tabs li a { background: @re-disc-dialog-tab-link-bg; }
-.add-disc-dialog div.tabs li.sel a { background: @re-tracklist-dialog-bg; border-bottom: 1px solid @re-tracklist-dialog-bg; }
+.add-disc-dialog div.tabs li a { background: @light-bg; }
+.add-disc-dialog div.tabs li.sel a { background: @effectively-white-bg; border-bottom: 1px solid @effectively-white-bg; }
 
 .add-disc-dialog div.tracklist-padding { padding: 0 12px 12px 12px; }
 
@@ -294,9 +294,9 @@ div.dialog div.buttons { margin-top: 1em; width: 100%; }
    __________________________________ */
 
 #release-editor .recordings p { margin-top: 0; }
-#release-editor div.select-recording { background: @secondary-grey; }
+#release-editor div.select-recording { background: @very-light-bg; }
 
-span.add-recording { color: @re-add-recording-color; }
+span.add-recording { color: @dark-text; }
 table.matches { width: 100%; }
 a.change-recording { min-width: 48px; }
 
@@ -354,9 +354,9 @@ td.buttons { display: table-cell; }
     display: inline-block;
     margin-right: 2em;
     width: 2em;
-    border: 1px solid @re-add-track-border;
+    border: 1px solid @medium-border;
     background: transparent;
-    color: @placeholder-grey;
+    color: @dark-text;
     text-align: right;
 }
 
