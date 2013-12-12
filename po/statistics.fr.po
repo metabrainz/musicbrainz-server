@@ -6,11 +6,12 @@
 # Dibou <email address hidden>, 2012
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
+# Alain-Olivier  Breysse, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 21:06+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -749,7 +750,7 @@ msgstr "Entités principales"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Count of active editors"
-msgstr ""
+msgstr "Nombre d'éditeurs actifs"
 
 #: ../root/statistics/view_js.tt:81
 msgid "Count of active editors (editing or voting) during the last week"
@@ -1123,11 +1124,11 @@ msgstr "Éditeurs (supprimés)"
 
 #: ../root/statistics/index.tt:681
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Éditeurs (supprimés) :"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Editors (valid & active ever)"
-msgstr ""
+msgstr "Éditeurs (valides & actifs à ce jour) :"
 
 #: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
@@ -1715,11 +1716,11 @@ msgstr[1] "Parutions avec {n} ID de disque"
 
 #: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Parutions avec des illustrations d'Amazon"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Parutions avec des illustrations CAA"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Releases with Cover Art"
@@ -1727,7 +1728,7 @@ msgstr "Parutions avec illustration"
 
 #: ../root/statistics/view_js.tt:194
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Parutions avec des illustrations provenant des relations"
 
 #: ../root/statistics/view_js.tt:142
 msgid "Releases with Disc IDs"
@@ -1735,7 +1736,7 @@ msgstr "Parutions avec ID de disque"
 
 #: ../root/statistics/view_js.tt:195
 msgid "Releases with No Cover Art"
-msgstr ""
+msgstr "Parutions sans illustration"
 
 #: ../root/statistics/view_js.tt:102
 msgid "Releases with a no-format medium"
@@ -1992,7 +1993,7 @@ msgstr "Zoom :"
 
 #: ../root/statistics/index.tt:585
 msgid "active ever:"
-msgstr ""
+msgstr "actif à ce jour :"
 
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
@@ -2004,7 +2005,7 @@ msgstr "par divers artistes :"
 
 #: ../root/statistics/index.tt:676
 msgid "inactive:"
-msgstr ""
+msgstr "inactif :"
 
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
@@ -2024,15 +2025,15 @@ msgstr "de type Personne : "
 
 #: ../root/statistics/index.tt:670
 msgid "validated email only:"
-msgstr ""
+msgstr "courriels validés seulement :"
 
 #: ../root/statistics/index.tt:615
 msgid "who edit:"
-msgstr ""
+msgstr "qui effectue des modifications :"
 
 #: ../root/statistics/index.tt:592
 msgid "who edited and/or voted last week:"
-msgstr ""
+msgstr "qui a effectué des modifications et/ou a voté la semaine dernière :"
 
 #: ../root/statistics/index.tt:600
 msgid "who edited last week:"
@@ -2040,31 +2041,31 @@ msgstr "qui a effectué des modifications la semaine dernière :"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
-msgstr ""
+msgstr "qui ont enregistré des applications :"
 
 #: ../root/statistics/index.tt:629
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "qui ont laissé des notes de modification :"
 
 #: ../root/statistics/index.tt:657
 msgid "who use collections:"
-msgstr ""
+msgstr "qui utilisent des collections :"
 
 #: ../root/statistics/index.tt:643
 msgid "who use ratings:"
-msgstr ""
+msgstr "qui utilisent des évaluations :"
 
 #: ../root/statistics/index.tt:650
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "qui utilisent des abonnements :"
 
 #: ../root/statistics/index.tt:636
 msgid "who use tags:"
-msgstr ""
+msgstr "qui utilisent des balises :"
 
 #: ../root/statistics/index.tt:622
 msgid "who vote:"
-msgstr ""
+msgstr "qui votent :"
 
 #: ../root/statistics/index.tt:608
 msgid "who voted last week:"
