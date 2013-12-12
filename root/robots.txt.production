@@ -25,7 +25,6 @@ Disallow: /taglookup
 Disallow: /tags
 Disallow: /test/
 Disallow: /tracklist/
-Disallow: /unit_tests/
 Disallow: /url/
 Disallow: /user/
 Disallow: /ws
