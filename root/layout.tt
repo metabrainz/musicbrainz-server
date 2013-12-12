@@ -82,7 +82,6 @@
             <div id="header-menu">
                 <div>
                     [%- INCLUDE "layout/menu.tt" -%]
-                    <div class="r"></div><div class="l"></div>
                 </div>
             </div>
         </div>
@@ -95,7 +94,6 @@
                           { uri => '//musicbrainz.org' _
                                    (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% ELSIF server_details.is_slave_db %]
             <div class="server-details">
@@ -103,14 +101,12 @@
                     [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
                           {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
 
         [%- IF server_details.alert -%]
             <div class="warning-header">
                 <p>[% server_details.alert %]</p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [%- END -%]
 
@@ -119,14 +115,12 @@
                 <p>
                     [% l('The server is temporary in read-only mode for database maintainance.') %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [%- END -%]
 
         [% IF makes_no_changes %]
         <div class="warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
-            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
         [% END %]
 
@@ -135,13 +129,11 @@
                 <p>
                     [% c.flash.message %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
 
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
-            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             <div style="clear: both"></div>
         </div>
 
