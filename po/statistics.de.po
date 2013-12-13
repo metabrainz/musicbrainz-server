@@ -5,12 +5,14 @@
 # Mineo <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Shepard, 2011
+# Shepard, 2013
 # Tobias Quathamer <email address hidden>, 2007
+# Mineo <email address hidden>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 21:47+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +24,7 @@ msgstr ""
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr ""
+msgstr "Ein neuer AJAX-Cover-Art-Uploader wurde veröffentlicht, der es einfacher macht, Cover-Art zu Veröffentlichungen hinzuzufügen."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -107,7 +109,7 @@ msgstr "BBC führt dynamische Künstlerseiten basierend auf MusicBrainz-Daten ei
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
-msgstr ""
+msgstr "Die BBC geht eine Partnerschaft mit MetaBrainz ein"
 
 #: DB:statistics.statistic_event/description:2003-03-02
 #: DB:statistics.statistic_event/description:2003-06-30
@@ -124,11 +126,11 @@ msgstr "Bugfixes"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr ""
+msgstr "CAA initiale Veröffentlichung"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "CAA offizielle Veröffentlichung"
 
 #: DB:statistics.statistic_event/description:2004-03-09
 msgid "Caching (memcached) and bugs fixed."
@@ -159,7 +161,7 @@ msgstr "Sammlung, Bewertungen, CD-Stubs, LastUpdate herausgebracht."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
-msgstr ""
+msgstr "Cover-Art-Uploader"
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
@@ -229,7 +231,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
-msgstr ""
+msgstr "Zur Vorbereitung auf die Veröffentlichung des NGS wird das Bearbeiten bis zur Veröffentlichung deaktiviert."
 
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
@@ -356,7 +358,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
-msgstr ""
+msgstr "NGS-Veröffentlichung"
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
@@ -372,19 +374,19 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
+msgstr "Oliver Charles wird Angestellter Nr. 1 der MetaBrainz-Foundation."
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Oliver Charles nimmt die Vollzeitarbeit für MusicBrainz auf."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr ""
+msgstr "Oliver Charles arbeitet Vollzeit für MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
-msgstr ""
+msgstr "Beziehungs-Editor"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
@@ -406,7 +408,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
-msgstr ""
+msgstr "SG5-Verbesserungen"
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
@@ -442,11 +444,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available"
-msgstr ""
+msgstr "Das Cover-Art-Archiv wurde initial verfügbar gemacht"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released"
-msgstr ""
+msgstr "Das Cover-Art-Archiv wurde offiziell veröffentlicht"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
@@ -484,7 +486,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "Abstimmungszeitraum auf 7 Tage verkürzt"
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
@@ -492,11 +494,11 @@ msgstr "mb_server jetzt auf Git gehostet"
 
 #: ../root/statistics/formats.tt:29
 msgid "% of total mediums"
-msgstr ""
+msgstr "% aller Medien"
 
 #: ../root/statistics/formats.tt:27
 msgid "% of total releases"
-msgstr ""
+msgstr "% aller Veröffentlichungen"
 
 #: ../root/statistics/view_js.tt:24
 msgid "/day"
@@ -556,7 +558,7 @@ msgstr "Alle anderen verfügbaren Sprachen und Schriften haben 0 Veröffentlichu
 
 #: ../root/statistics/index.tt:294
 msgid "Amazon:"
-msgstr ""
+msgstr "Amazon:"
 
 #: ../root/statistics/view_js.tt:60
 msgid "Applied edits"
@@ -572,11 +574,11 @@ msgstr "Absegnen:"
 
 #: ../root/statistics/index.tt:516 ../root/statistics/view_js.tt:50
 msgid "Areas"
-msgstr ""
+msgstr "Gebiete"
 
 #: ../root/statistics/index.tt:52 ../root/statistics/index.tt:523
 msgid "Areas:"
-msgstr ""
+msgstr "Gebiete:"
 
 #: ../root/statistics/view_js.tt:28
 msgid "Artist Countries"
@@ -592,7 +594,7 @@ msgstr "Künstler-IPIs"
 
 #: ../root/statistics/view_js.tt:135
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "Künstler-ISNIs"
 
 #: ../root/statistics/view_js.tt:161
 msgid "Artist Ratings"
@@ -705,7 +707,7 @@ msgstr "Nach Veröffentlichungstyp"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
-msgstr ""
+msgstr "CAA:"
 
 #: ../root/statistics/index.tt:75
 msgid "CD Stubs (all time / current):"
@@ -749,7 +751,7 @@ msgstr "Hauptobjekte"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Count of active editors"
-msgstr ""
+msgstr "Anzahl aktiver Bearbeiter"
 
 #: ../root/statistics/view_js.tt:81
 msgid "Count of active editors (editing or voting) during the last week"
@@ -809,15 +811,15 @@ msgstr "Anzahl aller IPIs für Labels"
 
 #: ../root/statistics/view_js.tt:134
 msgid "Count of all ISNIs"
-msgstr ""
+msgstr "Anzahl aller ISNIs"
 
 #: ../root/statistics/view_js.tt:135
 msgid "Count of all ISNIs for Artists"
-msgstr ""
+msgstr "Anzahl aller ISNIs für Künstler"
 
 #: ../root/statistics/view_js.tt:136
 msgid "Count of all ISNIs for Labels"
-msgstr ""
+msgstr "Anzahl aller ISNIs für Labels"
 
 #: ../root/statistics/view_js.tt:137 ../root/statistics/view_js.tt:138
 msgid "Count of all ISRCs"
@@ -969,7 +971,7 @@ msgstr "Anzahl aller Ja-Stimmen"
 
 #: ../root/statistics/view_js.tt:50
 msgid "Count of all areas"
-msgstr ""
+msgstr "Anzahl aller Gebiete"
 
 #: ../root/statistics/view_js.tt:43
 msgid "Count of all artists"
@@ -993,7 +995,7 @@ msgstr "Anzahl aller Medien"
 
 #: ../root/statistics/view_js.tt:51
 msgid "Count of all places"
-msgstr ""
+msgstr "Anzahl aller Örtlichkeiten"
 
 #: ../root/statistics/view_js.tt:44
 msgid "Count of all recordings"
@@ -1017,7 +1019,7 @@ msgstr "Anzahl aller Werke"
 
 #: ../root/statistics/view_js.tt:78
 msgid "Count of deleted editors"
-msgstr ""
+msgstr "Anzahl gelöschter Bearbeiter"
 
 #: ../root/statistics/view_js.tt:79
 msgid "Count of editors who have submitted edits during the last week"
@@ -1037,7 +1039,7 @@ msgstr "Anzahl Bearbeitungen pro Woche"
 
 #: ../root/statistics/view_js.tt:76
 msgid "Count of non-deleted editors"
-msgstr ""
+msgstr "Anzahl nicht gelöschter Bearbeiter"
 
 #: ../root/statistics/view_js.tt:54
 msgid "Count of open edits"
@@ -1066,7 +1068,7 @@ msgstr "Cover-Art"
 
 #: ../root/statistics/index.tt:279
 msgid "Cover Art Sources"
-msgstr ""
+msgstr "Cover-Art-Quellen"
 
 #: ../root/statistics/index.tt:313
 msgid "Data Quality"
@@ -1115,31 +1117,31 @@ msgstr "Bearbeiter"
 
 #: ../root/statistics/view_js.tt:75
 msgid "Editors (all)"
-msgstr ""
+msgstr "Bearbeiter (alle)"
 
 #: ../root/statistics/view_js.tt:78
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Bearbeiter (gelöscht)"
 
 #: ../root/statistics/index.tt:681
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Bearbeiter (gelöscht):"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Editors (valid & active ever)"
-msgstr ""
+msgstr "Bearbeiter (bestätigt & jemals aktiv)"
 
 #: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Bearbeiter (bestätigt / gelöscht):"
 
 #: ../root/statistics/view_js.tt:76
 msgid "Editors (valid)"
-msgstr ""
+msgstr "Bearbeiter (bestätigt)"
 
 #: ../root/statistics/index.tt:579
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Bearbeiter (bestätigt):"
 
 #: ../root/statistics/index.tt:572
 msgid "Editors, Edits, and Votes"
@@ -1186,7 +1188,7 @@ msgstr ""
 
 #: ../root/statistics/relationships.tt:31
 msgid "Exclusive"
-msgstr ""
+msgstr "Exklusive"
 
 #: ../root/statistics/index.tt:715
 msgid "Failed (dependency):"
@@ -1260,11 +1262,11 @@ msgstr "IPIs:"
 
 #: ../root/statistics/view_js.tt:134
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNIs"
 
 #: ../root/statistics/index.tt:120
 msgid "ISNIs:"
-msgstr ""
+msgstr "ISNIs:"
 
 #: ../root/statistics/view_js.tt:137
 msgid "ISRCs"
@@ -1296,7 +1298,7 @@ msgstr ""
 
 #: ../root/statistics/relationships.tt:31
 msgid "Inclusive"
-msgstr ""
+msgstr "Inklusive"
 
 #: ../root/statistics/view_js.tt:29
 msgid "Label Countries"
@@ -1308,7 +1310,7 @@ msgstr "Label-IPIs"
 
 #: ../root/statistics/view_js.tt:136
 msgid "Label ISNIs"
-msgstr ""
+msgstr "Label-ISNIs"
 
 #: ../root/statistics/view_js.tt:162
 msgid "Label Ratings"
@@ -1439,11 +1441,11 @@ msgstr "Keine Stimmen"
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
 #: ../root/statistics/coverart.tt:100
 msgid "No coverart statistics available."
-msgstr ""
+msgstr "Keine Cover-Art-Statistiken verfügbar."
 
 #: ../root/statistics/edits.tt:12
 msgid "No edit statistics available."
-msgstr ""
+msgstr "Keine Bearbeitungsstatistiken verfügbar."
 
 #: ../root/statistics/coverart.tt:88
 msgid "No format"
@@ -1451,7 +1453,7 @@ msgstr "Kein Format"
 
 #: ../root/statistics/index.tt:306
 msgid "No front cover art:"
-msgstr ""
+msgstr "Kein vorderes Cover-Art:"
 
 #: ../root/statistics/index.tt:272
 msgid "No packaging set"
@@ -1459,7 +1461,7 @@ msgstr "Keine Verpackung gesetzt"
 
 #: ../root/statistics/relationships.tt:25
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "Keine Beziehungsstatistiken verfügbar."
 
 #: ../root/statistics/coverart.tt:72
 msgid "No status"
@@ -1552,11 +1554,11 @@ msgstr "Cover-Art-Bilder:"
 
 #: ../root/statistics/index.tt:544 ../root/statistics/view_js.tt:51
 msgid "Places"
-msgstr ""
+msgstr "Örtlichkeiten"
 
 #: ../root/statistics/index.tt:56 ../root/statistics/index.tt:551
 msgid "Places:"
-msgstr ""
+msgstr "Örtlichkeiten:"
 
 #: ../root/statistics/index.tt:435
 msgid "Primary Types"
@@ -1715,11 +1717,11 @@ msgstr[1] "Veröffentlichungen mit {n} Disc-IDs"
 
 #: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Veröffentlichungen mit Amazon-Cover-Art"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Veröffentlichungen mit CAA-Cover-Art"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Releases with Cover Art"
@@ -1727,7 +1729,7 @@ msgstr "Veröffentlichungen mit Cover-Art"
 
 #: ../root/statistics/view_js.tt:194
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Veröffentlichungen mit Cover-Art von Beziehungen"
 
 #: ../root/statistics/view_js.tt:142
 msgid "Releases with Disc IDs"
@@ -1735,11 +1737,11 @@ msgstr "Veröffentlichungen mit Disc-IDs"
 
 #: ../root/statistics/view_js.tt:195
 msgid "Releases with No Cover Art"
-msgstr ""
+msgstr "Veröffentlichungen ohne Cover-Art"
 
 #: ../root/statistics/view_js.tt:102
 msgid "Releases with a no-format medium"
-msgstr ""
+msgstr "Veröffentlichungen mit einem Medium ohne Format"
 
 #: ../root/statistics/index.tt:375
 msgid "Releases with at least one disc ID:"
@@ -1853,16 +1855,16 @@ msgstr "Titel"
 
 #: ../root/statistics/index.tt:36
 msgid "Tracks:"
-msgstr ""
+msgstr "Titel:"
 
 #: ../root/statistics/index.tt:492 ../root/statistics/index.tt:520
 #: ../root/statistics/index.tt:548
 msgid "Types"
-msgstr ""
+msgstr "Typen"
 
 #: ../root/statistics/index.tt:300
 msgid "URL Relationships:"
-msgstr ""
+msgstr "URL-Beziehungen:"
 
 #: ../root/statistics/index.tt:48
 msgid "URLs:"
@@ -1911,15 +1913,15 @@ msgstr "Unbekannte Schrift"
 
 #: ../root/statistics/view_js.tt:109
 msgid "Unknown-gender Artists"
-msgstr ""
+msgstr "Künstler mit unbekanntem Geschlecht"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Unknown-type Artists"
-msgstr ""
+msgstr "Künstler mit unbekanntem Typ"
 
 #: ../root/statistics/index.tt:481
 msgid "Videos:"
-msgstr ""
+msgstr "Videos:"
 
 #: ../root/statistics/index.tt:709
 msgid "Voted down:"
@@ -1992,7 +1994,7 @@ msgstr "Zoom:"
 
 #: ../root/statistics/index.tt:585
 msgid "active ever:"
-msgstr ""
+msgstr "jemals aktiv:"
 
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
@@ -2004,7 +2006,7 @@ msgstr "von verschiedenen Künstlern:"
 
 #: ../root/statistics/index.tt:676
 msgid "inactive:"
-msgstr ""
+msgstr "inaktiv:"
 
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
@@ -2024,15 +2026,15 @@ msgstr "mit Typ Person:"
 
 #: ../root/statistics/index.tt:670
 msgid "validated email only:"
-msgstr ""
+msgstr "nur bestätigte E-Mail-Adressen:"
 
 #: ../root/statistics/index.tt:615
 msgid "who edit:"
-msgstr ""
+msgstr "die bearbeiten:"
 
 #: ../root/statistics/index.tt:592
 msgid "who edited and/or voted last week:"
-msgstr ""
+msgstr "die letzte Woche bearbeitet und/oder abgestimmt haben:"
 
 #: ../root/statistics/index.tt:600
 msgid "who edited last week:"
@@ -2040,31 +2042,31 @@ msgstr "die letzte Woche bearbeitet haben:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
-msgstr ""
+msgstr "die registrierte Anwendungen haben:"
 
 #: ../root/statistics/index.tt:629
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "die Bearbeitungsbemerkungen schreiben:"
 
 #: ../root/statistics/index.tt:657
 msgid "who use collections:"
-msgstr ""
+msgstr "die Sammlungen benutzen:"
 
 #: ../root/statistics/index.tt:643
 msgid "who use ratings:"
-msgstr ""
+msgstr "die Bewertungen benutzen:"
 
 #: ../root/statistics/index.tt:650
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "die Abonnements benutzen:"
 
 #: ../root/statistics/index.tt:636
 msgid "who use tags:"
-msgstr ""
+msgstr "die Tags benutzen:"
 
 #: ../root/statistics/index.tt:622
 msgid "who vote:"
-msgstr ""
+msgstr "die abstimmen:"
 
 #: ../root/statistics/index.tt:608
 msgid "who voted last week:"
@@ -2076,7 +2078,7 @@ msgstr "mit 10 oder mehr Disc-IDs:"
 
 #: ../root/statistics/coverart.tt:139
 msgid "with 30 or more pieces of cover art:"
-msgstr ""
+msgstr "mit 30 oder mehr Cover-Art-Bildern:"
 
 #: ../root/statistics/index.tt:163
 msgid "with appearances in artist credits:"

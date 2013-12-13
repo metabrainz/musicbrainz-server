@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 20:03+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +54,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:746
 msgid "Disk Drive"
-msgstr ""
+msgstr "Laufwerk"
 
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:748
 msgid "Floppy Drive"
-msgstr ""
+msgstr "Diskettenlaufwerk"
 
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
@@ -82,7 +82,7 @@ msgstr "Hammond-Orgel"
 
 #: DB:link_attribute_type/name:747
 msgid "Harddisk"
-msgstr ""
+msgstr "Festplatte"
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"

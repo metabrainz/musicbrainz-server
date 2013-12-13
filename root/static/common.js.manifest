@@ -5,7 +5,7 @@ lib/jquery/jquery.browser.js
 lib/jquery/jquery.tablesorter.js
 lib/jquery/jquery.cookie.js
 lib/jquery.ui/ui/jquery-ui.custom.js
-lib/colorbox/jquery.colorbox.js
+lib/thickbox/thickbox.js
 
 lib/underscore/underscore.js
 lib/underscore/underscore.string.js

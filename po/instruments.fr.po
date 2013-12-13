@@ -4,11 +4,12 @@
 # Lotheric <email address hidden>, 2012
 # redapplz <email address hidden>, 2013
 # redapplz <email address hidden>, 2013
+# Alain-Olivier  Breysse, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 21:07+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,7 +55,7 @@ msgstr "Denis d'or"
 
 #: DB:link_attribute_type/name:746
 msgid "Disk Drive"
-msgstr ""
+msgstr "Lecteur de disque"
 
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
@@ -70,7 +71,7 @@ msgstr "EWI instrument à vent électronique"
 
 #: DB:link_attribute_type/name:748
 msgid "Floppy Drive"
-msgstr ""
+msgstr "Lecteur de disquette"
 
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
@@ -82,7 +83,7 @@ msgstr "Orgue Hammond"
 
 #: DB:link_attribute_type/name:747
 msgid "Harddisk"
-msgstr ""
+msgstr "Disque dur"
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
@@ -338,7 +339,7 @@ msgstr "Orgue de Barbarie"
 
 #: DB:link_attribute_type/name:749
 msgid "baryton"
-msgstr ""
+msgstr "baryton"
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
@@ -1506,7 +1507,7 @@ msgstr "tambour d'océan"
 
 #: DB:link_attribute_type/name:745
 msgid "octave mandolin"
-msgstr ""
+msgstr "mandole ténor"
 
 #: DB:link_attribute_type/name:352
 msgid "omnichord"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 21:49+0000\n"
+"Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,11 +39,11 @@ msgstr "BBC-Music-Seite für"
 
 #: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
 msgid "Bandcamp page for"
-msgstr ""
+msgstr "Bandcamp-Seite für"
 
 #: DB:link_attribute_type/description:245
 msgid "Chamber orchestra"
@@ -135,11 +135,11 @@ msgstr "Bei Werken mit Liedtexten gibt dies an, dass diese Texte nicht für dies
 
 #: DB:link_type/link_phrase:713
 msgid "Geonames"
-msgstr ""
+msgstr "Geonames"
 
 #: DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
-msgstr ""
+msgstr "Geonames-Seite für"
 
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:97 DB:link_type/link_phrase:706
@@ -689,7 +689,7 @@ msgstr ""
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr ""
+msgstr "Verbindet eine Veröffentlichung mit der Örtlichkeit, wo sie gemastert wurde."
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
@@ -1331,20 +1331,20 @@ msgstr ""
 
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
-msgstr ""
+msgstr "Dies verbindet ein Label mit seiner Seite bei Bandcamp."
 
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
-msgstr ""
+msgstr "Dies verbindet ein Label mit seiner Seite in <a href=\"http://www.imdb.com/\">IMDb</a>."
 
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "Dies verbindet ein Label mit seinem Profil bei SoundCloud."
 
 #: DB:link_type/description:225
 msgid "This links a label to the equivalent entry at YouTube."
-msgstr ""
+msgstr "Dies verbindet ein Label zum äquivalenten Eintrag bei YouTube."
 
 #: DB:link_type/description:495
 msgid ""
@@ -1413,7 +1413,7 @@ msgstr ""
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
-msgstr ""
+msgstr "Dies verbindet einen Künstler mit seiner Seite bei Bandcamp."
 
 #: DB:link_type/description:178
 msgid ""
@@ -1481,7 +1481,7 @@ msgstr ""
 
 #: DB:link_type/description:111
 msgid "This links artists who were married."
-msgstr ""
+msgstr "Dies verbindet Künstler, die verheiratet waren."
 
 #: DB:link_type/description:315
 msgid ""
@@ -1788,7 +1788,7 @@ msgstr ""
 
 #: DB:link_type/description:215
 msgid "This relationship type links a label to its Myspace page."
-msgstr ""
+msgstr "Dieser Beziehungstyp verbindet ein Label mit seiner Myspace-Seite."
 
 #: DB:link_type/description:210
 msgid ""
@@ -1998,11 +1998,11 @@ msgstr "Reservierungen"
 #: DB:link_type/link_phrase:205 DB:link_type/link_phrase:66
 #: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
 msgid "business association"
-msgstr ""
+msgstr "Geschäftsbeziehung"
 
 #: DB:link_type/reverse_link_phrase:66
 msgid "business association with"
-msgstr ""
+msgstr "Geschäftsbeziehung mit"
 
 #: DB:link_type/long_link_phrase:75 DB:link_type/long_link_phrase:255
 msgid "can be downloaded for free at"
@@ -2219,7 +2219,7 @@ msgstr "Musik kostenlos herunterladen"
 #: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
 #: DB:link_type/reverse_link_phrase:254
 msgid "download purchase page for"
-msgstr ""
+msgstr "Download-Kaufseite für"
 
 #: DB:link_type/reverse_link_phrase:238
 msgid "earliest release"
@@ -2227,11 +2227,11 @@ msgstr "früheste Veröffentlichung"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
-msgstr ""
+msgstr "Bearbeitung von"
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr ""
+msgstr "Bearbeitungen"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -2239,15 +2239,15 @@ msgstr "Emeritus"
 
 #: DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "Techniker (Engineer)"
 
 #: DB:link_type/link_phrase:701
 msgid "engineer position at"
-msgstr ""
+msgstr "Techniker (Engineer) bei"
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
-msgstr ""
+msgstr "Techniker (Engineers)"
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -2325,7 +2325,7 @@ msgstr "has Amazon-ASIN"
 
 #: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
 msgid "has Bandcamp page at"
-msgstr ""
+msgstr "hat Bandcamp-Seite unter"
 
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
@@ -2343,7 +2343,7 @@ msgstr "hat eine Discogs-Seite unter"
 
 #: DB:link_type/long_link_phrase:713
 msgid "has a Geonames page at"
-msgstr ""
+msgstr "hat Geonames-Seite unter"
 
 #: DB:link_type/long_link_phrase:91 DB:link_type/long_link_phrase:181
 msgid "has a MusicMoz page at"
@@ -2452,7 +2452,7 @@ msgstr "hat eine IMDb-Seite unter"
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"
-msgstr ""
+msgstr "hat ein Interview unter"
 
 #: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
 #: DB:link_type/long_link_phrase:225
@@ -2487,7 +2487,7 @@ msgstr "A&R-Management von"
 
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
-msgstr ""
+msgstr "hat Geschäftsbeziehung mit"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
@@ -2507,7 +2507,7 @@ msgstr "Grafikdesign von"
 
 #: DB:link_type/link_phrase:707
 msgid "has interview at"
-msgstr ""
+msgstr "hat Interview unter"
 
 #: DB:link_type/long_link_phrase:211
 msgid "has its history presented at"
@@ -2528,7 +2528,7 @@ msgstr "hat Teil"
 
 #: DB:link_type/long_link_phrase:714
 msgid "has primary concert venue at"
-msgstr ""
+msgstr "hat primäre Konzertstätte bei"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
@@ -2552,19 +2552,19 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:700
 msgid "held a concert at"
-msgstr ""
+msgstr "gab ein Konzert bei"
 
 #: DB:link_type/link_phrase:700
 msgid "held concerts at"
-msgstr ""
+msgstr "gab Konzerte bei"
 
 #: DB:link_type/link_phrase:211
 msgid "history page"
-msgstr ""
+msgstr "Geschichtsseite"
 
 #: DB:link_type/reverse_link_phrase:211
 msgid "history page for"
-msgstr ""
+msgstr "Geschichtsseite für"
 
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
@@ -2578,7 +2578,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:700
 msgid "hosted concerts by"
-msgstr ""
+msgstr "war Konzertstätte für"
 
 #: DB:link_type/link_phrase:721 DB:link_type/link_phrase:720
 #: DB:link_type/long_link_phrase:721 DB:link_type/long_link_phrase:720
@@ -2587,7 +2587,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:716 DB:link_type/long_link_phrase:715
 msgid "hosted the premiere of"
-msgstr ""
+msgstr "war Veranstaltungsort für die Premiere von"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -2595,7 +2595,7 @@ msgstr "instrumental"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
-msgstr ""
+msgstr "Interview mit"
 
 #: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
 msgid "involved with"
@@ -2782,11 +2782,11 @@ msgstr "Lizenz für"
 
 #: DB:link_type/link_phrase:712 DB:link_type/long_link_phrase:712
 msgid "licensed"
-msgstr ""
+msgstr "lizensierte"
 
 #: DB:link_type/reverse_link_phrase:712
 msgid "licensed from"
-msgstr ""
+msgstr "lizensiert von"
 
 #: DB:link_type/link_phrase:81 DB:link_type/reverse_link_phrase:81
 #: DB:link_type/long_link_phrase:81
@@ -2829,11 +2829,11 @@ msgstr "Bestellseite für"
 
 #: DB:link_type/link_phrase:360 DB:link_type/long_link_phrase:360
 msgid "manufactured"
-msgstr ""
+msgstr "stellte her"
 
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
-msgstr ""
+msgstr "hergestellt von"
 
 #: DB:link_type/link_phrase:111 DB:link_type/reverse_link_phrase:111
 msgid "married"
@@ -2849,19 +2849,19 @@ msgstr "Mashups"
 
 #: DB:link_type/reverse_link_phrase:697
 msgid "mastered at"
-msgstr ""
+msgstr "gemastert bei"
 
 #: DB:link_type/link_phrase:704
 msgid "mastering engineer position at"
-msgstr ""
+msgstr "Audio-Mastering-Techniker bei"
 
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
-msgstr ""
+msgstr "Audio-Mastering-Techniker"
 
 #: DB:link_type/link_phrase:697
 msgid "mastering location for"
-msgstr ""
+msgstr "Mastering-Örtlichkeit für"
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
@@ -2929,19 +2929,19 @@ msgstr "sonstige Unterstützung"
 
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
 msgid "mixed at"
-msgstr ""
+msgstr "gemixt bei"
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
-msgstr ""
+msgstr "Mix-Techniker bei"
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr ""
+msgstr "Mix-Techniker"
 
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
 msgid "mixing location for"
-msgstr ""
+msgstr "Mix-Örtlichkeit für"
 
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
@@ -3098,11 +3098,11 @@ msgstr "Bilder"
 
 #: DB:link_type/reverse_link_phrase:716 DB:link_type/reverse_link_phrase:715
 msgid "premiered at"
-msgstr ""
+msgstr "Premiere bei"
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
-msgstr ""
+msgstr "Premieren"
 
 #: DB:link_type/reverse_link_phrase:1
 msgid "previous disc"
@@ -3110,11 +3110,11 @@ msgstr "vorheriges Medium"
 
 #: DB:link_type/link_phrase:714
 msgid "primary concert venue"
-msgstr ""
+msgstr "primäre Konzertstätte"
 
 #: DB:link_type/reverse_link_phrase:714
 msgid "primary concert venue of"
-msgstr ""
+msgstr "primäre Konzertstätte von"
 
 #: DB:link_attribute_type/name:618
 msgid "principal"
@@ -3229,24 +3229,24 @@ msgstr "Musik bestellen"
 
 #: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
-msgstr ""
+msgstr "aufgenommen bei"
 
 #: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
 msgid "recorded in"
-msgstr ""
+msgstr "aufgenommen in"
 
 #: DB:link_type/link_phrase:702
 msgid "recording engineer position at"
-msgstr ""
+msgstr "Aufnahmetechniker bei"
 
 #: DB:link_type/reverse_link_phrase:702
 msgid "recording engineers"
-msgstr ""
+msgstr "Aufnahmetechniker"
 
 #: DB:link_type/link_phrase:695 DB:link_type/link_phrase:698
 #: DB:link_type/link_phrase:699 DB:link_type/link_phrase:693
 msgid "recording location for"
-msgstr ""
+msgstr "Aufnahmeörtlichkeit für"
 
 #: DB:link_type/link_phrase:98 DB:link_type/link_phrase:260
 #: DB:link_type/reverse_link_phrase:98 DB:link_type/reverse_link_phrase:260
@@ -3466,16 +3466,16 @@ msgstr "wurde umbenannt zu"
 
 #: DB:link_type/long_link_phrase:697
 msgid "was the mastering location for"
-msgstr ""
+msgstr "war die Mastering-Örtlichkeit für"
 
 #: DB:link_type/long_link_phrase:694 DB:link_type/long_link_phrase:696
 msgid "was the mixing location for"
-msgstr ""
+msgstr "war die Mix-Örtlichkeit für"
 
 #: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:698
 #: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:693
 msgid "was the recording location for"
-msgstr ""
+msgstr "war die Aufnahmeörtlichkeit für"
 
 #: DB:link_type/long_link_phrase:101
 msgid "was {additional:additionally} catalogued by"
@@ -3487,19 +3487,19 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
-msgstr ""
+msgstr "arbeitet als Audio-Mastering-Techniker bei"
 
 #: DB:link_type/long_link_phrase:703
 msgid "works as a mixing engineer at"
-msgstr ""
+msgstr "arbeitet als Mix-Techniker bei"
 
 #: DB:link_type/long_link_phrase:702
 msgid "works as a recording engineer at"
-msgstr ""
+msgstr "arbeitet als Aufnahmetechniker bei"
 
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"
-msgstr ""
+msgstr "arbeitet als Techniker (Engineer) bei"
 
 #: DB:link_type/long_link_phrase:131 DB:link_type/long_link_phrase:24
 msgid "wrote {additional} liner notes for"

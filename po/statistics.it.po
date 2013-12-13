@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-11 12:35+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -748,7 +748,7 @@ msgstr "Entità centrali"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Count of active editors"
-msgstr ""
+msgstr "Numero di editor attivi"
 
 #: ../root/statistics/view_js.tt:81
 msgid "Count of active editors (editing or voting) during the last week"
@@ -1122,11 +1122,11 @@ msgstr "Editor (eliminati)"
 
 #: ../root/statistics/index.tt:681
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Editor (eliminati):"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Editors (valid & active ever)"
-msgstr ""
+msgstr "Editor (validi & attivi almeno una volta)"
 
 #: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
@@ -1714,11 +1714,11 @@ msgstr[1] "Pubblicazioni con {n} ID disco"
 
 #: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Pubblicazioni con copertina da Amazon"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Pubblicazioni con copertina da CAA"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Releases with Cover Art"
@@ -1726,7 +1726,7 @@ msgstr "Pubblicazioni con copertina"
 
 #: ../root/statistics/view_js.tt:194
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Pubblicazioni con copertina da relazioni"
 
 #: ../root/statistics/view_js.tt:142
 msgid "Releases with Disc IDs"
@@ -1734,7 +1734,7 @@ msgstr "Pubblicazioni con ID disco"
 
 #: ../root/statistics/view_js.tt:195
 msgid "Releases with No Cover Art"
-msgstr ""
+msgstr "Pubblicazioni senza copertina"
 
 #: ../root/statistics/view_js.tt:102
 msgid "Releases with a no-format medium"
@@ -1991,7 +1991,7 @@ msgstr "Ingrandisci:"
 
 #: ../root/statistics/index.tt:585
 msgid "active ever:"
-msgstr ""
+msgstr "attivi almeno una volta:"
 
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
@@ -2003,7 +2003,7 @@ msgstr "di artisti vari:"
 
 #: ../root/statistics/index.tt:676
 msgid "inactive:"
-msgstr ""
+msgstr "non attivi:"
 
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
@@ -2023,15 +2023,15 @@ msgstr "Persone:"
 
 #: ../root/statistics/index.tt:670
 msgid "validated email only:"
-msgstr ""
+msgstr "solo con email verificata:"
 
 #: ../root/statistics/index.tt:615
 msgid "who edit:"
-msgstr ""
+msgstr "che inseriscono modifiche:"
 
 #: ../root/statistics/index.tt:592
 msgid "who edited and/or voted last week:"
-msgstr ""
+msgstr "che hanno inserito modifiche e/o votato nell'ultima settimana:"
 
 #: ../root/statistics/index.tt:600
 msgid "who edited last week:"
@@ -2039,31 +2039,31 @@ msgstr "che hanno effettuato modifiche nell'ultima settimana:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
-msgstr ""
+msgstr "che hanno registrato applicazioni:"
 
 #: ../root/statistics/index.tt:629
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "che lasciano note di modifica:"
 
 #: ../root/statistics/index.tt:657
 msgid "who use collections:"
-msgstr ""
+msgstr "che usano le collezioni:"
 
 #: ../root/statistics/index.tt:643
 msgid "who use ratings:"
-msgstr ""
+msgstr "che usano le valutazioni:"
 
 #: ../root/statistics/index.tt:650
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "che usano le sottoscrizioni:"
 
 #: ../root/statistics/index.tt:636
 msgid "who use tags:"
-msgstr ""
+msgstr "che usano i tag:"
 
 #: ../root/statistics/index.tt:622
 msgid "who vote:"
-msgstr ""
+msgstr "che votano:"
 
 #: ../root/statistics/index.tt:608
 msgid "who voted last week:"
