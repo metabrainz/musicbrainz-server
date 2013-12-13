@@ -155,11 +155,3 @@ license:     MIT
 version:     0.3.3
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
-
--- colorbox/jquery.colorbox.js --
-
-library:     Colorbox
-license:     MIT
-version:     1.4.33
-author:      Jack Moore
-url:         http://www.jacklmoore.com/colorbox/

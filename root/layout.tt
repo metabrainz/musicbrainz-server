@@ -34,6 +34,7 @@
                     MB.Control.RelateTo ();
                 [%- END -%]
             });
+            tb_pathToImage = '[% c.uri_for('/static/lib/thickbox/loadingAnimation.gif') %]';
         //]]></script>
         [% BLOCK layout_head %][% END %]
         [%- INCLUDE layout_head -%]
@@ -170,16 +171,5 @@
 
         [%- BLOCK invisible_content -%][%- END -%]
         [% INCLUDE invisible_content %]
-
-        <!-- initiate colorbox for artwork -->
-        <script>
-          $(".artwork-image").colorbox({
-              transition: "none",
-              fadeOut: 100,
-              opacity: 0.75,
-              maxWidth: "75%",
-              maxHeight: "90%"
-          });
-        </script>
     </body>
 </html>
