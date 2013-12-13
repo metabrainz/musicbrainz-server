@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nikki, 2013
 # nikki2 <email address hidden>, 2012
 # nikki2 <email address hidden>, 2012
 # <email address hidden>, 2012
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 02:42-0700\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-12 16:46+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1330,7 +1331,7 @@ msgstr "Artiestdetails"
 
 #: ../root/otherlookup/form.tt:3
 msgid "Artist IPI:"
-msgstr "Artiest-IPI:"
+msgstr "IPI van de artiest:"
 
 #: ../root/otherlookup/form.tt:3
 msgid "Artist ISNI:"
@@ -2089,7 +2090,7 @@ msgstr "Kies een bestand:"
 
 #: ../root/release/cover_art_fields.tt:6
 msgid "Choose one or more cover art types for this image"
-msgstr "Kies één of meer types hoesafbeelding voor deze afbeelding"
+msgstr "Kies één of meer types voor deze afbeelding"
 
 #: ../root/scripts/text_strings.tt:85
 msgid "Clear artist"
@@ -2253,7 +2254,7 @@ msgid ""
 "{doc_labelcomment|documentation about disambiguation comments}, understood "
 "how we distinguish labels with the same name, and that you know what you are"
 " doing."
-msgstr ""
+msgstr "Bevestig door het onderstaande vakje aan te vinken dat u de {doc_labelcomment|richtlijnen voor platenmaatschappij-verduidelijking} heeft gelezen, dat u begrijpt hoe we platenmaatschappijen met dezelfde naam onderscheiden en dat u weet wat u doet."
 
 #: ../root/account/change_password.tt:24 ../root/account/register.tt:30
 #: ../root/account/reset_password.tt:11
@@ -3055,7 +3056,7 @@ msgstr "Redacteur"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Editor Flag"
-msgstr ""
+msgstr "Type redacteur"
 
 #: ../root/user/not_found.tt:1 ../root/user/not_found.tt:2
 msgid "Editor Not Found"
@@ -3593,7 +3594,7 @@ msgstr "Van:"
 #: ../root/release/sidebar.tt:4
 msgid ""
 "Front cover image failed to load correctly.<br/>{all|View all artwork}."
-msgstr "De afbeelding van de voorkant is niet goed geladen.<br/>{all|Bekijk alle hoesafbeeldingen}"
+msgstr "De afbeelding van de voorkant is niet goed geladen.<br/>{all|Bekijk alle afbeeldingen}"
 
 #: ../root/cdstub/index.tt:30 ../root/cdtoc/info.tt:5
 msgid "Full TOC:"
@@ -4024,7 +4025,7 @@ msgstr "Als u geïnteresseerd bent in het ontvangen van informatie van personeel
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
-msgstr ""
+msgstr "Afbeelding van Wikimedia Commons"
 
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
@@ -4526,7 +4527,7 @@ msgid ""
 "Make sure all mediums in the releases being merged are in the correct "
 "position. For example, to merge a medium into medium 2 of a release, it will"
 " need to be set as medium 2 of the release being merged."
-msgstr ""
+msgstr "Let op dat alle media in deze uitgave in de correcte positie worden samengevoegd. Bijvoorbeeld, om een medium in medium 2 van een uitgave samen te voegen, moet het worden ingesteld als medium 2 van de uitgave die wordt samengevoegd."
 
 #: ../root/release/edit/tracklist.tt:134
 msgid "Manual entry"
@@ -5119,7 +5120,7 @@ msgstr "Niet lastigvallen"
 
 #: ../root/tag/place.tt:1
 msgid "No places with this tag were found."
-msgstr ""
+msgstr "Geen plaatsen met dit etiket gevonden."
 
 #: ../root/user/ratings.tt:23
 msgid "No ratings."
@@ -5167,7 +5168,7 @@ msgstr "Geen uitgaves gevonden."
 
 #: ../root/release_group/set_cover_art.tt:52
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr ""
+msgstr "Geen uitgaves hebben afbeeldingen van de voorkant, er kan geen afbeelding worden ingesteld."
 
 #: ../root/tag/release.tt:1
 msgid "No releases with this tag were found."
@@ -5428,11 +5429,11 @@ msgstr "Andere opzoekresultaten"
 
 #: ../root/otherlookup/index.tt:1 ../root/otherlookup/index.tt:3
 msgid "Other Lookups"
-msgstr "Andere opzoekingen"
+msgstr "Andere zoekmogelijkheden"
 
 #: ../root/search/index.tt:16
 msgid "Other lookups"
-msgstr "Andere opzoekingen"
+msgstr "Andere zoekmogelijkheden"
 
 #: ../root/user/profile.tt:204
 msgid "Overall"
@@ -6121,7 +6122,7 @@ msgstr "Relatiedetails"
 
 #: ../root/edit/search_macros.tt:288
 msgid "Relationship Editor"
-msgstr "Relatiebewerker"
+msgstr "Relatieredacteur"
 
 #: ../root/doc/relationship_type.tt:2 ../root/edit/search_macros.tt:307
 msgid "Relationship Type"
@@ -7031,8 +7032,8 @@ msgstr[1] "Bekijk alle {num} platenmaatschappijen"
 #: ../root/tag/index.tt:8
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Bekijk alle {num} plaatsen"
+msgstr[1] "Bekijk alle {num} plaatsen"
 
 #: ../root/tag/index.tt:8
 msgid "See all {num} recordings"
@@ -7175,27 +7176,27 @@ msgstr "Alle opnames worden weergegeven. {show_sa|Geef alleen losstaande opnames
 msgid ""
 "Showing all release groups by this artist. {show_official|Show only official"
 " release groups instead}, or {show_va|show various artists release groups}."
-msgstr ""
+msgstr "De pagina laat nu alle uitgavegroepen van deze artiest zien. {show_official|Laat in plaats hiervan alleen officiële uitgavegroepen zien}, of {show_va|laat uitgavegroepen van diverse artiesten zien}."
 
 #: ../root/artist/index.tt:128
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
-msgstr ""
+msgstr "De pagina laat nu alle uitgavegroepen voor diverse artiesten zien. {show_official|Laat in plaats hiervan alleen officiële uitgavegroepen van diverse artiesten zien}, of {show_non_va|laat uitgavegroepen van alleen deze artiest zien}."
 
 #: ../root/artist/index.tt:119
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
-msgstr ""
+msgstr "De pagina laat nu alleen officiële uitgavegroepen van deze artiest zien. {show_all|Laat in plaats hiervan alle uitgavegroepen zien}, of {show_va|laat uitgavegroepen van diverse artiesten zien}."
 
 #: ../root/artist/index.tt:122
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
-msgstr ""
+msgstr "De pagina laat nu officiële uitgavegroepen voor diverse artiesten zien. {show_all|Laat in plaats hiervan alle uitgavegroepen van diverse artiesten zien}, of {show_non_va|laat uitgavegroepen van alleen deze artiest zien}."
 
 #: ../root/artist/recordings.tt:20
 msgid ""
@@ -7871,7 +7872,7 @@ msgstr "De artiest die u probeert te bewerken is een artiest voor specifieke doe
 msgid ""
 "The artwork in the sidebar is being provided by a {relationships|URL "
 "relationship}."
-msgstr "De hoesafbeelding in de zijbalk wordt geleverd door een {relationships|URL-relatie}."
+msgstr "De afbeelding in de zijbalk wordt geleverd door een {relationships|URL-relatie}."
 
 #: ../root/scripts/text_strings.tt:65
 msgid "The barcode you entered is a valid EAN code."
@@ -8233,7 +8234,7 @@ msgstr "Dit gebied is momenteel niet verbonden met uitgaves."
 
 #: ../root/artist/index.tt:103
 msgid "This artist does not have any release groups or standalone recordings."
-msgstr ""
+msgstr "Deze artiest heeft geen uitgavegroepen of losstaande opnames."
 
 #: ../root/artist/releases.tt:18
 msgid "This artist does not have any releases"
@@ -8252,7 +8253,7 @@ msgstr "Deze artiest heeft geen relaties, opnames, uitgaves of uitgavegroepen en
 
 #: ../root/artist/index.tt:106
 msgid "This artist has no release groups, only standalone recordings."
-msgstr ""
+msgstr "Deze artiest heeft geen uitgavegroepen, alleen losstaande opnames."
 
 #: ../root/artist/tags.tt:2
 msgid "This artist has no tags."
@@ -8273,13 +8274,13 @@ msgstr "Deze artiest is momenteel niet verbonden met composities."
 msgid ""
 "This artist only has release groups by various artists. Showing all release "
 "groups. {show_official|Show only official release groups instead}."
-msgstr ""
+msgstr "Deze artiest heeft alleen uitgavegroepen van diverse artiesten. De pagina laat nu alle uitgavegroepen zien. {show_official|Laat in plaats hiervan alleen officiële uitgavegroepen zien}."
 
 #: ../root/artist/index.tt:111
 msgid ""
 "This artist only has release groups by various artists. Showing official "
 "release groups only. {show_all|Show all release groups instead}."
-msgstr ""
+msgstr "Deze artiest heeft allen uitgavegroepen van diverse artiesten. De pagina laat nu alleen officiële uitgavegroepen zien. {show_all|Laat in plaats hiervan alle uitgavegroepen zien}."
 
 #: ../root/artist/releases.tt:25
 msgid "This artist only has releases by various artists."
@@ -8969,7 +8970,7 @@ msgstr "Deze tabel geeft een samenvatting van alle stemmen die door deze redacte
 
 #: ../root/edit/details/edit_medium.tt:2
 msgid "This track's MBID will change when this edit is applied."
-msgstr ""
+msgstr "De MBID van dit nummer zal worden veranderd als de bewerking doorgevoerd wordt."
 
 #: ../root/scripts/text_strings.tt:126
 msgid ""
@@ -9924,7 +9925,7 @@ msgstr "Wiki"
 
 #: ../root/edit/search_macros.tt:288
 msgid "Wiki Transcluder"
-msgstr ""
+msgstr "Transclusieredacteur"
 
 #: ../root/admin/wikidoc/index.tt:34
 msgid "Wiki version"
@@ -9942,7 +9943,7 @@ msgstr "Wikipedia"
 msgid ""
 "Wikipedia content provided under the terms of the {license_link|Creative "
 "Commons BY-SA license}"
-msgstr ""
+msgstr "Inhoud van Wikipedia wordt verstrekt onder voorwaarde van de {license_link|Creative Commons BY-SA-licentie}."
 
 #: ../root/artist/works-list.tt:9 ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:638 ../root/edit/search_macros.tt:307
@@ -10588,7 +10589,7 @@ msgstr "help"
 
 #: ../root/cdtoc/attach_list.tt:55
 msgid "hide tracklist"
-msgstr ""
+msgstr "nummerlijst verbergen"
 
 #: ../root/search/results-freedb.tt:31
 msgid "import"
@@ -12026,7 +12027,7 @@ msgstr "De artiest „{artist}“ is niet gekoppeld, selecteer een bestaande art
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:69
 msgid "Please add an artist name for each credit."
-msgstr ""
+msgstr "Voer alstublieft een artiestennaam in voor elke vermelding."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:84
 msgid "Artist credit field is required"
@@ -12242,7 +12243,7 @@ msgstr "Een uitgave moet ten minste één medium bevatten."
 
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:19
 msgid "You must provide an edit note"
-msgstr ""
+msgstr "U moet een opmerking toevoegen"
 
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:68
 msgid ""

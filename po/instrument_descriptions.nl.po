@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-12 14:07+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -445,7 +445,7 @@ msgstr "Klappen met de handen, ook bekend als palmas. (<a href=\"http://nl.wikip
 
 #: DB:link_attribute_type/description:747
 msgid "Harddisk configured to produce tones in pattern."
-msgstr ""
+msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 
 #: DB:link_attribute_type/description:102
 msgid "Hardingfele (Hardanger)"
@@ -866,7 +866,7 @@ msgid ""
 "plucked strings. It was in regular use in Europe up until the end of the "
 "18th century. (<a "
 "href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
-msgstr ""
+msgstr "Barytone of Bariton is een soort viola da gamba, met 6 speelsnaren. Het werd tot het einde van de achttiende eeuw veel in Europa bespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Barytone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:536
 msgid ""
@@ -1337,7 +1337,7 @@ msgid ""
 "strings tuned in fifths, G, D, A, E (low to high), an octave below a "
 "mandolin. (<a "
 "href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
-msgstr ""
+msgstr "De octaafmandoline of tenormandoline is een mandoline die een octaaf lager gestemd is dan een gewone Mandoline. (<a href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:612
 msgid ""

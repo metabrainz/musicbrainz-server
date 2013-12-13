@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nikki, 2013
 # Alain-Olivier  Breysse, 2013
 # murdos <email address hidden>, 2013
 # Benjamin <email address hidden>, 2011
@@ -27,7 +28,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 02:42-0700\n"
-"PO-Revision-Date: 2013-12-12 08:03+0000\n"
+"PO-Revision-Date: 2013-12-12 12:29+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -7187,20 +7188,20 @@ msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
-msgstr "Affichage de tous les groupes de parution des artistes divers. {show_official|Ne montrer plutôt que les groupes de parution des artistes divers}, ou {show_va|montrer les groupes de parution par cet artiste}."
+msgstr "Affichage de tous les groupes de parution des artistes divers. {show_official|Ne montrer plutôt que les groupes de parution des artistes divers}, ou {show_non_va|montrer les groupes de parution par cet artiste}."
 
 #: ../root/artist/index.tt:119
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
-msgstr "Affichage des groupes de parution officiel par cet artiste. {show_official|Monter plutôt tous les groupes de parution}, ou {show_va|montrer les groupes de parution des artistes divers}."
+msgstr "Affichage des groupes de parution officiel par cet artiste. {show_all|Monter plutôt tous les groupes de parution}, ou {show_va|montrer les groupes de parution des artistes divers}."
 
 #: ../root/artist/index.tt:122
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
-msgstr "Affichage des groupes de parution officiels des artistes divers. {show_all|Montrer plutôt tous les groupes de parution des artistes divers}, ou {show_va|montrer les groupes de parution par cet artiste}."
+msgstr "Affichage des groupes de parution officiels des artistes divers. {show_all|Montrer plutôt tous les groupes de parution des artistes divers}, ou {show_non_va|montrer les groupes de parution par cet artiste}."
 
 #: ../root/artist/recordings.tt:20
 msgid ""
@@ -8284,7 +8285,7 @@ msgstr "Cet artiste n'a que des groupes de parution par des artistes divers. Aff
 msgid ""
 "This artist only has release groups by various artists. Showing official "
 "release groups only. {show_all|Show all release groups instead}."
-msgstr "Cet artiste n'a que des groupes de parution par des artistes divers. Affichage des groupes de parution officiels seulement. {show_official|Montrer plutôt tous les groupes de parution}."
+msgstr "Cet artiste n'a que des groupes de parution par des artistes divers. Affichage des groupes de parution officiels seulement. {show_all|Montrer plutôt tous les groupes de parution}."
 
 #: ../root/artist/releases.tt:25
 msgid "This artist only has releases by various artists."
@@ -9724,7 +9725,7 @@ msgstr "Votes pour :"
 
 #: ../root/elections/show.tt:58
 msgid "Voting"
-msgstr "Vote en cours"
+msgstr "Vote"
 
 #: ../root/edit/info.tt:63 ../root/edit/list_header.tt:25
 msgid "Voting FAQ"
