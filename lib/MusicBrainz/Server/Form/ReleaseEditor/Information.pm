@@ -12,7 +12,7 @@ has_field 'id'               => ( type => 'Integer' );
 
 # Release information
 has_field 'name'             => ( type => 'Text', required => 1, label => l('Title') );
-has_field 'release_group_id' => ( type => 'Hidden', required => 1 );
+has_field 'release_group_id' => ( type => 'Hidden' );
 
 has_field 'release_group'    => ( type => 'Compound'    );
 has_field 'release_group.name' => ( type => 'Text'    );
@@ -97,24 +97,22 @@ sub validate {
     # Labels must be selected, unless the field is deleted or empty.
     for my $label ($self->field('labels')->fields) {
         my $label_id = $label->field('label_id')->value;
+        my $name = $label->field('name')->value;
+        my $catalog_number = $label->field('catalog_number')->value;
 
         $label->field('name')->add_error(l('You must select an existing label.'))
             unless (
-                $label_id ||
-                $label->field('deleted')->value ||
-                $label->field('catalog_number')->value
+                $label_id || $catalog_number ||
+                !($label_id || $catalog_number || $name) ||
+                $label->field('deleted')->value
             );
     }
 
-    # A release_group_id *must* be present.
-    if (!$self->field('release_group_id')->value) {
-        $self->field('release_group.name')->add_error(
-            $self->field('id')->value ?
-            l('You must select an existing release group. If you wish to move this release,
-               use the "change release group" action from the sidebar.') :
-            l('You must select an existing release group.')
-        );
-    }
+    # A release_group_id *must* be present if we're editing an existing release.
+    $self->field('release_group.name')->add_error(
+        l('You must select an existing release group.')
+    ) if (!$self->field('release_group_id')->value &&
+           $self->field('id')->value);
 }
 
 after 'BUILD' => sub {
