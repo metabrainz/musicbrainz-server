@@ -57,7 +57,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: $.proxy(response, null, [])
             }));
-        }
+        },
+
+        resultHook: _.identity
     },
 
     _create: function () {
@@ -284,13 +286,12 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     lookupHook: _.identity,
-    resultHook: _.identity,
 
     _lookupSuccess: function (response, data, result, request) {
         var pager = _.last(data);
         var jumpTo = this.currentResults.length;
 
-        data = this.resultHook(_.initial(data));
+        data = this.options.resultHook(_.initial(data));
 
         // "currentResults" will contain action items that aren't results,
         // e.g. ShowMore, SwitchToDirectSearch, etc. Filter these actions out
