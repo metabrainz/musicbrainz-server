@@ -4,8 +4,7 @@
         <tr>
             [% BLOCK extra_header_start %][% END %]
             [%- PROCESS extra_header_start -%]
-            <th>[% l('Artist') %]</th>
-            <th>[% l('Release Group') %]</th>
+            <th>[% l('URL') %]</th>
         </tr>
     </thead>
     <tbody>
@@ -13,8 +12,7 @@
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
             [% BLOCK extra_row_start %][% END %]
             [%- PROCESS extra_row_start -%]
-            <td>[% artist_credit(item.release_group.artist_credit) %]</td>
-            <td>[% link_entity(item.release_group) %]</td>
+            <td>[% link_entity(item.url) %]</td>
         </tr>
         [%- END -%]
     </tbody>

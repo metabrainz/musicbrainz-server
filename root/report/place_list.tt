@@ -4,16 +4,17 @@
         <tr>
             [% BLOCK extra_header_start %][% END %]
             [%- PROCESS extra_header_start -%]
-            <th>[% l('Work') %]</th>
+            <th>[% l('Place') %]</th>
         </tr>
     </thead>
     <tbody>
+        [%- lastgid = 0 -%]
         [%- FOR item IN items -%]
-        <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
-            [% BLOCK extra_row_start %][% END %]
-            [%- PROCESS extra_row_start -%]
-            <td>[% link_entity(item.work) %]</td>
-        </tr>
+            <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                [% BLOCK extra_row_start %][% END %]
+                [%- PROCESS extra_row_start -%]
+                <td>[% link_entity(item.place) %]</td>
+            </tr>
         [%- END -%]
     </tbody>
 </table>
