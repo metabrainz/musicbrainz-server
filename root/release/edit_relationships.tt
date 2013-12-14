@@ -37,7 +37,7 @@
         <tr>
           <td class="section" data-bind="text: MB.text.Entity[sourceField()().type] + ':'"></td>
           <td>
-            <span data-bind="html: sourceField()().html()"></span>
+            <span data-bind="html: sourceField()().html({ 'target': '_blank' })"></span>
             <div class="error" data-bind="text: sourceField().error"></div>
           </td>
         </tr>
@@ -182,9 +182,9 @@
     <td class="pos t" data-bind="text: number"></td>
     <td class="recording">
       <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
-      <span data-bind="html: html()"></span>
+      <span data-bind="html: html({ 'target': '_blank' })"></span>
       <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
-          by <span data-bind="html: artistCredit.html()"></span>
+          by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
       <!-- /ko -->
       (<!-- ko text: length --><!-- /ko -->)
       <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
@@ -212,7 +212,7 @@
   <div class="ar">
     <span class="remove-button">&#215;</span>
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
-    <span class="entity" data-bind="html: target($parents[0]).html(), css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
     <!-- /ko -->
@@ -222,7 +222,7 @@
 <script type="text/html" id="template.relationship.performance">
   <div class="ar">
     <!-- ko with: entity[1] --><input type="checkbox"/><!-- /ko -->
-    <span class="entity" data-bind="html: entity[1]().html(), css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: entity[1]().html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
     (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
