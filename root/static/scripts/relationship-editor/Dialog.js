@@ -354,7 +354,6 @@ var Dialog = UI.Dialog = {
     batchWorksError: ko.observable(false),
 
     showAutocomplete: ko.observable(false),
-    showCreateWorkLink: ko.observable(false),
     showAttributesHelp: ko.observable(false),
     showLinkTypeHelp: ko.observable(false),
     disableTypeSelection : ko.observable(false),
@@ -419,19 +418,8 @@ var Dialog = UI.Dialog = {
         dlg.instance(this);
 
         dlg.showAutocomplete(notBatchWorks);
-        dlg.showCreateWorkLink(options.relationship.type == "recording-work" && notBatchWorks);
-
         dlg.relationship().validateEntities = true;
-
-        // prevent pressing enter on the create-work button from accepting the dialog.
-        if (dlg.showCreateWorkLink.peek())
-            $("#create-work-btn").on("keydown", function(event) {
-                if (event.keyCode == 13)
-                    event.stopPropagation();
-            });
-
         this.openWidget(options.positionBy);
-
         $("#link-type").focus();
     },
 
@@ -439,7 +427,6 @@ var Dialog = UI.Dialog = {
         var dlg = Dialog;
         var instance = dlg.instance.peek();
 
-        WorkDialog.hide();
         dlg.widget.close();
         delete dlg.targets;
 
@@ -458,20 +445,6 @@ var Dialog = UI.Dialog = {
 
     canSubmit: function() {
         return !Dialog.relationship.peek().hasErrors.peek();
-    },
-
-    createWork: function(data, event) {
-        WorkDialog.show();
-        WorkDialog.name(Dialog.source.name);
-        $("#work-name").focus();
-    },
-
-    batchWorksMode: function() {
-        $("#work-type").clone(true).removeAttr("id").removeAttr("data-bind")
-            .appendTo("#batch-work-type");
-
-        $("#work-language").clone(true).removeAttr("id").removeAttr("data-bind")
-            .appendTo("#batch-work-lang");
     },
 
     toggleAttributesHelp: function() {
@@ -621,6 +594,11 @@ UI.BatchRelationshipDialog.accept = function(callback) {
 
 UI.BatchCreateWorksDialog = MB.utility.beget(UI.BatchRelationshipDialog);
 
+_.extend(UI.BatchCreateWorksDialog, {
+    workType: ko.observable(null),
+    workLanguage: ko.observable(null)
+});
+
 UI.BatchCreateWorksDialog.show = function() {
     Dialog.targets = _.filter(UI.checkedRecordings(), function(obj) {
         return obj.performanceRelationships.peek().length == 0;
@@ -644,17 +622,18 @@ UI.BatchCreateWorksDialog.show = function() {
 };
 
 UI.BatchCreateWorksDialog.accept = function() {
+    var self = UI.BatchCreateWorksDialog,
+        type = self.workType(),
+        lang = self.workLanguage();
+
     Dialog.loading(true);
 
-    var type_id = $("#batch-work-type > select").val(),
-        language_id = $("#batch-work-lang > select").val(), works;
-
-    works = _.map(Dialog.targets, function(obj) {
-        return {name: obj.name, comment: "", type: type_id, language: language_id};
+    var works = _.map(Dialog.targets, function(obj) {
+        return { name: obj.name, comment: "", type: type, language: lang };
     });
 
     function success(data) {
-        UI.BatchRelationshipDialog.accept.call(this, function(obj) {
+        UI.BatchRelationshipDialog.accept.call(self, function(obj) {
             obj.entity[1] = MB.entity(data.works.shift(), "work");
             if (data.works.length == 0) Dialog.loading(false);
             return true;
@@ -672,88 +651,6 @@ UI.BatchCreateWorksDialog.accept = function() {
 UI.BatchCreateWorksDialog.hide = function() {
     this.batchWorksError(false);
     this.relationship.peek().remove();
-};
-
-
-var WorkDialog = UI.WorkDialog = {
-    RE: RE,
-    showName: ko.observable(true),
-    loading: ko.observable(false),
-    error: ko.observable(false),
-
-    name: ko.observable(""),
-    comment: ko.observable(""),
-    type: ko.observable(""),
-    language: ko.observable(""),
-    editNote: ko.observable(""),
-
-    init: function() {
-        BaseDialog.call(this, $("#new-work-dialog"));
-    },
-
-    data: function() {
-        var self = WorkDialog;
-
-        return {
-            name: self.name(),
-            comment: self.comment(),
-            type: self.type(),
-            language: self.language()
-        };
-    },
-
-    show: function () {
-        var self = WorkDialog;
-
-        self.showName(true);
-        self.loading(false);
-        self.error(false);
-
-        self.name("");
-        self.comment("");
-        self.type("");
-        self.language("");
-
-        self.openWidget($("#create-work-btn"));
-    },
-
-    accept: function() {
-        var self = WorkDialog;
-        self.error(false);
-        self.loading(true);
-
-        RE.createWorks([self.data()], self.editNote(),
-            self.successCallback, self.errorCallback);
-    },
-
-    hide: function() {
-        this.widget.close();
-        WorkDialog.type("");
-        WorkDialog.language("");
-
-        _.defer(function() {
-            $("#create-work-btn").focus();
-        });
-    },
-
-    canSubmit: function() {
-        return this.name.peek() && !this.loading.peek();
-    },
-
-    successCallback: function(data) {
-        var target = MB.entity(data.works[0], "work");
-
-        Dialog.autocomplete.currentSelection(target);
-        Dialog.targetField.peek()(target);
-
-        WorkDialog.loading(false);
-        WorkDialog.hide();
-    },
-
-    errorCallback: function() {
-        WorkDialog.loading(false);
-        WorkDialog.error(true);
-    }
 };
 
 

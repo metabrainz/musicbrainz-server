@@ -287,6 +287,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     resultHook: _.identity,
 
     _lookupSuccess: function (response, data, result, request) {
+        var self = this;
         var pager = _.last(data);
         var jumpTo = this.currentResults.length;
 
@@ -325,6 +326,24 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                                         MB.text.SwitchToIndexedSearch,
             action: _.bind(this._searchAgain, this, true)
         });
+
+        var allowCreation = window === window.top,
+            entity = this.entity.replace("-", "_");
+
+        if (allowCreation && MB.text.AddANewEntity[entity]) {
+            results.push({
+                label: MB.text.AddANewEntity[entity],
+                action: function () {
+                    $("<div>").appendTo("body").createEntityDialog({
+                        name: self._value(),
+                        entity: entity,
+                        callback: function (item) {
+                            self.options.select(null, { item: item });
+                        }
+                    });
+                }
+            });
+        }
 
         response(results);
 

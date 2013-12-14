@@ -7,8 +7,8 @@
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
-      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_text_long(r, 'length', l('Length:')) -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]

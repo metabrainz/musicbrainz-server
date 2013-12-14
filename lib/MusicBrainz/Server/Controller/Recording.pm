@@ -167,7 +167,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
         return %ret;
-    }
+    },
+    dialog_template => 'recording/edit_form.tt',
 };
 
 sub _merge_load_entities {

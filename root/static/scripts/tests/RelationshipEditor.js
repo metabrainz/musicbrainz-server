@@ -892,9 +892,7 @@ MB.tests.RelationshipEditor.Run = function() {
     };
 
     // Stop knockout from complaining
-    $("body").append("<div id=\"new-work-dialog\"></div>",
-                     "<div id=\"content\"></div>",
-                     "<div id=\"dialog\"></div>");
+    $("body").append("<div id=\"content\"></div>", "<div id=\"dialog\"></div>");
 
     RE.Util.init(typeInfo, attrInfo);
     RE.UI.init(testRelease.gid, testRelease.release_group.gid, testRelease);

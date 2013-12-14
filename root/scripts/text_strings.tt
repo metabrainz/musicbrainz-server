@@ -129,6 +129,14 @@
         VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
         EnumerationComma: '[% l(', ') | js %]',
         EnumerationAnd: '[% l('{b} and {a}') | js %]',
-        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]'
+        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]',
+        AddANewEntity: {
+            artist:          "[% l('Add a new artist') | js %]",
+            label:           "[% l('Add a new label') | js %]",
+            place:           "[% l('Add a new place') | js %]",
+            recording:       "[% l('Add a new recording') | js %]",
+            release_group:   "[% l('Add a new release group') | js %]",
+            work:            "[% l('Add a new work') | js %]"
+        }
     });
 })(MB);

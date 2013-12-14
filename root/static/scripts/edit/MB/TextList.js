@@ -30,8 +30,6 @@ MB.Form.TextList = function (input) {
 
     self.removeEvent = function (event) {
         $(this).closest ('div.text-list-row').remove();
-        event.preventDefault ();
-        return false;
     };
 
     self.init = function(max_index) {
@@ -64,9 +62,6 @@ MB.Form.TextList = function (input) {
         var idx = parseInt (parts.pop (), 10) + 1;
         var prefix = parts.join ('.') + '.' + idx + '.';
         self.add ('');
-
-        event.preventDefault ();
-        return false;
     });
 
     return self;
