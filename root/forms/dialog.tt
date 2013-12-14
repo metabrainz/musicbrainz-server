@@ -1,0 +1,44 @@
+[%- IF dialog_template -%]
+
+[% rdfa_set_header(0) %]
+  [% IF dialog_result %]
+    <head>
+      <script>
+        var dialogResult = [% dialog_result %];
+      </script>
+    </head>
+  [% ELSE %]
+    [% INCLUDE 'layout/head.tt' %]
+    [% BLOCK layout_head %]
+      <style>
+        body { background: #fff; margin: 0; padding: 0; }
+        #page { background: none; margin: 0; padding: 1em; }
+        div.half-width { margin: 0; }
+      </style>
+    [% END %]
+    <body>
+      <div id="page">
+        [% INCLUDE "$dialog_template" %]
+      </div>
+
+      <script>
+        $(document)
+          .on("submit", function () {
+            containingDialog.toggleLoading(true);
+          })
+          .on("click", ":button", function () {
+            containingDialog.adjustSize(document);
+          })
+          .on("keydown", function (event) {
+              // $.ui can't esc-close a dialog if focus is within an iframe,
+              // so we handle it ourselves.
+              if (event.keyCode === 27 && !event.isDefaultPrevented()) {
+                  containingDialog.close(event);
+              }
+          });
+      </script>
+    </body>
+  [% END %]
+</html>
+
+[%- END -%]

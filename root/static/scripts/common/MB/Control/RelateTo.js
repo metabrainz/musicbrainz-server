@@ -151,17 +151,17 @@ MB.Control.RelateTo = function () {
         hovering = false;
     });
 
-    $("body").click(function (event) {
-        if (!hovering && self.$relate.is(":visible")) {
-            self.hide(event);
-        }
-    });
-
-    $(document).keyup(function (event) {
-        if (event.keyCode == 27 && self.$relate.is(":visible")) {
-            self.hide(event);
-        }
-    });
+    $(document)
+        .click(function (event) {
+            if (!hovering && !event.isDefaultPrevented() && self.$relate.is(":visible")) {
+                self.hide(event);
+            }
+        })
+        .keydown(function (event) {
+            if (event.keyCode === 27 && !event.isDefaultPrevented() && self.$relate.is(":visible")) {
+                self.hide(event);
+            }
+        });
 
     /* Opera triggers a click event whenever a select element is focused
        and a key is pressed, for no obvious reason. Prevent the box from

@@ -20,6 +20,29 @@ def translations():
             commit_message = prompt("Commit message", default='Update translations from transifex.')
             local("git commit -m '%s'" % (commit_message))
 
+def pot():
+    """
+    Update .pot files
+    """
+    env.host_string = "beta"
+    with lcd("po/"):
+        with cd("~/musicbrainz-server/po"):
+            run("touch extract_pot_db")
+            run("eval $(perl -Mlocal::lib) && make attributes.pot instruments.pot instrument_descriptions.pot relationships.pot statistics.pot languages.pot languages_notrim.pot scripts.pot countries.pot")
+            get("~/musicbrainz-server/po/*.pot", "./%(path)s")
+            run("git checkout HEAD *.pot")
+        stats_diff = local("git diff statistics.pot", capture=True)
+        local("touch extract_pot_templates")
+        local("make mb_server.pot statistics.pot")
+        stats_diff = stats_diff + local("git diff statistics.pot", capture=True)
+
+        if not re.match('^\s*$', stats_diff, re.MULTILINE):
+            puts("Please ensure that statistics.pot is correct and then commit manually, since it depends on both the database and templates.")
+        else:
+            local("git add *.pot")
+            commit_message = prompt("Commit message", default='Update pot files using current code and production database.')
+            local("git commit -m '%s'" % (commit_message))
+
 def prepare_release():
     """
     Prepare for a new release.

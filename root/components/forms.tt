@@ -103,20 +103,20 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value with-remove" />
-              <button class="nobutton icon remove">
+              <button type="button" class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
-              <button class="nobutton remove">
+              <button type="button" class="nobutton remove">
               <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% END -%]
           <div class="form-row-add">
-            <button class="nobutton add">
+            <button type="button" class="nobutton add">
               <span class="add-row">[% l('Add {item}', item => item_name) %]</span>
               <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
             </button>

@@ -7,12 +7,12 @@ MB.tests.entity = function() {
 
         QUnit.equal(
             source.html(),
-            '<a href="/recording/123" target="_blank">a recording</a>',
+            '<a href="/recording/123">a recording</a>',
             "recording link"
         );
 
         QUnit.equal(
-            target.html(),
+            target.html({ "target": "_blank" }),
             '<a href="/artist/456" target="_blank" title="bar">foo</a>',
             "artist link"
         );
@@ -64,9 +64,9 @@ MB.tests.entity = function() {
 
         QUnit.equal(new MB.entity.ArtistCredit(ac).html(),
             '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
-            'target="_blank" title="Sheridan, Tony">Tony Sheridan</a> &amp; ' +
+            'title="Sheridan, Tony">Tony Sheridan</a> &amp; ' +
             '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
-            'target="_blank" title="Beatles, The">The Beatles</a>',
+            'title="Beatles, The">The Beatles</a>',
             "artist credit rendering"
         );
     });

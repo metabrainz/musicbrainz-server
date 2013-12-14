@@ -37,7 +37,7 @@
         <tr>
           <td class="section" data-bind="text: MB.text.Entity[sourceField()().type] + ':'"></td>
           <td>
-            <span data-bind="html: sourceField()().html()"></span>
+            <span data-bind="html: sourceField()().html({ 'target': '_blank' })"></span>
             <div class="error" data-bind="text: sourceField().error"></div>
           </td>
         </tr>
@@ -69,24 +69,31 @@
           </td>
         </tr>
         <!-- /ko -->
-        <!-- ko if: showCreateWorkLink -->
-        <tr>
-          <td></td>
-          <td>
-            <button id="create-work-btn" data-bind="click: createWork, clickBubble: false">
-              [% l('Create a new work') %]
-            </button>
-          </td>
-        </tr>
-        <!-- /ko -->
-        <!-- ko template: {"if": mode() == "batch.create.works", afterRender: batchWorksMode} -->
+        <!-- ko if: mode() === "batch.create.works" -->
         <tr>
           <td class="section">[% l('Work Type:') %]</td>
-          <td id="batch-work-type"></td>
+          <td>
+            <select data-bind="value: instance().workType, disable: loading">
+              <option selected="selected"></option>
+              [%- FOR type=work_types %]
+                <option value="[% type.0 %]">[% type.1 | html %]</option>
+              [%- END %]
+            </select>
+          </td>
         </tr>
         <tr>
           <td class="section">[% l('Lyrics Language:') %]</td>
-          <td id="batch-work-lang"></td>
+          <td>
+            <select data-bind="value: instance().workLanguage, disable: loading">
+              <option selected="selected"></option>
+              [% FOR optgroup=work_languages %]
+                <optgroup label="[% optgroup.optgroup %]">
+                [%- FOR lang=optgroup.options %]
+                  <option value="[% lang.value %]">[% lang.label | html %]</option>
+                [%- END -%]
+              [% END %]
+            </select>
+          </td>
         </tr>
         <!-- /ko -->
         <!-- ko if: attrs().length > 0 -->
@@ -162,75 +169,6 @@
       </div>
     </div>
 
-    <div id="new-work-dialog" class="rel-editor-dialog">
-      <p class="msg warning">
-        [% l('Only use this option after you\'ve tried searching for the work(s)
-              you want to create, and are certain they do not already exist on
-              MusicBrainz.') %]
-      </p>
-      <table>
-        <tr data-bind="if: showName">
-          <td><label for="work-name">[%- l('Work Name:') -%]</label></td>
-          <td>
-            <input id="work-name" size="32" data-bind="value: name,
-              valueUpdate: 'afterkeydown', disable: loading" type="text"/>
-          </td>
-        </tr>
-        <tr>
-          <td><label for="work-comment">[%- l('Disambiguation:') -%]</label></td>
-          <td>
-            <input id="work-comment" size="32" data-bind="value: comment,
-              valueUpdate: 'afterkeydown', disable: loading" type="text"/>
-          </td>
-        </tr>
-        <tr>
-          <td><label for="work-type">[%- l('Type:') -%]</label></td>
-          <td>
-            <select id="work-type" data-bind="value: type, disable: loading">
-              <option selected="selected"></option>
-              [%- FOR type=work_types %]
-                <option value="[% type.0 %]">[% type.1 | html %]</option>
-              [%- END %]
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><label for="work-language">[%- l('Lyrics Language:') -%]</label></td>
-          <td>
-            <select id="work-language" data-bind="value: language, disable: loading">
-              <option selected="selected"></option>
-              [% FOR optgroup=work_languages %]
-                <optgroup label="[% optgroup.optgroup %]">
-                [%- FOR lang=optgroup.options %]
-                  <option value="[% lang.value %]">[% lang.label | html %]</option>
-                [%- END -%]
-              [% END %]
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <label>[% l('Edit note:') %]<br/>
-              <textarea data-bind="value: editNote,
-                valueUpdate: 'afterkeydown', disable: loading"></textarea>
-            </label>
-            <!-- ko if: loading -->
-              <div data-bind="html: RE.UI.loadingIndicator"></div>
-            <!-- /ko -->
-            <!-- ko if: error -->
-              <div class="error">[% l('An error occurred while creating the work.') %]</div>
-            <!-- /ko -->
-          </td>
-        </tr>
-      </table>
-      <div class="buttons ui-helper-clearfix" style="margin-top: 1em">
-        <button class="negative" data-bind="click: hide, disable: loading">[% l('Cancel') %]</button>
-        <div class="buttons-right" style="float: right">
-          <button class="positive" data-bind="click: accept, enable: name() && !loading()">[% l('Create work') %]</button>
-        </div>
-      </div>
-    </div>
-
 <script type="text/html" id="template.relationships">
   <div class="ars" data-bind="template: {name: 'template.relationship', foreach: relationships}">
   </div>
@@ -244,9 +182,9 @@
     <td class="pos t" data-bind="text: number"></td>
     <td class="recording">
       <!-- ko with: recording --><input type="checkbox"><!-- /ko -->
-      <span data-bind="html: html()"></span>
+      <span data-bind="html: html({ 'target': '_blank' })"></span>
       <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
-          by <span data-bind="html: artistCredit.html()"></span>
+          by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
       <!-- /ko -->
       (<!-- ko text: length --><!-- /ko -->)
       <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
@@ -274,7 +212,7 @@
   <div class="ar">
     <span class="remove-button">&#215;</span>
     <!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->:
-    <span class="entity" data-bind="html: target($parents[0]).html(), css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: target($parents[0]).html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)
     <!-- /ko -->
@@ -284,7 +222,7 @@
 <script type="text/html" id="template.relationship.performance">
   <div class="ar">
     <!-- ko with: entity[1] --><input type="checkbox"/><!-- /ko -->
-    <span class="entity" data-bind="html: entity[1]().html(), css: {'rel-edit': edits_pending}"></span>
+    <span class="entity" data-bind="html: entity[1]().html({ 'target': '_blank' }), css: {'rel-edit': edits_pending}"></span>
     (<!-- ko template: {name: 'template.link.phrase', data: $data} --><!-- /ko -->)
     <!-- ko if: dateRendering -->
       (<!-- ko text: dateRendering --><!-- /ko -->)

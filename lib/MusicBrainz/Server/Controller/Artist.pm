@@ -400,6 +400,7 @@ is done via L<MusicBrainz::Server::Form::Artist>
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Artist',
     edit_type => $EDIT_ARTIST_CREATE,
+    dialog_template => 'artist/edit_form.tt',
 };
 
 =head2 edit

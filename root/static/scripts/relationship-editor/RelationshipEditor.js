@@ -179,7 +179,6 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
 
     UI.Dialog.init();
-    UI.WorkDialog.init();
 
     $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering

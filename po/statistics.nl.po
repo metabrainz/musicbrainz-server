@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-12 15:09+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -747,7 +747,7 @@ msgstr "Kernobjecten"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Count of active editors"
-msgstr ""
+msgstr "Aantal actieve redacteurs"
 
 #: ../root/statistics/view_js.tt:81
 msgid "Count of active editors (editing or voting) during the last week"
@@ -1121,11 +1121,11 @@ msgstr "Redacteurs (verwijderd)"
 
 #: ../root/statistics/index.tt:681
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Redacteurs (verwijderd):"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Editors (valid & active ever)"
-msgstr ""
+msgstr "Redacteurs (geldig & ooit actief)"
 
 #: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
@@ -1713,11 +1713,11 @@ msgstr[1] "Uitgaves met {n} disc-id's"
 
 #: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Uitgaves met afbeeldingen van Amazon"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "Uitgaves met afbeeldingen van de CAA"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Releases with Cover Art"
@@ -1725,7 +1725,7 @@ msgstr "Uitgaves met hoesafbeeldingen"
 
 #: ../root/statistics/view_js.tt:194
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Uitgaves met afbeeldingen van relaties."
 
 #: ../root/statistics/view_js.tt:142
 msgid "Releases with Disc IDs"
@@ -1733,7 +1733,7 @@ msgstr "Uitgaves met disc-id's"
 
 #: ../root/statistics/view_js.tt:195
 msgid "Releases with No Cover Art"
-msgstr ""
+msgstr "Uitgaves zonder afbeeldingen"
 
 #: ../root/statistics/view_js.tt:102
 msgid "Releases with a no-format medium"
@@ -1990,7 +1990,7 @@ msgstr "Vergroten:"
 
 #: ../root/statistics/index.tt:585
 msgid "active ever:"
-msgstr ""
+msgstr "ooit actief:"
 
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
@@ -2002,7 +2002,7 @@ msgstr "door diverse artiesten:"
 
 #: ../root/statistics/index.tt:676
 msgid "inactive:"
-msgstr ""
+msgstr "inactief:"
 
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
@@ -2022,15 +2022,15 @@ msgstr "met het type persoon:"
 
 #: ../root/statistics/index.tt:670
 msgid "validated email only:"
-msgstr ""
+msgstr "alleen bevestigde e-mails:"
 
 #: ../root/statistics/index.tt:615
 msgid "who edit:"
-msgstr ""
+msgstr "die bewerken:"
 
 #: ../root/statistics/index.tt:592
 msgid "who edited and/or voted last week:"
-msgstr ""
+msgstr "die vorige week bewerkt of gestemd hebben:"
 
 #: ../root/statistics/index.tt:600
 msgid "who edited last week:"
@@ -2038,31 +2038,31 @@ msgstr "die vorige week bewerkingen aangebracht hebben:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
-msgstr ""
+msgstr "die applicaties hebben geregistreerd:"
 
 #: ../root/statistics/index.tt:629
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "die notities achterlaten:"
 
 #: ../root/statistics/index.tt:657
 msgid "who use collections:"
-msgstr ""
+msgstr "die collecties gebruiken:"
 
 #: ../root/statistics/index.tt:643
 msgid "who use ratings:"
-msgstr ""
+msgstr "die waarderingen gebruiken:"
 
 #: ../root/statistics/index.tt:650
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "die abbonnementen gebruiken:"
 
 #: ../root/statistics/index.tt:636
 msgid "who use tags:"
-msgstr ""
+msgstr "die etiketten gebruiken:"
 
 #: ../root/statistics/index.tt:622
 msgid "who vote:"
-msgstr ""
+msgstr "die stemmen:"
 
 #: ../root/statistics/index.tt:608
 msgid "who voted last week:"
