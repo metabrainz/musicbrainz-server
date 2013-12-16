@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_type { $EDIT_PUID_DELETE }
 sub edit_name { N_l('Remove PUID') }
+sub edit_kind { 'remove' }
 
 use aliased 'MusicBrainz::Server::Entity::Recording';
 

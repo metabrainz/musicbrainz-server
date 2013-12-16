@@ -19,6 +19,8 @@ around edit_conditions => sub {
     return conditions_without_autoedit($self->$orig(@args));
 };
 
+sub edit_kind { 'remove' }
+
 sub alter_edit_pending
 {
     my $self = shift;

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { N_l('Remove relationship (historic)') }
+sub edit_kind     { 'remove' }
 sub historic_type { 35 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_LINK }
 

@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup';
 with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities';
 
 sub edit_name { N_l('Set cover art') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASEGROUP_SET_COVER_ART }
 sub release_group_ids { shift->data->{entity}->{id} }
 

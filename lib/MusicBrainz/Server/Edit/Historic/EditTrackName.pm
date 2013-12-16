@@ -18,6 +18,7 @@ sub deserialize_new_value {
 }
 
 sub edit_name     { N_l('Edit track name (historic)') }
+sub edit_kind     { 'edit' }
 sub historic_type { 4 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_TRACKNAME }
 sub edit_template { 'historic/edit_track_name' }

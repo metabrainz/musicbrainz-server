@@ -12,6 +12,8 @@ use Try::Tiny;
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 requires 'change_fields', '_edit_model', '_conflicting_entity_path';
 
+sub edit_kind { 'edit' }
+
 sub entity_id { shift->data->{entity}{id} }
 
 sub alter_edit_pending
