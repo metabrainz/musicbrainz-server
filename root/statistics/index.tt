@@ -589,7 +589,7 @@
 <tr>
     <th></th>
     <th></th>
-    <th colspan="2">[% l('who edited and/or voted last week:') %]</th>
+    <th colspan="2">[% l('who edited and/or voted in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.activelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.activelastweek', 'count.editor.valid.active')) }) %]</td>
 </tr>
@@ -597,7 +597,7 @@
     <th></th>
     <th></th>
     <th></th>
-    <th>[% l('who edited last week:') %]</th>
+    <th>[% l('who edited in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.editlastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.editlastweek', 'count.editor.activelastweek')) }) %]</td>
 </tr>
@@ -605,7 +605,7 @@
     <th></th>
     <th></th>
     <th></th>
-    <th>[% l('who voted last week:') %]</th>
+    <th>[% l('who voted in the last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.editor.votelastweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.editor.votelastweek', 'count.editor.activelastweek')) }) %]</td>
 </tr>
@@ -741,7 +741,7 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Last Week:') %]</th>
+    <th colspan="3">[% l('Last 7 days') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.perweek', 'count.edit')) }) %]</td>
 </tr>
@@ -793,7 +793,7 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Last Week:') %]</th>
+    <th colspan="3">[% l('Last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.vote.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.vote.perweek', 'count.vote')) }) %]</td>
 </tr>
