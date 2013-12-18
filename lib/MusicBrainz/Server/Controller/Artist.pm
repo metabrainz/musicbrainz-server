@@ -182,11 +182,11 @@ sub show : PathPart('') Chained('load')
             );
         }
 
-	if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
+        if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
             });
-	}
+        }
 
         $c->stash(
             show_va => $show_va,
@@ -201,7 +201,10 @@ sub show : PathPart('') Chained('load')
     $c->model('ArtistCredit')->load(@$release_groups);
     $c->model('ReleaseGroupType')->load(@$release_groups);
     $c->stash(
-	recordings => $recordings,
+        recordings => $recordings,
+        show_video => scalar (grep {
+            $_->video
+        } @$recordings),
         release_groups => $release_groups,
         show_artists => scalar grep {
             $_->artist_credit->name ne $artist->name
