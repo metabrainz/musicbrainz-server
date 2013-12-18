@@ -6,11 +6,12 @@ use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT_LINK_TYPE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::Relationship;
-use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw ( N_l );
+use Scalar::Util qw( looks_like_number );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
@@ -207,6 +208,9 @@ before restore => sub {
         $data->{$side}{long_link_phrase} =
             delete $data->{$side}{short_link_phrase}
                 if exists $data->{$side}{short_link_phrase};
+
+        $data->{$side}{parent_id} = undef
+            if !looks_like_number($data->{$side}{parent_id});
     }
 };
 
