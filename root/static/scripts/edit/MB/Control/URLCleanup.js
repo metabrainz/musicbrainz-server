@@ -196,6 +196,7 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
+            url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]+$/, "$1/$2"); // URLs containing Discogs IDs
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
