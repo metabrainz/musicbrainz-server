@@ -109,10 +109,10 @@
         [% ELSIF va_only %]
             [% IF !show_all %]
                 <p>[% l('This artist only has release groups by various artists. Showing official release groups only. {show_all|Show all release groups instead}.',
-                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }) }) %]</p>') %]</p>
+                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }) }) %]</p>
             [% ELSE %]
                 <p>[% l('This artist only has release groups by various artists. Showing all release groups. {show_official|Show only official release groups instead}.',
-                        { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }) }) %]</p>') %]</p>
+                        { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }) }) %]</p>
             [% END %]
         [% ELSE %]
             [% IF !show_va && !show_all %]
