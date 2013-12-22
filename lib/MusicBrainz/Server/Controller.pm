@@ -115,33 +115,46 @@ sub _insert_edit {
 
     if (defined $edit)
     {
-      if (defined $c->stash->{edit_ids}) {
+      if (not defined $c->stash->{edit_ids}) {
+        $c->stash->{edit_ids} = [ $edit->id ];
+        $c->stash->{num_autoedits} = $edit->is_open ? 1 : 0;
+      } else {
         push($c->stash->{edit_ids}, $edit->id );
         $c->stash->{num_autoedits}++ if $edit->is_open;
-        my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
-                     autoedit_msg => ($c->stash->{num_autoedits}==0) ?"":
-                     (
-                      ($c->stash->{num_autoedits}==1) ?
-                      l(" (One of them was automatically accepted and applied.)") :
-                      l(" ({num_autoedits} were automatically accepted and applied.)",
-                        {num_autoedits => $c->stash->{num_autoedits} })),
-                     edit_search_url => $c->uri_for_action('/edit/search', 
-                                                           { 'conditions.0.field'=>'id',
-                                                             'conditions.0.operator'=>'BETWEEN',
-                                                             'conditions.0.args.0'=>$c->stash->{edit_ids}->[0],
-                                                             'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
-                                                           }) );
-        $c->flash->{message} = ($c->stash->{num_autoedits} != $args{"num_edits"})
-          ? l('Thank you, your {num_edits} {edit_search_url|edits} have been entered into the edit queue for peer review.{autoedit_msg}', \%args)
-            : l('Thank you, your {num_edits} {edit_search_url|edits} have been accepted and applied.', \%args );
-      } else {
-        $c->stash->{edit_ids} = [ $edit->id ];
-        $c->stash->{num_autoedits} = $edit->is_open?1:0;
-        my %args = ( edit_url => $c->uri_for_action('/edit/show', [ $edit->id ]) );
-        $c->flash->{message} = $edit->is_open
-          ? l('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.', \%args)
-            : l('Thank you, your {edit_url|edit} has been accepted and applied.', \%args );
       }
+
+      my %autoedit_args =  ( num_autoedits => $c->stash->{num_autoedits} );
+      my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
+                   # The singular form is included here (and varies from other singular strings),
+                   # even though it's impossible in english,
+                   # because gettext's database is keyed by the singular string.
+                   autoedit_msg => (($autoedit_args{num_autoedits} != 0)
+                                    ? ln(' ({num_autoedits} was automatically accepted and applied.)',
+                                         ' ({num_autoedits} were automatically accepted and applied.)',
+                                         $autoedit_args{num_autoedits}, \%autoedit_args)
+                                    : "" ));
+
+      my $first_edit_id = $c->stash->{edit_ids}->[0];
+      $args{edit_url} =
+        (($args{num_edits} == 1)
+         ? $c->uri_for_action('/edit/show', [ $first_edit_id ])
+         : $c->uri_for_action('/edit/search',
+                              { 'conditions.0.field'=>'id',
+                                'conditions.0.operator'=>'BETWEEN',
+                                'conditions.0.args.0'=>$first_edit_id,
+                                'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
+                              }));
+
+      $c->flash->{message} =
+        (($num_autoedits == $num_edits) ?
+         # All autoedits
+         ln('Thank you, your {edit_url|edit} has been accepted and applied.',
+            'Thank you, your {num_edits} {edit_url|edits} have been accepted and applied.',
+            $args{num_edits}, \%args) :
+         # at least one non-autoedit
+         ln('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.{autoedit_msg}',
+            'Thank you, your {num_edits} {edit_url|edits} have been entered into the edit queue for peer review.{autoedit_msg}',
+            $args{num_edits}, \%args));
     }
 
     return $edit;
