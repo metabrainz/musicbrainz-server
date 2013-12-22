@@ -172,8 +172,7 @@ sub show : PathPart('') Chained('load')
                 $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
             });
 
-        my $pager = $c->stash->{pager};
-        if (!$show_va && !%filter && $pager->total_entries == 0) {
+        if (!$show_va && !%filter && scalar @$release_groups == 0) {
             $release_groups = $self->_load_paged($c, sub {
                     $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
                 });
@@ -182,11 +181,11 @@ sub show : PathPart('') Chained('load')
             );
         }
 
-	if (!$show_va && $c->stash->{va_only} && !%filter && $pager->total_entries == 0) {
+        if (!$show_va && $c->stash->{va_only} && !%filter && scalar @$release_groups == 0) {
             $recordings = $self->_load_paged($c, sub {
                 $c->model('Recording')->find_standalone($artist->id, shift, shift);
             });
-	}
+        }
 
         $c->stash(
             show_va => $show_va,
