@@ -117,10 +117,10 @@ sub _insert_edit {
     {
       if (not defined $c->stash->{edit_ids}) {
         $c->stash->{edit_ids} = [ $edit->id ];
-        $c->stash->{num_autoedits} = $edit->is_open ? 1 : 0;
+        $c->stash->{num_autoedits} = not $edit->is_open;
       } else {
         push($c->stash->{edit_ids}, $edit->id );
-        $c->stash->{num_autoedits}++ if $edit->is_open;
+        $c->stash->{num_autoedits}++ if not $edit->is_open;
       }
 
       my %autoedit_args =  ( num_autoedits => $c->stash->{num_autoedits} );
@@ -146,7 +146,7 @@ sub _insert_edit {
                               }));
 
       $c->flash->{message} =
-        (($num_autoedits == $num_edits) ?
+        (($autoedit_args{num_autoedits} == $args{num_edits}) ?
          # All autoedits
          ln('Thank you, your {edit_url|edit} has been accepted and applied.',
             'Thank you, your {num_edits} {edit_url|edits} have been accepted and applied.',
