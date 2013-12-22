@@ -117,24 +117,30 @@ sub _insert_edit {
     {
       if (defined $c->stash->{edit_ids}) {
         push($c->stash->{edit_ids}, $edit->id );
-        $c->stash->{edits_are_open} ||= $edit->is_open;
+        $c->stash->{num_autoedits}++ if $edit->is_open;
         my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
+                     autoedit_msg => ($c->stash->{num_autoedits}==0) ?"":
+                     (
+                      ($c->stash->{num_autoedits}==1) ?
+                      l(" (One of them was automatically accepted and applied.)") :
+                      l(" ({num_autoedits} were automatically accepted and applied.)",
+                        {num_autoedits => $c->stash->{num_autoedits} })),
                      edit_search_url => $c->uri_for_action('/edit/search', 
                                                            { 'conditions.0.field'=>'id',
                                                              'conditions.0.operator'=>'BETWEEN',
                                                              'conditions.0.args.0'=>$c->stash->{edit_ids}->[0],
                                                              'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
                                                            }) );
-        $c->flash->{message} = $c->stash->{edits_are_open}
-          ? l('Thank you, your {num_edits} {edit_search_url|edits} has been entered into the edit queue for peer review.', \%args)
-            : l('Thank you, your {num_edits} {edit_search_url|edits} has been accepted and applied', \%args );
+        $c->flash->{message} = ($c->stash->{num_autoedits} != $args{"num_edits"})
+          ? l('Thank you, your {num_edits} {edit_search_url|edits} have been entered into the edit queue for peer review.{autoedit_msg}', \%args)
+            : l('Thank you, your {num_edits} {edit_search_url|edits} have been accepted and applied.', \%args );
       } else {
         $c->stash->{edit_ids} = [ $edit->id ];
-        $c->stash->{edits_are_open} = $edit->is_open;
+        $c->stash->{num_autoedits} = $edit->is_open?1:0;
         my %args = ( edit_url => $c->uri_for_action('/edit/show', [ $edit->id ]) );
         $c->flash->{message} = $edit->is_open
           ? l('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.', \%args)
-            : l('Thank you, your {edit_url|edit} has been accepted and applied', \%args );
+            : l('Thank you, your {edit_url|edit} has been accepted and applied.', \%args );
       }
     }
 
