@@ -950,6 +950,22 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                    'artist'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
+                    'http://soundtrackcollector.com/title/39473/',
+                    'release_group'
+                ],
+                [
+                    'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
+                    'http://soundtrackcollector.com/title/99711/',
+                    'release_group'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
+                    'http://soundtrackcollector.com/composer/94/',
+                    'artist'
                 ],
                 // Recochoku
                 [
