@@ -471,8 +471,11 @@ MB.constants.CLEANUPS = {
         }
     },
     vgmdb: {
-        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
-        type: MB.constants.LINK_TYPES.vgmdb
+        match: new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i"),
+        type: MB.constants.LINK_TYPES.vgmdb,
+        clean: function(url) {
+            return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+        }
     },
     wikidata: {
         match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
@@ -644,13 +647,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // allow only VGMdb pages with the VGMdb rel
     validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/(?:artist|org)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/album\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/org\//) != null;
     }
 
     // allow only YouTube pages with the YouTube rel

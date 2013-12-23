@@ -482,6 +482,23 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                     MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // VGMdb
+                [
+                    'artist', 'http://vgmdb.net/artist/431',
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'label', 'http://vgmdb.com/org/284',
+                    MB.constants.LINK_TYPES.vgmdb.label
+                ],
+                [
+                    'artist', 'http://vgmdb.com/org/284', // VGMdb orgs can be groups
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'release', 'http://vgmdb.net/album/29727',
+                    MB.constants.LINK_TYPES.vgmdb.release
                 ]
             ];
 
@@ -942,6 +959,22 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                     'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                ],
+                // VGMdb
+                [
+                    'https://vgmdb.net/artist/431',
+                    'http://vgmdb.net/artist/431',
+                    'artist'
+                ],
+                [
+                    'https://vgmdb.com/org/284',
+                    'http://vgmdb.net/org/284',
+                    'label'
+                ],
+                [
+                    'vgmdb.net/album/29727',
+                    'http://vgmdb.net/album/29727',
+                    'release'
                 ]
             ];
 
