@@ -559,6 +559,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://twitter.com/miguelgrimaldo',
                     'artist'
                 ],
+                [
+                    'https://mobile.twitter.com/cirrhaniva',
+                    'https://twitter.com/cirrhaniva',
+                    'artist'
+                ],
+                [
+                    'https://twitter.com/@UNIVERSAL_D',
+                    'https://twitter.com/UNIVERSAL_D',
+                    'artist'
+                ],
+                [
+                    'http://twitter.com/ACEHOOD/',
+                    'https://twitter.com/ACEHOOD',
+                    'artist'
+                ],
                 // SoundCloud
                 [
                     'http://soundcloud.com/alec_empire',
