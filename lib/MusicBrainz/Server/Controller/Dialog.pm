@@ -3,7 +3,7 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-sub dialog : Path('/dialog') {
+sub dialog : Path('/dialog') Edit {
     my ($self, $c) = @_;
 
     my $path = $c->req->query_params->{path};
