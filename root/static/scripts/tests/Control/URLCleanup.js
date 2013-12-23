@@ -710,6 +710,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://vimeo.com/1109226',
                     'streamingmusic'
                 ],
+                // YouTube
                 [
                     'http://youtu.be/UmHdefsaL6I',
                     'http://www.youtube.com/watch?v=UmHdefsaL6I',
@@ -723,6 +724,16 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://youtube.com/user/officialpsy/videos',
                     'http://www.youtube.com/user/officialpsy',
+                    'artist'
+                ],
+                [
+                    'https://www.youtube.com/user/JessVincentMusic?feature=watch',
+                    'http://www.youtube.com/user/JessVincentMusic',
+                    'artist'
+                ],
+                [
+                    'http://m.youtube.com/#/user/JessVincentMusic',
+                    'http://www.youtube.com/user/JessVincentMusic',
                     'artist'
                 ],
                 [
