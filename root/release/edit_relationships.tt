@@ -186,7 +186,7 @@
       <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
           by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
       <!-- /ko -->
-      (<!-- ko text: length --><!-- /ko -->)
+      (<!-- ko text: length || "?:??" --><!-- /ko -->)
       <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
     </td>
     <td class="midcol">
