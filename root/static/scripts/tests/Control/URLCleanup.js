@@ -804,6 +804,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
+                    'https://itunes.apple.com/us/album/id721686178',
+                    'release'
+                ],
+                [
                     'https://pt.wikisource.org/wiki/A_Portuguesa',
                     'http://pt.wikisource.org/wiki/A_Portuguesa',
                     'work'
