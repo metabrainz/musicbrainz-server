@@ -9,8 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 01:11+0000\n"
+"PO-Revision-Date: 2013-12-11 12:20+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +37,11 @@ msgstr "Vinile 7\""
 msgctxt "medium_format"
 msgid "8cm CD"
 msgstr "CD 8cm"
+
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr "CD+G 8cm"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -84,6 +88,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr "Blu-spec CD"
+
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
@@ -114,6 +123,11 @@ msgctxt "medium_format"
 msgid "CD"
 msgstr "CD"
 
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
+msgstr "CD+G"
+
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
@@ -142,7 +156,7 @@ msgstr "Audiocassetta"
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr ""
+msgstr "Custodia per audiocassetta"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -212,7 +226,7 @@ msgstr "Distributore"
 #: DB:area_type/name:5
 msgctxt "area_type"
 msgid "District"
-msgstr ""
+msgstr "Distretto"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -254,10 +268,20 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr "HQCD"
+
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
 msgstr "Holding"
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
+msgstr "SACD ibrido"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -374,13 +398,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Altro"
 
-#: DB:cover_art_archive.art_type/name:8
-msgctxt "cover_art_type"
-msgid "Other"
-msgstr "Altro"
-
-#: DB:gender/name:3
-msgctxt "gender"
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr "Altro"
 
@@ -389,13 +408,18 @@ msgctxt "medium_format"
 msgid "Other"
 msgstr "Altro"
 
-#: DB:release_group_primary_type/name:11
-msgctxt "release_group_primary_type"
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
 msgid "Other"
 msgstr "Altro"
 
-#: DB:release_packaging/name:5
-msgctxt "release_packaging"
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Altro"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr "Altro"
 
@@ -479,6 +503,11 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr "SHM-CD"
+
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
@@ -515,13 +544,13 @@ msgctxt "work_type"
 msgid "Song-cycle"
 msgstr "Ciclo di canzoni"
 
-#: DB:release_group_secondary_type/name:2
-msgctxt "release_group_secondary_type"
+#: DB:work_type/name:22
+msgctxt "work_type"
 msgid "Soundtrack"
 msgstr "Colonna sonora"
 
-#: DB:work_type/name:22
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Colonna sonora"
 

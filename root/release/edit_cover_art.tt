@@ -1,8 +1,6 @@
-[%- BLOCK layout_head -%]
-  [%- script_manifest('edit.js.manifest') -%]
-[%- END -%]
-
 [%- WRAPPER "release/layout.tt" title=l('Edit Cover Art') page='edit_cover_art' -%]
+  [%- script_manifest('edit.js.manifest') -%]
+
   <h2>[%- l('Edit Cover Art') -%]</h2>
 
   <form id="edit-cover-art" class="cover-art" action="[% c.req.uri %]" method="post">
@@ -19,7 +17,8 @@
     [%- enter_edit() -%]
 
   </form>
-  <script type="text/javascript">
-    MB.utility.setDefaultAction ('form.cover-art', 'button.submit.positive');
-  </script>
+
+  <script type="text/javascript">//<![CDATA[
+    MB.utility.setDefaultAction("form.cover-art", "button.submit.positive");
+  //]]></script>
 [%- END -%]

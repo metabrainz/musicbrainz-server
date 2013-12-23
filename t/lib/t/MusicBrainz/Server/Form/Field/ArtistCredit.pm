@@ -13,11 +13,6 @@ use Test::More;
     has_field $_ => (
         type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
     ) for qw( missing_fields empty_fields missing_artist_ids );
-
-    has_field 'allows_unlinked' => (
-        type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
-        allow_unlinked => 1
-    );
 }
 
 test 'Artist credit field validation' => sub {
@@ -28,7 +23,6 @@ test 'Artist credit field validation' => sub {
         missing_fields => undef,
         empty_fields => { names => [ { name => '', artist => { name => '', id => undef } }, { name => '' } ] },
         missing_artist_ids => { names => [ { name => 'α', artist => { name => 'β' } } ] },
-        allows_unlinked => { names => [ { name => 'γ', artist => { name => 'δ' } } ] }
     }});
 
     ok ($form->ran_validation, 'processed form, validation run');
@@ -43,9 +37,6 @@ test 'Artist credit field validation' => sub {
     my $missing_artist_ids = $form->field('missing_artist_ids');
     ok ($missing_artist_ids->has_errors, 'missing artist ids are invalid');
 
-    my $allows_unlinked = $form->field('allows_unlinked');
-    ok (!$allows_unlinked->has_errors, 'unlinked artists are allowed with allow_unlinked=1');
-
     $form = t::MusicBrainz::Server::Form::Field::ArtistCredit::TestForm->new( init_object => {} );
     ok (!$form->ran_validation, 'new form with init_object has not yet been validated');
 
@@ -53,7 +44,6 @@ test 'Artist credit field validation' => sub {
         missing_fields => undef,
         empty_fields => undef,
         missing_artist_ids => undef,
-        allows_unlinked => undef
     }});
 
     ok ($form->ran_validation, 'processed empty form with init_object, validation run');

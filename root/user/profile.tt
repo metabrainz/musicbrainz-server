@@ -88,7 +88,7 @@
 
         [% IF user.website %]
             [% WRAPPER property name=l("Homepage:") %]
-                <a href="[% user.website | url %]">
+                <a href="[% user.website | url %]" rel="nofollow">
                     [% user.website | html_entity %]
                 </a>
             [% END %]

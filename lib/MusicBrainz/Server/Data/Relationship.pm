@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
-use namespace::autoclean -also => [qw( _generate_table_list )];
+use namespace::autoclean;
 use Readonly;
 use Sql;
 use Carp qw( carp croak );

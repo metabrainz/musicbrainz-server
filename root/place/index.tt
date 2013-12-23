@@ -14,7 +14,7 @@
 [%- WRAPPER "place/layout.tt" page='index' -%]
     [%- INCLUDE 'place/annotation.tt' summary=1 -%]
 
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This place has no relationships and will be removed
                 automatically in the next few days. If this is not intended,

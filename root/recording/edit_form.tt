@@ -1,11 +1,14 @@
+[% script_manifest('edit.js.manifest') %]
+[% script_manifest('guess-case.js.manifest') %]
+
 <form action="[% c.req.uri %]" method="post" class="edit-recording">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
     <fieldset>
       <legend>[% l('Recording Details') %]</legend>
-      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_text_long(r, 'length', l('Length:')) -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]
@@ -25,6 +28,19 @@
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-recording', 'button.submit.positive');
-</script>
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    var bubbles = MB.Control.BubbleCollection();
+    var artistCredit = MB.Control.initialize_artist_credit(bubbles);
+
+    MB.Control.initialize_guess_case(bubbles, "recording", "id-edit-recording");
+
+    ko.computed(function () {
+        $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
+    });
+
+    bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
+
+    MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
+  }());
+//]]></script>

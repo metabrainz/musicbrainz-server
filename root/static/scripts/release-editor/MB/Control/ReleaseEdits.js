@@ -19,9 +19,13 @@
 */
 
 MB.Control.ReleaseEdits = function ($edits) {
-    var self = MB.Object ();
+    var self = {};
 
     self.artistChanges = function (from, to) {
+
+        // If we are setting an artist credit where there was no artist credit,
+        // then there are artist changes.
+        if (to && !from) return true;
 
         var changes = false;
 

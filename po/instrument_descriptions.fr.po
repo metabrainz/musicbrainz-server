@@ -5,10 +5,11 @@
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # murdos <email address hidden>, 2011-2012
+# Alain-Olivier  Breysse, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-04 01:37+0000\n"
+"PO-Revision-Date: 2013-12-11 20:57+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -394,6 +395,11 @@ msgstr "Un EWi (anglais : electronic wind instrument) est un instrument à vent 
 msgid "Electric guitar without frets."
 msgstr "Guitare électrique sans frette."
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr "Lecteurs de disquettes réglés pour produire des tonalités durant la lecture, un logiciel est utilisé."
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -439,6 +445,10 @@ msgstr "Orgue Hammond"
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
 msgstr "Les battements de mains, aussi connus comme « palmas »"
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
+msgstr "Disque dur configuré pour produire des tonalités organisées."
 
 #: DB:link_attribute_type/description:102
 msgid "Hardingfele (Hardanger)"
@@ -851,6 +861,15 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "Le banhu (chinois : 板胡, pinyin : bǎnhú) est un instrument à cordes frottées de la familles des huqins. Aussi appelé banghu (chinois : 梆胡, pinyin : bānghú) de par son utilisation dans l'opéra bangzi. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipédia</a>)"
+
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a "
+"href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
+msgstr "Le baryton est un instrument à cordes frottées de la famille des violes qui se distingue par un jeu supplémentaire de cordes pincées. Il était utilisé régulièrement en Europe jusqu'à la fin du 18e siècle. (<a href=\"http://fr.wikipedia.org/wiki/Baryton_%28instrument_de_musique%29#Baryton_.C3.A0_cordes\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:536
 msgid ""
@@ -1314,6 +1333,14 @@ msgid ""
 "European classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
 msgstr "Le hautbois de chasse (« da caccia ») est un instrument à vent à anche double accordé un cinquième en-dessous du hautbois et est utilisé principalement dans la musique classique européenne du baroque. (<a href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipédia</a>)"
+
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a "
+"href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
+msgstr "La mandole ténor (ou d'octave) est un instrument à quatre cordes doublées avec frettes, accordé une octave au-dessous de la mandoline en Sol-Ré-La-Mi. (<a href=\"http://fr.wikipedia.org/wiki/Mandole_t%C3%A9nor/alto\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:612
 msgid ""
@@ -1948,6 +1975,10 @@ msgstr "ankle rattlers"
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
 msgstr "autres instrument à cordes frottées et archaîque"
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr "comme utiliser des lecteurs pour faire de la musique, disques durs, lecteurs de disquettes, CD ou autres."
 
 #: DB:link_attribute_type/description:494
 msgid "autoharp"
@@ -2603,7 +2634,7 @@ msgid "rebec"
 msgstr "rebec"
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
+msgid "reed organ, also known as pump organ"
 msgstr "harmonium"
 
 #: DB:link_attribute_type/description:233

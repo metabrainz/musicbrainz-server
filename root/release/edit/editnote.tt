@@ -1,11 +1,3 @@
-[%- BLOCK layout_head -%]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-save');
-    });
-  //]]></script>
-[%- END -%]
-
 [%- WRAPPER 'release/edit/layout.tt' -%]
    [%- USE r = FormRenderer(form) -%]
    [% r.hidden('id') %]
@@ -44,4 +36,7 @@
 
    </div>
 
+  <script type="text/javascript">//<![CDATA[
+    MB.utility.setDefaultAction("form.release-editor", "#id-save");
+  //]]></script>
 [%- END -%]

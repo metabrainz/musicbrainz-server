@@ -7,9 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-17 20:35+0000\n"
-"Last-Translator: Phonebox\n"
+"PO-Revision-Date: 2013-12-11 09:48+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -53,6 +52,10 @@ msgstr "kreetalainen lyyra"
 msgid "Denis d'or"
 msgstr ""
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr "stylofoni"
@@ -65,6 +68,10 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr ""
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr "baglamas"
@@ -72,6 +79,10 @@ msgstr "baglamas"
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
 msgstr "Hammond-urut"
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
+msgstr ""
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
@@ -324,6 +335,10 @@ msgstr ""
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
 msgstr "posetiivi"
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
+msgstr ""
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
@@ -1488,6 +1503,10 @@ msgstr "okariina"
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
 msgstr "merirumpu"
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
+msgstr ""
 
 #: DB:link_attribute_type/name:352
 msgid "omnichord"

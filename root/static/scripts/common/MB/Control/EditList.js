@@ -24,7 +24,7 @@ MB.constants.SELECTED_CLASS = {
 }
 
 MB.Control.EditList = function(container) {
-    var self = MB.Object();
+    var self = {};
 
     var $container = $(container);
 

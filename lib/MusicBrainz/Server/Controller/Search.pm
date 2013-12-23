@@ -147,7 +147,6 @@ sub direct : Private
             $c->model('WorkType')->load(@entities);
         }
         when ('area') {
-            $c->model('Area')->load_codes(@entities);
             $c->model('AreaType')->load(@entities);
         }
         when ('place') {
