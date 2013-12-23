@@ -666,6 +666,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.facebook.com/RomanzMusic',
                     'artist'
                 ],
+                [
+                    'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
+                    'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
+                    'artist'
+                ],
                     // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',

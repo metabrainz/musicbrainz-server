@@ -399,6 +399,12 @@ MB.constants.CLEANUPS = {
                   // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
+                  // Remove trailing slashes
+                  if (url.match(/\?/)) {
+                      url = url.replace(/\/\?/, "?");
+                  } else {
+                      url = url.replace(/\/$/, "");
+                  }
             }
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
