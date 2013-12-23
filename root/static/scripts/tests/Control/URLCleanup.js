@@ -5,6 +5,7 @@ MB.tests.URLCleanup.GuessType = function() {
     QUnit.test('Guess type', function() {
         var control = MB.Control.URLCleanup();
         var tests = [
+                // Wikipedia
                 [
                     'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
                     MB.constants.LINK_TYPES.wikipedia.artist
@@ -833,6 +834,10 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
+                ],
+                [
+                    'http://wikipedia.org/wiki/Oberhofer',
+                    'http://en.wikipedia.org/wiki/Oberhofer',
                 ],
                 // Open Library
                 [
