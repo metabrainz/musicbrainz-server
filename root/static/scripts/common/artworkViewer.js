@@ -49,15 +49,17 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     },
 
     open: function (link, wasClosed) {
+        this._imageElement = null;
+
         var hadFocus = document.activeElement, $preview = $(link).find("img");
         this._setOption("title", $preview.attr("title"));
 
         var index = this.$artwork.index(link);
-        this._prevLink = this.$artwork[index - 1];
-        this._nextLink = this.$artwork[index + 1];
+        this._prevImageLink = this.$artwork[index - 1];
+        this._nextImageLink = this.$artwork[index + 1];
 
-        this.$prev.prop("disabled", !this._prevLink);
-        this.$next.prop("disabled", !this._nextLink);
+        this.$prev.prop("disabled", !this._prevImageLink);
+        this.$next.prop("disabled", !this._nextImageLink);
 
         this.$pager.text(MB.text.ImagePager
             .replace("{current}", index + 1)
@@ -78,13 +80,14 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
         // $.ui.dialog will call _focusTabbable on its own if just opened.
         if (!wasClosed) {
-            if (!this._prevLink && hadFocus === this.$prev[0]) {
+            if (!this._prevImageLink && hadFocus === this.$prev[0]) {
                 this.$next.focus();
 
-            } else if (!this._nextLink && hadFocus === this.$next[0]) {
+            } else if (!this._nextImageLink && hadFocus === this.$next[0]) {
                 this.$prev.focus();
             }
         }
+
         this._viewImage(link.href);
     },
 
@@ -94,16 +97,16 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     },
 
     _focusTabbable: function () {
-        this._nextLink ? this.$next.focus() :
-        this._prevLink ? this.$prev.focus() : this._super();
+        this._nextImageLink ? this.$next.focus() :
+        this._prevImageLink ? this.$prev.focus() : this._super();
     },
 
     prevImage: function () {
-        this._prevLink && this.open(this._prevLink);
+        this._prevImageLink && this.open(this._prevLink);
     },
 
     nextImage: function () {
-        this._nextLink && this.open(this._nextLink);
+        this._nextImageLink && this.open(this._nextImageLink);
     },
 
     _viewImage: function (src) {
@@ -125,17 +128,23 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         // Return if the user skipped this image or closed the dialog.
         if (!this.isOpen() || image.src !== this._currentImageSrc) return;
 
-        this._sizeAndPosition(image.width / image.height, image);
+        this._imageAspectRatio = image.width / image.height;
+        this._imageElement = image;
+
+        this._sizeAndPosition();
 
         this.element.find("img").remove().end().append(image);
         this.$loading.stop(true, true).fadeOut();
 
         // Preload the previous and next images.
-        this._prevLink && this._loadImage(this._prevLink.href);
-        this._nextLink && this._loadImage(this._nextLink.href);
+        this._prevImageLink && this._loadImage(this._prevImageLink.href);
+        this._nextImageLink && this._loadImage(this._nextImageLink.href);
     },
 
-    _sizeAndPosition: function (imageAspectRatio, image) {
+    _sizeAndPosition: function (imageAspectRatio, imageElement) {
+        imageAspectRatio = this._imageAspectRatio || imageAspectRatio;
+        imageElement = this._imageElement || imageElement;
+
         var $window = $(window),
             maxDialogHeight = $window.height() * 0.95,
             maxDialogWidth = $window.width() * 0.95,
@@ -149,15 +158,14 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             imageHeight = (1 / imageAspectRatio) * imageWidth;
         }
 
-        this._setOption("width", imageWidth + nonContentWidth);
-        this._setOption("height", imageHeight + nonContentHeight);
+        this._setOptions({
+            width: imageWidth + nonContentWidth,
+            height: imageHeight + nonContentHeight
+        });
 
-        this._size();
-        this._position();
-
-        if (image) {
-            image.width = imageWidth;
-            image.height = imageHeight;
+        if (imageElement) {
+            imageElement.width = imageWidth;
+            imageElement.height = imageHeight;
         }
     }
 });
@@ -200,4 +208,14 @@ $(function () {
             // Close the dialog when the user clicks on the image.
             $(this).parents(".artwork-dialog").artworkViewer("close");
         });
+
+    // Adjust the dialog's size/position when the browser window is resized.
+
+    var resizeDialog = _.debounce(function () {
+        var dialog = $activeDialog.data("mb-artworkViewer");
+
+        if (dialog && dialog.isOpen()) dialog._sizeAndPosition();
+    }, 100);
+
+    $(window).on("resize", resizeDialog);
 });
