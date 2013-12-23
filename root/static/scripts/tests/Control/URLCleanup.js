@@ -873,6 +873,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
                 ],
+                [
+                    'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                    'http://viaf.org/viaf/32197206',
+                ],
                 // Anime News Network
                 [
                     'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
