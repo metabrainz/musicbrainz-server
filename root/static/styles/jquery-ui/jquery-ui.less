@@ -3,6 +3,8 @@
 * Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.tabs.css, jquery.ui.tooltip.css
 * Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
 
+@import "../colors.less";
+
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {
@@ -452,12 +454,9 @@ body .ui-tooltip {
 }
 .ui-widget-header {
 	background: inherit;
-	color: #222222/*{fcHeader}*/;
+	color: @text-orange;
 	font-weight: bold;
 	font-size: 120%;
-}
-.ui-widget-header a {
-	color: #222222/*{fcHeader}*/;
 }
 
 /* Interaction states
