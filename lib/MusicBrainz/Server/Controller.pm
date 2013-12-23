@@ -117,23 +117,14 @@ sub _insert_edit {
     {
       if (not defined $c->stash->{edit_ids}) {
         $c->stash->{edit_ids} = [ $edit->id ];
-        $c->stash->{num_autoedits} = not $edit->is_open;
+        $c->stash->{num_open_edits} = $edit->is_open;
       } else {
         push($c->stash->{edit_ids}, $edit->id );
-        $c->stash->{num_autoedits}++ if not $edit->is_open;
+        $c->stash->{num_open_edits}++ if $edit->is_open;
       }
 
-      my %autoedit_args =  ( num_autoedits => $c->stash->{num_autoedits} );
       my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
-                   # The singular form is included here (and varies from other singular strings),
-                   # even though it's impossible in english,
-                   # because gettext's database is keyed by the singular string.
-                   autoedit_msg => (($autoedit_args{num_autoedits} != 0)
-                                    ? ln(' ({num_autoedits} was automatically accepted and applied.)',
-                                         ' ({num_autoedits} were automatically accepted and applied.)',
-                                         $autoedit_args{num_autoedits}, \%autoedit_args)
-                                    : "" ));
-
+                   num_open_edits => $c->stash->{num_open_edits} );
       my $first_edit_id = $c->stash->{edit_ids}->[0];
       $args{edit_url} =
         (($args{num_edits} == 1)
@@ -145,16 +136,27 @@ sub _insert_edit {
                                 'conditions.0.args.1'=>$c->stash->{edit_ids}->[-1]
                               }));
 
-      $c->flash->{message} =
-        (($autoedit_args{num_autoedits} == $args{num_edits}) ?
-         # All autoedits
-         ln('Thank you, your {edit_url|edit} has been accepted and applied.',
-            'Thank you, your {num_edits} {edit_url|edits} have been accepted and applied.',
-            $args{num_edits}, \%args) :
-         # at least one non-autoedit
-         ln('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.{autoedit_msg}',
-            'Thank you, your {num_edits} {edit_url|edits} have been entered into the edit queue for peer review.{autoedit_msg}',
-            $args{num_edits}, \%args));
+      if ($args{num_open_edits} == 0) {
+        # All autoedits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} has been automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} have been automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      } elsif ($args{num_open_edits} == $args{num_edits}) {
+        # All open edits
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.',
+             'Thank you, your {num_edits} {edit_url|edits} have been entered into the edit queue for peer review.',
+             $args{num_edits}, \%args);
+      } else {
+        # Mixture of both
+        # Even though the singular case is impossible (since 1 edit must be either an autoedit or open),
+        # it is included since gettext uses the singular case as a key.
+        $c->flash->{message} =
+          ln('Thank you, your {edit_url|edit} has been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} have been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             $args{num_edits}, \%args);
+      }
     }
 
     return $edit;
