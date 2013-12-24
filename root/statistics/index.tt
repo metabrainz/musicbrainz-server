@@ -741,7 +741,7 @@
 </tr>
 <tr>
     <th></th>
-    <th colspan="3">[% l('Last 7 days') %]</th>
+    <th colspan="3">[% l('Last 7 days:') %]</th>
     <td>[% add_commas(stats.statistic('count.edit.perweek')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.edit.perweek', 'count.edit')) }) %]</td>
 </tr>
