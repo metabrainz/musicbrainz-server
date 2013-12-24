@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 21:49+0000\n"
+"PO-Revision-Date: 2013-12-15 16:47+0000\n"
 "Last-Translator: Shepard\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1423,7 +1423,7 @@ msgstr ""
 
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
-msgstr ""
+msgstr "Dies verbindet einen Künstler mit seinem Profil bei SoundCloud."
 
 #: DB:link_type/description:190
 msgid ""
@@ -1437,7 +1437,7 @@ msgstr ""
 
 #: DB:link_type/description:193
 msgid "This links an artist to the equivalent entry at YouTube."
-msgstr ""
+msgstr "Dies verbindet einen Künstler zum äquivalenten Eintrag bei YouTube."
 
 #: DB:link_type/description:108
 msgid ""
