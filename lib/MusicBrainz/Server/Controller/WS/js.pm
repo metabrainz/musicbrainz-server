@@ -341,6 +341,7 @@ sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
         formdata => $c->model ('CoverArtArchive')->post_fields ($bucket, $gid, $id, \%s3_policy)
     };
 
+    $c->res->headers->header( 'Cache-Control' => 'no-cache', 'Pragma' => 'no-cache' );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $data));
 }
