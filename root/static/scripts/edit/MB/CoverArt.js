@@ -75,16 +75,11 @@ MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
 };
 
 MB.CoverArt.image_position = function () {
-    var $pos = $('#id-add-cover-art\\.position');
-    var $editimage = $('div.editimage');
-
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) - 1) }));
+      MB.CoverArt.reorder_button('prev', null, $.noop));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) + 1) }));
+      MB.CoverArt.reorder_button('next', null, $.noop));
 };
 
 MB.CoverArt.reorder_position = function () {
@@ -476,6 +471,11 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
         });
 };
 
+MB.CoverArt.set_position = function() {
+    var position = $('div.editimage').index() + 1;
+    $('#id-add-cover-art\\.position').val(position);
+};
+
 MB.CoverArt.add_cover_art = function (gid) {
 
     File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
@@ -535,6 +535,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit (gid, upvm);
         });
     }
@@ -545,6 +546,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
 
             var mime_type = MB.CoverArt.get_image_mime_type ();
             $('#id-add-cover-art\\.mime_type').val(mime_type);
