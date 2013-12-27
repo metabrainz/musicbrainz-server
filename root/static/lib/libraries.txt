@@ -15,7 +15,7 @@ license:     MIT
 version:     1.10.3
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
-components:  Autocomplete, Dialog, Tabs, Tooltip
+components:  Autocomplete, Dialog, Sortable, Tabs, Tooltip
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
