@@ -55,17 +55,13 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
+MB.CoverArt.reorder_button = function(direction) {
     return function (event) {
-        var $editimage = $editimage_param;
-        if (!$editimage) {
-            $editimage = $(this).closest('div.editimage');
-        }
+        var $editimage = $(this).closest('div.editimage');
         var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
         if ($swap.length)
         {
             $editimage[direction === 'next' ? 'insertAfter' : 'insertBefore']($swap);
-            after($swap, $editimage)
         }
 
         $(this).focus();
@@ -74,21 +70,14 @@ MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
     }
 };
 
-MB.CoverArt.image_position = function () {
-    $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', null, $.noop));
-
-    $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', null, $.noop));
-};
-
 MB.CoverArt.reorder_position = function () {
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', null, $.noop));
+      MB.CoverArt.reorder_button('prev'));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', null, $.noop));
+      MB.CoverArt.reorder_button('next'));
 
+    // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
         function(event) {
             $('div.editimage input.position').val( function(index, oldvalue) { return (index + 1); } );
