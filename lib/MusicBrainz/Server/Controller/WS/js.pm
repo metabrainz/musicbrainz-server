@@ -216,7 +216,7 @@ sub disc_search {
 
     push @query, $title if $query;
     push @query, "artist:($artist)" if $artist;
-    push @query, "tracksmedium:($tracks)" if $tracks;
+    push @query, ($type eq 'release' ? "tracksmedium:($tracks)" : "tracks:($tracks)") if $tracks;
 
     $query = join (" AND ", @query);
 
