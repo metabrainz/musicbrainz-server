@@ -88,19 +88,17 @@ MB.CoverArt.image_position = function () {
 };
 
 MB.CoverArt.reorder_position = function () {
-    var swap_values = function ($a, $b) {
-        var otherval = $a.val ();
-        $a.val ($b.val ());
-        $b.val (otherval);
-    };
-
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('prev', null, $.noop));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('next', null, $.noop));
+
+    $('#reorder-cover-art').submit(
+        function(event) {
+            $('div.editimage input.position').val( function(index, oldvalue) { return (index + 1); } );
+        }
+    );
 
     /* moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
