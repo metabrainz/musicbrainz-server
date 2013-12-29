@@ -58,10 +58,17 @@ MB.CoverArt.image_error = function ($img, image) {
 MB.CoverArt.reorder_button = function(direction) {
     return function (event) {
         var $editimage = $(this).closest('div.editimage');
+
         var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
+        var insert_after = (direction === 'next');
+        if (! $swap.length) {
+            // no direct neighbour, so wrap around
+            $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
+            insert_after = ! insert_after;
+        }
         if ($swap.length)
         {
-            $editimage[direction === 'next' ? 'insertAfter' : 'insertBefore']($swap);
+            $editimage[insert_after ? 'insertAfter' : 'insertBefore']($swap);
         }
 
         $(this).focus();
