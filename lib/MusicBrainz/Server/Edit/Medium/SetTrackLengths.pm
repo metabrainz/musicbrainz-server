@@ -17,6 +17,7 @@ with 'MusicBrainz::Server::Edit::Medium';
 
 sub edit_name { N_l('Set track lengths') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
+sub edit_kind { 'other' }
 
 has '+data' => (
     isa => Dict[

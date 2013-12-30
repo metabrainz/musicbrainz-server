@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Edit::Work';
 use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub edit_name { N_l('Add work annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_WORK_ADD_ANNOTATION }
 sub models { [qw( Work )] }
 sub _annotation_model { shift->c->model('Work')->annotation }

@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Recording';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_name { N_l('Add PUIDs') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RECORDING_ADD_PUIDS }
 
 has '+data' => (

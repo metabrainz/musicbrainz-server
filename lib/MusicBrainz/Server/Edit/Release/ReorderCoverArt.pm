@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 
 sub edit_name { N_l('Reorder cover art') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 sub release_ids { shift->data->{entity}{id} }
 

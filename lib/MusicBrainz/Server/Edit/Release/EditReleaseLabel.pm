@@ -23,6 +23,7 @@ with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_name { N_l('Edit release label') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
