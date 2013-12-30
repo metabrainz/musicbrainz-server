@@ -173,6 +173,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 
 sub _merge_load_entities {
     my ($self, $c, @recordings) = @_;
+    $c->model('ArtistCredit')->load(@recordings);
     $c->model('ISRC')->load_for_recordings(@recordings);
 
     my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
