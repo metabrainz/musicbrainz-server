@@ -394,6 +394,11 @@ button.ui-button::-moz-focus-inner {
 	position: static;
 	float: right;
 }
+
+.ui-progressbar .ui-progressbar-value {
+	background: @medium-bg;
+}
+
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
@@ -455,7 +460,6 @@ body .ui-tooltip {
 	background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
 }
 .ui-widget-header {
-	background: inherit;
 	color: @text-orange;
 	font-weight: bold;
 	font-size: 120%;
