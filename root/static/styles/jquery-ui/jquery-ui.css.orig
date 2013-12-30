@@ -3,8 +3,6 @@
 * Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.tabs.css, jquery.ui.tooltip.css, jquery.ui.theme.css
 * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
 
-@import "../colors.less";
-
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {
@@ -38,6 +36,9 @@
 }
 .ui-helper-clearfix:after {
 	clear: both;
+}
+.ui-helper-clearfix {
+	min-height: 0; /* support: IE7 */
 }
 .ui-helper-zfix {
 	width: 100%;
@@ -268,7 +269,6 @@ button.ui-button::-moz-focus-inner {
 	left: 0;
 	padding: .2em;
 	outline: 0;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 }
 .ui-dialog .ui-dialog-titlebar {
 	padding: .4em 1em;
@@ -296,6 +296,7 @@ button.ui-button::-moz-focus-inner {
 	border: 0;
 	padding: .5em 1em;
 	background: none;
+	overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane {
 	text-align: left;
@@ -327,10 +328,6 @@ button.ui-button::-moz-focus-inner {
 	margin: 0;
 	display: block;
 	outline: none;
-	max-width: 500px;
-	max-height: 300px;
-	overflow-y: auto;
-	overflow-x: hidden;
 }
 .ui-menu .ui-menu {
 	margin-top: -3px;
@@ -355,8 +352,8 @@ button.ui-button::-moz-focus-inner {
 	display: block;
 	padding: 2px .4em;
 	line-height: 1.5;
+	min-height: 0; /* support: IE7 */
 	font-weight: normal;
-	color: #222222/*{fcContent}*/;
 }
 .ui-menu .ui-menu-item a.ui-state-focus,
 .ui-menu .ui-menu-item a.ui-state-active {
@@ -450,15 +447,36 @@ body .ui-tooltip {
 
 /* Component containers
 ----------------------------------*/
+.ui-widget {
+	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+	font-size: 1.1em/*{fsDefault}*/;
+}
+.ui-widget .ui-widget {
+	font-size: 1em;
+}
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+	font-size: 1em;
+}
 .ui-widget-content {
 	border: 1px solid #aaaaaa/*{borderColorContent}*/;
 	background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
+	color: #222222/*{fcContent}*/;
+}
+.ui-widget-content a {
+	color: #222222/*{fcContent}*/;
 }
 .ui-widget-header {
-	background: inherit;
-	color: @text-orange;
+	border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+	background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
+	color: #222222/*{fcHeader}*/;
 	font-weight: bold;
-	font-size: 120%;
+}
+.ui-widget-header a {
+	color: #222222/*{fcHeader}*/;
 }
 
 /* Interaction states
@@ -807,9 +825,9 @@ body .ui-tooltip {
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #000;
-	opacity: 0.75;
-	filter: Alpha(Opacity=75);
+	background: #aaaaaa/*{bgColorOverlay}*/ url(images/ui-bg_flat_0_aaaaaa_40x100.png)/*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/;
+	opacity: .3/*{opacityOverlay}*/;
+	filter: Alpha(Opacity=30)/*{opacityFilterOverlay}*/;
 }
 .ui-widget-shadow {
 	margin: -8px/*{offsetTopShadow}*/ 0 0 -8px/*{offsetLeftShadow}*/;
