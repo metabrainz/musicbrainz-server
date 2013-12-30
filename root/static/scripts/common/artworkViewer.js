@@ -61,9 +61,10 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$prev.prop("disabled", !this._prevImageLink);
         this.$next.prop("disabled", !this._nextImageLink);
 
-        this.$pager.text(MB.text.ImagePager
-            .replace("{current}", index + 1)
-            .replace("{total}", this.$artwork.length)
+        this.$pager.text(
+            MB.i18n.expand(MB.text.ImagePager, {
+                current: index + 1, total: this.$artwork.length
+            })
         );
 
         this._super();
