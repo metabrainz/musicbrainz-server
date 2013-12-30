@@ -23,38 +23,16 @@
               number of entries on the first page (and usually a few after), due
               to there being more than the SQL OFFSET to start.
 
-              We still don't use the 'at least' wording when guess_search is on
-              in two cases:
-
-              1.) When there's only one page, i.e., !(pager.last_page > 1)
-              2.) When the total number of entries is indivisible by the number
-                  of entries per page, i.e.,
-                  !(pager.total_entries % pager.entries_per_page == 0)
-
-              The latter works because our OFFSET (500) is divisible by the
-              number of entries per page (25), so when we don't know the total
-              number (yet), it'll be divisible (first 500 on page 1, 525 on page
-              2, etc.). However, once we reach a certain page, the true total
-              entry count is smaller than (entries seen so far + OFFSET).
-              Without needing to know the actual count thus far or OFFSET, we
-              know that if the total entries is indivisible by the entries per
-              page, we've got the real total.
-
-              For example, if the true count is 614, the first six pages will
-              show 500, 525, 550, 575, 600, 614. All later pages show 614. Since
-              614 is the only one of these numbers that's indivisible by 25, we
-              know it's the true number. If the true number were 525, we'd see:
-              500, 525, 525, ...; we'll then always show 'at least', which is
-              not perfectly optimal but isn't inaccurate at least.
-
-              Furthermore, if we have less than 500 entries then we know we
-              don't have an estimate (because 500 is only the upper bound), so
-              we only indicate the search is an estimate if we have more than
-              >= 500 total results.
-              -%]
-          [% IF guess_search && pager.last_page > 1 &&
-                pager.total_entries % pager.entries_per_page == 0 &&
-                pager.total_entries >= 500 %]
+              We only use the 'at least' wording when guess_search is on in the
+              case where it's truly unclear. That is, where the total number is
+              the exact number that would have been found in any case with that
+              many edits or more. That is: when there are exactly 500 (our
+              offset) edits more than the sum of all previous pages.
+  
+              In the case where this is not true, we unset guess_search so the
+              paginator also knows this is an exact number of pages. -%]
+          [% IF guess_search &&
+                pager.total_entries == pager.entries_per_page * (pager.current_page - 1) + 500 %]
             [%- ln('Found at least {n} edit', 'Found at least {n} edits' ,
                     pager.total_entries,
                     { n => add_commas(pager.total_entries) }) -%]
@@ -62,6 +40,7 @@
             [%- ln('Found {n} edit', 'Found {n} edits' ,
                     pager.total_entries,
                     { n => add_commas(pager.total_entries) }) -%]
+            [% SET guess_search = 0 %]
           [% END %]
         </strong>
     </p>
