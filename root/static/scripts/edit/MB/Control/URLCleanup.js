@@ -762,6 +762,17 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.artist ] = validateFacebook;
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
 
+    // Block images from sites that don't allow deeplinking
+    var validateImage = function() {
+        var url = $('#id-ar\\.url').val();
+        if (url.match(/\/\/s\.pixogs\.com\//)) { return false; }
+        if (url.match(/\/\/s\.discogss\.com\//)) { return false; }
+        return true;
+    };
+    validationRules[ MB.constants.LINK_TYPES.image.artist ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.label ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.place ] = validateImage;
+
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
