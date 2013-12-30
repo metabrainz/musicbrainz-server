@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-23 22:29+0000\n"
+"PO-Revision-Date: 2013-12-28 22:35+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1760,7 +1760,7 @@ msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte. (<a href=\"h
 
 #: DB:link_attribute_type/description:382
 msgid "Trống Bông (bong drum)"
-msgstr ""
+msgstr "Trống Bông (bong drum)"
 
 #: DB:link_attribute_type/description:305
 msgid "Turkish baglama"
@@ -2348,7 +2348,7 @@ msgstr "fluit"
 
 #: DB:link_attribute_type/description:433
 msgid "folk harp"
-msgstr ""
+msgstr "folk harp"
 
 #: DB:link_attribute_type/description:465
 msgid "fortepiano"
@@ -2788,7 +2788,7 @@ msgstr "Een tangentpiano is een zeer zeldzaam toetsinstrument dat lijkt op een k
 
 #: DB:link_attribute_type/description:632
 msgid "tape"
-msgstr ""
+msgstr "tape"
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"
@@ -2986,7 +2986,7 @@ msgstr "blaasinstrumenten"
 
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
-msgstr ""
+msgstr "wire-strung harp"
 
 #: DB:link_attribute_type/description:213
 msgid "wood block"

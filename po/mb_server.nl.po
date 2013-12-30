@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-24 13:32+0000\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-25 15:28+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3405,7 +3405,7 @@ msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
 msgstr[0] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} uur</span>"
-msgstr[1] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} uren</span>"
+msgstr[1] "Verloopt over <span class=\"tooltip\" title=\"{exactdate}\">{num} uur</span>"
 
 #: ../root/components/common-macros.tt:705
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
@@ -4043,6 +4043,10 @@ msgstr "Afbeelding van Wikimedia Commons"
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "De afbeelding is nog niet beschikbaar, probeer het over een paar minuten opnieuw."
+
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr "Afbeelding {current} van {total}"
 
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
@@ -4875,7 +4879,7 @@ msgstr "Mijn stem"
 
 #: ../root/edit/index.tt:31
 msgid "My vote:"
-msgstr "Mijn stem:"
+msgstr "Mijn stem: "
 
 #: ../root/edit/edit_header.tt:31 ../root/edit/edit_header.tt:36
 #: ../root/edit/edit_header.tt:41
@@ -11433,11 +11437,11 @@ msgstr "<strong>We konden geen confirmatie e-mail naar u sturen.</strong>\n<br/>
 msgid "User successfully edited."
 msgstr "Gebruiker succesvol bewerkt."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "U kunt een artiest voor specifieke doeleinden niet samenvoegen met een normale artiest."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr "U kunt een niet naar een verwijderde artiest samenvoegen"
 

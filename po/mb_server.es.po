@@ -26,8 +26,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-14 05:51+0000\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-24 19:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -4047,6 +4047,10 @@ msgstr ""
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "La imagen aún no está disponible, inténtalo de nuevo en unos minutos."
+
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr ""
 
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
@@ -11437,11 +11441,11 @@ msgstr "<strong>No hemos podido enviarte un correo de confirmación.</strong><br
 msgid "User successfully edited."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "No puedes fusionar un artista de propósito especial con otro artista"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr "No puedes fusionar otro artista con la entidad para artistas eliminados (Deleted Artist)."
 

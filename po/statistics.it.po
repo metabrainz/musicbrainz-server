@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 12:35+0000\n"
+"PO-Revision-Date: 2013-12-24 22:31+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -686,7 +686,7 @@ msgstr "Metadati di base"
 msgid "Basics"
 msgstr "Generali"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:128
 msgid "By Cover Art Type"
 msgstr "Per tipo di copertina"
 
@@ -694,13 +694,13 @@ msgstr "Per tipo di copertina"
 msgid "By Release Format"
 msgstr "Per formato della pubblicazione"
 
+#: ../root/statistics/coverart.tt:46
+msgid "By Release Group Type"
+msgstr "Per tipo del gruppo di pubblicazioni"
+
 #: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr "Per status della pubblicazione"
-
-#: ../root/statistics/coverart.tt:46
-msgid "By Release Type"
-msgstr "Per tipo di pubblicazione"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
@@ -1019,12 +1019,12 @@ msgid "Count of deleted editors"
 msgstr "Numero di editor eliminati"
 
 #: ../root/statistics/view_js.tt:79
-msgid "Count of editors who have submitted edits during the last week"
-msgstr "Numero di editor che hanno inviato modifiche nell'ultima settimana"
+msgid "Count of editors who have submitted edits during the last 7 days"
+msgstr "Numero di editor che hanno inviato modifiche negli ultimi 7 giorni"
 
 #: ../root/statistics/view_js.tt:80
-msgid "Count of editors who have voted on during the last week"
-msgstr "Numero di editor che hanno votato nell'ultima settimana"
+msgid "Count of editors who have voted on during the last 7 days"
+msgstr "Numero di editor che hanno votato negli ultimi 7 giorni"
 
 #: ../root/statistics/view_js.tt:55
 msgid "Count of edits per day"
@@ -1349,9 +1349,9 @@ msgstr "Lingue e script"
 msgid "Languages/Scripts"
 msgstr "Lingue/Script"
 
-#: ../root/statistics/index.tt:744 ../root/statistics/index.tt:796
-msgid "Last Week:"
-msgstr "Ultima settimana:"
+#: ../root/statistics/index.tt:796 ../root/statistics/index.tt:744
+msgid "Last 7 days:"
+msgstr "Ultimi 7 giorni:"
 
 #: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
@@ -1436,7 +1436,7 @@ msgid "No Votes"
 msgstr "Voti negativi"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:122
 msgid "No coverart statistics available."
 msgstr "Non è disponibile nessuna statistica sulle copertine."
 
@@ -1468,7 +1468,7 @@ msgstr "Nessuno status"
 msgid "No status set"
 msgstr "Nessuno status impostato"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
 msgid "No type"
 msgstr "Nessun tipo"
 
@@ -1529,7 +1529,7 @@ msgstr "Artisti di tipo altro"
 msgid "Overview"
 msgstr "Riepilogo"
 
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:144
 msgid "Per release"
 msgstr "Per pubblicazione"
 
@@ -1541,11 +1541,11 @@ msgstr "Persone"
 msgid "Pieces of Cover Art"
 msgstr "Immagini di copertina"
 
-#: ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:119
 msgid "Pieces of cover art"
 msgstr "Immagini di copertina"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
 msgid "Pieces of cover art:"
 msgstr "Immagini di copertina:"
 
@@ -1687,6 +1687,14 @@ msgstr "Status delle pubblicazioni"
 msgid "Release Tags (raw)"
 msgstr "Tag di pubblicazioni (grezzi)"
 
+#: ../root/statistics/coverart.tt:97
+msgid "Release groups"
+msgstr "Gruppi di pubblicazioni"
+
+#: ../root/statistics/coverart.tt:100
+msgid "Release groups with cover art:"
+msgstr "Gruppi di pubblicazioni con copertina:"
+
 #: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"
 msgstr "Formato delle pubblicazioni/dei supporti"
@@ -1746,7 +1754,7 @@ msgstr "Pubblicazioni con almeno un ID disco:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:125
+#: ../root/statistics/coverart.tt:147
 msgid "Releases with cover art:"
 msgstr "Pubblicazioni con copertina:"
 
@@ -1993,6 +2001,10 @@ msgstr "Ingrandisci:"
 msgid "active ever:"
 msgstr "attivi almeno una volta:"
 
+#: ../root/statistics/coverart.tt:112
+msgid "automatically inferred:"
+msgstr "dedotta automaticamente:"
+
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
 msgstr "di un artista singolo:"
@@ -2008,6 +2020,10 @@ msgstr "non attivi:"
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
 msgstr "Relazioni l_{first}_{second}"
+
+#: ../root/statistics/coverart.tt:106
+msgid "manually selected:"
+msgstr "selezionata manualmente:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2030,12 +2046,12 @@ msgid "who edit:"
 msgstr "che inseriscono modifiche:"
 
 #: ../root/statistics/index.tt:592
-msgid "who edited and/or voted last week:"
-msgstr "che hanno inserito modifiche e/o votato nell'ultima settimana:"
+msgid "who edited and/or voted in the last 7 days:"
+msgstr "che hanno inserito modifiche e/o votato negli ultimi 7 giorni:"
 
 #: ../root/statistics/index.tt:600
-msgid "who edited last week:"
-msgstr "che hanno effettuato modifiche nell'ultima settimana:"
+msgid "who edited in the last 7 days:"
+msgstr "che hanno inserito modifiche negli ultimi 7 giorni:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
@@ -2066,14 +2082,14 @@ msgid "who vote:"
 msgstr "che votano:"
 
 #: ../root/statistics/index.tt:608
-msgid "who voted last week:"
-msgstr "che hanno votato nell'ultima settimana:"
+msgid "who voted in the last 7 days:"
+msgstr "che hanno votato negli ultimi 7 giorni:"
 
 #: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
 msgid "with 10 or more disc IDs:"
 msgstr "con 10 o più ID disco:"
 
-#: ../root/statistics/coverart.tt:139
+#: ../root/statistics/coverart.tt:161
 msgid "with 30 or more pieces of cover art:"
 msgstr "con 30 o più immagini di copertina:"
 
@@ -2099,7 +2115,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "con {num} ID disco:"
 msgstr[1] "con {num} ID disco:"
 
-#: ../root/statistics/coverart.tt:132
+#: ../root/statistics/coverart.tt:154
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "con {num} immagine di copertina:"
@@ -2131,8 +2147,9 @@ msgstr "Pubblicazioni {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
-#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
+#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
+#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

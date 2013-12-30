@@ -11,7 +11,7 @@
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012
-# Ian McEwen <email address hidden>, 2012
+# Ian McEwen <email address hidden>, 2012-2013
 # JonnyJD <email address hidden>, 2013
 # Mineo <email address hidden>, 2011
 # Mineo <email address hidden>, 2011
@@ -36,9 +36,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-24 12:53+0000\n"
-"Last-Translator: nikki\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-24 19:48+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4057,6 +4057,10 @@ msgstr "Bild von Wikimedia Commons"
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Bild noch nicht verfügbar, versuch es in ein paar Minuten nochmal."
+
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr "Bild {current} von {total}"
 
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
@@ -11447,11 +11451,11 @@ msgstr "<strong>Wir konnten Dir keine Bestätigungs-Mail schicken.</strong><br/>
 msgid "User successfully edited."
 msgstr "Benutzer erfolgreich bearbeitet."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Du kannst einen Spezialkünstler nicht mit einem anderen Künstler vereinen"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr "Du kannst Künstler nicht mit Deleted Artist vereinen."
 

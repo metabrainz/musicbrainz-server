@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2013-12-26 18:50+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -276,7 +276,7 @@ msgstr "Last.fm-ist sai MetaBrainzi klient, hakkas kasutama MusicBrainzi andmeid
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr ""
+msgstr "Lisati MusicBrainziga linkimise funktsioon, väljalaskesündmused ja toimetamissoovitused."
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -415,7 +415,7 @@ msgstr "SoC 2008"
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
-msgstr ""
+msgstr "Avaldati osaline lahendus stiilijuhis nr 5 jaoks. Kasutamata TRM-id eemaldati andmebaasist."
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
@@ -457,7 +457,7 @@ msgstr "Avalikustati seosetoimeti väljalaske seoste hulgitoimetamiseks."
 
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
-msgstr ""
+msgstr "Avalikustati otsingufunktsioonid ja veebiteenuse täiendused."
 
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
@@ -682,7 +682,7 @@ msgstr "Põhilised metaandmed"
 msgid "Basics"
 msgstr "Põhiandmed"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:128
 msgid "By Cover Art Type"
 msgstr "Kaanepildi tüübi järgi"
 
@@ -690,13 +690,13 @@ msgstr "Kaanepildi tüübi järgi"
 msgid "By Release Format"
 msgstr "Väljalaske formaadi järgi"
 
+#: ../root/statistics/coverart.tt:46
+msgid "By Release Group Type"
+msgstr "Väljalaskerühma tüübi järgi"
+
 #: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr "Väljalaske staatuse järgi"
-
-#: ../root/statistics/coverart.tt:46
-msgid "By Release Type"
-msgstr "Väljalaske tüübi järgi"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
@@ -744,7 +744,7 @@ msgstr "Põhiolemid"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Count of active editors"
-msgstr ""
+msgstr "Aktiivsete toimetajate arv"
 
 #: ../root/statistics/view_js.tt:81
 msgid "Count of active editors (editing or voting) during the last week"
@@ -1015,11 +1015,11 @@ msgid "Count of deleted editors"
 msgstr "Kustutatud kontoga toimetajate arv"
 
 #: ../root/statistics/view_js.tt:79
-msgid "Count of editors who have submitted edits during the last week"
+msgid "Count of editors who have submitted edits during the last 7 days"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:80
-msgid "Count of editors who have voted on during the last week"
+msgid "Count of editors who have voted on during the last 7 days"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:55
@@ -1118,11 +1118,11 @@ msgstr "Toimetajad (kustutatud kontoga)"
 
 #: ../root/statistics/index.tt:681
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Toimetajad (kustutatud kontoga):"
 
 #: ../root/statistics/view_js.tt:77
 msgid "Editors (valid & active ever)"
-msgstr ""
+msgstr "Toimetajad (kehtiva kontoga ja aktiivsed)"
 
 #: ../root/statistics/index.tt:65
 msgid "Editors (valid / deleted):"
@@ -1345,9 +1345,9 @@ msgstr "Keeled ja kirjad"
 msgid "Languages/Scripts"
 msgstr "Keeled ja kirjad"
 
-#: ../root/statistics/index.tt:744 ../root/statistics/index.tt:796
-msgid "Last Week:"
-msgstr "Nädala jooksul:"
+#: ../root/statistics/index.tt:796 ../root/statistics/index.tt:744
+msgid "Last 7 days:"
+msgstr "Viimase 7 päeva jooksul:"
 
 #: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
@@ -1432,7 +1432,7 @@ msgid "No Votes"
 msgstr ""
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:122
 msgid "No coverart statistics available."
 msgstr "Kaanepiltide statistika pole saadaval."
 
@@ -1464,7 +1464,7 @@ msgstr "[määramata]"
 msgid "No status set"
 msgstr "[määramata]"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
 msgid "No type"
 msgstr "[määramata]"
 
@@ -1525,9 +1525,9 @@ msgstr "Muud tüüpi artistid"
 msgid "Overview"
 msgstr "Ülevaade"
 
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:144
 msgid "Per release"
-msgstr "Väljalaske kohta"
+msgstr "Kaanepiltide arvu järgi"
 
 #: ../root/statistics/view_js.tt:114
 msgid "Persons"
@@ -1535,13 +1535,13 @@ msgstr "Isikud"
 
 #: ../root/statistics/view_js.tt:189
 msgid "Pieces of Cover Art"
-msgstr ""
+msgstr "Kaane- jm pildid"
 
-#: ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:119
 msgid "Pieces of cover art"
 msgstr "Kaane- jm pildid"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
 msgid "Pieces of cover art:"
 msgstr "Pilte:"
 
@@ -1683,6 +1683,14 @@ msgstr "Väljalaske staatus"
 msgid "Release Tags (raw)"
 msgstr ""
 
+#: ../root/statistics/coverart.tt:97
+msgid "Release groups"
+msgstr "Väljalaskerühmad"
+
+#: ../root/statistics/coverart.tt:100
+msgid "Release groups with cover art:"
+msgstr "Kaanepiltidega väljalaskerühmi:"
+
 #: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"
 msgstr "Väljalasete ja helikandjate formaadid"
@@ -1710,19 +1718,19 @@ msgstr[1] ""
 
 #: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
 msgid "Releases with Amazon Cover Art"
-msgstr ""
+msgstr "Amazoni kaanepiltidega väljalasked"
 
 #: ../root/statistics/view_js.tt:193
 msgid "Releases with CAA Cover Art"
-msgstr ""
+msgstr "CAA aaanepiltidega väljalasked"
 
 #: ../root/statistics/view_js.tt:190
 msgid "Releases with Cover Art"
-msgstr ""
+msgstr "Kaanepildiga väljalasked"
 
 #: ../root/statistics/view_js.tt:194
 msgid "Releases with Cover Art from Relationships"
-msgstr ""
+msgstr "Seostest pärit kaanepiltidega väljalasked"
 
 #: ../root/statistics/view_js.tt:142
 msgid "Releases with Disc IDs"
@@ -1730,7 +1738,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:195
 msgid "Releases with No Cover Art"
-msgstr ""
+msgstr "Ilma kaanepildita väljalasked"
 
 #: ../root/statistics/view_js.tt:102
 msgid "Releases with a no-format medium"
@@ -1742,7 +1750,7 @@ msgstr "Vähemalt ühe plaadi-ID-ga väljalaskeid:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:125
+#: ../root/statistics/coverart.tt:147
 msgid "Releases with cover art:"
 msgstr "Kaanepiltidega väljalaskeid:"
 
@@ -1987,7 +1995,11 @@ msgstr "Suurendamine:"
 
 #: ../root/statistics/index.tt:585
 msgid "active ever:"
-msgstr ""
+msgstr "Kordki aktiivseid:"
+
+#: ../root/statistics/coverart.tt:112
+msgid "automatically inferred:"
+msgstr "Automaatselt oletatud:"
 
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
@@ -1999,11 +2011,15 @@ msgstr ""
 
 #: ../root/statistics/index.tt:676
 msgid "inactive:"
-msgstr ""
+msgstr "Passiivseid:"
 
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
 msgstr ""
+
+#: ../root/statistics/coverart.tt:106
+msgid "manually selected:"
+msgstr "Käsitsi määratud:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2019,59 +2035,59 @@ msgstr "Isikuid:"
 
 #: ../root/statistics/index.tt:670
 msgid "validated email only:"
-msgstr ""
+msgstr "Üksnes kinnitatud e-postiga:"
 
 #: ../root/statistics/index.tt:615
 msgid "who edit:"
-msgstr ""
+msgstr "Toimetanud:"
 
 #: ../root/statistics/index.tt:592
-msgid "who edited and/or voted last week:"
-msgstr ""
+msgid "who edited and/or voted in the last 7 days:"
+msgstr "Toimetanud ja/või hääletanud viimase 7 päeva jooksul:"
 
 #: ../root/statistics/index.tt:600
-msgid "who edited last week:"
-msgstr "Nädala jooksul toimetanuid:"
+msgid "who edited in the last 7 days:"
+msgstr "Toimetanud viimase 7 päeva jooksul:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
-msgstr ""
+msgstr "Rakendusi registreerinud:"
 
 #: ../root/statistics/index.tt:629
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "Toimetusmärkmeid jätnud:"
 
 #: ../root/statistics/index.tt:657
 msgid "who use collections:"
-msgstr ""
+msgstr "Kogusid kasutanud:"
 
 #: ../root/statistics/index.tt:643
 msgid "who use ratings:"
-msgstr ""
+msgstr "Hindeid kasutanud:"
 
 #: ../root/statistics/index.tt:650
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "Jälgimisfunktsioone kasutanud:"
 
 #: ../root/statistics/index.tt:636
 msgid "who use tags:"
-msgstr ""
+msgstr "Silte kasutanud:"
 
 #: ../root/statistics/index.tt:622
 msgid "who vote:"
-msgstr ""
+msgstr "Hääletanud:"
 
 #: ../root/statistics/index.tt:608
-msgid "who voted last week:"
-msgstr "Nädala jooksul hääletanuid:"
+msgid "who voted in the last 7 days:"
+msgstr "Hääletanud viimase 7 päeva jooksul:"
 
 #: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
 msgid "with 10 or more disc IDs:"
 msgstr "10 või enama plaadi-ID-ga:"
 
-#: ../root/statistics/coverart.tt:139
+#: ../root/statistics/coverart.tt:161
 msgid "with 30 or more pieces of cover art:"
-msgstr "30 või rohkema pildiga:"
+msgstr "30 või enama pildiga:"
 
 #: ../root/statistics/index.tt:163
 msgid "with appearances in artist credits:"
@@ -2095,11 +2111,11 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "{num} plaadi-ID-ga:"
 msgstr[1] "{num} plaadi-ID-ga:"
 
-#: ../root/statistics/coverart.tt:132
+#: ../root/statistics/coverart.tt:154
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "{num} pildiga:"
-msgstr[1] ""
+msgstr[1] "{num} pildiga:"
 
 #: ../root/statistics/view_js.tt:87
 msgid "{country} artists"
@@ -2127,8 +2143,9 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
-#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
+#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
+#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

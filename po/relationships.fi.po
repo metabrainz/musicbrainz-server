@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
+"PO-Revision-Date: 2013-12-24 19:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -462,13 +462,13 @@ msgstr ""
 
 #: DB:link_type/description:55
 msgid ""
-"Indicates the composer for this release, i.e. the person who wrote the music"
+"Indicates the composer for this release, i.e. the artist who wrote the music"
 " (not necessarily the lyrics)."
 msgstr ""
 
 #: DB:link_type/description:168
 msgid ""
-"Indicates the composer for this work, i.e. the person who wrote the music "
+"Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr ""
 

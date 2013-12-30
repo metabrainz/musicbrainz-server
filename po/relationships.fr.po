@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-12 08:04+0000\n"
+"PO-Revision-Date: 2013-12-25 01:41+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -469,15 +469,15 @@ msgstr "Indique l'ingénieur du son pour cette œuvre. (<a href=\"http://musicbr
 
 #: DB:link_type/description:55
 msgid ""
-"Indicates the composer for this release, i.e. the person who wrote the music"
+"Indicates the composer for this release, i.e. the artist who wrote the music"
 " (not necessarily the lyrics)."
-msgstr "Indique le compositeur de cette parution, c.-à-d. la personne qui a écrit la musique (pas nécessairement les paroles)"
+msgstr "Indique le compositeur pour cette parution, c.-à-d. l'artiste qui a écrit la musique (pas nécessairement les paroles)."
 
 #: DB:link_type/description:168
 msgid ""
-"Indicates the composer for this work, i.e. the person who wrote the music "
+"Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
-msgstr "Indique le compositeur de cette œuvre, c.-à-d. la personne qui a écrit la musique (pas nécessairement les paroles)"
+msgstr "Indique le compositeur pour cette œuvre, c.-à-d. l'artiste qui a écrit la musique (pas nécessairement les paroles)."
 
 #: DB:link_type/description:264
 msgid "Indicates the creative direction support for this work."
