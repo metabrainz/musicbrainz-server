@@ -869,6 +869,7 @@ BEGIN
 
     IF NOT other_ars_exist THEN
        DELETE FROM link_attribute WHERE link = OLD.link;
+       DELETE FROM link_attribute_credit WHERE link = OLD.link;
        DELETE FROM link WHERE id = OLD.link;
     END IF;
 
