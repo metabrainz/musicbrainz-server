@@ -11,11 +11,9 @@ sub _browse
 
     my $index = $c->req->query_params->{index};
     my $entities;
-    if ($index) {
-        $entities = $self->_load_paged($c, sub {
-            $c->model($model_name)->find_by_name_prefix($index, shift, shift);
-        });
-    }
+    $entities = $self->_load_paged($c, sub {
+        $c->model($model_name)->find_by_name_prefix("", shift, shift);
+    });
 
     $c->stash(
         entities => $entities,
