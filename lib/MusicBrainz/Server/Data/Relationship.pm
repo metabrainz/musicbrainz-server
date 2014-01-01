@@ -215,6 +215,11 @@ sub load_entities
 
     my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
     $self->c->model('ArtistCredit')->load(@load_ac);
+
+    my @places = values %{$data_by_type{'place'}};
+    my @areas = values %{$data_by_type{'area'}};
+    $self->c->model('Area')->load(@places);
+    $self->c->model('Area')->load_containment(@areas, map { $_->area } @places);
 }
 
 sub load_subset

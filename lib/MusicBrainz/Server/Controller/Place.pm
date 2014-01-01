@@ -118,6 +118,7 @@ sub _merge_load_entities
     my ($self, $c, @places) = @_;
     $c->model('PlaceType')->load(@places);
     $c->model('Area')->load(@places);
+    $c->model('Area')->load_containment(map { $_->area } @places);
 };
 
 =head1 LICENSE
