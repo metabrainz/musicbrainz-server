@@ -93,16 +93,22 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
 {
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
-    $self->edit_action($c,
-        form => 'Confirm',
-        form_args => { requires_edit_note => 1 },
-        type => $model_to_edit_type{delete}->{ $self->{model} },
-        edit_args => {
-            alias  => $alias,
-            entity => $c->stash->{ $self->{entity_name} }
-        },
-        on_creation => sub { $self->_redir_to_aliases($c) }
-    );
+    my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
+    if ($edit && $edit->can_cancel($c->user)) {
+        $c->stash->{edit} = $edit;
+        $c->forward('/edit/cancel', [ $edit->id ]);
+    } else {
+        $self->edit_action($c,
+            form => 'Confirm',
+            form_args => { requires_edit_note => 1 },
+            type => $model_to_edit_type{delete}->{ $self->{model} },
+            edit_args => {
+                alias  => $alias,
+                entity => $c->stash->{ $self->{entity_name} }
+            },
+            on_creation => sub { $self->_redir_to_aliases($c) }
+        );
+    }
 }
 
 sub edit_alias : Chained('alias') PathPart('edit') Edit
