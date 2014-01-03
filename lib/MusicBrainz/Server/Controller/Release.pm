@@ -642,18 +642,24 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     $c->stash( artwork => $artwork );
 
-    $self->edit_action($c,
-        form        => 'Confirm',
-        form_args   => { requires_edit_note => 1 },
-        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
-        edit_args   => {
-            release   => $release,
-            to_delete => $artwork
-        },
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-        }
-    )
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
+    if ($edit && $edit->can_cancel($c->user)) {
+        $c->stash->{edit} = $edit;
+        $c->forward('/edit/cancel', [ $edit->id ]);
+    } else {
+        $self->edit_action($c,
+            form        => 'Confirm',
+            form_args   => { requires_edit_note => 1 },
+            type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+            edit_args   => {
+                release   => $release,
+                to_delete => $artwork
+            },
+            on_creation => sub {
+                $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            }
+        );
+    }
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {
