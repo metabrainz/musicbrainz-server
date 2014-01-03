@@ -253,20 +253,20 @@ sub find_open_for_editor
 }
 
 sub find_creation_edit {
-   my ($self, $entity_type, $create_edit_type, $entity) = @_;
+   my ($self, $create_edit_type, $entity_id, %args) = @_;
+   $args{id_field} ||= 'entity_id';
    my $query =
        "SELECT " . $self->_columns . "
           FROM " . $self->_table . "
-          JOIN edit_${entity_type} edit_join ON edit_join.edit = edit.id
         WHERE edit.status = ?
           AND edit.type = ?
-          AND edit_join.${entity_type} = ?
+          AND extract_path_value(data, ?::text) = ?
         ORDER BY edit.id ASC LIMIT 1";
    my ($edit) = query_to_list(
        $self->c->sql,
        sub { $self->_new_from_row(shift) },
        $query,
-       $STATUS_OPEN, $create_edit_type, $entity->id);
+       $STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id);
    return $edit;
 }
 

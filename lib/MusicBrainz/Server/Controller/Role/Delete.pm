@@ -40,7 +40,7 @@ role {
             $c->stash( can_delete => 1 );
             # find a corresponding add edit and cancel instead, if applicable (MBS-1397)
             my $create_edit_type = $self->{create_edit_type};
-            my $edit = $c->model('Edit')->find_creation_edit($entity_name, $create_edit_type, $edit_entity);
+            my $edit = $c->model('Edit')->find_creation_edit($create_edit_type, $edit_entity->id);
             if ($edit && $edit->can_cancel($c->user)) {
                 $c->stash->{edit} = $edit;
                 $c->forward('/edit/cancel', [ $edit->id ]);
