@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-24 19:46+0000\n"
+"PO-Revision-Date: 2013-12-30 21:30+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1385,6 +1385,14 @@ msgid ""
 "which it is a soundtrack."
 msgstr ""
 
+#: DB:link_type/description:722
+msgid ""
+"This links a subgroup to the group from which it was created.​ This "
+"relationship type is the functional equivalent of the <a "
+"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
+"type</a> for group-group relationships."
+msgstr ""
+
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
 msgstr ""
@@ -1646,8 +1654,7 @@ msgstr ""
 #: DB:link_type/description:194
 msgid ""
 "This relationship is used to link an artist to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
+"legally streamed for free, such as Spotify or we7."
 msgstr ""
 
 #: DB:link_type/description:37 DB:link_type/description:132
@@ -2278,8 +2285,11 @@ msgstr "Gründer"
 msgid "free download page for"
 msgstr "Seite zum kostenlosen Herunterladen für"
 
-#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 #: DB:link_type/reverse_link_phrase:194
+msgid "free music streaming page for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
 msgstr "Seite zum kostenlosen Musik-{video:Video-}Streamen für"
 
@@ -2705,6 +2715,10 @@ msgstr "ist die Verwertungsgesellschaft für"
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
 msgstr "ist eine {EP:EP|Single}-Auskopplung von"
 
+#: DB:link_type/long_link_phrase:722
+msgid "is/was a subgroup of"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:104
 msgid "is/was a supporting artist for"
 msgstr "ist/war ein(e) unterstützende(r) Künstler(in) für"
@@ -2956,8 +2970,8 @@ msgid "music can be purchased for mail-order at"
 msgstr "Musik kann bestellt werden unter"
 
 #: DB:link_type/long_link_phrase:194
-msgid "music {video:videos} can be streamed for free at"
-msgstr "Musik{video:-Videos} {video:können|kann} kostenlos gestreamt werden unter"
+msgid "music can be streamed for free at"
+msgstr ""
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -3361,10 +3375,21 @@ msgstr ""
 msgid "spoken vocals"
 msgstr ""
 
-#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 #: DB:link_type/link_phrase:194
+msgid "stream for free"
+msgstr ""
+
+#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
 msgstr "{video:Video} kostenlos streamen"
+
+#: DB:link_type/link_phrase:722
+msgid "subgroup of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:722
+msgid "subgroups"
+msgstr ""
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"

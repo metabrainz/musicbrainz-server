@@ -3,13 +3,13 @@
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-29 22:11+0000\n"
+"PO-Revision-Date: 2014-01-02 19:31+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1388,6 +1388,14 @@ msgid ""
 "which it is a soundtrack."
 msgstr "Dit koppelt een soundtrack aan de pagina op <a href=\"http://www.imdb.com/\">IMDb</a> van de film, show of het spel waarvan het een soundtrack is."
 
+#: DB:link_type/description:722
+msgid ""
+"This links a subgroup to the group from which it was created.​ This "
+"relationship type is the functional equivalent of the <a "
+"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
+"type</a> for group-group relationships."
+msgstr "Dit koppelt een subgroep aan de groep waar het deel van uitmaakt. Dit relatietype is vergelijkbaar met het <a href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">lid van een groep type</a> voor relaties tussen groepen onderling."
+
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
 msgstr "Dit koppelt een (fictieve) artiest aan de persoon die deze heeft ingesproken."
@@ -1649,9 +1657,8 @@ msgstr "Deze relatie wordt gebruikt om een artiest te koppelen aan een persoon d
 #: DB:link_type/description:194
 msgid ""
 "This relationship is used to link an artist to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
-msgstr "Deze relatie wordt gebruikt om een artiest te koppelen aan een site waar muziek legaal gratis kan worden gestreamd, zoals Spotify of we7. (<a href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
+"legally streamed for free, such as Spotify or we7."
+msgstr "Deze verwantschap wordt gebruikt om een artiest te koppelen aan een site waar muziek legaal gratis kan worden gestreamd, zoals Spotify of we7."
 
 #: DB:link_type/description:37 DB:link_type/description:132
 msgid ""
@@ -1915,7 +1922,7 @@ msgstr "YouTubekanaal van"
 #: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
-msgstr "Accepteer wijziging"
+msgstr "YouTube-kanalen"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -2281,8 +2288,11 @@ msgstr "oprichters"
 msgid "free download page for"
 msgstr "gratis download pagina voor"
 
-#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 #: DB:link_type/reverse_link_phrase:194
+msgid "free music streaming page for"
+msgstr "gratis muziekstreampagina van"
+
+#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
 msgstr "gratis muziek{video} streamingpagina van"
 
@@ -2654,11 +2664,11 @@ msgstr "is een remix van"
 
 #: DB:link_type/long_link_phrase:278
 msgid "is a {partial} {live} {instrumental} {cover} recording of"
-msgstr "is een {partial:gedeeltelijke} {live:live} {instrumental:instrumentale} {cover:cover}opname van"
+msgstr "is een {partial:gedeeltelijke} {instrumental:instrumentale} {live:live} {cover:cover}opname van"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
-msgstr "is een {translated:vertaalde} {parody:parodie} cover van"
+msgstr "is een {translated:vertaalde} {parody:parodie}cover van"
 
 #: DB:link_type/long_link_phrase:286
 msgid "is an Allmusic page for"
@@ -2708,9 +2718,13 @@ msgstr "is de auteursrechtenorganisatie verbonden met"
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
 msgstr "is een {EP:EP|single} gehaald van"
 
+#: DB:link_type/long_link_phrase:722
+msgid "is/was a subgroup of"
+msgstr "is/was een subgroep van"
+
 #: DB:link_type/long_link_phrase:104
 msgid "is/was a supporting artist for"
-msgstr "is of was een ondersteunende artiest voor"
+msgstr "is/was een ondersteunende artiest voor"
 
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
@@ -2959,8 +2973,8 @@ msgid "music can be purchased for mail-order at"
 msgstr "muziek kan gekocht worden voor postorder op"
 
 #: DB:link_type/long_link_phrase:194
-msgid "music {video:videos} can be streamed for free at"
-msgstr "muziek{video:video's} kunnen gratis gestreamd worden op"
+msgid "music can be streamed for free at"
+msgstr "muziek kan gratis gestreamd worden op"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
@@ -3076,7 +3090,7 @@ msgstr "verzorgde {additional:aanvullende} {guest:gast} {solo:solo} {vocal:vocal
 
 #: DB:link_type/long_link_phrase:149
 msgid "performed {additional} {solo} {guest} {vocal} {vocal:|vocals} on"
-msgstr ""
+msgstr "verzorgde {guest:als gast} {additional:aanvullende} {solo:solo} {vocal:vocalen} {vocal|vocals:vocalen} op"
 
 #: DB:link_type/link_phrase:108 DB:link_type/long_link_phrase:108
 msgid "performs as"
@@ -3364,10 +3378,21 @@ msgstr "sopraan"
 msgid "spoken vocals"
 msgstr "gesproken vocalen"
 
-#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 #: DB:link_type/link_phrase:194
+msgid "stream for free"
+msgstr "gratis streamen"
+
+#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
 msgstr "{video:video} gratis te streamen"
+
+#: DB:link_type/link_phrase:722
+msgid "subgroup of"
+msgstr "subgroep van"
+
+#: DB:link_type/reverse_link_phrase:722
+msgid "subgroups"
+msgstr "subgroepen"
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
@@ -3819,7 +3844,7 @@ msgstr "{additional:aanvullend} {translated:vertaalde} liedtekst"
 #: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
 #: DB:link_type/reverse_link_phrase:294
 msgid "{additional} {vocal:%|vocals} arranger"
-msgstr ""
+msgstr "{additional:aanvullend} {vocal:%|vocals:vocalen} arrangeur"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
@@ -3867,8 +3892,8 @@ msgstr "{video} kan gratis gestreamd worden op"
 
 #: DB:link_type/reverse_link_phrase:107
 msgid "{vocal:%|vocals} support by"
-msgstr ""
+msgstr "{vocal:%|vocals:vocale} ondersteuning door"
 
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
-msgstr ""
+msgstr "{vocal:%|vocals:vocale} ondersteuning voor"

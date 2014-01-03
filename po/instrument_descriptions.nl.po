@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-28 22:35+0000\n"
+"PO-Revision-Date: 2014-01-01 15:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1057,7 +1057,7 @@ msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een s
 msgid ""
 "The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
 "treble/alto recorder. Also knows as descant in B-flat, soprano in B-flat."
-msgstr ""
+msgstr "De vierde blokfluit is een blokfluit met de laagste noot van Bes, een kwart boven de altblokfluit."
 
 #: DB:link_attribute_type/description:683
 msgid ""
@@ -1312,7 +1312,7 @@ msgid ""
 "The nose flute is a flute played by the nose commonly found in countries in "
 "and around the Pacific. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "De neusfluit of „nose flute“ (niet te verwarren met het neusfluitje of „nose whistle“) is een fluit die met de neus wordt bespeeld en vooral wordt gebruikt in de landen in en ronde de Stille Oceaan. (<a href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:738
 msgid ""
@@ -1321,7 +1321,7 @@ msgid ""
 "instrument and the frequency of the notes produced is controlled by the "
 "volume of air. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Het neusfluitje of „nose whistle“ (niet te verwarren met de neusfluit of „nose flute“), ook wel bekend onder de merknaam Humanatone, is een simpel instrument dat met de neus wordt bespeeld. Een luchtstroom wordt over een rand in het instrument geblazen en de frequentie van de gespeelde noten wordt bepaald door het luchtvolume. (<a href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:684
 msgid ""

@@ -12,7 +12,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
@@ -23,7 +23,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-24 12:36-0700\n"
-"PO-Revision-Date: 2013-12-25 15:28+0000\n"
+"PO-Revision-Date: 2014-01-01 13:11+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3058,7 +3058,7 @@ msgstr "Bewerkingsgeschiedenis"
 
 #: ../root/main/index.tt:21
 msgid "Editing introduction"
-msgstr "Introductie voor bewerkingen"
+msgstr "Introductie van bewerkingen"
 
 #: ../root/annotation/history.tt:8 ../root/edit/search_macros.tt:307
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
