@@ -44,7 +44,8 @@ role {
     $extra{consumer}->name->config(
         action => {
             create => \%attrs
-        }
+        },
+        create_edit_type => $params->edit_type
     );
 
     method 'create' => sub {

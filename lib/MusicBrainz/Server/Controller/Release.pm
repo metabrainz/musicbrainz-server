@@ -581,7 +581,8 @@ sub _merge_load_entities
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_RELEASE_DELETE,
+    edit_type        => $EDIT_RELEASE_DELETE,
+    create_edit_type => $EDIT_RELEASE_CREATE,
 };
 
 sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit

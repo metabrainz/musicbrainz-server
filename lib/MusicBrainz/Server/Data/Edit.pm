@@ -252,6 +252,24 @@ sub find_open_for_editor
     );
 }
 
+sub find_creation_edit {
+   my ($self, $entity_type, $create_edit_type, $entity) = @_;
+   my $query =
+       "SELECT " . $self->_columns . "
+          FROM " . $self->_table . "
+          JOIN edit_${entity_type} edit_join ON edit_join.edit = edit.id
+        WHERE edit.status = ?
+          AND edit.type = ?
+          AND edit_join.${entity_type} = ?
+        ORDER BY edit.id ASC LIMIT 1";
+   my ($edit) = query_to_list(
+       $self->c->sql,
+       sub { $self->_new_from_row(shift) },
+       $query,
+       $STATUS_OPEN, $create_edit_type, $entity->id);
+   return $edit;
+}
+
 sub subscribed_entity_edits
 {
     my ($self, $editor_id, $limit, $offset) = @_;
