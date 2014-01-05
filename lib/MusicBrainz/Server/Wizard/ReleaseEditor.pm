@@ -772,25 +772,16 @@ sub prepare_missing_entities
             name => trim ($_->{artist}->{name}),
         }, uniq_by { normalise_strings($_->{artist}->{name}) } @artist_credits;
 
-    my @labels = map +{
-            for => trim ($_->{name}),
-            name => trim ($_->{name})
-        }, uniq_by { normalise_strings($_->{name}) }
-            $self->_missing_labels($data);
-
     $self->load_page('missing_entities', {
         missing => {
             artist => \@credits,
-            label => \@labels
         }
     });
 
     $self->c->stash(
-        missing_entity_count => scalar @credits + scalar @labels,
+        missing_entity_count => scalar @credits,
         possible_artists => $self->c->model('Artist')->search_by_names (
             map { $_->{for} } @credits),
-        possible_labels => $self->c->model('Label')->search_by_names (
-            map { $_->{for} } @labels),
         );
 }
 
@@ -823,15 +814,6 @@ sub prepare_edits
     if (!$previewing) {
         $self->on_submit($self);
     }
-}
-
-sub _missing_labels {
-    my ($self, $data) = @_;
-
-    $data->{labels} = $self->get_value ('information', 'labels');
-
-    return grep { !$_->{label_id} && $_->{name} && !$_->{deleted} }
-        @{ $data->{labels} };
 }
 
 sub _missing_artist_credits
@@ -879,13 +861,6 @@ sub create_edits
                 or die 'No artist was created for ' . $bad_ac->{name};
 
             $bad_ac->{artist}->{id} = $artist;
-        }
-
-        for my $bad_label ($self->_missing_labels($data)) {
-            my $label = $created{label}{ normalise_strings($bad_label->{name}) }
-                or die 'No label was created for ' . $bad_label->{name};
-
-            $bad_label->{label_id} = $label;
         }
     }
 

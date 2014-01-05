@@ -167,24 +167,22 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
         return %ret;
-    }
+    },
+    dialog_template => 'recording/edit_form.tt',
 };
 
-before '_merge_confirm' => sub {
-    my ($self, $c) = @_;
-    if ($c->stash->{to_merge}) {
-        my @recordings = @{ $c->stash->{to_merge} };
-        $c->model('ISRC')->load_for_recordings(@recordings);
+sub _merge_load_entities {
+    my ($self, $c, @recordings) = @_;
+    $c->model('ISRC')->load_for_recordings(@recordings);
 
-        my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
-        if (@recordings_with_isrcs > 1) {
-            my ($comparator, @tail) = @recordings_with_isrcs;
-            my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
-            my $expect = $get_isrc_set->($comparator);
-            $c->stash(
-                isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
-            );
-        }
+    my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
+    if (@recordings_with_isrcs > 1) {
+        my ($comparator, @tail) = @recordings_with_isrcs;
+        my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
+        my $expect = $get_isrc_set->($comparator);
+        $c->stash(
+            isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
+        );
     }
 };
 

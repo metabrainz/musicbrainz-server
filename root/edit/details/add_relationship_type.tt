@@ -31,6 +31,6 @@
 
   <tr>
     <th>[% l('Documentation:') %]</th>
-    <td>[% edit.data.documentation | format_wikitext %]</td>
+    <td>[% edit.data.documentation %]</td>
   </tr>
 </table>

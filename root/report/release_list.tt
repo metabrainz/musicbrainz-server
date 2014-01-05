@@ -2,6 +2,8 @@
 <table class="tbl">
     <thead>
         <tr>
+            [% BLOCK extra_header_start %][% END %]
+            [%- PROCESS extra_header_start -%]
             <th>[% l('Release') %]</th>
             <th>[% l('Artist') %]</th>
         </tr>
@@ -9,6 +11,8 @@
     <tbody>
         [%- FOR item IN items -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+            [% BLOCK extra_row_start %][% END %]
+            [%- PROCESS extra_row_start -%]
             <td>[% link_entity(item.release) %]</td>
             <td>[% artist_credit(item.release.artist_credit) %]</td>
         </tr>

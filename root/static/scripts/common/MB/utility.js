@@ -36,15 +36,6 @@ MB.utility.keys = function (obj) {
     }
 };
 
-MB.utility.displayedValue = function(element) {
-    if(element.is('select')) {
-        return element.find(':selected').text();
-    }
-    else if (element.is('input[type=text]')) {
-        return element.val();
-    }
-};
-
 /* Convert fullwidth characters to standard halfwidth Latin. */
 MB.utility.fullWidthConverter = function (inputString) {
     if (inputString === "") {
@@ -65,59 +56,10 @@ MB.utility.fullWidthConverter = function (inputString) {
     return newString.reverse ().join("");
 };
 
-MB.utility.isArray  = function(o) { return (o instanceof Array    || typeof o == "array"); };
-MB.utility.isString = function(o) { return (o instanceof String   || typeof o == "string"); };
-MB.utility.isNumber = function(o) { return (o instanceof Number  || typeof o == "number"); };
 MB.utility.isNullOrEmpty = function(o) { return (!o || o == ""); };
 MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2000-\u207F]/.test(str); };
 
-MB.utility.template = function(str) {
-    var self = MB.Object();
-
-    var draw = function (o) {
-        return str.replace(/#{([^{}]*)}/g,
-            function (a, b) {
-                var r = o[b];
-                return typeof r === 'string' || typeof r === 'number' ? r : a;
-            });
-    };
-
-    self.draw = draw;
-
-    return self;
-};
-
-MB.utility.load_data = function (files, loaded, callback) {
-    var uri = files.pop ();
-
-    if (uri)
-    {
-        jQuery.get (uri, function (data) {
-            loaded[uri] = data;
-
-            MB.utility.load_data (files, loaded, callback);
-        });
-    }
-    else
-    {
-        callback (loaded);
-    }
-};
-
-MB.utility.exception = function (name, message) {
-    var e = function () { this.name = name,  this.message = message };
-    e.prototype = new Error ();
-
-    return new e ();
-};
-
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
-
-MB.utility.escapeHTML = function (str) {
-    if (!str) return '';
-
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
 
 /* structureToString renders a structure to a string.  It is similar to
    serializing a structure, but intended as input to a hash function.
@@ -125,11 +67,11 @@ MB.utility.escapeHTML = function (str) {
    The output string is not easily deserialized.
 */
 MB.utility.structureToString = function (obj) {
-    if (MB.utility.isString (obj) || MB.utility.isNumber (obj))
+    if (_.isString(obj) || _.isNumber(obj))
     {
         return obj;
     }
-    else if (MB.utility.isArray (obj))
+    else if (_.isArray(obj))
     {
         var ret = [];
         $.each (obj, function (idx, item) {
@@ -345,4 +287,3 @@ MB.utility.filesize = function (size) {
 MB.utility.percentOf = function(x, y) {
     return x * y / 100;
 };
-

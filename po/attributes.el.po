@@ -8,8 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 00:53+0000\n"
+"PO-Revision-Date: 2013-12-11 09:48+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +36,11 @@ msgstr "βινύλιο 7\""
 msgctxt "medium_format"
 msgid "8cm CD"
 msgstr "CD 8cm"
+
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr ""
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -83,6 +87,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
 
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr ""
+
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
@@ -112,6 +121,11 @@ msgstr "Αναμετάδοση"
 msgctxt "medium_format"
 msgid "CD"
 msgstr "CD"
+
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
+msgstr ""
 
 #: DB:medium_format/name:33
 msgctxt "medium_format"
@@ -253,10 +267,20 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr ""
+
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
 msgstr "Μητρική"
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -373,13 +397,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Άλλο"
 
-#: DB:cover_art_archive.art_type/name:8
-msgctxt "cover_art_type"
-msgid "Other"
-msgstr "Άλλο"
-
-#: DB:gender/name:3
-msgctxt "gender"
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr "Άλλο"
 
@@ -388,13 +407,18 @@ msgctxt "medium_format"
 msgid "Other"
 msgstr "Άλλο"
 
-#: DB:release_group_primary_type/name:11
-msgctxt "release_group_primary_type"
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
 msgid "Other"
 msgstr "Άλλο"
 
-#: DB:release_packaging/name:5
-msgctxt "release_packaging"
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "Άλλο"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr "Άλλο"
 
@@ -478,6 +502,11 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr ""
+
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
@@ -514,13 +543,13 @@ msgctxt "work_type"
 msgid "Song-cycle"
 msgstr "Κύκλος τραγουδιών"
 
-#: DB:release_group_secondary_type/name:2
-msgctxt "release_group_secondary_type"
+#: DB:work_type/name:22
+msgctxt "work_type"
 msgid "Soundtrack"
 msgstr "Soundtrack"
 
-#: DB:work_type/name:22
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "Soundtrack"
 

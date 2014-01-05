@@ -93,7 +93,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         else {
             return ();
         }
-    }
+    },
+    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -107,15 +108,12 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     search_template       => 'release_group/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
+    my ($self, $c, @rgs) = @_;
 
-    $c->model('ReleaseGroup')->load_meta(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseGroupType')->load(@{ $c->stash->{to_merge} });
-    $c->model('ArtistCredit')->load(
-        $c->stash->{old}, $c->stash->{new}
-    );
+    $c->model('ReleaseGroup')->load_meta(@rgs);
+    $c->model('ReleaseGroupType')->load(@rgs);
 };
 
 around '_merge_search' => sub

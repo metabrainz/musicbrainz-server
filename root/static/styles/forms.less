@@ -1,3 +1,5 @@
+@import "colors.less";
+
 @form-half-width: 465px;
 @form-margin: 12px;
 @form-label-width: 132px;
@@ -11,10 +13,15 @@
   -webkit-border-radius: @radius;
 }
 
-input { background: #fff; color: #000; }
-input:-moz-placeholder { color: #aaa; }
+input { background: #fff; color: @text-black; }
+input:-ms-input-placeholder, // IE10
+input::-moz-placeholder, // ff 19+
+input:-moz-placeholder, // ff 4-18
+input::-webkit-input-placeholder { // webkit
+    color: @dark-text;
+}
 input[disabled].lookup-performed,
-input[disabled] { background: #DCDAD5; cursor: default; }
+input[disabled] { background: @medium-bg; cursor: default; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>
@@ -98,15 +105,15 @@ form ul.errors {
 }
 
 form ul.errors li,
-span.error { color: #ff2222; }
-span.success { color: #22aa22; }
+span.error { color: @negative-text; }
+span.success { color: @positive-text; }
 
 input.error,
 select.error {
-    background: #ffaaaa ! important;
+    background: @negative-bg ! important;
 }
 
-input.lookup-performed { background: #bfb; }
+input.lookup-performed { background: @positive-bg; }
 
 form .input-note {
     font-style: italic;
@@ -144,21 +151,21 @@ dl.properties label {
 }
 
 div.ar-descr {
-    background: #F9F9F9;
+    background: @effectively-white-bg;
     padding: 4px;
-    border: dotted 1px #D0D0D0;
+    border: dotted 1px @medium-border;
     margin: 6px;
 }
 
 a.selectFilterPrev,
 a.selectFilterNext {
-    color: #000;
+    color: @text-black;
     text-decoration: none;
 }
 
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
-    color: #666;
+    color: @very-dark-text;
 }
 
 div.searchform {
@@ -186,7 +193,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
 .autocomplete-length,
-.autocomplete-comment { font-size: smaller; color: #666; }
+.autocomplete-comment { font-size: smaller; color: @very-dark-text; }
 button.autocomplete-pager {
     position: absolute;
     display: block;
@@ -201,7 +208,7 @@ span.autocomplete-appears,
 span.autocomplete-comment,
 span.autocomplete-video {
     margin-left: @form-margin;
-    color: #999;
+    color: @dark-text;
     font-size: 80%;
 }
 
@@ -229,7 +236,7 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid @light-border;
     margin-top: 0;
     .border-radius(6px);
 }
@@ -240,7 +247,7 @@ div.half-width fieldset.editnote {
 }
 
 div.half-width fieldset legend {
-    color: #fc6714;
+    color: @text-orange;
     font-size: 120%;
     font-weight: bold;
     margin: 0 10px;
@@ -294,8 +301,8 @@ div.half-width fieldset h3 {
 div.documentation div.bubble {
     margin: 0;
     padding: @form-margin;
-    border: 1px solid #999;
-    background: #f0f0f0;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
     .border-radius(12px);
 }
 
@@ -336,8 +343,8 @@ ul.conditions button.remove img {
 
 #filter {
     margin-top: 0.75em;
-    border: 1px solid #999;
-    background: #f0f0f0;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
     .border-radius(3px);
     padding: 0.5em;
     display: none;

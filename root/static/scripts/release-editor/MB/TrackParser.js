@@ -26,7 +26,7 @@ MB.TrackParser.separators = ['-', '‒', '–', '—', '―', "\t"];
 MB.TrackParser.separator = ' ' + MB.TrackParser.separators[0] + ' ';
 
 MB.TrackParser.Artist = function (track, artist) {
-    var self = MB.Object ();
+    var self = {};
 
     self.names = [];
 
@@ -192,7 +192,7 @@ MB.TrackParser.Artist = function (track, artist) {
 };
 
 MB.TrackParser.Options = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.$trackartists = $('#trackartists');
     self.$tracknumbers = $('#tracknumbers');
@@ -217,7 +217,7 @@ $(document).ready (function () {
 });
 
 MB.TrackParser.Track = function (position, line, parent) {
-    var self = MB.Object ();
+    var self = {};
 
     self.position = position;
     self.number = position;
@@ -416,7 +416,7 @@ MB.TrackParser.Track = function (position, line, parent) {
 };
 
 MB.TrackParser.Parser = function (disc, serialized) {
-    var self = MB.Object ();
+    var self = {};
 
     self.getTrackInput = function (input) {
         var lines = input.split ("\n");

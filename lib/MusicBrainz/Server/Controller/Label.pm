@@ -66,7 +66,6 @@ after 'load' => sub
 
     $c->model('LabelType')->load($label);
     $c->model('Area')->load($c->stash->{label});
-    $c->model('Area')->load_codes($label->area);
     $c->model('Area')->load_containment($label->area);
 };
 
@@ -109,6 +108,7 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Label',
     edit_type => $EDIT_LABEL_CREATE,
+    dialog_template => 'label/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

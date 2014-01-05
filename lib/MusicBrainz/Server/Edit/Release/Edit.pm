@@ -171,12 +171,6 @@ sub build_display_data
             )
         };
 
-        $self->c->model('Area')->load_codes(
-            map { $loaded->{Area}->{ $_->{country_id} } }
-                @{ $self->data->{old}{events} },
-                @{ $self->data->{new}{events} }
-        );
-
         my $inflated_events = {
             map {
                 $_ => [
@@ -284,6 +278,7 @@ around extract_property => sub {
 sub current_instance {
     my $self = shift;
     my $release = $self->c->model('Release')->get_by_id($self->entity_id);
+    $self->c->model('ArtistCredit')->load($release);
     $self->c->model('Release')->load_release_events($release);
     return $release;
 }

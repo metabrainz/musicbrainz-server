@@ -49,7 +49,6 @@ sub place_toplevel
 
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($c->stash->{place});
-    $c->model('Area')->load_codes($place->area);
 
     $c->model('Place')->annotation->load_latest($place)
         if $c->stash->{inc}->annotation;

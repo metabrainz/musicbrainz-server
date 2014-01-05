@@ -6,8 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-07-25 08:07+0000\n"
+"PO-Revision-Date: 2013-12-12 14:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +51,10 @@ msgstr "Kretenzische lier"
 msgid "Denis d'or"
 msgstr "Denis d'or"
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr "Diskdrive"
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr "Stylofoon"
@@ -64,6 +67,10 @@ msgstr "Es-klarinet"
 msgid "EWI"
 msgstr "EWI"
 
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr "Floppydrive"
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr "Griekse baglama"
@@ -71,6 +78,10 @@ msgstr "Griekse baglama"
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
 msgstr "Hammondorgel"
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
+msgstr "Harde schijf"
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
@@ -323,6 +334,10 @@ msgstr "vattrommel"
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
 msgstr "draaiorgel"
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
+msgstr "barytone"
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
@@ -1487,6 +1502,10 @@ msgstr "ocarina"
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
 msgstr "oceaantrommel"
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
+msgstr "octaafmandoline"
 
 #: DB:link_attribute_type/name:352
 msgid "omnichord"

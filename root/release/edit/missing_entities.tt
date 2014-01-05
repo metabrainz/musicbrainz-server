@@ -1,16 +1,3 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('guess-case.js.manifest') %]
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready (function () {
-       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
-
-       $('.new-entity').each(function() {
-           MB.Control.SortName('artist', $(this).find('.for'), $(this).find('.sortname'), $(this)).initialize();
-       });
-    });
-  //]]></script>
-[%- END -%]
-
 [%- MACRO new_entity_form(field_container) BLOCK -%]
   <div class="new-entity">
     [% WRAPPER form_row %]
@@ -27,6 +14,8 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
+  [% script_manifest('guess-case.js.manifest') %]
+
   [%- USE r = FormRenderer(form) -%]
   <div class="changes">
     [%- USE w = Wizard() -%]
@@ -96,69 +85,6 @@
         [% END %]
       [% END %]
 
-      [% IF form.field('missing.label').fields.size %]
-        <h1>[% l('Labels') %]</h1>
-        [% FOR label_row=form.field('missing.label').fields %]
-          [% possible = possible_labels.item(label_row.field('for').value) %]
-          <fieldset>
-            <legend>[% label_row.field('name').value | html %]</legend>
-            [% r.hidden(label_row.field('name')) %]
-            [% IF possible %]
-              <p>[% ln('We found the following label named "{label}" in MusicBrainz.
-                        If this was the label you intended to use, please select them:',
-                       'We found the following labels named "{label}" in MusicBrainz.
-                        If one of them was the label you intended to use, please select them:',
-                        possible.size,
-                       { label => html_escape(label_row.field('name').value) }) %]</p>
-
-              [% WRAPPER form_row %]
-                <label>[% l('Label:') %]</label>
-                <ul class="inline">
-                  [% FOR label=possible %]
-                    <li>
-                      <input type="radio" name="[% label_row.field('entity_id').html_name %]"
-                             value="[% label.id %]"
-                             [%- IF label_row.field('entity_id').value == label.id -%]
-                             checked="checked"
-                             [%- END -%]
-                             />
-                      [% link_entity(label) %]
-                    </li>
-                  [% END %]
-                  <li>
-                    <input type="radio" name="[% label_row.field('entity_id').html_name %]"
-                           id="id-[% label_row.field('entity_id').html_name %]"
-                           [%- IF label_row.field('entity_id').value == 0 -%]
-                           checked="checked"
-                           [%- END -%]
-                            value="0" />
-                    <label class="inline" for="id-[% label_row.field('entity_id').html_name %]">[% l('Add new label') %]</label>
-                  </li>
-                </ul>
-              [% END %]
-
-              [% IF label_row.field('entity_id').has_errors %]
-                <ul class="errors">
-                  <li>[% l('Please make a selection') %]</li>
-                </ul>
-              [% END %]
-
-              <p>[% l('If none of these labels match the label you intended, you can still
-                       create a new label:') %]</p>
-            [% ELSE %]
-              <p>[% l("We couldn't find a label with the name you entered.
-                       Please fill in the fields below to create a new label:") %]</p>
-
-              <input type="hidden" name="[% label_row.field('entity_id').html_name %]"
-               id="id-[% label_row.field('entity_id').html_name %]"
-               checked="checked"
-               value="0" />
-            [% END %]
-            [% new_entity_form(label_row) %]
-          </fieldset>
-        [% END %]
-      [% END %]
-
         <div style="clear: both;">
           <div class="buttons ui-helper-clearfix">
             [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
@@ -168,5 +94,13 @@
         </div>
     </div>
   </div>
-[%- END -%]
 
+  <script type="text/javascript">//<![CDATA[
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
+
+    $(".new-entity").each(function () {
+      MB.Control.SortName("artist", $(this).find(".for"), $(this).find(".sortname"), $(this)).initialize();
+    });
+  //]]></script>
+
+[%- END -%]

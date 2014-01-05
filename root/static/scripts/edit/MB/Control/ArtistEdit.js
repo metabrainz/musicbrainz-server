@@ -19,7 +19,7 @@
 */
 
 MB.Control.ArtistEdit = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.$name   = $('#id-edit-artist\\.name');
     self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');

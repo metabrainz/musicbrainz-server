@@ -179,11 +179,6 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
 
     UI.Dialog.init();
-    UI.WorkDialog.init();
-
-    $("#overlay").on("click", function() {
-        UI.Dialog.instance().hide();
-    });
 
     $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering
@@ -370,8 +365,7 @@ function initButtons() {
         UI.AddDialog.show({
             entity: [MB.entity({type: "artist"}), source],
             source: source,
-            posx: event.pageX,
-            posy: event.pageY
+            positionBy: this
         });
     });
 
@@ -407,8 +401,7 @@ function initButtons() {
             UI.EditDialog.show({
                 relationship: relationship,
                 source: source,
-                posx: event.pageX,
-                posy: event.pageY
+                positionBy: this
             });
     });
 }

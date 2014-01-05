@@ -1,18 +1,7 @@
-[%- BLOCK layout_head -%]
+[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Split Artist') %]
   [% script_manifest('edit.js.manifest') %]
   [% script_manifest('guess-case.js.manifest') %]
 
-  <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
-
-      var bubbles = MB.Control.BubbleCollection ();
-      MB.Control.initialize_artist_credit (bubbles);
-
-    });
-  //]]></script>
-[%- END -%]
-
-[% WRAPPER 'artist/layout.tt' full_width=1 title=l('Split Artist') %]
    [%- IF no_javascript -%]
      [%- warning( l("Javascript needs to be enabled."), "nojavascript" ) -%]
    [%- END -%]
@@ -60,4 +49,12 @@
      </div>
    </form>
    [% END %]
+
+  <script type="text/javascript">//<![CDATA[
+    (function () {
+      var bubbles = MB.Control.BubbleCollection();
+      MB.Control.initialize_artist_credit(bubbles);
+    }());
+  //]]></script>
+
 [% END %]

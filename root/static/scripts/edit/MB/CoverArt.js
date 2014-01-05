@@ -55,8 +55,9 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(direction, $editimage, after) {
+MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
     return function (event) {
+        var $editimage = $editimage_param;
         if (!$editimage) {
             $editimage = $(this).closest('div.editimage');
         }

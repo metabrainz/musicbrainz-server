@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-11-03 13:59+0000\n"
+"PO-Revision-Date: 2013-12-12 14:07+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -392,6 +392,11 @@ msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Aka
 msgid "Electric guitar without frets."
 msgstr "Een elektrische gitaar zonder fretten."
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr ""
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -437,6 +442,10 @@ msgstr "hammondorgel"
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
 msgstr "Klappen met de handen, ook bekend als palmas. (<a href=\"http://nl.wikipedia.org/wiki/Klappen\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
+msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 
 #: DB:link_attribute_type/description:102
 msgid "Hardingfele (Hardanger)"
@@ -703,7 +712,7 @@ msgstr "Een hol percussie-instrument, meestal uit bamboe of hout, waarvan de kla
 msgid ""
 "Snare drum (also side drum, field drum)  (<a "
 "href=\"https://en.wikipedia.org/wiki/Snare_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "De kleine trom (ook wel snare drum of field drum genoemd) is een muziekinstrument dat bestaat uit een ketelklankkast, een slagvel (bovenvel) en een resonantievel (ondervel). (<a href=\"http://nl.wikipedia.org/wiki/Kleine_trom\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:362
 msgid "Sopranino recorder (Sopraninoblockflöte)"
@@ -849,6 +858,15 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "De banhu (Chinees:: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van de huqin. Het wordt ook wel banghu (Chinees:: 梆胡, pinyin: bānghú) genoemd vanwege het gebruik in de bangzi-opera. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a "
+"href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
+msgstr "Barytone of Bariton is een soort viola da gamba, met 6 speelsnaren. Het werd tot het einde van de achttiende eeuw veel in Europa bespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Barytone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:536
 msgid ""
@@ -1312,6 +1330,14 @@ msgid ""
 "European classical music. (<a "
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
 msgstr "Een jachthobo of oboe da caccia is een houtblaasinstrument en een vroege vorm van de hobo. (<a href=\"http://nl.wikipedia.org/wiki/Jachthobo\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a "
+"href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
+msgstr "De octaafmandoline of tenormandoline is een mandoline die een octaaf lager gestemd is dan een gewone Mandoline. (<a href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:612
 msgid ""
@@ -1946,6 +1972,10 @@ msgstr "Ratels die aan de enkels bevestigd worden."
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
 msgstr "archaïsche en andere strijkinstrumenten"
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr ""
 
 #: DB:link_attribute_type/description:494
 msgid "autoharp"
@@ -2601,8 +2631,8 @@ msgid "rebec"
 msgstr "rebec"
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
-msgstr "rietorgel"
+msgid "reed organ, also known as pump organ"
+msgstr ""
 
 #: DB:link_attribute_type/description:233
 msgid "reeds"

@@ -28,6 +28,11 @@ msgctxt "medium_format"
 msgid "8cm CD"
 msgstr ""
 
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr ""
+
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
@@ -73,6 +78,11 @@ msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr ""
 
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr ""
+
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
@@ -101,6 +111,11 @@ msgstr ""
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
+msgstr ""
+
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
 msgstr ""
 
 #: DB:medium_format/name:33
@@ -243,9 +258,19 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr ""
 
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr ""
+
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
+msgstr ""
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:4
@@ -363,13 +388,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr ""
 
-#: DB:cover_art_archive.art_type/name:8
-msgctxt "cover_art_type"
-msgid "Other"
-msgstr ""
-
-#: DB:gender/name:3
-msgctxt "gender"
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr ""
 
@@ -378,13 +398,18 @@ msgctxt "medium_format"
 msgid "Other"
 msgstr ""
 
-#: DB:release_group_primary_type/name:11
-msgctxt "release_group_primary_type"
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
 msgid "Other"
 msgstr ""
 
-#: DB:release_packaging/name:5
-msgctxt "release_packaging"
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr ""
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr ""
 
@@ -468,6 +493,11 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr ""
 
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr ""
+
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
@@ -504,13 +534,13 @@ msgctxt "work_type"
 msgid "Song-cycle"
 msgstr ""
 
-#: DB:release_group_secondary_type/name:2
-msgctxt "release_group_secondary_type"
+#: DB:work_type/name:22
+msgctxt "work_type"
 msgid "Soundtrack"
 msgstr ""
 
-#: DB:work_type/name:22
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr ""
 

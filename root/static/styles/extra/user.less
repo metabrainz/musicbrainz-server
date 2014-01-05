@@ -1,3 +1,5 @@
+@import "../colors.less";
+
 dl.profileinfo {
     display: block;
 }
@@ -24,14 +26,14 @@ dd.biography p { margin-top: 0px }
 table.statistics {
     float: left;
     border-collapse: collapse;
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
     margin: 1em 1em 1em 0;
     white-space: nowrap; /* Don't wrap large edit/vote counts */
 }
 
 table.statistics th {
-    border: 1px solid #ADB9CC;
-    background: #F1F1F1;
+    border: 1px solid @light-border-blue;
+    background: @light-border-background;
     text-align: right;
     padding: 3px 5px;
 }
@@ -41,7 +43,7 @@ table.statistics thead th {
 }
 
 table.statistics td {
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
     text-align: right;
     padding: 3px 5px 3px 10px;
     width: 85px;
