@@ -25,7 +25,7 @@
 
 <div style="float:left; display:inline-block; margin-right: 50px;">
   <h2 style="margin-top:0;">[%- l('Languages') -%]</h2>
-  <table class="tbl">
+  <table class="tbl" id="languages-table">
     <thead>
       <tr>
         <th class="pos">[% l('Rank') %]</th>
@@ -65,8 +65,11 @@
 [%- PROCESS "statistics/macros-footer.tt" -%]
 
 <script type="text/javascript">//<![CDATA[
-  MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }}, sortList: [[4,2,3,1]] }
-  MB.Control.Tablesorter();
+  MB.Control.Tablesorter($('#languages-table'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
+      sortList: [ [4,2,3,1] ]
+    });
 //]]></script>
 
 [% END %]
