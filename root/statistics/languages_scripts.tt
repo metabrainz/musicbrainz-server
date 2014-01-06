@@ -68,7 +68,7 @@
   MB.Control.Tablesorter($('#languages-table'), {
       widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
       headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
-      sortList: [ [4,2,3,1] ]
+      sortList: [ [4,1], [1,0] ] // order by descending number of entities, then name
     });
 //]]></script>
 
