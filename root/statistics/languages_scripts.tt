@@ -46,12 +46,12 @@
 
 <div style="float:left; display:inline-block;">
   <h2 style="margin-top:0;">[%- l('Scripts') -%]</h2>
-  <table class="tbl">
+  <table class="tbl" id="scripts-table">
     <thead>
       <tr>
         <th class="pos">[% l('Rank') %]</th>
-        <th>[% l('Script') %]</th>
-        <th>[% l('Releases') %]</th>
+        <th>[% l('Script') %]<div class="arrow"></div></th>
+        <th>[% l('Releases') %]<div class="arrow"></div></th>
       </tr>
     </thead>
     <tbody>
@@ -69,6 +69,11 @@
       widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
       headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
       sortList: [ [4,1], [1,0] ] // order by descending number of entities, then name
+    });
+  MB.Control.Tablesorter($('#scripts-table'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' } },
+      sortList: [ [2,1], [1,0] ] // order by descending number of entities, then name
     });
 //]]></script>
 
