@@ -126,6 +126,8 @@ sub _insert_edit {
       my %args = ( num_edits => scalar(@{$c->stash->{edit_ids}}),
                    num_open_edits => $c->stash->{num_open_edits} );
       my $first_edit_id = $c->stash->{edit_ids}->[0];
+      my @edit_ids = @{$c->stash->{edit_ids}};
+      $args{edit_ids} = "#" . join(", #", @edit_ids[0.. ($#edit_ids > 2 ? 2 : $#edit_ids)]) . ($#edit_ids>2?", ...":"");
       $args{edit_url} =
         (($args{num_edits} == 1)
          ? $c->uri_for_action('/edit/show', [ $first_edit_id ])
@@ -139,22 +141,22 @@ sub _insert_edit {
       if ($args{num_open_edits} == 0) {
         # All autoedits
         $c->flash->{message} =
-          ln('Thank you, your {edit_url|edit} has been automatically accepted and applied.',
-             'Thank you, your {num_edits} {edit_url|edits} have been automatically accepted and applied.',
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been automatically accepted and applied.',
              $args{num_edits}, \%args);
       } elsif ($args{num_open_edits} == $args{num_edits}) {
         # All open edits
         $c->flash->{message} =
-          ln('Thank you, your {edit_url|edit} has been entered into the edit queue for peer review.',
-             'Thank you, your {num_edits} {edit_url|edits} have been entered into the edit queue for peer review.',
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit queue for peer review.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered into the edit queue for peer review.',
              $args{num_edits}, \%args);
       } else {
         # Mixture of both
         # Even though the singular case is impossible (since 1 edit must be either an autoedit or open),
         # it is included since gettext uses the singular case as a key.
         $c->flash->{message} =
-          ln('Thank you, your {edit_url|edit} has been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
-             'Thank you, your {num_edits} {edit_url|edits} have been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+          ln('Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
+             'Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered, with {num_open_edits} in the edit queue for peer review, and the rest automatically accepted and applied.',
              $args{num_edits}, \%args);
       }
     }
