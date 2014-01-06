@@ -119,7 +119,7 @@ sub _insert_edit {
         $c->stash->{edit_ids} = [ $edit->id ];
         $c->stash->{num_open_edits} = $edit->is_open;
       } else {
-        push($c->stash->{edit_ids}, $edit->id );
+        push(@{$c->stash->{edit_ids}}, $edit->id );
         $c->stash->{num_open_edits}++ if $edit->is_open;
       }
 
