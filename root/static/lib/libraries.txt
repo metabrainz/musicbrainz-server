@@ -111,6 +111,14 @@ version:     3.0.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
+-- knockout/knockout-delegatedEvents.js --
+
+library:     Knockout Delegated Events
+license:     MIT
+version:     0.1.3
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-delegatedEvents
+
 -- underscore/underscore.js --
 
 library:     Underscore
