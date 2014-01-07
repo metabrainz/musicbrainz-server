@@ -8,6 +8,7 @@ use HTTP::Status qw( :constants );
 use ModDefs;
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Entity::URL::Sidebar qw( FAVICON_CLASSES );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -210,6 +211,7 @@ sub begin : Private
             read_only      => DBDefs->DB_READ_ONLY,
             alert => $c->model('MB')->context->redis->get('alert')
         },
+        favicon_css_classes => FAVICON_CLASSES,
     );
 
     # Setup the searchs on the sidebar
