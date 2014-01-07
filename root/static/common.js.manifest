@@ -9,7 +9,8 @@ lib/jquery.ui/ui/jquery-ui.custom.js
 lib/underscore/underscore.js
 lib/underscore/underscore.string.js
 
-lib/knockout
+lib/knockout/knockout-latest.debug.js
+lib/knockout/knockout-delegatedEvents.js
 
 lib/aclass/aclass.js
 
