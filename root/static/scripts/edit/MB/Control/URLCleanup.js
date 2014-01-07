@@ -196,6 +196,7 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
+            url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]+$/, "$1/$2"); // URLs containing Discogs IDs
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
@@ -760,6 +761,17 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     };
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.artist ] = validateFacebook;
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
+
+    // Block images from sites that don't allow deeplinking
+    var validateImage = function() {
+        var url = $('#id-ar\\.url').val();
+        if (url.match(/\/\/s\.pixogs\.com\//)) { return false; }
+        if (url.match(/\/\/s\.discogss\.com\//)) { return false; }
+        return true;
+    };
+    validationRules[ MB.constants.LINK_TYPES.image.artist ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.label ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.place ] = validateImage;
 
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {

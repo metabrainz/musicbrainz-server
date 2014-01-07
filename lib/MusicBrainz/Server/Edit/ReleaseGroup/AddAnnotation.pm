@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::ReleaseGroup';
 
 sub edit_name { N_l('Add release group annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASEGROUP_ADD_ANNOTATION }
 
 sub models { [qw( ReleaseGroup )] }

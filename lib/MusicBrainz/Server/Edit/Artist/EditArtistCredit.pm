@@ -22,6 +22,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Artist';
 
 sub edit_name { N_l('Edit artist credit') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDITCREDIT }
 
 sub new_artist_ids {

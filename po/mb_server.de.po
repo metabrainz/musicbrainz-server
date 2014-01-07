@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# nikki, 2013
 # nikki2 <email address hidden>, 2012
 # nikki2 <email address hidden>, 2012
 # Daniel Schury <email address hidden>, 2011
@@ -10,7 +11,7 @@
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012
-# Ian McEwen <email address hidden>, 2012
+# Ian McEwen <email address hidden>, 2012-2013
 # JonnyJD <email address hidden>, 2013
 # Mineo <email address hidden>, 2011
 # Mineo <email address hidden>, 2011
@@ -35,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-14 05:51+0000\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-24 19:48+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -670,7 +671,7 @@ msgstr "Einen neuen Alias hinzufügen"
 
 #: ../root/scripts/text_strings.tt:134
 msgid "Add a new artist"
-msgstr ""
+msgstr "Einen neuen Künstler hinzufügen"
 
 #: ../root/admin/wikidoc/index.tt:11
 msgid "Add a new entry"
@@ -678,11 +679,11 @@ msgstr "Einen neuen Eintrag hinzufügen"
 
 #: ../root/scripts/text_strings.tt:135
 msgid "Add a new label"
-msgstr ""
+msgstr "Ein neues Label hinzufügen"
 
 #: ../root/scripts/text_strings.tt:136
 msgid "Add a new place"
-msgstr ""
+msgstr "Eine neue Örtlichkeit hinzufügen"
 
 #: ../root/release/edit/recordings.tt:151 ../root/scripts/text_strings.tt:137
 msgid "Add a new recording"
@@ -698,11 +699,11 @@ msgstr "Eine neue Veröffentlichung hinzufügen"
 
 #: ../root/scripts/text_strings.tt:138
 msgid "Add a new release group"
-msgstr ""
+msgstr "Eine neue Veröffentlichungsgruppe hinzufügen"
 
 #: ../root/scripts/text_strings.tt:139
 msgid "Add a new work"
-msgstr ""
+msgstr "Ein neues Werk hinzufügen"
 
 #: ../root/edit/notes.tt:50
 msgid "Add an edit note"
@@ -984,7 +985,7 @@ msgstr "Schon abgelaufen"
 
 #: ../root/release/edit/recordings.tt:352
 msgid "Also update the recording with track changes"
-msgstr "Titeländerungen auf auf Aufnahmen übertragen"
+msgstr "Titeländerungen auch auf die Aufnahme übertragen"
 
 #: ../root/search/results-area.tt:44
 msgid "Alternatively, you may {uri|add a new area}."
@@ -1502,7 +1503,7 @@ msgstr "Künstler mit Zusammenarbeitsbeziehungen"
 #: ../root/report/deprecated_relationship_works.tt:3
 #: ../root/report/index.tt:27
 msgid "Artists with deprecated relationships"
-msgstr ""
+msgstr "Künstler mit veralteten Beziehungen"
 
 #: ../root/report/artists_with_no_subscribers.tt:1
 #: ../root/report/artists_with_no_subscribers.tt:3 ../root/report/index.tt:19
@@ -4057,6 +4058,10 @@ msgstr "Bild von Wikimedia Commons"
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Bild noch nicht verfügbar, versuch es in ein paar Minuten nochmal."
 
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr "Bild {current} von {total}"
+
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
 msgstr "Importieren"
@@ -4268,7 +4273,7 @@ msgstr "Mit „{index}“ beginnende Labels"
 #: ../root/report/deprecated_relationship_labels.tt:3
 #: ../root/report/index.tt:35
 msgid "Labels with deprecated relationships"
-msgstr ""
+msgstr "Labels mit veralteten Beziehung"
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
@@ -5615,7 +5620,7 @@ msgstr "Mit „{index}“ beginnende Örtlichkeiten"
 #: ../root/report/deprecated_relationship_places.tt:3
 #: ../root/report/index.tt:95
 msgid "Places with deprecated relationships"
-msgstr ""
+msgstr "Örtlichkeiten mit veralteten Beziehungen"
 
 #: ../root/account/registered.tt:7
 msgid ""
@@ -6078,7 +6083,7 @@ msgstr "Aufnahmen mit unterschiedlichen Titellängen"
 #: ../root/report/deprecated_relationship_recordings.tt:3
 #: ../root/report/index.tt:89
 msgid "Recordings with deprecated relationships"
-msgstr ""
+msgstr "Aufnahmen mit veralteten Beziehungen"
 
 #: ../root/report/index.tt:84
 msgid "Recordings with earliest release relationships"
@@ -6322,7 +6327,7 @@ msgstr "Veröffentlichungsgruppen"
 #: ../root/report/deprecated_relationship_release_groups.tt:3
 #: ../root/report/index.tt:45
 msgid "Release Groups with deprecated relationships"
-msgstr ""
+msgstr "Veröffentlichungsgruppen mit veralteten Beziehungen"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Release Language"
@@ -6558,7 +6563,7 @@ msgstr "Veröffentlichungen mit Katalognummern, die wie ASINs aussehen"
 #: ../root/report/deprecated_relationship_releases.tt:3
 #: ../root/report/index.tt:78
 msgid "Releases with deprecated relationships"
-msgstr ""
+msgstr "Veröffentlichungen mit veralteten Beziehungen"
 
 #: ../root/report/mediums_with_sequence_issues.tt:1
 #: ../root/report/mediums_with_sequence_issues.tt:3
@@ -8682,7 +8687,7 @@ msgstr "Dieser Report hat das Ziel, Veröffentlichungen zu identifizieren, die z
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet URLs auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/tracks_without_times.tt:6
 msgid ""
@@ -8771,7 +8776,7 @@ msgstr "Dieser Report listet Künstler auf, die mehrere Beziehungen zum gleichen
 msgid ""
 "This report lists artists which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Künstler auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8783,13 +8788,13 @@ msgstr "Dieser Report listet Labels auf, die mehrere Beziehungen zum gleichen Ob
 msgid ""
 "This report lists labels which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Labels auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/deprecated_relationship_places.tt:6
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Örtlichkeiten auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -8801,7 +8806,7 @@ msgstr "Dieser Report listet Aufnahmen auf, die mehrere Beziehungen zum gleichen
 msgid ""
 "This report lists recordings which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Aufnahmen auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:6
 msgid ""
@@ -8813,7 +8818,7 @@ msgstr "Dieser Report listet Veröffentlichungsgruppen auf, die mehrere Beziehun
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Veröffentlichungsgruppen auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -8825,7 +8830,7 @@ msgstr "Dieser Report listet Veröffentlichungen auf, die mehrere Beziehungen zu
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Veröffentlichungen auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
@@ -8845,7 +8850,7 @@ msgstr "Dieser Report listet Werke auf, die mehrere Beziehungen zum gleichen Obj
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Dieser Report listet Werke auf, die Beziehungen haben, die veraltete und nur zum Gruppieren gedachte Beziehungstypen verwenden"
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -9220,7 +9225,7 @@ msgstr "Insgesamt gefundene ISWCs: {count}"
 
 #: ../root/report/deprecated_relationship_urls.tt:8
 msgid "Total URLs found: {count}"
-msgstr ""
+msgstr "Gefundene URLs insgesamt: {count}"
 
 #: ../root/report/artists_containing_disambiguation_comments.tt:8
 #: ../root/report/artists_that_may_be_groups.tt:11
@@ -9251,7 +9256,7 @@ msgstr "Gesamtlänge:"
 
 #: ../root/report/deprecated_relationship_places.tt:8
 msgid "Total places found: {count}"
-msgstr ""
+msgstr "Gefundene Örtlichkeiten insgesamt: {count}"
 
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
@@ -9549,13 +9554,13 @@ msgstr "URL; [URL]; [URL|Beschriftung]"
 
 #: ../root/report/index.tt:105
 msgid "URLs"
-msgstr ""
+msgstr "URLs"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
 #: ../root/report/index.tt:108
 msgid "URLs with deprecated relationships"
-msgstr ""
+msgstr "URLs mit veralteten Beziehungen"
 
 #: ../root/doc/relationship_type.tt:34
 #: ../root/relationship/linktype/tree.tt:12
@@ -10118,7 +10123,7 @@ msgstr "Mit „{index}“ beginnende Werke"
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/index.tt:102
 msgid "Works with deprecated relationships"
-msgstr ""
+msgstr "Werke mit veralteten Beziehungen"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
@@ -11446,11 +11451,11 @@ msgstr "<strong>Wir konnten Dir keine Bestätigungs-Mail schicken.</strong><br/>
 msgid "User successfully edited."
 msgstr "Benutzer erfolgreich bearbeitet."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Du kannst einen Spezialkünstler nicht mit einem anderen Künstler vereinen"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr "Du kannst Künstler nicht mit Deleted Artist vereinen."
 
@@ -12139,7 +12144,7 @@ msgstr "Bitte wähle einen Künstlernamen für {credit}"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist.\n"
 "                   You may need to add a new artist to MusicBrainz first."
-msgstr ""
+msgstr "Künstler „{artist}“ ist nicht verbunden, bitte wähle einen bestehenden Künstler.\nEventuell musst Du erst einen neuen Künstler zu MusicBrainz hinzufügen."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:60
 msgid "Please add an artist name for each credit."
@@ -12290,11 +12295,11 @@ msgstr "Du kannst dasselbe Land nicht mehr als einmal benutzen"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:103
 msgid "You must select an existing label."
-msgstr ""
+msgstr "Du musst ein existierendes Label hinzufügen."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:113
 msgid "You must select an existing release group."
-msgstr ""
+msgstr "Du musst eine existierende Veröffentlichungsgruppe auswählen."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:60
 msgid "New tracklisting contains an empty track"

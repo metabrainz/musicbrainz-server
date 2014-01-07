@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-14 05:51+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-24 21:52+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -656,7 +656,7 @@ msgstr "Aggiungi un nuovo alias"
 
 #: ../root/scripts/text_strings.tt:134
 msgid "Add a new artist"
-msgstr ""
+msgstr "Aggiungi un nuovo artista"
 
 #: ../root/admin/wikidoc/index.tt:11
 msgid "Add a new entry"
@@ -664,11 +664,11 @@ msgstr "Aggiungi una nuova voce"
 
 #: ../root/scripts/text_strings.tt:135
 msgid "Add a new label"
-msgstr ""
+msgstr "Aggiungi una nuova etichetta"
 
 #: ../root/scripts/text_strings.tt:136
 msgid "Add a new place"
-msgstr ""
+msgstr "Aggiungi un nuovo luogo"
 
 #: ../root/release/edit/recordings.tt:151 ../root/scripts/text_strings.tt:137
 msgid "Add a new recording"
@@ -684,11 +684,11 @@ msgstr "Aggiungi una nuova pubblicazione"
 
 #: ../root/scripts/text_strings.tt:138
 msgid "Add a new release group"
-msgstr ""
+msgstr "Aggiungi un nuovo gruppo di pubblicazioni"
 
 #: ../root/scripts/text_strings.tt:139
 msgid "Add a new work"
-msgstr ""
+msgstr "Aggiungi una nuova opera"
 
 #: ../root/edit/notes.tt:50
 msgid "Add an edit note"
@@ -1488,7 +1488,7 @@ msgstr "Artisti con relazioni di collaborazione"
 #: ../root/report/deprecated_relationship_works.tt:3
 #: ../root/report/index.tt:27
 msgid "Artists with deprecated relationships"
-msgstr ""
+msgstr "Artisti con relazioni obsolete"
 
 #: ../root/report/artists_with_no_subscribers.tt:1
 #: ../root/report/artists_with_no_subscribers.tt:3 ../root/report/index.tt:19
@@ -4043,6 +4043,10 @@ msgstr "Immagine da Wikimedia Commons"
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Immagine non ancora disponibile, riprova tra qualche minuto."
 
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr "Immagine {current} di {total}"
+
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
 msgstr "Importa"
@@ -4254,7 +4258,7 @@ msgstr "Etichette che iniziano per \"{index}\""
 #: ../root/report/deprecated_relationship_labels.tt:3
 #: ../root/report/index.tt:35
 msgid "Labels with deprecated relationships"
-msgstr ""
+msgstr "Etichette con relazioni obsolete"
 
 #: ../root/report/duplicate_relationships_labels.tt:1
 #: ../root/report/duplicate_relationships_labels.tt:3
@@ -5601,7 +5605,7 @@ msgstr "Luoghi che iniziano per \"{index}\""
 #: ../root/report/deprecated_relationship_places.tt:3
 #: ../root/report/index.tt:95
 msgid "Places with deprecated relationships"
-msgstr ""
+msgstr "Luoghi con relazioni obsolete"
 
 #: ../root/account/registered.tt:7
 msgid ""
@@ -6064,7 +6068,7 @@ msgstr "Registrazioni con durata delle tracce variabile"
 #: ../root/report/deprecated_relationship_recordings.tt:3
 #: ../root/report/index.tt:89
 msgid "Recordings with deprecated relationships"
-msgstr ""
+msgstr "Registrazioni con relazioni obsolete"
 
 #: ../root/report/index.tt:84
 msgid "Recordings with earliest release relationships"
@@ -6308,7 +6312,7 @@ msgstr "Gruppi di pubblicazioni"
 #: ../root/report/deprecated_relationship_release_groups.tt:3
 #: ../root/report/index.tt:45
 msgid "Release Groups with deprecated relationships"
-msgstr ""
+msgstr "Gruppi di pubblicazioni con relazioni obsolete"
 
 #: ../root/edit/search_macros.tt:307
 msgid "Release Language"
@@ -6544,7 +6548,7 @@ msgstr "Pubblicazioni con numeri di catalogo che sembrano ASIN"
 #: ../root/report/deprecated_relationship_releases.tt:3
 #: ../root/report/index.tt:78
 msgid "Releases with deprecated relationships"
-msgstr ""
+msgstr "Pubblicazioni con relazioni obsolete"
 
 #: ../root/report/mediums_with_sequence_issues.tt:1
 #: ../root/report/mediums_with_sequence_issues.tt:3
@@ -8668,7 +8672,7 @@ msgstr "Questo report mira a identificare le pubblicazioni che necessitano di es
 msgid ""
 "This report lists URLs which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca gli URL che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/tracks_without_times.tt:6
 msgid ""
@@ -8757,7 +8761,7 @@ msgstr "Questo report elenca gli artisti che possiedono più relazioni verso lo 
 msgid ""
 "This report lists artists which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca gli artisti che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/duplicate_relationships_labels.tt:6
 msgid ""
@@ -8769,13 +8773,13 @@ msgstr "Questo report elenca le etichette che possiedono più relazioni verso la
 msgid ""
 "This report lists labels which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca le etichette che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/deprecated_relationship_places.tt:6
 msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca i luoghi che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -8787,7 +8791,7 @@ msgstr "Questo report elenca le registrazioni che possiedono più relazioni vers
 msgid ""
 "This report lists recordings which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca le registrazioni che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/duplicate_relationships_release_groups.tt:6
 msgid ""
@@ -8799,7 +8803,7 @@ msgstr "Questo report elenca i gruppi di pubblicazioni che possiedono più relaz
 msgid ""
 "This report lists release groups which have relationships using deprecated "
 "and grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca i gruppi di pubblicazioni che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -8811,7 +8815,7 @@ msgstr "Questo report elenca le pubblicazioni che possiedono più relazioni vers
 msgid ""
 "This report lists releases which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca le pubblicazioni che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/superfluous_data_tracks.tt:6
 msgid ""
@@ -8831,7 +8835,7 @@ msgstr "Questo report elenca le opere che possiedono più relazioni verso la ste
 msgid ""
 "This report lists works which have relationships using deprecated and "
 "grouping-only relationship types"
-msgstr ""
+msgstr "Questo report elenca le opere che utilizzano tipi di relazione obsoleti o di raggruppamento"
 
 #: ../root/report/isrc_with_many_recordings.tt:6
 msgid ""
@@ -9206,7 +9210,7 @@ msgstr "Totale ISWC trovati: {count}"
 
 #: ../root/report/deprecated_relationship_urls.tt:8
 msgid "Total URLs found: {count}"
-msgstr ""
+msgstr "Totale URL trovati: {count}"
 
 #: ../root/report/artists_containing_disambiguation_comments.tt:8
 #: ../root/report/artists_that_may_be_groups.tt:11
@@ -9237,7 +9241,7 @@ msgstr "Durata totale:"
 
 #: ../root/report/deprecated_relationship_places.tt:8
 msgid "Total places found: {count}"
-msgstr ""
+msgstr "Totale luoghi trovati: {count}"
 
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
@@ -9535,13 +9539,13 @@ msgstr "URL; [URL]; [URL|etichetta]"
 
 #: ../root/report/index.tt:105
 msgid "URLs"
-msgstr ""
+msgstr "URL"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
 #: ../root/report/index.tt:108
 msgid "URLs with deprecated relationships"
-msgstr ""
+msgstr "URL con relazioni obsolete"
 
 #: ../root/doc/relationship_type.tt:34
 #: ../root/relationship/linktype/tree.tt:12
@@ -10104,7 +10108,7 @@ msgstr "Opere che iniziano per \"{index}\""
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/index.tt:102
 msgid "Works with deprecated relationships"
-msgstr ""
+msgstr "Opere con relazioni obsolete"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
@@ -11432,11 +11436,11 @@ msgstr "<strong>Non è stato possibile inviarti un'email di conferma.</strong><b
 msgid "User successfully edited."
 msgstr "Utente modificato con successo."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Non è possibile unire un artista speciale con un altro artista."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr "Non puoi unire con Artista eliminato"
 
@@ -12125,7 +12129,7 @@ msgstr "Aggiungi un nome di artista per {credit}"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist.\n"
 "                   You may need to add a new artist to MusicBrainz first."
-msgstr ""
+msgstr "L'artista \"{artist}\" non è collegato, seleziona un artista esistente.\n                   Potresti dover prima aggiungere un nuovo artista a MusicBrainz."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:60
 msgid "Please add an artist name for each credit."
@@ -12276,11 +12280,11 @@ msgstr "Non puoi utilizzare lo stesso Paese più di una volta"
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:103
 msgid "You must select an existing label."
-msgstr ""
+msgstr "Devi selezionare un'etichetta esistente."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:113
 msgid "You must select an existing release group."
-msgstr ""
+msgstr "Devi selezionare un gruppo di pubblicazioni esistente."
 
 #: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Tracklist.pm:60
 msgid "New tracklisting contains an empty track"

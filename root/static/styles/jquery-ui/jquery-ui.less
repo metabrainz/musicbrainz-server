@@ -1,7 +1,9 @@
-/*! jQuery UI - v1.10.2 - 2013-04-27
+/*! jQuery UI - v1.10.3 - 2013-12-26
 * http://jqueryui.com
-* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.tabs.css, jquery.ui.tooltip.css
-* Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
+* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.tabs.css, jquery.ui.tooltip.css, jquery.ui.theme.css
+* Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
+
+@import "../colors.less";
 
 /* Layout helpers
 ----------------------------------*/
@@ -338,6 +340,8 @@ button.ui-button::-moz-focus-inner {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	/* support: IE10, see #8844 */
+	list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
 }
 .ui-menu .ui-menu-divider {
 	margin: 5px -2px 5px -2px;
@@ -390,6 +394,11 @@ button.ui-button::-moz-focus-inner {
 	position: static;
 	float: right;
 }
+
+.ui-progressbar .ui-progressbar-value {
+	background: @medium-bg;
+}
+
 .ui-tabs {
 	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
@@ -451,13 +460,9 @@ body .ui-tooltip {
 	background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/;
 }
 .ui-widget-header {
-	border: 1px solid #aaaaaa/*{borderColorHeader}*/;
-	background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
-	color: #222222/*{fcHeader}*/;
+	color: @text-orange;
 	font-weight: bold;
-}
-.ui-widget-header a {
-	color: #222222/*{fcHeader}*/;
+	font-size: 120%;
 }
 
 /* Interaction states
@@ -806,9 +811,9 @@ body .ui-tooltip {
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #aaaaaa/*{bgColorOverlay}*/ url(images/ui-bg_flat_0_aaaaaa_40x100.png)/*{bgImgUrlOverlay}*/ 50%/*{bgOverlayXPos}*/ 50%/*{bgOverlayYPos}*/ repeat-x/*{bgOverlayRepeat}*/;
-	opacity: .3/*{opacityOverlay}*/;
-	filter: Alpha(Opacity=30)/*{opacityFilterOverlay}*/;
+	background: #000;
+	opacity: 0.75;
+	filter: Alpha(Opacity=75);
 }
 .ui-widget-shadow {
 	margin: -8px/*{offsetTopShadow}*/ 0 0 -8px/*{offsetLeftShadow}*/;

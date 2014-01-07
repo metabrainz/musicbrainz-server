@@ -192,7 +192,6 @@ table.vote-tally .date {
 }
 
 .edit-list .edit-header {
-    background-color: @light-bg;
     border-right: 10px solid transparent;
     padding: 0 10px 10px 10px;
 }
@@ -219,10 +218,6 @@ table.vote-tally .date {
     font-weight: bold;
 }
 
-.edit-list .applied { border-right: solid 10px transparent; }
-.edit-list .open,
-.edit-list .cancelling { border-right: solid 10px @open-header; }
-.edit-list .cancelled { border-right: solid 10px @cancelled-header; }
 .edit-list .failed { border-right: solid 10px @failed-header; }
 .edit-list .error { border-right: solid 10px @error-header; }
 
@@ -294,6 +289,27 @@ table.vote-tally .date {
 }
 
 .editnote p { margin-right: 2em; }
+
+/*
+** Edit header colors
+** Beware, ordering is significant.
+*/
+
+.edit-header.cancelled { background-color: @edit-cancelled-bg; }
+
+.open {
+    &.edit-add { background-color: @edit-add-bg; }
+    &.edit-edit { background-color: @edit-edit-bg; }
+    &.edit-remove { background-color: @edit-remove-bg; }
+    &.edit-merge { background-color: @edit-merge-bg; }
+    &.edit-other { background-color: @edit-other-bg; }
+}
+
+.edit-add { background-color: desaturate(@edit-add-bg, 35%); }
+.edit-edit { background-color: desaturate(@edit-edit-bg, 35%); }
+.edit-remove { background-color: desaturate(@edit-remove-bg, 35%); }
+.edit-merge { background-color: desaturate(@edit-merge-bg, 35%); }
+.edit-other { background-color: desaturate(@edit-other-bg, 35%); }
 
 /*
   Add / Edit Cover Art

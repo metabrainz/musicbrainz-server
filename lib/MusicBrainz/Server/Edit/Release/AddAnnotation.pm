@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { N_l('Add release annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADD_ANNOTATION }
 
 sub models { [qw( Release )] }

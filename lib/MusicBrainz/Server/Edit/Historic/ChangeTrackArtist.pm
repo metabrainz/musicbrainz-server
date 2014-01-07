@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Historic::Base;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 
 sub edit_name     { N_l('Change track artist (historic)') }
+sub edit_kind     { 'other' }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
 sub edit_template { 'historic/change_track_artist' }

@@ -17,12 +17,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://en.wikipedia.org/wiki/Astralwerks',
                     MB.constants.LINK_TYPES.wikipedia.label
                 ],
+                // Discogs
                 [
                     'artist', 'http://www.discogs.com/artist/Source+Direct',
                     MB.constants.LINK_TYPES.discogs.artist
                 ],
                 [
+                    'artist', 'http://www.discogs.com/artist/301-Source-Direct',
+                    MB.constants.LINK_TYPES.discogs.artist
+                ],
+                [
                     'label', 'http://www.discogs.com/label/Demonic',
+                    MB.constants.LINK_TYPES.discogs.label
+                ],
+                [
+                    'label', 'http://www.discogs.com/label/2262-Demonic',
                     MB.constants.LINK_TYPES.discogs.label
                 ],
                 [
@@ -560,6 +569,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
                     'release'
+                ],
+                [
+                    'http://www.discogs.com/artist/3080207-Maybebop',
+                    'http://www.discogs.com/artist/3080207',
+                    'artist'
                 ],
                 [
                     // FIXME Need a "bad" archive.org link

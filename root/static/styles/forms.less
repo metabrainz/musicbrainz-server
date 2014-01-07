@@ -192,8 +192,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 .ui-autocomplete-loading {
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
-.autocomplete-length,
-.autocomplete-comment { font-size: smaller; color: @very-dark-text; }
+
 button.autocomplete-pager {
     position: absolute;
     display: block;
@@ -209,10 +208,13 @@ span.autocomplete-comment,
 span.autocomplete-video {
     margin-left: @form-margin;
     color: @dark-text;
-    font-size: 80%;
 }
 
-span.autocomplete-length { float:right; margin-left: 2em; }
+span.autocomplete-length {
+    color: @very-dark-text;
+    float: right;
+    margin-left: 2em;
+}
 
 /* __________________________________
 

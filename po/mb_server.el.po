@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-13 22:50-0700\n"
-"PO-Revision-Date: 2013-12-14 05:51+0000\n"
+"POT-Creation-Date: 2013-12-24 12:36-0700\n"
+"PO-Revision-Date: 2013-12-24 19:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -4039,6 +4039,10 @@ msgstr ""
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Η εικόνα δεν είναι διαθέσιμη ακόμα, παρακαλούμε δοκιμάστε ξανά σε μερικά λεπτά."
+
+#: ../root/scripts/text_strings.tt:141
+msgid "Image {current} of {total}"
+msgstr ""
 
 #: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
 msgid "Import"
@@ -11429,11 +11433,11 @@ msgstr "<strong>Δεν μπορέσαμε να σας στείλουμε email �
 msgid "User successfully edited."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:494
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:496
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Δεν μπορείτε να συγχωνεύσετε έναν καλλιτέχνη ειδικού σκοπού με κάποιον άλλον καλλιτέχνη"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:499
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:501
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
