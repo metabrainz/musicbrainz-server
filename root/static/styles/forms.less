@@ -434,3 +434,38 @@ input.disc-up {
     width: @form-input-width-short;
     text-align: right;
 }
+
+/*
+  External links editor
+*/
+
+#external-links-editor .external-link-row { float: left; }
+
+#external-links-editor label {
+    max-width: @form-label-width;
+    width: 100%;
+    padding-left: @form-margin;
+    box-sizing: border-box;
+}
+
+#external-links-editor select {
+    max-width: @form-label-width - @form-margin;
+}
+
+#external-links-editor .errors {
+    margin-left: 0px;
+    margin-right: @form-margin;
+}
+
+#external-links-editor .add-link-row {
+    padding: @form-margin / 2;
+    margin-right: @form-margin;
+    float: right;
+}
+
+#external-links-editor span.favicon {
+    display: inline-block;
+    width: @form-icon-size;
+    height: @form-icon-size;
+    vertical-align: sub;
+}

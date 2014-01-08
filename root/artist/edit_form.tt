@@ -91,6 +91,11 @@
         [% END %]
       </fieldset>
 
+      <fieldset>
+        <legend>[% l('External Links') | html_entity %]</legend>
+        [% external_links_editor(r.form, 'artist') %]
+      </fieldset>
+
       [% IF edit_artist_credits && artist_credits %]
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>

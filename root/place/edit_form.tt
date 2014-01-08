@@ -61,6 +61,12 @@
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
         [% form_row_checkbox(r, 'period.ended', l('This place has ended.')) %]
       </fieldset>
+
+      <fieldset>
+        <legend>[% l('External Links') | html_entity %]</legend>
+        [% external_links_editor(r.form, 'place') %]
+      </fieldset>
+
       [% INCLUDE 'forms/edit-note.tt' %]
 
       [% enter_edit() %]

@@ -5,10 +5,12 @@ use Encode;
 use MusicBrainz::Server::Translation 'l';
 use Text::Trim qw( trim );
 use Text::Unaccent qw( unac_string_utf16 );
+use aliased 'MusicBrainz::Server::Entity::LinkAttributeType';
 
 has attr_tree => (
     is => 'ro',
-    required => 1
+    required => 1,
+    default => sub { LinkAttributeType->new },
 );
 
 sub _build_options

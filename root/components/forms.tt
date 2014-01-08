@@ -344,3 +344,62 @@
     [%- credit.name | html -%][%- credit.join_phrase | html -%]
   [%- END -%]
 [%- END -%]
+
+[%- MACRO external_links_editor(form, entity_type) BLOCK -%]
+  [%- field_prefix = form.field('url').html_name | html_entity %]
+  [% WRAPPER form_row row_id='external-links-editor' %]
+    <!-- ko foreach: links -->
+    <div class="external-link-row" data-bind="urlCleanup: true">
+      <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+        <!-- ko if: matchesType() && faviconClass() -->
+          <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: showTypeSelection() -->
+          <!-- ko text: label() || "[% l('Link:') | html_entity %]" --><!-- /ko -->
+        <!-- /ko -->
+        <select data-bind="value: linkType, visible: showTypeSelection()">
+          <option value="" selected="selected"></option>
+          [% FOR option IN form.options_url_link_type_id %]
+            <option value="[% option.value | html_entity %]">[% option.label | html_entity %]</option>
+          [% END %]
+        </select>
+      </label>
+      <div class="form-row-text-list">
+        <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
+        <button type="button" class="nobutton remove" data-click="remove">
+          <div class="remove-item icon img" title="[% l('Remove Link') | html_entity %]"></div>
+        </button>
+      </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko foreach: hiddenInputs() -->
+      <input type="hidden" data-bind="attr: { name: name, value: value }" />
+    <!-- /ko -->
+    <div class="add-link-row">
+      <button type="button" id="add-external-link" class="nobutton add" data-click="addLink">
+        <span class="add-row">[% l('Add Link') | html_entity %]</span>
+        <div class="add-item icon img" title="[% l('Add Link') | html_entity %]"></div>
+      </button>
+    </div>
+    <script>
+      [%- USE JSON.Escape %]
+      MB.Control.externalLinksEditor({
+        entityType:    '[% entity_type | html_entity %]',
+        formName:      '[% form.name | html_entity %]',
+        relationships:  [% url_relationships.json %],
+        faviconClasses: [% favicon_css_classes.json %],
+
+        fieldErrors: [%
+          errors = [];
+          FOR url IN form.field('url').fields;
+            errors.push({
+              link_type_id = url.field('link_type_id').errors.0
+              text = url.field('text').errors.0
+            });
+          END;
+          errors.json
+        %]
+      });
+    </script>
+  [% END %]
+[%- END -%]
