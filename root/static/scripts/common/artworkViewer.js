@@ -103,7 +103,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     },
 
     prevImage: function () {
-        this._prevImageLink && this.open(this._prevLink);
+        this._prevImageLink && this.open(this._prevImageLink);
     },
 
     nextImage: function () {
