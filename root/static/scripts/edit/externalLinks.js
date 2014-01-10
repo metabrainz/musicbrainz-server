@@ -163,6 +163,11 @@ MB.Control.externalLinksEditor = function (options) {
     ko.applyBindings(linksModel, containerNode);
 
 
+    linksModel.links(_.chain(linksModel.links())
+        .sortBy(function (link) { return link.label().toLowerCase() })
+        .sortBy(function (link) { return link.isEmpty() }).value());
+
+
     $(document)
         .on("mb.matchedLinkType", "select", function () {
             ko.dataFor(this).matchesType(true);
