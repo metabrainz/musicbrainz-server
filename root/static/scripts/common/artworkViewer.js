@@ -208,6 +208,14 @@ $(function () {
         .on("click", ".artwork-dialog img", function () {
             // Close the dialog when the user clicks on the image.
             $(this).parents(".artwork-dialog").artworkViewer("close");
+        })
+        .on("click", ".ui-widget-overlay", function () {
+            var dialog = $activeDialog.data("mb-artworkViewer");
+
+            // Close the dialog when clicking on the overlay.
+            if (dialog.overlay && dialog.overlay[0] === this) {
+                dialog.close();
+            }
         });
 
     // Adjust the dialog's size/position when the browser window is resized.
