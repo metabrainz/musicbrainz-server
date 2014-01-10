@@ -33,12 +33,10 @@ role {
         return $result;
     }
 
-    my $url_relationships_data = sub {
+    sub url_relationships_data {
         my $entity = shift;
 
-        my @url_relationships = grep { $_->target_type eq $target_type }
-            $entity->all_relationships;
-
+        my @url_relationships = $entity->relationships_by_type('url');
         return undef if scalar(@url_relationships) == 0;
 
         return [
@@ -50,7 +48,7 @@ role {
             },
             @url_relationships
         ];
-    };
+    }
 
     around "$action" => sub {
         my ($orig, $self, $c) = @_;
@@ -68,7 +66,7 @@ role {
             my $source = $c->stash->{$self->{entity_name}};
 
             if ($source) {
-                $url_relationships = $url_relationships_data->($source);
+                $url_relationships = url_relationships_data($source);
             }
         }
 
