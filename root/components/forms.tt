@@ -383,6 +383,7 @@
         entityType:    '[% entity_type | html_entity %]',
         formName:      '[% form.name | html_entity %]',
         relationships:  [% url_relationships.json %],
+        typeInfo:       [% url_type_info.json %],
         faviconClasses: [% favicon_css_classes.json %],
 
         fieldErrors: [%

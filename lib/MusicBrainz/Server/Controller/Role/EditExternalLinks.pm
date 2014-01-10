@@ -15,6 +15,24 @@ role {
     my $action = $params->on_action;
     my $target_type = 'url';
 
+    sub build_type_info {
+        my $result = {};
+        my $build;
+
+        $build = sub {
+            my $root = shift;
+
+            $result->{$root->id} = {
+                deprecated => $root->is_deprecated,
+            } if $root->id;
+
+            $build->($_) for $root->all_children;
+        };
+
+        $build->(shift);
+        return $result;
+    }
+
     my $url_relationships_data = sub {
         my $entity = shift;
 
@@ -57,6 +75,7 @@ role {
         $c->stash(
             url_relationships   => $url_relationships // [],
             url_link_types      => $url_link_types,
+            url_type_info       => build_type_info($url_link_types),
         );
 
         return $self->$orig($c);

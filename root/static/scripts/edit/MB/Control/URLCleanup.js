@@ -817,19 +817,20 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
 
     var typeChanged = function(event) {
         var url = self.urlControl.val();
-        if (!url) {
-            self.errors.removeAll();
-            return;
-        }
 
-        var linkType = self.typeControl.val();
-        var checker = validationRules[linkType];
+        if (url) {
+            var linkType = self.typeControl.val();
+            var checker = validationRules[linkType];
 
-        if (!linkType) {
-            self.errors([ MB.text.SelectURLType ]);
-        }
-        else if (checker && !checker(url)) {
-            self.errors([ MB.text.InvalidURL ]);
+            if (!linkType) {
+                self.errors([ MB.text.SelectURLType ]);
+            }
+            else if (checker && !checker(url)) {
+                self.errors([ MB.text.InvalidURL ]);
+            }
+            else {
+                self.errors.removeAll();
+            }
         }
     };
 
