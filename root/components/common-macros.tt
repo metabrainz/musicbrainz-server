@@ -760,16 +760,16 @@ END -%]
     END; -%]
 [%- END -%]
 
-[%- MACRO favicon_class(url)
-    matching_class = '';
-    FOREACH class IN favicon_css_classes;
-      IF (class.key.search('/') AND url.url.as_string.search(class.key)) OR
-          url.url.host.search(class.key);
-        matching_class = class.value;
-        LAST;
-    END;
-    matching_class;
-END -%]
+[%- MACRO favicon_class(url) BLOCK -%]
+    [%- matching_class = '' -%]
+    [%- FOREACH icon IN favicon_css_classes -%]
+      [%- IF (icon.key.search('/') AND url.url.as_string.search(icon.key)) OR url.url.host.search(icon.key) -%]
+        [%- matching_class = icon.value -%]
+        [%- LAST -%]
+      [%- END -%]
+    [%- END -%]
+    [%- matching_class -%]
+[%- END -%]
 
 [%- MACRO license_class(url)
        IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
