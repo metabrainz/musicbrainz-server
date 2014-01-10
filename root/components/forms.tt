@@ -366,21 +366,17 @@
       </label>
       <div class="form-row-text-list">
         <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
-        <button type="button" class="nobutton remove" data-click="remove">
-          <div class="remove-item icon img" title="[% l('Remove Link') | html_entity %]"></div>
-        </button>
+        <!-- ko ifnot: isEmpty() -->
+          <button type="button" class="nobutton remove" data-click="remove">
+            <div class="remove-item icon img" title="[% l('Remove Link') | html_entity %]"></div>
+          </button>
+        <!-- /ko -->
       </div>
     </div>
     <!-- /ko -->
     <!-- ko foreach: hiddenInputs() -->
       <input type="hidden" data-bind="attr: { name: name, value: value }" />
     <!-- /ko -->
-    <div class="add-link-row">
-      <button type="button" id="add-external-link" class="nobutton add" data-click="addLink">
-        <span class="add-row">[% l('Add Link') | html_entity %]</span>
-        <div class="add-item icon img" title="[% l('Add Link') | html_entity %]"></div>
-      </button>
-    </div>
     <script>
       [%- USE JSON.Escape %]
       MB.Control.externalLinksEditor({

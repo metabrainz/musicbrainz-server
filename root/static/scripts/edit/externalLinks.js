@@ -61,11 +61,14 @@ MB.Control.externalLinksEditor = function (options) {
                 }
             }
             this.faviconClass("");
+            linksModel.ensureEmptyLinkExists();
         },
 
         linkTypeChanged: function (value) {
             var phrase = this.cleanup.typeControl.find(":selected").text();
+
             this.label(phrase);
+            linksModel.ensureEmptyLinkExists();
         },
 
         showTypeSelection: function () {
@@ -87,6 +90,12 @@ MB.Control.externalLinksEditor = function (options) {
             else {
                 $("#add-external-link").focus();
             }
+
+            linksModel.ensureEmptyLinkExists();
+        },
+
+        isEmpty: function () {
+            return !(this.linkType() || this.text());
         }
     });
 
@@ -108,13 +117,6 @@ MB.Control.externalLinksEditor = function (options) {
                 }
                 return link;
             })),
-
-        addLink: function () {
-            var newLink = URL({});
-
-            this.links.push(newLink);
-            newLink.cleanup.urlControl.focus();
-        },
 
         hiddenInputs: function () {
             var fieldPrefix = options.formName + ".url";
@@ -139,13 +141,21 @@ MB.Control.externalLinksEditor = function (options) {
                 hidden.push({ name: prefix + ".link_type_id", value: link.linkType() });
                 return hidden;
             }));
+        },
+
+        ensureEmptyLinkExists: function () {
+            var emptyLinkExists = _.any(this.links(), function (link) {
+                return link.isEmpty();
+            });
+
+            if (!emptyLinkExists) {
+                this.links.push(URL({}));
+            }
         }
     };
 
 
-    if (linksModel.links().length === 0) {
-        linksModel.links.push(URL({}));
-    }
+    linksModel.ensureEmptyLinkExists();
 
     var containerNode = $("#external-links-editor")[0];
 
