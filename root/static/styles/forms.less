@@ -1,9 +1,10 @@
 @import "colors.less";
 
-@form-half-width: 465px;
+@form-half-width: 500px;
 @form-margin: 12px;
-@form-label-width: 132px;
-@form-input-width: 300px;
+@form-label-width: 150px;
+@form-input-height: 1.9em;
+@form-input-width: @form-half-width - @form-label-width - (@form-margin * 2.5);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
 
@@ -63,19 +64,27 @@ form div.row {
     margin: 6px 0;
 }
 
+form div.row input[type=text] { height: @form-input-height; }
+
 form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
     min-width: @form-label-width;
     margin-right: @form-margin;
+    line-height: @form-input-height;
 }
 
 /* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
 div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
 div.form-row-text-list button > img { vertical-align: middle; }
 
-div.form-row-add { text-align: right; width: @form-input-width + 2; }
+div.form-row-add {
+    text-align: right;
+    width: @form-input-width + 2;
+    margin: (@form-margin / 2) 0;
+}
+
 div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
@@ -86,7 +95,7 @@ div.bubble div.row input[type=text] {
 }
 
 div.bubble div.row label,
-div.bubble div.row div.label { width: 150px; }
+div.bubble div.row div.label { width: @form-label-width; }
 
 form div.row p { float: none; clear: none; }
 form div.row ul { overflow: auto; }
@@ -357,13 +366,8 @@ input.icon, div.icon.img {
     height: @form-icon-size;
     border: 0 !important;
     background-repeat: no-repeat;
-    vertical-align: text-bottom;
+    vertical-align: middle;
 }
-/* remove (button) icons are next to <select> or <input> fields, align to the middle.
-div.icon.remove { vertical-align: middle; }
-/* other (button) icons are next to text, align them with the text. */
-div.icon.img { vertical-align: text-bottom; }
-
 
 div.img { display: inline-block; }
 
@@ -430,7 +434,7 @@ input.disc-up {
 }
 
 .add-artist-credit {
-    margin-left: @form-label-width + @form-margin !important;
+    margin-left: @form-label-width - @form-margin !important;
     width: @form-input-width-short;
     text-align: right;
 }
@@ -439,13 +443,14 @@ input.disc-up {
   External links editor
 */
 
-#external-links-editor .external-link-row { float: left; }
+#external-links-editor .external-link-row {
+    float: left;
+    margin-bottom: @form-margin;
+}
 
 #external-links-editor label {
     max-width: @form-label-width;
     width: 100%;
-    padding-left: @form-margin;
-    box-sizing: border-box;
 }
 
 #external-links-editor select {
@@ -461,5 +466,5 @@ input.disc-up {
     display: inline-block;
     width: @form-icon-size;
     height: @form-icon-size;
-    vertical-align: sub;
+    vertical-align: middle;
 }
