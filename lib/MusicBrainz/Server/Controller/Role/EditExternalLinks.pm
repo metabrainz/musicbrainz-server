@@ -47,7 +47,7 @@ role {
             my $body_params = expand_hash($c->req->body_params);
             $url_relationships = $body_params->{"edit-$source_type"}->{url} // [];
         } else {
-            my $source = $c->stash->{$source_type};
+            my $source = $c->stash->{$self->{entity_name}};
 
             if ($source) {
                 $url_relationships = $url_relationships_data->($source);
