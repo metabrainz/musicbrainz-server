@@ -218,6 +218,7 @@ sub build_display_data
             || Release->new( name => $self->data->{release}{name} );
 
         $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+        $data->{medium}->release($release);
     }
 
     if (exists $self->data->{new}{format_id}) {
