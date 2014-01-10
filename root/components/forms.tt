@@ -350,20 +350,20 @@
   [% WRAPPER form_row row_id='external-links-editor' %]
     <!-- ko foreach: links -->
     <div class="external-link-row" data-bind="urlCleanup: true">
-      <label data-bind="attr: { 'for': 'external-link-' + $index() }">
-        <!-- ko if: matchesType() && faviconClass() -->
-          <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
-        <!-- /ko -->
-        <!-- ko ifnot: showTypeSelection() -->
+      <!-- ko ifnot: showTypeSelection() -->
+        <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+          <!-- ko if: matchesType() && faviconClass() -->
+            <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
+          <!-- /ko -->
           <!-- ko text: label() || "[% l('Add another link:') | html_entity %]" --><!-- /ko -->
-        <!-- /ko -->
-        <select data-bind="value: linkType, visible: showTypeSelection()">
-          <option value="" selected="selected"></option>
-          [% FOR option IN form.options_url_link_type_id %]
-            <option value="[% option.value | html_entity %]">[% option.label | html_entity %]</option>
-          [% END %]
-        </select>
-      </label>
+        </label>
+      <!-- /ko -->
+      <select data-bind="value: linkType, visible: showTypeSelection()">
+        <option value="" selected="selected"></option>
+        [% FOR option IN form.options_url_link_type_id %]
+          <option value="[% option.value | html_entity %]">[% option.label | html_entity %]</option>
+        [% END %]
+      </select>
       <div class="form-row-text-list">
         <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
         <!-- ko ifnot: isEmpty() -->

@@ -29,6 +29,7 @@ sub _build_options
         push @options, {
             value => $root->id,
             label => $label,
+            description => $root->description,
             'data-unaccented' => $unac
         };
     }
