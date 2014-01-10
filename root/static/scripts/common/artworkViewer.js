@@ -150,9 +150,17 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             maxDialogHeight = $window.height() * 0.95,
             maxDialogWidth = $window.width() * 0.95,
             nonContentHeight = this.uiDialog.outerHeight() - this.element.height(),
-            nonContentWidth = this.uiDialog.outerWidth() - this.element.width(),
-            imageHeight = maxDialogHeight - nonContentHeight,
-            imageWidth = imageAspectRatio * imageHeight;
+            nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
+
+        // Don't stretch the image beyond its original dimensions, and don't
+        // exceed maxDialogHeight or maxDialogWidth.
+        var imageHeight = maxDialogHeight - nonContentHeight;
+
+        if (imageElement && imageElement.height < imageHeight) {
+            imageHeight = imageElement.height;
+        }
+
+        var imageWidth = imageAspectRatio * imageHeight;
 
         if (imageWidth > maxDialogWidth) {
             imageWidth = maxDialogWidth;
