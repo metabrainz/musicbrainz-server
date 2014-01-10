@@ -529,11 +529,12 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
     self.errors.subscribe(function (errors) {
         var hasErrors = errors.length > 0;
 
-        $("button[type=submit]").prop("disabled", hasErrors);
-
         self.errorList.toggle(hasErrors).empty().append(
             $.map(errors, function (error) { return $("<li>").text(error) })
         );
+
+        $("button[type=submit]")
+            .prop("disabled", $(".errors:visible").length > 0);
     });
 
     self.errors.notifySubscribers(self.errors());
