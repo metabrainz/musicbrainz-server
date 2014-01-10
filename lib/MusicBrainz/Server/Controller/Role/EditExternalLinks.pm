@@ -77,7 +77,7 @@ role {
             my $model = $self->config->{model};
             my $source_type = model_to_type($model);
 
-            my $source = $c->stash->{$source_type} // (
+            my $source = $c->stash->{$self->{entity_name}} // (
                 $c->model($model)->get_by_id($edit->entity_id)
             );
 
