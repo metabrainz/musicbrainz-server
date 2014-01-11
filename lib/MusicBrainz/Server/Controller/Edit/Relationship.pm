@@ -429,7 +429,12 @@ sub delete : Local Edit
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $c->model('MB')->with_transaction(sub {
-            $self->delete($c, $form, type0 => $type0, type1 => $type1, relationship => $rel);
+            $self->delete_relationship(
+                $c, $form,
+                type0 => $type0,
+                type1 => $type1,
+                relationship => $rel
+            );
         });
 
         my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');

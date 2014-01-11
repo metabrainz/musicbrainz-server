@@ -143,7 +143,7 @@ role {
                 $c->model('LinkType')->load($relationship->link);
 
                 if ($field->{removed}) {
-                    $edit = $self->delete($c, $form, %args);
+                    $edit = $self->delete_relationship($c, $form, %args);
                 } else {
                     $edit = $self->try_and_edit($c, $form, %args);
                 }

@@ -65,7 +65,7 @@ sub try_and_insert {
     return $edit;
 }
 
-sub delete {
+sub delete_relationship {
     my ($self, $c, $form, %params) = @_;
 
     my $edit;

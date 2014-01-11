@@ -201,7 +201,7 @@ sub remove_relationship {
 
     my $rel = $field->value;
 
-    $self->delete(
+    $self->delete_relationship(
         $c, $form,
         type0 => $rel->{entity}->[0]->{type},
         type1 => $rel->{entity}->[1]->{type},
