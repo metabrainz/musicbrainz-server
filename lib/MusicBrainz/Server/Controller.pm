@@ -163,6 +163,7 @@ sub edit_action
         if ($opts{redirect} && !$opts{no_redirect} &&
                 ($edit || !$c->stash->{makes_no_changes})) {
             $opts{redirect}->();
+            $c->detach;
         }
 
         return $edit;
