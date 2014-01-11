@@ -113,13 +113,15 @@ role {
 
         my @edits;
         my ($type0, $type1) = sort ($source_type, $target_type);
-        my $fields = $form->field('url')->value;
+
+        my $url_field = $form->field('url');
+        return unless $url_field;
 
         my $link_types = $c->model('LinkType')->get_by_ids(
-            map { $_->{link_type_id} } @$fields
+            map { $_->{link_type_id} } @{ $url_field->value }
         );
 
-        for my $field (@$fields) {
+        for my $field (@{ $url_field->value }) {
             my $edit;
             my $link_type = $link_types->{$field->{link_type_id}};
             my %args = ( type0 => $type0, type1 => $type1 );
