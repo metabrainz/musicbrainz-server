@@ -1,12 +1,14 @@
 package MusicBrainz::Server::Form::Role::ExternalLinks;
 use HTML::FormHandler::Moose::Role;
 use MusicBrainz::Server::Translation qw( l N_l );
+use aliased 'MusicBrainz::Server::Entity::LinkType';
 
 with 'MusicBrainz::Server::Form::Role::LinkType';
 
 has url_link_types => (
     is => 'ro',
     required => 1,
+    default => sub { LinkType->new },
 );
 
 has_field 'url' => (
@@ -41,6 +43,8 @@ sub options_url_link_type_id
 
     my $root = $self->url_link_types;
     my @children = $root->all_children;
+    return [] unless scalar @children;
+
     my $entity1_type = $children[0]->entity1_type;
     my $attr = $entity1_type eq 'url' ? 'l_link_phrase' : 'l_reverse_link_phrase';
 

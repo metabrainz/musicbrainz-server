@@ -16,28 +16,34 @@ role {
     my $target_type = 'url';
 
     sub build_type_info {
+        my $root = shift;
         my $result = {};
         my $build;
 
         $build = sub {
-            my $root = shift;
+            my $child = shift;
 
-            $result->{$root->id} = {
-                deprecated => $root->is_deprecated,
-            } if $root->id;
+            my $phrase_attr = $child->entity1_type eq 'url' ?
+                'l_link_phrase' : 'l_reverse_link_phrase';
 
-            $build->($_) for $root->all_children;
+            $result->{$child->id} = {
+                deprecated => $child->is_deprecated,
+                description => $child->description,
+                phrase => $child->$phrase_attr,
+            } if $child->id;
+
+            $build->($_) for $child->all_children;
         };
 
-        $build->(shift);
+        $build->($root) if $root;
         return $result;
     }
 
     sub url_relationships_data {
         my $entity = shift;
 
-        my @url_relationships = $entity->relationships_by_type('url');
-        return undef if scalar(@url_relationships) == 0;
+        my $url_relationships = $entity->relationships_by_type('url');
+        return undef if scalar(@$url_relationships) == 0;
 
         return [
             map +{
@@ -46,7 +52,7 @@ role {
                 text            => $_->target->name,
 
             },
-            @url_relationships
+            @$url_relationships
         ];
     }
 

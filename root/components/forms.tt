@@ -359,9 +359,10 @@
         </label>
       <!-- /ko -->
       <select data-bind="value: linkType, visible: showTypeSelection()">
-        <option value="" selected="selected"></option>
+        <option value="" selected="selected"> </option>
         [% FOR option IN form.options_url_link_type_id %]
-          <option value="[% option.value | html_entity %]"[% IF NOT option.description %] disabled="disabled"[% END %]>[% option.label | html_entity %]</option>
+          [%- link_type_id = option.value -%]
+          <option value="[% link_type_id | html_entity %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html_entity %]</option>
         [% END %]
       </select>
       <div class="form-row-text-list">

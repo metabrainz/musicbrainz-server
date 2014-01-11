@@ -65,15 +65,15 @@ MB.Control.externalLinksEditor = function (options) {
         },
 
         linkTypeChanged: function (value) {
-            var phrase = this.cleanup.typeControl.find(":selected").text();
-            this.label(phrase);
-
             var typeInfo = options.typeInfo[value];
 
-            if (typeInfo && typeInfo.deprecated == 1) {
-                this.cleanup.errors([ MB.text.RelationshipTypeDeprecated ]);
-            }
+            if (typeInfo) {
+                this.label(typeInfo.phrase);
 
+                if (typeInfo.deprecated == 1) {
+                    this.cleanup.errors([ MB.text.RelationshipTypeDeprecated ]);
+                }
+            }
             linksModel.ensureEmptyLinkExists();
         },
 
