@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-24 12:36-0700\n"
-"PO-Revision-Date: 2013-12-24 19:45+0000\n"
+"POT-Creation-Date: 2014-01-12 04:59-0700\n"
+"PO-Revision-Date: 2014-01-12 12:01+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -235,7 +235,7 @@ msgstr "(αυτόνομη ηχογράφηση)"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../root/recording/index.tt:23 ../root/release_group/index.tt:44
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:88
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:89
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:188
 msgid "(unknown)"
 msgstr "(άγνωστο)"
@@ -311,15 +311,15 @@ msgstr "<em>Ακυρώνεται</em>"
 msgid "<em>no changelog specified</em>"
 msgstr ""
 
-#: ../root/edit/edit_header.tt:60
+#: ../root/edit/edit_header.tt:61
 msgid "<strong>Approved:</strong> {date}"
 msgstr ""
 
-#: ../root/edit/edit_header.tt:58
+#: ../root/edit/edit_header.tt:59
 msgid "<strong>Closed:</strong> <em>Cancelling</em>"
 msgstr "<strong>Έκλεισε:</strong> <em>Ακυρώνεται</em>"
 
-#: ../root/edit/edit_header.tt:62
+#: ../root/edit/edit_header.tt:63
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>Έκλεισε:</strong> {date}"
 
@@ -1025,7 +1025,7 @@ msgid_plural "{n} anonymous users"
 msgstr[0] "Ένας ανώνυμος χρήστης"
 msgstr[1] "{n} ανώνυμοι χρήστες"
 
-#: ../root/edit/index.tt:16 ../root/edit/list.tt:89
+#: ../root/edit/index.tt:16 ../root/edit/list.tt:68
 #: ../root/release/edit/editnote.tt:19
 msgid "An error occured while loading this edit"
 msgstr "Προέκυψε ένα σφάλμα κατά το φόρτωμα αυτής της επεξεργασίας"
@@ -1123,7 +1123,7 @@ msgstr ""
 msgid "Approve"
 msgstr "Έγκριση"
 
-#: ../root/edit/edit_header.tt:75 ../root/edit/info.tt:17
+#: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
 msgstr "Έγκριση επεξεργασίας"
 
@@ -1605,6 +1605,10 @@ msgstr "Να παρακολουθώ αυτόματα τους καλλιτέχν
 msgid "Automatically subscribe me to labels I create."
 msgstr "Να παρακολουθώ αυτόματα τις δισκογραφικές εταιρείες που προσθέτω."
 
+#: ../root/components/ratings.tt:19
+msgid "Average rating:"
+msgstr ""
+
 #: ../root/browse/page_selector.tt:54
 msgid "Back"
 msgstr "Πίσω"
@@ -1980,7 +1984,7 @@ msgstr "Ακύρωση επεξεργασίας"
 msgid "Cancel creating relationship with {name}"
 msgstr "Ακύρωση δημιουργίας σχέσης με {name}"
 
-#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:79
+#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:80
 #: ../root/edit/info.tt:21
 msgid "Cancel edit"
 msgstr "Ακύρωση επεξεργασίας"
@@ -2780,7 +2784,7 @@ msgstr "Επεξεργασία"
 msgid "Edit #{id}"
 msgstr "Επεξεργασία #{id}"
 
-#: ../root/edit/edit_header.tt:69 ../root/edit/edit_header.tt:84
+#: ../root/edit/edit_header.tt:70 ../root/edit/edit_header.tt:85
 msgid "Edit #{id} - {name}"
 msgstr "Επεξεργασία #{id} - {name}"
 
@@ -2954,7 +2958,7 @@ msgstr "Επεξεργασία ψευδωνύμου καλλιτέχνη"
 msgid "Edit artist annotation"
 msgstr "Επεξεργασία σχολίου καλλιτέχνη"
 
-#: ../root/edit/edit_header.tt:90
+#: ../root/edit/edit_header.tt:91
 msgid "Edit by {editor}"
 msgstr "Επεξεργασία από {editor}"
 
@@ -3445,6 +3449,12 @@ msgstr ""
 msgid "Fingerprints"
 msgstr "Αποτυπώματα"
 
+#: ../root/account/register.tt:53
+msgid ""
+"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+"the {fo|forums} or {irc|IRC}."
+msgstr ""
+
 #: ../root/search/error/wrapper.tt:5
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
@@ -3521,7 +3531,7 @@ msgid ""
 "error message that is shown above."
 msgstr "Βρήκατε ένα πρόβλημα στην ιστοσελίδα μας; Παρακαλούμε κάντε μια {report|αναφορά σφάλματος} και.συμπεριλάβετε ότι μήνυμα σφάλματος εμφανίζεται παραπάνω."
 
-#: ../root/edit/list.tt:58
+#: ../root/edit/list.tt:36
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] ""
@@ -3537,7 +3547,7 @@ msgstr[1] "Βρέθηκε σε {num} συλλογές χρηστών"
 msgid "Found more than one match for the CD with TOC {toc}: "
 msgstr "Βρέθηκαν περισσότερα από ένα CD που να αντιστοιχούν στο CD με TOC {toc}:"
 
-#: ../root/edit/list.tt:62
+#: ../root/edit/list.tt:40
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Βρέθηκε {n} επεξεργασία"
@@ -4025,12 +4035,6 @@ msgid ""
 "the {style|style guidelines}, or in other cases where administrative \"clean"
 " up\" tasks are required."
 msgstr ""
-
-#: ../root/account/register.tt:53
-msgid ""
-"If you're interested in receiving information from MusicBrainz staff or "
-"communicating with other users, {ml|please subscribe to our mailing lists}."
-msgstr "Αν ενδιαφέρεστε να λαμβάνετε πληροφορίες από το προσωπικό του MusicBrainz ή να επικοινωνείτε με άλλους χρήστες, {ml|παρακαλούμε εγγραφείτε στις λίστες ταχυδρομείου μας}."
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
@@ -4814,7 +4818,7 @@ msgstr "MusicBrainz δεν έχει κανένα CD με το TOC:"
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz για Android"
 
-#: ../root/account/register.tt:57
+#: ../root/account/register.tt:59
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -4877,12 +4881,12 @@ msgstr "Η ψήφος μου"
 msgid "My vote:"
 msgstr "Η ψήφος μου:"
 
-#: ../root/edit/edit_header.tt:31 ../root/edit/edit_header.tt:36
-#: ../root/edit/edit_header.tt:41
+#: ../root/edit/edit_header.tt:32 ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:42
 msgid "My vote: "
 msgstr "Η ψήφος μου: "
 
-#: ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:38
 msgid "N/A"
 msgstr ""
 
@@ -5106,7 +5110,7 @@ msgstr "Δεν υπάρχει διαθέσιμο εξώφυλλο."
 msgid "No edit notes have been added."
 msgstr "Δεν έχουν προστεθεί σημειώματα επεξεργασίας."
 
-#: ../root/edit/list.tt:109
+#: ../root/edit/list.tt:88
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Δε βρέθηκα τροποποιήσεις που να ταιριάζουν με το ερώτημά σας. Παρακαλούμε {search|δοκιμάστε ξανά}."
 
@@ -5255,7 +5259,7 @@ msgstr ""
 msgid "Non-digital releases with download relationships"
 msgstr ""
 
-#: ../root/edit/edit_header.tt:42 ../root/edit/vote.tt:23
+#: ../root/edit/edit_header.tt:43 ../root/edit/vote.tt:23
 msgid "None"
 msgstr "Κανένα"
 
@@ -7690,7 +7694,7 @@ msgstr "Υποβολή αυτού του CD με χρήση της απλής μ
 msgid "Submit vote and note"
 msgstr ""
 
-#: ../root/edit/list.tt:102
+#: ../root/edit/list.tt:81
 msgid "Submit votes &amp; edit notes"
 msgstr "Υποβολή ψήφων &amp; σημειώσεων επεξεργασίας"
 
@@ -8109,7 +8113,7 @@ msgstr ""
 msgid "The watch artist feature is currently not active."
 msgstr "Η λειτουργία παρακολούθησης καλλιτεχνών δεν είναι ενεργή αυτή τη στιγμή."
 
-#: ../root/edit/edit_header.tt:25
+#: ../root/edit/edit_header.tt:26
 msgid "Their vote: "
 msgstr "Η ψήφος τους: "
 
@@ -11093,7 +11097,7 @@ msgstr "{format} {position} {name} στο {release} από {artist}"
 msgid "{last_list_item}"
 msgstr ""
 
-#: ../root/components/ratings.tt:20
+#: ../root/components/ratings.tt:21
 msgid "{link} has no ratings."
 msgstr "{link} δεν έχει βαθμολογίες."
 
@@ -11346,14 +11350,40 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "Το '{id}' δεν είναι έγκυρο MusicBrainz ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:119
+#: ../lib/MusicBrainz/Server/Controller.pm:144
+#, perl-brace-format
 msgid ""
-"Thank you, your edit has been entered into the edit queue for peer review."
-msgstr "Ευχαριστούμε, η τροποποίησή σας μπήκε στην ουρά τροποποιήσεων για αξιολόγηση από τους υπόλοιπους χρήστες."
+"Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted"
+" and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:120
-msgid "Thank you, your edit has been accepted and applied"
-msgstr "Ευχαριστούμε, η τροποποίησή σας έγινε δεκτή και εφαρμόστηκε."
+#: ../lib/MusicBrainz/Server/Controller.pm:150
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
+"queue for peer review."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
+"into the edit queue for peer review."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Controller.pm:158
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
+"{num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
+" with {num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."
