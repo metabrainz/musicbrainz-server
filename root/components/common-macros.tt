@@ -257,7 +257,7 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    disambiguation(entity) UNLESS text;
+    disambiguation(entity) IF text == '';
 END -%]
 
 [%- MACRO link_deleted(entity, text) BLOCK;

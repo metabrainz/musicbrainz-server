@@ -39,8 +39,11 @@
 [%- PROCESS "statistics/macros-footer.tt" -%]
 
 <script type="text/javascript">//<![CDATA[
-  MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' }}, sortList: [[5,1]] }
-  MB.Control.Tablesorter();
+  MB.Control.Tablesorter($('table.tbl'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }, 5: { sorter: 'fancyNumber' } },
+      sortList: [ [5,1], [1,0] ] // order by descending number of entities, then name
+     });
 //]]></script>
 
 [% END %]
