@@ -3,16 +3,9 @@ use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
-parameter 'on_action' => (
-    isa => 'Str',
-    required => 1,
-);
-
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
-    my $params = shift;
-    my $action = $params->on_action;
     my $target_type = 'url';
 
     sub build_type_info {
@@ -22,9 +15,10 @@ role {
 
         $build = sub {
             my $child = shift;
+            my $entity1_type = $child->entity1_type;
 
-            my $phrase_attr = $child->entity1_type eq 'url' ?
-                'l_link_phrase' : 'l_reverse_link_phrase';
+            my $phrase_attr = defined $entity1_type && $entity1_type eq 'url'
+                ? 'l_link_phrase' : 'l_reverse_link_phrase';
 
             $result->{$child->id} = {
                 deprecated => $child->is_deprecated,
@@ -56,11 +50,13 @@ role {
         ];
     }
 
-    around "$action" => sub {
-        my ($orig, $self, $c) = @_;
+    around 'edit_action' => sub {
+        my ($orig, $self, $c, %opts) = @_;
 
-        my $source_type = model_to_type($self->config->{model});
+        my $model = $self->config->{model};
+        my $source_type = model_to_type($model);
         my ($type0, $type1) = sort ($source_type, $target_type);
+        my $source = $c->stash->{$self->{entity_name}};
 
         my $url_link_types = $c->model('LinkType')->get_tree($type0, $type1);
         my $url_relationships;
@@ -68,48 +64,32 @@ role {
         if ($c->form_posted) {
             my $body_params = expand_hash($c->req->body_params);
             $url_relationships = $body_params->{"edit-$source_type"}->{url} // [];
-        } else {
-            my $source = $c->stash->{$self->{entity_name}};
-
-            if ($source) {
-                $url_relationships = url_relationships_data($source);
-            }
+        }
+        elsif ($source) {
+            $url_relationships = url_relationships_data($source);
         }
 
         $c->stash(
             url_relationships   => $url_relationships // [],
-            url_link_types      => $url_link_types,
             url_type_info       => build_type_info($url_link_types),
         );
 
-        return $self->$orig($c);
-    };
-
-    around 'edit_action' => sub {
-        my ($orig, $self, $c, %opts) = @_;
-
         my $post_creation = delete $opts{post_creation};
 
-        my $new_post_creation = sub {
+        $opts{post_creation} = sub {
             my ($edit, $form) = @_;
 
             my $makes_changes = (
                 defined $post_creation && $post_creation->($edit, $form)
             );
 
-            my $model = $self->config->{model};
-            my $source_type = model_to_type($model);
-
-            my $source = $c->stash->{$self->{entity_name}} // (
-                $c->model($model)->get_by_id($edit->entity_id)
-            );
+            $source = $source // $c->model($model)->get_by_id($edit->entity_id);
 
             $makes_changes ||= $self->edit_external_links($c, $form, $source_type, $source);
             return 1 if $makes_changes;
         };
 
-        $opts{post_creation} = $new_post_creation;
-        ($opts{form_args} //= {})->{url_link_types} = $c->stash->{url_link_types};
+        ($opts{form_args} //= {})->{url_link_types} = $url_link_types;
 
         return $self->$orig($c, %opts);
     };

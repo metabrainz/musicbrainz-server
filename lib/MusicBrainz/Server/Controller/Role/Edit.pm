@@ -26,9 +26,7 @@ role {
         }
     );
 
-    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks' => {
-        on_action => 'edit',
-    };
+    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
     method 'edit' => sub {
         my ($self, $c) = @_;
