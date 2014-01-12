@@ -39,7 +39,7 @@
             </div>
         [%- END -%]
         <div class="row no-label">
-            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_Of_Conduct') }) %]</p>
+            <p>[%- l('Please review the {coc|MusicBrainz Code of Conduct} before creating an account.', { coc => doc_link('Code_of_Conduct') }) %]</p>
             [% form_submit(l('Create Account')) %]
         </div>
     </form>
@@ -50,9 +50,11 @@
                     doc => doc_link('MusicBrainz_Documentation'),
                     con => doc_link('Contact_Us') }) -%]</p>
 
-        <p>[% l("If you're interested in receiving information from MusicBrainz staff or communicating
-                 with other users, {ml|please subscribe to our mailing lists}.",
-                 { ml => doc_link('Mailing_List') }) %]</p>
+        <p>[% l("Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try the {fo|forums} or {irc|IRC}.",
+                 { bl => 'http://blog.musicbrainz.org/',
+                   tw => 'http://twitter.com/MusicBrainz',
+                   fo => 'http://forums.musicbrainz.org/',
+                   irc => doc_link('Communication/IRC') }) %]</p>
 
         <p>[%- l('MusicBrainz has one account type for all users. If you represent an artist or label,
                   please use the above form to create an account.') -%]</p>
