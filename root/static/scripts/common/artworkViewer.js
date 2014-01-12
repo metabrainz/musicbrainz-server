@@ -151,9 +151,17 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             maxDialogHeight = $window.height() * 0.95,
             maxDialogWidth = $window.width() * 0.95,
             nonContentHeight = this.uiDialog.outerHeight() - this.element.height(),
-            nonContentWidth = this.uiDialog.outerWidth() - this.element.width(),
-            imageHeight = maxDialogHeight - nonContentHeight,
-            imageWidth = imageAspectRatio * imageHeight;
+            nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
+
+        // Don't stretch the image beyond its original dimensions, and don't
+        // exceed maxDialogHeight or maxDialogWidth.
+        var imageHeight = maxDialogHeight - nonContentHeight;
+
+        if (imageElement && imageElement.height < imageHeight) {
+            imageHeight = imageElement.height;
+        }
+
+        var imageWidth = imageAspectRatio * imageHeight;
 
         if (imageWidth > maxDialogWidth) {
             imageWidth = maxDialogWidth;
@@ -209,6 +217,14 @@ $(function () {
         .on("click", ".artwork-dialog img", function () {
             // Close the dialog when the user clicks on the image.
             $(this).parents(".artwork-dialog").artworkViewer("close");
+        })
+        .on("click", ".ui-widget-overlay", function () {
+            var dialog = $activeDialog.data("mb-artworkViewer");
+
+            // Close the dialog when clicking on the overlay.
+            if (dialog.overlay && dialog.overlay[0] === this) {
+                dialog.close();
+            }
         });
 
     // Adjust the dialog's size/position when the browser window is resized.
