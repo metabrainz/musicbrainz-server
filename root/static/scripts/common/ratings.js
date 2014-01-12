@@ -1,6 +1,7 @@
 // This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2013 MetaBrainz Foundation
-// Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
 
 $(document).on("click", "span.star-rating a", function () {
     var $ratingLink = $(this);
