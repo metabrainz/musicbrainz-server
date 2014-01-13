@@ -148,6 +148,12 @@
 </tr>
 <tr>
     <th></th>
+    <th>[% l('of type Character:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.type.character')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.character', 'count.artist')) }) %]</td>
+</tr>
+<tr>
+    <th></th>
     <th>[% l('of type Other:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.type.other')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.type.other', 'count.artist')) }) %]</td>
