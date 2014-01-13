@@ -46,7 +46,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 this.xhr.abort();
             }
 
-            this.xhr = $.ajax(this.lookupHook({
+            this.xhr = $.ajax(this.options.lookupHook({
                 url: "/ws/js/" + this.entity,
                 data: {
                     q: request.term,
@@ -59,7 +59,8 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             }));
         },
 
-        resultHook: _.identity
+        resultHook: _.identity,
+        lookupHook: _.identity
     },
 
     _create: function () {
@@ -284,8 +285,6 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
             error: _.bind(this.clear, this)
         });
     },
-
-    lookupHook: _.identity,
 
     _lookupSuccess: function (response, data, result, request) {
         var pager = _.last(data);
