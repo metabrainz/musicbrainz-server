@@ -12,7 +12,7 @@ sub _browse
     my $index = $c->req->query_params->{index};
     my $entities;
     $entities = $self->_load_paged($c, sub {
-        $c->model($model_name)->find_by_name_prefix("", shift, shift);
+        $c->model($model_name)->fetch_all(shift, shift);
     });
 
     $c->stash(
