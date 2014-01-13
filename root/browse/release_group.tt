@@ -23,7 +23,7 @@
                 </div>
             [% END %]
         [% ELSE %]
-            <p>[% l('There are no release groups in the database.') %]</p>
+            <p>[% l('There is no data to display.') %]</p>
         [% END %]
     </div>
 [% END %]
