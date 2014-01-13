@@ -102,6 +102,11 @@ MB.Control.externalLinksEditor = function (options) {
 
         isEmpty: function () {
             return !(this.linkType() || this.text());
+        },
+
+        isOnlyLink: function () {
+            var links = linksModel.links();
+            return links.length === 1 && links[0] === this;
         }
     });
 

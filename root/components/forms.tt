@@ -355,7 +355,7 @@
           <!-- ko if: matchesType() && faviconClass() -->
             <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
           <!-- /ko -->
-          <!-- ko text: label() || "[% l('Add another link:') | html_entity %]" --><!-- /ko -->
+          <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html_entity %]" : "[% l('Add another link:') | html_entity %]") --><!-- /ko -->
         </label>
       <!-- /ko -->
       <select data-bind="value: linkType, visible: showTypeSelection()">
