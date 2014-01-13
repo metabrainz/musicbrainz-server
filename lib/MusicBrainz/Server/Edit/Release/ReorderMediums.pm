@@ -9,6 +9,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit';
 
 sub edit_name { N_l('Reorder mediums') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_REORDER_MEDIUMS }
 
 with 'MusicBrainz::Server::Edit::Role::Preview';

@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Edit::WikiDoc';
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { N_l("Change WikiDoc") }
+sub edit_kind { 'other' }
 
 sub edit_conditions
 {

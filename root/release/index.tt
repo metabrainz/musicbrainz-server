@@ -131,7 +131,7 @@
                             data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
                       <!-- /ko -->
 
-                      <!-- ko if: userRating === null -->
+                      <!-- ko if: userRating === null && rating !== null -->
                       <span class="current-rating"
                             data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
                       <!-- /ko -->
@@ -199,7 +199,7 @@
                             name => $_->name,
                             length => $_->length,
                             editsPending => $_->edits_pending,
-                            artistCredit => [
+                            artist_credit => [
                                 map +{
                                     name => $_->name,
                                     join_phrase => $_->join_phrase,
@@ -238,7 +238,7 @@
                     editsPending => $_->edits_pending
                 }, @{ $release->{mediums} }
             ],
-            artistCredit => [
+            artist_credit => [
                 map +{
                     name => $_->name,
                     join_phrase => $_->join_phrase,

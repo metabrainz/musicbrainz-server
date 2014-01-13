@@ -1,38 +1,3 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('guess-case.js.manifest') %]
-  [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('release-editor.js.manifest') %]
-
-  <script type="text/javascript">//<![CDATA[
-
-    MB.release_artist_json = [% release_artist_json %];
-
-    MB.releaseArtistCredit = MB.entity.ArtistCredit(
-        ([% submitted_release_artist %]).names
-    );
-
-    MB.medium_cdtocs = [
-      [%- FOR medium=release.mediums -%]
-        [%- IF medium.cdtocs.size -%]
-          [%- medium.cdtocs.0.cdtoc.track_count -%],
-        [%- ELSE -%]
-          null,
-        [%- END -%]
-      [%- END -%]
-      null
-    ];
-
-    $('document').ready (function () {
-
-       MB.utility.setDefaultAction ('form.release-editor', '#id-next');
-
-       $('div.dialog').draggable ();
-
-    });
-
-  //]]></script>
-[%- END -%]
-
 [%- MACRO artist_credit_row BLOCK -%]
 <table class="artist-credit bubble" style="width: 100%">
   <thead>
@@ -114,6 +79,10 @@
 [%- END -%]
 
 [%- WRAPPER 'release/edit/layout.tt' -%]
+  [% script_manifest('guess-case.js.manifest') %]
+  [% script_manifest('edit.js.manifest') %]
+  [% script_manifest('release-editor.js.manifest') %]
+
   [% USE r = FormRenderer(form) %]
   [% USE w = Wizard() %]
   [% information = w.page ('information') %]
@@ -453,4 +422,28 @@
     </div>
 
   </div>
+
+  <script type="text/javascript">//<![CDATA[
+    MB.release_artist_json = [% release_artist_json %];
+
+    MB.releaseArtistCredit = MB.entity.ArtistCredit(
+        ([% submitted_release_artist %]).names
+    );
+
+    MB.medium_cdtocs = [
+      [%- FOR medium=release.mediums -%]
+        [%- IF medium.cdtocs.size -%]
+          [%- medium.cdtocs.0.cdtoc.track_count -%],
+        [%- ELSE -%]
+          null,
+        [%- END -%]
+      [%- END -%]
+      null
+    ];
+
+    MB.utility.setDefaultAction("form.release-editor", "#id-next");
+
+    $("div.dialog").draggable();
+  //]]></script>
+
 [%- END -%]

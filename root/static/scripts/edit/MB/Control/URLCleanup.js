@@ -183,6 +183,7 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url =  url.replace(/^https:\/\/secure\.wikimedia\.org\/wikipedia\/([a-z-]+)\/wiki\/(.*)/, "http://$1.wikipedia.org/wiki/$2");
             url =  url.replace(/^https:\/\//, "http://");
+            url =  url.replace(/^http:\/\/wikipedia\.org\/(.+)$/, "http://en.wikipedia.org/$1");
             url =  url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, ".wikipedia.org/wiki/$1");
             url =  url.replace(/(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, ".wikipedia.org/wiki/$1");
             if ((m = url.match(/^(.*\.wikipedia\.org\/wiki\/)([^?#]+)(.*)$/)) != null)
@@ -196,6 +197,7 @@ MB.constants.CLEANUPS = {
         clean: function(url) {
             url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
             url = url.replace(/^https?:\/\/([^.]+\.)?discogs\.com\/(.*\/(artist|release|master|label))?([^#?]*).*$/, "http://www.discogs.com/$3$4");
+            url = url.replace(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/([0-9]+)-[^+]+$/, "$1/$2"); // URLs containing Discogs IDs
             if ((m = url.match(/^(http:\/\/www\.discogs\.com\/(?:artist|label))\/(.+)/)) != null)
                 url = m[1] + "/" + encodeURIComponent(decodeURIComponent(m[2].replace(/\+/g, "%20"))).replace(/%20/g, "+");
             return url;
@@ -299,7 +301,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.downloadpurchase,
         clean: function(url) {
             // iTunes cleanup
-            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/([a-z0-9!.*+-]+\/)?(id[0-9]+)(\?.*)?$/, "https://itunes.apple.com/$1$2/$4");
+            return url.replace(/^https?:\/\/itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|music-video|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
         }
     },
     jamendo: {
@@ -397,11 +399,17 @@ MB.constants.CLEANUPS = {
                   // Ensure the first parameter left uses ? not to break the URL
                   url = url.replace(/([&?])&/, "$1");
                   url = url.replace(/[&?]$/, "");
+                  // Remove trailing slashes
+                  if (url.match(/\?/)) {
+                      url = url.replace(/\/\?/, "?");
+                  } else {
+                      url = url.replace(/\/$/, "");
+                  }
             }
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
             url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
             url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, "https://plus.google.com/$1");
-            url = url.replace(/^(https?:\/\/)?(www\.)?twitter\.com(\/#!)?/, "https://twitter.com");
+            url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/]+)\/?$/, "https://twitter.com/$1");
             return url;
         }
     },
@@ -451,7 +459,7 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)", "i"),
         type: MB.constants.LINK_TYPES.youtube,
         clean: function(url) {
-            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com/, "http://www.youtube.com");
+            url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, "http://www.youtube.com");
             // YouTube URL shortener
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+)/, "http://www.youtube.com/watch?v=$1");
             // YouTube standard watch URL
@@ -463,8 +471,11 @@ MB.constants.CLEANUPS = {
         }
     },
     vgmdb: {
-        match: new RegExp("^(https?://)?vgmdb\\.net/", "i"),
-        type: MB.constants.LINK_TYPES.vgmdb
+        match: new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i"),
+        type: MB.constants.LINK_TYPES.vgmdb,
+        clean: function(url) {
+            return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+        }
     },
     wikidata: {
         match: new RegExp("^(https?://)?([^/]+\\.)?wikidata\\.org","i"),
@@ -510,6 +521,8 @@ MB.constants.CLEANUPS = {
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
             //Standardising Soundtrack Collector
             url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/(composer|title)\/([0-9]+).*$/, "http://soundtrackcollector.com/$1/$2/");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?movieid=([0-9]+).*$/, "http://soundtrackcollector.com/title/$1/");
+            url = url.replace(/^(?:https?:\/\/)?(?:www\.)?soundtrackcollector\.com\/.*\?composerid=([0-9]+).*$/, "http://soundtrackcollector.com/composer/$1/");
             return url;
         }
     }
@@ -517,7 +530,7 @@ MB.constants.CLEANUPS = {
 
 
 MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
-    var self = MB.Object ();
+    var self = {};
 
     self.typeControl = $(typeControl);
     self.urlControl = $(urlControl);
@@ -636,13 +649,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
     // allow only VGMdb pages with the VGMdb rel
     validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/(?:artist|org)\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/album\//) != null;
     }
     validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\//) != null;
+        return $('#id-ar\\.url').val().match(/vgmdb\.net\/org\//) != null;
     }
 
     // allow only YouTube pages with the YouTube rel
@@ -761,6 +774,17 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.artist ] = validateFacebook;
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
 
+    // Block images from sites that don't allow deeplinking
+    var validateImage = function() {
+        var url = $('#id-ar\\.url').val();
+        if (url.match(/\/\/s\.pixogs\.com\//)) { return false; }
+        if (url.match(/\/\/s\.discogss\.com\//)) { return false; }
+        return true;
+    };
+    validationRules[ MB.constants.LINK_TYPES.image.artist ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.label ] = validateImage;
+    validationRules[ MB.constants.LINK_TYPES.image.place ] = validateImage;
+
     self.guessType = function (sourceType, currentURL) {
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
@@ -775,6 +799,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     self.cleanUrl = function (sourceType, dirtyURL) {
         dirtyURL = dirtyURL.replace(/^\s+/, '');
         dirtyURL = dirtyURL.replace(/\s+$/, '');
+        dirtyURL = dirtyURL.replace(/%E2%80%8E$/, '');
 
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }

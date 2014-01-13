@@ -19,6 +19,7 @@ use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_type { $EDIT_RECORDING_ADD_ISRCS }
 sub edit_name { N_l('Add ISRCs') }
+sub edit_kind { 'add' }
 
 sub recording_ids { map { $_->{recording}{id} } @{ shift->data->{isrcs} } }
 

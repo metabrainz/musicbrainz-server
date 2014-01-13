@@ -321,8 +321,8 @@ msgstr ""
 
 #: DB:link_attribute_type/description:471
 msgid ""
-"Continuum, strange thingy: http://en.wikipedia.org/wiki/"
-"Continuum_(instrument)"
+"Continuum, strange thingy: http://en.wikipedia.org/wiki/Continuum_"
+"(instrument)"
 msgstr ""
 
 #: DB:link_attribute_type/description:273
@@ -384,6 +384,11 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr ""
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -428,6 +433,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
+msgstr ""
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
 
 #: DB:link_attribute_type/description:102
@@ -842,6 +851,15 @@ msgid ""
 "a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</"
+"a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:536
 msgid ""
 "The bass saxophone is the second largest existing member of the saxophone "
@@ -969,8 +987,8 @@ msgid ""
 "The dizi (Chinese: 笛子, dízi) is a Chinese transverse flute typically made "
 "of bamboo. In Chinese, it is sometimes just called 笛 (di), but in Japanese "
 "笛 (fue) is a more generic word referring to a whole class of flutes rather "
-"than this specific instrument. (<a href=\"http://en.wikipedia.org/wiki/"
-"Dizi_(musical_instrument)\">Wikipedia</a>)"
+"than this specific instrument. (<a href=\"http://en.wikipedia.org/wiki/Dizi_"
+"(musical_instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:742
@@ -1122,8 +1140,8 @@ msgstr ""
 #: DB:link_attribute_type/description:664
 msgid ""
 "The jing (Korean: 징, jing, ching) is a large gong used in traditional "
-"Korean music. (<a href=\"http://en.wikipedia.org/wiki/"
-"Jing_(instrument)\">Wikipedia</a>)"
+"Korean music. (<a href=\"http://en.wikipedia.org/wiki/Jing_(instrument)"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:661
@@ -1208,8 +1226,8 @@ msgstr ""
 msgid ""
 "The koto (Japanese: 箏) is a traditional Japanese string instrument with 13 "
 "strings that are strung over 13 movable bridges along the width of the "
-"instrument. (<a href=\"http://en.wikipedia.org/wiki/"
-"Koto_(instrument)\">Wikipedia</a>)"
+"instrument. (<a href=\"http://en.wikipedia.org/wiki/Koto_(instrument)"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:669
@@ -1294,8 +1312,8 @@ msgid ""
 "The nose whistle (also known as the Humanatone) is a simple instrument "
 "played with the nose. The stream of air is directed over an edge in the "
 "instrument and the frequency of the notes produced is controlled by the "
-"volume of air. (<a href=\"http://en.wikipedia.org/wiki/"
-"Nose_whistle_(instrument)\">Wikipedia</a>)"
+"volume of air. (<a href=\"http://en.wikipedia.org/wiki/Nose_whistle_"
+"(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:684
@@ -1304,6 +1322,14 @@ msgid ""
 "pitched a fifth below the oboe and used primarily in the Baroque period of "
 "European classical music. (<a href=\"http://en.wikipedia.org/wiki/"
 "Oboe_da_caccia\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a href=\"http://en.wikipedia.org/wiki/Octave_mandolin"
+"\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:612
@@ -1406,8 +1432,8 @@ msgstr ""
 #: DB:link_attribute_type/description:68
 msgid ""
 "The sheng (Chinese: 笙, shēng) is a Chinese free reed instrument consisting "
-"of a number of vertical pipes. (<a href=\"http://en.wikipedia.org/wiki/"
-"Sheng_(instrument)\">Wikipedia</a>)"
+"of a number of vertical pipes. (<a href=\"http://en.wikipedia.org/wiki/Sheng_"
+"(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:666
@@ -1439,8 +1465,8 @@ msgstr ""
 #: DB:link_attribute_type/description:681
 msgid ""
 "The siku is a traditional Andean panpipe. Other names include antara, sicu, "
-"sicus, zampolla and zampoña. (<a href=\"http://en.wikipedia.org/wiki/"
-"Siku_(instrument)\">Wikipedia</a>)"
+"sicus, zampolla and zampoña. (<a href=\"http://en.wikipedia.org/wiki/Siku_"
+"(instrument)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:356
@@ -1552,8 +1578,8 @@ msgstr ""
 msgid ""
 "The xiao (simplified Chinese: 箫; traditional Chinese: 簫; pinyin: xiāo, "
 "also called dòngxiāo, simplified Chinese: 洞箫; traditional Chinese: 洞簫) "
-"is a Chinese end-blown flute. (<a href=\"http://en.wikipedia.org/wiki/"
-"Xiao_(flute)\">Wikipedia</a>)"
+"is a Chinese end-blown flute. (<a href=\"http://en.wikipedia.org/wiki/Xiao_"
+"(flute)\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:662
@@ -1940,6 +1966,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
+msgstr ""
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
 
 #: DB:link_attribute_type/description:494
@@ -2596,7 +2626,7 @@ msgid "rebec"
 msgstr ""
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
+msgid "reed organ, also known as pump organ"
 msgstr ""
 
 #: DB:link_attribute_type/description:233

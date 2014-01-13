@@ -5,6 +5,7 @@ MB.tests.URLCleanup.GuessType = function() {
     QUnit.test('Guess type', function() {
         var control = MB.Control.URLCleanup();
         var tests = [
+                // Wikipedia
                 [
                     'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
                     MB.constants.LINK_TYPES.wikipedia.artist
@@ -17,12 +18,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://en.wikipedia.org/wiki/Astralwerks',
                     MB.constants.LINK_TYPES.wikipedia.label
                 ],
+                // Discogs
                 [
                     'artist', 'http://www.discogs.com/artist/Source+Direct',
                     MB.constants.LINK_TYPES.discogs.artist
                 ],
                 [
+                    'artist', 'http://www.discogs.com/artist/301-Source-Direct',
+                    MB.constants.LINK_TYPES.discogs.artist
+                ],
+                [
                     'label', 'http://www.discogs.com/label/Demonic',
+                    MB.constants.LINK_TYPES.discogs.label
+                ],
+                [
+                    'label', 'http://www.discogs.com/label/2262-Demonic',
                     MB.constants.LINK_TYPES.discogs.label
                 ],
                 [
@@ -472,6 +482,23 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                     MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // VGMdb
+                [
+                    'artist', 'http://vgmdb.net/artist/431',
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'label', 'http://vgmdb.com/org/284',
+                    MB.constants.LINK_TYPES.vgmdb.label
+                ],
+                [
+                    'artist', 'http://vgmdb.com/org/284', // VGMdb orgs can be groups
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'release', 'http://vgmdb.net/album/29727',
+                    MB.constants.LINK_TYPES.vgmdb.release
                 ]
             ];
 
@@ -492,6 +519,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
                     'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
                     'release'
+                ],
+                // %E2%80%8E cleanup
+                [
+                    'https://soundcloud.com/alisonwonderland%E2%80%8E',
+                    'https://soundcloud.com/alisonwonderland',
+                    'artist'
                 ],
                 [
                     'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
@@ -543,6 +576,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://twitter.com/miguelgrimaldo',
                     'artist'
                 ],
+                [
+                    'https://mobile.twitter.com/cirrhaniva',
+                    'https://twitter.com/cirrhaniva',
+                    'artist'
+                ],
+                [
+                    'https://twitter.com/@UNIVERSAL_D',
+                    'https://twitter.com/UNIVERSAL_D',
+                    'artist'
+                ],
+                [
+                    'http://twitter.com/ACEHOOD/',
+                    'https://twitter.com/ACEHOOD',
+                    'artist'
+                ],
                 // SoundCloud
                 [
                     'http://soundcloud.com/alec_empire',
@@ -554,6 +602,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.discogs.com/Various-Out-Patients-2/release/5578',
                     'http://www.discogs.com/release/5578',
                     'release'
+                ],
+                [
+                    'http://www.discogs.com/artist/3080207-Maybebop',
+                    'http://www.discogs.com/artist/3080207',
+                    'artist'
                 ],
                 [
                     // FIXME Need a "bad" archive.org link
@@ -630,6 +683,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.facebook.com/RomanzMusic',
                     'artist'
                 ],
+                [
+                    'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
+                    'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
+                    'artist'
+                ],
                     // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
@@ -652,6 +710,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://vimeo.com/1109226',
                     'streamingmusic'
                 ],
+                // YouTube
                 [
                     'http://youtu.be/UmHdefsaL6I',
                     'http://www.youtube.com/watch?v=UmHdefsaL6I',
@@ -665,6 +724,16 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://youtube.com/user/officialpsy/videos',
                     'http://www.youtube.com/user/officialpsy',
+                    'artist'
+                ],
+                [
+                    'https://www.youtube.com/user/JessVincentMusic?feature=watch',
+                    'http://www.youtube.com/user/JessVincentMusic',
+                    'artist'
+                ],
+                [
+                    'http://m.youtube.com/#/user/JessVincentMusic',
+                    'http://www.youtube.com/user/JessVincentMusic',
                     'artist'
                 ],
                 [
@@ -746,6 +815,11 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
+                    'https://itunes.apple.com/us/album/id721686178',
+                    'release'
+                ],
+                [
                     'https://pt.wikisource.org/wiki/A_Portuguesa',
                     'http://pt.wikisource.org/wiki/A_Portuguesa',
                     'work'
@@ -814,6 +888,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
                 ],
+                [
+                    'http://wikipedia.org/wiki/Oberhofer',
+                    'http://en.wikipedia.org/wiki/Oberhofer',
+                ],
                 // Open Library
                 [
                     'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
@@ -848,6 +926,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
                 ],
+                [
+                    'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                    'http://viaf.org/viaf/32197206',
+                ],
                 // Anime News Network
                 [
                     'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -879,6 +961,22 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                    'artist'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
+                    'http://soundtrackcollector.com/title/39473/',
+                    'release_group'
+                ],
+                [
+                    'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
+                    'http://soundtrackcollector.com/title/99711/',
+                    'release_group'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
+                    'http://soundtrackcollector.com/composer/94/',
+                    'artist'
                 ],
                 // Recochoku
                 [
@@ -893,6 +991,22 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                     'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                ],
+                // VGMdb
+                [
+                    'https://vgmdb.net/artist/431',
+                    'http://vgmdb.net/artist/431',
+                    'artist'
+                ],
+                [
+                    'https://vgmdb.com/org/284',
+                    'http://vgmdb.net/org/284',
+                    'label'
+                ],
+                [
+                    'vgmdb.net/album/29727',
+                    'http://vgmdb.net/album/29727',
+                    'release'
                 ]
             ];
 

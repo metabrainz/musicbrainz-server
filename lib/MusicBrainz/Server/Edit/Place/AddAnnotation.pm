@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Place';
 
 sub edit_name { N_l('Add place annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_PLACE_ADD_ANNOTATION }
 
 sub _build_related_entities { { place => [ shift->place_id ] } }

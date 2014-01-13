@@ -10,6 +10,7 @@ use MusicBrainz::Server::Edit::Utils qw( conditions_without_autoedit );
 
 sub edit_name { N_l('Remove disc ID') }
 sub edit_type { $EDIT_MEDIUM_REMOVE_DISCID }
+sub edit_kind { 'remove' }
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Medium::RelatedEntities';

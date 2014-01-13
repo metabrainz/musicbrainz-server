@@ -885,6 +885,11 @@ BEGIN
     SELECT id FROM url url_row WHERE id = any(ids)
     AND NOT (
       EXISTS (
+        SELECT TRUE FROM l_area_url
+        WHERE entity1 = url_row.id
+        LIMIT 1
+      ) OR
+      EXISTS (
         SELECT TRUE FROM l_artist_url
         WHERE entity1 = url_row.id
         LIMIT 1
@@ -1067,6 +1072,8 @@ AS $$
       ) AND NOT EXISTS (
         SELECT TRUE FROM track WHERE track.recording = outer_r.id LIMIT 1
       ) AND NOT EXISTS (
+        SELECT TRUE FROM l_area_recording WHERE entity1 = outer_r.id
+          UNION ALL
         SELECT TRUE FROM l_artist_recording WHERE entity1 = outer_r.id
           UNION ALL
         SELECT TRUE FROM l_label_recording WHERE entity1 = outer_r.id

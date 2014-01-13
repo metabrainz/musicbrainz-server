@@ -48,7 +48,6 @@ sub area_toplevel
     $self->linked_areas ($c, $stash, [ $area ]);
 
 
-    $c->model('Area')->load_codes($area);
     $c->model('AreaType')->load($area);
 
     $c->model('Area')->annotation->load_latest($area)

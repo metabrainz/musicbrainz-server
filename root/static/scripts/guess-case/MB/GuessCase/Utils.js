@@ -25,7 +25,7 @@ MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
  * Utility functions, definitions
  **/
 MB.GuessCase.Utils = function () {
-    var self = MB.Object ();
+    var self = {};
 
     /**
      * Renders an array to an associative array with lowercase keys.

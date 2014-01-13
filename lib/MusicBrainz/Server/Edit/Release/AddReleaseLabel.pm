@@ -14,6 +14,7 @@ with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub edit_name { N_l('Add release label') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELEASE_ADDRELEASELABEL }
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
 

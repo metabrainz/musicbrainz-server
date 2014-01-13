@@ -33,14 +33,19 @@ Readonly my @CODE_TYPES => qw( iso_3166_1 iso_3166_2 iso_3166_3 );
 
 sub _table
 {
-    return 'area';
+    return 'area ' .
+           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = area.id ' .
+           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = area.id ' .
+           'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = area.id';
 }
 
 sub _columns
 {
     return 'area.id, gid, area.name, area.sort_name, area.comment, area.type, ' .
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
-           'end_date_year, end_date_month, end_date_day, ended, area.last_updated';
+           'end_date_year, end_date_month, end_date_day, ended, area.last_updated, ' .
+           'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, ' .
+           'iso_3166_3s.codes AS iso_3166_3';
 }
 
 sub browse_column { 'name' }
@@ -58,17 +63,10 @@ sub _gid_redirect_table
 sub _column_mapping
 {
     return {
-        id => 'id',
-        gid => 'gid',
-        name => 'name',
-        sort_name => 'sort_name',
-        type_id => 'type',
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
-        comment => 'comment',
-        edits_pending => 'edits_pending',
-        last_updated => 'last_updated',
-        ended => 'ended'
+        type_id => 'type',
+        map {$_ => $_} qw( id gid name sort_name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
     };
 }
 
@@ -81,34 +79,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
-}
-
-sub load_codes
-{
-    my ($self, @objs) = @_;
-
-    my %obj_id_map = object_to_ids(grep { defined } @objs);
-    my @all_ids = keys %obj_id_map;
-
-    my $codes = $self->sql->select_list_of_hashes(
-        "SELECT type, area, code
-           FROM (SELECT 'iso_3166_1' AS type, code, area FROM iso_3166_1 UNION ALL
-                 SELECT 'iso_3166_2' AS type, code, area FROM iso_3166_2 UNION ALL
-                 SELECT 'iso_3166_3' AS type, code, area FROM iso_3166_3) s WHERE area = any(?)",
-        [ @all_ids ]
-    );
-
-    for my $code (@$codes) {
-        if (my $entities = $obj_id_map{ $code->{area} }) {
-            my $all = $code->{type} . '_codes';
-            my $add = 'add_' . $code->{type};
-            for my $entity (@$entities) {
-                if (!grep { $_ eq $code->{code} } $entity->$all) {
-                    $entity->$add($code->{code});
-                }
-            }
-        }
-    }
 }
 
 sub load_containment
@@ -381,13 +351,16 @@ sub get_by_iso_3166_3 {
 
 sub _get_by_iso {
     my ($self, $table, @codes) = @_;
-    my $query = "SELECT iso.code, " . $self->_columns .
-        " FROM $table iso JOIN area ON iso.area = area.id" .
-        " WHERE iso.code = any(?)";
+    my $query = "SELECT ${table}s.codes AS iso_codes, " . $self->_columns .
+        " FROM " . $self->_table . " WHERE ${table}s.codes && ?";
 
     my %ret = map { $_ => undef } @codes;
     for my $row (@{ $self->sql->select_list_of_hashes($query, \@codes) }) {
-        $ret{$row->{code}} = $self->_new_from_row($row);
+        for my $code (@codes) {
+            if (any {$_ eq $code} @{ $row->{iso_codes} }) {
+                $ret{$code} = $self->_new_from_row($row);
+            }
+        }
     }
 
     return \%ret;

@@ -2,6 +2,8 @@
 <table class="tbl">
     <thead>
         <tr>
+            [% BLOCK extra_header_start %][% END %]
+            [%- PROCESS extra_header_start -%]
             <th>[% l('Label') %]</th>
         </tr>
     </thead>
@@ -9,6 +11,8 @@
         [%- lastgid = 0 -%]
         [%- FOR item IN items -%]
             <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+                [% BLOCK extra_row_start %][% END %]
+                [%- PROCESS extra_row_start -%]
                 <td>[% link_entity(item.label) %]</td>
             </tr>
         [%- END -%]

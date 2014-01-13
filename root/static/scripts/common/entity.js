@@ -62,7 +62,8 @@
 
         template: _.template(
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
-            "<a href=\"/<%= data.type %>/<%- data.gid %>\" target=\"_blank\"" +
+            "<a href=\"/<%= data.type %>/<%- data.gid %>\"" +
+            "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortname) { %> title=\"<%- data.sortname %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
@@ -91,8 +92,8 @@
             }
         },
 
-        html: function () {
-            return this.template(this);
+        html: function (renderParams) {
+            return this.template(_.extend(renderParams || {}, this));
         }
     });
 
@@ -141,7 +142,6 @@
             this.number = data.number;
             this.position = data.position;
             this.length = MB.utility.formatTrackLength(data.length);
-            this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             this.gid = data.gid;
 
             if (data.recording) {
@@ -149,20 +149,25 @@
             }
         },
 
-        around$html: function (supr) {
+        around$html: function (supr, renderParams) {
             var recording = this.recording;
 
             if (!recording) {
-                return supr();
+                return supr(renderParams);
             }
 
-            return this.template({
-                type: "recording",
-                gid: recording.gid,
-                name: this.name,
-                comment: recording.comment,
-                editsPending: recording.editsPending
-            });
+            return this.template(
+                _.extend(
+                    renderParams || {},
+                    {
+                        type: "recording",
+                        gid: recording.gid,
+                        name: this.name,
+                        comment: recording.comment,
+                        editsPending: recording.editsPending
+                    }
+                )
+            );
         }
     });
 
@@ -182,8 +187,12 @@
     MB.entity.ArtistCreditName = aclass(Entity, {
 
         template: _.template(
-            "<a href=\"/artist/<%- data.gid %>\" target=\"_blank\" title=\"" +
-            "<%- data.title %>\"><%- data.name %></a><%- data.join %>",
+            "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
+            "<a href=\"/artist/<%- data.gid %>\"" +
+            "<% if (data.target) print(' target=\"_blank\"'); %>" +
+            " title=\"<%- data.title %>\"><%- data.name %></a>" +
+            "<% if (data.nameVariation) print('</span>'); %>" +
+            "<%- data.join %>",
             null,
             {variable: "data"}
         ),
@@ -223,11 +232,12 @@
             return ko.unwrap(this.name) + ko.unwrap(this.joinPhrase);
         },
 
-        html: function () {
+        html: function (renderParams) {
             if (!this.hasArtist()) {
                 return _.escape(this.text());
             }
 
+            var name = ko.unwrap(this.name);
             var artist = ko.unwrap(this.artist);
             var title = artist.sortname;
 
@@ -235,19 +245,18 @@
                 title += " (" + artist.comment + ")";
             }
 
-            var link = this.template({
-                gid:   artist.gid,
-                title: title,
-                name:  ko.unwrap(this.name),
-                join:  ko.unwrap(this.joinPhrase)
-            });
-
-            if (ko.unwrap(this.name) != artist.name) {
-                return '<span class="name-variation">' + link + '</span>';
-            }
-            else {
-                return link;
-            }
+            return this.template(
+                _.extend(
+                    renderParams || {},
+                    {
+                        gid:   artist.gid,
+                        title: title,
+                        name:  name,
+                        join:  ko.unwrap(this.joinPhrase),
+                        nameVariation: name !== artist.name
+                    }
+                )
+            );
         },
 
         toJS: function () {
@@ -304,11 +313,11 @@
             }, "");
         },
 
-        html: function () {
+        html: function (renderParams) {
             var names = ko.unwrap(this.names);
 
             return _.reduce(names, function (memo, name) {
-                return memo + name.html();
+                return memo + name.html(renderParams);
             }, "");
         },
 

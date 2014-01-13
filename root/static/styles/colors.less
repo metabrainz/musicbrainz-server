@@ -1,0 +1,87 @@
+@text-black: #000000;                                // black text
+@text-white: #FFFFFF;                                // white text
+
+@effectively-black: #333333;                         // darkest grey
+@effectively-black-text: @effectively-black;         // even frickin' darker
+@very-dark-grey: #666666;                            // more grey
+@very-dark-text: @very-dark-grey;                    // very dark grey text
+@dark-grey: #999999;                                 // greygreygrey
+@dark-text: @dark-grey;                              // dark-grey text
+@dark-border: @dark-grey;                            // dark border
+@medium-grey: #CCCCCC;                               // lighter
+@medium-border: @medium-grey;                        // medium border
+@medium-bg: @medium-grey;                            // dark, isn't it?
+@hr-color: @medium-grey;                             // the color for hr lines
+@light-grey: #DDDDDD;                                // and lighter
+@light-text: @light-grey;                            // light text (on a dark background, usually)
+@light-border: @light-grey;                          // light border
+@light-bg: @light-grey;                              // sorta middling
+@very-light-grey: #EEEEEE;                           // pretty darn light
+@very-light-border: @very-light-grey;                // very light border
+@very-light-bg: @very-light-grey;                    // slightly darker
+@effectively-white: #F9F9F9;                         // barely even grey anymore
+@effectively-white-bg: @effectively-white;           // really darn light backgrounds
+
+@dark-button-border: @medium-border;                 // the darker of the button border colors (for shading)
+@light-button-border: @very-light-border;            // the lighter of the button border colors (for shading)
+
+@musicbrainz-purple: #736DAB;                        // the purple used in the top header and some subheaders
+@musicbrainz-orange: #FFBA58;                        // the orange used alongside that purple
+
+@text-orange: #FC6714;                               // the orange we use for text (headers, link hovers, etc.)
+@edit-orange: #FFDD99;                               // the edits-pending color. also used other random spots
+
+@link-default: #002BBA;                              // default link color
+@link-visited: #632D9B;                              // visited link color
+
+@light-border-blue: #ADB9CC;                         // the thin-bordered table borders (e.g. statistics)
+@light-border-background: @very-light-border;        // the background for the light-border tables
+
+@warning-background: #FFFFD0;                        // "warning" and "notice" background
+
+@positive-bg: #B1EBB0;                               // background color for positive and success states
+@positive-light-bg: #E4FBE4;                         // lighter version
+@negative-bg: #EBB1BA;                               // background color for negative and failure states
+@negative-light-bg: #FBE3E4;                         // lighter version
+
+@rel-edit: @edit-orange;                             // edited rels in the rel editor (+ edit hover) (background)
+
+@yes-border: @positive-text;                         // border around 'yes' vote in edit-note h3/img
+@no-border: @negative-text;                          // border around 'no' vote in edit note h3/img
+
+@abstain-bg: #F2F0A5;                                // background for 'abstain' votes (yes/no use @positive/negative-bg)
+
+@button-text: @very-dark-text;                       // button text before hover/click
+@button-hover-background: #DFF4FF;                   // default button hover/focus background
+@button-hover-text: #336699;                         // default button hover/focus text
+@button-hover-border: #C2E1EF;                       // default button hover/focus border
+@button-active: #6299C5;                             // default button background/border color when clicked
+
+@negative-text: #D12F19;                             // negative text color
+@negative-hover-background: @negative-light-bg;      // negative button hover/focus background
+@negative-hover-text: @negative-text;                // negative button hover/focus text
+@negative-hover-border: #FBC2C4;                     // negative button hover/focus border
+@negative-active: @negative-text;                    // negative button background/border color when clicked
+
+@positive-text: #529214;                             // positive text color
+@positive-hover-background: #E6EFC2;                 // positive button hover/focus background
+@positive-hover-text: @positive-text;                // positive button hover/focus text
+@positive-hover-border: #C6D880;                     // positive button hover/focus border
+@positive-active: @positive-text;                    // positive button background/border color when clicked
+
+@rg-type-label: #589DFF;                             // RG type labels (on artist page listing)
+
+@failed-header: #FF0000;                             // header for failed [vote] edits
+@error-header: #660000;                              // header for errored edits
+
+@even-table-row: #F2F2F2;                            // even table row zebra-stripe gray
+@highlight-table-row: #F2F2B2;                       // highlighted rows in zebra-stripe tables, linked edit notes
+
+@multiselect-highlight: #FEFFDE;                     // highlight color when searching in the multiselect plugin
+
+@edit-cancelled-bg: @light-grey;                     // cancelled edit header
+@edit-add-bg: @positive-bg;                          // add edit header
+@edit-edit-bg: #F0E68C;                              // "edit" edit header
+@edit-remove-bg: @negative-bg;                       // remove edit header
+@edit-merge-bg: #DDA0DD;                             // merge edit header
+@edit-other-bg: #ADD8E6;                             // other edit header

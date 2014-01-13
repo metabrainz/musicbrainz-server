@@ -26,6 +26,7 @@ with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
+sub edit_kind { 'edit' }
 
 sub _xml_arguments { ForceArray => ['attributes'] }
 

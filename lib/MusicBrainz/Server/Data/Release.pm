@@ -30,6 +30,7 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name';
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::BrowseVA';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
@@ -1278,14 +1279,6 @@ sub load_release_events {
 
     $self->c->model('Area')->load(
         grep { $_->country_id && !defined($_->country) }
-        map { $_->all_events }
-        @releases
-    );
-
-    $self->c->model('Area')->load_codes(
-        grep { !defined($_->primary_code) }
-        grep defined,
-        map { $_->country }
         map { $_->all_events }
         @releases
     );

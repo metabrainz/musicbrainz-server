@@ -1,18 +1,5 @@
-[% BLOCK layout_head %]
-  [% script_manifest('edit.js.manifest') %]
-
-   <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
-      MB.Control.URLCleanup(
-        $('#id-ar\\.type').val(),
-        $('#id-ar\\.link_type_id'),
-        $('#id-ar\\.url')
-      );
-    });
-   //]]></script>
-[% END %]
-
 [%- WRAPPER 'layout.tt' title=l('Add URL Relationship') full_width=1 -%]
+    [% script_manifest('edit.js.manifest') %]
 
     <h1>[% l('Add URL Relationship') %]</h1>
 
@@ -87,5 +74,13 @@
     [% enter_edit() %]
 
     </form>
+
+    <script type="text/javascript">//<![CDATA[
+      MB.Control.URLCleanup(
+        $("#id-ar\\.type").val(),
+        $("#id-ar\\.link_type_id"),
+        $("#id-ar\\.url")
+      );
+    //]]></script>
 
 [% END %]

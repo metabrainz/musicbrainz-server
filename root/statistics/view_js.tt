@@ -76,8 +76,8 @@
             "count.editor.valid": { Label: '[% l('Editors (valid)') | js %]', Color: '#ff3333', Description: '[% l('Count of non-deleted editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.valid.active": { Label: '[% l('Editors (valid & active ever)') | js %]', Color: '#ff3333', Description: '[% l('Count of active editors') | js %]', Category: "edit-information", Hide: true },
             "count.editor.deleted": { Label: '[% l('Editors (deleted)') | js %]', Color: '#ffaaaa', Description: '[% l('Count of deleted editors') | js %]', Category: "edit-information", Hide: true },
-            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last week') | js %]', Category: "edit-information" },
-            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last week') | js %]', Category: "edit-information" },
+            "count.editor.editlastweek": { Label: '[% l('Active Editors') | js %]', Color: '#6600ff', Description: '[% l('Count of editors who have submitted edits during the last 7 days') | js %]', Category: "edit-information" },
+            "count.editor.votelastweek": { Label: '[% l('Active Voters') | js %]', Color: '#cc00ff', Description: '[% l('Count of editors who have voted on during the last 7 days') | js %]', Category: "edit-information" },
             "count.editor.activelastweek": { Label: '[% l('Active Users') | js %]', Color: '#ff00cc', Description: '[% l('Count of active editors (editing or voting) during the last week') | js %]', Category: "edit-information" },
 
             "count.artist.country.null": { Label: '[% l('Unknown Country') | js %]', Color: '#ff0000', Description: '[% l('Artists with no country set') | js %]', Category: "artist-countries" },
@@ -114,6 +114,7 @@
             "count.artist.type.person": { Label: '[% l('Persons') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') | js %]', Category: 'artist-other' },
             "count.artist.type.group": { Label: '[% l('Groups') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') | js %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') | js %]', Category: 'artist-other' },
+            "count.artist.type.character": { Label: '[% l('Characters') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to character') | js %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type unset') | js %]', Category: 'artist-other' },
 
             "count.artist.has_credits": { Label: '[% l('Artists in ACs') | js %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') | js %]', Category: 'artist-other' },

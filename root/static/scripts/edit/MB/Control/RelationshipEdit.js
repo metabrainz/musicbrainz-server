@@ -19,7 +19,7 @@
 */
 
 MB.Control.RelationshipEntity = function (entity) {
-    var self = MB.Object ();
+    var self = {};
 
     self.$name = $('#id-ar\\.' + entity + '\\.name');
 
@@ -51,7 +51,7 @@ MB.Control.RelationshipEntity = function (entity) {
 }
 
 MB.Control.RelationshipEdit = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.$direction = $('#id-ar\\.direction');
     self.entity0 = MB.Control.RelationshipEntity ('entity0');

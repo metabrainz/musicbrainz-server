@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Edit::Label';
 sub _alias_model { shift->c->model('Label')->alias }
 
 sub edit_name { N_l('Add label alias') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_LABEL_ADD_ALIAS }
 
 sub _build_related_entities { { label => [ shift->label_id ] } }

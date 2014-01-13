@@ -1,9 +1,11 @@
+@import "colors.less";
+
 /*
  * Stuff common to most entity types
  */
 
 div.tabs {
-    border-bottom: solid 1px #a1a1a1;
+    border-bottom: solid 1px @dark-border;
     padding-top: 1em;
     font-size: 95%;
 }
@@ -28,22 +30,22 @@ div.tabs ul li a {
     padding: 0.1em 0.5em;
     margin-left: 4px;
     text-decoration: none;
-    background: #f1f1f1;
-    color: #000;
-    border: solid 1px #a1a1a1;
-    border-bottom: solid 1px #a1a1a1;
+    background: @very-light-bg;
+    color: @text-black;
+    border: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 div.tabs ul li.sel a {
     background: #fff;
-    color: #000;
+    color: @text-black;
     font-weight: bold;
     border-bottom: solid 1px #fff;
 }
 
 div.tabs ul li a:hover {
     background: #fff;
-    color: #000;
+    color: @text-black;
 }
 
 .areaheader, .artistheader, .releaseheader, .rgheader,
@@ -66,7 +68,7 @@ div.tabs ul li a:hover {
 
 span.comment, span.historical { 
     font-weight: normal;
-    color: #888;
+    color: @dark-text;
 }
 
 h1 span.comment, span.historical {
@@ -80,7 +82,7 @@ p.subheader {
     font-size: 96%;
 }
 
-p.subheader span { color: #999; }
+p.subheader span { color: @dark-text; }
 
 .tagger-icon img { border: 0; }
 .releaseheader .tagger-icon, .recordingheader .tagger-icon { margin-top: 1em; float: right; }

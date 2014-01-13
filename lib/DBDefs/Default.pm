@@ -204,7 +204,7 @@ sub CACHE_MANAGER_OPTIONS {
             memory => {
                 class => 'Cache::Memory',
                 wrapped => 1,
-                keys => [qw( at g c lng lt mf place_types rgt rs rp scr wt )],
+                keys => [qw( area_type artist_type g c lng label_type mf place_type release_group_type release_group_secondary_type rs rp scr work_type )],
                 options => {
                     default_expires => '1 hour',
                 },

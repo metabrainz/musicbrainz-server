@@ -36,13 +36,13 @@ is( $rg->artist_credit_id, 1 );
 is( $rg->primary_type_id, 1 );
 is( $rg->edits_pending, 2 );
 
-my ($rgs, $hits) = $rg_data->find_by_artist(1, 100, 0);
+my ($rgs, $hits) = $rg_data->find_by_artist(1, 1, 100, 0);
 is( $hits, 2 );
 is( scalar(@$rgs), 2 );
 is( $rgs->[0]->id, 1 );
 is( $rgs->[1]->id, 2 );
 
-($rgs, $hits) = $rg_data->find_by_track_artist(3, 100, 0);
+($rgs, $hits) = $rg_data->find_by_track_artist(3, 1, 100, 0);
 is( $hits, 1 );
 is( scalar(@$rgs), 1 );
 ok( (grep { $_->id == 5 } @$rgs), 'found release group 5' );

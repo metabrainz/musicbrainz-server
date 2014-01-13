@@ -34,5 +34,4 @@
       <button type="submit" name="submit" value="cancel" class="negative">[% l('Cancel') %]</button>
     </div>
   </form>
-  <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
 </div>

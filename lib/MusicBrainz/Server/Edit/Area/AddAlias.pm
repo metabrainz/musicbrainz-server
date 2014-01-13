@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Edit::Area';
 sub _alias_model { shift->c->model('Area')->alias }
 
 sub edit_name { N_l('Add area alias') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_AREA_ADD_ALIAS }
 
 sub _build_related_entities { { area => [ shift->area_id ] } }

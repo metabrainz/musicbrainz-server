@@ -1,7 +1,3 @@
-[%- BLOCK layout_head -%]
-  [% script_manifest('edit.js.manifest') %]
-[%- END -%]
-
 [% BLOCK link_type %]
     <li style="padding-top: 0.5em">
         <span><strong>[% obj.name | html %]</strong> (<a class="toggle" style="cursor:pointer">[% l("more") %]</a>)</span>
@@ -39,6 +35,8 @@
 
 [% WRAPPER "layout.tt" title=l("{type0}-{type1} Relationship Types", { type0 => format_entity_type_name(type0), type1 => format_entity_type_name(type1) }) full_width=1 %]
     <div id="content">
+        [% script_manifest('edit.js.manifest') %]
+
         [%- INCLUDE 'relationship/header.tt' %]
 
         <p><small><a href="[% c.uri_for_action('/relationship/linktype/index') %]">[%- l('&lt; Back to all relationship types') -%]</a></small></p>

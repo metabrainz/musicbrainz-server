@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Edit::Place';
 sub _alias_model { shift->c->model('Place')->alias }
 
 sub edit_name { N_l('Add place alias') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_PLACE_ADD_ALIAS }
 
 sub _build_related_entities { { place => [ shift->place_id ] } }

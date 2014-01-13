@@ -8,6 +8,7 @@ use MusicBrainz::Server::Edit::Types qw( NullableOnPreview );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 sub edit_name { N_l('Add disc ID') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_MEDIUM_ADD_DISCID }
 
 use aliased 'MusicBrainz::Server::Entity::CDTOC';

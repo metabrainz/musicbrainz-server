@@ -10,8 +10,6 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( l ln );
 
-has 'allow_unlinked' => ( isa => 'Bool', is => 'rw', default => '0' );
-
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
 has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');
 has_field 'names.artist'      => ( type => '+MusicBrainz::Server::Form::Field::Artist' );
@@ -51,18 +49,11 @@ around 'validate_field' => sub {
         }
         elsif (! $artist_id && ( $name || $artist_name ))
         {
-            if ($self->allow_unlinked)
-            {
-                $artists++;
-            }
-            else
-            {
-                # FIXME: better error message.
-                $self->add_error (
-                    l('Artist "{artist}" is unlinked, please select an existing artist.
-                       You may need to add a new artist to MusicBrainz first.',
-                      { artist => ($name || $artist_name) }));
-            }
+            # FIXME: better error message.
+            $self->add_error (
+                l('Artist "{artist}" is unlinked, please select an existing artist.
+                   You may need to add a new artist to MusicBrainz first.',
+                  { artist => ($name || $artist_name) }));
         }
         elsif (!$artist_id)
         {

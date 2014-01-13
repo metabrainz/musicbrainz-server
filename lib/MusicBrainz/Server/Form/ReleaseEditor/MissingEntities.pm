@@ -6,66 +6,59 @@ use MusicBrainz::Server::Data::Utils qw( type_to_model );
 extends 'MusicBrainz::Server::Form::Step';
 has_field 'missing' => ( type => 'Compound' );
 
-my @types = qw( artist label );
+has_field "missing.artist" => (
+    type => 'Repeatable',
+    num_when_empty => 0
+);
 
-for my $type (@types) {
-    has_field "missing.$type" => (
-        type => 'Repeatable',
-        num_when_empty => 0
-    );
+has_field "missing.artist.name" => (
+    type => 'Text',
+    required => 1
+);
 
-    has_field "missing.$type.name" => (
-        type => 'Text',
-        required => 1
-    );
+has_field "missing.artist.for" => (
+    type => 'Text',
+    required => 1
+);
 
-    has_field "missing.$type.for" => (
-        type => 'Text',
-        required => 1
-    );
+has_field "missing.artist.sort_name" => (
+    type => 'Text'
+);
 
-    has_field "missing.$type.sort_name" => (
-        type => 'Text'
-    );
+has_field "missing.artist.comment" => (
+    type => 'Text'
+);
 
-    has_field "missing.$type.comment" => (
-        type => 'Text'
-    );
-
-    has_field "missing.$type.entity_id" => (
-        type => '+MusicBrainz::Server::Form::Field::Integer',
-        required => 1
-    );
-}
+has_field "missing.artist.entity_id" => (
+    type => '+MusicBrainz::Server::Form::Field::Integer',
+    required => 1
+);
 
 sub validate {
     my $self = shift;
 
-    for my $type (@types) {
+    my @new_entities;
 
-        my @new_entities;
+    for my $field ($self->field('missing')->field('artist')->fields) {
+        next if $field->has_errors;
+        next if !defined $field->field('entity_id')->value;
 
-        for my $field ($self->field('missing')->field($type)->fields) {
-            next if $field->has_errors;
-            next if !defined $field->field('entity_id')->value;
-
-            unless ($field->field('entity_id')->value > 0) {
-                $field->field('sort_name')->required(1);
-                $field->field('sort_name')->validate_field;
-                push @new_entities, $field;
-            }
+        unless ($field->field('entity_id')->value > 0) {
+            $field->field('sort_name')->required(1);
+            $field->field('sort_name')->validate_field;
+            push @new_entities, $field;
         }
+    }
 
-        my %entities = $self->ctx->model(type_to_model($type))
-            ->find_by_names(map { $_->field('name')->input } @new_entities);
+    my %entities = $self->ctx->model('Artist')
+        ->find_by_names(map { $_->field('name')->input } @new_entities);
 
-        for my $field (@new_entities)
+    for my $field (@new_entities)
+    {
+        if (exists $entities{$field->field('name')->input})
         {
-            if (exists $entities{$field->field('name')->input})
-            {
-                $field->field('comment')->required(1);
-                $field->field('comment')->validate_field;
-            }
+            $field->field('comment')->required(1);
+            $field->field('comment')->validate_field;
         }
     }
 }

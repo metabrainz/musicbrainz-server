@@ -19,7 +19,7 @@
 */
 
 MB.Control.GuessCase = function (type, $name) {
-    var self = MB.Object ();
+    var self = {};
 
     self.type = type;
     self.$name = $name;
@@ -36,7 +36,7 @@ MB.Control.GuessCase = function (type, $name) {
 
 
 MB.Control.SortName = function (type, $name, $sortname, $cont) {
-    var self = MB.Object ();
+    var self = {};
 
     self.type = type;
     self.$name = $name;

@@ -31,7 +31,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * @see GcTrackHandler
  */
 MB.GuessCase.Handler.Base = function () {
-    var self = MB.Object ();
+    var self = {};
 
     // ----------------------------------------------------------------------------
     // register class/global id
