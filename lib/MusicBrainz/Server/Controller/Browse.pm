@@ -16,6 +16,8 @@ sub _browse
     });
 
     $c->stash(
+        template => 'browse/entity.tt',
+        type     => $model_name,
         entities => $entities,
         index    => $index,
     );

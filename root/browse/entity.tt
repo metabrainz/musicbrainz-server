@@ -1,6 +1,14 @@
-[% WRAPPER 'layout.tt' title=l("Browse Release Groups") full_width=1 %]
+[% IF type == 'Area'; title=l("Browse Areas");
+ELSIF type == 'Artist'; title=l("Browse Artists");
+ELSIF type == 'Label'; title=l("Browse Labels");
+ELSIF type == 'Place'; title=l("Browse Places");
+ELSIF type == 'ReleaseGroup'; title=l("Browse Release Groups");
+ELSIF type == 'Release'; title=l("Browse Releases");
+ELSIF type == 'Work'; title=l("Browse Works");
+END -%]
+[%- WRAPPER 'layout.tt' title=title full_width=1 -%]
     <div id="content">
-        <h1>[% l("Browse Release Groups") %]</h1>
+        <h1>[% title %]</h1>
 
         [% IF entities.size %]
             [% WRAPPER 'components/with-pager.tt' %]
@@ -26,4 +34,4 @@
             <p>[% l('There is no data to display.') %]</p>
         [% END %]
     </div>
-[% END %]
+[%- END -%]
