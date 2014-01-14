@@ -128,7 +128,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.reorder_position ();
+            MB.CoverArt.image_position ();
         </script>
       [%- END -%]
     </div>
