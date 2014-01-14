@@ -253,7 +253,7 @@
 [%- MACRO iswc_bubble(work) BLOCK -%]
   <div class="iswcs container" style="display: none">
     <div class="iswcs bubble">
-      <p>[% l('You are about to add an ISWC to {work}. The ISWC must be entered in
+      <p>[% l('You are about to add an ISWC to this work. The ISWC must be entered in
                standard <code>T-DDD.DDD.DDD-C</code> format:',
               { work => work }) %]</p>
       <ul>
@@ -267,7 +267,7 @@
 [%- MACRO isrc_bubble(recording) BLOCK -%]
   <div class="isrcs container" style="display: none">
     <div class="isrcs bubble">
-      <p>[% l('You are about to add an ISRC to {recording}. The ISRC must be entered in
+      <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
                standard <code>CCXXXYYNNNNNN</code> format:',
               { recording => recording }) %]</p>
       <ul>
