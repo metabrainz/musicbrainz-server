@@ -114,6 +114,7 @@
             "count.artist.type.person": { Label: '[% l('Persons') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to person') | js %]', Category: 'artist-other' },
             "count.artist.type.group": { Label: '[% l('Groups') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to group') | js %]', Category: 'artist-other' },
             "count.artist.type.other": { Label: '[% l('Other-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to other') | js %]', Category: 'artist-other' },
+            "count.artist.type.character": { Label: '[% l('Characters') | js %]', Color: '#ff0000', Description: '[% l('Artists with type set to character') | js %]', Category: 'artist-other' },
             "count.artist.type.null": { Label: '[% l('Unknown-type Artists') | js %]', Color: '#ff0000', Description: '[% l('Artists with type unset') | js %]', Category: 'artist-other' },
 
             "count.artist.has_credits": { Label: '[% l('Artists in ACs') | js %]', Color: '#ff0000', Description: '[% l('Artists with at least one artist credit appearance') | js %]', Category: 'artist-other' },
