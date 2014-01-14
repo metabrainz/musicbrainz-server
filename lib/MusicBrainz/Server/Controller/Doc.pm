@@ -54,7 +54,7 @@ sub relationship_type : Path('/relationship') Args(1) {
     }
 
     my $relationship_type = $c->model('LinkType')->get_by_gid($link_type_gid)
-        or $self->not_found($c);
+        or $c->detach('/error_404');
 
     $c->model('LinkAttributeType')->load($relationship_type->all_attributes);
     $c->model('LinkType')->load_documentation($relationship_type);
