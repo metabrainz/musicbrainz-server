@@ -101,11 +101,7 @@ sub validate {
         my $catalog_number = $label->field('catalog_number')->value;
 
         $label->field('name')->add_error(l('You must select an existing label.'))
-            unless (
-                $label_id || $catalog_number ||
-                !($label_id || $catalog_number || $name) ||
-                $label->field('deleted')->value
-            );
+            if ($name && !$label_id && !$label->field('deleted')->value);
     }
 
     # A release_group_id *must* be present if we're editing an existing release.
