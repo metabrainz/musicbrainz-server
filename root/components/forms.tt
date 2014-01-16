@@ -254,8 +254,7 @@
   <div class="iswcs container" style="display: none">
     <div class="iswcs bubble">
       <p>[% l('You are about to add an ISWC to this work. The ISWC must be entered in
-               standard <code>T-DDD.DDD.DDD-C</code> format:',
-              { work => work }) %]</p>
+               standard <code>T-DDD.DDD.DDD-C</code> format:') %]</p>
       <ul>
         <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
         <li>[% l('"C" is a single check digit.') %]</li>
@@ -268,8 +267,7 @@
   <div class="isrcs container" style="display: none">
     <div class="isrcs bubble">
       <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNNN</code> format:',
-              { recording => recording }) %]</p>
+               standard <code>CCXXXYYNNNNNN</code> format:') %]</p>
       <ul>
         <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
         <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
