@@ -725,45 +725,40 @@ MB.tests.RelationshipEditor.Dialog = function() {
             source = tracks[0].recording,
             target = MB.entity({type: "artist", gid: "00000000-0000-0000-0000-000000000003"});
 
-        UI.Dialog.resize = function() {};
-
         var tests = [
             {
-                entity: [MB.entity({type: "recording"}), MB.entity({type: "release"})],
                 backward: true,
-                source: function() {return this.entity[1];},
-                target: function() {return this.entity[0];}
+                source: MB.entity({type: "release"}),
+                target: MB.entity({type: "recording"})
             },
             {
-                entity: [MB.entity({type: "recording"}), MB.entity({type: "release"})],
                 backward: false,
-                source: function() {return this.entity[0];},
-                target: function() {return this.entity[1];}
+                source: MB.entity({type: "recording"}),
+                target: MB.entity({type: "release"})
             }
         ];
 
         $.each(tests, function(i, test) {
-            UI.AddDialog.show({entity: test.entity, source: test.source()});
+            var dialog = UI.AddDialog(test);
 
-            QUnit.equal(UI.Dialog.backward(), test.backward,
+            QUnit.equal(dialog.backward(), test.backward,
                 "entities should be backward: " + test.backward);
 
-            QUnit.equal(UI.Dialog.source, test.source(),
+            QUnit.equal(dialog.source, test.source,
                 "source should be entity[" + (test.backward ? "1" : "0") + "]");
 
-            QUnit.equal(UI.Dialog.target, test.target(),
+            QUnit.equal(dialog.target, test.target,
                 "target should be entity[" + (test.backward ? "0" : "1") + "]");
-
-            UI.AddDialog.hide();
         });
 
         // AddDialog
 
-        UI.AddDialog.show({entity: [target, source], source: source});
-        var relationship = UI.Dialog.relationship();
+        var dialog = UI.AddDialog({ source: source, target: target }),
+            relationship = dialog.relationship();
+
         relationship.link_type(148);
         relationship.attrs({instrument: [229]});
-        UI.AddDialog.accept();
+        dialog.accept();
 
         QUnit.equal(source.relationships()[0], relationship, "AddDialog");
 
@@ -771,26 +766,27 @@ MB.tests.RelationshipEditor.Dialog = function() {
         var recording0 = tracks[0].recording,
             recording1 = tracks[1].recording;
 
-        UI.AddDialog.show({entity: [recording0, recording1], source: recording1});
-        relationship = UI.Dialog.relationship();
+        dialog = UI.AddDialog({ source: recording1, target: recording0 });
+        relationship = dialog.relationship();
+
         relationship.link_type(231);
 
-        QUnit.equal(UI.Dialog.sourceField(), relationship.entity[1], "AddDialog sourceField");
-        QUnit.equal(UI.Dialog.targetField(), relationship.entity[0], "AddDialog targetField");
-        QUnit.equal(UI.Dialog.source, recording1, "AddDialog source");
-        QUnit.equal(UI.Dialog.target, recording0, "AddDialog target");
-        QUnit.equal(UI.Dialog.backward(), true, "AddDialog: relationship is backward");
+        QUnit.equal(dialog.sourceField(), relationship.entity[0], "AddDialog sourceField");
+        QUnit.equal(dialog.targetField(), relationship.entity[1], "AddDialog targetField");
+        QUnit.equal(dialog.source, recording1, "AddDialog source");
+        QUnit.equal(dialog.target, recording0, "AddDialog target");
+        QUnit.equal(dialog.backward(), false, "AddDialog: relationship is not backward");
 
-        UI.Dialog.changeDirection();
+        dialog.changeDirection();
 
-        QUnit.equal(UI.Dialog.sourceField(), relationship.entity[0], "AddDialog sourceField");
-        QUnit.equal(UI.Dialog.targetField(), relationship.entity[1], "AddDialog targetField");
+        QUnit.equal(dialog.sourceField(), relationship.entity[1], "AddDialog sourceField");
+        QUnit.equal(dialog.targetField(), relationship.entity[0], "AddDialog targetField");
         // source and target should stay the same
-        QUnit.equal(UI.Dialog.source, recording1, "AddDialog source");
-        QUnit.equal(UI.Dialog.target, recording0, "AddDialog target");
-        QUnit.equal(UI.Dialog.backward(), false, "AddDialog: relationship is not backward");
+        QUnit.equal(dialog.source, recording1, "AddDialog source");
+        QUnit.equal(dialog.target, recording0, "AddDialog target");
+        QUnit.equal(dialog.backward(), true, "AddDialog: relationship is backward");
 
-        UI.AddDialog.accept();
+        dialog.accept();
 
         QUnit.equal(recording0.relationships()[1], relationship, "relationship added to recording 0");
         QUnit.equal(recording1.relationships()[0], relationship, "relationship added to recording 1");
@@ -801,18 +797,16 @@ MB.tests.RelationshipEditor.Dialog = function() {
         QUnit.equal(recording1.relationships()[0], undefined, "relationship removed from recording 1");
 
         // EditDialog
-
         relationship = source.relationships()[0];
-
-        UI.EditDialog.show({relationship: relationship, source: source});
-        var dialogAttrs = UI.Dialog.attrs();
+        dialog = UI.EditDialog({ relationship: relationship, source: source });
+        var dialogAttrs = dialog.attrs();
 
         var solo = _.find(dialogAttrs, function(attr) {
             return attr.data.name == "solo";
         });
 
         solo.value(true);
-        UI.EditDialog.accept();
+        dialog.accept();
 
         QUnit.deepEqual(
             ko.toJS(relationship.attrs),
@@ -820,7 +814,7 @@ MB.tests.RelationshipEditor.Dialog = function() {
             "EditDialog"
         );
 
-        UI.EditDialog.show({relationship: relationship, source: source});
+        dialog = UI.EditDialog({ relationship: relationship, source: source });
 
         var instrument = _.find(dialogAttrs, function(attr) {
             return attr.data.name == "instrument";
@@ -829,29 +823,25 @@ MB.tests.RelationshipEditor.Dialog = function() {
         instrument.value([229, 277]);
 
         var newTarget = MB.entity({type: "artist"});
-        UI.Dialog.targetField()(newTarget);
+        dialog.targetField()(newTarget);
 
         // cancel should revert the change
-        UI.EditDialog.hide();
+        dialog.close();
 
         QUnit.deepEqual(relationship.attrs().instrument(), [229], "attributes changed back");
         QUnit.equal(relationship.entity[0](), target, "target changed back");
 
         // BatchRecordingRelationshipDialog
 
-        UI.BatchRelationshipDialog.show(_.map(tracks, function (track) {
-            return track.recording;
-        }));
-
+        dialog = UI.BatchRelationshipDialog(_.pluck(tracks, "recording"));
         newTarget = MB.entity({type: "artist", gid: "00000000-0000-0000-0000-000000000004"});
+        relationship = dialog.relationship();
 
-        relationship = UI.Dialog.relationship();
-
-        UI.Dialog.targetField()(newTarget);
+        dialog.targetField()(newTarget);
         relationship.link_type(154);
         relationship.attrs().additional(true);
 
-        UI.BatchRelationshipDialog.accept();
+        dialog.accept();
 
         var attrs = {additional: true, instrument: []},
             relationships = recording0.relationships();
@@ -866,15 +856,14 @@ MB.tests.RelationshipEditor.Dialog = function() {
         // BatchWorkRelationshipDialog
 
         var works = [MB.entity({type: "work", gid: "00000000-0000-0000-0000-000000000005"})];
-        UI.BatchRelationshipDialog.show(works);
-
-        relationship = UI.Dialog.relationship();
+        dialog = UI.BatchRelationshipDialog(works);
+        relationship = dialog.relationship();
 
         relationship.entity[0](newTarget);
         relationship.link_type(167);
         relationship.attrs().additional(true);
 
-        UI.BatchRelationshipDialog.accept();
+        dialog.accept();
 
         relationships = works[0].relationships();
         QUnit.equal(relationships[0].entity[0](), newTarget, "work target");
