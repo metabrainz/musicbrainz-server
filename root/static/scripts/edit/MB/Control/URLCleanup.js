@@ -137,6 +137,13 @@ MB.constants.LINK_TYPES = {
         recording: 268,
 	release: 85
     },
+    vimeo: {
+        // Video channel for artist/label, streaming music for release/recording
+        artist: 303,
+        label: 304,
+        recording: 268,
+        release: 85
+    },
     vgmdb: {
         artist: 191,
         label: 210,
@@ -447,7 +454,7 @@ MB.constants.CLEANUPS = {
     },
     vimeo: {
         match: new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i"),
-        type: MB.constants.LINK_TYPES.streamingmusic,
+        type: MB.constants.LINK_TYPES.vimeo,
         clean: function(url) {
             url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
             // Remove query string, just the video id should be enough.
