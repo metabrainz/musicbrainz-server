@@ -271,7 +271,7 @@ MB.utility.joinList = function (items) {
     if (items.length > 1) {
         var a = items.pop();
         var b = items.join(MB.text.EnumerationComma);
-        return MB.text.EnumerationAnd.replace("{b}", b).replace("{a}", a);
+        return MB.i18n.expand(MB.text.EnumerationAnd, { b: b, a: a });
     } else if (items.length === 1) {
         return items[0];
     }

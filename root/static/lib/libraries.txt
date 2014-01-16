@@ -12,16 +12,19 @@ url:         http://jquery.com
 
 library:     jQuery UI
 license:     MIT
-version:     1.10.2
+version:     1.10.3
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
-components:  Autocomplete, Dialog, Tabs, Tooltip
+components:  Autocomplete, Dialog, Sortable, Tabs, Tooltip
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
-             the resulting jquery-1.10.2-custom.zip is included here as
+             the resulting jquery-1.10.3-custom.zip is included here as
              "jquery.ui", minus the minified and component JS/CSS files,
              demos, documentation, and grunt-related files.
+             The CSS file and images from themes/base are in
+             root/static/styles/jquery-ui, with some modifications (see
+             .orig file there).
 
 -- json/json2.js --
 

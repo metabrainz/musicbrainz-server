@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-12 14:07+0000\n"
+"PO-Revision-Date: 2014-01-01 15:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -395,7 +395,7 @@ msgstr "Een elektrische gitaar zonder fretten."
 #: DB:link_attribute_type/description:748
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
-msgstr ""
+msgstr "Floppydrives die door middel van software geluiden produceren tijdens het lezen."
 
 #: DB:link_attribute_type/description:500
 msgid ""
@@ -771,7 +771,7 @@ msgid ""
 "The E♭ clarinet is a member of the clarinet family sometimes known as a "
 "sopranino clarinet. (<a "
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "De esklarinet is een hogere variant van de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Esklarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:338
 msgid ""
@@ -1057,7 +1057,7 @@ msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een s
 msgid ""
 "The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
 "treble/alto recorder. Also knows as descant in B-flat, soprano in B-flat."
-msgstr ""
+msgstr "De vierde blokfluit is een blokfluit met de laagste noot van Bes, een kwart boven de altblokfluit."
 
 #: DB:link_attribute_type/description:683
 msgid ""
@@ -1312,7 +1312,7 @@ msgid ""
 "The nose flute is a flute played by the nose commonly found in countries in "
 "and around the Pacific. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "De neusfluit of „nose flute“ (niet te verwarren met het neusfluitje of „nose whistle“) is een fluit die met de neus wordt bespeeld en vooral wordt gebruikt in de landen in en ronde de Stille Oceaan. (<a href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:738
 msgid ""
@@ -1321,7 +1321,7 @@ msgid ""
 "instrument and the frequency of the notes produced is controlled by the "
 "volume of air. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Het neusfluitje of „nose whistle“ (niet te verwarren met de neusfluit of „nose flute“), ook wel bekend onder de merknaam Humanatone, is een simpel instrument dat met de neus wordt bespeeld. Een luchtstroom wordt over een rand in het instrument geblazen en de frequentie van de gespeelde noten wordt bepaald door het luchtvolume. (<a href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:684
 msgid ""
@@ -1760,7 +1760,7 @@ msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte. (<a href=\"h
 
 #: DB:link_attribute_type/description:382
 msgid "Trống Bông (bong drum)"
-msgstr ""
+msgstr "Trống Bông (bong drum)"
 
 #: DB:link_attribute_type/description:305
 msgid "Turkish baglama"
@@ -1975,7 +1975,7 @@ msgstr "archaïsche en andere strijkinstrumenten"
 
 #: DB:link_attribute_type/description:746
 msgid "as using drives for producing music, harddrives, floppy, cd or other."
-msgstr ""
+msgstr "het gebruik van schijfstations van computers om muziek te maken."
 
 #: DB:link_attribute_type/description:494
 msgid "autoharp"
@@ -2348,7 +2348,7 @@ msgstr "fluit"
 
 #: DB:link_attribute_type/description:433
 msgid "folk harp"
-msgstr ""
+msgstr "folk harp"
 
 #: DB:link_attribute_type/description:465
 msgid "fortepiano"
@@ -2428,7 +2428,7 @@ msgstr "Een met de mond bespeeld blaasinstrument. (<a href=\"http://nl.wikipedia
 
 #: DB:link_attribute_type/description:178
 msgid "harmonium"
-msgstr "harmonium"
+msgstr "Een harmonium, ook wel 'traporgel' genoemd, is een toetsinstrument dat gerekend wordt tot zowel de lamellofonen als de aerofonen. (<a href=\"http://nl.wikipedia.org/wiki/Harmonium_%28instrument%29\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:81
 msgid "harp"
@@ -2632,7 +2632,7 @@ msgstr "rebec"
 
 #: DB:link_attribute_type/description:274
 msgid "reed organ, also known as pump organ"
-msgstr ""
+msgstr "ook bekend als traporgel."
 
 #: DB:link_attribute_type/description:233
 msgid "reeds"
@@ -2788,7 +2788,7 @@ msgstr "Een tangentpiano is een zeer zeldzaam toetsinstrument dat lijkt op een k
 
 #: DB:link_attribute_type/description:632
 msgid "tape"
-msgstr ""
+msgstr "tape"
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"
@@ -2986,7 +2986,7 @@ msgstr "blaasinstrumenten"
 
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
-msgstr ""
+msgstr "wire-strung harp"
 
 #: DB:link_attribute_type/description:213
 msgid "wood block"

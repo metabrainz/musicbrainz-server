@@ -572,6 +572,7 @@ around _merge_submit => sub {
 sub _merge_load_entities
 {
     my ($self, $c, @releases) = @_;
+    $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_release_events(@releases);
     $c->model('Medium')->load_for_releases(@releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);

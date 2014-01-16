@@ -68,11 +68,11 @@ var validationHandlers = {
                 return;
             }
             if (attrInfo[1] && isArray && values.length > attrInfo[1]) {
-                var str = MB.text.AttributeTooMany
-                    .replace("{max}", attrInfo[1])
-                    .replace("{n}", values.length);
-
-                attrField.error(str);
+                attrField.error(
+                    MB.i18n.expand(MB.text.AttributeTooMany, {
+                        max: attrInfo[1], n: values.length
+                    })
+                );
                 return;
             }
             attrField.error("");

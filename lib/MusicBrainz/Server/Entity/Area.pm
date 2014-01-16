@@ -116,7 +116,6 @@ sub primary_code
         return first { defined($_) } $self->iso_3166_3_codes;
     }
     else {
-        warn "Couldn't determine primary code for area " . $self->gid . ". Perhaps codes aren't loaded?";
         return undef;
     }
 }

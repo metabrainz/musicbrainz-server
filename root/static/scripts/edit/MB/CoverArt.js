@@ -197,8 +197,13 @@ MB.CoverArt.file_data_uri = function (file) {
 MB.CoverArt.sign_upload = function (file, gid, mime_type) {
     var deferred = $.Deferred ();
 
-    var postfields = $.getJSON('/ws/js/cover-art-upload/' + gid,
-                               { mime_type: mime_type });
+    var postfields = $.ajax({
+        url: "/ws/js/cover-art-upload/" + gid,
+        data: { mime_type: mime_type },
+        dataType: "json",
+        cache: false
+    });
+
     postfields.fail (function (jqxhr, status, error) {
         deferred.reject ("error obtaining signature: " + status + " " + error);
     });
@@ -517,7 +522,7 @@ MB.CoverArt.add_cover_art = function (gid) {
         $('#drop-zone').on ('dragover', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            event.dataTransfer.dropEffect = 'copy';
+            event.originalEvent.dataTransfer.dropEffect = 'copy';
         });
 
         $('#drop-zone').on ('drop', function (event) {

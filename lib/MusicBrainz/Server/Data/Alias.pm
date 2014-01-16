@@ -82,7 +82,15 @@ sub find_by_entity_ids
     my $query = "SELECT $key parent_id, " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE $key IN (" . placeholders(@ids) . ")
-                 ORDER BY locale NULLS LAST, musicbrainz_collate(sort_name), musicbrainz_collate(name)";
+                 ORDER BY locale NULLS LAST,
+                   begin_date_year NULLS LAST,
+                   begin_date_month NULLS LAST,
+                   begin_date_day NULLS LAST,
+                   end_date_year NULLS LAST,
+                   end_date_month NULLS LAST,
+                   end_date_day NULLS LAST,
+                   musicbrainz_collate(sort_name),
+                   musicbrainz_collate(name)";
 
     my %ret = map { $_ => [] } @ids;
 

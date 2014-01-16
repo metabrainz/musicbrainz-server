@@ -12,6 +12,7 @@ use aliased 'MusicBrainz::Server::Entity::Label';
 sub _alias_model { shift->c->model('Label')->alias }
 
 sub edit_name { N_l('Remove label alias') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_LABEL_DELETE_ALIAS }
 
 sub _build_related_entities { { label => [ shift->label_id ] } }

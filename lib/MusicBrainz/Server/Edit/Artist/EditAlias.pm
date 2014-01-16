@@ -10,6 +10,7 @@ with 'MusicBrainz::Server::Edit::Artist';
 sub _alias_model { shift->c->model('Artist')->alias }
 
 sub edit_name { N_l('Edit artist alias') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_ARTIST_EDIT_ALIAS }
 
 sub _build_related_entities { { artist => [ shift->artist_id ] } }

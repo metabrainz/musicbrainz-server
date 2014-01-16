@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-12 15:09+0000\n"
+"PO-Revision-Date: 2013-12-25 09:38+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -685,7 +685,7 @@ msgstr "Basisgegevens"
 msgid "Basics"
 msgstr "Algemeen"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:128
 msgid "By Cover Art Type"
 msgstr "Per type hoesafbeelding"
 
@@ -693,13 +693,13 @@ msgstr "Per type hoesafbeelding"
 msgid "By Release Format"
 msgstr "Per mediumtype"
 
+#: ../root/statistics/coverart.tt:46
+msgid "By Release Group Type"
+msgstr "Per type uitgavegroep"
+
 #: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr "Per uitgavestatus"
-
-#: ../root/statistics/coverart.tt:46
-msgid "By Release Type"
-msgstr "Per uitgavetype"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
@@ -1018,12 +1018,12 @@ msgid "Count of deleted editors"
 msgstr "Aantal verwijderde redacteurs"
 
 #: ../root/statistics/view_js.tt:79
-msgid "Count of editors who have submitted edits during the last week"
-msgstr "Aantal redacteurs die afgelopen week bewerkingen hebben ingediend"
+msgid "Count of editors who have submitted edits during the last 7 days"
+msgstr "Aantal redacteurs dat gedurende de afgelopen 7 dagen bewerkingen heeft ingediend"
 
 #: ../root/statistics/view_js.tt:80
-msgid "Count of editors who have voted on during the last week"
-msgstr "Aantal redacteurs die afgelopen week hebben gestemd"
+msgid "Count of editors who have voted on during the last 7 days"
+msgstr "Aantal redacteurs dat gedurende de afgelopen 7 dagen heeft gestemd"
 
 #: ../root/statistics/view_js.tt:55
 msgid "Count of edits per day"
@@ -1348,9 +1348,9 @@ msgstr "Talen en schriften"
 msgid "Languages/Scripts"
 msgstr "Talen/Schriften"
 
-#: ../root/statistics/index.tt:744 ../root/statistics/index.tt:796
-msgid "Last Week:"
-msgstr "vorige week:"
+#: ../root/statistics/index.tt:796 ../root/statistics/index.tt:744
+msgid "Last 7 days:"
+msgstr "Laatste 7 dagen:"
 
 #: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
@@ -1435,7 +1435,7 @@ msgid "No Votes"
 msgstr "Geen stemmen"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:122
 msgid "No coverart statistics available."
 msgstr "Geen statistieken voor hoesafbeeldingen beschikbaar."
 
@@ -1467,7 +1467,7 @@ msgstr "Geen status"
 msgid "No status set"
 msgstr "Geen status ingesteld"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
 msgid "No type"
 msgstr "Geen type"
 
@@ -1528,7 +1528,7 @@ msgstr "Artiest met overig type"
 msgid "Overview"
 msgstr "Overzicht"
 
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:144
 msgid "Per release"
 msgstr "Per uitgave"
 
@@ -1540,11 +1540,11 @@ msgstr "Personen"
 msgid "Pieces of Cover Art"
 msgstr "Aantal hoesafbeeldingen"
 
-#: ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:119
 msgid "Pieces of cover art"
 msgstr "Aantal hoesafbeeldingen"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
 msgid "Pieces of cover art:"
 msgstr "Aantal hoesafbeeldingen:"
 
@@ -1686,6 +1686,14 @@ msgstr "Uitgavestatus"
 msgid "Release Tags (raw)"
 msgstr "Waarderingen van uitgaves (totaal)"
 
+#: ../root/statistics/coverart.tt:97
+msgid "Release groups"
+msgstr "Uitgavegroepen"
+
+#: ../root/statistics/coverart.tt:100
+msgid "Release groups with cover art:"
+msgstr "Uitgavegroepen met afbeeldingen:"
+
 #: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"
 msgstr "Type uitgave/medium"
@@ -1745,7 +1753,7 @@ msgstr "Uitgaves met ten minste één disc-id:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:125
+#: ../root/statistics/coverart.tt:147
 msgid "Releases with cover art:"
 msgstr "Uitgaves met hoesafbeeldingen:"
 
@@ -1992,6 +2000,10 @@ msgstr "Vergroten:"
 msgid "active ever:"
 msgstr "ooit actief:"
 
+#: ../root/statistics/coverart.tt:112
+msgid "automatically inferred:"
+msgstr "automatisch afgeleid:"
+
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
 msgstr "door één artiest:"
@@ -2007,6 +2019,10 @@ msgstr "inactief:"
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} Verwantschappen"
+
+#: ../root/statistics/coverart.tt:106
+msgid "manually selected:"
+msgstr "handmatig geselecteerd:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2029,12 +2045,12 @@ msgid "who edit:"
 msgstr "die bewerken:"
 
 #: ../root/statistics/index.tt:592
-msgid "who edited and/or voted last week:"
-msgstr "die vorige week bewerkt of gestemd hebben:"
+msgid "who edited and/or voted in the last 7 days:"
+msgstr "die de afgelopen 7 dagen bewerkt of gestemd hebben:"
 
 #: ../root/statistics/index.tt:600
-msgid "who edited last week:"
-msgstr "die vorige week bewerkingen aangebracht hebben:"
+msgid "who edited in the last 7 days:"
+msgstr "die de afgelopen 7 dagen bewerkt hebben:"
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
@@ -2065,14 +2081,14 @@ msgid "who vote:"
 msgstr "die stemmen:"
 
 #: ../root/statistics/index.tt:608
-msgid "who voted last week:"
-msgstr "die vorige week gestemd hebben:"
+msgid "who voted in the last 7 days:"
+msgstr "die de afgelopen 7 dagen gestemd hebben:"
 
 #: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
 msgid "with 10 or more disc IDs:"
 msgstr "met tien of meer disc-id's:"
 
-#: ../root/statistics/coverart.tt:139
+#: ../root/statistics/coverart.tt:161
 msgid "with 30 or more pieces of cover art:"
 msgstr "met dertig of meer hoesafbeeldingen:"
 
@@ -2098,7 +2114,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "met {num} disc-id:"
 msgstr[1] "met {num} disc-id's:"
 
-#: ../root/statistics/coverart.tt:132
+#: ../root/statistics/coverart.tt:154
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "met {num} hoesafbeelding:"
@@ -2130,8 +2146,9 @@ msgstr "uitgaves met de naam {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
-#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
+#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
+#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

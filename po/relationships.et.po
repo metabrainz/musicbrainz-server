@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
+"PO-Revision-Date: 2014-01-12 12:02+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -308,14 +308,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:244
-msgid ""
-"Indicates that a recording is a medley of several songs. This means that the"
-" original works were rearranged to create a new recording in the form of a "
-"medley. (<a "
-"href=\"http://musicbrainz.org/doc/Medley_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:228
 msgid ""
 "Indicates that a track is a compilation of several other tracks. This "
@@ -461,13 +453,13 @@ msgstr ""
 
 #: DB:link_type/description:55
 msgid ""
-"Indicates the composer for this release, i.e. the person who wrote the music"
+"Indicates the composer for this release, i.e. the artist who wrote the music"
 " (not necessarily the lyrics)."
 msgstr ""
 
 #: DB:link_type/description:168
 msgid ""
-"Indicates the composer for this work, i.e. the person who wrote the music "
+"Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
 msgstr ""
 
@@ -1117,6 +1109,12 @@ msgstr ""
 msgid "This indicates that the recording is of a live performance."
 msgstr ""
 
+#: DB:link_attribute_type/description:750
+msgid ""
+"This indicates that the recording is of a medley, of which the work is one "
+"part."
+msgstr ""
+
 #: DB:link_attribute_type/description:545
 msgid ""
 "This indicates that the release group which is from the other release group "
@@ -1385,6 +1383,14 @@ msgid ""
 "which it is a soundtrack."
 msgstr ""
 
+#: DB:link_type/description:722
+msgid ""
+"This links a subgroup to the group from which it was created.​ This "
+"relationship type is the functional equivalent of the <a "
+"href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
+"type</a> for group-group relationships."
+msgstr ""
+
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
 msgstr ""
@@ -1604,6 +1610,12 @@ msgid ""
 "release."
 msgstr ""
 
+#: DB:link_type/description:244
+msgid ""
+"This relationship is deprecated, please use the \"medley\" attribute of "
+"\"recording of\" instead."
+msgstr ""
+
 #: DB:link_type/description:85
 msgid ""
 "This relationship is used to link a release to a site where music can be "
@@ -1646,8 +1658,7 @@ msgstr ""
 #: DB:link_type/description:194
 msgid ""
 "This relationship is used to link an artist to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
+"legally streamed for free, such as Spotify or we7."
 msgstr ""
 
 #: DB:link_type/description:37 DB:link_type/description:132
@@ -2053,13 +2064,11 @@ msgid "compilation of"
 msgstr ""
 
 #: DB:link_type/link_phrase:16 DB:link_type/link_phrase:52
-#: DB:link_type/link_phrase:159 DB:link_type/link_phrase:247
-#: DB:link_type/link_phrase:237 DB:link_type/reverse_link_phrase:16
-#: DB:link_type/reverse_link_phrase:52 DB:link_type/reverse_link_phrase:159
-#: DB:link_type/reverse_link_phrase:247 DB:link_type/reverse_link_phrase:237
+#: DB:link_type/link_phrase:159 DB:link_type/link_phrase:237
+#: DB:link_type/reverse_link_phrase:16 DB:link_type/reverse_link_phrase:52
+#: DB:link_type/reverse_link_phrase:159 DB:link_type/reverse_link_phrase:237
 #: DB:link_type/long_link_phrase:16 DB:link_type/long_link_phrase:52
-#: DB:link_type/long_link_phrase:159 DB:link_type/long_link_phrase:247
-#: DB:link_type/long_link_phrase:237
+#: DB:link_type/long_link_phrase:159 DB:link_type/long_link_phrase:237
 msgid "compilations"
 msgstr ""
 
@@ -2135,13 +2144,12 @@ msgstr "kaanepilt"
 msgid "cover art for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:12 DB:link_type/long_link_phrase:245
+#: DB:link_type/long_link_phrase:12
 msgid "covers and versions"
 msgstr "kaverid ja versioonid"
 
 #: DB:link_type/link_phrase:12 DB:link_type/link_phrase:4
-#: DB:link_type/link_phrase:245 DB:link_type/reverse_link_phrase:12
-#: DB:link_type/reverse_link_phrase:4 DB:link_type/reverse_link_phrase:245
+#: DB:link_type/reverse_link_phrase:12 DB:link_type/reverse_link_phrase:4
 #: DB:link_type/long_link_phrase:4
 msgid "covers or other versions"
 msgstr "kaverid või teised versioonid"
@@ -2278,8 +2286,11 @@ msgstr "asutajad"
 msgid "free download page for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 #: DB:link_type/reverse_link_phrase:194
+msgid "free music streaming page for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
 msgstr ""
 
@@ -2650,8 +2661,10 @@ msgid "is a remix of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:278
-msgid "is a {partial} {live} {instrumental} {cover} recording of"
-msgstr "on {partial} {instrumental} {cover}{live:kontsert}salvestis teosest"
+msgid ""
+"is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
+"recording of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -2704,6 +2717,10 @@ msgstr ""
 #: DB:link_type/link_phrase:11 DB:link_type/long_link_phrase:11
 msgid "is {EP:an|a} {EP:EP|single} which was taken from"
 msgstr "on {EP:EP|singel}, mis võeti väljalaskelt"
+
+#: DB:link_type/long_link_phrase:722
+msgid "is/was a subgroup of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:104
 msgid "is/was a supporting artist for"
@@ -2903,6 +2920,10 @@ msgstr "8. helikandja"
 msgid "medium 9"
 msgstr "9. helikandja"
 
+#: DB:link_attribute_type/name:750
+msgid "medley"
+msgstr ""
+
 #: DB:link_type/link_phrase:239 DB:link_type/link_phrase:244
 msgid "medley of"
 msgstr "popurrii teostest"
@@ -2956,7 +2977,7 @@ msgid "music can be purchased for mail-order at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:194
-msgid "music {video:videos} can be streamed for free at"
+msgid "music can be streamed for free at"
 msgstr ""
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
@@ -3361,9 +3382,20 @@ msgstr ""
 msgid "spoken vocals"
 msgstr ""
 
-#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 #: DB:link_type/link_phrase:194
+msgid "stream for free"
+msgstr ""
+
+#: DB:link_type/link_phrase:85 DB:link_type/link_phrase:268
 msgid "stream {video} for free"
+msgstr ""
+
+#: DB:link_type/link_phrase:722
+msgid "subgroup of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:722
+msgid "subgroups"
 msgstr ""
 
 #: DB:link_type/link_phrase:200
@@ -3834,17 +3866,21 @@ msgstr "{bonus:boonus|järgmine }plaat"
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr "{bonus:võib olla|on} osa komplektist, mille järgmine plaat on"
 
+#: DB:link_type/link_phrase:278
+msgid ""
+"{live} {medley:medley including a} {partial} {instrumental} {cover} "
+"recording of"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:278
+msgid ""
+"{live} {medley:medleys including} {partial} {instrumental} {cover} "
+"recordings"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:45 DB:link_type/long_link_phrase:150
 msgid "{orchestra} orchestra {additional:additionally} performed"
 msgstr ""
-
-#: DB:link_type/link_phrase:278
-msgid "{partial} {live} {instrumental} {cover} recording of"
-msgstr "{partial} {instrumental} {cover}{live:kontsert}salvestis teosest"
-
-#: DB:link_type/reverse_link_phrase:278
-msgid "{partial} {live} {instrumental} {cover} recordings"
-msgstr "{partial:osalised} {instrumental:instrumentaalsed} {cover}{live:kontsert}salvestised"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

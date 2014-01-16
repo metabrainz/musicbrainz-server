@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Edit::Release';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_l('Change release quality') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_CHANGE_QUALITY }
 sub release_id { shift->data->{release}{id} }
 

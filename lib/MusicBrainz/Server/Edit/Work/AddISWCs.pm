@@ -20,6 +20,7 @@ use aliased 'MusicBrainz::Server::Entity::Work';
 
 sub edit_type { $EDIT_WORK_ADD_ISWCS }
 sub edit_name { N_l('Add ISWCs') }
+sub edit_kind { 'add' }
 
 sub work_ids { map { $_->{work}{id} } @{ shift->data->{iswcs} } }
 

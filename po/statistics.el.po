@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:49+0000\n"
+"PO-Revision-Date: 2013-12-24 19:46+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -684,7 +684,7 @@ msgstr "Βασικά μεταδεδομένα"
 msgid "Basics"
 msgstr "Βασικά"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:128
 msgid "By Cover Art Type"
 msgstr "Ανά τύπο εξωφύλλου"
 
@@ -692,13 +692,13 @@ msgstr "Ανά τύπο εξωφύλλου"
 msgid "By Release Format"
 msgstr "Ανά μορφή κυκλοφορίας"
 
+#: ../root/statistics/coverart.tt:46
+msgid "By Release Group Type"
+msgstr ""
+
 #: ../root/statistics/coverart.tt:62
 msgid "By Release Status"
 msgstr "Ανά κατάσταση κυκλοφορίας"
-
-#: ../root/statistics/coverart.tt:46
-msgid "By Release Type"
-msgstr "Ανά τύπο κυκλοφορίας"
 
 #: ../root/statistics/index.tt:288
 msgid "CAA:"
@@ -1017,11 +1017,11 @@ msgid "Count of deleted editors"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:79
-msgid "Count of editors who have submitted edits during the last week"
+msgid "Count of editors who have submitted edits during the last 7 days"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:80
-msgid "Count of editors who have voted on during the last week"
+msgid "Count of editors who have voted on during the last 7 days"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:55
@@ -1347,9 +1347,9 @@ msgstr "Γλώσσες και γραφές"
 msgid "Languages/Scripts"
 msgstr ""
 
-#: ../root/statistics/index.tt:744 ../root/statistics/index.tt:796
-msgid "Last Week:"
-msgstr "Περασμένη εβδομάδα:"
+#: ../root/statistics/index.tt:796 ../root/statistics/index.tt:744
+msgid "Last 7 days:"
+msgstr ""
 
 #: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
 #: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
@@ -1434,7 +1434,7 @@ msgid "No Votes"
 msgstr "Αρνητικές ψήφοι"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:122
 msgid "No coverart statistics available."
 msgstr ""
 
@@ -1466,7 +1466,7 @@ msgstr "Χωρίς κατάσταση"
 msgid "No status set"
 msgstr "Δεν ορίστηκε η κατάσταση"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:116
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
 msgid "No type"
 msgstr "Χωρίς τύπο"
 
@@ -1527,7 +1527,7 @@ msgstr "Καλλιτέχνες άλλου τύπου"
 msgid "Overview"
 msgstr "Επισκόπηση"
 
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:144
 msgid "Per release"
 msgstr "Ανά κυκλοφορία"
 
@@ -1539,11 +1539,11 @@ msgstr "Άτομα"
 msgid "Pieces of Cover Art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:97
+#: ../root/statistics/coverart.tt:119
 msgid "Pieces of cover art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:109
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
 msgid "Pieces of cover art:"
 msgstr "Κομμάτια εξωφύλλου:"
 
@@ -1685,6 +1685,14 @@ msgstr "Κατάσταση κυκλοφορίας"
 msgid "Release Tags (raw)"
 msgstr ""
 
+#: ../root/statistics/coverart.tt:97
+msgid "Release groups"
+msgstr ""
+
+#: ../root/statistics/coverart.tt:100
+msgid "Release groups with cover art:"
+msgstr ""
+
 #: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"
 msgstr "Μορφές κυκλοφορίας/μέσου"
@@ -1744,7 +1752,7 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:125
+#: ../root/statistics/coverart.tt:147
 msgid "Releases with cover art:"
 msgstr "Κυκλοφορίες με εξώφυλλο:"
 
@@ -1991,6 +1999,10 @@ msgstr "Εστίαση:"
 msgid "active ever:"
 msgstr ""
 
+#: ../root/statistics/coverart.tt:112
+msgid "automatically inferred:"
+msgstr ""
+
 #: ../root/statistics/index.tt:224
 msgid "by a single artist:"
 msgstr "από έναν καλλιτέχνη:"
@@ -2006,6 +2018,10 @@ msgstr ""
 #: ../root/statistics/view_js.tt:186
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} σχέσεις"
+
+#: ../root/statistics/coverart.tt:106
+msgid "manually selected:"
+msgstr ""
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2028,12 +2044,12 @@ msgid "who edit:"
 msgstr ""
 
 #: ../root/statistics/index.tt:592
-msgid "who edited and/or voted last week:"
+msgid "who edited and/or voted in the last 7 days:"
 msgstr ""
 
 #: ../root/statistics/index.tt:600
-msgid "who edited last week:"
-msgstr "που επεξεργάστηκαν την τελευταία εβδομάδα:"
+msgid "who edited in the last 7 days:"
+msgstr ""
 
 #: ../root/statistics/index.tt:664
 msgid "who have registered applications:"
@@ -2064,14 +2080,14 @@ msgid "who vote:"
 msgstr ""
 
 #: ../root/statistics/index.tt:608
-msgid "who voted last week:"
-msgstr "που ψήφισαν την τελευταία εβδομάδα:"
+msgid "who voted in the last 7 days:"
+msgstr ""
 
 #: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:139
+#: ../root/statistics/coverart.tt:161
 msgid "with 30 or more pieces of cover art:"
 msgstr "με 30 ή περισσότερα κομμάτια εξωφύλλου:"
 
@@ -2097,7 +2113,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:132
+#: ../root/statistics/coverart.tt:154
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "με {num} κομμάτι εξωφύλλου:"
@@ -2129,8 +2145,9 @@ msgstr "Κυκλοφορίες {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:118 ../root/statistics/coverart.tt:134
-#: ../root/statistics/coverart.tt:141 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
+#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
+#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

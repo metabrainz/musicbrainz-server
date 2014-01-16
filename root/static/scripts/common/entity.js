@@ -187,9 +187,12 @@
     MB.entity.ArtistCreditName = aclass(Entity, {
 
         template: _.template(
+            "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
             "<a href=\"/artist/<%- data.gid %>\"" +
-            "<% if (data.target) { %> target=\"_blank\" <% } %> title=\"" +
-            "<%- data.title %>\"><%- data.name %></a><%- data.join %>",
+            "<% if (data.target) print(' target=\"_blank\"'); %>" +
+            " title=\"<%- data.title %>\"><%- data.name %></a>" +
+            "<% if (data.nameVariation) print('</span>'); %>" +
+            "<%- data.join %>",
             null,
             {variable: "data"}
         ),
@@ -234,6 +237,7 @@
                 return _.escape(this.text());
             }
 
+            var name = ko.unwrap(this.name);
             var artist = ko.unwrap(this.artist);
             var title = artist.sortname;
 
@@ -241,24 +245,18 @@
                 title += " (" + artist.comment + ")";
             }
 
-            var link = this.template(
+            return this.template(
                 _.extend(
                     renderParams || {},
                     {
                         gid:   artist.gid,
                         title: title,
-                        name:  ko.unwrap(this.name),
-                        join:  ko.unwrap(this.joinPhrase)
+                        name:  name,
+                        join:  ko.unwrap(this.joinPhrase),
+                        nameVariation: name !== artist.name
                     }
                 )
             );
-
-            if (ko.unwrap(this.name) != artist.name) {
-                return '<span class="name-variation">' + link + '</span>';
-            }
-            else {
-                return link;
-            }
         },
 
         toJS: function () {

@@ -15,6 +15,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { N_l('Edit relationship (historic)') }
+sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_LINK }
 sub historic_type { 34 }
 sub edit_template { 'historic/edit_relationship' }

@@ -101,6 +101,17 @@ sub search
         my $extra_columns = '';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
+        $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
+
+        my $extra_groupby_columns = $extra_columns;
+        $extra_groupby_columns =~ s/[^ ,]+ AS //g;
+
+        my $extra_joins = '';
+        if ($type eq 'area') {
+            $extra_joins .= 'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_1 GROUP BY area) iso_3166_1s ON iso_3166_1s.area = entity.id ' .
+                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_2 GROUP BY area) iso_3166_2s ON iso_3166_2s.area = entity.id ' .
+                            'LEFT JOIN (SELECT area, array_agg(code) AS codes FROM iso_3166_3 GROUP BY area) iso_3166_3s ON iso_3166_3s.area = entity.id';
+        }
 
         $query = "
             SELECT
@@ -130,9 +141,10 @@ sub search
                 ) AS r
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR r.name = entity.sort_name OR alias.${type} = entity.id)
+                $extra_joins
                 $where_deleted
             GROUP BY
-                $extra_columns entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
+                $extra_groupby_columns entity.id, entity.gid, entity.comment, entity.name, entity.sort_name, entity.type,
                 entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended
             ORDER BY

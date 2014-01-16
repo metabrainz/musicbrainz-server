@@ -135,6 +135,7 @@ role {
         }
 
         $self->_merge_load_entities($c, @entities);
+        $c->stash->{to_merge} = \@entities;
 
         my $form = $c->form(
             form => $params->merge_form,

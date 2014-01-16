@@ -24,6 +24,7 @@ with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
 sub edit_name { N_l("Remove relationship") }
+sub edit_kind { 'remove' }
 
 has '+data' => (
     isa => Dict[

@@ -11,6 +11,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship';
 
 sub edit_name { N_l('Remove relationship type') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE }
 
 has '+data' => (

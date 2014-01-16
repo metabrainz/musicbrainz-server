@@ -8,6 +8,7 @@ use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_l('Set track lengths') }
+sub edit_kind     { 'other' }
 sub historic_type { 53 }
 sub edit_type     { $EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC }
 sub edit_template { 'set_track_lengths' }
