@@ -30,8 +30,7 @@ MB.GuessCase.Mode.Sentence = function () {
 
     self.setConfig(
 	'Sentence',
-	'First word titled, lowercase for <i>most</i> of the other '
-	    + 'words. Read the [url]description[/url] for more details.',
+    MB.text.GuessCaseDescriptionSentence,
 	'/doc/GuessCaseMode/SentenceMode');
 
     return self;

@@ -30,8 +30,7 @@ MB.GuessCase.Mode.French = function () {
 
     self.setConfig(
 	'French',
-	'First word titled, lowercase for <i>most</i> of the other '
-	    + 'words. Read the [url]description[/url] for more details.',
+    MB.text.GuessCaseDescriptionFrench,
 	'/doc/GuessCaseMode/FrenchMode');
 
     self.runFinalChecks = function(is) {

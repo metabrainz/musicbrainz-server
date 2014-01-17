@@ -30,7 +30,7 @@ MB.GuessCase.Mode.English = function () {
 
     self.setConfig(
 	'English',
-	'Read the [url]description[/url] for more details.',
+	MB.text.GuessCaseDescriptionEnglish,
 	'/doc/GuessCaseMode/DefaultMode');
 
     self.isSentenceCaps = function () { return false; };
