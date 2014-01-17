@@ -28,10 +28,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 MB.GuessCase.Mode.French = function () {
     var self = MB.GuessCase.Mode.Base ();
 
-    self.setConfig(
-    'French',
-    MB.text.GuessCaseDescriptionFrench,
-    '/doc/GuessCaseMode/FrenchMode');
+    self.setConfig('French', MB.text.GuessCaseDescriptionFrench);
 
     self.runFinalChecks = function(is) {
     os = is.replace(/([!\?;:]+)/gi, " $1");
