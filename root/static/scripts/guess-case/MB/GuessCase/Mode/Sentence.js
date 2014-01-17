@@ -29,9 +29,9 @@ MB.GuessCase.Mode.Sentence = function () {
     var self = MB.GuessCase.Mode.Base ();
 
     self.setConfig(
-	'Sentence',
+    'Sentence',
     MB.text.GuessCaseDescriptionSentence,
-	'/doc/GuessCaseMode/SentenceMode');
+    '/doc/GuessCaseMode/SentenceMode');
 
     return self;
 };

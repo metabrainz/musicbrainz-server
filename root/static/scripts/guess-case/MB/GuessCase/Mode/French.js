@@ -29,16 +29,16 @@ MB.GuessCase.Mode.French = function () {
     var self = MB.GuessCase.Mode.Base ();
 
     self.setConfig(
-	'French',
+    'French',
     MB.text.GuessCaseDescriptionFrench,
-	'/doc/GuessCaseMode/FrenchMode');
+    '/doc/GuessCaseMode/FrenchMode');
 
     self.runFinalChecks = function(is) {
-	os = is.replace(/([!\?;:]+)/gi, " $1");
-	os = os.replace(/([«]+)/gi, "$1 ");
-	os = os.replace(/([»]+)/gi, " $1");
+    os = is.replace(/([!\?;:]+)/gi, " $1");
+    os = os.replace(/([«]+)/gi, "$1 ");
+    os = os.replace(/([»]+)/gi, " $1");
 
-	return os;
+    return os;
     };
 
     return self;

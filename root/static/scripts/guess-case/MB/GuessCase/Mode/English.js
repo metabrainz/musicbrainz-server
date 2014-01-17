@@ -29,9 +29,9 @@ MB.GuessCase.Mode.English = function () {
     var self = MB.GuessCase.Mode.Base ();
 
     self.setConfig(
-	'English',
-	MB.text.GuessCaseDescriptionEnglish,
-	'/doc/GuessCaseMode/DefaultMode');
+    'English',
+    MB.text.GuessCaseDescriptionEnglish,
+    '/doc/GuessCaseMode/DefaultMode');
 
     self.isSentenceCaps = function () { return false; };
 
