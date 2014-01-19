@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( lp );
+use MusicBrainz::Server::Translation qw( l lp );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
@@ -15,6 +15,8 @@ use Sub::Exporter -setup => {
                       expand_param
                       language_options
                       script_options
+                      select_options
+                      build_grouped_options
               )]
 };
 
@@ -168,6 +170,38 @@ sub script_options {
         }
     } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
     return \@sorted;
+}
+
+sub select_options
+{
+    my ($c, $model, %opts) = @_;
+    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+    my $accessor = $opts{accessor} // 'l_name';
+    my $coll = $c->get_collator();
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    return [ map {
+        value => $_->id,
+        label => l($_->$accessor)
+    }, sort_by {
+        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
+    } $model_ref->get_all ];
+}
+
+# Used by the relationship and release editors, instead of FormHandler.
+sub build_grouped_options
+{
+    my ($c, $options) = @_;
+
+    my $result = [];
+    for my $opt (@$options) {
+        my $i = $opt->{optgroup_order} - 1;
+        $result->[$i] //= { optgroup => $opt->{optgroup}, options => [] };
+
+        push @{ $result->[$i]->{options} },
+              { label => $opt->{label}, value => $opt->{value} };
+    }
+    return $result;
 }
 
 1;
