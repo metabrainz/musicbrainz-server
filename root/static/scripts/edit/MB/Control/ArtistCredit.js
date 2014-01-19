@@ -197,7 +197,7 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
 
             return [
                 { name: curPrefix + "name", value: name.name },
-                { name: curPrefix + "join_phrase", value: name.join_phrase },
+                { name: curPrefix + "join_phrase", value: name.joinPhrase },
                 { name: curPrefix + "artist.name", value: name.artist.name },
                 { name: curPrefix + "artist.id", value: name.artist.id }
             ];

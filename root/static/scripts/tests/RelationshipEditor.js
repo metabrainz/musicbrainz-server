@@ -247,15 +247,15 @@ var attrInfo = {
 var testRelease = {
     "relationships": {},
     "name": "Love Me Do / I Saw Her Standing There",
-    "artist_credit": [
+    "artistCredit": [
         {
             "artist": {
-                "sortname": "Beatles, The",
+                "sortName": "Beatles, The",
                 "name": "The Beatles",
                 "id": 303,
                 "gid": "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
             },
-            "join_phrase": ""
+            "joinPhrase": ""
         }
     ],
     "id": 211431,
@@ -274,7 +274,7 @@ var testRelease = {
                     },
                     "position": 1,
                     "name": "Love Me Do",
-                    "artist_credit": []
+                    "artistCredit": []
                 },
                 {
                     "length": 176000,
@@ -288,7 +288,7 @@ var testRelease = {
                     },
                     "position": 2,
                     "name": "I Saw Her Standing There",
-                    "artist_credit": []
+                    "artistCredit": []
                 }
             ],
             "format": "Vinyl",
@@ -660,7 +660,7 @@ test("Relationship", function () {
 test("Entity", function () {
 
     var source = MB.entity({ type: "recording", name: "a recording" }),
-        target = MB.entity({ type: "artist", name: "foo", sortname: "bar" });
+        target = MB.entity({ type: "artist", name: "foo", sortName: "bar" });
 
     var relationship = this.RE.Relationship({
         entity: [target, source],

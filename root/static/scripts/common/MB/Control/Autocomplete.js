@@ -439,9 +439,9 @@ MB.Control.autocomplete_formatters = {
             comment.push (item.primary_alias);
         }
 
-        if (item.sortname && !MB.utility.is_latin (item.name) && item.sortname != item.name)
+        if (item.sortName && !MB.utility.is_latin (item.name) && item.sortName != item.name)
         {
-            comment.push (item.sortname);
+            comment.push (item.sortName);
         }
 
         if (item.comment)
@@ -461,9 +461,10 @@ MB.Control.autocomplete_formatters = {
     "recording": function (ul, item) {
         var a = $("<a>").text (item.name);
 
-        if (item.length && item.length !== '' && item.length !== '?:??')
+        if (item.length)
         {
-            a.prepend ('<span class="autocomplete-length">' + item.length + '</span>');
+            a.prepend ('<span class="autocomplete-length">' +
+                MB.utility.formatTrackLength(item.length) + '</span>');
         }
 
         if (item.comment)
@@ -480,14 +481,14 @@ MB.Control.autocomplete_formatters = {
         a.append ('<br /><span class="autocomplete-comment">by ' +
                   _.escapeHTML (item.artist) + '</span>');
 
-        if (item.appears_on && item.appears_on.hits > 0)
+        if (item.appearsOn && item.appearsOn.hits > 0)
         {
             var rgs = [];
-            $.each (item.appears_on.results, function (idx, item) {
+            $.each (item.appearsOn.results, function (idx, item) {
                 rgs.push (item.name);
             });
 
-            if (item.appears_on.hits > item.appears_on.results.length)
+            if (item.appearsOn.hits > item.appearsOn.results.length)
             {
                 rgs.push ('...');
             }
@@ -495,11 +496,11 @@ MB.Control.autocomplete_formatters = {
             a.append ('<br /><span class="autocomplete-appears">appears on: ' +
                       _.escapeHTML (rgs.join (", ")) + '</span>');
         }
-        else {
+        else if (item.appearsOn && item.appearsOn.hits === 0) {
             a.append ('<br /><span class="autocomplete-appears">standalone recording</span>');
         }
 
-        if (item.isrcs.length)
+        if (item.isrcs && item.isrcs.length)
         {
             a.append ('<br /><span class="autocomplete-isrcs">isrcs: ' +
                       _.escapeHTML (item.isrcs.join (", ")) + '</span>');

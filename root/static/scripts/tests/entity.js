@@ -8,7 +8,7 @@ module("MB.entity");
 
 test("CoreEntity", function () {
     var source = MB.entity({ gid: 123, type: "recording", name: "a recording" }),
-        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortname: "bar" });
+        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortName: "bar" });
 
     equal(
         source.html(),
@@ -26,9 +26,9 @@ test("CoreEntity", function () {
 
 test("ArtistCredit", function () {
     var data = [
-        [ { artist: { gid: 1, name: "a" }, join_phrase: "/" } ],
-        [ { artist: { gid: 1, name: "a" }, name: "b", join_phrase: "/" } ],
-        [ { artist: { gid: 1, name: "a" }, join_phrase: "/" }, { artist: { gid: 2, name: "b" } } ]
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, name: "b", joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" }, { artist: { gid: 2, name: "b" } } ]
     ];
 
     var acs = [
@@ -45,22 +45,22 @@ test("ArtistCredit", function () {
     var ac = [
         {
             artist: {
-                sortname: "Sheridan, Tony",
+                sortName: "Sheridan, Tony",
                 name: "Tony Sheridan",
                 id: 117906,
                 gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
             },
             name: "tony sheridan",
-            join_phrase: " & "
+            joinPhrase: " & "
         },
         {
             artist: {
-                sortname: "Beatles, The",
+                sortName: "Beatles, The",
                 name: "The Beatles",
                 id: 303,
                 gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
             },
-            join_phrase: ""
+            joinPhrase: ""
         }
     ];
 

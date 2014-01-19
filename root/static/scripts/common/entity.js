@@ -69,7 +69,7 @@
             "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
             "<a href=\"/<%= data.type %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
-            "<% if (data.sortname) { %> title=\"<%- data.sortname %>\"" +
+            "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
@@ -83,17 +83,16 @@
             this.name = data.name || "";
             this.editsPending = data.editsPending;
 
-            if (data.sortname) {
-                this.sortname = data.sortname;
+            if (data.sortName) {
+                this.sortName = data.sortName;
             }
 
             if (data.comment) {
                 this.comment = data.comment;
             }
 
-            if (data.artist_credit) {
-                this.artistCredit =
-                    new MB.entity.ArtistCredit(data.artist_credit);
+            if (data.artistCredit) {
+                this.artistCredit = new MB.entity.ArtistCredit(data.artistCredit);
             }
         },
 
@@ -116,11 +115,15 @@
 
         after$init: function (data) {
             this.length = data.length;
+            this.formattedLength = MB.utility.formatTrackLength(data.length);
             this.video = data.video;
 
             // Returned from the /ws/js/recording search.
-            if (_.isObject(data.appears_on)) {
-                this.appearsOn = data.appears_on;
+            if (_.isObject(data.appearsOn)) {
+                this.appearsOn = _.map(data.appearsOn.results,
+                    function (releaseGroup) {
+                        return MB.entity(releaseGroup, "release_group");
+                    });
             }
 
             if (_.isString(data.artist)) {
@@ -136,9 +139,10 @@
 
         after$init: function (data) {
             this.typeID = data.typeID;
-            this.secondaryTypes = data.secondary_types;
+            this.secondaryTypeIDs = data.secondaryTypeIDs;
         }
     });
+
 
     MB.entity.Track = aclass(MB.entity.CoreEntity, {
         type: "track",
@@ -146,7 +150,8 @@
         after$init: function (data) {
             this.number = data.number;
             this.position = data.position;
-            this.length = MB.utility.formatTrackLength(data.length);
+            this.length = data.length;
+            this.formattedLength = MB.utility.formatTrackLength(this.length);
             this.gid = data.gid;
 
             if (data.recording) {
@@ -208,7 +213,7 @@
 
             this.artist = data.artist;
             this.name = data.name || data.artist.name || "";
-            this.joinPhrase = data.join_phrase || "";
+            this.joinPhrase = data.joinPhrase || "";
         },
 
         isEmpty: function () {
@@ -244,7 +249,7 @@
 
             var name = ko.unwrap(this.name);
             var artist = ko.unwrap(this.artist);
-            var title = artist.sortname;
+            var title = artist.sortName || "";
 
             if (artist.comment) {
                 title += " (" + artist.comment + ")";
@@ -274,7 +279,7 @@
                     gid:  artist.gid
                 },
                 name: ko.unwrap(this.name),
-                join_phrase: ko.unwrap(this.joinPhrase)
+                joinPhrase: ko.unwrap(this.joinPhrase)
             };
         }
     });
@@ -334,6 +339,7 @@
 
     MB.entity.Medium = aclass(Entity, function (data) {
         this.format = data.format;
+        this.formatID = data.formatID;
         this.name = data.name;
         this.position = data.position;
 

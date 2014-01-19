@@ -61,42 +61,6 @@ MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2
 
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
 
-/* structureToString renders a structure to a string.  It is similar to
-   serializing a structure, but intended as input to a hash function.
-
-   The output string is not easily deserialized.
-*/
-MB.utility.structureToString = function (obj) {
-    if (_.isString(obj) || _.isNumber(obj))
-    {
-        return obj;
-    }
-    else if (_.isArray(obj))
-    {
-        var ret = [];
-        $.each (obj, function (idx, item) {
-            ret.push (MB.utility.structureToString (item));
-        });
-
-        return '[' + ret.join (",") + ']';
-    }
-    else
-    {
-        var keys = MB.utility.keys (obj);
-        keys.sort ();
-
-        var ret = [];
-        $.each (keys, function (idx, key) {
-            if (obj[key]) {
-                ret.push (key + ":" + MB.utility.structureToString (obj[key]));
-            }
-        });
-
-        return '{' + ret.join (",") + '}';
-    }
-};
-
-
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
@@ -131,7 +95,7 @@ MB.utility.rememberCheckbox = function (id, name) {
 
 MB.utility.formatTrackLength = function (duration)
 {
-    if (duration === null)
+    if (!duration)
     {
         return '';
     }
@@ -168,6 +132,10 @@ MB.utility.formatTrackLength = function (duration)
 
 MB.utility.unformatTrackLength = function (duration)
 {
+    if (!duration) {
+        return null;
+    }
+
     if (duration.slice (-2) == 'ms')
     {
         return parseInt (duration, 10);
@@ -185,15 +153,6 @@ MB.utility.unformatTrackLength = function (duration)
 
     return (hours + minutes + seconds) * 1000;
 };
-
-MB.utility.renderArtistCredit = function (ac) {
-    var html = '';
-    $.each(ac.names, function(name) {
-        html += this.name + this.join_phrase
-    });
-
-    return html;
-}
 
 /* This takes a list of asynchronous functions (i.e. functions which
    return a jquery promise) and runs them in sequence.  It in turn

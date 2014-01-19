@@ -13,43 +13,6 @@ test('All', function () {
     equal (MB.utility.fullWidthConverter (input),
                   expected, "fullWidthConverter (" + input + ")");
 
-    input1 = {
-        'length': '4:03',
-        'title': 'the Love bug',
-        'names': [
-            { 'name': 'm-flo', 'id': '135345' },
-            { 'name': 'BoA', 'id': '9496' }
-        ]
-    };
-
-    input2 = {
-        'names': [
-            { 'id': '135345', 'name': 'm-flo' },
-            { 'name': 'BoA', 'id': '9496' }
-        ],
-        'title': 'the Love bug',
-        'length': '4:03'
-    };
-
-    input3 = {
-        'names': [
-            { 'name': 'BoA', 'id': '9496' },
-            { 'id': '135345', 'name': 'm-flo' }
-        ],
-        'title': 'the Love bug',
-        'length': '4:03'
-    };
-
-    equal (MB.utility.structureToString (input1),
-                 MB.utility.structureToString (input2),
-                 'structureToString equivalent');
-    notEqual (MB.utility.structureToString (input2),
-                    MB.utility.structureToString (input3),
-                    'structureToString different');
-
-    var input1sha = b64_sha1 (MB.utility.structureToString (input1));
-    equal (input1sha, "aIkUXodpaNX7Q1YfttiKMkKCxB0", "SHA-1 of input1");
-
     var seconds = 1000;
     var minutes = 60 * seconds;
     var hours = 60 * minutes;

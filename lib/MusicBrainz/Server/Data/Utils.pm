@@ -119,9 +119,9 @@ sub artist_credit_to_ref
 
         for my $key (@$extra_keys)
         {
-            if ($key eq "sortname")
+            if ($key eq "sort_name")
             {
-                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
+                $ac_name{artist}->{sort_name} = $ac->artist->sort_name;
             }
             else
             {

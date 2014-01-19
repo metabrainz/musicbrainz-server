@@ -82,7 +82,7 @@ MB.Release = (function (Release) {
   ViewModel = function (releaseData) {
     var model = this;
 
-    model.artistCredit = MB.entity.ArtistCredit(releaseData.artist_credit);
+    model.artistCredit = MB.entity.ArtistCredit(releaseData.artistCredit);
 
     this.mediums = _.map(
       releaseData.mediums,
@@ -95,10 +95,6 @@ MB.Release = (function (Release) {
               releaseData.mediums[mediumIndex].tracks[trackIndex].recording;
 
             track.recording.relationships = inputRecording.relationships;
-
-            if (track.length === '') {
-              track.length = '?:??';
-            }
 
             track.recording.extend({
               "groupedRelationships": ko.computed({
