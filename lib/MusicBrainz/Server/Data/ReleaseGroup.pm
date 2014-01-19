@@ -22,7 +22,7 @@ use MusicBrainz::Server::Constants qw( $STATUS_OPEN $VARTIST_ID );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release_group' };
-with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release_group' };
+#with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release_group' };
 with 'MusicBrainz::Server::Data::Role::Name';
 with 'MusicBrainz::Server::Data::Role::Rating' => { type => 'release_group' };
