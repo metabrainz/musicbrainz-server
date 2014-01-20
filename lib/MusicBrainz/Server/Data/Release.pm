@@ -1019,7 +1019,7 @@ sub merge
                   ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
                            (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
                            (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_country
              WHERE release = any(?)
@@ -1040,7 +1040,7 @@ sub merge
                   ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
                            (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
                            (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_unknown_country
              WHERE release = any(?)
