@@ -1010,10 +1010,10 @@ sub merge
 
     $self->sql->do(
         'DELETE FROM release_country
-         WHERE release IN (
-           SELECT release
+         WHERE (release, country) IN (
+           SELECT release, country
            FROM (
-             SELECT release,
+             SELECT release, country,
                (row_number() OVER (
                   PARTITION BY country
                   ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
