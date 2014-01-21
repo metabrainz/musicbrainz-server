@@ -209,12 +209,10 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
 // initialize_artist_credit is a helper class that takes care of generating
 // hidden form inputs for submission.
 
-MB.Control.initialize_artist_credit = function (bubbles, $target, $bubble, $button) {
+MB.Control.initialize_artist_credit = function ($target, $bubble, $button) {
     $target = $target || $("#entity-artist");
     $bubble = $bubble || $("#artist-credit-bubble");
     $button = $button || $("#open-ac");
-
-    bubbles.add($button, $bubble);
 
     var ac = MB.Control.ArtistCredit({
         hiddenInputs: $target.data("hidden-inputs"),
@@ -222,16 +220,12 @@ MB.Control.initialize_artist_credit = function (bubbles, $target, $bubble, $butt
         initialData: $target.data("artist")
     });
 
-    $bubble.on("bubbleOpen", function () {
-        $button.val(" << ");
-    });
-
-    $bubble.on("bubbleClose", function () {
-        $button.val(" >> ");
-    });
+    var bubble = MB.Control.ArtistCreditBubbleDoc();
+    bubble.target(ac);
 
     ko.applyBindings(ac, $target[0]);
-    ko.applyBindings(ac, $bubble[0]);
+    ko.applyBindingsToNode($button[0], { controlsBubble: bubble }, ac);
+    ko.applyBindingsToNode($bubble[0], { bubble: bubble }, ac);
 
     return ac;
 };
