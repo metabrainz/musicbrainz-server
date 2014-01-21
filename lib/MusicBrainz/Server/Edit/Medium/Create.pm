@@ -78,13 +78,13 @@ sub initialize {
     my $tracklist = delete $opts{tracklist};
     $opts{tracklist} = tracks_to_hash($tracklist);
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $self->data(\%opts);
 }
