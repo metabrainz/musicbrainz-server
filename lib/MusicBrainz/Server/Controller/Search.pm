@@ -148,6 +148,7 @@ sub direct : Private
         }
         when ('area') {
             $c->model('AreaType')->load(@entities);
+            $c->model('Area')->load_containment(@entities);
         }
         when ('place') {
             $c->model('PlaceType')->load(@entities);

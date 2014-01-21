@@ -49,6 +49,7 @@ MB.tests.entity = function() {
                     id: 117906,
                     gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
                 },
+                name: "tony sheridan",
                 join_phrase: " & "
             },
             {
@@ -63,8 +64,9 @@ MB.tests.entity = function() {
         ];
 
         QUnit.equal(new MB.entity.ArtistCredit(ac).html(),
+            '<span class="name-variation">' +
             '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
-            'title="Sheridan, Tony">Tony Sheridan</a> &amp; ' +
+            'title="Sheridan, Tony">tony sheridan</a></span> &amp; ' +
             '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
             'title="Beatles, The">The Beatles</a>',
             "artist credit rendering"

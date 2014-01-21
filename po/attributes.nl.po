@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-12 15:17+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-01-12 12:01+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -156,6 +156,11 @@ msgstr "Cassette"
 msgctxt "release_packaging"
 msgid "Cassette Case"
 msgstr "Cassettedoosje"
+
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
+msgstr ""
 
 #: DB:area_type/name:3
 msgctxt "area_type"

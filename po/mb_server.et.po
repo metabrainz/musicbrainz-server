@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-24 12:36-0700\n"
-"PO-Revision-Date: 2013-12-28 20:32+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"POT-Creation-Date: 2014-01-12 04:59-0700\n"
+"PO-Revision-Date: 2014-01-12 12:02+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,7 +230,7 @@ msgstr "(eraldiseisev salvestis)"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../root/recording/index.tt:23 ../root/release_group/index.tt:44
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:88
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:89
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:188
 msgid "(unknown)"
 msgstr "(teadmata)"
@@ -306,15 +306,15 @@ msgstr "<em>Tühistamine</em>"
 msgid "<em>no changelog specified</em>"
 msgstr "<em>muutuste logi pole</em>"
 
-#: ../root/edit/edit_header.tt:60
+#: ../root/edit/edit_header.tt:61
 msgid "<strong>Approved:</strong> {date}"
 msgstr "<strong>Heaks kiidetud:</strong> {date}"
 
-#: ../root/edit/edit_header.tt:58
+#: ../root/edit/edit_header.tt:59
 msgid "<strong>Closed:</strong> <em>Cancelling</em>"
 msgstr "<strong>Suletud:</strong> <em>tühistatakse</em>"
 
-#: ../root/edit/edit_header.tt:62
+#: ../root/edit/edit_header.tt:63
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>Suletud:</strong> {date}"
 
@@ -1020,7 +1020,7 @@ msgid_plural "{n} anonymous users"
 msgstr[0] "Üks anonüümne kasutaja"
 msgstr[1] "{n} anonüümset kasutajat"
 
-#: ../root/edit/index.tt:16 ../root/edit/list.tt:89
+#: ../root/edit/index.tt:16 ../root/edit/list.tt:68
 #: ../root/release/edit/editnote.tt:19
 msgid "An error occured while loading this edit"
 msgstr "Toimetuse laadimisel tekkis tõrge"
@@ -1118,7 +1118,7 @@ msgstr "Rakendused"
 msgid "Approve"
 msgstr "Heakskiitev"
 
-#: ../root/edit/edit_header.tt:75 ../root/edit/info.tt:17
+#: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
 msgstr "Kiida heaks"
 
@@ -1600,6 +1600,10 @@ msgstr "Lisatavate artistide automaatne jälgimine"
 msgid "Automatically subscribe me to labels I create."
 msgstr "Lisatavate plaadifirmade automaatne jälgimine"
 
+#: ../root/components/ratings.tt:19
+msgid "Average rating:"
+msgstr ""
+
 #: ../root/browse/page_selector.tt:54
 msgid "Back"
 msgstr "Tagasi"
@@ -1975,7 +1979,7 @@ msgstr "Toimetuse tühistamine"
 msgid "Cancel creating relationship with {name}"
 msgstr "Loobu seose loomisest: {name}"
 
-#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:79
+#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:80
 #: ../root/edit/info.tt:21
 msgid "Cancel edit"
 msgstr "Tühista"
@@ -2775,7 +2779,7 @@ msgstr "Toimeta"
 msgid "Edit #{id}"
 msgstr "Toimetus #{id}"
 
-#: ../root/edit/edit_header.tt:69 ../root/edit/edit_header.tt:84
+#: ../root/edit/edit_header.tt:70 ../root/edit/edit_header.tt:85
 msgid "Edit #{id} - {name}"
 msgstr "Toimetus #{id} - {name}"
 
@@ -2949,7 +2953,7 @@ msgstr "Artisti aliase muutmine"
 msgid "Edit artist annotation"
 msgstr "Artisti annotatsiooni muutmine"
 
-#: ../root/edit/edit_header.tt:90
+#: ../root/edit/edit_header.tt:91
 msgid "Edit by {editor}"
 msgstr "Toimetas {editor}"
 
@@ -3440,6 +3444,12 @@ msgstr "Otsi seoseid"
 msgid "Fingerprints"
 msgstr "Sõrmejäljed"
 
+#: ../root/account/register.tt:53
+msgid ""
+"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+"the {fo|forums} or {irc|IRC}."
+msgstr ""
+
 #: ../root/search/error/wrapper.tt:5
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
@@ -3516,7 +3526,7 @@ msgid ""
 "error message that is shown above."
 msgstr "Leidsid saidiga probleemi? Palun {report|teata veast} ja lisa sinna ka ülalolev veateade."
 
-#: ../root/edit/list.tt:58
+#: ../root/edit/list.tt:36
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Leiti vähemalt {n} toimetus"
@@ -3532,7 +3542,7 @@ msgstr[1] "Leidub {num} kasutaja kogus"
 msgid "Found more than one match for the CD with TOC {toc}: "
 msgstr "Leiti mitu sisukorrale „{toc}” vastavat CD-d: "
 
-#: ../root/edit/list.tt:62
+#: ../root/edit/list.tt:40
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "Leiti {n} toimetus"
@@ -4020,12 +4030,6 @@ msgid ""
 "the {style|style guidelines}, or in other cases where administrative \"clean"
 " up\" tasks are required."
 msgstr "Kui soovid toimetamises osaleda, aga ei tea, millest alustada, siis peaks järgnev loetelu kasulik olema. Linkide taga on andmebaasist automaatselt leitud andmed, mis võivad vajada parandamist, kas siis {style|stiilijuhistega} vastavusse viimiseks või muude „puhastustööde” korras."
-
-#: ../root/account/register.tt:53
-msgid ""
-"If you're interested in receiving information from MusicBrainz staff or "
-"communicating with other users, {ml|please subscribe to our mailing lists}."
-msgstr "Kui soovid MusicBrainzi meeskonnalt infokirju saada või teiste kasutajatega suhelda, {ml|võid liituda meie postiloendiga}."
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
@@ -4809,7 +4813,7 @@ msgstr "MusicBrainzis pole CD-sid, mille sisukord oleks"
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz Androidile"
 
-#: ../root/account/register.tt:57
+#: ../root/account/register.tt:59
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -4872,12 +4876,12 @@ msgstr "Minu hääl"
 msgid "My vote:"
 msgstr "Minu hääl:"
 
-#: ../root/edit/edit_header.tt:31 ../root/edit/edit_header.tt:36
-#: ../root/edit/edit_header.tt:41
+#: ../root/edit/edit_header.tt:32 ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:42
 msgid "My vote: "
 msgstr "Minu hääl: "
 
-#: ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:38
 msgid "N/A"
 msgstr "pole"
 
@@ -5101,7 +5105,7 @@ msgstr "Kaanepilti pole lisatud."
 msgid "No edit notes have been added."
 msgstr "Toimetusmärkeid pole lisatud."
 
-#: ../root/edit/list.tt:109
+#: ../root/edit/list.tt:88
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Päringule vastavaid toimetusi ei leitud. {search|Proovi uuesti}."
 
@@ -5250,7 +5254,7 @@ msgstr ""
 msgid "Non-digital releases with download relationships"
 msgstr "Mittedigitaalsed väljalasked, millel on allalaadimisseos"
 
-#: ../root/edit/edit_header.tt:42 ../root/edit/vote.tt:23
+#: ../root/edit/edit_header.tt:43 ../root/edit/vote.tt:23
 msgid "None"
 msgstr "Puudub"
 
@@ -7685,7 +7689,7 @@ msgstr "CD sisestamiseks lihtviisil klõpsa siin."
 msgid "Submit vote and note"
 msgstr "Anna hääl &amp; lisa märge"
 
-#: ../root/edit/list.tt:102
+#: ../root/edit/list.tt:81
 msgid "Submit votes &amp; edit notes"
 msgstr "Anna hääled &amp; lisa märked"
 
@@ -8104,7 +8108,7 @@ msgstr "Sisestatud väärtus ei ole korrektne."
 msgid "The watch artist feature is currently not active."
 msgstr ""
 
-#: ../root/edit/edit_header.tt:25
+#: ../root/edit/edit_header.tt:26
 msgid "Their vote: "
 msgstr "Tema hääl: "
 
@@ -11088,7 +11092,7 @@ msgstr ""
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/components/ratings.tt:20
+#: ../root/components/ratings.tt:21
 msgid "{link} has no ratings."
 msgstr "{link} on ilma hinneteta."
 
@@ -11341,14 +11345,40 @@ msgstr "Selles beetatestimisserveris saab katsetada uusi funktsioone pärisandme
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "„{id}” ei ole kehtiv MusicBrainzi ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:119
+#: ../lib/MusicBrainz/Server/Controller.pm:144
+#, perl-brace-format
 msgid ""
-"Thank you, your edit has been entered into the edit queue for peer review."
-msgstr "Aitäh, toimetus on sisestatud ja ootab teistelt kasutajatelt ülevaatamist."
+"Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted"
+" and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:120
-msgid "Thank you, your edit has been accepted and applied"
-msgstr "Aitäh, toimetus on vastuvõetud ja rakendatud."
+#: ../lib/MusicBrainz/Server/Controller.pm:150
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
+"queue for peer review."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
+"into the edit queue for peer review."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Controller.pm:158
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
+"{num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
+" with {num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."

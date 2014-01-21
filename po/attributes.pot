@@ -148,6 +148,11 @@ msgctxt "release_packaging"
 msgid "Cassette Case"
 msgstr ""
 
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
+msgstr ""
+
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
