@@ -12,6 +12,7 @@ lib/underscore/underscore.string.js
 
 lib/knockout/knockout-latest.debug.js
 lib/knockout/knockout-delegatedEvents.js
+lib/knockout/knockout-postbox.js
 
 lib/aclass/aclass.js
 

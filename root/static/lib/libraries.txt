@@ -119,6 +119,14 @@ version:     0.1.3
 author:      Ryan Niemeyer
 url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
+-- knockout/knockout-postbox.js --
+
+library:     knockout-postbox
+license:     MIT
+version:     0.4.2
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-postbox
+
 -- underscore/underscore.js --
 
 library:     Underscore
