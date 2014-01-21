@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
+"PO-Revision-Date: 2014-01-21 03:59+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1343,6 +1343,14 @@ msgid ""
 "The pakhavaj/pakhawaj is an Indian barrel-shaped, two-headed drum used in "
 "Hindustani music (<a "
 "href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal "
+"piano\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:429

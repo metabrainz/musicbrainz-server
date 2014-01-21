@@ -480,8 +480,11 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
 };
 
 MB.CoverArt.set_position = function() {
-    var position = $('div.editimage').index() + 1;
-    $('#id-add-cover-art\\.position').val(position);
+    var $editimage = $('div.editimage');
+    if ($editimage.length) {
+        var position = $editimage.index() + 1;
+        $('#id-add-cover-art\\.position').val(position);
+    }
 };
 
 MB.CoverArt.add_cover_art = function (gid) {

@@ -58,6 +58,11 @@
     };
 
 
+    // Used by unit tests to guarantee isolation of side effects.
+
+    MB.entity.clearCache = function () { entityCache = {} };
+
+
     MB.entity.CoreEntity = aclass(Entity, {
 
         template: _.template(

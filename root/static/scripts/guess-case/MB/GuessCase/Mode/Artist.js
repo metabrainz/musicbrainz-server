@@ -30,7 +30,7 @@ MB.GuessCase.Mode.Artist = function () {
 
     parentIsLowerCaseWord = self.isLowerCaseWord;
 
-    self.setConfig('Artist mode', '', '');
+    self.setConfig('Artist mode', '');
 
     self.isLowerCaseWord = function (w) {
         return w === 'the' ? false : parentIsLowerCaseWord (w);

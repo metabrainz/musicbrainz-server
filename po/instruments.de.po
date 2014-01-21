@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 20:03+0000\n"
-"Last-Translator: Shepard\n"
+"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1562,6 +1562,10 @@ msgstr "Panflöte"
 
 #: DB:link_attribute_type/name:392
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:469

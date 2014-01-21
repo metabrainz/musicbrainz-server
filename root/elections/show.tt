@@ -6,37 +6,42 @@
 
     <h2>[% l('Details') %]</h2>
 
-    <dl class="profileinfo">
-
-        <dt>[% l('Candidate:') %]</dt>
-        <dd>[% link_editor(election.candidate) %]</dd>
-
-        <dt>[% l('Proposer:') %]</dt>
-        <dd>[% link_editor(election.proposer) %]</dd>
-
-        <dt>[% l('1st seconder:') %]</dt>
-        <dd>[% IF election.seconder_1 %][% link_editor(election.seconder_1) %][% ELSE %]-[% END %]</dd>
-
-        <dt>[% l('2nd seconder:') %]</dt>
-        <dd>[% IF election.seconder_2 %][% link_editor(election.seconder_2) %][% ELSE %]-[% END %]</dd>
-
+    <table class="properties">
+    <tr>
+        <th>[% l('Candidate:') %]</th>
+        <td>[% link_editor(election.candidate) %]</td>
+    </tr>
+    <tr>
+        <th>[% l('Proposer:') %]</th>
+        <td>[% link_editor(election.proposer) %]</td>
+    </tr>
+    <tr>
+        <th>[% l('1st seconder:') %]</th>
+        <td>[% IF election.seconder_1 %][% link_editor(election.seconder_1) %][% ELSE %]-[% END %]</td>
+    </tr>
+    <tr>
+        <th>[% l('2nd seconder:') %]</th>
+        <td>[% IF election.seconder_2 %][% link_editor(election.seconder_2) %][% ELSE %]-[% END %]</td>
+    </tr>
+    <tr>
         [% IF can_see_vote_count == "later" %]
 
-        <dt>[% l('Votes for/against:') %]</dt>
-        <dd>[% l('The tally of votes cast will only be shown when the election is complete.') %]</dd>
+        <th>[% l('Votes for/against:') %]</th>
+        <td>[% l('The tally of votes cast will only be shown when the election is complete.') %]</td>
 
         [% ELSIF can_see_vote_count == "yes" %]
 
-        <dt>[% l('Votes for:') %]</dt>
-        <dd>[% election.yes_votes %]</dd>
+        <th>[% l('Votes for:') %]</th>
+        <td>[% election.yes_votes %]</td>
 
-        <dt>[% l('Votes against:') %]</dt>
-        <dd>[% election.no_votes %]</dd>
+        <th>[% l('Votes against:') %]</th>
+        <td>[% election.no_votes %]</td>
 
         [% END %]
-
-        <dt>[% lp('Status:', 'election status') %]</dt>
-        <dd>
+    </tr>
+    <tr>
+        <th>[% lp('Status:', 'election status') %]</th>
+        <td>
             [% IF election.is_open || election.is_pending %]
                 [% IF election.is_open;
                       lp(election.status_name, 'autoeditor election status', { date => UserDate.format(election.open_time) }) | html;
@@ -52,8 +57,9 @@
             [% ELSE %]
                 [% lp(election.status_name, 'autoeditor election status') | html %]
             [% END %]
-        </dd>
-    </dl>
+        </td>
+    </tr>
+    </table>
 
     <h2>[% l('Voting') %]</h2>
 
@@ -76,20 +82,20 @@
                 <button type="submit" name="vote.vote" value="0">[% l('Abstain') %]</button>
             </span>
         </form>
-	[% ELSE %]
-		[%- IF c.user_exists -%]
-			[%- IF !c.user.is_auto_editor -%]
-				[% l('You cannot vote for this candidate, because you are not an auto-editor.') %]
-			[%- ELSIF c.user.id == election.proposer_id OR c.user.id == election.seconder_1_id OR c.user.id == election.seconder_2_id -%]
-				[% l('You cannot vote for this candidate, because you proposed / seconded them.') %]
-			[%- ELSIF election.is_pending -%]
-				[% l('Voting is not yet open. If you would like to support this candidate, you can second their nomination. If you do not support this candidate, please note that you cannot cast a "No" vote (or abstain) until two seconders have been found.') %]
-			[%- ELSIF election.is_closed -%]
-				[% l('Voting is closed.') %]
-			[%- END -%]
-		[%- ELSE -%]
-			[% l('To find out if you can vote for this candidate, please {url|log in}.', { url => c.uri_for_action('user/login') }) %]
-		[%- END -%]
+    [% ELSE %]
+        [%- IF c.user_exists -%]
+            [%- IF !c.user.is_auto_editor -%]
+                [% l('You cannot vote for this candidate, because you are not an auto-editor.') %]
+            [%- ELSIF c.user.id == election.proposer_id OR c.user.id == election.seconder_1_id OR c.user.id == election.seconder_2_id -%]
+                [% l('You cannot vote for this candidate, because you proposed / seconded them.') %]
+            [%- ELSIF election.is_pending -%]
+                [% l('Voting is not yet open. If you would like to support this candidate, you can second their nomination. If you do not support this candidate, please note that you cannot cast a "No" vote (or abstain) until two seconders have been found.') %]
+            [%- ELSIF election.is_closed -%]
+                [% l('Voting is closed.') %]
+            [%- END -%]
+        [%- ELSE -%]
+            [% l('To find out if you can vote for this candidate, please {url|log in}.', { url => c.uri_for_action('user/login') }) %]
+        [%- END -%]
     [% END %]
     </p>
 
