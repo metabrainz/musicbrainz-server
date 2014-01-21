@@ -26,7 +26,7 @@ MB.entity.CoreEntity.extend({
         this.relationships = ko.observableArray([]);
     },
 
-    toJS: function () {
+    toJSON: function () {
         return { gid: this.gid, type: this.type };
     },
 
@@ -41,7 +41,7 @@ MB.entity.CoreEntity.extend({
             var other = relationships[i];
 
             if (rel !== other && rel.isDuplicate(other)) {
-                var obj = rel.toJS();
+                var obj = rel.toJSON();
                 delete obj.id;
                 delete obj.action;
 

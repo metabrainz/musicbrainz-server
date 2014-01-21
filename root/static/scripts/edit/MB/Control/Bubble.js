@@ -124,7 +124,7 @@ MB.Control.ArtistCreditBubbleBase = {
     },
 
     copyArtistCredit: function () {
-        var names = this.target().toJS();
+        var names = this.target().toJSON();
         if (names.length === 0) names.push({});
 
         localStorage.copiedArtistCredit = JSON.stringify(names);

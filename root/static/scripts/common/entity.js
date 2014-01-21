@@ -97,7 +97,34 @@
         },
 
         html: function (renderParams) {
-            return this.template(_.extend(renderParams || {}, this));
+            var json = this.toJSON();
+
+            json.type = json.type.replace("_", "-");
+
+            if (this.gid) {
+                return this.template(_.extend(renderParams || {}, json));
+            }
+            return json.name;
+        },
+
+        toJSON: function () {
+            var obj = {
+                type:    this.type,
+                id:      this.id,
+                gid:     this.gid,
+                name:    ko.unwrap(this.name),
+                comment: ko.unwrap(this.comment)
+            };
+
+            if (this.sortName) {
+                obj.sortName = this.sortName;
+            }
+
+            if (this.artistCredit) {
+                obj.artistCredit = this.artistCredit.toJSON();
+            }
+
+            return obj;
         }
     });
 
@@ -238,6 +265,15 @@
                    ko.unwrap(this.joinPhrase) === ko.unwrap(other.joinPhrase);
         },
 
+        toJSON: function () {
+            var artist = ko.unwrap(this.artist);
+            return {
+                artist: artist ? artist.toJSON() : null,
+                name: ko.unwrap(this.name) || "",
+                joinPhrase: ko.unwrap(this.joinPhrase) || ""
+            };
+        },
+
         text: function () {
             return ko.unwrap(this.name) + ko.unwrap(this.joinPhrase);
         },
@@ -269,7 +305,7 @@
             );
         },
 
-        toJS: function () {
+        toJSON: function () {
             var artist = ko.unwrap(this.artist) || {};
 
             return {
@@ -331,8 +367,8 @@
             }, "");
         },
 
-        toJS: function () {
-            return _.invoke(ko.unwrap(this.names), "toJS");
+        toJSON: function () {
+            return _.invoke(ko.unwrap(this.names), "toJSON");
         }
     });
 

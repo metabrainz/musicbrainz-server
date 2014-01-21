@@ -146,7 +146,7 @@ ko.bindingHandlers.targetType = (function() {
     function change() {
         var ac = dialog.autocomplete,
             relationship = dialog.relationship(),
-            obj = relationship.toJS();
+            obj = relationship.toJSON();
 
         obj.entity[dialog.target.gid === obj.entity[0].gid ? 0 : 1] = (
             MB.entity({ type: this.value, name: dialog.target.name })
@@ -516,7 +516,7 @@ UI.EditDialog = aclass(Dialog, {
         // originalRelationship is a copy of the relationship when the dialog
         // was opened, i.e. before the user edits it. if they cancel the
         // dialog, this is what gets copied back to revert their changes.
-        this.originalRelationship = options.relationship.toJS();
+        this.originalRelationship = options.relationship.toJSON();
     },
 
     before$close: function (cancel) {
@@ -543,7 +543,7 @@ UI.BatchRelationshipDialog = aclass(Dialog, {
     },
 
     augment$accept: function (callback) {
-        var model = this.relationship().toJS(),
+        var model = this.relationship().toJSON(),
             hasCallback = $.isFunction(callback),
             sourceIndex = this.backward() ? 1 : 0;
 

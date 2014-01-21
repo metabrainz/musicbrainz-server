@@ -192,7 +192,7 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
             prefix = this.formName + "." + prefix;
         }
 
-        return _.flatten(_.map(this.toJS(), function (name, index) {
+        return _.flatten(_.map(this.toJSON(), function (name, index) {
             var curPrefix = prefix + index + ".";
 
             return [

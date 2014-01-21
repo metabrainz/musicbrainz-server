@@ -59,7 +59,7 @@ var Relationship = function(obj) {
 
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
-    this.original_fields = this.toJS();
+    this.original_fields = this.toJSON();
 
     this.entity[0].extend({field: [this, "entity.0"]});
     this.entity[1].extend({field: [this, "entity.1"]});
@@ -78,7 +78,7 @@ var defaultLinkType = function(type0, type1) {
 };
 
 
-Relationship.prototype.toJS = function() {
+Relationship.prototype.toJSON = function() {
     var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek();
     return {
         id:        this.action.peek() == "action" ? undefined : this.id,
@@ -90,7 +90,7 @@ Relationship.prototype.toJS = function() {
             ended:      this.period.ended.peek()
         },
         attrs:  ko.toJS(this.attrs),
-        entity: [this.entity[0].peek().toJS(), this.entity[1].peek().toJS()]
+        entity: [this.entity[0].peek().toJSON(), this.entity[1].peek().toJSON()]
     };
 };
 
@@ -254,7 +254,7 @@ var buildField = function(prefix, obj, result) {
 
 Relationship.prototype.buildFields = function(num, result) {
     var prefix = "rel-editor.rels." + num;
-    buildField(prefix, this.toJS(), result);
+    buildField(prefix, this.toJSON(), result);
     if (this.action.peek() == "add") delete result[prefix + ".id"];
 };
 
