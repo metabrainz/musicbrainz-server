@@ -115,6 +115,7 @@ DROP TRIGGER reptg_release_meta ON release_meta;
 DROP TRIGGER reptg_release_label ON release_label;
 DROP TRIGGER reptg_release_packaging ON release_packaging;
 DROP TRIGGER reptg_release_status ON release_status;
+DROP TRIGGER reptg_release_tag ON release_tag;
 DROP TRIGGER reptg_release_group ON release_group;
 DROP TRIGGER reptg_release_group_annotation ON release_group_annotation;
 DROP TRIGGER reptg_release_group_gid_redirect ON release_group_gid_redirect;
