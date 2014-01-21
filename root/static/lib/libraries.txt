@@ -158,3 +158,12 @@ license:     MIT
 version:     0.3.3
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
+
+-- jquery/jquery.trap.js
+
+library:    jQuery trap input plugin
+license:    Permissive; see:
+            https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
+version:    1.2.0
+author:     Julien Wajsberg
+url:        https://github.com/julienw/jquery-trap-input
