@@ -2,7 +2,7 @@
   <fieldset>
     <legend>[% l('Release information') %]</legend>
 
-    <table>
+    <table class="row-form">
     <tbody>
       <tr>
         <td><label for="title" class="required">[% l('Title:') %]</label></td>
@@ -130,7 +130,7 @@
   <fieldset>
     <legend>[% l('Release event') %]</legend>
 
-    <table>
+    <table class="row-form">
     <tbody>
     <!-- ko foreach: events -->
       <tr>
@@ -248,7 +248,7 @@
 
   <fieldset class="information">
     <legend>[% l('Additional information') %]</legend>
-    <table>
+    <table class="row-form">
     <tbody>
       <tr>
         <td><label for="annotation">[% l('Annotation:') %]</label></td>

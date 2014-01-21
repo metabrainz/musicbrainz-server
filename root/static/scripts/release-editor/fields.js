@@ -455,17 +455,4 @@
         }
     };
 
-
-    ko.bindingHandlers.withLabel = {
-
-        update: function (element, valueAccessor, allBindings,
-                        viewModel, bindingContext) {
-
-            var name = valueAccessor() + "-" + bindingContext.$index();
-
-            $(element).attr("id", name)
-                .parents("td").prev("td").find("label").attr("for", name);
-        }
-    };
-
 }(MB.releaseEditor = MB.releaseEditor || {}));

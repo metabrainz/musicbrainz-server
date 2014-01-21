@@ -49,28 +49,9 @@ div.half-width {
 #information div.half-width {
     fieldset { padding: @form-margin; }
 
-    label { display: inline-block; text-align: right; }
-
     button { margin: 0; }
 
-    label, input[type=text], select, span.autocomplete,
-        td.release-artist { width: 100%; }
-
-    td {
-        &:first-child {
-            min-width: 120px;
-            padding: @form-margin / 2;
-            padding-bottom: 9px;
-            box-sizing: border-box;
-            vertical-align: top;
-        }
-
-        &.partial-date { min-width: 140px; }
-        &.add-item { text-align: right; }
-        &.error { padding-bottom: @form-margin; }
-    }
-
-    tr.error td:first-child { padding: 0; }
+    td.release-artist { width: 100%; }
 
     #annotation {
         @annotation-width: @form-half-width - 120px - (@form-margin * 3);

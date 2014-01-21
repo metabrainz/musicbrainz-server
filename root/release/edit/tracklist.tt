@@ -315,17 +315,15 @@
   <table style="width: 100%">
     <thead>
       <tr>
-        <td colspan="4">
-          <div class="row">
-            <label>[% l('Preview') %]</label>
-            <span data-bind="html: html({ target: '_blank' })"></span>
-          </div>
+        <td colspan="4" style="padding-bottom: 1em;">
+          <label>[% l('Preview') %]</label>
+          <span data-bind="html: html({ target: '_blank' })"></span>
         </td>
       </tr>
       <tr class="artist-credit-header">
-        <th>[% l('Artist in MusicBrainz') %]</th>
-        <th>[% l('Artist as credited on this track') %]</th>
-        <th>[% l('Join phrase') %]</th>
+        <th>[% l('Artist in MusicBrainz:') %]</th>
+        <th>[% l('Artist as credited on this track:') %]</th>
+        <th>[% l('Join phrase:') %]</th>
         <th></th>
       </tr>
     </thead>
