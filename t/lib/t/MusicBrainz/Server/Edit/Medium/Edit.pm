@@ -471,6 +471,19 @@ test 'Auto-editing edit medium' => sub {
 
 };
 
+test 'Can build display data for removed mediums' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $edit = create_edit($c, $medium);
+    $c->model('Medium')->delete(1);
+
+    ok !exception { $edit->build_display_data };
+};
+
 sub create_edit {
     my ($c, $medium, $tracklist) = @_;
 
