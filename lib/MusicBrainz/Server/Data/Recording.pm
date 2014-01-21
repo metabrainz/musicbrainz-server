@@ -19,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     load_subobjects
     query_to_list_limited
+    query_to_list
 );
 use MusicBrainz::Server::Entity::Recording;
 
@@ -401,6 +402,22 @@ sub find_tracklist_offsets {
 EOSQL
 
     return $offsets;
+}
+
+sub find_recent_by_artists
+{
+    my ($self, $artist_ids) = @_;
+
+    my $query = "SELECT DISTINCT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                     JOIN artist_credit_name acn
+                         ON acn.artist_credit = recording.artist_credit
+                     JOIN artist ON artist.id = acn.artist
+                 WHERE artist.id IN (" . placeholders(@$artist_ids) . ")
+                   AND now() - recording.last_updated <= '3 hours'::interval";
+    return query_to_list(
+        $self->c->sql, sub { $self->_new_from_row(@_) }, $query, @$artist_ids
+    );
 }
 
 __PACKAGE__->meta->make_immutable;
