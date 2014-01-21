@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-30 14:23-0700\n"
+"POT-Creation-Date: 2014-01-12 04:59-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1592,6 +1592,10 @@ msgstr ""
 
 #: ../root/account/preferences.tt:45
 msgid "Automatically subscribe me to labels I create."
+msgstr ""
+
+#: ../root/components/ratings.tt:19
+msgid "Average rating:"
 msgstr ""
 
 #: ../root/browse/page_selector.tt:54
@@ -3436,6 +3440,12 @@ msgstr ""
 msgid "Fingerprints"
 msgstr ""
 
+#: ../root/account/register.tt:53
+msgid ""
+"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+"the {fo|forums} or {irc|IRC}."
+msgstr ""
+
 #: ../root/search/error/wrapper.tt:5
 msgid ""
 "For assistance in writing effective advanced search queries, read the {doc|"
@@ -4014,12 +4024,6 @@ msgid ""
 "database looking for data that might require fixing, either to comply with "
 "the {style|style guidelines}, or in other cases where administrative \"clean "
 "up\" tasks are required."
-msgstr ""
-
-#: ../root/account/register.tt:53
-msgid ""
-"If you're interested in receiving information from MusicBrainz staff or "
-"communicating with other users, {ml|please subscribe to our mailing lists}."
 msgstr ""
 
 #: ../root/components/commons-image.tt:4
@@ -4804,7 +4808,7 @@ msgstr ""
 msgid "MusicBrainz for Android"
 msgstr ""
 
-#: ../root/account/register.tt:57
+#: ../root/account/register.tt:59
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -11077,7 +11081,7 @@ msgstr ""
 msgid "{last_list_item}"
 msgstr ""
 
-#: ../root/components/ratings.tt:20
+#: ../root/components/ratings.tt:21
 msgid "{link} has no ratings."
 msgstr ""
 
@@ -11330,14 +11334,40 @@ msgstr ""
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:119
+#: ../lib/MusicBrainz/Server/Controller.pm:144
+#, perl-brace-format
 msgid ""
-"Thank you, your edit has been entered into the edit queue for peer review."
-msgstr ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted "
+"and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:120
-msgid "Thank you, your edit has been accepted and applied"
-msgstr ""
+#: ../lib/MusicBrainz/Server/Controller.pm:150
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
+"queue for peer review."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
+"into the edit queue for peer review."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Controller.pm:158
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
+"{num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered, "
+"with {num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."

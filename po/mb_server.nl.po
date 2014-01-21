@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-24 12:36-0700\n"
-"PO-Revision-Date: 2014-01-01 13:11+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"POT-Creation-Date: 2014-01-12 04:59-0700\n"
+"PO-Revision-Date: 2014-01-12 12:02+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -239,7 +239,7 @@ msgstr "(losstaande opname)"
 #: ../root/edit/details/historic/mac_to_sac.tt:8
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../root/recording/index.tt:23 ../root/release_group/index.tt:44
-#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:88
+#: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:89
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:188
 msgid "(unknown)"
 msgstr "(onbekend)"
@@ -315,15 +315,15 @@ msgstr "<em>Wordt geannuleerd</em>"
 msgid "<em>no changelog specified</em>"
 msgstr "<em>geen veranderingslogboek opgegeven</em>"
 
-#: ../root/edit/edit_header.tt:60
+#: ../root/edit/edit_header.tt:61
 msgid "<strong>Approved:</strong> {date}"
 msgstr "<strong>Goedgekeurd:</strong> {date}"
 
-#: ../root/edit/edit_header.tt:58
+#: ../root/edit/edit_header.tt:59
 msgid "<strong>Closed:</strong> <em>Cancelling</em>"
 msgstr "<strong>Gesloten:</strong> <em>Wordt geannuleerd</em>"
 
-#: ../root/edit/edit_header.tt:62
+#: ../root/edit/edit_header.tt:63
 msgid "<strong>Closed:</strong> {date}"
 msgstr "<strong>Gesloten:</strong> {date}"
 
@@ -1029,7 +1029,7 @@ msgid_plural "{n} anonymous users"
 msgstr[0] "Eén anonieme gebruiker"
 msgstr[1] "{n} anonieme gebruikers"
 
-#: ../root/edit/index.tt:16 ../root/edit/list.tt:89
+#: ../root/edit/index.tt:16 ../root/edit/list.tt:68
 #: ../root/release/edit/editnote.tt:19
 msgid "An error occured while loading this edit"
 msgstr "Er trad een fout op bij het laden van deze bewerking"
@@ -1127,7 +1127,7 @@ msgstr "Applicaties"
 msgid "Approve"
 msgstr "Goedkeuren"
 
-#: ../root/edit/edit_header.tt:75 ../root/edit/info.tt:17
+#: ../root/edit/edit_header.tt:76 ../root/edit/info.tt:17
 msgid "Approve edit"
 msgstr "Direct goedkeuren"
 
@@ -1609,6 +1609,10 @@ msgstr "Abonneer me automatisch op artiesten die ik toevoeg."
 msgid "Automatically subscribe me to labels I create."
 msgstr "Abonneer me automatisch op platenmaatschappijen die ik toevoeg."
 
+#: ../root/components/ratings.tt:19
+msgid "Average rating:"
+msgstr ""
+
 #: ../root/browse/page_selector.tt:54
 msgid "Back"
 msgstr "Terug"
@@ -1984,7 +1988,7 @@ msgstr "Bewerking annuleren"
 msgid "Cancel creating relationship with {name}"
 msgstr "Het relateren aan {name} annuleren"
 
-#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:79
+#: ../root/edit/cancel.tt:24 ../root/edit/edit_header.tt:80
 #: ../root/edit/info.tt:21
 msgid "Cancel edit"
 msgstr "Bewerking annuleren"
@@ -2784,7 +2788,7 @@ msgstr "Bewerken"
 msgid "Edit #{id}"
 msgstr "Bewerking #{id}"
 
-#: ../root/edit/edit_header.tt:69 ../root/edit/edit_header.tt:84
+#: ../root/edit/edit_header.tt:70 ../root/edit/edit_header.tt:85
 msgid "Edit #{id} - {name}"
 msgstr "Bewerking #{id} - {name}"
 
@@ -2958,7 +2962,7 @@ msgstr "Alias van deze artiest bewerken"
 msgid "Edit artist annotation"
 msgstr "Aantekening van de artiest bewerken"
 
-#: ../root/edit/edit_header.tt:90
+#: ../root/edit/edit_header.tt:91
 msgid "Edit by {editor}"
 msgstr "Bewerking door {editor}"
 
@@ -3449,6 +3453,12 @@ msgstr "Gevonden relaties"
 msgid "Fingerprints"
 msgstr "Vingerafdrukken"
 
+#: ../root/account/register.tt:53
+msgid ""
+"Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
+"the {fo|forums} or {irc|IRC}."
+msgstr ""
+
 #: ../root/search/error/wrapper.tt:5
 msgid ""
 "For assistance in writing effective advanced search queries, read the "
@@ -3525,7 +3535,7 @@ msgid ""
 "error message that is shown above."
 msgstr "Heeft u een probleem gevonden op onze site? {report|Rapporteer alstublieft een bug} en voeg elke foutmelding toe die hierboven wordt weergegeven."
 
-#: ../root/edit/list.tt:58
+#: ../root/edit/list.tt:36
 msgid "Found at least {n} edit"
 msgid_plural "Found at least {n} edits"
 msgstr[0] "Ten minste {n} bewerking gevonden"
@@ -3541,7 +3551,7 @@ msgstr[1] "Gevonden in {num} collecties van gebruikers"
 msgid "Found more than one match for the CD with TOC {toc}: "
 msgstr "Meer dan één overeenkomst gevonden voor de cd met TOC {toc}:"
 
-#: ../root/edit/list.tt:62
+#: ../root/edit/list.tt:40
 msgid "Found {n} edit"
 msgid_plural "Found {n} edits"
 msgstr[0] "{n} bewerking gevonden"
@@ -4029,12 +4039,6 @@ msgid ""
 "the {style|style guidelines}, or in other cases where administrative \"clean"
 " up\" tasks are required."
 msgstr "Als u wilt deelnemen aan het bewerksproces, maar niet weet waar te beginnen, kunnen deze rapporten u helpen. Deze rapporten zoeken in de gegevensbank naar gegevens die misschien verbeterd moeten worden, soms om ze overeen te laten komen met de {style|stijlgids} of vanwege administratieve opruiming."
-
-#: ../root/account/register.tt:53
-msgid ""
-"If you're interested in receiving information from MusicBrainz staff or "
-"communicating with other users, {ml|please subscribe to our mailing lists}."
-msgstr "Als u geïnteresseerd bent in het ontvangen van informatie van personeel van MusicBrainz of het communiceren met anderen, {ml|abonneer dan op onze discussielijst}."
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
@@ -4818,7 +4822,7 @@ msgstr "MusicBrainz heeft geen cd's met de TOC:"
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz voor Android"
 
-#: ../root/account/register.tt:57
+#: ../root/account/register.tt:59
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -4881,12 +4885,12 @@ msgstr "Mijn stem"
 msgid "My vote:"
 msgstr "Mijn stem: "
 
-#: ../root/edit/edit_header.tt:31 ../root/edit/edit_header.tt:36
-#: ../root/edit/edit_header.tt:41
+#: ../root/edit/edit_header.tt:32 ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:42
 msgid "My vote: "
 msgstr "Mijn stem:"
 
-#: ../root/edit/edit_header.tt:37
+#: ../root/edit/edit_header.tt:38
 msgid "N/A"
 msgstr "Geen"
 
@@ -5110,7 +5114,7 @@ msgstr "Geen afbeelding beschikbaar."
 msgid "No edit notes have been added."
 msgstr "Geen bewerkingsnotities toegevoegd."
 
-#: ../root/edit/list.tt:109
+#: ../root/edit/list.tt:88
 msgid "No edits were found matching your query. Please {search|try again}."
 msgstr "Er zijn geen bewerkingen gevonden die overeen komen met uw zoekopdracht. {search|Probeer het opnieuw.}"
 
@@ -5259,7 +5263,7 @@ msgstr "Nomineer een kandidaat voor autoredacteur"
 msgid "Non-digital releases with download relationships"
 msgstr "Niet-digitale uitgaves met downloadrelaties"
 
-#: ../root/edit/edit_header.tt:42 ../root/edit/vote.tt:23
+#: ../root/edit/edit_header.tt:43 ../root/edit/vote.tt:23
 msgid "None"
 msgstr "Geen"
 
@@ -7694,7 +7698,7 @@ msgstr "Voeg dit medium met de eenvoudige methode toe."
 msgid "Submit vote and note"
 msgstr "Notitie en stem indienen"
 
-#: ../root/edit/list.tt:102
+#: ../root/edit/list.tt:81
 msgid "Submit votes &amp; edit notes"
 msgstr "Stemmen & bewerkingsnotities indienen"
 
@@ -8113,7 +8117,7 @@ msgstr "De waarde die u heeft ingevoerd is niet geldig."
 msgid "The watch artist feature is currently not active."
 msgstr "De mogelijkheid om artiesten te volgen is nu niet actief."
 
-#: ../root/edit/edit_header.tt:25
+#: ../root/edit/edit_header.tt:26
 msgid "Their vote: "
 msgstr "Hun stem:"
 
@@ -11097,7 +11101,7 @@ msgstr "{format} {position} {name} op {release} van {artist}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
-#: ../root/components/ratings.tt:20
+#: ../root/components/ratings.tt:21
 msgid "{link} has no ratings."
 msgstr "{link} heeft geen waarderingen"
 
@@ -11350,14 +11354,40 @@ msgstr "Deze bètaserver laat gebruikers nieuwe mogelijkheden testen met een liv
 msgid "'{id}' is not a valid MusicBrainz ID"
 msgstr "'{id}' is geen geldig MusicBrainz ID"
 
-#: ../lib/MusicBrainz/Server/Controller.pm:119
+#: ../lib/MusicBrainz/Server/Controller.pm:144
+#, perl-brace-format
 msgid ""
-"Thank you, your edit has been entered into the edit queue for peer review."
-msgstr "Bedankt, uw aanpassing is toegevoegd aan de wachtrij voor collegiale toetsing."
+"Thank you, your {edit_url|edit} ({edit_ids}) has been automatically accepted"
+" and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
-#: ../lib/MusicBrainz/Server/Controller.pm:120
-msgid "Thank you, your edit has been accepted and applied"
-msgstr "Bedankt, uw bewerking is geaccepteerd en doorgevoerd"
+#: ../lib/MusicBrainz/Server/Controller.pm:150
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered into the edit "
+"queue for peer review."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered "
+"into the edit queue for peer review."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../lib/MusicBrainz/Server/Controller.pm:158
+#, perl-brace-format
+msgid ""
+"Thank you, your {edit_url|edit} ({edit_ids}) has been entered, with "
+"{num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgid_plural ""
+"Thank you, your {num_edits} {edit_url|edits} ({edit_ids}) have been entered,"
+" with {num_open_edits} in the edit queue for peer review, and the rest "
+"automatically accepted and applied."
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."

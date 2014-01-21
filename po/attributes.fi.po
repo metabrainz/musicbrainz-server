@@ -4,13 +4,14 @@
 # Jaakko Perttilä <email address hidden>, 2012-2013
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012
+# Phonebox, 2014
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
+"PO-Revision-Date: 2014-01-12 12:01+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +43,7 @@ msgstr "8 cm CD"
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "8 cm CD+G"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -127,7 +128,7 @@ msgstr "CD-levy"
 #: DB:medium_format/name:39
 msgctxt "medium_format"
 msgid "CD+G"
-msgstr ""
+msgstr "CD+G"
 
 #: DB:medium_format/name:33
 msgctxt "medium_format"
@@ -157,12 +158,17 @@ msgstr "C-kasetti"
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
+msgstr "kasettikotelo"
+
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
 msgstr ""
 
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr "Kaupunki"
+msgstr "Kunta"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -272,7 +278,7 @@ msgstr "HDCD"
 #: DB:medium_format/name:37
 msgctxt "medium_format"
 msgid "HQCD"
-msgstr ""
+msgstr "HQCD"
 
 #: DB:label_type/name:2
 msgctxt "label_type"
@@ -282,7 +288,7 @@ msgstr "Holding"
 #: DB:medium_format/name:38
 msgctxt "medium_format"
 msgid "Hybrid SACD"
-msgstr ""
+msgstr "hybridi-SACD"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"

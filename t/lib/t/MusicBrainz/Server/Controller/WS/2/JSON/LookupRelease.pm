@@ -323,6 +323,7 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug",
                                 length => 242226,
                                 disambiguation => "",
+                                video => 0,
                             }
                         },
                         {
@@ -335,6 +336,7 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug (Big Bug NYC remix)",
                                 length => 222000,
                                 disambiguation => "",
+                                video => 0,
                             }
                         },
                         {
@@ -347,6 +349,7 @@ test 'release lookup with labels and recordings' => sub {
                                 title => "the Love Bug (cover)",
                                 length => 333000,
                                 disambiguation => "",
+                                video => 0,
                             }
                         }]
                 }],
@@ -483,6 +486,7 @@ test 'release lookup with discids and puids' => sub {
                                 length => 296026,
                                 disambiguation => "",
                                 puids => [ ],
+                                video => 0,
                             }
                         },
                         {
@@ -496,6 +500,7 @@ test 'release lookup with discids and puids' => sub {
                                 length => 213106,
                                 disambiguation => "",
                                 puids => [ ],
+                                video => 0,
                             }
                         },
                         {
@@ -509,6 +514,7 @@ test 'release lookup with discids and puids' => sub {
                                 length => 292800,
                                 disambiguation => "",
                                 puids => [ ],
+                                video => 0,
                             }
                         }]
                 }]
@@ -767,6 +773,7 @@ test 'release lookup, track artists have no tags' => sub {
                             disambiguation => '',
                             id => '44704dda-b877-4551-a2a8-c1f764476e65',
                             length => 267560,
+                            video => 0,
                             relations => [
                                 {
                                     artist => {
@@ -797,6 +804,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '8920288e-7541-48a7-b23b-f80447c8b1ab',
                         length => 230506,
+                        video => 0,
                         relations => [ {
                                 artist => {
                                     disambiguation => '',
@@ -825,6 +833,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '6e89c516-b0b6-4735-a758-38e31855dcb6',
                         length => 237133,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -853,6 +862,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '791d9b27-ae1a-4295-8943-ded4284f2122',
                         length => 229826,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -881,7 +891,8 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '4f392ffb-d3df-4f8a-ba74-fdecbb1be877',
                         length => 217440,
-                        relations => [ {
+                        video => 0,
+			relations => [ {
                             artist => {
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
@@ -909,6 +920,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => 'dc891eca-bf42-4103-8682-86068fe732a5',
                         length => 227293,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -937,6 +949,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '25e9ae0f-8b7d-4230-9cde-9a07f7680e4a',
                         length => 244506,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -965,6 +978,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '6f9c8c32-3aae-4dad-b023-56389361cf6b',
                         length => 173960,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -993,6 +1007,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => '7e379a1d-f2bc-47b8-964e-00723df34c8a',
                         length => 208706,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
@@ -1021,6 +1036,7 @@ test 'release lookup, track artists have no tags' => sub {
                         disambiguation => '',
                         id => 'a8614bda-42dc-43c7-ac5f-4067acb6f1c5',
                         length => 320067,
+                        video => 0,
                         relations => [ {
                             artist => {
                                 disambiguation => '',
