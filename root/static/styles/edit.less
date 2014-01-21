@@ -428,18 +428,27 @@ div.editimage p.currently-selected { display: none; }
 div.editimage.selected p.currently-selected { display: block; }
 
 .image-placeholder {
-    width: 125px;
-    height: 125px;
+    width: 121px; /* plus border: 125px in total */
+    height: 121px;
     border: 2px solid @dark-border;
+    margin-bottom: 4px;
 }
 
 .image-placeholder p {
     margin: 15% auto 0 auto;
     display: block;
-    font-size: 200%;
+    font-size: 180%;
     text-align: center;
 }
 
 .expanded-ac-list {
     padding-left: 1em;
+}
+
+#add-cover-art div.thumb-position.editimage,
+#reorder-cover-art div.thumb-position.editimage {
+    cursor: move;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
 }
