@@ -1339,6 +1339,14 @@ msgid ""
 "\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal piano"
+"\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:429
 msgid ""
 "The pipa (Chinese: 琵琶, pípa) is a four-stringed plucked Chinese instrument "

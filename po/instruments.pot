@@ -1556,6 +1556,10 @@ msgstr ""
 msgid "pang gu ly hu hmông"
 msgstr ""
 
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr ""
+
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
 msgstr ""
