@@ -547,7 +547,7 @@ UI.BatchRelationshipDialog = aclass(Dialog, {
             hasCallback = $.isFunction(callback),
             sourceIndex = this.backward() ? 1 : 0;
 
-        Util.callbackQueue(this.targets, function (source) {
+        MB.utility.callbackQueue(this.targets, function (source) {
             model.entity[sourceIndex] = source;
             delete model.id;
 

@@ -33,6 +33,18 @@ test('All', function () {
     equal (MB.utility.unformatTrackLength ('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
 
     equal (MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
+
+    var parseDateTests = [
+        { date: "", expected: { year: null, month: null, day: null} },
+        { date: "1999-01-02", expected: { year: "1999", month: "01", day: "02"} },
+        { date: "1999-01", expected: { year: "1999", month: "01", day: null } },
+        { date: "1999", expected: { year: "1999", month: null, day: null } }
+    ];
+
+    $.each(parseDateTests, function (i, test) {
+        var result = MB.utility.parseDate(test.date);
+        deepEqual(result, test.expected, test.date);
+    });
 });
 
 

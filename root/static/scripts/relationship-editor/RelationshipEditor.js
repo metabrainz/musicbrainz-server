@@ -224,7 +224,7 @@ releaseLoaded = function (data) {
         trackCount += mediumData.tracks.length;
         RE.releaseViewModel.media.push(new MB.entity.Medium(mediumData));
 
-        Util.callbackQueue(mediumData.tracks, function (trackData) {
+        MB.utility.callbackQueue(mediumData.tracks, function (trackData) {
             Util.parseRelationships(trackData.recording, "recording");
         });
     }

@@ -208,21 +208,47 @@ MB.utility.validDate = (function() {
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
+    function empty(value) {
+        return value === null || value === undefined || value === "";
+    }
+
     return function(y, m, d) {
-        y = parseInt(y, 10) || null;
-        m = parseInt(m, 10) || null;
-        d = parseInt(d, 10) || null;
+        y = empty(y) ? null : parseInt(y, 10);
+        m = empty(m) ? null : parseInt(m, 10);
+        d = empty(d) ? null : parseInt(d, 10);
 
-        if (y === null && m === null && d === null)
-            return false;
+        // We couldn't parse one of the fields as a number.
+        if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
 
-        var leapYear = (y % 400 ? (y % 100 ? !Boolean(y % 4) : false) : true).toString();
+        // The year is a number less than 1.
+        if (y !== null && y < 1) return false;
 
-        if (y === null || (d !== null && m === null) || y < 1 || (m !== null &&
-            (m < 1 || m > 12 || (d !== null && (d < 1 || d > daysInMonth[leapYear][m]))))) {
-            return false;
-        }
+        // The month is a number less than 1 or greater than 12.
+        if (m !== null && (m < 1 || m > 12)) return false;
+
+        // The day is empty. There's no further validation we can do.
+        if (d === null) return true;
+
+        var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
+
+        // Invalid number of days based on the year.
+        if (d < 1 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+
+        // The date is assumed to be valid.
         return true;
+    };
+}());
+
+MB.utility.parseDate = (function () {
+    var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
+
+    return function (str) {
+        var match = str.match(dateRegex) || [];
+        return {
+            year:  match[1] || null,
+            month: match[2] || null,
+            day:   match[3] || null
+        };
     };
 }());
 
@@ -245,6 +271,19 @@ MB.utility.filesize = function (size) {
 
 MB.utility.percentOf = function(x, y) {
     return x * y / 100;
+};
+
+MB.utility.callbackQueue = function (targets, callback) {
+    var next = function (index) {
+        return function () {
+            var target = targets[index];
+            if (target) {
+                callback(target);
+                _.defer(next(index + 1));
+            }
+        };
+    };
+    next(0)();
 };
 
 MB.utility.request = (function () {
@@ -301,3 +340,19 @@ MB.utility.request = (function () {
         return promise;
     }
 }());
+
+MB.utility.formatDate = function (date) {
+    var y = ko.unwrap(date.year);
+    var m = ko.unwrap(date.month);
+    var d = ko.unwrap(date.day);
+
+    if (!y && !m && !d) {
+        return "";
+    }
+
+    y = y ? _.pad(y, 4, "0") : "????";
+    m = m ? _.pad(m, 2, "0") : "??";
+    d = d ? _.pad(d, 2, "0") : "??";
+
+    return y + "-" + m + "-" + d;
+};

@@ -217,19 +217,9 @@ Relationship.prototype.linkPhrase = function (source) {
     }));
 };
 
-
-function renderDate(date) {
-    var year = date.year(), month = date.month(), day = date.day();
-
-    month = month && _.pad(month, 2, "0");
-    day = day && _.pad(day, 2, "0");
-
-    return year ? year + (month ? "-" + month + (day ? "-" + day : "") : "") : "";
-}
-
 Relationship.prototype.renderDate = function() {
-    var begin_date = renderDate(this.period.begin_date.peek()),
-        end_date = renderDate(this.period.end_date.peek()),
+    var begin_date = MB.utility.formatDate(this.period.begin_date.peek()),
+        end_date = MB.utility.formatDate(this.period.end_date.peek()),
         ended = this.period.ended();
 
     if (!begin_date && !end_date) return "";
