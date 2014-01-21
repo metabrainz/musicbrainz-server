@@ -236,11 +236,16 @@
 
         init: function (data) {
             data = data || {};
-            data.artist = MB.entity(data.artist || {}, "artist");
+            data.artist = data.artist || { name: data.name || "" };
 
-            this.artist = data.artist;
+            this.artist = MB.entity(data.artist, "artist");;
             this.name = data.name || data.artist.name || "";
             this.joinPhrase = data.joinPhrase || "";
+        },
+
+        visibleName: function () {
+            var artist = ko.unwrap(this.artist) || {};
+            return ko.unwrap(this.name) || artist.name || "";
         },
 
         isEmpty: function () {
@@ -349,6 +354,14 @@
 
         isEmpty: function () {
             return _.every(_.invoke(ko.unwrap(this.names), "isEmpty"));
+        },
+
+        isComplete: function () {
+            var names = ko.unwrap(this.names);
+
+            return names.length > 0 && _.all(names, function (name) {
+                return name.hasArtist();
+            });
         },
 
         text: function () {

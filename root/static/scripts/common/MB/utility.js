@@ -286,6 +286,49 @@ MB.utility.callbackQueue = function (targets, callback) {
     next(0)();
 };
 
+MB.utility.moveArrayItem = function (array, from, to) {
+    array.splice(to, 0, array.splice(from, 1)[0]);
+};
+
+MB.utility.similarity = (function () {
+    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
+
+    function clean(str) {
+        return (str || "").replace(punctuation, "").toLowerCase();
+    }
+
+    return function (a, b) {
+        // If a track title is all punctuation, we'll end up with an empty
+        // string, so just fall back to the original for comparison.
+        a = clean(a) || a || "";
+        b = clean(b) || b || "";
+
+        return 1 - (_.levenshtein(a, b) / (a.length + b.length));
+    };
+}());
+
+// Compares two names, considers them equivalent if there are only case
+// changes, changes in punctuation and/or changes in whitespace between
+// the two strings.
+
+MB.utility.nameIsSimilar = function (a, b) {
+    return MB.utility.similarity(a, b) >= 0.75;
+};
+
+MB.utility.optionCookie = function (name, defaultValue) {
+    var existingValue = $.cookie(name);
+
+    var observable = ko.observable(
+        defaultValue ? existingValue !== "false" : existingValue === "true"
+    );
+
+    observable.subscribe(function (newValue) {
+        $.cookie(name, newValue, { path: "/", expires: 365 });
+    });
+
+    return observable;
+};
+
 MB.utility.request = (function () {
     var nextAvailableTime = new Date().getTime(),
         prevDeferred = null,
@@ -355,4 +398,17 @@ MB.utility.formatDate = function (date) {
     d = d ? _.pad(d, 2, "0") : "??";
 
     return y + "-" + m + "-" + d;
+};
+
+MB.utility.deferFocus = function () {
+    var selectorArguments = arguments;
+    _.defer(function () { $.apply(null, selectorArguments).focus() });
+};
+
+MB.utility.computedWith = function (callback, observable, defaultValue) {
+    return ko.computed(function () {
+        var result = observable();
+
+        return result ? callback(result) : defaultValue;
+    });
 };

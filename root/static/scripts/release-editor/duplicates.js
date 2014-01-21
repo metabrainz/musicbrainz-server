@@ -1,0 +1,118 @@
+// This file is part of MusicBrainz, the open internet music database.
+// Copyright (C) 2013 MetaBrainz Foundation
+// Licensed under the GPL version 2, or (at your option) any later version:
+// http://www.gnu.org/licenses/gpl-2.0.txt
+
+(function (releaseEditor) {
+
+    var utils = releaseEditor.utils;
+
+
+    releaseEditor.similarReleases = ko.observableArray([]);
+    releaseEditor.baseRelease = ko.observable("");
+
+
+    releaseEditor.baseRelease.subscribe(function (gid) {
+        var release = releaseEditor.rootField.release();
+
+        if (!gid) {
+            release.mediums([ releaseEditor.fields.Medium({}, release) ]);
+            return;
+        }
+
+        releaseEditor.loadRelease(gid, function (data) {
+            release.mediums(
+                _.map(data.mediums, function (m) {
+                    m = _.omit(_.extend(m, { originalID: m.id }), "id");
+
+                    return releaseEditor.fields.Medium(m, release);
+                })
+            );
+            release.loadMedia();
+        });
+    });
+
+
+    releaseEditor.findReleaseDuplicates = function () {
+
+        utils.debounce(utils.withRelease(function (release) {
+            var name = release.name();
+
+            if (!name || !release.artistCredit.isComplete()) return;
+
+            var queryParams = {
+                release: [ utils.escapeLuceneValue(name) ],
+
+                arid: _.chain(release.artistCredit.names())
+                    .invoke("artist").pluck("gid")
+                    .map(utils.escapeLuceneValue).value()
+            };
+
+            $("#release-editor").data("ui-tabs")
+                .tabs.eq(1).addClass("loading-tab");
+
+            utils.search("release", queryParams, 10).done(gotResults);
+        }));
+    };
+
+
+    function gotResults(data) {
+        var releases = _.filter(data.releases, function (release) {
+            return parseInt(release.score, 10) >= 65;
+        });
+
+        if (releases.length > 0) {
+            releaseEditor.similarReleases(_.map(releases, formatReleaseData));
+
+            $("#release-editor").tabs("enable", 1);
+        } else {
+            $("#release-editor").tabs("disable", 1);
+        }
+
+        $("#release-editor").data("ui-tabs")
+            .tabs.eq(1).removeClass("loading-tab");
+    }
+
+
+    function pluck(chain, name) { return chain.pluck(name).compact() }
+
+
+    function formatReleaseData(release) {
+        var clean = MB.entity.Release(utils.cleanWebServiceData(release));
+
+        var events = _.chain(release["release-events"]);
+        var labels = _.chain(release["label-info"]);
+
+        clean.formats = combinedMediumFormatName(release.media);
+        clean.tracks = _.pluck(release.media, "track-count").join(" + ");
+
+        clean.dates = pluck(events, "date").value();
+
+        clean.countries = pluck(events, "area").pluck("iso-3166-1-codes")
+            .flatten().uniq().value();
+
+        clean.labels = pluck(labels, "label").map(function (info) {
+            return MB.entity.Label({ gid: info.id, name: info.name });
+        }).value();
+
+        clean.catalogNumbers = pluck(labels, "catalog-number").value();
+
+        clean.barcode = release.barcode || "";
+
+        return clean;
+    }
+
+
+    function combinedMediumFormatName(mediums) {
+        var formats = pluck(_.chain(mediums), "format");
+        var formatCounts = formats.countBy(_.identity);
+
+        return formats.uniq().map(function (format) {
+            var count = formatCounts[format];
+
+            return (count > 1 ? count + "\u00D7" : "") + format;
+        })
+        .value().join(" + ");
+    }
+
+}(MB.releaseEditor = MB.releaseEditor || {}));

@@ -1,9 +1,9 @@
 @import "colors.less";
 
-@form-half-width: 465px;
+@form-half-width: 500px;
 @form-margin: 12px;
-@form-label-width: 132px;
-@form-input-width: 300px;
+@form-label-width: 150px;
+@form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
 @form-bubble-label-width: 150px;
@@ -382,11 +382,12 @@ ul.conditions button.remove img {
     display: none;
 }
 
-input.icon, div.icon.img {
+input.icon, div.icon.img, button.icon {
     width: @form-icon-size;
     height: @form-icon-size;
     border: 0 !important;
     background-repeat: no-repeat;
+    background-color: transparent;
     vertical-align: text-bottom;
 }
 /* remove (button) icons are next to <select> or <input> fields, align to the middle.
@@ -397,49 +398,24 @@ div.icon.img { vertical-align: text-bottom; }
 
 div.img { display: inline-block; }
 
-input.add-artist-credit,
-input.add-track,
-a.add-event div,
-a.add-label div,
+button.with-label {
+    border: none;
+    background-color: transparent;
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: @form-icon-size + 4;
+    cursor: pointer;
+}
+
+button.add-item,
 div.add-item {
     background-image: data-uri('../images/icons/add_row.png');
 }
 
-input.remove-artist-credit,
-input.remove-track,
-input.remove-disc,
-a.remove-event div,
-a.remove-label div,
+.remove-artist-credit,
+button.remove-item,
 div.remove-item {
     background-image: data-uri('../images/icons/delete_row.png');
-}
-
-input.guesscase-track, input.guesscase-medium {
-    background-image: data-uri('../images/icons/guesscase.png');
-}
-
-input.collapse-disc {
-    background-image: data-uri('../images/icons/collapse.png');
-}
-
-input.expand-disc {
-    background-image: data-uri('../images/icons/expand.png');
-}
-
-input.track-down {
-    background-image: data-uri('../images/icons/track-down.png');
-}
-
-input.disc-down {
-    background-image: data-uri('../images/icons/down.png');
-}
-
-input.track-up {
-    background-image: data-uri('../images/icons/track-up.png');
-}
-
-input.disc-up {
-    background-image: data-uri('../images/icons/up.png');
 }
 
 /*

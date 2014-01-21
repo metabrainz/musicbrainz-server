@@ -94,13 +94,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         };
 
         this.options.select = function (event, data) {
-            var entity;
-
-            try {
-                entity = MB.entity(data.item, self.entity);
-            } catch (e) {
-                entity = data.item;
-            }
+            var entity = self._dataToEntity(data.item);
 
             self.currentSelection(entity);
             self.element.trigger("lookup-performed", [entity]);
@@ -159,6 +153,17 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         this.changeEntity(this.options.entity);
     },
 
+    _dataToEntity: function (data) {
+        try {
+            if (this.options.entityConstructor) {
+                return this.options.entityConstructor(data);
+            }
+            return MB.entity(data, this.entity);
+        } catch (e) {
+            return data;
+        }
+    },
+
     // Overrides $.ui.autocomplete.prototype.close
     // Reset the currentPage and currentResults on menu close.
     close: function (event) {
@@ -172,7 +177,10 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     clearSelection: function (clearAction) {
-        this.currentSelection({ name: clearAction ? "" : this._value() });
+        var entity = this._dataToEntity({
+            name: clearAction ? "" : this._value()
+        });
+        this.currentSelection(entity);
         this.element.trigger("cleared", [clearAction]);
     },
 
@@ -197,21 +205,21 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
     setSelection: function (data) {
         data = data || {};
-        data.name = data.name || "";
+        var name = ko.unwrap(data.name) || "";
 
-        if (this._value() !== data.name) {
-            this._value(data.name);
+        if (this._value() !== name) {
+            this._value(name);
         }
 
         if (this.options.showStatus) {
             var hasID = !!(data.id || data.gid);
-            var error = !(data.name || hasID || this.options.allowEmpty);
+            var error = !(name || hasID || this.options.allowEmpty);
 
             this.element
                 .toggleClass("error", error)
                 .toggleClass("lookup-performed", hasID);
         }
-        this.term = data.name || "";
+        this.term = name || "";
         this.selectedItem = data;
     },
 
@@ -286,7 +294,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
         });
     },
 
-    _lookupSuccess: function (response, data, result, request) {
+    _lookupSuccess: function (response, data) {
         var self = this;
         var pager = _.last(data);
         var jumpTo = this.currentResults.length;
