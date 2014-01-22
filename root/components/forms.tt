@@ -389,8 +389,8 @@
           errors = [];
           FOR url IN form.field('url').fields;
             errors.push({
-              link_type_id = url.field('link_type_id').errors.0
-              text = url.field('text').errors.0
+              link_type_id => url.field('link_type_id').errors.0,
+              text => url.field('text').errors.0
             });
           END;
           errors.json
