@@ -3,7 +3,6 @@
 @form-half-width: 500px;
 @form-margin: 12px;
 @form-label-width: 150px;
-@form-input-height: 1.9em;
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 2.5);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
@@ -64,15 +63,12 @@ form div.row {
     margin: 6px 0;
 }
 
-form div.row input[type=text] { height: @form-input-height; }
-
 form div.row label,
 form div.row div.label {
     float: left;
     text-align: right;
     min-width: @form-label-width;
     margin-right: @form-margin;
-    line-height: @form-input-height;
 }
 
 /* FIXME: probably unused, delete this + accompanying macro in forms.tt. */
