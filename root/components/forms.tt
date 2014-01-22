@@ -361,7 +361,7 @@
           <option value="" selected="selected"> </option>
           [% FOR option IN form.options_url_link_type_id %]
             [%- link_type_id = option.value -%]
-            <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html %]</option>
+            <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label %]</option>
           [% END %]
         </select>
       </td>
