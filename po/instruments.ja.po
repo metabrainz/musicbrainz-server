@@ -1,0 +1,2440 @@
+# 
+# Translators:
+# nikki2 <email address hidden>, 2012
+# Nozomu KURASAWA <email address hidden>, 2013
+# th1rtyf0ur, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: MusicBrainz\n"
+"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: DB:link_attribute_type/name:529
+msgid "12 string guitar"
+msgstr "12弦ギター"
+
+#: DB:link_attribute_type/name:628
+msgid "17-string koto"
+msgstr "十七絃箏"
+
+#: DB:link_attribute_type/name:90
+msgid "Appalachian dulcimer"
+msgstr "アパラチアン・ダルシマー"
+
+#: DB:link_attribute_type/name:506
+msgid "Baltic psalteries"
+msgstr ""
+
+#: DB:link_attribute_type/name:550
+msgid "Batá drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:330
+msgid "Chamberlin"
+msgstr "チェンバリン"
+
+#: DB:link_attribute_type/name:238
+msgid "Chapman stick"
+msgstr "チャップマン・スティック"
+
+#: DB:link_attribute_type/name:591
+msgid "Cretan lyra"
+msgstr ""
+
+#: DB:link_attribute_type/name:160
+msgid "Denis d'or"
+msgstr ""
+
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr ""
+
+#: DB:link_attribute_type/name:161
+msgid "Dubreq Stylophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:686
+msgid "E-flat clarinet"
+msgstr ""
+
+#: DB:link_attribute_type/name:533
+msgid "EWI"
+msgstr "ＥＷＩ"
+
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr ""
+
+#: DB:link_attribute_type/name:306
+msgid "Greek baglama"
+msgstr ""
+
+#: DB:link_attribute_type/name:177
+msgid "Hammond organ"
+msgstr "ハモンドオルガン"
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
+msgstr ""
+
+#: DB:link_attribute_type/name:400
+msgid "Hawaiian guitar"
+msgstr "ハワイのギター"
+
+#: DB:link_attribute_type/name:502
+msgid "Indian bamboo flutes"
+msgstr ""
+
+#: DB:link_attribute_type/name:491
+msgid "Irish bouzouki"
+msgstr ""
+
+#: DB:link_attribute_type/name:435
+msgid "Irish harp / clàrsach"
+msgstr "アイリッシュハープ"
+
+#: DB:link_attribute_type/name:673
+msgid "Lyricon"
+msgstr ""
+
+#: DB:link_attribute_type/name:175
+msgid "Mellotron"
+msgstr "メロトロン"
+
+#: DB:link_attribute_type/name:117
+msgid "Mexican vihuela"
+msgstr ""
+
+#: DB:link_attribute_type/name:349
+msgid "Minimoog"
+msgstr "ミニモーグ"
+
+#: DB:link_attribute_type/name:348
+msgid "Moog"
+msgstr "モーグ・シンセサイザー"
+
+#: DB:link_attribute_type/name:438
+msgid "Northumbrian pipes"
+msgstr ""
+
+#: DB:link_attribute_type/name:688
+msgid "Reactable"
+msgstr ""
+
+#: DB:link_attribute_type/name:182
+msgid "Rhodes piano"
+msgstr "ローズ・ピアノ"
+
+#: DB:link_attribute_type/name:585
+msgid "Saraswati veena"
+msgstr "サラスヴァティー・ヴィーナ"
+
+#: DB:link_attribute_type/name:513
+msgid "Scottish smallpipes"
+msgstr "スコッティシュ・スモール・パイプ"
+
+#: DB:link_attribute_type/name:206
+msgid "Spanish acoustic guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:332
+msgid "Spanish vihuela"
+msgstr ""
+
+#: DB:link_attribute_type/name:543
+msgid "Stroh violin"
+msgstr "シュトローヴァイオリン"
+
+#: DB:link_attribute_type/name:350
+msgid "Tibetan water drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:305
+msgid "Turkish baglama"
+msgstr ""
+
+#: DB:link_attribute_type/name:674
+msgid "Vienna horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:399
+msgid "Vietnamese guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:201
+msgid "Wagner tuba"
+msgstr "ワグナーチューバ"
+
+#: DB:link_attribute_type/name:323
+msgid "Warr guitar"
+msgstr "ウォー・ギター"
+
+#: DB:link_attribute_type/name:562
+msgid "Wurlitzer electric piano"
+msgstr "ウーリッツァー・エレクトリック・ピアノ"
+
+#: DB:link_attribute_type/name:675
+msgid "Xaphoon"
+msgstr ""
+
+#: DB:link_attribute_type/name:64
+msgid "accordion"
+msgstr "アコーディオン"
+
+#: DB:link_attribute_type/name:73
+msgid "acoustic bass guitar"
+msgstr "アコースティック・ベース・ギター"
+
+#: DB:link_attribute_type/name:651
+msgid "acoustic fretless guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:76
+msgid "acoustic guitar"
+msgstr "アコースティック・ギター"
+
+#: DB:link_attribute_type/name:89
+msgid "aeolian harp"
+msgstr "エオリアン・ハープ"
+
+#: DB:link_attribute_type/name:136
+msgid "afuche / cabasa"
+msgstr "カバサ"
+
+#: DB:link_attribute_type/name:597
+msgid "agogô"
+msgstr "アゴゴ"
+
+#: DB:link_attribute_type/name:620
+msgid "algozey"
+msgstr ""
+
+#: DB:link_attribute_type/name:41
+msgid "alphorn"
+msgstr "アルプホルン"
+
+#: DB:link_attribute_type/name:24
+msgid "alto clarinet"
+msgstr "アルト・クラリネット"
+
+#: DB:link_attribute_type/name:423
+msgid "alto flute"
+msgstr "アルト・フルート"
+
+#: DB:link_attribute_type/name:35
+msgid "alto saxophone"
+msgstr "アルトサクソフォーン"
+
+#: DB:link_attribute_type/name:226
+msgid "alto violin"
+msgstr "アルト・ヴァイオリン"
+
+#: DB:link_attribute_type/name:443
+msgid "amadinda"
+msgstr ""
+
+#: DB:link_attribute_type/name:453
+msgid "ankle rattlers"
+msgstr ""
+
+#: DB:link_attribute_type/name:296
+msgid "archaic and other bowed string-instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:619
+msgid "archlute"
+msgstr ""
+
+#: DB:link_attribute_type/name:677
+msgid "atarigane"
+msgstr ""
+
+#: DB:link_attribute_type/name:494
+msgid "autoharp"
+msgstr "オートハープ"
+
+#: DB:link_attribute_type/name:512
+msgid "baglama"
+msgstr ""
+
+#: DB:link_attribute_type/name:18
+msgid "bagpipe"
+msgstr "バグパイプ"
+
+#: DB:link_attribute_type/name:444
+msgid "balafon"
+msgstr "バラフォン"
+
+#: DB:link_attribute_type/name:91
+msgid "balalaika"
+msgstr "バラライカ"
+
+#: DB:link_attribute_type/name:451
+msgid "bamboo angklung"
+msgstr ""
+
+#: DB:link_attribute_type/name:263
+msgid "bandoneón"
+msgstr "バンドネオン"
+
+#: DB:link_attribute_type/name:598
+msgid "bandora"
+msgstr ""
+
+#: DB:link_attribute_type/name:475 DB:link_attribute_type/name:476
+msgid "bandura"
+msgstr ""
+
+#: DB:link_attribute_type/name:693
+msgid "bangu"
+msgstr ""
+
+#: DB:link_attribute_type/name:291
+msgid "banhu / banghu"
+msgstr "板胡"
+
+#: DB:link_attribute_type/name:479
+msgid "banjitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:92
+msgid "banjo"
+msgstr "バンジョー"
+
+#: DB:link_attribute_type/name:251
+msgid "bansuri"
+msgstr "バーンスリー"
+
+#: DB:link_attribute_type/name:377
+msgid "baritone guitar"
+msgstr "バリトン・ギター"
+
+#: DB:link_attribute_type/name:42
+msgid "baritone horn"
+msgstr "バリトンホルン"
+
+#: DB:link_attribute_type/name:37
+msgid "baritone saxophone"
+msgstr "バリトンサクソフォーン"
+
+#: DB:link_attribute_type/name:633
+msgid "baroque trumpet"
+msgstr ""
+
+#: DB:link_attribute_type/name:699
+msgid "barrel drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:600
+msgid "barrel organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
+msgstr ""
+
+#: DB:link_attribute_type/name:70
+msgid "bass"
+msgstr "ベース"
+
+#: DB:link_attribute_type/name:25
+msgid "bass clarinet"
+msgstr "バス・クラリネット"
+
+#: DB:link_attribute_type/name:518
+msgid "bass drum"
+msgstr "フィンガースナップ"
+
+#: DB:link_attribute_type/name:501
+msgid "bass flute"
+msgstr "バス・フルート"
+
+#: DB:link_attribute_type/name:277
+msgid "bass guitar"
+msgstr "ベースギター"
+
+#: DB:link_attribute_type/name:558
+msgid "bass harmonica"
+msgstr ""
+
+#: DB:link_attribute_type/name:484
+msgid "bass pedals"
+msgstr ""
+
+#: DB:link_attribute_type/name:365
+msgid "bass recorder / f-bass recorder"
+msgstr "バス・リコーダー"
+
+#: DB:link_attribute_type/name:536
+msgid "bass saxophone"
+msgstr "バスサクソフォーン"
+
+#: DB:link_attribute_type/name:549
+msgid "bass synthesizer"
+msgstr "ベースシンセサイザー"
+
+#: DB:link_attribute_type/name:228
+msgid "bass trombone"
+msgstr "バストロンボーン"
+
+#: DB:link_attribute_type/name:489
+msgid "basset clarinet"
+msgstr "バセット・クラリネット"
+
+#: DB:link_attribute_type/name:490
+msgid "basset horn"
+msgstr "バセットホルン"
+
+#: DB:link_attribute_type/name:19
+msgid "bassoon"
+msgstr "ファゴット"
+
+#: DB:link_attribute_type/name:592
+msgid "bawu"
+msgstr "巴烏（バウー）"
+
+#: DB:link_attribute_type/name:520
+msgid "bayan"
+msgstr "バヤン"
+
+#: DB:link_attribute_type/name:588
+msgid "bell tree"
+msgstr ""
+
+#: DB:link_attribute_type/name:514
+msgid "bellow-blown bagpipes"
+msgstr ""
+
+#: DB:link_attribute_type/name:151
+msgid "bells"
+msgstr "鐘"
+
+#: DB:link_attribute_type/name:420
+msgid "bendir"
+msgstr ""
+
+#: DB:link_attribute_type/name:93
+msgid "berimbau"
+msgstr "ビリンバウ"
+
+#: DB:link_attribute_type/name:460
+msgid "bin-sasara"
+msgstr "びんざさら"
+
+#: DB:link_attribute_type/name:94
+msgid "biwa"
+msgstr "琵琶"
+
+#: DB:link_attribute_type/name:504
+msgid "boatswain's pipe"
+msgstr ""
+
+#: DB:link_attribute_type/name:249
+msgid "bodhrán"
+msgstr "バウロン"
+
+#: DB:link_attribute_type/name:610
+msgid "body percussion"
+msgstr "ボディパーカッション"
+
+#: DB:link_attribute_type/name:519
+msgid "bombarde"
+msgstr ""
+
+#: DB:link_attribute_type/name:437
+msgid "bones"
+msgstr "ボーンズ"
+
+#: DB:link_attribute_type/name:128
+msgid "bongos"
+msgstr "ボンゴ"
+
+#: DB:link_attribute_type/name:95
+msgid "bouzouki"
+msgstr "ブズーキ"
+
+#: DB:link_attribute_type/name:614
+msgid "bowed piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:299
+msgid "bowed psaltery"
+msgstr ""
+
+#: DB:link_attribute_type/name:275
+msgid "bowed string instruments"
+msgstr "擦弦楽器"
+
+#: DB:link_attribute_type/name:38
+msgid "brass"
+msgstr "ブラス"
+
+#: DB:link_attribute_type/name:397
+msgid "brushes"
+msgstr ""
+
+#: DB:link_attribute_type/name:51
+msgid "bugle"
+msgstr ""
+
+#: DB:link_attribute_type/name:689
+msgid "buk"
+msgstr ""
+
+#: DB:link_attribute_type/name:640
+msgid "bulbul"
+msgstr ""
+
+#: DB:link_attribute_type/name:202
+msgid "bull-roarer"
+msgstr ""
+
+#: DB:link_attribute_type/name:440
+msgid "button accordion"
+msgstr ""
+
+#: DB:link_attribute_type/name:413
+msgid "cajón"
+msgstr "カホ"
+
+#: DB:link_attribute_type/name:170
+msgid "calliope"
+msgstr ""
+
+#: DB:link_attribute_type/name:171
+msgid "carillon"
+msgstr "カリヨン"
+
+#: DB:link_attribute_type/name:137
+msgid "castanets"
+msgstr "カスタネット"
+
+#: DB:link_attribute_type/name:636
+msgid "cavaquinho"
+msgstr ""
+
+#: DB:link_attribute_type/name:599
+msgid "caxixi"
+msgstr "カシシ"
+
+#: DB:link_attribute_type/name:172
+msgid "celesta"
+msgstr "チェレスタ"
+
+#: DB:link_attribute_type/name:84
+msgid "cello"
+msgstr "チェロ"
+
+#: DB:link_attribute_type/name:412
+msgid "chacha"
+msgstr ""
+
+#: DB:link_attribute_type/name:524
+msgid "chalumeau"
+msgstr "シャリュモー"
+
+#: DB:link_attribute_type/name:565
+msgid "chamber organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:648
+msgid "chande"
+msgstr ""
+
+#: DB:link_attribute_type/name:559
+msgid "charango"
+msgstr "チャランゴ"
+
+#: DB:link_attribute_type/name:690
+msgid "chikuzen biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:415
+msgid "chimes"
+msgstr ""
+
+#: DB:link_attribute_type/name:521
+msgid "chromatic button accordion"
+msgstr ""
+
+#: DB:link_attribute_type/name:376
+msgid "chromatic harmonica"
+msgstr "クロマティック・ハーモニカ"
+
+#: DB:link_attribute_type/name:307
+msgid "cittern"
+msgstr "シターン"
+
+#: DB:link_attribute_type/name:288
+msgid "cizhonghu"
+msgstr ""
+
+#: DB:link_attribute_type/name:23
+msgid "clarinet"
+msgstr "クラリネット"
+
+#: DB:link_attribute_type/name:77
+msgid "classical guitar"
+msgstr "クラシック・ギター"
+
+#: DB:link_attribute_type/name:654
+msgid "classical kemençe"
+msgstr ""
+
+#: DB:link_attribute_type/name:138
+msgid "claves"
+msgstr "クラベス"
+
+#: DB:link_attribute_type/name:173
+msgid "clavichord"
+msgstr "クラヴィコード"
+
+#: DB:link_attribute_type/name:227
+msgid "clavinet"
+msgstr "クラビネット"
+
+#: DB:link_attribute_type/name:499
+msgid "concert flute"
+msgstr "コンサート・フルート"
+
+#: DB:link_attribute_type/name:431
+msgid "concert harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:65
+msgid "concertina"
+msgstr "コンサーティーナ"
+
+#: DB:link_attribute_type/name:205
+msgid "conch"
+msgstr ""
+
+#: DB:link_attribute_type/name:127
+msgid "congas"
+msgstr "コンガ"
+
+#: DB:link_attribute_type/name:471
+msgid "continuum"
+msgstr ""
+
+#: DB:link_attribute_type/name:26
+msgid "contrabass clarinet"
+msgstr "コントラバス・クラリネット"
+
+#: DB:link_attribute_type/name:367
+msgid "contrabass recorder"
+msgstr "コントラバス・リコーダー"
+
+#: DB:link_attribute_type/name:538
+msgid "contrabass saxophone"
+msgstr "コントラバスサクソフォーン"
+
+#: DB:link_attribute_type/name:20
+msgid "contrabassoon"
+msgstr "コントラファゴット"
+
+#: DB:link_attribute_type/name:622
+msgid "cornamuse"
+msgstr ""
+
+#: DB:link_attribute_type/name:39
+msgid "cornet"
+msgstr "コルネット"
+
+#: DB:link_attribute_type/name:273
+msgid "cornett"
+msgstr ""
+
+#: DB:link_attribute_type/name:208
+msgid "cowbell"
+msgstr "カウベル"
+
+#: DB:link_attribute_type/name:214
+msgid "crotales"
+msgstr ""
+
+#: DB:link_attribute_type/name:427
+msgid "crumhorn"
+msgstr "クルムホルン"
+
+#: DB:link_attribute_type/name:98
+msgid "crwth"
+msgstr "クルース"
+
+#: DB:link_attribute_type/name:531
+msgid "cuatro"
+msgstr "クアトロ"
+
+#: DB:link_attribute_type/name:601
+msgid "cuíca"
+msgstr "クイーカ"
+
+#: DB:link_attribute_type/name:342
+msgid "cymbals"
+msgstr "シンバル"
+
+#: DB:link_attribute_type/name:326
+msgid "cymbalum"
+msgstr ""
+
+#: DB:link_attribute_type/name:495
+msgid "cümbüş"
+msgstr ""
+
+#: DB:link_attribute_type/name:602
+msgid "daegeum"
+msgstr "テグム"
+
+#: DB:link_attribute_type/name:403
+msgid "daf"
+msgstr "ダフ"
+
+#: DB:link_attribute_type/name:644
+msgid "daire"
+msgstr ""
+
+#: DB:link_attribute_type/name:663
+msgid "daluo"
+msgstr ""
+
+#: DB:link_attribute_type/name:419
+msgid "darbuka"
+msgstr ""
+
+#: DB:link_attribute_type/name:658
+msgid "daruan"
+msgstr ""
+
+#: DB:link_attribute_type/name:496
+msgid "davul"
+msgstr ""
+
+#: DB:link_attribute_type/name:563
+msgid "descant recorder / soprano recorder"
+msgstr "ソプラノ・リコーダー"
+
+#: DB:link_attribute_type/name:647
+msgid "dhol"
+msgstr ""
+
+#: DB:link_attribute_type/name:463
+msgid "dholak"
+msgstr ""
+
+#: DB:link_attribute_type/name:441
+msgid "diatonic accordion / melodeon"
+msgstr ""
+
+#: DB:link_attribute_type/name:204
+msgid "didgeridoo"
+msgstr ""
+
+#: DB:link_attribute_type/name:642
+msgid "dilruba"
+msgstr ""
+
+#: DB:link_attribute_type/name:394
+msgid "dinh tăktàr"
+msgstr ""
+
+#: DB:link_attribute_type/name:290
+msgid "diyingehu"
+msgstr ""
+
+#: DB:link_attribute_type/name:553
+msgid "dizi"
+msgstr "笛子（ディーズ）"
+
+#: DB:link_attribute_type/name:335
+msgid "djembe"
+msgstr "ジャンベ"
+
+#: DB:link_attribute_type/name:240
+msgid "dobro"
+msgstr ""
+
+#: DB:link_attribute_type/name:483
+msgid "dohol"
+msgstr ""
+
+#: DB:link_attribute_type/name:742
+msgid "dombra"
+msgstr ""
+
+#: DB:link_attribute_type/name:594
+msgid "domra"
+msgstr "ドムラ"
+
+#: DB:link_attribute_type/name:71
+msgid "double bass / contrabass / acoustic upright bass"
+msgstr ""
+
+#: DB:link_attribute_type/name:17
+msgid "double reed"
+msgstr "ダブルリード"
+
+#: DB:link_attribute_type/name:140
+msgid "doyra"
+msgstr ""
+
+#: DB:link_attribute_type/name:162
+msgid "drum machine"
+msgstr ""
+
+#: DB:link_attribute_type/name:125
+msgid "drums"
+msgstr "ドラム"
+
+#: DB:link_attribute_type/name:126
+msgid "drumset"
+msgstr "ドラムセット"
+
+#: DB:link_attribute_type/name:264
+msgid "duct flutes"
+msgstr ""
+
+#: DB:link_attribute_type/name:480
+msgid "duduk"
+msgstr "ドゥドゥク"
+
+#: DB:link_attribute_type/name:606
+msgid "dulcian"
+msgstr "ダルシアン"
+
+#: DB:link_attribute_type/name:740
+msgid "duxianqin"
+msgstr ""
+
+#: DB:link_attribute_type/name:404
+msgid "ebow"
+msgstr ""
+
+#: DB:link_attribute_type/name:74
+msgid "electric bass guitar"
+msgstr "エレクトリックベース"
+
+#: DB:link_attribute_type/name:278
+msgid "electric cello"
+msgstr ""
+
+#: DB:link_attribute_type/name:650
+msgid "electric fretless guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:78
+msgid "electric guitar"
+msgstr "エレクトリック・ギター"
+
+#: DB:link_attribute_type/name:432
+msgid "electric harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:470
+msgid "electric lap steel guitar"
+msgstr "エレクトリックラップスティールギター"
+
+#: DB:link_attribute_type/name:329
+msgid "electric piano"
+msgstr "電子ピアノ"
+
+#: DB:link_attribute_type/name:316
+msgid "electric sitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:72
+msgid "electric upright bass"
+msgstr "エレクトリック・アップライト・ベース"
+
+#: DB:link_attribute_type/name:282
+msgid "electric violin"
+msgstr "エレクトリック・ヴァイオリン"
+
+#: DB:link_attribute_type/name:487
+msgid "electronic drum set"
+msgstr ""
+
+#: DB:link_attribute_type/name:159
+msgid "electronic instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:539
+msgid "electronic organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:672
+msgid "electronic wind instrument"
+msgstr ""
+
+#: DB:link_attribute_type/name:28
+msgid "end-blown flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:21
+msgid "english horn"
+msgstr "コーラングレ"
+
+#: DB:link_attribute_type/name:285
+msgid "erhu"
+msgstr ""
+
+#: DB:link_attribute_type/name:641
+msgid "esraj"
+msgstr ""
+
+#: DB:link_attribute_type/name:199
+msgid "euphonium"
+msgstr "ユーフォニアム"
+
+#: DB:link_attribute_type/name:540
+msgid "farfisa"
+msgstr ""
+
+#: DB:link_attribute_type/name:85
+msgid "fiddle"
+msgstr "フィドル"
+
+#: DB:link_attribute_type/name:626
+msgid "fife"
+msgstr ""
+
+#: DB:link_attribute_type/name:554
+msgid "finger cymbals"
+msgstr "フィンガーシンバル"
+
+#: DB:link_attribute_type/name:541
+msgid "finger snaps"
+msgstr "フィンガースナップ"
+
+#: DB:link_attribute_type/name:635
+msgid "five-string banjo"
+msgstr ""
+
+#: DB:link_attribute_type/name:43
+msgid "flugelhorn"
+msgstr "フリューゲルホルン"
+
+#: DB:link_attribute_type/name:27
+msgid "flute"
+msgstr "フリート"
+
+#: DB:link_attribute_type/name:500
+msgid "flûte d'amour"
+msgstr "フルート・ダモーレ"
+
+#: DB:link_attribute_type/name:433
+msgid "folk harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:587
+msgid "foot percussion"
+msgstr ""
+
+#: DB:link_attribute_type/name:465
+msgid "fortepiano"
+msgstr ""
+
+#: DB:link_attribute_type/name:682
+msgid "fourth flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:421
+msgid "frame drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:63
+msgid "free reed"
+msgstr "フリーリード"
+
+#: DB:link_attribute_type/name:44
+msgid "french horn"
+msgstr "フレンチ・ホルン"
+
+#: DB:link_attribute_type/name:523
+msgid "fretless bass"
+msgstr "フレットレスベース"
+
+#: DB:link_attribute_type/name:698
+msgid "friction drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:448
+msgid "frottoir"
+msgstr ""
+
+#: DB:link_attribute_type/name:683
+msgid "fujara"
+msgstr ""
+
+#: DB:link_attribute_type/name:301
+msgid "gadulka"
+msgstr "ガドゥルカ"
+
+#: DB:link_attribute_type/name:445
+msgid "gamelan"
+msgstr "ガムラン"
+
+#: DB:link_attribute_type/name:464
+msgid "gankogui"
+msgstr ""
+
+#: DB:link_attribute_type/name:286
+msgid "gaohu"
+msgstr "高胡"
+
+#: DB:link_attribute_type/name:361
+msgid "garklein recorder"
+msgstr "ガークライン"
+
+#: DB:link_attribute_type/name:99
+msgid "gayageum"
+msgstr "伽耶琴"
+
+#: DB:link_attribute_type/name:289
+msgid "gehu"
+msgstr ""
+
+#: DB:link_attribute_type/name:100
+msgid "geomungo"
+msgstr "コムンゴ"
+
+#: DB:link_attribute_type/name:436
+msgid "german harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:408
+msgid "ghatam"
+msgstr "ガタム"
+
+#: DB:link_attribute_type/name:357
+msgid "glass (h)armonica"
+msgstr ""
+
+#: DB:link_attribute_type/name:215
+msgid "glockenspiel"
+msgstr "グロッケンシュピール"
+
+#: DB:link_attribute_type/name:338
+msgid "goblet drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:340
+msgid "gong"
+msgstr "ゴング"
+
+#: DB:link_attribute_type/name:339
+msgid "gongs"
+msgstr ""
+
+#: DB:link_attribute_type/name:694
+msgid "gralla"
+msgstr ""
+
+#: DB:link_attribute_type/name:181
+msgid "grand piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:366
+msgid "great bass recorder / c-bass recorder"
+msgstr "グレートバス・リコーダー"
+
+#: DB:link_attribute_type/name:300
+msgid "gudok"
+msgstr ""
+
+#: DB:link_attribute_type/name:229
+msgid "guitar"
+msgstr "ギター"
+
+#: DB:link_attribute_type/name:75
+msgid "guitars"
+msgstr "ギター"
+
+#: DB:link_attribute_type/name:402
+msgid "gumbri"
+msgstr ""
+
+#: DB:link_attribute_type/name:616
+msgid "guqin"
+msgstr ""
+
+#: DB:link_attribute_type/name:508
+msgid "gusli"
+msgstr "グースリ"
+
+#: DB:link_attribute_type/name:679
+msgid "gut guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:544
+msgid "guzheng"
+msgstr ""
+
+#: DB:link_attribute_type/name:141
+msgid "güiro"
+msgstr "ギロ"
+
+#: DB:link_attribute_type/name:595
+msgid "haegeum"
+msgstr "奚琴"
+
+#: DB:link_attribute_type/name:101
+msgid "hammered dulcimer"
+msgstr "ハンマード・ダルシマー"
+
+#: DB:link_attribute_type/name:346
+msgid "handbells"
+msgstr ""
+
+#: DB:link_attribute_type/name:398
+msgid "handclaps"
+msgstr ""
+
+#: DB:link_attribute_type/name:624
+msgid "hang"
+msgstr ""
+
+#: DB:link_attribute_type/name:187
+msgid "hardart"
+msgstr ""
+
+#: DB:link_attribute_type/name:102
+msgid "hardingfele"
+msgstr "ハーディングフェーレ"
+
+#: DB:link_attribute_type/name:66
+msgid "harmonica"
+msgstr "ハーモニカ"
+
+#: DB:link_attribute_type/name:178
+msgid "harmonium"
+msgstr "ハーモニウム"
+
+#: DB:link_attribute_type/name:81
+msgid "harp"
+msgstr "ハープ"
+
+#: DB:link_attribute_type/name:174
+msgid "harpsichord"
+msgstr "チェンバロ"
+
+#: DB:link_attribute_type/name:261
+msgid "heckelphone"
+msgstr "ヘッケルフォーン"
+
+#: DB:link_attribute_type/name:691
+msgid "heike biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:547
+msgid "hi-hat"
+msgstr "ハイハットシンバル"
+
+#: DB:link_attribute_type/name:389
+msgid "hmông flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:40
+msgid "horn"
+msgstr "ホルン"
+
+#: DB:link_attribute_type/name:697
+msgid "hourglass drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:659
+msgid "hulusi"
+msgstr ""
+
+#: DB:link_attribute_type/name:283
+msgid "huqin"
+msgstr "胡琴"
+
+#: DB:link_attribute_type/name:103
+msgid "hurdy gurdy"
+msgstr "ハーディ・ガーディ"
+
+#: DB:link_attribute_type/name:14
+msgid "instrument"
+msgstr "楽器"
+
+#: DB:link_attribute_type/name:605
+msgid "janggu"
+msgstr "チャング"
+
+#: DB:link_attribute_type/name:104
+msgid "jew's harp"
+msgstr "口琴"
+
+#: DB:link_attribute_type/name:664
+msgid "jing"
+msgstr ""
+
+#: DB:link_attribute_type/name:661
+msgid "jing'erhu"
+msgstr ""
+
+#: DB:link_attribute_type/name:284
+msgid "jinghu"
+msgstr ""
+
+#: DB:link_attribute_type/name:615
+msgid "jug"
+msgstr ""
+
+#: DB:link_attribute_type/name:355
+msgid "k'lông pút"
+msgstr ""
+
+#: DB:link_attribute_type/name:613
+msgid "kamancheh"
+msgstr ""
+
+#: DB:link_attribute_type/name:583
+msgid "kanjira"
+msgstr "カンジーラ"
+
+#: DB:link_attribute_type/name:507
+msgid "kanklės"
+msgstr "カンクレス"
+
+#: DB:link_attribute_type/name:509
+msgid "kantele"
+msgstr "カンテレ"
+
+#: DB:link_attribute_type/name:360
+msgid "kanun"
+msgstr "カーヌーン"
+
+#: DB:link_attribute_type/name:646
+msgid "kartal"
+msgstr ""
+
+#: DB:link_attribute_type/name:551
+msgid "kaval"
+msgstr "カバル"
+
+#: DB:link_attribute_type/name:188
+msgid "kazoo"
+msgstr "カズー"
+
+#: DB:link_attribute_type/name:281
+msgid "kemenche"
+msgstr "ケメンチェ"
+
+#: DB:link_attribute_type/name:653
+msgid "kemençe of the Black Sea"
+msgstr ""
+
+#: DB:link_attribute_type/name:232
+msgid "keyboard"
+msgstr "キーボード"
+
+#: DB:link_attribute_type/name:442
+msgid "keyboard bass"
+msgstr ""
+
+#: DB:link_attribute_type/name:203
+msgid "keyed brass instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:388
+msgid "khen la´"
+msgstr ""
+
+#: DB:link_attribute_type/name:359
+msgid "khim"
+msgstr "キム"
+
+#: DB:link_attribute_type/name:395
+msgid "khèn Mèo"
+msgstr ""
+
+#: DB:link_attribute_type/name:384
+msgid "ki pah"
+msgstr ""
+
+#: DB:link_attribute_type/name:317
+msgid "kinnor"
+msgstr ""
+
+#: DB:link_attribute_type/name:318
+msgid "kithara"
+msgstr ""
+
+#: DB:link_attribute_type/name:608
+msgid "kkwaenggwari"
+msgstr "ケンガリ"
+
+#: DB:link_attribute_type/name:386
+msgid "koke"
+msgstr ""
+
+#: DB:link_attribute_type/name:293
+msgid "kokyu"
+msgstr "胡弓"
+
+#: DB:link_attribute_type/name:655
+msgid "komuz"
+msgstr ""
+
+#: DB:link_attribute_type/name:106
+msgid "kora"
+msgstr "コラ"
+
+#: DB:link_attribute_type/name:334
+msgid "kortholt"
+msgstr ""
+
+#: DB:link_attribute_type/name:107
+msgid "koto"
+msgstr "箏"
+
+#: DB:link_attribute_type/name:669
+msgid "kotsuzumi"
+msgstr ""
+
+#: DB:link_attribute_type/name:637
+msgid "kudüm"
+msgstr ""
+
+#: DB:link_attribute_type/name:380
+msgid "kèn bầu"
+msgstr ""
+
+#: DB:link_attribute_type/name:668
+msgid "kōauau"
+msgstr ""
+
+#: DB:link_attribute_type/name:319
+msgid "langeleik"
+msgstr "ランゲレイク"
+
+#: DB:link_attribute_type/name:466
+msgid "lap steel guitar"
+msgstr "ラップスティール・ギター"
+
+#: DB:link_attribute_type/name:627
+msgid "laser harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:189
+msgid "lasso d'amore"
+msgstr ""
+
+#: DB:link_attribute_type/name:630
+msgid "launeddas"
+msgstr ""
+
+#: DB:link_attribute_type/name:685
+msgid "limbe"
+msgstr ""
+
+#: DB:link_attribute_type/name:482
+msgid "low whistle"
+msgstr "ロー・ホイッスル"
+
+#: DB:link_attribute_type/name:108
+msgid "lute"
+msgstr "リュート"
+
+#: DB:link_attribute_type/name:109
+msgid "lyre"
+msgstr "ライアー"
+
+#: DB:link_attribute_type/name:242
+msgid "madal"
+msgstr ""
+
+#: DB:link_attribute_type/name:649
+msgid "maddale"
+msgstr ""
+
+#: DB:link_attribute_type/name:744
+msgid "mandocello"
+msgstr ""
+
+#: DB:link_attribute_type/name:308
+msgid "mandola"
+msgstr "マンドラ"
+
+#: DB:link_attribute_type/name:96
+msgid "mandolin"
+msgstr "マンドリン"
+
+#: DB:link_attribute_type/name:142
+msgid "maracas"
+msgstr "マラカス"
+
+#: DB:link_attribute_type/name:216
+msgid "marimba"
+msgstr "マリンバ"
+
+#: DB:link_attribute_type/name:534
+msgid "marxophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:110
+msgid "mbira"
+msgstr "カリンバ"
+
+#: DB:link_attribute_type/name:56
+msgid "mellophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:67
+msgid "melodica"
+msgstr "ピアニカ"
+
+#: DB:link_attribute_type/name:143
+msgid "mendoza"
+msgstr ""
+
+#: DB:link_attribute_type/name:452
+msgid "metal angklung"
+msgstr ""
+
+#: DB:link_attribute_type/name:428
+msgid "metallophone"
+msgstr ""
+
+#: DB:link_attribute_type/name:703
+msgid "mirliton"
+msgstr ""
+
+#: DB:link_attribute_type/name:294
+msgid "morin khuur / matouqin"
+msgstr "モリンホール"
+
+#: DB:link_attribute_type/name:645
+msgid "morsing"
+msgstr ""
+
+#: DB:link_attribute_type/name:584
+msgid "mridangam"
+msgstr "ムリダンガム"
+
+#: DB:link_attribute_type/name:97
+msgid "musical bow"
+msgstr ""
+
+#: DB:link_attribute_type/name:557
+msgid "musical box"
+msgstr ""
+
+#: DB:link_attribute_type/name:190
+msgid "musical saw"
+msgstr "ミュージックソー"
+
+#: DB:link_attribute_type/name:337
+msgid "mõ"
+msgstr ""
+
+#: DB:link_attribute_type/name:665
+msgid "nagadou-daiko"
+msgstr ""
+
+#: DB:link_attribute_type/name:369
+msgid "nai"
+msgstr "ナイ"
+
+#: DB:link_attribute_type/name:743
+msgid "naobo"
+msgstr ""
+
+#: DB:link_attribute_type/name:49
+msgid "natural brass instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:634
+msgid "natural horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:652
+msgid "ney"
+msgstr ""
+
+#: DB:link_attribute_type/name:603
+msgid "nohkan"
+msgstr "能管"
+
+#: DB:link_attribute_type/name:270
+msgid "nose flute"
+msgstr "鼻笛"
+
+#: DB:link_attribute_type/name:738
+msgid "nose whistle"
+msgstr "鼻ホイッスル"
+
+#: DB:link_attribute_type/name:298
+msgid "nyckelharpa"
+msgstr "ニッケルハルパ"
+
+#: DB:link_attribute_type/name:678
+msgid "nylon guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:343
+msgid "não bạt / chập chõa"
+msgstr ""
+
+#: DB:link_attribute_type/name:22
+msgid "oboe"
+msgstr "オーボエ"
+
+#: DB:link_attribute_type/name:581
+msgid "oboe d'amore"
+msgstr "オーボエダモーレ"
+
+#: DB:link_attribute_type/name:684
+msgid "oboe da caccia"
+msgstr ""
+
+#: DB:link_attribute_type/name:29
+msgid "ocarina"
+msgstr "オカリナ"
+
+#: DB:link_attribute_type/name:456
+msgid "ocean drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
+msgstr ""
+
+#: DB:link_attribute_type/name:352
+msgid "omnichord"
+msgstr "オムニコード"
+
+#: DB:link_attribute_type/name:163
+msgid "ondes Martenot"
+msgstr "オンド・マルトノ"
+
+#: DB:link_attribute_type/name:57
+msgid "ophicleide"
+msgstr ""
+
+#: DB:link_attribute_type/name:176
+msgid "organ"
+msgstr "オルガン"
+
+#: DB:link_attribute_type/name:631
+msgid "orpharion"
+msgstr ""
+
+#: DB:link_attribute_type/name:700
+msgid "other drums"
+msgstr ""
+
+#: DB:link_attribute_type/name:265
+msgid "other flutes"
+msgstr "その他の笛"
+
+#: DB:link_attribute_type/name:185
+msgid "other instruments"
+msgstr "その他の楽器"
+
+#: DB:link_attribute_type/name:221
+msgid "other percussion"
+msgstr "その他のパーカッション"
+
+#: DB:link_attribute_type/name:88
+msgid "other string instruments"
+msgstr "その他の弦楽器"
+
+#: DB:link_attribute_type/name:304
+msgid "oud"
+msgstr "ウード"
+
+#: DB:link_attribute_type/name:612
+msgid "pakhavaj"
+msgstr ""
+
+#: DB:link_attribute_type/name:30
+msgid "pan flute"
+msgstr "パンパイプ"
+
+#: DB:link_attribute_type/name:392
+msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:469
+msgid "pedal steel guitar"
+msgstr "ペダルスティール・ギター"
+
+#: DB:link_attribute_type/name:124
+msgid "percussion"
+msgstr "パーカッション"
+
+#: DB:link_attribute_type/name:379
+msgid "phách"
+msgstr ""
+
+#: DB:link_attribute_type/name:180
+msgid "piano"
+msgstr "ピアノ"
+
+#: DB:link_attribute_type/name:439
+msgid "piano accordion"
+msgstr "ピアノ・アコーディオン"
+
+#: DB:link_attribute_type/name:31
+msgid "piccolo"
+msgstr "ピッコロ"
+
+#: DB:link_attribute_type/name:486
+msgid "piccolo trumpet"
+msgstr "ピッコロトランペット"
+
+#: DB:link_attribute_type/name:429
+msgid "pipa"
+msgstr "ピーパー（琵琶）"
+
+#: DB:link_attribute_type/name:179
+msgid "pipe organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:609
+msgid "piri"
+msgstr "ピリ"
+
+#: DB:link_attribute_type/name:302
+msgid "plucked string instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:515
+msgid "practice chanter"
+msgstr ""
+
+#: DB:link_attribute_type/name:590
+msgid "prepared piano"
+msgstr "プリペアド・ピアノ"
+
+#: DB:link_attribute_type/name:111
+msgid "psaltery"
+msgstr ""
+
+#: DB:link_attribute_type/name:416
+msgid "pí thiu"
+msgstr ""
+
+#: DB:link_attribute_type/name:528
+msgid "quena"
+msgstr "ケーナ"
+
+#: DB:link_attribute_type/name:455
+msgid "rainstick"
+msgstr ""
+
+#: DB:link_attribute_type/name:211
+msgid "ratchet"
+msgstr "ラチェット"
+
+#: DB:link_attribute_type/name:411
+msgid "rattle"
+msgstr "ラトル"
+
+#: DB:link_attribute_type/name:739
+msgid "rauschpfeife"
+msgstr ""
+
+#: DB:link_attribute_type/name:309
+msgid "rebab"
+msgstr "ラバーブ"
+
+#: DB:link_attribute_type/name:276
+msgid "rebec"
+msgstr "レベック"
+
+#: DB:link_attribute_type/name:32
+msgid "recorder"
+msgstr "リコーダー"
+
+#: DB:link_attribute_type/name:274
+msgid "reed organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:233
+msgid "reeds"
+msgstr "リード"
+
+#: DB:link_attribute_type/name:406
+msgid "rek"
+msgstr ""
+
+#: DB:link_attribute_type/name:467
+msgid "resonator guitar"
+msgstr "リゾネーター・ギター"
+
+#: DB:link_attribute_type/name:449
+msgid "rhythm sticks"
+msgstr ""
+
+#: DB:link_attribute_type/name:680
+msgid "rondador"
+msgstr ""
+
+#: DB:link_attribute_type/name:657
+msgid "ruan"
+msgstr ""
+
+#: DB:link_attribute_type/name:611
+msgid "rudra veena"
+msgstr ""
+
+#: DB:link_attribute_type/name:198
+msgid "sackbut"
+msgstr "サックバット"
+
+#: DB:link_attribute_type/name:695
+msgid "samba whistle"
+msgstr ""
+
+#: DB:link_attribute_type/name:164
+msgid "sampler"
+msgstr ""
+
+#: DB:link_attribute_type/name:315
+msgid "sanshin"
+msgstr "三線"
+
+#: DB:link_attribute_type/name:358
+msgid "santoor"
+msgstr ""
+
+#: DB:link_attribute_type/name:325
+msgid "santur"
+msgstr "サントゥール"
+
+#: DB:link_attribute_type/name:314
+msgid "sanxian"
+msgstr ""
+
+#: DB:link_attribute_type/name:418
+msgid "sapek clappers"
+msgstr ""
+
+#: DB:link_attribute_type/name:552
+msgid "sarangi"
+msgstr "サーランギー"
+
+#: DB:link_attribute_type/name:250
+msgid "sarod"
+msgstr ""
+
+#: DB:link_attribute_type/name:741
+msgid "saron"
+msgstr ""
+
+#: DB:link_attribute_type/name:692
+msgid "satsuma biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:33
+msgid "saxophone"
+msgstr "サクソフォーン"
+
+#: DB:link_attribute_type/name:566
+msgid "saz"
+msgstr "サズ"
+
+#: DB:link_attribute_type/name:387
+msgid "saó ôi flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:197
+msgid "serpent"
+msgstr ""
+
+#: DB:link_attribute_type/name:417
+msgid "shakers"
+msgstr "シェイカー"
+
+#: DB:link_attribute_type/name:224
+msgid "shakuhachi"
+msgstr "尺八"
+
+#: DB:link_attribute_type/name:112
+msgid "shamisen"
+msgstr "三味線"
+
+#: DB:link_attribute_type/name:493
+msgid "shawm"
+msgstr "ショーム"
+
+#: DB:link_attribute_type/name:604
+msgid "shehnai"
+msgstr ""
+
+#: DB:link_attribute_type/name:462
+msgid "shekere"
+msgstr "シェケレ"
+
+#: DB:link_attribute_type/name:68
+msgid "sheng"
+msgstr "ション"
+
+#: DB:link_attribute_type/name:666
+msgid "shime-daiko"
+msgstr ""
+
+#: DB:link_attribute_type/name:564
+msgid "shinobue"
+msgstr "篠笛"
+
+#: DB:link_attribute_type/name:262
+msgid "sho"
+msgstr "笙"
+
+#: DB:link_attribute_type/name:60
+msgid "shofar"
+msgstr "ショファー"
+
+#: DB:link_attribute_type/name:535
+msgid "shruti box"
+msgstr ""
+
+#: DB:link_attribute_type/name:705
+msgid "shudraga"
+msgstr ""
+
+#: DB:link_attribute_type/name:681
+msgid "siku"
+msgstr ""
+
+#: DB:link_attribute_type/name:191
+msgid "singing bowl"
+msgstr ""
+
+#: DB:link_attribute_type/name:234
+msgid "singular reed"
+msgstr "シングルリード"
+
+#: DB:link_attribute_type/name:450
+msgid "sistrum"
+msgstr ""
+
+#: DB:link_attribute_type/name:113
+msgid "sitar"
+msgstr "シタール"
+
+#: DB:link_attribute_type/name:272
+msgid "slide brass instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:79
+msgid "slide guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:268
+msgid "slide whistle"
+msgstr "スライドホイッスル"
+
+#: DB:link_attribute_type/name:446
+msgid "slit drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:129
+msgid "snare drum"
+msgstr "スネアドラム"
+
+#: DB:link_attribute_type/name:356
+msgid "song loan"
+msgstr ""
+
+#: DB:link_attribute_type/name:362
+msgid "sopranino recorder"
+msgstr "ソプラニーノ・リコーダー"
+
+#: DB:link_attribute_type/name:537
+msgid "sopranino saxophone"
+msgstr "ソプラニーノサクソフォーン"
+
+#: DB:link_attribute_type/name:488
+msgid "soprano clarinet"
+msgstr "ソプラノ・クラリネット"
+
+#: DB:link_attribute_type/name:498
+msgid "soprano flute"
+msgstr "3度管フルート"
+
+#: DB:link_attribute_type/name:34
+msgid "soprano saxophone"
+msgstr "ソプラニーノサクソフォーン"
+
+#: DB:link_attribute_type/name:280
+msgid "soprano violin"
+msgstr "ソプラノ・ヴァイオリン"
+
+#: DB:link_attribute_type/name:200
+msgid "sousaphone"
+msgstr "スーザフォン"
+
+#: DB:link_attribute_type/name:625
+msgid "spilåpipa"
+msgstr ""
+
+#: DB:link_attribute_type/name:210
+msgid "spoons"
+msgstr "スプーン"
+
+#: DB:link_attribute_type/name:80
+msgid "steel guitar"
+msgstr "スティール・ギター"
+
+#: DB:link_attribute_type/name:344
+msgid "steelpan"
+msgstr "スティールパン"
+
+#: DB:link_attribute_type/name:69
+msgid "strings"
+msgstr "ストリングス"
+
+#: DB:link_attribute_type/name:322
+msgid "struck string instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:368
+msgid "subcontrabass recorder"
+msgstr "サブ・コントラバス・リコーダー"
+
+#: DB:link_attribute_type/name:192
+msgid "suikinkutsu"
+msgstr "水琴窟"
+
+#: DB:link_attribute_type/name:660
+msgid "suona"
+msgstr ""
+
+#: DB:link_attribute_type/name:459
+msgid "surdo"
+msgstr "スルド"
+
+#: DB:link_attribute_type/name:165
+msgid "synclavier"
+msgstr "シンクラヴィア"
+
+#: DB:link_attribute_type/name:166
+msgid "synthesizer"
+msgstr "シンセサイザー"
+
+#: DB:link_attribute_type/name:370
+msgid "syrinx"
+msgstr "シュリンクス"
+
+#: DB:link_attribute_type/name:393
+msgid "sáo meò"
+msgstr ""
+
+#: DB:link_attribute_type/name:269
+msgid "sáo trúc"
+msgstr ""
+
+#: DB:link_attribute_type/name:347
+msgid "sênh tiền"
+msgstr ""
+
+#: DB:link_attribute_type/name:381
+msgid "t'rưng"
+msgstr ""
+
+#: DB:link_attribute_type/name:241
+msgid "tabla"
+msgstr "タブラ"
+
+#: DB:link_attribute_type/name:468
+msgid "table steel guitar"
+msgstr ""
+
+#: DB:link_attribute_type/name:458
+msgid "taiko"
+msgstr "太鼓"
+
+#: DB:link_attribute_type/name:667
+msgid "taishogoto"
+msgstr ""
+
+#: DB:link_attribute_type/name:656
+msgid "talharpa / hiiu kannel"
+msgstr ""
+
+#: DB:link_attribute_type/name:546
+msgid "talkbox"
+msgstr ""
+
+#: DB:link_attribute_type/name:457
+msgid "talking drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:333
+msgid "tambourine"
+msgstr "タンブリン"
+
+#: DB:link_attribute_type/name:473
+msgid "tambura"
+msgstr "タンブラ"
+
+#: DB:link_attribute_type/name:474
+msgid "tamburitza"
+msgstr ""
+
+#: DB:link_attribute_type/name:410
+msgid "tanbou ka"
+msgstr ""
+
+#: DB:link_attribute_type/name:586
+msgid "tanbur"
+msgstr "タンブル"
+
+#: DB:link_attribute_type/name:510
+msgid "tangent piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:671
+msgid "tap dancing"
+msgstr ""
+
+#: DB:link_attribute_type/name:632
+msgid "tape"
+msgstr ""
+
+#: DB:link_attribute_type/name:560
+msgid "tar (lute)"
+msgstr "タール（弦楽器）"
+
+#: DB:link_attribute_type/name:532
+msgid "taragot"
+msgstr "タラゴット"
+
+#: DB:link_attribute_type/name:643
+msgid "tef"
+msgstr ""
+
+#: DB:link_attribute_type/name:167
+msgid "teleharmonium"
+msgstr ""
+
+#: DB:link_attribute_type/name:222
+msgid "temple blocks"
+msgstr "テンプル・ブロック"
+
+#: DB:link_attribute_type/name:522
+msgid "tenor guitar"
+msgstr "テナーギター"
+
+#: DB:link_attribute_type/name:45
+msgid "tenor horn / alto horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:364
+msgid "tenor recorder"
+msgstr "テナー・リコーダー"
+
+#: DB:link_attribute_type/name:36
+msgid "tenor saxophone"
+msgstr "テナーサクソフォーン"
+
+#: DB:link_attribute_type/name:589
+msgid "thavil"
+msgstr ""
+
+#: DB:link_attribute_type/name:426
+msgid "theatre organ"
+msgstr ""
+
+#: DB:link_attribute_type/name:478
+msgid "theorbo"
+msgstr "テオルボ"
+
+#: DB:link_attribute_type/name:168
+msgid "theremin"
+msgstr "テルミン"
+
+#: DB:link_attribute_type/name:696
+msgid "thon"
+msgstr ""
+
+#: DB:link_attribute_type/name:409
+msgid "ti bwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:401
+msgid "tieu flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:132
+msgid "timbales"
+msgstr "ティンバレス"
+
+#: DB:link_attribute_type/name:217
+msgid "timpani"
+msgstr "ティンパニ"
+
+#: DB:link_attribute_type/name:267
+msgid "tin whistle"
+msgstr "ティン・ホイッスル"
+
+#: DB:link_attribute_type/name:331
+msgid "tiple"
+msgstr ""
+
+#: DB:link_attribute_type/name:555
+msgid "tom-tom"
+msgstr "トムトム"
+
+#: DB:link_attribute_type/name:687
+msgid "tonkori"
+msgstr ""
+
+#: DB:link_attribute_type/name:328
+msgid "toy piano"
+msgstr "トイピアノ"
+
+#: DB:link_attribute_type/name:422
+msgid "transverse flute"
+msgstr "横笛"
+
+#: DB:link_attribute_type/name:497
+msgid "treble flute"
+msgstr "ソプラノ・フルート"
+
+#: DB:link_attribute_type/name:363
+msgid "treble recorder / alto recorder"
+msgstr "アルト・リコーダー"
+
+#: DB:link_attribute_type/name:279
+msgid "treble violin"
+msgstr "トレブル・ヴァイオリン"
+
+#: DB:link_attribute_type/name:115
+msgid "tres"
+msgstr ""
+
+#: DB:link_attribute_type/name:133
+msgid "triangle"
+msgstr "バウロン"
+
+#: DB:link_attribute_type/name:46
+msgid "trombone"
+msgstr "トロンボーン"
+
+#: DB:link_attribute_type/name:47
+msgid "trumpet"
+msgstr "トランペット"
+
+#: DB:link_attribute_type/name:385
+msgid "tràm plè"
+msgstr ""
+
+#: DB:link_attribute_type/name:391
+msgid "trắng jâu"
+msgstr ""
+
+#: DB:link_attribute_type/name:390
+msgid "trắng lu"
+msgstr ""
+
+#: DB:link_attribute_type/name:382
+msgid "trống bông"
+msgstr ""
+
+#: DB:link_attribute_type/name:48
+msgid "tuba"
+msgstr "チューバ"
+
+#: DB:link_attribute_type/name:218
+msgid "tubular bells"
+msgstr "チューブラーベル"
+
+#: DB:link_attribute_type/name:623
+msgid "tumbi"
+msgstr ""
+
+#: DB:link_attribute_type/name:150
+msgid "tuned percussion"
+msgstr ""
+
+#: DB:link_attribute_type/name:236
+msgid "turntable(s)"
+msgstr ""
+
+#: DB:link_attribute_type/name:638
+msgid "typewriter"
+msgstr ""
+
+#: DB:link_attribute_type/name:556
+msgid "tzoura"
+msgstr ""
+
+#: DB:link_attribute_type/name:407
+msgid "udu"
+msgstr ""
+
+#: DB:link_attribute_type/name:248
+msgid "uilleann pipes"
+msgstr "イリアン・パイプス"
+
+#: DB:link_attribute_type/name:114
+msgid "ukulele"
+msgstr "ウクレレ"
+
+#: DB:link_attribute_type/name:184
+msgid "upright piano"
+msgstr ""
+
+#: DB:link_attribute_type/name:375
+msgid "vacuum cleaner"
+msgstr "掃除機"
+
+#: DB:link_attribute_type/name:629
+msgid "valiha"
+msgstr ""
+
+#: DB:link_attribute_type/name:237
+msgid "valve trombone"
+msgstr "バルブトロンボーン"
+
+#: DB:link_attribute_type/name:271
+msgid "valved brass instruments"
+msgstr ""
+
+#: DB:link_attribute_type/name:503
+msgid "venu"
+msgstr ""
+
+#: DB:link_attribute_type/name:447
+msgid "vessel drum"
+msgstr ""
+
+#: DB:link_attribute_type/name:219
+msgid "vibraphone"
+msgstr "ヴィブラフォン"
+
+#: DB:link_attribute_type/name:212
+msgid "vibraslap"
+msgstr "ヴィブラスラップ"
+
+#: DB:link_attribute_type/name:116
+msgid "vielle"
+msgstr "ヴィエール"
+
+#: DB:link_attribute_type/name:87
+msgid "viola"
+msgstr "ヴィオラ"
+
+#: DB:link_attribute_type/name:119
+msgid "viola d'amore"
+msgstr "ヴィオラ・ダモーレ"
+
+#: DB:link_attribute_type/name:118
+msgid "viola da gamba"
+msgstr "ヴィオラ・ダ・ガンバ"
+
+#: DB:link_attribute_type/name:297
+msgid "viola organista"
+msgstr ""
+
+#: DB:link_attribute_type/name:86
+msgid "violin"
+msgstr "バイオリン"
+
+#: DB:link_attribute_type/name:82
+msgid "violins"
+msgstr "バイオリン種"
+
+#: DB:link_attribute_type/name:505
+msgid "violone"
+msgstr "ヴィオローネ"
+
+#: DB:link_attribute_type/name:120
+msgid "violotta"
+msgstr "ヴィオロッタ"
+
+#: DB:link_attribute_type/name:621
+msgid "virginal"
+msgstr ""
+
+#: DB:link_attribute_type/name:354
+msgid "vocoder"
+msgstr "ヴォコーダー"
+
+#: DB:link_attribute_type/name:542
+msgid "voice synthesizer"
+msgstr ""
+
+#: DB:link_attribute_type/name:209
+msgid "washboard"
+msgstr "ウォッシュボード"
+
+#: DB:link_attribute_type/name:121
+msgid "washtub bass"
+msgstr ""
+
+#: DB:link_attribute_type/name:351
+msgid "waterphone"
+msgstr ""
+
+#: DB:link_attribute_type/name:454
+msgid "wavedrum"
+msgstr ""
+
+#: DB:link_attribute_type/name:134
+msgid "whip"
+msgstr ""
+
+#: DB:link_attribute_type/name:345
+msgid "whistle"
+msgstr ""
+
+#: DB:link_attribute_type/name:266
+msgid "willow flute"
+msgstr ""
+
+#: DB:link_attribute_type/name:607
+msgid "wind chime"
+msgstr "ウィンドチャイム"
+
+#: DB:link_attribute_type/name:15
+msgid "wind instruments"
+msgstr "管楽器"
+
+#: DB:link_attribute_type/name:434
+msgid "wire-strung harp"
+msgstr ""
+
+#: DB:link_attribute_type/name:213
+msgid "wood block"
+msgstr "ウッドブロック"
+
+#: DB:link_attribute_type/name:16
+msgid "woodwind"
+msgstr "木管楽器"
+
+#: DB:link_attribute_type/name:122
+msgid "xalam / khalam"
+msgstr ""
+
+#: DB:link_attribute_type/name:593
+msgid "xiao"
+msgstr "シャオ"
+
+#: DB:link_attribute_type/name:662
+msgid "xiaoluo"
+msgstr ""
+
+#: DB:link_attribute_type/name:220
+msgid "xylophone"
+msgstr "シロフォン"
+
+#: DB:link_attribute_type/name:324
+msgid "yangqin"
+msgstr ""
+
+#: DB:link_attribute_type/name:676
+msgid "yatga"
+msgstr ""
+
+#: DB:link_attribute_type/name:639
+msgid "yaylı tanbur"
+msgstr ""
+
+#: DB:link_attribute_type/name:292
+msgid "yehu"
+msgstr ""
+
+#: DB:link_attribute_type/name:310
+msgid "yueqin"
+msgstr ""
+
+#: DB:link_attribute_type/name:405
+msgid "zarb"
+msgstr ""
+
+#: DB:link_attribute_type/name:287
+msgid "zhonghu"
+msgstr "中胡"
+
+#: DB:link_attribute_type/name:311
+msgid "zhongruan"
+msgstr ""
+
+#: DB:link_attribute_type/name:548
+msgid "zill"
+msgstr "ジル"
+
+#: DB:link_attribute_type/name:123
+msgid "zither"
+msgstr "ツィター"
+
+#: DB:link_attribute_type/name:492
+msgid "zurna"
+msgstr "ズルナ"
+
+#: DB:link_attribute_type/name:383
+msgid "đing buốt"
+msgstr ""
+
+#: DB:link_attribute_type/name:396
+msgid "đing nǎm"
+msgstr ""
+
+#: DB:link_attribute_type/name:321
+msgid "đàn bầu"
+msgstr ""
+
+#: DB:link_attribute_type/name:312
+msgid "đàn nguyệt"
+msgstr ""
+
+#: DB:link_attribute_type/name:295
+msgid "đàn nhị"
+msgstr ""
+
+#: DB:link_attribute_type/name:414
+msgid "đàn tam"
+msgstr ""
+
+#: DB:link_attribute_type/name:327
+msgid "đàn tam thập lục"
+msgstr ""
+
+#: DB:link_attribute_type/name:320
+msgid "đàn tranh"
+msgstr ""
+
+#: DB:link_attribute_type/name:303
+msgid "đàn tứ dây"
+msgstr ""
+
+#: DB:link_attribute_type/name:313
+msgid "đàn tỳ bà"
+msgstr ""
+
+#: DB:link_attribute_type/name:336
+msgid "đại cô/tiểu cô"
+msgstr ""
+
+#: DB:link_attribute_type/name:670
+msgid "ōtsuzumi"
+msgstr ""
+
+#: DB:link_attribute_type/name:701
+msgid "żafżafa / rabbaba"
+msgstr ""
+
+#: DB:link_attribute_type/name:702
+msgid "żaqq"
+msgstr ""
+
+#: DB:link_attribute_type/name:704
+msgid "żummara"
+msgstr ""
