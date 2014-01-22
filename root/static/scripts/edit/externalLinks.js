@@ -43,7 +43,6 @@ MB.Control.externalLinksEditor = function (options) {
             this.text = ko.observable(data.text || "");
             this.label = ko.observable("");
             this.linkType = ko.observable(data.link_type_id);
-            this.matchesType = ko.observable(!!data.link_type_id);
             this.faviconClass = ko.observable("");
             this.errors = ko.observableArray([]);
 
@@ -79,9 +78,17 @@ MB.Control.externalLinksEditor = function (options) {
             linksModel.ensureEmptyLinkExists();
         },
 
+        matchesType: function () {
+            var type = this.cleanup.guessType(options.entityType, this.text());
+            return type !== undefined;
+        },
+
         showTypeSelection: function () {
-            return this.errors().length > 0 ||
-                (!this.matchesType() && (this.text() || this.linkType()));
+            var hasErrors = this.errors().length > 0;
+            var hasMatch = this.matchesType();
+            var isEmpty = this.isEmpty();
+
+            return hasErrors || !(hasMatch || isEmpty);
         },
 
         remove: function () {
@@ -179,13 +186,4 @@ MB.Control.externalLinksEditor = function (options) {
     linksModel.links(_.chain(linksModel.links())
         .sortBy(function (link) { return link.label().toLowerCase() })
         .sortBy(function (link) { return link.isEmpty() }).value());
-
-
-    $(document)
-        .on("mb.matchedLinkType", "select", function () {
-            ko.dataFor(this).matchesType(true);
-        })
-        .on("mb.unknownLinkType", "select", function () {
-            ko.dataFor(this).matchesType(false);
-        });
 };

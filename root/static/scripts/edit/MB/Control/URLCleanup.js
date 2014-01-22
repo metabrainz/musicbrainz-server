@@ -870,9 +870,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
             var type = self.guessType(self.sourceType, clean);
 
             if (type) {
-                self.typeControl.val(type).trigger("change").trigger("mb.matchedLinkType");
-            } else {
-                self.typeControl.trigger("mb.unknownLinkType");
+                self.typeControl.val(type).trigger("change");
             }
 
             typeChanged(event);
