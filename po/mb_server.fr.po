@@ -28,8 +28,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-20 20:55-0700\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 13:39+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8536,14 +8536,14 @@ msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
-msgstr ""
+msgstr "Ce mode met en majuscule presque tous les mots, avec certains en minuscule (principalement les articles et les prépositions). Certains mots devront peut-être être mis en majuscule manuellement pour suivre les {url|directives de mise en majuscule en anglais}."
 
 #: ../root/scripts/text_strings.tt:143
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
-msgstr ""
+msgstr "Ce mode met en majuscule le premier mot de la phrase, la plupart des autres mots sont en minuscule. Certains mots, souvent des noms propres, peuvent devoir être changés manuellement suivant les {url|directives propres à la langue}."
 
 #: ../root/scripts/text_strings.tt:144
 msgid ""
@@ -8551,7 +8551,7 @@ msgid ""
 "before semicolons, colons, exclamation marks and question marks, and inside "
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
-msgstr ""
+msgstr "Ce mode met en majuscule les titres en mode phrase, mais insère des espaces devant les points-virgules, deux-points, points d'exclamation, points d'interrogation et à l'intérieure des guillemets. Certains mots devront peut-être être mis en majuscule manuellement pour suivre les {url|directives de mise en majuscule en français}."
 
 #: ../root/doc/page.tt:22
 msgid ""
@@ -10268,13 +10268,13 @@ msgstr "Oui, je suis sûr"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNNN</code> format:"
-msgstr ""
+msgstr "Vous êtes sur le point d'ajouter un ISRC à cet enregistrement. L'ISRC doit être saisi au format <code>CCXXXYYNNNNNN</code> standard :"
 
 #: ../root/components/forms.tt:256
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr ""
+msgstr "Vous êtes sur le point d'ajouter un ISWC à cette œuvre. L'ISWC doit être saisi au format <code>T-DDD.DDD.DDD-C</code> standard :"
 
 #: ../root/artist/edit_form.tt:6
 msgid "You are about to add an artist to MusicBrainz."

@@ -17,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:58+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 14:50+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -234,7 +234,7 @@ msgstr "Média numérique"
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
 msgid "Discbox Slider"
-msgstr ""
+msgstr "Portefeuille en carton"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -259,7 +259,7 @@ msgstr "EP"
 #: DB:release_packaging/name:10
 msgctxt "release_packaging"
 msgid "Fatbox"
-msgstr ""
+msgstr "Gros boîtier"
 
 #: DB:gender/name:2
 msgctxt "gender"
@@ -279,7 +279,7 @@ msgstr "Devant"
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
-msgstr ""
+msgstr "Pochette à encart intégré"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -344,7 +344,7 @@ msgstr "Nom officiel"
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "Pochette"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -484,7 +484,7 @@ msgstr "Poème"
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "Affiche"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -570,7 +570,7 @@ msgstr "Boîtier extra-plat "
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "Boîtier plastique-papier cartonné"
 
 #: DB:work_type/name:5
 msgctxt "work_type"
