@@ -45,6 +45,7 @@ MB.Control.externalLinksEditor = function (options) {
             this.linkType = ko.observable(data.link_type_id);
             this.faviconClass = ko.observable("");
             this.errors = ko.observableArray([]);
+            this.removeButtonFocused = ko.observable(false);
 
             this.text.subscribe(this.textChanged, this);
             this.linkType.subscribe(this.linkTypeChanged, this);
@@ -92,15 +93,22 @@ MB.Control.externalLinksEditor = function (options) {
         },
 
         remove: function () {
-            var linksArray = linksModel.links();
+            var linksArray = _.reject(linksModel.links(), function (link) {
+                return link._destroy || link.isEmpty();
+            });
+
             var index = linksArray.indexOf(this);
 
+            // destroy() keeps the link in the observableArray but hides it
+            // from the markup. If this is an existing relationship, we want
+            // to destroy it as opposed to remove it so that hiddenInputs()
+            // can generate a "removed" field.
             linksModel.links[this.relationship ? "destroy" : "remove"](this);
 
-            var linkToFocus = linksArray[index] || linksArray[index - 1];
+            var linkToFocus = linksArray[index + 1] || linksArray[index - 1];
 
             if (linkToFocus) {
-                linkToFocus.cleanup.urlControl.siblings("button.remove").focus();
+                linkToFocus.removeButtonFocused(true);
             }
             else {
                 $("#add-external-link").focus();

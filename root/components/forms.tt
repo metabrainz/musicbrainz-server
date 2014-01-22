@@ -370,7 +370,7 @@
       </td>
       <td>
         <!-- ko ifnot: isEmpty() -->
-          <button type="button" class="nobutton remove" data-click="remove">
+          <button type="button" class="nobutton remove" data-bind="hasFocus: removeButtonFocused" data-click="remove">
             <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
           </button>
         <!-- /ko -->
