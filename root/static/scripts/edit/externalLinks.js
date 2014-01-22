@@ -194,4 +194,9 @@ MB.Control.externalLinksEditor = function (options) {
     linksModel.links(_.chain(linksModel.links())
         .sortBy(function (link) { return link.label().toLowerCase() })
         .sortBy(function (link) { return link.isEmpty() }).value());
+
+
+    // Expose some internal variables for unit tests.
+    MB.Control.externalLinksEditor.URL = URL;
+    MB.Control.externalLinksEditor.viewModel = linksModel;
 };
