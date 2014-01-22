@@ -28,11 +28,7 @@ MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 MB.GuessCase.Mode.Sentence = function () {
     var self = MB.GuessCase.Mode.Base ();
 
-    self.setConfig(
-	'Sentence',
-	'First word titled, lowercase for <i>most</i> of the other '
-	    + 'words. Read the [url]description[/url] for more details.',
-	'/doc/GuessCaseMode/SentenceMode');
+    self.setConfig('Sentence', MB.text.GuessCaseDescriptionSentence);
 
     return self;
 };

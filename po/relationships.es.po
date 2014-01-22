@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-12 12:02+0000\n"
+"PO-Revision-Date: 2014-01-21 03:59+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -50,10 +50,6 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
 msgid "Bandcamp page for"
 msgstr ""
-
-#: DB:link_attribute_type/description:245
-msgid "Chamber orchestra"
-msgstr "orquesta de cámara"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -173,12 +169,6 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Cover_Relationship_Type\">Details</a>)"
 msgstr ""
 
-#: DB:link_type/description:172
-msgid ""
-"Indicates a homepage by a fan for an artist. (<a "
-"href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Details</a>)"
-msgstr "Indica una página sobre un artista hecha por un fan. (<a href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Detalles</a>)"
-
 #: DB:link_type/description:162
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
@@ -189,23 +179,21 @@ msgstr ""
 #: DB:link_type/description:105
 msgid ""
 "Indicates a musician doing long-time instrumental support for another one on"
-" albums and/or at concerts. This is a person-person relationship and "
-"normally applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
+" albums and/or at concerts. This is a person-to-artist relationship that "
+"normally applies to well-known solo artists, although it can sometimes apply"
+" to groups."
 msgstr ""
 
 #: DB:link_type/description:107
 msgid ""
 "Indicates a musician doing long-time vocal support for another one on albums"
-" and/or at concerts. This is a person-person relationship and normally "
-"applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
+" and/or at concerts. This is a person-to-artist relationship that normally "
+"applies to well-known solo artists, although it can sometimes apply to "
+"groups."
 msgstr ""
 
 #: DB:link_type/description:109
-msgid ""
-"Indicates a parent-child relationship (<a "
-"href=\"http://musicbrainz.org/doc/Parent_Relationship_Type\">Details</a>)"
+msgid "Indicates a parent-child relationship."
 msgstr ""
 
 #: DB:link_type/description:248
@@ -237,12 +225,6 @@ msgstr ""
 msgid ""
 "Indicates a pictorial image (JPEG, GIF, PNG) of an artist. (<a "
 "href=\"http://musicbrainz.org/doc/Image_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:110
-msgid ""
-"Indicates a sibling relationship (i.e. brother or sister). (<a "
-"href=\"http://musicbrainz.org/doc/Sibling_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:94
@@ -277,34 +259,44 @@ msgstr ""
 #: DB:link_type/description:104
 msgid ""
 "Indicates an artist doing long-time instrumental or vocal support for "
-"another one on albums and/or at concerts. This is a artist-artist "
-"relationship and normally applies to well-known solo artists. (<a "
-"href=\"http://musicbrainz.org/doc/Supporting_Musician_Relationship_Type\">Details</a>)"
+"another one on albums and/or at concerts. This is a person-to-artist "
+"relationship that normally applies to well-known solo artists, although it "
+"can sometimes apply to groups."
 msgstr ""
 
-#: DB:link_type/description:60 DB:link_type/description:149
-msgid ""
-"Indicates an artist performed in a particular voice on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+#: DB:link_type/description:156
+msgid "Indicates an artist that performed on this recording."
 msgstr ""
 
-#: DB:link_type/description:44 DB:link_type/description:148
-msgid ""
-"Indicates an artist that performed a particular instrument on this work. (<a"
-" "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+#: DB:link_type/description:51
+msgid "Indicates an artist that performed on this release."
 msgstr ""
 
-#: DB:link_type/description:51 DB:link_type/description:156
+#: DB:link_type/description:148
 msgid ""
-"Indicates an artist that performed on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Performer_Relationship_Type\">Details</a>)"
+"Indicates an artist that performed one or more instruments on this "
+"recording."
 msgstr ""
 
-#: DB:link_type/description:45 DB:link_type/description:150
+#: DB:link_type/description:44
 msgid ""
-"Indicates an orchestra that performed on this work. (<a "
-"href=\"http://musicbrainz.org/doc/Orchestra_Relationship_Type\">Details</a>)"
+"Indicates an artist that performed one or more instruments on this release."
+msgstr ""
+
+#: DB:link_type/description:149
+msgid "Indicates an artist that performed vocals on this recording."
+msgstr ""
+
+#: DB:link_type/description:60
+msgid "Indicates an artist that performed vocals on this release."
+msgstr ""
+
+#: DB:link_type/description:150
+msgid "Indicates an orchestra that performed on this recording."
+msgstr ""
+
+#: DB:link_type/description:45
+msgid "Indicates an orchestra that performed on this release."
 msgstr ""
 
 #: DB:link_type/description:125
@@ -721,10 +713,6 @@ msgstr "Myspace"
 msgid "Myspace page for"
 msgstr "página de Myspace de"
 
-#: DB:link_attribute_type/description:246
-msgid "Other orchestra"
-msgstr "otra orquesta"
-
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
 msgstr ""
@@ -819,10 +807,6 @@ msgstr "página de SoundCloud de"
 msgid "Spoken vocals (speech)"
 msgstr ""
 
-#: DB:link_attribute_type/description:244
-msgid "Symphony orchestra"
-msgstr "orquesta sinfónica"
-
 #: DB:link_type/description:38 DB:link_type/description:144
 msgid ""
 "The editor is responsible for either connecting disparate elements of the "
@@ -833,10 +817,6 @@ msgid ""
 "edit\"). (<a "
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 msgstr ""
-
-#: DB:link_attribute_type/description:243
-msgid "This attribute describes a type of orchestra."
-msgstr "Este atributo indica el tipo de orquesta."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -1306,12 +1286,6 @@ msgid ""
 "social networking site such as Facebook or Twitter"
 msgstr ""
 
-#: DB:link_type/description:214
-msgid ""
-"This link is used to relate to a label's fans site (<a "
-"href=\"http://musicbrainz.org/doc/Fanpage_Relationship_Type\">Details</a>)."
-msgstr ""
-
 #: DB:link_type/description:288
 msgid ""
 "This link points to a page for a particular release within a discography for"
@@ -1331,6 +1305,10 @@ msgstr ""
 msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:214
+msgid "This links a label to a fan-created website."
 msgstr ""
 
 #: DB:link_type/description:719
@@ -1405,6 +1383,10 @@ msgstr ""
 msgid ""
 "This links an artist to a channel, playlist, or user page on a video sharing"
 " site containing videos curated by it."
+msgstr ""
+
+#: DB:link_type/description:172
+msgid "This links an artist to a fan-created website."
 msgstr ""
 
 #: DB:link_type/description:707
@@ -1529,6 +1511,10 @@ msgid ""
 "revision or an arrangement of it."
 msgstr ""
 
+#: DB:link_type/description:110
+msgid "This links two siblings (brothers or sisters)."
+msgstr ""
+
 #: DB:link_type/description:241
 msgid "This links two versions of a <a href=\"/doc/Work\" title=\"Work\">work</a>."
 msgstr ""
@@ -1622,13 +1608,6 @@ msgid ""
 "\"recording of\" instead."
 msgstr ""
 
-#: DB:link_type/description:85
-msgid ""
-"This relationship is used to link a release to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:54
 msgid ""
 "This relationship is used to link a release to the artist responsible for "
@@ -1636,13 +1615,6 @@ msgid ""
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
-msgstr ""
-
-#: DB:link_type/description:268
-msgid ""
-"This relationship is used to link a track to a site where music can be "
-"legally streamed for free, such as Spotify or we7. (<a "
-"href=\"http://musicbrainz.org/doc/Streaming_Music_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:167
@@ -1657,14 +1629,7 @@ msgstr ""
 #: DB:link_type/description:101
 msgid ""
 "This relationship is used to link an artist to a person who has compiled a "
-"catalogue of that artist's works. (<a "
-"href=\"http://musicbrainz.org/doc/Cataloguer_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:194
-msgid ""
-"This relationship is used to link an artist to a site where music can be "
-"legally streamed for free, such as Spotify or we7."
+"catalogue of that artist's works."
 msgstr ""
 
 #: DB:link_type/description:37 DB:link_type/description:132
@@ -1678,16 +1643,6 @@ msgstr ""
 msgid ""
 "This relationship type can be used to link a MusicBrainz artist to the "
 "equivalent entry in Myspace."
-msgstr ""
-
-#: DB:link_type/description:185
-msgid ""
-"This relationship type can be used to link a MusicBrainz artist to their "
-"online community pages. In addition to providing a link for users to find "
-"more information, and listen to music of the artist, online community sites "
-"are often used by many artists in lieu of, or additionally to, their "
-"official homepage. (<a "
-"href=\"http://musicbrainz.org/doc/Online_Community_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:116
@@ -1787,6 +1742,25 @@ msgid ""
 "website created specifically for the release group."
 msgstr ""
 
+#: DB:link_type/description:85
+msgid ""
+"This relationship type is used to link a release to a site where the tracks "
+"can be legally streamed for free, e.g. Spotify."
+msgstr ""
+
+#: DB:link_type/description:268
+msgid ""
+"This relationship type is used to link a track to a site where the track can"
+" be legally streamed for free, such as Spotify for audio tracks or YouTube "
+"for videos."
+msgstr ""
+
+#: DB:link_type/description:194
+msgid ""
+"This relationship type is used to link an artist to a site where music can "
+"be legally streamed for free, e.g. Spotify."
+msgstr ""
+
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
 msgstr ""
@@ -1830,6 +1804,13 @@ msgstr ""
 
 #: DB:link_type/description:189
 msgid "This relationship type links an artist to their Myspace page."
+msgstr ""
+
+#: DB:link_type/description:185
+msgid ""
+"This relationship type links an artist to their online community pages. An "
+"online community is a web site providing information, music, and/or news, "
+"and may act as an unofficial homepage for an entity."
 msgstr ""
 
 #: DB:link_attribute_type/description:596
@@ -2040,10 +2021,6 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
 msgstr "catálogo reeditado por"
-
-#: DB:link_attribute_type/name:245
-msgid "chamber"
-msgstr "cámara"
 
 #: DB:link_type/link_phrase:109
 msgid "children"
@@ -3015,9 +2992,9 @@ msgstr ""
 msgid "online data"
 msgstr ""
 
-#: DB:link_attribute_type/name:243
-msgid "orchestra"
-msgstr "orquesta"
+#: DB:link_type/long_link_phrase:45 DB:link_type/long_link_phrase:150
+msgid "orchestra {additional:additionally} performed"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
@@ -3025,10 +3002,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
-msgstr ""
-
-#: DB:link_attribute_type/name:246
-msgid "other"
 msgstr ""
 
 #: DB:link_type/link_phrase:96 DB:link_type/link_phrase:82
@@ -3424,10 +3397,6 @@ msgstr ""
 msgid "supporting {instrument} for"
 msgstr ""
 
-#: DB:link_attribute_type/name:244
-msgid "symphony"
-msgstr "sinfónica"
-
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
 msgstr ""
@@ -3723,6 +3692,11 @@ msgstr "diseño gráfico {additional:adicional}"
 msgid "{additional} liner notes"
 msgstr ""
 
+#: DB:link_type/link_phrase:45 DB:link_type/link_phrase:150
+#: DB:link_type/reverse_link_phrase:45 DB:link_type/reverse_link_phrase:150
+msgid "{additional} orchestra"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:164 DB:link_type/reverse_link_phrase:300
 msgid "{additional} orchestrator"
 msgstr "orquestador {additional:adicional}"
@@ -3829,11 +3803,6 @@ msgstr "colaborador {minor} {additional} en"
 msgid "{additional} {minor} collaborators"
 msgstr "colaboradores {minor:secundarios} {additional:adicionales}"
 
-#: DB:link_type/link_phrase:45 DB:link_type/link_phrase:150
-#: DB:link_type/reverse_link_phrase:45 DB:link_type/reverse_link_phrase:150
-msgid "{additional} {orchestra} orchestra"
-msgstr "orquesta {orchestra} {additional:adicional}"
-
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} {translated:libretto translation|librettist}"
@@ -3883,10 +3852,6 @@ msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} "
 "recordings"
 msgstr ""
-
-#: DB:link_type/long_link_phrase:45 DB:link_type/long_link_phrase:150
-msgid "{orchestra} orchestra {additional:additionally} performed"
-msgstr "orquesta {orchestra} {additional:adicional} "
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"

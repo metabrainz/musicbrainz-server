@@ -218,7 +218,9 @@ sub build_display_data
             || Release->new( name => $self->data->{release}{name} );
 
         $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
-        $data->{medium}->release($release);
+
+        # If deleted, $data->{medium} will be undefined.
+        $data->{medium}->release($release) if defined $data->{medium};
     }
 
     if (exists $self->data->{new}{format_id}) {
