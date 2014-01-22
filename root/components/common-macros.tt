@@ -768,7 +768,7 @@ END -%]
         [%- LAST -%]
       [%- END -%]
     [%- END -%]
-    [%- matching_class -%]
+    [%- (matching_class OR 'no') _ '-favicon' -%]
 [%- END -%]
 
 [%- MACRO license_class(url)
