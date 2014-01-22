@@ -16,7 +16,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>[% l('External Links') | html_entity %]</legend>
+      <legend>[% l('External Links') %]</legend>
       [% external_links_editor(r.form, 'recording') %]
     </fieldset>
 

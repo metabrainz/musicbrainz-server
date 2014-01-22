@@ -344,7 +344,7 @@
 [%- END -%]
 
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
-  [%- field_prefix = form.field('url').html_name | html_entity %]
+  [%- field_prefix = form.field('url').html_name | html %]
   [% WRAPPER form_row row_id='external-links-editor' %]
     <!-- ko foreach: links -->
     <div class="external-link-row" data-bind="urlCleanup: true">
@@ -353,21 +353,21 @@
           <!-- ko if: matchesType() && faviconClass() -->
             <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
           <!-- /ko -->
-          <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html_entity %]" : "[% l('Add another link:') | html_entity %]") --><!-- /ko -->
+          <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
         </label>
       <!-- /ko -->
       <select data-bind="value: linkType, visible: showTypeSelection()">
         <option value="" selected="selected"> </option>
         [% FOR option IN form.options_url_link_type_id %]
           [%- link_type_id = option.value -%]
-          <option value="[% link_type_id | html_entity %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html_entity %]</option>
+          <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html %]</option>
         [% END %]
       </select>
       <div class="form-row-text-list">
         <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
         <!-- ko ifnot: isEmpty() -->
           <button type="button" class="nobutton remove" data-click="remove">
-            <div class="remove-item icon img" title="[% l('Remove Link') | html_entity %]"></div>
+            <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
           </button>
         <!-- /ko -->
       </div>
@@ -379,8 +379,8 @@
     <script>
       [%- USE JSON.Escape %]
       MB.Control.externalLinksEditor({
-        entityType:    '[% entity_type | html_entity %]',
-        formName:      '[% form.name | html_entity %]',
+        entityType:    '[% entity_type %]',
+        formName:      '[% form.name %]',
         relationships:  [% url_relationships.json %],
         typeInfo:       [% url_type_info.json %],
         faviconClasses: [% favicon_css_classes.json %],
