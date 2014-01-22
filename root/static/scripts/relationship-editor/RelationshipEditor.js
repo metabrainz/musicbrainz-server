@@ -28,6 +28,8 @@ RE.releaseViewModel = {
     releaseGroup: ko.observable({relationships: []}),
     media: ko.observableArray([]),
 
+    activeDialog: ko.observable(),
+
     checkboxes: (function() {
         var data = {
             recordingStrings: ko.observable([]),
@@ -177,8 +179,6 @@ RE.releaseViewModel['changes'] = ko.computed(function () {
 
 UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
-
-    UI.Dialog.init();
 
     $tracklist = $("#tracklist tbody");
     // preload image to avoid flickering
@@ -347,33 +347,43 @@ function initCheckboxes(trackCount) {
 
 function initButtons() {
     $("#batch-recording").click(function() {
-        if (!$(this).hasClass("disabled"))
-            UI.BatchRelationshipDialog.show(UI.checkedRecordings());
+        var targets = UI.checkedRecordings();
+
+        if (targets.length > 0) {
+            UI.BatchRelationshipDialog(targets).open();
+        }
     });
 
     $("#batch-work").click(function() {
-        if (!$(this).hasClass("disabled"))
-            UI.BatchRelationshipDialog.show(UI.checkedWorks());
+        var targets = UI.checkedWorks();
+
+        if (targets.length > 0) {
+            UI.BatchRelationshipDialog(targets).open();
+        }
     });
 
     $("#batch-create-works").click(function() {
-        if (!$(this).hasClass("disabled")) UI.BatchCreateWorksDialog.show();
+        var targets = _.filter(UI.checkedRecordings(), function (recording) {
+            return recording.performanceRelationships.peek().length === 0;
+        });
+
+        if (targets.length > 0) {
+            UI.BatchCreateWorksDialog(targets).open();
+        }
     });
 
     $("#content").on("click", "span.add-rel", function(event) {
-        var source = ko.dataFor(this);
-        UI.AddDialog.show({
-            entity: [MB.entity({type: "artist"}), source],
-            source: source,
-            positionBy: this
-        });
+        var source = ko.dataFor(this),
+            target = MB.entity({ type: "artist" });
+
+        UI.AddDialog({ source: source, target: target }).open(this);
     });
 
     $("#content").on("click", "span.relate-work", function() {
         var source = ko.dataFor(this).recording,
-            target = MB.entity({type: "work", name: source.name});
+            target = MB.entity({ type: "work", name: source.name });
 
-        UI.AddDialog.show({entity: [source, target], source: source, disableTypeSelection: true});
+        UI.AddDialog({ source: source, target: target }).open();
     });
 
     $("#content").on("click", "span.remove-button", function() {
@@ -397,12 +407,9 @@ function initButtons() {
         var relationship = ko.dataFor(this),
             source = ko.dataFor(this.parentNode.parentNode);
 
-        if (relationship.action() != "remove")
-            UI.EditDialog.show({
-                relationship: relationship,
-                source: source,
-                positionBy: this
-            });
+        if (relationship.action() !== "remove") {
+            UI.EditDialog({ relationship: relationship, source: source }).open(this);
+        }
     });
 }
 
