@@ -22,7 +22,9 @@ MB.Control.externalLinksEditor = function (options) {
                 false // showErrors
             );
 
-            $textInput.parent().append(cleanup.errorList);
+            $textInput.parents("tr").next("tr").find("td.errors")
+                .append(cleanup.errorList);
+
             viewModel.cleanup = cleanup;
 
             viewModel.textChanged(viewModel.text());

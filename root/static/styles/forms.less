@@ -439,30 +439,31 @@ input.disc-up {
   External links editor
 */
 
-#external-links-editor .external-link-row {
-    float: left;
-    margin-bottom: @form-margin;
-}
-
-#external-links-editor label {
-    max-width: @form-label-width;
+#external-links-editor {
     width: 100%;
-}
+    padding: @form-margin / 2;
 
-#external-links-editor select {
-    float: left;
-    margin-left: @form-margin;
-    max-width: @form-label-width - @form-margin;
-}
+    td:first-child {
+        white-space: nowrap;
+        max-width: @form-label-width;
+        text-align: right;
+        label { padding-right: @form-margin; }
+    }
 
-#external-links-editor .errors {
-    margin-left: 0px;
-    margin-right: @form-margin;
-}
+    td:nth-child(2) { width: 100%; }
 
-#external-links-editor span.favicon {
-    display: inline-block;
-    width: @form-icon-size;
-    height: @form-icon-size;
-    vertical-align: middle;
+    td.errors ul { margin: 0; }
+
+    select {
+        max-width: @form-label-width - @form-margin;
+    }
+
+    input[type=text] { width: 100%; }
+
+    span.favicon {
+        display: inline-block;
+        width: @form-icon-size;
+        height: @form-icon-size;
+        vertical-align: middle;
+    }
 }

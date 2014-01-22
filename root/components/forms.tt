@@ -345,57 +345,68 @@
 
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
   [%- field_prefix = form.field('url').html_name | html %]
-  [% WRAPPER form_row row_id='external-links-editor' %]
-    <!-- ko foreach: links -->
-    <div class="external-link-row" data-bind="urlCleanup: true">
-      <!-- ko ifnot: showTypeSelection() -->
-        <label data-bind="attr: { 'for': 'external-link-' + $index() }">
-          <!-- ko if: matchesType() && faviconClass() -->
-            <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
-          <!-- /ko -->
-          <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
-        </label>
-      <!-- /ko -->
-      <select data-bind="value: linkType, visible: showTypeSelection()">
-        <option value="" selected="selected"> </option>
-        [% FOR option IN form.options_url_link_type_id %]
-          [%- link_type_id = option.value -%]
-          <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html %]</option>
-        [% END %]
-      </select>
-      <div class="form-row-text-list">
+  <table id="external-links-editor">
+  <tbody data-bind="foreach: links">
+    <tr data-bind="urlCleanup: true">
+      <td>
+        <!-- ko ifnot: showTypeSelection() -->
+          <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+            <!-- ko if: matchesType() && faviconClass() -->
+              <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
+            <!-- /ko -->
+            <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
+          </label>
+        <!-- /ko -->
+        <select data-bind="value: linkType, visible: showTypeSelection()">
+          <option value="" selected="selected"> </option>
+          [% FOR option IN form.options_url_link_type_id %]
+            [%- link_type_id = option.value -%]
+            <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label | html %]</option>
+          [% END %]
+        </select>
+      </td>
+      <td>
         <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
+      </td>
+      <td>
         <!-- ko ifnot: isEmpty() -->
           <button type="button" class="nobutton remove" data-click="remove">
             <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
           </button>
         <!-- /ko -->
-      </div>
-    </div>
-    <!-- /ko -->
-    <!-- ko foreach: hiddenInputs() -->
-      <input type="hidden" data-bind="attr: { name: name, value: value }" />
-    <!-- /ko -->
-    <script>
-      [%- USE JSON.Escape %]
-      MB.Control.externalLinksEditor({
-        entityType:    '[% entity_type %]',
-        formName:      '[% form.name %]',
-        relationships:  [% url_relationships.json %],
-        typeInfo:       [% url_type_info.json %],
-        faviconClasses: [% favicon_css_classes.json %],
+      </td>
+    </tr>
+    <tr data-bind="visible: errors().length">
+      <td></td>
+      <td class="errors"></td>
+      <td></td>
+    </tr>
+  </tbody>
+  </table>
 
-        fieldErrors: [%
-          errors = [];
-          FOR url IN form.field('url').fields;
-            errors.push({
-              link_type_id => url.field('link_type_id').errors.0,
-              text => url.field('text').errors.0
-            });
-          END;
-          errors.json
-        %]
-      });
-    </script>
-  [% END %]
+  <!-- ko foreach: hiddenInputs() -->
+    <input type="hidden" data-bind="attr: { name: name, value: value }" />
+  <!-- /ko -->
+
+  <script>
+    [%- USE JSON.Escape %]
+    MB.Control.externalLinksEditor({
+      entityType:    '[% entity_type %]',
+      formName:      '[% form.name %]',
+      relationships:  [% url_relationships.json %],
+      typeInfo:       [% url_type_info.json %],
+      faviconClasses: [% favicon_css_classes.json %],
+
+      fieldErrors: [%
+        errors = [];
+        FOR url IN form.field('url').fields;
+          errors.push({
+            link_type_id => url.field('link_type_id').errors.0,
+            text => url.field('text').errors.0
+          });
+        END;
+        errors.json
+      %]
+    });
+  </script>
 [%- END -%]
