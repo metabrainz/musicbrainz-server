@@ -586,8 +586,9 @@ sub _merge_impl
     );
 
     # Move releases to the new release group
-    $self->sql->do('UPDATE release SET release_group = ?
-              WHERE release_group IN ('.placeholders(@old_ids).')', $new_id, @old_ids);
+    my $release_ids = $self->sql->select_single_column_array('UPDATE release SET release_group = ?
+              WHERE release_group IN ('.placeholders(@old_ids).') RETURNING id', $new_id, @old_ids);
+    $self->c->model('Release')->_delete_from_cache(@$release_ids);
 
     $self->_delete_and_redirect_gids('release_group', $new_id, @old_ids);
     return 1;
