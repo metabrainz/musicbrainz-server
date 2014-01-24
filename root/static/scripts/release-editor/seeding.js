@@ -77,7 +77,7 @@
         }
 
         if (data.events) {
-            release.labels(utils.mapChild(release, data.events, fields.ReleaseEvent));
+            release.events(utils.mapChild(release, data.events, fields.ReleaseEvent));
         }
 
         if (data.labels) {
