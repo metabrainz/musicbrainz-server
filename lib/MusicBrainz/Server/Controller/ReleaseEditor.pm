@@ -299,7 +299,7 @@ sub _seeded_label
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    _report_unknown_fields($field_name, $params, $errors, qw( mbid name ));
+    _report_unknown_fields($field_name, $params, $errors, qw( mbid name catalog_number ));
 
     my $result = {};
 
@@ -402,6 +402,8 @@ sub _seeded_track
 
     if (my $gid = $params->{recording}) {
         if (my $recording = $c->model('Recording')->get_by_gid($gid)) {
+            $c->model('ArtistCredit')->load($recording);
+
             $result->{recording} = JSONSerializer->_recording($recording);
         } else {
             push @$errors, "Invalid $field_name.recording: “$gid”.";
