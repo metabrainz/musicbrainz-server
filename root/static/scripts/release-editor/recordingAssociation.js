@@ -255,7 +255,6 @@
         }
         else {
             track.recording(null);
-            recordingAssociation.findRecordingSuggestions(track);
         }
     }
 
