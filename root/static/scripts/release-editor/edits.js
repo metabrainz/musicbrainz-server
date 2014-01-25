@@ -356,7 +356,7 @@
                 }
             },
             {
-                edits: releaseEditor.edits.releaesLabel,
+                edits: releaseEditor.edits.releaseLabel,
 
                 callback: function () {
                     release.labels.original(
