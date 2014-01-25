@@ -29,7 +29,11 @@
             $.extend(this, _.pick(data, "id", "gid"));
 
             this.name = ko.observable(data.name);
+            this.name.original = data.name;
+
             this.length = ko.observable(data.length);
+            this.length.original = data.length;
+
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);

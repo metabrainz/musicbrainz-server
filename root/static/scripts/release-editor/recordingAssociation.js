@@ -240,8 +240,7 @@
         if (!name || !completeAC) return;
 
         var similarTo = function (prop) {
-            return (track.recording[prop] &&
-                    similarNames(track.name[prop], name) &&
+            return (similarNames(track.name[prop], name) &&
                     similarLengths(track.length[prop], length));
         };
 
@@ -251,7 +250,7 @@
         }
         // The curent name/length is similar to the original name/length.
         else if (similarTo("original")) {
-            track.recording(track.recording.original);
+            track.recording(track.recording.original.peek());
         }
         else {
             track.recording(null);
