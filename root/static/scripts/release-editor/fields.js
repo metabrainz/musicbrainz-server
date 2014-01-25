@@ -172,6 +172,10 @@
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable(1);
             this.original = ko.observable({});
+
+            if (loaded) {
+                this.original(MB.edit.fields.medium(this));
+            }
         },
 
         collapsedChanged: function (collapsed) {
