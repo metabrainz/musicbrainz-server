@@ -60,33 +60,41 @@
         releaseLabel: function (release) {
             var newLabels = _.map(release.labels(), MB.edit.fields.releaseLabel);
             var oldLabels = release.labels.original();
-            var max = Math.max(newLabels.length, oldLabels.length);
             var edits = [];
 
-            for (var i = 0; i < max; i++) {
-                var newLabel = newLabels[i],
-                    oldLabel = oldLabels[i];
+            var newLabelsByID = _.groupBy(newLabels, "release_label");
+            var oldLabelsByID = _.groupBy(oldLabels, "release_label");
 
-                if (oldLabel) {
-                    if (!newLabel) {
-                        // Delete ReleaseLabel
-                        oldLabel = _.omit(oldLabel, "label", "catalogNumber");
-                        edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
-
-                    } else if (!_.isEqual(newLabel, oldLabel)) {
-                        // Edit ReleaseLabel
-                        edits.push(MB.edit.releaseEditReleaseLabel(newLabel));
-                    }
-                } else if (newLabel) {
+            _.each(newLabelsByID, function (newLabels, id) {
+                if (id === "null") {
                     // Add ReleaseLabel
-                    newLabel = _.clone(newLabel);
+                    _.each(newLabels, function (newLabel) {
+                        newLabel = _.clone(newLabel);
 
-                    if (newLabel.label || newLabel.catalog_number) {
-                        newLabel.release = release.id || null;
-                        edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
+                        if (newLabel.label || newLabel.catalog_number) {
+                            newLabel.release = release.id || null;
+                            edits.push(MB.edit.releaseAddReleaseLabel(newLabel));
+                        }
+                    });
+                } else {
+                    var oldLabels = oldLabelsByID[id];
+
+                    if (oldLabels.length > 0 && !_.isEqual(newLabels[0], oldLabels[0])) {
+                        // Edit ReleaseLabel
+                        edits.push(MB.edit.releaseEditReleaseLabel(newLabels[0]));
                     }
                 }
-            }
+            });
+
+            _.each(oldLabelsByID, function (oldLabels, id) {
+                var newLabels = newLabelsByID[id];
+
+                if (!newLabels) {
+                    // Delete ReleaseLabel
+                    oldLabel = _.omit(oldLabels[0], "label", "catalogNumber");
+                    edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
+                }
+            });
 
             return edits;
         },
