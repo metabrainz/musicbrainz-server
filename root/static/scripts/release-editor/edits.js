@@ -292,7 +292,12 @@
 
         function nextSubmission() {
             var current = submissions.shift();
-            if (!current) return;
+
+            if (!current) {
+                // We're done!
+                window.location.pathname = "/release/" + release.gid;
+                return;
+            }
 
             var edits = current.edits(release),
                 submitted = null;
@@ -396,13 +401,6 @@
 
                 callback: function () {
                     release.annotation.original(release.annotation());
-                }
-            },
-            {
-                edits: function () { return [] },
-
-                callback: function () {
-                    window.location.pathname = "/release/" + release.gid;
                 }
             }
         ]);
