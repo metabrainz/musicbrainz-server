@@ -26,6 +26,8 @@
     fields.Track = aclass({
 
         init: function (data, medium) {
+            this.medium = medium;
+
             $.extend(this, _.pick(data, "id", "gid"));
 
             this.name = ko.observable(data.name);
@@ -34,14 +36,18 @@
             this.length = ko.observable(data.length);
             this.length.original = data.length;
 
+            if (!data.artistCredit) {
+                data.artistCredit = medium.release.artistCredit.toJSON();
+            }
+
+            this.artistCredit = ArtistCredit(data.artistCredit);
+            this.artistCredit.track = this;
+
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
             this.updateRecording = ko.observable(false).subscribeTo("updateRecordings");
             this.hasNewRecording = ko.observable(true);
-            this.artistCredit = ArtistCredit(data.artistCredit);
-            this.artistCredit.track = this;
-            this.medium = medium;
 
             this.recordingValue = ko.observable(
                 MB.entity.Recording({ name: data.name })
@@ -148,6 +154,7 @@
     fields.Medium = aclass({
 
         init: function (data, release) {
+            this.release = release;
             this.name = ko.observable(data.name);
             this.position = ko.observable(data.position || 1);
             this.formatID = ko.observable(data.formatID).extend({ withError: true });
@@ -164,7 +171,6 @@
 
             $.extend(this, _.pick(data, "id", "toc", "originalID"));
 
-            this.release = release;
             this.cdtocs = data.cdtocs || 0;
             this.loaded = ko.observable(loaded);
             this.loading = ko.observable(false);
