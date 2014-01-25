@@ -79,7 +79,7 @@
                 } else {
                     var oldLabels = oldLabelsByID[id];
 
-                    if (oldLabels.length > 0 && !_.isEqual(newLabels[0], oldLabels[0])) {
+                    if (oldLabels && !_.isEqual(newLabels[0], oldLabels[0])) {
                         // Edit ReleaseLabel
                         edits.push(MB.edit.releaseEditReleaseLabel(newLabels[0]));
                     }
