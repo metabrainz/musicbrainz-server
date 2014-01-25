@@ -173,7 +173,7 @@
 
     function editConstructor(type, callback) {
         return function (args, orig) {
-            args.edit_type = type;
+            args = _.extend({ edit_type: type }, args);
 
             callback && callback(args, orig);
             args.hash = editHash(args);
