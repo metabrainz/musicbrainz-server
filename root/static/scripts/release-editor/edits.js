@@ -235,11 +235,7 @@
     releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
-    function editHashTable(edits) { return _.indexBy(edits, "hash") }
-
-
     function getPreviews(computedEdits) {
-        var previousEditHash = editHashTable(computedEdits.peek());
         var previews = {};
 
         function refreshPreviews(edits) {
@@ -248,24 +244,11 @@
 
         function getPreview(edit) { return previews[edit.hash] }
         function addPreview(tuple) { previews[tuple[0].hash] = tuple[1] }
-
-        function isNewEdit(edit) {
-            return previousEditHash[edit.hash] === undefined;
-        }
+        function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
             var edits = computedEdits(),
-                newEditHash = editHashTable(edits),
                 addedEdits = _.filter(edits, isNewEdit);
-
-            // Removed edits
-            _.each(_.values(previousEditHash), function (edit) {
-                if (newEditHash[edit.hash] === undefined) {
-                    delete previews[edit.hash];
-                }
-            });
-
-            previousEditHash = newEditHash;
 
             if (addedEdits.length === 0) {
                 refreshPreviews(edits);
