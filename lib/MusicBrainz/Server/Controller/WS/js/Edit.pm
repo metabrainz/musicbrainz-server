@@ -295,6 +295,9 @@ sub preview : Chained('edit') PathPart('preview') {
 
     $c->model('Edit')->load_all(@edits);
 
+    # Make the edit preview templates not show entity [removed] crap
+    $c->stash->{allow_new} = 1;
+
     my @previews = map {
         my $edit = $_;
 
