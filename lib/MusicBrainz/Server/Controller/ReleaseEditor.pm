@@ -173,35 +173,43 @@ sub _process_seeded_data
     }
 
     if (my $code = $params->{language}) {
-        try {
-            $result->{languageID} = $c->model('Language')->find_by_code($code)->id;
-        } catch {
+        my $language = $c->model('Language')->find_by_code($code);
+
+        if ($language) {
+            $result->{languageID} = $language->id;
+        } else {
             push @errors, "Invalid language: “$code”.";
-        };
+        }
     }
 
     if (my $code = $params->{script}) {
-        try {
-            $result->{scriptID} = $c->model('Script')->find_by_code($code)->id;
-        } catch {
-            push @errors, "Invalid script: “$code”.";
-        };
+        my $script = $c->model('Script')->find_by_code($code);
+
+        if ($script) {
+            $result->{scriptID} = $script->id;
+        } else {
+           push @errors, "Invalid script: “$code”.";
+        }
     }
 
     if (my $name = $params->{status}) {
-        try {
-            $result->{statusID} = $c->model('ReleaseStatus')->find_by_name($name)->id;
-        } catch {
+        my $status = $c->model('ReleaseStatus')->find_by_name($name);
+
+        if ($status) {
+            $result->{statusID} = $status->id;
+        } else {
             push @errors, "Invalid status: “$name”.";
-        };
+        }
     }
 
     if (my $name = $params->{packaging}) {
-        try {
-            $result->{packagingID} = $c->model('ReleasePackaging')->find_by_name($name)->id;
-        } catch {
+        my $packaging = $c->model('ReleasePackaging')->find_by_name($name);
+
+        if ($packaging) {
+            $result->{packagingID} = $packaging->id;
+        } else {
             push @errors, "Invalid packaging: “$name”.";
-        };
+        }
     }
 
     if (exists $params->{country} || exists $params->{date}) {
@@ -290,9 +298,11 @@ sub _seeded_event
     }
 
     if (my $iso = $params->{country}) {
-        try {
-            $result->{countryID} = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso}->id;
-        } catch {
+        my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
+
+        if ($country) {
+            $result->{countryID} = $country->id;
+        } else {
             push @$errors, "Invalid $field_name.country: “$iso”.";
         }
     }
@@ -308,12 +318,13 @@ sub _seeded_label
     my $result = {};
 
     if (my $gid = $params->{mbid}) {
-        try {
-            $result->{label} = JSONSerializer->_label($c->model('Label')->get_by_gid($gid));
-        } catch {
-            push @$errors, "Invalid $field_name.mbid: “$gid”."
-        };
+        my $label = $c->model('Label')->get_by_gid($gid);
 
+        if ($label) {
+            $result->{label} = JSONSerializer->_label($label);
+        } else {
+            push @$errors, "Invalid $field_name.mbid: “$gid”."
+        }
     } elsif (my $name = $params->{name}) {
         $result->{label} = { name => trim($name // '') };
     }
@@ -331,12 +342,14 @@ sub _seeded_medium
 
     my $result = { tracks => [] };
 
-    if (my $format = $params->{format}) {
-        try {
-            $result->{format} = $c->model('MediumFormat')->find_by_name($format)->id;
-        } catch {
+    if (my $name = $params->{format}) {
+        my $format = $c->model('MediumFormat')->find_by_name($name);
+
+        if ($format) {
+            $result->{format} = $format->id;
+        } else {
             push @$errors, "Invalid $field_name.format: “$format”.";
-        };
+        }
     }
 
     if (my $position = $params->{position}) {
@@ -439,14 +452,14 @@ sub _seeded_artist_credit_name
     $result->{name} = trim($params->{name}) if $params->{name};
 
     if (my $gid = $params->{mbid}) {
-        try {
-            my $entity = $c->model('Artist')->get_by_gid($gid);
+        my $entity = $c->model('Artist')->get_by_gid($gid);
 
+        if ($entity) {
             $result->{artist} = JSONSerializer->_artist($entity);
             $result->{name} ||= $entity->name;
-        } catch {
+        } else {
             push @$errors, "Invalid $field_name.mbid: “$gid”.";
-        };
+        }
     }
 
     $result->{joinPhrase} = $params->{join_phrase} if $params->{join_phrase};
