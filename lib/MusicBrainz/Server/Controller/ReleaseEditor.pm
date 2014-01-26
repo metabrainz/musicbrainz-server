@@ -49,9 +49,11 @@ sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
+    my $json = JSON::Any->new( utf8 => 1 );
 
     $self->_init_release_editor(
         $c,
+        seeded_data => $json->encode($self->_seeded_data($c) // {}),
         return_to => $c->uri_for_action('/release/show', [ $release->gid ])
     );
 }
