@@ -412,8 +412,7 @@ sub find_recent_by_artists
                  FROM " . $self->_table . "
                      JOIN artist_credit_name acn
                          ON acn.artist_credit = recording.artist_credit
-                     JOIN artist ON artist.id = acn.artist
-                 WHERE artist.id IN (" . placeholders(@$artist_ids) . ")
+                 WHERE acn.artist IN (" . placeholders(@$artist_ids) . ")
                    AND now() - recording.last_updated <= '3 hours'::interval";
     return query_to_list(
         $self->c->sql, sub { $self->_new_from_row(@_) }, $query, @$artist_ids
