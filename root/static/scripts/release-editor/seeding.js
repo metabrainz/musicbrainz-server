@@ -24,6 +24,10 @@
             this.rootField.editNote(seed.editNote);
         }
 
+        if (seed.asAutoEditor !== undefined) {
+            this.rootField.asAutoEditor(!!seed.asAutoEditor);
+        }
+
         if (this.action === "add") {
             var release = this.fields.Release({});
 

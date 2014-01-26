@@ -118,7 +118,7 @@ sub _process_seeded_data
     my @known_fields = qw( name release_group type comment annotation barcode
                            language script status packaging events labels
                            date country artist_credit mediums edit_note
-                           redirect_uri );
+                           redirect_uri as_auto_editor );
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
 
@@ -239,6 +239,10 @@ sub _process_seeded_data
     }
 
     $result->{editNote} = $params->{edit_note} if $params->{edit_note};
+
+    if (defined $params->{as_auto_editor}) {
+        $result->{asAutoEditor} = $params->{as_auto_editor};
+    }
 
     return { seed => $result, errors => \@errors };
 }
