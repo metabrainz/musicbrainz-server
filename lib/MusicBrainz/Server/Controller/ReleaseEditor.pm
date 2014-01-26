@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::ReleaseEditor;
+use utf8;
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' }
