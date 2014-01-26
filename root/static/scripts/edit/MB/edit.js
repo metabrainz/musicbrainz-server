@@ -55,7 +55,7 @@
                     name: string(credit.name),
 
                     // Don't _.clean (or _.strip)!
-                    join_phrase: value(credit.joinPhrase) || null,
+                    join_phrase: value(credit.joinPhrase) || null
                 };
             });
             return { names: names };
@@ -153,7 +153,7 @@
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
                 number:         nullableString(track.number),
-                length:         number(track.length),
+                length:         number(track.length)
             };
         }
     };
