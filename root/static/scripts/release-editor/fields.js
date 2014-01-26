@@ -14,7 +14,7 @@
     };
 
 
-    var ArtistCredit = aclass(MB.Control.ArtistCredit, {
+    fields.ArtistCredit = aclass(MB.Control.ArtistCredit, {
 
         around$init: function (supr, data) {
             supr({ initialData: data });
@@ -40,7 +40,7 @@
                 data.artistCredit = medium.release.artistCredit.toJSON();
             }
 
-            this.artistCredit = ArtistCredit(data.artistCredit);
+            this.artistCredit = fields.ArtistCredit(data.artistCredit);
             this.artistCredit.track = this;
 
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
@@ -381,7 +381,9 @@
                 }
             });
 
-            this.artistCredit = ArtistCredit(data.artistCredit);
+            this.artistCredit = fields.ArtistCredit(data.artistCredit);
+            this.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
+
             this.statusID = ko.observable(data.statusID);
             this.languageID = ko.observable(data.languageID);
             this.scriptID = ko.observable(data.scriptID);

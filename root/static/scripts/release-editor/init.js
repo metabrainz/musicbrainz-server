@@ -14,8 +14,6 @@ MB.releaseEditor.init = function (options) {
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
 
-    console.log(this.redirectURI);
-
     this.rootField = this.fields.Root();
 
     this.seed(options.seed);
@@ -101,6 +99,26 @@ MB.releaseEditor.init = function (options) {
 
         if ($tab.tooltip("option", "disabled") === tooltipEnabled) {
             $tab.tooltip(tooltipEnabled ? "enable" : "disable");
+        }
+    });
+
+    // Change the track artists to match the release artist if it was changed.
+
+    this.utils.withRelease(function (release) {
+        var tabID = self.activeTabID();
+
+        if (tabID === "#tracklist" && !release.artistCredit.isEqual(release.artistCredit.saved)) {
+            var names = release.artistCredit.toJSON();
+
+            _.each(release.mediums(), function (medium) {
+                _.each(medium.tracks(), function (track) {
+                    if (track.artistCredit.isEqual(release.artistCredit.saved)) {
+                        track.artistCredit.setNames(names);
+                    }
+                });
+            });
+
+            release.artistCredit.saved = self.fields.ArtistCredit(names);
         }
     });
 
