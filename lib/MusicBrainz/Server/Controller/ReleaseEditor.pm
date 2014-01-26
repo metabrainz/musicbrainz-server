@@ -173,7 +173,7 @@ sub _process_seeded_data
         $result->{releaseGroup}->{secondaryTypeIDs} = \@secondary_types_result;
     }
 
-    if (my $code = $params->{language}) {
+    if (my $code = lc $params->{language}) {
         my $language = $c->model('Language')->find_by_code($code);
 
         if ($language) {
@@ -183,7 +183,7 @@ sub _process_seeded_data
         }
     }
 
-    if (my $code = $params->{script}) {
+    if (my $code = lc ucfirst $params->{script}) {
         my $script = $c->model('Script')->find_by_code($code);
 
         if ($script) {
@@ -302,7 +302,7 @@ sub _seeded_event
         $result->{date} = PartialDate->new(%$date)->format;
     }
 
-    if (my $iso = $params->{country}) {
+    if (my $iso = uc $params->{country}) {
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {
