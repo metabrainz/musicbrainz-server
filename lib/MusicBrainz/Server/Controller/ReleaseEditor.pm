@@ -116,7 +116,8 @@ sub _process_seeded_data
 
     my @known_fields = qw( name release_group type comment annotation barcode
                            language script status packaging events labels
-                           date country artist_credit mediums edit_note );
+                           date country artist_credit mediums edit_note
+                           redirect_uri );
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
 
