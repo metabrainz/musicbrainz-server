@@ -31,7 +31,11 @@ sub _init_release_editor
 
     my $json = JSON::Any->new( utf8 => 1 );
 
-    $options{redirect_uri} = $c->req->query_params->{redirect_uri};
+    $options{redirect_uri} = (
+        $c->req->query_params->{redirect_uri} //
+        $c->req->body_params->{redirect_uri}
+    );
+
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
     $c->stash(
