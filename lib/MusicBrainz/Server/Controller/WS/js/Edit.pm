@@ -81,6 +81,23 @@ sub process_medium {
     my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
     my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
+    my @artist_gids;
+
+    for my $track (@tracks) {
+        my $ac = $track->{artist_credit};
+
+        if ($ac) {
+            my @names = @{ $ac->{names} };
+
+            for my $name (@names) {
+                my $artist = $name->{artist};
+                push @artist_gids, $artist->{gid} if $artist->{gid};
+            }
+        }
+    }
+
+    my $artists = $c->model('Artist')->get_by_gids(@artist_gids);
+
     my $process_track = sub {
         my $track = shift;
         my $recording_gid = delete $track->{recording_gid};
@@ -93,29 +110,24 @@ sub process_medium {
         delete $track->{id} unless defined $track->{id};
 
         my $ac = $track->{artist_credit};
-        $track->{artist_credit} = process_artist_credit($c, $ac) if $ac;
+
+        if ($ac) {
+            my @names = @{ $ac->{names} };
+
+            for my $name (@names) {
+                my $artist = $name->{artist};
+                my $gid = delete $artist->{gid};
+
+                $artist->{id} = $artists->{$gid}->id if $gid;
+            }
+
+            $track->{artist_credit} = ArtistCredit->from_array(\@names);
+        }
 
         return Track->new(%$track);
     };
 
     $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
-}
-
-sub process_artist_credit {
-    my ($c, $data) = @_;
-
-    my @names = @{ $data->{names} };
-
-    for my $name (@names) {
-        my $artist = $name->{artist};
-        my $gid = delete $artist->{gid};
-
-        if ($gid && !$artist->{id}) {
-            $artist->{id} = $c->model('Artist')->get_by_gid($gid)->id;
-        }
-    }
-
-    return ArtistCredit->from_array(\@names);
 }
 
 sub detach_with_error {
@@ -142,22 +154,49 @@ sub get_request_body {
 }
 
 sub load_entities {
-    my ($c, $data) = @_;
+    my ($c, @edits) = @_;
 
-    my $models = $entities_to_load->{$data->{edit_type}};
-    return unless $models;
+    my $ids_to_load = {};
+    my $gids_to_load = {};
 
-    for my $arg (keys %$models) {
-        if (my $id = $data->{$arg}) {
-            my $model = $models->{$arg};
-            my $entity;
+    for my $edit (@edits) {
+        my $models = $entities_to_load->{$edit->{edit_type}};
+        next unless $models;
 
-            $entity = $c->model($model)->get_by_id($id) if looks_like_number($id);
-            $entity = $c->model($model)->get_by_gid($id) if is_guid($id);
+        for my $arg (keys %$models) {
+            if (my $id = $edit->{$arg}) {
+                my $model = $models->{$arg};
 
-            detach_with_error("%s=%s doesn't exist" % ($model, $id)) unless $entity;
+                push @{ $ids_to_load->{$model} //= [] }, $id if looks_like_number($id);
+                push @{ $gids_to_load->{$model} //= [] }, $id if is_guid($id);
+            }
+        }
+    }
 
-            $data->{$arg} = $entity;
+    my %loaded_ids = map {
+        $_ => $c->model($_)->get_by_ids(@{ $ids_to_load->{$_} })
+    } keys %$ids_to_load;
+
+    my %loaded_gids = map {
+        $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} })
+    } keys %$gids_to_load;
+
+    for my $edit (@edits) {
+        my $models = $entities_to_load->{$edit->{edit_type}};
+        next unless $models;
+
+        for my $arg (keys %$models) {
+            if (my $id = $edit->{$arg}) {
+                my $model = $models->{$arg};
+                my $entity;
+
+                $entity = $loaded_ids{$model}->{$id} if looks_like_number($id);
+                $entity = $loaded_gids{$model}->{$id} if is_guid($id);
+
+                detach_with_error($c, printf("%s=%s doesn't exist", $model, $id)) unless $entity;
+
+                $edit->{$arg} = $entity;
+            }
         }
     }
 }
@@ -178,12 +217,13 @@ sub create_edits {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
+    load_entities($c, @{ $data->{edits} });
+
     return map {
         my %opts = %$_;
         my $edit;
 
         try {
-            load_entities($c, \%opts);
             process_data($c, \%opts);
 
             $edit = $create->(
@@ -244,6 +284,21 @@ sub create : Chained('edit') PathPart('create') {
 
     $c->model('MB')->context->sql->commit;
 
+    my $created_entity_ids = {};
+    my $created_entities = {};
+
+    for my $edit (@edits) {
+        if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
+            push @{ $created_entity_ids->{$edit->_create_model} //= [] }, $edit->entity_id;
+        }
+    }
+
+    for my $model (keys %$created_entity_ids) {
+        $created_entities->{$model} = $c->model($model)->get_by_ids(
+            @{ $created_entity_ids->{$model} }
+        );
+    }
+
     my @response = map {
         my $edit = $_;
         my $response;
@@ -253,7 +308,7 @@ sub create : Chained('edit') PathPart('create') {
 
             if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
                 my $model = $edit->_create_model;
-                my $entity = $c->model($model)->get_by_id($edit->entity_id);
+                my $entity = $created_entities->{$model}->{$edit->entity_id};
 
                 try {
                     my $js_model = "MusicBrainz::Server::Controller::WS::js::$model";
