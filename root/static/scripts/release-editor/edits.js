@@ -288,7 +288,18 @@
 
             if (!current) {
                 // We're done!
-                window.location.pathname = "/release/" + release.gid;
+
+                if (releaseEditor.redirectURI) {
+                    var a = document.createElement("a");
+                    a.href = releaseEditor.redirectURI;
+
+                    a.search += /^\?/.test(a.search) ? "&" : "?";
+                    a.search += "release_mbid=" + release.gid;
+
+                    window.location.href = a.href;
+                } else {
+                    window.location.pathname = "/release/" + release.gid;
+                }
                 return;
             }
 

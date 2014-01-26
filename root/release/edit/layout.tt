@@ -81,6 +81,7 @@
       action: "add",
     [%- END %]
       returnTo: "[% return_to | js %]",
+      redirectURI: "[% redirect_uri | js %]",
       seed: [% seeded_data OR 'null' %]
     });
   </script>

@@ -29,6 +29,11 @@ sub _init_release_editor
 {
     my ($self, $c, %options) = @_;
 
+    my $json = JSON::Any->new( utf8 => 1 );
+
+    $options{redirect_uri} = $c->req->query_params->{redirect_uri};
+    $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
+
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
@@ -49,11 +54,9 @@ sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth
     my ($self, $c) = @_;
 
     my $release = $c->stash->{release};
-    my $json = JSON::Any->new( utf8 => 1 );
 
     $self->_init_release_editor(
         $c,
-        seeded_data => $json->encode($self->_seeded_data($c) // {}),
         return_to => $c->uri_for_action('/release/show', [ $release->gid ])
     );
 }
@@ -80,13 +83,7 @@ sub add : Path('/release/add') Edit RequireAuth
         $return_to = $c->uri_for_action('/index');
     }
 
-    my $json = JSON::Any->new( utf8 => 1 );
-
-    $self->_init_release_editor(
-        $c,
-        seeded_data => $json->encode($self->_seeded_data($c) // {}),
-        return_to => $return_to
-    );
+    $self->_init_release_editor($c, return_to => $return_to);
 }
 
 sub _seeded_data

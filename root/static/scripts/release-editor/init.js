@@ -12,7 +12,9 @@ ko.postbox.serializer = _.identity;
 MB.releaseEditor.init = function (options) {
     var self = this;
 
-    $.extend(this, _.pick(options, "action", "returnTo"));
+    $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+
+    console.log(this.redirectURI);
 
     this.rootField = this.fields.Root();
 
