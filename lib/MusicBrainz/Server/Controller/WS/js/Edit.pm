@@ -241,9 +241,7 @@ sub create_edits {
     } @{ $data->{edits} };
 }
 
-sub root : Chained('/') PathPart("ws/js") CaptureArgs(0) {}
-
-sub edit : Chained('root') PathPart('edit') CaptureArgs(0) {
+sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) {
     my ($self, $c) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
