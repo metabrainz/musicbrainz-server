@@ -264,23 +264,23 @@ sub create : Chained('edit') PathPart('create') {
         detach_with_error($c, 'edit_note required');
     }
 
-    $c->model('MB')->context->sql->begin;
+    my @edits;
 
-    my @edits = $self->create_edits(
-        $c, sub { $c->model('Edit')->create(@_) }, $data
-    );
+    $c->model('MB')->with_transaction(sub {
+        @edits = $self->create_edits(
+            $c, sub { $c->model('Edit')->create(@_) }, $data
+        );
 
-    my $edit_note = $data->{edit_note};
+        my $edit_note = $data->{edit_note};
 
-    if ($edit_note) {
-        for my $edit (grep { $_ } @edits) {
-            $c->model('EditNote')->add_note($edit->id, {
-                text => $edit_note, editor_id => $c->user->id,
-            });
+        if ($edit_note) {
+            for my $edit (grep { $_ } @edits) {
+                $c->model('EditNote')->add_note($edit->id, {
+                    text => $edit_note, editor_id => $c->user->id,
+                });
+            }
         }
-    }
-
-    $c->model('MB')->context->sql->commit;
+    });
 
     my $created_entity_ids = {};
     my $created_entities = {};
