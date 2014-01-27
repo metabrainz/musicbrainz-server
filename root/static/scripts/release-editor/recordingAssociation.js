@@ -66,7 +66,7 @@
         var numInCommon = _.intersection(trackArtistIDs, newIDs).length;
 
         if (numInCommon !== trackArtistIDs.length ||
-            numInCommon !== newIDs.length)) {
+            numInCommon !== newIDs.length) {
 
             var requestArgs = {
                 url: "/ws/js/last-updated-recordings",
