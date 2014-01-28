@@ -95,9 +95,24 @@
         <td><label>[% l('Date:') %]</label></td>
         <td class="partial-date">
           <span class="partial-date">
-            <input data-bind="value: date.year, valueUpdate: 'input', controlsBubble: $root.dateBubble, withLabel: 'event-date'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%
-            %]<input data-bind="value: date.month, valueUpdate: 'input', controlsBubble: $root.dateBubble" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%
-            %]<input data-bind="value: date.day, valueUpdate: 'input', controlsBubble: $root.dateBubble" maxlength="2" placeholder="[% l('DD') %]" size="2" />
+            <input maxlength="4" placeholder="[% l('YYYY') %]" size="4"
+              data-bind="
+                value: date.year,
+                valueUpdate: 'input',
+                controlsBubble: $root.dateBubble,
+                withLabel: 'event-date'"
+            />-[%
+            %]<input maxlength="2" placeholder="[% l('MM') %]" size="2"
+                data-bind="
+                  value: date.month,
+                  valueUpdate: 'input',
+                  controlsBubble: $root.dateBubble"
+            />-[%
+            %]<input maxlength="2" placeholder="[% l('DD') %]" size="2"
+                data-bind="
+                  value: date.day,
+                  valueUpdate: 'input',
+                  controlsBubble: $root.dateBubble" />
           </span>
         </td>
         [% table_cells_select('country', l('Country:'), 1,
