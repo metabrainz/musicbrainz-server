@@ -24,8 +24,8 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 RE.releaseViewModel = {
     RE: RE,
-    release: ko.observable({relationships: []}),
-    releaseGroup: ko.observable({relationships: []}),
+    release: ko.observable(MB.entity.Release({})),
+    releaseGroup: ko.observable(MB.entity.ReleaseGroup({})),
     media: ko.observableArray([]),
 
     activeDialog: ko.observable(),
@@ -144,38 +144,16 @@ RE.releaseViewModel = {
     }
 };
 
-RE.releaseViewModel['changes'] = ko.computed(function () {
-    var breaker = {};
-    var breakIfChanged = function (relationship) {
-        if (relationship.action()) throw breaker;
-    };
 
-    try {
-        _.each(RE.releaseViewModel.media(), function(medium) {
-            _.each(medium.tracks, function(track) {
-                var recording = track.recording;
+function confirmNavigation() { return MB.text.ConfirmNavigation }
 
-                _.each(recording.relationships(), breakIfChanged);
+RE.releaseViewModel.changes = ko.computed(function () {
+    var hasChanges = RE.releaseViewModel.release().hasRelationshipChanges() ||
+                     RE.releaseViewModel.releaseGroup().hasRelationshipChanges();
 
-                _.each(recording.performanceRelationships(), function(relationship) {
-                    breakIfChanged(relationship);
-                    _.each(relationship.entity[1]().relationships(), breakIfChanged);
-                });
-            });
-        });
-        _.each(RE.releaseViewModel.release().relationships, breakIfChanged);
-        _.each(RE.releaseViewModel.releaseGroup().relationships, breakIfChanged);
-    }
-    catch (e) {
-        if (e == breaker) {
-            return true;
-        }
-        else {
-            throw e;
-        }
-    }
-    return false;
+    window.onbeforeunload = hasChanges ? confirmNavigation : undefined;
 });
+
 
 UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
@@ -200,7 +178,7 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     if (data) {
         releaseLoaded(data);
     } else {
-        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
+        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels+media",
             $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
 
         $.getJSON(url, function(data) {
@@ -217,7 +195,7 @@ releaseLoaded = function (data) {
     var trackCount = 0;
 
     RE.releaseViewModel.release(release);
-    RE.releaseViewModel.releaseGroup(MB.entity(data.release_group, "release_group"));
+    RE.releaseViewModel.releaseGroup(MB.entity(data.releaseGroup, "release_group"));
 
     for (var i = 0, len = data.mediums.length; i < len; i++) {
         mediumData = data.mediums[i];
@@ -233,7 +211,7 @@ releaseLoaded = function (data) {
     initCheckboxes(trackCount);
 
     Util.parseRelationships(data, "release");
-    Util.parseRelationships(data.release_group, "release_group");
+    Util.parseRelationships(data.releaseGroup, "release_group");
 };
 
 

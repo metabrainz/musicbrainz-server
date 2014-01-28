@@ -296,7 +296,7 @@ var testRelease = {
         }
     ],
     "gid": "867cc694-0f35-4a65-acb4-bc873795701a",
-    "release_group": {
+    "releaseGroup": {
         "artist": "The Beatles",
         "name": "Love Me Do",
         "id": 564256,
@@ -362,7 +362,7 @@ module("relationship editor", {
         this.RE.Util.init(typeInfo, attrInfo);
 
         this.RE.UI.init(
-            testRelease.gid, testRelease.release_group.gid, testRelease
+            testRelease.gid, testRelease.releaseGroup.gid, testRelease
         );
     },
 
@@ -371,8 +371,8 @@ module("relationship editor", {
 
         MB.utility.callbackQueue = this.__callbackQueue;
 
-        this.RE.releaseViewModel.release({ relationships: [] });
-        this.RE.releaseViewModel.releaseGroup({ relationships: [] });
+        this.RE.releaseViewModel.release(MB.entity.Release({}));
+        this.RE.releaseViewModel.releaseGroup(MB.entity.ReleaseGroup({}));
         this.RE.releaseViewModel.media([]);
 
         MB.entity.clearCache();

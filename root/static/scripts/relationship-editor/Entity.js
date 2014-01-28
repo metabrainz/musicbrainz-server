@@ -58,12 +58,37 @@ MB.entity.CoreEntity.extend({
             }
         }
         return false;
+    },
+
+    hasRelationshipChanges: function () {
+        return _.any(_.invoke(this.relationships(), "action"));
     }
 });
 
 
-MB.entity.Recording.after("init", function () {
-    this.performanceRelationships = ko.observableArray([]);
+MB.entity.Recording.extend({
+
+    after$init: function () {
+        this.performanceRelationships = ko.observableArray([]);
+    },
+
+    around$hasRelationshipChanges: function (supr) {
+        return supr() || _.any(
+            _.invoke(this.performanceRelationships(), "action")
+        );
+    }
+});
+
+
+MB.entity.Release.extend({
+
+    around$hasRelationshipChanges: function (supr) {
+        return supr() || _.any(this.mediums, function (medium) {
+            return _.any(medium.tracks, function (track) {
+                return track.recording.hasRelationshipChanges();
+            });
+        });
+    }
 });
 
 
