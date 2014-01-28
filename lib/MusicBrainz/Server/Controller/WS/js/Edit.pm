@@ -193,7 +193,7 @@ sub load_entities {
                 $entity = $loaded_ids{$model}->{$id} if looks_like_number($id);
                 $entity = $loaded_gids{$model}->{$id} if is_guid($id);
 
-                detach_with_error($c, printf("%s=%s doesn't exist", $model, $id)) unless $entity;
+                detach_with_error($c, sprintf("%s=%s doesn't exist", $model, $id)) unless $entity;
 
                 $edit->{$arg} = $entity;
             }
