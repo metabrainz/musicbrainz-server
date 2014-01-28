@@ -115,29 +115,12 @@ sub _process_seeded_data
     my $result = {};
     my @errors;
 
-    my %known_fields = (
-        name => '',
-        release_group => '',
-        type => '',
-        comment => '',
-        annotation => '',
-        barcode => '',
-        language => '',
-        script => '',
-        status => '',
-        packaging => '',
-        events => 'ARRAY',
-        labels => 'ARRAY',
-        date => '',
-        country => '',
-        artist_credit => 'HASH',
-        mediums => 'ARRAY',
-        edit_note => '',
-        redirect_uri => '',
-        as_auto_editor => '',
-    );
+    my @known_fields = qw( name release_group type comment annotation barcode
+                           language script status packaging events labels
+                           date country artist_credit mediums edit_note
+                           redirect_uri as_auto_editor );
 
-    _report_unknown_fields('', $params, \@errors, %known_fields);
+    _report_unknown_fields('', $params, \@errors, @known_fields);
 
     if (my $name = trim($params->{name} // '')) {
         $result->{name} = $name;
@@ -359,15 +342,8 @@ sub _seeded_medium
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my %known_fields = (
-        format => '',
-        position => '',
-        name => '',
-        track => 'ARRAY',
-        toc => '',
-    );
-
-    _report_unknown_fields($field_name, $params, $errors, %known_fields);
+    my @known_fields = qw( format position name track toc );
+    _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = { tracks => [] };
 
@@ -429,15 +405,8 @@ sub _seeded_track
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my %known_fields = (
-        name => '',
-        number => '',
-        recording => '',
-        length => '',
-        artist_credit => 'HASH',
-    );
-
-    _report_unknown_fields($field_name, $params, $errors, %known_fields);
+    my @known_fields = qw( name number recording length artist_credit );
+    _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {};
 
@@ -470,7 +439,7 @@ sub _seeded_artist_credit
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    _report_unknown_fields($field_name, $params, $errors, names => 'ARRAY');
+    _report_unknown_fields($field_name, $params, $errors, 'names');
 
     return _seeded_array($c, \&_seeded_artist_credit_name, $params->{names},
             "$field_name.names", $errors);
@@ -480,14 +449,8 @@ sub _seeded_artist_credit_name
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    my %known_fields = (
-        mbid => '',
-        name => '',
-        artist => 'HASH',
-        join_phrase => '',
-    );
-
-    _report_unknown_fields($field_name, $params, $errors, %known_fields);
+    my @known_fields = qw( mbid name artist join_phrase );
+    _report_unknown_fields($field_name, $params, $errors, @known_fields);
 
     my $result = {};
 
@@ -516,41 +479,20 @@ sub _seeded_artist
 {
     my ($c, $params, $field_name, $errors) = @_;
 
-    _report_unknown_fields($field_name, $params, $errors, name => '');
+    _report_unknown_fields($field_name, $params, $errors, 'name');
 
     return { name => trim($params->{name} // '') };
 }
 
 sub _report_unknown_fields
 {
-    my ($parent, $fields, $errors, %valid_fields) = @_;
+    my ($parent, $fields, $errors, @valid_fields) = @_;
 
-    for my $field (keys %valid_fields) {
-        my $value = $fields->{$field};
-        next unless defined $value;
-
-        my $got_type = ref $value;
-        my $expected_type = $valid_fields{$field};
-
-        if ($got_type ne $expected_type) {
-            my $field_name = ($parent ? "$parent." : "") . $field;
-
-            if ($expected_type eq '') {
-                push @$errors, "Expected a SCALAR for $field_name, got “$value”";
-            }
-            elsif ($expected_type eq 'ARRAY') {
-                push @$errors, "Expected an ARRAY for $field_name, got “$value”";
-            }
-            elsif ($expected_type eq 'HASH') {
-                push @$errors, "Expected a HASH for $field_name, got “$value”";
-            }
-        }
-    }
-
-    my @unknown_keys = grep { !exists $valid_fields{$_} } keys %$fields;
+    my %valid_keys = map { $_ => 1 } @valid_fields;
+    my @unknown_keys = grep { !exists $valid_keys{$_} } keys %$fields;
 
     push @$errors, map {
-        "Unknown field: " . ($parent ? "$parent." : "") . $_
+        "Unknown field: " . ($parent ? "$parent." : "") . "$_"
     } @unknown_keys;
 }
 
