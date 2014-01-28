@@ -58,29 +58,13 @@
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: artistCredit') %]
 
       [% IF NOT release.gid %]
-      <tr>
-        <td><label for="primary-type">[% l('Primary Type:') %]</label></td>
-        <td colspan="2" data-bind="with: releaseGroup">
-          <select id="primary-type" data-bind="value: typeID, disable: !!gid">
-            <option value="" selected="selected">&#160;</option>
-            [%- FOR type=primary_types %]
-            <option value="[% type.value %]">[% type.label | html %]</option>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+        <!-- ko with: releaseGroup -->
+        [% table_row_select('primary-type', l('Primary Type:'), 2,
+            'value: typeID, disable: !!gid', primary_types) %]
 
-      <tr>
-        <td><label for="secondary-types">[% l('Secondary Types:') %]</label></td>
-        <td colspan="2" data-bind="with: releaseGroup">
-          <select id="secondary-types" multiple data-bind="selectedOptions: secondaryTypeIDs, disable: !!gid">
-            <option value="" selected="selected">&#160;</option>
-            [%- FOR type=secondary_types %]
-            <option value="[% type.value %]">[% type.label | html %]</option>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+        [% table_row_select('secondary-types', l('Secondary Types:'), 2,
+            'selectedOptions: secondaryTypeIDs, disable: !!gid', secondary_types, 1) %]
+        <!-- /ko -->
       [% ELSE %]
       <tr>
         <td><label>[% l('Type:') %]</label></td>
@@ -91,49 +75,12 @@
       </tr>
       [% END %]
 
-      <tr>
-        <td><label for="status">[% l('Status:') %]</label></td>
-        <td colspan="2">
-          <select id="status" data-bind="value: statusID, controlsBubble: $root.statusBubble">
-            <option value="" selected="selected">&#160;</option>
-            [%- FOR status=statuses %]
-            <option value="[% status.value %]">[% status.label | html %]</option>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+      [% table_row_select('status', l('Status:'), 2,
+          'value: statusID, controlsBubble: $root.statusBubble', statuses) %]
 
-      <tr>
-        <td><label for="language">[% l('Language:') %]</label></td>
-        <td colspan="2">
-          <select class="short" id="language" data-bind="value: languageID">
-            <option value="" selected="selected">&#160;</option>
-            [% FOR optgroup=languages %]
-            <optgroup label="[% optgroup.optgroup %]">
-              [%- FOR lang=optgroup.options %]
-              <option value="[% lang.value %]">[% lang.label | html %]</option>
-              [%- END %]
-            </optgroup>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+      [% table_row_select('language', l('Language:'), 2, 'value: languageID', languages) %]
 
-      <tr>
-        <td><label for="script">[% l('Script:') %]</label></td>
-        <td colspan="2">
-          <select class="short" id="script" data-bind="value: scriptID">
-            <option value="" selected="selected">&#160;</option>
-            [% FOR optgroup=scripts %]
-            <optgroup label="[% optgroup.optgroup %]">
-              [%- FOR script=optgroup.options %]
-              <option value="[% script.value %]">[% script.label | html %]</option>
-              [%- END %]
-            </optgroup>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+      [% table_row_select('script', l('Script:'), 2, 'value: scriptID', scripts) %]
     </tbody>
     </table>
   </fieldset>
@@ -153,15 +100,8 @@
             %]<input data-bind="value: date.day, valueUpdate: 'input', controlsBubble: $root.dateBubble" maxlength="2" placeholder="[% l('DD') %]" size="2" />
           </span>
         </td>
-        <td><label>[% l('Country:') %]</label></td>
-        <td>
-          <select class="country" data-bind="value: countryID, withLabel: 'country'">
-            <option value="" selected="selected">&#160;</option>
-            [%- FOR country=countries %]
-            <option value="[% country.value %]">[% country.label | html %]</option>
-            [%- END %]
-          </select>
-        </td>
+        [% table_cells_select('country', l('Country:'), 1,
+            "value: countryID, withLabel: 'country'", countries) %]
         <td>
           <button type="button" class="icon remove-item" title="[% l('Remove Event') %]" data-click="removeReleaseEvent"></button>
         </td>
@@ -219,17 +159,8 @@
         </td>
       </tr>
 
-      <tr>
-        <td><label for="packaging">[% l('Packaging:') %]</label></td>
-        <td colspan="4">
-          <select id="packaging" data-bind="value: packagingID, controlsBubble: $root.packagingBubble">
-            <option value="" selected="selected">&#160;</option>
-            [%- FOR packaging=packagings %]
-            <option value="[% packaging.value %]">[% packaging.label | html %]</option>
-            [%- END %]
-          </select>
-        </td>
-      </tr>
+      [% table_row_select('packaging', l('Packaging:'), 4,
+          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
 
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>

@@ -4,3 +4,33 @@
     <td colspan="[% colspan %]" class="error field-error" data-bind="[% data_bind %]"></td>
   </tr>
 [%- END %]
+
+[% MACRO table_row_select_options(options) BLOCK -%]
+  [%- FOR opt=options %]
+  <option value="[% opt.value %]">[% opt.label | html %]</option>
+  [%- END %]
+[% END %]
+
+[% MACRO table_cells_select(id, label, colspan, data_bind, options, multiple) BLOCK -%]
+  <td><label for="[% id %]">[% label %]</label></td>
+  <td colspan="[% colspan %]">
+    <select id="[% id %]" data-bind="[% data_bind %]"[% ' multiple' IF multiple %]>
+      <option value="" selected="selected">&#160;</option>
+      [% IF options.0.optgroup %]
+        [% FOR optgroup=languages %]
+        <optgroup label="[% optgroup.optgroup %]">
+          [% table_row_select_options(optgroup.options) %]
+        </optgroup>
+        [%- END %]
+      [% ELSE %]
+        [% table_row_select_options(options) %]
+      [% END %]
+    </select>
+  </td>
+[%- END %]
+
+[% MACRO table_row_select(id, label, colspan, data_bind, options, multiple) BLOCK -%]
+  <tr>
+    [% table_cells_select(id, label, colspan, data_bind, options, multiple) %]
+  </tr>
+[%- END %]
