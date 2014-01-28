@@ -11,31 +11,42 @@
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="2" class="error field-error" data-bind="showErrorWhenTabIsSwitched: name"></td>
-      </tr>
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: name') %]
 
       <tr>
         <td><label for="release-group">[% l('Release Group:') %]</label></td>
         <td colspan="2">
           <span class="autocomplete">
-            <input id="release-group" type="text" data-bind="autocomplete: { entity: 'release-group', currentSelection: releaseGroup, entityConstructor: $root.fields.ReleaseGroup }, controlsBubble: $root.releaseGroupBubble" />
+            <input id="release-group" type="text"
+              data-bind="
+                autocomplete: {
+                  entity: 'release-group',
+                  currentSelection: releaseGroup,
+                  entityConstructor: $root.fields.ReleaseGroup
+                },
+                controlsBubble: $root.releaseGroupBubble"
+            />
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="2" class="error field-error" data-bind="showErrorWhenTabIsSwitched: releaseGroup"></td>
-      </tr>
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: releaseGroup') %]
 
       <tr data-bind="with: artistCredit">
         <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
         <td class="release-artist">
           <span class="autocomplete">
-            <input id="release-artist" type="text" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
+            <input id="release-artist" type="text"
+              data-bind="
+                autocomplete: {
+                  entity: 'artist',
+                  artistCredit: $data
+                }"
+              data-hidden-inputs="[% 1 IF form %]"
+              data-form="[% form.name IF form.html_prefix %]"
+              data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
+            />
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
         </td>
@@ -44,12 +55,9 @@
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="2" class="error field-error" data-bind="showErrorWhenTabIsSwitched: artistCredit"></td>
-      </tr>
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: artistCredit') %]
 
-    [% IF NOT release.gid %]
+      [% IF NOT release.gid %]
       <tr>
         <td><label for="primary-type">[% l('Primary Type:') %]</label></td>
         <td colspan="2" data-bind="with: releaseGroup">
@@ -73,12 +81,15 @@
           </select>
         </td>
       </tr>
-    [% ELSE %]
+      [% ELSE %]
       <tr>
         <td><label>[% l('Type:') %]</label></td>
-        <td colspan="2">[% l('To edit types, please edit the release group.') %]</td>
+        <td colspan="2">
+          [% l('To edit types, please {edit the release group|edit_page}.',
+                edit_page => c.uri_for_action('/release_group/edit', { gid => release.release_group.gid })) %]
+        </td>
       </tr>
-    [% END %]
+      [% END %]
 
       <tr>
         <td><label for="status">[% l('Status:') %]</label></td>
@@ -156,15 +167,9 @@
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="4" class="error field-error" data-bind="showErrorRightAway: date"></td>
-      </tr>
+      [% table_row_error(4, 'showErrorRightAway: date') %]
 
-      <tr class="error">
-        <td></td>
-        <td colspan="4" class="error field-error" data-bind="showErrorRightAway: countryID"></td>
-      </tr>
+      [% table_row_error(4, 'showErrorRightAway: countryID') %]
     <!-- /ko -->
 
       <tr>
@@ -181,7 +186,15 @@
         <td><label>[% l('Label:') %]</label></td>
         <td>
           <span class="autocomplete">
-            <input type="text" class="name" data-bind="withLabel: 'label', autocomplete: { entity: 'label', currentSelection: label }, controlsBubble: $root.labelBubble" />
+            <input type="text" class="name"
+              data-bind="
+                withLabel: 'label',
+                autocomplete: {
+                  entity: 'label',
+                  currentSelection: label
+                },
+                controlsBubble: $root.labelBubble"
+            />
             <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
           </span>
         </td>
@@ -194,10 +207,7 @@
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="4" class="error field-error" data-bind="showErrorWhenTabIsSwitched: label"></td>
-      </tr>
+      [% table_row_error(4, 'showErrorWhenTabIsSwitched: label') %]
     <!-- /ko -->
 
       <tr>
@@ -228,10 +238,7 @@
         </td>
       </tr>
 
-      <tr class="error">
-        <td></td>
-        <td colspan="4" class="error field-error" data-bind="showErrorRightAway: barcode"></td>
-      </tr>
+      [% table_row_error(4, 'showErrorRightAway: barcode') %]
 
       <tr>
         <td></td>

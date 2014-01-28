@@ -210,10 +210,7 @@
           <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>
         </td>
       </tr>
-      <tr data-bind="visible: formatID.error">
-        <td></td>
-        <td colspan="2" class="error field-error" data-bind="showErrorRightAway: formatID"></td>
-      </tr>
+      [% table_row_error(2, 'showErrorRightAway: formatID') %]
     </table>
 
     <!-- ko if: loading -->
@@ -263,7 +260,13 @@
 
             <td class="artist autocomplete">
               <span class="autocomplete" style="width: 100%">
-                <input type="text" class="track-artist" data-bind="autocomplete: { entity: 'artist', artistCredit: artistCredit }" />
+                <input type="text" class="track-artist"
+                  data-bind="
+                    autocomplete: {
+                      entity: 'artist',
+                      artistCredit: artistCredit
+                    }"
+                />
                 <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
               </span>
             </td>

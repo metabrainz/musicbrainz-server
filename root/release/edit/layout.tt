@@ -1,3 +1,5 @@
+[%- PROCESS 'release/edit/macros.tt' -%]
+
 [% IF release.name %]
   [% page_title = l('{name} - Edit Release', { name => release.name }) %]
 [% ELSE %]
