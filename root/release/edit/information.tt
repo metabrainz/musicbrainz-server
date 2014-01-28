@@ -85,8 +85,8 @@
       <tr>
         <td><label>[% l('Type:') %]</label></td>
         <td colspan="2">
-          [% l('To edit types, please {edit the release group|edit_page}.',
-                edit_page => c.uri_for_action('/release_group/edit', { gid => release.release_group.gid })) %]
+          [% l('To edit types, please {edit_page|edit the release group}.',
+                edit_page => c.uri_for_action('/release_group/edit', [ release.release_group.gid ])) %]
         </td>
       </tr>
       [% END %]
