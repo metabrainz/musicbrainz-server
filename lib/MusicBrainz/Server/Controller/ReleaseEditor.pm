@@ -525,20 +525,23 @@ sub _report_unknown_fields
 {
     my ($parent, $fields, $errors, %valid_fields) = @_;
 
-    for (grep { exists $fields->{$_} } keys %valid_fields) {
-        my $value = $fields->{$_};
-        my $type = ref $value;
+    for my $field (keys %valid_fields) {
+        my $value = $fields->{$field};
+        next unless defined $value;
 
-        if ($type ne $valid_fields{$_}) {
-            my $field_name = ($parent ? "$parent." : "") . $_;
+        my $got_type = ref $value;
+        my $expected_type = $valid_fields{$field};
 
-            if ($type eq '') {
+        if ($got_type ne $expected_type) {
+            my $field_name = ($parent ? "$parent." : "") . $field;
+
+            if ($expected_type eq '') {
                 push @$errors, "Expected a SCALAR for $field_name, got “$value”";
             }
-            elsif ($type eq 'ARRAY') {
+            elsif ($expected_type eq 'ARRAY') {
                 push @$errors, "Expected an ARRAY for $field_name, got “$value”";
             }
-            elsif ($type eq 'HASH') {
+            elsif ($expected_type eq 'HASH') {
                 push @$errors, "Expected a HASH for $field_name, got “$value”";
             }
         }
@@ -547,7 +550,7 @@ sub _report_unknown_fields
     my @unknown_keys = grep { !exists $valid_fields{$_} } keys %$fields;
 
     push @$errors, map {
-        printf("Unknown field: %s", ($parent ? "$parent." : "") . $_)
+        "Unknown field: " . ($parent ? "$parent." : "") . $_
     } @unknown_keys;
 }
 
