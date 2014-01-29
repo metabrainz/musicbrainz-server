@@ -228,7 +228,7 @@
 
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
     <!-- ko with: releaseGroup -->
-      <p data-bind="html: MB.text.SelectedReleaseGroup.replace('{releasegroup}', html({ target: '_blank' }))"></p>
+      <p data-bind="html: MB.i18n.expand(MB.text.SelectedReleaseGroup, { releasegroup: html({ target: '_blank' }) })"></p>
     <!-- /ko -->
   </div>
 
@@ -242,7 +242,7 @@
   </div>
 
   <div class="bubble" data-bind="bubble: $root.labelBubble">
-    <p data-bind="html: MB.text.SelectedLabel.replace('{label}', label().html({ target: '_blank' }))"></p>
+    <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: label().html({ target: '_blank' }) })"></p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.catNoBubble">

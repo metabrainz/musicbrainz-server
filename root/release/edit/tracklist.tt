@@ -58,8 +58,7 @@
   <!-- ko if: totalPages() > 1 -->
   <div style="text-align: center">
     <a href="#" data-click="previousPage">«</a>
-    <!-- ko text:
-      MB.text.Pager.replace("#{page}", currentPage()).replace("#{total}", totalPages())
+    <!-- ko text: MB.i18n.expand(MB.text.Pager, { page: currentPage(), total: totalPages() })
     --><!-- /ko -->
     <a href="#" data-click="nextPage">»</a>
   </div>

@@ -74,7 +74,7 @@
             Person: [ '[% l('Born in:') | js %]', '[% l('Died in:') | js %]' ],
             Founded: [ '[% l('Founded in:') | js %]', '[% l('Dissolved in:') | js %]' ]
         },
-        Pager: '[% l('page #{page} of #{total}') | js %]',
+        Pager: '[% l('Page {page} of {total}') | js %]',
         SwitchToDirectSearch: '[% l('Not found? Try again with direct search.') | js %]',
         SwitchToIndexedSearch: '[% l('Slow? Switch back to indexed search.') | js %]',
         RemoveLinkedEntity: {
