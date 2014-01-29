@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-23 01:21+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -732,7 +732,7 @@ msgstr "Tühistatud:"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Characters"
-msgstr ""
+msgstr "Tegelaskujud"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -1926,7 +1926,7 @@ msgstr ""
 
 #: ../root/statistics/view_js.tt:118
 msgid "Unknown-type Artists"
-msgstr ""
+msgstr "Tundmatut tüüpi artistid"
 
 #: ../root/statistics/index.tt:487
 msgid "Videos:"
@@ -2031,7 +2031,7 @@ msgstr "Käsitsi määratud:"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Character:"
-msgstr ""
+msgstr "Tegelaskujusid:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
