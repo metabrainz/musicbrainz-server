@@ -240,14 +240,14 @@ MB.utility.validDate = (function() {
 }());
 
 MB.utility.parseDate = (function () {
-    var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
+    var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
 
     return function (str) {
         var match = str.match(dateRegex) || [];
         return {
-            year:  match[1] || null,
-            month: match[2] || null,
-            day:   match[3] || null
+            year:  parseInt(match[1], 10) || null,
+            month: parseInt(match[2], 10) || null,
+            day:   parseInt(match[3], 10) || null
         };
     };
 }());

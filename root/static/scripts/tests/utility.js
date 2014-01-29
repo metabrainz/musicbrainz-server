@@ -36,9 +36,12 @@ test('All', function () {
 
     var parseDateTests = [
         { date: "", expected: { year: null, month: null, day: null} },
-        { date: "1999-01-02", expected: { year: "1999", month: "01", day: "02"} },
-        { date: "1999-01", expected: { year: "1999", month: "01", day: null } },
-        { date: "1999", expected: { year: "1999", month: null, day: null } }
+        { date: "1999-01-02", expected: { year: 1999, month: 1, day: 2 } },
+        { date: "1999-01", expected: { year: 1999, month: 1, day: null } },
+        { date: "1999", expected: { year: 1999, month: null, day: null } },
+        { date: "????-01-02", expected: { year: null, month: 1, day: 2 } },
+        { date: "????-??-02", expected: { year: null, month: null, day: 2 } },
+        { date: "1999-??-02", expected: { year: 1999, month: null, day: 2 } }
     ];
 
     $.each(parseDateTests, function (i, test) {
