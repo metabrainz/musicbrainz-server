@@ -156,6 +156,10 @@
         SelectALabel: '[% l('You must select an existing label.') | js %]',
         MediumRequired: '[% l('A release must contain at least one medium.') | js %]',
         EditNoteRequired: '[% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') | js %]',
-        ByArtist: '[% l('by {artist}') | js %]'
+        ByArtist: '[% l('by {artist}') | js %]',
+        AddReleaseNoTitle: '[% l('Add Release') | js %]',
+        AddReleaseTitle: '[% l('{name} - Add Release') | js %]',
+        EditReleaseNoTitle: '[% l('Edit Release') | js %]',
+        EditReleaseTitle: '[% l('{name} - Edit Release') | js %]'
     });
 })(MB);

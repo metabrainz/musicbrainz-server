@@ -122,6 +122,24 @@ MB.releaseEditor.init = function (options) {
         }
     });
 
+    // Update the document title to match the release title
+
+    this.utils.withRelease(function (release) {
+        var name = _.clean(release.name());
+
+        if (self.action === "add") {
+            document.title = MB.i18n.expand(
+                name ? MB.text.AddReleaseTitle :
+                       MB.text.AddReleaseNoTitle, { name: name }
+            );
+        } else {
+            document.title = MB.i18n.expand(
+                name ? MB.text.EditReleaseTitle :
+                       MB.text.EditReleaseNoTitle, { name: name }
+            );
+        }
+    });
+
     // Apply root bindings to the page.
 
     ko.applyBindings(this, $pageContent[0]);

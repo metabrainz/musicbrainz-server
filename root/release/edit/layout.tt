@@ -1,11 +1,5 @@
 [%- PROCESS 'release/edit/macros.tt' -%]
 
-[% IF release.name %]
-  [% page_title = l('{name} - Edit Release', { name => release.name }) %]
-[% ELSE %]
-  [% page_title = lp('Add Release', 'header') %]
-[% END %]
-
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 title=page_title -%]
   [% IF release.name %]
     [%- INCLUDE "release/header.tt" page="edit" -%]
