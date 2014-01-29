@@ -89,7 +89,7 @@
         (<!-- ko text: format + ($data.position ? " " + $data.position : "") --><!-- /ko -->)
       <!-- /ko -->
 
-      [% l('by') %] <!-- ko text: artist --><!-- /ko -->
+      <!-- ko text: MB.i18n.expand(MB.text.ByArtist, { artist: artist }) --><!-- /ko -->
     </div>
 
     <!-- ko if: expanded() && loaded() -->

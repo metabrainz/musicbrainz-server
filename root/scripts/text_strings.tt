@@ -155,6 +155,7 @@
         DuplicateReleaseCountry: '[% l('You cannot use the same country more than once.') | js %]',
         SelectALabel: '[% l('You must select an existing label.') | js %]',
         MediumRequired: '[% l('A release must contain at least one medium.') | js %]',
-        EditNoteRequired: '[% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') | js %]'
+        EditNoteRequired: '[% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') | js %]',
+        ByArtist: '[% l('by {artist}') | js %]'
     });
 })(MB);
