@@ -54,8 +54,10 @@
                     },
                     name: string(credit.name),
 
-                    // Don't _.clean (or _.strip)!
-                    join_phrase: value(credit.joinPhrase) || null
+                    // Collapse whitespace, but don't strip leading/trailing.
+                    join_phrase: (
+                        value(credit.joinPhrase) || ""
+                    ).replace(/\s{2,}/g, " ") || null
                 };
             });
             return { names: names };
