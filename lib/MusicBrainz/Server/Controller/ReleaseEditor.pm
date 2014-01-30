@@ -275,18 +275,18 @@ sub _seeded_array
     }
 
     my @results;
+    my $param_count = scalar @$params;
 
-    for (my $i = 0; $i < scalar @$params; $i++) {
+    if ($param_count > 0 && !defined $params->[0]) {
+        push @$errors, "$field_name.0 isn’t defined, do your indexes start at 0?";
+    }
+
+    for (my $i = 0; $i < $param_count; $i++) {
         my $param = $params->[$i];
 
-        if (defined $param) {
-            my $result = _seeded_hash($c, $parse, $param, "$field_name.$i", $errors);
+        my $result = _seeded_hash($c, $parse, $param // {}, "$field_name.$i", $errors);
 
-            push @results, $result if defined $result;
-        } else {
-            push @$errors, "$field_name.$i isn’t defined, do your indexes start at 0?";
-            return undef;
-        }
+        push @results, $result // {};
     }
 
     return \@results;
