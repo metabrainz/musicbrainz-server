@@ -7,7 +7,6 @@ CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
 CREATE INDEX area_idx_sort_name ON area (sort_name);
-CREATE INDEX area_idx_page ON area (page_index(name));
 
 CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
 CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);
@@ -19,7 +18,6 @@ CREATE UNIQUE INDEX area_alias_idx_primary ON area_alias (area, locale) WHERE pr
 CREATE UNIQUE INDEX artist_idx_gid ON artist (gid);
 CREATE INDEX artist_idx_name ON artist (name);
 CREATE INDEX artist_idx_sort_name ON artist (sort_name);
-CREATE INDEX artist_idx_page ON artist (page_index(name));
 
 CREATE INDEX artist_idx_area ON artist (area);
 CREATE INDEX artist_idx_begin_area ON artist (begin_area);
@@ -223,7 +221,6 @@ CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
 CREATE INDEX label_idx_sort_name ON label (sort_name);
-CREATE INDEX label_idx_page ON label (page_index(name));
 
 CREATE INDEX label_idx_area ON label (area);
 
@@ -262,7 +259,6 @@ CREATE UNIQUE INDEX medium_cdtoc_idx_uniq ON medium_cdtoc (medium, cdtoc);
 
 CREATE UNIQUE INDEX place_idx_gid ON place (gid);
 CREATE INDEX place_idx_name ON place (name);
-CREATE INDEX place_idx_page ON place (page_index(name));
 CREATE INDEX place_idx_area ON place (area);
 
 CREATE INDEX place_alias_idx_place ON place_alias (place);
@@ -288,7 +284,6 @@ CREATE INDEX recording_tag_raw_idx_editor ON recording_tag_raw (editor);
 
 CREATE UNIQUE INDEX release_idx_gid ON release (gid);
 CREATE INDEX release_idx_name ON release (name);
-CREATE INDEX release_idx_page ON release (page_index(name));
 CREATE INDEX release_idx_release_group ON release (release_group);
 CREATE INDEX release_idx_artist_credit ON release (artist_credit);
 
@@ -310,7 +305,6 @@ CREATE INDEX release_country_idx_country ON release_country (country);
 
 CREATE UNIQUE INDEX release_group_idx_gid ON release_group (gid);
 CREATE INDEX release_group_idx_name ON release_group (name);
-CREATE INDEX release_group_idx_page ON release_group (page_index(name));
 CREATE INDEX release_group_idx_artist_credit ON release_group (artist_credit);
 
 CREATE INDEX release_group_tag_idx_tag ON release_group_tag (tag);
@@ -345,7 +339,6 @@ CREATE INDEX vote_idx_editor ON vote (editor);
 
 CREATE UNIQUE INDEX work_idx_gid ON work (gid);
 CREATE INDEX work_idx_name ON work (name);
-CREATE INDEX work_idx_page ON work (page_index(name));
 
 CREATE INDEX work_alias_idx_work ON work_alias (work);
 CREATE UNIQUE INDEX work_alias_idx_primary ON work_alias (work, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
