@@ -140,6 +140,30 @@ MB.releaseEditor.init = function (options) {
         }
     });
 
+    // Handle showing/hiding the AddDisc dialog when the user switches to/from
+    // the tracklist tab.
+    var addDiscDialogWasOpen = false;
+
+    this.utils.withRelease(function (release) {
+        var tabID = self.activeTabID();
+        var dialog = MB.releaseEditor.addDiscDialog;
+
+        // Show the dialog if there's no non-empty disc.
+        if (tabID === "#tracklist") {
+            if (addDiscDialogWasOpen || release.hasOneEmptyMedium()) {
+                dialog.open();
+                addDiscDialogWasOpen = true;
+            }
+        } else {
+            var uiDialog = $(dialog.element).data("ui-dialog");
+
+            if (uiDialog) {
+                addDiscDialogWasOpen = uiDialog.isOpen();
+                uiDialog.close();
+            }
+        }
+    });
+
     // Apply root bindings to the page.
 
     ko.applyBindings(this, $pageContent[0]);

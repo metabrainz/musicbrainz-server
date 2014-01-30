@@ -448,6 +448,11 @@
 
         hasTracks: function () {
             return _.some(_.invoke(this.mediums(), "hasTracks"));
+        },
+
+        hasOneEmptyMedium: function () {
+            var mediums = this.mediums();
+            return mediums.length === 1 && !mediums[0].hasTracks();
         }
     });
 

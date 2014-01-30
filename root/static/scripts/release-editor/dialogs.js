@@ -277,11 +277,10 @@
             var medium = this.currentTab().addDisc();
             if (!medium) return;
 
-            var release = releaseEditor.rootField.release(),
-                mediums = release.mediums();
+            var release = releaseEditor.rootField.release();
 
             // If there's only one empty disc, replace it.
-            if (mediums.length === 1 && !mediums[0].hasTracks()) {
+            if (release.hasOneEmptyMedium()) {
                 medium.position(1);
                 release.mediums([medium]);
             }
