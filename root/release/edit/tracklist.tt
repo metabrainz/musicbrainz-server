@@ -244,13 +244,13 @@
         </thead>
         <tbody data-bind="foreach: tracks">
           <tr class="track" data-bind="attr: { id: elementID }">
-            <td class="position">
-              <input class="pos" type="text" data-bind="value: number" />
-            </td>
-
             <td class="reorder">
               <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
               <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+            </td>
+
+            <td class="position">
+              <input class="pos" type="text" data-bind="value: number" />
             </td>
 
             <td class="title">
