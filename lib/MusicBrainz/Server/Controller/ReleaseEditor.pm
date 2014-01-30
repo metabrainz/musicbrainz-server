@@ -257,6 +257,7 @@ sub _seeded_hash
         return $parse->($c, $params, $field_name, $errors);
     } else {
         push @$errors, "$field_name must be a hash.";
+        return undef;
     }
 }
 
@@ -270,7 +271,7 @@ sub _seeded_array
         if (ref($params) eq "HASH") {
             _report_unknown_fields($field_name, $params, $errors);
         }
-        return;
+        return undef;
     }
 
     my @results;
@@ -284,6 +285,7 @@ sub _seeded_array
             push @results, $result if defined $result;
         } else {
             push @$errors, "$field_name.$i isn’t defined, do your indexes start at 0?";
+            return undef;
         }
     }
 
