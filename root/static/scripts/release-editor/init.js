@@ -147,20 +147,19 @@ MB.releaseEditor.init = function (options) {
     this.utils.withRelease(function (release) {
         var tabID = self.activeTabID();
         var dialog = MB.releaseEditor.addDiscDialog;
+        var uiDialog = $(dialog.element).data("ui-dialog");
 
         // Show the dialog if there's no non-empty disc.
         if (tabID === "#tracklist") {
-            if (addDiscDialogWasOpen || release.hasOneEmptyMedium()) {
+            var alreadyOpen = uiDialog && uiDialog.isOpen();
+
+            if (!alreadyOpen && (addDiscDialogWasOpen || release.hasOneEmptyMedium())) {
                 dialog.open();
                 addDiscDialogWasOpen = true;
             }
-        } else {
-            var uiDialog = $(dialog.element).data("ui-dialog");
-
-            if (uiDialog) {
-                addDiscDialogWasOpen = uiDialog.isOpen();
-                uiDialog.close();
-            }
+        } else if (uiDialog) {
+            addDiscDialogWasOpen = uiDialog.isOpen();
+            uiDialog.close();
         }
     });
 
