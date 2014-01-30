@@ -43,22 +43,33 @@
         artistCredit: function (ac) {
             ac = ac || {};
 
-            var names = _.map(value(ac.names), function (credit) {
+            var names = value(ac.names);
+
+            names = _.map(names, function (credit, index) {
                 var artist = value(credit.artist) || {};
 
-                return {
+                var name = {
                     artist: {
                         name: string(artist.name),
                         id: number(artist.id),
                         gid: nullableString(artist.gid)
                     },
-                    name: string(credit.name),
-
-                    // Collapse whitespace, but don't strip leading/trailing.
-                    join_phrase: (
-                        value(credit.joinPhrase) || ""
-                    ).replace(/\s{2,}/g, " ") || null
+                    name: string(credit.name)
                 };
+
+                var joinPhrase = value(credit.joinPhrase) || "";
+
+                // Collapse whitespace, but don't strip leading/trailing.
+                names.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
+
+                // Trim trailing whitespace for the final join phrase only.
+                if (index === names.length - 1) {
+                    names.join_phrase = joinPhrase.replace(/\s+$/g, "");
+                }
+
+                name.join_phrase = name.join_phrase || null;
+
+                return name;
             });
             return { names: names };
         },
