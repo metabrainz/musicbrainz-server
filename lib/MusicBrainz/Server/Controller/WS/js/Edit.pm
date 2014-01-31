@@ -348,14 +348,11 @@ sub preview : Chained('edit') PathPart('preview') {
 
     $c->model('Edit')->load_all(@edits);
 
-    # Make the edit preview templates not show entity [removed] crap
-    $c->stash->{allow_new} = 1;
-
     my @previews = map {
         my $edit = $_;
 
         my $edit_template = $edit->edit_template;
-        my $vars = { edit => $edit, c => $c };
+        my $vars = { edit => $edit, c => $c, allow_new => 1 };
         my $out = '';
 
         my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out)
