@@ -46,7 +46,7 @@
       </div>
       [%- END -%]
       <div data-bind="if: submissionInProgress" class="loading-message">
-        [% l('Loading...') %]
+        [% l('Submitting edits...') %]
       </div>
     </div>
 
