@@ -138,7 +138,7 @@
 
         releaseGroup: function (rg) {
             return {
-                type_id:            number(rg.typeID),
+                primary_type_id:    number(rg.typeID),
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            nullableString(rg.comment),
