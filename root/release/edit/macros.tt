@@ -17,7 +17,7 @@
     <select id="[% id %]" data-bind="[% data_bind %]"[% ' multiple' IF multiple %]>
       <option value="" selected="selected">&#160;</option>
       [% IF options.0.optgroup %]
-        [% FOR optgroup=languages %]
+        [% FOR optgroup=options %]
         <optgroup label="[% optgroup.optgroup %]">
           [% table_row_select_options(optgroup.options) %]
         </optgroup>
