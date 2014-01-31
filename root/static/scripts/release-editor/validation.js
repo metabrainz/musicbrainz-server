@@ -204,13 +204,6 @@
 
         var text = MB.text.Barcode;
 
-        if (/[^\d\s]/.test(barcode)) {
-            field.error(text.Invalid);
-            return;
-        }
-
-        barcode = barcode.replace(/[^\d]/g, "");
-
         if (barcode.length === 11) {
             field.error(
                 text.NoCheckdigitUPC + " " +

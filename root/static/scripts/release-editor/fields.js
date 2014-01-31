@@ -331,6 +331,12 @@
                 owner: this
             });
 
+            // Always notify of changes, so that when non-digits are stripped,
+            // the text in the input element will update even if the stripped
+            // value is identical to the old value.
+            this.barcode.equalityComparer = null;
+            this.value.equalityComparer = null;
+
             this.none = ko.computed({
                 read: function () {
                     return this.barcode() === "";
@@ -358,7 +364,7 @@
         },
 
         writeBarcode: function (barcode) {
-            this.barcode(barcode || null);
+            this.barcode((barcode || "").replace(/[^\d]/g, "") || null);
             this.confirmed(false);
         }
     });
