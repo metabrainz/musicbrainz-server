@@ -96,13 +96,12 @@ MB.releaseEditor.trackParser = {
             // credited name) we can only use ACs with a single credit.
             var matchedAC = _.find([ releaseAC, matchedTrackAC ],
                 function (ac) {
-                    if (!ac) return false;
+                    if (!ac || ac.isVariousArtists()) return false;
+
                     var names = ac.names();
 
                     return ac.isComplete() && names.length === 1 &&
-                        names[0].artist.gid !== MB.constants.VARTIST_GID &&
-                        (!data.artist ||
-                         MB.utility.nameIsSimilar(data.artist, ac.text()));
+                        (!data.artist || MB.utility.nameIsSimilar(data.artist, ac.text()));
                 }
             );
 
