@@ -232,15 +232,23 @@ MB.releaseEditor.trackParser = {
         var options = ko.toJS(this.options);
 
         return _.reduce(medium.tracks(), function (memo, track) {
-            if (options.trackNumbers) memo += track.number.peek() + ". ";
+            if (options.trackNumbers) {
+                memo += track.number.peek() + ". ";
+            }
 
             memo += track.name.peek();
 
-            if (options.trackArtists) memo += " - " + track.artistCredit.text();
+            if (options.trackArtists) {
+                memo += " - " + track.artistCredit.text();
+            }
 
-            var length = track.formattedLength.peek();
+            if (options.trackTimes) {
+                var length = track.formattedLength.peek();
 
-            return memo + " (" + (length || "?:??") + ")\n";
+                memo += " (" + (length || "?:??") + ")";
+            }
+
+            return memo + "\n";
         }, "");
     }
 };
