@@ -39,6 +39,14 @@ sub _init_release_editor
 
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
+    my $root_medium_format = $c->model('MediumFormat')->get_tree;
+
+    my $medium_format_options = [
+        map {
+            _build_medium_format_options($_, 'l_name', '')
+        } $root_medium_format->all_children
+    ];
+
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
@@ -49,9 +57,28 @@ sub _init_release_editor
         scripts         => build_grouped_options($c, script_options($c)),
         packagings      => select_options($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
-        formats         => select_options($c, 'MediumFormat'),
+        formats         => $medium_format_options,
         %options
     );
+}
+
+sub _build_medium_format_options
+{
+    my ($root, $attr, $indent) = @_;
+
+    my @options;
+
+    push @options, {
+        value => $root->id,
+        label => $indent . $root->$attr,
+    } if $root->id;
+
+    $indent .= '&#xa0;&#xa0;&#xa0;';
+
+    foreach my $child ($root->all_children) {
+        push @options, _build_medium_format_options($child, $attr, $indent);
+    }
+    return @options;
 }
 
 sub edit : Chained('/release/load') PathPart('edit') Edit RequireAuth

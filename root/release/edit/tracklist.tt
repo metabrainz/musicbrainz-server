@@ -193,7 +193,7 @@
           <select data-bind="value: formatID, attr: { id: 'disc-format-' + $index() }">
             <option value="" selected="selected">&#160;</option>
             [%- FOR format=formats %]
-            <option value="[% format.value %]">[% format.label | html %]</option>
+            <option value="[% format.value %]">[% format.label %]</option>
             [%- END %]
           </select>
           <!-- ko if: release.mediums().length > 1 || name() -->
