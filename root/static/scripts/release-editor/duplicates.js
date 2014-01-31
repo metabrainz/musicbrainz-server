@@ -6,6 +6,7 @@
 (function (releaseEditor) {
 
     var utils = releaseEditor.utils;
+    var releaseGroupReleases = ko.observableArray([]);
 
 
     releaseEditor.similarReleases = ko.observableArray([]);
@@ -33,12 +34,41 @@
     });
 
 
+    var currentReleaseGroup = utils.withRelease(function (release) {
+        return release.releaseGroup();
+    });
+
+
+    currentReleaseGroup.subscribe(function (releaseGroup) {
+        var gid = releaseGroup.gid;
+        if (!gid) return;
+
+        var url = _.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
+
+        MB.utility.request({ url: url }).done(function (data) {
+            releaseGroupReleases(_.map(data.releases, formatReleaseData));
+        });
+    });
+
+
     releaseEditor.findReleaseDuplicates = function () {
 
         utils.debounce(utils.withRelease(function (release) {
             var name = release.name();
 
-            if (!name || !release.artistCredit.isComplete()) return;
+            // If a release group is selected, just show the releases from
+            // there without searching.
+            var rgReleases = releaseGroupReleases();
+
+            if (rgReleases.length > 0) {
+                releaseEditor.similarReleases(rgReleases);
+                $("#release-editor").tabs("enable", 1);
+                return;
+            }
+
+            if (!name || !release.artistCredit.isComplete()) {
+                return;
+            }
 
             var queryParams = {
                 release: [ utils.escapeLuceneValue(name) ],
@@ -87,6 +117,17 @@
         clean.tracks = _.pluck(release.media, "track-count").join(" + ");
 
         clean.dates = pluck(events, "date").value();
+
+        // XXX annoying inconsistency!!!
+        // browse requests return iso_3166_1_codes, the search server returns
+        // iso-3166-1-codes.
+
+        var areas = pluck(events, "area");
+        clean.countries = areas.pluck("iso-3166-1-codes").flatten().uniq().value();
+
+        if (!clean.countries.length) {
+            clean.countries = areas.pluck("iso_3166_1_codes").flatten().uniq().value();
+        }
 
         clean.countries = pluck(events, "area").pluck("iso-3166-1-codes")
             .flatten().uniq().value();

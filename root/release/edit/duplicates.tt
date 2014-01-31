@@ -34,7 +34,7 @@
     </tbody>
   </table>
 
-  <div class="row no-label">
+  <div class="row no-label" style="padding: 0.5em">
     <label>
       <input type="radio" name="base-release" value="" data-bind="checked: baseRelease" />
       [% l('Do not use any of the above releases as a starting point') %]
