@@ -1,5 +1,5 @@
 <div id="form">
-  <!-- ko if: validation.errorCount() > 0 -->
+  <!-- ko if: validation.errorsExistOtherThanAMissingEditNote -->
     <div class="warning">
       <p data-bind="text: MB.text.ErrorsPreventSubmission"></p>
     </div>

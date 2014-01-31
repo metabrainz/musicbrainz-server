@@ -296,4 +296,15 @@
         return _.reduce(allComputedErrors, countErrors, 0);
     });
 
+
+    releaseEditor.validation.errorsExistOtherThanAMissingEditNote = ko.computed({
+        read: function () {
+            var errorCount = releaseEditor.validation.errorCount();
+            var editNoteError = releaseEditor.rootField.editNote.error();
+
+            return errorCount > 0 && !(errorCount === 1 && editNoteError);
+        },
+        deferEvaluation: true
+    });
+
 }(MB.releaseEditor = MB.releaseEditor || {}));

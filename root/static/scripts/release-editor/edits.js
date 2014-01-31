@@ -207,9 +207,7 @@
 
             // Don't generate edits if there are errors, *unless* having a
             // missing edit note is the only error.
-            var errorCount = releaseEditor.validation.errorCount();
-
-            if (errorCount > 0 && !(errorCount === 1 && root.editNote.error())) {
+            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
                 return [];
             }
 
