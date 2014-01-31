@@ -161,15 +161,10 @@
                 }
             });
 
-            var oldMediumsIDs = $.map(release.mediums(), function (medium) {
-                return medium.original && medium.original().id;
-            });
-
-            var removedMediums = _.difference(oldMediumsIDs, newMediumsIDs);
-
-            _.each(removedMediums, function (id) {
-                edits.push(MB.edit.mediumDelete({ medium: id }));
-            });
+            _.chain(release.mediums.originalIDs).difference(newMediumsIDs)
+                .each(function (id) {
+                    edits.push(MB.edit.mediumDelete({ medium: id }));
+                });
 
             var wasReordered = _.any(newOrder, function (order) {
                 return order["old"] !== order["new"];

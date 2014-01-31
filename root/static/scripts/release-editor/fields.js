@@ -423,6 +423,8 @@
             )
             .extend({ withError: true });
 
+            this.mediums.originalIDs = _.pluck(this.mediums(), "id");
+
             this.original = ko.observable(MB.edit.fields.release(this));
 
             // Ensure there's at least one event, label, and medium to edit.
