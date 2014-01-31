@@ -108,16 +108,17 @@ MB.releaseEditor.init = function (options) {
         var tabID = self.activeTabID();
 
         if (tabID === "#tracklist" && !release.artistCredit.isEqual(release.artistCredit.saved)) {
-            var names = release.artistCredit.toJSON();
+            if (!release.artistCredit.isVariousArtists()) {
+                var names = release.artistCredit.toJSON();
 
-            _.each(release.mediums(), function (medium) {
-                _.each(medium.tracks(), function (track) {
-                    if (track.artistCredit.isEqual(release.artistCredit.saved)) {
-                        track.artistCredit.setNames(names);
-                    }
+                _.each(release.mediums(), function (medium) {
+                    _.each(medium.tracks(), function (track) {
+                        if (track.artistCredit.isEqual(release.artistCredit.saved)) {
+                            track.artistCredit.setNames(names);
+                        }
+                    });
                 });
-            });
-
+            }
             release.artistCredit.saved = self.fields.ArtistCredit(names);
         }
     });
