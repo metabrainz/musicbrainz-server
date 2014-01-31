@@ -267,7 +267,7 @@
            { url => doc_link('Barcode') }) %]
     </p>
     <p data-bind="visible: barcode.message, text: barcode.message"></p>
-    <p class="field-error" data-bind="visible: barcode.error, attr: { 'data-visible': barcode.error() ? '1' : '' }">
+    <p class="field-error" data-bind="visible: barcode.error() || barcode.confirmed()">
       <label>
         <strong>
           <input type="checkbox" data-bind="checked: barcode.confirmed" />

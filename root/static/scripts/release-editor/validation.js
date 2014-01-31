@@ -200,7 +200,7 @@
         field.message("");
 
         var barcode = field.barcode();
-        if (!barcode) return;
+        if (!barcode || field.confirmed()) return;
 
         var text = MB.text.Barcode;
 
