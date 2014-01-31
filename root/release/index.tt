@@ -155,7 +155,7 @@
                   </span>
                 </td>
               [% END %]
-              <td class="treleases" data-bind="text: formattedLength">
+              <td class="treleases" data-bind="text: formattedLength || '?:??'">
               </td>
             </tr>
           <!-- /ko -->
