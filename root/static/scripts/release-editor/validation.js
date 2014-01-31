@@ -90,7 +90,14 @@
 
             // Show errors on and mark all tabs between the one we just
             // clicked on, including the one we left.
-            ui.oldPanel.nextUntil(ui.newPanel).andSelf().each(function () {
+            var oldPanel = ui.oldPanel;
+            var newPanel = ui.newPanel;
+
+            var $panels = (oldPanel.index() < newPanel.index())
+                ? oldPanel.nextUntil(newPanel).andSelf()
+                : newPanel.nextUntil(oldPanel).andSelf();
+
+            $panels.each(function () {
                 var $panel = $(this);
 
                 ($panel.data("hiddenErrors") || $())
