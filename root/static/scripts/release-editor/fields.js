@@ -36,8 +36,10 @@
             this.length = ko.observable(data.length);
             this.length.original = data.length;
 
-            if (medium && !data.artistCredit) {
-                data.artistCredit = medium.release.artistCredit.toJSON();
+            var release = medium && medium.release;
+
+            if (release && !data.artistCredit && !release.artistCredit.isVariousArtists()) {
+                data.artistCredit = release.artistCredit.toJSON();
             }
 
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
