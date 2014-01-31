@@ -388,7 +388,9 @@ sub _seeded_medium
                     $tracks->[$i]->{length} = $details->[$i]->{length_time};
                 }
             }
-        } catch {
+            $result->{toc} = $toc;
+        }
+        catch {
             push @$errors, "Invalid $field_name.toc: “$toc”.";
         };
     }
