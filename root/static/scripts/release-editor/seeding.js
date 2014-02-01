@@ -78,6 +78,7 @@
 
         if (data.artistCredit) {
             release.artistCredit.setNames(data.artistCredit);
+            release.artistCredit.saved = fields.ArtistCredit(data.artistCredit);
         }
 
         if (data.events) {

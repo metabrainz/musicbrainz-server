@@ -106,14 +106,16 @@ MB.releaseEditor.init = function (options) {
 
     this.utils.withRelease(function (release) {
         var tabID = self.activeTabID();
+        var releaseAC = release.artistCredit;
+        var releaseACChanged = !releaseAC.isEqual(releaseAC.saved);
 
-        if (tabID === "#tracklist" && !release.artistCredit.isEqual(release.artistCredit.saved)) {
+        if (tabID === "#tracklist" && releaseACChanged) {
             if (!release.artistCredit.isVariousArtists()) {
-                var names = release.artistCredit.toJSON();
+                var names = releaseAC.toJSON();
 
                 _.each(release.mediums(), function (medium) {
                     _.each(medium.tracks(), function (track) {
-                        if (track.artistCredit.isEqual(release.artistCredit.saved)) {
+                        if (track.artistCredit.text() === releaseAC.saved.text()) {
                             track.artistCredit.setNames(names);
                         }
                     });
