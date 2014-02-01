@@ -48,9 +48,10 @@ MB.releaseEditor.trackParser = {
         var newTracks = $.map(lines, function (line) {
             var data = self.parseLine(line, options);
 
-            // There should always be a name, otherwise something went wrong.
-            // Returning undefined removes this result from newTracks.
-            if (!data.name) return;
+            // We should've parsed at least some values, otherwise something
+            // went wrong. Returning undefined removes this result from
+            // newTracks.
+            if (!_.any(_.values(data))) return;
 
             currentPosition += 1;
             data.position = currentPosition;
@@ -170,7 +171,7 @@ MB.releaseEditor.trackParser = {
                                          : line.match(this.trackNumber);
 
             // There should always be a track number if this option's set.
-            if (match === null) return data;
+            if (match === null) return {};
 
             data.number = MB.utility.fullWidthConverter(match[1]);
 
@@ -235,7 +236,7 @@ MB.releaseEditor.trackParser = {
                 memo += track.number.peek() + ". ";
             }
 
-            memo += track.name.peek();
+            memo += track.name.peek() || "";
 
             if (options.trackArtists) {
                 memo += " - " + track.artistCredit.text();
