@@ -145,7 +145,6 @@ MB.releaseEditor.init = function (options) {
 
     // Handle showing/hiding the AddDisc dialog when the user switches to/from
     // the tracklist tab.
-    var addDiscDialogWasOpen = false;
 
     this.utils.withRelease(function (release) {
         var tabID = self.activeTabID();
@@ -156,12 +155,10 @@ MB.releaseEditor.init = function (options) {
         if (tabID === "#tracklist") {
             var alreadyOpen = uiDialog && uiDialog.isOpen();
 
-            if (!alreadyOpen && (addDiscDialogWasOpen || release.hasOneEmptyMedium())) {
+            if (!alreadyOpen && release.hasOneEmptyMedium()) {
                 dialog.open();
-                addDiscDialogWasOpen = true;
             }
         } else if (uiDialog) {
-            addDiscDialogWasOpen = uiDialog.isOpen();
             uiDialog.close();
         }
     });
