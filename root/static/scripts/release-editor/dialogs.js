@@ -282,6 +282,12 @@
             // If there's only one empty disc, replace it.
             if (release.hasOneEmptyMedium()) {
                 medium.position(1);
+
+                // Keep the existing formatID if there's not a new one.
+                if (!medium.formatID()) {
+                    medium.formatID(release.mediums()[0].formatID());
+                }
+
                 release.mediums([medium]);
             }
             else {
