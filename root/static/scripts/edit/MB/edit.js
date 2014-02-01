@@ -60,11 +60,11 @@
                 var joinPhrase = value(credit.joinPhrase) || "";
 
                 // Collapse whitespace, but don't strip leading/trailing.
-                names.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
+                name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === names.length - 1) {
-                    names.join_phrase = joinPhrase.replace(/\s+$/g, "");
+                    name.join_phrase = joinPhrase.replace(/\s+$/g, "");
                 }
 
                 name.join_phrase = name.join_phrase || null;
