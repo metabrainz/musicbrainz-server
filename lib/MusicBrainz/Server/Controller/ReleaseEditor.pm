@@ -382,7 +382,7 @@ sub _seeded_medium
         if ($format) {
             $result->{formatID} = $format->id;
         } else {
-            push @$errors, "Invalid $field_name.format: “$format”.";
+            push @$errors, "Invalid $field_name.format: “$name”.";
         }
     }
 
