@@ -204,3 +204,6 @@ MB.releaseEditor.releaseLoaded = function (data) {
 
     this.rootField.release(release);
 };
+
+
+$(MB.confirmNavigationFallback);
