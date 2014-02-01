@@ -97,6 +97,11 @@ sub freedb : Chained('root') PathPart Args(2) {
 
     my $response = $c->model ('FreeDB')->lookup ($category, $id);
 
+    unless (defined $response) {
+        $c->stash->{error} = "$category/$id not found";
+        $c->detach('not_found');
+    }
+
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
         {
