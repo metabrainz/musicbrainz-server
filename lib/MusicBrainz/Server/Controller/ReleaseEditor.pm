@@ -195,13 +195,15 @@ sub _process_seeded_data
             $c->model('ReleaseGroupSecondaryType')->get_all;
 
         for my $type (ref($types) eq 'ARRAY' ? @$types : ($types)) {
-            if ($primary_types{$type}) {
-                $result->{releaseGroup}->{typeID} = $primary_types{$type}->id;
+            my $lc_type = lc $type;
 
-            } elsif ($secondary_types{$type}) {
-                push @secondary_types_result, $secondary_types{$type}->id;
-
-            } else {
+            if ($primary_types{$lc_type}) {
+                $result->{releaseGroup}->{typeID} = $primary_types{$lc_type}->id;
+            }
+            elsif ($secondary_types{$lc_type}) {
+                push @secondary_types_result, $secondary_types{$lc_type}->id;
+            }
+            else {
                 push @errors, "Invalid release group type: “$type”.";
             }
         }
