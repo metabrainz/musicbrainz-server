@@ -33,7 +33,7 @@
         <label for="edit-note-text">[% l('Edit note:') %]</label>
         <textarea id="edit-note-text" data-bind="value: rootField.editNote, valueUpdate: 'input'" rows="5" cols="80"></textarea>
       [% END %]
-      <p class="error field-error" data-bind="showErrorRightAway: rootField.editNote"></p>
+      <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: rootField.editNote"></p>
     </fieldset>
 
     <div class="row no-label">

@@ -97,6 +97,12 @@
                 ? oldPanel.nextUntil(newPanel).andSelf()
                 : newPanel.nextUntil(oldPanel).andSelf();
 
+            // XXX Show the error for the edit note *right* when the tab is
+            // switched.
+            if (newPanel.attr("id") === "edit-note") {
+                $panels = $panels.add(newPanel);
+            }
+
             $panels.each(function () {
                 var $panel = $(this);
 
