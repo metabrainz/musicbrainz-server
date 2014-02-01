@@ -30,6 +30,11 @@
 
 
     function markTabWithErrors($panel) {
+        // Don't mark the edit note tab, because it's the last one and only
+        // can have one error, so the user will always see it anyway.
+        if ($panel.attr("id") === "edit-note") {
+            return;
+        }
         // Mark the previous tab red if it has errors.
         var tabs = releaseEditor.uiTabs;
 
@@ -96,12 +101,6 @@
             var $panels = (oldPanel.index() < newPanel.index())
                 ? oldPanel.nextUntil(newPanel).andSelf()
                 : newPanel.nextUntil(oldPanel).andSelf();
-
-            // XXX Show the error for the edit note *right* when the tab is
-            // switched.
-            if (newPanel.attr("id") === "edit-note") {
-                $panels = $panels.add(newPanel);
-            }
 
             $panels.each(function () {
                 var $panel = $(this);
