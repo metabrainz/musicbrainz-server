@@ -473,6 +473,7 @@ sub _seeded_track
 
     if (my $number = _seeded_string($params->{number}, "$field_name.number", $errors)) {
         $result->{number} = trim($number);
+        $result->{number} =~ s/^0+(\d+)/$1/g;
     }
 
     if (my $ac = $params->{artist_credit}) {

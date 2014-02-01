@@ -175,6 +175,10 @@ MB.releaseEditor.trackParser = {
 
             data.number = MB.utility.fullWidthConverter(match[1]);
 
+            if (/^\d+$/.test(data.number)) {
+                data.number = data.number.replace(/^0+(\d+)/, "$1");
+            }
+
             // Remove the track number from the line.
             line = line.slice(match[0].length);
         }
