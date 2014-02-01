@@ -166,6 +166,10 @@ MB.releaseEditor.init = function (options) {
         }
     });
 
+    // Make sure the user actually wants to close the page/tab if they've made
+    // any changes.
+    window.onbeforeunload = function () { return MB.text.ConfirmNavigation };
+
     // Apply root bindings to the page.
 
     ko.applyBindings(this, $pageContent[0]);
