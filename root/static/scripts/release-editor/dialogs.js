@@ -66,32 +66,32 @@
         toggle: function () {
             var expand = this.tab.result() !== this;
 
+            this.tab.result(expand ? this : null);
+
             if (expand && !this.loaded() && !this.loading()) {
-                this.tab.result(null);
                 this.loading(true);
+                this.error("");
 
                 MB.utility.request({
                     url: this.tab.tracksRequestURL(this),
                     data: this.tab.tracksRequestData
                 }, this)
                 .done(this.requestDone)
-                .fail(function (jqXHR) { this.error(jqXHR.responseText) })
+                .fail(function (jqXHR) {
+                    var response = JSON.parse(jqXHR.responseText);
+                    this.error(response.error);
+                })
                 .always(function () { this.loading(false) });
             }
-            else {
-                this.tab.result(expand ? this : null);
-            }
+
             return false;
         },
 
         requestDone: function (data) {
-            this.error("");
-
             _.each(data.tracks, this.parseTrack, this);
             _.extend(this, _.omit(data, "id", "cdtocs"));
 
             this.loaded(true);
-            this.tab.result(this);
         },
 
         parseTrack: function (track, index) {

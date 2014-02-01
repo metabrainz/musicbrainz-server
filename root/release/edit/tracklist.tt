@@ -118,6 +118,10 @@
         [% l('Now loading tracklist...') %]
       </p>
     <!-- /ko -->
+
+    <!-- ko if: error -->
+      <p class="error" data-bind="text: error"></p>
+    <!-- /ko -->
   <!-- /ko -->
 </script>
 
