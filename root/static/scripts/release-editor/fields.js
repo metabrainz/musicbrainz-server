@@ -92,6 +92,23 @@
         },
 
         formattedLengthChanged: function (length) {
+            var lengthLength = length.length;
+
+            // Convert stuff like 111 into 1:11
+
+            if (/^\d+$/.test(length) && (4 - lengthLength) <= 1) {
+                var minutes, seconds;
+
+                if (lengthLength === 3) minutes = length[0];
+                if (lengthLength === 4) minutes = length.slice(0, 2);
+
+                seconds = length.slice(-2);
+
+                if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60) {
+                    length = minutes + ":" + seconds;
+                    this.formattedLength(length);
+                }
+            }
             this.length(MB.utility.unformatTrackLength(length));
         },
 
