@@ -149,13 +149,21 @@ sub _process_seeded_data
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
 
-    if (my $name = trim($params->{name} // '')) {
-        $result->{name} = $name;
+    if (my $name = _seeded_string($params->{name}, 'name', \@errors)) {
+        $result->{name} = trim($name);
     }
 
-    $result->{comment} = trim($params->{comment}) if $params->{comment};
-    $result->{annotation} = $params->{annotation} if $params->{annotation};
-    $result->{barcode} = (trim($params->{barcode}) // undef) if $params->{barcode};
+    if (my $comment = _seeded_string($params->{comment}, 'comment', \@errors)) {
+        $result->{comment} = trim($comment);
+    }
+
+    if (my $annotation = _seeded_string($params->{annotation}, 'annotation', \@errors)) {
+        $result->{annotation} = $annotation;
+    }
+
+    if (my $barcode = _seeded_string($params->{barcode}, 'barcode', \@errors)) {
+        $result->{barcode} = trim($barcode) || undef;
+    }
 
     if (my $ac = $params->{artist_credit}) {
         $result->{artistCredit} = _seeded_hash($c, \&_seeded_artist_credit,
@@ -274,6 +282,20 @@ sub _process_seeded_data
     return { seed => $result, errors => \@errors };
 }
 
+sub _seeded_string
+{
+    my ($value, $field_name, $errors) = @_;
+
+    return unless defined $value;
+
+    if (ref $value) {
+        push @$errors, "$field_name must be a scalar, not a hash or array.";
+        return undef;
+    }
+
+    return $value;
+}
+
 sub _seeded_hash
 {
     my ($c, $parse, $params, $field_name, $errors) = @_;
@@ -356,11 +378,13 @@ sub _seeded_label
 
         if ($label) {
             $result->{label} = JSONSerializer->_label($label);
-        } else {
+        }
+        else {
             push @$errors, "Invalid $field_name.mbid: “$gid”."
         }
-    } elsif (my $name = $params->{name}) {
-        $result->{label} = { name => trim($name // '') };
+    }
+    elsif (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+        $result->{label} = { name => trim($name) };
     }
 
     $result->{catalogNumber} = trim($params->{catalog_number} // '');
@@ -394,7 +418,9 @@ sub _seeded_medium
         }
     }
 
-    $result->{name} = trim($params->{name}) if $params->{name};
+    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+        $result->{name} = trim($name);
+    }
 
     if (my $tracks = $params->{track}) {
         $result->{tracks} = _seeded_array($c, \&_seeded_track, $tracks, "track", $errors);
@@ -441,8 +467,13 @@ sub _seeded_track
 
     my $result = {};
 
-    $result->{name} = trim($params->{name}) if $params->{name};
-    $result->{number} = trim($params->{number}) if $params->{number};
+    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+        $result->{name} = trim($name);
+    }
+
+    if (my $number = _seeded_string($params->{number}, "$field_name.number", $errors)) {
+        $result->{number} = trim($number);
+    }
 
     if (my $ac = $params->{artist_credit}) {
         $result->{artistCredit} = _seeded_hash($c, \&_seeded_artist_credit,
@@ -485,7 +516,9 @@ sub _seeded_artist_credit_name
 
     my $result = {};
 
-    $result->{name} = trim($params->{name}) if $params->{name};
+    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+        $result->{name} = trim($name);
+    }
 
     if (my $gid = $params->{mbid}) {
         my $entity = $c->model('Artist')->get_by_gid($gid);
@@ -498,7 +531,9 @@ sub _seeded_artist_credit_name
         }
     }
 
-    $result->{joinPhrase} = $params->{join_phrase} if $params->{join_phrase};
+    if (my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors)) {
+        $result->{joinPhrase} = $join;
+    }
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},
         "$field_name.artist", $errors);
@@ -512,7 +547,13 @@ sub _seeded_artist
 
     _report_unknown_fields($field_name, $params, $errors, 'name');
 
-    return { name => trim($params->{name} // '') };
+    my $result = {};
+
+    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
+        $result->{name} = trim($name);
+    }
+
+    return $result;
 }
 
 sub _report_unknown_fields
