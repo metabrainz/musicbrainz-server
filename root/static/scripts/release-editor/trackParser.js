@@ -229,9 +229,6 @@ MB.releaseEditor.trackParser = {
 
     cleanArtistName: function (name) {
         return _.clean(name)
-            // Clean Discogs artist names
-            .replace(/^(.+)\*$/, "$1")
-            .replace(/^(.+)\s\([0-9]\)$/, "$1")
             // Artist, The -> The Artist
             .replace(/(.*),\sThe$/i, "The $1")
             .replace(/\s*,/g, ",");
