@@ -8,6 +8,8 @@
     var recordingAssociation = releaseEditor.recordingAssociation = {};
     var utils = releaseEditor.utils;
 
+    var MAX_LENGTH_DIFFERENCE = 10500;
+
     // This file contains code for finding suggested recording associations
     // in the release editor.
     //
@@ -118,8 +120,13 @@
         };
 
         var duration = parseInt(track.length(), 10);
+
         if (duration) {
-            params.dur = ["[" + (duration - 10500) + " TO " + (duration + 10500) + "]"];
+            params.dur = [
+                _.sprintf("[%d TO %d]",
+                    duration - MAX_LENGTH_DIFFERENCE,
+                    duration + MAX_LENGTH_DIFFERENCE)
+            ];
         }
 
         return params;
@@ -220,14 +227,8 @@
     }
 
     function similarLengths(oldLength, newLength) {
-        // If the user added a length (i.e. it was empty), consider there to
-        // be a change. (Using the new length in web service requests might
-        // change the results.)
-        if (!oldLength && newLength) return false;
-
-        // If either of the lengths are empty at this point, we can't compare
-        // them, so we consider them to be "similar" for recording association
-        // purposes.
+        // If either of the lengths are empty, we can't compare them, so we
+        // consider them to be "similar" for recording association purposes.
         return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
     }
 
@@ -305,7 +306,9 @@
     };
 
 
-    function lengthsAreWithin10s(a, b) { return Math.abs(a - b) <= 10500 }
+    function lengthsAreWithin10s(a, b) {
+        return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
+    }
 
 
     function matchAgainstRecordings(track, recordings) {
@@ -314,15 +317,21 @@
         var trackLength = track.length();
         var trackName = track.name();
 
-        var matches = $.map(recordings, function (recording) {
-            if (!trackLength || !recording.length ||
-                lengthsAreWithin10s(trackLength, recording.length)) {
-
-                if (MB.utility.nameIsSimilar(trackName, recording.name)) {
+        var matches = _.chain(recordings)
+            .map(function (recording) {
+                if (similarLengths(trackLength, recording.length) &&
+                        similarNames(trackName, recording.name)) {
                     return recording;
                 }
-            }
-        });
+            })
+            .compact()
+            .sortBy(function (recording) {
+                if (!trackLength || !recording.length) {
+                    return MAX_LENGTH_DIFFERENCE;
+                }
+                return Math.abs(trackLength - recording.length);
+            })
+            .value();
 
         if (matches.length) {
             return _.map(matches, function (match) {
