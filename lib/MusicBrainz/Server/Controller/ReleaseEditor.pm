@@ -425,7 +425,7 @@ sub _seeded_medium
     }
 
     if (my $tracks = $params->{track}) {
-        $result->{tracks} = _seeded_array($c, \&_seeded_track, $tracks, "track", $errors);
+        $result->{tracks} = _seeded_array($c, \&_seeded_track, $tracks, "$field_name.track", $errors);
     }
 
     if (my $toc = $params->{toc}) {
