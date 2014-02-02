@@ -99,7 +99,7 @@ MB.releaseEditor.trackParser = {
 
                     var names = ac.names();
 
-                    return ac.isComplete() (!data.artist ||
+                    return ac.isComplete() && (!data.artist ||
                         MB.utility.nameIsSimilar(data.artist, ac.text()));
                 }
             );
