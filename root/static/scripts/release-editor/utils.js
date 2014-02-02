@@ -91,7 +91,7 @@
                 sortName: data.artist["sort-name"]
             },
             name: data.name,
-            joinPhrase: data["join-phrase"] || ""
+            joinPhrase: data.joinphrase || ""
         };
     }
 
