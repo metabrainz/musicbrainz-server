@@ -210,7 +210,7 @@ sub _process_seeded_data
         $result->{releaseGroup}->{secondaryTypeIDs} = \@secondary_types_result;
     }
 
-    if (my $code = lc $params->{language}) {
+    if (my $code = lc($params->{language} // '')) {
         my $language = $c->model('Language')->find_by_code($code);
 
         if ($language) {
@@ -220,7 +220,7 @@ sub _process_seeded_data
         }
     }
 
-    if (my $code = lc ucfirst $params->{script}) {
+    if (my $code = lc ucfirst($params->{script} // '')) {
         my $script = $c->model('Script')->find_by_code($code);
 
         if ($script) {
