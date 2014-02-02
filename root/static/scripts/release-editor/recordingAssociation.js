@@ -59,7 +59,7 @@
 
 
     utils.debounce(utils.withRelease(function (release) {
-        var newIDs = _.chain(release.mediums()).invoke("tracks").flatten()
+        var newIDs = _(release.mediums()).invoke("tracks").flatten()
                       .pluck("artistCredit").invoke("names").flatten()
                       .invoke("artist").pluck("id").uniq().compact().value();
 
@@ -115,15 +115,15 @@
         var params = {
             recording: [ utils.escapeLuceneValue(name) ],
 
-            arid: _.chain(track.artistCredit.names()).invoke("artist")
-                    .pluck("gid").map(utils.escapeLuceneValue).value()
+            arid: _(track.artistCredit.names()).invoke("artist")
+                .pluck("gid").map(utils.escapeLuceneValue).value()
         };
 
         var duration = parseInt(track.length(), 10);
 
         if (duration) {
             params.dur = [
-                _.sprintf("[%d TO %d]",
+                _.str.sprintf("[%d TO %d]",
                     duration - MAX_LENGTH_DIFFERENCE,
                     duration + MAX_LENGTH_DIFFERENCE)
             ];
@@ -138,7 +138,7 @@
 
         clean.artist = MB.entity.ArtistCredit(clean.artistCredit).text();
 
-        var appearsOn = _.chain(data.releases)
+        var appearsOn = _(data.releases)
             .map(function (release) {
                 // The webservice doesn't include the release group title, so
                 // we have to use the release title instead.
@@ -317,7 +317,7 @@
         var trackLength = track.length();
         var trackName = track.name();
 
-        var matches = _.chain(recordings)
+        var matches = _(recordings)
             .map(function (recording) {
                 if (similarLengths(trackLength, recording.length) &&
                         similarNames(trackName, recording.name)) {

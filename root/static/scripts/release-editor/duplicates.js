@@ -43,7 +43,7 @@
         var gid = releaseGroup.gid;
         if (!gid) return;
 
-        var url = _.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
+        var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
 
         MB.utility.request({ url: url }).done(function (data) {
             releaseGroupReleases(_.map(data.releases, formatReleaseData));
@@ -73,7 +73,7 @@
             var queryParams = {
                 release: [ utils.escapeLuceneValue(name) ],
 
-                arid: _.chain(release.artistCredit.names())
+                arid: _(release.artistCredit.names())
                     .invoke("artist").pluck("gid")
                     .map(utils.escapeLuceneValue).value()
             };
@@ -110,8 +110,8 @@
     function formatReleaseData(release) {
         var clean = MB.entity.Release(utils.cleanWebServiceData(release));
 
-        var events = _.chain(release["release-events"]);
-        var labels = _.chain(release["label-info"]);
+        var events = _(release["release-events"]);
+        var labels = _(release["label-info"]);
 
         clean.formats = combinedMediumFormatName(release.media);
         clean.tracks = _.pluck(release.media, "track-count").join(" + ");
@@ -145,7 +145,7 @@
 
 
     function combinedMediumFormatName(mediums) {
-        var formats = pluck(_.chain(mediums), "format");
+        var formats = pluck(_(mediums), "format");
         var formatCounts = formats.countBy(_.identity);
 
         return formats.uniq().map(function (format) {

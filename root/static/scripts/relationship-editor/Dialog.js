@@ -37,7 +37,7 @@ ko.bindingHandlers.selectAttribute = (function() {
                 attrs = relationshipAttrs[child.name];
 
             opt.value = child.id;
-            opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.l_name;
+            opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + child.l_name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
             if (attrs && attrs.indexOf(child.id) > -1) opt.selected = true;
             doc.appendChild(opt);
@@ -104,7 +104,7 @@ ko.bindingHandlers.linkType = (function() {
         }
         var opt = document.createElement("option");
         opt.value = root.id;
-        opt.innerHTML = _.repeat("&#160;&#160;", indent) + _.clean(phrase);
+        opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + _.str.clean(phrase);
         root.descr || (opt.disabled = true);
         doc.appendChild(opt);
 

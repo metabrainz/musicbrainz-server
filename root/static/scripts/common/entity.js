@@ -147,10 +147,8 @@
 
             // Returned from the /ws/js/recording search.
             if (_.isObject(data.appearsOn)) {
-                this.appearsOn = _.map(data.appearsOn.results,
-                    function (releaseGroup) {
-                        return MB.entity(releaseGroup, "release_group");
-                    });
+                this.appearsOn = _(data.appearsOn.results)
+                    .map(_.partialRight(MB.entity, "release_group")).value();
             }
 
             if (_.isString(data.artist)) {
@@ -392,9 +390,7 @@
         this.name = data.name;
         this.position = data.position;
 
-        this.tracks = _.map(data.tracks, function (obj) {
-            return new MB.entity.Track(obj);
-        });
+        this.tracks = _.map(data.tracks, MB.entity.Track);
 
         this.editsPending = data.editsPending;
 

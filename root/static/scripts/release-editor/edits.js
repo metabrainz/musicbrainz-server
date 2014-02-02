@@ -12,7 +12,7 @@
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
     var newMediums = utils.withRelease(function (release) {
-        return _.chain(release.mediums())
+        return _(release.mediums())
             .filter(function (medium) { return medium.loaded() });
     }, []);
 
@@ -161,7 +161,7 @@
                 }
             });
 
-            _.chain(release.mediums.originalIDs).difference(newMediumsIDs)
+            _(release.mediums.originalIDs).difference(newMediumsIDs)
                 .each(function (id) {
                     edits.push(MB.edit.mediumDelete({ medium: id }));
                 });
@@ -373,7 +373,7 @@
                 edits: releaseEditor.edits.medium,
 
                 callback: function (edits) {
-                    var added = _.chain(edits).pluck("entity").compact()
+                    var added = _(edits).pluck("entity").compact()
                                     .indexBy("position").value();
 
                     newMediums().each(function (medium) {

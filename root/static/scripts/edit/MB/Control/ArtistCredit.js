@@ -73,7 +73,7 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
            those spaces automatically only this first time. Also standardise
            "feat." according to our guidelines.
         */
-        var join = _.clean(value);
+        var join = _.str.clean(value);
         join = join.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
 
         if (/^[A-Za-z]+\.?$/.test(join)) {

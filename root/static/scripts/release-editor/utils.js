@@ -10,9 +10,7 @@
 
 
     utils.mapChild = function (parent, children, type) {
-        return _.map(
-            children || [], function (child) { return type(child, parent) }
-        );
+        return _.map(children || [], _.partialRight(type, parent));
     };
 
 

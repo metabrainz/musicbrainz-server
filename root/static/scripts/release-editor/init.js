@@ -128,7 +128,7 @@ MB.releaseEditor.init = function (options) {
     // Update the document title to match the release title
 
     this.utils.withRelease(function (release) {
-        var name = _.clean(release.name());
+        var name = _.str.clean(release.name());
 
         if (self.action === "add") {
             document.title = MB.i18n.expand(
@@ -165,7 +165,7 @@ MB.releaseEditor.init = function (options) {
 
     // Make sure the user actually wants to close the page/tab if they've made
     // any changes.
-    window.onbeforeunload = function () { return MB.text.ConfirmNavigation };
+    window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
 
     // Apply root bindings to the page.
 

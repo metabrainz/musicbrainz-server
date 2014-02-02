@@ -303,7 +303,7 @@ MB.utility.similarity = (function () {
         a = clean(a) || a || "";
         b = clean(b) || b || "";
 
-        return 1 - (_.levenshtein(a, b) / (a.length + b.length));
+        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
     };
 }());
 
@@ -393,9 +393,9 @@ MB.utility.formatDate = function (date) {
         return "";
     }
 
-    y = y ? _.pad(y, 4, "0") : "????";
-    m = m ? _.pad(m, 2, "0") : "??";
-    d = d ? _.pad(d, 2, "0") : "??";
+    y = y ? _.str.pad(y, 4, "0") : "????";
+    m = m ? _.str.pad(m, 2, "0") : "??";
+    d = d ? _.str.pad(d, 2, "0") : "??";
 
     return y + "-" + m + "-" + d;
 };

@@ -23,7 +23,7 @@
 
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
-    function string(arg) { return _.clean(value(arg)) }
+    function string(arg) { return _.str.clean(value(arg)) }
     function number(arg) { return parseInt(value(arg), 10) || null }
     function array(arg, type) { return _.map(value(arg), type) }
     function nullableString(arg) { return string(arg) || null }
@@ -35,8 +35,8 @@
             return {
                 entity: number(entity.id),
 
-                // Don't _.clean!
-                text: _.strip(value(entity.annotation))
+                // Don't _.str.clean!
+                text: _.str.trim(value(entity.annotation))
             };
         },
 
@@ -64,7 +64,7 @@
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === names.length - 1) {
-                    name.join_phrase = joinPhrase.replace(/\s+$/g, "");
+                    name.join_phrase = _.str.rtrim(name.join_phrase);
                 }
 
                 name.join_phrase = name.join_phrase || null;

@@ -127,15 +127,7 @@ version:     0.4.2
 author:      Ryan Niemeyer
 url:         https://github.com/rniemeyer/knockout-postbox
 
--- underscore/underscore.js --
-
-library:     Underscore
-license:     MIT
-version:     1.4.0
-author:      Jeremy Ashkenas, DocumentCloud
-url:         http://underscorejs.org
-
--- underscore/underscore.string.js --
+-- underscore.string/underscore.string.js --
 
 library:     Underscore.string
 license:     MIT
@@ -183,3 +175,11 @@ license:    Permissive; see:
 version:    1.2.0
 author:     Julien Wajsberg
 url:        https://github.com/julienw/jquery-trap-input
+
+-- lodash/lodash.compat.js
+
+library:    Lo-Dash
+license:    MIT
+version:    2.4.1
+author:     John-David Dalton
+url:        http://lodash.com/

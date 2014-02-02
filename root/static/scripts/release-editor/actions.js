@@ -221,7 +221,7 @@
                 };
 
                 return releaseEditor.fields.Track(args, medium);
-            });
+            }).value();
 
             tracks.push.apply(tracks, newTracks);
         },

@@ -96,7 +96,7 @@ RE.releaseViewModel = {
             relationship.buildFields(num, data);
         });
 
-        data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
+        data["rel-editor.edit_note"] = _.str.trim($("#id-rel-editor\\.edit_note").val());
         data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
         if (beforeUnload) window.onbeforeunload = undefined;
@@ -227,13 +227,13 @@ RE.createWorks = function(works, editNote, success, error) {
 
     _.each(works, function(work, i) {
         var prefix = ["create-works", "works", i, ""].join(".");
-        fields[prefix + "name"] = _.clean(work.name);
-        fields[prefix + "comment"] = _.clean(work.comment);
+        fields[prefix + "name"] = _.str.clean(work.name);
+        fields[prefix + "comment"] = _.str.clean(work.comment);
         fields[prefix + "type_id"] = work.type;
         fields[prefix + "language_id"] = work.language;
     });
 
-    fields["create-works.edit_note"] = _.trim(editNote);
+    fields["create-works.edit_note"] = _.str.trim(editNote);
     $.post("/relationship-editor/create-works", fields).success(success).error(error);
 };
 

@@ -28,7 +28,7 @@ MB.releaseEditor.trackParser = {
         var self = this;
 
         var options = ko.toJS(this.options);
-        var lines = _.reject(_.lines(str), _.isBlank);
+        var lines = _.reject(_.str.lines(str), _.str.isBlank);
 
         var currentPosition = 0;
         var currentTracks, hasTocs, releaseAC;
@@ -151,7 +151,7 @@ MB.releaseEditor.trackParser = {
         var data = {};
 
         // trim only, keeping tabs and other space separators intact.
-        line = _.trim(line);
+        line = _.str.trim(line);
 
         if (line === "") return data;
 
@@ -190,7 +190,7 @@ MB.releaseEditor.trackParser = {
 
         // Parse the track title and artist.
         if (!options.trackArtists) {
-            data.name = _.clean(line);
+            data.name = _.str.clean(line);
             return data;
         }
 
@@ -205,13 +205,13 @@ MB.releaseEditor.trackParser = {
             data.artist = names.pop();
 
             // Use whatever's left as the name, including any separators.
-            data.name = _.trim(
+            data.name = _.str.trim(
                 _.first(parts, _.lastIndexOf(parts, data.artist)).join(""),
                 this.separators
             );
         }
         else {
-            data.name = _.clean(line);
+            data.name = _.str.clean(line);
         }
 
         // Either of these could be the artist name (they may have to be
@@ -224,11 +224,11 @@ MB.releaseEditor.trackParser = {
     },
 
     separatorOrBlank: function (str) {
-        return this.separators.test(str) || _.isBlank(str);
+        return this.separators.test(str) || _.str.isBlank(str);
     },
 
     cleanArtistName: function (name) {
-        return _.clean(name)
+        return _.str.clean(name)
             // Artist, The -> The Artist
             .replace(/(.*),\sThe$/i, "The $1")
             .replace(/\s*,/g, ",");

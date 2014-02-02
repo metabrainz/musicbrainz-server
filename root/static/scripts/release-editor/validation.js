@@ -159,7 +159,7 @@
     function countryID(event) { return event.countryID() }
 
     computeErrors(function (release) {
-        var events = _.chain(release.events());
+        var events = _(release.events());
 
         events.each(function (event) {
             var date = event.unwrapDate();
@@ -281,7 +281,7 @@
 
     computeErrors(function () {
         var root = releaseEditor.rootField;
-        var editNote = _.clean(root.editNote());
+        var editNote = _.str.clean(root.editNote());
         var noteRequired = releaseEditor.action === "add" && !editNote;
 
         root.editNote.error(noteRequired ? MB.text.EditNoteRequired : "");

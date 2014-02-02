@@ -201,7 +201,7 @@ Relationship.prototype.linkPhrase = function (source) {
         }
     });
 
-    return _.clean(phrase.replace(/\{(.*?)(?::(.*?))?\}/g,
+    return _.str.clean(phrase.replace(/\{(.*?)(?::(.*?))?\}/g,
             function (match, name, alts) {
         var values = attrs[name];
         if (alts) {
@@ -264,7 +264,7 @@ Relationship.prototype.openEdits = function() {
     var entity0 = MB.entity(this.original_fields.entity[0]),
         entity1 = MB.entity(this.original_fields.entity[1]);
 
-    return _.sprintf(
+    return _.str.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
         '&conditions.0.field=%s&conditions.0.operator=%%3D&conditions.0.name=%s' +
         '&conditions.0.args.0=%s&conditions.1.field=%s&conditions.1.operator=%%3D' +
@@ -284,7 +284,7 @@ Relationship.prototype.openEdits = function() {
 
 Relationship.prototype.css = function() {
     var action = this.action();
-    return _.trim((this.hasErrors() ? "error-field" : "") + " " + (action ? "rel-" + action : ""));
+    return _.str.trim((this.hasErrors() ? "error-field" : "") + " " + (action ? "rel-" + action : ""));
 };
 
 return RE;
