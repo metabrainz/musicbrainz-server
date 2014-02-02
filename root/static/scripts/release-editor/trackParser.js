@@ -243,7 +243,9 @@ MB.releaseEditor.trackParser = {
             memo += track.name.peek() || "";
 
             if (options.trackArtists) {
-                memo += " - " + track.artistCredit.text();
+                var artist = track.artistCredit.text();
+
+                if (artist) memo += " - " + artist;
             }
 
             if (options.trackTimes) {
