@@ -92,17 +92,15 @@ MB.releaseEditor.trackParser = {
 
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
 
-            // See if we can re-use the AC from the matched track or the
-            // release. Since we just have a string (which we want as the
-            // credited name) we can only use ACs with a single credit.
+            // See if we can re-use the AC from the matched track or the release.
             var matchedAC = _.find([ releaseAC, matchedTrackAC ],
                 function (ac) {
                     if (!ac || ac.isVariousArtists()) return false;
 
                     var names = ac.names();
 
-                    return ac.isComplete() && names.length === 1 &&
-                        (!data.artist || MB.utility.nameIsSimilar(data.artist, ac.text()));
+                    return ac.isComplete() (!data.artist ||
+                        MB.utility.nameIsSimilar(data.artist, ac.text()));
                 }
             );
 
@@ -110,7 +108,14 @@ MB.releaseEditor.trackParser = {
 
             if (data.artist) {
                 data.artistCredit = data.artistCredit || [{ name: data.artist }];
-                data.artistCredit[0].name = data.artist
+
+                // If the AC has just a single artist, we can re-use the parsed
+                // artist text as the credited name for that artist. Otherwise
+                // we can't easily do anything with it because the parsed text
+                // likely contains bits for every artist.
+                if (data.artistCredit.length === 1) {
+                    data.artistCredit[0].name = data.artist;
+                }
             }
 
             if (matchedTrack) {
