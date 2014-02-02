@@ -8,7 +8,7 @@ MB.confirmNavigationFallback = function () {
        Opera 12 supports it, but it doesn't, at least not <= 12.10.)
        https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
      */
-    if ("onbeforeunload" in window) {
+    if (window.onbeforeunload !== undefined) {
         return;
     }
 
@@ -37,7 +37,6 @@ MB.confirmNavigationFallback = function () {
     };
 
     document.onkeypress = function(event) {
-        if (prevented)
-            return (prevented = false);
+        if (prevented) return (prevented = false);
     };
 };
