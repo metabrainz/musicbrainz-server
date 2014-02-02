@@ -251,11 +251,11 @@
                     similarLengths(track.length[prop], length));
         };
 
-        // The curent name/length is similar to the saved name/length.
+        // The current name/length is similar to the saved name/length.
         if (similarTo("saved")) {
             track.recording(track.recording.saved);
         }
-        // The curent name/length is similar to the original name/length.
+        // The current name/length is similar to the original name/length.
         else if (similarTo("original")) {
             track.recording(track.recording.original.peek());
         }
