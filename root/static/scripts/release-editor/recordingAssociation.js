@@ -318,8 +318,9 @@
             if (!trackLength || !recording.length ||
                 lengthsAreWithin10s(trackLength, recording.length)) {
 
-                var similarity = MB.utility.similarity(trackName, recording.name);
-                if (similarity >= 0.75) return recording;
+                if (MB.utility.nameIsSimilar(trackName, recording.name)) {
+                    return recording;
+                }
             }
         });
 
