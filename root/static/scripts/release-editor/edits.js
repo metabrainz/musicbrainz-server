@@ -282,6 +282,9 @@
             if (!current) {
                 // We're done!
 
+                // Don't ask for confirmation before redirecting.
+                window.onbeforeunload = null;
+
                 if (releaseEditor.redirectURI) {
                     var a = document.createElement("a");
                     a.href = releaseEditor.redirectURI;
