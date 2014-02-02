@@ -40,9 +40,9 @@
         return key + ":(" + values.join(" OR ") + ")";
     }
 
-    function constructLuceneFieldConjunction(params) {
+    utils.constructLuceneFieldConjunction = function (params) {
         return _.map(params, constructLuceneField).join(" AND ");
-    }
+    };
 
 
     utils.search = function (resource, params, limit, offset) {
@@ -50,7 +50,7 @@
             url: "/ws/2/" + resource,
             data: {
                 fmt: "json",
-                query: constructLuceneFieldConjunction(params)
+                query: utils.constructLuceneFieldConjunction(params)
             }
         };
 

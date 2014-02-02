@@ -133,6 +133,8 @@
 
         var appearsOn = _.chain(data.releases)
             .map(function (release) {
+                // The webservice doesn't include the release group title, so
+                // we have to use the release title instead.
                 return {
                     name: release.title, gid: release["release-group"].id
                 };
@@ -182,9 +184,14 @@
             if (args.data.direct) return args;
 
             var newArgs = {
+                url: "/ws/2/recording",
                 data: {
-                    query: recordingQueryParams(track, args.data.q)
-                }
+                    query: utils.constructLuceneFieldConjunction(
+                        recordingQueryParams(track, args.data.q)
+                    ),
+                    fmt: "json"
+                },
+                dataType: "json"
             };
 
             newArgs.success = function (data) {
