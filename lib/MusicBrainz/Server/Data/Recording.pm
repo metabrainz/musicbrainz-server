@@ -438,8 +438,10 @@ sub find_recent_by_artists
 
     my $query = "SELECT DISTINCT " . $self->_columns . "
                  FROM " . $self->_table . "
+                     JOIN track t ON t.recording = recording.id
                      JOIN artist_credit_name acn
-                         ON acn.artist_credit = recording.artist_credit
+                         ON (acn.artist_credit = recording.artist_credit
+                         OR  acn.artist_credit = t.artist_credit)
                  WHERE acn.artist IN (" . placeholders(@artist_ids) . ")
                    AND recording.last_updated >= ?";
     return query_to_list(
