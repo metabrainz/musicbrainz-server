@@ -12,6 +12,8 @@ use Locale::Messages qw( bindtextdomain LC_MESSAGES );
 use Locale::Util qw( web_set_locale );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 
+use MusicBrainz::Server::Validation qw( encode_entities );
+
 with 'MusicBrainz::Server::Role::Translation' => { domain => 'mb_server' };
 
 use Sub::Exporter -setup => {
@@ -197,7 +199,7 @@ sub _expand
 
     my $re = join '|', map { quotemeta $_ } keys %args;
 
-    $string =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . $args{$1} . "\">" . (defined $args{$2} ? $args{$2} : $2) . "<\/a>" : "{$0}"/ge;
+    $string =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . encode_entities($args{$1}) . "\">" . (defined $args{$2} ? $args{$2} : $2) . "<\/a>" : "{$0}"/ge;
     $string =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
 
     return $string;
