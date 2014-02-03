@@ -139,7 +139,7 @@ sub artist_credit_preview
     my @names;
     for my $ac_name (@{ $definition->{names} })
     {
-        next unless $ac_name->{name};
+        next unless defined $ac_name->{name};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
@@ -156,7 +156,7 @@ sub artist_credit_preview
             $ac->artist(Artist->new( $ac_name->{artist} ));
         }
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
+        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
 
         push @names, $ac;
     }

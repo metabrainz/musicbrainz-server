@@ -5,6 +5,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     clean_submitted_artist_credits
     load_artist_credit_definitions
     artist_credit_from_loaded_definition
+    artist_credit_preview
 );
 
 test 'clean_submitted_artist_credits, copy name to credit' => sub {
@@ -72,7 +73,7 @@ test 'clean_submitted_artist_credits, trim and collapse all fields' => sub {
                 $expected, "trimmed and collapsed" );
 };
 
-test 'clean_submitted_artist_credits allowing "0" as a name/join phrase' => sub {
+test 'entering "0" as a credited name/join phrase' => sub {
     my $input = {
         names => [
             {
@@ -99,6 +100,11 @@ test 'clean_submitted_artist_credits allowing "0" as a name/join phrase' => sub 
 
     my $ac = artist_credit_from_loaded_definition({ Artist => {} }, $input);
     my @names = $ac->all_names;
+
+    is($names[0]->name, "0");
+    is($names[0]->join_phrase, "0");
+
+    $ac = artist_credit_preview({ Artist => {} }, $input);
 
     is($names[0]->name, "0");
     is($names[0]->join_phrase, "0");

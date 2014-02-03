@@ -110,11 +110,11 @@ sub from_array
     {
         my $artist = shift @ac;
 
-        next unless $artist && $artist->{name};
+        next unless $artist && defined $artist->{name};
 
         my %initname = ( name => $artist->{name} );
 
-        $initname{join_phrase} = $artist->{join_phrase} if $artist->{join_phrase};
+        $initname{join_phrase} = $artist->{join_phrase} if defined $artist->{join_phrase};
         if ($artist->{artist})
         {
             if (blessed ($artist->{artist}))
