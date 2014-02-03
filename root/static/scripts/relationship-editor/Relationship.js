@@ -35,8 +35,6 @@ RE.Relationship = function(obj) {
 
 
 var Relationship = function(obj) {
-    var self = this;
-
     this.visible = false;
     this.id = obj.id;
     this.changeCount = 0;

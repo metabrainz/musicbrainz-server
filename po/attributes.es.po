@@ -8,7 +8,7 @@
 # gr0uch0mars <email address hidden>, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Héctor Arroyo <email address hidden>, 2012
-# Ismael Olea <email address hidden>, 2013
+# Ismael Olea <email address hidden>, 2013-2014
 # Nicolás Tamargo <email address hidden>, 2011-2012
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # kelopezcl <email address hidden>, 2012
@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-12 12:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 10:09+0000\n"
+"Last-Translator: Ismael Olea <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -170,7 +170,7 @@ msgstr "Caja de cinta"
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr ""
+msgstr "Personaje"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -232,6 +232,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "Digital"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr ""
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -252,6 +257,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr ""
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -266,6 +276,11 @@ msgstr "Nombre legal"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "Frontal"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr ""
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -326,6 +341,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "Nombre civil"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -462,6 +482,11 @@ msgctxt "work_type"
 msgid "Poem"
 msgstr "Poema"
 
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr "Póster"
+
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
@@ -542,6 +567,11 @@ msgstr "Single"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Caja de plástico delgada"
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr "Estuche"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

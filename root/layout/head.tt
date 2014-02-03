@@ -1,6 +1,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
+    <script type="text/javascript">//<![CDATA[
+                                   document.cookie = "javascript=true; path=/";
+                                   //]]></script>
     [% css_manifest('common') %]
     [%- IF c.debug -%]
         <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
@@ -9,9 +12,6 @@
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
     <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-    <script type="text/javascript">//<![CDATA[
-                                   document.cookie = "javascript=true; path=/";
-                                   //]]></script>
     [%- IF no_javascript -%]
         <style type="text/css">
           #header-menu li:hover ul { left: auto; }

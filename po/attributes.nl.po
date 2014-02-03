@@ -2,14 +2,14 @@
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-12 12:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-24 17:53+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,7 +160,7 @@ msgstr "Cassettedoosje"
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr ""
+msgstr "Karakter"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -222,6 +222,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "Digitale media"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr ""
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -242,6 +247,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr "Fatbox"
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -256,6 +266,11 @@ msgstr "Officiële naam"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "Voorkant"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr ""
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -316,6 +331,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "Officiële naam"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -452,6 +472,11 @@ msgctxt "work_type"
 msgid "Poem"
 msgstr "Gedicht"
 
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr "Poster"
+
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
@@ -532,6 +557,11 @@ msgstr "Single"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Slim Jewel Case"
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr ""
 
 #: DB:work_type/name:5
 msgctxt "work_type"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-12 04:59-0700\n"
+"POT-Creation-Date: 2014-01-20 20:55-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,32 +30,32 @@ msgid ""
 "it} first and then reset your password. "
 msgstr ""
 
-#: ../root/components/forms.tt:261
+#: ../root/components/forms.tt:260
 msgid "\"C\" is a single check digit."
 msgstr ""
 
-#: ../root/components/forms.tt:274
+#: ../root/components/forms.tt:272
 msgid ""
 "\"CC\" is the appropriate for the registrant two-character country code."
 msgstr ""
 
-#: ../root/components/forms.tt:260
+#: ../root/components/forms.tt:259
 msgid "\"DDD\" is a nine digit work identifier."
 msgstr ""
 
-#: ../root/components/forms.tt:277
+#: ../root/components/forms.tt:275
 msgid ""
 "\"NNNNN\" is a unique 5-digit number identifying the particular sound "
 "recording."
 msgstr ""
 
-#: ../root/components/forms.tt:275
+#: ../root/components/forms.tt:273
 msgid ""
 "\"XXX\" is a three character alphanumeric registrant code, uniquely "
 "identifying the organisation which registered the code."
 msgstr ""
 
-#: ../root/components/forms.tt:276
+#: ../root/components/forms.tt:274
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr ""
 
@@ -209,7 +209,7 @@ msgctxt "type"
 msgid "(none)"
 msgstr ""
 
-#: ../root/elections/show.tt:124
+#: ../root/elections/show.tt:130
 msgid "(private)"
 msgstr ""
 
@@ -274,7 +274,7 @@ msgstr[1] ""
 msgid "100%"
 msgstr ""
 
-#: ../root/elections/show.tt:17
+#: ../root/elections/show.tt:19
 msgid "1st seconder:"
 msgstr ""
 
@@ -282,7 +282,7 @@ msgstr ""
 msgid "250px"
 msgstr ""
 
-#: ../root/elections/show.tt:20
+#: ../root/elections/show.tt:23
 msgid "2nd seconder:"
 msgstr ""
 
@@ -427,7 +427,7 @@ msgid "About"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:244 ../root/edit/vote.tt:20
-#: ../root/elections/show.tt:76 ../lib/MusicBrainz/Server/Data/Vote.pm:191
+#: ../root/elections/show.tt:82 ../lib/MusicBrainz/Server/Data/Vote.pm:191
 msgid "Abstain"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 #: ../root/account/applications.tt:27 ../root/account/applications.tt:58
 #: ../root/admin/wikidoc/index.tt:36 ../root/artist/aliases.tt:23
 #: ../root/components/aliases.tt:19 ../root/recording/fingerprints.tt:8
-#: ../root/user/collections.tt:13
+#: ../root/user/collections.tt:14
 msgid "Actions"
 msgstr ""
 
@@ -489,7 +489,7 @@ msgstr ""
 msgid "Add Artist Alias"
 msgstr ""
 
-#: ../root/components/forms.tt:328 ../root/components/forms.tt:329
+#: ../root/components/forms.tt:326 ../root/components/forms.tt:327
 #: ../root/release/edit/tracklist.tt:47 ../root/release/edit/tracklist.tt:48
 msgid "Add Artist Credit"
 msgstr ""
@@ -662,11 +662,11 @@ msgstr ""
 msgid "Add a new recording"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:52
+#: ../root/cdtoc/attach_artist_releases.tt:55
 #: ../root/cdtoc/attach_filter_artist.tt:47
 #: ../root/cdtoc/attach_filter_artist.tt:55
-#: ../root/cdtoc/attach_filter_release.tt:64
-#: ../root/cdtoc/attach_filter_release.tt:71
+#: ../root/cdtoc/attach_filter_release.tt:67
+#: ../root/cdtoc/attach_filter_release.tt:74
 msgid "Add a new release"
 msgstr ""
 
@@ -1272,7 +1272,7 @@ msgstr ""
 #: ../root/artist/header.tt:20 ../root/artist/index.tt:57
 #: ../root/artist/recordings-list.tt:27 ../root/artist/relationships.tt:16
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
-#: ../root/cdtoc/attach_filter_release.tt:27 ../root/cdtoc/list.tt:7
+#: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:7
 #: ../root/cdtoc/lookup.tt:39 ../root/collection/index.tt:18
 #: ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:633
@@ -1345,7 +1345,7 @@ msgstr ""
 msgid "Artist Subscriptions"
 msgstr ""
 
-#: ../root/components/forms.tt:313
+#: ../root/components/forms.tt:311
 msgid "Artist as credited"
 msgstr ""
 
@@ -1365,7 +1365,7 @@ msgstr ""
 msgid "Artist credits:"
 msgstr ""
 
-#: ../root/components/forms.tt:298 ../root/release/edit/tracklist.tt:14
+#: ../root/components/forms.tt:296 ../root/release/edit/tracklist.tt:14
 msgid "Artist in MusicBrainz"
 msgstr ""
 
@@ -1503,18 +1503,18 @@ msgid_plural "Associated with {num} works"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:39
-#: ../root/cdtoc/attach_filter_release.tt:53
+#: ../root/cdtoc/attach_artist_releases.tt:41
+#: ../root/cdtoc/attach_filter_release.tt:55
 msgctxt "button/menu"
 msgid "Attach CD TOC"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:1
-#: ../root/cdtoc/attach_artist_releases.tt:2 ../root/cdtoc/attach_confirm.tt:1
+#: ../root/cdtoc/attach_artist_releases.tt:3
+#: ../root/cdtoc/attach_artist_releases.tt:4 ../root/cdtoc/attach_confirm.tt:1
 #: ../root/cdtoc/attach_confirm.tt:2 ../root/cdtoc/attach_filter_artist.tt:1
 #: ../root/cdtoc/attach_filter_artist.tt:2
-#: ../root/cdtoc/attach_filter_release.tt:1
-#: ../root/cdtoc/attach_filter_release.tt:2
+#: ../root/cdtoc/attach_filter_release.tt:3
+#: ../root/cdtoc/attach_filter_release.tt:4
 msgctxt "header"
 msgid "Attach CD TOC"
 msgstr ""
@@ -1618,8 +1618,8 @@ msgstr ""
 msgid "Bad Request"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:18
-#: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:11
+#: ../root/cdtoc/attach_artist_releases.tt:20
+#: ../root/cdtoc/attach_filter_release.tt:34 ../root/cdtoc/list.tt:11
 #: ../root/edit/details/edit_release_events.tt:9
 #: ../root/edit/details/historic/add_release.tt:79
 #: ../root/edit/details/merge_releases.tt:26 ../root/release_group/index.tt:30
@@ -1978,7 +1978,7 @@ msgstr ""
 msgid "Cancel edit"
 msgstr ""
 
-#: ../root/elections/show.tt:100
+#: ../root/elections/show.tt:106
 msgid "Cancel the election"
 msgstr ""
 
@@ -2033,8 +2033,8 @@ msgstr ""
 msgid "Catalog number:"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:17
-#: ../root/cdtoc/attach_filter_release.tt:31 ../root/cdtoc/list.tt:10
+#: ../root/cdtoc/attach_artist_releases.tt:19
+#: ../root/cdtoc/attach_filter_release.tt:33 ../root/cdtoc/list.tt:10
 #: ../root/collection/index.tt:24 ../root/edit/details/merge_releases.tt:25
 #: ../root/recording/index.tt:17 ../root/release_group/index.tt:29
 #: ../root/release_group/releases-list.tt:27 ../root/release/merge.tt:20
@@ -2184,7 +2184,7 @@ msgstr ""
 msgid "Collapse all descriptions"
 msgstr ""
 
-#: ../root/collection/edits.tt:5 ../root/user/collections.tt:9
+#: ../root/collection/edits.tt:5 ../root/user/collections.tt:10
 msgid "Collection"
 msgstr ""
 
@@ -2306,8 +2306,8 @@ msgstr ""
 msgid "Copy all track changes to associated recordings."
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:15
-#: ../root/cdtoc/attach_filter_release.tt:29 ../root/collection/index.tt:22
+#: ../root/cdtoc/attach_artist_releases.tt:17
+#: ../root/cdtoc/attach_filter_release.tt:31 ../root/collection/index.tt:22
 #: ../root/edit/details/edit_release_events.tt:6
 #: ../root/edit/details/historic/add_release.tt:76
 #: ../root/edit/details/merge_releases.tt:23
@@ -2356,7 +2356,7 @@ msgstr ""
 msgid "Create Relationship"
 msgstr ""
 
-#: ../root/user/collections.tt:42
+#: ../root/user/collections.tt:44
 msgid "Create a new collection"
 msgstr ""
 
@@ -2427,11 +2427,11 @@ msgid "Data Removal Policy"
 msgstr ""
 
 #: ../root/annotation/history.tt:9 ../root/artist/relationships.tt:13
-#: ../root/cdtoc/attach_artist_releases.tt:14
-#: ../root/cdtoc/attach_filter_release.tt:28 ../root/collection/index.tt:21
+#: ../root/cdtoc/attach_artist_releases.tt:16
+#: ../root/cdtoc/attach_filter_release.tt:30 ../root/collection/index.tt:21
 #: ../root/edit/details/edit_release_events.tt:5
 #: ../root/edit/details/historic/add_release.tt:75
-#: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:113
+#: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:119
 #: ../root/place/performances.tt:7 ../root/recording/index.tt:14
 #: ../root/release_group/index.tt:26 ../root/release_group/releases-list.tt:22
 #: ../root/release/lookup.tt:11 ../root/release/merge.tt:17
@@ -2764,7 +2764,7 @@ msgstr ""
 #: ../root/relationship/linktype/tree.tt:15 ../root/release/cover_art.tt:27
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:363
 #: ../root/release_group/header.tt:1 ../root/release/tabs.tt:1
-#: ../root/url/header.tt:1 ../root/user/collections.tt:25
+#: ../root/url/header.tt:1 ../root/user/collections.tt:26
 #: ../root/work/header.tt:1
 msgid "Edit"
 msgstr ""
@@ -3033,7 +3033,7 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: ../root/edit/info.tt:64 ../root/edit/list_header.tt:27
+#: ../root/edit/info.tt:64 ../root/edit/list_header.tt:29
 msgid "Editing FAQ"
 msgstr ""
 
@@ -3713,7 +3713,7 @@ msgstr ""
 msgid "Headings:"
 msgstr ""
 
-#: ../root/edit/list_header.tt:22
+#: ../root/edit/list_header.tt:24
 msgid "Help:"
 msgstr ""
 
@@ -3739,7 +3739,7 @@ msgstr ""
 msgid "How Tos"
 msgstr ""
 
-#: ../root/edit/list_header.tt:31
+#: ../root/edit/list_header.tt:33
 msgid "How editing works"
 msgstr ""
 
@@ -3946,7 +3946,7 @@ msgid ""
 "{cancel|how to cancel pending edits} instead of removing this alias."
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:47
+#: ../root/cdtoc/attach_artist_releases.tt:50
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr ""
 
@@ -3967,7 +3967,7 @@ msgid ""
 "time"
 msgstr ""
 
-#: ../root/cdtoc/attach_filter_release.tt:65
+#: ../root/cdtoc/attach_filter_release.tt:68
 msgid ""
 "If you don't see the release you are looking for, you can still add a new "
 "one, using this CD TOC:"
@@ -4144,7 +4144,7 @@ msgstr ""
 msgid "Javascript needs to be enabled."
 msgstr ""
 
-#: ../root/components/forms.tt:318 ../root/release/edit/tracklist.tt:16
+#: ../root/components/forms.tt:316 ../root/release/edit/tracklist.tt:16
 #: ../root/scripts/text_strings.tt:26
 msgid "Join phrase"
 msgstr ""
@@ -4161,8 +4161,8 @@ msgstr ""
 msgid "Keep me logged in"
 msgstr ""
 
-#: ../root/area/labels-list.tt:4 ../root/cdtoc/attach_artist_releases.tt:16
-#: ../root/cdtoc/attach_filter_release.tt:30 ../root/cdtoc/list.tt:9
+#: ../root/area/labels-list.tt:4 ../root/cdtoc/attach_artist_releases.tt:18
+#: ../root/cdtoc/attach_filter_release.tt:32 ../root/cdtoc/list.tt:9
 #: ../root/collection/index.tt:23 ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:634
 #: ../root/edit/details/edit_release_events.tt:7
@@ -5199,7 +5199,7 @@ msgid "No results found."
 msgstr ""
 
 #: ../root/cdtoc/attach_filter_artist.tt:41
-#: ../root/cdtoc/attach_filter_release.tt:58
+#: ../root/cdtoc/attach_filter_release.tt:61
 #: ../root/search/lib/inline-results-artist.tt:45
 #: ../root/search/lib/inline-results-recording.tt:76
 #: ../root/search/lib/inline-results-release.tt:57
@@ -5774,7 +5774,7 @@ msgid ""
 "artist name."
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:5
+#: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
 msgstr ""
 
@@ -5847,7 +5847,7 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
-#: ../root/annotation/edit.tt:27 ../root/components/forms.tt:290
+#: ../root/annotation/edit.tt:27 ../root/components/forms.tt:288
 #: ../root/release/edit/tracklist.tt:7
 msgid "Preview"
 msgstr ""
@@ -5893,7 +5893,7 @@ msgstr ""
 msgid "Priority:"
 msgstr ""
 
-#: ../root/account/preferences.tt:22 ../root/user/collections.tt:12
+#: ../root/account/preferences.tt:22 ../root/user/collections.tt:13
 msgid "Privacy"
 msgstr ""
 
@@ -5901,7 +5901,7 @@ msgstr ""
 msgid "Privacy Policy"
 msgstr ""
 
-#: ../root/user/collections.tt:23
+#: ../root/user/collections.tt:24
 msgid "Private"
 msgstr ""
 
@@ -5926,11 +5926,11 @@ msgstr ""
 msgid "Proposer"
 msgstr ""
 
-#: ../root/elections/show.tt:14
+#: ../root/elections/show.tt:15
 msgid "Proposer:"
 msgstr ""
 
-#: ../root/user/collections.tt:23
+#: ../root/user/collections.tt:24
 msgid "Public"
 msgstr ""
 
@@ -6227,8 +6227,8 @@ msgstr ""
 msgid "Relationships:"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:13
-#: ../root/cdtoc/attach_filter_release.tt:26 ../root/cdtoc/lookup.tt:37
+#: ../root/cdtoc/attach_artist_releases.tt:15
+#: ../root/cdtoc/attach_filter_release.tt:28 ../root/cdtoc/lookup.tt:37
 #: ../root/collection/index.tt:17 ../root/components/common-macros.tt:576
 #: ../root/components/common-macros.tt:637
 #: ../root/edit/details/edit_release_events.tt:4
@@ -6289,8 +6289,8 @@ msgstr ""
 msgid "Release Group:"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:30
-#: ../root/cdtoc/attach_filter_release.tt:45
+#: ../root/cdtoc/attach_artist_releases.tt:32
+#: ../root/cdtoc/attach_filter_release.tt:47
 msgid "Release Group: {release_group_link}"
 msgstr ""
 
@@ -6408,7 +6408,7 @@ msgstr ""
 msgid "Release information"
 msgstr ""
 
-#: ../root/cdtoc/attach_filter_release.tt:7 ../root/cdtoc/move_search.tt:13
+#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/move_search.tt:13
 msgid "Release title:"
 msgstr ""
 
@@ -6447,7 +6447,7 @@ msgstr ""
 #: ../root/label/index.tt:29 ../root/recording/header.tt:1
 #: ../root/release_group/merge.tt:17 ../root/report/index.tt:48
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
-#: ../root/user/collections.tt:10 ../root/user/tag.tt:4
+#: ../root/user/collections.tt:11 ../root/user/tag.tt:4
 msgid "Releases"
 msgstr ""
 
@@ -6629,7 +6629,7 @@ msgstr ""
 #: ../root/relationship/linktype/tree.tt:16
 #: ../root/release/add_cover_art.tt:63 ../root/release/cover_art.tt:30
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:36
-#: ../root/scripts/text_strings.tt:44 ../root/user/collections.tt:26
+#: ../root/scripts/text_strings.tt:44 ../root/user/collections.tt:27
 msgid "Remove"
 msgstr ""
 
@@ -6650,7 +6650,7 @@ msgstr ""
 msgid "Remove Artist Alias"
 msgstr ""
 
-#: ../root/components/forms.tt:308 ../root/release/edit/tracklist.tt:39
+#: ../root/components/forms.tt:306 ../root/release/edit/tracklist.tt:39
 msgid "Remove Artist Credit"
 msgstr ""
 
@@ -6871,7 +6871,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_filter_artist.tt:19
 #: ../root/cdtoc/attach_filter_artist.tt:39
-#: ../root/cdtoc/attach_filter_release.tt:56 ../root/cdtoc/move_search.tt:23
+#: ../root/cdtoc/attach_filter_release.tt:59 ../root/cdtoc/move_search.tt:23
 #: ../root/components/search.tt:19
 msgid "Results:"
 msgstr ""
@@ -6933,7 +6933,7 @@ msgid "Script:"
 msgstr ""
 
 #: ../root/cdtoc/attach_filter_artist.tt:10
-#: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/lookup.tt:63
+#: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
 #: ../root/cdtoc/lookup.tt:73 ../root/cdtoc/move_search.tt:15
 #: ../root/components/common-macros.tt:911 ../root/components/search.tt:11
 #: ../root/edit/search_macros.tt:105 ../root/layout/menu.tt:194
@@ -7023,7 +7023,7 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
-#: ../root/elections/show.tt:64
+#: ../root/elections/show.tt:70
 msgid "Second this candidate"
 msgstr ""
 
@@ -7634,7 +7634,7 @@ msgctxt "edit status"
 msgid "Status:"
 msgstr ""
 
-#: ../root/elections/show.tt:38
+#: ../root/elections/show.tt:43
 msgctxt "election status"
 msgid "Status:"
 msgstr ""
@@ -7659,7 +7659,7 @@ msgstr ""
 msgid "Style Guidelines"
 msgstr ""
 
-#: ../root/edit/list_header.tt:29 ../root/main/index.tt:22
+#: ../root/edit/list_header.tt:31 ../root/main/index.tt:22
 msgid "Style guidelines"
 msgstr ""
 
@@ -7834,8 +7834,8 @@ msgstr ""
 msgid "Tag “{tag}”"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:20
-#: ../root/cdtoc/attach_filter_release.tt:34 ../root/cdtoc/list.tt:13
+#: ../root/cdtoc/attach_artist_releases.tt:22
+#: ../root/cdtoc/attach_filter_release.tt:36 ../root/cdtoc/list.tt:13
 #: ../root/otherlookup/results-release.tt:13 ../root/release_group/index.tt:32
 #: ../root/release_group/releases-list.tt:30
 #: ../root/search/lib/inline-results-recording.tt:14
@@ -8078,7 +8078,7 @@ msgstr ""
 msgid "The system is overloaded or you are making requests too fast."
 msgstr ""
 
-#: ../root/elections/show.tt:26
+#: ../root/elections/show.tt:30
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
 msgstr ""
@@ -8494,7 +8494,7 @@ msgstr ""
 msgid "This label has no tags."
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:24
+#: ../root/cdtoc/attach_list.tt:25
 msgid "This medium format cannot have a disc ID attached"
 msgstr ""
 
@@ -8509,6 +8509,28 @@ msgid ""
 "This merge strategy will merge all mediums together into a single set of "
 "mediums. Recordings between mediums will also be merged, into the recordings "
 "used on the target mediums."
+msgstr ""
+
+#: ../root/scripts/text_strings.tt:142
+msgid ""
+"This mode capitalises almost all words, with some words (mainly articles and "
+"short prepositions) lowercased. Some words may need to be manually "
+"capitalised to follow the {url|English capitalisation guidelines}."
+msgstr ""
+
+#: ../root/scripts/text_strings.tt:143
+msgid ""
+"This mode capitalises the first word of a sentence, most other words are "
+"lowercased. Some words, often proper nouns, may need to be manually fixed "
+"according to the {url|relevant language guidelines}."
+msgstr ""
+
+#: ../root/scripts/text_strings.tt:144
+msgid ""
+"This mode capitalises titles as sentence mode, but also inserts spaces "
+"before semicolons, colons, exclamation marks and question marks, and inside "
+"guillemets. Some words may need to be manually capitalised to follow the "
+"{url|French capitalisation guidelines}."
 msgstr ""
 
 #: ../root/doc/page.tt:22
@@ -9164,7 +9186,7 @@ msgstr ""
 msgid "To edit types, please edit the release group."
 msgstr ""
 
-#: ../root/elections/show.tt:91
+#: ../root/elections/show.tt:97
 msgid "To find out if you can vote for this candidate, please {url|log in}."
 msgstr ""
 
@@ -9635,7 +9657,7 @@ msgstr ""
 msgid "Use suggested recording"
 msgstr ""
 
-#: ../root/components/forms.tt:287
+#: ../root/components/forms.tt:285
 msgid ""
 "Use the following fields to enter collaborations, see the <a href="
 "\"{url}\">Artist Credit</a> documentation for more information."
@@ -9759,15 +9781,15 @@ msgstr ""
 msgid "View transclusion history"
 msgstr ""
 
-#: ../root/elections/show.tt:112
+#: ../root/elections/show.tt:118
 msgid "Vote"
 msgstr ""
 
-#: ../root/elections/show.tt:75
+#: ../root/elections/show.tt:81
 msgid "Vote NO"
 msgstr ""
 
-#: ../root/elections/show.tt:74
+#: ../root/elections/show.tt:80
 msgid "Vote YES"
 msgstr ""
 
@@ -9787,7 +9809,7 @@ msgstr ""
 msgid "Voted down"
 msgstr ""
 
-#: ../root/elections/show.tt:111
+#: ../root/elections/show.tt:117
 msgid "Voter"
 msgstr ""
 
@@ -9804,7 +9826,7 @@ msgstr ""
 msgid "Votes against"
 msgstr ""
 
-#: ../root/elections/show.tt:33
+#: ../root/elections/show.tt:37
 msgid "Votes against:"
 msgstr ""
 
@@ -9812,7 +9834,7 @@ msgstr ""
 msgid "Votes by {name}"
 msgstr ""
 
-#: ../root/elections/show.tt:106
+#: ../root/elections/show.tt:112
 msgid "Votes cast"
 msgstr ""
 
@@ -9820,27 +9842,27 @@ msgstr ""
 msgid "Votes for"
 msgstr ""
 
-#: ../root/elections/show.tt:25
+#: ../root/elections/show.tt:29
 msgid "Votes for/against:"
 msgstr ""
 
-#: ../root/elections/show.tt:30
+#: ../root/elections/show.tt:34
 msgid "Votes for:"
 msgstr ""
 
-#: ../root/elections/show.tt:58
+#: ../root/elections/show.tt:64
 msgid "Voting"
 msgstr ""
 
-#: ../root/edit/info.tt:63 ../root/edit/list_header.tt:25
+#: ../root/edit/info.tt:63 ../root/edit/list_header.tt:27
 msgid "Voting FAQ"
 msgstr ""
 
-#: ../root/elections/show.tt:88
+#: ../root/elections/show.tt:94
 msgid "Voting is closed."
 msgstr ""
 
-#: ../root/elections/show.tt:86
+#: ../root/elections/show.tt:92
 msgid ""
 "Voting is not yet open. If you would like to support this candidate, you can "
 "second their nomination. If you do not support this candidate, please note "
@@ -10219,16 +10241,16 @@ msgstr ""
 msgid "Yes, I'm sure"
 msgstr ""
 
-#: ../root/components/forms.tt:270
+#: ../root/components/forms.tt:269
 msgid ""
-"You are about to add an ISRC to {recording}. The ISRC must be entered in "
+"You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNNN</code> format:"
 msgstr ""
 
 #: ../root/components/forms.tt:256
 msgid ""
-"You are about to add an ISWC to {work}. The ISWC must be entered in standard "
-"<code>T-DDD.DDD.DDD-C</code> format:"
+"You are about to add an ISWC to this work. The ISWC must be entered in "
+"standard <code>T-DDD.DDD.DDD-C</code> format:"
 msgstr ""
 
 #: ../root/artist/edit_form.tt:6
@@ -10369,7 +10391,7 @@ msgid_plural "You are subscribed to {n} private collections."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:3
+#: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
 msgstr ""
 
@@ -10401,11 +10423,11 @@ msgid ""
 "use by other relationships."
 msgstr ""
 
-#: ../root/elections/show.tt:82
+#: ../root/elections/show.tt:88
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
 msgstr ""
 
-#: ../root/elections/show.tt:84
+#: ../root/elections/show.tt:90
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
 msgstr ""
@@ -10428,7 +10450,7 @@ msgstr ""
 msgid "You have no collections!"
 msgstr ""
 
-#: ../root/user/collections.tt:35
+#: ../root/user/collections.tt:37
 msgid "You have no collections."
 msgstr ""
 
@@ -10678,7 +10700,7 @@ msgstr ""
 msgid "help"
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:55
+#: ../root/cdtoc/attach_list.tt:58
 msgid "hide tracklist"
 msgstr ""
 
@@ -10868,7 +10890,7 @@ msgstr[1] ""
 msgid "send email"
 msgstr ""
 
-#: ../root/cdtoc/attach_list.tt:31 ../root/cdtoc/attach_list.tt:53
+#: ../root/cdtoc/attach_list.tt:32 ../root/cdtoc/attach_list.tt:56
 msgid "show tracklist"
 msgstr ""
 
@@ -10967,7 +10989,7 @@ msgstr ""
 msgid "{artist} as {name}"
 msgstr ""
 
-#: ../root/cdtoc/attach_artist_releases.tt:43
+#: ../root/cdtoc/attach_artist_releases.tt:46
 msgid "{artist} has no releases which have only {n} track."
 msgid_plural "{artist} has no releases which have {n} tracks."
 msgstr[0] ""
@@ -11192,7 +11214,7 @@ msgid_plural "{num} releases found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/cdtoc/attach_filter_release.tt:18
+#: ../root/cdtoc/attach_filter_release.tt:20
 msgid "{num} release found matching your query."
 msgid_plural "{num} release found matching your query."
 msgstr[0] ""
@@ -11285,7 +11307,7 @@ msgstr ""
 msgid "{user}"
 msgstr ""
 
-#: ../root/user/collections.tt:37
+#: ../root/user/collections.tt:39
 msgid "{user} has no public collections."
 msgstr ""
 
@@ -12298,7 +12320,7 @@ msgstr ""
 msgid "You must select an existing label."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:113
+#: ../lib/MusicBrainz/Server/Form/ReleaseEditor/Information.pm:109
 msgid "You must select an existing release group."
 msgstr ""
 

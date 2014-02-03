@@ -138,6 +138,9 @@
             release_group:   "[% l('Add a new release group') | js %]",
             work:            "[% l('Add a new work') | js %]"
         },
-        ImagePager: '[% l('Image {current} of {total}') | js %]'
+        ImagePager: '[% l('Image {current} of {total}') | js %]',
+        GuessCaseDescriptionEnglish: '[% l('This mode capitalises almost all words, with some words (mainly articles and short prepositions) lowercased. Some words may need to be manually capitalised to follow the {url|English capitalisation guidelines}.', { url => doc_link("Style/Language/English") }) | js %]',
+        GuessCaseDescriptionSentence: '[% l('This mode capitalises the first word of a sentence, most other words are lowercased. Some words, often proper nouns, may need to be manually fixed according to the {url|relevant language guidelines}.', { url => doc_link("Style/Language") }) | js %]',
+        GuessCaseDescriptionFrench: '[% l('This mode capitalises titles as sentence mode, but also inserts spaces before semicolons, colons, exclamation marks and question marks, and inside guillemets. Some words may need to be manually capitalised to follow the {url|French capitalisation guidelines}.', { url => doc_link("Style/Language/French") }) | js %]'
     });
 })(MB);

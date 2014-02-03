@@ -4,13 +4,13 @@
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2013
+# Luca Salini <email address hidden>, 2013-2014
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-12 12:01+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 04:19+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -161,7 +161,7 @@ msgstr "Custodia per audiocassetta"
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr ""
+msgstr "Personaggio"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -223,6 +223,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "Supporto digitale"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr "Discbox slider"
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -243,6 +248,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr "Fatbox"
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -257,6 +267,11 @@ msgstr "Nome ufficiale"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "Fronte"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr "Copertina pieghevole"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -317,6 +332,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "Nome legale"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr "Fodera"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -453,6 +473,11 @@ msgctxt "work_type"
 msgid "Poem"
 msgstr "Poema"
 
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr "Poster"
+
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
@@ -533,6 +558,11 @@ msgstr "Singolo"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Slim jewel case"
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr "Snap case"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

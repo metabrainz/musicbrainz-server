@@ -194,20 +194,15 @@ MB.TrackParser.Artist = function (track, artist) {
 MB.TrackParser.Options = function () {
     var self = {};
 
-    self.$trackartists = $('#trackartists');
-    self.$tracknumbers = $('#tracknumbers');
-    self.$tracktimes   = $('#tracktimes');
-    self.$vinylnumbers = $('#vinylnumbers');
-
     MB.utility.rememberCheckbox ('#trackartists', 'trackparser_trackartists');
     MB.utility.rememberCheckbox ('#tracknumbers', 'trackparser_tracknumbers');
     MB.utility.rememberCheckbox ('#tracktimes',   'trackparser_tracktimes');
     MB.utility.rememberCheckbox ('#vinylnumbers', 'trackparser_vinylnumbers');
 
-    self.trackArtists = function () { return self.$trackartists.is (':checked'); };
-    self.trackNumbers = function () { return self.$tracknumbers.is (':checked'); };
-    self.trackTimes   = function () { return self.$tracktimes.is (':checked'); };
-    self.vinylNumbers = function () { return self.$vinylnumbers.is (':checked'); };
+    self.trackArtists = function () { return $('#trackartists').is (':checked'); };
+    self.trackNumbers = function () { return $('#tracknumbers').is (':checked'); };
+    self.trackTimes   = function () { return $('#tracktimes').is (':checked'); };
+    self.vinylNumbers = function () { return $('#vinylnumbers').is (':checked'); };
 
     return self;
 };

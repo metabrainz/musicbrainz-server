@@ -1,58 +1,62 @@
-<tr[% ' class="ev"' IF zebra % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
-  <td colspan="2">
-    [% rdfa_event_product_release_link(release) %]
-    [% disambiguation(release) %]
-  </td>
-  [% IF show_artists %]
-    <td>[% artist_credit(release.artist_credit) %]</td>
-  [% END %]
-  <td>[% release_dates(release.events) %]</td>
-  <td>[% release_countries(release.events) %]</td>
-  <td>[% rdfa_release_label_list(release.labels) %]</td>
-  <td>[% rdfa_release_catno_list(release.labels) %]</td>
-  <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
-  [%- IF c.try_get_session('tport') -%]
-    <td>[% tagger_icon(release) %]</td>
-  [%- END -%]
-</tr>
-[% FOR medium=release.mediums %]
-  [% NEXT UNLESS
-      medium.track_count == cdtoc.track_count %]
-    <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
-      <td class="pos"></td>
-      <td>
-        <label[% IF !medium.may_have_discids %] title="[%l('This medium format cannot have a disc ID attached') %]"[% END %]>
-          <input type="radio" name="medium" value="[% medium.id %]"[% IF !medium.may_have_discids %] disabled="disabled"[% END %]/>
-          [% medium.format_name %] [% medium.position %]
-          [%~ IF medium.name %]:
-             [% medium.name | html %]
-          [% END %]
-        </label>
-        <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
-      </td>
-      <td colspan="5"></td>
-    </tr>
-    <tr class="tracklist" style="display:none">
-      <td></td>
-      <td colspan="6">
-        <table style="border-collapse: collapse;">
-        [% INCLUDE 'medium/tracklist.tt' tracks=medium.tracks hide_rating = 1%]
-        </table>
-      </td>
-    </tr>
+[% MACRO attach_list_row(release, show_artists) BLOCK %]
+  <tr[% ' class="ev"' IF zebra % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+    <td colspan="2">
+      [% rdfa_event_product_release_link(release) %]
+      [% disambiguation(release) %]
+    </td>
+    [% IF show_artists %]
+      <td>[% artist_credit(release.artist_credit) %]</td>
+    [% END %]
+    <td>[% release_dates(release.events) %]</td>
+    <td>[% release_countries(release.events) %]</td>
+    <td>[% rdfa_release_label_list(release.labels) %]</td>
+    <td>[% rdfa_release_catno_list(release.labels) %]</td>
+    <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
+    [%- IF c.try_get_session('tport') -%]
+      <td>[% tagger_icon(release) %]</td>
+    [%- END -%]
   </tr>
+  [% FOR medium=release.mediums %]
+    [% NEXT UNLESS
+        medium.track_count == cdtoc.track_count %]
+      <tr[% ' class="ev"' IF zebra % 2 == 0 %]>
+        <td class="pos"></td>
+        <td>
+          <label[% IF !medium.may_have_discids %] title="[%l('This medium format cannot have a disc ID attached') %]"[% END %]>
+            <input type="radio" name="medium" value="[% medium.id %]"[% IF !medium.may_have_discids %] disabled="disabled"[% END %]/>
+            [% medium.format_name %] [% medium.position %]
+            [%~ IF medium.name %]:
+               [% medium.name | html %]
+            [% END %]
+          </label>
+          <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
+        </td>
+        <td colspan="6"></td>
+      </tr>
+      <tr class="tracklist" style="display:none">
+        <td></td>
+        <td colspan="6">
+          <table style="border-collapse: collapse;">
+          [% INCLUDE 'medium/tracklist.tt' tracks=medium.tracks hide_rating = 1%]
+          </table>
+        </td>
+      </tr>
+    </tr>
+  [% END %]
 [% END %]
 
-<script>//<![CDATA[
-  $(".tracklist").hide();
+[% MACRO attach_list_script BLOCK %]
+  <script>//<![CDATA[
+    $(".tracklist").hide();
 
-  $(".toggle").click(function () {
-    $(this).closest("tr").next(".tracklist").toggle();
+    $(document).on("click", ".toggle", function () {
+      var $tracklist = $(this).closest("tr").next(".tracklist").toggle();
 
-    if ($(this).closest("tr").next(".tracklist").is(":hidden")) {
-      $(this).text("[% l('show tracklist') | js %]");
-    } else {
-      $(this).text("[% l('hide tracklist') | js %]");
-    }
-  });
-//]]></script>
+      if ($tracklist.is(":hidden")) {
+        $(this).text("[% l('show tracklist') | js %]");
+      } else {
+        $(this).text("[% l('hide tracklist') | js %]");
+      }
+    });
+  //]]></script>
+[% END %]

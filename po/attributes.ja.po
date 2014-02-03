@@ -1,82 +1,84 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
+# nikki, 2014
+# Nozomu KURASAWA <email address hidden>, 2012-2013
+# th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-23 01:21+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
+"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: et\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "10″ vinüül"
+msgstr "10インチレコード盤"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "12″ vinüül"
+msgstr "12インチレコード盤"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "7″ vinüül"
+msgstr "7インチレコード盤"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr "8 cm CD"
+msgstr "8cm CD"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr "8 cm CD+G"
+msgstr ""
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr "album"
+msgstr "アルバム"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr "piirkonna nimi"
+msgstr "エリア名"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
 msgid "Aria"
-msgstr "aaria"
+msgstr "アリア"
 
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr "kunstnikunimi"
+msgstr "アーティスト名"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
-msgstr "heliraamat"
+msgstr "オーディオブック"
 
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr "tagakaas"
+msgstr "背面"
 
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
-msgstr "ballett"
+msgstr "バレエ"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
-msgstr "Betamax"
+msgstr "ベータマックス"
 
 #: DB:medium_format/name:20
 msgctxt "medium_format"
@@ -86,32 +88,32 @@ msgstr "Blu-ray"
 #: DB:medium_format/name:35
 msgctxt "medium_format"
 msgid "Blu-spec CD"
-msgstr "Blu-spec CD"
+msgstr ""
 
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
-msgstr "raamat"
+msgstr "本"
 
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr "voldik"
+msgstr "ブックレット"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr "mitteametlik"
+msgstr "海賊版"
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr "piraattoodang"
+msgstr "海賊版作品"
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr "eetrisaade"
+msgstr "放送"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -131,52 +133,52 @@ msgstr "CD-R"
 #: DB:work_type/name:3
 msgctxt "work_type"
 msgid "Cantata"
-msgstr "kantaat"
+msgstr "カンタータ"
 
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "papp- või paberümbris"
+msgstr "紙ジャケット"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
 msgid "Cartridge"
-msgstr "cartridge"
+msgstr "カートリッジ"
 
 #: DB:medium_format/name:8
 msgctxt "medium_format"
 msgid "Cassette"
-msgstr "kassett"
+msgstr "カセット"
 
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr "kassetiümbris"
+msgstr "カセットケース"
 
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr "tegelaskuju"
+msgstr "キャラクター"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr "asula"
+msgstr "市"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
 msgid "Compilation"
-msgstr "kogumik"
+msgstr "コンピレーション"
 
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr "kontsert"
+msgstr "協奏曲"
 
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr "riik"
+msgstr "国"
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
@@ -191,7 +193,7 @@ msgstr "DCC"
 #: DB:release_group_secondary_type/name:8
 msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
-msgstr "DJ-miks"
+msgstr "DJミックス"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
@@ -201,22 +203,22 @@ msgstr "DVD"
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr "audio-DVD"
+msgstr "DVD-Audio"
 
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
-msgstr "video-DVD"
+msgstr "DVD-Video"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
-msgstr "digipak"
+msgstr "デジパック"
 
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "audiofailid"
+msgstr "デジタルメディア"
 
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
@@ -226,12 +228,12 @@ msgstr ""
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
-msgstr "levitaja"
+msgstr "代理店"
 
 #: DB:area_type/name:5
 msgctxt "area_type"
 msgid "District"
-msgstr "linnaosa"
+msgstr "地区"
 
 #: DB:medium_format/name:4
 msgctxt "medium_format"
@@ -246,22 +248,22 @@ msgstr "EP"
 #: DB:release_packaging/name:10
 msgctxt "release_packaging"
 msgid "Fatbox"
-msgstr "paks (topelt-)CD-karp"
+msgstr ""
 
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
-msgstr "naine"
+msgstr "女性"
 
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr "ametlik nimi"
+msgstr "正式名称"
 
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
-msgstr "esikaas"
+msgstr "前面"
 
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
@@ -271,7 +273,7 @@ msgstr ""
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
-msgstr "grupp"
+msgstr "グループ"
 
 #: DB:medium_format/name:17
 msgctxt "medium_format"
@@ -286,47 +288,47 @@ msgstr "HDCD"
 #: DB:medium_format/name:37
 msgctxt "medium_format"
 msgid "HQCD"
-msgstr "HQCD"
+msgstr ""
 
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
-msgstr "emafirma"
+msgstr "持株会社"
 
 #: DB:medium_format/name:38
 msgctxt "medium_format"
 msgid "Hybrid SACD"
-msgstr "hübriid-SACD"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
-msgstr "intervjuu"
+msgstr "インタビュー"
 
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr "tavaline CD-karp"
+msgstr "ジュエルケース"
 
 #: DB:release_packaging/name:6
 msgctxt "release_packaging"
 msgid "Keep Case"
-msgstr "DVD-karp"
+msgstr "キープケース"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "plaadifirma nimi"
+msgstr "レーベル名"
 
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
-msgstr "LaserDisc"
+msgstr "レーザーディスク"
 
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "kodanikunimi"
+msgstr "正式名称"
 
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
@@ -336,27 +338,27 @@ msgstr ""
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "kontsertsalvestus"
+msgstr "ライブ"
 
 #: DB:work_type/name:7
 msgctxt "work_type"
 msgid "Madrigal"
-msgstr "madrigal"
+msgstr "マドリガル"
 
 #: DB:gender/name:1
 msgctxt "gender"
 msgid "Male"
-msgstr "mees"
+msgstr "男性"
 
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr "missa"
+msgstr "ミサ曲"
 
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr "helikandja"
+msgstr "メディア"
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -366,162 +368,162 @@ msgstr "MiniDisc"
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr "miksilint/tänavaalbum"
+msgstr "ミックステープ/ストリート"
 
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr "motett"
+msgstr "モテット"
 
 #: DB:area_type/name:4
 msgctxt "area_type"
 msgid "Municipality"
-msgstr "vald"
+msgstr "市制"
 
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr "pole"
+msgstr "なし"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
-msgstr "obi"
+msgstr "帯"
 
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
-msgstr "ametlik"
+msgstr "公式"
 
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
-msgstr "ooper"
+msgstr "オペラ"
 
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr "operett"
+msgstr "オペレッタ"
 
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
-msgstr "oratoorium"
+msgstr "オラトリオ"
 
 #: DB:label_type/name:4
 msgctxt "label_type"
 msgid "Original Production"
-msgstr "originaaltoodang"
+msgstr "オリジナル製品"
 
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "muu"
+msgstr "その他"
 
 #: DB:work_type/name:12
 msgctxt "work_type"
 msgid "Overture"
-msgstr "overtüür"
+msgstr "序曲"
 
 #: DB:work_type/name:13
 msgctxt "work_type"
 msgid "Partita"
-msgstr "partiita"
+msgstr "パルティータ"
 
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr "isik"
+msgstr "個人"
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
-msgstr "klaverirull"
+msgstr "ピアノロール"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr "luuletus"
+msgstr "詩"
 
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr "poster"
+msgstr ""
 
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
-msgstr "toodang"
+msgstr "製品"
 
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr "promo"
+msgstr "プロモーション"
 
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr "proosa"
+msgstr "散文"
 
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr "pseudoväljalase"
+msgstr "擬似リリース"
 
 #: DB:label_type/name:7
 msgctxt "label_type"
 msgid "Publisher"
-msgstr "väljaandja"
+msgstr "発行元"
 
 #: DB:work_type/name:14
 msgctxt "work_type"
 msgid "Quartet"
-msgstr "kvartett"
+msgstr "四重奏曲"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr "helilint"
+msgstr "オープンリール"
 
 #: DB:label_type/name:6
 msgctxt "label_type"
 msgid "Reissue Production"
-msgstr "kordusväljaannete tootmine"
+msgstr "再販品"
 
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
 msgid "Remix"
-msgstr "remiks"
+msgstr "リミックス"
 
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr "õiguste valdajate ühing"
+msgstr "権利者団体"
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
@@ -531,7 +533,7 @@ msgstr "SACD"
 #: DB:medium_format/name:36
 msgctxt "medium_format"
 msgid "SHM-CD"
-msgstr "SHM-CD"
+msgstr ""
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -542,17 +544,17 @@ msgstr "SVCD"
 #: DB:work_alias_type/name:2 DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr "otsinguvihje"
+msgstr "検索ヒント"
 
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr "singel"
+msgstr "シングル"
 
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr "õhuke CD-karp"
+msgstr "スリムジュエルケース"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
@@ -562,72 +564,72 @@ msgstr ""
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
-msgstr "sonaat"
+msgstr "ソナタ"
 
 #: DB:work_type/name:17
 msgctxt "work_type"
 msgid "Song"
-msgstr "laul"
+msgstr "歌曲"
 
 #: DB:work_type/name:15
 msgctxt "work_type"
 msgid "Song-cycle"
-msgstr "laulutsükkel"
+msgstr "ソングサイクル"
 
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr "saatemuusika"
+msgstr "サウンドトラック"
 
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
-msgstr "saatemuusika"
+msgstr "サウンドトラック"
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr "selg"
+msgstr "背"
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
-msgstr "kõne"
+msgstr "スポークンワード"
 
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr "kleeps"
+msgstr "ステッカー"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr "1. järgu haldusüksus"
+msgstr "区分"
 
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr "süit"
+msgstr "組曲"
 
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr "sümfooniline poeem"
+msgstr "交響詩"
 
 #: DB:work_type/name:16
 msgctxt "work_type"
 msgid "Symphony"
-msgstr "sümfoonia"
+msgstr "交響曲"
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr "lugu"
+msgstr "トラック"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr "plaadialus"
+msgstr "トレー"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
@@ -637,7 +639,7 @@ msgstr "UMD"
 #: DB:medium_format/name:26
 msgctxt "medium_format"
 msgid "USB Flash Drive"
-msgstr "USB-mälupulk"
+msgstr "USBフラッシュドライブ"
 
 #: DB:medium_format/name:22
 msgctxt "medium_format"
@@ -652,27 +654,27 @@ msgstr "VHS"
 #: DB:medium_format/name:32
 msgctxt "medium_format"
 msgid "Videotape"
-msgstr "videolint"
+msgstr "ビデオテーブ"
 
 #: DB:medium_format/name:7
 msgctxt "medium_format"
 msgid "Vinyl"
-msgstr "vinüülplaat"
+msgstr "レコード盤"
 
 #: DB:medium_format/name:14
 msgctxt "medium_format"
 msgid "Wax Cylinder"
-msgstr "vaharull"
+msgstr "ワックスシリンダー"
 
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr "teose nimi"
+msgstr "ワーク名"
 
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr "zarzuela"
+msgstr "サルスエラ"
 
 #: DB:medium_format/name:27
 msgctxt "medium_format"
@@ -682,4 +684,4 @@ msgstr "slotMusic"
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr "etüüd"
+msgstr "エチュード"

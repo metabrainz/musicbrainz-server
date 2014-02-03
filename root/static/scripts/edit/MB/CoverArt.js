@@ -55,17 +55,21 @@ MB.CoverArt.image_error = function ($img, image) {
     }
 };
 
-MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
+MB.CoverArt.reorder_button = function(direction, $container) {
     return function (event) {
-        var $editimage = $editimage_param;
-        if (!$editimage) {
-            $editimage = $(this).closest('div.editimage');
-        }
+        var $editimage = $(this).closest('div.editimage');
+
         var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
+        var insert_after = (direction === 'next');
+        if (! $swap.length) {
+            // no direct neighbour, so wrap around
+            $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
+            insert_after = ! insert_after;
+        }
         if ($swap.length)
         {
-            $editimage[direction === 'next' ? 'insertAfter' : 'insertBefore']($swap);
-            after($swap, $editimage)
+            $editimage[insert_after ? 'insertAfter' : 'insertBefore']($swap);
+            $container.sortable('refresh');
         }
 
         $(this).focus();
@@ -74,33 +78,30 @@ MB.CoverArt.reorder_button = function(direction, $editimage_param, after) {
     }
 };
 
-MB.CoverArt.image_position = function () {
-    var $pos = $('#id-add-cover-art\\.position');
-    var $editimage = $('div.editimage');
-
-    $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) - 1) }));
-
-    $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', $editimage,
-                                 function() { $pos.val(parseInt($pos.val(), 10) + 1) }));
-};
-
 MB.CoverArt.reorder_position = function () {
-    var swap_values = function ($a, $b) {
-        var otherval = $a.val ();
-        $a.val ($b.val ());
-        $b.val (otherval);
-    };
+    var $container = $('div.image-position');
+
+    $container.sortable( {
+            items: '> div.thumb-position',
+            cancel: 'button,div.thumb-position:not(".editimage")',
+            placeholder: 'thumb-position',
+            cursor: 'grabbing',
+            distance: 10,
+            tolerance: 'pointer'
+        } );
 
     $('div.editimage button.left').bind('click.mb',
-      MB.CoverArt.reorder_button('prev', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('prev', $container));
 
     $('div.editimage button.right').bind('click.mb',
-      MB.CoverArt.reorder_button('next', null,
-                                 function($swap, $editimage) { swap_values($swap.find('input.position'), $editimage.find('input.position')) }));
+      MB.CoverArt.reorder_button('next', $container));
+
+    // For the Add Cover Art page, the following is a no-op.
+    $('#reorder-cover-art').submit(
+        function(event) {
+            $('div.editimage input.position').val( function(index, oldvalue) { return (index + 1); } );
+        }
+    );
 
     /* moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
@@ -478,6 +479,14 @@ MB.CoverArt.add_cover_art_submit = function (gid, upvm) {
         });
 };
 
+MB.CoverArt.set_position = function() {
+    var $editimage = $('div.editimage');
+    if ($editimage.length) {
+        var position = $editimage.index() + 1;
+        $('#id-add-cover-art\\.position').val(position);
+    }
+};
+
 MB.CoverArt.add_cover_art = function (gid) {
 
     File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
@@ -537,6 +546,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit (gid, upvm);
         });
     }
@@ -547,6 +557,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         $('#add-cover-art-submit').on ('click.mb', function (event) {
             event.preventDefault ();
+            MB.CoverArt.set_position();
 
             var mime_type = MB.CoverArt.get_image_mime_type ();
             $('#id-add-cover-art\\.mime_type').val(mime_type);
