@@ -1016,9 +1016,9 @@ sub merge
              SELECT release, country,
                (row_number() OVER (
                   PARTITION BY country
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
                            release = ? DESC)
                ) > 1 AS remove
              FROM release_country
@@ -1037,9 +1037,9 @@ sub merge
            FROM (
              SELECT release,
                (row_number() OVER (
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
                            release = ? DESC)
                ) > 1 AS remove
              FROM release_unknown_country
