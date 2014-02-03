@@ -70,7 +70,8 @@ __PACKAGE__->config(
         ],
         ENCODING => 'UTF-8',
         EVAL_PERL => 1,
-        COMPILE_EXT => '.ttc'
+        COMPILE_EXT => '.ttc',
+        COMPILE_DIR => '/tmp/ttc'
     },
     'Plugin::Session' => {
         expires => DBDefs->SESSION_EXPIRE

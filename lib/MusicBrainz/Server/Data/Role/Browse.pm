@@ -7,21 +7,18 @@ requires '_columns', '_table';
 
 sub browse_column { 'name' }
 
-sub find_by_name_prefix
+sub fetch_all
 {
-    my ($self, $prefix, $limit, $offset, $conditions, @bind) = @_;
+    my ($self, $limit, $offset, $conditions, @bind) = @_;
 
     my $browse_on = $self->browse_column;
-    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table . "
-                 WHERE page_index($browse_on) BETWEEN page_index(?) AND
-                                                      page_index_max(?)";
-
-    $query .= " AND ($conditions)" if $conditions;
+    my $query = "SELECT " . $self->_columns . " FROM " . $self->_table;
+    $query .= " WHERE ($conditions)" if $conditions;
     $query .= " ORDER BY musicbrainz_collate($browse_on) OFFSET ?";
 
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
-        $query, $prefix, $prefix, @bind, $offset || 0);
+        $query, @bind, $offset || 0);
 }
 
 no Moose::Role;

@@ -50,8 +50,6 @@ DROP FUNCTION generate_uuid_v4();
 DROP FUNCTION inc_ref_count(tbl varchar, row_id integer, val integer);
 DROP FUNCTION inserting_edits_requires_confirmed_email_address();
 DROP FUNCTION padded_by_whitespace(TEXT);
-DROP FUNCTION page_index(txt varchar);
-DROP FUNCTION page_index_max(txt varchar);
 DROP FUNCTION prevent_invalid_attributes();
 DROP FUNCTION remove_unused_links();
 DROP FUNCTION remove_unused_url();

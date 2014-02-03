@@ -37,7 +37,7 @@ is($edit->data->{medium_id}, 1);
 is($edit->data->{cdtoc}{id}, $cdtoc->id);
 
 like($mech->uri, qr{/cdtoc/tLGBAiCflG8ZI6lFcOt87vXjEcI-$});
-$mech->content_contains('Thank you, your edit has been');
+$mech->content_contains('Thank you, your <a href="');
 
 };
 
