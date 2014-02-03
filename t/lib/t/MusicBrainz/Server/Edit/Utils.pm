@@ -105,6 +105,7 @@ test 'entering "0" as a credited name/join phrase' => sub {
     is($names[0]->join_phrase, "0");
 
     $ac = artist_credit_preview({ Artist => {} }, $input);
+    @names = $ac->all_names;
 
     is($names[0]->name, "0");
     is($names[0]->join_phrase, "0");
