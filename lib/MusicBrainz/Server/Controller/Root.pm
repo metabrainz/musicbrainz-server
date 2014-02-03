@@ -12,6 +12,7 @@ use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
+use MusicBrainz::Server::Translation 'l';
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -203,6 +204,7 @@ sub begin : Private
     try {
         $alert = $c->model('MB')->context->redis->get('alert');
     } catch {
+        $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
         warn "Redis connection to get alert failed: $_";
     };
     $c->stash(

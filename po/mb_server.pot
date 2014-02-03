@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 15:24-0700\n"
+"POT-Creation-Date: 2014-02-03 15:38-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11464,6 +11464,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:182
 msgid "The old and new annotation ids must be unique, positive integers."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:206
+msgid ""
+"Our Redis server appears to be down; some features may not work as intended "
+"or expected."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:252
