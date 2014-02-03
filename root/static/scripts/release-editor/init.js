@@ -164,8 +164,11 @@ MB.releaseEditor.init = function (options) {
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
-    // any changes.
-    window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
+    // any changes. Browsers that support onbeforeunload should have this set
+    // to null, or undefined otherwise.
+    if (window.onbeforeunload === null) {
+        window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
+    }
 
     // Apply root bindings to the page.
 
