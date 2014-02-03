@@ -100,7 +100,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $extra_keys) = @_;
+    my ($artist_credit) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -116,18 +116,6 @@ sub artist_credit_to_ref
                 id => $ac->artist->id,
             }
         );
-
-        for my $key (@$extra_keys)
-        {
-            if ($key eq "sort_name")
-            {
-                $ac_name{artist}->{sort_name} = $ac->artist->sort_name;
-            }
-            else
-            {
-                $ac_name{artist}->{$key} = $ac->artist->{$key};
-            }
-        }
 
         push @{ $ret{names} }, \%ac_name;
     }
@@ -262,44 +250,6 @@ sub query_to_list_limited
     $hits = $hits + ($offset || 0);
 
     return (\@result, $hits);
-}
-
-=func hash_structure
-
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
-
-=cut
-
-sub hash_structure
-{
-    sub structure_to_string {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structure_to_string ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structure_to_string ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub generate_gid

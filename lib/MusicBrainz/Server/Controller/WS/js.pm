@@ -9,10 +9,6 @@ use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
-    hash_structure
-);
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;

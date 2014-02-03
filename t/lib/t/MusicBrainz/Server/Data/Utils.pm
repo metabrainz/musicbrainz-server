@@ -4,7 +4,7 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited remove_invalid_characters hash_structure generate_gid take_while );
+use MusicBrainz::Server::Data::Utils qw( order_by query_to_list query_to_list_limited remove_invalid_characters generate_gid take_while );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Test;
 
@@ -76,29 +76,6 @@ is ( $order_by, "c DESC, b DESC" );
 $order_by = order_by(
     "-3", "1", { "1" => "a, b", "2" => "c, b" });
 is ( $order_by, "a, b" );
-
-my $input1 = {
-    'length' => '4:03',
-    'title' => 'the Love bug',
-    'names' => [
-        { 'name' => 'm-flo', 'id' => '135345' },
-        { 'name' => 'BoA', 'id' => '9496' },
-    ]
-};
-
-my $input2 = {
-    'names' => [
-        { 'id' => '135345', 'name' => 'm-flo' },
-        { 'id' => '9496', 'name' => 'BoA' },
-    ],
-    'title' => 'the Love bug',
-    'length' => '4:03',
-};
-
-my $result1 = hash_structure ($input1);
-$result2 = hash_structure ($input2);
-is ($result1, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input1');
-is ($result2, "aIkUXodpaNX7Q1YfttiKMkKCxB0", 'SHA-1 of $input2');
 
 my $gid = generate_gid();
 is ($gid, lc($gid), 'GID is returned as lower-case');

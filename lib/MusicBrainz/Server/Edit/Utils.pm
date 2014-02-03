@@ -318,11 +318,11 @@ sub merge_artist_credit {
         unless $current->artist_credit;
 
     my $an = hash_artist_credit($ancestor->{artist_credit});
-    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit, []));
+    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
     my $ne = hash_artist_credit($new->{artist_credit});
     return (
         [$an, $ancestor->{artist_credit}],
-        [$cu, artist_credit_to_ref($current->artist_credit, [])],
+        [$cu, artist_credit_to_ref($current->artist_credit)],
         [$ne, $new->{artist_credit}]
     );
 }
