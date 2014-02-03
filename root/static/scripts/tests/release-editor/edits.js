@@ -5,10 +5,6 @@
 
 (function () {
 
-var testArtistCredit = [
-];
-
-
 var testRelease = {
   releaseGroup: {
     typeName: null,
