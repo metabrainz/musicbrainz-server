@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,12 @@ msgid ""
 "A talkbox (or talk box) is an effects device which enables a musician to "
 "modify the sound of an instrument."
 msgstr "Un talkbox (o talk box) es un dispositivo de efectos que permite a un músico modificar el sonido de un instrumento."
+
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:555
 msgid ""

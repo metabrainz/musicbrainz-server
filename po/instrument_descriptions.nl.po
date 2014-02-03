@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -151,6 +151,12 @@ msgid ""
 "A talkbox (or talk box) is an effects device which enables a musician to "
 "modify the sound of an instrument."
 msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen worden opgewekt, door het geluid van een instrument via een slang in de mond van de speler te brengen. (<a href=\"http://nl.wikipedia.org/wiki/Talkbox\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:555
 msgid ""
@@ -1352,7 +1358,7 @@ msgid ""
 "pedalboard, enabling bass register notes to be played with the feet, as is "
 "standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal "
 "piano\">Wikipedia</a>)"
-msgstr ""
+msgstr "De pedaalpiano heeft een toetsenbord dat met de voeten bediend wordt, net als een orgelpedaal. (<a href=\"http://nl.wikipedia.org/wiki/Pedaal_%28muziek%29#Pedaalpiano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:429
 msgid ""
