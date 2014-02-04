@@ -32,6 +32,7 @@
 
             this.name = ko.observable(data.name);
             this.name.original = data.name;
+            this.name.subscribe(this.nameChanged, this);
 
             this.length = ko.observable(data.length);
             this.length.original = data.length;
@@ -89,6 +90,15 @@
         recordingGID: function () {
             var recording = this.recording();
             return recording ? recording.gid : null;
+        },
+
+        nameChanged: function (name) {
+            if (!this.hasExistingRecording()) {
+                var recording = this.recording.peek();
+
+                recording.name = this.name();
+                this.recording.notifySubscribers(recording);
+            }
         },
 
         formattedLengthChanged: function (length) {
