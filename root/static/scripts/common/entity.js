@@ -165,6 +165,8 @@
         },
 
         around$html: function (supr, params) {
+            params = params || {};
+
             if (this.video) {
                 params.video = MB.text.Video;
             }
