@@ -194,6 +194,9 @@ ko.bindingHandlers.controlsBubble = {
             if (show !== bubble.visible()) {
                 bubble.toggle(element);
             }
+            else if (show && !bubble.targetIs(viewModel)) {
+                bubble.show(element);
+            }
         });
     }
 };

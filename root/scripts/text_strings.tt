@@ -162,6 +162,7 @@
         AddReleaseTitle: '[% l('{name} - Add Release') | js %]',
         EditReleaseNoTitle: '[% l('Edit Release') | js %]',
         EditReleaseTitle: '[% l('{name} - Edit Release') | js %]',
-        Video: '[% l('video') | js %]'
+        Video: '[% l('video') | js %]',
+        SelectedArea: '[% l('You selected {area}.') | js %]'
     });
 })(MB);

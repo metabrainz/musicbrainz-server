@@ -274,9 +274,9 @@
 
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
-      <p>
-        [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-      </p>
+      <!-- ko with: area -->
+        <p data-bind="html: MB.i18n.expand(MB.text.SelectedArea, { area: html({ target: '_blank' }) })"></p>
+      <!-- /ko -->
     </div>
 [%- END -%]
 
