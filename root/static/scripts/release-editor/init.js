@@ -155,7 +155,8 @@ MB.releaseEditor.init = function (options) {
         if (tabID === "#tracklist") {
             var alreadyOpen = uiDialog && uiDialog.isOpen();
 
-            if (!alreadyOpen && release.hasOneEmptyMedium()) {
+            if (!alreadyOpen && release.hasOneEmptyMedium() &&
+                    !release.mediums()[0].loading()) {
                 dialog.open();
             }
         } else if (uiDialog) {
