@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 22:27+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-03 23:42+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -781,7 +781,7 @@ msgid ""
 "3 minute mark in order to make it suitable for radio play (a \"radio "
 "edit\"). (<a "
 "href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
-msgstr "La responsabilité du monteur est de connecter des éléments disparates d'un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l'ingénieur du son. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l'adapter au passage à la radio, une « version radio ». (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
+msgstr "La responsabilité du chef monteur est de connecter des éléments disparates d'un enregistrement audio ou encore de redistribuer le contenu enregistrer lors des sessions. Ceci est habituellement secondaire ou complémentaire au travail effectué par l'ingénieur du son. Il peut aussi alléger une piste plus longue à environ 3 minutes pour l'adapter au passage à la radio (une « version radio »). (<a href=\"http://musicbrainz.org/doc/Engineer_Relationship_Type\">Details</a>)"
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -955,14 +955,14 @@ msgid ""
 "This indicates a personal production label for an artist. A personal label "
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
-msgstr ""
+msgstr "Ceci indique un label de production personnel pour un artiste. Un label personnel est un petit label (habituellement une subdivision d'un plus grand) qui gère exclusivement les parutions de cet artiste."
 
 #: DB:link_type/description:724
 msgid ""
 "This indicates a personal publishing label for an artist. A personal "
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
-msgstr ""
+msgstr "Ceci indique un label d'édition personnel pour un artiste. Un label d'édition personnel est un petit label (habituellement une subdivision d'un plus grand) qui gère exclusivement les droits des œuvres de cet artiste."
 
 #: DB:link_type/description:151
 msgid ""
@@ -1012,7 +1012,7 @@ msgstr "Ceci indique que ce lieu fait partie d'un autre lieu."
 msgid ""
 "This indicates that a record label (company) owns or has the right to use an"
 " imprint."
-msgstr ""
+msgstr "Ceci indique qu'une maison de disques est propriétaire ou à le droit d'utiliser une marque d'éditeur."
 
 #: DB:link_type/description:228
 msgid ""
@@ -1023,7 +1023,7 @@ msgid ""
 "each other, the <a href=\"https://musicbrainz.org/relationship/451076df-"
 "61cf-46ab-9921-555cab2f050d\">DJ-mix relationship type</a> may be more "
 "appropriate."
-msgstr ""
+msgstr "Ceci indique qu'un enregistrement est une compilation de plusieurs autres enregistrements, Ceci s'applique à un long enregistrement contenant plusieurs morceaux, l'un après l'autre, dans lequel le contenu audio des enregistrements originaux n'a pas été transformé. Si la hauteur des pistes est ajustée ou si elles sont fondues les unes dans les autres, le <a href=\"https://musicbrainz.org/relationship/451076df-61cf-46ab-9921-555cab2f050d\">type de relation DJ-mix</a> pourrait être plus approprié."
 
 #: DB:link_type/description:3
 msgid ""
@@ -1073,7 +1073,7 @@ msgid ""
 "This indicates that one release is identical to another release, but that "
 "the release title and track titles have been either translated (into another"
 " language) or transliterated (into another script).​"
-msgstr ""
+msgstr "Ceci indique qu'une parution est identique à une autre, mais que le tire de la parution et les titres des pistes ont soit été traduits (dans une autre langue) au translittérés (dans un autre système d'écriture)."
 
 #: DB:link_type/description:25 DB:link_type/description:129
 msgid ""
@@ -1170,7 +1170,7 @@ msgstr "Ceci indique la société de gestion des droits associé à cette paruti
 msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
-msgstr ""
+msgstr "Ceci est utilisé pour indiqué qu'un groupe de parution est une interprétation en public d'un groupe de parution en studio."
 
 #: DB:link_type/description:226
 msgid ""
@@ -1382,7 +1382,7 @@ msgid ""
 "relationship type is the functional equivalent of the <a "
 "href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
 "type</a> for group-group relationships."
-msgstr ""
+msgstr "Ceci relie un sous-groupe au groupe à partir duquel il a été créé. Ce type de relation est l'équivalent fonctionnel du <a  href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">type membre du groupe</a> pour les relations groupe-groupe."
 
 #: DB:link_type/description:292
 msgid "This links an (fictional) artist to the person that voice acted it."
@@ -1457,7 +1457,7 @@ msgid ""
 "material. The person who edited the recording can be linked using the <a "
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
-msgstr ""
+msgstr "Ceci relie un montage à son enregistrement original. Un « montage », pour cette relation, peut être un montage radio (qui implique un allègement d'une piste plus longue à environ 3 minutes pour le rendre jouable à la radio), ou une version raccourcie, censurée ou autrement modifiée du même contenu. La personne ayant monté l'enregistrement peut être reliée en utilisant le <a href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">type de relation chef monteur</a>."
 
 #: DB:link_type/description:289
 msgid ""
@@ -1739,7 +1739,7 @@ msgstr "Ce type de relation est <strong>obsolète</strong> ! Veuillez plutôt ut
 msgid ""
 "This relationship type is used to indicate that a release group is a cover version of another release group, i.e. when an artist performs a new rendition of another artist's album.<br/>\n"
 "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-ad06-98af558e99b0\">recording-work performance relationship type</a>."
-msgstr ""
+msgstr "Ce type de relation est utilisé pour indiquer qu'un groupe de parution est une reprise d'un autre groupe de parution, c.-à-d. quand un artiste fait une nouvelle interprétation de l'album d'un autre artiste."
 
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
@@ -1851,7 +1851,7 @@ msgstr "Ceci indique typiquement quelqu'un qui est moins expérimenté et qui tr
 msgid ""
 "Transliterated track listings don't change the language, just the script or "
 "spelling."
-msgstr "Les listes de pistes translittérés ne change pas la langue, juste le caractère d'écriture ou l'orthographe."
+msgstr "Les listes de pistes translittérés ne change pas la langue, juste le système d'écriture ou l'orthographe."
 
 #: DB:link_type/description:227
 msgid ""
