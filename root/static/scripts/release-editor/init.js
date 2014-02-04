@@ -26,7 +26,7 @@ MB.releaseEditor.init = function (options) {
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
 
-    $(document).on("keydown", "#release-editor :input:not(:button)",
+    $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 self.nextTab();
