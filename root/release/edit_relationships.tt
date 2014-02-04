@@ -216,7 +216,7 @@
         <td>
           <span id="autocomplete" class="autocomplete">
             <img class="search" src="../../../static/images/icons/search.png" />
-            <input class="name" type="text" data-bind="autocomplete: $data" />
+            <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
           </span>
           <div class="error" data-bind="text: targetField().error"></div>
         </td>
