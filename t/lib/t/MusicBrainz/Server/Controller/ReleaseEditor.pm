@@ -266,4 +266,40 @@ test 'seeding a lowercase country' => sub {
     });
 };
 
+
+test 'seeding a toc' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+cdtoc');
+
+    my $params = expand_hash({
+        "mediums.0.toc" => '1 7 171327 150 22179 49905 69318 96240 121186 143398',
+    });
+
+    my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
+
+    cmp_deeply($result, {
+        errors => [],
+        seed => {
+            mediums => [
+                {
+                    tracks => [
+                        { length => 293720, number => 1, position => 1 },
+                        { length => 369680, number => 2, position => 2 },
+                        { length => 258839, number => 3, position => 3 },
+                        { length => 358960, number => 4, position => 4 },
+                        { length => 332613, number => 5, position => 5 },
+                        { length => 296160, number => 6, position => 6 },
+                        { length => 372386, number => 7, position => 7 },
+                    ],
+                    position => 1,
+                    toc => '1 7 171327 150 22179 49905 69318 96240 121186 143398',
+                    cdtocs => 1
+                },
+            ]
+        },
+    });
+};
+
 1;
