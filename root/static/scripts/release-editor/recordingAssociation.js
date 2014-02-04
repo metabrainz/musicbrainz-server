@@ -137,19 +137,25 @@
         var clean = utils.cleanWebServiceData(data);
 
         clean.artist = MB.entity.ArtistCredit(clean.artistCredit).text();
+        clean.video = !!data.video;
 
         var appearsOn = _(data.releases)
             .map(function (release) {
                 // The webservice doesn't include the release group title, so
                 // we have to use the release title instead.
                 return {
-                    name: release.title, gid: release["release-group"].id
+                    name: release.title,
+                    gid: release.id,
+                    releaseGroupGID: release["release-group"].id
                 };
             })
-            .uniq(false, function (rg) { return rg.gid })
-            .value();
+            .uniq(false, "releaseGroupGID").value();
 
-        clean.appearsOn = { hits: appearsOn.length, results: appearsOn };
+        clean.appearsOn = {
+            hits: appearsOn.length,
+            results: appearsOn,
+            entityType: "release"
+        };
 
         return clean;
     }
@@ -325,6 +331,10 @@
                 }
             })
             .compact()
+            .sortBy(function (recording) {
+                return recording.appearsOn.length;
+            })
+            .reverse()
             .sortBy(function (recording) {
                 if (!trackLength || !recording.length) {
                     return MAX_LENGTH_DIFFERENCE;

@@ -226,15 +226,9 @@
             var release = releaseEditor.rootField.release(),
                 medium = releaseEditor.fields.Medium(this.result(), release);
 
-            // If there are no mediums, _.max will return -Infinity.
-            var nextPosition = Math.max(
-                1, _.max(_.invoke(release.mediums(), "position")) + 1
-            );
-
             medium.name("");
-            medium.position(nextPosition);
-
             inner && inner(medium);
+
             return medium;
         }
     });
@@ -317,6 +311,11 @@
                 release.mediums([medium]);
             }
             else {
+                // If there are no mediums, _.max will return -Infinity.
+                var nextPosition = Math.max(
+                    1, _.max(_.invoke(release.mediums(), "position")) + 1
+                );
+                medium.position(nextPosition);
                 release.mediums.push(medium);
             }
 

@@ -72,6 +72,8 @@
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+            "<% if (data.video) { %> <span class=\"comment\">" +
+            "(<%- data.video %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -147,14 +149,28 @@
 
             // Returned from the /ws/js/recording search.
             if (_.isObject(data.appearsOn)) {
-                this.appearsOn = _.map(data.appearsOn.results, function (rg) {
-                    return MB.entity(rg, "release_group");
+                // Depending on where we're getting the data from (search
+                // server, /ws/js...) we may have either releases or release
+                // groups here. Assume the latter by default.
+                var appearsOnType = data.appearsOn.entityType || "release_group";
+
+                this.appearsOn = _.map(data.appearsOn.results, function (appearance) {
+                    return MB.entity(appearance, appearsOnType);
                 });
             }
 
             if (_.isString(data.artist)) {
                 this.artist = data.artist;
             }
+        },
+
+        around$html: function (supr, params) {
+            params = params || {};
+
+            if (this.video) {
+                params.video = MB.text.Video;
+            }
+            return supr(params);
         }
     });
 

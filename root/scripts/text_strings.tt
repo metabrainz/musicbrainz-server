@@ -161,6 +161,7 @@
         AddReleaseNoTitle: '[% l('Add Release') | js %]',
         AddReleaseTitle: '[% l('{name} - Add Release') | js %]',
         EditReleaseNoTitle: '[% l('Edit Release') | js %]',
-        EditReleaseTitle: '[% l('{name} - Edit Release') | js %]'
+        EditReleaseTitle: '[% l('{name} - Edit Release') | js %]',
+        Video: '[% l('video') | js %]'
     });
 })(MB);

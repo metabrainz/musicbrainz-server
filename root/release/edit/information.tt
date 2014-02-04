@@ -180,7 +180,7 @@
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
-          <input id="barcode" type="text" data-bind="value: barcode.value, disable: barcode.none, controlsBubble: $root.barcodeBubble" />
+          <input id="barcode" type="text" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
         </td>
       </tr>
 
