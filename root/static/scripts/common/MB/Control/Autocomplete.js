@@ -177,10 +177,22 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     },
 
     clearSelection: function (clearAction) {
-        var entity = this._dataToEntity({
-            name: clearAction ? "" : this._value()
-        });
-        this.currentSelection(entity);
+        var name = clearAction ? "" : this._value();
+        var currentSelection = this.currentSelection.peek();
+
+        // If the current entity doesn't have a GID, it's already "blank" and
+        // we don't need to unnecessarily create a new one. Doing so can even
+        // have unintended effects, e.g. wiping other useful data on the
+        // entity (like release group types).
+
+        if (currentSelection.gid) {
+            this.currentSelection(this._dataToEntity({ name: name }));
+        }
+        else {
+            currentSelection.name = name;
+            this.currentSelection.notifySubscribers(currentSelection);
+        }
+
         this.element.trigger("cleared", [clearAction]);
     },
 
