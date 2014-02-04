@@ -184,11 +184,11 @@
             )
             .extend({ withError: true });
 
+            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+
             // The medium is considered to be loaded if it has tracks, or if
             // there's no ID to load tracks from.
-            var loaded = this.tracks.length || !(this.id || this.originalID);
-
-            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+            var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
             this.cdtocs = data.cdtocs || 0;
             this.loaded = ko.observable(loaded);
