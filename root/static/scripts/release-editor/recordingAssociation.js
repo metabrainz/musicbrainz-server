@@ -70,6 +70,13 @@
         if (numInCommon !== trackArtistIDs.length ||
             numInCommon !== newIDs.length) {
 
+            trackArtistIDs = newIDs;
+
+            if (newIDs.length === 0) {
+                recentRecordings = [];
+                return;
+            }
+
             var requestArgs = {
                 url: "/ws/js/last-updated-recordings",
                 data: $.param({ artists: newIDs }, true /* traditional */)
@@ -78,8 +85,6 @@
             MB.utility.request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
-
-            trackArtistIDs = newIDs;
         }
     }));
 
