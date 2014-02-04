@@ -32,14 +32,16 @@
         },
 
         release: function (release) {
+            if (!release.name() && !release.artistCredit.text()) return [];
+
             var newData = releaseEditData();
             var oldData = release.original();
             var edits = [];
 
             if (!release.id) {
                 edits.push(MB.edit.releaseCreate(newData));
-
-            } else if (!_.isEqual(newData, oldData)) {
+            }
+            else if (!_.isEqual(newData, oldData)) {
                 newData = _.extend(_.clone(newData), { to_edit: release.id });
                 edits.push(MB.edit.releaseEdit(newData, oldData));
             }
@@ -108,6 +110,7 @@
 
             newMediums().each(function (medium) {
                 if (!medium.loaded()) return;
+                if (!medium.formatID() && !medium.hasTracks()) return;
 
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original && medium.original();
@@ -154,7 +157,8 @@
                     newMediumData.to_edit = medium.id;
                     delete newMediumData.position;
                     edits.push(MB.edit.mediumEdit(newMediumData, oldMediumData));
-                } else {
+                }
+                else {
                     newMediumData.release = release.id;
                     edits.push(MB.edit.mediumCreate(newMediumData))
                 }
