@@ -332,7 +332,8 @@
             })
             .compact()
             .sortBy(function (recording) {
-                return recording.appearsOn.length;
+                var appearsOn = recording.appearsOn;
+                return appearsOn ? appearsOn.length : 0;
             })
             .reverse()
             .sortBy(function (recording) {
