@@ -24,8 +24,8 @@ var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
 
 RE.releaseViewModel = {
     RE: RE,
-    release: ko.observable({relationships: []}),
-    releaseGroup: ko.observable({relationships: []}),
+    release: ko.observable(MB.entity.Release({})),
+    releaseGroup: ko.observable(MB.entity.ReleaseGroup({})),
     media: ko.observableArray([]),
 
     activeDialog: ko.observable(),
@@ -96,7 +96,7 @@ RE.releaseViewModel = {
             relationship.buildFields(num, data);
         });
 
-        data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
+        data["rel-editor.edit_note"] = _.str.trim($("#id-rel-editor\\.edit_note").val());
         data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
         if (beforeUnload) window.onbeforeunload = undefined;
@@ -144,38 +144,16 @@ RE.releaseViewModel = {
     }
 };
 
-RE.releaseViewModel['changes'] = ko.computed(function () {
-    var breaker = {};
-    var breakIfChanged = function (relationship) {
-        if (relationship.action()) throw breaker;
-    };
 
-    try {
-        _.each(RE.releaseViewModel.media(), function(medium) {
-            _.each(medium.tracks, function(track) {
-                var recording = track.recording;
+function confirmNavigation() { return MB.text.ConfirmNavigation }
 
-                _.each(recording.relationships(), breakIfChanged);
+RE.releaseViewModel.changes = ko.computed(function () {
+    var hasChanges = RE.releaseViewModel.release().hasRelationshipChanges() ||
+                     RE.releaseViewModel.releaseGroup().hasRelationshipChanges();
 
-                _.each(recording.performanceRelationships(), function(relationship) {
-                    breakIfChanged(relationship);
-                    _.each(relationship.entity[1]().relationships(), breakIfChanged);
-                });
-            });
-        });
-        _.each(RE.releaseViewModel.release().relationships, breakIfChanged);
-        _.each(RE.releaseViewModel.releaseGroup().relationships, breakIfChanged);
-    }
-    catch (e) {
-        if (e == breaker) {
-            return true;
-        }
-        else {
-            throw e;
-        }
-    }
-    return false;
+    window.onbeforeunload = hasChanges ? confirmNavigation : undefined;
 });
+
 
 UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
@@ -200,7 +178,7 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
     if (data) {
         releaseLoaded(data);
     } else {
-        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
+        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels+media",
             $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
 
         $.getJSON(url, function(data) {
@@ -217,14 +195,14 @@ releaseLoaded = function (data) {
     var trackCount = 0;
 
     RE.releaseViewModel.release(release);
-    RE.releaseViewModel.releaseGroup(MB.entity(data.release_group, "release_group"));
+    RE.releaseViewModel.releaseGroup(MB.entity(data.releaseGroup, "release_group"));
 
     for (var i = 0, len = data.mediums.length; i < len; i++) {
         mediumData = data.mediums[i];
         trackCount += mediumData.tracks.length;
         RE.releaseViewModel.media.push(new MB.entity.Medium(mediumData));
 
-        Util.callbackQueue(mediumData.tracks, function (trackData) {
+        MB.utility.callbackQueue(mediumData.tracks, function (trackData) {
             Util.parseRelationships(trackData.recording, "recording");
         });
     }
@@ -233,7 +211,7 @@ releaseLoaded = function (data) {
     initCheckboxes(trackCount);
 
     Util.parseRelationships(data, "release");
-    Util.parseRelationships(data.release_group, "release_group");
+    Util.parseRelationships(data.releaseGroup, "release_group");
 };
 
 
@@ -249,13 +227,13 @@ RE.createWorks = function(works, editNote, success, error) {
 
     _.each(works, function(work, i) {
         var prefix = ["create-works", "works", i, ""].join(".");
-        fields[prefix + "name"] = _.clean(work.name);
-        fields[prefix + "comment"] = _.clean(work.comment);
+        fields[prefix + "name"] = _.str.clean(work.name);
+        fields[prefix + "comment"] = _.str.clean(work.comment);
         fields[prefix + "type_id"] = work.type;
         fields[prefix + "language_id"] = work.language;
     });
 
-    fields["create-works.edit_note"] = _.trim(editNote);
+    fields["create-works.edit_note"] = _.str.trim(editNote);
     $.post("/relationship-editor/create-works", fields).success(success).error(error);
 };
 
@@ -414,42 +392,7 @@ function initButtons() {
 }
 
 
-$(function() {
-    /* Every major browser supports onbeforeunload expect Opera. (This says
-       Opera 12 supports it, but it doesn't, at least not <= 12.10.)
-       https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
-     */
-    if (!("onbeforeunload" in window)) {
-        var prevented = false;
-
-        /* This catches the backspace key and asks the user whether they want to
-           navigate back.
-
-           Opera < 12.10 fires both keydown and keypress events, but keypress
-           must return false. Opera >= 12.10 doesn't fire keypress for special
-           keys, so keydown must return false. Regular event listeners and/or
-           preventDefault don't work for this, they must be assigned directly
-           to document.onkeydown and document.onkeypress.
-         */
-        document.onkeydown = function(event) {
-            if (event.keyCode == 8) {
-                var node = event.srcElement || event.target, tag = node.tagName.toLowerCase(),
-                    type = (node.type || "").toLowerCase(),
-                    prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
-
-                if (prevent && !confirm(MB.text.ConfirmNavigation)) {
-                    prevented = true;
-                    return false;
-                }
-            }
-        };
-
-        document.onkeypress = function(event) {
-            if (prevented)
-                return (prevented = false);
-        };
-    }
-});
+$(MB.confirmNavigationFallback);
 
 return RE;
 

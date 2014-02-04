@@ -70,8 +70,7 @@
     $('#id-edit-alias\\\.type_id').keyup(denyDataForSearchHints).change(denyDataForSearchHints);
     denyDataForSearchHints();
 
-    var bubbles = MB.Control.BubbleCollection();
-    MB.Control.initialize_guess_case(bubbles, '[% entity_type_name %]', 'id-edit-alias');
+    MB.Control.initialize_guess_case('[% entity_type_name %]', 'id-edit-alias');
 
     MB.utility.setDefaultAction ('form.edit-alias', 'button.submit.positive');
 }());

@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Form;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler';
-with 'MusicBrainz::Server::Form::Role::SelectAll';
 
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Translation qw( l );

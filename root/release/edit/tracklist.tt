@@ -1,449 +1,387 @@
-[%- MACRO artist_credit_row BLOCK -%]
-<table class="artist-credit bubble" style="width: 100%">
-  <thead>
-    <tr class="artist-credit-preview">
-      <td colspan="4">
-        <div class="row">
-          <label>[% l('Preview') %]</label>
-          <span data-bind="html: html()"></span>
-        </div>
-      </td>
-    </tr>
+<script type="text/html" id="template.track-parser">
+  [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
+  <p>[% l('Enter a tracklist below:') %]</p>
 
-    <tr class="artist-credit-header">
-      <th>[% l('Artist in MusicBrainz') %]</th>
-      <th>[% l('Artist as credited on this track') %]</th>
-      <th>[% l('Join phrase') %]</th>
-      <th> </th>
-    </tr>
-  </thead>
-  <tbody>
+  <textarea class="tracklist" data-bind="value: toBeParsed"></textarea>
 
-  <!-- ko foreach: names -->
-    <tr class="artist-credit-box">
-      <td class="artist">
-        <span class="artist autocomplete" style="width: 100%;">
-          <input type="text" class="name" data-bind="
-            autocomplete: { entity: 'artist', currentSelection: artist },
-            css: { 'various-artists': isVariousArtists() }"/>
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-        </span>
-      </td>
-      <td class="artistcredit">
-        <input type="text" class="credit" data-bind="value: name"/>
-      </td>
-      <td class="joinphrase">
-        <input type="text" class="join" data-bind="value: joinPhrase, event: { change: _.bind(joinChanged, $data, $element) }"/>
-      </td>
-      <td class="icon">
-        <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: function () { $parent.removeName($data); }" />
-      </td>
-    </tr>
+  <!-- ko if: error -->
+    <p>[% l('Unable to parse the tracklist you entered.') %]</p>
   <!-- /ko -->
 
+  <h3 class="track-parser-options">[% l('Options') %]</h3>
+
+  <label>
+    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackArtists" />
+    [% l('Parse track artists') %]
+  </label>
+  <br />
+  <label>
+    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackNumbers" />
+    [% l('Lines start with a track number') %]
+  </label>
+  <br />
+  <label>
+    <input type="checkbox" data-bind="checked: $root.trackParser.options.vinylNumbers" />
+    [% l('Enable vinyl track numbers') %]
+  </label>
+  <br />
+  <label>
+    <input type="checkbox" data-bind="checked: $root.trackParser.options.trackTimes" />
+    [% l('Detect track durations') %]
+  </label>
+</script>
+
+<script type="text/html" id="template.medium-search">
+  <table>
     <tr>
-      <td colspan="4" style="text-align: right;">
-        <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
-          [%- l('Add Artist Credit') -%]
-          <div class="add-item icon img" title="[% l('Add Artist Credit') %]" style="display: inline-block; padding: 0;"></div>
-        </button>
+      <td><label for="import-release">[% l('Release:') %]</label></td>
+      <td><input id="import-release" type="text" data-bind="value: releaseName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
+      <td rowspan="2"></td>
+    </tr>
+    <tr>
+      <td><label for="import-artist">[% l('Artist:') %]</label></td>
+      <td><input id="import-artist" type="text" data-bind="value: artistName, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
+    </tr>
+    <tr>
+      <td><label for="import-track-count">[% l('Track count:') %]</label></td>
+      <td><input id="import-track-count" type="text" data-bind="value: trackCount, valueUpdate: 'afterkeydown'" data-keydown="keydownEvent" /></td>
+      <td class="buttons">
+        <button type="button" data-click="buttonClicked" data-bind="enable: releaseName() || artistName() || trackCount() || searching(), text: searching() ? '[% l('Cancel') | js %]' : '[% l('Search') | js %]'"></button>
       </td>
     </tr>
-  </tbody>
-</table>
-[%- END -%]
+  </table>
 
-[%- MACRO tracklist_pager BLOCK -%]
-<div class="pager" style="width: 100%; text-align: right; display: none;">
-  <p style="text-align: left">[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
-  <a href="#prev">&lt;&lt;</a>
-  <span class="pager"></span>
-  <a href="#next">&gt;&gt;</a>
-</div>
+  <!-- ko if: searchResults() && searchResults().length > 0 -->
+  <p>[% l('Select a disc from the search results below and then click "Add Disc".') %]</p>
+  <!-- /ko -->
 
-<div style="display: none;" class="tracklist-searching import-message">
-  <p>
-    <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-    &#xa0;
-    [% l('Searching...') %]
-  </p>
-</div>
-
-<div style="display: none;" class="tracklist-no-results import-message">
-  <p>[% l('No results') %]</p>
-</div>
-
-<div style="display: none;" class="tracklist-error import-message">
-  <p>[% l('An error occured: ') %]<span class="message"> </span></p>
-</div>
-[%- END -%]
-
-[%- WRAPPER 'release/edit/layout.tt' -%]
-  [% script_manifest('guess-case.js.manifest') %]
-  [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('release-editor.js.manifest') %]
-
-  [% USE r = FormRenderer(form) %]
-  [% USE w = Wizard() %]
-  [% information = w.page ('information') %]
-  [%- r.hidden ('seeded', class => "seeded") -%]
-
-   <div class="various-artists warning" style="display: none;">
-     [%- warning_icon %]
-     <p>
-       [% l('<strong>Warning</strong>:') %]
-       [% l('You have used the {valink|Various Artists} special purpose artist on:', { valink => va_doc_link }) %]
-     </p>
-     <ul> </ul>
-     <p>
-       [% l('{valink|Various Artists} should very rarely be used on tracks, make sure that the artists on these tracks have been entered correctly.', { valink => va_doc_link }) %]
-     </p>
+  <!-- ko if: totalPages() > 1 -->
+  <div style="text-align: center">
+    <a href="#" data-click="previousPage">«</a>
+    <!-- ko text: MB.i18n.expand(MB.text.Pager, { page: currentPage(), total: totalPages() })
+    --><!-- /ko -->
+    <a href="#" data-click="nextPage">»</a>
   </div>
+  <!-- /ko -->
 
-  [% FOR form_error=form.form_errors %]
-  <div class="various-artists warning">
-     [%- warning_icon %]
-     <p>
-       [% l('<strong>Error</strong>:') %]
-       [% form_error %]
-     </p>
-  </div>
-  [% END %]
+  <!-- ko if: searching -->
+    <p class="loading-message">[% l('Searching...') %]</p>
+  <!-- /ko -->
 
-  <div class="track-parser-dialog dialog" style="display: none">
-    [%# the track-parser-dialog is a simplified version of the add-disc-dialog. %]
-    <h1>[% l('Track Parser') %]</h1>
+  <!-- ko if: !searching() && searchResults() && searchResults().length === 0 -->
+    <p>[% l('No results') %]</p>
+  <!-- /ko -->
 
-    <div>
-        <textarea class="tracklist"></textarea>
-        <h3 class="track-parser-options">[% l('Options') %]</h3>
-    </div>
+  <!-- ko if: error -->
+    <p>[% l('An error occured: ') %] <span data-bind="text: error"></span></p>
+  <!-- /ko -->
 
-    <div class="buttons">
-      <input style="float: right;" type="button" class="parse-tracks" value="[% l('Parse Tracks') %]" />
-      <input type="button" class="negative cancel" value="[% l('Close') %]" />
-    </div>
-  </div>
-
-  <div class="add-disc-dialog dialog" style="display: none">
-    <h1>[% l('Add Disc') %]</h1>
-    [% l('To create a new tracklist, use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]
-
-    <div class="tabs">
-      <ul class="tabs">
-        <li class="first sel"><a class="manual" href="#manual">[% l('Manual entry') %]</a></li>
-        <li><a class="tracklist" href="#tracklist">[% l('Existing tracklist') %]</a></li>
-        <li><a class="cdstub" href="#cdstub">[% l('CD stub import') %]</a></li>
-        <li><a class="freedb" href="#freedb">[% l('FreeDB import') %]</a></li>
-      </ul>
-    </div>
-
-    <div class="add-disc-tab manual">
-        <p>
-        [% l('Enter a tracklist below:') %]
-        </p>
-
-        <textarea class="tracklist"></textarea>
-
-        <h3 class="track-parser-options">[% l('Options') %]</h3>
-        <p id="track-parser-options">
-        <input type="checkbox" name="trackartists" id="trackartists">
-        <label for="trackartists">[% l('Parse track artists') %]</label>
-        <br />
-        <input type="checkbox" name="tracknumbers" id="tracknumbers" checked="checked">
-        <label for="tracknumbers">[% l('Track names start with a number') %]</label>
-        <br />
-        <input type="checkbox" name="vinylnumbers" id="vinylnumbers">
-        <label for="vinylnumbers">[% l('Enable vinyl track numbers') %]</label>
-        <br />
-        <input type="checkbox" name="tracktimes" id="tracktimes" checked="checked">
-        <label for="tracktimes">[% l('Detect track durations') %]</label>
-        </p>
-
-    </div>
-
-    <div class="add-disc-tab tracklist" style="display: none">
-      <p>
-        [% l('Use the following fields to search for an existing tracklist.') %]
-      </p>
-
-      <table class="import-search-fields">
-        <tr>
-          <td><label for="import-release">[% l('Release:') %]</label></td>
-          <td><input type="text" id="import-release" class="release" value="[% information.field('name').value | html %]" /></td>
-          <td rowspan="2"></td>
-        </tr>
-        <tr>
-          <td><label for="import-artist">[% l('Artist:') %]</label></td>
-          <td><input type="text" id="import-artist" class="artist" value="[% artist_credit_preview_from_field(release_artist) %]" /></td>
-        </tr>
-        <tr>
-          <td><label for="track-count">[% l('Track count:') %]</label></td>
-          <td><input type="text" id="track-count" class="track-count" value="" /></td>
-          <td>
-            <div class="buttons">
-              <a style="min-width: 5em;" id="import-search-go" href="#import-search">[% l('Search') %]</a>
-            </div>
-          </td>
-        </tr>
-      </table>
-
-      [%- tracklist_pager -%]
-    </div>
-    <div class="add-disc-tab cdstub" style="display: none">
-      <p>
-        [% l('Use the following fields to search for a CD stub.') %]
-      </p>
-
-      [%- tracklist_pager -%]
-    </div>
-    <div class="add-disc-tab freedb" style="display: none">
-      <p>
-        [% l('Use the following fields to search for a FreeDB entry.') %]
-      </p>
-
-      [%- tracklist_pager -%]
-    </div>
-
-    <div class="import-template" style="display: none; padding-left: 1em;">
-      <a class="icon" href="#expand_tracklist">
-        <span class="ui-icon ui-icon-triangle-1-e" style="display: inline-block;">
+  <!-- ko foreach: { data: searchResults, if: searchResults } -->
+    <div class="search-result">
+      <a class="icon" href="#" data-click="toggle">
+        <span class="ui-icon" data-bind="css: { 'ui-icon-triangle-1-e': !expanded(), 'ui-icon-triangle-1-s': expanded() }">
           [%- l("Expand") -%]
         </span>
-
-        <span class="title"></span>
+        <!-- ko text: name --><!-- /ko -->
       </a>
-      <span class="medium"></span>
-      [% l('by'); %] <span class="artist"></span>
 
-      [%# either tracklist id, freedb id or discid (cdstub). %]
-      <input type="hidden" class="id" />
-      <input type="hidden" class="toc" />
-      <br />
+      <!-- ko if: $data.format -->
+        (<!-- ko text: format + ($data.position ? " " + $data.position : "") --><!-- /ko -->)
+      <!-- /ko -->
 
-      <table class="import-tracklist medium tbl" style="display: none">
+      <!-- ko text: MB.i18n.expand(MB.text.ByArtist, { artist: artist }) --><!-- /ko -->
+    </div>
+
+    <!-- ko if: expanded() && loaded() -->
+    <table class="medium tbl">
+      <thead>
+        <tr>
+          <th class="position">[% l('#') %]</th>
+          <th class="title">[% l('Title') %]</th>
+          <th class="artist">[% l('Artist') %]</th>
+          <th class="length">[% l('Length') %]</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: tracks">
+        <tr class="track">
+          <td class="position" style="text-align: right;" data-bind="text: position"></td>
+          <td class="title" data-bind="text: name"></td>
+          <td class="artist" data-bind="text: artist"></td>
+          <td class="length" data-bind="text: formattedLength"></td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- /ko -->
+
+    <!-- ko if: expanded() && loading() -->
+      <p class="loading-message">
+        [% l('Now loading tracklist...') %]
+      </p>
+    <!-- /ko -->
+
+    <!-- ko if: error -->
+      <p class="error" data-bind="text: error"></p>
+    <!-- /ko -->
+  <!-- /ko -->
+</script>
+
+<div id="track-parser-dialog" style="display: none;" data-bind="with: $root.trackParserDialog, delegatedHandler: 'click'">
+  <!-- ko template: "template.track-parser" --><!-- /ko -->
+
+  <div class="buttons">
+    <button type="button" class="negative" data-bind="click: close">[% l('Close') %]</button>
+    <button type="button" style="float: right" data-bind="click: parse">[% l('Parse Tracks') %]</button>
+  </div>
+</div>
+
+<div id="add-disc-dialog" style="display: none;" data-bind="with: $root.addDiscDialog, delegatedHandler: ['click', 'keydown']">
+  <p>[% l('To create a new tracklist, use an existing tracklist or import a disc from a CD stub or FreeDB, select the appropriate tab.') %]</p>
+
+  <ul>
+    <li><a href="#add-disc-parser">[% l('Manual entry') %]</a></li>
+    <li><a href="#add-disc-medium">[% l('Existing tracklist') %]</a></li>
+    <li><a href="#add-disc-cdstub">[% l('CD stub import') %]</a></li>
+    <li><a href="#add-disc-freedb">[% l('FreeDB import') %]</a></li>
+  </ul>
+
+  <div id="add-disc-parser">
+    <!-- ko template: { name: "template.track-parser", data: trackParser } --><!-- /ko -->
+  </div>
+
+  <div id="add-disc-medium">
+    <p>
+      [% l('Use the following fields to search for an existing tracklist.') %]
+    </p>
+    <!-- ko template: { name: "template.medium-search", data: mediumSearch } --><!-- /ko -->
+  </div>
+
+  <div id="add-disc-cdstub">
+    <p>
+      [% l('Use the following fields to search for a CD stub.') %]
+    </p>
+    <!-- ko template: { name: "template.medium-search", data: cdstubSearch } --><!-- /ko -->
+  </div>
+
+  <div id="add-disc-freedb">
+    <p>
+      [% l('Use the following fields to search for a FreeDB entry.') %]
+    </p>
+    <!-- ko template: { name: "template.medium-search", data: freedbSearch } --><!-- /ko -->
+  </div>
+
+  <div class="buttons">
+    <button type="button" class="negative" data-click="close">[% l('Close') %]</button>
+    <button type="button" style="float: right" class="positive" data-click="addDisc" data-bind="enable: currentTab().result()">[% l('Add Disc') %]</button>
+  </div>
+</div>
+
+<div data-bind="with: rootField.release, affectsBubble: trackArtistBubble">
+  <!-- ko if: _.isEmpty(mediums()) -->
+    <p>[% l('You haven\'t added any media yet. Click on the "Add Disc" button below to add one.') %]</p>
+  <!-- /ko -->
+
+  <p class="error field-error" data-bind="showErrorWhenTabIsSwitched: mediums"></p>
+
+  <!-- ko foreach: mediums -->
+  <fieldset class="advanced-disc">
+    <legend data-bind="text: formattedName()"></legend>
+
+    <table class="advanced-format">
+      <tr>
+        <td class="icon">
+          <button type="button" class="icon collapse-disc" data-click="toggleMedium" data-bind="css: { 'expand-disc': collapsed, 'collapse-disc': !collapsed() }, attr: { title: collapsed() ? '[% l('Expand Disc') %]' : '[% l('Collapse Disc') %]' }"></button>
+        </td>
+
+        <td class="format">
+          <label data-bind="attr: { for: 'disc-format-' + $index() }">[% l('Format') %]</label>
+          <select data-bind="value: formatID, attr: { id: 'disc-format-' + $index() }">
+            <option value="" selected="selected">&#160;</option>
+            [%- FOR format=formats %]
+            <option value="[% format.value %]">[% format.label %]</option>
+            [%- END %]
+          </select>
+          <!-- ko if: release.mediums().length > 1 || name() -->
+            <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title') %]</label>
+            <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + $index() }" />
+            <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
+          <!-- /ko -->
+        </td>
+
+        <td class="icon" style="text-align: right">
+          <button type="button" class="icon disc-down" title="[% l('Move disc down') %]" data-click="moveMediumDown"></button>
+          <button type="button" class="icon disc-up" title="[% l('Move disc up') %]" data-click="moveMediumUp"></button>
+          <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>
+        </td>
+      </tr>
+      [% table_row_error(2, 'showErrorRightAway: formatID') %]
+    </table>
+
+    <!-- ko if: loading -->
+      <div class="tracklist-loading">
+        <span class="loading-message">[% l('Now loading tracklist...') %]</span>
+      </div>
+    <!-- /ko -->
+
+    <!-- ko if: _.any(tracks(), function (track) { return track.artistCredit.isVariousArtists() }) -->
+      <div class="various-artists warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% l('Warning:') | html_entity %]</strong>
+          [% l('You’ve used the {valink|Various Artists} special purpose artist on some tracks below. {valink|Various Artists} should very rarely be used on tracks; please make sure the artists have been entered correctly.', { valink => va_doc_link }) %]
+        </p>
+      </div>
+    <!-- /ko -->
+
+    <div data-bind="visible: loaded() && !collapsed()">
+      <p class="error field-error" style="padding: 1em" data-bind="showErrorWhenTabIsSwitched: tracks"></p>
+
+      <table class="medium tbl">
         <thead>
           <tr>
+            <th class="reorder"></th>
             <th class="position">[% l('#') %]</th>
             <th class="title">[% l('Title') %]</th>
-            <th class="artist">[% l('Artist') %]</th>
+            <th class="artist" colspan="2">[% l('Artist') %]</th>
             <th class="length">[% l('Length') %]</th>
+            <th class="icons"></th>
           </tr>
         </thead>
-        <tfoot />
-        <tbody>
-          <tr class="track" style="display: none;">
-            <td class="position" style="text-align: right;"></td>
-            <td class="title"></td>
-            <td class="artist"></td>
-            <td class="length"></td>
+        <tbody data-bind="foreach: tracks">
+          <tr class="track" data-bind="attr: { id: elementID }">
+            <td class="reorder">
+              <button type="button" class="icon track-down" title="[% l('Move track down') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackDown"></button>
+              <button type="button" class="icon track-up" title="[% l('Move track up') %]" data-bind="disableBecauseDiscIDs: true" data-click="moveTrackUp"></button>
+            </td>
+
+            <td class="position">
+              <input class="pos" type="text" data-bind="value: number" />
+            </td>
+
+            <td class="title">
+              <input type="text" class="track-name" data-bind="value: name, valueUpdate: 'input'" />
+            </td>
+
+            <td class="artist autocomplete">
+              <span class="autocomplete" style="width: 100%">
+                <input type="text" class="track-artist"
+                  data-bind="
+                    autocomplete: {
+                      entity: 'artist',
+                      artistCredit: artistCredit
+                    }"
+                />
+                <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+              </span>
+            </td>
+
+            <td class="credits-button buttons" data-bind="with: artistCredit">
+              <button data-bind="controlsBubble: $root.trackArtistBubble">[% l('Edit') | html_entity %]</button>
+            </td>
+
+            <td class="length">
+              <input type="text" class="track-length" size="5" data-bind="value: formattedLength, disableBecauseDiscIDs: true" placeholder="?:??" />
+            </td>
+
+            <td class="icon">
+              <button type="button" class="icon guesscase-track" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
+              <!-- ko if: medium.cdtocs === 0 -->
+              <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
+              <!-- /ko -->
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <div style="display: none; height: 6em; margin-top: 5em;" class="tracklist-loading">
-        <p>
-          <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &#xa0;
-          [% l('Now loading tracklist...') %]
-        </p>
-      </div>
+      <div id="tracklist-tools">
+        <div class="buttons">
+          <button data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
+          <button data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
+        </div>
 
+        <div class="icon add-tracks" data-bind="if: cdtocs === 0">
+          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" value="1" data-bind="value: addTrackCount" />') %]
+          <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
+        </div>
+      </div>
     </div>
 
-    <div class="buttons">
-      <input style="float: right;" type="button" class="positive add-disc" value="[% l('Add Disc') %]" />
-      <input type="button" class="negative cancel" value="[% l('Cancel') %]" />
-    </div>
+  </fieldset>
+  <!-- /ko -->
 
-  </div>
-
-  <div class="advanced-tracklist">
-
-    [%# The following is only included so it can be cloned when adding new tracks. --warp. %]
-    <table class="tracklist-template" style="display: none">
-      <tr class="track">
-        <td class="position">
-          <span class="pos" style="display: none;"></span>
-          <input class="pos" type="text" />
-        </td>
-        <td class="reorder">
-            <input type="button" class="icon track-down"
-              title="[% l('Move track down') %]" />
-            <input type="button" class="icon track-up"
-              title="[% l('Move track up') %]" />
-        <td class="title">
-          <input type="hidden" class="id" />
-          <input type="text" class="track-name" />
-        </td>
-        <td class="artist autocomplete">
-          <span class="autocomplete" style="width: 100%">
-            <input type="text" class="track-artist" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" />
-            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" style="top: 1px;"  />
-          </span>
-        </td>
-        <td class="credits-button">
-          <a class="credits-button" href="#credits">[% l('credits') %]</a>
-        </td>
-        <td class="length">
-          <input type="text" class="track-length" size="5" placeholder="?:??" />
-        </td>
-        <td class="icon">
-          <input type="button" class="icon guesscase-track"
-            title="[% l('Guess case track') %]" />
-
-          <input type="hidden" class="deleted" value="0" />
-          <input type="button" class="icon remove-track"
-            title="[% l('Remove track') %]" />
-        </td>
-      </tr>
-      <tr class="track-artist-credit container" style="display: none">
-        <td colspan="6">
-          [% artist_credit_row %]
-        </td>
-      </tr>
-    </table>
-
-    [% FOR medium_field=form.field('mediums').fields %]
-    <fieldset class="advanced-disc" id="mediums.[% loop.index %].advanced-disc">
-      [% r.hidden(medium_field.field('medium_id_for_recordings'), class => 'medium_id_for_recordings') %]
-      [% r.textarea(medium_field.field('edits'), { class => 'edits', style => 'display: none;' }) %]
-
-      <legend>
-        [% l('Disc {num}', { num => '<span class="discnum">' _ (medium_field.field('position').value) _ '</span>' }) %]
-      </legend>
-
-      <table class="advanced-format">
-        <tr>
-          <td class="icon">
-            <input type="button" class="icon expand-disc"
-              title="[% l('Expand Disc') %]" />
-            <input type="button" class="icon collapse-disc"
-              title="[% l('Collapse Disc') %]"
-              style="display: none;" />
-          </td>
-
-          <td class="format">
-            <div class="advanced-medium-format-and-title">
-                [% r.hidden(medium_field.field('id'), class => 'id') %]
-                [% r.hidden(medium_field.field('toc'), class => 'toc') %]
-                [% r.hidden(medium_field.field('deleted'), class => 'deleted') %]
-                [% r.hidden(medium_field.field('position'), class => 'position') %]
-
-                <div class="row">
-                  [% r.label(medium_field.field('format_id'), l('Format')) %]
-                  [% r.select(medium_field.field('format_id'), class => 'format') %]
-                </div>
-                <div class="row advanced-tracklist">
-                  [% r.label(medium_field.field('name'), l('Disc title')) %]
-                  [% r.text(medium_field.field('name'), class => 'name') %]
-
-                  <input type="button" class="icon guesscase-medium"
-                      title="[% l('Guess case disc title') %]" />
-
-                </div>
-            </div>
-          </td>
-
-          <td class="tools" style="vertical-align: middle;">
-            <input type="button" class="track-parser"
-                title="[% l('Track Parser') %]"
-                value="[% l('Track Parser') %]" />
-          </td>
-
-          <td class="icon" style="text-align: right;">
-            <input type="button" class="icon disc-down"
-              title="[% l('Move disc down') %]" />
-            <input type="button" class="icon disc-up"
-              title="[% l('Move disc up') %]" />
-            <span class="empty-icon" style="display: inline-block; width: 16px; height: 16px;"> </span>
-            <input type="button" class="icon remove-disc"
-              title="[% l('Remove disc') %]" />
-          </td>
-        </tr>
-      </table>
-
-      <div style="display: none" class="tracklist-loading">
-        <p>
-          <img src="[% c.uri_for("/static/images/icons/loading.gif") %]" />
-          &#xa0;
-          [% l('Now loading tracklist...') %]
-        </p>
-      </div>
-
-      <div class="tracklist-padding">
-        [% field_errors(form, medium_field.full_name) %]
-        <table class="medium tbl" style="display: none">
-          <thead>
-            <tr>
-              <th class="position">[% l('#') %]</th>
-              <th class="reorder"></th>
-              <th class="title">[% l('Title') %]</th>
-              <th class="artist" colspan="2">[% l('Artist') %]</th>
-              <th class="length">[% l('Length') %]</th>
-              <th class="icons"></th>
-            </tr>
-          </thead>
-          <tfoot />
-          <tbody> </tbody>
-        </table>
-      </div>
-
-      <div style="float: left; padding: 10px;" class="buttons">
-         <input type="button" class="reset-track-numbers"
-            title="[%- l('Reset track numbers') -%]"
-            value="[%- l('Reset track numbers') -%]" />
-
-         <input type="button" class="swap-artists-and-titles"
-           title="[%- l('Swap track titles with artist credits') -%]"
-           value="[%- l('Swap track titles with artist credits') -%]" />
-      </div>
-
-      <div class="icon add-track" style="float: right;">
-        <span style="padding-right: 1em">
-          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" class="add-track-count" value="1" />') %]
-        </span>
-        <input type="button" class="icon add-track"
-            title="[% l('Add track(s)') %]" />
-      </div>
-
-    </fieldset>
-    [% END %]
-
-    <div class="guesscase-advanced">
+  <!-- ko ifnot: _.isEmpty(mediums()) -->
+    <div data-bind="guessCase: _.bind($root.guessCaseMediaNames, $data)">
       [% guesscase(show_icon=1) %]
     </div>
+  <!-- /ko -->
+</div>
 
-    <div class="buttons ui-helper-clearfix">
-      [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-      <a href="#add_disc">[% l('Add Disc') %]</a>
-      [% r.submit ('previous', l('« Previous')) %]
-      [% r.submit ('next', l('Next »')) %]
-    </div>
+<div class="bubble" id="track-ac-bubble" data-bind="bubble: trackArtistBubble">
+<div data-bind="delegatedKeydown: _.bind($bubble.closeTrackArtistBubble, $bubble)">
+  <table style="width: 100%">
+    <thead>
+      <tr>
+        <td colspan="4" style="padding-bottom: 1em;">
+          <label>[% l('Preview') %]</label>
+          <span data-bind="html: html({ target: '_blank' })"></span>
+        </td>
+      </tr>
+      <tr class="artist-credit-header">
+        <th>[% l('Artist in MusicBrainz:') %]</th>
+        <th>[% l('Artist as credited on this track:') %]</th>
+        <th>[% l('Join phrase:') %]</th>
+        <th></th>
+      </tr>
+    </thead>
 
+    <tbody>
+      <!-- ko foreach: names -->
+      <tr>
+        <td>
+          <span class="artist autocomplete">
+            <input type="text" data-bind="autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }" />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          </span>
+        </td>
+        <td>
+          <input type="text" data-bind="value: name" />
+        </td>
+        <td>
+          <input type="text" data-bind="value: joinPhrase" />
+        </td>
+        <td>
+          <button type="button" class="icon remove-item" title="[% l('Remove Artist Credit') %]" data-bind="delegatedClick: $bubble.removeArtistCreditName.bind($bubble)"></button>
+        </td>
+      </tr>
+      <!-- /ko -->
+      <tr>
+        <td colspan="2"></td>
+        <td colspan="2" style="text-align: right;">
+          <button type="button" class="add-item with-label" style="margin-right: 9px;" data-click="addName">
+            [%- l('Add Artist Credit') -%]
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <label>
+      <input type="checkbox" data-bind="checked: $bubble.changeMatchingArtists" />
+      <!-- ko text: MB.i18n.expand(
+        "[% l('Change all artists on this medium that match “{name}”') | js %]",
+        { name: $bubble.initialArtistText() }
+      ) --><!-- /ko -->
+    </label>
   </div>
 
-  <script type="text/javascript">//<![CDATA[
-    MB.release_artist_json = [% release_artist_json %];
-
-    MB.releaseArtistCredit = MB.entity.ArtistCredit(
-        ([% submitted_release_artist %]).names
-    );
-
-    MB.medium_cdtocs = [
-      [%- FOR medium=release.mediums -%]
-        [%- IF medium.cdtocs.size -%]
-          [%- medium.cdtocs.0.cdtoc.track_count -%],
-        [%- ELSE -%]
-          null,
-        [%- END -%]
-      [%- END -%]
-      null
-    ];
-
-    MB.utility.setDefaultAction("form.release-editor", "#id-next");
-
-    $("div.dialog").draggable();
-  //]]></script>
-
-[%- END -%]
+  <div class="buttons" style="float: left" data-bind="with: $bubble">
+    <button type="button" data-click="copyArtistCredit">[% l('Copy Credits') %]</button>
+    <button type="button" data-click="pasteArtistCredit">[% l('Paste Credits') %]</button>
+  </div>
+  <div class="buttons" style="float: right" data-bind="with: $bubble">
+    <button type="button" id="track-ac-previous" data-click="previousTrack">[% l('Previous') %]</button>
+    <button type="button" id="track-ac-next" data-click="nextTrack">[% l('Next') %]</button>
+    <button type="button" id="track-ac-done" class="positive" data-click="hide">[% l('Done') %]</button>
+  </div>
+</div>
+</div>

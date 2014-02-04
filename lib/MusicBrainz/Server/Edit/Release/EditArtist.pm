@@ -15,7 +15,6 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     verify_artist_credits
 );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Edit';

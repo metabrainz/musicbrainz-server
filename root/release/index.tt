@@ -23,9 +23,6 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
-    <style>
-    table.tbl td { vertical-align: top }
-    </style>
 
     <script type="text/html" id="relationship-group">
       <dt><!-- ko text: key --><!-- /ko -->:</dt>
@@ -155,7 +152,7 @@
                   </span>
                 </td>
               [% END %]
-              <td class="treleases" data-bind="text: length">
+              <td class="treleases" data-bind="text: formattedLength || '?:??'">
               </td>
             </tr>
           <!-- /ko -->
@@ -179,7 +176,7 @@
                     gid => $target->gid,
                     type => $rel->target_type,
                     name => $target->name,
-                    sortname => $target->can('sort_name') ? $target->sort_name : undef,
+                    sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
                 phrase => $rel->phrase
@@ -199,14 +196,14 @@
                             name => $_->name,
                             length => $_->length,
                             editsPending => $_->edits_pending,
-                            artist_credit => [
+                            artistCredit => [
                                 map +{
                                     name => $_->name,
-                                    join_phrase => $_->join_phrase,
+                                    joinPhrase => $_->join_phrase,
                                     artist => {
                                         gid => $_->artist->gid,
                                         id => $_->artist->id,
-                                        sortname => $_->artist->sort_name,
+                                        sortName => $_->artist->sort_name,
                                         name => $_->artist->name,
                                         comment => $_->artist->comment
                                     }
@@ -238,14 +235,14 @@
                     editsPending => $_->edits_pending
                 }, @{ $release->{mediums} }
             ],
-            artist_credit => [
+            artistCredit => [
                 map +{
                     name => $_->name,
-                    join_phrase => $_->join_phrase,
+                    joinPhrase => $_->join_phrase,
                     artist => {
                         gid => $_->artist->gid,
                         id => $_->artist->id,
-                        sortname => $_->artist->sort_name,
+                        sortName => $_->artist->sort_name,
                         name => $_->artist->name
                     }
                 }, $release->artist_credit->all_names

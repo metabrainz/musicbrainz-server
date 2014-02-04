@@ -117,13 +117,11 @@ MB.CoverArt.CoverArtType = function (name, id) {
 }
 
 MB.CoverArt.cover_art_types = function () {
-    var ret = ko.observableArray ();
-
-    _(MB.cover_art_types_json).each (function (item) {
-        ret.push (new MB.CoverArt.CoverArtType(item.l_name, item.id));
-    });
-
-    return ret;
+    return ko.observableArray(
+        _.map(MB.cover_art_types_json, function (item) {
+            return new MB.CoverArt.CoverArtType(item.l_name, item.id);
+        })
+    );
 };
 
 /*
@@ -451,7 +449,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
 MB.CoverArt.process_upload_queue = function (gid, upvm, pos) {
 
-    var queue = _(upvm.files_to_upload ()).map (function (item, idx) {
+    var queue = _.map(upvm.files_to_upload(), function (item) {
         return function () {
             return item.doUpload (gid, pos++);
         };

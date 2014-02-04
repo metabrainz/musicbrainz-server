@@ -14,7 +14,7 @@ has $_ => (
           artist_rels label_rels recording_rels release_rels
           release_group_rels url_rels work_rels area_rels place_rels
           tags ratings user_tags user_ratings collections
-          recording_level_rels work_level_rels rels annotation
+          recording_level_rels work_level_rels rels annotation release_events
 );
 
 sub has_rels

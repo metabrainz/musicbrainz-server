@@ -116,10 +116,10 @@ RelationshipSearcher = function () {
                 self.error ('Invalid type for this relationship: ' +  search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
             }
-            else if (! _(data.relationships).has(endPointType)) {
+            else if (! _.has(data.relationships, endPointType)) {
                 self.error ('No ' + endPointType + ' relationships found for ' + data.name);
             }
-            else if (! _(data.relationships[endPointType]).has(linkTypeName)) {
+            else if (! _.has(data.relationships[endPointType], linkTypeName)) {
                 self.error ('No ' + linkTypeName + ' relationships found for ' + data.name);
             }
             else

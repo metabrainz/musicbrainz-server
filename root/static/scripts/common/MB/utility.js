@@ -61,42 +61,6 @@ MB.utility.is_latin = function (str) { return ! /[^\u0000-\u02ff\u1E00-\u1EFF\u2
 
 MB.utility.clone = function (input) { return jQuery.extend (true, {}, input); }
 
-/* structureToString renders a structure to a string.  It is similar to
-   serializing a structure, but intended as input to a hash function.
-
-   The output string is not easily deserialized.
-*/
-MB.utility.structureToString = function (obj) {
-    if (_.isString(obj) || _.isNumber(obj))
-    {
-        return obj;
-    }
-    else if (_.isArray(obj))
-    {
-        var ret = [];
-        $.each (obj, function (idx, item) {
-            ret.push (MB.utility.structureToString (item));
-        });
-
-        return '[' + ret.join (",") + ']';
-    }
-    else
-    {
-        var keys = MB.utility.keys (obj);
-        keys.sort ();
-
-        var ret = [];
-        $.each (keys, function (idx, key) {
-            if (obj[key]) {
-                ret.push (key + ":" + MB.utility.structureToString (obj[key]));
-            }
-        });
-
-        return '{' + ret.join (",") + '}';
-    }
-};
-
-
 /* Set a particular button to be the default submit action for a form. */
 MB.utility.setDefaultAction = function (form, button) {
 
@@ -131,7 +95,7 @@ MB.utility.rememberCheckbox = function (id, name) {
 
 MB.utility.formatTrackLength = function (duration)
 {
-    if (duration === null)
+    if (!duration)
     {
         return '';
     }
@@ -168,6 +132,10 @@ MB.utility.formatTrackLength = function (duration)
 
 MB.utility.unformatTrackLength = function (duration)
 {
+    if (!duration) {
+        return null;
+    }
+
     if (duration.slice (-2) == 'ms')
     {
         return parseInt (duration, 10);
@@ -185,15 +153,6 @@ MB.utility.unformatTrackLength = function (duration)
 
     return (hours + minutes + seconds) * 1000;
 };
-
-MB.utility.renderArtistCredit = function (ac) {
-    var html = '';
-    $.each(ac.names, function(name) {
-        html += this.name + this.join_phrase
-    });
-
-    return html;
-}
 
 /* This takes a list of asynchronous functions (i.e. functions which
    return a jquery promise) and runs them in sequence.  It in turn
@@ -249,21 +208,47 @@ MB.utility.validDate = (function() {
         "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     };
 
+    function empty(value) {
+        return value === null || value === undefined || value === "";
+    }
+
     return function(y, m, d) {
-        y = parseInt(y, 10) || null;
-        m = parseInt(m, 10) || null;
-        d = parseInt(d, 10) || null;
+        y = empty(y) ? null : parseInt(y, 10);
+        m = empty(m) ? null : parseInt(m, 10);
+        d = empty(d) ? null : parseInt(d, 10);
 
-        if (y === null && m === null && d === null)
-            return false;
+        // We couldn't parse one of the fields as a number.
+        if (isNaN(y) || isNaN(m) || isNaN(d)) return false;
 
-        var leapYear = (y % 400 ? (y % 100 ? !Boolean(y % 4) : false) : true).toString();
+        // The year is a number less than 1.
+        if (y !== null && y < 1) return false;
 
-        if (y === null || (d !== null && m === null) || y < 1 || (m !== null &&
-            (m < 1 || m > 12 || (d !== null && (d < 1 || d > daysInMonth[leapYear][m]))))) {
-            return false;
-        }
+        // The month is a number less than 1 or greater than 12.
+        if (m !== null && (m < 1 || m > 12)) return false;
+
+        // The day is empty. There's no further validation we can do.
+        if (d === null) return true;
+
+        var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
+
+        // Invalid number of days based on the year.
+        if (d < 1 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+
+        // The date is assumed to be valid.
         return true;
+    };
+}());
+
+MB.utility.parseDate = (function () {
+    var dateRegex = /^(\d{4}|\?{4})(?:-(\d{2}|\?{2})(?:-(\d{2}|\?{2}))?)?$/;
+
+    return function (str) {
+        var match = str.match(dateRegex) || [];
+        return {
+            year:  parseInt(match[1], 10) || null,
+            month: parseInt(match[2], 10) || null,
+            day:   parseInt(match[3], 10) || null
+        };
     };
 }());
 
@@ -286,4 +271,144 @@ MB.utility.filesize = function (size) {
 
 MB.utility.percentOf = function(x, y) {
     return x * y / 100;
+};
+
+MB.utility.callbackQueue = function (targets, callback) {
+    var next = function (index) {
+        return function () {
+            var target = targets[index];
+            if (target) {
+                callback(target);
+                _.defer(next(index + 1));
+            }
+        };
+    };
+    next(0)();
+};
+
+MB.utility.moveArrayItem = function (array, from, to) {
+    array.splice(to, 0, array.splice(from, 1)[0]);
+};
+
+MB.utility.similarity = (function () {
+    var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
+
+    function clean(str) {
+        return (str || "").replace(punctuation, "").toLowerCase();
+    }
+
+    return function (a, b) {
+        // If a track title is all punctuation, we'll end up with an empty
+        // string, so just fall back to the original for comparison.
+        a = clean(a) || a || "";
+        b = clean(b) || b || "";
+
+        return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
+    };
+}());
+
+// Compares two names, considers them equivalent if there are only case
+// changes, changes in punctuation and/or changes in whitespace between
+// the two strings.
+
+MB.utility.nameIsSimilar = function (a, b) {
+    return MB.utility.similarity(a, b) >= 0.75;
+};
+
+MB.utility.optionCookie = function (name, defaultValue) {
+    var existingValue = $.cookie(name);
+
+    var observable = ko.observable(
+        defaultValue ? existingValue !== "false" : existingValue === "true"
+    );
+
+    observable.subscribe(function (newValue) {
+        $.cookie(name, newValue, { path: "/", expires: 365 });
+    });
+
+    return observable;
+};
+
+MB.utility.request = (function () {
+    var nextAvailableTime = new Date().getTime(),
+        prevDeferred = null,
+        timeout = 1000;
+
+    function makeRequest(args, context, deferred) {
+        deferred.jqXHR = $.ajax(_.extend({ dataType: "json" }, args))
+            .done(function () { deferred.resolveWith(context, arguments) })
+            .fail(function () { deferred.rejectWith(context, arguments) });
+
+        deferred.jqXHR.sentData = args.data;
+    }
+
+    return function (args, context) {
+        var deferred = $.Deferred(),
+            now = new Date().getTime();
+
+        if (nextAvailableTime - now <= 0) {
+            makeRequest(args, context, deferred);
+
+            // nextAvailableTime is in the past.
+            nextAvailableTime = now + timeout;
+        } else {
+            var later = function () {
+                if (!deferred.aborted && !deferred.complete) {
+                    makeRequest(args, context, deferred);
+
+                } else if (deferred.next) {
+                    deferred.next();
+                }
+                deferred.complete = true;
+            };
+
+            prevDeferred && (prevDeferred.next = later);
+            prevDeferred = deferred;
+
+            _.delay(later, nextAvailableTime - now);
+
+            // nextAvailableTime is in the future.
+            nextAvailableTime += timeout;
+        }
+
+        var promise = deferred.promise();
+
+        promise.abort = function () {
+            if (deferred.jqXHR) {
+                deferred.jqXHR.abort();
+            } else {
+                deferred.aborted = true;
+            }
+        };
+        return promise;
+    }
+}());
+
+MB.utility.formatDate = function (date) {
+    var y = ko.unwrap(date.year);
+    var m = ko.unwrap(date.month);
+    var d = ko.unwrap(date.day);
+
+    if (!y && !m && !d) {
+        return "";
+    }
+
+    y = y ? _.str.pad(y, 4, "0") : "????";
+    m = m ? _.str.pad(m, 2, "0") : "??";
+    d = d ? _.str.pad(d, 2, "0") : "??";
+
+    return y + "-" + m + "-" + d;
+};
+
+MB.utility.deferFocus = function () {
+    var selectorArguments = arguments;
+    _.defer(function () { $.apply(null, selectorArguments).focus() });
+};
+
+MB.utility.computedWith = function (callback, observable, defaultValue) {
+    return ko.computed(function () {
+        var result = observable();
+
+        return result ? callback(result) : defaultValue;
+    });
 };

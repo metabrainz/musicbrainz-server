@@ -143,7 +143,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, [])
+            artist_credit_to_ref(shift->artist_credit)
         },
     );
 }
