@@ -336,7 +336,12 @@
             })
             .reverse()
             .sortBy(function (recording) {
-                if (!trackLength || !recording.length) {
+                // Prefer that recordings with a length be at the top of the
+                // suggestions list.
+                if (!recording.length) {
+                    return MAX_LENGTH_DIFFERENCE + 1;
+                }
+                if (!trackLength) {
                     return MAX_LENGTH_DIFFERENCE;
                 }
                 return Math.abs(trackLength - recording.length);
