@@ -285,7 +285,7 @@ sub create : Chained('edit') PathPart('create') {
     my $created_entity_ids = {};
     my $created_entities = {};
 
-    for my $edit (@edits) {
+    for my $edit (grep { defined $_ } @edits) {
         if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
             push @{ $created_entity_ids->{$edit->_create_model} //= [] }, $edit->entity_id;
         }
