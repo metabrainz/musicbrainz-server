@@ -168,7 +168,10 @@ MB.releaseEditor.init = function (options) {
     // any changes. Browsers that support onbeforeunload should have this set
     // to null, or undefined otherwise.
     if (window.onbeforeunload === null) {
-        window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
+        MB.releaseEditor.allEdits.subscribe(function (edits) {
+            window.onbeforeunload =
+                edits.length ? _.constant(MB.text.ConfirmNavigation) : null;
+        });
     }
 
     // Apply root bindings to the page.

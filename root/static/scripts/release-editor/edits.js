@@ -12,8 +12,7 @@
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
     var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums())
-            .filter(function (medium) { return medium.loaded() });
+        return _(release.mediums());
     }, []);
 
 
@@ -205,12 +204,6 @@
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
-            // Don't generate edits if there are errors, *unless* having a
-            // missing edit note is the only error.
-            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
-                return [];
-            }
-
             return Array.prototype.concat(
                 releaseEditor.edits.releaseGroup(release),
                 releaseEditor.edits.release(release),
@@ -240,8 +233,17 @@
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
-            var edits = computedEdits(),
-                addedEdits = _.filter(edits, isNewEdit);
+            var edits = computedEdits();
+
+            // Don't generate edit previews if there are errors, *unless*
+            // having a missing edit note is the only error. However, do
+            // remove stale previews that may reference changed data.
+            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
+                refreshPreviews([]);
+                return;
+            }
+
+            var addedEdits = _.filter(edits, isNewEdit);
 
             if (addedEdits.length === 0) {
                 refreshPreviews(edits);
@@ -252,11 +254,12 @@
 
             MB.edit.preview({ edits: addedEdits })
                 .done(function (data) {
-                    releaseEditor.loadingEditPreviews(false);
-
                     _.each(_.zip(addedEdits, data.previews), addPreview);
 
                     refreshPreviews(edits);
+                })
+                .always(function () {
+                    releaseEditor.loadingEditPreviews(false);
                 });
         });
     }
