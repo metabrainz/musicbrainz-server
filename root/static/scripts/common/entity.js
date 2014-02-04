@@ -72,6 +72,8 @@
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
             "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+            "<% if (data.video) { %> <span class=\"comment\">" +
+            "(<%- data.video %>)</span><% } %>" +
             "<% if (data.editsPending) { %></span><% } %>",
             null,
             {variable: "data"}
@@ -160,6 +162,13 @@
             if (_.isString(data.artist)) {
                 this.artist = data.artist;
             }
+        },
+
+        around$html: function (supr, params) {
+            if (this.video) {
+                params.video = MB.text.Video;
+            }
+            return supr(params);
         }
     });
 

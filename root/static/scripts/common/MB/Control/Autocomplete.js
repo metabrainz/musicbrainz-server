@@ -495,7 +495,10 @@ MB.Control.autocomplete_formatters = {
 
         if (item.video)
         {
-            a.append ('<span class="autocomplete-video">(video)</span>');
+            a.append(
+                $('<span class="autocomplete-video"></span>')
+                    .text("(" + MB.text.Video + ")")
+            );
         }
 
         a.append ('<br /><span class="autocomplete-comment">by ' +

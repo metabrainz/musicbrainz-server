@@ -137,6 +137,7 @@
         var clean = utils.cleanWebServiceData(data);
 
         clean.artist = MB.entity.ArtistCredit(clean.artistCredit).text();
+        clean.video = !!data.video;
 
         var appearsOn = _(data.releases)
             .map(function (release) {
