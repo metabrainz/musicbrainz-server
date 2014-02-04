@@ -332,6 +332,10 @@
             })
             .compact()
             .sortBy(function (recording) {
+                return recording.appearsOn.length;
+            })
+            .reverse()
+            .sortBy(function (recording) {
                 if (!trackLength || !recording.length) {
                     return MAX_LENGTH_DIFFERENCE;
                 }
