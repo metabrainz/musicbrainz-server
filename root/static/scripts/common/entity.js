@@ -147,8 +147,13 @@
 
             // Returned from the /ws/js/recording search.
             if (_.isObject(data.appearsOn)) {
-                this.appearsOn = _.map(data.appearsOn.results, function (rg) {
-                    return MB.entity(rg, "release_group");
+                // Depending on where we're getting the data from (search
+                // server, /ws/js...) we may have either releases or release
+                // groups here. Assume the latter by default.
+                var appearsOnType = data.appearsOn.entityType || "release_group";
+
+                this.appearsOn = _.map(data.appearsOn.results, function (appearance) {
+                    return MB.entity(appearance, appearsOnType);
                 });
             }
 

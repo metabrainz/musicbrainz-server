@@ -143,13 +143,18 @@
                 // The webservice doesn't include the release group title, so
                 // we have to use the release title instead.
                 return {
-                    name: release.title, gid: release["release-group"].id
+                    name: release.title,
+                    gid: release.id,
+                    releaseGroupGID: release["release-group"].id
                 };
             })
-            .uniq(false, function (rg) { return rg.gid })
-            .value();
+            .uniq(false, "releaseGroupGID").value();
 
-        clean.appearsOn = { hits: appearsOn.length, results: appearsOn };
+        clean.appearsOn = {
+            hits: appearsOn.length,
+            results: appearsOn,
+            entityType: "release"
+        };
 
         return clean;
     }
