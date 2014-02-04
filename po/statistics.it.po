@@ -3,13 +3,13 @@
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
 # Luca Salini <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2013
+# Luca Salini <email address hidden>, 2013-2014
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 04:04+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -652,7 +652,7 @@ msgstr "Artisti senza un Paese impostato"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Artists with type set to character"
-msgstr ""
+msgstr "Artisti con tipo impostato su personaggio"
 
 #: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to group"
@@ -690,7 +690,7 @@ msgstr "Metadati di base"
 msgid "Basics"
 msgstr "Generali"
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Per tipo di copertina"
 
@@ -736,7 +736,7 @@ msgstr "Cancellate:"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Characters"
-msgstr ""
+msgstr "Personaggi"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -1444,7 +1444,7 @@ msgid "No Votes"
 msgstr "Voti negativi"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr "Non è disponibile nessuna statistica sulle copertine."
 
@@ -1476,7 +1476,7 @@ msgstr "Nessuno status"
 msgid "No status set"
 msgstr "Nessuno status impostato"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Nessun tipo"
 
@@ -1537,7 +1537,7 @@ msgstr "Artisti di tipo altro"
 msgid "Overview"
 msgstr "Riepilogo"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Per pubblicazione"
 
@@ -1549,11 +1549,11 @@ msgstr "Persone"
 msgid "Pieces of Cover Art"
 msgstr "Immagini di copertina"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Immagini di copertina"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Immagini di copertina:"
 
@@ -1699,7 +1699,7 @@ msgstr "Tag di pubblicazioni (grezzi)"
 msgid "Release groups"
 msgstr "Gruppi di pubblicazioni"
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr "Gruppi di pubblicazioni con copertina:"
 
@@ -1762,7 +1762,7 @@ msgstr "Pubblicazioni con almeno un ID disco:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Pubblicazioni con copertina:"
 
@@ -2009,7 +2009,7 @@ msgstr "Ingrandisci:"
 msgid "active ever:"
 msgstr "attivi almeno una volta:"
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr "dedotta automaticamente:"
 
@@ -2029,13 +2029,13 @@ msgstr "non attivi:"
 msgid "l_{first}_{second} Relationships"
 msgstr "Relazioni l_{first}_{second}"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
 msgstr "selezionata manualmente:"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Character:"
-msgstr ""
+msgstr "Personaggi:"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2101,7 +2101,7 @@ msgstr "che hanno votato negli ultimi 7 giorni:"
 msgid "with 10 or more disc IDs:"
 msgstr "con 10 o più ID disco:"
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "con 30 o più immagini di copertina:"
 
@@ -2127,7 +2127,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "con {num} ID disco:"
 msgstr[1] "con {num} ID disco:"
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "con {num} immagine di copertina:"
@@ -2159,9 +2159,9 @@ msgstr "Pubblicazioni {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

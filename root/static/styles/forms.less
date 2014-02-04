@@ -1,11 +1,13 @@
 @import "colors.less";
 
-@form-half-width: 500px;
+@form-half-width: 520px;
 @form-margin: 12px;
 @form-label-width: 150px;
-@form-input-width: @form-half-width - @form-label-width - (@form-margin * 2.5);
+@form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
+@form-bubble-label-width: @form-label-width;
+@form-bubble-input-width: 176px;
 
 .border-radius (@radius) {
   border-radius: @radius;
@@ -85,13 +87,50 @@ div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
 
-div.bubble div.row input[type=text] {
-    width: 176px;
+.bubble {
+    display: none;
+    position: absolute;
+    min-height: 64px;
+    margin: 0;
+    padding: @form-margin;
+    background: @very-light-bg;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.bubble-tail {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.bubble.left-tail:before {
+    .bubble-tail;
+    right: 100%;
+    top: 16px;
+    border-top: 12px solid transparent;
+    border-right: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble.right-tail:after {
+    .bubble-tail;
+    left: 100%;
+    top: 50%;
+    top: calc(50% - 6px);
+    border-top: 12px solid transparent;
+    border-left: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble div.row input[type=text] {
+    width: @form-bubble-input-width;
     font-size: 1em;
 }
 
-div.bubble div.row label,
-div.bubble div.row div.label { width: @form-label-width; }
+.bubble div.row label,
+.bubble div.row div.label { width: @form-bubble-label-width; }
 
 form div.row p { float: none; clear: none; }
 form div.row ul { overflow: auto; }
@@ -175,6 +214,36 @@ a.selectFilterNext:hover {
 
 div.searchform {
     margin-top: 24px;
+}
+
+/* <table>-based forms to replace div.row-based stuff. */
+
+table.row-form {
+    width: 100%;
+
+    label { display: inline-block; text-align: right; }
+
+    input[type=text], select, span.autocomplete {
+        width: 100% !important;
+    }
+
+    td {
+        &:first-child {
+            min-width: 120px;
+            padding: @form-margin / 2;
+            padding-bottom: 9px;
+            box-sizing: border-box;
+            vertical-align: top;
+
+            label { width: 100% !important; }
+        }
+
+        &.partial-date { min-width: @form-label-width; }
+        &.add-item { text-align: right; }
+        &.error { padding-bottom: @form-margin; }
+    }
+
+    tr.error td:first-child { padding: 0; }
 }
 
 /* __________________________________
@@ -305,16 +374,7 @@ div.half-width fieldset h3 {
     margin: 24px 10px 0;
 }
 
-div.documentation div.bubble {
-    margin: 0;
-    padding: @form-margin;
-    border: 1px solid @dark-border;
-    background: @very-light-bg;
-    .border-radius(12px);
-}
-
 div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
-div.documentation div.container { width: 100%; }
 
 table.form th,
 table.form td{
@@ -357,59 +417,35 @@ ul.conditions button.remove img {
     display: none;
 }
 
-input.icon, div.icon.img {
+input.icon, div.icon.img, button.icon {
     width: @form-icon-size;
     height: @form-icon-size;
     border: 0 !important;
     background-repeat: no-repeat;
+    background-color: transparent;
     vertical-align: middle;
 }
 
 div.img { display: inline-block; }
 
-input.add-artist-credit,
-input.add-track,
-a.add-event div,
-a.add-label div,
+button.with-label {
+    border: none;
+    background-color: transparent;
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: @form-icon-size + 4;
+    cursor: pointer;
+}
+
+button.add-item,
 div.add-item {
     background-image: data-uri('../images/icons/add_row.png');
 }
 
-input.remove-artist-credit,
-input.remove-track,
-input.remove-disc,
-a.remove-event div,
-a.remove-label div,
+.remove-artist-credit,
+button.remove-item,
 div.remove-item {
     background-image: data-uri('../images/icons/delete_row.png');
-}
-
-input.guesscase-track, input.guesscase-medium {
-    background-image: data-uri('../images/icons/guesscase.png');
-}
-
-input.collapse-disc {
-    background-image: data-uri('../images/icons/collapse.png');
-}
-
-input.expand-disc {
-    background-image: data-uri('../images/icons/expand.png');
-}
-
-input.track-down {
-    background-image: data-uri('../images/icons/track-down.png');
-}
-
-input.disc-down {
-    background-image: data-uri('../images/icons/down.png');
-}
-
-input.track-up {
-    background-image: data-uri('../images/icons/track-up.png');
-}
-
-input.disc-up {
-    background-image: data-uri('../images/icons/up.png');
 }
 
 /*
@@ -417,23 +453,26 @@ input.disc-up {
   ================================================
 */
 
-@form-open-ac-width: 32px;
+@form-open-ac-width: 70px;
 
 #open-ac {
     width: @form-open-ac-width;
     height: 22px;
     margin-left: 3px;
+    padding: 0;
 }
 
 .artist-credit-input {
-    width: @form-input-width - @form-open-ac-width - 7px ! important;
+    width: @form-input-width - @form-open-ac-width - 7px !important;
 }
 
 .add-artist-credit {
-    margin-left: @form-label-width - @form-margin !important;
-    width: @form-input-width-short;
+    margin-left: @form-bubble-label-width - @form-margin !important;
+    width: @form-bubble-input-width;
     text-align: right;
 }
+
+#artist-credit-bubble .buttons, #track-ac-bubble .buttons { margin-top: 1em; }
 
 /*
   External links editor

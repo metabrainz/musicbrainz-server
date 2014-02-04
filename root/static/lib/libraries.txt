@@ -119,15 +119,15 @@ version:     0.1.3
 author:      Ryan Niemeyer
 url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
--- underscore/underscore.js --
+-- knockout/knockout-postbox.js --
 
-library:     Underscore
+library:     knockout-postbox
 license:     MIT
-version:     1.4.0
-author:      Jeremy Ashkenas, DocumentCloud
-url:         http://underscorejs.org
+version:     0.4.2
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-postbox
 
--- underscore/underscore.string.js --
+-- underscore.string/underscore.string.js --
 
 library:     Underscore.string
 license:     MIT
@@ -166,3 +166,20 @@ license:     MIT
 version:     0.3.3
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
+
+-- jquery/jquery.trap.js
+
+library:    jQuery trap input plugin
+license:    Permissive; see:
+            https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
+version:    1.2.0
+author:     Julien Wajsberg
+url:        https://github.com/julienw/jquery-trap-input
+
+-- lodash/lodash.compat.js
+
+library:    Lo-Dash
+license:    MIT
+version:    2.4.1
+author:     John-David Dalton
+url:        http://lodash.com/

@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:58+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-04 00:06+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -226,7 +226,7 @@ msgstr "Supporto digitale"
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
 msgid "Discbox Slider"
-msgstr ""
+msgstr "Discbox slider"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -251,7 +251,7 @@ msgstr "EP"
 #: DB:release_packaging/name:10
 msgctxt "release_packaging"
 msgid "Fatbox"
-msgstr ""
+msgstr "Fatbox"
 
 #: DB:gender/name:2
 msgctxt "gender"
@@ -271,7 +271,7 @@ msgstr "Fronte"
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
-msgstr ""
+msgstr "Copertina pieghevole"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -302,6 +302,11 @@ msgstr "Holding"
 msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "SACD ibrido"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr "Casa discografica"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -336,7 +341,7 @@ msgstr "Nome legale"
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "Fodera"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -476,7 +481,7 @@ msgstr "Poema"
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "Poster"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -562,7 +567,7 @@ msgstr "Slim jewel case"
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "Snap case"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

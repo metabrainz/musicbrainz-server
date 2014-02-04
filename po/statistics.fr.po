@@ -6,12 +6,12 @@
 # Dibou <email address hidden>, 2012
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2012
-# Alain-Olivier  Breysse, 2013
+# Alain-Olivier  Breysse, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-01-21 13:41+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -654,7 +654,7 @@ msgstr "Artistes sans précision de pays "
 
 #: ../root/statistics/view_js.tt:117
 msgid "Artists with type set to character"
-msgstr ""
+msgstr "Artistes dont le type est défini comme personnage"
 
 #: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to group"
@@ -692,7 +692,7 @@ msgstr "Métadonnées de base"
 msgid "Basics"
 msgstr "Bases"
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Par type d'illustration"
 
@@ -738,7 +738,7 @@ msgstr "Annulé :"
 
 #: ../root/statistics/view_js.tt:117
 msgid "Characters"
-msgstr ""
+msgstr "Personnages"
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -1446,7 +1446,7 @@ msgid "No Votes"
 msgstr "Pas de vote"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr "Aucune statistique d'illustration de disponible."
 
@@ -1478,7 +1478,7 @@ msgstr "Pas de statut"
 msgid "No status set"
 msgstr "Pas de statut de défini"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Pas de type"
 
@@ -1539,7 +1539,7 @@ msgstr "Artiste d'un autre type :"
 msgid "Overview"
 msgstr "Aperçu"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Par parution"
 
@@ -1551,11 +1551,11 @@ msgstr "Personnes"
 msgid "Pieces of Cover Art"
 msgstr "Illustrations"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Illustrations"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Illustrations :"
 
@@ -1701,7 +1701,7 @@ msgstr "Balises de parution (brut)"
 msgid "Release groups"
 msgstr "Groupes de parution"
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr "Groupes de parution avec illustration :"
 
@@ -1764,7 +1764,7 @@ msgstr "Parutions avec au moins une ID de disque :"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Parutions avec illustration :"
 
@@ -2011,7 +2011,7 @@ msgstr "Zoom :"
 msgid "active ever:"
 msgstr "actif à ce jour :"
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr "déduit automatiquement :"
 
@@ -2031,13 +2031,13 @@ msgstr "inactif :"
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} relations"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
 msgstr "choisi manuellement :"
 
 #: ../root/statistics/index.tt:151
 msgid "of type Character:"
-msgstr ""
+msgstr "de type Personnage :"
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
@@ -2103,7 +2103,7 @@ msgstr "qui a voté durant les 7 derniers jours :"
 msgid "with 10 or more disc IDs:"
 msgstr "avec 10 ID de disque ou plus :"
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "avec 30 ou plus illustrations :"
 
@@ -2129,7 +2129,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "avec {num} ID de disque :"
 msgstr[1] "avec {num}ID de disque :"
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "avec {num} illustration :"
@@ -2161,9 +2161,9 @@ msgstr "Parutions {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

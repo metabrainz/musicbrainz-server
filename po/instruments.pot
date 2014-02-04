@@ -2000,6 +2000,10 @@ msgstr ""
 msgid "tape"
 msgstr ""
 
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""

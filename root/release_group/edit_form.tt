@@ -33,8 +33,7 @@
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-    MB.Control.initialize_artist_credit(bubbles);
-    MB.Control.initialize_guess_case(bubbles, "release-group", "id-edit-release-group");
+    MB.Control.initialize_artist_credit();
+    MB.Control.initialize_guess_case("release-group", "id-edit-release-group");
   }());
 //]]></script>

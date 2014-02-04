@@ -199,9 +199,6 @@
                 </li>
             [% END %]
             <li>
-                <a href="[% c.uri_for('/browse') %]">[% l('Browse') %]</a>
-            </li>
-            <li>
                 <a href="[% c.uri_for('/tags') %]">[% l('Tags') %]</a>
             </li>
             <li>

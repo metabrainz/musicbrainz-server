@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -312,6 +312,11 @@ msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "SACD híbrido"
 
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -485,7 +490,7 @@ msgstr "Poema"
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "Póster"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -571,7 +576,7 @@ msgstr "Caja de plástico delgada"
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "Estuche"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

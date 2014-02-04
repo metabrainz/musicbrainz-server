@@ -45,8 +45,7 @@
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-    MB.Control.initialize_guess_case(bubbles, "area", "id-edit-area");
+    MB.Control.initialize_guess_case("area", "id-edit-area");
 
     MB.utility.setDefaultAction("form.edit-area", "button.submit.positive");
   }());

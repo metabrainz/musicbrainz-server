@@ -247,15 +247,15 @@ var attrInfo = {
 var testRelease = {
     "relationships": {},
     "name": "Love Me Do / I Saw Her Standing There",
-    "artist_credit": [
+    "artistCredit": [
         {
             "artist": {
-                "sortname": "Beatles, The",
+                "sortName": "Beatles, The",
                 "name": "The Beatles",
                 "id": 303,
                 "gid": "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
             },
-            "join_phrase": ""
+            "joinPhrase": ""
         }
     ],
     "id": 211431,
@@ -274,7 +274,7 @@ var testRelease = {
                     },
                     "position": 1,
                     "name": "Love Me Do",
-                    "artist_credit": []
+                    "artistCredit": []
                 },
                 {
                     "length": 176000,
@@ -288,7 +288,7 @@ var testRelease = {
                     },
                     "position": 2,
                     "name": "I Saw Her Standing There",
-                    "artist_credit": []
+                    "artistCredit": []
                 }
             ],
             "format": "Vinyl",
@@ -296,7 +296,7 @@ var testRelease = {
         }
     ],
     "gid": "867cc694-0f35-4a65-acb4-bc873795701a",
-    "release_group": {
+    "releaseGroup": {
         "artist": "The Beatles",
         "name": "Love Me Do",
         "id": 564256,
@@ -339,9 +339,10 @@ module("relationship editor", {
             '3d3c3707-ef51-4852-995d-f9f14c68f5f0',
         ];
 
-        // _.defer and RE.Util.callbackQueue both make their target functions
-        // asynchronous. They are redefined here to call their targets right
-        // away, so that we don't have to deal with  writing async tests.
+        // _.defer and MB.utility.callbackQueue both make their target
+        // functions asynchronous. They are redefined here to call their
+        // targets right away, so that we don't have to deal with  writing
+        // async tests.
 
         this.__defer = _.defer;
 
@@ -353,7 +354,7 @@ module("relationship editor", {
 
         this.__callbackQueue = this.RE.Util.callbackQueue;
 
-        this.RE.Util.callbackQueue = function (targets, callback) {
+        MB.utility.callbackQueue = function (targets, callback) {
             for (var i = 0; i < targets.length; i++)
                 callback(targets[i]);
         };
@@ -361,17 +362,17 @@ module("relationship editor", {
         this.RE.Util.init(typeInfo, attrInfo);
 
         this.RE.UI.init(
-            testRelease.gid, testRelease.release_group.gid, testRelease
+            testRelease.gid, testRelease.releaseGroup.gid, testRelease
         );
     },
 
     teardown: function () {
         _.defer = this.__defer;
 
-        this.RE.Util.callbackQueue = this.__callbackQueue;
+        MB.utility.callbackQueue = this.__callbackQueue;
 
-        this.RE.releaseViewModel.release({ relationships: [] });
-        this.RE.releaseViewModel.releaseGroup({ relationships: [] });
+        this.RE.releaseViewModel.release(MB.entity.Release({}));
+        this.RE.releaseViewModel.releaseGroup(MB.entity.ReleaseGroup({}));
         this.RE.releaseViewModel.media([]);
 
         MB.entity.clearCache();
@@ -382,18 +383,6 @@ module("relationship editor", {
 test("Util", function () {
     var self = this;
     var Util = this.RE.Util;
-
-    var tests = [
-        { date: "", expected: { year: null, month: null, day: null} },
-        { date: "1999-01-02", expected: { year: "1999", month: "01", day: "02"} },
-        { date: "1999-01", expected: { year: "1999", month: "01", day: null } },
-        { date: "1999", expected: { year: "1999", month: null, day: null } }
-    ];
-
-    $.each(tests, function (i, test) {
-        var result = Util.parseDate(test.date);
-        deepEqual(result, test.expected, test.date);
-    });
 
     tests = [
         { root: Util.attrInfo(424), value: undefined, expected: false },
@@ -660,7 +649,7 @@ test("Relationship", function () {
 test("Entity", function () {
 
     var source = MB.entity({ type: "recording", name: "a recording" }),
-        target = MB.entity({ type: "artist", name: "foo", sortname: "bar" });
+        target = MB.entity({ type: "artist", name: "foo", sortName: "bar" });
 
     var relationship = this.RE.Relationship({
         entity: [target, source],
@@ -752,51 +741,42 @@ test("Dialog", function () {
         source = tracks[0].recording,
         target = MB.entity({ type: "artist", gid: this.fakeGID[0] });
 
-    UI.Dialog.resize = function () {};
-
     var tests = [
         {
-            entity: [
-                MB.entity({ type: "recording" }),
-                MB.entity({ type: "release" })
-            ],
             backward: true,
-            source: function () { return this.entity[1] },
-            target: function () { return this.entity[0] }
+            source: MB.entity({ type: "release" }),
+            target: MB.entity({ type: "recording" })
         },
         {
-            entity: [
-                MB.entity({ type: "recording" }),
-                MB.entity({ type: "release" })
-            ],
             backward: false,
-            source: function () { return this.entity[0] },
-            target: function () { return this.entity[1] }
+            source: MB.entity({ type: "recording" }),
+            target: MB.entity({ type: "release" })
         }
     ];
 
     $.each(tests, function (i, test) {
-        UI.AddDialog.show({entity: test.entity, source: test.source()});
+        var dialog = UI.AddDialog(test);
 
-        equal(UI.Dialog.backward(), test.backward,
+        equal(dialog.backward(), test.backward,
             "entities should be backward: " + test.backward);
 
-        equal(UI.Dialog.source, test.source(),
+        equal(dialog.source, test.source,
             "source should be entity[" + (test.backward ? "1" : "0") + "]");
 
-        equal(UI.Dialog.target, test.target(),
+        equal(dialog.target, test.target,
             "target should be entity[" + (test.backward ? "0" : "1") + "]");
 
-        UI.AddDialog.hide();
+        dialog.close();
     });
 
     // AddDialog
 
-    UI.AddDialog.show({entity: [target, source], source: source});
-    var relationship = UI.Dialog.relationship();
+    var dialog = UI.AddDialog({ source: source, target: target }),
+        relationship = dialog.relationship();
+
     relationship.link_type(148);
     relationship.attrs({instrument: [229]});
-    UI.AddDialog.accept();
+    dialog.accept();
 
     equal(source.relationships()[0], relationship, "AddDialog");
 
@@ -804,26 +784,27 @@ test("Dialog", function () {
     var recording0 = tracks[0].recording,
         recording1 = tracks[1].recording;
 
-    UI.AddDialog.show({entity: [recording0, recording1], source: recording1});
-    relationship = UI.Dialog.relationship();
+    dialog = UI.AddDialog({ source: recording1, target: recording0 });
+    relationship = dialog.relationship();
+
     relationship.link_type(231);
 
-    equal(UI.Dialog.sourceField(), relationship.entity[1], "AddDialog sourceField");
-    equal(UI.Dialog.targetField(), relationship.entity[0], "AddDialog targetField");
-    equal(UI.Dialog.source, recording1, "AddDialog source");
-    equal(UI.Dialog.target, recording0, "AddDialog target");
-    equal(UI.Dialog.backward(), true, "AddDialog: relationship is backward");
+    equal(dialog.sourceField(), relationship.entity[0], "AddDialog sourceField");
+    equal(dialog.targetField(), relationship.entity[1], "AddDialog targetField");
+    equal(dialog.source, recording1, "AddDialog source");
+    equal(dialog.target, recording0, "AddDialog target");
+    equal(dialog.backward(), false, "AddDialog: relationship is backward");
 
-    UI.Dialog.changeDirection();
+    dialog.changeDirection();
 
-    equal(UI.Dialog.sourceField(), relationship.entity[0], "AddDialog sourceField");
-    equal(UI.Dialog.targetField(), relationship.entity[1], "AddDialog targetField");
+    equal(dialog.sourceField(), relationship.entity[1], "AddDialog sourceField");
+    equal(dialog.targetField(), relationship.entity[0], "AddDialog targetField");
     // source and target should stay the same
-    equal(UI.Dialog.source, recording1, "AddDialog source");
-    equal(UI.Dialog.target, recording0, "AddDialog target");
-    equal(UI.Dialog.backward(), false, "AddDialog: relationship is not backward");
+    equal(dialog.source, recording1, "AddDialog source");
+    equal(dialog.target, recording0, "AddDialog target");
+    equal(dialog.backward(), true, "AddDialog: relationship is not backward");
 
-    UI.AddDialog.accept();
+    dialog.accept();
 
     equal(recording0.relationships()[1], relationship, "relationship added to recording 0");
     equal(recording1.relationships()[0], relationship, "relationship added to recording 1");
@@ -837,15 +818,15 @@ test("Dialog", function () {
 
     relationship = source.relationships()[0];
 
-    UI.EditDialog.show({relationship: relationship, source: source});
-    var dialogAttrs = UI.Dialog.attrs();
+    dialog = UI.EditDialog({ relationship: relationship, source: source });
+    var dialogAttrs = dialog.attrs();
 
     var solo = _.find(dialogAttrs, function (attr) {
         return attr.data.name == "solo";
     });
 
     solo.value(true);
-    UI.EditDialog.accept();
+    dialog.accept();
 
     deepEqual(
         ko.toJS(relationship.attrs),
@@ -853,7 +834,7 @@ test("Dialog", function () {
         "EditDialog"
     );
 
-    UI.EditDialog.show({relationship: relationship, source: source});
+    dialog = UI.EditDialog({ relationship: relationship, source: source });
 
     var instrument = _.find(dialogAttrs, function (attr) {
         return attr.data.name == "instrument";
@@ -862,29 +843,25 @@ test("Dialog", function () {
     instrument.value([229, 277]);
 
     var newTarget = MB.entity({type: "artist"});
-    UI.Dialog.targetField()(newTarget);
+    dialog.targetField()(newTarget);
 
     // cancel should revert the change
-    UI.EditDialog.hide();
+    dialog.close();
 
     deepEqual(relationship.attrs().instrument(), [229], "attributes changed back");
     equal(relationship.entity[0](), target, "target changed back");
 
     // BatchRecordingRelationshipDialog
 
-    UI.BatchRelationshipDialog.show(_.map(tracks, function (track) {
-        return track.recording;
-    }));
-
+    dialog = UI.BatchRelationshipDialog(_.pluck(tracks, "recording"));
     newTarget = MB.entity({ type: "artist", gid: this.fakeGID[1] });
+    relationship = dialog.relationship();
 
-    relationship = UI.Dialog.relationship();
-
-    UI.Dialog.targetField()(newTarget);
+    dialog.targetField()(newTarget);
     relationship.link_type(154);
     relationship.attrs().additional(true);
 
-    UI.BatchRelationshipDialog.accept();
+    dialog.accept();
 
     var attrs = {additional: true, instrument: []},
         relationships = recording0.relationships();
@@ -899,15 +876,16 @@ test("Dialog", function () {
     // BatchWorkRelationshipDialog
 
     var works = [ MB.entity({ type: "work", gid: this.fakeGID[2] }) ];
-    UI.BatchRelationshipDialog.show(works);
+    dialog = UI.BatchRelationshipDialog(works);
+    relationship = dialog.relationship();
 
-    relationship = UI.Dialog.relationship();
+    relationship = dialog.relationship();
 
     relationship.entity[0](newTarget);
     relationship.link_type(167);
     relationship.attrs().additional(true);
 
-    UI.BatchRelationshipDialog.accept();
+    dialog.accept();
 
     relationships = works[0].relationships();
     equal(relationships[0].entity[0](), newTarget, "work target");

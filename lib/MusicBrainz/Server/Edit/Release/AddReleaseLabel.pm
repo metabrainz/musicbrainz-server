@@ -49,13 +49,13 @@ sub release_id { shift->data->{release}{id} }
 sub initialize {
     my ($self, %opts) = @_;
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $opts{label} = {
         id => $opts{label}->id,

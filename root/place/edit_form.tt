@@ -89,10 +89,9 @@
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-    MB.Control.initialize_guess_case(bubbles, "place", "id-edit-place");
+    MB.Control.initialize_guess_case("place", "id-edit-place");
 
-    MB.Control.Area("span.area.autocomplete", bubbles)
+    MB.Control.Area("span.area.autocomplete")
 
     MB.utility.setDefaultAction("form.edit-place", "button.submit.positive");
   }());

@@ -13,43 +13,6 @@ test('All', function () {
     equal (MB.utility.fullWidthConverter (input),
                   expected, "fullWidthConverter (" + input + ")");
 
-    input1 = {
-        'length': '4:03',
-        'title': 'the Love bug',
-        'names': [
-            { 'name': 'm-flo', 'id': '135345' },
-            { 'name': 'BoA', 'id': '9496' }
-        ]
-    };
-
-    input2 = {
-        'names': [
-            { 'id': '135345', 'name': 'm-flo' },
-            { 'name': 'BoA', 'id': '9496' }
-        ],
-        'title': 'the Love bug',
-        'length': '4:03'
-    };
-
-    input3 = {
-        'names': [
-            { 'name': 'BoA', 'id': '9496' },
-            { 'id': '135345', 'name': 'm-flo' }
-        ],
-        'title': 'the Love bug',
-        'length': '4:03'
-    };
-
-    equal (MB.utility.structureToString (input1),
-                 MB.utility.structureToString (input2),
-                 'structureToString equivalent');
-    notEqual (MB.utility.structureToString (input2),
-                    MB.utility.structureToString (input3),
-                    'structureToString different');
-
-    var input1sha = b64_sha1 (MB.utility.structureToString (input1));
-    equal (input1sha, "aIkUXodpaNX7Q1YfttiKMkKCxB0", "SHA-1 of input1");
-
     var seconds = 1000;
     var minutes = 60 * seconds;
     var hours = 60 * minutes;
@@ -70,6 +33,21 @@ test('All', function () {
     equal (MB.utility.unformatTrackLength ('14:15:16'), 14 * hours + 15 * minutes + 16 * seconds, 'unformatTrackLength');
 
     equal (MB.utility.validDate(1960, 2, 29), true, 'MBS-5663: validDate should handle leap years');
+
+    var parseDateTests = [
+        { date: "", expected: { year: null, month: null, day: null} },
+        { date: "1999-01-02", expected: { year: 1999, month: 1, day: 2 } },
+        { date: "1999-01", expected: { year: 1999, month: 1, day: null } },
+        { date: "1999", expected: { year: 1999, month: null, day: null } },
+        { date: "????-01-02", expected: { year: null, month: 1, day: 2 } },
+        { date: "????-??-02", expected: { year: null, month: null, day: 2 } },
+        { date: "1999-??-02", expected: { year: 1999, month: null, day: 2 } }
+    ];
+
+    $.each(parseDateTests, function (i, test) {
+        var result = MB.utility.parseDate(test.date);
+        deepEqual(result, test.expected, test.date);
+    });
 });
 
 

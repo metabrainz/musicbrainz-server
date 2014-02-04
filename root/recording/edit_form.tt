@@ -35,16 +35,15 @@
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-    var artistCredit = MB.Control.initialize_artist_credit(bubbles);
+    var artistCredit = MB.Control.initialize_artist_credit();
 
-    MB.Control.initialize_guess_case(bubbles, "recording", "id-edit-recording");
+    MB.Control.initialize_guess_case("recording", "id-edit-recording");
 
     ko.computed(function () {
         $("div.various-artists.warning").toggle(artistCredit.isVariousArtists());
     });
 
-    bubbles.add($("input[name=edit-recording\\.isrcs\\.0]"), $("div.isrcs.bubble"));
+    MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
 
     MB.utility.setDefaultAction("form.edit-recording", "button.submit.positive");
   }());
