@@ -10,6 +10,7 @@ extends 'MusicBrainz::Server::Edit::Annotation::Edit';
 with 'MusicBrainz::Server::Edit::Recording';
 
 sub edit_name { N_l('Add recording annotation') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_RECORDING_ADD_ANNOTATION }
 
 sub models { [qw( Recording )] }

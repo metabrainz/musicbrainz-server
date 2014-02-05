@@ -3,13 +3,13 @@
 # Phonebox, 2013
 # ListMyCDs.com Martikainen <>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012
+# Phonebox, 2014
 # Timo Martikainen <>, 2012
 # ListMyCDs.com Martikainen <email address hidden>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 00:54+0000\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,12 @@ msgid ""
 "modify the sound of an instrument."
 msgstr ""
 
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:555
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
@@ -262,7 +268,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:475
 msgid "Bandura, ukrainian 14th century lute"
-msgstr ""
+msgstr "Bandura, ukrainalainen luuttusoitin 1300-luvulta"
 
 #: DB:link_attribute_type/description:479
 msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
@@ -395,6 +401,11 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr ""
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -439,6 +450,10 @@ msgstr "Hammond-urut"
 
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
+msgstr ""
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
 
 #: DB:link_attribute_type/description:102
@@ -851,6 +866,15 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a "
+"href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:536
@@ -1316,11 +1340,27 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a "
+"href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:612
 msgid ""
 "The pakhavaj/pakhawaj is an Indian barrel-shaped, two-headed drum used in "
 "Hindustani music (<a "
 "href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal "
+"piano\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:429
@@ -1948,6 +1988,10 @@ msgstr ""
 
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
+msgstr ""
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
 msgstr ""
 
 #: DB:link_attribute_type/description:494
@@ -2604,7 +2648,7 @@ msgid "rebec"
 msgstr ""
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
+msgid "reed organ, also known as pump organ"
 msgstr ""
 
 #: DB:link_attribute_type/description:233

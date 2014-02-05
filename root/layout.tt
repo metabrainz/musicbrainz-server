@@ -1,64 +1,5 @@
 [% rdfa_set_header(usesRDFa) %]
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>[% title %][% " - " IF title && !nosuffix %][% "MusicBrainz" IF !nosuffix %]</title>
-        [% css_manifest('common') %]
-        [%- IF c.debug -%]
-            <link rel="stylesheet" type="text/css" href="/static/styles/debug.css" />
-        [%- END -%]
-        [%- IF c.user_exists -%]
-          <link type="text/css" rel="stylesheet" href="[% c.uri_for('/static/lib/jquery.ui/themes/base/jquery-ui.css') %]" />
-        [%- END -%]
-        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Artist") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_artist.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Label") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_label.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Release") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_release.xml') %]" />
-        <link rel="search" type="application/opensearchdescription+xml" title="[%- l("MusicBrainz: Track") -%]" href="[% c.uri_for('/static/search_plugins/opensearch/musicbrainz_track.xml') %]" />
-        <script type="text/javascript">//<![CDATA[
-                                       document.cookie = "javascript=true; path=/";
-                                       //]]></script>
-        [%- IF no_javascript -%]
-            <style type="text/css">
-              #header-menu li:hover ul { left: auto; }
-            </style>
-        [%- ELSE -%]
-            [%- script_manifest('common.js.manifest') -%]
-            <script type="text/javascript" src="
-                [%- lang_hash = current_language;
-                    IF current_language != 'en';
-                        lang_hash = lang_hash _ '-' _ c.model('FileCache').pofile_signature('mb_server', current_language);
-                    END;
-                    c.uri_for('/scripts', lang_hash
-                        c.model('FileCache').template_signature('scripts/text_strings.tt'),
-                        'text.js') -%]"></script>
-        [%- END -%]
-        <script type="text/javascript">//<![CDATA[
-            $(document).ready (function () {
-                [% IF c.user_exists %]
-                    MB.Control.RelateTo ();
-                [%- END -%]
-            });
-            tb_pathToImage = '[% c.uri_for('/static/lib/thickbox/loadingAnimation.gif') %]';
-        //]]></script>
-        [% BLOCK layout_head %][% END %]
-        [%- INCLUDE layout_head -%]
-        [%- IF google_analytics_code -%]
-          <script type="text/javascript">
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '[% google_analytics_code %]']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-          </script>
-        [%- END -%]
-        [%- IF server_details.developement_server -%]
-            <script>less = { rootpath: "[% c.uri_for('/static/styles/') %]" }</script>
-            <script src="[% c.uri_for('/static/lib/less/less-1.3.3.js') %]"></script>
-        [%- END -%]
-    </head>
+    [%- INCLUDE 'layout/head.tt' -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
 
@@ -86,7 +27,6 @@
             <div id="header-menu">
                 <div>
                     [%- INCLUDE "layout/menu.tt" -%]
-                    <div class="r"></div><div class="l"></div>
                 </div>
             </div>
         </div>
@@ -99,7 +39,6 @@
                           { uri => '//musicbrainz.org' _
                                    (server_details.beta_redirect == 'musicbrainz.org' ? '?unset_beta=1' : '' ) }) ~%]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% ELSIF server_details.is_slave_db %]
             <div class="server-details">
@@ -107,14 +46,12 @@
                     [% l('This is a Musicbrainz mirror server. To edit or make changes to the data please
                           {uri|return to musicbrainz.org}.', { uri => '//musicbrainz.org' }) %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
 
         [%- IF server_details.alert -%]
             <div class="warning-header">
                 <p>[% server_details.alert %]</p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [%- END -%]
 
@@ -123,14 +60,12 @@
                 <p>
                     [% l('The server is temporary in read-only mode for database maintainance.') %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [%- END -%]
 
         [% IF makes_no_changes %]
         <div class="warning-header">
             <p>[% l('The data you have submitted does not make any changes to the data already present.') %]</p>
-            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
         </div>
         [% END %]
 
@@ -139,13 +74,11 @@
                 <p>
                     [% c.flash.message %]
                 </p>
-                <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             </div>
         [% END %]
 
         <div id="page"[% IF full_width %] class="fullwidth"[% END %][% IF homepage %] class="homepage"[% END %]>
             [%- content -%]
-            <div class="br"></div><div class="bl"></div><div class="tr"></div><div class="tl"></div>
             <div style="clear: both"></div>
         </div>
 
@@ -179,8 +112,5 @@
                       caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>
-
-        [%- BLOCK invisible_content -%][%- END -%]
-        [% INCLUDE invisible_content %]
     </body>
 </html>

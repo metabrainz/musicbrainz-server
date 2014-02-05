@@ -25,17 +25,11 @@ var MB = {
     // Utility functions
     utility: {},
 
-    // Predicates to be used in $.grep
-    predicate: {},
-
     // Hold translated text strings
     text: {},
 
     // Hold constants
-    constants: {},
-
-    // Hold any URLs that controls might use
-    url: {}
+    constants: {}
 };
 
 MB.constants.VARTIST_ID = 1;
@@ -43,12 +37,3 @@ MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 MB.constants.VARTIST_NAME = 'Various Artists';
 
 MB.constants.ENTITIES = [ 'artist', 'editor', 'label', 'release', 'release-group', 'recording', 'work', 'area', 'place' ];
-
-MB.Object = function () {
-    var self = {};
-
-    return self;
-};
-
-// Add underscore.string functions to _ namespace
-_.mixin(_.str.exports());

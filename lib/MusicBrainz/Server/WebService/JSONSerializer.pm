@@ -3,7 +3,6 @@ package MusicBrainz::Server::WebService::JSONSerializer;
 use Moose;
 use JSON;
 use List::UtilsBy 'sort_by';
-use MusicBrainz::Server::Track qw( format_track_length );
 use MusicBrainz::Server::WebService::WebServiceInc;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serializer serialize_entity );
 
@@ -63,52 +62,24 @@ sub serialize_release
 {
     my ($self, $c, $release) = @_;
 
-    my $data = $self->_release($release);
-    my $mediums = $data->{mediums} = [];
+    my $inc = $c->stash->{inc};
+    my $data = $self->_release($release, $inc->media, $inc->recordings, $inc->rels);
 
-    $data->{release_group} = $self->_release_group( $release->release_group );
-    $data->{release_group}->{relationships} =
-        $self->serialize_relationships( $release->release_group->all_relationships );
+    $data->{releaseGroup} = $self->_release_group($release->release_group);
 
-    if ($c->stash->{inc}->recordings) {
-        for my $medium ($release->all_mediums) {
+    if ($inc->rels) {
+        $data->{relationships} =
+            $self->serialize_relationships($release->all_relationships);
 
-            my $medium_data = {
-                position => $medium->position,
-                $medium->name   ? ( name   => $medium->name ) : (),
-                $medium->format ? ( format => $medium->format_name ) : (),
-                tracks => [],
-            };
-
-            my $tracks_data = $medium_data->{tracks};
-
-            for my $track ($medium->all_tracks) {
-                my $track_data = {
-                    name     => $track->name,
-                    position => $track->position,
-                    number   => $track->number,
-                    length   => $track->length,
-                    artist_credit => $self->_artist_credit( $track->artist_credit ),
-                    recording     => $self->_recording( $track->recording,
-                        MusicBrainz::Server::Entity::ArtistCredit::is_different
-                                   ( $track->artist_credit,
-                                     $track->recording->artist_credit) ),
-                };
-
-                if ($c->stash->{inc}->{rels}) {
-                    $track_data->{recording}->{relationships} =
-                        $self->serialize_relationships( $track->recording->all_relationships );
-                }
-
-                push @{ $medium_data->{tracks} }, $track_data;
-            }
-
-            push @{ $mediums }, $medium_data;
-        }
+        $data->{releaseGroup}->{relationships} =
+            $self->serialize_relationships($release->release_group->all_relationships);
     }
-    if ($c->stash->{inc}->{rels}) {
-        $data->{relationships} = $self->serialize_relationships( $release->all_relationships );
+
+    if ($inc->annotation) {
+        $data->{annotation} = defined $release->latest_annotation ?
+            $release->latest_annotation->text : "";
     }
+
     return $self->serialize_data($data);
 }
 
@@ -193,9 +164,9 @@ sub _generic
         $entity->meta->has_attribute('comment')
             ? (comment => $entity->comment) : (),
         $entity->meta->has_attribute('sort_name')
-            ? (sortname => $entity->sort_name) : (),
+            ? (sortName => $entity->sort_name) : (),
         $entity->meta->has_attribute('artist_credit') && $entity->artist_credit
-            ? (artist_credit => $self->_artist_credit($entity->artist_credit)) : ()
+            ? (artistCredit => $self->_artist_credit($entity->artist_credit)) : ()
     };
 }
 
@@ -203,7 +174,128 @@ sub _artist { goto &_generic }
 
 sub _label { goto &_generic }
 
-sub _release { goto &_generic }
+sub autocomplete_release
+{
+    my ($self, $output, $pager) = @_;
+
+    my @output = map $self->_release($_), @$output;
+
+    push @output, {
+        pages => $pager->last_page,
+        current => $pager->current_page
+    } if $pager;
+
+    return encode_json (\@output);
+}
+
+sub _release
+{
+    my ($self, $release, $inc_media, $inc_recordings, $inc_rels) = @_;
+
+    my $data = {
+        name         => $release->name,
+        id           => $release->id,
+        gid          => $release->gid,
+        comment      => $release->comment,
+        statusID     => $release->status_id,
+        languageID   => $release->language_id,
+        scriptID     => $release->script_id,
+        packagingID  => $release->packaging_id,
+        barcode      => $release->barcode->code
+    };
+
+    if ($release->artist_credit) {
+        $data->{artistCredit} = $self->_artist_credit($release->artist_credit);
+    }
+
+    if (scalar($release->all_events)) {
+        $data->{events} = [
+            map {
+                date => $_->date->format,
+                countryID => $_->country_id
+            }, $release->all_events
+        ];
+
+        $data->{countryCodes} = [ map { $_->country->primary_code }
+            grep { $_->country_id } $release->all_events ];
+    }
+
+    if (scalar($release->all_labels)) {
+        $data->{labels} = [
+            map {
+                id => $_->id,
+                label => $_->label ? $self->_label($_->label) : undef,
+                catalogNumber => $_->catalog_number
+            }, $release->all_labels
+        ];
+    }
+
+    if (scalar($release->all_mediums)) {
+        if ($inc_media) {
+            $data->{mediums} = [
+                map $self->_medium($_, $inc_recordings, $inc_rels),
+                        $release->all_mediums
+            ];
+        }
+
+        $data->{trackCounts} = $release->combined_track_count;
+        $data->{formats} = $release->combined_format_name;
+    }
+
+    return $data;
+}
+
+sub _medium
+{
+    my ($self, $medium, $inc_recordings, $inc_rels) = @_;
+
+    my $data = {
+        id        => $medium->id,
+        position  => $medium->position,
+        name      => $medium->name,
+        format    => $medium->l_format_name,
+        formatID  => $medium->format_id,
+        cdtocs    => scalar($medium->all_cdtocs),
+    };
+
+    if ($inc_recordings) {
+        my $tracks_data = $data->{tracks} = [];
+
+        for my $track ($medium->all_tracks) {
+            my $track_data = $self->_track($track);
+
+            if ($inc_rels) {
+                $track_data->{recording}->{relationships} =
+                    $self->serialize_relationships($track->recording->all_relationships);
+            }
+            push @{ $data->{tracks} }, $track_data;
+        }
+    }
+    return $data;
+}
+
+sub _track
+{
+    my ($self, $track) = @_;
+
+    my $output = {
+        id            => $track->id,
+        gid           => $track->gid,
+        name          => $track->name,
+        position      => $track->position,
+        number        => $track->number,
+        length        => $track->length,
+        artistCredit  => $self->_artist_credit( $track->artist_credit )
+    };
+
+    if ($track->recording) {
+        $output->{recording} = $self->_recording( $track->recording,
+            MusicBrainz::Server::Entity::ArtistCredit::is_different(
+                $track->artist_credit, $track->recording->artist_credit) )
+    }
+
+    return $output;
+}
 
 sub autocomplete_area
 {
@@ -314,7 +406,8 @@ sub _release_group
         typeID  => $item->primary_type_id,
         typeName => $item->type_name,
         firstReleaseDate => $item->first_release_date->format,
-        secondary_types => [ map { $_->id } $item->all_secondary_types ]
+        secondaryTypeIDs => [ map { $_->id } $item->all_secondary_types ],
+        artistCredit => $self->_artist_credit($item->artist_credit)
     };
 }
 
@@ -325,14 +418,14 @@ sub autocomplete_recording
     my @output;
 
     for (@$results) {
-        my $out = $self->_recording( $_->{recording} );
+        my $out = $self->_recording( $_->{recording}, 1 );
 
-        $out->{appears_on} = {
-            hits    => $_->{appears_on}{hits},
+        $out->{appearsOn} = {
+            hits    => $_->{appearsOn}{hits},
             results => [ map { {
                 'name' => $_->name,
                 'gid'  => $_->gid
-            } } @{ $_->{appears_on}{results} } ],
+            } } @{ $_->{appearsOn}{results} } ],
         };
 
         push @output, $out
@@ -350,14 +443,16 @@ sub _recording
 {
     my ($self, $recording, $show_ac) = @_;
 
+    my @isrcs = $recording->all_isrcs;
+
     return {
         name    => $recording->name,
         id      => $recording->id,
         gid     => $recording->gid,
         comment => $recording->comment,
-        length  => format_track_length ($recording->length),
+        length  => $recording->length,
         artist  => $recording->artist_credit->name,
-        $show_ac ? ( artist_credit  =>
+        $show_ac ? ( artistCredit  =>
             $self->_artist_credit($recording->artist_credit) ) : (),
         isrcs => [ map { $_->isrc } $recording->all_isrcs ],
         video   => $recording->video ? 1 : 0
@@ -470,6 +565,7 @@ sub _place
         id      => $place->id,
         gid     => $place->gid,
         typeID  => $place->type_id,
+        comment => $place->comment,
         $place->type ? (typeName => $place->type->name) : (),
         $place->area ? (area => $place->area->name) : () };
 }
@@ -492,7 +588,8 @@ sub _artist_credit
 
     return [ map +{
         artist      => $self->_artist( $_->artist ),
-        join_phrase => $_->join_phrase,
+        joinPhrase  => $_->join_phrase,
+        $_->artist->name eq $_->name ? () : ( name => $_->name )
     }, $ac->all_names ];
 }
 

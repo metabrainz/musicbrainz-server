@@ -13,6 +13,7 @@ use MusicBrainz::Server::Translation qw ( N_l );
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name     { N_l('Edit release attributes (historic)') }
+sub edit_kind     { 'edit' }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_ATTRS }
 sub historic_type { 26 }
 sub edit_template { 'historic/edit_release_attributes' }

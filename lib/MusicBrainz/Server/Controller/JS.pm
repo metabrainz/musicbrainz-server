@@ -47,9 +47,4 @@ sub statistics_js_text_strings : Chained('js_text_setup') PathPart('statistics/v
     $c->res->content_type('text/javascript');
 }
 
-sub js_unit_tests : Path('/unit_tests') {
-    my ($self, $c) = @_;
-    $c->stash->{template} = 'scripts/unit_tests.tt';
-}
-
 1;

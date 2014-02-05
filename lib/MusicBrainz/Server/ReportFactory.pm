@@ -14,6 +14,14 @@ use MusicBrainz::Server::PagedReport;
     CatNoLooksLikeASIN
     CollaborationRelationships
     CoverArtRelationships
+    DeprecatedRelationshipArtists
+    DeprecatedRelationshipLabels
+    DeprecatedRelationshipPlaces
+    DeprecatedRelationshipRecordings
+    DeprecatedRelationshipReleases
+    DeprecatedRelationshipReleaseGroups
+    DeprecatedRelationshipURLs
+    DeprecatedRelationshipWorks
     DiscogsLinksWithMultipleArtists
     DiscogsLinksWithMultipleLabels
     DiscogsLinksWithMultipleReleaseGroups
@@ -65,6 +73,14 @@ use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
 use MusicBrainz::Server::Report::CollaborationRelationships;
 use MusicBrainz::Server::Report::CoverArtRelationships;
+use MusicBrainz::Server::Report::DeprecatedRelationshipArtists;
+use MusicBrainz::Server::Report::DeprecatedRelationshipLabels;
+use MusicBrainz::Server::Report::DeprecatedRelationshipPlaces;
+use MusicBrainz::Server::Report::DeprecatedRelationshipRecordings;
+use MusicBrainz::Server::Report::DeprecatedRelationshipReleases;
+use MusicBrainz::Server::Report::DeprecatedRelationshipReleaseGroups;
+use MusicBrainz::Server::Report::DeprecatedRelationshipURLs;
+use MusicBrainz::Server::Report::DeprecatedRelationshipWorks;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleArtists;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleLabels;
 use MusicBrainz::Server::Report::DiscogsLinksWithMultipleReleaseGroups;

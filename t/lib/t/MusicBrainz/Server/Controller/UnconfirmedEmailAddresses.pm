@@ -161,7 +161,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::ISWC::show",
   "Controller::JS::js_text_setup",
   "Controller::JS::js_text_strings",
-  "Controller::JS::js_unit_tests",
   "Controller::JS::statistics_js_text_strings",
   "Controller::Label::alias",
   "Controller::Label::aliases",

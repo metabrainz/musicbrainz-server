@@ -39,6 +39,7 @@ Images:
 
     icons/add.png
     icons/delete.png
+    icons/information.png
 
 ----------------------------------------------------------------------------
 
@@ -104,7 +105,7 @@ Images:
 Image set:   Android
 Author:      http://www.androidicons.com
 License:     CC-BY (see download page)
-Download:    http://findicons.com/icon/80718/monitor (original, cropped in MusicBrainz) 
+Download:    http://findicons.com/icon/80718/monitor (original, cropped in MusicBrainz)
 
 Images:
 
@@ -121,7 +122,7 @@ Images:
     entity/*                        (source: src/label.svg)
     icons/mblookup-tag.gif
     icons/mblookup-tagger.png
-    layout/sprites.png              (source: src/sprides.psd)
+    layout/header-logo.png          (source: src/sprites.psd)
     layout/page-bg.gif
     layout/table-header.gif
     layout/table-header-2.gif

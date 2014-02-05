@@ -17,6 +17,7 @@ use aliased 'MusicBrainz::Server::Entity::Barcode';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_l('Edit barcodes') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDIT_BARCODES }
 
 has '+data' => (

@@ -1,11 +1,14 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
 <form action="[% c.req.uri %]" method="post">
   [%- USE r = FormRenderer(form) -%]
 
   <div class="half-width">
     <fieldset>
       <legend>[% l('Release Group Details') %]</legend>
-      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'name', l('Name:')) -%]
+      [%- form_row_artist_credit(form) -%]
       [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
       [%- form_row_select(r, 'primary_type_id', l('Primary Type:')) -%]
       [%- form_row_select(r, 'secondary_type_ids', l('Secondary Types:')) -%]
@@ -22,3 +25,10 @@
   </div>
 
 </form>
+
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_artist_credit();
+    MB.Control.initialize_guess_case("release-group", "id-edit-release-group");
+  }());
+//]]></script>

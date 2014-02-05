@@ -69,7 +69,9 @@ __PACKAGE__->config(
             'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
-        EVAL_PERL => 1
+        EVAL_PERL => 1,
+        COMPILE_EXT => '.ttc',
+        COMPILE_DIR => '/tmp/ttc'
     },
     'Plugin::Session' => {
         expires => DBDefs->SESSION_EXPIRE
@@ -171,6 +173,10 @@ if (DBDefs->_RUNNING_TESTS) {
 else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
+}
+
+if (!DBDefs->DEVELOPMENT_SERVER) {
+    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = 1200;
 }
 
 if (DBDefs->CATALYST_DEBUG) {

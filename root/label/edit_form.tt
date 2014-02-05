@@ -1,3 +1,6 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines} then use the fields below to update the information of this label.', {doc_styleguide => doc_link('Style_Guideline')})) %]
     [%- create_guideline(l('If one or more labels with the same name already exist in the database, you will be prompted to add a {doc_comment|disambiguation comment to this label} that will allow users to distinguish this entry from the other label(s) with the same name.', {doc_comment => doc_link('Label_Comment')})) %]
@@ -22,7 +25,7 @@
 
           [%- WRAPPER 'layout/guidelines.tt' -%]
               [%- create_guideline(l('You are required to enter a disambiguation comment which allows users to distinguish this label from the other labels with the same name, if the final label name is similar to an existing label.')) -%]
-              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|label comment guideline}, understood how we distinguish labels with the same name, and that you know what you are doing.', {doc_labelcomment => doc_link('Label_Comment')})) -%]
+              [%- create_guideline(l('Confirm by activating the checkbox below that you have read the {doc_labelcomment|documentation about disambiguation comments}, understood how we distinguish labels with the same name, and that you know what you are doing.', {doc_labelcomment => doc_link('Disambiguation_Comment')})) -%]
           [%- END -%]
 
           [% form_row_checkbox(r, 'not_dupe', l('Yes, I am sure this label is not duplicate, and I know what I am doing.')) %]
@@ -72,17 +75,17 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
-    <div class="area-container" style="display: none">
-      <div class="area bubble">
-        <p>
-          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-        </p>
-      </div>
-    </div>
+    [%- area_bubble() -%]
   </div>
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-label', 'button.submit.positive');
-</script>
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_guess_case("label", "id-edit-label");
+
+    MB.Control.Area("span.area.autocomplete");
+
+    MB.utility.setDefaultAction("form.edit-label", "button.submit.positive");
+  }());
+//]]></script>

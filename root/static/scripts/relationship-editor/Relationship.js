@@ -35,8 +35,6 @@ RE.Relationship = function(obj) {
 
 
 var Relationship = function(obj) {
-    var self = this;
-
     this.visible = false;
     this.id = obj.id;
     this.changeCount = 0;
@@ -61,7 +59,7 @@ var Relationship = function(obj) {
 
     this.fromJS(obj);
     this.dateRendering = ko.computed({read: this.renderDate, owner: this});
-    this.original_fields = this.toJS();
+    this.original_fields = this.toJSON();
 
     this.entity[0].extend({field: [this, "entity.0"]});
     this.entity[1].extend({field: [this, "entity.1"]});
@@ -80,7 +78,7 @@ var defaultLinkType = function(type0, type1) {
 };
 
 
-Relationship.prototype.toJS = function() {
+Relationship.prototype.toJSON = function() {
     var entity0 = this.entity[0].peek(), entity1 = this.entity[1].peek();
     return {
         id:        this.action.peek() == "action" ? undefined : this.id,
@@ -92,7 +90,7 @@ Relationship.prototype.toJS = function() {
             ended:      this.period.ended.peek()
         },
         attrs:  ko.toJS(this.attrs),
-        entity: [this.entity[0].peek().toJS(), this.entity[1].peek().toJS()]
+        entity: [this.entity[0].peek().toJSON(), this.entity[1].peek().toJSON()]
     };
 };
 
@@ -203,7 +201,7 @@ Relationship.prototype.linkPhrase = function (source) {
         }
     });
 
-    return _.clean(phrase.replace(/\{(.*?)(?::(.*?))?\}/g,
+    return _.str.clean(phrase.replace(/\{(.*?)(?::(.*?))?\}/g,
             function (match, name, alts) {
         var values = attrs[name];
         if (alts) {
@@ -219,19 +217,9 @@ Relationship.prototype.linkPhrase = function (source) {
     }));
 };
 
-
-function renderDate(date) {
-    var year = date.year(), month = date.month(), day = date.day();
-
-    month = month && _.pad(month, 2, "0");
-    day = day && _.pad(day, 2, "0");
-
-    return year ? year + (month ? "-" + month + (day ? "-" + day : "") : "") : "";
-}
-
 Relationship.prototype.renderDate = function() {
-    var begin_date = renderDate(this.period.begin_date.peek()),
-        end_date = renderDate(this.period.end_date.peek()),
+    var begin_date = MB.utility.formatDate(this.period.begin_date.peek()),
+        end_date = MB.utility.formatDate(this.period.end_date.peek()),
         ended = this.period.ended();
 
     if (!begin_date && !end_date) return "";
@@ -256,7 +244,7 @@ var buildField = function(prefix, obj, result) {
 
 Relationship.prototype.buildFields = function(num, result) {
     var prefix = "rel-editor.rels." + num;
-    buildField(prefix, this.toJS(), result);
+    buildField(prefix, this.toJSON(), result);
     if (this.action.peek() == "add") delete result[prefix + ".id"];
 };
 
@@ -276,7 +264,7 @@ Relationship.prototype.openEdits = function() {
     var entity0 = MB.entity(this.original_fields.entity[0]),
         entity1 = MB.entity(this.original_fields.entity[1]);
 
-    return _.sprintf(
+    return _.str.sprintf(
         '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
         '&conditions.0.field=%s&conditions.0.operator=%%3D&conditions.0.name=%s' +
         '&conditions.0.args.0=%s&conditions.1.field=%s&conditions.1.operator=%%3D' +
@@ -296,7 +284,7 @@ Relationship.prototype.openEdits = function() {
 
 Relationship.prototype.css = function() {
     var action = this.action();
-    return _.trim((this.hasErrors() ? "error-field" : "") + " " + (action ? "rel-" + action : ""));
+    return _.str.trim((this.hasErrors() ? "error-field" : "") + " " + (action ? "rel-" + action : ""));
 };
 
 return RE;

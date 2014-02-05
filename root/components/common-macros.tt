@@ -108,7 +108,7 @@ END; -%]
 [% END %]
 
 [%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="thickbox">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="artwork-image">
       [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
@@ -195,9 +195,13 @@ END -%]
 
 [%- MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
-        <span class="historical">(<bdi>historical
-            [%- IF entity.end_date.has_year -%]
-                [%- ', ' _ entity.begin_date.year _ '–' _ entity.end_date.year -%]
+        <span class="historical">(<bdi>
+            [%- IF entity.begin_date.has_year && entity.end_date.has_year -%]
+                [%- l("historical, {begin}-{end}", { begin => entity.begin_date.year, end => entity.end_date.year }) -%]
+            [%- ELSIF entity.end_date.has_year -%]
+                [%- l("historical, until {end}", { end => entity.end_date.year }) -%]
+            [%- ELSE -%]
+                [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
     [%- END -%]
@@ -257,7 +261,7 @@ END -%]
     ELSE;
       link_deleted(entity, text);
     END;
-    disambiguation(entity) UNLESS text;
+    disambiguation(entity) IF text == '';
 END -%]
 
 [%- MACRO link_deleted(entity, text) BLOCK;
@@ -875,7 +879,7 @@ http://[%- server -%]/[%- id -%]
   [%- IF server_details.developement_server -%]
     [%- USE date -%]
     [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
-        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]?t=[% date.now %]"></script>
+        <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
     [%- END -%]
   [%- ELSE -%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>

@@ -13,6 +13,7 @@ with 'MusicBrainz::Server::Edit::Work';
 sub _alias_model { shift->c->model('Work')->alias }
 
 sub edit_name { N_l('Add work alias') }
+sub edit_kind { 'add' }
 sub edit_type { $EDIT_WORK_ADD_ALIAS }
 
 sub adjust_edit_pending

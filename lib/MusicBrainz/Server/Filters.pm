@@ -80,7 +80,7 @@ sub format_wikitext
     # MBS-2437: Expand MBID entity links
     $text =~ s/
       \[
-      (artist|label|recording|release|release-group|url|work):
+      (artist|label|recording|release|release-group|url|work|area|place):
       ([0-9a-f]{8} -
        [0-9a-f]{4} -
        [0-9a-f]{4} -
@@ -94,6 +94,7 @@ sub format_wikitext
             encode('utf-8' => $text), {}, {
                 prefix => "//wiki.musicbrainz.org/",
                 extended => 1,
+                nofollow_extended => 1,
                 absolute_links => 1,
                 implicit_links => 0
             })
@@ -104,8 +105,7 @@ sub _make_link
 {
     my ($type, $mbid, $content) = @_;
     $content //= "$type:$mbid";
-    my $ws = DBDefs->WEB_SERVER;
-    return "<a href=\"/$type/$mbid/\">$content</a>"
+    return "<a href=\"/$type/$mbid\">$content</a>"
 }
 
 sub _display_trimmed {
@@ -120,7 +120,7 @@ sub _display_trimmed {
     $encoded_url = "http://$encoded_url"
         unless $encoded_url =~ m{^(?:https?:)?//};
 
-    return qq{<a href="$encoded_url">$display_url</a>};
+    return qq{<a href="$encoded_url" rel="nofollow">$display_url</a>};
 }
 
 sub normalise_url {

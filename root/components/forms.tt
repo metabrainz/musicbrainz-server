@@ -103,22 +103,20 @@
           <div style="display: none;"
                class="text-list-row [%- r.form.field(field_name).html_name _ "-template" -%]">
               <input type="text" value="" name="" class="value with-remove" />
-              <button class="nobutton icon remove">
+              <button type="button" class="nobutton icon remove">
                 <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% FOR value=r.form.field(field_name).value -%]
           <div class="text-list-row">
               <input type="text" value="[% value %]" name="[% r.form.field(field_name).html_name %].[% loop.index() %]" class="value with-remove" />
-              <button class="nobutton icon remove">
-                <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
-                     title="[% l('Remove {item}', item => item_name) %]"
-                       alt="[% l('Remove {item}', item => item_name) %]" />
+              <button type="button" class="nobutton remove">
+              <div class="remove-item icon img" title="[% l('Remove {item}', item => item_name) %]"></div>
               </button>
           </div>
           [% END -%]
           <div class="form-row-add">
-            <button class="nobutton add">
+            <button type="button" class="nobutton add">
               <span class="add-row">[% l('Add {item}', item => item_name) %]</span>
               <div class="add-item icon img" title="[% l('Add {item}', item => item_name) %]"></div>
             </button>
@@ -152,7 +150,7 @@
           <input id="[% id %]" type="text" class="artist-credit-input" data-bind="autocomplete: { entity: 'artist', artistCredit: $data }" data-hidden-inputs="[% 1 IF form %]" data-form="[% form.name IF form.html_prefix %]" data-artist="[% html_escape(form.field('artist_credit').json) IF form %]" />
           <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
         </span>
-        <input type="button" id="open-ac" value=" &gt;&gt; " />
+        <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
         [%- IF form -%]
           [% field_errors(form, 'artist_credit') %]
         [%- END -%]
@@ -195,14 +193,14 @@
   </fieldset>
 [%- END -%]
 
-[%- MACRO guesscase_bubble(hide_mode) BLOCK -%]
-  <div class="guess-case container" style="display: none">
-    <div class="guess-case bubble">
+[%- MACRO guesscase_bubble(hide_mode, bubble_name, gc_callback) BLOCK -%]
+    <div class="bubble" id="guess-case-bubble" data-bind="bubble: [% bubble_name %]">
+      <!-- ko guessCase: [% gc_callback || '_.bind(guessCase, $data)' %] -->
       <p>
         [%- (l('Please use the Guess Case button to fix common style errors.')) -%]
       </p>
       <div class="buttons">
-        <a data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</a>
+        <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
       </div>
       <div class="guesscase-options">
         <table>
@@ -234,13 +232,12 @@
           </tr>
         </table>
       </div>
+    <!-- /ko -->
     </div>
-  </div>
 [%- END -%]
 
-[%- MACRO sortname_bubble(hide_mode) BLOCK -%]
-  <div class="sortname container" style="display: none">
-    <div class="sortname bubble">
+[%- MACRO sortname_bubble BLOCK -%]
+    <div class="bubble" id="sortname-bubble">
       <p>
         [%- (l('Please use the Sort Name button to guess the sort name.')) -%]
       </p>
@@ -249,29 +246,23 @@
         <a href="#copy">[% l('Copy') %]</a>
       </div>
     </div>
-  </div>
 [%- END -%]
 
 [%- MACRO iswc_bubble(work) BLOCK -%]
-  <div class="iswcs container" style="display: none">
-    <div class="iswcs bubble">
-      <p>[% l('You are about to add an ISWC to {work}. The ISWC must be entered in
-               standard <code>T-DDD.DDD.DDD-C</code> format:',
-              { work => work }) %]</p>
+    <div class="bubble" id="iswcs-bubble">
+      <p>[% l('You are about to add an ISWC to this work. The ISWC must be entered in
+               standard <code>T-DDD.DDD.DDD-C</code> format:') %]</p>
       <ul>
         <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
         <li>[% l('"C" is a single check digit.') %]</li>
       </ul>
     </div>
-  </div>
 [%- END -%]
 
 [%- MACRO isrc_bubble(recording) BLOCK -%]
-  <div class="isrcs container" style="display: none">
-    <div class="isrcs bubble">
-      <p>[% l('You are about to add an ISRC to {recording}. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNNN</code> format:',
-              { recording => recording }) %]</p>
+    <div class="bubble" id="isrcs-bubble">
+      <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
+               standard <code>CCXXXYYNNNNNN</code> format:') %]</p>
       <ul>
         <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
         <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
@@ -279,64 +270,78 @@
         <li>[% l('"NNNNN" is a unique 5-digit number identifying the particular sound recording.') %]</li>
       </ul>
     </div>
-  </div>
+[%- END -%]
+
+[%- MACRO area_bubble BLOCK -%]
+    <div class="bubble" id="area-bubble">
+      <p>
+        [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
+      </p>
+    </div>
 [%- END -%]
 
 [%- MACRO artist_credit_table BLOCK -%]
-  <div class="artist-credit-container" style="display: none">
-    <div class="artist-credit bubble" id="artist-credit-bubble">
-      <p>
-        [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
-      </p>
-      <div class="row artist-credit-preview">
-        <label>[% l('Preview') %]</label>
-        <span data-bind="html: html()"></span>
-      </div>
+  <div class="bubble" id="artist-credit-bubble" data-bind="bubble: $root.artistBubble">
+    <p>
+      [%- l('Use the following fields to enter collaborations, see the <a href="{url}">Artist Credit</a> documentation for more information.', url => c.uri_for ('/doc/Artist_Credit')) -%]
+    </p>
 
+    <p>[% l('Preview:') %] <span data-bind="html: html()"></span></p>
+
+    <table class="row-form" style="width: auto !important;">
+    <tbody>
       <!-- ko foreach: names -->
-        <div class="artist-credit-box" style="margin: 2em 0">
-
-          <div class="row">
-            <label><strong>[% l('Artist in MusicBrainz') %]</strong></label>
-
-            <span class="artist autocomplete">
-              <input type="text" class="name" data-bind="
-                autocomplete: { entity: 'artist', currentSelection: artist },
-                css: { 'various-artists': isVariousArtists() }"/>
-              <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-            </span>
-
-            <input type="button" class="icon remove-artist-credit"
-              title="[% l('Remove Artist Credit') %]" data-bind="click: function () { $parent.removeName($data); }" />
-
-          </div>
-
-          <div class="row">
-            <label>[% l('Artist as credited') %]</label>
-            <input type="text" data-bind="value: name" />
-          </div>
-
-          <div class="row">
-            <label>[% l('Join phrase') %]</label>
-            <input type="text" data-bind="value: joinPhrase,
-              event: { change: _.bind(joinChanged, $data, $element) }" />
-          </div>
-
-        </div>
+      <tr>
+        <td>
+          <label><strong>[% l('Artist in MusicBrainz:') %]</strong></label>
+        </td>
+        <td>
+          <span class="artist autocomplete">
+            <input type="text" class="name" data-bind="withLabel: 'ac-artist-search', autocomplete: { entity: 'artist', currentSelection: artist }, css: { 'various-artists': isVariousArtists() }"/>
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          </span>
+        </td>
+        <td>
+          <input type="button" class="icon remove-artist-credit" title="[% l('Remove Artist Credit') %]" data-bind="click: $bubble.removeArtistCreditName.bind($bubble)" />
+        </td>
+      </tr>
+      <tr>
+        <td><label>[% l('Artist as credited:') %]</label></td>
+        <td>
+          <input type="text" data-bind="withLabel: 'ac-as-credited', value: name" />
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><label>[% l('Join phrase:') %]</label></td>
+        <td>
+          <input type="text" data-bind="withLabel: 'ac-join-phrase', value: joinPhrase, event: { change: _.bind(joinChanged, $data, $element) }" />
+        </td>
+        <td></td>
+      </tr>
       <!-- /ko -->
 
-      [% WRAPPER form_row %]
-        <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
-          [%- l('Add Artist Credit') -%]
-          <div class="add-item icon img" title="[% l('Add Artist Credit') %]"></div>
-        </button>
-      [% END %]
+      <tr>
+        <td colspan="3">
+          <button type="button" class="nobutton add-artist-credit" data-bind="click: addName">
+            [%- l('Add Artist Credit') -%]
+            <div class="add-item icon img" title="[% l('Add Artist Credit') %]"></div>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    </table>
 
-      <!-- ko if: hiddenInputs -->
-        <!-- ko foreach: hiddenInputs -->
-          <input type="hidden" data-bind="attr: $data"/>
-        <!-- /ko -->
+    <!-- ko if: hiddenInputs -->
+      <!-- ko foreach: hiddenInputs -->
+        <input type="hidden" data-bind="attr: $data" />
       <!-- /ko -->
+    <!-- /ko -->
+
+    <div class="buttons" data-bind="with: $bubble">
+      <button type="button" style="float: left" data-bind="click: copyArtistCredit">[% l('Copy Credits') %]</button>
+      <button type="button" style="float: left" data-bind="click: pasteArtistCredit">[% l('Paste Credits') %]</button>
+      <button type="button" style="float: right" class="positive" data-bind="click: hide">[% l('Done') %]</button>
     </div>
   </div>
 [%- END -%]

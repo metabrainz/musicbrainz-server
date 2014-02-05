@@ -14,7 +14,8 @@
     [% END %]
 [% END %]
 
-<div class="edit-header[%- PROCESS edit_status -%] [%- edit.edit_name FILTER lower FILTER replace('[^A-Za-z-]+', '-') -%]">
+<div class="edit-header[%- PROCESS edit_status -%] edit-[% edit.edit_kind %]
+            [% edit.edit_name FILTER lower FILTER replace('[^A-Za-z-]+', '-') %]">
     [% IF summary %]
         <div class="edit-description">
             <table>

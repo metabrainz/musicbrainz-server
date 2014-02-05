@@ -16,7 +16,7 @@
 [% END %]
 
 [%- WRAPPER "work/layout.tt" page='index' -%]
-    [% IF eligble_for_cleanup %]
+    [% IF eligible_for_cleanup %]
       <p class="cleanup">
           [% l('This work has no relationships and will be removed
                 automatically in the next few days. If this is not intended, please add

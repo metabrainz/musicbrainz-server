@@ -242,9 +242,9 @@ sub _mapping
     );
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
-    my ($self, %opts) = @_;
+    my ($orig, $self, %opts) = @_;
     my $release = $opts{to_edit} or return;
 
     if (exists $opts{artist_credit})
@@ -255,6 +255,8 @@ before 'initialize' => sub
     if (exists $opts{artist_credit} && !$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }
+
+    $self->$orig(%opts);
 };
 
 around extract_property => sub {
@@ -278,6 +280,7 @@ around extract_property => sub {
 sub current_instance {
     my $self = shift;
     my $release = $self->c->model('Release')->get_by_id($self->entity_id);
+    $self->c->model('ArtistCredit')->load($release);
     $self->c->model('Release')->load_release_events($release);
     return $release;
 }

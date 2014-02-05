@@ -14,7 +14,8 @@
         [% BLOCK recording_row_prefix %]
           <td>
             <input type="hidden" name="merge.merging.[% loop.index %]" value="[% recording.id %]" />
-            <input type="radio" name="merge.target" value="[% recording.id %]" />
+            <input type="radio" name="merge.target" value="[% recording.id %]"
+                   [% 'checked="checked"' IF recording.id == form.field('target').value %] />
           </td>
         [% END %]
         [% INCLUDE 'artist/recordings-list.tt' recordings=to_merge show_artists=1

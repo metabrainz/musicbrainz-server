@@ -110,8 +110,9 @@ sub release_group_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
+        my $show_all = 1;
         my @tmp = $c->model('ReleaseGroup')->find_by_artist (
-            $artist->id, $limit, $offset, filter => { type => $c->stash->{type} });
+            $artist->id, $show_all, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')

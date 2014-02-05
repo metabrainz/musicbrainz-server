@@ -89,10 +89,10 @@
   </tr>
 [%- END -%]
 
-[%- MACRO display_edit_artwork(artwork, release) BLOCK -%]
+[%- MACRO display_edit_artwork(artwork, release, colspan) BLOCK -%]
   <tr>
     <th>[% l('Cover art:') %]</th>
-    <td class="edit-cover-art">
+    <td class="edit-cover-art"[% IF colspan %] colspan="[% colspan %]"[% END %]>
       [%- history_message = '';
           IF release.gid;
             history_message = l('We are unable to display history for this cover

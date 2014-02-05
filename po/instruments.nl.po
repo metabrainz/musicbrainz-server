@@ -1,14 +1,13 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-07-25 08:07+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,6 +51,10 @@ msgstr "Kretenzische lier"
 msgid "Denis d'or"
 msgstr "Denis d'or"
 
+#: DB:link_attribute_type/name:746
+msgid "Disk Drive"
+msgstr "Diskdrive"
+
 #: DB:link_attribute_type/name:161
 msgid "Dubreq Stylophone"
 msgstr "Stylofoon"
@@ -64,6 +67,10 @@ msgstr "Es-klarinet"
 msgid "EWI"
 msgstr "EWI"
 
+#: DB:link_attribute_type/name:748
+msgid "Floppy Drive"
+msgstr "Floppydrive"
+
 #: DB:link_attribute_type/name:306
 msgid "Greek baglama"
 msgstr "Griekse baglama"
@@ -71,6 +78,10 @@ msgstr "Griekse baglama"
 #: DB:link_attribute_type/name:177
 msgid "Hammond organ"
 msgstr "Hammondorgel"
+
+#: DB:link_attribute_type/name:747
+msgid "Harddisk"
+msgstr "Harde schijf"
 
 #: DB:link_attribute_type/name:400
 msgid "Hawaiian guitar"
@@ -323,6 +334,10 @@ msgstr "vattrommel"
 #: DB:link_attribute_type/name:600
 msgid "barrel organ"
 msgstr "draaiorgel"
+
+#: DB:link_attribute_type/name:749
+msgid "baryton"
+msgstr "barytone"
 
 #: DB:link_attribute_type/name:70
 msgid "bass"
@@ -926,7 +941,7 @@ msgstr "fortepiano"
 
 #: DB:link_attribute_type/name:682
 msgid "fourth flute"
-msgstr ""
+msgstr "vierde blokfluit"
 
 #: DB:link_attribute_type/name:421
 msgid "frame drum"
@@ -1454,7 +1469,7 @@ msgstr "neusfluit"
 
 #: DB:link_attribute_type/name:738
 msgid "nose whistle"
-msgstr ""
+msgstr "neusfluitje"
 
 #: DB:link_attribute_type/name:298
 msgid "nyckelharpa"
@@ -1487,6 +1502,10 @@ msgstr "ocarina"
 #: DB:link_attribute_type/name:456
 msgid "ocean drum"
 msgstr "oceaantrommel"
+
+#: DB:link_attribute_type/name:745
+msgid "octave mandolin"
+msgstr "octaafmandoline"
 
 #: DB:link_attribute_type/name:352
 msgid "omnichord"
@@ -1543,6 +1562,10 @@ msgstr "panfluit"
 #: DB:link_attribute_type/name:392
 msgid "pang gu ly hu hmông"
 msgstr "pang gu ly hu hmông"
+
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr "pedaalpiano"
 
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
@@ -1698,7 +1721,7 @@ msgstr "sanxian"
 
 #: DB:link_attribute_type/name:418
 msgid "sapek clappers"
-msgstr ""
+msgstr "sapek-kleppers"
 
 #: DB:link_attribute_type/name:552
 msgid "sarangi"
@@ -1826,7 +1849,7 @@ msgstr "kleine trom"
 
 #: DB:link_attribute_type/name:356
 msgid "song loan"
-msgstr ""
+msgstr "song loan"
 
 #: DB:link_attribute_type/name:362
 msgid "sopranino recorder"
@@ -1866,7 +1889,7 @@ msgstr "lepels"
 
 #: DB:link_attribute_type/name:80
 msgid "steel guitar"
-msgstr ""
+msgstr "Hawaï-gitaar"
 
 #: DB:link_attribute_type/name:344
 msgid "steelpan"
@@ -1930,7 +1953,7 @@ msgstr "tabla"
 
 #: DB:link_attribute_type/name:468
 msgid "table steel guitar"
-msgstr ""
+msgstr "tafel-Hawaï-gitaar"
 
 #: DB:link_attribute_type/name:458
 msgid "taiko"
@@ -1983,6 +2006,10 @@ msgstr "tapdansen"
 #: DB:link_attribute_type/name:632
 msgid "tape"
 msgstr "magneetband"
+
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
 
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"

@@ -30,8 +30,9 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name';
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
@@ -1009,16 +1010,16 @@ sub merge
 
     $self->sql->do(
         'DELETE FROM release_country
-         WHERE release IN (
-           SELECT release
+         WHERE (release, country) IN (
+           SELECT release, country
            FROM (
-             SELECT release,
+             SELECT release, country,
                (row_number() OVER (
                   PARTITION BY country
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_country
              WHERE release = any(?)
@@ -1036,10 +1037,10 @@ sub merge
            FROM (
              SELECT release,
                (row_number() OVER (
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_unknown_country
              WHERE release = any(?)

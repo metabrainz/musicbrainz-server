@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013
+# Maurits Meulenbelt <email address hidden>, 2013-2014
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-11-03 13:59+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,6 +151,12 @@ msgid ""
 "A talkbox (or talk box) is an effects device which enables a musician to "
 "modify the sound of an instrument."
 msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen worden opgewekt, door het geluid van een instrument via een slang in de mond van de speler te brengen. (<a href=\"http://nl.wikipedia.org/wiki/Talkbox\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:555
 msgid ""
@@ -392,6 +398,11 @@ msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Aka
 msgid "Electric guitar without frets."
 msgstr "Een elektrische gitaar zonder fretten."
 
+#: DB:link_attribute_type/description:748
+msgid ""
+"Floppy Drives configured to produce tones while reading, software is used."
+msgstr "Floppydrives die door middel van software geluiden produceren tijdens het lezen."
+
 #: DB:link_attribute_type/description:500
 msgid ""
 "Flûte d'amour (also called tenor flute) is the mezzo-soprano in the flute "
@@ -437,6 +448,10 @@ msgstr "hammondorgel"
 #: DB:link_attribute_type/description:398
 msgid "Handclaps, also known as Palmas"
 msgstr "Klappen met de handen, ook bekend als palmas. (<a href=\"http://nl.wikipedia.org/wiki/Klappen\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:747
+msgid "Harddisk configured to produce tones in pattern."
+msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 
 #: DB:link_attribute_type/description:102
 msgid "Hardingfele (Hardanger)"
@@ -703,7 +718,7 @@ msgstr "Een hol percussie-instrument, meestal uit bamboe of hout, waarvan de kla
 msgid ""
 "Snare drum (also side drum, field drum)  (<a "
 "href=\"https://en.wikipedia.org/wiki/Snare_drum\">Wikipedia</a>)"
-msgstr ""
+msgstr "De kleine trom (ook wel snare drum of field drum genoemd) is een muziekinstrument dat bestaat uit een ketelklankkast, een slagvel (bovenvel) en een resonantievel (ondervel). (<a href=\"http://nl.wikipedia.org/wiki/Kleine_trom\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:362
 msgid "Sopranino recorder (Sopraninoblockflöte)"
@@ -762,7 +777,7 @@ msgid ""
 "The E♭ clarinet is a member of the clarinet family sometimes known as a "
 "sopranino clarinet. (<a "
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
-msgstr ""
+msgstr "De esklarinet is een hogere variant van de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Esklarinet\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:338
 msgid ""
@@ -849,6 +864,15 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "De banhu (Chinees:: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van de huqin. Het wordt ook wel banghu (Chinees:: 梆胡, pinyin: bānghú) genoemd vanwege het gebruik in de bangzi-opera. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:749
+msgid ""
+"The baryton is a bowed string instrument which shares some characteristics "
+"with instruments of the viol family, distinguished by an extra set of "
+"plucked strings. It was in regular use in Europe up until the end of the "
+"18th century. (<a "
+"href=\"http://en.wikipedia.org/wiki/Baryton\">Wikipedia</a>)"
+msgstr "Barytone of Bariton is een soort viola da gamba, met 6 speelsnaren. Het werd tot het einde van de achttiende eeuw veel in Europa bespeeld. (<a href=\"http://nl.wikipedia.org/wiki/Barytone\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:536
 msgid ""
@@ -1039,7 +1063,7 @@ msgstr "De esraj (Bengaals: এস্রাজ; Hindi: इसराज) is een s
 msgid ""
 "The fourth flute is a recorder with a lowest note of B♭, a fourth above the "
 "treble/alto recorder. Also knows as descant in B-flat, soprano in B-flat."
-msgstr ""
+msgstr "De vierde blokfluit is een blokfluit met de laagste noot van Bes, een kwart boven de altblokfluit."
 
 #: DB:link_attribute_type/description:683
 msgid ""
@@ -1294,7 +1318,7 @@ msgid ""
 "The nose flute is a flute played by the nose commonly found in countries in "
 "and around the Pacific. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
-msgstr ""
+msgstr "De neusfluit of „nose flute“ (niet te verwarren met het neusfluitje of „nose whistle“) is een fluit die met de neus wordt bespeeld en vooral wordt gebruikt in de landen in en ronde de Stille Oceaan. (<a href=\"http://en.wikipedia.org/wiki/Nose_flute\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:738
 msgid ""
@@ -1303,7 +1327,7 @@ msgid ""
 "instrument and the frequency of the notes produced is controlled by the "
 "volume of air. (<a "
 "href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Het neusfluitje of „nose whistle“ (niet te verwarren met de neusfluit of „nose flute“), ook wel bekend onder de merknaam Humanatone, is een simpel instrument dat met de neus wordt bespeeld. Een luchtstroom wordt over een rand in het instrument geblazen en de frequentie van de gespeelde noten wordt bepaald door het luchtvolume. (<a href=\"http://en.wikipedia.org/wiki/Nose_whistle_(instrument)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:684
 msgid ""
@@ -1313,12 +1337,28 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Oboe_da_caccia\">Wikipedia</a>)"
 msgstr "Een jachthobo of oboe da caccia is een houtblaasinstrument en een vroege vorm van de hobo. (<a href=\"http://nl.wikipedia.org/wiki/Jachthobo\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:745
+msgid ""
+"The octave mandolin is a fretted string instrument with four pairs of "
+"strings tuned in fifths, G, D, A, E (low to high), an octave below a "
+"mandolin. (<a "
+"href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
+msgstr "De octaafmandoline of tenormandoline is een mandoline die een octaaf lager gestemd is dan een gewone Mandoline. (<a href=\"http://en.wikipedia.org/wiki/Octave_mandolin\">Wikipedia</a>)"
+
 #: DB:link_attribute_type/description:612
 msgid ""
 "The pakhavaj/pakhawaj is an Indian barrel-shaped, two-headed drum used in "
 "Hindustani music (<a "
 "href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
 msgstr "De pakhavaj, pakhawaj, pakuaj, pakhvaj of pakavaj is een Indiase tonvormige tweekoppige trommel. (<a href=\"http://en.wikipedia.org/wiki/Pakhavaj\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal "
+"piano\">Wikipedia</a>)"
+msgstr "De pedaalpiano heeft een toetsenbord dat met de voeten bediend wordt, net als een orgelpedaal. (<a href=\"http://nl.wikipedia.org/wiki/Pedaal_%28muziek%29#Pedaalpiano\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:429
 msgid ""
@@ -1734,7 +1774,7 @@ msgstr "Een pauk is een keteltrom met een gedefinieerde toonhoogte. (<a href=\"h
 
 #: DB:link_attribute_type/description:382
 msgid "Trống Bông (bong drum)"
-msgstr ""
+msgstr "Trống Bông (bong drum)"
 
 #: DB:link_attribute_type/description:305
 msgid "Turkish baglama"
@@ -1946,6 +1986,10 @@ msgstr "Ratels die aan de enkels bevestigd worden."
 #: DB:link_attribute_type/description:296
 msgid "archaic and other bowed string-instruments"
 msgstr "archaïsche en andere strijkinstrumenten"
+
+#: DB:link_attribute_type/description:746
+msgid "as using drives for producing music, harddrives, floppy, cd or other."
+msgstr "het gebruik van schijfstations van computers om muziek te maken."
 
 #: DB:link_attribute_type/description:494
 msgid "autoharp"
@@ -2318,7 +2362,7 @@ msgstr "fluit"
 
 #: DB:link_attribute_type/description:433
 msgid "folk harp"
-msgstr ""
+msgstr "folk harp"
 
 #: DB:link_attribute_type/description:465
 msgid "fortepiano"
@@ -2398,7 +2442,7 @@ msgstr "Een met de mond bespeeld blaasinstrument. (<a href=\"http://nl.wikipedia
 
 #: DB:link_attribute_type/description:178
 msgid "harmonium"
-msgstr "harmonium"
+msgstr "Een harmonium, ook wel 'traporgel' genoemd, is een toetsinstrument dat gerekend wordt tot zowel de lamellofonen als de aerofonen. (<a href=\"http://nl.wikipedia.org/wiki/Harmonium_%28instrument%29\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:81
 msgid "harp"
@@ -2601,8 +2645,8 @@ msgid "rebec"
 msgstr "rebec"
 
 #: DB:link_attribute_type/description:274
-msgid "reed organ"
-msgstr "rietorgel"
+msgid "reed organ, also known as pump organ"
+msgstr "ook bekend als traporgel."
 
 #: DB:link_attribute_type/description:233
 msgid "reeds"
@@ -2758,7 +2802,7 @@ msgstr "Een tangentpiano is een zeer zeldzaam toetsinstrument dat lijkt op een k
 
 #: DB:link_attribute_type/description:632
 msgid "tape"
-msgstr ""
+msgstr "tape"
 
 #: DB:link_attribute_type/description:167
 msgid "teleharmonium"
@@ -2956,7 +3000,7 @@ msgstr "blaasinstrumenten"
 
 #: DB:link_attribute_type/description:434
 msgid "wire-strung harp"
-msgstr ""
+msgstr "wire-strung harp"
 
 #: DB:link_attribute_type/description:213
 msgid "wood block"

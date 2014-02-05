@@ -136,7 +136,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            return artist_credit_to_ref(shift->artist_credit, []);
+            return artist_credit_to_ref(shift->artist_credit);
         },
         secondary_type_ids => sub {
             return [ map { $_->id } shift->all_secondary_types ]
