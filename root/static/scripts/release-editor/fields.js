@@ -404,16 +404,18 @@
 
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
-            this.name = ko.observable(data.name).extend({ withError: true });
+            var currentName = data.name;
+            this.name = ko.observable(currentName).extend({ withError: true });
 
-            this.name.subscribe(function (name) {
+            this.name.subscribe(function (newName) {
                 var releaseGroup = self.releaseGroup();
 
-                if (!releaseGroup.name) {
-                    releaseGroup.name = name;
-
+                if (!releaseGroup.name || (!releaseGroup.gid &&
+                                            releaseGroup.name === currentName)) {
+                    releaseGroup.name = newName;
                     self.releaseGroup.notifySubscribers(releaseGroup);
                 }
+                currentName = newName;
             });
 
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
