@@ -7,12 +7,13 @@ use MusicBrainz::Server::Translation qw ( N_l );
 extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 use MooseX::Types::Moose qw( ArrayRef Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Entity::PartialDate;
 
 use aliased 'MusicBrainz::Server::Entity::Link';
@@ -26,11 +27,11 @@ sub _create_model { 'Relationship' }
 has '+data' => (
     isa => Dict[
         entity0      => Dict[
-            id   => Int,
+            id   => NullableOnPreview[Int],
             name => Str
         ],
         entity1      => Dict[
-            id   => Int,
+            id   => NullableOnPreview[Int],
             name => Str
         ],
         link_type    => Dict[
