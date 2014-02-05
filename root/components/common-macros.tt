@@ -756,7 +756,7 @@ END -%]
         l('ended');
     END;
     IF relationship.${extra_attributes_field};
-        '(' _ relationship.${extra_attributes_field} _ ')' | html;
+        ' (' _ relationship.${extra_attributes_field} _ ')' | html;
     END; -%]
 [%- END -%]
 
