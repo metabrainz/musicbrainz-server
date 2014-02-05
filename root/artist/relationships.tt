@@ -1,92 +1,9 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
-    <div [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
-
+<div [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
     <h2>[% l("Relationships") %]</h2>
     [% INCLUDE "components/relationships.tt" source=artist
-        relationships=artist.grouped_relationships('artist', 'url', 'label', 'place') %]
+        relationships=artist.grouped_relationships('artist', 'url', 'label', 'place', 'area') %]
 
-    [% IF artist.appearances.size %]
-    <h2>[% l('Appearances') %]</h2>
-    <table class="tbl">
-        <thead>
-            <tr>
-                <th>[% l('Date') %]</th>
-                <th>[% l('Title') %]</th>
-                <th>[% l('Attributes') %]</th>
-                <th>[% l('Artist') %]</th>
-                [% IF c.user_exists %]
-                <th class="actions-header">[% l('Edit') %]</th>
-                [% END %]
-            </tr>
-        </thead>
-        <tbody>
-        [%- FOREACH relationship IN artist.appearances.pairs -%]
-
-                <tr class="subh">
-                    <th></th>
-                    <th colspan="[% c.user_exists ? 4 : 3 %]">[% l(relationship.key) %]</th>
-                </tr>
-
-                [% FOR rel IN relationship.value %]
-                <tr class="[% loop.index % 2 == 0 ? 'ev' : 'odd' %]">
-                    <td>
-                    [% IF !rel.link.begin_date.is_empty AND rel.link.begin_date.format == rel.link.end_date.format;
-                         rel.link.begin_date.format;
-                       ELSIF !rel.link.begin_date.is_empty || !rel.link.end_date.is_empty;
-                         IF !rel.link.begin_date.is_empty && !rel.link.end_date.is_empty;
-                           l('{begindate} &#x2013; {enddate}', { begindate => rel.link.begin_date.format, enddate => rel.link.end_date.format });
-                         ELSIF rel.link.begin_date.is_empty;
-                           l('&#x2013; {enddate}', { enddate => rel.link.end_date.format });
-                         ELSIF rel.link.end_date.is_empty;
-                           IF rel.link.ended;
-                             l('{begindate} &#x2013; ????', { begindate => rel.link.begin_date.format });
-                           ELSE;
-                             l('{begindate} &#x2013;', { begindate => rel.link.begin_date.format });
-                           END;
-                         END;
-                       ELSIF rel.link.ended;
-                         l(' &#x2013; ????');
-                       END; -%]
-                    </td>
-                    <td colspan="[% rel.link.attributes.size ? "1" : "2" %]">
-                        [% link_entity(rel.target) %]
-                    </td>
-                    [% IF rel.link.attributes.size %]
-                    <td>
-                      [%- FOR attr=rel.link.attributes;
-                            attr.l_name | html;
-                            l(', ') UNLESS loop.last;
-                         END %]
-                    </td>
-                    [% END %]
-                    <td>
-                        [% artist_credit(rel.target.artist_credit) %]
-                    </td>
-                    [% IF c.user_exists %]
-                    <td>
-                        [
-                                <a href="[% c.uri_for_action('/edit/relationship/delete', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Remove') %]</a>
-                                |
-                                <a href="[% c.uri_for_action('/edit/relationship/edit', {
-                                    type0 => rel.link.type.entity0_type,
-                                    type1 => rel.link.type.entity1_type,
-                                    id => rel.id,
-                                    returnto => c.req.uri
-                                }) %]">[% l('Edit') %]</a>
-                            ]
-                    </td>
-                    [% END %]
-                </tr>
-                [% END %]
-        [%- END -%]
-        </tbody>
-    </table>
-    [% END %]
-
+    [%- INCLUDE "components/relationships-table.tt" heading=l("Appearances") entity=artist -%]
 </div>
 [%- END -%]
