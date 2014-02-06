@@ -208,7 +208,9 @@
             _(release.externalLinks.links()).each(function (link) {
                 link.entity0ID(release.gid || "");
 
-                if (link.isEmpty() || link.error()) return;
+                if (!link.linkTypeID() || !link.url() || link.error()) {
+                    return;
+                }
 
                 var editData = MB.edit.fields.relationship(link);
                 if (release.gid) delete editData.entity0Preview;
