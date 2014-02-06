@@ -29,6 +29,7 @@ module("external links editor", {
               </tr>\
             </tbody>\
             </table>\
+            <div id="external-link-bubble"></div>\
         '));
 
         var typeInfo = {
