@@ -455,6 +455,8 @@ test("mediumAddDiscID edits are generated for new release", function () {
 module("edit-release edits", {
 
     setup: function () {
+        MB.Control.externalLinks.typeInfo = {};
+
         $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
 
         this.release = releaseEditor.fields.Release(testRelease);
@@ -569,6 +571,101 @@ test("mediumDelete edit is generated for existing release", function () {
         edit_type: 53,
         medium: 249113,
         hash: "e1ae70a7a8cbf0dc0f838672d8041489cd023847"
+      }
+    ]);
+});
+
+
+test("relationshipCreate edit for external link is generated for existing release", function () {
+    var newRelationshipData = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76
+    };
+
+    this.release.externalLinks.links.push(
+        MB.Control.externalLinks.Relationship(
+            newRelationshipData,
+            this.release.externalLinks
+        )
+    );
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 90,
+        "entity0": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+        "entity1": "http://www.discogs.com/release/1369894",
+        "hash": "e0e7008b82f6fcb05c87a2abf0113d6088eb7bb6",
+        "link_type": 76,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+test("relationshipEdit edit for external link is generated for existing release", function () {
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    var link = this.release.externalLinks.links()[0];
+
+    link.linkTypeID(77);
+    link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 91,
+        "entity1": "http://www.amazon.co.jp/gp/product/B00003IQQD",
+        "hash": "46ddad04adbdeb0b1bed2991970f2613fc7d411e",
+        "link_type": 77,
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+test("relationshipDelete edit for external link is generated for existing release", function () {
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    this.release.externalLinks.links()[0].remove();
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 92,
+        "hash": "1f245d298ceeca4ed9241911d2ec26097a460b0f",
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
       }
     ]);
 });
