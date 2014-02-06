@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 17:40-0700\n"
-"PO-Revision-Date: 2014-02-06 00:40+0000\n"
+"POT-Creation-Date: 2014-02-05 21:21-0700\n"
+"PO-Revision-Date: 2014-02-06 04:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -419,11 +419,11 @@ msgstr "Een relatie met deze eigenschappen tussen {entity0} en {entity1} bestaat
 msgid "A relationship between {entity} and {url} already exists."
 msgstr "Er bestaat al een relatie tussen {entity} en {url}."
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/scripts/text_strings.tt:159
 msgid "A release must contain at least one medium."
 msgstr "Een uitgave moet ten minste één medium bevatten."
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/scripts/text_strings.tt:155
 msgid "A release title is required."
 msgstr "De uitgave heeft een titel nodig."
 
@@ -432,7 +432,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr "Een simpele lijst van alle objecten is beschikbaar op onze {url|blader}pagina's."
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/scripts/text_strings.tt:154
 msgid "A tracklist is required."
 msgstr "Een nummerlijst is benodigd."
 
@@ -523,7 +523,7 @@ msgid "Add Cover Art"
 msgstr "Afbeelding toevoegen"
 
 #: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:149
 msgid "Add Disc"
 msgstr "Medium toevoegen"
 
@@ -568,7 +568,7 @@ msgstr "Plaats toevoegen"
 msgid "Add Place Alias"
 msgstr "Alias aan deze plaats toevoegen"
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/scripts/text_strings.tt:162
 msgid "Add Release"
 msgstr "Uitgave toevoegen"
 
@@ -656,7 +656,7 @@ msgstr "Taal toevoegen"
 msgid "Add a new alias"
 msgstr "Nieuwe alias toevoegen"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new artist"
 msgstr "Een nieuwe artiest toevoegen"
 
@@ -664,15 +664,15 @@ msgstr "Een nieuwe artiest toevoegen"
 msgid "Add a new entry"
 msgstr "Nieuw lemma toevoegen"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
 msgstr "Een nieuwe platenmaatschappij toevoegen"
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new place"
 msgstr "Een nieuwe plaats toevoegen"
 
-#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:135
 msgid "Add a new recording"
 msgstr "Nieuwe opname toevoegen"
 
@@ -684,11 +684,11 @@ msgstr "Nieuwe opname toevoegen"
 msgid "Add a new release"
 msgstr "Nieuwe uitgave toevoegen"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new release group"
 msgstr "Een nieuwe uitgavegroep toevoegen"
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
 msgstr "Een nieuwe compositie toevoegen"
 
@@ -1772,9 +1772,9 @@ msgstr "Handleiding voor beginners"
 #: ../root/search/error/internal-error.tt:6
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
-" so at {bugs|our bug tracker}. The below information will help, so please be"
+" so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Hieronder staat informatie over de foutmelding. Als u een rapport voor deze bug wilt indienen, kunt u dat doen op {bugs|onze bugtracker}. De onderstaande informatie zal helpen, voeg deze daarom alstublieft toe aan uw rapport."
+msgstr ""
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
 #: ../root/user/profile.tt:113
@@ -2610,11 +2610,11 @@ msgstr "Disc-id's met overbodige gegevensnummers"
 msgid "Disc title"
 msgstr "Mediumtitel"
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:146
 msgid "Disc {num}"
 msgstr "Medium {num}"
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}: {title}"
 msgstr "Medium {num}: {title}"
 
@@ -2873,7 +2873,7 @@ msgstr "Relatietypes bewerken"
 msgid "Edit Relationships: {release}"
 msgstr "Relaties bewerken: {release}"
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:164
 msgid "Edit Release"
 msgstr "Uitgave bewerken"
 
@@ -4021,7 +4021,7 @@ msgstr "Afbeelding van Wikimedia Commons"
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "De afbeelding is nog niet beschikbaar, probeer het over een paar minuten opnieuw."
 
-#: ../root/scripts/text_strings.tt:138
+#: ../root/scripts/text_strings.tt:139
 msgid "Image {current} of {total}"
 msgstr "Afbeelding {current} van {total}"
 
@@ -7967,7 +7967,7 @@ msgstr "De volgende {count} gebruikers zijn transclusieredacteurs:"
 msgid "The following {count} users have auto-editor privileges:"
 msgstr "De volgende {count} gebruikers hebben autoredacteurprivileges:"
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:150
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8194,6 +8194,12 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
 msgstr "Deze ISWC is niet gekoppeld aan een compositie. {search_url|Zoek naar de compositie} als u het aan een compositie wilt koppelen en voeg de ISWC toe."
+
+#: ../root/scripts/text_strings.tt:130
+msgid ""
+"This URL is not allowed for the selected relationship type, or is "
+"incorrectly formatted."
+msgstr ""
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8447,7 +8453,7 @@ msgstr "Deze platenmaatschappij heeft geen relaties of uitgaves en zal in de kom
 msgid "This label has no tags."
 msgstr "Deze platenmaatschappij heeft geen etiketten."
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:153
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8470,21 +8476,21 @@ msgid ""
 " used on the target mediums."
 msgstr "Deze samenvoegingsstrategie zal alle media samenvoegen in een enkel stel media. Opnames van de media zullen ook worden samengevoegd in de opnames van de doelmedia."
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Deze methode schrijft bijna alle woorden met een hoofdletter (met uitzondering van sommige lidwoorden en korte voorzetsels). Voor sommige woorden moet het hoofdlettergebruik handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Engels}."
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Deze methode schrijft alleen de het eerste woord van een zin met een hoofdletter. De meeste andere woorden worden geschreven zonder hoofdletters. Sommige woorden, zoals eigennamen, moeten handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor de relevante taal}."
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -9272,7 +9278,7 @@ msgstr "Nummer"
 msgid "Track Not Found"
 msgstr "Nummer niet gevonden"
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:147
+#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:148
 msgid "Track Parser"
 msgstr "Automatisch vullen"
 
@@ -9315,7 +9321,7 @@ msgstr "Nummer:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:145
 msgid "Tracklist"
 msgstr "Nummerlijst"
 
@@ -10344,7 +10350,7 @@ msgid ""
 "use by other relationships."
 msgstr "U kunt de relatie-eigenschap „{type}“ niet verwijderen, omdat het nog steeds wordt gebruikt door andere relaties."
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/scripts/text_strings.tt:157
 msgid "You cannot use the same country more than once."
 msgstr "U kunt hetzelfde land niet meer dan eens gebruiken."
 
@@ -10396,7 +10402,7 @@ msgid ""
 "add one."
 msgstr "U heeft nog geen media toegevoegd. Klik onderaan op de knop „Medium toevoegen“ om er een toe te voegen."
 
-#: ../root/scripts/text_strings.tt:150
+#: ../root/scripts/text_strings.tt:151
 msgid "You haven‘t entered a complete artist credit."
 msgstr "U heeft de artiesten niet compleet ingevuld."
 
@@ -10424,7 +10430,7 @@ msgstr "U kunt verder gaan naar <a href=\"{uri}\">uw gebruikersprofiel</a>, of m
 msgid "You must be logged in to vote on edits"
 msgstr "U moet ingelogd zijn om de stemmen op bewerkingen"
 
-#: ../root/scripts/text_strings.tt:151
+#: ../root/scripts/text_strings.tt:152
 msgid "You must enter a title and select an artist for every track."
 msgstr "U moet voor elk nummer een titel en een artiest opgeven."
 
@@ -10440,17 +10446,17 @@ msgid ""
 "database."
 msgstr "U moet een werkend e-mailadres verstrekken als u aan de gegevensbank wilt bijdragen."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/scripts/text_strings.tt:160
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "U moet een bewerkingsnotitie geven als u een uitgave toevoegt. Alleen al een URL of iets als „cd in mijn hand“ helpt!"
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/scripts/text_strings.tt:158
 msgid "You must select an existing label."
 msgstr "U moet een bestaande platenmaatschappij selecteren."
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/scripts/text_strings.tt:156
 msgid "You must select an existing release group."
 msgstr "U moet een bestaande uitgavegroep selecteren."
 
@@ -10466,15 +10472,15 @@ msgstr "U moet er zeker van zijn dat deze disc-id foutief aan deze uitgave is to
 msgid "You need to be logged in to view this page."
 msgstr "U moet aangemeld zijn om deze pagina te bekijken."
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:167
 msgid "You selected {area}."
 msgstr "U heeft {area} geselecteerd."
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {label}."
 msgstr "U heeft {label} geselecteerd."
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:143
 msgid "You selected {releasegroup}."
 msgstr "U heeft {releasegroup} geselecteerd"
 
@@ -10595,7 +10601,7 @@ msgstr "robot"
 msgid "by"
 msgstr "door"
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/scripts/text_strings.tt:161
 msgid "by {artist}"
 msgstr "door {artist}"
 
@@ -10877,7 +10883,7 @@ msgstr "abonnement opzeggen"
 msgid "until {date}"
 msgstr "tot {date}"
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:166
 msgid "video"
 msgstr ""
 
@@ -11064,11 +11070,11 @@ msgstr "{list_item}, {rest}"
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainz Identificator\">MBID</abbr>}:"
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/scripts/text_strings.tt:163
 msgid "{name} - Add Release"
 msgstr "{name} - Uitgave toevoegen"
 
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:165
 msgid "{name} - Edit Release"
 msgstr "{name} - Uitgave bewerken"
 
