@@ -163,7 +163,7 @@
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            nullableString(rg.comment),
-                secondary_type_ids: array(rg.secondaryTypeIDs, number)
+                secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number))
             };
         },
 

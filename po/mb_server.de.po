@@ -36,8 +36,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 17:44-0700\n"
-"PO-Revision-Date: 2014-02-04 00:47+0000\n"
+"POT-Creation-Date: 2014-02-05 17:40-0700\n"
+"PO-Revision-Date: 2014-02-06 00:40+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -435,7 +435,7 @@ msgstr "Zwischen {entity} und {url} besteht bereits eine Beziehung."
 
 #: ../root/scripts/text_strings.tt:158
 msgid "A release must contain at least one medium."
-msgstr ""
+msgstr "Eine Veröffentlichung muss mindestens ein Medium haben."
 
 #: ../root/scripts/text_strings.tt:154
 msgid "A release title is required."
@@ -448,7 +448,7 @@ msgstr ""
 
 #: ../root/scripts/text_strings.tt:153
 msgid "A tracklist is required."
-msgstr ""
+msgstr "Eine Titelliste ist erforderlich."
 
 #: ../root/layout/menu.tt:112
 msgid "About"
@@ -584,7 +584,7 @@ msgstr "Örtlichkeitsalias hinzufügen"
 
 #: ../root/scripts/text_strings.tt:161
 msgid "Add Release"
-msgstr ""
+msgstr "Veröffentlichung hinzufügen"
 
 #: ../root/layout/menu.tt:223
 msgctxt "button/menu"
@@ -1371,11 +1371,11 @@ msgstr "Künstlerabonnements"
 
 #: ../root/release/edit/tracklist.tt:331
 msgid "Artist as credited on this track:"
-msgstr ""
+msgstr "Künstler, wie er für diesen Titel genannt wird:"
 
 #: ../root/components/forms.tt:309
 msgid "Artist as credited:"
-msgstr ""
+msgstr "Künstler wie hier genannt:"
 
 #: ../root/components/filter-form.tt:11
 msgid "Artist credit:"
@@ -1391,7 +1391,7 @@ msgstr "Künstlernennungen:"
 
 #: ../root/components/forms.tt:296 ../root/release/edit/tracklist.tt:330
 msgid "Artist in MusicBrainz:"
-msgstr ""
+msgstr "Künstler in MusicBrainz:"
 
 #: ../root/artist/layout.tt:6
 msgid "Artist information"
@@ -2889,7 +2889,7 @@ msgstr "Beziehungen bearbeiten: {release}"
 
 #: ../root/scripts/text_strings.tt:163
 msgid "Edit Release"
-msgstr ""
+msgstr "Veröffentlichung bearbeiten"
 
 #: ../root/release/edit_annotation.tt:1
 msgid "Edit Release Annotation"
@@ -4147,7 +4147,7 @@ msgstr "Verknüpfungsphrase"
 
 #: ../root/components/forms.tt:316 ../root/release/edit/tracklist.tt:332
 msgid "Join phrase:"
-msgstr ""
+msgstr "Verknüpfungsphrase:"
 
 #: ../root/relationship/linkattributetype/instruments.tt:12
 msgid "Jump to:"
@@ -5386,7 +5386,7 @@ msgstr "Nur der Benutzer, der eine Bearbeitung erstellt hat, kann sie auch wiede
 msgid ""
 "Only use this option after you’ve tried searching for the work(s) you want "
 "to create, and are certain they do not already exist on MusicBrainz."
-msgstr ""
+msgstr "Benutze diese Option nur, wenn Du vorher versucht hast, nach dem/den Werk(en) zu suchen, die Du erstellen möchtest, und Dir sicher bist, dass sie nicht bereits in MusicBrainz eingetragen sind."
 
 #: ../root/edit/cannot_approve.tt:10
 msgid "Only {doc|auto-editors} can approve an edit."
@@ -5502,7 +5502,7 @@ msgstr "Seite {cur} von {total}"
 
 #: ../root/scripts/text_strings.tt:77
 msgid "Page {page} of {total}"
-msgstr ""
+msgstr "Seite {page} von {total}"
 
 #: ../root/admin/wikidoc/create.tt:8 ../root/admin/wikidoc/edit.tt:9
 msgid "Page:"
@@ -7581,7 +7581,7 @@ msgstr "Status"
 
 #: ../root/release/edit/information.tt:78
 msgid "Status:"
-msgstr ""
+msgstr "Status:"
 
 #: ../root/edit/info.tt:33
 msgctxt "edit status"
@@ -7695,7 +7695,7 @@ msgstr "Erfolg!"
 
 #: ../root/release/edit/recordings.tt:155
 msgid "Suggested recordings:"
-msgstr ""
+msgstr "Vorgeschlagene Aufnahmen:"
 
 #: ../root/edit/details/add_release_annotation.tt:30
 msgid "Summary:"
@@ -7909,7 +7909,7 @@ msgstr "Die von Dir eingegebene Katalognummer scheint eine Amazon ASIN zu sein."
 
 #: ../root/scripts/text_strings.tt:65
 msgid "The check digit is {checkdigit}."
-msgstr ""
+msgstr "Die Prüfziffer ist {checkdigit}."
 
 #: ../root/release/edit/information.tt:294
 msgid ""
@@ -8169,7 +8169,7 @@ msgstr[1] "Derzeit gibt es {num} Benutzer, die {label} abonnieren."
 
 #: ../root/browse/entity.tt:34
 msgid "There is no data to display."
-msgstr ""
+msgstr "Es gibt keine Daten, die angezeigt werden können."
 
 #: ../root/search/editor-not-found.tt:4
 msgid "There is no editor with this name."
@@ -9146,7 +9146,7 @@ msgstr "Um eine neue Titelliste zu erstellen, eine existierende Titelliste zu ve
 
 #: ../root/release/edit/information.tt:72
 msgid "To edit types, please {edit_page|edit the release group}."
-msgstr ""
+msgstr "Um die Typen zu bearbeiten, {edit_page|bearbeite bitte die Veröffentlichungsgruppe}."
 
 #: ../root/elections/show.tt:96
 msgid "To find out if you can vote for this candidate, please {url|log in}."
@@ -10186,13 +10186,13 @@ msgstr "Ja, ich bin sicher"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNNN</code> format:"
-msgstr ""
+msgstr "Du bist im Begriff einen ISRC zu dieser Aufnahme hinzuzufügen. Der ISRC muss im Standardformat <code>CCXXXYYNNNNNN</code> eingegeben werden:"
 
 #: ../root/components/forms.tt:253
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr ""
+msgstr "Du bist im Begriff einen ISWC zu diesem Werk hinzuzufügen. Der ISWC muss im Standardformat <code>T-DDD.DDD.DDD-C</code> eingegeben werden:"
 
 #: ../root/artist/edit_form.tt:6
 msgid "You are about to add an artist to MusicBrainz."
@@ -10360,7 +10360,7 @@ msgstr "Du kannst das Beziehungsattribut „{type}“ nicht löschen, weil es no
 
 #: ../root/scripts/text_strings.tt:156
 msgid "You cannot use the same country more than once."
-msgstr ""
+msgstr "Du kannst dasselbe Land nicht mehr als einmal benutzen."
 
 #: ../root/elections/show.tt:87
 msgid ""
@@ -10416,7 +10416,7 @@ msgstr ""
 
 #: ../root/scripts/text_strings.tt:119
 msgid "You haven’t made any changes!"
-msgstr ""
+msgstr "Du hast keine Veränderungen durchgeführt!"
 
 #: ../root/edit/cancel.tt:14
 msgid ""
@@ -10480,7 +10480,7 @@ msgstr "Du musst Dir sicher sein, dass diese Disc-ID fehlerhafterweise zu dieser
 msgid "You need to be logged in to view this page."
 msgstr "Um diese Seite zu betrachten, musst Du eingeloggt sein."
 
-#: ../root/components/forms.tt:278 ../root/place/edit_form.tt:75
+#: ../root/scripts/text_strings.tt:166
 msgid "You selected {area}."
 msgstr "Du hast {area} ausgewählt."
 
@@ -10660,15 +10660,15 @@ msgstr "Titelliste verstecken"
 
 #: ../root/components/common-macros.tt:204
 msgid "historical"
-msgstr ""
+msgstr "historisch"
 
 #: ../root/components/common-macros.tt:202
 msgid "historical, until {end}"
-msgstr ""
+msgstr "historisch, bis {end}"
 
 #: ../root/components/common-macros.tt:200
 msgid "historical, {begin}-{end}"
-msgstr ""
+msgstr "historisch, {begin}-{end}"
 
 #: ../root/search/results-freedb.tt:31
 msgid "import"
@@ -10890,6 +10890,10 @@ msgstr "nicht mehr abonnieren"
 #: ../root/components/common-macros.tt:729 ../root/edit/details/macros.tt:28
 msgid "until {date}"
 msgstr "bis {date}"
+
+#: ../root/scripts/text_strings.tt:165
+msgid "video"
+msgstr ""
 
 #: ../root/edit/details/add_area_alias.tt:10
 #: ../root/edit/details/add_artist_alias.tt:10
@@ -12105,23 +12109,23 @@ msgstr "Du musst einen Namen für Titel {0} angeben"
 msgid "Must be a valid barcode"
 msgstr "Muss ein gültiger Strichcode sein"
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:47
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:48
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
 msgstr "Bitte wähle einen Künstlernamen für {credit}"
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:54
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:55
 #, perl-brace-format
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist.\n"
 "                   You may need to add a new artist to MusicBrainz first."
 msgstr "Künstler „{artist}“ ist nicht verbunden, bitte wähle einen bestehenden Künstler.\nEventuell musst Du erst einen neuen Künstler zu MusicBrainz hinzufügen."
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:60
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:61
 msgid "Please add an artist name for each credit."
 msgstr "Bitte wähle einen Künstlernamen für jede Nennung."
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:75
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:76
 msgid "Artist credit field is required"
 msgstr "Künstlernennungsfeld muss ausgefüllt werden"
 

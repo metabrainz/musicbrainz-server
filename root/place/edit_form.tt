@@ -75,14 +75,7 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
 
-    <div class="area-container" style="display: none">
-      <div class="area bubble">
-        <p>
-          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-        </p>
-      </div>
-    </div>
-
+    [%- area_bubble() -%]
   </div>
 
 </form>
@@ -91,7 +84,7 @@
   (function () {
     MB.Control.initialize_guess_case("place", "id-edit-place");
 
-    MB.Control.Area("span.area.autocomplete")
+    MB.Control.Area("span.area.autocomplete");
 
     MB.utility.setDefaultAction("form.edit-place", "button.submit.positive");
   }());

@@ -32,6 +32,7 @@
 
             this.name = ko.observable(data.name);
             this.name.original = data.name;
+            this.name.subscribe(this.nameChanged, this);
 
             this.length = ko.observable(data.length);
             this.length.original = data.length;
@@ -89,6 +90,15 @@
         recordingGID: function () {
             var recording = this.recording();
             return recording ? recording.gid : null;
+        },
+
+        nameChanged: function (name) {
+            if (!this.hasExistingRecording()) {
+                var recording = this.recording.peek();
+
+                recording.name = this.name();
+                this.recording.notifySubscribers(recording);
+            }
         },
 
         formattedLengthChanged: function (length) {
@@ -184,11 +194,11 @@
             )
             .extend({ withError: true });
 
+            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+
             // The medium is considered to be loaded if it has tracks, or if
             // there's no ID to load tracks from.
-            var loaded = this.tracks.length || !(this.id || this.originalID);
-
-            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+            var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
             this.cdtocs = data.cdtocs || 0;
             this.loaded = ko.observable(loaded);
@@ -394,16 +404,18 @@
 
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
-            this.name = ko.observable(data.name).extend({ withError: true });
+            var currentName = data.name;
+            this.name = ko.observable(currentName).extend({ withError: true });
 
-            this.name.subscribe(function (name) {
+            this.name.subscribe(function (newName) {
                 var releaseGroup = self.releaseGroup();
 
-                if (!releaseGroup.name) {
-                    releaseGroup.name = name;
-
+                if (!releaseGroup.name || (!releaseGroup.gid &&
+                                            releaseGroup.name === currentName)) {
+                    releaseGroup.name = newName;
                     self.releaseGroup.notifySubscribers(releaseGroup);
                 }
+                currentName = newName;
             });
 
             this.artistCredit = fields.ArtistCredit(data.artistCredit);

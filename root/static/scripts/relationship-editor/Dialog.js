@@ -184,7 +184,7 @@ ko.bindingHandlers.targetType = (function() {
 }());
 
 
-ko.bindingHandlers.autocomplete = (function() {
+ko.bindingHandlers.relationshipEditorAutocomplete = (function() {
 
     var recentEntities = {};
     var dialog;

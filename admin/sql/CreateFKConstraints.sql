@@ -199,6 +199,11 @@ ALTER TABLE edit
    FOREIGN KEY (editor)
    REFERENCES editor(id);
 
+ALTER TABLE edit
+   ADD CONSTRAINT edit_fk_language
+   FOREIGN KEY (language)
+   REFERENCES language(id);
+
 ALTER TABLE edit_area
    ADD CONSTRAINT edit_area_fk_edit
    FOREIGN KEY (edit)

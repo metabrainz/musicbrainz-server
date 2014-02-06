@@ -22,11 +22,13 @@ MB.releaseEditor.init = function (options) {
         this.loadRelease(options.gid);
     }
 
+    this.getEditPreviews();
+
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
 
-    $(document).on("keydown", "#release-editor :input:not(:button)",
+    $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 self.nextTab();
@@ -168,7 +170,10 @@ MB.releaseEditor.init = function (options) {
     // any changes. Browsers that support onbeforeunload should have this set
     // to null, or undefined otherwise.
     if (window.onbeforeunload === null) {
-        window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
+        MB.releaseEditor.allEdits.subscribe(function (edits) {
+            window.onbeforeunload =
+                edits.length ? _.constant(MB.text.ConfirmNavigation) : null;
+        });
     }
 
     // Apply root bindings to the page.

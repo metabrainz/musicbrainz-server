@@ -70,6 +70,13 @@
         if (numInCommon !== trackArtistIDs.length ||
             numInCommon !== newIDs.length) {
 
+            trackArtistIDs = newIDs;
+
+            if (newIDs.length === 0) {
+                recentRecordings = [];
+                return;
+            }
+
             var requestArgs = {
                 url: "/ws/js/last-updated-recordings",
                 data: $.param({ artists: newIDs }, true /* traditional */)
@@ -78,8 +85,6 @@
             MB.utility.request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
-
-            trackArtistIDs = newIDs;
         }
     }));
 
@@ -332,11 +337,17 @@
             })
             .compact()
             .sortBy(function (recording) {
-                return recording.appearsOn.length;
+                var appearsOn = recording.appearsOn;
+                return appearsOn ? appearsOn.length : 0;
             })
             .reverse()
             .sortBy(function (recording) {
-                if (!trackLength || !recording.length) {
+                // Prefer that recordings with a length be at the top of the
+                // suggestions list.
+                if (!recording.length) {
+                    return MAX_LENGTH_DIFFERENCE + 1;
+                }
+                if (!trackLength) {
                     return MAX_LENGTH_DIFFERENCE;
                 }
                 return Math.abs(trackLength - recording.length);

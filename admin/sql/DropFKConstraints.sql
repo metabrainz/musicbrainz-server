@@ -40,6 +40,7 @@ ALTER TABLE autoeditor_election_vote DROP CONSTRAINT autoeditor_election_vote_fk
 ALTER TABLE cdtoc_raw DROP CONSTRAINT cdtoc_raw_fk_release;
 ALTER TABLE country_area DROP CONSTRAINT country_area_fk_area;
 ALTER TABLE edit DROP CONSTRAINT edit_fk_editor;
+ALTER TABLE edit DROP CONSTRAINT edit_fk_language;
 ALTER TABLE edit_area DROP CONSTRAINT edit_area_fk_edit;
 ALTER TABLE edit_area DROP CONSTRAINT edit_area_fk_area;
 ALTER TABLE edit_artist DROP CONSTRAINT edit_artist_fk_edit;
