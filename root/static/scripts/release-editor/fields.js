@@ -463,6 +463,27 @@
             if (!this.mediums().length) {
                 this.mediums.push(fields.Medium({}, this));
             }
+
+            // Setup the external links editor
+
+            var urlRelationships = _((data.relationships || {}).url || {})
+                .values().flatten()
+                .map(function (relationship) {
+                    return {
+                        id: relationship.id,
+                        linkTypeID: relationship.link_type,
+                        type0: "release",
+                        type1: "url",
+                        entity0ID: data.gid,
+                        entity1ID: relationship.target.url
+                    };
+                }).value();
+
+            this.externalLinks = MB.Control.externalLinks.ViewModel({
+                source: this,
+                relationships: urlRelationships,
+                errorType: releaseEditor.validation.errorField
+            });
         },
 
         loadMedia: function () {

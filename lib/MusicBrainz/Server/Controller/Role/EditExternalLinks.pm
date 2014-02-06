@@ -3,35 +3,35 @@ use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
+sub build_type_info {
+    my $root = shift;
+    my $result = {};
+    my $build;
+
+    $build = sub {
+        my $child = shift;
+        my $entity1_type = $child->entity1_type;
+
+        my $phrase_attr = defined $entity1_type && $entity1_type eq 'url'
+            ? 'l_link_phrase' : 'l_reverse_link_phrase';
+
+        $result->{$child->id} = {
+            deprecated => $child->is_deprecated,
+            description => $child->description,
+            phrase => $child->$phrase_attr,
+        } if $child->id;
+
+        $build->($_) for $child->all_children;
+    };
+
+    $build->($root) if $root;
+    return $result;
+}
+
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
 
     my $target_type = 'url';
-
-    sub build_type_info {
-        my $root = shift;
-        my $result = {};
-        my $build;
-
-        $build = sub {
-            my $child = shift;
-            my $entity1_type = $child->entity1_type;
-
-            my $phrase_attr = defined $entity1_type && $entity1_type eq 'url'
-                ? 'l_link_phrase' : 'l_reverse_link_phrase';
-
-            $result->{$child->id} = {
-                deprecated => $child->is_deprecated,
-                description => $child->description,
-                phrase => $child->$phrase_attr,
-            } if $child->id;
-
-            $build->($_) for $child->all_children;
-        };
-
-        $build->($root) if $root;
-        return $result;
-    }
 
     sub url_relationships_data {
         my $entity = shift;
@@ -40,13 +40,18 @@ role {
         return undef if scalar(@$url_relationships) == 0;
 
         return [
-            map +{
-                relationship_id => $_->id,
-                link_type_id    => $_->link->type_id,
-                text            => $_->target->name,
-
-            },
-            @$url_relationships
+            map {
+                my $type0 = $_->link->type->entity0_type;
+                my $type1 = $_->link->type->entity1_type;
+                {
+                    id            => $_->id,
+                    type0         => $type0,
+                    type1         => $type1,
+                    linkTypeID    => $_->link->type_id,
+                    entity0ID     => $type0 eq 'url' ? $_->entity0->url : $_->entity0->gid,
+                    entity1ID     => $type1 eq 'url' ? $_->entity1->url : $_->entity1->gid,
+                };
+            } @$url_relationships
         ];
     }
 

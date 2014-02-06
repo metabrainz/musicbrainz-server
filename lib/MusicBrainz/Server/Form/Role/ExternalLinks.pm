@@ -48,7 +48,7 @@ sub options_url_link_type_id
     my $entity1_type = $children[0]->entity1_type;
     my $attr = $entity1_type eq 'url' ? 'l_link_phrase' : 'l_reverse_link_phrase';
 
-    return [ $self->_build_options($root, $attr, 'ROOT', '&#160;') ];
+    return link_type_options($root, $attr, 'ROOT', '&#160;');
 }
 
 1;

@@ -1,10 +1,8 @@
 package MusicBrainz::Server::Form::Role::LinkType;
 use HTML::FormHandler::Moose::Role;
 
-use Encode;
+use MusicBrainz::Server::Form::Utils qw( link_type_options );
 use MusicBrainz::Server::Translation 'l';
-use Text::Trim qw( trim );
-use Text::Unaccent qw( unac_string_utf16 );
 use aliased 'MusicBrainz::Server::Entity::LinkAttributeType';
 
 has attr_tree => (
@@ -13,31 +11,6 @@ has attr_tree => (
     default => sub { LinkAttributeType->new },
 );
 
-sub _build_options
-{
-    my ($self, $root, $attr, $ignore, $indent) = @_;
-
-    my @options;
-    if ($root->id && $root->name ne $ignore) {
-        my $label = trim($root->$attr);
-        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $label)));
-
-        if (defined($indent)) {
-            $label = $indent . $label;
-            $indent .= '&#160;&#160;&#160;';
-        }
-        push @options, {
-            value => $root->id,
-            label => $label,
-            'data-unaccented' => $unac
-        };
-    }
-    foreach my $child ($root->all_children) {
-        push @options, $self->_build_options($child, $attr, $ignore, $indent);
-    }
-    return @options;
-}
-
 sub field_list
 {
     my ($self, $prefix, $indent) = @_;
@@ -45,11 +18,11 @@ sub field_list
     my @fields;
     foreach my $attr ($self->attr_tree->all_children) {
         if ($attr->all_children) {
-            my @options = $self->_build_options($attr, 'l_name', $attr->name, $indent);
+            my $options = link_type_options($attr, 'l_name', $attr->name, $indent);
             push @fields, $prefix . 'attrs.' . $attr->name, { type => 'Repeatable' };
             push @fields, $prefix . 'attrs.' . $attr->name . '.contains', {
                 type => 'Select',
-                options => \@options,
+                options => $options,
             };
         } else {
             push @fields, $prefix . 'attrs.' . $attr->name, { type => 'Boolean' };

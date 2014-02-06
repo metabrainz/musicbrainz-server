@@ -219,6 +219,14 @@
     </tbody>
     </table>
   </fieldset>
+
+  <fieldset class="information">
+    <legend>[% l('External Links') %]</legend>
+
+    <!-- ko with: externalLinks -->
+      [% external_links_editor(0, 'release') %]
+    <!-- /ko -->
+  </fieldset>
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">

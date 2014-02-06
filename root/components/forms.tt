@@ -353,10 +353,10 @@
 [%- END -%]
 
 [%- MACRO external_links_editor(form, entity_type) BLOCK -%]
-  [%- field_prefix = form.field('url').html_name | html %]
-  <table id="external-links-editor">
-  <tbody data-bind="foreach: links">
-    <tr data-bind="urlCleanup: true">
+  <table id="external-links-editor" class="row-form">
+  <tbody>
+    <!-- ko foreach: _.reject(links(), function (link) { return link.removed() }) -->
+    <tr data-bind="urlCleanup: '[% entity_type %]'">
       <td>
         <!-- ko ifnot: showTypeSelection() -->
           <label data-bind="attr: { 'for': 'external-link-' + $index() }">
@@ -366,16 +366,17 @@
             <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
           </label>
         <!-- /ko -->
-        <select data-bind="value: linkType, visible: showTypeSelection()">
+        <select data-bind="value: linkTypeID, visible: showTypeSelection()">
           <option value="" selected="selected"> </option>
-          [% FOR option IN form.options_url_link_type_id %]
+          [%- url_link_type_options = form.options_url_link_type_id || url_type_opts -%]
+          [% FOR option IN url_link_type_options %]
             [%- link_type_id = option.value -%]
             <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label %]</option>
           [% END %]
         </select>
       </td>
       <td>
-        <input type="text" data-bind="value: text, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
+        <input type="text" data-bind="value: url, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
       </td>
       <td>
         <!-- ko ifnot: isEmpty() -->
@@ -385,26 +386,35 @@
         <!-- /ko -->
       </td>
     </tr>
-    <tr data-bind="visible: errors().length">
+    <!-- ko if: error -->
+    <tr>
       <td></td>
-      <td class="errors"></td>
+      <td class="error field-error" data-bind="text: error, attr: { 'data-visible': error() ? 1 : 0 }"></td>
       <td></td>
+    </tr>
+    <!-- /ko -->
+    <!-- /ko -->
+    <tr style="display: none;">
+      <td colspan="3">
+        <!-- ko foreach: hiddenInputs() -->
+          <input type="hidden" data-bind="attr: { name: name, value: value }" />
+        <!-- /ko -->
+      </td>
     </tr>
   </tbody>
   </table>
 
-  <!-- ko foreach: hiddenInputs() -->
-    <input type="hidden" data-bind="attr: { name: name, value: value }" />
-  <!-- /ko -->
-
   <script>
     [%- USE JSON.Escape %]
-    MB.Control.externalLinksEditor({
-      entityType:    '[% entity_type %]',
+    $.extend(MB.Control.externalLinks = MB.Control.externalLinks || {}, {
+      typeInfo: [% url_type_info.json %],
+      faviconClasses: [% favicon_css_classes.json %]
+    });
+    [% IF form -%]
+    MB.Control.externalLinks.init({
+      source:         { type: '[% entity_type %]' },
       formName:      '[% form.name %]',
       relationships:  [% url_relationships.json %],
-      typeInfo:       [% url_type_info.json %],
-      faviconClasses: [% favicon_css_classes.json %],
 
       fieldErrors: [%
         errors = [];
@@ -417,5 +427,6 @@
         errors.json
       %]
     });
+    [%- END %]
   </script>
 [%- END -%]

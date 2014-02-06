@@ -10,9 +10,9 @@ module("external links editor", {
         $("#qunit-fixture").append($.parseHTML('\
             <table id="external-links-editor">\
             <tbody data-bind="foreach: links">\
-              <tr data-bind="urlCleanup: true">\
+              <tr data-bind="urlCleanup: \'artist\'">\
                 <td>\
-                  <select data-bind="value: linkType, visible: showTypeSelection()">\
+                  <select data-bind="value: linkTypeID, visible: showTypeSelection()">\
                     <option value="" selected="selected"> </option>\
                     <option value="179">Wikipedia</option>\
                     <option value="180">Discogs</option>\
@@ -21,10 +21,12 @@ module("external links editor", {
                   </select>\
                 </td>\
                 <td>\
-                  <input type="text" data-bind="value: text" />\
+                  <input type="text" data-bind="value: url" />\
                 </td>\
               </tr>\
-              <tr><td class="errors"></td></tr>\
+              <tr>\
+                <td class="errors" data-bind="text: error"></td>\
+              </tr>\
             </tbody>\
             </table>\
         '));
@@ -36,24 +38,24 @@ module("external links editor", {
             188: { deprecated: "0", phrase: "other databases" }
         };
 
-        MB.Control.externalLinksEditor({
-            entityType:     "artist",
-            formName:       "edit-artist",
-            relationships:  [],
-            typeInfo:       typeInfo,
-            faviconClasses: { "wikipedia.org": "wikipedia" }
-        });
+        this.Relationship = MB.Control.externalLinks.Relationship;
 
-        this.URL = MB.Control.externalLinksEditor.URL;
-        this.viewModel = MB.Control.externalLinksEditor.viewModel;
+        MB.Control.externalLinks.typeInfo = typeInfo;
+        MB.Control.externalLinks.faviconClasses = { "wikipedia.org": "wikipedia" };
+
+        this.viewModel = MB.Control.externalLinks.init({
+            source: { type: "artist" },
+            formName: "edit-artist",
+            relationships: [],
+        });
     }
 });
 
 
 test("automatic link type detection for URL", function () {
-    var url = this.URL({
-        text: "http://en.wikipedia.org/wiki/No_Age"
-    });
+    var url = this.Relationship({
+        entity1ID: "http://en.wikipedia.org/wiki/No_Age"
+    }, this.viewModel);
 
     this.viewModel.links.push(url);
 
@@ -62,53 +64,51 @@ test("automatic link type detection for URL", function () {
     ok(url.matchesType(), "wikipedia page is detected");
     equal(url.faviconClass(), "wikipedia-favicon", "wikipedia favicon is used");
     equal(url.label(), "Wikipedia", "wikipedia label is used");
-    equal(url.linkType(), 179, "internal link type is set to 179");
+    equal(url.linkTypeID(), 179, "internal link type is set to 179");
     equal(url.cleanup.typeControl.val(), 179, "option with value 179 is selected");
 });
 
 
 test("invalid URL detection", function () {
-    var url = this.URL({ text: "foo" });
+    var url = this.Relationship({ entity1ID: "foo" }, this.viewModel);
 
     this.viewModel.links.push(url);
     url.cleanup.urlControl.change();
 
-    var $errors = url.cleanup.errorList;
-    ok($errors.children().length === 1, "error is shown for invalid URL");
+    ok(!!url.error(), "error is shown for invalid URL");
 
     url.cleanup.urlControl.val("http://en.wikipedia.org/wiki/No_Age").change();
-    ok($errors.children().length === 0, "error is removed after valid URL is entered");
+    ok(!url.error(), "error is removed after valid URL is entered");
 });
 
 
 test("deprecated link type detection", function () {
-    var url = this.URL({
-        text: "http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/"
-    });
+    var url = this.Relationship({
+        entity1ID: "http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/"
+    }, this.viewModel);
 
     this.viewModel.links.push(url);
     url.cleanup.urlControl.change();
     url.cleanup.typeControl.val(181).change();
 
-    var $errors = url.cleanup.errorList;
-    ok($errors.children().length === 1, "error is shown for deprecated link type");
+    ok(!!url.error(), "error is shown for deprecated link type");
 
     url.cleanup.typeControl.val(188).change();
-    ok($errors.children().length === 0, "error is removed after valid link type is selected");
+    ok(!url.error(), "error is removed after valid link type is selected");
 });
 
 
 test("hidden input data for form submission", function () {
-    var existingURL = this.URL({
-        relationship_id: 1,
-        text: "http://en.wikipedia.org/wiki/Deerhunter",
-        link_type_id: 179
-    });
+    var existingURL = this.Relationship({
+        id: 1,
+        entity1ID: "http://en.wikipedia.org/wiki/Deerhunter",
+        linkTypeID: 179
+    }, this.viewModel);
 
-    var addedURL = this.URL({
-        text: "http://rateyourmusic.com/artist/deerhunter",
-        link_type_id: 188
-    });
+    var addedURL = this.Relationship({
+        entity1ID: "http://rateyourmusic.com/artist/deerhunter",
+        linkTypeID: 188
+    }, this.viewModel);
 
     this.viewModel.links.push(existingURL);
     existingURL.cleanup.urlControl.change();

@@ -18,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
+    link_type_options
     select_options
     build_grouped_options
 );
@@ -47,6 +48,8 @@ sub _init_release_editor
         } $root_medium_format->all_children
     ];
 
+    my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
+
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
@@ -58,6 +61,8 @@ sub _init_release_editor
         packagings      => select_options($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
         formats         => $medium_format_options,
+        url_type_info   => MusicBrainz::Server::Controller::Role::EditExternalLinks::build_type_info($url_link_types),
+        url_type_opts   => link_type_options($url_link_types, 'l_link_phrase', 'ROOT', '&#160;'),
         %options
     );
 }

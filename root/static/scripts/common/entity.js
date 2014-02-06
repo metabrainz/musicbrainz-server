@@ -420,6 +420,18 @@
     });
 
 
+    // FIXME: We should be sharing code with the relationship editor here.
+
+    MB.entity.Relationship = aclass(Entity, function (data) {
+        this.id = data.id;
+        this.type0 = data.type0;
+        this.type1 = data.type1;
+        this.linkTypeID = ko.observable(data.linkTypeID);
+        this.entity0ID = ko.observable(data.entity0ID);
+        this.entity1ID = ko.observable(data.entity1ID);
+    });
+
+
     // Used by MB.entity() to look up classes. JSON from the web service
     // usually includes a lower-case type name, which is used as the key.
 

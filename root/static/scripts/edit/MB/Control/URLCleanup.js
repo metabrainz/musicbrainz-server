@@ -536,30 +536,28 @@ MB.constants.CLEANUPS = {
 };
 
 
-MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObservable, showErrors) {
+MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObservable, handleErrors) {
     var self = {};
 
     self.typeControl = $(typeControl);
     self.urlControl = $(urlControl);
     self.sourceType = sourceType;
-    self.errorList = $("<ul>").addClass("errors").hide();
-    self.errors = errorsObservable || ko.observableArray([]);
+    self.error = errorObservable || ko.observable("");
 
-    self.errors.subscribe(function (errors) {
-        var hasErrors = errors.length > 0;
-
-        self.errorList.toggle(hasErrors).empty().append(
-            $.map(errors, function (error) { return $("<li>").text(error) })
-        );
-
-        $("button[type=submit]")
-            .prop("disabled", $(".errors:visible").length > 0);
+    self.error.subscribe(function (error) {
+        $("button[type=submit]").prop("disabled", !!error);
     });
 
-    self.errors.notifySubscribers(self.errors());
+    self.error.notifySubscribers(self.error());
 
-    if (showErrors !== false) {
-        self.typeControl.after(self.errorList);
+    if (handleErrors !== false) {
+        var $errorSpan = $("<span>").addClass("error").hide();
+
+        self.typeControl.after($errorSpan);
+
+        ko.applyBindingsToNode($errorSpan[0], {
+            visible: self.error, text: self.error
+        });
     }
 
     var validationRules = { };
@@ -818,9 +816,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
     };
 
     self.cleanUrl = function (sourceType, dirtyURL) {
-        dirtyURL = dirtyURL.replace(/^\s+/, '');
-        dirtyURL = dirtyURL.replace(/\s+$/, '');
-        dirtyURL = dirtyURL.replace(/%E2%80%8E$/, '');
+        dirtyURL = _.str.trim(dirtyURL).replace(/%E2%80%8E$/, "");
 
         for (var group in MB.constants.CLEANUPS) {
             if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
@@ -834,6 +830,31 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
         return dirtyURL;
     };
 
+    function isValidURL(url) {
+        var a = document.createElement("a");
+        a.href = url;
+
+        if (url.indexOf(a.hostname) < 0) {
+            return false;
+        }
+
+        if (!/^(https?|ftp):$/.test(a.protocol)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // A list of errors that are set/cleared by the URLCleanup code. Used to
+    // determine whether it's safe to clear other errors set by outside code.
+
+    var linkTypeErrors = [
+        MB.text.SelectURLType,
+        MB.text.InvalidURL,
+        MB.text.RelationshipTypeDeprecated
+    ];
+
+
     var typeChanged = function(event) {
         var url = self.urlControl.val();
 
@@ -842,13 +863,13 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
             var checker = validationRules[linkType];
 
             if (!linkType) {
-                self.errors([ MB.text.SelectURLType ]);
+                self.error(MB.text.SelectURLType);
             }
             else if (checker && !checker(url)) {
-                self.errors([ MB.text.InvalidURL ]);
+                self.error(MB.text.InvalidURL);
             }
-            else {
-                self.errors.removeAll();
+            else if (_.contains(linkTypeErrors, self.error())) {
+                self.error("");
             }
         }
     };
@@ -859,30 +880,47 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorsObs
 
         if (url.match(/^\w+\./)) {
             self.urlControl.val('http://' + url);
-            return
+            return;
         }
 
-        if (url !== clean) {
+        // Allow adding spaces while typing; they'll be trimmed later onblur.
+        if (_.str.trim(url) !== clean) {
             self.urlControl.val(clean);
         }
 
-        if (self.typeControl.length) {
-            var type = self.guessType(self.sourceType, clean);
-
-            if (type) {
-                self.typeControl.val(type).trigger("change");
+        if (!clean) {
+            self.error("");
+        }
+        else if (!isValidURL(clean)) {
+            self.error(MB.text.EnterAValidURL);
+        }
+        else {
+            if (self.error() === MB.text.EnterAValidURL) {
+                self.error("");
             }
 
-            typeChanged(event);
+            if (self.typeControl.length) {
+                var type = self.guessType(self.sourceType, clean);
+
+                if (type) {
+                    self.typeControl.val(type).trigger("change");
+                }
+
+                typeChanged(event);
+            }
         }
 
-        if (event.type === "submit" && self.errors.length) {
+        if (event.type === "submit" && self.error()) {
             event.preventDefault();
         }
     };
 
     self.typeControl.on("change", typeChanged);
     self.urlControl.on("change keydown keyup input propertychange", urlChanged);
+
+    self.urlControl.on("blur", function () {
+        this.value = _.str.trim(this.value);
+    });
 
     self.urlControl.parents('form').submit(urlChanged);
 

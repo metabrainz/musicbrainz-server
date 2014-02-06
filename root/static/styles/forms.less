@@ -141,15 +141,14 @@ form ul.errors {
     margin-left: @form-label-width + @form-margin;
 }
 
-form ul.errors {
+ul.errors {
     margin-top: 4px;
     padding-left: 0;
     list-style-type: none;
     list-style-image: none;
 }
 
-form ul.errors li,
-span.error { color: @negative-text; }
+ul.errors li, .error { color: @negative-text; }
 span.success { color: @positive-text; }
 
 input.error,
@@ -229,7 +228,7 @@ table.row-form {
 
     td {
         &:first-child {
-            min-width: 120px;
+            min-width: @form-label-width;
             padding: @form-margin / 2;
             padding-bottom: 9px;
             box-sizing: border-box;
@@ -481,13 +480,6 @@ div.remove-item {
 #external-links-editor {
     width: 100%;
     padding: @form-margin / 2;
-
-    td:first-child {
-        white-space: nowrap;
-        min-width: @form-label-width;
-        text-align: right;
-        label { padding-right: @form-margin; }
-    }
 
     td:nth-child(2) { width: 100%; }
 

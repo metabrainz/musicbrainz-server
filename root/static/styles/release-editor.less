@@ -33,7 +33,6 @@ fieldset {
 }
 
 .warning, .notice { border-radius: 6px; }
-.error { color: @negative-text; }
 .error-tab { background: @negative-light-bg; }
 
 /* __________________________________
@@ -54,9 +53,8 @@ div.half-width {
     td.release-artist { width: 100%; }
 
     #annotation {
-        @annotation-width: @form-half-width - 120px - (@form-margin * 3);
-        width: @annotation-width;
-        max-width: @annotation-width;
+        width: @form-input-width;
+        max-width: @form-input-width;
     }
 }
 
