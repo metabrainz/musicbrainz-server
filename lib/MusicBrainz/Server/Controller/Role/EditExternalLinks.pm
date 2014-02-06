@@ -17,7 +17,7 @@ sub build_type_info {
 
         $result->{$child->id} = {
             deprecated => $child->is_deprecated,
-            description => $child->description,
+            description => $child->l_description,
             phrase => $child->$phrase_attr,
         } if $child->id;
 
