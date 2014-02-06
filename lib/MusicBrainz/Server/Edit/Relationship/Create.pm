@@ -81,15 +81,23 @@ sub initialize
 sub foreign_keys
 {
     my ($self) = @_;
+
     my %load = (
-        LinkType                            => [ $self->data->{link_type}{id} ],
-        LinkAttributeType                   => $self->data->{attributes},
-        type_to_model($self->data->{type0}) => { $self->data->{entity0}{id} => ['ArtistCredit'] },
+        LinkType            => [ $self->data->{link_type}{id} ],
+        LinkAttributeType   =>   $self->data->{attributes},
     );
 
+    my $type0 = $self->data->{type0};
+    my $type1 = $self->data->{type1};
+
+    my $entity0_id = $self->data->{entity0}{id};
+    my $entity1_id = $self->data->{entity1}{id};
+
+    $load{ type_to_model($type0) } = { $entity0_id => ['ArtistCredit'] } if $entity0_id;
+
     # Type 1 my be equal to type 0, so we need to be careful
-    $load{ type_to_model($self->data->{type1}) } ||= {};
-    $load{ type_to_model($self->data->{type1}) }{$self->data->{entity1}{id}} = [ 'ArtistCredit' ];
+    $load{ type_to_model($type1) } ||= {};
+    $load{ type_to_model($type1) }{$entity1_id} = [ 'ArtistCredit' ] if $entity1_id;
 
     return \%load;
 }
