@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::Role::ExternalLinks;
 use HTML::FormHandler::Moose::Role;
+use MusicBrainz::Server::Form::Utils qw( link_type_options );
 use MusicBrainz::Server::Translation qw( l N_l );
 use aliased 'MusicBrainz::Server::Entity::LinkType';
 

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Relationship::LinkType;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( link_type_options );
 use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Form';
