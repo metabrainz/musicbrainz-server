@@ -130,6 +130,7 @@
         EnumerationComma: '[% l(', ') | js %]',
         EnumerationAnd: '[% l('{b} and {a}') | js %]',
         RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]',
+        URLNotAllowed: '[% l('This URL is not allowed for the selected relationship type, or is incorrectly formatted.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
             label:           "[% l('Add a new label') | js %]",
