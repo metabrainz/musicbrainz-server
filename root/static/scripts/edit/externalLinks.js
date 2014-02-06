@@ -50,7 +50,7 @@
                 }
             }
             this.faviconClass("");
-            this.viewModel.ensureEmptyLinkExists();
+            this.viewModel.ensureOneEmptyLinkExists(this);
         },
 
         linkTypeIDChanged: function (value) {
@@ -68,7 +68,7 @@
                 this.label("");
                 this.linkTypeDescription("");
             }
-            this.viewModel.ensureEmptyLinkExists();
+            this.viewModel.ensureOneEmptyLinkExists(this);
         },
 
         matchesType: function () {
@@ -109,7 +109,7 @@
                 $("#add-external-link").focus();
             }
 
-            this.viewModel.ensureEmptyLinkExists();
+            this.viewModel.ensureOneEmptyLinkExists();
         },
 
         isEmpty: function () {
@@ -166,7 +166,7 @@
             }
 
             this.links(_.map(relationships, addRelationship, this));
-            this.ensureEmptyLinkExists();
+            this.ensureOneEmptyLinkExists();
             this.sortLinks();
         },
 
@@ -193,13 +193,16 @@
             }));
         },
 
-        ensureEmptyLinkExists: function () {
-            var emptyLinkExists = _.any(this.links(), function (link) {
-                return link.isEmpty();
-            });
+        ensureOneEmptyLinkExists: function (activeLink) {
+            var emptyLinks = _.filter(
+                this.links(), function (link) { return link.isEmpty() }
+            );
 
-            if (!emptyLinkExists) {
+            if (!emptyLinks.length) {
                 this.links.push(externalLinks.Relationship({}, this));
+            }
+            else if (emptyLinks.length > 1) {
+                _(emptyLinks).without(activeLink).invoke("remove");
             }
         },
 
