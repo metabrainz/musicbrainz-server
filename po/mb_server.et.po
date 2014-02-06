@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 17:40-0700\n"
-"PO-Revision-Date: 2014-02-06 00:40+0000\n"
+"POT-Creation-Date: 2014-02-05 21:21-0700\n"
+"PO-Revision-Date: 2014-02-06 04:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -411,11 +411,11 @@ msgstr "Nende atribuutidega seos olemite „{entity0}” ja „{entity1}” vahe
 msgid "A relationship between {entity} and {url} already exists."
 msgstr "Seos olemi „{entity}” ja URL-i „{url}” vahel on juba olemas."
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/scripts/text_strings.tt:159
 msgid "A release must contain at least one medium."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/scripts/text_strings.tt:155
 msgid "A release title is required."
 msgstr ""
 
@@ -424,7 +424,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/scripts/text_strings.tt:154
 msgid "A tracklist is required."
 msgstr ""
 
@@ -515,7 +515,7 @@ msgid "Add Cover Art"
 msgstr "Kaanepildi lisamine"
 
 #: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:149
 msgid "Add Disc"
 msgstr "Lisa plaat"
 
@@ -560,7 +560,7 @@ msgstr "Lisa koht"
 msgid "Add Place Alias"
 msgstr "Koha aliase lisamine"
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/scripts/text_strings.tt:162
 msgid "Add Release"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr "Lisa keel"
 msgid "Add a new alias"
 msgstr "Lisa uus alias"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new artist"
 msgstr "Lisa uus artist"
 
@@ -656,15 +656,15 @@ msgstr "Lisa uus artist"
 msgid "Add a new entry"
 msgstr "Lisa uus kirje"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
 msgstr "Lisa uus plaadifirma"
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new place"
 msgstr "Lisa uus koht"
 
-#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:135
 msgid "Add a new recording"
 msgstr "Lisa uus salvestis"
 
@@ -676,11 +676,11 @@ msgstr "Lisa uus salvestis"
 msgid "Add a new release"
 msgstr "Lisa uus väljalase"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new release group"
 msgstr "Lisa uus väljalaskerühm"
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
 msgstr "Lisa uus teos"
 
@@ -1764,9 +1764,9 @@ msgstr "Alustusjuhend"
 #: ../root/search/error/internal-error.tt:6
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
-" so at {bugs|our bug tracker}. The below information will help, so please be"
+" so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Allpool on teave vea kohta. Kui soovid veast teada anda, siis tee seda meie {bugs|veahaldussüsteemis}. Allolev teave aitab viga parandada, nii et lisa see kindlasti kirjeldusse!"
+msgstr ""
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
 #: ../root/user/profile.tt:113
@@ -2602,11 +2602,11 @@ msgstr "Plaadi-ID-d liigsete andmeradadega"
 msgid "Disc title"
 msgstr "Plaadi pealkiri:"
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:146
 msgid "Disc {num}"
 msgstr "Plaat {num}"
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}: {title}"
 msgstr "Plaat {num}: {title}"
 
@@ -2865,7 +2865,7 @@ msgstr "Seosetüüpide muutmine"
 msgid "Edit Relationships: {release}"
 msgstr "Seoste toimetamine: „{release}”"
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:164
 msgid "Edit Release"
 msgstr ""
 
@@ -4013,7 +4013,7 @@ msgstr "Pilt on pärit Wikimedia Commonsist"
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Pilt pole veel saadaval, palun proovi mõne minuti pärast uuesti."
 
-#: ../root/scripts/text_strings.tt:138
+#: ../root/scripts/text_strings.tt:139
 msgid "Image {current} of {total}"
 msgstr "Pilt {current} / {total}"
 
@@ -7959,7 +7959,7 @@ msgstr "Järgnevad {count} kasutajat on transklusioonitoimetajad:"
 msgid "The following {count} users have auto-editor privileges:"
 msgstr "Järgmised {count} kasutajat on vanemtoimetajad:"
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:150
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8186,6 +8186,12 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
 msgstr "See ISWC pole seostatud ühegi teosega. Kui soovid seda mõne teosega seostada, siis {search_url|otsi üles soovitud teos} ja lisa sellele ISWC."
+
+#: ../root/scripts/text_strings.tt:130
+msgid ""
+"This URL is not allowed for the selected relationship type, or is "
+"incorrectly formatted."
+msgstr ""
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8439,7 +8445,7 @@ msgstr "Sel plaadifirmal pole seoseid ega väljalaskeid, niisiis eemaldatakse se
 msgid "This label has no tags."
 msgstr "Seda plaadifirmat pole sildistatud."
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:153
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8462,21 +8468,21 @@ msgid ""
 " used on the target mediums."
 msgstr "See mestimisstrateegia mestib kõik helikandjad üheks helikandjakomplektiks. Ka salvestised mestitakse sihthelikandjal olevatesse salvestistesse."
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "See režiim muudab suureks enamiku sõnade esitähe ja väikseks ülejäänud tähed, (inglise) artiklid ja lühemad eessõnad. Mõned sõnad tuleb võibolla siiski käsitsi {url|inglise algustähejuhistega} vastavusse viia."
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "See režiim muudab suureks pealkirja (või iga lause) esitähe ja väikseks kõik muu. Mõned sõnad, tüüpiliselt pärisnimed, tuleb võibolla käsitsi {url|vastava keele algustähejuhistega} vastavusse viia."
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -9264,7 +9270,7 @@ msgstr "Rada"
 msgid "Track Not Found"
 msgstr "Lugu ei leitud"
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:147
+#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:148
 msgid "Track Parser"
 msgstr "Lugude tuvastaja"
 
@@ -9307,7 +9313,7 @@ msgstr "Lugu:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:145
 msgid "Tracklist"
 msgstr "Lugude nimekiri"
 
@@ -10336,7 +10342,7 @@ msgid ""
 "use by other relationships."
 msgstr "Seoseatribuuti „{type}” ei saa eemaldada, kuna see on teiste seoste juures ikka veel kasutusel."
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/scripts/text_strings.tt:157
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -10388,7 +10394,7 @@ msgid ""
 "add one."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:150
+#: ../root/scripts/text_strings.tt:151
 msgid "You haven‘t entered a complete artist credit."
 msgstr ""
 
@@ -10416,7 +10422,7 @@ msgstr "Võid minna edasi oma <a href=\"{uri}\">oma kasutajaprofiilile</a> või 
 msgid "You must be logged in to vote on edits"
 msgstr "Toimetuste hääletamiseks logi palun sisse."
 
-#: ../root/scripts/text_strings.tt:151
+#: ../root/scripts/text_strings.tt:152
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10432,17 +10438,17 @@ msgid ""
 "database."
 msgstr "Kui soovid andmebaasile kaastööd teha, pead sisestama töötava e-posti aadressi."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/scripts/text_strings.tt:160
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "Väljalaske lisamisel tuleb jätta toimetusmärge. Isegi lihtsalt internetiaadress või midagi nagu „CD siinsamas” on abiks!"
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/scripts/text_strings.tt:158
 msgid "You must select an existing label."
 msgstr "Valida tuleb olemasolev plaadifirma."
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/scripts/text_strings.tt:156
 msgid "You must select an existing release group."
 msgstr "Valida tuleb olemasolev väljalaskerühm."
 
@@ -10458,15 +10464,15 @@ msgstr "Pead olema kindel, et see plaadi-ID on sellele väljalaskele lisatud eks
 msgid "You need to be logged in to view this page."
 msgstr "Sellele lehele pääsemiseks pead sisse logima."
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:167
 msgid "You selected {area}."
 msgstr "Valitud on {area}."
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {label}."
 msgstr "Valitud on {label}."
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:143
 msgid "You selected {releasegroup}."
 msgstr "Valitud on „{releasegroup}”."
 
@@ -10587,7 +10593,7 @@ msgstr "bot"
 msgid "by"
 msgstr "Artist:"
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/scripts/text_strings.tt:161
 msgid "by {artist}"
 msgstr "Artist: {artist}"
 
@@ -10869,7 +10875,7 @@ msgstr "lõpeta jälgimine"
 msgid "until {date}"
 msgstr "kuni {date}"
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:166
 msgid "video"
 msgstr ""
 
@@ -11056,11 +11062,11 @@ msgstr "{list_item}, {rest}"
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainzi identifikaator\">MBID</abbr>}:"
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/scripts/text_strings.tt:163
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:165
 msgid "{name} - Edit Release"
 msgstr "„{name}” - Väljalaske toimetamine"
 

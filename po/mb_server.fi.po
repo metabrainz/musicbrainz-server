@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 17:40-0700\n"
-"PO-Revision-Date: 2014-02-06 00:40+0000\n"
+"POT-Creation-Date: 2014-02-05 21:21-0700\n"
+"PO-Revision-Date: 2014-02-06 04:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -416,11 +416,11 @@ msgstr "Kohteiden {entity0} ja {entity1} välillä on jo yhteys näillä ominais
 msgid "A relationship between {entity} and {url} already exists."
 msgstr "Kohde {entity} ja {url} on jo yhdistetty."
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/scripts/text_strings.tt:159
 msgid "A release must contain at least one medium."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/scripts/text_strings.tt:155
 msgid "A release title is required."
 msgstr ""
 
@@ -429,7 +429,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/scripts/text_strings.tt:154
 msgid "A tracklist is required."
 msgstr ""
 
@@ -520,7 +520,7 @@ msgid "Add Cover Art"
 msgstr "Lisää kansitaidetta"
 
 #: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:149
 msgid "Add Disc"
 msgstr "Lisää levy"
 
@@ -565,7 +565,7 @@ msgstr ""
 msgid "Add Place Alias"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/scripts/text_strings.tt:162
 msgid "Add Release"
 msgstr ""
 
@@ -653,7 +653,7 @@ msgstr "Lisää kieli"
 msgid "Add a new alias"
 msgstr "Lisää uusi alias"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new artist"
 msgstr ""
 
@@ -661,15 +661,15 @@ msgstr ""
 msgid "Add a new entry"
 msgstr "Lisää uusi merkintä"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:135
 msgid "Add a new recording"
 msgstr "Lisää uusi äänite"
 
@@ -681,11 +681,11 @@ msgstr "Lisää uusi äänite"
 msgid "Add a new release"
 msgstr "Lisää uusi julkaisu"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
 msgstr ""
 
@@ -1769,9 +1769,9 @@ msgstr "Aloittelijan opas"
 #: ../root/search/error/internal-error.tt:6
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
-" so at {bugs|our bug tracker}. The below information will help, so please be"
+" so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraportin {bugs|virheidenseurantaamme}. Alta löytyvä tieto helpottaa vian paikallistamista, joten muistathan sisällyttää sen raporttiisi!"
+msgstr ""
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
 #: ../root/user/profile.tt:113
@@ -2607,11 +2607,11 @@ msgstr "Levyjen tunnisteet, joissa turhia data-raitoja"
 msgid "Disc title"
 msgstr "Levyn nimi"
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:146
 msgid "Disc {num}"
 msgstr "Levy {num}"
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}: {title}"
 msgstr "Levy {num}: {title}"
 
@@ -2870,7 +2870,7 @@ msgstr "Muokkaa yhteyksien tyyppejä"
 msgid "Edit Relationships: {release}"
 msgstr "Muokkaa yhteyksiä: {release}"
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:164
 msgid "Edit Release"
 msgstr ""
 
@@ -4018,7 +4018,7 @@ msgstr ""
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Kuva ei ole vielä käytettävissä. Yritä muutaman minuutin kuluttua uudelleen."
 
-#: ../root/scripts/text_strings.tt:138
+#: ../root/scripts/text_strings.tt:139
 msgid "Image {current} of {total}"
 msgstr ""
 
@@ -7964,7 +7964,7 @@ msgstr "Seuraavat {count} käyttäjää ovat sisällyttäjä-editoreja:"
 msgid "The following {count} users have auto-editor privileges:"
 msgstr "Seuraavat {count} käyttäjää ovat auto-editoreja:"
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:150
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8190,6 +8190,12 @@ msgstr "Tämä ISRC-koodi ei liity yhteenkään äänitteeseen. Jos haluat liitt
 msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
+msgstr ""
+
+#: ../root/scripts/text_strings.tt:130
+msgid ""
+"This URL is not allowed for the selected relationship type, or is "
+"incorrectly formatted."
 msgstr ""
 
 #: ../root/alias/edit_form.tt:36
@@ -8444,7 +8450,7 @@ msgstr ""
 msgid "This label has no tags."
 msgstr "Tällä levymerkillä ei ole luokituksia."
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:153
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8467,21 +8473,21 @@ msgid ""
 " used on the target mediums."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -9269,7 +9275,7 @@ msgstr "Kappale"
 msgid "Track Not Found"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:147
+#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:148
 msgid "Track Parser"
 msgstr "Kappaleiden jäsennin"
 
@@ -9312,7 +9318,7 @@ msgstr "Kappale:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:145
 msgid "Tracklist"
 msgstr "Kappalelista"
 
@@ -10341,7 +10347,7 @@ msgid ""
 "use by other relationships."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/scripts/text_strings.tt:157
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -10393,7 +10399,7 @@ msgid ""
 "add one."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:150
+#: ../root/scripts/text_strings.tt:151
 msgid "You haven‘t entered a complete artist credit."
 msgstr ""
 
@@ -10421,7 +10427,7 @@ msgstr ""
 msgid "You must be logged in to vote on edits"
 msgstr "Sinun tulee olla sisäänkirjautunut äänestääksesi muokkauksista."
 
-#: ../root/scripts/text_strings.tt:151
+#: ../root/scripts/text_strings.tt:152
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10437,17 +10443,17 @@ msgid ""
 "database."
 msgstr "Sinun tulee antaa toimiva sähköpostiosoite, mikäli haluat osallistua tietokannan toimintaan."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/scripts/text_strings.tt:160
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "Muokkausmerkintä vaaditaan julkaisua lisättäessä. Jopa pelkkä URL-osoite tai \"CD-levy kädessäni\" auttaa!"
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/scripts/text_strings.tt:158
 msgid "You must select an existing label."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/scripts/text_strings.tt:156
 msgid "You must select an existing release group."
 msgstr ""
 
@@ -10463,15 +10469,15 @@ msgstr "Sinun tulee olla täysin varma että tämä levyn tunniste lisättiin t�
 msgid "You need to be logged in to view this page."
 msgstr "Sinun tulee sisäänkirjautua nähdeksesi tämän sivun."
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:167
 msgid "You selected {area}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {label}."
 msgstr "Valitsit levymerkin {label}."
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:143
 msgid "You selected {releasegroup}."
 msgstr "Valitsit julkaisuryhmän {releasegroup}."
 
@@ -10592,7 +10598,7 @@ msgstr "botti"
 msgid "by"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/scripts/text_strings.tt:161
 msgid "by {artist}"
 msgstr ""
 
@@ -10874,7 +10880,7 @@ msgstr "Lopeta muutosten seuraaminen"
 msgid "until {date}"
 msgstr "kunnes {date}"
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:166
 msgid "video"
 msgstr ""
 
@@ -11061,11 +11067,11 @@ msgstr ""
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/scripts/text_strings.tt:163
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:165
 msgid "{name} - Edit Release"
 msgstr "{name} - Muokkaa julkaisua"
 

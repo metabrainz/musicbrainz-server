@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 17:40-0700\n"
-"PO-Revision-Date: 2014-02-06 00:40+0000\n"
+"POT-Creation-Date: 2014-02-05 21:21-0700\n"
+"PO-Revision-Date: 2014-02-06 04:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -418,11 +418,11 @@ msgstr "Una relazione con questi attributi tra {entity0} e {entity1} è già esi
 msgid "A relationship between {entity} and {url} already exists."
 msgstr "Una relazione tra {entity} e {url} è già esistente."
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/scripts/text_strings.tt:159
 msgid "A release must contain at least one medium."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/scripts/text_strings.tt:155
 msgid "A release title is required."
 msgstr ""
 
@@ -431,7 +431,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr "Un elenco semplice di tutte le entità è disponibile dalle nostre pagine {url|Esplora}."
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/scripts/text_strings.tt:154
 msgid "A tracklist is required."
 msgstr ""
 
@@ -522,7 +522,7 @@ msgid "Add Cover Art"
 msgstr "Aggiungi copertina"
 
 #: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:149
 msgid "Add Disc"
 msgstr "Aggiungi disco"
 
@@ -567,7 +567,7 @@ msgstr "Aggiungi luogo"
 msgid "Add Place Alias"
 msgstr "Aggiungi alias al luogo"
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/scripts/text_strings.tt:162
 msgid "Add Release"
 msgstr ""
 
@@ -655,7 +655,7 @@ msgstr "Aggiungi una lingua"
 msgid "Add a new alias"
 msgstr "Aggiungi un nuovo alias"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new artist"
 msgstr "Aggiungi un nuovo artista"
 
@@ -663,15 +663,15 @@ msgstr "Aggiungi un nuovo artista"
 msgid "Add a new entry"
 msgstr "Aggiungi una nuova voce"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
 msgstr "Aggiungi una nuova etichetta"
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new place"
 msgstr "Aggiungi un nuovo luogo"
 
-#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:135
 msgid "Add a new recording"
 msgstr "Aggiungi una nuova registrazione"
 
@@ -683,11 +683,11 @@ msgstr "Aggiungi una nuova registrazione"
 msgid "Add a new release"
 msgstr "Aggiungi una nuova pubblicazione"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new release group"
 msgstr "Aggiungi un nuovo gruppo di pubblicazioni"
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
 msgstr "Aggiungi una nuova opera"
 
@@ -1771,9 +1771,9 @@ msgstr "Guida per principianti"
 #: ../root/search/error/internal-error.tt:6
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
-" so at {bugs|our bug tracker}. The below information will help, so please be"
+" so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
-msgstr "Qui sotto trovi le informazioni sull'errore. Se vuoi segnalare un bug, lo puoi fare nel nostro {bugs|bug tracker}. Queste informazioni possono essere utili, perciò assicurati di includerle!"
+msgstr ""
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
 #: ../root/user/profile.tt:113
@@ -2609,11 +2609,11 @@ msgstr "ID disco con tracce dati superflue"
 msgid "Disc title"
 msgstr "Titolo del disco"
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:146
 msgid "Disc {num}"
 msgstr "Disco {num}"
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}: {title}"
 msgstr "Disco {num}: {title}"
 
@@ -2872,7 +2872,7 @@ msgstr "Modifica tipi di relazione"
 msgid "Edit Relationships: {release}"
 msgstr "Modifica relazioni: {release}"
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:164
 msgid "Edit Release"
 msgstr ""
 
@@ -4020,7 +4020,7 @@ msgstr "Immagine da Wikimedia Commons"
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Immagine non ancora disponibile, riprova tra qualche minuto."
 
-#: ../root/scripts/text_strings.tt:138
+#: ../root/scripts/text_strings.tt:139
 msgid "Image {current} of {total}"
 msgstr "Immagine {current} di {total}"
 
@@ -7966,7 +7966,7 @@ msgstr "I {count} utenti seguenti sono editor di transclusione:"
 msgid "The following {count} users have auto-editor privileges:"
 msgstr "I {count} utenti seguenti hanno privilegi da auto-editor:"
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:150
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8193,6 +8193,12 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
 msgstr "Questo ISWC non è associato ad alcuna opera. Se desideri associarlo ad un'opera, {search_url|cercala} e aggiungilo."
+
+#: ../root/scripts/text_strings.tt:130
+msgid ""
+"This URL is not allowed for the selected relationship type, or is "
+"incorrectly formatted."
+msgstr ""
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8446,7 +8452,7 @@ msgstr "Questa etichetta non ha relazioni né pubblicazioni e sarà rimossa auto
 msgid "This label has no tags."
 msgstr "Questa etichetta non ha tag."
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:153
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8469,21 +8475,21 @@ msgid ""
 " used on the target mediums."
 msgstr "Questa strategia di unione unirà tutti i supporti, formando un singolo set di supporti. Anche le registrazioni saranno unite con quelle utilizzate nei supporti di destinazione."
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Questa modalità rende maiuscole quasi tutte le parole, con solo alcune parole (principalmente articoli e preposizioni brevi) in minuscolo. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per l'inglese}."
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Questa modalità rende maiuscola la prima parola di una frase, con la maggior parte delle altre parole in minuscolo. Alcune parole, spesso nomi propri, potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per quella lingua}."
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -9271,7 +9277,7 @@ msgstr "Traccia"
 msgid "Track Not Found"
 msgstr "Traccia non trovata"
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:147
+#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:148
 msgid "Track Parser"
 msgstr "Analizzatore di tracce"
 
@@ -9314,7 +9320,7 @@ msgstr "Traccia:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:145
 msgid "Tracklist"
 msgstr "Elenco di tracce"
 
@@ -10343,7 +10349,7 @@ msgid ""
 "use by other relationships."
 msgstr "Non puoi rimuovere l'attributo di relazione \"{type}\" poiché è ancora in uso in altre relazioni."
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/scripts/text_strings.tt:157
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -10395,7 +10401,7 @@ msgid ""
 "add one."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:150
+#: ../root/scripts/text_strings.tt:151
 msgid "You haven‘t entered a complete artist credit."
 msgstr ""
 
@@ -10423,7 +10429,7 @@ msgstr "Puoi visitare il tuo <a href=\"{uri}\">profilo utente</a>, o forse prefe
 msgid "You must be logged in to vote on edits"
 msgstr "Devi effettuare l'accesso per votare sulle modifiche."
 
-#: ../root/scripts/text_strings.tt:151
+#: ../root/scripts/text_strings.tt:152
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10439,17 +10445,17 @@ msgid ""
 "database."
 msgstr "Devi fornire un indirizzo email funzionante se vuoi contribuire al database."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/scripts/text_strings.tt:160
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "Devi inserire una nota di modifica quando aggiungi una pubblicazione. Anche solo un link utile o qualcosa come \"possiedo questo CD\" può essere d'aiuto!"
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/scripts/text_strings.tt:158
 msgid "You must select an existing label."
 msgstr "Devi selezionare un'etichetta esistente."
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/scripts/text_strings.tt:156
 msgid "You must select an existing release group."
 msgstr "Devi selezionare un gruppo di pubblicazioni esistente."
 
@@ -10465,15 +10471,15 @@ msgstr "Devi essere sicuro che questo ID disco è stato associato per sbaglio a 
 msgid "You need to be logged in to view this page."
 msgstr "Devi effettuare l'accesso per visualizzare questa pagina."
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:167
 msgid "You selected {area}."
 msgstr "Hai selezionato {area}."
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {label}."
 msgstr "Hai selezionato {label}."
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:143
 msgid "You selected {releasegroup}."
 msgstr "Hai selezionato {releasegroup}."
 
@@ -10594,7 +10600,7 @@ msgstr "bot"
 msgid "by"
 msgstr "di"
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/scripts/text_strings.tt:161
 msgid "by {artist}"
 msgstr "di {artist}"
 
@@ -10876,7 +10882,7 @@ msgstr "annulla sottoscrizione"
 msgid "until {date}"
 msgstr "fino al {date}"
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:166
 msgid "video"
 msgstr ""
 
@@ -11063,11 +11069,11 @@ msgstr "{list_item}, {rest}"
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"Identificatore di MusicBrainz\">MBID</abbr>}:"
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/scripts/text_strings.tt:163
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:165
 msgid "{name} - Edit Release"
 msgstr "{name} - Modifica pubblicazione"
 

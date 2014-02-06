@@ -63,9 +63,6 @@ MB.constants.LINK_TYPES = {
     amazon: {
         release: 77
     },
-    coverart: {
-        release: 78
-    },
     license: {
         release: 301,
         recording: 302
@@ -287,11 +284,14 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/.*\\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
-        type: MB.constants.LINK_TYPES.coverart,
+        match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/","i"),
         clean: function(url) {
+            url = url.replace(/^https?:\/\/(www.)?archive.org\//, "https://archive.org/");
+            // clean up links to files
             url = url.replace(/\?cnt=\d+$/, "");
-            return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+            url = url.replace(/^https?:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "https://archive.org/download/$2/$3");
+            // clean up links to items
+            return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, "$1");
         }
     },
     cdbaby: {
@@ -319,14 +319,6 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
             url =  url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
             return url;
-        }
-    },
-    manjdisc: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?mange-disque\\.tv/(fs/md_|fstb/tn_md_|info_disque\\.php3\\?dis_code=)[0-9]+","i"),
-        type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) {
-            return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
-                "www.mange-disque.tv/fs/md_$3.jpg");
         }
     },
     license: {
@@ -745,12 +737,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         return url.match(/\.bandcamp\.com\/$/) != null;
     }
 
-    // only allow domains on the cover art whitelist
-    validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function (url) {
-        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
-        return sites.test(url)
-    };
-
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function (url) {
         var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/');
@@ -835,7 +821,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
 
     var linkTypeErrors = [
         MB.text.SelectURLType,
-        MB.text.InvalidURL,
+        MB.text.URLNotAllowed,
         MB.text.RelationshipTypeDeprecated
     ];
 
@@ -851,7 +837,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
                 self.error(MB.text.SelectURLType);
             }
             else if (checker && !checker(url)) {
-                self.error(MB.text.InvalidURL);
+                self.error(MB.text.URLNotAllowed);
             }
             else if (_.contains(linkTypeErrors, self.error())) {
                 self.error("");

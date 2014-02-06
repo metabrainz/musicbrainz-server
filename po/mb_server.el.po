@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 17:40-0700\n"
-"PO-Revision-Date: 2014-02-06 00:40+0000\n"
+"POT-Creation-Date: 2014-02-05 21:21-0700\n"
+"PO-Revision-Date: 2014-02-06 04:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -415,11 +415,11 @@ msgstr "Μια σχέση μεταξύ των {entity0} και {entity1} υπά�
 msgid "A relationship between {entity} and {url} already exists."
 msgstr "Μια σχέση μεταξύ των {entity} και {url} υπάρχει ήδη."
 
-#: ../root/scripts/text_strings.tt:158
+#: ../root/scripts/text_strings.tt:159
 msgid "A release must contain at least one medium."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:154
+#: ../root/scripts/text_strings.tt:155
 msgid "A release title is required."
 msgstr ""
 
@@ -428,7 +428,7 @@ msgid ""
 "A simple list of all entities is available from our {url|browse} pages."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:153
+#: ../root/scripts/text_strings.tt:154
 msgid "A tracklist is required."
 msgstr ""
 
@@ -519,7 +519,7 @@ msgid "Add Cover Art"
 msgstr "Προσθήκη εξωφύλλου"
 
 #: ../root/release/edit/layout.tt:60 ../root/release/edit/tracklist.tt:174
-#: ../root/scripts/text_strings.tt:148
+#: ../root/scripts/text_strings.tt:149
 msgid "Add Disc"
 msgstr "Προσθήκη δίσκου"
 
@@ -564,7 +564,7 @@ msgstr ""
 msgid "Add Place Alias"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:161
+#: ../root/scripts/text_strings.tt:162
 msgid "Add Release"
 msgstr ""
 
@@ -652,7 +652,7 @@ msgstr "Προσθήκη μιας γλώσσας"
 msgid "Add a new alias"
 msgstr "Προσθήκη νέου ψευδωνύμου"
 
-#: ../root/scripts/text_strings.tt:131
+#: ../root/scripts/text_strings.tt:132
 msgid "Add a new artist"
 msgstr ""
 
@@ -660,15 +660,15 @@ msgstr ""
 msgid "Add a new entry"
 msgstr "Προσθήκη μιας νέας καταχώρησης"
 
-#: ../root/scripts/text_strings.tt:132
+#: ../root/scripts/text_strings.tt:133
 msgid "Add a new label"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:133
+#: ../root/scripts/text_strings.tt:134
 msgid "Add a new place"
 msgstr ""
 
-#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:134
+#: ../root/release/edit/recordings.tt:185 ../root/scripts/text_strings.tt:135
 msgid "Add a new recording"
 msgstr "Προσθήκη μιας νέας ηχογράφησης"
 
@@ -680,11 +680,11 @@ msgstr "Προσθήκη μιας νέας ηχογράφησης"
 msgid "Add a new release"
 msgstr "Προσθήκη μιας νέας κυκλοφορίας"
 
-#: ../root/scripts/text_strings.tt:135
+#: ../root/scripts/text_strings.tt:136
 msgid "Add a new release group"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:136
+#: ../root/scripts/text_strings.tt:137
 msgid "Add a new work"
 msgstr ""
 
@@ -1768,7 +1768,7 @@ msgstr "Οδηγός για αρχάριους"
 #: ../root/search/error/internal-error.tt:6
 msgid ""
 "Below is the error information. If you wish to file a bug report, you may do"
-" so at {bugs|our bug tracker}. The below information will help, so please be"
+" so at {bugs|our bug tracker}. The information below will help, so please be"
 " sure to include it!"
 msgstr ""
 
@@ -2606,11 +2606,11 @@ msgstr ""
 msgid "Disc title"
 msgstr "Τίτλος δίσκου"
 
-#: ../root/scripts/text_strings.tt:145
+#: ../root/scripts/text_strings.tt:146
 msgid "Disc {num}"
 msgstr "Δίσκος {num}"
 
-#: ../root/scripts/text_strings.tt:146
+#: ../root/scripts/text_strings.tt:147
 msgid "Disc {num}: {title}"
 msgstr "Δίσκος {num}: {title}"
 
@@ -2869,7 +2869,7 @@ msgstr "Επεξεργασία τύπων σχέσης"
 msgid "Edit Relationships: {release}"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:163
+#: ../root/scripts/text_strings.tt:164
 msgid "Edit Release"
 msgstr ""
 
@@ -4017,7 +4017,7 @@ msgstr ""
 msgid "Image not available yet, please try again in a few minutes."
 msgstr "Η εικόνα δεν είναι διαθέσιμη ακόμα, παρακαλούμε δοκιμάστε ξανά σε μερικά λεπτά."
 
-#: ../root/scripts/text_strings.tt:138
+#: ../root/scripts/text_strings.tt:139
 msgid "Image {current} of {total}"
 msgstr ""
 
@@ -7963,7 +7963,7 @@ msgstr ""
 msgid "The following {count} users have auto-editor privileges:"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:149
+#: ../root/scripts/text_strings.tt:150
 msgid ""
 "The information you‘ve provided contains errors, and was not entered; please"
 " visit the tabs shaded in red, fix all visible errors, and try again."
@@ -8190,6 +8190,12 @@ msgid ""
 "This ISWC is not associated with any works. If you wish to associate it with"
 " a work, please {search_url|search for the work} and add it."
 msgstr "Αυτό το ISWC δε σχετίζεται με κανένα έργο. Αν επιθυμείτε να το σχετίσετε με ένα έργο, παρακαλούμε {search_url|αναζητήστε το έργο} και προσθέστε το."
+
+#: ../root/scripts/text_strings.tt:130
+msgid ""
+"This URL is not allowed for the selected relationship type, or is "
+"incorrectly formatted."
+msgstr ""
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8443,7 +8449,7 @@ msgstr ""
 msgid "This label has no tags."
 msgstr "Αυτή η δισκογραφική εταιρεία δεν έχει ετικέτες."
 
-#: ../root/scripts/text_strings.tt:152
+#: ../root/scripts/text_strings.tt:153
 msgid ""
 "This medium already has disc IDs, so you may only change the format to a "
 "format that can have disc IDs."
@@ -8466,21 +8472,21 @@ msgid ""
 " used on the target mediums."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:139
+#: ../root/scripts/text_strings.tt:140
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:140
+#: ../root/scripts/text_strings.tt:141
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:141
+#: ../root/scripts/text_strings.tt:142
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -9268,7 +9274,7 @@ msgstr "Κομμάτι"
 msgid "Track Not Found"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:147
+#: ../root/release/edit/tracklist.tt:297 ../root/scripts/text_strings.tt:148
 msgid "Track Parser"
 msgstr ""
 
@@ -9311,7 +9317,7 @@ msgstr "Κομμάτι:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:25
-#: ../root/scripts/text_strings.tt:144
+#: ../root/scripts/text_strings.tt:145
 msgid "Tracklist"
 msgstr "Λίστα κομματιών"
 
@@ -10340,7 +10346,7 @@ msgid ""
 "use by other relationships."
 msgstr "Δεν μπορείτε να καταργήσετε το γνώρισμα σχέσης \"{type}\" καθώς είναι ακόμα σε χρήση από άλλες σχέσεις."
 
-#: ../root/scripts/text_strings.tt:156
+#: ../root/scripts/text_strings.tt:157
 msgid "You cannot use the same country more than once."
 msgstr ""
 
@@ -10392,7 +10398,7 @@ msgid ""
 "add one."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:150
+#: ../root/scripts/text_strings.tt:151
 msgid "You haven‘t entered a complete artist credit."
 msgstr ""
 
@@ -10420,7 +10426,7 @@ msgstr "Μπορείτε να συνεχίσετε στο <a href=\"{uri}\">πρ
 msgid "You must be logged in to vote on edits"
 msgstr "Πρέπει να είστε συνδεδεμένοι για να ψηφίσετε για τροποποιήσεις"
 
-#: ../root/scripts/text_strings.tt:151
+#: ../root/scripts/text_strings.tt:152
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -10436,17 +10442,17 @@ msgid ""
 "database."
 msgstr "Πρέπει να παρέχετε μια έγκυρη διεύθυνση ηλεκτρονικού ταχυδρομείου εάν θέλετε να συνεισφέρετε στη βάση δεδομένων."
 
-#: ../root/scripts/text_strings.tt:159
+#: ../root/scripts/text_strings.tt:160
 msgid ""
 "You must provide an edit note when adding a release. Even just a URL or "
 "something like “CD in hand” helps!"
 msgstr "Πρέπει να γράψετε μία σημείωση επεξεργασίας όταν προσθέτετε μια κυκλοφορία. Ακόμα και ένα απλό URL ή κάτι σαν \"Έχω το CD στο χέρι\" βοηθάει!"
 
-#: ../root/scripts/text_strings.tt:157
+#: ../root/scripts/text_strings.tt:158
 msgid "You must select an existing label."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:155
+#: ../root/scripts/text_strings.tt:156
 msgid "You must select an existing release group."
 msgstr ""
 
@@ -10462,15 +10468,15 @@ msgstr ""
 msgid "You need to be logged in to view this page."
 msgstr "Πρέπει να είστε συνδεδεμένοι για να δείτε αυτή τη σελίδα."
 
-#: ../root/scripts/text_strings.tt:166
+#: ../root/scripts/text_strings.tt:167
 msgid "You selected {area}."
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:143
+#: ../root/scripts/text_strings.tt:144
 msgid "You selected {label}."
 msgstr "Επιλέξατε την {label}."
 
-#: ../root/scripts/text_strings.tt:142
+#: ../root/scripts/text_strings.tt:143
 msgid "You selected {releasegroup}."
 msgstr "Επιλέξατε την {releasegroup}."
 
@@ -10591,7 +10597,7 @@ msgstr "bot"
 msgid "by"
 msgstr "από"
 
-#: ../root/scripts/text_strings.tt:160
+#: ../root/scripts/text_strings.tt:161
 msgid "by {artist}"
 msgstr "από {artist}"
 
@@ -10873,7 +10879,7 @@ msgstr "μη παρακολούθηση"
 msgid "until {date}"
 msgstr "μέχρι {date}"
 
-#: ../root/scripts/text_strings.tt:165
+#: ../root/scripts/text_strings.tt:166
 msgid "video"
 msgstr ""
 
@@ -11060,11 +11066,11 @@ msgstr ""
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 
-#: ../root/scripts/text_strings.tt:162
+#: ../root/scripts/text_strings.tt:163
 msgid "{name} - Add Release"
 msgstr ""
 
-#: ../root/scripts/text_strings.tt:164
+#: ../root/scripts/text_strings.tt:165
 msgid "{name} - Edit Release"
 msgstr ""
 
