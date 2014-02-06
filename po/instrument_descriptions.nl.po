@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 22:26+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-05 17:40+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -156,7 +156,7 @@ msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East. "
 "(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een tar is een lijsttrommel met één vel uit Noord-Afrika en het Midden-Oosten. (<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:555
 msgid ""

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 17:44-0700\n"
-"PO-Revision-Date: 2014-02-04 00:47+0000\n"
+"POT-Creation-Date: 2014-02-05 17:40-0700\n"
+"PO-Revision-Date: 2014-02-06 00:40+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -10458,7 +10458,7 @@ msgstr "Pead olema kindel, et see plaadi-ID on sellele väljalaskele lisatud eks
 msgid "You need to be logged in to view this page."
 msgstr "Sellele lehele pääsemiseks pead sisse logima."
 
-#: ../root/components/forms.tt:278 ../root/place/edit_form.tt:75
+#: ../root/scripts/text_strings.tt:166
 msgid "You selected {area}."
 msgstr "Valitud on {area}."
 
@@ -10868,6 +10868,10 @@ msgstr "lõpeta jälgimine"
 #: ../root/components/common-macros.tt:729 ../root/edit/details/macros.tt:28
 msgid "until {date}"
 msgstr "kuni {date}"
+
+#: ../root/scripts/text_strings.tt:165
+msgid "video"
+msgstr ""
 
 #: ../root/edit/details/add_area_alias.tt:10
 #: ../root/edit/details/add_artist_alias.tt:10
@@ -12083,23 +12087,23 @@ msgstr "{0}. rajale tuleb lisada pealkiri"
 msgid "Must be a valid barcode"
 msgstr "Peab olema korrektne vöötkood."
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:47
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:48
 #, perl-brace-format
 msgid "Please add an artist name for {credit}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:54
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:55
 #, perl-brace-format
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist.\n"
 "                   You may need to add a new artist to MusicBrainz first."
 msgstr "{artist} pole lingitud ühegi andmebaasis leiduva artistiga — palun vali mõni olemasolev või lisa uus."
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:60
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:61
 msgid "Please add an artist name for each credit."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:75
+#: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:76
 msgid "Artist credit field is required"
 msgstr ""
 
