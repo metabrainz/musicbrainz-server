@@ -3,25 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var releaseEditor = MB.releaseEditor;
-
-
-module("release editor dialogs", {
-
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        releaseEditor.action = "add";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.seed({ seed: {} });
-
-        this.release = releaseEditor.rootField.release();
-    },
-
-    teardown: function () {
-        releaseEditor.rootField.release(null);
-    }
-});
+releaseEditor.test.module("release editor dialogs", releaseEditor.test.setupReleaseAdd);
 
 
 test("adding an empty medium via the add-disc dialog (MBS-7221)", function () {

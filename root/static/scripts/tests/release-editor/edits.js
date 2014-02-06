@@ -201,33 +201,17 @@ MB.edit.create = function () {
 };
 
 
-var releaseEditor = MB.releaseEditor;
+releaseEditor.test.module("add-release edits", function () {
+    var data = $.extend(true, {}, testRelease);
+    var medium = data.mediums[0];
 
+    medium.originalID = medium.id;
 
-module("add-release edits", {
+    delete medium.id;
+    delete data.labels[0].id;
+    delete data.labels[1].id;
 
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        var data = $.extend(true, {}, testRelease);
-        var medium = data.mediums[0];
-
-        medium.originalID = medium.id;
-
-        delete medium.id;
-        delete data.labels[0].id;
-        delete data.labels[1].id;
-
-        releaseEditor.action = "add";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.seed({ seed: data });
-
-        this.release = releaseEditor.rootField.release();
-    },
-
-    teardown: function () {
-        releaseEditor.rootField.release(null);
-    }
+    releaseEditor.test.setupReleaseAdd(data);
 });
 
 
@@ -452,17 +436,10 @@ test("mediumAddDiscID edits are generated for new release", function () {
 });
 
 
-module("edit-release edits", {
-
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        this.release = releaseEditor.fields.Release(testRelease);
-
-        releaseEditor.action = "edit";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.rootField.release(this.release);
-    }
+releaseEditor.test.module("edit-release edits", function () {
+    releaseEditor.action = "edit";
+    releaseEditor.rootField = releaseEditor.fields.Root();
+    releaseEditor.rootField.release(releaseEditor.fields.Release(testRelease));
 });
 
 
