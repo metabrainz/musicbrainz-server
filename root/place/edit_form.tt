@@ -74,8 +74,8 @@
 
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
-
     [%- area_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

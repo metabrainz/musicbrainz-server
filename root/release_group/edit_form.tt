@@ -27,6 +27,7 @@
   <div class="documentation">
     [%- artist_credit_table() -%]
     [%- guesscase_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

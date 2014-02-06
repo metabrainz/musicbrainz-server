@@ -28,6 +28,7 @@
 
             this.url = this.type1 === "url" ? this.entity1ID : this.entity0ID;
             this.label = ko.observable("");
+            this.linkTypeDescription = ko.observable("");
             this.faviconClass = ko.observable("");
             this.error = (viewModel.errorType || ko.observable)("");
             this.removed = ko.observable(false);
@@ -57,6 +58,7 @@
 
             if (typeInfo) {
                 this.label(typeInfo.phrase);
+                this.linkTypeDescription(typeInfo.description);
 
                 if (typeInfo.deprecated == 1) {
                     this.cleanup.error(MB.text.RelationshipTypeDeprecated);
@@ -123,8 +125,22 @@
             this.formName = options.formName;
             this.source = options.source;
             this.errorType = options.errorType;
+
             this.links = ko.observableArray([]);
             this.setLinks(options.relationships, options.fieldErrors);
+
+            this.bubbleDoc = MB.Control.BubbleDoc("Information")
+            .extend({
+                canBeShown: function (link) {
+                    var url = link.url();
+
+                    // Theoretically, if the URL isn't valid then the URLCleanup
+                    // should've set an error. However, this callback runs before
+                    // the URLCleanup code kicks in, so we need to check ourselves.
+                    return (url && MB.utility.isValidURL(url) && !link.error()) ||
+                        link.linkTypeDescription();
+                }
+            });
         },
 
         setLinks: function (relationships, fieldErrors) {
@@ -190,15 +206,21 @@
                 .value()
             );
         }
-    }),
+    });
 
 
     externalLinks.init = function (options) {
         var containerNode = $("#external-links-editor")[0];
+        var bubbleNode = $("#external-link-bubble")[0];
         var viewModel = this.ViewModel(options);
 
-        ko.applyBindingsToNode(containerNode, { delegatedHandler: "click" }, viewModel);
+        ko.applyBindingsToNode(containerNode, {
+            delegatedHandler: "click",
+            affectsBubble: viewModel.bubbleDoc
+        }, viewModel);
+
         ko.applyBindings(viewModel, containerNode);
+        ko.applyBindingsToNode(bubbleNode, { bubble: viewModel.bubbleDoc }, viewModel);
 
         return viewModel;
     };

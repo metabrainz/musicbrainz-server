@@ -82,6 +82,7 @@
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
     [%- area_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

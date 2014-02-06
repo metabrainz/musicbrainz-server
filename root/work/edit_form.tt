@@ -27,6 +27,7 @@
   <div class="documentation">
     [%- guesscase_bubble() -%]
     [%- iswc_bubble(link_entity(work)) -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

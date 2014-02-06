@@ -830,21 +830,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         return dirtyURL;
     };
 
-    function isValidURL(url) {
-        var a = document.createElement("a");
-        a.href = url;
-
-        if (url.indexOf(a.hostname) < 0) {
-            return false;
-        }
-
-        if (!/^(https?|ftp):$/.test(a.protocol)) {
-            return false;
-        }
-
-        return true;
-    }
-
     // A list of errors that are set/cleared by the URLCleanup code. Used to
     // determine whether it's safe to clear other errors set by outside code.
 
@@ -891,7 +876,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         if (!clean) {
             self.error("");
         }
-        else if (!isValidURL(clean)) {
+        else if (!MB.utility.isValidURL(clean)) {
             self.error(MB.text.EnterAValidURL);
         }
         else {

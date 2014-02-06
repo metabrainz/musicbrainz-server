@@ -202,6 +202,32 @@ ko.bindingHandlers.controlsBubble = {
 };
 
 
+// Used to watch for DOM changes, so that doc bubbles stay pointed at the
+// correct position.
+//
+// See https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+// for browser support.
+
+ko.bindingHandlers.affectsBubble = {
+
+    init: function (element, valueAccessor) {
+        if (!window.MutationObserver) {
+            return;
+        }
+
+        var observer = new MutationObserver(_.throttle(function () {
+            _.delay(function () { valueAccessor().redraw() }, 100);
+        }, 100));
+
+        observer.observe(element, { childList: true, subtree: true });
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            observer.disconnect();
+        });
+    }
+};
+
+
 $(function () {
 
     // Handle click and focus events that might cause a bubble to be shown or

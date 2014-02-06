@@ -29,6 +29,7 @@
     [%- artist_credit_table() -%]
     [%- guesscase_bubble() -%]
     [%- isrc_bubble(link_entity(recording)) -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

@@ -412,3 +412,18 @@ MB.utility.computedWith = function (callback, observable, defaultValue) {
         return result ? callback(result) : defaultValue;
     });
 };
+
+MB.utility.isValidURL = function (url) {
+    var a = document.createElement("a");
+    a.href = url;
+
+    if (url.indexOf(a.hostname) < 0) {
+        return false;
+    }
+
+    if (!/^(https?|ftp):$/.test(a.protocol)) {
+        return false;
+    }
+
+    return true;
+};

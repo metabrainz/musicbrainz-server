@@ -280,6 +280,17 @@
     </div>
 [%- END -%]
 
+[%- MACRO external_link_bubble BLOCK -%]
+  <div class="bubble" id="external-link-bubble" data-bind="bubble: bubbleDoc">
+    <!-- ko with: $bubble.target -->
+      <p data-bind="if: url() && !error()">
+        [% l('URL:') | js %] <a target="_blank" data-bind="attr: { href: url }, text: url"></a>
+      </p>
+      <p data-bind="html: linkTypeDescription"></p>
+    <!-- /ko -->
+  </div>
+[%- END -%]
+
 [%- MACRO artist_credit_table BLOCK -%]
   <div class="bubble" id="artist-credit-bubble" data-bind="bubble: $root.artistBubble">
     <p>
@@ -376,7 +387,14 @@
         </select>
       </td>
       <td>
-        <input type="text" data-bind="value: url, valueUpdate: 'input', attr: { id: 'external-link-' + $index() }" class="value with-remove" />
+        <input type="text"
+          class="value with-remove"
+          data-bind="
+            value: url,
+            valueUpdate: 'input',
+            attr: { id: 'external-link-' + $index() },
+            controlsBubble: viewModel.bubbleDoc"
+        />
       </td>
       <td>
         <!-- ko ifnot: isEmpty() -->
@@ -411,21 +429,23 @@
       faviconClasses: [% favicon_css_classes.json %]
     });
     [% IF form -%]
-    MB.Control.externalLinks.init({
-      source:         { type: '[% entity_type %]' },
-      formName:      '[% form.name %]',
-      relationships:  [% url_relationships.json %],
+    $(function () {
+      MB.Control.externalLinks.init({
+        source:         { type: '[% entity_type %]' },
+        formName:      '[% form.name %]',
+        relationships:  [% url_relationships.json %],
 
-      fieldErrors: [%
-        errors = [];
-        FOR url IN form.field('url').fields;
-          errors.push({
-            link_type_id => url.field('link_type_id').errors.0,
-            text => url.field('text').errors.0
-          });
-        END;
-        errors.json
-      %]
+        fieldErrors: [%
+          errors = [];
+          FOR url IN form.field('url').fields;
+            errors.push({
+              link_type_id => url.field('link_type_id').errors.0,
+              text => url.field('text').errors.0
+            });
+          END;
+          errors.json
+        %]
+      });
     });
     [%- END %]
   </script>
