@@ -63,9 +63,6 @@ MB.constants.LINK_TYPES = {
     amazon: {
         release: 77
     },
-    coverart: {
-        release: 78
-    },
     license: {
         release: 301,
         recording: 302
@@ -322,14 +319,6 @@ MB.constants.CLEANUPS = {
             url =  url.replace(/img\.jamendo\.com\/albums\/(\d+)\/covers\/\d+\.\d+\.jpg/, "www.jamendo.com/album/$1/");
             url =  url.replace(/jamendo\.com\/\w\w\/artist\//, "jamendo.com/artist/");
             return url;
-        }
-    },
-    manjdisc: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?mange-disque\\.tv/(fs/md_|fstb/tn_md_|info_disque\\.php3\\?dis_code=)[0-9]+","i"),
-        type: MB.constants.LINK_TYPES.coverart,
-        clean: function(url) {
-            return url.replace(/(www\.)?mange-disque\.tv\/(fstb\/tn_md_|fs\/md_|info_disque\.php3\?dis_code=)(\d+)(\.jpg)?/,
-                "www.mange-disque.tv/fs/md_$3.jpg");
         }
     },
     license: {
@@ -733,12 +722,6 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function() {
         return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
     }
-
-    // only allow domains on the cover art whitelist
-    validationRules[ MB.constants.LINK_TYPES.coverart.release ] = function() {
-        var sites = new RegExp("^(https?://)?([^/]+\\.)?(archive\\.org|magnatune\\.com|jamendo\\.com|cdbaby.(com|name)|mange-disque\\.tv|thastrom\\.se|universalpoplab\\.com|alpinechic\\.net|angelika-express\\.de|fixtstore\\.com|phantasma13\\.com|primordialmusic\\.com|transistorsounds\\.com|alter-x\\.net|zorchfactoryrecords\\.com)/");
-        return sites.test($('#id-ar\\.url').val())
-    };
 
     // avoid wikipedia being added as release-level discography entry
     validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {

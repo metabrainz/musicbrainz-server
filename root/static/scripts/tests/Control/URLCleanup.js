@@ -146,10 +146,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
                     MB.constants.LINK_TYPES.amazon.release
                 ],
-                [
-                    'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
-                ],
                 // Recochoku
                 [
                     'release', 'http://recochoku.jp/album/30282664/',
@@ -191,11 +187,6 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://nla.gov.au/anbd.bib-an11701020',
                     MB.constants.LINK_TYPES.otherdatabases.release
-                ],
-                // Mange-Disque
-                [
-                    'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
                 ],
                 // Japanese blogs
                 [
@@ -706,12 +697,6 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
-                ],
-                [
-                    // FIXME Need a bad link
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'release'
                 ],
                 [
                     'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
