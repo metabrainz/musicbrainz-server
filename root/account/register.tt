@@ -52,7 +52,7 @@
 
         <p>[% l("Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try the {fo|forums} or {irc|IRC}.",
                  { bl => 'http://blog.musicbrainz.org/',
-                   tw => 'http://twitter.com/MusicBrainz',
+                   tw => 'https://twitter.com/MusicBrainz',
                    fo => 'http://forums.musicbrainz.org/',
                    irc => doc_link('Communication/IRC') }) %]</p>
 
