@@ -131,9 +131,7 @@ MB.Control.ArtistEdit = function () {
 
     MB.Control.initialize_guess_case ('artist', 'id-edit-artist');
 
-    MB.Control.Area('#area');
-    MB.Control.Area('#begin_area');
-    MB.Control.Area('#end_area');
+    MB.Control.Area("#area", "#begin_area", "#end_area");
 
     return self;
 };

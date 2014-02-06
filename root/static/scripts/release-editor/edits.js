@@ -12,8 +12,7 @@
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
     var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums())
-            .filter(function (medium) { return medium.loaded() });
+        return _(release.mediums());
     }, []);
 
 
@@ -33,14 +32,16 @@
         },
 
         release: function (release) {
+            if (!release.name() && !release.artistCredit.text()) return [];
+
             var newData = releaseEditData();
             var oldData = release.original();
             var edits = [];
 
             if (!release.id) {
                 edits.push(MB.edit.releaseCreate(newData));
-
-            } else if (!_.isEqual(newData, oldData)) {
+            }
+            else if (!_.isEqual(newData, oldData)) {
                 newData = _.extend(_.clone(newData), { to_edit: release.id });
                 edits.push(MB.edit.releaseEdit(newData, oldData));
             }
@@ -109,6 +110,7 @@
 
             newMediums().each(function (medium) {
                 if (!medium.loaded()) return;
+                if (!medium.formatID() && !medium.hasTracks()) return;
 
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original && medium.original();
@@ -155,7 +157,8 @@
                     newMediumData.to_edit = medium.id;
                     delete newMediumData.position;
                     edits.push(MB.edit.mediumEdit(newMediumData, oldMediumData));
-                } else {
+                }
+                else {
                     newMediumData.release = release.id;
                     edits.push(MB.edit.mediumCreate(newMediumData))
                 }
@@ -205,12 +208,6 @@
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
-            // Don't generate edits if there are errors, *unless* having a
-            // missing edit note is the only error.
-            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
-                return [];
-            }
-
             return Array.prototype.concat(
                 releaseEditor.edits.releaseGroup(release),
                 releaseEditor.edits.release(release),
@@ -228,7 +225,7 @@
     releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
-    function getPreviews(computedEdits) {
+    releaseEditor.getEditPreviews = function () {
         var previews = {};
 
         function refreshPreviews(edits) {
@@ -240,8 +237,17 @@
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
-            var edits = computedEdits(),
-                addedEdits = _.filter(edits, isNewEdit);
+            var edits = releaseEditor.allEdits();
+
+            // Don't generate edit previews if there are errors, *unless*
+            // having a missing edit note is the only error. However, do
+            // remove stale previews that may reference changed data.
+            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
+                refreshPreviews([]);
+                return;
+            }
+
+            var addedEdits = _.filter(edits, isNewEdit);
 
             if (addedEdits.length === 0) {
                 refreshPreviews(edits);
@@ -252,16 +258,15 @@
 
             MB.edit.preview({ edits: addedEdits })
                 .done(function (data) {
-                    releaseEditor.loadingEditPreviews(false);
-
                     _.each(_.zip(addedEdits, data.previews), addPreview);
 
                     refreshPreviews(edits);
+                })
+                .always(function () {
+                    releaseEditor.loadingEditPreviews(false);
                 });
         });
-    }
-
-    $(function () { getPreviews(releaseEditor.allEdits) });
+    };
 
 
     releaseEditor.submissionInProgress = ko.observable(false);

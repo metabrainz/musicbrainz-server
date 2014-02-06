@@ -194,6 +194,9 @@ ko.bindingHandlers.controlsBubble = {
             if (show !== bubble.visible()) {
                 bubble.toggle(element);
             }
+            else if (show && !bubble.targetIs(viewModel)) {
+                bubble.show(element);
+            }
         });
     }
 };
@@ -232,7 +235,7 @@ $(function () {
         // If this is false, the bubble should already be hidden. See the
         // computed in controlsBubble.
         if (bubble.canBeShown(viewModel)) {
-            var wasOpen = bubble.targetIs(viewModel);
+            var wasOpen = bubble.visible() && bubble.targetIs(viewModel);
 
             if (buttonClicked && wasOpen) {
                 bubble.hide();
