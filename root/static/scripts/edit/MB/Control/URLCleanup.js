@@ -287,11 +287,14 @@ MB.constants.CLEANUPS = {
         }
     },
     archive: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/.*\\.(jpg|jpeg|png|gif)(\\?cnt=\\d+)?$","i"),
-        type: MB.constants.LINK_TYPES.coverart,
+        match: new RegExp("^(https?://)?([^/]+\\.)?archive\\.org/","i"),
         clean: function(url) {
+            url = url.replace(/^https?:\/\/(www.)?archive.org\//, "https://archive.org/");
+            // clean up links to files
             url = url.replace(/\?cnt=\d+$/, "");
-            return url.replace(/http:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "http://www.archive.org/download/$2/$3");
+            url = url.replace(/^https?:\/\/(.*)\.archive.org\/\d+\/items\/(.*)\/(.*)/, "https://archive.org/download/$2/$3");
+            // clean up links to items
+            return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, "$1");
         }
     },
     cdbaby: {

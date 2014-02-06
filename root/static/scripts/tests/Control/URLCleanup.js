@@ -615,6 +615,19 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.archive.org/download/JudasHalo/cover.jpg',
+                    'https://archive.org/download/JudasHalo/cover.jpg',
+                ],
+                [
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
+                ],
+                [
+                    'http://ia700301.us.archive.org/32/items/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                    'https://archive.org/download/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                ],
+
+                [
                     'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     'http://www.jamendo.com/list/a84763',
                     'release'
