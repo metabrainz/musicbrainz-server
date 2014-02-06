@@ -64,6 +64,10 @@
                     this.cleanup.error(MB.text.RelationshipTypeDeprecated);
                 }
             }
+            else {
+                this.label("");
+                this.linkTypeDescription("");
+            }
             this.viewModel.ensureEmptyLinkExists();
         },
 
