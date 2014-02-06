@@ -77,7 +77,16 @@ MB.Control.BubbleBase = aclass({
 
     redraw: function () {
         if (this.visible.peek()) {
-            this.show(this.control);
+            // It's possible that the control we're pointing at has been
+            // removed, hence why MutationObserver has triggered a redraw. If
+            // that's the case, we want to hide the bubble, not show it.
+
+            if ($(this.control).parents("html").length === 0) {
+                this.hide(false);
+            }
+            else {
+                this.show(this.control);
+            }
         }
     },
 
