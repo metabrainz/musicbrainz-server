@@ -225,7 +225,7 @@
     releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
-    function getPreviews(computedEdits) {
+    releaseEditor.getEditPreviews = function () {
         var previews = {};
 
         function refreshPreviews(edits) {
@@ -237,7 +237,7 @@
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
-            var edits = computedEdits();
+            var edits = releaseEditor.allEdits();
 
             // Don't generate edit previews if there are errors, *unless*
             // having a missing edit note is the only error. However, do
@@ -266,9 +266,7 @@
                     releaseEditor.loadingEditPreviews(false);
                 });
         });
-    }
-
-    $(function () { getPreviews(releaseEditor.allEdits) });
+    };
 
 
     releaseEditor.submissionInProgress = ko.observable(false);
