@@ -208,6 +208,7 @@ sub _edit_hash
         if (exists $data->{artist_credit});
     $data->{primary_type_id} = delete $data->{type_id}
         if exists $data->{type_id};
+    $data->{comment} //= '';
     return $data;
 }
 
