@@ -48,8 +48,8 @@ role {
                     type0         => $type0,
                     type1         => $type1,
                     linkTypeID    => $_->link->type_id,
-                    entity0ID     => $type0 eq 'url' ? $_->entity0->url : $_->entity0->gid,
-                    entity1ID     => $type1 eq 'url' ? $_->entity1->url : $_->entity1->gid,
+                    entity0ID     => $type0 eq 'url' ? $_->entity0->utf8_decoded : $_->entity0->gid,
+                    entity1ID     => $type1 eq 'url' ? $_->entity1->utf8_decoded : $_->entity1->gid,
                 };
             } @$url_relationships
         ];
