@@ -131,7 +131,7 @@
             this.errorType = options.errorType;
 
             this.links = ko.observableArray([]);
-            this.setLinks(options.relationships, options.fieldErrors);
+            this.addLinks(options.relationships, options.fieldErrors);
 
             this.bubbleDoc = MB.Control.BubbleDoc("Information")
             .extend({
@@ -147,7 +147,7 @@
             });
         },
 
-        setLinks: function (relationships, fieldErrors) {
+        addLinks: function (relationships, fieldErrors) {
             fieldErrors = fieldErrors || [];
 
             function addRelationship(data, index) {
@@ -165,7 +165,7 @@
                 return link;
             }
 
-            this.links(_.map(relationships, addRelationship, this));
+            this.links.push.apply(this.links, _.map(relationships, addRelationship, this));
             this.ensureOneEmptyLinkExists();
             this.sortLinks();
         },
@@ -255,5 +255,9 @@ ko.bindingHandlers.urlCleanup = {
         viewModel.cleanup = cleanup;
         viewModel.urlChanged(viewModel.url());
         viewModel.linkTypeIDChanged(viewModel.linkTypeID());
+
+        // Force validation on any initial data in the fields, i.e. when seeding.
+        // The _.defer is because the knockout bindings haven't applied yet.
+        _.defer(function () { $textInput.change() });
     }
 };

@@ -302,4 +302,48 @@ test 'seeding a toc' => sub {
     });
 };
 
+
+test 'seeding url relationships' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+url');
+
+    my $params = expand_hash({
+        "urls.0.url" => 'http://foo.bar.baz/',
+        "urls.1.url" => 'http://foo.bar.baz/foo/',
+        "urls.1.link_type" => '3',
+        "urls.2.link_type" => '4',
+    });
+
+    my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
+
+    cmp_deeply($result, {
+        errors => [],
+        seed => {
+            relationships => {
+                url => {
+                    '' => [
+                        {
+                            target => { url => 'http://foo.bar.baz/' },
+                        }
+                    ],
+                    'amazon asin' => [
+                        {
+                            link_type => 4,
+                            target => { url => '' },
+                        }
+                    ],
+                    'discogs' => [
+                        {
+                            link_type => 3,
+                            target => { url => 'http://foo.bar.baz/foo/' },
+                        }
+                    ]
+                }
+            }
+        },
+    });
+};
+
 1;

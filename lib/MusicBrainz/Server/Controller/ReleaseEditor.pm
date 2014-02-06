@@ -9,6 +9,7 @@ __PACKAGE__->config(
 );
 
 use JSON::Any;
+use List::UtilsBy qw( partition_by );
 use Try::Tiny;
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
@@ -149,7 +150,7 @@ sub _process_seeded_data
 
     my @known_fields = qw( name release_group type comment annotation barcode
                            language script status packaging events labels
-                           date country artist_credit mediums edit_note
+                           date country artist_credit mediums urls edit_note
                            redirect_uri as_auto_editor );
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
@@ -278,6 +279,16 @@ sub _process_seeded_data
         for my $medium (@{ $result->{mediums} // [] }) {
             $medium->{position} = ++$position unless $medium->{position};
         }
+    }
+
+    if (my $urls = $params->{urls}) {
+        $result->{relationships} = {
+            url => {
+                partition_by { delete $_->{link_type_name} } @{
+                    _seeded_array($c, \&_seeded_url, $urls, "urls", \@errors)
+                }
+            }
+        };
     }
 
     $result->{editNote} = $params->{edit_note} if $params->{edit_note};
@@ -560,6 +571,40 @@ sub _seeded_artist
 
     if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
         $result->{name} = trim($name);
+    }
+
+    return $result;
+}
+
+sub _seeded_url
+{
+    my ($c, $params, $field_name, $errors) = @_;
+
+    my @known_fields = qw( url link_type );
+    _report_unknown_fields($field_name, $params, $errors, @known_fields);
+
+    my $result = {
+        target => { url => '' },
+        link_type_name => '',
+    };
+
+    if (my $url = _seeded_string($params->{url}, "$field_name.url", $errors)) {
+        $result->{target}->{url} = trim($url);
+    }
+
+    if (my $id = _seeded_string($params->{link_type}, "$field_name.link_type", $errors)) {
+        my $link_type = $c->model('LinkType')->get_by_id($id);
+
+        if ($link_type && !$link_type->is_deprecated &&
+                $link_type->entity0_type eq 'release' &&
+                $link_type->entity1_type eq 'url') {
+
+            $result->{link_type} = $id;
+            $result->{link_type_name} = $link_type->name;
+        }
+        else {
+            push @$errors, "Invalid $field_name.link_type: “$id”.";
+        }
     }
 
     return $result;
