@@ -791,7 +791,7 @@ sub update
     ) if $update->{events};
 
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('release', $row, { id => $release_id });
+    $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
 }
 
 sub can_delete { 1 }
