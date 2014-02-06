@@ -813,7 +813,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
             $('button[type="submit"]').prop('disabled', false);
         }
         else {
-            self.errorList.show().empty().append('<li>This URL is not allowed for the selected link type, or is incorrectly formatted.</li>');
+            self.errorList.show().empty().append('<li>' + MB.text.URLNotAllowed + '</li>');
             if (event.type === 'submit') {
                 event.preventDefault();
             }
