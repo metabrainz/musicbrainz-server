@@ -26,7 +26,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
-http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
+//[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
 [%- USE Translation('mb_server') -%]
@@ -865,7 +865,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]
+//[%- server -%]/[%- id -%]
 [%- END -%]
 
 [%- MACRO script_manifest(manifest) BLOCK -%]
