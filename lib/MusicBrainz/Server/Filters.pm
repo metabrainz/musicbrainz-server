@@ -241,7 +241,7 @@ sub _amazon_https {
 sub _generic_https {
     my $url = shift;
     # list only those sites that support https
-    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|\.archive\.org)/,https://$1/,;
+    $url =~ s,http://(www\.cdbaby\.com|www\.ozon\.ru|(?:[^.\/]+\.)?archive\.org)/,https://$1/,;
     return $url;
 }
 
