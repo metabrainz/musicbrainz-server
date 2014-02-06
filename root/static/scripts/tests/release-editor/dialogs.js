@@ -21,7 +21,7 @@ releaseEditor.test.module("release editor dialogs", function () {
         $("<div>").attr("id", "track-parser-dialog").hide()
     );
 
-    releaseEditor.activeTabID("#tracklist");
+    releaseEditor.activeTabID("#information");
 });
 
 
