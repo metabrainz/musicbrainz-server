@@ -22,6 +22,8 @@ MB.releaseEditor.init = function (options) {
         this.loadRelease(options.gid);
     }
 
+    this.getEditPreviews();
+
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
