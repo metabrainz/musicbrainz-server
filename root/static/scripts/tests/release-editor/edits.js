@@ -550,4 +550,67 @@ test("mediumDelete edit is generated for existing release", function () {
     ]);
 });
 
+test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function () {
+    this.release = releaseEditor.fields.Release({
+        id: 123,
+        mediums: [
+            { id: 123, name: "foo", position: 1 },
+            { id: 456, name: "bar", position: 2 },
+        ]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var medium1 = this.release.mediums()[0];
+    var medium2 = this.release.mediums()[1];
+
+    ok(!medium1.loaded(), "medium 1 is not loaded");
+    ok(!medium2.loaded(), "medium 2 is not loaded");
+
+    releaseEditor.moveMediumDown(medium1);
+
+    equal(medium1.position(), 2, "medium 1 now has position 2");
+    equal(medium2.position(), 1, "medium 2 now has position 1");
+
+    medium1.name("foo!");
+    medium1.formatID(1);
+
+    medium2.name("bar!");
+    medium2.formatID(2);
+
+    deepEqual(releaseEditor.edits.medium(this.release), [
+      {
+        "edit_type": 52,
+        "format_id": 2,
+        "hash": "7e795b9d8b514ec0549c667c8da7a844d9d00835",
+        "name": "bar!",
+        "to_edit": 456
+      },
+      {
+        "edit_type": 52,
+        "format_id": 1,
+        "hash": "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
+        "name": "foo!",
+        "to_edit": 123
+      },
+      {
+        "edit_type": 313,
+        "hash": "5c1f4183faf7eb84312bb90c2680309df25d4dc0",
+        "medium_positions": [
+          {
+            "medium_id": 456,
+            "new": 1,
+            "old": 2
+          },
+          {
+            "medium_id": 123,
+            "new": 2,
+            "old": 1
+          }
+        ],
+        "release": 123
+      }
+    ]);
+});
+
 }());
