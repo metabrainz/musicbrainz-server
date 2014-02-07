@@ -42,7 +42,7 @@ sub process_tables
         my @fks;
         foreach my $line (@lines) {
             if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly |separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
-                next if ($2 eq 'weakly '); # weak reference
+                next if (defined $2 && $2 eq 'weakly '); # weak reference
                 my @fk = ($1, ($3 || '') . $4, $5);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
                 my $drop_only = $2;
@@ -178,6 +178,11 @@ sub process_indexes
 {
     my ($infile, $outfile) = @_;
 
+    unless (-e "$dir/$infile") {
+        print "Could not find $infile, skipping\n";
+        return;
+    }
+
     open FILE, "<$dir/$infile";
     my $create_indexes_sql = do { local $/; <FILE> };
     close FILE;
@@ -208,6 +213,7 @@ sub process_functions
 
     unless (-e "$dir/$infile") {
         print "Could not find $infile, skipping\n";
+        return;
     }
 
     open FILE, "<$dir/$infile";
@@ -249,6 +255,7 @@ sub process_triggers
 
     unless (-e "$dir/$infile") {
         print "Could not find $infile, skipping\n";
+        return;
     }
 
     open FILE, "<$dir/$infile";
