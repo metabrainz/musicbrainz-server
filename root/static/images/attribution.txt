@@ -43,6 +43,29 @@ Images:
 
 ----------------------------------------------------------------------------
 
+Image set:   famfamfam flag icons
+Author:      Mark James (original set), various (additional images)
+License:     Public Domain (original set, see: famfamfam_flag_icons/readme.txt), Public Domain, CC0 (additional images)
+Download:    http://www.famfamfam.com/lab/icons/flags/ and http://commons.wikimedia.org/wiki/Category:Famfamfam_flag_icons
+Images:
+
+    flags/*
+
+  Including the additional images:
+
+    flags/aq.png (https://commons.wikimedia.org/wiki/File:Icons-flag-aq.png)
+    flags/cw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-cw.png)
+    flags/gg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-gg.png)
+    flags/im.png (https://commons.wikimedia.org/wiki/File:Icons-flag-im.png)
+    flags/je.png (https://commons.wikimedia.org/wiki/File:Icons-flag-je.png)
+    flags/ss.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ss.png)
+    flags/su.png (https://commons.wikimedia.org/wiki/File:Icons-flag-su.png)
+    flags/sx.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sx.png)
+    flags/xg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ddde.png)
+    flags/xw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-unitednations.png)
+
+----------------------------------------------------------------------------
+
 Image set:   Gentleface Mono Icon Set
 Author:      Gentleface.com
 License:     CC-NC-ND-BY/3.0 (see: http://creativecommons.org/licenses/by-nc-nd/3.0/)
