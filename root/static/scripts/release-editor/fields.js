@@ -226,15 +226,25 @@
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this)
-                .done(function (data) {
-                    this.tracks(utils.mapChild(this, data.tracks, fields.Track));
-                    this.original(MB.edit.fields.medium(this));
+            MB.utility.request(args, this).done(this.tracksLoaded);
+        },
 
-                    this.loaded(true);
-                    this.loading(false);
-                    this.collapsed(false);
-                });
+        tracksLoaded: function (data) {
+            this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+
+            // We already have the original name, format, and position data,
+            // which we don't want to overwrite - it could have been changed
+            // by the user before they loaded the medium. We just need the
+            // tracklist data, now that it's loaded.
+            var currentEditData = MB.edit.fields.medium(this);
+            var originalEditData = this.original();
+
+            originalEditData.tracklist = currentEditData.tracklist;
+            this.original.notifySubscribers(originalEditData);
+
+            this.loaded(true);
+            this.loading(false);
+            this.collapsed(false);
         },
 
         hasTracks: function () { return !_.isEmpty(this.tracks()) },

@@ -50,3 +50,48 @@ test("mediums having their \"loaded\" observable set correctly", function () {
     equal(mediums()[5].loaded(), true, "medium with originalID and with tracks is considered loaded");
 
 });
+
+
+test("loading a medium doesn't overwrite its original edit data", function () {
+    var fields = releaseEditor.fields;
+
+    var medium = fields.Medium({
+        id: 123,
+        position: 1,
+        formatID: 1,
+        name: "foo",
+        tracks: []
+    });
+
+    this.release.mediums([ medium ]);
+
+    medium.position(2);
+    medium.formatID(2);
+    medium.name("bar");
+
+    ok(!medium.loaded(), "medium is not loaded");
+
+    var original = medium.original();
+
+    equal(original.position, 1, "original position is 1");
+    equal(original.format_id, 1, "original format_id is 1");
+    equal(original.name, "foo", "original name is foo");
+
+    medium.tracksLoaded({
+        tracks: [ { position: 1, name: "~fooo~", length: 12345 } ]
+    });
+
+    ok(medium.loaded(), "medium is loaded");
+
+    original = medium.original();
+
+    equal(original.position, 1, "original position is still 1");
+    equal(original.format_id, 1, "original format_id is still 1");
+    equal(original.name, "foo", "original name is still foo");
+
+    var loadedTrack = original.tracklist[0];
+
+    equal(loadedTrack.position, 1, "loaded track position is 1");
+    equal(loadedTrack.name, "~fooo~", "loaded track name is ~foooo~");
+    equal(loadedTrack.length, 12345, "loaded track length is 12345");
+});
