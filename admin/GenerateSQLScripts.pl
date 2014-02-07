@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-
 use warnings;
 
 use strict;
@@ -10,6 +9,22 @@ use lib "$FindBin::Bin/../lib";
 my $dir = shift() || "$FindBin::Bin/../admin/sql";
 
 print "Regenerating SQL scripts in $dir...\n";
+
+sub find_search_path
+{
+    my $search_path = '';
+    open FILE, "<$dir/CreateTables.sql";
+    while (<FILE>) {
+        if ($_ =~ /^SET search_path = .*$/) {
+            $search_path = $_ . "\n";
+            last;
+        }
+    }
+    close FILE;
+    return $search_path;
+}
+
+my $search_path = find_search_path();
 
 sub process_tables
 {
@@ -26,11 +41,12 @@ sub process_tables
         my @lines = split /\n/, $2;
         my @fks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
-                next if $2; # weak reference
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly |separately )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
+                next if ($2 eq 'weakly '); # weak reference
                 my @fk = ($1, ($3 || '') . $4, $5);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
-                push @fks, [@fk, $cascade];
+                my $drop_only = $2;
+                push @fks, [@fk, $cascade, $drop_only];
             }
         }
         if (@fks) {
@@ -55,6 +71,7 @@ sub process_tables
     open OUT, ">$dir/DropTables.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $table (@tables) {
         print OUT "DROP TABLE $table;\n";
     }
@@ -74,6 +91,7 @@ sub process_tables
     open OUT, ">$dir/DropViews.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $view (@views) {
         print OUT "DROP VIEW $view;\n";
     }
@@ -82,6 +100,7 @@ sub process_tables
     open OUT, ">$dir/SetSequences.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $row (@sequences) {
         my ($table, $col) = @$row;
         print OUT "SELECT setval('${table}_${col}_seq', (SELECT MAX(${col}) FROM $table));\n";
@@ -91,22 +110,25 @@ sub process_tables
     open OUT, ">$dir/CreateFKConstraints.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\set ON_ERROR_STOP 1\n\n";
+    print OUT $search_path if $search_path;
     foreach my $table (@tables) {
         next unless exists $foreign_keys{$table};
         my @fks = @{$foreign_keys{$table}};
         foreach my $fk (@fks) {
-            my $col = $fk->[0];
-            my $ref_table = $fk->[1];
-            my $ref_col = $fk->[2];
-            print OUT "ALTER TABLE $table\n";
-            print OUT "   ADD CONSTRAINT ${table}_fk_${col}\n";
-            print OUT "   FOREIGN KEY ($col)\n";
-            print OUT "   REFERENCES $ref_table($ref_col)";
-            if ($fk->[3]) {
-                print OUT "\n   ON DELETE CASCADE;\n\n";
-            }
-            else {
-                print OUT ";\n\n";
+            unless ($fk->[4]) {
+                my $col = $fk->[0];
+                my $ref_table = $fk->[1];
+                my $ref_col = $fk->[2];
+                print OUT "ALTER TABLE $table\n";
+                print OUT "   ADD CONSTRAINT ${table}_fk_${col}\n";
+                print OUT "   FOREIGN KEY ($col)\n";
+                print OUT "   REFERENCES $ref_table($ref_col)";
+                if ($fk->[3]) {
+                    print OUT "\n   ON DELETE CASCADE;\n\n";
+                }
+                else {
+                    print OUT ";\n\n";
+                }
             }
         }
     }
@@ -115,12 +137,13 @@ sub process_tables
     open OUT, ">$dir/DropFKConstraints.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $table (@tables) {
         next unless exists $foreign_keys{$table};
         my @fks = @{$foreign_keys{$table}};
         foreach my $fk (@fks) {
             my $col = $fk->[0];
-            print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_fk_${col};\n";
+            print OUT "ALTER TABLE $table DROP CONSTRAINT IF EXISTS ${table}_fk_${col};\n";
         }
     }
     close OUT;
@@ -128,6 +151,7 @@ sub process_tables
     open OUT, ">$dir/CreatePrimaryKeys.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\set ON_ERROR_STOP 1\n\n";
+    print OUT $search_path if $search_path;
     foreach my $table (@tables) {
         next unless exists $primary_keys{$table};
         my @pks = @{$primary_keys{$table}};
@@ -140,9 +164,10 @@ sub process_tables
     open OUT, ">$dir/DropPrimaryKeys.sql";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $table (@tables) {
         next unless exists $primary_keys{$table};
-        print OUT "ALTER TABLE $table DROP CONSTRAINT ${table}_pkey;\n";
+        print OUT "ALTER TABLE $table DROP CONSTRAINT IF EXISTS ${table}_pkey;\n";
     }
     close OUT;
 }
@@ -167,6 +192,7 @@ sub process_indexes
     open OUT, ">$dir/$outfile";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $index (@indexes) {
         print OUT "DROP INDEX $index;\n";
     }
@@ -204,6 +230,7 @@ sub process_functions
     open OUT, ">$dir/$outfile";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $func (@functions) {
         print OUT "DROP FUNCTION $func;\n";
     }
@@ -236,6 +263,7 @@ sub process_triggers
     open OUT, ">$dir/$outfile";
     print OUT "-- Automatically generated, do not edit.\n";
     print OUT "\\unset ON_ERROR_STOP\n\n";
+    print OUT $search_path if $search_path;
     foreach my $trigger (@triggers) {
         print OUT "DROP TRIGGER $trigger->[0] ON $trigger->[1];\n";
     }
