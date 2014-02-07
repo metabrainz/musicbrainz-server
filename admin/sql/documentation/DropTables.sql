@@ -1,9 +1,12 @@
 -- Automatically generated, do not edit.
 \unset ON_ERROR_STOP
 
+SET search_path = 'documentation';
+
 DROP TABLE l_area_area_example;
 DROP TABLE l_area_artist_example;
 DROP TABLE l_area_label_example;
+DROP TABLE l_area_place_example;
 DROP TABLE l_area_recording_example;
 DROP TABLE l_area_release_example;
 DROP TABLE l_area_release_group_example;
@@ -11,17 +14,25 @@ DROP TABLE l_area_url_example;
 DROP TABLE l_area_work_example;
 DROP TABLE l_artist_artist_example;
 DROP TABLE l_artist_label_example;
+DROP TABLE l_artist_place_example;
 DROP TABLE l_artist_recording_example;
 DROP TABLE l_artist_release_example;
 DROP TABLE l_artist_release_group_example;
 DROP TABLE l_artist_url_example;
 DROP TABLE l_artist_work_example;
 DROP TABLE l_label_label_example;
+DROP TABLE l_label_place_example;
 DROP TABLE l_label_recording_example;
 DROP TABLE l_label_release_example;
 DROP TABLE l_label_release_group_example;
 DROP TABLE l_label_url_example;
 DROP TABLE l_label_work_example;
+DROP TABLE l_place_place_example;
+DROP TABLE l_place_recording_example;
+DROP TABLE l_place_release_example;
+DROP TABLE l_place_release_group_example;
+DROP TABLE l_place_url_example;
+DROP TABLE l_place_work_example;
 DROP TABLE l_recording_recording_example;
 DROP TABLE l_recording_release_example;
 DROP TABLE l_recording_release_group_example;
