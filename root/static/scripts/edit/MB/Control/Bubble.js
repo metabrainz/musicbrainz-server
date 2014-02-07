@@ -47,7 +47,6 @@ MB.Control.BubbleBase = aclass({
 
     hide: function (stealFocus) {
         this.visible(false);
-        this.target(null);
 
         var $control = $(this.control);
         this.control = null;
