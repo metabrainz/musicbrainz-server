@@ -1,256 +1,261 @@
+.flag-class (@image) {
+    background: data-uri(@image) no-repeat left center;
+    padding: 3px 0 0 19px;
+}
+
 /* Official Famfamfam icons for countries with ISO 3166-1 codes */
-.flag-AD { background: data-uri("../images/flags/ad.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AE { background: data-uri("../images/flags/ae.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AF { background: data-uri("../images/flags/af.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AG { background: data-uri("../images/flags/ag.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AI { background: data-uri("../images/flags/ai.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AL { background: data-uri("../images/flags/al.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AM { background: data-uri("../images/flags/am.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AN { background: data-uri("../images/flags/an.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AO { background: data-uri("../images/flags/ao.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AR { background: data-uri("../images/flags/ar.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AS { background: data-uri("../images/flags/as.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AT { background: data-uri("../images/flags/at.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AU { background: data-uri("../images/flags/au.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AW { background: data-uri("../images/flags/aw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AX { background: data-uri("../images/flags/ax.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-AZ { background: data-uri("../images/flags/az.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BA { background: data-uri("../images/flags/ba.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BB { background: data-uri("../images/flags/bb.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BD { background: data-uri("../images/flags/bd.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BE { background: data-uri("../images/flags/be.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BF { background: data-uri("../images/flags/bf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BG { background: data-uri("../images/flags/bg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BH { background: data-uri("../images/flags/bh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BI { background: data-uri("../images/flags/bi.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BJ { background: data-uri("../images/flags/bj.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BM { background: data-uri("../images/flags/bm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BN { background: data-uri("../images/flags/bn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BO { background: data-uri("../images/flags/bo.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BR { background: data-uri("../images/flags/br.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BS { background: data-uri("../images/flags/bs.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BT { background: data-uri("../images/flags/bt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BV { background: data-uri("../images/flags/bv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BW { background: data-uri("../images/flags/bw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BY { background: data-uri("../images/flags/by.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-BZ { background: data-uri("../images/flags/bz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CA { background: data-uri("../images/flags/ca.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CC { background: data-uri("../images/flags/cc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CD { background: data-uri("../images/flags/cd.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CF { background: data-uri("../images/flags/cf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CG { background: data-uri("../images/flags/cg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CH { background: data-uri("../images/flags/ch.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CI { background: data-uri("../images/flags/ci.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CK { background: data-uri("../images/flags/ck.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CL { background: data-uri("../images/flags/cl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CM { background: data-uri("../images/flags/cm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CN { background: data-uri("../images/flags/cn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CO { background: data-uri("../images/flags/co.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CR { background: data-uri("../images/flags/cr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CS, .flag-YU { background: data-uri("../images/flags/cs.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CU { background: data-uri("../images/flags/cu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CV { background: data-uri("../images/flags/cv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CX { background: data-uri("../images/flags/cx.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CY { background: data-uri("../images/flags/cy.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CZ, .flag-XC { background: data-uri("../images/flags/cz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DE { background: data-uri("../images/flags/de.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DJ { background: data-uri("../images/flags/dj.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DK { background: data-uri("../images/flags/dk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DM { background: data-uri("../images/flags/dm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DO { background: data-uri("../images/flags/do.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-DZ { background: data-uri("../images/flags/dz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-EC { background: data-uri("../images/flags/ec.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-EE { background: data-uri("../images/flags/ee.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-EG { background: data-uri("../images/flags/eg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-EH { background: data-uri("../images/flags/eh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ER { background: data-uri("../images/flags/er.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ES { background: data-uri("../images/flags/es.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ET { background: data-uri("../images/flags/et.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FI { background: data-uri("../images/flags/fi.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FJ { background: data-uri("../images/flags/fj.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FK { background: data-uri("../images/flags/fk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FM { background: data-uri("../images/flags/fm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FO { background: data-uri("../images/flags/fo.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-FR, .flag-BL, .flag-GP, .flag-MF, .flag-MQ { background: data-uri("../images/flags/fr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GA { background: data-uri("../images/flags/ga.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GB { background: data-uri("../images/flags/gb.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GD { background: data-uri("../images/flags/gd.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GE { background: data-uri("../images/flags/ge.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GF { background: data-uri("../images/flags/gf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GH { background: data-uri("../images/flags/gh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GI { background: data-uri("../images/flags/gi.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GL { background: data-uri("../images/flags/gl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GM { background: data-uri("../images/flags/gm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GN { background: data-uri("../images/flags/gn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GQ { background: data-uri("../images/flags/gq.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GR { background: data-uri("../images/flags/gr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GS { background: data-uri("../images/flags/gs.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GT { background: data-uri("../images/flags/gt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GU { background: data-uri("../images/flags/gu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GW { background: data-uri("../images/flags/gw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GY { background: data-uri("../images/flags/gy.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HK { background: data-uri("../images/flags/hk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HM { background: data-uri("../images/flags/hm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HN { background: data-uri("../images/flags/hn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HR { background: data-uri("../images/flags/hr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HT { background: data-uri("../images/flags/ht.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-HU { background: data-uri("../images/flags/hu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ID { background: data-uri("../images/flags/id.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IE { background: data-uri("../images/flags/ie.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IL { background: data-uri("../images/flags/il.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IN { background: data-uri("../images/flags/in.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IO { background: data-uri("../images/flags/io.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IQ { background: data-uri("../images/flags/iq.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IR { background: data-uri("../images/flags/ir.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IS { background: data-uri("../images/flags/is.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IT { background: data-uri("../images/flags/it.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-JM { background: data-uri("../images/flags/jm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-JO { background: data-uri("../images/flags/jo.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-JP { background: data-uri("../images/flags/jp.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KE { background: data-uri("../images/flags/ke.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KG { background: data-uri("../images/flags/kg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KH { background: data-uri("../images/flags/kh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KI { background: data-uri("../images/flags/ki.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KM { background: data-uri("../images/flags/km.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KN { background: data-uri("../images/flags/kn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KP { background: data-uri("../images/flags/kp.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KR { background: data-uri("../images/flags/kr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KW { background: data-uri("../images/flags/kw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KY { background: data-uri("../images/flags/ky.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-KZ { background: data-uri("../images/flags/kz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LA { background: data-uri("../images/flags/la.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LB { background: data-uri("../images/flags/lb.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LC { background: data-uri("../images/flags/lc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LI { background: data-uri("../images/flags/li.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LK { background: data-uri("../images/flags/lk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LR { background: data-uri("../images/flags/lr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LS { background: data-uri("../images/flags/ls.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LT { background: data-uri("../images/flags/lt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LU { background: data-uri("../images/flags/lu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LV { background: data-uri("../images/flags/lv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-LY { background: data-uri("../images/flags/ly.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MA { background: data-uri("../images/flags/ma.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MC { background: data-uri("../images/flags/mc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MD { background: data-uri("../images/flags/md.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ME { background: data-uri("../images/flags/me.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MG { background: data-uri("../images/flags/mg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MH { background: data-uri("../images/flags/mh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MK { background: data-uri("../images/flags/mk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ML { background: data-uri("../images/flags/ml.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MM { background: data-uri("../images/flags/mm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MN { background: data-uri("../images/flags/mn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MO { background: data-uri("../images/flags/mo.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MP { background: data-uri("../images/flags/mp.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MR { background: data-uri("../images/flags/mr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MS { background: data-uri("../images/flags/ms.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MT { background: data-uri("../images/flags/mt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MU { background: data-uri("../images/flags/mu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MV { background: data-uri("../images/flags/mv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MW { background: data-uri("../images/flags/mw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MX { background: data-uri("../images/flags/mx.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MY { background: data-uri("../images/flags/my.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-MZ { background: data-uri("../images/flags/mz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NA { background: data-uri("../images/flags/na.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NC { background: data-uri("../images/flags/nc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NE { background: data-uri("../images/flags/ne.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NF { background: data-uri("../images/flags/nf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NG { background: data-uri("../images/flags/ng.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NI { background: data-uri("../images/flags/ni.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NL, .flag-BQ { background: data-uri("../images/flags/nl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NO { background: data-uri("../images/flags/no.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NP { background: data-uri("../images/flags/np.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NR { background: data-uri("../images/flags/nr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NU { background: data-uri("../images/flags/nu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-NZ { background: data-uri("../images/flags/nz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-OM { background: data-uri("../images/flags/om.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PA { background: data-uri("../images/flags/pa.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PE { background: data-uri("../images/flags/pe.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PF { background: data-uri("../images/flags/pf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PG { background: data-uri("../images/flags/pg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PH { background: data-uri("../images/flags/ph.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PK { background: data-uri("../images/flags/pk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PL { background: data-uri("../images/flags/pl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PM { background: data-uri("../images/flags/pm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PN { background: data-uri("../images/flags/pn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PR { background: data-uri("../images/flags/pr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PS { background: data-uri("../images/flags/ps.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PT { background: data-uri("../images/flags/pt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PW { background: data-uri("../images/flags/pw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-PY { background: data-uri("../images/flags/py.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-QA { background: data-uri("../images/flags/qa.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-RE { background: data-uri("../images/flags/re.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-RO { background: data-uri("../images/flags/ro.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-RS { background: data-uri("../images/flags/rs.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-RU { background: data-uri("../images/flags/ru.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-RW { background: data-uri("../images/flags/rw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SA { background: data-uri("../images/flags/sa.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SB { background: data-uri("../images/flags/sb.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SC { background: data-uri("../images/flags/sc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SD { background: data-uri("../images/flags/sd.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SE { background: data-uri("../images/flags/se.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SG { background: data-uri("../images/flags/sg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SH { background: data-uri("../images/flags/sh.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SI { background: data-uri("../images/flags/si.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SJ { background: data-uri("../images/flags/sj.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SK { background: data-uri("../images/flags/sk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SL { background: data-uri("../images/flags/sl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SM { background: data-uri("../images/flags/sm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SN { background: data-uri("../images/flags/sn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SO { background: data-uri("../images/flags/so.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SR { background: data-uri("../images/flags/sr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ST { background: data-uri("../images/flags/st.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SV { background: data-uri("../images/flags/sv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SY { background: data-uri("../images/flags/sy.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SZ { background: data-uri("../images/flags/sz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TC { background: data-uri("../images/flags/tc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TD { background: data-uri("../images/flags/td.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TF { background: data-uri("../images/flags/tf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TG { background: data-uri("../images/flags/tg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TH { background: data-uri("../images/flags/th.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TJ { background: data-uri("../images/flags/tj.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TK { background: data-uri("../images/flags/tk.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TL { background: data-uri("../images/flags/tl.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TM { background: data-uri("../images/flags/tm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TN { background: data-uri("../images/flags/tn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TO { background: data-uri("../images/flags/to.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TR { background: data-uri("../images/flags/tr.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TT { background: data-uri("../images/flags/tt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TV { background: data-uri("../images/flags/tv.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TW { background: data-uri("../images/flags/tw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-TZ { background: data-uri("../images/flags/tz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-UA { background: data-uri("../images/flags/ua.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-UG { background: data-uri("../images/flags/ug.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-UM { background: data-uri("../images/flags/um.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-US { background: data-uri("../images/flags/us.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-UY { background: data-uri("../images/flags/uy.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-UZ { background: data-uri("../images/flags/uz.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VA { background: data-uri("../images/flags/va.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VC { background: data-uri("../images/flags/vc.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VE { background: data-uri("../images/flags/ve.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VG { background: data-uri("../images/flags/vg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VI { background: data-uri("../images/flags/vi.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VN { background: data-uri("../images/flags/vn.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-VU { background: data-uri("../images/flags/vu.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-WF { background: data-uri("../images/flags/wf.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-WS { background: data-uri("../images/flags/ws.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-YE { background: data-uri("../images/flags/ye.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-YT { background: data-uri("../images/flags/yt.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ZA { background: data-uri("../images/flags/za.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ZM { background: data-uri("../images/flags/zm.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-ZW { background: data-uri("../images/flags/zw.png") no-repeat left center; padding: 3px 0 0 19px; }
+.flag-AD { .flag-class("../images/flags/ad.png"); }
+.flag-AE { .flag-class("../images/flags/ae.png"); }
+.flag-AF { .flag-class("../images/flags/af.png"); }
+.flag-AG { .flag-class("../images/flags/ag.png"); }
+.flag-AI { .flag-class("../images/flags/ai.png"); }
+.flag-AL { .flag-class("../images/flags/al.png"); }
+.flag-AM { .flag-class("../images/flags/am.png"); }
+.flag-AN { .flag-class("../images/flags/an.png"); }
+.flag-AO { .flag-class("../images/flags/ao.png"); }
+.flag-AR { .flag-class("../images/flags/ar.png"); }
+.flag-AS { .flag-class("../images/flags/as.png"); }
+.flag-AT { .flag-class("../images/flags/at.png"); }
+.flag-AU { .flag-class("../images/flags/au.png"); }
+.flag-AW { .flag-class("../images/flags/aw.png"); }
+.flag-AX { .flag-class("../images/flags/ax.png"); }
+.flag-AZ { .flag-class("../images/flags/az.png"); }
+.flag-BA { .flag-class("../images/flags/ba.png"); }
+.flag-BB { .flag-class("../images/flags/bb.png"); }
+.flag-BD { .flag-class("../images/flags/bd.png"); }
+.flag-BE { .flag-class("../images/flags/be.png"); }
+.flag-BF { .flag-class("../images/flags/bf.png"); }
+.flag-BG { .flag-class("../images/flags/bg.png"); }
+.flag-BH { .flag-class("../images/flags/bh.png"); }
+.flag-BI { .flag-class("../images/flags/bi.png"); }
+.flag-BJ { .flag-class("../images/flags/bj.png"); }
+.flag-BM { .flag-class("../images/flags/bm.png"); }
+.flag-BN { .flag-class("../images/flags/bn.png"); }
+.flag-BO { .flag-class("../images/flags/bo.png"); }
+.flag-BR { .flag-class("../images/flags/br.png"); }
+.flag-BS { .flag-class("../images/flags/bs.png"); }
+.flag-BT { .flag-class("../images/flags/bt.png"); }
+.flag-BV { .flag-class("../images/flags/bv.png"); }
+.flag-BW { .flag-class("../images/flags/bw.png"); }
+.flag-BY { .flag-class("../images/flags/by.png"); }
+.flag-BZ { .flag-class("../images/flags/bz.png"); }
+.flag-CA { .flag-class("../images/flags/ca.png"); }
+.flag-CC { .flag-class("../images/flags/cc.png"); }
+.flag-CD { .flag-class("../images/flags/cd.png"); }
+.flag-CF { .flag-class("../images/flags/cf.png"); }
+.flag-CG { .flag-class("../images/flags/cg.png"); }
+.flag-CH { .flag-class("../images/flags/ch.png"); }
+.flag-CI { .flag-class("../images/flags/ci.png"); }
+.flag-CK { .flag-class("../images/flags/ck.png"); }
+.flag-CL { .flag-class("../images/flags/cl.png"); }
+.flag-CM { .flag-class("../images/flags/cm.png"); }
+.flag-CN { .flag-class("../images/flags/cn.png"); }
+.flag-CO { .flag-class("../images/flags/co.png"); }
+.flag-CR { .flag-class("../images/flags/cr.png"); }
+.flag-CS, .flag-YU { .flag-class("../images/flags/cs.png"); }
+.flag-CU { .flag-class("../images/flags/cu.png"); }
+.flag-CV { .flag-class("../images/flags/cv.png"); }
+.flag-CX { .flag-class("../images/flags/cx.png"); }
+.flag-CY { .flag-class("../images/flags/cy.png"); }
+.flag-CZ, .flag-XC { .flag-class("../images/flags/cz.png"); }
+.flag-DE { .flag-class("../images/flags/de.png"); }
+.flag-DJ { .flag-class("../images/flags/dj.png"); }
+.flag-DK { .flag-class("../images/flags/dk.png"); }
+.flag-DM { .flag-class("../images/flags/dm.png"); }
+.flag-DO { .flag-class("../images/flags/do.png"); }
+.flag-DZ { .flag-class("../images/flags/dz.png"); }
+.flag-EC { .flag-class("../images/flags/ec.png"); }
+.flag-EE { .flag-class("../images/flags/ee.png"); }
+.flag-EG { .flag-class("../images/flags/eg.png"); }
+.flag-EH { .flag-class("../images/flags/eh.png"); }
+.flag-ER { .flag-class("../images/flags/er.png"); }
+.flag-ES { .flag-class("../images/flags/es.png"); }
+.flag-ET { .flag-class("../images/flags/et.png"); }
+.flag-FI { .flag-class("../images/flags/fi.png"); }
+.flag-FJ { .flag-class("../images/flags/fj.png"); }
+.flag-FK { .flag-class("../images/flags/fk.png"); }
+.flag-FM { .flag-class("../images/flags/fm.png"); }
+.flag-FO { .flag-class("../images/flags/fo.png"); }
+.flag-FR, .flag-BL, .flag-GP, .flag-MF, .flag-MQ { .flag-class("../images/flags/fr.png"); }
+.flag-GA { .flag-class("../images/flags/ga.png"); }
+.flag-GB { .flag-class("../images/flags/gb.png"); }
+.flag-GD { .flag-class("../images/flags/gd.png"); }
+.flag-GE { .flag-class("../images/flags/ge.png"); }
+.flag-GF { .flag-class("../images/flags/gf.png"); }
+.flag-GH { .flag-class("../images/flags/gh.png"); }
+.flag-GI { .flag-class("../images/flags/gi.png"); }
+.flag-GL { .flag-class("../images/flags/gl.png"); }
+.flag-GM { .flag-class("../images/flags/gm.png"); }
+.flag-GN { .flag-class("../images/flags/gn.png"); }
+.flag-GQ { .flag-class("../images/flags/gq.png"); }
+.flag-GR { .flag-class("../images/flags/gr.png"); }
+.flag-GS { .flag-class("../images/flags/gs.png"); }
+.flag-GT { .flag-class("../images/flags/gt.png"); }
+.flag-GU { .flag-class("../images/flags/gu.png"); }
+.flag-GW { .flag-class("../images/flags/gw.png"); }
+.flag-GY { .flag-class("../images/flags/gy.png"); }
+.flag-HK { .flag-class("../images/flags/hk.png"); }
+.flag-HM { .flag-class("../images/flags/hm.png"); }
+.flag-HN { .flag-class("../images/flags/hn.png"); }
+.flag-HR { .flag-class("../images/flags/hr.png"); }
+.flag-HT { .flag-class("../images/flags/ht.png"); }
+.flag-HU { .flag-class("../images/flags/hu.png"); }
+.flag-ID { .flag-class("../images/flags/id.png"); }
+.flag-IE { .flag-class("../images/flags/ie.png"); }
+.flag-IL { .flag-class("../images/flags/il.png"); }
+.flag-IN { .flag-class("../images/flags/in.png"); }
+.flag-IO { .flag-class("../images/flags/io.png"); }
+.flag-IQ { .flag-class("../images/flags/iq.png"); }
+.flag-IR { .flag-class("../images/flags/ir.png"); }
+.flag-IS { .flag-class("../images/flags/is.png"); }
+.flag-IT { .flag-class("../images/flags/it.png"); }
+.flag-JM { .flag-class("../images/flags/jm.png"); }
+.flag-JO { .flag-class("../images/flags/jo.png"); }
+.flag-JP { .flag-class("../images/flags/jp.png"); }
+.flag-KE { .flag-class("../images/flags/ke.png"); }
+.flag-KG { .flag-class("../images/flags/kg.png"); }
+.flag-KH { .flag-class("../images/flags/kh.png"); }
+.flag-KI { .flag-class("../images/flags/ki.png"); }
+.flag-KM { .flag-class("../images/flags/km.png"); }
+.flag-KN { .flag-class("../images/flags/kn.png"); }
+.flag-KP { .flag-class("../images/flags/kp.png"); }
+.flag-KR { .flag-class("../images/flags/kr.png"); }
+.flag-KW { .flag-class("../images/flags/kw.png"); }
+.flag-KY { .flag-class("../images/flags/ky.png"); }
+.flag-KZ { .flag-class("../images/flags/kz.png"); }
+.flag-LA { .flag-class("../images/flags/la.png"); }
+.flag-LB { .flag-class("../images/flags/lb.png"); }
+.flag-LC { .flag-class("../images/flags/lc.png"); }
+.flag-LI { .flag-class("../images/flags/li.png"); }
+.flag-LK { .flag-class("../images/flags/lk.png"); }
+.flag-LR { .flag-class("../images/flags/lr.png"); }
+.flag-LS { .flag-class("../images/flags/ls.png"); }
+.flag-LT { .flag-class("../images/flags/lt.png"); }
+.flag-LU { .flag-class("../images/flags/lu.png"); }
+.flag-LV { .flag-class("../images/flags/lv.png"); }
+.flag-LY { .flag-class("../images/flags/ly.png"); }
+.flag-MA { .flag-class("../images/flags/ma.png"); }
+.flag-MC { .flag-class("../images/flags/mc.png"); }
+.flag-MD { .flag-class("../images/flags/md.png"); }
+.flag-ME { .flag-class("../images/flags/me.png"); }
+.flag-MG { .flag-class("../images/flags/mg.png"); }
+.flag-MH { .flag-class("../images/flags/mh.png"); }
+.flag-MK { .flag-class("../images/flags/mk.png"); }
+.flag-ML { .flag-class("../images/flags/ml.png"); }
+.flag-MM { .flag-class("../images/flags/mm.png"); }
+.flag-MN { .flag-class("../images/flags/mn.png"); }
+.flag-MO { .flag-class("../images/flags/mo.png"); }
+.flag-MP { .flag-class("../images/flags/mp.png"); }
+.flag-MR { .flag-class("../images/flags/mr.png"); }
+.flag-MS { .flag-class("../images/flags/ms.png"); }
+.flag-MT { .flag-class("../images/flags/mt.png"); }
+.flag-MU { .flag-class("../images/flags/mu.png"); }
+.flag-MV { .flag-class("../images/flags/mv.png"); }
+.flag-MW { .flag-class("../images/flags/mw.png"); }
+.flag-MX { .flag-class("../images/flags/mx.png"); }
+.flag-MY { .flag-class("../images/flags/my.png"); }
+.flag-MZ { .flag-class("../images/flags/mz.png"); }
+.flag-NA { .flag-class("../images/flags/na.png"); }
+.flag-NC { .flag-class("../images/flags/nc.png"); }
+.flag-NE { .flag-class("../images/flags/ne.png"); }
+.flag-NF { .flag-class("../images/flags/nf.png"); }
+.flag-NG { .flag-class("../images/flags/ng.png"); }
+.flag-NI { .flag-class("../images/flags/ni.png"); }
+.flag-NL, .flag-BQ { .flag-class("../images/flags/nl.png"); }
+.flag-NO { .flag-class("../images/flags/no.png"); }
+.flag-NP { .flag-class("../images/flags/np.png"); }
+.flag-NR { .flag-class("../images/flags/nr.png"); }
+.flag-NU { .flag-class("../images/flags/nu.png"); }
+.flag-NZ { .flag-class("../images/flags/nz.png"); }
+.flag-OM { .flag-class("../images/flags/om.png"); }
+.flag-PA { .flag-class("../images/flags/pa.png"); }
+.flag-PE { .flag-class("../images/flags/pe.png"); }
+.flag-PF { .flag-class("../images/flags/pf.png"); }
+.flag-PG { .flag-class("../images/flags/pg.png"); }
+.flag-PH { .flag-class("../images/flags/ph.png"); }
+.flag-PK { .flag-class("../images/flags/pk.png"); }
+.flag-PL { .flag-class("../images/flags/pl.png"); }
+.flag-PM { .flag-class("../images/flags/pm.png"); }
+.flag-PN { .flag-class("../images/flags/pn.png"); }
+.flag-PR { .flag-class("../images/flags/pr.png"); }
+.flag-PS { .flag-class("../images/flags/ps.png"); }
+.flag-PT { .flag-class("../images/flags/pt.png"); }
+.flag-PW { .flag-class("../images/flags/pw.png"); }
+.flag-PY { .flag-class("../images/flags/py.png"); }
+.flag-QA { .flag-class("../images/flags/qa.png"); }
+.flag-RE { .flag-class("../images/flags/re.png"); }
+.flag-RO { .flag-class("../images/flags/ro.png"); }
+.flag-RS { .flag-class("../images/flags/rs.png"); }
+.flag-RU { .flag-class("../images/flags/ru.png"); }
+.flag-RW { .flag-class("../images/flags/rw.png"); }
+.flag-SA { .flag-class("../images/flags/sa.png"); }
+.flag-SB { .flag-class("../images/flags/sb.png"); }
+.flag-SC { .flag-class("../images/flags/sc.png"); }
+.flag-SD { .flag-class("../images/flags/sd.png"); }
+.flag-SE { .flag-class("../images/flags/se.png"); }
+.flag-SG { .flag-class("../images/flags/sg.png"); }
+.flag-SH { .flag-class("../images/flags/sh.png"); }
+.flag-SI { .flag-class("../images/flags/si.png"); }
+.flag-SJ { .flag-class("../images/flags/sj.png"); }
+.flag-SK { .flag-class("../images/flags/sk.png"); }
+.flag-SL { .flag-class("../images/flags/sl.png"); }
+.flag-SM { .flag-class("../images/flags/sm.png"); }
+.flag-SN { .flag-class("../images/flags/sn.png"); }
+.flag-SO { .flag-class("../images/flags/so.png"); }
+.flag-SR { .flag-class("../images/flags/sr.png"); }
+.flag-ST { .flag-class("../images/flags/st.png"); }
+.flag-SV { .flag-class("../images/flags/sv.png"); }
+.flag-SY { .flag-class("../images/flags/sy.png"); }
+.flag-SZ { .flag-class("../images/flags/sz.png"); }
+.flag-TC { .flag-class("../images/flags/tc.png"); }
+.flag-TD { .flag-class("../images/flags/td.png"); }
+.flag-TF { .flag-class("../images/flags/tf.png"); }
+.flag-TG { .flag-class("../images/flags/tg.png"); }
+.flag-TH { .flag-class("../images/flags/th.png"); }
+.flag-TJ { .flag-class("../images/flags/tj.png"); }
+.flag-TK { .flag-class("../images/flags/tk.png"); }
+.flag-TL { .flag-class("../images/flags/tl.png"); }
+.flag-TM { .flag-class("../images/flags/tm.png"); }
+.flag-TN { .flag-class("../images/flags/tn.png"); }
+.flag-TO { .flag-class("../images/flags/to.png"); }
+.flag-TR { .flag-class("../images/flags/tr.png"); }
+.flag-TT { .flag-class("../images/flags/tt.png"); }
+.flag-TV { .flag-class("../images/flags/tv.png"); }
+.flag-TW { .flag-class("../images/flags/tw.png"); }
+.flag-TZ { .flag-class("../images/flags/tz.png"); }
+.flag-UA { .flag-class("../images/flags/ua.png"); }
+.flag-UG { .flag-class("../images/flags/ug.png"); }
+.flag-UM { .flag-class("../images/flags/um.png"); }
+.flag-US { .flag-class("../images/flags/us.png"); }
+.flag-UY { .flag-class("../images/flags/uy.png"); }
+.flag-UZ { .flag-class("../images/flags/uz.png"); }
+.flag-VA { .flag-class("../images/flags/va.png"); }
+.flag-VC { .flag-class("../images/flags/vc.png"); }
+.flag-VE { .flag-class("../images/flags/ve.png"); }
+.flag-VG { .flag-class("../images/flags/vg.png"); }
+.flag-VI { .flag-class("../images/flags/vi.png"); }
+.flag-VN { .flag-class("../images/flags/vn.png"); }
+.flag-VU { .flag-class("../images/flags/vu.png"); }
+.flag-WF { .flag-class("../images/flags/wf.png"); }
+.flag-WS { .flag-class("../images/flags/ws.png"); }
+.flag-YE { .flag-class("../images/flags/ye.png"); }
+.flag-YT { .flag-class("../images/flags/yt.png"); }
+.flag-ZA { .flag-class("../images/flags/za.png"); }
+.flag-ZM { .flag-class("../images/flags/zm.png"); }
+.flag-ZW { .flag-class("../images/flags/zw.png"); }
 
 /* Others */
-.flag-AQ { background: data-uri("../images/flags/aq.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-CW { background: data-uri("../images/flags/cw.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-GG { background: data-uri("../images/flags/gg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-IM { background: data-uri("../images/flags/im.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-JE { background: data-uri("../images/flags/je.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SS { background: data-uri("../images/flags/ss.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SU { background: data-uri("../images/flags/su.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-SX { background: data-uri("../images/flags/sx.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-XE { background: data-uri("../images/flags/xe.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-XG { background: data-uri("../images/flags/xg.png") no-repeat left center; padding: 3px 0 0 19px; }
-.flag-XW { background: data-uri("../images/flags/xw.png") no-repeat left center; padding: 3px 0 0 19px; }
+.flag-AQ { .flag-class("../images/flags/aq.png"); }
+.flag-CW { .flag-class("../images/flags/cw.png"); }
+.flag-GG { .flag-class("../images/flags/gg.png"); }
+.flag-IM { .flag-class("../images/flags/im.png"); }
+.flag-JE { .flag-class("../images/flags/je.png"); }
+.flag-SS { .flag-class("../images/flags/ss.png"); }
+.flag-SU { .flag-class("../images/flags/su.png"); }
+.flag-SX { .flag-class("../images/flags/sx.png"); }
+.flag-XE { .flag-class("../images/flags/xe.png"); }
+.flag-XG { .flag-class("../images/flags/xg.png"); }
+.flag-XW { .flag-class("../images/flags/xw.png"); }
 
 /* Don't try to add the flag on the area overview tab */
 .tabs .flag { background: none; padding: 0; }
