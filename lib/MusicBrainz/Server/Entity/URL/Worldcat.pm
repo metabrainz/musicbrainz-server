@@ -11,8 +11,6 @@ sub sidebar_name {
     return "Worldcat";
 }
 
-sub url_is_scheme_independent { 1 }
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
