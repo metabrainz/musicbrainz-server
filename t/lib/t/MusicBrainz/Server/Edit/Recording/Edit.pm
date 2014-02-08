@@ -127,6 +127,24 @@ test 'Check conflicts (conflicting edits)' => sub {
     is ($recording->length, undef);
 };
 
+test 'Submitting a recording edit with an undef comment' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_recording');
+    my $recording = $c->model('Recording')->get_by_id(1);
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RECORDING_EDIT,
+        editor_id => 1,
+        to_edit => $recording,
+        name => '~foooo~',
+        comment => undef
+    );
+
+    ok !exception { $edit->accept }, 'accepted edit';
+};
+
 sub create_edit {
     my ($c, $recording) = @_;
     return $c->model('Edit')->create(

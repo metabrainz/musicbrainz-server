@@ -3,7 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-MB.releaseEditor = MB.releaseEditor || {};
+MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
+
+    activeTabID: ko.observable("#information"),
+    activeTabIndex: ko.observable(0)
+});
 
 
 ko.postbox.serializer = _.identity;
@@ -34,9 +38,6 @@ MB.releaseEditor.init = function (options) {
                 self.nextTab();
             }
         });
-
-    this.activeTabID = ko.observable("#information");
-    this.activeTabIndex = ko.observable(0);
 
     var $pageContent = $("#release-editor").tabs({
 
@@ -149,21 +150,7 @@ MB.releaseEditor.init = function (options) {
     // the tracklist tab.
 
     this.utils.withRelease(function (release) {
-        var tabID = self.activeTabID();
-        var dialog = MB.releaseEditor.addDiscDialog;
-        var uiDialog = $(dialog.element).data("ui-dialog");
-
-        // Show the dialog if there's no non-empty disc.
-        if (tabID === "#tracklist") {
-            var alreadyOpen = uiDialog && uiDialog.isOpen();
-
-            if (!alreadyOpen && release.hasOneEmptyMedium() &&
-                    !release.mediums()[0].loading()) {
-                dialog.open();
-            }
-        } else if (uiDialog) {
-            uiDialog.close();
-        }
+        self.autoOpenTheAddDiscDialog(release);
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
@@ -209,6 +196,25 @@ MB.releaseEditor.releaseLoaded = function (data) {
     if (!seed || !seed.mediums) release.loadMedia();
 
     this.rootField.release(release);
+};
+
+
+MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
+    var addDiscUI = $(this.addDiscDialog.element).data("ui-dialog");
+    var trackParserUI = $(this.trackParserDialog.element).data("ui-dialog");
+
+    // Show the dialog if there's no non-empty disc.
+    if (this.activeTabID() === "#tracklist") {
+        var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
+                            (trackParserUI && trackParserUI.isOpen());
+
+        if (!dialogIsOpen && release.hasOneEmptyMedium() &&
+                            !release.mediums()[0].loading()) {
+            this.addDiscDialog.open();
+        }
+    } else if (addDiscUI) {
+        addDiscUI.close();
+    }
 };
 
 $(MB.confirmNavigationFallback);

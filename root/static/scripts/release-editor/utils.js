@@ -30,7 +30,7 @@
 
     // Webservice helpers
 
-    var specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\])/g;
+    var specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\\/])/g;
 
     utils.escapeLuceneValue = function (value) {
         return String(value).replace(specialLuceneChars, "\\$1");

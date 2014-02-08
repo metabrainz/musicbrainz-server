@@ -329,9 +329,12 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
     text = text == '' ? html_escape(area.l_name) : text;
+    flagclass = area.iso_3166_1.0 ? 'flag-' _ area.iso_3166_1.0 : '';
+    '<span class="flag ' _ flagclass _ '">' IF flagclass AND action == 'show';
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';
+    '</span>' IF flagclass AND action == 'show';
 END -%]
 
 [%- MACRO link_area_containment(area) BLOCK;

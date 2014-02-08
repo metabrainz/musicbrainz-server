@@ -187,6 +187,22 @@ EOSQL
     }
 };
 
+test 'Submitting a release group edit with an undef comment' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_rg_delete');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASEGROUP_EDIT,
+        editor_id => 1,
+        to_edit => $c->model('ReleaseGroup')->get_by_id(1),
+        name => '~foooo~',
+        comment => undef
+    );
+
+    ok !exception { $edit->accept }, 'accepted edit';
+};
+
 sub create_edit {
     my ($c, $rg) = @_;
     return $c->model('Edit')->create(

@@ -95,6 +95,13 @@ sub show : PathPart('') Chained('load')
     );
 }
 
+sub _merge_load_entities
+{
+    my ($self, $c, @labels) = @_;
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+};
+
 =head2 WRITE METHODS
 
 =cut

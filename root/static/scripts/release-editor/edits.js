@@ -109,9 +109,6 @@
             var inferTrackDurations = releaseEditor.inferTrackDurationsFromRecordings();
 
             newMediums().each(function (medium) {
-                if (!medium.loaded()) return;
-                if (!medium.formatID() && !medium.hasTracks()) return;
-
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original && medium.original();
 
@@ -142,7 +139,7 @@
                 });
 
                 // The medium already exists
-                newMediumData = _.clone(newMediumData);
+                newMediumData = _.cloneDeep(newMediumData);
 
                 if (medium.id) {
                     if (_.isEqual(newMediumData, oldMediumData)) {
@@ -154,11 +151,15 @@
                         "new":      newMediumData.position
                     });
 
-                    newMediumData.to_edit = medium.id;
-                    delete newMediumData.position;
-                    edits.push(MB.edit.mediumEdit(newMediumData, oldMediumData));
+                    var newNoPosition = _.omit(newMediumData, "position");
+                    var oldNoPosition = _.omit(oldMediumData, "position");
+
+                    if (!_.isEqual(newNoPosition, oldNoPosition)) {
+                        newNoPosition.to_edit = medium.id;
+                        edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
+                    }
                 }
-                else {
+                else if (medium.hasTracks()) {
                     newMediumData.release = release.id;
                     edits.push(MB.edit.mediumCreate(newMediumData))
                 }
