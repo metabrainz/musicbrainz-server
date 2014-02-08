@@ -326,8 +326,6 @@ ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_fk_release;
 ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_fk_editor;
 ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_fk_tag;
 ALTER TABLE release_unknown_country DROP CONSTRAINT release_unknown_country_fk_release;
-ALTER TABLE script_language DROP CONSTRAINT script_language_fk_script;
-ALTER TABLE script_language DROP CONSTRAINT script_language_fk_language;
 ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_fk_tag1;
 ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_fk_tag2;
 ALTER TABLE track DROP CONSTRAINT track_fk_recording;

@@ -172,7 +172,6 @@ ALTER TABLE release_tag_raw DROP CONSTRAINT release_tag_raw_pkey;
 ALTER TABLE release_unknown_country DROP CONSTRAINT release_unknown_country_pkey;
 ALTER TABLE replication_control DROP CONSTRAINT replication_control_pkey;
 ALTER TABLE script DROP CONSTRAINT script_pkey;
-ALTER TABLE script_language DROP CONSTRAINT script_language_pkey;
 ALTER TABLE tag DROP CONSTRAINT tag_pkey;
 ALTER TABLE tag_relation DROP CONSTRAINT tag_relation_pkey;
 ALTER TABLE track DROP CONSTRAINT track_pkey;

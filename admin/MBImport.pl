@@ -504,7 +504,6 @@ sub ImportAllTables
         release_unknown_country
         replication_control
         script
-        script_language
         tag
         tag_relation
         track
