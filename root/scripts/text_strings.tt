@@ -159,6 +159,7 @@
         MediumRequired: '[% l('A release must contain at least one medium.') | js %]',
         EditNoteRequired: '[% l('You must provide an edit note when adding a release. Even just a URL or something like “CD in hand” helps!') | js %]',
         ByArtist: '[% l('by {artist}') | js %]',
+        EntityByArtist: '[% l('{entity} by {artist}') | js %]',
         AddReleaseNoTitle: '[% l('Add Release') | js %]',
         AddReleaseTitle: '[% l('{name} - Add Release') | js %]',
         EditReleaseNoTitle: '[% l('Edit Release') | js %]',

@@ -3,36 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var releaseEditor = MB.releaseEditor;
-
-
-$.ajax = function () {
-    var mockXHR = $.Deferred();
-
-    mockXHR.success = mockXHR.done;
-    mockXHR.error = mockXHR.fail;
-    mockXHR.complete = mockXHR.always;
-
-    return mockXHR;
-};
-
-
-module("release editor fields", {
-
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        releaseEditor.action = "add";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.seed({ seed: {} });
-
-        this.release = releaseEditor.rootField.release();
-    },
-
-    teardown: function () {
-        releaseEditor.rootField.release(null);
-    }
-});
+releaseEditor.test.module("release editor fields", releaseEditor.test.setupReleaseAdd);
 
 
 test("release group types being preserved after editing the name", function () {
@@ -78,4 +49,49 @@ test("mediums having their \"loaded\" observable set correctly", function () {
     equal(mediums()[4].loaded(), true, "medium with id and with tracks is considered loaded")
     equal(mediums()[5].loaded(), true, "medium with originalID and with tracks is considered loaded");
 
+});
+
+
+test("loading a medium doesn't overwrite its original edit data", function () {
+    var fields = releaseEditor.fields;
+
+    var medium = fields.Medium({
+        id: 123,
+        position: 1,
+        formatID: 1,
+        name: "foo",
+        tracks: []
+    });
+
+    this.release.mediums([ medium ]);
+
+    medium.position(2);
+    medium.formatID(2);
+    medium.name("bar");
+
+    ok(!medium.loaded(), "medium is not loaded");
+
+    var original = medium.original();
+
+    equal(original.position, 1, "original position is 1");
+    equal(original.format_id, 1, "original format_id is 1");
+    equal(original.name, "foo", "original name is foo");
+
+    medium.tracksLoaded({
+        tracks: [ { position: 1, name: "~fooo~", length: 12345 } ]
+    });
+
+    ok(medium.loaded(), "medium is loaded");
+
+    original = medium.original();
+
+    equal(original.position, 1, "original position is still 1");
+    equal(original.format_id, 1, "original format_id is still 1");
+    equal(original.name, "foo", "original name is still foo");
+
+    var loadedTrack = original.tracklist[0];
+
+    equal(loadedTrack.position, 1, "loaded track position is 1");
+    equal(loadedTrack.name, "~fooo~", "loaded track name is ~foooo~");
+    equal(loadedTrack.length, 12345, "loaded track length is 12345");
 });

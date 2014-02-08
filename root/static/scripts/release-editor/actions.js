@@ -229,8 +229,7 @@
         inferTrackDurationsFromRecordings: ko.observable(false),
 
         copyTrackChangesToRecordings: ko.observable(false).publishOn(
-            "updateRecordings", true,
-            function (newValue, oldValue) { return !newValue || oldValue }
+            "updateRecordings", true
         )
     });
 

@@ -251,11 +251,12 @@
         release.mediums.error(mediumRequired ? MB.text.MediumRequired : "");
 
         _.each(mediums, function (medium) {
-            var tracks = medium.tracks();
+            var tracks = _(medium.tracks());
 
-            medium.tracks.error(tracks.length ? "" : MB.text.TracklistRequired);
+            var tracksAreNeeded = medium.loaded() && !medium.hasTracks();
+            medium.tracks.error(tracksAreNeeded ? MB.text.TracklistRequired : "");
 
-            var missingTrackInfo = _.any(tracks, function (track) {
+            var missingTrackInfo = tracks.any(function (track) {
                 return !(track.name() && track.artistCredit.isComplete());
             });
 
@@ -263,7 +264,7 @@
                 medium.tracks.error(MB.text.TrackInfoRequired);
             }
 
-            medium.needsRecordings(_.any(tracks, function (track) {
+            medium.needsRecordings(tracks.any(function (track) {
                 return track.needsRecording();
             }));
 

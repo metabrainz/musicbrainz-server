@@ -33,14 +33,14 @@
         },
 
         parse: function () {
-            var newTracks = releaseEditor.trackParser.parse(
-                this.toBeParsed(), this.medium
-            );
+            var medium = this.medium;
+            var toBeParsed = this.toBeParsed();
 
-            var error = newTracks.length === 0;
+            var newTracks = releaseEditor.trackParser.parse(toBeParsed, medium);
+            var error = !!_.str.trim(toBeParsed) && newTracks.length === 0;
 
             this.error(error);
-            !error && this.medium.tracks(newTracks);
+            !error && medium.tracks(newTracks);
         },
 
         addDisc: function () {

@@ -34,7 +34,8 @@
         releaseGroupRecordings = ko.observable(),
         releaseGroupTimer,
         recentRecordings = [],
-        trackArtistIDs = [];
+        trackArtistIDs = [],
+        etiRegex = /(\([^)]+\) ?)*$/;
 
 
     var releaseGroupField = MB.utility.computedWith(
@@ -329,13 +330,19 @@
         var trackName = track.name();
 
         var matches = _(recordings)
-            .map(function (recording) {
-                if (similarLengths(trackLength, recording.length) &&
-                        similarNames(trackName, recording.name)) {
-                    return recording;
+            .filter(function (recording) {
+                if (!similarLengths(trackLength, recording.length)) {
+                    return false;
+                }
+                if (similarNames(trackName, recording.name)) {
+                    return true;
+                }
+                var recordingWithoutETI = recording.name.replace(etiRegex, "");
+
+                if (similarNames(trackName, recordingWithoutETI)) {
+                    return true;
                 }
             })
-            .compact()
             .sortBy(function (recording) {
                 var appearsOn = recording.appearsOn;
                 return appearsOn ? appearsOn.length : 0;

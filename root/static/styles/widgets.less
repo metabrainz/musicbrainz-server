@@ -61,6 +61,15 @@
     &.negative:active {
         .button-active(@negative-active);
     }
+
+    &[disabled] {
+        &, &:hover, &:active, &:focus {
+            color: @dark-text;
+            border: 1px solid @light-button-border;
+            background-color: @very-light-bg;
+            cursor: default;
+        }
+    }
 }
 
 div.buttons, span.buttons { display: inline-block; }
@@ -129,16 +138,6 @@ form input[type=submit] {
     font-weight:bold;
 
     margin-top: 6px;
-}
-
-input[type=button].disabled,
-input[type=submit].disabled,
-button.disabled, button[disabled],
-button.disabled:hover, button[disabled]:hover {
-    color: @dark-text;
-    border: 1px solid @light-button-border;
-    background-color: @very-light-bg;
-    cursor: default;
 }
 
 /*

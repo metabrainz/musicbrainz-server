@@ -46,9 +46,9 @@ test("track numbers", function () {
         $.each (test.expected, function (idx, expected) {
             var r = result[idx];
 
-            QUnit.equal(r.position(), expected.position, expected.position.toString());
-            QUnit.equal(r.number(), expected.number, expected.number);
-            QUnit.equal(r.name(), expected.name, expected.name);
+            equal(r.position(), expected.position, expected.position.toString());
+            equal(r.number(), expected.number, expected.number);
+            equal(r.name(), expected.name, expected.name);
         });
     });
 
@@ -121,10 +121,10 @@ test("bug fixes", function() {
         $.each (test.expected, function (idx, expected) {
             var r = result[idx];
 
-            QUnit.equal(r.position(), expected.position, test.bug + ', ' + expected.position);
-            QUnit.equal(r.number(), idx+1, test.bug + ', ' + expected.name);
-            QUnit.equal(r.name(), expected.name, test.bug + ', ' + expected.name);
-            QUnit.equal(r.formattedLength(), expected.formattedLength, test.bug + ', ' + expected.name);
+            equal(r.position(), expected.position, test.bug + ', ' + expected.position);
+            equal(r.number(), idx+1, test.bug + ', ' + expected.name);
+            equal(r.name(), expected.name, test.bug + ', ' + expected.name);
+            equal(r.formattedLength(), expected.formattedLength, test.bug + ', ' + expected.name);
         });
     });
 });

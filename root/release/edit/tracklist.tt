@@ -322,8 +322,8 @@
     <thead>
       <tr>
         <td colspan="4" style="padding-bottom: 1em;">
-          <label>[% l('Preview') %]</label>
-          <span data-bind="html: html({ target: '_blank' })"></span>
+          <label>[% l('Preview:') %]</label>
+          <span data-bind="html: track.name() ? MB.i18n.expand(MB.text.EntityByArtist, { entity: _.escape(track.name()), artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
         </td>
       </tr>
       <tr class="artist-credit-header">
