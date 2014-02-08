@@ -70,7 +70,7 @@
             "<a href=\"/<%= data.type %>/<%- data.gid %>\"" +
             "<% if (data.target) { %> target=\"_blank\"<% } %>" +
             "<% if (data.sortName) { %> title=\"<%- data.sortName %>\"" +
-            "<% } %>><%- data.name %></a><% if (data.comment) { %> " +
+            "<% } %>><bdi><%- data.name %></bdi></a><% if (data.comment) { %> " +
             "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
             "<% if (data.video) { %> <span class=\"comment\">" +
             "(<%- data.video %>)</span><% } %>" +
@@ -242,7 +242,7 @@
             "<% if (data.nameVariation) print('<span class=\"name-variation\">'); %>" +
             "<a href=\"/artist/<%- data.gid %>\"" +
             "<% if (data.target) print(' target=\"_blank\"'); %>" +
-            " title=\"<%- data.title %>\"><%- data.name %></a>" +
+            " title=\"<%- data.title %>\"><bdi><%- data.name %></bdi></a>" +
             "<% if (data.nameVariation) print('</span>'); %>" +
             "<%- data.join %>",
             null,
