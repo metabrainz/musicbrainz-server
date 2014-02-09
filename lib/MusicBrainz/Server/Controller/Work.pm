@@ -91,8 +91,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
-    confirmation_template => 'work/merge_confirm.tt',
-    search_template       => 'work/merge_search.tt',
 };
 
 before 'edit' => sub
