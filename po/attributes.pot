@@ -73,6 +73,11 @@ msgctxt "work_type"
 msgid "Ballet"
 msgstr ""
 
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
+
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
