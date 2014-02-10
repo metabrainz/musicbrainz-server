@@ -26,11 +26,15 @@ releaseEditor.test = {
 
                 if (setup) setup.call(this);
 
-                this.release = releaseEditor.rootField.release();
+                if (releaseEditor.rootField) {
+                    this.release = releaseEditor.rootField.release();
+                }
             },
 
             teardown: function () {
-                releaseEditor.rootField.release(null);
+                if (releaseEditor.rootField) {
+                    releaseEditor.rootField.release(null);
+                }
             }
         });
     },
@@ -45,6 +49,16 @@ releaseEditor.test = {
         releaseEditor.action = "edit";
         releaseEditor.rootField = releaseEditor.fields.Root();
         releaseEditor.rootField.release(releaseEditor.fields.Release(releaseEditor.test.testRelease));
+    },
+
+    trackParser: function (input, expected) {
+        var result = releaseEditor.trackParser.parse(input);
+
+        function getProps(track) {
+            return _.pick.apply(_, [track].concat(_.keys(expected[0])));
+        }
+
+        deepEqual(ko.toJS(_.map(result, getProps)), expected);
     }
 };
 
