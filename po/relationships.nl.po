@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-06 14:56+0000\n"
+"PO-Revision-Date: 2014-02-09 11:20+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2258,7 +2258,7 @@ msgstr "fanpagina's"
 
 #: DB:link_type/link_phrase:116 DB:link_type/long_link_phrase:116
 msgid "founded"
-msgstr "opgericht"
+msgstr "richtte op"
 
 #: DB:link_attribute_type/name:525
 msgid "founder"
