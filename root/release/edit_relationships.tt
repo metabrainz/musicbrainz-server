@@ -58,7 +58,8 @@
             </th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: media">
+        <tbody data-bind="with: release">
+          <!-- ko foreach: mediums -->
           <tr class="subh">
             <td></td>
             <td colspan="2">
@@ -68,18 +69,19 @@
             <td><input type="checkbox" class="medium-works"></td>
           </tr>
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
+          <!-- /ko -->
         </tbody>
       </table>
 
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels" class="ars">
-        <!-- ko template: {name: 'template.relationships', data: release} --><!-- /ko -->
+      <div id="release-rels" class="ars" data-bind="with: release">
+        <!-- ko template: "template.relationships" --><!-- /ko -->
       </div>
 
       <h2>[% l('Release Group Relationships') %]</h2>
 
-      <div id="release-group-rels" class="ars">
+      <div id="release-group-rels" class="ars" data-bind="with: release">
         <!-- ko template: {name: 'template.relationships', data: releaseGroup} --><!-- /ko -->
       </div>
 
