@@ -108,8 +108,6 @@ sub _merge_load_entities
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
-    confirmation_template => 'label/merge_confirm.tt',
-    search_template       => 'label/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
