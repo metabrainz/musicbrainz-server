@@ -155,7 +155,11 @@
             tracks = tracks.peek();
 
             for (var i = index; track = tracks[i]; i++) {
-                track.position(track.position() - 1);
+                track.position(i + 1);
+
+                if (track.number.peek() == i + 2) {
+                    track.number(i + 1);
+                }
             }
 
             if (focus) {
