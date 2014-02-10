@@ -123,13 +123,17 @@
         },
 
         previous: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos > 1 ? tracks[pos - 2] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index > 0 ? tracks[index - 1] : null;
         },
 
         next: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos < tracks.length ? tracks[pos] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index < tracks.length - 1 ? tracks[index + 1] : null;
         },
 
         differsFromRecording: function () {

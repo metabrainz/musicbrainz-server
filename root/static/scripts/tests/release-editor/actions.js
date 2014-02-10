@@ -17,3 +17,20 @@ test("removing a track should change the track numbers", function () {
     equal(tracks[0], track2, "first track was removed");
     equal(track2.number(), "1", "track has number \"1\" after removal");
 });
+
+
+test("reording tracks that have non-consecutive \"position\" properties", function () {
+    var tracks = this.release.mediums()[0].tracks();
+    var originalTrack1 = tracks[0];
+    var originalTrack2 = tracks[1];
+
+    originalTrack2.position(3);
+
+    releaseEditor.moveTrackUp(originalTrack2);
+
+    equal(tracks[0], originalTrack2, "original track 2 has moved to position 1");
+    equal(originalTrack2.position(), 1, "original track 2 now has position() 1");
+
+    equal(tracks[1], originalTrack1, "original track 1 has moved to position 2");
+    equal(originalTrack1.position(), 2, "original track 1 now has position() 2");
+});
