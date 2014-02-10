@@ -82,7 +82,7 @@
         <span class="ui-icon" data-bind="css: { 'ui-icon-triangle-1-e': !expanded(), 'ui-icon-triangle-1-s': expanded() }">
           [%- l("Expand") -%]
         </span>
-        <!-- ko text: name --><!-- /ko -->
+        <bdi data-bind="text: name"></bdi>
       </a>
 
       <!-- ko if: $data.format -->
@@ -105,7 +105,7 @@
       <tbody data-bind="foreach: tracks">
         <tr class="track">
           <td class="position" style="text-align: right;" data-bind="text: position"></td>
-          <td class="title" data-bind="text: name"></td>
+          <td class="title"><bdi data-bind="text: name"></bdi></td>
           <td class="artist" data-bind="text: artist"></td>
           <td class="length" data-bind="text: formattedLength"></td>
         </tr>
@@ -323,7 +323,7 @@
       <tr>
         <td colspan="4" style="padding-bottom: 1em;">
           <label>[% l('Preview:') %]</label>
-          <span data-bind="html: track.name() ? MB.i18n.expand(MB.text.EntityByArtist, { entity: _.escape(track.name()), artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
+          <span data-bind="html: track.name() ? MB.i18n.expand(MB.text.EntityByArtist, { entity: '<bdi>' + _.escape(track.name()) + '</bdi>', artist: html({ target: '_blank' }) }) : html({ target: '_blank' })"></span>
         </td>
       </tr>
       <tr class="artist-credit-header">
