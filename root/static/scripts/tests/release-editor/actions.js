@@ -19,7 +19,7 @@ test("removing a track should change the track numbers", function () {
 });
 
 
-test("reording tracks that have non-consecutive \"position\" properties", function () {
+test("reording tracks that have non-consecutive \"position\" properties (MBS-7227)", function () {
     var tracks = this.release.mediums()[0].tracks();
     var originalTrack1 = tracks[0];
     var originalTrack2 = tracks[1];
