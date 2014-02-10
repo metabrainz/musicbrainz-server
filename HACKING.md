@@ -123,8 +123,6 @@ Keys:
  * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page
- * wizard_session:INT:INT:<MIXED> -- release editor (wizard)
-   sessions by catalyst session ID, RE (random) session ID, and other specifics
  * work_type:INT -- work type by ID
 
 Debug information
