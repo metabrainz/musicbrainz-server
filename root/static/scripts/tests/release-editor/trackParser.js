@@ -97,3 +97,26 @@ test("XX:XX:XX track times (MBS-3353)", function () {
         { position: 1, name: "Love On A .45", formattedLength: "5:22:31" }
     ]);
 });
+
+
+test("internal track positions are updated appropriately after being reused", function () {
+    var re = releaseEditor;
+
+    re.rootField = re.fields.Root();
+    re.rootField.release(re.fields.Release(re.test.testRelease));
+
+    var release = re.rootField.release();
+    var medium = release.mediums()[0];
+
+    medium.cdtocs = 0;
+    delete medium.toc;
+
+    var input = _.str.lines(re.trackParser.mediumToString(medium)).reverse().join("\n");
+
+    medium.tracks(re.trackParser.parse(input, medium));
+
+    var tracks = medium.tracks();
+
+    equal(tracks[0].position(), 1, "track 1 has position 1");
+    equal(tracks[1].position(), 2, "track 2 has position 2");
+});
