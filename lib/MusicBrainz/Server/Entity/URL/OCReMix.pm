@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "OCReMix";
+    return "OC ReMix";
 }
 
 __PACKAGE__->meta->make_immutable;
