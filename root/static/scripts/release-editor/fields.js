@@ -179,6 +179,14 @@
                 this.hasNewRecording(false);
             }
 
+            if (currentValue.gid) {
+                var suggestions = this.suggestedRecordings.peek();
+
+                if (!_.contains(suggestions, currentValue)) {
+                    this.suggestedRecordings.unshift(currentValue);
+                }
+            }
+
             this.recordingValue(value);
         }
     });
