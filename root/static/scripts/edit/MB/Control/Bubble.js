@@ -31,12 +31,6 @@ MB.Control.BubbleBase = aclass({
         this.target(ko.dataFor(control));
         this.visible(true);
 
-        var $control = $(control);
-
-        if ($control.is(":button") && !this.$bubble.isTrapping()) {
-            this.$bubble.trap();
-        }
-
         var activeBubble = this.activeBubbles[this.group];
 
         if (activeBubble && activeBubble !== this) {
