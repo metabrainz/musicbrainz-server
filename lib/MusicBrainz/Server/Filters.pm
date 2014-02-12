@@ -117,7 +117,7 @@ sub _display_trimmed {
         ? substr($encoded_url, 0, 48) . "&#8230;"
         : $encoded_url;
 
-    $display_url =~ s/\[(.*)\]/%5B$1%5D/;
+    $display_url =~ s/\[(.*)\]/&#91;$1&#93;/;
     $encoded_url =~ s/\[(.*)\]/&#91;$1&#93;/;
 
     $encoded_url = "http://$encoded_url"
