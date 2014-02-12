@@ -790,7 +790,9 @@ sub external_search
             use Data::Dumper;
             croak "Failed to decode JSON search data:\n" .
                   Dumper($response->content) . "\n" .
-                  "Exception:" . Dumper($_);
+                  "Exception:\n" . Dumper($_) . "\n" .
+                  "Response headers:\n" .
+                  Dumper($response->headers->as_string);
         };
 
         my @results;

@@ -147,8 +147,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RECORDING_MERGE,
-    search_template => 'recording/merge_search.tt',
-    confirmation_template => 'recording/merge_confirm.tt'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
@@ -185,15 +183,6 @@ sub _merge_load_entities {
             isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
         );
     }
-};
-
-around '_merge_search' => sub {
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-    return $results;
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

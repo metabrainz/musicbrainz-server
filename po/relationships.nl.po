@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-05 21:30+0000\n"
+"PO-Revision-Date: 2014-02-09 11:20+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2258,7 +2258,7 @@ msgstr "fanpagina's"
 
 #: DB:link_type/link_phrase:116 DB:link_type/long_link_phrase:116
 msgid "founded"
-msgstr "opgericht"
+msgstr "richtte op"
 
 #: DB:link_attribute_type/name:525
 msgid "founder"
@@ -2761,7 +2761,7 @@ msgstr "is/was {additional:aanvullend|een} lid van {founder:en oprichter van|}"
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus}"
 " for"
-msgstr "is/was {assistant:een|een} {assistant:assistent} {principal:hoofd} {guest:gast} {emeritus:emeritus} dirigent van"
+msgstr "is/was {assistant:een|een} {assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gast}dirigent van"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -3848,11 +3848,11 @@ msgstr "{additional:aanvullend} {vocal:%|vocals:vocalen} arrangeur"
 
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
-msgstr "{assistant:assistent} {principal:hoofd} {guest:gast} {emeritus:emeritus} dirigent"
+msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gast}dirigent"
 
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
-msgstr "{assistant:assistent} {principal:hoofd} {guest:gast} {emeritus:emeritus} dirigent van"
+msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd} {guest:gast}dirigent van"
 
 #: DB:link_type/link_phrase:1
 msgid "{bonus:bonus|next} disc"

@@ -95,14 +95,19 @@ sub show : PathPart('') Chained('load')
     );
 }
 
+sub _merge_load_entities
+{
+    my ($self, $c, @labels) = @_;
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+};
+
 =head2 WRITE METHODS
 
 =cut
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
-    confirmation_template => 'label/merge_confirm.tt',
-    search_template       => 'label/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
