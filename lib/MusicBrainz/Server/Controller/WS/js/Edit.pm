@@ -90,7 +90,10 @@ sub process_artist_credits {
 
         for my $name (@names) {
             my $artist = $name->{artist};
-            push @artist_gids, $artist->{gid} if $artist->{gid};
+
+            if (!$artist->{id} && is_guid($artist->{gid}))  {
+                push @artist_gids, $artist->{gid};
+            }
         }
     }
 
@@ -105,7 +108,9 @@ sub process_artist_credits {
             my $artist = $name->{artist};
             my $gid = delete $artist->{gid};
 
-            $artist->{id} = $artists->{$gid}->id if $gid;
+            if ($gid and my $entity = $artists->{$gid}) {
+                $artist->{id} = $entity->id;
+            }
         }
     }
 }
