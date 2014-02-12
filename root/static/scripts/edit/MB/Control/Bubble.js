@@ -26,10 +26,14 @@ MB.Control.BubbleBase = aclass({
         this.visible = ko.observable(false);
     },
 
-    show: function (control) {
+    show: function (control, stealFocus) {
         this.control = control;
         this.target(ko.dataFor(control));
         this.visible(true);
+
+        if (stealFocus !== false && $(control).is(":button")) {
+            MB.utility.deferFocus(":input:first", this.$bubble);
+        }
 
         var activeBubble = this.activeBubbles[this.group];
 
@@ -55,6 +59,9 @@ MB.Control.BubbleBase = aclass({
             this.activeBubbles[this.group] = null;
         }
     },
+
+    // Action upon pressing enter in an input. Defaults to hide.
+    submit: function () { this.hide() },
 
     toggle: function (control) {
         if (this.visible.peek()) {
@@ -211,7 +218,7 @@ $(function () {
     // since there can be a lot of bubble controls on the page, event
     // delegation is better for performance.
 
-    function bubbleHandler(event) {
+    function bubbleControlHandler(event) {
         var control = event.target;
         var bubble = control.bubbleDoc;
 
@@ -244,17 +251,51 @@ $(function () {
 
             } else if (inputFocused || (buttonClicked && !wasOpen)) {
                 bubble.show(control);
-
-                if (buttonClicked) {
-                    bubble.$bubble.find(":input:first").focus();
-                }
             }
         }
         // Prevent the default action from occuring.
         return false;
     }
 
-    $("body").on("click focusin", bubbleHandler);
+
+    // Pressing enter should close the bubble or perform a custom action (i.e.
+    // going to the next track). Pressing escape should always close it.
+
+    function bubbleKeydownHandler(event) {
+        if (event.isDefaultPrevented()) {
+            return;
+        }
+
+        var $target = $(event.target);
+        var $bubble = $target.parents("div.bubble");
+
+        var pressedEsc = event.which === 27;
+        var pressedEnter = event.which === 13;
+
+        if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
+            event.preventDefault();
+
+            // This causes any "value" binding on the input to update its
+            // associated observable. e.g. if the user types something in a
+            // join phrase field and hits esc., the join phrase in the view
+            // model should update. This should run before the code below,
+            // because the view model for the bubble may change.
+            $target.trigger("change");
+
+            var bubbleDoc = $bubble[0].bubbleDoc;
+
+            if (pressedEsc) {
+                bubbleDoc.hide();
+            }
+            else if (pressedEnter) {
+                bubbleDoc.submit();
+            }
+        }
+    }
+
+    $("body")
+        .on("click focusin", bubbleControlHandler)
+        .on("keydown", "div.bubble :input", bubbleKeydownHandler);
 });
 
 

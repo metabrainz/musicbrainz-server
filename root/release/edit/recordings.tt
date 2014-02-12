@@ -188,10 +188,7 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="buttons" style="float: right">
-        <button type="button" class="positive" data-bind="delegatedClick: _.bind($bubble.hide, $bubble)">[% l('Done') %]</button>
-      </div>
+      <!-- ko template: { name: "template.track-bubble-buttons", data: $bubble } --><!-- /ko -->
     </div>
   </div>
 </div>

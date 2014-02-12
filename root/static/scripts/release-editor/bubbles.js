@@ -52,32 +52,85 @@
 
     releaseEditor.commentBubble = bubbleDoc();
 
-    releaseEditor.recordingBubble = MB.Control.BubbleDoc("Recording").extend({
 
+    var trackBubble = {
+
+        after$init: function () {
+            this.prevButtonHasFocus = ko.observable(false);
+            this.nextButtonHasFocus = ko.observable(false);
+        },
+
+        previousTrack: function (data, event, stealFocus) {
+            event && event.stopPropagation();
+
+            var track = this.currentTrack().previous();
+
+            if (track) {
+                // If the user initiates this action from the UI by explicitly
+                // pressing the previous button, stealFocus will be undefined,
+                // so default to not stealing the focus unless it's true.
+
+                this.moveToTrack(track, stealFocus === true);
+                return true;
+            }
+        },
+
+        nextTrack: function (data, event, stealFocus) {
+            event && event.stopPropagation();
+
+            var track = this.currentTrack().next();
+
+            if (track) {
+                this.moveToTrack(track, stealFocus === true);
+                return true;
+            }
+        },
+
+        submit: function () {
+            // stealFocus set to true causes the bubble to move focus to the
+            // first input in the bubble. This is useful here, but not if the
+            // user explicitly presses a next/previous button.
+
+            if (!this.nextTrack(null, null, true /* stealFocus */)) {
+                this.hide();
+            }
+        }
+    };
+
+
+    var RecordingBubble = aclass(MB.Control.BubbleDoc, trackBubble)
+    .extend({
         before$show: function (control) {
             var track = ko.dataFor(control);
 
             if (track && !track.hasExistingRecording()) {
                 releaseEditor.recordingAssociation.findRecordingSuggestions(track);
             }
+        },
+
+        currentTrack: function () { return this.target() },
+
+        moveToTrack: function (track, stealFocus) {
+            this.show(track.bubbleControlRecording, stealFocus);
         }
     });
 
-    releaseEditor.trackArtistBubble =
-        MB.Control.BubbleBase("TrackArtist")
-            .extend(MB.Control.ArtistCreditBubbleBase)
-            .extend({
+    releaseEditor.recordingBubble = RecordingBubble("Recording");
 
+
+    var TrackArtistBubble = aclass(MB.Control.BubbleBase, trackBubble)
+    .extend(MB.Control.ArtistCreditBubbleBase)
+    .extend({
         closeWhenFocusIsLost: true,
         changeMatchingArtists: ko.observable(false),
         initialArtistText: ko.observable(""),
 
-        around$show: function (supr, control) {
+        around$show: function (supr, control, stealFocus) {
             // If the bubble is redrawn to reposition it, it'll already be
             // visible, and we don't want to change initialArtistText.
             var wasAlreadyVisible = this.visible();
 
-            supr(control);
+            supr(control, stealFocus);
 
             // this.target is set in supr, so we do this after.
             if (!wasAlreadyVisible) {
@@ -115,44 +168,15 @@
             this.initialArtistText("");
         },
 
-        previousTrack: function (data, event) {
-            event.stopPropagation();
-            var previous = this.target().track.previous();
+        currentTrack: function () { return this.target().track },
 
-            if (previous) {
-                this.makeAllChanges();
-                this.show(previous.artistCredit.bubbleControlTrackArtist);
-                MB.utility.deferFocus("#track-ac-previous");
-            }
-        },
-
-        nextTrack: function (data, event) {
-            event.stopPropagation();
-            var next = this.target().track.next();
-
-            if (next) {
-                this.makeAllChanges();
-                this.show(next.artistCredit.bubbleControlTrackArtist);
-                MB.utility.deferFocus("#track-ac-next");
-            }
-        },
-
-        closeTrackArtistBubble: function (artistCredit, event) {
-            if (event.isDefaultPrevented()) return;
-
-            var $target = $(event.target);
-
-            if ((event.keyCode === 13 && $target.is("input[type=text]")) ||
-                 event.keyCode === 27) {
-
-                $target.trigger("change");
-
-                artistCredit.bubbleControlTrackArtist.bubbleDoc.hide();
-                event.preventDefault();
-            }
-            return true;
+        moveToTrack: function (track, stealFocus) {
+            this.makeAllChanges();
+            this.show(track.artistCredit.bubbleControlTrackArtist, stealFocus);
         }
     });
+
+    releaseEditor.trackArtistBubble = TrackArtistBubble("TrackArtist");
 
 
     // Used to watch for DOM changes, so that doc bubbles stay pointed at the

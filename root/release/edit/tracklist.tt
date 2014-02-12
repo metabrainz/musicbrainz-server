@@ -317,7 +317,6 @@
 </div>
 
 <div class="bubble" id="track-ac-bubble" data-bind="bubble: trackArtistBubble">
-<div data-bind="delegatedKeydown: _.bind($bubble.closeTrackArtistBubble, $bubble)">
   <table style="width: 100%">
     <thead>
       <tr>
@@ -378,10 +377,5 @@
     <button type="button" data-click="copyArtistCredit">[% l('Copy Credits') %]</button>
     <button type="button" data-click="pasteArtistCredit">[% l('Paste Credits') %]</button>
   </div>
-  <div class="buttons" style="float: right" data-bind="with: $bubble">
-    <button type="button" id="track-ac-previous" data-click="previousTrack">[% l('Previous') %]</button>
-    <button type="button" id="track-ac-next" data-click="nextTrack">[% l('Next') %]</button>
-    <button type="button" id="track-ac-done" class="positive" data-click="hide">[% l('Done') %]</button>
-  </div>
-</div>
+  <!-- ko template: { name: "template.track-bubble-buttons", data: $bubble } --><!-- /ko -->
 </div>
