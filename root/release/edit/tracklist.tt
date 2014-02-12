@@ -193,7 +193,7 @@
         </td>
 
         <td class="format">
-          <label data-bind="attr: { for: 'disc-format-' + $index() }">[% l('Format') %]</label>
+          <label data-bind="attr: { for: 'disc-format-' + $index() }">[% l('Format:') %]</label>
           <select data-bind="value: formatID, attr: { id: 'disc-format-' + $index() }">
             <option value="" selected="selected">&#160;</option>
             [%- FOR format=formats %]
@@ -201,7 +201,7 @@
             [%- END %]
           </select>
           <!-- ko if: release.mediums().length > 1 || name() -->
-            <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title') %]</label>
+            <label data-bind="attr: { for: 'disc-title-' + $index() }">[% l('Disc title:') %]</label>
             <input type="text" data-bind="value: name, attr: { id: 'disc-title-' + $index() }" />
             <button type="button" class="icon guesscase-medium" title="[% l('Guess case disc title') %]" data-click="guessCaseMediumName"></button>
           <!-- /ko -->
