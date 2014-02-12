@@ -125,15 +125,12 @@
         changeMatchingArtists: ko.observable(false),
         initialArtistText: ko.observable(""),
 
-        around$show: function (supr, control, stealFocus) {
-            // If the bubble is redrawn to reposition it, it'll already be
-            // visible, and we don't want to change initialArtistText.
-            var wasAlreadyVisible = this.visible();
+        around$show: function (supr, control, stealFocus, isRedraw) {
+            supr(control, stealFocus, isRedraw);
 
-            supr(control, stealFocus);
-
-            // this.target is set in supr, so we do this after.
-            if (!wasAlreadyVisible) {
+            // If the bubble is redrawn to reposition it, we don't want to
+            // change initialArtistText.
+            if (!isRedraw) {
                 this.initialArtistText(this.target().text());
             }
 
@@ -153,17 +150,15 @@
         makeAllChanges: function () {
             if (!this.changeMatchingArtists()) return;
 
-            var ac = this.target(),
-                track = ac.track,
-                otherTracks = _.without(track.medium.tracks(), track),
-                matchWith = this.initialArtistText(),
-                names = ac.toJSON();
+            var target = this.target();
+            var track = target.track;
+            var matchWith = this.initialArtistText();
+            var names = target.toJSON();
 
-            _.each(otherTracks, function (other) {
-                var ac = other.artistCredit;
-
-                if (matchWith === ac.text()) ac.setNames(names);
-            });
+            _(track.medium.tracks()).without(track).pluck("artistCredit")
+                .each(function (ac) {
+                    if (matchWith === ac.text()) ac.setNames(names);
+                });
 
             this.initialArtistText("");
         },

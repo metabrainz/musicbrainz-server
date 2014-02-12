@@ -43,7 +43,7 @@ MB.releaseEditor.init = function (options) {
             // now that it's visible.
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
-            if ($bubble.length) $bubble[0].bubbleDoc.redraw();
+            if ($bubble.length) $bubble[0].bubbleDoc.redraw(true /* stealFocus */);
         }
     });
 

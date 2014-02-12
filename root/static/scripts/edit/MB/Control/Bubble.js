@@ -75,7 +75,7 @@ MB.Control.BubbleBase = aclass({
         return true;
     },
 
-    redraw: function () {
+    redraw: function (stealFocus) {
         if (this.visible.peek()) {
             // It's possible that the control we're pointing at has been
             // removed, hence why MutationObserver has triggered a redraw. If
@@ -85,7 +85,7 @@ MB.Control.BubbleBase = aclass({
                 this.hide(false);
             }
             else {
-                this.show(this.control);
+                this.show(this.control, !!stealFocus, true /* isRedraw */);
             }
         }
     },
