@@ -117,6 +117,9 @@ sub _display_trimmed {
         ? substr($encoded_url, 0, 48) . "&#8230;"
         : $encoded_url;
 
+    $display_url =~ s/\[(.*)\]/%5B$1%5D/;
+    $encoded_url =~ s/\[(.*)\]/&#91;$1&#93;/;
+
     $encoded_url = "http://$encoded_url"
         unless $encoded_url =~ m{^(?:https?:)?//};
 
@@ -180,7 +183,7 @@ sub format_editnote
 
     # links to wikidocs
     $html =~ s/doc:(\w[\/\w]*)(``)*/<a href="\/doc\/$1">$1<\/a>/gi;
-    $html =~ s/(\s|^)\[(\p{IsUpper}[\/\w]*)\](\s|$)/$1<a href="\/doc\/$2">$2<\/a>$3/g;
+    $html =~ s/\[(\p{IsUpper}[\/\w]*)\]/<a href="\/doc\/$1">$1<\/a>/g;
 
     $html =~ s/<\/?p[^>]*>//g;
     $html =~ s/<br[^>]*\/?>//g;
