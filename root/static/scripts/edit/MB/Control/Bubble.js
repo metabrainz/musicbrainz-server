@@ -126,10 +126,16 @@ MB.Control.ArtistCreditBubbleBase = {
         event.stopPropagation();
 
         var artistCredit = this.target();
+        var names = artistCredit.names();
+        var index = _.indexOf(names, name);
+
         artistCredit.removeName(name);
 
+        // Handle case where the last name is removed.
+        if (index === names.length) index--;
+
         // Move focus to the previous remove icon
-        this.$bubble.find("input.icon.remove-artist-credit:last").focus();
+        $(".remove-artist-credit:eq(" + index + ")", this.$bubble).focus();
     },
 
     copyArtistCredit: function () {
