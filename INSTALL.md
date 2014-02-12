@@ -343,7 +343,8 @@ If you intend to run a server with translations, there are a few steps to follow
          sudo apt-get install language-pack-{language code}
 
    To work around the linked CPAN bug, you may need to edit the file for Locale::Util
-   to add entries to LANG2COUNTRY. Suggested ones include: 
+   to add entries to LANG2COUNTRY. Suggested ones include:
+
    * es => 'ES'
    * et => 'EE'
    * el => 'GR'
