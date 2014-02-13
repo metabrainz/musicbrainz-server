@@ -108,17 +108,23 @@ sub _make_link
     return "<a href=\"/$type/$mbid\">$content</a>"
 }
 
+sub encode_square_brackets
+{
+    my $t = $_[0];
+    my %ent = ( '[' =>  '&#91;', ']' => '&#93;' );
+    $t =~ s/([\[\]])/$ent{$1}/g;
+    $t;
+}
+
 sub _display_trimmed {
     my $url = shift;
 
-    # shorten url's that are longer 50 characters
-    my $encoded_url = encode_entities($url);
-    my $display_url = length($encoded_url) > 50
-        ? substr($encoded_url, 0, 48) . "&#8230;"
-        : $encoded_url;
+    my $encoded_url = encode_square_brackets(encode_entities($url));
 
-    $display_url =~ s/\[(.*)\]/&#91;$1&#93;/;
-    $encoded_url =~ s/\[(.*)\]/&#91;$1&#93;/;
+    # shorten url's that are longer 50 characters
+    my $display_url = length($url) > 50
+        ? encode_square_brackets(encode_entities(substr($url, 0, 48))) . "&#8230;"
+        : $encoded_url;
 
     $encoded_url = "http://$encoded_url"
         unless $encoded_url =~ m{^(?:https?:)?//};
