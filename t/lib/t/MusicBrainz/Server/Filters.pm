@@ -49,6 +49,14 @@ test 'Edit note syntax' => sub {
     is(format_editnote("http://www.discogs.com/artist/House+Of+Lords+(2%29"),
        '<a href="http://www.discogs.com/artist/House+Of+Lords+(2)" rel="nofollow">http://www.discogs.com/artist/House+Of+Lords+(2)</a>');
 
+    is(format_editnote("http://www.musicom.de/shop/csc_article_details.php?nPos=0&saArticle[ID]=289"),
+       '<a href="http://www.musicom.de/shop/csc_article_details.php?nPos=0&amp;saArticle&#91;ID&#93;=289" rel="nofollow">http://www.musicom.de/shop/csc_article_details.p&#8230;</a>',
+       'MBS-7110: square brackets in URLs should be encoded');
+
+    is(format_editnote("http://www.blah.com/1234567890/123456789?bh=foo&bah=jeez"),
+       '<a href="http://www.blah.com/1234567890/123456789?bh=foo&amp;bah=jeez" rel="nofollow">http://www.blah.com/1234567890/123456789?bh=foo&amp;&#8230;</a>',
+       'Trimming doesn\'t split entities in format_editnote');
+
     is(format_editnote("Problems with this edit\n\n1."),
        "Problems with this edit<br/><br/>1.", 'newlines -> br');
 
