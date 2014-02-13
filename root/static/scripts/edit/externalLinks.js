@@ -31,7 +31,7 @@
             this.linkTypeDescription = ko.observable("");
             this.faviconClass = ko.observable("");
             this.error = (viewModel.errorType || ko.observable)("");
-            this.removed = ko.observable(false);
+            this.removed = ko.observable(!!data.removed);
             this.removeButtonFocused = ko.observable(false);
 
             this.url.subscribe(this.urlChanged, this);
@@ -95,6 +95,14 @@
 
             if (this.id) {
                 this.removed(true);
+
+                // The original data won't be used, but the new data could
+                // have errors that prevents everything from validating, so
+                // we have to revert it.
+                this.linkTypeID(this.original.link_type);
+                this.entity0ID(this.original.entity0);
+                this.entity1ID(this.original.entity1);
+                this.error("");
             }
             else {
                 this.viewModel.links.remove(this);

@@ -68,7 +68,21 @@ role {
 
         if ($c->form_posted) {
             my $body_params = expand_hash($c->req->body_params);
-            $url_relationships = $body_params->{"edit-$source_type"}->{url} // [];
+
+            # Convert posted params to the data format used by the JavaScript.
+            # (same as `url_relationships_data`).
+            $url_relationships = [
+                map +{
+                    id          => $_->{relationship_id},
+                    type0       => $type0,
+                    type1       => $type1,
+                    linkTypeID  => $_->{link_type_id},
+                    entity0ID   => $type0 eq 'url' ? $_->{text} : $source ? $source->gid : undef,
+                    entity1ID   => $type1 eq 'url' ? $_->{text} : $source ? $source->gid : undef,
+                    removed     => $_->{removed} // 0,
+
+                }, @{ $body_params->{"edit-$source_type"}->{url} // [] }
+            ];
         }
         elsif ($source) {
             $url_relationships = url_relationships_data($source);
