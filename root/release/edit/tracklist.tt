@@ -300,7 +300,7 @@
         </div>
 
         <div class="icon add-tracks" data-bind="if: cdtocs === 0">
-          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" value="1" data-bind="value: addTrackCount" />') %]
+          [% l('Add {num} track(s)', num => '<input type="text" maxlength="2" placeholder="1" data-bind="value: addTrackCount" />') %]
           <button type="button" class="icon add-item" title="[% l('Add track(s)') %]" data-click="addNewTracks"></button>
         </div>
       </div>

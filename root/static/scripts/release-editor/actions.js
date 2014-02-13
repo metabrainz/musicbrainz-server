@@ -215,8 +215,9 @@
             var trackCount = tracks.peek().length;
             var releaseAC = medium.release.artistCredit;
             var defaultAC = releaseAC.isVariousArtists() ? null : releaseAC.toJSON();
+            var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-            var newTracks = _(medium.addTrackCount()).times(function (i) {
+            var newTracks = _(addTrackCount).times(function (i) {
                 var position = trackCount + i + 1;
 
                 var args = {

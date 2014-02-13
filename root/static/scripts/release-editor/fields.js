@@ -217,7 +217,7 @@
             this.loading = ko.observable(false);
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
-            this.addTrackCount = ko.observable(1);
+            this.addTrackCount = ko.observable("");
             this.original = ko.observable(MB.edit.fields.medium(this));
         },
 
