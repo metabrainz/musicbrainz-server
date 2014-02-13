@@ -1,10 +1,10 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-08 09:11+0000\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgstr "kunstnikunimi"
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr ""
+msgstr "kuuldemäng"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -77,6 +77,11 @@ msgstr "tagakaas"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "ballett"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -226,7 +231,7 @@ msgstr "audiofailid"
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
 msgid "Discbox Slider"
-msgstr ""
+msgstr "liuguriga plaadiümbris (DBS)"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -271,7 +276,7 @@ msgstr "esikaas"
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
-msgstr ""
+msgstr "voldikkaas"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -306,7 +311,7 @@ msgstr "hübriid-SACD"
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
-msgstr ""
+msgstr "imprint"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -341,7 +346,7 @@ msgstr "kodanikunimi"
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "vaheleht"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -567,7 +572,7 @@ msgstr "õhuke CD-karp"
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "snap case"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

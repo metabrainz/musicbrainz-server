@@ -156,6 +156,15 @@ sub detach_with_error {
     $c->detach;
 }
 
+sub critical_error {
+    my ($c, $error) = @_;
+
+    $c->error($error);
+    $c->stash->{error_body_in_stash} = 1;
+    $c->stash->{body} = $JSON->encode({ error => $error });
+    $c->stash->{status} = 400;
+}
+
 sub get_request_body {
     my $c = shift;
 
@@ -298,7 +307,7 @@ sub create_edits {
         }
         catch {
             unless(ref($_) eq 'MusicBrainz::Server::Edit::Exceptions::NoChanges') {
-                detach_with_error($c, "$_");
+                critical_error($c, $_);
             }
         };
         $edit;

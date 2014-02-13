@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-08 02:10-0700\n"
-"PO-Revision-Date: 2014-02-06 04:22+0000\n"
+"POT-Creation-Date: 2014-02-10 16:54-0700\n"
+"PO-Revision-Date: 2014-02-10 23:55+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1135,12 +1135,6 @@ msgstr "Approuver"
 msgid "Approve edit"
 msgstr "Approuver la modification"
 
-#: ../root/release/merge_confirm.tt:4
-msgid ""
-"Are you sure that you want to merge {release1} by {artist1} into {release2} "
-"by {artist2}?"
-msgstr "Êtes-vous sûr de vouloir fusionner {release1} par {artist1} avec {release2} par {artist2} ?"
-
 #: ../root/cdtoc/attach_confirm.tt:3
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
@@ -1245,9 +1239,11 @@ msgstr "Êtes-vous sûr de vouloir enlever la parution {release} de MusicBrainz 
 #: ../root/area/edits.tt:5 ../root/area/header.tt:21
 #: ../root/components/common-macros.tt:583
 #: ../root/components/common-macros.tt:649
+#: ../root/edit/details/merge_labels.tt:11
+#: ../root/edit/details/merge_labels.tt:48
 #: ../root/edit/details/merge_places.tt:11
-#: ../root/edit/details/merge_places.tt:48 ../root/place/merge.tt:14
-#: ../root/scripts/text_strings.tt:104
+#: ../root/edit/details/merge_places.tt:48 ../root/label/merge.tt:15
+#: ../root/place/merge.tt:14 ../root/scripts/text_strings.tt:104
 #: ../root/search/lib/inline-results-artist.tt:11
 #: ../root/search/results-label.tt:12 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
@@ -1711,9 +1707,11 @@ msgstr "Devenez partie intégrante de MusicBrainz en créant un compte et en {ho
 msgid "Began:"
 msgstr "A commencé par :"
 
+#: ../root/edit/details/merge_labels.tt:12
+#: ../root/edit/details/merge_labels.tt:49
 #: ../root/edit/details/merge_places.tt:12
-#: ../root/edit/details/merge_places.tt:49 ../root/place/merge.tt:15
-#: ../root/search/lib/inline-results-artist.tt:12
+#: ../root/edit/details/merge_places.tt:49 ../root/label/merge.tt:16
+#: ../root/place/merge.tt:15 ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-area.tt:12 ../root/search/results-label.tt:13
 #: ../root/search/results-place.tt:12
 msgid "Begin"
@@ -1948,7 +1946,7 @@ msgstr "Peut être approuvé"
 #: ../root/account/revoke_application_access.tt:9 ../root/area/merge.tt:20
 #: ../root/artist/merge.tt:22 ../root/components/common-macros.tt:660
 #: ../root/components/filter-form.tt:23 ../root/elections/nominate.tt:10
-#: ../root/label/merge.tt:20 ../root/layout/merge-helper.tt:34
+#: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/recording/merge.tt:26
 #: ../root/release/edit/layout.tt:54 ../root/release/edit_relationships.tt:108
 #: ../root/release/edit/tracklist.tt:49 ../root/release_group/merge.tt:45
@@ -3177,9 +3175,11 @@ msgstr "Activer les numéros de pistes du vinyle"
 msgid "Enable {autoed|auto-editor} privileges for this edit."
 msgstr "Activer les privilèges de {autoed|robot} pour cette modification."
 
-#: ../root/cdtoc/info.tt:34 ../root/edit/details/merge_places.tt:13
-#: ../root/edit/details/merge_places.tt:50 ../root/place/merge.tt:16
-#: ../root/search/lib/inline-results-artist.tt:14
+#: ../root/cdtoc/info.tt:34 ../root/edit/details/merge_labels.tt:13
+#: ../root/edit/details/merge_labels.tt:50
+#: ../root/edit/details/merge_places.tt:13
+#: ../root/edit/details/merge_places.tt:50 ../root/label/merge.tt:17
+#: ../root/place/merge.tt:16 ../root/search/lib/inline-results-artist.tt:14
 #: ../root/search/results-area.tt:13 ../root/search/results-label.tt:14
 #: ../root/search/results-place.tt:13
 msgid "End"
@@ -4105,6 +4105,7 @@ msgid "Internal/Bot"
 msgstr "Interne/Robot"
 
 #: ../root/edit/details/merge_common.tt:17
+#: ../root/edit/details/merge_labels.tt:40
 #: ../root/edit/details/merge_places.tt:40
 #: ../root/edit/details/merge_recordings.tt:10
 #: ../root/edit/details/merge_release_groups.tt:25
@@ -4158,12 +4159,15 @@ msgstr "Je souhaite rester connecté"
 #: ../root/components/common-macros.tt:641
 #: ../root/edit/details/edit_release_events.tt:7
 #: ../root/edit/details/historic/add_release.tt:77
+#: ../root/edit/details/merge_labels.tt:8
+#: ../root/edit/details/merge_labels.tt:45
 #: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:307
 #: ../root/label/edits.tt:5 ../root/label/header.tt:13
-#: ../root/recording/index.tt:16 ../root/release/edit/duplicates.tt:15
-#: ../root/release_group/index.tt:28 ../root/release_group/releases-list.tt:25
-#: ../root/release/merge.tt:19 ../root/report/label_list.tt:7
-#: ../root/report/label_url_list.tt:6 ../root/scripts/text_strings.tt:106
+#: ../root/label/merge.tt:12 ../root/recording/index.tt:16
+#: ../root/release/edit/duplicates.tt:15 ../root/release_group/index.tt:28
+#: ../root/release_group/releases-list.tt:25 ../root/release/merge.tt:19
+#: ../root/report/label_list.tt:7 ../root/report/label_url_list.tt:6
+#: ../root/scripts/text_strings.tt:106
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
@@ -4173,6 +4177,11 @@ msgstr "Label"
 #: ../root/edit/search_macros.tt:307
 msgid "Label Area"
 msgstr "Région du label"
+
+#: ../root/edit/details/merge_labels.tt:10
+#: ../root/edit/details/merge_labels.tt:47 ../root/label/merge.tt:14
+msgid "Label Code"
+msgstr ""
 
 #: ../root/label/index.tt:5
 msgid "Label Code:"
@@ -4608,7 +4617,7 @@ msgstr "Supports :"
 msgid "Member since:"
 msgstr "Membre depuis :"
 
-#: ../root/layout/merge-helper.tt:30 ../root/release/merge_search.tt:14
+#: ../root/layout/merge-helper.tt:30
 msgid "Merge"
 msgstr "Fusionner"
 
@@ -4640,8 +4649,6 @@ msgstr "Fusionner des enregistrements"
 msgid "Merge Release Groups"
 msgstr "Fusionner des groupes de parution"
 
-#: ../root/release/merge_confirm.tt:1 ../root/release/merge_confirm.tt:2
-#: ../root/release/merge_search.tt:1 ../root/release/merge_search.tt:2
 #: ../root/release/merge.tt:1 ../root/release/merge.tt:3
 msgid "Merge Releases"
 msgstr "Fusionner des parutions"
@@ -4675,10 +4682,6 @@ msgstr "Fusionner la langue &amp; le système d'écriture :"
 msgid "Merge mediums and recordings"
 msgstr "Fusionner les supports et les enregistrements"
 
-#: ../root/release/merge_confirm.tt:10
-msgid "Merge method:"
-msgstr "Fusionner des méthodes :"
-
 #: ../root/place/layout.tt:56
 msgid "Merge place"
 msgstr "Fusionner le lieu"
@@ -4709,6 +4712,7 @@ msgid "Merge work"
 msgstr "Fusionner l’œuvre"
 
 #: ../root/edit/details/merge_common.tt:2
+#: ../root/edit/details/merge_labels.tt:3
 #: ../root/edit/details/merge_places.tt:3
 #: ../root/edit/details/merge_recordings.tt:3
 #: ../root/edit/details/merge_release_groups.tt:13
@@ -5148,9 +5152,9 @@ msgstr "Aucun enregistrement, parution ou groupe de parution de relié vers ce l
 msgid "No relationship attributes found."
 msgstr "Aucun attribut de relation de trouvé."
 
-#: ../root/artist/index.tt:108
-msgid "No release groups found"
-msgstr "Aucun groupe de parution de trouvé"
+#: ../root/artist/index.tt:106
+msgid "No release groups found."
+msgstr ""
 
 #: ../root/tag/release_group.tt:1
 msgid "No release groups with this tag were found."
@@ -5655,12 +5659,6 @@ msgid ""
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
 msgstr "Veuillez saisir le code-barres pour la parution. Voir <a href=\"{url}\" target=\"_blank\">Code-barres</a> pour plus d'informations."
 
-#: ../root/release/merge_search.tt:6
-msgid ""
-"Please enter the {name|release name} of the recording into which you would "
-"like to merge this recording, and press <em>search</em> to start the search."
-msgstr "Veuillez saisir le {name|nom de parution} de l'enregistrement dans lequel vous souhaitez fusionner cet enregistrement, et cliquez sur <em>rechercher</em> pour lancer la recherche."
-
 #: ../root/account/change_password.tt:16
 msgid "Please enter your old password below, and then your new password."
 msgstr "Veuillez saisir votre ancien mot de passe ci-dessous, puis votre nouveau mot de passe."
@@ -5698,12 +5696,6 @@ msgstr "Notez que tout contenu envoyés à MusicBrainz sera publié sous une lic
 #: ../root/search/form.tt:49
 msgid "Please note:"
 msgstr "Veuillez prendre note :"
-
-#: ../root/release/merge_search.tt:5
-msgid ""
-"Please read the guideline on {doc_merging|how to merge releases} before "
-"entering this edit."
-msgstr "Veuillez lire les directives sur {doc_merging|Comment fusionner des parutions} avant de valider cette modification."
 
 #: ../root/label/edit_form.tt:5
 msgid ""
@@ -7206,31 +7198,59 @@ msgid ""
 "or {show_vid|show only videos}."
 msgstr "Affichage de tous les enregistrements. {show_sa|Montrer plutôt les enregistrements isolés seulement}, ou {show_vid|montrer seulement les vidéos}."
 
-#: ../root/artist/index.tt:125
+#: ../root/artist/index.tt:127
 msgid ""
 "Showing all release groups by this artist. {show_official|Show only official"
 " release groups instead}, or {show_va|show various artists release groups}."
 msgstr "Affichage de tous les groupes de parution de cet artiste. {show_official|Ne montrer plutôt que les groupes de parution officiels}, ou {show_va|montrer les groupes de parution des artistes divers}."
 
-#: ../root/artist/index.tt:128
+#: ../root/artist/index.tt:113
+msgid ""
+"Showing all release groups by this artist. {show_va|Show various artists "
+"release groups instead}."
+msgstr ""
+
+#: ../root/artist/index.tt:123
+msgid "Showing all release groups for various artists."
+msgstr ""
+
+#: ../root/artist/index.tt:145
+msgid ""
+"Showing all release groups for various artists. {show_non_va|Show release "
+"groups by this artist instead}."
+msgstr ""
+
+#: ../root/artist/index.tt:153
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
 msgstr "Affichage de tous les groupes de parution des artistes divers. {show_official|Ne montrer plutôt que les groupes de parution des artistes divers}, ou {show_non_va|montrer les groupes de parution par cet artiste}."
 
-#: ../root/artist/index.tt:119
+#: ../root/artist/index.tt:133
+msgid ""
+"Showing all release groups for various artists. {show_official|Show only "
+"official various artists release groups instead}."
+msgstr ""
+
+#: ../root/artist/index.tt:109
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
 msgstr "Affichage des groupes de parution officiel par cet artiste. {show_all|Monter plutôt tous les groupes de parution}, ou {show_va|montrer les groupes de parution des artistes divers}."
 
-#: ../root/artist/index.tt:122
+#: ../root/artist/index.tt:138
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
 msgstr "Affichage des groupes de parution officiels des artistes divers. {show_all|Montrer plutôt tous les groupes de parution des artistes divers}, ou {show_non_va|montrer les groupes de parution par cet artiste}."
+
+#: ../root/artist/index.tt:117
+msgid ""
+"Showing official release groups for various artists. {show_all|Show all "
+"various artists release groups instead}."
+msgstr ""
 
 #: ../root/artist/recordings.tt:20
 msgid ""
@@ -8237,13 +8257,19 @@ msgstr "Cette région n'est actuellement associée à aucun lieu."
 msgid "This area is not currently associated with any releases."
 msgstr "Cette région n'est actuellement associée à aucune parution,"
 
-#: ../root/artist/index.tt:103
+#: ../root/artist/index.tt:120 ../root/artist/index.tt:130
 msgid "This artist does not have any release groups or standalone recordings."
 msgstr "Cet artiste n'a aucun groupe de parution ni d'enregistrement isolé."
 
 #: ../root/artist/releases.tt:18
 msgid "This artist does not have any releases"
 msgstr "Cet artiste n'a aucune parution"
+
+#: ../root/artist/index.tt:141 ../root/artist/index.tt:150
+msgid ""
+"This artist does not have any various artists release groups. "
+"{show_non_va|Show release groups by this artist instead}."
+msgstr ""
 
 #: ../root/artist/edit_form.tt:80 ../root/scripts/text_strings.tt:68
 msgid "This artist has ended."
@@ -8256,7 +8282,7 @@ msgid ""
 "intended, please add more data to this artist."
 msgstr "Cet artiste n'a aucune relation, enregistrement, parution ou groupe de parution et sera donc enlevé automatiquement dans les prochains jours. Si ce n'est pas ce que vous souhaitez, veuillez ajouter plus d'information à cet artiste."
 
-#: ../root/artist/index.tt:106
+#: ../root/artist/index.tt:104
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Cet artiste n'a aucun groupe de parution ni d'enregistrement isolé."
 
@@ -8275,21 +8301,21 @@ msgstr "Cet artiste a des relations autres que de collaboration, et donc ne peut
 msgid "This artist is not currently associated with any works."
 msgstr "Cet artiste n'est actuellement associé à aucune œuvre."
 
-#: ../root/artist/index.tt:114
-msgid ""
-"This artist only has release groups by various artists. Showing all release "
-"groups. {show_official|Show only official release groups instead}."
-msgstr "Cet artiste n'a que des groupes de parution par des artistes divers. Affichage de tous les groupes de parution. {show_official|Ne montrer plutôt que les groupes de parution officiels}."
-
-#: ../root/artist/index.tt:111
-msgid ""
-"This artist only has release groups by various artists. Showing official "
-"release groups only. {show_all|Show all release groups instead}."
-msgstr "Cet artiste n'a que des groupes de parution par des artistes divers. Affichage des groupes de parution officiels seulement. {show_all|Montrer plutôt tous les groupes de parution}."
+#: ../root/artist/index.tt:116 ../root/artist/index.tt:132
+msgid "This artist only has release groups by various artists."
+msgstr ""
 
 #: ../root/artist/releases.tt:25
 msgid "This artist only has releases by various artists."
 msgstr "Cet artiste n'est présent que sur des parution ayant des artistes divers."
+
+#: ../root/artist/index.tt:122 ../root/artist/index.tt:144
+msgid "This artist only has unofficial release groups by various artists."
+msgstr ""
+
+#: ../root/artist/index.tt:112
+msgid "This artist only has unofficial release groups."
+msgstr ""
 
 #: ../root/scripts/text_strings.tt:115
 #: ../lib/MusicBrainz/Server/Form/Role/LinkType.pm:111
@@ -9082,10 +9108,6 @@ msgid ""
 "already. The work names will be the same as their respective recording."
 msgstr "Ceci créera une nouvelle œuvre pour chaque enregistrement coché qui n'en a pas déjà. Les noms d’œuvre seront identique aux enregistrements."
 
-#: ../root/release/merge_search.tt:4
-msgid "This wizard allows you to merge {release} into another release."
-msgstr "Cet assistant vous permet de fusionner {release} dans une autre parution."
-
 #: ../root/work/index.tt:21
 msgid ""
 "This work has no relationships and will be removed automatically in the next"
@@ -9393,13 +9415,15 @@ msgstr "Twitter"
 #: ../root/account/applications.tt:55 ../root/area/artists-list.tt:5
 #: ../root/area/labels-list.tt:5 ../root/area/places-list.tt:5
 #: ../root/artist/works-list.tt:13 ../root/components/aliases.tt:15
+#: ../root/edit/details/merge_labels.tt:9
+#: ../root/edit/details/merge_labels.tt:46
 #: ../root/edit/details/merge_places.tt:9
 #: ../root/edit/details/merge_places.tt:46
 #: ../root/edit/details/merge_release_groups.tt:6
 #: ../root/edit/search_macros.tt:307 ../root/iswc/index.tt:19
-#: ../root/place/merge.tt:12 ../root/release/edit_relationships.tt:228
-#: ../root/release_group/merge.tt:14 ../root/release/lookup.tt:13
-#: ../root/report/artist_list.tt:8
+#: ../root/label/merge.tt:13 ../root/place/merge.tt:12
+#: ../root/release/edit_relationships.tt:228 ../root/release_group/merge.tt:14
+#: ../root/release/lookup.tt:13 ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27
 #: ../root/report/iswc_with_many_works.tt:28
@@ -9970,12 +9994,6 @@ msgid ""
 "and following the merge link."
 msgstr "Lorsque vous êtes prêt à fusionner ces données, cliquez le bouton » Fusionner ». Vous pourrez toujours ajouter d'autres données à cette fusion en cherchant les autres entités et en cliquant sur le lien « fusionner »."
 
-#: ../root/release/merge_search.tt:7
-msgid ""
-"When you have found the release that you would like to merge {recording} "
-"into, please select that entity and click <em>merge</em>."
-msgstr "Lorsque vous aurez trouvé la parution que vous souhaitez fusionner avec {recording}, choisissez-la et cliquez sur <em>fusionner</em>."
-
 #: ../root/layout.tt:91
 msgid "Wiki"
 msgstr "Wiki"
@@ -10542,10 +10560,12 @@ msgid "[removed]"
 msgstr "[enlevé]"
 
 #: ../root/area/layout.tt:31 ../root/artist/layout.tt:44
-#: ../root/components/aliases.tt:42 ../root/edit/details/merge_places.tt:27
+#: ../root/components/aliases.tt:42 ../root/edit/details/merge_labels.tt:27
+#: ../root/edit/details/merge_labels.tt:64
+#: ../root/edit/details/merge_places.tt:27
 #: ../root/edit/details/merge_places.tt:64 ../root/label/layout.tt:30
-#: ../root/place/layout.tt:29 ../root/place/merge.tt:35
-#: ../root/search/lib/inline-results-artist.tt:32
+#: ../root/label/merge.tt:36 ../root/place/layout.tt:29
+#: ../root/place/merge.tt:35 ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-area.tt:28 ../root/search/results-label.tt:30
 #: ../root/search/results-place.tt:28
 msgid "[unknown]"
@@ -11224,7 +11244,6 @@ msgid "{relationship_documentation_url|Documentation}"
 msgstr "{relationship_documentation_url|Documentation}"
 
 #: ../root/cdtoc/move_search.tt:31 ../root/cdtoc/set_durations.tt:22
-#: ../root/release/merge_search.tt:11
 msgid "{release} by {artist}"
 msgstr "{release} par {artist}"
 
@@ -11419,11 +11438,11 @@ msgstr "<strong>Nous n'avons pas pu vous envoyer un courriel de confirmation d'a
 msgid "User successfully edited."
 msgstr "Utilisateur modifié avec succès."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:445
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:459
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Il n'est pas possible de fusionner un artiste à usage spécial vers un autre artiste."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:450
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:464
 msgid "You cannot merge into Deleted Artist"
 msgstr "Vous ne pouvez fusionner vers un artiste supprimé"
 
@@ -11510,7 +11529,7 @@ msgstr "Il y avait des erreurs dans votre proposition. Veuillez les corriger et 
 msgid "Invalid submission."
 msgstr "Proposition invalide."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:567
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:565
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Cette stratégie de fusion n'est pas applicable aux parutions que vous avez sélectionnées."

@@ -99,35 +99,60 @@
             [%- INCLUDE 'artist/recordings-list.tt' WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
-    [% IF !show_va && pager.total_entries == 0 %]
-        <p>[% l('This artist does not have any release groups or standalone recordings.') %]</p>
-    [% ELSE %]
-        [% IF !show_va && recordings.size %]
-            <p>[% l('This artist has no release groups, only standalone recordings.') %]</p>
-        [% ELSIF release_groups.size == 0 %]
-            <p>[% l('No release groups found') %]</p>
-        [% ELSIF va_only %]
-            [% IF !show_all %]
-                <p>[% l('This artist only has release groups by various artists. Showing official release groups only. {show_all|Show all release groups instead}.',
-                        { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }) }) %]</p>
-            [% ELSE %]
-                <p>[% l('This artist only has release groups by various artists. Showing all release groups. {show_official|Show only official release groups instead}.',
-                        { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }) }) %]</p>
-            [% END %]
-        [% ELSE %]
-            [% IF !show_va && !show_all %]
-                <p>[% l('Showing official release groups by this artist. {show_all|Show all release groups instead}, or {show_va|show various artists release groups}.',
-                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
-            [% ELSIF show_va && !show_all %]
-                <p>[% l('Showing official release groups for various artists. {show_all|Show all various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
-                         { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 1}), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
-            [% ELSIF !show_va && show_all %]
-                <p>[% l('Showing all release groups by this artist. {show_official|Show only official release groups instead}, or {show_va|show various artists release groups}.',
-                         { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) %]</p>
-            [% ELSIF show_va && show_all %]
-                <p>[% l('Showing all release groups for various artists. {show_official|Show only official various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
-                         { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0, va = 1 }), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) %]</p>
-            [% END %]
-        [% END %]
-    [% END %]
+    <p>
+    [%~ IF recordings.size -%]
+        [%- l('This artist has no release groups, only standalone recordings.') -%]
+    [%- ELSIF release_groups.size == 0 && has_filter -%]
+        [%- l('No release groups found.') -%]
+    [%- ELSIF !show_all && !show_va -%]
+        [%- IF !including_all && !including_va -%]
+            [%- l('Showing official release groups by this artist. {show_all|Show all release groups instead}, or {show_va|show various artists release groups}.',
+                 { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) -%]
+        [%- ELSIF including_all && !including_va -%]
+            [%- l('This artist only has unofficial release groups.') =%]
+            [%= l('Showing all release groups by this artist. {show_va|Show various artists release groups instead}.',
+                 { show_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 1 }) }) -%]
+        [%- ELSIF !including_all && including_va -%]
+            [%- l('This artist only has release groups by various artists.') =%]
+            [%= l('Showing official release groups for various artists. {show_all|Show all various artists release groups instead}.',
+                 { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 1}) }) -%]
+        [%- ELSIF release_groups.size == 0 -%]
+            [%- l('This artist does not have any release groups or standalone recordings.') -%]
+        [%- ELSIF including_all && including_va -%]
+            [%- l('This artist only has unofficial release groups by various artists.') =%]
+            [%= l('Showing all release groups for various artists.') -%]
+        [%- END -%]
+    [%- ELSIF show_all && !show_va -%]
+        [%- IF including_all && !including_va -%]
+            [%- l('Showing all release groups by this artist. {show_official|Show only official release groups instead}, or {show_va|show various artists release groups}.',
+                 { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0 }), show_va = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 1 }) }) -%]
+        [%- ELSIF release_groups.size == 0 -%]
+            [%- l('This artist does not have any release groups or standalone recordings.') -%]
+        [%- ELSIF including_all && including_va -%]
+            [%- l('This artist only has release groups by various artists.') =%]
+            [%= l('Showing all release groups for various artists. {show_official|Show only official various artists release groups instead}.',
+                 { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0, va = 1 }) }) -%]
+        [%- END -%]
+    [%- ELSIF !show_all && show_va -%]
+        [%- IF !including_all && including_va -%]
+            [%- l('Showing official release groups for various artists. {show_all|Show all various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
+                 { show_all = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 1}), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) -%]
+        [%- ELSIF release_groups.size == 0 -%]
+            [%- l('This artist does not have any various artists release groups. {show_non_va|Show release groups by this artist instead}.',
+                 { show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) -%]
+        [%- ELSIF including_all && including_va -%]
+            [%- l('This artist only has unofficial release groups by various artists.') =%]
+            [%= l('Showing all release groups for various artists. {show_non_va|Show release groups by this artist instead}.',
+                 { show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { va = 0 }) }) -%]
+        [%- END -%]
+    [%- ELSIF show_all && show_va -%]
+        [%- IF release_groups.size == 0 -%]
+            [%- l('This artist does not have any various artists release groups. {show_non_va|Show release groups by this artist instead}.',
+                 { show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 0 }) }) -%]
+        [%- ELSE -%]
+            [%- l('Showing all release groups for various artists. {show_official|Show only official various artists release groups instead}, or {show_non_va|show release groups by this artist}.',
+                 { show_official = c.uri_for_action('/artist/show', [ artist.gid ], { all = 0, va = 1 }), show_non_va = c.uri_for_action('/artist/show', [ artist.gid ], { all = 1, va = 0 }) }) -%]
+        [%- END -%]
+    [%- END ~%]
+    </p>
 [% END %]

@@ -414,9 +414,14 @@ around 'finalize_error' => sub {
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
-            $c->res->{body} = 'clear';
-            $c->view('Default')->process($c);
-            $c->res->{body} = encode('utf-8', $c->res->{body});
+            if ($c->stash->{error_body_in_stash}) {
+                $c->res->{body} = $c->stash->{body};
+                $c->res->{status} = $c->stash->{status};
+            } else {
+                $c->res->{body} = 'clear';
+                $c->view('Default')->process($c);
+                $c->res->{body} = encode('utf-8', $c->res->{body});
+            }
         }
     });
 };

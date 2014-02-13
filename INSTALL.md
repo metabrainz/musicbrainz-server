@@ -119,6 +119,13 @@ Server configuration
         date with the master database. Local editing is available, but keep in
         mind that none of your changes will be pushed up to http://musicbrainz.org.
 
+    3. `RT_MASTER`
+
+        Almost certainly not what you want, this is what the main musicbrainz.org
+        site runs on. It's different from standalone in that it's able to *produce*
+        replication packets to be applied on slaves. For more details, see
+        INSTALL-MASTER.md
+
     If you chose RT_SLAVE, please ensure that there is a configuration for
     both READONLY and READWRITE, or the server will not function correctly.
     (Both can be configured the same in a simple setup).
