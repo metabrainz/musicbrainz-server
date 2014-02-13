@@ -413,17 +413,33 @@ MB.utility.computedWith = function (callback, observable, defaultValue) {
     });
 };
 
-MB.utility.isValidURL = function (url) {
-    var a = document.createElement("a");
-    a.href = url;
 
-    if (url.indexOf(a.hostname) < 0) {
-        return false;
-    }
+MB.utility.isValidURL = (function () {
+    var protocolRegex = /^(https?|ftp):$/;
+    var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
 
-    if (!/^(https?|ftp):$/.test(a.protocol)) {
-        return false;
-    }
+    return function (url) {
+        var a = document.createElement("a");
+        a.href = url;
 
-    return true;
-};
+        var hostname = a.hostname;
+
+        if (url.indexOf(hostname) < 0) {
+            return false;
+        }
+
+        if (!hostnameRegex.test(hostname)) {
+            return false;
+        }
+
+        if (hostname.indexOf(".") < 0) {
+            return false;
+        }
+
+        if (!protocolRegex.test(a.protocol)) {
+            return false;
+        }
+
+        return true;
+    };
+}());
