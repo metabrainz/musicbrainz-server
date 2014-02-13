@@ -418,7 +418,7 @@ sub autocomplete_recording
     my @output;
 
     for (@$results) {
-        my $out = $self->_recording( $_->{recording}, 1 );
+        my $out = $self->_recording( $_->{recording} );
 
         $out->{appearsOn} = {
             hits    => $_->{appearsOn}{hits},
