@@ -582,6 +582,9 @@ test("relationshipCreate edit for external link is generated for existing releas
 
 
 test("relationshipEdit edit for external link is generated for existing release", function () {
+    MB.Control.externalLinks.typeInfo = {};
+    MB.Control.externalLinks.faviconClasses = {};
+
     var existingURLRelationship = {
         type0: "release",
         type1: "url",
