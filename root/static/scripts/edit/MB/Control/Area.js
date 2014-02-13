@@ -18,29 +18,25 @@
 
 */
 
-MB.Control.Area = function (span, bubbles) {
+MB.Control.Area = function (span) {
     var self = {};
 
     self.$span = $(span);
     self.$name = self.$span.find('input.name');
-    self.bubble = bubbles.add (self.$span, $('div.area.bubble'));
+    self.$gid = self.$span.find('input.gid');
+    self.$bubble = $("#area-bubble");
+
+    MB.Control.initializeBubble(self.$bubble, self.$name, {}, function () {
+        var gid = self.$gid.val();
+
+        self.$bubble.find ('a.area')
+            .attr ('href', '/area/' + gid)
+            .text (self.$name.val ());
+
+        return !!gid;
+    });
 
     MB.Control.EntityAutocomplete ({
         inputs: self.$span
-    });
-
-    self.$name.bind('focus.mb lookup-performed cleared', function(event) {
-        var gid = self.$span.find('input.gid').val();
-        if (gid)
-        {
-            self.bubble.show ();
-            self.bubble.$content.find ('a.area')
-                .attr ('href', '/area/' + gid)
-                .text (self.$name.val ());
-        }
-        else
-        {
-            self.bubble.hide ();
-        }
     });
 };

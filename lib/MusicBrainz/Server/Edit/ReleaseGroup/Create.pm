@@ -80,6 +80,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{primary_type_id} = delete $data->{type_id};
+    $data->{comment} = '' unless defined $data->{comment};
     return $data;
 }
 

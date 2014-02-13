@@ -213,6 +213,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr ""
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr ""
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -233,6 +238,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr ""
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr ""
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -246,6 +256,11 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
+msgstr ""
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
 msgstr ""
 
 #: DB:artist_type/name:2
@@ -278,6 +293,11 @@ msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr ""
 
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -306,6 +326,11 @@ msgstr ""
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
+msgstr ""
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:6
@@ -443,6 +468,11 @@ msgctxt "work_type"
 msgid "Poem"
 msgstr ""
 
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr ""
+
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
@@ -522,6 +552,11 @@ msgstr ""
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
+msgstr ""
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
 msgstr ""
 
 #: DB:work_type/name:5

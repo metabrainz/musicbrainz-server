@@ -145,6 +145,12 @@ msgid ""
 "modify the sound of an instrument."
 msgstr ""
 
+#: DB:link_attribute_type/description:752
+msgid ""
+"A tar is a single-headed frame drum from North Africa and the Middle East. "
+"(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:555
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
@@ -1336,6 +1342,14 @@ msgstr ""
 msgid ""
 "The pakhavaj/pakhawaj is an Indian barrel-shaped, two-headed drum used in "
 "Hindustani music (<a href=\"http://en.wikipedia.org/wiki/Pakhavaj"
+"\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:751
+msgid ""
+"The pedal piano (or piano-pédalier) is a kind of piano that includes a "
+"pedalboard, enabling bass register notes to be played with the feet, as is "
+"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal piano"
 "\">Wikipedia</a>)"
 msgstr ""
 

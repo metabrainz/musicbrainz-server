@@ -1,9 +1,9 @@
-<div class="search-help">
-    <dl class="properties">
-        <dt>
+<table class="search-help">
+    <tr>
+        <th>
             [%- l('Quick links:') -%]
-        </dt>
-        <dd>
+        </th>
+        <td>
             [%- IF !search -%]
                 <a href="[% c.uri_for_action('/edit/search') %]">[% l('Search for edits') %]</a>
                 | 
@@ -17,11 +17,13 @@
             <a href="[% c.uri_for_action('/edit/subscribed') %]">[% l('Subscribed entities') %]</a>
             | 
             <a href="[% c.uri_for_action('/edit/subscribed_editors') %]">[% l('Subscribed editors') %]</a>
-        </dd>
-        <dt>
+        </td>
+    </tr>
+    <tr>
+        <th>
             [%- l('Help:') -%]
-        </dt>
-        <dd>
+        </th>
+        <td>
             <a href="[% doc_link('Voting_FAQ') %]">[% l('Voting FAQ') %]</a>
             | 
             <a href="[% doc_link('Editing_FAQ') %]">[% l('Editing FAQ') %]</a>
@@ -29,6 +31,6 @@
             <a href="[% doc_link('Official_Style_Guidelines') %]">[% l('Style guidelines') %]</a>
             | 
             <a href="[% doc_link('How_Editing_Works') %]">[% l('How editing works') %]</a>
-        </dd>
-    </dl>
-</div>
+        </td>
+    </tr>
+</table>

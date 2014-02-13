@@ -15,17 +15,7 @@
     color:@text-white;
 }
 
-.buttons { display: inline-block; }
-
-/* Standard */
-.buttons a { text-align: center; }
-
-.buttons a,
-.buttons button,
-.buttons input[type=submit],
-.buttons input[type=button] {
-    float:left;
-    margin:0 7px 0 0;
+.styled-button {
     background-color:@very-light-bg;
     border:1px solid @dark-button-border;
     border-top:1px solid @light-button-border;
@@ -47,6 +37,44 @@
     &:active {
         .button-active(@button-active);
     }
+
+    &.positive {
+        color: @positive-text;
+    }
+
+    &.positive:hover, &.positive:focus {
+        .button-focus(@positive-hover-background; @positive-hover-border; @positive-hover-text);
+    }
+
+    &.positive:active {
+        .button-active(@positive-active);
+    }
+
+    &.negative {
+        color: @negative-text;
+    }
+
+    &.negative:hover, &.negative:focus {
+        .button-focus(@negative-hover-background; @negative-hover-border; @negative-hover-text);
+    }
+
+    &.negative:active {
+        .button-active(@negative-active);
+    }
+}
+
+div.buttons, span.buttons { display: inline-block; }
+
+/* Standard */
+.buttons a { text-align: center; }
+
+.buttons a,
+.buttons button,
+.buttons input[type=submit],
+.buttons input[type=button] {
+    float: left;
+    margin: 0 7px 0 0;
+    .styled-button
 }
 .buttons button,
 .buttons input[type=submit],
@@ -72,38 +100,6 @@
     border:none;
     width:16px;
     height:16px;
-}
-
-/* Positive */
-.buttons a.positive,
-.buttons input[type=submit].positive,
-.buttons input[type=button].positive,
-.buttons button.positive {
-    color:@positive-text;
-
-    &:hover, &:focus {
-        .button-focus(@positive-hover-background; @positive-hover-border; @positive-hover-text);
-    }
-
-    &:active {
-        .button-active(@positive-active);
-    }
-}
-
-/* Negative */
-.buttons a.negative,
-.buttons input[type=button].negative,
-.buttons input[type=submit].negative,
-.buttons button.negative {
-    color:@negative-text;
-
-    &:hover, &:focus {
-        .button-focus(@negative-hover-background; @negative-hover-border; @negative-hover-text);
-    }
-
-    &:active {
-        .button-active(@negative-active);
-    }
 }
 
 /* Special */
@@ -139,10 +135,10 @@ input[type=button].disabled,
 input[type=submit].disabled,
 button.disabled, button[disabled],
 button.disabled:hover, button[disabled]:hover {
-    color: @dark-text !important;
-    border: 1px solid @light-button-border !important;
-    background-color: @very-light-bg !important;
-    cursor: default !important;
+    color: @dark-text;
+    border: 1px solid @light-button-border;
+    background-color: @very-light-bg;
+    cursor: default;
 }
 
 /*
@@ -344,6 +340,20 @@ ul.favicons li img {
 
 #recaptcha_widget_div {
     display: inline-block;
+}
+
+.loading-message {
+    padding-left: 20px;
+    background-color: transparent;
+    background-image: data-uri("../images/icons/loading.gif") !important;
+    background-position: left top;
+    background-repeat: no-repeat !important;
+}
+
+.loading-tab {
+    .loading-message;
+    padding-left: 12px !important;
+    background-position: 4px center !important;
 }
 
 .content-loading {

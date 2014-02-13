@@ -4,6 +4,7 @@ use HTML::FormHandler::Moose;
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -94,7 +95,7 @@ sub options_locale {
 
 sub options_type_id {
     my $self = shift;
-    $self->_select_all($self->alias_model->parent->alias_type);
+    select_options($self->ctx, $self->alias_model->parent->alias_type);
 }
 
 sub validate_primary_for_locale {

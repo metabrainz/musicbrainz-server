@@ -18,7 +18,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 sub html_filter {
     my $text = shift;
-    return unless $text;
+    return unless defined $text;
     for ($text) {
         s/&/&amp;/g;
         s/</&lt;/g;

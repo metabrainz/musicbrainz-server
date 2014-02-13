@@ -112,8 +112,5 @@
                       caa  => 'http://coverartarchive.org/' }) %]
             </p>
         </div>
-
-        [%- BLOCK invisible_content -%][%- END -%]
-        [% INCLUDE invisible_content %]
     </body>
 </html>

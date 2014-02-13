@@ -96,6 +96,7 @@
 
 <h2>[% l('Release groups') %]</h2>
 <table class="database-statistics">
+<tbody>
 <tr>
     <th colspan="2">[% l('Release groups with cover art:') %]</th>
     <td>[% add_commas(stats.statistic('count.releasegroup.caa')) %]</td>
