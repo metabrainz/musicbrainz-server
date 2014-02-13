@@ -95,9 +95,9 @@
 
         <!-- ko if: loading -->
           <div class="recordings-loading">
-            <p class="loading-message">
+            <span class="loading-message">
               [% l('Now loading recording associations...') %]
-            </p>
+            </span>
           </div>
         <!-- /ko -->
       </div>
