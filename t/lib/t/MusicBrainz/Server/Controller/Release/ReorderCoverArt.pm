@@ -43,6 +43,20 @@ EOSQL
         $mech->submit_form(
             with_fields => {
                 'reorder-cover-art.artwork.0.id' => 12345,
+                'reorder-cover-art.artwork.0.position' => 1,
+                'reorder-cover-art.artwork.1.id' => 12346,
+                'reorder-cover-art.artwork.1.position' => 2,
+            }
+        );
+    } $c;
+    is(@edits, 0, 'does not create edit without changes');
+
+    $mech->get_ok('/release/14b9d183-7dab-42ba-94a3-7388a66604b8/reorder-cover-art');
+
+    @edits = capture_edits {
+        $mech->submit_form(
+            with_fields => {
+                'reorder-cover-art.artwork.0.id' => 12345,
                 'reorder-cover-art.artwork.0.position' => 2,
                 'reorder-cover-art.artwork.1.id' => 12346,
                 'reorder-cover-art.artwork.1.position' => 1,
