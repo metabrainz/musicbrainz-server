@@ -5,6 +5,9 @@ use Moose::Util::TypeConstraints;
 subtype 'AggregatedTag'
     => as class_type 'MusicBrainz::Server::Entity::AggregatedTag';
 
+subtype 'AliasType'
+    => as class_type 'MusicBrainz::Server::Entity::AliasType';
+
 subtype 'Annotation'
     => as class_type 'MusicBrainz::Server::Entity::Annotation';
 
@@ -130,6 +133,9 @@ subtype 'Relationship'
 
 subtype 'ReleaseGroup'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroup';
+
+subtype 'ReleaseGroupSecondaryType'
+    => as class_type 'MusicBrainz::Server::Entity::ReleaseGroupSecondaryType';
 
 subtype 'ReleaseGroupType'
     => as class_type 'MusicBrainz::Server::Entity::ReleaseGroupType';

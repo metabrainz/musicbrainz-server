@@ -9,6 +9,7 @@ use MusicBrainz::Server::Data::Utils qw(
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'cat' };
 with 'MusicBrainz::Server::Data::Role::SelectAll';
+with 'MusicBrainz::Server::Data::Role::OptionsTree';
 
 sub _table
 {
@@ -17,7 +18,7 @@ sub _table
 
 sub _columns
 {
-    return 'art_type.id, art_type.name';
+    return 'art_type.id, art_type.name, art_type.parent AS parent_id, art_type.child_order, art_type.description';
 }
 
 sub _entity_class

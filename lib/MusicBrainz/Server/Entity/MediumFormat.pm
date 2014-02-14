@@ -53,6 +53,11 @@ has 'children' => (
     }
 );
 
+has 'description' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
