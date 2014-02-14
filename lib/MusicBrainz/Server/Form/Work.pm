@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options );
 use JSON;
 use List::AllUtils qw( uniq );
@@ -45,12 +45,16 @@ has_field 'attributes' => (
 
 has_field 'attributes.type_id' => (
     type => 'Integer',
-    required => 1
+    required => 1,
+    required_message => N_l('Please select a work attribute type.'),
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 has_field 'attributes.value' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
-    required => 1
+    required => 1,
+    required_message => N_l('Please enter a work attribute value.'),
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 sub is_empty_attribute {
