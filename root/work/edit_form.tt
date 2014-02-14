@@ -35,7 +35,7 @@
 <script type="text/javascript">//<![CDATA[
   (function () {
     MB.Control.initialize_guess_case("work", "id-edit-work");
-    MB.Control.initializeBubble("iswcs.bubble", "input[name=edit-work\\.iswcs\\.0]");
+    MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
 
     MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
   }());
