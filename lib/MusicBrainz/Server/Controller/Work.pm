@@ -104,7 +104,7 @@ sub stash_work_attribute_json {
     my ($c) = @_;
     state $json = JSON::Any->new( utf8 => 1 );
     $c->stash(
-        workAttributesJson => $json->encode({
+        workAttributeTypesJson => $json->encode({
             $c->model('Work')->all_work_attributes
         })
     );

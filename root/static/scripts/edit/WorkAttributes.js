@@ -6,37 +6,35 @@ var attributeTypes;
 // Private classes
 var ViewModel;
 
-WA.init = function(config) {
-    attributeTypes = config;
+WA.init = function (config) {
+    attributeTypes = config.attributeTypes;
 
-    WA.viewModel = new ViewModel(config);
+    WA.viewModel = new ViewModel(config.attributes);
     ko.applyBindings(WA.viewModel, document.getElementById('work_attributes'));
-
-    return WA;
 };
 
-WA.WorkAttribute = function(typeId, value, valueErrors) {
+WA.WorkAttribute = function (data) {
     var self = this;
 
-    self.typeId = ko.observable(typeId + "");
-    self.attributeValue = ko.observable(value);
-    self.errors = ko.observableArray(valueErrors);
+    self.typeID = ko.observable(data.typeID);
+    self.attributeValue = ko.observable(data.value);
+    self.errors = ko.observableArray(data.errors);
 
     self.allowsFreeText = ko.computed(function() {
-        return !self.typeId() || attributeTypes[self.typeId()].allowsFreeText;
+        return !self.typeID() || attributeTypes[self.typeID()].allowsFreeText;
     });
 
-    self.allowedValues = ko.computed(function() {
+    self.allowedValues = ko.computed(function () {
         if (self.allowsFreeText()) {
             return [];
         }
         else {
-            return _.keys(attributeTypes[self.typeId()].values);
+            return _.keys(attributeTypes[self.typeID()].values);
         }
     });
 
     self.valueFormatter = function(item) {
-        return attributeTypes[self.typeId()].values[item];
+        return attributeTypes[self.typeID()].values[item];
     };
 
     self.remove = function() {
@@ -45,9 +43,12 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
 
     function resetErrors() { self.errors([]) };
 
-    self.typeId.subscribe(function() {
-        self.attributeValue("");
-        resetErrors();
+    self.typeID.subscribe(function (newTypeID) {
+        // != is used intentionally for type coercion.
+        if (self.typeID() != newTypeID) {
+            self.attributeValue("");
+            resetErrors();
+        }
     });
 
     self.attributeValue.subscribe(function() {
@@ -57,9 +58,14 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
     return self;
 };
 
-ViewModel = function () {
+ViewModel = function (attributes) {
     var model = {};
-    model.attributes = ko.observableArray();
+
+    attributes = _.map(attributes || [], function (data) {
+        return new WA.WorkAttribute(data);
+    });
+
+    model.attributes = ko.observableArray(attributes);
 
     model.attributeTypes = _.keys(attributeTypes);
 
@@ -68,8 +74,12 @@ ViewModel = function () {
     };
 
     model.newAttribute = function() {
-        model.attributes.push(new WA.WorkAttribute("", ""));
+        model.attributes.push(new WA.WorkAttribute({}));
     };
+
+    if (!attributes.length) {
+        model.newAttribute();
+    }
 
     return model;
 };

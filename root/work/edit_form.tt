@@ -24,7 +24,7 @@
         <!-- ko foreach: attributes -->
           <div class="text-list-row" style="margin-bottom: 1em">
             <select data-bind="
-                value: typeId,
+                value: typeID,
                 options: $parent.attributeTypes,
                 optionsText: $parent.formatAttributeType,
                 optionsCaption: '',
@@ -93,14 +93,10 @@
 </script>
 
 <script type="text/javascript">
-var editor = MB.WorkAttributes.init([% workAttributesJson %]);
-[% FOR attribute=form.field('attributes').fields %]
-editor.viewModel.attributes.push(new MB.WorkAttributes.WorkAttribute(
-    "[% attribute.field('type_id').value.defined ? attribute.field('type_id').value : '' %]",
-    "[% attribute.field('value').value | js %]",
-    [% attribute.field('value').errors.json %]
-));
-[% END %]
+  MB.WorkAttributes.init({
+      attributeTypes: [% workAttributeTypesJson %],
+      attributes: [% form.attributes_json %]
+  });
 </script>
 
 <script type="text/javascript">//<![CDATA[

@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Form::Utils qw( language_options select_options );
-
+use JSON;
 use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::Form';
@@ -120,6 +120,23 @@ sub inflate_attributes {
             value => $_->value_id // $_->value
         }, @$value
     ];
+}
+
+sub attributes_json {
+    my ($self) = @_;
+
+    my @fields = $self->field('attributes')->fields;
+
+    return JSON->new->encode([
+        map +{
+            typeID => $_->field('type_id')->value,
+            value => $_->field('value')->value,
+            errors => [
+                @{ $_->field('type_id')->errors },
+                @{ $_->field('value')->errors }
+            ]
+        }, @fields
+    ]);
 }
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
