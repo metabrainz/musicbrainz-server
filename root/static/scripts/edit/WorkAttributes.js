@@ -25,21 +25,22 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
     self.allowsFreeText = ko.computed(function() {
         return !self.typeId() || attributeTypes[self.typeId()].allowsFreeText;
     });
+
     self.allowedValues = ko.computed(function() {
         if (self.allowsFreeText()) {
             return [];
         }
         else {
-            return [null].concat(_.keys(attributeTypes[self.typeId()].values));
+            return _.keys(attributeTypes[self.typeId()].values);
         }
     });
-    self.valueFormatter = formatNullAsEmpty(
-        function(item) {
-            return attributeTypes[self.typeId()].values[item];
-        }
-    );
+
+    self.valueFormatter = function(item) {
+        return attributeTypes[self.typeId()].values[item];
+    };
+
     self.remove = function() {
-        MB.WorkAttributes.viewModel.attributes.remove(this);
+        WA.viewModel.attributes.remove(this);
     };
 
     function resetErrors() { self.errors([]) };
@@ -60,14 +61,11 @@ ViewModel = function () {
     var model = {};
     model.attributes = ko.observableArray();
 
-    model.attributeTypes = ko.computed(function() {
-        return [null].concat(_.keys(attributeTypes));
-    });
-    model.formatAttributeType = formatNullAsEmpty(
-        function (item) {
-            return attributeTypes[item].name;
-        }
-    );
+    model.attributeTypes = _.keys(attributeTypes);
+
+    model.formatAttributeType = function (item) {
+        return attributeTypes[item].name;
+    };
 
     model.newAttribute = function() {
         model.attributes.push(new WA.WorkAttribute("", ""));
@@ -77,16 +75,5 @@ ViewModel = function () {
 };
 
 return WA;
-
-function formatNullAsEmpty(f) {
-    return function (x) {
-        if (x === null) {
-            return "";
-        }
-        else {
-            return f(x);
-        }
-    }
-}
 
 }(MB.WorkAttributes || {}));

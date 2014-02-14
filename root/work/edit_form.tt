@@ -24,17 +24,30 @@
 
         <!-- ko foreach: attributes -->
           <div class="text-list-row" style="margin-bottom: 1em">
-            <select data-bind="value: typeId, options: $parent.attributeTypes, optionsText: $parent.formatAttributeType, attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }">
+            <select data-bind="
+                value: typeId,
+                options: $parent.attributeTypes,
+                optionsText: $parent.formatAttributeType,
+                optionsCaption: '',
+                attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }
+            ">
             </select>
 
             <!-- ko if: allowsFreeText -->
-            <input type="text" data-bind="value: attributeValue, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
-                   class="value with-remove" />
+            <input type="text" class="value with-remove" data-bind="
+                value: attributeValue,
+                attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+            " />
             <!-- /ko -->
 
             <!-- ko ifnot: allowsFreeText -->
-            <select data-bind="value: attributeValue, options: allowedValues, optionsText: valueFormatter, attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
-                    class="value with-remove">
+            <select class="value with-remove" data-bind="
+                value: attributeValue,
+                options: allowedValues,
+                optionsText: valueFormatter,
+                optionsCaption: '',
+                attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+            ">
             </select>
             <!-- /ko -->
 
