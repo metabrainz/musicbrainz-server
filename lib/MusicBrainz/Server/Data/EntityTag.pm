@@ -256,15 +256,15 @@ sub update
         if (scalar(@$old_tag_ids)) {
             # Load the corresponding tag strings from the main server
             #
-            @old_tags = $self->sql->select("SELECT id, name FROM tag
-                                      WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
-                                      @$old_tag_ids);
-            # Create a lookup friendly hash from the old tags
-            if (@old_tags) {
-                while (my $row = $self->sql->next_row_ref()) {
-                    $old_tag_info{$row->[1]} = $row->[0];
-                }
-                $self->sql->finish();
+            for my $row (@{
+                $self->sql->select_list_of_lists(
+                    "SELECT id, name FROM tag
+                     WHERE id IN (" . placeholders(@$old_tag_ids) . ")",
+                    @$old_tag_ids
+                )
+            }) {
+                # Create a lookup friendly hash from the old tags
+                $old_tag_info{$row->[1]} = $row->[0];
             }
         }
 

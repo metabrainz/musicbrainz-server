@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Recording;
 use HTML::FormHandler::Moose;
 use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -22,8 +23,7 @@ has_field 'comment' => (
 );
 
 has_field 'artist_credit' => (
-    type => '+MusicBrainz::Server::Form::Field::ArtistCredit',
-    required => 1
+    type => '+MusicBrainz::Server::Form::Field::ArtistCredit'
 );
 
 has_field 'isrcs' => (
@@ -57,6 +57,6 @@ sub edit_field_names
     return qw( name length comment artist_credit video );
 }
 
-sub options_type_id { shift->_select_all('RecordingType') }
+sub options_type_id { select_options(shift->ctx, 'RecordingType') }
 
 1;

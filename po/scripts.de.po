@@ -1,14 +1,13 @@
 # 
 # Translators:
-# Daniel Schury <email address hidden>, 2011.
-# Mineo <email address hidden>, 2011.
-# Nikolai Prokoschenko <email address hidden>, 2011.
-# Shepard <email address hidden>, 2011.
-# Tobias Quathamer <email address hidden>, 2007.
+# Daniel Schury <email address hidden>, 2011
+# Mineo <email address hidden>, 2011
+# Nikolai Prokoschenko <email address hidden>, 2011
+# Shepard, 2011
+# Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
 "PO-Revision-Date: 2012-08-26 13:50+0000\n"
 "Last-Translator: nikki2 <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"

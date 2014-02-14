@@ -22,7 +22,6 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Data::Page;
 
 use Sql;
@@ -67,7 +66,6 @@ after 'load' => sub
 
     $c->model('LabelType')->load($label);
     $c->model('Area')->load($c->stash->{label});
-    $c->model('Area')->load_codes($label->area);
     $c->model('Area')->load_containment($label->area);
 };
 
@@ -87,7 +85,7 @@ sub show : PathPart('') Chained('load')
         });
 
     $c->model('ArtistCredit')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
@@ -97,19 +95,25 @@ sub show : PathPart('') Chained('load')
     );
 }
 
+sub _merge_load_entities
+{
+    my ($self, $c, @labels) = @_;
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+};
+
 =head2 WRITE METHODS
 
 =cut
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_LABEL_MERGE,
-    confirmation_template => 'label/merge_confirm.tt',
-    search_template       => 'label/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Label',
     edit_type => $EDIT_LABEL_CREATE,
+    dialog_template => 'label/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

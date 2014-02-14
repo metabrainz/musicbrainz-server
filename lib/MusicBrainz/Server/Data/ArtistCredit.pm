@@ -7,7 +7,7 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
@@ -30,9 +30,7 @@ sub get_by_ids
         $result{$id} = $obj;
         $counts{$id} = 0;
     }
-    $self->sql->select($query, @ids);
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my %info = (
             artist_id => $row->{artist},
             name => $row->{name}
@@ -50,7 +48,6 @@ sub get_by_ids
         $result{$id}->add_name($obj);
         $counts{$id} += 1;
     }
-    $self->sql->finish;
     foreach my $id (@ids) {
         $result{$id}->artist_count($counts{$id});
     }
@@ -284,11 +281,12 @@ sub _swap_artist_credits {
     return if $old_credit_id == $new_credit_id;
 
     for my $table (qw( recording release release_group track )) {
-        $self->c->sql->do(
+        my $ids = $self->c->sql->select_single_column_array(
             "UPDATE $table SET artist_credit = ?
-             WHERE artist_credit = ?",
+             WHERE artist_credit = ? RETURNING id",
             $new_credit_id, $old_credit_id
-       );
+        );
+        $self->c->model(type_to_model($table))->_delete_from_cache(@$ids) if $table ne 'track';
     }
 
     $self->c->sql->do(

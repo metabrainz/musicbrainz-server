@@ -41,7 +41,7 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 {
     my ($self, $c) = @_;
 
-    my $collection = $c->stash->{entity};
+    my $collection = $c->stash->{entity} // $c->detach('not_found');
 
     if (!$collection->public) {
         $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
@@ -72,7 +72,7 @@ sub releases_get : Chained('load') PathPart('releases') Args(0)
 
 sub releases : Chained('load') PathPart('releases') Args(1) {
     my ($self, $c, $releases) = @_;
-    my $collection = $c->stash->{entity};
+    my $collection = $c->stash->{entity} // $c->detach('not_found');
 
     $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
 

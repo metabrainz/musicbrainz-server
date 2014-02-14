@@ -68,11 +68,11 @@ var validationHandlers = {
                 return;
             }
             if (attrInfo[1] && isArray && values.length > attrInfo[1]) {
-                var str = MB.text.AttributeTooMany
-                    .replace("{max}", attrInfo[1])
-                    .replace("{n}", values.length);
-
-                attrField.error(str);
+                attrField.error(
+                    MB.i18n.expand(MB.text.AttributeTooMany, {
+                        max: attrInfo[1], n: values.length
+                    })
+                );
                 return;
             }
             attrField.error("");
@@ -99,7 +99,7 @@ function validateDate(field, value) {
     if (field.error === undefined) return false;
 
     var y = value.year(), m = value.month(), d = value.day(),
-        valid = (y === null && m === null && d === null) || MB.utility.validDate(y, m, d);
+        valid = MB.utility.validDate(y, m, d);
 
     field.error(valid ? "" : MB.text.InvalidDate);
     return valid;
@@ -219,7 +219,7 @@ Fields.PartialDate.prototype.write = function(obj) {
 
 Fields.PartialDate.prototype.convert = function(obj) {
     obj = ko.utils.unwrapObservable(obj);
-    obj = _.isString(obj) ? Util.parseDate(obj) : obj;
+    obj = _.isString(obj) ? MB.utility.parseDate(obj) : obj;
     obj = _.isObject(obj) ? obj : {};
     return obj;
 };

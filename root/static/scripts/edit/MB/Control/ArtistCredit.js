@@ -73,7 +73,7 @@ MB.Control.ArtistCreditName = aclass(MB.entity.ArtistCreditName, {
            those spaces automatically only this first time. Also standardise
            "feat." according to our guidelines.
         */
-        var join = _.clean(value);
+        var join = _.str.clean(value);
         join = join.replace(/^\s*(feat\.?|ft\.?|featuring)\s*$/i,"feat.");
 
         if (/^[A-Za-z]+\.?$/.test(join)) {
@@ -192,16 +192,15 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
             prefix = this.formName + "." + prefix;
         }
 
-        return _.flatten(_.map(this.toJS(), function (name, index) {
+        return _.flatten(_.map(this.toJSON(), function (name, index) {
             var curPrefix = prefix + index + ".";
 
-            return _.filter([
+            return [
                 { name: curPrefix + "name", value: name.name },
-                { name: curPrefix + "join_phrase", value: name.join_phrase },
+                { name: curPrefix + "join_phrase", value: name.joinPhrase },
                 { name: curPrefix + "artist.name", value: name.artist.name },
                 { name: curPrefix + "artist.id", value: name.artist.id }
-            ],
-            function (obj) { return obj.value; });
+            ];
         }));
     }
 });
@@ -210,12 +209,10 @@ MB.Control.ArtistCredit = aclass(MB.entity.ArtistCredit, {
 // initialize_artist_credit is a helper class that takes care of generating
 // hidden form inputs for submission.
 
-MB.Control.initialize_artist_credit = function (bubbles, $target, $bubble, $button) {
+MB.Control.initialize_artist_credit = function ($target, $bubble, $button) {
     $target = $target || $("#entity-artist");
     $bubble = $bubble || $("#artist-credit-bubble");
     $button = $button || $("#open-ac");
-
-    bubbles.add($button, $bubble);
 
     var ac = MB.Control.ArtistCredit({
         hiddenInputs: $target.data("hidden-inputs"),
@@ -223,16 +220,12 @@ MB.Control.initialize_artist_credit = function (bubbles, $target, $bubble, $butt
         initialData: $target.data("artist")
     });
 
-    $bubble.on("bubbleOpen", function () {
-        $button.val(" << ");
-    });
-
-    $bubble.on("bubbleClose", function () {
-        $button.val(" >> ");
-    });
+    var bubble = MB.Control.ArtistCreditBubbleDoc();
+    bubble.target(ac);
 
     ko.applyBindings(ac, $target[0]);
-    ko.applyBindings(ac, $bubble[0]);
+    ko.applyBindingsToNode($button[0], { controlsBubble: bubble }, ac);
+    ko.applyBindingsToNode($bubble[0], { bubble: bubble }, ac);
 
     return ac;
 };

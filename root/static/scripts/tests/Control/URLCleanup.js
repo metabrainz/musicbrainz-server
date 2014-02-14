@@ -5,6 +5,7 @@ MB.tests.URLCleanup.GuessType = function() {
     QUnit.test('Guess type', function() {
         var control = MB.Control.URLCleanup();
         var tests = [
+                // Wikipedia
                 [
                     'artist', 'http://en.wikipedia.org/wiki/Source_Direct_%28band%29',
                     MB.constants.LINK_TYPES.wikipedia.artist
@@ -17,12 +18,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://en.wikipedia.org/wiki/Astralwerks',
                     MB.constants.LINK_TYPES.wikipedia.label
                 ],
+                // Discogs
                 [
                     'artist', 'http://www.discogs.com/artist/Source+Direct',
                     MB.constants.LINK_TYPES.discogs.artist
                 ],
                 [
+                    'artist', 'http://www.discogs.com/artist/301-Source-Direct',
+                    MB.constants.LINK_TYPES.discogs.artist
+                ],
+                [
                     'label', 'http://www.discogs.com/label/Demonic',
+                    MB.constants.LINK_TYPES.discogs.label
+                ],
+                [
+                    'label', 'http://www.discogs.com/label/2262-Demonic',
                     MB.constants.LINK_TYPES.discogs.label
                 ],
                 [
@@ -32,6 +42,15 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release_group', 'http://www.discogs.com/Source-Direct-Exorcise-The-Demons/master/126685',
                     MB.constants.LINK_TYPES.discogs.release_group
+                ],
+                // Bandcamp
+                [
+                    'artist', 'http://davidrovics.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.artist
+                ],
+                [
+                    'label', 'http://idiotsikker.bandcamp.com/',
+                    MB.constants.LINK_TYPES.bandcamp.label
                 ],
                 // WhoSampled
                 [
@@ -91,6 +110,15 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://www.imdb.com/company/co0109498/',
                     MB.constants.LINK_TYPES.imdb.label
                 ],
+                // Mora
+                [
+                    'release', 'http://mora.jp/package/43000001/4534530058010/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'release', 'http://mora.jp/package/43000014/KIZC-211/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
                 // MySpace
                 [
                     'artist', 'https://myspace.com/instramentaluk',
@@ -118,9 +146,14 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://www.amazon.co.uk/gp/product/B00005JIWP',
                     MB.constants.LINK_TYPES.amazon.release
                 ],
+                // Recochoku
                 [
-                    'release', 'http://www.archive.org/download/JudasHalo/cover.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
+                    'release', 'http://recochoku.jp/album/30282664/',
+                    MB.constants.LINK_TYPES.downloadpurchase.release
+                ],
+                [
+                    'recording', 'http://recochoku.jp/song/S21893898/',
+                    MB.constants.LINK_TYPES.downloadpurchase.recording
                 ],
                 // Rockens Danmarkskort
                 [
@@ -154,11 +187,6 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://nla.gov.au/anbd.bib-an11701020',
                     MB.constants.LINK_TYPES.otherdatabases.release
-                ],
-                // Mange-Disque
-                [
-                    'release', 'http://www.mange-disque.tv/fs/md_429.jpg',
-                    MB.constants.LINK_TYPES.coverart.release
                 ],
                 // Japanese blogs
                 [
@@ -445,6 +473,23 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                     MB.constants.LINK_TYPES.otherdatabases.release
+                ],
+                // VGMdb
+                [
+                    'artist', 'http://vgmdb.net/artist/431',
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'label', 'http://vgmdb.com/org/284',
+                    MB.constants.LINK_TYPES.vgmdb.label
+                ],
+                [
+                    'artist', 'http://vgmdb.com/org/284', // VGMdb orgs can be groups
+                    MB.constants.LINK_TYPES.vgmdb.artist
+                ],
+                [
+                    'release', 'http://vgmdb.net/album/29727',
+                    MB.constants.LINK_TYPES.vgmdb.release
                 ]
             ];
 
@@ -465,6 +510,12 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.amazon.co.jp/dp/tracks/B000Y3JG8U#disc_1',
                     'http://www.amazon.co.jp/gp/product/B000Y3JG8U',
                     'release'
+                ],
+                // %E2%80%8E cleanup
+                [
+                    'https://soundcloud.com/alisonwonderland%E2%80%8E',
+                    'https://soundcloud.com/alisonwonderland',
+                    'artist'
                 ],
                 [
                     'https://www.amazon.co.uk/Nigel-Kennedy-Polish-Emil-Mynarski/dp/B000VLR0II',
@@ -516,6 +567,21 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://twitter.com/miguelgrimaldo',
                     'artist'
                 ],
+                [
+                    'https://mobile.twitter.com/cirrhaniva',
+                    'https://twitter.com/cirrhaniva',
+                    'artist'
+                ],
+                [
+                    'https://twitter.com/@UNIVERSAL_D',
+                    'https://twitter.com/UNIVERSAL_D',
+                    'artist'
+                ],
+                [
+                    'http://twitter.com/ACEHOOD/',
+                    'https://twitter.com/ACEHOOD',
+                    'artist'
+                ],
                 // SoundCloud
                 [
                     'http://soundcloud.com/alec_empire',
@@ -529,11 +595,29 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release'
                 ],
                 [
+                    'http://www.discogs.com/artist/3080207-Maybebop',
+                    'http://www.discogs.com/artist/3080207',
+                    'artist'
+                ],
+                [
                     // FIXME Need a "bad" archive.org link
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
                     'release'
                 ],
+                [
+                    'http://www.archive.org/download/JudasHalo/cover.jpg',
+                    'https://archive.org/download/JudasHalo/cover.jpg',
+                ],
+                [
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
+                    'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
+                ],
+                [
+                    'http://ia700301.us.archive.org/32/items/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                    'https://archive.org/download/NormRejection-MaltaNotForSaleEp-Dtm020/DTM020sml.jpg',
+                ],
+
                 [
                     'http://www.jamendo.com/en/list/a84763/crossing-state-lines',
                     'http://www.jamendo.com/list/a84763',
@@ -603,17 +687,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.facebook.com/RomanzMusic',
                     'artist'
                 ],
+                [
+                    'http://www.facebook.com/pages/De_Tot_Cor/133207893384897/',
+                    'https://www.facebook.com/pages/De_Tot_Cor/133207893384897',
+                    'artist'
+                ],
                     // Google+
                 [
                     'http://plus.google.com/u/0/101821796946045393834/about',
                     'https://plus.google.com/101821796946045393834',
                     'artist'
-                ],
-                [
-                    // FIXME Need a bad link
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'http://www.mange-disque.tv/fs/md_1643.jpg',
-                    'release'
                 ],
                 [
                     'https://embed.spotify.com/?uri=spotify:track:7gwRSZ0EmGWa697ZrE58GA',
@@ -625,6 +708,7 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://vimeo.com/1109226',
                     'streamingmusic'
                 ],
+                // YouTube
                 [
                     'http://youtu.be/UmHdefsaL6I',
                     'http://www.youtube.com/watch?v=UmHdefsaL6I',
@@ -638,6 +722,16 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'http://youtube.com/user/officialpsy/videos',
                     'http://www.youtube.com/user/officialpsy',
+                    'artist'
+                ],
+                [
+                    'https://www.youtube.com/user/JessVincentMusic?feature=watch',
+                    'http://www.youtube.com/user/JessVincentMusic',
+                    'artist'
+                ],
+                [
+                    'http://m.youtube.com/#/user/JessVincentMusic',
+                    'http://www.youtube.com/user/JessVincentMusic',
                     'artist'
                 ],
                 [
@@ -671,6 +765,22 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://www.allmusic.com/performance/mq0000061129',
                     'recording'
                 ],
+                // Bandcamp
+                [
+                    'https://davidrovics.bandcamp.com?test',
+                    'http://davidrovics.bandcamp.com/',
+                    'artist'
+                ],
+                [
+                    'http://idiotsikker.bandcamp.com/tra#top',
+                    'http://idiotsikker.bandcamp.com/',
+                    'label'
+                ],
+                [
+                    'https://andrewhuang.bandcamp.com/track/boom-box/?test',
+                    'http://andrewhuang.bandcamp.com/track/boom-box',
+                    'recording'
+                ],
                 // iTunes
                 [
                     'http://itunes.apple.com/artist/hangry-angry-f/id444923726',
@@ -700,6 +810,11 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'https://itunes.apple.com/us/album/skyfall-single/id566322358',
                     'https://itunes.apple.com/us/album/id566322358',
+                    'release'
+                ],
+                [
+                    'https://itunes.apple.com/us/album/timber-feat.-ke$ha-single/id721686178',
+                    'https://itunes.apple.com/us/album/id721686178',
                     'release'
                 ],
                 [
@@ -771,6 +886,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'http://sv.m.wikipedia.org/wiki/Bullet',
                     'http://sv.wikipedia.org/wiki/Bullet',
                 ],
+                [
+                    'http://wikipedia.org/wiki/Oberhofer',
+                    'http://en.wikipedia.org/wiki/Oberhofer',
+                ],
                 // Open Library
                 [
                     'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
@@ -805,6 +924,10 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.viaf.org/viaf/16766997?test=1#Rovics,_David',
                     'http://viaf.org/viaf/16766997',
                 ],
+                [
+                    'http://viaf.org/viaf/32197206/#Mozart,_Wolfgang_Amadeus,_1756-1791',
+                    'http://viaf.org/viaf/32197206',
+                ],
                 // Anime News Network
                 [
                     'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -823,15 +946,65 @@ MB.tests.URLCleanup.GuessType = function() {
                     'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                     'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                 ],
+                // Mora
+                [
+                    'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
+                [
+                    'mora.jp/package/43000002/ANTCD-3106/',
+                    'http://mora.jp/package/43000002/ANTCD-3106/',
+                ],
                 // Soundtrack Collector
                 [
                     'http://soundtrackcollector.com/composer/94/Hans+Zimmer',
                     'http://soundtrackcollector.com/composer/94/',
+                    'artist'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/title/39473/Pledge%2C+The',
+                    'http://soundtrackcollector.com/title/39473/',
+                    'release_group'
+                ],
+                [
+                    'https://www.soundtrackcollector.com/catalog/soundtrackdetail.php?movieid=99711',
+                    'http://soundtrackcollector.com/title/99711/',
+                    'release_group'
+                ],
+                [
+                    'http://www.soundtrackcollector.com/catalog/composerdiscography.php?composerid=94',
+                    'http://soundtrackcollector.com/composer/94/',
+                    'artist'
+                ],
+                // Recochoku
+                [
+                    'https://www.recochoku.jp/album/30282664?test',
+                    'http://recochoku.jp/album/30282664/',
+                ],
+                [
+                    'recochoku.jp/song/S21893898/',
+                    'http://recochoku.jp/song/S21893898/',
                 ],
                 // Rockipedia
                 [
                     'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                     'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                ],
+                // VGMdb
+                [
+                    'https://vgmdb.net/artist/431',
+                    'http://vgmdb.net/artist/431',
+                    'artist'
+                ],
+                [
+                    'https://vgmdb.com/org/284',
+                    'http://vgmdb.net/org/284',
+                    'label'
+                ],
+                [
+                    'vgmdb.net/album/29727',
+                    'http://vgmdb.net/album/29727',
+                    'release'
                 ]
             ];
 

@@ -40,6 +40,7 @@ our @EXPORT_OK = qw(
     load_subobjects
     map_query
     merge_table_attributes
+    merge_string_attributes
     merge_boolean_attributes
     merge_partial_date
     model_to_type
@@ -99,7 +100,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $extra_keys) = @_;
+    my ($artist_credit) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -115,18 +116,6 @@ sub artist_credit_to_ref
                 id => $ac->artist->id,
             }
         );
-
-        for my $key (@$extra_keys)
-        {
-            if ($key eq "sortname")
-            {
-                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
-            }
-            else
-            {
-                $ac_name{artist}->{$key} = $ac->artist->{$key};
-            }
-        }
 
         push @{ $ret{names} }, \%ac_name;
     }
@@ -181,14 +170,16 @@ sub load_meta
     return unless @objs;
     my %id_to_obj = map { $_->id => $_ } @objs;
     my @ids = keys %id_to_obj;
-    $c->sql->select("SELECT * FROM $table
-                  WHERE id IN (" . placeholders(@ids) . ")", @ids);
-    while (1) {
-        my $row = $c->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $c->sql->select_list_of_hashes(
+            "SELECT * FROM $table
+             WHERE id IN (" . placeholders(@ids) . ")",
+            @ids
+        )
+    }) {
         my $obj = $id_to_obj{$row->{id}};
         $builder->($obj, $row);
     }
-    $c->sql->finish;
 }
 
 sub check_in_use
@@ -228,14 +219,11 @@ sub placeholders
 sub query_to_list
 {
     my ($sql, $builder, $query, @args) = @_;
-    $sql->select($query, @args);
     my @result;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $sql->select_list_of_hashes($query, @args) }) {
         my $obj = $builder->($row);
         push @result, $obj;
     }
-    $sql->finish;
     return @result;
 }
 
@@ -250,57 +238,18 @@ sub query_to_list_limited
         die "Query limit must be positive" if $limit < 0;
         $wrapping_query = $wrapping_query . " LIMIT $limit";
     }
-    $sql->select($wrapping_query, @args);
+
     my @result;
     my $hits = 0;
-    while (1) {
-        my $row = $sql->next_row_hash_ref or last;
+    for my $row (@{ $sql->select_list_of_hashes($wrapping_query, @args) }) {
         $hits = $row->{total_row_count};
         my $obj = $builder->($row);
         push @result, $obj;
     }
 
     $hits = $hits + ($offset || 0);
-    $sql->finish;
+
     return (\@result, $hits);
-}
-
-=func hash_structure
-
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
-
-=cut
-
-sub hash_structure
-{
-    sub structure_to_string {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structure_to_string ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structure_to_string ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub generate_gid
@@ -480,85 +429,93 @@ sub check_data
     }
 }
 
-sub merge_table_attributes {
-    my ($sql, %named_params) = @_;
+sub _merge_attributes {
+    my ($sql, $query_generator, %named_params) = @_;
     my $table = $named_params{table} or confess 'Missing parameter $table';
-    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
-    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
-    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
-    my @all_ids = ($new_id, @old_ids);
 
-    $sql->do(
-        "UPDATE $table SET " .
-            join(',', map {
-                "$_ = (SELECT new_val FROM (
-                     SELECT (id = ?) AS first, $_ AS new_val
-                       FROM $table
-                      WHERE $_ IS NOT NULL
-                        AND id IN (" . placeholders(@all_ids) . ")
-                   ORDER BY first DESC
-                      LIMIT 1
-                      ) s)";
-            } @columns) . '
-            WHERE id = ?',
-        (@all_ids, $new_id) x @columns, $new_id
-    );
+    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
+    my $old_ids = $named_params{old_ids} or confess 'Missing parameter \@old_ids';
+    my $all_ids = [$new_id, @$old_ids];
+
+    $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
+}
+
+sub _conditional_merge {
+    my ($condition) = @_;
+
+    return sub {
+            my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+            my $columns = $named_params->{columns} or confess 'Missing parameter columns';
+            ("UPDATE $table SET " .
+             join(',', map {
+                 "$_ = (SELECT new_val FROM (
+                      SELECT (id = ?) AS first, $_ AS new_val
+                        FROM $table
+                       WHERE $_ $condition
+                         AND id IN (" . placeholders(@$all_ids) . ")
+                    ORDER BY first DESC
+                       LIMIT 1
+                       ) s)";
+             } @$columns) . '
+             WHERE id = ?',
+             (@$all_ids, $new_id) x @$columns, $new_id)}
+}
+
+sub merge_table_attributes {
+    _merge_attributes(shift, _conditional_merge('IS NOT NULL'), @_);
+}
+
+sub merge_string_attributes {
+    _merge_attributes(shift, _conditional_merge("!= ''"), @_);
 }
 
 sub merge_boolean_attributes {
-    my ($sql, %named_params) = @_;
-    my $table = $named_params{table} or confess 'Missing parameter $table';
-    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
-    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
-    my @columns = @{ $named_params{columns} } or confess 'Missing parameter \@columns';
-    my @all_ids = ($new_id, @old_ids);
+    _merge_attributes(shift, sub {
+        my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+        my $columns = $named_params->{columns} or confess 'Missing parameter columns';
 
-    $sql->do(
-        "UPDATE $table SET " .
+        return ("UPDATE $table SET " .
             join(',', map {
                 "$_ = (
                         SELECT bool_or($_)
                         FROM $table
-                        WHERE id IN (" . placeholders(@all_ids) . ")
+                        WHERE id IN (" . placeholders(@$all_ids) . ")
                       )";
-            } @columns) . '
+            } @$columns) . '
             WHERE id = ?',
-        (@all_ids) x @columns, $new_id
-    );
+           (@$all_ids) x @$columns, $new_id)
+    }, @_);
 }
 
 sub merge_partial_date {
-    my ($sql, %named_params) = @_;
-    my $table = $named_params{table} or confess 'Missing parameter $table';
-    my $new_id = $named_params{new_id} or confess 'Missing parameter $new_id';
-    my @old_ids = @{ $named_params{old_ids} } or confess 'Missing parameter \@old_ids';
-    my ($year, $month, $day) = map { join('_', $named_params{field}, $_) } qw( year month day );
-
-    $sql->do("
-    UPDATE $table SET $day = most_complete.$day,
-                      $month = most_complete.$month,
-                      $year = most_complete.$year
-    FROM (
-        SELECT $day, $month, $year,
-               (CASE WHEN $year IS NOT NULL THEN 100
-                    ELSE 0
-               END +
-               CASE WHEN $month IS NOT NULL THEN 10
-                    ELSE 0
-               END +
-               CASE WHEN $day IS NOT NULL THEN 1
-                    ELSE 0
-               END) AS weight
-        FROM $table
-        WHERE id = any(?)
-        ORDER BY weight DESC
-        LIMIT 1
-    ) most_complete
-    WHERE id = ?
-      AND $table.$day IS NULL
-      AND $table.$month IS NULL
-      AND $table.$year IS NULL",
-             \@old_ids, $new_id);
+    _merge_attributes(shift, sub {
+        my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
+        my ($year, $month, $day) = map { join('_', $named_params->{field}, $_) } qw( year month day );
+        return ("UPDATE $table SET $day = most_complete.$day,
+                              $month = most_complete.$month,
+                              $year = most_complete.$year
+            FROM (
+                SELECT $day, $month, $year,
+                       (CASE WHEN $year IS NOT NULL THEN 100
+                            ELSE 0
+                       END +
+                       CASE WHEN $month IS NOT NULL THEN 10
+                            ELSE 0
+                       END +
+                       CASE WHEN $day IS NOT NULL THEN 1
+                            ELSE 0
+                       END) AS weight
+                FROM $table
+                WHERE id = any(?)
+                ORDER BY weight DESC
+                LIMIT 1
+            ) most_complete
+            WHERE id = ?
+              AND $table.$day IS NULL
+              AND $table.$month IS NULL
+              AND $table.$year IS NULL",
+                     $old_ids, $new_id)
+    }, @_);
 }
 
 sub is_special_artist {

@@ -20,7 +20,6 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -83,7 +82,7 @@ after 'load' => sub
         $c->model('ReleaseGroupType')->load($release->release_group);
         $c->model('Medium')->load_for_releases($release);
         $c->model('MediumFormat')->load($release->all_mediums);
-        load_release_events($c, $release);
+        $c->model('Release')->load_release_events($release);
     }
 };
 
@@ -439,14 +438,11 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
-    confirmation_template => 'release/merge_confirm.tt',
-    search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
 };
 
 sub _merge_form_arguments {
     my ($self, $c, @releases) = @_;
-    $c->model('Medium')->load_for_releases(@releases);
     $c->model('Track')->load_for_mediums(map { $_->all_mediums } @releases);
     $c->model('Recording')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
     $c->model('ArtistCredit')->load(map { $_->all_tracks } map { $_->all_mediums } @releases);
@@ -571,15 +567,15 @@ around _merge_submit => sub {
     }
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    my @to_merge = @{ $c->stash->{to_merge} };
-    load_release_events($c, @to_merge);
-    $c->model('Medium')->load_for_releases(@to_merge);
-    $c->model('MediumFormat')->load(map { $_->all_mediums } @to_merge);
-    $c->model('ReleaseLabel')->load(@to_merge);
-    $c->model('Label')->load(map { $_->all_labels } @to_merge);
+    my ($self, $c, @releases) = @_;
+    $c->model('ArtistCredit')->load(@releases);
+    $c->model('Release')->load_release_events(@releases);
+    $c->model('Medium')->load_for_releases(@releases);
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels } @releases);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

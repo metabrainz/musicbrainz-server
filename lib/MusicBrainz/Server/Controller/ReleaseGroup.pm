@@ -9,7 +9,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_RELEASEGROUP_SET_COVER_ART
 );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -61,7 +60,7 @@ sub show : Chained('load') PathPart('')
 
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
     $c->model('ReleaseStatus')->load(@$releases);
@@ -94,7 +93,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         else {
             return ();
         }
-    }
+    },
+    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -104,30 +104,15 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASEGROUP_MERGE,
-    confirmation_template => 'release_group/merge_confirm.tt',
-    search_template       => 'release_group/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
+    my ($self, $c, @rgs) = @_;
 
-    $c->model('ReleaseGroup')->load_meta(@{ $c->stash->{to_merge} });
-    $c->model('ReleaseGroupType')->load(@{ $c->stash->{to_merge} });
-    $c->model('ArtistCredit')->load(
-        $c->stash->{old}, $c->stash->{new}
-    );
-};
-
-around '_merge_search' => sub
-{
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-
-    return $results;
+    $c->model('ArtistCredit')->load(@rgs);
+    $c->model('ReleaseGroup')->load_meta(@rgs);
+    $c->model('ReleaseGroupType')->load(@rgs);
 };
 
 sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
@@ -141,7 +126,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
         $entity->id);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
     $c->model('ReleaseLabel')->load(@$releases);
     $c->model('Label')->load(map { $_->all_labels } @$releases);
 

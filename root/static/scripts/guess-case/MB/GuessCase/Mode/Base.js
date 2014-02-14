@@ -23,7 +23,7 @@ MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Mode = (MB.GuessCase.Mode) ? MB.GuessCase.Mode : {};
 
 MB.GuessCase.Mode._fix = function (name, re, replace) {
-    var self = MB.Object ();
+    var self = {};
 
     if (typeof(re) == 'string')
     {
@@ -58,7 +58,7 @@ MB.GuessCase.Mode._fix_all = function (name, re, replace) {
  * Models a GuessCase mode.
  **/
 MB.GuessCase.Mode.Base = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.fix = MB.GuessCase.Mode._fix;
     self.fix_all = MB.GuessCase.Mode._fix_all;
@@ -70,24 +70,16 @@ MB.GuessCase.Mode.Base = function () {
     /**
      * Set the instance variables.
      */
-    self.setConfig = function(name, desc, url) {
-
-    self._name = name;
-    self._desc = (desc || "");
-    self._url = (url || "");
-
+    self.setConfig = function(name, desc) {
+        self._name = name;
+        self._desc = (desc || "");
     };
 
     self.getName = function() { return self._name; };
-    self.getURL = function() { return self._url; };
 
-    /**
-     * Returns the type of this mode
-     **/
     self.getDescription = function() {
         var s = self._desc;
-        s = s.replace('[url]', '<a href="'+self.getURL()+'" target="_blank">'+self.getName()+' mode ');
-        s = s.replace('[/url]', '</a>');
+        s = s.replace('<a ', '<a target="_blank" '); /* Work around MBS-5734 */
         return s;
     };
 

@@ -1,17 +1,6 @@
-[% BLOCK layout_head %]
-  [% script_manifest('edit.js.manifest') %]
-   <script type="text/javascript">//<![CDATA[
-    $('document').ready(function() {
-      MB.Control.URLCleanup(
-        null,
-        null,
-        $('#id-edit-url\\.url')
-      );
-    });
-   //]]></script>
-[% END %]
-
 [% WRAPPER 'url/layout.tt' title=l('Edit URL') page='edit' full_width=1 -%]
+    [% script_manifest('edit.js.manifest') %]
+
     <h2>[% l('Edit URL') %]</h2>
     <form action="[% c.req.uri %]" method="post">
         [% USE r = FormRenderer(form) %]
@@ -20,4 +9,8 @@
         [% INCLUDE 'forms/edit-note.tt' %]
         [% enter_edit() %]
     </form>
+
+    <script type="text/javascript">//<![CDATA[
+      MB.Control.URLCleanup(null, null, $("#id-edit-url\\.url"));
+    //]]></script>
 [% END %]

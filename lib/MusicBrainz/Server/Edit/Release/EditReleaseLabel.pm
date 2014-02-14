@@ -9,6 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_EDITRELEASELABEL );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Edit::Utils qw( merge_value );
+use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Translation qw ( N_l l );
 use MusicBrainz::Server::Entity::Util::MediumFormat qw( combined_medium_format_name );
 use Scalar::Util qw( looks_like_number );
@@ -22,6 +23,7 @@ with 'MusicBrainz::Server::Edit::Release';
 with 'MusicBrainz::Server::Edit::CheckForConflicts';
 
 sub edit_name { N_l('Edit release label') }
+sub edit_kind { 'edit' }
 sub edit_type { $EDIT_RELEASE_EDITRELEASELABEL }
 
 sub alter_edit_pending { { Release => [ shift->release_id ] } }
@@ -50,7 +52,8 @@ has '+data' => (
             medium_formats => Nullable[ArrayRef[Str]],
             events => Optional[ArrayRef[Dict[
                 date => Nullable[Str],
-                country_id => Nullable[Int]
+                country_id => Nullable[Int],
+                country_name => Nullable[Str]
             ]]]
         ],
         new => find_type_constraint('ReleaseLabelHash'),
@@ -110,7 +113,11 @@ sub build_display_data
 
     $data->{extra}{events} = [
         map +{
-            country => $loaded->{Area}->{ $_->{country_id} },
+            country => $loaded->{Area}->{ $_->{country_id} } //
+                (defined($_->{country_name}) &&
+                    MusicBrainz::Server::Entity::Area->new(
+                        name => $_->{country_name}
+                    )),
             date => MusicBrainz::Server::Entity::PartialDate->new( $_->{date} )
         }, @{ $data->{extra}{events} // [] }
     ];
@@ -187,9 +194,7 @@ sub initialize
     };
 
     my $release = $release_label->release;
-    if (!$release->events) {
-        $self->c->model('Release')->load_release_events($release);
-    }
+    $self->c->model('Release')->load_release_events($release);
 
     $data->{release}{events} = [
         map +{
@@ -269,10 +274,28 @@ sub restore {
     my ($self, $data) = @_;
 
     if (exists $data->{release}{date} || exists $data->{release}{country}) {
-        $data->{release}{events} = [{
-            date => delete $data->{release}{date},
-            country_id => delete $data->{release}{country}
-        }];
+        my $country_name = delete $data->{release}{country};
+        if (looks_like_number($country_name)) {
+            my $area = $self->c->model('Area')->get_by_id($country_name);
+            $data->{release}{events} = [{
+                date => delete $data->{release}{date},
+                country_name => $area && $area->name,
+                country_id => $country_name
+            }];
+        }
+        else {
+            my $countries = $self->c->model('Area')->search_by_names(
+                $country_name)->{$country_name};
+            $data->{release}{events} = [{
+                date => delete $data->{release}{date},
+                country_name => $country_name,
+
+                # $countries will be undefined if there is no search result. It's
+                # not possible for $countries to be the empty list
+                # (Data::Role::Alias immediately pushes to it).
+                country_id => $countries && $countries->[0]->id
+            }];
+        }
     }
 
     $self->data($data);

@@ -2,7 +2,9 @@ package MusicBrainz::Server::Data::Statistics;
 use Moose;
 use namespace::autoclean;
 use namespace::autoclean;
+use warnings FATAL => 'all';
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality );
@@ -248,6 +250,7 @@ my %stats = (
                 "count.artist.type.person" => $dist{1} || 0,
                 "count.artist.type.group"  => $dist{2} || 0,
                 "count.artist.type.other"  => $dist{3} || 0,
+                "count.artist.type.character"  => $dist{4} || 0,
                 "count.artist.type.null" => $dist{null} || 0
             };
         },
@@ -379,8 +382,8 @@ my %stats = (
             my %dist = map { @$_ } @$data;
 
             +{
-                "count.release.coverart.amazon" => $dist{1},
-                "count.release.coverart.relationship" => $dist{0}
+                "count.release.coverart.amazon" => $dist{1} // 0,
+                "count.release.coverart.relationship" => $dist{0} // 0
             };
         },
         NONREPLICATED => 1,
@@ -402,6 +405,7 @@ my %stats = (
         DESC => "Releases with no cover art",
         CALC => sub {
             my ($self, $sql) = @_;
+
             return $self->fetch('count.release') -
                    ($self->fetch('count.release.coverart.amazon') +
                     $self->fetch('count.release.coverart.caa') +
@@ -536,21 +540,98 @@ my %stats = (
         SQL => "SELECT COUNT(*) FROM edit",
         NONREPLICATED => 1,
     },
+
     "count.editor" => {
-        DESC => "Count of all editors",
-        SQL => "SELECT COUNT(*) FROM editor",
+        DESC => "Count of all editors, and assorted sub-pieces",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            my $data = $sql->select_list_of_hashes(qq{
+                WITH tag_editors AS (
+                  SELECT editor FROM artist_tag_raw
+                  UNION SELECT editor FROM label_tag_raw
+                  UNION SELECT editor FROM place_tag_raw
+                  UNION SELECT editor FROM recording_tag_raw
+                  UNION SELECT editor FROM work_tag_raw
+                  UNION SELECT editor FROM release_tag_raw
+                  UNION SELECT editor FROM release_group_tag_raw
+                ),
+                rating_editors AS (
+                  SELECT editor FROM artist_rating_raw
+                  UNION SELECT editor FROM label_rating_raw
+                  UNION SELECT editor FROM recording_rating_raw
+                  UNION SELECT editor FROM work_rating_raw
+                  UNION SELECT editor FROM release_group_rating_raw
+                ),
+                subscribed_editors AS (
+                  SELECT editor FROM editor_subscribe_editor
+                  UNION SELECT editor FROM editor_subscribe_collection
+                  UNION SELECT editor FROM editor_subscribe_artist
+                  UNION SELECT editor FROM editor_subscribe_artist_deleted
+                  UNION SELECT editor FROM editor_subscribe_label
+                  UNION SELECT editor FROM editor_subscribe_label_deleted
+                ),
+                collection_editors AS (SELECT DISTINCT editor FROM editor_collection),
+                voters AS (SELECT DISTINCT editor FROM vote),
+                noters AS (SELECT DISTINCT editor FROM edit_note),
+                application_editors AS (SELECT DISTINCT owner FROM application)
+                SELECT count(id),
+                       NOT deleted AS valid,
+                       email_confirm_date IS NOT NULL AS validated,
+                       (edits_accepted > 0 OR edits_rejected > 0 OR auto_edits_accepted > 0 OR edits_failed > 0) AS edits,
+                       tag_editors.editor IS NOT NULL as tags,
+                       rating_editors.editor IS NOT NULL AS ratings,
+                       subscribed_editors.editor IS NOT NULL AS subscriptions,
+                       collection_editors.editor IS NOT NULL AS collections,
+                       voters.editor IS NOT NULL AS votes,
+                       noters.editor IS NOT NULL as notes,
+                       application_editors.owner IS NOT NULL as applications
+                FROM editor
+                LEFT JOIN tag_editors ON editor.id = tag_editors.editor
+                LEFT JOIN rating_editors ON editor.id = rating_editors.editor
+                LEFT JOIN subscribed_editors ON editor.id = subscribed_editors.editor
+                LEFT JOIN collection_editors ON editor.id = collection_editors.editor
+                LEFT JOIN voters ON editor.id = voters.editor
+                LEFT JOIN noters ON editor.id = noters.editor
+                LEFT JOIN application_editors ON editor.id = application_editors.owner
+                GROUP BY valid, validated, edits, tags, ratings, subscriptions, collections, votes, notes, applications});
+
+            my @active_markers = qw(edits tags ratings subscriptions collections votes notes applications);
+            my $stats = {
+                "count.editor" => sub { return 1 },
+                "count.editor.deleted" => sub { return !shift->{valid}},
+                "count.editor.valid" => sub { return shift->{valid} },
+                "count.editor.valid.inactive" => sub {
+                    my $row = shift;
+                    return $row->{valid} && !$row->{validated} && !(grep { $row->{$_} } @active_markers)
+                },
+                "count.editor.valid.active" => sub {
+                    my $row = shift;
+                    return $row->{valid} && (grep { $row->{$_} } @active_markers)
+                },
+                "count.editor.valid.validated_only" => sub {
+                    my $row = shift;
+                    return $row->{valid} && $row->{validated} && !(grep { $row->{$_} } @active_markers)
+                }
+            };
+            my %ret = map { $_ => 0 } (keys %$stats, map { 'count.editor.valid.active.'.$_ } @active_markers);
+            for my $row (@$data) {
+                for my $stat (keys %$stats) {
+                    if ($stats->{$stat}->($row)) {
+                        $ret{$stat} += $row->{count};
+                    }
+                }
+                for my $marker (@active_markers) {
+                    if ($row->{$marker} && $row->{valid}) {
+                        $ret{'count.editor.valid.active.'.$marker} += $row->{count};
+                    }
+                }
+            }
+            return \%ret;
+        },
         NONREPLICATED => 1,
+        PRIVATE => 1,
     },
-    "count.editor.deleted" => {
-        DESC => "Count of all editors that have been deleted",
-        SQL => "SELECT COUNT(*) FROM editor WHERE deleted",
-        NONREPLICATED => 1,
-    },
-    "count.editor.valid" => {
-        DESC => "Count of all editors that have not been deleted",
-        SQL => "SELECT COUNT(*) FROM editor WHERE NOT deleted",
-        NONREPLICATED => 1,
-    },
+
     "count.barcode" => {
         DESC => "Count of all unique Barcodes",
         SQL => "SELECT COUNT(distinct barcode) FROM release",
@@ -958,6 +1039,30 @@ my %stats = (
                 } keys %dist
             };
         },
+    },
+    "count.releasegroup.caa" => {
+        DESC => "Count of release groups that have CAA artwork",
+        SQL => q{
+          SELECT count(DISTINCT release.release_group)
+          FROM cover_art_archive.index_listing
+          JOIN musicbrainz.release
+            ON musicbrainz.release.id = cover_art_archive.index_listing.release
+         WHERE is_front = true
+        }
+    },
+    "count.releasegroup.caa.manually_selected" => {
+        DESC => "Count of release groups that have CAA artwork manually selected",
+        SQL => 'SELECT count(DISTINCT release_group)
+                FROM cover_art_archive.release_group_cover_art'
+    },
+    "count.releasegroup.caa.inferred" => {
+        PREREQ => [qw[ count.releasegroup.caa count.releasegroup.caa.manually_selected ]],
+        DESC => "Releases groups with CAA artwork inferred from release artwork",
+        CALC => sub {
+            my ($self, $sql) = @_;
+            return $self->fetch('count.releasegroup.caa') -
+                $self->fetch('count.releasegroup.caa.manually_selected');
+        }
     },
     "count.release.various" => {
         DESC => "Count of all 'Various Artists' releases",
@@ -1382,7 +1487,7 @@ my %stats = (
     },
     "count.rating.raw.recording" => {
         DESC => "Count of all recording raw ratings",
-        PREREQ => [qw[ count.rating.track ]],
+        PREREQ => [qw[ count.rating.recording ]],
         PREREQ_ONLY => 1,
     },
     "count.rating.label" => {
@@ -1720,6 +1825,21 @@ sub recalculate_all
     my $self = shift;
     my $output_file = shift;
 
+    my %unsatisfiable_prereqs;
+    for my $stat (keys %stats) {
+        my @errors = grep { !exists $stats{$_} } @{ $stats{$stat}->{PREREQ} // [] }
+          or next;
+
+        $unsatisfiable_prereqs{$stat} = \@errors;
+    }
+
+    if (%unsatisfiable_prereqs) {
+        printf "Statistics cannot be computed due to missing dependencies\n";
+        printf "$_ depends on " . join(", ", @{$unsatisfiable_prereqs{$_}}) . ", but these dependencies do not exist\n"
+            for keys %unsatisfiable_prereqs;
+        exit (1);
+    }
+
     my %notdone = %stats;
     my %done;
 
@@ -1731,7 +1851,7 @@ sub recalculate_all
         # Work out which stats from %notdone we can do this time around
         for my $name (sort keys %notdone) {
             my $d = $stats{$name}{PREREQ} || [];
-            next if grep { $notdone{$_} } @$d;
+            next if any { !exists $done{$_} } @$d;
 
             # $name has no unsatisfied dependencies.  Let's do it!
             $self->recalculate($name, $output_file);

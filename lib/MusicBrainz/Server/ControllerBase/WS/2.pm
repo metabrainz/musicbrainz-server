@@ -4,7 +4,6 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::WebService::Format;
 use MusicBrainz::Server::WebService::XMLSerializer;
 use MusicBrainz::Server::WebService::JSONSerializer;
@@ -447,11 +446,11 @@ sub linked_releases
 
     $c->model('ReleaseStatus')->load(@$releases);
     $c->model('ReleasePackaging')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
 
     $c->model('Language')->load(@$releases);
     $c->model('Script')->load(@$releases);
-    load_release_events($c, @$releases);
+    $c->model('Release')->load_release_events(@$releases);
 
     my @mediums;
     if ($c->stash->{inc}->media)

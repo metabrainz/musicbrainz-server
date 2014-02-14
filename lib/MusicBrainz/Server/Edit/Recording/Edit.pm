@@ -101,7 +101,7 @@ sub build_display_data
         name    => 'name',
         comment => 'comment',
         length  => 'length',
-        video      => 'video',
+        video   => 'video',
     );
 
     my $data = changed_display_data($self->data, $loaded, %map);
@@ -143,7 +143,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            artist_credit_to_ref(shift->artist_credit, [])
+            artist_credit_to_ref(shift->artist_credit)
         },
     );
 }
@@ -156,6 +156,9 @@ sub _edit_hash
 
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
+
+    $data->{comment} //= '';
+
     return $data;
 }
 

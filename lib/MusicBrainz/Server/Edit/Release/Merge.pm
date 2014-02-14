@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Edit::Release::Merge;
 use Moose;
 
+use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
@@ -71,16 +72,14 @@ sub related_recordings
 sub foreign_keys
 {
     my $self = shift;
-    my $fks = {
+
+    return {
         Release => {
-            $self->data->{new_entity}{id} => [ 'ArtistCredit' ],
-            map {
-                $_->{id} => [ 'ArtistCredit' ]
-            } @{ $self->data->{old_entities} }
+            map { $_ => [ 'ArtistCredit', 'ReleaseLabel' ] }
+                $self->data->{new_entity}{id},
+                (map { $_->{id} } @{ $self->data->{old_entities} })
         }
     };
-
-    return $fks;
 }
 
 sub initialize {
@@ -93,6 +92,27 @@ override build_display_data => sub
 {
     my ($self, $loaded) = @_;
     my $data = super();
+
+    $self->c->model('Label')->load(
+        grep { $_->label_id && !defined($_->label) }
+        map { $_->all_labels }
+        values %{ $loaded->{Release} }
+    );
+
+    $self->c->model('Medium')->load_for_releases(
+        grep { $_->medium_count < 1 }
+        values %{ $loaded->{Release} }
+    );
+
+    $self->c->model('MediumFormat')->load(
+        grep { $_->format_id && !defined($_->format) }
+        map { $_->all_mediums }
+        values %{ $loaded->{Release} }
+    );
+
+    $self->c->model('Release')->load_release_events(
+        values %{ $loaded->{Release} }
+    );
 
     if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
         $data->{changes} = [

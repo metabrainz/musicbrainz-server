@@ -107,34 +107,13 @@ test 'Check cover art provider regular expression matching' => sub {
     my $test = shift;
     my $c = $test->c;
 
-    my $tv_provider = first { $_->name eq 'Manj\'Disc' } @{ $c->model('CoverArt')->providers };
     my $archive_provider = first { $_->name eq 'archive.org' } @{ $c->model('CoverArt')->providers };
-
-    subtest 'Test a valid URI' => sub {
-        my $uri = 'http://www.mange-disque.tv/fs/md_429.jpg';
-        ok($tv_provider->handles($uri));
-
-        my $art = $tv_provider->lookup_cover_art($uri);
-        is($art->provider->name, 'Manj\'Disc');
-        is($art->image_uri, 'http://www.mange-disque.tv/fs/md_429.jpg');
-        is($art->information_uri, 'http://www.mange-disque.tv/info_disque.php3?dis_code=429');
-    };
-
-    subtest 'Test case sensitivy' => sub {
-        my $uri = 'http://www.mange-disque.tv/fs/md_429.JPg';
-        ok($tv_provider->handles($uri));
-
-        my $art = $tv_provider->lookup_cover_art($uri);
-        is($art->provider->name, 'Manj\'Disc');
-        is($art->image_uri, 'http://www.mange-disque.tv/fs/md_429.jpg');
-        is($art->information_uri, 'http://www.mange-disque.tv/info_disque.php3?dis_code=429');
-    };
 
     subtest 'Test an invalid URI' => sub {
         my $uri = 'http://gizoogle.com';
-        ok(!$tv_provider->handles($uri));
+        ok(!$archive_provider->handles($uri));
 
-        my $art = $tv_provider->lookup_cover_art($uri);
+        my $art = $archive_provider->lookup_cover_art($uri);
         ok(!defined $art);
     };
 

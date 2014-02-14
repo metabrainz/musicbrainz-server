@@ -1,28 +1,3 @@
-[% BLOCK layout_head %]
-  <script type="text/javascript">//<![CDATA[
-    $(document).ready(function() {
-
-      function toggleRedirectUri(type) {
-          if (type.val() == 'web') {
-            $('#id-application\\.oauth_redirect_uri').parent('.row').show();
-            $('#id-application\\.oauth_redirect_uri').prop('disabled', false);
-          }
-          else {
-            $('#id-application\\.oauth_redirect_uri').parent('.row').hide();
-            $('#id-application\\.oauth_redirect_uri').prop('disabled', true);
-          }
-      }
-
-      $('#id-application\\.oauth_type').click(function() {
-          toggleRedirectUri($(this));
-      });
-
-      toggleRedirectUri($('#id-application\\.oauth_type'));
-
-    });
-    //]]></script>
-[% END %]
-
 [% WRAPPER "layout.tt" title=l("Register Application") full_width=1 %]
 
     <h1>[% l("Register Application") %]</h1>
@@ -38,5 +13,19 @@
         [% form_submit(l('Register')) %]
         </div>
     </form>
+
+    <script type="text/javascript">//<![CDATA[
+      (function () {
+        var $oauthType = $("#id-application\\.oauth_type");
+        var $oauthRedirectURI = $("#id-application\\.oauth_redirect_uri");
+
+        $oauthType.change(function () {
+          $oauthRedirectURI.prop("disabled", this.value !== "web");
+          $oauthRedirectURI.parent().toggle(this.value === "web");
+        });
+
+        $oauthType.change();
+      }());
+    //]]></script>
 
 [% END %]

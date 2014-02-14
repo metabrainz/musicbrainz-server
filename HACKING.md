@@ -4,6 +4,10 @@ The Developer's Guide to the MusicBrainz Server
 Testing
 -------
 
+Most tests require a test database that has to be created once:
+
+    $ script/create_test_db.sh
+
 We use standard Perl tools for unit testing. Tests are located in the t/
 directory. The preferred way to run them is to use the `prove` program from
 Test::Harness. For example, to run all tests use:
@@ -18,7 +22,7 @@ t::MusicBrainz::Server::Controller::WS::2::LookupArtist you can use:
     $ prove -l t/tests.t :: --tests WS::2::LookupArtist
 
 The --tests argument takes a regular expression to match against the test
-name. For example, run multiple tests you can use regular expression groups:
+name. For example, to run multiple tests you can use regular expression groups:
 
     $ prove -l t/tests.t :: --tests '(Data::URL|Entity::URL)'
 
@@ -92,7 +96,8 @@ Cache
 
 Keys:
 
- * at:INT -- artist type by ID
+ * area_type:INT -- area type by ID
+ * artist_type:INT -- artist type by ID
  * ac:INT -- artist credit by ID
  * artist:INT -- artist by ID
  * artist:UUID -- artist ID by MBID (you need to do another lookup by ID)
@@ -103,12 +108,14 @@ Keys:
  * label:INT -- label by ID
  * label:UUID -- label by MBID (you need to do another lookup by ID)
  * lng:INT -- language by ID
- * lt:INT -- label type by ID
+ * label_type:INT -- label type by ID
  * link:INT -- link by ID
  * linktype:INT -- link type by ID
  * linkattrtype:INT -- link attribute type by ID
  * mf:INT -- medium format by ID
- * rgt:INT -- release group type by ID
+ * place_type:INT -- place type by ID
+ * release_group_type:INT -- release group type by ID
+ * release_group_secondary_type:INT -- release group secondary type by ID
  * rs:INT -- release status by ID
  * rp:INT -- release packaging by ID
  * scr:INT -- script by ID
@@ -116,9 +123,7 @@ Keys:
  * tag:INT -- tag by ID
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page
- * wizard_session:INT:INT:<MIXED> -- release editor (wizard) 
-   sessions by catalyst session ID, RE (random) session ID, and other specifics
- * wt:INT -- work type by ID
+ * work_type:INT -- work type by ID
 
 Debug information
 -----------------

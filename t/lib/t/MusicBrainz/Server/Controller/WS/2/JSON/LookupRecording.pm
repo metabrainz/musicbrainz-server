@@ -20,6 +20,7 @@ test 'basic recording lookup' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
+            video => 0,
         });
 
 };
@@ -38,6 +39,7 @@ test 'basic recording lookup, inc=annotation' => sub {
             length => 237133,
             annotation => "this is a recording annotation",
             disambiguation => "",
+            video => 0,
         });
 
 };
@@ -53,6 +55,7 @@ test 'recording lookup with releases' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
+            video => 0,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -114,6 +117,7 @@ test 'lookup recording with official singles' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
+            video => 0,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -152,6 +156,7 @@ test 'lookup recording with official singles (+media)' => sub {
             title => "サマーれげぇ!レインボー",
             length => 296026,
             disambiguation => "",
+            video => 0,
             releases => [
                 {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
@@ -246,6 +251,7 @@ test 'recording lookup with puids and isrcs' => sub {
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
             length => 296026,
+            video => 0,
             puids => [ ],
             isrcs => [ "JPA600102450" ],
         });
@@ -262,6 +268,7 @@ test 'recording lookup with release relationships' => sub {
             title => "Dear Diary",
             disambiguation => "",
             length => 86666,
+            video => 0,
             relations => [
                 {
                     attributes => [],
@@ -270,10 +277,20 @@ test 'recording lookup with release relationships' => sub {
                     direction => 'forward',
                     release => {
                         barcode => '634479663338',
-                        country => JSON::null,
+                        country => 'US',
                         date => '2007-11-08',
                         "release-events" => [{
-                            area => JSON::null,
+                            area => {
+                              disambiguation => '',
+                              id => '489ce91b-6658-3307-9877-795b68554c98',
+                              iso_3166_1_codes => [
+                                'US'
+                              ],
+                              iso_3166_2_codes => [],
+                              iso_3166_3_codes => [],
+                              name => 'United States',
+                              'sort-name' => 'United States'
+                            },
                             date => '2007-11-08',
                         }],
                         disambiguation => '',
@@ -304,6 +321,7 @@ test 'recording lookup with work relationships' => sub {
             title => "the Love Bug",
             disambiguation => "",
             length => 242226,
+            video => 0,
             relations => [
                 {
                     attributes => [],
@@ -337,6 +355,7 @@ test 'recording lookup with work-level relationships' => sub {
         disambiguation => '',
         id => '4878bc36-7306-497a-b45a-561d9f7f8573',
         length => 274666,
+        video => 0,
         relations => [ {
             attributes => [],
             begin => undef,

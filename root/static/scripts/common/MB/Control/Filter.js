@@ -19,7 +19,7 @@
 */
 
 MB.Control.FilterButton = function () {
-    var self = MB.Object ();
+    var self = {};
 
     self.show = function () {
         if (self.loaded) {

@@ -1,12 +1,11 @@
 # 
 # Translators:
-# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2013
+# Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: http://tickets.musicbrainz.org/\n"
-"PO-Revision-Date: 2013-10-29 13:12+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,6 +33,11 @@ msgctxt "medium_format"
 msgid "8cm CD"
 msgstr "8 cm CD"
 
+#: DB:medium_format/name:40
+msgctxt "medium_format"
+msgid "8cm CD+G"
+msgstr "8 cm CD+G"
+
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
@@ -54,6 +58,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "kunstnikunimi"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr "kuuldemäng"
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -69,6 +78,11 @@ msgctxt "work_type"
 msgid "Ballet"
 msgstr "ballett"
 
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
+
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
@@ -78,6 +92,11 @@ msgstr "Betamax"
 msgctxt "medium_format"
 msgid "Blu-ray"
 msgstr "Blu-ray"
+
+#: DB:medium_format/name:35
+msgctxt "medium_format"
+msgid "Blu-spec CD"
+msgstr "Blu-spec CD"
 
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
@@ -109,6 +128,11 @@ msgctxt "medium_format"
 msgid "CD"
 msgstr "CD"
 
+#: DB:medium_format/name:39
+msgctxt "medium_format"
+msgid "CD+G"
+msgstr "CD+G"
+
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
@@ -138,6 +162,11 @@ msgstr "kassett"
 msgctxt "release_packaging"
 msgid "Cassette Case"
 msgstr "kassetiümbris"
+
+#: DB:artist_type/name:4
+msgctxt "artist_type"
+msgid "Character"
+msgstr "tegelaskuju"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -199,6 +228,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "audiofailid"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr "liuguriga plaadiümbris (DBS)"
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -219,6 +253,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr "paks (topelt-)CD-karp"
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -233,6 +272,11 @@ msgstr "ametlik nimi"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "esikaas"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr "voldikkaas"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -249,10 +293,25 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:medium_format/name:37
+msgctxt "medium_format"
+msgid "HQCD"
+msgstr "HQCD"
+
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
 msgstr "emafirma"
+
+#: DB:medium_format/name:38
+msgctxt "medium_format"
+msgid "Hybrid SACD"
+msgstr "hübriid-SACD"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr "imprint"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -283,6 +342,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "kodanikunimi"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr "vaheleht"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -369,13 +433,8 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "muu"
 
-#: DB:cover_art_archive.art_type/name:8
-msgctxt "cover_art_type"
-msgid "Other"
-msgstr "muu"
-
-#: DB:gender/name:3
-msgctxt "gender"
+#: DB:release_group_primary_type/name:11
+msgctxt "release_group_primary_type"
 msgid "Other"
 msgstr "muu"
 
@@ -384,13 +443,18 @@ msgctxt "medium_format"
 msgid "Other"
 msgstr "muu"
 
-#: DB:release_group_primary_type/name:11
-msgctxt "release_group_primary_type"
+#: DB:release_packaging/name:5
+msgctxt "release_packaging"
 msgid "Other"
 msgstr "muu"
 
-#: DB:release_packaging/name:5
-msgctxt "release_packaging"
+#: DB:gender/name:3
+msgctxt "gender"
+msgid "Other"
+msgstr "muu"
+
+#: DB:cover_art_archive.art_type/name:8
+msgctxt "cover_art_type"
 msgid "Other"
 msgstr "muu"
 
@@ -418,6 +482,11 @@ msgstr "klaverirull"
 msgctxt "work_type"
 msgid "Poem"
 msgstr "luuletus"
+
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr "poster"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -474,6 +543,11 @@ msgctxt "medium_format"
 msgid "SACD"
 msgstr "SACD"
 
+#: DB:medium_format/name:36
+msgctxt "medium_format"
+msgid "SHM-CD"
+msgstr "SHM-CD"
+
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
@@ -495,6 +569,11 @@ msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "õhuke CD-karp"
 
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr "snap case"
+
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
@@ -510,13 +589,13 @@ msgctxt "work_type"
 msgid "Song-cycle"
 msgstr "laulutsükkel"
 
-#: DB:release_group_secondary_type/name:2
-msgctxt "release_group_secondary_type"
+#: DB:work_type/name:22
+msgctxt "work_type"
 msgid "Soundtrack"
 msgstr "saatemuusika"
 
-#: DB:work_type/name:22
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:2
+msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
 msgstr "saatemuusika"
 

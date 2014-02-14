@@ -15,6 +15,7 @@ extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { N_l('Change release group (historic)') }
+sub edit_kind { 'other' }
 sub edit_type { $EDIT_RELEASE_MOVE }
 sub edit_template { 'historic/move_release_to_rg' }
 

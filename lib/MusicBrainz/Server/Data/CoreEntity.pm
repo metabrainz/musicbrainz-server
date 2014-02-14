@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::CoreEntity;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( placeholders query_to_list query_to_list_limited );
+use MusicBrainz::Server::Validation qw( is_guid );
 use Sql;
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -22,7 +23,7 @@ around get_by_gids => sub
     return \%gid_map
         unless defined $table;
     my @missing_gids;
-    for my $gid (@gids) {
+    for my $gid (grep { is_guid($_) } @gids) {
         unless (exists $gid_map{$gid}) {
             push @missing_gids, $gid;
         }
@@ -47,6 +48,7 @@ around get_by_gid => sub
 {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($gid) = @_;
+    return unless is_guid($gid);
     if (my $obj = $self->$orig(@_)) {
         return $obj;
     }
@@ -81,15 +83,12 @@ sub get_by_ids_sorted_by_name
                 " FROM " . $self->_table .
                 " WHERE $key IN (" . placeholders(@ids) . ") " .
                 " ORDER BY musicbrainz_collate(name)";
-    my $sql = $self->sql;
-    $self->sql->select($query, @ids);
+
     my @result;
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $obj = $self->_new_from_row($row);
         push @result, $obj;
     }
-    $self->sql->finish;
     return \@result;
 }
 

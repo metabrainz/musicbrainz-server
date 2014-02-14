@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Data::Relationship;
 
 use Moose;
-use namespace::autoclean -also => [qw( _generate_table_list )];
+use namespace::autoclean;
 use Readonly;
 use Sql;
 use Carp qw( carp croak );
@@ -156,9 +156,7 @@ sub _load
             ORDER BY $order, musicbrainz_collate(name)";
         }
 
-        $self->sql->select($query, @params);
-        while (1) {
-            my $row = $self->sql->next_row_hash_ref or last;
+        for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
             my $entity1 = $row->{entity1};
             if ($type eq $type0 && exists $objs_by_id{$entity0}) {
@@ -174,7 +172,6 @@ sub _load
                 push @rels, $rel;
             }
         }
-        $self->sql->finish;
     }
     return @rels;
 }
@@ -472,7 +469,8 @@ sub editor_can_edit
     my @types = sort ($type0, $type1);
     my $is_area_url = $types[0] eq 'area' && $types[1] eq 'url';
     my $is_area_area = $types[0] eq 'area' && $types[1] eq 'area';
-    return (!$is_area_url && !$is_area_area) || $editor->is_location_editor;
+    return $editor &&
+        ((!$is_area_url && !$is_area_area) || $editor->is_location_editor);
 }
 
 __PACKAGE__->meta->make_immutable;

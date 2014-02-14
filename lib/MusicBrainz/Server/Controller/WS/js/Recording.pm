@@ -52,7 +52,7 @@ sub _format_output {
     return map {
         {
             recording => $_,
-            appears_on => $appears_on{$_->id}
+            appearsOn => $appears_on{$_->id}
         }
     } @entities;
 }

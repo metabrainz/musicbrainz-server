@@ -89,8 +89,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
-    confirmation_template => 'work/merge_confirm.tt',
-    search_template       => 'work/merge_search.tt',
 };
 
 before 'edit' => sub
@@ -112,18 +110,18 @@ sub stash_work_attribute_json {
     );
 }
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    $c->model('Work')->load_meta(@{ $c->stash->{to_merge} });
-    $c->model('WorkType')->load(@{ $c->stash->{to_merge} });
+    my ($self, $c, @works) = @_;
+    $c->model('Work')->load_meta(@works);
+    $c->model('WorkType')->load(@works);
     if ($c->user_exists) {
-        $c->model('Work')->rating->load_user_ratings($c->user->id, @{ $c->stash->{to_merge} });
+        $c->model('Work')->rating->load_user_ratings($c->user->id, @works);
     }
-    $c->model('Work')->load_writers(@{ $c->stash->{to_merge} });
-    $c->model('Work')->load_recording_artists(@{ $c->stash->{to_merge} });
-    $c->model('Language')->load(@{ $c->stash->{to_merge} });
-    $c->model('ISWC')->load_for_works(@{ $c->stash->{to_merge} });
+    $c->model('Work')->load_writers(@works);
+    $c->model('Work')->load_recording_artists(@works);
+    $c->model('Language')->load(@works);
+    $c->model('ISWC')->load_for_works(@works);
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
@@ -135,7 +133,8 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         return (
             post_creation => $self->create_with_identifiers($c)
         );
-    }
+    },
+    dialog_template => 'work/edit_form.tt',
 };
 
 before 'create' => sub

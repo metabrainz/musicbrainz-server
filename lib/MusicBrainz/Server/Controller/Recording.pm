@@ -23,7 +23,6 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $EDIT_RECORDING_REMOVE_ISRC
 );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Entity::Util::Release qw(
     group_by_release_status_nested
 );
@@ -99,7 +98,7 @@ sub show : Chained('load') PathPart('')
 
     my @releases = map { $_->medium->release } @$tracks;
     $c->model('ArtistCredit')->load($recording, @$tracks, @releases);
-    load_release_events($c, @releases);
+    $c->model('Release')->load_release_events(@releases);
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ReleaseStatus')->load(@releases);
@@ -148,8 +147,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RECORDING_MERGE,
-    search_template => 'recording/merge_search.tt',
-    confirmation_template => 'recording/merge_confirm.tt'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
@@ -168,34 +165,24 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
         return %ret;
-    }
+    },
+    dialog_template => 'recording/edit_form.tt',
 };
 
-before '_merge_confirm' => sub {
-    my ($self, $c) = @_;
-    if ($c->stash->{to_merge}) {
-        my @recordings = @{ $c->stash->{to_merge} };
-        $c->model('ISRC')->load_for_recordings(@recordings);
+sub _merge_load_entities {
+    my ($self, $c, @recordings) = @_;
+    $c->model('ArtistCredit')->load(@recordings);
+    $c->model('ISRC')->load_for_recordings(@recordings);
 
-        my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
-        if (@recordings_with_isrcs > 1) {
-            my ($comparator, @tail) = @recordings_with_isrcs;
-            my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
-            my $expect = $get_isrc_set->($comparator);
-            $c->stash(
-                isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
-            );
-        }
+    my @recordings_with_isrcs = grep { $_->all_isrcs > 0 } @recordings;
+    if (@recordings_with_isrcs > 1) {
+        my ($comparator, @tail) = @recordings_with_isrcs;
+        my $get_isrc_set = sub { Set::Scalar->new(map { $_->isrc } shift->all_isrcs) };
+        my $expect = $get_isrc_set->($comparator);
+        $c->stash(
+            isrcs_differ => any { $get_isrc_set->($_) != $expect } @tail
+        );
     }
-};
-
-around '_merge_search' => sub {
-    my $orig = shift;
-    my ($self, $c, $query) = @_;
-
-    my $results = $self->$orig($c, $query);
-    $c->model('ArtistCredit')->load(map { $_->entity } @$results);
-    return $results;
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

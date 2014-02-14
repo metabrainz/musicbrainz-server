@@ -15,6 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Relationship';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
+with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -61,7 +62,6 @@ after 'load' => sub
 
     $c->model('PlaceType')->load($place);
     $c->model('Area')->load($c->stash->{place});
-    $c->model('Area')->load_codes($place->area);
     $c->model('Area')->load_containment($place->area);
 };
 
@@ -100,6 +100,7 @@ sub performances : Chained('load')
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Place',
     edit_type => $EDIT_PLACE_CREATE,
+    dialog_template => 'place/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
@@ -109,15 +110,13 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_PLACE_MERGE,
-    confirmation_template => 'place/merge_confirm.tt',
-    search_template       => 'place/merge_search.tt',
 };
 
-after 'merge' => sub
+sub _merge_load_entities
 {
-    my ($self, $c) = @_;
-    $c->model('PlaceType')->load(@{ $c->stash->{to_merge} });
-    $c->model('Area')->load(@{ $c->stash->{to_merge} });
+    my ($self, $c, @places) = @_;
+    $c->model('PlaceType')->load(@places);
+    $c->model('Area')->load(@places);
 };
 
 =head1 LICENSE

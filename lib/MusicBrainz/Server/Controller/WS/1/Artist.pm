@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::1' }
 
 use MusicBrainz::Server::Constants qw( $VARTIST_ID );
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 
 __PACKAGE__->config(
     model => 'Artist',
@@ -40,7 +39,6 @@ sub lookup : Chained('load') PathPart('')
 
     $c->model('ArtistType')->load($artist);
     $c->model('Area')->load($artist);
-    $c->model('Area')->load_codes($artist->area, $artist->begin_area, $artist->end_area);
 
     my @rg;
     if ($c->stash->{inc}->rg_type || $c->stash->{inc}->rel_status) {
@@ -104,7 +102,7 @@ sub lookup : Chained('load') PathPart('')
             $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
             $c->model('ReleaseLabel')->load(@releases);
 
-            load_release_events($c, @releases);
+            $c->model('Release')->load_release_events(@releases);
 
             $c->model('Label')->load(map { $_->labels->[0] } @releases)
                 if $c->stash->{inc}->labels;

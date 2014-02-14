@@ -1,3 +1,6 @@
+[% script_manifest('guess-case.js.manifest') %]
+[% script_manifest('edit.js.manifest') %]
+
 [%- WRAPPER 'layout/guidelines.tt' -%]
     [%- create_guideline(l('Please read the {doc_styleguide|Style Guidelines} then use the fields below to update the information of this place.', {doc_styleguide => doc_link('Style_Guideline')})) %]
     [%- create_guideline(l('If one or more places with the same name already exist in the database, you will be prompted to add a {doc_comment|disambiguation comment to this place} that will allow users to distinguish this entry from the other place(s) with the same name.', {doc_comment => doc_link('Disambiguation_Comment')})) %]
@@ -66,18 +69,17 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
 
-    <div class="area-container" style="display: none">
-      <div class="area bubble">
-        <p>
-          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-        </p>
-      </div>
-    </div>
-
+    [%- area_bubble() -%]
   </div>
 
 </form>
 
-<script type="text/javascript">
-    MB.utility.setDefaultAction ('form.edit-place', 'button.submit.positive');
-</script>
+<script type="text/javascript">//<![CDATA[
+  (function () {
+    MB.Control.initialize_guess_case("place", "id-edit-place");
+
+    MB.Control.Area("span.area.autocomplete");
+
+    MB.utility.setDefaultAction("form.edit-place", "button.submit.positive");
+  }());
+//]]></script>

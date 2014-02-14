@@ -30,8 +30,9 @@ use aliased 'MusicBrainz::Server::Entity::Artwork';
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' };
 with 'MusicBrainz::Server::Data::Role::Name';
+with 'MusicBrainz::Server::Data::Role::CoreEntityCache' => { prefix => 'release' };
 with 'MusicBrainz::Server::Data::Role::Editable' => { table => 'release' };
-with 'MusicBrainz::Server::Data::Role::BrowseVA';
+with 'MusicBrainz::Server::Data::Role::Browse';
 with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' };
 with 'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' };
 
@@ -464,8 +465,7 @@ sub find_by_recordings
           WHERE track.recording IN (" . placeholders(@ids) . ")";
 
     my %map;
-    $self->sql->select($query, @ids);
-    while (my $row = $self->sql->next_row_hash_ref) {
+    for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{recording} } ||= [];
         push @{ $map{ $row->{recording} } },
             [ $self->_new_from_row($row),
@@ -791,7 +791,7 @@ sub update
     ) if $update->{events};
 
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('release', $row, { id => $release_id });
+    $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
 }
 
 sub can_delete { 1 }
@@ -1010,16 +1010,16 @@ sub merge
 
     $self->sql->do(
         'DELETE FROM release_country
-         WHERE release IN (
-           SELECT release
+         WHERE (release, country) IN (
+           SELECT release, country
            FROM (
-             SELECT release,
+             SELECT release, country,
                (row_number() OVER (
                   PARTITION BY country
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_country
              WHERE release = any(?)
@@ -1037,10 +1037,10 @@ sub merge
            FROM (
              SELECT release,
                (row_number() OVER (
-                  ORDER BY (CASE WHEN date_year IS NOT NULL THEN 0 ELSE 100 END) +
-                           (CASE WHEN date_month IS NOT NULL THEN 0 ELSE 10 END) +
-                           (CASE WHEN date_day IS NOT NULL THEN 0 ELSE 1 END),
-                           release = ?)
+                  ORDER BY date_year IS NOT NULL DESC,
+                           date_month IS NOT NULL DESC,
+                           date_day IS NOT NULL DESC,
+                           release = ? DESC)
                ) > 1 AS remove
              FROM release_unknown_country
              WHERE release = any(?)
@@ -1167,16 +1167,15 @@ sub load_meta
     }, @objs);
 
     my @ids = keys %id_to_obj;
-    $self->sql->select(
-        'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
-        @ids
-    );
-    while (1) {
-        my $row = $self->sql->next_row_hash_ref or last;
+    for my $row (@{
+        $self->sql->select_list_of_hashes(
+            'SELECT * FROM release_coverart WHERE id IN ('.placeholders(@ids).')',
+            @ids
+        )
+    }) {
         $id_to_obj{ $row->{id} }->cover_art_url( $row->{cover_art_url} )
             if defined $row->{cover_art_url};
     }
-    $self->sql->finish;
 }
 
 sub find_ids_by_track_ids
@@ -1244,7 +1243,6 @@ sub newest_releases_with_artwork {
       JOIN edit ON edit.id = edit_release.edit
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
-        AND edit.status = ?
         AND edit.type = ?
       ORDER BY edit.id DESC
       LIMIT 10';
@@ -1264,17 +1262,25 @@ sub newest_releases_with_artwork {
                 )
             }
         },
-        $query, $FRONT, $STATUS_APPLIED, $EDIT_RELEASE_CREATE
+        $query, $FRONT, $EDIT_RELEASE_CREATE
     );
 }
 
 sub load_release_events {
     my ($self, @releases) = @_;
-    my $events = $self->find_release_events(map { $_->id } @releases);
 
-    for my $release (@releases) {
+    my @releases_to_load = grep { $_->event_count < 1 } @releases;
+    my $events = $self->find_release_events(map { $_->id } @releases_to_load);
+
+    for my $release (@releases_to_load) {
         $release->events($events->{$release->id});
     }
+
+    $self->c->model('Area')->load(
+        grep { $_->country_id && !defined($_->country) }
+        map { $_->all_events }
+        @releases
+    );
 }
 
 sub find_release_events {

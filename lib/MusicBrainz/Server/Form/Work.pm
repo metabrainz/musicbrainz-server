@@ -1,7 +1,8 @@
 package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( language_options );
 use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options );
+
 use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::Form';
@@ -82,7 +83,7 @@ after 'validate' => sub {
 
         if (!defined($parser)) {
             $attribute_field->field('type_id')->add_error(
-                l('Unknown work attribute type')
+                l('Unknown work attribute type.')
             );
         }
         elsif ($parser->{allows_value}->($value)) {
@@ -95,7 +96,7 @@ after 'validate' => sub {
         }
         else {
             $attribute_field->field('value')->add_error(
-                l('This value is not allowed for this work attribute type')
+                l('This value is not allowed for this work attribute type.')
             );
         }
     }
@@ -125,7 +126,7 @@ sub inflate_attributes {
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit attributes ) }
 
-sub options_type_id           { shift->_select_all('WorkType') }
+sub options_type_id           { select_options(shift->ctx, 'WorkType') }
 sub options_language_id       { return language_options (shift->ctx); }
 
 1;

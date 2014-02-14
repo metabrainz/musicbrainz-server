@@ -23,9 +23,6 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
-    <style>
-    table.tbl td { vertical-align: top }
-    </style>
 
     <script type="text/html" id="relationship-group">
       <dt><!-- ko text: key --><!-- /ko -->:</dt>
@@ -82,7 +79,7 @@
               </td>
               <!-- /ko -->
               <td>
-                <a data-bind="text: name, attr: { href: '/recording/' + recording.gid }"></a>
+                <span data-bind="html: $data.html()"></span>
 
                 <!-- ko with: recording -->
                   <br/>
@@ -131,7 +128,7 @@
                             data-bind="style: { width: userRating + '%' }, text: MB.utility.percentOf(userRating, 5)"></span>
                       <!-- /ko -->
 
-                      <!-- ko if: userRating === null -->
+                      <!-- ko if: userRating === null && rating !== null -->
                       <span class="current-rating"
                             data-bind="style: { width: rating + '%' }, text: MB.utility.percentOf(rating, 5)"></span>
                       <!-- /ko -->
@@ -155,7 +152,7 @@
                   </span>
                 </td>
               [% END %]
-              <td class="treleases" data-bind="text: length">
+              <td class="treleases" data-bind="text: formattedLength || '?:??'">
               </td>
             </tr>
           <!-- /ko -->
@@ -179,60 +176,78 @@
                     gid => $target->gid,
                     type => $rel->target_type,
                     name => $target->name,
-                    sortname => $target->can('sort_name') ? $target->sort_name : undef,
+                    sortName => $target->can('sort_name') ? $target->sort_name : undef,
                     comment => $target->can('comment') ? $target->comment : ''
                 },
                 phrase => $rel->phrase
             );
         };
 
-        print $context->plugin('JSON.Escape')->json_encode([
-            map +{
-                name => $_->name,
-                tracks => [
-                    map +{
-                        gid => $_->gid,
-                        position => $_->position,
-                        number => $_->number,
-                        name => $_->name,
-                        length => $_->length,
-                        editsPending => $_->edits_pending,
-                        artistCredit => [
-                            map +{
-                                name => $_->name,
-                                join_phrase => $_->join_phrase,
-                                artist => {
-                                    gid => $_->artist->gid,
-                                    id => $_->artist->id,
-                                    sortname => $_->artist->sort_name,
-                                    name => $_->artist->name
-                                }
-                            }, $_->artist_credit->all_names
-                        ],
-                        recording => {
-                            relationships => [
+        my $release = $stash->get('release');
+        print $context->plugin('JSON.Escape')->json_encode({
+            mediums => [
+                map +{
+                    name => $_->name,
+                    tracks => [
+                        map +{
+                            gid => $_->gid,
+                            position => $_->position,
+                            number => $_->number,
+                            name => $_->name,
+                            length => $_->length,
+                            editsPending => $_->edits_pending,
+                            artistCredit => [
                                 map +{
-                                    $rel_to_json->($_),
-                                    subRelationships => [
-                                        map +{ $rel_to_json->($_) },
-                                            $_->target->all_relationships
-                                    ]
-                                }, $_->recording->all_relationships
+                                    name => $_->name,
+                                    joinPhrase => $_->join_phrase,
+                                    artist => {
+                                        gid => $_->artist->gid,
+                                        id => $_->artist->id,
+                                        sortName => $_->artist->sort_name,
+                                        name => $_->artist->name,
+                                        comment => $_->artist->comment
+                                    }
+                                }, $_->artist_credit->all_names
                             ],
-                            gid => $_->recording->gid,
-                            rating => $_->recording->rating,
-                            userRating => $_->recording->user_rating,
-                            id => $_->recording->id,
-                            video =>
-                                $_->recording->video ? JSON::true : JSON::false
-                        }
-                    }, $_->all_tracks
-                ],
-                position => $_->position,
-                format => $_->l_format_name,
-                editsPending => $_->edits_pending
-            }, @{ $stash->get('release')->{mediums} }
-        ]);
+                            recording => {
+                                relationships => [
+                                    map +{
+                                        $rel_to_json->($_),
+                                        subRelationships => [
+                                            map +{ $rel_to_json->($_) },
+                                                $_->target->all_relationships
+                                        ]
+                                    }, $_->recording->all_relationships
+                                ],
+                                gid => $_->recording->gid,
+                                rating => $_->recording->rating,
+                                userRating => $_->recording->user_rating,
+                                id => $_->recording->id,
+                                name => $_->recording->name,
+                                editsPending => $_->recording->edits_pending,
+                                video =>
+                                    $_->recording->video ? JSON::true : JSON::false
+                            }
+                        }, $_->all_tracks
+                    ],
+                    position => $_->position,
+                    format => $_->l_format_name,
+                    editsPending => $_->edits_pending
+                }, @{ $release->{mediums} }
+            ],
+            artistCredit => [
+                map +{
+                    name => $_->name,
+                    joinPhrase => $_->join_phrase,
+                    artist => {
+                        gid => $_->artist->gid,
+                        id => $_->artist->id,
+                        sortName => $_->artist->sort_name,
+                        name => $_->artist->name
+                    }
+                }, $release->artist_credit->all_names
+            ],
+        });
       [%- END -%]
       )
     </script>

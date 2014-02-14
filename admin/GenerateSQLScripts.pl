@@ -26,8 +26,9 @@ sub process_tables
         my @lines = split /\n/, $2;
         my @fks;
         foreach my $line (@lines) {
-            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
-                my @fk = ($1, ($2 || '') . $3, $4);
+            if ($line =~ m/([a-z0-9_]+).*?\s*--.*?(weakly )?references ([a-z0-9_]+\.)?([a-z0-9_]+)\.([a-z0-9_]+)/i) {
+                next if $2; # weak reference
+                my @fk = ($1, ($3 || '') . $4, $5);
                 my $cascade = ($line =~ m/CASCADE/) ? 1 : 0;
                 push @fks, [@fk, $cascade];
             }

@@ -12,16 +12,19 @@ url:         http://jquery.com
 
 library:     jQuery UI
 license:     MIT
-version:     1.10.2
+version:     1.10.3
 author:      jQuery UI Authors (http://jqueryui.com/about)
 url:         http://jqueryui.com/download
-components:  Autocomplete, Dialog, Tabs, Tooltip
+components:  Autocomplete, Dialog, Sortable, Tabs, Tooltip
 note:        The version included here was created by selecting only
              the components needed for MusicBrainz from the jquery ui
              download page.  The "development-bundle" directory from
-             the resulting jquery-1.10.2-custom.zip is included here as
+             the resulting jquery-1.10.3-custom.zip is included here as
              "jquery.ui", minus the minified and component JS/CSS files,
              demos, documentation, and grunt-related files.
+             The CSS file and images from themes/base are in
+             root/static/styles/jquery-ui, with some modifications (see
+             .orig file there).
 
 -- json/json2.js --
 
@@ -100,23 +103,31 @@ version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
 
--- knockout/knockout-2.3.0.debug.js --
+-- knockout/knockout-latest.debug.js --
 
 library:     Knockout
 license:     MIT
-version:     2.3.0
+version:     3.0.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
--- underscore/underscore.js --
+-- knockout/knockout-delegatedEvents.js --
 
-library:     Underscore
+library:     Knockout Delegated Events
 license:     MIT
-version:     1.4.0
-author:      Jeremy Ashkenas, DocumentCloud
-url:         http://underscorejs.org
+version:     0.1.3
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
--- underscore/underscore.string.js --
+-- knockout/knockout-postbox.js --
+
+library:     knockout-postbox
+license:     MIT
+version:     0.4.2
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-postbox
+
+-- underscore.string/underscore.string.js --
 
 library:     Underscore.string
 license:     MIT
@@ -155,3 +166,20 @@ license:     MIT
 version:     0.3.3
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
+
+-- jquery/jquery.trap.js
+
+library:    jQuery trap input plugin
+license:    Permissive; see:
+            https://github.com/julienw/jquery-trap-input/blob/master/LICENSE
+version:    1.2.0
+author:     Julien Wajsberg
+url:        https://github.com/julienw/jquery-trap-input
+
+-- lodash/lodash.compat.js
+
+library:    Lo-Dash
+license:    MIT
+version:    2.4.1
+author:     John-David Dalton
+url:        http://lodash.com/

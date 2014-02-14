@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities';
 with 'MusicBrainz::Server::Edit::Release';
 
 sub edit_name { N_l('Remove release label') }
+sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 
 sub release_id { shift->data->{release}{id} }

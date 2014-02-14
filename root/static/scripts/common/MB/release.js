@@ -2,8 +2,8 @@ MB.Release = (function (Release) {
 
   var ViewModel, Medium, Track;
 
-  Release.init = function(initialMedia) {
-    Release.viewModel = new ViewModel(initialMedia);
+  Release.init = function(releaseData) {
+    Release.viewModel = new ViewModel(releaseData);
 
     ko.bindingHandlers.foreachKv = {
       transformObject: function (obj) {
@@ -16,7 +16,7 @@ MB.Release = (function (Release) {
       init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = ko.utils.unwrapObservable(valueAccessor()),
             properties = ko.bindingHandlers.foreachKv.transformObject(value);
-        ko.applyBindingsToNode(element, { foreach: properties });
+        ko.applyBindingsToNode(element, { foreach: properties }, bindingContext);
         return { controlsDescendantBindings: true };
       }
     };
@@ -79,23 +79,22 @@ MB.Release = (function (Release) {
     return newA;
   }
 
-  ViewModel = function (initialMedia) {
+  ViewModel = function (releaseData) {
     var model = this;
 
+    model.artistCredit = MB.entity.ArtistCredit(releaseData.artistCredit);
+
     this.mediums = _.map(
-      initialMedia, function(medium, mediumIndex) {
+      releaseData.mediums,
+      function(medium, mediumIndex) {
         var medium = new MB.entity.Medium(medium);
         _.each(
           medium.tracks,
           function (track, trackIndex) {
             var inputRecording =
-              initialMedia[mediumIndex].tracks[trackIndex].recording;
+              releaseData.mediums[mediumIndex].tracks[trackIndex].recording;
 
             track.recording.relationships = inputRecording.relationships;
-
-            if (track.length === '') {
-              track.length = '?:??';
-            }
 
             track.recording.extend({
               "groupedRelationships": ko.computed({
@@ -115,35 +114,27 @@ MB.Release = (function (Release) {
       }
     );
 
-    this.showArtists = ko.computed(function () {
-      var allArtistCredits = _.flatten(
+    var allArtistCredits = _.flatten(
+      _.map(model.mediums, function(medium) {
+        return _.map(medium.tracks, function (track) {
+          return track.artistCredit;
+        });
+      })
+    );
+
+    this.showArtists = _.some(allArtistCredits, function(subject) {
+      return !subject.isEqual(model.artistCredit)
+    });
+
+    this.showVideo = _.any(
+      _.flatten(
         _.map(model.mediums, function(medium) {
           return _.map(medium.tracks, function (track) {
-            return track.artistCredit;
+            return track.recording.video;
           });
         })
-      );
-
-      var reference = _.head(allArtistCredits),
-          subjects = _.tail(allArtistCredits);
-
-      return subjects.length > 0 &&
-        _.some(subjects, function(subject) {
-          return !subject.isEqual(reference)
-        });
-    });
-
-    this.showVideo = ko.computed(function () {
-      return _.any(
-        _.flatten(
-          _.map(model.mediums, function(medium) {
-            return _.map(medium.tracks, function (track) {
-              return track.recording.video;
-            });
-          })
-        )
-      );
-    });
+      )
+    );
 
     return model;
   };

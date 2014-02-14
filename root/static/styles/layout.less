@@ -1,21 +1,19 @@
+@import "colors.less";
+
 body {
     padding: 0 10px;
     margin: 0;
-    background-color: #E7E7E7;
-    color: #000;
+    background-color: @very-light-bg;
+    color: @text-black;
     font-family: 'Bitstream Vera Sans', Verdana, Arial, sans-serif;
     font-size: 12px;
     min-width: 780px;
     margin: auto;
 }
 
-/*input, select {
-    font-size: 12px;
-}*/
-
-a { color:#002BBA; text-decoration: none; }
-a:visited { color:#632D9B; }
-a:hover { color:#FC6714; text-decoration: underline; }
+a { color:@link-default; text-decoration: none; }
+a:visited { color:@link-visited; }
+a:hover { color: @text-orange; text-decoration: underline; }
 a:active, a:focus { outline-style: none; }
 
 a.icon:hover { text-decoration: none; }
@@ -26,7 +24,7 @@ a>img { border: 0; }
 ** When we start using relative links for internal links, add:
 ** a[href^="http://"], a[href^="https://"], */
 a.external {
-    background: url('../images/icons/external.png') no-repeat right;
+    background: data-uri('../images/icons/external.png') no-repeat right;
     padding-right: 13px;
 }
 
@@ -45,14 +43,14 @@ h1 {
     font-size: 150%;
 }
 
-h1 a { color: #000 !important; }
+h1 a { color: @text-black !important; }
 
 h2,
 fieldset legend {
     margin-top: 1em;
     margin-bottom: 0;
     font-size: 120%;
-    color: #FC6714;
+    color: @text-orange;
     font-weight: bold;
 }
 
@@ -71,7 +69,7 @@ h3 {
 ul {
     margin-left: 0;
     padding-left: 40px;
-    list-style-image: url('../images/icons/bullet.gif');
+    list-style-image: data-uri('../images/icons/bullet.gif');
     list-style-type: square;
 }
 
@@ -116,7 +114,7 @@ img.gravatar {
     display: inline;
     max-height: 1em;
     vertical-align: middle;
-    border: 1px solid #ddd;
+    border: 1px solid @light-border;
     padding: 1px;
     background: #fff;
     margin-right: 0.35em;
@@ -127,9 +125,9 @@ h1 img.gravatar {
 }
 
 #header-logo {
-    background: #736DAB url('../images/layout/sprites.png') no-repeat top left;
+    background: @musicbrainz-purple url('../images/layout/header-logo.png') no-repeat top left;
     height: 58px;
-    color: #FFF;
+    color: @text-white;
 }
 
 #header-logo div {
@@ -143,7 +141,7 @@ h1 img.gravatar {
     position: absolute;
     top: 2px;
     right: 18px;
-    color: #DDD;
+    color: @light-text;
 }
 
 #header-logo #headerid-query {
@@ -157,7 +155,7 @@ h1 img.gravatar {
 }
 
 #header-logo a {
-    color: #FFF;
+    color: @text-white;
 }
 
 #header-logo a.logo {
@@ -173,34 +171,18 @@ h1 img.gravatar {
 }
 
 #header-menu {
-    background: #FFBA58;
+    background: @musicbrainz-orange;
     position: relative;
     font-size: 95%;
     font-weight: bold;
     z-index: 9;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 #header-menu div {
     padding: 0 1em;
     overflow: hidden;
-}
-
-#header-menu div.l, #header-menu div.r {
-    position: absolute;
-    display: block;
-    padding: 0;
-    width: 6px;
-    height: 8px;
-}
-
-#header-menu div.r {
-    bottom: 0; right: 0;
-    background: url('../images/layout/sprites.png') -7px -58px;
-}
-
-#header-menu div.l {
-    bottom: 0; left: 0;
-    background: url('../images/layout/sprites.png') -0px -58px;
 }
 
 #header-menu ul.r {
@@ -228,7 +210,7 @@ h1 img.gravatar {
 }
 
 #header-menu ul a {
-    color: #333;
+    color: @effectively-black-text;
     display: block;
     padding: 0.4em 0.5em;
     height: 100%;
@@ -238,8 +220,8 @@ h1 img.gravatar {
 #header-menu ul li:hover a,
 #header-menu ul li:hover li a:hover,
 #header-menu ul a:hover {
-    background-color: #FC6714;
-    color: #FFF;
+    background-color: @text-orange;
+    color: @text-white;
 }
 
 #header-menu ul li li a {
@@ -247,8 +229,8 @@ h1 img.gravatar {
 }
 
 #header-menu ul li:hover li a {
-    background-color: #D4D4D4;
-    color: #000;
+    background-color: @medium-bg;
+    color: @text-black;
 }
 
 #header-menu li ul {
@@ -262,7 +244,7 @@ h1 img.gravatar {
     float: none;
     font-weight: normal;
     margin: 0;
-    background-color: #D4D4D4;
+    background-color: @medium-bg;
 }
 
 #header-menu .separator {
@@ -280,6 +262,7 @@ h1 img.gravatar {
     background: #FFF url('../images/layout/page-bg.gif') repeat-y top right;
     overflow: visible;
     position: relative;
+    border-radius: 6px;
 }
 
 #page.fullwidth,
@@ -292,33 +275,6 @@ h1 img.gravatar {
     margin-top: 0; /* Remove the space above the merge-helper H2 */
 }
 
-.bl, .br, .tl, .tr {
-    position: absolute;
-    display: block;
-    width: 8px;
-    height: 8px;
-}
-
-.tr {
-    top: 0; right: 0;
-    background: url('../images/layout/sprites.png') -14px -58px;
-}
-
-.tl {
-    top: 0; left: 0;
-    background: url('../images/layout/sprites.png') -23px -58px;
-}
-
-.br {
-    bottom: 0; right: 0;
-    background: url('../images/layout/sprites.png') -32px -58px;
-}
-
-.bl {
-    bottom: 0; left: 0;
-    background: url('../images/layout/sprites.png') -41px -58px;
-}
-
 .warning-header,
 .flash,
 .server-details {
@@ -328,12 +284,13 @@ h1 img.gravatar {
     background: #FFFFFF;
     padding: 10px;
     border: 0;
-    color: #FC6714;
+    color: @text-orange;
     position: relative;
+    border-radius: 6px;
 }
 
 .flash {
-    color: #000;
+    color: @text-black;
     font-weight: normal;
 }
 
@@ -344,22 +301,20 @@ h1 img.gravatar {
 }
 
 .warning-header {
-    color: #000;
+    color: @text-black;
 }
 
 div.notice,
 div.warning {
     margin: 2em auto;
-    border: 1px solid #a1a1a1;
+    border: 1px solid @dark-border;
     min-height: 54px;
     width: 60em;
-    background: #ffffd0;
+    background: @warning-background;
 }
 
 div.warning p,
 div.notice p { margin: 1em; }
-
-#release-editor div.changes div.notice { margin: 2em auto 0 auto; }
 
 div.warning img.warning {
     float: left;
@@ -413,8 +368,8 @@ div.warning img.warning {
     height: 1px;
     width: 75%;
     border: 0;
-    color: #D3D3D3;
-    background-color: #D3D3D3;
+    color: @hr-color;
+    background-color: @hr-color;
 }
 
 #sidebar ul.external_links {
@@ -425,7 +380,7 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li {
-    background: url("../images/favicons/external-16.png") 0 2px no-repeat;
+    background: data-uri("../images/favicons/external-16.png") 0 2px no-repeat;
     margin-bottom: 2px;
     padding: 4px 0 0 22px;
     min-height: 14px;
@@ -436,187 +391,187 @@ div.warning img.warning {
 }
 
 #sidebar ul.external_links li.home {
-    background-image: url("../images/favicons/home-16.png");
+    background-image: data-uri("../images/favicons/home-16.png");
 }
 
 #sidebar ul.external_links li.allmusic {
-    background-image: url("../images/favicons/allmusic-16.png");
+    background-image: data-uri("../images/favicons/allmusic-16.png");
 }
 
 #sidebar ul.external_links li.amazon {
-    background-image: url("../images/favicons/amazon-16.png");
+    background-image: data-uri("../images/favicons/amazon-16.png");
 }
 
 #sidebar ul.external_links li.animenewsnetwork {
-    background-image: url("../images/favicons/animenewsnetwork-16.png");
+    background-image: data-uri("../images/favicons/animenewsnetwork-16.png");
 }
 
 #sidebar ul.external_links li.wikipedia {
-    background-image: url("../images/favicons/wikipedia-16.png");
+    background-image: data-uri("../images/favicons/wikipedia-16.png");
 }
 
 #sidebar ul.external_links li.facebook {
-    background-image: url("../images/favicons/facebook-16.png");
+    background-image: data-uri("../images/favicons/facebook-16.png");
 }
 
 #sidebar ul.external_links li.generasia {
-    background-image: url("../images/favicons/generasia-16.png");
+    background-image: data-uri("../images/favicons/generasia-16.png");
 }
 
 #sidebar ul.external_links li.lastfm {
-    background-image: url("../images/favicons/lastfm-16.png");
+    background-image: data-uri("../images/favicons/lastfm-16.png");
 }
 
 #sidebar ul.external_links li.myspace {
-    background-image: url("../images/favicons/myspace-16.png");
+    background-image: data-uri("../images/favicons/myspace-16.png");
 }
 
 #sidebar ul.external_links li.twitter {
-    background-image: url("../images/favicons/twitter-16.png");
+    background-image: data-uri("../images/favicons/twitter-16.png");
 }
 
 #sidebar ul.external_links li.youtube {
-    background-image: url("../images/favicons/youtube-16.png");
+    background-image: data-uri("../images/favicons/youtube-16.png");
 }
 
 #sidebar ul.external_links li.discogs {
-    background-image: url("../images/favicons/discogs-16.png");
+    background-image: data-uri("../images/favicons/discogs-16.png");
 }
 
 #sidebar ul.external_links li.rockensdanmarkskort {
-    background-image: url("../images/favicons/rockensdanmarkskort-16.png");
+    background-image: data-uri("../images/favicons/rockensdanmarkskort-16.png");
 }
 
 #sidebar ul.external_links li.rockipedia {
-    background-image: url("../images/favicons/rockipedia-16.png");
+    background-image: data-uri("../images/favicons/rockipedia-16.png");
 }
 
 #sidebar ul.external_links li.secondhandsongs {
-    background-image: url("../images/favicons/secondhandsongs-16.png");
+    background-image: data-uri("../images/favicons/secondhandsongs-16.png");
 }
 
 #sidebar ul.external_links li.songfacts {
-    background-image: url("../images/favicons/songfacts-16.png");
+    background-image: data-uri("../images/favicons/songfacts-16.png");
 }
 
 #sidebar ul.external_links li.soundcloud {
-    background-image: url("../images/favicons/soundcloud-16.png");
+    background-image: data-uri("../images/favicons/soundcloud-16.png");
 }
 
 #sidebar ul.external_links li.ibdb {
-    background-image: url("../images/favicons/ibdb-16.png");
+    background-image: data-uri("../images/favicons/ibdb-16.png");
 }
 
 #sidebar ul.external_links li.imslp {
-    background-image: url("../images/favicons/imslp-16.png");
+    background-image: data-uri("../images/favicons/imslp-16.png");
 }
 
 #sidebar ul.external_links li.ESTERTallinn {
-    background-image: url("../images/favicons/ESTERTallinn-16.png");
+    background-image: data-uri("../images/favicons/ESTERTallinn-16.png");
 }
 
 #sidebar ul.external_links li.ESTERTartu {
-    background-image: url("../images/favicons/ESTERTartu-16.png");
+    background-image: data-uri("../images/favicons/ESTERTartu-16.png");
 }
 
 #sidebar ul.external_links li.worldcat {
-    background-image: url("../images/favicons/worldcat-16.png");
+    background-image: data-uri("../images/favicons/worldcat-16.png");
 }
 
 #sidebar ul.external_links li.fortyfivecat {
-    background-image: url("../images/favicons/45cat-16.png");
+    background-image: data-uri("../images/favicons/45cat-16.png");
 }
 
 #sidebar ul.external_links li.rateyourmusic {
-    background-image: url("../images/favicons/rateyourmusic-16.png");
+    background-image: data-uri("../images/favicons/rateyourmusic-16.png");
 }
 
 #sidebar ul.external_links li.rolldabeats {
-    background-image: url("../images/favicons/rolldabeats-16.png");
+    background-image: data-uri("../images/favicons/rolldabeats-16.png");
 }
 
 #sidebar ul.external_links li.psydb {
-    background-image: url("../images/favicons/psydb-16.png");
+    background-image: data-uri("../images/favicons/psydb-16.png");
 }
 
 #sidebar ul.external_links li.metalarchives {
-    background-image: url("../images/favicons/metalarchives-16.png");
+    background-image: data-uri("../images/favicons/metalarchives-16.png");
 }
 
 #sidebar ul.external_links li.spiritofmetal {
-    background-image: url("../images/favicons/spiritofmetal-16.png");
+    background-image: data-uri("../images/favicons/spiritofmetal-16.png");
 }
 
 #sidebar ul.external_links li.theatricalia {
-    background-image: url("../images/favicons/theatricalia-16.png");
+    background-image: data-uri("../images/favicons/theatricalia-16.png");
 }
 
 #sidebar ul.external_links li.ocremix {
-    background-image: url("../images/favicons/ocremix-16.png");
+    background-image: data-uri("../images/favicons/ocremix-16.png");
 }
 
 #sidebar ul.external_links li.musiksammler {
-    background-image: url("../images/favicons/sammler-16.png");
+    background-image: data-uri("../images/favicons/sammler-16.png");
 }
 
 #sidebar ul.external_links li.encyclopedisque {
-    background-image: url("../images/favicons/encyclopedisque-16.png");
+    background-image: data-uri("../images/favicons/encyclopedisque-16.png");
 }
 
 #sidebar ul.external_links li.trove {
-    background-image: url("../images/favicons/trove-16.png");
+    background-image: data-uri("../images/favicons/trove-16.png");
 }
 
 #sidebar ul.external_links li.ric {
-    background-image: url("../images/favicons/ric-16.png");
+    background-image: data-uri("../images/favicons/ric-16.png");
 }
 
 #sidebar ul.external_links li.googleplus {
-    background-image: url("../images/favicons/googleplus-16.png");
+    background-image: data-uri("../images/favicons/googleplus-16.png");
 }
 
 #sidebar ul.external_links li.dhhu {
-    background-image: url("../images/favicons/dhhu-16.png");
+    background-image: data-uri("../images/favicons/dhhu-16.png");
 }
 
 #sidebar ul.external_links li.thesession {
-    background-image: url("../images/favicons/thesession-16.png");
+    background-image: data-uri("../images/favicons/thesession-16.png");
 }
 
 #sidebar ul.external_links li.lieder {
-    background-image: url("../images/favicons/lieder-16.png");
+    background-image: data-uri("../images/favicons/lieder-16.png");
 }
 
 #sidebar ul.external_links li.openlibrary {
-    background-image: url("../images/favicons/openlibrary-16.png");
+    background-image: data-uri("../images/favicons/openlibrary-16.png");
 }
 
 #sidebar ul.external_links li.whosampled {
-    background-image: url("../images/favicons/whosampled-16.png");
+    background-image: data-uri("../images/favicons/whosampled-16.png");
 }
 
 #sidebar ul.external_links li.viaf {
-    background-image: url("../images/favicons/viaf-16.png");
+    background-image: data-uri("../images/favicons/viaf-16.png");
 }
 
 #sidebar ul.external_links li.vk {
-    background-image: url("../images/favicons/vk-16.png");
+    background-image: data-uri("../images/favicons/vk-16.png");
 }
 
 #sidebar ul.external_links li.bandcamp {
-    background-image: url("../images/favicons/bandcamp-16.png");
+    background-image: data-uri("../images/favicons/bandcamp-16.png");
 }
 
 #sidebar ul.external_links li.iTunes {
-    background-image: url("../images/favicons/iTunes-16.png");
+    background-image: data-uri("../images/favicons/iTunes-16.png");
 }
 
 #sidebar ul.external_links li.spotify {
-    background-image: url("../images/favicons/spotify-16.png");
+    background-image: data-uri("../images/favicons/spotify-16.png");
 }
 
 #sidebar ul.external_links li.wikidata {
-    background-image: url("../images/favicons/wikidata-16.png");
+    background-image: data-uri("../images/favicons/wikidata-16.png");
 }
 
 #sidebar ul.licenses {
@@ -631,17 +586,17 @@ div.warning img.warning {
     margin-bottom: 2px;
 }
 
-#sidebar .cover-art {
+#sidebar .cover-art, #sidebar .picture {
     text-align: center;
 }
 
-#sidebar .cover-art img {
+#sidebar .cover-art img, #sidebar .picture img {
     max-height: 300px;
     max-width: 218px; /* references #sidebar's width */
 }
 
-#sidebar .cover-art-note {
-    color: #777;
+#sidebar .cover-art-note, #sidebar .picture-note {
+    color: @very-dark-text;
     display: block;
 }
 
@@ -653,11 +608,11 @@ div.warning img.warning {
     margin: 1em 0;
     padding: 0 1em;
     font-size: 90%;
-    color: #444444;
+    color: @very-dark-text;
 }
 
-#footer a { color: #002BBA; }
-#footer a:hover { color: #FC6714; }
+#footer a { color: @link-default; }
+#footer a:hover { color: @text-orange; }
 
 #footer p {
     display: inline-block;
@@ -690,14 +645,14 @@ table.tbl tr.mp td,
 span.mp,
 div.mp,
 tr.diff-changes {
-    background: #FD9 !important;
+    background: @edit-orange !important;
 }
 
 .lastupdate,
 .annotation-details,
 .small {
     font-size: 90%;
-    color: #777;
+    color: @very-dark-text;
     font-style: italic;
 }
 
@@ -711,8 +666,8 @@ table.tbl {
     margin-top: 1em;
     border-collapse: collapse;
     width: 100%;
-    border-top: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    border-top: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 table.tbl th {
@@ -720,8 +675,8 @@ table.tbl th {
     background: url('../images/layout/table-header.gif') repeat-x 0 50%;
     padding: 0.2em 0.4em;
     text-align: left;
-    border-bottom: solid 1px #999999;
-    border-left: solid 1px #CCCCCC;
+    border-bottom: solid 1px @dark-border;
+    border-left: solid 1px @medium-border;
 }
 
 table.tbl thead tr .header {
@@ -755,26 +710,26 @@ table.details table.tbl th {
     width: auto;
 }
 
-.deleted { color: #999999; }
+.deleted { color: @dark-text; }
 
 table.tbl tr.subh td,
 table.tbl tr.subh th {
     font-size: 95%;
     background: url('../images/layout/table-header-2.gif') repeat-x 0 50%;
     font-weight: bold;
-    border-top: solid 1px #999999;
-    border-bottom: solid 1px #999999;
+    border-top: solid 1px @dark-border;
+    border-bottom: solid 1px @dark-border;
 }
 
 table.tbl tbody th {
-    border-right: 1px solid #999999;
+    border-right: 1px solid @dark-border;
     background: none;
 }
 
 table.tbl tbody th:last-child { border-right: 0; }
 
 table.tbl th a {
-    color: #000;
+    color: @text-black;
 }
 
 table.tbl th:first-child {
@@ -788,10 +743,10 @@ table.tbl td {
 table.tbl tr.ev td,
 table.tbl tr.ev th {
     padding: 0.2em 0.4em;
-    background: #F2F2F2;
+    background: @even-table-row;
 }
 
-table.tbl tr:target td { background-color: #F2F2b2; }
+table.tbl tr:target td { background-color: @highlight-table-row; }
 
 table.tbl .pos { width: 1em; white-space: nowrap; }
 table.tbl th { word-break: keep-all; white-space: nowrap; }
@@ -816,25 +771,25 @@ table.tbl ul {
 }
 
 .pageselector a {
-    border: solid 1px #000;
+    border: solid 1px @text-black;
     text-decoration: none;
     background-color: #FFF;
-    color: #000;
+    color: @text-black;
 }
 
 .pageselector a:hover {
-    background-color: #FFBA58;
+    background-color: @musicbrainz-orange;
 }
 
 .pageselector a.sel {
-    background-color: #FFBA58;
+    background-color: @musicbrainz-orange;
     font-weight: bold;
 }
 
 .pageselector span {
-    border: solid 1px #999999;
-    background-color: #EEEEEE;
-    color: #999999;
+    border: solid 1px @dark-border;
+    background-color: @very-light-bg;
+    color: @dark-text;
 }
 
 .pageselector em {
@@ -882,31 +837,31 @@ table.details th {
 
 table.details td span.new,
 table.details td.new {
-    background: #E8F7E8;
+    background: @positive-light-bg;
 }
 
 div.diff .diff-only-b,
 span.diff-only-b,
 tr.diff-addition {
-    background: #B1EBB0;
+    background: @positive-bg;
 }
 
 table.details td span.old,
 table.details td.old {
-    background: #F7E8E8;
+    background: @negative-light-bg;
 }
 
 div.diff .diff-only-a,
 span.diff-only-a,
 tr.diff-removal {
-    background: #EBB1BA;
+    background: @negative-bg;
 }
 
 table.details td span.new,
 table.details td span.old,
 table.details td.new,
 table.details td.old {
-    border: 1px solid #CCC;
+    border: 1px solid @medium-border;
 }
 
 table.details td { vertical-align: top; }
@@ -922,7 +877,7 @@ table.details td.old ul {
 /* Statistics pages */
 table.timeline-controls, table.database-statistics {
     border-collapse: collapse;
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
     margin: 1em 1em 1em 0;
 }
 
@@ -937,8 +892,8 @@ table.database-statistics th, table.timeline-controls th {
 
 table.database-statistics tr.thead th {
     text-align: center;
-    border: 1px solid #ADB9CC;
-    background: #F1F1F1;
+    border: 1px solid @light-border-blue;
+    background: @light-border-background;
 }
 
 table.database-statistics td, table.timeline-controls td {
@@ -947,7 +902,7 @@ table.database-statistics td, table.timeline-controls td {
 }
 
 table.timeline-controls td {
-    border: 1px solid #ADB9CC;
+    border: 1px solid @light-border-blue;
 }
 
 
@@ -963,9 +918,14 @@ dl.properties dt {
     padding-right: 2pt;
 }
 
+table.properties tr,
 dl.properties dd,
 dl.properties dt {
     line-height: 175%;
+}
+
+table.properties th {
+    text-align: right;
 }
 
 /* Search Plugins */
@@ -1003,8 +963,8 @@ div.columns-5 div.column {
 }
 
 .nagpanel {
-    background-color: #FAFAFA;
-    border: 2px dashed #736DAB;
+    background-color: @effectively-white-bg;
+    border: 2px dashed @musicbrainz-purple;
     padding: 0 1em;
     margin: 1em 0;
 }
@@ -1014,7 +974,7 @@ div.columns-5 div.column {
 
 p.cleanup {
     text-align: center;
-    background: #FD9 !important;
+    background: @edit-orange !important;
     padding: 1em;
 }
 
@@ -1027,8 +987,8 @@ p.cleanup {
 
 div.artwork-cont {
     border-radius: 2px;
-    background: #eee;
-    border: 1px solid #e0e0e0;
+    background: @very-light-bg;
+    border: 1px solid @light-border;
     display: inline-block;
     padding: 10px;
     margin: 5px;
@@ -1097,8 +1057,8 @@ div.delete { display: hidden !important; }
 }
 
 span.release-group-type {
-    background: #589DFF;
-    color: #fff;
+    background: @rg-type-label;
+    color: @text-white;
     border-radius: 3px;
     padding: 0 3px;
 }
@@ -1126,5 +1086,5 @@ dl.ars dt {
     margin-right: 0.5em;
     clear: left;
     float: left;
-    color: #555;
+    color: @very-dark-text;
 }

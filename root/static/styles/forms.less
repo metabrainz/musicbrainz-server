@@ -1,9 +1,13 @@
-@form-half-width: 465px;
+@import "colors.less";
+
+@form-half-width: 520px;
 @form-margin: 12px;
-@form-label-width: 132px;
-@form-input-width: 300px;
+@form-label-width: 150px;
+@form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
+@form-bubble-label-width: 150px;
+@form-bubble-input-width: 176px;
 
 .border-radius (@radius) {
   border-radius: @radius;
@@ -11,10 +15,15 @@
   -webkit-border-radius: @radius;
 }
 
-input { background: #fff; color: #000; }
-input:-moz-placeholder { color: #aaa; }
+input { background: #fff; color: @text-black; }
+input:-ms-input-placeholder, // IE10
+input::-moz-placeholder, // ff 19+
+input:-moz-placeholder, // ff 4-18
+input::-webkit-input-placeholder { // webkit
+    color: @dark-text;
+}
 input[disabled].lookup-performed,
-input[disabled] { background: #DCDAD5; cursor: default; }
+input[disabled] { background: @medium-bg; cursor: default; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>
@@ -73,13 +82,50 @@ div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
 
-div.bubble div.row input[type=text] {
-    width: 176px;
+.bubble {
+    display: none;
+    position: absolute;
+    min-height: 64px;
+    margin: 0;
+    padding: @form-margin;
+    background: @very-light-bg;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.bubble-tail {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.bubble.left-tail:before {
+    .bubble-tail;
+    right: 100%;
+    top: 16px;
+    border-top: 12px solid transparent;
+    border-right: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble.right-tail:after {
+    .bubble-tail;
+    left: 100%;
+    top: 50%;
+    top: calc(50% - 6px);
+    border-top: 12px solid transparent;
+    border-left: 18px solid @very-light-bg;
+    border-bottom: 12px solid transparent;
+}
+
+.bubble div.row input[type=text] {
+    width: @form-bubble-input-width;
     font-size: 1em;
 }
 
-div.bubble div.row label,
-div.bubble div.row div.label { width: 150px; }
+.bubble div.row label,
+.bubble div.row div.label { width: @form-bubble-label-width; }
 
 form div.row p { float: none; clear: none; }
 form div.row ul { overflow: auto; }
@@ -98,15 +144,15 @@ form ul.errors {
 }
 
 form ul.errors li,
-span.error { color: #ff2222; }
-span.success { color: #22aa22; }
+span.error { color: @negative-text; }
+span.success { color: @positive-text; }
 
 input.error,
 select.error {
-    background: #ffaaaa ! important;
+    background: @negative-bg ! important;
 }
 
-input.lookup-performed { background: #bfb; }
+input.lookup-performed { background: @positive-bg; }
 
 form .input-note {
     font-style: italic;
@@ -144,25 +190,55 @@ dl.properties label {
 }
 
 div.ar-descr {
-    background: #F9F9F9;
+    background: @effectively-white-bg;
     padding: 4px;
-    border: dotted 1px #D0D0D0;
+    border: dotted 1px @medium-border;
     margin: 6px;
 }
 
 a.selectFilterPrev,
 a.selectFilterNext {
-    color: #000;
+    color: @text-black;
     text-decoration: none;
 }
 
 a.selectFilterPrev:hover,
 a.selectFilterNext:hover {
-    color: #666;
+    color: @very-dark-text;
 }
 
 div.searchform {
     margin-top: 24px;
+}
+
+/* <table>-based forms to replace div.row-based stuff. */
+
+table.row-form {
+    width: 100%;
+
+    label { display: inline-block; text-align: right; }
+
+    input[type=text], select, span.autocomplete {
+        width: 100% !important;
+    }
+
+    td {
+        &:first-child {
+            min-width: 120px;
+            padding: @form-margin / 2;
+            padding-bottom: 9px;
+            box-sizing: border-box;
+            vertical-align: top;
+
+            label { width: 100% !important; }
+        }
+
+        &.partial-date { min-width: 150px; }
+        &.add-item { text-align: right; }
+        &.error { padding-bottom: @form-margin; }
+    }
+
+    tr.error td:first-child { padding: 0; }
 }
 
 /* __________________________________
@@ -185,8 +261,7 @@ span.autocomplete input.ui-autocomplete-loading + img.search { display: none; }
 .ui-autocomplete-loading {
     background: white url(../images/icons/loading.gif) right center no-repeat;
 }
-.autocomplete-length,
-.autocomplete-comment { font-size: smaller; color: #666; }
+
 button.autocomplete-pager {
     position: absolute;
     display: block;
@@ -201,11 +276,14 @@ span.autocomplete-appears,
 span.autocomplete-comment,
 span.autocomplete-video {
     margin-left: @form-margin;
-    color: #999;
-    font-size: 80%;
+    color: @dark-text;
 }
 
-span.autocomplete-length { float:right; margin-left: 2em; }
+span.autocomplete-length {
+    color: @very-dark-text;
+    float: right;
+    margin-left: 2em;
+}
 
 /* __________________________________
 
@@ -229,7 +307,7 @@ div.documentation {
 }
 
 div.half-width fieldset {
-    border: 1px solid #ddd;
+    border: 1px solid @light-border;
     margin-top: 0;
     .border-radius(6px);
 }
@@ -240,7 +318,7 @@ div.half-width fieldset.editnote {
 }
 
 div.half-width fieldset legend {
-    color: #fc6714;
+    color: @text-orange;
     font-size: 120%;
     font-weight: bold;
     margin: 0 10px;
@@ -291,16 +369,7 @@ div.half-width fieldset h3 {
     margin: 24px 10px 0;
 }
 
-div.documentation div.bubble {
-    margin: 0;
-    padding: @form-margin;
-    border: 1px solid #999;
-    background: #f0f0f0;
-    .border-radius(12px);
-}
-
 div.documentation div.artist-credit div.row { clear: none; overflow: hidden; }
-div.documentation div.container { width: 100%; }
 
 table.form th,
 table.form td{
@@ -323,6 +392,10 @@ ul.conditions button.remove {
     padding: 0;
     margin: 0;
     background: transparent;
+}
+
+ul.conditions button.remove,
+button.nobutton {
     cursor: pointer;
 }
 
@@ -332,18 +405,19 @@ ul.conditions button.remove img {
 
 #filter {
     margin-top: 0.75em;
-    border: 1px solid #999;
-    background: #f0f0f0;
+    border: 1px solid @dark-border;
+    background: @very-light-bg;
     .border-radius(3px);
     padding: 0.5em;
     display: none;
 }
 
-input.icon, div.icon.img {
+input.icon, div.icon.img, button.icon {
     width: @form-icon-size;
     height: @form-icon-size;
     border: 0 !important;
     background-repeat: no-repeat;
+    background-color: transparent;
     vertical-align: text-bottom;
 }
 /* remove (button) icons are next to <select> or <input> fields, align to the middle.
@@ -354,49 +428,24 @@ div.icon.img { vertical-align: text-bottom; }
 
 div.img { display: inline-block; }
 
-input.add-artist-credit,
-input.add-track,
-a.add-event div,
-a.add-label div,
+button.with-label {
+    border: none;
+    background-color: transparent;
+    background-position: right;
+    background-repeat: no-repeat;
+    padding-right: @form-icon-size + 4;
+    cursor: pointer;
+}
+
+button.add-item,
 div.add-item {
-    background-image: url('../images/icons/add_row.png');
+    background-image: data-uri('../images/icons/add_row.png');
 }
 
-input.remove-artist-credit,
-input.remove-track,
-input.remove-disc,
-a.remove-event div,
-a.remove-label div,
+.remove-artist-credit,
+button.remove-item,
 div.remove-item {
-    background-image: url('../images/icons/delete_row.png');
-}
-
-input.guesscase-track, input.guesscase-medium {
-    background-image: url('../images/icons/guesscase.png');
-}
-
-input.collapse-disc {
-    background-image: url('../images/icons/collapse.png');
-}
-
-input.expand-disc {
-    background-image: url('../images/icons/expand.png');
-}
-
-input.track-down {
-    background-image: url('../images/icons/track-down.png');
-}
-
-input.disc-down {
-    background-image: url('../images/icons/down.png');
-}
-
-input.track-up {
-    background-image: url('../images/icons/track-up.png');
-}
-
-input.disc-up {
-    background-image: url('../images/icons/up.png');
+    background-image: data-uri('../images/icons/delete_row.png');
 }
 
 /*
@@ -404,20 +453,23 @@ input.disc-up {
   ================================================
 */
 
-@form-open-ac-width: 32px;
+@form-open-ac-width: 70px;
 
 #open-ac {
     width: @form-open-ac-width;
     height: 22px;
     margin-left: 3px;
+    padding: 0;
 }
 
 .artist-credit-input {
-    width: @form-input-width - @form-open-ac-width - 7px ! important;
+    width: @form-input-width - @form-open-ac-width - 7px !important;
 }
 
 .add-artist-credit {
-    margin-left: @form-label-width + @form-margin !important;
-    width: @form-input-width-short;
+    margin-left: @form-bubble-label-width + @form-margin !important;
+    width: @form-bubble-input-width;
     text-align: right;
 }
+
+#artist-credit-bubble .buttons, #track-ac-bubble .buttons { margin-top: 1em; }

@@ -38,6 +38,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_type { $EDIT_MEDIUM_EDIT }
 sub edit_name { N_l('Edit medium') }
+sub edit_kind { 'edit' }
 sub _edit_model { 'Medium' }
 sub entity_id { shift->data->{entity_id} }
 sub medium_id { shift->entity_id }
@@ -217,6 +218,9 @@ sub build_display_data
             || Release->new( name => $self->data->{release}{name} );
 
         $data->{medium} = $loaded->{Medium}{ $self->data->{entity_id} };
+
+        # If deleted, $data->{medium} will be undefined.
+        $data->{medium}->release($release) if defined $data->{medium};
     }
 
     if (exists $self->data->{new}{format_id}) {
@@ -249,6 +253,7 @@ sub build_display_data
                     my $track = shift;
                     return join(
                         '',
+                        $track->id,
                         $track->name,
                         format_track_length($track->length),
                         join(
@@ -264,6 +269,10 @@ sub build_display_data
 
         if (any {$_->[0] ne 'u' || $_->[1]->number ne $_->[2]->number } @$tracklist_changes) {
             $data->{tracklist_changes} = $tracklist_changes;
+        }
+
+        if (any {$_->[1] && $_->[2] && $_->[1]->id ne $_->[2]->id} @$tracklist_changes) {
+            $data->{changed_mbids} = 1;
         }
 
         $data->{artist_credit_changes} = [

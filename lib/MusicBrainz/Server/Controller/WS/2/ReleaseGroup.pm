@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' }
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use MusicBrainz::Server::ControllerUtils::Release qw( load_release_events );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 
@@ -56,7 +55,7 @@ sub release_group_toplevel
     {
         my @results = $c->model('Release')->find_by_release_group(
             $rg->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status} });
-        load_release_events($c, @{$results[0]});
+        $c->model('Release')->load_release_events(@{$results[0]});
         $opts->{releases} = $self->make_list (@results);
 
         $self->linked_releases ($c, $stash, $opts->{releases}->{items});
@@ -111,8 +110,9 @@ sub release_group_browse : Private
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless ($artist);
 
+        my $show_all = 1;
         my @tmp = $c->model('ReleaseGroup')->find_by_artist (
-            $artist->id, $limit, $offset, filter => { type => $c->stash->{type} });
+            $artist->id, $show_all, $limit, $offset, filter => { type => $c->stash->{type} });
         $rgs = $self->make_list (@tmp, $offset);
     }
     elsif ($resource eq 'release')

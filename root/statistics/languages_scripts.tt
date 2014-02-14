@@ -1,12 +1,4 @@
 [%- PROCESS "statistics/macros-header.tt" -%]
-[%- BLOCK layout_head -%]
-<script type="text/javascript">//<![CDATA[
-$(document).ready(function() {
-    MB.Control.Tablesorter.options = {widgets: ['indexFirstColumn', 'evenRowClasses'], headers : {0: {sorter: false}, 2: { sorter: 'fancyNumber' } , 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' }}, sortList: [[4,2,3,1]] }
-    MB.Control.Tablesorter();
-});
-//]]></script>
-[%- END -%]
 
 [%- MACRO entry(entity, type) BLOCK -%]
 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
@@ -26,14 +18,14 @@ $(document).ready(function() {
 </tr>
 [%- END -%]
 
-[% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %] 
+[% WRAPPER 'statistics/layout.tt' title=l('Languages and Scripts') full_width=1 page='languages-scripts' %]
 
 <p>[%- l('Last updated: {date}', { date => date_collected }) -%]</p>
 <p>[%- l('All other available languages and scripts have 0 releases and works.') -%]</p>
 
 <div style="float:left; display:inline-block; margin-right: 50px;">
   <h2 style="margin-top:0;">[%- l('Languages') -%]</h2>
-  <table class="tbl">
+  <table class="tbl" id="languages-table">
     <thead>
       <tr>
         <th class="pos">[% l('Rank') %]</th>
@@ -54,12 +46,12 @@ $(document).ready(function() {
 
 <div style="float:left; display:inline-block;">
   <h2 style="margin-top:0;">[%- l('Scripts') -%]</h2>
-  <table class="tbl">
+  <table class="tbl" id="scripts-table">
     <thead>
       <tr>
         <th class="pos">[% l('Rank') %]</th>
-        <th>[% l('Script') %]</th>
-        <th>[% l('Releases') %]</th>
+        <th>[% l('Script') %]<div class="arrow"></div></th>
+        <th>[% l('Releases') %]<div class="arrow"></div></th>
       </tr>
     </thead>
     <tbody>
@@ -71,4 +63,18 @@ $(document).ready(function() {
   </table>
 </div>
 [%- PROCESS "statistics/macros-footer.tt" -%]
+
+<script type="text/javascript">//<![CDATA[
+  MB.Control.Tablesorter($('#languages-table'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
+      sortList: [ [4,1], [1,0] ] // order by descending number of entities, then name
+    });
+  MB.Control.Tablesorter($('#scripts-table'), {
+      widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+      headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' } },
+      sortList: [ [2,1], [1,0] ] // order by descending number of entities, then name
+    });
+//]]></script>
+
 [% END %]

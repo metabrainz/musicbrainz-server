@@ -10,7 +10,6 @@ with 't::Context';
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
 use MusicBrainz::Server::Validation qw( is_guid );
 
@@ -469,6 +468,19 @@ test 'Auto-editing edit medium' => sub {
         };
     };
 
+};
+
+test 'Can build display data for removed mediums' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_medium');
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    my $edit = create_edit($c, $medium);
+    $c->model('Medium')->delete(1);
+
+    ok !exception { $edit->build_display_data };
 };
 
 sub create_edit {
