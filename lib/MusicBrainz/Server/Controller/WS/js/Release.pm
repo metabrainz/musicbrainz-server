@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::js::Release;
 use Moose;
 use aliased 'MusicBrainz::Server::Entity::Work';
 use MusicBrainz::Server::Validation qw( is_guid );
+use Scalar::Util qw ( blessed );
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::js' }
 
 with 'MusicBrainz::Server::Controller::WS::js::Role::Autocompletion';
@@ -39,7 +40,7 @@ sub _load_entities
 {
     my ($self, $c, @releases) = @_;
 
-    return @releases unless defined $c->stash->{inc};
+    return @releases unless blessed $c->stash->{inc};
 
     if ($c->stash->{inc}->release_events) {
         $c->model('Release')->load_release_events(@releases);
