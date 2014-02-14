@@ -17,7 +17,6 @@
 
     <fieldset id="work_attributes">
       <legend>[%- l('Work Attributes') -%]</legend>
-      <!-- ko with: MB.WorkAttributes.viewModel -->
       [% WRAPPER form_row %]
         <label>[% l('Attributes:') %]</label>
         <div class="form-row-text-list">
@@ -75,7 +74,6 @@
         </div>
         </div>
       [% END %]
-      <!-- /ko -->
     </fieldset>
 
     [%- INCLUDE 'forms/edit-note.tt' -%]
