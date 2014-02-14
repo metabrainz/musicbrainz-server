@@ -42,12 +42,13 @@ WA.WorkAttribute = function(typeId, value, valueErrors) {
         MB.WorkAttributes.viewModel.attributes.remove(this);
     };
 
-    function resetErrors() { debugger; self.errors([]) };
+    function resetErrors() { self.errors([]) };
 
     self.typeId.subscribe(function() {
         self.attributeValue("");
         resetErrors();
     });
+
     self.attributeValue.subscribe(function() {
         resetErrors();
     });
