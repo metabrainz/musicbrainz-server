@@ -157,7 +157,7 @@ sub update
     my ($self, $work_id, $update) = @_;
     return unless %{ $update // {} };
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('work', $row, { id => $work_id });
+    $self->sql->update_row('work', $row, { id => $work_id }) if %$row;
 }
 
 # Works can be unconditionally removed
