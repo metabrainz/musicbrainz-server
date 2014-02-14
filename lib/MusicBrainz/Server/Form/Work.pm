@@ -103,10 +103,8 @@ after 'validate' => sub {
 
     # We need to reset the repeatable value as we may have changed the value of
     # inner fields.
-    $attributes->value([
-        map { $_->value }
-        $attributes->fields
-    ]);
+    my $new_values = [ grep { $_ } map { $_->value } $attributes->fields ];
+    $attributes->value($new_values);
 };
 
 sub inflate_iswcs {
