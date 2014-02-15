@@ -1,6 +1,7 @@
 package MusicBrainz::Server::ControllerUtils::Delete;
 use strict;
 use warnings;
+use MusicBrainz::Server::Translation qw( l );
 
 use Sub::Exporter -setup => {
     exports => [qw( cancel_or_action )]
@@ -21,6 +22,7 @@ sub cancel_or_action {
     if ($edit && $edit->can_cancel($c->user)) {
         $c->stash->{edit} = $edit;
         $c->stash->{cancel_redirect} = $redirect if $redirect;
+        $c->flash->{message} = l('Since your edit adding this object was still open, that edit has been cancelled instead of opening a new edit.');
         $c->forward('/edit/cancel', [ $edit->id ]);
     } else {
         $action_callback->();
