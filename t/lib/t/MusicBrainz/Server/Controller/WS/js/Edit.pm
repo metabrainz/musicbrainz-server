@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::WS::js::Edit;
 use JSON;
 use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_CREATE
+    $EDIT_RELEASE_EDIT
     $EDIT_RELEASEGROUP_CREATE
     $EDIT_MEDIUM_CREATE
 );
@@ -318,6 +319,21 @@ test 'previewing/creating a release group and release' => sub {
             message => 'OK',
         }
     ], 'ws response contains new medium info');
+
+
+    # Not editing the artist credit should not cause an ISE.
+    # Fixed by 4cacdcea86ad5b907a33b531261114055ec7885c.
+
+    $release_edits = [ {
+        edit_type   => $EDIT_RELEASE_EDIT,
+        name        => 'Vision Creation Newsun!',
+        to_edit     => $release_id,
+    } ];
+
+    post_json($mech, '/ws/js/edit/preview', encode_json({ edits => $release_edits }));
+    $response = from_json($mech->content);
+
+    is($response->{error}, undef, 'editing just the release title does not cause an ISE');
 };
 
 1;
