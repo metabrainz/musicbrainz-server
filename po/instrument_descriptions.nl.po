@@ -6,14 +6,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-05 17:40+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-02-15 03:19+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DB:link_attribute_type/description:471
+msgid ""
+"(<a "
+"href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:492
+msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:528
 msgid "(bamboo) flute, also known as kena or qina"
@@ -267,10 +277,6 @@ msgstr "Bandura, moderne Oekraïense citer"
 msgid "Bandura, ukrainian 14th century lute"
 msgstr "Bandura, Oekraïense luit uit de veertiende eeuw"
 
-#: DB:link_attribute_type/description:479
-msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
-msgstr "Banjitar, Guitjo of Ganjo (<a href=\"http://en.wikipedia.org/wiki/Guitjo\">Wikipedia</a>"
-
 #: DB:link_attribute_type/description:251
 msgid ""
 "Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
@@ -332,12 +338,6 @@ msgstr "Concertfluit (ook C-fluit, Böhmfluit of gewoon \"fluit\" genoemd). "
 #: DB:link_attribute_type/description:205
 msgid "Conch shell"
 msgstr "Schelp van een weekdier waarop geblazen wordt. (<a href=\"http://en.wikipedia.org/wiki/Conch_(musical_instrument)\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:471
-msgid ""
-"Continuum, strange thingy: "
-"http://en.wikipedia.org/wiki/Continuum_(instrument)"
-msgstr "Haken Continuum of Continuum Fingerboard is een soort MIDI-regelaar. (<a href=\"http://nl.wikipedia.org/wiki/Haken_Continuum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:273
 msgid "Cornett (not to be confused with Cornet)"
@@ -424,6 +424,12 @@ msgstr "Duitse/Boheemse harp"
 #: DB:link_attribute_type/description:408
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
 msgstr "De ghaṭam is een Zuid-Indiaas slaginstrument. (<a href=\"http://en.wikipedia.org/wiki/Ghatam\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:338
+msgid ""
+"Goblet drums are single-headed drums with a goblet shaped body.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Goblet_drum\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:366
 msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
@@ -651,8 +657,9 @@ msgstr "Met de voeten uitgevoerde percussie, zoals <a href=\"http://nl.wikipedia
 #: DB:link_attribute_type/description:652
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
-" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Ney\">Ney</a>)"
-msgstr "De ney (Perzisch: نی, Arabisch: ناي, Turks: ney, ook nai, nye, nay, gagri tuiduk of karghi tuiduk) is een aan het uiteinde aangeblazen fluit die een voorname rol speelt in Perzische, Turkse en Arabische muziek. (<a href=\"http://nl.wikipedia.org/wiki/Ney_%28muziekinstrument%29\">Ney</a>)"
+" one thumb hole. (<a "
+"href=\"http://en.wikipedia.org/wiki/Ney\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:379
 msgid "Phách (The clappers)"
@@ -779,12 +786,6 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
 msgstr "De esklarinet is een hogere variant van de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Esklarinet\">Wikipedia</a>)"
 
-#: DB:link_attribute_type/description:338
-msgid ""
-"The Goblet drum has many many names. See  "
-"http://en.wikipedia.org/wiki/Goblet_drum"
-msgstr "Een vaastrommel heeft vele namen. (<a href=\"http://nl.wikipedia.org/wiki/Vaastrommel\">Wikipedia</a>)"
-
 #: DB:link_attribute_type/description:673
 msgid ""
 "The Lyricon is an electronic wind instrument. (<a "
@@ -864,6 +865,13 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "De banhu (Chinees:: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van de huqin. Het wordt ook wel banghu (Chinees:: 梆胡, pinyin: bānghú) genoemd vanwege het gebruik in de bangzi-opera. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:479
+msgid ""
+"The banjitar is a six-string banjo with the neck of a guitar.\n"
+"Other names: guitjo, banjo guitar, ganjo, guitar banjo, banjar, bantar.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Banjo_guitar\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:749
 msgid ""
@@ -1878,10 +1886,6 @@ msgid ""
 "Zills are tiny metallic finger cymbals used in belly dancing and other "
 "similar performances."
 msgstr "Ook wel  zils, kleine bekkens die worden gebruikt bij buikdansen en soortgelijke voorstellingen. (<a href=\"http://en.wikipedia.org/wiki/Zill\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:492
-msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr "De zurna (Turkije, Armenië), zurla (Balkan) of zirne (Koerdistan) is een dubbelrietvolkshobo (of schalmei) met een conische boring. (<a href=\"http://nl.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"

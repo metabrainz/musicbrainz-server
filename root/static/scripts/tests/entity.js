@@ -12,13 +12,13 @@ test("CoreEntity", function () {
 
     equal(
         source.html(),
-        '<a href="/recording/123">a recording</a>',
+        '<a href="/recording/123"><bdi>a recording</bdi></a>',
         "recording link"
     );
 
     equal(
         target.html({ "target": "_blank" }),
-        '<a href="/artist/456" target="_blank" title="bar">foo</a>',
+        '<a href="/artist/456" target="_blank" title="bar"><bdi>foo</bdi></a>',
         "artist link"
     );
 });
@@ -67,9 +67,9 @@ test("ArtistCredit", function () {
     equal(new MB.entity.ArtistCredit(ac).html(),
         '<span class="name-variation">' +
         '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
-        'title="Sheridan, Tony">tony sheridan</a></span> &amp; ' +
+        'title="Sheridan, Tony"><bdi>tony sheridan</bdi></a></span> &amp; ' +
         '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
-        'title="Beatles, The">The Beatles</a>',
+        'title="Beatles, The"><bdi>The Beatles</bdi></a>',
         "artist credit rendering"
     );
 });

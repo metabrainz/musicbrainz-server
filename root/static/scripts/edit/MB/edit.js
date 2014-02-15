@@ -157,7 +157,7 @@
         },
 
         track: function (track) {
-            var recording = track.recording() || {};
+            var recording = value(track.recording) || {};
 
             return {
                 id:             number(track.id),
@@ -165,7 +165,7 @@
                 artist_credit:  fields.artistCredit(track.artistCredit),
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
-                number:         nullableString(track.number),
+                number:         string(track.number),
                 length:         number(track.length)
             };
         }

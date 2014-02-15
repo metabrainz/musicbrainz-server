@@ -5,7 +5,6 @@ lib/jquery/jquery.browser.js
 lib/jquery/jquery.tablesorter.js
 lib/jquery/jquery.cookie.js
 lib/jquery.ui/ui/jquery-ui.custom.js
-lib/jquery/jquery.trap.js
 
 lib/lodash/lodash.compat.js
 lib/underscore.string/underscore.string.js

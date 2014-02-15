@@ -302,4 +302,27 @@ test 'seeding a toc' => sub {
     });
 };
 
+
+test 'MBS-7250: seeding empty date parts gives an ISE' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    my $params = expand_hash({
+        "events.0.date.year" => "2000",
+        "events.0.date.month" => "",
+        "events.0.date.day" => "",
+    });
+
+    my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
+
+    cmp_deeply($result, {
+        errors => [],
+        seed => {
+            events => [
+                { date => "2000" },
+            ]
+        },
+    });
+};
+
 1;

@@ -119,7 +119,8 @@ MB.releaseEditor.trackParser = {
             }
 
             if (matchedTrack) {
-                matchedTrack.number(data.number ? data.number : i + 1);
+                matchedTrack.position(currentPosition);
+                matchedTrack.number(data.number ? data.number : currentPosition);
                 matchedTrack.name(data.name);
 
                 if (options.trackTimes && !hasTocs && data.formattedLength) {

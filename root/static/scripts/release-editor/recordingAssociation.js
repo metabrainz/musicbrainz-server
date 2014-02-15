@@ -183,7 +183,7 @@
                     track, _.map(data.recording, cleanRecordingData)
                 );
 
-                track.suggestedRecordings(recordings || []);
+                setSuggestedRecordings(track, recordings || []);
                 track.loadingSuggestedRecordings(false);
             })
             .fail(function (jqXHR, textStatus) {
@@ -310,12 +310,27 @@
                 matchAgainstRecordings(track, track.suggestedRecordings());
 
         if (recordings) {
-            track.suggestedRecordings(recordings);
+            setSuggestedRecordings(track, recordings);
         } else {
             // Last resort: search all recordings of all the track's artists.
             searchTrackArtistRecordings(track);
         }
     };
+
+
+    // Sets track.suggestedRecordings. If the track currently does not have
+    // a recording selected, it shifts the last used recording to the top of
+    // the suggestions list (if there is one).
+
+    function setSuggestedRecordings(track, recordings) {
+        var lastRecording = track.recording.saved;
+
+        if (!track.hasExistingRecording() && lastRecording) {
+            recordings = _.union([lastRecording], recordings);
+        }
+
+        track.suggestedRecordings(recordings);
+    }
 
 
     function lengthsAreWithin10s(a, b) {

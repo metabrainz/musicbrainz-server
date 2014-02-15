@@ -23,6 +23,9 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
+    <style>
+    table.tbl td { vertical-align: top }
+    </style>
 
     <script type="text/html" id="relationship-group">
       <dt><!-- ko text: key --><!-- /ko -->:</dt>

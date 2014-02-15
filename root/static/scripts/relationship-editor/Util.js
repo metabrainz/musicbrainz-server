@@ -95,8 +95,6 @@ Util.parseRelationships = function (source, sourceType) {
 
                 var relationship = RE.Relationship(obj);
                 if (!relationship.visible) relationship.show();
-
-                Util.parseRelationships(target, targetType);
             }
         });
     });
