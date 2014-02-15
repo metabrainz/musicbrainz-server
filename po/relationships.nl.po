@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-09 11:20+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2014-02-15 03:20+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1342,6 +1342,10 @@ msgstr "Dit koppelt een plaats aan een kanaal, afspeellijst of gebruikerspagina 
 msgid "This links a recording to a license under which it is available."
 msgstr "Dit koppelt een opname aan een licentie waaronder het beschikbaar is."
 
+#: DB:link_type/description:726
+msgid "This links a recording to the balance engineer who engineered it."
+msgstr ""
+
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
@@ -1359,6 +1363,10 @@ msgstr "Dit koppelt een uitgavegroep aan de plaats waar het gelanceerd is."
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr "Dit koppelt een uitgave aan een licentie waaronder het beschikbaar is."
+
+#: DB:link_type/description:727
+msgid "This links a release to the balance engineer who engineered it."
+msgstr ""
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."
@@ -1643,6 +1651,15 @@ msgid ""
 "programming of electronic instruments. (<a "
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr "Deze relatie koppelt een opname of een uitgave aan een persoon die er elektronische instrumenten voor heeft geprogrammeerd. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
+
+#: DB:link_type/description:728
+msgid ""
+"This relationship specifies that an artist is a <a "
+"href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
+"specific artist/band; that is, it primarily performs covers of that artist.​"
+" They may also be referred to as cover bands. Some tribute artists may name "
+"themselves, dress, and/or act similarly to the artists they pay tribute to."
+msgstr ""
 
 #: DB:link_type/description:462
 msgid ""
@@ -2667,6 +2684,10 @@ msgstr "is een remaster van"
 msgid "is a remix of"
 msgstr "is een remix van"
 
+#: DB:link_type/long_link_phrase:728
+msgid "is a tribute to"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -3456,7 +3477,11 @@ msgstr "reisarrangementen voor"
 msgid "tribute albums"
 msgstr "hommagealbums"
 
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:728
+msgid "tribute artists"
+msgstr ""
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr "hommage aan"
 
@@ -3609,6 +3634,12 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "werkte {additional:aanvullend} {assistant:assisterend} {associate:als partner} als {co:co-}audiotechnicus op"
 
+#: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
+#: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
+msgid ""
+"{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
+msgstr ""
+
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
@@ -3752,6 +3783,10 @@ msgstr "{additional:aanvullend} schrijver"
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{additional:aanvullend} {assistant:assisterend} {associate:partner-} {co:co-}geluidstechnicus"
+
+#: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
+msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"

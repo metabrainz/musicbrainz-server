@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 22:26+0000\n"
+"PO-Revision-Date: 2014-02-15 03:19+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DB:link_attribute_type/description:471
+msgid ""
+"(<a "
+"href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:492
+msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:528
 msgid "(bamboo) flute, also known as kena or qina"
@@ -270,10 +280,6 @@ msgstr ""
 msgid "Bandura, ukrainian 14th century lute"
 msgstr "Bandura, ukrainalainen luuttusoitin 1300-luvulta"
 
-#: DB:link_attribute_type/description:479
-msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
-msgstr ""
-
 #: DB:link_attribute_type/description:251
 msgid ""
 "Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
@@ -335,12 +341,6 @@ msgstr ""
 #: DB:link_attribute_type/description:205
 msgid "Conch shell"
 msgstr "simpukan kuori"
-
-#: DB:link_attribute_type/description:471
-msgid ""
-"Continuum, strange thingy: "
-"http://en.wikipedia.org/wiki/Continuum_(instrument)"
-msgstr ""
 
 #: DB:link_attribute_type/description:273
 msgid "Cornett (not to be confused with Cornet)"
@@ -426,6 +426,12 @@ msgstr ""
 
 #: DB:link_attribute_type/description:408
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
+msgstr ""
+
+#: DB:link_attribute_type/description:338
+msgid ""
+"Goblet drums are single-headed drums with a goblet shaped body.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Goblet_drum\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:366
@@ -654,7 +660,8 @@ msgstr ""
 #: DB:link_attribute_type/description:652
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
-" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Ney\">Ney</a>)"
+" one thumb hole. (<a "
+"href=\"http://en.wikipedia.org/wiki/Ney\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:379
@@ -782,12 +789,6 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
 msgstr ""
 
-#: DB:link_attribute_type/description:338
-msgid ""
-"The Goblet drum has many many names. See  "
-"http://en.wikipedia.org/wiki/Goblet_drum"
-msgstr ""
-
 #: DB:link_attribute_type/description:673
 msgid ""
 "The Lyricon is an electronic wind instrument. (<a "
@@ -866,6 +867,13 @@ msgid ""
 "huqin family. It is also called banghu (Chinese: 梆胡, bānghú), for its use in"
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:479
+msgid ""
+"The banjitar is a six-string banjo with the neck of a guitar.\n"
+"Other names: guitjo, banjo guitar, ganjo, guitar banjo, banjar, bantar.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Banjo_guitar\">Wikipedia</a>)"
 msgstr ""
 
 #: DB:link_attribute_type/description:749
@@ -1881,10 +1889,6 @@ msgid ""
 "Zills are tiny metallic finger cymbals used in belly dancing and other "
 "similar performances."
 msgstr ""
-
-#: DB:link_attribute_type/description:492
-msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr "Turkkilainen kansanoboe http://en.wikipedia.org/wiki/Zurna"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
