@@ -644,7 +644,8 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
     if ($edit && $edit->can_cancel($c->user)) {
-        $c->stash->{edit} = $edit;
+        $c->stash( edit => $edit,
+                   cancel_redirect => $c->uri_for_action('/release/cover_art', [ $release->gid ]) );
         $c->forward('/edit/cancel', [ $edit->id ]);
     } else {
         $self->edit_action($c,

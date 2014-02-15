@@ -410,6 +410,7 @@ sub delete : Local Edit
     my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELATIONSHIP_CREATE, $rel->id);
     if ($edit && $edit->can_cancel($c->user)) {
         $c->stash->{edit} = $edit;
+        $c->stash->{cancel_redirect} = $c->req->params->{returnto} if $c->req->params->{returnto};
         $c->forward('/edit/cancel', [ $edit->id ]);
     } else {
         my $form = $c->form(
