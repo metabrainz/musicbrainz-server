@@ -31,7 +31,8 @@ has_field 'confirm_password' => (
 
 has_field 'email' => (
     type      => 'Email',
-    maxlength => 64
+    maxlength => 64,
+    required => 1
 );
 
 sub validate_username
