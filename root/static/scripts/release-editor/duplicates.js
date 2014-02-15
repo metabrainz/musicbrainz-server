@@ -34,24 +34,29 @@
     });
 
 
-    var currentReleaseGroup = utils.withRelease(function (release) {
-        return release.releaseGroup();
-    });
-
-
-    currentReleaseGroup.subscribe(function (releaseGroup) {
-        var gid = releaseGroup.gid;
-        if (!gid) return;
-
-        var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
-
-        MB.utility.request({ url: url }).done(function (data) {
-            releaseGroupReleases(_.map(data.releases, formatReleaseData));
-        });
-    });
-
-
     releaseEditor.findReleaseDuplicates = function () {
+        var loadingFromRG = false;
+
+        utils.withRelease(function (release) {
+            var releaseGroup = release.releaseGroup();
+            var gid = releaseGroup.gid;
+
+            if (!gid) return;
+
+            var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
+
+            loadingFromRG = true;
+            toggleLoadingIndicator(true);
+
+            MB.utility.request({ url: url })
+                .always(function () {
+                    loadingFromRG = false;
+                    toggleLoadingIndicator(false);
+                })
+                .done(function (data) {
+                    releaseGroupReleases(_.map(data.releases, formatReleaseData));
+                });
+        });
 
         utils.debounce(utils.withRelease(function (release) {
             var name = release.name();
@@ -66,20 +71,21 @@
                 return;
             }
 
-            if (!name || !release.artistCredit.isComplete()) {
+            var ac = release.artistCredit;
+
+            if (loadingFromRG || !name || !ac.isComplete()) {
                 return;
             }
 
             var queryParams = {
                 release: [ utils.escapeLuceneValue(name) ],
 
-                arid: _(release.artistCredit.names())
-                    .invoke("artist").pluck("gid")
-                    .map(utils.escapeLuceneValue).value()
+                arid: _(ac.names())
+                        .invoke("artist").pluck("gid")
+                        .map(utils.escapeLuceneValue).value()
             };
 
-            $("#release-editor").data("ui-tabs")
-                .tabs.eq(1).addClass("loading-tab");
+            toggleLoadingIndicator(true);
 
             utils.search("release", queryParams, 10).done(gotResults);
         }));
@@ -99,8 +105,13 @@
             $("#release-editor").tabs("disable", 1);
         }
 
+        toggleLoadingIndicator(false);
+    }
+
+
+    function toggleLoadingIndicator(show) {
         $("#release-editor").data("ui-tabs")
-            .tabs.eq(1).removeClass("loading-tab");
+            .tabs.eq(1).toggleClass("loading-tab", show);
     }
 
 
