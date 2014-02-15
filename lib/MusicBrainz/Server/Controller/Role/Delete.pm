@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Delete;
 use MooseX::Role::Parameterized -metaclass => 'MusicBrainz::Server::Controller::Role::Meta::Parameterizable';
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 parameter 'edit_type' => (
     isa => 'Int',
@@ -41,10 +42,7 @@ role {
             # find a corresponding add edit and cancel instead, if applicable (MBS-1397)
             my $create_edit_type = $self->{create_edit_type};
             my $edit = $c->model('Edit')->find_creation_edit($create_edit_type, $edit_entity->id);
-            if ($edit && $edit->can_cancel($c->user)) {
-                $c->stash->{edit} = $edit;
-                $c->forward('/edit/cancel', [ $edit->id ]);
-            } else {
+            cancel_or_action($c, $edit, undef, sub {
                 $self->edit_action($c,
                     form        => 'Confirm',
                     form_args   => { requires_edit_note => 1 },
@@ -59,7 +57,7 @@ role {
                         $c->response->redirect($url);
                     },
                 );
-            }
+            });
         }
     };
 };

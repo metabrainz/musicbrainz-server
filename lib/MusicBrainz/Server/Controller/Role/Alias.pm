@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 
 requires 'load';
 
@@ -94,11 +95,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
     my ($self, $c) = @_;
     my $alias = $c->stash->{alias};
     my $edit = $c->model('Edit')->find_creation_edit($model_to_edit_type{add}->{ $self->{model} }, $alias->id, id_field => 'alias_id');
-    if ($edit && $edit->can_cancel($c->user)) {
-        $c->stash( edit => $edit,
-                   cancel_redirect => $self->_aliases_url($c) );
-        $c->forward('/edit/cancel', [ $edit->id ]);
-    } else {
+    cancel_or_action($c, $edit, $self->_aliases_url($c), sub {
         $self->edit_action($c,
             form => 'Confirm',
             form_args => { requires_edit_note => 1 },
@@ -109,7 +106,7 @@ sub delete_alias : Chained('alias') PathPart('delete') Edit
             },
             on_creation => sub { $self->_redir_to_aliases($c) }
         );
-    }
+    });
 }
 
 sub edit_alias : Chained('alias') PathPart('edit') Edit

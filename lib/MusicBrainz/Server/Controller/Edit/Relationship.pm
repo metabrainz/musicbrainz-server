@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' };
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -408,11 +409,7 @@ sub delete : Local Edit
     $c->stash( relationship => $rel );
 
     my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELATIONSHIP_CREATE, $rel->id);
-    if ($edit && $edit->can_cancel($c->user)) {
-        $c->stash->{edit} = $edit;
-        $c->stash->{cancel_redirect} = $c->req->params->{returnto} if $c->req->params->{returnto};
-        $c->forward('/edit/cancel', [ $edit->id ]);
-    } else {
+    cancel_or_action($c, $edit, $c->req->params->{returnto}, sub {
         my $form = $c->form(
             form => 'Confirm',
             requires_edit_note => 1
@@ -436,7 +433,7 @@ sub delete : Local Edit
         }
 
         $c->stash( relationship => $rel );
-    }
+    });
 }
 
 no Moose;
