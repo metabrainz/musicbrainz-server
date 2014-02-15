@@ -118,7 +118,8 @@ sub process_artist_credits {
 sub process_artist_credit {
     my ($c, $data) = @_;
 
-    process_artist_credits($c, $data->{artist_credit});
+    process_artist_credits($c, $data->{artist_credit})
+        if defined $data->{artist_credit};
 }
 
 sub process_medium {
@@ -130,7 +131,8 @@ sub process_medium {
     my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
     my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
-    process_artist_credits($c, grep { $_ } map { $_->{artist_credit} } @tracks);
+    my @track_acs = grep { $_ } map { $_->{artist_credit} } @tracks;
+    process_artist_credits($c, @track_acs) if scalar @track_acs;
 
     my $process_track = sub {
         my $track = shift;
