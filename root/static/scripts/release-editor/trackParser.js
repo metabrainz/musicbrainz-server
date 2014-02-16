@@ -249,8 +249,8 @@ MB.releaseEditor.trackParser = {
             .replace(/\s*,/g, ",");
     },
 
-    mediumToString: function (medium, options) {
-        options = options || ko.toJS(this.options);
+    mediumToString: function (medium) {
+        var options = ko.toJS(this.options);
 
         return _.reduce(medium.tracks(), function (memo, track) {
             if (options.trackNumbers) {
