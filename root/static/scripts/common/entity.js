@@ -58,6 +58,8 @@
     };
 
 
+    MB.entity.getFromCache = function (gid) { return entityCache[gid] };
+
     // Used by unit tests to guarantee isolation of side effects.
 
     MB.entity.clearCache = function () { entityCache = {} };

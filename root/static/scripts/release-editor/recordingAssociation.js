@@ -100,7 +100,7 @@
         utils.search("recording", queryParams, 100, offset)
             .done(function (data) {
                 results.push.apply(
-                    results, _.map(data.recording, utils.cleanWebServiceData)
+                    results, _.map(data.recording, cleanRecordingData)
                 );
 
                 var countSoFar = data.offset + 100;
@@ -162,6 +162,18 @@
             results: appearsOn,
             entityType: "release"
         };
+
+        // Recording entities will have already been created and cached for
+        // any existing recordings on the release. However, /ws/js/release does
+        // not provide any appearsOn data. So now that we have it, we can add
+        // it in.
+        var recording = MB.entity.getFromCache(clean.gid);
+
+        if (recording && !recording.appearsOn) {
+            recording.appearsOn = _.map(appearsOn, function (appearance) {
+                return MB.entity(appearance, "release");
+            });
+        }
 
         return clean;
     }
