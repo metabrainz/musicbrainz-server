@@ -8,8 +8,6 @@
     var recordingAssociation = releaseEditor.recordingAssociation = {};
     var utils = releaseEditor.utils;
 
-    var MAX_LENGTH_DIFFERENCE = 10500;
-
     // This file contains code for finding suggested recording associations
     // in the release editor.
     //
@@ -246,17 +244,6 @@
     };
 
 
-    function similarNames(oldName, newName) {
-        return oldName == newName || MB.utility.nameIsSimilar(oldName, newName);
-    }
-
-    function similarLengths(oldLength, newLength) {
-        // If either of the lengths are empty, we can't compare them, so we
-        // consider them to be "similar" for recording association purposes.
-        return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
-    }
-
-
     function watchTrackForChanges(track) {
         var name = track.name();
         var length = track.length();
@@ -272,8 +259,8 @@
         if (!name || !completeAC) return;
 
         var similarTo = function (prop) {
-            return (similarNames(track.name[prop], name) &&
-                    similarLengths(track.length[prop], length));
+            return (utils.similarNames(track.name[prop], name) &&
+                    utils.similarLengths(track.length[prop], length));
         };
 
         // The current name/length is similar to the saved name/length.
@@ -345,11 +332,6 @@
     }
 
 
-    function lengthsAreWithin10s(a, b) {
-        return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
-    }
-
-
     function matchAgainstRecordings(track, recordings) {
         if (!recordings || !recordings.length) return;
 
@@ -358,15 +340,15 @@
 
         var matches = _(recordings)
             .filter(function (recording) {
-                if (!similarLengths(trackLength, recording.length)) {
+                if (!utils.similarLengths(trackLength, recording.length)) {
                     return false;
                 }
-                if (similarNames(trackName, recording.name)) {
+                if (utils.similarNames(trackName, recording.name)) {
                     return true;
                 }
                 var recordingWithoutETI = recording.name.replace(etiRegex, "");
 
-                if (similarNames(trackName, recordingWithoutETI)) {
+                if (utils.similarNames(trackName, recordingWithoutETI)) {
                     return true;
                 }
             })
@@ -379,10 +361,10 @@
                 // Prefer that recordings with a length be at the top of the
                 // suggestions list.
                 if (!recording.length) {
-                    return MAX_LENGTH_DIFFERENCE + 1;
+                    return MB.constants.MAX_LENGTH_DIFFERENCE + 1;
                 }
                 if (!trackLength) {
-                    return MAX_LENGTH_DIFFERENCE;
+                    return MB.constants.MAX_LENGTH_DIFFERENCE;
                 }
                 return Math.abs(trackLength - recording.length);
             })

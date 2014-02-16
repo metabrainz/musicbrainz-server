@@ -81,7 +81,8 @@
 
             releaseEditor.recordingAssociation.track(this);
 
-            this.elementID = "track-row-" + (this.id || _.uniqueId("new-"));
+            this.uniqueID = this.id || _.uniqueId("new-");
+            this.elementID = "track-row-" + this.uniqueID;
 
             this.formattedLength.subscribe(this.formattedLengthChanged, this);
             this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
