@@ -361,9 +361,7 @@ module("relationship editor", {
 
         this.RE.Util.init(typeInfo, attrInfo);
 
-        this.RE.UI.init(
-            testRelease.gid, testRelease.releaseGroup.gid, testRelease
-        );
+        this.RE.releaseViewModel.releaseLoaded(testRelease);
     },
 
     teardown: function () {
@@ -371,9 +369,7 @@ module("relationship editor", {
 
         MB.utility.callbackQueue = this.__callbackQueue;
 
-        this.RE.releaseViewModel.release(MB.entity.Release({}));
-        this.RE.releaseViewModel.releaseGroup(MB.entity.ReleaseGroup({}));
-        this.RE.releaseViewModel.media([]);
+        this.RE.releaseViewModel.release(null);
 
         MB.entity.clearCache();
     }
@@ -716,8 +712,7 @@ test("Entity", function () {
 
 
 test("RelationshipEditor", function () {
-    var vm = this.RE.releaseViewModel,
-        media = vm.media();
+    var media = this.RE.releaseViewModel.release().mediums;
 
     equal(media.length, 1, "medium count");
 
@@ -737,7 +732,7 @@ test("Dialog", function () {
 
     var UI = this.RE.UI,
         vm = this.RE.releaseViewModel,
-        tracks = vm.media()[0].tracks,
+        tracks = vm.release().mediums[0].tracks,
         source = tracks[0].recording,
         target = MB.entity({ type: "artist", gid: this.fakeGID[0] });
 

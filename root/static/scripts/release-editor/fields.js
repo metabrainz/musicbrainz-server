@@ -123,13 +123,17 @@
         },
 
         previous: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos > 1 ? tracks[pos - 2] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index > 0 ? tracks[index - 1] : null;
         },
 
         next: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos < tracks.length ? tracks[pos] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index < tracks.length - 1 ? tracks[index + 1] : null;
         },
 
         differsFromRecording: function () {
@@ -175,6 +179,14 @@
                 this.hasNewRecording(false);
             }
 
+            if (currentValue.gid) {
+                var suggestions = this.suggestedRecordings.peek();
+
+                if (!_.contains(suggestions, currentValue)) {
+                    this.suggestedRecordings.unshift(currentValue);
+                }
+            }
+
             this.recordingValue(value);
         }
     });
@@ -205,7 +217,7 @@
             this.loading = ko.observable(false);
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
-            this.addTrackCount = ko.observable(1);
+            this.addTrackCount = ko.observable("");
             this.original = ko.observable(MB.edit.fields.medium(this));
         },
 

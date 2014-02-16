@@ -174,9 +174,6 @@
         </td>
       </tr>
 
-      [% table_row_select('packaging', l('Packaging:'), 4,
-          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
-
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
@@ -195,6 +192,9 @@
           </label>
         </td>
       </tr>
+
+      [% table_row_select('packaging', l('Packaging:'), 4,
+          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
     </tbody>
     </table>
   </fieldset>

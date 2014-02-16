@@ -9,14 +9,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-04 01:32+0000\n"
-"Last-Translator: Alain-Olivier  Breysse\n"
+"PO-Revision-Date: 2014-02-15 03:19+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: DB:link_attribute_type/description:471
+msgid ""
+"(<a "
+"href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
+msgstr ""
+
+#: DB:link_attribute_type/description:492
+msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:528
 msgid "(bamboo) flute, also known as kena or qina"
@@ -270,10 +280,6 @@ msgstr "La bandura, une cithare ukrainienne moderne"
 msgid "Bandura, ukrainian 14th century lute"
 msgstr "La bandura, un luth ukrainien du 14e siècle"
 
-#: DB:link_attribute_type/description:479
-msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
-msgstr "Le banjitar, Guitjo ou Ganjo. (<a href=\"http://en.wikipedia.org/wiki/Guitjo\">Wikipédia</a>)"
-
 #: DB:link_attribute_type/description:251
 msgid ""
 "Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
@@ -335,12 +341,6 @@ msgstr "La flûte traversière"
 #: DB:link_attribute_type/description:205
 msgid "Conch shell"
 msgstr "Conque"
-
-#: DB:link_attribute_type/description:471
-msgid ""
-"Continuum, strange thingy: "
-"http://en.wikipedia.org/wiki/Continuum_(instrument)"
-msgstr "Le continuum, une chose étrange. (<a href=\"http://fr.wikipedia.org/wiki/Continuum_%28instrument%29\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:273
 msgid "Cornett (not to be confused with Cornet)"
@@ -427,6 +427,12 @@ msgstr "La harpe à simple mouvement"
 #: DB:link_attribute_type/description:408
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
 msgstr "Le ghatham, un instrument de percussion dans la musique carnatique du Sud de l'inde"
+
+#: DB:link_attribute_type/description:338
+msgid ""
+"Goblet drums are single-headed drums with a goblet shaped body.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Goblet_drum\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:366
 msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
@@ -654,8 +660,9 @@ msgstr "Des percussions produites avec les pieds telle que la <a href=\"http://f
 #: DB:link_attribute_type/description:652
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
-" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Ney\">Ney</a>)"
-msgstr "Le ney (persan: نی/نای‎‎; turc : ney; azerbaijani: ney), aussi nay, naï ou nai (arabe : ناي‎‎; ouzbek : nay) est une flûte oblique à embouchure à cinq ou six trous plus un pour le pouce, jouée dans les mondes arabes, turc et persan. (<a href=\"http://fr.wikipedia.org/wiki/Ney_%28musique%29\">Wikipédia</a>)"
+" one thumb hole. (<a "
+"href=\"http://en.wikipedia.org/wiki/Ney\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:379
 msgid "Phách (The clappers)"
@@ -782,12 +789,6 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
 msgstr "La petite clarinette en Mi♭ aussi petite clarinette ou clarinette piccolo, est un membre de la familles des clarinettest. (<a href=\"http://fr.wikipedia.org/wiki/Petite_clarinette\">Wikipédia</a>)"
 
-#: DB:link_attribute_type/description:338
-msgid ""
-"The Goblet drum has many many names. See  "
-"http://en.wikipedia.org/wiki/Goblet_drum"
-msgstr "Le tambour gobelet à de nombreux noms. (<a href=\"http://fr.wikipedia.org/wiki/Darbouka\">Wikipédia</a>)"
-
 #: DB:link_attribute_type/description:673
 msgid ""
 "The Lyricon is an electronic wind instrument. (<a "
@@ -867,6 +868,13 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "Le banhu (chinois : 板胡, pinyin : bǎnhú) est un instrument à cordes frottées de la familles des huqins. Aussi appelé banghu (chinois : 梆胡, pinyin : bānghú) de par son utilisation dans l'opéra bangzi. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipédia</a>)"
+
+#: DB:link_attribute_type/description:479
+msgid ""
+"The banjitar is a six-string banjo with the neck of a guitar.\n"
+"Other names: guitjo, banjo guitar, ganjo, guitar banjo, banjar, bantar.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Banjo_guitar\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:749
 msgid ""
@@ -1881,10 +1889,6 @@ msgid ""
 "Zills are tiny metallic finger cymbals used in belly dancing and other "
 "similar performances."
 msgstr "Les sagattes (aussi sagates ou zill) sont de petites cymbales de doigt en métal utilisées pour la danse du ventre et autres spectacles semblables."
-
-#: DB:link_attribute_type/description:492
-msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr "La zurna (turc : Zurna, arabe : الغايتة; arménien: Զուռնա, géorgien: ზურნა, aussi zourna, surnay, zamour) est un instrument à vent à anche double d'origine turque. (<a href=\"http://fr.wikipedia.org/wiki/Zurna\">Wikipédia</a>)"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
