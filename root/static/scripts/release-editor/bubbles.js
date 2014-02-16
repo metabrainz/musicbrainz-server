@@ -155,7 +155,8 @@
             var matchWith = this.initialArtistText();
             var names = target.toJSON();
 
-            _(track.medium.tracks()).without(track).pluck("artistCredit")
+            _(track.medium.release.mediums())
+                .invoke("tracks").flatten().without(track).pluck("artistCredit")
                 .each(function (ac) {
                     if (matchWith === ac.text()) ac.setNames(names);
                 });
