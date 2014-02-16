@@ -157,7 +157,7 @@ sub _edit_hash
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit})
         if (exists $data->{artist_credit});
 
-    $data->{comment} //= '';
+    $data->{comment} //= '' if exists $data->{comment};
 
     return $data;
 }

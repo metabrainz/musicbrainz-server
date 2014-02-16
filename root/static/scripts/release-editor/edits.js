@@ -132,7 +132,7 @@
                             });
 
                             if (!_.isEqual(newRecording, oldRecording)) {
-                                edits.push(MB.edit.recordingEdit(newRecording));
+                                edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
                             }
                         }
                     }
