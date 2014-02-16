@@ -126,6 +126,10 @@
         initialArtistText: ko.observable(""),
 
         around$show: function (supr, control, stealFocus, isRedraw) {
+            if (this.visible() && !isRedraw) {
+                this.makeAllChanges();
+            }
+
             supr(control, stealFocus, isRedraw);
 
             // If the bubble is redrawn to reposition it, we don't want to
