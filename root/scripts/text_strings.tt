@@ -126,7 +126,7 @@
         VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
         EnumerationComma: '[% l(', ') | js %]',
         EnumerationAnd: '[% l('{b} and {a}') | js %]',
-        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]',
+        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated and should not be used.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
             label:           "[% l('Add a new label') | js %]",

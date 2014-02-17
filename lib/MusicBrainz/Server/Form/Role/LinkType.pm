@@ -47,7 +47,7 @@ sub validate_link_type
             return $link_type;
         } elsif ($link_type->is_deprecated && !$allow_deprecated) {
             $link_type_field->add_error(
-                l("This relationship type is deprecated.")
+                l("This relationship type is deprecated and should not be used.")
             );
             return $link_type;
         }
