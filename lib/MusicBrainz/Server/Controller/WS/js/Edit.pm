@@ -216,42 +216,49 @@ sub load_entities {
     for my $edit (@$edits) {
         my $edit_type = $edit->{edit_type};
 
-        if ($edit_type == $EDIT_RELATIONSHIP_CREATE || $edit_type == $EDIT_RELATIONSHIP_EDIT) {
-            for my $i (0, 1) {
-                delete $entities_to_load->{$edit_type}->{"entity$i"};
-
-                my $model = type_to_model($edit->{"type$i"});
-                my $entity_class = "MusicBrainz::Server::Entity::$model";
-
-                if ($model eq 'URL') {
-                    my $url_string = $edit->{"entity$i"};
-
-                    if ($previewing) {
-                        my ($entity) = $c->model('URL')->find_by_url($url_string);
-
-                        $edit->{"entity$i"} = $entity || $entity_class->new( url => $url_string );
-                    }
-                    else {
-                        $edit->{"entity$i"} = $c->model('URL')->find_or_insert($url_string);
-                    }
-                }
-                else {
-                    if ($previewing and my $preview = delete $edit->{"entity${i}Preview"}) {
-                        $edit->{"entity$i"} = $entity_class->new( name => $preview );
-                    }
-                    else {
-                        $entities_to_load->{$edit_type}->{"entity$i"} = $model;
-                    }
-                }
-            }
-        }
-
         if ($edit_type == $EDIT_RELATIONSHIP_EDIT || $edit_type == $EDIT_RELATIONSHIP_DELETE) {
             $edit->{relationship} = $c->model('Relationship')->get_by_id(
                $edit->{type0}, $edit->{type1}, $edit->{relationship}
             );
             $c->model('Link')->load($edit->{relationship});
             $c->model('LinkType')->load($edit->{relationship}->link);
+        }
+
+        if ($edit_type == $EDIT_RELATIONSHIP_CREATE || $edit_type == $EDIT_RELATIONSHIP_EDIT) {
+            for my $i (0, 1) {
+                my $prop = "entity$i";
+
+                delete $entities_to_load->{$edit_type}->{$prop};
+
+                my $entity_id = $edit->{$prop};
+
+                if (!$entity_id && $edit->{relationship}) {
+                    $edit->{$prop} = $edit->{relationship}->$prop;
+                    next;
+                }
+
+                my $model = type_to_model($edit->{"type$i"});
+                my $entity_class = "MusicBrainz::Server::Entity::$model";
+
+                if ($model eq 'URL') {
+                    if ($previewing) {
+                        my ($entity) = $c->model('URL')->find_by_url($entity_id);
+
+                        $edit->{$prop} = $entity || $entity_class->new( url => $entity_id );
+                    }
+                    else {
+                        $edit->{$prop} = $c->model('URL')->find_or_insert($entity_id);
+                    }
+                }
+                else {
+                    if ($previewing and my $preview = delete $edit->{"entity${i}Preview"}) {
+                        $edit->{$prop} = $entity_class->new( name => $preview );
+                    }
+                    else {
+                        $entities_to_load->{$edit_type}->{$prop} = $model;
+                    }
+                }
+            }
         }
 
         my $models = $entities_to_load->{$edit_type};
