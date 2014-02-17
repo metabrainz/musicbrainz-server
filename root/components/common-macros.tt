@@ -875,25 +875,25 @@ END -%]
 //[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%- MACRO script_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
+[%~ MACRO script_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server -%]
+    [%~ USE date ~%]
+    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
         <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
-    [%- END -%]
-  [%- ELSE -%]
+    [%~ END ~%]
+  [%~ ELSE ~%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
-[%- MACRO css_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
+[%~ MACRO css_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server ~%]
+    [%~ USE date -%]
     <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
-  [%- ELSE -%]
+  [%~ ELSE ~%]
     <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END -%]
 
