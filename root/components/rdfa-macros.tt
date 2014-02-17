@@ -183,36 +183,7 @@ END -%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
 
-[%-# Artist index page - Artist release groups #-%]
-
-[%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    text = text == '' ? html_escape(rg.name) : html_escape(text);
-    '<span class="mp">' IF rg.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="' _ rdfa_release_group_curi(rg) _ '" href="' _ link _ '"><span about="' _ rdfa_release_group_curi(rg) _ '" typeof="' _ rdfa_concept_curi('release_group') _  '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF rg.edits_pending AND action == 'show';
-  ELSE;
-    link_release_group(rg, action, text);
-  END;
-END -%]
-
 [%-# Artist releases tab #-%]
-
-[%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_made_release_link(release, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/release/$action", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : html_escape(text);
-    '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="' _ rdfa_release_curi(release) _ '" href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" rel="mo:release_event" resource="[evn:]" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF release.edits_pending AND action == 'show';
-  ELSE;
-    link_release(release, action, text);
-  END;
-END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(country) BLOCK;
@@ -221,34 +192,6 @@ END -%]
  '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.primary_code _ '</abbr>';
  '</span>';
  '</span>' IF doRDFa;
-END -%]
-
-[%-# Artist works tab #-%]
-[%- MACRO rdfa_made_work_link(work, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/work/$action", [ work.gid ]);
-    text = text == '' ? html_escape(work.name) : html_escape(text);
-    '<span class="mp">' IF work.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="' _ rdfa_work_curi(work) _ '" href="' _ link _ '"><span about="' _ rdfa_work_curi(work) _ '" typeof="' _ rdfa_concept_curi('work') _ '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF work.edits_pending AND action == 'show';
-  ELSE;
-    link_work(work, action, text);
-  END;
-END -%]
-
-[%-# Artist recordings tab #-%]
-[%- MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    text = text == '' ? html_escape(rec.name) : html_escape(text);
-    '<span class="mp">' IF rec.edits_pending AND action == 'show';
-    '<a rel="foaf:made" resource="' _ rdfa_recording_curi(rec) _ '" href="' _ link _ '"><span about="' _ rdfa_recording_curi(rec) _ '" typeof="' _ rdfa_concept_curi('recording') _ '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF rec.edits_pending AND action == 'show';
-  ELSE;
-    link_recording(rec, action, text);
-  END;
 END -%]
 
 [%-####################-%]

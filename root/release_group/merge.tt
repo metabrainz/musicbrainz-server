@@ -26,7 +26,7 @@
                             [% 'checked="checked"' IF entity.id == form.field('target').value %] />
                     </td>
                     <td>
-                      [% rdfa_made_rg_link(entity) %]
+                      [% link_release_group(entity) %]
                       [% disambiguation(entity) %]
                     </td>
                     <td>[% artist_credit(entity.artist_credit) %]</td>

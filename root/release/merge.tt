@@ -34,7 +34,7 @@
                 </td>
                 [% IF rdfa_made %]
                   <td>
-                    [% rdfa_made_release_link(release) %]
+                    [% link_release(release) %]
                     [% disambiguation(release) %]
                   </td>
                 [% ELSE %]
