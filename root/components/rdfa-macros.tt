@@ -375,26 +375,6 @@ END -%]
   END;
 END -%]
 
-[%-# Artist alias tab #-%]
-[%- MACRO rdfa_alias(alias, entity) BLOCK;
-  IF doRDFa;
-    type = "$entity";
-    IF    type.search('Entity::Artist=');
-    '<span property="skos:altLabel">' _ alias _ '</span>';
-    ELSIF type.search('Entity::Work=');
-    '<span property="skos:altLabel">' _ alias _ '</span>';
-    ELSIF type.search('Entity::Label=');
-    '<span property="skos:altLabel">' _ alias _ '</span>';
-    ELSIF type.search('Entity::Area=');
-    '<span property="skos:altLabel">' _ alias _ '</span>';
-    ELSIF type.search('Entity::Place=');
-    '<span property="skos:altLabel">' _ alias _ '</span>';
-    END;
-  ELSE;
-    '' _ alias _ '';
-  END;
-END -%]
-
 [%-####################-%]
 [%-# Recording/Signal #-%]
 [%-####################-%]

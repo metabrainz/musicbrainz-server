@@ -27,7 +27,7 @@
                     [%- show_sort_name = alias.name != alias.sort_name -%]
                     <td [% 'colspan="2"' IF !show_sort_name %]>
                       [% '<span class="mp">' IF alias.edits_pending %]
-                      [% rdfa_alias(alias.name, entity) %]
+                      [% alias.name %]
                       [% '</span>' IF alias.edits_pending %]
                     </td>
 
