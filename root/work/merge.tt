@@ -46,7 +46,7 @@
                     <td class="iswc">
                       <ul>
                         [% FOR iswc=entity.iswcs %]
-                          <li>[% rdfa_work_iswc(entity, iswc) %]</li>
+                          <li>[% link_iswc(entity, iswc) %]</li>
                         [% END %]
                       </ul>
                     </td>

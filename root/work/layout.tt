@@ -17,7 +17,7 @@
                    IF work.language -%]
             [%- FOR iswc IN work.iswcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
-                [% rdfa_work_iswc(work, iswc) %]
+                [% link_iswc(work, iswc) %]
                 [% END %]
             [%- END -%]
         [% END %]

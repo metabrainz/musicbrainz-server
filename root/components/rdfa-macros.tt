@@ -436,18 +436,6 @@ END -%]
     </a>
 [%- END -%]
 
-[%- MACRO rdfa_recording_isrc(recording, isrc) BLOCK -%]
-[%- '<span class="mp">' IF isrc.edits_pending; -%]
-<a href="[%- c.uri_for_action('/isrc/show', [ isrc.isrc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_recording_curi(recording) -%]" property="mo:isrc">[%- END -%][%- isrc.isrc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
-[%- '</span>' IF isrc.edits_pending; -%]
-[%- END -%]
-
-[%- MACRO rdfa_work_iswc(work, iswc) BLOCK -%]
-[%- '<span class="mp">' IF iswc.edits_pending; -%]
-<a href="[%- c.uri_for_action('/iswc/show', [ iswc.iswc ]) -%]">[%- IF doRDFa -%]<span about="[%- rdfa_work_curi(work) -%]" property="mo:iswc">[%- END -%][%- iswc.iswc -%][%- IF doRDFa -%]</span>[%- END -%]</a>
-[%- '</span>' IF iswc.edits_pending; -%]
-[%- END -%]
-
 [%-#################-%]
 [%-# Release Group #-%]
 [%-#################-%]
