@@ -183,18 +183,6 @@ END -%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
 
-[%- MACRO rdfa_begin_date_artist(date) BLOCK; -%]
- [%- IF date -%]
- [%- IF doRDFa -%]<span rel="bio:event"><span typeof="bio:Birth" property="bio:date" datatype="[%- date | date_xsd_type -%]">[%- END -%][%- date -%][%- IF doRDFa -%]</span></span>[%- END -%]
- [%- END -%]
-[%- END -%]
-
-[%- MACRO rdfa_end_date_artist(date) BLOCK -%]
- [%- IF date -%]
- [%- IF doRDFa -%]<span rel="bio:event"><span typeof="bio:Death" property="bio:date" datatype="[%- date | date_xsd_type -%]">[%- END -%][%- date -%][%- IF doRDFa -%]</span></span>[%- END -%]
- [%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
     [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
         [%- html_escape(ipi_code.ipi) -%]
