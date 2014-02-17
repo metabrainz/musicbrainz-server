@@ -31,6 +31,8 @@ has_field 'url.link_type_id' => (
 has_field 'url.text' => (
     type => '+MusicBrainz::Server::Form::Field::URL',
     required_when => { removed => 0 },
+    required_message => N_l('Required field.'),
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); },
 );
 
 has_field 'url.removed' => (

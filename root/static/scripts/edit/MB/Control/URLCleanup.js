@@ -857,7 +857,9 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
         }
 
         if (!clean) {
-            self.error("");
+            if (self.error() !== MB.text.RequiredField) {
+                self.error("");
+            }
         }
         else if (!MB.utility.isValidURL(clean)) {
             self.error(MB.text.EnterAValidURL);
