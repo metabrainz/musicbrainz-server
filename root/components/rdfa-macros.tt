@@ -201,14 +201,6 @@ END -%]
  [%- END -%]
 [%- END -%]
 
-[%- MACRO rdfa_disambiguation(entity) BLOCK;
-  IF doRDFa;
-    ' <span class="comment">(<span property="rdfs:comment">' _ html_escape(entity.comment) _ '</span>)</span>' IF entity.comment;
-  ELSE;
-    ' <span class="comment">(' _ html_escape(entity.comment) _ ')</span>' IF entity.comment;
-  END;
-END -%]
-
 [%- MACRO rdfa_artist_ipi(ipi_code) BLOCK -%]
     [%- IF doRDFa -%]<span about="[%- rdfa_artist_curi(ipi_code.artist) -%]" property="mo:ipi">[%- END -%]
         [%- html_escape(ipi_code.ipi) -%]
@@ -449,7 +441,7 @@ END -%]
     '<span class="mp">' IF release.edits_pending AND action == 'show';
     '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:track" resource="' _ rdfa_track_blank_node(track) _ '" typeof="' _ rdfa_concept_curi('release') _ '"></span>';
     '<a href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" rel="mo:release_event" resource="[evn:]" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    rdfa_disambiguation(release);
+    disambiguation(release);
     '</span>' IF release.edits_pending AND action == 'show';
   ELSE;
     link_release(release, action, text);
