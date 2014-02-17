@@ -275,11 +275,6 @@ END -%]
 
 [%-# Artist releases tab #-%]
 
-[%-# note 'release' and 'event' are used as namespaces in following macro #-%]
-[%- MACRO rdfa_release_ns(release) BLOCK;
-    'xmlns:rel="' _ rdfa_release_uri(release) _ '" xmlns:evn="' _ rdfa_release_event_uri(release) _ '"' IF doRDFa;
-END -%]
-
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_made_release_link(release, action, text) BLOCK;
   IF doRDFa;
@@ -355,9 +350,6 @@ END -%]
 END -%]
 
 [%-# Artist recordings tab #-%]
-[%- MACRO rdfa_recording_ns(rec) BLOCK;
-   'xmlns:rec="' _ rdfa_recording_uri(rec) _ '"' IF doRDFa;
-END -%]
 [%- MACRO rdfa_made_recording_link(rec, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';
