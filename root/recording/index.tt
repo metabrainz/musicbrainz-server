@@ -29,7 +29,7 @@
 		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
                       <td>[%- rdfa_label_title(track.name) -%]</td>
                       <td>[%- format_length(track.length) -%]</td>
-                      <td>[%- rdfa_link_release_track(release, track) -%]</td>
+                      <td>[%- link_release(release) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
                       <td>[% release_dates(release.events) %]</td>
                       <td>[% release_countries(release.events) %]</td>

@@ -261,21 +261,6 @@ END -%]
     out.join(', ');
 END -%]
 
-[%- MACRO rdfa_link_release_track(release, track, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/release/show", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : html_escape(text);
-    '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:track" resource="' _ rdfa_track_blank_node(track) _ '" typeof="' _ rdfa_concept_curi('release') _ '"></span>';
-    '<a href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" rel="mo:release_event" resource="[evn:]" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    disambiguation(release);
-    '</span>' IF release.edits_pending AND action == 'show';
-  ELSE;
-    link_release(release, action, text);
-  END;
-END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]
