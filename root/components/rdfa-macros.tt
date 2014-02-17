@@ -375,13 +375,6 @@ END -%]
   END;
 END -%]
 
-[%-# Artist details tab #-%]
-[%- MACRO rdfa_mbid(mbid) BLOCK;
- '<span property="mo:musicbrainz_guid" datatype="xsd:string">' IF doRDFa;
- '' _ mbid _ '';
- '</span>' IF doRDFa;
-END -%]
-
 [%-# Artist alias tab #-%]
 [%- MACRO rdfa_alias(alias, entity) BLOCK;
   IF doRDFa;
