@@ -211,31 +211,13 @@ END -%]
 [%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]
-            [%- rdfa_link_maker_artist(name.artist, 'show', name.name) -%]
+            [%- link_artist(name.artist, 'show', name.name) -%]
         [%- ELSE -%]
             [%- name.name | html -%]
         [%- END -%]
         [%- name.join_phrase | html -%]
     [%- END -%]
 [%- END -%]
-
-[%-# FIXME - turns name grey cuz css?  <span about="[' _ rdfa_artist_curi(artist)  _ ']" typeof="' _ rdfa_concept_curi(artist.type_name) _ '" property="foaf:name rdfs:label">' _ text _ '</span> #-%]
-[%- MACRO rdfa_link_maker_artist(artist, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/artist/$action", [ artist.gid ]);
-    text = text == '' ? html_escape(artist.name) : html_escape(text);
-    hover = html_escape(artist.sort_name);
-    IF artist.comment; hover = hover _ ' (' _ html_escape(artist.comment) _ ')'; END;
-    '<span class="mp">' IF artist.edits_pending AND action == 'show';
-    '<span class="name-variation">' IF text != artist.name AND action == 'show';
-    '<a title="' _ hover _ '" rel="foaf:maker" resource="' _ rdfa_artist_curi(artist) _ '" href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF text != artist.name AND action == 'show';
-    '</span>' IF artist.edits_pending AND action == 'show';
-  ELSE;
-    link_artist(artist, action, text);
-  END;
-END -%]
 
 [%- MACRO rdfa_release_label_list(labels) BLOCK;
     out = [];
