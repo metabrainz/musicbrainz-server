@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-15 03:20+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-15 11:38+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2686,7 +2686,7 @@ msgstr "is een remix van"
 
 #: DB:link_type/long_link_phrase:728
 msgid "is a tribute to"
-msgstr ""
+msgstr "is een hommage aan"
 
 #: DB:link_type/long_link_phrase:278
 msgid ""
@@ -3479,7 +3479,7 @@ msgstr "hommagealbums"
 
 #: DB:link_type/reverse_link_phrase:728
 msgid "tribute artists"
-msgstr ""
+msgstr "hommageartiesten"
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
