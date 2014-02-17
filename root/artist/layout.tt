@@ -6,7 +6,7 @@
         <h2 class="artist-information">[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(artist.sort_name) class="sort-name"
+               content=html_escape(artist.sort_name) class="sort-name"
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(artist.l_type_name) class="type"

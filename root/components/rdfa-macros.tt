@@ -183,12 +183,6 @@ END -%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
 
-[%- SET rdfa_sort_name_property = 'ov:sortLabel'; -%]
-
-[%- MACRO rdfa_sort_name(name) BLOCK; -%]
-[%- IF doRDFa -%]<span property="[%- rdfa_sort_name_property -%]">[%- name | html -%]</span>[%- ELSE -%][%- name | html -%][%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_begin_date_artist(date) BLOCK; -%]
  [%- IF date -%]
  [%- IF doRDFa -%]<span rel="bio:event"><span typeof="bio:Birth" property="bio:date" datatype="[%- date | date_xsd_type -%]">[%- END -%][%- date -%][%- IF doRDFa -%]</span></span>[%- END -%]
