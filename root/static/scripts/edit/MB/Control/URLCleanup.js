@@ -826,22 +826,19 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
     ];
 
 
-    var typeChanged = function(event) {
+    var typeChanged = function (event) {
         var url = self.urlControl.val();
+        var linkType = self.typeControl.val();
+        var checker = validationRules[linkType];
 
-        if (url) {
-            var linkType = self.typeControl.val();
-            var checker = validationRules[linkType];
-
-            if (!linkType) {
-                self.error(MB.text.SelectURLType);
-            }
-            else if (checker && !checker(url)) {
-                self.error(MB.text.URLNotAllowed);
-            }
-            else if (_.contains(linkTypeErrors, self.error())) {
-                self.error("");
-            }
+        if (url && !linkType) {
+            self.error(MB.text.SelectURLType);
+        }
+        else if (url && checker && !checker(url)) {
+            self.error(MB.text.URLNotAllowed);
+        }
+        else if (_.contains(linkTypeErrors, self.error())) {
+            self.error("");
         }
     };
 
