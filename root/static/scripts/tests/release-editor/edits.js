@@ -120,16 +120,15 @@ test("recordingEdit edits are generated for new release", function () {
                 gid: "0798d15b-64e2-499f-9969-70167b1d8617"
               },
               name: "Boredoms",
-              join_phrase:
-              null
+              join_phrase: null
             }
           ]
         },
         length: 722093,
-        comment: null,
+        comment: "",
         video: false,
         edit_type: 72,
-        hash: "50379153e2dc73753cdb154f53ada243936d8941"
+        hash: "ccc1d1492d135248dbe0c799855d74aed8a1bdf4"
       }
     ]);
 
