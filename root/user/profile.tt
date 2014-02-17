@@ -1,9 +1,15 @@
-[% WRAPPER "user/profile/layout.tt" page="index" %]
+[%~ MACRO no_email_warning BLOCK ~%]
+    [%~ IF viewing_own_profile && !c.user.has_confirmed_email_address ~%]
+        <strong>[% l('Your homepage and biography will not show until you have confirmed your email.') %]</strong>
+    [%~ END ~%]
+[%~ END ~%]
+
+[%- WRAPPER "user/profile/layout.tt" page="index" %]
     [% BLOCK property %]
-        <dt class="[% class %]">
+        <dt[% IF class %] class="[% class %]"[% END %]>
             [% name %]
         </dt>
-        <dd class="[% class %]">
+        <dd[% IF class %] class="[% class %]"[% END %]>
             [% content %]
         </dd>
     [% END %]
@@ -24,7 +30,7 @@
                         date  => UserDate.format(user.email_confirmation_date)
                     }) -%]
                 [% ELSE %]
-                        [%- l('(<strong>unverified!</strong>)') -%]
+                    [%- l('(<strong>unverified!</strong>)') -%] [% no_email_warning() %]
                 [% END %]
 
                 [% IF viewing_own_profile %]
@@ -35,7 +41,7 @@
                     (<a href="[% c.uri_for_action('/user/contact', [ user.name ]) %]">[% l("send email") %]</a>)
                 [% END %]
             [% ELSE %]
-                [% lp('(none)', 'email') %]
+                [% lp('(none)', 'email') %] [% no_email_warning() %]
             [% END %]
         [% END %]
 
@@ -54,8 +60,6 @@
             [% IF c.user.is_auto_editor && !user.is_auto_editor %]
                 (<a href="[% c.uri_for_action('/elections/nominate', user.name) %]">[% l("nominate for auto-editor") %]</a>)
             [% END %]
-
-
         [% END %]
 
         [% IF user.age;
@@ -86,10 +90,10 @@
             [% END %]
         [% END %]
 
-        [% IF user.website %]
+        [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | url %]" rel="nofollow">
-                    [% user.website | html_entity %]
+                    [%~ user.website | html_entity ~%]
                 </a>
             [% END %]
         [% END %]
@@ -109,7 +113,7 @@
                 [% END %]
             [% END %]
 
-        [% IF user.biography %]
+        [% IF user.biography && (user.has_confirmed_email_address || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
                 [% user.biography | format_wikitext %]
             [% END %]
