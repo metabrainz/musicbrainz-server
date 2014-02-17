@@ -223,22 +223,6 @@ END -%]
  '</span>' IF doRDFa;
 END -%]
 
-[%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_link_label(label, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/label/$action", [ label.gid ]);
-    text = text == '' ? html_escape(label.name) : html_escape(text);
-    '<span class="mp">' IF label.edits_pending AND action == 'show';
-    '<span about="' _ rdfa_release_curi(release) _ '">';
-    '<a rel="mo:label" resource="' _ rdfa_label_curi(label) _ '" href="' _ link _ '">' _ text _ '</a>';
-    '</span>';
-    '</span>' IF label.edits_pending AND action == 'show';
-  ELSE;
-    link_label(label, action, text);
-  END;
-END -%]
-
 [%-# Artist works tab #-%]
 [%- MACRO rdfa_made_work_link(work, action, text) BLOCK;
   IF doRDFa;
@@ -323,7 +307,7 @@ END -%]
     seen = {};
     FOR label=labels;
       IF label.label_id AND !seen.${ label.label_id };
-        out.push(rdfa_link_label(label.label));
+        out.push(link_label(label.label));
         seen.${ label.label_id } = 1;
       END;
     END;

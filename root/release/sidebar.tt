@@ -60,7 +60,7 @@
     <ul class="links">
     [% FOR label=release.labels %]
       <li>
-        [% rdfa_link_label(label.label) _ '<br />' %]
+        [% link_label(label.label) _ '<br />' %]
         [% html_escape(label.catalog_number) %]
       </li>
     [% END %]
