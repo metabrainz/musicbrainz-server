@@ -66,14 +66,8 @@ MB.releaseEditor.trackParser = {
             // we can reuse them if possible. If the medium has a CDTOC, don't
             // do this because we can't move tracks around.
 
-            var currentTrack = currentTracks.shift();
-            var currentTrackMatch = self.matchDataWithTrack(data, currentTrack);
-
-            if (hasTocs || currentTrackMatch) {
-                if (currentTrack) {
-                    data.matchedTrack = currentTrack;
-                    matchedTracks[currentTrack.uniqueID] = currentTrackMatch;
-                }
+            if (hasTocs) {
+                data.matchedTrack = currentTracks.shift();
                 return data;
             }
 
