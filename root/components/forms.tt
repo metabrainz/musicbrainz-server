@@ -1,8 +1,8 @@
-[%- MACRO form_submit(label, class) BLOCK %]
+[%- MACRO form_submit(label, class) BLOCK ~%]
     <span class="buttons[% ' ' _ class IF class %]">
-        <button type="submit">[% label %]</button>
+        [%~ '<button type="submit">' _ label _ '</button>' ~%]
     </span>
-[%- END -%]
+[%~ END -%]
 
 [%- MACRO as_auto_editor BLOCK -%]
     [%- IF c.user.is_auto_editor -%]

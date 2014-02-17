@@ -1,13 +1,13 @@
 [% rdfa_set_header(usesRDFa) %]
     [%- INCLUDE 'layout/head.tt' -%]
     <body>
-        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
+        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
         <div id="header">
             <div id="header-logo">
                 <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
                 <div>
-                    [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
+                    [% USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') ~%]
                     <form action="[% c.uri_for('/search') %]" method="get">
                         [% sidebar.text('query', { placeholder => l('search') }) %]
                         [% sidebar.select('type') %]
@@ -15,14 +15,14 @@
                         [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
-                [%- IF server_details.git.branch -%]
+                [% IF server_details.git.branch ~%]
                   <div class="git-branch">
-                    [%- l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
+                    [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
                          { branch => server_details.git.branch,
                            msg => html_escape(server_details.git.msg),
-                           sha	  => server_details.git.sha}) -%]
+                           sha	  => server_details.git.sha}) ~%]
                   </div>
-                [%- END -%]
+                [%~ END %]
             </div>
             <div id="header-menu">
                 <div>
