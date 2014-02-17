@@ -583,51 +583,6 @@ END -%]
   [%- END;
 END -%]
 
-[%- MACRO rdfa_seeAlso_link(entity, type, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/$type/$action", [ entity.gid ]);
-    text = text == '' ? html_escape(entity.name) : html_escape(text);
-    '<span class="mp">' IF entity.edits_pending AND action == 'show';
-    '<a rel="rdfs:seeAlso" href="' _ link _ '">' _ text _ '</a>';
-    '</span>' IF entity.edits_pending AND action == 'show';
-  ELSE;
-    link_entity(entity, action, text);
-  END;
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_artist(artist, action, text) BLOCK;
-    rdfa_seeAlso_link(artist, 'artist', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_label(label, action, text) BLOCK;
-    rdfa_seeAlso_link(label, 'label', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_place(place, action, text) BLOCK;
-    rdfa_seeAlso_link(place, 'place', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_recording(recording, action, text) BLOCK;
-    rdfa_seeAlso_link(recording, 'recording', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_release(release, action, text) BLOCK;
-   rdfa_seeAlso_link(release, 'release', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_release_group(rg, action, text) BLOCK;
-   rdfa_seeAlso_link(rg, 'release_group', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_work(w, action, text) BLOCK;
-   rdfa_seeAlso_link(w, 'work', action, text);
-END -%]
-
-[%- MACRO rdfa_seeAlso_link_area(area, action, text) BLOCK;
-   rdfa_seeAlso_link(area, 'area', action, text);
-END -%]
-
 [%-#################-%]
 [%-# Relationships #-%]
 [%-#################-%]

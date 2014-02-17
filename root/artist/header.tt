@@ -1,12 +1,12 @@
 [%- info_links = [
-    ['index', rdfa_seeAlso_link_artist(artist, 'show', l('Overview'))],
-    ['releases', rdfa_seeAlso_link_artist(artist, 'releases', l('Releases'))],
-    ['recordings', rdfa_seeAlso_link_artist(artist, 'recordings', l('Recordings'))],
-    ['works', rdfa_seeAlso_link_artist(artist, 'works', l('Works'))],
-    ['relationships', rdfa_seeAlso_link_artist(artist, 'relationships', l('Relationships'))],
-    ['aliases', rdfa_seeAlso_link_artist(artist, 'aliases', l('Aliases'))],
+    ['index', link_artist(artist, 'show', l('Overview'))],
+    ['releases', link_artist(artist, 'releases', l('Releases'))],
+    ['recordings', link_artist(artist, 'recordings', l('Recordings'))],
+    ['works', link_artist(artist, 'works', l('Works'))],
+    ['relationships', link_artist(artist, 'relationships', l('Relationships'))],
+    ['aliases', link_artist(artist, 'aliases', l('Aliases'))],
     ['tags', link_artist(artist, 'tags', l('Tags'))],
-    ['details', rdfa_seeAlso_link_artist(artist, 'details', l('Details'))],
+    ['details', link_artist(artist, 'details', l('Details'))],
 ] -%]
 [%# note no RDFa for tags, edit.  relationships @@TODO %]
 

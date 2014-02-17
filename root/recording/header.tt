@@ -1,8 +1,8 @@
 [%- info_links = [
-    ['index', rdfa_seeAlso_link_recording(recording, 'show', l('Releases'))],
+    ['index', link_recording(recording, 'show', l('Releases'))],
     ['tags', link_recording(recording, 'tags', l('Tags'))],
-    ['fingerprints', rdfa_seeAlso_link_recording(recording, 'fingerprints', l('Fingerprints'))],
-    ['details', rdfa_seeAlso_link_recording(recording, 'details', l('Details'))],
+    ['fingerprints', link_recording(recording, 'fingerprints', l('Fingerprints'))],
+    ['details', link_recording(recording, 'details', l('Details'))],
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 

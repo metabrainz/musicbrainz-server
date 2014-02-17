@@ -1,7 +1,7 @@
 [%- info_links = [
-    ['index', rdfa_seeAlso_link_release_group(rg, 'show', l('Overview'))],
+    ['index', link_release_group(rg, 'show', l('Overview'))],
     ['tags', link_release_group(rg, 'tags', l('Tags'))],
-    ['details', rdfa_seeAlso_link_release_group(rg, 'details', l('Details'))],
+    ['details', link_release_group(rg, 'details', l('Details'))],
     ['edit', link_release_group(rg, 'edit', l('Edit'))],
 ] -%]
 
