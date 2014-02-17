@@ -44,7 +44,7 @@
                 <th colspan="[% (c.try_get_session('tport') ? 9 : 8) %]">[% group.0.l_status_name || l('(unknown)') %]</th>
               </tr>
               [% FOR release=group %]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %]>
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 [% IF c.user_exists %]
                 <td>
                   <input type="checkbox" name="add-to-merge"

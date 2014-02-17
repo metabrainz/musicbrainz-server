@@ -27,7 +27,7 @@
               <tbody>
             [% END %]
             [%- FOR release=to_merge -%]
-              <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %]>
+              <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>
                   <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
                   <input type="radio" name="merge.target" value="[% release.id %]" />
