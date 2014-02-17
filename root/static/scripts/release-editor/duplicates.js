@@ -24,9 +24,9 @@
         releaseEditor.loadRelease(gid, function (data) {
             release.mediums(
                 _.map(data.mediums, function (m) {
-                    m = _.omit(_.extend(m, { originalID: m.id }), "id");
-
-                    return releaseEditor.fields.Medium(m, release);
+                    return releaseEditor.fields.Medium(
+                        utils.reuseExistingMediumData(m), release
+                    );
                 })
             );
             release.loadMedia();
