@@ -33,7 +33,7 @@
             [%- END -%]
             [%- FOR ipi_code IN label.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=rdfa_label_ipi(ipi_code) class="ipi-code" %]
+                 content=html_escape(ipi_code) class="ipi-code" %]
             [%- END -%]
             [%- FOR isni_code IN label.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
