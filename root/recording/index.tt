@@ -24,8 +24,7 @@
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]
-                    [% rdfa_recording_hidden_published_as(track) %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
 		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
                       <td>[%- rdfa_label_title(track.name) -%]</td>
                       <td>[%- format_length(track.length) -%]</td>

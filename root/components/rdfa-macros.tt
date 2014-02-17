@@ -198,16 +198,6 @@ END -%]
 [%-# Recording/Signal #-%]
 [%-####################-%]
 
-[%- MACRO rdfa_recording_hidden_published_as(track) BLOCK;
-  IF doRDFa;
-    '<tr style="display: none;" rel="mo:published_as"><td><span about="' _ rdfa_track_blank_node(track) _ '"></span></td></tr>';
-  END;
-END -%]
-
-[%- MACRO rdfa_recording_tr_about(track) BLOCK; -%]
- [%- IF doRDFa -%]about="[%- rdfa_track_blank_node(track) -%]" typeof="[%- rdfa_concept_curi('track') -%]" [%- rdfa_release_ns(release) -%][%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]
