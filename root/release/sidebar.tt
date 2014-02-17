@@ -61,7 +61,7 @@
     [% FOR label=release.labels %]
       <li>
         [% rdfa_link_label(label.label) _ '<br />' %]
-        [% rdfa_release_catno(label.catalog_number) %]
+        [% html_escape(label.catalog_number) %]
       </li>
     [% END %]
     </ul>

@@ -252,13 +252,6 @@ END -%]
   END;
 END -%]
 
-[%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_catno(catno) BLOCK;
- '<span about="' _ rdfa_release_curi(release) _ '" property="mo:catalogue_number" datatype="xsd:string">' IF doRDFa;
- '' _ html_escape(catno) _ '';
- '</span>' IF doRDFa;
-END -%]
-
 [%-# Artist works tab #-%]
 [%- MACRO rdfa_made_work_link(work, action, text) BLOCK;
   IF doRDFa;
@@ -366,7 +359,7 @@ END -%]
     seen = {};
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(rdfa_release_catno(label.catalog_number));
+        out.push(html_escape(label.catalog_number));
         seen.${ label.catalog_number } = 1;
       END;
     END;
