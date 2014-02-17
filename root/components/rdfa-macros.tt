@@ -201,14 +201,6 @@ END -%]
  [%- END -%]
 [%- END -%]
 
-[%- MACRO rdfa_artist_age(age) BLOCK;
-IF doRDFa;
- '<span property="foaf:age">' _ age _ '</span>';
-ELSE;
-  '' _ age _ '';
-END;
-END -%]
-
 [%- MACRO rdfa_disambiguation(entity) BLOCK;
   IF doRDFa;
     ' <span class="comment">(<span property="rdfs:comment">' _ html_escape(entity.comment) _ '</span>)</span>' IF entity.comment;

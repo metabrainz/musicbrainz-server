@@ -21,7 +21,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                             [% rdfa_begin_date_artist(artist.begin_date.format) %]
                             [% IF artist.has_age AND not artist.end_date.format %]
-                                (<span style="display:none">[% rdfa_artist_age(display_age (artist.age)) %]</span>[% display_age_ago(artist.age) %])
+                                (<span style="display:none">[% display_age(artist.age) %]</span>[% display_age_ago(artist.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
@@ -36,7 +36,7 @@
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
                             [% rdfa_end_date_artist(artist.end_date.format) %]
                             [% IF artist.has_age %]
-                                ([% rdfa_artist_age(display_age (artist.age, artist.type_id == 1)) %])
+                                ([% display_age(artist.age, artist.type_id == 1) %])
                             [% END %]
                         [% END %]
                     [% ELSIF artist.ended %]
