@@ -44,7 +44,7 @@
                   </td>
                 [% END %]
                   <td>[% artist_credit(release.artist_credit) %]</td>
-                  <td>[% rdfa_release_format(release) or "-" %]</td>
+                  <td>[% html_escape(release.combined_format_name) or "-" %]</td>
                   <td>[% release.combined_track_count or "-" %]</td>
                   <td>[% release_dates(release.events) %]</td>
                   <td>[% release_countries(release.events) %]</td>

@@ -452,15 +452,6 @@ END -%]
   END;
 END -%]
 
-[%-# assumes rdfa_release_ns #-%]
-[%- MACRO rdfa_release_format(release) BLOCK;
- IF doRDFa;
-    '<span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_format_list(release.mediums) _ '">' _ html_escape(release.combined_format_name) _ '</span>' IF release.combined_format_name ;
- ELSE;
-    '' _ release.combined_format_name _ '' IF release.combined_format_name ;
- END;
-END -%]
-
 [%-# TODO change to set? #-%]
 [%- MACRO rdfa_format_list(mediums) BLOCK;
     list = [];
