@@ -228,13 +228,6 @@ END -%]
 END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_event_date(date) BLOCK -%]
- [%- IF doRDFa -%]
-   <span about="[evn:]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- date.format | date_xsd_type -%]">[%- date.format -%]</span>
- [%- ELSE -%][%- date.format -%][%- END -%]
-[%- END -%]
-
-[%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(country) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
  '<span class="flag-' _ country.primary_code _ '">';

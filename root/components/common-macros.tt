@@ -1063,7 +1063,7 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF !event.date.is_empty;
-            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+            '<li>' _ event.date.format _ '</li>';
           END;
         END;
         '</ul>';
@@ -1085,7 +1085,7 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.push(date.format) UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
