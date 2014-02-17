@@ -330,23 +330,6 @@ END -%]
 [%-# TrackList #-%]
 [%-#############-%]
 
-[%- MACRO rdfa_link_recording_as_track(recording, action, text) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/recording/$action", [ recording.gid ]);
-    text = text == '' ? html_escape(recording.name) : html_escape(text);
-    hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
-    '<span class="mp">' IF recording.edits_pending AND action == 'show';
-    '<span class="name-variation">' IF text != recording.name AND action == 'show';
-    '<span property="dct:title rdfs:label" xml:lang="" lang="" content="' _ text _ '"></span>';
-    '<a rel="mo:publication_of" resource="' _ rdfa_recording_curi(recording) _ '" href="' _ link _ '" title="' _ hover _ '"><span property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF text != recording.name AND action == 'show';
-    '</span>' IF recording.edits_pending AND action == 'show';
-  ELSE;
-    link_recording(recording, action, text);
-  END;
-END -%]
-
 [%- MACRO rdfa_track_number(position) BLOCK -%]
    [%- IF doRDFa -%]<span property="mo:track_number" datatype="xsd:positiveInteger">[%- END -%][%- position -%][%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]

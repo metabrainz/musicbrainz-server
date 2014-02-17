@@ -39,7 +39,7 @@ dl.ars dt {
     [%- END -%]
     <td>
       [%- IF recording.gid -%]
-        [%- rdfa_link_recording_as_track(recording, 'show', track.name) -%]
+        [%- link_recording(recording, 'show', track.name) -%]
       [%- ELSE -%]
         [%- html_escape(track.name) -%]
       [%- END -%]
