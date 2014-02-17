@@ -367,7 +367,7 @@
     <label>
       <input type="checkbox" data-bind="checked: $bubble.changeMatchingArtists" />
       <!-- ko text: MB.i18n.expand(
-        "[% l('Change all artists on this medium that match “{name}”') | js %]",
+        "[% l('Change all artists on this release that match “{name}”') | js %]",
         { name: $bubble.initialArtistText() }
       ) --><!-- /ko -->
     </label>

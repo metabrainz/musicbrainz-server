@@ -25,7 +25,7 @@ MB.releaseEditor.init = function (options) {
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                self.nextTab();
+                self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
             }
         });
 

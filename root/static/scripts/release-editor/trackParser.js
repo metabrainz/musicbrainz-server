@@ -31,7 +31,7 @@ MB.releaseEditor.trackParser = {
         var lines = _.reject(_.str.lines(str), _.str.isBlank);
 
         var currentPosition = 0;
-        var currentTracks, hasTocs, releaseAC;
+        var currentTracks, matchedTracks = {}, hasTocs, releaseAC;
 
         // Mediums aren't passed in for unit tests.
         if (medium) {
@@ -45,7 +45,7 @@ MB.releaseEditor.trackParser = {
             lines = lines.slice(0, currentTracks.length);
         }
 
-        var newTracks = $.map(lines, function (line) {
+        var newTracksData = $.map(lines, function (line) {
             var data = self.parseLine(line, options);
 
             // We should've parsed at least some values, otherwise something
@@ -60,36 +60,44 @@ MB.releaseEditor.trackParser = {
                 data.number = currentPosition;
             }
 
+            if (!currentTracks || !currentTracks.length) return data;
+
             // Check for tracks with similar names to existing tracks, so that
             // we can reuse them if possible. If the medium has a CDTOC, don't
             // do this because we can't move tracks around.
-            var matchedTrack = null;
 
             if (hasTocs) {
-                matchedTrack = currentTracks && currentTracks.shift();
+                data.matchedTrack = currentTracks.shift();
+                return data;
+            }
 
-            } else if (currentTracks) {
-                for (var j = 0, len = currentTracks.length; j < len; j++) {
-                    var track = currentTracks[j];
-                    var name = track.name.peek();
+            var bestMatch = _(currentTracks)
+                .map(_.partial(self.matchDataWithTrack, data))
+                .compact().sortBy("similarity").last();
 
-                    if (MB.utility.nameIsSimilar(data.name, name)) {
-                        if (matchedTrack !== null) {
-                            // There are multiple tracks with the same name.
-                            // We can't be sure which one is correct.
-                            matchedTrack = null;
-                            break;
-                        }
-                        matchedTrack = track;
+            if (bestMatch) {
+                var existingMatch = matchedTracks[bestMatch.track.uniqueID];
+
+                if (existingMatch) {
+                    if (bestMatch.similarity > existingMatch.similarity) {
+                        delete existingMatch.data.matchedTrack;
+
+                        existingMatch.data = data;
+                        existingMatch.similarity = bestMatch.similarity;
+                        data.matchedTrack = bestMatch.track;
                     }
                 }
-
-                if (matchedTrack) {
-                    // Don't match >1 parsed tracks to the same existing track.
-                    currentTracks = _.without(currentTracks, matchedTrack);
+                else {
+                    data.matchedTrack = bestMatch.track;
+                    matchedTracks[bestMatch.track.uniqueID] = bestMatch;
                 }
             }
 
+            return data;
+        });
+
+        var newTracks = _.map(newTracksData, function (data) {
+            var matchedTrack = data.matchedTrack;
             var matchedTrackAC = matchedTrack && matchedTrack.artistCredit;
 
             // See if we can re-use the AC from the matched track or the release.
@@ -100,7 +108,7 @@ MB.releaseEditor.trackParser = {
                     var names = ac.names();
 
                     return ac.isComplete() && (!data.artist ||
-                        MB.utility.nameIsSimilar(data.artist, ac.text()));
+                        MB.releaseEditor.utils.similarNames(data.artist, ac.text()));
                 }
             );
 
@@ -119,8 +127,8 @@ MB.releaseEditor.trackParser = {
             }
 
             if (matchedTrack) {
-                matchedTrack.position(currentPosition);
-                matchedTrack.number(data.number ? data.number : currentPosition);
+                matchedTrack.position(data.position);
+                matchedTrack.number(data.number ? data.number : data.position);
                 matchedTrack.name(data.name);
 
                 if (options.trackTimes && !hasTocs && data.formattedLength) {
@@ -235,8 +243,8 @@ MB.releaseEditor.trackParser = {
             .replace(/\s*,/g, ",");
     },
 
-    mediumToString: function (medium, options) {
-        options = options || ko.toJS(this.options);
+    mediumToString: function (medium) {
+        var options = ko.toJS(this.options);
 
         return _.reduce(medium.tracks(), function (memo, track) {
             if (options.trackNumbers) {
@@ -259,5 +267,15 @@ MB.releaseEditor.trackParser = {
 
             return memo + "\n";
         }, "");
+    },
+
+    matchDataWithTrack: function (data, track) {
+        if (!track) return;
+
+        var similarity = MB.utility.similarity(data.name, track.name.peek());
+
+        if (similarity >= MB.constants.MIN_NAME_SIMILARITY) {
+            return { similarity: similarity, track: track, data: data };
+        }
     }
 };

@@ -126,6 +126,10 @@
         initialArtistText: ko.observable(""),
 
         around$show: function (supr, control, stealFocus, isRedraw) {
+            if (this.visible() && !isRedraw) {
+                this.makeAllChanges();
+            }
+
             supr(control, stealFocus, isRedraw);
 
             // If the bubble is redrawn to reposition it, we don't want to
@@ -155,7 +159,8 @@
             var matchWith = this.initialArtistText();
             var names = target.toJSON();
 
-            _(track.medium.tracks()).without(track).pluck("artistCredit")
+            _(track.medium.release.mediums())
+                .invoke("tracks").flatten().without(track).pluck("artistCredit")
                 .each(function (ac) {
                     if (matchWith === ac.text()) ac.setNames(names);
                 });

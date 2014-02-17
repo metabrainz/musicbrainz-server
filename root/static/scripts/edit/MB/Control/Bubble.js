@@ -235,7 +235,13 @@ $(function () {
             if ($active.length && !$active.has(control).length) {
                 bubble = $active[0].bubbleDoc;
 
-                if (bubble.closeWhenFocusIsLost) {
+                if (bubble.closeWhenFocusIsLost &&
+                    !event.isDefaultPrevented() &&
+
+                    // Close unless focus was moved to a dialog above this
+                    // one, i.e. when adding a new entity.
+                    !$(event.target).parents(".ui-dialog").length) {
+
                     bubble.hide(false);
                 }
             }
