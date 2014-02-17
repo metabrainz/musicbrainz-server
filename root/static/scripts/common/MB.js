@@ -37,3 +37,6 @@ MB.constants.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 MB.constants.VARTIST_NAME = 'Various Artists';
 
 MB.constants.ENTITIES = [ 'artist', 'editor', 'label', 'release', 'release-group', 'recording', 'work', 'area', 'place' ];
+
+MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
+MB.constants.MIN_NAME_SIMILARITY = 0.75;

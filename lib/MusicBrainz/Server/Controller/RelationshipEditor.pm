@@ -95,13 +95,10 @@ sub load : Private {
     my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
 
-    my $i = 0;
-    my $work_types = [ part { int($i++ / 2 ) } @{ select_options($c, 'WorkType') } ];
-
     $c->stash(
         attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
-        work_types => $work_types,
+        work_types => select_options($c, 'WorkType'),
         work_languages => build_grouped_options($c, $form->language_options),
     );
 }

@@ -20,14 +20,6 @@ use Sub::Exporter -setup => {
               )]
 };
 
-sub get_collator {
-    my $c = shift;
-    my $coll = Unicode::ICU::Collator->new($c->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-    return $coll;
-}
-
 sub language_options {
     my $c = shift;
 
@@ -38,7 +30,7 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -62,7 +54,7 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -103,11 +95,12 @@ sub link_type_options
 sub select_options
 {
     my ($c, $model, %opts) = @_;
-    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
     my $accessor = $opts{accessor} // 'l_name';
     my $coll = $c->get_collator();
 
-    my $model_ref = ref($model) ? $model : $c->model($model);
     return [ map {
         value => $_->id,
         label => l($_->$accessor)

@@ -368,10 +368,14 @@ sub _seeded_event
     my $result = {};
 
     if (my $date = $params->{date}) {
-        $result->{date} = PartialDate->new(%$date)->format;
+        delete $date->{year} unless $date->{year};
+        delete $date->{month} unless $date->{month};
+        delete $date->{day} unless $date->{day};
+
+        $result->{date} = PartialDate->new(%$date)->format if %$date;
     }
 
-    if (my $iso = uc $params->{country}) {
+    if (my $iso = uc ($params->{country} // '')) {
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {

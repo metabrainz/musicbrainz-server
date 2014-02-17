@@ -115,16 +115,17 @@
             var previous = track.previous();
             if (!previous) return false;
 
-            var pos = track.position() - 1;
+            var tracks = track.medium.tracks;
+            var index = _.indexOf(tracks.peek(), track);
             var oldNumber = track.number.peek();
 
-            track.position(pos);
+            track.position(index);
             track.number(previous.number.peek());
 
-            previous.position(pos + 1);
+            previous.position(index + 1);
             previous.number(oldNumber);
 
-            MB.utility.moveArrayItem(track.medium.tracks, pos, pos - 1);
+            MB.utility.moveArrayItem(tracks, index, index - 1);
 
             if (keepFocus !== false) {
                 MB.utility.deferFocus("button.track-up", "#" + track.elementID);
@@ -155,7 +156,11 @@
             tracks = tracks.peek();
 
             for (var i = index; track = tracks[i]; i++) {
-                track.position(track.position() - 1);
+                track.position(i + 1);
+
+                if (track.number.peek() == i + 2) {
+                    track.number(i + 1);
+                }
             }
 
             if (focus) {
@@ -210,8 +215,9 @@
             var trackCount = tracks.peek().length;
             var releaseAC = medium.release.artistCredit;
             var defaultAC = releaseAC.isVariousArtists() ? null : releaseAC.toJSON();
+            var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
-            var newTracks = _(medium.addTrackCount()).times(function (i) {
+            var newTracks = _(addTrackCount).times(function (i) {
                 var position = trackCount + i + 1;
 
                 var args = {

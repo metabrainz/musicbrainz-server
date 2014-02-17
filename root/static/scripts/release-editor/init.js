@@ -18,16 +18,6 @@ MB.releaseEditor.init = function (options) {
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
 
-    this.rootField = this.fields.Root();
-
-    this.seed(options.seed);
-
-    if (this.action === "edit") {
-        this.loadRelease(options.gid);
-    }
-
-    this.getEditPreviews();
-
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
@@ -35,7 +25,7 @@ MB.releaseEditor.init = function (options) {
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                self.nextTab();
+                self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
             }
         });
 
@@ -53,7 +43,7 @@ MB.releaseEditor.init = function (options) {
             // now that it's visible.
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
-            if ($bubble.length) $bubble[0].bubbleDoc.redraw();
+            if ($bubble.length) $bubble[0].bubbleDoc.redraw(true /* stealFocus */);
         }
     });
 
@@ -162,6 +152,18 @@ MB.releaseEditor.init = function (options) {
                 edits.length ? _.constant(MB.text.ConfirmNavigation) : null;
         });
     }
+
+    // Intialize release data/view model.
+
+    this.rootField = this.fields.Root();
+
+    this.seed(options.seed);
+
+    if (this.action === "edit") {
+        this.loadRelease(options.gid);
+    }
+
+    this.getEditPreviews();
 
     // Apply root bindings to the page.
 

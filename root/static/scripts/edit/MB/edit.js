@@ -106,7 +106,7 @@
                 name:           string(recording.name),
                 artist_credit:  fields.artistCredit(recording.artistCredit),
                 length:         number(recording.length),
-                comment:        nullableString(recording.comment),
+                comment:        string(recording.comment),
                 video:          Boolean(value(recording.video))
             };
         },
@@ -147,7 +147,7 @@
                 name:               string(release.name),
                 artist_credit:      fields.artistCredit(release.artistCredit),
                 release_group_id:   number(releaseGroupID),
-                comment:            nullableString(release.comment),
+                comment:            string(release.comment),
                 barcode:            value(release.barcode.value),
                 language_id:        number(release.languageID),
                 packaging_id:       number(release.packagingID),
@@ -162,7 +162,7 @@
                 primary_type_id:    number(rg.typeID),
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
-                comment:            nullableString(rg.comment),
+                comment:            string(rg.comment),
                 secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number))
             };
         },
@@ -178,7 +178,7 @@
         },
 
         track: function (track) {
-            var recording = track.recording() || {};
+            var recording = value(track.recording) || {};
 
             return {
                 id:             number(track.id),
@@ -186,7 +186,7 @@
                 artist_credit:  fields.artistCredit(track.artistCredit),
                 recording_gid:  nullableString(recording.gid),
                 position:       number(track.position),
-                number:         nullableString(track.number),
+                number:         string(track.number),
                 length:         number(track.length)
             };
         }
@@ -319,7 +319,12 @@
 
 
     edit.recordingEdit = editConstructor(
-        TYPES.EDIT_RECORDING_EDIT
+        TYPES.EDIT_RECORDING_EDIT,
+        function (args, orig) {
+            if (args.name === orig.name) {
+                delete args.name;
+            }
+        }
     );
 
 

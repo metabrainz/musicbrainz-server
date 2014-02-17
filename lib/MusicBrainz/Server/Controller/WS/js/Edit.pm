@@ -74,15 +74,65 @@ our $entities_to_load = {
 
 our $data_processors = {
 
+    $EDIT_RELEASE_CREATE => sub { process_artist_credit(@_) },
+
+    $EDIT_RELEASE_EDIT => sub { process_artist_credit(@_) },
+
+    $EDIT_RELEASEGROUP_CREATE => sub { process_artist_credit(@_) },
+
     $EDIT_MEDIUM_CREATE => sub { process_medium(@_) },
 
     $EDIT_MEDIUM_EDIT => sub { process_medium(@_) },
+
+    $EDIT_RECORDING_EDIT => sub { process_artist_credit(@_) },
 
     $EDIT_RELATIONSHIP_CREATE => sub { process_relationship(@_) },
 
     $EDIT_RELATIONSHIP_EDIT => sub { process_relationship(@_) },
 };
 
+
+sub process_artist_credits {
+    my ($c, @artist_credits) = @_;
+
+    my @artist_gids;
+
+    for my $ac (@artist_credits) {
+        my @names = @{ $ac->{names} };
+
+        for my $name (@names) {
+            my $artist = $name->{artist};
+
+            if (!$artist->{id} && is_guid($artist->{gid}))  {
+                push @artist_gids, $artist->{gid};
+            }
+        }
+    }
+
+    return unless @artist_gids;
+
+    my $artists = $c->model('Artist')->get_by_gids(@artist_gids);
+
+    for my $ac (@artist_credits) {
+        my @names = @{ $ac->{names} };
+
+        for my $name (@names) {
+            my $artist = $name->{artist};
+            my $gid = delete $artist->{gid};
+
+            if ($gid and my $entity = $artists->{$gid}) {
+                $artist->{id} = $entity->id;
+            }
+        }
+    }
+}
+
+sub process_artist_credit {
+    my ($c, $data) = @_;
+
+    process_artist_credits($c, $data->{artist_credit})
+        if defined $data->{artist_credit};
+}
 
 sub process_medium {
     my ($c, $data) = @_;
@@ -93,22 +143,8 @@ sub process_medium {
     my @recording_gids = grep { $_ } map { $_->{recording_gid} } @tracks;
     my $recordings = $c->model('Recording')->get_by_gids(@recording_gids);
 
-    my @artist_gids;
-
-    for my $track (@tracks) {
-        my $ac = $track->{artist_credit};
-
-        if ($ac) {
-            my @names = @{ $ac->{names} };
-
-            for my $name (@names) {
-                my $artist = $name->{artist};
-                push @artist_gids, $artist->{gid} if $artist->{gid};
-            }
-        }
-    }
-
-    my $artists = $c->model('Artist')->get_by_gids(@artist_gids);
+    my @track_acs = grep { $_ } map { $_->{artist_credit} } @tracks;
+    process_artist_credits($c, @track_acs) if scalar @track_acs;
 
     my $process_track = sub {
         my $track = shift;
@@ -124,16 +160,7 @@ sub process_medium {
         my $ac = $track->{artist_credit};
 
         if ($ac) {
-            my @names = @{ $ac->{names} };
-
-            for my $name (@names) {
-                my $artist = $name->{artist};
-                my $gid = delete $artist->{gid};
-
-                $artist->{id} = $artists->{$gid}->id if $gid;
-            }
-
-            $track->{artist_credit} = ArtistCredit->from_array(\@names);
+            $track->{artist_credit} = ArtistCredit->from_array($ac->{names});
         }
 
         return Track->new(%$track);

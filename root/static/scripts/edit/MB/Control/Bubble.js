@@ -26,15 +26,13 @@ MB.Control.BubbleBase = aclass({
         this.visible = ko.observable(false);
     },
 
-    show: function (control) {
+    show: function (control, stealFocus) {
         this.control = control;
         this.target(ko.dataFor(control));
         this.visible(true);
 
-        var $control = $(control);
-
-        if ($control.is(":button") && !this.$bubble.isTrapping()) {
-            this.$bubble.trap();
+        if (stealFocus !== false && $(control).is(":button")) {
+            MB.utility.deferFocus(":input:first", this.$bubble);
         }
 
         var activeBubble = this.activeBubbles[this.group];
@@ -62,6 +60,9 @@ MB.Control.BubbleBase = aclass({
         }
     },
 
+    // Action upon pressing enter in an input. Defaults to hide.
+    submit: function () { this.hide() },
+
     toggle: function (control) {
         if (this.visible.peek()) {
             this.hide();
@@ -74,7 +75,7 @@ MB.Control.BubbleBase = aclass({
         return true;
     },
 
-    redraw: function () {
+    redraw: function (stealFocus) {
         if (this.visible.peek()) {
             // It's possible that the control we're pointing at has been
             // removed, hence why MutationObserver has triggered a redraw. If
@@ -84,7 +85,7 @@ MB.Control.BubbleBase = aclass({
                 this.hide(false);
             }
             else {
-                this.show(this.control);
+                this.show(this.control, !!stealFocus, true /* isRedraw */);
             }
         }
     },
@@ -125,10 +126,16 @@ MB.Control.ArtistCreditBubbleBase = {
         event.stopPropagation();
 
         var artistCredit = this.target();
+        var names = artistCredit.names();
+        var index = _.indexOf(names, name);
+
         artistCredit.removeName(name);
 
+        // Handle case where the last name is removed.
+        if (index === names.length) index--;
+
         // Move focus to the previous remove icon
-        this.$bubble.find("input.icon.remove-artist-credit:last").focus();
+        $(".remove-artist-credit:eq(" + index + ")", this.$bubble).focus();
     },
 
     copyArtistCredit: function () {
@@ -243,7 +250,7 @@ $(function () {
     // since there can be a lot of bubble controls on the page, event
     // delegation is better for performance.
 
-    function bubbleHandler(event) {
+    function bubbleControlHandler(event) {
         var control = event.target;
         var bubble = control.bubbleDoc;
 
@@ -254,7 +261,13 @@ $(function () {
             if ($active.length && !$active.has(control).length) {
                 bubble = $active[0].bubbleDoc;
 
-                if (bubble.closeWhenFocusIsLost) {
+                if (bubble.closeWhenFocusIsLost &&
+                    !event.isDefaultPrevented() &&
+
+                    // Close unless focus was moved to a dialog above this
+                    // one, i.e. when adding a new entity.
+                    !$(event.target).parents(".ui-dialog").length) {
+
                     bubble.hide(false);
                 }
             }
@@ -276,17 +289,51 @@ $(function () {
 
             } else if (inputFocused || (buttonClicked && !wasOpen)) {
                 bubble.show(control);
-
-                if (buttonClicked) {
-                    bubble.$bubble.find(":input:first").focus();
-                }
             }
         }
         // Prevent the default action from occuring.
         return false;
     }
 
-    $("body").on("click focusin", bubbleHandler);
+
+    // Pressing enter should close the bubble or perform a custom action (i.e.
+    // going to the next track). Pressing escape should always close it.
+
+    function bubbleKeydownHandler(event) {
+        if (event.isDefaultPrevented()) {
+            return;
+        }
+
+        var $target = $(event.target);
+        var $bubble = $target.parents("div.bubble");
+
+        var pressedEsc = event.which === 27;
+        var pressedEnter = event.which === 13;
+
+        if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
+            event.preventDefault();
+
+            // This causes any "value" binding on the input to update its
+            // associated observable. e.g. if the user types something in a
+            // join phrase field and hits esc., the join phrase in the view
+            // model should update. This should run before the code below,
+            // because the view model for the bubble may change.
+            $target.trigger("change");
+
+            var bubbleDoc = $bubble[0].bubbleDoc;
+
+            if (pressedEsc) {
+                bubbleDoc.hide();
+            }
+            else if (pressedEnter) {
+                bubbleDoc.submit();
+            }
+        }
+    }
+
+    $("body")
+        .on("click focusin", bubbleControlHandler)
+        .on("keydown", "div.bubble :input", bubbleKeydownHandler);
 });
 
 

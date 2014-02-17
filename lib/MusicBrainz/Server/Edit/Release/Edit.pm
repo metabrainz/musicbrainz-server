@@ -309,6 +309,8 @@ sub _edit_hash
         ];
     }
 
+    $data->{comment} //= '' if exists $data->{comment};
+
     return $data;
 }
 

@@ -290,6 +290,10 @@ MB.utility.moveArrayItem = function (array, from, to) {
     array.splice(to, 0, array.splice(from, 1)[0]);
 };
 
+// Compares two names, considers them equivalent if there are only case
+// changes, changes in punctuation and/or changes in whitespace between
+// the two strings.
+
 MB.utility.similarity = (function () {
     var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
@@ -306,14 +310,6 @@ MB.utility.similarity = (function () {
         return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
     };
 }());
-
-// Compares two names, considers them equivalent if there are only case
-// changes, changes in punctuation and/or changes in whitespace between
-// the two strings.
-
-MB.utility.nameIsSimilar = function (a, b) {
-    return MB.utility.similarity(a, b) >= 0.75;
-};
 
 MB.utility.optionCookie = function (name, defaultValue) {
     var existingValue = $.cookie(name);
@@ -389,15 +385,11 @@ MB.utility.formatDate = function (date) {
     var m = ko.unwrap(date.month);
     var d = ko.unwrap(date.day);
 
-    if (!y && !m && !d) {
-        return "";
-    }
-
-    y = y ? _.str.pad(y, 4, "0") : "????";
-    m = m ? _.str.pad(m, 2, "0") : "??";
-    d = d ? _.str.pad(d, 2, "0") : "??";
-
-    return y + "-" + m + "-" + d;
+    return (
+        (y ?       _.str.pad(y, 4, "0") : (m || d ? "????" : "")) +
+        (m ? "-" + _.str.pad(m, 2, "0") : (d ? "-??" : "")) +
+        (d ? "-" + _.str.pad(d, 2, "0") : "")
+    );
 };
 
 MB.utility.deferFocus = function () {

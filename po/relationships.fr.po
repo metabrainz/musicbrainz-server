@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-04 03:20+0000\n"
-"Last-Translator: nikki\n"
+"PO-Revision-Date: 2014-02-15 19:08+0000\n"
+"Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1348,6 +1348,10 @@ msgstr "Ceci relie un label à une chaîne, liste de lecture ou page d'utilisate
 msgid "This links a recording to a license under which it is available."
 msgstr "Ceci relie un enregistrement à une licence sous laquelle il est disponible."
 
+#: DB:link_type/description:726
+msgid "This links a recording to the balance engineer who engineered it."
+msgstr "Ceci relie un enregistrement au régisseur musical de la production."
+
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
@@ -1365,6 +1369,10 @@ msgstr "Ceci relie un groupe de parution au lieu de son événement de lancement
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr "Ceci relie une parution  à une licence sous laquelle elle est disponible."
+
+#: DB:link_type/description:727
+msgid "This links a release to the balance engineer who engineered it."
+msgstr "Ceci relie une parution au régisseur musical de la production."
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."
@@ -1649,6 +1657,15 @@ msgid ""
 "programming of electronic instruments. (<a "
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr "Cette relation relie une piste ou une parution à la personne qui a programmé les instruments électroniques. (<a href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Détails</a>)"
+
+#: DB:link_type/description:728
+msgid ""
+"This relationship specifies that an artist is a <a "
+"href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
+"specific artist/band; that is, it primarily performs covers of that artist.​"
+" They may also be referred to as cover bands. Some tribute artists may name "
+"themselves, dress, and/or act similarly to the artists they pay tribute to."
+msgstr "Cette relation spécifie qu'un artiste est un <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> à un autre artiste spécifique/groupe; c.-à-d. qu'il interprète principalement des reprises de cet artiste. On y réfère aussi comme groupe de reprise. Certains de ces artistes peuvent s'habiller et se comporter comme les artistes auxquels ils rendent hommage."
 
 #: DB:link_type/description:462
 msgid ""
@@ -2673,6 +2690,10 @@ msgstr "est un rematriçage de"
 msgid "is a remix of"
 msgstr "est un remix de"
 
+#: DB:link_type/long_link_phrase:728
+msgid "is a tribute to"
+msgstr "est un hommage à"
+
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -3462,7 +3483,11 @@ msgstr "préparatifs de voyage pour"
 msgid "tribute albums"
 msgstr "albums hommage"
 
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:728
+msgid "tribute artists"
+msgstr "artistes hommage"
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr "hommage à"
 
@@ -3615,6 +3640,12 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
 
+#: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
+#: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
+msgid ""
+"{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
+msgstr "{additional:aussi} {co:co-}régisseur musical {assistant} {associate:associé} "
+
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
@@ -3758,6 +3789,10 @@ msgstr "auteur {additional:supplémentaire}"
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{co:co-}ingénieur du son {additional:supplémentaire} {assistant} {associate:associé}"
+
+#: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
+msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
+msgstr "{co:co-}régisseur musical {assistant} {associate:associé} {additional:supplémentaire}"
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"
