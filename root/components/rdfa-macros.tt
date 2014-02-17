@@ -437,9 +437,6 @@ END -%]
   END;
 END -%]
 
-[%- MACRO rdfa_recording_relase_ns(recording) BLOCK;
-END -%]
-
 [%- MACRO rdfa_release_label_list(labels) BLOCK;
     out = [];
     seen = {};
