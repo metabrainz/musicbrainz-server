@@ -1092,3 +1092,9 @@ END -%]
 [%- MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
+
+[%- MACRO link_isni(isni) BLOCK -%]
+    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
+        [%- format_isni(isni) -%]
+    </a>
+[%- END -%]

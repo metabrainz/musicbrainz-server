@@ -37,7 +37,7 @@
             [%- END -%]
             [%- FOR isni_code IN label.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                 content=rdfa_label_isni(isni_code) class="isni-code" %]
+                 content=link_isni(isni_code.isni) class="isni-code" %]
             [%- END -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
                content=html_escape(label.format_label_code) class="label-code"
