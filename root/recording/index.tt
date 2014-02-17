@@ -28,7 +28,7 @@
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
 		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
                       <td>[%- rdfa_label_title(track.name) -%]</td>
-                      <td>[%- rdfa_recording_duration(track) -%]</td>
+                      <td>[%- format_length(track.length) -%]</td>
                       <td>[%- rdfa_link_release_track(release, track) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
                       <td>[% release_dates(release.events) %]</td>

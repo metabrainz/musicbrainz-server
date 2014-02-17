@@ -9,7 +9,7 @@
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
                content=artist_credit(recording.artist_credit) class="artist" %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-               content=rdfa_recording_duration(recording) class="length"
+               content=format_length(recording.length) class="length"
                    IF recording.length -%]
             [%- FOR isrc IN recording.isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]

@@ -53,7 +53,7 @@
                   [% END %]
               </td>
               [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
-              <td>[% rdfa_recording_duration(recording, '[rec:]') %]</td>
+              <td>[% format_length(recording.length) %]</td>
           </tr>
           [% ELSE %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>

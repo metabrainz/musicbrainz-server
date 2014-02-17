@@ -208,14 +208,6 @@ END -%]
  [%- IF doRDFa -%]about="[%- rdfa_track_blank_node(track) -%]" typeof="[%- rdfa_concept_curi('track') -%]" [%- rdfa_release_ns(release) -%][%- END -%]
 [%- END -%]
 
-[%- MACRO rdfa_recording_duration(recording, about) BLOCK -%]
- [%- IF doRDFa -%]
- <span [%- 'about="' _ about _ '" ' IF about -%] property="mo:duration" datatype="xsd:duration" content="[%- recording.length | format_length_xsd IF recording.length -%]">[%- recording.length | format_length -%]</span>
- [%- ELSE -%]
- [%- recording.length | format_length -%]
- [%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
     [%- FOREACH name IN ac.names -%]
         [%- IF name.artist.gid && !opts.plain -%]

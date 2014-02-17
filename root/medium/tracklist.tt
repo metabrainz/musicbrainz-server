@@ -82,6 +82,6 @@ dl.ars dt {
     [% UNLESS hide_rating %]
     <td class="rating c">[% rating_stars(recording) %]</td>
     [% END %]
-    <td class="treleases">[% rdfa_recording_duration(track) %]</td>
+    <td class="treleases">[% format_length(track.length) %]</td>
 </tr>
 [%- END -%]
