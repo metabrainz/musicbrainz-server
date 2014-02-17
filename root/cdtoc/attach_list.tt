@@ -1,5 +1,5 @@
 [% MACRO attach_list_row(release, show_artists) BLOCK %]
-  <tr[% ' class="ev"' IF zebra % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+  <tr[% ' class="ev"' IF zebra % 2 == 0 %] [% rdfa_release_ns(release) %]>
     <td colspan="2">
       [% rdfa_event_product_release_link(release) %]
       [% disambiguation(release) %]

@@ -63,8 +63,7 @@
                         <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
                     [% last_rg_type = rgtype %]
                 [% END %]
-                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]
-		    [% rdfa_release_group_ns(rg) %]>
+                <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
                     [% IF c.user_exists %]
                     <td>
                         <input type="checkbox" name="add-to-merge"

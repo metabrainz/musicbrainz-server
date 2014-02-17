@@ -260,10 +260,6 @@ END -%]
 
 [%-# Artist index page - Artist release groups #-%]
 
-[%- MACRO rdfa_release_group_ns(rg) BLOCK;
-   'xmlns:rg="' _ rdfa_release_group_uri(rg) _ '"' IF doRDFa;
-END -%]
-
 [%- MACRO rdfa_made_rg_link(rg, action, text) BLOCK;
   IF doRDFa;
     action = action || 'show';
