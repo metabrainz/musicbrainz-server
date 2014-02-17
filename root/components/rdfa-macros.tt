@@ -351,21 +351,6 @@ END -%]
    [%- IF doRDFa -%]<span property="mo:track_number" datatype="xsd:positiveInteger">[%- END -%][%- position -%][%- IF doRDFa -%]</span>[%- END -%]
 [%- END -%]
 
-[%-##########-%]
-[%-# Labels #-%]
-[%-##########-%]
-[%- MACRO rdfa_label_release_link(release) BLOCK;
-  IF doRDFa;
-    link = c.uri_for_action("/release/show", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : html_escape(text);
-    '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<a rel="foaf:isPrimaryTopicOf" href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a>';
-    '</span>' IF release.edits_pending AND action == 'show';
-  ELSE;
-    link_release(release);
-  END;
-END -%]
-
 [%-########################-%]
 [%-# pagination / seeAlso #-%]
 [%-########################-%]
