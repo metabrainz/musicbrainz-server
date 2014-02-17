@@ -11,7 +11,7 @@
     <td>[% release_countries(release.events) %]</td>
     <td>[% rdfa_release_label_list(release.labels) %]</td>
     <td>[% rdfa_release_catno_list(release.labels) %]</td>
-    <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
+    <td>[% release.barcode.format %]</td>
     [%- IF c.try_get_session('tport') -%]
       <td>[% tagger_icon(release) %]</td>
     [%- END -%]

@@ -259,13 +259,6 @@ END -%]
  '</span>' IF doRDFa;
 END -%]
 
-[%-# note assumes rdfa_release_ns() is active #-%]
-[%- MACRO rdfa_release_barcode(barcode) BLOCK;
- '<span about="' _ rdfa_release_curi(release) _ '" property="mo:ean">' IF doRDFa;
- '' _ barcode _ '';
- '</span>' IF doRDFa;
-END -%]
-
 [%-# Artist works tab #-%]
 [%- MACRO rdfa_made_work_link(work, action, text) BLOCK;
   IF doRDFa;
