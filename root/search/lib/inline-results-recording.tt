@@ -32,7 +32,7 @@
                 <td>[% artist_credit(result.entity.artist_credit) %]</td>
                 <td>
                   [% FOR isrc=result.entity.isrcs %]
-                    [% link_isrc(isrc.isrc) %]<br />
+                    [% link_isrc(isrc) %]<br />
                   [% END %]
                 </td>
               [%- ELSE -%]
@@ -57,7 +57,7 @@
             <td>[% artist_credit(result.entity.artist_credit) %]</td>
             <td>
               [% FOR isrc=result.entity.isrcs %]
-                [% link_isrc(isrc.isrc) %]<br />
+                [% link_isrc(isrc) %]<br />
               [% END %]
             </td>
             <td>[% l('(standalone recording)') %]</td>

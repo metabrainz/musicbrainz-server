@@ -427,18 +427,18 @@ END -%]
 
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    link = c.uri_for_action("/isrc/$action", [ isrc.isrc ]);
     '<span class="mp">' IF isrc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(isrc.isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_iswc(iswc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    link = c.uri_for_action("/iswc/$action", [ iswc.iswc ]);
     '<span class="mp">' IF iswc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(iswc.iswc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF iswc.edits_pending AND action == 'show';
 END -%]

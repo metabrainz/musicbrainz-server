@@ -13,7 +13,7 @@
                    IF recording.length -%]
             [%- FOR isrc IN recording.isrcs -%]
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" %]
-                [% link_isrc(recording, isrc) %]
+                [% link_isrc(isrc) %]
                 [% END %]
             [%- END -%]
         [% END %]

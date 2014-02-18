@@ -49,7 +49,7 @@
               <td>
                   [% FOR isrc=recording.isrcs %]
                       [% '<br />' IF loop.index > 0 %]
-                      [% link_isrc(isrc.isrc) %]
+                      [% link_isrc(isrc) %]
                   [% END %]
               </td>
               [% UNLESS no_ratings%]<td>[% rating_stars(recording) %]</td>[% END %]
