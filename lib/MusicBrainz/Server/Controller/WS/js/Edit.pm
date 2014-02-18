@@ -277,14 +277,14 @@ sub create_edits {
     } @{ $data->{edits} };
 }
 
-sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) {
+sub edit : Chained('/') PathPart('ws/js/edit') CaptureArgs(0) Edit {
     my ($self, $c) = @_;
 
     $c->res->content_type('application/json; charset=utf-8');
     detach_with_error($c, 'not logged in') unless $c->user;
 }
 
-sub create : Chained('edit') PathPart('create') {
+sub create : Chained('edit') PathPart('create') Edit {
     my ($self, $c) = @_;
 
     my $data = get_request_body($c);
@@ -373,7 +373,7 @@ sub create : Chained('edit') PathPart('create') {
     $c->res->body($JSON->encode({ edits => \@response }));
 }
 
-sub preview : Chained('edit') PathPart('preview') {
+sub preview : Chained('edit') PathPart('preview') Edit {
     my ($self, $c) = @_;
 
     my $data = get_request_body($c);

@@ -44,7 +44,7 @@ sub _build_providers {
         RegularExpressionProvider->new(
             name               => 'archive.org',
             domain             => 'archive.org',
-            uri_expression     => '^(.*(\.jpg|\.jpeg|\.png|\.gif|))$',
+            uri_expression     => '^(https?://.*archive\.org/.*(\.jpg|\.jpeg|\.png|\.gif|))$',
             image_uri_template => '$1',
         ),
         RegularExpressionProvider->new(

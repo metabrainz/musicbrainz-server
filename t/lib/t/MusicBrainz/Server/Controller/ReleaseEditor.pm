@@ -3,7 +3,7 @@ use utf8;
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Controller::ReleaseEditor qw( _process_seeded_data );
 use Test::More;
-use Test::Deep qw( cmp_deeply ignore );
+use Test::Deep qw( cmp_deeply cmp_bag ignore );
 use Test::Routine;
 
 with 't::Context';
@@ -37,7 +37,7 @@ test 'detecting indexes that start at 0 instead of 1' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         "artist_credit.names.0 isn’t defined, do your indexes start at 0?",
         "labels.0 isn’t defined, do your indexes start at 0?",
         "mediums.0 isn’t defined, do your indexes start at 0?",
@@ -73,7 +73,7 @@ test 'treating negative indexes as unknown fields' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'mediums must be an array',
         'Unknown field: mediums.-1',
     ]);
@@ -89,7 +89,7 @@ test 'returning an error for literal "n" as an index' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'mediums must be an array',
         'Unknown field: mediums.n',
     ]);
@@ -107,7 +107,7 @@ test 'returning an error for zero-padded indexes' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'mediums.0.track must be an array',
         'Unknown field: mediums.0.track.01',
         'Unknown field: mediums.0.track.00',
@@ -146,7 +146,7 @@ test 'returning an error when a space appears before an MBID' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'Invalid mediums.0.track.0.artist_credit.names.0.mbid: “ 9bffb20c-dd17-4895-9fd1-4e73e888d799”.',
     ]);
 };
@@ -223,7 +223,7 @@ test 'seeding a string where an array is expected' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'mediums.0.track.0.artist_credit must be a hash.',
     ]);
 };
@@ -238,7 +238,7 @@ test 'seeding a an array where a string is expected' => sub {
 
     my $result = MusicBrainz::Server::Controller::ReleaseEditor->_process_seeded_data($c, $params);
 
-    cmp_deeply($result->{errors}, [
+    cmp_bag($result->{errors}, [
         'mediums.0.track.0.artist_credit.names.0.name must be a scalar, not a hash or array.',
     ]);
 };
