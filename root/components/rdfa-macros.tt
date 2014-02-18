@@ -112,28 +112,3 @@ END -%]
     link_release(release);
   END;
 END -%]
-
-[%-########################-%]
-[%-# pagination / seeAlso #-%]
-[%-########################-%]
-
-[%- MACRO rdfa_paginator_previous_page(pager) BLOCK;
-  IF doRDFa -%]
-    <a rel="xhv:first" href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
-    <a rel="xhv:prev" href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
-  [%- ELSE -%]
-    <a href="[% c.req.uri_with( page => pager.first_page ) | html %]">&#171;</a>
-    <a href="[% c.req.uri_with( page => pager.previous_page ) | html %]">&#8249;</a>
-  [%- END;
-END -%]
-
-[%- MACRO rdfa_paginator_next_page(pager) BLOCK;
-  IF doRDFa -%]
-    <a rel="xhv:next" href="[% c.req.uri_with( page => pager.next_page ) | html %]">&#8250;</a>
-    <a rel="xhv:last" href="[% c.req.uri_with( page => pager.last_page ) | html %]">&#187;</a>
-  [%- ELSE -%]
-    <a href="[% c.req.uri_with( page => pager.next_page ) | html %]">&#8250;</a>
-    <a href="[% c.req.uri_with( page => pager.last_page ) | html %]">&#187;</a>
-  [%- END;
-END -%]
-
