@@ -6,19 +6,3 @@
 [%- SET doRDFa = 1; -%]
 
 [%- SET hash_suffix = '_'; -%]
-
-[%-###########-%]
-[%-# Release #-%]
-[%-###########-%]
-
-[%- MACRO rdfa_medium_in_release(release, medium) BLOCK -%]
-    [%- fragment = "disc" _ medium.position -%]
-    <a rel="mo:record" id="[%- fragment  -%]"
-       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
-    [%~ medium_format_name(medium) =%]
-    [%= medium.position ~%]
-    [%~ IF medium.name ~%]:
-       [%= medium.name | html ~%]
-    [%~ END ~%]
-    </a>
-[%- END -%]

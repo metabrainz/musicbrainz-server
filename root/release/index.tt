@@ -65,7 +65,7 @@
             <td>&#xa0;</td>
             <td data-bind="attr: { colspan: 3 + ($root.showVideo ? 1 : 0) + ($root.showArtists ? 1 : 0) }">
               <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
-              <!-- [% rdfa_medium_in_release(release, medium) %] -->
+              <!-- [% medium_in_release(release, medium) %] -->
             </td>
           </tr>
           <!-- ko foreach: tracks -->

@@ -906,6 +906,18 @@ END -%]
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
 [%- END -%]
 
+[%- MACRO medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a id="[%- fragment -%]"
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
+    [%~ medium_format_name(medium) =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
+    </a>
+[%- END -%]
+
 [%- MACRO filter_button BLOCK -%]
   <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
