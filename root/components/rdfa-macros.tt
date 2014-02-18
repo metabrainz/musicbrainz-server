@@ -44,10 +44,6 @@
 [%-# map MB types to RDF concepts #-%]
 [%-################################-%]
 
-[%- MACRO rdfa_country_to_curi(country) BLOCK;
- 'http://ontologi.es/place/' _ country.primary_code;
-END -%]
-
 [%- MACRO rdfa_format_curi(medium) BLOCK;
   '[mfo:' _ url_escape(medium.format_name.replace(' ','_')) _ ']';
 END -%]
@@ -55,43 +51,9 @@ END -%]
 [%-################-%]
 [%-# compact uris #-%]
 [%-################-%]
-[%- MACRO rdfa_artist_uri(artist) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/artist/$action", [ artist.gid ]);
-    '' _ link _ '#' _ hash_suffix;
-END -%]
-
 [%- MACRO rdfa_track_blank_node(track) BLOCK -%]
 [_:[%- track.id -%]]
 [%- END -%]
-
-[%- MACRO rdfa_recording_uri(rec) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    '' _ link _ '#_';
-END -%]
-
-[%- MACRO rdfa_release_uri(release) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/release/$action", [ release.gid ]);
-    '' _ link _ '#' _ hash_suffix;
-END -%]
-
-[%- MACRO rdfa_release_event_curi(release) BLOCK;
-    '[mbz:release/' _ release.gid _ '#event]';
-END -%]
-
-[%- MACRO rdfa_release_event_uri(release) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/release/$action", [ release.gid ]);
-    '' _ link _ '#event';
-END -%]
-
-[%- MACRO rdfa_release_group_uri(rg) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
-    '' _ link _ '#' _ hash_suffix ;
-END -%]
 
 [%-#####################-%]
 [%-# Artist pages RDFa #-%]
@@ -153,9 +115,9 @@ END -%]
 
 [%- MACRO rdfa_release_invisible_header(release) BLOCK -%]
 [%- IF doRDFa -%]
-<span rel="mo:publishing_location" resource="[%- rdfa_country_to_curi(release.country) -%]"></span>
+<span rel="mo:publishing_location"></span>
 <span rel="rdf:type" resource="[%- rdfa_format_list(release.mediums) -%]"></span>
-<span rel="mo:release_event"><span about="[%- rdfa_release_event_curi(release) -%]" typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- release.date.format | date_xsd_type -%]" content="[%- release.date.format -%]"></span></span>
+<span rel="mo:release_event"><span typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- release.date.format | date_xsd_type -%]" content="[%- release.date.format -%]"></span></span>
 [%- END -%]
 [%- END -%]
 
