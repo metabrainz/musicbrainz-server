@@ -40,14 +40,6 @@
 [%- END -%]
 [%- END -%]
 
-[%-################################-%]
-[%-# map MB types to RDF concepts #-%]
-[%-################################-%]
-
-[%- MACRO rdfa_format_curi(medium) BLOCK;
-  '[mfo:' _ url_escape(medium.format_name.replace(' ','_')) _ ']';
-END -%]
-
 [%-#####################-%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
@@ -121,13 +113,6 @@ END -%]
 [%-#################-%]
 [%-# Release Group #-%]
 [%-#################-%]
-
-[%-# TODO change to set? #-%]
-[%- MACRO rdfa_format_list(mediums) BLOCK;
-    list = [];
-    list.push(rdfa_format_curi(medium)) FOR medium=mediums;
-    list.join(' ');
-END -%]
 
 [%-# assumes rdfa_release_ns and rdfa_release_group_ns #-%]
 [%- MACRO rdfa_event_product_release_link(release) BLOCK;
