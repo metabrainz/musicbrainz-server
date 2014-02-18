@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 10:09+0000\n"
-"Last-Translator: Ismael Olea <email address hidden>\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,6 +72,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Nombre de artista"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -86,6 +91,11 @@ msgstr "Trasera"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Ballet"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -311,6 +321,11 @@ msgstr "Holding"
 msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "SACD híbrido"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"

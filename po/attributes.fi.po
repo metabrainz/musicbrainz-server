@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Artistin nimi"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -79,6 +84,11 @@ msgstr "Takakansi"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Baletti"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -304,6 +314,11 @@ msgstr "Holding"
 msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "Hybridi-SACD"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"

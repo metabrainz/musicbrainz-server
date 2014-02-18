@@ -19,15 +19,14 @@
 
 MB.RelationshipEditor = (function(RE) {
 
-var UI = RE.UI = RE.UI || {}, Util = RE.Util = RE.Util || {},
-    $tracklist, releaseLoaded;
+var UI = RE.UI = RE.UI || {};
+var Util = RE.Util = RE.Util || {};
+var $tracklist = $();
+
 
 RE.releaseViewModel = {
     RE: RE,
-    release: ko.observable({relationships: []}),
-    releaseGroup: ko.observable({relationships: []}),
-    media: ko.observableArray([]),
-
+    release: ko.observable(null),
     activeDialog: ko.observable(),
 
     checkboxes: (function() {
@@ -70,7 +69,9 @@ RE.releaseViewModel = {
             if (relationship.action.peek()) changed.push(relationship);
         };
 
-        _.each(this.media.peek(), function(medium) {
+        var release = this.release.peek();
+
+        _.each(release.mediums, function(medium) {
             _.each(medium.tracks, function(track) {
                 var recording = track.recording;
 
@@ -82,8 +83,8 @@ RE.releaseViewModel = {
                 });
             });
         });
-        _.each(this.release.peek().relationships.peek(), addChanged);
-        _.each(this.releaseGroup.peek().relationships.peek(), addChanged);
+        _.each(release.relationships.peek(), addChanged);
+        _.each(release.releaseGroup.relationships.peek(), addChanged);
 
         if (changed.length == 0) {
             this.submissionLoading(false);
@@ -96,7 +97,7 @@ RE.releaseViewModel = {
             relationship.buildFields(num, data);
         });
 
-        data["rel-editor.edit_note"] = _.trim($("#id-rel-editor\\.edit_note").val());
+        data["rel-editor.edit_note"] = _.str.trim($("#id-rel-editor\\.edit_note").val());
         data["rel-editor.as_auto_editor"] = $("#id-rel-editor\\.as_auto_editor").is(":checked") ? 1 : 0;
 
         if (beforeUnload) window.onbeforeunload = undefined;
@@ -141,41 +142,25 @@ RE.releaseViewModel = {
         });
         this.submissionLoading(false);
         this.submissionError(data.message);
+    },
+
+    releaseLoaded: function (data) {
+        var release = MB.entity(data, "release")
+        .extend({
+            releaseGroup: MB.entity(data.releaseGroup, "release_group"),
+            mediums: _.map(data.mediums, MB.entity.Medium)
+        });
+
+        RE.releaseViewModel.release(release);
+
+        var trackCount = _.reduce(release.mediums,
+            function (memo, medium) { return memo + medium.tracks.length }, 0);
+
+        initButtons();
+        initCheckboxes(trackCount);
     }
 };
 
-RE.releaseViewModel['changes'] = ko.computed(function () {
-    var breaker = {};
-    var breakIfChanged = function (relationship) {
-        if (relationship.action()) throw breaker;
-    };
-
-    try {
-        _.each(RE.releaseViewModel.media(), function(medium) {
-            _.each(medium.tracks, function(track) {
-                var recording = track.recording;
-
-                _.each(recording.relationships(), breakIfChanged);
-
-                _.each(recording.performanceRelationships(), function(relationship) {
-                    breakIfChanged(relationship);
-                    _.each(relationship.entity[1]().relationships(), breakIfChanged);
-                });
-            });
-        });
-        _.each(RE.releaseViewModel.release().relationships, breakIfChanged);
-        _.each(RE.releaseViewModel.releaseGroup().relationships, breakIfChanged);
-    }
-    catch (e) {
-        if (e == breaker) {
-            return true;
-        }
-        else {
-            throw e;
-        }
-    }
-    return false;
-});
 
 UI.init = function(releaseGID, releaseGroupGID, data) {
     RE.releaseViewModel.GID = releaseGID;
@@ -186,54 +171,26 @@ UI.init = function(releaseGID, releaseGroupGID, data) {
 
     ko.applyBindings(RE.releaseViewModel, document.getElementById("content"));
 
-    RE.releaseViewModel.changes.subscribe(function (hasChanges) {
-        if (hasChanges) {
-            window.onbeforeunload = function() {
-                return MB.text.ConfirmNavigation;
-            };
-        }
-        else {
-            window.onbeforeunload = undefined;
-        }
-    });
+    MB.utility.computedWith(function (release) {
+        var hasChanges = release.hasRelationshipChanges() ||
+                         release.releaseGroup.hasRelationshipChanges();
+
+        window.onbeforeunload = hasChanges ?
+            _.constant(MB.text.ConfirmNavigation) : undefined;
+
+    }, RE.releaseViewModel.release);
 
     if (data) {
-        releaseLoaded(data);
+        RE.releaseViewModel.releaseLoaded(data);
     } else {
-        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels",
+        var url = "/ws/js/release/" + releaseGID + "?inc=recordings+rels+media",
             $loading = $(UI.loadingIndicator).insertAfter("#tracklist");
 
         $.getJSON(url, function(data) {
-            releaseLoaded(data);
+            RE.releaseViewModel.releaseLoaded(data);
             $loading.remove();
         });
     }
-};
-
-
-releaseLoaded = function (data) {
-    var release = MB.entity(data, "release");
-    var mediumData, medium;
-    var trackCount = 0;
-
-    RE.releaseViewModel.release(release);
-    RE.releaseViewModel.releaseGroup(MB.entity(data.release_group, "release_group"));
-
-    for (var i = 0, len = data.mediums.length; i < len; i++) {
-        mediumData = data.mediums[i];
-        trackCount += mediumData.tracks.length;
-        RE.releaseViewModel.media.push(new MB.entity.Medium(mediumData));
-
-        Util.callbackQueue(mediumData.tracks, function (trackData) {
-            Util.parseRelationships(trackData.recording, "recording");
-        });
-    }
-
-    initButtons();
-    initCheckboxes(trackCount);
-
-    Util.parseRelationships(data, "release");
-    Util.parseRelationships(data.release_group, "release_group");
 };
 
 
@@ -249,13 +206,13 @@ RE.createWorks = function(works, editNote, success, error) {
 
     _.each(works, function(work, i) {
         var prefix = ["create-works", "works", i, ""].join(".");
-        fields[prefix + "name"] = _.clean(work.name);
-        fields[prefix + "comment"] = _.clean(work.comment);
+        fields[prefix + "name"] = _.str.clean(work.name);
+        fields[prefix + "comment"] = _.str.clean(work.comment);
         fields[prefix + "type_id"] = work.type;
         fields[prefix + "language_id"] = work.language;
     });
 
-    fields["create-works.edit_note"] = _.trim(editNote);
+    fields["create-works.edit_note"] = _.str.trim(editNote);
     $.post("/relationship-editor/create-works", fields).success(success).error(error);
 };
 
@@ -414,42 +371,7 @@ function initButtons() {
 }
 
 
-$(function() {
-    /* Every major browser supports onbeforeunload expect Opera. (This says
-       Opera 12 supports it, but it doesn't, at least not <= 12.10.)
-       https://developer.mozilla.org/en-US/docs/DOM/window.onbeforeunload
-     */
-    if (!("onbeforeunload" in window)) {
-        var prevented = false;
-
-        /* This catches the backspace key and asks the user whether they want to
-           navigate back.
-
-           Opera < 12.10 fires both keydown and keypress events, but keypress
-           must return false. Opera >= 12.10 doesn't fire keypress for special
-           keys, so keydown must return false. Regular event listeners and/or
-           preventDefault don't work for this, they must be assigned directly
-           to document.onkeydown and document.onkeypress.
-         */
-        document.onkeydown = function(event) {
-            if (event.keyCode == 8) {
-                var node = event.srcElement || event.target, tag = node.tagName.toLowerCase(),
-                    type = (node.type || "").toLowerCase(),
-                    prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
-
-                if (prevent && !confirm(MB.text.ConfirmNavigation)) {
-                    prevented = true;
-                    return false;
-                }
-            }
-        };
-
-        document.onkeypress = function(event) {
-            if (prevented)
-                return (prevented = false);
-        };
-    }
-});
+$(MB.confirmNavigationFallback);
 
 return RE;
 

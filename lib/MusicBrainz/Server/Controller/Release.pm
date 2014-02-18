@@ -438,8 +438,6 @@ sub reorder_cover_art : Chained('load') PathPart('reorder-cover-art') Edit
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_RELEASE_MERGE,
-    confirmation_template => 'release/merge_confirm.tt',
-    search_template => 'release/merge_search.tt',
     merge_form => 'Merge::Release',
 };
 

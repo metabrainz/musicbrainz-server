@@ -14,6 +14,23 @@ sub edit_name { N_l('Merge labels') }
 sub _merge_model { 'Label' }
 sub subscription_model { shift->c->model('Label')->subscription }
 
+sub label_ids { @{ shift->_entity_ids } }
+
+sub foreign_keys
+{
+    my $self = shift;
+    return {
+        Label => {
+            map {
+                $_ => [ 'LabelType', 'Area' ]
+            } (
+                $self->data->{new_entity}{id},
+                map { $_->{id} } @{ $self->data->{old_entities} },
+            )
+        }
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

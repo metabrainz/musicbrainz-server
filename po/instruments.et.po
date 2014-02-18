@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-22 21:19+0000\n"
+"PO-Revision-Date: 2014-02-09 16:06+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -2006,6 +2006,10 @@ msgstr "stepptants"
 #: DB:link_attribute_type/name:632
 msgid "tape"
 msgstr "lint"
+
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr "tar (trumm)"
 
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"

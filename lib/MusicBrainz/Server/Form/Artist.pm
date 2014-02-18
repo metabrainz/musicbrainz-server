@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Form::Artist;
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Form::Utils qw( select_options );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -58,8 +59,8 @@ sub edit_field_names
                ipi_codes isni_codes );
 }
 
-sub options_gender_id   { shift->_select_all('Gender') }
-sub options_type_id     { shift->_select_all('ArtistType') }
+sub options_gender_id   { select_options(shift->ctx, 'Gender') }
+sub options_type_id     { select_options(shift->ctx, 'ArtistType') }
 
 sub dupe_model { shift->ctx->model('Artist') }
 

@@ -22,11 +22,16 @@ MB.RelationshipEditor = (function (RE) {
 
 MB.entity.CoreEntity.extend({
 
-    after$init: function () {
+    after$init: function (data) {
         this.relationships = ko.observableArray([]);
+
+        // XXX This must be deferred (i.e. run outside of this call stack),
+        // because parseRelationships will try to instantiate the exact same
+        // entity we're calling from, leading to infinite recursion.
+        _.defer(RE.Util.parseRelationships, data, this.type);
     },
 
-    toJS: function () {
+    toJSON: function () {
         return { gid: this.gid, type: this.type };
     },
 
@@ -41,7 +46,7 @@ MB.entity.CoreEntity.extend({
             var other = relationships[i];
 
             if (rel !== other && rel.isDuplicate(other)) {
-                var obj = rel.toJS();
+                var obj = rel.toJSON();
                 delete obj.id;
                 delete obj.action;
 
@@ -58,12 +63,38 @@ MB.entity.CoreEntity.extend({
             }
         }
         return false;
+    },
+
+    hasRelationshipChanges: function () {
+        return _.any(_.invoke(this.relationships(), "action"));
     }
 });
 
 
-MB.entity.Recording.after("init", function () {
-    this.performanceRelationships = ko.observableArray([]);
+MB.entity.Recording.extend({
+
+    after$init: function () {
+        this.performanceRelationships = ko.observableArray([]);
+    },
+
+    around$hasRelationshipChanges: function (supr) {
+        return supr() || _.any(this.performanceRelationships(), function (relationship) {
+            return relationship.action() ||
+                   relationship.entity[1]().hasRelationshipChanges();
+        });
+    }
+});
+
+
+MB.entity.Release.extend({
+
+    around$hasRelationshipChanges: function (supr) {
+        return supr() || _.any(this.mediums, function (medium) {
+            return _.any(medium.tracks, function (track) {
+                return track.recording.hasRelationshipChanges();
+            });
+        });
+    }
 });
 
 

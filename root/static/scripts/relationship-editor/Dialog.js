@@ -37,7 +37,7 @@ ko.bindingHandlers.selectAttribute = (function() {
                 attrs = relationshipAttrs[child.name];
 
             opt.value = child.id;
-            opt.innerHTML = _.repeat("&#160;&#160;", indent) + child.l_name;
+            opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + child.l_name;
             if (child.unaccented) opt.setAttribute("data-unaccented", child.unaccented);
             if (attrs && attrs.indexOf(child.id) > -1) opt.selected = true;
             doc.appendChild(opt);
@@ -104,7 +104,7 @@ ko.bindingHandlers.linkType = (function() {
         }
         var opt = document.createElement("option");
         opt.value = root.id;
-        opt.innerHTML = _.repeat("&#160;&#160;", indent) + _.clean(phrase);
+        opt.innerHTML = _.str.repeat("&#160;&#160;", indent) + _.str.clean(phrase);
         root.descr || (opt.disabled = true);
         doc.appendChild(opt);
 
@@ -146,7 +146,7 @@ ko.bindingHandlers.targetType = (function() {
     function change() {
         var ac = dialog.autocomplete,
             relationship = dialog.relationship(),
-            obj = relationship.toJS();
+            obj = relationship.toJSON();
 
         obj.entity[dialog.target.gid === obj.entity[0].gid ? 0 : 1] = (
             MB.entity({ type: this.value, name: dialog.target.name })
@@ -184,7 +184,7 @@ ko.bindingHandlers.targetType = (function() {
 }());
 
 
-ko.bindingHandlers.autocomplete = (function() {
+ko.bindingHandlers.relationshipEditorAutocomplete = (function() {
 
     var recentEntities = {};
     var dialog;
@@ -516,7 +516,7 @@ UI.EditDialog = aclass(Dialog, {
         // originalRelationship is a copy of the relationship when the dialog
         // was opened, i.e. before the user edits it. if they cancel the
         // dialog, this is what gets copied back to revert their changes.
-        this.originalRelationship = options.relationship.toJS();
+        this.originalRelationship = options.relationship.toJSON();
     },
 
     before$close: function (cancel) {
@@ -543,11 +543,11 @@ UI.BatchRelationshipDialog = aclass(Dialog, {
     },
 
     augment$accept: function (callback) {
-        var model = this.relationship().toJS(),
+        var model = this.relationship().toJSON(),
             hasCallback = $.isFunction(callback),
             sourceIndex = this.backward() ? 1 : 0;
 
-        Util.callbackQueue(this.targets, function (source) {
+        MB.utility.callbackQueue(this.targets, function (source) {
             model.entity[sourceIndex] = source;
             delete model.id;
 

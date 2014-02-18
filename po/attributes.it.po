@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 04:19+0000\n"
+"PO-Revision-Date: 2014-02-10 23:56+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Nome artista"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr "Audiodramma"
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -77,6 +82,11 @@ msgstr "Retro"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Balletto"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr "Opera di Pechino"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -302,6 +312,11 @@ msgstr "Holding"
 msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "SACD ibrido"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr "Casa discografica"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"

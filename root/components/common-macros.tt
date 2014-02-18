@@ -26,7 +26,7 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_history_link(server, id, version) BLOCK -%]
-http://[%- server -%]/[%- id -%]?oldid=[%- version -%]
+//[%- server -%]/[%- id -%]?oldid=[%- version -%]
 [%- END -%]
 
 [%- USE Translation('mb_server') -%]
@@ -195,9 +195,13 @@ END -%]
 
 [%- MACRO historical(entity) BLOCK -%]
     [%- IF entity.ended -%]
-        <span class="historical">(<bdi>historical
-            [%- IF entity.end_date.has_year -%]
-                [%- ', ' _ entity.begin_date.year _ '–' _ entity.end_date.year -%]
+        <span class="historical">(<bdi>
+            [%- IF entity.begin_date.has_year && entity.end_date.has_year -%]
+                [%- l("historical, {begin}-{end}", { begin => entity.begin_date.year, end => entity.end_date.year }) -%]
+            [%- ELSIF entity.end_date.has_year -%]
+                [%- l("historical, until {end}", { end => entity.end_date.year }) -%]
+            [%- ELSE -%]
+                [%- l("historical") -%]
             [%- END -%]
         [%- -%]</bdi>)</span>
     [%- END -%]
@@ -325,9 +329,12 @@ END -%]
     action = action || 'show';
     link = c.uri_for_action("/area/$action", [ area.gid ]);
     text = text == '' ? html_escape(area.l_name) : text;
+    flagclass = area.iso_3166_1.0 ? 'flag-' _ area.iso_3166_1.0 : '';
+    '<span class="flag ' _ flagclass _ '">' IF flagclass AND action == 'show';
     '<span class="mp">' IF area.edits_pending AND action == 'show';
     '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF area.edits_pending AND action == 'show';
+    '</span>' IF flagclass AND action == 'show';
 END -%]
 
 [%- MACRO link_area_containment(area) BLOCK;
@@ -756,7 +763,7 @@ END -%]
         l('ended');
     END;
     IF relationship.${extra_attributes_field};
-        '(' _ relationship.${extra_attributes_field} _ ')' | html;
+        ' (' _ relationship.${extra_attributes_field} _ ')' | html;
     END; -%]
 [%- END -%]
 
@@ -865,28 +872,28 @@ END -%]
 [%- END -%]
 
 [%- MACRO wiki_link(server, id) BLOCK -%]
-http://[%- server -%]/[%- id -%]
+//[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%- MACRO script_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
-    [%- FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); -%]
+[%~ MACRO script_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server -%]
+    [%~ USE date ~%]
+    [%~ FOR file IN c.model('FileCache').manifest_files(manifest, 'js'); ~%]
         <script type="text/javascript" src="[% c.uri_for("/static/") %][%- file -%]"></script>
-    [%- END -%]
-  [%- ELSE -%]
+    [%~ END ~%]
+  [%~ ELSE ~%]
     <script src="[% c.uri_for("/static/") %][% c.model('FileCache').manifest_signature(manifest, 'js') %].js"></script>
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
-[%- MACRO css_manifest(manifest) BLOCK -%]
-  [%- IF server_details.developement_server -%]
-    [%- USE date -%]
+[%~ MACRO css_manifest(manifest) BLOCK ~%]
+  [%~ IF server_details.developement_server ~%]
+    [%~ USE date -%]
     <link rel="stylesheet/less" type="text/css" href="[% c.uri_for("/static/") %][%- manifest -%].less?t=[% date.now %]" />
-  [%- ELSE -%]
+  [%~ ELSE ~%]
     <link rel="stylesheet" type="text/css" href="[% c.uri_for('/static/styles/') %][% c.model('FileCache').manifest_signature(manifest _ '.css.manifest', 'css') %].css" />
-  [%- END -%]
-[%- END -%]
+  [%~ END ~%]
+[%~ END ~%]
 
 [%- MACRO format_length(n) BLOCK; n | format_length; END -%]
 
@@ -936,21 +943,21 @@ http://[%- server -%]/[%- id -%]
   [%- END -%]
 [%- END -%]
 
-[%- MACRO artist_begin_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') %]
-[%- END -%]
+[%- MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born:') : type_id == 2 ? l('Founded:') : l('Begin date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') %]
-[%- END -%]
+[%- MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Born in:') : type_id == 2 ? l('Founded in:') : l('Begin area:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') %]
-[%- END -%]
+[%- MACRO artist_end_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died:') : type_id == 2 ? l('Dissolved:') : l('End date:') ~%]
+[%~ END -%]
 
-[%- MACRO artist_end_area_label_from_type(type_id) BLOCK -%]
-    [% type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') %]
-[%- END -%]
+[%- MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
+    [%~ type_id == 1 ? l('Died in:') : type_id == 2 ? l('Dissolved in:') : l('End area:') ~%]
+[%~ END -%]
 
 [%- MACRO show_wikipedia_extract BLOCK -%]
     [%- IF wikipedia_extract -%]

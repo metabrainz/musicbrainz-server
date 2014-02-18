@@ -689,7 +689,7 @@ msgstr "Basisgegevens"
 msgid "Basics"
 msgstr "Algemeen"
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Per type hoesafbeelding"
 
@@ -1443,7 +1443,7 @@ msgid "No Votes"
 msgstr "Geen stemmen"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr "Geen statistieken voor hoesafbeeldingen beschikbaar."
 
@@ -1475,7 +1475,7 @@ msgstr "Geen status"
 msgid "No status set"
 msgstr "Geen status ingesteld"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Geen type"
 
@@ -1536,7 +1536,7 @@ msgstr "Artiest met overig type"
 msgid "Overview"
 msgstr "Overzicht"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Per uitgave"
 
@@ -1548,11 +1548,11 @@ msgstr "Personen"
 msgid "Pieces of Cover Art"
 msgstr "Aantal hoesafbeeldingen"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Aantal hoesafbeeldingen"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Aantal hoesafbeeldingen:"
 
@@ -1698,7 +1698,7 @@ msgstr "Waarderingen van uitgaves (totaal)"
 msgid "Release groups"
 msgstr "Uitgavegroepen"
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr "Uitgavegroepen met afbeeldingen:"
 
@@ -1761,7 +1761,7 @@ msgstr "Uitgaves met ten minste één disc-id:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Uitgaves met hoesafbeeldingen:"
 
@@ -2008,7 +2008,7 @@ msgstr "Vergroten:"
 msgid "active ever:"
 msgstr "ooit actief:"
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr "automatisch afgeleid:"
 
@@ -2028,7 +2028,7 @@ msgstr "inactief:"
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} Verwantschappen"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
 msgstr "handmatig geselecteerd:"
 
@@ -2100,7 +2100,7 @@ msgstr "die de afgelopen 7 dagen gestemd hebben:"
 msgid "with 10 or more disc IDs:"
 msgstr "met tien of meer disc-id's:"
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "met dertig of meer hoesafbeeldingen:"
 
@@ -2126,7 +2126,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "met {num} disc-id:"
 msgstr[1] "met {num} disc-id's:"
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "met {num} hoesafbeelding:"
@@ -2158,9 +2158,9 @@ msgstr "uitgaves met de naam {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

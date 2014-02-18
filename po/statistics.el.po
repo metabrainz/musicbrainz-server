@@ -688,7 +688,7 @@ msgstr "Βασικά μεταδεδομένα"
 msgid "Basics"
 msgstr "Βασικά"
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Ανά τύπο εξωφύλλου"
 
@@ -1442,7 +1442,7 @@ msgid "No Votes"
 msgstr "Αρνητικές ψήφοι"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr ""
 
@@ -1474,7 +1474,7 @@ msgstr "Χωρίς κατάσταση"
 msgid "No status set"
 msgstr "Δεν ορίστηκε η κατάσταση"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Χωρίς τύπο"
 
@@ -1535,7 +1535,7 @@ msgstr "Καλλιτέχνες άλλου τύπου"
 msgid "Overview"
 msgstr "Επισκόπηση"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Ανά κυκλοφορία"
 
@@ -1547,11 +1547,11 @@ msgstr "Άτομα"
 msgid "Pieces of Cover Art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Κομμάτια εξωφύλλου:"
 
@@ -1697,7 +1697,7 @@ msgstr ""
 msgid "Release groups"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr ""
 
@@ -1760,7 +1760,7 @@ msgstr ""
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Κυκλοφορίες με εξώφυλλο:"
 
@@ -2007,7 +2007,7 @@ msgstr "Εστίαση:"
 msgid "active ever:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr ""
 
@@ -2027,7 +2027,7 @@ msgstr ""
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} σχέσεις"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
 msgstr ""
 
@@ -2099,7 +2099,7 @@ msgstr ""
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "με 30 ή περισσότερα κομμάτια εξωφύλλου:"
 
@@ -2125,7 +2125,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "με {num} κομμάτι εξωφύλλου:"
@@ -2157,9 +2157,9 @@ msgstr "Κυκλοφορίες {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159

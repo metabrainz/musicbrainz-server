@@ -18,7 +18,7 @@ test all => sub {
     my $mech = MusicBrainz::WWW::Mechanize->new(catalyst_app => 'MusicBrainz::Server');
     $mech->default_header ("Accept" => "application/json");
 
-    my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels';
+    my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels+media';
 
     $mech->get_ok($url, 'fetching');
     is_valid_json ($mech->content, "validating (is_valid_json)");
@@ -36,7 +36,7 @@ test all => sub {
             "comment" => "",
             "id" => "9496",
             "gid" => "a16d1433-ba89-4f72-a47b-a370add0bb55",
-            "sortname" => "BoA",
+            "sortName" => "BoA",
             "name" => "BoA"
         },
         "verbose_phrase" => "vocal",

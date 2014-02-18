@@ -8,17 +8,17 @@ module("MB.entity");
 
 test("CoreEntity", function () {
     var source = MB.entity({ gid: 123, type: "recording", name: "a recording" }),
-        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortname: "bar" });
+        target = MB.entity({ gid: 456, type: "artist", name: "foo", sortName: "bar" });
 
     equal(
         source.html(),
-        '<a href="/recording/123">a recording</a>',
+        '<a href="/recording/123"><bdi>a recording</bdi></a>',
         "recording link"
     );
 
     equal(
         target.html({ "target": "_blank" }),
-        '<a href="/artist/456" target="_blank" title="bar">foo</a>',
+        '<a href="/artist/456" target="_blank" title="bar"><bdi>foo</bdi></a>',
         "artist link"
     );
 });
@@ -26,9 +26,9 @@ test("CoreEntity", function () {
 
 test("ArtistCredit", function () {
     var data = [
-        [ { artist: { gid: 1, name: "a" }, join_phrase: "/" } ],
-        [ { artist: { gid: 1, name: "a" }, name: "b", join_phrase: "/" } ],
-        [ { artist: { gid: 1, name: "a" }, join_phrase: "/" }, { artist: { gid: 2, name: "b" } } ]
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, name: "b", joinPhrase: "/" } ],
+        [ { artist: { gid: 1, name: "a" }, joinPhrase: "/" }, { artist: { gid: 2, name: "b" } } ]
     ];
 
     var acs = [
@@ -45,31 +45,31 @@ test("ArtistCredit", function () {
     var ac = [
         {
             artist: {
-                sortname: "Sheridan, Tony",
+                sortName: "Sheridan, Tony",
                 name: "Tony Sheridan",
                 id: 117906,
                 gid: "7f9a3245-df19-4681-8314-4a4c1281dc74"
             },
             name: "tony sheridan",
-            join_phrase: " & "
+            joinPhrase: " & "
         },
         {
             artist: {
-                sortname: "Beatles, The",
+                sortName: "Beatles, The",
                 name: "The Beatles",
                 id: 303,
                 gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
             },
-            join_phrase: ""
+            joinPhrase: ""
         }
     ];
 
     equal(new MB.entity.ArtistCredit(ac).html(),
         '<span class="name-variation">' +
         '<a href="/artist/7f9a3245-df19-4681-8314-4a4c1281dc74" ' +
-        'title="Sheridan, Tony">tony sheridan</a></span> &amp; ' +
+        'title="Sheridan, Tony"><bdi>tony sheridan</bdi></a></span> &amp; ' +
         '<a href="/artist/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d" ' +
-        'title="Beatles, The">The Beatles</a>',
+        'title="Beatles, The"><bdi>The Beatles</bdi></a>',
         "artist credit rendering"
     );
 });

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:58+0000\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/projects/p/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "アーティスト名"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -74,6 +79,11 @@ msgstr "背面"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "バレエ"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -298,6 +308,11 @@ msgstr "持株会社"
 #: DB:medium_format/name:38
 msgctxt "medium_format"
 msgid "Hybrid SACD"
+msgstr ""
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:4

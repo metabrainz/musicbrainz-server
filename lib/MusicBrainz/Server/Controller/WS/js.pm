@@ -9,10 +9,6 @@ use List::UtilsBy qw( uniq_by );
 use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query alias_query );
-use MusicBrainz::Server::Data::Utils qw(
-    artist_credit_to_ref
-    hash_structure
-);
 use MusicBrainz::Server::Validation qw( is_guid );
 use Readonly;
 use Text::Trim;
@@ -21,6 +17,7 @@ use Text::Trim;
 my $ws_defs = Data::OptList::mkopt([
     "medium" => {
         method => 'GET',
+        inc => [ qw(recordings) ],
         optional => [ qw(q artist tracks limit page timestamp) ]
     },
     "cdstub" => {
@@ -30,9 +27,6 @@ my $ws_defs = Data::OptList::mkopt([
     "freedb" => {
         method => 'GET',
         optional => [ qw(q artist tracks limit page timestamp) ]
-    },
-    "associations" => {
-        method => 'GET',
     },
     "cover-art-upload" => {
         method => 'GET',
@@ -70,23 +64,25 @@ sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
     my $medium = $c->model('Medium')->get_by_id($id);
+    $c->model('MediumFormat')->load($medium);
+    $c->model('MediumCDTOC')->load_for_mediums($medium);
     $c->model('Track')->load_for_mediums($medium);
     $c->model('ArtistCredit')->load($medium->all_tracks);
     $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
                               $medium->all_tracks);
 
-    my $ret = { toc => "" };
-    $ret->{medium_id} = $id,
-    $ret->{tracks} = [ map {
-        id => $_->id,
-        position => $_->position,
-        length => $_->length,
-        number => $_->number,
-        name => $_->name,
-        artist_credit => artist_credit_to_ref (
-            $_->artist_credit, [ "comment", "gid", "sortname" ]),
-    }, sort { $a->position <=> $b->position }
-    $medium->all_tracks ];
+    my $inc_recordings = $c->stash->{inc}->recordings;
+
+    if ($inc_recordings) {
+        $c->model('Recording')->load($medium->all_tracks);
+        $c->model('ArtistCredit')->load(map $_->recording, $medium->all_tracks);
+    }
+
+    my $ret = $c->stash->{serializer}->_medium($medium, $inc_recordings);
+
+    $ret->{tracks} = [
+        map $c->stash->{serializer}->_track($_), $medium->all_tracks
+    ];
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('generic', $ret));
@@ -96,6 +92,11 @@ sub freedb : Chained('root') PathPart Args(2) {
     my ($self, $c, $category, $id) = @_;
 
     my $response = $c->model ('FreeDB')->lookup ($category, $id);
+
+    unless (defined $response) {
+        $c->stash->{error} = "$category/$id not found";
+        $c->detach('not_found');
+    }
 
     my $ret = { toc => "" };
     $ret->{tracks} = [ map {
@@ -268,60 +269,6 @@ sub freedb_search : Chained('root') PathPart('freedb') Args(0) {
 
     return $self->disc_search ($c, 'freedb');
 };
-
-
-# recording associations
-sub associations : Chained('root') PathPart Args(1) {
-    my ($self, $c, $id) = @_;
-
-    my $medium = $c->model('Medium')->get_by_id($id);
-    $c->model('Track')->load_for_mediums($medium);
-    $c->model('Recording')->load ($medium->all_tracks);
-
-    $c->model('ArtistCredit')->load($medium->all_tracks, map { $_->recording } $medium->all_tracks);
-    $c->model('Artist')->load(map { @{ $_->artist_credit->names } }
-        $medium->all_tracks);
-
-    my %appears_on = $c->model('Recording')->appears_on (
-        [ map { $_->recording } $medium->all_tracks ], 3);
-
-    my @structure;
-    for (sort { $a->position <=> $b->position } $medium->all_tracks)
-    {
-        my $track = {
-            name => $_->name,
-            length => $_->length,
-            artist_credit => artist_credit_to_ref ($_->artist_credit, [ "gid" ]),
-        };
-
-        my $data = {
-            length => $_->length,
-            name => $_->name,
-            artist_credit => { preview => $_->artist_credit->name },
-            edit_sha1 => hash_structure ($track)
-        };
-
-        $data->{recording} = {
-            gid => $_->recording->gid,
-            name => $_->recording->name,
-            comment => $_->recording->comment,
-            length => $_->recording->length,
-            artist_credit => { preview => $_->recording->artist_credit->name },
-            appears_on => {
-                hits => $appears_on{$_->recording->id}{hits},
-                results => [ map { {
-                    'name' => $_->name,
-                    'gid' => $_->gid
-                    } } @{ $appears_on{$_->recording->id}{results} } ],
-            }
-        };
-
-        push @structure, $data;
-    }
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('generic', \@structure));
-}
 
 sub cover_art_upload : Chained('root') PathPart('cover-art-upload') Args(1)
 {

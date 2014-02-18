@@ -58,7 +58,8 @@
             </th>
           </tr>
         </thead>
-        <tbody data-bind="foreach: media">
+        <tbody data-bind="with: release">
+          <!-- ko foreach: mediums -->
           <tr class="subh">
             <td></td>
             <td colspan="2">
@@ -68,18 +69,19 @@
             <td><input type="checkbox" class="medium-works"></td>
           </tr>
           <!-- ko template: {name: 'template.track', foreach: tracks} --><!-- /ko -->
+          <!-- /ko -->
         </tbody>
       </table>
 
       <h2>[% l('Release Relationships') %]</h2>
 
-      <div id="release-rels" class="ars">
-        <!-- ko template: {name: 'template.relationships', data: release} --><!-- /ko -->
+      <div id="release-rels" class="ars" data-bind="with: release">
+        <!-- ko template: "template.relationships" --><!-- /ko -->
       </div>
 
       <h2>[% l('Release Group Relationships') %]</h2>
 
-      <div id="release-group-rels" class="ars">
+      <div id="release-group-rels" class="ars" data-bind="with: release">
         <!-- ko template: {name: 'template.relationships', data: releaseGroup} --><!-- /ko -->
       </div>
 
@@ -162,7 +164,7 @@
               <select data-bind="value: workType, disable: loading">
                 <option selected="selected"></option>
                 [%- FOR type=work_types %]
-                  <option value="[% type.0 %]">[% type.1 | html %]</option>
+                  <option value="[% type.value %]">[% type.label | html %]</option>
                 [%- END %]
               </select>
             </td>
@@ -216,7 +218,7 @@
         <td>
           <span id="autocomplete" class="autocomplete">
             <img class="search" src="../../../static/images/icons/search.png" />
-            <input class="name" type="text" data-bind="autocomplete: $data" />
+            <input class="name" type="text" data-bind="relationshipEditorAutocomplete: $data" />
           </span>
           <div class="error" data-bind="text: targetField().error"></div>
         </td>
@@ -311,7 +313,7 @@
           <!-- ko if: !artistCredit.isEqual($root.release().artistCredit) -->
               by <span data-bind="html: artistCredit.html({ 'target': '_blank' })"></span>
           <!-- /ko -->
-          (<!-- ko text: length || "?:??" --><!-- /ko -->)
+          (<!-- ko text: formattedLength || "?:??" --><!-- /ko -->)
           <!-- ko template: {name: 'template.relationships', data: recording} --><!-- /ko -->
         </td>
         <td class="midcol">

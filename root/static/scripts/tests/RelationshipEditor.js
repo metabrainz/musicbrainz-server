@@ -247,15 +247,15 @@ var attrInfo = {
 var testRelease = {
     "relationships": {},
     "name": "Love Me Do / I Saw Her Standing There",
-    "artist_credit": [
+    "artistCredit": [
         {
             "artist": {
-                "sortname": "Beatles, The",
+                "sortName": "Beatles, The",
                 "name": "The Beatles",
                 "id": 303,
                 "gid": "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
             },
-            "join_phrase": ""
+            "joinPhrase": ""
         }
     ],
     "id": 211431,
@@ -274,7 +274,7 @@ var testRelease = {
                     },
                     "position": 1,
                     "name": "Love Me Do",
-                    "artist_credit": []
+                    "artistCredit": []
                 },
                 {
                     "length": 176000,
@@ -288,7 +288,7 @@ var testRelease = {
                     },
                     "position": 2,
                     "name": "I Saw Her Standing There",
-                    "artist_credit": []
+                    "artistCredit": []
                 }
             ],
             "format": "Vinyl",
@@ -296,7 +296,7 @@ var testRelease = {
         }
     ],
     "gid": "867cc694-0f35-4a65-acb4-bc873795701a",
-    "release_group": {
+    "releaseGroup": {
         "artist": "The Beatles",
         "name": "Love Me Do",
         "id": 564256,
@@ -339,9 +339,10 @@ module("relationship editor", {
             '3d3c3707-ef51-4852-995d-f9f14c68f5f0',
         ];
 
-        // _.defer and RE.Util.callbackQueue both make their target functions
-        // asynchronous. They are redefined here to call their targets right
-        // away, so that we don't have to deal with  writing async tests.
+        // _.defer and MB.utility.callbackQueue both make their target
+        // functions asynchronous. They are redefined here to call their
+        // targets right away, so that we don't have to deal with  writing
+        // async tests.
 
         this.__defer = _.defer;
 
@@ -353,26 +354,22 @@ module("relationship editor", {
 
         this.__callbackQueue = this.RE.Util.callbackQueue;
 
-        this.RE.Util.callbackQueue = function (targets, callback) {
+        MB.utility.callbackQueue = function (targets, callback) {
             for (var i = 0; i < targets.length; i++)
                 callback(targets[i]);
         };
 
         this.RE.Util.init(typeInfo, attrInfo);
 
-        this.RE.UI.init(
-            testRelease.gid, testRelease.release_group.gid, testRelease
-        );
+        this.RE.releaseViewModel.releaseLoaded(testRelease);
     },
 
     teardown: function () {
         _.defer = this.__defer;
 
-        this.RE.Util.callbackQueue = this.__callbackQueue;
+        MB.utility.callbackQueue = this.__callbackQueue;
 
-        this.RE.releaseViewModel.release({ relationships: [] });
-        this.RE.releaseViewModel.releaseGroup({ relationships: [] });
-        this.RE.releaseViewModel.media([]);
+        this.RE.releaseViewModel.release(null);
 
         MB.entity.clearCache();
     }
@@ -382,18 +379,6 @@ module("relationship editor", {
 test("Util", function () {
     var self = this;
     var Util = this.RE.Util;
-
-    var tests = [
-        { date: "", expected: { year: null, month: null, day: null} },
-        { date: "1999-01-02", expected: { year: "1999", month: "01", day: "02"} },
-        { date: "1999-01", expected: { year: "1999", month: "01", day: null } },
-        { date: "1999", expected: { year: "1999", month: null, day: null } }
-    ];
-
-    $.each(tests, function (i, test) {
-        var result = Util.parseDate(test.date);
-        deepEqual(result, test.expected, test.date);
-    });
 
     tests = [
         { root: Util.attrInfo(424), value: undefined, expected: false },
@@ -660,7 +645,7 @@ test("Relationship", function () {
 test("Entity", function () {
 
     var source = MB.entity({ type: "recording", name: "a recording" }),
-        target = MB.entity({ type: "artist", name: "foo", sortname: "bar" });
+        target = MB.entity({ type: "artist", name: "foo", sortName: "bar" });
 
     var relationship = this.RE.Relationship({
         entity: [target, source],
@@ -727,8 +712,7 @@ test("Entity", function () {
 
 
 test("RelationshipEditor", function () {
-    var vm = this.RE.releaseViewModel,
-        media = vm.media();
+    var media = this.RE.releaseViewModel.release().mediums;
 
     equal(media.length, 1, "medium count");
 
@@ -748,7 +732,7 @@ test("Dialog", function () {
 
     var UI = this.RE.UI,
         vm = this.RE.releaseViewModel,
-        tracks = vm.media()[0].tracks,
+        tracks = vm.release().mediums[0].tracks,
         source = tracks[0].recording,
         target = MB.entity({ type: "artist", gid: this.fakeGID[0] });
 

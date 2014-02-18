@@ -28,10 +28,8 @@
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-
-    MB.Control.initialize_guess_case(bubbles, "work", "id-edit-work");
-    bubbles.add($("input[name=edit-work\\.iswcs\\.0]"), $("div.iswcs.bubble"));
+    MB.Control.initialize_guess_case("work", "id-edit-work");
+    MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
 
     MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
   }());

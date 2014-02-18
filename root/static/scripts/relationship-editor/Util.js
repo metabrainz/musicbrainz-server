@@ -95,23 +95,9 @@ Util.parseRelationships = function (source, sourceType) {
 
                 var relationship = RE.Relationship(obj);
                 if (!relationship.visible) relationship.show();
-
-                Util.parseRelationships(target, targetType);
             }
         });
     });
-};
-
-
-var dateRegex = /^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$/;
-
-Util.parseDate = function(str) {
-    var match = str.match(dateRegex) || [];
-    return {
-        year:  match[1] || null,
-        month: match[2] || null,
-        day:   match[3] || null
-    };
 };
 
 
@@ -130,20 +116,6 @@ Util.mergeDates = function(a, b) {
 
     return (((ay && by && ay != by) || (am && bm && am != bm) || (ad && bd && ad != bd)) ?
             false : {year: ay || by, month: am || bm, day: ad || bd});
-};
-
-
-Util.callbackQueue = function(targets, callback) {
-    var next = function(index) {
-        return function() {
-            var target = targets[index];
-            if (target) {
-                callback(target);
-                _.defer(next(index + 1));
-            }
-        };
-    };
-    next(0)();
 };
 
 return RE;

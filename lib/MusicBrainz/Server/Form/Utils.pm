@@ -3,125 +3,18 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Translation qw( lp );
+use MusicBrainz::Server::Translation qw( l lp );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
 use Sub::Exporter -setup => {
     exports => [qw(
-                      collapse_param
-                      expand_all_params
-                      expand_param
                       language_options
                       script_options
+                      select_options
+                      build_grouped_options
               )]
 };
-
-sub _expand
-{
-    my $ret = shift;
-    my $value = pop;
-    my @parts = @_;
-
-    if (scalar @parts == 0)
-    {
-        $$ret = $value eq '' ? undef : $value;
-    }
-    else
-    {
-        my $key = shift @parts;
-
-        if (looks_like_number ($key))
-        {
-            _expand (\$$ret->[$key], @parts, $value);
-        }
-        else
-        {
-            _expand (\$$ret->{$key}, @parts, $value);
-        }
-    }
-}
-
-
-sub expand_param
-{
-    my ($values, $query) = @_;
-
-    my $ret;
-    for my $key (keys %$values)
-    {
-        my $val = $values->{$key};
-        my @parts = split (/\./, $key);
-        next if shift @parts ne $query;
-
-        _expand (\$ret, @parts, $val);
-    }
-
-    return $ret;
-}
-
-sub expand_all_params
-{
-    my $values = shift;
-
-    my %ret;
-    for my $key (keys %$values)
-    {
-        my $val = $values->{$key};
-        my @parts = split (/\./, $key);
-
-        my $field_name = shift @parts;
-
-        _expand (\$ret{$field_name}, @parts, $val);
-    }
-
-    return \%ret;
-}
-
-sub collapse_param
-{
-    my ($store, $name, $new_value) = @_;
-
-    if (ref $new_value eq 'HASH')
-    {
-        while (my ($key, $value) = each %$new_value)
-        {
-            my $tmp = {};
-            collapse_param ($tmp, $key, $value);
-
-            while (my ($subkey, $subvalue) = each %$tmp)
-            {
-                $store->{"$name.$subkey"} = $subvalue;
-            }
-        }
-    }
-    elsif (ref $new_value eq 'ARRAY')
-    {
-        for my $idx (0..$#$new_value)
-        {
-            my $tmp = {};
-            collapse_param ($tmp, $idx, $new_value->[$idx]);
-
-            while (my ($subkey, $subvalue) = each %$tmp)
-            {
-                $store->{"$name.$subkey"} = $subvalue;
-            }
-        }
-    }
-    else
-    {
-        $store->{$name} = $new_value;
-    }
-}
-
-sub get_collator {
-    my $c = shift;
-    my $coll = Unicode::ICU::Collator->new($c->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-    return $coll;
-}
 
 sub language_options {
     my $c = shift;
@@ -133,7 +26,7 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -157,7 +50,7 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -168,6 +61,39 @@ sub script_options {
         }
     } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
     return \@sorted;
+}
+
+sub select_options
+{
+    my ($c, $model, %opts) = @_;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
+    my $accessor = $opts{accessor} // 'l_name';
+    my $coll = $c->get_collator();
+
+    return [ map {
+        value => $_->id,
+        label => l($_->$accessor)
+    }, sort_by {
+        $sort_by_accessor ? $coll->getSortKey(l($_->$accessor)) : ''
+    } $model_ref->get_all ];
+}
+
+# Used by the relationship and release editors, instead of FormHandler.
+sub build_grouped_options
+{
+    my ($c, $options) = @_;
+
+    my $result = [];
+    for my $opt (@$options) {
+        my $i = $opt->{optgroup_order} - 1;
+        $result->[$i] //= { optgroup => $opt->{optgroup}, options => [] };
+
+        push @{ $result->[$i]->{options} },
+              { label => $opt->{label}, value => $opt->{value} };
+    }
+    return $result;
 }
 
 1;

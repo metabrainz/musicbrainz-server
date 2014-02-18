@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-24 17:53+0000\n"
+"PO-Revision-Date: 2014-02-12 14:59+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Artiestennaam"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr "Audiodrama"
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -76,6 +81,11 @@ msgstr "Achterkant"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Ballet"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr "Jing-opera (Peking-opera)"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -225,7 +235,7 @@ msgstr "Digitale media"
 #: DB:release_packaging/name:13
 msgctxt "release_packaging"
 msgid "Discbox Slider"
-msgstr ""
+msgstr "Discbox Slider"
 
 #: DB:label_type/name:1
 msgctxt "label_type"
@@ -270,7 +280,7 @@ msgstr "Voorkant"
 #: DB:release_packaging/name:12
 msgctxt "release_packaging"
 msgid "Gatefold Cover"
-msgstr ""
+msgstr "Gatefold Cover"
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -301,6 +311,11 @@ msgstr "Holding"
 msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "Hybride SACD"
+
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr "Imprint"
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
@@ -335,7 +350,7 @@ msgstr "Officiële naam"
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "Voering"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -561,7 +576,7 @@ msgstr "Slim Jewel Case"
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "Snap Case"
 
 #: DB:work_type/name:5
 msgctxt "work_type"

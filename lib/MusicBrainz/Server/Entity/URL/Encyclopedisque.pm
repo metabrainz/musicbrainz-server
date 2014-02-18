@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "Encyclopedisque";
+    return "Encyclop\N{U+E9}disque";
 }
 
 __PACKAGE__->meta->make_immutable;

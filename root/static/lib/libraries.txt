@@ -103,23 +103,31 @@ version:     v2.0.5b
 author:      Christian Bach
 url:         http://tablesorter.com
 
--- knockout/knockout-2.3.0.debug.js --
+-- knockout/knockout-latest.debug.js --
 
 library:     Knockout
 license:     MIT
-version:     2.3.0
+version:     3.0.0
 author:      Steven Sanderson
 url:         http://knockoutjs.com
 
--- underscore/underscore.js --
+-- knockout/knockout-delegatedEvents.js --
 
-library:     Underscore
+library:     Knockout Delegated Events
 license:     MIT
-version:     1.4.0
-author:      Jeremy Ashkenas, DocumentCloud
-url:         http://underscorejs.org
+version:     0.1.3
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-delegatedEvents
 
--- underscore/underscore.string.js --
+-- knockout/knockout-postbox.js --
+
+library:     knockout-postbox
+license:     MIT
+version:     0.4.2
+author:      Ryan Niemeyer
+url:         https://github.com/rniemeyer/knockout-postbox
+
+-- underscore.string/underscore.string.js --
 
 library:     Underscore.string
 license:     MIT
@@ -158,3 +166,11 @@ license:     MIT
 version:     0.3.3
 author:      Michael Wiencek
 url:         https://github.com/mwiencek/aclass
+
+-- lodash/lodash.compat.js
+
+library:    Lo-Dash
+license:    MIT
+version:    2.4.1
+author:     John-David Dalton
+url:        http://lodash.com/

@@ -693,7 +693,7 @@ msgstr "Grundlegende Metadaten"
 msgid "Basics"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Nach Cover-Art-Typ"
 
@@ -1447,7 +1447,7 @@ msgid "No Votes"
 msgstr "Keine Stimmen"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr "Keine Cover-Art-Statistiken verfügbar."
 
@@ -1479,7 +1479,7 @@ msgstr "Kein Status"
 msgid "No status set"
 msgstr "Kein Status gesetzt"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Kein Typ"
 
@@ -1540,7 +1540,7 @@ msgstr "Künstler mit anderem Typ"
 msgid "Overview"
 msgstr "Übersicht"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Pro Veröffentlichung"
 
@@ -1552,11 +1552,11 @@ msgstr "Personen"
 msgid "Pieces of Cover Art"
 msgstr "Cover-Art-Bilder"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Cover-Art-Bilder"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Cover-Art-Bilder:"
 
@@ -1702,7 +1702,7 @@ msgstr ""
 msgid "Release groups"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr ""
 
@@ -1765,7 +1765,7 @@ msgstr "Veröffentlichungen mit mindestens einer Disc-ID:"
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Veröffentlichungen mit Cover-Art:"
 
@@ -2012,7 +2012,7 @@ msgstr "Zoom:"
 msgid "active ever:"
 msgstr "jemals aktiv:"
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr ""
 
@@ -2032,7 +2032,7 @@ msgstr "inaktiv:"
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} Beziehungen"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
 msgstr ""
 
@@ -2104,7 +2104,7 @@ msgstr ""
 msgid "with 10 or more disc IDs:"
 msgstr "mit 10 oder mehr Disc-IDs:"
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "mit 30 oder mehr Cover-Art-Bildern:"
 
@@ -2130,7 +2130,7 @@ msgid_plural "with {num} disc IDs:"
 msgstr[0] "mit einer Disc-ID:"
 msgstr[1] "mit {num} Disc-IDs:"
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "mit einem Cover-Art-Bild:"
@@ -2162,9 +2162,9 @@ msgstr "{name} Veröffentlichungen"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159
