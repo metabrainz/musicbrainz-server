@@ -167,10 +167,6 @@ END -%]
 [%-# misc stuff #-%]
 [%-##############-%]
 
-[%- MACRO rdfa_label_title(title) BLOCK; -%]
-[%- IF doRDFa -%]<span property="dct:title rdfs:label" xml:lang="" lang="">[%- title | html -%]</span>[%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_about_attr(about) BLOCK; -%]
 [%- IF doRDFa -%]about="[%- about -%]"[%- END -%]
 [%- END -%]

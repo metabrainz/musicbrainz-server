@@ -26,7 +26,7 @@
                     [%- release=track.medium.release -%]
                     <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
 		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
-                      <td>[%- rdfa_label_title(track.name) -%]</td>
+                      <td>[%- html_escape(track.name) -%]</td>
                       <td>[%- format_length(track.length) -%]</td>
                       <td>[%- link_release(release) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
