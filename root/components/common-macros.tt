@@ -1051,7 +1051,7 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF event.country;
-            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+            '<li>' _ country_abbr(event.country) _ '</li>';
           END;
         END;
         '</ul>';
@@ -1097,4 +1097,10 @@ END -%]
     <a href="http://isni-url.oclc.nl/isni/[% isni %]">
         [%- format_isni(isni) -%]
     </a>
+[%- END -%]
+
+[%- MACRO country_abbr(country) BLOCK -%]
+    <span class="flag-[% country.primary_code %]">
+    <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
+    </span>
 [%- END -%]
