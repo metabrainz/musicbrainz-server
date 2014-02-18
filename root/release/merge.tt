@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             [% IF rdfa_made %]
-              <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+              <tbody>
             [% ELSE %]
               <tbody>
             [% END %]

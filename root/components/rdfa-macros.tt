@@ -167,10 +167,6 @@ END -%]
 [%-# misc stuff #-%]
 [%-##############-%]
 
-[%- MACRO rdfa_about_attr(about) BLOCK; -%]
-[%- IF doRDFa -%]about="[%- about -%]"[%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_typeof(type) BLOCK; -%]
 [%- IF doRDFa -%][%- IF type -%]typeof="[%- type -%]"[%- END -%][%- END -%]
 [%- END -%]

@@ -59,7 +59,7 @@
           <th class="treleases">[% l('Length') %]</th>
         </tr>
       </thead>
-      <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
+      <tbody>
         <!-- ko foreach: mediums -->
           <tr data-bind="css: { subh: true, mp: editsPending > 0}">
             <td>&#xa0;</td>
@@ -161,7 +161,7 @@
           <!-- /ko -->
 
           <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-            <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
+            <div [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
           -->
         <!-- /ko -->
       </tbody>

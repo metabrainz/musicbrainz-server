@@ -7,7 +7,7 @@
     ['edit', link_label(label, 'edit', l('Edit'))],
 ] -%]
 
-<div class="labelheader" [%- rdfa_about_attr(rdfa_label_curi(label)) %] [% rdfa_typeof(rdfa_concept_curi('label')) -%]>
+<div class="labelheader" [% rdfa_typeof(rdfa_concept_curi('label')) -%]>
     <h1>[%- link_label(label) %] [% disambiguation(label) -%]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [%- l('Label') -%]

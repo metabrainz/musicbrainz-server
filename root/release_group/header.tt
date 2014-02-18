@@ -5,7 +5,7 @@
     ['edit', link_release_group(rg, 'edit', l('Edit'))],
 ] -%]
 
-<div class="rgheader" [% rdfa_about_attr(rdfa_release_group_curi(rg)) %] [% rdfa_typeof(rdfa_concept_curi('release_group')) %]>
+<div class="rgheader" [% rdfa_typeof(rdfa_concept_curi('release_group')) %]>
     <h1>[% link_release_group(rg) %] [% disambiguation(rg) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>

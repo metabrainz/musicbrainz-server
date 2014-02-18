@@ -60,7 +60,7 @@
                                 <th class="count c">[% l('Releases') %]</th>
                             </tr>
                         </thead>
-                        <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+                        <tbody>
                     [% last_rg_type = rgtype %]
                 [% END %]
                 <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>

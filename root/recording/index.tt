@@ -17,7 +17,7 @@
                         <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
-                <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
+                <tbody>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
                     <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>

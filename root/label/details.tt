@@ -2,7 +2,7 @@
 
 [% WRAPPER "label/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
-<table class="details" [% rdfa_about_attr(rdfa_label_curi(label)) %]>
+<table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
     <td>[% link_entity(label) %]</td>

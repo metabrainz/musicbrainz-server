@@ -31,7 +31,7 @@
             <th>[%- l('Length') -%]</th>
         </tr>
     </thead>
-    <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
+    <tbody>
         [%- FOR recording=recordings -%]
           [% IF recording.gid %]
           <tr [% ' class="ev"' IF loop.count % 2 == 0 %]>
