@@ -6,7 +6,7 @@
     ['edit', link_recording(recording, 'edit', l('Edit'))],
 ] -%]
 
-<div class="recordingheader" [% rdfa_typeof(rdfa_concept_curi('recording')) -%]>
+<div class="recordingheader">
     [%- IF c.try_get_session('tport') -%]
         [%- tagger_icon(recording) -%]
     [%- END -%]

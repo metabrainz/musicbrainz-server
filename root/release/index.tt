@@ -161,7 +161,7 @@
           <!-- /ko -->
 
           <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-            <div [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
+            <div>
           -->
         <!-- /ko -->
       </tbody>

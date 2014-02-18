@@ -14,7 +14,7 @@
     ['edit', link_artist(artist, 'edit', l('Edit'))]
    ) UNLESS artist.is_special_purpose %]
 
-<div class="artistheader" [% rdfa_typeof(rdfa_concept_curi(artist.type_name)) %]>
+<div class="artistheader">
     <h1>[% link_artist(artist) %] [% disambiguation(artist) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [% html_escape(artist.l_type_name) or l('Artist') %]

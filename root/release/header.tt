@@ -1,4 +1,4 @@
-<div class="releaseheader" [% rdfa_typeof(rdfa_concept_curi('release')) -%]>
+<div class="releaseheader">
 [%- IF c.try_get_session('tport') -%]
     [%- tagger_icon(release) -%]
 [%- END -%]

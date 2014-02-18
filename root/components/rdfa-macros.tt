@@ -163,14 +163,6 @@ END -%]
  '[mbz:place/' _ place.gid _ '#' _ hash_suffix _']';
 END -%]
 
-[%-##############-%]
-[%-# misc stuff #-%]
-[%-##############-%]
-
-[%- MACRO rdfa_typeof(type) BLOCK; -%]
-[%- IF doRDFa -%][%- IF type -%]typeof="[%- type -%]"[%- END -%][%- END -%]
-[%- END -%]
-
 [%-#####################-%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
