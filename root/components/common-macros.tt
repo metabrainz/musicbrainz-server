@@ -1117,7 +1117,7 @@ END -%]
     </span>
 [%- END -%]
 
-[%- MACRO set_header() BLOCK; -%]
+[%- MACRO set_header BLOCK -%]
 <!DOCTYPE html>
 [% FILTER collapse -%]
 <html xmlns="http://www.w3.org/1999/xhtml"
