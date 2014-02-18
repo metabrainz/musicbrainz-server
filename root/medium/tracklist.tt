@@ -27,7 +27,7 @@ dl.ars dt {
 
 [%- FOR track=tracks; recording = track.recording %]
 [%# model tracks as blank nodes %]
-<tr rel="mo:track" class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]"
+<tr class="[% ' ev' IF loop.count % 2 == 0 %][% ' mp' IF track.edits_pending %]"
     id="[% track.gid %]">
     <td class="pos t">
       <span style="display: none">[% track.position %]</span>

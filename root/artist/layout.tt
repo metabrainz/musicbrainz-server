@@ -12,7 +12,7 @@
                content=html_escape(artist.l_type_name) class="type"
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-               property='foaf:gender' class="gender"
+               class="gender"
                content=html_escape(artist.l_gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended AND !artist.begin_area AND !artist.end_area -%]
