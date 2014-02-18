@@ -57,20 +57,6 @@
     'geo:SpatialThing' IF type == 'area' || type == 'place';
 END -%]
 
-[%- MACRO rdfa_entity_curi(entity, action, text) BLOCK;
-    type = "$entity";
-    IF    type.search('Entity::Artist='); rdfa_artist_curi(entity);
-    ELSIF type.search('Entity::Work='); rdfa_work_curi(entity);
-    ELSIF type.search('Entity::Label='); rdfa_label_curi(entity);
-    ELSIF type.search('Entity::Release='); rdfa_release_curi(entity);
-    ELSIF type.search('Entity::ReleaseGroup='); rdfa_release_group_curi(entity);
-    ELSIF type.search('Entity::Recording='); rdfa_recording_curi(entity);
-    ELSIF type.search('Entity::URL='); link_url(entity, action, text);
-    ELSIF type.search('Entity::Area='); rdfa_area_curi(entity);
-    ELSIF type.search('Entity::Place='); rdfa_place_curi(entity);
-    END;
-END -%]
-
 [%- MACRO rdfa_country_to_curi(country) BLOCK;
  'http://ontologi.es/place/' _ country.primary_code;
 END -%]
@@ -82,10 +68,6 @@ END -%]
 [%-################-%]
 [%-# compact uris #-%]
 [%-################-%]
-[%- MACRO rdfa_artist_curi(artist) BLOCK;
-    '[mbz:artist/' _ artist.gid _ '#' _ hash_suffix _']';
-END -%]
-
 [%- MACRO rdfa_artist_uri(artist) BLOCK;
     action = 'show';
     link = c.uri_for_action("/artist/$action", [ artist.gid ]);
@@ -96,21 +78,10 @@ END -%]
 [_:[%- track.id -%]]
 [%- END -%]
 
-[%-# FIXME making this a CURI seems to not work #-%]
-[%- MACRO rdfa_recording_curi(rec) BLOCK;
-    action = 'show';
-    link = c.uri_for_action("/recording/$action", [ rec.gid ]);
-    '' _ link _ '#' _ hash_suffix;
-END -%]
-
 [%- MACRO rdfa_recording_uri(rec) BLOCK;
     action = 'show';
     link = c.uri_for_action("/recording/$action", [ rec.gid ]);
     '' _ link _ '#_';
-END -%]
-
-[%- MACRO rdfa_release_curi(release) BLOCK;
-    '[mbz:release/' _ release.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%- MACRO rdfa_release_uri(release) BLOCK;
@@ -129,38 +100,18 @@ END -%]
     '' _ link _ '#event';
 END -%]
 
-[%- MACRO rdfa_release_group_curi(release) BLOCK;
-    '[mbz:release-group/' _ release.gid _ '#' _ hash_suffix _']';
-END -%]
-
 [%- MACRO rdfa_release_group_uri(rg) BLOCK;
     action = 'show';
     link = c.uri_for_action("/release_group/$action", [ rg.gid ]);
     '' _ link _ '#' _ hash_suffix ;
 END -%]
 
-[%- MACRO rdfa_label_curi(label) BLOCK;
- '[mbz:label/' _ label.gid _ '#' _ hash_suffix _']';
-END -%]
-
 [%- MACRO rdfa_track_curi(track) BLOCK;
  '[mbz:track/' _ track.gid _ '#' _ hash_suffix _']';
 END -%]
 
-[%- MACRO rdfa_work_curi(work) BLOCK;
- '[mbz:work/' _ work.gid _ '#' _ hash_suffix _']';
-END -%]
-
 [%- MACRO rdfa_medium_curi(release, medium) BLOCK;
     '[mbz:release/' _ release.gid _ '#disc' _ medium.position _ ']';
-END -%]
-
-[%- MACRO rdfa_area_curi(area) BLOCK;
- '[mbz:area/' _ area.gid _ '#' _ hash_suffix _']';
-END -%]
-
-[%- MACRO rdfa_place_curi(place) BLOCK;
- '[mbz:place/' _ place.gid _ '#' _ hash_suffix _']';
 END -%]
 
 [%-#####################-%]
@@ -171,7 +122,7 @@ END -%]
 
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(country) BLOCK;
- '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
+ '<span rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
  '<span class="flag-' _ country.primary_code _ '">';
  '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.primary_code _ '</abbr>';
  '</span>';
@@ -260,7 +211,7 @@ END -%]
     link = c.uri_for_action("/release/$action", [ release.gid ]);
     text = text == '' ? html_escape(release.name) : html_escape(text);
     '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<span about="[evn:]"><a rel="event:product" resource="' _ rdfa_release_curi(release) _ '" href="' _ link _ '"><span about="' _ rdfa_release_curi(release) _ '" typeof="' _ rdfa_concept_curi('release') _ '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a><span rel="event:factor" resource="[rg:]"></span></span>';
+    '<span about="[evn:]"><a rel="event:product" href="' _ link _ '"><span typeof="' _ rdfa_concept_curi('release') _ '" property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a><span rel="event:factor" resource="[rg:]"></span></span>';
     '</span>' IF release.edits_pending AND action == 'show';
   ELSE;
     link_release(release);

@@ -21,7 +21,7 @@
                     [% END %]
                 </tr>
             </thead>
-            <tbody about="[% rdfa_entity_curi(entity) %]">
+            <tbody>
             [%- FOREACH alias IN aliases -%]
                 <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                     [%- show_sort_name = alias.name != alias.sort_name -%]

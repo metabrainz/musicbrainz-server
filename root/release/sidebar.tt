@@ -1,4 +1,4 @@
-[% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
+[% WRAPPER 'layout/sidebar.tt' %]
     <div class="cover-art">
         [%- IF (release.cover_art_presence == 'present' AND release_artwork) -%]
           [%- SET cover_art_message = l("Front cover image failed to load correctly.<br/>{all|View all artwork}.",
