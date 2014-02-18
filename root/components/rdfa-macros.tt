@@ -40,45 +40,6 @@
 [%- END -%]
 [%- END -%]
 
-[%-####################-%]
-[%-# Recording/Signal #-%]
-[%-####################-%]
-
-[%- MACRO rdfa_artist_credit(ac, opts) BLOCK -%]
-    [%- FOREACH name IN ac.names -%]
-        [%- IF name.artist.gid && !opts.plain -%]
-            [%- link_artist(name.artist, 'show', name.name) -%]
-        [%- ELSE -%]
-            [%- name.name | html -%]
-        [%- END -%]
-        [%- name.join_phrase | html -%]
-    [%- END -%]
-[%- END -%]
-
-[%- MACRO rdfa_release_label_list(labels) BLOCK;
-    out = [];
-    seen = {};
-    FOR label=labels;
-      IF label.label_id AND !seen.${ label.label_id };
-        out.push(link_label(label.label));
-        seen.${ label.label_id } = 1;
-      END;
-    END;
-    out.join(', ');
-END -%]
-
-[%- MACRO rdfa_release_catno_list(labels) BLOCK;
-    out = [];
-    seen = {};
-    FOR label=labels;
-      IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(html_escape(label.catalog_number));
-        seen.${ label.catalog_number } = 1;
-      END;
-    END;
-    out.join(', ');
-END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]

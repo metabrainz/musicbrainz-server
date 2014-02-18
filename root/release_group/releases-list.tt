@@ -58,10 +58,10 @@
           <td>[% release_dates(release.events) %]</td>
           <td>[% release_countries(release.events) %]</td>
           [%- IF filter_label -%]
-              <td>[% rdfa_release_catno_list(release.filter_labels(filter_label)) %]</td>
+              <td>[% release_catno_list(release.filter_labels(filter_label)) %]</td>
           [%- ELSE -%]
-              <td>[% rdfa_release_label_list(release.labels) %]</td>
-              <td>[% rdfa_release_catno_list(release.labels) %]</td>
+              <td>[% release_label_list(release.labels) %]</td>
+              <td>[% release_catno_list(release.labels) %]</td>
           [%- END -%]
           <td>[% release.barcode.format %]</td>
           [%- IF c.try_get_session('tport') -%]

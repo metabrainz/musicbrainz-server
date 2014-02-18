@@ -14,9 +14,9 @@
     <p class="subheader">
         <span class="prefix">~</span>
             [%- IF recording.video -%]
-              [% l('Video by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+              [% l('Video by {artist}', {artist = artist_credit(recording.artist_credit)})%]
             [%- ELSE -%]
-              [% l('Recording by {artist}', {artist = rdfa_artist_credit(recording.artist_credit)})%]
+              [% l('Recording by {artist}', {artist = artist_credit(recording.artist_credit)})%]
             [%- END -%]
     </p>
 </div>

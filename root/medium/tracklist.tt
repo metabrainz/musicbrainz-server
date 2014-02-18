@@ -76,7 +76,7 @@ dl.ars dt {
       [% END %]
     </td>
     [%- IF show_artists -%]
-        <td>[% rdfa_artist_credit(track.artist_credit) %]</td>
+        <td>[% artist_credit(track.artist_credit) %]</td>
     [%- END -%]
     [% UNLESS hide_rating %]
     <td class="rating c">[% rating_stars(recording) %]</td>

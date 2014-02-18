@@ -9,7 +9,7 @@
     <h1>[% link_release_group(rg) %] [% disambiguation(rg) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
-            [% l('Release group by {artist}', {artist = rdfa_artist_credit(rg.artist_credit)})%]
+            [% l('Release group by {artist}', {artist = artist_credit(rg.artist_credit)})%]
     </p>
 </div>
 
