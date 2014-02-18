@@ -48,13 +48,6 @@
   '[mfo:' _ url_escape(medium.format_name.replace(' ','_')) _ ']';
 END -%]
 
-[%-################-%]
-[%-# compact uris #-%]
-[%-################-%]
-[%- MACRO rdfa_track_blank_node(track) BLOCK -%]
-[_:[%- track.id -%]]
-[%- END -%]
-
 [%-#####################-%]
 [%-# Artist pages RDFa #-%]
 [%-#####################-%]
