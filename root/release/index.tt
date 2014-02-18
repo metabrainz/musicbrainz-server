@@ -159,10 +159,6 @@
               </td>
             </tr>
           <!-- /ko -->
-
-          <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-            <div>
-          -->
         <!-- /ko -->
       </tbody>
     </table>
