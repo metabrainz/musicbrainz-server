@@ -100,7 +100,7 @@
               [% FOR track=medium.tracks %]
               <tr class="[% 'ev' IF loop.index % 2 == 0 %]">
                 <td class="pos t">
-                  <span style="display: none">[% rdfa_track_number(track.position) %]</span>
+                  <span style="display: none">[% track.position %]</span>
                   [% track.number %]
                 </td>
                 <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>

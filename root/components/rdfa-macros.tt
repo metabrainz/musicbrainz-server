@@ -128,14 +128,6 @@ END -%]
   END;
 END -%]
 
-[%-#############-%]
-[%-# TrackList #-%]
-[%-#############-%]
-
-[%- MACRO rdfa_track_number(position) BLOCK -%]
-   [%- IF doRDFa -%]<span property="mo:track_number" datatype="xsd:positiveInteger">[%- END -%][%- position -%][%- IF doRDFa -%]</span>[%- END -%]
-[%- END -%]
-
 [%-########################-%]
 [%-# pagination / seeAlso #-%]
 [%-########################-%]
