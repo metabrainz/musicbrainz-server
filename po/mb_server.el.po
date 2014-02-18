@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-14 20:17-0700\n"
-"PO-Revision-Date: 2014-02-15 03:20+0000\n"
+"POT-Creation-Date: 2014-02-18 01:54-0700\n"
+"PO-Revision-Date: 2014-02-18 08:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του 
 #: ../root/edit/details/edit_medium.tt:189
 #: ../root/edit/details/edit_medium.tt:220
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
-#: ../root/freedb/show.tt:62 ../root/recording/index.tt:9
+#: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
 #: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:242
 msgid "#"
 msgstr "#"
@@ -1286,7 +1286,7 @@ msgstr ""
 #: ../root/edit/details/historic/change_track_artist.tt:8
 #: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
-#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:17
+#: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:8 ../root/place/performances.tt:10
 #: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:244
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:18
@@ -2028,7 +2028,7 @@ msgid "Change Password"
 msgstr "Αλλαγή κωδικού πρόσβασης"
 
 #: ../root/release/edit/tracklist.tt:370
-msgid "Change all artists on this medium that match “{name}”"
+msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 
 #: ../root/edit/relationship/create.tt:39
@@ -3922,12 +3922,6 @@ msgid ""
 "select \"Add a new recording\" below."
 msgstr "Αν δεν έχουμε ακόμα ηχογράφηση για αυτό το κομμάτι στη βάση δεδομένων, παρακαλούμε επιλέξτε \"Προσθήκη μιας νέας ηχογράφησης\" παρακάτω"
 
-#: ../root/alias/delete.tt:7
-msgid ""
-"If you added this alias by mistake, please follow the instructions on "
-"{cancel|how to cancel pending edits} instead of removing this alias."
-msgstr ""
-
 #: ../root/cdtoc/attach_artist_releases.tt:50
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Αν δε βρήκατε αυτό που ψάχνετε, μπορείτε να προσθέσετε μία νέα κυκλοφορία:"
@@ -4020,7 +4014,7 @@ msgstr "Η εικόνα δεν είναι διαθέσιμη ακόμα, παρ�
 msgid "Image {current} of {total}"
 msgstr ""
 
-#: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
+#: ../root/freedb/show.tt:44 ../root/freedb/show.tt:102
 msgid "Import"
 msgstr "Εισαγωγή"
 
@@ -4033,7 +4027,7 @@ msgstr ""
 msgid "Import CD stub"
 msgstr ""
 
-#: ../root/freedb/show.tt:54
+#: ../root/freedb/show.tt:53
 msgid "Import as Multiple Artist Release"
 msgstr "Εισαγωγή ως κυκλοφορία πολλών καλλιτεχνών"
 
@@ -4314,7 +4308,7 @@ msgstr "Τελευταίες δημοσιεύσεις:"
 #: ../root/cdtoc/info.tt:33 ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/edit_medium.tt:63
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
-#: ../root/freedb/show.tt:65 ../root/isrc/index.tt:18
+#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:245
 #: ../root/release/index.tt:59 ../root/report/isrc_with_many_recordings.tt:26
@@ -5659,7 +5653,7 @@ msgid ""
 "recordings on this release and select \"use in relationship\""
 msgstr "Παρακαλούμε πρώτα περιηγηθείτε στη σελίδα του καλλιτέχνη τον οποίο θέλετε να συσχετίσετε με τις ηχογραφήσεις αυτής της κυκλοφορίας και επιλέξτε \"χρήση σε σχέση\""
 
-#: ../root/freedb/show.tt:48 ../root/freedb/show.tt:106
+#: ../root/freedb/show.tt:47 ../root/freedb/show.tt:105
 msgid "Please login to import this FreeDB disc."
 msgstr "Παρακαλούμε συνδεθείτε για να εισάγετε αυτό το δίσκο FreeDB."
 
@@ -8053,7 +8047,7 @@ msgid ""
 "The tally of votes cast will only be shown when the election is complete."
 msgstr "Το άθροισμα των ψήφων θα εμφανιστεί μόνο μόλις ολοκληρωθεί η ψηφοφορία."
 
-#: ../root/freedb/show.tt:55
+#: ../root/freedb/show.tt:54
 msgid ""
 "The tracklist found looks like it may have different artists on some tracks."
 " If the below display looks correct, you should import this release as a "
@@ -9288,7 +9282,7 @@ msgid "Total works found: {count}"
 msgstr ""
 
 #: ../root/cdtoc/info.tt:31 ../root/freedb/show.tt:11
-#: ../root/freedb/show.tt:63 ../root/search/lib/inline-results-recording.tt:16
+#: ../root/freedb/show.tt:62 ../root/search/lib/inline-results-recording.tt:16
 msgid "Track"
 msgstr "Κομμάτι"
 
@@ -10691,7 +10685,7 @@ msgid "in {parent_areas}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:406
-#: ../root/components/rdfa-macros.tt:790 ../root/components/rdfa-macros.tt:803
+#: ../root/components/rdfa-macros.tt:794 ../root/components/rdfa-macros.tt:807
 msgid "info"
 msgstr "πληροφορίες"
 
@@ -11480,24 +11474,24 @@ msgstr "Το παρεχόμενο id καλλιτέχνη δεν είναι έγ
 msgid "Default"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:205
 msgid "Invalid arguments"
 msgstr "Μη έγκυρες παράμετροι"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:220
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:221
 msgid "Invalid entities"
 msgstr "Μη έγκυρα στοιχεία"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:228
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:229
 msgid "A relationship requires 2 different entities"
 msgstr "Μια σχέση χρειάζεται 2 διαφορετικά στοιχεία"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:311
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:320
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:312
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:321
 msgid "Invalid type"
 msgstr "Μη έγκυρος τύπος"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:327
 msgid "Entity not found"
 msgstr "Δε βρέθηκε στοιχείο"
 
@@ -11519,7 +11513,7 @@ msgstr ""
 msgid "Invalid submission."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:565
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:566
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Αυτή η στρατηγική συγχώνευσης δεν είναι εφαρμόσιμη στις κυκλοφορίες που επιλέξατε."
@@ -11555,6 +11549,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:88
 msgid "Invalid TOC"
 msgstr "Μη έγκυρο TOC"
+
+#: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
+msgid ""
+"Since your edit adding this object was still open, that edit has been "
+"cancelled instead of opening a new edit."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
 msgid "No title provided"
@@ -11913,7 +11913,7 @@ msgstr "Επεξεργασία δισκογραφικής εταιρείας κ�
 msgid "Remove cover art"
 msgstr "Κατάργηση εξωφύλλου"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:23
 msgid "Reorder cover art"
 msgstr "Αναταξινόμηση εξωφύλλου"
 
@@ -12366,22 +12366,22 @@ msgstr "2 βδομάδες"
 msgid "A month"
 msgstr "Ένας μήνας"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Other"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Other"
 msgstr ""

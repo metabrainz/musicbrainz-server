@@ -27,9 +27,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-14 20:17-0700\n"
-"PO-Revision-Date: 2014-02-15 19:08+0000\n"
-"Last-Translator: Alain-Olivier  Breysse\n"
+"POT-Creation-Date: 2014-02-18 01:54-0700\n"
+"PO-Revision-Date: 2014-02-18 08:57+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,7 +83,7 @@ msgstr "« YY » sont les 2 derniers chiffres de l'année d'inscription."
 #: ../root/edit/details/edit_medium.tt:189
 #: ../root/edit/details/edit_medium.tt:220
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
-#: ../root/freedb/show.tt:62 ../root/recording/index.tt:9
+#: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
 #: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:242
 msgid "#"
 msgstr "no"
@@ -1295,7 +1295,7 @@ msgstr "Région :"
 #: ../root/edit/details/historic/change_track_artist.tt:8
 #: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
-#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:17
+#: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:8 ../root/place/performances.tt:10
 #: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:244
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:18
@@ -2037,8 +2037,8 @@ msgid "Change Password"
 msgstr "Changer de mot de passe"
 
 #: ../root/release/edit/tracklist.tt:370
-msgid "Change all artists on this medium that match “{name}”"
-msgstr "Changer tous les artistes sur ce support qui correspondent à « {name} »"
+msgid "Change all artists on this release that match “{name}”"
+msgstr ""
 
 #: ../root/edit/relationship/create.tt:39
 #: ../root/edit/relationship/create.tt:43 ../root/edit/relationship/edit.tt:65
@@ -3931,12 +3931,6 @@ msgid ""
 "select \"Add a new recording\" below."
 msgstr "Si l'enregistrement de cette piste n'est pas déjà dans la base de données, veuillez choisir « Ajouter un enregistrement » ci-dessous."
 
-#: ../root/alias/delete.tt:7
-msgid ""
-"If you added this alias by mistake, please follow the instructions on "
-"{cancel|how to cancel pending edits} instead of removing this alias."
-msgstr "Si vous avez ajouté cet alias par erreur, veuillez suivre les instructions sur {cancel|comment annuler les modifications en attente} au lieu d'enlever cet alias."
-
 #: ../root/cdtoc/attach_artist_releases.tt:50
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Si vous ne trouvez pas ce que vous cherchez, vous pouvez créer une nouvelle parution :"
@@ -4029,7 +4023,7 @@ msgstr "Image pas encore disponible, veuillez réessayer dans quelques minutes."
 msgid "Image {current} of {total}"
 msgstr "Image {current} sur {total}"
 
-#: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
+#: ../root/freedb/show.tt:44 ../root/freedb/show.tt:102
 msgid "Import"
 msgstr "Importer"
 
@@ -4042,7 +4036,7 @@ msgstr "Importer un coupon de CD"
 msgid "Import CD stub"
 msgstr "Importer un coupon de CD"
 
-#: ../root/freedb/show.tt:54
+#: ../root/freedb/show.tt:53
 msgid "Import as Multiple Artist Release"
 msgstr "Importer sous forme de parution à plusieurs artistes"
 
@@ -4323,7 +4317,7 @@ msgstr "Billets les plus récents :"
 #: ../root/cdtoc/info.tt:33 ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/edit_medium.tt:63
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
-#: ../root/freedb/show.tt:65 ../root/isrc/index.tt:18
+#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:245
 #: ../root/release/index.tt:59 ../root/report/isrc_with_many_recordings.tt:26
@@ -5668,7 +5662,7 @@ msgid ""
 "recordings on this release and select \"use in relationship\""
 msgstr "Veuillez naviguer vers la page de l'artiste que vous souhaitez mettre en relation avec les enregistrements de cette parution, et choisissez « utiliser dans une relation »"
 
-#: ../root/freedb/show.tt:48 ../root/freedb/show.tt:106
+#: ../root/freedb/show.tt:47 ../root/freedb/show.tt:105
 msgid "Please login to import this FreeDB disc."
 msgstr "Veuillez vous connecter pour importer ce disque FreeDB"
 
@@ -8062,7 +8056,7 @@ msgid ""
 "The tally of votes cast will only be shown when the election is complete."
 msgstr "Le décompte des votes ne sera affiché qu'à la fin de l'élection."
 
-#: ../root/freedb/show.tt:55
+#: ../root/freedb/show.tt:54
 msgid ""
 "The tracklist found looks like it may have different artists on some tracks."
 " If the below display looks correct, you should import this release as a "
@@ -9297,7 +9291,7 @@ msgid "Total works found: {count}"
 msgstr "Total des œuvres de trouvées : {count}"
 
 #: ../root/cdtoc/info.tt:31 ../root/freedb/show.tt:11
-#: ../root/freedb/show.tt:63 ../root/search/lib/inline-results-recording.tt:16
+#: ../root/freedb/show.tt:62 ../root/search/lib/inline-results-recording.tt:16
 msgid "Track"
 msgstr "Piste"
 
@@ -10700,7 +10694,7 @@ msgid "in {parent_areas}"
 msgstr "Dans {parent_areas}"
 
 #: ../root/components/common-macros.tt:406
-#: ../root/components/rdfa-macros.tt:790 ../root/components/rdfa-macros.tt:803
+#: ../root/components/rdfa-macros.tt:794 ../root/components/rdfa-macros.tt:807
 msgid "info"
 msgstr "info"
 
@@ -11489,24 +11483,24 @@ msgstr "L'ID d'artiste fourni n'est pas valide"
 msgid "Default"
 msgstr "Valeur par défaut"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:205
 msgid "Invalid arguments"
 msgstr "Arguments invalides"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:220
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:221
 msgid "Invalid entities"
 msgstr "Entités invalides"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:228
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:229
 msgid "A relationship requires 2 different entities"
 msgstr "Une relation requiert 2 entités différentes"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:311
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:320
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:312
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:321
 msgid "Invalid type"
 msgstr "Type invalide"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:327
 msgid "Entity not found"
 msgstr "Entité introuvable"
 
@@ -11528,7 +11522,7 @@ msgstr "Il y avait des erreurs dans votre proposition. Veuillez les corriger et 
 msgid "Invalid submission."
 msgstr "Proposition invalide."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:565
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:566
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Cette stratégie de fusion n'est pas applicable aux parutions que vous avez sélectionnées."
@@ -11564,6 +11558,12 @@ msgstr "'{type}' n'est pas un type d'entité qui peut avoir des évaluations."
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:88
 msgid "Invalid TOC"
 msgstr "Index invalide"
+
+#: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
+msgid ""
+"Since your edit adding this object was still open, that edit has been "
+"cancelled instead of opening a new edit."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
 msgid "No title provided"
@@ -11922,7 +11922,7 @@ msgstr "Modifier le label de parution"
 msgid "Remove cover art"
 msgstr "Enlever l'Illustration"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:23
 msgid "Reorder cover art"
 msgstr "Réordonner les Illustrations"
 
@@ -12375,22 +12375,22 @@ msgstr "2 semaines"
 msgid "A month"
 msgstr "Un mois"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr "Utilisé fréquemment"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Other"
 msgstr "Autre"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr "Utilisé fréquemment"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Other"
 msgstr "Autre"

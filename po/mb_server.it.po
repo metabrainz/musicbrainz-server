@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-14 20:17-0700\n"
-"PO-Revision-Date: 2014-02-15 18:02+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"POT-Creation-Date: 2014-02-18 01:54-0700\n"
+"PO-Revision-Date: 2014-02-18 08:57+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,7 +77,7 @@ msgstr "\"AA\" sono le ultime due cifre dell'anno di registrazione."
 #: ../root/edit/details/edit_medium.tt:189
 #: ../root/edit/details/edit_medium.tt:220
 #: ../root/edit/details/historic/add_release.tt:49 ../root/freedb/show.tt:10
-#: ../root/freedb/show.tt:62 ../root/recording/index.tt:9
+#: ../root/freedb/show.tt:61 ../root/recording/index.tt:9
 #: ../root/release/edit/tracklist.tt:99 ../root/release/edit/tracklist.tt:242
 msgid "#"
 msgstr "#"
@@ -1289,7 +1289,7 @@ msgstr "Area:"
 #: ../root/edit/details/historic/change_track_artist.tt:8
 #: ../root/edit/details/merge_release_groups.tt:5
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:307
-#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:17
+#: ../root/freedb/show.tt:63 ../root/isrc/index.tt:17
 #: ../root/otherlookup/results-release.tt:8 ../root/place/performances.tt:10
 #: ../root/release/edit/tracklist.tt:101 ../root/release/edit/tracklist.tt:244
 #: ../root/release_group/merge.tt:13 ../root/release_group/releases-list.tt:18
@@ -2031,8 +2031,8 @@ msgid "Change Password"
 msgstr "Cambia password"
 
 #: ../root/release/edit/tracklist.tt:370
-msgid "Change all artists on this medium that match “{name}”"
-msgstr "Cambia tutti gli artisti su questo supporto che corrispondono a \"{name}\""
+msgid "Change all artists on this release that match “{name}”"
+msgstr ""
 
 #: ../root/edit/relationship/create.tt:39
 #: ../root/edit/relationship/create.tt:43 ../root/edit/relationship/edit.tt:65
@@ -3925,12 +3925,6 @@ msgid ""
 "select \"Add a new recording\" below."
 msgstr "Se non abbiamo ancora nel database una registrazione per questa traccia, seleziona \"Aggiungi una nuova registrazione\"."
 
-#: ../root/alias/delete.tt:7
-msgid ""
-"If you added this alias by mistake, please follow the instructions on "
-"{cancel|how to cancel pending edits} instead of removing this alias."
-msgstr "Se hai aggiunto questo alias per errore, segui le istruzioni su {cancel|come cancellare le modifiche in corso} invece di rimuovere l'alias."
-
 #: ../root/cdtoc/attach_artist_releases.tt:50
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr "Se non riesci a trovare quello che stavi cercando, puoi aggiungere una nuova pubblicazione:"
@@ -4023,7 +4017,7 @@ msgstr "Immagine non ancora disponibile, riprova tra qualche minuto."
 msgid "Image {current} of {total}"
 msgstr "Immagine {current} di {total}"
 
-#: ../root/freedb/show.tt:45 ../root/freedb/show.tt:103
+#: ../root/freedb/show.tt:44 ../root/freedb/show.tt:102
 msgid "Import"
 msgstr "Importa"
 
@@ -4036,7 +4030,7 @@ msgstr "Importa bozza CD"
 msgid "Import CD stub"
 msgstr "Importa bozza CD"
 
-#: ../root/freedb/show.tt:54
+#: ../root/freedb/show.tt:53
 msgid "Import as Multiple Artist Release"
 msgstr "Importa come pubblicazione di artisti multipli"
 
@@ -4317,7 +4311,7 @@ msgstr "Ultimi post:"
 #: ../root/cdtoc/info.tt:33 ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/edit_medium.tt:63
 #: ../root/edit/details/historic/add_release.tt:52 ../root/freedb/show.tt:12
-#: ../root/freedb/show.tt:65 ../root/isrc/index.tt:18
+#: ../root/freedb/show.tt:64 ../root/isrc/index.tt:18
 #: ../root/recording/index.tt:11 ../root/release/discids.tt:10
 #: ../root/release/edit/tracklist.tt:102 ../root/release/edit/tracklist.tt:245
 #: ../root/release/index.tt:59 ../root/report/isrc_with_many_recordings.tt:26
@@ -5662,7 +5656,7 @@ msgid ""
 "recordings on this release and select \"use in relationship\""
 msgstr "Per prima cosa vai alla pagina dell'artista che vuoi mettere in relazione  con le registrazioni su questa pubblicazione e clicca su \"usa in relazione\""
 
-#: ../root/freedb/show.tt:48 ../root/freedb/show.tt:106
+#: ../root/freedb/show.tt:47 ../root/freedb/show.tt:105
 msgid "Please login to import this FreeDB disc."
 msgstr "Accedi per importare questo disco da FreeDB."
 
@@ -8056,7 +8050,7 @@ msgid ""
 "The tally of votes cast will only be shown when the election is complete."
 msgstr "Il conteggio dei voti espressi sarà mostrato solo al termine dell'elezione."
 
-#: ../root/freedb/show.tt:55
+#: ../root/freedb/show.tt:54
 msgid ""
 "The tracklist found looks like it may have different artists on some tracks."
 " If the below display looks correct, you should import this release as a "
@@ -9291,7 +9285,7 @@ msgid "Total works found: {count}"
 msgstr "Totale opere trovate: {count}"
 
 #: ../root/cdtoc/info.tt:31 ../root/freedb/show.tt:11
-#: ../root/freedb/show.tt:63 ../root/search/lib/inline-results-recording.tt:16
+#: ../root/freedb/show.tt:62 ../root/search/lib/inline-results-recording.tt:16
 msgid "Track"
 msgstr "Traccia"
 
@@ -10694,7 +10688,7 @@ msgid "in {parent_areas}"
 msgstr "in {parent_areas}"
 
 #: ../root/components/common-macros.tt:406
-#: ../root/components/rdfa-macros.tt:790 ../root/components/rdfa-macros.tt:803
+#: ../root/components/rdfa-macros.tt:794 ../root/components/rdfa-macros.tt:807
 msgid "info"
 msgstr "info"
 
@@ -11483,24 +11477,24 @@ msgstr "L'ID artista fornito non è valido"
 msgid "Default"
 msgstr "Default"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:204
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:205
 msgid "Invalid arguments"
 msgstr "Argomenti non validi"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:220
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:221
 msgid "Invalid entities"
 msgstr "Entità non valide"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:228
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:229
 msgid "A relationship requires 2 different entities"
 msgstr "Una relazione necessita di 2 diverse entità"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:311
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:320
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:312
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:321
 msgid "Invalid type"
 msgstr "Tipo non valido"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:326
+#: ../lib/MusicBrainz/Server/Controller/Edit/Relationship.pm:327
 msgid "Entity not found"
 msgstr "Entità non trovata"
 
@@ -11522,7 +11516,7 @@ msgstr "Ci sono degli errori nel tuo invio. Correggili e riprova."
 msgid "Invalid submission."
 msgstr "Invio non valido."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:565
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:566
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Questa strategia di unione non è applicabile alle pubblicazioni che hai selezionato."
@@ -11558,6 +11552,12 @@ msgstr "'{type}' non è un tipo di entità che può ricevere valutazioni."
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:88
 msgid "Invalid TOC"
 msgstr "TOC non valido"
+
+#: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
+msgid ""
+"Since your edit adding this object was still open, that edit has been "
+"cancelled instead of opening a new edit."
+msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:108
 msgid "No title provided"
@@ -11916,7 +11916,7 @@ msgstr "Modifica etichetta della pubblicazione"
 msgid "Remove cover art"
 msgstr "Rimuovi copertina"
 
-#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:22
+#: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:23
 msgid "Reorder cover art"
 msgstr "Riordina copertine"
 
@@ -12369,22 +12369,22 @@ msgstr "2 settimane"
 msgid "A month"
 msgstr "Un mese"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Frequently used"
 msgstr "Utilizzate frequentemente"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:43
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:35
 msgctxt "language optgroup"
 msgid "Other"
 msgstr "Altre"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Frequently used"
 msgstr "Utilizzati frequentemente"
 
-#: ../lib/MusicBrainz/Server/Form/Utils.pm:67
+#: ../lib/MusicBrainz/Server/Form/Utils.pm:59
 msgctxt "script optgroup"
 msgid "Other"
 msgstr "Altri"
