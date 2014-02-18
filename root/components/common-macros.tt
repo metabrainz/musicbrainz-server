@@ -1104,3 +1104,12 @@ END -%]
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
     </span>
 [%- END -%]
+
+[%- MACRO set_header() BLOCK; -%]
+<!DOCTYPE html>
+[% FILTER collapse -%]
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="[%- current_language_html -%]"
+      lang="[%- current_language_html -%]">
+[%- END -%]
+[%- END -%]

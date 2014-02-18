@@ -7,39 +7,6 @@
 
 [%- SET hash_suffix = '_'; -%]
 
-[%-# header XHTML+RDFa or HTML5 #-%]
-[%- MACRO rdfa_set_header(usesRDFa) BLOCK; -%]
-[%- IF doRDFa && usesRDFa -%]
-<!DOCTYPE html>
-[% FILTER collapse -%]
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:dct="http://purl.org/dc/terms/"
-      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-      xmlns:mbz="http://musicbrainz.org/"
-      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlns:mo="http://purl.org/ontology/mo/"
-      xmlns:bio="http://vocab.org/bio/0.1/"
-      xmlns:ov="http://open.vocab.org/terms/"
-      xmlns:mfo="http://purl.org/ontology/mfo/"
-      xmlns:event="http://purl.org/NET/c4dm/event.owl#"
-      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-      xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#"
-      xmlns:owl="http://www.w3.org/2002/07/owl#"
-      xml:lang="[%- current_language_html -%]"
-      lang="[%- current_language_html -%]">
-[%- END -%]
-[%- ELSE -%]
-<!DOCTYPE html>
-[% FILTER collapse -%]
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xml:lang="[%- current_language_html -%]"
-      lang="[%- current_language_html -%]">
-[%- END -%]
-[%- END -%]
-[%- END -%]
-
 [%-###########-%]
 [%-# Release #-%]
 [%-###########-%]
