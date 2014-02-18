@@ -3,7 +3,7 @@ package MusicBrainz::Server;
 use Moose;
 BEGIN { extends 'Catalyst' }
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use DBDefs;
 use Encode;
 use MusicBrainz::Server::Log qw( logger );
@@ -235,7 +235,7 @@ sub form
     my ($c, $stash, $form_name, %args) = @_;
     die '$c->form required $stash => $form_name as arguments' unless $stash && $form_name;
     $form_name = "MusicBrainz::Server::Form::$form_name";
-    Class::MOP::load_class($form_name);
+    load_class($form_name);
     my $form = $form_name->new(%args, ctx => $c);
     $c->stash( $stash => $form );
     return $form;
