@@ -128,8 +128,8 @@
         if (duration) {
             params.dur = [
                 _.str.sprintf("[%d TO %d]",
-                    duration - MAX_LENGTH_DIFFERENCE,
-                    duration + MAX_LENGTH_DIFFERENCE)
+                    duration - MB.constants.MAX_LENGTH_DIFFERENCE,
+                    duration + MB.constants.MAX_LENGTH_DIFFERENCE)
             ];
         }
 
