@@ -119,6 +119,9 @@ sub initialize
         $self->c->model('CDTOC')->load($medium_cdtoc);
     }
 
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if $medium_cdtoc->medium->id == $new->id;
+
     $self->data({
         medium_cdtoc => {
             id => $medium_cdtoc->id,
@@ -158,9 +161,10 @@ sub accept
         )
     }
 
-    if ($self->c->model('MediumCDTOC')->medium_has_cdtoc(
-        $medium->id,
-        $medium_cdtoc->cdtoc
+    if ($self->data->{old_medium}{id} != $self->data->{new_medium}{id} &&
+        $self->c->model('MediumCDTOC')->medium_has_cdtoc(
+            $medium->id,
+            $medium_cdtoc->cdtoc
     )) {
         $self->c->model('MediumCDTOC')->delete(
             $self->data->{medium_cdtoc}{id}
