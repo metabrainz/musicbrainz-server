@@ -48,9 +48,7 @@ __PACKAGE__->config(
     "View::Default" => {
         FILTERS => {
             'release_date' => \&MusicBrainz::Server::Filters::release_date,
-            'date_xsd_type' => \&MusicBrainz::Server::Filters::date_xsd_type,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
-            'format_length_xsd' => \&MusicBrainz::Server::Filters::format_length_xsd,
             'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
