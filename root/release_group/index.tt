@@ -33,11 +33,7 @@
                 [%- END -%]
               </tr>
             </thead>
-            [% IF rdfa_made %]
-              <tbody>
-            [% ELSE %]
-              <tbody>
-            [% END %]
+            <tbody>
             [%- FOR group=releases -%]
               <tr class="subh">
                 [% IF c.user_exists %]<th></th>[% END %]
@@ -51,17 +47,10 @@
                          value="[% release.id %]" />
                 </td>
                 [% END %]
-                [% IF rdfa_made %]
 	            <td>
                   [% link_release(release) %]
                   [% disambiguation(release) %]
                 </td>
-	            [% ELSE %]
-	            <td>
-                  [% link_release(release) %]
-                  [% disambiguation(release) %]
-                </td>
-	            [% END %]
                 <td>[% html_escape(release.combined_format_name) or "-" %]</td>
                 <td>[% release.combined_track_count or "-" %]</td>
                 <td>[% release_dates(release.events) %]</td>

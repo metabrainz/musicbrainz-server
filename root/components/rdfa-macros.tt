@@ -1,8 +1,0 @@
-[%- USE u = Utils -%]
-
-[%- MACRO url_escape(url) BLOCK; url | url; END -%]
-
-[%-# set to 0 to not use RDFa #-%]
-[%- SET doRDFa = 1; -%]
-
-[%- SET hash_suffix = '_'; -%]

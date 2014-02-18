@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
+[%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]

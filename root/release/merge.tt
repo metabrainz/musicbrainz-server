@@ -21,28 +21,17 @@
                     <th>[% l('Barcode') %]</th>
                 </tr>
             </thead>
-            [% IF rdfa_made %]
-              <tbody>
-            [% ELSE %]
-              <tbody>
-            [% END %]
+            <tbody>
             [%- FOR release=to_merge -%]
               <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
                 <td>
                   <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
                   <input type="radio" name="merge.target" value="[% release.id %]" />
                 </td>
-                [% IF rdfa_made %]
                   <td>
                     [% link_release(release) %]
                     [% disambiguation(release) %]
                   </td>
-                [% ELSE %]
-                  <td>
-                    [% link_release(release) %]
-                    [% disambiguation(release) %]
-                  </td>
-                [% END %]
                   <td>[% artist_credit(release.artist_credit) %]</td>
                   <td>[% html_escape(release.combined_format_name) or "-" %]</td>
                   <td>[% release.combined_track_count or "-" %]</td>

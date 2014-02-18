@@ -31,25 +31,14 @@
             [%- END -%]
         </tr>
     </thead>
-    [% IF rdfa_made %]
-      <tbody>
-    [% ELSE %]
-      <tbody>
-    [% END %]
+    <tbody>
     [%- FOR release=releases -%]
       <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
         [% PROCESS release_row_prefix %]
-        [% IF rdfa_made %]
-          <td>
-            [% link_release(release) %]
-            [% disambiguation(release) %]
-          </td>
-	    [% ELSE %]
 	      <td>
             [% link_release(release) %]
             [% disambiguation(release) %]
           </td>
-	    [% END %]
         [% IF show_artists %]
           <td>[% artist_credit(release.artist_credit) %]</td>
         [% END %]

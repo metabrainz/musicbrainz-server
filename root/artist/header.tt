@@ -8,7 +8,6 @@
     ['tags', link_artist(artist, 'tags', l('Tags'))],
     ['details', link_artist(artist, 'details', l('Details'))],
 ] -%]
-[%# note no RDFa for tags, edit.  relationships @@TODO %]
 
 [% info_links.push(
     ['edit', link_artist(artist, 'edit', l('Edit'))]
