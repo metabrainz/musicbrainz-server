@@ -283,7 +283,7 @@
 [%- MACRO external_link_bubble BLOCK -%]
   <div class="bubble" id="external-link-bubble" data-bind="bubble: bubbleDoc">
     <!-- ko with: $bubble.target -->
-      <p data-bind="if: url() && !error()">
+      <p data-bind="if: url() &amp;&amp; !error()">
         [% l('URL:') | js %] <a target="_blank" data-bind="attr: { href: url }, text: url"></a>
       </p>
       <p data-bind="html: linkTypeDescription"></p>
