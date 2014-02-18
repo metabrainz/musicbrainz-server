@@ -55,21 +55,3 @@
     [%~ END ~%]
     </a>
 [%- END -%]
-
-[%-#################-%]
-[%-# Release Group #-%]
-[%-#################-%]
-
-[%-# assumes rdfa_release_ns and rdfa_release_group_ns #-%]
-[%- MACRO rdfa_event_product_release_link(release) BLOCK;
-  IF doRDFa;
-    action = action || 'show';
-    link = c.uri_for_action("/release/$action", [ release.gid ]);
-    text = text == '' ? html_escape(release.name) : html_escape(text);
-    '<span class="mp">' IF release.edits_pending AND action == 'show';
-    '<span about="[evn:]"><a rel="event:product" href="' _ link _ '"><span property="dct:title rdfs:label" xml:lang="" lang="">' _ text _ '</span></a><span rel="event:factor" resource="[rg:]"></span></span>';
-    '</span>' IF release.edits_pending AND action == 'show';
-  ELSE;
-    link_release(release);
-  END;
-END -%]

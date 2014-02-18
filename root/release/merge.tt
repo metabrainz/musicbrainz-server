@@ -39,7 +39,7 @@
                   </td>
                 [% ELSE %]
                   <td>
-                    [% rdfa_event_product_release_link(release) %]
+                    [% link_release(release) %]
                     [% disambiguation(release) %]
                   </td>
                 [% END %]
