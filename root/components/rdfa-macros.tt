@@ -106,14 +106,6 @@ END -%]
 [%-# Release #-%]
 [%-###########-%]
 
-[%- MACRO rdfa_release_invisible_header(release) BLOCK -%]
-[%- IF doRDFa -%]
-<span rel="mo:publishing_location"></span>
-<span rel="rdf:type" resource="[%- rdfa_format_list(release.mediums) -%]"></span>
-<span rel="mo:release_event"><span typeof="mo:ReleaseEvent" property="dct:date" datatype="[%- release.date.format | date_xsd_type -%]" content="[%- release.date.format -%]"></span></span>
-[%- END -%]
-[%- END -%]
-
 [%- MACRO rdfa_medium_in_release(release, medium) BLOCK -%]
     [%- fragment = "disc" _ medium.position -%]
     <a rel="mo:record" id="[%- fragment  -%]"
