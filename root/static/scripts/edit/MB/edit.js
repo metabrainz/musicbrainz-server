@@ -104,7 +104,7 @@
                 artist_credit:  fields.artistCredit(recording.artistCredit),
                 length:         number(recording.length),
                 comment:        string(recording.comment),
-                video:          Boolean(value(recording.video))
+                video:          value(recording.video) ? 1 : 0
             };
         },
 

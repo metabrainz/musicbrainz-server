@@ -126,10 +126,10 @@ test("recordingEdit edits are generated for new release", function () {
           ]
         },
         length: 722093,
-        comment: null,
-        video: false,
+        comment: "",
+        video: 0,
         edit_type: 72,
-        hash: "50379153e2dc73753cdb154f53ada243936d8941"
+        hash: "2574700e1020ae12c104795d0cbbca818692a2ef"
       }
     ]);
 
