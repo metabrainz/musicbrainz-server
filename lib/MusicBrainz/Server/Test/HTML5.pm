@@ -15,48 +15,19 @@ Check if a particular warning should be ignored.
 
 Currently we ignore the following warnings:
 
-  1. rel attribute on elements other than a, area, link.
-     HTML5 spec: http://developers.whatwg.org/section-index.html#attributes-1
-
-     We use the rel attribute according to the RDFa spec.
-
-  2. datatype attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  3. resource attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  4. content attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
-  5. xmlns attributes on <html>
-     Not valid in html5, required for RDFa 1.0.  Upgrading our implementation
-     to RDFa 1.1 hopefully will solve this.  See MBS-xxxx.
-
-  6. Bad value "foo:Bar" for attribute "rel"
-     validator.nu requires rel="" values to be from a list of registered
-     types, whereas in RDFa you can use anything if you link to a vocabulary
-     which defines the type.
-
-  7. <img> tags without alt attributes
+  1. <img> tags without alt attributes
      Not all img elements must have an alt attribute, although we could
      probably do do better here.  For now, just ignore it.
 
-  8. <input type="button"> without value
+  2. <input type="button"> without value
      In a few spots we use <input type="button"> for buttons which get
      their appearance from a background image instead of the value
      attribute.  <button><img src="" alt="" /></button> would be better
      solution.  See MBS-xxxx.
 
-  9. Element "foo" now allowed as child of element "bar" ...
+  3. Element "foo" now allowed as child of element "bar" ...
      These are problems with how our HTML is structured, and these should
      be fixed.  See MBS-xxxx.
-
- 10. about attribute
-     Not a valid attribute in HTML5, but used by RDFa.
-
- 11. Bad value ... for attribute “resource” on element ...
-     We seem to be using values that are not proper resource attribute values.
 
 =cut
 
@@ -65,17 +36,9 @@ sub ignore_warning
     my $msg = shift;
 
     my @ignored = (
-        '^Attribute .rel. not allowed on element',
-        '^Attribute .datatype. not allowed on element',
-        '^Attribute .resource. not allowed on element',
-        '^Attribute .content. not allowed on element',
-        '^Attribute .xmlns:[A-Za-z0-9]*. not allowed here',
-        '^Bad value .* for attribute .rel. on element',
         '^An .img. element must have an .alt. attribute',
         '^Element .input. with attribute .type. whose value is .button.',
         '^Element .* not allowed as child of element .* in this context.',
-        '^Attribute .about. not allowed on element',
-        '^Bad value .* for attribute .resource. on element .*: Illegal character in scheme component.'
     );
 
     for my $test (@ignored)
