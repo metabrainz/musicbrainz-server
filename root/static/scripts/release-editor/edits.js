@@ -115,7 +115,6 @@
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
                     var newRecording = track.recording();
-                    var oldRecording = track.recording.original();
 
                     if (newRecording) {
                         newRecording = MB.edit.fields.recording(newRecording);
@@ -130,6 +129,8 @@
                                 artist_credit:  trackData.artist_credit,
                                 length:         trackData.length
                             });
+
+                            var oldRecording = track.recording.savedEditData;
 
                             if (!_.isEqual(newRecording, oldRecording)) {
                                 edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
