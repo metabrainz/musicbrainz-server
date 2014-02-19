@@ -440,25 +440,32 @@ sub _merge_attributes {
     $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
 }
 
+
 sub _conditional_merge {
-    my ($condition) = @_;
+    my ($condition, %opts) = @_;
+
+    my $wrap_coalesce = sub {
+        my ($inner, $wrap) = @_;
+        if ($wrap) { return "coalesce(" . $inner . ",?)" }
+        else { return $inner }
+    };
 
     return sub {
             my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
             my $columns = $named_params->{columns} or confess 'Missing parameter columns';
             ("UPDATE $table SET " .
              join(',', map {
-                 "$_ = (SELECT new_val FROM (
+                 "$_ = " . $wrap_coalesce->("(SELECT new_val FROM (
                       SELECT (id = ?) AS first, $_ AS new_val
                         FROM $table
                        WHERE $_ $condition
                          AND id IN (" . placeholders(@$all_ids) . ")
                     ORDER BY first DESC
                        LIMIT 1
-                       ) s)";
+                       ) s)", exists $opts{default});
              } @$columns) . '
              WHERE id = ?',
-             (@$all_ids, $new_id) x @$columns, $new_id)}
+             (@$all_ids, $new_id) x @$columns, (exists $opts{default} ? $opts{default} : ()), $new_id)}
 }
 
 sub merge_table_attributes {
@@ -466,7 +473,7 @@ sub merge_table_attributes {
 }
 
 sub merge_string_attributes {
-    _merge_attributes(shift, _conditional_merge("!= ''"), @_);
+    _merge_attributes(shift, _conditional_merge("!= ''", default => ''), @_);
 }
 
 sub merge_boolean_attributes {
