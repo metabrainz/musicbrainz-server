@@ -137,6 +137,58 @@ test("recordingEdit edits are generated for new release", function () {
 });
 
 
+test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
+    releaseEditor.copyTrackChangesToRecordings(true);
+
+    var trackData = {
+        name: "foo",
+        artistCredit: releaseEditor.test.testArtistCredit
+    };
+
+    this.release.mediums.push(
+        releaseEditor.fields.Medium({ tracks: [ trackData ] })
+    );
+
+    var track = this.release.mediums()[1].tracks()[0];
+    var recordingData = _.extend({ gid: "80f797aa-2077-435d-85e2-c22e31a654f4" }, trackData);
+
+    track.recording(MB.entity.Recording(recordingData));
+    track.name("foobar");
+
+    var edits = _.filter(releaseEditor.edits.medium(this.release),
+        function (edit) {
+            return edit.edit_type === MB.edit.TYPES.EDIT_RECORDING_EDIT;
+        });
+
+    deepEqual(edits, [
+      {
+        "artist_credit": {
+          "names": [
+            {
+              "artist": {
+                "gid": "0798d15b-64e2-499f-9969-70167b1d8617",
+                "id": 39282,
+                "name": "Boredoms"
+              },
+              "join_phrase": null,
+              "name": "Boredoms"
+            }
+          ]
+        },
+        "comment": "",
+        "edit_type": 72,
+        "hash": "bd8f7990396214d3dede21b6064ded7d35f90930",
+        "length": null,
+        "name": "foobar",
+        "to_edit": "80f797aa-2077-435d-85e2-c22e31a654f4",
+        "video": false
+      }
+    ]);
+
+    releaseEditor.copyTrackChangesToRecordings(false);
+});
+
+
 test("mediumCreate edits are generated for new release", function () {
 
     this.release.mediums.push(
