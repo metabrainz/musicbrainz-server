@@ -10,7 +10,7 @@
     [% ELSIF edit.status == 9 %]
         [%- " cancelled" -%]
     [% ELSE %]
-        [%- " error" -%]
+        [%- " edit-error" -%]
     [% END %]
 [% END %]
 
