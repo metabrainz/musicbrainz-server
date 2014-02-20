@@ -716,7 +716,7 @@ END -%]
                   exactdate => UserDate.format(datetime) }) -%]
         [%- END -%]
     [%- ELSE -%]
-        [% l('Already expired') %]
+        [%- l('Already expired') -%]
     [%- END -%]
 [%- END -%]
 

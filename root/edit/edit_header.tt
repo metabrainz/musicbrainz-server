@@ -1,90 +1,90 @@
-[% BLOCK edit_status %]
-    [% IF edit.status == 1 %]
+[%~ BLOCK edit_status ~%]
+    [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
-    [% ELSIF edit.status == 2 %]
+    [%~ ELSIF edit.status == 2 ~%]
         [%- " applied" -%]
-    [% ELSIF edit.status == 3 %]
+    [%~ ELSIF edit.status == 3 ~%]
         [%- " failed" -%]
-    [% ELSIF edit.status == 8 %]
+    [%~ ELSIF edit.status == 8 %]
         [%- " cancelling" -%]
-    [% ELSIF edit.status == 9 %]
+    [%~ ELSIF edit.status == 9 ~%]
         [%- " cancelled" -%]
-    [% ELSE %]
+    [%~ ELSE ~%]
         [%- " edit-error" -%]
-    [% END %]
-[% END %]
+    [%~ END ~%]
+[%~ END ~%]
 
-<div class="edit-header[%- PROCESS edit_status -%] edit-[% edit.edit_kind %]
-            [% edit.edit_name FILTER lower FILTER replace('[^A-Za-z-]+', '-') %]">
-    [% IF summary %]
+<div class="edit-header[%- PROCESS edit_status -%] edit-[%~ edit.edit_kind =%]
+            [%= edit.edit_name FILTER lower FILTER replace('[^A-Za-z-]+', '-') ~%]">
+    [%~ IF summary ~%]
         <div class="edit-description">
             <table>
                 <tr>
                     <td>
-                        [% IF voter && voter.id != c.user.id %]
+                        [%~ IF voter && voter.id != c.user.id ~%]
                             <div class="my-vote">
                                 <strong>[%- l('Their vote: ') -%]</strong>
-                                [%- l(edit.latest_vote_for_editor(voter.id).vote_name) -%]
+                                [%- l(edit.latest_vote_for_editor(voter.id).vote_name) ~%]
                             </div>
-                        [% ELSE %]
-                          [% IF edit.latest_vote_for_editor(c.user.id) %]
+                        [%~ ELSE ~%]
+                          [%~ IF edit.latest_vote_for_editor(c.user.id) ~%]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
-                                  [%- l(edit.latest_vote_for_editor(c.user.id).vote_name) -%]
+                                  [%- l(edit.latest_vote_for_editor(c.user.id).vote_name) ~%]
                               </div>
-                          [% ELSIF c.user.id == edit.editor_id %]
+                          [%~ ELSIF c.user.id == edit.editor_id ~%]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
-                                  [%- l('N/A') -%]
+                                  [%- l('N/A') ~%]
                               </div>
-                          [% ELSIF !edit.latest_vote_for_editor(c.user.id) %]
+                          [%~ ELSIF !edit.latest_vote_for_editor(c.user.id) ~%]
                               <div class="my-vote">
                                   <strong>[%- l('My vote: ') -%]</strong>
-                                  [%- l('None') -%]
+                                  [%- l('None') ~%]
                               </div>
-                          [% END %]
-                        [% END %]
+                          [%~ END ~%]
+                        [%~ END ~%]
                     </td>
                     <td class="vote-count">
-                        [% IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open %]
+                        [%~ IF edit.latest_vote_for_editor(c.user.id) || c.user.id == edit.editor_id || !edit.is_open ~%]
                             <div>[%- vote_tally(edit) -%]</div>
-                        [% END %]
+                        [%~ END ~%]
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="edit-expiration">
-                        [% IF edit.status == 1 %]
-                            [% expiration_time(edit.expires_time) %]
-                        [% ELSIF !edit.is_open && edit.status == 8 %]
-                            [%- l('<strong>Closed:</strong> <em>Cancelling</em>') -%]
-                        [% ELSIF !edit.is_open && edit.was_approved %]
-                            [%- l('<strong>Approved:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) -%]
-                        [% ELSIF !edit.is_open %]
-                            [%- l('<strong>Closed:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) -%]
-                        [% END %]
+                        [%~ IF edit.status == 1 ~%]
+                            [%~ expiration_time(edit.expires_time) ~%]
+                        [%~ ELSIF !edit.is_open && edit.status == 8 ~%]
+                            [%~ l('<strong>Closed:</strong> <em>Cancelling</em>') ~%]
+                        [%~ ELSIF !edit.is_open && edit.was_approved ~%]
+                            [%~ l('<strong>Approved:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) ~%]
+                        [%~ ELSIF !edit.is_open ~%]
+                            [%~ l('<strong>Closed:</strong> {date}', { date => html_escape(UserDate.format(edit.close_time)) }) ~%]
+                        [%~ END ~%]
                     </td>
                 </tr>
             </table>
         </div>
         <h2>
-            [%- link_edit(edit, show, html_escape(l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name}))) -%]
+            [%~ link_edit(edit, show, html_escape(l('Edit #{id} - {name}', { id => edit.id, name => edit.l_edit_name}))) ~%]
         </h2>
-    [% ELSE %]
-        [% IF edit.can_approve(c.user) || edit.can_cancel(c.user) %]
+    [%~ ELSE ~%]
+        [%~ IF edit.can_approve(c.user) || edit.can_cancel(c.user) ~%]
             <div class="cancel-edit buttons">
-                [% IF edit.can_approve(c.user) %]
+                [%~ IF edit.can_approve(c.user) ~%]
                     <a class="positive" href="[% c.uri_for_action('/edit/approve', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Approve edit') %]</a>
-                [% END %]
+                [%~ END =%]
 
-                [% IF edit.can_cancel(c.user) %]
+                [%= IF edit.can_cancel(c.user) ~%]
                     <a class="negative" href="[% c.uri_for_action('/edit/cancel', [ edit.id ], { returnto=c.req.uri }) %]">[% l('Cancel edit') %]</a>
-                [% END %]
+                [%~ END ~%]
             </div>
         [% END %]
         <h1>
             [%- l('Edit #{id} - {name}', { id => edit.id, name => html_escape(edit.l_edit_name) } ) -%]
         </h1>
-    [% END %]
+    [%~ END ~%]
 
     <p class="subheader">
         <span class="prefix">~</span>
