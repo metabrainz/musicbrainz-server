@@ -26,6 +26,8 @@ test("release group types being preserved after editing the name", function () {
 
     equal(releaseGroup().typeID(), 3, "primary type is preserved");
     deepEqual(releaseGroup().secondaryTypeIDs(), [1, 3, 5], "secondary types are preserved");
+
+    $autocomplete.autocomplete("destroy");
 });
 
 

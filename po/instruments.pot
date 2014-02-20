@@ -2408,6 +2408,10 @@ msgstr ""
 msgid "đàn tranh"
 msgstr ""
 
+#: DB:link_attribute_type/name:753
+msgid "đàn tứ"
+msgstr ""
+
 #: DB:link_attribute_type/name:303
 msgid "đàn tứ dây"
 msgstr ""

@@ -62,6 +62,19 @@
     };
 
 
+    utils.reuseExistingMediumData = function (data) {
+        // When reusing an existing medium, we don't want to keep its id or
+        // its cdtocs count, since neither of those will be shared. However,
+        // if we haven't loaded the tracks yet, we retain the id as originalID
+        // so we can request them later.
+        var newData = _.omit(data, "id", "cdtocs");
+
+        if (data.id) newData.originalID = data.id;
+
+        return newData;
+    };
+
+
     // Converts JSON from /ws/2 into /ws/js-formatted data. Hopefully one day
     // we'll have a standard MB data format and this won't be needed.
 

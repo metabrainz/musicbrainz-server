@@ -3,7 +3,9 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -420,29 +422,32 @@ sub delete : Local Edit
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
     $c->model('Relationship')->load_entities($rel);
-
-    my $form = $c->form(
-        form => 'Confirm',
-        requires_edit_note => 1
-    );
     $c->stash( relationship => $rel );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $c->model('MB')->with_transaction(sub {
-            $self->delete_relationship(
-                $c, $form,
-                type0 => $type0,
-                type1 => $type1,
-                relationship => $rel
-            );
-        });
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELATIONSHIP_CREATE, $rel->id);
+    cancel_or_action($c, $edit, $c->req->params->{returnto}, sub {
+        my $form = $c->form(
+            form => 'Confirm',
+            requires_edit_note => 1
+        );
 
-        my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
-        $c->response->redirect($redirect);
-        $c->detach;
-    }
+        if ($c->form_posted && $form->process( params => $c->req->params )) {
+            $c->model('MB')->with_transaction(sub {
+                $self->delete_relationship(
+                    $c, $form,
+                    type0 => $type0,
+                    type1 => $type1,
+                    relationship => $rel
+                );
+            });
 
-    $c->stash( relationship => $rel );
+            my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
+            $c->response->redirect($redirect);
+            $c->detach;
+        }
+
+        $c->stash( relationship => $rel );
+    });
 }
 
 no Moose;

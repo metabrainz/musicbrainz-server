@@ -175,8 +175,8 @@ else {
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
-if (!DBDefs->DEVELOPMENT_SERVER) {
-    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = 1200;
+if (DBDefs->STAT_TTL) {
+    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = DBDefs->STAT_TTL;
 }
 
 if (DBDefs->CATALYST_DEBUG) {

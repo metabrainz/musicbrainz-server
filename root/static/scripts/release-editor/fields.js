@@ -49,7 +49,7 @@
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
-            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings");
+            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings", true);
             this.hasNewRecording = ko.observable(true);
 
             this.recordingValue = ko.observable(
@@ -177,6 +177,7 @@
                 this.name.saved = this.name.peek();
                 this.length.saved = this.length.peek();
                 this.recording.saved = value;
+                this.recording.savedEditData = MB.edit.fields.recording(value);
                 this.hasNewRecording(false);
             }
 

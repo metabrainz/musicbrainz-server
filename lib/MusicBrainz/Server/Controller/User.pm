@@ -203,13 +203,13 @@ sub _clear_login_cookie
 sub _renew_login_cookie
 {
     my ($self, $c, $user_name) = @_;
-    my $token = $c->model('Editor')->allocate_remember_me_token($user_name);
+    my ($normalized_name, $token) = $c->model('Editor')->allocate_remember_me_token($user_name);
     my $cookie_version = 3;
     $c->res->cookies->{remember_login} = {
         expires => '+1y',
         name => 'remember_me',
         value => $token
-            ? encode('utf-8', join("\t", $cookie_version, $user_name, $token))
+            ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
             : ''
     };
 }

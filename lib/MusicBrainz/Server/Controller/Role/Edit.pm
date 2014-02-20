@@ -23,7 +23,8 @@ role {
     $extra{consumer}->name->config(
         action => {
             edit => { Chained => 'load', Edit => undef }
-        }
+        },
+        edit_edit_type => $params->edit_type
     );
 
     with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
