@@ -16,6 +16,11 @@ parameter 'edit_arguments' => (
     default => sub { sub { } }
 );
 
+parameter 'has_url_relationships' => (
+    isa => 'Bool',
+    default => sub { 1 },
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -27,7 +32,8 @@ role {
         edit_edit_type => $params->edit_type
     );
 
-    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks'
+        if $params->has_url_relationships;
 
     method 'edit' => sub {
         my ($self, $c) = @_;
