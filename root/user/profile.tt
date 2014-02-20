@@ -170,7 +170,7 @@
 
         [% WRAPPER statistics name=l("Last 24 hours") %]
             [% l('{count} ({view_url|view})', { count => add_commas(last_day_count),
-                     view_url => html_escape(c.uri_for('/search/edits', {
+                     view_url => c.uri_for('/search/edits', {
                          auto_edit_filter => '', order => 'desc',
                          negation => '0', combinator => 'and',
                          'conditions.0.field' => 'editor',
@@ -180,7 +180,7 @@
                          'conditions.1.field' => 'open_time',
                          'conditions.1.operator' => '>',
                          'conditions.1.args.0' => '24 hours ago'
-                     })) }) %]
+                     }) }) %]
         [% END %]
         </tbody>
     </table>
