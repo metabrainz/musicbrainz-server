@@ -58,7 +58,13 @@
 
             if (typeInfo) {
                 this.label(typeInfo.phrase);
-                this.linkTypeDescription(typeInfo.description);
+
+                this.linkTypeDescription(
+                    MB.i18n.expand(MB.text.MoreDocumentation, {
+                        description: typeInfo.description,
+                        url: "/relationship/" + typeInfo.gid
+                    })
+                );
 
                 if (typeInfo.deprecated == 1) {
                     this.cleanup.error(MB.text.RelationshipTypeDeprecated);
