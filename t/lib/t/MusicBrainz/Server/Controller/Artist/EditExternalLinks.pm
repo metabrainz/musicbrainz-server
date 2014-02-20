@@ -140,6 +140,26 @@ is_deeply($edits[2]->data, {
     }
 });
 
+
+# Editing the artist name should not enter relationship edits (MBS-7282)
+
+@edits = capture_edits {
+    $mech->get_ok();
+
+    $mech->post_ok(
+        '/artist/acd58926-4243-40bb-a2e5-c7464b3ce577/edit', {
+            'edit-artist.name' => 'Faye Wong!!!',
+            'edit-artist.sort_name' => 'Faye Wong!!!',
+            'edit-artist.url.0.relationship_id' => '1',
+            'edit-artist.url.0.link_type_id' => '1',
+            'edit-artist.url.0.text' => 'http://zh-yue.wikipedia.org/wiki/王菲',
+            'edit-artist.as_auto_editor' => '1',
+        });
+} $c;
+
+is(scalar @edits, 1, 'only one edit is entered');
+isa_ok($edits[0], 'MusicBrainz::Server::Edit::Artist::Edit');
+
 };
 
 1;
