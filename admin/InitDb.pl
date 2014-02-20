@@ -113,7 +113,8 @@ sub RunSQLScript
 sub HasPLPerlSupport
 {
     my $mb = Databases->get_connection('READWRITE');
-    my $sql = Sql->new( $mb->conn );
+    my $mb_no_schema = $mb->meta->clone_object($mb, schema => '');
+    my $sql = Sql->new( $mb_no_schema->conn );
     return $sql->select_single_value('SELECT TRUE FROM pg_language WHERE lanname = ?', 'plperlu');
 }
 
