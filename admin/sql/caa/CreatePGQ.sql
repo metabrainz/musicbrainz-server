@@ -92,10 +92,10 @@ CREATE OR REPLACE FUNCTION caa_move() RETURNS trigger AS $$
                               old_release.gid || E'\n' ||
                               new_release.gid || E'\n' ||
                               it.suffix || E'\n'
-                       FROM cover_art_archive.cover_art ca,
+                       FROM cover_art_archive.cover_art ca
+                       JOIN cover_art_archive.image_type it ON it.mime_type = ca.mime_type,
                          musicbrainz.release old_release,
                          musicbrainz.release new_release
-                       JOIN cover_art_archive.image_type it ON it.mime_type = ca.mime_type
                        WHERE ca.id = OLD.id
                        AND old_release.id = OLD.release
                        AND new_release.id = NEW.release));
