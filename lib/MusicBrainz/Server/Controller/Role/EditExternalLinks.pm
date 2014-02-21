@@ -16,6 +16,7 @@ sub build_type_info {
             ? 'l_link_phrase' : 'l_reverse_link_phrase';
 
         $result->{$child->id} = {
+            gid => $child->gid,
             deprecated => $child->is_deprecated,
             description => $child->l_description,
             phrase => $child->$phrase_attr,
