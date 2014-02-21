@@ -67,12 +67,12 @@ role {
         my $url_link_types = $c->model('LinkType')->get_tree($type0, $type1);
         my $url_relationships;
 
-        if ($c->form_posted) {
-            my $body_params = expand_hash($c->req->body_params);
+        my $submitted_url_data = sub {
+            my $urls = shift;
 
-            # Convert posted params to the data format used by the JavaScript.
-            # (same as `url_relationships_data`).
-            $url_relationships = [
+            # Convert body/query params to the data format used by the
+            # JavaScript (same as `url_relationships_data`).
+            return [
                 map +{
                     id          => $_->{relationship_id},
                     type0       => $type0,
@@ -82,11 +82,30 @@ role {
                     entity1ID   => $type1 eq 'url' ? $_->{text} : $source ? $source->gid : undef,
                     removed     => $_->{removed} // 0,
 
-                }, @{ $body_params->{"edit-$source_type"}->{url} // [] }
+                }, @{ $urls // [] }
             ];
+        };
+
+        if ($c->form_posted) {
+            my $body_params = expand_hash($c->req->body_params);
+
+            $url_relationships = $submitted_url_data->(
+                $body_params->{"edit-$source_type"}->{url}
+            );
         }
-        elsif ($source) {
-            $url_relationships = url_relationships_data($source);
+        else {
+            my $query_params = expand_hash($c->req->query_params);
+
+            $url_relationships = $submitted_url_data->(
+                $query_params->{"edit-$source_type"}->{url}
+            );
+
+            if ($source) {
+                $url_relationships = [
+                    @{ url_relationships_data($source) },
+                    @{ $url_relationships }
+                ];
+            }
         }
 
         $c->stash(
