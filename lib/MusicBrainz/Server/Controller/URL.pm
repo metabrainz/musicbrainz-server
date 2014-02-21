@@ -47,6 +47,7 @@ Edit the details of an already existing link
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form      => 'URL',
     edit_type => $EDIT_URL_EDIT,
+    has_url_relationships => 0,
 };
 
 =head1 LICENSE
