@@ -93,12 +93,12 @@
     <table class="tbl">
     <thead>
         <tr>
-          <th colspan=3>[% l('Recording Merges') %]</th>
+          <th colspan=5>[% l('Recording Merges') %]</th>
         <tr>
         <tr>
           <th>[% l('Track #') %]</th>
-          <th>[% l('Recording') %]</th>
-          <th>[% l('Into:') %]</th>
+          <th colspan=2>[% l('Recording') %]</th>
+          <th colspan=2>[% l('Into:') %]</th>
         </tr>
     </thead>
     <tbody>
@@ -108,12 +108,15 @@
         <tr[% IF ev == 0 %] class="ev"[% END %]>
             <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.medium %].[% merge.track %]</td>
             <td>[% link_recording(merge.sources.0) %]</td>
+            <td>[% merge.sources.0.length | format_length %]</td>
             <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% link_recording(merge.destination) %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.destination.length | format_length %]</td>
         </tr>
         [% FOR source = merge.sources ~%]
         [%~ UNLESS loop.first ~%]
         <tr[% IF ev == 0 %] class="ev"[% END %]>
             <td>[% link_recording(source) %]</td>
+            <td>[% source.length | format_length %]</td>
         </tr>
         [%~ END; END %]
     [%~ END ~%]
