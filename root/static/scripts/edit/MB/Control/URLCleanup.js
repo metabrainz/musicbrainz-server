@@ -130,9 +130,9 @@ MB.constants.LINK_TYPES = {
         place: 627
     },
     streamingmusic: {
-	artist: 194,
+        artist: 194,
         recording: 268,
-	release: 85
+        release: 85
     },
     vimeo: {
         // Video channel for artist/label, streaming music for release/recording
@@ -791,29 +791,21 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
     validationRules[ MB.constants.LINK_TYPES.image.place ] = validateImage;
 
     self.guessType = function (sourceType, currentURL) {
-        for (var group in MB.constants.CLEANUPS) {
-            if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
+        var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
+            return (cleanup.type || {})[sourceType] && cleanup.match.test(currentURL);
+        });
 
-            var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.match.test(currentURL) || !cleanup.type.hasOwnProperty(sourceType)) { continue; }
-            return cleanup.type[sourceType];
-        }
-        return;
+        return cleanup && cleanup.type[sourceType];
     };
 
     self.cleanUrl = function (sourceType, dirtyURL) {
         dirtyURL = _.str.trim(dirtyURL).replace(/%E2%80%8E$/, "");
 
-        for (var group in MB.constants.CLEANUPS) {
-            if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
+        var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
+            return cleanup.clean && cleanup.match.test(dirtyURL);
+        });
 
-            var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
-                continue;
-
-            return cleanup.clean(dirtyURL);
-        }
-        return dirtyURL;
+        return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
     // A list of errors that are set/cleared by the URLCleanup code. Used to
