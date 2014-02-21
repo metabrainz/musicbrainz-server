@@ -115,7 +115,7 @@ CREATE OR REPLACE FUNCTION delete_release() RETURNS trigger AS $$
             (cover_art.id || E'\n' ||
              OLD.gid || E'\n' || image_type.suffix)::text)
         FROM cover_art_archive.cover_art
-        JOIN cover_art_archive.image_type USING (mime_type)
+        JOIN cover_art_archive.image_type ON image_type.mime_type = cover_art.mime_type
         WHERE release = OLD.id;
 
         PERFORM pgq.insert_event('CoverArtIndex', 'delete',
