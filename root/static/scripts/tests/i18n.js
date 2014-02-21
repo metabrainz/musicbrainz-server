@@ -27,6 +27,12 @@ test("MB.i18n.expand", function () {
     );
 
     equal(
+        MB.i18n.expand("A {apple_fruit|apple}", { apple_fruit: { href: "http://www.apple.com", target: "_blank" }, apple: "pear" }),
+        "A <a href=\"http://www.apple.com\" target=\"_blank\">pear</a>",
+        "Replacement with link description evaluation and object argument"
+    );
+
+    equal(
         MB.i18n.expand("A {apple_fruit|apple}", {
             apple_fruit: "http://www.apple.com",
             apple: "<pears are=\"yellow, green & red\">"
