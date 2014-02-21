@@ -256,6 +256,28 @@ sub _mapping
     );
 }
 
+around _changes => sub {
+    my ($orig, $self) = splice(@_, 0, 2);
+
+    my %data = $self->$orig(@_);
+    my ($new, $old) = @data{qw( new old )};
+
+    # MBS-7282: Handle the case where the name of an entity changes, but the
+    # entity itself does not.
+
+    for my $prop (qw( entity0 entity1 )) {
+        if (defined $new->{$prop} &&
+            defined $old->{$prop} &&
+            $new->{$prop}->{id} == $old->{$prop}->{id}) {
+
+            delete $new->{$prop};
+            delete $old->{$prop};
+        }
+    }
+
+    return %data;
+};
+
 sub initialize
 {
     my ($self, %opts) = @_;
