@@ -356,9 +356,19 @@ div.half-width fieldset select.with-remove {
     width: @form-input-width - @form-icon-size - 2;
 }
 
-div.half-width fieldset input[type=checkbox],
-div.half-width fieldset span.partial-date input {
+div.half-width fieldset input[type=checkbox] {
     width: auto;
+}
+
+div.half-width fieldset span.partial-date {
+    white-space: nowrap;
+
+    input {
+        width: auto;
+        &.partial-date-year { width: 4em; }
+        &.partial-date-month { width: 2.5em; }
+        &.partial-date-day { width: 2.5em; }
+    }
 }
 
 div.half-width fieldset textarea {
