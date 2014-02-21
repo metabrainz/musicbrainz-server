@@ -6,6 +6,7 @@ use List::AllUtils qw( uniq );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-work' );
 

@@ -27,16 +27,20 @@ role {
         edit_edit_type => $params->edit_type
     );
 
+    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
+
     method 'edit' => sub {
         my ($self, $c) = @_;
+
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
-        $self->edit_action($c,
+
+        return $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,
             item        => $edit_entity,
             edit_args   => { to_edit => $edit_entity },
-            on_creation => sub {
+            redirect    => sub {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));
             },

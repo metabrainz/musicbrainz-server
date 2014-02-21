@@ -96,6 +96,14 @@
         if (data.mediums) {
             release.mediums(utils.mapChild(release, data.mediums, fields.Medium));
         }
+
+        data.gid = release.gid;
+
+        var urlRelationships = utils.parseURLRelationships(data);
+
+        if (urlRelationships.length) {
+            release.externalLinks.addLinks(urlRelationships);
+        }
     };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

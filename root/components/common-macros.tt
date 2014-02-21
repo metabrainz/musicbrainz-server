@@ -767,69 +767,16 @@ END -%]
     END; -%]
 [%- END -%]
 
-[%- MACRO trusted_domain(url) BLOCK;
-    url.url.host.search('discogs.com$')   ||
-    url.url.host.search('wikipedia.org$') ||
-    url.url.host.search('bbc.co.uk$')     ||
-    url.url.host.search('facebook.com$')  ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('last.fm$')       ||
-    url.url.host.search('imdb.com$')      ||
-    url.url.host.search('myspace.com$')   ||
-    url.url.host.search('twitter.com$')   ||
-    url.url.host.search('youtube.com$')   ||
-    0;
-END -%]
-
-[%- MACRO favicon_class(url)
-       IF url.url.host.search('amazon'); 'amazon';
-    ELSIF url.url.host.search('allmusic.com'); 'allmusic';
-    ELSIF url.url.host.search('animenewsnetwork.com'); 'animenewsnetwork';
-    ELSIF url.url.host.search('wikipedia.org$'); 'wikipedia';
-    ELSIF url.url.host.search('facebook.com'); 'facebook';
-    ELSIF url.url.host.search('generasia.com'); 'generasia';
-    ELSIF url.url.host.search('last.fm'); 'lastfm';
-    ELSIF url.url.host.search('myspace.com'); 'myspace';
-    ELSIF url.url.host.search('twitter.com'); 'twitter';
-    ELSIF url.url.host.search('youtube.com'); 'youtube';
-    ELSIF url.url.host.search('discogs.com'); 'discogs';
-    ELSIF url.url.host.search('secondhandsongs.com'); 'secondhandsongs';
-    ELSIF url.url.host.search('songfacts.com'); 'songfacts';
-    ELSIF url.url.host.search('soundcloud.com'); 'soundcloud';
-    ELSIF url.url.host.search('ibdb.com'); 'ibdb';
-    ELSIF url.url.host.search('imslp.org'); 'imslp';
-    ELSIF url.url.host.search('tallinn.ester.ee'); 'ESTERTallinn';
-    ELSIF url.url.host.search('tartu.ester.ee'); 'ESTERTartu';
-    ELSIF url.url.host.search('worldcat.org'); 'worldcat';
-    ELSIF url.url.host.search('45cat.com'); 'fortyfivecat';
-    ELSIF url.url.host.search('rateyourmusic.com'); 'rateyourmusic';
-    ELSIF url.url.host.search('rolldabeats.com'); 'rolldabeats';
-    ELSIF url.url.host.search('psydb.net'); 'psydb';
-    ELSIF url.url.host.search('metal-archives.com'); 'metalarchives';
-    ELSIF url.url.host.search('spirit-of-metal.com'); 'spiritofmetal';
-    ELSIF url.url.host.search('theatricalia.com'); 'theatricalia';
-    ELSIF url.url.host.search('whosampled.com'); 'whosampled';
-    ELSIF url.url.host.search('ocremix.org'); 'ocremix';
-    ELSIF url.url.host.search('musik-sammler.de'); 'musiksammler';
-    ELSIF url.url.host.search('encyclopedisque.fr'); 'encyclopedisque';
-    ELSIF url.url.host.search('nla.gov.au'); 'trove';
-    ELSIF url.url.host.search('rockensdanmarkskort.dk'); 'rockensdanmarkskort';
-    ELSIF url.url.host.search('rockinchina.com'); 'ric';
-    ELSIF url.url.host.search('rockipedia.no'); 'rockipedia';
-    ELSIF url.url.host.search('viaf.org'); 'viaf';
-    ELSIF url.url.host.search('vk.com'); 'vk';
-    ELSIF url.url.host.search('dhhu.dk'); 'dhhu';
-    ELSIF url.url.host.search('thesession.org'); 'thesession';
-    ELSIF url.url.host.search('plus.google.com'); 'googleplus';
-    ELSIF url.url.host.search('openlibrary.org'); 'openlibrary';
-    ELSIF url.url.host.search('bandcamp.com'); 'bandcamp';
-    ELSIF url.url.host.search('itunes.apple.com'); 'iTunes';
-    ELSIF url.url.host.search('spotify.com'); 'spotify';
-    ELSIF url.url.host.search('soundtrackcollector.com'); 'STcollector';
-    ELSIF url.url.host.search('wikidata.org'); 'wikidata';
-    ELSIF url.url.as_string.search('recmusic.org/lieder'); 'lieder';
-    ELSE; '';
-END -%]
+[%- MACRO favicon_class(url) BLOCK -%]
+    [%- matching_class = '' -%]
+    [%- FOREACH icon IN favicon_css_classes -%]
+      [%- IF (icon.key.search('/') AND url.url.as_string.search(icon.key)) OR url.url.host.search(icon.key) -%]
+        [%- matching_class = icon.value -%]
+        [%- LAST -%]
+      [%- END -%]
+    [%- END -%]
+    [%- (matching_class OR 'no') _ '-favicon' -%]
+[%- END -%]
 
 [%- MACRO license_class(url)
        IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';

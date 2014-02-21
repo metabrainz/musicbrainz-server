@@ -219,6 +219,14 @@
     </tbody>
     </table>
   </fieldset>
+
+  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+    <legend>[% l('External Links') %]</legend>
+
+    <!-- ko with: externalLinks -->
+      [% external_links_editor(0, 'release') %]
+    <!-- /ko -->
+  </fieldset>
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">
@@ -311,4 +319,7 @@
     </p>
   </div>
 
+  <!-- ko with: externalLinks -->
+    [% external_link_bubble() %]
+  <!-- /ko -->
 </div>

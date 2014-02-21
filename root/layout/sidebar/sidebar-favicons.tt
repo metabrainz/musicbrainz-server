@@ -11,7 +11,7 @@
     [%- to_display = [] -%]
     [%- FOREACH favicon IN homepage_relationships -%]
         [%- IF !favicon.link.ended -%]
-            [%- to_display.push(display_favicon(favicon.target, l('Official homepage'), 'home')) -%]
+            [%- to_display.push(display_favicon(favicon.target, l('Official homepage'), 'home-favicon')) -%]
         [%- END -%]
     [%- END -%]
 

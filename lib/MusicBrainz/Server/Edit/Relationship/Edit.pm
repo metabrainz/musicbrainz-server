@@ -9,7 +9,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_EDIT );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
-use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable );
+use MusicBrainz::Server::Edit::Types qw( PartialDateHash Nullable NullableOnPreview );
 use MusicBrainz::Server::Data::Utils qw(
   partial_date_to_hash
   type_to_model
@@ -23,6 +23,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship';
 with 'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
+with 'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
 sub edit_name { N_l("Edit relationship") }
@@ -67,11 +68,11 @@ subtype 'RelationshipHash'
         end_date => Nullable[PartialDateHash],
         ended => Optional[Bool],
         entity0 => Nullable[Dict[
-            id => Int,
+            id => NullableOnPreview[Int],
             name => Str,
         ]],
         entity1 => Nullable[Dict[
-            id => Int,
+            id => NullableOnPreview[Int],
             name => Str,
         ]]
     ];

@@ -126,8 +126,7 @@
         VoteOnAllEdits: '[% l('Vote on all edits:') | js %]',
         EnumerationComma: '[% l(', ') | js %]',
         EnumerationAnd: '[% l('{b} and {a}') | js %]',
-        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated') %]',
-        URLNotAllowed: '[% l('This URL is not allowed for the selected relationship type, or is incorrectly formatted.') %]',
+        RelationshipTypeDeprecated: '[% l('This relationship type is deprecated and should not be used.') %]',
         AddANewEntity: {
             artist:          "[% l('Add a new artist') | js %]",
             label:           "[% l('Add a new label') | js %]",
@@ -140,6 +139,8 @@
         GuessCaseDescriptionEnglish: '[% l('This mode capitalises almost all words, with some words (mainly articles and short prepositions) lowercased. Some words may need to be manually capitalised to follow the {url|English capitalisation guidelines}.', { url => doc_link("Style/Language/English") }) | js %]',
         GuessCaseDescriptionSentence: '[% l('This mode capitalises the first word of a sentence, most other words are lowercased. Some words, often proper nouns, may need to be manually fixed according to the {url|relevant language guidelines}.', { url => doc_link("Style/Language") }) | js %]',
         GuessCaseDescriptionFrench: '[% l('This mode capitalises titles as sentence mode, but also inserts spaces before semicolons, colons, exclamation marks and question marks, and inside guillemets. Some words may need to be manually capitalised to follow the {url|French capitalisation guidelines}.', { url => doc_link("Style/Language/French") }) | js %]',
+        URLNotAllowed: '[% l('This URL is not allowed for the selected link type, or is incorrectly formatted.') | js %]',
+        SelectURLType: '[% l('Please select a link type for the URL you’ve entered.') | js %]',
         SelectedReleaseGroup: '[% l('You selected {releasegroup}.') | js %]',
         SelectedLabel: '[% l('You selected {label}.') | js %]',
         Tracklist: '[% l('Tracklist') | js %]',
@@ -165,6 +166,8 @@
         EditReleaseNoTitle: '[% l('Edit Release') | js %]',
         EditReleaseTitle: '[% l('{name} - Edit Release') | js %]',
         Video: '[% l('video') | js %]',
+        EnterAValidURL: '[% l('Enter a valid url e.g. "http://google.com/"') | js %]',
+        RelationshipAlreadyExists: '[% l('This relationship already exists.') | js %]',
         SelectedArea: '[% l('You selected {area}.') | js %]'
     });
 })(MB);
