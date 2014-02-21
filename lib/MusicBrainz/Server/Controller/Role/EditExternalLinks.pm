@@ -38,7 +38,7 @@ role {
         my $entity = shift;
 
         my $url_relationships = $entity->relationships_by_type('url');
-        return undef if scalar(@$url_relationships) == 0;
+        return [] if scalar(@$url_relationships) == 0;
 
         return [
             map {
@@ -103,7 +103,7 @@ role {
             if ($source) {
                 $url_relationships = [
                     @{ url_relationships_data($source) },
-                    @{ $url_relationships }
+                    @{ $url_relationships // [] }
                 ];
             }
         }
