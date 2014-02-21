@@ -5,6 +5,7 @@ use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Try::Tiny;
 
@@ -28,6 +29,8 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseLabel';
 use aliased 'MusicBrainz::Server::Entity::Label';
 
 use aliased 'MusicBrainz::Server::Entity::ArtistCredit';
+
+use aliased 'MusicBrainz::Server::Entity::Recording';
 
 has '+data' => (
     isa => Dict[
@@ -88,7 +91,21 @@ has '+data' => (
                     old_name => Nullable[Str],
                     new_name => Nullable[Str],
                 ]]
-            ]]]
+            ]]],
+        recording_merges => Nullable[ArrayRef[Dict[
+            medium => Int,
+            track => Str,
+            sources => ArrayRef[Dict[
+                id => Int,
+                name => Str,
+                length => Nullable[Int]
+            ]],
+            destination => Dict[
+                id => Int,
+                name => Str,
+                length => Nullable[Int]
+            ]
+        ]]]
     ]
 );
 
@@ -126,7 +143,8 @@ sub foreign_keys
         },
         Area => [ map { $_->{country_id} } map { @{ $_->{events} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
         Label => [ map { $_->{label}{id} } map { @{ $_->{labels} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
-        Artist => [ map { $_->{artist}{id} } map { @{ $_->{artist_credit}{names} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ]
+        Artist => [ map { $_->{artist}{id} } map { @{ $_->{artist_credit}{names} // [] } } @{ $self->data->{old_entities} }, $self->data->{new_entity} ],
+        Recording => [ map { $_->{id} } map { $_->{destination}, @{ $_->{sources} } } @{ $self->data->{recording_merges} // [] } ]
     };
 }
 
@@ -199,36 +217,27 @@ override build_display_data => sub
             }, @{ $self->data->{medium_changes} }
         ];
     } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
-        $self->c->model('Track')->load_for_mediums(
-            map { $_->all_mediums }
-            values %{ $loaded->{Release} }
-        );
-
-        $self->c->model('Recording')->load(
-            map { $_->all_tracks }
-            map { $_->all_mediums }
-            values %{ $loaded->{Release} }
-        );
-
         my $recording_merges = [];
-        for my $medium ($data->{new}->all_mediums) {
-            for my $track ($medium->all_tracks) {
-                try {
-                    my @sources;
-                    for my $source_medium (map { $_->all_mediums } @{ $data->{old} }) {
-                        if ($source_medium->position == $medium->position) {
-                            push @sources, map { $_->recording }
-                                grep { $_->position == $track->position } $source_medium->all_tracks;
-                        }
-                    }
-                    @sources = grep { $_->id != $track->recording->id } @sources;
-                    push(@$recording_merges, {
-                             medium => $medium->position,
-                             track => $track->number,
-                             sources => \@sources,
-                             destination => $track->recording}) if scalar @sources;
-                };
-            }
+        if ($self->data->{recording_merges}) {
+            $recording_merges = [map +{medium => $_->{medium},
+                                       track => $_->{track},
+                                       destination => $loaded->{Recording}->{$_->{destination}{id}} // Recording->new(name => $_->{destination}{name}, length => $_->{destination}{length}),
+                                       sources => [map { $loaded->{Recording}->{$_->{id}} // Recording->new(name => $_->{name}, length => $_->{length}) } @{ $_->{sources} }]
+                                      }, @{ $self->data->{recording_merges} }];
+        } else {
+            $self->c->model('Track')->load_for_mediums(
+                map { $_->all_mediums }
+                values %{ $loaded->{Release} }
+            );
+
+            $self->c->model('Recording')->load(
+                map { $_->all_tracks }
+                map { $_->all_mediums }
+                values %{ $loaded->{Release} }
+            );
+
+            $recording_merges = calculate_recording_merges($data->{new}, $data->{old});
+            $data->{merges_are_calculated} = 1;
         }
         $data->{recording_merges} = $recording_merges;
     }

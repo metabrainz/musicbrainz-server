@@ -23,6 +23,7 @@ use MusicBrainz::Server::Constants qw( :edit_type );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -530,7 +531,30 @@ sub _merge_parameters {
                     mediums => $medium_changes{$_}
                 }, keys %medium_changes
             ]
-        )
+        );
+    } elsif ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        my %release_map = map { $_->id => $_ } @$releases;
+
+        my $new_id = $form->field('target')->value;
+        my $new = $release_map{$new_id};
+        my $old = [map { $release_map{$_} } grep { $_ != $new_id } @{ $form->field('merging')->value }];
+
+        my $recording_merges = [map +{
+            medium => $_->{medium},
+            track => $_->{track},
+            destination => {
+                id => $_->{destination}->id,
+                name => $_->{destination}->name,
+                length => $_->{destination}->length
+            },
+            sources => [map +{
+                id => $_->id,
+                name => $_->name,
+                length => $_->length
+            }, @{ $_->{sources} }]
+        }, @{ calculate_recording_merges($new, $old) } ];
+
+        return (recording_merges => $recording_merges);
     } else {
         return ()
     }
