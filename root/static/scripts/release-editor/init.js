@@ -169,12 +169,6 @@ MB.releaseEditor.init = function (options) {
 
     ko.applyBindings(this, $pageContent[0]);
 
-    // MBS-7292: Make doc links on the edit note tab target=_blank manually,
-    // since there's no better way to do this (at least not until MBS-5734 is
-    // implemented).
-
-    $("#edit-note").find("a").attr("target", "_blank");
-
     // Fancy!
 
     $(function () {

@@ -26,7 +26,7 @@
     <fieldset class="editnote">
       <legend>[%- l('Edit Note') -%]</legend>
         <p>
-          [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => doc_link('Edit_Note') }) %]
+          [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
         </p>
         <p>[% l('Even just providing a URL or two is helpful!') %]</p>
       [% WRAPPER form_row %]
@@ -41,7 +41,7 @@
       <div class="auto-editor">
         <label>
           <input type="checkbox" data-bind="checked: rootField.asAutoEditor" />
-          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed = doc_link('Auto-Editor') }) -%]
+          [% l('Enable {autoed|auto-editor} privileges for this edit.', { autoed => { href => doc_link('Auto-Editor'), target => '_blank' } }) -%]
         </label>
       </div>
       [%- END -%]
