@@ -357,6 +357,23 @@ test("releaseDeleteReleaseLabel edit is generated for existing release", functio
 });
 
 
+test("releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)", function () {
+    var releaseLabel = this.release.labels()[0];
+
+    releaseLabel.label(MB.entity.Label({}));
+    releaseLabel.catalogNumber("");
+
+    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+      {
+        "catalog_number": "WPC6-10044",
+        "edit_type": 36,
+        "hash": "cca8fc44a0d18c4d6050a29976978da7cf354741",
+        "release_label": 27903
+      }
+    ]);
+});
+
+
 test("releaseEditReleaseLabel edits are generated for existing release", function () {
     this.release.labels()[0].catalogNumber("WPC6-10046");
     this.release.labels()[1].label(null);

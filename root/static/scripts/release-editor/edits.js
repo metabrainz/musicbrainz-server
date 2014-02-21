@@ -68,6 +68,9 @@
             var edits = [];
 
             _.each(newLabels, function (newLabel) {
+                if (!newLabel.label && !newLabel.catalog_number) {
+                    return;
+                }
                 var id = newLabel.release_label;
 
                 if (id) {
@@ -92,7 +95,7 @@
                 var id = oldLabel.release_label;
                 var newLabel = newLabelsByID[id];
 
-                if (!newLabel) {
+                if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                     // Delete ReleaseLabel
                     oldLabel = _.omit(oldLabel, "label", "catalogNumber");
                     edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
