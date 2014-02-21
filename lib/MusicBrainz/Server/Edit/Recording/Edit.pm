@@ -15,6 +15,8 @@ use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     verify_artist_credits
     merge_artist_credit
+    boolean_to_json
+    boolean_from_json
 );
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Translation qw ( N_l );
@@ -68,6 +70,26 @@ has '+data' => (
         new => change_fields(),
     ]
 );
+
+sub to_hash {
+    my $data = shift->data;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_to_json($_->{video}) if exists $_->{video};
+    }
+
+    return $data;
+}
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for ($data->{old}, $data->{new}) {
+        $_->{video} = boolean_from_json($_->{video}) if exists $_->{video};
+    }
+
+    $self->data($data);
+}
 
 sub current_instance {
     my $self = shift;
@@ -135,6 +157,8 @@ around 'initialize' => sub
 
     $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit})
         if exists($opts{artist_credit});
+
+    $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
 
     $self->$orig(%opts);
 };
