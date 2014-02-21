@@ -95,7 +95,7 @@ CREATE OR REPLACE FUNCTION caa_move() RETURNS trigger AS $$
                        FROM cover_art_archive.cover_art ca,
                          musicbrainz.release old_release,
                          musicbrainz.release new_release
-                       JOIN cover_art_archive.image_type it USING (mime_type)
+                       JOIN cover_art_archive.image_type it ON it.mime_type = ca.mime_type
                        WHERE ca.id = OLD.id
                        AND old_release.id = OLD.release
                        AND new_release.id = NEW.release));
