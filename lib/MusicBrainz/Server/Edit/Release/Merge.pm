@@ -186,9 +186,13 @@ sub do_merge
     );
 
     if (!$self->c->model('Release')->can_merge(%opts)) {
-        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw(
-            'These releases could not be merged'
-        );
+        my $message = 'These releases could not be merged';
+        if ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+            $message .= ' because the track counts on at least one set of corresponding mediums did not match.';
+        } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
+            $message .= ' because medium positions conflicted.';
+        }
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($message);
     }
 
     $self->c->model('Release')->merge(%opts);
@@ -198,4 +202,3 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
-
