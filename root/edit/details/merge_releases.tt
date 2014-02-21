@@ -1,4 +1,4 @@
-[% MACRO release_row(release) BLOCK; %]
+[%~ MACRO release_row(release) BLOCK; ~%]
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
@@ -10,7 +10,7 @@
     <td>[% release_catno_list(release.labels) %]</td>
     <td>[% release.barcode.format %]</td>
   </tr>
-[% END %]
+[%~ END ~%]
 
 <table class="tbl merge-releases">
   <thead>
@@ -85,7 +85,43 @@
     </tr>
     [% release_row(edit.display_data.new) %]
   [% END %]
+  </tbody>
 </table>
+
+[%~ IF edit.data.merge_strategy == 2 ~%]
+[%~ IF edit.display_data.recording_merges.size ~%]
+    <table class="tbl">
+    <thead>
+        <tr>
+          <th colspan=3>[% l('Recording Merges') %]</th>
+        <tr>
+        <tr>
+          <th>[% l('Track #') %]</th>
+          <th>[% l('Recording') %]</th>
+          <th>[% l('Into:') %]</th>
+        </tr>
+    </thead>
+    <tbody>
+    [%~ FOR merge = edit.display_data.recording_merges ~%]
+        [%~ SET rowspan = merge.sources.size ~%]
+        [%~ SET ev = loop.count % 2 ~%]
+        <tr[% IF ev == 0 %] class="ev"[% END %]>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% merge.medium %].[% merge.track %]</td>
+            <td>[% link_recording(merge.sources.0) %]</td>
+            <td[% IF rowspan > 1 %] rowspan=[% rowspan %][% END %]>[% link_recording(merge.destination) %]</td>
+        </tr>
+        [% FOR source = merge.sources ~%]
+        [%~ UNLESS loop.first ~%]
+        <tr[% IF ev == 0 %] class="ev"[% END %]>
+            <td>[% link_recording(source) %]</td>
+        </tr>
+        [%~ END; END %]
+    [%~ END ~%]
+    </tbody></table>
+[%~ ELSE  ~%]
+    <p><strong>[% l('All recordings for these releases are already merged.') %]</strong></p>
+[%~ END ~%]
+[%~ END ~%]
 
 <table class="details">
   <tr>

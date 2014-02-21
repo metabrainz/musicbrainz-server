@@ -6,6 +6,7 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw ( N_l );
+use Try::Tiny;
 
 use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict Map );
@@ -122,6 +123,39 @@ override build_display_data => sub
                 mediums => $_->{mediums}
             }, @{ $self->data->{medium_changes} }
         ];
+    } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        $self->c->model('Track')->load_for_mediums(
+            map { $_->all_mediums }
+            values %{ $loaded->{Release} }
+        );
+
+        $self->c->model('Recording')->load(
+            map { $_->all_tracks }
+            map { $_->all_mediums }
+            values %{ $loaded->{Release} }
+        );
+
+        my $recording_merges = [];
+        for my $medium ($data->{new}->all_mediums) {
+            for my $track ($medium->all_tracks) {
+                try {
+                    my @sources;
+                    for my $source_medium (map { $_->all_mediums } @{ $data->{old} }) {
+                        if ($source_medium->position == $medium->position) {
+                            push @sources, map { $_->recording }
+                                grep { $_->position == $track->position } $source_medium->all_tracks;
+                        }
+                    }
+                    @sources = grep { $_->id != $track->recording->id } @sources;
+                    push(@$recording_merges, {
+                             medium => $medium->position,
+                             track => $track->number,
+                             sources => \@sources,
+                             destination => $track->recording}) if scalar @sources;
+                };
+            }
+        }
+        $data->{recording_merges} = $recording_merges;
     }
 
     return $data;
