@@ -180,8 +180,11 @@ override build_display_data => sub
                          Label->new(name => $_->{label}{name})),
                     catalog_number => $_->{catalog_number}
                 ) } @{ delete $entity->{labels} }] if $entity->{labels};
-            $entity->{artist_credit} = ArtistCredit->from_array($entity->{artist_credit}->{names}) if $entity->{artist_credit};
-            $self->c->model('Artist')->load(@{ $entity->{artist_credit}{names} });
+            $entity->{artist_credit} = ArtistCredit->from_array(
+                [map { my $name = $_;
+                       $name->{artist} = $loaded->{Artist}->{$_->{artist}->{id}} // $_->{artist};
+                       $name } @{ $entity->{artist_credit}{names} }]
+            ) if $entity->{artist_credit};
         }
     }
 
