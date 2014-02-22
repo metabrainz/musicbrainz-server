@@ -62,7 +62,11 @@ WA.WorkAttribute = function (data) {
 ViewModel = function (attributes) {
     var model = {};
 
-    attributes = _.map(attributes || [], function (data) {
+    if (!attributes || !attributes.length) {
+        attributes = [{}];
+    }
+
+    attributes = _.map(attributes, function (data) {
         return new WA.WorkAttribute(data);
     });
 
@@ -79,10 +83,6 @@ ViewModel = function (attributes) {
         attr.typeHasFocus(true);
         model.attributes.push(attr);
     };
-
-    if (!attributes.length) {
-        model.newAttribute();
-    }
 
     return model;
 };
