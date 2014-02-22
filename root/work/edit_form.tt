@@ -19,7 +19,7 @@
       <legend>[%- l('Work Attributes') -%]</legend>
       [% WRAPPER form_row %]
         <label>[% l('Attributes:') %]</label>
-        <div class="form-row-text-list">
+        <div class="form-row-text-list" data-bind="delegatedHandler: 'click'">
 
         <!-- ko foreach: attributes -->
           <div class="text-list-row" style="margin-bottom: 1em">
@@ -50,11 +50,7 @@
             </select>
             <!-- /ko -->
 
-            <button class="nobutton icon remove" data-bind="click: remove">
-              <img src="[% c.uri_for('/static/images/icons/delete_row.png') %]"
-                   title="[% l('Remove attribute') %]"
-                     alt="[% l('Remove attribute') %]" />
-            </button>
+            <button type="button" class="icon remove-item" title="[% l('Remove attribute') %]" data-click="remove"></button>
 
             <!-- ko if: errors().length -->
             <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
