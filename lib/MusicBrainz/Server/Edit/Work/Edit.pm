@@ -131,28 +131,21 @@ sub build_display_data
         || Work->new( name => $self->data->{entity}{name} );
 
     if (exists $self->data->{new}{attributes}) {
+        $data->{attributes} = {};
+
         my %new = $self->grouped_attributes_by_type($self->data->{new}{attributes});
         my %old = $self->grouped_attributes_by_type($self->data->{old}{attributes});
 
         my $changed_types = Set::Scalar->new(keys %new, keys %old);
 
-        for my $type ($changed_types->members) {
-            my @new_values = @{ $new{$type} //= [] };
-            my @old_values = @{ $old{$type} //= [] };
+        while (defined(my $type = $changed_types->each)) {
+            my @new_values = map { $_->l_value } @{ $new{$type} //= [] };
+            my @old_values = map { $_->l_value } @{ $old{$type} //= [] };
 
-            if (Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
-                $changed_types->delete($type);
+            unless (Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
+                $data->{attributes}->{$type} = { new => \@new_values, old => \@old_values };
             }
         }
-
-        $data->{attributes} = {
-            map {
-                $_ => {
-                    new => [ map { $_->l_value } @{ $new{$_} } ],
-                    old => [ map { $_->l_value } @{ $old{$_} } ],
-                }
-            } $changed_types->members
-        };
     }
 
     return $data;
