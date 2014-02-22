@@ -10,7 +10,7 @@ WA.init = function (config) {
     attributeTypes = config.attributeTypes;
 
     WA.viewModel = new ViewModel(config.attributes);
-    ko.applyBindings(WA.viewModel, document.getElementById('work_attributes'));
+    ko.applyBindings(WA.viewModel, $("#work-attributes")[0]);
 };
 
 WA.WorkAttribute = function (data) {
@@ -19,6 +19,7 @@ WA.WorkAttribute = function (data) {
     self.typeID = ko.observable(data.typeID);
     self.attributeValue = ko.observable(data.value);
     self.errors = ko.observableArray(data.errors);
+    self.typeHasFocus = ko.observable(false);
 
     self.allowsFreeText = ko.computed(function() {
         return !self.typeID() || attributeTypes[self.typeID()].allowsFreeText;
@@ -74,7 +75,9 @@ ViewModel = function (attributes) {
     };
 
     model.newAttribute = function() {
-        model.attributes.push(new WA.WorkAttribute({}));
+        var attr = new WA.WorkAttribute({});
+        attr.typeHasFocus(true);
+        model.attributes.push(attr);
     };
 
     if (!attributes.length) {

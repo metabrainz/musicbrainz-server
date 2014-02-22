@@ -15,61 +15,67 @@
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
-    <fieldset id="work_attributes">
+    <fieldset>
       <legend>[%- l('Work Attributes') -%]</legend>
-      [% WRAPPER form_row %]
-        <label>[% l('Attributes:') %]</label>
-        <div class="form-row-text-list" data-bind="delegatedHandler: 'click'">
-
+      <table id="work-attributes" class="row-form" data-bind="delegatedHandler: 'click'">
+        <tbody>
         <!-- ko foreach: attributes -->
-          <div class="text-list-row" style="margin-bottom: 1em">
-            <select data-bind="
-                value: typeID,
-                options: $parent.attributeTypes,
-                optionsText: $parent.formatAttributeType,
-                optionsCaption: '',
-                attr: { name: 'edit-work.attributes.' + $index() + '.type_id' }
-            ">
-            </select>
-
-            <!-- ko if: allowsFreeText -->
-            <input type="text" class="value with-remove" data-bind="
-                value: attributeValue,
-                attr: { name: 'edit-work.attributes.' + $index() + '.value' }
-            " />
-            <!-- /ko -->
-
-            <!-- ko ifnot: allowsFreeText -->
-            <select class="value with-remove" data-bind="
-                value: attributeValue,
-                options: allowedValues,
-                optionsText: valueFormatter,
-                optionsCaption: '',
-                attr: { name: 'edit-work.attributes.' + $index() + '.value' }
-            ">
-            </select>
-            <!-- /ko -->
-
-            <button type="button" class="icon remove-item" title="[% l('Remove attribute') %]" data-click="remove"></button>
-
-            <!-- ko if: errors().length -->
-            <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
+          <tr>
+            <td>
+              <select data-bind="
+                  value: typeID,
+                  options: $parent.attributeTypes,
+                  optionsText: $parent.formatAttributeType,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.type_id' },
+                  hasFocus: typeHasFocus
+              ">
+              </select>
+            </td>
+            <td>
+              <!-- ko if: allowsFreeText -->
+              <input type="text" data-bind="
+                  value: attributeValue,
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              " />
+              <!-- /ko -->
+              <!-- ko ifnot: allowsFreeText -->
+              <select data-bind="
+                  value: attributeValue,
+                  options: allowedValues,
+                  optionsText: valueFormatter,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              ">
+              </select>
+              <!-- /ko -->
+            </td>
+            <td>
+              <button type="button" class="icon remove-item" title="[% l('Remove attribute') %]" data-click="remove"></button>
+            </td>
+          </tr>
+          <!-- ko if: errors().length -->
+          <tr>
+            <td></td>
+            <td colspan="2">
+              <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
                 <li data-bind="text: $data"></li>
-            </ul>
-            <!-- /ko -->
-          </div>
+              </ul>
+            </td>
+          </tr>
+          <!-- /ko -->
         <!-- /ko -->
-
-        <div class="form-row-add">
-          <button class="nobutton add"
-             data-bind="click: newAttribute">
-            [% caption = l('Add Work Attribute') %]
-            <span class="add-row">[% caption %]</span>
-            <div class="add-item icon img" title="[% caption %]"></div>
-          </button>
-        </div>
-        </div>
-      [% END %]
+          <tr>
+            <td></td>
+            <td colspan="2" class="add-item">
+              [% caption = lp('Add Work Attribute', 'button/menu') %]
+              <button class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
+                [% caption | html %]
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </fieldset>
 
     <fieldset>
