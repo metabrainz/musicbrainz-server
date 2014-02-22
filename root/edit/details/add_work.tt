@@ -46,7 +46,7 @@
     <td>
       <ul>
       [%- FOR attribute=type.value %]
-        <li>[% attribute.value | html %]</li>
+        <li>[% attribute.l_value | html %]</li>
       [%- END %]
       </ul>
     </td>

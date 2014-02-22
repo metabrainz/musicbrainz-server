@@ -148,8 +148,8 @@ sub build_display_data
         $data->{attributes} = {
             map {
                 $_ => {
-                    new => [ map { $_->value } @{ $new{$_} } ],
-                    old => [ map { $_->value } @{ $old{$_} } ],
+                    new => [ map { $_->l_value } @{ $new{$_} } ],
+                    old => [ map { $_->l_value } @{ $old{$_} } ],
                 }
             } $changed_types->members
         };

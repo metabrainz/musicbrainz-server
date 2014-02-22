@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::WorkAttribute;
 use Moose;
+use MusicBrainz::Server::Translation qw( l );
 
 has type => (
     isa => 'Object',
@@ -18,6 +19,11 @@ has value => (
     required => 1,
     is => 'ro',
 );
+
+sub l_value {
+    my $self = shift;
+    return $self->value_id ? l($self->value) : $self->value;
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
