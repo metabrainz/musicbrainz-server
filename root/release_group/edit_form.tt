@@ -14,6 +14,11 @@
       [%- form_row_select(r, 'secondary_type_ids', l('Secondary Types:')) -%]
     </fieldset>
 
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'release_group') %]
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -22,6 +27,7 @@
   <div class="documentation">
     [%- artist_credit_table() -%]
     [%- guesscase_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

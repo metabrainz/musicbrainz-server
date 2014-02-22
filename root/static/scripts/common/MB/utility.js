@@ -290,6 +290,10 @@ MB.utility.moveArrayItem = function (array, from, to) {
     array.splice(to, 0, array.splice(from, 1)[0]);
 };
 
+// Compares two names, considers them equivalent if there are only case
+// changes, changes in punctuation and/or changes in whitespace between
+// the two strings.
+
 MB.utility.similarity = (function () {
     var punctuation = /[!"#$%&'()*+,\-.>\/:;<=>?¿@[\\\]^_`{|}~⁓〜\u2000-\u206F\s]/g;
 
@@ -306,14 +310,6 @@ MB.utility.similarity = (function () {
         return 1 - (_.str.levenshtein(a, b) / (a.length + b.length));
     };
 }());
-
-// Compares two names, considers them equivalent if there are only case
-// changes, changes in punctuation and/or changes in whitespace between
-// the two strings.
-
-MB.utility.nameIsSimilar = function (a, b) {
-    return MB.utility.similarity(a, b) >= 0.75;
-};
 
 MB.utility.optionCookie = function (name, defaultValue) {
     var existingValue = $.cookie(name);
@@ -408,3 +404,34 @@ MB.utility.computedWith = function (callback, observable, defaultValue) {
         return result ? callback(result) : defaultValue;
     });
 };
+
+
+MB.utility.isValidURL = (function () {
+    var protocolRegex = /^(https?|ftp):$/;
+    var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+    return function (url) {
+        var a = document.createElement("a");
+        a.href = url;
+
+        var hostname = a.hostname;
+
+        if (url.indexOf(hostname) < 0) {
+            return false;
+        }
+
+        if (!hostnameRegex.test(hostname)) {
+            return false;
+        }
+
+        if (hostname.indexOf(".") < 0) {
+            return false;
+        }
+
+        if (!protocolRegex.test(a.protocol)) {
+            return false;
+        }
+
+        return true;
+    };
+}());

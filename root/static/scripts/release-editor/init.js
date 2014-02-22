@@ -25,7 +25,7 @@ MB.releaseEditor.init = function (options) {
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                self.nextTab();
+                self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
             }
         });
 
@@ -180,7 +180,7 @@ MB.releaseEditor.init = function (options) {
 MB.releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
-        data: { inc: "annotation+release-events+labels+media" }
+        data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
     return MB.utility.request(args, this).done(callback || this.releaseLoaded);

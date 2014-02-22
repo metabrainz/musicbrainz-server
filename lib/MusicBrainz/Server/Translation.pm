@@ -195,11 +195,25 @@ sub _expand
 {
     my ($self, $string, %args) = @_;
 
+    my $make_link = sub {
+        my ($var, $text) = @_;
+        my $final_text = defined $args{$text} ? $args{$text} : $text;
+        if (defined $args{$var}) {
+            if (ref($args{$var}) eq 'HASH') {
+                return '<a ' . join(' ', map { "$_=\"" . encode_entities($args{$var}->{$_}) . "\"" } sort keys %{ $args{$var} }) . '>' . $final_text . '</a>';
+            } else {
+                return '<a href="' . encode_entities($args{$var}) . '">' . $final_text . '</a>';
+            }
+        } else {
+            return "{$var|$text}";
+        }
+    };
+
     $string = decode('utf-8', $string);
 
     my $re = join '|', map { quotemeta $_ } keys %args;
 
-    $string =~ s/\{($re)\|(.*?)\}/defined $args{$1} ? "<a href=\"" . encode_entities($args{$1}) . "\">" . (defined $args{$2} ? $args{$2} : $2) . "<\/a>" : "{$0}"/ge;
+    $string =~ s/\{($re)\|(.*?)\}/$make_link->($1, $2)/ge;
     $string =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
 
     return $string;

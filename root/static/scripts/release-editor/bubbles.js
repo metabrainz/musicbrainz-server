@@ -126,6 +126,10 @@
         initialArtistText: ko.observable(""),
 
         around$show: function (supr, control, stealFocus, isRedraw) {
+            if (this.visible() && !isRedraw) {
+                this.makeAllChanges();
+            }
+
             supr(control, stealFocus, isRedraw);
 
             // If the bubble is redrawn to reposition it, we don't want to
@@ -155,7 +159,8 @@
             var matchWith = this.initialArtistText();
             var names = target.toJSON();
 
-            _(track.medium.tracks()).without(track).pluck("artistCredit")
+            _(track.medium.release.mediums())
+                .invoke("tracks").flatten().without(track).pluck("artistCredit")
                 .each(function (ac) {
                     if (matchWith === ac.text()) ac.setNames(names);
                 });
@@ -172,31 +177,5 @@
     });
 
     releaseEditor.trackArtistBubble = TrackArtistBubble("TrackArtist");
-
-
-    // Used to watch for DOM changes, so that doc bubbles stay pointed at the
-    // correct position.
-    //
-    // See https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
-    // for browser support.
-
-    ko.bindingHandlers.affectsBubble = {
-
-        init: function (element, valueAccessor) {
-            if (!window.MutationObserver) {
-                return;
-            }
-
-            var observer = new MutationObserver(_.throttle(function () {
-                _.delay(function () { valueAccessor().redraw() }, 100);
-            }, 100));
-
-            observer.observe(element, { childList: true, subtree: true });
-
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                observer.disconnect();
-            });
-        }
-    };
 
 }(MB.releaseEditor = MB.releaseEditor || {}));

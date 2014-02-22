@@ -63,6 +63,20 @@ releaseEditor.test = {
 };
 
 
+releaseEditor.test.testArtistCredit = [
+  {
+    artist: {
+      sortName: "Boredoms",
+      comment: "",
+      name: "Boredoms",
+      id: 39282,
+      gid: "0798d15b-64e2-499f-9969-70167b1d8617"
+    },
+    joinPhrase: ""
+  }
+];
+
+
 releaseEditor.test.testRelease = {
   releaseGroup: {
     typeName: null,
@@ -70,18 +84,7 @@ releaseEditor.test.testRelease = {
     artist: "Boredoms",
     typeID: 1,
     comment: "",
-    artistCredit: [
-      {
-        artist: {
-          sortName: "Boredoms",
-          comment: "",
-          name: "Boredoms",
-          id: 39282,
-          gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-        },
-        joinPhrase: ""
-      }
-    ],
+    artistCredit: releaseEditor.test.testArtistCredit,
     id: 83146,
     secondaryTypeIDs: [],
     firstReleaseDate: "1999-10-27",
@@ -110,18 +113,7 @@ releaseEditor.test.testRelease = {
           name: "\u25cb",
           length: 822093,
           id: 564394,
-          artistCredit: [
-            {
-              artist: {
-                sortName: "Boredoms",
-                comment: "",
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              joinPhrase: ""
-            }
-          ],
+          artistCredit: releaseEditor.test.testArtistCredit,
           gid: "aaed3498-cb14-3c2b-8c08-ad03bf46ab61"
         },
         {
@@ -139,18 +131,7 @@ releaseEditor.test.testRelease = {
           name: "\u2606",
           length: 322933,
           id: 564395,
-          artistCredit: [
-            {
-              artist: {
-                sortName: "Boredoms",
-                comment: "",
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              joinPhrase: ""
-            }
-          ],
+          artistCredit: releaseEditor.test.testArtistCredit,
           gid: "cce78f39-a1a0-32d5-b921-091757f28586"
         }
       ],
@@ -165,18 +146,7 @@ releaseEditor.test.testRelease = {
   formats: "2\u00d7CD",
   packagingID: null,
   comment: "limited edition",
-  artistCredit: [
-    {
-      artist: {
-        sortName: "Boredoms",
-        comment: "",
-        name: "Boredoms",
-        id: 39282,
-        gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-      },
-      joinPhrase: ""
-    }
-  ],
+  artistCredit: releaseEditor.test.testArtistCredit,
   id: 249113,
   labels: [
     {
@@ -225,18 +195,7 @@ releaseEditor.test.testMedium = {
       name: "\u2609",
       length: 92666,
       id: 892996,
-      artistCredit: [
-        {
-          artist: {
-            sortName: "Boredoms",
-            comment: "",
-            name: "Boredoms",
-            id: 39282,
-            gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-          },
-          joinPhrase: ""
-        }
-      ],
+      artistCredit: releaseEditor.test.testArtistCredit,
       gid: "2e8e2c89-d2ac-3e78-b8b9-b09f3fcf8c98"
     }
   ],

@@ -252,6 +252,24 @@ sub find_open_for_editor
     );
 }
 
+sub find_creation_edit {
+   my ($self, $create_edit_type, $entity_id, %args) = @_;
+   $args{id_field} ||= 'entity_id';
+   my $query =
+       "SELECT " . $self->_columns . "
+          FROM " . $self->_table . "
+        WHERE edit.status = ?
+          AND edit.type = ?
+          AND extract_path_value(data, ?::text) = ?
+        ORDER BY edit.id ASC LIMIT 1";
+   my ($edit) = query_to_list(
+       $self->c->sql,
+       sub { $self->_new_from_row(shift) },
+       $query,
+       $STATUS_OPEN, $create_edit_type, $args{id_field}, $entity_id);
+   return $edit;
+}
+
 sub subscribed_entity_edits
 {
     my ($self, $editor_id, $limit, $offset) = @_;

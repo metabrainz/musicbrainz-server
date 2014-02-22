@@ -58,6 +58,8 @@
     };
 
 
+    MB.entity.getFromCache = function (gid) { return entityCache[gid] };
+
     // Used by unit tests to guarantee isolation of side effects.
 
     MB.entity.clearCache = function () { entityCache = {} };
@@ -417,6 +419,18 @@
         if (this.name) {
             this.positionName += ": " + this.name;
         }
+    });
+
+
+    // FIXME: We should be sharing code with the relationship editor here.
+
+    MB.entity.Relationship = aclass(Entity, function (data) {
+        this.id = data.id;
+        this.type0 = data.type0;
+        this.type1 = data.type1;
+        this.linkTypeID = ko.observable(data.linkTypeID);
+        this.entity0ID = ko.observable(data.entity0ID);
+        this.entity1ID = ko.observable(data.entity1ID);
     });
 
 

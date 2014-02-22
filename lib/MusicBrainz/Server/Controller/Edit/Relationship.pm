@@ -3,8 +3,9 @@ use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller' };
 
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_DELETE );
+use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_CREATE );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use MusicBrainz::Server::Edit::Relationship::Delete;
 use MusicBrainz::Server::Edit::Relationship::Edit;
 use MusicBrainz::Server::Translation qw( l ln );
@@ -171,16 +172,22 @@ sub edit : Local Edit
 
         $c->stash( selected => \@selected );
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         $c->model('MB')->with_transaction(sub {
             $self->try_and_edit(
                 $c, $form,
-                $type0, $type1, $rel,
-                entity0_id       => $ids[0],
-                entity1_id       => $ids[1],
+                type0            => $type0,
+                type1            => $type1,
+                relationship     => $rel,
+                entity0          => $selected[0],
+                entity1          => $selected[1],
                 attributes       => \@attributes,
-                new_link_type_id => $form->field('link_type_id')->value,
-                new_begin_date   => $form->field('period.begin_date')->value,
-                new_end_date     => $form->field('period.end_date')->value,
+                link_type        => $link_type,
+                begin_date       => $form->field('period.begin_date')->value,
+                end_date         => $form->field('period.end_date')->value,
                 ended            => $form->field('period.ended')->value
             ) or
                 $self->detach_existing($c);
@@ -277,14 +284,19 @@ sub create : Local Edit
             ($entity0, $entity1) = ($entity1, $entity0);
         }
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         $c->model('MB')->with_transaction(sub {
             $self->try_and_insert(
                 $c, $form,
-                $type0, $type1,
+                type0        => $type0,
+                type1        => $type1,
                 begin_date   => $form->field('period.begin_date')->value,
                 end_date     => $form->field('period.end_date')->value,,
                 attributes   => \@attributes,
-                link_type_id => $form->field('link_type_id')->value,
+                link_type    => $link_type,
                 entity0      => $entity0,
                 entity1      => $entity1,
                 ended        => $form->field('period.ended')->value
@@ -372,16 +384,21 @@ sub create_url : Local Edit
         my $e0 = $types[0] eq 'url' ? $url : $entity;
         my $e1 = $types[1] eq 'url' ? $url : $entity;
 
+        my $link_type = $c->model('LinkType')->get_by_id(
+            $form->field('link_type_id')->value
+        );
+
         $c->stash( url => $form->field('url')->value );
         $c->model('MB')->with_transaction(sub {
             $self->try_and_insert(
                 $c, $form,
-                @types,
-                entity0 => $e0,
-                entity1 => $e1,
-                link_type_id => $form->field('link_type_id')->value,
-                attributes => \@attributes,
-                ended => 0
+                type0       => $types[0],
+                type1       => $types[1],
+                entity0     => $e0,
+                entity1     => $e1,
+                link_type   => $link_type,
+                attributes  => \@attributes,
+                ended       => 0
             ) or $self->detach_existing($c);
         });
 
@@ -405,31 +422,32 @@ sub delete : Local Edit
     $c->model('Link')->load($rel);
     $c->model('LinkType')->load($rel->link);
     $c->model('Relationship')->load_entities($rel);
-
-    my $form = $c->form(
-        form => 'Confirm',
-        requires_edit_note => 1
-    );
     $c->stash( relationship => $rel );
 
-    if ($c->form_posted && $form->process( params => $c->req->params )) {
-        $c->model('MB')->with_transaction(sub {
-            my $edit = $self->_insert_edit(
-                $c, $form,
-                edit_type    => $EDIT_RELATIONSHIP_DELETE,
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELATIONSHIP_CREATE, $rel->id);
+    cancel_or_action($c, $edit, $c->req->params->{returnto}, sub {
+        my $form = $c->form(
+            form => 'Confirm',
+            requires_edit_note => 1
+        );
 
-                type0        => $type0,
-                type1        => $type1,
-                relationship => $rel,
-            );
-        });
+        if ($c->form_posted && $form->process( params => $c->req->params )) {
+            $c->model('MB')->with_transaction(sub {
+                $self->delete_relationship(
+                    $c, $form,
+                    type0 => $type0,
+                    type1 => $type1,
+                    relationship => $rel
+                );
+            });
 
-        my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
-        $c->response->redirect($redirect);
-        $c->detach;
-    }
+            my $redirect = $c->req->params->{returnto} || $c->uri_for('/search');
+            $c->response->redirect($redirect);
+            $c->detach;
+        }
 
-    $c->stash( relationship => $rel );
+        $c->stash( relationship => $rel );
+    });
 }
 
 no Moose;

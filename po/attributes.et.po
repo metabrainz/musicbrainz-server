@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-10 23:54+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-16 11:45+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/projects/p/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +81,7 @@ msgstr "ballett"
 #: DB:work_type/name:26
 msgctxt "work_type"
 msgid "Beijing opera"
-msgstr ""
+msgstr "Pekingi ooper"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -146,7 +146,7 @@ msgstr "kantaat"
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "papp- või paberümbris"
+msgstr "papp- või pabertasku"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
@@ -161,7 +161,7 @@ msgstr "kassett"
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr "kassetiümbris"
+msgstr "kassetikarp"
 
 #: DB:artist_type/name:4
 msgctxt "artist_type"

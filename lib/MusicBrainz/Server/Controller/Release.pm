@@ -20,6 +20,7 @@ use List::MoreUtils qw( part uniq );
 use List::UtilsBy 'nsort_by';
 use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
+use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
@@ -579,7 +580,8 @@ sub _merge_load_entities
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_RELEASE_DELETE,
+    edit_type        => $EDIT_RELEASE_DELETE,
+    create_edit_type => $EDIT_RELEASE_CREATE,
 };
 
 sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
@@ -639,18 +641,21 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     $c->stash( artwork => $artwork );
 
-    $self->edit_action($c,
-        form        => 'Confirm',
-        form_args   => { requires_edit_note => 1 },
-        type        => $EDIT_RELEASE_REMOVE_COVER_ART,
-        edit_args   => {
-            release   => $release,
-            to_delete => $artwork
-        },
-        on_creation => sub {
-            $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
-        }
-    )
+    my $edit = $c->model('Edit')->find_creation_edit($EDIT_RELEASE_ADD_COVER_ART, $artwork->id, id_field => 'cover_art_id');
+    cancel_or_action($c, $edit, $c->uri_for_action('/release/cover_art', [ $release->gid ]), sub {
+        $self->edit_action($c,
+            form        => 'Confirm',
+            form_args   => { requires_edit_note => 1 },
+            type        => $EDIT_RELEASE_REMOVE_COVER_ART,
+            edit_args   => {
+                release   => $release,
+                to_delete => $artwork
+            },
+            on_creation => sub {
+                $c->response->redirect($c->uri_for_action('/release/cover_art', [ $release->gid ]));
+            }
+        );
+    });
 }
 
 sub cover_art : Chained('load') PathPart('cover-art') {

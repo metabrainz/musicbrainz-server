@@ -3,7 +3,10 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
+use Encode;
 use MusicBrainz::Server::Translation qw( l lp );
+use Text::Trim qw( trim );
+use Text::Unaccent qw( unac_string_utf16 );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
@@ -11,18 +14,11 @@ use Sub::Exporter -setup => {
     exports => [qw(
                       language_options
                       script_options
+                      link_type_options
                       select_options
                       build_grouped_options
               )]
 };
-
-sub get_collator {
-    my $c = shift;
-    my $coll = Unicode::ICU::Collator->new($c->stash->{current_language} // 'en');
-    # make sure to update the postgresql collate extension as well
-    $coll->setAttribute(UCOL_NUMERIC_COLLATION(), UCOL_ON());
-    return $coll;
-}
 
 sub language_options {
     my $c = shift;
@@ -34,7 +30,7 @@ sub language_options {
     my $frequent = 2;
     my $skip = 0;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -58,7 +54,7 @@ sub script_options {
     my $frequent = 4;
     my $skip = 1;
 
-    my $coll = get_collator($c);
+    my $coll = $c->get_collator();
     my @sorted = sort_by { $coll->getSortKey($_->{label}) } map {
         {
             'value' => $_->id,
@@ -71,14 +67,40 @@ sub script_options {
     return \@sorted;
 }
 
+sub link_type_options
+{
+    my ($root, $attr, $ignore, $indent) = @_;
+
+    my @options;
+    if ($root->id && $root->name ne $ignore) {
+        my $label = trim($root->$attr);
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $label)));
+
+        if (defined($indent)) {
+            $label = $indent . $label;
+            $indent .= '&#160;&#160;&#160;';
+        }
+        push @options, {
+            value => $root->id,
+            label => $label,
+            'data-unaccented' => $unac
+        };
+    }
+    foreach my $child ($root->all_children) {
+        push @options, @{ link_type_options($child, $attr, $ignore, $indent) };
+    }
+    return \@options;
+}
+
 sub select_options
 {
     my ($c, $model, %opts) = @_;
-    my $sort_by_accessor = $opts{sort_by_accessor} // 0;
+
+    my $model_ref = ref($model) ? $model : $c->model($model);
+    my $sort_by_accessor = $opts{sort_by_accessor} // $model_ref->sort_in_forms;
     my $accessor = $opts{accessor} // 'l_name';
     my $coll = $c->get_collator();
 
-    my $model_ref = ref($model) ? $model : $c->model($model);
     return [ map {
         value => $_->id,
         label => l($_->$accessor)

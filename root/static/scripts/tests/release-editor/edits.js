@@ -120,16 +120,67 @@ test("recordingEdit edits are generated for new release", function () {
                 gid: "0798d15b-64e2-499f-9969-70167b1d8617"
               },
               name: "Boredoms",
-              join_phrase:
-              null
+              join_phrase: null
             }
           ]
         },
         length: 722093,
-        comment: null,
+        comment: "",
         video: false,
         edit_type: 72,
-        hash: "50379153e2dc73753cdb154f53ada243936d8941"
+        hash: "ccc1d1492d135248dbe0c799855d74aed8a1bdf4"
+      }
+    ]);
+
+    releaseEditor.copyTrackChangesToRecordings(false);
+});
+
+
+test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
+    releaseEditor.copyTrackChangesToRecordings(true);
+
+    var trackData = {
+        name: "foo",
+        artistCredit: releaseEditor.test.testArtistCredit
+    };
+
+    this.release.mediums.push(
+        releaseEditor.fields.Medium({ tracks: [ trackData ] })
+    );
+
+    var track = this.release.mediums()[1].tracks()[0];
+    var recordingData = _.extend({ gid: "80f797aa-2077-435d-85e2-c22e31a654f4" }, trackData);
+
+    track.recording(MB.entity.Recording(recordingData));
+    track.name("foobar");
+
+    var edits = _.filter(releaseEditor.edits.medium(this.release),
+        function (edit) {
+            return edit.edit_type === MB.edit.TYPES.EDIT_RECORDING_EDIT;
+        });
+
+    deepEqual(edits, [
+      {
+        "artist_credit": {
+          "names": [
+            {
+              "artist": {
+                "gid": "0798d15b-64e2-499f-9969-70167b1d8617",
+                "id": 39282,
+                "name": "Boredoms"
+              },
+              "join_phrase": null,
+              "name": "Boredoms"
+            }
+          ]
+        },
+        "comment": "",
+        "edit_type": 72,
+        "hash": "bd8f7990396214d3dede21b6064ded7d35f90930",
+        "length": null,
+        "name": "foobar",
+        "to_edit": "80f797aa-2077-435d-85e2-c22e31a654f4",
+        "video": false
       }
     ]);
 
@@ -358,6 +409,107 @@ test("mediumDelete edit is generated for existing release", function () {
       }
     ]);
 });
+
+
+test("relationshipCreate edit for external link is generated for existing release", function () {
+    var newRelationshipData = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76
+    };
+
+    this.release.externalLinks.links.push(
+        MB.Control.externalLinks.Relationship(
+            newRelationshipData,
+            this.release.externalLinks
+        )
+    );
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 90,
+        "entity0": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+        "entity1": "http://www.discogs.com/release/1369894",
+        "hash": "e0e7008b82f6fcb05c87a2abf0113d6088eb7bb6",
+        "link_type": 76,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+
+test("relationshipEdit edit for external link is generated for existing release", function () {
+    MB.Control.externalLinks.typeInfo = {};
+    MB.Control.externalLinks.faviconClasses = {};
+
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    var link = this.release.externalLinks.links()[0];
+
+    link.linkTypeID(77);
+    link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 91,
+        "entity1": "http://www.amazon.co.jp/gp/product/B00003IQQD",
+        "hash": "46ddad04adbdeb0b1bed2991970f2613fc7d411e",
+        "link_type": 77,
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+
+test("relationshipDelete edit for external link is generated for existing release", function () {
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    this.release.externalLinks.links()[0].remove();
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 92,
+        "hash": "1f245d298ceeca4ed9241911d2ec26097a460b0f",
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
 
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function () {
     this.release = releaseEditor.fields.Release({

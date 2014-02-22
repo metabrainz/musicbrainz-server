@@ -50,32 +50,6 @@
     });
 
 
-    // Update the track parser text as the user changes the options. Only do
-    // this if they haven't modified the text in any way. Otherwise it'd
-    // overwrite their changes.
-
-    var previousParserOptions;
-
-    releaseEditor.utils.withRelease(function () {
-        var parser = releaseEditor.trackParser;
-        var newParserOptions = ko.toJS(parser.options);
-
-        if (previousParserOptions === undefined) {
-            previousParserOptions = newParserOptions;
-            return;
-        }
-
-        var dialog = releaseEditor.trackParserDialog;
-
-        if (dialog.medium && dialog.toBeParsed() ===
-                parser.mediumToString(dialog.medium, previousParserOptions)) {
-            dialog.toBeParsed(parser.mediumToString(dialog.medium, newParserOptions));
-        }
-
-        previousParserOptions = newParserOptions;
-    });
-
-
     var SearchResult = aclass({
 
         init: function (tab, data) {
@@ -115,7 +89,7 @@
 
         requestDone: function (data) {
             _.each(data.tracks, this.parseTrack, this);
-            _.extend(this, _.omit(data, "id", "cdtocs"));
+            _.extend(this, releaseEditor.utils.reuseExistingMediumData(data));
 
             this.loaded(true);
         },
