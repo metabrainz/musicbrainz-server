@@ -52,11 +52,8 @@ sub build_display_data
         type          => $self->data->{type_id} && $loaded->{WorkType}->{ $self->data->{type_id} },
         language      => $self->data->{language_id} && $loaded->{Language}->{ $self->data->{language_id} },
         iswc          => $self->data->{iswc},
-        work          => $loaded->{Work}{ $self->entity_id }
-            || Work->new( name => $self->data->{name} ),
-        attributes    => $self->c->model('Work')->inflate_attributes(
-            $self->data->{attributes}
-        )
+        work          => $loaded->{Work}{ $self->entity_id } || Work->new( name => $self->data->{name} ),
+        attributes    => { $self->grouped_attributes_by_type($self->data->{attributes}) },
     };
 }
 

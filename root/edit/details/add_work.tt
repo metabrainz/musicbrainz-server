@@ -39,19 +39,18 @@
   </tr>
   [% END %]
 
-  [%- IF edit.data.attributes -%]
+  [% IF edit.data.attributes ~%]
+  [% FOR type=edit.display_data.attributes ~%]
   <tr>
-    <th>[% l('Attributes:') %]</th>
+    <th>[% l(type.key _ ':') %]</th>
     <td>
       <ul>
-      [%- FOR attribute=edit.display_data.attributes -%]
-        <li>
-          [%- l(attribute.type.l_name _ ':') %]
-          [% attribute.value | html -%]
-        </li>
-      [%- END -%]
+      [%- FOR attribute=type.value %]
+        <li>[% attribute.value | html %]</li>
+      [%- END %]
       </ul>
     </td>
   </tr>
-  [%- END -%]
+  [%~ END %]
+  [%~ END %]
 </table>
