@@ -17,7 +17,7 @@ WA.WorkAttribute = function (data) {
     var self = this;
 
     self.typeID = ko.observable(data.typeID);
-    self.attributeValue = ko.observable(data.value);
+    self.attributeValue = ko.observable(data.value || undefined);
     self.errors = ko.observableArray(data.errors);
     self.typeHasFocus = ko.observable(false);
 
