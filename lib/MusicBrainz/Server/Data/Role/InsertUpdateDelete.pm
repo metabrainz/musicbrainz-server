@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::InsertUpdateDelete;
 use Moose::Role;
+use Class::Load qw( load_class );
 use namespace::autoclean;
 
 requires '_entity_class';
@@ -15,7 +16,7 @@ around 'insert' => sub {
     my ($orig, $self, @objs) = @_;
 
     my $class = $self->_entity_class;
-    Class::MOP::load_class($class);
+    load_class($class);
 
     my %map = %{ $self->_column_mapping };
     my @ret;

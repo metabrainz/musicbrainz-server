@@ -168,6 +168,7 @@
         Video: '[% l('video') | js %]',
         EnterAValidURL: '[% l('Enter a valid url e.g. "http://google.com/"') | js %]',
         RelationshipAlreadyExists: '[% l('This relationship already exists.') | js %]',
-        SelectedArea: '[% l('You selected {area}.') | js %]'
+        SelectedArea: '[% l('You selected {area}.') | js %]',
+        MoreDocumentation: '[% l('{description} ({url|more documentation})') | js %]'
     });
 })(MB);

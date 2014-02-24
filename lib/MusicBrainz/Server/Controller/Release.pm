@@ -22,6 +22,8 @@ use MusicBrainz::Server::Translation qw ( l ln );
 use MusicBrainz::Server::Constants qw( :edit_type );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
 use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
@@ -529,11 +531,44 @@ sub _merge_parameters {
                     mediums => $medium_changes{$_}
                 }, keys %medium_changes
             ]
-        )
+        );
+    } elsif ($form->field('merge_strategy')->value == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+        my %release_map = map { $_->id => $_ } @$releases;
+
+        my $new_id = $form->field('target')->value;
+        my $new = $release_map{$new_id};
+        my $old = [map { $release_map{$_} } grep { $_ != $new_id } @{ $form->field('merging')->value }];
+
+        my $recording_merges = [map +{
+            medium => $_->{medium},
+            track => $_->{track},
+            destination => {
+                id => $_->{destination}->id,
+                name => $_->{destination}->name,
+                length => $_->{destination}->length
+            },
+            sources => [map +{
+                id => $_->id,
+                name => $_->name,
+                length => $_->length
+            }, @{ $_->{sources} }]
+        }, @{ calculate_recording_merges($new, $old) } ];
+
+        return (recording_merges => $recording_merges);
+    } else {
+        return ()
     }
-    else {
-        return ();
-    }
+}
+
+sub _extra_entity_data {
+    my ($self, $c, $form, $release) = @_;
+    my @args;
+    push(@args, barcode => $release->barcode->code) if $release->barcode;
+    push(@args, artist_credit => artist_credit_to_ref($release->artist_credit));
+    push(@args, events => [map +{ country_id => $_->country_id, date => partial_date_to_hash($_->date) }, $release->all_events]);
+    push(@args, mediums => [map +{ track_count => $_->track_count, format_name => $_->format_name }, $release->all_mediums]);
+    push(@args, labels => [map +{ label => { id => $_->label->id, name => $_->label->name }, catalog_number => $_->catalog_number }, $release->all_labels]);
+    return @args;
 }
 
 around _merge_submit => sub {

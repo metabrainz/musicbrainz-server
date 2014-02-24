@@ -4,7 +4,7 @@ SET client_min_messages TO 'warning';
 INSERT INTO url (id, gid, url)
     VALUES (1, '9201840b-d810-4e0f-bb75-c791205f5b24', 'http://musicbrainz.org/'),
            (2, '9b3c5c67-572a-4822-82a3-bdd3f35cf152', 'http://microsoft.com'),
-           (3, '25d6b63a-12dc-41c9-858a-2f42ae610a7d', 'http://zh-yue.wikipedia.org/wiki/王菲'),
+           (3, '25d6b63a-12dc-41c9-858a-2f42ae610a7d', 'http://zh-yue.wikipedia.org/wiki/%E7%8E%8B%E8%8F%B2'),
            (4, '7bd45cc7-6189-4712-35e1-cdf3632cf1a9', 'http://www.allmusic.com/artist/faye-wong-mn0000515659');
 
 INSERT INTO link_type (id, name, gid, link_phrase, long_link_phrase, reverse_link_phrase, entity_type0, entity_type1)

@@ -1,11 +1,12 @@
 # 
 # Translators:
 # lorenzpressler <email address hidden>, 2012
+# jus <email address hidden>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-18 08:57+0000\n"
-"Last-Translator: Ian McEwen <email address hidden>\n"
+"PO-Revision-Date: 2014-02-19 08:09+0000\n"
+"Last-Translator: jus <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +66,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:531
 msgid "A class of South-American guitars"
-msgstr ""
+msgstr "Eine Klasse der südamerikanischen Gitarren"
 
 #: DB:link_attribute_type/description:679
 msgid "A classical guitar strung with gut strings."
@@ -175,7 +176,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:534
 msgid "A type of fretless zither."
-msgstr ""
+msgstr "Eine Art der bundlosen Zither."
 
 #: DB:link_attribute_type/description:638
 msgid "A typewriter, used for percussion (either keys or bells)"
@@ -244,7 +245,7 @@ msgstr ""
 msgid ""
 "Ancient frame drum "
 "(http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm)"
-msgstr ""
+msgstr "Historische Rahmentrommel (http://www.donbak.co.uk/Articles/DafTheSpiritualFrameDrum.htm)"
 
 #: DB:link_attribute_type/description:90
 msgid "Appalachian dulcimer"
@@ -418,7 +419,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:436
 msgid "German/Bohemian harp"
-msgstr ""
+msgstr "Deutsche/Böhmische Harfe"
 
 #: DB:link_attribute_type/description:408
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
@@ -436,7 +437,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:370
 msgid "Greek Panflute"
-msgstr ""
+msgstr "Griechische Panflöte"
 
 #: DB:link_attribute_type/description:306
 msgid "Greek baglama"
@@ -585,11 +586,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:22
 msgid "Oboe (soprano)"
-msgstr ""
+msgstr "Oboe (Sopran)"
 
 #: DB:link_attribute_type/description:581
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
-msgstr ""
+msgstr "Oboe d'amore / Oboe d'amour (Mezzosopran)"
 
 #: DB:link_attribute_type/description:265
 msgid ""
@@ -1801,11 +1802,11 @@ msgstr ""
 
 #: DB:link_attribute_type/description:350
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "Tibetischen Wassertrommel"
 
 #: DB:link_attribute_type/description:217
 msgid "Timpani (Kettle drum)"
-msgstr ""
+msgstr "Timpani (Kesselpauke)"
 
 #: DB:link_attribute_type/description:382
 msgid "Trống Bông (bong drum)"
@@ -1884,7 +1885,7 @@ msgstr "Warr Guitar"
 
 #: DB:link_attribute_type/description:266
 msgid "Willow flute (seljefløyte"
-msgstr ""
+msgstr "Weidenflöte (seljefløyte)"
 
 #: DB:link_attribute_type/description:607
 msgid ""

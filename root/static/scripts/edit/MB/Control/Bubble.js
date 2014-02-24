@@ -31,8 +31,10 @@ MB.Control.BubbleBase = aclass({
         this.target(ko.dataFor(control));
         this.visible(true);
 
+        var $bubble = this.$bubble;
+
         if (stealFocus !== false && $(control).is(":button")) {
-            MB.utility.deferFocus(":input:first", this.$bubble);
+            MB.utility.deferFocus(":input:first", $bubble);
         }
 
         var activeBubble = this.activeBubbles[this.group];
@@ -41,6 +43,10 @@ MB.Control.BubbleBase = aclass({
             activeBubble.hide(false);
         }
         this.activeBubbles[this.group] = this;
+
+        _.defer(function () {
+            $bubble.find("a").attr("target", "_blank");
+        });
     },
 
     hide: function (stealFocus) {
