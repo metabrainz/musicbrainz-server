@@ -138,14 +138,14 @@
         },
 
         differsFromRecording: function () {
-            var recording = this.recording(), name = this.name();
+            var recording = this.recording();
+            var name = this.name();
+
             if (!recording.gid || !name) return false;
 
-            var length = this.length();
-
-            var sameName = name && name === recording.name,
-                sameLength = length === recording.length,
-                sameArtist = this.artistCredit.isEqual(recording.artistCredit);
+            var sameName = name === recording.name;
+            var sameLength = this.formattedLength() === recording.formattedLength;
+            var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
 
             return !(sameName && sameLength && sameArtist);
         },
