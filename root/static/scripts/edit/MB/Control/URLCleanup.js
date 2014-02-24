@@ -799,7 +799,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
     };
 
     self.cleanUrl = function (sourceType, dirtyURL) {
-        dirtyURL = _.str.trim(dirtyURL).replace(/%E2%80%8E$/, "");
+        dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
         var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
             return cleanup.clean && cleanup.match.test(dirtyURL);
