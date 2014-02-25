@@ -4,34 +4,10 @@ use Moose;
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
 use Net::Amazon::S3::Policy qw( starts_with );
-use Net::CoverArtArchive qw( find_available_artwork );
 use Net::CoverArtArchive::CoverArt;
 use Time::HiRes qw( time );
 
 my $caa = Net::CoverArtArchive->new (cover_art_archive_prefix => DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX);
-
-sub find_available_artwork {
-    my ($self, $mbid) = @_;
-
-    my $prefix = DBDefs->COVER_ART_ARCHIVE_DOWNLOAD_PREFIX."/release/$mbid";
-
-    return [
-        map {
-            Net::CoverArtArchive::CoverArt->new(
-                %$_,
-                image => sprintf('%s/%s.jpg', $prefix, $_->{id}),
-                large_thumbnail => sprintf('%s/%s-500.jpg', $prefix, $_->{id}),
-                small_thumbnail => sprintf('%s/%s-250.jpg', $prefix, $_->{id}),
-            );
-        } @{ $self->sql->select_list_of_hashes(
-            'SELECT index_listing.*, release.gid
-             FROM cover_art_archive.index_listing
-             JOIN musicbrainz.release ON index_listing.release = release.id
-             WHERE release.gid = ? ORDER BY ordering',
-            $mbid
-        ) }
-    ];
-};
 
 sub get_stats_for_release {
     my ($self, $release_id) = @_;

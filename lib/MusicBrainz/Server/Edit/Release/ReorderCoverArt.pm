@@ -80,8 +80,7 @@ sub accept {
             'This release no longer exists'
         );
 
-
-    my $current = $self->c->model ('CoverArtArchive')->find_available_artwork ($release->gid);
+    my $current = $self->c->model('Artwork')->find_by_release($release);
 
     my @current_ids = sort (map { $_->id } @$current);
     my @edit_ids = sort (map { $_->{id} } @{ $self->data->{old} });
