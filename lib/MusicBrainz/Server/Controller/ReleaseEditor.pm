@@ -42,14 +42,6 @@ sub _init_release_editor
 
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
-    my $root_medium_format = $c->model('MediumFormat')->get_tree;
-
-    my $medium_format_options = [
-        map {
-            _build_medium_format_options($_, 'l_name', '')
-        } $root_medium_format->all_children
-    ];
-
     my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
 
     $c->stash(
@@ -62,7 +54,7 @@ sub _init_release_editor
         scripts         => build_grouped_options($c, script_options($c)),
         packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
-        formats         => $medium_format_options,
+        formats         => select_options_tree($c, 'MediumFormat'),
         url_type_info   => MusicBrainz::Server::Controller::Role::EditExternalLinks::build_type_info($url_link_types),
         url_type_opts   => link_type_options($url_link_types, 'l_link_phrase', 'ROOT', '&#160;'),
         %options
