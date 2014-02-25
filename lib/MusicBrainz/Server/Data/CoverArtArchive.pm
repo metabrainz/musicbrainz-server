@@ -4,6 +4,7 @@ use Moose;
 with 'MusicBrainz::Server::Data::Role::Sql';
 use DBDefs;
 use Net::Amazon::S3::Policy qw( starts_with );
+use Net::CoverArtArchive;
 use Net::CoverArtArchive::CoverArt;
 use Time::HiRes qw( time );
 
