@@ -27,13 +27,15 @@ fieldset {
     }
 
     div {
-        &.recordings-loading, &.tracklist-loading { text-align: center; }
+        &.recordings-loading, &.tracklist-loading {
+            padding: 1em;
+            text-align: center;
+        }
         &.guesscase-options select { width: 100px; }
     }
 }
 
 .warning, .notice { border-radius: 6px; }
-.error { color: @negative-text; }
 .error-tab { background: @negative-light-bg; }
 
 /* __________________________________
@@ -54,9 +56,8 @@ div.half-width {
     td.release-artist { width: 100%; }
 
     #annotation {
-        @annotation-width: @form-half-width - 120px - (@form-margin * 3);
-        width: @annotation-width;
-        max-width: @annotation-width;
+        width: @form-input-width;
+        max-width: @form-input-width;
     }
 }
 
@@ -81,16 +82,8 @@ fieldset.advanced-disc {
             background-image: data-uri('../images/icons/expand.png');
         }
 
-        &.track-down {
-            background-image: data-uri('../images/icons/track-down.png');
-        }
-
         &.disc-down {
             background-image: data-uri('../images/icons/down.png');
-        }
-
-        &.track-up {
-            background-image: data-uri('../images/icons/track-up.png');
         }
 
         &.disc-up {
@@ -115,6 +108,7 @@ fieldset.advanced-disc {
         background: @text-white;
         border: 1px dotted @very-light-border;
         padding: 0 5px;
+        vertical-align: inherit !important;
 
         &.position { width: 2em; }
         &.position input { text-align: right; }
@@ -172,6 +166,7 @@ table.advanced-format {
     width: 100%;
     padding: @form-margin;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
 
     div.buttons { float: left; }
 
@@ -182,7 +177,6 @@ table.advanced-format {
             position: relative;
             width: 2em;
             border: 1px solid @medium-border;
-            color: @dark-text;
             text-align: right;
         }
     }

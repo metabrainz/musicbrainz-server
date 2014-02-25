@@ -181,7 +181,6 @@ sub insert
 sub update
 {
     my ($self, $recording_id, $update) = @_;
-    my $track_data = MusicBrainz::Server::Data::Track->new(c => $self->c);
     my $row = $self->_hash_to_row($update);
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }

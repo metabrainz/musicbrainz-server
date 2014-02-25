@@ -26,7 +26,7 @@
 
             <td rowspan="2" class="position" data-bind="text: position"></td>
 
-            <td class="name" data-bind="text: name"></td>
+            <td class="name"><bdi data-bind="text: name"></bdi></td>
             [%#
                 For tracks, formattedLength is an observable, hence the
                 function invocation. For recordings, it's a string. This is
@@ -95,9 +95,9 @@
 
         <!-- ko if: loading -->
           <div class="recordings-loading">
-            <p class="loading-message">
+            <span class="loading-message">
               [% l('Now loading recording associations...') %]
-            </p>
+            </span>
           </div>
         <!-- /ko -->
       </div>
@@ -188,10 +188,7 @@
           </tr>
         </tbody>
       </table>
-
-      <div class="buttons" style="float: right">
-        <button type="button" class="positive" data-bind="delegatedClick: _.bind($bubble.hide, $bubble)">[% l('Done') %]</button>
-      </div>
+      <!-- ko template: { name: "template.track-bubble-buttons", data: $bubble } --><!-- /ko -->
     </div>
   </div>
 </div>

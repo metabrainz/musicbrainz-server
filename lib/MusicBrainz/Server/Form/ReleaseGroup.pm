@@ -5,6 +5,7 @@ use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-release-group' );
 

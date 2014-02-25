@@ -363,7 +363,7 @@ CREATE TABLE edit
     open_time            TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     close_time           TIMESTAMP WITH TIME ZONE,
     expire_time          TIMESTAMP WITH TIME ZONE NOT NULL,
-    language            INTEGER, -- references language
+    language            INTEGER, -- references language.id
     quality             SMALLINT NOT NULL DEFAULT 1
 );
 
@@ -491,8 +491,8 @@ CREATE TABLE editor_subscribe_collection
 (
     id                  SERIAL,
     editor              INTEGER NOT NULL,              -- references editor.id
-    collection          INTEGER NOT NULL,              -- weakly references collection
-    last_edit_sent      INTEGER NOT NULL,              -- weakly references edit
+    collection          INTEGER NOT NULL,              -- weakly references editor_collection.id
+    last_edit_sent      INTEGER NOT NULL,              -- weakly references edit.id
     available           BOOLEAN NOT NULL DEFAULT TRUE,
     last_seen_name      VARCHAR(255)
 );
@@ -517,7 +517,7 @@ CREATE TABLE editor_subscribe_editor
     id                  SERIAL,
     editor              INTEGER NOT NULL, -- references editor.id (the one who has subscribed)
     subscribed_editor   INTEGER NOT NULL, -- references editor.id (the one being subscribed)
-    last_edit_sent      INTEGER NOT NULL  -- weakly references edit
+    last_edit_sent      INTEGER NOT NULL  -- weakly references edit.id
 );
 
 CREATE TABLE gender (

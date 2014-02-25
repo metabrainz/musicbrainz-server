@@ -122,7 +122,11 @@ MB.Control.RelateTo = function () {
     self.$create.bind ('click.mb', self.createRelationship);
 
     function setEntity (entity) {
-        self.$select.val(entity).trigger("change.mb");
+        if (self.$select.find('option[value="' + entity + '"]').length > 0) {
+            self.$select.val(entity).trigger("change.mb");
+        } else {
+            return false
+        }
     }
 
     self.autocomplete = MB.Control.EntityAutocomplete ({

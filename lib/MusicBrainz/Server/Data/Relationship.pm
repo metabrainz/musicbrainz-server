@@ -181,7 +181,6 @@ sub load_entities
     my ($self, @rels) = @_;
     my %ids_by_type;
     foreach my $rel (@rels) {
-        my $linktype = $rel->link->type->name;
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});

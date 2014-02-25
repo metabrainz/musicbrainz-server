@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 22:27+0000\n"
+"PO-Revision-Date: 2014-02-15 03:20+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -1345,6 +1345,10 @@ msgstr ""
 msgid "This links a recording to a license under which it is available."
 msgstr ""
 
+#: DB:link_type/description:726
+msgid "This links a recording to the balance engineer who engineered it."
+msgstr ""
+
 #: DB:link_type/description:65
 msgid ""
 "This links a release group to an artist, to indicate that it is a tribute "
@@ -1362,6 +1366,10 @@ msgstr ""
 #: DB:link_type/description:301
 msgid "This links a release to a license under which it is available."
 msgstr "Conecta una publicación a una licencia bajo la cual está disponible."
+
+#: DB:link_type/description:727
+msgid "This links a release to the balance engineer who engineered it."
+msgstr ""
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."
@@ -1645,6 +1653,15 @@ msgid ""
 "This relationship links a track or a release to the person who did "
 "programming of electronic instruments. (<a "
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
+msgstr ""
+
+#: DB:link_type/description:728
+msgid ""
+"This relationship specifies that an artist is a <a "
+"href=\"http://en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another "
+"specific artist/band; that is, it primarily performs covers of that artist.​"
+" They may also be referred to as cover bands. Some tribute artists may name "
+"themselves, dress, and/or act similarly to the artists they pay tribute to."
 msgstr ""
 
 #: DB:link_type/description:462
@@ -2670,6 +2687,10 @@ msgstr ""
 msgid "is a remix of"
 msgstr "es una remezcla de"
 
+#: DB:link_type/long_link_phrase:728
+msgid "is a tribute to"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:278
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -3459,7 +3480,11 @@ msgstr ""
 msgid "tribute albums"
 msgstr "álbumes tributo"
 
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:728
+msgid "tribute artists"
+msgstr ""
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr "tributo a"
 
@@ -3612,6 +3637,12 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr "{co:co-}ingeniero de audio {additional:adicional} {assistant:asistente} {associate:asociado} para"
 
+#: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
+#: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
+msgid ""
+"{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
+msgstr ""
+
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
 msgid "{additional:additionally} {assistant} {associate} {co:co-}edited"
@@ -3755,6 +3786,10 @@ msgstr "escritor {additional:adicional}"
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
 msgstr "{co:co-}ingeniero de audio {additional:adicional} {assistant:asistente} {associate:asociado}"
+
+#: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
+msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"

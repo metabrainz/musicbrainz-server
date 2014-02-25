@@ -22,8 +22,13 @@ MB.RelationshipEditor = (function (RE) {
 
 MB.entity.CoreEntity.extend({
 
-    after$init: function () {
+    after$init: function (data) {
         this.relationships = ko.observableArray([]);
+
+        // XXX This must be deferred (i.e. run outside of this call stack),
+        // because parseRelationships will try to instantiate the exact same
+        // entity we're calling from, leading to infinite recursion.
+        _.defer(RE.Util.parseRelationships, data, this.type);
     },
 
     toJSON: function () {
@@ -73,9 +78,10 @@ MB.entity.Recording.extend({
     },
 
     around$hasRelationshipChanges: function (supr) {
-        return supr() || _.any(
-            _.invoke(this.performanceRelationships(), "action")
-        );
+        return supr() || _.any(this.performanceRelationships(), function (relationship) {
+            return relationship.action() ||
+                   relationship.entity[1]().hasRelationshipChanges();
+        });
     }
 });
 

@@ -290,7 +290,7 @@ sub _track
 
     if ($track->recording) {
         $output->{recording} = $self->_recording( $track->recording,
-            MusicBrainz::Server::Entity::ArtistCredit::is_different(
+            !MusicBrainz::Server::Entity::ArtistCredit::is_different(
                 $track->artist_credit, $track->recording->artist_credit) )
     }
 
@@ -418,7 +418,7 @@ sub autocomplete_recording
     my @output;
 
     for (@$results) {
-        my $out = $self->_recording( $_->{recording}, 1 );
+        my $out = $self->_recording( $_->{recording} );
 
         $out->{appearsOn} = {
             hits    => $_->{appearsOn}{hits},
@@ -441,7 +441,7 @@ sub autocomplete_recording
 
 sub _recording
 {
-    my ($self, $recording, $show_ac) = @_;
+    my ($self, $recording, $hide_ac) = @_;
 
     my @isrcs = $recording->all_isrcs;
 
@@ -452,8 +452,7 @@ sub _recording
         comment => $recording->comment,
         length  => $recording->length,
         artist  => $recording->artist_credit->name,
-        $show_ac ? ( artistCredit  =>
-            $self->_artist_credit($recording->artist_credit) ) : (),
+        $hide_ac ? () : ( artistCredit => $self->_artist_credit($recording->artist_credit) ),
         isrcs => [ map { $_->isrc } $recording->all_isrcs ],
         video   => $recording->video ? 1 : 0
     };
@@ -575,7 +574,7 @@ sub _url
     my ($self, $url) = @_;
 
     return {
-        url           => $url->pretty_name,
+        url           => $url->utf8_decoded,
         id            => $url->id,
         gid           => $url->gid,
         edits_pending => $url->edits_pending,

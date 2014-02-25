@@ -3,193 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-(function () {
-
-var testRelease = {
-  releaseGroup: {
-    typeName: null,
-    name: "Vision Creation Newsun",
-    artist: "Boredoms",
-    typeID: 1,
-    comment: "",
-    artistCredit: [
-      {
-        artist: {
-          sortName: "Boredoms",
-          comment: "",
-          name: "Boredoms",
-          id: 39282,
-          gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-        },
-        joinPhrase: ""
-      }
-    ],
-    id: 83146,
-    secondaryTypeIDs: [],
-    firstReleaseDate: "1999-10-27",
-    gid: "1c205925-2cfe-35c0-81de-d7ef17df9658"
-  },
-  scriptID: 112,
-  statusID: 1,
-  name: "Vision Creation Newsun",
-  barcode: "4943674011582",
-  trackCounts: "9 + 3",
-  mediums: [
-    {
-      tracks: [
-        {
-          number: "1",
-          recording: {
-            video: 0,
-            name: "\u25cb",
-            length: 822093,
-            comment: "",
-            id: 636551,
-            isrcs: [],
-            gid: "f66857fb-bb59-444e-97dc-62c73e5eddae"
-          },
-          position: 1,
-          name: "\u25cb",
-          length: 822093,
-          id: 564394,
-          artistCredit: [
-            {
-              artist: {
-                sortName: "Boredoms",
-                comment: "",
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              joinPhrase: ""
-            }
-          ],
-          gid: "aaed3498-cb14-3c2b-8c08-ad03bf46ab61"
-        },
-        {
-          number: "2",
-          recording: {
-            video: 0,
-            name: "\u2606",
-            length: 322933,
-            comment: "",
-            id: 636552,
-            isrcs: [],
-            gid: "6c97b1d7-aa12-480e-8376-fa435235f164"
-          },
-          position: 2,
-          name: "\u2606",
-          length: 322933,
-          id: 564395,
-          artistCredit: [
-            {
-              artist: {
-                sortName: "Boredoms",
-                comment: "",
-                name: "Boredoms",
-                id: 39282,
-                gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-              },
-              joinPhrase: ""
-            }
-          ],
-          gid: "cce78f39-a1a0-32d5-b921-091757f28586"
-        }
-      ],
-      format: "CD",
-      name: null,
-      position: 1,
-      cdtocs: 2,
-      formatID: 1,
-      id: 249113
-    }
-  ],
-  formats: "2\u00d7CD",
-  packagingID: null,
-  comment: "limited edition",
-  artistCredit: [
-    {
-      artist: {
-        sortName: "Boredoms",
-        comment: "",
-        name: "Boredoms",
-        id: 39282,
-        gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-      },
-      joinPhrase: ""
-    }
-  ],
-  id: 249113,
-  labels: [
-    {
-      catalogNumber: "WPC6-10044",
-      label: {
-        sortName: "WEA Japan",
-        comment: "",
-        name: "WEA Japan",
-        id: 30265,
-        gid: "42b63b4e-a96d-4197-b584-165fa60357e8"
-      },
-      id: 27903
-    },
-    {
-      catalogNumber: "WPC6-10045",
-      label: {
-        sortName: "WEA Japan",
-        comment: "",
-        name: "WEA Japan",
-        id: 30265,
-        gid: "42b63b4e-a96d-4197-b584-165fa60357e8"
-      },
-      id: 64842
-    }
-  ],
-  gid: "868cc741-e3bc-31bc-9dac-756e35c8f152",
-  languageID: 486,
-  annotation: "foobar123"
-};
-
-
-var testMedium2 = {
-  tracks: [
-    {
-      number: "1",
-      recording: {
-        video: 0,
-        name: "\u2609",
-        length: 92666,
-        comment: "",
-        id: 1040491,
-        isrcs: [],
-        gid: "19506825-c404-43eb-9b09-86fc152c6780"
-      },
-      position: 1,
-      name: "\u2609",
-      length: 92666,
-      id: 892996,
-      artistCredit: [
-        {
-          artist: {
-            sortName: "Boredoms",
-            comment: "",
-            name: "Boredoms",
-            id: 39282,
-            gid: "0798d15b-64e2-499f-9969-70167b1d8617"
-          },
-          joinPhrase: ""
-        }
-      ],
-      gid: "2e8e2c89-d2ac-3e78-b8b9-b09f3fcf8c98"
-    }
-  ],
-  format: "CD",
-  name: null,
-  position: 2,
-  cdtocs: 1,
-  formatID: 1,
-  id: 249114
-};
-
 
 MB.edit.preview = function () {
     return $.Deferred().resolve({ previews: [] });
@@ -201,33 +14,17 @@ MB.edit.create = function () {
 };
 
 
-var releaseEditor = MB.releaseEditor;
+releaseEditor.test.module("add-release edits", function () {
+    var data = $.extend(true, {}, releaseEditor.test.testRelease);
+    var medium = data.mediums[0];
 
+    medium.originalID = medium.id;
 
-module("add-release edits", {
+    delete medium.id;
+    delete data.labels[0].id;
+    delete data.labels[1].id;
 
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        var data = $.extend(true, {}, testRelease);
-        var medium = data.mediums[0];
-
-        medium.originalID = medium.id;
-
-        delete medium.id;
-        delete data.labels[0].id;
-        delete data.labels[1].id;
-
-        releaseEditor.action = "add";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.seed({ seed: data });
-
-        this.release = releaseEditor.rootField.release();
-    },
-
-    teardown: function () {
-        releaseEditor.rootField.release(null);
-    }
+    releaseEditor.test.setupReleaseAdd(data);
 });
 
 
@@ -323,16 +120,67 @@ test("recordingEdit edits are generated for new release", function () {
                 gid: "0798d15b-64e2-499f-9969-70167b1d8617"
               },
               name: "Boredoms",
-              join_phrase:
-              null
+              join_phrase: null
             }
           ]
         },
         length: 722093,
-        comment: null,
+        comment: "",
         video: false,
         edit_type: 72,
-        hash: "50379153e2dc73753cdb154f53ada243936d8941"
+        hash: "ccc1d1492d135248dbe0c799855d74aed8a1bdf4"
+      }
+    ]);
+
+    releaseEditor.copyTrackChangesToRecordings(false);
+});
+
+
+test("recordingEdit edits are generated for new mediums (MBS-7271)", function () {
+    releaseEditor.copyTrackChangesToRecordings(true);
+
+    var trackData = {
+        name: "foo",
+        artistCredit: releaseEditor.test.testArtistCredit
+    };
+
+    this.release.mediums.push(
+        releaseEditor.fields.Medium({ tracks: [ trackData ] })
+    );
+
+    var track = this.release.mediums()[1].tracks()[0];
+    var recordingData = _.extend({ gid: "80f797aa-2077-435d-85e2-c22e31a654f4" }, trackData);
+
+    track.recording(MB.entity.Recording(recordingData));
+    track.name("foobar");
+
+    var edits = _.filter(releaseEditor.edits.medium(this.release),
+        function (edit) {
+            return edit.edit_type === MB.edit.TYPES.EDIT_RECORDING_EDIT;
+        });
+
+    deepEqual(edits, [
+      {
+        "artist_credit": {
+          "names": [
+            {
+              "artist": {
+                "gid": "0798d15b-64e2-499f-9969-70167b1d8617",
+                "id": 39282,
+                "name": "Boredoms"
+              },
+              "join_phrase": null,
+              "name": "Boredoms"
+            }
+          ]
+        },
+        "comment": "",
+        "edit_type": 72,
+        "hash": "bd8f7990396214d3dede21b6064ded7d35f90930",
+        "length": null,
+        "name": "foobar",
+        "to_edit": "80f797aa-2077-435d-85e2-c22e31a654f4",
+        "video": false
       }
     ]);
 
@@ -343,7 +191,7 @@ test("recordingEdit edits are generated for new release", function () {
 test("mediumCreate edits are generated for new release", function () {
 
     this.release.mediums.push(
-      releaseEditor.fields.Medium(_.omit(testMedium2, "id"))
+      releaseEditor.fields.Medium(_.omit(releaseEditor.test.testMedium, "id"))
     );
 
     deepEqual(releaseEditor.edits.medium(this.release), [
@@ -452,18 +300,7 @@ test("mediumAddDiscID edits are generated for new release", function () {
 });
 
 
-module("edit-release edits", {
-
-    setup: function () {
-        $("#qunit-fixture").append($("<div>").attr("id", "release-editor"));
-
-        this.release = releaseEditor.fields.Release(testRelease);
-
-        releaseEditor.action = "edit";
-        releaseEditor.rootField = releaseEditor.fields.Root();
-        releaseEditor.rootField.release(this.release);
-    }
-});
+releaseEditor.test.module("edit-release edits", releaseEditor.test.setupReleaseEdit);
 
 
 test("releaseEdit edit is generated for existing release", function () {
@@ -508,6 +345,23 @@ test("releaseAddAnnotation edit is generated for existing release", function () 
 
 test("releaseDeleteReleaseLabel edit is generated for existing release", function () {
     this.release.labels.remove(this.release.labels()[0]);
+
+    deepEqual(releaseEditor.edits.releaseLabel(this.release), [
+      {
+        "catalog_number": "WPC6-10044",
+        "edit_type": 36,
+        "hash": "cca8fc44a0d18c4d6050a29976978da7cf354741",
+        "release_label": 27903
+      }
+    ]);
+});
+
+
+test("releaseDeleteReleaseLabel edit is generated when label/catalog number fields are cleared (MBS-7287)", function () {
+    var releaseLabel = this.release.labels()[0];
+
+    releaseLabel.label(MB.entity.Label({}));
+    releaseLabel.catalogNumber("");
 
     deepEqual(releaseEditor.edits.releaseLabel(this.release), [
       {
@@ -573,4 +427,166 @@ test("mediumDelete edit is generated for existing release", function () {
     ]);
 });
 
-}());
+
+test("relationshipCreate edit for external link is generated for existing release", function () {
+    var newRelationshipData = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76
+    };
+
+    this.release.externalLinks.links.push(
+        MB.Control.externalLinks.Relationship(
+            newRelationshipData,
+            this.release.externalLinks
+        )
+    );
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 90,
+        "entity0": "868cc741-e3bc-31bc-9dac-756e35c8f152",
+        "entity1": "http://www.discogs.com/release/1369894",
+        "hash": "e0e7008b82f6fcb05c87a2abf0113d6088eb7bb6",
+        "link_type": 76,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+
+test("relationshipEdit edit for external link is generated for existing release", function () {
+    MB.Control.externalLinks.typeInfo = {};
+    MB.Control.externalLinks.faviconClasses = {};
+
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    var link = this.release.externalLinks.links()[0];
+
+    link.linkTypeID(77);
+    link.url("http://www.amazon.co.jp/gp/product/B00003IQQD");
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 91,
+        "entity1": "http://www.amazon.co.jp/gp/product/B00003IQQD",
+        "hash": "46ddad04adbdeb0b1bed2991970f2613fc7d411e",
+        "link_type": 77,
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+
+test("relationshipDelete edit for external link is generated for existing release", function () {
+    var existingURLRelationship = {
+        type0: "release",
+        type1: "url",
+        entity0ID: this.release.gid,
+        entity1ID: "http://www.discogs.com/release/1369894",
+        linkTypeID: 76,
+        id: 123
+    };
+
+    this.release.externalLinks.links([
+        MB.Control.externalLinks.Relationship(
+            existingURLRelationship,
+            this.release.externalLinks
+        )
+    ]);
+
+    this.release.externalLinks.links()[0].remove();
+
+    deepEqual(releaseEditor.edits.externalLinks(this.release), [
+      {
+        "edit_type": 92,
+        "hash": "1f245d298ceeca4ed9241911d2ec26097a460b0f",
+        "relationship": 123,
+        "type0": "release",
+        "type1": "url"
+      }
+    ]);
+});
+
+
+test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function () {
+    this.release = releaseEditor.fields.Release({
+        id: 123,
+        mediums: [
+            { id: 123, name: "foo", position: 1 },
+            { id: 456, name: "bar", position: 2 },
+        ]
+    });
+
+    releaseEditor.rootField.release(this.release);
+
+    var medium1 = this.release.mediums()[0];
+    var medium2 = this.release.mediums()[1];
+
+    ok(!medium1.loaded(), "medium 1 is not loaded");
+    ok(!medium2.loaded(), "medium 2 is not loaded");
+
+    releaseEditor.moveMediumDown(medium1);
+
+    equal(medium1.position(), 2, "medium 1 now has position 2");
+    equal(medium2.position(), 1, "medium 2 now has position 1");
+
+    medium1.name("foo!");
+    medium1.formatID(1);
+
+    medium2.name("bar!");
+    medium2.formatID(2);
+
+    deepEqual(releaseEditor.edits.medium(this.release), [
+      {
+        "edit_type": 52,
+        "format_id": 2,
+        "hash": "7e795b9d8b514ec0549c667c8da7a844d9d00835",
+        "name": "bar!",
+        "to_edit": 456
+      },
+      {
+        "edit_type": 52,
+        "format_id": 1,
+        "hash": "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
+        "name": "foo!",
+        "to_edit": 123
+      },
+      {
+        "edit_type": 313,
+        "hash": "5c1f4183faf7eb84312bb90c2680309df25d4dc0",
+        "medium_positions": [
+          {
+            "medium_id": 456,
+            "new": 1,
+            "old": 2
+          },
+          {
+            "medium_id": 123,
+            "new": 2,
+            "old": 1
+          }
+        ],
+        "release": 123
+      }
+    ]);
+});

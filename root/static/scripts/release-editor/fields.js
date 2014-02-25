@@ -32,6 +32,7 @@
 
             this.name = ko.observable(data.name);
             this.name.original = data.name;
+            this.name.subscribe(this.nameChanged, this);
 
             this.length = ko.observable(data.length);
             this.length.original = data.length;
@@ -48,7 +49,7 @@
             this.formattedLength = ko.observable(MB.utility.formatTrackLength(data.length));
             this.position = ko.observable(data.position);
             this.number = ko.observable(data.number);
-            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings");
+            this.updateRecording = ko.observable(false).subscribeTo("updateRecordings", true);
             this.hasNewRecording = ko.observable(true);
 
             this.recordingValue = ko.observable(
@@ -80,7 +81,8 @@
 
             releaseEditor.recordingAssociation.track(this);
 
-            this.elementID = "track-row-" + (this.id || _.uniqueId("new-"));
+            this.uniqueID = this.id || _.uniqueId("new-");
+            this.elementID = "track-row-" + this.uniqueID;
 
             this.formattedLength.subscribe(this.formattedLengthChanged, this);
             this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
@@ -89,6 +91,15 @@
         recordingGID: function () {
             var recording = this.recording();
             return recording ? recording.gid : null;
+        },
+
+        nameChanged: function (name) {
+            if (!this.hasExistingRecording()) {
+                var recording = this.recording.peek();
+
+                recording.name = this.name();
+                this.recording.notifySubscribers(recording);
+            }
         },
 
         formattedLengthChanged: function (length) {
@@ -113,24 +124,28 @@
         },
 
         previous: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos > 1 ? tracks[pos - 2] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index > 0 ? tracks[index - 1] : null;
         },
 
         next: function () {
-            var tracks = this.medium.tracks(), pos = this.position();
-            return pos < tracks.length ? tracks[pos] : null;
+            var tracks = this.medium.tracks();
+            var index = _.indexOf(tracks, this);
+
+            return index < tracks.length - 1 ? tracks[index + 1] : null;
         },
 
         differsFromRecording: function () {
-            var recording = this.recording(), name = this.name();
+            var recording = this.recording();
+            var name = this.name();
+
             if (!recording.gid || !name) return false;
 
-            var length = this.length();
-
-            var sameName = name && name === recording.name,
-                sameLength = length === recording.length,
-                sameArtist = this.artistCredit.isEqual(recording.artistCredit);
+            var sameName = name === recording.name;
+            var sameLength = this.formattedLength() === recording.formattedLength;
+            var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
 
             return !(sameName && sameLength && sameArtist);
         },
@@ -162,7 +177,16 @@
                 this.name.saved = this.name.peek();
                 this.length.saved = this.length.peek();
                 this.recording.saved = value;
+                this.recording.savedEditData = MB.edit.fields.recording(value);
                 this.hasNewRecording(false);
+            }
+
+            if (currentValue.gid) {
+                var suggestions = this.suggestedRecordings.peek();
+
+                if (!_.contains(suggestions, currentValue)) {
+                    this.suggestedRecordings.unshift(currentValue);
+                }
             }
 
             this.recordingValue(value);
@@ -184,23 +208,19 @@
             )
             .extend({ withError: true });
 
+            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+
             // The medium is considered to be loaded if it has tracks, or if
             // there's no ID to load tracks from.
-            var loaded = this.tracks.length || !(this.id || this.originalID);
-
-            $.extend(this, _.pick(data, "id", "toc", "originalID"));
+            var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
             this.cdtocs = data.cdtocs || 0;
             this.loaded = ko.observable(loaded);
             this.loading = ko.observable(false);
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
-            this.addTrackCount = ko.observable(1);
-            this.original = ko.observable({});
-
-            if (loaded) {
-                this.original(MB.edit.fields.medium(this));
-            }
+            this.addTrackCount = ko.observable("");
+            this.original = ko.observable(MB.edit.fields.medium(this));
         },
 
         collapsedChanged: function (collapsed) {
@@ -220,15 +240,25 @@
                 data: { inc: "recordings" }
             };
 
-            MB.utility.request(args, this)
-                .done(function (data) {
-                    this.tracks(utils.mapChild(this, data.tracks, fields.Track));
-                    this.original(MB.edit.fields.medium(this));
+            MB.utility.request(args, this).done(this.tracksLoaded);
+        },
 
-                    this.loaded(true);
-                    this.loading(false);
-                    this.collapsed(false);
-                });
+        tracksLoaded: function (data) {
+            this.tracks(utils.mapChild(this, data.tracks, fields.Track));
+
+            // We already have the original name, format, and position data,
+            // which we don't want to overwrite - it could have been changed
+            // by the user before they loaded the medium. We just need the
+            // tracklist data, now that it's loaded.
+            var currentEditData = MB.edit.fields.medium(this);
+            var originalEditData = this.original();
+
+            originalEditData.tracklist = currentEditData.tracklist;
+            this.original.notifySubscribers(originalEditData);
+
+            this.loaded(true);
+            this.loading(false);
+            this.collapsed(false);
         },
 
         hasTracks: function () { return !_.isEmpty(this.tracks()) },
@@ -253,13 +283,26 @@
             return MB.text.Tracklist;
         },
 
-        canHaveDiscID: function () {
-            // Formats with Disc IDs:
-            // CD, SACD, DualDisc, Other, HDCD, CD-R, 8cm CD
-            var formatsWithDiscIDs = [1, 3, 4, 13, 25, 33, 34],
-                formatID = parseInt(this.formatID(), 10);
+        formatsWithDiscIDs: [
+            1,  // CD
+            3,  // SACD
+            4,  // DualDisc
+            13, // Other
+            25, // HDCD
+            33, // CD-R
+            34, // 8cm CD
+            35, // Blu-spec CD
+            36, // SHM-CD
+            37, // HQCD
+            38, // Hybrid SACD
+            39, // CD+G
+            40  // 8cm CD+G
+        ],
 
-            return !formatID || _.contains(formatsWithDiscIDs, formatID);
+        canHaveDiscID: function () {
+            var formatID = parseInt(this.formatID(), 10);
+
+            return !formatID || _.contains(this.formatsWithDiscIDs, formatID);
         }
     });
 
@@ -394,16 +437,18 @@
 
             $.extend(this, _.pick(data, "trackCounts", "formats", "countryCodes"));
 
-            this.name = ko.observable(data.name).extend({ withError: true });
+            var currentName = data.name;
+            this.name = ko.observable(currentName).extend({ withError: true });
 
-            this.name.subscribe(function (name) {
+            this.name.subscribe(function (newName) {
                 var releaseGroup = self.releaseGroup();
 
-                if (!releaseGroup.name) {
-                    releaseGroup.name = name;
-
+                if (!releaseGroup.name || (!releaseGroup.gid &&
+                                            releaseGroup.name === currentName)) {
+                    releaseGroup.name = newName;
                     self.releaseGroup.notifySubscribers(releaseGroup);
                 }
+                currentName = newName;
             });
 
             this.artistCredit = fields.ArtistCredit(data.artistCredit);
@@ -463,6 +508,14 @@
             if (!this.mediums().length) {
                 this.mediums.push(fields.Medium({}, this));
             }
+
+            // Setup the external links editor
+
+            this.externalLinks = MB.Control.externalLinks.ViewModel({
+                source: this,
+                relationships: utils.parseURLRelationships(data),
+                errorType: releaseEditor.validation.errorField
+            });
         },
 
         loadMedia: function () {

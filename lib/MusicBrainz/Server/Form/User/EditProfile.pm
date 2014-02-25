@@ -85,6 +85,14 @@ sub validate_birth_date {
     return $field->add_error("invalid date") unless Date::Calc::check_date ($year, $month, $day);
 }
 
+sub _requires_email {
+    my ($self, $field) = @_;
+    return $field->add_error(l('Biography and website fields may not be edited until your email address is confirmed.')) unless $self->ctx->user->has_confirmed_email_address;
+}
+
+sub validate_biography { return _requires_email(@_); }
+sub validate_website { return _requires_email(@_); }
+
 1;
 
 =head1 COPYRIGHT

@@ -144,27 +144,41 @@ sub show : PathPart('') Chained('load')
         return create_artist_release_groups_form($c, $artist->id);
     }) };
 
-    my $method = 'find_by_artist';
+    if (%filter) {
+        $c->stash( has_filter => 1 );
+    }
+
     my $show_va = $c->req->query_params->{va};
     my $show_all = $c->req->query_params->{all};
-    if ($show_va) {
-        $method = 'find_by_track_artist';
-    }
 
-    $release_groups = $self->_load_paged($c, sub {
-            $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
+    my $make_attempt = sub {
+        my ($all, $va) = @_;
+        my $method = $va ? 'find_by_track_artist' : 'find_by_artist';
+        return $self->_load_paged($c, sub {
+            $c->model('ReleaseGroup')->$method($c->stash->{artist}->id, $all, shift, shift, filter => \%filter);
         });
+    };
 
-    if (!$show_va && !%filter && scalar @$release_groups == 0) {
-        $release_groups = $self->_load_paged($c, sub {
-                $c->model('ReleaseGroup')->find_by_track_artist($c->stash->{artist}->id, $show_all, shift, shift, filter => \%filter);
-            });
-        $c->stash(
-            va_only => 1
-        );
+    # Attempt from official non-va, to all non-va, to official va, to all va;
+    # filter out any attempt that contradicts a preference from a query param
+    my @attempts = grep { ($_->[0] || !$show_all) && ($_->[1] || !$show_va) } ([0,0], [1,0], [0,1], [1,1]);
+    for my $attempt (@attempts) {
+        my $all = $attempt->[0];
+        my $va = $attempt->[1];
+        $release_groups = $make_attempt->($all, $va);
+        # If filtering, only make one attempt
+        # otherwise, attempt until we find RGs or exhaust the possibilities
+        if (scalar @$release_groups || %filter) {
+            $c->stash(
+                including_all => $all,
+                including_va => $va
+            );
+            last;
+        }
     }
 
-    if (!$show_va && $c->stash->{va_only} && !%filter && scalar @$release_groups == 0) {
+    # If there is no expressed preference (va, filter) and no RGs, find recordings
+    if (!$show_va && !%filter && scalar @$release_groups == 0) {
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
@@ -365,52 +379,53 @@ into the MusicBrainz database.
 
 =cut
 
-sub edit : Chained('load') Edit {
-    my ($self, $c) = @_;
-    my $artist = $c->stash->{artist};
+with 'MusicBrainz::Server::Controller::Role::Edit' => {
+    form      => 'ArtistEdit',
+    edit_type => $EDIT_ARTIST_EDIT,
 
-    my $artist_credits =$c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash( artist_credits => $artist_credits );
+    edit_arguments => sub {
+        my ($self, $c) = @_;
 
-    $self->edit_action(
-        $c,
-        form        => 'ArtistEdit',
-        form_args   => { artist_credits => $artist_credits },
-        type        => $EDIT_ARTIST_EDIT,
-        item        => $artist,
-        edit_args   => { to_edit => $artist },
-        on_creation => sub {
-            my ($edit, $form) = @_;
+        my $artist = $c->stash->{artist};
+        my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
+        $c->stash( artist_credits => $artist_credits );
 
-            my $editid = $edit->id;
-            my $name = $form->field('name')->value;
-            if ($name ne $artist->name) {
-                my %rename = %{ $form->rename_artist_credit_set };
-                for my $old_ac (@$artist_credits) {
-                    next unless $rename{$old_ac->id};
-                    my $ac = $old_ac->change_artist_name($artist, $name);
-                    next if $ac == $old_ac;
-                    my $ac_edit = $c->model('Edit')->create(
-                        edit_type     => $EDIT_ARTIST_EDITCREDIT,
-                        editor_id     => $c->user->id,
-                        to_edit       => $old_ac,
-                        artist_credit => $ac,
-                    );
-                    $c->model('EditNote')->add_note(
-                        $ac_edit->id,
-                        {
-                            text => "The artist name has been changed in edit #$editid.",
-                            editor_id => $EDITOR_MODBOT
-                        }
-                    );
+        return (
+            form_args   => { artist_credits => $artist_credits },
+            on_creation => sub {
+                my ($edit, $form) = @_;
+
+                my $editid = $edit->id;
+                my $name = $form->field('name')->value;
+                if ($name ne $artist->name) {
+                    my %rename = %{ $form->rename_artist_credit_set };
+                    for my $old_ac (@$artist_credits) {
+                        next unless $rename{$old_ac->id};
+                        my $ac = $old_ac->change_artist_name($artist, $name);
+                        next if $ac == $old_ac;
+                        my $ac_edit = $c->model('Edit')->create(
+                            edit_type     => $EDIT_ARTIST_EDITCREDIT,
+                            editor_id     => $c->user->id,
+                            to_edit       => $old_ac,
+                            artist_credit => $ac,
+                        );
+                        $c->model('EditNote')->add_note(
+                            $ac_edit->id,
+                            {
+                                text => "The artist name has been changed in edit #$editid.",
+                                editor_id => $EDITOR_MODBOT
+                            }
+                        );
+                    }
                 }
-            }
-
-            $c->res->redirect(
-                $c->uri_for_action('/artist/show', [ $artist->gid ]));
-        }
-    );
-}
+            },
+            redirect => sub {
+                $c->res->redirect(
+                    $c->uri_for_action('/artist/show', [ $artist->gid ]));
+            },
+        );
+    }
+};
 
 =head2 add_release
 

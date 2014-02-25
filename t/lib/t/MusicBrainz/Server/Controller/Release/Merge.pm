@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Release::Merge;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
+use Test::Deep qw( cmp_deeply bag );
 
 with 't::Mechanize', 't::Context';
 
@@ -30,7 +31,7 @@ $mech->submit_form_ok({
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Merge');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     new_entity => {
         id => 6,
         name => 'The Prologue (disc 1)'
@@ -41,7 +42,7 @@ is_deeply($edit->data, {
     }],
     merge_strategy => 1,
     _edit_version => 3,
-    medium_changes => [
+    medium_changes => bag(
         {
             release => {
                 id => 6,
@@ -68,7 +69,7 @@ is_deeply($edit->data, {
                 new_name => undef,
             }]
         },
-    ]
+    )
 });
 
 };
@@ -141,6 +142,29 @@ is_deeply($edit->data, {
     ]
 });
 
+};
+
+test 'Edit note is required' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
+
+    $mech->get_ok('/release/merge_queue?add-to-merge=6');
+    $mech->get_ok('/release/merge_queue?add-to-merge=7');
+
+    $mech->get_ok('/release/merge');
+    $mech->submit_form_ok({
+        with_fields => {
+            'merge.target' => '6',
+            'merge.merge_strategy' => '1',
+        }
+    });
+    $mech->content_contains('You must provide an edit note', 'contains warning about edit note being required');
 };
 
 1;

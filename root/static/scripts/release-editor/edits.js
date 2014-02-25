@@ -12,8 +12,7 @@
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
     var newMediums = utils.withRelease(function (release) {
-        return _(release.mediums())
-            .filter(function (medium) { return medium.loaded() });
+        return _(release.mediums());
     }, []);
 
 
@@ -33,14 +32,16 @@
         },
 
         release: function (release) {
+            if (!release.name() && !release.artistCredit.text()) return [];
+
             var newData = releaseEditData();
             var oldData = release.original();
             var edits = [];
 
             if (!release.id) {
                 edits.push(MB.edit.releaseCreate(newData));
-
-            } else if (!_.isEqual(newData, oldData)) {
+            }
+            else if (!_.isEqual(newData, oldData)) {
                 newData = _.extend(_.clone(newData), { to_edit: release.id });
                 edits.push(MB.edit.releaseEdit(newData, oldData));
             }
@@ -67,6 +68,9 @@
             var edits = [];
 
             _.each(newLabels, function (newLabel) {
+                if (!newLabel.label && !newLabel.catalog_number) {
+                    return;
+                }
                 var id = newLabel.release_label;
 
                 if (id) {
@@ -91,7 +95,7 @@
                 var id = oldLabel.release_label;
                 var newLabel = newLabelsByID[id];
 
-                if (!newLabel) {
+                if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                     // Delete ReleaseLabel
                     oldLabel = _.omit(oldLabel, "label", "catalogNumber");
                     edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
@@ -108,15 +112,12 @@
             var inferTrackDurations = releaseEditor.inferTrackDurationsFromRecordings();
 
             newMediums().each(function (medium) {
-                if (!medium.loaded()) return;
-
                 var newMediumData = MB.edit.fields.medium(medium);
                 var oldMediumData = medium.original && medium.original();
 
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
                     var newRecording = track.recording();
-                    var oldRecording = track.recording.original();
 
                     if (newRecording) {
                         newRecording = MB.edit.fields.recording(newRecording);
@@ -132,15 +133,17 @@
                                 length:         trackData.length
                             });
 
+                            var oldRecording = track.recording.savedEditData;
+
                             if (!_.isEqual(newRecording, oldRecording)) {
-                                edits.push(MB.edit.recordingEdit(newRecording));
+                                edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
                             }
                         }
                     }
                 });
 
                 // The medium already exists
-                newMediumData = _.clone(newMediumData);
+                newMediumData = _.cloneDeep(newMediumData);
 
                 if (medium.id) {
                     if (_.isEqual(newMediumData, oldMediumData)) {
@@ -152,10 +155,15 @@
                         "new":      newMediumData.position
                     });
 
-                    newMediumData.to_edit = medium.id;
-                    delete newMediumData.position;
-                    edits.push(MB.edit.mediumEdit(newMediumData, oldMediumData));
-                } else {
+                    var newNoPosition = _.omit(newMediumData, "position");
+                    var oldNoPosition = _.omit(oldMediumData, "position");
+
+                    if (!_.isEqual(newNoPosition, oldNoPosition)) {
+                        newNoPosition.to_edit = medium.id;
+                        edits.push(MB.edit.mediumEdit(newNoPosition, oldNoPosition));
+                    }
+                }
+                else if (medium.hasTracks()) {
                     newMediumData.release = release.id;
                     edits.push(MB.edit.mediumCreate(newMediumData))
                 }
@@ -197,6 +205,35 @@
                 }
             });
             return edits;
+        },
+
+        externalLinks: function (release) {
+            var edits = [];
+
+            _(release.externalLinks.links()).each(function (link) {
+                link.entity0ID(release.gid || "");
+
+                if (!link.linkTypeID() || !link.url() || link.error()) {
+                    return;
+                }
+
+                var editData = MB.edit.fields.relationship(link);
+                if (release.gid) delete editData.entity0Preview;
+
+                if (link.removed()) {
+                    edits.push(MB.edit.relationshipDelete(editData));
+                }
+                else if (link.id) {
+                    if (!_.isEqual(editData, link.original)) {
+                        edits.push(MB.edit.relationshipEdit(editData, link.original));
+                    }
+                }
+                else {
+                    edits.push(MB.edit.relationshipCreate(editData));
+                }
+            });
+
+            return edits;
         }
     };
 
@@ -205,19 +242,14 @@
         utils.withRelease(function (release) {
             var root = releaseEditor.rootField;
 
-            // Don't generate edits if there are errors, *unless* having a
-            // missing edit note is the only error.
-            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
-                return [];
-            }
-
             return Array.prototype.concat(
                 releaseEditor.edits.releaseGroup(release),
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
                 releaseEditor.edits.discID(release),
-                releaseEditor.edits.annotation(release)
+                releaseEditor.edits.annotation(release),
+                releaseEditor.edits.externalLinks(release)
             );
         }, []),
         1500
@@ -228,7 +260,7 @@
     releaseEditor.loadingEditPreviews = ko.observable(false);
 
 
-    function getPreviews(computedEdits) {
+    releaseEditor.getEditPreviews = function () {
         var previews = {};
 
         function refreshPreviews(edits) {
@@ -240,8 +272,17 @@
         function isNewEdit(edit) { return previews[edit.hash] === undefined }
 
         ko.computed(function () {
-            var edits = computedEdits(),
-                addedEdits = _.filter(edits, isNewEdit);
+            var edits = releaseEditor.allEdits();
+
+            // Don't generate edit previews if there are errors, *unless*
+            // having a missing edit note is the only error. However, do
+            // remove stale previews that may reference changed data.
+            if (releaseEditor.validation.errorsExistOtherThanAMissingEditNote()) {
+                refreshPreviews([]);
+                return;
+            }
+
+            var addedEdits = _.filter(edits, isNewEdit);
 
             if (addedEdits.length === 0) {
                 refreshPreviews(edits);
@@ -252,16 +293,15 @@
 
             MB.edit.preview({ edits: addedEdits })
                 .done(function (data) {
-                    releaseEditor.loadingEditPreviews(false);
-
                     _.each(_.zip(addedEdits, data.previews), addPreview);
 
                     refreshPreviews(edits);
+                })
+                .always(function () {
+                    releaseEditor.loadingEditPreviews(false);
                 });
         });
-    }
-
-    $(function () { getPreviews(releaseEditor.allEdits) });
+    };
 
 
     releaseEditor.submissionInProgress = ko.observable(false);
@@ -308,7 +348,7 @@
 
             $.when(submitted)
                 .done(function (data) {
-                    data && current.callback(data.edits);
+                    data && current.callback && current.callback(data.edits);
 
                     _.defer(nextSubmission);
                 })
@@ -402,6 +442,9 @@
                 callback: function () {
                     release.annotation.original(release.annotation());
                 }
+            },
+            {
+                edits: releaseEditor.edits.externalLinks
             }
         ]);
     };

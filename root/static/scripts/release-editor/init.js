@@ -3,7 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-MB.releaseEditor = MB.releaseEditor || {};
+MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
+
+    activeTabID: ko.observable("#information"),
+    activeTabIndex: ko.observable(0)
+});
 
 
 ko.postbox.serializer = _.identity;
@@ -14,27 +18,16 @@ MB.releaseEditor.init = function (options) {
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
 
-    this.rootField = this.fields.Root();
-
-    this.seed(options.seed);
-
-    if (this.action === "edit") {
-        this.loadRelease(options.gid);
-    }
-
     // Allow pressing enter to advance to the next tab. The listener is added
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
 
-    $(document).on("keydown", "#release-editor :input:not(:button)",
+    $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                self.nextTab();
+                self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
             }
         });
-
-    this.activeTabID = ko.observable("#information");
-    this.activeTabIndex = ko.observable(0);
 
     var $pageContent = $("#release-editor").tabs({
 
@@ -50,7 +43,7 @@ MB.releaseEditor.init = function (options) {
             // now that it's visible.
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
-            if ($bubble.length) $bubble[0].bubbleDoc.redraw();
+            if ($bubble.length) $bubble[0].bubbleDoc.redraw(true /* stealFocus */);
         }
     });
 
@@ -147,29 +140,30 @@ MB.releaseEditor.init = function (options) {
     // the tracklist tab.
 
     this.utils.withRelease(function (release) {
-        var tabID = self.activeTabID();
-        var dialog = MB.releaseEditor.addDiscDialog;
-        var uiDialog = $(dialog.element).data("ui-dialog");
-
-        // Show the dialog if there's no non-empty disc.
-        if (tabID === "#tracklist") {
-            var alreadyOpen = uiDialog && uiDialog.isOpen();
-
-            if (!alreadyOpen && release.hasOneEmptyMedium() &&
-                    !release.mediums()[0].loading()) {
-                dialog.open();
-            }
-        } else if (uiDialog) {
-            uiDialog.close();
-        }
+        self.autoOpenTheAddDiscDialog(release);
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
     // any changes. Browsers that support onbeforeunload should have this set
     // to null, or undefined otherwise.
     if (window.onbeforeunload === null) {
-        window.onbeforeunload = _.constant(MB.text.ConfirmNavigation);
+        MB.releaseEditor.allEdits.subscribe(function (edits) {
+            window.onbeforeunload =
+                edits.length ? _.constant(MB.text.ConfirmNavigation) : null;
+        });
     }
+
+    // Intialize release data/view model.
+
+    this.rootField = this.fields.Root();
+
+    this.seed(options.seed);
+
+    if (this.action === "edit") {
+        this.loadRelease(options.gid);
+    }
+
+    this.getEditPreviews();
 
     // Apply root bindings to the page.
 
@@ -186,7 +180,7 @@ MB.releaseEditor.init = function (options) {
 MB.releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
-        data: { inc: "annotation+release-events+labels+media" }
+        data: { inc: "annotation+release-events+labels+media+rels" }
     };
 
     return MB.utility.request(args, this).done(callback || this.releaseLoaded);
@@ -206,5 +200,23 @@ MB.releaseEditor.releaseLoaded = function (data) {
     this.rootField.release(release);
 };
 
+
+MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
+    var addDiscUI = $(this.addDiscDialog.element).data("ui-dialog");
+    var trackParserUI = $(this.trackParserDialog.element).data("ui-dialog");
+
+    // Show the dialog if there's no non-empty disc.
+    if (this.activeTabID() === "#tracklist") {
+        var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
+                            (trackParserUI && trackParserUI.isOpen());
+
+        if (!dialogIsOpen && release.hasOneEmptyMedium() &&
+                            !release.mediums()[0].loading()) {
+            this.addDiscDialog.open();
+        }
+    } else if (addDiscUI) {
+        addDiscUI.close();
+    }
+};
 
 $(MB.confirmNavigationFallback);

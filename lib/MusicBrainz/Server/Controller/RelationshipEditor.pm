@@ -7,7 +7,6 @@ use JSON qw( encode_json );
 use Encode;
 use Text::Unaccent qw( unac_string_utf16 );
 use MusicBrainz::Server::Constants qw(
-    $EDIT_RELATIONSHIP_DELETE
     $EDIT_WORK_CREATE
 );
 use MusicBrainz::Server::Form::RelationshipEditor;
@@ -96,13 +95,10 @@ sub load : Private {
     my $json = JSON->new;
     my $attr_info = build_attr_info($self->attr_tree);
 
-    my $i = 0;
-    my $work_types = [ part { int($i++ / 2 ) } @{ select_options_tree($c, 'WorkType') } ];
-
     $c->stash(
         attr_info => $json->encode($attr_info),
         type_info => $json->encode($self->build_type_info($c, @{ $form->link_type_tree })),
-        work_types => $work_types,
+        work_types => select_options_tree($c, 'WorkType'),
         work_languages => build_grouped_options($c, $form->language_options),
     );
 }
@@ -189,13 +185,13 @@ sub submit_edits {
 sub remove_relationship {
     my ($self, $c, $form, $field, $types) = @_;
 
-    my $id = $field->field('id')->value;
-    my $relationship = $c->stash->{loaded_relationships}->{$types}->{$id};
+    my $rel = $field->value;
 
-    $self->_insert_edit(
+    $self->delete_relationship(
         $c, $form,
-        edit_type => $EDIT_RELATIONSHIP_DELETE,
-        relationship => $relationship,
+        type0 => $rel->{entity}->[0]->{type},
+        type1 => $rel->{entity}->[1]->{type},
+        relationship => $c->stash->{loaded_relationships}->{$types}->{$rel->{id}}
     );
 }
 
@@ -208,10 +204,12 @@ sub add_relationship {
     my @attributes = $self->flatten_attributes($field->field('attrs'));
 
     $self->try_and_insert(
-        $c, $form, $entity0->{type}, $entity1->{type}, (
+        $c, $form, (
+            type0 => $entity0->{type},
+            type1 => $entity1->{type},
             entity0 => $c->stash->{loaded_entities}->{$entity0->{gid}},
             entity1 => $c->stash->{loaded_entities}->{$entity1->{gid}},
-            link_type_id => $rel->{link_type},
+            link_type => $c->model('LinkType')->get_by_id($rel->{link_type}),
             attributes => \@attributes,
             begin_date => $rel->{period}{begin_date},
             end_date => $rel->{period}{end_date},
@@ -230,13 +228,16 @@ sub edit_relationship {
     my @attributes = $self->flatten_attributes($field->field('attrs'));
 
     $self->try_and_edit(
-        $c, $form, $entity0->{type}, $entity1->{type}, $relationship, (
-            new_link_type_id => $rel->{link_type},
-            new_begin_date => $rel->{period}{begin_date} // {},
-            new_end_date => $rel->{period}{end_date} // {},
+        $c, $form, (
+            relationship => $relationship,
+            type0 => $entity0->{type},
+            type1 => $entity1->{type},
+            link_type => $c->model('LinkType')->get_by_id($rel->{link_type}),
+            begin_date => $rel->{period}{begin_date} // {},
+            end_date => $rel->{period}{end_date} // {},
             attributes => \@attributes,
-            entity0_id => $c->stash->{loaded_entities}->{$entity0->{gid}}->id,
-            entity1_id => $c->stash->{loaded_entities}->{$entity1->{gid}}->id,
+            entity0 => $c->stash->{loaded_entities}->{$entity0->{gid}},
+            entity1 => $c->stash->{loaded_entities}->{$entity1->{gid}},
             ended => $rel->{period}{ended} // 0,
     ));
 }

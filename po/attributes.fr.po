@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 23:12+0000\n"
+"PO-Revision-Date: 2014-02-18 17:31+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +71,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Nom de l'artiste"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr "Pièce de théâtre"
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -85,6 +90,11 @@ msgstr "Dos"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Ballet"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr "Opéra de Pékin"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"

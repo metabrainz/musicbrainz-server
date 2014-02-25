@@ -3,6 +3,7 @@ package MusicBrainz::Server::WebService::Format;
 use HTTP::Status qw( HTTP_NOT_ACCEPTABLE );
 use MooseX::Role::Parameterized;
 use REST::Utils qw( best_match );
+use Class::Load qw( load_class );
 
 parameter serializers => (
     is => 'ro',
@@ -12,7 +13,7 @@ parameter serializers => (
 sub _instance
 {
     my $cls = shift;
-    Class::MOP::load_class ($cls);
+    load_class ($cls);
     $cls->new;
 }
 

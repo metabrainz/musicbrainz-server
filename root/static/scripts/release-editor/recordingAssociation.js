@@ -8,8 +8,6 @@
     var recordingAssociation = releaseEditor.recordingAssociation = {};
     var utils = releaseEditor.utils;
 
-    var MAX_LENGTH_DIFFERENCE = 10500;
-
     // This file contains code for finding suggested recording associations
     // in the release editor.
     //
@@ -34,7 +32,8 @@
         releaseGroupRecordings = ko.observable(),
         releaseGroupTimer,
         recentRecordings = [],
-        trackArtistIDs = [];
+        trackArtistIDs = [],
+        etiRegex = /(\([^)]+\) ?)*$/;
 
 
     var releaseGroupField = MB.utility.computedWith(
@@ -70,6 +69,13 @@
         if (numInCommon !== trackArtistIDs.length ||
             numInCommon !== newIDs.length) {
 
+            trackArtistIDs = newIDs;
+
+            if (newIDs.length === 0) {
+                recentRecordings = [];
+                return;
+            }
+
             var requestArgs = {
                 url: "/ws/js/last-updated-recordings",
                 data: $.param({ artists: newIDs }, true /* traditional */)
@@ -78,8 +84,6 @@
             MB.utility.request(requestArgs).done(function (data) {
                 recentRecordings = data.recordings;
             });
-
-            trackArtistIDs = newIDs;
         }
     }));
 
@@ -94,7 +98,7 @@
         utils.search("recording", queryParams, 100, offset)
             .done(function (data) {
                 results.push.apply(
-                    results, _.map(data.recording, utils.cleanWebServiceData)
+                    results, _.map(data.recording, cleanRecordingData)
                 );
 
                 var countSoFar = data.offset + 100;
@@ -124,8 +128,8 @@
         if (duration) {
             params.dur = [
                 _.str.sprintf("[%d TO %d]",
-                    duration - MAX_LENGTH_DIFFERENCE,
-                    duration + MAX_LENGTH_DIFFERENCE)
+                    duration - MB.constants.MAX_LENGTH_DIFFERENCE,
+                    duration + MB.constants.MAX_LENGTH_DIFFERENCE)
             ];
         }
 
@@ -157,6 +161,18 @@
             entityType: "release"
         };
 
+        // Recording entities will have already been created and cached for
+        // any existing recordings on the release. However, /ws/js/release does
+        // not provide any appearsOn data. So now that we have it, we can add
+        // it in.
+        var recording = MB.entity.getFromCache(clean.gid);
+
+        if (recording && !recording.appearsOn) {
+            recording.appearsOn = _.map(appearsOn, function (appearance) {
+                return MB.entity(appearance, "release");
+            });
+        }
+
         return clean;
     }
 
@@ -177,7 +193,7 @@
                     track, _.map(data.recording, cleanRecordingData)
                 );
 
-                track.suggestedRecordings(recordings || []);
+                setSuggestedRecordings(track, recordings || []);
                 track.loadingSuggestedRecordings(false);
             })
             .fail(function (jqXHR, textStatus) {
@@ -228,17 +244,6 @@
     };
 
 
-    function similarNames(oldName, newName) {
-        return oldName == newName || MB.utility.nameIsSimilar(oldName, newName);
-    }
-
-    function similarLengths(oldLength, newLength) {
-        // If either of the lengths are empty, we can't compare them, so we
-        // consider them to be "similar" for recording association purposes.
-        return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
-    }
-
-
     function watchTrackForChanges(track) {
         var name = track.name();
         var length = track.length();
@@ -254,8 +259,8 @@
         if (!name || !completeAC) return;
 
         var similarTo = function (prop) {
-            return (similarNames(track.name[prop], name) &&
-                    similarLengths(track.length[prop], length));
+            return (utils.similarNames(track.name[prop], name) &&
+                    utils.similarLengths(track.length[prop], length));
         };
 
         // The current name/length is similar to the saved name/length.
@@ -304,7 +309,7 @@
                 matchAgainstRecordings(track, track.suggestedRecordings());
 
         if (recordings) {
-            track.suggestedRecordings(recordings);
+            setSuggestedRecordings(track, recordings);
         } else {
             // Last resort: search all recordings of all the track's artists.
             searchTrackArtistRecordings(track);
@@ -312,8 +317,18 @@
     };
 
 
-    function lengthsAreWithin10s(a, b) {
-        return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
+    // Sets track.suggestedRecordings. If the track currently does not have
+    // a recording selected, it shifts the last used recording to the top of
+    // the suggestions list (if there is one).
+
+    function setSuggestedRecordings(track, recordings) {
+        var lastRecording = track.recording.saved;
+
+        if (!track.hasExistingRecording() && lastRecording) {
+            recordings = _.union([lastRecording], recordings);
+        }
+
+        track.suggestedRecordings(recordings);
     }
 
 
@@ -324,20 +339,32 @@
         var trackName = track.name();
 
         var matches = _(recordings)
-            .map(function (recording) {
-                if (similarLengths(trackLength, recording.length) &&
-                        similarNames(trackName, recording.name)) {
-                    return recording;
+            .filter(function (recording) {
+                if (!utils.similarLengths(trackLength, recording.length)) {
+                    return false;
+                }
+                if (utils.similarNames(trackName, recording.name)) {
+                    return true;
+                }
+                var recordingWithoutETI = recording.name.replace(etiRegex, "");
+
+                if (utils.similarNames(trackName, recordingWithoutETI)) {
+                    return true;
                 }
             })
-            .compact()
             .sortBy(function (recording) {
-                return recording.appearsOn.length;
+                var appearsOn = recording.appearsOn;
+                return appearsOn ? appearsOn.length : 0;
             })
             .reverse()
             .sortBy(function (recording) {
-                if (!trackLength || !recording.length) {
-                    return MAX_LENGTH_DIFFERENCE;
+                // Prefer that recordings with a length be at the top of the
+                // suggestions list.
+                if (!recording.length) {
+                    return MB.constants.MAX_LENGTH_DIFFERENCE + 1;
+                }
+                if (!trackLength) {
+                    return MB.constants.MAX_LENGTH_DIFFERENCE;
                 }
                 return Math.abs(trackLength - recording.length);
             })

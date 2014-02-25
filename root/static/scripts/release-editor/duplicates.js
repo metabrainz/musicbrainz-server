@@ -24,9 +24,9 @@
         releaseEditor.loadRelease(gid, function (data) {
             release.mediums(
                 _.map(data.mediums, function (m) {
-                    m = _.omit(_.extend(m, { originalID: m.id }), "id");
-
-                    return releaseEditor.fields.Medium(m, release);
+                    return releaseEditor.fields.Medium(
+                        utils.reuseExistingMediumData(m), release
+                    );
                 })
             );
             release.loadMedia();
@@ -34,24 +34,29 @@
     });
 
 
-    var currentReleaseGroup = utils.withRelease(function (release) {
-        return release.releaseGroup();
-    });
-
-
-    currentReleaseGroup.subscribe(function (releaseGroup) {
-        var gid = releaseGroup.gid;
-        if (!gid) return;
-
-        var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
-
-        MB.utility.request({ url: url }).done(function (data) {
-            releaseGroupReleases(_.map(data.releases, formatReleaseData));
-        });
-    });
-
-
     releaseEditor.findReleaseDuplicates = function () {
+        var loadingFromRG = false;
+
+        utils.withRelease(function (release) {
+            var releaseGroup = release.releaseGroup();
+            var gid = releaseGroup.gid;
+
+            if (!gid) return;
+
+            var url = _.str.sprintf("/ws/2/release?release-group=%s&inc=labels+media&fmt=json", gid);
+
+            loadingFromRG = true;
+            toggleLoadingIndicator(true);
+
+            MB.utility.request({ url: url })
+                .always(function () {
+                    loadingFromRG = false;
+                    toggleLoadingIndicator(false);
+                })
+                .done(function (data) {
+                    releaseGroupReleases(_.map(data.releases, formatReleaseData));
+                });
+        });
 
         utils.debounce(utils.withRelease(function (release) {
             var name = release.name();
@@ -66,20 +71,21 @@
                 return;
             }
 
-            if (!name || !release.artistCredit.isComplete()) {
+            var ac = release.artistCredit;
+
+            if (loadingFromRG || !name || !ac.isComplete()) {
                 return;
             }
 
             var queryParams = {
                 release: [ utils.escapeLuceneValue(name) ],
 
-                arid: _(release.artistCredit.names())
-                    .invoke("artist").pluck("gid")
-                    .map(utils.escapeLuceneValue).value()
+                arid: _(ac.names())
+                        .invoke("artist").pluck("gid")
+                        .map(utils.escapeLuceneValue).value()
             };
 
-            $("#release-editor").data("ui-tabs")
-                .tabs.eq(1).addClass("loading-tab");
+            toggleLoadingIndicator(true);
 
             utils.search("release", queryParams, 10).done(gotResults);
         }));
@@ -99,8 +105,13 @@
             $("#release-editor").tabs("disable", 1);
         }
 
+        toggleLoadingIndicator(false);
+    }
+
+
+    function toggleLoadingIndicator(show) {
         $("#release-editor").data("ui-tabs")
-            .tabs.eq(1).removeClass("loading-tab");
+            .tabs.eq(1).toggleClass("loading-tab", show);
     }
 
 
@@ -123,14 +134,10 @@
         // iso-3166-1-codes.
 
         var areas = pluck(events, "area");
-        clean.countries = areas.pluck("iso-3166-1-codes").flatten().uniq().value();
 
-        if (!clean.countries.length) {
-            clean.countries = areas.pluck("iso_3166_1_codes").flatten().uniq().value();
-        }
-
-        clean.countries = pluck(events, "area").pluck("iso-3166-1-codes")
-            .flatten().uniq().value();
+        clean.countries = areas.pluck("iso-3166-1-codes")
+                               .concat(areas.pluck("iso_3166_1_codes").value())
+                               .flatten().compact().uniq().value();
 
         clean.labels = pluck(labels, "label").map(function (info) {
             return MB.entity.Label({ gid: info.id, name: info.name });

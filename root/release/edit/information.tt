@@ -96,6 +96,7 @@
         <td class="partial-date">
           <span class="partial-date">
             <input maxlength="4" placeholder="[% l('YYYY') %]" size="4"
+              class="partial-date-year"
               data-bind="
                 value: date.year,
                 valueUpdate: 'input',
@@ -103,12 +104,14 @@
                 withLabel: 'event-date'"
             />-[%
             %]<input maxlength="2" placeholder="[% l('MM') %]" size="2"
+                class="partial-date-month"
                 data-bind="
                   value: date.month,
                   valueUpdate: 'input',
                   controlsBubble: $root.dateBubble"
             />-[%
             %]<input maxlength="2" placeholder="[% l('DD') %]" size="2"
+                class="partial-date-day"
                 data-bind="
                   value: date.day,
                   valueUpdate: 'input',
@@ -174,9 +177,6 @@
         </td>
       </tr>
 
-      [% table_row_select('packaging', l('Packaging:'), 4,
-          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
-
       <tr>
         <td><label for="barcode">[% l('Barcode:') %]</label></td>
         <td colspan="4">
@@ -195,6 +195,9 @@
           </label>
         </td>
       </tr>
+
+      [% table_row_select('packaging', l('Packaging:'), 4,
+          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
     </tbody>
     </table>
   </fieldset>
@@ -218,6 +221,14 @@
       </tr>
     </tbody>
     </table>
+  </fieldset>
+
+  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+    <legend>[% l('External Links') %]</legend>
+
+    <!-- ko with: externalLinks -->
+      [% external_links_editor(0, 'release') %]
+    <!-- /ko -->
   </fieldset>
 </div>
 
@@ -311,4 +322,7 @@
     </p>
   </div>
 
+  <!-- ko with: externalLinks -->
+    [% external_link_bubble() %]
+  <!-- /ko -->
 </div>

@@ -6,7 +6,7 @@
 @form-input-width: @form-half-width - @form-label-width - (@form-margin * 3);
 @form-input-width-short: 220px;
 @form-icon-size: 16px;
-@form-bubble-label-width: 150px;
+@form-bubble-label-width: @form-label-width;
 @form-bubble-input-width: 176px;
 
 .border-radius (@radius) {
@@ -77,7 +77,12 @@ form div.row div.label {
 div.form-row-text-list { margin-left: @form-label-width + @form-margin; }
 div.form-row-text-list button > img { vertical-align: middle; }
 
-div.form-row-add { text-align: right; width: @form-input-width + 2; }
+div.form-row-add {
+    text-align: right;
+    width: @form-input-width + 2;
+    margin: (@form-margin / 2) 0;
+}
+
 div.form-row-add span.add-row { text-align: right; padding: 0 4px; }
 /* these rows are missing a <label> on the left and use a margin instead. */
 div.form-row-add.nolabel { margin-left: @form-label-width + @form-margin; }
@@ -136,15 +141,14 @@ form ul.errors {
     margin-left: @form-label-width + @form-margin;
 }
 
-form ul.errors {
+ul.errors {
     margin-top: 4px;
     padding-left: 0;
     list-style-type: none;
     list-style-image: none;
 }
 
-form ul.errors li,
-span.error { color: @negative-text; }
+ul.errors li, .error { color: @negative-text; }
 span.success { color: @positive-text; }
 
 input.error,
@@ -224,7 +228,7 @@ table.row-form {
 
     td {
         &:first-child {
-            min-width: 120px;
+            min-width: @form-label-width;
             padding: @form-margin / 2;
             padding-bottom: 9px;
             box-sizing: border-box;
@@ -233,7 +237,7 @@ table.row-form {
             label { width: 100% !important; }
         }
 
-        &.partial-date { min-width: 150px; }
+        &.partial-date { min-width: @form-label-width; }
         &.add-item { text-align: right; }
         &.error { padding-bottom: @form-margin; }
     }
@@ -352,9 +356,19 @@ div.half-width fieldset select.with-remove {
     width: @form-input-width - @form-icon-size - 2;
 }
 
-div.half-width fieldset input[type=checkbox],
-div.half-width fieldset span.partial-date input {
+div.half-width fieldset input[type=checkbox] {
     width: auto;
+}
+
+div.half-width fieldset span.partial-date {
+    white-space: nowrap;
+
+    input {
+        width: auto;
+        &.partial-date-year { width: 4em; }
+        &.partial-date-month { width: 2.5em; }
+        &.partial-date-day { width: 2.5em; }
+    }
 }
 
 div.half-width fieldset textarea {
@@ -418,13 +432,8 @@ input.icon, div.icon.img, button.icon {
     border: 0 !important;
     background-repeat: no-repeat;
     background-color: transparent;
-    vertical-align: text-bottom;
+    vertical-align: middle;
 }
-/* remove (button) icons are next to <select> or <input> fields, align to the middle.
-div.icon.remove { vertical-align: middle; }
-/* other (button) icons are next to text, align them with the text. */
-div.icon.img { vertical-align: text-bottom; }
-
 
 div.img { display: inline-block; }
 
@@ -448,6 +457,14 @@ div.remove-item {
     background-image: data-uri('../images/icons/delete_row.png');
 }
 
+.file-down, .track-down {
+    background-image: data-uri('../images/icons/track-down.png');
+}
+
+.file-up, .track-up {
+    background-image: data-uri('../images/icons/track-up.png');
+}
+
 /*
   Artist credits
   ================================================
@@ -467,9 +484,36 @@ div.remove-item {
 }
 
 .add-artist-credit {
-    margin-left: @form-bubble-label-width + @form-margin !important;
+    margin-left: @form-bubble-label-width - @form-margin !important;
     width: @form-bubble-input-width;
     text-align: right;
 }
 
 #artist-credit-bubble .buttons, #track-ac-bubble .buttons { margin-top: 1em; }
+#artist-credit-bubble .buttons { width: 100%; }
+
+/*
+  External links editor
+*/
+
+#external-links-editor {
+    width: 100%;
+    padding: @form-margin / 2;
+
+    td:nth-child(2) { width: 100%; }
+
+    td.errors ul { margin: 0; }
+
+    select {
+        max-width: @form-label-width - @form-margin;
+    }
+
+    input[type=text] { width: 100%; }
+
+    span.favicon {
+        display: inline-block;
+        width: @form-icon-size;
+        height: @form-icon-size;
+        vertical-align: middle;
+    }
+}

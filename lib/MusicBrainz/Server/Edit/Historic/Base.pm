@@ -3,6 +3,7 @@ package MusicBrainz::Server::Edit::Historic::Base;
 use Moose;
 use Moose::Exporter;
 use Moose::Util qw( find_meta );
+use Class::Load qw( load_class );
 
 sub USE_MOOSE { 1 }
 
@@ -14,7 +15,7 @@ sub import {
     }
     else {
         no strict 'refs';
-        Class::MOP::load_class('MusicBrainz::Server::Edit::Historic::Fast');
+        load_class('MusicBrainz::Server::Edit::Historic::Fast');
         push @{"$class\::ISA"}, 'MusicBrainz::Server::Edit::Historic::Fast';
     }
 }

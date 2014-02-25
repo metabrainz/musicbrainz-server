@@ -4,8 +4,8 @@ use warnings;
 use strict;
 
 use base 'Exporter';
-use Class::Load 'load_class';
-use List::UtilsBy 'sort_by';
+use Class::Load qw( load_class );
+use List::UtilsBy qw( sort_by );
 
 our @EXPORT_OK = qw(
     boolean

@@ -60,9 +60,17 @@
         <button type="button" data-click="open">[% l('Add Disc') %]</button>
       <!-- /ko -->
 
-      <button type="button" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', disable: submissionInProgress() || validation.errorCount() > 0 || allEdits().length === 0">[% l('Enter edit') %]</button>
+      <button type="button" class="positive" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', disable: submissionInProgress() || validation.errorCount() > 0 || allEdits().length === 0">[% l('Enter edit') %]</button>
     </div>
   </div>
+
+  <script type="text/html" id="template.track-bubble-buttons">
+    <div class="buttons" style="float: right">
+      <button type="button" data-click="previousTrack" data-bind="hasFocus: prevButtonHasFocus">[% l('Previous') %]</button>
+      <button type="button" data-click="nextTrack" data-bind="hasFocus: nextButtonHasFocus">[% l('Next') %]</button>
+      <button type="button" class="positive" data-click="hide">[% l('Done') %]</button>
+    </div>
+  </script>
 
   [% script_manifest('guess-case.js.manifest') %]
   [% script_manifest('edit.js.manifest') %]

@@ -791,7 +791,7 @@ sub update
     ) if $update->{events};
 
     my $row = $self->_hash_to_row($update);
-    $self->sql->update_row('release', $row, { id => $release_id });
+    $self->sql->update_row('release', $row, { id => $release_id }) if %$row;
 }
 
 sub can_delete { 1 }
@@ -1243,7 +1243,6 @@ sub newest_releases_with_artwork {
       JOIN edit ON edit.id = edit_release.edit
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
-        AND edit.status = ?
         AND edit.type = ?
       ORDER BY edit.id DESC
       LIMIT 10';
@@ -1263,7 +1262,7 @@ sub newest_releases_with_artwork {
                 )
             }
         },
-        $query, $FRONT, $STATUS_APPLIED, $EDIT_RELEASE_CREATE
+        $query, $FRONT, $EDIT_RELEASE_CREATE
     );
 }
 

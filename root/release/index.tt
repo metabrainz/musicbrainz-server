@@ -1,21 +1,21 @@
 [% BLOCK layout_head %]
-    [% meta_desc = [] %]
-    [% meta_desc.push(html_escape(release.comment)) IF release.comment %]
-    [% meta_desc.push(l('Type:') _ ' ' _ html_escape(release.release_group.type_name)) IF release.release_group.type_name %]
-    [% meta_desc.push(l('Format:') _ ' ' _ html_escape(release.combined_format_name)) IF release.combined_format_name %]
-    [% year = release.events.slice(0,0).0.date.year IF release.events %]
-    [% IF year %]
-        [% meta_desc.push(l('Year:') _ ' ' _ html_escape(year)) %]
-    [% END %]
-    [% IF release.labels %]
-        [% labels = [] %]
-        [% FOR i=release.labels %]
-            [% labels.push( (i.label.name ? i.label.name : "[unknown]") _ ( i.catalog_number ? (' (' _ i.catalog_number _ ')') : "")) %]
-        [% END %]
-        [% meta_desc.push((labels.size > 1 ? l('Labels:') : l('Label:')) _ ' ' _ html_escape(comma_only_list(labels))) %]
-    [% END %]
-    [% meta_desc.push(l('Barcode:') _ ' ' _ html_escape(release.barcode.format)) IF release.barcode %]
-    [% meta_desc.push(l('Length:') _ ' ' _ html_escape(format_length(release.length))) IF release.length %]
+    [%~ meta_desc = [] ~%]
+    [%~ meta_desc.push(html_escape(release.comment)) IF release.comment ~%]
+    [%~ meta_desc.push(l('Type:') _ ' ' _ html_escape(release.release_group.type_name)) IF release.release_group.type_name ~%]
+    [%~ meta_desc.push(l('Format:') _ ' ' _ html_escape(release.combined_format_name)) IF release.combined_format_name ~%]
+    [%~ year = release.events.slice(0,0).0.date.year IF release.events ~%]
+    [%~ IF year ~%]
+        [% meta_desc.push(l('Year:') _ ' ' _ html_escape(year)) ~%]
+    [%~ END ~%]
+    [%~ IF release.labels ~%]
+        [%~ labels = [] ~%]
+        [%~ FOR i=release.labels ~%]
+            [%~ labels.push( (i.label.name ? i.label.name : "[unknown]") _ ( i.catalog_number ? (' (' _ i.catalog_number _ ')') : "")) ~%]
+        [%~ END ~%]
+        [%~ meta_desc.push((labels.size > 1 ? l('Labels:') : l('Label:')) _ ' ' _ html_escape(comma_only_list(labels))) ~%]
+    [%~ END ~%]
+    [%~ meta_desc.push(l('Barcode:') _ ' ' _ html_escape(release.barcode.format)) IF release.barcode ~%]
+    [%~ meta_desc.push(l('Length:') _ ' ' _ html_escape(format_length(release.length))) IF release.length ~%]
     <meta name="description" content="[% comma_only_list(meta_desc) %]"/>
 [% END %]
 
@@ -23,6 +23,9 @@
     [%- INCLUDE 'release/annotation.tt' summary=1 -%]
 
     <h2 class="tracklist">[% l('Tracklist') %]</h2>
+    <style>
+    table.tbl td { vertical-align: top }
+    </style>
 
     <script type="text/html" id="relationship-group">
       <dt><!-- ko text: key --><!-- /ko -->:</dt>

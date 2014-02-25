@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-03 22:26+0000\n"
+"PO-Revision-Date: 2014-02-18 08:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DB:link_attribute_type/description:471
+msgid ""
+"(<a "
+"href=\"http://en.wikipedia.org/wiki/Continuum_(instrument)\">Wikipedia</a>)"
+msgstr "(<a href=\"http://nl.wikipedia.org/wiki/Haken_Continuum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:492
+msgid "(<a href=\"http://en.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
+msgstr "(<a href=\"http://nl.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:528
 msgid "(bamboo) flute, also known as kena or qina"
@@ -77,8 +87,8 @@ msgstr "De sopraanblokfluit is de meest gangbare blokfluit en wordt vaak door ki
 msgid ""
 "A fife is a small, high-pitched, transverse flute that is similar to the "
 "piccolo, but louder and shriller due to its narrower bore. (<a "
-"href=\"http://en.wikipedia.org/wiki/Fife (instrument)\">Wikipedia</a>)"
-msgstr "De pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een harder en scheller geluid dankzij een smallere boring. (<a href=\"http://en.wikipedia.org/wiki/Fife_(instrument)\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Fife_(instrument)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:635
 msgid ""
@@ -109,9 +119,9 @@ msgstr "Een grotere versie van de tef die wordt gebruikt om ritmische structuren
 msgid ""
 "A laser harp is an electronic musical instrument consisting of several laser"
 " beams to be blocked, in analogy with the plucking of the strings of a harp,"
-" in order to produce sounds. (<a href=\"http://en.wikipedia.org/wiki/Laser "
-"harp\">Wikipedia</a>)"
-msgstr "Een laserharp is een elektronisch muziekinstrument bestaande uit verschillende laserstralen die geblokkeerd kunnen worden om verschillende geluiden te produceren. (<a href=\"http://en.wikipedia.org/wiki/Laser harp\">Wikipedia</a>)"
+" in order to produce sounds. (<a "
+"href=\"http://en.wikipedia.org/wiki/Laser_harp\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:303
 msgid ""
@@ -143,8 +153,9 @@ msgid ""
 "A suikinkutsu (Japanese: 水琴窟) is a type of Japanese garden ornament which "
 "uses dripping water to create music. Although it is also known as a Japanese"
 " water zither, it is named after the sound the koto (a Japanese zither) "
-"makes and is not actually a string instrument."
-msgstr "Een suikinkutsu (Japans: 水琴窟) is een soort Japans tuinmeubel dat met druppelend water muziek maakt. Hoewel het ook bekend staat als een Japanse waterciter, is het genoemd naar het geluid dat de koto (een Japanse citer) maakt en is het geen snaarinstrument."
+"makes and is not actually a string instrument. (<a "
+"href=\"https://en.wikipedia.org/wiki/Suikinkutsu\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:546
 msgid ""
@@ -156,7 +167,7 @@ msgstr "Een talkbox of jappiotube is een apparaat waarmee geluidseffecten kunnen
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East. "
 "(<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
-msgstr ""
+msgstr "Een tar is een lijsttrommel met één vel uit Noord-Afrika en het Midden-Oosten. (<a href=\"https://en.wikipedia.org/wiki/Tar_(drum)\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:555
 msgid ""
@@ -267,10 +278,6 @@ msgstr "Bandura, moderne Oekraïense citer"
 msgid "Bandura, ukrainian 14th century lute"
 msgstr "Bandura, Oekraïense luit uit de veertiende eeuw"
 
-#: DB:link_attribute_type/description:479
-msgid "Banjitar, Guitjo or Ganjo, http://en.wikipedia.org/wiki/Guitjo"
-msgstr "Banjitar, Guitjo of Ganjo (<a href=\"http://en.wikipedia.org/wiki/Guitjo\">Wikipedia</a>"
-
 #: DB:link_attribute_type/description:251
 msgid ""
 "Bansuri (or बांसुरी) is a transverse alto flute, The Venu's North Indian "
@@ -332,12 +339,6 @@ msgstr "Concertfluit (ook C-fluit, Böhmfluit of gewoon \"fluit\" genoemd). "
 #: DB:link_attribute_type/description:205
 msgid "Conch shell"
 msgstr "Schelp van een weekdier waarop geblazen wordt. (<a href=\"http://en.wikipedia.org/wiki/Conch_(musical_instrument)\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:471
-msgid ""
-"Continuum, strange thingy: "
-"http://en.wikipedia.org/wiki/Continuum_(instrument)"
-msgstr "Haken Continuum of Continuum Fingerboard is een soort MIDI-regelaar. (<a href=\"http://nl.wikipedia.org/wiki/Haken_Continuum\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:273
 msgid "Cornett (not to be confused with Cornet)"
@@ -425,6 +426,12 @@ msgstr "Duitse/Boheemse harp"
 msgid "Ghatam, a South Indian Carnatic music percussion instrument"
 msgstr "De ghaṭam is een Zuid-Indiaas slaginstrument. (<a href=\"http://en.wikipedia.org/wiki/Ghatam\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:338
+msgid ""
+"Goblet drums are single-headed drums with a goblet shaped body.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Goblet_drum\">Wikipedia</a>)"
+msgstr "Vaastrommels zijn trommels met één vel en een zandlopervormige kast. (<a href=\"https://nl.wikipedia.org/wiki/Vaastrommel\">Wikipedia</a>)"
+
 #: DB:link_attribute_type/description:366
 msgid "Great bass recorder / C-bass recorder (Großbassblockflöte)"
 msgstr "De grootbasblokfluit is 120 cm. lang en is gestemd in C."
@@ -479,17 +486,11 @@ msgstr "Indiase bamboefluiten"
 msgid "Irish bouzouki"
 msgstr "Ierse bouzouki"
 
-#: DB:link_attribute_type/description:224
-msgid "Japanese end-blown flute"
-msgstr "Japanse verticale fluit. (<a href=\"http://nl.wikipedia.org/wiki/Shakuhachi\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:293
-msgid "Japanese string instrument"
-msgstr "Japans snaarinstrument. (<a href=\"http://en.wikipedia.org/wiki/Kokyu\">Wikipedia</a>)"
-
 #: DB:link_attribute_type/description:458
-msgid "Japanese traditional drum beaten with sticks called bachi"
-msgstr "Traditionele Japanse trommel die wordt beslagen met bachi-stokken."
+msgid ""
+"Japanese traditional drum beaten with sticks called bachi. (<a "
+"href=\"https://en.wikipedia.org/wiki/Taiko\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:507
 msgid "Kanklės, Lithuanian plucked string"
@@ -502,10 +503,6 @@ msgstr "Kantele, traditioneel Fins tokkelinstrument"
 #: DB:link_attribute_type/description:360
 msgid "Kanun, Arabic plucked strings"
 msgstr "De qanûn (Arabisch: قانون), ook wel kanun, is een op een hakkebord of cimbalom gelijkend snaarinstrument. (<a href=\"http://nl.wikipedia.org/wiki/Qanûn\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:380
-msgid "Ken (wooden, copper hauboits) (Ken Dai or Ken Bau)"
-msgstr "Ken (ken dai of ken bau) is een dubbelriet blaasinstrument uit Vietnam. (<a href=\"http://en.wikipedia.org/wiki/Kèn_bầu\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:388
 msgid "Khen blông tree leaf"
@@ -634,8 +631,8 @@ msgstr "Fluit die is opgebouwd uit een aantal aan de onderzijde gesloten buizen 
 msgid ""
 "Percussion instrument made from two steel sheets that are attached together "
 "creating a recognizable 'UFO shape'. (<a "
-"href=\"http://en.wikipedia.org/wiki/Hang (instrument)\">Wikipedia</a>)"
-msgstr "Een slaginstrument dat bestaat uit twee op elkaar geplaatste sferische schalen van staal. (<a href=\"http://nl.wikipedia.org/wiki/Hang\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Hang_(instrument)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:610
 msgid "Percussion performed by parts of the body."
@@ -651,12 +648,16 @@ msgstr "Met de voeten uitgevoerde percussie, zoals <a href=\"http://nl.wikipedia
 #: DB:link_attribute_type/description:652
 msgid ""
 "Persian / Turkish / Arabic end-blown flute with five or six finger holes and"
-" one thumb hole. (<a href=\"http://en.wikipedia.org/wiki/Ney\">Ney</a>)"
-msgstr "De ney (Perzisch: نی, Arabisch: ناي, Turks: ney, ook nai, nye, nay, gagri tuiduk of karghi tuiduk) is een aan het uiteinde aangeblazen fluit die een voorname rol speelt in Perzische, Turkse en Arabische muziek. (<a href=\"http://nl.wikipedia.org/wiki/Ney_%28muziekinstrument%29\">Ney</a>)"
+" one thumb hole. (<a "
+"href=\"http://en.wikipedia.org/wiki/Ney\">Wikipedia</a>)"
+msgstr "Perzisch / Turkse / Arabische fluit met vijf of zes vingergaten en een duimgat. (<a href=\"http://nl.wikipedia.org/wiki/Ney_%28muziekinstrument%29\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:379
-msgid "Phách (The clappers)"
-msgstr "Kleine houten stokjes die op een kleine plaat van bamboe worden geslagen. (<a href=\"http://en.wikipedia.org/wiki/Phách\">Wikipedia</a>)"
+msgid ""
+"Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
+"block. The sound produced is used to keep time. (<a "
+"href=\"https://en.wikipedia.org/wiki/Phách\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:416
 msgid "Pí thiu or Pí khui vertical flute"
@@ -756,10 +757,6 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Tap_dance\">Wikipedia</a>)"
 msgstr "Tapdansen is een vorm van dans waarbij ritmische klanken worden gemaakt door tikken op de grond met metalen plaatjes aan de schoenzolen. De danser doet daarmee aan een vorm van percussie. (<a href=\"http://nl.wikipedia.org/wiki/Tapdansen\">Wikipedia</a>)"
 
-#: DB:link_attribute_type/description:288
-msgid "Tenor Chinese viola/in"
-msgstr "Chinese tenorviool"
-
 #: DB:link_attribute_type/description:364
 msgid "Tenor recorder (Tenorblockflöte)"
 msgstr "Deze blokfluit is een maat groter dan de altblokfluit en heeft daardoor een lager geluid. (<a href=\"http://nl.wikipedia.org/wiki/Tenorblokfluit\">Wikipedia</a>)"
@@ -778,12 +775,6 @@ msgid ""
 "sopranino clarinet. (<a "
 "href=\"http://en.wikipedia.org/wiki/E-flat_clarinet\">Wikipedia</a>)"
 msgstr "De esklarinet is een hogere variant van de klarinet. (<a href=\"http://nl.wikipedia.org/wiki/Esklarinet\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:338
-msgid ""
-"The Goblet drum has many many names. See  "
-"http://en.wikipedia.org/wiki/Goblet_drum"
-msgstr "Een vaastrommel heeft vele namen. (<a href=\"http://nl.wikipedia.org/wiki/Vaastrommel\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:673
 msgid ""
@@ -811,6 +802,12 @@ msgid ""
 "primarily in Vienna, Austria, for playing orchestral or classical music. (<a"
 " href=\"http://en.wikipedia.org/wiki/Vienna_horn\">Wikipedia</a>)"
 msgstr "De Weense hoorn is een type hoorn die voornamelijk in Wenen wordt gebruikt voor het spelen van orkestrale of klassieke muziek. (<a href=\"http://en.wikipedia.org/wiki/Vienna_horn\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:399
+msgid ""
+"The Vietnamese guitar is similar to a normal guitar, but with scalloped fingerboard resulting in elevated frets similar to the đàn nguyệt.\n"
+"Other names: lục huyền cầm, đàn lục huyền cầm, guitar phím lõm, ghi-ta phím lõm, đàn ghi-ta phím lõm, ghi-ta Việt Nam, ghi-ta vọng cổ (<a href=\"https://en.wikipedia.org/wiki/Guitar_phím_lõm\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:675
 msgid ""
@@ -853,9 +850,10 @@ msgid ""
 "dānpígǔ) is a Chinese frame drum, struck by two bamboo sticks (<a "
 "href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). It is "
 "usually played along with the clappers ban (Chinese: 板, bǎn). Therefore, "
-"both instruments are known collectively as guban (Chinese: 鼓板, gǔbǎn). (<a "
-"href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">Wikipedia</a>)"
-msgstr "De bangu (Chinees: 板鼓; pinyin: bǎngǔ), ook bekend als danpigu (Chinees: 單皮鼓, pinyin: 单皮鼓, dānpígǔ) is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. (<a href=\"http://en.wikipedia.org/wiki/Bangu_(drum)\">Wikipedia</a>). Het wordt meestal samen met Chinese ban-kleppers (Chinese: 板, pinyin: bǎn) bespeeld. De combinatie van de twee instrumenten wordt guban (Chinese: 鼓板, pinyin: gǔbǎn) genoemd. (<a href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">Wikipedia</a>)."
+"both instruments are known collectively as <a "
+"href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> (Chinese:"
+" 鼓板, gǔbǎn)."
+msgstr ""
 
 #: DB:link_attribute_type/description:291
 msgid ""
@@ -864,6 +862,13 @@ msgid ""
 " bangzi opera. (<a "
 "href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
 msgstr "De banhu (Chinees:: 板胡, pinyin: bǎnhú) is een Chinees strijkinstrument uit de familie van de huqin. Het wordt ook wel banghu (Chinees:: 梆胡, pinyin: bānghú) genoemd vanwege het gebruik in de bangzi-opera. (<a href=\"http://en.wikipedia.org/wiki/Banhu\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:479
+msgid ""
+"The banjitar is a six-string banjo with the neck of a guitar.\n"
+"Other names: guitjo, banjo guitar, ganjo, guitar banjo, banjar, bantar.\n"
+"(<a href=\"https://en.wikipedia.org/wiki/Banjo_guitar\">Wikipedia</a>)"
+msgstr "De gitaarbanjo is een zessnarige banjo met de nek van een gitaar. Andere namen zijn banjitar, guitjo, banjo gitaar, ganjo, gitaar banjo, banjar of bantar. (<a href=\"http://nl.wikipedia.org/wiki/Gitaarbanjo\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:749
 msgid ""
@@ -945,9 +950,8 @@ msgstr "De charango is een kleine Zuid-Amerikaanse luit."
 #: DB:link_attribute_type/description:690
 msgid ""
 "The chikuzen biwa (Japanese: 筑前琵琶) is a biwa with either four strings and "
-"frets or five strings and frets popularised during the Meiji period. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr "De chikuzen biwa (Japans: 筑前琵琶) is een biwa met vier of vijf snaren en fretten die populair werd in de Meiji-periode. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"frets or five strings and frets popularised during the Meiji period."
+msgstr ""
 
 #: DB:link_attribute_type/description:622
 msgid ""
@@ -968,6 +972,13 @@ msgid ""
 " Korea which is made of bamboo. (<a "
 "href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
 msgstr "De daegeum (Koreaans: 대금, ook wel taegŭm) is een grote bamboedwarsfluit uit Korea. (<a href=\"http://en.wikipedia.org/wiki/Daegeum\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:288
+msgid ""
+"The dahu (Chinese: 大胡, dàhú), also known as cizhonghu or xiaodihu, is a "
+"large Chinese bowed string instrument in the huqin family. "
+"(https://en.wikipedia.org/wiki/Dahu_(instrument)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:663
 msgid ""
@@ -1131,9 +1142,8 @@ msgstr "De haegeum (Koreaans: 해금, ook wel haegum) is een traditioneel Koreaa
 #: DB:link_attribute_type/description:691
 msgid ""
 "The heike biwa (Japanese: 平家琵琶) is a biwa with four strings and five frets "
-"used to play Heike Monogatari. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr "De heike biwa (Japans: 平家琵琶) is een biwa met vier snaren en vijf fretten dat vaak gebruikt wordt om Het verhaal van de Heike (平家物語 Heike Monogatari) te begeleiden. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"used to play Heike Monogatari."
+msgstr ""
 
 #: DB:link_attribute_type/description:659
 msgid ""
@@ -1169,8 +1179,8 @@ msgstr "De jing'erhu (Chinees: 京二胡, pinyin: jīng'èrhú) is een Chinees s
 msgid ""
 "The jinghu (Chinese: 京胡,  jīnghú) is a Chinese bowed string instrument with "
 "two strings used primarily in Beijing opera. Also spelt jing hu. (<a "
-"href=\"http://en.wikipedia.org/wiki/Jiaohu\">Wikipedia</a>)"
-msgstr "De jinghu (Chinees: 京胡, pinyin: jīnghú) is een Chinees strijkinstrument met twee snaren dat vooral in de opera van Beijing wordt gebruikt. Het wordt ook gespeld als jing hu. (<a href=\"http://en.wikipedia.org/wiki/Jiaohu\">Wikipedia</a>)"
+"href=\"https://en.wikipedia.org/wiki/Jinghu_(instrument)\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:355
 msgid ""
@@ -1179,8 +1189,9 @@ msgid ""
 "such as the Xơ Đăng and the Bahnar. It consists of a number of different "
 "sized bamboo tubes laid horizontally which are played by the musician "
 "clapping their slightly cupped hands in front of the tubes in order to push "
-"air into the tubes."
-msgstr "De k'lông pút (ook geschreven als klom put, klon put of klong put) is een instrument uit de centrale hooglanden van Vietnam en word bespeeld door etnische groepen zoals de Xơ Đăng en de Bahnar. Het bestaat uit een aantal liggende bamboebuizen van verschillende formaat die worden bespeeld door muzikanten die hun licht gebogen handen voor de buizen klappen om lucht door de buizen te stuwen."
+"air into the tubes. (<a "
+"href=\"https://en.wikipedia.org/wiki/K'lông_pút\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:613
 msgid ""
@@ -1229,6 +1240,12 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
 msgstr "De kkwaenggwari (Koreaans: 꽹과리, ook gespeld als ggwaenggwari) is een kleine platte messing gong, normaal gesproken met een diameter van 20 cm, die vooral gebruikt wordt in de traditionele Koreaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Kkwaenggwari\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:293
+msgid ""
+"The kokyo (Japanese: 胡弓, kokyū) is a Japanese bowed string instrument. (<a "
+"href=\"https://en.wikipedia.org/wiki/Kokyū\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:655
 msgid ""
 "The komuz or qomuz is a fretless string instrument used in Central Asian "
@@ -1251,6 +1268,12 @@ msgid ""
 "to increase or decrease the tension of the heads. (<a "
 "href=\"http://en.wikipedia.org/wiki/Tsuzumi\">Wikipedia</a>)"
 msgstr "De kotsuzumi (Japans: 小鼓) of tsuzumi (Japans: 鼓) is een zandlopervormige Japanse trommel met koorden die kunnen worden gespannen of losser worden gemaakt om de spanning op de vellen te veranderen. (<a href=\"http://en.wikipedia.org/wiki/Tsuzumi\">Wikipedia</a>)"
+
+#: DB:link_attribute_type/description:380
+msgid ""
+"The kèn bầu is a double reed instrument from Vietnam. (<a "
+"href=\"https://en.wikipedia.org/wiki/Kèn_bầu\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:668
 msgid ""
@@ -1282,8 +1305,9 @@ msgid ""
 "The morin khuur (Mongolian: морин хуур, also written morin huur or morin "
 "xuur) is a Mongolian bowed string instrument which has two strings. The "
 "scroll is normally carved in the shape of a horse's head. It is also known "
-"as mǎtóuqín (traditional Chinese: 馬頭琴, simplified Chinese: 马头琴)."
-msgstr "De morin khuur (Mongools: морин хуур, ook geschreven als morin huur of morin xuur) is een Mongools strijkinstrument met twee snaren. De krul is normaalgesproken gesneden in de vorm van een paardenkop. Het instrument staan ook bekend als de mǎtóuqín (Traditioneel Chinees: 馬頭琴, Vereenvoudigd Chinees: 马头琴) (<a href=\"http://nl.wikipedia.org/wiki/Morin_khuur\">Wikipedia</a>)"
+"as mǎtóuqín (traditional Chinese: 馬頭琴, simplified Chinese: 马头琴). (<a "
+"href=\"https://en.wikipedia.org/wiki/Morin_khuur\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:584
 msgid ""
@@ -1356,9 +1380,9 @@ msgstr "De pakhavaj, pakhawaj, pakuaj, pakhvaj of pakavaj is een Indiase tonvorm
 msgid ""
 "The pedal piano (or piano-pédalier) is a kind of piano that includes a "
 "pedalboard, enabling bass register notes to be played with the feet, as is "
-"standard on the organ. (<a href=\"http://en.wikipedia.org/wiki/Pedal "
-"piano\">Wikipedia</a>)"
-msgstr "De pedaalpiano heeft een toetsenbord dat met de voeten bediend wordt, net als een orgelpedaal. (<a href=\"http://nl.wikipedia.org/wiki/Pedaal_%28muziek%29#Pedaalpiano\">Wikipedia</a>)"
+"standard on the organ. (<a "
+"href=\"http://en.wikipedia.org/wiki/Pedal_piano\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:429
 msgid ""
@@ -1425,13 +1449,18 @@ msgstr "De saron is een Indonesisch muziekinstrument dat wordt gebruikt in de ga
 #: DB:link_attribute_type/description:692
 msgid ""
 "The satsuma biwa (Japanese: 薩摩琵琶) is a biwa with four strings and frets "
-"popularised during the Edo period. (<a "
-"href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
-msgstr "De satsuma biwa (Japans: 薩摩琵琶) is een biwa met vier snaren en fretten die populair werd in de Edo-periode. (<a href=\"http://en.wikipedia.org/wiki/Biwa\">Wikipedia</a>)"
+"popularised during the Edo period."
+msgstr ""
 
 #: DB:link_attribute_type/description:566
 msgid "The saz is a long-necked fretted lute"
 msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De term saz wordt vaak foutief gebruikt voor een bağlama."
+
+#: DB:link_attribute_type/description:224
+msgid ""
+"The shakuhachi is a Japanese end-blown flute. (<a "
+"href=\"https://en.wikipedia.org/wiki/Shakuhachi\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:112
 msgid ""
@@ -1467,8 +1496,8 @@ msgstr "De shime-daiko (Japans: 締太鼓) is een kleine Japanse trommel met een
 #: DB:link_attribute_type/description:564
 msgid ""
 "The shinobue (Japanese: 篠笛) is a high-pitched transverse bamboo flute from "
-"Japan."
-msgstr "De shinobue (Japans: 篠笛, ook wel takebue (竹笛) genoemd), is een hoog klinkende bamboedwarsfluit uit Japan. (<a href=\"http://en.wikipedia.org/wiki/Shinobue\">Wikipedia</a>)"
+"Japan. (<a href=\"https://en.wikipedia.org/wiki/Shinobue\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:705
 msgid ""
@@ -1523,8 +1552,9 @@ msgstr "De sênh tiền is een Vietnamees instrument bestaande uit een combinati
 #: DB:link_attribute_type/description:381
 msgid ""
 "The t'rưng (t'rung) is a bamboo xylophone from the central highlands of "
-"Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê."
-msgstr "De t'rưng (t'rung) is een xylofoon van bamboe uit de centrale hooglanden van Vietman en wordt bespeeld door etnische groepen zoals de Bahnar en de Ê Đê."
+"Vietnam which is played by ethnic groups such as the Bahnar and the Ê Đê. "
+"(<a href=\"https://en.wikipedia.org/wiki/T'rưng\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:667
 msgid ""
@@ -1703,6 +1733,13 @@ msgid ""
 "href=\"http://en.wikipedia.org/wiki/Đàn_tranh\">Wikipedia</a>)"
 msgstr "De đàn tranh is een lange citer met zestien snaren en hoge beweegbare bruggen. De snaren worden getokkeld met plectra, terwijl met de linkerhand op de snaren wordt gedrukt om de noten te versieren. (<a href=\"http://en.wikipedia.org/wiki/Đàn_tranh\">Wikipedia</a>)"
 
+#: DB:link_attribute_type/description:753
+msgid ""
+"The đàn tứ, also called đàn đoản, is a traditional Vietnamese moon-shaped "
+"lute with a short neck. (<a "
+"href=\"https://en.wikipedia.org/wiki/Đàn_tứ\">Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_attribute_type/description:313
 msgid ""
 "The đàn tỳ bà is a four-stringed Vietnamese lute with a pear-shaped body. "
@@ -1783,15 +1820,14 @@ msgstr "Turkse bağlama"
 #: DB:link_attribute_type/description:654
 msgid ""
 "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music (<a "
-"href=\"http://en.wikipedia.org/wiki/Classical kemençe\">Wikipedia</a>)"
-msgstr "Een Turkse komvormige kemençhe die vooral gebruikt wordt in klassieke Ottomaanse muziek. (<a href=\"http://en.wikipedia.org/wiki/Classical kemençe\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Classical_kemençe\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:653
 msgid ""
 "Turkish box-shaped kemenche, mainly used for folk music. (<a "
-"href=\"http://en.wikipedia.org/wiki/Kemençe of the Black "
-"Sea\">Wikipedia</a>)"
-msgstr "Turkse doosvormige kemençhe die vooral gebruikt wordt voor volksmuziek. (<a href=\"http://en.wikipedia.org/wiki/Kemençe of the Black Sea\">Wikipedia</a>)"
+"href=\"http://en.wikipedia.org/wiki/Kemençe_of_the_Black_Sea\">Wikipedia</a>)"
+msgstr ""
 
 #: DB:link_attribute_type/description:637
 msgid ""
@@ -1831,10 +1867,6 @@ msgstr "Een bamboedwarsfluit die gebruikt wordt in de Carnatische muziek uit Zui
 #: DB:link_attribute_type/description:116
 msgid "Vielle / Vieille"
 msgstr "De vedel was een voorloper van de viool. (<a href=\"http://nl.wikipedia.org/wiki/Vedel\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:399
-msgid "Vietnamese guitar"
-msgstr "Vietnamese gitaar"
 
 #: DB:link_attribute_type/description:505
 msgid "Violone, The largest/deepest member of the Viol family"
@@ -1878,10 +1910,6 @@ msgid ""
 "Zills are tiny metallic finger cymbals used in belly dancing and other "
 "similar performances."
 msgstr "Ook wel  zils, kleine bekkens die worden gebruikt bij buikdansen en soortgelijke voorstellingen. (<a href=\"http://en.wikipedia.org/wiki/Zill\">Wikipedia</a>)"
-
-#: DB:link_attribute_type/description:492
-msgid "Zurna http://en.wikipedia.org/wiki/Zurna"
-msgstr "De zurna (Turkije, Armenië), zurla (Balkan) of zirne (Koerdistan) is een dubbelrietvolkshobo (of schalmei) met een conische boring. (<a href=\"http://nl.wikipedia.org/wiki/Zurna\">Wikipedia</a>)"
 
 #: DB:link_attribute_type/description:392
 msgid "a kind of a \"slide whistle\" form. Hmông flute"

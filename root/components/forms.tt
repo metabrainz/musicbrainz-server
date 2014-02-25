@@ -1,8 +1,8 @@
-[%- MACRO form_submit(label, class) BLOCK %]
+[%- MACRO form_submit(label, class) BLOCK ~%]
     <span class="buttons[% ' ' _ class IF class %]">
-        <button type="submit">[% label %]</button>
+        [%~ '<button type="submit">' _ label _ '</button>' ~%]
     </span>
-[%- END -%]
+[%~ END -%]
 
 [%- MACRO as_auto_editor BLOCK -%]
     [%- IF c.user.is_auto_editor -%]
@@ -274,10 +274,21 @@
 
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
-      <p>
-        [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-      </p>
+      <!-- ko with: area -->
+        <p data-bind="html: MB.i18n.expand(MB.text.SelectedArea, { area: html({ target: '_blank' }) })"></p>
+      <!-- /ko -->
     </div>
+[%- END -%]
+
+[%- MACRO external_link_bubble BLOCK -%]
+  <div class="bubble" id="external-link-bubble" data-bind="bubble: bubbleDoc">
+    <!-- ko with: $bubble.target -->
+      <p data-bind="if: url() &amp;&amp; !error()">
+        [% l('URL:') | js %] <a target="_blank" data-bind="attr: { href: url }, text: url"></a>
+      </p>
+      <p data-bind="html: linkTypeDescription"></p>
+    <!-- /ko -->
+  </div>
 [%- END -%]
 
 [%- MACRO artist_credit_table BLOCK -%]
@@ -350,4 +361,92 @@
   [%- FOR credit=ac.value.names -%]
     [%- credit.name | html -%][%- credit.join_phrase | html -%]
   [%- END -%]
+[%- END -%]
+
+[%- MACRO external_links_editor(form, entity_type) BLOCK -%]
+  <table id="external-links-editor" class="row-form">
+  <tbody>
+    <!-- ko foreach: _.reject(links(), function (link) { return link.removed() }) -->
+    <tr data-bind="urlCleanup: '[% entity_type %]'">
+      <td>
+        <!-- ko ifnot: showTypeSelection() -->
+          <label data-bind="attr: { 'for': 'external-link-' + $index() }">
+            <!-- ko if: matchesType() && faviconClass() -->
+              <span data-bind="attr: { 'class': 'favicon ' + faviconClass() }"></span>
+            <!-- /ko -->
+            <!-- ko text: label() || (isOnlyLink() ? "[% l('Add link:') | html %]" : "[% l('Add another link:') | html %]") --><!-- /ko -->
+          </label>
+        <!-- /ko -->
+        <select data-bind="value: linkTypeID, visible: showTypeSelection()">
+          <option value="" selected="selected"> </option>
+          [%- url_link_type_options = form.options_url_link_type_id || url_type_opts -%]
+          [% FOR option IN url_link_type_options %]
+            [%- link_type_id = option.value -%]
+            <option value="[% link_type_id %]"[% IF NOT url_type_info.$link_type_id.description %] disabled="disabled"[% END %]>[% option.label %]</option>
+          [% END %]
+        </select>
+      </td>
+      <td>
+        <input type="text"
+          class="value with-remove"
+          data-bind="
+            value: url,
+            valueUpdate: 'input',
+            attr: { id: 'external-link-' + $index() },
+            controlsBubble: viewModel.bubbleDoc"
+        />
+      </td>
+      <td>
+        <!-- ko ifnot: isEmpty() -->
+          <button type="button" class="nobutton remove" data-bind="hasFocus: removeButtonFocused" data-click="remove">
+            <div class="remove-item icon img" title="[% l('Remove Link') %]"></div>
+          </button>
+        <!-- /ko -->
+      </td>
+    </tr>
+    <!-- ko if: error -->
+    <tr>
+      <td></td>
+      <td class="error field-error" data-bind="text: error, attr: { 'data-visible': error() ? 1 : 0 }"></td>
+      <td></td>
+    </tr>
+    <!-- /ko -->
+    <!-- /ko -->
+    <tr style="display: none;">
+      <td colspan="3">
+        <!-- ko foreach: hiddenInputs() -->
+          <input type="hidden" data-bind="attr: { name: name, value: value }" />
+        <!-- /ko -->
+      </td>
+    </tr>
+  </tbody>
+  </table>
+
+  <script>
+    [%- USE JSON.Escape %]
+    $.extend(MB.Control.externalLinks = MB.Control.externalLinks || {}, {
+      typeInfo: [% url_type_info.json %],
+      faviconClasses: [% favicon_css_classes.json %]
+    });
+    [% IF form -%]
+    $(function () {
+      MB.Control.externalLinks.init({
+        source:         { type: '[% entity_type %]' },
+        formName:      '[% form.name %]',
+        relationships:  [% url_relationships.json %],
+
+        fieldErrors: [%
+          errors = [];
+          FOR url IN form.field('url').fields;
+            errors.push({
+              link_type_id => url.field('link_type_id').errors.0,
+              text => url.field('text').errors.0
+            });
+          END;
+          errors.json
+        %]
+      });
+    });
+    [%- END %]
+  </script>
 [%- END -%]

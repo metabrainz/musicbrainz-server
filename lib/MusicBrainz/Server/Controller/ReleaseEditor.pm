@@ -9,6 +9,7 @@ __PACKAGE__->config(
 );
 
 use JSON::Any;
+use List::UtilsBy qw( partition_by );
 use Try::Tiny;
 use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::CGI::Expand qw( expand_hash );
@@ -18,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw( trim );
 use MusicBrainz::Server::Form::Utils qw(
     language_options
     script_options
+    link_type_options
     select_options
     select_options_tree
     build_grouped_options
@@ -40,6 +42,16 @@ sub _init_release_editor
 
     $options{seeded_data} = $json->encode($self->_seeded_data($c) // {});
 
+    my $root_medium_format = $c->model('MediumFormat')->get_tree;
+
+    my $medium_format_options = [
+        map {
+            _build_medium_format_options($_, 'l_name', '')
+        } $root_medium_format->all_children
+    ];
+
+    my $url_link_types = $c->model('LinkType')->get_tree('release', 'url');
+
     $c->stash(
         template        => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
@@ -50,7 +62,9 @@ sub _init_release_editor
         scripts         => build_grouped_options($c, script_options($c)),
         packagings      => select_options_tree($c, 'ReleasePackaging'),
         countries       => select_options($c, 'CountryArea'),
-        formats         => select_options_tree($c, 'MediumFormat'),
+        formats         => $medium_format_options,
+        url_type_info   => MusicBrainz::Server::Controller::Role::EditExternalLinks::build_type_info($url_link_types),
+        url_type_opts   => link_type_options($url_link_types, 'l_link_phrase', 'ROOT', '&#160;'),
         %options
     );
 }
@@ -118,7 +132,7 @@ sub _process_seeded_data
 
     my @known_fields = qw( name release_group type comment annotation barcode
                            language script status packaging events labels
-                           date country artist_credit mediums edit_note
+                           date country artist_credit mediums urls edit_note
                            redirect_uri as_auto_editor );
 
     _report_unknown_fields('', $params, \@errors, @known_fields);
@@ -249,6 +263,16 @@ sub _process_seeded_data
         }
     }
 
+    if (my $urls = $params->{urls}) {
+        $result->{relationships} = {
+            url => {
+                partition_by { delete $_->{link_type_name} } @{
+                    _seeded_array($c, \&_seeded_url, $urls, "urls", \@errors)
+                }
+            }
+        };
+    }
+
     $result->{editNote} = $params->{edit_note} if $params->{edit_note};
 
     if (defined $params->{as_auto_editor}) {
@@ -326,10 +350,14 @@ sub _seeded_event
     my $result = {};
 
     if (my $date = $params->{date}) {
-        $result->{date} = PartialDate->new(%$date)->format;
+        delete $date->{year} unless $date->{year};
+        delete $date->{month} unless $date->{month};
+        delete $date->{day} unless $date->{day};
+
+        $result->{date} = PartialDate->new(%$date)->format if %$date;
     }
 
-    if (my $iso = uc $params->{country}) {
+    if (my $iso = uc ($params->{country} // '')) {
         my $country = $c->model('Area')->get_by_iso_3166_1($iso)->{$iso};
 
         if ($country) {
@@ -529,6 +557,40 @@ sub _seeded_artist
 
     if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
         $result->{name} = trim($name);
+    }
+
+    return $result;
+}
+
+sub _seeded_url
+{
+    my ($c, $params, $field_name, $errors) = @_;
+
+    my @known_fields = qw( url link_type );
+    _report_unknown_fields($field_name, $params, $errors, @known_fields);
+
+    my $result = {
+        target => { url => '' },
+        link_type_name => '',
+    };
+
+    if (my $url = _seeded_string($params->{url}, "$field_name.url", $errors)) {
+        $result->{target}->{url} = trim($url);
+    }
+
+    if (my $id = _seeded_string($params->{link_type}, "$field_name.link_type", $errors)) {
+        my $link_type = $c->model('LinkType')->get_by_id($id);
+
+        if ($link_type && !$link_type->is_deprecated &&
+                $link_type->entity0_type eq 'release' &&
+                $link_type->entity1_type eq 'url') {
+
+            $result->{link_type} = $id;
+            $result->{link_type_name} = $link_type->name;
+        }
+        else {
+            push @$errors, "Invalid $field_name.link_type: “$id”.";
+        }
     }
 
     return $result;

@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use 5.10.0;
 
+use JSON;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
@@ -11,6 +12,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
 use Set::Scalar;
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -22,6 +24,7 @@ use base 'Exporter';
 our @EXPORT_OK = qw(
     artist_credit_from_loaded_definition
     artist_credit_preview
+    calculate_recording_merges
     changed_relations
     changed_display_data
     clean_submitted_artist_credits
@@ -40,6 +43,8 @@ our @EXPORT_OK = qw(
     load_artist_credit_definitions
     status_names
     verify_artist_credits
+    boolean_to_json
+    boolean_from_json
 );
 
 sub verify_artist_credits
@@ -422,6 +427,35 @@ sub merge_set {
 
     return $result_set->members;
 }
+
+sub calculate_recording_merges {
+    my ($new, $old) = @_;
+    my $recording_merges = [];
+    for my $medium ($new->all_mediums) {
+        for my $track ($medium->all_tracks) {
+            try {
+                my @sources;
+                for my $source_medium (map { $_->all_mediums } @{ $old }) {
+                    if ($source_medium->position == $medium->position) {
+                        push @sources, map { $_->recording }
+                            grep { $_->position == $track->position } $source_medium->all_tracks;
+                    }
+                }
+                @sources = grep { $_->id != $track->recording->id } @sources;
+                push(@$recording_merges, {
+                         medium => $medium->position,
+                         track => $track->number,
+                         sources => \@sources,
+                         destination => $track->recording}) if scalar @sources;
+            };
+        }
+    }
+    return $recording_merges;
+}
+
+sub boolean_to_json { scalar(shift) ? JSON::true : JSON::false }
+
+sub boolean_from_json { scalar(shift) ? 1 : 0 }
 
 1;
 

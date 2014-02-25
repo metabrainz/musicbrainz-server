@@ -184,7 +184,7 @@ ko.bindingHandlers.targetType = (function() {
 }());
 
 
-ko.bindingHandlers.autocomplete = (function() {
+ko.bindingHandlers.relationshipEditorAutocomplete = (function() {
 
     var recentEntities = {};
     var dialog;
@@ -368,11 +368,13 @@ var Dialog = aclass({
 
         this.linkTypeDescription = ko.computed(function() {
             var typeInfo = Util.typeInfo(self.relationship().link_type());
-            var description = '';
+            var description;
 
             if (typeInfo) {
-                description += typeInfo.descr +
-                  ' (<a href="/relationship/' + typeInfo.gid + '">' + 'more documentation</a>)';
+                description = MB.i18n.expand(MB.text.MoreDocumentation, {
+                    description: typeInfo.descr,
+                    url: "/relationship/" + typeInfo.gid
+                });
             }
 
             return description || "";
