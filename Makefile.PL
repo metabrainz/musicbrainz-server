@@ -84,7 +84,6 @@ requires 'MooseX::Types::URI'                         => '0.03';
 requires 'MRO::Compat'                                => '0.11';
 requires 'Net::Amazon::AWSSign'                       => '0.12';
 requires 'Net::Amazon::S3::Policy'                    => '0.1.2';
-requires 'Net::CoverArtArchive'                       => '1.02';
 requires 'Unicode::ICU::Collator'                     => '0.002';
 requires 'Package::Stash'                             => '0.33';
 requires 'REST::Utils'                                => '0.6';
