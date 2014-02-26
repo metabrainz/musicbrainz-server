@@ -24,12 +24,9 @@ MB.Control.GuessCase = function (type, $name) {
     self.type = type;
     self.$name = $name;
 
-    self.guesscase = function () {
+    self.guessCase = function () {
         self.$name.val (MB.GuessCase[self.type].guess (self.$name.val ()));
     };
-
-    ko.applyBindingsToNode($("div.guess-case.bubble")[0],
-        { guessCase: self.guesscase });
 
     return self;
 };
@@ -41,9 +38,6 @@ MB.Control.SortName = function (type, $name, $sortname, $cont) {
     self.type = type;
     self.$name = $name;
     self.$sortname = $sortname;
-
-    self.$sortname_button = $cont.find('a[href=#sortname]');
-    self.$copy_button = $cont.find('a[href=#copy]');
 
     self.sortname = function (event) {
         self.$sortname.val (MB.GuessCase[self.type].sortname (self.$name.val ()));
@@ -58,8 +52,8 @@ MB.Control.SortName = function (type, $name, $sortname, $cont) {
     };
 
     self.initialize = function () {
-        self.$sortname_button.bind ('click.mb', self.sortname);
-        self.$copy_button.bind ('click.mb', self.copy);
+        $cont.on("click.mb", "a[href=#sortname]", self.sortname);
+        $cont.on("click.mb", "a[href=#copy]", self.copy);
     };
 
     return self;
@@ -84,20 +78,20 @@ MB.Control.ArtistSortName = function (type, $name, $sortname) {
 
 /* A generic guess case initialize function for use outside the
    release editor. */
-MB.Control.initialize_guess_case = function (bubbles, type, form_prefix) {
+MB.Control.initialize_guess_case = function (type, form_prefix) {
 
     var $name = $('input#' + form_prefix + '\\.name');
-    var $gcdoc = $('div.guess-case.bubble');
+    var $gcdoc = $('#guess-case-bubble');
 
-    bubbles.add ($name, $gcdoc);
-    MB.Control.GuessCase (type, $name);
+    var gc = MB.Control.GuessCase (type, $name);
+    MB.Control.initializeBubble($gcdoc, $name, gc);
 
-    if (type === 'label' || type === 'artist' || type === 'area' || type === 'place')
+    if (type === 'label' || type === 'artist' || type === 'area')
     {
         var $sortname = $('input#' + form_prefix + '\\.sort_name');
-        var $sortdoc = $('div.sortname.bubble');
+        var $sortdoc = $('#sortname-bubble');
 
-        bubbles.add ($sortname, $sortdoc);
+        MB.Control.initializeBubble($sortdoc, $sortname);
         if (type === 'artist')
         {
             MB.Control.ArtistSortName (type, $name, $sortname).initialize ();
@@ -159,3 +153,5 @@ ko.bindingHandlers.guessCase = {
         return { controlsDescendantBindings: true };
     }
 };
+
+ko.virtualElements.allowedBindings.guessCase = true;

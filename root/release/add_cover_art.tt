@@ -34,9 +34,9 @@
         <tr>
           <td class="uploader-preview-column">
               <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
-              <input type="button" class="icon file-up track-up"
+              <input type="button" class="icon file-up"
                      title="[% l('Move file up') %]" style="float: right;" />
-              <input type="button" class="icon file-down track-down"
+              <input type="button" class="icon file-down"
                      title="[% l('Move file down') %]" style="clear: right; float: right;" />
           </td>
           <td>
@@ -128,7 +128,7 @@
         </div>
 
         <script type="text/javascript">
-            MB.CoverArt.image_position ();
+            MB.CoverArt.reorder_position ();
         </script>
       [%- END -%]
     </div>

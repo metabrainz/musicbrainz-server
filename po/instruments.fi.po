@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-07 00:23+0000\n"
-"Last-Translator: Phonebox\n"
+"PO-Revision-Date: 2014-02-03 22:26+0000\n"
+"Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +31,7 @@ msgstr "appalakkien dulcimer"
 
 #: DB:link_attribute_type/name:506
 msgid "Baltic psalteries"
-msgstr "Baltialaiset kantelesoittimet"
+msgstr "baltialaiset kantelesoittimet"
 
 #: DB:link_attribute_type/name:550
 msgid "Batá drum"
@@ -99,7 +99,7 @@ msgstr "irlantilainen buzuki"
 
 #: DB:link_attribute_type/name:435
 msgid "Irish harp / clàrsach"
-msgstr "Kelttiläinen harppu (cláirseach)"
+msgstr "kelttiläinen harppu (cláirseach)"
 
 #: DB:link_attribute_type/name:673
 msgid "Lyricon"
@@ -131,7 +131,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:182
 msgid "Rhodes piano"
-msgstr "Rhodes sähköpiano"
+msgstr "Rhodes-sähköpiano"
 
 #: DB:link_attribute_type/name:585
 msgid "Saraswati veena"
@@ -179,7 +179,7 @@ msgstr "warr-kitara"
 
 #: DB:link_attribute_type/name:562
 msgid "Wurlitzer electric piano"
-msgstr "Wurlitzer sähköpiano"
+msgstr "Wurlitzer-sähköpiano"
 
 #: DB:link_attribute_type/name:675
 msgid "Xaphoon"
@@ -1123,7 +1123,7 @@ msgstr "harppu"
 
 #: DB:link_attribute_type/name:174
 msgid "harpsichord"
-msgstr "Cembalo"
+msgstr "cembalo"
 
 #: DB:link_attribute_type/name:261
 msgid "heckelphone"
@@ -1563,6 +1563,10 @@ msgstr "panhuilu"
 
 #: DB:link_attribute_type/name:392
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
 msgstr ""
 
 #: DB:link_attribute_type/name:469
@@ -2005,6 +2009,10 @@ msgstr ""
 msgid "tape"
 msgstr ""
 
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""
@@ -2259,7 +2267,7 @@ msgstr "violotta"
 
 #: DB:link_attribute_type/name:621
 msgid "virginal"
-msgstr ""
+msgstr "virginaali"
 
 #: DB:link_attribute_type/name:354
 msgid "vocoder"

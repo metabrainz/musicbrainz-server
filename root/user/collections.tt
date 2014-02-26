@@ -3,6 +3,7 @@
 <h2>[% l("Collections") %]</h2>
 
 [%- IF collections.size -%]
+[% WRAPPER 'components/with-pager.tt' %]
 <table class="tbl">
     <thead>
         <tr>
@@ -30,6 +31,7 @@
     [%- END -%]
     </tbody>
 </table>
+[% END %]
 [%- ELSE -%]
     [% IF viewing_own_profile %]
         <p>[% l('You have no collections.') -%]</p>

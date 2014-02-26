@@ -38,5 +38,5 @@ MB.constants.VARTIST_NAME = 'Various Artists';
 
 MB.constants.ENTITIES = [ 'artist', 'editor', 'label', 'release', 'release-group', 'recording', 'work', 'area', 'place' ];
 
-// Add underscore.string functions to _ namespace
-_.mixin(_.str.exports());
+MB.constants.MAX_LENGTH_DIFFERENCE = 10500;
+MB.constants.MIN_NAME_SIMILARITY = 0.75;

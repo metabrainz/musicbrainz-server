@@ -9,6 +9,7 @@ use MusicBrainz::Server::Edit::Utils qw(
     load_artist_credit_definitions
     artist_credit_preview
     verify_artist_credits
+    clean_submitted_artist_credits
 );
 use MusicBrainz::Server::Translation qw ( N_l );
 use Scalar::Util qw( looks_like_number );
@@ -72,6 +73,8 @@ sub initialize {
     delete $opts{secondary_type_ids}
         unless grep { looks_like_number($_) } @{ $opts{secondary_type_ids} // [] };
 
+    $opts{artist_credit} = clean_submitted_artist_credits($opts{artist_credit});
+
     $self->data(\%opts);
 }
 
@@ -80,6 +83,7 @@ sub _insert_hash
     my ($self, $data) = @_;
     $data->{artist_credit} = $self->c->model('ArtistCredit')->find_or_insert($data->{artist_credit});
     $data->{primary_type_id} = delete $data->{type_id};
+    $data->{comment} = '' unless defined $data->{comment};
     return $data;
 }
 

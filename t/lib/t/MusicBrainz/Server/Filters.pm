@@ -60,9 +60,9 @@ test 'Wiki documentation syntax' => sub {
     for my $type (qw( artist label recording release release-group url work )) {
         my $mbid = 'b3b1e2b3-cbb8-4b46-a7d0-0031ec13492c';
         like(format_wikitext("[$type:$mbid]"),
-             qr{<a href="/$type/$mbid/">$type:$mbid</a>}, "plain [$type:mbid] links");
+             qr{<a href="/$type/$mbid">$type:$mbid</a>}, "plain [$type:mbid] links");
         like(format_wikitext("[$type:$mbid|alt text]"),
-             qr{<a href="/$type/$mbid/">alt text</a>}, "[$type:mbid|text] links");
+             qr{<a href="/$type/$mbid">alt text</a>}, "[$type:mbid|text] links");
     }
 };
 

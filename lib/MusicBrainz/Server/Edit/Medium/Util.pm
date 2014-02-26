@@ -48,7 +48,7 @@ sub tracks_to_hash
     my $tmp = [ map +{
         id => $_->id,
         name => $_->name,
-        artist_credit => artist_credit_to_ref ($_->artist_credit, []),
+        artist_credit => artist_credit_to_ref ($_->artist_credit),
         recording_id => $_->recording_id,
         position => $_->position,
         number => $_->number,

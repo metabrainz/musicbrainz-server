@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-01 15:09+0000\n"
+"PO-Revision-Date: 2014-02-05 17:36+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1563,6 +1563,10 @@ msgstr "panfluit"
 msgid "pang gu ly hu hmông"
 msgstr "pang gu ly hu hmông"
 
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr "pedaalpiano"
+
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
 msgstr "steelgitaar met pedalen"
@@ -2002,6 +2006,10 @@ msgstr "tapdansen"
 #: DB:link_attribute_type/name:632
 msgid "tape"
 msgstr "magneetband"
+
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr "tar (trommel)"
 
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"

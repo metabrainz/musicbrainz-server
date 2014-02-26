@@ -10,7 +10,6 @@ with 't::Context';
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_EDIT );
 use MusicBrainz::Server::Constants ':edit_status';
 use MusicBrainz::Server::Test qw( accept_edit reject_edit );
-use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Medium::Util qw( tracks_to_hash );
 use MusicBrainz::Server::Validation qw( is_guid );
 

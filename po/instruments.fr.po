@@ -4,11 +4,11 @@
 # Lotheric <email address hidden>, 2012
 # redapplz <email address hidden>, 2013
 # redapplz <email address hidden>, 2013
-# Alain-Olivier  Breysse, 2013
+# Alain-Olivier  Breysse, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 21:07+0000\n"
+"PO-Revision-Date: 2014-02-04 01:32+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1565,6 +1565,10 @@ msgstr "Flûte de Pan"
 msgid "pang gu ly hu hmông"
 msgstr "pang gu ly hu hmông"
 
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr "piano-pédalier"
+
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
 msgstr "pedal steel guitar"
@@ -2004,6 +2008,10 @@ msgstr "claquettes"
 #: DB:link_attribute_type/name:632
 msgid "tape"
 msgstr "ruban"
+
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr "tar (tambour)"
 
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"

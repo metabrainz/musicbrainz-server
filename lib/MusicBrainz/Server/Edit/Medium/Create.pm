@@ -4,7 +4,11 @@ use Clone qw( clone );
 use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_CREATE );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_MEDIUM_CREATE
+    $EDIT_RELEASE_CREATE
+    $STATUS_OPEN
+);
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -74,13 +78,13 @@ sub initialize {
     my $tracklist = delete $opts{tracklist};
     $opts{tracklist} = tracks_to_hash($tracklist);
 
-    unless ($self->preview) {
-        my $release = delete $opts{release} or die 'Missing "release" argument';
-        $opts{release} = {
-            id => $release->id,
-            name => $release->name
-        };
-    }
+    my $release = delete $opts{release};
+    die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{release} = {
+        id => $release->id,
+        name => $release->name
+    } if $release;
 
     $self->data(\%opts);
 }
@@ -165,6 +169,26 @@ override 'to_hash' => sub
     return $hash;
 };
 
+sub allow_auto_edit {
+    my $self = shift;
+
+    # Allow being an auto-edit if the release-add edit was opened by the same
+    # editor less than an hour ago, and it's still open.
+
+    my $release_id = $self->data->{release}->{id};
+
+    my $open_release_edit = $self->c->sql->select_single_value("
+        SELECT id FROM edit
+          JOIN edit_release ON edit.id = edit_release.edit
+         WHERE edit_release.release = ?
+           AND edit.editor = ?
+           AND edit.type = ?
+           AND edit.status = ?
+           AND edit.open_time - now() < interval '1 hour'
+    ", $release_id, $self->editor_id, $EDIT_RELEASE_CREATE, $STATUS_OPEN);
+
+    return defined $open_release_edit;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

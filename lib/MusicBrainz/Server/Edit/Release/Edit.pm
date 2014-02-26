@@ -242,9 +242,9 @@ sub _mapping
     );
 }
 
-before 'initialize' => sub
+around 'initialize' => sub
 {
-    my ($self, %opts) = @_;
+    my ($orig, $self, %opts) = @_;
     my $release = $opts{to_edit} or return;
 
     if (exists $opts{artist_credit})
@@ -255,6 +255,8 @@ before 'initialize' => sub
     if (exists $opts{artist_credit} && !$release->artist_credit) {
         $self->c->model('ArtistCredit')->load($release);
     }
+
+    $self->$orig(%opts);
 };
 
 around extract_property => sub {
@@ -306,6 +308,8 @@ sub _edit_hash
             @{ $data->{events} }
         ];
     }
+
+    $data->{comment} //= '' if exists $data->{comment};
 
     return $data;
 }

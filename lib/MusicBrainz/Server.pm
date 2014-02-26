@@ -69,7 +69,9 @@ __PACKAGE__->config(
             'components/rdfa-macros.tt',
         ],
         ENCODING => 'UTF-8',
-        EVAL_PERL => 1
+        EVAL_PERL => 1,
+        COMPILE_EXT => '.ttc',
+        COMPILE_DIR => '/tmp/ttc'
     },
     'Plugin::Session' => {
         expires => DBDefs->SESSION_EXPIRE
@@ -171,6 +173,10 @@ if (DBDefs->_RUNNING_TESTS) {
 else {
     push @args, DBDefs->SESSION_STORE;
     __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
+}
+
+if (!DBDefs->DEVELOPMENT_SERVER) {
+    __PACKAGE__->config->{'View::Default'}->{'STAT_TTL'} = 1200;
 }
 
 if (DBDefs->CATALYST_DEBUG) {
@@ -408,9 +414,14 @@ around 'finalize_error' => sub {
             $c->stash->{stack_trace} = $c->_stacktrace;
             try { $c->stash->{hostname} = hostname; } catch {};
             $c->clear_errors;
-            $c->res->{body} = 'clear';
-            $c->view('Default')->process($c);
-            $c->res->{body} = encode('utf-8', $c->res->{body});
+            if ($c->stash->{error_body_in_stash}) {
+                $c->res->{body} = $c->stash->{body};
+                $c->res->{status} = $c->stash->{status};
+            } else {
+                $c->res->{body} = 'clear';
+                $c->view('Default')->process($c);
+                $c->res->{body} = encode('utf-8', $c->res->{body});
+            }
         }
     });
 };
