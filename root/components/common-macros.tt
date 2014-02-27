@@ -81,7 +81,7 @@ END; -%]
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
     [%- IF artwork.mime_type == "application/pdf" -%]
-        <img src="/static/images/icons/pdf-icon.png" />
+        <img src="[% c.uri_for("/static/images/icons/pdf-icon.png") %]" />
     [%- ELSIF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
