@@ -36,3 +36,6 @@ root/static/styles/[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0
 
 # Ignore installed translation files
 /lib/LocaleData/
+
+# Ignore generated text_strings.tt for QUnit tests.
+/root/static/tests/text.js
