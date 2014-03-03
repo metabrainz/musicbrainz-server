@@ -31,8 +31,10 @@ MB.Control.BubbleBase = aclass({
         this.target(ko.dataFor(control));
         this.visible(true);
 
+        var $bubble = this.$bubble;
+
         if (stealFocus !== false && $(control).is(":button")) {
-            MB.utility.deferFocus(":input:first", this.$bubble);
+            MB.utility.deferFocus(":input:first", $bubble);
         }
 
         var activeBubble = this.activeBubbles[this.group];
@@ -41,6 +43,10 @@ MB.Control.BubbleBase = aclass({
             activeBubble.hide(false);
         }
         this.activeBubbles[this.group] = this;
+
+        _.defer(function () {
+            $bubble.find("a").attr("target", "_blank");
+        });
     },
 
     hide: function (stealFocus) {
@@ -212,6 +218,32 @@ ko.bindingHandlers.controlsBubble = {
             else if (show && !bubble.targetIs(viewModel)) {
                 bubble.show(element);
             }
+        });
+    }
+};
+
+
+// Used to watch for DOM changes, so that doc bubbles stay pointed at the
+// correct position.
+//
+// See https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+// for browser support.
+
+ko.bindingHandlers.affectsBubble = {
+
+    init: function (element, valueAccessor) {
+        if (!window.MutationObserver) {
+            return;
+        }
+
+        var observer = new MutationObserver(_.throttle(function () {
+            _.delay(function () { valueAccessor().redraw() }, 100);
+        }, 100));
+
+        observer.observe(element, { childList: true, subtree: true });
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            observer.disconnect();
         });
     }
 };

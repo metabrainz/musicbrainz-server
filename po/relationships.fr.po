@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-15 19:08+0000\n"
+"PO-Revision-Date: 2014-02-18 17:31+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -901,7 +901,7 @@ msgid ""
 "the label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> "
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music"
 " Group</a>, as Verve continued its existence thereafter as an imprint."
-msgstr "Ceci décrit une situation où le label a changé de nom, soit pour des raisons purement esthétiques, soit suite à un rachat/vente/scission. Un soin particulier devrait être porté dans les cas où des opérations compliquées de fusion/fractionnement/restructuration ont lieu. Par exemple, ce n'est pas une bonne idée de renommer le label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">« Verve »</a> en <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">« The Verve Music Group »</a> car « Verve » a continué d'exister par la suite en tant que marque d'éditeur."
+msgstr "Ceci décrit une situation où le label a changé de nom, soit pour des raisons purement esthétiques, soit suite à un rachat/vente/scission. Un soin particulier devrait être porté dans les cas où des opérations compliquées de fusion/fractionnement/restructuration ont lieu. Par exemple, ce n'est pas une bonne idée de renommer le label <a href=\"/label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">« Verve »</a> en <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">« The Verve Music Group »</a> car « Verve » a continué d'exister par la suite en tant que marque."
 
 #: DB:link_type/description:200
 msgid ""
@@ -1013,7 +1013,7 @@ msgstr "Ceci indique que ce lieu fait partie d'un autre lieu."
 msgid ""
 "This indicates that a record label (company) owns or has the right to use an"
 " imprint."
-msgstr "Ceci indique qu'une maison de disques est propriétaire ou à le droit d'utiliser une marque d'éditeur."
+msgstr "Ceci indique qu'une maison de disques est propriétaire ou à le droit d'utiliser une marque."
 
 #: DB:link_type/description:228
 msgid ""
@@ -2528,7 +2528,7 @@ msgstr "conception graphique par"
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
-msgstr ""
+msgstr "à une marque"
 
 #: DB:link_type/link_phrase:707
 msgid "has interview at"
@@ -2624,11 +2624,11 @@ msgstr "a accueilli la première de"
 
 #: DB:link_type/reverse_link_phrase:725
 msgid "imprint of"
-msgstr ""
+msgstr "marque de"
 
 #: DB:link_type/link_phrase:725
 msgid "imprints"
-msgstr ""
+msgstr "marques"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"

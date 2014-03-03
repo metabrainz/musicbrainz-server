@@ -574,7 +574,7 @@ sub _url
     my ($self, $url) = @_;
 
     return {
-        url           => $url->pretty_name,
+        url           => $url->utf8_decoded,
         id            => $url->id,
         gid           => $url->gid,
         edits_pending => $url->edits_pending,

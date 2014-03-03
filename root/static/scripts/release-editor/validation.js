@@ -289,6 +289,37 @@
     });
 
 
+    // There shouldn't be any duplicate external links.
+
+    function linkIsInvalid(link) {
+        var error = link.error();
+
+        return link.removed() || link.isEmpty() ||
+            (error && error !== MB.text.RelationshipAlreadyExists);
+    }
+
+    function linkIdentifier(link) { return link.linkTypeID() + _.str.trim(link.url()) }
+
+    computeErrors(function (release) {
+        _(release.externalLinks.links())
+            .reject(linkIsInvalid).groupBy(linkIdentifier)
+            .each(function (group) {
+                var duplicate = group.length > 1;
+
+                _(group).each(function (link) {
+                    var msg = MB.text.RelationshipAlreadyExists;
+
+                    if (duplicate) {
+                        link.error(msg);
+                    }
+                    else if (link.error() === msg) {
+                        link.error("");
+                    }
+                });
+            });
+    });
+
+
     function countErrors(memo, func) { return memo + func() }
 
     releaseEditor.validation.errorCount = ko.computed(function () {

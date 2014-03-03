@@ -91,6 +91,11 @@
         [% END %]
       </fieldset>
 
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'artist') %]
+      </fieldset>
+
       [% IF edit_artist_credits && artist_credits %]
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>
@@ -115,6 +120,7 @@
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
     [%- area_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
