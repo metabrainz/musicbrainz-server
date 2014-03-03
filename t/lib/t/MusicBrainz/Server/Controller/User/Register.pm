@@ -17,6 +17,7 @@ test 'Registering without an email address' => sub {
     $mech->submit_form( with_fields => {
         'register.username' => 'brand_new_editor',
         'register.password' => 'ıaa2',
+        'register.email' => 'test@example.com',
         'register.confirm_password' => 'ıaa2',
     });
 

@@ -34,11 +34,47 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Merge');
 cmp_deeply($edit->data, {
     new_entity => {
         id => 6,
-        name => 'The Prologue (disc 1)'
+        name => 'The Prologue (disc 1)',
+        labels => [],
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name'
+                    },
+                    join_phrase => '',
+                    name => 'Name'
+                }
+            ]
+        },
+        mediums => [{
+            format_name => undef,
+            track_count => 1
+        }],
+        events => []
     },
     old_entities => [{
         id => 7,
-        name => 'The Prologue (disc 2)'
+        name => 'The Prologue (disc 2)',
+        labels => [],
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name'
+                    },
+                    join_phrase => '',
+                    name => 'Name'
+                }
+            ]
+        },
+        mediums => [{
+            format_name => undef,
+            track_count => 1
+        }],
+        events => []
     }],
     merge_strategy => 1,
     _edit_version => 3,
@@ -104,11 +140,47 @@ isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Merge');
 is_deeply($edit->data, {
     new_entity => {
         id => 6,
-        name => 'The Prologue (disc 1)'
+        name => 'The Prologue (disc 1)',
+        labels => [],
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name'
+                    },
+                    join_phrase => '',
+                    name => 'Name'
+                }
+            ]
+        },
+        mediums => [{
+            format_name => undef,
+            track_count => 1
+        }],
+        events => []
     },
     old_entities => [{
         id => 7,
-        name => 'The Prologue (disc 2)'
+        name => 'The Prologue (disc 2)',
+        labels => [],
+        artist_credit => {
+            names => [
+                {
+                    artist => {
+                        id => 1,
+                        name => 'Name'
+                    },
+                    join_phrase => '',
+                    name => 'Name'
+                }
+            ]
+        },
+        mediums => [{
+            format_name => undef,
+            track_count => 1
+        }],
+        events => []
     }],
     merge_strategy => 1,
     _edit_version => 3,
