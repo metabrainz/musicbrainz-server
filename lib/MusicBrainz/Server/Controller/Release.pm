@@ -349,7 +349,7 @@ sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit
         $c->detach;
     }
 
-    my @artwork = @{ $c->model ('CoverArtArchive')->find_available_artwork($entity->gid) };
+    my @artwork = @{ $c->model('Artwork')->find_by_release($entity) };
 
     my $count = 1;
     my @positions = map {
@@ -626,7 +626,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
     my $entity = $c->stash->{entity};
 
     my @artwork = @{
-        $c->model ('CoverArtArchive')->find_available_artwork($entity->gid)
+        $c->model('Artwork')->find_by_release($entity)
     } or $c->detach('/error_404');
 
     my $artwork = first { $_->id == $id } @artwork;
@@ -671,7 +671,7 @@ sub remove_cover_art : Chained('load') PathPart('remove-cover-art') Args(1) Edit
 
     my $release = $c->stash->{entity};
     my $artwork = first { $_->id == $id }
-        @{ $c->model ('CoverArtArchive')->find_available_artwork($release->gid) }
+        @{ $c->model('Artwork')->find_by_release($release) }
             or $c->detach('/error_404');
 
     $c->stash( artwork => $artwork );
