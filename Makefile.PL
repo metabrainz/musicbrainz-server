@@ -25,6 +25,7 @@ requires 'Catalyst::Runtime'                          => '5.90011';
 requires 'Catalyst::View::TT'                         => '0.37';
 requires 'CGI::Expand'                                => '2.03';
 requires 'Class::MOP'                                 => '2.0401';
+requires 'Class::Load';
 requires 'CSS::Minifier'                              => '0.01';
 requires 'Clone'                                      => '0.31';
 requires 'Cwd'                                        => '3.40';

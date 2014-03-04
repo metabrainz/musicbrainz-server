@@ -632,21 +632,21 @@ sub allocate_remember_me_token {
     my ($self, $user_name) = @_;
 
     if (
-        $self->sql->select_single_value(
-            'SELECT TRUE FROM editor WHERE name = ?',
-            $user_name
+        my $normalized_name = $self->sql->select_single_value(
+            'SELECT name FROM editor WHERE lower(name) = ?',
+            lc $user_name
         )
     ) {
         # Generate a 128-bit token. irand is 32-bit.
         my $token = join('', map { '' . Math::Random::Secure::irand() } (0 .. 3));
 
-        my $key = "$user_name|$token";
+        my $key = "$normalized_name|$token";
         $self->redis->add($key, 1);
 
         # Expire tokens after 1 year.
         $self->redis->expire($key, 60 * 60 * 24 * 7 * 52);
 
-        return $token;
+        return ($normalized_name, $token);
     }
     else {
         return undef;

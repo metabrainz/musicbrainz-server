@@ -404,3 +404,34 @@ MB.utility.computedWith = function (callback, observable, defaultValue) {
         return result ? callback(result) : defaultValue;
     });
 };
+
+
+MB.utility.isValidURL = (function () {
+    var protocolRegex = /^(https?|ftp):$/;
+    var hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d\-]*[A-z\d])$/;
+
+    return function (url) {
+        var a = document.createElement("a");
+        a.href = url;
+
+        var hostname = a.hostname;
+
+        if (url.indexOf(hostname) < 0) {
+            return false;
+        }
+
+        if (!hostnameRegex.test(hostname)) {
+            return false;
+        }
+
+        if (hostname.indexOf(".") < 0) {
+            return false;
+        }
+
+        if (!protocolRegex.test(a.protocol)) {
+            return false;
+        }
+
+        return true;
+    };
+}());

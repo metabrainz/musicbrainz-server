@@ -444,6 +444,10 @@ $.widget("ui.menu", $.ui.menu, {
         if (!this._selectAction(event)) {
             this._super(event);
         }
+        // When mouseHandled is true, $.ui ignores future mouse events. It only
+        // gets reset to false if you click outside of the menu, but we want
+        // it to be false no matter what.
+        this.mouseHandled = false;
     }
 });
 

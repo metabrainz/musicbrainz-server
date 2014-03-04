@@ -68,6 +68,9 @@
             var edits = [];
 
             _.each(newLabels, function (newLabel) {
+                if (!newLabel.label && !newLabel.catalog_number) {
+                    return;
+                }
                 var id = newLabel.release_label;
 
                 if (id) {
@@ -92,7 +95,7 @@
                 var id = oldLabel.release_label;
                 var newLabel = newLabelsByID[id];
 
-                if (!newLabel) {
+                if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                     // Delete ReleaseLabel
                     oldLabel = _.omit(oldLabel, "label", "catalogNumber");
                     edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
@@ -115,7 +118,6 @@
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
                     var newRecording = track.recording();
-                    var oldRecording = track.recording.original();
 
                     if (newRecording) {
                         newRecording = MB.edit.fields.recording(newRecording);
@@ -130,6 +132,8 @@
                                 artist_credit:  trackData.artist_credit,
                                 length:         trackData.length
                             });
+
+                            var oldRecording = track.recording.savedEditData;
 
                             if (!_.isEqual(newRecording, oldRecording)) {
                                 edits.push(MB.edit.recordingEdit(newRecording, oldRecording));
@@ -201,6 +205,35 @@
                 }
             });
             return edits;
+        },
+
+        externalLinks: function (release) {
+            var edits = [];
+
+            _(release.externalLinks.links()).each(function (link) {
+                link.entity0ID(release.gid || "");
+
+                if (!link.linkTypeID() || !link.url() || link.error()) {
+                    return;
+                }
+
+                var editData = MB.edit.fields.relationship(link);
+                if (release.gid) delete editData.entity0Preview;
+
+                if (link.removed()) {
+                    edits.push(MB.edit.relationshipDelete(editData));
+                }
+                else if (link.id) {
+                    if (!_.isEqual(editData, link.original)) {
+                        edits.push(MB.edit.relationshipEdit(editData, link.original));
+                    }
+                }
+                else {
+                    edits.push(MB.edit.relationshipCreate(editData));
+                }
+            });
+
+            return edits;
         }
     };
 
@@ -215,7 +248,8 @@
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
                 releaseEditor.edits.discID(release),
-                releaseEditor.edits.annotation(release)
+                releaseEditor.edits.annotation(release),
+                releaseEditor.edits.externalLinks(release)
             );
         }, []),
         1500
@@ -314,7 +348,7 @@
 
             $.when(submitted)
                 .done(function (data) {
-                    data && current.callback(data.edits);
+                    data && current.callback && current.callback(data.edits);
 
                     _.defer(nextSubmission);
                 })
@@ -408,6 +442,9 @@
                 callback: function () {
                     release.annotation.original(release.annotation());
                 }
+            },
+            {
+                edits: releaseEditor.edits.externalLinks
             }
         ]);
     };

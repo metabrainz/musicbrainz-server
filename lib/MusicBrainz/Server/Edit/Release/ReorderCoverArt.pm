@@ -11,6 +11,7 @@ use MusicBrainz::Server::Edit::Utils qw( changed_display_data );
 use MusicBrainz::Server::Translation qw ( N_l );
 
 use List::UtilsBy 'nsort_by';
+use Data::Compare;
 
 use aliased 'MusicBrainz::Server::Entity::Release';
 use aliased 'MusicBrainz::Server::Entity::Artwork';
@@ -45,6 +46,10 @@ has '+data' => (
 sub initialize {
     my ($self, %opts) = @_;
     my $release = $opts{release} or die 'Release missing';
+
+    MusicBrainz::Server::Edit::Exceptions::NoChanges->throw
+        if Compare( [ nsort_by { $_->{position} } @{$opts{old}} ],
+                    [ nsort_by { $_->{position} } @{$opts{new}} ] );
 
     $self->data({
         entity => {

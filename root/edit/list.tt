@@ -1,18 +1,18 @@
-[% BLOCK edit_status %]
-    [% IF edit.status == 1 %]
+[%~ BLOCK edit_status ~%]
+    [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
-    [% ELSIF edit.status == 2 %]
+    [%~ ELSIF edit.status == 2 ~%]
         [%- " applied" -%]
-    [% ELSIF edit.status == 3 %]
+    [%~ ELSIF edit.status == 3 ~%]
         [%- " failed" -%]
-    [% ELSIF edit.status == 8 %]
+    [%~ ELSIF edit.status == 8 %]
         [%- " cancelling" -%]
-    [% ELSIF edit.status == 9 %]
+    [%~ ELSIF edit.status == 9 ~%]
         [%- " cancelled" -%]
-    [% ELSE %]
-        [%- " error" -%]
-    [% END %]
-[% END %]
+    [%~ ELSE ~%]
+        [%- " edit-error" -%]
+    [%~ END ~%]
+[%~ END ~%]
 
 [% INCLUDE 'edit/list_header.tt' %]
 
@@ -51,9 +51,9 @@
     [% WRAPPER 'components/with-pager.tt' search=0;
     # We always want search != 1 when calling the paginator from this template %]
         <form action="[% c.uri_for('/edit/enter_votes') %]" method="post">
-            [%- FOREACH edit=edits -%]
+            [%~ FOREACH edit=edits ~%]
                 <div class="edit-list">
-                    [% INCLUDE 'edit/edit_header.tt' summary=1 %]
+                    [%~ INCLUDE 'edit/edit_header.tt' summary=1 -%]
 
                     <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
 

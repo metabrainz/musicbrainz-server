@@ -377,6 +377,8 @@ sub CATALYST_DEBUG { 1 }
 # developing and debugging easier
 sub DEVELOPMENT_SERVER { 1 }
 
+sub STAT_TTL { shift->DEVELOPMENT_SERVER() ? undef : 1200 }
+
 # Please activate the officially approved languages here. Not every .po
 # file is active because we might have fully translated languages which
 # are not yet properly supported, like right-to-left languages

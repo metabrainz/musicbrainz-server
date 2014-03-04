@@ -130,9 +130,9 @@ MB.constants.LINK_TYPES = {
         place: 627
     },
     streamingmusic: {
-	artist: 194,
+        artist: 194,
         recording: 268,
-	release: 85
+        release: 85
     },
     vimeo: {
         // Video channel for artist/label, streaming music for release/recording
@@ -528,237 +528,250 @@ MB.constants.CLEANUPS = {
 };
 
 
-MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
+MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObservable, handleErrors) {
     var self = {};
 
     self.typeControl = $(typeControl);
     self.urlControl = $(urlControl);
     self.sourceType = sourceType;
+    self.error = errorObservable || ko.observable("");
 
-    self.errorList = $('<ul class="errors" />').hide();
-    self.typeControl.after(self.errorList);
+    self.error.subscribe(function (error) {
+        $("button[type=submit]").prop("disabled", !!error);
+    });
+
+    self.error.notifySubscribers(self.error());
+
+    if (handleErrors !== false) {
+        var $errorSpan = $("<span>").addClass("error").hide();
+
+        self.typeControl.after($errorSpan);
+
+        ko.applyBindingsToNode($errorSpan[0], {
+            visible: self.error, text: self.error
+        });
+    }
 
     var validationRules = { };
     // "has lyrics at" is only allowed for certain lyrics sites
-    validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function() {
-        return MB.constants.CLEANUPS.lyrics.match.test($('#id-ar\\.url').val())
+    validationRules[ MB.constants.LINK_TYPES.lyrics.artist ] = function (url) {
+        return MB.constants.CLEANUPS.lyrics.match.test(url)
     };
-    validationRules[ MB.constants.LINK_TYPES.lyrics.release_group ] = function() {
-        return MB.constants.CLEANUPS.lyrics.match.test($('#id-ar\\.url').val())
+    validationRules[ MB.constants.LINK_TYPES.lyrics.release_group ] = function (url) {
+        return MB.constants.CLEANUPS.lyrics.match.test(url)
     };
-    validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function() {
-        return MB.constants.CLEANUPS.lyrics.match.test($('#id-ar\\.url').val())
+    validationRules[ MB.constants.LINK_TYPES.lyrics.work ] = function (url) {
+        return MB.constants.CLEANUPS.lyrics.match.test(url)
     };
     // allow Discogs page only for the correct entities
-    validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/discogs\.com\/(artist|user)\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.discogs.artist ] = function (url) {
+        return url.match(/discogs\.com\/(artist|user)\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function() {
-        return $('#id-ar\\.url').val().match(/discogs\.com\/label\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.discogs.label ] = function (url) {
+        return url.match(/discogs\.com\/label\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/discogs\.com\/master\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.discogs.release_group ] = function (url) {
+        return url.match(/discogs\.com\/master\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function() {
-        return $('#id-ar\\.url').val().match(/discogs\.com\/(release|mp3)\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.discogs.release ] = function (url) {
+        return url.match(/discogs\.com\/(release|mp3)\//) != null;
     }
     // allow Allmusic page only for the correct entities
-    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/allmusic\.com\/artist\/mn/) != null;
+    validationRules[ MB.constants.LINK_TYPES.allmusic.artist ] = function (url) {
+        return url.match(/allmusic\.com\/artist\/mn/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/allmusic\.com\/album\/mw/) != null;
+    validationRules[ MB.constants.LINK_TYPES.allmusic.release_group ] = function (url) {
+        return url.match(/allmusic\.com\/album\/mw/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function() {
-        return $('#id-ar\\.url').val().match(/allmusic\.com\/composition\/mc|song\/mt/) != null;
+    validationRules[ MB.constants.LINK_TYPES.allmusic.work ] = function (url) {
+        return url.match(/allmusic\.com\/composition\/mc|song\/mt/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function() {
-        return $('#id-ar\\.url').val().match(/allmusic\.com\/performance\/mq/) != null;
+    validationRules[ MB.constants.LINK_TYPES.allmusic.recording ] = function (url) {
+        return url.match(/allmusic\.com\/performance\/mq/) != null;
     }
 
     // allow only artist pages in BBC Music links
-    validationRules[ MB.constants.LINK_TYPES.bbcmusic.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/bbc\.co\.uk\/music\/artists\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.bbcmusic.artist ] = function (url) {
+        return url.match(/bbc\.co\.uk\/music\/artists\//) != null;
     }
 
     // allow only Wikipedia pages with the Wikipedia rel
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.artist ] = function (url) {
+        return url.match(/wikipedia\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.work ] = function() {
-        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.work ] = function (url) {
+        return url.match(/wikipedia\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.label ] = function() {
-        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.label ] = function (url) {
+        return url.match(/wikipedia\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.release_group ] = function (url) {
+        return url.match(/wikipedia\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikipedia.area ] = function() {
-        return $('#id-ar\\.url').val().match(/wikipedia\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikipedia.area ] = function (url) {
+        return url.match(/wikipedia\.org\//) != null;
     }
 
     // allow only Myspace pages with the Myspace rel
-    validationRules[ MB.constants.LINK_TYPES.myspace.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.myspace.artist ] = function (url) {
+        return url.match(/myspace\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.myspace.label ] = function() {
-        return $('#id-ar\\.url').val().match(/myspace\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.myspace.label ] = function (url) {
+        return url.match(/myspace\.com\//) != null;
     }
 
     // allow only PureVolume pages with the PureVolume rel
-    validationRules[ MB.constants.LINK_TYPES.purevolume.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/purevolume\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.purevolume.artist ] = function (url) {
+        return url.match(/purevolume\.com\//) != null;
     }
 
     // allow only SecondHandSongs pages with the SecondHandSongs rel
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function (url) {
+        return url.match(/secondhandsongs\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function (url) {
+        return url.match(/secondhandsongs\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function (url) {
+        return url.match(/secondhandsongs\.com\//) != null;
     }
 
     // allow only Songfacts pages with the Songfacts rel
-    validationRules[ MB.constants.LINK_TYPES.songfacts.work ] = function() {
-        return $('#id-ar\\.url').val().match(/songfacts\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.songfacts.work ] = function (url) {
+        return url.match(/songfacts\.com\//) != null;
     }
 
     // allow only Soundcloud pages with the Soundcloud rel
-    validationRules[ MB.constants.LINK_TYPES.soundcloud.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.artist ] = function (url) {
+        return url.match(/soundcloud\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.soundcloud.label ] = function() {
-        return $('#id-ar\\.url').val().match(/soundcloud\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.soundcloud.label ] = function (url) {
+        return url.match(/soundcloud\.com\//) != null;
     }
 
     // allow only VIAF pages with the VIAF rel
-    validationRules[ MB.constants.LINK_TYPES.viaf.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.viaf.artist ] = function (url) {
+        return url.match(/viaf\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.viaf.work ] = function() {
-        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.viaf.work ] = function (url) {
+        return url.match(/viaf\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.viaf.label ] = function() {
-        return $('#id-ar\\.url').val().match(/viaf\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.viaf.label ] = function (url) {
+        return url.match(/viaf\.org\//) != null;
     }
 
     // allow only VGMdb pages with the VGMdb rel
-    validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\/(?:artist|org)\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.artist ] = function (url) {
+        return url.match(/vgmdb\.net\/(?:artist|org)\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\/album\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.release ] = function (url) {
+        return url.match(/vgmdb\.net\/album\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function() {
-        return $('#id-ar\\.url').val().match(/vgmdb\.net\/org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.vgmdb.label ] = function (url) {
+        return url.match(/vgmdb\.net\/org\//) != null;
     }
 
     // allow only YouTube pages with the YouTube rel
-    validationRules[ MB.constants.LINK_TYPES.youtube.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.youtube.artist ] = function (url) {
+        return url.match(/youtube\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.youtube.label ] = function() {
-        return $('#id-ar\\.url').val().match(/youtube\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.youtube.label ] = function (url) {
+        return url.match(/youtube\.com\//) != null;
     }
 
     // allow only Amazon pages with the Amazon rel
-    validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function() {
-        return $('#id-ar\\.url').val().match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.amazon.release ] = function (url) {
+        return url.match(/amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es)\//) != null;
     }
 
     // allow only IMDb pages with the IMDb rels
-    validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\/(name|character|company)/) != null;
+    validationRules[ MB.constants.LINK_TYPES.imdb.artist ] = function (url) {
+        return url.match(/imdb\.com\/(name|character|company)/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\/company/) != null;
+    validationRules[ MB.constants.LINK_TYPES.imdb.label ] = function (url) {
+        return url.match(/imdb\.com\/company/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\/title/) != null;
+    validationRules[ MB.constants.LINK_TYPES.imdb.release_group ] = function (url) {
+        return url.match(/imdb\.com\/title/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.imdbsamples.recording ] = function (url) {
+        return url.match(/imdb\.com\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function() {
-        return $('#id-ar\\.url').val().match(/imdb\.com\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.imdbsamples.release ] = function (url) {
+        return url.match(/imdb\.com\//) != null;
     }
 
     // allow only SecondHandSongs pages with the SecondHandSongs rel and at the right level
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/artist\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.artist ] = function (url) {
+        return url.match(/secondhandsongs\.com\/artist\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/release\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.release ] = function (url) {
+        return url.match(/secondhandsongs\.com\/release\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function() {
-        return $('#id-ar\\.url').val().match(/secondhandsongs\.com\/work\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.secondhandsongs.work ] = function (url) {
+        return url.match(/secondhandsongs\.com\/work\//) != null;
     }
 
     // allow only Wikidata pages with the Wikidata rel
-    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikidata.artist ] = function (url) {
+        return url.match(/wikidata\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function() {
-        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikidata.work ] = function (url) {
+        return url.match(/wikidata\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function() {
-        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikidata.label ] = function (url) {
+        return url.match(/wikidata\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function() {
-        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikidata.release_group ] = function (url) {
+        return url.match(/wikidata\.org\//) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function() {
-        return $('#id-ar\\.url').val().match(/wikidata\.org\//) != null;
+    validationRules[ MB.constants.LINK_TYPES.wikidata.area ] = function (url) {
+        return url.match(/wikidata\.org\//) != null;
     }
 
     // allow only top-level Bandcamp pages as artist/label URLs
-    validationRules[ MB.constants.LINK_TYPES.bandcamp.artist ] = function() {
-        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.artist ] = function (url) {
+        return url.match(/\.bandcamp\.com\/$/) != null;
     }
-    validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function() {
-        return $('#id-ar\\.url').val().match(/\.bandcamp\.com\/$/) != null;
+    validationRules[ MB.constants.LINK_TYPES.bandcamp.label ] = function (url) {
+        return url.match(/\.bandcamp\.com\/$/) != null;
     }
 
     // avoid wikipedia being added as release-level discography entry
-    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function() {
+    validationRules [ MB.constants.LINK_TYPES.discographyentry.release ] = function (url) {
         var is_wikipedia = new RegExp('^(https?://)?([^.]+\.)?wikipedia\\.org/');
-        return !is_wikipedia.test($('#id-ar\\.url').val())
+        return !is_wikipedia.test(url)
     };
 
     // only allow domains on the score whitelist
-    var validateScore = function() {
-        return MB.constants.CLEANUPS.score.match.test($('#id-ar\\.url').val())
+    var validateScore = function (url) {
+        return MB.constants.CLEANUPS.score.match.test(url)
     };
     validationRules[ MB.constants.LINK_TYPES.score.release_group ] = validateScore;
     validationRules[ MB.constants.LINK_TYPES.score.work ] = validateScore;
 
     // Ensure Soundtrack Collector stuff is added to the right level
-    var STCollector_is_not_RG = function () {
+    var STCollector_is_not_RG = function (url) {
         var STcheckRG = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/title/');
-        return !STcheckRG.test($('#id-ar\\.url').val())
+        return !STcheckRG.test(url)
     };
-    var STCollector_is_not_artist = function () {
+    var STCollector_is_not_artist = function (url) {
         var STcheckartist = new RegExp('^(https?://)?(www\\.)?soundtrackcollector\\.com/composer/');
-        return !STcheckartist.test($('#id-ar\\.url').val())
+        return !STcheckartist.test(url)
     };
 
     // only allow domains on the other databases whitelist
-    var validateOtherDatabases = function() {
-        return MB.constants.CLEANUPS.otherdatabases.match.test($('#id-ar\\.url').val())
+    var validateOtherDatabases = function (url) {
+        return MB.constants.CLEANUPS.otherdatabases.match.test(url)
     };
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = function () {return validateOtherDatabases() && STCollector_is_not_RG()}
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.artist ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_RG(url)}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.label ] = validateOtherDatabases
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = function () {return validateOtherDatabases() && STCollector_is_not_artist()}
-    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function () {return validateOtherDatabases() && STCollector_is_not_RG() && STCollector_is_not_artist()}
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release_group ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_artist(url)}
+    validationRules[ MB.constants.LINK_TYPES.otherdatabases.release ] = function (url) {return validateOtherDatabases(url) && STCollector_is_not_RG(url) && STCollector_is_not_artist(url)}
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.work ] = validateOtherDatabases
     validationRules[ MB.constants.LINK_TYPES.otherdatabases.recording ] = validateOtherDatabases
 
-    var validateFacebook = function() {
-        var url = $('#id-ar\\.url').val();
+    var validateFacebook = function (url) {
         if (url.match(/facebook.com\/pages\//)) {
             return url.match(/\/pages\/[^\/?#]+\/\d+/);
         }
@@ -768,8 +781,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.socialnetwork.label ] = validateFacebook;
 
     // Block images from sites that don't allow deeplinking
-    var validateImage = function() {
-        var url = $('#id-ar\\.url').val();
+    var validateImage = function (url) {
         if (url.match(/\/\/s\.pixogs\.com\//)) { return false; }
         if (url.match(/\/\/s\.discogss\.com\//)) { return false; }
         return true;
@@ -779,45 +791,46 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
     validationRules[ MB.constants.LINK_TYPES.image.place ] = validateImage;
 
     self.guessType = function (sourceType, currentURL) {
-        for (var group in MB.constants.CLEANUPS) {
-            if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
+        var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
+            return (cleanup.type || {})[sourceType] && cleanup.match.test(currentURL);
+        });
 
-            var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.match.test(currentURL) || !cleanup.type.hasOwnProperty(sourceType)) { continue; }
-            return cleanup.type[sourceType];
-        }
-        return;
+        return cleanup && cleanup.type[sourceType];
     };
 
     self.cleanUrl = function (sourceType, dirtyURL) {
-        dirtyURL = dirtyURL.replace(/^\s+/, '');
-        dirtyURL = dirtyURL.replace(/\s+$/, '');
-        dirtyURL = dirtyURL.replace(/%E2%80%8E$/, '');
+        dirtyURL = _.str.trim(dirtyURL).replace(/(%E2%80%8E|\u200E)$/, "");
 
-        for (var group in MB.constants.CLEANUPS) {
-            if(!MB.constants.CLEANUPS.hasOwnProperty(group)) { continue; }
+        var cleanup = _.find(MB.constants.CLEANUPS, function (cleanup) {
+            return cleanup.clean && cleanup.match.test(dirtyURL);
+        });
 
-            var cleanup = MB.constants.CLEANUPS[group];
-            if(!cleanup.hasOwnProperty('clean') || !cleanup.match.test(dirtyURL))
-                continue;
-
-            return cleanup.clean(dirtyURL);
-        }
-        return dirtyURL;
+        return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
     };
 
-    var typeChanged = function(event) {
-        var checker = validationRules[$('#id-ar\\.link_type_id').val()];
-        if (!checker || checker()) {
-            self.errorList.hide();
-            $('button[type="submit"]').prop('disabled', false);
+    // A list of errors that are set/cleared by the URLCleanup code. Used to
+    // determine whether it's safe to clear other errors set by outside code.
+
+    var linkTypeErrors = [
+        MB.text.SelectURLType,
+        MB.text.URLNotAllowed,
+        MB.text.RelationshipTypeDeprecated
+    ];
+
+
+    var typeChanged = function (event) {
+        var url = self.urlControl.val();
+        var linkType = self.typeControl.val();
+        var checker = validationRules[linkType];
+
+        if (url && !linkType) {
+            self.error(MB.text.SelectURLType);
         }
-        else {
-            self.errorList.show().empty().append('<li>' + MB.text.URLNotAllowed + '</li>');
-            if (event.type === 'submit') {
-                event.preventDefault();
-            }
-            $('button[type="submit"]').prop('disabled', true);
+        else if (url && checker && !checker(url)) {
+            self.error(MB.text.URLNotAllowed);
+        }
+        else if (_.contains(linkTypeErrors, self.error())) {
+            self.error("");
         }
     };
 
@@ -827,24 +840,49 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl) {
 
         if (url.match(/^\w+\./)) {
             self.urlControl.val('http://' + url);
-            return
+            return;
         }
 
-        if (url !== clean)
+        // Allow adding spaces while typing; they'll be trimmed later onblur.
+        if (_.str.trim(url) !== clean) {
             self.urlControl.val(clean);
+        }
 
-        if (self.typeControl.length) {
-            var type = self.guessType(self.sourceType, clean);
-            self.typeControl.children('option[value="' + type +'"]')
-                .prop('selected', true).trigger('change');
-            typeChanged(event);
+        if (!clean) {
+            if (self.error() !== MB.text.RequiredField) {
+                self.error("");
+            }
+        }
+        else if (!MB.utility.isValidURL(clean)) {
+            self.error(MB.text.EnterAValidURL);
+        }
+        else {
+            if (self.error() === MB.text.EnterAValidURL) {
+                self.error("");
+            }
+
+            if (self.typeControl.length) {
+                var type = self.guessType(self.sourceType, clean);
+
+                if (type) {
+                    self.typeControl.val(type).trigger("change");
+                }
+
+                typeChanged(event);
+            }
+        }
+
+        if (event.type === "submit" && self.error()) {
+            event.preventDefault();
         }
     };
 
-    self.urlControl
-        .change(urlChanged)
-        .keyup(urlChanged)
-        .bind('input propertychange', urlChanged);
+    self.typeControl.on("change", typeChanged);
+    self.urlControl.on("change keydown keyup input propertychange", urlChanged);
+
+    self.urlControl.on("blur", function () {
+        this.value = _.str.trim(this.value);
+    });
 
     self.urlControl.parents('form').submit(urlChanged);
 

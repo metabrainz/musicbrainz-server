@@ -18,6 +18,9 @@
         EDIT_MEDIUM_DELETE:                         53,
         EDIT_MEDIUM_ADD_DISCID:                     55,
         EDIT_RECORDING_EDIT:                        72,
+        EDIT_RELATIONSHIP_CREATE:                   90,
+        EDIT_RELATIONSHIP_EDIT:                     91,
+        EDIT_RELATIONSHIP_DELETE:                   92,
         EDIT_RELEASE_REORDER_MEDIUMS:               313
     };
 
@@ -106,6 +109,24 @@
                 comment:        string(recording.comment),
                 video:          Boolean(value(recording.video))
             };
+        },
+
+        relationship: function (relationship) {
+            var data = {
+                relationship:   number(relationship.id),
+                link_type:      number(relationship.linkTypeID),
+                entity0:        string(relationship.entity0ID),
+                entity1:        string(relationship.entity1ID),
+                type0:          string(relationship.type0),
+                type1:          string(relationship.type1)
+            };
+            if (relationship.entity0Preview) {
+                data.entity0Preview = string(relationship.entity0Preview);
+            }
+            if (relationship.entity1Preview) {
+                data.entity1Preview = string(relationship.entity1Preview);
+            }
+            return data;
         },
 
         release: function (release) {
@@ -303,6 +324,46 @@
             if (args.name === orig.name) {
                 delete args.name;
             }
+        }
+    );
+
+
+    edit.relationshipCreate = editConstructor(
+        TYPES.EDIT_RELATIONSHIP_CREATE,
+        function (args) {
+            delete args.relationship;
+
+            // These can be undefined when previewing a relationship to an
+            // entity that hasn't been created yet (e.g. URL relationships
+            // in /release/add).
+            if (!args.entity0) delete args.entity0;
+            if (!args.entity1) delete args.entity1;
+        }
+    );
+
+
+    edit.relationshipEdit = editConstructor(
+        TYPES.EDIT_RELATIONSHIP_EDIT,
+        function (args, orig) {
+            if (args.link_type === orig.link_type) {
+                delete args.link_type;
+            }
+            if (!args.entity0 || args.entity0 === orig.entity0) {
+                delete args.entity0;
+            }
+            if (!args.entity1 || args.entity1 === orig.entity1) {
+                delete args.entity1;
+            }
+        }
+    );
+
+
+    edit.relationshipDelete = editConstructor(
+        TYPES.EDIT_RELATIONSHIP_DELETE,
+        function (args) {
+            delete args.link_type;
+            delete args.entity0;
+            delete args.entity1;
         }
     );
 
