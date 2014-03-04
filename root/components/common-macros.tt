@@ -1119,7 +1119,5 @@ END -%]
 
 [%- MACRO set_header BLOCK -%]
 <!DOCTYPE html>
-[% FILTER collapse -%]
 <html lang="[%- current_language_html -%]">
-[%- END -%]
 [%- END -%]
