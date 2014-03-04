@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 00:18-0700\n"
-"PO-Revision-Date: 2014-02-21 07:20+0000\n"
+"POT-Creation-Date: 2014-03-03 17:40-0700\n"
+"PO-Revision-Date: 2014-03-04 00:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -142,7 +142,7 @@ msgstr "« {tag} »  a été utilisé {num} fois"
 msgid "(<span class=\"comment\">primary</span>)"
 msgstr "(<span class=\"comment\">primaire</span>)"
 
-#: ../root/user/profile.tt:27
+#: ../root/user/profile.tt:33
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>non vérifié !</strong>)"
 
@@ -162,7 +162,7 @@ msgstr "(cliquer ici pour afficher l'annotation)"
 msgid "(ended)"
 msgstr "(terminé)"
 
-#: ../root/user/profile.tt:19
+#: ../root/user/profile.tt:25
 msgid "(hidden)"
 msgstr "(caché)"
 
@@ -203,7 +203,7 @@ msgctxt "description"
 msgid "(none)"
 msgstr "(aucun)"
 
-#: ../root/user/profile.tt:38
+#: ../root/user/profile.tt:44
 msgctxt "email"
 msgid "(none)"
 msgstr "(aucun)"
@@ -248,7 +248,7 @@ msgstr "(enregistrement isolé)"
 msgid "(unknown)"
 msgstr "(inconnu)"
 
-#: ../root/user/profile.tt:23
+#: ../root/user/profile.tt:29
 msgid "(verified at {date})"
 msgstr "(vérifié le {date})"
 
@@ -277,7 +277,7 @@ msgstr ", "
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "0"
 msgstr "0"
 
@@ -287,7 +287,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "1 vote"
 msgstr[1] "{n} votes unanimes"
 
-#: ../root/user/profile.tt:234 ../root/user/profile.tt:238
+#: ../root/user/profile.tt:238 ../root/user/profile.tt:242
 msgid "100%"
 msgstr "100 %"
 
@@ -462,7 +462,7 @@ msgstr "Accepter la modification"
 msgid "Accept upon expiration"
 msgstr "Accepter à l'expiration"
 
-#: ../root/user/profile.tt:147
+#: ../root/user/profile.tt:151
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Accepté"
@@ -711,7 +711,7 @@ msgstr "Ajouter un autre"
 
 #: ../root/components/forms.tt:377
 msgid "Add another link:"
-msgstr ""
+msgstr "Ajouter un autre lien :"
 
 #: ../root/scripts/text_strings.tt:45
 msgid "Add another medium"
@@ -750,7 +750,7 @@ msgstr "Ajouter un alias de label"
 
 #: ../root/components/forms.tt:377
 msgid "Add link:"
-msgstr ""
+msgstr "Ajouter un lien :"
 
 #: ../root/place/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:14
@@ -886,7 +886,7 @@ msgstr "Administration"
 msgid "Administration flags"
 msgstr "Drapeaux d'administration"
 
-#: ../root/user/profile.tt:61
+#: ../root/user/profile.tt:65
 msgid "Age:"
 msgstr "Âge :"
 
@@ -946,6 +946,10 @@ msgstr "Toutes mes modifications"
 #: ../root/scripts/text_strings.tt:124
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Tous vos changements seront perdus si vous quittez cette page."
+
+#: ../root/edit/details/merge_releases.tt:127
+msgid "All recordings for these releases are already merged."
+msgstr ""
 
 #: ../root/release/cover_art.tt:22
 msgid "All sizes:"
@@ -1120,7 +1124,7 @@ msgstr "Apparitions"
 msgid "Appears on releases"
 msgstr "Apparaît sur les parutions"
 
-#: ../root/edit/details/merge_releases.tt:94
+#: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:50
 msgid "Append mediums to target release"
 msgstr "Ajouter ces supports à la parution cible"
@@ -1595,7 +1599,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Les auto-éditeurs sont des utilisateurs de confiance ayant le privilège {url|auto-éditeur}. Ce privilège leur permet de faire certaines modifications qui seront automatiquement approuvées sans avoir besoin de passer par le processus normal de vote, ainsi que le privilège d'approuver immédiatement les modifications des autres utilisateurs"
 
-#: ../root/user/profile.tt:151
+#: ../root/user/profile.tt:155
 msgid "Auto-edits"
 msgstr "Modifications par auto-éditeur"
 
@@ -1788,7 +1792,7 @@ msgid ""
 msgstr "Voici ci-dessous les informations sur l'erreur. Si vous désirez remplir un rapport de bogue, vous pouvez le faire avec {bugs|notre gestionnaire de bogues}. Les informations ci-dessous nous aiderons, donc veuillez vous assurer de les inclure."
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
-#: ../root/user/profile.tt:113
+#: ../root/user/profile.tt:117
 msgid "Bio:"
 msgstr "Bio :"
 
@@ -1979,7 +1983,7 @@ msgstr "Annuler la modification"
 msgid "Cancel the election"
 msgstr "Annuler l'élection"
 
-#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../root/user/profile.tt:171 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Cancelled"
 msgstr "Annulé"
 
@@ -2984,7 +2988,7 @@ msgid "Edit profile"
 msgstr "Modifier le profile"
 
 #: ../root/recording/edit.tt:1
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:34
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:36
 msgid "Edit recording"
 msgstr "Modifier l'enregistrement"
 
@@ -3084,7 +3088,7 @@ msgstr "Éditeurs abonnés à ce label"
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/user/profile.tt:142
+#: ../root/user/profile.tt:146
 msgid "Edits ({view_url|view})"
 msgstr "Modifications ({view_url|voir})"
 
@@ -3166,7 +3170,7 @@ msgstr "courriel envoyé !"
 
 #: ../root/account/edit.tt:18 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:33 ../root/user/profile.tt:14
+#: ../root/admin/edit_user.tt:33 ../root/user/profile.tt:20
 msgid "Email:"
 msgstr "Courriel :"
 
@@ -3314,7 +3318,7 @@ msgid "Entity types:"
 msgstr "Types d'entités :"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:267
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Error"
 msgstr "Erreur"
 
@@ -3417,7 +3421,7 @@ msgstr[1] "Expire dans <span class=\"tooltip\" title=\"{exactdate}\">{num} minut
 #: ../root/recording/edit_form.tt:19 ../root/release/edit/information.tt:227
 #: ../root/release_group/edit_form.tt:18 ../root/work/edit_form.tt:18
 msgid "External Links"
-msgstr ""
+msgstr "Liens externes"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:38
 msgid "External links"
@@ -3427,7 +3431,7 @@ msgstr "Liens externes"
 msgid "FAQs"
 msgstr "FAQ"
 
-#: ../root/user/profile.tt:159
+#: ../root/user/profile.tt:163
 msgid "Failed"
 msgstr "Échec"
 
@@ -3636,11 +3640,11 @@ msgstr "Genre"
 #: ../root/account/edit.tt:20 ../root/artist/edit_form.tt:45
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:14
 #: ../root/edit/details/add_artist.tt:31
-#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:67
+#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:71
 msgid "Gender:"
 msgstr "Genre :"
 
-#: ../root/user/profile.tt:11
+#: ../root/user/profile.tt:17
 msgid "General Information"
 msgstr "Information Générale"
 
@@ -3744,7 +3748,7 @@ msgstr "Haute"
 msgid "Historic"
 msgstr "Historique"
 
-#: ../root/user/profile.tt:90
+#: ../root/user/profile.tt:94
 msgid "Homepage:"
 msgstr "Page d'accueil :"
 
@@ -4113,7 +4117,7 @@ msgstr "Langue de l'interface :"
 msgid "Internal Server Error"
 msgstr "Erreur Interne sur le serveur"
 
-#: ../root/user/profile.tt:45
+#: ../root/user/profile.tt:51
 msgid "Internal/Bot"
 msgstr "Interne/Robot"
 
@@ -4125,6 +4129,7 @@ msgstr "Interne/Robot"
 #: ../root/edit/details/merge_releases.tt:70
 #: ../root/edit/details/merge_releases.tt:75
 #: ../root/edit/details/merge_releases.tt:84
+#: ../root/edit/details/merge_releases.tt:101
 #: ../root/edit/details/merge_works.tt:10
 msgid "Into:"
 msgstr "Dans : "
@@ -4294,15 +4299,15 @@ msgstr "Langue : {language}, système d'écriture : {script}"
 msgid "Languages Known:"
 msgstr "Langues connus :"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "Languages:"
 msgstr "Langues : "
 
-#: ../root/user/profile.tt:171
+#: ../root/user/profile.tt:175
 msgid "Last 24 hours"
 msgstr "Les dernières 24 heures"
 
-#: ../root/user/profile.tt:201
+#: ../root/user/profile.tt:205
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
 
@@ -4365,7 +4370,7 @@ msgid ""
 "contribute}."
 msgstr "Comme Wikipedia, MusicBrainz est maintenu par une communauté mondiale d'utilisateurs et nous souhaitons que tout le monde &#x2014; vous y compris &#x2014; {doc|participe et contribue}."
 
-#: ../root/user/profile.tt:49
+#: ../root/user/profile.tt:55
 msgid "Limited User"
 msgstr "Utilisateur limité"
 
@@ -4444,7 +4449,7 @@ msgstr "Éditeurs de lieu"
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr "Les éditeurs de lieu sont des utilisateurs qui peuvent ajouter ou modifier des {uri|régions}."
 
-#: ../root/account/edit.tt:23 ../root/user/profile.tt:73
+#: ../root/account/edit.tt:23 ../root/user/profile.tt:77
 msgid "Location:"
 msgstr "Lieu :"
 
@@ -4626,7 +4631,7 @@ msgstr "Support :"
 msgid "Mediums:"
 msgstr "Supports :"
 
-#: ../root/user/profile.tt:79
+#: ../root/user/profile.tt:83
 msgid "Member since:"
 msgstr "Membre depuis :"
 
@@ -4690,7 +4695,7 @@ msgstr "Fusionner le label"
 msgid "Merge language &amp; script:"
 msgstr "Fusionner la langue &amp; le système d'écriture :"
 
-#: ../root/edit/details/merge_releases.tt:94
+#: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:51
 msgid "Merge mediums and recordings"
 msgstr "Fusionner les supports et les enregistrements"
@@ -4716,7 +4721,7 @@ msgstr "Fusionner le groupe de parution"
 msgid "Merge release groups"
 msgstr "Fusionner des groupes de parution"
 
-#: ../root/edit/details/merge_releases.tt:92 ../root/release/merge.tt:66
+#: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:66
 msgid "Merge strategy:"
 msgstr "Fusionner des stratégies : "
 
@@ -5271,7 +5276,7 @@ msgstr "Aucun"
 msgid "Normal"
 msgstr "Normal"
 
-#: ../root/user/profile.tt:52
+#: ../root/user/profile.tt:58
 msgid "Normal User"
 msgstr "Utilisateur normal"
 
@@ -5410,7 +5415,7 @@ msgstr "Oops ! Il semble que vos paramètres de recherche sont incorrects, veuil
 msgid "Oops, something went wrong!"
 msgstr "Oups, quelque chose a mal tourné !"
 
-#: ../root/user/profile.tt:163 ../lib/MusicBrainz/Server/Edit/Utils.pm:263
+#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
 msgstr "Ouvrir"
 
@@ -5457,7 +5462,7 @@ msgstr "Autres recherches"
 msgid "Other lookups"
 msgstr "Autres recherches"
 
-#: ../root/user/profile.tt:204
+#: ../root/user/profile.tt:208
 msgid "Overall"
 msgstr "Global"
 
@@ -5762,7 +5767,7 @@ msgstr "Consultez la documentation sur les <a href=\"{doc}\" target=\"_blank\">T
 
 #: ../root/scripts/text_strings.tt:143
 msgid "Please select a link type for the URL you’ve entered."
-msgstr ""
+msgstr "Veuillez choisir un type de lien pour l'URL que vous avez saisie."
 
 #: ../root/scripts/text_strings.tt:38
 msgid "Please select a relationship type."
@@ -5993,8 +5998,9 @@ msgid "Recent Additions"
 msgstr "Ajouts récents"
 
 #: ../root/components/common-macros.tt:583
-#: ../root/components/common-macros.tt:642 ../root/edit/search_macros.tt:307
-#: ../root/release/edit_relationships.tt:53
+#: ../root/components/common-macros.tt:642
+#: ../root/edit/details/merge_releases.tt:100
+#: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:53
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8 ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -6005,6 +6011,10 @@ msgstr "Enregistrement"
 #: ../root/recording/edit_form.tt:9
 msgid "Recording Details"
 msgstr "Détails de l'enregistrement"
+
+#: ../root/edit/details/merge_releases.tt:96
+msgid "Recording Merges"
+msgstr ""
 
 #: ../root/recording/not_found.tt:1 ../root/recording/not_found.tt:2
 msgid "Recording Not Found"
@@ -6682,7 +6692,7 @@ msgstr "Enlever l'alias de label"
 
 #: ../root/components/forms.tt:402
 msgid "Remove Link"
-msgstr ""
+msgstr "Enlever un lien"
 
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
 msgid "Remove Page"
@@ -7590,7 +7600,7 @@ msgstr "Début"
 msgid "Start date"
 msgstr "Date de début"
 
-#: ../root/layout/menu.tt:139 ../root/user/profile.tt:138
+#: ../root/layout/menu.tt:139 ../root/user/profile.tt:142
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -7713,7 +7723,7 @@ msgstr "Abonné à ces entités"
 msgid "Subscribers"
 msgstr "Abonnés"
 
-#: ../root/user/profile.tt:97
+#: ../root/user/profile.tt:101
 msgid "Subscribers:"
 msgstr "Abonnés :"
 
@@ -7886,7 +7896,7 @@ msgid ""
 "release, so we are unable to allow any more uploads."
 msgstr "La « Cover Art Archive » a reçu des requêtes de suppression par le passé pour cette parution, nous ne pouvons donc plus autoriser de téléversements."
 
-#: ../root/user/profile.tt:81
+#: ../root/user/profile.tt:85
 msgid "The Dawn of the Project"
 msgstr "L'aube du projet"
 
@@ -7951,7 +7961,7 @@ msgid ""
 "named releases."
 msgstr "Le champ commentaire est utilisé pour distinguer des parutions identiques ayant le même nom."
 
-#: ../root/edit/details/merge_releases.tt:104
+#: ../root/edit/details/merge_releases.tt:145
 msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
@@ -7975,7 +7985,7 @@ msgstr "La base de données n'a pas de balise."
 msgid "The date you've entered is not valid."
 msgstr "La date saisie est invalide."
 
-#: ../root/user/profile.tt:83
+#: ../root/user/profile.tt:87
 msgid "The early days of the project"
 msgstr "Le début du projet"
 
@@ -8247,7 +8257,7 @@ msgstr "Ce ISWC n'est associé à aucune œuvre. Si vous désirer l’associer �
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
-msgstr ""
+msgstr "Cette URL n'est pas permise pour le type de lien choisi, ou elle est mal formatée."
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8358,6 +8368,12 @@ msgstr "Cet attribut est requis."
 #: ../root/collection/tags.tt:2
 msgid "This collection has no tags."
 msgstr "Cette collection n'a pas de balise."
+
+#: ../root/edit/details/merge_releases.tt:125
+msgid ""
+"This edit does not store recording merge information and is closed, so no "
+"recording merge information can be shown."
+msgstr ""
 
 #: ../root/components/common-macros.tt:680
 msgid ""
@@ -8607,7 +8623,7 @@ msgstr "Cet enregistrement est une vidéo"
 
 #: ../root/scripts/text_strings.tt:170
 msgid "This relationship already exists."
-msgstr ""
+msgstr "Cette relation existe déjà."
 
 #: ../root/edit/details/add_relationship.tt:13
 #: ../root/edit/details/edit_relationship.tt:14
@@ -9094,7 +9110,7 @@ msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr "Ceci nécessite que les supports correspondants ont le même nombre de pistes."
 
-#: ../root/user/profile.tt:189
+#: ../root/user/profile.tt:193
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Cette table affiche un résumé des votes effectués par cet éditeur."
 
@@ -9324,6 +9340,10 @@ msgstr "Total des œuvres de trouvées : {count}"
 #: ../root/freedb/show.tt:62 ../root/search/lib/inline-results-recording.tt:16
 msgid "Track"
 msgstr "Piste"
+
+#: ../root/edit/details/merge_releases.tt:99
+msgid "Track #"
+msgstr ""
 
 #: ../root/track/not_found.tt:1 ../root/track/not_found.tt:2
 msgid "Track Not Found"
@@ -9683,7 +9703,7 @@ msgstr "Utilisez les champs suivants pour chercher une liste de pistes existante
 msgid "Use {doc|advanced query syntax}"
 msgstr "Utiliser la {doc|syntaxe de requête approfondie}"
 
-#: ../root/user/profile.tt:49
+#: ../root/user/profile.tt:55
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address,"
 " and more than 10 accepted edits in order to vote on others' edits."
@@ -9697,7 +9717,7 @@ msgstr "Nom d'utilisateur :"
 msgid "User permissions"
 msgstr "Permissions de l'utilisateur"
 
-#: ../root/user/profile.tt:42
+#: ../root/user/profile.tt:48
 msgid "User type:"
 msgstr "Type d'utilisateur :"
 
@@ -9809,7 +9829,7 @@ msgstr "Voter pour toutes les modifications :"
 msgid "Vote tally:"
 msgstr "Pointage des votes :"
 
-#: ../root/user/profile.tt:155
+#: ../root/user/profile.tt:159
 msgid "Voted down"
 msgstr "Voté contre"
 
@@ -9822,7 +9842,7 @@ msgstr "Votant"
 msgid "Votes"
 msgstr "Votes"
 
-#: ../root/user/profile.tt:193
+#: ../root/user/profile.tt:197
 msgid "Votes ({view_url|view})"
 msgstr "Votes ({view_url|voir})"
 
@@ -10545,6 +10565,12 @@ msgid ""
 "{user}'s profile."
 msgstr "Votre courriel a été envoyé avec succès ! Cliquez {link|ici} pour retourner au profile de {user}."
 
+#: ../root/user/profile.tt:3
+msgid ""
+"Your homepage and biography will not show until you have confirmed your "
+"email."
+msgstr ""
+
 #: ../root/account/reset_password_ok.tt:5
 msgid "Your password has been reset."
 msgstr "Votre mot de passe a été réinitialisé."
@@ -10797,7 +10823,7 @@ msgstr "plus..."
 msgid "newest first"
 msgstr "les plus récents en premier"
 
-#: ../root/user/profile.tt:55
+#: ../root/user/profile.tt:61
 msgid "nominate for auto-editor"
 msgstr "nominer à l'auto-édition"
 
@@ -10870,7 +10896,7 @@ msgstr "groupes de parution"
 msgid "releases"
 msgstr "parutions"
 
-#: ../root/user/profile.tt:31
+#: ../root/user/profile.tt:37
 msgid "resend verification email"
 msgstr "Renvoyer le courriel de vérification"
 
@@ -10888,7 +10914,7 @@ msgid_plural "see all versions of this release, {count} available"
 msgstr[0] "Afficher toutes les versions de cette parution, {count} de disponible"
 msgstr[1] "Afficher toutes les versions de cette parution, {count} de disponible"
 
-#: ../root/user/profile.tt:35
+#: ../root/user/profile.tt:41
 msgid "send email"
 msgstr "envoyer un courriel"
 
@@ -10900,7 +10926,7 @@ msgstr "montrer la liste de pistes"
 msgid "start date"
 msgstr "date de début"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "subscribe"
 msgstr "s'abonner"
 
@@ -10924,7 +10950,7 @@ msgstr[1] "pistes {tracks}"
 msgid "tracks"
 msgstr "pistes"
 
-#: ../root/user/profile.tt:106
+#: ../root/user/profile.tt:110
 msgid "unsubscribe"
 msgstr "se désabonner"
 
@@ -11022,14 +11048,14 @@ msgstr "{collection} par {owner}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/user/profile.tt:99
+#: ../root/user/profile.tt:103
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|voir la liste})"
 
-#: ../root/user/profile.tt:148 ../root/user/profile.tt:152
-#: ../root/user/profile.tt:156 ../root/user/profile.tt:160
-#: ../root/user/profile.tt:164 ../root/user/profile.tt:168
-#: ../root/user/profile.tt:172
+#: ../root/user/profile.tt:152 ../root/user/profile.tt:156
+#: ../root/user/profile.tt:160 ../root/user/profile.tt:164
+#: ../root/user/profile.tt:168 ../root/user/profile.tt:172
+#: ../root/user/profile.tt:176
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
@@ -11041,9 +11067,9 @@ msgstr[1] "{count} évaluatons privées non affichées."
 
 #: ../root/scripts/text_strings.tt:172
 msgid "{description} ({url|more documentation})"
-msgstr ""
+msgstr "{description} ({url|plus de documentation})"
 
-#: ../root/user/profile.tt:44
+#: ../root/user/profile.tt:50
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|Auto-Éditeur}"
 
@@ -11055,15 +11081,15 @@ msgstr "{doc|ID de disque} :"
 msgid "{doc|Learn more}"
 msgstr "{doc|En apprendre plus}"
 
-#: ../root/user/profile.tt:48
+#: ../root/user/profile.tt:54
 msgid "{doc|Location Editor}"
 msgstr "{doc|Éditeur de lieu}"
 
-#: ../root/user/profile.tt:46
+#: ../root/user/profile.tt:52
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|Éditeur de relation}"
 
-#: ../root/user/profile.tt:47
+#: ../root/user/profile.tt:53
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|Éditeur de transclusions}"
 
@@ -11262,7 +11288,7 @@ msgid_plural "{n} works selected"
 msgstr[0] "{n} œuvre sélectionnée"
 msgstr[1] "{n} œuvres sélectionnées"
 
-#: ../root/user/profile.tt:217 ../root/user/profile.tt:221
+#: ../root/user/profile.tt:221 ../root/user/profile.tt:225
 msgid "{percentage}%"
 msgstr "{percentage} %"
 
@@ -11556,7 +11582,7 @@ msgstr "Il y avait des erreurs dans votre proposition. Veuillez les corriger et 
 msgid "Invalid submission."
 msgstr "Proposition invalide."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:566
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:601
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Cette stratégie de fusion n'est pas applicable aux parutions que vous avez sélectionnées."
@@ -11769,7 +11795,7 @@ msgstr "Convertir la parution vers un artiste simple (historique)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
-#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:50
+#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:112
 msgid "Merge releases"
 msgstr "Fusionner les parutions"
 
@@ -11976,23 +12002,23 @@ msgstr "Enlever le groupe de parution"
 msgid "Edit release group"
 msgstr "Modifier le groupe de parution"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:264
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Applied"
 msgstr "Appliqué"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:265
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Failed vote"
 msgstr "Vote échoué"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:266
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Failed dependency"
 msgstr "Dépendance échouée"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Failed prerequisite"
 msgstr "Prérequis échoué"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "No votes"
 msgstr "Pas de vote"
 
@@ -12249,11 +12275,11 @@ msgstr "Le protocole de l'URL doit être HTTP, HTTPS ou FTP"
 msgid "Please pick the entity you want the others merged into."
 msgstr "Veuillez choisir l'entité vers laquelle fusionner les autres."
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:61
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:62
 msgid "Another medium is already in this position"
 msgstr "Un autre support est déjà à cette position"
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:64
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:65
 msgid "Positions must be greater than 0"
 msgstr "Les positions doivent être supérieures à 0"
 
@@ -12354,6 +12380,12 @@ msgstr "Vous devez fournir une date de naissance complète afin que nous puissio
 msgid "Birth year must be after 1900"
 msgstr "L'année de naissance doit être après 1900"
 
+#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:90
+msgid ""
+"Biography and website fields may not be edited until your email address is "
+"confirmed."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:9
 msgid "Username field is required"
 msgstr "Le champ du nom d'utilisateur est requis"
@@ -12382,7 +12414,7 @@ msgstr "Veuillez saisir un mot de passe dans ce champs."
 msgid "The password confirmation does not match the password"
 msgstr "La confirmation du mot de passe ne concorde pas avec le mot de passe"
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:45
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:46
 msgid "Please choose another username, this one is already taken"
 msgstr "Veuillez choisir un autre nom d'utilisateur, celui-ci étant déjà pris"
 
