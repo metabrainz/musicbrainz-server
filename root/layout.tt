@@ -1,4 +1,4 @@
-[% rdfa_set_header(usesRDFa) %]
+[% set_header() %]
     [%- INCLUDE 'layout/head.tt' -%]
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]

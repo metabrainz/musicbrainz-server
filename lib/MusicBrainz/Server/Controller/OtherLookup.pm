@@ -180,8 +180,15 @@ lookup_handler 'freedbid' => sub {
     $c->model('Script')->load(@releases);
     $c->model('Medium')->load_for_releases(@releases);
 
+    $c->model('MediumFormat')->load(map { $_->all_mediums } @releases);
+    $c->model('ReleaseStatus')->load(@releases);
+    $c->model('ReleaseLabel')->load(@releases);
+    $c->model('Label')->load(map { $_->all_labels} @releases);
+    $c->model('ReleaseGroup')->load(@releases);
+    $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
+
     $c->stash(
-        releases => \@releases,
+        results => \@releases,
         template => 'otherlookup/results-release.tt'
     )
 };

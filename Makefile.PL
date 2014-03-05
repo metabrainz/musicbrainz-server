@@ -159,8 +159,6 @@ test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
-test_requires 'RDF::Query';
-test_requires 'RDF::RDFa::Parser';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
 test_requires 'Test::Fatal' => '0.006';

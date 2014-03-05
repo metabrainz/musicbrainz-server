@@ -2,7 +2,7 @@
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
-    <td>[% release.combined_format_name %]</td>
+    <td>[% html_escape(release.combined_format_name) %]</td>
     <td>[% release.combined_track_count %]</td>
     <td>[% release_dates(release.events) %]</td>
     <td>[% release_countries(release.events) %]</td>
