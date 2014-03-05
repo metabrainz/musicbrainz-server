@@ -224,6 +224,7 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
+    $c->model('Work')->load_attributes(@$works);
     $c->model('ISWC')->load_for_works(@$works);
     $c->model('WorkType')->load(@$works);
     $c->model('Language')->load(@$works);
