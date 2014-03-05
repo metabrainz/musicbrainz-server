@@ -3,7 +3,10 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
+use Encode;
 use MusicBrainz::Server::Translation qw( l lp );
+use Text::Trim qw( trim );
+use Text::Unaccent qw( unac_string_utf16 );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
@@ -11,6 +14,7 @@ use Sub::Exporter -setup => {
     exports => [qw(
                       language_options
                       script_options
+                      link_type_options
                       select_options
                       build_grouped_options
               )]
@@ -61,6 +65,31 @@ sub script_options {
         }
     } grep { $_->{frequency} ne $skip } $c->model('Script')->get_all;
     return \@sorted;
+}
+
+sub link_type_options
+{
+    my ($root, $attr, $ignore, $indent) = @_;
+
+    my @options;
+    if ($root->id && $root->name ne $ignore) {
+        my $label = trim($root->$attr);
+        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $label)));
+
+        if (defined($indent)) {
+            $label = $indent . $label;
+            $indent .= '&#160;&#160;&#160;';
+        }
+        push @options, {
+            value => $root->id,
+            label => $label,
+            'data-unaccented' => $unac
+        };
+    }
+    foreach my $child ($root->all_children) {
+        push @options, @{ link_type_options($child, $attr, $ignore, $indent) };
+    }
+    return \@options;
 }
 
 sub select_options

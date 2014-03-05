@@ -89,7 +89,7 @@
 
         requestDone: function (data) {
             _.each(data.tracks, this.parseTrack, this);
-            _.extend(this, _.omit(data, "id", "cdtocs"));
+            _.extend(this, releaseEditor.utils.reuseExistingMediumData(data));
 
             this.loaded(true);
         },

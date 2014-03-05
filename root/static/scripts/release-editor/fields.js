@@ -138,14 +138,14 @@
         },
 
         differsFromRecording: function () {
-            var recording = this.recording(), name = this.name();
+            var recording = this.recording();
+            var name = this.name();
+
             if (!recording.gid || !name) return false;
 
-            var length = this.length();
-
-            var sameName = name && name === recording.name,
-                sameLength = length === recording.length,
-                sameArtist = this.artistCredit.isEqual(recording.artistCredit);
+            var sameName = name === recording.name;
+            var sameLength = this.formattedLength() === recording.formattedLength;
+            var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
 
             return !(sameName && sameLength && sameArtist);
         },
@@ -283,13 +283,26 @@
             return MB.text.Tracklist;
         },
 
-        canHaveDiscID: function () {
-            // Formats with Disc IDs:
-            // CD, SACD, DualDisc, Other, HDCD, CD-R, 8cm CD
-            var formatsWithDiscIDs = [1, 3, 4, 13, 25, 33, 34],
-                formatID = parseInt(this.formatID(), 10);
+        formatsWithDiscIDs: [
+            1,  // CD
+            3,  // SACD
+            4,  // DualDisc
+            13, // Other
+            25, // HDCD
+            33, // CD-R
+            34, // 8cm CD
+            35, // Blu-spec CD
+            36, // SHM-CD
+            37, // HQCD
+            38, // Hybrid SACD
+            39, // CD+G
+            40  // 8cm CD+G
+        ],
 
-            return !formatID || _.contains(formatsWithDiscIDs, formatID);
+        canHaveDiscID: function () {
+            var formatID = parseInt(this.formatID(), 10);
+
+            return !formatID || _.contains(this.formatsWithDiscIDs, formatID);
         }
     });
 
@@ -495,6 +508,14 @@
             if (!this.mediums().length) {
                 this.mediums.push(fields.Medium({}, this));
             }
+
+            // Setup the external links editor
+
+            this.externalLinks = MB.Control.externalLinks.ViewModel({
+                source: this,
+                relationships: utils.parseURLRelationships(data),
+                errorType: releaseEditor.validation.errorField
+            });
         },
 
         loadMedia: function () {

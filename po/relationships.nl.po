@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-15 11:38+0000\n"
+"PO-Revision-Date: 2014-02-19 10:48+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1344,7 +1344,7 @@ msgstr "Dit koppelt een opname aan een licentie waaronder het beschikbaar is."
 
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
-msgstr ""
+msgstr "Dit koppelt een opname aan de verantwoordelijke balanstechnicus."
 
 #: DB:link_type/description:65
 msgid ""
@@ -1366,7 +1366,7 @@ msgstr "Dit koppelt een uitgave aan een licentie waaronder het beschikbaar is."
 
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
-msgstr ""
+msgstr "Dit koppelt een uitgave aan de verantwoordelijke balanstechnicus."
 
 #: DB:link_type/description:720
 msgid "This links a release with the place that held its launch event."

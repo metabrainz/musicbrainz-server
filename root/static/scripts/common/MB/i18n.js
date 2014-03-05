@@ -24,8 +24,16 @@
 
             if (v1 === undefined) return match;
 
-            return "<a href=\"" + _.escape(v1) + "\">" +
-                _.escape(v2 === undefined ? p2 : v2) + "<\/a>";
+            var text = _.escape(v2 === undefined ? p2 : v2);
+
+            if (_.isObject(v1)) {
+                return "<a " + _(v1).keys().sort()
+                    .map(function(key) { return key + '="' + _.escape(v1[key]) + '"' })
+                    .join(" ") + ">" + text + "<\/a>";
+            } else {
+                return "<a href=\"" + _.escape(v1) + "\">" + text + "<\/a>";
+            }
+
         });
 
         string = string.replace(names, function (match, p1) {

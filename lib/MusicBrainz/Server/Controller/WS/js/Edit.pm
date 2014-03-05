@@ -18,8 +18,12 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_MEDIUM_ADD_DISCID
     $EDIT_RECORDING_EDIT
     $EDIT_RELEASE_REORDER_MEDIUMS
+    $EDIT_RELATIONSHIP_CREATE
+    $EDIT_RELATIONSHIP_EDIT
+    $EDIT_RELATIONSHIP_DELETE
     $AUTO_EDITOR_FLAG
 );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Validation qw( is_guid );
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -61,6 +65,10 @@ our $entities_to_load = {
     $EDIT_RECORDING_EDIT => { to_edit => 'Recording' },
 
     $EDIT_RELEASE_REORDER_MEDIUMS => { release => 'Release' },
+
+    $EDIT_RELATIONSHIP_CREATE => { link_type => 'LinkType' },
+
+    $EDIT_RELATIONSHIP_EDIT => { link_type => 'LinkType' },
 };
 
 
@@ -77,6 +85,10 @@ our $data_processors = {
     $EDIT_MEDIUM_EDIT => sub { process_medium(@_) },
 
     $EDIT_RECORDING_EDIT => sub { process_artist_credit(@_) },
+
+    $EDIT_RELATIONSHIP_CREATE => sub { process_relationship(@_) },
+
+    $EDIT_RELATIONSHIP_EDIT => sub { process_relationship(@_) },
 };
 
 
@@ -157,6 +169,12 @@ sub process_medium {
     $data->{tracklist} = [ map { $process_track->($_) } @tracks ];
 }
 
+sub process_relationship {
+    my ($c, $data) = @_;
+
+    $data->{ended} //= 0;
+}
+
 sub detach_with_error {
     my ($c, $error) = @_;
 
@@ -190,13 +208,60 @@ sub get_request_body {
 }
 
 sub load_entities {
-    my ($c, @edits) = @_;
+    my ($c, $edits, $previewing) = @_;
 
     my $ids_to_load = {};
     my $gids_to_load = {};
 
-    for my $edit (@edits) {
-        my $models = $entities_to_load->{$edit->{edit_type}};
+    for my $edit (@$edits) {
+        my $edit_type = $edit->{edit_type};
+
+        if ($edit_type == $EDIT_RELATIONSHIP_EDIT || $edit_type == $EDIT_RELATIONSHIP_DELETE) {
+            $edit->{relationship} = $c->model('Relationship')->get_by_id(
+               $edit->{type0}, $edit->{type1}, $edit->{relationship}
+            );
+            $c->model('Link')->load($edit->{relationship});
+            $c->model('LinkType')->load($edit->{relationship}->link);
+        }
+
+        if ($edit_type == $EDIT_RELATIONSHIP_CREATE || $edit_type == $EDIT_RELATIONSHIP_EDIT) {
+            for my $i (0, 1) {
+                my $prop = "entity$i";
+
+                delete $entities_to_load->{$edit_type}->{$prop};
+
+                my $entity_id = $edit->{$prop};
+
+                if (!$entity_id && $edit->{relationship}) {
+                    $edit->{$prop} = $edit->{relationship}->$prop;
+                    next;
+                }
+
+                my $model = type_to_model($edit->{"type$i"});
+                my $entity_class = "MusicBrainz::Server::Entity::$model";
+
+                if ($model eq 'URL') {
+                    if ($previewing) {
+                        my ($entity) = $c->model('URL')->find_by_url($entity_id);
+
+                        $edit->{$prop} = $entity || $entity_class->new( url => $entity_id );
+                    }
+                    else {
+                        $edit->{$prop} = $c->model('URL')->find_or_insert($entity_id);
+                    }
+                }
+                else {
+                    if ($previewing and my $preview = delete $edit->{"entity${i}Preview"}) {
+                        $edit->{$prop} = $entity_class->new( name => $preview );
+                    }
+                    else {
+                        $entities_to_load->{$edit_type}->{$prop} = $model;
+                    }
+                }
+            }
+        }
+
+        my $models = $entities_to_load->{$edit_type};
         next unless $models;
 
         for my $arg (keys %$models) {
@@ -217,7 +282,7 @@ sub load_entities {
         $_ => $c->model($_)->get_by_gids(@{ $gids_to_load->{$_} })
     } keys %$gids_to_load;
 
-    for my $edit (@edits) {
+    for my $edit (@$edits) {
         my $models = $entities_to_load->{$edit->{edit_type}};
         next unless $models;
 
@@ -245,7 +310,7 @@ sub process_data {
 }
 
 sub create_edits {
-    my ($self, $c, $create, $data) = @_;
+    my ($self, $c, $data, $previewing) = @_;
 
     my $privs = $c->user->privileges;
 
@@ -253,16 +318,22 @@ sub create_edits {
         $privs &= ~$AUTO_EDITOR_FLAG;
     }
 
-    load_entities($c, @{ $data->{edits} });
+    try {
+        load_entities($c, $data->{edits}, $previewing);
+    }
+    catch {
+        detach_with_error($c, "$_");
+    };
 
     return map {
         my %opts = %$_;
         my $edit;
+        my $action = $previewing ? 'preview' : 'create';
 
         try {
             process_data($c, \%opts);
 
-            $edit = $create->(
+            $edit = $c->model('Edit')->$action(
                 editor_id => $c->user->id,
                 privileges => $privs,
                 %opts
@@ -303,9 +374,7 @@ sub create : Chained('edit') PathPart('create') Edit {
     my @edits;
 
     $c->model('MB')->with_transaction(sub {
-        @edits = $self->create_edits(
-            $c, sub { $c->model('Edit')->create(@_) }, $data
-        );
+        @edits = $self->create_edits($c, $data);
 
         my $edit_note = $data->{edit_note};
 
@@ -322,7 +391,9 @@ sub create : Chained('edit') PathPart('create') Edit {
     my $created_entities = {};
 
     for my $edit (grep { defined $_ } @edits) {
-        if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
+        if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create') &&
+            !$edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
+
             push @{ $created_entity_ids->{$edit->_create_model} //= [] }, $edit->entity_id;
         }
     }
@@ -340,7 +411,9 @@ sub create : Chained('edit') PathPart('create') Edit {
         if (defined $edit) {
             $response = { message => "OK" };
 
-            if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create')) {
+            if ($edit->isa('MusicBrainz::Server::Edit::Generic::Create') &&
+                !$edit->isa('MusicBrainz::Server::Edit::Relationship::Create')) {
+
                 my $model = $edit->_create_model;
                 my $entity = $created_entities->{$model}->{$edit->entity_id};
 
@@ -378,9 +451,7 @@ sub preview : Chained('edit') PathPart('preview') Edit {
 
     my $data = get_request_body($c);
 
-    my @edits = grep { $_ } $self->create_edits(
-        $c, sub { $c->model('Edit')->preview(@_) }, $data
-    );
+    my @edits = grep { $_ } $self->create_edits($c, $data, 1);
 
     $c->model('Edit')->load_all(@edits);
 

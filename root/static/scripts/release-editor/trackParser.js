@@ -31,7 +31,11 @@ MB.releaseEditor.trackParser = {
         var lines = _.reject(_.str.lines(str), _.str.isBlank);
 
         var currentPosition = 0;
-        var currentTracks, matchedTracks = {}, hasTocs, releaseAC;
+        var currentTracks;
+        var matchedTracks = {};
+        var dataTrackPairs = [];
+        var hasTocs;
+        var releaseAC;
 
         // Mediums aren't passed in for unit tests.
         if (medium) {
@@ -68,33 +72,32 @@ MB.releaseEditor.trackParser = {
 
             if (hasTocs) {
                 data.matchedTrack = currentTracks.shift();
-                return data;
             }
-
-            var bestMatch = _(currentTracks)
-                .map(_.partial(self.matchDataWithTrack, data))
-                .compact().sortBy("similarity").last();
-
-            if (bestMatch) {
-                var existingMatch = matchedTracks[bestMatch.track.uniqueID];
-
-                if (existingMatch) {
-                    if (bestMatch.similarity > existingMatch.similarity) {
-                        delete existingMatch.data.matchedTrack;
-
-                        existingMatch.data = data;
-                        existingMatch.similarity = bestMatch.similarity;
-                        data.matchedTrack = bestMatch.track;
-                    }
-                }
-                else {
-                    data.matchedTrack = bestMatch.track;
-                    matchedTracks[bestMatch.track.uniqueID] = bestMatch;
-                }
+            else {
+                // Pair every parsed track object with every existing track,
+                // along with their similarity.
+                dataTrackPairs = dataTrackPairs.concat(
+                    _(currentTracks)
+                        .map(function (track) {
+                            return self.matchDataWithTrack(data, track);
+                        })
+                        .compact().value()
+                );
             }
 
             return data;
         });
+
+        _(dataTrackPairs).sortBy("similarity").reverse()
+            .each(function (match) {
+                var data = match.data;
+                var track = match.track;
+
+                if (!data.matchedTrack && !matchedTracks[track.uniqueID]) {
+                    data.matchedTrack = track;
+                    matchedTracks[track.uniqueID] = 1;
+                }
+            });
 
         var newTracks = _.map(newTracksData, function (data) {
             var matchedTrack = data.matchedTrack;

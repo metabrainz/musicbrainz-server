@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Role::NewFromRow;
 use Moose::Role;
+use Class::Load qw( load_class );
 use namespace::autoclean;
 
 sub _entity_class
@@ -32,7 +33,7 @@ sub _new_from_row
         $info{$attrib} = $val if defined $val;
     }
     my $entity_class = $self->_entity_class($row);
-    Class::MOP::load_class($entity_class);
+    load_class($entity_class);
     return $entity_class->new(%info);
 }
 
