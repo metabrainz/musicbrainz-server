@@ -1043,3 +1043,13 @@ END -%]
 [%- MACRO add_colon(variable) BLOCK;
       l('{variable}:', { variable => variable });
     END -%]
+
+[%- MACRO work_attributes_list(work) BLOCK -%]
+  [%- IF work.attributes %]
+    <ul>
+      [%- FOR attr=work.sorted_attributes %]
+      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
+      [%- END %]
+    </ul>
+  [%- END %]
+[%- END -%]

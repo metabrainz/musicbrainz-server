@@ -61,13 +61,7 @@
         <abbr title="[% work.language.l_name %]">[% work.language.iso_code_3 %]</abbr>
       </td>
       <td>
-        [%- IF work.attributes %]
-        <ul>
-          [%- FOR attr=work.sorted_attributes %]
-          <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
-          [%- END %]
-        </ul>
-        [%- END %]
+        [% work_attributes_list(work) %]
       </td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(work) %]</td>
