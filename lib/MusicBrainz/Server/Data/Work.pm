@@ -453,6 +453,8 @@ EOSQL
 sub load_attributes {
     my ($self, @works) = @_;
 
+    @works = grep { scalar $_->all_attributes == 0 } @works;
+
     my @work_ids = map { $_->id } @works;
 
     my $attributes = $self->sql->select_list_of_hashes(
