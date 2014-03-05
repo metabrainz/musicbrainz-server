@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-21 00:18-0700\n"
-"PO-Revision-Date: 2014-02-21 07:20+0000\n"
+"POT-Creation-Date: 2014-03-03 17:40-0700\n"
+"PO-Revision-Date: 2014-03-04 00:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "'{tag}' is {num} keer gebruikt"
 msgid "(<span class=\"comment\">primary</span>)"
 msgstr "(<span class=\"comment\">primair</span>)"
 
-#: ../root/user/profile.tt:27
+#: ../root/user/profile.tt:33
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>ongeverifieerd!</strong>)"
 
@@ -157,7 +157,7 @@ msgstr "(klik hier om de aantekening weer te geven)"
 msgid "(ended)"
 msgstr "(beëindigd)"
 
-#: ../root/user/profile.tt:19
+#: ../root/user/profile.tt:25
 msgid "(hidden)"
 msgstr "(verborgen)"
 
@@ -198,7 +198,7 @@ msgctxt "description"
 msgid "(none)"
 msgstr "(geen)"
 
-#: ../root/user/profile.tt:38
+#: ../root/user/profile.tt:44
 msgctxt "email"
 msgid "(none)"
 msgstr "(geen)"
@@ -243,7 +243,7 @@ msgstr "(losstaande opname)"
 msgid "(unknown)"
 msgstr "(onbekend)"
 
-#: ../root/user/profile.tt:23
+#: ../root/user/profile.tt:29
 msgid "(verified at {date})"
 msgstr "(geverifieerd op {date})"
 
@@ -272,7 +272,7 @@ msgstr ", "
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:101
+#: ../root/user/profile.tt:105
 msgid "0"
 msgstr "0"
 
@@ -282,7 +282,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "één stem"
 msgstr[1] "{n} unanieme stemmen"
 
-#: ../root/user/profile.tt:234 ../root/user/profile.tt:238
+#: ../root/user/profile.tt:238 ../root/user/profile.tt:242
 msgid "100%"
 msgstr "100%"
 
@@ -457,7 +457,7 @@ msgstr "Bewerking accepteren"
 msgid "Accept upon expiration"
 msgstr "Accepteer na het verstrijken"
 
-#: ../root/user/profile.tt:147
+#: ../root/user/profile.tt:151
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Geaccepteerd"
@@ -706,7 +706,7 @@ msgstr "Nog één toevoegen"
 
 #: ../root/components/forms.tt:377
 msgid "Add another link:"
-msgstr ""
+msgstr "Nog een koppeling toevoegen:"
 
 #: ../root/scripts/text_strings.tt:45
 msgid "Add another medium"
@@ -745,7 +745,7 @@ msgstr "Alias aan deze platenmaatschappij toevoegen"
 
 #: ../root/components/forms.tt:377
 msgid "Add link:"
-msgstr ""
+msgstr "Koppeling toevoegen:"
 
 #: ../root/place/add_alias.tt:2
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:14
@@ -881,7 +881,7 @@ msgstr "Administratie"
 msgid "Administration flags"
 msgstr "Administratieve markering"
 
-#: ../root/user/profile.tt:61
+#: ../root/user/profile.tt:65
 msgid "Age:"
 msgstr "Leeftijd:"
 
@@ -941,6 +941,10 @@ msgstr "Al mijn bewerkingen"
 #: ../root/scripts/text_strings.tt:124
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Al uw veranderingen zullen verloren gaan als u deze pagina verlaat."
+
+#: ../root/edit/details/merge_releases.tt:127
+msgid "All recordings for these releases are already merged."
+msgstr ""
 
 #: ../root/release/cover_art.tt:22
 msgid "All sizes:"
@@ -1115,7 +1119,7 @@ msgstr "Vermeld als"
 msgid "Appears on releases"
 msgstr "Staat op uitgaves"
 
-#: ../root/edit/details/merge_releases.tt:94
+#: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:50
 msgid "Append mediums to target release"
 msgstr "Voeg media toe aan de doeluitgave"
@@ -1590,7 +1594,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Autoredacteurs zijn vertrouwde gebruikers die {url|autoredacteur} privileges hebben gekregen. Deze privileges laten hen een select aantal bewerkingen maken die automatisch worden doorgevoerd zonder door de normale stemmingsprocedure te gaan. Ook geeft dit hen de mogelijkheid om bewerkingen van andere gebruikers direct goed te keuren."
 
-#: ../root/user/profile.tt:151
+#: ../root/user/profile.tt:155
 msgid "Auto-edits"
 msgstr "Automatische bewerkingen"
 
@@ -1783,7 +1787,7 @@ msgid ""
 msgstr "Hieronder staat informatie over de foutmelding. Als u een rapport voor deze bug wilt indienen, kunt u dat doen op {bugs|onze bugtracker}. De onderstaande informatie zal helpen, voeg deze daarom alstublieft toe aan uw rapport."
 
 #: ../root/account/edit.tt:40 ../root/admin/edit_user.tt:36
-#: ../root/user/profile.tt:113
+#: ../root/user/profile.tt:117
 msgid "Bio:"
 msgstr "Biografie:"
 
@@ -1974,7 +1978,7 @@ msgstr "Bewerking annuleren"
 msgid "Cancel the election"
 msgstr "Annuleer de verkiezing"
 
-#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:270
+#: ../root/user/profile.tt:171 ../lib/MusicBrainz/Server/Edit/Utils.pm:274
 msgid "Cancelled"
 msgstr "Geannuleerd"
 
@@ -2979,7 +2983,7 @@ msgid "Edit profile"
 msgstr "Profiel bewerken"
 
 #: ../root/recording/edit.tt:1
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:34
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:36
 msgid "Edit recording"
 msgstr "Opname bewerken"
 
@@ -3079,7 +3083,7 @@ msgstr "Redacteurs die op deze platenmaatschappij zijn geabonneerd"
 msgid "Edits"
 msgstr "Bewerkingen"
 
-#: ../root/user/profile.tt:142
+#: ../root/user/profile.tt:146
 msgid "Edits ({view_url|view})"
 msgstr "Bewerkingen ({view_url|bekijken})"
 
@@ -3161,7 +3165,7 @@ msgstr "E-mail verstuurd!"
 
 #: ../root/account/edit.tt:18 ../root/account/lost_password.tt:15
 #: ../root/account/lost_username.tt:11 ../root/account/register.tt:31
-#: ../root/admin/edit_user.tt:33 ../root/user/profile.tt:14
+#: ../root/admin/edit_user.tt:33 ../root/user/profile.tt:20
 msgid "Email:"
 msgstr "E-mail:"
 
@@ -3309,7 +3313,7 @@ msgid "Entity types:"
 msgstr "Objecttypes:"
 
 #: ../root/report/not_available.tt:1 ../root/report/not_available.tt:3
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:267
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:271
 msgid "Error"
 msgstr "Fout"
 
@@ -3412,7 +3416,7 @@ msgstr[1] "Verloopt over  <span class=\"tooltip\" title=\"{exactdate}\">{num} mi
 #: ../root/recording/edit_form.tt:19 ../root/release/edit/information.tt:227
 #: ../root/release_group/edit_form.tt:18 ../root/work/edit_form.tt:18
 msgid "External Links"
-msgstr ""
+msgstr "Externe koppelingen"
 
 #: ../root/layout/sidebar/sidebar-favicons.tt:38
 msgid "External links"
@@ -3422,7 +3426,7 @@ msgstr "Externe verwijzingen"
 msgid "FAQs"
 msgstr "FAQ's"
 
-#: ../root/user/profile.tt:159
+#: ../root/user/profile.tt:163
 msgid "Failed"
 msgstr "Mislukt"
 
@@ -3631,11 +3635,11 @@ msgstr "Geslacht"
 #: ../root/account/edit.tt:20 ../root/artist/edit_form.tt:45
 #: ../root/artist/index.tt:5 ../root/artist/layout.tt:14
 #: ../root/edit/details/add_artist.tt:31
-#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:67
+#: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:71
 msgid "Gender:"
 msgstr "Geslacht:"
 
-#: ../root/user/profile.tt:11
+#: ../root/user/profile.tt:17
 msgid "General Information"
 msgstr "Algemene informatie"
 
@@ -3739,7 +3743,7 @@ msgstr "Hoog"
 msgid "Historic"
 msgstr "Historisch"
 
-#: ../root/user/profile.tt:90
+#: ../root/user/profile.tt:94
 msgid "Homepage:"
 msgstr "Thuispagina:"
 
@@ -4108,7 +4112,7 @@ msgstr "Interfacetaal:"
 msgid "Internal Server Error"
 msgstr "Interne serverfout"
 
-#: ../root/user/profile.tt:45
+#: ../root/user/profile.tt:51
 msgid "Internal/Bot"
 msgstr "Intern/Robot"
 
@@ -4120,6 +4124,7 @@ msgstr "Intern/Robot"
 #: ../root/edit/details/merge_releases.tt:70
 #: ../root/edit/details/merge_releases.tt:75
 #: ../root/edit/details/merge_releases.tt:84
+#: ../root/edit/details/merge_releases.tt:101
 #: ../root/edit/details/merge_works.tt:10
 msgid "Into:"
 msgstr "Naar:"
@@ -4289,15 +4294,15 @@ msgstr "Taal: {language}, schrift: {script}"
 msgid "Languages Known:"
 msgstr "Bekende talen:"
 
-#: ../root/user/profile.tt:119
+#: ../root/user/profile.tt:123
 msgid "Languages:"
 msgstr "Talen:"
 
-#: ../root/user/profile.tt:171
+#: ../root/user/profile.tt:175
 msgid "Last 24 hours"
 msgstr "Afgelopen 24 uur"
 
-#: ../root/user/profile.tt:201
+#: ../root/user/profile.tt:205
 msgid "Last 28 days"
 msgstr "Afgelopen 28 dagen"
 
@@ -4360,7 +4365,7 @@ msgid ""
 "contribute}."
 msgstr "Net als Wikipedia wordt MusicBrainz onderhouden door een wereldwijde gemeenschap van gebruikers en we willen dat iedereen &#x2014; inclusief uzelf &#x2014; {doc|deelneemt en bijdraagt}."
 
-#: ../root/user/profile.tt:49
+#: ../root/user/profile.tt:55
 msgid "Limited User"
 msgstr "Beperkte gebruiker"
 
@@ -4439,7 +4444,7 @@ msgstr "Locatieredacteurs"
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr "Locatieredacteurs zijn gebruikers die {uri|gebieden} kunnen toevoegen of bewerken."
 
-#: ../root/account/edit.tt:23 ../root/user/profile.tt:73
+#: ../root/account/edit.tt:23 ../root/user/profile.tt:77
 msgid "Location:"
 msgstr "Locatie:"
 
@@ -4621,7 +4626,7 @@ msgstr "Medium:"
 msgid "Mediums:"
 msgstr "Media:"
 
-#: ../root/user/profile.tt:79
+#: ../root/user/profile.tt:83
 msgid "Member since:"
 msgstr "Lid sinds:"
 
@@ -4685,7 +4690,7 @@ msgstr "Platenmaatschappij samenvoegen"
 msgid "Merge language &amp; script:"
 msgstr "Taal &amp; schrift samenvoegen:"
 
-#: ../root/edit/details/merge_releases.tt:94
+#: ../root/edit/details/merge_releases.tt:135
 #: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:51
 msgid "Merge mediums and recordings"
 msgstr "Media en opnames samenvoegen"
@@ -4711,7 +4716,7 @@ msgstr "Uitgavegroep samenvoegen"
 msgid "Merge release groups"
 msgstr "Uitgavegroepen samenvoegen"
 
-#: ../root/edit/details/merge_releases.tt:92 ../root/release/merge.tt:66
+#: ../root/edit/details/merge_releases.tt:133 ../root/release/merge.tt:66
 msgid "Merge strategy:"
 msgstr "Samenvoegingsstrategie:"
 
@@ -5266,7 +5271,7 @@ msgstr "Geen"
 msgid "Normal"
 msgstr "Normaal"
 
-#: ../root/user/profile.tt:52
+#: ../root/user/profile.tt:58
 msgid "Normal User"
 msgstr "Normale gebruiker"
 
@@ -5405,7 +5410,7 @@ msgstr "Oeps! Het lijkt er op dat uw zoekparameters niet correct waren, controle
 msgid "Oops, something went wrong!"
 msgstr "Oeps, er is iets foutgegaan!"
 
-#: ../root/user/profile.tt:163 ../lib/MusicBrainz/Server/Edit/Utils.pm:263
+#: ../root/user/profile.tt:167 ../lib/MusicBrainz/Server/Edit/Utils.pm:267
 msgid "Open"
 msgstr "Geopend"
 
@@ -5452,7 +5457,7 @@ msgstr "Andere zoekmogelijkheden"
 msgid "Other lookups"
 msgstr "Andere zoekmogelijkheden"
 
-#: ../root/user/profile.tt:204
+#: ../root/user/profile.tt:208
 msgid "Overall"
 msgstr "Algemeen"
 
@@ -5757,7 +5762,7 @@ msgstr "Lees de <a href=\"{doc}\" target=\"_blank\">documentatie over afbeelding
 
 #: ../root/scripts/text_strings.tt:143
 msgid "Please select a link type for the URL you’ve entered."
-msgstr ""
+msgstr "Selecteer een koppelingstype voor de URL die u heeft ingevoerd."
 
 #: ../root/scripts/text_strings.tt:38
 msgid "Please select a relationship type."
@@ -5988,8 +5993,9 @@ msgid "Recent Additions"
 msgstr "Recente toevoegingen"
 
 #: ../root/components/common-macros.tt:583
-#: ../root/components/common-macros.tt:642 ../root/edit/search_macros.tt:307
-#: ../root/release/edit_relationships.tt:53
+#: ../root/components/common-macros.tt:642
+#: ../root/edit/details/merge_releases.tt:100
+#: ../root/edit/search_macros.tt:307 ../root/release/edit_relationships.tt:53
 #: ../root/report/isrc_with_many_recordings.tt:25
 #: ../root/report/recording_list.tt:8 ../root/scripts/text_strings.tt:108
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
@@ -6000,6 +6006,10 @@ msgstr "Opname"
 #: ../root/recording/edit_form.tt:9
 msgid "Recording Details"
 msgstr "Opnamedetails"
+
+#: ../root/edit/details/merge_releases.tt:96
+msgid "Recording Merges"
+msgstr ""
 
 #: ../root/recording/not_found.tt:1 ../root/recording/not_found.tt:2
 msgid "Recording Not Found"
@@ -6677,7 +6687,7 @@ msgstr "Alias van de platenmaatschappij verwijderen"
 
 #: ../root/components/forms.tt:402
 msgid "Remove Link"
-msgstr ""
+msgstr "Koppeling verwijderen"
 
 #: ../root/admin/wikidoc/delete.tt:1 ../root/admin/wikidoc/delete.tt:3
 msgid "Remove Page"
@@ -7585,7 +7595,7 @@ msgstr "Begin"
 msgid "Start date"
 msgstr "Begindatum"
 
-#: ../root/layout/menu.tt:139 ../root/user/profile.tt:138
+#: ../root/layout/menu.tt:139 ../root/user/profile.tt:142
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -7708,7 +7718,7 @@ msgstr "Geabonneerde objecten"
 msgid "Subscribers"
 msgstr "Abonnees"
 
-#: ../root/user/profile.tt:97
+#: ../root/user/profile.tt:101
 msgid "Subscribers:"
 msgstr "Abonnees:"
 
@@ -7881,7 +7891,7 @@ msgid ""
 "release, so we are unable to allow any more uploads."
 msgstr "De Cover Art Archive heeft in het verleden het verzoek gekregen om afbeeldingen voor deze uitgave te verwijderen, dus we kunnen u niet meer toestaan om deze toe te voegen."
 
-#: ../root/user/profile.tt:81
+#: ../root/user/profile.tt:85
 msgid "The Dawn of the Project"
 msgstr "De start van het project"
 
@@ -7946,7 +7956,7 @@ msgid ""
 "named releases."
 msgstr "Het verduidelijkingsveld wordt gebruikt door gebruikers om het verschil tussen uitgaves met dezelfde naam aan te geven."
 
-#: ../root/edit/details/merge_releases.tt:104
+#: ../root/edit/details/merge_releases.tt:145
 msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
@@ -7970,7 +7980,7 @@ msgstr "De gegevensbank heeft geen etiketten."
 msgid "The date you've entered is not valid."
 msgstr "De datum die u heeft ingevoerd is niet geldig."
 
-#: ../root/user/profile.tt:83
+#: ../root/user/profile.tt:87
 msgid "The early days of the project"
 msgstr "De begindagen van het project"
 
@@ -8242,7 +8252,7 @@ msgstr "Deze ISWC is niet gekoppeld aan een compositie. {search_url|Zoek naar de
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
-msgstr ""
+msgstr "Deze URL is niet toegestaan bij het geselecteerde koppelingstype, of is niet correct opgemaakt."
 
 #: ../root/alias/edit_form.tt:36
 msgid "This alias is no longer current."
@@ -8353,6 +8363,12 @@ msgstr "Deze eigenschap is verplicht"
 #: ../root/collection/tags.tt:2
 msgid "This collection has no tags."
 msgstr "Deze collectie heeft geen etiketten."
+
+#: ../root/edit/details/merge_releases.tt:125
+msgid ""
+"This edit does not store recording merge information and is closed, so no "
+"recording merge information can be shown."
+msgstr ""
 
 #: ../root/components/common-macros.tt:680
 msgid ""
@@ -8602,7 +8618,7 @@ msgstr "Deze opname is een video"
 
 #: ../root/scripts/text_strings.tt:170
 msgid "This relationship already exists."
-msgstr ""
+msgstr "De relatie bestaat al."
 
 #: ../root/edit/details/add_relationship.tt:13
 #: ../root/edit/details/edit_relationship.tt:14
@@ -9089,7 +9105,7 @@ msgid ""
 "This requires that corresponding mediums have the same number of tracks."
 msgstr "Hiervoor moeten de overeenkomstige media hetzelfde aantal nummers hebben."
 
-#: ../root/user/profile.tt:189
+#: ../root/user/profile.tt:193
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Deze tabel geeft een samenvatting van alle stemmen die door deze redacteur zijn uitgebracht."
 
@@ -9319,6 +9335,10 @@ msgstr "Totaal aantal gevonden composities: {count}"
 #: ../root/freedb/show.tt:62 ../root/search/lib/inline-results-recording.tt:16
 msgid "Track"
 msgstr "Nummer"
+
+#: ../root/edit/details/merge_releases.tt:99
+msgid "Track #"
+msgstr ""
 
 #: ../root/track/not_found.tt:1 ../root/track/not_found.tt:2
 msgid "Track Not Found"
@@ -9678,7 +9698,7 @@ msgstr "Gebruik de volgende velden om naar een bestaande nummerlijst te zoeken."
 msgid "Use {doc|advanced query syntax}"
 msgstr "Gebruik de {doc|geavanceerde zoeksyntaxis)"
 
-#: ../root/user/profile.tt:49
+#: ../root/user/profile.tt:55
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address,"
 " and more than 10 accepted edits in order to vote on others' edits."
@@ -9692,7 +9712,7 @@ msgstr "Gebruikersnaam:"
 msgid "User permissions"
 msgstr "Gebruikerspermissies"
 
-#: ../root/user/profile.tt:42
+#: ../root/user/profile.tt:48
 msgid "User type:"
 msgstr "Gebruikerstype:"
 
@@ -9804,7 +9824,7 @@ msgstr "Stem op alle bewerkingen:"
 msgid "Vote tally:"
 msgstr "Telling:"
 
-#: ../root/user/profile.tt:155
+#: ../root/user/profile.tt:159
 msgid "Voted down"
 msgstr "Weggestemd"
 
@@ -9817,7 +9837,7 @@ msgstr "Stemmer"
 msgid "Votes"
 msgstr "Stemmen"
 
-#: ../root/user/profile.tt:193
+#: ../root/user/profile.tt:197
 msgid "Votes ({view_url|view})"
 msgstr "Stemmen ({view_url|bekijken})"
 
@@ -10540,6 +10560,12 @@ msgid ""
 "{user}'s profile."
 msgstr "Uw e-mail is succesvol verzonden! Klik {link|hier} om verder naar het profiel van {user} te gaan."
 
+#: ../root/user/profile.tt:3
+msgid ""
+"Your homepage and biography will not show until you have confirmed your "
+"email."
+msgstr ""
+
 #: ../root/account/reset_password_ok.tt:5
 msgid "Your password has been reset."
 msgstr "Uw wachtwoord is opnieuw ingesteld."
@@ -10792,7 +10818,7 @@ msgstr "meer…"
 msgid "newest first"
 msgstr "nieuwste eerst"
 
-#: ../root/user/profile.tt:55
+#: ../root/user/profile.tt:61
 msgid "nominate for auto-editor"
 msgstr "nomineer als autoredacteur"
 
@@ -10865,7 +10891,7 @@ msgstr "uitgavegroepen"
 msgid "releases"
 msgstr "uitgaves"
 
-#: ../root/user/profile.tt:31
+#: ../root/user/profile.tt:37
 msgid "resend verification email"
 msgstr "verstuur de verificatie e-mail opnieuw"
 
@@ -10883,7 +10909,7 @@ msgid_plural "see all versions of this release, {count} available"
 msgstr[0] "Bekijk alle versies van deze uitgave, {count} beschikbaar"
 msgstr[1] "Bekijk alle versies van deze uitgave, {count} beschikbaar"
 
-#: ../root/user/profile.tt:35
+#: ../root/user/profile.tt:41
 msgid "send email"
 msgstr "e-mail versturen"
 
@@ -10895,7 +10921,7 @@ msgstr "toon nummerlijst"
 msgid "start date"
 msgstr "begindatum"
 
-#: ../root/user/profile.tt:108
+#: ../root/user/profile.tt:112
 msgid "subscribe"
 msgstr "abonneren"
 
@@ -10919,7 +10945,7 @@ msgstr[1] "nummers {tracks}"
 msgid "tracks"
 msgstr "nummers"
 
-#: ../root/user/profile.tt:106
+#: ../root/user/profile.tt:110
 msgid "unsubscribe"
 msgstr "abonnement opzeggen"
 
@@ -11017,14 +11043,14 @@ msgstr "{collection} van {owner}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/user/profile.tt:99
+#: ../root/user/profile.tt:103
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|bekijk lijst})"
 
-#: ../root/user/profile.tt:148 ../root/user/profile.tt:152
-#: ../root/user/profile.tt:156 ../root/user/profile.tt:160
-#: ../root/user/profile.tt:164 ../root/user/profile.tt:168
-#: ../root/user/profile.tt:172
+#: ../root/user/profile.tt:152 ../root/user/profile.tt:156
+#: ../root/user/profile.tt:160 ../root/user/profile.tt:164
+#: ../root/user/profile.tt:168 ../root/user/profile.tt:172
+#: ../root/user/profile.tt:176
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|bekijk lijst})"
 
@@ -11036,9 +11062,9 @@ msgstr[1] "{count} privéwaarderingen niet weergegeven"
 
 #: ../root/scripts/text_strings.tt:172
 msgid "{description} ({url|more documentation})"
-msgstr ""
+msgstr "{description} ({url|meer documentatie})"
 
-#: ../root/user/profile.tt:44
+#: ../root/user/profile.tt:50
 msgid "{doc|Auto-Editor}"
 msgstr "{doc|Autoredacteur}"
 
@@ -11050,15 +11076,15 @@ msgstr "{doc|disc-id}"
 msgid "{doc|Learn more}"
 msgstr "{doc|Leer meer}"
 
-#: ../root/user/profile.tt:48
+#: ../root/user/profile.tt:54
 msgid "{doc|Location Editor}"
 msgstr "{doc|Gebiedsredacteur}"
 
-#: ../root/user/profile.tt:46
+#: ../root/user/profile.tt:52
 msgid "{doc|Relationship Editor}"
 msgstr "{doc|Relatieredacteur}"
 
-#: ../root/user/profile.tt:47
+#: ../root/user/profile.tt:53
 msgid "{doc|Transclusion Editor}"
 msgstr "{doc|Transclusieredacteur}"
 
@@ -11257,7 +11283,7 @@ msgid_plural "{n} works selected"
 msgstr[0] "{n} compositie geselecteerd"
 msgstr[1] "{n} composities geselecteerd"
 
-#: ../root/user/profile.tt:217 ../root/user/profile.tt:221
+#: ../root/user/profile.tt:221 ../root/user/profile.tt:225
 msgid "{percentage}%"
 msgstr "{percentage}%"
 
@@ -11551,7 +11577,7 @@ msgstr "Er waren fouten in uw indiening. Verbeter ze en probeer het opnieuw."
 msgid "Invalid submission."
 msgstr "Ongeldige indiening."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:566
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:601
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "Deze samenvoegingsstrategie kan niet toegepast worden op de uitgaves die u heeft geselecteerd."
@@ -11764,7 +11790,7 @@ msgstr "Zet uitgave om naar één artiest (historisch)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeRelease.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:9
-#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:50
+#: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:112
 msgid "Merge releases"
 msgstr "Uitgaves samenvoegen"
 
@@ -11971,23 +11997,23 @@ msgstr "Uitgavegroep verwijderen"
 msgid "Edit release group"
 msgstr "Uitgavegroep bewerken"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:264
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
 msgid "Applied"
 msgstr "Doorgevoerd"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:265
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
 msgid "Failed vote"
 msgstr "Stemming mislukt"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:266
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:270
 msgid "Failed dependency"
 msgstr "Mislukt door afhankelijkheid"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:268
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:272
 msgid "Failed prerequisite"
 msgstr "Mislukt door voorwaarde"
 
-#: ../lib/MusicBrainz/Server/Edit/Utils.pm:269
+#: ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "No votes"
 msgstr "Geen stemmen"
 
@@ -12244,11 +12270,11 @@ msgstr "Het protocol van de URL moet HTTP, HTTPS of FTP zijn."
 msgid "Please pick the entity you want the others merged into."
 msgstr "Selecteer het object waar u de andere objecten in wilt samenvoegen."
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:61
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:62
 msgid "Another medium is already in this position"
 msgstr "Er is al een ander medium op deze positie"
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:64
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:65
 msgid "Positions must be greater than 0"
 msgstr "Posities moeten groter zijn dan 0"
 
@@ -12349,6 +12375,12 @@ msgstr "U moet een volledige geboortedatum opgeven om uw leeftijd te kunnen tone
 msgid "Birth year must be after 1900"
 msgstr "De geboortedatum moet na 1900 zijn"
 
+#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:90
+msgid ""
+"Biography and website fields may not be edited until your email address is "
+"confirmed."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:9
 msgid "Username field is required"
 msgstr "Het veld gebruikersnaam is vereist."
@@ -12377,7 +12409,7 @@ msgstr "Voer het wachtwoord in dit veld in."
 msgid "The password confirmation does not match the password"
 msgstr "De bevestiging van het wachtwoord komt niet overeen met het wachtwoord."
 
-#: ../lib/MusicBrainz/Server/Form/User/Register.pm:45
+#: ../lib/MusicBrainz/Server/Form/User/Register.pm:46
 msgid "Please choose another username, this one is already taken"
 msgstr "Kies alstublieft een andere gebruikersnaam, deze is al in gebruik"
 

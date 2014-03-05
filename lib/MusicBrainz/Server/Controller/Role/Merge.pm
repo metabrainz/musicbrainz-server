@@ -169,10 +169,12 @@ role {
                 new_entity => {
                     id => $new->id,
                     name => $new->name,
+                    $self->_extra_entity_data($c, $form, $new)
                 },
                 old_entities => [ map +{
                     id => $entity_id{$_}->id,
-                    name => $entity_id{$_}->name
+                    name => $entity_id{$_}->name,
+                    $self->_extra_entity_data($c, $form, $entity_id{$_})
                 }, @old_ids ],
                 (map { $_->name => $_->value } $form->edit_fields),
                 $self->_merge_parameters($c, $form, $entities)
@@ -188,7 +190,11 @@ role {
 
     method _merge_parameters => sub {
         return ()
-    }
+    };
+
+    method _extra_entity_data => sub {
+        return ()
+    };
 };
 
 1;

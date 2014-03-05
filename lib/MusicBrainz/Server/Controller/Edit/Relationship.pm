@@ -166,8 +166,8 @@ sub edit : Local Edit
         my $model1 = $c->model(type_to_model($type1));
 
         my @selected = (
-            $model0->get_by_id($form->field('entity0.id')->value),
-            $model1->get_by_id($form->field('entity1.id')->value)
+            $model0->get_by_id($ids[0]),
+            $model1->get_by_id($ids[1])
         );
 
         $c->stash( selected => \@selected );
