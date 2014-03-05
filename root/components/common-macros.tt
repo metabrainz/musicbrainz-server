@@ -80,7 +80,9 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF no_javascript -%]
+    [%- IF artwork.mime_type == "application/pdf" -%]
+        <img src="[% c.uri_for("/static/images/icons/pdf-icon.png") %]" />
+    [%- ELSIF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
         <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
@@ -108,7 +110,7 @@ END; -%]
 [% END %]
 
 [%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="artwork-image">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
       [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
