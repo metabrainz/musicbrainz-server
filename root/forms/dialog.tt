@@ -1,6 +1,6 @@
 [%- IF dialog_template -%]
 
-[% rdfa_set_header(0) %]
+[% set_header() %]
   [% IF dialog_result %]
     <head>
       <script>

@@ -1,4 +1,4 @@
-[% WRAPPER 'layout/sidebar.tt' about=rdfa_release_curi(release) %]
+[% WRAPPER 'layout/sidebar.tt' %]
     <div class="cover-art">
         [%- IF (release.cover_art_presence == 'present' AND release_artwork) -%]
           [%- SET cover_art_message = l("Front cover image failed to load correctly.<br/>{all|View all artwork}.",
@@ -28,9 +28,9 @@
 
     [% WRAPPER 'layout/sidebar/properties.tt';
         INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:') class="barcode"
-           content=release.barcode.format property='mo:gtin' datatype='xsd:string' IF release.barcode.format;
+           content=release.barcode.format IF release.barcode.format;
         INCLUDE 'layout/sidebar/property.tt' label=l('Format:') class="format"
-           content=release.combined_format_name IF release.combined_format_name;
+           content=html_escape(release.combined_format_name) IF release.combined_format_name;
         INCLUDE 'layout/sidebar/property.tt' label=l('Length:') class="length"
            content=format_length(release.length) IF release.length;
     END %]
@@ -60,8 +60,8 @@
     <ul class="links">
     [% FOR label=release.labels %]
       <li>
-        [% rdfa_link_label(label.label) _ '<br />' %]
-        [% rdfa_release_catno(label.catalog_number) %]
+        [% link_label(label.label) _ '<br />' %]
+        [% html_escape(label.catalog_number) %]
       </li>
     [% END %]
     </ul>

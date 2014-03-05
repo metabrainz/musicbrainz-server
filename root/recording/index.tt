@@ -17,24 +17,23 @@
                         <th>[% l('Catalog#') %]</th>
                     </tr>
                 </thead>
-                <tbody [%- rdfa_about_attr(rdfa_recording_curi(recording)) -%]>
+                <tbody>
                 [%- FOR group=tracks -%]
                   <tr class="subh">
                     <th colspan="9">[% group.0.medium.release.l_status_name || l('(unknown)') %]</th>
                   </tr>
                   [%- FOREACH track=group %]
                     [%- release=track.medium.release -%]
-                    [% rdfa_recording_hidden_published_as(track) %]
-                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [%= rdfa_recording_tr_about(track) =%]>
-		              <td>[%- rdfa_track_number(track.position) -%]/[%- track.medium.track_count -%]</td>
-                      <td>[%- rdfa_label_title(track.name) -%]</td>
-                      <td>[%- rdfa_recording_duration(track) -%]</td>
-                      <td>[%- rdfa_link_release_track(release, track) -%]</td>
+                    <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
+		              <td>[%- track.position -%]/[%- track.medium.track_count -%]</td>
+                      <td>[%- html_escape(track.name) -%]</td>
+                      <td>[%- format_length(track.length) -%]</td>
+                      <td>[%- link_release(release) -%]</td>
                       <td>[%- artist_credit(release.artist_credit) -%]</td>
                       <td>[% release_dates(release.events) %]</td>
                       <td>[% release_countries(release.events) %]</td>
-                      <td>[% rdfa_release_label_list(release.labels) %]</td>
-                      <td>[% rdfa_release_catno_list(release.labels) %]</td>
+                      <td>[% release_label_list(release.labels) %]</td>
+                      <td>[% release_catno_list(release.labels) %]</td>
                     </tr>
                     [%- END -%]
                   [% END %]
