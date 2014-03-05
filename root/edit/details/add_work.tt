@@ -42,7 +42,7 @@
   [% IF edit.data.attributes ~%]
   [% FOR type=edit.display_data.attributes ~%]
   <tr>
-    <th>[% l(type.key _ ':') %]</th>
+    <th>[% add_colon(type.key) %]</th>
     <td>
       <ul>
       [%- FOR attribute=type.value %]

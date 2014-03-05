@@ -31,7 +31,7 @@
   [% IF edit.data.new.attributes ~%]
   [% FOR type=edit.display_data.attributes ~%]
   <tr>
-    <th>[% l(type.key _ ':') %]</th>
+    <th>[% add_colon(type.key) %]</th>
     <td class="old">
     [%- IF type.value.old.size %]
       <ul>

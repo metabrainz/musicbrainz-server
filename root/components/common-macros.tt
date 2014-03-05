@@ -1039,3 +1039,7 @@ END -%]
 [%- MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
+
+[%- MACRO add_colon(variable) BLOCK;
+      l('{variable}:', { variable => variable });
+    END -%]
