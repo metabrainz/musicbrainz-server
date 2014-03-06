@@ -23,7 +23,7 @@
             [%- FOR attribute=work.attributes -%]
                 [%- INCLUDE 'layout/sidebar/property.tt'
                       content=html_escape(attribute.l_value)
-                      label=l(attribute.type.l_name _ ':') -%]
+                      label=add_colon(attribute.type.l_name) -%]
             [%- END -%]
         [% END %]
         [% END %]
