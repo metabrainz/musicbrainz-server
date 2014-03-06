@@ -401,7 +401,7 @@ MB.constants.CLEANUPS = {
                 if (url.match(/\?/)) {
                     url = url.replace(/\/\?/, "?");
                 } else {
-                    url = url.replace(/\/$/, "");
+                    url = url.replace(/(facebook\.com\/.*)\/$/, "$1");
                 }
             }
             url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\.tr))/, "http://www.last.fm");
