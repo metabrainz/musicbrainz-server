@@ -34,13 +34,12 @@
 
     releaseEditor.labelBubble = bubbleDoc({
         canBeShown: function (releaseLabel) {
-            return releaseLabel.label().gid;
-        }
-    });
+            return (releaseLabel.label().gid ||
+                    this.catNoLooksLikeASIN(releaseLabel.catalogNumber()));
+        },
 
-    releaseEditor.catNoBubble = bubbleDoc({
-        canBeShown: function (releaseLabel) {
-            return /^B00[0-9A-Z]{7}$/.test(releaseLabel.catalogNumber());
+        catNoLooksLikeASIN: function (catNo) {
+            return /^B00[0-9A-Z]{7}$/.test(catNo);
         }
     });
 
