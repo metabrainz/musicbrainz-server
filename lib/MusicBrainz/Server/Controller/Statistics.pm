@@ -291,7 +291,7 @@ sub relationships : Path('relationships') {
     my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
     $c->stash(
         types => $types,
-	stats => $stats
+        stats => $stats
     );
 }
 

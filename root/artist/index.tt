@@ -5,7 +5,7 @@
     [%~ meta_desc.push(l('Gender:') _ ' ' _ html_escape(artist.gender_name)) IF artist.gender ~%]
     [%~ IF artist.begin_date.format or artist.begin_area ~%]
         [%~ date_period_label = artist_begin_label_from_type(artist.type_id) ~%]
-	[%~ meta_desc.push(date_period_label _ ' ' _ (artist.begin_date.format ? artist.begin_date.format : '') _ (artist.begin_area ? ' in ' _ artist.begin_area.name : '')) ~%]
+        [%~ meta_desc.push(date_period_label _ ' ' _ (artist.begin_date.format ? artist.begin_date.format : '') _ (artist.begin_area ? ' in ' _ artist.begin_area.name : '')) ~%]
     [%~ END ~%]
     [%~ IF artist.end_date.format or artist.end_area ~%]
         [%~ date_period_label = artist_end_label_from_type(artist.type_id) ~%]

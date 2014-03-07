@@ -72,7 +72,7 @@ sub get_translations {
             my $s = shift @$data;
             if ( grep { $s eq $_ } @MARKERS ) {
                 my @contents = ();
-		push @contents, $s;
+                push @contents, $s;
                 # Two parens at the start
                 shift @$data;
                 shift @$data;

@@ -36,24 +36,24 @@
 <table class="details">
   <tbody>
     <tr>
-	  <th>[% l('Emphasis:') %]</th>
-	  <td>[% l("''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule") %]</td>
-	</tr>
-	<tr>
-	  <th>[% l('Headings:') %]</th>
-	  <td>
-		[%- l("=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; ===&#xa0;Title&#xa0;3&#xa0;===") %]</td>
-	</tr>
-	<tr>
-	  <th>[% l('Lists:') %]</th>
-	  <td>
-		[%- l("tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent") %]</td>
-	</tr>
-	<tr>
-	  <th>[% l('Links:') %]</th>
-	  <td>
-		[% l("URL; [URL]; [URL|label]") %]</td>
-	</tr>
+      <th>[% l('Emphasis:') %]</th>
+      <td>[% l("''italics''; '''bold'''; '''''bold italics'''''; ---- horizontal rule") %]</td>
+    </tr>
+    <tr>
+      <th>[% l('Headings:') %]</th>
+      <td>
+        [%- l("=&#xa0;Title&#xa0;1&#xa0;=; ==&#xa0;Title&#xa0;2&#xa0;==; ===&#xa0;Title&#xa0;3&#xa0;===") %]</td>
+    </tr>
+    <tr>
+      <th>[% l('Lists:') %]</th>
+      <td>
+        [%- l("tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent") %]</td>
+    </tr>
+    <tr>
+      <th>[% l('Links:') %]</th>
+      <td>
+        [% l("URL; [URL]; [URL|label]") %]</td>
+    </tr>
   </tbody>
 </table>
 

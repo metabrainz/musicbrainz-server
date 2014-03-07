@@ -119,41 +119,41 @@ sub status_name_short
 
 sub can_vote
 {
-	my ($self, $editor) = @_;
+    my ($self, $editor) = @_;
 
     return 0 unless $self->is_open;
-	return 0 unless $editor->is_auto_editor;
+    return 0 unless $editor->is_auto_editor;
 
-	return 0 if $editor->is_bot;
-	return 0 if $self->candidate_id == $editor->id;
-	return 0 if $self->proposer_id == $editor->id;
-	return 0 if $self->seconder_1_id == $editor->id;
-	return 0 if $self->seconder_2_id == $editor->id;
+    return 0 if $editor->is_bot;
+    return 0 if $self->candidate_id == $editor->id;
+    return 0 if $self->proposer_id == $editor->id;
+    return 0 if $self->seconder_1_id == $editor->id;
+    return 0 if $self->seconder_2_id == $editor->id;
 
-	return 1;
+    return 1;
 }
 
 sub can_second
 {
-	my ($self, $editor) = @_;
+    my ($self, $editor) = @_;
 
     return 0 unless $self->is_pending;
-	return 0 unless $editor->is_auto_editor;
+    return 0 unless $editor->is_auto_editor;
 
-	return 0 if $editor->is_bot;
-	return 0 if $self->candidate_id == $editor->id;
-	return 0 if $self->proposer_id == $editor->id;
-	return 0 if defined $self->seconder_1_id &&
+    return 0 if $editor->is_bot;
+    return 0 if $self->candidate_id == $editor->id;
+    return 0 if $self->proposer_id == $editor->id;
+    return 0 if defined $self->seconder_1_id &&
                 $self->seconder_1_id == $editor->id;
-	return 0 if defined $self->seconder_2_id &&
+    return 0 if defined $self->seconder_2_id &&
                 $self->seconder_2_id == $editor->id;
 
-	return 1;
+    return 1;
 }
 
 sub can_cancel
 {
-	my ($self, $editor) = @_;
+    my ($self, $editor) = @_;
 
     return !$self->is_closed && $self->proposer_id == $editor->id;
 }

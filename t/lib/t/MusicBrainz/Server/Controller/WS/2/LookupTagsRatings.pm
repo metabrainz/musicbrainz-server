@@ -131,21 +131,21 @@ ws_test 'release lookup with release-groups, tags and ratings',
             <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
             <rating votes-count="1">4</rating>
         </release-group>
-	<date>2007-01-29</date>
-	<country>GB</country>
-    	<release-event-list count="1">
-	    <release-event>
-    		<date>2007-01-29</date>
-	    	<area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-		    <name>United Kingdom</name>
-	            <sort-name>United Kingdom</sort-name>
-		    <iso-3166-1-code-list>
-	    		<iso-3166-1-code>GB</iso-3166-1-code>
-	   	    </iso-3166-1-code-list>
-	        </area>
-	    </release-event>
-	</release-event-list>
-	<barcode>600116817020</barcode>
+        <date>2007-01-29</date>
+        <country>GB</country>
+        <release-event-list count="1">
+            <release-event>
+                <date>2007-01-29</date>
+                <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                    <name>United Kingdom</name>
+                    <sort-name>United Kingdom</sort-name>
+                    <iso-3166-1-code-list>
+                        <iso-3166-1-code>GB</iso-3166-1-code>
+                    </iso-3166-1-code-list>
+                </area>
+            </release-event>
+        </release-event-list>
+        <barcode>600116817020</barcode>
         <asin>B000KJTG6K</asin>
         <cover-art-archive>
             <artwork>false</artwork>

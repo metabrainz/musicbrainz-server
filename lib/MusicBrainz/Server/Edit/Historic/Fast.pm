@@ -13,11 +13,11 @@ use URI::Escape qw( uri_escape uri_unescape );
 memoize('decode_value');
 
 __PACKAGE__->mk_accessors(qw(
-	migration artist_id row_id table column
-	new_value previous_value yes_votes no_votes
-	id editor_id 	language_id quality created_time
-	expires_time close_time status data auto_edit	
-	c
+    migration artist_id row_id table column
+    new_value previous_value yes_votes no_votes
+    id editor_id language_id quality created_time
+    expires_time close_time status data auto_edit
+    c
 ));
 
 sub edit_type { }
