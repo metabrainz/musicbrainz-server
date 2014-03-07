@@ -124,8 +124,8 @@ role {
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
 
-            $makes_changes ||= $self->edit_external_links($c, $form, $source_type, $source);
-            return 1 if $makes_changes;
+            my $ext_links_changes = $self->edit_external_links($c, $form, $source_type, $source);
+            return 1 if $makes_changes || $ext_links_changes;
         };
 
         ($opts{form_args} //= {})->{url_link_types} = $url_link_types;
