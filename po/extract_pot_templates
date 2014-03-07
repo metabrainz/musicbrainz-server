@@ -89,7 +89,7 @@ sub get_translations {
                 }
                 # Two parens at the back
                 pop @contents;
-                pop @contents;                
+                pop @contents;
                 push @translations, \@contents;
             }
         }

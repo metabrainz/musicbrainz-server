@@ -16,7 +16,7 @@ sub index : Path Args(0) RequireAuth
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
 {
     my ($self, $c, $user_name) = @_;
-    
+
     $c->detach('/error_403')
         unless $c->user->is_account_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
 

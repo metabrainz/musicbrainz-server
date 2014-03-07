@@ -127,7 +127,7 @@ sub Seek
 sub Get
 {
     my ($self, $pos) = @_;
-    
+
     my $dat = $self->{DAT};
     my $idx = $self->{IDX};
 

@@ -168,11 +168,11 @@ sub can_see_vote_count
             $self->candidate_id == $editor->id ||
             (defined $self->seconder_1_id && $self->seconder_1_id == $editor->id) ||
             (defined $self->seconder_2_id && $self->seconder_2_id == $editor->id));
- 
+
     if ($self->is_closed || ($self->is_open && $editor_is_involved)) {
         return "yes";
     }
- 
+
     if ($self->is_open) {
         return "later";
     }

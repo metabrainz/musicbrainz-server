@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 use MusicBrainz::Server::Context;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
-### DATABASE 
+### DATABASE
 
 my $sql = $c->sql;
 
@@ -115,7 +115,7 @@ sub parse_db {
         }
         my $values = $sql->select_list_of_lists($query);
 
-        foreach my $value (@$values) { 
+        foreach my $value (@$values) {
                my $po = Locale::PO->new();
                my $item = shift @{$value};
                if ($item) {

@@ -41,7 +41,7 @@ ok(defined $cdstub);
 $request = POST '/ws/1/release/?type=xml&client=test-1.0', [
     toc => '1 3 18288 11599',
     discid => 'ML1kzVX3aeK0.LBLzp4IXfkGd5I-',
-    artist => 'Pixel', 
+    artist => 'Pixel',
     track0 => 'Track 1',
     artist0 => 'Artist 1',
     track1 => 'Track 2',

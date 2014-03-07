@@ -81,7 +81,7 @@ sub combine_with_query {
                     sprintf("$sql", "vote.vote = any(?)"),
                     [
                         $self->voter_id,
-                        \@query_votes, 
+                        \@query_votes,
                     ]
                 ]);
             }

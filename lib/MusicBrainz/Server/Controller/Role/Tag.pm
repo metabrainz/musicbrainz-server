@@ -79,7 +79,7 @@ sub tag_async : Chained('load') PathPart('ajax/tag') DenyWhenReadonly
 
     my $response = {
         tags => [
-            uniq sort map { $_->tag->name } @user_tags, @tags 
+            uniq sort map { $_->tag->name } @user_tags, @tags
         ],
         more => $count > @tags
     };
