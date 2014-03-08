@@ -12,6 +12,7 @@
       <th>[% l('ISWC') %]</th>
       <th>[% l('Type') %]</th>
       <th>[% l('Language') %]</th>
+      <th>[% l('Attributes') %]</th>
       [% UNLESS no_ratings %]
       <th>[% l('Rating') %]</th>
       [% END %]
@@ -58,6 +59,9 @@
       </td>
       <td>
         <abbr title="[% work.language.l_name %]">[% work.language.iso_code_3 %]</abbr>
+      </td>
+      <td>
+        [% work_attributes_list(work) %]
       </td>
       [% UNLESS no_ratings %]
       <td>[% rating_stars(work) %]</td>

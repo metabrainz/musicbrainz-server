@@ -44,6 +44,7 @@ is_deeply($edit->data, {
     comment       => 'A comment!',
     type_id       => 1,
     language_id   => undef,
+    attributes    => []
 });
 
 $mech->get_ok('/edit/' . $edit->id, 'Fetch the edit page');

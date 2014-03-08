@@ -5,7 +5,7 @@
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
-        [% IF work.type || work.iswcs.size || work.language %]
+        [% IF work.type || work.iswcs.size || work.language || work.attributes.size %]
         <h2 class="work-information">[% l('Work information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
@@ -19,6 +19,11 @@
                 [% WRAPPER 'layout/sidebar/property.tt' label=l('ISWC:') class="iswc" %]
                 [% link_iswc(iswc) %]
                 [% END %]
+            [%- END -%]
+            [%- FOR attribute=work.attributes -%]
+                [%- INCLUDE 'layout/sidebar/property.tt'
+                      content=html_escape(attribute.l_value)
+                      label=add_colon(attribute.type.l_name) -%]
             [%- END -%]
         [% END %]
         [% END %]
