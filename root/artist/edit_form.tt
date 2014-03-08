@@ -91,6 +91,11 @@
         [% END %]
       </fieldset>
 
+      <fieldset>
+        <legend>[% l('External Links') %]</legend>
+        [% external_links_editor(r.form, 'artist') %]
+      </fieldset>
+
       [% IF edit_artist_credits && artist_credits %]
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>
@@ -114,14 +119,8 @@
   <div class="documentation">
     [%- guesscase_bubble(1) -%]
     [%- sortname_bubble() -%]
-
-    <div class="area-container" style="display: none">
-      <div class="area bubble">
-        <p>
-          [% l('You selected {area}.', area => '<a class="area" href="" title=""></a><span class="area comment"></span>') %]
-        </p>
-      </div>
-    </div>
+    [%- area_bubble() -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>

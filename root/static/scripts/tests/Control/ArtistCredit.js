@@ -27,7 +27,7 @@ MB.tests.ArtistCreditControl = function () {
                     gid: "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                     name: "david bowie"
                 },
-                join_phrase: " & "
+                joinPhrase: " & "
             },
             {
                 artist: {

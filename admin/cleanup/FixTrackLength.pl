@@ -269,8 +269,7 @@ for my $medium (@mediums)
                             editor_id => $EDITOR_MODBOT,
                             privileges => $AUTO_EDITOR_FLAG,
                             to_edit => $medium,
-                            tracklist => \@new_tracklist,
-                            separate_tracklists => 1 # TODO ?
+                            tracklist => \@new_tracklist
                         );
 
                         $c->model('EditNote')->add_note(

@@ -1,29 +1,29 @@
-[% IF !server_details.read_only && c.user_exists && edit.editor_may_vote(c.user) %]
-    [% DEFAULT n = 0 %]
-    [% name = "enter-vote.vote.${n}" %]
+[%~ IF !server_details.read_only && c.user_exists && edit.editor_may_vote(c.user) ~%]
+    [%~ DEFAULT n = 0 ~%]
+    [%~ name = "enter-vote.vote.${n}" ~%]
 
-    [% MACRO vote_checkbox(label, value) BLOCK %]
-        [% checked = c.user_exists && edit.latest_vote_for_editor(c.user.id).vote == value %]
+    [%~ MACRO vote_checkbox(label, value) BLOCK %][% FILTER collapse ~%]
+        [%~ checked = c.user_exists && edit.latest_vote_for_editor(c.user.id).vote == value ~%]
         <label for="id-[% name %]-[% label %]">
         <input type="radio" value="[% value %]" name="[% name %].vote"
             id="id-[% name %]-[% label %]" [%- 'checked="checked"' IF checked || (!edit.latest_vote_for_editor(c.user.id) && value == -2) -%] />
-        [% label %]</label>
-    [% END %]
+        [%~ label ~%]</label>
+    [%~ END %][% END ~%]
     <div class="voteopts">
         <div class="vote">
-            [% vote_checkbox(l('Yes'), 1) %]
+            [%~ vote_checkbox(l('Yes'), 1) ~%]
         </div>
         <div class="vote">
-            [% vote_checkbox(l('No'), 0) %]
+            [%~ vote_checkbox(l('No'), 0) ~%]
         </div>
         <div class="vote">
-            [% vote_checkbox(l('Abstain'), -1) %]
+            [%~ vote_checkbox(l('Abstain'), -1) ~%]
         </div>
         <div class="vote">
-            [% vote_checkbox(l('None'), -2) %]
+            [%~ vote_checkbox(l('None'), -2) ~%]
         </div>
-        [% UNLESS summary %]
-                [% form_submit(l('Submit vote and note')) %]
-        [% END %]
+        [%~ UNLESS summary ~%]
+            [%~ form_submit(l('Submit vote and note')) ~%]
+        [%~ END %]
     </div>
-[% END %]
+[%~ END ~%]

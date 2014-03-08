@@ -11,6 +11,7 @@ use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Translation qw( N_l );
 use Set::Scalar;
+use Try::Tiny;
 
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -22,6 +23,7 @@ use base 'Exporter';
 our @EXPORT_OK = qw(
     artist_credit_from_loaded_definition
     artist_credit_preview
+    calculate_recording_merges
     changed_relations
     changed_display_data
     clean_submitted_artist_credits
@@ -40,6 +42,8 @@ our @EXPORT_OK = qw(
     load_artist_credit_definitions
     status_names
     verify_artist_credits
+    boolean_to_json
+    boolean_from_json
 );
 
 sub verify_artist_credits
@@ -100,7 +104,7 @@ sub load_artist_credit_definitions
     while(@ac) {
         my $ac_name = shift @ac;
 
-        next unless $ac_name->{name} && $ac_name->{artist}->{id};
+        next unless defined $ac_name->{name} && $ac_name->{artist}->{id};
 
         $load{ $ac_name->{artist}->{id} } = [];
     }
@@ -115,7 +119,7 @@ sub artist_credit_from_loaded_definition
     my @names;
     for my $ac_name (@{ $definition->{names} })
     {
-        next unless $ac_name->{name} && $ac_name->{artist}->{id};
+        next unless defined $ac_name->{name} && $ac_name->{artist}->{id};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name},
@@ -123,7 +127,7 @@ sub artist_credit_from_loaded_definition
                 Artist->new( $ac_name->{artist} )
         );
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
+        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
         push @names, $ac;
     }
 
@@ -139,7 +143,7 @@ sub artist_credit_preview
     my @names;
     for my $ac_name (@{ $definition->{names} })
     {
-        next unless $ac_name->{name};
+        next unless defined $ac_name->{name};
 
         my $ac = MusicBrainz::Server::Entity::ArtistCreditName->new(
             name => $ac_name->{name} );
@@ -156,7 +160,7 @@ sub artist_credit_preview
             $ac->artist(Artist->new( $ac_name->{artist} ));
         }
 
-        $ac->join_phrase ($ac_name->{join_phrase}) if $ac_name->{join_phrase};
+        $ac->join_phrase ($ac_name->{join_phrase}) if defined $ac_name->{join_phrase};
 
         push @names, $ac;
     }
@@ -181,10 +185,10 @@ sub clean_submitted_artist_credits
         my $part = $names[$_];
         if (ref $part eq 'HASH')
         {
-            $part->{artist}->{name} = trim ($part->{artist}->{name}) if $part->{artist}->{name};
-            $part->{name} = trim ($part->{name}) if $part->{name};
+            $part->{artist}->{name} = trim ($part->{artist}->{name}) if defined $part->{artist}->{name};
+            $part->{name} = trim ($part->{name}) if defined $part->{name};
 
-            push @delete, $_ unless ($part->{artist}->{name} || $part->{name});
+            push @delete, $_ unless (defined $part->{artist}->{name} || defined $part->{name});
 
             # MBID is only used for display purposes so remove it (we
             # use the id in edits, and that should determine if an
@@ -193,14 +197,14 @@ sub clean_submitted_artist_credits
 
             # Fill in the artist credit from the artist name if no artist credit
             # was submitted.
-            $part->{name} = $part->{artist}->{name} unless $part->{name};
+            $part->{name} //= $part->{artist}->{name};
 
             # MBS-3226, Fill in the artist name from the artist credit if the user
             # didn't enter an artist name.
-            $part->{artist}->{name} = $part->{name} unless $part->{artist}->{name};
+            $part->{artist}->{name} //= $part->{name};
 
             # Set to empty string if join_phrase is undef.
-            $part->{join_phrase} = '' unless defined $part->{join_phrase};
+            $part->{join_phrase} //= '';
             $part->{join_phrase} = collapse_whitespace ($part->{join_phrase});
 
             # Remove trailing whitespace from a trailing join phrase.
@@ -318,11 +322,11 @@ sub merge_artist_credit {
         unless $current->artist_credit;
 
     my $an = hash_artist_credit($ancestor->{artist_credit});
-    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit, []));
+    my $cu = hash_artist_credit(artist_credit_to_ref($current->artist_credit));
     my $ne = hash_artist_credit($new->{artist_credit});
     return (
         [$an, $ancestor->{artist_credit}],
-        [$cu, artist_credit_to_ref($current->artist_credit, [])],
+        [$cu, artist_credit_to_ref($current->artist_credit)],
         [$ne, $new->{artist_credit}]
     );
 }
@@ -421,6 +425,45 @@ sub merge_set {
         + ($current_set - $old_set);  # ... and include those added
 
     return $result_set->members;
+}
+
+sub calculate_recording_merges {
+    my ($new, $old) = @_;
+    my $recording_merges = [];
+    for my $medium ($new->all_mediums) {
+        for my $track ($medium->all_tracks) {
+            try {
+                my @sources;
+                for my $source_medium (map { $_->all_mediums } @{ $old }) {
+                    if ($source_medium->position == $medium->position) {
+                        push @sources, map { $_->recording }
+                            grep { $_->position == $track->position } $source_medium->all_tracks;
+                    }
+                }
+                @sources = grep { $_->id != $track->recording->id } @sources;
+                push(@$recording_merges, {
+                         medium => $medium->position,
+                         track => $track->number,
+                         sources => \@sources,
+                         destination => $track->recording}) if scalar @sources;
+            };
+        }
+    }
+    return $recording_merges;
+}
+
+sub boolean_to_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? $$bool : $bool;
+    $bool ? \1 : \0;
+}
+
+sub boolean_from_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? $$bool : $bool;
+    $bool ? 1 : 0;
 }
 
 1;

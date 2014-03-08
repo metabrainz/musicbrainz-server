@@ -1556,6 +1556,10 @@ msgstr ""
 msgid "pang gu ly hu hmông"
 msgstr ""
 
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr ""
+
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
 msgstr ""
@@ -1996,6 +2000,10 @@ msgstr ""
 msgid "tape"
 msgstr ""
 
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr ""
@@ -2398,6 +2406,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:320
 msgid "đàn tranh"
+msgstr ""
+
+#: DB:link_attribute_type/name:753
+msgid "đàn tứ"
 msgstr ""
 
 #: DB:link_attribute_type/name:303

@@ -18,7 +18,7 @@ CREATE TABLE cover_art (
     id BIGINT NOT NULL, -- PK
     release INTEGER NOT NULL, -- references musicbrainz.release.id CASCADE
     comment TEXT NOT NULL DEFAULT '',
-    edit INTEGER NOT NULL, -- references musicbrainz.edit.id
+    edit INTEGER NOT NULL, -- separately references musicbrainz.edit.id
     ordering INTEGER NOT NULL CHECK (ordering > 0),
     date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),

@@ -21,7 +21,7 @@
               <td>[% artist_credit(result.artist_credit) %]</td>
               <td>[% result.combined_track_count %]</td>
               <td>
-                <abbr title="[% result.country.name %]">[% result.country.iso_code %]</abbr>
+                <span class="flag-[% result.country.iso_code %]"><abbr title="[% result.country.name %]">[% result.country.iso_code %]</abbr></span>
               </td>
               <td>
                 <abbr title="[% result.language.name %]">[% result.language.iso_code_3 %]</abbr>

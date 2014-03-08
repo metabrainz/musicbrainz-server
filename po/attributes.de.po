@@ -12,13 +12,13 @@
 # Philipp Wolfer <email address hidden>, 2012
 # Shepard <email address hidden>, 2011
 # Shepard, 2011
-# Shepard, 2013
+# Shepard, 2013-2014
 # Tobias Quathamer <email address hidden>, 2007
 # Tobias Quathamer <email address hidden>, 2007
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-12 12:01+0000\n"
+"PO-Revision-Date: 2014-02-10 23:54+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +72,11 @@ msgctxt "alias_type"
 msgid "Artist name"
 msgstr "Künstlername"
 
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
@@ -86,6 +91,11 @@ msgstr "Rückseite"
 msgctxt "work_type"
 msgid "Ballet"
 msgstr "Ballett"
+
+#: DB:work_type/name:26
+msgctxt "work_type"
+msgid "Beijing opera"
+msgstr ""
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -170,7 +180,7 @@ msgstr "Kassettenhülle"
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr ""
+msgstr "Figur"
 
 #: DB:area_type/name:3
 msgctxt "area_type"
@@ -232,6 +242,11 @@ msgctxt "medium_format"
 msgid "Digital Media"
 msgstr "Digitales Medium"
 
+#: DB:release_packaging/name:13
+msgctxt "release_packaging"
+msgid "Discbox Slider"
+msgstr ""
+
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
@@ -252,6 +267,11 @@ msgctxt "release_group_primary_type"
 msgid "EP"
 msgstr "EP"
 
+#: DB:release_packaging/name:10
+msgctxt "release_packaging"
+msgid "Fatbox"
+msgstr ""
+
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
@@ -266,6 +286,11 @@ msgstr "Amtlicher Name"
 msgctxt "cover_art_type"
 msgid "Front"
 msgstr "Vorderseite"
+
+#: DB:release_packaging/name:12
+msgctxt "release_packaging"
+msgid "Gatefold Cover"
+msgstr ""
 
 #: DB:artist_type/name:2
 msgctxt "artist_type"
@@ -297,6 +322,11 @@ msgctxt "medium_format"
 msgid "Hybrid SACD"
 msgstr "Hybrid-SACD"
 
+#: DB:label_type/name:9
+msgctxt "label_type"
+msgid "Imprint"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -326,6 +356,11 @@ msgstr "LaserDisc"
 msgctxt "alias_type"
 msgid "Legal name"
 msgstr "Bürgerlicher Name"
+
+#: DB:cover_art_archive.art_type/name:12
+msgctxt "cover_art_type"
+msgid "Liner"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -462,6 +497,11 @@ msgctxt "work_type"
 msgid "Poem"
 msgstr "Gedicht"
 
+#: DB:cover_art_archive.art_type/name:11
+msgctxt "cover_art_type"
+msgid "Poster"
+msgstr ""
+
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
@@ -542,6 +582,11 @@ msgstr "Single"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Slimcase"
+
+#: DB:release_packaging/name:11
+msgctxt "release_packaging"
+msgid "Snap Case"
+msgstr ""
 
 #: DB:work_type/name:5
 msgctxt "work_type"

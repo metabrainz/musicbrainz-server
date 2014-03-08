@@ -1,13 +1,13 @@
 [% rdfa_set_header(usesRDFa) %]
     [%- INCLUDE 'layout/head.tt' -%]
     <body>
-        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END -%]
+        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
         <div id="header">
             <div id="header-logo">
                 <a href="/" class="logo" title="MusicBrainz"><strong>MusicBrainz</strong></a>
                 <div>
-                    [%- USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') -%]
+                    [% USE sidebar = FormRenderer(sidebar_search, id_prefix => 'header') ~%]
                     <form action="[% c.uri_for('/search') %]" method="get">
                         [% sidebar.text('query', { placeholder => l('search') }) %]
                         [% sidebar.select('type') %]
@@ -15,14 +15,14 @@
                         [% form_submit(l('Search'), 'inline') %]
                     </form>
                 </div>
-                [%- IF server_details.git.branch -%]
+                [% IF server_details.git.branch ~%]
                   <div class="git-branch">
-                    [%- l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
+                    [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
                          { branch => server_details.git.branch,
                            msg => html_escape(server_details.git.msg),
-                           sha	  => server_details.git.sha}) -%]
+                           sha	  => server_details.git.sha}) ~%]
                   </div>
-                [%- END -%]
+                [%~ END %]
             </div>
             <div id="header-menu">
                 <div>
@@ -88,10 +88,10 @@
         <div id="footer">
             <p class="left">
                 <a href="http://metabrainz.org/donate" class="internal">[% l('Donate') %]</a> |
-                <a href="http://wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
+                <a href="//wiki.musicbrainz.org/" class="internal">[% l('Wiki') %]</a> |
                 <a href="http://forums.musicbrainz.org/" class="internal">[% l('Forums') %]</a> |
                 <a href="http://tickets.musicbrainz.org/" class="internal">[% l('Bug Tracker') %]</a> |
-                <a href="http://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
+                <a href="https://twitter.com/MusicBrainz" class="internal">[% l('Twitter') %]</a>
                 [%- IF server_details.beta_redirect %] |
                 <a href="[% c.uri_for('/set-beta-preference') %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
                 [%- END -%]
@@ -105,15 +105,12 @@
             <p class="right">
                 [% l('Cover Art provided by the {caa|Cover Art Archive}. Hosted by {host|Digital West}. Sponsored by: {url1|Google},
                       {url2|OSUOSL} and {more|others...}. ',
-                    { host => 'http://digitalwest.net/',
-                      url1 => 'http://www.google.com/',
-                      url2 => 'http://osuosl.org/',
+                    { host => '//www.digitalwest.net/',
+                      url1 => 'https://www.google.com/',
+                      url2 => '//osuosl.org/',
                       more => 'http://metabrainz.org/doc/Sponsors',
-                      caa  => 'http://coverartarchive.org/' }) %]
+                      caa  => '//coverartarchive.org/' }) %]
             </p>
         </div>
-
-        [%- BLOCK invisible_content -%][%- END -%]
-        [% INCLUDE invisible_content %]
     </body>
 </html>

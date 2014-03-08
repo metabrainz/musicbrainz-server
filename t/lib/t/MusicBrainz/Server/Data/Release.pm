@@ -655,6 +655,81 @@ EOSQL
     }
 };
 
+test 'merge release events' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    $c->sql->do(<<'EOSQL');
+INSERT INTO area (id, gid, name, sort_name, type) VALUES
+    (  5, 'e01da61e-99a8-3c76-a27d-774c3f4982f0', 'Andorra', 'Andorra', 1),
+    (122, 'd2007481-eefe-37c0-be71-2256dfe148cb', 'Liechtenstein', 'Liechtenstein', 1),
+    (132, '050c94f7-1413-3a34-bb90-4a94f3bb2084', 'Malta', 'Malta', 1),
+    (182, 'd4dd44b6-fa46-30f5-b331-ce9e88d06242', 'San Marino', 'San Marino', 1);
+INSERT INTO country_area (area) VALUES (5), (122), (132), (182);
+
+INSERT INTO release_country (release, country, date_year, date_month, date_day) VALUES
+    (8, 221, 2010,  2, NULL),
+    (9, 221, 2009, 12, 11),
+    (8, 182, 2008,  8, NULL),
+    (9, 182, NULL,  7,  6),
+    (8, 132, 2012, 10,  9),
+    (9, 132, 2011,  9, 10),
+    (8, 122, 2005,  4, 17),
+    (9,   5, 2007, NULL, NULL);
+
+INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES
+    (8, 2013, 11, 22),
+    (9, 2014,  1,  5);
+EOSQL
+
+    $c->model('Release')->merge(
+        merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+        new_id => 8,
+        old_ids => [ 9 ]
+    );
+
+    my $release = $c->model('Release')->get_by_id(8);
+    $c->model('Release')->load_release_events($release);
+    is($release->all_events, 6, "has six release events");
+    my @country_events = grep { defined $_->country_id } $release->all_events;
+    my ($re_gb) = grep { $_->country_id == 221 } @country_events;
+    ok(defined $re_gb, "has release event for the U.K.");
+    my ($re_sm) = grep { $_->country_id == 182 } @country_events;
+    ok(defined $re_sm, "has release event for San Marino");
+    my ($re_mt) = grep { $_->country_id == 132 } @country_events;
+    ok(defined $re_mt, "has release event for Malta");
+    my ($re_li) = grep { $_->country_id == 122 } @country_events;
+    ok(defined $re_li, "has release event for Liechtenstein");
+    my ($re_ad) = grep { $_->country_id ==   5 } @country_events;
+    ok(defined $re_ad, "has release event for Andorra");
+    my ($re_unknown) = grep { ! defined $_->country_id } $release->all_events;
+    ok(defined $re_unknown, "has release event for unknown country");
+
+    is($re_gb->date->year, 2009, "complete date is preferred over partial date");
+    is($re_gb->date->month, 12);
+    is($re_gb->date->day, 11);
+
+    is($re_sm->date->year, 2008, "partial date with year is preferred over other partial date");
+    is($re_sm->date->month, 8);
+    ok(! defined $re_sm->date->day);
+
+    is($re_mt->date->year, 2012, "merge target is preferred among complete dates, for known country");
+    is($re_mt->date->month, 10);
+    is($re_mt->date->day, 9);
+
+    is($re_unknown->date->year, 2013, "merge target is preferred among complete dates, for unknown country");
+    is($re_unknown->date->month, 11);
+    is($re_unknown->date->day, 22);
+
+    is($re_li->date->year, 2005, "release event from the merge target is retained");
+    is($re_li->date->month, 4);
+    is($re_li->date->day, 17);
+
+    is($re_ad->date->year, 2007, "release event from the other merged entity is retained");
+    ok(! defined $re_ad->date->month);
+    ok(! defined $re_ad->date->day);
+};
+
 test 'Merging releases with the same date should discard unknown country events' => sub {
     my $test = shift;
     my $c = $test->c;

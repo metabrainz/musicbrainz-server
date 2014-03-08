@@ -1,6 +1,6 @@
 package MusicBrainz::Server::Edit::Relationship::RemoveLinkType;
 use Moose;
-use MooseX::Types::Moose qw( Int Str ArrayRef );
+use MooseX::Types::Moose qw( Int Str ArrayRef Maybe );
 use MooseX::Types::Structured qw( Dict  Optional Tuple );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE );
 use MusicBrainz::Server::Constants qw( :expire_action :quality );
@@ -26,7 +26,7 @@ has '+data' => (
         attributes          => ArrayRef[Dict[
             name => Optional[Str], # Only used in historic edits
             min  => Int,
-            max  => Int,
+            max  => Maybe[Int], # this can be undef, for "no maximum"
             type => Optional[Int], # Used in NGS edits
         ]]
     ]

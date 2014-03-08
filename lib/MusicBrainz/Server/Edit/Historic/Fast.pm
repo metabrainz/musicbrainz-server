@@ -4,7 +4,7 @@ use Moose;
 
 extends 'Class::Accessor::Fast::XS';
 
-use Class::MOP;
+use Class::Load qw( load_class );
 use JSON::Any qw( XS JSON );
 use Memoize;
 use MusicBrainz::Server::Data::Utils qw( copy_escape );
@@ -71,7 +71,7 @@ sub for_copy {
     my $edit = shift;
     my $type = $edit->edit_type;
     if ($edit->can('ngs_class')) {
-        Class::MOP::load_class($edit->ngs_class);
+        load_class($edit->ngs_class);
         $type = $edit->ngs_class->edit_type;
     }
 

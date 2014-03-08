@@ -31,9 +31,10 @@ $(function() {
         if (id) {
             var selected = typeInfo[id];
             if (selected.descr) {
-                message = selected.descr;
-                message += ' (<a href="' + selected.doc_link + '">' +
-                                'more documentation</a>)';
+                message = MB.i18n.expand(MB.text.MoreDocumentation, {
+                    description: selected.descr,
+                    url: selected.doc_link
+                });
             }
             else {
                 message = MB.text.PleaseSelectARSubtype;

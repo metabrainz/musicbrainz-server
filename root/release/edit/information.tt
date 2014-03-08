@@ -1,258 +1,328 @@
-[%- WRAPPER 'release/edit/layout.tt' -%]
-  [% script_manifest('edit.js.manifest') %]
-  [% script_manifest('guess-case.js.manifest') %]
-  [% script_manifest('release-editor.js.manifest') %]
+<div class="half-width" data-bind="with: rootField.release">
+  <fieldset>
+    <legend>[% l('Release information') %]</legend>
 
-  [% USE r = FormRenderer(form) %]
-  [% r.hidden('id') %]
+    <table class="row-form">
+    <tbody>
+      <tr>
+        <td><label for="title" class="required">[% l('Title:') %]</label></td>
+        <td colspan="2">
+          <input id="title" type="text" size="47" data-bind="value: name, controlsBubble: $root.guessCaseBubble" />
+        </td>
+      </tr>
 
-  <div class="half-width">
-    <fieldset>
-      <legend>[% l('Release information') %]</legend>
-      [% form_row_text (r, 'name', l('Title:')) %]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: name') %]
 
-      [% WRAPPER form_row %]
-        [% rg_field = form.field('release_group.name') %]
-        <label for="[% rg_field.id %]">[% l('Release Group:') %]</label>
-        <span class="release-group autocomplete">
-          <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-          <input type="hidden" class="gid" value="[% release_group.gid | html %]" />
-          <input type="hidden" class="comment" value="[% release_group.comment | html %]" />
-          [% r.hidden ('release_group_id', class => 'id') %]
-          [% r.text(rg_field, class => 'name') %]
-        </span>
-        [% field_errors(r.form, 'release_group.name') %]
-      [% END %]
+      <tr>
+        <td><label for="release-group">[% l('Release Group:') %]</label></td>
+        <td colspan="2">
+          <span class="autocomplete">
+            <input id="release-group" type="text"
+              data-bind="
+                autocomplete: {
+                  entity: 'release-group',
+                  currentSelection: releaseGroup,
+                  entityConstructor: $root.fields.ReleaseGroup
+                },
+                controlsBubble: $root.releaseGroupBubble"
+            />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          </span>
+        </td>
+      </tr>
 
-      [%- form_row_artist_credit(form) -%]
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: releaseGroup') %]
 
-      [%# FIXME: should only be editable on Add Release. %]
-      [% IF !release_group %]
-        [% form_row_select (r, 'primary_type_id', l('Primary Type:')) %]
-        [% form_row_select (r, 'secondary_type_ids', l('Secondary Types:')) %]
+      <tr data-bind="with: artistCredit">
+        <td><label for="release-artist" class="required">[% l('Artist:') %]</label></td>
+        <td class="release-artist">
+          <span class="autocomplete">
+            <input id="release-artist" type="text"
+              data-bind="
+                autocomplete: {
+                  entity: 'artist',
+                  artistCredit: $data
+                }"
+              data-hidden-inputs="[% 1 IF form %]"
+              data-form="[% form.name IF form.html_prefix %]"
+              data-artist="[% html_escape(form.field('artist_credit').json) IF form %]"
+            />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          </span>
+        </td>
+        <td>
+          <button type="button" class="styled-button" id="open-ac" data-bind="controlsBubble: $root.artistBubble">[% l('Edit') | html_entity %]</button>
+        </td>
+      </tr>
+
+      [% table_row_error(2, 'showErrorWhenTabIsSwitched: artistCredit') %]
+
+      [% IF NOT release.gid %]
+        <!-- ko with: releaseGroup -->
+        [% table_row_select('primary-type', l('Primary Type:'), 2,
+            'value: typeID, disable: !!gid', primary_types) %]
+
+        [% table_row_select('secondary-types', l('Secondary Types:'), 2,
+            'selectedOptions: secondaryTypeIDs, disable: !!gid', secondary_types, 1) %]
+        <!-- /ko -->
       [% ELSE %]
-        <div class="row">
-          <div class="label">[% l('Type:') %]</div>
-          <div>
-            <div>
-              [% l('To edit types, please edit the release group.') %]
-            </div>
-          </div>
-        </div>
+      <tr>
+        <td><label>[% l('Type:') %]</label></td>
+        <td colspan="2">
+          [% l('To edit types, please {edit_page|edit the release group}.',
+                edit_page => c.uri_for_action('/release_group/edit', [ release.release_group.gid ])) %]
+        </td>
+      </tr>
       [% END %]
-      [% form_row_select (r, 'status_id', lp('Status:', 'release status')) %]
-      [% form_row_select (r, 'language_id', l('Language:'), 'short') %]
-      [% form_row_select (r, 'script_id', l('Script:'), 'short') %]
 
-    </fieldset>
+      [% table_row_select('status', l('Status:'), 2,
+          'value: statusID, controlsBubble: $root.statusBubble', statuses) %]
 
-    <fieldset>
-      <legend>[% l('Release event') %]</legend>
+      [% table_row_select('language', l('Language:'), 2, 'value: languageID', languages) %]
 
-      <div class="event-container" style="padding: 0.5em 0">
-        [% FOR field=form.field('events').fields %]
-        <div class="release-event">
-           [% WRAPPER form_row %]
-              [%- date = field.field('date');
-              r.label(date, l('Date:'), class => 'date');
-              r.date(date); -%]
-           [% END %]
+      [% table_row_select('script', l('Script:'), 2, 'value: scriptID', scripts) %]
+    </tbody>
+    </table>
+  </fieldset>
 
-           [% WRAPPER form_row %]
-              [%- country_id = field.field('country_id');
-              r.label(country_id, l('Country:'), class => 'country' );
-              r.select(country_id, class => 'with-remove' ); -%]
-              <span class="remove-event">
-                [%- r.hidden(field.field('deleted')) -%]
-                <a class="icon remove-event" href="#remove_event">
-                  <div class="icon img" title="[% l('Remove Event') %]"></div>
-                </a>
-              </span>
-            [% END %]
-          [%- field_errors(r.form, country_id);
-              field_errors(r.form, date) %]
-        </div>
-        [% END %]
-        [% WRAPPER form_row %]
-        <div class="form-row-add nolabel">
-          <button class="nobutton add-event">
-            <span class="add-event">[% lp('Add Event', 'button/menu') %]</span>
-            <div class="add-item icon img" title="[% lp('Add Event', 'button/menu') %]"></div>
+  <fieldset>
+    <legend>[% l('Release event') %]</legend>
+
+    <table class="row-form">
+    <tbody>
+    <!-- ko foreach: events -->
+      <tr>
+        <td><label>[% l('Date:') %]</label></td>
+        <td class="partial-date">
+          <span class="partial-date">
+            <input maxlength="4" placeholder="[% l('YYYY') %]" size="4"
+              class="partial-date-year"
+              data-bind="
+                value: date.year,
+                valueUpdate: 'input',
+                controlsBubble: $root.dateBubble,
+                withLabel: 'event-date'"
+            />-[%
+            %]<input maxlength="2" placeholder="[% l('MM') %]" size="2"
+                class="partial-date-month"
+                data-bind="
+                  value: date.month,
+                  valueUpdate: 'input',
+                  controlsBubble: $root.dateBubble"
+            />-[%
+            %]<input maxlength="2" placeholder="[% l('DD') %]" size="2"
+                class="partial-date-day"
+                data-bind="
+                  value: date.day,
+                  valueUpdate: 'input',
+                  controlsBubble: $root.dateBubble" />
+          </span>
+        </td>
+        [% table_cells_select('country', l('Country:'), 1,
+            "value: countryID, withLabel: 'country'", countries) %]
+        <td>
+          <button type="button" class="icon remove-item" title="[% l('Remove Event') %]" data-click="removeReleaseEvent"></button>
+        </td>
+      </tr>
+
+      [% table_row_error(4, 'showErrorRightAway: date') %]
+
+      [% table_row_error(4, 'showErrorRightAway: countryID') %]
+    <!-- /ko -->
+
+      <tr>
+        <td></td>
+        <td colspan="4" class="add-item">
+          <button class="with-label add-item" title="[% lp('Add Event', 'button/menu') %]" data-click="addReleaseEvent">
+            [% lp('Add Event', 'button/menu') %]
           </button>
-        </div>
-        [% END %]
-      </div>
+        </td>
+      </tr>
 
-      [% form_row_select (r, 'packaging_id', l('Packaging:')) %]
+    <!-- ko foreach: labels -->
+      <tr>
+        <td><label>[% l('Label:') %]</label></td>
+        <td>
+          <span class="autocomplete">
+            <input type="text" class="name"
+              data-bind="
+                withLabel: 'label',
+                autocomplete: {
+                  entity: 'label',
+                  currentSelection: label
+                },
+                controlsBubble: $root.labelBubble"
+            />
+            <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
+          </span>
+        </td>
+        <td><label>[% l('Cat. No:') %]</label></td>
+        <td>
+          <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.catNoBubble" />
+        </td>
+        <td>
+          <button type="button" class="remove-item icon" title="[% l('Remove Label') %]" data-click="removeReleaseLabel"></button>
+        </td>
+      </tr>
 
-      <div class="label-container" style="padding: 0.5em 0">
-        [% FOR field=form.field('labels').fields %]
+      [% table_row_error(4, 'showErrorWhenTabIsSwitched: label') %]
+    <!-- /ko -->
 
-           <div class="row release-label">
-            [%- r.label(field.field('name'), l('Label:'), class => 'label-name') -%]
-            <span class="label autocomplete">
-              <img class="search" src="[% c.uri_for("/static/images/icons/search.png") %]" />
-              [% label_id = field.field('label_id').value %]
-              [% label = labels_by_id.$label_id %]
-              <input type="hidden" class="gid" value="[% label.gid | html %]" />
-              <input type="hidden" class="comment" value="[% label.comment | html %]" />
-              <input type="hidden" class="sortname" value="[% label.sort_name | html %]" />
-              [%- r.hidden(field.field('label_id'), class => 'id') -%]
-              [%- r.text(field.field('name'), class => 'name') -%]
-            </span>
-            [%- r.label(field.field('catalog_number'), l('Cat. No:'), class => 'catno') -%]
-            [%- r.text (field.field('catalog_number'), class => 'catno' ) -%]
+      <tr>
+        <td></td>
+        <td colspan="4" class="add-item">
+          <button class="with-label add-item" title="[% lp('Add Label', 'button/menu') %]" data-click="addReleaseLabel">
+            [% lp('Add Label', 'button/menu') %]
+          </button>
+        </td>
+      </tr>
 
-            <span class="remove-label">
-              [%- r.hidden(field.field('deleted')) -%]
-              <a class="icon remove-label" href="#remove_label">
-                <div class="icon img" title="[% l('Remove Label') %]"></div>
-              </a>
-            </span>
+      <tr>
+        <td><label for="barcode">[% l('Barcode:') %]</label></td>
+        <td colspan="4">
+          <input id="barcode" type="text" data-bind="value: barcode.value, valueUpdate: 'input', disable: barcode.none, controlsBubble: $root.barcodeBubble" />
+        </td>
+      </tr>
 
-            [% field_errors(r.form, field.field('name')) %]
-           </div>
+      [% table_row_error(4, 'showErrorRightAway: barcode') %]
 
-        [% END %]
-
-        [% WRAPPER form_row %]
-          <div class="form-row-add nolabel">
-            <button class="nobutton add-label">
-              <span class="add-label">[% lp('Add Label', 'button/menu') %]</span>
-              <div class="add-item icon img" title="[% lp('Add Label', 'button/menu') %]"></div>
-            </button>
-          </div>
-        [% END %]
-      </div>
-
-      [% form_row_text (r, 'barcode', l('Barcode:')) %]
-      [% form_row_checkbox (r, 'no_barcode', l('This release does not have a barcode')) %]
-    </fieldset>
-
-    <fieldset class="information">
-      <legend>[% l('Additional information') %]</legend>
-      [% form_row_textarea(r, 'annotation', l('Annotation:')) %]
-      [% form_row_text(r, 'comment', l('Disambiguation:')) %]
-    </fieldset>
-
-    <div class="buttons ui-helper-clearfix">
-        [% r.submit ('cancel', l('Cancel'), class => 'negative') %]
-        [% r.submit ('next', l('Next »')) %]
-    </div>
-  </div>
-
-  <div class="documentation">
-
-    [%- guesscase_bubble() -%]
-    [%- artist_credit_table() -%]
-
-    <div class="release-group-container" style="display: none">
-      <div class="release-group bubble">
-        <p>
-          [% l('You selected {releasegroup}.', releasegroup => '<a class="release-group" href="" title=""></a><span class="release-group comment"></span>') %]
-        </p>
-      </div>
-    </div>
-
-    <div class="date-container" style="display: none">
-      <div class="date bubble">
-        <p class="amazon" style="display: none">
-          [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %]
-        </p>
-        <p class="january-first" style="display: none">
-          [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]
-        </p>
-     </div>
-    </div>
-
-    <div class="packaging-container" style="display: none">
-      <div class="packaging bubble">
-        <p>
-          [% l('Review the <a href="{url}" target="_blank">list of packaging types</a> for help.',
-               { url => doc_link('Release/Packaging') }) %]
-        </p>
-     </div>
-    </div>
-
-    [% FOR field=form.field('labels').fields %]
-    <div class="catno-container" style="display: none">
-      <div class="bubble">
-        <p class="label bubble">
-          [% l('You selected {label}.', label => '<a class="label" href="" title=""></a><span class="label comment"></span>') %]
-        </p>
-        <p class="catno bubble">
-          [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
-        </p>
-        <p class="catno bubble">
-          [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
-        </p>
-      </div>
-    </div>
-    [% END %]
-
-    <div class="barcode-container" style="display: none">
-      <div class="barcode bubble">
-       <p>
-          [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
-               { url => doc_link('Barcode') }) %]
-       </p>
-       <p class="barcode-message"></p>
-       <p class="barcode-confirm">
-          <label for="id-barcode_confirm">
-            <strong>
-              [%- r.checkbox('barcode_confirm') %]
-              [% l("I confirm that this is the barcode as it appears on the release.") -%]
-            </strong>
+      <tr>
+        <td></td>
+        <td colspan="4">
+          <input id="no-barcode" type="checkbox" data-bind="checked: barcode.none" />
+          <label class="inline" for="no-barcode">
+            [% l('This release does not have a barcode') %]
           </label>
-       </p>
-       <p>
-         [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
-       </p>
-      </div>
-    </div>
+        </td>
+      </tr>
 
-    <div class="annotation-container" style="display: none">
-      <div class="annotation bubble">
-        <p>
-          [% l('The annotation field functions like a miniature wiki.') %]
-        </p>
-        <p>
-          [% l('The purpose of this field is to add information that usually doesn\'t fit into the strict structural data schema of MusicBrainz (be it due to technical limitations that may be addressed later, or because the information in itself has to be free-text).') %]
-        </p>
-      </div>
-    </div>
+      [% table_row_select('packaging', l('Packaging:'), 4,
+          'value: packagingID, controlsBubble: $root.packagingBubble', packagings) %]
+    </tbody>
+    </table>
+  </fieldset>
 
-    <div class="comment-container" style="display: none">
-      <div class="comment bubble">
-        <p>
-          [% l('The comment field is used to help users distinguish between identically named releases.') %]
-        </p>
-        <p>
-          [% l('This field is not a place to store general background information about the release: that kind of information should go in the annotation field.') %]
-        </p>
-      </div>
-    </div>
+  <fieldset class="information">
+    <legend>[% l('Additional information') %]</legend>
+    <table class="row-form">
+    <tbody>
+      <tr>
+        <td><label for="annotation">[% l('Annotation:') %]</label></td>
+        <td>
+          <textarea id="annotation" data-bind="value: annotation, controlsBubble: $root.annotationBubble"></textarea>
+        </td>
+      </tr>
 
-    <div class="status-container" style="display: none">
-      <div class="status bubble">
-        <p class="documentation-4">
-          [%- l('This release status should be used for unofficial translations
-                 and transliterations of tracklists and release titles, and does
-                 not denote a separate real release. It should not be used to
-                 denote bootlegs, mixtape/street albums, demos, or digital
-                 albums. Be sure to link to the corresponding real release with
-                 the {url|transl(iter)ation relationship}.',
-                { url => doc_link('Translation_Transliteration_Relationship_Type') })
-          -%]
-        </p>
-      </div>
-    </div>
+      <tr>
+        <td><label for="comment">[% l('Disambiguation:') %]</label></td>
+        <td>
+          <input id="comment" type="text" data-bind="value: comment, controlsBubble: $root.commentBubble" />
+        </td>
+      </tr>
+    </tbody>
+    </table>
+  </fieldset>
 
+  <fieldset class="information" data-bind="affectsBubble: externalLinks.bubbleDoc">
+    <legend>[% l('External Links') %]</legend>
+
+    <!-- ko with: externalLinks -->
+      [% external_links_editor(0, 'release') %]
+    <!-- /ko -->
+  </fieldset>
+</div>
+
+<div class="documentation" data-bind="with: rootField.release">
+  [%- guesscase_bubble(0, '$root.guessCaseBubble', '_.bind($root.guessCaseReleaseName, $root)') -%]
+
+  [%- artist_credit_table() -%]
+
+  <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
+    <!-- ko with: releaseGroup -->
+      <p data-bind="html: MB.i18n.expand(MB.text.SelectedReleaseGroup, { releasegroup: html({ target: '_blank' }) })"></p>
+    <!-- /ko -->
   </div>
 
-  <script type="text/javascript">//<![CDATA[
-    MB.Control.ReleaseInformation("[% wizard.c.action.name %]");
-    MB.utility.setDefaultAction("form.release-editor", "#id-next");
-  //]]></script>
+  <div class="bubble" data-bind="bubble: $root.dateBubble">
+    <p data-bind="visible: hasAmazonDate()">
+      [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %]
+    </p>
+    <p data-bind="visible: hasJanuaryFirstDate()">
+      [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]
+    </p>
+  </div>
 
-[%- END -%]
+  <div class="bubble" data-bind="bubble: $root.labelBubble">
+    <p data-bind="html: MB.i18n.expand(MB.text.SelectedLabel, { label: label().html({ target: '_blank' }) })"></p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.catNoBubble">
+    <p>
+      [% l('The catalog number you have entered looks like an Amazon ASIN.') %]
+    </p>
+    <p>
+      [% l('If this is an Amazon ASIN, please do not enter it in the catalog number field, but add it as a URL relationship later.') %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.packagingBubble">
+    <p>
+      [% l('Review the <a href="{url}" target="_blank">list of packaging types</a> for help.',
+           { url => doc_link('Release/Packaging') }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.barcodeBubble">
+    <p>
+      [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
+           { url => doc_link('Barcode') }) %]
+    </p>
+    <p data-bind="visible: barcode.message, text: barcode.message"></p>
+    <p class="field-error" data-bind="visible: barcode.error() || barcode.confirmed()">
+      <label>
+        <strong>
+          <input type="checkbox" data-bind="checked: barcode.confirmed" />
+          [% l("I confirm that this is the barcode as it appears on the release.") -%]
+        </strong>
+      </label>
+    </p>
+    <p>
+      [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.annotationBubble">
+    <p>
+      [% l('The annotation field functions like a miniature wiki.') %]
+    </p>
+    <p>
+      [% l('The purpose of this field is to add information that usually doesn\'t fit into the strict structural data schema of MusicBrainz (be it due to technical limitations that may be addressed later, or because the information in itself has to be free-text).') %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.commentBubble">
+    <p>
+      [% l('The comment field is used to help users distinguish between identically named releases.') %]
+    </p>
+    <p>
+      [% l('This field is not a place to store general background information about the release: that kind of information should go in the annotation field.') %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.statusBubble">
+    <p>
+      [%- l('This release status should be used for unofficial translations
+             and transliterations of tracklists and release titles, and does
+             not denote a separate real release. It should not be used to
+             denote bootlegs, mixtape/street albums, demos, or digital
+             albums. Be sure to link to the corresponding real release with
+             the {url|transl(iter)ation relationship}.',
+            { url => doc_link('Translation_Transliteration_Relationship_Type') })
+      -%]
+    </p>
+  </div>
+
+  <!-- ko with: externalLinks -->
+    [% external_link_bubble() %]
+  <!-- /ko -->
+</div>

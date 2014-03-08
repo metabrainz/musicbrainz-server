@@ -136,7 +136,7 @@ sub _mapping
 {
     return (
         artist_credit => sub {
-            return artist_credit_to_ref(shift->artist_credit, []);
+            return artist_credit_to_ref(shift->artist_credit);
         },
         secondary_type_ids => sub {
             return [ map { $_->id } shift->all_secondary_types ]
@@ -208,6 +208,7 @@ sub _edit_hash
         if (exists $data->{artist_credit});
     $data->{primary_type_id} = delete $data->{type_id}
         if exists $data->{type_id};
+    $data->{comment} //= '' if exists $data->{comment};
     return $data;
 }
 

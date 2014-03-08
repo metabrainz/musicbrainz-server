@@ -11,6 +11,7 @@
 [%- MACRO rdfa_set_header(usesRDFa) BLOCK; -%]
 [%- IF doRDFa && usesRDFa -%]
 <!DOCTYPE html>
+[% FILTER collapse -%]
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:dct="http://purl.org/dc/terms/"
       xmlns:foaf="http://xmlns.com/foaf/0.1/"
@@ -28,11 +29,14 @@
       xmlns:owl="http://www.w3.org/2002/07/owl#"
       xml:lang="[%- current_language_html -%]"
       lang="[%- current_language_html -%]">
+[%- END -%]
 [%- ELSE -%]
 <!DOCTYPE html>
+[% FILTER collapse -%]
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="[%- current_language_html -%]"
       lang="[%- current_language_html -%]">
+[%- END -%]
 [%- END -%]
 [%- END -%]
 
@@ -304,7 +308,9 @@ END -%]
 [%-# note assumes rdfa_release_ns() is active #-%]
 [%- MACRO rdfa_release_country_abbr(country) BLOCK;
  '<span about="' _ rdfa_release_curi(release) _ '" rel="mo:publishing_location" resource="' _ rdfa_country_to_curi(country) _ '">' IF doRDFa;
+ '<span class="flag flag-' _ country.primary_code _ '">';
  '<abbr title="' _ html_escape(country.l_name) _ '">' _ country.primary_code _ '</abbr>';
+ '</span>';
  '</span>' IF doRDFa;
 END -%]
 

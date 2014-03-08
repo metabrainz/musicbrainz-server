@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Field::ArtistCredit;
 use HTML::FormHandler::Moose;
 use Scalar::Util qw( looks_like_number );
+use Storable qw( dclone );
 use Text::Trim qw( );
 use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
@@ -106,10 +107,10 @@ sub json {
 
     if (defined $result) {
         if ($result->input) {
-            $names = $result->input->{names};
+            $names = dclone($result->input->{names});
 
         } elsif ($result->value) {
-            $names = $result->value->{names};
+            $names = dclone($result->value->{names});
         }
     }
 
@@ -122,6 +123,7 @@ sub json {
     my $artists = $c->model('Artist')->get_by_ids(map { $_->{artist}->{id} } @$names);
     for my $name (@$names) {
         $name->{artist}->{gid} = $artists->{$name->{artist}->{id}}->gid if $artists->{$name->{artist}->{id}};
+        $name->{joinPhrase} = delete $name->{join_phrase};
     }
 
     return to_json($names);

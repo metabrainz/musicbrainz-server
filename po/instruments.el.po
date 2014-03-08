@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-11 09:48+0000\n"
+"PO-Revision-Date: 2014-02-18 08:57+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -1563,6 +1563,10 @@ msgstr "σύριγγα"
 msgid "pang gu ly hu hmông"
 msgstr ""
 
+#: DB:link_attribute_type/name:751
+msgid "pedal piano"
+msgstr ""
+
 #: DB:link_attribute_type/name:469
 msgid "pedal steel guitar"
 msgstr ""
@@ -2003,6 +2007,10 @@ msgstr "κλακέτες"
 msgid "tape"
 msgstr ""
 
+#: DB:link_attribute_type/name:752
+msgid "tar (drum)"
+msgstr ""
+
 #: DB:link_attribute_type/name:560
 msgid "tar (lute)"
 msgstr "ταρ (λαούτο)"
@@ -2405,6 +2413,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:320
 msgid "đàn tranh"
+msgstr ""
+
+#: DB:link_attribute_type/name:753
+msgid "đàn tứ"
 msgstr ""
 
 #: DB:link_attribute_type/name:303

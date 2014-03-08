@@ -180,8 +180,6 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_AREA_MERGE,
-    confirmation_template => 'area/merge_confirm.tt',
-    search_template       => 'area/merge_search.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

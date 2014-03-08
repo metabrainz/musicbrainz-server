@@ -7,7 +7,7 @@ use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Data::Artist qw( is_special_purpose );
-use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects );
+use MusicBrainz::Server::Data::Utils qw( placeholders load_subobjects type_to_model );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache' => { prefix => 'ac' };
@@ -281,11 +281,12 @@ sub _swap_artist_credits {
     return if $old_credit_id == $new_credit_id;
 
     for my $table (qw( recording release release_group track )) {
-        $self->c->sql->do(
+        my $ids = $self->c->sql->select_single_column_array(
             "UPDATE $table SET artist_credit = ?
-             WHERE artist_credit = ?",
+             WHERE artist_credit = ? RETURNING id",
             $new_credit_id, $old_credit_id
-       );
+        );
+        $self->c->model(type_to_model($table))->_delete_from_cache(@$ids) if $table ne 'track';
     }
 
     $self->c->sql->do(

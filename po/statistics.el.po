@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2013-12-24 19:46+0000\n"
+"PO-Revision-Date: 2014-01-21 03:59+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -428,7 +428,7 @@ msgid "TRM collisions"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-10-17
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:174
 msgid "Tags"
 msgstr "Ετικέτες"
 
@@ -503,7 +503,7 @@ msgstr "/ημέρα"
 msgid "100%"
 msgstr "100%"
 
-#: ../root/statistics/index.tt:785
+#: ../root/statistics/index.tt:791
 msgid "Abstain:"
 msgstr "Αποχή:"
 
@@ -551,7 +551,7 @@ msgstr "Όλες οι επεξεργασίες που παρουσίασαν κ�
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr "Όλες οι υπόλοιπες διαθέσιμες γλώσσες και γραφές έχουν 0 κυκλοφορίες και έργα."
 
-#: ../root/statistics/index.tt:294
+#: ../root/statistics/index.tt:300
 msgid "Amazon:"
 msgstr ""
 
@@ -559,19 +559,19 @@ msgstr ""
 msgid "Applied edits"
 msgstr "Εφαρμοσμένες επεξεργασίες"
 
-#: ../root/statistics/index.tt:703
+#: ../root/statistics/index.tt:709
 msgid "Applied:"
 msgstr "Εφαρμόστηκε:"
 
-#: ../root/statistics/index.tt:767
+#: ../root/statistics/index.tt:773
 msgid "Approve:"
 msgstr "Έγκριση:"
 
-#: ../root/statistics/index.tt:516 ../root/statistics/view_js.tt:50
+#: ../root/statistics/index.tt:522 ../root/statistics/view_js.tt:50
 msgid "Areas"
 msgstr ""
 
-#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:523
+#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:529
 msgid "Areas:"
 msgstr ""
 
@@ -579,27 +579,27 @@ msgstr ""
 msgid "Artist Countries"
 msgstr "Χώρες καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:123
 msgid "Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:133
 msgid "Artist IPIs"
 msgstr "IPIs καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:136
 msgid "Artist ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:161
+#: ../root/statistics/view_js.tt:162
 msgid "Artist Ratings"
 msgstr "Βαθομολογίες καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:168
 msgid "Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:176
 msgid "Artist Tags (raw)"
 msgstr ""
 
@@ -612,15 +612,15 @@ msgstr "Είδη τύποι και φύλα "
 msgid "Artists"
 msgstr "Καλλιτέχνες"
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:120
 msgid "Artists in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:120
+#: ../root/statistics/view_js.tt:121
 msgid "Artists not in ACs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:119
+#: ../root/statistics/view_js.tt:120
 msgid "Artists with at least one artist credit appearance"
 msgstr ""
 
@@ -640,13 +640,17 @@ msgstr "Καλλιτέχνες που έχουν άλλο φύλο"
 msgid "Artists with gender unset (non-group artists)"
 msgstr "Καλλιτέχνες χωρίς φύλο (όχι συγκροτήματα)"
 
-#: ../root/statistics/view_js.tt:120
+#: ../root/statistics/view_js.tt:121
 msgid "Artists with no appearances in artist credits"
 msgstr ""
 
 #: ../root/statistics/view_js.tt:83
 msgid "Artists with no country set"
 msgstr "Καλλιτέχνες χωρίς ρυθμισμένη χώρα"
+
+#: ../root/statistics/view_js.tt:117
+msgid "Artists with type set to character"
+msgstr ""
 
 #: ../root/statistics/view_js.tt:115
 msgid "Artists with type set to group"
@@ -660,7 +664,7 @@ msgstr "Καλλιτέχνες άλλου τύπου"
 msgid "Artists with type set to person"
 msgstr "Καλλιτέχνες που είναι άτομα"
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:118
 msgid "Artists with type unset"
 msgstr "Καλλιτέχνες χωρίς ρυθμισμένο τύπο"
 
@@ -668,7 +672,7 @@ msgstr "Καλλιτέχνες χωρίς ρυθμισμένο τύπο"
 msgid "Artists:"
 msgstr "Καλλιτέχνες:"
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:124
 msgid "Barcodes"
 msgstr "Barcodes"
 
@@ -684,7 +688,7 @@ msgstr "Βασικά μεταδεδομένα"
 msgid "Basics"
 msgstr "Βασικά"
 
-#: ../root/statistics/coverart.tt:128
+#: ../root/statistics/coverart.tt:129
 msgid "By Cover Art Type"
 msgstr "Ανά τύπο εξωφύλλου"
 
@@ -700,7 +704,7 @@ msgstr ""
 msgid "By Release Status"
 msgstr "Ανά κατάσταση κυκλοφορίας"
 
-#: ../root/statistics/index.tt:288
+#: ../root/statistics/index.tt:294
 msgid "CAA:"
 msgstr ""
 
@@ -708,15 +712,15 @@ msgstr ""
 msgid "CD Stubs (all time / current):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:128
 msgid "CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:125
+#: ../root/statistics/view_js.tt:126
 msgid "CDStubs (all)"
 msgstr "CDStubs (όλα)"
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:127
 msgid "CDStubs (submitted)"
 msgstr ""
 
@@ -724,9 +728,13 @@ msgstr ""
 msgid "Cancelled edits"
 msgstr "Ακυρωμένες επεξεργασίες"
 
-#: ../root/statistics/index.tt:733
+#: ../root/statistics/index.tt:739
 msgid "Cancelled:"
 msgstr "Ακυρώθηκε:"
+
+#: ../root/statistics/view_js.tt:117
+msgid "Characters"
+msgstr ""
 
 #: ../root/statistics/timeline.tt:51
 msgid "Check boxes above"
@@ -756,91 +764,91 @@ msgstr ""
 msgid "Count of all Abstain votes"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:122
+#: ../root/statistics/view_js.tt:123
 msgid "Count of all Artist Credits"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:161
+#: ../root/statistics/view_js.tt:162
 msgid "Count of all Artist Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:167
+#: ../root/statistics/view_js.tt:168
 msgid "Count of all Artist Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:175
+#: ../root/statistics/view_js.tt:176
 msgid "Count of all Artist Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:123
+#: ../root/statistics/view_js.tt:124
 msgid "Count of all Barcodes"
 msgstr "Πλήθος όλων των barcodes"
 
-#: ../root/statistics/view_js.tt:127
+#: ../root/statistics/view_js.tt:128
 msgid "Count of all CDStub tracks"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:125
+#: ../root/statistics/view_js.tt:126
 msgid "Count of all CDStubs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:126
+#: ../root/statistics/view_js.tt:127
 msgid "Count of all CDStubs ever submitted"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:128
+#: ../root/statistics/view_js.tt:129
 msgid "Count of all Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:132
 msgid "Count of all IPIs"
 msgstr "Πλήθος όλων των IPIs"
 
-#: ../root/statistics/view_js.tt:132
+#: ../root/statistics/view_js.tt:133
 msgid "Count of all IPIs for Artists"
 msgstr "Πλήθος όλων των IPIs για καλλιτέχνες"
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:134
 msgid "Count of all IPIs for Labels"
 msgstr "Πλήθος όλων των IPIs για δισκογραφικές εταιρείες"
 
-#: ../root/statistics/view_js.tt:134
+#: ../root/statistics/view_js.tt:135
 msgid "Count of all ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:135
+#: ../root/statistics/view_js.tt:136
 msgid "Count of all ISNIs for Artists"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:137
 msgid "Count of all ISNIs for Labels"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:137 ../root/statistics/view_js.tt:138
+#: ../root/statistics/view_js.tt:138 ../root/statistics/view_js.tt:139
 msgid "Count of all ISRCs"
 msgstr "Πλήθος όλων των ISRCs"
 
-#: ../root/statistics/view_js.tt:139 ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:140 ../root/statistics/view_js.tt:141
 msgid "Count of all ISWCs"
 msgstr "Πλήθος όλων των ISWCs"
 
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:163
 msgid "Count of all Label Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών δισκογραφικών εταιρειών"
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:169
 msgid "Count of all Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:177
 msgid "Count of all Label Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:144
 msgid "Count of all Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:149
 msgid "Count of all Mediums with {n} Disc IDs"
 msgstr ""
 
@@ -848,115 +856,115 @@ msgstr ""
 msgid "Count of all No votes"
 msgstr "Καταμέτρηση όλων των αρνητικών ψήφων"
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:161
 msgid "Count of all Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών"
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:167
 msgid "Count of all Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:163
+#: ../root/statistics/view_js.tt:164
 msgid "Count of all Recording Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών ηχογραφήσεων"
 
-#: ../root/statistics/view_js.tt:169
+#: ../root/statistics/view_js.tt:170
 msgid "Count of all Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:178
 msgid "Count of all Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:145
 msgid "Count of all Recordings with ISRCs"
 msgstr "Πλήθος όλων των ηχογραφήσεων με ISRC"
 
-#: ../root/statistics/view_js.tt:149
+#: ../root/statistics/view_js.tt:150
 msgid "Count of all Recordings with {n} Releases"
 msgstr "Πλήθος όλων των ηχογραφήσεων με {n} κυκλοφορίες"
 
-#: ../root/statistics/view_js.tt:182
+#: ../root/statistics/view_js.tt:183
 msgid "Count of all Relationships"
 msgstr "Πλήθος όλων των σχέσεων"
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:165
 msgid "Count of all Release Group Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών ομάδων κυκλοφοριών"
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:171
 msgid "Count of all Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:180
 msgid "Count of all Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:151
 msgid "Count of all Release Groups with {n} Releases"
 msgstr "Πλήθος όλων των ομάδων κυκλοφοριών με {n} κυκλοφορίες"
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:179
 msgid "Count of all Release Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:154
+#: ../root/statistics/view_js.tt:155
 msgid "Count of all Releases at Default Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με την προεπιλεγμένη ποιότητα δεδομένων"
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:158
 msgid "Count of all Releases at High Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με υψηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:159
 msgid "Count of all Releases at Low Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με χαμηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:157
 msgid "Count of all Releases at Normal Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με κανονική ποιότητα δεδομένων"
 
-#: ../root/statistics/view_js.tt:155
+#: ../root/statistics/view_js.tt:156
 msgid "Count of all Releases at Unknown Data Quality"
 msgstr "Πλήθος όλων των κυκλοφοριών με άγνωστη ποιότητα δεδομένων"
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:131
 msgid "Count of all Releases by Various Artists"
 msgstr "Καταμέτρηση όλων των κυκλοφοριών Διαφόρων Καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:130
 msgid "Count of all Releases not V.A."
 msgstr "Πλήθος όλων των κυκλοφοριών που δεν είναι Διαφόρων Καλλιτεχνών"
 
-#: ../root/statistics/view_js.tt:142
+#: ../root/statistics/view_js.tt:143
 msgid "Count of all Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:148
 msgid "Count of all Releases with {n} Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:173
+#: ../root/statistics/view_js.tt:174
 msgid "Count of all Tags"
 msgstr "Πλήθος όλων των ετικετών"
 
-#: ../root/statistics/view_js.tt:174
+#: ../root/statistics/view_js.tt:175
 msgid "Count of all Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:125
 msgid "Count of all Tracks"
 msgstr "Πλήθος όλων των κομματιών"
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:166
 msgid "Count of all Work Ratings"
 msgstr "Πλήθος όλων των βαθμολογιών έργων"
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:172
 msgid "Count of all Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:181
 msgid "Count of all Work Tags (raw)"
 msgstr ""
 
@@ -1061,11 +1069,11 @@ msgstr "Χώρα"
 msgid "Cover Art"
 msgstr "Εξώφυλλο"
 
-#: ../root/statistics/index.tt:279
+#: ../root/statistics/index.tt:285
 msgid "Cover Art Sources"
 msgstr ""
 
-#: ../root/statistics/index.tt:313
+#: ../root/statistics/index.tt:319
 msgid "Data Quality"
 msgstr "Ποιότητα δεδομένων"
 
@@ -1077,19 +1085,19 @@ msgstr "Στατιστικά βάσης δεδομένων"
 msgid "Database Statistics - {title}"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:154
+#: ../root/statistics/view_js.tt:155
 msgid "Default Data Quality"
 msgstr "Προεπιλεγμένη ποιότητα δεδομένων"
 
-#: ../root/statistics/index.tt:328
+#: ../root/statistics/index.tt:334
 msgid "Default Data Quality:"
 msgstr "Προεπιλεγμένη ποιότητα δεδομένων:"
 
-#: ../root/statistics/index.tt:355 ../root/statistics/view_js.tt:128
+#: ../root/statistics/index.tt:361 ../root/statistics/view_js.tt:129
 msgid "Disc IDs"
 msgstr "Disc IDs"
 
-#: ../root/statistics/index.tt:108 ../root/statistics/index.tt:358
+#: ../root/statistics/index.tt:108 ../root/statistics/index.tt:364
 msgid "Disc IDs:"
 msgstr "Disc IDs:"
 
@@ -1106,7 +1114,7 @@ msgid "Editor"
 msgstr ""
 
 #: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
-#: ../root/statistics/index.tt:576 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:582 ../root/statistics/layout.tt:5
 msgid "Editors"
 msgstr ""
 
@@ -1118,7 +1126,7 @@ msgstr ""
 msgid "Editors (deleted)"
 msgstr ""
 
-#: ../root/statistics/index.tt:681
+#: ../root/statistics/index.tt:687
 msgid "Editors (deleted):"
 msgstr ""
 
@@ -1134,16 +1142,16 @@ msgstr ""
 msgid "Editors (valid)"
 msgstr ""
 
-#: ../root/statistics/index.tt:579
+#: ../root/statistics/index.tt:585
 msgid "Editors (valid):"
 msgstr ""
 
-#: ../root/statistics/index.tt:572
+#: ../root/statistics/index.tt:578
 msgid "Editors, Edits, and Votes"
 msgstr ""
 
 #: ../root/statistics/edits.tt:2 ../root/statistics/edits.tt:9
-#: ../root/statistics/index.tt:688 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:694 ../root/statistics/layout.tt:5
 #: ../root/statistics/view_js.tt:53
 msgid "Edits"
 msgstr "Επεξεργασίες"
@@ -1160,8 +1168,8 @@ msgstr "Επεξεργασίες ανά ημέρα"
 msgid "Edits per week"
 msgstr "Επεξεργασίες ανά εβδομάδα"
 
-#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:691
-#: ../root/statistics/index.tt:738
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:697
+#: ../root/statistics/index.tt:744
 msgid "Edits:"
 msgstr "Επεξεργασίες:"
 
@@ -1185,15 +1193,15 @@ msgstr "Ακριβείες τιμές (αντικείμενα έναντι ημ�
 msgid "Exclusive"
 msgstr "Αποκλειστικό"
 
-#: ../root/statistics/index.tt:715
+#: ../root/statistics/index.tt:721
 msgid "Failed (dependency):"
 msgstr "Απέτυχε (εξάρτηση):"
 
-#: ../root/statistics/index.tt:727
+#: ../root/statistics/index.tt:733
 msgid "Failed (internal error):"
 msgstr "Απέτυχε (εσωτερικό σφάλμα):"
 
-#: ../root/statistics/index.tt:721
+#: ../root/statistics/index.tt:727
 msgid "Failed (prerequisite):"
 msgstr "Απέτυχε (προαπαιτούμενα):"
 
@@ -1213,7 +1221,7 @@ msgstr "Αποτυχημένες επεξεργασίες (καταψηφίστ�
 msgid "Female Artists"
 msgstr "Γυναίκες καλλιτέχνες"
 
-#: ../root/statistics/index.tt:186
+#: ../root/statistics/index.tt:192
 msgid "Female:"
 msgstr "Γυναίκα:"
 
@@ -1235,11 +1243,11 @@ msgstr "Μορφές"
 msgid "Groups"
 msgstr "Συγκροτήματα"
 
-#: ../root/statistics/view_js.tt:157
+#: ../root/statistics/view_js.tt:158
 msgid "High Data Quality"
 msgstr "Υψηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/index.tt:322
+#: ../root/statistics/index.tt:328
 msgid "High Data Quality:"
 msgstr "Υψηλή ποιότητα δεδομένων:"
 
@@ -1247,7 +1255,7 @@ msgstr "Υψηλή ποιότητα δεδομένων:"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:131
+#: ../root/statistics/view_js.tt:132
 msgid "IPIs"
 msgstr "IPI"
 
@@ -1255,7 +1263,7 @@ msgstr "IPI"
 msgid "IPIs:"
 msgstr "IPI:"
 
-#: ../root/statistics/view_js.tt:134
+#: ../root/statistics/view_js.tt:135
 msgid "ISNIs"
 msgstr ""
 
@@ -1263,7 +1271,7 @@ msgstr ""
 msgid "ISNIs:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:137
+#: ../root/statistics/view_js.tt:138
 msgid "ISRCs"
 msgstr "ISRC"
 
@@ -1271,11 +1279,11 @@ msgstr "ISRC"
 msgid "ISRCs (all / unique):"
 msgstr "ISRC (όλα / μοναδικά):"
 
-#: ../root/statistics/view_js.tt:138
+#: ../root/statistics/view_js.tt:139
 msgid "ISRCs (all)"
 msgstr "ISRC (όλα)"
 
-#: ../root/statistics/view_js.tt:139
+#: ../root/statistics/view_js.tt:140
 msgid "ISWCs"
 msgstr "ISWC"
 
@@ -1283,7 +1291,7 @@ msgstr "ISWC"
 msgid "ISWCs (all / unique):"
 msgstr "ISWC (όλα / μοναδικά):"
 
-#: ../root/statistics/view_js.tt:140
+#: ../root/statistics/view_js.tt:141
 msgid "ISWCs (all)"
 msgstr "ISWC (όλα)"
 
@@ -1299,23 +1307,23 @@ msgstr ""
 msgid "Label Countries"
 msgstr "Χώρες δισκογραφικών εταιρειών"
 
-#: ../root/statistics/view_js.tt:133
+#: ../root/statistics/view_js.tt:134
 msgid "Label IPIs"
 msgstr "IPI δισκογραφικών εταιρειών"
 
-#: ../root/statistics/view_js.tt:136
+#: ../root/statistics/view_js.tt:137
 msgid "Label ISNIs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:162
+#: ../root/statistics/view_js.tt:163
 msgid "Label Ratings"
 msgstr "Βαθμολογίες δισκογραφικών εταιρειών"
 
-#: ../root/statistics/view_js.tt:168
+#: ../root/statistics/view_js.tt:169
 msgid "Label Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:176
+#: ../root/statistics/view_js.tt:177
 msgid "Label Tags (raw)"
 msgstr ""
 
@@ -1347,7 +1355,7 @@ msgstr "Γλώσσες και γραφές"
 msgid "Languages/Scripts"
 msgstr ""
 
-#: ../root/statistics/index.tt:796 ../root/statistics/index.tt:744
+#: ../root/statistics/index.tt:750 ../root/statistics/index.tt:802
 msgid "Last 7 days:"
 msgstr ""
 
@@ -1363,11 +1371,11 @@ msgstr "Τελευταία ενημέρωση: {date}"
 msgid "Legend"
 msgstr "Υπόμνημα"
 
-#: ../root/statistics/view_js.tt:158
+#: ../root/statistics/view_js.tt:159
 msgid "Low Data Quality"
 msgstr "Χαμηλή ποιότητα δεδομένων"
 
-#: ../root/statistics/index.tt:348
+#: ../root/statistics/index.tt:354
 msgid "Low Data Quality:"
 msgstr "Χαμηλή ποιότητα δεδομένων:"
 
@@ -1375,7 +1383,7 @@ msgstr "Χαμηλή ποιότητα δεδομένων:"
 msgid "Male Artists"
 msgstr "Άνδρες καλλιτέχνες"
 
-#: ../root/statistics/index.tt:180
+#: ../root/statistics/index.tt:186
 msgid "Male:"
 msgstr "Άνδρας:"
 
@@ -1383,21 +1391,21 @@ msgstr "Άνδρας:"
 msgid "Mediums"
 msgstr "Μέσα"
 
-#: ../root/statistics/view_js.tt:148
+#: ../root/statistics/view_js.tt:149
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:143
+#: ../root/statistics/view_js.tt:144
 msgid "Mediums with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/index.tt:408
+#: ../root/statistics/index.tt:414
 msgid "Mediums with at least one disc ID:"
 msgstr "Μέσα με τουλάχιστον ένα disc ID:"
 
-#: ../root/statistics/index.tt:402
+#: ../root/statistics/index.tt:408
 msgid "Mediums with no disc IDs:"
 msgstr "Μέσα χωρίς disc IDs:"
 
@@ -1405,7 +1413,7 @@ msgstr "Μέσα χωρίς disc IDs:"
 msgid "Mediums with no format set"
 msgstr "Μέσα χωρίς ρυθμισμένη μορφή"
 
-#: ../root/statistics/index.tt:28 ../root/statistics/index.tt:396
+#: ../root/statistics/index.tt:28 ../root/statistics/index.tt:402
 msgid "Mediums:"
 msgstr "Μέσα:"
 
@@ -1434,7 +1442,7 @@ msgid "No Votes"
 msgstr "Αρνητικές ψήφοι"
 
 #: ../root/statistics/coverart.tt:16 ../root/statistics/coverart.tt:40
-#: ../root/statistics/coverart.tt:122
+#: ../root/statistics/coverart.tt:123
 msgid "No coverart statistics available."
 msgstr ""
 
@@ -1446,11 +1454,11 @@ msgstr ""
 msgid "No format"
 msgstr "Χωρίς μορφή"
 
-#: ../root/statistics/index.tt:306
+#: ../root/statistics/index.tt:312
 msgid "No front cover art:"
 msgstr ""
 
-#: ../root/statistics/index.tt:272
+#: ../root/statistics/index.tt:278
 msgid "No packaging set"
 msgstr "Δεν ορίστηκε η συσκευασία"
 
@@ -1462,32 +1470,32 @@ msgstr ""
 msgid "No status"
 msgstr "Χωρίς κατάσταση"
 
-#: ../root/statistics/index.tt:248
+#: ../root/statistics/index.tt:254
 msgid "No status set"
 msgstr "Δεν ορίστηκε η κατάσταση"
 
-#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:138
+#: ../root/statistics/coverart.tt:56 ../root/statistics/coverart.tt:139
 msgid "No type"
 msgstr "Χωρίς τύπο"
 
-#: ../root/statistics/index.tt:779
+#: ../root/statistics/index.tt:785
 msgid "No:"
 msgstr "Νούμερο:"
 
-#: ../root/statistics/index.tt:174
+#: ../root/statistics/index.tt:180
 msgid "Non-group artists:"
 msgstr "Καλλιτέχνες που δεν είναι συγκροτήματα:"
 
-#: ../root/statistics/index.tt:509 ../root/statistics/index.tt:537
-#: ../root/statistics/index.tt:565
+#: ../root/statistics/index.tt:515 ../root/statistics/index.tt:543
+#: ../root/statistics/index.tt:571
 msgid "None"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:156
+#: ../root/statistics/view_js.tt:157
 msgid "Normal Data Quality"
 msgstr "Κανονική ποιότητα δεδομένων"
 
-#: ../root/statistics/index.tt:335
+#: ../root/statistics/index.tt:341
 msgid "Normal Data Quality:"
 msgstr "Κανονική ποιότητα δεδομένων:"
 
@@ -1499,7 +1507,7 @@ msgstr "Ανοιχτές επεξεργασίες"
 msgid "Open and applied edits in past week"
 msgstr "Ανοικτές και επεξεργασίες που εφαρμόστηκα την τελευταία εβδομάδα"
 
-#: ../root/statistics/index.tt:697
+#: ../root/statistics/index.tt:703
 msgid "Open:"
 msgstr "Ανοικτές:"
 
@@ -1511,7 +1519,7 @@ msgstr "Άλλο"
 msgid "Other Entities"
 msgstr "Άλλα στοιχεία"
 
-#: ../root/statistics/index.tt:192
+#: ../root/statistics/index.tt:198
 msgid "Other gender:"
 msgstr "Άλλο φύλο:"
 
@@ -1527,7 +1535,7 @@ msgstr "Καλλιτέχνες άλλου τύπου"
 msgid "Overview"
 msgstr "Επισκόπηση"
 
-#: ../root/statistics/coverart.tt:144
+#: ../root/statistics/coverart.tt:145
 msgid "Per release"
 msgstr "Ανά κυκλοφορία"
 
@@ -1535,27 +1543,27 @@ msgstr "Ανά κυκλοφορία"
 msgid "Persons"
 msgstr "Άτομα"
 
-#: ../root/statistics/view_js.tt:189
+#: ../root/statistics/view_js.tt:190
 msgid "Pieces of Cover Art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:119
+#: ../root/statistics/coverart.tt:120
 msgid "Pieces of cover art"
 msgstr "Κομμάτια εξωφύλλου"
 
-#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:131
+#: ../root/statistics/coverart.tt:27 ../root/statistics/coverart.tt:132
 msgid "Pieces of cover art:"
 msgstr "Κομμάτια εξωφύλλου:"
 
-#: ../root/statistics/index.tt:544 ../root/statistics/view_js.tt:51
+#: ../root/statistics/index.tt:550 ../root/statistics/view_js.tt:51
 msgid "Places"
 msgstr ""
 
-#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:551
+#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:557
 msgid "Places:"
 msgstr ""
 
-#: ../root/statistics/index.tt:435
+#: ../root/statistics/index.tt:441
 msgid "Primary Types"
 msgstr "Πρωτεύοντες τύποι"
 
@@ -1573,7 +1581,7 @@ msgstr "Κατάταξη αλλαγών (μέσος όρος αντικειμέ�
 msgid "Rate of Change Graph"
 msgstr "Γράφημα ρυθμού αλλαγών"
 
-#: ../root/statistics/view_js.tt:160
+#: ../root/statistics/view_js.tt:161
 msgid "Ratings"
 msgstr "Βαθμολογίες"
 
@@ -1581,7 +1589,7 @@ msgstr "Βαθμολογίες"
 msgid "Ratings (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:166
+#: ../root/statistics/view_js.tt:167
 msgid "Ratings (raw)"
 msgstr ""
 
@@ -1589,40 +1597,40 @@ msgstr ""
 msgid "Ratings and Tags"
 msgstr "Βαθμολογίες και ετικέτες"
 
-#: ../root/statistics/view_js.tt:163
+#: ../root/statistics/view_js.tt:164
 msgid "Recording Ratings"
 msgstr "Βαθμολογίες ηχογράφησης"
 
-#: ../root/statistics/view_js.tt:169
+#: ../root/statistics/view_js.tt:170
 msgid "Recording Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:177
+#: ../root/statistics/view_js.tt:178
 msgid "Recording Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:469 ../root/statistics/index.tt:473
+#: ../root/statistics/index.tt:475 ../root/statistics/index.tt:479
 #: ../root/statistics/view_js.tt:44
 msgid "Recordings"
 msgstr "Ηχογραφήσεις"
 
-#: ../root/statistics/view_js.tt:149
+#: ../root/statistics/view_js.tt:150
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
 msgstr[0] "Ηχογραφήσεις με 1 κυκλοφορία"
 msgstr[1] "Ηχογραφήσεις με {n} κυκλοφορίες"
 
-#: ../root/statistics/view_js.tt:144
+#: ../root/statistics/view_js.tt:145
 msgid "Recordings with ISRCs"
 msgstr "Κυκλοφορίες με ISRC"
 
-#: ../root/statistics/index.tt:32 ../root/statistics/index.tt:476
+#: ../root/statistics/index.tt:32 ../root/statistics/index.tt:482
 msgid "Recordings:"
 msgstr "Ηχογραφήσεις:"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
 #: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
-#: ../root/statistics/view_js.tt:182
+#: ../root/statistics/view_js.tt:183
 msgid "Relationships"
 msgstr "Σχέσεις"
 
@@ -1638,30 +1646,30 @@ msgstr "Χώρες κυκλοφορίας"
 msgid "Release Data Quality"
 msgstr "Ποιότητα δεδομένων κυκλοφορίας"
 
-#: ../root/statistics/view_js.tt:164
+#: ../root/statistics/view_js.tt:165
 msgid "Release Group Ratings"
 msgstr "Βαθμολογίες ομάδας κυκλοφοριών"
 
-#: ../root/statistics/view_js.tt:170
+#: ../root/statistics/view_js.tt:171
 msgid "Release Group Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:179
+#: ../root/statistics/view_js.tt:180
 msgid "Release Group Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:431 ../root/statistics/view_js.tt:48
+#: ../root/statistics/index.tt:437 ../root/statistics/view_js.tt:48
 msgid "Release Groups"
 msgstr "Ομάδες κυκλοφοριών"
 
-#: ../root/statistics/view_js.tt:150
+#: ../root/statistics/view_js.tt:151
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
 msgstr[0] "Ομάδες κυκλοφοριών με 1 κυκλοφορία"
 msgstr[1] "Ομάδες κυκλοφοριών με {n} κυκλοφορίες"
 
-#: ../root/statistics/index.tt:20 ../root/statistics/index.tt:438
-#: ../root/statistics/index.tt:454
+#: ../root/statistics/index.tt:20 ../root/statistics/index.tt:444
+#: ../root/statistics/index.tt:460
 msgid "Release Groups:"
 msgstr "Ομάδες κυκλοφοριών:"
 
@@ -1669,7 +1677,7 @@ msgstr "Ομάδες κυκλοφοριών:"
 msgid "Release Languages"
 msgstr "Γλώσσες κυκλοφορίας"
 
-#: ../root/statistics/index.tt:255
+#: ../root/statistics/index.tt:261
 msgid "Release Packaging"
 msgstr "Συσκευασία κυκλοφορίας"
 
@@ -1677,11 +1685,11 @@ msgstr "Συσκευασία κυκλοφορίας"
 msgid "Release Scripts"
 msgstr ""
 
-#: ../root/statistics/index.tt:231
+#: ../root/statistics/index.tt:237
 msgid "Release Status"
 msgstr "Κατάσταση κυκλοφορίας"
 
-#: ../root/statistics/view_js.tt:178
+#: ../root/statistics/view_js.tt:179
 msgid "Release Tags (raw)"
 msgstr ""
 
@@ -1689,7 +1697,7 @@ msgstr ""
 msgid "Release groups"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:100
+#: ../root/statistics/coverart.tt:101
 msgid "Release groups with cover art:"
 msgstr ""
 
@@ -1698,47 +1706,47 @@ msgid "Release/Medium Formats"
 msgstr "Μορφές κυκλοφορίας/μέσου"
 
 #: ../root/statistics/countries.tt:28 ../root/statistics/coverart.tt:35
-#: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:209
+#: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:215
 #: ../root/statistics/languages_scripts.tt:33
 #: ../root/statistics/languages_scripts.tt:54 ../root/statistics/view_js.tt:47
 msgid "Releases"
 msgstr "Κυκλοφορίες"
 
-#: ../root/statistics/view_js.tt:130
+#: ../root/statistics/view_js.tt:131
 msgid "Releases (VA)"
 msgstr "Κυκλοφορίες (ΔΚ)"
 
-#: ../root/statistics/view_js.tt:129
+#: ../root/statistics/view_js.tt:130
 msgid "Releases not VA"
 msgstr "Κυκλοφορίες όχι ΔΚ"
 
-#: ../root/statistics/view_js.tt:147
+#: ../root/statistics/view_js.tt:148
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/view_js.tt:192 ../root/statistics/view_js.tt:194
+#: ../root/statistics/view_js.tt:193 ../root/statistics/view_js.tt:195
 msgid "Releases with Amazon Cover Art"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:193
+#: ../root/statistics/view_js.tt:194
 msgid "Releases with CAA Cover Art"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:190
+#: ../root/statistics/view_js.tt:191
 msgid "Releases with Cover Art"
 msgstr "Κυκλοφορίες με εξώφυλλο"
 
-#: ../root/statistics/view_js.tt:194
+#: ../root/statistics/view_js.tt:195
 msgid "Releases with Cover Art from Relationships"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:142
+#: ../root/statistics/view_js.tt:143
 msgid "Releases with Disc IDs"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:195
+#: ../root/statistics/view_js.tt:196
 msgid "Releases with No Cover Art"
 msgstr ""
 
@@ -1746,13 +1754,13 @@ msgstr ""
 msgid "Releases with a no-format medium"
 msgstr "Κυκλοφορίες με μέσο χωρίς μορφή"
 
-#: ../root/statistics/index.tt:375
+#: ../root/statistics/index.tt:381
 msgid "Releases with at least one disc ID:"
 msgstr ""
 
 #: ../root/statistics/coverart.tt:22 ../root/statistics/coverart.tt:49
 #: ../root/statistics/coverart.tt:65 ../root/statistics/coverart.tt:81
-#: ../root/statistics/coverart.tt:147
+#: ../root/statistics/coverart.tt:148
 msgid "Releases with cover art:"
 msgstr "Κυκλοφορίες με εξώφυλλο:"
 
@@ -1760,7 +1768,7 @@ msgstr "Κυκλοφορίες με εξώφυλλο:"
 msgid "Releases with no country set"
 msgstr "Κυκλοφορίες χωρίς ρυθμισμένη χώρα"
 
-#: ../root/statistics/index.tt:369
+#: ../root/statistics/index.tt:375
 msgid "Releases with no disc IDs:"
 msgstr ""
 
@@ -1772,14 +1780,14 @@ msgstr "Κυκλοφορίες χωρίς ρυθμισμένη γλώσσα"
 msgid "Releases with no script set"
 msgstr ""
 
-#: ../root/statistics/index.tt:205
+#: ../root/statistics/index.tt:211
 msgid "Releases, Data Quality, and Disc IDs"
 msgstr ""
 
-#: ../root/statistics/index.tt:24 ../root/statistics/index.tt:212
-#: ../root/statistics/index.tt:234 ../root/statistics/index.tt:258
-#: ../root/statistics/index.tt:282 ../root/statistics/index.tt:316
-#: ../root/statistics/index.tt:363
+#: ../root/statistics/index.tt:24 ../root/statistics/index.tt:218
+#: ../root/statistics/index.tt:240 ../root/statistics/index.tt:264
+#: ../root/statistics/index.tt:288 ../root/statistics/index.tt:322
+#: ../root/statistics/index.tt:369
 msgid "Releases:"
 msgstr "Κυκλοφορίες:"
 
@@ -1795,7 +1803,7 @@ msgstr "Γραφή"
 msgid "Scripts"
 msgstr "Γραφές"
 
-#: ../root/statistics/index.tt:451
+#: ../root/statistics/index.tt:457
 msgid "Secondary Types"
 msgstr "Δευτερεύοντες τύποι"
 
@@ -1811,7 +1819,7 @@ msgstr ""
 msgid "Tags (raw / aggregated):"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:174
+#: ../root/statistics/view_js.tt:175
 msgid "Tags (raw)"
 msgstr ""
 
@@ -1852,7 +1860,7 @@ msgstr "Σύνολο εφαρμοσμένων επεξεργασιών"
 msgid "Total votes"
 msgstr "Συνολικές ψήφοι"
 
-#: ../root/statistics/view_js.tt:124
+#: ../root/statistics/view_js.tt:125
 msgid "Tracks"
 msgstr "Κομμάτια"
 
@@ -1860,12 +1868,12 @@ msgstr "Κομμάτια"
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/statistics/index.tt:492 ../root/statistics/index.tt:520
-#: ../root/statistics/index.tt:548
+#: ../root/statistics/index.tt:498 ../root/statistics/index.tt:526
+#: ../root/statistics/index.tt:554
 msgid "Types"
 msgstr ""
 
-#: ../root/statistics/index.tt:300
+#: ../root/statistics/index.tt:306
 msgid "URL Relationships:"
 msgstr ""
 
@@ -1878,11 +1886,11 @@ msgstr ""
 msgid "Unknown Country"
 msgstr "Άγνωστη χώρα"
 
-#: ../root/statistics/view_js.tt:155
+#: ../root/statistics/view_js.tt:156
 msgid "Unknown Data Quality"
 msgstr "Άγνωστη ποιότητα δεδομένων"
 
-#: ../root/statistics/index.tt:342
+#: ../root/statistics/index.tt:348
 msgid "Unknown Data Quality:"
 msgstr "Άγνωστη ποιότητα δεδομένων:"
 
@@ -1918,15 +1926,15 @@ msgstr "Άγνωστη γραφή"
 msgid "Unknown-gender Artists"
 msgstr "Καλλιτέχνες αγνώστου φύλου"
 
-#: ../root/statistics/view_js.tt:117
+#: ../root/statistics/view_js.tt:118
 msgid "Unknown-type Artists"
 msgstr "Καλλιτέχνες άγνωστου τύπου"
 
-#: ../root/statistics/index.tt:481
+#: ../root/statistics/index.tt:487
 msgid "Videos:"
 msgstr ""
 
-#: ../root/statistics/index.tt:709
+#: ../root/statistics/index.tt:715
 msgid "Voted down:"
 msgstr "Καταψηφίστηκαν:"
 
@@ -1938,7 +1946,7 @@ msgstr "Ψηφοφόρος"
 msgid "Voters"
 msgstr "Ψηφοφόροι"
 
-#: ../root/statistics/index.tt:758 ../root/statistics/view_js.tt:67
+#: ../root/statistics/index.tt:764 ../root/statistics/view_js.tt:67
 msgid "Votes"
 msgstr "Ψήφοι"
 
@@ -1954,28 +1962,28 @@ msgstr "Ψήφοι ανά ημέρα"
 msgid "Votes per week"
 msgstr "Ψήφοι ανά βδομάδα"
 
-#: ../root/statistics/index.tt:761 ../root/statistics/index.tt:790
+#: ../root/statistics/index.tt:767 ../root/statistics/index.tt:796
 msgid "Votes:"
 msgstr "Ψήφοι:"
 
-#: ../root/statistics/view_js.tt:165
+#: ../root/statistics/view_js.tt:166
 msgid "Work Ratings"
 msgstr "Βαθμολογίες έργου"
 
-#: ../root/statistics/view_js.tt:171
+#: ../root/statistics/view_js.tt:172
 msgid "Work Ratings (raw)"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:180
+#: ../root/statistics/view_js.tt:181
 msgid "Work Tags (raw)"
 msgstr ""
 
-#: ../root/statistics/index.tt:488 ../root/statistics/languages_scripts.tt:34
+#: ../root/statistics/index.tt:494 ../root/statistics/languages_scripts.tt:34
 #: ../root/statistics/view_js.tt:45
 msgid "Works"
 msgstr "Έργα"
 
-#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:495
+#: ../root/statistics/index.tt:44 ../root/statistics/index.tt:501
 msgid "Works:"
 msgstr "Έργα:"
 
@@ -1983,11 +1991,11 @@ msgstr "Έργα:"
 msgid "Yes Votes"
 msgstr "Θετικές ψήφοι"
 
-#: ../root/statistics/index.tt:773
+#: ../root/statistics/index.tt:779
 msgid "Yes:"
 msgstr "Ναι:"
 
-#: ../root/statistics/index.tt:751 ../root/statistics/index.tt:803
+#: ../root/statistics/index.tt:757 ../root/statistics/index.tt:809
 msgid "Yesterday:"
 msgstr "Χθες:"
 
@@ -1995,39 +2003,43 @@ msgstr "Χθες:"
 msgid "Zoom:"
 msgstr "Εστίαση:"
 
-#: ../root/statistics/index.tt:585
+#: ../root/statistics/index.tt:591
 msgid "active ever:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:112
+#: ../root/statistics/coverart.tt:113
 msgid "automatically inferred:"
 msgstr ""
 
-#: ../root/statistics/index.tt:224
+#: ../root/statistics/index.tt:230
 msgid "by a single artist:"
 msgstr "από έναν καλλιτέχνη:"
 
-#: ../root/statistics/index.tt:218
+#: ../root/statistics/index.tt:224
 msgid "by various artists:"
 msgstr "από διάφορους καλλιτέχνες:"
 
-#: ../root/statistics/index.tt:676
+#: ../root/statistics/index.tt:682
 msgid "inactive:"
 msgstr ""
 
-#: ../root/statistics/view_js.tt:186
+#: ../root/statistics/view_js.tt:187
 msgid "l_{first}_{second} Relationships"
 msgstr "l_{first}_{second} σχέσεις"
 
-#: ../root/statistics/coverart.tt:106
+#: ../root/statistics/coverart.tt:107
 msgid "manually selected:"
+msgstr ""
+
+#: ../root/statistics/index.tt:151
+msgid "of type Character:"
 msgstr ""
 
 #: ../root/statistics/index.tt:145
 msgid "of type Group:"
 msgstr "τύπου συγκρότημα:"
 
-#: ../root/statistics/index.tt:151
+#: ../root/statistics/index.tt:157
 msgid "of type Other:"
 msgstr "άλλου τύπου"
 
@@ -2035,85 +2047,85 @@ msgstr "άλλου τύπου"
 msgid "of type Person:"
 msgstr "τύπου άτομο:"
 
-#: ../root/statistics/index.tt:670
+#: ../root/statistics/index.tt:676
 msgid "validated email only:"
 msgstr ""
 
-#: ../root/statistics/index.tt:615
+#: ../root/statistics/index.tt:621
 msgid "who edit:"
 msgstr ""
 
-#: ../root/statistics/index.tt:592
+#: ../root/statistics/index.tt:598
 msgid "who edited and/or voted in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/index.tt:600
+#: ../root/statistics/index.tt:606
 msgid "who edited in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/index.tt:664
+#: ../root/statistics/index.tt:670
 msgid "who have registered applications:"
 msgstr ""
 
-#: ../root/statistics/index.tt:629
+#: ../root/statistics/index.tt:635
 msgid "who leave edit notes:"
 msgstr ""
 
-#: ../root/statistics/index.tt:657
+#: ../root/statistics/index.tt:663
 msgid "who use collections:"
 msgstr ""
 
-#: ../root/statistics/index.tt:643
+#: ../root/statistics/index.tt:649
 msgid "who use ratings:"
 msgstr ""
 
-#: ../root/statistics/index.tt:650
+#: ../root/statistics/index.tt:656
 msgid "who use subscriptions:"
 msgstr ""
 
-#: ../root/statistics/index.tt:636
+#: ../root/statistics/index.tt:642
 msgid "who use tags:"
 msgstr ""
 
-#: ../root/statistics/index.tt:622
+#: ../root/statistics/index.tt:628
 msgid "who vote:"
 msgstr ""
 
-#: ../root/statistics/index.tt:608
+#: ../root/statistics/index.tt:614
 msgid "who voted in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/index.tt:391 ../root/statistics/index.tt:424
+#: ../root/statistics/index.tt:397 ../root/statistics/index.tt:430
 msgid "with 10 or more disc IDs:"
 msgstr ""
 
-#: ../root/statistics/coverart.tt:161
+#: ../root/statistics/coverart.tt:162
 msgid "with 30 or more pieces of cover art:"
 msgstr "με 30 ή περισσότερα κομμάτια εξωφύλλου:"
 
-#: ../root/statistics/index.tt:163
+#: ../root/statistics/index.tt:169
 msgid "with appearances in artist credits:"
 msgstr ""
 
-#: ../root/statistics/index.tt:169
+#: ../root/statistics/index.tt:175
 msgid "with no appearances in artist credits:"
 msgstr ""
 
-#: ../root/statistics/index.tt:198
+#: ../root/statistics/index.tt:204
 msgid "with no gender set:"
 msgstr "χωρίς ρυθμισμένο φύλο:"
 
-#: ../root/statistics/index.tt:157
+#: ../root/statistics/index.tt:163
 msgid "with no type set:"
 msgstr "χωρίς ρυθμισμένο τύπο"
 
-#: ../root/statistics/index.tt:383 ../root/statistics/index.tt:416
+#: ../root/statistics/index.tt:389 ../root/statistics/index.tt:422
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/statistics/coverart.tt:154
+#: ../root/statistics/coverart.tt:155
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
 msgstr[0] "με {num} κομμάτι εξωφύλλου:"
@@ -2145,46 +2157,47 @@ msgstr "Κυκλοφορίες {name}"
 
 #: ../root/statistics/coverart.tt:24 ../root/statistics/coverart.tt:58
 #: ../root/statistics/coverart.tt:74 ../root/statistics/coverart.tt:90
-#: ../root/statistics/coverart.tt:108 ../root/statistics/coverart.tt:114
-#: ../root/statistics/coverart.tt:140 ../root/statistics/coverart.tt:156
-#: ../root/statistics/coverart.tt:163 ../root/statistics/edits.tt:29
+#: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
+#: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
+#: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
 #: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
 #: ../root/statistics/index.tt:141 ../root/statistics/index.tt:147
 #: ../root/statistics/index.tt:153 ../root/statistics/index.tt:159
 #: ../root/statistics/index.tt:165 ../root/statistics/index.tt:171
-#: ../root/statistics/index.tt:182 ../root/statistics/index.tt:188
+#: ../root/statistics/index.tt:177 ../root/statistics/index.tt:188
 #: ../root/statistics/index.tt:194 ../root/statistics/index.tt:200
-#: ../root/statistics/index.tt:220 ../root/statistics/index.tt:226
-#: ../root/statistics/index.tt:243 ../root/statistics/index.tt:250
-#: ../root/statistics/index.tt:267 ../root/statistics/index.tt:274
-#: ../root/statistics/index.tt:290 ../root/statistics/index.tt:296
+#: ../root/statistics/index.tt:206 ../root/statistics/index.tt:226
+#: ../root/statistics/index.tt:232 ../root/statistics/index.tt:249
+#: ../root/statistics/index.tt:256 ../root/statistics/index.tt:273
+#: ../root/statistics/index.tt:280 ../root/statistics/index.tt:296
 #: ../root/statistics/index.tt:302 ../root/statistics/index.tt:308
-#: ../root/statistics/index.tt:324 ../root/statistics/index.tt:330
-#: ../root/statistics/index.tt:337 ../root/statistics/index.tt:344
-#: ../root/statistics/index.tt:350 ../root/statistics/index.tt:371
-#: ../root/statistics/index.tt:377 ../root/statistics/index.tt:385
-#: ../root/statistics/index.tt:393 ../root/statistics/index.tt:404
-#: ../root/statistics/index.tt:410 ../root/statistics/index.tt:418
-#: ../root/statistics/index.tt:426 ../root/statistics/index.tt:447
-#: ../root/statistics/index.tt:463 ../root/statistics/index.tt:483
-#: ../root/statistics/index.tt:504 ../root/statistics/index.tt:511
-#: ../root/statistics/index.tt:532 ../root/statistics/index.tt:539
-#: ../root/statistics/index.tt:560 ../root/statistics/index.tt:567
-#: ../root/statistics/index.tt:587 ../root/statistics/index.tt:594
-#: ../root/statistics/index.tt:602 ../root/statistics/index.tt:610
-#: ../root/statistics/index.tt:617 ../root/statistics/index.tt:624
-#: ../root/statistics/index.tt:631 ../root/statistics/index.tt:638
-#: ../root/statistics/index.tt:645 ../root/statistics/index.tt:652
-#: ../root/statistics/index.tt:659 ../root/statistics/index.tt:666
+#: ../root/statistics/index.tt:314 ../root/statistics/index.tt:330
+#: ../root/statistics/index.tt:336 ../root/statistics/index.tt:343
+#: ../root/statistics/index.tt:350 ../root/statistics/index.tt:356
+#: ../root/statistics/index.tt:377 ../root/statistics/index.tt:383
+#: ../root/statistics/index.tt:391 ../root/statistics/index.tt:399
+#: ../root/statistics/index.tt:410 ../root/statistics/index.tt:416
+#: ../root/statistics/index.tt:424 ../root/statistics/index.tt:432
+#: ../root/statistics/index.tt:453 ../root/statistics/index.tt:469
+#: ../root/statistics/index.tt:489 ../root/statistics/index.tt:510
+#: ../root/statistics/index.tt:517 ../root/statistics/index.tt:538
+#: ../root/statistics/index.tt:545 ../root/statistics/index.tt:566
+#: ../root/statistics/index.tt:573 ../root/statistics/index.tt:593
+#: ../root/statistics/index.tt:600 ../root/statistics/index.tt:608
+#: ../root/statistics/index.tt:616 ../root/statistics/index.tt:623
+#: ../root/statistics/index.tt:630 ../root/statistics/index.tt:637
+#: ../root/statistics/index.tt:644 ../root/statistics/index.tt:651
+#: ../root/statistics/index.tt:658 ../root/statistics/index.tt:665
 #: ../root/statistics/index.tt:672 ../root/statistics/index.tt:678
-#: ../root/statistics/index.tt:699 ../root/statistics/index.tt:705
+#: ../root/statistics/index.tt:684 ../root/statistics/index.tt:705
 #: ../root/statistics/index.tt:711 ../root/statistics/index.tt:717
 #: ../root/statistics/index.tt:723 ../root/statistics/index.tt:729
-#: ../root/statistics/index.tt:735 ../root/statistics/index.tt:746
-#: ../root/statistics/index.tt:753 ../root/statistics/index.tt:769
+#: ../root/statistics/index.tt:735 ../root/statistics/index.tt:741
+#: ../root/statistics/index.tt:752 ../root/statistics/index.tt:759
 #: ../root/statistics/index.tt:775 ../root/statistics/index.tt:781
-#: ../root/statistics/index.tt:787 ../root/statistics/index.tt:798
-#: ../root/statistics/index.tt:805 ../root/statistics/relationships.tt:8
+#: ../root/statistics/index.tt:787 ../root/statistics/index.tt:793
+#: ../root/statistics/index.tt:804 ../root/statistics/index.tt:811
+#: ../root/statistics/relationships.tt:8
 #: ../root/statistics/relationships.tt:50
 msgid "{n}%"
 msgstr "{n}%"

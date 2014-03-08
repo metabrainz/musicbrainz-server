@@ -100,7 +100,7 @@ sub ref_to_type
 
 sub artist_credit_to_ref
 {
-    my ($artist_credit, $extra_keys) = @_;
+    my ($artist_credit) = @_;
 
     return $artist_credit unless blessed $artist_credit;
 
@@ -116,18 +116,6 @@ sub artist_credit_to_ref
                 id => $ac->artist->id,
             }
         );
-
-        for my $key (@$extra_keys)
-        {
-            if ($key eq "sortname")
-            {
-                $ac_name{artist}->{sortname} = $ac->artist->sort_name;
-            }
-            else
-            {
-                $ac_name{artist}->{$key} = $ac->artist->{$key};
-            }
-        }
 
         push @{ $ret{names} }, \%ac_name;
     }
@@ -262,44 +250,6 @@ sub query_to_list_limited
     $hits = $hits + ($offset || 0);
 
     return (\@result, $hits);
-}
-
-=func hash_structure
-
-Generates a hash code for a particular edited track.  If a track
-is moved the hash will remain the same, any other change to the
-track will result in a different hash.
-
-=cut
-
-sub hash_structure
-{
-    sub structure_to_string {
-        my $obj = shift;
-
-        if (ref $obj eq "ARRAY")
-        {
-            my @ret = map { structure_to_string ($_) } @$obj;
-            return '[' . join (",", @ret) . ']';
-        }
-        elsif (ref $obj eq "HASH")
-        {
-            my @ret = map {
-                $_ . ':' . structure_to_string ($obj->{$_})
-            } sort keys %$obj;
-            return '{' . join (",", @ret) . '}';
-        }
-        elsif ($obj)
-        {
-            return $obj;
-        }
-        else
-        {
-            return '';
-        }
-    }
-
-    return sha1_base64 (encode ("utf-8", structure_to_string (shift)));
 }
 
 sub generate_gid
@@ -490,25 +440,32 @@ sub _merge_attributes {
     $sql->do($query_generator->($table, $new_id, $old_ids, $all_ids, \%named_params));
 }
 
+
 sub _conditional_merge {
-    my ($condition) = @_;
+    my ($condition, %opts) = @_;
+
+    my $wrap_coalesce = sub {
+        my ($inner, $wrap) = @_;
+        if ($wrap) { return "coalesce(" . $inner . ",?)" }
+        else { return $inner }
+    };
 
     return sub {
             my ($table, $new_id, $old_ids, $all_ids, $named_params) = @_;
             my $columns = $named_params->{columns} or confess 'Missing parameter columns';
             ("UPDATE $table SET " .
              join(',', map {
-                 "$_ = (SELECT new_val FROM (
+                 "$_ = " . $wrap_coalesce->("(SELECT new_val FROM (
                       SELECT (id = ?) AS first, $_ AS new_val
                         FROM $table
                        WHERE $_ $condition
                          AND id IN (" . placeholders(@$all_ids) . ")
                     ORDER BY first DESC
                        LIMIT 1
-                       ) s)";
+                       ) s)", exists $opts{default});
              } @$columns) . '
              WHERE id = ?',
-             (@$all_ids, $new_id) x @$columns, $new_id)}
+             (@$all_ids, $new_id) x @$columns, (exists $opts{default} ? $opts{default} : ()), $new_id)}
 }
 
 sub merge_table_attributes {
@@ -516,7 +473,7 @@ sub merge_table_attributes {
 }
 
 sub merge_string_attributes {
-    _merge_attributes(shift, _conditional_merge("!= ''"), @_);
+    _merge_attributes(shift, _conditional_merge("!= ''", default => ''), @_);
 }
 
 sub merge_boolean_attributes {

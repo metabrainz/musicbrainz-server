@@ -1,11 +1,12 @@
 package MusicBrainz::Server::Form::Work;
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Form::Utils qw( language_options );
+use MusicBrainz::Server::Form::Utils qw( language_options select_options );
 use List::AllUtils qw( uniq );
 
 extends 'MusicBrainz::Server::Form';
 
 with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ExternalLinks';
 
 has '+name' => ( default => 'edit-work' );
 
@@ -50,7 +51,7 @@ sub inflate_iswcs {
 
 sub edit_field_names { qw( type_id language_id name comment artist_credit ) }
 
-sub options_type_id           { shift->_select_all('WorkType') }
+sub options_type_id           { select_options(shift->ctx, 'WorkType') }
 sub options_language_id       { return language_options (shift->ctx); }
 
 1;

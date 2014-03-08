@@ -50,7 +50,7 @@
                               [%~ page.wiki_version || l('Error!') ~%]
                             </span>
                             [% IF page.wiki_version && (page.wiki_version != page.version) %]
-                              (<a href="http://[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
+                              (<a href="//[% wiki_server %]/[% page.id | html %]?diff=[% page.wiki_version %]&oldid=[% page.version %]">[% l('diff') %]</a>)
                             [% END %]
                           [% END %]
                         </td>
@@ -60,7 +60,7 @@
                               [
                               <a href="[% c.uri_for_action('/admin/wikidoc/edit', { page => page.id, new_version => page.wiki_version }) | html %]">[% l('Update') %]</a> |
                               <a href="[% c.uri_for_action('/admin/wikidoc/delete', { page => page.id }) | html %]">[% l('Remove') %]</a> |
-                              <a href="http://[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
+                              <a href="//[% wiki_server %]/[% page.id | html %]">[% l('View on wiki') %]</a>
                               ]
                           </td>
                         [% END %]

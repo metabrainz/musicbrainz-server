@@ -135,7 +135,7 @@ for (@tar_to_extract)
     my ($tar, $dir, $decompress) = @$_;
     print localtime() . " : tar -C $dir $decompress -xvf $tar\n";
     system "tar -C $dir $decompress -xvf $tar";
-    exit $? if $?;
+    exit ($? >> 8) if $?;
 }
 
 print localtime() . " : Validating snapshot\n";

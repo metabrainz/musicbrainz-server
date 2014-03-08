@@ -14,6 +14,11 @@
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
     </fieldset>
 
+    <fieldset>
+      <legend>[% l('External Links') %]</legend>
+      [% external_links_editor(r.form, 'work') %]
+    </fieldset>
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [%- enter_edit() -%]
 
@@ -22,16 +27,15 @@
   <div class="documentation">
     [%- guesscase_bubble() -%]
     [%- iswc_bubble(link_entity(work)) -%]
+    [%- external_link_bubble() -%]
   </div>
 
 </form>
 
 <script type="text/javascript">//<![CDATA[
   (function () {
-    var bubbles = MB.Control.BubbleCollection();
-
-    MB.Control.initialize_guess_case(bubbles, "work", "id-edit-work");
-    bubbles.add($("input[name=edit-work\\.iswcs\\.0]"), $("div.iswcs.bubble"));
+    MB.Control.initialize_guess_case("work", "id-edit-work");
+    MB.Control.initializeBubble("#iswcs-bubble", "input[name=edit-work\\.iswcs\\.0]");
 
     MB.utility.setDefaultAction("form.edit-work", "button.submit.positive");
   }());
