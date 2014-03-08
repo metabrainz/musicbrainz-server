@@ -116,7 +116,6 @@ sub select_options_tree
 
     my $model_ref = ref($model) ? $model : $c->model($model);
     my $root_option = $model_ref->get_tree;
-#    my $root_option = $c->model($model)->get_tree;
 
     return [
         map {

@@ -22,7 +22,6 @@ sub get_tree
     }
 
     my $root = $self->_entity_class->new;
-#    my $root = MusicBrainz::Server::Entity::ReleasePackaging->new;
     foreach my $obj (@objs) {
         my $parent = $obj->parent_id ? $id_to_obj{$obj->parent_id} : $root;
         $parent->add_child($obj);
