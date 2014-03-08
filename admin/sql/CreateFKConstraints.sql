@@ -26,6 +26,11 @@ ALTER TABLE area_alias
    FOREIGN KEY (type)
    REFERENCES area_alias_type(id);
 
+ALTER TABLE area_alias_type
+   ADD CONSTRAINT area_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES area_alias_type(id);
+
 ALTER TABLE area_annotation
    ADD CONSTRAINT area_annotation_fk_area
    FOREIGN KEY (area)
@@ -40,6 +45,11 @@ ALTER TABLE area_gid_redirect
    ADD CONSTRAINT area_gid_redirect_fk_new_id
    FOREIGN KEY (new_id)
    REFERENCES area(id);
+
+ALTER TABLE area_type
+   ADD CONSTRAINT area_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES area_type(id);
 
 ALTER TABLE artist
    ADD CONSTRAINT artist_fk_type
@@ -74,6 +84,11 @@ ALTER TABLE artist_alias
 ALTER TABLE artist_alias
    ADD CONSTRAINT artist_alias_fk_type
    FOREIGN KEY (type)
+   REFERENCES artist_alias_type(id);
+
+ALTER TABLE artist_alias_type
+   ADD CONSTRAINT artist_alias_type_fk_parent
+   FOREIGN KEY (parent)
    REFERENCES artist_alias_type(id);
 
 ALTER TABLE artist_annotation
@@ -153,6 +168,11 @@ ALTER TABLE artist_tag_raw
    ADD CONSTRAINT artist_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE artist_type
+   ADD CONSTRAINT artist_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES artist_type(id);
 
 ALTER TABLE autoeditor_election
    ADD CONSTRAINT autoeditor_election_fk_candidate
@@ -477,6 +497,11 @@ ALTER TABLE editor_watch_release_status
    ADD CONSTRAINT editor_watch_release_status_fk_release_status
    FOREIGN KEY (release_status)
    REFERENCES release_status(id);
+
+ALTER TABLE gender
+   ADD CONSTRAINT gender_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES gender(id);
 
 ALTER TABLE iso_3166_1
    ADD CONSTRAINT iso_3166_1_fk_area
@@ -1198,6 +1223,11 @@ ALTER TABLE label_alias
    FOREIGN KEY (type)
    REFERENCES label_alias_type(id);
 
+ALTER TABLE label_alias_type
+   ADD CONSTRAINT label_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES label_alias_type(id);
+
 ALTER TABLE label_annotation
    ADD CONSTRAINT label_annotation_fk_label
    FOREIGN KEY (label)
@@ -1263,6 +1293,11 @@ ALTER TABLE label_tag_raw
    ADD CONSTRAINT label_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE label_type
+   ADD CONSTRAINT label_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES label_type(id);
 
 ALTER TABLE link
    ADD CONSTRAINT link_fk_link_type
@@ -1371,6 +1406,11 @@ ALTER TABLE place_alias
    FOREIGN KEY (type)
    REFERENCES place_alias_type(id);
 
+ALTER TABLE place_alias_type
+   ADD CONSTRAINT place_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES place_alias_type(id);
+
 ALTER TABLE place_annotation
    ADD CONSTRAINT place_annotation_fk_place
    FOREIGN KEY (place)
@@ -1410,6 +1450,11 @@ ALTER TABLE place_tag_raw
    ADD CONSTRAINT place_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE place_type
+   ADD CONSTRAINT place_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES place_type(id);
 
 ALTER TABLE recording
    ADD CONSTRAINT recording_fk_artist_credit
@@ -1564,6 +1609,11 @@ ALTER TABLE release_group_meta
    REFERENCES release_group(id)
    ON DELETE CASCADE;
 
+ALTER TABLE release_group_primary_type
+   ADD CONSTRAINT release_group_primary_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_group_primary_type(id);
+
 ALTER TABLE release_group_rating_raw
    ADD CONSTRAINT release_group_rating_raw_fk_release_group
    FOREIGN KEY (release_group)
@@ -1573,6 +1623,11 @@ ALTER TABLE release_group_rating_raw
    ADD CONSTRAINT release_group_rating_raw_fk_editor
    FOREIGN KEY (editor)
    REFERENCES editor(id);
+
+ALTER TABLE release_group_secondary_type
+   ADD CONSTRAINT release_group_secondary_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_group_secondary_type(id);
 
 ALTER TABLE release_group_secondary_type_join
    ADD CONSTRAINT release_group_secondary_type_join_fk_release_group
@@ -1624,6 +1679,16 @@ ALTER TABLE release_meta
    FOREIGN KEY (id)
    REFERENCES release(id)
    ON DELETE CASCADE;
+
+ALTER TABLE release_packaging
+   ADD CONSTRAINT release_packaging_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_packaging(id);
+
+ALTER TABLE release_status
+   ADD CONSTRAINT release_status_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES release_status(id);
 
 ALTER TABLE release_tag
    ADD CONSTRAINT release_tag_fk_release
@@ -1735,6 +1800,11 @@ ALTER TABLE work_alias
    FOREIGN KEY (type)
    REFERENCES work_alias_type(id);
 
+ALTER TABLE work_alias_type
+   ADD CONSTRAINT work_alias_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES work_alias_type(id);
+
 ALTER TABLE work_annotation
    ADD CONSTRAINT work_annotation_fk_work
    FOREIGN KEY (work)
@@ -1758,6 +1828,16 @@ ALTER TABLE work_attribute
 ALTER TABLE work_attribute
    ADD CONSTRAINT work_attribute_fk_work_attribute_type_allowed_value
    FOREIGN KEY (work_attribute_type_allowed_value)
+   REFERENCES work_attribute_type_allowed_value(id);
+
+ALTER TABLE work_attribute_type
+   ADD CONSTRAINT work_attribute_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES work_attribute_type(id);
+
+ALTER TABLE work_attribute_type_allowed_value
+   ADD CONSTRAINT work_attribute_type_allowed_value_fk_parent
+   FOREIGN KEY (parent)
    REFERENCES work_attribute_type_allowed_value(id);
 
 ALTER TABLE work_attribute_type_allowed_value
@@ -1810,4 +1890,9 @@ ALTER TABLE work_tag_raw
    ADD CONSTRAINT work_tag_raw_fk_tag
    FOREIGN KEY (tag)
    REFERENCES tag(id);
+
+ALTER TABLE work_type
+   ADD CONSTRAINT work_type_fk_parent
+   FOREIGN KEY (parent)
+   REFERENCES work_type(id);
 
