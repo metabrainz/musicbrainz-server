@@ -84,4 +84,7 @@ UPDATE label_type SET parent = 3 WHERE id IN (4, 5, 6);
 UPDATE release_packaging SET child_order = 1 WHERE id = 5;
 UPDATE release_packaging SET child_order = 2 WHERE id = 7;
 
+-- put Other last
+UPDATE cover_art_archive.art_type SET child_order = 1 WHERE id = 8;
+
 COMMIT;
