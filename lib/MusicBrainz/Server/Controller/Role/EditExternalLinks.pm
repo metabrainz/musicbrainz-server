@@ -44,13 +44,19 @@ role {
             map {
                 my $type0 = $_->link->type->entity0_type;
                 my $type1 = $_->link->type->entity1_type;
+                my $entity0 = $_->entity0;
+                my $entity1 = $_->entity1;
                 {
                     id            => $_->id,
                     type0         => $type0,
                     type1         => $type1,
                     linkTypeID    => $_->link->type_id,
-                    entity0ID     => $type0 eq 'url' ? $_->entity0->utf8_decoded : $_->entity0->gid,
-                    entity1ID     => $type1 eq 'url' ? $_->entity1->utf8_decoded : $_->entity1->gid,
+                    entity0ID     => $type0 eq 'url' ?
+                                     $entity0->utf8_decoded // $entity0->name :
+                                     $entity0->gid,
+                    entity1ID     => $type1 eq 'url' ?
+                                     $entity1->utf8_decoded // $entity1->name :
+                                     $entity1->gid,
                 };
             } @$url_relationships
         ];
