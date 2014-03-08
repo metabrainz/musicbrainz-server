@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use 5.10.0;
 
-use JSON;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status :vote $AUTO_EDITOR_FLAG :quality :expire_action );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref collapse_whitespace coordinates_to_hash trim partial_date_to_hash );
@@ -453,9 +452,19 @@ sub calculate_recording_merges {
     return $recording_merges;
 }
 
-sub boolean_to_json { scalar(shift) ? JSON::true : JSON::false }
+sub boolean_to_json {
+    my $bool = shift;
 
-sub boolean_from_json { scalar(shift) ? 1 : 0 }
+    $bool = ref($bool) ? $$bool : $bool;
+    $bool ? \1 : \0;
+}
+
+sub boolean_from_json {
+    my $bool = shift;
+
+    $bool = ref($bool) ? $$bool : $bool;
+    $bool ? 1 : 0;
+}
 
 1;
 

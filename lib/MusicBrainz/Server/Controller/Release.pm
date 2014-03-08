@@ -567,7 +567,7 @@ sub _extra_entity_data {
     push(@args, artist_credit => artist_credit_to_ref($release->artist_credit));
     push(@args, events => [map +{ country_id => $_->country_id, date => partial_date_to_hash($_->date) }, $release->all_events]);
     push(@args, mediums => [map +{ track_count => $_->track_count, format_name => $_->format_name }, $release->all_mediums]);
-    push(@args, labels => [map +{ label => { id => $_->label->id, name => $_->label->name }, catalog_number => $_->catalog_number }, $release->all_labels]);
+    push(@args, labels => [map +{ label => ($_->label ? { id => $_->label->id, name => $_->label->name } : undef), catalog_number => $_->catalog_number }, $release->all_labels]);
     return @args;
 }
 
