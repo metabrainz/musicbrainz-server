@@ -10,4 +10,5 @@ CREATE INDEX track_idx_txt ON track USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX recording_idx_txt ON recording USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX work_idx_txt ON work USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX area_idx_name_txt ON area USING gin(to_tsvector('mb_simple', name));
+CREATE INDEX place_idx_name_txt ON place USING gin(to_tsvector('mb_simple', name));
 CREATE INDEX tag_idx_name_txt ON tag USING gin(to_tsvector('mb_simple', name));
