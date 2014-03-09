@@ -1,6 +1,6 @@
 [%- WRAPPER 'layout.tt' title=l('ISWC “{iswc}”', { iswc => iswc }) full_width=1 -%]
 
-    <h1>[% l('ISWC “{iswc}”', { iswc => link_iswc(iswc) }) %]</h1>
+    <h1>[% l('ISWC “{iswc}”', { iswc => link_iswc(iswcs.0) }) %]</h1>
 
     <h2>[% ln('Associated with {num} work', 'Associated with {num} works', works.size, { num => works.size }) %]</h2>
 
