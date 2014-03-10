@@ -14,10 +14,6 @@
     IF url.pretty_name; url.pretty_name | html;
     ELSE; url | uri_decode | html;
 END -%]
-[%- MACRO make_ucfirst(text) BLOCK; text | ucfirst; END -%]
-[%- MACRO make_lcfirst(text) BLOCK; text | lcfirst; END -%]
-[%- MACRO make_upper(text) BLOCK; text | upper; END -%]
-[%- MACRO make_lower(text) BLOCK; text | lower; END -%]
 [%- USE UserDate(c.user.preferences, current_language) -%]
 [%- USE Countdown -%]
 [%- MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
@@ -147,16 +143,6 @@ END -%]
     [%- output -%]
 [%- END -%]
 
-[%- MACRO form_id(field)
-    IF field.form;
-        "form-" _ field.form.name _ "-" _ field.name.replace('_', '-');
-    ELSE;
-        "form-$field";
-    END -%]
-[%- MACRO class_html(classes)
-    IF classes.size; 'class="' _ classes.join(' ') _ '"';
-    ELSE; '';
-    END -%]
 [%-# Take type and return pluralized word form, avoids problems with '|% type %|s' #-%]
 [%- MACRO get_plural_type(entity)
     SWITCH entity;
@@ -396,13 +382,6 @@ END -%]
     '</span>' IF recording.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_tracklist(tracklist, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
-    text = text == '' ? html_escape(tracklist.medium.name) : text;
-    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
-END -%]
-
 [%- MACRO link_url(url, action, text) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/url/$action", [ url.gid ]);
@@ -525,14 +504,6 @@ END-%]
             <img src="[% c.uri_for('/static/images/icons/mblookup-tagger.png') %]" alt="Tagger">
         </a>
     [%- END -%]
-[%- END -%]
-
-[%- MACRO piped_link_list(list) BLOCK -%]
-[
-[% FOR item IN list %]
-  <a href="[% item.link %]">[% item.text %]</a> [% UNLESS loop.last %] | [% END %]
-[% END %]
-]
 [%- END -%]
 
 [%- MACRO release_label_list(labels) BLOCK;
