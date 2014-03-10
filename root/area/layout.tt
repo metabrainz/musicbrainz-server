@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? area.name _ " - ${title}" : area.name -%]
+[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? area.l_name _ " - ${title}" : area.l_name -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
 
