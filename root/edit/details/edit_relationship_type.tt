@@ -41,6 +41,13 @@
                           yesno(edit.data.new.is_deprecated)) -%]
   [% END %]
 
+  [%- IF edit.data.old.has_dates != edit.data.new.has_dates %]
+  [%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
+  [%- display_full_change(l('Allows dates:'),
+                          yesno(edit.data.old.has_dates),
+                          yesno(edit.data.new.has_dates)) -%]
+  [% END %]
+
   [% IF edit.display_data.attributes %]
   <tr>
     <th>[% l('Attributes:') %]</th>

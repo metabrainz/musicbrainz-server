@@ -7,4 +7,10 @@ BEGIN;
 
 ALTER TABLE link_type ADD COLUMN has_dates BOOLEAN NOT NULL DEFAULT FALSE;
 
+---------------------------------
+-- MAKE ALL HAVE DATES FOR NOW --
+---------------------------------
+
+UPDATE link_type SET has_dates = true;
+
 COMMIT;

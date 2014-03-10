@@ -14,6 +14,7 @@
     [% form_row_text_long(r, 'reverse_link_phrase', l('Reverse link phrase:')) %]
     [% form_row_text_long(r, 'long_link_phrase', l('Long link phrase:')) %]
     [% form_row_checkbox(r, 'is_deprecated', l('This relationship is deprecated')) %]
+    [% form_row_checkbox(r, 'has_dates', l('This relationship allows setting dates')) %]
 
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
