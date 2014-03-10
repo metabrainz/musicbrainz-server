@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     add_coordinates_to_row
-    check_in_use
     generate_gid
     hash_to_row
     load_subobjects
@@ -18,8 +17,6 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_string_attributes
     merge_partial_date
     placeholders
-    query_to_list
-    query_to_list_limited
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved );
