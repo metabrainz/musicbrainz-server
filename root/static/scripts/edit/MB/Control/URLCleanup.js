@@ -812,8 +812,7 @@ MB.Control.URLCleanup = function (sourceType, typeControl, urlControl, errorObse
 
     var linkTypeErrors = [
         MB.text.SelectURLType,
-        MB.text.URLNotAllowed,
-        MB.text.RelationshipTypeDeprecated
+        MB.text.URLNotAllowed
     ];
 
 
