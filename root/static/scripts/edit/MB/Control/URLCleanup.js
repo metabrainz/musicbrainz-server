@@ -81,7 +81,8 @@ MB.constants.LINK_TYPES = {
     image: {
         artist: 173,
         label: 213,
-        place: 396
+        place: 396,
+        work: 274 // This is the "score" type, which is here because of Wikipedia Commons URLs
     },
     discographyentry: {
         release: 288
@@ -375,7 +376,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.review
     },
     score: {
-        match: new RegExp("^(https?://)?(www\\.)?(imslp\\.org/|neyzen\\.com)", "i"),
+        match: new RegExp("^(https?://)?((www\\.)?(imslp\\.org/|neyzen\\.com)|commons\\.wikimedia\\.org|www3?\\.cpdl\\.org)", "i"),
         type: MB.constants.LINK_TYPES.score
     },
     secondhandsongs: {
