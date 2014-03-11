@@ -677,6 +677,7 @@ test 'artist lookup with works (using l_artist_work)' => sub {
             type => "Person",
             works => [
                 {
+                    attributes => [],
                     id => "f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8",
                     title => "Asseswaving",
                     disambiguation => "",
@@ -712,6 +713,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
             type => "Person",
             works => [
                 {
+                    attributes => [],
                     id => "286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b",
                     title => "Easy To Be Hard",
                     disambiguation => "",
@@ -720,6 +722,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "2d967c29-63dc-309d-bbc1-a2d38639aaa1",
                     title => "心の手紙",
                     disambiguation => "",
@@ -728,6 +731,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "303f9bd2-152f-3145-9e09-afa34edb6a57",
                     title => "DOUBLE",
                     disambiguation => "",
@@ -736,6 +740,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "46724ef1-241e-3d7f-9f3b-e51ba34e2aa1",
                     title => "the Love Bug",
                     disambiguation => "",
@@ -744,6 +749,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "4b6a46c2-a904-3471-9bff-3942d4549f47",
                     title => "SOME DAY ONE DAY )",
                     disambiguation => "",
@@ -752,6 +758,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "50c07b24-7ee2-31ac-ab87-f0d399011c71",
                     title => "Milky Way 〜君の歌〜",
                     disambiguation => "",
@@ -760,6 +767,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "511f5124-c0ae-3386-bb76-4b6521498a68",
                     title => "Milky Way-君の歌-",
                     disambiguation => "",
@@ -768,6 +776,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "53d1fbac-e60a-38cb-85ff-e5a9224c9749",
                     title => "Be the one",
                     disambiguation => "",
@@ -776,6 +785,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "61ab56f0-e803-3aef-a91b-63564b7a8043",
                     title => "Rock With You",
                     disambiguation => "",
@@ -784,6 +794,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "6f08d5a8-1811-3e5e-848b-35ffa77babe5",
                     title => "Midnight Parade",
                     disambiguation => "",
@@ -792,6 +803,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "7981d409-8e76-33df-be27-ef625d81c501",
                     title => "Shine We Are!",
                     disambiguation => "",
@@ -800,6 +812,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "7e78f281-52b4-315b-9d7b-6d215732f3d7",
                     title => "EXPECT",
                     disambiguation => "",
@@ -808,6 +821,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "cd86f9e2-83ce-3192-a817-fe6c98079303",
                     title => "Song With No Name～名前のない歌～",
                     disambiguation => "",
@@ -816,6 +830,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "d2f1ea1f-de2e-3d0c-b534-e96377912478",
                     title => "OVER～across the time～",
                     disambiguation => "",
@@ -824,6 +839,7 @@ test 'artist lookup with works (using l_recording_work)' => sub {
                     type => JSON::null,
                 },
                 {
+                    attributes => [],
                     id => "f23ae726-0300-3830-b1ca-634f4362f78c",
                     title => "LOVE & HONESTY",
                     disambiguation => "",
