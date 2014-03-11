@@ -7,7 +7,6 @@ DROP INDEX area_alias_idx_area;
 DROP INDEX area_alias_idx_primary;
 DROP INDEX area_idx_gid;
 DROP INDEX area_idx_name;
-DROP INDEX area_idx_sort_name;
 DROP INDEX artist_alias_idx_artist;
 DROP INDEX artist_alias_idx_primary;
 DROP INDEX artist_credit_idx_musicbrainz_collate;

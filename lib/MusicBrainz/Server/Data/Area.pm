@@ -41,7 +41,7 @@ sub _table
 
 sub _columns
 {
-    return 'area.id, gid, area.name, area.sort_name, area.comment, area.type, ' .
+    return 'area.id, gid, area.name, area.comment, area.type, ' .
            'area.edits_pending, begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, area.last_updated, ' .
            'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, ' .
@@ -66,7 +66,7 @@ sub _column_mapping
         begin_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'begin_date_') },
         end_date => sub { MusicBrainz::Server::Entity::PartialDate->new_from_row(shift, shift() . 'end_date_') },
         type_id => 'type',
-        map {$_ => $_} qw( id gid name sort_name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
+        map {$_ => $_} qw( id gid name comment edits_pending last_updated ended iso_3166_1 iso_3166_2 iso_3166_3 )
     };
 }
 
@@ -327,7 +327,6 @@ sub _hash_to_row
         type => 'type_id',
         ended => 'ended',
         name => 'name',
-        sort_name => 'sort_name',
         map { $_ => $_ } qw( comment )
     });
 

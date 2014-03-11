@@ -805,7 +805,7 @@ sub _serialize_area_inner
 
     my @list;
     push @list, $gen->name($area->name);
-    push @list, $gen->sort_name($area->sort_name) if $area->sort_name;
+    push @list, $gen->sort_name($area->name);
     push @list, $gen->disambiguation($area->comment) if ($area->comment);
     if ($area->iso_3166_1_codes) {
         push @list, $gen->iso_3166_1_code_list(map {

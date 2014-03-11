@@ -25,7 +25,6 @@ has '+data' => (
     isa => Dict[
         name       => Str,
         gid        => Optional[Str],
-        sort_name  => Optional[Str],
         comment    => Nullable[Str],
         type_id    => Nullable[Int],
         begin_date => Nullable[PartialDateHash],
@@ -60,7 +59,7 @@ sub build_display_data
     my $type = $self->data->{type_id};
 
     return {
-        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name sort_name ) ),
+        ( map { $_ => $_ ? $self->data->{$_} : '' } qw( name ) ),
         comment    => $self->data->{comment},
         type       => $type ? $loaded->{AreaType}->{$type} : '',
         begin_date => PartialDate->new($self->data->{begin_date}),
@@ -77,7 +76,6 @@ sub build_display_data
 sub _insert_hash
 {
     my ($self, $data) = @_;
-    $data->{sort_name} ||= $data->{name};
     return $data;
 };
 

@@ -6,7 +6,6 @@ CREATE UNIQUE INDEX application_idx_oauth_id ON application (oauth_id);
 
 CREATE UNIQUE INDEX area_idx_gid ON area (gid);
 CREATE INDEX area_idx_name ON area (name);
-CREATE INDEX area_idx_sort_name ON area (sort_name);
 
 CREATE INDEX iso_3166_1_idx_area ON iso_3166_1 (area);
 CREATE INDEX iso_3166_2_idx_area ON iso_3166_2 (area);

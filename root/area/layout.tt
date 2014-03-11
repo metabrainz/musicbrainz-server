@@ -4,9 +4,6 @@
 
         <h2 class="area-information">[% l('Area information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
-            [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(area.sort_name) class="sort-name"
-                   IF area.name != area.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(area.l_type_name) class="type"
                    IF area.type -%]
