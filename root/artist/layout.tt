@@ -95,7 +95,7 @@
                     [% l('Add work') %]
                   </a>
                 </li>
- 
+
                   <hr/>
 
                   [% annotation_links(artist) %]

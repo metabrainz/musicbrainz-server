@@ -20,7 +20,7 @@
                     [%~ l('Running: <span class="tooltip" title="{msg}">{branch} ({sha})</span>',
                          { branch => server_details.git.branch,
                            msg => html_escape(server_details.git.msg),
-                           sha	  => server_details.git.sha}) ~%]
+                           sha => server_details.git.sha}) ~%]
                   </div>
                 [%~ END %]
             </div>

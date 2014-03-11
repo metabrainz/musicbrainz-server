@@ -1184,14 +1184,14 @@ my %stats = (
         NONREPLICATED => 1,
     },
     "count.edit.type" => {
-	DESC => "Count of edits by type",
+        DESC => "Count of edits by type",
         CALC => sub {
             my ($self, $sql) = @_;
 
-	    my $data = $sql->select_list_of_lists(
+            my $data = $sql->select_list_of_lists(
                 "SELECT type, count(id) AS count
-		FROM edit GROUP BY type",
-	    );
+                FROM edit GROUP BY type",
+            );
 
             my %dist = map { @$_ } @$data;
 
@@ -1200,7 +1200,7 @@ my %stats = (
                     "count.edit.type.".$_ => $dist{$_}
                 } keys %dist
             };
-	}
+        }
     },
 
     "count.cdstub" => {

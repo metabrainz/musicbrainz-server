@@ -138,7 +138,7 @@
     END %]
     </td>
   </tr>
-  
+
   [% IF edit.data.item('_edit_version') == 1 %]
     <tr>
       <th>Note:</th>

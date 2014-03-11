@@ -35,7 +35,7 @@
     [%- FOR release=releases -%]
       <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
         [% PROCESS release_row_prefix %]
-	      <td>
+          <td>
             [% link_release(release) %]
             [% disambiguation(release) %]
           </td>

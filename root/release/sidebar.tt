@@ -66,7 +66,7 @@
     [% END %]
     </ul>
     [% END %]
-    
+
     [% IF release.events.size %]
     <h2>[% l('Release events') %]</h2>
     [% release_events(release.events) %]

@@ -111,7 +111,7 @@ MB.GuessCase.Handler.Place = function () {
                 if (firstWord.match(gc.re.SORTNAME_THE)) {
                     append = (", The" + append); // handle The xyz -> xyz, The
                     words[0] = null;
-                } 
+                }
 
                 var t = [];
                 for (i=0; i<words.length; i++) {

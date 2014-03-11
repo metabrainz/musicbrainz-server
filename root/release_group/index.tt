@@ -47,7 +47,7 @@
                          value="[% release.id %]" />
                 </td>
                 [% END %]
-	            <td>
+                <td>
                   [% link_release(release) %]
                   [% disambiguation(release) %]
                 </td>

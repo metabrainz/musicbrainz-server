@@ -13,7 +13,7 @@
         [% form_submit(l('Add selected releases for merging')) WRAPPER form_row IF c.user_exists %]
       </form>
     [%- END -%]
- 
+
     [% IF va_only && pager.total_entries == 0 %]
         <p>[% l('This artist does not have any releases') %]</p>
     [% ELSE %]
