@@ -265,34 +265,36 @@
         </td>
       </tr>
       <!-- /ko -->
-      <!-- ko with: relationship().period -->
-      <tr>
-        <td class="section">[% l('Begin date:') %]</td>
-        <td class="partial-date">
-          <input data-bind="value: begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
-          -%]<input data-bind="value: begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
-          -%]<input data-bind="value: begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
-          <div class="error" data-bind="text: begin_date.error"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="section">[% l('End date:') %]</td>
-        <td class="partial-date">
-          <input data-bind="value: end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
-          -%]<input data-bind="value: end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
-          -%]<input data-bind="value: end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
-          <div class="error" data-bind="text: end_date.error"></div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <label>
-            <input type="checkbox" data-bind="checked: ended" />
-            [% l('This relationship has ended.') %]
-          </label>
-          <div class="error" data-bind="text: ended.error"></div>
-        </td>
-      </tr>
+      <!-- ko if: MB.RelationshipEditor.Util.typeInfo(relationship().link_type()).has_dates -->
+          <!-- ko with: relationship().period -->
+          <tr>
+            <td class="section">[% l('Begin date:') %]</td>
+            <td class="partial-date">
+              <input data-bind="value: begin_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
+              -%]<input data-bind="value: begin_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
+              -%]<input data-bind="value: begin_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
+              <div class="error" data-bind="text: begin_date.error"></div>
+            </td>
+          </tr>
+          <tr>
+            <td class="section">[% l('End date:') %]</td>
+            <td class="partial-date">
+              <input data-bind="value: end_date().year, valueUpdate: 'afterkeydown'" maxlength="4" placeholder="[% l('YYYY') %]" size="4" />-[%-
+              -%]<input data-bind="value: end_date().month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-[%-
+              -%]<input data-bind="value: end_date().day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
+              <div class="error" data-bind="text: end_date.error"></div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <label>
+                <input type="checkbox" data-bind="checked: ended" />
+                [% l('This relationship has ended.') %]
+              </label>
+              <div class="error" data-bind="text: ended.error"></div>
+            </td>
+          </tr>
+          <!-- /ko -->
       <!-- /ko -->
     </script>
 

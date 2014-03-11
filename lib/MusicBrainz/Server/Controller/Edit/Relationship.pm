@@ -31,6 +31,7 @@ sub build_type_info
                                         $root->gid)->as_string,
                 descr => $root->l_description,
                 attrs => \%attrs,
+                has_dates => $root->has_dates ? \1 : \0,
             };
         }
         foreach my $child ($root->all_children) {
