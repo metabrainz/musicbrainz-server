@@ -64,7 +64,7 @@ sub alter_edit_pending
 sub _build_related_entities
 {
     my $self = shift;
-    return { 
+    return {
         release => [ $self->release_ids ],
     }
 }

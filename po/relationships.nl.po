@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-19 10:48+0000\n"
+"PO-Revision-Date: 2014-02-28 08:12+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1659,7 +1659,7 @@ msgid ""
 "specific artist/band; that is, it primarily performs covers of that artist.​"
 " They may also be referred to as cover bands. Some tribute artists may name "
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
-msgstr ""
+msgstr "Deze relatie geeft aan dat een artiest een <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> aan een andere specifieke artiest/band is. De artiest speelt voornamelijk covers van die artiest. Ze worden ook wel cover bands genoemd. Sommige tribute artiesten noemen, kleden of gedragen zich op een vergelijkbare manier als de artiesten aan wie ze een hommage brengen."
 
 #: DB:link_type/description:462
 msgid ""
@@ -3638,7 +3638,7 @@ msgstr "werkte {additional:aanvullend} {assistant:assisterend} {associate:als pa
 #: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
-msgstr ""
+msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co} balanstechnicus voor"
 
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
@@ -3786,7 +3786,7 @@ msgstr "{additional:aanvullend} {assistant:assisterend} {associate:partner-} {co
 
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
 msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
-msgstr ""
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co} balanstechnicus"
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"

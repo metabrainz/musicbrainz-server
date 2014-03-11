@@ -21,6 +21,13 @@ sub serialize
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
     $body{type} = $entity->type ? $entity->type->name : JSON::null;
 
+    $body{attributes} = [
+        map +{
+            type    => $_->type->name,
+            value   => $_->value
+        }, $entity->all_attributes
+    ];
+
     $body{language} = $entity->language
         ? $entity->language->iso_code_3 // $entity->language->iso_code_2t
         : JSON::null;

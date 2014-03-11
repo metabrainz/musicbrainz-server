@@ -23,7 +23,7 @@ sub extra_headers {
         'In-Reply-To' => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s', $self->election->id),
         'Message-Id'  => MusicBrainz::Server::Email::_message_id('autoeditor-election-%s-%d', $self->election->id, time())
     );
-    push @headers, (BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate)) 
+    push @headers, (BCC => MusicBrainz::Server::Email::_user_address($self->election->candidate))
         if $self->election->candidate->email;
     return @headers;
 }

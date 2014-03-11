@@ -2,7 +2,7 @@
 
 [% WRAPPER "artist/layout.tt" title=l('Details') page='details' %]
 <h2>[%- l('Details') -%]</h2>
-<table class="details" [% rdfa_about_attr(rdfa_artist_curi(artist)) %]>
+<table class="details">
   <tr>
     <th>[%- l('Name:') -%]</th>
     <td>[% link_entity(artist) %]</td>
@@ -11,7 +11,7 @@
     <th>[%- l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
                {mbid => doc_link("MusicBrainz_Identifier")}) -%]
     </th>
-    <td><code>[% rdfa_mbid(artist.gid) %]</code></td>
+    <td><code>[% artist.gid %]</code></td>
   </tr>
   <tr>
     <th>[% l('Last updated:') %]</th>

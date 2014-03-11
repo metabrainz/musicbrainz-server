@@ -29,14 +29,14 @@
             [% form_row_checkbox(r, 'account_admin', l('Account admin')) %]
         [% END %]
 
-	<h2>[%- l('Edit profile') -%]</h2>
-	[% form_row_text_long(t, 'email', l('Email:')) %]
-	[% form_row_text_long(t, 'website', l('Website:')) %]
-	[% WRAPPER form_row %]
-	    [% t.label('biography', l('Bio:')) %]
-	    [% t.textarea('biography', { cols => 80, rows => 5 }) %]
-	    [% field_errors(form2, 'biography') %]
-	[% END %]
+    <h2>[%- l('Edit profile') -%]</h2>
+    [% form_row_text_long(t, 'email', l('Email:')) %]
+    [% form_row_text_long(t, 'website', l('Website:')) %]
+    [% WRAPPER form_row %]
+        [% t.label('biography', l('Bio:')) %]
+        [% t.textarea('biography', { cols => 80, rows => 5 }) %]
+        [% field_errors(form2, 'biography') %]
+    [% END %]
 
         <div class="row no-label">
             [% form_submit(l('Edit user')) %]

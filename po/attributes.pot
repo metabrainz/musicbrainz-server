@@ -308,6 +308,11 @@ msgctxt "label_type"
 msgid "Imprint"
 msgstr ""
 
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -428,6 +433,11 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr ""
 
+#: DB:place_type/name:3
+msgctxt "place_type"
+msgid "Other"
+msgstr ""
+
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
@@ -471,6 +481,11 @@ msgstr ""
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
+msgstr ""
+
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
 msgstr ""
 
 #: DB:work_type/name:21
@@ -549,7 +564,8 @@ msgid "SVCD"
 msgstr ""
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr ""
@@ -604,9 +620,19 @@ msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr ""
 
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
+msgstr ""
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
 msgstr ""
 
 #: DB:area_type/name:2
@@ -657,6 +683,11 @@ msgstr ""
 #: DB:medium_format/name:21
 msgctxt "medium_format"
 msgid "VHS"
+msgstr ""
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
 msgstr ""
 
 #: DB:medium_format/name:32

@@ -59,17 +59,17 @@
           <th class="treleases">[% l('Length') %]</th>
         </tr>
       </thead>
-      <tbody [%- rdfa_about_attr(rdfa_release_curi(release)) -%]>
+      <tbody>
         <!-- ko foreach: mediums -->
           <tr data-bind="css: { subh: true, mp: editsPending > 0}">
             <td>&#xa0;</td>
             <td data-bind="attr: { colspan: 3 + ($root.showVideo ? 1 : 0) + ($root.showArtists ? 1 : 0) }">
               <a data-bind="text: positionName, attr: { href: '#disc' + position }"></a>
-              <!-- [% rdfa_medium_in_release(release, medium) %] -->
+              <!-- [% medium_in_release(release, medium) %] -->
             </td>
           </tr>
           <!-- ko foreach: tracks -->
-          <tr rel="mo:track" data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
+          <tr data-bind="css: { ev: ($index() + 1) % 2 == 0, mp: editsPending > 0 }, attr: { id: gid }">
               <td class="pos t">
                 <!-- ko text: number --><!-- /ko -->
               </td>
@@ -159,10 +159,6 @@
               </td>
             </tr>
           <!-- /ko -->
-
-          <!-- Invalid HTML, commenting out for now.  See MBS-5244.
-            <div [% rdfa_about_attr(rdfa_tracklist_curi(medium)) %] [% rdfa_typeof(rdfa_concept_curi('medium')) %]>
-          -->
         <!-- /ko -->
       </tbody>
     </table>

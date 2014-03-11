@@ -49,6 +49,7 @@ sub _column_mapping
         is_back => 'is_back',
         approved => 'approved',
         suffix => 'suffix',
+        mime_type => 'mime_type',
     };
 }
 

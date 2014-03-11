@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Work;
 
+use List::UtilsBy qw( sort_by );
 use Moose;
 use MusicBrainz::Server::Entity::Types;
 
@@ -97,6 +98,11 @@ has attributes => (
         add_attribute => 'push'
     }
 );
+
+sub sorted_attributes {
+    my $self = shift;
+    sort_by { $_->type->l_name } sort_by { $_->l_value } $self->all_attributes;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

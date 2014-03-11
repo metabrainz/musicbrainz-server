@@ -1,13 +1,13 @@
 [%- info_links = [
     ['index', link_work(work, 'show', l('Overview'))],
-    ['aliases', rdfa_seeAlso_link_work(work, 'aliases', l('Aliases'))],
+    ['aliases', link_work(work, 'aliases', l('Aliases'))],
     ['tags', link_work(work, 'tags', l('Tags'))],
-    ['details', rdfa_seeAlso_link_work(work, 'details', l('Details'))],
+    ['details', link_work(work, 'details', l('Details'))],
     ['edit', link_work(work, 'edit', l('Edit'))],
 ] -%]
 
-<div class="workheader" [%- rdfa_about_attr(rdfa_work_curi(work)) %] [% rdfa_typeof(rdfa_concept_curi('work')) %]>
-    <h1>[% rdfa_link_work_header(work) %] [% disambiguation(work) %]</h1>
+<div class="workheader">
+    <h1>[% link_work(work) %] [% disambiguation(work) %]</h1>
     <p class="subheader">
         <span class="prefix">~</span>
             [% html_escape(work.l_type_name) or l('Work') %]

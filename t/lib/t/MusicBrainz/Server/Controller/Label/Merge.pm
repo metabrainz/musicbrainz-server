@@ -31,7 +31,7 @@ test all => sub {
 
     is_deeply($edit->data, {
         old_entities => [ { name => 'Warp Records', id => '2' } ],
-        new_entity => { name => 'Another Label', id => '3' }, 
+        new_entity => { name => 'Another Label', id => '3' },
     });
 
     $mech->get_ok('/edit/' . $edit->id, 'Fetch edit page');

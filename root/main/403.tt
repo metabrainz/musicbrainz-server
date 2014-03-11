@@ -5,7 +5,7 @@
         <p><strong>[%- l('The page you requested is private.') -%]</strong></p>
 
         <p>
-            [%- l('If you followed a link on our site to get here, please {report|report a bug} and the URL of the page that sent you here.', 
+            [%- l('If you followed a link on our site to get here, please {report|report a bug} and the URL of the page that sent you here.',
                  { report => display_url("http://tickets.musicbrainz.org/secure/CreateIssue.jspa?pid=10000&issuetype=1") }) -%]
         </p>
     </div>

@@ -33,7 +33,7 @@
       <tbody data-bind="foreach: files_to_upload">
         <tr>
           <td class="uploader-preview-column">
-              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}" />
+              <img class="uploader-preview-image" data-bind="attr: {src: data_uri()}, visible: data_uri() != ''" />
               <input type="button" class="icon file-up"
                      title="[% l('Move file up') %]" style="float: right;" />
               <input type="button" class="icon file-down"
