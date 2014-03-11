@@ -59,6 +59,9 @@ subtype 'Collection'
 subtype 'Coordinates'
     => as class_type 'MusicBrainz::Server::Entity::Coordinates';
 
+subtype 'CoverArtType'
+    => as class_type 'MusicBrainz::Server::Entity::CoverArtType';
+
 subtype 'Edit'
     => as class_type 'MusicBrainz::Server::Edit';
 
