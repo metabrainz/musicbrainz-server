@@ -172,6 +172,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             $ret{item} = $rg;
         }
         $ret{post_creation} = $self->create_with_identifiers($c);
+        $ret{form_args} = { used_by_tracks => 0 };
         return %ret;
     },
     dialog_template => 'recording/edit_form.tt',
