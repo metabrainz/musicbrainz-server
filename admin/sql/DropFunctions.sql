@@ -23,6 +23,7 @@ DROP FUNCTION a_upd_release_group();
 DROP FUNCTION a_upd_track();
 DROP FUNCTION b_ins_edit_materialize_status();
 DROP FUNCTION b_upd_last_updated_table();
+DROP FUNCTION check_has_dates();
 DROP FUNCTION controlled_for_whitespace(TEXT);
 DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
 DROP FUNCTION create_cube_from_durations(durations INTEGER[]);
