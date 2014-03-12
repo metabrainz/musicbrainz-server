@@ -79,8 +79,7 @@ $(function() {
         var conditionalFields = $('#id-ar\\\.period\\\.ended')
             .add('.partial-date input');
 
-        conditionalFields.prop('disabled',
-          has_dates == false);
+        conditionalFields.prop('disabled', has_dates == false);
     }
 
     function filterSelect($filter, direction) {
