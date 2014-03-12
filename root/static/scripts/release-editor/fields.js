@@ -144,10 +144,9 @@
             if (!recording.gid || !name) return false;
 
             var sameName = name === recording.name;
-            var sameLength = this.formattedLength() === recording.formattedLength;
             var sameArtist = this.artistCredit.isEqual(recording.artistCredit);
 
-            return !(sameName && sameLength && sameArtist);
+            return !(sameName && sameArtist);
         },
 
         hasExistingRecording: function () {
