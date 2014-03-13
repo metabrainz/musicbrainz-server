@@ -533,6 +533,16 @@
         hasOneEmptyMedium: function () {
             var mediums = this.mediums();
             return mediums.length === 1 && !mediums[0].hasTracks();
+        },
+
+        tracksWithUnsetPreviousRecordings: function () {
+            return _.transform(this.mediums(), function (result, medium) {
+                _.each(medium.tracks(), function (track) {
+                    if (track.recording.saved && track.needsRecording()) {
+                        result.push(track);
+                    }
+                });
+            });
         }
     });
 
