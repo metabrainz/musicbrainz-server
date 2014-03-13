@@ -69,6 +69,10 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+echo `date` : 'Adding has_dates trigger'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140312-dates-trigger.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 fi
 
 ################################################################################
