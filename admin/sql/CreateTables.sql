@@ -998,7 +998,6 @@ CREATE TABLE label (
     id                  SERIAL,
     gid                 UUID NOT NULL,
     name                VARCHAR NOT NULL,
-    sort_name           VARCHAR NOT NULL,
     begin_date_year     SMALLINT,
     begin_date_month    SMALLINT,
     begin_date_day      SMALLINT,

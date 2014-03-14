@@ -24,7 +24,7 @@ role
                     "SELECT search.term AS search_term, " . $self->_columns .
                     " FROM " . $self->_table . " search_name" .
                     " JOIN search ON (musicbrainz_unaccent(lower(search_name.name)) = musicbrainz_unaccent(lower(search.term))" .
-                    " OR musicbrainz_unaccent(lower(search_name.sort_name)) = musicbrainz_unaccent(lower(search.term)))" .
+#                    " OR musicbrainz_unaccent(lower(search_name.sort_name)) = musicbrainz_unaccent(lower(search.term)))" .
                 ")";
 
         my %ret;

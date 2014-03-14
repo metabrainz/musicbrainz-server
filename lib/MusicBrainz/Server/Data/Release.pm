@@ -689,7 +689,7 @@ sub find_by_collection
         },
         "label" => sub {
             $extra_join = "LEFT OUTER JOIN
-                (SELECT release, array_agg(musicbrainz_collate(label.sort_name)) AS labels FROM release_label
+                (SELECT release, array_agg(musicbrainz_collate(label.name)) AS labels FROM release_label
                     JOIN label ON release_label.label = label.id
                     GROUP BY release) rl
                 ON rl.release = release.id";

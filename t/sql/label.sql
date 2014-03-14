@@ -8,14 +8,14 @@ INSERT INTO iso_3166_1 (area, code) VALUES (221, 'GB');
 
 INSERT INTO label_type (id, name) VALUES (1, 'Production');
 
-INSERT INTO label (id, gid, name, sort_name, type, area, label_code,
+INSERT INTO label (id, gid, name, type, area, label_code,
                    begin_date_year, begin_date_month, begin_date_day,
                    end_date_year, end_date_month, end_date_day, comment)
-     VALUES (3, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 'Warp Records', 1, 221, 2070,
+     VALUES (3, '46f0f4cd-8aab-4b33-b698-f459faf64190', 'Warp Records', 1, 221, 2070,
              1989, 02, 03, 2008, 05, 19, 'Sheffield based electronica label');
 
-INSERT INTO label (id, gid, name, sort_name)
-    VALUES (2, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'To Merge', 'To Merge');
+INSERT INTO label (id, gid, name)
+    VALUES (2, 'f2a9a3c0-72e3-11de-8a39-0800200c9a66', 'To Merge');
 
 INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor', '{CLEARTEXT}pass', '3f3edade87115ce351d63f42d92a1834');
 INSERT INTO annotation (id, editor, text, changelog) VALUES (1, 1, 'Label Annotation', 'Changes');

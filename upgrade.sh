@@ -53,6 +53,9 @@ fi
 echo `date` : 'Remove area sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Remove label sortnames'
+OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140313-remove-label-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 

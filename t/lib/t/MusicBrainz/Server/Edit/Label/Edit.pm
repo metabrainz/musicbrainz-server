@@ -42,7 +42,6 @@ accept_edit($c, $edit);
 
 $label = $c->model('Label')->get_by_id($edit->label_id);
 is($label->name, 'Edit Name');
-is($label->sort_name, 'Edit Sort');
 is($label->type_id, 1);
 is($label->comment, "Edit comment");
 is($label->label_code, 12345);
@@ -134,7 +133,6 @@ test 'Check conflicts (conflicting edits)' => sub {
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
         name      => 'Renamed label',
-        sort_name => 'Sort FOO',
         ipi_codes => [ '00284373936' ],
         isni_codes => [ ],
     );
@@ -143,8 +141,8 @@ test 'Check conflicts (conflicting edits)' => sub {
         edit_type => $EDIT_LABEL_EDIT,
         editor_id => 1,
         to_edit   => $c->model('Label')->get_by_id(2),
+        name      => 'Renamed label again',
         comment   => 'Comment change',
-        sort_name => 'Sort BAR',
         ipi_codes => [ '00284373936' ],
         isni_codes => [ ],
     );
@@ -154,7 +152,6 @@ test 'Check conflicts (conflicting edits)' => sub {
 
     my $label = $c->model('Label')->get_by_id(2);
     is ($label->name, 'Renamed label', 'label name from edit 1');
-    is ($label->sort_name, 'Sort FOO', 'sort name from edit 1');
     is ($label->comment, '', 'no comment');
 };
 
@@ -200,7 +197,6 @@ sub create_full_edit {
 
         to_edit => $label,
         name => 'Edit Name',
-        sort_name => 'Edit Sort',
         comment => 'Edit comment',
         area_id => 221,
         type_id => 1,
@@ -215,7 +211,6 @@ sub create_full_edit {
 sub is_unchanged {
     my $label = shift;
     is($label->name, 'Label Name');
-    is($label->sort_name, 'Label Name');
     is($label->$_, undef) for qw( area_id label_code );
     is($label->comment, '');
     ok($label->begin_date->is_empty);

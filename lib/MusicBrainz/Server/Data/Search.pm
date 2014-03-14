@@ -87,19 +87,16 @@ sub search
 
     my @where_args;
 
-    if ($type eq "artist" || $type eq "label") {
+    if ($type eq "artist") {
 
         my $where_deleted = "WHERE entity.id != ?";
         if ($type eq "artist") {
             $deleted_entity = $DARTIST_ID;
-        } elsif ($type eq "label") {
-            $deleted_entity = $DLABEL_ID;
         } else {
             $where_deleted = "";
         }
 
         my $extra_columns = '';
-        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.gender, entity.area, entity.begin_area, entity.end_area,' if $type eq 'artist';
 
         $query = "
@@ -205,13 +202,20 @@ sub search
         $hard_search_limit = int($offset * 1.2);
     }
 
-    elsif ($type eq "work" || $type eq "place" || $type eq "area") {
+    elsif ($type eq "label" || $type eq "work" || $type eq "place" || $type eq "area") {
+        my $where_deleted = "WHERE entity.id != ?";
+        if ($type eq "label") {
+            $deleted_entity = $DLABEL_ID;
+        } else {
+            $where_deleted = "";
+        }
 
         my $extra_columns = '';
         $extra_columns .= 'entity.language,' if $type eq 'work';
         $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
+        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
 
         my $extra_groupby_columns = $extra_columns;
         $extra_groupby_columns =~ s/[^ ,]+ AS //g;
@@ -247,6 +251,7 @@ sub search
                 LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
                 JOIN ${type} AS entity ON (r.name = entity.name OR alias.${type} = entity.id)
                 $extra_joins
+                $where_deleted
             GROUP BY
                 $extra_groupby_columns entity.id, entity.gid, entity.name, entity.comment, entity.type
             ORDER BY
@@ -893,7 +898,7 @@ sub xml_search
                 my $term = escape_query($options{name}) or $die->('name is a required parameter');
                 $term =~ tr/A-Z/a-z/;
                 $term =~ s/\s*(.*?)\s*$/$1/;
-                $query = "label:($term)(sortname:($term) alias:($term) !label:($term))";
+                $query = "label:($term)(alias:($term) !label:($term))";
             }
 
             when ('release') {

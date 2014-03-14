@@ -44,7 +44,7 @@ with 'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'label' };
 with 'MusicBrainz::Server::Data::Role::Merge';
 with 'MusicBrainz::Server::Data::Role::Area';
 
-sub browse_column { 'sort_name' }
+sub browse_column { 'name' }
 
 sub _table
 {
@@ -54,7 +54,7 @@ sub _table
 
 sub _columns
 {
-    return 'label.id, gid, name, sort_name, ' .
+    return 'label.id, gid, name, ' .
            'label.type, label.area, label.edits_pending, label.label_code, ' .
            'begin_date_year, begin_date_month, begin_date_day, ' .
            'end_date_year, end_date_month, end_date_day, ended, comment, label.last_updated';
@@ -76,7 +76,6 @@ sub _column_mapping
         id => 'id',
         gid => 'gid',
         name => 'name',
-        sort_name => 'sort_name',
         type_id => 'type',
         area_id => 'area',
         label_code => 'label_code',
@@ -101,7 +100,7 @@ sub find_by_subscribed_editor
                  FROM " . $self->_table . "
                     JOIN editor_subscribe_label s ON label.id = s.label
                  WHERE s.editor = ?
-                 ORDER BY musicbrainz_collate(label.sort_name), label.id
+                 ORDER BY musicbrainz_collate(label.name), label.id
                  OFFSET ?";
     return query_to_list_limited(
         $self->c->sql, $offset, $limit, sub { $self->_new_from_row(@_) },
@@ -276,7 +275,7 @@ sub _hash_to_row
         area => 'area_id',
         type => 'type_id',
         ended => 'ended',
-        map { $_ => $_ } qw( label_code comment name sort_name )
+        map { $_ => $_ } qw( label_code comment name )
     });
 
     add_partial_date_to_row($row, $label->{begin_date}, 'begin_date');

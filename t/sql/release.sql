@@ -26,7 +26,7 @@ INSERT INTO release_country (release, country, date_year, date_month, date_day) 
 INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (2, '7a906020-72db-11de-8a39-0800200c9a66', 'Release #2', 1, 1);
 ;
 
-INSERT INTO label (id, gid, name, sort_name) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 'Label', 'Label');
+INSERT INTO label (id, gid, name) VALUES (1, '00a23bd0-72db-11de-8a39-0800200c9a66', 'Label');
 
 INSERT INTO release_label (id, release, label, catalog_number)
     VALUES (1, 1, 1, 'ABC-123'), (2, 1, 1, 'ABC-123-X');

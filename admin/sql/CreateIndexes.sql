@@ -219,7 +219,6 @@ CREATE INDEX link_idx_type_attr ON link (link_type, attribute_count);
 
 CREATE UNIQUE INDEX label_idx_gid ON label (gid);
 CREATE INDEX label_idx_name ON label (name);
-CREATE INDEX label_idx_sort_name ON label (sort_name);
 
 CREATE INDEX label_idx_area ON label (area);
 

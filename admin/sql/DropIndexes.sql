@@ -176,7 +176,6 @@ DROP INDEX label_idx_lower_name;
 DROP INDEX label_idx_musicbrainz_collate;
 DROP INDEX label_idx_name;
 DROP INDEX label_idx_null_comment;
-DROP INDEX label_idx_sort_name;
 DROP INDEX label_idx_uniq_name_comment;
 DROP INDEX label_rating_raw_idx_editor;
 DROP INDEX label_rating_raw_idx_label;

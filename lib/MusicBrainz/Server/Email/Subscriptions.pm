@@ -72,7 +72,7 @@ sub text {
 
     push @sections, $self->edits_for_type(
         'Changes for your subscribed labels',
-        [ sort_by { $_->{subscription}->label->sort_name } @{ $self->edits->{label} } ],
+        [ sort_by { $_->{subscription}->label->name } @{ $self->edits->{label} } ],
         'label'
     ) if exists $self->edits->{label};
 
