@@ -889,7 +889,9 @@ END -%]
 
 [%- MACRO sidebar_edit_annotation(entity) BLOCK -%]
   <li>
-    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], {
+      returnto => c.req.uri
+    }) %]">
       [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
     </a>
   </li>
