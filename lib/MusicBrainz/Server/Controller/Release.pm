@@ -628,6 +628,7 @@ sub edit_cover_art : Chained('load') PathPart('edit-cover-art') Args(1) Edit
     my @artwork = @{
         $c->model('Artwork')->find_by_release($entity)
     } or $c->detach('/error_404');
+    $c->model('CoverArtType')->load_for(@artwork);
 
     my $artwork = first { $_->id == $id } @artwork;
 
