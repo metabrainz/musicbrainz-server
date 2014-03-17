@@ -46,5 +46,5 @@
                 uri => c.uri_for_action('/label/create', {
                          'edit-label.name' => query
                        }) }) %]
-        </p> 
+        </p>
 [% END %]

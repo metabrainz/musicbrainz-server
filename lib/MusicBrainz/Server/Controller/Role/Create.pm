@@ -48,8 +48,6 @@ role {
         create_edit_type => $params->edit_type
     );
 
-    with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
-
     method 'create' => sub {
         my ($self, $c, %args) = @_;
 

@@ -1,27 +1,27 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? artist.name _ " - ${title}" : artist.name -%]
+[%- WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name -%]
   [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' about=rdfa_artist_curi(artist)%]
+    [% WRAPPER 'layout/sidebar.tt' %]
         [%- show_image() -%]
 
         <h2 class="artist-information">[% l('Artist information') %]</h2>
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Sort name:')
-               content=rdfa_sort_name(artist.sort_name) class="sort-name"
+               content=html_escape(artist.sort_name) class="sort-name"
                    IF artist.name != artist.sort_name -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
                content=html_escape(artist.l_type_name) class="type"
                    IF artist.type -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Gender:')
-               property='foaf:gender' class="gender"
+               class="gender"
                content=html_escape(artist.l_gender_name)
                    IF artist.gender -%]
             [%- UNLESS artist.begin_date.is_empty AND artist.end_date.is_empty AND !artist.ended AND !artist.begin_area AND !artist.end_area -%]
                     [%- IF artist.begin_date.format %]
                         [% date_period_label = artist_begin_label_from_type(artist.type_id) %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% rdfa_begin_date_artist(artist.begin_date.format) %]
+                            [% artist.begin_date.format %]
                             [% IF artist.has_age AND not artist.end_date.format %]
-                                (<span style="display:none">[% rdfa_artist_age(display_age (artist.age)) %]</span>[% display_age_ago(artist.age) %])
+                                (<span style="display:none">[% display_age(artist.age) %]</span>[% display_age_ago(artist.age) %])
                             [% END %]
                         [% END %]
                     [%- END -%]
@@ -34,9 +34,9 @@
                     [% date_period_label = artist_end_label_from_type(artist.type_id) %]
                     [% IF artist.end_date.format %]
                         [% WRAPPER 'layout/sidebar/property.tt' label=date_period_label %]
-                            [% rdfa_end_date_artist(artist.end_date.format) %]
+                            [% artist.end_date.format %]
                             [% IF artist.has_age %]
-                                ([% rdfa_artist_age(display_age (artist.age, artist.type_id == 1)) %])
+                                ([% display_age(artist.age, artist.type_id == 1) %])
                             [% END %]
                         [% END %]
                     [% ELSIF artist.ended %]
@@ -57,11 +57,11 @@
                    IF artist.area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=rdfa_artist_ipi(ipi_code) class="ipi-code" %]
+                 content=html_escape(ipi_code.ipi) class="ipi-code" %]
             [%- END -%]
             [%- FOR isni_code IN artist.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                 content=rdfa_artist_isni(isni_code) class="isni-code" %]
+                 content=link_isni(isni_code.isni) class="isni-code" %]
             [%- END -%]
         [% END %]
 
@@ -95,7 +95,7 @@
                     [% l('Add work') %]
                   </a>
                 </li>
- 
+
                   <hr/>
 
                   [% annotation_links(artist) %]

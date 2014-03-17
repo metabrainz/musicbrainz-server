@@ -15,7 +15,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 
 sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
 
-sub _load 
+sub _load
 {
     my ($self, $c, $id) = @_;
 
@@ -110,7 +110,7 @@ sub browse : Path('browse')
     my $stubs = $self->_load_paged($c, sub {
                     $c->model('CDStub')->load_top_cdstubs(shift, shift);
                 });
-    $c->stash( 
+    $c->stash(
               template => 'cdstub/browse.tt',
               cdstubs  => $stubs
              );
