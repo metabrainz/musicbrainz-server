@@ -20,7 +20,7 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_col
     FROM l_label_release_group lxx
     JOIN link ON link.id = lxx.link
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
-    
+
     UNION
 
     SELECT link.link_type, lxx.entity0, lxx.entity1 AS entity
@@ -50,14 +50,14 @@ SELECT q.entity AS release_group_id, row_number() OVER (ORDER BY musicbrainz_col
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
-    
+
     SELECT link.link_type, lxx.entity1, lxx.entity0 AS entity
     FROM l_release_group_work lxx
     JOIN link ON link.id = lxx.link
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
 
     UNION
-    
+
     SELECT link.link_type, lxx.entity1, lxx.entity0 AS entity
     FROM l_release_group_url lxx
     JOIN link ON link.id = lxx.link

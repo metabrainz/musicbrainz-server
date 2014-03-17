@@ -34,7 +34,7 @@ sub build_display_data
 {
     my ($self, $loaded) = @_;
     return {
-        releases => [ 
+        releases => [
             map {
                 $loaded->{Release}{$_->{id}} ||
                     MusicBrainz::Server::Data::Release->new(
@@ -53,7 +53,7 @@ sub upgrade
     for (my $i = 0; ; $i++) {
         my $id = $self->new_value->{"AlbumId$i"} or last;
         my $name = $self->new_value->{"AlbumName$i"} or last;
- 
+
         if (my @ids = @{ $self->album_release_ids($id) }) {
             push @releases, map +{
                 id => $_, name => $name

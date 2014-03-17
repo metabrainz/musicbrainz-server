@@ -21,6 +21,7 @@ test 'basic work lookup' => sub {
     ws_test_json 'basic work lookup',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c' => encode_json (
         {
+            attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
             disambiguation => "",
@@ -39,6 +40,7 @@ test 'basic work lookup, inc=annotation' => sub {
     ws_test_json 'basic work lookup, inc=annotation',
     '/work/482530c1-a2ab-32e8-be43-ea5240aa7913?inc=annotation' => encode_json (
         {
+            attributes => [],
             id => "482530c1-a2ab-32e8-be43-ea5240aa7913",
             title => "Plock",
             disambiguation => "",
@@ -66,6 +68,7 @@ test 'work lookup via iswc' => sub {
             "work-offset" => 0,
             works => [
                 {
+                    attributes => [],
                     id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
                     title => "サマーれげぇ!レインボー",
                     disambiguation => "",
@@ -83,6 +86,7 @@ test 'work lookup with recording relationships' => sub {
     ws_test_json 'work lookup with recording relationships',
     '/work/3c37b9fa-a6c1-37d2-9e90-657a116d337c?inc=recording-rels' => encode_json (
         {
+            attributes => [],
             id => "3c37b9fa-a6c1-37d2-9e90-657a116d337c",
             title => "サマーれげぇ!レインボー",
             disambiguation => "",

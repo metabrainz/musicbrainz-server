@@ -57,7 +57,7 @@
                    IF artist.area -%]
             [%- FOR ipi_code IN artist.ipi_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                 content=html_escape(ipi_code) class="ipi-code" %]
+                 content=html_escape(ipi_code.ipi) class="ipi-code" %]
             [%- END -%]
             [%- FOR isni_code IN artist.isni_codes -%]
               [% INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
@@ -95,7 +95,7 @@
                     [% l('Add work') %]
                   </a>
                 </li>
- 
+
                   <hr/>
 
                   [% annotation_links(artist) %]

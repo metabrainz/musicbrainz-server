@@ -72,7 +72,7 @@
                     [%# Adds <li> itself %]
                     [% use_in_relationship(area) %]
                 [% END %]
-                
+
                 <li>[% relate_to_ellipsis(area) %]</li>
 
                 [%# Only location editors can create area-url relationships %]

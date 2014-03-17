@@ -243,6 +243,8 @@ table.row-form {
     }
 
     tr.error td:first-child { padding: 0; }
+
+    ul.errors { margin: 0; }
 }
 
 /* __________________________________
@@ -496,24 +498,24 @@ div.remove-item {
   External links editor
 */
 
-#external-links-editor {
+#external-links-editor, #work-attributes {
     width: 100%;
     padding: @form-margin / 2;
+
+    td:first-child select {
+        max-width: @form-label-width - @form-margin;
+    }
 
     td:nth-child(2) { width: 100%; }
 
     td.errors ul { margin: 0; }
 
-    select {
-        max-width: @form-label-width - @form-margin;
-    }
-
     input[type=text] { width: 100%; }
+}
 
-    span.favicon {
-        display: inline-block;
-        width: @form-icon-size;
-        height: @form-icon-size;
-        vertical-align: middle;
-    }
+#external-links-editor span.favicon {
+    display: inline-block;
+    width: @form-icon-size;
+    height: @form-icon-size;
+    vertical-align: middle;
 }

@@ -14,7 +14,7 @@ use Encode qw(encode decode);
 use MusicBrainz::Server::Context;
 my $c = MusicBrainz::Server::Context->create_script_context();
 
-### DATABASE 
+### DATABASE
 
 my $sql = $c->sql;
 
@@ -62,6 +62,8 @@ my @DBDEFS = (
               {'domain' => 'attributes', 'table' => 'release_status', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'gender', 'columns' => ['name'], 'ctx' => 'NULL'},
               {'domain' => 'attributes', 'table' => 'cover_art_archive.art_type', 'columns' => ['name'], 'ctx' => 'NULL', ctxtable => 'cover_art_type'},
+              {'domain' => 'attributes', 'table' => 'work_attribute_type', columns => ['name'], ctx => 'NULL', ctxtable => 'work_attribute_type'},
+              {'domain' => 'attributes', 'table' => 'work_attribute_type_allowed_value', columns => ['value'], ctx => 'NULL'},
               {'domain' => 'relationships', 'table' => 'link_attribute_type', 'columns' => ['description', 'name'], 'where' => 'root != 14'},
               {'domain' => 'relationships', 'table' => 'link_type', 'columns' => ['description', 'link_phrase', 'reverse_link_phrase', 'long_link_phrase']},
               {'domain' => 'instruments', 'table' => 'link_attribute_type', 'columns' => ['name'], 'where' => 'root = 14'},
@@ -115,7 +117,7 @@ sub parse_db {
         }
         my $values = $sql->select_list_of_lists($query);
 
-        foreach my $value (@$values) { 
+        foreach my $value (@$values) {
                my $po = Locale::PO->new();
                my $item = shift @{$value};
                if ($item) {

@@ -20,6 +20,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 with 'MusicBrainz::Server::Controller::Role::Cleanup';
 with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
+with 'MusicBrainz::Server::Controller::Role::EditExternalLinks';
 
 use Data::Page;
 use HTTP::Status qw( :constants );
@@ -224,6 +225,7 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_writers(@$works);
     $c->model('Work')->load_recording_artists(@$works);
+    $c->model('Work')->load_attributes(@$works);
     $c->model('ISWC')->load_for_works(@$works);
     $c->model('WorkType')->load(@$works);
     $c->model('Language')->load(@$works);

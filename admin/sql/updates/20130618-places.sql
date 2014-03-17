@@ -114,7 +114,7 @@ CREATE TABLE place_annotation
     annotation          INTEGER NOT NULL -- PK, references annotation.id
 );
 
--- relationships 
+-- relationships
 CREATE TABLE l_area_place
 (
     id                  SERIAL,

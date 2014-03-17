@@ -136,7 +136,7 @@ sub _cached_command
     my $cache = $self->c->cache('freedb');
 
     if (my $r = $cache->get($cache_key)) {
-	    return $r;
+        return $r;
     }
     else {
         my $r;
