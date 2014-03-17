@@ -46,7 +46,7 @@ $(function() {
         else {
             message = MB.text.PleaseSelectARType;
             attrs = {};
-            has_dates = false;
+            has_dates = true;
         }
         var has_attributes = false;
         $('#type_descr').html(message);

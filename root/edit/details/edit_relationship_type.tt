@@ -1,5 +1,7 @@
 [%- PROCESS 'edit/details/macros.tt' -%]
 
+[%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
+
 <table class="details edit-relationship-type">
   [%- IF edit.display_data.link_type -%]
       <tr>
@@ -35,14 +37,12 @@
                         html_escape(edit.data.new.child_order)) -%]
 
   [%- IF edit.data.old.is_deprecated != edit.data.new.is_deprecated %]
-  [%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
   [%- display_full_change(l('Deprecated:'),
                           yesno(edit.data.old.is_deprecated),
                           yesno(edit.data.new.is_deprecated)) -%]
   [% END %]
 
   [%- IF edit.data.old.has_dates != edit.data.new.has_dates %]
-  [%- MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END -%]
   [%- display_full_change(l('Allows dates:'),
                           yesno(edit.data.old.has_dates),
                           yesno(edit.data.new.has_dates)) -%]
