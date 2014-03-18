@@ -359,9 +359,15 @@
 
 
     function submissionErrorOccurred(data) {
-        var response = JSON.parse(data.responseText);
+        var error;
 
-        releaseEditor.submissionError(response.error);
+        try {
+            error = JSON.parse(data.responseText).error;
+        } catch (e) {
+            error = data.statusText + ": " + data.status;
+        }
+
+        releaseEditor.submissionError(error);
         releaseEditor.submissionInProgress(false);
     }
 

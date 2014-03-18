@@ -232,6 +232,14 @@
             tracks.push.apply(tracks, newTracks);
         },
 
+        // Recordings tab
+
+        reuseUnsetPreviousRecordings: function (release) {
+            _.each(release.tracksWithUnsetPreviousRecordings(), function (track) {
+                track.recording(track.recording.saved);
+            });
+        },
+
         inferTrackDurationsFromRecordings: ko.observable(false),
 
         copyTrackChangesToRecordings: ko.observable(false).publishOn(

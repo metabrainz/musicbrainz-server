@@ -139,8 +139,9 @@ sub edit_annotation : Chained('load') PathPart Edit
                 );
             });
 
-            my $show = $self->action_for('show');
-            $c->response->redirect($c->uri_for_action($show, [ $entity->gid ]));
+            my $redirect = $c->req->params->{returnto} ||
+              $c->uri_for_action($self->action_for('show'), [ $entity->gid ]);
+            $c->response->redirect($redirect);
             $c->detach;
         }
     }

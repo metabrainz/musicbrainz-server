@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-03-04 00:45+0000\n"
+"PO-Revision-Date: 2014-03-18 03:21+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -561,6 +561,10 @@ msgstr "Truhenorgel"
 msgid "chande"
 msgstr "Chande"
 
+#: DB:link_attribute_type/name:764
+msgid "chap"
+msgstr ""
+
 #: DB:link_attribute_type/name:559
 msgid "charango"
 msgstr "Charango"
@@ -571,6 +575,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:415
 msgid "chimes"
+msgstr ""
+
+#: DB:link_attribute_type/name:763
+msgid "ching"
 msgstr ""
 
 #: DB:link_attribute_type/name:521
@@ -696,6 +704,10 @@ msgstr "Becken"
 #: DB:link_attribute_type/name:326
 msgid "cymbalum"
 msgstr "Zymbal"
+
+#: DB:link_attribute_type/name:386
+msgid "cò ke"
+msgstr ""
 
 #: DB:link_attribute_type/name:495
 msgid "cümbüş"
@@ -1257,6 +1269,18 @@ msgstr ""
 msgid "khim"
 msgstr ""
 
+#: DB:link_attribute_type/name:766
+msgid "khong wong"
+msgstr ""
+
+#: DB:link_attribute_type/name:767
+msgid "khong wong lek"
+msgstr ""
+
+#: DB:link_attribute_type/name:768
+msgid "khong wong yai"
+msgstr ""
+
 #: DB:link_attribute_type/name:395
 msgid "khèn Mèo"
 msgstr ""
@@ -1276,10 +1300,6 @@ msgstr "Kithara"
 #: DB:link_attribute_type/name:608
 msgid "kkwaenggwari"
 msgstr "Kkwaenggwari"
-
-#: DB:link_attribute_type/name:386
-msgid "koke"
-msgstr ""
 
 #: DB:link_attribute_type/name:293
 msgid "kokyu"
@@ -1661,6 +1681,10 @@ msgstr "Regenmacher"
 msgid "ranat ek"
 msgstr ""
 
+#: DB:link_attribute_type/name:765
+msgid "ranat thum"
+msgstr ""
+
 #: DB:link_attribute_type/name:211
 msgid "ratchet"
 msgstr "Ratsche"
@@ -1767,6 +1791,14 @@ msgstr "Saron"
 
 #: DB:link_attribute_type/name:692
 msgid "satsuma biwa"
+msgstr ""
+
+#: DB:link_attribute_type/name:769
+msgid "saw duang"
+msgstr ""
+
+#: DB:link_attribute_type/name:770
+msgid "saw u"
 msgstr ""
 
 #: DB:link_attribute_type/name:33
