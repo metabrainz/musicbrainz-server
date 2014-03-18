@@ -9,6 +9,7 @@ ALTER TABLE recording     ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE release       ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE release_group ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE release_label ADD CHECK (controlled_for_whitespace(catalog_number));
+ALTER TABLE series        ADD CHECK (controlled_for_whitespace(comment));
 ALTER TABLE track         ADD CHECK (controlled_for_whitespace(number));
 ALTER TABLE work          ADD CHECK (controlled_for_whitespace(comment));
 
@@ -54,6 +55,10 @@ ALTER TABLE label_alias
   ADD CONSTRAINT control_for_whitespace_sort_name CHECK (controlled_for_whitespace(sort_name)),
   ADD CONSTRAINT only_non_empty_sort_name CHECK (sort_name != '');
 
+ALTER TABLE link_attribute_text_value
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(text_value)),
+  ADD CONSTRAINT only_non_empty CHECK (text_value != '');
+
 ALTER TABLE place
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
@@ -79,6 +84,21 @@ ALTER TABLE track
 ALTER TABLE recording
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
   ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE series
+  ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),
+  ADD CONSTRAINT only_non_empty CHECK (name != '');
+
+ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
+  CHECK (
+    entity_type IN (
+      'event',
+      'recording',
+      'release',
+      'release_group',
+      'work'
+    )
+  );
 
 ALTER TABLE work
   ADD CONSTRAINT control_for_whitespace CHECK (controlled_for_whitespace(name)),

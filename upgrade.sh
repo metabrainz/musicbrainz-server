@@ -53,6 +53,9 @@ fi
 echo `date` : 'DROP TABLE script_language;'
 OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 
+echo `date` : 'Adding series'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 ################################################################################
 # Re-enable replication
 
@@ -69,6 +72,9 @@ if [ "$REPLICATION_TYPE" != "$RT_SLAVE" ]
 then
     echo `date` : Enabling last_updated triggers
     ./admin/sql/EnableLastUpdatedTriggers.pl
+
+    echo `date` : 'Adding constraints for series'
+    OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140318-series-fks.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 fi
 
 ################################################################################
