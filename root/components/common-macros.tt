@@ -386,23 +386,16 @@ END -%]
     '</span>' IF rg.edits_pending AND action == 'show';
 END -%]
 
-[%- MACRO link_recording(recording, action, text) BLOCK;
+[%- MACRO link_recording(recording, action, text, no_escape) BLOCK;
     action = action || 'show';
     link = c.uri_for_action("/recording/$action", [ recording.gid ]);
     hover = html_escape(recording.name) IF text != recording.name AND action == 'show';
     '<span class="mp">' IF recording.edits_pending AND action == 'show';
     '<span class="name-variation">' IF text != '' AND text != recording.name AND action == 'show';
-    text = html_escape(text == '' ? recording.name : text);
+    text = no_escape ? text : html_escape(text == '' ? recording.name : text);
     '<a href="' _ link _ '" title="' _ hover _ '" class="' _ class _ '"><bdi>' _ text _ '</bdi></a>';
     '</span>' IF text != recording.name AND action == 'show';
     '</span>' IF recording.edits_pending AND action == 'show';
-END -%]
-
-[%- MACRO link_tracklist(tracklist, action, text) BLOCK;
-    action = action || 'show';
-    link = c.uri_for_action("/tracklist/$action", [ tracklist.id ]);
-    text = html_escape(text == '' ? tracklist.medium.name : text);
-    '<a href="' _ link _ '"><bdi>' _ text _ '</bdi></a>';
 END -%]
 
 [%- MACRO link_url(url, action, text) BLOCK;

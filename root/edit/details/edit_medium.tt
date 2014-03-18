@@ -91,7 +91,7 @@
                [% IF old_track.recording.gid;
                     link_recording(
                       old_track.recording, 'show',
-                      old_name_diff
+                      old_name_diff, 1
                     );
                   ELSE;
                     old_name_diff;
@@ -110,7 +110,7 @@
                [% IF new_track.recording.gid;
                     link_recording(
                       new_track.recording, 'show',
-                      new_name_diff
+                      new_name_diff, 1
                     );
                   ELSE;
                     new_name_diff;
