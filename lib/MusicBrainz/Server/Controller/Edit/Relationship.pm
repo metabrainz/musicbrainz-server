@@ -402,8 +402,9 @@ sub create_url : Local Edit
             ) or $self->detach_existing($c);
         });
 
-        my $redirect = $c->controller(type_to_model($type))->action_for('show');
-        $c->response->redirect($c->uri_for_action($redirect, [ $gid ]));
+        my $redirect = $c->req->params->{returnto} ||
+          $c->uri_for_action($c->controller(type_to_model($type))->action_for('show'), [ $gid ]);
+        $c->response->redirect($redirect);
         $c->detach;
     }
 }

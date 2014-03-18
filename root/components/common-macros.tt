@@ -609,7 +609,8 @@ END -%]
 [%- MACRO relate_to_url(entity) BLOCK;
     uri = c.uri_for_action('/edit/relationship/create_url', {
                         type => entity_type(entity),
-                        entity => entity.gid
+                        entity => entity.gid,
+                        returnto => c.req.uri
                    });
     l('{uri|Relate to URL}', { uri => html_escape(uri) });
 END -%]
@@ -888,7 +889,9 @@ END -%]
 
 [%- MACRO sidebar_edit_annotation(entity) BLOCK -%]
   <li>
-    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ]) %]">
+    <a href="[% c.uri_for(c.controller.action_for('edit_annotation'), [ entity.gid ], {
+      returnto => c.req.uri
+    }) %]">
       [% entity.latest_annotation.text ? l('Edit annotation') : l('Add annotation') %]
     </a>
   </li>
