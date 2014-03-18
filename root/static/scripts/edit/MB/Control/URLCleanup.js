@@ -350,10 +350,6 @@ MB.constants.CLEANUPS = {
         match: new RegExp("^(https?://)?(www\\.)?bbc\\.co\\.uk/music/artists/", "i"),
         type: MB.constants.LINK_TYPES.bbcmusic
     },
-    discography: {
-        match: new RegExp("^(https?://)?(www\\.)?metal-archives\\.com/band\\.php", "i"),
-        type: MB.constants.LINK_TYPES.discography
-    },
     image: {
         match: new RegExp("^(https?://)?(commons\\.wikimedia\\.org|upload\\.wikimedia\\.org/wikipedia/commons/)","i"),
         type: MB.constants.LINK_TYPES.image,
@@ -372,7 +368,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.mailorder
     },
     review: {
-        match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/review\\.php)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(bbc\\.co\\.uk/music/reviews/|metal-archives\\.com/reviews/)", "i"),
         type: MB.constants.LINK_TYPES.review
     },
     score: {
@@ -388,7 +384,7 @@ MB.constants.CLEANUPS = {
         type: MB.constants.LINK_TYPES.songfacts
     },
     socialnetwork: {
-        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))\/(music|label|venue|user|group)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com)/", "i"),
+        match: new RegExp("^(https?://)?([^/]+\\.)?(facebook\\.com|(last\\.fm|lastfm\\.(at|br|de|es|fr|it|jp|pl|pt|ru|se|com\\.tr))/(music|label|venue|user|group)|reverbnation\\.com|plus\\.google\\.com|vk\\.com|twitter\\.com)/", "i"),
         type: MB.constants.LINK_TYPES.socialnetwork,
         clean: function(url) {
             url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
@@ -491,7 +487,7 @@ MB.constants.CLEANUPS = {
         }
     },
     otherdatabases: {
-        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com)", "i"),
+        match: new RegExp("^(https?://)?(www\\.)?(rateyourmusic\\.com/|worldcat\\.org/|musicmoz\\.org/|45cat\\.com/|musik-sammler\\.de/|discografia\\.dds\\.it/|tallinn\\.ester\\.ee/|tartu\\.ester\\.ee/|encyclopedisque\\.fr/|discosdobrasil\\.com\\.br/|isrc\\.ncl\\.edu\\.tw/|rolldabeats\\.com/|psydb\\.net/|metal-archives\\.com/(bands?|albums|artists|labels)|spirit-of-metal\\.com/|ibdb\\.com/|lortel.\\org/|theatricalia\\.com/|ocremix\\.org/|(trove\\.)?nla\\.gov\\.au/|rockensdanmarkskort\\.dk|(wiki\\.)?rockinchina\\.com|(www\\.)?dhhu\\.dk|thesession\\.org|openlibrary\\.org|animenewsnetwork\\.com|generasia\\.com|soundtrackcollector\\.com|rockipedia\\.no|whosampled\\.com)", "i"),
         type: MB.constants.LINK_TYPES.otherdatabases,
         clean: function(url) {
             //Removing cruft from Worldcat URLs
