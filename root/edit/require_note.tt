@@ -2,6 +2,6 @@
     <h1>[% l('Error Approving Edit') %]</h1>
     <p>
         [% l('{edit} has received one or more "no" votes, you must leave an edit note before you can approve it.',
-            { edit => link_edit(edit, show, html_escape('Edit #' _ edit.id)) }) %]
+            { edit => link_edit(edit, show, 'Edit #' _ edit.id) }) %]
     </p>
 [% END %]

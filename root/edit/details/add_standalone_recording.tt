@@ -8,7 +8,7 @@
 <table class="details add-standalone-recording">
   <tr>
     <th>[% l('Name:') %]</th>
-    <td>[% link_entity(edit.display_data.recording, 'show', html_escape(edit.display_data.name)) %]</td>
+    <td>[% link_entity(edit.display_data.recording, 'show', edit.display_data.name) %]</td>
   </tr>
 
   <tr>

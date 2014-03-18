@@ -92,7 +92,7 @@
                   <span style="display: none">[% track.position %]</span>
                   [% track.number %]
                 </td>
-                <td>[% link_entity(track.recording, 'show', html_escape(track.name)) %]</td>
+                <td>[% link_entity(track.recording, 'show', track.name) %]</td>
                 <td>[% artist_credit(track.artist_credit) %]</td>
                 <td class="treleases">[% track.length | format_length %]</td>
               </tr>
