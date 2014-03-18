@@ -4,7 +4,7 @@
 
     <p>
         [%- l('Are you sure you wish to remove the relationship: {entity0} {relationship}?', {
-                entity0 => link_entity(relationship.entity0),
+                entity0 => descriptive_link(relationship.entity0),
                 relationship => display_relationship(relationship, 'verbose_phrase'),
             }) -%]
     </p>
