@@ -91,11 +91,11 @@
     function getReleaseGroupRecordings(releaseGroup, offset, results) {
         if (!releaseGroup || !releaseGroup.gid) return;
 
-        var queryParams = {
-            rgid: [ utils.escapeLuceneValue(releaseGroup.gid) ]
-        };
+        var query = utils.constructLuceneField(
+            [ utils.escapeLuceneValue(releaseGroup.gid) ], "rgid"
+        );
 
-        utils.search("recording", queryParams, 100, offset)
+        utils.search("recording", query, 100, offset)
             .done(function (data) {
                 results.push.apply(
                     results, _.map(data.recording, cleanRecordingData)
@@ -115,7 +115,7 @@
     }
 
 
-    function recordingQueryParams(track, name) {
+    function recordingQuery(track, name) {
         var params = {
             recording: [ utils.escapeLuceneValue(name) ],
 
@@ -123,17 +123,23 @@
                 .pluck("gid").map(utils.escapeLuceneValue).value()
         };
 
+        var titleAndArtists = utils.constructLuceneFieldConjunction(params);
+        var justTitle = utils.constructLuceneField(params.recording, "recording");
+        var query = "(" + titleAndArtists + ")^2 OR (" + justTitle + ")";
+
         var duration = parseInt(track.length(), 10);
 
         if (duration) {
-            params.dur = [
-                _.str.sprintf("[%d TO %d]",
+            duration = utils.constructLuceneField([
+                _.str.sprintf("[%d TO %d] OR \\-",
                     duration - MB.constants.MAX_LENGTH_DIFFERENCE,
                     duration + MB.constants.MAX_LENGTH_DIFFERENCE)
-            ];
+            ], "dur");
+
+            query = "(" + query + ") AND " + duration;
         }
 
-        return params;
+        return query;
     }
 
 
@@ -185,9 +191,9 @@
 
         track.loadingSuggestedRecordings(true);
 
-        var params = recordingQueryParams(track, track.name());
+        var query = recordingQuery(track, track.name());
 
-        track._recordingRequest = utils.search("recording", params)
+        track._recordingRequest = utils.search("recording", query)
             .done(function (data) {
                 var recordings = matchAgainstRecordings(
                     track, _.map(data.recording, cleanRecordingData)
@@ -215,9 +221,7 @@
             var newArgs = {
                 url: "/ws/2/recording",
                 data: {
-                    query: utils.constructLuceneFieldConjunction(
-                        recordingQueryParams(track, args.data.q)
-                    ),
+                    query: recordingQuery(track, args.data.q),
                     fmt: "json"
                 },
                 dataType: "json"
