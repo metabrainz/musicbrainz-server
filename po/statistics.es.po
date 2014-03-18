@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-01-21 03:59+0000\n"
+"PO-Revision-Date: 2014-03-18 03:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -507,7 +507,7 @@ msgstr "/día"
 msgid "100%"
 msgstr "100%"
 
-#: ../root/statistics/index.tt:791
+#: ../root/statistics/index.tt:818
 msgid "Abstain:"
 msgstr "Abstenciones:"
 
@@ -563,19 +563,19 @@ msgstr ""
 msgid "Applied edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:709
+#: ../root/statistics/index.tt:736
 msgid "Applied:"
 msgstr ""
 
-#: ../root/statistics/index.tt:773
+#: ../root/statistics/index.tt:800
 msgid "Approve:"
 msgstr ""
 
-#: ../root/statistics/index.tt:522 ../root/statistics/view_js.tt:50
+#: ../root/statistics/index.tt:549 ../root/statistics/view_js.tt:50
 msgid "Areas"
 msgstr ""
 
-#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:529
+#: ../root/statistics/index.tt:52 ../root/statistics/index.tt:556
 msgid "Areas:"
 msgstr ""
 
@@ -676,6 +676,10 @@ msgstr ""
 msgid "Artists:"
 msgstr "Artistas:"
 
+#: ../root/statistics/index.tt:525
+msgid "Attributes"
+msgstr ""
+
 #: ../root/statistics/view_js.tt:124
 msgid "Barcodes"
 msgstr ""
@@ -732,7 +736,7 @@ msgstr ""
 msgid "Cancelled edits"
 msgstr ""
 
-#: ../root/statistics/index.tt:739
+#: ../root/statistics/index.tt:766
 msgid "Cancelled:"
 msgstr "Canceladas:"
 
@@ -1118,7 +1122,7 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
-#: ../root/statistics/index.tt:582 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:609 ../root/statistics/layout.tt:5
 msgid "Editors"
 msgstr "Editores"
 
@@ -1130,7 +1134,7 @@ msgstr ""
 msgid "Editors (deleted)"
 msgstr ""
 
-#: ../root/statistics/index.tt:687
+#: ../root/statistics/index.tt:714
 msgid "Editors (deleted):"
 msgstr ""
 
@@ -1146,16 +1150,16 @@ msgstr ""
 msgid "Editors (valid)"
 msgstr ""
 
-#: ../root/statistics/index.tt:585
+#: ../root/statistics/index.tt:612
 msgid "Editors (valid):"
 msgstr ""
 
-#: ../root/statistics/index.tt:578
+#: ../root/statistics/index.tt:605
 msgid "Editors, Edits, and Votes"
 msgstr "Editores, ediciones y votos"
 
 #: ../root/statistics/edits.tt:2 ../root/statistics/edits.tt:9
-#: ../root/statistics/index.tt:694 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:721 ../root/statistics/layout.tt:5
 #: ../root/statistics/view_js.tt:53
 msgid "Edits"
 msgstr "Ediciones"
@@ -1172,8 +1176,8 @@ msgstr "Ediciones al día"
 msgid "Edits per week"
 msgstr "Ediciones a la semana"
 
-#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:697
-#: ../root/statistics/index.tt:744
+#: ../root/statistics/edits.tt:18 ../root/statistics/index.tt:724
+#: ../root/statistics/index.tt:771
 msgid "Edits:"
 msgstr "Ediciones:"
 
@@ -1197,15 +1201,15 @@ msgstr ""
 msgid "Exclusive"
 msgstr ""
 
-#: ../root/statistics/index.tt:721
+#: ../root/statistics/index.tt:748
 msgid "Failed (dependency):"
 msgstr ""
 
-#: ../root/statistics/index.tt:733
+#: ../root/statistics/index.tt:760
 msgid "Failed (internal error):"
 msgstr ""
 
-#: ../root/statistics/index.tt:727
+#: ../root/statistics/index.tt:754
 msgid "Failed (prerequisite):"
 msgstr ""
 
@@ -1359,7 +1363,7 @@ msgstr "Idiomas y alfabetos"
 msgid "Languages/Scripts"
 msgstr "Idiomas y alfabetos"
 
-#: ../root/statistics/index.tt:750 ../root/statistics/index.tt:802
+#: ../root/statistics/index.tt:777 ../root/statistics/index.tt:829
 msgid "Last 7 days:"
 msgstr ""
 
@@ -1482,7 +1486,7 @@ msgstr "Sin estatus indicado"
 msgid "No type"
 msgstr ""
 
-#: ../root/statistics/index.tt:785
+#: ../root/statistics/index.tt:812
 msgid "No:"
 msgstr "No:"
 
@@ -1490,8 +1494,8 @@ msgstr "No:"
 msgid "Non-group artists:"
 msgstr ""
 
-#: ../root/statistics/index.tt:515 ../root/statistics/index.tt:543
-#: ../root/statistics/index.tt:571
+#: ../root/statistics/index.tt:515 ../root/statistics/index.tt:542
+#: ../root/statistics/index.tt:570 ../root/statistics/index.tt:598
 msgid "None"
 msgstr ""
 
@@ -1511,7 +1515,7 @@ msgstr "Ediciones abiertas"
 msgid "Open and applied edits in past week"
 msgstr "Ediciones abiertas y aplicadas en la última semana"
 
-#: ../root/statistics/index.tt:703
+#: ../root/statistics/index.tt:730
 msgid "Open:"
 msgstr ""
 
@@ -1559,11 +1563,11 @@ msgstr ""
 msgid "Pieces of cover art:"
 msgstr ""
 
-#: ../root/statistics/index.tt:550 ../root/statistics/view_js.tt:51
+#: ../root/statistics/index.tt:577 ../root/statistics/view_js.tt:51
 msgid "Places"
 msgstr ""
 
-#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:557
+#: ../root/statistics/index.tt:56 ../root/statistics/index.tt:584
 msgid "Places:"
 msgstr ""
 
@@ -1872,8 +1876,8 @@ msgstr "Pistas"
 msgid "Tracks:"
 msgstr ""
 
-#: ../root/statistics/index.tt:498 ../root/statistics/index.tt:526
-#: ../root/statistics/index.tt:554
+#: ../root/statistics/index.tt:498 ../root/statistics/index.tt:553
+#: ../root/statistics/index.tt:581
 msgid "Types"
 msgstr ""
 
@@ -1938,7 +1942,7 @@ msgstr "Artistas sin tipo indicado"
 msgid "Videos:"
 msgstr ""
 
-#: ../root/statistics/index.tt:715
+#: ../root/statistics/index.tt:742
 msgid "Voted down:"
 msgstr "Rechazadas:"
 
@@ -1950,7 +1954,7 @@ msgstr "Votante"
 msgid "Voters"
 msgstr "Votantes"
 
-#: ../root/statistics/index.tt:764 ../root/statistics/view_js.tt:67
+#: ../root/statistics/index.tt:791 ../root/statistics/view_js.tt:67
 msgid "Votes"
 msgstr "Votos"
 
@@ -1966,7 +1970,7 @@ msgstr "Votos al día"
 msgid "Votes per week"
 msgstr "Votos a la semana"
 
-#: ../root/statistics/index.tt:767 ../root/statistics/index.tt:796
+#: ../root/statistics/index.tt:794 ../root/statistics/index.tt:823
 msgid "Votes:"
 msgstr "Votos:"
 
@@ -1988,6 +1992,7 @@ msgid "Works"
 msgstr "Obras:"
 
 #: ../root/statistics/index.tt:44 ../root/statistics/index.tt:501
+#: ../root/statistics/index.tt:528
 msgid "Works:"
 msgstr "Obras:"
 
@@ -1995,11 +2000,11 @@ msgstr "Obras:"
 msgid "Yes Votes"
 msgstr "Votos \"Sí\""
 
-#: ../root/statistics/index.tt:779
+#: ../root/statistics/index.tt:806
 msgid "Yes:"
 msgstr "Sí:"
 
-#: ../root/statistics/index.tt:757 ../root/statistics/index.tt:809
+#: ../root/statistics/index.tt:784 ../root/statistics/index.tt:836
 msgid "Yesterday:"
 msgstr "Ayer:"
 
@@ -2007,7 +2012,7 @@ msgstr "Ayer:"
 msgid "Zoom:"
 msgstr ""
 
-#: ../root/statistics/index.tt:591
+#: ../root/statistics/index.tt:618
 msgid "active ever:"
 msgstr ""
 
@@ -2023,7 +2028,7 @@ msgstr "de un solo artista:"
 msgid "by various artists:"
 msgstr "de varios artistas:"
 
-#: ../root/statistics/index.tt:682
+#: ../root/statistics/index.tt:709
 msgid "inactive:"
 msgstr ""
 
@@ -2051,51 +2056,51 @@ msgstr "de tipo Otro:"
 msgid "of type Person:"
 msgstr "de tipo Persona:"
 
-#: ../root/statistics/index.tt:676
+#: ../root/statistics/index.tt:703
 msgid "validated email only:"
 msgstr ""
 
-#: ../root/statistics/index.tt:621
+#: ../root/statistics/index.tt:648
 msgid "who edit:"
 msgstr ""
 
-#: ../root/statistics/index.tt:598
+#: ../root/statistics/index.tt:625
 msgid "who edited and/or voted in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/index.tt:606
+#: ../root/statistics/index.tt:633
 msgid "who edited in the last 7 days:"
 msgstr ""
 
-#: ../root/statistics/index.tt:670
+#: ../root/statistics/index.tt:697
 msgid "who have registered applications:"
 msgstr ""
 
-#: ../root/statistics/index.tt:635
+#: ../root/statistics/index.tt:662
 msgid "who leave edit notes:"
 msgstr ""
 
-#: ../root/statistics/index.tt:663
+#: ../root/statistics/index.tt:690
 msgid "who use collections:"
 msgstr ""
 
-#: ../root/statistics/index.tt:649
+#: ../root/statistics/index.tt:676
 msgid "who use ratings:"
 msgstr ""
 
-#: ../root/statistics/index.tt:656
+#: ../root/statistics/index.tt:683
 msgid "who use subscriptions:"
 msgstr ""
 
-#: ../root/statistics/index.tt:642
+#: ../root/statistics/index.tt:669
 msgid "who use tags:"
 msgstr ""
 
-#: ../root/statistics/index.tt:628
+#: ../root/statistics/index.tt:655
 msgid "who vote:"
 msgstr ""
 
-#: ../root/statistics/index.tt:614
+#: ../root/statistics/index.tt:641
 msgid "who voted in the last 7 days:"
 msgstr ""
 
@@ -2184,23 +2189,24 @@ msgstr ""
 #: ../root/statistics/index.tt:424 ../root/statistics/index.tt:432
 #: ../root/statistics/index.tt:453 ../root/statistics/index.tt:469
 #: ../root/statistics/index.tt:489 ../root/statistics/index.tt:510
-#: ../root/statistics/index.tt:517 ../root/statistics/index.tt:538
-#: ../root/statistics/index.tt:545 ../root/statistics/index.tt:566
-#: ../root/statistics/index.tt:573 ../root/statistics/index.tt:593
-#: ../root/statistics/index.tt:600 ../root/statistics/index.tt:608
-#: ../root/statistics/index.tt:616 ../root/statistics/index.tt:623
-#: ../root/statistics/index.tt:630 ../root/statistics/index.tt:637
-#: ../root/statistics/index.tt:644 ../root/statistics/index.tt:651
-#: ../root/statistics/index.tt:658 ../root/statistics/index.tt:665
-#: ../root/statistics/index.tt:672 ../root/statistics/index.tt:678
-#: ../root/statistics/index.tt:684 ../root/statistics/index.tt:705
-#: ../root/statistics/index.tt:711 ../root/statistics/index.tt:717
-#: ../root/statistics/index.tt:723 ../root/statistics/index.tt:729
-#: ../root/statistics/index.tt:735 ../root/statistics/index.tt:741
-#: ../root/statistics/index.tt:752 ../root/statistics/index.tt:759
-#: ../root/statistics/index.tt:775 ../root/statistics/index.tt:781
-#: ../root/statistics/index.tt:787 ../root/statistics/index.tt:793
-#: ../root/statistics/index.tt:804 ../root/statistics/index.tt:811
+#: ../root/statistics/index.tt:517 ../root/statistics/index.tt:537
+#: ../root/statistics/index.tt:544 ../root/statistics/index.tt:565
+#: ../root/statistics/index.tt:572 ../root/statistics/index.tt:593
+#: ../root/statistics/index.tt:600 ../root/statistics/index.tt:620
+#: ../root/statistics/index.tt:627 ../root/statistics/index.tt:635
+#: ../root/statistics/index.tt:643 ../root/statistics/index.tt:650
+#: ../root/statistics/index.tt:657 ../root/statistics/index.tt:664
+#: ../root/statistics/index.tt:671 ../root/statistics/index.tt:678
+#: ../root/statistics/index.tt:685 ../root/statistics/index.tt:692
+#: ../root/statistics/index.tt:699 ../root/statistics/index.tt:705
+#: ../root/statistics/index.tt:711 ../root/statistics/index.tt:732
+#: ../root/statistics/index.tt:738 ../root/statistics/index.tt:744
+#: ../root/statistics/index.tt:750 ../root/statistics/index.tt:756
+#: ../root/statistics/index.tt:762 ../root/statistics/index.tt:768
+#: ../root/statistics/index.tt:779 ../root/statistics/index.tt:786
+#: ../root/statistics/index.tt:802 ../root/statistics/index.tt:808
+#: ../root/statistics/index.tt:814 ../root/statistics/index.tt:820
+#: ../root/statistics/index.tt:831 ../root/statistics/index.tt:838
 #: ../root/statistics/relationships.tt:8
 #: ../root/statistics/relationships.tt:50
 msgid "{n}%"

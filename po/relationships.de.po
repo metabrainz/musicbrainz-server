@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-15 03:20+0000\n"
+"PO-Revision-Date: 2014-03-18 03:22+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -182,24 +182,10 @@ msgstr ""
 msgid "Indicates a parent-child relationship."
 msgstr ""
 
-#: DB:link_type/description:248
-msgid ""
-"Indicates a person or agency that did the design/illustration for this work."
-" (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr ""
-
 #: DB:link_type/description:27
 msgid ""
 "Indicates a person or agency that did the graphic design for this album. (<a"
 " "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:249
-msgid ""
-"Indicates a person or agency that did the graphics design support for this "
-"work. (<a "
 "href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr ""
 
@@ -214,7 +200,7 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:94
-msgid "Indicates a webpage that reviews the work of an artist."
+msgid "Indicates a webpage that reviews the release (group) in question."
 msgstr ""
 
 #: DB:link_type/description:75
@@ -234,12 +220,6 @@ msgstr ""
 msgid ""
 "Indicates a webpage where you can download an artist's work for free. (<a "
 "href=\"http://musicbrainz.org/doc/Free_Download_Relationship_Type\">Details</a>)"
-msgstr ""
-
-#: DB:link_type/description:263
-msgid ""
-"Indicates an artist & repertoire support was included in this work. (<a "
-"href=\"http://musicbrainz.org/doc/Miscellaneous_Production_Relationship_Type\">Details</a>)"
 msgstr ""
 
 #: DB:link_type/description:104
@@ -416,10 +396,6 @@ msgstr ""
 msgid ""
 "Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
-msgstr ""
-
-#: DB:link_type/description:264
-msgid "Indicates the creative direction support for this work."
 msgstr ""
 
 #: DB:link_type/description:28 DB:link_type/description:138
@@ -870,12 +846,6 @@ msgid ""
 " the sleeve). While most time liner notes are just personnel information and"
 " production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
-msgstr ""
-
-#: DB:link_type/description:61
-msgid ""
-"This credits the person or agency who arranged travel for the musicians and "
-"other staff, in order to get them into the right place to create the work."
 msgstr ""
 
 #: DB:link_type/description:274
@@ -1649,6 +1619,12 @@ msgid ""
 "href=\"http://musicbrainz.org/doc/Programming_Relationship_Type\">Details</a>)"
 msgstr ""
 
+#: DB:link_type/description:729
+msgid ""
+"This relationship links the release of a show's episode (for example a "
+"podcast) to the show notes for this episode."
+msgstr ""
+
 #: DB:link_type/description:728
 msgid ""
 "This relationship specifies that an artist is a <a "
@@ -1727,8 +1703,7 @@ msgid ""
 "Note about CD Baby: Many CD Baby releases are also available (usually with bigger covers) on Amazon.com."
 msgstr ""
 
-#: DB:link_type/description:261 DB:link_type/description:270
-#: DB:link_type/description:252 DB:link_type/description:269
+#: DB:link_type/description:270
 msgid "This relationship type is <strong>deprecated</strong>."
 msgstr ""
 
@@ -1955,8 +1930,7 @@ msgid "arrangements"
 msgstr ""
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
-#: DB:link_type/link_phrase:263 DB:link_type/reverse_link_phrase:135
-#: DB:link_type/reverse_link_phrase:62 DB:link_type/reverse_link_phrase:263
+#: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
 msgid "artist & repertoire support"
 msgstr "A&R-Management"
 
@@ -2092,10 +2066,6 @@ msgstr ""
 msgid "composition"
 msgstr "Komposition"
 
-#: DB:link_type/long_link_phrase:261
-msgid "contains miscellaneous support from"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:83 DB:link_type/long_link_phrase:258
 msgid "contains samples from the IMDb entry at"
 msgstr ""
@@ -2155,10 +2125,6 @@ msgstr "Covers und Versionen"
 msgid "covers or other versions"
 msgstr "Covers und andere Versionen"
 
-#: DB:link_type/link_phrase:264 DB:link_type/reverse_link_phrase:264
-msgid "creative direction"
-msgstr "künstlerische Leitung"
-
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
 msgstr ""
@@ -2166,10 +2132,6 @@ msgstr ""
 #: DB:link_type/link_phrase:115
 msgid "creative position"
 msgstr ""
-
-#: DB:link_type/link_phrase:248 DB:link_type/reverse_link_phrase:248
-msgid "design/illustration"
-msgstr "Design/Illustrationen"
 
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
@@ -2302,10 +2264,6 @@ msgstr "Seite zum kostenlosen Musik-{video:Video-}Streamen für"
 #: DB:link_type/long_link_phrase:257
 msgid "get the music"
 msgstr "Musik beziehen"
-
-#: DB:link_type/link_phrase:249 DB:link_type/reverse_link_phrase:249
-msgid "graphic design"
-msgstr "Grafikdesign"
 
 #: DB:link_attribute_type/name:194
 msgid "guest"
@@ -2493,10 +2451,6 @@ msgstr "hat Nationalhymne"
 msgid "has arrangement"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:263
-msgid "has artist & repertoire support by"
-msgstr "A&R-Management von"
-
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
 msgstr "hat Geschäftsbeziehung mit"
@@ -2504,18 +2458,6 @@ msgstr "hat Geschäftsbeziehung mit"
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
 msgstr "hat Cover-Art unter"
-
-#: DB:link_type/long_link_phrase:264
-msgid "has creative direction by"
-msgstr "künstlerische Leitung von"
-
-#: DB:link_type/long_link_phrase:248
-msgid "has design/illustration by"
-msgstr "Design/Illustrationen von"
-
-#: DB:link_type/long_link_phrase:249
-msgid "has graphic design by"
-msgstr "Grafikdesign von"
 
 #: DB:link_type/long_link_phrase:725
 msgid "has imprint"
@@ -2556,6 +2498,10 @@ msgstr "hat primäre Konzertstätte bei"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:729
+msgid "has show notes at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:110
@@ -2963,13 +2909,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:25 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:270
-#: DB:link_type/reverse_link_phrase:261
 msgid "miscellaneous roles"
 msgstr "sonstige Rollen"
 
-#: DB:link_type/link_phrase:261 DB:link_type/reverse_link_phrase:25
-#: DB:link_type/reverse_link_phrase:129 DB:link_type/reverse_link_phrase:162
-#: DB:link_type/reverse_link_phrase:270
+#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:129
+#: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:270
 msgid "miscellaneous support"
 msgstr "sonstige Unterstützung"
 
@@ -3214,10 +3158,6 @@ msgstr "hat Reservierungen vorgenommen für"
 msgid "provided legal representation for"
 msgstr "hat gesetzliche Vertretung übernommen für"
 
-#: DB:link_type/long_link_phrase:61
-msgid "provided travel arrangements for"
-msgstr "hat Reisevorbereitungen unternommen für"
-
 #: DB:link_type/long_link_phrase:137 DB:link_type/long_link_phrase:18
 msgid "provided {additional} art direction on"
 msgstr "war {additional:zusätzlicher} Artdirector auf"
@@ -3241,18 +3181,15 @@ msgstr "stellte {additional:zusätzliche} Fotografie bereit für"
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/link_phrase:269 DB:link_type/reverse_link_phrase:252
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
 #: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
-#: DB:link_type/long_link_phrase:269
 msgid "published"
 msgstr "veröffentlichte"
 
-#: DB:link_type/link_phrase:252 DB:link_type/reverse_link_phrase:362
-#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:206
-#: DB:link_type/reverse_link_phrase:32 DB:link_type/reverse_link_phrase:208
-#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:269
+#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:127
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "Herausgeber"
 
@@ -3372,6 +3309,14 @@ msgstr ""
 msgid "score for"
 msgstr ""
 
+#: DB:link_type/link_phrase:729
+msgid "show notes"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:729
+msgid "show notes for"
+msgstr ""
+
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "siblings"
 msgstr "Geschwister"
@@ -3462,14 +3407,6 @@ msgstr "{transliterated:umgeschriebene|übersetzte} Titelliste von"
 msgid "transl{transliterated:iter}ated track listings"
 msgstr "{transliterated:umgeschriebene|übersetzte} Titellisten"
 
-#: DB:link_type/reverse_link_phrase:61
-msgid "travel arrangements"
-msgstr "Reisevorbereitungen"
-
-#: DB:link_type/link_phrase:61
-msgid "travel arrangements for"
-msgstr "Reisevorbereitungen für"
-
 #: DB:link_type/link_phrase:65
 msgid "tribute albums"
 msgstr "Hommagealben"
@@ -3507,10 +3444,6 @@ msgstr "Stimme von"
 #: DB:link_type/reverse_link_phrase:292
 msgid "voiced by"
 msgstr "gesprochen von"
-
-#: DB:link_type/long_link_phrase:252
-msgid "was published by"
-msgstr "wurde veröffentlicht von"
 
 #: DB:link_type/long_link_phrase:98 DB:link_type/long_link_phrase:260
 msgid "was recorded by studio at"
