@@ -198,6 +198,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'release', 'http://nla.gov.au/anbd.bib-an11701020',
                     MB.constants.LINK_TYPES.otherdatabases.release
                 ],
+                // Instagram
+                [
+                    'artist', 'http://instagram.com/deadmau5',
+                    MB.constants.LINK_TYPES.socialnetwork.artist
+                ],
+                // Tumblr
+                [
+                    'artist', 'http://deadmau5.tumblr.com/',
+                    MB.constants.LINK_TYPES.blog.artist
+                ],
                 // Japanese blogs
                 [
                     'artist', 'http://ameblo.jp/murataayumi/',
