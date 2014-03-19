@@ -111,9 +111,19 @@
             var edits = [];
             var inferTrackDurations = releaseEditor.inferTrackDurationsFromRecordings();
 
+            // oldPositions are the original positions for all the original
+            // mediums (as they exist in the database). newPositions are all
+            // the new positions for the new mediums (as they exist on the
+            // page). tmpPositions stores any positions we use to avoid
+            // conflicts between oldPositions/newPositions.
+
+            var oldPositions = _.pluck(release.mediums.original, "position");
+            var newPositions = newMediums().invoke("position").value();
+            var tmpPositions = [];
+
             newMediums().each(function (medium) {
                 var newMediumData = MB.edit.fields.medium(medium);
-                var oldMediumData = medium.original && medium.original();
+                var oldMediumData = medium.original();
 
                 _.each(medium.tracks(), function (track, i) {
                     var trackData = newMediumData.tracklist[i];
@@ -146,15 +156,6 @@
                 newMediumData = _.cloneDeep(newMediumData);
 
                 if (medium.id) {
-                    if (_.isEqual(newMediumData, oldMediumData)) {
-                        return;
-                    }
-                    newOrder.push({
-                        medium_id:  medium.id,
-                        "old":      oldMediumData.position,
-                        "new":      newMediumData.position
-                    });
-
                     var newNoPosition = _.omit(newMediumData, "position");
                     var oldNoPosition = _.omit(oldMediumData, "position");
 
@@ -164,21 +165,92 @@
                     }
                 }
                 else if (medium.hasTracks()) {
+                    // With regards to the medium position, make sure that:
+                    //
+                    //  (1) The position doesn't conflict with an existing
+                    //      medium as present in the database. If it does,
+                    //      pick a position that doesn't and enter a reorder
+                    //      edit.
+                    //
+                    //  (2) The position doesn't conflict with the new
+                    //      position of any moved medium, unless they swap.
+
+                    var newPosition = newMediumData.position;
+
+                    if (_.contains(oldPositions, newPosition)) {
+                        var lastAttempt = (_.last(tmpPositions) + 1) || 1;
+                        var attempt;
+
+                        while (attempt = lastAttempt++) {
+                            if (_.contains(oldPositions, attempt) ||
+                                _.contains(tmpPositions, attempt)) {
+                                // This position is taken.
+                                continue;
+                            }
+
+                            if (_.contains(newPositions, attempt)) {
+                                // Another medium is being moved to the
+                                // position we want. Avoid this *unless* we're
+                                // swapping with that medium.
+
+                                var possibleSwap = newMediums().find(
+                                    function (other) {
+                                        return other.position() === attempt;
+                                    }
+                                );
+
+                                if (possibleSwap.original().position === newPosition) {
+                                    break;
+                                }
+
+                                continue;
+                            }
+
+                            break;
+                        }
+
+                        tmpPositions.push(attempt);
+                        newMediumData.position = attempt;
+                        medium.tmpPosition = attempt;
+                    } else {
+                        // The medium may have been moved again.
+                        delete medium.tmpPosition;
+                    }
+
                     newMediumData.release = release.id;
                     edits.push(MB.edit.mediumCreate(newMediumData))
                 }
             });
 
-            _(release.mediums.originalIDs).difference(newMediumsIDs)
+            _(release.mediums.original).pluck("id").difference(newMediumsIDs)
                 .each(function (id) {
                     edits.push(MB.edit.mediumDelete({ medium: id }));
                 });
 
-            var wasReordered = _.any(newOrder, function (order) {
-                return order["old"] !== order["new"];
+            return edits;
+        },
+
+        mediumReorder: function (release) {
+            var edits = [];
+            var newOrder = [];
+
+            newMediums().each(function (medium) {
+                var newPosition = medium.position();
+
+                var oldPosition = medium.tmpPosition || (
+                    medium.id ? medium.original().position : newPosition
+                );
+
+                if (oldPosition !== newPosition) {
+                    newOrder.push({
+                        medium_id:  medium.id,
+                        "old":      oldPosition,
+                        "new":      newPosition
+                    });
+                }
             });
 
-            if (wasReordered) {
+            if (newOrder.length) {
                 edits.push(
                     MB.edit.releaseReorderMediums({
                         release: release.id,
@@ -247,6 +319,7 @@
                 releaseEditor.edits.release(release),
                 releaseEditor.edits.releaseLabel(release),
                 releaseEditor.edits.medium(release),
+                releaseEditor.edits.mediumReorder(release),
                 releaseEditor.edits.discID(release),
                 releaseEditor.edits.annotation(release),
                 releaseEditor.edits.externalLinks(release)
@@ -420,18 +493,23 @@
 
                 callback: function (edits) {
                     var added = _(edits).pluck("entity").compact()
-                                    .indexBy("position").value();
+                                        .indexBy("position").value();
 
                     newMediums().each(function (medium) {
-                        var addedData = added[medium.position()];
+                        var addedData = added[medium.tmpPosition];
 
-                        if (addedData) medium.id = addedData.id;
+                        if (addedData) {
+                            medium.id = addedData.id;
+                        }
 
                         medium.original(MB.edit.fields.medium(medium));
                     });
 
                     newMediums.notifySubscribers(newMediums());
                 }
+            },
+            {
+                edits: releaseEditor.edits.mediumReorder
             },
             {
                 edits: releaseEditor.edits.discID,

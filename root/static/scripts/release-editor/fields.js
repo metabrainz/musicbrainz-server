@@ -491,7 +491,9 @@
             )
             .extend({ withError: true });
 
-            this.mediums.originalIDs = _.pluck(this.mediums(), "id");
+            this.mediums.original = _.map(this.mediums(), function (medium) {
+                return { id: medium.id, position: medium.position() };
+            });
 
             this.original = ko.observable(MB.edit.fields.release(this));
 
