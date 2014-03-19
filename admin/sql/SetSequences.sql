@@ -100,7 +100,6 @@ SELECT setval('release_group_id_seq', (SELECT MAX(id) FROM release_group));
 SELECT setval('release_group_primary_type_id_seq', (SELECT MAX(id) FROM release_group_primary_type));
 SELECT setval('release_group_secondary_type_id_seq', (SELECT MAX(id) FROM release_group_secondary_type));
 SELECT setval('script_id_seq', (SELECT MAX(id) FROM script));
-SELECT setval('script_language_id_seq', (SELECT MAX(id) FROM script_language));
 SELECT setval('tag_id_seq', (SELECT MAX(id) FROM tag));
 SELECT setval('track_id_seq', (SELECT MAX(id) FROM track));
 SELECT setval('track_raw_id_seq', (SELECT MAX(id) FROM track_raw));
