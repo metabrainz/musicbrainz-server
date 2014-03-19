@@ -1709,14 +1709,6 @@ CREATE TABLE script
     frequency           INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE TABLE script_language
-(
-    id                  SERIAL,
-    script              INTEGER NOT NULL, -- references script.id
-    language            INTEGER NOT NULL, -- references language.id
-    frequency           INTEGER NOT NULL DEFAULT 0
-);
-
 CREATE TABLE tag
 (
     id                  SERIAL,

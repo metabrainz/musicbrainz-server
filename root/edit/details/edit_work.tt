@@ -27,4 +27,34 @@
   [%- display_full_change(l('Language:'),
                           html_escape(edit.display_data.language.old.name),
                           html_escape(edit.display_data.language.new.name)) -%]
+
+  [% IF edit.data.new.attributes ~%]
+  [% FOR type=edit.display_data.attributes ~%]
+  <tr>
+    <th>[% add_colon(type.key) %]</th>
+    <td class="old">
+    [%- IF type.value.old.size %]
+      <ul>
+      [%- FOR value=type.value.old %]
+        <li>
+          [%~ Diff.diff_side(value, type.value.new.${loop.index} || '', '-', '\s+') ~%]
+        </li>
+      [%- END %]
+      </ul>
+    [%- END %]
+    </td>
+    <td class="new">
+    [%- IF type.value.new.size %]
+      <ul>
+      [%- FOR value=type.value.new %]
+        <li>
+          [%~ Diff.diff_side(type.value.old.${loop.index} || '', value, '+', '\s+') ~%]
+        </li>
+      [%- END %]
+      </ul>
+    [%- END %]
+    </td>
+  </tr>
+  [%~ END %]
+  [%~ END %]
 </table>

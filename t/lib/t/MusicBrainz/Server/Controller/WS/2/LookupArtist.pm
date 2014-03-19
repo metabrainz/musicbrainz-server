@@ -442,12 +442,12 @@ ws_test 'artist lookup with artist relations',
     <artist type="Person" id="678ba12a-e485-44c7-8eaf-25e61a78a61b">
         <name>後藤真希</name><sort-name>Goto, Maki</sort-name><gender>Female</gender><country>JP</country>
         <area id="2db42837-c832-3c27-b4a3-08198f75693c">
-    	    <name>Japan</name>
+            <name>Japan</name>
             <sort-name>Japan</sort-name>
-	    <iso-3166-1-code-list>
-		<iso-3166-1-code>JP</iso-3166-1-code>
-	    </iso-3166-1-code-list>
-	</area>
+            <iso-3166-1-code-list>
+                <iso-3166-1-code>JP</iso-3166-1-code>
+            </iso-3166-1-code-list>
+        </area>
         <life-span>
             <begin>1985-09-23</begin>
         </life-span>

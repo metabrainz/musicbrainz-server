@@ -16,7 +16,7 @@
     [%- FOR entity IN entities -%]
         <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
         [% IF viewing_own_profile %]
-        <td><input name="id" type="checkbox" value="[% entity.id %]" /></td> 
+        <td><input name="id" type="checkbox" value="[% entity.id %]" /></td>
         [% END %]
         <td>[% link_entity(entity) %]</td>
         </tr>

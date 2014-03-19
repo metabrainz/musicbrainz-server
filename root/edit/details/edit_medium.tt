@@ -197,7 +197,7 @@
                new_track = assoc.2 %]
                <tr class="[% loop.index % 2 == 0 ? 'ev' : '' %]">
                  <td class="pos t">
-                   <span style="display: none">[% rdfa_track_number(new_track.position) %]</span>
+                   <span style="display: none">[% new_track.position %]</span>
                    [% new_track.number %]
                  </td>
                  <td><span class="diff-only-a">[% IF old_track.recording; descriptive_link(old_track.recording); END %]</span></td>

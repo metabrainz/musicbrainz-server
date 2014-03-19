@@ -20,7 +20,7 @@ use aliased 'MusicBrainz::Server::Email::NewReleases';
 test all => sub {
 
     my $editor = Editor->new(
-	id => 9999,
+        id => 9999,
         name => 'acid2',
         email => 'acid2@musicbrainz.org'
         );

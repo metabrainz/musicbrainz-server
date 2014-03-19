@@ -137,7 +137,7 @@ $mech->submit_form_ok({
 
 my $edit = MusicBrainz::Server::Test->get_latest_edit($c);
 isa_ok($edit, 'MusicBrainz::Server::Edit::Release::Merge');
-is_deeply($edit->data, {
+cmp_deeply($edit->data, {
     new_entity => {
         id => 6,
         name => 'The Prologue (disc 1)',
@@ -184,7 +184,7 @@ is_deeply($edit->data, {
     }],
     merge_strategy => 1,
     _edit_version => 3,
-    medium_changes => [
+    medium_changes => bag(
         {
             release => {
                 id => 6,
@@ -211,7 +211,7 @@ is_deeply($edit->data, {
                 new_name => 'Bar',
             }]
         },
-    ]
+    )
 });
 
 };

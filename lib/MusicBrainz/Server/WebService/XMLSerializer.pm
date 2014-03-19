@@ -477,6 +477,12 @@ sub _serialize_work
         } $work->all_iswcs);
     }
 
+    if ($work->all_attributes) {
+        push @list, $gen->attribute_list(map {
+            $gen->attribute({ type => $_->type->name }, $_->value);
+        } $work->all_attributes);
+    }
+
     push @list, $gen->disambiguation($work->comment) if ($work->comment);
     $self->_serialize_annotation(\@list, $gen, $work, $inc, $opts) if $toplevel;
 

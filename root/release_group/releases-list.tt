@@ -31,39 +31,28 @@
             [%- END -%]
         </tr>
     </thead>
-    [% IF rdfa_made %]
-      <tbody [%- rdfa_about_attr(rdfa_artist_curi(artist)) -%]>
-    [% ELSE %]
-      <tbody>
-    [% END %]
+    <tbody>
     [%- FOR release=releases -%]
-      <tr[% ' class="ev"' IF loop.count % 2 == 0 %] [% rdfa_release_ns(release) %][% ' ' _ rdfa_release_group_ns(rdfa_this_rg) IF rdfa_this_rg %]>
+      <tr[% ' class="ev"' IF loop.count % 2 == 0 %]>
         [% PROCESS release_row_prefix %]
-        [% IF rdfa_made %]
           <td>
-            [% rdfa_made_release_link(release) %]
+            [% link_release(release) %]
             [% disambiguation(release) %]
           </td>
-	    [% ELSE %]
-	      <td>
-            [% rdfa_event_product_release_link(release) %]
-            [% disambiguation(release) %]
-          </td>
-	    [% END %]
         [% IF show_artists %]
           <td>[% artist_credit(release.artist_credit) %]</td>
         [% END %]
-          <td>[% rdfa_release_format(release) or "-" %]</td>
+          <td>[% html_escape(release.combined_format_name) or "-" %]</td>
           <td>[% release.combined_track_count or "-" %]</td>
           <td>[% release_dates(release.events) %]</td>
           <td>[% release_countries(release.events) %]</td>
           [%- IF filter_label -%]
-              <td>[% rdfa_release_catno_list(release.filter_labels(filter_label)) %]</td>
+              <td>[% release_catno_list(release.filter_labels(filter_label)) %]</td>
           [%- ELSE -%]
-              <td>[% rdfa_release_label_list(release.labels) %]</td>
-              <td>[% rdfa_release_catno_list(release.labels) %]</td>
+              <td>[% release_label_list(release.labels) %]</td>
+              <td>[% release_catno_list(release.labels) %]</td>
           [%- END -%]
-          <td>[% rdfa_release_barcode(release.barcode.format) IF release.barcode.format %]</td>
+          <td>[% release.barcode.format %]</td>
           [%- IF c.try_get_session('tport') -%]
             <td>[% tagger_icon(release) %]</td>
           [%- END -%]

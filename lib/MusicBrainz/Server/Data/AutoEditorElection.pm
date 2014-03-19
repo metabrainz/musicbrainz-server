@@ -54,7 +54,7 @@ sub nominate
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
 
         my $id = $sql->select_single_value("
@@ -88,7 +88,7 @@ sub second
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die "Forbidden" unless $election->can_second($seconder);
@@ -123,7 +123,7 @@ sub cancel
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die 'Forbidden' unless $election->can_cancel($proposer);
@@ -149,7 +149,7 @@ sub vote
 
     my $sql = $self->c->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $election = $self->get_by_id_locked($election->id);
 
         die 'Forbidden' unless $election->can_vote($voter);
@@ -203,7 +203,7 @@ sub try_to_close
 
     my $sql = $self->sql;
     return Sql::run_in_transaction(sub {
-       
+
         $sql->do("LOCK TABLE autoeditor_election IN EXCLUSIVE MODE");
 
         $self->_try_to_close_timeout();

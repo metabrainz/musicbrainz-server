@@ -50,6 +50,9 @@ fi
 ################################################################################
 # Scripts that should run on *all* nodes (master/slave/standalone)
 
+echo `date` : 'DROP TABLE script_language;'
+OUTPUT=`./admin/psql READWRITE < ./admin/sql/updates/20140208-drop-script_language.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
+
 echo `date` : 'Remove area sortnames'
 OUTPUT=`./admin/psql READWRITE < admin/sql/updates/20140311-remove-area-sortnames.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
 

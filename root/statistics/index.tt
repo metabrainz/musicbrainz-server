@@ -519,6 +519,33 @@
 </tbody>
 </table>
 
+<table class="database-statistics">
+<tbody>
+<tr class="thead">
+    <th colspan="4">[% l('Attributes') %]</th>
+</tr>
+<tr>
+    <th colspan="2">[% l('Works:') %]</th>
+    <td>[% add_commas(stats.statistic('count.work')) %]</td>
+    <td></td>
+</tr>
+[% FOREACH work_attribute_type IN work_attribute_types %]
+<tr>
+   <th></th>
+   <th>[% work_attribute_type.l_name %]</th>
+   <td>[% add_commas(stats.statistic('count.work.attribute.' _ work_attribute_type.id)) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.' _ work_type.id, 'count.work')) }) %]</td>
+</tr>
+[% END %]
+<tr>
+   <th></th>
+   <th>[% l('None') %]</th>
+   <td>[% add_commas(stats.statistic('count.work.type.null')) %]</td>
+   <td>[% l('{n}%', { n => round1(stats.ratio('count.work.type.null', 'count.work')) }) %]</td>
+</tr>
+</tbody>
+</table>
+
 <h2>[% l('Areas') %]</h2>
 <table class="database-statistics">
 <tbody>

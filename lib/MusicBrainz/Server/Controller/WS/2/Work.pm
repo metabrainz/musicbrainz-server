@@ -47,6 +47,8 @@ sub work_toplevel
     $c->model('Work')->annotation->load_latest($work)
         if $c->stash->{inc}->annotation;
 
+    $c->model('Work')->load_attributes($work);
+
     $self->load_relationships($c, $stash, $work);
 
     $c->model('WorkType')->load($work);
