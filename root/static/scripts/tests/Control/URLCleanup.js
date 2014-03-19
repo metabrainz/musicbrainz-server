@@ -510,6 +510,18 @@ MB.tests.URLCleanup.GuessType = function() {
                 [
                     'release', 'http://vgmdb.net/album/29727',
                     MB.constants.LINK_TYPES.vgmdb.release
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
+                    MB.constants.LINK_TYPES.review.release_group
+                ],
+                [
+                    'artist', 'http://www.metal-archives.com/bands/Karna/26483',
+                    MB.constants.LINK_TYPES.otherdatabases.artist
+                ],
+                [
+                    'release_group', 'http://www.metal-archives.com/albums/Corubo/Ypykuera/193860',
+                    MB.constants.LINK_TYPES.otherdatabases.release_group
                 ]
             ];
 
