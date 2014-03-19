@@ -17,7 +17,7 @@
             [% FOR medium IN release.mediums %]
                 <tr class="subh">
                     <td colspan="[% c.user_exists ? 4 : 3 %]">
-                        [% rdfa_medium_in_release(release, medium) %]
+                        [% medium_in_release(release, medium) %]
                     </td>
                 </tr>
                 [% FOR medium_cdtoc IN medium.cdtocs %]

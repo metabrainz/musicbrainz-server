@@ -172,7 +172,6 @@ ALTER TABLE release_tag_raw ADD CONSTRAINT release_tag_raw_pkey PRIMARY KEY (rel
 ALTER TABLE release_unknown_country ADD CONSTRAINT release_unknown_country_pkey PRIMARY KEY (release);
 ALTER TABLE replication_control ADD CONSTRAINT replication_control_pkey PRIMARY KEY (id);
 ALTER TABLE script ADD CONSTRAINT script_pkey PRIMARY KEY (id);
-ALTER TABLE script_language ADD CONSTRAINT script_language_pkey PRIMARY KEY (id);
 ALTER TABLE tag ADD CONSTRAINT tag_pkey PRIMARY KEY (id);
 ALTER TABLE tag_relation ADD CONSTRAINT tag_relation_pkey PRIMARY KEY (tag1, tag2);
 ALTER TABLE track ADD CONSTRAINT track_pkey PRIMARY KEY (id);

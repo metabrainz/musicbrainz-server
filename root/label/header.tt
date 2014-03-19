@@ -1,14 +1,14 @@
 [%- info_links = [
     ['index', link_label(label, 'show', l('Releases'))],
-    ['relationships', rdfa_seeAlso_link_label(label, 'relationships', l('Relationships'))],
-    ['aliases', rdfa_seeAlso_link_label(label, 'aliases', l('Aliases'))],
+    ['relationships', link_label(label, 'relationships', l('Relationships'))],
+    ['aliases', link_label(label, 'aliases', l('Aliases'))],
     ['tags', link_label(label, 'tags', l('Tags'))],
-    ['details', rdfa_seeAlso_link_label(label, 'details', l('Details'))],
+    ['details', link_label(label, 'details', l('Details'))],
     ['edit', link_label(label, 'edit', l('Edit'))],
 ] -%]
 
-<div class="labelheader" [%- rdfa_about_attr(rdfa_label_curi(label)) %] [% rdfa_typeof(rdfa_concept_curi('label')) -%]>
-    <h1>[%- rdfa_link_label_header(label) %] [% rdfa_disambiguation(label) -%]</h1>
+<div class="labelheader">
+    <h1>[%- link_label(label) %] [% disambiguation(label) -%]</h1>
     <p class="subheader">
         <span class="prefix">~</span> [%- l('Label') -%]
     </p>

@@ -24,7 +24,7 @@ test 'Authenticate WS bearer' => sub {
     $test->mech->get('/ws/1/user/?name=editor1', Authorization => 'Bearer xxx');
     is(401, $test->mech->status);
 
-    # Correctly authenticated 
+    # Correctly authenticated
     $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
     $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
 
@@ -58,7 +58,7 @@ test 'Deleted users (bearer)' => sub {
     $test->mech->get('/ws/1/user/?name=editor1');
     is(401, $test->mech->status);
 
-    # Correctly authenticated 
+    # Correctly authenticated
     $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
     $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
 

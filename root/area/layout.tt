@@ -1,4 +1,4 @@
-[%- WRAPPER "layout.tt" usesRDFa=1 title=title ? area.name _ " - ${title}" : area.name -%]
+[%- WRAPPER "layout.tt" title=title ? area.name _ " - ${title}" : area.name -%]
   [%- IF !full_width -%]
     [% WRAPPER 'layout/sidebar.tt' %]
 
@@ -69,7 +69,7 @@
                     [%# Adds <li> itself %]
                     [% use_in_relationship(area) %]
                 [% END %]
-                
+
                 <li>[% relate_to_ellipsis(area) %]</li>
 
                 [%# Only location editors can create area-url relationships %]

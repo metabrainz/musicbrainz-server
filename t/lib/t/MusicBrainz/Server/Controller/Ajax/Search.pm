@@ -28,7 +28,7 @@ $decoded = from_json ($mech->content ());
 $results = $decoded->{results};
 
 my @deleted = grep { $_->{gid} eq 'c06aa285-520e-40c0-b776-83d2c9e8a6d1' } @$results;
-is( @deleted, 0, 'Deleted Artist not among search results'); 
+is( @deleted, 0, 'Deleted Artist not among search results');
 
 
 $mech->get_ok('/ajax/search?type=label&query=Label', 'ajax lookup of "Label"');
@@ -36,7 +36,7 @@ $decoded = from_json ($mech->content ());
 $results = $decoded->{results};
 
 @deleted = grep { $_->{gid} eq 'f43e252d-9ebf-4e8e-bba8-36d080756cc1' } @$results;
-is( @deleted, 0, 'Deleted Label not among search results'); 
+is( @deleted, 0, 'Deleted Label not among search results');
 
 };
 

@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-18 17:31+0000\n"
+"PO-Revision-Date: 2014-03-04 23:22+0000\n"
 "Last-Translator: Alain-Olivier  Breysse\n"
 "Language-Team: French (http://www.transifex.com/projects/p/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -326,6 +326,11 @@ msgctxt "label_type"
 msgid "Imprint"
 msgstr "Marque d'éditeur"
 
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
+msgstr "Stade couvert"
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -446,6 +451,11 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Autre"
 
+#: DB:place_type/name:3
+msgctxt "place_type"
+msgid "Other"
+msgstr "Autre"
+
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
@@ -490,6 +500,11 @@ msgstr "Personne"
 msgctxt "medium_format"
 msgid "Piano Roll"
 msgstr "Rouleau de piano pneumatique"
+
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
+msgstr "Nom du lieu"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -567,7 +582,8 @@ msgid "SVCD"
 msgstr "SVCD"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr "Indice de recherche"
@@ -622,10 +638,20 @@ msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Parole"
 
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr "Stade"
+
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
 msgstr "Autocollant"
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
+msgstr "Studio"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
@@ -676,6 +702,11 @@ msgstr "VCD"
 msgctxt "medium_format"
 msgid "VHS"
 msgstr "VHS"
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
+msgstr "Salle"
 
 #: DB:medium_format/name:32
 msgctxt "medium_format"

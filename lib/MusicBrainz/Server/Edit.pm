@@ -226,9 +226,9 @@ sub can_cancel
 sub was_approved
 {
     my $self = shift;
-    
+
     return 0 if $self->is_open;
-    
+
     return scalar $self->_grep_votes(sub { $_->vote == $VOTE_APPROVE })
 }
 

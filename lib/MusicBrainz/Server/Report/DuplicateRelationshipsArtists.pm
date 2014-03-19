@@ -26,9 +26,9 @@ SELECT q.entity AS artist_id, row_number() OVER (ORDER BY musicbrainz_collate(ar
     FROM l_artist_label lxx
     JOIN link ON link.id = lxx.link
     GROUP BY link.link_type, lxx.entity0, lxx.entity1 HAVING COUNT(*) > 1
-    
+
     UNION
-    
+
     SELECT link.link_type, lxx.entity1, lxx.entity0 AS entity
     FROM l_artist_url lxx
     JOIN link ON link.id = lxx.link

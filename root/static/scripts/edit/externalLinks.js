@@ -69,6 +69,9 @@
                 if (typeInfo.deprecated == 1) {
                     this.cleanup.error(MB.text.RelationshipTypeDeprecated);
                 }
+                else if (this.cleanup.error() === MB.text.RelationshipTypeDeprecated) {
+                    this.cleanup.error("");
+                }
             }
             else {
                 this.label("");

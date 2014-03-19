@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-10 23:56+0000\n"
+"PO-Revision-Date: 2014-03-05 08:54+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -318,6 +318,11 @@ msgctxt "label_type"
 msgid "Imprint"
 msgstr "Casa discografica"
 
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
+msgstr "Arena coperta"
+
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
@@ -438,6 +443,11 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Altro"
 
+#: DB:place_type/name:3
+msgctxt "place_type"
+msgid "Other"
+msgstr "Altro"
+
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
@@ -482,6 +492,11 @@ msgstr "Persona"
 msgctxt "medium_format"
 msgid "Piano Roll"
 msgstr "Rullo per pianola"
+
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
+msgstr "Nome luogo"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -559,7 +574,8 @@ msgid "SVCD"
 msgstr "SVCD"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr "Suggerimento per ricerca"
@@ -614,10 +630,20 @@ msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Spoken word (parlato)"
 
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr "Stadio"
+
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
 msgstr "Adesivo"
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
+msgstr "Studio"
 
 #: DB:area_type/name:2
 msgctxt "area_type"
@@ -668,6 +694,11 @@ msgstr "VCD"
 msgctxt "medium_format"
 msgid "VHS"
 msgstr "VHS"
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
+msgstr "Locale"
 
 #: DB:medium_format/name:32
 msgctxt "medium_format"

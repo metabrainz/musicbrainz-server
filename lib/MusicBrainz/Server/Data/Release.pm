@@ -362,7 +362,7 @@ sub find_for_various_artists
 {
     my ($self, $artist_id, $limit, $offset, %args) = @_;
 
-	my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
+    my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
     push @$conditions, "
         acn.artist != ?
@@ -917,7 +917,7 @@ sub determine_recording_merges
         foreach my $medium ($release->all_mediums) {
             if (exists $medium_by_position{$medium->position}) {
                 push @{ $medium_by_position{$medium->position} }, $medium;
-			}
+            }
             else {
                 $medium_by_position{$medium->position} = [ $medium ];
             }

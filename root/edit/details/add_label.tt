@@ -31,7 +31,7 @@
     <td>[% edit.display_data.begin_date.format %]</td>
   </tr>
   [% END %]
-  
+
   [% IF !edit.display_data.end_date.is_empty %]
   <tr>
     <th>[% l('End date:') %]</th>

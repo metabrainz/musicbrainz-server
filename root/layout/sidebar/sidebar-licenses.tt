@@ -24,7 +24,7 @@
     [%- END -%]
         </ul>
     [%- END -%]
-	
+
 [%- END -%]
 
 [%- display_licenses(entity) -%]

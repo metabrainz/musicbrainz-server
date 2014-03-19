@@ -97,6 +97,16 @@ MB.tests.URLCleanup.GuessType = function() {
                     'label', 'http://commons.wikimedia.org/wiki/File:EMI_Records.svg',
                     MB.constants.LINK_TYPES.image.label
                 ],
+                [
+                    'work', 'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    MB.constants.LINK_TYPES.image.work
+                ],
+
+                [
+                    'work', 'http://www3.cpdl.org/wiki/index.php/Amor_sei_bei_rubini_(Peter_Philips)',
+                    MB.constants.LINK_TYPES.score.work
+                ],
+
                 // IMDb
                 [
                     'artist', 'http://www.imdb.com/name/nm1539156/',
@@ -1005,7 +1015,13 @@ MB.tests.URLCleanup.GuessType = function() {
                     'vgmdb.net/album/29727',
                     'http://vgmdb.net/album/29727',
                     'release'
-                ]
+                ],
+
+                [
+                    'http://commons.wikimedia.org/wiki/File:Kimigayo.score.png?uselang=de',
+                    'https://commons.wikimedia.org/wiki/File:Kimigayo.score.png',
+                    'work'
+                ],
             ];
 
         $.each(tests, function(i, test) {
