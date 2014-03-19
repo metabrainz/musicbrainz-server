@@ -103,7 +103,7 @@ Tells whether this is the first run of the installer (on
 author's side). That is when there was no F<inc/> at
 program start. True if that's the case. False, otherwise.
 
-=cut 
+=cut
 
 sub is_admin {
         $_[0]->admin->VERSION;

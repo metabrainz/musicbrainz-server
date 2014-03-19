@@ -1,5 +1,6 @@
 # 
 # Translators:
+# nikki, 2014
 # nikki2 <email address hidden>, 2012
 # Daniel Schury <email address hidden>, 2011
 # Daniel Schury <email address hidden>, 2011
@@ -18,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-10 23:54+0000\n"
+"PO-Revision-Date: 2014-03-04 23:07+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -75,7 +76,7 @@ msgstr "Künstlername"
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr ""
+msgstr "Hörspiel"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -95,7 +96,7 @@ msgstr "Ballett"
 #: DB:work_type/name:26
 msgctxt "work_type"
 msgid "Beijing opera"
-msgstr ""
+msgstr "Peking-Oper"
 
 #: DB:medium_format/name:24
 msgctxt "medium_format"
@@ -325,6 +326,11 @@ msgstr "Hybrid-SACD"
 #: DB:label_type/name:9
 msgctxt "label_type"
 msgid "Imprint"
+msgstr "Imprint"
+
+#: DB:place_type/name:5
+msgctxt "place_type"
+msgid "Indoor arena"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:4
@@ -447,6 +453,11 @@ msgctxt "artist_type"
 msgid "Other"
 msgstr "Anderes"
 
+#: DB:place_type/name:3
+msgctxt "place_type"
+msgid "Other"
+msgstr ""
+
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
@@ -492,6 +503,11 @@ msgctxt "medium_format"
 msgid "Piano Roll"
 msgstr "Notenrolle"
 
+#: DB:place_alias_type/name:1
+msgctxt "alias_type"
+msgid "Place name"
+msgstr ""
+
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
@@ -500,7 +516,7 @@ msgstr "Gedicht"
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "Poster"
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -568,7 +584,8 @@ msgid "SVCD"
 msgstr "SVCD"
 
 #: DB:artist_alias_type/name:3 DB:label_alias_type/name:2
-#: DB:work_alias_type/name:2 DB:area_alias_type/name:3
+#: DB:place_alias_type/name:2 DB:work_alias_type/name:2
+#: DB:area_alias_type/name:3
 msgctxt "alias_type"
 msgid "Search hint"
 msgstr "Suchverbesserung"
@@ -586,7 +603,7 @@ msgstr "Slimcase"
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
 msgid "Snap Case"
-msgstr ""
+msgstr "Snap Case"
 
 #: DB:work_type/name:5
 msgctxt "work_type"
@@ -623,10 +640,20 @@ msgctxt "release_group_secondary_type"
 msgid "Spokenword"
 msgstr "Spoken Word"
 
+#: DB:place_type/name:4
+msgctxt "place_type"
+msgid "Stadium"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
 msgstr "Aufkleber"
+
+#: DB:place_type/name:1
+msgctxt "place_type"
+msgid "Studio"
+msgstr ""
 
 #: DB:area_type/name:2
 msgctxt "area_type"
@@ -677,6 +704,11 @@ msgstr "VCD"
 msgctxt "medium_format"
 msgid "VHS"
 msgstr "VHS"
+
+#: DB:place_type/name:2
+msgctxt "place_type"
+msgid "Venue"
+msgstr ""
 
 #: DB:medium_format/name:32
 msgctxt "medium_format"

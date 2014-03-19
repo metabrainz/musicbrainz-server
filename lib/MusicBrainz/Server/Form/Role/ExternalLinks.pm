@@ -54,6 +54,12 @@ sub options_url_link_type_id
     return link_type_options($root, $attr, 'ROOT', '&#160;');
 }
 
+sub validate_url_link_type_id {
+    my ($self, $field) = @_;
+
+    $self->validate_link_type($self->ctx, $field, undef, 0);
+}
+
 1;
 
 =head1 COPYRIGHT

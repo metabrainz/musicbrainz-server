@@ -72,11 +72,11 @@ sub _locale_name_special_cases {
     if ($locale->id eq 'el_POLYTON') {
         return 'Greek Polytonic';
     } elsif ($locale->id eq 'sr_Cyrl_YU') {
-	return 'Serbian Cyrillic Yugoslavia';
+        return 'Serbian Cyrillic Yugoslavia';
     } elsif ($locale->id eq 'sr_Latn_YU') {
-	return 'Serbian Latin Yugoslavia';
+        return 'Serbian Latin Yugoslavia';
     } else {
-	return $locale->name;
+        return $locale->name;
     }
 }
 

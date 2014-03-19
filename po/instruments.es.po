@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2014-02-18 08:57+0000\n"
+"PO-Revision-Date: 2014-03-04 00:45+0000\n"
 "Last-Translator: Ian McEwen <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -71,8 +71,20 @@ msgstr ""
 msgid "EWI"
 msgstr ""
 
+#: DB:link_attribute_type/name:21
+msgid "English horn"
+msgstr ""
+
 #: DB:link_attribute_type/name:748
 msgid "Floppy Drive"
+msgstr ""
+
+#: DB:link_attribute_type/name:44
+msgid "French horn"
+msgstr ""
+
+#: DB:link_attribute_type/name:436
+msgid "German harp"
 msgstr ""
 
 #: DB:link_attribute_type/name:306
@@ -291,7 +303,7 @@ msgstr "bandoneón"
 msgid "bandora"
 msgstr "baldosa"
 
-#: DB:link_attribute_type/name:475 DB:link_attribute_type/name:476
+#: DB:link_attribute_type/name:476 DB:link_attribute_type/name:475
 msgid "bandura"
 msgstr "bandura"
 
@@ -879,10 +891,6 @@ msgstr ""
 msgid "end-blown flute"
 msgstr ""
 
-#: DB:link_attribute_type/name:21
-msgid "english horn"
-msgstr "corno inglés"
-
 #: DB:link_attribute_type/name:285
 msgid "erhu"
 msgstr ""
@@ -955,10 +963,6 @@ msgstr "tambor de marco"
 msgid "free reed"
 msgstr "lengüeta libre"
 
-#: DB:link_attribute_type/name:44
-msgid "french horn"
-msgstr "trompa"
-
 #: DB:link_attribute_type/name:523
 msgid "fretless bass"
 msgstr ""
@@ -1005,10 +1009,6 @@ msgstr ""
 
 #: DB:link_attribute_type/name:100
 msgid "geomungo"
-msgstr ""
-
-#: DB:link_attribute_type/name:436
-msgid "german harp"
 msgstr ""
 
 #: DB:link_attribute_type/name:408
@@ -1139,6 +1139,10 @@ msgstr ""
 msgid "hi-hat"
 msgstr "hi-hat"
 
+#: DB:link_attribute_type/name:761
+msgid "hichiriki"
+msgstr ""
+
 #: DB:link_attribute_type/name:389
 msgid "hmông flute"
 msgstr ""
@@ -1247,8 +1251,8 @@ msgstr ""
 msgid "keyed brass instruments"
 msgstr "instrumentos de viento-metal de agujeros"
 
-#: DB:link_attribute_type/name:388
-msgid "khen la´"
+#: DB:link_attribute_type/name:756
+msgid "khene"
 msgstr ""
 
 #: DB:link_attribute_type/name:359
@@ -1311,6 +1315,10 @@ msgstr ""
 msgid "kèn bầu"
 msgstr ""
 
+#: DB:link_attribute_type/name:388
+msgid "kèn lá"
+msgstr ""
+
 #: DB:link_attribute_type/name:668
 msgid "kōauau"
 msgstr ""
@@ -1337,6 +1345,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:685
 msgid "limbe"
+msgstr ""
+
+#: DB:link_attribute_type/name:754
+msgid "liuqin"
 msgstr ""
 
 #: DB:link_attribute_type/name:482
@@ -1418,6 +1430,10 @@ msgstr ""
 #: DB:link_attribute_type/name:645
 msgid "morsing"
 msgstr "morsing"
+
+#: DB:link_attribute_type/name:755
+msgid "mouth organ"
+msgstr ""
 
 #: DB:link_attribute_type/name:584
 msgid "mridangam"
@@ -1631,6 +1647,10 @@ msgstr "salterio"
 msgid "pí thiu"
 msgstr ""
 
+#: DB:link_attribute_type/name:758
+msgid "qilaut"
+msgstr ""
+
 #: DB:link_attribute_type/name:528
 msgid "quena"
 msgstr ""
@@ -1638,6 +1658,10 @@ msgstr ""
 #: DB:link_attribute_type/name:455
 msgid "rainstick"
 msgstr "palo de lluvia"
+
+#: DB:link_attribute_type/name:759
+msgid "ranat ek"
+msgstr ""
 
 #: DB:link_attribute_type/name:211
 msgid "ratchet"
@@ -1693,6 +1717,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:611
 msgid "rudra veena"
+msgstr ""
+
+#: DB:link_attribute_type/name:762
+msgid "ryuteki"
 msgstr ""
 
 #: DB:link_attribute_type/name:198
@@ -2051,6 +2079,10 @@ msgstr "flautín tenor"
 msgid "tenor saxophone"
 msgstr "saxofón tenor"
 
+#: DB:link_attribute_type/name:760
+msgid "tenor violin"
+msgstr ""
+
 #: DB:link_attribute_type/name:589
 msgid "thavil"
 msgstr ""
@@ -2075,10 +2107,6 @@ msgstr ""
 msgid "ti bwa"
 msgstr ""
 
-#: DB:link_attribute_type/name:401
-msgid "tieu flute"
-msgstr ""
-
 #: DB:link_attribute_type/name:132
 msgid "timbales"
 msgstr "timbales (latinos)"
@@ -2093,6 +2121,10 @@ msgstr ""
 
 #: DB:link_attribute_type/name:331
 msgid "tiple"
+msgstr ""
+
+#: DB:link_attribute_type/name:401
+msgid "tiêu"
 msgstr ""
 
 #: DB:link_attribute_type/name:555
@@ -2230,6 +2262,10 @@ msgstr "vibráfono"
 #: DB:link_attribute_type/name:212
 msgid "vibraslap"
 msgstr "vibraslap"
+
+#: DB:link_attribute_type/name:757
+msgid "vichitra veena"
+msgstr ""
 
 #: DB:link_attribute_type/name:116
 msgid "vielle"
@@ -2392,8 +2428,8 @@ msgid "đing buốt"
 msgstr "đing buốt"
 
 #: DB:link_attribute_type/name:396
-msgid "đing nǎm"
-msgstr "đing nǎm"
+msgid "đing năm"
+msgstr ""
 
 #: DB:link_attribute_type/name:321
 msgid "đàn bầu"

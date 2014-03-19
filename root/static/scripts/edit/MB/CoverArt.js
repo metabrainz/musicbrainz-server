@@ -36,6 +36,10 @@ MB.CoverArt.get_image_mime_type = function () {
     {
         mime_type = "image/gif";
     }
+    else if (filename.match(/\.pdf$/i))
+    {
+        mime_type = "application/pdf";
+    }
 
     return mime_type;
 };
@@ -171,6 +175,10 @@ MB.CoverArt.validate_file = function (file) {
         else if (uint32view[0] === 0x474E5089) /* PNG signature, 0x89 "PNG" */
         {
             deferred.resolve ('image/png');
+        }
+        else if (uint32view[0] === 0x46445025) /* PDF signature, 0x89 "%PDF" */
+        {
+            deferred.resolve('application/pdf');
         }
         else
         {
@@ -319,11 +327,23 @@ MB.CoverArt.FileUpload = function(file) {
     self.comment = ko.observable ("");
     self.types = MB.CoverArt.cover_art_types ();
     self.data = file;
-    self.data_uri = ko.observable("");
+    self.data_uri_data = ko.observable("");
+    self.mime_type = ko.observable("");
+
+    self.data_uri = ko.computed(function() {
+        if (self.mime_type() == "" || self.data_uri_data() == "") {
+            return "";
+        } else if (self.mime_type() == "application/pdf") {
+            return "/static/images/icons/pdf-icon.png";
+        } else {
+            return self.data_uri_data();
+        }
+    });
+
 
     MB.CoverArt.file_data_uri(file)
         .done(function (data_uri) {
-            self.data_uri(data_uri);
+            self.data_uri_data(data_uri);
         });
 
     self.progress = ko.observable (0);
@@ -340,6 +360,7 @@ MB.CoverArt.FileUpload = function(file) {
             self.status (statuses.validate_error)
         })
         .done (function (mime_type) {
+            self.mime_type(mime_type);
             self.status (statuses.waiting)
         });
 

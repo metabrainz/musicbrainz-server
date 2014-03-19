@@ -1,2 +1,2 @@
 <dt>[% label %]</dt>
-<dd[% IF property %] property="[% property %]" [% END %][% IF class %] class="[% class %]"[% END %][% IF datatype %] datatype="[% datatype %]"[% END %]>[% content %]</dd>
+<dd[% IF class %] class="[% class %]"[% END %]>[% content %]</dd>

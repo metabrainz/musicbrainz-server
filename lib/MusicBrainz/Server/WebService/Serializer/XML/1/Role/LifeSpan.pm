@@ -7,7 +7,7 @@ sub has_lifespan
 
     my $has_begin_date = !$entity->begin_date->is_empty;
     my $has_end_date = !$entity->end_date->is_empty;
-    
+
     return $has_begin_date || $has_end_date;
 }
 

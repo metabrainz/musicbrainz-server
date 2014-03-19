@@ -23,7 +23,7 @@ sub pretty_name
     $name =~ s{_}{ }g;
 
     $name = "imslp: $name";
-    
+
     return $name;
 }
 

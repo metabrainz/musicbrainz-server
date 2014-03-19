@@ -114,9 +114,9 @@ ko.bindingHandlers.guessCase = {
         var cookieSettings = { path: "/", expires: 365 };
 
         var bindings = {
-            modeName: ko.observable(gc.modeName),
-            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED),
-            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS),
+            modeName: ko.observable(gc.modeName).syncWith("gcModeName"),
+            keepUpperCase: ko.observable(gc.CFG_UC_UPPERCASED).syncWith("gcKeepUpperCase"),
+            upperCaseRoman: ko.observable(gc.CFG_UC_ROMANNUMERALS).syncWith("gcUpperCaseRoman"),
             guessCase: _.bind(callback, bindings)
         };
 

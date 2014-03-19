@@ -136,6 +136,17 @@ Images:
 
 ----------------------------------------------------------------------------
 
+Source:      Openclipart
+Author:      Uploaded by leandrosciola
+License:     Public Domain
+Download:    http://openclipart.org/detail/171857/icon-pdf---%C3%83%C2%8Dcone-by-leandrosciola-171857 (original)
+
+Images:
+
+    icons/pdf-icon.png
+
+----------------------------------------------------------------------------
+
 Source:      MusicBrainz
 Authors:     Robert Kaye, Lukáš Lalinský
 License:     GPL v2 or later

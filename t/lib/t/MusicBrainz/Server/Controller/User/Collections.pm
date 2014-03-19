@@ -23,10 +23,10 @@ test 'Viewing your own collections' => sub {
     $mech->get_ok('/user/editor1/collections');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->is('count(//html:div[@id="page"]//html:table//html:th)',
+    $tx->is('count(//div[@id="page"]//table//th)',
             4, 'your collection list has 4 cols');
 
-    $tx->is('//html:div[@id="page"]//html:table/html:tbody/html:tr[1]/html:td[2]',
+    $tx->is('//div[@id="page"]//table/tbody/tr[1]/td[2]',
             2, 'number of collections is correct');
 };
 
@@ -37,7 +37,7 @@ test 'No collections' => sub {
     $mech->get_ok('/user/editor3/collections');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->is('//html:div[@id="page"]/html:p', 'editor3 has no public collections.',
+    $tx->is('//div[@id="page"]/p', 'editor3 has no public collections.',
             'editor has no collections');
 };
 
@@ -48,7 +48,7 @@ test 'Viewing someone elses collections' => sub {
     $mech->get_ok('/user/editor2/collections');
     my $tx = test_xpath_html ($mech->content);
 
-    $tx->is('count(//html:div[@id="page"]//html:table//html:th)',
+    $tx->is('count(//div[@id="page"]//table//th)',
             2, 'other collection list has 2 cols');
 };
 

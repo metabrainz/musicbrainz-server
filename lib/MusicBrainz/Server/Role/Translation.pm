@@ -36,7 +36,7 @@ role {
         return $self->_expand(dgettext($params->domain => $msgid), %vars) if $msgid;
     };
 
-    method 'pgettext' => sub 
+    method 'pgettext' => sub
     {
         my ($self, $msgid, $msgctxt, $vars) = @_;
 
@@ -49,7 +49,7 @@ role {
         return $self->_expand(dpgettext($params->domain => $msgctxt, $msgid), %vars) if $msgid;
     };
 
-    method 'ngettext' => sub 
+    method 'ngettext' => sub
     {
         my ($self, $msgid, $msgid_plural, $n, $vars) = @_;
 

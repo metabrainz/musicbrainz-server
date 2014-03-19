@@ -80,7 +80,9 @@ END; -%]
 
 [%- USE JavaScript -%]
 [%- MACRO display_artwork_image(artwork, fallback, message) BLOCK -%]
-    [%- IF no_javascript -%]
+    [%- IF artwork.mime_type == "application/pdf" -%]
+        <img src="[% c.uri_for("/static/images/icons/pdf-icon.png") %]" />
+    [%- ELSIF no_javascript -%]
         <img src="[% artwork.small_thumbnail %]" />
     [%- ELSE -%]
         <img[% IF artwork_hover(artwork) %] title="[% artwork_hover(artwork) %]"[% END %] />
@@ -108,7 +110,7 @@ END; -%]
 [% END %]
 
 [%- MACRO display_artwork(artwork, fallback, message, rel) BLOCK -%]
-    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="artwork-image">
+    <a title="[% artwork_hover(artwork) %]" href="[% artwork.image %]"[% IF rel %] rel="[% rel %]"[% END %] class="[% IF artwork.mime_type == "application/pdf" %]artwork-pdf[% ELSE %]artwork-image[% END %]">
       [% display_artwork_image(artwork, fallback, message) %]
     </a>
 [%- END -%]
@@ -427,18 +429,18 @@ END -%]
 
 [%- MACRO link_isrc(isrc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/isrc/$action", [ isrc ]);
+    link = c.uri_for_action("/isrc/$action", [ isrc.isrc ]);
     '<span class="mp">' IF isrc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(isrc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(isrc.isrc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF isrc.edits_pending AND action == 'show';
 END -%]
 
 [%- MACRO link_iswc(iswc, action, text) BLOCK;
     action = action || 'show';
-    link = c.uri_for_action("/iswc/$action", [ iswc ]);
+    link = c.uri_for_action("/iswc/$action", [ iswc.iswc ]);
     '<span class="mp">' IF iswc.edits_pending AND action == 'show';
-    text = text == '' ? '<code>' _ html_escape(iswc) _ '</code>' : text;
+    text = text == '' ? '<code>' _ html_escape(iswc.iswc) _ '</code>' : text;
     '<a href="' _ link _ '">' _ text _ '</a>';
     '</span>' IF iswc.edits_pending AND action == 'show';
 END -%]
@@ -853,6 +855,18 @@ END -%]
   [% medium.name | html %][% END %] on [% descriptive_link(medium.release) %]
 [%- END -%]
 
+[%- MACRO medium_in_release(release, medium) BLOCK -%]
+    [%- fragment = "disc" _ medium.position -%]
+    <a id="[%- fragment -%]"
+       href="[%- c.uri_for_action("/release/show", [ release.gid ]) _ '#' _ fragment -%]">
+    [%~ medium_format_name(medium) =%]
+    [%= medium.position ~%]
+    [%~ IF medium.name ~%]:
+       [%= medium.name | html ~%]
+    [%~ END ~%]
+    </a>
+[%- END -%]
+
 [%- MACRO filter_button BLOCK -%]
   <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.uri_for('/static/images/icons/filter.png') %]" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
@@ -998,7 +1012,7 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF event.country;
-            '<li>' _ rdfa_release_country_abbr(event.country) _ '</li>';
+            '<li>' _ country_abbr(event.country) _ '</li>';
           END;
         END;
         '</ul>';
@@ -1010,7 +1024,7 @@ END -%]
         '<ul class="links">';
         FOR event=release_events;
           IF !event.date.is_empty;
-            '<li>' _ rdfa_release_event_date(event.date) _ '</li>';
+            '<li>' _ event.date.format _ '</li>';
           END;
         END;
         '</ul>';
@@ -1032,10 +1046,41 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(rdfa_release_event_date(date)) UNLESS date.is_empty;
+      parts.push(date.format) UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
 [%- MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
+
+[%- MACRO link_isni(isni) BLOCK -%]
+    <a href="http://isni-url.oclc.nl/isni/[% isni %]">
+        [%- format_isni(isni) -%]
+    </a>
+[%- END -%]
+
+[%- MACRO country_abbr(country) BLOCK -%]
+    <span class="flag flag-[% country.primary_code %]">
+    <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
+    </span>
+[%- END -%]
+
+[%- MACRO set_header BLOCK -%]
+<!DOCTYPE html>
+<html lang="[%- current_language_html -%]">
+[%- END -%]
+
+[%- MACRO add_colon(variable) BLOCK;
+      l('{variable}:', { variable => variable });
+    END -%]
+
+[%- MACRO work_attributes_list(work) BLOCK -%]
+  [%- IF work.attributes %]
+    <ul>
+      [%- FOR attr=work.sorted_attributes %]
+      <li>[% attr.l_value | html %] ([% attr.type.l_name | html %])</li>
+      [%- END %]
+    </ul>
+  [%- END %]
+[%- END -%]

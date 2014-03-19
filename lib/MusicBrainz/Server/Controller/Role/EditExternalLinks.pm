@@ -44,13 +44,19 @@ role {
             map {
                 my $type0 = $_->link->type->entity0_type;
                 my $type1 = $_->link->type->entity1_type;
+                my $entity0 = $_->entity0;
+                my $entity1 = $_->entity1;
                 {
                     id            => $_->id,
                     type0         => $type0,
                     type1         => $type1,
                     linkTypeID    => $_->link->type_id,
-                    entity0ID     => $type0 eq 'url' ? $_->entity0->utf8_decoded : $_->entity0->gid,
-                    entity1ID     => $type1 eq 'url' ? $_->entity1->utf8_decoded : $_->entity1->gid,
+                    entity0ID     => $type0 eq 'url' ?
+                                     $entity0->utf8_decoded // $entity0->name :
+                                     $entity0->gid,
+                    entity1ID     => $type1 eq 'url' ?
+                                     $entity1->utf8_decoded // $entity1->name :
+                                     $entity1->gid,
                 };
             } @$url_relationships
         ];
@@ -124,8 +130,8 @@ role {
 
             $source = $source // $c->model($model)->get_by_id($edit->entity_id);
 
-            $makes_changes ||= $self->edit_external_links($c, $form, $source_type, $source);
-            return 1 if $makes_changes;
+            my $ext_links_changes = $self->edit_external_links($c, $form, $source_type, $source);
+            return 1 if $makes_changes || $ext_links_changes;
         };
 
         ($opts{form_args} //= {})->{url_link_types} = $url_link_types;

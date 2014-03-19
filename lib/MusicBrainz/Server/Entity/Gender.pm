@@ -14,7 +14,7 @@ sub l_name {
     my $self = shift;
     return lp($self->name, 'gender')
 }
- 
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

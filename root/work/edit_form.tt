@@ -1,3 +1,4 @@
+[%- USE JSON.Escape %]
 [% script_manifest('guess-case.js.manifest') %]
 [% script_manifest('edit.js.manifest') %]
 
@@ -12,6 +13,69 @@
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [%- form_row_select(r, 'language_id', l('Lyrics Language:')) -%]
       [%- form_row_text_list(r, 'iswcs', l('ISWCs:'), l('ISWC')) -%]
+    </fieldset>
+
+    <fieldset>
+      <legend>[%- l('Work Attributes') -%]</legend>
+      <table id="work-attributes" class="row-form" data-bind="delegatedHandler: 'click'">
+        <tbody>
+        <!-- ko foreach: attributes -->
+          <tr>
+            <td>
+              <select data-bind="
+                  value: typeID,
+                  options: $parent.attributeTypes,
+                  optionsText: $parent.formatAttributeType,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.type_id' },
+                  hasFocus: typeHasFocus
+              ">
+              </select>
+            </td>
+            <td>
+              <!-- ko if: allowsFreeText -->
+              <input type="text" data-bind="
+                  value: attributeValue,
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              " />
+              <!-- /ko -->
+              <!-- ko ifnot: allowsFreeText -->
+              <select data-bind="
+                  value: attributeValue,
+                  options: allowedValues,
+                  optionsText: valueFormatter,
+                  optionsCaption: '',
+                  attr: { name: 'edit-work.attributes.' + $index() + '.value' }
+              ">
+              </select>
+              <!-- /ko -->
+            </td>
+            <td>
+              <button type="button" class="icon remove-item" title="[% l('Remove attribute') %]" data-click="remove"></button>
+            </td>
+          </tr>
+          <!-- ko if: errors().length -->
+          <tr>
+            <td></td>
+            <td colspan="2">
+              <ul class="errors" data-bind="foreach: errors" style="margin-left: 0">
+                <li data-bind="text: $data"></li>
+              </ul>
+            </td>
+          </tr>
+          <!-- /ko -->
+        <!-- /ko -->
+          <tr>
+            <td></td>
+            <td colspan="2" class="add-item">
+              [% caption = lp('Add Work Attribute', 'button/menu') %]
+              <button class="with-label add-item" title="[% caption | html %]" data-click="newAttribute">
+                [% caption | html %]
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </fieldset>
 
     <fieldset>
@@ -31,6 +95,17 @@
   </div>
 
 </form>
+
+<script type="text/javascript"
+    src="[% c.uri_for('/static/scripts/edit/WorkAttributes.js') %]">
+</script>
+
+<script type="text/javascript">
+  MB.WorkAttributes.init({
+      attributeTypes: [% workAttributeTypesJson %],
+      attributes: [% form.attributes_json %]
+  });
+</script>
 
 <script type="text/javascript">//<![CDATA[
   (function () {
