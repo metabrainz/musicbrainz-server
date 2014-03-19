@@ -516,10 +516,6 @@ CREATE TRIGGER "reptg_script"
 AFTER INSERT OR DELETE OR UPDATE ON "script"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
-CREATE TRIGGER "reptg_script_language"
-AFTER INSERT OR DELETE OR UPDATE ON "script_language"
-FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
-
 CREATE TRIGGER "reptg_tag"
 AFTER INSERT OR DELETE OR UPDATE ON "tag"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

@@ -1720,16 +1720,6 @@ ALTER TABLE release_unknown_country
    FOREIGN KEY (release)
    REFERENCES release(id);
 
-ALTER TABLE script_language
-   ADD CONSTRAINT script_language_fk_script
-   FOREIGN KEY (script)
-   REFERENCES script(id);
-
-ALTER TABLE script_language
-   ADD CONSTRAINT script_language_fk_language
-   FOREIGN KEY (language)
-   REFERENCES language(id);
-
 ALTER TABLE tag_relation
    ADD CONSTRAINT tag_relation_fk_tag1
    FOREIGN KEY (tag1)

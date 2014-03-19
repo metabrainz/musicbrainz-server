@@ -130,16 +130,6 @@ sub find_front_cover_by_release
         IN (" . placeholders(@ids) . ")
         AND is_front = true";
 
-#<<<<<<< HEAD quasi-merge
-#        LEFT JOIN area ON release.country = area.id
-#        WHERE cover_art_archive.index_listing.release
-#        IN (" . placeholders(@ids) . ")
-#        AND is_front = true
-#        ORDER BY
-#            release.date_year, release.date_month, release.date_day,
-#            area.name, release.barcode";
-#=======
-
     my @artwork = query_to_list($self->c->sql, sub { $self->_new_from_row(@_) },
                                 $query, @ids);
     foreach my $image (@artwork) {
