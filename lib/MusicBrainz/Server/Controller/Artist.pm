@@ -46,7 +46,8 @@ use MusicBrainz::Server::FilterUtils qw(
 );
 use Sql;
 
-use List::AllUtils qw( any );
+use List::AllUtils qw( any uniq );
+use List::UtilsBy qw( sort_by );
 
 =head1 NAME
 
@@ -207,6 +208,24 @@ sub show : PathPart('') Chained('load')
             $_->artist_credit->name ne $artist->name
         } @$release_groups,
     );
+
+    my $coll = $c->get_collator();
+    $c->model('Relationship')->load_subset(['artist'], $artist);
+    my ($legal_name) = map { $_->target }
+                       grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
+                       grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
+    if (defined $legal_name) {
+        $c->model('Relationship')->load_subset(['artist'], $legal_name);
+        $c->stash( legal_name => $legal_name );
+    }
+    $legal_name //= $artist;
+    my @other_identities = sort_by { $coll->getSortKey($_->name) }
+                           grep { $_->id != $artist->id }
+                           uniq
+                           map { $_->target }
+                           grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
+                           grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $legal_name->relationships };
+    $c->stash(other_identities => \@other_identities);
 }
 
 =head2 works
