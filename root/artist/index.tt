@@ -37,7 +37,9 @@ END %]
 
     [%- IF legal_name.defined;
         rel_artist_line(l('Legal name'), [ legal_name ]);
-        END %]
+    ELSIF legal_name_aliases.size -%]
+        <p><strong>[% add_colon(l('Legal name')) %]</strong> [% comma_only_list(legal_name_aliases) %]</p>
+    [% END %]
     [% rel_artist_line(l('Also performs as'), other_identities) %]
 
     [%- show_wikipedia_extract() -%]
