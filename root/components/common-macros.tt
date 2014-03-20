@@ -554,7 +554,7 @@ END -%]
     seen = {};
     FOR label=labels;
       IF label.catalog_number AND !seen.${ label.catalog_number };
-        out.push(label.catalog_number);
+        out.push('<span class="catalog-number">' _ label.catalog_number _ '</span>');
         seen.${ label.catalog_number } = 1;
       END;
     END;
