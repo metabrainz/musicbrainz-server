@@ -1046,7 +1046,7 @@ END -%]
       country = event.country;
       parts = [];
       parts.push(link_entity(country)) IF country.id;
-      parts.push(date.format) UNLESS date.is_empty;
+      parts.push('<span class="release-date">' _ date.format _ '</span>') UNLESS date.is_empty;
       parts.join('<br />');
     END -%]
 
